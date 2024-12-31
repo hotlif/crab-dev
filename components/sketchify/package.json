@@ -1,0 +1,31 @@
+{
+    "name": "@crab/sketchify",
+    "description": "UI 界面设计器, 可用来设计 Web 端, 以及移动端的草稿",
+    "packageManager": "yarn@4.5.3",
+    "type": "module",
+    "scripts": {
+        "build": "rollup -c",
+        "eslint": "eslint"
+    },
+    "files": [
+        "bin",
+        "esm"
+    ],
+    "devDependencies": {
+        "@crab/crustify": "workspace:^",
+        "@crab/standards-eslint-react-preset": "workspace:^",
+        "@crab/standards-typescript-preset": "workspace:^",
+        "eslint": "^9.17.0",
+        "eslint-plugin-react": "^7.37.3",
+        "globals": "^15.14.0",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.18.2"
+    },
+    "dependencies": {
+        "@dnd-kit/core": "^6.3.1"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    }
+}

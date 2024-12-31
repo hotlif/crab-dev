@@ -1,0 +1,14 @@
+{
+    "name": "crab",
+    "preview": true,
+    "packageManager": "yarn@4.5.3",
+    "type": "module",
+    "workspaces": [
+        "standards/*",
+        "toolbox/*",
+        "components/*"
+    ],
+    "devDependencies": {
+        "typescript": "^5.7.2"
+    }
+}

@@ -1,0 +1,11 @@
+const PositionValue = {
+    static: "position: static;",
+    fixed: "position: fixed;",
+    absolute: "position: absolute;",
+    relative: "position: relative;",
+    sticky: "position: sticky;",
+};
+
+export const position = (key: keyof typeof PositionValue) => {
+    return PositionValue[key];
+}

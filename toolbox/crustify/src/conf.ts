@@ -1,0 +1,72 @@
+import { ComponentType } from "react"
+import { loadConfig } from "unconfig"
+
+/**
+ * 对应的规则信息
+ */
+export interface ComponentScanRule {
+
+	/**
+	 * 命名空间, 标识命名空间后, 使用 `@@/${namespaces}` 来进行调用
+	 */
+    namespaces: string,
+
+	/**
+	 * 当前目录
+	 */
+	cwd: string
+
+	/**
+	 * 生成源文件信息, 默认情况下不开启源文件字符生成
+	 * 
+	 * @default false
+	 */
+	generateSourceCharacter?: boolean 
+
+	/**
+	 * 匹配对应的文件, 并且加载到内存中
+	 */
+	include?: RegExp | ((path: string) => boolean)
+	
+	/**
+	 * 排除掉匹配的内容信息
+	 */
+	exclude?: RegExp | ((path: string) => boolean)
+}
+
+/**
+ * 构建器的配置文件信息
+ */
+export interface Config {
+
+	/**
+	 * 默认 src 目录
+	 */
+	rootDir?: string
+
+	/**
+	 * 自动扫描对应的组件
+	 */
+	componentScan?: ComponentScanRule[]
+
+	/**
+	 * 当前的模板文件, 用来创建 index.html 文件
+	 */
+	template: ComponentType
+}
+
+export const defineConfig = (config: Config) => config
+
+export const getConfig = async (cwd: string): Promise<Config> => {
+    const { config } = await loadConfig<Config>({
+        sources: [
+            {
+                files: ".crustify",
+                extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs'],
+            }
+        ],
+        cwd,
+        merge: true
+    });
+    return config;
+};

@@ -1,0 +1,21 @@
+const OverflowValue = {
+    auto: "overflow: auto;",
+    hidden: "overflow: hidden;",
+    clip: "overflow: clip;",
+    visible: "overflow: visible;",
+    scroll: "overflow: scroll;",
+    "x-auto": "overflow-x: auto;",
+    "x-hidden": "overflow-x: hidden;",
+    "x-clip": "overflow-x: clip;",
+    "x-visible": "overflow-x: visible;",
+    "x-scroll": "overflow-x: scroll;",
+    "y-auto": "overflow-y: auto;",
+    "y-hidden": "overflow-y: hidden;",
+    "y-clip": "overflow-y: clip;",
+    "y-visible": "overflow-y: visible;",
+    "y-scroll": "overflow-y: scroll;",
+};
+
+export const overflow = (key: keyof typeof OverflowValue) => {
+    return OverflowValue[key];
+}

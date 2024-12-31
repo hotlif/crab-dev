@@ -1,0 +1,34 @@
+{
+    "name": "@crab/styleify",
+    "description": "通过提供预设的 CSS 变量、简化的类名和跨浏览器兼容性支持，优化了开发流程并提高了开发效率。",
+    "packageManager": "yarn@4.5.3",
+    "type": "module",
+    "scripts": {
+        "start": "crustify dev",
+        "build": "rollup -c",
+        "eslint": "eslint"
+    },
+    "files": [
+        "bin",
+        "esm"
+    ],
+    "devDependencies": {
+        "@crab/crustify": "workspace:^",
+        "@crab/standards-eslint-react-preset": "workspace:^",
+        "@crab/standards-typescript-preset": "workspace:^",
+        "@types/react": "^19.0.2",
+        "@types/react-dom": "^19.0.2",
+        "eslint": "^9.17.0",
+        "eslint-plugin-react": "^7.37.3",
+        "globals": "^15.14.0",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.18.2"
+    },
+    "dependencies": {
+        "@dnd-kit/core": "^6.3.1"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    }
+}
