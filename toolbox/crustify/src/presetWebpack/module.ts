@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url);
  * @param {boolean} options.isProduction - 指示构建是否用于生产环境。
  * @returns {Configuration} webpack 模块配置。
  */
-const presetModule = ({
+const presetModule = async ({
     isProduction
 }: {
     isProduction: boolean

@@ -13,3 +13,4 @@
 .pnp.*
 esm
 coverage
+.tmp

@@ -14,15 +14,16 @@ export const generateHtml = async (
   template: ComponentType,
   entrys: string[]
 ) => {
-  const Template = template;
-  const html = renderToString(createElement(Template));
-  const injections = entrys.map((element) => {
+    const Template = template;
+    const html = renderToString(createElement(Template));
+    const injections = entrys.map((element) => {
     if (element.endsWith(".js")) {
-      return `<script src="/${element}"/>`;
+        return `<script src="/${element}"></script>`;
     } else if (element.endsWith(".css")) {
-      return `<link rel="stylesheet" href="/${element}"/>`;
+        return `<link rel="stylesheet" href="/${element}"></link>`;
     }
-  });
+    });
+
   return html.replace("</head>", `${injections.join("\n")}</head>`);
 };
 
@@ -43,9 +44,7 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
         async (assets) => {
           const entrys: string[] = [];
           Object.keys(assets).forEach((key) => {
-            if (
-              (key.endsWith(".js") || key.endsWith(".css"))
-            ) {
+            if (key.endsWith(".js") || key.endsWith(".css")) {
               entrys.push(key);
             }
           });

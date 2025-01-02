@@ -3,11 +3,11 @@ import { join } from "path";
 import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
-import { writeFileSync } from "fs";
+import { writeFileSync, existsSync, mkdirSync} from "fs";
 import ReactWebpackPlugin from "../plugins/ReactWebpackPlugin";
-import { type Config } from "../conf";
+import { type Config , renderHTML } from "../conf";
 
-const presetStandard = ({
+const presetStandard = async ({
     isProduction,
     conf,
 }: {
@@ -15,13 +15,19 @@ const presetStandard = ({
     conf: Config
 }) => {
 	const tmpDir = join(process.cwd(), ".tmp");
-    const entry = join(conf?.rootDir ?? join(process.cwd(), "src"), "entry.tsx");
+    if (!existsSync(tmpDir)) {
+        mkdirSync(tmpDir);
+    }
+    const cwd = conf?.rootDir ?? join(process.cwd(), "src");
+    const entry = join(cwd, "entry.tsx");
     const entryTmp = join(tmpDir, "entry.tsx");
-    const importEntry = entry.replace(conf?.rootDir ?? join(process.cwd(), "src"), "").replace(/\\/g, "/");
-
+    const importEntry = entry.replace(cwd, "").replace(/\\/g, "/");
     const entryTemplate = `import "@${importEntry}";`;
 
     writeFileSync(entryTmp, entryTemplate);
+
+    const Template = await renderHTML(cwd);
+
     const standardConfig: Configuration =  {
         entry: entryTmp,
         devtool: isProduction ? false : "source-map",
@@ -46,7 +52,7 @@ const presetStandard = ({
                 name: "Crustify"
             }),
             new ReactWebpackPlugin({
-                template: conf.template
+                template: Template
             })
         ]
     }

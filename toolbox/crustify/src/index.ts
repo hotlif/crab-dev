@@ -43,12 +43,12 @@ console.error = outputConsoleErrorStream.write.bind(outputConsoleErrorStream);
  */
 export const run = async () => {
     const conf = await getConfig(process.cwd());
-    const standard = presetStandard({
+    const standard = await presetStandard({
         isProduction: false,
         conf,
     });
 
-    const module = presetModule({
+    const module = await presetModule({
         isProduction: false,
     });
 
@@ -74,12 +74,12 @@ export const run = async () => {
  */
 export const build = async () => {
     const conf = await getConfig(process.cwd());
-    const standard = presetStandard({
+    const standard = await presetStandard({
         isProduction: true,
         conf,
     });
 
-    const module = presetModule({
+    const module = await presetModule({
         isProduction: true,
     });
     const webpackConfig = merge(standard, module);

@@ -1,5 +1,6 @@
-import { ComponentType } from "react"
-import { loadConfig } from "unconfig"
+import { ComponentType } from "react";
+import { loadConfig } from "unconfig";
+import { transformSync } from "@swc/core";
 
 /**
  * 对应的规则信息
@@ -48,11 +49,6 @@ export interface Config {
 	 * 自动扫描对应的组件
 	 */
 	componentScan?: ComponentScanRule[]
-
-	/**
-	 * 当前的模板文件, 用来创建 index.html 文件
-	 */
-	template: ComponentType
 }
 
 /**
@@ -71,15 +67,41 @@ export const defineConfig = (config: Config) => config
  * @returns {Promise<Config>} - 一个解析为加载的配置的 Promise。
  */
 export const getConfig = async (cwd: string): Promise<Config> => {
-    const { config } = await loadConfig<Config>({
+	const { config } = await loadConfig<Config>({
+		sources: [
+			{
+				files: ".crustify",
+				extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs', 'tsx']
+			}
+		],
+		cwd,
+		merge: true
+	});
+    return config;
+};
+
+
+export const renderHTML = async (cwd: string): Promise<ComponentType>  => {
+	const { config } = await loadConfig<ComponentType>({
         sources: [
             {
-                files: ".crustify",
-                extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs'],
+                files: "bootstrap",
+                extensions: ['tsx'],
+				transform: (source) => {
+					const { code } = transformSync(source, {
+						jsc: {
+							parser: {
+								syntax: "typescript",
+								tsx: true
+							}
+						}
+					});
+					return code;
+				}
             }
         ],
         cwd,
         merge: true
     });
     return config;
-};
+}
