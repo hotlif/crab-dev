@@ -1,3 +1,4 @@
+// 定义一个包含不同透明度值的对象
 const OpacityValue = {
     0: 0,
     5: 0.05,
@@ -22,6 +23,7 @@ const OpacityValue = {
     100: 1,
 };
 
+// 根据传入的键值返回对应的透明度样式字符串
 export const opacity = (key: keyof typeof OpacityValue) => {
     return `opacity: ${OpacityValue[key]};`
 }

@@ -4,6 +4,13 @@ import { type Configuration } from "webpack";
 
 const require = createRequire(import.meta.url);
 
+/**
+ * 生成带有指定预设和插件的 webpack 模块配置。
+ *
+ * @param {Object} options - 选项对象。
+ * @param {boolean} options.isProduction - 指示构建是否用于生产环境。
+ * @returns {Configuration} webpack 模块配置。
+ */
 const presetModule = ({
     isProduction
 }: {

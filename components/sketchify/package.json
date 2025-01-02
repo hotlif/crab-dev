@@ -1,7 +1,7 @@
 {
     "name": "@crab/sketchify",
     "description": "UI 界面设计器, 可用来设计 Web 端, 以及移动端的草稿",
-    "packageManager": "yarn@4.5.3",
+    "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
         "build": "rollup -c",

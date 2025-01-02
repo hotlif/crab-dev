@@ -1,7 +1,7 @@
 {
     "name": "@crab/styleify",
     "description": "通过提供预设的 CSS 变量、简化的类名和跨浏览器兼容性支持，优化了开发流程并提高了开发效率。",
-    "packageManager": "yarn@4.5.3",
+    "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
         "start": "crustify dev",

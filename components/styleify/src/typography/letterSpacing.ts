@@ -1,10 +1,10 @@
 const LetterSpacingValue = {
-    "tracking-tighter": "letter-spacing: -0.05em;",
-    "tracking-tight": "letter-spacing: -0.025em;",
-    "tracking-normal": "letter-spacing: 0em;",
-    "tracking-wide": "letter-spacing: 0.025em;",
-    "tracking-wider": "letter-spacing: 0.05em;",
-    "tracking-widest": "letter-spacing: 0.1em;",
+    "trackingTighter": "letter-spacing: -0.05em;",
+    "trackingTight": "letter-spacing: -0.025em;",
+    "trackingNormal": "letter-spacing: 0em;",
+    "trackingWide": "letter-spacing: 0.025em;",
+    "trackingWider": "letter-spacing: 0.05em;",
+    "trackingWidest": "letter-spacing: 0.1em;",
 };
 
 export const letterSpacing = (key: keyof typeof LetterSpacingValue) => {

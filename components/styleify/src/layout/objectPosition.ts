@@ -2,11 +2,11 @@ const ObjectPositionValue = {
     bottom: "bottom",
     center: "center",
     left: "left",
-    "left-bottom": "left bottom",
-    "left-top": "left top",
+    "leftBottom": "left bottom",
+    "leftTop": "left top",
     right: "right",
-    "right-bottom": "right bottom",
-    "right-top": "right top",
+    "rightBottom": "right bottom",
+    "rightTop": "right top",
     top: "top",
 };
 

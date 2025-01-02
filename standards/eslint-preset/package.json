@@ -1,6 +1,6 @@
 {
     "name": "@crab/standards-eslint-react-preset",
-    "packageManager": "yarn@4.5.3",
+    "packageManager": "yarn@4.6.0",
     "type": "module",
     "main": "index.mjs",
     "module": "index.mjs",

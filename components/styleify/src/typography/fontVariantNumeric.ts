@@ -1,13 +1,13 @@
 const FontVariantNumericValue = {
-    "normal-nums": "font-variant-numeric: normal;",
+    "normalNums": "font-variant-numeric: normal;",
     ordinal: "font-variant-numeric: ordinal;",
-    "slashed-zero": "font-variant-numeric: slashed-zero;",
-    "lining-nums": "font-variant-numeric: lining-nums;",
-    "oldstyle-nums": "font-variant-numeric: oldstyle-nums;",
-    "proportional-nums": "font-variant-numeric: proportional-nums;",
-    "tabular-nums": "font-variant-numeric: tabular-nums;",
-    "diagonal-fractions": "font-variant-numeric: diagonal-fractions;",
-    "stacked-fractions": "font-variant-numeric: stacked-fractions;",
+    "slashedZero": "font-variant-numeric: slashed-zero;",
+    "liningNums": "font-variant-numeric: lining-nums;",
+    "oldstyleNums": "font-variant-numeric: oldstyle-nums;",
+    "proportionalNums": "font-variant-numeric: proportional-nums;",
+    "tabularNums": "font-variant-numeric: tabular-nums;",
+    "diagonalFractions": "font-variant-numeric: diagonal-fractions;",
+    "stackedFractions": "font-variant-numeric: stacked-fractions;",
 };
 
 export const fontVariantNumeric = (key: keyof typeof FontVariantNumericValue) => {

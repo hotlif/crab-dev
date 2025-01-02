@@ -1,6 +1,6 @@
 const FontStyleValue = {
     italic: "font-style: italic;",
-    "not-italic": "font-style: normal;",
+    "notItalic": "font-style: normal;",
 };
 
 export const fontStyle = (key: keyof typeof FontStyleValue) => {

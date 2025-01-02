@@ -55,8 +55,21 @@ export interface Config {
 	template: ComponentType
 }
 
+/**
+ * 定义配置函数
+ * 
+ * @param config - 配置对象
+ * @returns 返回传入的配置对象
+ */
 export const defineConfig = (config: Config) => config
 
+/**
+ * 从指定的当前工作目录 (cwd) 加载并返回 Crustify 的配置。
+ * 配置从具有指定扩展名的文件中加载。
+ * 
+ * @param {string} cwd - 要从中加载配置的当前工作目录。
+ * @returns {Promise<Config>} - 一个解析为加载的配置的 Promise。
+ */
 export const getConfig = async (cwd: string): Promise<Config> => {
     const { config } = await loadConfig<Config>({
         sources: [

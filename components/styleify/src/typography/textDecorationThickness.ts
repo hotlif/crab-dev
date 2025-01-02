@@ -1,6 +1,6 @@
 const TextDecorationThicknessValue = {
     "auto": "text-decoration-thickness: auto;",
-    "from-font": "text-decoration-thickness: from-font;",
+    "fromFont": "text-decoration-thickness: from-font;",
     "0px": "text-decoration-thickness: 0px;",
     "1px": "text-decoration-thickness: 1px;",
     "2px": "text-decoration-thickness: 2px;",

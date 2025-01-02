@@ -3,7 +3,7 @@ const ObjectFitValue = {
   cover: "cover",
   fill: "fill",
   none: "none",
-  "scale-down": "scale-down",
+  "scaleDown": "scale-down",
 };
 
 export const objectFit = (key: keyof typeof ObjectFitValue) => {

@@ -1,4 +1,4 @@
-
+// 定义一个包含各种 flex-basis 值的对象
 const Basis = {
     0: "0px",
     1: "0.25rem",
@@ -65,6 +65,7 @@ const Basis = {
     full: "100%",
 };
 
+// 根据传入的 key 返回对应的 flex-basis 样式
 export const flexBasis = (key: keyof typeof Basis) => {
     return `flex-basis:${Basis[key]};`;
 }

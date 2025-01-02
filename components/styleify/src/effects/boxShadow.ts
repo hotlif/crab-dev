@@ -1,48 +1,55 @@
 import { PrefixName } from "../util";
 
+// 定义环偏移阴影变量名
 const ringOffsetShadowVarName = `--${PrefixName}-ring-offset-shadow`;
+// 定义环阴影变量名
 const ringShadowVarName = `--${PrefixName}-ring-shadow`;
+// 定义阴影变量名
 const shadowVarName = `--${PrefixName}-shadow`;
+// 定义有颜色的阴影变量名
 const shadowColoredVarName = `--${PrefixName}-shadow-colored`;
+// 定义阴影颜色变量名
 const shadowColorVarName = `--${PrefixName}-shadow-color`;
-const boxShadow = `box-shadow: var(${ringOffsetShadowVarName}, 0 0 #0000), var(${ringShadowVarName}, 0 0 #0000), var(${shadowVarName});`;
+// 定义盒子阴影模板
+const boxShadowTemplate = `box-shadow: var(${ringOffsetShadowVarName}, 0 0 #0000), var(${ringShadowVarName}, 0 0 #0000), var(${shadowVarName});`;
 
-export const shadowSm = `
-    ${shadowColoredVarName}: 0 1px 2px 0 var(${shadowColorVarName}, #0000000d);
-    ${boxShadow}
-`;
+// 定义不同阴影值
+const ShadowValue = {
+    sm: `
+        ${shadowColoredVarName}: 0 1px 2px 0 var(${shadowColorVarName}, #0000000d);
+        ${boxShadowTemplate}
+    `,
+    normal: `
+        ${shadowColoredVarName}: 0 1px 3px 0 var(${shadowColorVarName}, #0000001a), 0 1px 2px -1px var(${shadowColorVarName}, #0000001a);
+        ${boxShadowTemplate}
+    `,
+    md: `
+        ${shadowColoredVarName}: 0 4px 6px -1px var(${shadowColorVarName}, #0000001a), 0 2px 4px -1px var(${shadowColorVarName}, #0000001a);
+        ${boxShadowTemplate}
+    `,
+    lg: `
+        ${shadowColoredVarName}: 0 10px 15px -3px var(${shadowColorVarName}, #0000001a), 0 4px 6px -2px var(${shadowColorVarName}, #0000001a);
+        ${boxShadowTemplate}
+    `,
+    xl: `
+        ${shadowColoredVarName}: 0 20px 25px -5px var(${shadowColorVarName}, #0000001a), 0 10px 10px -5px var(${shadowColorVarName}, #0000001a);
+        ${boxShadowTemplate}
+    `,
+    "2xl": `
+        ${shadowColoredVarName}: 0 25px 50px -12px var(${shadowColorVarName}, #0000001a);
+        ${boxShadowTemplate}
+    `,
+    inner: `
+        ${shadowColoredVarName}: inset 0 2px 4px 0 var(${shadowColorVarName}, #0000000d);
+        ${boxShadowTemplate}
+    `,
+    none: `
+        ${shadowColoredVarName}: 0 0 #0000;
+        ${boxShadowTemplate}
+    `,
+};
 
-export const shadow = `
-    ${shadowColoredVarName}: 0 1px 3px 0 var(${shadowColorVarName}, #0000001a), 0 1px 2px -1px var(${shadowColorVarName}, #0000001a);
-    ${boxShadow}
-`;
-
-export const shadowMd = `
-    ${shadowColoredVarName}: 0 4px 6px -1px var(${shadowColorVarName}, #0000001a), 0 2px 4px -2px var(${shadowColorVarName}, #0000001a);
-    ${boxShadow}
-`;
-
-export const shadowLg = `
-    ${shadowColoredVarName}: 0 10px 15px -3px var(${shadowColorVarName}, #0000001a), 0 4px 6px -4px var(${shadowColorVarName}, #0000001a);
-    ${boxShadow}
-`;
-
-export const shadowXl = `
-    ${shadowColoredVarName}: 0 20px 25px -5px var(${shadowColorVarName}, #0000001a), 0 8px 10px -6px var(${shadowColorVarName}, #0000001a);
-    ${boxShadow}
-`;
-
-export const shadow2xl = `
-    ${shadowColoredVarName}: 0 25px 50px -12px var(${shadowColorVarName}, #0000001a);
-    ${boxShadow}
-`;
-
-export const shadowInner = `
-    ${shadowColoredVarName}: inset 0 2px 4px 0  var(${shadowColorVarName}, #0000000d);
-    ${boxShadow}
-`;
-
-export const shadowNone = `
-    ${shadowColoredVarName}: 0 0 #0000;
-    ${boxShadow}
-`;
+// 导出 boxShadow 函数，根据键值返回相应的阴影值
+export const boxShadow = (key: keyof typeof ShadowValue) => {
+    return ShadowValue[key];
+}

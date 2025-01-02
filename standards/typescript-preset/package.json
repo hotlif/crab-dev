@@ -1,6 +1,6 @@
 {
     "name": "@crab/standards-typescript-preset",
-    "packageManager": "yarn@4.5.3",
+    "packageManager": "yarn@4.6.0",
     "type": "module",
     "files": [
         "tsconfig.browser.react.json",
