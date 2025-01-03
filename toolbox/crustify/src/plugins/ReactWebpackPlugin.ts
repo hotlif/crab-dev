@@ -18,7 +18,7 @@ export const generateHtml = async (
     const html = renderToString(createElement(Template));
     const injections = entrys.map((element) => {
     if (element.endsWith(".js")) {
-        return `<script src="/${element}"></script>`;
+        return `<script defer src="/${element}"></script>`;
     } else if (element.endsWith(".css")) {
         return `<link rel="stylesheet" href="/${element}"></link>`;
     }
