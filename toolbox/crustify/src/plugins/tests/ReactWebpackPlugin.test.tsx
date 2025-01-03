@@ -26,7 +26,7 @@ describe('ReactWebpackPlugin', () => {
         const template = () => <html><head></head><body></body></html>;
         const entrys = ['main.js', 'styles.css'];
         const html = await generateHtml(template, entrys);
-        expect(html).toContain('<script src="/main.js"></script>');
+        expect(html).toContain('<script defer src="/main.js"></script>');
         expect(html).toContain('<link rel="stylesheet" href="/styles.css"></link>');
         expect(html).toContain('</head>');
     });
@@ -46,7 +46,7 @@ describe('ReactWebpackPlugin', () => {
         );
         const entrys = ['main.js', 'styles.css'];
         const html = await generateHtml(template, entrys);
-        expect(html).toContain('<script src="/main.js"></script>');
+        expect(html).toContain('<script defer src="/main.js"></script>');
         expect(html).toContain('<link rel="stylesheet" href="/styles.css"></link>');
         expect(html).toContain('<title>Styleify - 原子化 CSS 框架</title>');
         expect(html).toContain('<html lang="zh-CN">');
@@ -118,7 +118,7 @@ describe('ReactWebpackPlugin', () => {
         expect(html).toContain('<meta name="viewport" content="width=device-width, initial-scale=1.0"/>');
         expect(html).toContain('<meta charSet="UTF-8"/>');
         expect(html).toContain('<div id="root"></div>');
-        expect(html).toContain('<script src="/bundle.js"></script>');
+        expect(html).toContain('<script defer src="/bundle.js"></script>');
         expect(html).toMatchSnapshot();
     });
 });
