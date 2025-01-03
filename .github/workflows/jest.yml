@@ -28,7 +28,7 @@ jobs:
     - name: Prepare Yarn 4.6.0
       run: corepack prepare yarn@4.6.0 --activate
     - name: Install dependencies
-      run: yarn install
+      run: yarn
     - name: Run Jest Test
       run: yarn test
       working-directory: toolbox/crustify
