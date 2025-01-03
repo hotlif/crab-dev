@@ -88,7 +88,8 @@ export const renderHTML = async (cwd: string): Promise<ComponentType>  => {
                 files: "bootstrap",
                 extensions: ['tsx'],
 				transform: (source) => {
-					const { code } = transformSync(source, {
+					const sourceCode = "import React from \"react\";" + source;
+					const { code } = transformSync(sourceCode, {
 						jsc: {
 							parser: {
 								syntax: "typescript",

@@ -39,7 +39,7 @@ const presetModule = async ({
 
     const moduleConfiguration: Configuration = {
         module: {
-            rules: [				{
+            rules: [{
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniExtractPlugin.loader : require.resolve("style-loader"),
@@ -51,10 +51,20 @@ const presetModule = async ({
                 use: [{
                     loader: require.resolve('@wyw-in-js/webpack-loader'),
                 }, babelLoader],
+            }, {
+                test: /\.mdx?$/,
+                use: [{
+                    loader: require.resolve('@wyw-in-js/webpack-loader'),
+                },
+                babelLoader,
+                {
+                    loader: require.resolve('@mdx-js/loader'),
+                    options: {
+                    }
+                }]
             }]
         }
     }
-
     return moduleConfiguration;
 }
 

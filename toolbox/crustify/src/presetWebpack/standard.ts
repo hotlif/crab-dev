@@ -43,7 +43,7 @@ const presetStandard = async ({
         resolve: {
             extensions: [".tsx", ".ts", ".js"],
             alias: {
-				"@": conf?.rootDir ?? join(process.cwd(), "src"),
+				"@": cwd,
 			}
         },
         mode: isProduction ? "production" : "development",

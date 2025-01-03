@@ -9,6 +9,8 @@
         "components/*"
     ],
     "devDependencies": {
+        "@crab/standards-typescript-preset": "workspace:^",
+        "@types/node": "^22.10.3",
         "typescript": "^5.7.2"
     }
 }
