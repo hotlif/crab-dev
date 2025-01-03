@@ -15,6 +15,8 @@
     "devDependencies": {
         "@crab/standards-eslint-react-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
+        "@types/babel__core": "^7.20.5",
+        "@types/babel__preset-env": "^7.9.7",
         "@types/node": "^22.10.2",
         "eslint": "^9.17.0",
         "eslint-plugin-react": "^7.37.3",
@@ -24,6 +26,7 @@
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {
+        "@rollup/plugin-babel": "^6.0.4",
         "@rollup/plugin-node-resolve": "^16.0.0",
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^12.1.2",

@@ -5,6 +5,6 @@ const FlexWrapValue = {
 };
 
 
-const flexWrap = (key: keyof typeof FlexWrapValue) => {
+export const flexWrap = (key: keyof typeof FlexWrapValue) => {
     return `flex-wrap: ${FlexWrapValue[key]};`;
 }
