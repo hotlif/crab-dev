@@ -1,6 +1,6 @@
 import { fontFamily } from "./typography/fontFamily";
 
-const preflight = `
+export const preflight = `
 /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
@@ -201,5 +201,3 @@ summary {
 	display: list-item;
 }
 `
-
-export default preflight;

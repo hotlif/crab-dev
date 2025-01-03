@@ -8,15 +8,13 @@ import { join, dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 const extensions = ['.ts'];
 
-// 删除旧的文件夹
 rm(join(__dirname, "esm"), {
 	recursive: true
 });
 
-export default {
+export default [{
 	input: 'src/index.ts',
 	output: [{
         file: "esm/index.mjs",
@@ -24,14 +22,8 @@ export default {
 	}],
 	external: (id) => !id.startsWith('.') && !isAbsolute(id),
 	plugins: [
-		typescript({
-			exclude: [
-				'node_modules',
-				'**/__tests__/**',
-				'**/*.spec.ts',
-			],
-		}),
+		typescript(),
 		nodeResolve({ extensions }),
 		terser()
 	]
-};
+}];
