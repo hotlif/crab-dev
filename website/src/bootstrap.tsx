@@ -4,7 +4,7 @@ const App = () => {
         <head>
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Styleify - 原子化 CSS 框架</title>
+            <title>Carb Dev - 全栈式开发</title>
         </head>
         <body>
             <div id="root"></div>
