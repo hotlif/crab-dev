@@ -5,7 +5,7 @@ import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
 import { writeFileSync, existsSync, mkdirSync} from "fs";
 import ReactWebpackPlugin from "../plugins/ReactWebpackPlugin";
-import { type Config , renderHTML } from "../conf";
+import { type Config } from "../conf";
 
 const presetStandard = async ({
     isProduction,
@@ -25,8 +25,6 @@ const presetStandard = async ({
     const entryTemplate = `import "@${importEntry}";`;
 
     writeFileSync(entryTmp, entryTemplate);
-
-    const Template = await renderHTML(cwd);
 
     const standardConfig: Configuration =  {
         entry: entryTmp,
@@ -52,7 +50,7 @@ const presetStandard = async ({
                 name: "Crustify"
             }),
             new ReactWebpackPlugin({
-                template: Template
+                cwd
             })
         ]
     }
