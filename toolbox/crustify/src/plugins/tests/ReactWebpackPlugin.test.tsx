@@ -56,19 +56,6 @@ describe('ReactWebpackPlugin', () => {
     });
 
     it('should generate HTML with Webpack configuration', async () => {
-        const template = () => (
-            <html lang="zh-CN">
-            <head>
-                <meta charSet="UTF-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Styleify - 原子化 CSS 框架</title>
-            </head>
-            <body>
-                <div id="root"></div>
-            </body>
-            </html>
-        );
-    
         const config: Configuration = {
             mode: "production",
             entry: join(__dirname, 'index.js'),
@@ -100,7 +87,7 @@ describe('ReactWebpackPlugin', () => {
             },
             plugins: [
                 new ReactWebpackPlugin({
-                    template
+                    cwd: __dirname
                 }),
                 new MiniExtractPlugin()
             ]

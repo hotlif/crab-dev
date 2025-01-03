@@ -1,28 +1,30 @@
 import Webpack, { type Compiler, type WebpackPluginInstance } from "webpack";
 import { renderToString } from "react-dom/server";
 import { createElement, type ComponentType } from "react";
+import { join, resolve } from "path";
+import { renderHTML } from "../conf";
 
 const { RawSource } = Webpack.sources;
 
 const PLUGIN_NAME = "ReactWebpackPlugin";
 
 interface ReactWebpackPluginParam {
-  template: ComponentType;
+  cwd: string;
 }
 
 export const generateHtml = async (
   template: ComponentType,
   entrys: string[]
 ) => {
-    const Template = template;
-    const html = renderToString(createElement(Template));
-    const injections = entrys.map((element) => {
+  const Template = template;
+  const html = renderToString(createElement(Template));
+  const injections = entrys.map((element) => {
     if (element.endsWith(".js")) {
-        return `<script defer src="/${element}"></script>`;
+      return `<script defer src="/${element}"></script>`;
     } else if (element.endsWith(".css")) {
-        return `<link rel="stylesheet" href="/${element}"></link>`;
+      return `<link rel="stylesheet" href="/${element}"></link>`;
     }
-    });
+  });
 
   return html.replace("</head>", `${injections.join("\n")}</head>`);
 };
@@ -35,6 +37,11 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler) {
+    compiler.hooks.afterCompile.tap(PLUGIN_NAME, (compilation) => {
+      const bootstrap = resolve(join(this.param.cwd, "bootstrap.tsx"));
+      compilation.fileDependencies.add(bootstrap);
+    });
+
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.processAssets.tapPromise(
         {
@@ -48,7 +55,9 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
               entrys.push(key);
             }
           });
-          const html = await generateHtml(this.param.template, entrys);
+
+          const Template = await renderHTML(this.param.cwd);
+          const html = await generateHtml(Template, entrys);
           assets["index.html"] = new RawSource(html);
         }
       );
