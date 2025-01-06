@@ -1,6 +1,6 @@
 {
-    "name": "@crab/videoify",
-    "description": "可定制、并且易于访问的视频播放器",
+    "name": "@crab/rc-wordify",
+    "description": "富文本编辑器，帮助用户便捷地编辑、发布和分享格式化文本内容",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
@@ -24,8 +24,8 @@
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {
-        "@vidstack/react": "^1.12.12",
-        "hls.js": "^1.5.18"
+        "@lexical/react": "^0.22.0",
+        "lexical": "^0.22.0"
     },
     "peerDependencies": {
         "react": "^19.0.0",
