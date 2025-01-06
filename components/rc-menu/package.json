@@ -1,10 +1,10 @@
 {
-    "name": "@crab/wordify",
-    "description": "富文本编辑器，帮助用户便捷地编辑、发布和分享格式化文本内容",
+    "name": "@crab/rc-menu",
+    "description": "UI 界面设计器, 可用来设计 Web 端, 以及移动端的草稿",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
-        "build": "rollup -c",
+        "build": "packify",
         "eslint": "eslint"
     },
     "files": [
@@ -12,11 +12,13 @@
         "esm"
     ],
     "devDependencies": {
-        "@crab/crustify": "workspace:^",
+        "@crab/packify": "workspace:^",
         "@crab/standards-eslint-react-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
-        "@linaria/atomic": "^6.2.0",
         "@linaria/core": "^6.2.0",
+        "@types/node": "^22.10.3",
+        "@types/react": "^19.0.2",
+        "@types/react-dom": "^19.0.2",
         "eslint": "^9.17.0",
         "eslint-plugin-react": "^7.37.3",
         "globals": "^15.14.0",
@@ -24,8 +26,7 @@
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {
-        "@lexical/react": "^0.22.0",
-        "lexical": "^0.22.0"
+        "@crab/styleify": "workspace:^"
     },
     "peerDependencies": {
         "react": "^19.0.0",

@@ -1470,17 +1470,83 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/sketchify@workspace:components/sketchify":
+"@crab/rc-menu@workspace:components/rc-menu":
   version: 0.0.0-use.local
-  resolution: "@crab/sketchify@workspace:components/sketchify"
+  resolution: "@crab/rc-menu@workspace:components/rc-menu"
+  dependencies:
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-react-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab/styleify": "workspace:^"
+    "@linaria/core": "npm:^6.2.0"
+    "@types/node": "npm:^22.10.3"
+    "@types/react": "npm:^19.0.2"
+    "@types/react-dom": "npm:^19.0.2"
+    eslint: "npm:^9.17.0"
+    eslint-plugin-react: "npm:^7.37.3"
+    globals: "npm:^15.14.0"
+    typescript: "npm:^5.7.2"
+    typescript-eslint: "npm:^8.18.2"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  languageName: unknown
+  linkType: soft
+
+"@crab/rc-sketchify@workspace:components/rc-sketchify":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-sketchify@workspace:components/rc-sketchify"
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/standards-eslint-react-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
-    "@dnd-kit/core": "npm:^6.3.1"
     eslint: "npm:^9.17.0"
     eslint-plugin-react: "npm:^7.37.3"
     globals: "npm:^15.14.0"
+    typescript: "npm:^5.7.2"
+    typescript-eslint: "npm:^8.18.2"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  languageName: unknown
+  linkType: soft
+
+"@crab/rc-videoify@workspace:components/rc-videoify":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-videoify@workspace:components/rc-videoify"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/standards-eslint-react-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@linaria/atomic": "npm:^6.2.0"
+    "@linaria/core": "npm:^6.2.0"
+    "@vidstack/react": "npm:^1.12.12"
+    eslint: "npm:^9.17.0"
+    eslint-plugin-react: "npm:^7.37.3"
+    globals: "npm:^15.14.0"
+    hls.js: "npm:^1.5.18"
+    typescript: "npm:^5.7.2"
+    typescript-eslint: "npm:^8.18.2"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  languageName: unknown
+  linkType: soft
+
+"@crab/rc-wordify@workspace:components/rc-wordify":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-wordify@workspace:components/rc-wordify"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/standards-eslint-react-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@lexical/react": "npm:^0.22.0"
+    "@linaria/atomic": "npm:^6.2.0"
+    "@linaria/core": "npm:^6.2.0"
+    eslint: "npm:^9.17.0"
+    eslint-plugin-react: "npm:^7.37.3"
+    globals: "npm:^15.14.0"
+    lexical: "npm:^0.22.0"
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.18.2"
   peerDependencies:
@@ -1528,9 +1594,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/styleify@workspace:^, @crab/styleify@workspace:components/styleify":
+"@crab/styleify@workspace:^, @crab/styleify@workspace:styleify":
   version: 0.0.0-use.local
-  resolution: "@crab/styleify@workspace:components/styleify"
+  resolution: "@crab/styleify@workspace:styleify"
   dependencies:
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-react-preset": "workspace:^"
@@ -1545,28 +1611,6 @@ __metadata:
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-router: "npm:^7.1.1"
-    typescript: "npm:^5.7.2"
-    typescript-eslint: "npm:^8.18.2"
-  peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
-  languageName: unknown
-  linkType: soft
-
-"@crab/videoify@workspace:components/videoify":
-  version: 0.0.0-use.local
-  resolution: "@crab/videoify@workspace:components/videoify"
-  dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/standards-eslint-react-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@linaria/atomic": "npm:^6.2.0"
-    "@linaria/core": "npm:^6.2.0"
-    "@vidstack/react": "npm:^1.12.12"
-    eslint: "npm:^9.17.0"
-    eslint-plugin-react: "npm:^7.37.3"
-    globals: "npm:^15.14.0"
-    hls.js: "npm:^1.5.18"
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.18.2"
   peerDependencies:
@@ -1595,28 +1639,6 @@ __metadata:
     react-router: "npm:^7.1.1"
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.18.2"
-  languageName: unknown
-  linkType: soft
-
-"@crab/wordify@workspace:components/wordify":
-  version: 0.0.0-use.local
-  resolution: "@crab/wordify@workspace:components/wordify"
-  dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/standards-eslint-react-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@lexical/react": "npm:^0.22.0"
-    "@linaria/atomic": "npm:^6.2.0"
-    "@linaria/core": "npm:^6.2.0"
-    eslint: "npm:^9.17.0"
-    eslint-plugin-react: "npm:^7.37.3"
-    globals: "npm:^15.14.0"
-    lexical: "npm:^0.22.0"
-    typescript: "npm:^5.7.2"
-    typescript-eslint: "npm:^8.18.2"
-  peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
   languageName: unknown
   linkType: soft
 

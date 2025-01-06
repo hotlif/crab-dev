@@ -1,6 +1,6 @@
 {
-    "name": "@crab/sketchify",
-    "description": "UI 界面设计器, 可用来设计 Web 端, 以及移动端的草稿",
+    "name": "@crab/rc-sketchify",
+    "description": "为页面和功能提供导航的菜单列表",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
@@ -20,9 +20,6 @@
         "globals": "^15.14.0",
         "typescript": "^5.7.2",
         "typescript-eslint": "^8.18.2"
-    },
-    "dependencies": {
-        "@dnd-kit/core": "^6.3.1"
     },
     "peerDependencies": {
         "react": "^19.0.0",
