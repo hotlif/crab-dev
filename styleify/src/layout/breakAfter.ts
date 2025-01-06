@@ -3,7 +3,7 @@ const BreakAfterValue = {
   auto: "auto", // 自动
   avoid: "avoid", // 避免
   all: "all", // 全部
-  avoidPage: "avoid-page", // 避免分页
+  "avoid-page": "avoid-page", // 避免分页
   page: "page", // 分页
   left: "left", // 左边
   right: "right", // 右边

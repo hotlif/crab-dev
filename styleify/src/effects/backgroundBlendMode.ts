@@ -6,12 +6,12 @@ const BgBlendModeValue = {
     overlay: "overlay", // 叠加
     darken: "darken", // 变暗
     lighten: "lighten", // 变亮
-    colorDodge: "color-dodge", // 颜色减淡
-    colorBurn: "color-burn", // 颜色加深
-    hardLight: "hard-light", // 强光
-    softLight: "soft-light", // 柔光
-    difference: "difference", // 差值
-    exclusion: "exclusion", // 排除
+    "color-dodge": "color-dodge", // 颜色减淡
+    "color-burn": "color-burn", // 颜色加深
+    "hard-light": "hard-light", // 强光
+    "soft-light": "soft-light", // 柔光
+    "difference": "difference", // 差值
+    "exclusion": "exclusion", // 排除
     hue: "hue", // 色相
     saturation: "saturation", // 饱和度
     color: "color", // 颜色

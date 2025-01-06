@@ -1,8 +1,8 @@
 const FlexDirectionValue = {
   row: "row",
-  "rowReverse": "row-reverse",
+  "row-reverse": "row-reverse",
   col: "column",
-  "colReverse": "column-reverse",
+  "col-reverse": "column-reverse",
 };
 
 export const flexDirection = (key: keyof typeof FlexDirectionValue) => {

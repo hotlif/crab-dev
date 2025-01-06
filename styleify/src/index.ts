@@ -57,7 +57,10 @@ export { wordBreak } from "./typography/wordBreak";
 
 export { height } from "./sizing/height";
 export { width } from "./sizing/width";
+
 export { margin } from "./spacing/margin";
+export { padding } from "./spacing/padding";
+export { borderRadius } from "./borders/radius";
 
 export { preflight } from "./preflight";
 export { PrefixName } from "./util";
