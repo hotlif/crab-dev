@@ -1,5 +1,7 @@
 import { fontFamily } from "./typography/fontFamily";
+import { PrefixName } from "./util";
 
+// --${PrefixName}-shape-border-radius: 8px;
 export const preflight = `
 /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -20,7 +22,7 @@ Use a better box model (opinionated).
 
 html {
 	/* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
-  ${fontFamily("sans")}
+   ${fontFamily("sans")}
 	line-height: 1.15; /* 1. Correct the line height in all browsers. */
 	-webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
 	tab-size: 4; /* 3. Use a more readable tab size (opinionated). */

@@ -1,11 +1,11 @@
 const WordBreakValue = {
-    breakNormal: `
+    "break-normal": `
         overflow-wrap: normal;
         word-break: normal;
     `,
-    breakWord: "overflow-wrap: break-word;",
-    breakAll: "word-break: break-all;",
-    breakKeep: "word-break: keep-all;",
+    "break-word": "overflow-wrap: break-word;",
+    "break-all": "word-break: break-all;",
+    "break-keep": "word-break: keep-all;",
 }
 
 export const wordBreak = (key: keyof typeof WordBreakValue) => {

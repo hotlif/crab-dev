@@ -1,6 +1,6 @@
 const FlexWrapValue = {
   wrap: "wrap",
-  "wrapReverse": "wrap-reverse",
+  "wrap-reverse": "wrap-reverse",
   nowrap: "nowrap",
 };
 
