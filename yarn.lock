@@ -1439,6 +1439,7 @@ __metadata:
     webpack-dev-server: "npm:^5.2.0"
     webpack-merge: "npm:^6.0.1"
     webpackbar: "npm:^7.0.0"
+    yargs: "npm:^17.7.2"
   bin:
     crustify: bin/cli.js
   languageName: unknown
@@ -1470,7 +1471,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-menu@workspace:components/rc-menu":
+"@crab/rc-menu@workspace:^, @crab/rc-menu@workspace:components/rc-menu":
   version: 0.0.0-use.local
   resolution: "@crab/rc-menu@workspace:components/rc-menu"
   dependencies:
@@ -1624,6 +1625,7 @@ __metadata:
   resolution: "@crab/website@workspace:website"
   dependencies:
     "@crab/crustify": "workspace:^"
+    "@crab/rc-menu": "workspace:^"
     "@crab/standards-eslint-react-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
     "@crab/styleify": "workspace:^"
@@ -13324,7 +13326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.3.1":
+"yargs@npm:^17.3.1, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
