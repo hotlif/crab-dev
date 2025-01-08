@@ -4,13 +4,15 @@
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
-        "build": "packify",
+        "build": "packify build",
         "eslint": "eslint"
     },
     "files": [
-        "bin",
         "esm"
     ],
+    "types": "esm/index.d.ts",
+    "main": "esm/index.mjs",
+    "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-react-preset": "workspace:^",
