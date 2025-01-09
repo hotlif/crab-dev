@@ -27,12 +27,12 @@ export interface ComponentScanRule {
 	/**
 	 * 匹配对应的文件, 并且加载到内存中
 	 */
-	include?: RegExp | ((path: string) => boolean)
+	include?: RegExp
 	
 	/**
 	 * 排除掉匹配的内容信息
 	 */
-	exclude?: RegExp | ((path: string) => boolean)
+	exclude?: RegExp
 }
 
 /**
