@@ -3,9 +3,10 @@ import { describe, it, expect } from "@jest/globals";
 import { type Configuration } from "webpack";
 import { join } from "path";
 import { readFileSync, existsSync, rmSync } from "fs";
+
 import { compile, babelLoader } from "../util";
 import { getTmpDir } from "../../../util";
-import AutoScanWebpackPlugin, { getAllFiles } from "../../AutoScanWebpackPlugin";
+import AutoScanWebpackPlugin, { getAllFiles, getTypeScriptComment } from "../../AutoScanWebpackPlugin";
 
 describe('AutoScanWebpackPlugin', () => {
 
@@ -16,16 +17,20 @@ describe('AutoScanWebpackPlugin', () => {
         expect(data).toContain(join(currentPath, "A.ts"));
         expect(data).toContain(join(currentPath, "A", "A1.ts"));
         expect(data).toContain(join(currentPath, "A", "AA", "AA1.ts"));
-    })
+    });
+
+    it("should get typeScript file comment ", async () => {
+        const text = readFileSync(join(__dirname, "index.ts")).toString();
+        const comment = getTypeScriptComment(text);
+        expect(comment).toEqual("这是一个头部测试的注释")
+    });
 
     it('should generate auto scan with Webpack configuration', async () => {
         const _temp = join(__dirname, ".tmp");
         if (existsSync(_temp)) {
             rmSync(_temp, { recursive: true, force: true });
         }
-
         const tempDir = getTmpDir(__dirname); 
-   
         const config: Configuration = {
             mode: "production",
             entry: join(__dirname, 'index.ts'),

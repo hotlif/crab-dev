@@ -1,10 +1,62 @@
 import { Compiler, WebpackPluginInstance } from "webpack";
-import { readdir, writeFile } from "fs/promises";
+import { readdir, writeFile, readFile } from "fs/promises";
 import { join, sep } from "path";
+import * as ts from "typescript";
+import { parse } from "smol-toml";
+
 import { type ComponentScanRule } from "../conf";
-import { getTmpDir, getCwdDir } from "../util";
+import { getTmpDir } from "../util";
 
 const PLUGIN_NAME = "AutoScanWebpackPlugin";
+
+/**
+ * 从给定的 TypeScript 代码中提取注释内容。
+ *
+ * @param code - 包含 TypeScript 代码的字符串。
+ * @returns 提取的注释内容字符串，如果没有找到注释则返回 null。
+ */
+export const getTypeScriptComment = (code: string) => {
+	const sourceFile = ts.createSourceFile("", code, ts.ScriptTarget.Latest, true);
+    try {
+        const statement = sourceFile.statements[0];
+        const comments = ts.getLeadingCommentRanges(code, statement.pos);
+        if (comments && comments?.[0]) {
+                const firstComment = comments[0];
+                const commentText = code.substring(firstComment.pos, firstComment.end);
+                const commentTextList = commentText.split("\n");
+                const commentTextListLength = commentTextList.length;
+                return commentTextList.map((line, index)=> {
+                    if (index === 0) {
+                        return line.trim().replace(/^\s*\/\*+/, "");
+                    } else if (index === commentTextListLength - 1) {
+                        return line.trim().replace(/^\s*\*+\//, "");
+                    } else {
+                        return line.trim().replace(/^\s*\*\s*/, "");
+                    }
+                }).join("\n").trim();
+
+        }
+        return null;
+    } catch (error) {
+        return null;            
+    }
+}
+
+/**
+ * 解析文件头部注释
+ * 
+ * @param path - 文件路径
+ * @returns 解析后的注释内容
+ */
+export const parseHeaderComments = async (path: string) => {
+    const text = (await readFile(path)).toString();
+    const comment = getTypeScriptComment(text);
+    if (comment) {
+        return parse(comment);
+    } else {
+        return null;
+    }
+}
 
 export const getAllFiles = async (dir: string, include: RegExp | null, exclude: RegExp | null) => {
     const dirents = await readdir(dir, { withFileTypes: true });
@@ -25,12 +77,29 @@ export const getAllFiles = async (dir: string, include: RegExp | null, exclude: 
     return files
 }
 
-
 interface AutoScanWebpackPluginParam {
     componentScanRules: ComponentScanRule[]
     rootDir: string
 }
 
+
+/**
+ * 自动扫描指定目录下的所有文件，并生成一个包含所有组件的 ES 模块文件。
+ * 
+ * @param rootDir - 扫描的根目录。
+ * @param componentScan - 扫描组件的规则。
+ * @returns 一个字符串，表示生成的 ES 模块文件的内容。
+ * 
+ * 生成的文件将包括：
+ * - 每个找到的组件的 import 语句。
+ * - 一个包含组件元数据的数组，包括名称、相对路径和可选的源代码。
+ * 
+ * `componentScan` 参数包括：
+ * - `cwd`: 开始扫描的目录。
+ * - `generateSourceCharacter`: 是否包含组件的源代码。
+ * - `include`: 包含特定文件的正则表达式。
+ * - `exclude`: 排除特定文件的正则表达式。
+ */
 class AutoScanWebpackPlugin implements WebpackPluginInstance {
     private param: ComponentScanRule[] = [];
     private rootDir: string;
@@ -54,14 +123,14 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
         const files = await getAllFiles(cwd, include ?? null, exclude ?? null);
 
         const typeCode = `
-interface ComponentType {
+interface AutoScanComponentType {
     name: string,
     relativePath: string,
     component: ComponentType,
     source?: string
 }`
         let importStatements: string = "";
-        let exportStatements: string = "const components: ComponentType[] = [\n";
+        let exportStatements: string = "const components: AutoScanComponentType[] = [\n";
         let importSourceStatements: string = "";
 
         for (let i = 0; i < files.length; i += 1) {
@@ -73,13 +142,14 @@ interface ComponentType {
                 importSourceStatements += `import ${importName}_source from "raw-loader!${importUrl}";\n`;
             }
 
+            const metadata = await parseHeaderComments(file);
             importStatements += `const ${importName} = lazy(() => import("${importUrl}"));\n`;
             exportStatements += `   { name: "${importName}", component: ${importName}, relativePath: "${relativePath}"${
-                generateSourceCharacter === true ? `source: ${importName}_source` : ""
-            }},\n`;
+                generateSourceCharacter === true ? `, source: ${importName}_source` : ""
+            }, metadata: ${JSON.stringify(metadata)}},\n`;
         }
         exportStatements += "];\n";
-        return `import { lazy } from "react";\n${
+        return `import { lazy, type ComponentType } from "react";\n${
             typeCode
         }\n${
             importSourceStatements

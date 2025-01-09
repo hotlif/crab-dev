@@ -1,8 +1,5 @@
+/**
+ * 这是一个头部测试的注释
+ */
 console.log("Hello World");
 
-interface ComponentType {
-    name: string,
-    relativePath: string,
-    component: ComponentType,
-    source?: string
-}

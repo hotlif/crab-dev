@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 1`] = `
-"import { lazy } from "react";
+"import { lazy, type ComponentType } from "react";
 
-interface ComponentType {
+interface AutoScanComponentType {
     name: string,
     relativePath: string,
     component: ComponentType,
@@ -12,23 +12,21 @@ interface ComponentType {
 
 const __TestDirectoryStructure_A_A1_ts = lazy(() => import("@/TestDirectoryStructure/A/A1.ts"));
 const __TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@/TestDirectoryStructure/A/AA/AA1.ts"));
-const __TestDirectoryStructure_A_js = lazy(() => import("@/TestDirectoryStructure/A.js"));
 const __TestDirectoryStructure_A_ts = lazy(() => import("@/TestDirectoryStructure/A.ts"));
 
-const components: ComponentType[] = [
-   { name: "__TestDirectoryStructure_A_A1_ts", component: __TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts"},
-   { name: "__TestDirectoryStructure_A_AA_AA1_ts", component: __TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts"},
-   { name: "__TestDirectoryStructure_A_js", component: __TestDirectoryStructure_A_js, relativePath: "/TestDirectoryStructure/A.js"},
-   { name: "__TestDirectoryStructure_A_ts", component: __TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts"},
+const components: AutoScanComponentType[] = [
+   { name: "__TestDirectoryStructure_A_A1_ts", component: __TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts", metadata: null},
+   { name: "__TestDirectoryStructure_A_AA_AA1_ts", component: __TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts", metadata: null},
+   { name: "__TestDirectoryStructure_A_ts", component: __TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts", metadata: {"name":"zhangj","version":"0.0.1"}},
 ];
 
 export default components;"
 `;
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 2`] = `
-"import { lazy } from "react";
+"import { lazy, type ComponentType } from "react";
 
-interface ComponentType {
+interface AutoScanComponentType {
     name: string,
     relativePath: string,
     component: ComponentType,
@@ -42,10 +40,10 @@ const __TestDirectoryStructure_A_A1_ts = lazy(() => import("@/TestDirectoryStruc
 const __TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@/TestDirectoryStructure/A/AA/AA1.ts"));
 const __TestDirectoryStructure_A_ts = lazy(() => import("@/TestDirectoryStructure/A.ts"));
 
-const components: ComponentType[] = [
-   { name: "__TestDirectoryStructure_A_A1_ts", component: __TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts"source: __TestDirectoryStructure_A_A1_ts_source},
-   { name: "__TestDirectoryStructure_A_AA_AA1_ts", component: __TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts"source: __TestDirectoryStructure_A_AA_AA1_ts_source},
-   { name: "__TestDirectoryStructure_A_ts", component: __TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts"source: __TestDirectoryStructure_A_ts_source},
+const components: AutoScanComponentType[] = [
+   { name: "__TestDirectoryStructure_A_A1_ts", component: __TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts", source: __TestDirectoryStructure_A_A1_ts_source, metadata: null},
+   { name: "__TestDirectoryStructure_A_AA_AA1_ts", component: __TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts", source: __TestDirectoryStructure_A_AA_AA1_ts_source, metadata: null},
+   { name: "__TestDirectoryStructure_A_ts", component: __TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts", source: __TestDirectoryStructure_A_ts_source, metadata: {"name":"zhangj","version":"0.0.1"}},
 ];
 
 export default components;"

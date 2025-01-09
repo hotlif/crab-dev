@@ -37,6 +37,9 @@ const presetStandard = async ({
             pathinfo: false,
             clean: true
         },
+        watchOptions: {
+            ignored: ["**/node_modules", tmpDir],
+        },
         resolve: {
             extensions: [".tsx", ".ts", ".js"],
             alias: {
