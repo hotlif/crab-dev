@@ -45,7 +45,10 @@ const presetModule = async ({
                     isProduction ? MiniExtractPlugin.loader : require.resolve("style-loader"),
                     require.resolve("css-loader"),
                 ],
-            },{
+            }, {
+                test: /\.raw$/i,
+                use: 'raw-loader',
+            }, {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: [{

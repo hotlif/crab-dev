@@ -38,12 +38,13 @@ const presetStandard = async ({
             clean: true
         },
         watchOptions: {
-            ignored: ["**/node_modules", tmpDir],
+            ignored: ["**/node_modules", "**/.tmp"],
         },
         resolve: {
-            extensions: [".tsx", ".ts", ".js"],
+            extensions: [".tsx", ".ts", ".js", ".raw"],
             alias: {
-				"@": cwd,
+				"@": join(cwd, "src"),
+                "@@": cwd
 			}
         },
         mode: isProduction ? "production" : "development",
@@ -56,7 +57,7 @@ const presetStandard = async ({
                 componentScanRules: conf.componentScan ?? []
             }),
             new ReactWebpackPlugin({
-                cwd
+                cwd: join(cwd, "src")
             })
         ]
     }
