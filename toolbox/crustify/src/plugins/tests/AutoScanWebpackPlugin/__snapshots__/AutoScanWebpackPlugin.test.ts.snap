@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 1`] = `
+"import { lazy } from "react";
+
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts"));
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts"));
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_js = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A.js"));
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts"));
+
+export default [
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts, },
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts, },
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_js", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_js, },
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts, },
+];
+"
+`;
+
+exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 2`] = `
+"import { lazy } from "react";
+import __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts_source from "raw-loader!@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts";
+import __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts_source from "raw-loader!@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts";
+import __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts_source from "raw-loader!@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts";
+
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts"));
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts"));
+const __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts = lazy(() => import("@/src/plugins/tests/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts"));
+
+export default [
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts, source: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts_source},
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts, source: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts_source},
+{ name: "__src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts", component: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts, source: __src_plugins_tests_AutoScanWebpackPlugin_TestDirectoryStructure_A_ts_source},
+];
+"
+`;

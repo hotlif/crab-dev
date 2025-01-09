@@ -1,25 +1,12 @@
 
 import { describe, it, expect } from "@jest/globals";
-import Webpack, { type Configuration, type Stats } from "webpack"; 
-import MemoryFS from 'memory-fs';
+import { type Configuration } from "webpack"; 
+
 import MiniExtractPlugin from "mini-css-extract-plugin";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import { join } from 'path';
-import ReactWebpackPlugin, { generateHtml } from '../ReactWebpackPlugin';
-
-const compile = (config: Configuration) => {
-    const compiler = Webpack(config);
-    const memoryFs = new MemoryFS();
-    compiler.outputFileSystem = memoryFs as any;
-    return new Promise<{ error: Error | null, stats?: Stats, fs: MemoryFS }>((resolve, reject) => {
-        compiler.run((err, stats) => {
-            if (err || stats?.hasErrors()) {
-                console.error(stats?.toString())
-            }
-            resolve({ stats, fs: memoryFs, error: err });
-        });
-    });
-}
+import ReactWebpackPlugin, { generateHtml } from '../../ReactWebpackPlugin';
+import { compile, babelLoader } from "../util";
 
 describe('ReactWebpackPlugin', () => {
     it('should generate HTML with script and link tags', async () => {
@@ -58,7 +45,7 @@ describe('ReactWebpackPlugin', () => {
     it('should generate HTML with Webpack configuration', async () => {
         const config: Configuration = {
             mode: "production",
-            entry: join(__dirname, 'index.js'),
+            entry: join(__dirname, 'index.ts'),
             output: {
                 path: '/dist',
                 filename: 'bundle.js'
@@ -70,6 +57,10 @@ describe('ReactWebpackPlugin', () => {
                         MiniExtractPlugin.loader,
                         require.resolve("css-loader"),
                     ],
+                }, {
+                    test: /\.tsx?$/,
+                    exclude: /node_modules/,
+                    use: [babelLoader],
                 }]
             },
             optimization: {

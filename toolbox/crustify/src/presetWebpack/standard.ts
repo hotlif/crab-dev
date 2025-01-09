@@ -3,9 +3,11 @@ import { join } from "path";
 import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
-import { writeFileSync, existsSync, mkdirSync} from "fs";
+import { writeFileSync } from "fs";
 import ReactWebpackPlugin from "../plugins/ReactWebpackPlugin";
+import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
+import { getTmpDir } from "../util";
 
 const presetStandard = async ({
     isProduction,
@@ -14,10 +16,7 @@ const presetStandard = async ({
     isProduction: boolean,
     conf: Config
 }) => {
-	const tmpDir = join(process.cwd(), ".tmp");
-    if (!existsSync(tmpDir)) {
-        mkdirSync(tmpDir);
-    }
+	const tmpDir = getTmpDir(conf.rootDir);
     const cwd = conf?.rootDir ?? join(process.cwd(), "src");
     const entry = join(cwd, "entry.tsx");
     const entryTmp = join(tmpDir, "entry.tsx");
@@ -31,6 +30,9 @@ const presetStandard = async ({
         devtool: isProduction ? false : "source-map",
         infrastructureLogging: { level: "warn" },
         stats: "errors-warnings",
+        watchOptions: {
+            ignored: ["**/node_modules", tmpDir],
+        },
         output: {
             filename: "[name].bundle.[contenthash].js",
             path: join(process.cwd(), "dist"),
@@ -48,6 +50,9 @@ const presetStandard = async ({
         plugins: [
             new WebpackBar({
                 name: "Crustify"
+            }),
+            new AutoScanWebpackPlugin({
+                componentScanRules: conf.componentScan ?? []
             }),
             new ReactWebpackPlugin({
                 cwd
