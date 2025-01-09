@@ -1,5 +1,6 @@
 import { Compiler, WebpackPluginInstance } from "webpack";
 import { readdir, writeFile, readFile } from "fs/promises";
+import { copy } from "fs-extra";
 import { join, sep } from "path";
 import * as ts from "typescript";
 import { parse } from "smol-toml";
@@ -82,7 +83,6 @@ interface AutoScanWebpackPluginParam {
     rootDir: string
 }
 
-
 /**
  * 自动扫描指定目录下的所有文件，并生成一个包含所有组件的 ES 模块文件。
  * 
@@ -121,25 +121,22 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
         } = componentScan;
 
         const files = await getAllFiles(cwd, include ?? null, exclude ?? null);
-
-        const typeCode = `
-interface AutoScanComponentType {
-    name: string,
-    relativePath: string,
-    component: ComponentType,
-    source?: string
-}`
         let importStatements: string = "";
-        let exportStatements: string = "const components: AutoScanComponentType[] = [\n";
+        let exportStatements: string = "const components = [\n";
         let importSourceStatements: string = "";
 
         for (let i = 0; i < files.length; i += 1) {
             const file = files[i];
-            const importUrl = file.replace(rootDir, "@").replaceAll(sep, "/");
+
+            const importUrl = file.replace(rootDir, "@@").replaceAll(sep, "/");
             const importName = importUrl.replace(/[^a-zA-Z0-9]/g, "_");
             const relativePath = file.replace(rootDir, "").replaceAll(sep, "/");
+
+            const sourcePath = join(getTmpDir(rootDir), `${relativePath}.raw`);
+            await copy(file, sourcePath);
+
             if (generateSourceCharacter === true) {
-                importSourceStatements += `import ${importName}_source from "raw-loader!${importUrl}";\n`;
+                importSourceStatements += `import ${importName}_source from "./${relativePath}.raw";\n`;
             }
 
             const metadata = await parseHeaderComments(file);
@@ -149,9 +146,7 @@ interface AutoScanComponentType {
             }, metadata: ${JSON.stringify(metadata)}},\n`;
         }
         exportStatements += "];\n";
-        return `import { lazy, type ComponentType } from "react";\n${
-            typeCode
-        }\n${
+        return `import { lazy, ComponentType } from "react";\n${
             importSourceStatements
         }\n${
             importStatements
@@ -165,6 +160,8 @@ interface AutoScanComponentType {
             const tmp = getTmpDir(this.rootDir);
             for (let i = 0; i < this.param.length; i+= 1) {
                 const componentScan = this.param[i];
+
+
                 const importESMAScript = await this.generateImportESMAScriptFile(this.rootDir, componentScan);
                 const fileName = Buffer.from(componentScan.namespaces).toString("base64");
                 writeFile(join(tmp, `${fileName}.ts`), importESMAScript);

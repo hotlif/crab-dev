@@ -1,49 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 1`] = `
-"import { lazy, type ComponentType } from "react";
+"import { lazy, ComponentType } from "react";
 
-interface AutoScanComponentType {
-    name: string,
-    relativePath: string,
-    component: ComponentType,
-    source?: string
-}
+const ___TestDirectoryStructure_A_A1_ts = lazy(() => import("@@/TestDirectoryStructure/A/A1.ts"));
+const ___TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@@/TestDirectoryStructure/A/AA/AA1.ts"));
+const ___TestDirectoryStructure_A_ts = lazy(() => import("@@/TestDirectoryStructure/A.ts"));
 
-const __TestDirectoryStructure_A_A1_ts = lazy(() => import("@/TestDirectoryStructure/A/A1.ts"));
-const __TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@/TestDirectoryStructure/A/AA/AA1.ts"));
-const __TestDirectoryStructure_A_ts = lazy(() => import("@/TestDirectoryStructure/A.ts"));
-
-const components: AutoScanComponentType[] = [
-   { name: "__TestDirectoryStructure_A_A1_ts", component: __TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts", metadata: null},
-   { name: "__TestDirectoryStructure_A_AA_AA1_ts", component: __TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts", metadata: null},
-   { name: "__TestDirectoryStructure_A_ts", component: __TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts", metadata: {"name":"zhangj","version":"0.0.1"}},
+const components = [
+   { name: "___TestDirectoryStructure_A_A1_ts", component: ___TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts", metadata: null},
+   { name: "___TestDirectoryStructure_A_AA_AA1_ts", component: ___TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts", metadata: null},
+   { name: "___TestDirectoryStructure_A_ts", component: ___TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts", metadata: {"name":"zhangj","version":"0.0.1"}},
 ];
 
 export default components;"
 `;
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 2`] = `
-"import { lazy, type ComponentType } from "react";
+"import { lazy, ComponentType } from "react";
+import ___TestDirectoryStructure_A_A1_ts_source from ".//TestDirectoryStructure/A/A1.ts.raw";
+import ___TestDirectoryStructure_A_AA_AA1_ts_source from ".//TestDirectoryStructure/A/AA/AA1.ts.raw";
+import ___TestDirectoryStructure_A_ts_source from ".//TestDirectoryStructure/A.ts.raw";
 
-interface AutoScanComponentType {
-    name: string,
-    relativePath: string,
-    component: ComponentType,
-    source?: string
-}
-import __TestDirectoryStructure_A_A1_ts_source from "raw-loader!@/TestDirectoryStructure/A/A1.ts";
-import __TestDirectoryStructure_A_AA_AA1_ts_source from "raw-loader!@/TestDirectoryStructure/A/AA/AA1.ts";
-import __TestDirectoryStructure_A_ts_source from "raw-loader!@/TestDirectoryStructure/A.ts";
+const ___TestDirectoryStructure_A_A1_ts = lazy(() => import("@@/TestDirectoryStructure/A/A1.ts"));
+const ___TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@@/TestDirectoryStructure/A/AA/AA1.ts"));
+const ___TestDirectoryStructure_A_ts = lazy(() => import("@@/TestDirectoryStructure/A.ts"));
 
-const __TestDirectoryStructure_A_A1_ts = lazy(() => import("@/TestDirectoryStructure/A/A1.ts"));
-const __TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@/TestDirectoryStructure/A/AA/AA1.ts"));
-const __TestDirectoryStructure_A_ts = lazy(() => import("@/TestDirectoryStructure/A.ts"));
-
-const components: AutoScanComponentType[] = [
-   { name: "__TestDirectoryStructure_A_A1_ts", component: __TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts", source: __TestDirectoryStructure_A_A1_ts_source, metadata: null},
-   { name: "__TestDirectoryStructure_A_AA_AA1_ts", component: __TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts", source: __TestDirectoryStructure_A_AA_AA1_ts_source, metadata: null},
-   { name: "__TestDirectoryStructure_A_ts", component: __TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts", source: __TestDirectoryStructure_A_ts_source, metadata: {"name":"zhangj","version":"0.0.1"}},
+const components = [
+   { name: "___TestDirectoryStructure_A_A1_ts", component: ___TestDirectoryStructure_A_A1_ts, relativePath: "/TestDirectoryStructure/A/A1.ts", source: ___TestDirectoryStructure_A_A1_ts_source, metadata: null},
+   { name: "___TestDirectoryStructure_A_AA_AA1_ts", component: ___TestDirectoryStructure_A_AA_AA1_ts, relativePath: "/TestDirectoryStructure/A/AA/AA1.ts", source: ___TestDirectoryStructure_A_AA_AA1_ts_source, metadata: null},
+   { name: "___TestDirectoryStructure_A_ts", component: ___TestDirectoryStructure_A_ts, relativePath: "/TestDirectoryStructure/A.ts", source: ___TestDirectoryStructure_A_ts_source, metadata: {"name":"zhangj","version":"0.0.1"}},
 ];
 
 export default components;"
