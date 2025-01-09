@@ -146,7 +146,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             }, metadata: ${JSON.stringify(metadata)}},\n`;
         }
         exportStatements += "];\n";
-        return `import { lazy, ComponentType } from "react";\n${
+        return `import { lazy } from "react";\n${
             importSourceStatements
         }\n${
             importStatements
