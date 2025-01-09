@@ -7,7 +7,7 @@ import { writeFileSync } from "fs";
 import ReactWebpackPlugin from "../plugins/ReactWebpackPlugin";
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
-import { getTmpDir } from "../util";
+import { getTmpDir, getCwdDir } from "../util";
 
 const presetStandard = async ({
     isProduction,
@@ -17,7 +17,7 @@ const presetStandard = async ({
     conf: Config
 }) => {
 	const tmpDir = getTmpDir(conf.rootDir);
-    const cwd = conf?.rootDir ?? join(process.cwd(), "src");
+    const cwd = getCwdDir(conf.rootDir);
     const entry = join(cwd, "entry.tsx");
     const entryTmp = join(tmpDir, "entry.tsx");
     const importEntry = entry.replace(cwd, "").replace(/\\/g, "/");
@@ -30,9 +30,6 @@ const presetStandard = async ({
         devtool: isProduction ? false : "source-map",
         infrastructureLogging: { level: "warn" },
         stats: "errors-warnings",
-        watchOptions: {
-            ignored: ["**/node_modules", tmpDir],
-        },
         output: {
             filename: "[name].bundle.[contenthash].js",
             path: join(process.cwd(), "dist"),
@@ -52,6 +49,7 @@ const presetStandard = async ({
                 name: "Crustify"
             }),
             new AutoScanWebpackPlugin({
+                rootDir: getCwdDir(conf.rootDir),
                 componentScanRules: conf.componentScan ?? []
             }),
             new ReactWebpackPlugin({

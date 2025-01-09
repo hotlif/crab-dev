@@ -11,3 +11,7 @@ export const getTmpDir = (rootDir?: string) => {
     }
     return tmpDir;
 }
+
+export const getCwdDir = (rootDir?: string) => {
+    return rootDir ?? process.cwd();
+}
