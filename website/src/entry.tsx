@@ -3,11 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 import { preflight } from "@crab/styleify";
 import { css } from "@linaria/core";
 
-import Test from "@@/.tmp/ZGVtb3M=.ts";
-
 import Layout from "./layouts"
-
-console.log("xxx", Test)
 
 css`
 	:global() {
