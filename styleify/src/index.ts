@@ -28,6 +28,7 @@ export { overscrollBehavior } from "./layout/overscrollBehavior";
 export { position } from "./layout/position";
 export { visibility } from "./layout/visibility";
 export { zIndex } from "./layout/zIndex";
+export { alignItems } from "./layout/alignItems";
 
 export { fontFamily } from "./typography/fontFamily";
 export { fontSize } from "./typography/fontSize";
@@ -61,6 +62,9 @@ export { width } from "./sizing/width";
 export { margin } from "./spacing/margin";
 export { padding } from "./spacing/padding";
 export { borderRadius } from "./borders/radius";
+
+export { cursor } from "./interactivity/cursor";
+
 
 export { preflight } from "./preflight";
 export { PrefixName } from "./util";
