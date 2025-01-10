@@ -73,7 +73,7 @@ const Grid: FC<GridProps> = ({
 		currentScrollPositionTop,
 		currentScrollPositionLeft,
 		gridTemplateColumns,
-		gridTemplateRows
+		gridTemplateRows,
 	});
 
 	const totalWidth = gridTemplateColumns.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -255,7 +255,9 @@ const Grid: FC<GridProps> = ({
 			}}
 		>
 			<div
-				className={gridStyle}
+				className={css`
+					${gridStyle}	
+				`}
 				style={{
 					width: viewportWidth,
 					height: viewportHeight,

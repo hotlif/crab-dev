@@ -43,7 +43,7 @@ const useVirtualItemRange = ({
 	currentScrollPositionTop,
 	currentScrollPositionLeft,
 	gridTemplateColumns,
-	gridTemplateRows
+	gridTemplateRows,
 }: VirtualItemParamType) => {
 
 	const getGridColumnsRangeIndex = (): [number, number] => {

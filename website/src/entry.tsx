@@ -2,7 +2,6 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router";
 import { preflight } from "@crab/styleify";
 import { css } from "@linaria/core";
-
 import Layout from "./layouts"
 
 css`
