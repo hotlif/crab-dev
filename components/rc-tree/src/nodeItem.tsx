@@ -1,12 +1,26 @@
 import { type MouseEvent, type FC, type HTMLAttributes } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx } from "@linaria/core";
-import { fontSize, display, alignItems, cursor, margin } from "@crab/styleify";
+import {
+    fontSize,
+    display,
+    alignItems,
+    cursor,
+    height,
+    padding,
+    margin
+} from "@crab/styleify";
 import { NodeType, type Node } from "./type";
+import { CaretDownFill, CaretRightFill } from "./icon";
+import {
+    TreeNodeIconHoverBgColor,
+    TreeNodeTitleHoverBgColor
+} from "./token";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
     node: Node
     expanded: boolean
+    loading: boolean
     onExpanded?: (param: {
         node: Node,
         event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
@@ -15,8 +29,14 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
 
 const expandedAndCloseIconIcon = css`
     ${cursor("pointer")}
+    ${display("flex")}
     ${fontSize("xs")}
-    ${margin("mr-1.5")}
+    ${alignItems("center")}
+    ${padding("px-1.5")}
+    ${height("full")}
+    &:hover {
+       ${TreeNodeIconHoverBgColor}
+    }
 `;
 
 const NodeItem: FC<NodeItemProps> = ({
@@ -29,7 +49,6 @@ const NodeItem: FC<NodeItemProps> = ({
     ...restProps
 }) => {
     const { attributes, listeners, setNodeRef } = useSortable({ id: node.id });
-
     const renderExpandedAndCloseIcon = () => {
         if (node.type === NodeType.FOLDER && expanded === false ) {
             return (
@@ -42,17 +61,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         })
                     }}
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="1em"
-                        height="1em"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"
-                        />
-                    </svg>
+                    <CaretRightFill />
                 </span>
             )
         } else if (node.type === NodeType.FOLDER && expanded === true) {
@@ -66,17 +75,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         })
                     }}
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="1em"
-                        height="1em"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
-                        />
-                    </svg>
+                    <CaretDownFill />
                 </span>
             )
         } else {
@@ -104,7 +103,6 @@ const NodeItem: FC<NodeItemProps> = ({
                 <span
                     className={css`
                         ${cursor("grab")}
-                        ${margin("mr-1")}
                         text-align: center;
                         color: rgba(0, 0, 0, 0.25);
                     `}
@@ -126,7 +124,11 @@ const NodeItem: FC<NodeItemProps> = ({
             {renderExpandedAndCloseIcon()}
             <span
                 className={css`
-                    ${cursor("default")}    
+                    ${cursor("pointer")}
+                    ${padding("px-1.5")}
+                    &:hover {
+                        ${TreeNodeTitleHoverBgColor}
+                    }
                 `}
             >
                 {node.title}
