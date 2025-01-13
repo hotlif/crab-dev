@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getLoadReadyTreeNodeData should group nodes by their parent 1`] = `
+[
+  {
+    "id": 1,
+    "parent": null,
+    "title": "标题 一",
+    "type": 0,
+  },
+  {
+    "id": 2,
+    "parent": null,
+    "title": "标题 二",
+    "type": 0,
+  },
+  {
+    "id": 3,
+    "parent": null,
+    "title": "标题 三",
+    "type": 0,
+  },
+  {
+    "id": 4,
+    "parent": null,
+    "title": "标题 四",
+    "type": 0,
+  },
+]
+`;
+
+exports[`getLoadReadyTreeNodeData should group nodes by their parent 2`] = `
+[
+  [
+    {
+      "id": 5,
+      "parent": {
+        "id": 1,
+        "parent": null,
+        "title": "标题 一",
+        "type": 0,
+      },
+      "title": "标题 五",
+      "type": 0,
+    },
+    {
+      "id": 6,
+      "parent": {
+        "id": 1,
+        "parent": null,
+        "title": "标题 一",
+        "type": 0,
+      },
+      "title": "标题 六",
+      "type": 0,
+    },
+  ],
+]
+`;

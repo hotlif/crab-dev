@@ -6,10 +6,16 @@ export enum NodeType {
     FILE
 }
 
-export enum NodeStateType {
+export enum NodeEditStateType {
     CREATE,
     DELETE,
     UPDATE 
+}
+
+export enum LoadStateType {
+    UNLOADED,
+    LOADING,
+    LOADING_COMPLETED,
 }
 
 /**
@@ -20,12 +26,17 @@ export interface Node {
     /**
      * 状态
      */
-    state?: NodeStateType
+    editState?: NodeEditStateType
 
     /**
      * 父节点信息
      */
     parent: Node | null
+
+    /**
+     * 加载状态
+     */
+    loadState: LoadStateType
 
     /**
      * 当前节点类型

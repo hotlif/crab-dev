@@ -5,8 +5,9 @@ import { css } from "@linaria/core";
 import { DndContext, DragOverlay, type UniqueIdentifier } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { boxShadow } from "@crab/styleify";
-import { type Node } from "./type";
+import { LoadStateType, type Node } from "./type";
 import NodeItem, { type NodeItemProps } from "./nodeItem";
+import { getLoadReadyTreeNodeData, getTreeNodeDepth } from "./util";
 
 export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
 
@@ -36,6 +37,11 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
     defaultNodeHeight?: number
 
     /**
+     * 缩进宽度
+     */
+    indentSize?: number;
+
+    /**
      * 是否启用初始化组件的时候就开始加载数据, 默认情况下第一次会加载数据
      */
     enableFirstLoadData?: boolean
@@ -63,17 +69,19 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
 const Tree: FC<TreeProps> = ({
     width,
     height,
-    expandedKeys,
+    expandedKeys = [],
     enableFirstLoadData = true,
     draggable = false,
     defaultNodeHeight = 24,
+    indentSize = 24,
     loadData,
     onSearch,
-    onExpanded,
+    onExpanded: _onExpanded,
     ...restProps
 }) => {
     const [loadReadyNodeData, setLoadReadyNodeData] = useState<Node[]>([]);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+    const [loadingNodeKeys, setLoadingNodeKeys] = useState<Key[]>([])
     useEffect(() => {
         if (enableFirstLoadData === true) {
             loadData(null)
@@ -83,19 +91,43 @@ const Tree: FC<TreeProps> = ({
         }
     }, [])
 
-    const displayedNodes = loadReadyNodeData.filter(node => node.parent === null || expandedKeys?.includes(node.parent.id))
-    const activeNode = displayedNodes.find(element => element.id === activeId);
+    const _displayedNodes = loadReadyNodeData.filter(node => node.parent === null || expandedKeys?.includes(node.parent.id))
+    const activeNode = _displayedNodes.find(element => element.id === activeId);
+
+    const getDisplayedNodes = (nodes: Node[]) => {
+        const [rootNodes, childNodes] = getLoadReadyTreeNodeData(nodes);
+        const resultDisplayedNodes: Node[] = [];
+        rootNodes.forEach(element => {
+            const elementNodes = childNodes.find(node => node?.[0]?.parent?.id === element.id);
+            resultDisplayedNodes.push(element);
+            if (elementNodes != null) {
+                resultDisplayedNodes.push(...elementNodes);
+            }
+        })
+        return resultDisplayedNodes;
+    }
+
+    const displayedNodes = getDisplayedNodes(_displayedNodes);
+
+    const onExpanded: TreeProps["onExpanded"] = (e) => {
+        if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
+            loadData(e.node)
+            .then((nodes) => {
+                e.node.loadState = LoadStateType.LOADING_COMPLETED;
+                setLoadReadyNodeData([...loadReadyNodeData, ...nodes])
+            });
+        }
+        _onExpanded?.(e);
+    }
+
     return (
         <DndContext
             onDragEnd={(event) => {
                 const { active, over } = event;
                 if (!over) return;
-                setLoadReadyNodeData((items) => {
-                    const oldIndex = loadReadyNodeData.findIndex(node => node.id === active.id);
-                    const newIndex = loadReadyNodeData.findIndex(node => node.id === over.id);
-                    const result = arrayMove(items, oldIndex, newIndex);
-                    return result; 
-                })
+                const oldIndex = loadReadyNodeData.findIndex(node => node.id === active.id);
+                const newIndex = loadReadyNodeData.findIndex(node => node.id === over.id);
+                
             }}
             onDragStart={({
                 active,
@@ -123,10 +155,12 @@ const Tree: FC<TreeProps> = ({
                                 <NodeItem
                                     key={node.id}
                                     node={node}
+                                    loading={false}
                                     expanded={expandedKeys?.includes(node.id) === true}
                                     draggable={draggable}
                                     style={{
-                                        gridRowStart: rowIndex + 1
+                                        gridRowStart: rowIndex + 1,
+                                        paddingLeft: getTreeNodeDepth(node) * indentSize
                                     }}
                                     onExpanded={onExpanded}
 
@@ -146,10 +180,11 @@ const Tree: FC<TreeProps> = ({
                             `}
                         >
                             <NodeItem
+                                loading={false}
                                 node={activeNode}
                                 style={{
                                     height: activeNode.height ?? defaultNodeHeight,
-                                    width: width
+                                    width: width,
                                 }}
                                 expanded={expandedKeys?.includes(activeNode.id) === true}
                             />

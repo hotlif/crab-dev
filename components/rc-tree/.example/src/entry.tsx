@@ -1,8 +1,9 @@
 import React, { Key, useState } from "react";
 import { createRoot } from "react-dom/client";
 import RcTree from "../../src/index";
-import { NodeType, type Node } from "../../src/type";
+import { LoadStateType, NodeType, type Node } from "../../src/type";
 import "@crab/rc-virtual/esm/index.styles.css"
+import { getTreeNodeDepth } from "../../src/util";
 
 const App = () => {
 	const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
@@ -32,11 +33,22 @@ const App = () => {
 							id: i,
 							type: NodeType.FOLDER,
 							title: `节点 ${i}`,
-							parent: null
+							parent: null,
+							loadState: LoadStateType.UNLOADED
 						})
 					}
 					return nodes;
 				} else {
+					const depth = getTreeNodeDepth(parentNode)
+					if (depth <= 1) {
+						return [{
+							id: `${parentNode.id}-0`,
+							type: NodeType.FOLDER,
+							title: `节点 - ${parentNode.id} - 0`,
+							parent: parentNode,
+							loadState: LoadStateType.UNLOADED
+						}]
+					}
 					return []
 				}
 			}}			
