@@ -1,6 +1,6 @@
 {
-    "name": "@crab/rc-virtual",
-    "description": "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。",
+    "name": "@crab/rc-hooks",
+    "description": "React 的 Hooks 的公共库, 用来执行 Hooks 的一些常用方法",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
@@ -33,8 +33,5 @@
         "react-dom": "^19.0.0",
         "typescript": "^5.7.2",
         "typescript-eslint": "^8.18.2"
-    },
-    "dependencies": {
-        "@crab/styleify": "workspace:^"
     }
 }

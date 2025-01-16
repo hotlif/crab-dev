@@ -177,7 +177,7 @@ const config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "\\.[jt]sx?$": [
+    "\\.[jt]sx?$": [  
       "babel-jest",
       {
         presets: [

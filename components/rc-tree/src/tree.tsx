@@ -3,8 +3,11 @@ import RcVirtual from "@crab/rc-virtual";
 import { createPortal } from "react-dom";
 import { css } from "@linaria/core";
 import { DndContext, DragOverlay, type UniqueIdentifier } from "@dnd-kit/core";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import { boxShadow } from "@crab/styleify";
+import { SortableContext } from "@dnd-kit/sortable";
+import { boxShadow, position } from "@crab/styleify";
+import {
+    useKeyDown
+} from "@crab/rc-hooks";
 import { LoadStateType, type Node } from "./type";
 import NodeItem, { type NodeItemProps } from "./nodeItem";
 import { getLoadReadyTreeNodeData, getTreeNodeDepth } from "./util";
@@ -81,7 +84,9 @@ const Tree: FC<TreeProps> = ({
 }) => {
     const [loadReadyNodeData, setLoadReadyNodeData] = useState<Node[]>([]);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-    const [loadingNodeKeys, setLoadingNodeKeys] = useState<Key[]>([])
+    const [selectNodeKeys, setSelectNodeKeys] = useState<Key[]>([])
+    const [keyboardEvent] = useKeyDown();
+
     useEffect(() => {
         if (enableFirstLoadData === true) {
             loadData(null)
@@ -110,11 +115,18 @@ const Tree: FC<TreeProps> = ({
     const displayedNodes = getDisplayedNodes(_displayedNodes);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
+
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
+            e.node.loadState = LoadStateType.LOADING;
+            setLoadReadyNodeData(oldNodes => {
+                return [...oldNodes]
+            })
             loadData(e.node)
             .then((nodes) => {
                 e.node.loadState = LoadStateType.LOADING_COMPLETED;
-                setLoadReadyNodeData([...loadReadyNodeData, ...nodes])
+                setLoadReadyNodeData((oldNodes) => {
+                    return [...oldNodes, ...nodes]
+                })
             });
         }
         _onExpanded?.(e);
@@ -138,60 +150,86 @@ const Tree: FC<TreeProps> = ({
             }}
         >
              <SortableContext disabled={!draggable} items={displayedNodes}>
-                <RcVirtual
-                    gridTemplateColumns={[width]}
-                    gridTemplateRows={displayedNodes.map(({ height = defaultNodeHeight }) => height)}
-                    viewportWidth={width}
-                    viewportHeight={height}
-                    renderRows={(rowRange) => {
-                        const nodes: ReactNode[] = [];
-                        let rowIndex = rowRange[0];
-                        if (rowIndex > 0) {
-                            rowIndex -= 1;
-                        }
-                        for (; rowIndex <= rowRange[1]; rowIndex += 1) {
-                            const node = displayedNodes[rowIndex];
-                            nodes.push((
-                                <NodeItem
-                                    key={node.id}
-                                    node={node}
-                                    loading={false}
-                                    expanded={expandedKeys?.includes(node.id) === true}
-                                    draggable={draggable}
-                                    style={{
-                                        gridRowStart: rowIndex + 1,
-                                        paddingLeft: getTreeNodeDepth(node) * indentSize
-                                    }}
-                                    onExpanded={onExpanded}
-
-                                />
-                            ))
-                        }
-                        return nodes;
+                <div
+                    className={css`
+                        ${position('relative')}    
+                    `}
+                    onContextMenu={(e) => {
+                        console.log(e.movementX)
+                        console.log(e.movementY)
+                        e.preventDefault();
                     }}
-                    {...restProps}
-                />
-                {activeNode ? (
-                    createPortal(
-                        <DragOverlay
-                            className={css`
-                                pointer-events: none;
-                                ${boxShadow("sm")};
-                            `}
-                        >
-                            <NodeItem
-                                loading={false}
-                                node={activeNode}
-                                style={{
-                                    height: activeNode.height ?? defaultNodeHeight,
-                                    width: width,
-                                }}
-                                expanded={expandedKeys?.includes(activeNode.id) === true}
-                            />
-                        </DragOverlay>,
-                        document.body
-                    )
-                ): null}
+                >
+                    <RcVirtual
+                        gridTemplateColumns={[width]}
+                        gridTemplateRows={displayedNodes.map(({ height = defaultNodeHeight }) => height)}
+                        viewportWidth={width}
+                        viewportHeight={height}
+                        renderRows={(rowRange) => {
+                            const nodes: ReactNode[] = [];
+                            let rowIndex = rowRange[0];
+                            if (rowIndex > 0) {
+                                rowIndex -= 1;
+                            }
+                            for (; rowIndex <= rowRange[1]; rowIndex += 1) {
+                                const node = displayedNodes[rowIndex];
+                                nodes.push((
+                                    <NodeItem
+                                        key={node.id}
+                                        node={node}
+                                        selectd={selectNodeKeys.includes(node.id)}
+                                        loading={node.loadState === LoadStateType.LOADING}
+                                        expanded={expandedKeys?.includes(node.id) === true}
+                                        draggable={draggable}
+                                        style={{
+                                            gridRowStart: rowIndex + 1,
+                                            paddingLeft: getTreeNodeDepth(node) * indentSize
+                                        }}
+                                        onTitleClick={() => {
+                                            debugger
+                                            if (keyboardEvent.current?.ctrlKey === true) {
+                                                if (selectNodeKeys.includes(node.id)) {
+                                                    const newSelectNodeKeys = selectNodeKeys.filter(element => element !== node.id);
+                                                    setSelectNodeKeys?.(newSelectNodeKeys)
+                                                } else {
+                                                    selectNodeKeys.push(node.id);
+                                                    setSelectNodeKeys?.([...selectNodeKeys])
+                                                }
+                                            } else {
+                                                setSelectNodeKeys?.([node.id])
+                                            }
+                                        }}
+                                        onExpanded={onExpanded}
+                                    />
+                                ))
+                            }
+                            return nodes;
+                        }}
+                        {...restProps}
+                    />
+                    {activeNode ? (
+                        createPortal(
+                            <DragOverlay
+                                className={css`
+                                    pointer-events: none;
+                                    ${boxShadow("sm")};
+                                `}
+                            >
+                                <NodeItem
+                                    loading={false}
+                                    node={activeNode}
+                                    selectd={false}
+                                    style={{
+                                        height: activeNode.height ?? defaultNodeHeight,
+                                        width: width,
+                                    }}
+                                    expanded={expandedKeys?.includes(activeNode.id) === true}
+                                />
+                            </DragOverlay>,
+                            document.body
+                        )
+                    ): null}
+                </div>
              </SortableContext>
         </DndContext>
     )

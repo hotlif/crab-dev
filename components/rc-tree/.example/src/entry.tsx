@@ -25,7 +25,7 @@ const App = () => {
 					setExpandedKeys([...expandedKeys]);
 				}
 			}}
-			loadData={async (parentNode) => {
+			loadData={(parentNode) => {
 				if (parentNode === null) {
 					const nodes: Node[] = [];
 					for (let i = 1; i < 10000; i += 1) {
@@ -37,19 +37,27 @@ const App = () => {
 							loadState: LoadStateType.UNLOADED
 						})
 					}
-					return nodes;
+					return new Promise((resolve) => {
+						resolve(nodes)
+					});
 				} else {
 					const depth = getTreeNodeDepth(parentNode)
 					if (depth <= 1) {
-						return [{
-							id: `${parentNode.id}-0`,
-							type: NodeType.FOLDER,
-							title: `节点 - ${parentNode.id} - 0`,
-							parent: parentNode,
-							loadState: LoadStateType.UNLOADED
-						}]
+						return new Promise((resolve) => {
+							setTimeout(() => {
+								resolve([{
+									id: `${parentNode.id}-0`,
+									type: NodeType.FOLDER,
+									title: `节点 - ${parentNode.id} - 0`,
+									parent: parentNode,
+									loadState: LoadStateType.UNLOADED
+								}])
+							}, 1000)
+						});
 					}
-					return []
+					return new Promise((resolve) => {
+						resolve([]);
+					})
 				}
 			}}			
 		/>
