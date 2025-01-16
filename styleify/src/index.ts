@@ -64,6 +64,7 @@ export { padding } from "./spacing/padding";
 export { borderRadius } from "./borders/radius";
 
 export { cursor } from "./interactivity/cursor";
+export { spin } from "./keyframes/spin";
 
 
 export { preflight } from "./preflight";

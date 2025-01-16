@@ -1475,6 +1475,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/rc-hooks@workspace:^, @crab/rc-hooks@workspace:components/rc-hooks":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-hooks@workspace:components/rc-hooks"
+  dependencies:
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-react-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
+    "@linaria/core": "npm:^6.2.0"
+    "@types/node": "npm:^22.10.3"
+    "@types/react": "npm:^19.0.2"
+    "@types/react-dom": "npm:^19.0.2"
+    eslint: "npm:^9.17.0"
+    eslint-plugin-react: "npm:^7.37.3"
+    globals: "npm:^15.14.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    typescript: "npm:^5.7.2"
+    typescript-eslint: "npm:^8.18.2"
+  languageName: unknown
+  linkType: soft
+
 "@crab/rc-menu@workspace:^, @crab/rc-menu@workspace:components/rc-menu":
   version: 0.0.0-use.local
   resolution: "@crab/rc-menu@workspace:components/rc-menu"
@@ -1522,6 +1547,7 @@ __metadata:
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
+    "@crab/rc-hooks": "workspace:^"
     "@crab/rc-virtual": "workspace:^"
     "@crab/standards-eslint-react-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
@@ -1574,8 +1600,10 @@ __metadata:
   dependencies:
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-react-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
     "@crab/styleify": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
     "@linaria/core": "npm:^6.2.0"
     "@types/node": "npm:^22.10.3"
     "@types/react": "npm:^19.0.2"
@@ -1583,11 +1611,12 @@ __metadata:
     eslint: "npm:^9.17.0"
     eslint-plugin-react: "npm:^7.37.3"
     globals: "npm:^15.14.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
     typescript: "npm:^5.7.2"
     typescript-eslint: "npm:^8.18.2"
-  peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
   languageName: unknown
   linkType: soft
 

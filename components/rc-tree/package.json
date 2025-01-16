@@ -37,6 +37,7 @@
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {
+        "@crab/rc-hooks": "workspace:^",
         "@crab/rc-virtual": "workspace:^",
         "@crab/styleify": "workspace:^",
         "@dnd-kit/core": "^6.3.1",

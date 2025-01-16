@@ -19,6 +19,7 @@ import {
 
 import useVirtualItemRange from "./hooks/useVirtualItemRange";
 import ScrollBar, { useScrollbar } from "./scrollbar";
+import { getTemplateStyle } from "./util";
 
 
 export interface GridHandle {
@@ -261,8 +262,8 @@ const Grid: FC<GridProps> = ({
 				style={{
 					width: viewportWidth,
 					height: viewportHeight,
-					gridTemplateColumns: gridTemplateColumns.map(element => `${element}px`).join(" "),
-					gridTemplateRows: gridTemplateRows.map(element => `${element}px`).join(" ")
+					gridTemplateColumns: getTemplateStyle(gridTemplateColumns),
+					gridTemplateRows: getTemplateStyle(gridTemplateRows)
 				}}
 				ref={divGridRef}
 				{...restProps}
