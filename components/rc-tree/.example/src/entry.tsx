@@ -14,6 +14,34 @@ const App = () => {
 			width={300}
 			draggable
 			expandedKeys={expandedKeys}
+			rendererContextMenu={(node) => {
+				if (node === null) {
+					return (
+						<div
+							style={{
+								backgroundColor: "red",
+								padding: "1rem"
+							}}
+						>
+							<button disabled>添加</button>
+							<button disabled>删除</button>
+							<button disabled>修改</button>
+						</div>
+					)
+				}
+				return (
+					<div
+						style={{
+							backgroundColor: "red",
+							padding: "1rem"
+						}}
+					>
+						<button>添加</button>
+						<button>删除</button>
+						<button>修改</button>
+					</div>
+				)
+			}}
 			onExpanded={({
 				node,
 			}) => {
@@ -41,8 +69,8 @@ const App = () => {
 						resolve(nodes)
 					});
 				} else {
-					const depth = getTreeNodeDepth(parentNode)
-					if (depth <= 1) {
+					const depth = getTreeNodeDepth(parentNode);
+					if (depth <= 10) {
 						return new Promise((resolve) => {
 							setTimeout(() => {
 								resolve([{

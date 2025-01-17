@@ -1,9 +1,9 @@
-import { type Key, useEffect, useState, type FC, type ReactNode, HTMLAttributes } from "react";
-import RcVirtual from "@crab/rc-virtual";
+import { type Key, useEffect, useState, type FC, type ReactNode, HTMLAttributes, useRef } from "react";
 import { createPortal } from "react-dom";
 import { css } from "@linaria/core";
 import { DndContext, DragOverlay, type UniqueIdentifier } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
+import RcVirtual from "@crab/rc-virtual";
 import { boxShadow, position } from "@crab/styleify";
 import {
     useKeyDown
@@ -57,11 +57,9 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
     loadData: (parentNode: Node | null) => Promise<Node[]>
 
     /**
-     * 搜索
-     * @param keyword 根据关键字搜索节点
-     * @returns 返回对应搜索的节点信息
+     * 渲染右键菜单
      */
-    onSearch?: (keyword: string) => Promise<Node[]>
+    rendererContextMenu?: (node: Node | null) => ReactNode
 
     /**
      * 展开节点的事件
@@ -78,21 +76,36 @@ const Tree: FC<TreeProps> = ({
     defaultNodeHeight = 24,
     indentSize = 24,
     loadData,
-    onSearch,
     onExpanded: _onExpanded,
+    rendererContextMenu,
     ...restProps
 }) => {
     const [loadReadyNodeData, setLoadReadyNodeData] = useState<Node[]>([]);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const [selectNodeKeys, setSelectNodeKeys] = useState<Key[]>([])
     const [keyboardEvent] = useKeyDown();
+    const [mouseContextMenuNodeTitlePosition, setContextMenuNodeTitlePosition] = useState<number[]>([0, 0]);
+    const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
+    const contextMenuNode = useRef<Node | null>(null);
+    const divRef = useRef<HTMLDivElement>(null);
+    const contextMenuDivRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (enableFirstLoadData === true) {
             loadData(null)
                 .then((nodes) => {
-                    setLoadReadyNodeData([...loadReadyNodeData, ...nodes])
+                    setLoadReadyNodeData(nodes.map(node => ({...node, path: []})))
                 });
+        }
+        const onClick = (event: MouseEvent) => {
+            if (!contextMenuDivRef.current?.contains(event.target as globalThis.Node)) {
+                contextMenuNode.current = null;
+                setIsOpenContextMenu(false);
+            }
+        }
+        document.addEventListener("click", onClick);
+        return () => {
+            document.removeEventListener("click", onClick);
         }
     }, [])
 
@@ -100,31 +113,27 @@ const Tree: FC<TreeProps> = ({
     const activeNode = _displayedNodes.find(element => element.id === activeId);
 
     const getDisplayedNodes = (nodes: Node[]) => {
-        const [rootNodes, childNodes] = getLoadReadyTreeNodeData(nodes);
-        const resultDisplayedNodes: Node[] = [];
-        rootNodes.forEach(element => {
-            const elementNodes = childNodes.find(node => node?.[0]?.parent?.id === element.id);
-            resultDisplayedNodes.push(element);
-            if (elementNodes != null) {
-                resultDisplayedNodes.push(...elementNodes);
-            }
-        })
-        return resultDisplayedNodes;
+        return getLoadReadyTreeNodeData(null, nodes);;
     }
 
     const displayedNodes = getDisplayedNodes(_displayedNodes);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
-
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
-            e.node.loadState = LoadStateType.LOADING;
             setLoadReadyNodeData(oldNodes => {
-                return [...oldNodes]
+                const node = oldNodes.find(element => element.id === e.node.id);
+                if (node != null) {
+                    node.loadState = LoadStateType.LOADING;
+                }
+                return oldNodes
             })
             loadData(e.node)
             .then((nodes) => {
-                e.node.loadState = LoadStateType.LOADING_COMPLETED;
                 setLoadReadyNodeData((oldNodes) => {
+                    const node = oldNodes.find(element => element.id === e.node.id);
+                    if (node != null) {
+                        node.loadState = LoadStateType.LOADING_COMPLETED;
+                    }
                     return [...oldNodes, ...nodes]
                 })
             });
@@ -132,6 +141,16 @@ const Tree: FC<TreeProps> = ({
         _onExpanded?.(e);
     }
 
+    const getLeftAndTop = () => {
+        const rect = divRef.current?.getBoundingClientRect()
+        if (rect) {
+            return [rect.left, rect.top]
+        } else {
+            return [0, 0]
+        }
+    }
+
+    const [divLeft, divTop] = getLeftAndTop();
     return (
         <DndContext
             onDragEnd={(event) => {
@@ -139,7 +158,6 @@ const Tree: FC<TreeProps> = ({
                 if (!over) return;
                 const oldIndex = loadReadyNodeData.findIndex(node => node.id === active.id);
                 const newIndex = loadReadyNodeData.findIndex(node => node.id === over.id);
-                
             }}
             onDragStart={({
                 active,
@@ -151,12 +169,16 @@ const Tree: FC<TreeProps> = ({
         >
              <SortableContext disabled={!draggable} items={displayedNodes}>
                 <div
+                    ref={divRef}
                     className={css`
                         ${position('relative')}    
                     `}
-                    onContextMenu={(e) => {
-                        console.log(e.movementX)
-                        console.log(e.movementY)
+                    onContextMenu={e => {
+                        const x = e.clientX;
+                        const y = e.clientY;
+                        setContextMenuNodeTitlePosition([x, y]);
+                        setIsOpenContextMenu(true);
+                        contextMenuNode.current = null;
                         e.preventDefault();
                     }}
                 >
@@ -165,6 +187,9 @@ const Tree: FC<TreeProps> = ({
                         gridTemplateRows={displayedNodes.map(({ height = defaultNodeHeight }) => height)}
                         viewportWidth={width}
                         viewportHeight={height}
+                        onWheel={() => {
+                            setIsOpenContextMenu(false);
+                        }}
                         renderRows={(rowRange) => {
                             const nodes: ReactNode[] = [];
                             let rowIndex = rowRange[0];
@@ -183,10 +208,9 @@ const Tree: FC<TreeProps> = ({
                                         draggable={draggable}
                                         style={{
                                             gridRowStart: rowIndex + 1,
-                                            paddingLeft: getTreeNodeDepth(node) * indentSize
+                                            paddingLeft: getTreeNodeDepth(node) * indentSize,
                                         }}
                                         onTitleClick={() => {
-                                            debugger
                                             if (keyboardEvent.current?.ctrlKey === true) {
                                                 if (selectNodeKeys.includes(node.id)) {
                                                     const newSelectNodeKeys = selectNodeKeys.filter(element => element !== node.id);
@@ -200,6 +224,15 @@ const Tree: FC<TreeProps> = ({
                                             }
                                         }}
                                         onExpanded={onExpanded}
+                                        onTitleContextMenu={(e) => {
+                                            const x = e.clientX;
+                                            const y = e.clientY;
+                                            setContextMenuNodeTitlePosition([x, y]);
+                                            setIsOpenContextMenu(true);
+                                            contextMenuNode.current = node;
+                                            e.stopPropagation();
+                                            e.preventDefault();
+                                        }}
                                     />
                                 ))
                             }
@@ -229,6 +262,18 @@ const Tree: FC<TreeProps> = ({
                             document.body
                         )
                     ): null}
+
+                    <div
+                        style={{
+                            position: 'absolute',
+                            visibility: isOpenContextMenu ? 'visible' : 'hidden',
+                            left: mouseContextMenuNodeTitlePosition[0] - divLeft,
+                            top: mouseContextMenuNodeTitlePosition[1] - divTop
+                        }}
+                        ref={contextMenuDivRef}
+                    >
+                        {rendererContextMenu?.(contextMenuNode.current)}
+                    </div>
                 </div>
              </SortableContext>
         </DndContext>
