@@ -12,6 +12,14 @@ describe('getLoadReadyTreeNodeData', () => {
             title: "标题 一"
         }
     
+        const parent15 = {
+            id: 5,
+            parent: parent1,
+            type: NodeType.FOLDER,
+            loadState: LoadStateType.UNLOADED,
+            title: "标题 五"
+        }
+        
         const nodes: Node[] = [
             parent1,
             {
@@ -35,31 +43,18 @@ describe('getLoadReadyTreeNodeData', () => {
                 title: "标题 四",
                 loadState: LoadStateType.UNLOADED,
             },
-            {
-                id: 5,
-                parent: parent1,
-                type: NodeType.FOLDER,
-                loadState: LoadStateType.UNLOADED,
-                title: "标题 五"
-            },
+            parent15,
             {
                 id: 6,
-                parent: parent1,
+                parent: parent15,
                 type: NodeType.FOLDER,
                 loadState: LoadStateType.UNLOADED,
                 title: "标题 六"
             },
         ];
 
-
-        const [rootNodes, childNodes] = getLoadReadyTreeNodeData(nodes);
-        expect(rootNodes).toEqual([
-            nodes[0],
-            nodes[1],
-            nodes[2],
-            nodes[3]
-        ]);
-        expect(rootNodes).toMatchSnapshot();
-        expect(childNodes).toMatchSnapshot();
+        const resultNodes = getLoadReadyTreeNodeData(null, nodes);
+        expect(resultNodes.length).toBe(6)
+        expect(resultNodes).toMatchSnapshot();
     });
 });

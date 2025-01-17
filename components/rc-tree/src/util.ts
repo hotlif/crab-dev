@@ -1,24 +1,48 @@
 import { type Node } from "./type";
 
-export const getLoadReadyTreeNodeData = (loadReadyNodeData: Node[]): [Node[], Node[][]] => {
-    const rootNodes: Node[] = [];
-    const childNodes: Node[][] = [];
-    for (let i = 0; i < loadReadyNodeData.length; i += 1) {
-        const node = loadReadyNodeData[i];
-        if (node.parent == null) {
-            rootNodes.push(node);
-            continue;
-        }
-        const nodeIndex = childNodes.findIndex(nodes => nodes.find(n => n.parent === node.parent));
-        if (nodeIndex === -1) {
-            childNodes.push([node]);
+/**
+ * 从给定的父节点开始检索准备加载的树节点数据。
+ *
+ * @param parent - 要开始加载树节点数据的父节点。可以为 null。
+ * @param loadReadyNodeData - 准备加载的节点数组。
+ * @returns 准备加载的节点数组，包括它们的子节点。
+ */
+export const getLoadReadyTreeNodeData = (parent: Node | null, loadReadyNodeData: Node[]): Node[] => {
+    const result: Node[] = [];
+    const nodesData: Node[] = [];
+    const otherData: Node[] = [];
+    loadReadyNodeData.forEach(node => {
+        if (parent?.id === node?.parent?.id) {
+            nodesData.push({
+                ...node,
+            });
         } else {
-            childNodes[nodeIndex].push(node);
+            otherData.push(node);
         }
-    }
-    return [rootNodes, childNodes];
+    })
+    nodesData.forEach(element => {
+        result.push({
+            ...element,
+        });
+        const childrenNodes: Node[] = []
+        const otherChildrenData: Node[] = []
+        otherData.forEach(node => {
+            if (node.parent?.id === element.id) {
+                childrenNodes.push({
+                    ...node,
+                });
+            } else {
+                otherChildrenData.push(node);
+            }
+        })
+        result.push(...childrenNodes);
+        childrenNodes.forEach(cNode => {
+            const data = getLoadReadyTreeNodeData(cNode, otherChildrenData)
+            result.push(...data)
+        });
+    })
+    return result
 }
-
 
 export const getTreeNodeDepth = (node: Node) => {
     let parentNode: Node | null = node;
@@ -32,3 +56,4 @@ export const getTreeNodeDepth = (node: Node) => {
     }
     return depth;
 }
+

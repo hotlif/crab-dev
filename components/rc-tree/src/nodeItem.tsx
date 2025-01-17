@@ -1,4 +1,4 @@
-import { type MouseEvent, type FC, type HTMLAttributes } from "react";
+import { type MouseEvent, type FC, type HTMLAttributes, CSSProperties } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx } from "@linaria/core";
 import {
@@ -14,7 +14,12 @@ import { NodeType, type Node } from "./type";
 import { CaretDownFill, CaretRightFill, Draggable, Loading } from "./icon";
 import {
     TreeNodeIconHoverBgColor,
-    TreeNodeTitleHoverBgColor
+    TreeNodeTitleHoverBgColor,
+    TreeNodeIconLoadingColor,
+    TreeNodeTitleBorderRadius,
+    TreeNodeTitleSelectBgColor,
+    TreeNodeDraggableIconColor,
+    TreeNodeIconBorderRadius,
 } from "./token";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -27,6 +32,7 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
         event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
     }) => void
     onTitleClick?: (event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => void
+    onTitleContextMenu?: HTMLAttributes<HTMLDivElement>["onContextMenu"]
 }
 
 const cssIconStyle = `
@@ -40,6 +46,7 @@ const cssIconStyle = `
 const expandedAndCloseIcon = css`
     ${cursor("pointer")}
     ${cssIconStyle}
+    ${TreeNodeIconBorderRadius}
     &:hover {
        ${TreeNodeIconHoverBgColor}
     }
@@ -55,6 +62,7 @@ const NodeItem: FC<NodeItemProps> = ({
     expanded = false,
     onTitleClick,
     onExpanded,
+    onTitleContextMenu,
     ...restProps
 }) => {
     const { attributes, listeners, setNodeRef } = useSortable({ id: node.id });
@@ -66,6 +74,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         animation: spin 1s linear infinite;
                         ${cssIconStyle}
                         ${spin}
+                       ${TreeNodeIconLoadingColor}
                     `}
                 >
                     <Loading />
@@ -125,7 +134,8 @@ const NodeItem: FC<NodeItemProps> = ({
                     className={css`
                         ${cursor("grab")}
                         text-align: center;
-                        color: rgba(0, 0, 0, 0.25);
+                        ${TreeNodeDraggableIconColor}
+                        
                     `}
                     {...listeners}
                 >
@@ -137,17 +147,19 @@ const NodeItem: FC<NodeItemProps> = ({
                 className={css`
                     ${cursor("pointer")}
                     ${padding("px-2")}
+                    ${TreeNodeTitleBorderRadius}
                     &:hover {
                         ${TreeNodeTitleHoverBgColor}
                     }
                     &[data-node-item-selectd="true"] {
-                        background-color: #e6f4ff;
+                        ${TreeNodeTitleSelectBgColor}
                     }
                 `}
                 data-node-item-selectd={selectd}
                 onClick={(e) => {
                     onTitleClick?.(e)
                 }}
+                onContextMenu={onTitleContextMenu}
             >
                 {node.title}
             </span>
