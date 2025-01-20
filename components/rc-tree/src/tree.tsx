@@ -8,7 +8,7 @@ import { boxShadow, position } from "@crab/styleify";
 import {
     useKeyDown
 } from "@crab/rc-hooks";
-import { LoadStateType, type Node } from "./type";
+import { LoadStateType, OverStateEnum, type Node } from "./type";
 import NodeItem, { type NodeItemProps } from "./nodeItem";
 import { getLoadReadyTreeNodeData, getTreeNodeDepth } from "./util";
 
@@ -35,14 +35,14 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
     expandedKeys?: Key[]
 
     /**
+     * 是否展示连接线
+     */
+    showLine?: boolean
+
+    /**
      * 默认节点高度
      */
     defaultNodeHeight?: number
-
-    /**
-     * 缩进宽度
-     */
-    indentSize?: number;
 
     /**
      * 是否启用初始化组件的时候就开始加载数据, 默认情况下第一次会加载数据
@@ -67,14 +67,19 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
     onExpanded?: NodeItemProps["onExpanded"]
 }
 
+interface OverState {
+    id: UniqueIdentifier,
+    state: OverStateEnum
+} 
+
 const Tree: FC<TreeProps> = ({
     width,
     height,
     expandedKeys = [],
     enableFirstLoadData = true,
     draggable = false,
+    showLine,
     defaultNodeHeight = 24,
-    indentSize = 24,
     loadData,
     onExpanded: _onExpanded,
     rendererContextMenu,
@@ -89,6 +94,7 @@ const Tree: FC<TreeProps> = ({
     const contextMenuNode = useRef<Node | null>(null);
     const divRef = useRef<HTMLDivElement>(null);
     const contextMenuDivRef = useRef<HTMLDivElement>(null);
+    const [overState, setOverState] = useState<OverState | null>(null);
 
     useEffect(() => {
         if (enableFirstLoadData === true) {
@@ -151,23 +157,63 @@ const Tree: FC<TreeProps> = ({
     }
 
     const [divLeft, divTop] = getLeftAndTop();
+
+
+    const dragStartPosition = useRef<{
+        x: number
+        y: number
+    }>({
+        x: 0,
+        y: 0
+    })
     return (
         <DndContext
             onDragEnd={(event) => {
                 const { active, over } = event;
+                dragStartPosition.current.x = 0;
+                dragStartPosition.current.y = 0;
+                setOverState(null);
                 if (!over) return;
                 const oldIndex = loadReadyNodeData.findIndex(node => node.id === active.id);
                 const newIndex = loadReadyNodeData.findIndex(node => node.id === over.id);
             }}
-            onDragStart={({
-                active,
-                activatorEvent
-            }) => {
-                setActiveId(active.id);
+            onDragStart={(event) => {
+                setActiveId(event.active.id);
+                const activatorEvent = event.activatorEvent as PointerEvent;
+                dragStartPosition.current.x = activatorEvent.clientX;
+                dragStartPosition.current.y = activatorEvent.clientY;
                 activatorEvent.preventDefault();
             }}
+            onDragMove={(event) => {
+                if (event.over && event.over.id !== event.active.id) {
+                    const rect = event.over.rect;
+                    const top = dragStartPosition.current.y + event.delta.y - rect.top
+                    const left = dragStartPosition.current.x + event.delta.x - rect.left
+                    if (left >=  rect.width / 3) {
+                        setOverState({
+                            id: event.over.id,
+                            state: OverStateEnum.INSIDE
+                        })
+                    } else if (top <= rect.height / 3) {
+                        setOverState({
+                            id: event.over.id,
+                            state: OverStateEnum.UPWARD
+                        })
+                    } else {
+                        setOverState({
+                            id: event.over.id,
+                            state: OverStateEnum.DOWN
+                        })
+                    }
+                } else {
+                    setOverState(null)
+                }
+            }}
         >
-             <SortableContext disabled={!draggable} items={displayedNodes}>
+             <SortableContext
+                disabled={!draggable}
+                items={displayedNodes}
+            >
                 <div
                     ref={divRef}
                     className={css`
@@ -196,19 +242,20 @@ const Tree: FC<TreeProps> = ({
                             if (rowIndex > 0) {
                                 rowIndex -= 1;
                             }
-                            for (; rowIndex <= rowRange[1]; rowIndex += 1) {
-                                const node = displayedNodes[rowIndex];
-                                nodes.push((
+
+                            const getNodeItemElement = (node: Node) => {
+                                return (
                                     <NodeItem
                                         key={node.id}
                                         node={node}
+                                        overState={node.id === overState?.id ? overState.state : undefined}
                                         selectd={selectNodeKeys.includes(node.id)}
                                         loading={node.loadState === LoadStateType.LOADING}
                                         expanded={expandedKeys?.includes(node.id) === true}
                                         draggable={draggable}
+                                        showLine={showLine}
                                         style={{
                                             gridRowStart: rowIndex + 1,
-                                            paddingLeft: getTreeNodeDepth(node) * indentSize,
                                         }}
                                         onTitleClick={() => {
                                             if (keyboardEvent.current?.ctrlKey === true) {
@@ -234,7 +281,12 @@ const Tree: FC<TreeProps> = ({
                                             e.preventDefault();
                                         }}
                                     />
-                                ))
+                                )
+                            }
+
+                            for (; rowIndex <= rowRange[1]; rowIndex += 1) {
+                                const node = displayedNodes[rowIndex];
+                                nodes.push(getNodeItemElement(node))
                             }
                             return nodes;
                         }}

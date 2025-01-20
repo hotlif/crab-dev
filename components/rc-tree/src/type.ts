@@ -1,6 +1,13 @@
 import { type UniqueIdentifier } from "@dnd-kit/core";
 import { type ReactNode } from "react";
 
+export enum OverStateEnum {
+    UPWARD,
+    DOWN,
+    INSIDE,
+}
+
+
 export enum NodeType {
     FOLDER,
     FILE
