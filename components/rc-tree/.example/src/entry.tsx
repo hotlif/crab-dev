@@ -9,10 +9,11 @@ const App = () => {
 	const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
 
     return (
-        <RcTree
+		<RcTree
 			height={200}
 			width={300}
 			draggable
+			showLine
 			expandedKeys={expandedKeys}
 			rendererContextMenu={(node) => {
 				if (node === null) {
@@ -89,6 +90,7 @@ const App = () => {
 				}
 			}}			
 		/>
+	
     )
 }
 
