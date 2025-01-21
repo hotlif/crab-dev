@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 1`] = `
-"import { lazy, ComponentType } from "react";
+"import { lazy } from "react";
 
 const ___TestDirectoryStructure_A_A1_ts = lazy(() => import("@@/TestDirectoryStructure/A/A1.ts"));
 const ___TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@@/TestDirectoryStructure/A/AA/AA1.ts"));
@@ -17,7 +17,7 @@ export default components;"
 `;
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 2`] = `
-"import { lazy, ComponentType } from "react";
+"import { lazy } from "react";
 import ___TestDirectoryStructure_A_A1_ts_source from ".//TestDirectoryStructure/A/A1.ts.raw";
 import ___TestDirectoryStructure_A_AA_AA1_ts_source from ".//TestDirectoryStructure/A/AA/AA1.ts.raw";
 import ___TestDirectoryStructure_A_ts_source from ".//TestDirectoryStructure/A.ts.raw";
