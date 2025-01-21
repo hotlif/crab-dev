@@ -11,6 +11,8 @@ import {
     textAlign,
     spin,
     position,
+    textOverflow,
+    whitespace
 } from "@crab/styleify";
 import { NodeType, OverStateEnum, type Node } from "./type";
 import { getTreeNodeDepth } from "./util";
@@ -172,6 +174,7 @@ const NodeItem: FC<NodeItemProps> = ({
             ${fontSize("sm")}
             ${display("flex")}
             ${alignItems("center")}
+            ${whitespace("nowrap")}
             border-radius: ${TreeNodeBorderRadius};
             user-select: none;
         `,
@@ -196,7 +199,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         ${position("relative")}
                         width: ${TreeIndentSize};
                         ${height("full")}
-                        text-align: center;
+                        ${textAlign("center")}
                         &::before {
                             ${display('inline-block')}
                             width: 1px;
@@ -249,6 +252,7 @@ const NodeItem: FC<NodeItemProps> = ({
                 className={css`
                     ${cursor("pointer")}
                     ${padding("px-2")}
+                    ${textOverflow("text-ellipsis")}
                     border-radius: inherit;
                     &:hover {
                         background-color: ${TreeNodeTitleHoverBgColor};
