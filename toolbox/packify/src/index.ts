@@ -15,7 +15,9 @@ export const build = async () => {
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
         plugins: [
-            typescript(),
+            typescript({
+                exclude: ["**/?(*.)+(spec|test).[tj]s?(x)"]
+            }),
             nodeResolve({ extensions }),
             wyw({
                 sourceMap: false,

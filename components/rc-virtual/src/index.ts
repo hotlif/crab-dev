@@ -1,7 +1,8 @@
-import Gird, { type GridProps } from "./grid";
+import Virtual, { type VirtualProps, type VirtualHandle } from "./virtual";
 
 export {
-	GridProps
+	type VirtualProps,
+	type VirtualHandle
 };
 
-export default Gird;
+export default Virtual;
