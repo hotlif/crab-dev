@@ -13,7 +13,4 @@
 	- [x] 预设 Node 的 TypeScript 的规则
 - `@crab/packify` 用来构建依赖库的打包工具, 预设了 babel 和 linaria 等一些配置
 - `@crab/crustify` 用来构建 React 开发的构建器, 预设了 babel 和 linaria 等一些配置
-- `@crab/sketchify` UI 界面设计器, 可用来设计 Web 端, 以及移动端的草稿"
 - `@crab/styleify` 通过提供预设的 CSS 变量、简化的类名和跨浏览器兼容性支持，优化了开发流程并提高了开发效率。
-- `@crab/videoify` 可定制、并且易于访问的视频播放器
-- `@crab/wordify` 文本编辑器，帮助用户便捷地编辑、发布和分享格式化文本内容
