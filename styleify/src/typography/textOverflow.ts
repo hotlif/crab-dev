@@ -9,5 +9,5 @@ const TextOverflowValue = {
 }
 
 export const textOverflow = (key: keyof typeof TextOverflowValue) => {
-    return `text-indent: ${TextOverflowValue[key]};`;
+    return TextOverflowValue[key];
 }
