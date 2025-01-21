@@ -8,7 +8,9 @@ import {
     cursor,
     height,
     padding,
+    textAlign,
     spin,
+    position,
 } from "@crab/styleify";
 import { NodeType, OverStateEnum, type Node } from "./type";
 import { getTreeNodeDepth } from "./util";
@@ -19,9 +21,11 @@ import {
     TreeNodeIconLoadingColor,
     TreeNodeTitleSelectBgColor,
     TreeNodeDraggableIconColor,
-    TreeNodeDraggableBorder,
+    TreeNodeDraggableBorderWidth,
     TreeNodeBorderRadius,
     TreeIndentSize,
+    TreeNodeDraggableBorderStyle,
+    TreeNodeDraggableBorderColor,
 } from "./token";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -52,7 +56,7 @@ const expandedAndCloseIcon = css`
     ${cssIconStyle}
     border-radius: inherit;
     &:hover {
-       ${TreeNodeIconHoverBgColor}
+       background-color: ${TreeNodeIconHoverBgColor};
     }
 `;
 
@@ -88,7 +92,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         animation: spin 1s linear infinite;
                         ${cssIconStyle}
                         ${spin}
-                       ${TreeNodeIconLoadingColor}
+                        color: ${TreeNodeIconLoadingColor};
                     `}
                 >
                     <Loading />
@@ -139,7 +143,7 @@ const NodeItem: FC<NodeItemProps> = ({
         if (isDragging) {
             return css`
                 pointer-events: none;
-                ${TreeNodeDraggableBorder}
+                border: ${TreeNodeDraggableBorderWidth} ${TreeNodeDraggableBorderStyle} ${TreeNodeDraggableBorderColor};
             `
         }
         return null;
@@ -168,7 +172,7 @@ const NodeItem: FC<NodeItemProps> = ({
             ${fontSize("sm")}
             ${display("flex")}
             ${alignItems("center")}
-            ${TreeNodeBorderRadius}
+            border-radius: ${TreeNodeBorderRadius};
             user-select: none;
         `,
         generateDraggingOverStyle(),
@@ -182,21 +186,21 @@ const NodeItem: FC<NodeItemProps> = ({
         const depth = getTreeNodeDepth(node);
         const indents: ReactNode[] = []
         for (let i = 0; i < depth; i += 1) {
-            const styles: CSSProperties = {};
             indents.push(
                 <span
                     style={{
                         paddingLeft: 16
                     }}
+                    key={`tree-node-line-${node.id}-${i}`}
                     className={css`
-                        position: relative;
+                        ${position("relative")}
                         width: ${TreeIndentSize};
-                        height: 100%;
+                        ${height("full")}
                         text-align: center;
                         &::before {
-                            display: inline-block;
+                            ${display('inline-block')}
                             width: 1px;
-                            height: 100%;
+                            ${height("full")}
                             border-inline-end: 1px solid #d9d9d9;
                             content: "";
                         }
@@ -247,10 +251,10 @@ const NodeItem: FC<NodeItemProps> = ({
                     ${padding("px-2")}
                     border-radius: inherit;
                     &:hover {
-                        ${TreeNodeTitleHoverBgColor}
+                        background-color: ${TreeNodeTitleHoverBgColor};
                     }
                     &[data-node-item-selectd="true"] {
-                        ${TreeNodeTitleSelectBgColor}
+                        background-color: ${TreeNodeTitleSelectBgColor};
                     }
                 `}
                 data-node-item-selectd={selectd}
