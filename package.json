@@ -3,6 +3,9 @@
     "preview": true,
     "packageManager": "yarn@4.6.0",
     "type": "module",
+    "scripts": {
+        "test": "yarn workspaces foreach --all run test"
+    },
     "workspaces": [
         "standards/*",
         "toolbox/*",

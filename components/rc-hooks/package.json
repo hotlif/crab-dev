@@ -5,7 +5,6 @@
     "type": "module",
     "scripts": {
         "build": "packify build",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
     "files": [
