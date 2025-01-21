@@ -22,7 +22,7 @@ import ScrollBar, { useScrollbar } from "./scrollbar";
 import { getTemplateStyle } from "./util";
 
 
-export interface GridHandle {
+export interface VirtualHandle {
 	scrollToCell: (position: {
 		rowIndex?: number,
 		columnIndex?: number
@@ -34,20 +34,20 @@ export interface GridHandle {
 	};
 }
 
-export interface GridProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface VirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 	gridTemplateColumns: number[]
 	gridTemplateRows: number[]
 	viewportWidth: number,
 	viewportHeight: number,
 	renderRows: (rowRange: [number, number], columnRange: [number, number]) => ReactNode,
-	gridRef?: RefObject<GridHandle | null>
+	gridRef?: RefObject<VirtualHandle | null>
 }
 
 /**
  * 根据 CSS 的 Grid 规范, 限制行和列的值区间在 [-10000, 10000] 
  * see https://drafts.csswg.org/css-grid/#overlarge-grids
  */
-const Grid: FC<GridProps> = ({
+const Virtual: FC<VirtualProps> = ({
 	className,
 	style,
 	gridTemplateColumns,
@@ -309,4 +309,4 @@ const Grid: FC<GridProps> = ({
 	);
 };
 
-export default Grid;
+export default Virtual;

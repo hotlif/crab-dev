@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { getTemplateStyle } from "../src/util";
+import { getTemplateStyle } from "../util";
 
 
 describe('test rc-virtual', () => {
