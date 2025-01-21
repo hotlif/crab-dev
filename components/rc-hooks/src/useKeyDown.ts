@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export const useKeyDown = () => {
     const keyboardEvent = useRef<KeyboardEvent>(null)

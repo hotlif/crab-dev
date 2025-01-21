@@ -16,10 +16,10 @@ export const getTemplateStyle = (objs: number[]) => {
     let template = "";
     result.forEach(row => {
         if (row.length > 1) {
-            template += `repeat(${row.length}, ${row[0]}px) `
+            template += ` repeat(${row.length}, ${row[0]}px)`
         } else {
-            template += `${row?.[0]}`
+            template += ` ${row?.[0]}`
         }
     })
-    return template;
+    return template.trim();
 }
