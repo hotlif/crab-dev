@@ -13,7 +13,6 @@ const App = () => {
 			height={200}
 			width={300}
 			draggable
-			showLine
 			expandedKeys={expandedKeys}
 			rendererContextMenu={(node) => {
 				if (node === null) {
