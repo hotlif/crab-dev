@@ -42,6 +42,11 @@ const App = () => {
 					</div>
 				)
 			}}
+			onDragEnd={(event, context) => {
+				const over = event.over;
+				const active = event.active
+				console.log(over, active, context)
+			}}
 			onExpanded={({
 				node,
 			}) => {
@@ -80,7 +85,7 @@ const App = () => {
 									parent: parentNode,
 									loadState: LoadStateType.UNLOADED
 								}])
-							}, 1000)
+							}, 0)
 						});
 					}
 					return new Promise((resolve) => {
