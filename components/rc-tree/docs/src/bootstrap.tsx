@@ -4,7 +4,7 @@ const App = () => {
         <head>
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>@crab/rc-tree</title>
+            <title>@crab/rc-tree - 树形组件</title>
         </head>
         <body>
             <div id="root"></div>

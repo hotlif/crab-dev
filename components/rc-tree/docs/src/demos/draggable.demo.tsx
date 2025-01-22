@@ -1,13 +1,10 @@
-import React, { Key, useState } from "react";
-import { createRoot } from "react-dom/client";
-import RcTree from "../../src/index";
-import { LoadStateType, NodeType, type Node } from "../../src/type";
-import "@crab/rc-virtual/esm/index.styles.css"
-import { getTreeNodeDepth } from "../../src/util";
+import { type Key, useState } from "react"
+import RcTree from "../../../src/index";
+import { LoadStateType, NodeType, Node } from "../../../src/type";
+import { getTreeNodeDepth } from "../../../src/util";
 
-const App = () => {
-	const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
-
+const DraggableTree = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
     return (
 		<RcTree
 			height={200}
@@ -94,13 +91,7 @@ const App = () => {
 				}
 			}}			
 		/>
-	
     )
 }
 
-const rootDom = document.querySelector("#root");
-
-if (rootDom != null) {
-	const root = createRoot(rootDom);
-	root.render(<App />);
-}
+export default DraggableTree;

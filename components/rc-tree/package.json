@@ -1,6 +1,6 @@
 {
     "name": "@crab/rc-tree",
-    "description": "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。",
+    "description": "一个多功能且可定制的树形组件，用于React应用程序，提供高效的渲染和拖放功能。",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {

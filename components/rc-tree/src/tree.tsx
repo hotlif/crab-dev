@@ -1,7 +1,28 @@
-import { type Key, useEffect, useState, type FC, type ReactNode, HTMLAttributes, useRef } from "react";
-import { createPortal } from "react-dom";
+import {
+    useEffect,
+    useState,
+    useRef,
+    type Key,
+    type FC,
+    type ReactNode,
+    type HTMLAttributes,
+} from "react";
+import {
+    createPortal
+} from "react-dom";
 import { css } from "@linaria/core";
-import { DndContext, DragAbortEvent, DragCancelEvent, DragEndEvent, DragMoveEvent, DragOverEvent, DragOverlay, DragPendingEvent, DragStartEvent, type UniqueIdentifier } from "@dnd-kit/core";
+import {
+    DndContext,
+    DragAbortEvent,
+    DragCancelEvent,
+    DragEndEvent,
+    DragMoveEvent,
+    DragOverEvent,
+    DragOverlay,
+    DragPendingEvent,
+    DragStartEvent,
+    type UniqueIdentifier
+} from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab/rc-virtual";
 import { boxShadow, position } from "@crab/styleify";
@@ -82,12 +103,39 @@ export interface TreeProps extends Omit<
      */
     onExpanded?: NodeItemProps["onExpanded"]
 
+    /**
+     * 拖拽中止事件
+     */
     onDragAbort?: (event: DragAbortEvent, context: Context) => void;
+
+    /**
+     * 拖拽待定事件
+     */
     onDragPending?: (event: DragPendingEvent, context: Context) => void;
+
+    /**
+     * 拖拽开始事件
+     */
     onDragStart?: (event: DragStartEvent, context: Context) => void;
+
+    /**
+     * 拖拽移动事件
+     */
     onDragMove?: (event: DragMoveEvent, context: Context) => void;
+
+    /**
+     * 拖拽悬停事件
+     */
     onDragOver?: (event: DragOverEvent, context: Context) => void;
+
+    /**
+     * 拖拽结束事件
+     */
     onDragEnd?: (event: DragEndEvent, context: Context) => void;
+
+    /**
+     * 拖拽取消事件
+     */
     onDragCancel?: (event: DragCancelEvent, context: Context) => void;
 }
 
