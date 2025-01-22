@@ -1,7 +1,7 @@
 import { type Key, useEffect, useState, type FC, type ReactNode, HTMLAttributes, useRef } from "react";
 import { createPortal } from "react-dom";
 import { css } from "@linaria/core";
-import { DndContext, DragOverlay, type UniqueIdentifier } from "@dnd-kit/core";
+import { DndContext, DragAbortEvent, DragCancelEvent, DragEndEvent, DragMoveEvent, DragOverEvent, DragOverlay, DragPendingEvent, DragStartEvent, type UniqueIdentifier } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab/rc-virtual";
 import { boxShadow, position } from "@crab/styleify";
@@ -10,9 +10,30 @@ import {
 } from "@crab/rc-hooks";
 import { LoadStateType, OverStateEnum, type Node } from "./type";
 import NodeItem, { type NodeItemProps } from "./nodeItem";
-import { getLoadReadyTreeNodeData, getTreeNodeDepth } from "./util";
+import { getLoadReadyTreeNodeData } from "./util";
 
-export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
+
+interface Context {
+    overState: OverState | null,
+}
+
+export interface TreeProps extends Omit<
+    HTMLAttributes<HTMLDivElement>,
+    "onDrag" |
+    "onDragCapture" |
+    "onDragEnd" |
+    "onDragEndCapture" |
+    "onDragEnter" |
+    "onDragEnterCapture" |
+    "onDragExit" |
+    "onDragExitCapture" |
+    "onDragLeave" |
+    "onDragLeaveCapture" |
+    "onDragOver" |
+    "onDragOverCapture" |
+    "onDragStart" |
+    "onDragStartCapture"
+> {
 
     /**
      * 高度
@@ -45,11 +66,6 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
     defaultNodeHeight?: number
 
     /**
-     * 是否启用初始化组件的时候就开始加载数据, 默认情况下第一次会加载数据
-     */
-    enableFirstLoadData?: boolean
-
-    /**
      * 加载节点信息
      * @param parentNode 父节点, 如果没有父节点, 则表示为 null
      * @returns 返回当前父节点下的节点信息 
@@ -65,6 +81,14 @@ export interface TreeProps extends HTMLAttributes<HTMLDivElement>{
      * 展开节点的事件
      */
     onExpanded?: NodeItemProps["onExpanded"]
+
+    onDragAbort?: (event: DragAbortEvent, context: Context) => void;
+    onDragPending?: (event: DragPendingEvent, context: Context) => void;
+    onDragStart?: (event: DragStartEvent, context: Context) => void;
+    onDragMove?: (event: DragMoveEvent, context: Context) => void;
+    onDragOver?: (event: DragOverEvent, context: Context) => void;
+    onDragEnd?: (event: DragEndEvent, context: Context) => void;
+    onDragCancel?: (event: DragCancelEvent, context: Context) => void;
 }
 
 interface OverState {
@@ -76,13 +100,19 @@ const Tree: FC<TreeProps> = ({
     width,
     height,
     expandedKeys = [],
-    enableFirstLoadData = true,
     draggable = false,
     showLine,
     defaultNodeHeight = 24,
     loadData,
     onExpanded: _onExpanded,
     rendererContextMenu,
+    onDragAbort,
+    onDragPending,
+    onDragStart,
+    onDragMove,
+    onDragOver,
+    onDragEnd,
+    onDragCancel,
     ...restProps
 }) => {
     const [loadReadyNodeData, setLoadReadyNodeData] = useState<Node[]>([]);
@@ -97,12 +127,10 @@ const Tree: FC<TreeProps> = ({
     const [overState, setOverState] = useState<OverState | null>(null);
 
     useEffect(() => {
-        if (enableFirstLoadData === true) {
-            loadData(null)
-                .then((nodes) => {
-                    setLoadReadyNodeData(nodes.map(node => ({...node, path: []})))
-                });
-        }
+        loadData(null)
+            .then((nodes) => {
+                setLoadReadyNodeData(nodes.map(node => ({...node, path: []})))
+            });
         const onClick = (event: MouseEvent) => {
             if (!contextMenuDivRef.current?.contains(event.target as globalThis.Node)) {
                 contextMenuNode.current = null;
@@ -126,15 +154,19 @@ const Tree: FC<TreeProps> = ({
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
-            setLoadReadyNodeData(oldNodes => {
-                const node = oldNodes.find(element => element.id === e.node.id);
-                if (node != null) {
-                    node.loadState = LoadStateType.LOADING;
-                }
-                return oldNodes
-            })
+            const timeoutId = setTimeout(() => {
+                setLoadReadyNodeData(oldNodes => {
+                    const node = oldNodes.find(element => element.id === e.node.id);
+                    if (node != null) {
+                        node.loadState = LoadStateType.LOADING;
+                    }
+                    return oldNodes
+                })
+            }, 300)
+
             loadData(e.node)
             .then((nodes) => {
+                clearTimeout(timeoutId)
                 setLoadReadyNodeData((oldNodes) => {
                     const node = oldNodes.find(element => element.id === e.node.id);
                     if (node != null) {
@@ -158,7 +190,6 @@ const Tree: FC<TreeProps> = ({
 
     const [divLeft, divTop] = getLeftAndTop();
 
-
     const dragStartPosition = useRef<{
         x: number
         y: number
@@ -168,14 +199,15 @@ const Tree: FC<TreeProps> = ({
     })
     return (
         <DndContext
-            onDragEnd={(event) => {
-                const { active, over } = event;
-                dragStartPosition.current.x = 0;
-                dragStartPosition.current.y = 0;
-                setOverState(null);
-                if (!over) return;
-                const oldIndex = loadReadyNodeData.findIndex(node => node.id === active.id);
-                const newIndex = loadReadyNodeData.findIndex(node => node.id === over.id);
+            onDragAbort={(event) => {
+                onDragAbort?.(event, {
+                    overState
+                })
+            }}
+            onDragPending={(event) => {
+                onDragPending?.(event, {
+                    overState
+                })
             }}
             onDragStart={(event) => {
                 setActiveId(event.active.id);
@@ -183,6 +215,9 @@ const Tree: FC<TreeProps> = ({
                 dragStartPosition.current.x = activatorEvent.clientX;
                 dragStartPosition.current.y = activatorEvent.clientY;
                 activatorEvent.preventDefault();
+                onDragStart?.(event, {
+                    overState
+                })
             }}
             onDragMove={(event) => {
                 if (event.over && event.over.id !== event.active.id) {
@@ -208,6 +243,27 @@ const Tree: FC<TreeProps> = ({
                 } else {
                     setOverState(null)
                 }
+                onDragMove?.(event, {
+                    overState
+                })
+            }}
+            onDragOver={(event) => {
+                onDragOver?.(event, {
+                    overState
+                })
+            }}
+            onDragEnd={(event) => {
+                dragStartPosition.current.x = 0;
+                dragStartPosition.current.y = 0;
+                setOverState(null);
+                onDragEnd?.(event, {
+                    overState
+                })
+            }}
+            onDragCancel={(event) => {
+                onDragCancel?.(event, {
+                    overState
+                })
             }}
         >
              <SortableContext
