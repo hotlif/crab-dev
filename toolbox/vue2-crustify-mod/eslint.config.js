@@ -1,6 +1,6 @@
 import {
     Node
-} from "@crab/standards-eslint-preset";
+} from "@crab/";
 
 export default [
     ...Node

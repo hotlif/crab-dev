@@ -15,7 +15,7 @@
     ],
     "devDependencies": {
         "@crab/packify": "workspace:^",
-        "@crab/standards-eslint-react-preset": "workspace:^",
+        "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@types/node": "^22.10.7",
         "@types/react": "^19.0.7",

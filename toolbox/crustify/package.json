@@ -18,7 +18,7 @@
     "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/packify": "workspace:^",
-        "@crab/standards-eslint-react-preset": "workspace:^",
+        "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@jest/globals": "^29.7.0",
