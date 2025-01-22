@@ -1,36 +1,40 @@
 {
-    "name": "@crab/rc-hooks",
-    "description": "React 的 Hooks 的公共库, 用来执行 Hooks 的一些常用方法",
+    "name": "@crab/vue2-crustify-mod",
+    "version": "0.0.1",
+    "description": "vue2 的模组, 用来支持 vue2 代码开发",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
         "build": "packify build",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
     "files": [
+        "bin",
         "esm"
     ],
+    "bin": "bin/cli.js",
     "types": "esm/index.d.ts",
     "main": "esm/index.mjs",
     "module": "esm/index.mjs",
     "devDependencies": {
+        "@crab/crustify": "workspace:^",
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@jest/globals": "^29.7.0",
-        "@linaria/core": "^6.2.0",
         "@types/node": "^22.10.7",
-        "@types/react": "^19.0.7",
-        "@types/react-dom": "^19.0.3",
         "eslint": "^9.18.0",
         "eslint-plugin-react": "^7.37.4",
         "globals": "^15.14.0",
         "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
         "typescript": "^5.7.3",
-        "typescript-eslint": "^8.20.0"
+        "typescript-eslint": "^8.20.0",
+        "webpack": "^5.97.1"
+    },
+    "dependencies": {
+        "vue-loader": "^17.4.2",
+        "webpack-merge": "^6.0.1"
     }
 }

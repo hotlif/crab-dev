@@ -6,6 +6,9 @@ import WebpackDevServer from "webpack-dev-server";
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
 import { getConfig } from "./conf";
+import { join } from "path";
+
+export { type Modification } from "./conf"
 
 const originalConsoleLog = console.log;
 const originalConsoleError = console.error;
@@ -82,6 +85,7 @@ export const build = async () => {
     const module = await presetModule({
         isProduction: true,
     });
+
     const webpackConfig = merge(standard, module);
     const webpackCompiler = Webpack(webpackConfig);
     webpackCompiler.run((error, stats) => {
@@ -95,6 +99,44 @@ export const build = async () => {
         }
     });
 };
+
+/**
+ * 执行 bundle 任务
+ */
+export const bundle = async () => {
+
+    const conf = await getConfig(process.cwd());
+    const standard = await presetStandard({
+        isProduction: true,
+        conf,
+    });
+
+    const module = await presetModule({
+        isProduction: true,
+    });
+
+    const webpackConfig = merge(standard, module , {
+        entry: conf.libraryBundle?.entry,
+        output: {
+            path: join(process.cwd(), "dist"),
+            filename: '[name].bundle.[contenthash].js',
+            library: '[name]',
+            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
+        },
+    });
+
+    const webpackCompiler = Webpack(webpackConfig);
+    webpackCompiler.run((error, stats) => {
+        if (stats?.hasErrors() || stats?.hasWarnings()) {
+            console.log(
+                stats.toString({
+                    chunks: false,
+                    colors: true,
+                })
+            );
+        }
+    });
+}
 
 export {
     defineConfig

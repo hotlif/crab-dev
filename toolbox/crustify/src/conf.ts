@@ -1,6 +1,17 @@
-import { ComponentType } from "react";
+import { type ComponentType } from "react";
+import { type Configuration } from "webpack";
 import { loadConfig } from "unconfig";
 import { transformSync } from "@swc/core";
+
+
+export interface Modification {
+	/**
+	 * 修改 Webpack 配置
+	 * @param configuration Webpack 信息
+	 * @returns 返回一个修改好的 Webpack 信息
+	 */
+	modifyWebpack(configuration: Configuration): Configuration
+}
 
 /**
  * 对应的规则信息
@@ -49,6 +60,19 @@ export interface Config {
 	 * 自动扫描对应的组件
 	 */
 	componentScan?: ComponentScanRule[]
+
+	/**
+	 * 模组中心
+	 */
+	mods?: Modification[]
+
+	/**
+	 * 使用 bundle 生成对应的文件
+	 */
+	libraryBundle?: {
+		entry: Record<string, string>,
+		libraryTarget?: string 
+	}
 }
 
 /**

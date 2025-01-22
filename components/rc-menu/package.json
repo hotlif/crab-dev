@@ -15,7 +15,7 @@
     "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/packify": "workspace:^",
-        "@crab/standards-eslint-react-preset": "workspace:^",
+        "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^6.2.0",
         "@types/node": "^22.10.7",

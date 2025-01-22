@@ -13,7 +13,6 @@
     ],
     "bin": "bin/cli.js",
     "devDependencies": {
-        "@crab/standards-eslint-react-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@types/babel__core": "^7.20.5",
         "@types/babel__preset-env": "^7.9.7",
