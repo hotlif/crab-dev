@@ -31,17 +31,26 @@ import {
 } from "./token";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
+    // 节点数据
     node: Node
+    // 拖拽状态
     overState?: OverStateEnum,
+    // 是否展开
     expanded: boolean
+    // 是否加载中
     loading: boolean
+    // 是否显示线条
     showLine?: boolean
+    // 是否选中
     selectd: boolean
+    // 展开事件处理函数
     onExpanded?: (param: {
         node: Node,
         event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
     }) => void
+    // 标题点击事件处理函数
     onTitleClick?: (event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => void
+    // 标题右键菜单事件处理函数
     onTitleContextMenu?: HTMLAttributes<HTMLDivElement>["onContextMenu"]
 }
 

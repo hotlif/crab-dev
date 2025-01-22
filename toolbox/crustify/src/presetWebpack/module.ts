@@ -1,4 +1,6 @@
 import MiniExtractPlugin from "mini-css-extract-plugin";
+import remarkGfm from "remark-gfm";
+import remarkFrontmatter from "remark-frontmatter";
 import { createRequire } from "module";
 import { type Configuration } from "webpack";
 
@@ -63,6 +65,8 @@ const presetModule = async ({
                 {
                     loader: require.resolve('@mdx-js/loader'),
                     options: {
+                        remarkPlugins: [remarkGfm, [remarkFrontmatter, "toml"]],
+                        rehypePlugins: []
                     }
                 }]
             }]
