@@ -36,7 +36,7 @@ import { getLoadReadyTreeNodeData } from "./util";
 
 
 interface Context {
-    overState: OverState | null,
+    overState: OverState | null
 }
 
 export interface TreeProps extends Omit<
@@ -289,7 +289,7 @@ const Tree: FC<TreeProps> = ({
                 dragStartPosition.current.y = activatorEvent.clientY;
                 activatorEvent.preventDefault();
                 onDragStart?.(event, {
-                    overState
+                    overState,
                 })
             }}
             onDragMove={(event) => {
