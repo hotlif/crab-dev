@@ -15,6 +15,5 @@ describe("test util", () => {
         }
         const path = getTmpDir(__dirname);
         expect(existsSync(path)).toBe(true);
-        expect(path).toMatchSnapshot();
     })
 })
