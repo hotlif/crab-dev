@@ -6,11 +6,9 @@
     "type": "module",
     "scripts": {
         "build": "packify build",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
     "files": [
-        "bin",
         "esm"
     ],
     "bin": "bin/cli.js",
@@ -34,7 +32,7 @@
         "webpack": "^5.97.1"
     },
     "dependencies": {
-        "vue-loader": "^17.4.2",
+        "vue-loader": "~15.11.1",
         "webpack-merge": "^6.0.1"
     }
 }

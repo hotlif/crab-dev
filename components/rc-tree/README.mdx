@@ -28,6 +28,8 @@ import DraggableTreeDemo from "./docs/src/demos/draggable.demo";
 |defaultNodeHeight | 默认节点高度 | `number` | -
 |loadData          | 加载节点信息 | `(parentNode: Node \| null) => Promise<Node[]>` | -
 |rendererContextMenu | 渲染右键菜单 | `rendererContextMenu?: (node: Node \| null) => ReactNode` | -
+|selectKeys          | 选择节点     | `Key[]` | -
+|onSelect            | 选择节点事件 | `(param: { event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: Key[], node: Node, isSelect: boolean }) => void` | -
 |onExpanded          | 展开节点的事件 | `(param: {node: Node,event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent> }) => void`| -
 |onDragAbort         | 拖拽中止事件  | `(event: DragAbortEvent, context: Context) => void;` | -
 |onDragPending       | 拖拽待定事件  | `(event: DragAbortEvent, context: Context) => void;` | -
@@ -36,6 +38,7 @@ import DraggableTreeDemo from "./docs/src/demos/draggable.demo";
 |onDragOver          | 拖拽悬停事件  | `(event: DragOverEvent, context: Context) => void;`  | -
 |onDragEnd           | 拖拽结束事件  | `(event: DragOverEvent, context: Context) => void;`  | -
 |onDragCancel        | 拖拽取消事件  | `(event: DragOverEvent, context: Context) => void;`  | -
+|onContextMenu       | 右键树的时候触发的事件 | `(event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, node: Node \| null) => void;` | - 
 
 ### Tree Node
 

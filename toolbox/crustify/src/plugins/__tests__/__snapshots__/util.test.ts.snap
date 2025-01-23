@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test util test generate getTmpDir 1`] = `"C:\\Users\\zhang\\Code\\crab\\toolbox\\crustify\\src\\plugins\\__tests__\\.tmp"`;

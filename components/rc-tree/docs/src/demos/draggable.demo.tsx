@@ -5,12 +5,19 @@ import { getTreeNodeDepth } from "../../../src/util";
 
 const DraggableTree = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
+	const [selectKeys, setSelectKeys] = useState<Key[]>([])
     return (
 		<RcTree
 			height={200}
 			width={300}
 			draggable
 			expandedKeys={expandedKeys}
+			selectKeys={selectKeys}
+			onSelect={({
+				selectKeys
+			}) => {
+				setSelectKeys(selectKeys)
+			}}
 			rendererContextMenu={(node) => {
 				if (node === null) {
 					return (

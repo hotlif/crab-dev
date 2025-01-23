@@ -5,8 +5,15 @@ import { type Configuration } from "webpack";
 import MiniExtractPlugin from "mini-css-extract-plugin";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import { join } from 'path';
+import { createRequire } from "module";
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+    
 import ReactWebpackPlugin, { generateHtml } from '../../ReactWebpackPlugin';
 import { compile, babelLoader } from "../util";
+
+const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('ReactWebpackPlugin', () => {
     it('should generate HTML with script and link tags', async () => {

@@ -6,6 +6,7 @@ import {
     type FC,
     type ReactNode,
     type HTMLAttributes,
+    type MouseEvent
 } from "react";
 import {
     createPortal
@@ -53,7 +54,9 @@ export interface TreeProps extends Omit<
     "onDragOver" |
     "onDragOverCapture" |
     "onDragStart" |
-    "onDragStartCapture"
+    "onDragStartCapture" |
+    "onContextMenu" |
+    "onSelect"
 > {
 
     /**
@@ -75,6 +78,11 @@ export interface TreeProps extends Omit<
      * 展开指定的树节点
      */
     expandedKeys?: Key[]
+
+    /**
+     * 选择节点
+     */
+    selectKeys?: Key[]
 
     /**
      * 是否展示连接线
@@ -102,6 +110,16 @@ export interface TreeProps extends Omit<
      * 展开节点的事件
      */
     onExpanded?: NodeItemProps["onExpanded"]
+
+    /**
+     * 选择节点事件
+     */
+    onSelect?: (param: {
+        event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>,
+        selectKeys: Key[],
+        node: Node,
+        isSelect: boolean
+    }) => void
 
     /**
      * 拖拽中止事件
@@ -137,6 +155,11 @@ export interface TreeProps extends Omit<
      * 拖拽取消事件
      */
     onDragCancel?: (event: DragCancelEvent, context: Context) => void;
+
+    /**
+     * 右键点击的时候触发的事件
+     */
+    onContextMenu?: (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, node: Node | null) => void;
 }
 
 interface OverState {
@@ -148,6 +171,7 @@ const Tree: FC<TreeProps> = ({
     width,
     height,
     expandedKeys = [],
+    selectKeys = [],
     draggable = false,
     showLine,
     defaultNodeHeight = 24,
@@ -161,11 +185,12 @@ const Tree: FC<TreeProps> = ({
     onDragOver,
     onDragEnd,
     onDragCancel,
+    onContextMenu,
+    onSelect,
     ...restProps
 }) => {
     const [loadReadyNodeData, setLoadReadyNodeData] = useState<Node[]>([]);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-    const [selectNodeKeys, setSelectNodeKeys] = useState<Key[]>([])
     const [keyboardEvent] = useKeyDown();
     const [mouseContextMenuNodeTitlePosition, setContextMenuNodeTitlePosition] = useState<number[]>([0, 0]);
     const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
@@ -179,7 +204,7 @@ const Tree: FC<TreeProps> = ({
             .then((nodes) => {
                 setLoadReadyNodeData(nodes.map(node => ({...node, path: []})))
             });
-        const onClick = (event: MouseEvent) => {
+        const onClick = (event: globalThis.MouseEvent) => {
             if (!contextMenuDivRef.current?.contains(event.target as globalThis.Node)) {
                 contextMenuNode.current = null;
                 setIsOpenContextMenu(false);
@@ -330,6 +355,7 @@ const Tree: FC<TreeProps> = ({
                         setIsOpenContextMenu(true);
                         contextMenuNode.current = null;
                         e.preventDefault();
+                        onContextMenu?.(e, null);
                     }}
                 >
                     <RcVirtual
@@ -353,7 +379,7 @@ const Tree: FC<TreeProps> = ({
                                         key={node.id}
                                         node={node}
                                         overState={node.id === overState?.id ? overState.state : undefined}
-                                        selectd={selectNodeKeys.includes(node.id)}
+                                        selectd={selectKeys.includes(node.id)}
                                         loading={node.loadState === LoadStateType.LOADING}
                                         expanded={expandedKeys?.includes(node.id) === true}
                                         draggable={draggable}
@@ -361,17 +387,41 @@ const Tree: FC<TreeProps> = ({
                                         style={{
                                             gridRowStart: rowIndex + 1,
                                         }}
-                                        onTitleClick={() => {
+                                        onTitleClick={(e) => {
                                             if (keyboardEvent.current?.ctrlKey === true) {
-                                                if (selectNodeKeys.includes(node.id)) {
-                                                    const newSelectNodeKeys = selectNodeKeys.filter(element => element !== node.id);
-                                                    setSelectNodeKeys?.(newSelectNodeKeys)
+                                                if (selectKeys.includes(node.id)) {
+                                                    const newSelectNodeKeys = selectKeys.filter(element => element !== node.id);
+                                                    onSelect?.({
+                                                        event: e,
+                                                        selectKeys: newSelectNodeKeys,
+                                                        node: node,
+                                                        isSelect: false
+                                                    })
                                                 } else {
-                                                    selectNodeKeys.push(node.id);
-                                                    setSelectNodeKeys?.([...selectNodeKeys])
+                                                    selectKeys.push(node.id);
+                                                    onSelect?.({
+                                                        event: e,
+                                                        selectKeys: [...selectKeys],
+                                                        node: node,
+                                                        isSelect: true
+                                                    })
                                                 }
                                             } else {
-                                                setSelectNodeKeys?.([node.id])
+                                                if (selectKeys.includes(node.id)) {
+                                                    onSelect?.({
+                                                        event: e,
+                                                        selectKeys: [],
+                                                        node: node,
+                                                        isSelect: false
+                                                    })
+                                                } else {
+                                                    onSelect?.({
+                                                        event: e,
+                                                        selectKeys: [node.id],
+                                                        node: node,
+                                                        isSelect: true
+                                                    })
+                                                }
                                             }
                                         }}
                                         onExpanded={onExpanded}
@@ -381,6 +431,7 @@ const Tree: FC<TreeProps> = ({
                                             setContextMenuNodeTitlePosition([x, y]);
                                             setIsOpenContextMenu(true);
                                             contextMenuNode.current = node;
+                                            onContextMenu?.(e, node)
                                             e.stopPropagation();
                                             e.preventDefault();
                                         }}
