@@ -41,7 +41,7 @@ const presetStandard = async ({
             ignored: ["**/node_modules", "**/.tmp"],
         },
         resolve: {
-            extensions: [".tsx", ".ts", ".js", ".raw"],
+            extensions: [".tsx", ".ts", ".js", ".raw", ".vue"],
             alias: {
 				"@": join(cwd, "src"),
                 "@@": cwd
@@ -55,9 +55,6 @@ const presetStandard = async ({
             new AutoScanWebpackPlugin({
                 rootDir: getCwdDir(conf.rootDir),
                 componentScanRules: conf.componentScan ?? []
-            }),
-            new ReactWebpackPlugin({
-                cwd: join(cwd, "src")
             })
         ]
     }

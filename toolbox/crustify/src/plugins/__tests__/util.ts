@@ -1,5 +1,8 @@
 import Webpack, { type Configuration, type Stats } from "webpack";
 import MemoryFS from 'memory-fs';
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 export const compile = (config: Configuration) => {
     const compiler = Webpack(config);

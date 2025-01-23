@@ -3,10 +3,17 @@ import { describe, it, expect } from "@jest/globals";
 import { type Configuration } from "webpack";
 import { join } from "path";
 import { readFileSync, existsSync, rmSync } from "fs";
+import { createRequire } from "module";
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { compile, babelLoader } from "../util";
 import { getTmpDir } from "../../../util";
 import AutoScanWebpackPlugin, { getAllFiles, getTypeScriptComment } from "../../AutoScanWebpackPlugin";
+
+
+const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('AutoScanWebpackPlugin', () => {
 

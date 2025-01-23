@@ -5,8 +5,11 @@ import WebpackDevServer from "webpack-dev-server";
 
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
-import { getConfig } from "./conf";
+import { Config } from "./conf";
 import { join } from "path";
+import { getCwdDir, getModsWebpackMerge } from "./util";
+import ReactWebpackPlugin from "./plugins/ReactWebpackPlugin";
+export { getConfig } from "./conf";
 
 export { type Modification } from "./conf"
 
@@ -30,7 +33,7 @@ const outputConsoleErrorStream = new Writable({
     write(chunk, encoding, callback) {
         const message = chunk.toString();
         if (message.includes("webpack")) {
-            originalConsoleError(message.replace("webpack", "Crustify"));
+            originalConsoleError(message.replace("webpack", "crustify"));
         } else {
             originalConsoleError(message);
         }
@@ -44,8 +47,7 @@ console.error = outputConsoleErrorStream.write.bind(outputConsoleErrorStream);
 /**
  * 执行开发任务
  */
-export const run = async () => {
-    const conf = await getConfig(process.cwd());
+export const run = async (conf: Config) => {
     const standard = await presetStandard({
         isProduction: false,
         conf,
@@ -55,7 +57,15 @@ export const run = async () => {
         isProduction: false,
     });
 
-    const webpackConfig = merge(standard, module);
+    const cwd = getCwdDir(conf.rootDir);
+
+    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
+        plugins: [
+            new ReactWebpackPlugin({
+                cwd: join(cwd, "src")
+            })
+        ]
+    }));
     const webpackCompiler = Webpack(webpackConfig);
     const devServer = new WebpackDevServer(
         {
@@ -75,8 +85,7 @@ export const run = async () => {
 /**
  * 执行构建任务
  */
-export const build = async () => {
-    const conf = await getConfig(process.cwd());
+export const build = async (conf: Config) => {
     const standard = await presetStandard({
         isProduction: true,
         conf,
@@ -86,7 +95,16 @@ export const build = async () => {
         isProduction: true,
     });
 
-    const webpackConfig = merge(standard, module);
+    const cwd = getCwdDir(conf.rootDir);
+
+    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
+        plugins: [
+            new ReactWebpackPlugin({
+                cwd: join(cwd, "src")
+            })
+        ]
+    }));
+
     const webpackCompiler = Webpack(webpackConfig);
     webpackCompiler.run((error, stats) => {
         if (stats?.hasErrors() || stats?.hasWarnings()) {
@@ -103,9 +121,7 @@ export const build = async () => {
 /**
  * 执行 bundle 任务
  */
-export const bundle = async () => {
-
-    const conf = await getConfig(process.cwd());
+export const bundle = async (conf: Config) => {
     const standard = await presetStandard({
         isProduction: true,
         conf,
@@ -115,15 +131,15 @@ export const bundle = async () => {
         isProduction: true,
     });
 
-    const webpackConfig = merge(standard, module , {
+    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module , {
         entry: conf.libraryBundle?.entry,
         output: {
-            path: join(process.cwd(), "dist"),
+            path: join(process.cwd(), "bundle"),
             filename: '[name].bundle.[contenthash].js',
             library: '[name]',
             libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
         },
-    });
+    }));
 
     const webpackCompiler = Webpack(webpackConfig);
     webpackCompiler.run((error, stats) => {

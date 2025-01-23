@@ -7,6 +7,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 const config = {
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -162,9 +163,10 @@ const config = {
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "\\\\node_modules\\\\"
-  // ],
+  testPathIgnorePatterns: [
+    "\\\\node_modules\\\\",
+    "esm"
+  ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],

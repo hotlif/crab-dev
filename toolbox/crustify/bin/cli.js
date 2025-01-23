@@ -1,11 +1,14 @@
-import { run, build, bundle } from "../esm/index.mjs";
+import { run, build, bundle, getConfig } from "../esm/index.mjs";
 
 const param = process.argv[2];
 
-if (param === "dev") {
-    run();
-} else if (param === "build") {
-    build();
-} else if (param === "bundle") {
-    bundle();
-}
+getConfig(process.cwd()).then((conf) => {
+    if (param === "dev") {
+        run(conf);
+    } else if (param === "build") {
+        build(conf);
+    } else if (param === "bundle") {
+        bundle(conf);
+    }
+})
+

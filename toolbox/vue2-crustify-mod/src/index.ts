@@ -16,7 +16,7 @@ class Vue2CrustifyMod implements Modification {
                 }]
             },
             plugins: [
-                new VueLoaderPlugin()
+                new VueLoaderPlugin() as any
             ]
         });
     }
