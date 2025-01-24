@@ -16,7 +16,7 @@ export const build = async () => {
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
         plugins: [
             typescript({
-                exclude: ["**/?(*.)+(spec|test).[tj]s?(x)"]
+                exclude: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"]
             }),
             nodeResolve({ extensions }),
             wyw({

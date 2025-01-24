@@ -1,7 +1,7 @@
 import { Writable } from "stream";
 import { merge } from "webpack-merge";
 import Webpack from "webpack";
-import WebpackDevServer from "webpack-dev-server";
+import WebpackDevServer, { Configuration } from "webpack-dev-server";
 
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
@@ -60,17 +60,30 @@ export const run = async (conf: Config) => {
     const cwd = getCwdDir(conf.rootDir);
 
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
+        entry: {
+            "main": standard.entry as string,
+            ...(conf.libraryBundle?.entry ?? {})
+        },
+        output: {
+            path: join(process.cwd(), "dist"),
+            filename: '[name].bundle.js',
+            library: '[name]',
+            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
+        },
         plugins: [
             new ReactWebpackPlugin({
                 cwd: join(cwd, "src")
             })
-        ]
+        ],
+        devServer: {
+            historyApiFallback: true,
+            proxy: conf.devServer?.proxy
+        }
     }));
+
     const webpackCompiler = Webpack(webpackConfig);
     const devServer = new WebpackDevServer(
-        {
-            ...webpackConfig.devServer,
-        },
+        webpackConfig.devServer,
         webpackCompiler
     );
 

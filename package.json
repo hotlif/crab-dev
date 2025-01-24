@@ -12,7 +12,7 @@
         "components/*",
         "styleify",
         "website/",
-        "toolbox/vue2-crustify-mod/demo"
+        "toolbox/vue2-crustify-mod/__tests__/demo"
     ],
     "devDependencies": {
         "@crab/standards-typescript-preset": "workspace:^",

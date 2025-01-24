@@ -1691,6 +1691,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/vue2-lcp-web-crustify-mod@workspace:^, @crab/vue2-lcp-web-crustify-mod@workspace:toolbox/vue2-lcp-web-crustify-mod":
+  version: 0.0.0-use.local
+  resolution: "@crab/vue2-lcp-web-crustify-mod@workspace:toolbox/vue2-lcp-web-crustify-mod"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
+    "@types/node": "npm:^22.10.7"
+    eslint: "npm:^9.18.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:^15.14.0"
+    jest: "npm:^29.7.0"
+    typescript: "npm:^5.7.3"
+    typescript-eslint: "npm:^8.20.0"
+    webpack: "npm:^5.97.1"
+    webpack-dev-server: "npm:^5.2.0"
+    webpack-merge: "npm:^6.0.1"
+  bin:
+    vue2-lcp-web-crustify-mod: bin/cli.js
+  languageName: unknown
+  linkType: soft
+
 "@crab/website@workspace:website":
   version: 0.0.0-use.local
   resolution: "@crab/website@workspace:website"
@@ -13523,14 +13548,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue2-crustify-mod-demo@workspace:toolbox/vue2-crustify-mod/demo":
+"vue2-crustify-mod-demo@workspace:toolbox/vue2-crustify-mod/__tests__/demo":
   version: 0.0.0-use.local
-  resolution: "vue2-crustify-mod-demo@workspace:toolbox/vue2-crustify-mod/demo"
+  resolution: "vue2-crustify-mod-demo@workspace:toolbox/vue2-crustify-mod/__tests__/demo"
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
     "@crab/vue2-crustify-mod": "workspace:^"
-    "@jest/globals": "npm:^29.7.0"
+    "@crab/vue2-lcp-web-crustify-mod": "workspace:^"
     "@types/node": "npm:^22.10.7"
     "@types/react": "npm:^19.0.7"
     "@types/react-dom": "npm:^19.0.3"

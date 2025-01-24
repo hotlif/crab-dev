@@ -47,6 +47,22 @@ export interface ComponentScanRule {
 }
 
 /**
+ * 代理配置信息
+ */
+interface Proxy {
+	context: string[],
+	target: string,
+	pathRewrite?: Record<string, string>
+}
+
+/**
+ * 开发服务器的配置
+ */
+interface DevServer {
+	proxy: Proxy[]
+}
+
+/**
  * 构建器的配置文件信息
  */
 export interface Config {
@@ -65,6 +81,11 @@ export interface Config {
 	 * 模组中心
 	 */
 	mods?: Modification[]
+
+	/**
+	 * 开发的服务器配置
+	 */
+	devServer?: DevServer
 
 	/**
 	 * 使用 bundle 生成对应的文件
