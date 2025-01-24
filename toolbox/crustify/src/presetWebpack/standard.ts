@@ -37,6 +37,7 @@ const presetStandard = async ({
             pathinfo: false,
             clean: true
         },
+        target: "web",
         watchOptions: {
             ignored: ["**/node_modules", "**/.tmp"],
         },
