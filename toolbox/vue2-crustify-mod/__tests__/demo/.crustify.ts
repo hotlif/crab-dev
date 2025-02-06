@@ -7,17 +7,12 @@ export default defineConfig({
 	mods: [
 		new Vue2CrustifyMod(),
 		new Vue2LcpWebCrustifyMod({
+			target: "http://127.0.0.1:3000",
 			proxyLoadComponent: {
 				"10003": "/hello.bundle.js",
 			}
 		})
 	],
-	devServer: {
-		proxy: [{
-			context: ["**"],
-			target: "http://localhost:3000"
-		}]
-	},
 	libraryBundle: {
 		entry: {
 			"hello": join(process.cwd(), "src", "hello.vue"),

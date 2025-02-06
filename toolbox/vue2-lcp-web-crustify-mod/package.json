@@ -1,11 +1,12 @@
 {
     "name": "@crab/vue2-lcp-web-crustify-mod",
-    "version": "0.0.1",
+    "version": "0.0.2-canary",
     "description": "低代码平台的开发阶段的模组, 用来方便开发和调试",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
         "build": "packify build",
+        "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
     "files": [

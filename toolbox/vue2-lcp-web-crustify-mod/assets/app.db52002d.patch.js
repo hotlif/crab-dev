@@ -36230,10 +36230,8 @@
                                     ) {
                                         const proxyLoadComponentUrl = window._$proxyLoadComponent[t.ComponentFile.FileId];
                                         const extModuleName = t.ComponentName;
-                                        this.loadComponent({
-                                            webSiteURL: proxyLoadComponentUrl,
-                                            extModuleName: i
-                                        })
+                                        const e = n["default"].extend(window[extModuleName]);
+                                        this.setupVm(e)
                                     } else {
                                         const e = Object(r["b"])(t.ComponentFile.FileId),
                                             i = t.ComponentName;
