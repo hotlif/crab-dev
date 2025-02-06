@@ -12,6 +12,7 @@
 
 #!.yarn/cache
 .pnp.*
+.out
 esm
 coverage
 .tmp
