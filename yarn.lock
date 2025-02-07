@@ -1545,6 +1545,36 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/rc-table@workspace:components/rc-table":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-table@workspace:components/rc-table"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/packify": "workspace:^"
+    "@crab/rc-hooks": "workspace:^"
+    "@crab/rc-virtual": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab/styleify": "workspace:^"
+    "@faker-js/faker": "npm:^9.4.0"
+    "@jest/globals": "npm:^29.7.0"
+    "@linaria/core": "npm:^6.2.0"
+    "@types/node": "npm:^22.10.7"
+    "@types/react": "npm:^19.0.7"
+    "@types/react-dom": "npm:^19.0.3"
+    eslint: "npm:^9.18.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:^15.14.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    typescript: "npm:^5.7.3"
+    typescript-eslint: "npm:^8.20.0"
+  languageName: unknown
+  linkType: soft
+
 "@crab/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
   resolution: "@crab/rc-tree@workspace:components/rc-tree"
@@ -2221,6 +2251,13 @@ __metadata:
     "@eslint/core": "npm:^0.10.0"
     levn: "npm:^0.4.1"
   checksum: 10c0/ba9832b8409af618cf61791805fe201dd62f3c82c783adfcec0f5cd391e68b40beaecb47b9a3209e926dbcab65135f410cae405b69a559197795793399f61176
+  languageName: node
+  linkType: hard
+
+"@faker-js/faker@npm:^9.4.0":
+  version: 9.4.0
+  resolution: "@faker-js/faker@npm:9.4.0"
+  checksum: 10c0/52f242a764b506f84f0f80e8122758a4b4a82873d72e67b5ddee9d8132c33d462705b43543dd0b86b743f54daec668a1938b9e5b9d643c606a775fb48959580c
   languageName: node
   linkType: hard
 
