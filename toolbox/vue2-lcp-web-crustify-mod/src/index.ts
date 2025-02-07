@@ -52,7 +52,8 @@ class Vue2LcpWebCrustifyMod implements Modification {
                 "/fonts",
                 "/api"
             ],
-            target: this.param.target
+            target: this.param.target,
+            ws: true,
         })
         configuration.devServer.proxy = configuration.devServer.proxy.map(element => ({
             ...element,

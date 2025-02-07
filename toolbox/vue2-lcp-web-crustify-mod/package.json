@@ -24,6 +24,7 @@
         "@crab/standards-jest-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@jest/globals": "^29.7.0",
+        "@types/crypto-js": "^4",
         "@types/node": "^22.10.7",
         "eslint": "^9.18.0",
         "eslint-plugin-react": "^7.37.4",
@@ -35,6 +36,8 @@
         "webpack-dev-server": "^5.2.0"
     },
     "dependencies": {
+        "axios": "^1.7.9",
+        "jsencrypt": "^3.3.2",
         "webpack-merge": "^6.0.1"
     }
 }

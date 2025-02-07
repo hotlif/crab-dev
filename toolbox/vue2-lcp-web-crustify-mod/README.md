@@ -1,4 +1,4 @@
 <div align="center">
-	<h1>@crab/vue2-crustify-mod</h1>
-    @crab/crustify 的 vue2 的模组, 用来支持 vue2 代码
+	<h1>@crab/vue2-lcp-web-crustify-mod</h1>
+    @crab/vue2-lcp-web-crustify-mod 的低代码平台的模组, 用来开发调试和发布对应的代码
 </div>
