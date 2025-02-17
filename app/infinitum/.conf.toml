@@ -1,0 +1,119 @@
+# 日志级别 error/warn/info/debug/trace/off
+logger_level = "debug"
+
+[server]
+# 地址
+host = "localhost"
+# 端口号
+port = 8000
+
+[server.jwt]
+# 私钥
+private_key = """
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+"""
+# 公钥
+public_key = """
+-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyks10d+S8NRGp8qLRs0R
+gp9bKNTRkfDGP12v2eUWGLOE6zdmvfvSZs/Rk9qqciQgEbQdPymmt8Jl+ELD2Him
+uXTkwjAi6VxAkfKoStdWgXPD7XOa6QGaRBM+Lh7DQfY05TAjVDogfntqa/uTHbul
+6NVs2Rh8mm7sY3p2e9hqFFSBObjW9KSEbb7jXW77CsykhyrdtFF2y2J/91wmqse1
+eL2qgaUKxT4Ac+d1C/bbK1hiT1GMtQV5MPGdtPICy6fwkNwfpnT749Lx35cHo/Dg
+G8kjwnue4jQ3ZoNyFhuB6EUNaXZbIzMkZJKM5FQOw5dF1Bdy7Z4RFzm76l3388To
+b1KEeHtVNhW8QFXBtGPrQ3SzBk1hUTmmsUFG9fG+M15WCmSBFCYTQLhsflVCweTf
+0DKVi5HSJ/WQTTia9xzI4gu2n1HDWDR7O9uLU6H3V8XF1SH3Z9RMV5L4iU7v0kqW
+GUwCQxFWOPfElp7ev5+nYdDaQtS7nZ7eekUktG6XysQu/MKoWdOaYZBG9QFBG5wU
+txWbChTYxNb3s0YUSHEJObfy8lyYEz0zgwwLy2sBfiOzVx2hanV+SzJxkDMLqucy
+rUP3tOYHqHncuR9gzyVEQbQY3pqq7n1IOdq1tCzYeDKnx+YK5C/YvE0v2E4k4go5
+C3JhNRew5/DzBN8UtisibqUCAwEAAQ==
+-----END PUBLIC KEY-----
+"""
+# 过期时间 单位秒
+expiry_time = 180
+# 允许访问请求路径, 不需要经过鉴权
+allow_access_paths = [
+    "/api/jwt/issue",
+    "/api-docs-ui/*",
+    "/api-docs/*"
+]
+
+[server.openapi_docs]
+# 是否启用文档
+enable = true
+# 文档 UI 页面的路径
+ui_path = "/api-docs-ui/{_:.*}"
+# 文档 JSON 地址的路径
+json_path = "/api-docs/openapi.json"
+
+[server.openapi_docs.info]
+title = "Crab Infinitum"
+description = "这里的接口都是符合 RestFul 风格定义的接口"
+version = "0.0.1-canary"
+
+[database_connection.core]
+# 数据库的 url 地址
+url = "postgres://postgres:crab-core@localhost:5432/crab-core"
+# 最大连接数
+max_connections = 100
+# 最小连接数
+min_connections = 5
+# 连接超时
+connect_timeout = 8
+# 空闲超时
+idle_timeout = 8
+# 最大生命周期
+max_lifetime = 8
+# 是否显示 sql 日志
+sqlx_logging = true
+
