@@ -161,7 +161,6 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             for (let i = 0; i < this.param.length; i+= 1) {
                 const componentScan = this.param[i];
 
-
                 const importESMAScript = await this.generateImportESMAScriptFile(this.rootDir, componentScan);
                 const fileName = Buffer.from(componentScan.namespaces).toString("base64");
                 writeFile(join(tmp, `${fileName}.ts`), importESMAScript);

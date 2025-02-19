@@ -1415,33 +1415,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab/app-safe-net@workspace:apps/SafeNet":
-  version: 0.0.0-use.local
-  resolution: "@crab/app-safe-net@workspace:apps/SafeNet"
-  dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@jest/globals": "npm:^29.7.0"
-    "@linaria/core": "npm:^6.2.0"
-    "@tauri-apps/cli": "npm:^2.2.7"
-    "@types/node": "npm:^22.10.7"
-    "@types/react": "npm:^19.0.7"
-    "@types/react-dom": "npm:^19.0.3"
-    eslint: "npm:^9.18.0"
-    eslint-plugin-react: "npm:^7.37.4"
-    globals: "npm:^15.14.0"
-    jest: "npm:^29.7.0"
-    jest-environment-jsdom: "npm:^29.7.0"
-    react: "npm:^19.0.0"
-    react-dom: "npm:^19.0.0"
-    typescript: "npm:^5.7.3"
-    typescript-eslint: "npm:^8.20.0"
-  languageName: unknown
-  linkType: soft
-
 "@crab/crustify@workspace:^, @crab/crustify@workspace:toolbox/crustify":
   version: 0.0.0-use.local
   resolution: "@crab/crustify@workspace:toolbox/crustify"
@@ -1659,6 +1632,35 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/rc-vue2@workspace:^, @crab/rc-vue2@workspace:components/rc-vue2":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-vue2@workspace:components/rc-vue2"
+  dependencies:
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
+    "@linaria/core": "npm:^6.2.0"
+    "@types/node": "npm:^22.10.7"
+    "@types/react": "npm:^19.0.7"
+    "@types/react-dom": "npm:^19.0.3"
+    eslint: "npm:^9.18.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:^15.14.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    typescript: "npm:^5.7.3"
+    typescript-eslint: "npm:^8.20.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    vue: ~2.7.16
+  languageName: unknown
+  linkType: soft
+
 "@crab/standards-eslint-preset@workspace:^, @crab/standards-eslint-preset@workspace:standards/eslint-preset":
   version: 0.0.0-use.local
   resolution: "@crab/standards-eslint-preset@workspace:standards/eslint-preset"
@@ -1760,12 +1762,13 @@ __metadata:
     "@jest/globals": "npm:^29.7.0"
     "@types/crypto-js": "npm:^4"
     "@types/node": "npm:^22.10.7"
-    axios: "npm:^1.7.9"
+    css-loader: "npm:^7.1.2"
     eslint: "npm:^9.18.0"
     eslint-plugin-react: "npm:^7.37.4"
     globals: "npm:^15.14.0"
     jest: "npm:^29.7.0"
-    jsencrypt: "npm:^3.3.2"
+    mini-css-extract-plugin: "npm:^2.9.2"
+    style-loader: "npm:^4.0.0"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
     webpack: "npm:^5.97.1"
@@ -3196,117 +3199,6 @@ __metadata:
   dependencies:
     defer-to-connect: "npm:^2.0.0"
   checksum: 10c0/73946918c025339db68b09abd91fa3001e87fc749c619d2e9c2003a663039d4c3cb89836c98a96598b3d47dec2481284ba85355392644911f5ecd2336536697f
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-darwin-arm64@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-darwin-arm64@npm:2.2.7"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-darwin-x64@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-darwin-x64@npm:2.2.7"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-linux-arm-gnueabihf@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-linux-arm-gnueabihf@npm:2.2.7"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-linux-arm64-gnu@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-linux-arm64-gnu@npm:2.2.7"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-linux-arm64-musl@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-linux-arm64-musl@npm:2.2.7"
-  conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-linux-x64-gnu@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-linux-x64-gnu@npm:2.2.7"
-  conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-linux-x64-musl@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-linux-x64-musl@npm:2.2.7"
-  conditions: os=linux & cpu=x64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-win32-arm64-msvc@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-win32-arm64-msvc@npm:2.2.7"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-win32-ia32-msvc@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-win32-ia32-msvc@npm:2.2.7"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli-win32-x64-msvc@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli-win32-x64-msvc@npm:2.2.7"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@tauri-apps/cli@npm:^2.2.7":
-  version: 2.2.7
-  resolution: "@tauri-apps/cli@npm:2.2.7"
-  dependencies:
-    "@tauri-apps/cli-darwin-arm64": "npm:2.2.7"
-    "@tauri-apps/cli-darwin-x64": "npm:2.2.7"
-    "@tauri-apps/cli-linux-arm-gnueabihf": "npm:2.2.7"
-    "@tauri-apps/cli-linux-arm64-gnu": "npm:2.2.7"
-    "@tauri-apps/cli-linux-arm64-musl": "npm:2.2.7"
-    "@tauri-apps/cli-linux-x64-gnu": "npm:2.2.7"
-    "@tauri-apps/cli-linux-x64-musl": "npm:2.2.7"
-    "@tauri-apps/cli-win32-arm64-msvc": "npm:2.2.7"
-    "@tauri-apps/cli-win32-ia32-msvc": "npm:2.2.7"
-    "@tauri-apps/cli-win32-x64-msvc": "npm:2.2.7"
-  dependenciesMeta:
-    "@tauri-apps/cli-darwin-arm64":
-      optional: true
-    "@tauri-apps/cli-darwin-x64":
-      optional: true
-    "@tauri-apps/cli-linux-arm-gnueabihf":
-      optional: true
-    "@tauri-apps/cli-linux-arm64-gnu":
-      optional: true
-    "@tauri-apps/cli-linux-arm64-musl":
-      optional: true
-    "@tauri-apps/cli-linux-x64-gnu":
-      optional: true
-    "@tauri-apps/cli-linux-x64-musl":
-      optional: true
-    "@tauri-apps/cli-win32-arm64-msvc":
-      optional: true
-    "@tauri-apps/cli-win32-ia32-msvc":
-      optional: true
-    "@tauri-apps/cli-win32-x64-msvc":
-      optional: true
-  bin:
-    tauri: tauri.js
-  checksum: 10c0/ec09fadf47571c92b77d0ff72423c23b847b094dd2aa186f320947d372982778b5e17daaa7340f46a82803de5272bb149ba5801ce30a745ae48a662c3671ce68
   languageName: node
   linkType: hard
 
@@ -4778,17 +4670,6 @@ __metadata:
   dependencies:
     possible-typed-array-names: "npm:^1.0.0"
   checksum: 10c0/d07226ef4f87daa01bd0fe80f8f310982e345f372926da2e5296aecc25c41cab440916bbaa4c5e1034b453af3392f67df5961124e4b586df1e99793a1374bdb2
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1.7.9":
-  version: 1.7.9
-  resolution: "axios@npm:1.7.9"
-  dependencies:
-    follow-redirects: "npm:^1.15.6"
-    form-data: "npm:^4.0.0"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/b7a41e24b59fee5f0f26c1fc844b45b17442832eb3a0fb42dd4f1430eb4abc571fe168e67913e8a1d91c993232bd1d1ab03e20e4d1fee8c6147649b576fc1b0b
   languageName: node
   linkType: hard
 
@@ -7255,7 +7136,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.6":
+"follow-redirects@npm:^1.0.0":
   version: 1.15.9
   resolution: "follow-redirects@npm:1.15.9"
   peerDependenciesMeta:
@@ -9111,13 +8992,6 @@ __metadata:
     canvas:
       optional: true
   checksum: 10c0/b109073bb826a966db7828f46cb1d7371abecd30f182b143c52be5fe1ed84513bbbe995eb3d157241681fcd18331381e61e3dc004d4949f3a63bca02f6214902
-  languageName: node
-  linkType: hard
-
-"jsencrypt@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "jsencrypt@npm:3.3.2"
-  checksum: 10c0/4e39e100799af91c4d043011100f9500d2a05d90cb1cbd7adc94413567679ecf7679a9f0ab3d9d4c8632a1b1c0a7c56a72534d0403517646d7d1df2828fc635c
   languageName: node
   linkType: hard
 
@@ -11568,13 +11442,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proxy-from-env@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "proxy-from-env@npm:1.1.0"
-  checksum: 10c0/fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
-  languageName: node
-  linkType: hard
-
 "prr@npm:~1.0.1":
   version: 1.0.1
   resolution: "prr@npm:1.0.1"
@@ -11691,6 +11558,25 @@ __metadata:
   checksum: 10c0/981ebe65e1cee7230300d21ba6dcd8bd23ea81ef4ad2b167c0f62d93deba347f27921d330be848634baab3831cf9f38900af6082d6416c2e937fe612fa6a74ff
   languageName: node
   linkType: hard
+
+"rc-vue2-demo@workspace:components/rc-vue2/__tests__/demo":
+  version: 0.0.0-use.local
+  resolution: "rc-vue2-demo@workspace:components/rc-vue2/__tests__/demo"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/rc-vue2": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab/vue2-crustify-mod": "workspace:^"
+    "@types/node": "npm:^22.10.7"
+    "@types/react": "npm:^19.0.7"
+    "@types/react-dom": "npm:^19.0.3"
+    globals: "npm:^15.14.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    typescript: "npm:^5.7.3"
+    vue: "npm:2.7.16"
+  languageName: unknown
+  linkType: soft
 
 "react-dom@npm:^19.0.0":
   version: 19.0.0

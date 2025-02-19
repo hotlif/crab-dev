@@ -1,5 +1,5 @@
 use std::{collections::HashMap, env};
-use log::error;
+use log::{debug, error};
 use serde::Deserialize;
 use utoipa::openapi::Info;
 
@@ -119,7 +119,8 @@ pub fn get_conf () -> Result<Config, std::io::Error> {
     let conf_toml = ".conf.toml";
     let current_dir = env::current_exe()?;
     let conf_toml_path = current_dir.parent().unwrap().join(conf_toml);
-    let content = std::fs::read_to_string(conf_toml_path);
+    let content = std::fs::read_to_string(&conf_toml_path);
+    debug!("read config toml path [{}]", conf_toml_path.display());
     if content.is_err() {
         let error = content.err().unwrap();
         error!("{} [{}]", error.to_string(), conf_toml);

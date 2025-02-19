@@ -5,7 +5,7 @@ use derive_more::derive::{Display, Error};
 use serde_json::json;
 
 
-#[derive(Debug, Display, Error)]
+#[derive(Debug, Display, Error, utoipa::ToSchema)]
 pub struct Error {
     pub message: String
 }
