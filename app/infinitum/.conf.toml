@@ -97,8 +97,11 @@ ui_path = "/api-docs-ui/{_:.*}"
 json_path = "/api-docs/openapi.json"
 
 [server.openapi_docs.info]
+# 文档标题
 title = "Crab Infinitum"
+# 文档描述
 description = "这里的接口都是符合 RestFul 风格定义的接口"
+# 文档版本
 version = "0.0.1-canary"
 
 [database_connection.core]

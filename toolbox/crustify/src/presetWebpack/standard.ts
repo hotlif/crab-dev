@@ -4,7 +4,6 @@ import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
 import { writeFileSync } from "fs";
-import ReactWebpackPlugin from "../plugins/ReactWebpackPlugin";
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
 import { getTmpDir, getCwdDir } from "../util";

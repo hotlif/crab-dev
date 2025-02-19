@@ -15,3 +15,6 @@ sea-orm = { workspace = true }
 argon2 = { workspace = true }
 jsonwebtoken = { workspace = true }
 utoipa = { workspace = true }
+env_logger = { workspace = true }
+chrono = { workspace = true}
+colored = { workspace = true }

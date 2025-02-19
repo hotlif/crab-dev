@@ -1,9 +1,9 @@
 use actix_web::{
     body::BoxBody, http::header::ContentType, HttpRequest, HttpResponse, Responder,
 };
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, utoipa::ToSchema)]
 pub struct Response<T> {
     pub payload: Option<T>
 }

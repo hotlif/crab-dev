@@ -3,10 +3,14 @@ import { readFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { Configuration } from "webpack";
-import { merge } from "webpack-merge";
+import { mergeWithRules } from "webpack-merge";
+import { createRequire } from "module";
 import type {} from "webpack-dev-server";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const require = createRequire(import.meta.url);
 
 interface Vue2LcpWebCrustifyModParam {
 
@@ -78,11 +82,36 @@ window._$proxyLoadComponent = ${JSON.stringify(this.param.proxyLoadComponent)};\
                 }
             }
         }))
-        return merge(configuration, {
+        const webpackConfig = mergeWithRules({
+            module: {
+                rules: {
+                    test: "match",
+                    use: "replace"
+                },
+            },
+        })(configuration, {
+            module: {
+                rules: [{
+                    test: /\.css$/i,
+                    use: [
+                        require.resolve("style-loader"),
+                        require.resolve("css-loader"),
+                    ],
+                }]
+            },
             output: {
                 libraryExport: "default"
             }
         });
+
+        const plugins = (webpackConfig as any).plugins;
+        for (let i = 0; i < plugins.length; i += 1) {
+            if (plugins[i] instanceof MiniCssExtractPlugin) {
+                delete plugins[i];
+                break;
+            }
+        }
+        return webpackConfig;
     }
 }
 
