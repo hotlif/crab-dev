@@ -1,3 +1,3 @@
 export {
-    convertToVue2
+    Vue2Adapter
 } from "./wrap";

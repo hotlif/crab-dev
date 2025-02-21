@@ -36203,8 +36203,14 @@
 					}
 				},
 				mounted() {
-					this.beforeLoadComponent()
+					this.beforeLoadComponent();
 				},
+            
+                deactivated() {
+                    this.removeUnwatchs();
+                    this.beforeLoadComponent();
+                },
+
 				beforeDestroy() {
 					this.removeComponent(), this.removeUnwatchs()
 				},
@@ -36230,8 +36236,13 @@
                                     ) {
                                         const proxyLoadComponentUrl = window._$proxyLoadComponent[t.ComponentFile.FileId];
                                         const extModuleName = t.ComponentName;
-                                        const e = n["default"].extend(window[extModuleName]);
-                                        this.setupVm(e)
+                                        console.debug(`id: ${t.ComponentFile.FileId}, name: ${t.ComponentName}`)
+                                        if (window[extModuleName]) {
+                                            const e = n["default"].extend(window[extModuleName]);
+                                            this.setupVm(e)
+                                        } else {
+                                            console.error(`could not find the component with the name [${t.ComponentName}] in debug mode.`)
+                                        }
                                     } else {
                                         const e = Object(r["b"])(t.ComponentFile.FileId),
                                             i = t.ComponentName;

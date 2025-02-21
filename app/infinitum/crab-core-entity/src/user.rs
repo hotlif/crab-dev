@@ -1,4 +1,4 @@
-use sea_orm::entity::prelude::*;
+use sea_orm::{entity::prelude::*, Schema};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize)]
@@ -13,8 +13,8 @@ pub struct Model {
     #[sea_orm(comment = "真实姓名")]
     pub realname: String,
 
-    #[sea_orm(comment = "性别")]
-    pub gender: i8,
+    #[sea_orm(column_type = "TinyInteger",comment = "性别")]
+    pub gender: i16,
 
     #[sea_orm(comment = "登录密码")]
     pub password: String,
@@ -33,3 +33,17 @@ pub struct Model {
 pub enum Relation {}
 
 impl ActiveModelBehavior for ActiveModel {}
+
+pub async fn create_table(db: &DatabaseConnection) -> anyhow::Result<()> {
+    let backend  = db.get_database_backend();
+    let schema = Schema::new(backend);
+    db.execute(
+        backend.build(
+            schema
+                            .create_table_from_entity(Entity)
+                            .to_owned()
+            .if_not_exists()
+        )
+    ).await?;
+    anyhow::Ok(())
+}

@@ -98,7 +98,7 @@ mod tests {
     use crab_core::response::Response;
     use argon2::PasswordHasher;
     use sea_orm::IntoActiveModel;
-    use sea_orm::{ActiveValue::NotSet, ConnectionTrait, Schema, Set, ActiveModelTrait};
+    use sea_orm::{ActiveValue::NotSet, Set, ActiveModelTrait};
     use super::*;
 
     #[actix_web::test]
@@ -113,14 +113,7 @@ mod tests {
         });
 
         let db = get_core_connection(&app_data).unwrap();
-        let backend  = db.get_database_backend();
-        let schema = Schema::new(backend);
-        db.execute(
-            backend.build(
-                schema.create_table_from_entity(user::Entity).to_owned()
-                .if_not_exists()
-            )
-        ).await.unwrap();
+        user::create_table(db).await.unwrap();
         let password = b"2f3c17b443ea2a8cba81e3beebe056f5";
         let salt = SaltString::generate(&mut OsRng);
         let argon2 = Argon2::default();
