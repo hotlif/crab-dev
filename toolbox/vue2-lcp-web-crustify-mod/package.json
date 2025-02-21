@@ -1,6 +1,6 @@
 {
     "name": "@crab/vue2-lcp-web-crustify-mod",
-    "version": "0.0.3-canary",
+    "version": "0.0.4.db52002d-canary",
     "description": "低代码平台的开发阶段的模组, 用来方便开发和调试",
     "packageManager": "yarn@4.6.0",
     "type": "module",

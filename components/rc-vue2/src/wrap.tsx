@@ -1,9 +1,8 @@
 import { createRoot } from "react-dom/client";
-import { ComponentType } from "react";
+import { ComponentType, createRef } from "react";
 
-export const convertToVue2 = (AnyNode: ComponentType) => {
+export const Vue2Adapter = (AnyNode: ComponentType) => {
     const vueWrap = {
-
         beforeCreate() {
         },
     
@@ -15,9 +14,10 @@ export const convertToVue2 = (AnyNode: ComponentType) => {
     
         mounted() {
             const self = this as any;
-            const props = self.$attrs;
+            self.thisReactRef = createRef();
+            self.thisReactRef.current = self;
             const root = createRoot(self.$refs.container);
-            root.render(<AnyNode {...props} />);
+            root.render(<AnyNode {...{self: self.thisReactRef} as any } />);
             self.reactRoot = root;
         },
     
@@ -26,14 +26,34 @@ export const convertToVue2 = (AnyNode: ComponentType) => {
 
         updated() {
             const self = this as any;
-            const props = self.$attrs;
-            self.reactRoot.render(<AnyNode {...props} />);
+            const props = {
+                $this: self.thisReactRef,
+                ...self.$listeners,
+                ...self.$attrs
+            }
+            self.reactRoot.render(<AnyNode {...props as any} />);
         },
     
         activated() {
+            const self = this as any;
+            const props = {
+                $this: self.thisReactRef,
+                $activated: true,
+                ...self.$listeners,
+                ...self.$attrs
+            }
+            self.reactRoot.render(<AnyNode {...props as any } />);
         },
     
         deactivated() {
+            const self = this as any;
+            const props = {
+                $this: self.thisReactRef,
+                $activated: false,
+                ...self.$listeners,
+                ...self.$attrs
+            }
+            self.reactRoot.render(<AnyNode {...props as any } />);
         },
     
         beforeDestroy() {
@@ -45,7 +65,7 @@ export const convertToVue2 = (AnyNode: ComponentType) => {
         errorCaptured() {
         },
     
-        render(createElement: any, context: any) {
+        render(createElement: any) {
             return createElement("div", {
                 ref: "container",
             })

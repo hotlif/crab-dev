@@ -7,16 +7,20 @@ edition = "2021"
 members = [
     "crab-core",
     "crab-core-entity",
+    "crab-mod-chat",
     "crab-mod-auth-jwt"
 ]
 
 [workspace.dependencies]
 actix-web = "4.9.0"
-anyhow = "1.0.95"
+actix-web-actors = "4.3.1"
+colored = "3.0.0"
+actix-ws = "0.3.0"
+anyhow = "1.0.96"
 derive_more = { version = "2.0.1", features = ["full"] }
-serde =  { version = "1.0.215", features = ["derive"] }
+serde =  { version = "1.0.218", features = ["derive"] }
 chrono = "0.4.38"
-serde_json = "1.0.133"
+serde_json = "1.0.139"
 toml = "0.8.20"
 log = "0.4.22"
 sea-orm = { version = "1.1.5", features = [ "sqlx-postgres", "runtime-actix-rustls", "macros"] }
@@ -28,7 +32,8 @@ crab-core-entity = { path = "./crab-core-entity"}
 utoipa = { version = "5.3.1", features = ["actix_extras"]}
 utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web"]}
 utoipa-actix-web = "0.1.2"
-colored = "3.0.0"
+futures-util = "0.3.31"
+
 
 [dependencies]
 actix-web = "4.9.0"
