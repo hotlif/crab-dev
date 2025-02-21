@@ -40,8 +40,8 @@ pub async fn create_table(db: &DatabaseConnection) -> anyhow::Result<()> {
     db.execute(
         backend.build(
             schema
-                            .create_table_from_entity(Entity)
-                            .to_owned()
+                .create_table_from_entity(Entity)
+                .to_owned()
             .if_not_exists()
         )
     ).await?;
