@@ -36225,8 +36225,11 @@
 									Success: i,
 									Message: a
 								} = e;
+
+
 								if (i) {
 									this.setupDefaultComponentData(t.ComponentConfig);
+                                    console.debug(`[vue2-lcp-web-crustify-mod]: id=${t.ComponentFile.FileId}, name=${t.ComponentName}`)
                                     /**
                                      * t.ComponentFile.FileId 表示文件 ID, 可以通过这个来检索加载文件
                                      */
@@ -36236,12 +36239,12 @@
                                     ) {
                                         const proxyLoadComponentUrl = window._$proxyLoadComponent[t.ComponentFile.FileId];
                                         const extModuleName = t.ComponentName;
-                                        console.debug(`id: ${t.ComponentFile.FileId}, name: ${t.ComponentName}`)
+                                       
                                         if (window[extModuleName]) {
                                             const e = n["default"].extend(window[extModuleName]);
                                             this.setupVm(e)
                                         } else {
-                                            console.error(`could not find the component with the name [${t.ComponentName}] in debug mode.`)
+                                            console.error(`[vue2-lcp-web-crustify-mod]: could not find the component with the name [${t.ComponentName}] in debug mode.`)
                                         }
                                     } else {
                                         const e = Object(r["b"])(t.ComponentFile.FileId),
