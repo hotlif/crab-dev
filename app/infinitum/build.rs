@@ -27,10 +27,4 @@ fn main() {
     if let Err(e) = fs::copy(&conf_src, &conf_dst) {
         panic!("Failed to copy [.conf.toml] file: {}", e);
     }
-
-    let conf_src = PathBuf::from("./assets");
-    let conf_dst = out_path.parent().unwrap().parent().unwrap().parent().unwrap().join("assets");
-    if let Err(e) = copy_dir(&conf_src, &conf_dst) {
-        panic!("Failed to copy [assets] file: {}", e);
-    }
 }

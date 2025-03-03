@@ -31,7 +31,7 @@ struct IssueParam {
 
 /// 获取 Token 
 #[utoipa::path(
-    tags = ["crab-mod-auth-jwt"],
+    tags = ["crab-core-auth-jwt"],
     description = "使用账号密码, 获取 Token 信息",
     request_body = IssueParam,
     responses(
@@ -40,7 +40,7 @@ struct IssueParam {
     )
 )]
 #[post("/jwt/issue")]
-async fn auth_issue(
+async fn jwt_issue(
     param: Option<Json<IssueParam>>,
     app: Data<AppData>
 ) -> Result<Response<String>> {
@@ -81,11 +81,11 @@ async fn auth_issue(
 }
 
 pub fn configure(cfg: &mut web::ServiceConfig) {
-    cfg.service(auth_issue);
+    cfg.service(jwt_issue);
 }
 
 pub fn configure_toipa(cfg: &mut utoipa_actix_web::service_config::ServiceConfig) {
-    cfg.service(auth_issue);
+    cfg.service(jwt_issue);
 }
 
 

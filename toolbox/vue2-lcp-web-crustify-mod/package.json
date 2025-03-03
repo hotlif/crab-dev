@@ -24,7 +24,6 @@
         "@crab/standards-jest-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@jest/globals": "^29.7.0",
-        "@types/crypto-js": "^4",
         "@types/node": "^22.10.7",
         "eslint": "^9.18.0",
         "eslint-plugin-react": "^7.37.4",

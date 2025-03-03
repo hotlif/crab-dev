@@ -1,5 +1,5 @@
 [package]
-name = "crab-mod-auth-jwt"
+name = "crab-core-auth-jwt"
 version = "0.1.0"
 edition = "2021"
 
