@@ -1,7 +1,12 @@
-import "./vars.style";
+import {
+	TableCellBorderColor,
+	TableCellSelectionColor,
+	TableHeaderBackgroundColor,
+	TableBodyGroupBackgroundColor,
+} from "../token";
 
 export const containerStyle = `
-	border: 1px solid var(--table-cell-border-color);
+	border: 1px solid ${TableCellBorderColor};
 	border-collapse: separate;
 `;
 
@@ -18,13 +23,13 @@ export const centerAlignStyle = `
 `;
 
 export const cellSelectStyle = `
-	outline: 2px solid var(--table-cell-selection-color);
+	outline: 2px solid ${TableCellSelectionColor};
 	outline-offset: -2px;
 `
 
 export const headerContainerStyle = `
-	background-color: var(--table-header-background-color);
-	border-bottom: 1px solid var(--table-cell-border-color);
+	background-color: ${TableHeaderBackgroundColor};
+	border-bottom: 1px solid ${TableCellBorderColor};
 	position: sticky;
 `;
 
@@ -38,8 +43,8 @@ export const cellContainerStyle = `
 	grid-column: var(--table-grid-column);
 	grid-row-start: var(--table-grid-row-start);
 	background-color: inherit;
-    border-left: 1px solid var(--table-cell-border-color);
-	border-bottom: 1px solid var(--table-cell-border-color);
+    border-left: 1px solid ${TableCellBorderColor};
+	border-bottom: 1px solid ${TableCellBorderColor};
 	align-content: center;
 	overflow: hidden;
 	text-overflow: ellipsis;;
@@ -60,12 +65,12 @@ export const fixedRightStyle = `
 
 export const fixedLeftFirstStyle = `
 	box-shadow: 2px 0 5px -2px rgba(136, 136, 136, .3);
-	border-right: 1px solid var(--table-cell-border-color);
+	border-right: 1px solid ${TableCellBorderColor};
 `;
 
 export const fixedRightFirstStyle = `
 	box-shadow: -2px 0 5px -2px rgba(136, 136, 136, .3);
-	border-left: 1px solid var(--table-cell-border-color);
+	border-left: 1px solid ${TableCellBorderColor};
 `;
 
 export const fixedAndHeaderZIndexStyle = `
@@ -81,7 +86,7 @@ export const fixedZIndexStyle = `
 `;
 
 export const cellGroupContainerStyle = `
-	background-color: var(--table-body-group-background-color);
+	background-color: ${TableBodyGroupBackgroundColor};
 	border-left: unset;
 `;
 

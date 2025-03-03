@@ -30,6 +30,7 @@ import {
 	cellContainerFirstCell
 } from "./style/index";
 import Cell from "./cell";
+import "./token";
 import { type Row } from "./types";
 import { getGroupAllKeys } from "./util";
 

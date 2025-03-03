@@ -3,6 +3,31 @@
 version = 4
 
 [[package]]
+name = "actix"
+version = "0.13.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de7fa236829ba0841304542f7614c42b80fca007455315c45c785ccfa873a85b"
+dependencies = [
+ "actix-macros",
+ "actix-rt",
+ "actix_derive",
+ "bitflags",
+ "bytes",
+ "crossbeam-channel",
+ "futures-core",
+ "futures-sink",
+ "futures-task",
+ "futures-util",
+ "log",
+ "once_cell",
+ "parking_lot",
+ "pin-project-lite",
+ "smallvec",
+ "tokio",
+ "tokio-util",
+]
+
+[[package]]
 name = "actix-codec"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -174,6 +199,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "actix-web-actors"
+version = "4.3.1+deprecated"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f98c5300b38fd004fe7d2a964f9a90813fdbe8a81fed500587e78b1b71c6f980"
+dependencies = [
+ "actix",
+ "actix-codec",
+ "actix-http",
+ "actix-web",
+ "bytes",
+ "bytestring",
+ "futures-core",
+ "pin-project-lite",
+ "tokio",
+ "tokio-util",
+]
+
+[[package]]
 name = "actix-web-codegen"
 version = "4.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -197,6 +240,17 @@ dependencies = [
  "bytestring",
  "futures-core",
  "tokio",
+]
+
+[[package]]
+name = "actix_derive"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b6ac1e58cded18cb28ddc17143c4dea5345b3ad575e14f32f66e4054a56eb271"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.98",
 ]
 
 [[package]]
@@ -733,48 +787,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "crab-core-entity"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "sea-orm",
- "serde",
-]
-
-[[package]]
-name = "crab-core-websockets"
-version = "0.1.0"
-dependencies = [
- "actix-web",
- "actix-ws",
- "anyhow",
- "futures-util",
- "log",
-]
-
-[[package]]
-name = "crab-infinitum"
-version = "0.1.0"
-dependencies = [
- "actix-web",
- "anyhow",
- "chrono",
- "crab-core",
- "crab-mod-auth-jwt",
- "derive_more 2.0.1",
- "env_logger",
- "log",
- "sea-orm",
- "serde",
- "serde_json",
- "toml",
- "utoipa",
- "utoipa-actix-web",
- "utoipa-swagger-ui",
-]
-
-[[package]]
-name = "crab-mod-auth-jwt"
+name = "crab-core-auth-jwt"
 version = "0.1.0"
 dependencies = [
  "actix-web",
@@ -790,6 +803,51 @@ dependencies = [
  "sea-orm",
  "serde",
  "serde_json",
+ "utoipa",
+ "utoipa-actix-web",
+ "utoipa-swagger-ui",
+]
+
+[[package]]
+name = "crab-core-entity"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "sea-orm",
+ "serde",
+]
+
+[[package]]
+name = "crab-core-websocket"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-web",
+ "actix-web-actors",
+ "actix-ws",
+ "anyhow",
+ "futures-util",
+ "log",
+]
+
+[[package]]
+name = "crab-infinitum"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "actix-web-actors",
+ "anyhow",
+ "chrono",
+ "crab-core",
+ "crab-core-auth-jwt",
+ "crab-core-websocket",
+ "derive_more 2.0.1",
+ "env_logger",
+ "log",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "toml",
  "utoipa",
  "utoipa-actix-web",
  "utoipa-swagger-ui",
@@ -817,6 +875,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a97769d94ddab943e4510d138150169a2758b5ef3eb191a9ee688de3e23ef7b3"
 dependencies = [
  "cfg-if",
+]
+
+[[package]]
+name = "crossbeam-channel"
+version = "0.5.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "06ba6d68e24814cb8de6bb986db8222d3a027d15872cabc0d18817bc3c0e4471"
+dependencies = [
+ "crossbeam-utils",
 ]
 
 [[package]]
@@ -1668,9 +1735,9 @@ checksum = "9374ef4228402d4b7e403e5838cb880d9ee663314b0a900d5a6aabf0c213552e"
 
 [[package]]
 name = "log"
-version = "0.4.25"
+version = "0.4.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04cbf5b083de1c7e0222a7a51dbfdba1cbe1c6ab0b15e29fff3f6c077fd9cd9f"
+checksum = "30bde2b3dc3671ae49d8e2e9f044c7c005836e7a023ee57cffa25ab82764bb9e"
 
 [[package]]
 name = "md-5"

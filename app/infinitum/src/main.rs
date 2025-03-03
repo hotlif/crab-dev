@@ -1,20 +1,37 @@
 
-use actix_web::{middleware::{from_fn, Logger}, App, HttpServer};
+use actix_web::{Error, middleware::{from_fn, Logger}, App, HttpRequest, HttpResponse, HttpServer};
+use crab_core_websocket::actor::session::Session;
 use utoipa_actix_web::{scope, AppExt};
 use utoipa_swagger_ui::SwaggerUi;
 use crab_core::conf::get_conf;
 use crab_core::app_data::init_database_connection;
 use crab_core::app_data::AppData;
-use crab_mod_auth_jwt::middleware::middleware_mod_auth_jwt;
+use crab_core_auth_jwt::middleware::middleware_mod_auth_jwt;
+use actix_web_actors::ws;
+
 use log::error;
 use actix_web::web;
 
+async fn websocket_route(
+    req: HttpRequest,
+    stream: web::Payload
+) -> Result<HttpResponse, Error> {
+    ws::start(
+        Session {
+        },
+        &req,
+        stream
+    )
+}
+
 fn cfg_fn(cfg: &mut web::ServiceConfig) {
-    crab_mod_auth_jwt::controller::configure(cfg);
+    cfg.route("/websocket", web::get().to(websocket_route));
+    crab_core_auth_jwt::controller::configure(cfg);
 }
 
 fn cfg_fn_toipa(cfg: &mut utoipa_actix_web::service_config::ServiceConfig) {
-    crab_mod_auth_jwt::controller::configure_toipa(cfg);
+    cfg.route("/websocket", web::get().to(websocket_route));
+    crab_core_auth_jwt::controller::configure_toipa(cfg);
 }
 
 #[actix_web::main]

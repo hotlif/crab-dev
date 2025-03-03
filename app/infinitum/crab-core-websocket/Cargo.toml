@@ -1,5 +1,5 @@
 [package]
-name = "crab-core-websockets"
+name = "crab-core-websocket"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,3 +9,5 @@ actix-ws = { workspace =  true }
 futures-util = { workspace = true }
 log = { workspace =  true }
 anyhow = { workspace = true }
+actix = { workspace = true}
+actix-web-actors = { workspace = true}
