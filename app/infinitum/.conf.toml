@@ -89,7 +89,7 @@ allow_access_paths = [
 ]
 
 [server.openapi_docs]
-# 是否启用文档
+# 是否启用文档, 在生产环境的时候不建议启用此选项
 enable = true
 # 文档 UI 页面的路径
 ui_path = "/api-docs-ui/{_:.*}"

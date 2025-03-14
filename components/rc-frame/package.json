@@ -1,12 +1,22 @@
 {
-    "name": "@crab/website",
+    "name": "@crab/rc-frame",
+    "description": "布局组件，适用于管理后台、仪表盘等",
     "packageManager": "yarn@4.6.0",
+    "type": "module",
     "scripts": {
         "start": "crustify dev",
-        "build": "crustify build"
+        "build": "packify build",
+        "eslint": "eslint"
     },
+    "files": [
+        "esm"
+    ],
+    "types": "esm/index.d.ts",
+    "main": "esm/index.mjs",
+    "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/crustify": "workspace:^",
+        "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^6.2.0",
@@ -16,15 +26,17 @@
         "eslint": "^9.21.0",
         "eslint-plugin-react": "^7.37.4",
         "globals": "^16.0.0",
-        "raw-loader": "^4.0.2",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
         "typescript": "^5.8.2",
         "typescript-eslint": "^8.26.0"
     },
     "dependencies": {
         "@crab/rc-menu": "workspace:^",
-        "@crab/styleify": "workspace:^",
+        "@crab/styleify": "workspace:^"
+    },
+    "peerDependencies": {
         "react": "^19.0.0",
-        "react-dom": "^19.0.0",
-        "react-router": "^7.2.0"
+        "react-dom": "^19.0.0"
     }
 }

@@ -28,8 +28,6 @@ export const Vue2Adapter = (AnyNode: ComponentType) => {
             const self = this as any;
             const props = {
                 $this: self.thisReactRef,
-                ...self.$listeners,
-                ...self.$attrs
             }
             self.reactRoot.render(<AnyNode {...props as any} />);
         },
@@ -39,8 +37,6 @@ export const Vue2Adapter = (AnyNode: ComponentType) => {
             const props = {
                 $this: self.thisReactRef,
                 $activated: true,
-                ...self.$listeners,
-                ...self.$attrs
             }
             self.reactRoot.render(<AnyNode {...props as any } />);
         },
@@ -50,8 +46,6 @@ export const Vue2Adapter = (AnyNode: ComponentType) => {
             const props = {
                 $this: self.thisReactRef,
                 $activated: false,
-                ...self.$listeners,
-                ...self.$attrs
             }
             self.reactRoot.render(<AnyNode {...props as any } />);
         },

@@ -21,18 +21,18 @@
         "@crab/standards-typescript-preset": "workspace:^",
         "@jest/globals": "^29.7.0",
         "@linaria/core": "^6.2.0",
-        "@types/node": "^22.10.7",
-        "@types/react": "^19.0.7",
-        "@types/react-dom": "^19.0.3",
-        "eslint": "^9.18.0",
+        "@types/node": "^22.13.9",
+        "@types/react": "^19.0.10",
+        "@types/react-dom": "^19.0.4",
+        "eslint": "^9.21.0",
         "eslint-plugin-react": "^7.37.4",
-        "globals": "^15.14.0",
+        "globals": "^16.0.0",
         "jest": "^29.7.0",
         "jest-environment-jsdom": "^29.7.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
-        "typescript": "^5.7.3",
-        "typescript-eslint": "^8.20.0"
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.26.0"
     },
     "dependencies": {
         "@crab/styleify": "workspace:^"

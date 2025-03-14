@@ -1,5 +1,4 @@
 import { fontFamily } from "./typography/fontFamily";
-import { PrefixName } from "./util";
 
 // --${PrefixName}-shape-border-radius: 8px;
 export const preflight = `

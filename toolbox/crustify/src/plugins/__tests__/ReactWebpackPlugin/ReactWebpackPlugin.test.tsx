@@ -13,7 +13,8 @@ import ReactWebpackPlugin, { generateHtml } from '../../ReactWebpackPlugin';
 import { compile, babelLoader } from "../util";
 
 const require = createRequire(import.meta.url);
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe('ReactWebpackPlugin', () => {
     it('should generate HTML with script and link tags', async () => {

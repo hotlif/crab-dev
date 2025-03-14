@@ -11,13 +11,13 @@
         "@crab/crustify": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@crab/vue2-crustify-mod": "workspace:^",
-        "@types/node": "^22.10.7",
-        "@types/react": "^19.0.7",
-        "@types/react-dom": "^19.0.3",
-        "globals": "^15.14.0",
+        "@types/node": "^22.13.9",
+        "@types/react": "^19.0.10",
+        "@types/react-dom": "^19.0.4",
+        "globals": "^16.0.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
-        "typescript": "^5.7.3"
+        "typescript": "^5.8.2"
     },
     "dependencies": {
         "@crab/rc-vue2": "workspace:^",

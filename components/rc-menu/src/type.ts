@@ -2,15 +2,21 @@ import { ReactNode, type Key } from "react";
 
 export enum ItemType {
     // 单个元素
-    Item = "item",
+    Item,
     // 带有分组信息的元素
-    ItemGroup = "itemGroup",
+    ItemGroup,
 }
 
 /**
  * 菜单的类型
  */
 export interface Item {
+
+    /**
+     * 用户绑定的数据
+     */
+    data?: unknown
+
     /**
      * 项的类型。
      */
