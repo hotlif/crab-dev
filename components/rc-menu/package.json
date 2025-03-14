@@ -1,9 +1,10 @@
 {
     "name": "@crab/rc-menu",
-    "description": "UI 界面设计器, 可用来设计 Web 端, 以及移动端的草稿",
+    "description": "列表组件",
     "packageManager": "yarn@4.6.0",
     "type": "module",
     "scripts": {
+        "start": "crustify dev",
         "build": "packify build",
         "eslint": "eslint"
     },
@@ -14,21 +15,25 @@
     "main": "esm/index.mjs",
     "module": "esm/index.mjs",
     "devDependencies": {
+        "@crab/crustify": "workspace:^",
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^6.2.0",
-        "@types/node": "^22.10.7",
-        "@types/react": "^19.0.7",
-        "@types/react-dom": "^19.0.3",
-        "eslint": "^9.18.0",
+        "@types/node": "^22.13.9",
+        "@types/react": "^19.0.10",
+        "@types/react-dom": "^19.0.4",
+        "eslint": "^9.21.0",
         "eslint-plugin-react": "^7.37.4",
-        "globals": "^15.14.0",
-        "typescript": "^5.7.3",
-        "typescript-eslint": "^8.20.0"
+        "globals": "^16.0.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.26.0"
     },
     "dependencies": {
-        "@crab/styleify": "workspace:^"
+        "@crab/styleify": "workspace:^",
+        "motion": "^12.5.0"
     },
     "peerDependencies": {
         "react": "^19.0.0",
