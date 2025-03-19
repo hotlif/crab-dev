@@ -1,0 +1,37 @@
+{
+    "name": "@crab/infinitum-front",
+    "private": true,
+    "description": "Frontend core for Infinitum",
+    "author": "zhangj <854363956@qq.com>",
+    "packageManager": "yarn@4.7.0",
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "start": "crustify dev",
+        "build": "packify build",
+        "eslint": "eslint"
+    },
+    "devDependencies": {
+        "@crab/crustify": "workspace:^",
+        "@crab/packify": "workspace:^",
+        "@crab/standards-eslint-preset": "workspace:^",
+        "@crab/standards-typescript-preset": "workspace:^",
+        "@linaria/core": "^6.3.0",
+        "@types/node": "^22.13.10",
+        "@types/react": "^19.0.11",
+        "@types/react-dom": "^19.0.4",
+        "eslint": "^9.22.0",
+        "eslint-plugin-react": "^7.37.4",
+        "globals": "^16.0.0",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.26.1"
+    },
+    "dependencies": {
+        "@crab/rc-line-edit": "workspace:^",
+        "@crab/rc-request": "workspace:^",
+        "@crab/styleify": "workspace:^",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-router": "^7.3.0"
+    }
+}

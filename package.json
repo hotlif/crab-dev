@@ -1,7 +1,7 @@
 {
     "name": "crab",
-    "preview": true,
-    "packageManager": "yarn@4.6.0",
+    "private": true,
+    "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
         "test": "yarn workspaces foreach --all run test"
@@ -13,11 +13,12 @@
         "styleify",
         "website/",
         "toolbox/vue2-crustify-mod/__tests__/demo",
+        "app/infinitum/crab-core-front",
         "components/rc-vue2/__tests__/demo"
     ],
     "devDependencies": {
         "@crab/standards-typescript-preset": "workspace:^",
-        "@types/node": "^22.13.9",
+        "@types/node": "^22.13.10",
         "typescript": "^5.8.2"
     }
 }

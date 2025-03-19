@@ -1,0 +1,41 @@
+{
+    "name": "@crab/rc-request",
+    "description": "A common library of React Hooks for executing some common methods of Hooks",
+    "packageManager": "yarn@4.7.0",
+    "type": "module",
+    "scripts": {
+        "build": "packify build",
+        "eslint": "eslint"
+    },
+    "files": [
+        "esm"
+    ],
+    "types": "esm/index.d.ts",
+    "main": "esm/index.mjs",
+    "module": "esm/index.mjs",
+    "devDependencies": {
+        "@crab/packify": "workspace:^",
+        "@crab/standards-eslint-preset": "workspace:^",
+        "@crab/standards-jest-preset": "workspace:^",
+        "@crab/standards-typescript-preset": "workspace:^",
+        "@jest/globals": "^29.7.0",
+        "@linaria/core": "^6.3.0",
+        "@types/node": "^22.13.10",
+        "@types/react": "^19.0.11",
+        "@types/react-dom": "^19.0.4",
+        "eslint": "^9.22.0",
+        "eslint-plugin-react": "^7.37.4",
+        "globals": "^16.0.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.26.1"
+    },
+    "dependencies": {
+        "axios": "^1.8.3",
+        "dexie": "^4.0.11",
+        "nanoid": "^5.1.4"
+    }
+}

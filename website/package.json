@@ -1,6 +1,6 @@
 {
     "name": "@crab/website",
-    "packageManager": "yarn@4.6.0",
+    "packageManager": "yarn@4.7.0",
     "scripts": {
         "start": "crustify dev",
         "build": "crustify build"
@@ -9,22 +9,22 @@
         "@crab/crustify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
-        "@linaria/core": "^6.2.0",
-        "@types/node": "^22.13.9",
-        "@types/react": "^19.0.10",
+        "@linaria/core": "^6.3.0",
+        "@types/node": "^22.13.10",
+        "@types/react": "^19.0.11",
         "@types/react-dom": "^19.0.4",
-        "eslint": "^9.21.0",
+        "eslint": "^9.22.0",
         "eslint-plugin-react": "^7.37.4",
         "globals": "^16.0.0",
         "raw-loader": "^4.0.2",
         "typescript": "^5.8.2",
-        "typescript-eslint": "^8.26.0"
+        "typescript-eslint": "^8.26.1"
     },
     "dependencies": {
         "@crab/rc-menu": "workspace:^",
         "@crab/styleify": "workspace:^",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
-        "react-router": "^7.2.0"
+        "react-router": "^7.3.0"
     }
 }

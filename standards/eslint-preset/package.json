@@ -1,6 +1,6 @@
 {
     "name": "@crab/standards-eslint-preset",
-    "packageManager": "yarn@4.6.0",
+    "packageManager": "yarn@4.7.0",
     "type": "module",
     "main": "index.mjs",
     "module": "index.mjs",
@@ -12,6 +12,6 @@
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {
-        "@eslint/js": "^9.21.0"
+        "@eslint/js": "^9.22.0"
     }
 }

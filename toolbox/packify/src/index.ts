@@ -7,6 +7,7 @@ import wyw from "@wyw-in-js/rollup";
 import { join } from "path";
 //@ts-ignore
 import css from 'rollup-plugin-css-only';
+import { readFileSync, writeFileSync } from "fs";
 
 const extensions = [".ts"];
 
@@ -37,4 +38,16 @@ export const build = async () => {
         file: "esm/index.mjs",
         format: "es",
     });
+
+    const filePath = join(process.cwd(), "esm", "index.styles.css");
+    let fileContent = readFileSync(filePath).toString();
+
+    const packageJsonBuffer = readFileSync(join(process.cwd(), "package.json"));
+    const packageJson = JSON.parse(packageJsonBuffer.toString());
+    Object.keys(packageJson.dependencies).forEach(key => {
+        if (/@crab\/rc-.*/g.test(key)) {
+            fileContent = `@import "${key}/esm/index.styles.css";\n` + fileContent;
+        }
+    });
+    writeFileSync(filePath, fileContent);
 }

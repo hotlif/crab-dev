@@ -1,6 +1,6 @@
 {
     "name": "@crab/standards-jest-preset",
-    "packageManager": "yarn@4.6.0",
+    "packageManager": "yarn@4.7.0",
     "type": "module",
     "files": [
         "jest.browser.react.config.mjs",
@@ -10,12 +10,12 @@
         "build": "yarn pnpify tsc"
     },
     "devDependencies": {
-        "@types/node": "^22.13.9",
+        "@types/node": "^22.13.10",
         "@yarnpkg/pnpify": "^4.1.4",
         "typescript": "^5.8.2"
     },
     "dependencies": {
-        "@babel/core": "^7.26.9",
+        "@babel/core": "^7.26.10",
         "@babel/preset-env": "^7.26.9",
         "@babel/preset-react": "^7.26.3",
         "@babel/preset-typescript": "^7.26.0",

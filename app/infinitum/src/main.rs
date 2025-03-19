@@ -26,11 +26,13 @@ async fn websocket_route(
 
 fn cfg_fn(cfg: &mut web::ServiceConfig) {
     cfg.route("/websocket", web::get().to(websocket_route));
+    crab_core_basic::configure(cfg);
     crab_core_auth_jwt::controller::configure(cfg);
 }
 
 fn cfg_fn_toipa(cfg: &mut utoipa_actix_web::service_config::ServiceConfig) {
     cfg.route("/websocket", web::get().to(websocket_route));
+    crab_core_basic::configure_toipa(cfg);
     crab_core_auth_jwt::controller::configure_toipa(cfg);
 }
 

@@ -14,44 +14,51 @@ const BorderRadiusSize: Record<BorderRadiusSizeType, string> = {
 
 const directions = ['s', 'e', 't', 'r', 'b', 'l', 'ss', 'se', 'ee', 'es', 'tl', 'tr', 'br', 'bl'];
 
-export const borderRadius = (input: `${typeof directions[number]}-${BorderRadiusSizeType}`) => {
-        const [direction, value] = input.split('-');
-        const borderRadiusValue = BorderRadiusSize[value as BorderRadiusSizeType];
-    
-        if (!borderRadiusValue || !directions.includes(direction as any)) {
-            return '';
-        }
+export const borderRadius = (input: `${typeof directions[number]}-${BorderRadiusSizeType}` | BorderRadiusSizeType ) => {
+        const inputSplit = input.split('-');
 
-        switch (direction) {
-            case 's':
-                return `border-start-start-radius: ${borderRadiusValue}; border-end-start-radius: ${borderRadiusValue};`;
-            case 'e':
-                return `border-start-end-radius: ${borderRadiusValue}; border-end-end-radius: ${borderRadiusValue};`;
-            case 't':
-                return `border-top-left-radius: ${borderRadiusValue}; border-top-right-radius: ${borderRadiusValue};`;
-            case 'r':
-                return `border-top-right-radius: ${borderRadiusValue}; border-top-right-radius: ${borderRadiusValue};`;
-            case 'b':
-                return `border-bottom-right-radius: ${borderRadiusValue};border-bottom-left-radius: ${borderRadiusValue};`;
-            case 'l':
-                return `border-top-left-radius: ${borderRadiusValue};border-bottom-left-radius: ${borderRadiusValue};`;
-            case 'ss':
-                return `border-start-start-radius: ${borderRadiusValue};`;
-            case 'se':
-                return `border-start-end-radius: ${borderRadiusValue};`;
-            case 'ee':
-                return `border-end-end-radius: ${borderRadiusValue};`;
-            case 'es':
-                return `border-end-start-radius: ${borderRadiusValue};`;
-            case 'tl':
-                return `border-top-left-radius: ${borderRadiusValue};`;
-            case 'tr':
-                return `border-top-right-radius: ${borderRadiusValue};`;
-            case 'br':
-                return `border-bottom-right-radius: ${borderRadiusValue};`;
-            case 'bl':
-                return `border-bottom-left-radius: ${borderRadiusValue};`;
-            default:
+        if (inputSplit.length == 2) {
+            const [direction, value] = inputSplit;
+            const borderRadiusValue = BorderRadiusSize[value as BorderRadiusSizeType];
+        
+            if (!borderRadiusValue || !directions.includes(direction as any)) {
                 return '';
+            }
+    
+            switch (direction) {
+                case 's':
+                    return `border-start-start-radius: ${borderRadiusValue}; border-end-start-radius: ${borderRadiusValue};`;
+                case 'e':
+                    return `border-start-end-radius: ${borderRadiusValue}; border-end-end-radius: ${borderRadiusValue};`;
+                case 't':
+                    return `border-top-left-radius: ${borderRadiusValue}; border-top-right-radius: ${borderRadiusValue};`;
+                case 'r':
+                    return `border-top-right-radius: ${borderRadiusValue}; border-top-right-radius: ${borderRadiusValue};`;
+                case 'b':
+                    return `border-bottom-right-radius: ${borderRadiusValue};border-bottom-left-radius: ${borderRadiusValue};`;
+                case 'l':
+                    return `border-top-left-radius: ${borderRadiusValue};border-bottom-left-radius: ${borderRadiusValue};`;
+                case 'ss':
+                    return `border-start-start-radius: ${borderRadiusValue};`;
+                case 'se':
+                    return `border-start-end-radius: ${borderRadiusValue};`;
+                case 'ee':
+                    return `border-end-end-radius: ${borderRadiusValue};`;
+                case 'es':
+                    return `border-end-start-radius: ${borderRadiusValue};`;
+                case 'tl':
+                    return `border-top-left-radius: ${borderRadiusValue};`;
+                case 'tr':
+                    return `border-top-right-radius: ${borderRadiusValue};`;
+                case 'br':
+                    return `border-bottom-right-radius: ${borderRadiusValue};`;
+                case 'bl':
+                    return `border-bottom-left-radius: ${borderRadiusValue};`;
+                default:
+                    return '';
+            }
+        } else {
+            const borderRadiusValue = BorderRadiusSize[input as BorderRadiusSizeType];
+            return `border-radius: ${borderRadiusValue};`;
         }
 }

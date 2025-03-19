@@ -17,31 +17,35 @@ export const mediaQuery = (param: MediaQueryParam) => {
     keys.forEach(element => {
         if (element === "sm") {
             mediaQuery += `
-                @media (max-width: 640px) {
+                @media (min-width: 0px) and (max-width: 640px) {
                     ${param[element]}
                 }
             `
-        } else if (element === "md") {
+        }
+        if (element === "md") {
             mediaQuery += `
-                @media (max-width: 768px) {
+                @media (min-width: 641px) and (max-width: 768px) {
                     ${param[element]}
                 }
             `
-        } else if (element === "lg") {
+        }
+        if (element === "lg") {
             mediaQuery += `
-                @media (max-width: 1024px) {
+                @media (min-width: 769px) and (max-width: 1024px) {
                     ${param[element]}
                 }
             `
-        } else if (element === "xl") {
+        }
+        if (element === "xl") {
             mediaQuery += `
-                @media (max-width: 1280px) {
+                @media (min-width: 1025px) and (max-width: 1280px) {
                     ${param[element]}
                 }
             `
-        } else if (element === "xxl") {
+        }
+        if (element === "xxl") {
             mediaQuery += `
-                @media (max-width: 1536px) {
+                @media (width >= 1280px) {
                     ${param[element]}
                 }
             `
