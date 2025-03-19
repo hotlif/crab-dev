@@ -3,7 +3,7 @@ import { css } from "@linaria/core";
 import { preflight } from "@crab/styleify";
 import SimpleDemo from "./demos/simple.demo";
 
-import "@crab/rc-menu/esm/index.styles.css";
+import "../../esm/index.styles.css";
 
 css`
 	:global() {

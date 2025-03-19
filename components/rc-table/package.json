@@ -1,7 +1,7 @@
 {
     "name": "@crab/rc-table",
     "description": "展示行列数据的表格组件",
-    "packageManager": "yarn@4.6.0",
+    "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
         "start": "crustify dev",
@@ -20,13 +20,13 @@
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
-        "@faker-js/faker": "^9.5.1",
+        "@faker-js/faker": "^9.6.0",
         "@jest/globals": "^29.7.0",
-        "@linaria/core": "^6.2.0",
-        "@types/node": "^22.13.9",
-        "@types/react": "^19.0.10",
+        "@linaria/core": "^6.3.0",
+        "@types/node": "^22.13.10",
+        "@types/react": "^19.0.11",
         "@types/react-dom": "^19.0.4",
-        "eslint": "^9.21.0",
+        "eslint": "^9.22.0",
         "eslint-plugin-react": "^7.37.4",
         "globals": "^16.0.0",
         "jest": "^29.7.0",
@@ -34,7 +34,7 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "typescript": "^5.8.2",
-        "typescript-eslint": "^8.26.0"
+        "typescript-eslint": "^8.26.1"
     },
     "dependencies": {
         "@crab/rc-hooks": "workspace:^",

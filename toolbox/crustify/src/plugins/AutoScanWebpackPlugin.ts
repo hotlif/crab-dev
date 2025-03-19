@@ -7,6 +7,7 @@ import { parse } from "smol-toml";
 
 import { type ComponentScanRule } from "../conf";
 import { getTmpDir } from "../util";
+import { existsSync, mkdirSync } from "fs";
 
 const PLUGIN_NAME = "AutoScanWebpackPlugin";
 
@@ -109,6 +110,27 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
         this.rootDir = param.rootDir;
     }
 
+    async generateTsConfigFile(componentScan: ComponentScanRule[]) {
+        const tsconfig: {
+            compilerOptions: {
+                paths: {
+                    [key: string]: string[]
+                }
+            }
+        } = {
+            "compilerOptions": {
+                "paths": {
+                }
+            }
+        }
+        const tmp = getTmpDir(this.rootDir);
+        componentScan.forEach(element => {
+            const fileName = Buffer.from(element.namespaces).toString("base64");
+            tsconfig.compilerOptions.paths[`@@@/${element.namespaces}`] = [join(tmp, `${fileName}.ts`)]
+        })
+        return JSON.stringify(tsconfig);
+    }
+
     /**
      * 自动扫描对应的文件夹, 并且生成对应的 `export` 语句, 可通过 `namespaces` 来指定对应的命名空间进行导入
      */
@@ -135,14 +157,14 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             const sourcePath = join(getTmpDir(rootDir), `${relativePath}.raw`);
             await copy(file, sourcePath);
 
-            if (generateSourceCharacter === true) {
+            if (generateSourceCharacter !== false) {
                 importSourceStatements += `import ${importName}_source from "./${relativePath}.raw";\n`;
             }
 
             const metadata = await parseHeaderComments(file);
             importStatements += `const ${importName} = lazy(() => import("${importUrl}"));\n`;
             exportStatements += `   { name: "${importName}", component: ${importName}, relativePath: "${relativePath}"${
-                generateSourceCharacter === true ? `, source: ${importName}_source` : ""
+                generateSourceCharacter !== false ? `, source: ${importName}_source` : ""
             }, metadata: ${JSON.stringify(metadata)}},\n`;
         }
         exportStatements += "];\n";
@@ -165,6 +187,12 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
                 const fileName = Buffer.from(componentScan.namespaces).toString("base64");
                 writeFile(join(tmp, `${fileName}.ts`), importESMAScript);
             }
+
+            if (!existsSync(join(tmp, "autoscan"))) {
+                mkdirSync(join(tmp, "autoscan"));
+            }
+            const tsConfigStr = await this.generateTsConfigFile(this.param);
+            writeFile(join(tmp, "autoscan", "tsconfig.json"), tsConfigStr);
         });
     }
 }

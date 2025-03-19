@@ -49,7 +49,7 @@ const presetModule = async ({
                 ],
             }, {
                 test: /\.raw$/i,
-                use: 'raw-loader',
+                use: require.resolve("raw-loader"),
             }, {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,

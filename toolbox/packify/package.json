@@ -1,7 +1,7 @@
 {
     "name": "@crab/packify",
     "description": "用来构建依赖库的打包工具, 预设了 babel 和 linaria 等一些配置",
-    "packageManager": "yarn@4.6.0",
+    "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
         "build": "rollup -c",
@@ -16,20 +16,20 @@
         "@crab/standards-typescript-preset": "workspace:^",
         "@types/babel__core": "^7.20.5",
         "@types/babel__preset-env": "^7.10.0",
-        "@types/node": "^22.13.9",
-        "eslint": "^9.21.0",
+        "@types/node": "^22.13.10",
+        "eslint": "^9.22.0",
         "eslint-plugin-react": "^7.37.4",
         "globals": "^16.0.0",
         "tslib": "^2.8.1",
         "typescript": "^5.8.2",
-        "typescript-eslint": "^8.26.0"
+        "typescript-eslint": "^8.26.1"
     },
     "dependencies": {
-        "@rollup/plugin-node-resolve": "^16.0.0",
+        "@rollup/plugin-node-resolve": "^16.0.1",
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^12.1.2",
-        "@wyw-in-js/rollup": "^0.5.5",
-        "rollup": "^4.34.9",
+        "@wyw-in-js/rollup": "^0.6.0",
+        "rollup": "^4.36.0",
         "rollup-plugin-css-only": "^4.5.2"
     }
 }

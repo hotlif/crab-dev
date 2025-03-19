@@ -3,7 +3,7 @@ import { join } from "path";
 import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
-import { writeFileSync } from "fs";
+import { writeFileSync, rmSync, existsSync } from "fs";
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
 import { getTmpDir, getCwdDir } from "../util";
@@ -15,6 +15,11 @@ const presetStandard = async ({
     isProduction: boolean,
     conf: Config
 }) => {
+    const tmp = join(conf.rootDir ?? process.cwd(), ".tmp");
+    if (existsSync(tmp)) {
+        rmSync(tmp, { recursive: true });
+    }
+
 	const tmpDir = getTmpDir(conf.rootDir);
     const cwd = getCwdDir(conf.rootDir);
     const entry = join(cwd, "entry.tsx");
@@ -23,6 +28,15 @@ const presetStandard = async ({
     const entryTemplate = `import "@${importEntry}";`;
 
     writeFileSync(entryTmp, entryTemplate);
+
+    const aliasAutoScan: {
+        [key: string]: string[]
+    }  =  {}
+
+    conf?.componentScan?.forEach(element => {
+        const fileName = Buffer.from(element.namespaces).toString("base64");
+        aliasAutoScan[`@@@/${element.namespaces}`] = [join(tmp, `${fileName}.ts`)]
+    })
 
     const standardConfig: Configuration =  {
         entry: entryTmp,
@@ -44,7 +58,8 @@ const presetStandard = async ({
             extensions: [".tsx", ".ts", ".js", ".raw", ".vue"],
             alias: {
 				"@": join(cwd, "src"),
-                "@@": cwd
+                "@@":  cwd,
+                ...aliasAutoScan
 			}
         },
         mode: isProduction ? "production" : "development",

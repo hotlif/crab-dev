@@ -100,7 +100,7 @@ json_path = "/api-docs/openapi.json"
 # 文档标题
 title = "Crab Infinitum"
 # 文档描述
-description = "这里的接口都是符合 RestFul 风格定义的接口"
+description = "多应用的一体化开发管理平台"
 # 文档版本
 version = "0.0.1-canary"
 

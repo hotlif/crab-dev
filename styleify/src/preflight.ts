@@ -1,6 +1,5 @@
 import { fontFamily } from "./typography/fontFamily";
 
-// --${PrefixName}-shape-border-radius: 8px;
 export const preflight = `
 /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
