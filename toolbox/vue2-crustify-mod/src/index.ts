@@ -13,6 +13,13 @@ class Vue2CrustifyMod implements Modification {
                 rules: [{
                     test: /\.vue$/,
                     loader: require.resolve('vue-loader')
+                }, {
+                    test: /\.scss$/,
+                    use: [
+                      require.resolve('vue-style-loader'),
+                      require.resolve('css-loader'),
+                      require.resolve('sass-loader')
+                    ]
                 }]
             },
             plugins: [

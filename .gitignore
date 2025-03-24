@@ -16,3 +16,4 @@
 esm
 coverage
 .tmp
+dist

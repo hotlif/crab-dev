@@ -23,5 +23,8 @@
     },
     "peerDependencies": {
         "jest": "^29.7.0"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }

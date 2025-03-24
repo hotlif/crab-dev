@@ -1,16 +1,17 @@
 import { type Key, useState } from "react"
-import RcTree from "../../../src/index";
-import { LoadStateType, NodeType, Node } from "../../../src/type";
-import { getTreeNodeDepth } from "../../../src/util";
+import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData } from "../../../src/index";
 
 const DraggableTree = () => {
-    const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
-	const [selectKeys, setSelectKeys] = useState<Key[]>([])
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+	const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+	const [treeData, setTreeData, treeDataUtils] = useTreeData();
     return (
 		<RcTree
 			height={200}
 			width={300}
+			treeData={treeData}
 			draggable
+			onTreeNodeChange={setTreeData}
 			expandedKeys={expandedKeys}
 			selectKeys={selectKeys}
 			onSelect={({
@@ -18,7 +19,10 @@ const DraggableTree = () => {
 			}) => {
 				setSelectKeys(selectKeys)
 			}}
-			rendererContextMenu={(node) => {
+			rendererContextMenu={({
+				node,
+				hide
+			}) => {
 				if (node === null) {
 					return (
 						<div
@@ -41,7 +45,14 @@ const DraggableTree = () => {
 						}}
 					>
 						<button>添加</button>
-						<button>删除</button>
+						<button
+							onClick={() => {
+								treeDataUtils.delete(node.id);
+								hide();
+							}}
+						>
+							删除
+						</button>
 						<button>修改</button>
 					</div>
 				)

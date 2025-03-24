@@ -4,6 +4,10 @@ export const useViewportSize = <T extends HTMLElement> (divRef: RefObject<T | nu
 	const [viewportWidth, setViewportWidth] = useState<number>(0);
 	const [viewportHeight, setViewportHeight] = useState<number>(0);
 	useEffect(() => {
+		if (divRef.current) {
+			divRef.current.style.boxSizing = "border-box";
+		}
+
 		const resizeObserver = new ResizeObserver((entries) => {
 			entries.forEach(entry => {
 				const { width, height } = entry.target.getBoundingClientRect();

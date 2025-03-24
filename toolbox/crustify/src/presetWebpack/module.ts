@@ -34,7 +34,8 @@ const presetModule = async ({
             plugins: [
                 [require.resolve("babel-plugin-react-compiler"), {
                     target: '19'
-                }]
+                }],
+                [require.resolve("@crab/babel-plugin-auto-import-style")]
             ]
         },
     };

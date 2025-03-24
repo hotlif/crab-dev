@@ -36,5 +36,8 @@
     },
     "dependencies": {
         "@crab/styleify": "workspace:^"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }

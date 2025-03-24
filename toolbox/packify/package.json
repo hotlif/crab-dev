@@ -31,5 +31,8 @@
         "@wyw-in-js/rollup": "^0.6.0",
         "rollup": "^4.36.0",
         "rollup-plugin-css-only": "^4.5.2"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }

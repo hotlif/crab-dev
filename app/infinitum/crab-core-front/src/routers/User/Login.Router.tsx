@@ -16,37 +16,39 @@ import {
     flex,
     textAlign,
     flexDirection,
-    margin,
     fontSize,
+    height,
     mediaQuery
 } from "@crab/styleify";
 
 import LineEdit from "@crab/rc-line-edit";
-import "@crab/rc-line-edit/esm/index.styles.css";
+import Button from "@crab/rc-button";
+import { useState } from "react";
+import { BiLockAlt, BiUser } from "react-icons/bi";
 
 const UserLoginRouter = () => {
     const [request] = useRequest();
+
+    const [username, setUserName] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     return (
         <div
             className={css`
                 ${display("flex")}
                 ${alignItems("center")}
-                ${padding("pt-16")}
+                ${height("full")}
                 ${mediaQuery({
-                    sm: `
-                        ${padding("px-4")}
-                    `,
-                    md: `
-                        ${padding("px-4")}
-                    `,
                     lg: `
                         ${padding("px-16")}
+                        ${padding("pb-16")}
                     `,
                     xl: `
                         ${padding("px-16")}
+                        ${padding("pb-16")}
                     `,
                     xxl: `
                         ${padding("px-32")}
+                        ${padding("pb-16")}
                     `
                 })}
                 justify-content: center;
@@ -57,12 +59,29 @@ const UserLoginRouter = () => {
                     ${display("flex")}
                     ${borderRadius("2xl")}
                     ${flex(1)}
-                    ${boxShadow("2xl")}
+                    ${mediaQuery({
+                        sm: `
+                            ${height("full")}
+                        `,
+                        md: `
+                            ${height("full")}
+                        `,
+                        lg: `
+                            ${boxShadow("2xl")}
+                        `,
+                        xl: `
+                            ${boxShadow("2xl")}
+                        `,
+                        xxl: `
+                            ${boxShadow("2xl")}
+                        `
+                    })}
                     background-color: #fff;
                 `}
             >
                 <div
                     className={css`
+                        overflow: hidden;
                         ${flexGrow(1)}
                         ${mediaQuery({
                             sm: `
@@ -76,9 +95,11 @@ const UserLoginRouter = () => {
                     `}
                 >
                     <svg
+                        className={css`
+                            width: 100%;
+                            height: 400px;
+                        `}
                         xmlns="http://www.w3.org/2000/svg"
-                        width="700"
-                        height="400"
                         viewBox="0 0 793 551.73152"
                         xmlnsXlink="http://www.w3.org/1999/xlink"
                         role="img"
@@ -109,7 +130,8 @@ const UserLoginRouter = () => {
                         <path d="M409.41752,423.55243c-27.13873,18.49308-46.31418.63272-60.94729-26.92346,2.03338-16.86188-1.259-37.04061-7.35672-58.96635a40.13762,40.13762,0,0,1,24.50567-48.40124h0l32.06116,13.421c27.22362,22.19038,32.582,46.227,22.36825,71.5784Z" transform="translate(-203.5 -174.13424)" fill="#6c63ff"/>
                         <path d="M331.32124,326.54178,301.4969,342.19956l52.9382,31.31555,7.366,18.16951a9.63673,9.63673,0,0,1-5.78925,12.73088h0a9.63673,9.63673,0,0,1-12.76159-8.54442l-.74489-12.66307-67.2838-22.20366a15.73306,15.73306,0,0,1-9.87265-9.61147v0a15.733,15.733,0,0,1,5.90262-18.30258l54.10485-37.11845Z" transform="translate(-203.5 -174.13424)" fill="#ffb8b8"/>
                         <path d="M361.14557,329.52422c-12.43861-5.4511-23.74934.47044-38.026,5.21926l-2.23683-39.51725c14.17612-7.55568,27.69209-9.59281,40.26285-3.728Z" transform="translate(-203.5 -174.13424)" fill="#6c63ff"/>
-                        <circle cx="172.52496" cy="78.09251" r="23.80211" fill="#ffb8b8"/><path d="M404.5,249.22353c-23.56616,2.30811-41.52338-1.54606-53-12.52007v-8.8377h51Z" transform="translate(-203.5 -174.13424)" fill="#2f2e41"/>
+                        <circle cx="172.52496" cy="78.09251" r="23.80211" fill="#ffb8b8"/>
+                        <path d="M404.5,249.22353c-23.56616,2.30811-41.52338-1.54606-53-12.52007v-8.8377h51Z" transform="translate(-203.5 -174.13424)" fill="#2f2e41"/>
                     </svg>
                 </div>
                 <div
@@ -120,15 +142,17 @@ const UserLoginRouter = () => {
                         ${mediaQuery({
                             sm: `
                                 ${padding("px-4")}
+                                ${padding("pb-10")}
                                 ${width("full")}
                             `,
                             md: `
-                                ${padding("px-6")}
+                                ${padding("px-4")}
+                                ${padding("pb-10")}
                                 ${width("full")}
                             `,
                             lg: `
                                 ${padding("px-12")}
-                                ${width("4/12")}
+                                ${width("6/12")}
                             `,
                             xl: `
                                 ${padding("px-14")}
@@ -156,15 +180,14 @@ const UserLoginRouter = () => {
                             ${fontSize("base")}
                         `}
                     >
-                        一体化开发者管理平台, 拥有无限的可能性方便中小型企业快速开发自己的原型产品
+                        一体化开发者管理平台
                     </span>
 
-                    <div
+                    <form
                         className={css`
                             display: grid;
                             width: 100%;
-                            grid-template-columns: 50px auto;
-                            grid-template-rows: auto auto;
+                            grid-template-columns: 1fr;
                             margin-top: 3rem;
                             gap: 1rem;
                             > label {
@@ -173,12 +196,64 @@ const UserLoginRouter = () => {
                                 align-items: center;
                             }
                         `}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            console.log(username, password)
+                        }}
                     >
-                        <label>用户名</label>
-                        <LineEdit size="large" />
-                        <label>密码</label>
-                        <LineEdit type="password" size="large" />
-                    </div>
+                        <LineEdit
+                            value={username}
+                            prefix={<BiUser />}
+                            placeholder="用户名"
+                            size="large"
+                            autoComplete="username"
+                            onChange={(e) => {
+                                setUserName(e.target.value);
+                            }}
+                        />
+                        <LineEdit
+                            value={password}
+                            prefix={<BiLockAlt />}
+                            placeholder="密码"
+                            type="password"
+                            size="large"
+                            autoComplete="current-password"
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }}
+                        />
+                        <div>
+                            <Button
+                                className={css`
+                                    float: right;
+                                `}
+                                size="small"
+                                appearance="link"
+                            >
+                                忘记密码 ?
+                            </Button>
+                        </div>
+                        <Button
+                            type="submit"
+                            appearance="primary"
+                            size="large"
+                            onClick={async () => {
+                                try {
+                                    const jwt = await request.post("/jwt/issue", {
+                                        username,
+                                        password
+                                    });
+                                } catch (error: any) {
+                                    const {
+                                        data
+                                    } = error.response
+                                    alert(data.message)
+                                }
+                            }}
+                        >
+                            登 录
+                        </Button>
+                    </form>
                 </div>
             </div>
         </div>

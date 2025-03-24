@@ -40,5 +40,8 @@
         "@crab/rc-hooks": "workspace:^",
         "@crab/rc-virtual": "workspace:^",
         "@crab/styleify": "workspace:^"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }
