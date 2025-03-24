@@ -41,6 +41,11 @@ export interface Node {
     parent: Node | null
 
     /**
+     * 节点路径
+     */
+    path?: UniqueIdentifier[]
+
+    /**
      * 加载状态
      */
     loadState: LoadStateType
@@ -69,4 +74,9 @@ export interface Node {
      * 节点高度, 默认 24px
      */
     height?: number
+
+    /**
+     * 排序字段, 用于树的排序字段
+     */
+    priority?: number
 }

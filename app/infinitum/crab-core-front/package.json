@@ -8,12 +8,11 @@
     "type": "module",
     "scripts": {
         "start": "crustify dev",
-        "build": "packify build",
+        "build": "crustify build",
         "eslint": "eslint"
     },
     "devDependencies": {
         "@crab/crustify": "workspace:^",
-        "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^6.3.0",
@@ -27,11 +26,16 @@
         "typescript-eslint": "^8.26.1"
     },
     "dependencies": {
+        "@crab/rc-button": "workspace:^",
         "@crab/rc-line-edit": "workspace:^",
         "@crab/rc-request": "workspace:^",
         "@crab/styleify": "workspace:^",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-icons": "^5.5.0",
         "react-router": "^7.3.0"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }

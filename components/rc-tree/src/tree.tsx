@@ -6,7 +6,9 @@ import {
     type FC,
     type ReactNode,
     type HTMLAttributes,
-    type MouseEvent
+    type MouseEvent,
+    type SetStateAction,
+    type Dispatch
 } from "react";
 import {
     createPortal
@@ -60,6 +62,11 @@ export interface TreeProps extends Omit<
 > {
 
     /**
+     * 树组件的数据信息
+     */
+    treeData: Node[]
+
+    /**
      * 高度
      */
     height: number
@@ -99,12 +106,15 @@ export interface TreeProps extends Omit<
      * @param parentNode 父节点, 如果没有父节点, 则表示为 null
      * @returns 返回当前父节点下的节点信息 
      */
-    loadData: (parentNode: Node | null) => Promise<Node[]>
+    loadData?: (parentNode: Node | null) => Promise<Node[]>
 
     /**
      * 渲染右键菜单
      */
-    rendererContextMenu?: (node: Node | null) => ReactNode
+    rendererContextMenu?: (param: {
+        node: Node | null,
+        hide: () => void
+    }) => ReactNode
 
     /**
      * 展开节点的事件
@@ -160,6 +170,11 @@ export interface TreeProps extends Omit<
      * 右键点击的时候触发的事件
      */
     onContextMenu?: (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, node: Node | null) => void;
+
+    /**
+     * 节点改变时触发的事件
+     */
+    onTreeNodeChange: Dispatch<SetStateAction<TreeProps["treeData"]>>;
 }
 
 interface OverState {
@@ -168,6 +183,7 @@ interface OverState {
 } 
 
 const Tree: FC<TreeProps> = ({
+    treeData,
     width,
     height,
     expandedKeys = [],
@@ -176,6 +192,7 @@ const Tree: FC<TreeProps> = ({
     showLine,
     defaultNodeHeight = 24,
     loadData,
+    onTreeNodeChange,
     onExpanded: _onExpanded,
     rendererContextMenu,
     onDragAbort,
@@ -189,7 +206,6 @@ const Tree: FC<TreeProps> = ({
     onSelect,
     ...restProps
 }) => {
-    const [loadReadyNodeData, setLoadReadyNodeData] = useState<Node[]>([]);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const [keyboardEvent] = useKeyDown();
     const [mouseContextMenuNodeTitlePosition, setContextMenuNodeTitlePosition] = useState<number[]>([0, 0]);
@@ -200,9 +216,9 @@ const Tree: FC<TreeProps> = ({
     const [overState, setOverState] = useState<OverState | null>(null);
 
     useEffect(() => {
-        loadData(null)
+        loadData?.(null)
             .then((nodes) => {
-                setLoadReadyNodeData(nodes.map(node => ({...node, path: []})))
+                onTreeNodeChange(nodes.map((node, index) => ({...node, priority: node.priority ?? index, path: [node.id]})))
             });
         const onClick = (event: globalThis.MouseEvent) => {
             if (!contextMenuDivRef.current?.contains(event.target as globalThis.Node)) {
@@ -216,7 +232,12 @@ const Tree: FC<TreeProps> = ({
         }
     }, [])
 
-    const _displayedNodes = loadReadyNodeData.filter(node => node.parent === null || expandedKeys?.includes(node.parent.id))
+
+    const hide = () => {
+        setIsOpenContextMenu(false);
+    }
+
+    const _displayedNodes = treeData.filter(node => node.parent === null || expandedKeys?.includes(node.parent.id))
     const activeNode = _displayedNodes.find(element => element.id === activeId);
 
     const getDisplayedNodes = (nodes: Node[]) => {
@@ -228,7 +249,7 @@ const Tree: FC<TreeProps> = ({
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
             const timeoutId = setTimeout(() => {
-                setLoadReadyNodeData(oldNodes => {
+                onTreeNodeChange(oldNodes => {
                     const node = oldNodes.find(element => element.id === e.node.id);
                     if (node != null) {
                         node.loadState = LoadStateType.LOADING;
@@ -237,10 +258,18 @@ const Tree: FC<TreeProps> = ({
                 })
             }, 300)
 
-            loadData(e.node)
-            .then((nodes) => {
+            loadData?.(e.node)
+            .then((_nodes) => {
                 clearTimeout(timeoutId)
-                setLoadReadyNodeData((oldNodes) => {
+
+                const nodes = _nodes.map((element, index) => ({
+                    ...element,
+                    parent: e.node,
+                    priority: element.priority ?? index,
+                    path: [...(e.node.path ?? []), element.id]
+                }));
+
+                onTreeNodeChange((oldNodes) => {
                     const node = oldNodes.find(element => element.id === e.node.id);
                     if (node != null) {
                         node.loadState = LoadStateType.LOADING_COMPLETED;
@@ -251,6 +280,8 @@ const Tree: FC<TreeProps> = ({
         }
         _onExpanded?.(e);
     }
+
+
 
     const getLeftAndTop = () => {
         const rect = divRef.current?.getBoundingClientRect()
@@ -479,7 +510,10 @@ const Tree: FC<TreeProps> = ({
                         }}
                         ref={contextMenuDivRef}
                     >
-                        {rendererContextMenu?.(contextMenuNode.current)}
+                        {rendererContextMenu?.({
+                            node: contextMenuNode.current,
+                            hide
+                        })}
                     </div>
                 </div>
              </SortableContext>

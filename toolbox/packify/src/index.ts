@@ -44,7 +44,7 @@ export const build = async () => {
 
     const packageJsonBuffer = readFileSync(join(process.cwd(), "package.json"));
     const packageJson = JSON.parse(packageJsonBuffer.toString());
-    Object.keys(packageJson.dependencies).forEach(key => {
+    Object.keys(packageJson.dependencies ?? {}).forEach(key => {
         if (/@crab\/rc-.*/g.test(key)) {
             fileContent = `@import "${key}/esm/index.styles.css";\n` + fileContent;
         }
