@@ -135,8 +135,9 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
         return (
             <li
                 className={itemStyle}
+                key={item.key}
             >
-                <li
+                <div
                     className={cx(
                         itemTitleStyle,
                         itemTitleBaseStyle,
@@ -150,7 +151,7 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                     }}
                 >
                     {item.title}
-                </li>
+                </div>
                 <AnimatePresence initial={false}>
                     {
                         children?.length > 0 ?
@@ -179,8 +180,9 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
         return (
             <li
                 className={itemStyle}
+                key={item.key}
             >
-                <li
+                <div
                     className={cx(itemTitleStyle, itemGroupTitleStyle)}
                     style={{
                         paddingLeft: `calc(${depth} * ${MenuItemInLineIndent} * 0.7)`
@@ -190,7 +192,7 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                     }}
                 >
                     {item.title}
-                </li>
+                </div>
                 <ul
                     className={cx(ulStyle, ulChildrenItemGroupStyle)}
                 >

@@ -21,7 +21,7 @@ struct MenuResponse {
     /// 菜单路径
     pub path: String,
     /// 菜单图标
-    pub icon: String,
+    pub icon: Option<String>,
     /// 创建时间
     pub create_at: u64,
     /// 更新时间

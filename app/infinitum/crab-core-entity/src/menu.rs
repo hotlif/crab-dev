@@ -20,7 +20,7 @@ pub struct Model {
     pub path: String,
 
     #[sea_orm(comment = "菜单图标")]
-    pub icon: String,
+    pub icon: Option<String>,
 
     #[sea_orm(comment = "创建日期")]
     pub create_at: DateTimeUtc,

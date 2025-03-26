@@ -1,16 +1,19 @@
 
 use actix_web::{Error, middleware::{from_fn, Logger}, App, HttpRequest, HttpResponse, HttpServer};
-use crab_core_websocket::actor::session::Session;
+use actix_web_actors::ws;
+use util::database::initialize_database;
 use utoipa_actix_web::{scope, AppExt};
 use utoipa_swagger_ui::SwaggerUi;
-use crab_core::conf::get_conf;
+use crab_core::{conf::get_conf, database::get_core_connection};
 use crab_core::app_data::init_database_connection;
 use crab_core::app_data::AppData;
 use crab_core_auth_jwt::middleware::middleware_mod_auth_jwt;
-use actix_web_actors::ws;
+use crab_core_websocket::actor::session::Session;
 
 use log::error;
 use actix_web::web;
+
+mod util;
 
 async fn websocket_route(
     req: HttpRequest,
@@ -38,6 +41,7 @@ fn cfg_fn_toipa(cfg: &mut utoipa_actix_web::service_config::ServiceConfig) {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+
     let conf = get_conf();
     let conf = match conf {
         Ok(conf) => conf,
@@ -57,6 +61,11 @@ async fn main() -> std::io::Result<()> {
     let host = conf.server.host.clone();
     let port = conf.server.port.clone();
 
+    let core = get_core_connection(&app_data);
+    if let Ok(core) = core {
+        initialize_database(core).await.unwrap();
+    }
+    
     HttpServer::new(move || {
         let ui_path = openapi_docs.ui_path.clone();
         let json_path = openapi_docs.json_path.clone();

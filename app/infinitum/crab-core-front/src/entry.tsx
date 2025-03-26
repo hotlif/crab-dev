@@ -8,8 +8,8 @@ import { RequestProvider } from "@crab/rc-request";
 import routers from "@@@/routers";
 import E404 from "./errors/E404";
 import Layout from "./layouts";
-import { isAuthenticated } from "./util/jwt";
 import { printSystemInfo } from "./util/sysinfo";
+import { getToken } from "./util/jwt";
 
 export const globals = css`
     :global() {
@@ -42,7 +42,6 @@ const reactRouters = createBrowserRouter([{
             loader: async () => {
                 return {
                     metadata: router.metadata,
-                    isAuthenticated: await isAuthenticated()
                 }
             },
         })),
@@ -67,7 +66,11 @@ const App = () => {
     return (
         <RequestProvider
             config={{
-                baseURL: "/api"
+                baseURL: "/api",
+            }}
+            interceptorRequest={config => {
+                config.headers.Authorization = getToken();
+                return config;
             }}
         >
             <RouterProvider router={reactRouters} />

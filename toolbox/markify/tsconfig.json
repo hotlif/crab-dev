@@ -1,0 +1,7 @@
+{
+    "extends": "@crab/standards-typescript-preset/tsconfig.node.json",
+    "compilerOptions": {
+        "declaration": true, 
+        "declarationDir": "esm", 
+    }
+}

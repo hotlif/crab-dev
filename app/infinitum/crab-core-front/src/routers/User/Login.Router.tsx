@@ -2,8 +2,8 @@
  * path = "/User/Login"
  * ignoreLayout = true
  * noAuthRequired = true
+ * redirectIfAuthenticated = "/"
  */
-import { useRequest } from "@crab/rc-request";
 import { css } from "@linaria/core";
 import {
     width,
@@ -25,10 +25,10 @@ import LineEdit from "@crab/rc-line-edit";
 import Button from "@crab/rc-button";
 import { useState } from "react";
 import { BiLockAlt, BiUser } from "react-icons/bi";
+import { useIssueRequest } from "../../service/jwt";
 
 const UserLoginRouter = () => {
-    const [request] = useRequest();
-
+    const [loading, jwtIssue] = useIssueRequest();
     const [username, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     return (
@@ -237,18 +237,9 @@ const UserLoginRouter = () => {
                             type="submit"
                             appearance="primary"
                             size="large"
+                            loading={loading}
                             onClick={async () => {
-                                try {
-                                    const jwt = await request.post("/jwt/issue", {
-                                        username,
-                                        password
-                                    });
-                                } catch (error: any) {
-                                    const {
-                                        data
-                                    } = error.response
-                                    alert(data.message)
-                                }
+                                await jwtIssue(username, password);
                             }}
                         >
                             登 录

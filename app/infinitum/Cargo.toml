@@ -50,12 +50,14 @@ serde_json = "1.0.133"
 crab-core = { path = "./crab-core" }
 crab-core-auth-jwt = { path = "./crab-core-auth-jwt"}
 crab-core-websocket = { path = "./crab-core-websocket"}
+crab-core-entity = { path = "./crab-core-entity"}
 crab-core-basic = { path = "./crab-core-basic"}
 env_logger = "0.11.6"
 utoipa = { version = "5.3.1", features = ["actix_extras"]}
 utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web"]}
 utoipa-actix-web = "0.1.2"
 actix-web-actors = "4.3.1"
+argon2 = "0.5.3"
 
 
 

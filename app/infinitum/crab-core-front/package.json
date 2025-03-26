@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@crab/rc-button": "workspace:^",
+        "@crab/rc-frame": "workspace:^",
         "@crab/rc-line-edit": "workspace:^",
         "@crab/rc-request": "workspace:^",
         "@crab/styleify": "workspace:^",
