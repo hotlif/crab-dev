@@ -1,29 +1,30 @@
 {
-    "name": "@crab/vue2-lcp-web-crustify-mod",
-    "version": "0.0.6-canary",
-    "description": "低代码平台的开发阶段的模组, 用来方便开发和调试",
+    "name": "@crab/markify",
+    "description": "用来构建组件文档的模组",
     "packageManager": "yarn@4.7.0",
+    "version": "0.0.1-canary",
     "type": "module",
     "scripts": {
         "build": "packify build",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
     "files": [
-        "esm",
-        "assets"
+        "bin",
+        "esm"
     ],
     "bin": "bin/cli.js",
     "types": "esm/index.d.ts",
     "main": "esm/index.mjs",
     "module": "esm/index.mjs",
     "devDependencies": {
-        "@crab/crustify": "workspace:^",
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
         "@jest/globals": "^29.7.0",
+        "@types/ejs": "^3",
         "@types/node": "^22.13.10",
         "eslint": "^9.22.0",
         "eslint-plugin-react": "^7.37.4",
@@ -34,10 +35,16 @@
         "webpack": "^5.98.0",
         "webpack-dev-server": "^5.2.0"
     },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-router": "^7.3.0"
+    },
     "dependencies": {
-        "css-loader": "^7.1.2",
-        "mini-css-extract-plugin": "^2.9.2",
-        "style-loader": "^4.0.0",
-        "webpack-merge": "^6.0.1"
+        "@crab/crustify": "workspace:^",
+        "ejs": "^3.1.10"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }

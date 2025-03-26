@@ -1,5 +1,5 @@
-import { createContext, createRef, type FC, type ReactNode, type RefObject, useContext, useEffect, useRef } from "react";
-import axios, { type CreateAxiosDefaults, type AxiosInstance } from "axios";
+import { createContext, createRef, type FC, type ReactNode, type RefObject, useContext, useEffect, useMemo, useRef } from "react";
+import axios, { type CreateAxiosDefaults, type AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from "axios";
 import { nanoid } from "nanoid";
 import { addRequestEntity, addResponseEntity } from "./database";
 
@@ -19,18 +19,22 @@ export const useRequestContext = () => {
 
 interface RequestProviderProps {
     config: CreateAxiosDefaults,
+    interceptorRequest?: (config: InternalAxiosRequestConfig<any>) => InternalAxiosRequestConfig<any>
+    interceptorResponse?: (response: AxiosResponse<any, any>) => AxiosResponse<any, any>
     children: ReactNode
 }
 
 export const RequestProvider: FC<RequestProviderProps> = ({
     config,
+    interceptorRequest = (config) => config,
+    interceptorResponse = (response) => response,
     children
 }) => {
     const instance = useRef<AxiosInstance>(axios.create(config));
-
-    useEffect(() => {
-        const requestInterceptor = instance.current.interceptors.request.use(
-            async (config: any) => {
+    useMemo(() => {
+        instance.current.interceptors.request.use(
+            async (_config) => {
+                const config = _config as any;
                 const requestId = nanoid();
                 config.headers["CRAB-REQUEST-ID"] = requestId;
                 config._$RequestId = requestId;
@@ -43,16 +47,15 @@ export const RequestProvider: FC<RequestProviderProps> = ({
                     data: config.data,
                     createAt: new Date()
                 });
-                return config;
+                return interceptorRequest(config);
             },
             (error) => {
                 return Promise.reject(error);
             }
         )
-
-        const responseInterceptors = instance.current.interceptors.response.use(
+        instance.current.interceptors.response.use(
             async (response) => {
-                const requestId = response.request.headers["CRAB-REQUEST-ID"];
+                const requestId = (response.config as any)._$RequestId;
                 const createAt = new Date();
                 await addResponseEntity({
                     id: requestId,
@@ -63,7 +66,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({
                     time: createAt.getTime() - (response.config as any)._$RequestDateTime.getTime(),
                     createAt: createAt
                 })
-                return response;
+                return interceptorResponse(response);
             },
             async (error) => {
                 const createAt = new Date();
@@ -82,11 +85,7 @@ export const RequestProvider: FC<RequestProviderProps> = ({
                 return Promise.reject(error);
             }
         )
-        return () => {
-            instance.current.interceptors.request.eject(requestInterceptor);
-            instance.current.interceptors.response.eject(responseInterceptors);
-        }
-    }, [])
+    }, [instance.current])
 
     return (
         <RequestContext.Provider

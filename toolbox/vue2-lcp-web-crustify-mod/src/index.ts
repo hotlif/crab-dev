@@ -23,6 +23,11 @@ interface Vue2LcpWebCrustifyModParam {
      * 代理组件的装载
      */
     proxyLoadComponent: Record<string, string>
+
+    /**
+     * 版本的 Hash
+     */
+    version?: string
 }
 
 
@@ -32,6 +37,9 @@ class Vue2LcpWebCrustifyMod implements Modification {
 
     constructor(param: Vue2LcpWebCrustifyModParam) {
         this.param = param;
+        if (this.param.version == null) {
+            this.param.version = "5ad71ace";
+        }
     }
 
     modifyWebpack(configuration: Configuration): Configuration {
@@ -67,11 +75,9 @@ class Vue2LcpWebCrustifyMod implements Modification {
         configuration.devServer.proxy = configuration.devServer.proxy.map(element => ({
             ...element,
             onProxyRes: (proxyRes, req, res) => {
-                if (req.url === "/js/app.db52002d.js") {
-                    const version = `
-window._$proxyLoadComponent = ${JSON.stringify(this.param.proxyLoadComponent)};\n
-`
-                    const patch = version + readFileSync(join(__dirname, "..", "assets", "app.db52002d.patch.js")).toString();
+                if (req.url === `/js/app.${this.param.version}.js`) {
+                    const version = `window._$proxyLoadComponent = ${JSON.stringify(this.param.proxyLoadComponent)};\n`;
+                    const patch = version + readFileSync(join(__dirname, "..", "assets", `app.${this.param.version}.patch.js`)).toString();
                     res.setHeader('Content-Length', Buffer.byteLength(patch));
                     res.end(patch);
                 }

@@ -13,6 +13,10 @@ export class TreeDataUtil {
         this.onTreeNodeChange = param.onTreeNodeChange;
     }
 
+    /**
+     * 删除数据
+     * @param param  id 或者 ids 数组
+     */
     delete(param: Node["id"] | Node["id"][]) {
         if (Array.isArray(param)) {
             this.deleteByFilter(element => param.includes(element.id));
@@ -21,12 +25,22 @@ export class TreeDataUtil {
         }
     }
 
+    /**
+     * 删除过滤的数据
+     * @param predicate 过滤方法
+     * @param thisArg 传入的 this
+     */
     deleteByFilter(predicate: (value: Node, index: number, array: Node[]) => unknown, thisArg?: any) {
         this.onTreeNodeChange((newTreeData) => {
             return newTreeData.filter((element, elementIndex, elementArray) => !predicate(element, elementIndex, elementArray), thisArg);
         })
     }
 
+    /**
+     * 插入数据
+     * @param parent 父节点
+     * @param nodes  要插入的数据
+     */
     insert(parent: Node["id"] | Node, nodes: Node[]) {
         if (typeof parent === "string" || typeof parent === "number") {
             this.onTreeNodeChange((newTreeData) => {

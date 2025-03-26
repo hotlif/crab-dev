@@ -1,6 +1,7 @@
 import { css, cx } from "@linaria/core";
-import type { ButtonHTMLAttributes, FC } from "react";
-import { fontSize, padding, height, width } from "@crab/styleify";
+import { useRef, type ButtonHTMLAttributes, type FC } from "react";
+import { fontSize, padding, height, width, margin } from "@crab/styleify";
+import { motion } from "motion/react";
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
 
@@ -38,6 +39,9 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onC
 
 
 const baseStyle = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     border-radius: 6px;
     transition: all 200ms;
@@ -57,6 +61,9 @@ const Button: FC<ButtonProps> = ({
     onClickCapture,
     ...restProps
 }) => {
+
+    // 点击状态, 默认情况下是 false, 点击后就是 true
+    const clickState = useRef<boolean>(false);
 
     const getAppearanceStyle = () => {
         if (appearance === "primary") {
@@ -196,24 +203,46 @@ const Button: FC<ButtonProps> = ({
         return null;
     }
 
+    const getLoadingStyle = () => {
+        if (loading) {
+            return css`
+                opacity: 0.65;
+            `
+        }
+        return null;
+    }
+
     const renderLoadingDom = () => {
         if (loading) {
             return (
-                <>
+                <motion.span
+                    className={css`
+                        ${margin("mr-3")}
+                        color: inherit;
+                    `}
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
                     <svg
+                        className={css`
+                            color: inherit;   
+                        `}
                         viewBox="0 0 1024 1024"
                         focusable="false"
-                        data-icon="loading"
                         width="1em"
                         height="1em"
                         fill="currentColor"
+                        stroke="currentColor"
                         aria-hidden="true"
                     >
                         <path
+                            className={css`
+                                color: inherit;
+                            `}
                             d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
                         />
                     </svg>
-                </>
+                </motion.span>
             )
         }
         return null;
@@ -221,15 +250,68 @@ const Button: FC<ButtonProps> = ({
 
     return (
         <button
+            button-data-loading={`${loading}`}
             className={cx(
                 baseStyle,
                 getAppearanceStyle(),
                 getSizeStyle(),
                 getShouldFitContainerStyle(),
+                getLoadingStyle(),
                 className
             )}
+            onClick={(e) => {
+                if (clickState.current === false) {
+                    clickState.current = true;
+                    try {
+                        const result = onClick?.(e);
+                        if (result?.then) {
+                            result
+                                .then(() => {
+                                    clickState.current = false;
+                                })
+                                .catch(() => {
+                                    clickState.current = false;
+                                })
+                                .finally(() => {
+                                    clickState.current = false;
+                                });
+                        } else {
+                            clickState.current = false;
+                        }
+                    } catch (error) {
+                        clickState.current = false;
+                        throw error;
+                    }
+                }
+            }}
+            onClickCapture={(e) => {
+                if (clickState.current === false) {
+                    clickState.current = true;
+                    try {
+                        const result = onClickCapture?.(e);
+                        if (result?.then) {
+                            result
+                                .then(() => {
+                                    clickState.current = false;
+                                })
+                                .catch(() => {
+                                    clickState.current = false;
+                                })
+                                .finally(() => {
+                                    clickState.current = false;
+                                });
+                        } else {
+                            clickState.current = false;
+                        }
+                    } catch (error) {
+                        clickState.current = false;
+                        throw error;
+                    }
+                }
+            }}
             {...restProps}
         >
+            {renderLoadingDom()}
             <span
                 className={css`
                     color: inherit;

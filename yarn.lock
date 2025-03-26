@@ -1660,6 +1660,7 @@ __metadata:
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/rc-button": "workspace:^"
+    "@crab/rc-frame": "workspace:^"
     "@crab/rc-line-edit": "workspace:^"
     "@crab/rc-request": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
@@ -1678,6 +1679,32 @@ __metadata:
     react-router: "npm:^7.3.0"
     typescript: "npm:^5.8.2"
     typescript-eslint: "npm:^8.26.1"
+  languageName: unknown
+  linkType: soft
+
+"@crab/markify@workspace:toolbox/markify":
+  version: 0.0.0-use.local
+  resolution: "@crab/markify@workspace:toolbox/markify"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
+    "@types/ejs": "npm:^3"
+    "@types/node": "npm:^22.13.10"
+    ejs: "npm:^3.1.10"
+    eslint: "npm:^9.22.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:16.0.0"
+    jest: "npm:^29.7.0"
+    typescript: "npm:^5.8.2"
+    typescript-eslint: "npm:^8.26.1"
+    webpack: "npm:^5.98.0"
+    webpack-dev-server: "npm:^5.2.0"
+  bin:
+    markify: bin/cli.js
   languageName: unknown
   linkType: soft
 
@@ -1735,7 +1762,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-frame@workspace:components/rc-frame":
+"@crab/rc-frame@workspace:^, @crab/rc-frame@workspace:components/rc-frame":
   version: 0.0.0-use.local
   resolution: "@crab/rc-frame@workspace:components/rc-frame"
   dependencies:
@@ -3715,6 +3742,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ejs@npm:^3":
+  version: 3.1.5
+  resolution: "@types/ejs@npm:3.1.5"
+  checksum: 10c0/13d994cf0323d7e0ad33b9384914ccd3b4cd8bf282eced3649b1621b66ee7c784ac2d120a9d7b1f43d6f873518248fb8c3221b06a649b847860b9c2389a0b0ed
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.39.6":
   version: 1.39.13
   resolution: "@types/emscripten@npm:1.39.13"
@@ -4998,6 +5032,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"async@npm:^3.2.3":
+  version: 3.2.6
+  resolution: "async@npm:3.2.6"
+  checksum: 10c0/36484bb15ceddf07078688d95e27076379cc2f87b10c03b6dd8a83e89475a3c8df5848859dd06a4c95af1e4c16fc973de0171a77f18ea00be899aca2a4f85e70
+  languageName: node
+  linkType: hard
+
 "asynckit@npm:^0.4.0":
   version: 0.4.0
   resolution: "asynckit@npm:0.4.0"
@@ -5482,7 +5523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.0.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -6482,6 +6523,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ejs@npm:^3.1.10":
+  version: 3.1.10
+  resolution: "ejs@npm:3.1.10"
+  dependencies:
+    jake: "npm:^10.8.5"
+  bin:
+    ejs: bin/cli.js
+  checksum: 10c0/52eade9e68416ed04f7f92c492183340582a36482836b11eab97b159fcdcfdedc62233a1bf0bf5e5e1851c501f2dca0e2e9afd111db2599e4e7f53ee29429ae1
+  languageName: node
+  linkType: hard
+
 "electron-to-chromium@npm:^1.5.73":
   version: 1.5.76
   resolution: "electron-to-chromium@npm:1.5.76"
@@ -7344,6 +7396,15 @@ __metadata:
   dependencies:
     flat-cache: "npm:^4.0.0"
   checksum: 10c0/9e2b5938b1cd9b6d7e3612bdc533afd4ac17b2fc646569e9a8abbf2eb48e5eb8e316bc38815a3ef6a1b456f4107f0d0f055a614ca613e75db6bf9ff4d72c1638
+  languageName: node
+  linkType: hard
+
+"filelist@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "filelist@npm:1.0.4"
+  dependencies:
+    minimatch: "npm:^5.0.1"
+  checksum: 10c0/426b1de3944a3d153b053f1c0ebfd02dccd0308a4f9e832ad220707a6d1f1b3c9784d6cadf6b2f68f09a57565f63ebc7bcdc913ccf8012d834f472c46e596f41
   languageName: node
   linkType: hard
 
@@ -8746,6 +8807,20 @@ __metadata:
     "@pkgjs/parseargs":
       optional: true
   checksum: 10c0/6acc10d139eaefdbe04d2f679e6191b3abf073f111edf10b1de5302c97ec93fffeb2fdd8681ed17f16268aa9dd4f8c588ed9d1d3bffbbfa6e8bf897cbb3149b9
+  languageName: node
+  linkType: hard
+
+"jake@npm:^10.8.5":
+  version: 10.9.2
+  resolution: "jake@npm:10.9.2"
+  dependencies:
+    async: "npm:^3.2.3"
+    chalk: "npm:^4.0.2"
+    filelist: "npm:^1.0.4"
+    minimatch: "npm:^3.1.2"
+  bin:
+    jake: bin/cli.js
+  checksum: 10c0/c4597b5ed9b6a908252feab296485a4f87cba9e26d6c20e0ca144fb69e0c40203d34a2efddb33b3d297b8bd59605e6c1f44f6221ca1e10e69175ecbf3ff5fe31
   languageName: node
   linkType: hard
 
@@ -10528,6 +10603,15 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^1.1.7"
   checksum: 10c0/0262810a8fc2e72cca45d6fd86bd349eee435eb95ac6aa45c9ea2180e7ee875ef44c32b55b5973ceabe95ea12682f6e3725cbb63d7a2d1da3ae1163c8b210311
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^5.0.1":
+  version: 5.1.6
+  resolution: "minimatch@npm:5.1.6"
+  dependencies:
+    brace-expansion: "npm:^2.0.1"
+  checksum: 10c0/3defdfd230914f22a8da203747c42ee3c405c39d4d37ffda284dac5e45b7e1f6c49aa8be606509002898e73091ff2a3bbfc59c2c6c71d4660609f63aa92f98e3
   languageName: node
   linkType: hard
 

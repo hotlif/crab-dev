@@ -211,6 +211,105 @@ const SimpleFrame = () => {
 					</div>
 				</div>
 			</div>
+			<br />
+			<br />
+			<div
+				className={css`
+					display: flex;
+					gap: 2rem;
+				`}
+			>
+				<div>
+					Loading Default Button
+					<div
+						className={paddingTop}
+					>
+						<Button loading size="large">large</Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading size="middle"> middle </Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading size="small"> small </Button>
+					</div>
+				</div>
+				<div>
+					Loading Primary Button
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="primary" size="large">large</Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="primary" size="middle"> middle </Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="primary" size="small"> small </Button>
+					</div>
+				</div>
+				<div>
+					Loading Dashed Button
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="dashed" size="large">large</Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="dashed" size="middle"> middle </Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="dashed" size="small"> small </Button>
+					</div>
+				</div>
+				<div>
+					Loading Link Button
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="link" size="large">large</Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="link" size="middle"> middle </Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="link" size="small"> small </Button>
+					</div>
+				</div>
+				<div>
+					Loading Text Button
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="text" size="large">large</Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="text" size="middle"> middle </Button>
+					</div>
+					<div
+						className={paddingTop}
+					>
+						<Button loading appearance="text" size="small"> small </Button>
+					</div>
+				</div>
+			</div>
 		</>
 
 	)
