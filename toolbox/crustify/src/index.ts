@@ -77,6 +77,7 @@ export const run = async (conf: Config) => {
         ],
         devServer: {
             historyApiFallback: true,
+            server: conf.devServer?.server || "http",
             proxy: conf.devServer?.proxy
         }
     }));

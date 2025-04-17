@@ -8892,6 +8892,7 @@
                         i.push(this.parameters.dataId), c["c"].InvokeMethod(this.parameters.formCode, t, i, u.FormLoad)
                     })
                 }
+                this._$loadFormInfoResult = e.Result;
                 await this.relData(), this.scriptStr = e.Result.ScriptJsText, this.formLoaded = !0
             }
             recurFlatMap(e) {
@@ -26920,6 +26921,14 @@
                             this.formController.scriptStr = e
                         }
                     },
+                    loadFormInfoResult: {
+                        get() {
+                            return this.formController._$loadFormInfoResult
+                        },
+                        set(e) {
+                            this.formController._$loadFormInfoResult = e
+                        }
+                    },
                     formReady() {
                         return this.formController && this.formController.formLoaded && this.formController.formBtnLoaded
                     }
@@ -26935,10 +26944,20 @@
                 },
                 methods: {
                     execScript() {
+                        const self = this;
                         d["a"].globalConfigHandle(this.scriptStr).then(e => {
                             if (!Object(o["p"])(e)) try {
-                                const t = new Function("dataForm", e);
-                                t(this)
+                                const sheetCode = self.loadFormInfoResult.SheetCode;
+                                const extModuleName = window._$proxyLoadFormScript[sheetCode];
+                                console.debug(`[vue2-lcp-web-crustify-mod]: SheetCode=${sheetCode}, ModuleName=${extModuleName}`);
+                                if (extModuleName) {
+                                    window[extModuleName].bind({
+                                        dataForm: this
+                                    })(this);
+                                } else {
+                                    const t = new Function("dataForm", e);
+                                    t(this)
+                                }
                             } catch (t) {
                                 console.error("脚本执行异常: ", t), this.$message.error(this.$i18nStr("脚本执行异常"))
                             }
@@ -37863,14 +37882,12 @@
                                         window._$proxyLoadComponent != null &&
                                         window._$proxyLoadComponent[t.ComponentFile.FileId] != null
                                     ) {
-                                        const proxyLoadComponentUrl = window._$proxyLoadComponent[t.ComponentFile.FileId];
-                                        const extModuleName = t.ComponentName;
-                                       
-                                        if (window[extModuleName]) {
-                                            const e = n["default"].extend(window[extModuleName]);
+                                        const proxyLoadComponentName = window._$proxyLoadComponent[t.ComponentFile.FileId];
+                                        if (proxyLoadComponentName) {
+                                            const e = n["default"].extend(window[proxyLoadComponentName]);
                                             this.setupVm(e)
                                         } else {
-                                            console.error(`[vue2-lcp-web-crustify-mod]: could not find the component with the name [${t.ComponentName}] in debug mode.`)
+                                            console.error(`[vue2-lcp-web-crustify-mod]: could not find the component with the name [${proxyLoadComponentName}] in debug mode.`)
                                         }
                                     } else {
                                         const e = Object(r["b"])(t.ComponentFile.FileId),

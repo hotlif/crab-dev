@@ -1,6 +1,6 @@
 {
-    "name": "@crab/markify",
-    "description": "用来构建组件文档的模组",
+    "name": "@crab/markify-themes",
+    "description": "用来构建组件文档的默认主题模组",
     "packageManager": "yarn@4.7.0",
     "version": "0.0.1-canary",
     "type": "module",
@@ -39,11 +39,6 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-router": "^7.3.0"
-    },
-    "dependencies": {
-        "@crab/crustify": "workspace:^",
-        "ejs": "^3.1.10",
-        "unconfig": "0.6.1"
     },
     "engines": {
         "node": ">=22"

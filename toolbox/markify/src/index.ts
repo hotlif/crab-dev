@@ -1,19 +1,32 @@
 import { run as runCrustify } from "@crab/crustify";
-import { cp } from "fs/promises";
+import { cp, readFile, writeFile } from "fs/promises";
 import { join } from "path";
-
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { compile } from "ejs";
+import { type MarkifyConfig } from "./conf";
+
+export { getConfig } from "./conf";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-export const dev = async () => {
-
+export const dev = async ({
+    theme = "@crab/markify-themes"
+}: MarkifyConfig) => {
     await cp(join(__dirname, "..", "assets", "src"), join(process.cwd(), ".tmpPreset", "src"), { recursive: true });
+    const entryTsx = await readFile(join(__dirname, "..", "assets", "src", "entry.tsx"), "utf-8");
+    const compileFunction = compile(entryTsx, {
+        async: true
+    });
 
-    
+    const newEntryTsx = await compileFunction({
+        theme
+    });
+
+    await writeFile(join(__dirname, "..", "assets", "src", "entry.tsx"), newEntryTsx, "utf-8");
+
     await runCrustify({
         rootDir: join(process.cwd(), ".tmpPreset"),
         componentScan: [{

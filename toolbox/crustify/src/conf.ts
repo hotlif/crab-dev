@@ -59,7 +59,8 @@ interface Proxy {
  * 开发服务器的配置
  */
 interface DevServer {
-	proxy: Proxy[]
+	server?: "http" | "https"
+	proxy?: Proxy[]
 }
 
 /**
