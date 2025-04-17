@@ -1,11 +1,12 @@
 {
-    "name": "@crab/rc-spin",
-    "description": "用于显示加载状态",
+    "name": "@crab/rc-scan-code",
+    "description": "一个条码扫描工具, 可用用来扫码二维码和条形码",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
         "start": "crustify dev",
         "build": "packify build",
+        "bundle": "crustify bundle",
         "eslint": "eslint"
     },
     "files": [
@@ -37,7 +38,10 @@
         "typescript-eslint": "^8.26.1"
     },
     "dependencies": {
-        "@crab/styleify": "workspace:^"
+        "@crab/styleify": "workspace:^",
+        "@zxing/browser": "^0.1.5",
+        "@zxing/library": "^0.21.3",
+        "motion": "^12.7.3"
     },
     "engines": {
         "node": ">=22"

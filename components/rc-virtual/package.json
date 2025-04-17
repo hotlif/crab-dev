@@ -2,9 +2,12 @@
     "name": "@crab/rc-virtual",
     "description": "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。",
     "packageManager": "yarn@4.7.0",
+    "version": "0.0.1",
     "type": "module",
     "scripts": {
+        "dev": "markify dev",
         "build": "packify build",
+        "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
@@ -15,6 +18,7 @@
     "main": "esm/index.mjs",
     "module": "esm/index.mjs",
     "devDependencies": {
+        "@crab/markify": "workspace:^",
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",

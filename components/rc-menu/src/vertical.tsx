@@ -17,6 +17,7 @@ import {
 
 import { motion, AnimatePresence } from "motion/react"
 
+import { ChevronDown, ChevronUp } from "./icon";
 import { type MenuProps } from "./menu";
 import { ItemType, type Item } from "./type";
 import {
@@ -100,6 +101,10 @@ const ulChildrenItemGroupStyle = css`
     ${overflow("hidden")}
 `
 
+const stateIconStyle = css`
+    ${fontSize("base")}   
+`
+
 const VerticalMenu: FC<VerticalMenuProps> = ({
     className,
     openKeys,
@@ -131,6 +136,29 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
         }
     }
 
+
+    const renderChildrenStateIcon = (item: Item, children: ReactNode[]) => {
+        if (children.length > 0 && openKeys?.includes(item.key) !== true) {
+            return (
+                <span
+                    className={stateIconStyle}
+                >
+                    <ChevronDown />
+                </span>
+            )
+        } else if (children.length > 0 && openKeys?.includes(item.key) === true) {
+            return (
+                <span
+                    className={stateIconStyle}
+                >
+                    <ChevronUp />
+                </span>
+            )
+        } else {
+            return null;
+        }
+    }
+
     const renderItem = (item: Item, children: ReactNode[], depth: number) => {
         return (
             <li
@@ -150,11 +178,20 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                         selectItemFunction(item);
                     }}
                 >
-                    {item.title}
+                    <span
+                        className={css`
+                            flex: 1;
+                        `}
+                    >
+                        {item.title}
+                    </span>
+                    <AnimatePresence initial={false}>
+                        {renderChildrenStateIcon(item, children)}
+                    </AnimatePresence>
                 </div>
                 <AnimatePresence initial={false}>
                     {
-                        children?.length > 0 ?
+                        openKeys?.includes(item.key) ?
                         (
                             <motion.ul
                                 className={cx(ulStyle, ulChildrenStyle)}
@@ -207,7 +244,8 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
             if (item.type === ItemType.ItemGroup ) {
                 return renderItemGroup(item, renderMenu(item.children ?? [], depth + 1), depth);
             } else if (item.type === ItemType.Item) {
-                return renderItem(item, openKeys?.includes(item.key) ? (renderMenu(item.children ?? [],depth + 1)) : [], depth);
+
+                return renderItem(item, renderMenu(item.children ?? [],depth + 1), depth);
             } else {
                 throw new Error(`[${item.type}] The parameter \`type\` is incorrect, please check.`)
             }

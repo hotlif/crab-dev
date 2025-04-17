@@ -1682,7 +1682,35 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/markify@workspace:toolbox/markify":
+"@crab/markify-themes@workspace:toolbox/markify-themes":
+  version: 0.0.0-use.local
+  resolution: "@crab/markify-themes@workspace:toolbox/markify-themes"
+  dependencies:
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
+    "@types/ejs": "npm:^3"
+    "@types/node": "npm:^22.13.10"
+    eslint: "npm:^9.22.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:16.0.0"
+    jest: "npm:^29.7.0"
+    typescript: "npm:^5.8.2"
+    typescript-eslint: "npm:^8.26.1"
+    webpack: "npm:^5.98.0"
+    webpack-dev-server: "npm:^5.2.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    react-router: ^7.3.0
+  bin:
+    markify-themes: bin/cli.js
+  languageName: unknown
+  linkType: soft
+
+"@crab/markify@workspace:^, @crab/markify@workspace:toolbox/markify":
   version: 0.0.0-use.local
   resolution: "@crab/markify@workspace:toolbox/markify"
   dependencies:
@@ -1701,8 +1729,13 @@ __metadata:
     jest: "npm:^29.7.0"
     typescript: "npm:^5.8.2"
     typescript-eslint: "npm:^8.26.1"
+    unconfig: "npm:0.6.1"
     webpack: "npm:^5.98.0"
     webpack-dev-server: "npm:^5.2.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    react-router: ^7.3.0
   bin:
     markify: bin/cli.js
   languageName: unknown
@@ -1869,6 +1902,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/rc-popover@workspace:components/rc-popover":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-popover@workspace:components/rc-popover"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab/styleify": "workspace:^"
+    "@jest/globals": "npm:^29.7.0"
+    "@linaria/core": "npm:^6.3.0"
+    "@types/node": "npm:^22.13.10"
+    "@types/react": "npm:^19.0.11"
+    "@types/react-dom": "npm:^19.0.4"
+    eslint: "npm:^9.22.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:^16.0.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    react-icons: "npm:^5.5.0"
+    typescript: "npm:^5.8.2"
+    typescript-eslint: "npm:^8.26.1"
+  languageName: unknown
+  linkType: soft
+
 "@crab/rc-request@workspace:^, @crab/rc-request@workspace:components/rc-request":
   version: 0.0.0-use.local
   resolution: "@crab/rc-request@workspace:components/rc-request"
@@ -1897,9 +1958,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-spin@workspace:components/rc-spin":
+"@crab/rc-scan-code@workspace:components/rc-scan-code":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-spin@workspace:components/rc-spin"
+  resolution: "@crab/rc-scan-code@workspace:components/rc-scan-code"
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
@@ -1912,11 +1973,14 @@ __metadata:
     "@types/node": "npm:^22.13.10"
     "@types/react": "npm:^19.0.11"
     "@types/react-dom": "npm:^19.0.4"
+    "@zxing/browser": "npm:^0.1.5"
+    "@zxing/library": "npm:^0.21.3"
     eslint: "npm:^9.22.0"
     eslint-plugin-react: "npm:^7.37.4"
     globals: "npm:^16.0.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
+    motion: "npm:^12.7.3"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-icons: "npm:^5.5.0"
@@ -1990,6 +2054,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab/rc-virtual@workspace:components/rc-virtual"
   dependencies:
+    "@crab/markify": "workspace:^"
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
@@ -4693,6 +4758,40 @@ __metadata:
   bin:
     shell: ./lib/cli.js
   checksum: 10c0/4d2116cf6637a38b15bc994a9e86535359ac654714a1c737bf2a3a8b7d80e8b0cc1a515567fb2522395f8e42aecec0ad14d2f54dc51f583215e87128e4dada87
+  languageName: node
+  linkType: hard
+
+"@zxing/browser@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@zxing/browser@npm:0.1.5"
+  dependencies:
+    "@zxing/text-encoding": "npm:^0.9.0"
+  peerDependencies:
+    "@zxing/library": ^0.21.0
+  dependenciesMeta:
+    "@zxing/text-encoding":
+      optional: true
+  checksum: 10c0/458042ed56402d20a673b7f58cdd346cf15b0b2b84860c2529f7b86e774bd74a02b007bd2e6e5b6231b624a3f28d8e296ce943f7c6c78999d19300cae87d35e3
+  languageName: node
+  linkType: hard
+
+"@zxing/library@npm:^0.21.3":
+  version: 0.21.3
+  resolution: "@zxing/library@npm:0.21.3"
+  dependencies:
+    "@zxing/text-encoding": "npm:~0.9.0"
+    ts-custom-error: "npm:^3.2.1"
+  dependenciesMeta:
+    "@zxing/text-encoding":
+      optional: true
+  checksum: 10c0/c6b33998847ad2fda0bce2f07f5b625e33e9dd98f84818ceb976b1193936b69b38ac3120418cca24b38441c711cfd21208b50851967bf8f301567e7f70197268
+  languageName: node
+  linkType: hard
+
+"@zxing/text-encoding@npm:^0.9.0, @zxing/text-encoding@npm:~0.9.0":
+  version: 0.9.0
+  resolution: "@zxing/text-encoding@npm:0.9.0"
+  checksum: 10c0/d15bff181d46c2ab709e7242801a8d40408aa8c19b44462e5f60e766bf59105b44957914ab6baab60d10d466a5e965f21fe890c67dfdb7d5c7f940df457b4d0d
   languageName: node
   linkType: hard
 
@@ -7554,6 +7653,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.7.3":
+  version: 12.7.3
+  resolution: "framer-motion@npm:12.7.3"
+  dependencies:
+    motion-dom: "npm:^12.7.3"
+    motion-utils: "npm:^12.7.2"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/f2d429eb2c90a5ea26e0e10c7545369dc9027a3d51177508d15765f95faf9cfaa48a7772a1956be9fc7b44dec1c5291b2f40ac112deda35af991314a44efc0f5
+  languageName: node
+  linkType: hard
+
 "fresh@npm:0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
@@ -9740,6 +9861,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markify-test@workspace:toolbox/markify/demo":
+  version: 0.0.0-use.local
+  resolution: "markify-test@workspace:toolbox/markify/demo"
+  dependencies:
+    "@crab/markify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+  bin:
+    markify-test: bin/cli.js
+  languageName: unknown
+  linkType: soft
+
 "math-intrinsics@npm:^1.0.0, math-intrinsics@npm:^1.1.0":
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
@@ -10752,10 +10886,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^12.7.3":
+  version: 12.7.3
+  resolution: "motion-dom@npm:12.7.3"
+  dependencies:
+    motion-utils: "npm:^12.7.2"
+  checksum: 10c0/ce988c6ca2c07f2ecea381eafbd31d54fcb390fbcbcdf462a723086e40735a4b374cc1058a2f689df68881e65fb8f513026f571a7f361aa18fe9ec01e6a9d07f
+  languageName: node
+  linkType: hard
+
 "motion-utils@npm:^12.5.0":
   version: 12.5.0
   resolution: "motion-utils@npm:12.5.0"
   checksum: 10c0/f556240efda96a4bb86b13bb0e6cad689b2665ca688b2616585a7c7db182e3b8d93377ff1fb3782ca0088a4a8aa6dd5e47e81fda5c19ab334f01812eade639ef
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.7.2":
+  version: 12.7.2
+  resolution: "motion-utils@npm:12.7.2"
+  checksum: 10c0/ef974eee10d647f2cdfb80a3a739d60c5e8eb627818cbd80d92bd8b52b222735177fe3aecea7ec153b36fd348e8fdfbb233d4be68ed26b8eaa369fd7a06f4851
   languageName: node
   linkType: hard
 
@@ -10777,6 +10927,27 @@ __metadata:
     react-dom:
       optional: true
   checksum: 10c0/0ebc6bea6b4d64b1d07436bd16ab5e6c82f52fb424b4012c1347b8cfa8aa1b8d38d151a2bff47f92f6e69e55f32a84c6558d0a4b71ee824bc08e22f5f33cf152
+  languageName: node
+  linkType: hard
+
+"motion@npm:^12.7.3":
+  version: 12.7.3
+  resolution: "motion@npm:12.7.3"
+  dependencies:
+    framer-motion: "npm:^12.7.3"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/937a10ae5d447dd73298b4e713894a7d6426b48196807b3b0a83e5f19be494730fb248ffd6404f4940d4ab5da1541342d6fb915b58fbda0813d6e10b969f9998
   languageName: node
   linkType: hard
 
@@ -13608,6 +13779,13 @@ __metadata:
   peerDependencies:
     typescript: ">=4.8.4"
   checksum: 10c0/23fd56a958b332cac00150a652e4c84730df30571bd2faa1ba6d7b511356d1a61656621492bb6c7f15dd6e18847a1408357a0e406671d358115369a17f5bfedd
+  languageName: node
+  linkType: hard
+
+"ts-custom-error@npm:^3.2.1":
+  version: 3.3.1
+  resolution: "ts-custom-error@npm:3.3.1"
+  checksum: 10c0/67cc807d03406d7eeb2b908408d455d253cc43b480d669e2e3ea028b9aaa2c78ad1b392425b86368bbbc3c43a15e4abe304312d87ed845091646ec1937bab982
   languageName: node
   linkType: hard
 

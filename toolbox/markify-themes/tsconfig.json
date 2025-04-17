@@ -3,10 +3,5 @@
     "compilerOptions": {
         "declaration": true, 
         "declarationDir": "esm", 
-    },
-    "exclude": [
-        "assets",
-        "bin",
-        "esm"
-    ]
+    }
 }

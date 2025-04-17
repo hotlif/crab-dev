@@ -21,13 +21,19 @@ interface Vue2LcpWebCrustifyModParam {
 
     /**
      * 代理组件的装载
+     *  - id 组件代码
+     *  - name 组件名称
      */
     proxyLoadComponent: Record<string, string>
 
     /**
-     * 版本的 Hash
+     * 代理指定 Form 的脚本信息
+     * 
+     *  - sheetCode 组件代码
+     *  - name 组件名称
      */
-    version?: string
+    proxyLoadFormScript: Record<string, string>
+
 }
 
 
@@ -37,9 +43,6 @@ class Vue2LcpWebCrustifyMod implements Modification {
 
     constructor(param: Vue2LcpWebCrustifyModParam) {
         this.param = param;
-        if (this.param.version == null) {
-            this.param.version = "5ad71ace";
-        }
     }
 
     modifyWebpack(configuration: Configuration): Configuration {
@@ -75,11 +78,15 @@ class Vue2LcpWebCrustifyMod implements Modification {
         configuration.devServer.proxy = configuration.devServer.proxy.map(element => ({
             ...element,
             onProxyRes: (proxyRes, req, res) => {
-                if (req.url === `/js/app.${this.param.version}.js`) {
-                    const version = `window._$proxyLoadComponent = ${JSON.stringify(this.param.proxyLoadComponent)};\n`;
-                    const patch = version + readFileSync(join(__dirname, "..", "assets", `app.${this.param.version}.patch.js`)).toString();
-                    res.setHeader('Content-Length', Buffer.byteLength(patch));
-                    res.end(patch);
+                const version = "5ad71ace";
+                if (req.url === `/js/app.${version}.js`) {
+                    const proxyLoadFormScript = `window._$proxyLoadFormScript = ${JSON.stringify(this.param.proxyLoadFormScript || {})};\n`;
+                    const proxyLoadFormScriptPatch = proxyLoadFormScript + readFileSync(join(__dirname, "..", "assets", `app.${version}.patch.js`)).toString();
+
+                    const proxyLoadComponent = `window._$proxyLoadComponent = ${JSON.stringify(this.param.proxyLoadComponent || {})};\n`;
+                    const proxyLoadComponentPatch = proxyLoadComponent + proxyLoadFormScriptPatch;
+                    res.setHeader('Content-Length', Buffer.byteLength(proxyLoadComponentPatch));
+                    res.end(proxyLoadComponentPatch);
                 }
             }
         }))

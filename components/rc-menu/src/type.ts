@@ -18,27 +18,27 @@ export interface Item {
     data?: unknown
 
     /**
-     * 项的类型。
+     * 类型
      */
     type: ItemType;
 
     /**
-     * 显示在项旁边的图标。
+     * 图标
      */
     icon?: ReactNode;
 
     /**
-     * 项的标题。
+     * 标题
      */
     title?: string;
 
     /**
-     * 项的唯一键。
+     * 唯一键
      */
     key: Key;
 
     /**
-     * 此项的子项。
+     * 子节点信息
      */
     children?: Item[];
 }
