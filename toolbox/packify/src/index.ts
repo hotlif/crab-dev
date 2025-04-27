@@ -30,7 +30,7 @@ export const build = async () => {
             css({
                 output: "index.styles.css",
             }),
-            terser()
+            // terser()
         ]
     });
 

@@ -58,7 +58,7 @@ const presetStandard = async ({
             extensions: [".tsx", ".ts", ".js", ".raw", ".vue"],
             alias: {
 				"@": join(cwd, "src"),
-                "@@":  cwd,
+                "@@": process.cwd(),
                 ...aliasAutoScan
 			}
         },

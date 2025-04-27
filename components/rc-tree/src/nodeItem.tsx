@@ -1,4 +1,4 @@
-import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode, CSSProperties } from "react";
+import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx } from "@linaria/core";
 import {

@@ -17,3 +17,6 @@ esm
 coverage
 .tmp
 dist
+
+.tmp-markify
+

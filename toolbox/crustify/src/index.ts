@@ -153,6 +153,10 @@ export const bundle = async (conf: Config) => {
             library: '[name]',
             libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
         },
+        externals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+        },
     }));
 
     const webpackCompiler = Webpack(webpackConfig);

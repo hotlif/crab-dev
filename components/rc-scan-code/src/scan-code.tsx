@@ -49,7 +49,6 @@ const ScanCode: FC<ScanCodeProps> = ({
         }
     }, [])
 
-
     return (
         <div
             className={cx(
