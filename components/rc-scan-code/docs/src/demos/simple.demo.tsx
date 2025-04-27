@@ -5,6 +5,7 @@
 
 import { css } from "@linaria/core";
 import ScanCode from "../../../src/index";
+import { useState } from "react";
 
 
 const paddingTop = css`
@@ -12,18 +13,29 @@ const paddingTop = css`
 `
 
 const SimpleFrame = () => {
+	const [isShow, setIsShow] = useState<boolean>(false);
 	return (
 		<>
-			<ScanCode
-				style={{
-					height: 600,
-					width: 600
+			<button
+				onClick={() => {
+					setIsShow(!isShow);
 				}}
-				onScanCode={(result) => {
-					alert(result)
-					console.log(result)
-				}}
-			/>
+			>
+				关闭状态
+			</button>
+
+			{isShow ? (
+				<ScanCode
+					style={{
+						height: 600,
+						width: 600
+					}}
+					onScanCode={(result) => {
+						alert(result)
+						console.log(result)
+					}}
+				/>
+			) : null}
 		</>
 
 	)

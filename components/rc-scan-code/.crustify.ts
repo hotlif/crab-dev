@@ -9,7 +9,7 @@ export default defineConfig({
 	},
 	libraryBundle: {
 		entry: {
-			"RcScanCode": join(process.cwd(), "src", "index.ts")
+			"RcScanCode": join(process.cwd(), "src", "index.vue2.ts")
 		}
 	}
 });

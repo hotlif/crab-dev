@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "build": "packify build",
+        "bundle": "crustify bundle",
         "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
@@ -16,6 +17,7 @@
     "main": "esm/index.mjs",
     "module": "esm/index.mjs",
     "devDependencies": {
+        "@crab/crustify": "workspace:^",
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",

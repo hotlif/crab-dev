@@ -5,6 +5,13 @@ import { join, sep } from "path";
 import * as ts from "typescript";
 import { parse } from "smol-toml";
 
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkParse from 'remark-parse';
+import remarkStringify from 'remark-stringify';
+
+import { read } from "to-vfile";
+import { unified } from "unified";
+
 import { type ComponentScanRule } from "../conf";
 import { getTmpDir } from "../util";
 import { existsSync, mkdirSync } from "fs";
@@ -44,6 +51,37 @@ export const getTypeScriptComment = (code: string) => {
     }
 }
 
+
+/**
+ * 从给定的 Markdown 文件中提取 TOML 格式的注释内容。
+ * @param path 文件路径
+ * @returns 返回解析好的 TOML 数据
+ */
+export const getMdxComment = async (path: string) => {
+	type Tree = {
+		children: {type: string, value: string}[]
+	}
+	let tree: Tree | null = null;
+
+	await unified()
+	.use(remarkParse)
+	.use(remarkStringify)
+	.use(remarkFrontmatter, ['toml'])
+	.use(() => (t: any) => {
+		tree = t 
+	})
+	.process(await read(path, "utf-8"));
+	const data = tree!.children.find(ele => ele.type === "toml")
+	try {
+		if (data?.value) {
+			return parse(data.value);
+		}
+		return null;
+	} catch (error) {
+		return null;
+	}
+}
+
 /**
  * 解析文件头部注释
  * 
@@ -51,10 +89,21 @@ export const getTypeScriptComment = (code: string) => {
  * @returns 解析后的注释内容
  */
 export const parseHeaderComments = async (path: string) => {
-    const text = (await readFile(path)).toString();
-    const comment = getTypeScriptComment(text);
-    if (comment) {
-        return parse(comment);
+    if (/\.[jt]sx?$/.test(path)) {
+        const text = (await readFile(path)).toString();
+        const comment = getTypeScriptComment(text);
+        if (comment) {
+            return parse(comment);
+        } else {
+            return null;
+        }
+    } else if (/\.(md|mdx)$/.test(path)) {
+        const comment = await getMdxComment(path);
+        if (comment) {
+            return comment;
+        } else {
+            return null;
+        }
     } else {
         return null;
     }
@@ -150,9 +199,10 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
         for (let i = 0; i < files.length; i += 1) {
             const file = files[i];
 
-            const importUrl = file.replace(rootDir, "@@").replaceAll(sep, "/");
+
+            const importUrl = file.replace(process.cwd(), "@@").replaceAll(sep, "/");
             const importName = importUrl.replace(/[^a-zA-Z0-9]/g, "_");
-            const relativePath = file.replace(rootDir, "").replaceAll(sep, "/");
+            const relativePath = file.replace(process.cwd(), "").replaceAll(sep, "/");
 
             const sourcePath = join(getTmpDir(rootDir), `${relativePath}.raw`);
             await copy(file, sourcePath);

@@ -1,5 +1,5 @@
 {
-    "extends": "@crab/standards-typescript-preset/tsconfig.node.json",
+    "extends": "@crab/standards-typescript-preset/tsconfig.browser.react.json",
     "compilerOptions": {
         "declaration": true, 
         "declarationDir": "esm", 

@@ -1,34 +1,24 @@
 import { run as runCrustify } from "@crab/crustify";
-import { cp, readFile, writeFile } from "fs/promises";
-import { join } from "path";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import { compile } from "ejs";
+import { cp, mkdir } from "fs/promises";
+import { existsSync } from "fs";
+import { dirname, join } from "path";
 import { type MarkifyConfig } from "./conf";
+import { createRequire } from "module";
+import { fileURLToPath } from "url";
 
 export { getConfig } from "./conf";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
 export const dev = async ({
-    theme = "@crab/markify-themes"
 }: MarkifyConfig) => {
-    await cp(join(__dirname, "..", "assets", "src"), join(process.cwd(), ".tmpPreset", "src"), { recursive: true });
-    const entryTsx = await readFile(join(__dirname, "..", "assets", "src", "entry.tsx"), "utf-8");
-    const compileFunction = compile(entryTsx, {
-        async: true
-    });
-
-    const newEntryTsx = await compileFunction({
-        theme
-    });
-
-    await writeFile(join(__dirname, "..", "assets", "src", "entry.tsx"), newEntryTsx, "utf-8");
-
+    await cp(join(__dirname, "..", "assets"), join(process.cwd(), ".tmp-markify", "src"), { recursive: true });
+    if (!existsSync(join(process.cwd(), "docs"))) {
+        await mkdir(join(process.cwd(), "docs"))
+    }
     await runCrustify({
-        rootDir: join(process.cwd(), ".tmpPreset"),
+        rootDir: join(process.cwd(), ".tmp-markify"),
         componentScan: [{
             namespaces: "mdxs",
             cwd: join(process.cwd(), "docs"),
@@ -40,3 +30,5 @@ export const dev = async ({
         }]
     });
 }
+
+export { defineConfig } from "./conf";
