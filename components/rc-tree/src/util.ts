@@ -82,7 +82,6 @@ export class TreeDataUtil {
     }
 }
 
-
 /**
  * 从给定的父节点开始检索准备加载的树节点数据。
  *
@@ -92,47 +91,15 @@ export class TreeDataUtil {
  */
 export const getLoadReadyTreeNodeData = (parent: Node | null, loadReadyNodeData: Node[]): Node[] => {
     const result: Node[] = [];
-    const nodesData: Node[] = [];
-    const otherData: Node[] = [];
-    loadReadyNodeData.forEach(node => {
-        if (parent?.id === node?.parent?.id) {
-            nodesData.push({
-                ...node,
-            });
-        } else {
-            otherData.push(node);
+    const datas = loadReadyNodeData.filter(element => element.parent?.id === parent?.id);
+    datas.forEach(element => {
+        result.push(element);
+        const child = loadReadyNodeData.filter(childElement => childElement.parent?.id === element?.id);
+        if (child.length > 0) {
+            result.push(...getLoadReadyTreeNodeData(element, loadReadyNodeData));
         }
-    })
-    nodesData.forEach(element => {
-        result.push({
-            ...element,
-        });
-        const childrenNodes: Node[] = []
-        const otherChildrenData: Node[] = []
-        otherData.forEach(node => {
-            if (node.parent?.id === element.id) {
-                childrenNodes.push({
-                    ...node,
-                });
-            } else {
-                otherChildrenData.push(node);
-            }
-        })
-        result.push(...childrenNodes);
-        childrenNodes.forEach(cNode => {
-            const data = getLoadReadyTreeNodeData(cNode, otherChildrenData)
-            result.push(...data)
-        });
-    })
-    return result.sort((a, b) => {
-        if ((a.priority ?? 0) > (b.priority ?? 0)) {
-            return 1;
-        } else if ((a.priority ?? 0) > (b.priority ?? 0)) {
-            return -1;
-        } else {
-            return 0;
-        }
-    })
+    });
+    return result;
 }
 
 export const getTreeNodeDepth = (node: Node) => {

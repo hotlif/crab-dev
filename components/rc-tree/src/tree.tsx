@@ -270,10 +270,14 @@ const Tree: FC<TreeProps> = ({
                 }));
 
                 onTreeNodeChange((oldNodes) => {
-                    const node = oldNodes.find(element => element.id === e.node.id);
+
+                    const nodeIndex = oldNodes.findIndex(element => element.id === e.node.id);
+                    const node = oldNodes[nodeIndex];
+                
                     if (node != null) {
                         node.loadState = LoadStateType.LOADING_COMPLETED;
                     }
+
                     return [...oldNodes, ...nodes]
                 })
             });

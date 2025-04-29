@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
 import { display, width } from "@crab/styleify";
-import "@crab/rc-virtual/esm/index.styles.css";
 import README from "../../README.mdx";
 
 const App = () => {
