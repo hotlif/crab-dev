@@ -76,7 +76,7 @@ const DraggableTree = () => {
 			loadData={(parentNode) => {
 				if (parentNode === null) {
 					const nodes: Node[] = [];
-					for (let i = 1; i < 10000; i += 1) {
+					for (let i = 1; i < 10; i += 1) {
 						nodes.push({
 							id: i,
 							type: NodeType.FOLDER,
@@ -97,6 +97,12 @@ const DraggableTree = () => {
 									id: `${parentNode.id}-0`,
 									type: NodeType.FOLDER,
 									title: `节点 - ${parentNode.id} - 0`,
+									parent: parentNode,
+									loadState: LoadStateType.UNLOADED
+								},{
+									id: `${parentNode.id}-1`,
+									type: NodeType.FOLDER,
+									title: `节点 - ${parentNode.id} - 1`,
 									parent: parentNode,
 									loadState: LoadStateType.UNLOADED
 								}])
