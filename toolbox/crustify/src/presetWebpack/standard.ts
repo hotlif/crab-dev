@@ -52,7 +52,7 @@ const presetStandard = async ({
         },
         target: "web",
         watchOptions: {
-            ignored: ["**/node_modules", "**/.tmp"],
+            ignored: ["**/node_modules", "**/.tmp", "**/.tmp-markify"],
         },
         resolve: {
             extensions: [".tsx", ".ts", ".js", ".raw", ".vue"],
