@@ -50,7 +50,7 @@ const presetModule = async ({
                 ],
             }, {
                 test: /\.raw$/i,
-                use: require.resolve("raw-loader"),
+                type: 'asset/resource',
             }, {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
