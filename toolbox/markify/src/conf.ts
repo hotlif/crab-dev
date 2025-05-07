@@ -1,6 +1,15 @@
 import { loadConfig } from "unconfig";
 
 export interface MarkifyConfig {
+	/**
+	 * 标题名称
+	 */
+	title: string;
+
+	/**
+	 * 图标的 LOGO 的 URL 地址
+	 */
+	logo: string
 } 
 
 /**

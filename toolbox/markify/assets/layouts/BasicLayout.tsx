@@ -7,8 +7,8 @@ const BasicLayout = () => {
     const outlet = useOutlet();
     return (
         <RcFrame
-            headerTitle="Infinitum"
-            headerLogoIconUrl="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+            headerTitle="<%=title %>"
+            headerLogoIconUrl="<%=logo %>"
             headerUserName=""
             sidebarLoadMenus={async () => {
                 const menus = await getMenus();

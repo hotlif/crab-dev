@@ -55,7 +55,6 @@
         "css-minimizer-webpack-plugin": "^7.0.2",
         "fs-extra": "^11.3.0",
         "mini-css-extract-plugin": "^2.9.2",
-        "raw-loader": "^4.0.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "remark-frontmatter": "^5.0.0",

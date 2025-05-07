@@ -2,7 +2,7 @@
     "name": "@crab/markify",
     "description": "用来构建组件文档的模组",
     "packageManager": "yarn@4.7.0",
-    "version": "0.0.1-canary",
+    "version": "0.0.1",
     "type": "module",
     "scripts": {
         "build": "packify build",
