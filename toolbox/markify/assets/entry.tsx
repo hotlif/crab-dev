@@ -2,10 +2,11 @@ import { createRoot } from "react-dom/client";
 import { css } from "@linaria/core";
 import { preflight } from "@crab/styleify";
 import { RouterProvider, createBrowserRouter } from "react-router";
+import SandBox from "./components/sandbox";
 
+import mdxs from "@@@/mdxs";
 import Layout from "./layouts";
 import E404 from "./errors/E404";
-import mdxs from "@@@/mdxs";
 
 export const globals = css`
     :global() {
@@ -29,11 +30,23 @@ const reactRouters = createBrowserRouter([{
     children: [
         ...mdxs.map(mdx => ({
             lazy: async () => {
+                const Component = mdx.component;
                 return {
-                    Component: mdx.component
+                    element: (
+                        <Component
+                            components={{
+                                sandbox: (props: any) => (
+                                    <SandBox
+                                        {...props}
+                                    />
+                                )
+                            }}
+                        />
+                    )
                 }
             },
-            path: mdx.metadata?.path ?? mdx.relativePath,
+            path: mdx.name ===  "___docs_README_md" ? "/" : mdx.metadata?.path ?? mdx.relativePath,
+            index: mdx.name === "___docs_README_md",
             caseSensitive: true,
             loader: async () => {
                 return {

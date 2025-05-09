@@ -1,5 +1,6 @@
 +++
 path = "/components/button/"
+navName = "组件"
 +++
 
 # Button 按钮

@@ -265,19 +265,17 @@ const Tree: FC<TreeProps> = ({
                 const nodes = _nodes.map((element, index) => ({
                     ...element,
                     parent: e.node,
-                    priority: element.priority ?? index,
+                    priority: element.priority ?? index + 1,
                     path: [...(e.node.path ?? []), element.id]
                 }));
 
                 onTreeNodeChange((oldNodes) => {
-
                     const nodeIndex = oldNodes.findIndex(element => element.id === e.node.id);
                     const node = oldNodes[nodeIndex];
                 
                     if (node != null) {
                         node.loadState = LoadStateType.LOADING_COMPLETED;
                     }
-
                     return [...oldNodes, ...nodes]
                 })
             });

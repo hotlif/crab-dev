@@ -1,6 +1,6 @@
 {
     "name": "@crab/vue2-crustify-mod",
-    "version": "0.1.0-canary",
+    "version": "0.1.0",
     "description": "vue2 的模组, 用来支持 vue2 代码开发",
     "packageManager": "yarn@4.7.0",
     "type": "module",

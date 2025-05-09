@@ -59,8 +59,8 @@ const DraggableTree = () => {
 			}}
 			onDragEnd={(event, context) => {
 				const over = event.over;
-				const active = event.active
-				console.log(over, active, context)
+				const active = event.active;
+				treeDataUtils.moveNodeOnDrag(active!.id, over!.id, context.overState!.state)
 			}}
 			onExpanded={({
 				node,

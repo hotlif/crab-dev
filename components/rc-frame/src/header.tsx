@@ -32,6 +32,7 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
      * 用户名信息
      */
     username?: ReactNode
+
 }
 
 
