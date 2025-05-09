@@ -2042,6 +2042,7 @@ __metadata:
     "@types/node": "npm:^22.13.10"
     "@types/react": "npm:^19.0.11"
     "@types/react-dom": "npm:^19.0.4"
+    decimal.js: "npm:^10.5.0"
     eslint: "npm:^9.22.0"
     eslint-plugin-react: "npm:^7.37.4"
     globals: "npm:^16.0.0"
@@ -6319,6 +6320,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"decimal.js@npm:^10.5.0":
+  version: 10.5.0
+  resolution: "decimal.js@npm:10.5.0"
+  checksum: 10c0/785c35279df32762143914668df35948920b6c1c259b933e0519a69b7003fc0a5ed2a766b1e1dda02574450c566b21738a45f15e274b47c2ac02072c0d1f3ac3
+  languageName: node
+  linkType: hard
+
 "decode-named-character-reference@npm:^1.0.0":
   version: 1.0.2
   resolution: "decode-named-character-reference@npm:1.0.2"
@@ -9849,19 +9857,6 @@ __metadata:
   checksum: 10c0/1257b31827629a54c24a5030a3dac952256c559174c95ce3ef89bebd6bff0cb1444b1fd667b1a1bb53307f83278111505b3e26f0c4e7b731e0060d435d2d930b
   languageName: node
   linkType: hard
-
-"markify-test@workspace:toolbox/markify/demo":
-  version: 0.0.0-use.local
-  resolution: "markify-test@workspace:toolbox/markify/demo"
-  dependencies:
-    "@crab/markify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-  bin:
-    markify-test: bin/cli.js
-  languageName: unknown
-  linkType: soft
 
 "math-intrinsics@npm:^1.0.0, math-intrinsics@npm:^1.1.0":
   version: 1.1.0

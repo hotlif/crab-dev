@@ -33,7 +33,7 @@ export const dev = async (conf: MarkifyConfig) => {
         componentScan: [{
             namespaces: "mdxs",
             cwd: join(process.cwd(), "docs"),
-            include: /\.mdx$/,
+            include: /\.mdx?$/,
         },{
             namespaces: "demos",
             cwd: join(process.cwd(), "docs"),

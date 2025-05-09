@@ -1,28 +1,80 @@
-import { css } from "@linaria/core";
-import { useOutlet } from "react-router";
-import { padding } from "@crab/styleify";
-import RcFrame from "@crab/rc-frame";
+import { css, cx } from "@linaria/core";
+import { useOutlet, useMatches } from "react-router";
+import {
+    display,
+    height,
+    boxShadow,
+    alignItems,
+    boxSizing,
+    flexShrink,
+    cursor,
+    width,
+    fontSize,
+    padding
+} from "@crab/styleify";
 
 const BasicLayout = () => {
     const outlet = useOutlet();
+    const matches = useMatches()
+    const currentRouter = matches.pop();
+
+    const renderMainContent = () => {
+        if (currentRouter.pathname === "/") {
+            return (
+                <main
+                    className={css`
+                    `}
+                >
+                    {outlet}
+                </main>
+            )
+        }
+    }
     return (
-        <RcFrame
-            headerTitle="<%=title %>"
-            headerLogoIconUrl="<%=logo %>"
-            headerUserName=""
-            sidebarLoadMenus={async () => {
-                const menus = await getMenus();
-                return menus;
-            }}
+        <div
+            className={css`
+            `}
         >
-            <div
-                className={css`
-                    ${padding("p-4")}
-                `}
+            <header
+                className={cx(css`
+                    ${display("flex")}
+                    ${height("14")}
+                    ${boxShadow("sm")}
+                    ${alignItems("center")}
+                    ${boxSizing("border")}
+                    ${flexShrink(0)}
+                `)}
             >
-                {outlet}
-            </div>
-        </RcFrame>
+                <div
+                    className={css`
+                        ${display("flex")}
+                        ${cursor("pointer")}
+                        ${alignItems("center")} 
+                        ${width("64")}
+                        ${boxSizing("border")}
+                        ${padding("pl-5")} 
+                    `}
+                >
+                    <img
+                        width="auto"
+                        height={22}
+                        src="<%=logo %>"
+                        alt="Logo"
+                    />
+
+                    <div
+                        className={css`
+                            ${display("inline-block")}
+                            ${fontSize("lg")}
+                            ${padding("pl-4")}
+                        `}
+                    >
+                        <%=title %>
+                    </div>
+                </div>
+            </header>
+            {renderMainContent()}
+        </div>
     )
 }
 

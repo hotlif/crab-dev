@@ -1,4 +1,5 @@
-import { type Node } from "./type";
+import Decimal from "decimal.js";
+import { type Node, OverStateEnum } from "./type";
 import { TreeProps } from "./tree";
 
 export class TreeDataUtil {
@@ -80,6 +81,75 @@ export class TreeDataUtil {
             return newTreeData.slice();
         });
     }
+
+    
+    /**
+     * 在树结构中根据拖放操作移动节点。
+     *
+     * @param dragNodeId - 被拖动节点的 ID。
+     * @param targetNodeId - 目标节点的 ID，即拖动节点放置的位置。
+     * @param position - 拖动节点相对于目标节点的位置，可以是 `OverStateEnum` 的以下值之一：
+     *                   - `UPWARD`: 将拖动节点放置在目标节点的上方。
+     *                   - `DOWN`: 将拖动节点放置在目标节点的下方。
+     *                   - `INSIDE`: 将拖动节点作为目标节点的子节点。
+     *
+     * @throws {Error} 如果在树数据中找不到目标节点。
+     *
+     * @remarks
+     * - 此方法根据新位置更新拖动节点的 `priority`（优先级）。
+     * - 如果位置为 `INSIDE`，则更新拖动节点的父节点为目标节点。
+     * - 此方法确保操作后树结构的完整性。
+     *
+     * @example
+     * ```typescript
+     * moveNodeOnDrag('node1', 'node2', OverStateEnum.UPWARD);
+     * ```
+     */
+    moveNodeOnDrag(dragNodeId: Node["id"], targetNodeId: Node["id"], position: OverStateEnum) {
+        this.onTreeNodeChange(newTreeData => {
+            const dragNode = newTreeData.find(element => element.id === dragNodeId);
+            const targetNode = newTreeData.find(element => element.id === targetNodeId);
+
+            const dragNodeIndex = newTreeData.findIndex(element => element.id === dragNode?.id);
+   
+            const targetNodes = newTreeData.filter(element => element?.parent?.id === (targetNode?.parent?.id ?? null));
+
+            let previousNode: Node | null = null;
+            let nextNode: Node | null = null;
+
+            const targetIndex = targetNodes.findIndex(element => element.id === targetNode?.id);
+
+            if (targetIndex === -1) {
+                throw new Error(`[TreeDataUtil::moveNodeOnDrag]: target node not found in the tree data.`);
+            }
+
+            if (targetIndex < targetNodes.length - 1) {
+                nextNode = targetNodes[targetIndex + 1];
+            }
+
+            if (targetIndex > 0) {
+                previousNode = targetNodes[targetIndex - 1];
+            }
+
+            if (position === OverStateEnum.UPWARD) {
+                newTreeData[dragNodeIndex].priority = new Decimal(previousNode?.priority ?? 0)
+                                                .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
+                                                .div(2).toNumber();
+            } else if (position === OverStateEnum.DOWN) {
+                if (nextNode != null) {
+                    newTreeData[dragNodeIndex].priority = new Decimal(nextNode?.priority ?? 0)
+                                    .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
+                                    .div(2).toNumber();
+                } else {
+                    newTreeData[dragNodeIndex].priority = (targetNodes[targetIndex].priority ?? 0) + 1;
+                }
+            } else if (position === OverStateEnum.INSIDE) {
+                newTreeData[dragNodeIndex]!.parent = targetNode ?? null;
+                newTreeData[dragNodeIndex]!.priority = newTreeData.filter(element => element?.parent?.id === (targetNode?.id ?? null)).length + 1;
+            }
+            return newTreeData.slice();
+        })
+    }
 }
 
 /**
@@ -91,7 +161,17 @@ export class TreeDataUtil {
  */
 export const getLoadReadyTreeNodeData = (parent: Node | null, loadReadyNodeData: Node[]): Node[] => {
     const result: Node[] = [];
-    const datas = loadReadyNodeData.filter(element => element.parent?.id === parent?.id);
+    const datas = loadReadyNodeData.filter(element => element.parent?.id === parent?.id).sort((a, b) => {
+        const aPriority = a.priority ?? 0;
+        const bPriority = b.priority ?? 0;
+        if (aPriority === bPriority) {
+            return 0;
+        } else if (aPriority < bPriority) {
+            return -1;
+        } else {
+            return 1;
+        }
+    });
     datas.forEach(element => {
         result.push(element);
         const child = loadReadyNodeData.filter(childElement => childElement.parent?.id === element?.id);
