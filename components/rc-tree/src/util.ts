@@ -160,7 +160,6 @@ export class TreeDataUtil {
      * ```
      */
     moveNodeOnDrag(dragNodeId: Node["id"], targetNodeId: Node["id"], position: OverStateEnum) {
-        console.log("dragNodeId", dragNodeId, "targetNodeId", targetNodeId);
         this.onTreeNodeChange(newTreeData => {
             const dragNode = newTreeData.find(element => element.id === dragNodeId);
             const targetNode = newTreeData.find(element => element.id === targetNodeId);
