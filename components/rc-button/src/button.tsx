@@ -39,7 +39,7 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onC
 
 
 const baseStyle = css`
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;

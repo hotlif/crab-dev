@@ -105,8 +105,14 @@ const DraggableTree = () => {
 									title: `节点 - ${parentNode.id} - 1`,
 									parent: parentNode,
 									loadState: LoadStateType.UNLOADED
+								},{
+									id: `${parentNode.id}-2`,
+									type: NodeType.FOLDER,
+									title: `节点 - ${parentNode.id} - 2`,
+									parent: parentNode,
+									loadState: LoadStateType.UNLOADED
 								}])
-							}, 0)
+							}, 300)
 						});
 					}
 					return new Promise((resolve) => {

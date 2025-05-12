@@ -1,6 +1,19 @@
 import Decimal from "decimal.js";
-import { type Node, OverStateEnum } from "./type";
-import { TreeProps } from "./tree";
+import { LoadStateType, type Node, OverStateEnum } from "./type";
+import { type TreeProps } from "./tree";
+
+
+const sortRules = (a: Node, b: Node) => {
+    const aPriority = a.priority ?? 0;
+    const bPriority = b.priority ?? 0;
+    if (aPriority === bPriority) {
+        return 0;
+    } else if (aPriority < bPriority) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
 
 export class TreeDataUtil {
     private treeData: TreeProps["treeData"];
@@ -82,7 +95,48 @@ export class TreeDataUtil {
         });
     }
 
+
+    /**
+     * 重新加载指定父节点的子节点数据。
+     *
+     * 此方法会先将指定父节点的加载状态设置为“加载中”，
+     * 然后调用传入的异步加载函数 `func` 获取新的子节点数据。
+     * 加载完成后，会将父节点的加载状态设置为“加载完成”，
+     * 并用新获取的子节点替换原有的子节点。
+     *
+     * @param parent 父节点的唯一标识符（id）。
+     * @param func   异步加载子节点数据的函数，接收父节点数据作为参数，返回新的子节点数据。
+     */
+    async reloadChildrenByParentId(parent: Node["id"], func: TreeProps["loadData"]) {
+        let parentData = null;
+        this.onTreeNodeChange(newTreeData => {
+            for (let i = 0; i < newTreeData.length; i += 1) {
+                if (newTreeData[i].id === parent) {
+                    newTreeData[i].loadState = LoadStateType.LOADING;
+                    parentData = newTreeData[i];
+                    break;
+                }
+            }
+            return newTreeData.slice();
+        });
     
+        const result = await func?.(parentData);
+
+        if (result != null) {
+            this.onTreeNodeChange(newTreeData => {
+                for (let i = 0; i < newTreeData.length; i += 1) {
+                    if (newTreeData[i].id === parent) {
+                        newTreeData[i].loadState = LoadStateType.LOADING_COMPLETED;
+                        break;
+                    }
+                }
+                const deleteOldNodes = newTreeData.filter(element => element.parent?.id === parent);
+                return [...deleteOldNodes, ...result];
+            });
+        }
+    }
+
+
     /**
      * 在树结构中根据拖放操作移动节点。
      *
@@ -112,7 +166,7 @@ export class TreeDataUtil {
 
             const dragNodeIndex = newTreeData.findIndex(element => element.id === dragNode?.id);
    
-            const targetNodes = newTreeData.filter(element => element?.parent?.id === (targetNode?.parent?.id ?? null));
+            const targetNodes = newTreeData.filter(element => element?.parent?.id === (targetNode?.parent?.id ?? null)).sort(sortRules);
 
             let previousNode: Node | null = null;
             let nextNode: Node | null = null;
@@ -161,17 +215,7 @@ export class TreeDataUtil {
  */
 export const getLoadReadyTreeNodeData = (parent: Node | null, loadReadyNodeData: Node[]): Node[] => {
     const result: Node[] = [];
-    const datas = loadReadyNodeData.filter(element => element.parent?.id === parent?.id).sort((a, b) => {
-        const aPriority = a.priority ?? 0;
-        const bPriority = b.priority ?? 0;
-        if (aPriority === bPriority) {
-            return 0;
-        } else if (aPriority < bPriority) {
-            return -1;
-        } else {
-            return 1;
-        }
-    });
+    const datas = loadReadyNodeData.filter(element => element.parent?.id === parent?.id).sort(sortRules);
     datas.forEach(element => {
         result.push(element);
         const child = loadReadyNodeData.filter(childElement => childElement.parent?.id === element?.id);
