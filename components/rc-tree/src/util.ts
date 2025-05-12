@@ -186,10 +186,12 @@ export class TreeDataUtil {
             }
 
             if (position === OverStateEnum.UPWARD) {
+                newTreeData[dragNodeIndex].parent = targetNode?.parent ?? null;
                 newTreeData[dragNodeIndex].priority = new Decimal(previousNode?.priority ?? 0)
                                                 .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
                                                 .div(2).toNumber();
             } else if (position === OverStateEnum.DOWN) {
+                newTreeData[dragNodeIndex].parent = targetNode?.parent ?? null;
                 if (nextNode != null) {
                     newTreeData[dragNodeIndex].priority = new Decimal(nextNode?.priority ?? 0)
                                     .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
