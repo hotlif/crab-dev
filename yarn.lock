@@ -2238,6 +2238,7 @@ __metadata:
   resolution: "@crab/website@workspace:website"
   dependencies:
     "@crab/markify": "workspace:^"
+    "@crab/rc-button": "workspace:^"
     "@crab/rc-frame": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
     "@crab/styleify": "workspace:^"

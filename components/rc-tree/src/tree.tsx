@@ -248,20 +248,16 @@ const Tree: FC<TreeProps> = ({
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
-            const timeoutId = setTimeout(() => {
-                onTreeNodeChange(oldNodes => {
-                    const node = oldNodes.find(element => element.id === e.node.id);
-                    if (node != null) {
-                        node.loadState = LoadStateType.LOADING;
-                    }
-                    return oldNodes
-                })
-            }, 300)
+            onTreeNodeChange(oldNodes => {
+                const node = oldNodes.find(element => element.id === e.node.id);
+                if (node != null) {
+                    node.loadState = LoadStateType.LOADING;
+                }
+                return oldNodes
+            })
 
             loadData?.(e.node)
             .then((_nodes) => {
-                clearTimeout(timeoutId)
-
                 const nodes = _nodes.map((element, index) => ({
                     ...element,
                     parent: e.node,
@@ -272,7 +268,6 @@ const Tree: FC<TreeProps> = ({
                 onTreeNodeChange((oldNodes) => {
                     const nodeIndex = oldNodes.findIndex(element => element.id === e.node.id);
                     const node = oldNodes[nodeIndex];
-                
                     if (node != null) {
                         node.loadState = LoadStateType.LOADING_COMPLETED;
                     }
@@ -282,8 +277,6 @@ const Tree: FC<TreeProps> = ({
         }
         _onExpanded?.(e);
     }
-
-
 
     const getLeftAndTop = () => {
         const rect = divRef.current?.getBoundingClientRect()
@@ -503,20 +496,23 @@ const Tree: FC<TreeProps> = ({
                         )
                     ): null}
 
-                    <div
-                        style={{
-                            position: 'absolute',
-                            visibility: isOpenContextMenu ? 'visible' : 'hidden',
-                            left: mouseContextMenuNodeTitlePosition[0] - divLeft,
-                            top: mouseContextMenuNodeTitlePosition[1] - divTop
-                        }}
-                        ref={contextMenuDivRef}
-                    >
-                        {rendererContextMenu?.({
-                            node: contextMenuNode.current,
-                            hide
-                        })}
-                    </div>
+                    {isOpenContextMenu ? (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                visibility: isOpenContextMenu ? 'visible' : 'hidden',
+                                left: mouseContextMenuNodeTitlePosition[0] - divLeft,
+                                top: mouseContextMenuNodeTitlePosition[1] - divTop
+                            }}
+                            ref={contextMenuDivRef}
+                        >
+                            {rendererContextMenu?.({
+                                node: contextMenuNode.current,
+                                hide
+                            })}
+                        </div>
+                    ) : null}
+
                 </div>
              </SortableContext>
         </DndContext>
