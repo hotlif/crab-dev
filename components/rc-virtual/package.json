@@ -5,7 +5,6 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "dev": "markify dev",
         "build": "packify build",
         "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
@@ -18,7 +17,6 @@
     "main": "esm/index.mjs",
     "module": "esm/index.mjs",
     "devDependencies": {
-        "@crab/markify": "workspace:^",
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",
         "@crab/standards-jest-preset": "workspace:^",
