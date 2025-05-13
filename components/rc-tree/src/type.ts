@@ -1,6 +1,13 @@
 import { type UniqueIdentifier } from "@dnd-kit/core";
 import { type ReactNode } from "react";
 
+export interface OverState {
+    id: UniqueIdentifier,
+    activeNode?: Node,
+    overNode?: Node,
+    state: OverStateEnum
+} 
+
 export enum OverStateEnum {
     UPWARD,
     DOWN,
@@ -39,11 +46,6 @@ export interface Node {
      * 父节点信息
      */
     parent: Node | null
-
-    /**
-     * 节点路径
-     */
-    path?: UniqueIdentifier[]
 
     /**
      * 加载状态
