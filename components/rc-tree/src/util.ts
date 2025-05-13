@@ -55,22 +55,8 @@ export class TreeDataUtil {
      * @param parent 父节点
      * @param nodes  要插入的数据
      */
-    insert(parent: Node["id"] | Node, nodes: Node[]) {
-        if (typeof parent === "string" || typeof parent === "number") {
-            this.onTreeNodeChange((newTreeData) => {
-                const parentNode = newTreeData.find(element => element.id === parent);
-                if (parentNode != null) {
-                    return [...newTreeData, ...nodes.map(elemenet => ({ ...elemenet, parentNode}))]
-                } else {
-                    console.warn(`WARN: To find the corresponding parent node information based on the id, please check if the id is correct. [${parent}]`)
-                    return newTreeData;
-                }
-            })
-        } else {
-            this.onTreeNodeChange((newTreeData) => {
-                return [...newTreeData, ...nodes.map(elemenet => ({ ...elemenet, parent  }))]
-            })
-        }
+    insert(parent: Node, nodes: Node[]) {
+        this.onTreeNodeChange((newTreeData) => [...newTreeData, ...nodes.map(elemenet => ({ ...elemenet, parent }))]);
     }
 
     /**
@@ -99,43 +85,60 @@ export class TreeDataUtil {
     /**
      * 重新加载指定父节点的子节点数据。
      *
-     * 此方法会先将指定父节点的加载状态设置为“加载中”，
-     * 然后调用传入的异步加载函数 `func` 获取新的子节点数据。
-     * 加载完成后，会将父节点的加载状态设置为“加载完成”，
-     * 并用新获取的子节点替换原有的子节点。
+     * 此方法会先将父节点的加载状态设置为“加载中”，然后调用 `loadData` 方法异步加载子节点数据。
+     * 加载完成后，如果有新数据返回，则会将父节点的加载状态设置为“加载完成”，并用新数据替换原有的子节点。
      *
-     * @param parent 父节点的唯一标识符（id）。
-     * @param func   异步加载子节点数据的函数，接收父节点数据作为参数，返回新的子节点数据。
+     * @param params - 参数对象
+     * @param params.parent 指定的父节点，如果为 null，则表示根节点
+     * @param params.loadData 用于加载子节点数据的异步函数
+     * @param params.expandedKeys 当前已展开的节点 key 列表
+     *
+     * @returns Promise<void>
      */
-    async reloadChildrenByParentId(parent: Node["id"], func: TreeProps["loadData"]) {
-        let parentData = null;
+    async reloadChildrenByParent({
+        parent,
+        loadData,
+        expandedKeys
+    }: {
+        parent: Node | null,
+        loadData: TreeProps["loadData"]
+        expandedKeys: TreeProps["expandedKeys"]
+    }) {
         this.onTreeNodeChange(newTreeData => {
             for (let i = 0; i < newTreeData.length; i += 1) {
-                if (newTreeData[i].id === parent) {
+                if (newTreeData[i].id === parent?.id) {
                     newTreeData[i].loadState = LoadStateType.LOADING;
-                    parentData = newTreeData[i];
                     break;
                 }
             }
             return newTreeData.slice();
         });
     
-        const result = await func?.(parentData);
+        const result = await loadDataFunc?.({
+            parentNode: parent,
+            loadData,
+            expandedKeys
+        });
 
         if (result != null) {
             this.onTreeNodeChange(newTreeData => {
+                if (parent === null) {
+                    return result;
+                }
+
                 for (let i = 0; i < newTreeData.length; i += 1) {
-                    if (newTreeData[i].id === parent) {
+                    if (newTreeData[i].id === parent?.id) {
                         newTreeData[i].loadState = LoadStateType.LOADING_COMPLETED;
                         break;
                     }
                 }
-                const deleteOldNodes = newTreeData.filter(element => element.parent?.id === parent);
-                return [...deleteOldNodes, ...result];
+
+                const oldNodes = newTreeData.filter(element => !belongsToNode(parent, element));
+
+                return [...oldNodes, ...result];
             });
         }
     }
-
 
     /**
      * 在树结构中根据拖放操作移动节点。
@@ -164,6 +167,16 @@ export class TreeDataUtil {
             const dragNode = newTreeData.find(element => element.id === dragNodeId);
             const targetNode = newTreeData.find(element => element.id === targetNodeId);
 
+            if (dragNode == null) {
+                return newTreeData;
+            }
+            if (targetNode == null) {
+                return newTreeData;
+            }
+            if (belongsToNode(dragNode, targetNode)) {
+                return newTreeData;
+            }
+
             const dragNodeIndex = newTreeData.findIndex(element => element.id === dragNode?.id);
    
             const targetNodes = newTreeData.filter(element => (element?.parent?.id ?? null) === (targetNode?.parent?.id ?? null)).sort(sortRules);
@@ -187,9 +200,18 @@ export class TreeDataUtil {
 
             if (position === OverStateEnum.UPWARD) {
                 newTreeData[dragNodeIndex].parent = targetNode?.parent ?? null;
-                newTreeData[dragNodeIndex].priority = new Decimal(previousNode?.priority ?? 0)
-                                                .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
-                                                .div(2).toNumber();
+                if (previousNode != null) {
+                    newTreeData[dragNodeIndex].priority = new Decimal(previousNode?.priority ?? 0)
+                                                    .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
+                                                    .div(2).toNumber();
+                } else {
+                    if (targetNodes.length === 0) {
+                        newTreeData[dragNodeIndex].priority = 1;
+                    } else {
+                        newTreeData[dragNodeIndex].priority = new Decimal(targetNodes[0].priority ?? 0).div(2).toNumber();
+                    }
+                }
+
             } else if (position === OverStateEnum.DOWN) {
                 newTreeData[dragNodeIndex].parent = targetNode?.parent ?? null;
                 if (nextNode != null) {
@@ -241,3 +263,55 @@ export const getTreeNodeDepth = (node: Node) => {
     return depth;
 }
 
+
+/**
+ * 判断目标节点是否属于指定父节点的子孙节点。
+ *
+ * @param parent - 父节点
+ * @param target - 目标节点
+ * @returns 如果 target 是 parent 的子孙节点，则返回 true，否则返回 false
+ */
+export const belongsToNode = (parent: Node, target: Node) => {
+    const parentPath = [...getNodePath(parent), parent.id].join("/");
+    const targetPath = getNodePath(target).join("/").substring(0, parentPath.length);
+    return parentPath === targetPath;
+}
+
+export const getNodePath = (node: Node): Node["id"][] => {
+    if (node.parent != null) {
+        const pathArray = getNodePath(node.parent);
+        return [...pathArray, node.id];
+    } else {
+        return [node.id];
+    }
+}
+
+export const loadDataFunc = async ({
+    parentNode,
+    loadData,
+    expandedKeys
+}: {
+    parentNode: Node | null,
+    loadData: TreeProps["loadData"],
+    expandedKeys: TreeProps["expandedKeys"]
+}) => {
+    const nodes = await loadData?.(parentNode);
+    if (nodes) {
+        const data = nodes.map((node, index) => ({...node, priority: (node.priority ?? index) + 1, parent: parentNode}));
+        for (let i = 0; i < nodes.length; i += 1) {
+            const node = data[i];
+            if (expandedKeys?.includes(node.id)) {
+                const nextNode = await loadDataFunc({
+                    parentNode: node,
+                    loadData,
+                    expandedKeys
+                });
+                data.push(...nextNode);
+                node.loadState = LoadStateType.LOADING_COMPLETED;
+            }
+        }
+        return data;
+    } else {
+        return [];
+    }
+}

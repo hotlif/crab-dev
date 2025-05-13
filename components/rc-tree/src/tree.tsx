@@ -8,7 +8,7 @@ import {
     type HTMLAttributes,
     type MouseEvent,
     type SetStateAction,
-    type Dispatch
+    type Dispatch,
 } from "react";
 import {
     createPortal
@@ -28,13 +28,13 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab/rc-virtual";
-import { boxShadow, position } from "@crab/styleify";
+import { boxShadow, position, zIndex, display } from "@crab/styleify";
 import {
     useKeyDown
 } from "@crab/rc-hooks";
-import { LoadStateType, OverStateEnum, type Node } from "./type";
+import { LoadStateType, OverStateEnum, type Node, type OverState } from "./type";
 import NodeItem, { type NodeItemProps } from "./nodeItem";
-import { getLoadReadyTreeNodeData } from "./util";
+import { getLoadReadyTreeNodeData, loadDataFunc } from "./util";
 
 
 interface Context {
@@ -177,10 +177,6 @@ export interface TreeProps extends Omit<
     onTreeNodeChange: Dispatch<SetStateAction<TreeProps["treeData"]>>;
 }
 
-interface OverState {
-    id: UniqueIdentifier,
-    state: OverStateEnum
-} 
 
 const Tree: FC<TreeProps> = ({
     treeData,
@@ -216,10 +212,15 @@ const Tree: FC<TreeProps> = ({
     const [overState, setOverState] = useState<OverState | null>(null);
 
     useEffect(() => {
-        loadData?.(null)
-            .then((nodes) => {
-                onTreeNodeChange(nodes.map((node, index) => ({...node, priority: node.priority ?? index, path: [node.id]})))
-            });
+
+        loadDataFunc({
+            parentNode: null,
+            loadData,
+            expandedKeys
+        }).then((nodes) => {
+            onTreeNodeChange?.(nodes)
+        });
+
         const onClick = (event: globalThis.MouseEvent) => {
             if (!contextMenuDivRef.current?.contains(event.target as globalThis.Node)) {
                 contextMenuNode.current = null;
@@ -256,15 +257,11 @@ const Tree: FC<TreeProps> = ({
                 return oldNodes
             })
 
-            loadData?.(e.node)
-            .then((_nodes) => {
-                const nodes = _nodes.map((element, index) => ({
-                    ...element,
-                    parent: e.node,
-                    priority: element.priority ?? index + 1,
-                    path: [...(e.node.path ?? []), element.id]
-                }));
-
+            loadDataFunc({
+                parentNode: e.node,
+                loadData,
+                expandedKeys
+            }).then((nodes) => {
                 onTreeNodeChange((oldNodes) => {
                     const nodeIndex = oldNodes.findIndex(element => element.id === e.node.id);
                     const node = oldNodes[nodeIndex];
@@ -296,6 +293,24 @@ const Tree: FC<TreeProps> = ({
         x: 0,
         y: 0
     })
+
+    const getContextMenuPosition = (x: number, y: number) => {
+        let nY = y;
+        let nX = x;
+        const contextMenuDiv = contextMenuDivRef.current?.getBoundingClientRect();
+        if (contextMenuDiv && contextMenuDiv.height + y > window.innerHeight) {
+            nY = y - contextMenuDiv.height;
+        }
+
+        if (contextMenuDiv && contextMenuDiv.width + x > window.innerWidth) {
+            nX = x - contextMenuDiv.width;
+        }
+        return {
+            x: nX,
+            y: nY
+        }
+
+    }
     return (
         <DndContext
             onDragAbort={(event) => {
@@ -326,16 +341,22 @@ const Tree: FC<TreeProps> = ({
                     if (left >=  rect.width / 3) {
                         setOverState({
                             id: event.over.id,
+                            activeNode: treeData.find(element => element.id === activeId),
+                            overNode: treeData.find(element => element.id === event.over?.id),
                             state: OverStateEnum.INSIDE
                         })
                     } else if (top <= rect.height / 3) {
                         setOverState({
                             id: event.over.id,
+                            activeNode: treeData.find(element => element.id === activeId),
+                            overNode: treeData.find(element => element.id === event.over?.id),
                             state: OverStateEnum.UPWARD
                         })
                     } else {
                         setOverState({
                             id: event.over.id,
+                            activeNode: treeData.find(element => element.id === activeId),
+                            overNode: treeData.find(element => element.id === event.over?.id),
                             state: OverStateEnum.DOWN
                         })
                     }
@@ -372,11 +393,13 @@ const Tree: FC<TreeProps> = ({
                 <div
                     ref={divRef}
                     className={css`
+                        ${display("inline-block")}
                         ${position('relative')}    
                     `}
                     onContextMenu={e => {
                         const x = e.clientX;
                         const y = e.clientY;
+
                         setContextMenuNodeTitlePosition([x, y]);
                         setIsOpenContextMenu(true);
                         contextMenuNode.current = null;
@@ -404,7 +427,7 @@ const Tree: FC<TreeProps> = ({
                                     <NodeItem
                                         key={node.id}
                                         node={node}
-                                        overState={node.id === overState?.id ? overState.state : undefined}
+                                        overState={overState}
                                         selectd={selectKeys.includes(node.id)}
                                         loading={node.loadState === LoadStateType.LOADING}
                                         expanded={expandedKeys?.includes(node.id) === true}
@@ -454,8 +477,12 @@ const Tree: FC<TreeProps> = ({
                                         onTitleContextMenu={(e) => {
                                             const x = e.clientX;
                                             const y = e.clientY;
-                                            setContextMenuNodeTitlePosition([x, y]);
                                             setIsOpenContextMenu(true);
+                                            const {
+                                                x: nX,
+                                                y: nY
+                                            } = getContextMenuPosition(x, y);
+                                            setContextMenuNodeTitlePosition([nX, nY]);
                                             contextMenuNode.current = node;
                                             onContextMenu?.(e, node)
                                             e.stopPropagation();
@@ -484,6 +511,7 @@ const Tree: FC<TreeProps> = ({
                                 <NodeItem
                                     loading={false}
                                     node={activeNode}
+                                    overState={null}
                                     selectd={false}
                                     style={{
                                         height: activeNode.height ?? defaultNodeHeight,
@@ -496,22 +524,24 @@ const Tree: FC<TreeProps> = ({
                         )
                     ): null}
 
-                    {isOpenContextMenu ? (
-                        <div
-                            style={{
-                                position: 'absolute',
-                                visibility: isOpenContextMenu ? 'visible' : 'hidden',
-                                left: mouseContextMenuNodeTitlePosition[0] - divLeft,
-                                top: mouseContextMenuNodeTitlePosition[1] - divTop
-                            }}
-                            ref={contextMenuDivRef}
-                        >
-                            {rendererContextMenu?.({
-                                node: contextMenuNode.current,
-                                hide
-                            })}
-                        </div>
-                    ) : null}
+                    <div
+                        className={css`
+                            ${zIndex(50)}
+                            ${position('absolute')};
+                            ${boxShadow("lg")};    
+                        `}
+                        style={{
+                            visibility: isOpenContextMenu ? "visible" : "hidden",
+                            left: mouseContextMenuNodeTitlePosition[0] - divLeft,
+                            top: mouseContextMenuNodeTitlePosition[1] - divTop
+                        }}
+                        ref={contextMenuDivRef}
+                    >
+                        {rendererContextMenu?.({
+                            node: contextMenuNode.current,
+                            hide
+                        })}
+                    </div>
 
                 </div>
              </SortableContext>

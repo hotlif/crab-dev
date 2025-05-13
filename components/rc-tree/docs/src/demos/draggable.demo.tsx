@@ -1,13 +1,62 @@
 import { type Key, useState } from "react"
-import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData } from "../../../src/index";
+import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData, TreeProps } from "../../../src/index";
 
 const DraggableTree = () => {
-    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([1, "1-1"]);
 	const [selectKeys, setSelectKeys] = useState<Key[]>([]);
 	const [treeData, setTreeData, treeDataUtils] = useTreeData();
+
+
+	const loadData: TreeProps["loadData"] = (parentNode) => {
+		if (parentNode === null) {
+			const nodes: Node[] = [];
+			for (let i = 1; i < 10; i += 1) {
+				nodes.push({
+					id: i,
+					type: NodeType.FOLDER,
+					title: `节点 ${i}`,
+					parent: null,
+					loadState: LoadStateType.UNLOADED
+				})
+			}
+			return new Promise((resolve) => {
+				resolve(nodes)
+			});
+		} else {
+			const depth = getTreeNodeDepth(parentNode);
+			if (depth <= 10) {
+				return new Promise((resolve) => {
+					setTimeout(() => {
+						resolve([{
+							id: `${parentNode.id}-0`,
+							type: NodeType.FOLDER,
+							title: `节点 - ${parentNode.id} - 0`,
+							parent: parentNode,
+							loadState: LoadStateType.UNLOADED
+						},{
+							id: `${parentNode.id}-1`,
+							type: NodeType.FOLDER,
+							title: `节点 - ${parentNode.id} - 1`,
+							parent: parentNode,
+							loadState: LoadStateType.UNLOADED
+						},{
+							id: `${parentNode.id}-2`,
+							type: NodeType.FOLDER,
+							title: `节点 - ${parentNode.id} - 2`,
+							parent: parentNode,
+							loadState: LoadStateType.UNLOADED
+						}])
+					}, 300)
+				});
+			}
+			return new Promise((resolve) => {
+				resolve([]);
+			})
+		}
+	}
     return (
 		<RcTree
-			height={200}
+			height={400}
 			width={300}
 			treeData={treeData}
 			draggable
@@ -33,7 +82,17 @@ const DraggableTree = () => {
 						>
 							<button disabled>添加</button>
 							<button disabled>删除</button>
-							<button disabled>修改</button>
+							<button
+								onClick={() => {
+									treeDataUtils.reloadChildrenByParent({
+										parent: null,
+										loadData,
+										expandedKeys,
+									})
+								}}
+							>
+								刷新所有节点
+							</button>
 						</div>
 					)
 				}
@@ -53,14 +112,24 @@ const DraggableTree = () => {
 						>
 							删除
 						</button>
-						<button>修改</button>
+						<button
+							onClick={() => {
+								treeDataUtils.reloadChildrenByParent({
+									parent: node,
+									loadData,
+									expandedKeys,
+								})
+							}}
+						>
+							刷新子节点数据
+						</button>
 					</div>
 				)
 			}}
 			onDragEnd={(event, context) => {
 				const over = event.over;
 				const active = event.active;
-				if (context.overState?.state) {
+				if (context.overState?.state != null) {
 					treeDataUtils.moveNodeOnDrag(active!.id, over!.id, context.overState.state)
 				}
 			}}
@@ -75,53 +144,7 @@ const DraggableTree = () => {
 					setExpandedKeys([...expandedKeys]);
 				}
 			}}
-			loadData={(parentNode) => {
-				if (parentNode === null) {
-					const nodes: Node[] = [];
-					for (let i = 1; i < 10; i += 1) {
-						nodes.push({
-							id: i,
-							type: NodeType.FOLDER,
-							title: `节点 ${i}`,
-							parent: null,
-							loadState: LoadStateType.UNLOADED
-						})
-					}
-					return new Promise((resolve) => {
-						resolve(nodes)
-					});
-				} else {
-					const depth = getTreeNodeDepth(parentNode);
-					if (depth <= 10) {
-						return new Promise((resolve) => {
-							setTimeout(() => {
-								resolve([{
-									id: `${parentNode.id}-0`,
-									type: NodeType.FOLDER,
-									title: `节点 - ${parentNode.id} - 0`,
-									parent: parentNode,
-									loadState: LoadStateType.UNLOADED
-								},{
-									id: `${parentNode.id}-1`,
-									type: NodeType.FOLDER,
-									title: `节点 - ${parentNode.id} - 1`,
-									parent: parentNode,
-									loadState: LoadStateType.UNLOADED
-								},{
-									id: `${parentNode.id}-2`,
-									type: NodeType.FOLDER,
-									title: `节点 - ${parentNode.id} - 2`,
-									parent: parentNode,
-									loadState: LoadStateType.UNLOADED
-								}])
-							}, 300)
-						});
-					}
-					return new Promise((resolve) => {
-						resolve([]);
-					})
-				}
-			}}			
+			loadData={loadData}			
 		/>
     )
 }

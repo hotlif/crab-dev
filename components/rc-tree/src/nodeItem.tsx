@@ -14,8 +14,8 @@ import {
     textOverflow,
     whitespace
 } from "@crab/styleify";
-import { NodeType, OverStateEnum, type Node } from "./type";
-import { getTreeNodeDepth } from "./util";
+import { NodeType, OverStateEnum, type Node, type OverState } from "./type";
+import { getTreeNodeDepth, belongsToNode } from "./util";
 import { CaretDownFill, CaretRightFill, Draggable, Loading } from "./icon";
 import {
     TreeNodeIconHoverBgColor,
@@ -34,7 +34,7 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
     // 节点数据
     node: Node
     // 拖拽状态
-    overState?: OverStateEnum,
+    overState: OverState | null,
     // 是否展开
     expanded: boolean
     // 是否加载中
@@ -93,6 +93,7 @@ const NodeItem: FC<NodeItemProps> = ({
         isDragging,
         setNodeRef,
     } = useSortable({ id: node.id });
+
     const divRef = useRef<HTMLDivElement>(null);
 
     const renderExpandedAndCloseIcon = () => {
@@ -160,22 +161,39 @@ const NodeItem: FC<NodeItemProps> = ({
         return null;
     }
 
-    const generateDraggingOverStyle = () => {
-        if (overState === OverStateEnum.UPWARD) {
+    const generateDragStartStyle = () => {
+        if (overState?.activeNode && belongsToNode(overState.activeNode, node)) {
             return css`
-                border-top: 1px dashed #1677ff;
-            `;
-        } else if (overState === OverStateEnum.DOWN) {
-            return css`
-                border-bottom: 1px dashed #1677ff;
-            `;
-        } else if (overState === OverStateEnum.INSIDE) {
-            return css`
-                border-bottom: 1px dashed red;
+                opacity: 0.5;
+                pointer-events: none;
             `
-        } else {
+        }
+    }
+ 
+    const generateDraggingOverStyle = () => {
+        if (overState?.activeNode && belongsToNode(overState.activeNode, node)) {
             return null;
         }
+
+        if (overState?.id === node.id) {
+            if (overState?.state === OverStateEnum.UPWARD) {
+                return css`
+                    border-top: 1px dashed #1677ff;
+                `;
+            }
+            if (overState?.state === OverStateEnum.DOWN) {
+                return css`
+                    border-bottom: 1px dashed #1677ff;
+                `;
+            } 
+            if (overState?.state === OverStateEnum.INSIDE) {
+                return css`
+                    border-bottom: 1px dashed red;
+                `
+            }
+        }
+        return null;
+       
     }
 
     const classNames = cx(
@@ -189,6 +207,7 @@ const NodeItem: FC<NodeItemProps> = ({
         `,
         generateDraggingOverStyle(),
         generateDraggingStyle(),
+        generateDragStartStyle(),
         className
     );
 
