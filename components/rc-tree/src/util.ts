@@ -123,7 +123,7 @@ export class TreeDataUtil {
         if (result != null) {
             this.onTreeNodeChange(newTreeData => {
                 if (parent === null) {
-                    return result;
+                    return result.slice();
                 }
 
                 for (let i = 0; i < newTreeData.length; i += 1) {
@@ -263,7 +263,6 @@ export const getTreeNodeDepth = (node: Node) => {
     return depth;
 }
 
-
 /**
  * 判断目标节点是否属于指定父节点的子孙节点。
  *
@@ -271,18 +270,13 @@ export const getTreeNodeDepth = (node: Node) => {
  * @param target - 目标节点
  * @returns 如果 target 是 parent 的子孙节点，则返回 true，否则返回 false
  */
-export const belongsToNode = (parent: Node, target: Node) => {
-    const parentPath = [...getNodePath(parent), parent.id].join("/");
-    const targetPath = getNodePath(target).join("/").substring(0, parentPath.length);
-    return parentPath === targetPath;
-}
-
-export const getNodePath = (node: Node): Node["id"][] => {
-    if (node.parent != null) {
-        const pathArray = getNodePath(node.parent);
-        return [...pathArray, node.id];
+export const belongsToNode = (parent: Node, target: Node): boolean => {
+    if (target.parent?.id === parent.id) {
+        return true;
+    } else if(target.parent) {
+        return belongsToNode(parent, target.parent)
     } else {
-        return [node.id];
+        return false;
     }
 }
 
