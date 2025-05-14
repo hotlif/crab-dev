@@ -6,7 +6,6 @@ const DraggableTree = () => {
 	const [selectKeys, setSelectKeys] = useState<Key[]>([]);
 	const [treeData, setTreeData, treeDataUtils] = useTreeData();
 
-
 	const loadData: TreeProps["loadData"] = (parentNode) => {
 		if (parentNode === null) {
 			const nodes: Node[] = [];
@@ -27,25 +26,17 @@ const DraggableTree = () => {
 			if (depth <= 10) {
 				return new Promise((resolve) => {
 					setTimeout(() => {
-						resolve([{
-							id: `${parentNode.id}-0`,
-							type: NodeType.FOLDER,
-							title: `节点 - ${parentNode.id} - 0`,
-							parent: parentNode,
-							loadState: LoadStateType.UNLOADED
-						},{
-							id: `${parentNode.id}-1`,
-							type: NodeType.FOLDER,
-							title: `节点 - ${parentNode.id} - 1`,
-							parent: parentNode,
-							loadState: LoadStateType.UNLOADED
-						},{
-							id: `${parentNode.id}-2`,
-							type: NodeType.FOLDER,
-							title: `节点 - ${parentNode.id} - 2`,
-							parent: parentNode,
-							loadState: LoadStateType.UNLOADED
-						}])
+						const data = [];
+						for (let i = 0; i < 3; i += 1) {
+							data.push({
+								id: `${parentNode.id}-${i}`,
+								type: NodeType.FOLDER,
+								title: `节点 - ${parentNode.id} - ${i}`,
+								parent: parentNode,
+								loadState: LoadStateType.UNLOADED
+							})
+						}
+						resolve(data);
 					}, 300)
 				});
 			}
@@ -77,11 +68,13 @@ const DraggableTree = () => {
 						<div
 							style={{
 								backgroundColor: "red",
-								padding: "1rem"
+								padding: "1rem",
 							}}
 						>
 							<button disabled>添加</button>
+							<br />
 							<button disabled>删除</button>
+							<br />
 							<button
 								onClick={() => {
 									treeDataUtils.reloadChildrenByParent({
@@ -100,10 +93,11 @@ const DraggableTree = () => {
 					<div
 						style={{
 							backgroundColor: "red",
-							padding: "1rem"
+							padding: "1rem",
 						}}
 					>
 						<button>添加</button>
+						<br />
 						<button
 							onClick={() => {
 								treeDataUtils.delete(node.id);
@@ -112,6 +106,7 @@ const DraggableTree = () => {
 						>
 							删除
 						</button>
+						<br />
 						<button
 							onClick={() => {
 								treeDataUtils.reloadChildrenByParent({
