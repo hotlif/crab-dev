@@ -1,12 +1,12 @@
 import {
 	type HTMLAttributes,
 	type FC,
+	type ReactNode,
+	type RefObject,
 	useEffect,
 	useRef,
 	useState,
-	ReactNode,
 	useLayoutEffect,
-	RefObject,
 	useImperativeHandle,
 } from "react";
 import { css, cx } from "@linaria/core";
