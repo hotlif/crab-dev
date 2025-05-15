@@ -271,7 +271,9 @@ export const getTreeNodeDepth = (node: Node) => {
  * @returns 如果 target 是 parent 的子孙节点，则返回 true，否则返回 false
  */
 export const belongsToNode = (parent: Node, target: Node): boolean => {
-    if (target.parent?.id === parent.id) {
+    if (target.parent == null) {
+        return false;
+    } else if (target.parent?.id === parent.id) {
         return true;
     } else if(target.parent) {
         return belongsToNode(parent, target.parent)
