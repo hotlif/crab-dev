@@ -2,7 +2,7 @@ import { type Key, useState } from "react"
 import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData, TreeProps } from "../../../src/index";
 
 const DraggableTree = () => {
-    const [expandedKeys, setExpandedKeys] = useState<Key[]>([1, "1-1"]);
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
 	const [selectKeys, setSelectKeys] = useState<Key[]>([]);
 	const [treeData, setTreeData, treeDataUtils] = useTreeData();
 
@@ -27,7 +27,7 @@ const DraggableTree = () => {
 				return new Promise((resolve) => {
 					setTimeout(() => {
 						const data = [];
-						for (let i = 0; i < 3; i += 1) {
+						for (let i = 0; i < 2065; i += 1) {
 							data.push({
 								id: `${parentNode.id}-${i}`,
 								type: NodeType.FOLDER,
