@@ -16,10 +16,8 @@ import {
 	gridStyle
 } from "./style/grid.style";
 
-
 import useVirtualItemRange from "./hooks/useVirtualItemRange";
 import ScrollBar, { useScrollbar } from "./scrollbar";
-import { getTemplateStyle } from "./util";
 
 
 export interface VirtualHandle {
@@ -43,10 +41,6 @@ export interface VirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "chil
 	gridRef?: RefObject<VirtualHandle | null>
 }
 
-/**
- * 根据 CSS 的 Grid 规范, 限制行和列的值区间在 [-10000, 10000] 
- * see https://drafts.csswg.org/css-grid/#overlarge-grids
- */
 const Virtual: FC<VirtualProps> = ({
 	className,
 	style,
@@ -186,7 +180,6 @@ const Virtual: FC<VirtualProps> = ({
 					scrollLeft,
 					scrollTop
 				} = currentTarget;
-
 				let newScrollLeft = scrollLeft;
 				let newScrollTop = scrollTop;
 				const distance = 30;
@@ -239,6 +232,15 @@ const Virtual: FC<VirtualProps> = ({
 		}
 	}, []);
 
+
+	const calculateTopPaddingHeight = () => {
+		return gridTemplateRows.slice(0, rowRange[0]).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+	}
+
+	const calculateBottomPaddingHeight = () => {
+		return gridTemplateRows.slice(rowRange[1], gridTemplateRows.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+	}
+
 	return (
 		<div
 			className={cx(
@@ -251,19 +253,31 @@ const Virtual: FC<VirtualProps> = ({
 				...style,
 				...{
 					width: viewportWidth,
-					height: viewportHeight
+					height: viewportHeight,
+					"--crab-rc-virtual-top-padding-height": calculateTopPaddingHeight(),
+					"--crab-rc-virtual-bottom-padding-height": calculateBottomPaddingHeight(),
 				}
-			}}
+			} as React.CSSProperties & Record<string, any>}
 		>
 			<div
 				className={css`
-					${gridStyle}	
+					${gridStyle}
+					&::before {
+						display: block;
+						width: 100%;
+						height: var(--crab-rc-virtual-top-padding-height);
+						content: "";
+					}
+
+					&::after {
+						width: 100%;
+						height: var(--crab-rc-virtual-bottom-padding-height);
+						content: "";
+					}
 				`}
 				style={{
 					width: viewportWidth,
 					height: viewportHeight,
-					gridTemplateColumns: getTemplateStyle(gridTemplateColumns),
-					gridTemplateRows: getTemplateStyle(gridTemplateRows)
 				}}
 				ref={divGridRef}
 				{...restProps}

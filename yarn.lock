@@ -2030,6 +2030,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab/rc-virtual@workspace:components/rc-virtual"
   dependencies:
+    "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
