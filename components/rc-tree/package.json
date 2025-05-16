@@ -2,7 +2,7 @@
     "name": "@crab/rc-tree",
     "description": "一个多功能且可定制的树形组件, 用于React应用程序, 提供高效的渲染和拖放功能。",
     "packageManager": "yarn@4.7.0",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "type": "module",
     "scripts": {
         "start": "crustify dev",

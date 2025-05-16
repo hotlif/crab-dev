@@ -211,6 +211,7 @@ const Tree: FC<TreeProps> = ({
     const contextMenuDivRef = useRef<HTMLDivElement>(null);
     const [overState, setOverState] = useState<OverState | null>(null);
 
+
     useEffect(() => {
 
         loadDataFunc({
@@ -309,8 +310,11 @@ const Tree: FC<TreeProps> = ({
             x: nX,
             y: nY
         }
-
     }
+
+
+    const gridTemplateRows = displayedNodes.map(({ height = defaultNodeHeight }) => height);
+
     return (
         <DndContext
             onDragAbort={(event) => {
@@ -408,8 +412,9 @@ const Tree: FC<TreeProps> = ({
                     }}
                 >
                     <RcVirtual
+                        {...restProps}
                         gridTemplateColumns={[width]}
-                        gridTemplateRows={displayedNodes.map(({ height = defaultNodeHeight }) => height)}
+                        gridTemplateRows={gridTemplateRows}
                         viewportWidth={width}
                         viewportHeight={height}
                         onWheel={() => {
@@ -433,9 +438,6 @@ const Tree: FC<TreeProps> = ({
                                         expanded={expandedKeys?.includes(node.id) === true}
                                         draggable={draggable}
                                         showLine={showLine}
-                                        style={{
-                                            gridRowStart: rowIndex + 1,
-                                        }}
                                         onTitleClick={(e) => {
                                             if (keyboardEvent.current?.ctrlKey === true) {
                                                 if (selectKeys.includes(node.id)) {
@@ -494,11 +496,21 @@ const Tree: FC<TreeProps> = ({
 
                             for (; rowIndex <= rowRange[1]; rowIndex += 1) {
                                 const node = displayedNodes[rowIndex];
-                                nodes.push(getNodeItemElement(node))
+                                nodes.push(
+                                    <div
+                                        className={css`
+                                          white-space: nowrap    
+                                        `}
+                                        style={{
+                                            height: gridTemplateRows[rowIndex],
+                                        }}
+                                    >
+                                        {getNodeItemElement(node)}
+                                    </div>
+                                )
                             }
                             return nodes;
                         }}
-                        {...restProps}
                     />
                     {activeNode ? (
                         createPortal(
