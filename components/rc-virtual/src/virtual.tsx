@@ -76,6 +76,7 @@ const Virtual: FC<VirtualProps> = ({
 
 	useLayoutEffect(() => {
 		if (divGridRef.current) {
+			
 			divGridRef.current.scrollTop = currentScrollPositionTop;
 			divGridRef.current.scrollLeft = currentScrollPositionLeft;
 		}

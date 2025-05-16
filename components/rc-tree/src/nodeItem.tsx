@@ -198,7 +198,7 @@ const NodeItem: FC<NodeItemProps> = ({
 
     const classNames = cx(
         css`
-            ${fontSize("base")}
+            ${fontSize("sm")}
             ${display("flex")}
             ${alignItems("center")}
             ${whitespace("nowrap")}

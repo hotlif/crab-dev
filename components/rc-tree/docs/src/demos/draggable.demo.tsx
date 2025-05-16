@@ -9,7 +9,7 @@ const DraggableTree = () => {
 	const loadData: TreeProps["loadData"] = (parentNode) => {
 		if (parentNode === null) {
 			const nodes: Node[] = [];
-			for (let i = 1; i < 2065; i += 1) {
+			for (let i = 1; i < 2; i += 1) {
 				nodes.push({
 					id: i,
 					type: NodeType.FOLDER,

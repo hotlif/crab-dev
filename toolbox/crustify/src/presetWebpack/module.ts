@@ -23,7 +23,7 @@ const presetModule = async ({
         options: {
             presets: [
                 [require.resolve("@babel/preset-env"), {
-                    targets: "defaults",
+                    targets: "defaults, Chrome>= 69",
                 }],
                 [require.resolve("@babel/preset-typescript"), {
                 }],
