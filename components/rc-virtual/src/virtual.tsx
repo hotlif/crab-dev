@@ -255,8 +255,8 @@ const Virtual: FC<VirtualProps> = ({
 				...{
 					width: viewportWidth,
 					height: viewportHeight,
-					"--crab-rc-virtual-top-padding-height": calculateTopPaddingHeight(),
-					"--crab-rc-virtual-bottom-padding-height": calculateBottomPaddingHeight(),
+					"--crab-rc-virtual-top-padding-height": `${calculateTopPaddingHeight()}px`,
+					"--crab-rc-virtual-bottom-padding-height": `${calculateBottomPaddingHeight()}px`,
 				}
 			} as React.CSSProperties & Record<string, any>}
 		>
@@ -271,6 +271,7 @@ const Virtual: FC<VirtualProps> = ({
 					}
 
 					&::after {
+						display: block;
 						width: 100%;
 						height: var(--crab-rc-virtual-bottom-padding-height);
 						content: "";
