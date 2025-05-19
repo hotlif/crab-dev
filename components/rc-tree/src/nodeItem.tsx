@@ -228,6 +228,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         width: ${TreeIndentSize};
                         ${height("full")}
                         ${textAlign("center")}
+                        flex: 0 0 auto;
                         &::before {
                             ${display('inline-block')}
                             width: 1px;
