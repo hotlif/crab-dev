@@ -28,13 +28,24 @@ const DraggableTree = () => {
 					setTimeout(() => {
 						const data = [];
 						for (let i = 0; i < 2065; i += 1) {
-							data.push({
-								id: `${parentNode.id}-${i}`,
-								type: NodeType.FOLDER,
-								title: `节点 - ${parentNode.id} - ${i}`,
-								parent: parentNode,
-								loadState: LoadStateType.UNLOADED
-							})
+							if (i % 9 === 0) {
+								data.push({
+									id: `${parentNode.id}-${i}`,
+									type: NodeType.FOLDER,
+									title: `节点 - ${parentNode.id} - ${i} 这是一个非常非常非常长的节点信息`,
+									parent: parentNode,
+									loadState: LoadStateType.UNLOADED
+								})
+							} else {
+								data.push({
+									id: `${parentNode.id}-${i}`,
+									type: NodeType.FOLDER,
+									title: `节点 - ${parentNode.id} - ${i}`,
+									parent: parentNode,
+									loadState: LoadStateType.UNLOADED
+								})
+							}
+							
 						}
 						resolve(data);
 					}, 300)
