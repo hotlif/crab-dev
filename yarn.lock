@@ -2207,6 +2207,7 @@ __metadata:
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
+    "@crab/rc-button": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
@@ -2223,6 +2224,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    react-icons: "npm:^5.5.0"
     react-router: "npm:^7.6.0"
     typescript: "npm:^5.8.2"
     typescript-eslint: "npm:^8.26.1"

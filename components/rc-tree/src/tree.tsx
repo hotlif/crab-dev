@@ -9,6 +9,7 @@ import {
     type MouseEvent,
     type SetStateAction,
     type Dispatch,
+    useMemo,
 } from "react";
 import {
     createPortal
@@ -35,7 +36,6 @@ import {
 import { LoadStateType, OverStateEnum, type Node, type OverState } from "./type";
 import NodeItem, { type NodeItemProps } from "./nodeItem";
 import { getLoadReadyTreeNodeData, loadDataFunc } from "./util";
-
 
 interface Context {
     overState: OverState | null
@@ -64,7 +64,7 @@ export interface TreeProps extends Omit<
     /**
      * 树组件的数据信息
      */
-    treeData: Node[]
+    treeData: Array<Node>
 
     /**
      * 高度
@@ -106,7 +106,7 @@ export interface TreeProps extends Omit<
      * @param parentNode 父节点, 如果没有父节点, 则表示为 null
      * @returns 返回当前父节点下的节点信息 
      */
-    loadData?: (parentNode: Node | null) => Promise<Node[]>
+    loadData?: (parentNode: Node | null) => Promise<Array<Node>>
 
     /**
      * 渲染右键菜单
@@ -186,7 +186,7 @@ const Tree: FC<TreeProps> = ({
     selectKeys = [],
     draggable = false,
     showLine,
-    defaultNodeHeight = 24,
+    defaultNodeHeight = 28,
     loadData,
     onTreeNodeChange,
     onExpanded: _onExpanded,
@@ -211,9 +211,7 @@ const Tree: FC<TreeProps> = ({
     const contextMenuDivRef = useRef<HTMLDivElement>(null);
     const [overState, setOverState] = useState<OverState | null>(null);
 
-
     useEffect(() => {
-
         loadDataFunc({
             parentNode: null,
             loadData,
@@ -239,14 +237,23 @@ const Tree: FC<TreeProps> = ({
         setIsOpenContextMenu(false);
     }
 
-    const _displayedNodes = treeData.filter(node => node.parent === null || expandedKeys?.includes(node.parent.id))
-    const activeNode = _displayedNodes.find(element => element.id === activeId);
-
     const getDisplayedNodes = (nodes: Node[]) => {
         return getLoadReadyTreeNodeData(null, nodes);;
     }
 
-    const displayedNodes = getDisplayedNodes(_displayedNodes);
+    let activeNode: Node | null = null;
+    const displayedNodes = useMemo(() => {
+        const _displayedNodes: Node[] = [];
+        treeData.forEach((node) => {
+            if (node.parent === null || expandedKeys?.includes(node.parent.id)) {
+                _displayedNodes.push(node);
+                if (activeId === node.id) {
+                    activeNode = node;
+                }
+            }
+        });
+        return getDisplayedNodes(_displayedNodes);
+    }, [treeData]);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
@@ -313,7 +320,9 @@ const Tree: FC<TreeProps> = ({
     }
 
 
-    const gridTemplateRows = displayedNodes.map(({ height = defaultNodeHeight }) => height);
+    const gridTemplateRows = useMemo(() => {
+        return displayedNodes.map(({ height = defaultNodeHeight }) => height)
+    }, [displayedNodes]);
 
     return (
         <DndContext
@@ -345,22 +354,16 @@ const Tree: FC<TreeProps> = ({
                     if (left >=  rect.width / 3) {
                         setOverState({
                             id: event.over.id,
-                            activeNode: treeData.find(element => element.id === activeId),
-                            overNode: treeData.find(element => element.id === event.over?.id),
                             state: OverStateEnum.INSIDE
                         })
                     } else if (top <= rect.height / 3) {
                         setOverState({
                             id: event.over.id,
-                            activeNode: treeData.find(element => element.id === activeId),
-                            overNode: treeData.find(element => element.id === event.over?.id),
                             state: OverStateEnum.UPWARD
                         })
                     } else {
                         setOverState({
                             id: event.over.id,
-                            activeNode: treeData.find(element => element.id === activeId),
-                            overNode: treeData.find(element => element.id === event.over?.id),
                             state: OverStateEnum.DOWN
                         })
                     }
@@ -433,7 +436,7 @@ const Tree: FC<TreeProps> = ({
                                         key={node.id}
                                         node={node}
                                         overState={overState}
-                                        selectd={selectKeys.includes(node.id)}
+                                        selectKeys={selectKeys}
                                         loading={node.loadState === LoadStateType.LOADING}
                                         expanded={expandedKeys?.includes(node.id) === true}
                                         draggable={draggable}
@@ -524,12 +527,12 @@ const Tree: FC<TreeProps> = ({
                                     loading={false}
                                     node={activeNode}
                                     overState={null}
-                                    selectd={false}
+                                    selectKeys={selectKeys}
                                     style={{
-                                        height: activeNode.height ?? defaultNodeHeight,
+                                        height: (activeNode as Node)?.height ?? defaultNodeHeight,
                                         width: width,
                                     }}
-                                    expanded={expandedKeys?.includes(activeNode.id) === true}
+                                    expanded={expandedKeys?.includes((activeNode as Node )?.id) === true}
                                 />
                             </DragOverlay>,
                             document.body

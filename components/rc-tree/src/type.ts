@@ -3,8 +3,6 @@ import { type ReactNode } from "react";
 
 export interface OverState {
     id: UniqueIdentifier,
-    activeNode?: Node,
-    overNode?: Node,
     state: OverStateEnum
 } 
 

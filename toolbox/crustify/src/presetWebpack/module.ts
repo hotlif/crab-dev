@@ -66,6 +66,7 @@ const presetModule = async ({
                 {
                     loader: require.resolve('@mdx-js/loader'),
                     options: {
+                        format: "mdx",
                         remarkPlugins: [remarkGfm, [remarkFrontmatter, "toml"]],
                         rehypePlugins: []
                     }

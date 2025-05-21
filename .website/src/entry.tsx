@@ -24,7 +24,6 @@ export const globals = css`
     }
 `;
 
-
 const reactRouters = createBrowserRouter([{
     Component: Layout,
     children: [
@@ -35,6 +34,7 @@ const reactRouters = createBrowserRouter([{
                 }
             },
             path: mdx.metadata?.path ?? mdx.relativePath,
+            index: mdx.metadata?.path === "/",
             caseSensitive: true,
             loader: async () => {
                 return {
