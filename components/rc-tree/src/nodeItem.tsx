@@ -1,4 +1,4 @@
-import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode } from "react";
+import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode, Key, use } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx } from "@linaria/core";
 import {
@@ -15,14 +15,13 @@ import {
     whitespace
 } from "@crab/styleify";
 import { NodeType, OverStateEnum, type Node, type OverState } from "./type";
-import { getTreeNodeDepth, belongsToNode } from "./util";
-import { CaretDownFill, CaretRightFill, Draggable, Loading } from "./icon";
+import { getTreeNodeDepth } from "./util";
+import { CaretDownFill, CaretRightFill, Loading } from "./icon";
 import {
     TreeNodeIconHoverBgColor,
-    TreeNodeTitleHoverBgColor,
+    TreeNodeHoverBgColor,
     TreeNodeIconLoadingColor,
-    TreeNodeTitleSelectBgColor,
-    TreeNodeDraggableIconColor,
+    TreeNodeSelectBgColor,
     TreeNodeDraggableBorderWidth,
     TreeNodeBorderRadius,
     TreeIndentSize,
@@ -41,8 +40,8 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
     loading: boolean
     // 是否显示线条
     showLine?: boolean
-    // 是否选中
-    selectd: boolean
+    // 选中的数据
+    selectKeys?: Key[]
     // 展开事件处理函数
     onExpanded?: (param: {
         node: Node,
@@ -75,11 +74,11 @@ const expandedAndCloseIcon = css`
 const NodeItem: FC<NodeItemProps> = ({
     className,
     node,
-    selectd,
     loading,
     draggable,
     style = {},
     expanded = false,
+    selectKeys,
     overState,
     showLine,
     onTitleClick,
@@ -151,30 +150,7 @@ const NodeItem: FC<NodeItemProps> = ({
         }
     }
 
-    const generateDraggingStyle = () => {
-        if (isDragging) {
-            return css`
-                pointer-events: none;
-                border: ${TreeNodeDraggableBorderWidth} ${TreeNodeDraggableBorderStyle} ${TreeNodeDraggableBorderColor};
-            `
-        }
-        return null;
-    }
-
-    const generateDragStartStyle = () => {
-        if (overState?.activeNode && belongsToNode(overState.activeNode, node)) {
-            return css`
-                opacity: 0.5;
-                pointer-events: none;
-            `
-        }
-    }
- 
     const generateDraggingOverStyle = () => {
-        if (overState?.activeNode && belongsToNode(overState.activeNode, node)) {
-            return null;
-        }
-
         if (overState?.id === node.id) {
             if (overState?.state === OverStateEnum.UPWARD) {
                 return css`
@@ -193,21 +169,24 @@ const NodeItem: FC<NodeItemProps> = ({
             }
         }
         return null;
-       
     }
 
     const classNames = cx(
         css`
-            ${fontSize("sm")}
+            ${fontSize("base")}
             ${display("flex")}
             ${alignItems("center")}
             ${whitespace("nowrap")}
             border-radius: ${TreeNodeBorderRadius};
             user-select: none;
+            &:hover {
+                background-color: ${TreeNodeHoverBgColor};
+            }
+            &[data-node-item-selectd="true"] {
+                background-color: ${TreeNodeSelectBgColor};
+            }
         `,
         generateDraggingOverStyle(),
-        generateDraggingStyle(),
-        generateDragStartStyle(),
         className
     );
 
@@ -261,21 +240,13 @@ const NodeItem: FC<NodeItemProps> = ({
             className={classNames}
             {...restProps}
             {...attributes}
+            onPointerUp={(e) => {
+                onTitleClick?.(e);
+            }}
+            data-node-item-selectd={selectKeys?.includes(node.id)}
             style={styles}
         >
             {showLine ? renderIndentLine() : null}
-            {draggable ? (
-                <span
-                    className={css`
-                        ${cursor("grab")}
-                        text-align: center;
-                        color: ${TreeNodeDraggableIconColor};
-                    `}
-                    {...listeners}
-                >
-                    <Draggable />
-                </span>
-            ): null }
             {renderExpandedAndCloseIcon()}
             <span
                 className={css`
@@ -283,17 +254,8 @@ const NodeItem: FC<NodeItemProps> = ({
                     ${padding("px-2")}
                     ${textOverflow("text-ellipsis")}
                     border-radius: inherit;
-                    &:hover {
-                        background-color: ${TreeNodeTitleHoverBgColor};
-                    }
-                    &[data-node-item-selectd="true"] {
-                        background-color: ${TreeNodeTitleSelectBgColor};
-                    }
                 `}
-                data-node-item-selectd={selectd}
-                onClick={(e) => {
-                    onTitleClick?.(e)
-                }}
+                {...listeners}
                 onContextMenu={onTitleContextMenu}
             >
                 {node.title}

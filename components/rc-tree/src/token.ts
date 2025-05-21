@@ -2,10 +2,6 @@ import { css } from "@linaria/core";
 
 export const prefix = "crab";
 
-// 树节点可拖动图标颜色变量名
-const TreeNodeDraggableIconColorVarName = `--${prefix}-tree-node-draggable-icon-color`;
-export const TreeNodeDraggableIconColor = `var(${TreeNodeDraggableIconColorVarName})`;
-
 // 树缩进大小变量名
 const TreeIndentSizeVarName = `--${prefix}-tree-indent-size`;
 export const TreeIndentSize = `var(${TreeIndentSizeVarName})`;
@@ -35,12 +31,12 @@ const TreeNodeIconLoadingColorVarName = `--${prefix}-tree-node-icon-loading-colo
 export const TreeNodeIconLoadingColor = `var(${TreeNodeIconLoadingColorVarName})`;
 
 // 树节点标题悬停背景颜色变量名
-const TreeNodeTitleHoverBgColorVarName = `--${prefix}-tree-node-title-hover-bg-color`
-export const TreeNodeTitleHoverBgColor = `var(${TreeNodeTitleHoverBgColorVarName})`;
+const TreeNodeHoverBgColorVarName = `--${prefix}-tree-node-hover-bg-color`
+export const TreeNodeHoverBgColor = `var(${TreeNodeHoverBgColorVarName})`;
 
 // 树节点标题选中背景颜色变量名
-const TreeNodeTitleSelectBgColorVarName = `--${prefix}-tree-node-title-select-bg-color`
-export const TreeNodeTitleSelectBgColor = `var(${TreeNodeTitleSelectBgColorVarName})`;
+const TreeNodeSelectBgColorVarName = `--${prefix}-tree-node-select-bg-color`
+export const TreeNodeSelectBgColor = `var(${TreeNodeSelectBgColorVarName})`;
 
 // 全局样式
 export const globals = css`
@@ -48,14 +44,14 @@ export const globals = css`
         html {
             ${TreeIndentSizeVarName}: 24px; // 树缩进大小
             ${TreeNodeBorderRadiusVarName}: 4px; // 树节点边框半径
-            ${TreeNodeDraggableIconColorVarName}: rgba(0, 0, 0, 0.25); // 树节点可拖动图标颜色
             ${TreeNodeDraggableBorderWidthVarName}: 1px; // 树节点可拖动边框宽度
             ${TreeNodeDraggableBorderStyleVarName}: solid; // 树节点可拖动边框样式
             ${TreeNodeDraggableBorderColorVarName}: #1677ff; // 树节点可拖动边框颜色
             ${TreeNodeIconHoverBgColorVarName}: rgba(0, 0, 0, 0.06); // 树节点图标悬停背景颜色
             ${TreeNodeIconLoadingColorVarName}: #0088f0; // 树节点图标加载颜色
-            ${TreeNodeTitleHoverBgColorVarName}: rgba(0,0,0,0.04); // 树节点标题悬停背景颜色
-            ${TreeNodeTitleSelectBgColorVarName}: #e6f4ff; // 树节点标题选中背景颜色
+            ${TreeNodeHoverBgColorVarName}: rgba(0,0,0,0.04); // 树节点标题悬停背景颜色
+            ${TreeNodeSelectBgColorVarName}: #e6f4ff; // 树节点标题选中背景颜色
+
         }
     }
 `;
