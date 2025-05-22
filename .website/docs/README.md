@@ -1,14 +1,12 @@
 +++
 path = "/"
-title = "Crab Dev"
-description = "一站式掌握从前端到后端的 React 全栈开发实战方案，打造高性能、可维护、可部署的现代 Web 应用。"
 +++
 
 
 ## 🖥 浏览器支持
 
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)<br />Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)<br />Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)<br />Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)<br />Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)<br />Electron |
+| <img src="/images/edge_48x48.png" alt="Edge" width="24px" height="24px" /><br />Edge | <img src="/images/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /><br />Firefox | <img src="/images/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /><br />Chrome | <img src="/images/safari_48x48.png" alt="Safari" width="24px" height="24px" /><br />Safari | <img src="/images/electron_48x48.png" alt="Electron" width="24px" height="24px" /><br />Electron |
 | --- | --- | --- | --- | --- |
 | Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
