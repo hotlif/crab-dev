@@ -1,94 +1,45 @@
-import { alignItems, display, flexDirection, fontSize, fontWeight, height, margin, padding, width } from "@crab/styleify"
-import { css, cx } from "@linaria/core"
-import { useMatches, useOutlet, useRouteLoaderData } from "react-router";
-import RcButton from "@crab/rc-button";
-import markdownStyle from "../styles/markdown";
+import { alignItems, cursor, display, fontSize, fontWeight, height, margin } from "@crab/styleify"
+import { css } from "@linaria/core"
+import { useMatches, useNavigate, useRouteLoaderData } from "react-router";
+import { type Key, useEffect, useState } from "react";
+
+import DocsIndexLayout from "./DocsIndexLayout";
+import DocsLayout from "./DocsLayout";
+import { getConfig } from "../util/global";
+import mdxs from "@@@/mdx"
+
+const config = getConfig();
 
 const BasicLayout = () => {
+
+    const navigate = useNavigate();
     const matches = useMatches()
     const currentRouter = matches.pop();
-    const outlet = useOutlet();
 
-    const {
-        metadata,
-    } = useRouteLoaderData(currentRouter!.id);
+
+    const getNavs = () => {
+        const navs: {
+            id: Key,
+            title: string
+        }[] = [];
+        mdxs.forEach(element => {
+            if (element.metadata.nav) {
+                const { id } = element.metadata.nav;
+                if (navs.find(e => e.id === id) == null) {
+                    navs.push(element.metadata.nav)
+                }
+            }
+        })
+        return navs;
+    }
     const renderContent = () => {
-        
         if (currentRouter?.pathname === "/") {
-            return (
-                <>
-                    <div
-                        className={css`
-                            ${display("flex")}
-                            ${flexDirection("col")}
-                            ${padding("pt-20")}
-                            ${padding("pb-10")}
-                            justify-content: center;
-                        `}
-                    >
-                        <h1
-                            className={css`
-                                ${fontSize("4xl")}
-                                text-align: center;    
-                            `}
-                        >
-                            {metadata.title}
-                        </h1>
-                        <p
-                            className={css`
-                                text-align: center;
-                                ${fontSize("xl")}
-                                color: rgb(64 71 86);
-                                margin: 0px;
-                            `}
-                        >
-                            {metadata.description}
-                        </p>
-                        <div
-                            className={css`
-                                ${display("flex")}
-                                ${margin("mt-8")}
-                                gap: 1rem;
-                                justify-content: center;
-                            `}
-                        >
-                            <RcButton
-                                size="large"
-                                appearance="primary"
-                            >
-                                开始使用
-                            </RcButton>
-
-                            <RcButton
-                                size="large"
-                            >
-                                设计语言
-                            </RcButton>
-                        </div>
-                    </div>
-
-                    <div
-                        className={cx(markdownStyle)}
-                    >
-                        <div
-                            className={css`
-                                ${width("4/6")}
-                                margin: 0px auto;
-                                ${padding("pt-10")}
-                            `}
-                        >
-                            {outlet}
-                        </div>
-                    </div>
-                </>
-            )
+            return <DocsIndexLayout />
         } else {
-            return (
-                <>
-                </>
-            )
+            return <DocsLayout />
         }
     }
+
 
     return (
         <>
@@ -103,7 +54,11 @@ const BasicLayout = () => {
                 <div
                     className={css`
                         ${margin("ml-6")}
+                        ${cursor("pointer")}
                     `}
+                    onClick={() => {
+                        navigate("/");
+                    }}
                 >
                     <h1
                         className={css`
@@ -112,13 +67,42 @@ const BasicLayout = () => {
                             user-select: none;
                         `}
                     >
-                        Crab Dev
+                        {config.title}
                     </h1>
                 </div>
+                <div
+                    className={css`
+                        flex: 1;
+                    `}
+                />
+                <div>
+                    <ul
+                        className={css`
+                            padding-right: 1rem;
+                        `}
+                    >
+                        {getNavs().map(element => (
+                            <li
+                                className={css`
+                                    ${display("inline")}
+                                    ${cursor("pointer")}
+                                    margin-right: 1rem;
+                                `}
+                                key={element.id}
+                                onClick={() => {
+                                    const md = mdxs.find(e => element.id === e.metadata?.nav?.id);
+                                    if (md && md.metadata?.path) {
+                                        navigate(md.metadata?.path)
+                                    }
+                                }}
+                            >
+                                {element.title}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </header>
-            <main>
-                {renderContent()}
-            </main>
+             {renderContent()}
         </>
     )
 }

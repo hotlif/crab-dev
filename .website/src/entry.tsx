@@ -10,6 +10,8 @@ import Layout from "./layouts";
 export const globals = css`
     :global() {
         #root {
+            display: flex;
+            flex-direction: column;
             height: 100%;
             width: 100%;
         }
@@ -17,8 +19,7 @@ export const globals = css`
             color: rgba(0,0,0,0.88);
         }
         body {
-            background-image: linear-gradient(rgb(255, 255, 255), rgb(245, 245, 245) 28%);
-            background-color: rgba(0, 0, 0, 0);
+            background-color: rgb(245, 245, 245);
         }
         ${preflight}
     }
