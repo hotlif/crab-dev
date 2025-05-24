@@ -12,7 +12,9 @@
     },
     "files": [
         "bin",
-        "esm"
+        "esm",
+        "cjs",
+        "declarations"
     ],
     "bin": "bin/cli.js",
     "types": "declarations/index.d.ts",
