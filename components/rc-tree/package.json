@@ -13,10 +13,12 @@
         "eslint": "eslint"
     },
     "files": [
-        "esm"
+        "esm",
+        "cjs",
+        "declarations"
     ],
-    "types": "esm/index.d.ts",
-    "main": "esm/index.mjs",
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/crustify": "workspace:^",

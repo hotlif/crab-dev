@@ -6,9 +6,6 @@
         "jest.browser.react.config.mjs",
         "jest.node.config.mjs"
     ],
-    "scripts": {
-        "build": "yarn pnpify tsc"
-    },
     "devDependencies": {
         "@types/node": "^22.13.10",
         "@yarnpkg/pnpify": "^4.1.4",

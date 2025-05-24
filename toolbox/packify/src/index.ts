@@ -13,7 +13,7 @@ import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
-const extensions = [".ts"];
+const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 export const build = async () => {
     const bundle = await rollup({
