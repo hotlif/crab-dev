@@ -3,12 +3,18 @@
     "description": "用于处理组件样式自动导入, 属于 @crab/crustify 的内部组件",
     "packageManager": "yarn@4.7.0",
     "type": "module",
-    "types": "esm/index.d.ts",
-    "main": "esm/index.mjs",
-    "module": "esm/index.mjs",
     "scripts": {
         "build": "packify build"
     },
+    "files": [
+        "bin",
+        "esm",
+        "cjs",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/packify": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
