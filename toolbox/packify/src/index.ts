@@ -1,6 +1,5 @@
 import { rollup } from "rollup";
 import { isAbsolute } from "node:path";
-import typescript from '@rollup/plugin-typescript';
 import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import wyw from "@wyw-in-js/rollup";
@@ -8,6 +7,11 @@ import { join } from "path";
 //@ts-ignore
 import css from 'rollup-plugin-css-only';
 import { readFileSync, writeFileSync } from "fs";
+import babel from '@rollup/plugin-babel';
+import { dts } from "rollup-plugin-dts";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 const extensions = [".ts"];
 
@@ -16,12 +20,29 @@ export const build = async () => {
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
         plugins: [
-            typescript({
+            babel({
+                babelHelpers: "bundled",
                 exclude: [
                     "**/__tests__/**/*.[jt]s?(x)",
                     "**/?(*.)+(spec|test).[tj]s?(x)",
                     "docs/**/*"
-                ]
+                ],
+                presets: [
+                    [require.resolve("@babel/preset-env"), {
+                        targets: "defaults",
+                    }],
+                    [require.resolve("@babel/preset-typescript"), {
+                    }],
+                    [require.resolve("@babel/preset-react"), {
+                        runtime: "automatic"
+                    }]
+                ],
+                plugins: [
+                    [require.resolve("babel-plugin-react-compiler"), {
+                        target: '19'
+                    }],
+                ],
+                extensions: ['.js', '.jsx', '.ts', '.tsx']
             }),
             nodeResolve({ extensions }),
             wyw({
@@ -29,25 +50,37 @@ export const build = async () => {
             }),
             css({
                 output: "index.styles.css",
-            }),
-            // terser()
+            })
         ]
     });
 
     await bundle.write({
         file: "esm/index.mjs",
         format: "es",
+        plugins: [
+            terser()
+        ]
     });
 
-    const filePath = join(process.cwd(), "esm", "index.styles.css");
-    let fileContent = readFileSync(filePath).toString();
-
-    const packageJsonBuffer = readFileSync(join(process.cwd(), "package.json"));
-    const packageJson = JSON.parse(packageJsonBuffer.toString());
-    Object.keys(packageJson.dependencies ?? {}).forEach(key => {
-        if (/@crab\/rc-.*/g.test(key)) {
-            fileContent = `@import "${key}/esm/index.styles.css";\n` + fileContent;
-        }
+    await bundle.write({
+        file: "cjs/index.cjs",
+        format: "cjs",
+        exports: "auto",
+        plugins: [
+            terser()
+        ]
     });
-    writeFileSync(filePath, fileContent);
+
+   const typesBundle = await rollup({
+        input: join(process.cwd(), "src", "index.ts"),
+        external: (id) => !id.startsWith(".") && !isAbsolute(id),
+        plugins: [
+            dts()
+        ]
+    });
+
+    await typesBundle.write({
+        file: "declarations/index.d.ts",
+        format: "es",
+    });
 }
