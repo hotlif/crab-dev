@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
 import { display, width } from "@crab/styleify";
-import README from "../../README.mdx";
+import README from "../../README.md";
 
 const App = () => {
 	return (
