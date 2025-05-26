@@ -250,7 +250,7 @@ const Button: FC<ButtonProps> = ({
 
     return (
         <button
-            button-data-loading={`${loading}`}
+            button-data-loading={loading ? `${loading}` : null}
             className={cx(
                 baseStyle,
                 getAppearanceStyle(),

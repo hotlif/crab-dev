@@ -1,11 +1,12 @@
 import { createRoot } from "react-dom/client";
-import { css, cx } from "@linaria/core";
-import { display, width, preflight } from "@crab/styleify";
+import { css } from "@linaria/core";
+import { preflight } from "@crab/styleify";
 import E404 from "./errors/E404";
 import { RouterProvider, createBrowserRouter } from "react-router";
 
 import mdxs from "@@@/mdx";
 import Layout from "./layouts";
+import MdxComponents from "./components/mdx";
 
 export const globals = css`
     :global() {
@@ -25,15 +26,17 @@ export const globals = css`
     }
 `;
 
+
+
 const reactRouters = createBrowserRouter([{
     Component: Layout,
     children: [
         ...mdxs.map(mdx => ({
-            lazy: async () => {
-                return {
-                    Component: mdx.component
-                }
-            },
+            element: (
+                <mdx.component
+                    components={MdxComponents}
+                />
+            ),
             path: mdx.metadata?.path ?? mdx.relativePath,
             index: mdx.metadata?.path === "/",
             caseSensitive: true,

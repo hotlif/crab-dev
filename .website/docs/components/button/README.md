@@ -26,3 +26,17 @@ nav = { id = "components", title = "组件" }
 - 👻 幽灵：用于背景色比较复杂的地方，常用在首页/产品页等展示场景。
 - 🚫 禁用：行动点不可用的时候，一般需要文案解释。
 - 🔃 加载中：用于异步操作等待反馈的时候，也可以避免多次提交。
+
+## 代码演示
+
+<CodeDemo />
+
+
+## API
+
+|属性	 |说明	   |类型	   |默认值
+|-----   |------  |-----      |-------
+|loading | 加载中 | `boolean`  | `false`
+|appearance | 按钮类型 | `"primary"` \| "subtle" \| "dashed" \| "text" \| "link" | "subtle"
+|shouldFitContainer | 宽度设置为父容器宽度 | `boolean` | `false`
+|onClick            | 按钮的点击事件 | `(param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClick"]>>[0]) => Promise<void> \| void` | -

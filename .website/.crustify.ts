@@ -6,5 +6,9 @@ export default defineConfig({
 		namespaces: "mdx",
 		cwd: join(process.cwd(), "docs"),
 		include: /\.mdx?$/,
+	},{
+		namespaces: "demos",
+		cwd: join(process.cwd(), "docs"),
+		include: /\.demo\.tsx?$/,
 	}],
 });

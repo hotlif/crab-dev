@@ -74,7 +74,8 @@ const DocsLayout: FC<DocsLayoutProps> = ({
             <div
                 className={css`
                     flex: 1;
-                    padding: 0rem 2rem;
+                    padding: 0rem 4rem;
+                    padding: 0rem 4rem 4rem 4rem;
                 `}
             >
                 {outlet}
