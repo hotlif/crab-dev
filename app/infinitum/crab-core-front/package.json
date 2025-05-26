@@ -8,7 +8,7 @@
     "type": "module",
     "scripts": {
         "start": "crustify dev",
-        "build": "crustify build",
+        "build:dist": "crustify build",
         "eslint": "eslint"
     },
     "devDependencies": {

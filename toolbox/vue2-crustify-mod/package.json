@@ -5,7 +5,7 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
-        "build": "packify build",
+        "build:library": "packify build",
         "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
