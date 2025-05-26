@@ -1,9 +1,9 @@
 import { type ComponentType } from "react";
 import { transform } from 'sucrase';
-import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";
+import {jsxDEV as _jsxDEV, Fragment as _Fragment } from "react/jsx-dev-runtime";
 
 const evalCode = (code: string, _scope: any = {}): ComponentType => {
-    const scope = {_jsxDEV, ..._scope};
+    const scope = {_jsxDEV, _Fragment, ..._scope};
     const scopeKeys = Object.keys(scope);
     const scopeValues = scopeKeys.map((key) => scope[key]);
     const importReg = /import.*from.*;/g;
@@ -25,12 +25,12 @@ export const transformCode = (code: string, scopes: any) => {
         return <></>;
     }
 
-    const AnyComponent = evalCode(
-        transform(code, {
-            transforms: ['typescript', 'jsx'],
-            jsxRuntime: 'automatic'
-        }).code, scopes
-    );
+    const transformCodeResult =  transform(code, {
+        transforms: ['typescript', 'jsx'],
+        jsxRuntime: 'automatic'
+    })
+
+    const AnyComponent = evalCode(transformCodeResult.code, scopes);
 
     return <AnyComponent />
 }

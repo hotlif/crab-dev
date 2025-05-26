@@ -1,7 +1,7 @@
 import { alignItems, cursor, display, fontSize, fontWeight, height, margin } from "@crab/styleify"
 import { css } from "@linaria/core"
-import { useMatches, useNavigate, useRouteLoaderData } from "react-router";
-import { type Key, useEffect, useState } from "react";
+import { useMatches, useNavigate } from "react-router";
+import { type Key } from "react";
 
 import DocsIndexLayout from "./DocsIndexLayout";
 import DocsLayout from "./DocsLayout";

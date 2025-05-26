@@ -50,7 +50,7 @@ const presetModule = async ({
                 ],
             }, {
                 test: /\.raw$/i,
-                type: 'asset/resource',
+                type: 'asset/source',
             }, {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,

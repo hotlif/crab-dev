@@ -4,9 +4,12 @@ import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
 import { writeFileSync, rmSync, existsSync } from "fs";
+import { createRequire } from "module";
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
 import { getTmpDir, getCwdDir } from "../util";
+
+const require = createRequire(import.meta.url);
 
 const presetStandard = async ({
     isProduction,
@@ -56,6 +59,9 @@ const presetStandard = async ({
         },
         resolve: {
             extensions: [".tsx", ".ts", ".js", ".raw", ".vue"],
+            fallback: {
+                path: require.resolve('path-browserify'),
+            },
             alias: {
 				"@": join(cwd, "src"),
                 "@@": process.cwd(),
