@@ -40,3 +40,4 @@ nav = { id = "components", title = "组件" }
 |appearance | 按钮类型 | `"primary"` \| "subtle" \| "dashed" \| "text" \| "link" | "subtle"
 |shouldFitContainer | 宽度设置为父容器宽度 | `boolean` | `false`
 |onClick            | 按钮的点击事件 | `(param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClick"]>>[0]) => Promise<void> \| void` | -
+

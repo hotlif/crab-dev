@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "start": "crustify dev",
-        "build": "packify build",
+        "build:library": "packify build",
         "eslint": "eslint"
     },
     "files": [

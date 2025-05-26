@@ -4,7 +4,7 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
-        "build": "yarn workspaces foreach --all --topological run build",
+        "build:library": "yarn workspaces foreach --all --topological run build:library",
         "test": "yarn workspaces foreach --all run test"
     },
     "workspaces": [

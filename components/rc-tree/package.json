@@ -6,8 +6,7 @@
     "type": "module",
     "scripts": {
         "start": "crustify dev",
-        "bundle": "crustify bundle",
-        "build": "packify build",
+        "build:library": "packify build",
         "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
