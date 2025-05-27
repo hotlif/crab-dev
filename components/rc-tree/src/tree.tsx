@@ -424,7 +424,15 @@ const Tree: FC<TreeProps> = ({
                             setIsOpenContextMenu(false);
                         }}
                         renderRows={(rowRange) => {
-                            const nodes: ReactNode[] = [];
+                            const nodes: ReactNode[] = [
+                                	<div
+                                        className={css`
+                                            display: inline-block;
+                                            height: var(--crab-rc-virtual-top-padding-height, 0px);
+                                            width: 100%;
+                                        `}
+                                    />
+                            ];
                             let rowIndex = rowRange[0];
                             if (rowIndex > 0) {
                                 rowIndex -= 1;
@@ -512,6 +520,15 @@ const Tree: FC<TreeProps> = ({
                                     </div>
                                 )
                             }
+                            nodes.push(
+                                <div
+                                    className={css`
+                                        display: inline-block;
+                                        height: var(--crab-rc-virtual-bottom-padding-height, 0px);
+                                        width: 100%;
+                                    `}
+                                />
+                            )
                             return nodes;
                         }}
                     />

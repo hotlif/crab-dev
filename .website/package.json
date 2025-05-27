@@ -7,7 +7,6 @@
     "scripts": {
         "start": "crustify dev",
         "build": "crustify build",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
     "files": [

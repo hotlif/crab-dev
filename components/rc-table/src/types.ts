@@ -1,25 +1,12 @@
-import { type ReactNode } from "react";
+import { Key, type ReactNode } from "react";
 
 export type Align = "left" | "right" | "center";
 
-export interface SelectCellType {
-	rowIndex: number
-	columnIndex: number
-}
-
-export interface CellType {
-	type?: "group"
-	groupKey?: string
-	groupField?: string
-	parentGroupKeys?: string[]
-	height?: number
-	groupChildren?: Row[]
-}
 
 export interface Row {
-	$__cell_proto__?: CellType
-	children?: Row
-	[x: string]: CellType | string | number | unknown | null | undefined | bigint | Date;
+    id: Key,
+    dataRef: any,
+    height?: number
 }
 
 interface RenderParam<T extends Row> {
@@ -44,7 +31,7 @@ export interface ColumnType<T extends Row> {
 	/**
 	 * 列数据在数据项中对应的路径，支持通过数组查询嵌套路径
 	 */
-	name?: string
+	name: string
 
 	/**
 	 * 列头显示文字
@@ -58,12 +45,8 @@ export interface ColumnType<T extends Row> {
 
 	/**
 	 * 列宽度
-	 * 
-	 * - numner 表示占用的宽度单位为 px
-	 * - `auto`  则表示占用剩下的宽度， 如果多个 `auto` 则表示平分剩下的宽度
-	 * - string  仅支持百分比， 表示占用整体宽度的百分比
 	 */
-	width?: number | "auto" | string
+	width?: number
 
 	/**
 	 * 固定列

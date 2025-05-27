@@ -242,6 +242,14 @@ const Virtual: FC<VirtualProps> = ({
 		return gridTemplateRows.slice(rowRange[1], gridTemplateRows.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 	}
 
+	const calculateLeftPaddingWidth = () => {
+		return gridTemplateColumns.slice(0, columnRange[0]).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+	}
+
+	const calculateRightPaddingWidth = () => {
+		return gridTemplateColumns.slice(columnRange[1], gridTemplateColumns.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+	}
+
 	return (
 		<div
 			className={cx(
@@ -257,25 +265,14 @@ const Virtual: FC<VirtualProps> = ({
 					height: viewportHeight,
 					"--crab-rc-virtual-top-padding-height": `${calculateTopPaddingHeight()}px`,
 					"--crab-rc-virtual-bottom-padding-height": `${calculateBottomPaddingHeight()}px`,
+					"--crab-rc-virtual-left-padding-width": `${calculateLeftPaddingWidth()}px`,
+					"--crab-rc-virtual-right-padding-width": `${calculateRightPaddingWidth()}px`,
 				}
 			} as React.CSSProperties & Record<string, any>}
 		>
 			<div
 				className={css`
 					${gridStyle}
-					&::before {
-						display: block;
-						width: 100%;
-						height: var(--crab-rc-virtual-top-padding-height);
-						content: "";
-					}
-
-					&::after {
-						display: block;
-						width: 100%;
-						height: var(--crab-rc-virtual-bottom-padding-height);
-						content: "";
-					}
 				`}
 				style={{
 					width: viewportWidth,

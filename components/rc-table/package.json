@@ -41,7 +41,8 @@
     "dependencies": {
         "@crab/rc-hooks": "workspace:^",
         "@crab/rc-virtual": "workspace:^",
-        "@crab/styleify": "workspace:^"
+        "@crab/styleify": "workspace:^",
+        "jsonpath-plus": "^10.3.0"
     },
     "engines": {
         "node": ">=22"
