@@ -1,9 +1,9 @@
-import { display, flexDirection, fontSize, margin, padding, width } from "@crab/styleify";
+import { alignItems, display, flexDirection, fontSize, margin, padding, width } from "@crab/styleify";
 import { css, cx } from "@linaria/core";
 import { useOutlet } from "react-router";
 import RcButton from "@crab/rc-button";
 import { getConfig } from "../util/global";
-import markdownStyle from "../styles/markdown";
+import markdownStyle from "../styles/Markdown";
 
 const config = getConfig();
 
@@ -21,14 +21,34 @@ const DocsIndexLayout = () => {
                 justify-content: center;
             `}
             >
-                <h1
+                <div
                     className={css`
-                    ${fontSize("4xl")}
-                    text-align: center;    
-                `}
+                        ${display("flex")}    
+                        ${alignItems("center")}
+                        justify-content: center;
+                    `}
                 >
-                    {config.title}
-                </h1>
+                    <img
+                        className={css`
+                            width: 5rem;
+                            height: 5rem;
+                            margin-right: 0.5rem;
+                            user-select: none;
+                        `}
+                        src="/images/crab.png"
+                    />
+                    <h1
+                        className={css`
+                            ${fontSize("4xl")}
+                            text-align: center;
+                        `}
+                    >
+
+                        {config.title}
+                    </h1>
+
+                </div>
+
                 <p
                     className={css`
                     text-align: center;
@@ -62,15 +82,13 @@ const DocsIndexLayout = () => {
                 </div>
             </div>
 
-            <div
-                className={cx(markdownStyle)}
-            >
+            <div>
                 <div
-                    className={css`
-                    ${width("4/6")}
-                    margin: 0px auto;
-                    ${padding("pt-10")}
-                `}
+                    className={cx(markdownStyle, css`
+                        ${width("4/6")}
+                        margin: 0px auto;
+                        ${padding("pt-10")}
+                    `)}
                 >
                     {outlet}
                 </div>

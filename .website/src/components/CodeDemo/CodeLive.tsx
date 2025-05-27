@@ -2,7 +2,7 @@ import { type HTMLAttributes, type FC, useState } from "react";
 import RcLive from "@crab/rc-live";
 import RcButton from "@crab/rc-button";
 import { css, cx } from "@linaria/core";
-import { alignItems, cursor, display, fontWeight } from "@crab/styleify";
+import { alignItems, cursor, display, fontWeight, fontSize } from "@crab/styleify";
 import { BsCode } from "react-icons/bs";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -77,6 +77,7 @@ const CodeLive: FC<CodeLiveProps> = ({
             </div>
             <div
                 className={css`
+                    ${fontSize("sm")}
                     padding: 0.5rem 1.5rem 1.5rem 1.5rem;
                 `}
             >
