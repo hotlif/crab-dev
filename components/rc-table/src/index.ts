@@ -1,6 +1,4 @@
-import Table from "./table";
 
-export { type TableProps, type TableHandle } from "./table";
-export { type Row, type ColumnType  } from "./types";
-
-export default Table;
+import RcTable from './table';
+export type { Row, ColumnType } from "./types";
+export default RcTable;

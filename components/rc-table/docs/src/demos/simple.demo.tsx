@@ -5,12 +5,10 @@
 import {
 	fakerZH_CN
 } from "@faker-js/faker";
-import Table, {
-	ColumnType, Row
-} from "../../../src/index";
+import Table, { type Row, type ColumnType } from "../../../src/index";
 import { useState } from "react";
 
-const row: Record<string, unknown>[] = [];
+const row: Row[] = [];
 
 const columnLength = 200;
 
@@ -25,7 +23,10 @@ for (let i = 0; i < 1000; i += 1) {
 	for (let c =0; c < columnLength; c += 1) {
 		data[`c${c}`] = `c${c}-${i}`;
 	}
-	row.push(data);
+	row.push({
+		id: i,
+		dataRef: data,
+	});
 }
 
 const columns: ColumnType<Row>[] = [];
@@ -35,6 +36,7 @@ for (let c =0; c < columnLength; c += 1) {
 			name: `c${c}`,
 			title: `列 ${c}`,
 			width: 120,
+			
 		});
 	} else {
 		columns.push({
@@ -52,32 +54,30 @@ const SimpleTable = () => {
 			<Table
 				style={{
 					height: 500,
-					width: "100%"
+					width: 120,
 				}}
 				columns={[{
 					name: "name",
 					title: "姓名",
 					width: 120,
+					fixed: "left",
 				}, {
 					name: "age",
 					title: "年龄",
 					width: 120,
-				}, {
-					name: "avatar",
-					title: "头像",
-					width: 120,
-					render: ({
-						row,
-					}) => {
-						return (
-							<img style={{ width: 35, height: 35}} src={row!.avatar as string} />
-						);
-					}
+			
 				},
-					...columns
+				...columns
 				]}
 				rows={rows}
-				onRowsChange={setRows}
+				width={1200}
+				height={300}
+				mergeCells={[{
+					rowIndex: 0,
+					columnIndex: 0,
+					rowSpan: 1,
+					colSpan: 2,
+				}]}
 			/>
 		</div>
 	);
