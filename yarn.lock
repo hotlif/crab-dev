@@ -3264,6 +3264,8 @@ __metadata:
     react-router: "npm:^7.3.0"
     typescript: "npm:^5.8.2"
     typescript-eslint: "npm:^8.26.1"
+  bin:
+    styleify: bin/cli.js
   languageName: unknown
   linkType: soft
 
@@ -3331,6 +3333,7 @@ __metadata:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
     "@crab/rc-button": "workspace:^"
+    "@crab/rc-hooks": "workspace:^"
     "@crab/rc-live": "workspace:^"
     "@crab/rc-menu": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"

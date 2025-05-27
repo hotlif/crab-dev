@@ -9,12 +9,15 @@
         "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
-    "main": "esm/index.mjs",
-    "module": "esm/index.mjs",
-    "types": "esm/index.d.ts",
     "files": [
-        "esm"
+        "esm",
+        "cjs",
+        "declarations"
     ],
+    "bin": "bin/cli.js",
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
     "devDependencies": {
         "@crab/packify": "workspace:^",
         "@crab/standards-eslint-preset": "workspace:^",

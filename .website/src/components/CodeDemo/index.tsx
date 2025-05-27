@@ -1,4 +1,3 @@
-import RcLive from "@crab/rc-live";
 import { useEffect, useState } from "react";
 import { dirname } from "path";
 import { useMatches, useRouteLoaderData } from "react-router";
@@ -45,6 +44,7 @@ const CodeDemo = () => {
                     className={css`
                         flex: 0 0 50%;
                     `}
+                    key={element.relativePath}
                     source={element.source}
                     title={element.metadata?.title}
                     description={element.metadata?.description}

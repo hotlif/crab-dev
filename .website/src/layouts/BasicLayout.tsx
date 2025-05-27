@@ -1,4 +1,4 @@
-import { alignItems, cursor, display, fontSize, fontWeight, height, margin } from "@crab/styleify"
+import { alignItems, cursor, display, fontSize, fontWeight, height, margin, position } from "@crab/styleify"
 import { css } from "@linaria/core"
 import { useMatches, useNavigate } from "react-router";
 import { type Key } from "react";
@@ -45,9 +45,12 @@ const BasicLayout = () => {
         <>
             <header
                 className={css`
+                    ${position("sticky")}
                     ${display("flex")}
                     ${height("14")}
                     ${alignItems("center")}
+                    top: 0px;
+                    background-color: rgb(245, 245, 245);
                     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
                 `}
             >
@@ -55,11 +58,22 @@ const BasicLayout = () => {
                     className={css`
                         ${margin("ml-6")}
                         ${cursor("pointer")}
+                        ${display("flex")}
+                        ${alignItems("center")}
                     `}
                     onClick={() => {
                         navigate("/");
                     }}
                 >
+                    <img
+                        className={css`
+                            width: 3rem;
+                            height: 3rem;
+                            margin-right: 0.5rem;
+                            user-select: none;
+                        `}
+                        src="/images/crab.png"
+                    />
                     <h1
                         className={css`
                             ${fontSize("xl")}

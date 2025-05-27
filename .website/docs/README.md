@@ -6,7 +6,7 @@ path = "/"
 ## 🖥 浏览器支持
 
 
-| <img src="/images/edge_48x48.png" alt="Edge" width="24px" height="24px" /><br />Edge | <img src="/images/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /><br />Firefox | <img src="/images/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /><br />Chrome | <img src="/images/safari_48x48.png" alt="Safari" width="24px" height="24px" /><br />Safari | <img src="/images/electron_48x48.png" alt="Electron" width="24px" height="24px" /><br />Electron |
+| <img src="/images/edge_48x48.png" alt="Edge" width="24px" height="24px" />&nbsp;&nbsp;Edge | <img src="/images/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />&nbsp;&nbsp;Firefox | <img src="/images/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />&nbsp;&nbsp;Chrome | <img src="/images/safari_48x48.png" alt="Safari" width="24px" height="24px" />&nbsp;&nbsp;Safari | <img src="/images/electron_48x48.png" alt="Electron" width="24px" height="24px" />&nbsp;&nbsp;Electron |
 | --- | --- | --- | --- | --- |
 | Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
