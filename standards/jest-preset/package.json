@@ -3,8 +3,8 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "files": [
-        "jest.browser.react.config.mjs",
-        "jest.node.config.mjs"
+        "./jest.browser.react.config.mjs",
+        "./jest.node.config.mjs"
     ],
     "devDependencies": {
         "@types/node": "^22.13.10",
