@@ -1,11 +1,12 @@
 import RcVirtual from "@crab/rc-virtual";
 import { ReactNode, useMemo } from "react";
+import { css } from "@linaria/core";
+
 import TableRow from "./tableRow";
 import TableBodyCell from "./bodyCell";
 import TableHeaderCell from "./headerCell";
-
+import { getSkippedCells, sortColumns, calculateHeaderStructure } from "./util";
 import type { ColumnType, MergeCell, Row } from "./types";
-import { css } from "@linaria/core";
 
 interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
 	// 表格的宽度
@@ -29,33 +30,23 @@ function Table<T extends Row>({
 	...restProps
 }: TableProps<T>) {
 
+	const {
+		rowCount,
+		headerCells,
+		leafColumns
+	} = useMemo(() => {
+		return calculateHeaderStructure(sortColumns(columns))
+	}, [columns])
+
 	const gridTemplateColumns = useMemo(() => {
-		return columns.filter(element => element.hidden !== true).map((column) => column.width ?? 120)
-	}, [width, columns])
+		return leafColumns.filter(element => element.hidden !== true).map((column) => column.width ?? 120)
+	}, [width, leafColumns])
 
 	const gridTemplateRows = useMemo(() => {
 		return rows.map((row) => row.height ?? 35);
 	}, [height, rows])
 
-	const skipCells = useMemo(() => {
-		const _skipCells: { rowIndex: number, columnIndex: number }[] = [];
-		mergeCells.forEach(mergeCell => {
-			const { rowIndex, columnIndex, rowSpan, colSpan} = mergeCell;
-			for (let c = 0; c <= colSpan; c += 1) {
-				for (let r = 0; r <= rowSpan; r += 1) {
-					if (c === 0 && r === 0) {
-						continue;
-					}
-					_skipCells.push({
-						rowIndex: rowIndex + r,
-						columnIndex: columnIndex + c
-					});
-				}
-			}
-		});
-		return _skipCells;
-	}, [mergeCells]);
-
+	const skipCells = useMemo(() => getSkippedCells(mergeCells), [mergeCells]);
 
 	return (
 		<div
@@ -96,7 +87,7 @@ function Table<T extends Row>({
 					)
 
 					for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
-						const column = columns[columnIndex];
+						const column = leafColumns[columnIndex];
 						headerRows.push(
 							<TableHeaderCell
 								key={`table-header-cell-${columnIndex}`}
@@ -143,7 +134,7 @@ function Table<T extends Row>({
 						for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
 
 							const isSkipCell = skipCells.find(element => element.rowIndex === rowIndex && element.columnIndex === columnIndex) != null;
-							const column = columns[columnIndex];
+							const column = leafColumns[columnIndex];
 
 							const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === columnIndex);
 
@@ -155,45 +146,11 @@ function Table<T extends Row>({
 									columnIndex={columnIndex}
 									column={column}
 									isSkipCell={isSkipCell}
+									mergeCell={mergeCell}
+									gridTemplateColumns={gridTemplateColumns}
+									gridTemplateRows={gridTemplateRows}
 									style={{
 										width: gridTemplateColumns[columnIndex],
-									}}
-									renderElement={(originalElement) => {
-										if (mergeCell) {
-											const { rowSpan, colSpan } = mergeCell;
-											let height = gridTemplateRows[rowIndex];
-											let width = gridTemplateColumns[columnIndex];
-											for (let r = 0; r < rowSpan; r += 1) {
-												height += gridTemplateRows[rowIndex + r];
-											}
-											for (let c = 0; c < colSpan; c += 1) {
-												width += gridTemplateColumns[columnIndex + c];
-											}
-											return (
-												<div
-													className={css`
-														position: absolute;
-														z-index: 1;
-														top: 0;
-														box-sizing: border-box;
-														background-color: #fff;
-														display: inline-flex;
-														align-items: center;
-														border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
-														border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
-														border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-													`}
-													style={{
-														width,
-														height
-													}}
-												>
-													{originalElement}
-												</div>
-											)
-										} else {
-											return originalElement;
-										}
 									}}
 								/>
 							);
@@ -230,5 +187,3 @@ function Table<T extends Row>({
 
 
 export default Table;
-
-

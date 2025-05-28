@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "start": "crustify dev",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "build:library": "packify build",
         "eslint": "eslint"
     },
