@@ -1,15 +1,18 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
-import type { ColumnType, Row } from "./types";
-import React, { type ReactNode, useMemo } from "react";
+import type { ColumnType, MergeCell, Row } from "./types";
+import React, { useMemo } from "react";
+import { getMergedCellSize } from "./util";
 
 interface TableCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
     row: T
     rowIndex: number,
     columnIndex: number,
     column: ColumnType<T>,
+    gridTemplateRows: number[],
+    gridTemplateColumns: number[],
     isSkipCell: boolean
-    renderElement?: (originalElement: ReactNode) => ReactNode
+    mergeCell?: MergeCell
 }
 
 function TableCell<T extends Row>({
@@ -19,7 +22,9 @@ function TableCell<T extends Row>({
     columnIndex,
     className,
     isSkipCell,
-    renderElement = (originalElement) => originalElement,
+    mergeCell,
+    gridTemplateRows,
+    gridTemplateColumns,
     ...restProps
 }: TableCellProps<T>){
 
@@ -35,7 +40,8 @@ function TableCell<T extends Row>({
         if (isSkipCell) {
             return null;
         }
-        const renderElement = (
+
+        let renderElement = (
             <div
                 className={css`
                     display: inline-block;
@@ -45,6 +51,43 @@ function TableCell<T extends Row>({
                 {dataValue}
             </div>
         )
+
+        /**
+         * 如果有合并单元格，则需要计算合并单元格的宽度和高度, 并且生产合并单元格的信息
+         */
+        if (mergeCell) {
+            const { 
+                width,
+                height
+            } = getMergedCellSize({
+                gridTemplateRows,
+                gridTemplateColumns,
+                mergeCell
+            });
+
+            renderElement = (
+                <div
+                    className={css`
+                        position: absolute;
+                        z-index: 1;
+                        top: 0;
+                        box-sizing: border-box;
+                        background-color: #fff;
+                        display: inline-flex;
+                        align-items: center;
+                        border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+                        border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
+                        border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+                    `}
+                    style={{
+                        width,
+                        height
+                    }}
+                >
+                    {renderElement}
+                </div>
+            )
+        }
 
         if (column.render) {
             return column.render({
@@ -73,7 +116,7 @@ function TableCell<T extends Row>({
             `, className)}
             {...restProps}
         >
-            {renderElement(renderChildrenElement())}
+            {renderChildrenElement()}
         </div>
     )
 }
