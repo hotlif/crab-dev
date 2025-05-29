@@ -1,6 +1,6 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
-import type { ColumnType, MergeCell, Row } from "./types";
+import type { Align, ColumnType, MergeCell, Row } from "./types";
 import React, { useMemo } from "react";
 import { getMergedCellSize } from "./util";
 
@@ -15,6 +15,12 @@ interface TableCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElem
     mergeCell?: MergeCell
 }
 
+const mapping = {
+    "left": "flex-start",
+    "center": "center",
+    "right": "flex-end",
+}
+
 function TableCell<T extends Row>({
     row,
     rowIndex,
@@ -25,6 +31,7 @@ function TableCell<T extends Row>({
     mergeCell,
     gridTemplateRows,
     gridTemplateColumns,
+    style,
     ...restProps
 }: TableCellProps<T>){
 
@@ -36,6 +43,16 @@ function TableCell<T extends Row>({
         return result;
     }, [column, row])
 
+    const getJustifyContent = () => {
+        if (column.align && typeof column.align === "string") {
+            return mapping[column.align]
+        } else if (column.align && Array.isArray(column.align)) {
+            return mapping[column.align?.[1]]
+        } else {
+            return "flex-start";
+        }
+    }
+
     const renderChildrenElement = () => {
         if (isSkipCell) {
             return null;
@@ -44,11 +61,19 @@ function TableCell<T extends Row>({
         let renderElement = (
             <div
                 className={css`
-                    display: inline-block;
+                    display: inline-flex;
+                    height: 100%;
+                    width: 100%;
                     padding-inline: 8px;
+                    align-items: center;
                 `}
+                style={{
+                    justifyContent: getJustifyContent()
+                }}
             >
-                {dataValue}
+                <div>
+                    {dataValue}
+                </div>
             </div>
         )
 
@@ -81,7 +106,8 @@ function TableCell<T extends Row>({
                     `}
                     style={{
                         width,
-                        height
+                        height,
+                        justifyContent: getJustifyContent()
                     }}
                 >
                     {renderElement}
@@ -114,6 +140,9 @@ function TableCell<T extends Row>({
                 border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
                 border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
             `, className)}
+            style={{
+                ...style,
+            }}
             {...restProps}
         >
             {renderChildrenElement()}

@@ -61,6 +61,18 @@ const SimpleTable = () => {
 					title: "姓名",
 					width: 120,
 					fixed: "left",
+					children: [{
+						title: "中文",
+						name: "c",
+						children: [{
+							title: "中文1",
+							name: "c1",
+							align: "center"
+						}]
+					}, {
+						title: "英文",
+						name: "e"
+					}]
 				}, {
 					name: "age",
 					title: "年龄",

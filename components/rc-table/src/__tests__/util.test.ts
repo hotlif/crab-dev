@@ -5,7 +5,10 @@ import {
     sortColumns,
     getSkippedCells,
     getMergedCellSize,
-    calculateHeaderStructure
+    getMaxDepth,
+    calculateColumnDepth,
+    getBottomColumns,
+    getHeaderCells
 } from "../util";
 
 describe("sortColumns", () => {
@@ -176,112 +179,461 @@ describe("getMergedCellSize", () => {
     });
 })
 
-describe("calculateHeaderStructure", () => {
-    it("should calculate header structure for flat columns", () => {
-        const columns = [
-            { name: "a", title: "A" },
-            { name: "b", title: "B" },
-            { name: "c", title: "C" }
-        ];
-        const result = calculateHeaderStructure(columns as any);
-        expect(result.rowCount).toBe(1);
-        expect(result.headerCells.length).toBe(3);
-        expect(result.leafColumns.length).toBe(3);
-        expect(result.headerCells.map(cell => cell.colSpan)).toEqual([1, 1, 1]);
-        expect(result.headerCells.map(cell => cell.rowSpan)).toEqual([1, 1, 1]);
+describe("calculateColumnDepth", () => {
+    it("should return 1 for a column with no children", () => {
+        const column = { name: "a", title: "A" };
+        expect(calculateColumnDepth(column, 1)).toBe(1);
     });
 
-    it("should calculate header structure for nested columns", () => {
+    it("should return correct depth for a column with one level of children", () => {
+        const column = {
+            name: "a",
+            title: "A",
+            children: [
+                { name: "b", title: "B" },
+                { name: "c", title: "C" }
+            ]
+        };
+        expect(calculateColumnDepth(column, 1)).toBe(2);
+    });
+
+    it("should return correct depth for a column with nested children", () => {
+        const column = {
+            name: "a",
+            title: "A",
+            children: [
+                {
+                    name: "b",
+                    title: "B",
+                    children: [
+                        { name: "c", title: "C" }
+                    ]
+                }
+            ]
+        };
+        expect(calculateColumnDepth(column, 1)).toBe(3);
+    });
+
+    it("should return the maximum depth among all children", () => {
+        const column = {
+            name: "a",
+            title: "A",
+            children: [
+                { name: "b", title: "B" },
+                {
+                    name: "c",
+                    title: "C",
+                    children: [
+                        { name: "d", title: "D" }
+                    ]
+                }
+            ]
+        };
+        expect(calculateColumnDepth(column, 1)).toBe(3);
+    });
+
+    it("should handle empty children array", () => {
+        const column = {
+            name: "a",
+            title: "A",
+            children: []
+        };
+        expect(calculateColumnDepth(column, 1)).toBe(1);
+    });
+});
+
+
+describe("getMaxDepth", () => {
+    it("should return 1 for columns with no children", () => {
+        const columns = [
+            { name: "a", title: "A" },
+            { name: "b", title: "B" }
+        ];
+        expect(getMaxDepth(columns)).toBe(1);
+    });
+
+    it("should return correct max depth for columns with one level of children", () => {
         const columns = [
             {
-                name: "a", title: "A", children: [
-                    { name: "a1", title: "A1" },
-                    { name: "a2", title: "A2" }
+                name: "a",
+                title: "A",
+                children: [
+                    { name: "a1", title: "A1" }
                 ]
             },
             { name: "b", title: "B" }
         ];
-        const result = calculateHeaderStructure(columns as any);
-        expect(result.rowCount).toBe(2);
-        expect(result.headerCells.length).toBe(4);
-        // Top-level "a" should have colSpan 2, rowSpan 1
-        expect(result.headerCells[0].colSpan).toBe(2);
-        expect(result.headerCells[0].rowSpan).toBe(1);
-        // "a1" and "a2" should have colSpan 1, rowSpan 1
-        expect(result.headerCells[1].colSpan).toBe(1);
-        expect(result.headerCells[1].rowSpan).toBe(1);
-        expect(result.headerCells[2].colSpan).toBe(1);
-        expect(result.headerCells[2].rowSpan).toBe(1);
-        // "b" should have colSpan 1, rowSpan 2
-        expect(result.headerCells[3].colSpan).toBe(1);
-        expect(result.headerCells[3].rowSpan).toBe(2);
-        // leafColumns should be a1, a2, b
-        expect(result.leafColumns.map(col => col.name)).toEqual(["a1", "a2", "b"]);
+        expect(getMaxDepth(columns)).toBe(2);
     });
 
-    it("should calculate header structure for deeply nested columns", () => {
+    it("should return correct max depth for columns with nested children", () => {
         const columns = [
             {
-                name: "a", title: "A", children: [
+                name: "a",
+                title: "A",
+                children: [
                     {
-                        name: "a1", title: "A1", children: [
-                            { name: "a1a", title: "A1A" },
-                            { name: "a1b", title: "A1B" }
+                        name: "a1",
+                        title: "A1",
+                        children: [
+                            { name: "a1a", title: "A1A" }
                         ]
                     }
                 ]
             },
             { name: "b", title: "B" }
         ];
-        const result = calculateHeaderStructure(columns as any);
-        expect(result.rowCount).toBe(3);
-        // "a" colSpan 2, rowSpan 1
-        expect(result.headerCells[0].colSpan).toBe(2);
-        expect(result.headerCells[0].rowSpan).toBe(1);
-        // "a1" colSpan 2, rowSpan 1
-        expect(result.headerCells[1].colSpan).toBe(2);
-        expect(result.headerCells[1].rowSpan).toBe(1);
-        // "a1a" and "a1b" colSpan 1, rowSpan 1
-        expect(result.headerCells[2].colSpan).toBe(1);
-        expect(result.headerCells[2].rowSpan).toBe(1);
-        expect(result.headerCells[3].colSpan).toBe(1);
-        expect(result.headerCells[3].rowSpan).toBe(1);
-        // "b" colSpan 1, rowSpan 3
-        expect(result.headerCells[4].colSpan).toBe(1);
-        expect(result.headerCells[4].rowSpan).toBe(3);
-        // leafColumns should be a1a, a1b, b
-        expect(result.leafColumns.map(col => col.name)).toEqual(["a1a", "a1b", "b"]);
+        expect(getMaxDepth(columns)).toBe(3);
     });
 
-    it("should handle empty columns", () => {
-        const result = calculateHeaderStructure([]);
-        expect(result.rowCount).toBe(1);
-        expect(result.headerCells).toEqual([]);
-        expect(result.leafColumns).toEqual([]);
-    });
-
-    it("should set correct colIndex and rowIndex for header cells", () => {
+    it("should return the maximum depth among all columns", () => {
         const columns = [
             {
-                name: "a", title: "A", children: [
+                name: "a",
+                title: "A",
+                children: [
+                    { name: "a1", title: "A1" }
+                ]
+            },
+            {
+                name: "b",
+                title: "B",
+                children: [
+                    {
+                        name: "b1",
+                        title: "B1",
+                        children: [
+                            { name: "b1a", title: "B1A" }
+                        ]
+                    }
+                ]
+            }
+        ];
+        expect(getMaxDepth(columns)).toBe(3);
+    });
+
+    it("should handle columns with empty children arrays", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: []
+            },
+            { name: "b", title: "B" }
+        ];
+        expect(getMaxDepth(columns)).toBe(1);
+    });
+
+    it("should handle deeply nested columns", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: [
+                    {
+                        name: "a1",
+                        title: "A1",
+                        children: [
+                            {
+                                name: "a1a",
+                                title: "A1A",
+                                children: [
+                                    { name: "a1a1", title: "A1A1" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            { name: "b", title: "B" }
+        ];
+        expect(getMaxDepth(columns)).toBe(4);
+    });
+});
+
+describe("getBottomColumns", () => {
+    it("should return the same columns if there are no children", () => {
+        const columns = [
+            { name: "a", title: "A" },
+            { name: "b", title: "B" }
+        ];
+        const result = getBottomColumns(columns);
+        expect(result).toEqual(columns);
+    });
+
+    it("should return only leaf columns for one level of children", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: [
                     { name: "a1", title: "A1" },
                     { name: "a2", title: "A2" }
                 ]
             },
             { name: "b", title: "B" }
         ];
-        const result = calculateHeaderStructure(columns as any);
-        // "a" colIndex 0, rowIndex 0
-        expect(result.headerCells[0].colIndex).toBe(0);
-        expect(result.headerCells[0].rowIndex).toBe(0);
-        // "a1" colIndex 0, rowIndex 1
-        expect(result.headerCells[1].colIndex).toBe(0);
-        expect(result.headerCells[1].rowIndex).toBe(1);
-        // "a2" colIndex 1, rowIndex 1
-        expect(result.headerCells[2].colIndex).toBe(1);
-        expect(result.headerCells[2].rowIndex).toBe(1);
-        // "b" colIndex 2, rowIndex 0
-        expect(result.headerCells[3].colIndex).toBe(2);
-        expect(result.headerCells[3].rowIndex).toBe(0);
+        const result = getBottomColumns(columns);
+        expect(result).toEqual([
+            { name: "a1", title: "A1" },
+            { name: "a2", title: "A2" },
+            { name: "b", title: "B" }
+        ]);
+    });
+
+    it("should return only leaf columns for nested children", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: [
+                    {
+                        name: "a1",
+                        title: "A1",
+                        children: [
+                            { name: "a1a", title: "A1A" }
+                        ]
+                    }
+                ]
+            },
+            { name: "b", title: "B" }
+        ];
+        const result = getBottomColumns(columns);
+        expect(result).toEqual([
+            { name: "a1a", title: "A1A" },
+            { name: "b", title: "B" }
+        ]);
+    });
+
+    it("should handle columns with empty children arrays", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: []
+            },
+            { name: "b", title: "B" }
+        ];
+        const result = getBottomColumns(columns);
+        expect(result).toEqual([
+            {
+                name: "a",
+                title: "A",
+                children: []
+            },
+            { name: "b", title: "B" }
+        ]);
+    });
+
+    it("should handle deeply nested columns", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: [
+                    {
+                        name: "a1",
+                        title: "A1",
+                        children: [
+                            {
+                                name: "a1a",
+                                title: "A1A",
+                                children: [
+                                    { name: "a1a1", title: "A1A1" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            { name: "b", title: "B" }
+        ];
+        const result = getBottomColumns(columns);
+        expect(result).toEqual([
+            { name: "a1a1", title: "A1A1" },
+            { name: "b", title: "B" }
+        ]);
+    });
+});
+
+describe("getHeaderCells", () => {
+    it("should return correct header cells for flat columns", () => {
+        const columns = [
+            { name: "a", title: "A" },
+            { name: "b", title: "B" }
+        ];
+        const result = getHeaderCells(columns);
+        expect(result).toEqual([
+            {
+                column: { name: "a", title: "A" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 0
+            },
+            {
+                column: { name: "b", title: "B" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 1
+            }
+        ]);
+    });
+
+    it("should return correct header cells for columns with one level of children", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: [
+                    { name: "a1", title: "A1" },
+                    { name: "a2", title: "A2" }
+                ]
+            },
+            { name: "b", title: "B" }
+        ];
+
+
+        //   [AAAAA(colSpan[1])  BB(rowSpan[1]) ]
+        //   [A1 A2              BB             ]
+        const result = getHeaderCells(columns);
+        expect(result).toEqual([
+            {
+                column: {
+                    name: "a",
+                    title: "A",
+                    children: [
+                        { name: "a1", title: "A1" },
+                        { name: "a2", title: "A2" }
+                    ]
+                },
+                colSpan: 1,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 0
+            },
+            {
+                column: { name: "a1", title: "A1" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 1,
+                columnIndex: 0
+            },
+            {
+                column: { name: "a2", title: "A2" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 1,
+                columnIndex: 1
+            },
+            {
+                column: { name: "b", title: "B" },
+                colSpan: 0,
+                rowSpan: 1,
+                rowIndex: 0,
+                columnIndex: 2
+            },
+        ]);
+    });
+
+    it("should return correct header cells for deeply nested columns", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: [
+                    {
+                        name: "a1",
+                        title: "A1",
+                        children: [
+                            { name: "a1a", title: "A1A" }
+                        ]
+                    }
+                ]
+            },
+            { name: "b", title: "B" }
+        ];
+        const result = getHeaderCells(columns);
+        expect(result).toEqual([
+            {
+                column: {
+                    name: "a",
+                    title: "A",
+                    children: [
+                        {
+                            name: "a1",
+                            title: "A1",
+                            children: [
+                                { name: "a1a", title: "A1A" }
+                            ]
+                        }
+                    ]
+                },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 0
+            },
+            {
+                column: {
+                    name: "a1",
+                    title: "A1",
+                    children: [
+                        { name: "a1a", title: "A1A" }
+                    ]
+                },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 1,
+                columnIndex: 0
+            },
+            {
+                column: { name: "a1a", title: "A1A" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 2,
+                columnIndex: 0
+            },
+            {
+                column: { name: "b", title: "B" },
+                colSpan: 0,
+                rowSpan: 2,
+                rowIndex: 0,
+                columnIndex: 1
+            }
+        ]);
+    });
+
+    it("should handle columns with empty children arrays", () => {
+        const columns = [
+            {
+                name: "a",
+                title: "A",
+                children: []
+            },
+            { name: "b", title: "B" }
+        ];
+        const result = getHeaderCells(columns);
+        expect(result).toEqual([
+            {
+                column: {
+                    name: "a",
+                    title: "A",
+                    children: []
+                },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 0
+            },
+            {
+                column: { name: "b", title: "B" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 1
+            }
+        ]);
     });
 });
