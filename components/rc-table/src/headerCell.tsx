@@ -1,9 +1,13 @@
 import { css, cx } from "@linaria/core";
-import type { ColumnType, Row } from "./types";
+import type { ColumnType, MergeCell, Row } from "./types";
+import { getMergedCellSize } from "./util";
 
 interface TableHeaderCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
-    column: ColumnType<T>
+    column?: ColumnType<T>
+    gridTemplateColumns: number[]
+    gridTemplateRows: number[]
+    mergeCell?: MergeCell
     isSkipCell: boolean
 }
 
@@ -12,6 +16,9 @@ function TableHeaderCell<T extends Row>({
     columnIndex,
     className,
     isSkipCell,
+    mergeCell,
+    gridTemplateRows,
+    gridTemplateColumns,
     ...restProps
 }: TableHeaderCellProps<T>){
 
@@ -19,16 +26,52 @@ function TableHeaderCell<T extends Row>({
         if (isSkipCell) {
             return null;
         }
-        const renderElement = (
+
+        let renderElement = (
             <div
                 className={css`
                     display: inline-block;
                     padding-inline: 8px;
                 `}
             >
-                {column.title}
+                {column?.title}
             </div>
         )
+
+        /**
+         * 如果有合并单元格，则需要计算合并单元格的宽度和高度, 并且生产合并单元格的信息
+         */
+        if (mergeCell) {
+            const { 
+                width,
+                height
+            } = getMergedCellSize({
+                gridTemplateRows,
+                gridTemplateColumns,
+                mergeCell
+            });
+ 
+            renderElement = (
+                <div
+                    className={css`
+                        position: absolute;
+                        top: 0;
+                        box-sizing: border-box;
+                        display: inline-flex;
+                        align-items: center;
+                        background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
+                        border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+                        border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+                    `}
+                    style={{
+                        width,
+                        height
+                    }}
+                >
+                    {renderElement}
+                </div>
+            )
+        }
 
         return renderElement;
     }
@@ -41,9 +84,6 @@ function TableHeaderCell<T extends Row>({
                 box-sizing: border-box;
                 vertical-align: top;
                 height: 100%;
-                border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
-                border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-                background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
             `, className)}
             {...restProps}
         >
