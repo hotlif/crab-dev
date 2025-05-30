@@ -77,7 +77,9 @@ const SimpleTable = () => {
 					name: "age",
 					title: "年龄",
 					width: 120,
-			
+					render: (e) => {
+						return JSON.stringify(e.row)
+					}
 				},
 				...columns
 				]}

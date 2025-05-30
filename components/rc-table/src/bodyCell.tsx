@@ -71,7 +71,12 @@ function TableCell<T extends Row>({
                     justifyContent: getJustifyContent()
                 }}
             >
-                <div>
+                <div
+                    className={css`
+                        overflow: hidden;
+                        text-overflow: ellipsis;    
+                    `}
+                >
                     {dataValue}
                 </div>
             </div>

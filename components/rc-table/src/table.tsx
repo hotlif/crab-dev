@@ -54,7 +54,7 @@ function Table<T extends Row>({
 }: TableProps<T>) {
 
 	const sColumns = useMemo(() => {
-		return sortColumns(columns);
+		return sortColumns(columns.filter(element => element.hidden !== true));
 	}, [columns])
 
 	const bottomColumns = useMemo(() => {
