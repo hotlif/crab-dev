@@ -1,4 +1,3 @@
-import { describe, it, expect } from "@jest/globals";
 import useVirtualItemRange from "../../hooks/useVirtualItemRange";
 
 describe('useVirtualItemRange', () => {
