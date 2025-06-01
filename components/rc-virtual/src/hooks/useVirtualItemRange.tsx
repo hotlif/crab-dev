@@ -106,7 +106,7 @@ const useVirtualItemRange = ({
 			}
 		});
 
-		if (!exist) {
+		if (exist === false && gridTemplateRows.length > 0) {
 			end = gridTemplateRows.length - 1;
 		}
 		return [start, end];
