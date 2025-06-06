@@ -21,7 +21,7 @@ for (let i = 0; i < 1000; i += 1) {
 	});;
 	data.avatar = fakerZH_CN.image.avatarGitHub();
 	for (let c =0; c < columnLength; c += 1) {
-		data[`c${c}`] = `c${c}-${i}`;
+		data[`c${c}`] = `c${c}-${i}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`;
 	}
 	row.push({
 		id: i,
@@ -36,7 +36,14 @@ for (let c =0; c < columnLength; c += 1) {
 			name: `c${c}`,
 			title: `列 ${c}`,
 			width: 120,
-			
+			fixed: "right"
+		});
+	} if (c < 3) {
+		columns.push({
+			name: `c${c}`,
+			title: `列 ${c}`,
+			width: 120,
+			fixed: "left"
 		});
 	} else {
 		columns.push({
@@ -57,16 +64,16 @@ const SimpleTable = () => {
 					width: 120,
 				}}
 				columns={[{
-					name: "name",
-					title: "姓名",
+					name: "user",
+					title: "人物信息",
 					width: 120,
 					fixed: "left",
 					children: [{
 						title: "中文",
 						name: "c",
 						children: [{
-							title: "中文1",
-							name: "c1",
+							title: "姓名",
+							name: "name",
 							align: "center"
 						}]
 					}, {
@@ -77,21 +84,12 @@ const SimpleTable = () => {
 					name: "age",
 					title: "年龄",
 					width: 120,
-					render: (e) => {
-						return JSON.stringify(e.row)
-					}
 				},
 				...columns
 				]}
 				rows={rows}
 				width={1200}
 				height={300}
-				mergeCells={[{
-					rowIndex: 0,
-					columnIndex: 0,
-					rowSpan: 1,
-					colSpan: 2,
-				}]}
 			/>
 		</div>
 	);

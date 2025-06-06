@@ -50,7 +50,6 @@ function TableHeaderCell<T extends Row>({
                 gridTemplateColumns,
                 mergeCell
             });
- 
             renderElement = (
                 <div
                     className={css`
