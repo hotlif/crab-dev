@@ -1,11 +1,11 @@
 import RcVirtual from "@crab/rc-virtual";
-import { ReactNode, useMemo } from "react";
+import { ReactNode, use, useMemo } from "react";
 import { css } from "@linaria/core";
 
 import TableRow from "./tableRow";
 import TableBodyCell from "./bodyCell";
 import TableHeaderCell from "./headerCell";
-import { getSkippedCells, sortColumns, getBottomColumns, getHeaderCells, getMaxDepth } from "./util";
+import { getSkippedCells, sortColumns, getBottomColumns, getHeaderCells, getMaxDepth, HeaderCellType } from "./util";
 import type { ColumnType, MergeCell, Row } from "./types";
 
 interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
@@ -21,9 +21,9 @@ interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement>
 	mergeCells?: MergeCell[]
 }
 
-
 const paddingLeft = (
 	<div
+		key="table-virtual-left-padding"
 		className={css`
 			display: inline-block;
 			box-sizing: border-box;
@@ -35,11 +35,36 @@ const paddingLeft = (
 
 const paddingRight = (
 	<div
+		key="table-virtual-right-padding"
 		className={css`
 			display: inline-block;
 			box-sizing: border-box;
 			width: var(--crab-rc-virtual-right-padding-width, 0px);
 			height: 100%;
+		`}
+	/>
+)
+
+const paddingBottom = (
+	<div
+		key="table-virtual-bottom-padding"
+		className={css`
+			display: inline-block;
+			box-sizing: border-box;
+			height: var(--crab-rc-virtual-bottom-padding-height, 0px);
+			width: 100%;
+		`}
+	/>
+)
+
+const paddingTop = (
+	<div
+		key="table-virtual-top-padding"
+		className={css`
+			display: inline-block;
+			box-sizing: border-box;
+			height: var(--crab-rc-virtual-top-padding-height, 0px);
+			width: 100%;
 		`}
 	/>
 )
@@ -78,6 +103,38 @@ function Table<T extends Row>({
 	}, [height, rows])
 
 	const skipCells = useMemo(() => getSkippedCells(mergeCells), [mergeCells]);
+
+	const {
+		fixedLeftColumns,
+		fixedRightColumns,
+		fixedLeftColumnsIdx,
+		fixedRightColumnsIdx
+	} = useMemo(() => {
+		const leftColumns: ColumnType<any>[] = [];
+		const rightColumns: ColumnType<any>[] = [];
+		const leftColumnsIdx: number[] = [];
+		const rightColumnsIdx: number[] = [];
+		bottomColumns.forEach((column, index) => {
+			if (column.fixed === "left") {
+				leftColumns.push(column);
+				leftColumnsIdx.push(index);
+			} else if (column.fixed === "right") {
+				rightColumns.push(column);
+				rightColumnsIdx.push(index);
+			}
+		})
+		return {
+			fixedLeftColumns: leftColumns,
+			fixedRightColumns: rightColumns,
+			fixedLeftColumnsIdx: leftColumnsIdx,
+			fixedRightColumnsIdx: rightColumnsIdx
+		}
+	}, [bottomColumns]);
+
+
+	const actualHeight = useMemo(() => {
+		return gridTemplateColumns.reduce((acc, cur) => acc + cur, 0)
+	}, [gridTemplateColumns]);
 	
 	const generateBodyElement = ({
 		rowRange,
@@ -86,21 +143,15 @@ function Table<T extends Row>({
 		rowRange: [number, number],
 		columnRange: [number, number],
 	}) => {
-		const bodyRows: ReactNode[] = [
-			<div
-				className={css`
-					display: inline-block;
-					box-sizing: border-box;
-					height: var(--crab-rc-virtual-top-padding-height, 0px);
-					width: 100%;
-				`}
-			/>
-		];
+		const bodyRows: ReactNode[] = [paddingTop];
 		for (let rowIndex = rowRange[0]; rowIndex <= rowRange[1]; rowIndex += 1) {
 			const tableCells: ReactNode[] = [];
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
 				const isSkipCell = skipCells.find(element => element.rowIndex === rowIndex && element.columnIndex === columnIndex) != null;
 				const column = bottomColumns[columnIndex];
+				if (column.fixed === "left" || column.fixed === "right") {
+					continue
+				}
 				const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === columnIndex);
 				tableCells.push(
 					<TableBodyCell
@@ -124,24 +175,71 @@ function Table<T extends Row>({
 					key={`table-body-row-${rowIndex}`}
 					style={{
 						height: gridTemplateRows[rowIndex],
+						width: actualHeight
 					}}
 				>
+					{fixedLeftColumns.map((column, index) => {
+						const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === fixedLeftColumnsIdx[index]);
+						return (
+							<TableBodyCell
+								className={css`
+									position: sticky;
+									z-index: 9;
+									background-color: #fff;
+								`}
+								key={`table-body-cell-${rowIndex}-${fixedLeftColumnsIdx[index]}`}
+								row={rows[rowIndex]}
+								rowIndex={rowIndex}
+								columnIndex={fixedLeftColumnsIdx[index]}
+								column={column}
+								isSkipCell={false}
+								mergeCell={mergeCell}
+								gridTemplateColumns={gridTemplateColumns}
+								gridTemplateRows={gridTemplateRows}
+								style={{
+									width: gridTemplateColumns[fixedLeftColumnsIdx[index]],
+									left: gridTemplateColumns.slice(0, fixedLeftColumnsIdx[index]).reduce((acc, cur) => acc + cur, 0)
+								}}
+							/>
+						)
+					})}
 					{paddingLeft}
 					{tableCells}
 					{paddingRight}
+					{fixedRightColumns.map((column, index) => {
+						const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === fixedRightColumnsIdx[index]);
+						const getStickyRightOffset = () => {
+							const widths = fixedRightColumnsIdx.map(idx => gridTemplateColumns[idx]);
+							const rightOffset = widths.slice(index + 1).reduce((acc, cur) => acc + cur, 0);
+							return rightOffset;
+						}
+						return (
+							<TableBodyCell
+								className={css`
+									position: sticky;
+									background-color: #fff;
+									z-index: 9;	
+								`}
+								key={`table-body-cell-${rowIndex}-${fixedRightColumnsIdx[index]}`}
+								row={rows[rowIndex]}
+								rowIndex={rowIndex}
+								columnIndex={fixedRightColumnsIdx[index]}
+								column={column}
+								isSkipCell={false}
+								mergeCell={mergeCell}
+								gridTemplateColumns={gridTemplateColumns}
+								gridTemplateRows={gridTemplateRows}
+								style={{
+									width: gridTemplateColumns[fixedRightColumnsIdx[index]],
+									right: getStickyRightOffset()
+								}}
+							/>
+						)
+					})}
 				</TableRow>
 			);
 		}
-		bodyRows.push(
-			<div
-				className={css`
-					display: inline-block;
-					box-sizing: border-box;
-					height: var(--crab-rc-virtual-bottom-padding-height, 0px);
-					width: 100%;
-				`}
-			/>
-		)
+		bodyRows.push(paddingBottom)
 		return bodyRows;
 	}
 
@@ -153,37 +251,72 @@ function Table<T extends Row>({
 		columnRange: [number, number],
 	}) => {
 
+		const getMergeCell = (cell?: HeaderCellType) => {
+			if (cell) {
+				return {
+					rowIndex: cell.rowIndex,
+					columnIndex: cell.columnIndex,
+					rowSpan: cell.rowSpan,
+					colSpan: cell.colSpan
+				}
+			}
+			return undefined;
+		}
+
 		const nodeRows: ReactNode[] = []
 		for (let r = 0; r < maxDepth; r += 1) {
 			const cells: ReactNode[] = [];
+
+			const fixedLeftColumns = headerCells.filter(element => element.fixed === "left" && element.rowIndex === r);
+			const fixedLeftColumnsWidth = fixedLeftColumns.map(element => element?.column?.width ?? 120);
+			const fixedLeftColumnsElement = [];
+
+			for (let i = 0; i < fixedLeftColumns.length; i += 1) {
+				const cell = fixedLeftColumns[i];
+				fixedLeftColumnsElement.push(
+					<TableHeaderCell
+						key={`table-header-cell-${r}-${cell.columnIndex}`}
+						className={css`
+							position: sticky;
+							z-index: 11;
+							background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
+							border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+							border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+						`}
+						columnIndex={cell.columnIndex}
+						column={cell.column}
+						gridTemplateColumns={gridTemplateColumns}
+						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+						isSkipCell={cell == null ? true : false}
+						mergeCell={getMergeCell(cell)}
+						style={{
+							width: gridTemplateColumns[cell.columnIndex],
+							left: fixedLeftColumnsWidth.slice(0, cell.columnIndex).reduce((acc, cur) => acc + cur, 0)
+						}}
+					/>
+				)
+			}
+
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
 				const cell = headerCells.find(element => element.columnIndex == columnIndex && element.rowIndex === r);
-				const getMergeCell = () => {
-					if (cell) {
-						return {
-							rowIndex: cell.rowIndex,
-							columnIndex: cell.columnIndex,
-							rowSpan: cell.rowSpan,
-							colSpan: cell.colSpan
-						}
-					}
-					return undefined;
+				if (fixedLeftColumns.find(element => element.columnIndex === columnIndex)) {
+					continue;
 				}
-
 				cells.push(
 					<TableHeaderCell
 						key={`table-header-cell-${r}-${columnIndex}`}
 						columnIndex={columnIndex}
 						column={cell?.column}
 						gridTemplateColumns={gridTemplateColumns}
-						gridTemplateRows={gridTemplateRows}
+						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
 						isSkipCell={cell == null ? true : false}
-						mergeCell={getMergeCell()}
+						mergeCell={getMergeCell(cell)}
 						style={{
 							width: gridTemplateColumns[columnIndex],
 						}}
 					/>
 				)
+
 			}
 			nodeRows.push(
 				<TableRow
@@ -195,9 +328,11 @@ function Table<T extends Row>({
 					`}
 					style={{
 						height: 35,
+						width: actualHeight,
 						top: (r * 35) + 1 
 					}}
 				>
+					{fixedLeftColumnsElement}
 					{paddingLeft}
 					{cells}
 					{paddingRight}

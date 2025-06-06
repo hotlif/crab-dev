@@ -66,6 +66,7 @@ function TableCell<T extends Row>({
                     width: 100%;
                     padding-inline: 8px;
                     align-items: center;
+                    box-sizing: border-box;
                 `}
                 style={{
                     justifyContent: getJustifyContent()

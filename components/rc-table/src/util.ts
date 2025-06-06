@@ -1,12 +1,12 @@
 import type { ColumnType, MergeCell } from "./types";
 
-
 export interface HeaderCellType {
     column?: ColumnType<any>;
     rowSpan: number
     colSpan: number
     rowIndex: number
     columnIndex: number
+    fixed?: "left" | "right"
 }
 
 /**
@@ -51,13 +51,16 @@ export const getMaxDepth = (columns: ColumnType<any>[]) => {
  * @param columns - 列定义数组，可能包含嵌套的子列。
  * @returns 不包含任何子列（即底层列）的列数组。
  */
-export const getBottomColumns = (columns: ColumnType<any>[]) => {
+export const getBottomColumns = (columns: ColumnType<any>[], fixed?: "left" | "right" ) => {
     const result: ColumnType<any>[] = []
     columns.forEach(element => {
         if (element.children && element.children.length > 0) {
-            result.push(...getBottomColumns(element.children))
+            result.push(...getBottomColumns(element.children, element.fixed ?? fixed));
         } else {
-            result.push(element);
+            result.push({
+                ...element,
+                fixed: element.fixed ?? fixed
+            });
         }
     })
     return result;
@@ -75,7 +78,7 @@ export const getBottomColumns = (columns: ColumnType<any>[]) => {
 export const getHeaderCells = (columns: ColumnType<any>[]) => {
     const maxDepth = getMaxDepth(columns);
     let columnIdxs = new Map<number, number>();
-    const traverse = (cols: ColumnType<any>[], depth: number) => {
+    const traverse = (cols: ColumnType<any>[], depth: number, parent: HeaderCellType | null) => {
         const headerCells: HeaderCellType[] = [];
         cols.forEach((element) => {
             const bottomColumn = getBottomColumns([element]);
@@ -83,22 +86,24 @@ export const getHeaderCells = (columns: ColumnType<any>[]) => {
 
             const rowIndex = depth;
             const cIdxs = columnIdxs.get(rowIndex) ?? 0;
-            const colSpan = bottomColumn.length - 1
-            headerCells.push({
+            const colSpan = bottomColumn.length - 1;
+            const headerCell = {
                 column: element,
                 colSpan,
                 rowSpan: maxDepth - currentMaxDepth - depth,
                 rowIndex,
                 columnIndex: cIdxs,
-            });
+                fixed: element.fixed ?? parent?.fixed
+            }
+            headerCells.push(headerCell);
             if (element.children && element.children.length > 0) {
-                headerCells.push(...traverse(element.children, depth + 1))
+                headerCells.push(...traverse(element.children, depth + 1, headerCell))
             }
             columnIdxs.set(rowIndex, cIdxs + colSpan + 1)
         })
         return headerCells;
     }
-    return traverse(columns, 0);
+    return traverse(columns, 0, null);
 }
 
 export function sortColumns(columns: ColumnType<any>[]) {
@@ -112,7 +117,6 @@ export function sortColumns(columns: ColumnType<any>[]) {
     });
     return columns;
 }
-
 
 export function getSkippedCells(mergeCells: MergeCell[]) {
     const skipCells: { rowIndex: number, columnIndex: number }[] = [];
