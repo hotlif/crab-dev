@@ -113,7 +113,7 @@ function TableCell<T extends Row>({
                 gridTemplateColumns,
                 mergeCell
             });
-
+            
             renderElement = (
                 <div
                     className={cx(css`

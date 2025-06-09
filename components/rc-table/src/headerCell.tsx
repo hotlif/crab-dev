@@ -38,6 +38,7 @@ function TableHeaderCell<T extends Row>({
             border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
         `;
     }
+
     const renderChildrenElement = () => {
         if (isSkipCell) {
             return null;
@@ -79,7 +80,7 @@ function TableHeaderCell<T extends Row>({
                     `, getBorderStyle())}
                     style={{
                         width,
-                        height
+                        height,
                     }}
                 >
                     {renderElement}

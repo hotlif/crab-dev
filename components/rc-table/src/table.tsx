@@ -1,5 +1,5 @@
 import RcVirtual from "@crab/rc-virtual";
-import { ReactNode, use, useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import { css } from "@linaria/core";
 
 import TableRow from "./tableRow";
@@ -27,7 +27,7 @@ const paddingLeft = (
 		className={css`
 			display: inline-block;
 			box-sizing: border-box;
-			width: var(--crab-rc-virtual-left-padding-width, 0px);
+			width: calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px));
 			height: 100%;
 		`}
 	/>
@@ -39,7 +39,7 @@ const paddingRight = (
 		className={css`
 			display: inline-block;
 			box-sizing: border-box;
-			width: var(--crab-rc-virtual-right-padding-width, 0px);
+			width: calc(var(--crab-rc-virtual-right-padding-width, 0px) - var(--crab-rc-virtual-right-padding-width-offset, 0px));
 			height: 100%;
 		`}
 	/>
@@ -158,6 +158,7 @@ function Table<T extends Row>({
 					continue
 				}
 				const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === columnIndex);
+
 				tableCells.push(
 					<TableBodyCell
 						key={`table-body-cell-${rowIndex}-${columnIndex}`}
@@ -252,7 +253,6 @@ function Table<T extends Row>({
 		rowRange: [number, number],
 		columnRange: [number, number],
 	}) => {
-
 		const getMergeCell = (cell?: HeaderCellType) => {
 			if (cell) {
 				return {
@@ -275,6 +275,7 @@ function Table<T extends Row>({
 
 			for (let i = 0; i < fixedLeftColumns.length; i += 1) {
 				const cell = fixedLeftColumns[i];
+
 				fixedLeftColumnsElement.push(
 					<TableHeaderCell
 						key={`table-header-cell-${r}-${cell.columnIndex}`}
@@ -298,6 +299,30 @@ function Table<T extends Row>({
 						}}
 					/>
 				)
+				if (cell.colSpan >= 1) {
+					for (let j = 0; j < cell.colSpan; j += 1) {
+						fixedLeftColumnsElement.push(
+							<TableHeaderCell
+								key={`table-header-cell-${r}-${cell.columnIndex + j + 1}`}
+								className={css`
+									position: sticky;
+									z-index: 11;
+								`}
+								columnIndex={cell.columnIndex + j}
+								column={cell.column}
+								gridTemplateColumns={gridTemplateColumns}
+								gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+								isSkipCell={true}
+								mergeCell={getMergeCell(cell)}
+								fixed="left"
+								style={{
+									width: gridTemplateColumns[cell.columnIndex + j],
+									left: fixedLeftColumnsWidth.slice(0, cell.columnIndex + j).reduce((acc, cur) => acc + cur, 0)
+								}}
+							/>
+						)
+					}
+				}
 			}
 
 			const fixedRightColumns = headerCells.filter(element => element.fixed === "right" && element.rowIndex === r);
@@ -305,6 +330,7 @@ function Table<T extends Row>({
 			const fixedRightColumnsElement = [];
 			for (let i = 0; i < fixedRightColumns.length; i += 1) {
 				const cell = fixedRightColumns[i];
+
 				fixedRightColumnsElement.push(
 					<TableHeaderCell
 						key={`table-header-cell-${r}-${cell.columnIndex}`}
@@ -327,17 +353,18 @@ function Table<T extends Row>({
 				)
 			}
 
-
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
 				const cell = headerCells.find(element => element.columnIndex == columnIndex && element.rowIndex === r);
-				if (fixedLeftColumns.find(element => element.columnIndex === columnIndex)) {
+				
+				if (bottomColumns[columnIndex].fixed === "left" || bottomColumns[columnIndex].fixed === "right") {
 					continue;
 				}
+				
 				cells.push(
 					<TableHeaderCell
 						key={`table-header-cell-${r}-${columnIndex}`}
 						columnIndex={columnIndex}
-						column={cell?.column}
+						column={bottomColumns[columnIndex]}
 						gridTemplateColumns={gridTemplateColumns}
 						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
 						isSkipCell={cell == null ? true : false}
@@ -347,8 +374,8 @@ function Table<T extends Row>({
 						}}
 					/>
 				)
-
 			}
+			console.log("row end")
 
 			nodeRows.push(
 				<TableRow
@@ -378,6 +405,9 @@ function Table<T extends Row>({
 	return (
 		<div
 			{...restProps}
+			style={{
+				'--crab-rc-virtual-left-padding-width-offset': `${fixedLeftColumns.reduce((acc, cur) => acc + (cur.width ?? 120), 0)}px`,
+			} as React.CSSProperties & Record<string, any>}
 		>
 			<RcVirtual
 				className={css`
