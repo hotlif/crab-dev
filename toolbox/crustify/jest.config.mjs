@@ -1,2 +1,2 @@
-import preset from "@crab/standards-jest-preset/jest.node.config.mjs";
-export default preset;
+import { node } from "@crab/standards-jest-preset";
+export default node;
