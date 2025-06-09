@@ -29,5 +29,7 @@ jobs:
       run: corepack prepare yarn@4.7.0 --activate
     - name: Install dependencies
       run: yarn
+    - name: Build the project
+      run: yarn build
     - name: Run Jest Test
       run: yarn test
