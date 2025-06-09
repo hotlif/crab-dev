@@ -18,11 +18,11 @@
     "devDependencies": {
         "@crab/packify": "workspace:^",
         "@crab/standards-typescript-preset": "workspace:^",
-        "@types/babel__helper-plugin-utils": "^7",
-        "@types/node": "^22.13.10"
+        "@types/babel__helper-plugin-utils": "^7.10.3",
+        "@types/node": "^22.15.30"
     },
     "dependencies": {
-        "@babel/helper-plugin-utils": "^7.26.5"
+        "@babel/helper-plugin-utils": "^7.27.1"
     },
     "engines": {
         "node": ">=22"
