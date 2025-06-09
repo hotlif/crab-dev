@@ -30,6 +30,6 @@ jobs:
     - name: Install dependencies
       run: yarn
     - name: Build the project
-      run: yarn build:library
+      run: yarn build:packify && yarn build:library
     - name: Run Jest Test
       run: yarn test

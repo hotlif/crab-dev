@@ -4,7 +4,7 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
-        "build:library": "rollup -c",
+        "build": "rollup -c",
         "eslint": "eslint"
     },
     "files": [

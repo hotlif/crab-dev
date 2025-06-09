@@ -4,6 +4,7 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
+        "build:packify": "yarn workspaces @crab/packify run build",
         "build:library": "yarn workspaces foreach --all --topological run build:library",
         "test": "yarn workspaces foreach --all run test"
     },
