@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const row: Row[] = [];
 
-const columnLength = 200;
+const columnLength = 15;
 
 for (let i = 0; i < 1000; i += 1) {
 	const data: Record<string, string | number> = {}; 
@@ -21,7 +21,7 @@ for (let i = 0; i < 1000; i += 1) {
 	});;
 	data.avatar = fakerZH_CN.image.avatarGitHub();
 	for (let c =0; c < columnLength; c += 1) {
-		data[`c${c}`] = `c${c}-${i}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`;
+		data[`c${c}`] = `c${c}-${i}`;
 	}
 	row.push({
 		id: i,
@@ -31,19 +31,18 @@ for (let i = 0; i < 1000; i += 1) {
 
 const columns: ColumnType<Row>[] = [];
 for (let c =0; c < columnLength; c += 1) {
-	if (c >= 198) {
+	if (c > 13) {
 		columns.push({
 			name: `c${c}`,
 			title: `列 ${c}`,
 			width: 120,
-			fixed: "right"
+			// fixed: "right"
 		});
-	} if (c < 3) {
+	} else if (c < 1) {
 		columns.push({
 			name: `c${c}`,
 			title: `列 ${c}`,
 			width: 120,
-			fixed: "left"
 		});
 	} else {
 		columns.push({
@@ -54,6 +53,7 @@ for (let c =0; c < columnLength; c += 1) {
 	}
 }
 
+console.log("columns", columns);
 const SimpleTable = () => {
 	const [rows, setRows] = useState<Row[]>(row);
 	return (
@@ -80,10 +80,6 @@ const SimpleTable = () => {
 						title: "英文",
 						name: "e"
 					}]
-				}, {
-					name: "age",
-					title: "年龄",
-					width: 120,
 				},
 				...columns
 				]}
