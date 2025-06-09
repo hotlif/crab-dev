@@ -5,6 +5,7 @@ import { getMergedCellSize } from "./util";
 interface TableHeaderCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
     column?: ColumnType<T>
+    fixed?: "left" | "right"
     gridTemplateColumns: number[]
     gridTemplateRows: number[]
     mergeCell?: MergeCell
@@ -19,9 +20,24 @@ function TableHeaderCell<T extends Row>({
     mergeCell,
     gridTemplateRows,
     gridTemplateColumns,
+    fixed,
     ...restProps
 }: TableHeaderCellProps<T>){
 
+    const getBorderStyle = () => {
+        if (fixed === "left") {
+            return css`
+                border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+            `;
+        } else if (fixed === "right") {
+            return css`
+                border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
+            `;
+        }
+        return css`
+            border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+        `;
+    }
     const renderChildrenElement = () => {
         if (isSkipCell) {
             return null;
@@ -52,16 +68,15 @@ function TableHeaderCell<T extends Row>({
             });
             renderElement = (
                 <div
-                    className={css`
+                    className={cx(css`
                         position: absolute;
                         top: 0;
                         box-sizing: border-box;
                         display: inline-flex;
                         align-items: center;
                         background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
-                        border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
                         border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-                    `}
+                    `, getBorderStyle())}
                     style={{
                         width,
                         height

@@ -9,6 +9,7 @@ interface TableCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElem
     rowIndex: number,
     columnIndex: number,
     column: ColumnType<T>,
+    fixed?: "left" | "right"
     gridTemplateRows: number[],
     gridTemplateColumns: number[],
     isSkipCell: boolean
@@ -32,6 +33,7 @@ function TableCell<T extends Row>({
     gridTemplateRows,
     gridTemplateColumns,
     style,
+    fixed,
     ...restProps
 }: TableCellProps<T>){
 
@@ -42,6 +44,22 @@ function TableCell<T extends Row>({
         })
         return result;
     }, [column, row])
+
+
+    const getBorderStyle = () => {
+        if (fixed === "left") {
+            return css`
+                border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+            `;
+        } else if (fixed === "right") {
+            return css`
+                border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
+            `;
+        }
+        return css`
+            border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+        `;
+    }
 
     const getJustifyContent = () => {
         if (column.align && typeof column.align === "string") {
@@ -98,7 +116,7 @@ function TableCell<T extends Row>({
 
             renderElement = (
                 <div
-                    className={css`
+                    className={cx(css`
                         position: absolute;
                         z-index: 1;
                         top: 0;
@@ -106,10 +124,9 @@ function TableCell<T extends Row>({
                         background-color: #fff;
                         display: inline-flex;
                         align-items: center;
-                        border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
                         border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
                         border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-                    `}
+                    `, getBorderStyle())}
                     style={{
                         width,
                         height,
@@ -143,9 +160,8 @@ function TableCell<T extends Row>({
                 vertical-align: top;
                 height: 100%;
                 position: relative;
-                border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
                 border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-            `, className)}
+            `, getBorderStyle(), className)}
             style={{
                 ...style,
             }}

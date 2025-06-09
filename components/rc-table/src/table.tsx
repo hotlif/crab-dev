@@ -136,6 +136,11 @@ function Table<T extends Row>({
 		return gridTemplateColumns.reduce((acc, cur) => acc + cur, 0)
 	}, [gridTemplateColumns]);
 	
+
+	const getStickyRightOffset = (currentIndex: number, widths: number[]) => {
+		return widths.splice(currentIndex + 1).reduce((acc, cur) => acc + cur, 0);;
+	}
+
 	const generateBodyElement = ({
 		rowRange,
 		columnRange,
@@ -196,6 +201,7 @@ function Table<T extends Row>({
 								mergeCell={mergeCell}
 								gridTemplateColumns={gridTemplateColumns}
 								gridTemplateRows={gridTemplateRows}
+								fixed="left"
 								style={{
 									width: gridTemplateColumns[fixedLeftColumnsIdx[index]],
 									left: gridTemplateColumns.slice(0, fixedLeftColumnsIdx[index]).reduce((acc, cur) => acc + cur, 0)
@@ -208,11 +214,6 @@ function Table<T extends Row>({
 					{paddingRight}
 					{fixedRightColumns.map((column, index) => {
 						const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === fixedRightColumnsIdx[index]);
-						const getStickyRightOffset = () => {
-							const widths = fixedRightColumnsIdx.map(idx => gridTemplateColumns[idx]);
-							const rightOffset = widths.slice(index + 1).reduce((acc, cur) => acc + cur, 0);
-							return rightOffset;
-						}
 						return (
 							<TableBodyCell
 								className={css`
@@ -229,9 +230,10 @@ function Table<T extends Row>({
 								mergeCell={mergeCell}
 								gridTemplateColumns={gridTemplateColumns}
 								gridTemplateRows={gridTemplateRows}
+								fixed="right"
 								style={{
 									width: gridTemplateColumns[fixedRightColumnsIdx[index]],
-									right: getStickyRightOffset()
+									right: getStickyRightOffset(index, fixedRightColumns.map(element => element.width ?? 120))
 								}}
 							/>
 						)
@@ -289,6 +291,7 @@ function Table<T extends Row>({
 						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
 						isSkipCell={cell == null ? true : false}
 						mergeCell={getMergeCell(cell)}
+						fixed="left"
 						style={{
 							width: gridTemplateColumns[cell.columnIndex],
 							left: fixedLeftColumnsWidth.slice(0, cell.columnIndex).reduce((acc, cur) => acc + cur, 0)
@@ -296,6 +299,34 @@ function Table<T extends Row>({
 					/>
 				)
 			}
+
+			const fixedRightColumns = headerCells.filter(element => element.fixed === "right" && element.rowIndex === r);
+			const fixedRightColumnsWidth = fixedRightColumns.map(element => element?.column?.width ?? 120);
+			const fixedRightColumnsElement = [];
+			for (let i = 0; i < fixedRightColumns.length; i += 1) {
+				const cell = fixedRightColumns[i];
+				fixedRightColumnsElement.push(
+					<TableHeaderCell
+						key={`table-header-cell-${r}-${cell.columnIndex}`}
+						className={css`
+							position: sticky;
+							z-index: 11;
+						`}
+						columnIndex={cell.columnIndex}
+						column={cell.column}
+						gridTemplateColumns={gridTemplateColumns}
+						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+						isSkipCell={cell == null ? true : false}
+						mergeCell={getMergeCell(cell)}
+						fixed="right"
+						style={{
+							width: gridTemplateColumns[cell.columnIndex],
+							right: getStickyRightOffset(i, fixedRightColumnsWidth),
+						}}
+					/>
+				)
+			}
+
 
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
 				const cell = headerCells.find(element => element.columnIndex == columnIndex && element.rowIndex === r);
@@ -318,6 +349,7 @@ function Table<T extends Row>({
 				)
 
 			}
+
 			nodeRows.push(
 				<TableRow
 					key={`table-header-row-${r}`}
@@ -336,6 +368,7 @@ function Table<T extends Row>({
 					{paddingLeft}
 					{cells}
 					{paddingRight}
+					{fixedRightColumnsElement}
 				</TableRow>,
 			)
 		}
