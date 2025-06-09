@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "nx run @crab/packify:build:library && nx run-many -t build:library",
-    "test": "nx run test"
+    "test": "run-many -t run test"
   },
   "workspaces": [
     ".website",
