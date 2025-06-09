@@ -70,7 +70,7 @@
         "terser-webpack-plugin": "^5.3.14",
         "to-vfile": "^8.0.0",
         "ts-node": "^10.9.2",
-        "unconfig": "7.3.2",
+        "unconfig": "0.6.1",
         "unified": "^11.0.5",
         "webpack": "^5.99.9",
         "webpack-dev-server": "^5.2.2",
