@@ -4,6 +4,8 @@ import { getMergedCellSize } from "./util";
 
 interface TableHeaderCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
+    rowIndex: number,
+    maxRowIndex: number,
     column?: ColumnType<T>
     fixed?: "left" | "right"
     gridTemplateColumns: number[]
@@ -21,6 +23,8 @@ function TableHeaderCell<T extends Row>({
     gridTemplateRows,
     gridTemplateColumns,
     fixed,
+    rowIndex,
+    maxRowIndex,
     ...restProps
 }: TableHeaderCellProps<T>){
 
@@ -37,6 +41,15 @@ function TableHeaderCell<T extends Row>({
         return css`
             border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
         `;
+    }
+
+    const getBottomBorderStyle = () => {
+        if (rowIndex === maxRowIndex) {
+            return css`
+                border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+            `;
+        }
+        return "";
     }
 
     const renderChildrenElement = () => {
@@ -76,8 +89,8 @@ function TableHeaderCell<T extends Row>({
                         display: inline-flex;
                         align-items: center;
                         background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
-                        border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-                    `, getBorderStyle())}
+                        border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
+                    `, getBorderStyle(), getBottomBorderStyle())}
                     style={{
                         width,
                         height,
