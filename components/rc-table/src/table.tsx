@@ -5,7 +5,7 @@ import { css } from "@linaria/core";
 import TableRow from "./tableRow";
 import TableBodyCell from "./bodyCell";
 import TableHeaderCell from "./headerCell";
-import { getSkippedCells, sortColumns, getBottomColumns, getHeaderCells, getMaxDepth, HeaderCellType } from "./util";
+import { getSkippedCells, sortColumns, getBottomColumns, getHeaderCells, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray } from "./util";
 import type { ColumnType, MergeCell, Row } from "./types";
 
 interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
@@ -138,7 +138,7 @@ function Table<T extends Row>({
 	
 
 	const getStickyRightOffset = (currentIndex: number, widths: number[]) => {
-		return widths.splice(currentIndex + 1).reduce((acc, cur) => acc + cur, 0);;
+		return widths.slice(currentIndex + 1).reduce((acc, cur) => acc + cur, 0);
 	}
 
 	const generateBodyElement = ({
@@ -253,7 +253,7 @@ function Table<T extends Row>({
 		rowRange: [number, number],
 		columnRange: [number, number],
 	}) => {
-		const getMergeCell = (cell?: HeaderCellType) => {
+		const getMergeCell = (cell?: HeaderCellType | null) => {
 			if (cell) {
 				return {
 					rowIndex: cell.rowIndex,
@@ -266,100 +266,33 @@ function Table<T extends Row>({
 		}
 
 		const nodeRows: ReactNode[] = []
+
+		const headerFixedRightColumns: ColumnType<any>[] = []
+		const headerFixedLeftColumns: ColumnType<any>[] = []
+	
+		sColumns.forEach((column) => {
+			if (column.fixed === "left") {
+				headerFixedLeftColumns.push(column)
+			} else if (column.fixed === "right") {
+				headerFixedRightColumns.push(column)
+			}
+		});
+
+		const headerFixedRightCells = getHeaderCellsTwoDimensionalArray(headerFixedRightColumns);
+		const headerFixedLeftCells = getHeaderCellsTwoDimensionalArray(headerFixedLeftColumns);
+
 		for (let r = 0; r < maxDepth; r += 1) {
 			const cells: ReactNode[] = [];
-
-			const fixedLeftColumns = headerCells.filter(element => element.fixed === "left" && element.rowIndex === r);
-			const fixedLeftColumnsWidth = fixedLeftColumns.map(element => element?.column?.width ?? 120);
-			const fixedLeftColumnsElement = [];
-
-			for (let i = 0; i < fixedLeftColumns.length; i += 1) {
-				const cell = fixedLeftColumns[i];
-
-				fixedLeftColumnsElement.push(
-					<TableHeaderCell
-						key={`table-header-cell-${r}-${cell.columnIndex}`}
-						className={css`
-							position: sticky;
-							z-index: 11;
-							background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
-							border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
-							border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-						`}
-						columnIndex={cell.columnIndex}
-						column={cell.column}
-						gridTemplateColumns={gridTemplateColumns}
-						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
-						isSkipCell={cell == null ? true : false}
-						mergeCell={getMergeCell(cell)}
-						fixed="left"
-						style={{
-							width: gridTemplateColumns[cell.columnIndex],
-							left: fixedLeftColumnsWidth.slice(0, cell.columnIndex).reduce((acc, cur) => acc + cur, 0)
-						}}
-					/>
-				)
-				if (cell.colSpan >= 1) {
-					for (let j = 0; j < cell.colSpan; j += 1) {
-						fixedLeftColumnsElement.push(
-							<TableHeaderCell
-								key={`table-header-cell-${r}-${cell.columnIndex + j + 1}`}
-								className={css`
-									position: sticky;
-									z-index: 11;
-								`}
-								columnIndex={cell.columnIndex + j}
-								column={cell.column}
-								gridTemplateColumns={gridTemplateColumns}
-								gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
-								isSkipCell={true}
-								mergeCell={getMergeCell(cell)}
-								fixed="left"
-								style={{
-									width: gridTemplateColumns[cell.columnIndex + j],
-									left: fixedLeftColumnsWidth.slice(0, cell.columnIndex + j).reduce((acc, cur) => acc + cur, 0)
-								}}
-							/>
-						)
-					}
-				}
-			}
-
-			const fixedRightColumns = headerCells.filter(element => element.fixed === "right" && element.rowIndex === r);
-			const fixedRightColumnsWidth = fixedRightColumns.map(element => element?.column?.width ?? 120);
-			const fixedRightColumnsElement = [];
-			for (let i = 0; i < fixedRightColumns.length; i += 1) {
-				const cell = fixedRightColumns[i];
-
-				fixedRightColumnsElement.push(
-					<TableHeaderCell
-						key={`table-header-cell-${r}-${cell.columnIndex}`}
-						className={css`
-							position: sticky;
-							z-index: 11;
-						`}
-						columnIndex={cell.columnIndex}
-						column={cell.column}
-						gridTemplateColumns={gridTemplateColumns}
-						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
-						isSkipCell={cell == null ? true : false}
-						mergeCell={getMergeCell(cell)}
-						fixed="right"
-						style={{
-							width: gridTemplateColumns[cell.columnIndex],
-							right: getStickyRightOffset(i, fixedRightColumnsWidth),
-						}}
-					/>
-				)
-			}
-
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
-				const cell = headerCells.find(element => element.columnIndex == columnIndex && element.rowIndex === r);
-				
+				const cell = headerCells.find(element => (
+					 element.columnIndex == columnIndex &&
+					 element.rowIndex === r &&
+					 element.fixed == null
+				));
+			
 				if (bottomColumns[columnIndex].fixed === "left" || bottomColumns[columnIndex].fixed === "right") {
 					continue;
 				}
-				
 				cells.push(
 					<TableHeaderCell
 						key={`table-header-cell-${r}-${columnIndex}`}
@@ -375,7 +308,6 @@ function Table<T extends Row>({
 					/>
 				)
 			}
-			console.log("row end")
 
 			nodeRows.push(
 				<TableRow
@@ -391,11 +323,49 @@ function Table<T extends Row>({
 						top: (r * 35) + 1 
 					}}
 				>
-					{fixedLeftColumnsElement}
+					{headerFixedLeftCells?.[r]?.map((cell, columnIndex) => (
+						<TableHeaderCell
+							key={`table-header-cell-${r}-${columnIndex}`}
+							className={css`
+								position: sticky;
+								z-index: 11;
+							`}
+							columnIndex={columnIndex}
+							column={cell?.column}
+							gridTemplateColumns={gridTemplateColumns}
+							gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+							isSkipCell={cell === null}
+							mergeCell={getMergeCell(cell)}
+							fixed="left"
+							style={{
+								width: gridTemplateColumns[columnIndex],
+								left: gridTemplateColumns.slice(0, columnIndex).reduce((acc, cur) => acc + cur, 0)
+							}}
+						/>
+					))}
 					{paddingLeft}
 					{cells}
 					{paddingRight}
-					{fixedRightColumnsElement}
+					{headerFixedRightCells?.[r]?.map((cell, columnIndex) => (
+						<TableHeaderCell
+							key={`table-header-cell-${r}-${columnIndex}`}
+							className={css`
+								position: sticky;
+								z-index: 11;
+							`}
+							columnIndex={columnIndex}
+							column={cell?.column}
+							gridTemplateColumns={gridTemplateColumns}
+							gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+							isSkipCell={cell === null}
+							mergeCell={getMergeCell(cell)}
+							fixed="right"
+							style={{
+								width: gridTemplateColumns[fixedRightColumnsIdx[columnIndex]],
+								right: getStickyRightOffset(columnIndex, gridTemplateColumns.slice(-headerFixedRightCells[r].length))
+							}}
+						/>
+					))}
 				</TableRow>,
 			)
 		}
