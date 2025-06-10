@@ -1,6 +1,6 @@
 import RcVirtual from "@crab/rc-virtual";
 import { ReactNode, useMemo } from "react";
-import { css } from "@linaria/core";
+import { css, cx } from "@linaria/core";
 
 import TableRow from "./tableRow";
 import TableBodyCell from "./bodyCell";
@@ -269,26 +269,34 @@ function Table<T extends Row>({
 
 		const headerFixedRightColumns: ColumnType<any>[] = []
 		const headerFixedLeftColumns: ColumnType<any>[] = []
-	
+		const headerNormalColumns: ColumnType<any>[] = []
 		sColumns.forEach((column) => {
 			if (column.fixed === "left") {
 				headerFixedLeftColumns.push(column)
 			} else if (column.fixed === "right") {
 				headerFixedRightColumns.push(column)
+			} else {
+				headerNormalColumns.push(column);
 			}
 		});
 
 		const headerFixedRightCells = getHeaderCellsTwoDimensionalArray(headerFixedRightColumns);
 		const headerFixedLeftCells = getHeaderCellsTwoDimensionalArray(headerFixedLeftColumns);
+		const headerNormalCells = getHeaderCellsTwoDimensionalArray(sColumns);
 
+		const getBottomBorderStyle = (rowIndex: number, maxRowIndex: number) => {
+			if (rowIndex === maxRowIndex) {
+				return css`
+					border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+				`;
+			}
+			return "";
+		}
+	
 		for (let r = 0; r < maxDepth; r += 1) {
 			const cells: ReactNode[] = [];
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
-				const cell = headerCells.find(element => (
-					 element.columnIndex == columnIndex &&
-					 element.rowIndex === r &&
-					 element.fixed == null
-				));
+				const cell = headerNormalCells[r]?.[columnIndex];
 			
 				if (bottomColumns[columnIndex].fixed === "left" || bottomColumns[columnIndex].fixed === "right") {
 					continue;
@@ -297,7 +305,9 @@ function Table<T extends Row>({
 					<TableHeaderCell
 						key={`table-header-cell-${r}-${columnIndex}`}
 						columnIndex={columnIndex}
-						column={bottomColumns[columnIndex]}
+						rowIndex={r}
+						maxRowIndex={maxDepth - 1}
+						column={cell?.column}
 						gridTemplateColumns={gridTemplateColumns}
 						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
 						isSkipCell={cell == null ? true : false}
@@ -312,11 +322,10 @@ function Table<T extends Row>({
 			nodeRows.push(
 				<TableRow
 					key={`table-header-row-${r}`}
-					className={css`
+					className={cx(css`
 						position: sticky;
 						z-index: 10;
-						will-change: transform;
-					`}
+					`, getBottomBorderStyle(r, maxDepth - 1))}
 					style={{
 						height: 35,
 						width: actualHeight,
@@ -331,6 +340,8 @@ function Table<T extends Row>({
 								z-index: 11;
 							`}
 							columnIndex={columnIndex}
+							rowIndex={r}
+							maxRowIndex={maxDepth - 1}
 							column={cell?.column}
 							gridTemplateColumns={gridTemplateColumns}
 							gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
@@ -355,6 +366,8 @@ function Table<T extends Row>({
 							`}
 							columnIndex={columnIndex}
 							column={cell?.column}
+							rowIndex={r}
+							maxRowIndex={maxDepth - 1}
 							gridTemplateColumns={gridTemplateColumns}
 							gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
 							isSkipCell={cell === null}
@@ -382,7 +395,8 @@ function Table<T extends Row>({
 		>
 			<RcVirtual
 				className={css`
-					border: 1px solid var(--crab-rc-table-border-color, #ddd);
+					border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
+					border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
 					box-sizing: border-box;
 				`}
 				gridTemplateColumns={gridTemplateColumns}
