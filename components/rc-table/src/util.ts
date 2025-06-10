@@ -106,6 +106,30 @@ export const getHeaderCells = (columns: ColumnType<any>[]) => {
     return traverse(columns, 0, null);
 }
 
+export const getHeaderCellsTwoDimensionalArray = (columns: ColumnType<any>[]) => {
+    const headerCells = getHeaderCells(columns);
+    const maxRowIndex = Math.max(...headerCells.map(cell => cell.rowIndex));
+    const maxColIndex = Math.max(...headerCells.map(cell => cell.columnIndex + (cell.colSpan || 0)));
+
+    const result: (HeaderCellType | null)[][] = Array.from({ length: maxRowIndex + 1 }, () =>
+        Array.from({ length: maxColIndex + 1 }, () => null)
+    );
+    headerCells.forEach(cell => {
+        for (let r = 0; r <= (cell.rowSpan || 0); r += 1) {
+            for (let c = 0; c <= (cell.colSpan || 0); c += 1) {
+                const row = cell.rowIndex + r;
+                const col = cell.columnIndex + c;
+                if (r === 0 && c === 0) {
+                    result[row][col] = cell;
+                } else {
+                    result[row][col] = null;
+                }
+            }
+        }
+    });
+    return result;
+}
+
 export function sortColumns(columns: ColumnType<any>[]) {
     const getOrder = (col: ColumnType<any>) => {
         if (col.fixed === "left") return -1;
