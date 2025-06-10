@@ -67,7 +67,7 @@ const SimpleTable = () => {
 					name: "user",
 					title: "人物信息",
 					width: 120,
-					fixed: "right",
+					fixed: "left",
 					children: [{
 						title: "中文",
 						name: "c",

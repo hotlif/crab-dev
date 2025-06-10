@@ -39,7 +39,7 @@ const paddingRight = (
 		className={css`
 			display: inline-block;
 			box-sizing: border-box;
-			width: calc(var(--crab-rc-virtual-right-padding-width, 0px) - var(--crab-rc-virtual-right-padding-width-offset, 0px));
+			width: var(--crab-rc-virtual-right-padding-width, 0px);
 			height: 100%;
 		`}
 	/>
@@ -63,7 +63,7 @@ const paddingTop = (
 		className={css`
 			display: inline-block;
 			box-sizing: border-box;
-			height: var(--crab-rc-virtual-top-padding-height, 0px);
+			height: calc(var(--crab-rc-virtual-top-padding-height, 0px) - var(--crab-rc-virtual-top-padding-height-offset, 0px));
 			width: 100%;
 		`}
 	/>
@@ -320,7 +320,7 @@ function Table<T extends Row>({
 					style={{
 						height: 35,
 						width: actualHeight,
-						top: (r * 35) + 1 
+						top: r * 35
 					}}
 				>
 					{headerFixedLeftCells?.[r]?.map((cell, columnIndex) => (
@@ -377,6 +377,7 @@ function Table<T extends Row>({
 			{...restProps}
 			style={{
 				'--crab-rc-virtual-left-padding-width-offset': `${fixedLeftColumns.reduce((acc, cur) => acc + (cur.width ?? 120), 0)}px`,
+				'--crab-rc-virtual-top-padding-height-offset':  `${maxDepth * 35}px`
 			} as React.CSSProperties & Record<string, any>}
 		>
 			<RcVirtual
