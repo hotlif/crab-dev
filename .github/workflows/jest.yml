@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22]
+        node-version: [latest]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,7 +28,7 @@ jobs:
     - name: Set Yarn version to 4.x
       run: yarn set version stable
     - name: Install dependencies
-      run: node -v  && yarn install
+      run: yarn install
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
