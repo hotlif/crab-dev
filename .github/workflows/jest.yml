@@ -26,7 +26,7 @@ jobs:
     - name: Enable Corepack
       run: corepack enable
     - name: Install dependencies
-      run: yarn install --immutable
+      run: rm -rf .yarn/cache .yarn/install-state.gz && yarn install --immutable
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
