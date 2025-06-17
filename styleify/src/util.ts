@@ -1,1 +1,1 @@
-export const PrefixName = "crab";
+export const prefix = 'styleify';
