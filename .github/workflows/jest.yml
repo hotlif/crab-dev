@@ -24,10 +24,12 @@ jobs:
     - name: Test Crustify ${{ matrix.node-version }}
       uses: actions/setup-node@v4
     - name: Enable Corepack
-      run: corepack enable
+      run: corepack enable 
+    - name: Set Yarn version to 4.x
+      run: yarn set version stable
     - name: Install dependencies
-      run: rm -rf .yarn/cache .yarn/install-state.gz && yarn install --immutable
+      run: yarn install --immutable
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
-      run: yarn test
+      run: NODE_OPTIONS="--experimental-vm-modules"  yarn test
