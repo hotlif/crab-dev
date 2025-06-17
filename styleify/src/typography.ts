@@ -20,7 +20,7 @@ export const fontFamily = (type: "sans" | "serif" | "mono") => {
     }
 }
 
-export type FontSizeLevel =
+export type SizeLevel =
     | "xs"
     | "sm"
     | "base"
@@ -125,7 +125,7 @@ const x9l = `
  * @param level - 字号级别，可选值为 "xs"、"sm"、"base"、"lg"、"xl"、"2xl"、"3xl"、"4xl"、"5xl"、"6xl"、"7xl"、"8xl"、"9xl"。
  * @returns 返回设置对应字号的 CSS 字符串，例如：`font-size: 1rem;`。
  */
-export const fontSize = (type: FontSizeLevel): string => {
+export const fontSize = (type: SizeLevel): string => {
     switch (type) {
         case "xs":
             return xs;
@@ -219,3 +219,188 @@ export const textLetterSpacing = (type: "extraCompact" | "compact" | "comfortabl
     }
 }
 
+
+const wrap = "text-wrap: wrap;"
+const nowrap = "text-wrap: nowrap;"
+const balance = "text-wrap: balance;";
+const pretty = "text-wrap: pretty;";
+
+export const textWrap = (type: "wrap" | "nowrap" | "balance" | "pretty") => {
+    switch (type) {
+        case "wrap":
+            return wrap;
+        case "nowrap":
+            return nowrap;
+        case "balance":
+            return balance;
+        case "pretty":
+            return pretty;
+        default:
+            return wrap
+    }
+}
+
+
+const left = "text-align: left;";
+const center = "text-align: center;";
+const right = "text-align: right;";
+const justify = "text-align: justify;";
+const start = "text-align: start;";
+const end = "text-align: end;";
+
+export const textAlign = (value: "left" | "center" | "right" | "justify" | "start" | "end") => {
+    switch (value) {
+        case "left":
+            return left;
+        case "center":
+            return center;
+        case "right":
+            return right;
+        case "justify":
+            return justify;
+        case "start":
+            return start;
+        case "end":
+            return end;
+        default:
+            return left
+    }
+}
+
+const truncate = "overflow: hidden; text-overflow: ellipsis; white-space: nowrap;";
+const textEllipsis = "text-overflow: ellipsis;";
+const textClip = "text-overflow: clip;";
+
+export const textOverflow = (value: "truncate" | "ellipsis" | "clip") => {
+        switch (value) {
+        case "truncate":
+            return truncate;
+        case "ellipsis":
+            return textEllipsis;
+        case "clip":
+            return textClip;
+        default:
+            return left
+    }
+}
+
+
+const txs = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 1)
+`
+
+const tsm = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 2)
+`
+
+const tbase = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 3)
+`
+
+const tlg = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 4)
+`
+
+const txl = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 5)
+`
+
+const tx2l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 6)
+`
+
+const tx3l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 7)
+`
+
+const tx4l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 8)
+`
+
+const tx5l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 9)
+`
+
+const tx6l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 10)
+`
+
+const tx7l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 11)
+`
+
+const tx8l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 12)
+`
+
+const tx9l = `
+    text-indent: calc(var(--${prefix}-text-indent-spacing) * 13)
+`
+
+export const textIndent = (type: SizeLevel) => {
+    switch (type) {
+        case "xs":
+            return txs;
+        case "sm":
+            return tsm;
+        case "base":
+            return tbase;
+        case "lg":
+            return tlg;
+        case "xl":
+            return txl;
+        case "2xl":
+            return tx2l;
+        case "3xl":
+            return tx3l;
+        case "4xl":
+            return tx4l;
+        case "5xl":
+            return tx5l;
+        case "6xl":
+            return tx6l;
+        case "7xl":
+            return tx7l;
+        case "8xl":
+            return tx8l;
+        case "9xl":
+            return tx9l;
+        default:
+            return tbase;
+    }
+}
+
+type VerticalAlign = "baseline" | "top" | "middle" | "bottom" | "textTop" | "textBottom" | "sub" | "super";
+
+
+const vbaseline = "vertical-align: baseline;";
+const vtop = "vertical-align: top;";
+const vmiddle = "vertical-align: middle;";
+const vbottom = "vertical-align: bottom;";
+const vtextTop = "vertical-align: text-top;";
+const vtextBottom = "vertical-align: text-bottom;";
+const vsub = "vertical-align: sub;";
+const vsuper = "vertical-align: super;";
+
+export const textVerticalAlign = (type: VerticalAlign) => {
+        switch (type) {
+        case "baseline":
+            return vbaseline;
+        case "top":
+            return vtop;
+        case "middle":
+            return vmiddle;
+        case "bottom":
+            return vbottom;
+        case "textTop":
+            return vtextTop;
+        case "textBottom":
+            return vtextBottom;
+        case "sub":
+            return vsub;
+        case "super":
+            return vsuper;
+        default:
+            return vmiddle;
+    }
+}
