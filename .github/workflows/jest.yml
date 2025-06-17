@@ -28,7 +28,7 @@ jobs:
     - name: Set Yarn version to 4.x
       run: yarn set version stable
     - name: Install dependencies
-      run: yarn install --immutable
+      run: yarn install && yarn why @crab/standards-jest-preset
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
