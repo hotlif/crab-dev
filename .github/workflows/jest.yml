@@ -23,8 +23,8 @@ jobs:
     - name: Set Yarn version to 4.x
       run: yarn set version stable
     - name: Install dependencies
-      run: node -v && yarn install
+      run: yarn install
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
-      run: NODE_OPTIONS="--experimental-vm-modules"  yarn test
+      run: yarn test
