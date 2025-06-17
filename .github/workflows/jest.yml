@@ -11,18 +11,13 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [latest]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v4
-    - name: Test Crustify ${{ matrix.node-version }}
+    - name: Test Crustify Node 22
       uses: actions/setup-node@v4
+      with:
+        node-version: 22
     - name: Enable Corepack
       run: corepack enable 
     - name: Set Yarn version to 4.x
