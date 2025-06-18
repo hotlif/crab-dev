@@ -280,7 +280,7 @@ export const textOverflow = (value: "truncate" | "ellipsis" | "clip") => {
         case "clip":
             return textClip;
         default:
-            return left
+            return textEllipsis
     }
 }
 
@@ -383,7 +383,7 @@ const vsub = "vertical-align: sub;";
 const vsuper = "vertical-align: super;";
 
 export const textVerticalAlign = (type: VerticalAlign) => {
-        switch (type) {
+    switch (type) {
         case "baseline":
             return vbaseline;
         case "top":
@@ -402,5 +402,23 @@ export const textVerticalAlign = (type: VerticalAlign) => {
             return vsuper;
         default:
             return vmiddle;
+    }
+}
+
+
+const breakNormal = "word-break: normal;";
+const breakAll = "word-break: break-all;";
+const breakKeep = "word-break: keep-all;";
+
+export const textWordBreak = (value: "normal" | "all" | "keep") => {
+    switch (value) {
+        case "normal":
+            return breakNormal;
+        case "all":
+            return breakAll;
+        case "keep":
+            return breakKeep;
+        default:
+            return breakNormal;
     }
 }
