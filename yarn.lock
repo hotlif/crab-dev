@@ -2333,6 +2333,7 @@ __metadata:
   dependencies:
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
     "@types/node": "npm:^22.15.30"
     "@types/react": "npm:^19.1.6"
@@ -2340,6 +2341,8 @@ __metadata:
     eslint: "npm:^9.28.0"
     eslint-plugin-react: "npm:^7.37.5"
     globals: "npm:^16.2.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:30.0.0-rc.1"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
     react-router: "npm:^7.6.2"
