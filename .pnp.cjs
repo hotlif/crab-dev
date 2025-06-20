@@ -5180,7 +5180,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["motion", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:12.16.0"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
@@ -5265,7 +5265,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -5294,7 +5294,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["react-icons", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:5.5.0"],\
@@ -5324,7 +5324,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["motion", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:12.16.0"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
@@ -5412,7 +5412,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["react-icons", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:5.5.0"],\
@@ -5442,7 +5442,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["nanoid", "npm:5.1.5"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
@@ -5475,7 +5475,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["jsonpath-plus", "npm:10.3.0"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
@@ -5510,7 +5510,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -5542,7 +5542,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -5571,7 +5571,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -5606,7 +5606,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -5731,6 +5731,7 @@ const RAW_RUNTIME_STATE =
           ["@crab/styleify", "workspace:styleify"],\
           ["@crab/packify", "workspace:toolbox/packify"],\
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
+          ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
           ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@types/node", "npm:22.15.30"],\
           ["@types/react", "npm:19.1.6"],\
@@ -5738,6 +5739,8 @@ const RAW_RUNTIME_STATE =
           ["eslint", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:9.28.0"],\
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
+          ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["react-router", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:7.6.2"],\
@@ -5829,7 +5832,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["react-icons", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:5.5.0"],\
@@ -6652,10 +6655,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:30.0.0-rc.1", {\
-        "packageLocation": "./.yarn/__virtual__/@jest-environment-jsdom-abstract-virtual-6a38e046a8/2/.yarn/berry/cache/@jest-environment-jsdom-abstract-npm-30.0.0-rc.1-1e20140001-10c0.zip/node_modules/@jest/environment-jsdom-abstract/",\
+      ["virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:30.0.0-rc.1", {\
+        "packageLocation": "./.yarn/__virtual__/@jest-environment-jsdom-abstract-virtual-1f9cc13c87/2/.yarn/berry/cache/@jest-environment-jsdom-abstract-npm-30.0.0-rc.1-1e20140001-10c0.zip/node_modules/@jest/environment-jsdom-abstract/",\
         "packageDependencies": [\
-          ["@jest/environment-jsdom-abstract", "virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:30.0.0-rc.1"],\
+          ["@jest/environment-jsdom-abstract", "virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:30.0.0-rc.1"],\
           ["@jest/environment", "npm:30.0.0-rc.1"],\
           ["@jest/fake-timers", "npm:30.0.0-rc.1"],\
           ["@jest/types", "npm:30.0.0-beta.8"],\
@@ -6665,7 +6668,7 @@ const RAW_RUNTIME_STATE =
           ["canvas", null],\
           ["jest-mock", "npm:30.0.0-rc.1"],\
           ["jest-util", "npm:30.0.0-rc.1"],\
-          ["jsdom", "virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:26.1.0"]\
+          ["jsdom", "virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:26.1.0"]\
         ],\
         "packagePeers": [\
           "@types/canvas",\
@@ -17067,17 +17070,17 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1", {\
-        "packageLocation": "./.yarn/__virtual__/jest-environment-jsdom-virtual-d3dccfbda5/2/.yarn/berry/cache/jest-environment-jsdom-npm-30.0.0-rc.1-34f632daca-10c0.zip/node_modules/jest-environment-jsdom/",\
+      ["virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1", {\
+        "packageLocation": "./.yarn/__virtual__/jest-environment-jsdom-virtual-c47a27bddb/2/.yarn/berry/cache/jest-environment-jsdom-npm-30.0.0-rc.1-34f632daca-10c0.zip/node_modules/jest-environment-jsdom/",\
         "packageDependencies": [\
-          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.0.0-rc.1"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
           ["@jest/environment", "npm:30.0.0-rc.1"],\
-          ["@jest/environment-jsdom-abstract", "virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:30.0.0-rc.1"],\
+          ["@jest/environment-jsdom-abstract", "virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:30.0.0-rc.1"],\
           ["@types/canvas", null],\
           ["@types/jsdom", "npm:21.1.7"],\
           ["@types/node", "npm:22.10.2"],\
           ["canvas", null],\
-          ["jsdom", "virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:26.1.0"]\
+          ["jsdom", "virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:26.1.0"]\
         ],\
         "packagePeers": [\
           "@types/canvas",\
@@ -17574,10 +17577,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:26.1.0", {\
-        "packageLocation": "./.yarn/__virtual__/jsdom-virtual-4eead691ef/2/.yarn/berry/cache/jsdom-npm-26.1.0-3857255f02-10c0.zip/node_modules/jsdom/",\
+      ["virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:26.1.0", {\
+        "packageLocation": "./.yarn/__virtual__/jsdom-virtual-09848fb233/2/.yarn/berry/cache/jsdom-npm-26.1.0-3857255f02-10c0.zip/node_modules/jsdom/",\
         "packageDependencies": [\
-          ["jsdom", "virtual:d3dccfbda5da2cbe05a509f8e7140fdde911e9b70219d770cc9f89c1d45f0fe379f2022a73a35bb4ac186eb5c5bddac8a120b4ac77c84dcf513147b7b98e48ba#npm:26.1.0"],\
+          ["jsdom", "virtual:c47a27bddb1e9474e5cba07b199802b9ac9054e5db96ad5afa49195643811a3f796f4faee0a242c04bc9e17c671574fe8b9c7c49000f85a99ac572f40886be0b#npm:26.1.0"],\
           ["@types/canvas", null],\
           ["canvas", null],\
           ["cssstyle", "npm:4.4.0"],\
