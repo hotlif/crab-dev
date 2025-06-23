@@ -8,7 +8,7 @@ export const containerStyle = `
 	position: absolute;
 	border-radius: 99px;
 	user-select: none;
-	${zIndex(10)};
+	${zIndex("mid")};
 `;
 
 export const thumbStyle = `

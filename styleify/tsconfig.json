@@ -5,8 +5,7 @@
         "declaration": true, 
         "declarationDir": "esm", 
         "types": [
-            "jest",
-            "@testing-library/jest-dom"
+            "jest"
         ]
     }
 }

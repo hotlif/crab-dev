@@ -1,20 +1,18 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import { display, width } from "@crab/styleify";
-import "@crab/rc-virtual/esm/index.styles.css";
+import { flex, flexJustifyContent } from "@crab/styleify";
 import README from "../../README.md";
 
 const App = () => {
 	return (
 		<div
 			className={css`
-				${display("flex")}
-				justify-content: center;
+				${flex()}
+				${flexJustifyContent("center")}
 			`}
 		>
 			<div
 				className={cx(css`
-					${width("10/12")}
 				`)}
 			>
 				<README />
