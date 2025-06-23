@@ -1,6 +1,6 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
-import type { Align, ColumnType, MergeCell, Row } from "./types";
+import type { ColumnType, MergeCell, Row } from "./types";
 import React, { useMemo } from "react";
 import { getMergedCellSize } from "./util";
 
