@@ -1,18 +1,14 @@
 import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode, Key, use } from "react";
 import { useSortable } from "@dnd-kit/sortable";
-import { css, cx } from "@linaria/core";
+import { css, cx} from "@linaria/core";
 import {
     fontSize,
-    display,
-    alignItems,
-    cursor,
-    height,
+    flex,
+    flexAlignItems,
     padding,
     textAlign,
-    spin,
-    position,
     textOverflow,
-    whitespace
+    AnimSpinKeyframes
 } from "@crab/styleify";
 import { NodeType, OverStateEnum, type Node, type OverState } from "./type";
 import { getTreeNodeDepth } from "./util";
@@ -54,15 +50,14 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const cssIconStyle = `
-    ${display("flex")}
+    ${flex()}
     ${fontSize("xs")}
-    ${alignItems("center")}
-    ${padding("px-1.5")}
-    ${height("full")}
+    ${flexAlignItems("center")}
+    height: 100%;
 `
 
 const expandedAndCloseIcon = css`
-    ${cursor("pointer")}
+    cursor: pointer;
     ${cssIconStyle}
     border-radius: inherit;
     &:hover {
@@ -100,10 +95,10 @@ const NodeItem: FC<NodeItemProps> = ({
             return (
                 <span
                     className={css`
-                        animation: spin 1s linear infinite;
+                        animation: AnimSpinKeyframes 1s linear infinite;
                         ${cssIconStyle}
-                        ${spin}
                         color: ${TreeNodeIconLoadingColor};
+                        ${AnimSpinKeyframes}
                     `}
                 >
                     <Loading />
@@ -174,9 +169,9 @@ const NodeItem: FC<NodeItemProps> = ({
     const classNames = cx(
         css`
             ${fontSize("base")}
-            ${display("flex")}
-            ${alignItems("center")}
-            ${whitespace("nowrap")}
+            ${flex()}
+            ${flexAlignItems("center")}
+            white-space: nowrap;
             border-radius: ${TreeNodeBorderRadius};
             user-select: none;
             &:hover {
@@ -203,15 +198,15 @@ const NodeItem: FC<NodeItemProps> = ({
                     }}
                     key={`tree-node-line-${node.id}-${i}`}
                     className={css`
-                        ${position("relative")}
+                        position: relative;
                         width: ${TreeIndentSize};
-                        ${height("full")}
+                        height: 100%;
                         ${textAlign("center")}
                         flex: 0 0 auto;
                         &::before {
-                            ${display('inline-block')}
+                            display: inline-block;
                             width: 1px;
-                            ${height("full")}
+                            height: 100%;
                             border-inline-end: 1px solid #d9d9d9;
                             content: "";
                         }
@@ -250,9 +245,9 @@ const NodeItem: FC<NodeItemProps> = ({
             {renderExpandedAndCloseIcon()}
             <span
                 className={css`
-                    ${cursor("pointer")}
-                    ${padding("px-2")}
-                    ${textOverflow("text-ellipsis")}
+                    cursor: pointer;
+                    ${padding("0.5rem", "x")}
+                    ${textOverflow("ellipsis")}
                     border-radius: inherit;
                 `}
                 {...listeners}

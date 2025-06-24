@@ -37,68 +37,68 @@ export type SizeLevel =
 
 
 const xs = `
-    font-size: var(--${prefix}-font-size-xs);
-    line-height: var(--${prefix}-line-height-xs); 
+    font-size: var(--${prefix}-font-size-xs, 0.688rem);
+    line-height: var(--${prefix}-line-height-xs, 1.3); 
 `
 
 const sm = `
-    font-size: var(--${prefix}-font-size-xs);
-    line-height: var(--${prefix}-line-height-xs); 
+    font-size: var(--${prefix}-font-size-xs, 0.75rem);
+    line-height: var(--${prefix}-line-height-sm, 1.3); 
 `
 
 const base = `
-    font-size: var(--${prefix}-font-size-base);
-    line-height: var(--${prefix}-line-height-base);
+    font-size: var(--${prefix}-font-size-base, 1rem);
+    line-height: var(--${prefix}-line-height-base, 1.5);
 `
 
 const lg = `
-    font-size: var(--${prefix}-font-size-lg);
-    line-height: var(--${prefix}-line-height-lg);
+    font-size: var(--${prefix}-font-size-lg, 1.125rem);
+    line-height: var(--${prefix}-line-height-lg, 1.4);
 `
 
 const xl = `
-    font-size: var(--${prefix}-font-size-xl);
-    line-height: var(--${prefix}-line-height-xl);
+    font-size: var(--${prefix}-font-size-xl, 1.5rem);
+    line-height: var(--${prefix}-line-height-xl, 1.4);
 `
 
 const x2l = `
-    font-size: var(--${prefix}-font-size-2xl);
-    line-height: var(--${prefix}-line-height-2xl);
+    font-size: var(--${prefix}-font-size-2xl, 1.875rem);
+    line-height: var(--${prefix}-line-height-2xl, 1.3);
 `
 
 const x3l = `
-    font-size: var(--${prefix}-font-size-3xl);
-    line-height: var(--${prefix}-line-height-3xl);
+    font-size: var(--${prefix}-font-size-3xl, 2.25rem);
+    line-height: var(--${prefix}-line-height-3xl, 1.3);
 `
 
 const x4l = `
-    font-size: var(--${prefix}-font-size-4xl);
-    line-height: var(--${prefix}-line-height-4xl);
+    font-size: var(--${prefix}-font-size-4xl, 3rem);
+    line-height: var(--${prefix}-line-height-4xl, 1.25);
 `
 
 const x5l = `
-    font-size: var(--${prefix}-font-size-5xl);
-    line-height: var(--${prefix}-line-height-5xl);
+    font-size: var(--${prefix}-font-size-5xl, 3.75rem);
+    line-height: var(--${prefix}-line-height-5xl, 1.2);
 `
 
 const x6l = `
-    font-size: var(--${prefix}-font-size-6xl);
-    line-height: var(--${prefix}-line-height-6xl);
+    font-size: var(--${prefix}-font-size-6xl, 4.5rem);
+    line-height: var(--${prefix}-line-height-6xl, 1.2);
 `
 
 const x7l = `
-    font-size: var(--${prefix}-font-size-7xl);
-    line-height: var(--${prefix}-line-height-7xl);
+    font-size: var(--${prefix}-font-size-7xl, 6rem);
+    line-height: var(--${prefix}-line-height-7xl, 1.1);
 `
 
 const x8l = `
-    font-size: var(--${prefix}-font-size-8xl);
-    line-height: var(--${prefix}-line-height-8xl);
+    font-size: var(--${prefix}-font-size-8xl, 8rem);
+    line-height: var(--${prefix}-line-height-8xl, 1.1);
 `
 
 const x9l = `
-    font-size: var(--${prefix}-font-size-9xl);
-    line-height: var(--${prefix}-line-height-9xl);`
+    font-size: var(--${prefix}-font-size-9xl, 10rem);
+    line-height: var(--${prefix}-line-height-9xl, 1.0);`
 
 
 /**

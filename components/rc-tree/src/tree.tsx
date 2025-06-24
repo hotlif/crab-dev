@@ -29,7 +29,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab/rc-virtual";
-import { boxShadow, position, zIndex, display } from "@crab/styleify";
+import { boxShadow, zIndex } from "@crab/styleify";
 import {
     useKeyDown
 } from "@crab/rc-hooks";
@@ -400,8 +400,8 @@ const Tree: FC<TreeProps> = ({
                 <div
                     ref={divRef}
                     className={css`
-                        ${display("inline-block")}
-                        ${position('relative')}    
+                        display: inline-block;
+                        position: relative;
                     `}
                     onContextMenu={e => {
                         const x = e.clientX;
@@ -510,7 +510,7 @@ const Tree: FC<TreeProps> = ({
                                 nodes.push(
                                     <div
                                         className={css`
-                                          white-space: nowrap    
+                                            white-space: nowrap    
                                         `}
                                         style={{
                                             height: gridTemplateRows[rowIndex],
@@ -558,8 +558,8 @@ const Tree: FC<TreeProps> = ({
 
                     <div
                         className={css`
-                            ${zIndex(50)}
-                            ${position('absolute')};
+                            ${zIndex("fixed")}
+                            position: absolute;
                             ${boxShadow("lg")};    
                         `}
                         style={{
