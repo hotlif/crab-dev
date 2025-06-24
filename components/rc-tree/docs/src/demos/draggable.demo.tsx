@@ -48,7 +48,7 @@ const DraggableTree = () => {
 							
 						}
 						resolve(data);
-					}, 300)
+					}, 0)
 				});
 			}
 			return new Promise((resolve) => {
