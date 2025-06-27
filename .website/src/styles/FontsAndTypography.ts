@@ -7,7 +7,7 @@ import {
 export default css`
     :global() {
         * {
-            ${fontFamily("sans")}
+            ${fontFamily("serif")}
             ${fontSize("base")};
         }
         h1 {
@@ -20,7 +20,12 @@ export default css`
            ${fontSize("xl")};
         }
         h4 {
-            ${fontSize("xl")};
+            ${fontSize("lg")};
+        }
+
+        p {
+            margin-block-start: 0rem;
+            margin-block-end: 0rem;
         }
     }
 `

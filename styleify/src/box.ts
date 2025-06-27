@@ -5,7 +5,7 @@ type MarginType = "space-x" | "space-y" | "x" | "y" | "end" | "start" | "left" |
 export const margin = (value: number | string, type: MarginType = "x") => {
     let valueStr = value;
     if (typeof value === "number") {
-        valueStr = `calc(${value} * var(--${prefix}-margin-space))`;;
+        valueStr = `calc(${value} * var(--${prefix}-margin-space, 0.25rem))`;;
     }
     const x = `margin-inline: ${valueStr};`
     switch (type) {
@@ -49,7 +49,7 @@ type PaddingType = "space-x" | "space-y" | "x" | "y" | "end" | "start" | "left" 
 export const padding = (value: number | string, type: PaddingType = "x") => {
     let valueStr = value;
     if (typeof value === "number") {
-        valueStr = `calc(${value} * var(--${prefix}-padding-space))`;;
+        valueStr = `calc(${value} * var(--${prefix}-padding-space, 0.25rem))`;;
     }
     const x = `padding-inline: ${valueStr};`
     switch (type) {
@@ -118,4 +118,18 @@ export const boxShadow = (value: "xs" | "sm" | "md" | "lg" | "xl" | "2xl") => {
         default:
             return "";
     }
+}
+
+export const height = (value: number | string) => {
+    if (typeof value === "number") {
+        return `height: calc(${value} * var(--${prefix}-height-space, 0.25rem));`;
+    }
+    return `height: ${value};`;
+}
+
+export const width = (value: number | string) => {
+    if (typeof value === "number") {
+        return `width: calc(${value} * var(--${prefix}-width-space, 0.25rem));`;
+    }
+    return `width: ${value};`;
 }

@@ -12,11 +12,13 @@ import { prefix } from "./util";
 export const fontFamily = (type: "sans" | "serif" | "mono") => {
     switch (type) {
         case "serif":
-            return `font-family: var(--${prefix}-font-family-serif);`;
+            return `font-family: var(--${prefix}-font-family-serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');`;
         case "mono":
-            return `font-family: var(--${prefix}-font-family-mono);`;
+            return `font-family: var(--${prefix}-font-family-mono, ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif);`;
+        case "sans":
+            return `font-family: var(--${prefix}-font-family-sans, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace );`;
         default:
-            return `font-family: var(--${prefix}-font-family-sans);`;
+            return "";
     }
 }
 

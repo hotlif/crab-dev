@@ -1,4 +1,4 @@
-import { alignItems, display, flexDirection, fontSize, margin, padding, width } from "@crab/styleify";
+import { flex, flexDirection, flexAlignItems, fontSize, margin, padding, width } from "@crab/styleify";
 import { css, cx } from "@linaria/core";
 import { useOutlet } from "react-router";
 import RcButton from "@crab/rc-button";
@@ -14,17 +14,17 @@ const DocsIndexLayout = () => {
         <main>
             <div
                 className={css`
-                ${display("flex")}
-                ${flexDirection("col")}
-                ${padding("pt-20")}
-                ${padding("pb-10")}
+                ${flex()}
+                ${flexDirection("column")}
+                ${padding(20, "top")}
+                ${padding(20, "bottom")}
                 justify-content: center;
             `}
             >
                 <div
                     className={css`
-                        ${display("flex")}    
-                        ${alignItems("center")}
+                        ${flex()}    
+                        ${flexAlignItems("center")}
                         justify-content: center;
                     `}
                 >
@@ -61,8 +61,8 @@ const DocsIndexLayout = () => {
                 </p>
                 <div
                     className={css`
-                    ${display("flex")}
-                    ${margin("mt-8")}
+                    ${flex()}
+                    ${margin(8, "top")}
                     gap: 1rem;
                     justify-content: center;
                 `}
@@ -85,9 +85,9 @@ const DocsIndexLayout = () => {
             <div>
                 <div
                     className={cx(markdownStyle, css`
-                        ${width("4/6")}
+                        ${width("66%")}
                         margin: 0px auto;
-                        ${padding("pt-10")}
+                        ${padding(10, "top")}
                     `)}
                 >
                     {outlet}

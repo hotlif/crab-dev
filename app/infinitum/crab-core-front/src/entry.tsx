@@ -18,7 +18,6 @@ export const globals = css`
             width: 100%;
         }
         * {
-            color: rgba(0,0,0,0.88);
         }
         body {
             background-image: linear-gradient(rgb(255, 255, 255), rgb(245, 245, 245) 28%);

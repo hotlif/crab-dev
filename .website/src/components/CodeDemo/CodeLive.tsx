@@ -2,7 +2,7 @@ import { type HTMLAttributes, type FC, useState } from "react";
 import RcLive from "@crab/rc-live";
 import RcButton from "@crab/rc-button";
 import { css, cx } from "@linaria/core";
-import { alignItems, cursor, display, fontWeight, fontSize } from "@crab/styleify";
+import { flex, flexAlignItems, fontSize } from "@crab/styleify";
 import { BsCode } from "react-icons/bs";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -27,10 +27,11 @@ const CodeLive: FC<CodeLiveProps> = ({
         if (!isShowCode) {
             return null;
         }
+
+        console.log("vs", vs)
         return (
             <div
                 className={css`
-                    border-top: 1px solid rgba(5,5,5,0.06);  
                     > pre {
                         margin: 0px !important;
                     }  
@@ -38,7 +39,13 @@ const CodeLive: FC<CodeLiveProps> = ({
             >
                 <SyntaxHighlighter
                     language="tsx"
-                    style={vs}
+                    style={{
+                        ...vs,
+                        "pre[class*=\"language-\"]": {
+                            ...vs["pre[class*=\"language-\"]"],
+                            backgroundColor: "transparent"
+                        }
+                    }}
                 >
                     {source}
                 </SyntaxHighlighter>
@@ -70,14 +77,13 @@ const CodeLive: FC<CodeLiveProps> = ({
             <div
                 className={css`
                     transform: translate(1.5rem, -10px);
-                    ${fontWeight("bold")}
                 `}
             >
                 {title}
             </div>
             <div
                 className={css`
-                    ${fontSize("sm")}
+                    ${fontSize("base")}
                     padding: 0.5rem 1.5rem 1.5rem 1.5rem;
                 `}
             >
@@ -85,8 +91,8 @@ const CodeLive: FC<CodeLiveProps> = ({
             </div>
             <div
                 className={css`
-                    ${display("flex")}
-                    ${alignItems("center")}
+                    ${flex()}
+                    ${flexAlignItems("center")}
                     justify-content: center;
                     padding: 12px 0;
                     border-top: 1px solid rgba(5,5,5,0.06);
@@ -94,7 +100,7 @@ const CodeLive: FC<CodeLiveProps> = ({
             >
                 <span
                     className={css`
-                        ${cursor("pointer")}    
+                        cursor: pointer;
                     `}
                     onClick={() => {
                         setIsShowCode(!isShowCode)

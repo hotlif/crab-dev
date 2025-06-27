@@ -1,4 +1,4 @@
-import { alignItems, cursor, display, fontSize, fontWeight, height, margin, position } from "@crab/styleify"
+import { flex, flexAlignItems, fontSize, margin, height } from "@crab/styleify"
 import { css } from "@linaria/core"
 import { useMatches, useNavigate } from "react-router";
 import { type Key } from "react";
@@ -40,15 +40,14 @@ const BasicLayout = () => {
         }
     }
 
-
     return (
         <>
             <header
                 className={css`
-                    ${position("sticky")}
-                    ${display("flex")}
-                    ${height("14")}
-                    ${alignItems("center")}
+                    ${flex()}
+                    ${height(15)}
+                    ${flexAlignItems("center")}
+                    position: sticky;
                     top: 0px;
                     background-color: rgb(245, 245, 245);
                     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
@@ -56,10 +55,10 @@ const BasicLayout = () => {
             >
                 <div
                     className={css`
-                        ${margin("ml-6")}
-                        ${cursor("pointer")}
-                        ${display("flex")}
-                        ${alignItems("center")}
+                        ${margin(6, "left")}
+                        ${flex()}
+                        ${flexAlignItems("center")}
+                        cursor: pointer;
                     `}
                     onClick={() => {
                         navigate("/");
@@ -77,7 +76,6 @@ const BasicLayout = () => {
                     <h1
                         className={css`
                             ${fontSize("xl")}
-                            ${fontWeight("bold")}
                             user-select: none;
                         `}
                     >
@@ -98,9 +96,9 @@ const BasicLayout = () => {
                         {getNavs().map(element => (
                             <li
                                 className={css`
-                                    ${display("inline")}
-                                    ${cursor("pointer")}
-                                    margin-right: 1rem;
+                                    display: inline;
+                                    cursor: pointer;
+                                    ${margin(5, "right")}
                                 `}
                                 key={element.id}
                                 onClick={() => {

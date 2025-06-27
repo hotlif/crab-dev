@@ -253,7 +253,7 @@ const Tree: FC<TreeProps> = ({
             }
         });
         return getDisplayedNodes(_displayedNodes);
-    }, [treeData]);
+    }, [treeData, expandedKeys]);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
@@ -485,6 +485,7 @@ const Tree: FC<TreeProps> = ({
                                                     })
                                                 }
                                             }
+                                            setIsOpenContextMenu(false);
                                         }}
                                         onExpanded={onExpanded}
                                         onTitleContextMenu={(e) => {

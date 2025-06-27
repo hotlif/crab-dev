@@ -7,7 +7,7 @@ export default css`
         width: 100%;
         border-collapse: collapse;
         * {
-            ${fontSize("sm")}
+            ${fontSize("base")}
         }
         th,td {
             padding: 0.5rem 1rem;
@@ -17,7 +17,6 @@ export default css`
         thead {
             th {
                 text-align: left;
-                ${fontSize("lg")}
             }
         }
 
@@ -26,6 +25,11 @@ export default css`
                 vertical-align: initial;
             }
         }
-
     }
+    ul {
+        > li {
+            line-height: 1.5;
+        }
+    }
+    
 `
