@@ -1,6 +1,6 @@
 import { css, cx } from "@linaria/core";
 import { useRef, type ButtonHTMLAttributes, type FC } from "react";
-import { fontSize, padding, height, width, margin } from "@crab/styleify";
+import { fontSize, padding, margin } from "@crab/styleify";
 import { motion } from "motion/react";
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
@@ -177,19 +177,19 @@ const Button: FC<ButtonProps> = ({
         if (size === "large") {
             return css`
                 ${fontSize("lg")}
-                ${padding("px-4")}
-                ${height("10")}
+                ${padding(4, "x")}
+                height: 2.5rem;
             `
         } else if (size === "small") {
             return css`
                 ${fontSize("sm")}
-                ${padding("px-4")}
+                ${padding(4, "x")}
             `
         } else {
             return css`
                 ${fontSize("base")}
-                ${padding("px-4")}
-                ${height("8")}
+                ${padding(4, "x")}
+                height: 2rem;
             `
         }
     }
@@ -197,7 +197,7 @@ const Button: FC<ButtonProps> = ({
     const getShouldFitContainerStyle = () => {
         if (shouldFitContainer) {
             return css`
-                ${width("full")}
+                width: 100%;
             `
         }
         return null;
@@ -217,7 +217,7 @@ const Button: FC<ButtonProps> = ({
             return (
                 <motion.span
                     className={css`
-                        ${margin("mr-3")}
+                        ${margin(3, "right")}
                         color: inherit;
                     `}
                     animate={{ rotate: 360 }}

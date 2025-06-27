@@ -1,8 +1,7 @@
 import { useMatches, useNavigate, useOutlet, useRouteLoaderData } from "react-router";
-import { useRef, type FC } from "react";
+import { type FC } from "react";
 import { css, cx } from "@linaria/core";
-import { cursor, display, fontSize } from "@crab/styleify";
-import { useViewportSize } from "@crab/rc-hooks"
+import { flex, fontSize } from "@crab/styleify";
 
 import mdxs from "@@@/mdx"
 import markdownStyle from "../styles/Markdown";
@@ -29,7 +28,7 @@ const DocsLayout: FC<DocsLayoutProps> = ({
     return (
         <main
             className={css`
-                ${display("flex")}
+                ${flex()}
                 flex: 1;
                 overflow: auto;
             `}
@@ -59,8 +58,8 @@ const DocsLayout: FC<DocsLayoutProps> = ({
                         <li
                             className={cx(
                                 css`
-                                    ${display("flex")}
-                                    ${cursor("pointer")}
+                                    ${flex()}
+                                    cursor: pointer;
                                     ${fontSize("base")}
                                     align-items: center;
                                     height: 40px;

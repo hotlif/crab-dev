@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import { preflight } from "@crab/styleify";
 import E404 from "./errors/E404";
 import { RouterProvider, createBrowserRouter } from "react-router";
 
@@ -18,12 +17,14 @@ export const globals = cx(FontsAndTypography, css`
             width: 100%;
 
         }
-        * {
-            color: rgba(0,0,0,0.88);
-        }
         body {
             margin: 0px;
-            background-color: rgb(245, 245, 245);
+            --crab-website-background-color: rgb(245, 245, 245);
+            background-color: var(--crab-website-background-color);
+        }
+
+        html {
+            font-size: 14px;
         }
     }
 `);

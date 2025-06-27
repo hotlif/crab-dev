@@ -93,6 +93,7 @@ const DraggableTree = () => {
 										loadData,
 										expandedKeys,
 									})
+									hide();
 								}}
 							>
 								刷新所有节点
@@ -125,6 +126,7 @@ const DraggableTree = () => {
 									loadData,
 									expandedKeys,
 								})
+								hide();
 							}}
 						>
 							刷新子节点数据

@@ -1,4 +1,4 @@
-import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode, Key, use } from "react";
+import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode, Key } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx} from "@linaria/core";
 import {
@@ -8,6 +8,8 @@ import {
     padding,
     textAlign,
     textOverflow,
+    margin,
+    column,
     AnimSpinKeyframes
 } from "@crab/styleify";
 import { NodeType, OverStateEnum, type Node, type OverState } from "./type";
@@ -60,6 +62,7 @@ const expandedAndCloseIcon = css`
     cursor: pointer;
     ${cssIconStyle}
     border-radius: inherit;
+    ${margin(2, "left")}
     &:hover {
        background-color: ${TreeNodeIconHoverBgColor};
     }
@@ -84,7 +87,6 @@ const NodeItem: FC<NodeItemProps> = ({
     const {
         attributes,
         listeners,
-        isDragging,
         setNodeRef,
     } = useSortable({ id: node.id });
 
@@ -169,7 +171,7 @@ const NodeItem: FC<NodeItemProps> = ({
     const classNames = cx(
         css`
             ${fontSize("base")}
-            ${flex()}
+            ${column()}
             ${flexAlignItems("center")}
             white-space: nowrap;
             border-radius: ${TreeNodeBorderRadius};
@@ -240,6 +242,7 @@ const NodeItem: FC<NodeItemProps> = ({
             }}
             data-node-item-selectd={selectKeys?.includes(node.id)}
             style={styles}
+            onContextMenu={onTitleContextMenu}
         >
             {showLine ? renderIndentLine() : null}
             {renderExpandedAndCloseIcon()}
@@ -251,7 +254,6 @@ const NodeItem: FC<NodeItemProps> = ({
                     border-radius: inherit;
                 `}
                 {...listeners}
-                onContextMenu={onTitleContextMenu}
             >
                 {node.title}
             </span>
