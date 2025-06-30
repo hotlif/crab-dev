@@ -16,4 +16,4 @@ nav = { id = "components", title = "组件" }
 
 ## 代码演示
 
-
+<CodeDemo />

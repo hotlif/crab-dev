@@ -1,6 +1,9 @@
 import { type HTMLAttributes, type FC, useState } from "react";
 import RcLive from "@crab/rc-live";
 import RcButton from "@crab/rc-button";
+import RcTree, {
+    LoadStateType, NodeType, getTreeNodeDepth, useTreeData
+} from "@crab/rc-tree";
 import { css, cx } from "@linaria/core";
 import { flex, flexAlignItems, fontSize } from "@crab/styleify";
 import { BsCode } from "react-icons/bs";
@@ -11,6 +14,16 @@ interface CodeLiveProps extends HTMLAttributes<HTMLDivElement> {
     source: string
     title: string,
     description: string,
+}
+
+const scopes = {
+    RcButton,
+    RcTree,
+    LoadStateType,
+    NodeType,
+    getTreeNodeDepth,
+    useTreeData,
+    useState,
 }
 
 const CodeLive: FC<CodeLiveProps> = ({
@@ -27,8 +40,6 @@ const CodeLive: FC<CodeLiveProps> = ({
         if (!isShowCode) {
             return null;
         }
-
-        console.log("vs", vs)
         return (
             <div
                 className={css`
@@ -69,9 +80,7 @@ const CodeLive: FC<CodeLiveProps> = ({
             >
                 <RcLive
                     source={source}
-                    scopes={{
-                        RcButton
-                    }}
+                    scopes={scopes}
                 />
             </div>
             <div

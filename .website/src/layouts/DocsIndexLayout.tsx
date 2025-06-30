@@ -1,13 +1,16 @@
 import { flex, flexDirection, flexAlignItems, fontSize, margin, padding, width } from "@crab/styleify";
 import { css, cx } from "@linaria/core";
-import { useOutlet } from "react-router";
+import { useNavigate, useOutlet } from "react-router";
 import RcButton from "@crab/rc-button";
 import { getConfig } from "../util/global";
 import markdownStyle from "../styles/Markdown";
+import mdxs from "@@@/mdx"
+
 
 const config = getConfig();
 
 const DocsIndexLayout = () => {
+    const navigate = useNavigate();
     const outlet = useOutlet();
 
     return (
@@ -70,6 +73,11 @@ const DocsIndexLayout = () => {
                     <RcButton
                         size="large"
                         appearance="primary"
+                        onClick={(e) => {
+                            const md = mdxs.filter(element => element.metadata.nav?.id === "components");
+                            const path = md?.[0].metadata?.path;
+                            navigate(path);
+                        }}
                     >
                         开始使用
                     </RcButton>

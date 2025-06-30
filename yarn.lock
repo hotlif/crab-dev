@@ -1791,6 +1791,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/types@npm:^7.27.7":
+  version: 7.27.7
+  resolution: "@babel/types@npm:7.27.7"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.27.1"
+    "@babel/helper-validator-identifier": "npm:^7.27.1"
+  checksum: 10c0/1d1dcb5fa7cfba2b4034a3ab99ba17049bfc4af9e170935575246cdb1cee68b04329a0111506d9ae83fb917c47dbd4394a6db5e32fbd041b7834ffbb17ca086b
+  languageName: node
+  linkType: hard
+
 "@bcoe/v8-coverage@npm:^0.2.3":
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
@@ -1810,10 +1820,12 @@ __metadata:
   resolution: "@crab/babel-plugin-auto-import-style@workspace:toolbox/babel-plugin-auto-import-style"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.27.1"
+    "@babel/types": "npm:^7.27.7"
     "@crab/packify": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
     "@types/babel__helper-plugin-utils": "npm:^7.10.3"
     "@types/node": "npm:^22.15.30"
+    dep-tree: "npm:^0.2.1"
   languageName: unknown
   linkType: soft
 
@@ -2058,18 +2070,18 @@ __metadata:
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
     "@jest/globals": "npm:30.0.0-rc.1"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^22.15.30"
     "@types/react": "npm:^19.1.6"
     "@types/react-dom": "npm:^19.1.6"
+    acorn: "npm:^8.15.0"
+    astring: "npm:^1.9.0"
     eslint: "npm:^9.28.0"
     eslint-plugin-react: "npm:^7.37.5"
     globals: "npm:^16.2.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:30.0.0-rc.1"
-    motion: "npm:^12.16.0"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
     react-icons: "npm:^5.5.0"
@@ -2193,7 +2205,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-tree@workspace:components/rc-tree":
+"@crab/rc-tree@workspace:^, @crab/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
   resolution: "@crab/rc-tree@workspace:components/rc-tree"
   dependencies:
@@ -2420,6 +2432,7 @@ __metadata:
     "@crab/rc-hooks": "workspace:^"
     "@crab/rc-live": "workspace:^"
     "@crab/rc-menu": "workspace:^"
+    "@crab/rc-tree": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
@@ -5860,6 +5873,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn@npm:^8.15.0":
+  version: 8.15.0
+  resolution: "acorn@npm:8.15.0"
+  bin:
+    acorn: bin/acorn
+  checksum: 10c0/dec73ff59b7d6628a01eebaece7f2bdb8bb62b9b5926dcad0f8931f2b8b79c2be21f6c68ac095592adb5adb15831a3635d9343e6a91d028bbe85d564875ec3ec
+  languageName: node
+  linkType: hard
+
 "address@npm:^1.0.1":
   version: 1.2.2
   resolution: "address@npm:1.2.2"
@@ -6168,7 +6190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astring@npm:^1.8.0":
+"astring@npm:^1.8.0, astring@npm:^1.9.0":
   version: 1.9.0
   resolution: "astring@npm:1.9.0"
   bin:
@@ -8087,6 +8109,15 @@ __metadata:
   version: 1.0.0
   resolution: "delayed-stream@npm:1.0.0"
   checksum: 10c0/d758899da03392e6712f042bec80aa293bbe9e9ff1b2634baae6a360113e708b91326594c8a486d475c69d6259afb7efacdc3537bfcda1c6c648e390ce601b19
+  languageName: node
+  linkType: hard
+
+"dep-tree@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "dep-tree@npm:0.2.1"
+  dependencies:
+    underscore: "npm:1.5.x"
+  checksum: 10c0/5e373708961f4c915f2555ac01d9da3552873cf2a3bd53fa5f71ffed02983767bd1c062b5c62a76c5ee1b01789a6dd61e8f2811a7bed5ceca4f2f54d5034e066
   languageName: node
   linkType: hard
 
@@ -18274,6 +18305,13 @@ __metadata:
     defu: "npm:^6.1.4"
     importx: "npm:^0.5.1"
   checksum: 10c0/cfdf536f366cf76294a83e05ae9388a534324ca4a7e39d3e87a1e14c2eeb62809a41267b3fb02e7794077d5224b011385afa83e812a0ee43d90284f1c653ef52
+  languageName: node
+  linkType: hard
+
+"underscore@npm:1.5.x":
+  version: 1.5.2
+  resolution: "underscore@npm:1.5.2"
+  checksum: 10c0/2dd21f646261ec5978096518615bf9f846bd7368787e4021e96741c5f01013e52b0149719f9abcab663c605773ec952e3b05c84620f9503a0a187b87a8c2c8b9
   languageName: node
   linkType: hard
 

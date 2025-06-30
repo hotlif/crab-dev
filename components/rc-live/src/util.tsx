@@ -1,16 +1,23 @@
 import { type ComponentType } from "react";
 import { transform } from 'sucrase';
-import {jsxDEV as _jsxDEV, Fragment as _Fragment } from "react/jsx-dev-runtime";
+import { jsxDEV as _jsxDEV, Fragment as _Fragment } from "react/jsx-dev-runtime";
+import { generate } from 'astring';
+import { Parser } from "acorn";
 
 const evalCode = (code: string, _scope: any = {}): ComponentType => {
     const scope = {_jsxDEV, _Fragment, ..._scope};
     const scopeKeys = Object.keys(scope);
     const scopeValues = scopeKeys.map((key) => scope[key]);
-    const importReg = /import.*from.*;/g;
-
+    const ast = Parser.parse(code, {
+        sourceType: 'module',
+        ecmaVersion: "latest"
+    });
+    ast.body = ast.body.filter(node => node.type !== 'ImportDeclaration');
+    let newCode = generate(ast);
+    newCode = newCode.replace('export default', 'return').trim()
     return new Function(
         ...scopeKeys,
-        code.replace(importReg, '').replace('export default', 'return').trim(),
+        newCode,
     )(...scopeValues);
 }
 

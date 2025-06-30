@@ -43,6 +43,7 @@ const CodeDemo = () => {
                 <CodeLive
                     className={css`
                         flex: 0 0 50%;
+                        overflow: hidden;
                     `}
                     key={element.relativePath}
                     source={element.source}
