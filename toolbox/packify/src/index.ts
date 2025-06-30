@@ -9,6 +9,8 @@ import css from 'rollup-plugin-css-only';
 import babel from '@rollup/plugin-babel';
 import { dts } from "rollup-plugin-dts";
 import { createRequire } from "module";
+import { readFileSync } from "fs";
+import { writeFileSync } from "node:fs";
 
 const require = createRequire(import.meta.url);
 
@@ -42,6 +44,23 @@ const babelPlugin = babel({
     ...commonBabelConfig,
     extensions,
 });
+
+
+const writeCssPreDependency = (path: string, type: "cjs" | "esm") => {
+    const pkgs = readFileSync(join(process.cwd(), "package.json"));
+    const { cssDependencies } = JSON.parse(pkgs.toString());
+
+    let importCss = "";
+    Object.keys(cssDependencies).forEach((pkg) => {
+        if (type === "cjs") {
+            importCss += `@import '${pkg}/cjs/index.styles.css';\n`;
+        } else {
+            importCss += `@import '${pkg}/esm/index.styles.css';\n`;
+        }
+    })
+    const content = readFileSync(path, "utf-8");
+    writeFileSync(path, importCss + content, "utf-8");
+}
 
 export const build = async () => {
     const bundle = await rollup({
@@ -85,6 +104,9 @@ export const build = async () => {
         ]
     });
 
+    writeCssPreDependency(join(process.cwd(), "esm","index.styles.css"), "esm");
+    writeCssPreDependency(join(process.cwd(), "cjs","index.styles.css"), "cjs");
+    
     await typesBundle.write({
         file: "declarations/index.d.ts",
         format: "es",

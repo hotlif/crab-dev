@@ -131,7 +131,7 @@ const RAW_RUNTIME_STATE =
     ["@crab/rc-popover", ["workspace:components/rc-popover"]],\
     ["@crab/rc-request", ["workspace:components/rc-request"]],\
     ["@crab/rc-table", ["workspace:components/rc-table"]],\
-    ["@crab/rc-tree", ["workspace:components/rc-tree"]],\
+    ["@crab/rc-tree", ["virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-tree", "workspace:components/rc-tree"]],\
     ["@crab/rc-virtual", ["workspace:components/rc-virtual"]],\
     ["@crab/rc-vue2", ["virtual:83429a0124271f3657050d78347c64ef883cbd892dc10ed7094e3e46db74021e69336b903735cc731844f3c92451886ef4ea3122a9f368bb2d34b30a7bd06f7c#workspace:components/rc-vue2", "workspace:components/rc-vue2"]],\
     ["@crab/standards-eslint-preset", ["virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset", "workspace:standards/eslint-preset"]],\
@@ -5001,6 +5001,15 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-validator-identifier", "npm:7.27.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.27.7", {\
+        "packageLocation": "../.yarn/berry/cache/@babel-types-npm-7.27.7-213e8c51e7-10c0.zip/node_modules/@babel/types/",\
+        "packageDependencies": [\
+          ["@babel/types", "npm:7.27.7"],\
+          ["@babel/helper-string-parser", "npm:7.27.1"],\
+          ["@babel/helper-validator-identifier", "npm:7.27.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@bcoe/v8-coverage", [\
@@ -5027,10 +5036,12 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@crab/babel-plugin-auto-import-style", "workspace:toolbox/babel-plugin-auto-import-style"],\
           ["@babel/helper-plugin-utils", "npm:7.27.1"],\
+          ["@babel/types", "npm:7.27.7"],\
           ["@crab/packify", "workspace:toolbox/packify"],\
           ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@types/babel__helper-plugin-utils", "npm:7.10.3"],\
-          ["@types/node", "npm:22.15.30"]\
+          ["@types/node", "npm:22.15.30"],\
+          ["dep-tree", "npm:0.2.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5314,18 +5325,18 @@ const RAW_RUNTIME_STATE =
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
           ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
           ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
-          ["@crab/styleify", "workspace:styleify"],\
           ["@jest/globals", "npm:30.0.0-rc.1"],\
           ["@linaria/core", "npm:6.3.0"],\
           ["@types/node", "npm:22.15.30"],\
           ["@types/react", "npm:19.1.6"],\
           ["@types/react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.6"],\
+          ["acorn", "npm:8.15.0"],\
+          ["astring", "npm:1.9.0"],\
           ["eslint", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:9.28.0"],\
           ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
           ["globals", "npm:16.2.0"],\
           ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
           ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
-          ["motion", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:12.16.0"],\
           ["react", "npm:19.1.0"],\
           ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
           ["react-icons", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:5.5.0"],\
@@ -5486,6 +5497,44 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab/rc-tree", [\
+      ["virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-tree", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-rc-tree-virtual-8d9555b940/1/components/rc-tree/",\
+        "packageDependencies": [\
+          ["@crab/rc-tree", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-tree"],\
+          ["@crab/crustify", "workspace:toolbox/crustify"],\
+          ["@crab/packify", "workspace:toolbox/packify"],\
+          ["@crab/rc-hooks", "workspace:components/rc-hooks"],\
+          ["@crab/rc-virtual", "workspace:components/rc-virtual"],\
+          ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
+          ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
+          ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@crab/styleify", "workspace:styleify"],\
+          ["@dnd-kit/core", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:6.3.1"],\
+          ["@dnd-kit/sortable", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:10.0.0"],\
+          ["@jest/globals", "npm:30.0.0-rc.1"],\
+          ["@linaria/core", "npm:6.3.0"],\
+          ["@types/node", "npm:22.15.30"],\
+          ["@types/react", "npm:19.1.6"],\
+          ["@types/react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.6"],\
+          ["decimal.js", "npm:10.5.0"],\
+          ["eslint", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:9.28.0"],\
+          ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
+          ["globals", "npm:16.2.0"],\
+          ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:29.7.0"],\
+          ["jest-environment-jsdom", "virtual:cd67958d67c19a129f985a6bacf47dac917beef3e6315f8c757fc2a609dc4246f126a9f2f1405552bce4ae07a15baa80aeedbb3da5bb881d1e900caf9a69ed21#npm:30.0.0-rc.1"],\
+          ["react", "npm:19.1.0"],\
+          ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.0"],\
+          ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
+          ["typescript-eslint", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:8.33.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["workspace:components/rc-tree", {\
         "packageLocation": "./components/rc-tree/",\
         "packageDependencies": [\
@@ -5498,8 +5547,8 @@ const RAW_RUNTIME_STATE =
           ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
           ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@crab/styleify", "workspace:styleify"],\
-          ["@dnd-kit/core", "virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:6.3.1"],\
-          ["@dnd-kit/sortable", "virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:10.0.0"],\
+          ["@dnd-kit/core", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:6.3.1"],\
+          ["@dnd-kit/sortable", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:10.0.0"],\
           ["@jest/globals", "npm:30.0.0-rc.1"],\
           ["@linaria/core", "npm:6.3.0"],\
           ["@types/node", "npm:22.15.30"],\
@@ -5818,6 +5867,7 @@ const RAW_RUNTIME_STATE =
           ["@crab/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab/rc-live", "workspace:components/rc-live"],\
           ["@crab/rc-menu", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-menu"],\
+          ["@crab/rc-tree", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-tree"],\
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
           ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
           ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
@@ -5956,10 +6006,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.1.1", {\
-        "packageLocation": "./.yarn/__virtual__/@dnd-kit-accessibility-virtual-b27f3df3c2/2/.yarn/berry/cache/@dnd-kit-accessibility-npm-3.1.1-32c87cd6f0-10c0.zip/node_modules/@dnd-kit/accessibility/",\
+      ["virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.1.1", {\
+        "packageLocation": "./.yarn/__virtual__/@dnd-kit-accessibility-virtual-210c76f45c/2/.yarn/berry/cache/@dnd-kit-accessibility-npm-3.1.1-32c87cd6f0-10c0.zip/node_modules/@dnd-kit/accessibility/",\
         "packageDependencies": [\
-          ["@dnd-kit/accessibility", "virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.1.1"],\
+          ["@dnd-kit/accessibility", "virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.1.1"],\
           ["@types/react", "npm:19.1.6"],\
           ["react", "npm:19.1.0"],\
           ["tslib", "npm:2.8.1"]\
@@ -5979,12 +6029,12 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:6.3.1", {\
-        "packageLocation": "./.yarn/__virtual__/@dnd-kit-core-virtual-a086ef807c/2/.yarn/berry/cache/@dnd-kit-core-npm-6.3.1-4c747b1b36-10c0.zip/node_modules/@dnd-kit/core/",\
+      ["virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:6.3.1", {\
+        "packageLocation": "./.yarn/__virtual__/@dnd-kit-core-virtual-aa8a0a6bea/2/.yarn/berry/cache/@dnd-kit-core-npm-6.3.1-4c747b1b36-10c0.zip/node_modules/@dnd-kit/core/",\
         "packageDependencies": [\
-          ["@dnd-kit/core", "virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:6.3.1"],\
-          ["@dnd-kit/accessibility", "virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.1.1"],\
-          ["@dnd-kit/utilities", "virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.2.2"],\
+          ["@dnd-kit/core", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:6.3.1"],\
+          ["@dnd-kit/accessibility", "virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.1.1"],\
+          ["@dnd-kit/utilities", "virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.2.2"],\
           ["@types/react", "npm:19.1.6"],\
           ["@types/react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.6"],\
           ["react", "npm:19.1.0"],\
@@ -6008,12 +6058,12 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:10.0.0", {\
-        "packageLocation": "./.yarn/__virtual__/@dnd-kit-sortable-virtual-6cbac35e88/2/.yarn/berry/cache/@dnd-kit-sortable-npm-10.0.0-7c79e1c649-10c0.zip/node_modules/@dnd-kit/sortable/",\
+      ["virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:10.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/@dnd-kit-sortable-virtual-71a1bcc862/2/.yarn/berry/cache/@dnd-kit-sortable-npm-10.0.0-7c79e1c649-10c0.zip/node_modules/@dnd-kit/sortable/",\
         "packageDependencies": [\
-          ["@dnd-kit/sortable", "virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:10.0.0"],\
-          ["@dnd-kit/core", "virtual:0e03612618e9aa64caa1042157b906c1a04fd4cc04058d5f26efbb710a34a01d80b303149a6eda3f7dcf70d770d51e6e587768fafcb666c881f5d474c2600a00#npm:6.3.1"],\
-          ["@dnd-kit/utilities", "virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.2.2"],\
+          ["@dnd-kit/sortable", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:10.0.0"],\
+          ["@dnd-kit/core", "virtual:8d9555b9408621dd41cc1d637e4ee03a322e64e51151238afaf62daea24d7bc26d932f8036bd24c710941824ee7c9db94e5d388e3575bef169728a798723ecea#npm:6.3.1"],\
+          ["@dnd-kit/utilities", "virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.2.2"],\
           ["@types/dnd-kit__core", null],\
           ["@types/react", "npm:19.1.6"],\
           ["react", "npm:19.1.0"],\
@@ -6036,10 +6086,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.2.2", {\
-        "packageLocation": "./.yarn/__virtual__/@dnd-kit-utilities-virtual-b847a24844/2/.yarn/berry/cache/@dnd-kit-utilities-npm-3.2.2-3fe8307947-10c0.zip/node_modules/@dnd-kit/utilities/",\
+      ["virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.2.2", {\
+        "packageLocation": "./.yarn/__virtual__/@dnd-kit-utilities-virtual-7230b2e58c/2/.yarn/berry/cache/@dnd-kit-utilities-npm-3.2.2-3fe8307947-10c0.zip/node_modules/@dnd-kit/utilities/",\
         "packageDependencies": [\
-          ["@dnd-kit/utilities", "virtual:a086ef807cc431fb2317dba96211f72fe38d8a41e118f77820b17c0f86dfa2be96e6c03759c5a59d94602bacab13b66907538c22c07c22c0ffe5aca00ba261eb#npm:3.2.2"],\
+          ["@dnd-kit/utilities", "virtual:aa8a0a6bea399f1629d2cc4abec02578e50b2fb1900b7cdb741e6492053cd9a3800d3eb531cd49c34ffd2cb79cb1cf22526c4ef345c79b73c466b8791369bbd0#npm:3.2.2"],\
           ["@types/react", "npm:19.1.6"],\
           ["react", "npm:19.1.0"],\
           ["tslib", "npm:2.8.1"]\
@@ -10153,6 +10203,13 @@ const RAW_RUNTIME_STATE =
           ["acorn", "npm:8.14.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.15.0", {\
+        "packageLocation": "../.yarn/berry/cache/acorn-npm-8.15.0-0764cf600e-10c0.zip/node_modules/acorn/",\
+        "packageDependencies": [\
+          ["acorn", "npm:8.15.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["acorn-jsx", [\
@@ -13436,6 +13493,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../.yarn/berry/cache/delayed-stream-npm-1.0.0-c5a4c4cc02-10c0.zip/node_modules/delayed-stream/",\
         "packageDependencies": [\
           ["delayed-stream", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["dep-tree", [\
+      ["npm:0.2.1", {\
+        "packageLocation": "../.yarn/berry/cache/dep-tree-npm-0.2.1-722600e5b5-10c0.zip/node_modules/dep-tree/",\
+        "packageDependencies": [\
+          ["dep-tree", "npm:0.2.1"],\
+          ["underscore", "npm:1.5.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -25919,6 +25986,15 @@ const RAW_RUNTIME_STATE =
           ["@antfu/utils", "npm:8.1.1"],\
           ["defu", "npm:6.1.4"],\
           ["importx", "npm:0.5.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["underscore", [\
+      ["npm:1.5.2", {\
+        "packageLocation": "../.yarn/berry/cache/underscore-npm-1.5.2-d8c305893c-10c0.zip/node_modules/underscore/",\
+        "packageDependencies": [\
+          ["underscore", "npm:1.5.2"]\
         ],\
         "linkType": "HARD"\
       }]\

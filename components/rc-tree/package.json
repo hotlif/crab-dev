@@ -7,7 +7,6 @@
     "scripts": {
         "start": "crustify dev",
         "build:library": "packify build",
-        "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
@@ -47,6 +46,9 @@
         "@dnd-kit/core": "^6.3.1",
         "@dnd-kit/sortable": "^10.0.0",
         "decimal.js": "^10.5.0"
+    },
+    "cssDependencies": {
+        "@crab/rc-virtual": "workspace:^"
     },
     "peerDependencies": {
         "react": "^19.0.0",

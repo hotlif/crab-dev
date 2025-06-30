@@ -15,20 +15,17 @@ export const globals = cx(FontsAndTypography, css`
             flex-direction: column;
             height: 100%;
             width: 100%;
-
         }
         body {
             margin: 0px;
             --crab-website-background-color: rgb(245, 245, 245);
             background-color: var(--crab-website-background-color);
         }
-
         html {
             font-size: 14px;
         }
     }
 `);
-
 
 
 const reactRouters = createBrowserRouter([{
