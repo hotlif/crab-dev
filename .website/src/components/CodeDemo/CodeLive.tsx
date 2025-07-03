@@ -6,8 +6,10 @@ import RcTree, {
 } from "@crab/rc-tree";
 import { css, cx } from "@linaria/core";
 import { flex, flexAlignItems, fontSize } from "@crab/styleify";
+import Table from "@crab/rc-table";
 import { BsCode } from "react-icons/bs";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { fakerZH_CN } from "@faker-js/faker"
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface CodeLiveProps extends HTMLAttributes<HTMLDivElement> {
@@ -24,6 +26,8 @@ const scopes = {
     getTreeNodeDepth,
     useTreeData,
     useState,
+    fakerZH_CN,
+    Table
 }
 
 const CodeLive: FC<CodeLiveProps> = ({
@@ -75,7 +79,6 @@ const CodeLive: FC<CodeLiveProps> = ({
                 className={css`
                     position: relative;
                     padding: 42px 24px 50px;
-                    border-bottom: 1px solid rgba(5,5,5,0.06);
                 `}
             >
                 <RcLive
@@ -85,10 +88,29 @@ const CodeLive: FC<CodeLiveProps> = ({
             </div>
             <div
                 className={css`
-                    transform: translate(1.5rem, -10px);
+                    display: flex;
+                    align-items: center;
+                    &::after {
+                        content: "";
+                        height: 1px;
+                        flex: 1;
+                        border-top: 1px solid rgba(5,5,5,0.06);
+                    }
+                    &::before {
+                        content: "";
+                        width: 2rem;
+                        height: 1px;
+                        border-top: 1px solid rgba(5,5,5,0.06);
+                    }
                 `}
             >
-                {title}
+                <span
+                    className={css`
+                        padding-inline: 1rem;
+                    `}
+                >
+                    {title}
+                </span>
             </div>
             <div
                 className={css`

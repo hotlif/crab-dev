@@ -50,16 +50,18 @@ const writeCssPreDependency = (path: string, type: "cjs" | "esm") => {
     const pkgs = readFileSync(join(process.cwd(), "package.json"));
     const { cssDependencies } = JSON.parse(pkgs.toString());
 
-    let importCss = "";
-    Object.keys(cssDependencies).forEach((pkg) => {
-        if (type === "cjs") {
-            importCss += `@import '${pkg}/cjs/index.styles.css';\n`;
-        } else {
-            importCss += `@import '${pkg}/esm/index.styles.css';\n`;
-        }
-    })
-    const content = readFileSync(path, "utf-8");
-    writeFileSync(path, importCss + content, "utf-8");
+    if (cssDependencies) {
+        let importCss = "";
+        Object.keys(cssDependencies).forEach((pkg) => {
+            if (type === "cjs") {
+                importCss += `@import '${pkg}/cjs/index.styles.css';\n`;
+            } else {
+                importCss += `@import '${pkg}/esm/index.styles.css';\n`;
+            }
+        })
+        const content = readFileSync(path, "utf-8");
+        writeFileSync(path, importCss + content, "utf-8");
+    }
 }
 
 export const build = async () => {

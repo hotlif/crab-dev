@@ -1,7 +1,7 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
 import type { ColumnType, MergeCell, Row } from "./types";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { getMergedCellSize } from "./util";
 
 interface TableCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {

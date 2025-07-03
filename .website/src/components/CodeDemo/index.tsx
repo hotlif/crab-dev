@@ -32,22 +32,23 @@ const CodeDemo = () => {
             }
         }
     }, [])
+
     return (
         <div
             className={css`
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: 50% 50%;
             `}
         >
             {codeSourceDemos.map(element => (
                 <CodeLive
                     className={css`
-                        flex: 0 0 50%;
                         overflow: hidden;
                     `}
+                    style={element.metadata?.style}
                     key={element.relativePath}
                     source={element.source}
-                    title={element.metadata?.title}
+                    title={element.metadata?.title ?? ""}
                     description={element.metadata?.description}
                 />
             ))}
