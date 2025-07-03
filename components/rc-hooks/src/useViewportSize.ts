@@ -4,8 +4,9 @@ export const useViewportSize = <T extends HTMLElement> (divRef: RefObject<T | nu
 	const [viewportWidth, setViewportWidth] = useState<number>(0);
 	const [viewportHeight, setViewportHeight] = useState<number>(0);
 	useEffect(() => {
-		if (divRef.current) {
-			divRef.current.style.boxSizing = "border-box";
+		const node = divRef.current;
+		if (node) {
+			node.style.boxSizing = "border-box";
 		}
 
 		const resizeObserver = new ResizeObserver((entries) => {
@@ -16,15 +17,16 @@ export const useViewportSize = <T extends HTMLElement> (divRef: RefObject<T | nu
 			});
 		});
 
-		if (divRef.current) {
-			resizeObserver.observe(divRef.current);
+		if (node) {
+			resizeObserver.observe(node);
 		}
 
 		return () => {
-			if (divRef.current) {
-				resizeObserver.unobserve(divRef.current);
+			if (node) {
+				resizeObserver.unobserve(node);
 			}
+			resizeObserver.disconnect();
 		};
-	}, []);
-	return [viewportWidth, viewportHeight]
+	}, [divRef]);
+	return [viewportWidth, viewportHeight] as const;
 }

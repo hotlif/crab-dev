@@ -45,6 +45,9 @@
         "@crab/styleify": "workspace:^",
         "jsonpath-plus": "^10.3.0"
     },
+    "cssDependencies": {
+        "@crab/rc-virtual": "workspace:^"
+    },
     "engines": {
         "node": ">=22"
     }

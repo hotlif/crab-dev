@@ -5867,11 +5867,13 @@ const RAW_RUNTIME_STATE =
           ["@crab/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab/rc-live", "workspace:components/rc-live"],\
           ["@crab/rc-menu", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-menu"],\
+          ["@crab/rc-table", "workspace:components/rc-table"],\
           ["@crab/rc-tree", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-tree"],\
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
           ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
           ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@crab/styleify", "workspace:styleify"],\
+          ["@faker-js/faker", "npm:9.9.0"],\
           ["@jest/globals", "npm:30.0.0-rc.1"],\
           ["@linaria/core", "npm:6.3.0"],\
           ["@types/node", "npm:22.15.30"],\
@@ -6493,6 +6495,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../.yarn/berry/cache/@faker-js-faker-npm-9.8.0-3ee3932567-10c0.zip/node_modules/@faker-js/faker/",\
         "packageDependencies": [\
           ["@faker-js/faker", "npm:9.8.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:9.9.0", {\
+        "packageLocation": "../.yarn/berry/cache/@faker-js-faker-npm-9.9.0-2ed5e7e6e0-10c0.zip/node_modules/@faker-js/faker/",\
+        "packageDependencies": [\
+          ["@faker-js/faker", "npm:9.9.0"]\
         ],\
         "linkType": "HARD"\
       }]\
