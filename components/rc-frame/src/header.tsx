@@ -1,17 +1,12 @@
 import {
+    flex,
     height,
     boxShadow,
-    display,
-    alignItems,
-    boxSizing,
     fontSize,
     padding,
-    cursor,
-    flexGrow,
-    flexBasis,
     width,
-    flexShrink,
-    margin
+    margin,
+    flexAlignItems
 } from "@crab/styleify";
 import { css, cx } from "@linaria/core";
 import { FC, ReactNode, type HTMLAttributes } from "react";
@@ -46,23 +41,23 @@ const Header: FC<HeaderProps> = ({
     return (
         <header
             className={cx(className, css`
-                ${display("flex")}
-                ${height("14")}
+                ${flex()}
+                ${height(14)}
                 ${boxShadow("sm")}
-                ${alignItems("center")}
-                ${boxSizing("border")}
-                ${flexShrink(0)}
+                ${flexAlignItems("center")}
+                box-sizing: border-box;
+                flex-shrink: 0;
             `)}
             {...restProps}
         >
             <div
                 className={css`
-                    ${display("flex")}
-                    ${cursor("pointer")}
-                    ${alignItems("center")} 
-                    ${width("64")}
-                    ${boxSizing("border")}
-                    ${padding("pl-5")} 
+                    ${flex()}
+                    cursor: pointer;
+                    ${flexAlignItems("center")} 
+                    ${width(64)}
+                    box-sizing: border-box;
+                    ${padding(5)} 
                 `}
             >
                 {
@@ -78,9 +73,9 @@ const Header: FC<HeaderProps> = ({
                 
                 <div
                     className={css`
-                        ${display("inline-block")}
+                        display: inline-block;
                         ${fontSize("lg")}
-                        ${padding("pl-4")}
+                        ${padding(4)}
                     `}
                 >
                     {title}
@@ -88,21 +83,21 @@ const Header: FC<HeaderProps> = ({
             </div>
             <div
                 className={css`
-                    ${flexGrow(1)}
-                    ${flexBasis("auto")}
+                    flex-grow: 1;
+                    flex-basis: auto;
                 `}
             >
             </div>
 
             <div
                 className={css`
-                    ${margin("mr-4")}    
+                    ${margin(4)}    
                 `}
             >
                 <span
                     className={css`
                         ${fontSize("sm")}
-                        ${cursor("pointer")}
+                        cursor: pointer;
                     `}
                 >
                     {username}
