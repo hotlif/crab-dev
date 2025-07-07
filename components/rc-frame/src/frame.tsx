@@ -1,11 +1,8 @@
 import {
     height,
     width,
-    boxSizing,
-    display,
+    flex,
     flexDirection,
-    flexGrow,
-    overflow
 } from "@crab/styleify";
 import type { FC, HTMLAttributes, ReactNode } from "react";
 import { cx, css } from "@linaria/core";
@@ -32,12 +29,12 @@ const Frame: FC<FrameProps> = ({
     return (
         <div
             className={cx(className, css`
-                ${display("flex")}
-                ${flexDirection("col")}
-                ${width("full")}
-                ${height("full")}
-                ${boxSizing("border")}
-                ${overflow("hidden")}
+                ${flex()}
+                ${flexDirection("column")}
+                ${width("100%")}
+                ${height("100%")}
+                box-sizing: border-box;
+                overflow: hidden;
             `)}
             {...restProps}
         >
@@ -48,9 +45,9 @@ const Frame: FC<FrameProps> = ({
             />
             <div
                 className={css`
-                    ${display("flex")}
-                    ${flexGrow(1)}
-                    ${height("full")}
+                    ${flex()}
+                    ${height("100%")}
+                    flex-grow: 1;
                 `}
             >
                 <Sidebar

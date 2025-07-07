@@ -1,5 +1,4 @@
 import type { FC, HTMLAttributes } from "react";
-import { flexGrow, overflow } from "@crab/styleify";
 import { cx, css } from "@linaria/core";
 
 interface ContentProps extends Omit<
@@ -13,8 +12,8 @@ const Content: FC<ContentProps> = ({
     return (
         <main
             className={cx(className, css`
-                ${flexGrow(1)}
-                ${overflow("y-auto")}
+                flex-grow: 1;
+                overflow-y: auto;
             `)}
             {...restProps}
         >
