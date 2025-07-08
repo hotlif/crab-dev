@@ -104,17 +104,17 @@ export const zIndex = (value: ZIndexType) => {
 export const boxShadow = (value: "xs" | "sm" | "md" | "lg" | "xl" | "2xl") => {
     switch (value) {
         case "xs":
-            return "box-shadow: 0 1px 1.2px rgba(0,0,0,0.02), 0 2.7px 3.3px rgba(0,0,0,0.028), 0 4.8px 6.0px rgba(0,0,0,0.035);";
+            return "box-shadow: 0 1px 2px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.03);";
         case "sm":
-            return "box-shadow: 0 2.2px 2.7px rgba(0,0,0,0.03), 0 5.4px 6.6px rgba(0,0,0,0.042), 0 9.6px 12.0px rgba(0,0,0,0.052);";
+            return "box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);";
         case "md":
-            return "box-shadow: 0 3.7px 4.5px rgba(0,0,0,0.04), 0 8.9px 11.1px rgba(0,0,0,0.056), 0 15.9px 19.8px rgba(0,0,0,0.07);";
+            return "box-shadow: 0 4px 6px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04);";
         case "lg":
-            return "box-shadow: 0 5.5px 6.6px rgba(0,0,0,0.05), 0 13.4px 16.7px rgba(0,0,0,0.07), 0 23.8px 29.7px rgba(0,0,0,0.09);";
+            return "box-shadow: 0 6px 10px rgba(0,0,0,0.035), 0 6px 16px rgba(0,0,0,0.045);";
         case "xl":
-            return "box-shadow: 0 7.9px 9.5px rgba(0,0,0,0.06), 0 19.3px 24.0px rgba(0,0,0,0.085), 0 34.1px 42.4px rgba(0,0,0,0.11);";
+            return "box-shadow: 0 8px 12px rgba(0,0,0,0.04), 0 10px 20px rgba(0,0,0,0.05);";
         case "2xl":
-            return "box-shadow: 0 10px 12px rgba(0,0,0,0.07), 0 25px 30px rgba(0,0,0,0.1), 0 40px 50px rgba(0,0,0,0.15);";
+            return "box-shadow: 0 12px 16px rgba(0,0,0,0.05), 0 14px 28px rgba(0,0,0,0.06);";
         default:
             return "";
     }
