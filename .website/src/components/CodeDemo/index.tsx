@@ -42,9 +42,6 @@ const CodeDemo = () => {
         >
             {codeSourceDemos.map(element => (
                 <CodeLive
-                    className={css`
-                        overflow: hidden;
-                    `}
                     style={element.metadata?.style}
                     key={element.relativePath}
                     source={element.source}

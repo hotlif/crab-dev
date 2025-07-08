@@ -123,7 +123,7 @@ const RAW_RUNTIME_STATE =
     ["@crab/infinitum-front", ["workspace:app/infinitum/crab-core-front"]],\
     ["@crab/packify", ["workspace:toolbox/packify"]],\
     ["@crab/rc-button", ["workspace:components/rc-button"]],\
-    ["@crab/rc-frame", ["virtual:4ac50cfe0959d86151cd9162e26fa6e927c1a6562a61f9e6fdef6580874aa5cd3b3be47928e119cde44b5b1ac7f17950225a996d951341a5c3d7f269e904b82d#workspace:components/rc-frame", "workspace:components/rc-frame"]],\
+    ["@crab/rc-frame", ["virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame", "workspace:components/rc-frame"]],\
     ["@crab/rc-hooks", ["workspace:components/rc-hooks"]],\
     ["@crab/rc-line-edit", ["workspace:components/rc-line-edit"]],\
     ["@crab/rc-live", ["workspace:components/rc-live"]],\
@@ -5116,7 +5116,7 @@ const RAW_RUNTIME_STATE =
           ["@crab/infinitum-front", "workspace:app/infinitum/crab-core-front"],\
           ["@crab/crustify", "workspace:toolbox/crustify"],\
           ["@crab/rc-button", "workspace:components/rc-button"],\
-          ["@crab/rc-frame", "virtual:4ac50cfe0959d86151cd9162e26fa6e927c1a6562a61f9e6fdef6580874aa5cd3b3be47928e119cde44b5b1ac7f17950225a996d951341a5c3d7f269e904b82d#workspace:components/rc-frame"],\
+          ["@crab/rc-frame", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame"],\
           ["@crab/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab/rc-request", "workspace:components/rc-request"],\
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
@@ -5203,10 +5203,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab/rc-frame", [\
-      ["virtual:4ac50cfe0959d86151cd9162e26fa6e927c1a6562a61f9e6fdef6580874aa5cd3b3be47928e119cde44b5b1ac7f17950225a996d951341a5c3d7f269e904b82d#workspace:components/rc-frame", {\
-        "packageLocation": "./.yarn/__virtual__/@crab-rc-frame-virtual-e9761e2ccc/1/components/rc-frame/",\
+      ["virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-rc-frame-virtual-58d96ee1a7/1/components/rc-frame/",\
         "packageDependencies": [\
-          ["@crab/rc-frame", "virtual:4ac50cfe0959d86151cd9162e26fa6e927c1a6562a61f9e6fdef6580874aa5cd3b3be47928e119cde44b5b1ac7f17950225a996d951341a5c3d7f269e904b82d#workspace:components/rc-frame"],\
+          ["@crab/rc-frame", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame"],\
           ["@crab/crustify", "workspace:toolbox/crustify"],\
           ["@crab/packify", "workspace:toolbox/packify"],\
           ["@crab/rc-menu", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-menu"],\
@@ -5864,6 +5864,7 @@ const RAW_RUNTIME_STATE =
           ["@crab/crustify", "workspace:toolbox/crustify"],\
           ["@crab/packify", "workspace:toolbox/packify"],\
           ["@crab/rc-button", "workspace:components/rc-button"],\
+          ["@crab/rc-frame", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame"],\
           ["@crab/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab/rc-live", "workspace:components/rc-live"],\
           ["@crab/rc-menu", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-menu"],\

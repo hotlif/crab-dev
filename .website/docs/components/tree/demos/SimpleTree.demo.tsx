@@ -4,7 +4,7 @@
  */
 
 import { type Key, useState } from "react";
-import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData, type TreeProps } from "@crab/rc-tree";
+import Tree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData, type TreeProps } from "@crab/rc-tree";
 
 const SimpleTree = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
@@ -62,7 +62,7 @@ const SimpleTree = () => {
 		}
 	}
     return (
-		<RcTree
+		<Tree
 			height={300}
 			width={300}
 			treeData={treeData}

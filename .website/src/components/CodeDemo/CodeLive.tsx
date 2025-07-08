@@ -11,6 +11,8 @@ import { BsCode } from "react-icons/bs";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { fakerZH_CN } from "@faker-js/faker"
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
+import RcFrame from "@crab/rc-frame";
+import { MenuItemType } from "@crab/rc-menu";
 
 interface CodeLiveProps extends HTMLAttributes<HTMLDivElement> {
     source: string
@@ -19,15 +21,17 @@ interface CodeLiveProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const scopes = {
-    RcButton,
-    RcTree,
+    Button: RcButton,
+    Tree: RcTree,
     LoadStateType,
     NodeType,
     getTreeNodeDepth,
     useTreeData,
     useState,
     fakerZH_CN,
-    Table
+    Table,
+    Frame: RcFrame,
+    MenuItemType: MenuItemType
 }
 
 const CodeLive: FC<CodeLiveProps> = ({

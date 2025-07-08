@@ -3,12 +3,12 @@
  * description = "通过设置按钮的 `appearance` 来改变按钮的不同外观"
  */
 
-import RcButton from "@crab/rc-button";
+import Button from "@crab/rc-button";
 
 const SimpleButton = () => {
     return (
         <>
-            <RcButton
+            <Button
                 appearance="primary"
                 style={{
                     marginRight: "1rem",
@@ -16,8 +16,8 @@ const SimpleButton = () => {
                 }}
             >
                 Primary Button
-            </RcButton>
-            <RcButton
+            </Button>
+            <Button
                 appearance="dashed"
                 style={{
                     marginRight: "1rem",
@@ -25,8 +25,8 @@ const SimpleButton = () => {
                 }}
             >
                 dashed Button
-            </RcButton>
-            <RcButton
+            </Button>
+            <Button
                 appearance="link"
                 style={{
                     marginRight: "1rem",
@@ -34,8 +34,8 @@ const SimpleButton = () => {
                 }}
             >
                 Link Button
-            </RcButton>
-            <RcButton
+            </Button>
+            <Button
                 appearance="subtle"
                 style={{
                     marginRight: "1rem",
@@ -43,12 +43,12 @@ const SimpleButton = () => {
                 }}
             >
                 Subtle Button
-            </RcButton>
-            <RcButton
+            </Button>
+            <Button
                 appearance="text"
             >
                 Text Button
-            </RcButton>
+            </Button>
         </>
     )
 }

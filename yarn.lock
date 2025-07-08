@@ -2429,6 +2429,7 @@ __metadata:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
     "@crab/rc-button": "workspace:^"
+    "@crab/rc-frame": "workspace:^"
     "@crab/rc-hooks": "workspace:^"
     "@crab/rc-live": "workspace:^"
     "@crab/rc-menu": "workspace:^"
