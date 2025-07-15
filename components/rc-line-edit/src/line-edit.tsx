@@ -167,6 +167,7 @@ const LineEdit: FC<LineEditProps> = ({
                         border-radius: inherit;
                         outline: unset;
                         border: unset;
+                        background-color: inherit;
                         &::placeholder {
                             font-size: inherit;
                             color: rgba(0, 0, 0, 0.3);

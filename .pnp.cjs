@@ -5866,6 +5866,7 @@ const RAW_RUNTIME_STATE =
           ["@crab/rc-button", "workspace:components/rc-button"],\
           ["@crab/rc-frame", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame"],\
           ["@crab/rc-hooks", "workspace:components/rc-hooks"],\
+          ["@crab/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab/rc-live", "workspace:components/rc-live"],\
           ["@crab/rc-menu", "virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-menu"],\
           ["@crab/rc-table", "workspace:components/rc-table"],\

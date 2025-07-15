@@ -5,6 +5,6 @@ export const getConfig = (): {
   return {
     title: "Crab Dev",
     description:
-      "一站式掌握从前端到后端的 React 全栈开发实战方案，打造高性能、可维护、可部署的现代 Web 应用。",
+      "提供一站式解决方案，简化繁杂流程，统一开发规范，一套搞定现代 Web 应用开发的全链路问题。",
   };
 };

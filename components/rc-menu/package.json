@@ -1,6 +1,6 @@
 {
     "name": "@crab/rc-menu",
-    "description": "Menu component for React",
+    "description": "为页面和功能提供导航的菜单列表。",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {

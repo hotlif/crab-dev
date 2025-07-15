@@ -42,6 +42,7 @@
         "@crab/rc-button": "workspace:^",
         "@crab/rc-frame": "workspace:^",
         "@crab/rc-hooks": "workspace:^",
+        "@crab/rc-line-edit": "workspace:^",
         "@crab/rc-live": "workspace:^",
         "@crab/rc-menu": "workspace:^",
         "@crab/rc-table": "workspace:^",
