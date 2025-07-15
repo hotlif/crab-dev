@@ -14,7 +14,7 @@ const SimpleFrame = () => {
 				height: 400
 			}}
 			headerTitle="Crab Frame"
-			headerLogoIconUrl="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+			headerLogoIconUrl="/images/crab.png"
 			headerUserName="testInfo"
 			sidebarLoadMenus={async () => {
 				return [{

@@ -1,6 +1,6 @@
 {
     "name": "@crab/rc-popover",
-    "description": "一个简洁的浮动组件，用于在用户交互时展示附加内容或信息，支持自定义内容和位置。它可以通过点击或悬停触发，提供流畅的用户体验。",
+    "description": "一个简洁的浮动组件。",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {

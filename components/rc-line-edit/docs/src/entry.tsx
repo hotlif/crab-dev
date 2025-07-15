@@ -1,13 +1,13 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import { display, width } from "@crab/styleify";
+import { flex, width } from "@crab/styleify";
 import README from "../../README.md";
 
 const App = () => {
 	return (
 		<div
 			className={css`
-				${display("flex")}
+				${flex()}
 				justify-content: center;
 			`}
 		>

@@ -13,6 +13,8 @@ import { fakerZH_CN } from "@faker-js/faker"
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import RcFrame from "@crab/rc-frame";
 import { MenuItemType } from "@crab/rc-menu";
+import LineEdit from "@crab/rc-line-edit";
+import { AiOutlineLock  } from "react-icons/ai";
 
 interface CodeLiveProps extends HTMLAttributes<HTMLDivElement> {
     source: string
@@ -31,7 +33,9 @@ const scopes = {
     fakerZH_CN,
     Table,
     Frame: RcFrame,
-    MenuItemType: MenuItemType
+    MenuItemType: MenuItemType,
+    LineEdit,
+    AiOutlineLock
 }
 
 const CodeLive: FC<CodeLiveProps> = ({
