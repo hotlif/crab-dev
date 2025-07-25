@@ -1958,6 +1958,7 @@ __metadata:
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
+    "@crab/rc-hooks": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
