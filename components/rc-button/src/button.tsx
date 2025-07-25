@@ -1,7 +1,11 @@
 import { css, cx } from "@linaria/core";
-import { useRef, type ButtonHTMLAttributes, type FC } from "react";
+import { useRef, useState, type ButtonHTMLAttributes, type FC, type Key } from "react";
 import { fontSize, padding, margin } from "@crab/styleify";
 import { motion } from "motion/react";
+import { useViewportSize } from "@crab/rc-hooks";
+
+import token from "./token";
+
 
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
 
@@ -41,14 +45,51 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onC
 const baseStyle = css`
     display: inline-flex;
     justify-content: center;
+    position: relative;
     align-items: center;
     cursor: pointer;
     border-radius: 6px;
     transition: all 200ms;
     border: unset;
     user-select: none;
-
 `
+
+const primaryColorNormal = token.primary.color.normal;
+
+const primaryBgColorNormal = token.primary.backgroundColor.normal;
+const primaryBgColorHover = token.primary.backgroundColor.hover;
+const primaryBgColorActive = token.primary.backgroundColor.active;
+
+const linkBgColorNormal = token.link.backgroundColor.normal;
+const linkBgColorDisabled = token.link.backgroundColor.disabled;
+const linkColorNormal = token.link.color.normal;
+const linkColorHover = token.link.color.hover;
+const linkColorActive = token.link.color.active;
+
+const dashedBorderWidth = token.dashed.border.width;
+const dashedBorderStyle = token.dashed.border.style;
+const dashedBoxShadow = token.dashed.boxShadow;
+const dashedBorderColorNormal = token.dashed.border.color.normal;
+const dashedBorderColorHover = token.dashed.border.color.hover;
+const dashedBorderColorActive = token.dashed.border.color.active;
+const dashedBgColor = token.dashed.backgroundColor;
+const dashedColorNormal = token.dashed.color.normal;
+const dashedColorHover = token.dashed.color.hover;
+const dashedColorActive = token.dashed.color.active;
+
+const textBgColorHover = token.text.backgroundColor.hover;
+const textBgColorActive = token.text.backgroundColor.active;
+
+const subtleBoxShadow = token.subtle.boxShadow;
+const subtleBorderStyle = token.subtle.border.style;
+const subtleBorderWidth = token.subtle.border.width;
+const subtleBorderColorNormal = token.subtle.border.color.normal;
+const subtleBorderColorHover = token.subtle.border.color.hover;
+const subtleBorderColorActive = token.subtle.border.color.active;
+const subtleBorderBgColorNormal = token.subtle.backgroundColor.normal;
+const subtleColorHover = token.subtle.color.hover;
+const subtleColorActive = token.subtle.color.active;
+
 
 const Button: FC<ButtonProps> = ({
     loading,
@@ -69,13 +110,13 @@ const Button: FC<ButtonProps> = ({
         if (appearance === "primary") {
             return css`
                 &:not(:disabled) {
-                    background-color: rgb(22, 119, 255);
-                    color: rgb(255, 255, 255);
+                    background-color: ${primaryBgColorNormal};
+                    color: ${primaryColorNormal};
                     &:hover {
-                        background-color: #4096ff;
+                        background-color: ${primaryBgColorHover};
                     }
                     &:active {
-                        background-color: #0958d0;
+                        background-color: ${primaryBgColorActive};
                     }
                 }
 
@@ -88,39 +129,38 @@ const Button: FC<ButtonProps> = ({
         } else if (appearance === "link") {
             return css`
                 &:not(:disabled) {
-                    background-color: transparent;
-                    color: rgb(22, 119, 255);
+                    background-color: ${linkBgColorNormal};
+                    color: ${linkColorNormal};
                     &:hover {
-                        color: #4096ff;
+                        color: ${linkColorHover};
                     }
                     &:active {
-                        color: #0958d9;
+                        color: ${linkColorActive};
                     }
                 }
 
                 &:disabled {
                     cursor: default;
-                    background-color: transparent;
+                    background-color: ${linkBgColorDisabled};
                     pointer-events: none;
                 }
-                
             `
         } else if (appearance === "dashed") {
             return css`
-                border-width: 1px;
-                border-style: dashed;
-                box-shadow: rgba(0, 0, 0, 0.02) 0px 2px 0px 0px;
+                border-width: ${dashedBorderWidth};
+                border-style: ${dashedBorderStyle};
+                box-shadow: ${dashedBoxShadow};
                 &:not(:disabled) {
-                    background-color: #fff;
-                    border-color: rgb(217, 217, 217);
+                    color: ${dashedColorNormal};
+                    background-color: ${dashedBgColor};
+                    border-color: ${dashedBorderColorNormal};
                     &:hover {
-                        border-color: rgb(64, 150, 255);
-                        color: rgb(64, 150, 255);
+                        color: ${dashedColorHover};
+                        border-color: ${dashedBorderColorHover};
                     }
                     &:active {
-                        color: #0958d9;
-                        border-color: #0958d9;
-                        background-color: #fff;
+                        color: ${dashedColorActive};
+                        border-color: ${dashedBorderColorActive};
                     }
                 }
                 &:disabled {
@@ -133,10 +173,10 @@ const Button: FC<ButtonProps> = ({
             return css`
                 &:not(:disabled) {
                     &:hover {
-                        background-color: rgba(0,0,0,0.04);
+                        background-color: ${textBgColorHover};
                     }
                     &:active {
-                        background-color: rgba(0,0,0,0.15);
+                        background-color: ${textBgColorActive};
                     }
                 }
 
@@ -148,23 +188,21 @@ const Button: FC<ButtonProps> = ({
             `
         } else {
             return css`
-                box-shadow: rgba(0, 0, 0, 0.02) 0px 2px 0px 0px;
+                box-shadow: ${subtleBoxShadow};
                 &:not(:disabled) {
-                    border-style: solid;
-                    border-width: 1px;
-                    background-color: #fff;
-                    border-color: rgb(217, 217, 217);
+                    border-style: ${subtleBorderStyle};
+                    border-width: ${subtleBorderWidth};
+                    background-color: ${subtleBorderBgColorNormal};
+                    border-color: ${subtleBorderColorNormal};
                     &:hover {
-                        border-color: rgb(64, 150, 255);
-                        color: rgb(64, 150, 255);
+                        border-color: ${subtleBorderColorHover};
+                        color: ${subtleColorHover};
                     }
                     &:active {
-                        color: #0958d9;
-                        border-color: #0958d9;
-                        background-color: #fff;
+                        color: ${subtleColorActive};
+                        border-color: ${subtleBorderColorActive};
                     }
                 }
-
                 &:disabled {
                     cursor: default;
                     pointer-events: none;
@@ -248,6 +286,7 @@ const Button: FC<ButtonProps> = ({
         return null;
     }
 
+
     return (
         <button
             button-data-loading={loading ? `${loading}` : null}
@@ -312,11 +351,7 @@ const Button: FC<ButtonProps> = ({
             {...restProps}
         >
             {renderLoadingDom()}
-            <span
-                className={css`
-                    color: inherit;
-                `}
-            >
+            <span>
                 {children}
             </span>
         </button>
