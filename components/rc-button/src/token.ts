@@ -1,10 +1,11 @@
-import { col } from "motion/react-client";
-
 export const prefix = "crab";
 
 const TokenPrefix = `--${prefix}-button`;
 
 const TokenDefaultValue = {
+    core: {
+        transition: "all 200ms",
+    },
     primary: {
         color: {
             normal: "rgb(255, 255, 255)",
@@ -13,6 +14,9 @@ const TokenDefaultValue = {
             normal: "rgb(22, 119, 255)",
             hover: "#4096ff",
             active: "#0958d0",
+        },
+        boxShadow: {
+            normal: "rgba(5, 145, 255, 0.1) 0px 2px 0px 0px"
         }
     },
     link: {
@@ -51,7 +55,7 @@ const TokenDefaultValue = {
         }
     },
     subtle: {
-        boxShadow: "rgba(0, 0, 0, 0.02) 0px 2px 0px 0px",
+        boxShadow: "0 2px 0 rgba(0,0,0,0.02)",
         border: {
             style: "solid",
             width: "1px",
@@ -65,13 +69,43 @@ const TokenDefaultValue = {
             normal: "#fff"
         },
         color: {
+            normal: "rgba(0,0,0,0.88)",
             hover: "rgb(64, 150, 255)",
             active: "#0958d9"
         }
+    },
+    size: {
+        large: {
+            fontSize: "16px",
+            height: "40px",
+            padding: "0 15px",
+            borderRadius: "8px",
+            gap: "10px"
+        },
+        middle: {
+            fontSize: "14px",
+            height: "32px",
+            padding: "0 15px",
+            borderRadius: "6px",
+            gap: "8px"
+        },
+        small: {
+            fontSize: "14px",
+            height: "24px",
+            padding: "0 7px",
+            borderRadius: "4px",
+            gap: "6px"
+        }
+    },
+    loading: {
+        opacity: "0.65",
     }
 }
 
 const TokenVarName = {
+    core: {
+        transition: `${TokenPrefix}-transition`,
+    },
     primary: {
         color: {
             normal: `${TokenPrefix}-primary-color-normal`,
@@ -81,6 +115,9 @@ const TokenVarName = {
             hover: `${TokenPrefix}-primary-bg-color-hover`,
             active: `${TokenPrefix}-primary-bg-color-active`,
         },
+        boxShadow: {
+            normal: `${TokenPrefix}-primary-box-shadow`
+        }
     },
     link: {
         backgroundColor: {
@@ -133,13 +170,43 @@ const TokenVarName = {
             active: `${TokenPrefix}-subtle-bg-color-active`
         },
         color: {
+            normal: `${TokenPrefix}-subtle-color-normal`,
             hover: `${TokenPrefix}-subtle-color-hover`,
             active: `${TokenPrefix}-subtle-color-active`
         }
+    },
+    size: {
+        large: {
+            fontSize: `${TokenPrefix}-size-large-font-size`,
+            height: `${TokenPrefix}-size-large-height`,
+            padding: `${TokenPrefix}-size-large-padding`,
+            borderRadius: `${TokenPrefix}-size-large-border-radius`,
+            gap: `${TokenPrefix}-size-large-gap`
+        },
+        middle: {
+            fontSize: `${TokenPrefix}-size-middle-font-size`,
+            height: `${TokenPrefix}-size-middle-height`,
+            padding: `${TokenPrefix}-size-middle-padding`,
+            borderRadius: `${TokenPrefix}-size-middle-border-radius`,
+            gap: `${TokenPrefix}-size-middle-gap`
+        },
+        small: {
+            fontSize: `${TokenPrefix}-size-small-font-size`,
+            height: `${TokenPrefix}-size-small-height`,
+            padding: `${TokenPrefix}-size-small-padding`,
+            borderRadius: `${TokenPrefix}-size-small-border-radius`,
+            gap: `${TokenPrefix}-size-small-gap`
+        }
+    },
+    loading: {
+        opacity: `${TokenPrefix}-loading-opacity`
     }
 }
 
 const Token = {
+    core: {
+        transition: `var(${TokenVarName.core.transition}, ${TokenDefaultValue.core.transition})`,
+    },
     primary: {
         color: {
             normal: `var(${TokenVarName.primary.color.normal}, ${TokenDefaultValue.primary.color.normal})`,
@@ -149,6 +216,9 @@ const Token = {
             hover: `var(${TokenVarName.primary.backgroundColor.hover}, ${TokenDefaultValue.primary.backgroundColor.hover})`,
             active: `var(${TokenVarName.primary.backgroundColor.active}, ${TokenDefaultValue.primary.backgroundColor.active})`,
         },
+        boxShadow: {
+            normal: `var(${TokenVarName.primary.boxShadow.normal}, ${TokenDefaultValue.primary.boxShadow.normal})`
+        }
     },
     link: {
         backgroundColor: {
@@ -200,9 +270,36 @@ const Token = {
             normal: `var(${TokenVarName.subtle.backgroundColor.normal}, ${TokenDefaultValue.subtle.backgroundColor.normal})`
         },
         color: {
+            normal: `var(${TokenVarName.subtle.color.normal}, ${TokenDefaultValue.subtle.color.normal})`,
             hover: `var(${TokenVarName.subtle.color.hover}, ${TokenDefaultValue.subtle.color.hover})`,
             active: `var(${TokenVarName.subtle.color.active}, ${TokenDefaultValue.subtle.color.active})`
         }
+    },
+    size: {
+        large: {
+            fontSize: `var(${TokenVarName.size.large.fontSize}, ${TokenDefaultValue.size.large.fontSize})`,
+            height: `var(${TokenVarName.size.large.height}, ${TokenDefaultValue.size.large.height})`,
+            padding: `var(${TokenVarName.size.large.padding}, ${TokenDefaultValue.size.large.padding})`,
+            borderRadius: `var(${TokenVarName.size.large.borderRadius}, ${TokenDefaultValue.size.large.borderRadius})`,
+            gap: `var(${TokenVarName.size.large.gap}, ${TokenDefaultValue.size.large.gap})`
+        },
+        middle: {
+            fontSize: `var(${TokenVarName.size.middle.fontSize}, ${TokenDefaultValue.size.middle.fontSize})`,
+            height: `var(${TokenVarName.size.middle.height}, ${TokenDefaultValue.size.middle.height})`,
+            padding: `var(${TokenVarName.size.middle.padding}, ${TokenDefaultValue.size.middle.padding})`,
+            borderRadius: `var(${TokenVarName.size.middle.borderRadius}, ${TokenDefaultValue.size.middle.borderRadius})`,
+            gap: `var(${TokenVarName.size.middle.gap}, ${TokenDefaultValue.size.middle.gap})`
+        },
+        small: {
+            fontSize: `var(${TokenVarName.size.small.fontSize}, ${TokenDefaultValue.size.small.fontSize})`,
+            height: `var(${TokenVarName.size.small.height}, ${TokenDefaultValue.size.small.height})`,
+            padding: `var(${TokenVarName.size.small.padding}, ${TokenDefaultValue.size.small.padding})`,
+            borderRadius: `var(${TokenVarName.size.small.borderRadius}, ${TokenDefaultValue.size.small.borderRadius})`,
+            gap: `var(${TokenVarName.size.small.gap}, ${TokenDefaultValue.size.small.gap})`
+        }
+    },
+    loading: {
+        opacity: `var(${TokenVarName.loading.opacity}, ${TokenDefaultValue.loading.opacity})`
     }
 }
 

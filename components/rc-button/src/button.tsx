@@ -1,8 +1,5 @@
 import { css, cx } from "@linaria/core";
-import { useRef, useState, type ButtonHTMLAttributes, type FC, type Key } from "react";
-import { fontSize, padding, margin } from "@crab/styleify";
-import { motion } from "motion/react";
-import { useViewportSize } from "@crab/rc-hooks";
+import { useRef, type ButtonHTMLAttributes, type FC } from "react";
 
 import token from "./token";
 
@@ -21,7 +18,7 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onC
 	appearance?: "primary" | "subtle" | "dashed" | "text" | "link"
     
     /**
-     * 设置当行文本输入框的大小, 默认为 middle
+     * 按钮的大小, 默认为 middle
      */
     size?: "large" | "middle" | "small"
 
@@ -42,23 +39,14 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onC
 }
 
 
-const baseStyle = css`
-    display: inline-flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 200ms;
-    border: unset;
-    user-select: none;
-`
+const coreTransition = token.core.transition;
 
 const primaryColorNormal = token.primary.color.normal;
 
 const primaryBgColorNormal = token.primary.backgroundColor.normal;
 const primaryBgColorHover = token.primary.backgroundColor.hover;
 const primaryBgColorActive = token.primary.backgroundColor.active;
+const primaryBoxShadow = token.primary.boxShadow.normal;
 
 const linkBgColorNormal = token.link.backgroundColor.normal;
 const linkBgColorDisabled = token.link.backgroundColor.disabled;
@@ -89,7 +77,45 @@ const subtleBorderColorActive = token.subtle.border.color.active;
 const subtleBorderBgColorNormal = token.subtle.backgroundColor.normal;
 const subtleColorHover = token.subtle.color.hover;
 const subtleColorActive = token.subtle.color.active;
+const subtleColor = token.subtle.color.normal;
 
+const largeFontSize = token.size.large.fontSize;
+const largeHeight = token.size.large.height;
+const largePadding = token.size.large.padding;
+const largeBorderRadius = token.size.large.borderRadius;
+const largeGap = token.size.large.gap;
+
+
+const middleFontSize = token.size.middle.fontSize;
+const middleHeight = token.size.middle.height;
+const middlePadding = token.size.middle.padding;
+const middleBorderRadius = token.size.middle.borderRadius;
+const middleGap = token.size.middle.gap;
+
+const smallFontSize = token.size.small.fontSize;
+const smallHeight = token.size.small.height;
+const smallPadding = token.size.small.padding;
+const smallBorderRadius = token.size.small.borderRadius;
+const smallGap = token.size.small.gap;
+const loadingOpacity = token.loading.opacity;
+
+
+const baseStyle = css`
+    display: inline-flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    cursor: pointer;
+    transition: ${coreTransition};
+    border: unset;
+    user-select: none;
+    background-color: unset;
+    &[data-loading] {
+        opacity: ${loadingOpacity};
+        cursor: default;
+        pointer-events: none;
+    }
+`
 
 const Button: FC<ButtonProps> = ({
     loading,
@@ -110,6 +136,7 @@ const Button: FC<ButtonProps> = ({
         if (appearance === "primary") {
             return css`
                 &:not(:disabled) {
+                    box-shadow: ${primaryBoxShadow};
                     background-color: ${primaryBgColorNormal};
                     color: ${primaryColorNormal};
                     &:hover {
@@ -188,12 +215,13 @@ const Button: FC<ButtonProps> = ({
             `
         } else {
             return css`
-                box-shadow: ${subtleBoxShadow};
                 &:not(:disabled) {
+                    color: ${subtleColor};
                     border-style: ${subtleBorderStyle};
                     border-width: ${subtleBorderWidth};
                     background-color: ${subtleBorderBgColorNormal};
                     border-color: ${subtleBorderColorNormal};
+                    box-shadow: ${subtleBoxShadow};
                     &:hover {
                         border-color: ${subtleBorderColorHover};
                         color: ${subtleColorHover};
@@ -214,20 +242,27 @@ const Button: FC<ButtonProps> = ({
     const getSizeStyle = () => {
         if (size === "large") {
             return css`
-                ${fontSize("lg")}
-                ${padding(4, "x")}
-                height: 2.5rem;
+                font-size: ${largeFontSize};
+                padding: ${largePadding};
+                height: ${largeHeight};
+                border-radius: ${largeBorderRadius};
+                gap: ${largeGap};
             `
         } else if (size === "small") {
             return css`
-                ${fontSize("sm")}
-                ${padding(4, "x")}
+                font-size: ${smallFontSize};
+                height: ${smallHeight};
+                padding: ${smallPadding};
+                border-radius: ${smallBorderRadius};
+                gap: ${smallGap};
             `
         } else {
             return css`
-                ${fontSize("base")}
-                ${padding(4, "x")}
-                height: 2rem;
+                font-size: ${middleFontSize};
+                height: ${middleHeight};
+                padding: ${middlePadding};
+                border-radius: ${middleBorderRadius};
+                gap: ${middleGap};
             `
         }
     }
@@ -241,25 +276,22 @@ const Button: FC<ButtonProps> = ({
         return null;
     }
 
-    const getLoadingStyle = () => {
-        if (loading) {
-            return css`
-                opacity: 0.65;
-            `
-        }
-        return null;
-    }
-
     const renderLoadingDom = () => {
         if (loading) {
             return (
-                <motion.span
+                <span
                     className={css`
-                        ${margin(3, "right")}
-                        color: inherit;
+                        animation: rotate 1s linear infinite;
+                        @keyframes rotate {
+                            from {
+                                transform: rotate(0deg);
+                            }
+                            to {
+                                transform: rotate(360deg);
+                            }
+                        }
+
                     `}
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 >
                     <svg
                         className={css`
@@ -280,7 +312,7 @@ const Button: FC<ButtonProps> = ({
                             d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
                         />
                     </svg>
-                </motion.span>
+                </span>
             )
         }
         return null;
@@ -289,13 +321,12 @@ const Button: FC<ButtonProps> = ({
 
     return (
         <button
-            button-data-loading={loading ? `${loading}` : null}
+            data-loading={loading ? `${loading}` : null}
             className={cx(
                 baseStyle,
                 getAppearanceStyle(),
                 getSizeStyle(),
                 getShouldFitContainerStyle(),
-                getLoadingStyle(),
                 className
             )}
             onClick={(e) => {

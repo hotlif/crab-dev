@@ -4,7 +4,7 @@ const App = () => {
         <head>
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>@crab/rc-line-edit - 单行文本编辑器</title>
+            <title>@crab/rc-button - 按钮</title>
         </head>
         <body>
             <div id="root"></div>
