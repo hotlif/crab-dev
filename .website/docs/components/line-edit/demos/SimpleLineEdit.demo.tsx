@@ -3,11 +3,6 @@
  * description="一个简单的单行文本编辑器"
  */
 
-/**
- * label="基础用法"
- * description="一个简单的单行文本编辑器"
- */
-
 import { AiOutlineLock  } from "react-icons/ai";
 import LineEdit from "@crab/rc-line-edit";
 
