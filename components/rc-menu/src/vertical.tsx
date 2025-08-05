@@ -1,108 +1,106 @@
 import { type FC, type ReactNode } from "react";
 import { css, cx } from "@linaria/core";
-import {
-    display,
-    padding,
-    listStyleType,
-    height,
-    alignItems,
-    cursor,
-    width,
-    flexDirection,
-    fontSize,
-    margin,
-    overflow,
-    boxSizing
-} from "@crab/styleify";
 
 import { motion, AnimatePresence } from "motion/react"
 
 import { ChevronDown, ChevronUp } from "./icon";
 import { type MenuProps } from "./menu";
 import { ItemType, type Item } from "./type";
-import {
-    MenuItemBackgroundHoverColor,
-    MenuItemBorderRadius,
-    MenuItemSelectdColor,
-    MenuItemActiveColor,
-    MenuItemInLineIndent,
-    MenuItemChildrenBgColor,
-    MenuItemGroupTitleColor,
-    globals
-} from "./token";
+import Token from "./token/vertical";
 
-export {
-    globals
-}
 
 interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
 }
 
-const itemStyle = css`
-    ${display("flex")}
-    ${flexDirection("col")}
-    ${alignItems("center")}
-    ${width("full")}
-    ${cursor("pointer")}
-    ${flexDirection("col")}
-    user-select: none;
-`
+
+const verticalItemTitleWidth = Token.vertical.item.title.width;
+const verticalItemTitleMarginBottom = Token.vertical.item.title.marginBottom;
+const verticalItemTitleMarginTop = Token.vertical.item.title.marginTop;
+const verticalItemTitlePaddingInlineStart = Token.vertical.item.title.paddingInlineStart;
+const verticalItemTitlePaddingInlineEnd = Token.vertical.item.title.paddingInlineEnd;
+const verticalItemTitleBorderRadius = Token.vertical.item.title.borderRadius;
+const verticalItemTitleBackgroundColorHover = Token.vertical.item.title.backgroundColor.hover;
+const verticalItemTitleBackgroundColorActive = Token.vertical.item.title.backgroundColor.active;
+const verticalItemTitleBackgroundColorSelect = Token.vertical.item.title.backgroundColor.select;
+const verticalItemTitleHeight = Token.vertical.item.title.height;
+const verticalItemFontSize = Token.vertical.item.title.fontSize;
+const verticalItemInlineIndent = Token.vertical.item.inlineIndent;
+const verticalItemChildrenBackgroundColor = Token.vertical.item.children.backgroundColor;
+const verticalItemChildrenPadding = Token.vertical.item.children.padding;
+
+
+const itemGroupTitleColor = Token.vertical.itemGroup.title.color;
+const itemGroupTitleFontSize = Token.vertical.itemGroup.title.fontSize;
+const itemGroupTitleHeight = Token.vertical.itemGroup.title.height;
+
 
 const itemTitleStyle = css`
-    ${display("flex")}
-    ${alignItems("center")}
-    ${width("full")}
-    ${padding("ps-4")}
-    ${padding("pe-4")}
-    ${margin("my-0.5")}
-    ${boxSizing("border")}
+    display: flex;
+    align-items: center;
+    width: ${verticalItemTitleWidth};
+    padding-inline-start: ${verticalItemTitlePaddingInlineStart};
+    padding-inline-end: ${verticalItemTitlePaddingInlineEnd};
+    margin-top: ${verticalItemTitleMarginTop};
+    margin-bottom: ${verticalItemTitleMarginBottom};
+    box-sizing: border-box;
 `
 
+
 const itemTitleBaseStyle = css`
-    ${height("10")}
-    ${fontSize("base")}
-    border-radius: ${MenuItemBorderRadius};
+    height: ${verticalItemTitleHeight};
+    font-size: ${verticalItemFontSize};
+    border-radius: ${verticalItemTitleBorderRadius};
     &:hover {
-        background-color: ${MenuItemBackgroundHoverColor};
+        background-color: ${verticalItemTitleBackgroundColorHover};
     }
 
     &:active {
-        background-color: ${MenuItemActiveColor};
+        background-color: ${verticalItemTitleBackgroundColorActive};
     }
+`
+
+
+const itemStyle = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
 `
 
 const itemGroupTitleStyle = css`
     cursor: default;
-    ${height("9")}
-    ${fontSize("sm")}
-    color: ${MenuItemGroupTitleColor};
+    height: ${itemGroupTitleHeight};
+    font-size: ${itemGroupTitleFontSize};
+    color: ${itemGroupTitleColor};
 `
 
 const itemSelectStyle = css`
-    background-color: ${MenuItemSelectdColor};
+    background-color: ${verticalItemTitleBackgroundColorSelect};
 `
 
 const ulStyle = css`
-    ${listStyleType("none")}
-    ${width("full")}
-    ${padding("p-0")}
-    ${margin("m-0")}
+    list-style-type: none;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
 `
 
 const ulChildrenStyle = css`
-    ${overflow("hidden")}
-    ${padding("px-4")}
-    ${boxSizing("border")}
+    overflow: hidden;
+    padding: ${verticalItemChildrenPadding};
+    box-sizing: border-box;
     height: auto;
-    background-color: ${MenuItemChildrenBgColor};
+    background-color: ${verticalItemChildrenBackgroundColor};
 `
 
 const ulChildrenItemGroupStyle = css`
-    ${overflow("hidden")}
+    overflow: hidden;
 `
 
 const stateIconStyle = css`
-    ${fontSize("base")}   
+    font-size: 1rem; 
 `
 
 const VerticalMenu: FC<VerticalMenuProps> = ({
@@ -172,7 +170,7 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                         children.length === 0 && selectedKeys.includes(item.key) ? itemSelectStyle : null)
                     }
                     style={{
-                        paddingLeft: `calc(${depth} * ${MenuItemInLineIndent})`
+                        paddingLeft: `calc(${depth} * ${verticalItemInlineIndent})`
                     }}
                     onClick={() => {
                         selectItemFunction(item);
@@ -222,7 +220,7 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                 <div
                     className={cx(itemTitleStyle, itemGroupTitleStyle)}
                     style={{
-                        paddingLeft: `calc(${depth} * ${MenuItemInLineIndent} * 0.7)`
+                        paddingLeft: `calc(${depth} * ${verticalItemInlineIndent} * 0.7)`
                     }}
                     onClick={() => {
                         selectItemFunction(item);
@@ -244,7 +242,6 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
             if (item.type === ItemType.ItemGroup ) {
                 return renderItemGroup(item, renderMenu(item.children ?? [], depth + 1), depth);
             } else if (item.type === ItemType.Item) {
-
                 return renderItem(item, renderMenu(item.children ?? [],depth + 1), depth);
             } else {
                 throw new Error(`[${item.type}] The parameter \`type\` is incorrect, please check.`)
