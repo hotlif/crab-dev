@@ -9,7 +9,7 @@ const TokenDefaultValue = {
             title: {
                 width: "100%",
                 height: "2.5rem",
-                fontSize: "1rem",
+                fontSize: "14px",
                 paddingInlineStart: "1rem",
                 paddingInlineEnd: "1rem",
                 marginTop: "0.125rem",
@@ -30,7 +30,7 @@ const TokenDefaultValue = {
             title: {
                 color: "rgba(0, 0, 0, 0.45)",
                 height: "2.25rem",
-                fontSize: "0.875rem",
+                fontSize: "14px",
             }
         }
     }

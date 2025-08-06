@@ -34,6 +34,7 @@
         "typescript-eslint": "^8.33.1"
     },
     "dependencies": {
+        "@floating-ui/react": "^0.27.15",
         "motion": "^12.16.0"
     },
     "peerDependencies": {
