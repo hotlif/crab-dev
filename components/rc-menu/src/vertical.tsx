@@ -110,8 +110,10 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
     items = [],
     onSelectItem,
     onOpenChange,
+    onClick,
     ...props
 }) => {
+
     const selectItemFunction = (item: Item) => {
         const keys = []
         if (!selectedKeys.includes(item.key)) {
@@ -172,8 +174,12 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                     style={{
                         paddingLeft: `calc(${depth} * ${verticalItemInlineIndent})`
                     }}
-                    onClick={() => {
+                    onClick={(e) => {
                         selectItemFunction(item);
+                        onClick?.({
+                            event: e,
+                            item
+                        });
                     }}
                 >
                     <span
