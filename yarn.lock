@@ -1958,14 +1958,12 @@ __metadata:
   dependencies:
     "@crab/crustify": "workspace:^"
     "@crab/packify": "workspace:^"
-    "@crab/rc-hooks": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
     "@jest/globals": "npm:30.0.0-rc.1"
     "@linaria/core": "npm:^6.3.0"
-    "@types/node": "npm:^22.15.30"
+    "@types/node": "npm:^24.1.0"
     "@types/react": "npm:^19.1.6"
     "@types/react-dom": "npm:^19.1.6"
     eslint: "npm:^9.28.0"
@@ -1973,7 +1971,6 @@ __metadata:
     globals: "npm:^16.2.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:30.0.0-rc.1"
-    motion: "npm:^12.16.0"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
     react-icons: "npm:^5.5.0"
@@ -2100,7 +2097,7 @@ __metadata:
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@floating-ui/react": "npm:^0.27.15"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^22.15.30"
     "@types/react": "npm:^19.1.6"
@@ -2116,34 +2113,6 @@ __metadata:
   peerDependencies:
     react: ^19.0.0
     react-dom: ^19.0.0
-  languageName: unknown
-  linkType: soft
-
-"@crab/rc-popover@workspace:components/rc-popover":
-  version: 0.0.0-use.local
-  resolution: "@crab/rc-popover@workspace:components/rc-popover"
-  dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
-    "@jest/globals": "npm:30.0.0-rc.1"
-    "@linaria/core": "npm:^6.3.0"
-    "@types/node": "npm:^22.15.30"
-    "@types/react": "npm:^19.1.6"
-    "@types/react-dom": "npm:^19.1.6"
-    eslint: "npm:^9.28.0"
-    eslint-plugin-react: "npm:^7.37.5"
-    globals: "npm:^16.2.0"
-    jest: "npm:^29.7.0"
-    jest-environment-jsdom: "npm:30.0.0-rc.1"
-    react: "npm:^19.1.0"
-    react-dom: "npm:^19.1.0"
-    react-icons: "npm:^5.5.0"
-    typescript: "npm:^5.8.3"
-    typescript-eslint: "npm:^8.33.1"
   languageName: unknown
   linkType: soft
 
@@ -2881,6 +2850,58 @@ __metadata:
   version: 9.9.0
   resolution: "@faker-js/faker@npm:9.9.0"
   checksum: 10c0/02107cb6915217b4831fa4b261603165972eb7f09d2ab2e1d4b75807df2d425a2bac8621cddbfdcc158c2c447c2bce2e14939d51c4a63fbd832df55452e7f73c
+  languageName: node
+  linkType: hard
+
+"@floating-ui/core@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "@floating-ui/core@npm:1.7.3"
+  dependencies:
+    "@floating-ui/utils": "npm:^0.2.10"
+  checksum: 10c0/edfc23800122d81df0df0fb780b7328ae6c5f00efbb55bd48ea340f4af8c5b3b121ceb4bb81220966ab0f87b443204d37105abdd93d94846468be3243984144c
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "@floating-ui/dom@npm:1.7.3"
+  dependencies:
+    "@floating-ui/core": "npm:^1.7.3"
+    "@floating-ui/utils": "npm:^0.2.10"
+  checksum: 10c0/cba30e9af1a52fb7cb443ae516d7aec032b33da2fa50914dcb18fc834dc31c71922f5c7653431e70d493f347018b2ce6435c98b3f154d92082345689b4458e59
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react-dom@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "@floating-ui/react-dom@npm:2.1.5"
+  dependencies:
+    "@floating-ui/dom": "npm:^1.7.3"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/2dc9571845138e5f39952900fa4d1ad077968c97c1fd1eae30e624db42a29f6fc897c11f926b5e63c468d541eff78b41c2aa1ec45eed2f3a1cc8aa95898f3260
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react@npm:^0.27.15":
+  version: 0.27.15
+  resolution: "@floating-ui/react@npm:0.27.15"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.5"
+    "@floating-ui/utils": "npm:^0.2.10"
+    tabbable: "npm:^6.0.0"
+  peerDependencies:
+    react: ">=17.0.0"
+    react-dom: ">=17.0.0"
+  checksum: 10c0/682893e4305d7ee12e9d8e5844496242a068fb619a84c92d80c272175c66a5b77cc88a7fff639b505efa8a0491bf63c81e48b4427bb07e1a6ddb8a0a6618d5b1
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.10":
+  version: 0.2.10
+  resolution: "@floating-ui/utils@npm:0.2.10"
+  checksum: 10c0/e9bc2a1730ede1ee25843937e911ab6e846a733a4488623cd353f94721b05ec2c9ec6437613a2ac9379a94c2fd40c797a2ba6fa1df2716f5ce4aa6ddb1cf9ea4
   languageName: node
   linkType: hard
 
@@ -5078,6 +5099,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~6.21.0"
   checksum: 10c0/ca330ac0e7fd502686d6df115fcc606aba46fd334220f749bbba2f639accdadcb23f7900603ceccdc8240be736739cad5c0b87c0fa92c9255a4dff245f07d664
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^24.1.0":
+  version: 24.2.0
+  resolution: "@types/node@npm:24.2.0"
+  dependencies:
+    undici-types: "npm:~7.10.0"
+  checksum: 10c0/0b55af4d7b37fea47bbeffffaff908462fa19ea9b1a18f92d9ed6d8415d97971b254f8cb3f629cd238916e94711fdb6ac939aa750cb353dfd6df6c0339435740
   languageName: node
   linkType: hard
 
@@ -17737,6 +17767,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tabbable@npm:^6.0.0":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: 10c0/ced8b38f05f2de62cd46836d77c2646c42b8c9713f5bd265daf0e78ff5ac73d3ba48a7ca45f348bafeef29b23da7187c72250742d37627883ef89cbd7fa76898
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
@@ -18345,6 +18382,13 @@ __metadata:
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~7.10.0":
+  version: 7.10.0
+  resolution: "undici-types@npm:7.10.0"
+  checksum: 10c0/8b00ce50e235fe3cc601307f148b5e8fb427092ee3b23e8118ec0a5d7f68eca8cee468c8fc9f15cbb2cf2a3797945ebceb1cbd9732306a1d00e0a9b6afa0f635
   languageName: node
   linkType: hard
 

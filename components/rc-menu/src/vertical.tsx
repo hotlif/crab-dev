@@ -179,6 +179,7 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                     <span
                         className={css`
                             flex: 1;
+                            font-size: inherit;
                         `}
                     >
                         {item.title}

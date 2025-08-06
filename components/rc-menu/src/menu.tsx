@@ -1,6 +1,7 @@
 import { type Key, type FC, type HTMLAttributes } from "react";
 import { type Item } from "./type";
 import VerticalMenu from "./vertical";
+import HorizontalMenu from "./horizontal";
 
 
 interface OnSelectItemParam {
@@ -56,8 +57,17 @@ const Menu: FC<MenuProps> = ({
                 {...props}
             />
         )
+    } else if (mode === "horizontal") {
+        return (
+            <HorizontalMenu
+                selectedKeys={selectedKeys}
+                items={items}
+                {...props}   
+            />
+        )
+    } else {
+        throw new Error(`[${mode}] The parameter \`mode\` is incorrect, please check.`)
     }
-    return null;
 }
 
 export default Menu;
