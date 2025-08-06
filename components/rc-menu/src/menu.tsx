@@ -9,13 +9,12 @@ interface OnSelectItemParam {
     selectedKeys: Key[]
 }
 
-export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, ""> {
+export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onClick"> {
     
     /**
      * 垂直、水平、和内嵌模式三种, 默认情况下为垂直模式 `vertical`
      */
     mode?: "vertical" | "horizontal" | "inline"
-
 
     /**
      * 当前展开的 Menu 节点
@@ -41,6 +40,14 @@ export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, ""> {
      * 展开/关闭的回调
      */
     onOpenChange?: (openKeys: Key[]) => void
+
+    /**
+     * 点击事件
+     */
+    onClick?: (param: {
+        event: React.MouseEvent<HTMLElement>,
+        item: Item,
+    }) => void
 }
 
 const Menu: FC<MenuProps> = ({
