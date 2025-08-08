@@ -5,9 +5,11 @@ import { type MenuProps } from "../menu";
 import { ItemType, type Item } from "../type";
 import ItemGroup from "./itemGroup";
 import ItemNormal from "./itemNormal";
+import { FloatingTree } from "@floating-ui/react";
 
 const horizontalMenuRoot = css`
     display: flex;
+    position: relative;
     flex-direction: row;
     list-style-type: none;
     line-height: 46px;
@@ -66,12 +68,14 @@ const HorizontalMenu: FC<HorizontalMenuProps> = ({
     }
 
     return (
-        <ul
-            className={cx(className, horizontalMenuRoot)}
-            {...props}
-        >
-            {renderMenu(items, 1)}
-        </ul>
+        <FloatingTree>
+            <ul
+                className={cx(className, horizontalMenuRoot)}
+                {...props}
+            >
+                {renderMenu(items, 1)}
+            </ul>
+        </FloatingTree>
     )
 }
 

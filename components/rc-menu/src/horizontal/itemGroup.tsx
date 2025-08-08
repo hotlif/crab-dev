@@ -28,13 +28,13 @@ const GroupItem: FC<GroupItemProps> = ({
                 }}
             >
                 {
-                    item.icon && (
+                    item.icon ?  (
                         <span
                             className={groupStyle.groupItem.icon}
                         >
                             {item.icon}
                         </span>
-                    )
+                    ) : null
                 }
                 <span
                     className={groupStyle.groupItem.title}

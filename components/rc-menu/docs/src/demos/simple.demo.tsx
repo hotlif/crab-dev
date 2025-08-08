@@ -77,6 +77,19 @@ const SimpleFrame = () => {
 						type: MenuItemType.Item,
 						key: 12,
 						title: "菜单维护",
+						children: [{
+							type: MenuItemType.Item,
+							key: 121,
+							title: "菜单新增",
+						}, {
+							type: MenuItemType.Item,
+							key: 122,
+							title: "菜单编辑",
+						}, {
+							type: MenuItemType.Item,
+							key: 123,
+							title: "菜单删除",
+						}]
 					}, {
 						type: MenuItemType.Item,
 						key: 13,
