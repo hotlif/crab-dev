@@ -59,8 +59,10 @@ const submenuList = css`
 `
 
 const submenuFloat = css`
+    z-index: 1000;
     white-space: nowrap;
     padding: 6px 4px;
+    background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px;
 `
 
