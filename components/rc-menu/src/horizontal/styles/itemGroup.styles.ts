@@ -39,6 +39,7 @@ const styles = {
         header: groupItemHeader,
         icon: groupItemIcon,
         title: groupItemTitle,
+
     },
     childrenList: {
         container: groupChildrenList,

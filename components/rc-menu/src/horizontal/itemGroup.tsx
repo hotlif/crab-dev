@@ -3,7 +3,10 @@ import { type FC, type ReactNode } from "react";
 
 import { type Item } from "../type";
 import groupStyle from "./styles/itemGroup.styles";
+import Token from "../token/horizontal";
 
+const indentBase = Token.horizontal.groupItem.indentBase;
+const indentScale = Token.horizontal.groupItem.indentScale;
 
 interface GroupItemProps {
     item: Item,
@@ -24,7 +27,7 @@ const GroupItem: FC<GroupItemProps> = ({
             <div
                 className={cx(groupStyle.groupItem.header)}
                 style={{
-                    paddingLeft: `calc(${depth} * 5px * 0.7)`
+                    paddingLeft: `calc(${depth} * ${indentBase} * ${indentScale})`
                 }}
             >
                 {

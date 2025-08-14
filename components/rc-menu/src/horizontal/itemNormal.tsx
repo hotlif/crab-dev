@@ -2,9 +2,6 @@ import {
     useFloating,
     useHover,
     useInteractions,
-    offset,
-    safePolygon,
-    flip,
     FloatingNode,
     useFloatingNodeId,
     useFloatingTree,
@@ -15,6 +12,8 @@ import { cx } from "@linaria/core";
 import { type Item } from "../type";
 import itemStyle from "./styles/itemNormal.styles";
 import { type MenuProps } from "../menu";
+import { ChevronRight } from "../icon";
+import {} from "../token/horizontal";
 
 interface ItemProps {
     item: Item,
@@ -36,7 +35,7 @@ const ItemNormal: FC<ItemProps> = ({
     const parentId = useFloatingParentNodeId();
     const isRootMenu = parentId == null;
 
-    const { refs, floatingStyles, context } = useFloating({
+    const { refs, floatingStyles, context  } = useFloating({
         open: isOpen,
         onOpenChange: setIsOpen,
         placement: isRootMenu ? "bottom-start" : "right-start",
@@ -57,6 +56,9 @@ const ItemNormal: FC<ItemProps> = ({
             tree?.events.off("close", close);
         };
     }, [])
+
+
+    const isOpenFloatChildren = isOpen && children.length > 0;
 
     return (
         <>
@@ -90,10 +92,18 @@ const ItemNormal: FC<ItemProps> = ({
                     >
                         {item.title}
                     </span>
+
+                    <span className={itemStyle.item.leftIcon}>
+                        {
+                            children.length > 0 && !isRootMenu ? (
+                                <ChevronRight />
+                            ) : null
+                        }
+                    </span>
                 </div>
                 <FloatingNode id={nodeId}>
                 {
-                    isOpen && children.length > 0 ? (
+                    isOpenFloatChildren ? (
                         <ul
                             className={cx(itemStyle.submenu.container, itemStyle.submenu.float)}
                             ref={refs.setFloating}
