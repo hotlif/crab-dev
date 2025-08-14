@@ -3,15 +3,10 @@ import { css, cx } from "@linaria/core";
 
 import { motion, AnimatePresence } from "motion/react"
 
-import { ChevronDown, ChevronUp } from "./icon";
-import { type MenuProps } from "./menu";
-import { ItemType, type Item } from "./type";
-import Token from "./token/vertical";
-
-
-interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
-}
-
+import { ChevronDown, ChevronUp } from "../icon";
+import { type MenuProps } from "../menu";
+import { ItemType, type Item } from "../type";
+import Token from "../token/vertical";
 
 const verticalItemTitleWidth = Token.vertical.item.title.width;
 const verticalItemTitleMarginBottom = Token.vertical.item.title.marginBottom;
@@ -102,6 +97,10 @@ const ulChildrenItemGroupStyle = css`
 const stateIconStyle = css`
     font-size: 1rem; 
 `
+
+interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
+}
+
 
 const VerticalMenu: FC<VerticalMenuProps> = ({
     className,

@@ -29,7 +29,7 @@ const menuItemWithDivider = css`
 
 const menuItemContent = css`
     border-radius: 4px;
-    padding-inline: 16px;
+    padding-left: 16px;
     display: flex;
     align-items: center;
 `
@@ -44,10 +44,16 @@ const menuItemFloatTrigger = css`
 const menuItemTitle = css`
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
 `
 
 const menuItemIcon = css`
     margin-right: 8px;
+`
+
+const menuItemLeftIcon = css`
+    width: 36px;
+    text-align: center;
 `
 
 const submenuList = css`
@@ -66,6 +72,8 @@ const submenuFloat = css`
     box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px;
 `
 
+
+
 const styles = {
   item: {
     base: menuItem,
@@ -73,6 +81,7 @@ const styles = {
     content: menuItemContent,
     floatTrigger: menuItemFloatTrigger,
     icon: menuItemIcon,
+    leftIcon: menuItemLeftIcon,
     title: menuItemTitle,
   },
   submenu: {
