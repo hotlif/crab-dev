@@ -1,7 +1,9 @@
 +++
 path = "/components/table"
 title = "Table 表格"
-nav = { id = "components", title = "组件" }
+[nav]
+id = "components"
+title = "组件"
 +++
 
 # Table 表格

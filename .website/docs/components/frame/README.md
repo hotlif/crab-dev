@@ -1,7 +1,9 @@
 +++
 path = "/components/frame"
 title = "Frame 框架布局"
-nav = { id = "components", title = "组件" }
+[nav]
+id = "components"
+title = "组件"
 +++
 
 # Frame 框架布局
