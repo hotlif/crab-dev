@@ -1,7 +1,9 @@
 +++
 path = "/components/button"
 title = "Button 按钮"
-nav = { id = "components", title = "组件" }
+[nav]
+id = "components"
+title = "组件"
 +++
 
 # Button 按钮

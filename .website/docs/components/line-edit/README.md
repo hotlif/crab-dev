@@ -1,7 +1,9 @@
 +++
 path = "/components/line-edit"
 title = "LineEdit 单行文本编辑器"
-nav = { id = "components", title = "组件" }
+[nav]
+id = "components"
+title = "组件"
 +++
 
 # LineEdit 单行文本编辑器
