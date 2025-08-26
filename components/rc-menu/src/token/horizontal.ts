@@ -1,5 +1,3 @@
-import { i } from "motion/react-client";
-
 export const prefix = "crab";
 
 const TokenPrefix = `--${prefix}-menu-horizontal`;
@@ -13,7 +11,6 @@ const TokenDefaultValue = {
     }
 }
 
-
 const TokenVarName = {
     horizontal: {
         groupItem: {
@@ -22,7 +19,6 @@ const TokenVarName = {
         }
     }
 }
-
 
 const Token = {
     horizontal: {
@@ -34,6 +30,3 @@ const Token = {
 }
 
 export default Token;
-
-
-

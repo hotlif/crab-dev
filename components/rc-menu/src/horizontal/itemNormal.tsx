@@ -13,7 +13,7 @@ import { type Item } from "../type";
 import itemStyle from "./styles/itemNormal.styles";
 import { type MenuProps } from "../menu";
 import { ChevronRight } from "../icon";
-import {} from "../token/horizontal";
+
 
 interface ItemProps {
     item: Item,

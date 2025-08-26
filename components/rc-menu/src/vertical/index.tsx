@@ -135,7 +135,6 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
         }
     }
 
-
     const renderChildrenStateIcon = (item: Item, children: ReactNode[]) => {
         if (children.length > 0 && openKeys?.includes(item.key) !== true) {
             return (

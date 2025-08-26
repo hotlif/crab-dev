@@ -40,7 +40,6 @@
         "typescript-eslint": "^8.33.1"
     },
     "dependencies": {
-        "@crab/rc-hooks": "workspace:^",
         "@crab/rc-virtual": "workspace:^",
         "@crab/styleify": "workspace:^",
         "jsonpath-plus": "^10.3.0"
