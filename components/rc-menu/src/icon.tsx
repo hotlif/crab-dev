@@ -1,69 +1,47 @@
+import { css } from "@linaria/core"
 
-export const ChevronDown = () => {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-        >
-            <path
-                fillRule="evenodd"
-                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
-            />
-        </svg>
-    )
-}
+export const iconArrayBase = css`
+    position: relative;
+    margin-right: 0.5rem;
+    &::before, &::after{
+        content: "";
+        position: absolute;
+        height: 1.5px;
+        width: 6px;
+        transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        background-color: #000;
+        border-radius: 6px;
+    }
+`
 
-export const ChevronUp = () => {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-        >
-            <path
-                fillRule="evenodd"
-                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"
-            />
-        </svg>
-    )
-}
+export const iconArrayDown = css`
+    &::before {
+        left: 4px;
+        transform: rotate(-45deg);
+    }
+    &::after {
+        transform: rotate(45deg);
+    }
+`
 
+export const iconArrayUp = css`
+    &::before {
+        left: 4px;
+        transform: rotate(45deg);
+    }
+    &::after {
+        transform: rotate(-45deg);
+    }
+`
 
-export const ChevronRight = () => {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-        >
-            <path
-                fillRule="evenodd"
-                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-            />
-        </svg>
-    )
-}
-
-export const ChevronLeft = () => {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-        >
-            <path
-                fillRule="evenodd"
-                d="M11.354 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L14.293 8l-2.939-2.646a.5.5 0 0 1 0-.708z"
-            />
-        </svg>
-    )
-}
+export const iconArrayRight = css`
+    &::before, &::after{
+        transform-origin: right center;
+    }
+    &::before {
+        transform: rotate(45deg);
+    }
+    &::after {
+        transform: rotate(-45deg);
+    }
+`

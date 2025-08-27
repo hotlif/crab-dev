@@ -1,7 +1,75 @@
 import RcMenu, { MenuItemType } from "../../../src/index";
 import { Key, useState } from "react";
-import { ChevronDown, ChevronUp } from "../../../src/icon";
 
+
+
+const ChevronDown = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+        >
+            <path
+                fillRule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+            />
+        </svg>
+    )
+}
+
+const ChevronUp = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+        >
+            <path
+                fillRule="evenodd"
+                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"
+            />
+        </svg>
+    )
+}
+
+const ChevronRight = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+        >
+            <path
+                fillRule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+            />
+        </svg>
+    )
+}
+
+const ChevronLeft = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+        >
+            <path
+                fillRule="evenodd"
+                d="M11.354 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L14.293 8l-2.939-2.646a.5.5 0 0 1 0-.708z"
+            />
+        </svg>
+    )
+}
 
 const SimpleFrame = () => {
 	const [selectKeys, setSelectKeys] = useState<Key[]>([]);
@@ -45,25 +113,31 @@ const SimpleFrame = () => {
 						type: MenuItemType.ItemGroup,
 						key: 2,
 						title: "用户管理",
+						icon: <ChevronDown />,
 						children: [{
 							type: MenuItemType.Item,
+							icon: <ChevronDown />,
 							key: 21,
 							title: "用户调整",
 						}, {
 							type: MenuItemType.Item,
+							icon: <ChevronDown />,
 							key: 22,
 							title: "用户删除",
 						}]
 					}, {
 						type: MenuItemType.ItemGroup,
+						icon: <ChevronDown />,
 						key: 3,
 						title: "角色管理",
 						children: [{
 							type: MenuItemType.Item,
+							icon: <ChevronDown />,
 							key: 31,
 							title: "人员角色",
 						}, {
 							type: MenuItemType.Item,
+							icon: <ChevronDown />,
 							key: 32,
 							title: "系统角色",
 						}]
@@ -75,23 +149,28 @@ const SimpleFrame = () => {
 					title: "系统管理",
 					children: [{
 						type: MenuItemType.Item,
+						icon: <ChevronDown />,
 						key: 12,
 						title: "菜单维护",
 						children: [{
 							type: MenuItemType.Item,
+							icon: <ChevronDown />,	
 							key: 121,
 							title: "菜单新增",
 						}, {
 							type: MenuItemType.Item,
+							icon: <ChevronDown />,
 							key: 122,
 							title: "菜单编辑",
 						}, {
 							type: MenuItemType.Item,
 							key: 123,
+							icon: <ChevronDown />,
 							title: "菜单删除",
 						}]
 					}, {
 						type: MenuItemType.Item,
+						icon: <ChevronDown />,
 						key: 13,
 						title: "数据字典维护",
 					}]

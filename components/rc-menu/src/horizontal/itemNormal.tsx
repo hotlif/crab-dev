@@ -8,11 +8,11 @@ import {
     useFloatingParentNodeId
 } from "@floating-ui/react";
 import { type FC, useState, type ReactNode, useEffect } from "react";
-import { cx } from "@linaria/core";
+import { css, cx } from "@linaria/core";
 import { type Item } from "../type";
 import itemStyle from "./styles/itemNormal.styles";
 import { type MenuProps } from "../menu";
-import { ChevronRight } from "../icon";
+import { iconArrayBase, iconArrayRight } from "../icon";
 
 
 interface ItemProps {
@@ -96,7 +96,7 @@ const ItemNormal: FC<ItemProps> = ({
                     <span className={itemStyle.item.leftIcon}>
                         {
                             children.length > 0 && !isRootMenu ? (
-                                <ChevronRight />
+                                <i className={cx(iconArrayBase, iconArrayRight)}/>
                             ) : null
                         }
                     </span>
