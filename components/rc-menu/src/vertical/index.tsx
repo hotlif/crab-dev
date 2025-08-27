@@ -3,7 +3,7 @@ import { css, cx } from "@linaria/core";
 
 import { motion, AnimatePresence } from "motion/react"
 
-import { ChevronDown, ChevronUp } from "../icon";
+import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon";
 import { type MenuProps } from "../menu";
 import { ItemType, type Item } from "../type";
 import Token from "../token/vertical";
@@ -54,7 +54,6 @@ const itemTitleBaseStyle = css`
     }
 `
 
-
 const itemStyle = css`
     display: flex;
     flex-direction: column;
@@ -98,9 +97,12 @@ const stateIconStyle = css`
     font-size: 1rem; 
 `
 
+const menuItemIcon = css`
+    margin-right: 8px;
+`
+
 interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
 }
-
 
 const VerticalMenu: FC<VerticalMenuProps> = ({
     className,
@@ -138,19 +140,17 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
     const renderChildrenStateIcon = (item: Item, children: ReactNode[]) => {
         if (children.length > 0 && openKeys?.includes(item.key) !== true) {
             return (
-                <span
-                    className={stateIconStyle}
+                <i
+                    className={cx(stateIconStyle, iconArrayBase, iconArrayDown)}
                 >
-                    <ChevronDown />
-                </span>
+                </i>
             )
         } else if (children.length > 0 && openKeys?.includes(item.key) === true) {
             return (
-                <span
-                    className={stateIconStyle}
+                <i
+                    className={cx(stateIconStyle, iconArrayBase, iconArrayUp)}
                 >
-                    <ChevronUp />
-                </span>
+                </i>
             )
         } else {
             return null;
@@ -180,6 +180,16 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                         });
                     }}
                 >
+
+                    {
+                        item.icon ? (
+                            <span
+                                className={menuItemIcon}
+                            >
+                                {item.icon}
+                            </span>
+                        ) : null
+                    }
                     <span
                         className={css`
                             flex: 1;
@@ -202,8 +212,8 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                                 initial="collapsed"
                                 exit="collapsed"
                                 variants={{
-                                    open: { opacity: 1, height: "auto" },
-                                    collapsed: { opacity: 0, height: 0 }
+                                    open: { height: "auto" },
+                                    collapsed: { height: 0 }
                                 }}
                                 transition={{ duration: 0.4, ease: "anticipate"}}
                             >
@@ -231,6 +241,15 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                         selectItemFunction(item);
                     }}
                 >
+                    {
+                        item.icon ? (
+                            <span
+                                className={menuItemIcon}
+                            >
+                                {item.icon}
+                            </span>
+                        ) : null
+                    }
                     {item.title}
                 </div>
                 <ul
