@@ -2,32 +2,48 @@ import { css } from "@linaria/core";
 
 export const prefix = "crab";
 
-const LineEditBorderRadiusVarName = `--${prefix}-line-edit-border-radius`;
-export const LineEditBorderRadius = `var(${LineEditBorderRadiusVarName})`;
+const TokenPrefix = `--${prefix}-line-edit`;
 
-const LineEditBorderColorVarName = `--${prefix}-line-edit-border-color`;
-export const LineEditBorderColor = `var(${LineEditBorderColorVarName})`;
+const TokenDefaultValue = {
+    border: {
+        radius: "4px",
+        color: {
+            normal: "rgb(217, 217, 217)",
+            focusWithin: "rgb(22, 119, 255)",
+        },
+    },
+    boxShadow: {
+        focusWithin: "rgba(5, 145, 255, 0.1) 0px 0px 0px 2px",
+    },
+    transition: "all 200ms",
+}
 
-const LineEditBorderColorFocusWithinVarName = `--${prefix}-line-edit-border-color-focus-within`;
-export const LineEditBorderColorFocusWithin = `var(${LineEditBorderColorFocusWithinVarName})`;
+const TokenVarName = {
+    border: {
+        radius: `${TokenPrefix}-border-radius`,
+        color: {
+            normal: `${TokenPrefix}-border-color-normal`,
+            focusWithin: `${TokenPrefix}-border-color-focus-within`,
+        },
+    },
+    boxShadow: {
+        focusWithin: `${TokenPrefix}-box-shadow-focus-within`,
+    },
+    transition: `${TokenPrefix}-transition`,
+}
 
-const LineEditBoxShadowFocusWithinVarName = `--${prefix}-line-edit-box-shadow-focus-within`;
-export const LineEditBoxShadowFocusWithin = `var(${LineEditBoxShadowFocusWithinVarName})`;
+const Token = {
+    border: {
+        radius: `var(${TokenVarName.border.radius}, ${TokenDefaultValue.border.radius})`,
+        color: {
+            normal: `var(${TokenVarName.border.color.normal}, ${TokenDefaultValue.border.color.normal})`,
+            focusWithin: `var(${TokenVarName.border.color.focusWithin}, ${TokenDefaultValue.border.color.focusWithin})`,
+        },
+    },
+    boxShadow: {
+        focusWithin: `var(${TokenVarName.boxShadow.focusWithin}, ${TokenDefaultValue.boxShadow.focusWithin})`,
+    },
+    transition: `var(${TokenVarName.transition}, ${TokenDefaultValue.transition})`,
+}
 
-const LineEditTransitionVarName = `--${prefix}-line-edit-transition`;
-export const LineEditTransition = `var(${LineEditTransitionVarName})`;
-
-
-
-// 全局样式
-export const globals = css`
-    :global() {
-        html {
-            ${LineEditBorderRadiusVarName}: 4px;
-            ${LineEditBorderColorVarName}: rgb(217, 217, 217);
-            ${LineEditBorderColorFocusWithinVarName}: rgb(22, 119, 255);
-            ${LineEditBoxShadowFocusWithinVarName}: rgba(5, 145, 255, 0.1) 0px 0px 0px 2px;
-            ${LineEditTransitionVarName}: all 200ms;
-        }
-    }
-`;
+export default Token;

@@ -1,15 +1,8 @@
 import { css, cx } from "@linaria/core";
-import { fontSize, padding } from '@crab/styleify';
-import type { FC, HTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
+import { fontSize } from '@crab/styleify';
+import type { FC, InputHTMLAttributes, ReactNode } from "react";
 
-import {
-    LineEditBorderRadius,
-    LineEditBorderColor,
-    LineEditBorderColorFocusWithin,
-    LineEditBoxShadowFocusWithin,
-    LineEditTransition,
-    globals,
-} from "./token";
+import Token from "./token";
 
 interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
 
@@ -38,10 +31,6 @@ interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "pre
      */
     suffix?: ReactNode
 
-}
-
-export {
-    globals
 }
 
 
@@ -141,16 +130,16 @@ const LineEdit: FC<LineEditProps> = ({
             className={cx(
                 css`
                     display: inline-flex;
-                    border-radius: ${LineEditBorderRadius};
+                    border-radius: ${Token.border.radius};
                     border-width: 1px;
                     border-style: solid;
-                    border-color: ${LineEditBorderColor};
-                    transition: ${LineEditTransition};
+                    border-color: ${Token.border.color.normal};
+                    transition: ${Token.transition};
                     vertical-align: middle;
                     box-sizing: border-box;
                     &:focus-within {
-                        border-color: ${LineEditBorderColorFocusWithin};
-                        box-shadow: ${LineEditBoxShadowFocusWithin}
+                        border-color: ${Token.border.color.focusWithin};
+                        box-shadow: ${Token.boxShadow.focusWithin}
                     }
                 `,
                 getContainerPadding(),
