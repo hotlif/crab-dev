@@ -4,6 +4,7 @@ const groupItemContainer = css`
     font-size: 14px;
     position: relative;
     user-select: none;
+    margin: 6px 0px;
     transition: border-color 0.3s, color 0.3s;
 `
 

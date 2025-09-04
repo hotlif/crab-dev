@@ -1,6 +1,16 @@
+import { css, cx } from "@linaria/core";
 import RcMenu, { MenuItemType } from "../../../src/index";
 import { Key, useState } from "react";
 
+
+export const globals = cx(css`
+    :global() {
+        * {
+			font-size: 1rem;
+    		line-height: 1.5;
+        }
+    }
+`);
 
 
 const ChevronDown = () => {
