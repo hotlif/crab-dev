@@ -12,7 +12,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { fakerZH_CN } from "@faker-js/faker"
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import RcFrame from "@crab/rc-frame";
-import { MenuItemType } from "@crab/rc-menu";
+import RcMenu, { MenuItemType } from "@crab/rc-menu";
 import LineEdit from "@crab/rc-line-edit";
 import { AiOutlineLock  } from "react-icons/ai";
 
@@ -35,7 +35,8 @@ const scopes = {
     Frame: RcFrame,
     MenuItemType: MenuItemType,
     LineEdit,
-    AiOutlineLock
+    AiOutlineLock,
+    RcMenu
 }
 
 const CodeLive: FC<CodeLiveProps> = ({

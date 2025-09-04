@@ -3,7 +3,6 @@ import { css, cx } from "@linaria/core";
 import { useNavigate, useOutlet } from "react-router";
 import RcButton from "@crab/rc-button";
 import { getConfig } from "../util/global";
-import markdownStyle from "../styles/Markdown";
 import mdxs from "@@@/mdx"
 
 
@@ -92,7 +91,7 @@ const DocsIndexLayout = () => {
 
             <div>
                 <div
-                    className={cx(markdownStyle, css`
+                    className={cx(css`
                         ${width("66%")}
                         margin: 0px auto;
                         ${padding(10, "top")}

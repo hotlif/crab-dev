@@ -5,7 +5,7 @@ import { css, cx } from "@linaria/core";
 import TableRow from "./tableRow";
 import TableBodyCell from "./bodyCell";
 import TableHeaderCell from "./headerCell";
-import { getSkippedCells, sortColumns, getBottomColumns, getHeaderCells, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray } from "./util";
+import { getSkippedCells, sortColumns, getBottomColumns, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray } from "./util";
 import type { ColumnType, MergeCell, Row } from "./types";
 
 interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
@@ -84,10 +84,6 @@ function Table<T extends Row>({
 
 	const bottomColumns = useMemo(() => {
 		return getBottomColumns(sColumns)
-	}, [sColumns]);
-
-	const headerCells = useMemo(() => {
-		return getHeaderCells(sColumns);
 	}, [sColumns]);
 
 	const maxDepth = useMemo(() => {
