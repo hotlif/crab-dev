@@ -4,7 +4,6 @@ import { css, cx } from "@linaria/core";
 import { flex, fontSize } from "@crab/styleify";
 
 import mdxs from "@@@/mdx"
-import markdownStyle from "../styles/Markdown";
 
 interface DocsLayoutProps {
 }
@@ -79,7 +78,7 @@ const DocsLayout: FC<DocsLayoutProps> = ({
                 </ul>
             </aside>
             <div
-                className={cx(markdownStyle, css`
+                className={cx(css`
                     flex: 1;
                     padding: 0rem 4rem 4rem 4rem;
                 `)}

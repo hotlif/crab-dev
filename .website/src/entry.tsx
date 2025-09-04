@@ -6,9 +6,8 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 import mdxs from "@@@/mdx";
 import Layout from "./layouts";
 import MdxComponents from "./components/mdx";
-import FontsAndTypography from "./styles/FontsAndTypography";
 
-export const globals = cx(FontsAndTypography, css`
+export const globals = cx(css`
     :global() {
         #root {
             display: flex;
@@ -18,8 +17,7 @@ export const globals = cx(FontsAndTypography, css`
         }
         body {
             margin: 0px;
-            --crab-website-background-color: rgb(245, 245, 245);
-            background-color: var(--crab-website-background-color);
+            background-color: rgb(245, 245, 245);
         }
         html {
             font-size: 14px;

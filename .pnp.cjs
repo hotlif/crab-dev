@@ -127,7 +127,7 @@ const RAW_RUNTIME_STATE =
           ["@nx/jest", "npm:21.1.3"],\
           ["@nx/rollup", "npm:21.1.3"],\
           ["@nx/webpack", "npm:21.1.3"],\
-          ["@types/node", "npm:22.15.30"],\
+          ["@types/node", "npm:24.3.0"],\
           ["nx", "virtual:dd917ec4e0cf8ea32bb2641295e201a5feb23e7252798b4d9ded340943fe2cb859b59d4a066d947c56e59e8d21010676dd6b20136a66dfe7a2bdf21ef226bedd#npm:21.1.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"]\
         ],\
@@ -12183,7 +12183,7 @@ const RAW_RUNTIME_STATE =
           ["@nx/jest", "npm:21.1.3"],\
           ["@nx/rollup", "npm:21.1.3"],\
           ["@nx/webpack", "npm:21.1.3"],\
-          ["@types/node", "npm:22.15.30"],\
+          ["@types/node", "npm:24.3.0"],\
           ["nx", "virtual:dd917ec4e0cf8ea32bb2641295e201a5feb23e7252798b4d9ded340943fe2cb859b59d4a066d947c56e59e8d21010676dd6b20136a66dfe7a2bdf21ef226bedd#npm:21.1.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"]\
         ],\
