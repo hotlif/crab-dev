@@ -12,7 +12,6 @@ const horizontalMenuRoot = css`
     position: relative;
     flex-direction: row;
     list-style-type: none;
-    line-height: 46px;
     border-bottom: 1px solid rgba(5,5,5,0.06);
     box-sizing: border-box;
 `

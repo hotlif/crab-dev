@@ -6,7 +6,6 @@ const menuItem = css`
     position: relative;
     user-select: none;
     transition: border-color 0.3s, color 0.3s;
-
 `
 
 const menuItemWithDivider = css`
@@ -30,8 +29,10 @@ const menuItemWithDivider = css`
 const menuItemContent = css`
     border-radius: 4px;
     padding-left: 16px;
+    height: 40px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 `
 
 const menuItemFloatTrigger = css`
