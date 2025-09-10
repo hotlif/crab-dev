@@ -2117,6 +2117,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/babel-plugin-float-const-fold@workspace:^, @crab/babel-plugin-float-const-fold@workspace:toolbox/babel-plugin-float-const-fold":
+  version: 0.0.0-use.local
+  resolution: "@crab/babel-plugin-float-const-fold@workspace:toolbox/babel-plugin-float-const-fold"
+  dependencies:
+    "@babel/helper-plugin-utils": "npm:^7.27.1"
+    "@babel/types": "npm:^7.28.4"
+    "@crab/packify": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@types/babel__helper-plugin-utils": "npm:^7.10.3"
+    "@types/node": "npm:^24.3.1"
+    decimal.js: "npm:^10.6.0"
+    dep-tree: "npm:^0.2.1"
+  languageName: unknown
+  linkType: soft
+
 "@crab/crustify@workspace:^, @crab/crustify@workspace:toolbox/crustify":
   version: 0.0.0-use.local
   resolution: "@crab/crustify@workspace:toolbox/crustify"
@@ -2126,6 +2141,7 @@ __metadata:
     "@babel/preset-react": "npm:^7.27.1"
     "@babel/preset-typescript": "npm:^7.27.1"
     "@crab/babel-plugin-auto-import-style": "workspace:^"
+    "@crab/babel-plugin-float-const-fold": "workspace:^"
     "@crab/packify": "workspace:^"
     "@crab/standards-eslint-preset": "workspace:^"
     "@crab/standards-jest-preset": "workspace:^"

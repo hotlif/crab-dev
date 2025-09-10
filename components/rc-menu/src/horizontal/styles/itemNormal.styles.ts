@@ -29,6 +29,7 @@ const menuItemWithDivider = css`
 const menuItemContent = css`
     border-radius: 4px;
     padding-left: 16px;
+    font-size: 14px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -46,6 +47,7 @@ const menuItemTitle = css`
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1;
+    font-size: inherit;
 `
 
 const menuItemIcon = css`
