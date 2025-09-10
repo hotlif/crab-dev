@@ -10,7 +10,7 @@ import Button from "../../../src/index";
 
 const paddingTop = css`
 	padding-top: 1rem;
-`
+`;
 
 const SimpleFrame = () => {
 	return (

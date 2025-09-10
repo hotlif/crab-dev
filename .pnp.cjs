@@ -83,6 +83,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:toolbox/babel-plugin-auto-import-style"\
     },\
     {\
+      "name": "@crab/babel-plugin-float-const-fold",\
+      "reference": "workspace:toolbox/babel-plugin-float-const-fold"\
+    },\
+    {\
       "name": "@crab/crustify",\
       "reference": "workspace:toolbox/crustify"\
     },\
@@ -95,6 +99,7 @@ const RAW_RUNTIME_STATE =
   "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
   "fallbackExclusionList": [\
     ["@crab/babel-plugin-auto-import-style", ["workspace:toolbox/babel-plugin-auto-import-style"]],\
+    ["@crab/babel-plugin-float-const-fold", ["workspace:toolbox/babel-plugin-float-const-fold"]],\
     ["@crab/crustify", ["workspace:toolbox/crustify"]],\
     ["@crab/infinitum-front", ["workspace:app/infinitum/crab-core-front"]],\
     ["@crab/packify", ["workspace:toolbox/packify"]],\
@@ -6159,6 +6164,23 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
+    ["@crab/babel-plugin-float-const-fold", [\
+      ["workspace:toolbox/babel-plugin-float-const-fold", {\
+        "packageLocation": "./toolbox/babel-plugin-float-const-fold/",\
+        "packageDependencies": [\
+          ["@crab/babel-plugin-float-const-fold", "workspace:toolbox/babel-plugin-float-const-fold"],\
+          ["@babel/helper-plugin-utils", "npm:7.27.1"],\
+          ["@babel/types", "npm:7.28.4"],\
+          ["@crab/packify", "workspace:toolbox/packify"],\
+          ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@types/babel__helper-plugin-utils", "npm:7.10.3"],\
+          ["@types/node", "npm:24.3.1"],\
+          ["decimal.js", "npm:10.6.0"],\
+          ["dep-tree", "npm:0.2.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@crab/crustify", [\
       ["workspace:toolbox/crustify", {\
         "packageLocation": "./toolbox/crustify/",\
@@ -6169,6 +6191,7 @@ const RAW_RUNTIME_STATE =
           ["@babel/preset-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.27.1"],\
           ["@babel/preset-typescript", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.27.1"],\
           ["@crab/babel-plugin-auto-import-style", "workspace:toolbox/babel-plugin-auto-import-style"],\
+          ["@crab/babel-plugin-float-const-fold", "workspace:toolbox/babel-plugin-float-const-fold"],\
           ["@crab/packify", "workspace:toolbox/packify"],\
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
           ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
