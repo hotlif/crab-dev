@@ -76,20 +76,16 @@ const SimpleFrame = () => {
 					type: MenuItemType.Item,
 					key: 1,
 					title: "人员信息",
-					icon: <ChevronDown />,
 					children: [{
 						type: MenuItemType.ItemGroup,
 						key: 2,
 						title: "用户管理",
-						icon: <ChevronDown />,
 						children: [{
 							type: MenuItemType.Item,
-							icon: <ChevronDown />,
 							key: 21,
 							title: "用户调整",
 						}, {
 							type: MenuItemType.Item,
-							icon: <ChevronDown />,
 							key: 22,
 							title: "用户删除",
 						}]
@@ -100,12 +96,10 @@ const SimpleFrame = () => {
 						title: "角色管理",
 						children: [{
 							type: MenuItemType.Item,
-							icon: <ChevronDown />,
 							key: 31,
 							title: "人员角色",
 						}, {
 							type: MenuItemType.Item,
-							icon: <ChevronDown />,
 							key: 32,
 							title: "系统角色",
 						}]
@@ -113,32 +107,26 @@ const SimpleFrame = () => {
 				},{
 					type: MenuItemType.Item,
 					key: 11,
-					icon: <ChevronUp />,
 					title: "系统管理",
 					children: [{
 						type: MenuItemType.Item,
-						icon: <ChevronDown />,
 						key: 12,
 						title: "菜单维护",
 						children: [{
 							type: MenuItemType.Item,
-							icon: <ChevronDown />,	
 							key: 121,
 							title: "菜单新增",
 						}, {
 							type: MenuItemType.Item,
-							icon: <ChevronDown />,
 							key: 122,
 							title: "菜单编辑",
 						}, {
 							type: MenuItemType.Item,
 							key: 123,
-							icon: <ChevronDown />,
 							title: "菜单删除",
 						}]
 					}, {
 						type: MenuItemType.Item,
-						icon: <ChevronDown />,
 						key: 13,
 						title: "数据字典维护",
 					}]
