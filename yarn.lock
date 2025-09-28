@@ -2267,6 +2267,33 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab/rc-dialog@workspace:components/rc-dialog":
+  version: 0.0.0-use.local
+  resolution: "@crab/rc-dialog@workspace:components/rc-dialog"
+  dependencies:
+    "@crab/crustify": "workspace:^"
+    "@crab/packify": "workspace:^"
+    "@crab/standards-eslint-preset": "workspace:^"
+    "@crab/standards-jest-preset": "workspace:^"
+    "@crab/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.1.2"
+    "@linaria/core": "npm:^6.3.0"
+    "@types/node": "npm:^24.4.0"
+    "@types/react": "npm:^19.1.13"
+    "@types/react-dom": "npm:^19.1.9"
+    eslint: "npm:^9.35.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^16.4.0"
+    jest: "npm:^30.1.3"
+    jest-environment-jsdom: "npm:30.1.2"
+    react: "npm:^19.1.1"
+    react-dom: "npm:^19.1.1"
+    react-icons: "npm:^5.5.0"
+    typescript: "npm:^5.9.2"
+    typescript-eslint: "npm:^8.43.0"
+  languageName: unknown
+  linkType: soft
+
 "@crab/rc-frame@workspace:^, @crab/rc-frame@workspace:components/rc-frame":
   version: 0.0.0-use.local
   resolution: "@crab/rc-frame@workspace:components/rc-frame"
@@ -11873,11 +11900,11 @@ __metadata:
   linkType: hard
 
 "jiti@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "jiti@npm:2.5.1"
+  version: 2.6.0
+  resolution: "jiti@npm:2.6.0"
   bin:
     jiti: lib/jiti-cli.mjs
-  checksum: 10c0/f0a38d7d8842cb35ffe883038166aa2d52ffd21f1a4fc839ae4076ea7301c22a1f11373f8fc52e2667de7acde8f3e092835620dd6f72a0fbe9296b268b0874bb
+  checksum: 10c0/5002ccecdb02e85413e5bfe3819a5ac458dcce12b358c556b6cf17b5b6cbedd36514f6a67d4aa2b290caa2b933406502a1985d0bfee784ece788e90a0392d534
   languageName: node
   linkType: hard
 

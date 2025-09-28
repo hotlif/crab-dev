@@ -27,6 +27,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:components/rc-button"\
     },\
     {\
+      "name": "@crab/rc-dialog",\
+      "reference": "workspace:components/rc-dialog"\
+    },\
+    {\
       "name": "@crab/rc-frame",\
       "reference": "workspace:components/rc-frame"\
     },\
@@ -99,6 +103,7 @@ const RAW_RUNTIME_STATE =
     ["@crab/infinitum-front", ["workspace:app/infinitum/crab-core-front"]],\
     ["@crab/packify", ["workspace:toolbox/packify"]],\
     ["@crab/rc-button", ["workspace:components/rc-button"]],\
+    ["@crab/rc-dialog", ["workspace:components/rc-dialog"]],\
     ["@crab/rc-frame", ["virtual:94ebee03c45241b0fd3ae51e1feb06531fc9774c98b83c451ba6df26d02490546d4411aa07308468ab4e6c3a57b0b39451b27a0e11e72f8fe6f7f6cfb07d8e10#workspace:components/rc-frame", "workspace:components/rc-frame"]],\
     ["@crab/rc-hooks", ["workspace:components/rc-hooks"]],\
     ["@crab/rc-line-edit", ["workspace:components/rc-line-edit"]],\
@@ -6289,6 +6294,35 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./components/rc-button/",\
         "packageDependencies": [\
           ["@crab/rc-button", "workspace:components/rc-button"],\
+          ["@crab/crustify", "workspace:toolbox/crustify"],\
+          ["@crab/packify", "workspace:toolbox/packify"],\
+          ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
+          ["@crab/standards-jest-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/jest-preset"],\
+          ["@crab/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@jest/globals", "npm:30.1.2"],\
+          ["@linaria/core", "npm:6.3.0"],\
+          ["@types/node", "npm:24.4.0"],\
+          ["@types/react", "npm:19.1.13"],\
+          ["@types/react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.9"],\
+          ["eslint", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:9.35.0"],\
+          ["eslint-plugin-react", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:7.37.5"],\
+          ["globals", "npm:16.4.0"],\
+          ["jest", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:30.1.3"],\
+          ["jest-environment-jsdom", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:30.1.2"],\
+          ["react", "npm:19.1.1"],\
+          ["react-dom", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#npm:19.1.1"],\
+          ["react-icons", "virtual:07680e4a25fce092ba0dd2de07785d4eb2210bed7320192288d88280aa3012ef31cd334cc1569daac7496e6911a0e34da9dd42871f485bf9727454b314abf08b#npm:5.5.0"],\
+          ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"],\
+          ["typescript-eslint", "virtual:ea95791c641ff7d01fd50ccc8a41253aaa3c05fe4c3ac975d30cc6d5ae22554016f8189e48232b26f277d2258fdd51a4b8110f83a4adb846691e41a0011bc8f4#npm:8.43.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@crab/rc-dialog", [\
+      ["workspace:components/rc-dialog", {\
+        "packageLocation": "./components/rc-dialog/",\
+        "packageDependencies": [\
+          ["@crab/rc-dialog", "workspace:components/rc-dialog"],\
           ["@crab/crustify", "workspace:toolbox/crustify"],\
           ["@crab/packify", "workspace:toolbox/packify"],\
           ["@crab/standards-eslint-preset", "virtual:f385d9cb18e8baeae64fa3fc870c7f0590eada55284bef39b445eb33afbaf11041557e68a6364a8480dc4c846adb2805aee19e54de8ea27b72915000d61bede8#workspace:standards/eslint-preset"],\
@@ -18372,10 +18406,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["jiti", [\
-      ["npm:2.5.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/jiti-npm-2.5.1-6671598471-10c0.zip/node_modules/jiti/",\
+      ["npm:2.6.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/jiti-npm-2.6.0-ffdbbb0e02-10c0.zip/node_modules/jiti/",\
         "packageDependencies": [\
-          ["jiti", "npm:2.5.1"]\
+          ["jiti", "npm:2.6.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -26528,7 +26562,7 @@ const RAW_RUNTIME_STATE =
           ["unconfig", "npm:7.3.3"],\
           ["@quansync/fs", "npm:0.1.5"],\
           ["defu", "npm:6.1.4"],\
-          ["jiti", "npm:2.5.1"],\
+          ["jiti", "npm:2.6.0"],\
           ["quansync", "npm:0.2.11"]\
         ],\
         "linkType": "HARD"\

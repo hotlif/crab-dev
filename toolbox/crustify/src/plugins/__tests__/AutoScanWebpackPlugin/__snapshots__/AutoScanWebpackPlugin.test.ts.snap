@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 1`] = `
 "import { lazy } from "react";
