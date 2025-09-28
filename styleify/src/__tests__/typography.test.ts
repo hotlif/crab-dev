@@ -17,13 +17,13 @@ describe("typography utils", () => {
     // fontFamily
     describe("fontFamily", () => {
         it("should return correct font-family for sans", () => {
-            expect(fontFamily("sans")).toBe("font-family: var(--styleify-font-family-sans);");
+            expect(fontFamily("sans")).toBe("font-family: var(--styleify-font-family-sans, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace );");
         });
         it("should return correct font-family for serif", () => {
-            expect(fontFamily("serif")).toBe("font-family: var(--styleify-font-family-serif);");
+            expect(fontFamily("serif")).toBe("font-family: var(--styleify-font-family-serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');");
         });
         it("should return correct font-family for mono", () => {
-            expect(fontFamily("mono")).toBe("font-family: var(--styleify-font-family-mono);");
+            expect(fontFamily("mono")).toBe("font-family: var(--styleify-font-family-mono, ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif);");
         });
     });
 
