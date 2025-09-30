@@ -6,7 +6,7 @@ export default declare((api, options, dirname)  => {
         visitor: {
             ImportDeclaration: (path) => {
                 const importPath = path.node.source.value;
-                if (/^@crab\/rc-[a-zA-Z0-9_\-]+$/g.test(importPath)) {
+                if (/^@crab-dev\/rc-[a-zA-Z0-9_\-]+$/g.test(importPath)) {
                     const styleImport = types.importDeclaration(
                         [],
                         types.stringLiteral(`${importPath}/esm/index.styles.css`)

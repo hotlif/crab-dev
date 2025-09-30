@@ -4,7 +4,6 @@
  */
 
 import { css } from "@linaria/core";
-import { AiOutlineLock  } from "react-icons/ai";
 import Button from "../../../src/index";
 
 

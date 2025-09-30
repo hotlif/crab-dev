@@ -11,7 +11,6 @@ import mdxs from "@@@/mdx";
 import Layout from "./layouts";
 import MdxComponents from "./components/mdx";
 
-
 export const globals = cx(css`
     :global() {
         * {
