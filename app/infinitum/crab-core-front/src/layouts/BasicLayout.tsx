@@ -1,7 +1,7 @@
 import { useOutlet } from "react-router";
-import RcFrame from "@crab/rc-frame";
+import RcFrame from "@crab-dev/rc-frame";
 import { css } from "@linaria/core";
-import { padding } from "@crab/styleify";
+import { padding } from "@crab-dev/styleify";
 import { useMenuRequest } from "../service/basic";
 
 const BasicLayout = () => {

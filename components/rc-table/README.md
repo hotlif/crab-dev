@@ -1,7 +1,7 @@
 import SimpleTableDemo from "./docs/src/demos/simple.demo";
 
 <div align="center">
-	<h1>@crab/rc-table</h1>
+	<h1>@crab-dev/rc-table</h1>
 	展示行列数据。
 </div>
 

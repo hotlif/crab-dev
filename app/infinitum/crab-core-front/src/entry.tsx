@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { css } from "@linaria/core";
-import { preflight } from "@crab/styleify";
+import { preflight } from "@crab-dev/styleify";
 import { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router";
-import { RequestProvider } from "@crab/rc-request";
+import { RequestProvider } from "@crab-dev/rc-request";
 
 import routers from "@@@/routers";
 import E404 from "./errors/E404";

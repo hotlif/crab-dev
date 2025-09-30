@@ -1,6 +1,6 @@
 import {
 	zIndex
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 
 export const containerStyle = `
 	cursor: pointer;

@@ -1,6 +1,6 @@
 {
     "extends": [
-        "@crab/standards-typescript-preset/tsconfig.browser.react.json",
+        "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json",
         "./.tmp/autoscan/tsconfig.json",
     ],
     "compilerOptions": {

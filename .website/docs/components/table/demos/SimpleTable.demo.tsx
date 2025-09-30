@@ -7,7 +7,7 @@
 import {
 	fakerZH_CN
 } from "@faker-js/faker";
-import Table, { type Row, type ColumnType } from "@crab/rc-table";
+import Table, { type Row, type ColumnType } from "@crab-dev/rc-table";
 import { useState } from "react";
 
 const row: Row[] = [];

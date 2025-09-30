@@ -3,7 +3,7 @@ import { css, cx } from "@linaria/core";
 import {
     fontSize,
     fontFamily
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 import E404 from "./errors/E404";
 import { RouterProvider, createBrowserRouter } from "react-router";
 

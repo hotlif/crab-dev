@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import { flex, flexJustifyContent } from "@crab/styleify";
+import { flex, flexJustifyContent } from "@crab-dev/styleify";
 import README from "../../README.md";
 
 const App = () => {

@@ -1,5 +1,5 @@
 {
-    "name": "@crab/rc-line-edit",
+    "name": "@crab-dev/rc-line-edit",
     "description": "单行文本编辑组件",
     "packageManager": "yarn@4.7.0",
     "type": "module",
@@ -17,11 +17,11 @@
     "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "devDependencies": {
-        "@crab/crustify": "workspace:^",
-        "@crab/packify": "workspace:^",
-        "@crab/standards-eslint-preset": "workspace:^",
-        "@crab/standards-jest-preset": "workspace:^",
-        "@crab/standards-typescript-preset": "workspace:^",
+        "@crab-dev/crustify": "workspace:^",
+        "@crab-dev/packify": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-jest-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
         "@jest/globals": "30.1.2",
         "@linaria/core": "^6.3.0",
         "@types/node": "^24.4.0",
@@ -39,7 +39,7 @@
         "typescript-eslint": "^8.43.0"
     },
     "dependencies": {
-        "@crab/styleify": "workspace:^"
+        "@crab-dev/styleify": "workspace:^"
     },
     "engines": {
         "node": ">=22"

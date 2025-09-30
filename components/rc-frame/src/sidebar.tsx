@@ -2,9 +2,9 @@ import { type HTMLAttributes, type FC, useState, useEffect, type Key } from "rea
 import {
     width,
     padding,
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 import { cx, css } from "@linaria/core";
-import RcMenu, { MenuItem } from "@crab/rc-menu";
+import RcMenu, { MenuItem } from "@crab-dev/rc-menu";
 
 export interface SidebarProps extends Omit< HTMLAttributes<HTMLElement>, ""> {
     loadMenus?: () => Promise<MenuItem[]>

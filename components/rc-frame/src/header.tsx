@@ -7,7 +7,7 @@ import {
     width,
     margin,
     flexAlignItems
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 import { css, cx } from "@linaria/core";
 import { FC, ReactNode, type HTMLAttributes } from "react";
 

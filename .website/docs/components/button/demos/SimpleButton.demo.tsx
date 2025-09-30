@@ -3,7 +3,7 @@
  * description = "通过设置按钮的 `appearance` 来改变按钮的不同外观"
  */
 
-import Button from "@crab/rc-button";
+import Button from "@crab-dev/rc-button";
 
 const SimpleButton = () => {
     return (

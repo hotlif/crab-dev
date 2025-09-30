@@ -2103,33 +2103,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab/babel-plugin-auto-import-style@workspace:^, @crab/babel-plugin-auto-import-style@workspace:toolbox/babel-plugin-auto-import-style":
+"@crab-dev/babel-plugin-auto-import-style@workspace:^, @crab-dev/babel-plugin-auto-import-style@workspace:toolbox/babel-plugin-auto-import-style":
   version: 0.0.0-use.local
-  resolution: "@crab/babel-plugin-auto-import-style@workspace:toolbox/babel-plugin-auto-import-style"
+  resolution: "@crab-dev/babel-plugin-auto-import-style@workspace:toolbox/babel-plugin-auto-import-style"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.27.1"
     "@babel/types": "npm:^7.28.4"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@types/babel__helper-plugin-utils": "npm:^7.10.3"
     "@types/node": "npm:^24.4.0"
     dep-tree: "npm:^0.2.1"
   languageName: unknown
   linkType: soft
 
-"@crab/crustify@workspace:^, @crab/crustify@workspace:toolbox/crustify":
+"@crab-dev/crustify@workspace:^, @crab-dev/crustify@workspace:toolbox/crustify":
   version: 0.0.0-use.local
-  resolution: "@crab/crustify@workspace:toolbox/crustify"
+  resolution: "@crab-dev/crustify@workspace:toolbox/crustify"
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@babel/preset-env": "npm:^7.28.3"
     "@babel/preset-react": "npm:^7.27.1"
     "@babel/preset-typescript": "npm:^7.27.1"
-    "@crab/babel-plugin-auto-import-style": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/babel-plugin-auto-import-style": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@mdx-js/loader": "npm:^3.1.1"
     "@mdx-js/react": "npm:^3.1.1"
@@ -2168,7 +2168,7 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.9.2"
     typescript-eslint: "npm:^8.43.0"
-    unconfig: "npm:7.3.3"
+    unconfig: "npm:^7.3.3"
     unified: "npm:^11.0.5"
     webpack: "npm:^5.101.3"
     webpack-dev-server: "npm:^5.2.2"
@@ -2180,18 +2180,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/infinitum-front@workspace:app/infinitum/crab-core-front":
+"@crab-dev/infinitum-front@workspace:app/infinitum/crab-core-front":
   version: 0.0.0-use.local
-  resolution: "@crab/infinitum-front@workspace:app/infinitum/crab-core-front"
+  resolution: "@crab-dev/infinitum-front@workspace:app/infinitum/crab-core-front"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/rc-button": "workspace:^"
-    "@crab/rc-frame": "workspace:^"
-    "@crab/rc-line-edit": "workspace:^"
-    "@crab/rc-request": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-frame": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
+    "@crab-dev/rc-request": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
     "@types/react": "npm:^19.1.13"
@@ -2208,15 +2208,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/packify@workspace:^, @crab/packify@workspace:toolbox/packify":
+"@crab-dev/packify@workspace:^, @crab-dev/packify@workspace:toolbox/packify":
   version: 0.0.0-use.local
-  resolution: "@crab/packify@workspace:toolbox/packify"
+  resolution: "@crab-dev/packify@workspace:toolbox/packify"
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@babel/preset-env": "npm:^7.28.3"
     "@babel/preset-react": "npm:^7.27.1"
     "@babel/preset-typescript": "npm:^7.27.1"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@rollup/plugin-babel": "npm:^6.0.4"
     "@rollup/plugin-node-resolve": "npm:^16.0.1"
     "@rollup/plugin-terser": "npm:^0.4.4"
@@ -2240,15 +2240,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-button@workspace:^, @crab/rc-button@workspace:components/rc-button":
+"@crab-dev/rc-button@workspace:^, @crab-dev/rc-button@workspace:components/rc-button":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-button@workspace:components/rc-button"
+  resolution: "@crab-dev/rc-button@workspace:components/rc-button"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
@@ -2267,15 +2267,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-dialog@workspace:components/rc-dialog":
+"@crab-dev/rc-dialog@workspace:components/rc-dialog":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-dialog@workspace:components/rc-dialog"
+  resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
@@ -2294,16 +2294,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-frame@workspace:^, @crab/rc-frame@workspace:components/rc-frame":
+"@crab-dev/rc-frame@workspace:^, @crab-dev/rc-frame@workspace:components/rc-frame":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-frame@workspace:components/rc-frame"
+  resolution: "@crab-dev/rc-frame@workspace:components/rc-frame"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/rc-menu": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
     "@types/react": "npm:^19.1.13"
@@ -2321,14 +2321,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-hooks@workspace:^, @crab/rc-hooks@workspace:components/rc-hooks":
+"@crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-hooks@workspace:components/rc-hooks"
+  resolution: "@crab-dev/rc-hooks@workspace:components/rc-hooks"
   dependencies:
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
@@ -2346,16 +2346,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-line-edit@workspace:^, @crab/rc-line-edit@workspace:components/rc-line-edit":
+"@crab-dev/rc-line-edit@workspace:^, @crab-dev/rc-line-edit@workspace:components/rc-line-edit":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-line-edit@workspace:components/rc-line-edit"
+  resolution: "@crab-dev/rc-line-edit@workspace:components/rc-line-edit"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
@@ -2374,15 +2374,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-live@workspace:^, @crab/rc-live@workspace:components/rc-live":
+"@crab-dev/rc-live@workspace:^, @crab-dev/rc-live@workspace:components/rc-live":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-live@workspace:components/rc-live"
+  resolution: "@crab-dev/rc-live@workspace:components/rc-live"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
@@ -2404,14 +2404,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-menu@workspace:^, @crab/rc-menu@workspace:components/rc-menu":
+"@crab-dev/rc-menu@workspace:^, @crab-dev/rc-menu@workspace:components/rc-menu":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-menu@workspace:components/rc-menu"
+  resolution: "@crab-dev/rc-menu@workspace:components/rc-menu"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@floating-ui/react": "npm:^0.27.16"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:24.4.0"
@@ -2431,14 +2431,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-request@workspace:^, @crab/rc-request@workspace:components/rc-request":
+"@crab-dev/rc-request@workspace:^, @crab-dev/rc-request@workspace:components/rc-request":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-request@workspace:components/rc-request"
+  resolution: "@crab-dev/rc-request@workspace:components/rc-request"
   dependencies:
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
     "@types/node": "npm:^24.4.0"
@@ -2459,17 +2459,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-table@workspace:^, @crab/rc-table@workspace:components/rc-table":
+"@crab-dev/rc-table@workspace:^, @crab-dev/rc-table@workspace:components/rc-table":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-table@workspace:components/rc-table"
+  resolution: "@crab-dev/rc-table@workspace:components/rc-table"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/rc-virtual": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-virtual": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@faker-js/faker": "npm:^10.0.0"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
@@ -2489,18 +2489,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-tree@workspace:^, @crab/rc-tree@workspace:components/rc-tree":
+"@crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-tree@workspace:components/rc-tree"
+  resolution: "@crab-dev/rc-tree@workspace:components/rc-tree"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/rc-hooks": "workspace:^"
-    "@crab/rc-virtual": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-hooks": "workspace:^"
+    "@crab-dev/rc-virtual": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@dnd-kit/core": "npm:^6.3.1"
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@jest/globals": "npm:30.1.2"
@@ -2524,16 +2524,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/rc-virtual@workspace:^, @crab/rc-virtual@workspace:components/rc-virtual":
+"@crab-dev/rc-virtual@workspace:^, @crab-dev/rc-virtual@workspace:components/rc-virtual":
   version: 0.0.0-use.local
-  resolution: "@crab/rc-virtual@workspace:components/rc-virtual"
+  resolution: "@crab-dev/rc-virtual@workspace:components/rc-virtual"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@linaria/core": "npm:^6.3.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.8.0"
@@ -2554,9 +2554,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/standards-eslint-preset@workspace:^, @crab/standards-eslint-preset@workspace:standards/eslint-preset":
+"@crab-dev/standards-eslint-preset@workspace:^, @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset":
   version: 0.0.0-use.local
-  resolution: "@crab/standards-eslint-preset@workspace:standards/eslint-preset"
+  resolution: "@crab-dev/standards-eslint-preset@workspace:standards/eslint-preset"
   dependencies:
     "@eslint/js": "npm:^9.35.0"
   peerDependencies:
@@ -2568,9 +2568,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/standards-jest-preset@workspace:^, @crab/standards-jest-preset@workspace:standards/jest-preset":
+"@crab-dev/standards-jest-preset@workspace:^, @crab-dev/standards-jest-preset@workspace:standards/jest-preset":
   version: 0.0.0-use.local
-  resolution: "@crab/standards-jest-preset@workspace:standards/jest-preset"
+  resolution: "@crab-dev/standards-jest-preset@workspace:standards/jest-preset"
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@babel/preset-env": "npm:^7.28.3"
@@ -2585,22 +2585,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/standards-typescript-preset@workspace:^, @crab/standards-typescript-preset@workspace:standards/typescript-preset":
+"@crab-dev/standards-typescript-preset@workspace:^, @crab-dev/standards-typescript-preset@workspace:standards/typescript-preset":
   version: 0.0.0-use.local
-  resolution: "@crab/standards-typescript-preset@workspace:standards/typescript-preset"
+  resolution: "@crab-dev/standards-typescript-preset@workspace:standards/typescript-preset"
   dependencies:
     typescript: "npm:^5.9.2"
   languageName: unknown
   linkType: soft
 
-"@crab/styleify@workspace:^, @crab/styleify@workspace:styleify":
+"@crab-dev/styleify@workspace:^, @crab-dev/styleify@workspace:styleify":
   version: 0.0.0-use.local
-  resolution: "@crab/styleify@workspace:styleify"
+  resolution: "@crab-dev/styleify@workspace:styleify"
   dependencies:
-    "@crab/packify": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@types/node": "npm:^24.4.0"
     "@types/react": "npm:^19.1.13"
     "@types/react-dom": "npm:^19.1.9"
@@ -2619,23 +2619,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab/website@workspace:.website":
+"@crab-dev/website@workspace:.website":
   version: 0.0.0-use.local
-  resolution: "@crab/website@workspace:.website"
+  resolution: "@crab-dev/website@workspace:.website"
   dependencies:
-    "@crab/crustify": "workspace:^"
-    "@crab/packify": "workspace:^"
-    "@crab/rc-button": "workspace:^"
-    "@crab/rc-frame": "workspace:^"
-    "@crab/rc-line-edit": "workspace:^"
-    "@crab/rc-live": "workspace:^"
-    "@crab/rc-menu": "workspace:^"
-    "@crab/rc-table": "workspace:^"
-    "@crab/rc-tree": "workspace:^"
-    "@crab/standards-eslint-preset": "workspace:^"
-    "@crab/standards-jest-preset": "workspace:^"
-    "@crab/standards-typescript-preset": "workspace:^"
-    "@crab/styleify": "workspace:^"
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-frame": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
+    "@crab-dev/rc-live": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-table": "workspace:^"
+    "@crab-dev/rc-tree": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/styleify": "workspace:^"
     "@faker-js/faker": "npm:^10.0.0"
     "@jest/globals": "npm:30.1.2"
     "@linaria/core": "npm:^6.3.0"
@@ -7770,7 +7770,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "crab@workspace:."
   dependencies:
-    "@crab/standards-typescript-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
     "@nx/eslint": "npm:21.5.2"
     "@nx/jest": "npm:21.5.2"
     "@nx/rollup": "npm:21.5.2"
@@ -18288,7 +18288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unconfig@npm:7.3.3":
+"unconfig@npm:^7.3.3":
   version: 7.3.3
   resolution: "unconfig@npm:7.3.3"
   dependencies:

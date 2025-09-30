@@ -1,4 +1,4 @@
-import RcVirtual from "@crab/rc-virtual";
+import RcVirtual from "@crab-dev/rc-virtual";
 import { ReactNode, useMemo } from "react";
 import { css, cx } from "@linaria/core";
 

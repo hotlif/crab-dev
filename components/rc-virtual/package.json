@@ -1,5 +1,5 @@
 {
-    "name": "@crab/rc-virtual",
+    "name": "@crab-dev/rc-virtual",
     "description": "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。",
     "packageManager": "yarn@4.7.0",
     "version": "0.1.1",
@@ -19,11 +19,11 @@
     "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "devDependencies": {
-        "@crab/crustify": "workspace:^",
-        "@crab/packify": "workspace:^",
-        "@crab/standards-eslint-preset": "workspace:^",
-        "@crab/standards-jest-preset": "workspace:^",
-        "@crab/standards-typescript-preset": "workspace:^",
+        "@crab-dev/crustify": "workspace:^",
+        "@crab-dev/packify": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-jest-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^6.3.0",
         "@testing-library/dom": "^10.4.1",
         "@testing-library/jest-dom": "^6.8.0",
@@ -43,7 +43,7 @@
         "typescript-eslint": "^8.43.0"
     },
     "dependencies": {
-        "@crab/styleify": "workspace:^"
+        "@crab-dev/styleify": "workspace:^"
     },
     "engines": {
         "node": ">=22"

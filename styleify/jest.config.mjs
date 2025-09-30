@@ -1,4 +1,4 @@
-import { browser } from "@crab/standards-jest-preset";
+import { browser } from "@crab-dev/standards-jest-preset";
 export default {
     ...browser
 };

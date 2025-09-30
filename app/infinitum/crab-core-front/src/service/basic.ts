@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useRequest } from "@crab/rc-request";
+import { useRequest } from "@crab-dev/rc-request";
 
 interface MenuType {
     id: number

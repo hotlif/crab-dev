@@ -4,8 +4,8 @@
  * [style]
  * gridColumn = "span 2"
  */
-import Frame from "@crab/rc-frame";
-import { MenuItemType } from "@crab/rc-menu";
+import Frame from "@crab-dev/rc-frame";
+import { MenuItemType } from "@crab-dev/rc-menu";
 
 const SimpleFrame = () => {
 	return (

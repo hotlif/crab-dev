@@ -1,5 +1,5 @@
 <div align="center">
-	<h1>@crab/infinitum-front</h1>
+	<h1>@crab-dev/infinitum-front</h1>
 	这是代码开发平台的前端
 </div>
 

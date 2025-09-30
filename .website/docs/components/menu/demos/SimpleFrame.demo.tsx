@@ -2,7 +2,7 @@
  * title="基础用法"
  * description="一个简单的 Menu 导航"
  */
-import RcMenu, { MenuItemType } from "@crab/rc-menu";
+import RcMenu, { MenuItemType } from "@crab-dev/rc-menu";
 import { Key, useState } from "react";
 
 const ChevronDown = () => {

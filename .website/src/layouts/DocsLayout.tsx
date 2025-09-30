@@ -1,7 +1,7 @@
 import { useMatches, useNavigate, useOutlet, useRouteLoaderData } from "react-router";
 import { type FC } from "react";
 import { css, cx } from "@linaria/core";
-import { flex, fontSize } from "@crab/styleify";
+import { flex, fontSize } from "@crab-dev/styleify";
 
 import mdxs from "@@@/mdx"
 

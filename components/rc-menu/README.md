@@ -1,7 +1,7 @@
 import SimpleDemo from "./docs/src/demos/simple.demo";
 
 <div align="center">
-	<h1>@crab/rc-menu</h1>
+	<h1>@crab-dev/rc-menu</h1>
 	<div>导航菜单</div>
 </div>
 

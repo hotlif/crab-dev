@@ -19,7 +19,7 @@ interface ResponseEntity {
     createAt: Date
 }
 
-const db = new Dexie('@crab/rc-request') as Dexie & {
+const db = new Dexie('@crab-dev/rc-request') as Dexie & {
     request: EntityTable<RequestEntity, "id">,
     response: EntityTable<ResponseEntity, "id">
 };

@@ -8,9 +8,9 @@
 
 | 名称                                                          | 描述 
 |------                                                         |--------
-|[@crab/standards-eslint-react-preset](./eslint-preset/README.md)   | ESLint 代码规范的一些预设值
-|[@crab/standards-typescript-preset](./typescript-preset/README.md)       | TypeScript 的一些预设配置
-|[@crab/standards-jest-preset](./jest-preset/README.md)       | Jest 的一些预设配置
+|[@crab-dev/standards-eslint-react-preset](./eslint-preset/README.md)   | ESLint 代码规范的一些预设值
+|[@crab-dev/standards-typescript-preset](./typescript-preset/README.md)       | TypeScript 的一些预设配置
+|[@crab-dev/standards-jest-preset](./jest-preset/README.md)       | Jest 的一些预设配置
 
 
 

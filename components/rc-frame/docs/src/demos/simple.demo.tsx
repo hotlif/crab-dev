@@ -4,7 +4,7 @@
  */
 import { css } from "@linaria/core";
 import RcFrame from "../../../src/index";
-import { MenuItemType } from "@crab/rc-menu";
+import { MenuItemType } from "@crab-dev/rc-menu";
 
 
 const SimpleFrame = () => {

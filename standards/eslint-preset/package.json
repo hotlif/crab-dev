@@ -1,6 +1,9 @@
 {
-    "name": "@crab/standards-eslint-preset",
+    "name": "@crab-dev/standards-eslint-preset",
     "packageManager": "yarn@4.7.0",
+    "version": "0.0.1",
+    "description": "用于 ESLint 的配置预设，包含 React 和 TypeScript 的支持",
+    "license": "UNLICENSED",
     "type": "module",
     "main": "index.mjs",
     "module": "index.mjs",

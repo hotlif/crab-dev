@@ -19,10 +19,10 @@ import {
     fontSize,
     height,
     mediaQuery
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 
-import LineEdit from "@crab/rc-line-edit";
-import Button from "@crab/rc-button";
+import LineEdit from "@crab-dev/rc-line-edit";
+import Button from "@crab-dev/rc-button";
 import { useState } from "react";
 import { BiLockAlt, BiUser } from "react-icons/bi";
 import { useIssueRequest } from "../../service/jwt";

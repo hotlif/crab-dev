@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import { display, width } from "@crab/styleify";
+import { display, width } from "@crab-dev/styleify";
 import README from "../../README.md";
 
 const App = () => {

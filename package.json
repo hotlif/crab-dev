@@ -5,7 +5,7 @@
   "packageManager": "yarn@4.7.0",
   "type": "module",
   "scripts": {
-    "build": "nx run @crab/packify:build:library && nx run-many -t build:library",
+    "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
     "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
   },
   "workspaces": [
@@ -19,7 +19,7 @@
     "app/infinitum/crab-core-front"
   ],
   "devDependencies": {
-    "@crab/standards-typescript-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
     "@nx/eslint": "21.5.2",
     "@nx/jest": "21.5.2",
     "@nx/rollup": "21.5.2",

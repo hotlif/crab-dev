@@ -4,7 +4,7 @@ const App = () => {
         <head>
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>@crab/rc-dialog - 对话框</title>
+            <title>@crab-dev/rc-dialog - 对话框</title>
         </head>
         <body>
             <div id="root"></div>

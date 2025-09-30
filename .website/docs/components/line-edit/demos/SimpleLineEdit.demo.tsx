@@ -4,7 +4,7 @@
  */
 
 import { AiOutlineLock  } from "react-icons/ai";
-import LineEdit from "@crab/rc-line-edit";
+import LineEdit from "@crab-dev/rc-line-edit";
 
 
 const LineEditDemo = () => {

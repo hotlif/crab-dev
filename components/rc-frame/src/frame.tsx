@@ -3,7 +3,7 @@ import {
     width,
     flex,
     flexDirection,
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 import type { FC, HTMLAttributes, ReactNode } from "react";
 import { cx, css } from "@linaria/core";
 import Header from "./header";

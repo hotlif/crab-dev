@@ -16,7 +16,6 @@ const Dialog: FC<DialogProps> = ({
     onOpenChange,
     title
 }) => {
-c
     return (
         <>
             <dialog
@@ -36,7 +35,6 @@ c
                 </div>
                 <div
                     className={css`
-                        height: 200px;
                     `}
                 >
 

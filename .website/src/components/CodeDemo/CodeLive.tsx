@@ -1,19 +1,19 @@
 import { type HTMLAttributes, type FC, useState } from "react";
-import RcLive from "@crab/rc-live";
-import RcButton from "@crab/rc-button";
+import RcLive from "@crab-dev/rc-live";
+import RcButton from "@crab-dev/rc-button";
 import RcTree, {
     LoadStateType, NodeType, getTreeNodeDepth, useTreeData
-} from "@crab/rc-tree";
+} from "@crab-dev/rc-tree";
 import { css, cx } from "@linaria/core";
-import { flex, flexAlignItems, fontSize } from "@crab/styleify";
-import Table from "@crab/rc-table";
+import { flex, flexAlignItems, fontSize } from "@crab-dev/styleify";
+import Table from "@crab-dev/rc-table";
 import { BsCode } from "react-icons/bs";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { fakerZH_CN } from "@faker-js/faker"
 import { vs } from "react-syntax-highlighter/dist/esm/styles/prism";
-import RcFrame from "@crab/rc-frame";
-import RcMenu, { MenuItemType } from "@crab/rc-menu";
-import LineEdit from "@crab/rc-line-edit";
+import RcFrame from "@crab-dev/rc-frame";
+import RcMenu, { MenuItemType } from "@crab-dev/rc-menu";
+import LineEdit from "@crab-dev/rc-line-edit";
 import { AiOutlineLock  } from "react-icons/ai";
 
 interface CodeLiveProps extends HTMLAttributes<HTMLDivElement> {

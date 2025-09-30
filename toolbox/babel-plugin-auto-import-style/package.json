@@ -1,6 +1,8 @@
 {
-    "name": "@crab/babel-plugin-auto-import-style",
-    "description": "用于处理组件样式自动导入, 属于 @crab/crustify 的内部组件",
+    "name": "@crab-dev/babel-plugin-auto-import-style",
+    "description": "用于处理组件样式自动导入, 属于 @crab-dev/crustify 的内部组件",
+    "version": "0.0.1",
+    "license": "UNLICENSED",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
@@ -16,8 +18,8 @@
     "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "devDependencies": {
-        "@crab/packify": "workspace:^",
-        "@crab/standards-typescript-preset": "workspace:^",
+        "@crab-dev/packify": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
         "@types/babel__helper-plugin-utils": "^7.10.3",
         "@types/node": "^24.4.0"
     },

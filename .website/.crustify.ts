@@ -1,4 +1,4 @@
-import { defineConfig } from "@crab/crustify";
+import { defineConfig } from "@crab-dev/crustify";
 import { join } from "path";
 
 export default defineConfig({

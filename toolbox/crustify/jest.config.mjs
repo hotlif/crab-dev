@@ -1,2 +1,2 @@
-import { node } from "@crab/standards-jest-preset";
+import { node } from "@crab-dev/standards-jest-preset";
 export default node;

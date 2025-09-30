@@ -1,7 +1,7 @@
 import DraggableTreeDemo from "./docs/src/demos/draggable.demo";
 
 <div align="center">
-	<h1>@crab/rc-tree</h1>
+	<h1>@crab-dev/rc-tree</h1>
 	一个多功能且可定制的树形组件，用于 React 应用程序，提供高效的渲染和拖放功能。
 </div>
 

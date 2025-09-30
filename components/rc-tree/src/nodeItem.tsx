@@ -11,7 +11,7 @@ import {
     margin,
     column,
     AnimSpinKeyframes
-} from "@crab/styleify";
+} from "@crab-dev/styleify";
 import { NodeType, OverStateEnum, type Node, type OverState } from "./type";
 import { getTreeNodeDepth } from "./util";
 import { CaretDownFill, CaretRightFill, Loading } from "./icon";

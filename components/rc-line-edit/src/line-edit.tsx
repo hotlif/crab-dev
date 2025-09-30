@@ -1,5 +1,5 @@
 import { css, cx } from "@linaria/core";
-import { fontSize } from '@crab/styleify';
+import { fontSize } from '@crab-dev/styleify';
 import type { FC, InputHTMLAttributes, ReactNode } from "react";
 
 import Token from "./token";
