@@ -2180,34 +2180,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/infinitum-front@workspace:app/infinitum/crab-core-front":
-  version: 0.0.0-use.local
-  resolution: "@crab-dev/infinitum-front@workspace:app/infinitum/crab-core-front"
-  dependencies:
-    "@crab-dev/crustify": "workspace:^"
-    "@crab-dev/rc-button": "workspace:^"
-    "@crab-dev/rc-frame": "workspace:^"
-    "@crab-dev/rc-line-edit": "workspace:^"
-    "@crab-dev/rc-request": "workspace:^"
-    "@crab-dev/standards-eslint-preset": "workspace:^"
-    "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/styleify": "workspace:^"
-    "@linaria/core": "npm:^6.3.0"
-    "@types/node": "npm:^24.4.0"
-    "@types/react": "npm:^19.1.13"
-    "@types/react-dom": "npm:^19.1.9"
-    eslint: "npm:^9.35.0"
-    eslint-plugin-react: "npm:^7.37.5"
-    globals: "npm:^16.4.0"
-    react: "npm:^19.1.1"
-    react-dom: "npm:^19.1.1"
-    react-icons: "npm:^5.5.0"
-    react-router: "npm:^7.9.1"
-    typescript: "npm:^5.9.2"
-    typescript-eslint: "npm:^8.43.0"
-  languageName: unknown
-  linkType: soft
-
 "@crab-dev/packify@workspace:^, @crab-dev/packify@workspace:toolbox/packify":
   version: 0.0.0-use.local
   resolution: "@crab-dev/packify@workspace:toolbox/packify"
@@ -2432,7 +2404,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-request@workspace:^, @crab-dev/rc-request@workspace:components/rc-request":
+"@crab-dev/rc-request@workspace:components/rc-request":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-request@workspace:components/rc-request"
   dependencies:

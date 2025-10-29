@@ -5,7 +5,7 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react"
-import Dialog from "../../../src/index";
+import Dialog, { useConfirm } from "../../../src/index";
 
 
 
@@ -16,6 +16,8 @@ const paddingTop = css`
 const SimpleFrame = () => {
 	const [open, setOpen] = useState(false);
 	const [shouldResetContent, setShouldResetContent] = useState(true);
+	const [dom, confirm] = useConfirm();
+	
 	return (
 		<>
 			<button
@@ -24,6 +26,24 @@ const SimpleFrame = () => {
 				}}
 			>
 				打开对话框
+			</button>
+			<button
+				onClick={() => {
+					confirm({
+						title: "系统消息",
+						content: "当前用户名不能为空",
+						onConfirm: async () => {
+							console.log("用户点击了确定")
+							return true;
+						},
+						onCancel: async () => {
+							console.log("用户点击了取消")
+							return true;
+						}
+					})
+				}}
+			>
+				打开确认对话框
 			</button>
 			<div>
 				<input
@@ -51,6 +71,7 @@ const SimpleFrame = () => {
 					<input type="text"  />
 				</div>
 			</Dialog>
+			{dom}
 		</>
 	)
 }

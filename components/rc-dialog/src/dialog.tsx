@@ -1,5 +1,5 @@
 
-import { css } from "@linaria/core";
+import { css, cx } from "@linaria/core";
 import { type FC, type HTMLAttributes, type ReactNode} from "react";
 import RcButton from "@crab-dev/rc-button";
 
@@ -12,7 +12,7 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> 
     /**
      * 是否开启
      */
-    open?: boolean;
+    open: boolean;
 
     /**
      * 是否在关闭的时候重置内容
@@ -22,7 +22,7 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> 
     /**
      * 状态发生改变的时候触发的事件
      */
-    onOpenChange?: (open: boolean) => void;
+    onOpenChange: (open: boolean) => void;
 
     /**
      * 确定按钮点击时触发的事件， 如果返回 `true`, 则关闭对话框
@@ -37,6 +37,7 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> 
 }
 
 const Dialog: FC<DialogProps> = ({
+    className,
     open,
     onOpenChange,
     title,
@@ -66,13 +67,13 @@ const Dialog: FC<DialogProps> = ({
                 />
             ) : null}
             <dialog
-                className={css`
+                className={cx(css`
                     padding: 20px 24px;
                     border-radius: 8px;
                     outline: none;
                     border: none;
                     box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
-                `}
+                `, className)}
                 key={shouldResetContent ? (open ? 1 : 0) : -1}
                 open={open}
                 {...restProps}
