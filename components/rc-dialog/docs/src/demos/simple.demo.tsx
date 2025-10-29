@@ -15,6 +15,7 @@ const paddingTop = css`
 
 const SimpleFrame = () => {
 	const [open, setOpen] = useState(false);
+	const [shouldResetContent, setShouldResetContent] = useState(true);
 	return (
 		<>
 			<button
@@ -24,12 +25,31 @@ const SimpleFrame = () => {
 			>
 				打开对话框
 			</button>
+			<div>
+				<input
+					type="checkbox"
+					checked={shouldResetContent}
+					onChange={(e) => {
+						setShouldResetContent(e.target.checked)
+					}}
+				/>
+				shouldResetContent (关闭对话框时，是否重置内容)
+			</div>
 			<Dialog
 				open={open}
 				title="标题"
 				onOpenChange={setOpen}
+				shouldResetContent={shouldResetContent}
+				style={{
+					width: 520
+				}}
 			>
-				这是一个弹出框的内容
+				<div
+					style={{
+					}}
+				>
+					<input type="text"  />
+				</div>
 			</Dialog>
 		</>
 	)
