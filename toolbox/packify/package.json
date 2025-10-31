@@ -35,7 +35,7 @@
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^12.1.4",
         "@wyw-in-js/rollup": "^0.7.0",
-        "babel-plugin-react-compiler": "^19.1.0-rc.3",
+        "babel-plugin-react-compiler": "^1.0.0",
         "rollup": "^4.50.1",
         "rollup-plugin-css-only": "^4.5.5",
         "rollup-plugin-dts": "^6.2.3"
