@@ -2,8 +2,9 @@ import { flex, flexDirection, flexAlignItems, fontSize, margin, padding, width }
 import { css, cx } from "@linaria/core";
 import { useNavigate, useOutlet } from "react-router";
 import RcButton from "@crab-dev/rc-button";
-import { getConfig } from "../util/global";
 import mdxs from "@@@/mdx"
+
+import { getConfig } from "../util/global";
 
 
 const config = getConfig();

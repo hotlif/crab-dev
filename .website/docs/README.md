@@ -18,7 +18,6 @@ path = "/"
     - [ ] `@crab-dev/rc-live` 通过代码字符串可以预览代码
     - [ ] `@crab-dev/rc-menu` 为页面和功能提供导航的菜单列表
     - [ ] `@crab-dev/rc-popover` 一个简洁的浮动组件
-    - [ ] `@crab-dev/rc-request` Http 请求库，提供简洁的 API 和强大的功能，支持请求拦截、响应拦截、错误处理等。
     - [ ] `@crab-dev/rc-table` 表格组件
     
 

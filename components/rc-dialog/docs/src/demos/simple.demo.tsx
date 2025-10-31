@@ -63,6 +63,21 @@ const SimpleFrame = () => {
 				style={{
 					width: 520
 				}}
+				onConfirm={async () => {
+					confirm({
+						title: "系统消息",
+						content: "当前用户名不能为空",
+						onConfirm: async () => {
+							console.log("用户点击了确定")
+							return true;
+						},
+						onCancel: async () => {
+							console.log("用户点击了取消")
+							return true;
+						}
+					})
+					return false
+				}}
 			>
 				<div
 					style={{

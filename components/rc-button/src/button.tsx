@@ -151,7 +151,6 @@ const Button: FC<ButtonProps> = ({
                     cursor: default;
                     pointer-events: none;
                 }
-
             `
         } else if (appearance === "link") {
             return css`

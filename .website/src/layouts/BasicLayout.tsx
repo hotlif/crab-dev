@@ -4,7 +4,7 @@ import { useMatches, useNavigate } from "react-router";
 import { type Key } from "react";
 
 import DocsIndexLayout from "./DocsIndexLayout";
-import DocsLayout from "./DocsLayout";
+import DocsLayout from "./DocsBasicLayout";
 import { getConfig } from "../util/global";
 import mdxs from "@@@/mdx"
 

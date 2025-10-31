@@ -1,9 +1,5 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import {
-    fontSize,
-    fontFamily
-} from "@crab-dev/styleify";
 import E404 from "./errors/E404";
 import { RouterProvider, createBrowserRouter } from "react-router";
 
@@ -13,10 +9,6 @@ import MdxComponents from "./components/mdx";
 
 export const globals = cx(css`
     :global() {
-        * {
-            ${fontFamily("serif")}
-            ${fontSize("base")};
-        }
         #root {
             display: flex;
             flex-direction: column;
