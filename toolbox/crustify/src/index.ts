@@ -1,7 +1,7 @@
 import { Writable } from "stream";
 import { merge } from "webpack-merge";
 import Webpack from "webpack";
-import WebpackDevServer, { Configuration } from "webpack-dev-server";
+import WebpackDevServer from "webpack-dev-server";
 
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
@@ -11,7 +11,7 @@ import { getCwdDir, getModsWebpackMerge } from "./util";
 import ReactWebpackPlugin from "./plugins/ReactWebpackPlugin";
 export { getConfig } from "./conf";
 
-export { type Modification } from "./conf"
+
 
 const originalConsoleLog = console.log;
 const originalConsoleError = console.error;
@@ -83,17 +83,19 @@ export const run = async (conf: Config) => {
     }));
 
     const webpackCompiler = Webpack(webpackConfig);
-    const devServer = new WebpackDevServer(
-        webpackConfig.devServer,
-        webpackCompiler
-    );
-
-    devServer.startCallback(() => {
-        const protocol = devServer.isTlsServer ? "https" : "http";
-        const host = devServer.options.host ?? "localhost";
-        const port = devServer.options.port;
-        console.log(`Address: ${protocol}://${host}:${port}`);
-    });
+    if (webpackCompiler) {
+        const devServer = new WebpackDevServer(
+            webpackConfig.devServer,
+            webpackCompiler
+        );
+    
+        devServer.startCallback(() => {
+            const protocol = devServer.isTlsServer ? "https" : "http";
+            const host = devServer.options.host ?? "localhost";
+            const port = devServer.options.port;
+            console.log(`Address: ${protocol}://${host}:${port}`);
+        });
+    }
 };
 
 /**
@@ -120,7 +122,7 @@ export const build = async (conf: Config) => {
     }));
 
     const webpackCompiler = Webpack(webpackConfig);
-    webpackCompiler.run((error, stats) => {
+    webpackCompiler?.run((error, stats) => {
         if (stats?.hasErrors() || stats?.hasWarnings()) {
             console.log(
                 stats.toString({
@@ -160,7 +162,7 @@ export const bundle = async (conf: Config) => {
     }));
 
     const webpackCompiler = Webpack(webpackConfig);
-    webpackCompiler.run((error, stats) => {
+    webpackCompiler?.run((error, stats) => {
         if (stats?.hasErrors() || stats?.hasWarnings()) {
             console.log(
                 stats.toString({
@@ -175,3 +177,5 @@ export const bundle = async (conf: Config) => {
 export {
     defineConfig
 } from "./conf";
+export { type Modification } from "./conf";
+export { type Configuration } from "webpack";

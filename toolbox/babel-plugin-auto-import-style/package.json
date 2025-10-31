@@ -2,7 +2,6 @@
     "name": "@crab-dev/babel-plugin-auto-import-style",
     "description": "用于处理组件样式自动导入, 属于 @crab-dev/crustify 的内部组件",
     "version": "0.0.2",
-    "license": "UNLICENSED",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {

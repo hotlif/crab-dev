@@ -3,7 +3,6 @@
     "version": "0.0.2",
     "description": "用于 TypeScript 项目的 tsconfig 预设",
     "packageManager": "yarn@4.7.0",
-    "license": "UNLICENSED",
     "type": "module",
     "files": [
         "tsconfig.browser.react.json",

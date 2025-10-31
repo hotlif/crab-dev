@@ -16,7 +16,7 @@
     "styleify",
     "website/",
     "toolbox/markify/__tests__/demo",
-    "app/infinitum/crab-core-front"
+    "toolbox/vue2-crustify-mod/__tests__/demo"
   ],
   "devDependencies": {
     "@crab-dev/standards-typescript-preset": "workspace:^",
