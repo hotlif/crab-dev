@@ -47,6 +47,20 @@ const Dialog: FC<DialogProps> = ({
     onCancel,
     ...restProps
 }) => {
+
+
+    const cancel = () => {
+        if (onCancel) {
+            onCancel?.()
+                .then(result => {
+                    if (result === true) {
+                        onOpenChange?.(false);
+                    }
+                });
+        } else {
+            onOpenChange?.(false);
+        }
+    }
     return (
          <>
             {open ? (
@@ -56,18 +70,7 @@ const Dialog: FC<DialogProps> = ({
                         inset: 0;
                         background-color: rgba(0,0,0,0.45);
                     `}
-                    onClick={() => {
-                        if (onCancel) {
-                            onCancel?.()
-                                .then(result => {
-                                    if (result === true) {
-                                        onOpenChange?.(false);
-                                    }
-                                });
-                        } else {
-                            onOpenChange?.(false);
-                        }
-                    }}
+                    onClick={cancel}
                 />
             ) : null}
             <dialog
@@ -104,6 +107,7 @@ const Dialog: FC<DialogProps> = ({
                             display: flex;
                             align-items: center;
                         `}
+                        onClick={cancel}
                     >
                         <svg
                             fill-rule="evenodd"
@@ -132,18 +136,7 @@ const Dialog: FC<DialogProps> = ({
                     `}
                 >
                     <RcButton
-                        onClick={() => {
-                            if (onCancel) {
-                                onCancel?.()
-                                    .then(result => {
-                                        if (result === true) {
-                                            onOpenChange?.(false);
-                                        }
-                                    });
-                            } else {
-                                onOpenChange?.(false);
-                            }
-                        }}
+                        onClick={cancel}
                     >
                         取消
                     </RcButton>

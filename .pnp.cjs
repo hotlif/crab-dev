@@ -6728,7 +6728,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "virtual:c729de997f2dd52b2bc8647fa50d578fa83d0da92c5b197cdaed19956371e256e92ecfdc53ae8a7b3a5736328704565429458e490617bb8793fb6d17043d658f#npm:19.1.9"],\
           ["@wyw-in-js/webpack-loader", "virtual:c729de997f2dd52b2bc8647fa50d578fa83d0da92c5b197cdaed19956371e256e92ecfdc53ae8a7b3a5736328704565429458e490617bb8793fb6d17043d658f#npm:0.7.0"],\
           ["babel-loader", "virtual:c729de997f2dd52b2bc8647fa50d578fa83d0da92c5b197cdaed19956371e256e92ecfdc53ae8a7b3a5736328704565429458e490617bb8793fb6d17043d658f#npm:10.0.0"],\
-          ["babel-plugin-react-compiler", "npm:19.1.0-rc.3"],\
+          ["babel-plugin-react-compiler", "npm:1.0.0"],\
           ["css-loader", "virtual:c729de997f2dd52b2bc8647fa50d578fa83d0da92c5b197cdaed19956371e256e92ecfdc53ae8a7b3a5736328704565429458e490617bb8793fb6d17043d658f#npm:7.1.2"],\
           ["css-minimizer-webpack-plugin", "virtual:c729de997f2dd52b2bc8647fa50d578fa83d0da92c5b197cdaed19956371e256e92ecfdc53ae8a7b3a5736328704565429458e490617bb8793fb6d17043d658f#npm:7.0.2"],\
           ["eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:9.35.0"],\
@@ -6781,7 +6781,7 @@ const RAW_RUNTIME_STATE =
           ["@types/babel__preset-env", "npm:7.10.0"],\
           ["@types/node", "npm:24.4.0"],\
           ["@wyw-in-js/rollup", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:0.7.0"],\
-          ["babel-plugin-react-compiler", "npm:19.1.0-rc.3"],\
+          ["babel-plugin-react-compiler", "npm:1.0.0"],\
           ["eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:9.35.0"],\
           ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
           ["globals", "npm:16.4.0"],\
@@ -13626,10 +13626,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["babel-plugin-react-compiler", [\
-      ["npm:19.1.0-rc.3", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/babel-plugin-react-compiler-npm-19.1.0-rc.3-6f95876f91-10c0.zip/node_modules/babel-plugin-react-compiler/",\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/babel-plugin-react-compiler-npm-1.0.0-5beba4221c-10c0.zip/node_modules/babel-plugin-react-compiler/",\
         "packageDependencies": [\
-          ["babel-plugin-react-compiler", "npm:19.1.0-rc.3"],\
+          ["babel-plugin-react-compiler", "npm:1.0.0"],\
           ["@babel/types", "npm:7.26.3"]\
         ],\
         "linkType": "HARD"\
