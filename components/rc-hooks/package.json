@@ -6,7 +6,6 @@
     "type": "module",
     "scripts": {
         "build:library": "packify build",
-        "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
     "files": [

@@ -3,7 +3,29 @@ import { css, cx } from "@linaria/core";
 import { type FC, type HTMLAttributes, type ReactNode} from "react";
 import RcButton from "@crab-dev/rc-button";
 
+
+/**
+ * 国际化内容
+ */
+interface DialogI18n {
+    /**
+     * 确认按钮文本
+     */
+    confirmText?: string;
+
+    /**
+     * 取消按钮文本
+     */
+    cancelText?: string;
+}
+
 export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
+
+    /**
+     * 国际化内容
+     */
+    i18n?: DialogI18n;
+
     /**
      *  标题
      */
@@ -45,9 +67,17 @@ const Dialog: FC<DialogProps> = ({
     shouldResetContent = true,
     onConfirm,
     onCancel,
+    i18n = {
+        cancelText: "取消",
+        confirmText: "确定",
+    },
     ...restProps
 }) => {
 
+    const {
+        cancelText,
+        confirmText
+    } = i18n;
 
     const cancel = () => {
         if (onCancel) {
@@ -138,7 +168,7 @@ const Dialog: FC<DialogProps> = ({
                     <RcButton
                         onClick={cancel}
                     >
-                        取消
+                        {cancelText}
                     </RcButton>
                     <RcButton
                         className={css`
@@ -154,7 +184,7 @@ const Dialog: FC<DialogProps> = ({
                                 });
                         }}
                     >
-                        确定
+                        {confirmText}
                     </RcButton>
                 </div>
             </dialog>

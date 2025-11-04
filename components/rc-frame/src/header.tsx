@@ -28,6 +28,11 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
      */
     username?: ReactNode
 
+    /**
+     * 用户头像
+     */
+    userAvatar?: ReactNode
+
 }
 
 
@@ -36,6 +41,7 @@ const Header: FC<HeaderProps> = ({
     logoIconUrl,
     title,
     username,
+    userAvatar,
     ...restProps
 }) => {
     return (
@@ -57,7 +63,8 @@ const Header: FC<HeaderProps> = ({
                     ${flexAlignItems("center")} 
                     ${width(64)}
                     box-sizing: border-box;
-                    ${padding(5)} 
+                    ${padding(5)}
+                    user-select: none;
                 `}
             >
                 {
@@ -91,12 +98,31 @@ const Header: FC<HeaderProps> = ({
 
             <div
                 className={css`
-                    ${margin(4)}    
+                    padding: 10px;
+                    margin-right: 1rem;
+                    display: flex;
+                    align-items: center;
+                    user-select: none;
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.03);
+                    }
                 `}
             >
                 <span
                     className={css`
-                        ${fontSize("sm")}
+                        width: 28px;
+                        height: 28px;
+                        font-size: 18px;
+                        overflow: hidden; 
+                        margin-right: .5rem;
+                    `}
+                >
+                    {userAvatar}
+                </span>
+                <span
+                    className={css`
+                        font-size: 14px;
+                        color: rgba(0, 0, 0, 0.45);
                         cursor: pointer;
                     `}
                 >

@@ -17,7 +17,20 @@ const SimpleFrame = () => {
 			`}
 			headerTitle="Crab Frame"
 			headerLogoIconUrl="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-			headerUserName="张尽"
+			headerUserName="admin"
+			headerUserAvatar={
+				<img
+					className={css`
+						max-width: 100%;
+						max-height: 100%;
+						width: auto;
+						height: auto;
+						display: block;
+						object-fit: contain;	
+					`}
+					src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
+				/>
+			}
 			sidebarLoadMenus={async () => {
 				return [{
 					type: MenuItemType.Item,

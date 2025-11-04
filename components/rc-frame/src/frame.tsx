@@ -14,6 +14,7 @@ interface FrameProps extends Omit<HTMLAttributes<HTMLDivElement>, ""> {
     headerTitle?: string
     headerLogoIconUrl?: string
     headerUserName?: ReactNode
+    headerUserAvatar?: ReactNode
     sidebarLoadMenus?: SidebarProps["loadMenus"]
 }
 
@@ -22,6 +23,7 @@ const Frame: FC<FrameProps> = ({
     headerTitle,
     headerLogoIconUrl,
     headerUserName,
+    headerUserAvatar,
     sidebarLoadMenus,
     children,
     ...restProps
@@ -42,6 +44,7 @@ const Frame: FC<FrameProps> = ({
                 title={headerTitle}
                 username={headerUserName}
                 logoIconUrl={headerLogoIconUrl}
+                userAvatar={headerUserAvatar}
             />
             <div
                 className={css`

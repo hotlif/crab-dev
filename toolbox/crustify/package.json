@@ -7,7 +7,6 @@
     "scripts": {
         "build:library": "packify build",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-        "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
         "eslint": "eslint"
     },
     "files": [
