@@ -1,0 +1,43 @@
+{
+    "name": "@crab-dev/vue2-lcp-web-crustify-mod",
+    "version": "0.1.2",
+    "description": "低代码平台的开发阶段的模组, 用来方便开发和调试",
+    "packageManager": "yarn@4.7.0",
+    "type": "module",
+    "scripts": {
+        "build:library": "packify build",
+        "pack:tgz": "yarn pack --out .out/%s-%v.tgz",
+        "eslint": "eslint"
+    },
+    "files": [
+        "esm",
+        "assets"
+    ],
+    "bin": "bin/cli.js",
+    "types": "esm/index.d.ts",
+    "main": "esm/index.mjs",
+    "module": "esm/index.mjs",
+    "devDependencies": {
+        "@crab-dev/crustify": "workspace:^",
+        "@crab-dev/packify": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-jest-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@jest/globals": "30.2.0",
+        "@types/node": "^24.10.0",
+        "eslint": "^9.28.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "16.2.0",
+        "jest": "^30.2.0",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.33.1",
+        "webpack": "^5.99.9",
+        "webpack-dev-server": "^5.2.2"
+    },
+    "dependencies": {
+        "css-loader": "^7.1.2",
+        "mini-css-extract-plugin": "^2.9.2",
+        "style-loader": "^4.0.0",
+        "webpack-merge": "^6.0.1"
+    }
+}

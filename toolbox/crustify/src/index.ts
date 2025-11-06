@@ -2,6 +2,8 @@ import { Writable } from "stream";
 import { merge } from "webpack-merge";
 import Webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
+import type { Configuration as WebpackConfiguration } from "webpack";
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
@@ -178,4 +180,6 @@ export {
     defineConfig
 } from "./conf";
 export { type Modification } from "./conf";
-export { type Configuration } from "webpack";
+export type Configuration = WebpackConfiguration & {
+    devServer?: DevServerConfiguration;
+};
