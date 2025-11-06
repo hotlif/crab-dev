@@ -103,6 +103,7 @@ const Header: FC<HeaderProps> = ({
                     display: flex;
                     align-items: center;
                     user-select: none;
+                    cursor: pointer;
                     &:hover {
                         background-color: rgba(0, 0, 0, 0.03);
                     }
@@ -123,7 +124,6 @@ const Header: FC<HeaderProps> = ({
                     className={css`
                         font-size: 14px;
                         color: rgba(0, 0, 0, 0.45);
-                        cursor: pointer;
                     `}
                 >
                     {username}
