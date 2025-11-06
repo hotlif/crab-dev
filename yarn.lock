@@ -2619,6 +2619,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/vue2-lcp-web-crustify-mod@workspace:toolbox/vue2-lcp-web-crustify-mod":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/vue2-lcp-web-crustify-mod@workspace:toolbox/vue2-lcp-web-crustify-mod"
+  dependencies:
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.2.0"
+    "@types/node": "npm:^24.10.0"
+    css-loader: "npm:^7.1.2"
+    eslint: "npm:^9.28.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:16.2.0"
+    jest: "npm:^30.2.0"
+    mini-css-extract-plugin: "npm:^2.9.2"
+    style-loader: "npm:^4.0.0"
+    typescript: "npm:^5.8.3"
+    typescript-eslint: "npm:^8.33.1"
+    webpack: "npm:^5.99.9"
+    webpack-dev-server: "npm:^5.2.2"
+    webpack-merge: "npm:^6.0.1"
+  bin:
+    vue2-lcp-web-crustify-mod: bin/cli.js
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/website@workspace:.website":
   version: 0.0.0-use.local
   resolution: "@crab-dev/website@workspace:.website"
@@ -2658,34 +2686,6 @@ __metadata:
   peerDependencies:
     react: ^19.0.0
     react-dom: ^19.0.0
-  languageName: unknown
-  linkType: soft
-
-"@crab/vue2-lcp-web-crustify-mod@workspace:toolbox/vue2-lcp-web-crustify-mod":
-  version: 0.0.0-use.local
-  resolution: "@crab/vue2-lcp-web-crustify-mod@workspace:toolbox/vue2-lcp-web-crustify-mod"
-  dependencies:
-    "@crab-dev/crustify": "workspace:^"
-    "@crab-dev/packify": "workspace:^"
-    "@crab-dev/standards-eslint-preset": "workspace:^"
-    "@crab-dev/standards-jest-preset": "workspace:^"
-    "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@jest/globals": "npm:30.2.0"
-    "@types/node": "npm:^24.10.0"
-    css-loader: "npm:^7.1.2"
-    eslint: "npm:^9.28.0"
-    eslint-plugin-react: "npm:^7.37.5"
-    globals: "npm:16.2.0"
-    jest: "npm:^30.2.0"
-    mini-css-extract-plugin: "npm:^2.9.2"
-    style-loader: "npm:^4.0.0"
-    typescript: "npm:^5.8.3"
-    typescript-eslint: "npm:^8.33.1"
-    webpack: "npm:^5.99.9"
-    webpack-dev-server: "npm:^5.2.2"
-    webpack-merge: "npm:^6.0.1"
-  bin:
-    vue2-lcp-web-crustify-mod: bin/cli.js
   languageName: unknown
   linkType: soft
 

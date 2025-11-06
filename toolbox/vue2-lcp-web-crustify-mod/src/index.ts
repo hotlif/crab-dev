@@ -81,7 +81,7 @@ class Vue2LcpWebCrustifyMod implements Modification {
         configuration.devServer.proxy = configuration.devServer.proxy.map(element => ({
             ...element,
             onProxyRes: (proxyRes, req, res) => {
-                const version = self.param?.version ?? "5ad71ace";
+                const version = self.param?.version ?? "912eb48e";
                 if (req.url === `/js/app.${version}.js`) {
                     const proxyLoadFormScript = `window._$proxyLoadFormScript = ${JSON.stringify(this.param.proxyLoadFormScript || {})};\n`;
                     const proxyLoadFormScriptPatch = proxyLoadFormScript + readFileSync(join(__dirname, "..", "assets", `app.${version}.patch.js`)).toString();
