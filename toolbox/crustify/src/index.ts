@@ -74,7 +74,8 @@ export const run = async (conf: Config) => {
         },
         plugins: [
             new ReactWebpackPlugin({
-                cwd: join(cwd, "src")
+                cwd: join(cwd, "src"),
+                mods: conf.mods
             })
         ],
         devServer: {
@@ -118,7 +119,8 @@ export const build = async (conf: Config) => {
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         plugins: [
             new ReactWebpackPlugin({
-                cwd: join(cwd, "src")
+                cwd: join(cwd, "src"),
+                mods: conf.mods
             })
         ]
     }));
@@ -139,7 +141,7 @@ export const build = async (conf: Config) => {
 /**
  * 执行 bundle 任务
  */
-export const bundle = async (conf: Config) => {
+export const bundleLibrary = async (conf: Config) => {
     const standard = await presetStandard({
         isProduction: true,
         conf,
@@ -175,6 +177,48 @@ export const bundle = async (conf: Config) => {
         }
     });
 }
+
+
+/**
+ * 执行 bundle 任务
+ */
+export const bundleMesh = async (conf: Config) => {
+    const standard = await presetStandard({
+        isProduction: true,
+        conf,
+    });
+
+    const module = await presetModule({
+        isProduction: true,
+    });
+
+    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module , {
+        output: {
+            path: join(process.cwd(), "bundle"),
+            filename: '[name].bundle.[contenthash].js',
+            library: '[name]',
+            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
+        },
+        externals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+        },
+    }));
+
+    const webpackCompiler = Webpack(webpackConfig);
+    webpackCompiler?.run((error, stats) => {
+        if (stats?.hasErrors() || stats?.hasWarnings()) {
+            console.log(
+                stats.toString({
+                    chunks: false,
+                    colors: true,
+                })
+            );
+        }
+    });
+}
+
+
 
 export {
     defineConfig

@@ -13,9 +13,8 @@
         "esm",
         "assets"
     ],
-    "bin": "bin/cli.js",
-    "types": "esm/index.d.ts",
-    "main": "esm/index.mjs",
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "devDependencies": {
         "@crab-dev/crustify": "workspace:^",

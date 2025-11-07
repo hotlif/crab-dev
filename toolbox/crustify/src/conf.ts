@@ -5,12 +5,23 @@ import { transformSync } from "@swc/core";
 
 
 export interface Modification {
+
+	/**
+	 * 修改入口 HTML 文件
+	 */
+	modifyHTML?(html: string): string
+
+	/**
+	 * 修改文件
+	 */
+	modifyEntry?(entry: string): string
+
 	/**
 	 * 修改 Webpack 配置
 	 * @param configuration Webpack 信息
 	 * @returns 返回一个修改好的 Webpack 信息
 	 */
-	modifyWebpack(configuration: Configuration): Configuration
+	modifyWebpack?(configuration: Configuration): Configuration
 }
 
 /**
@@ -95,6 +106,22 @@ export interface Config {
 		entry: Record<string, string>,
 		libraryTarget?: string 
 	}
+
+	/**
+	 * 微前端组件导出配置
+	 */
+	moduleFederationBundle?:{
+		/**
+		 * 微前端组件名, 需要保持唯一
+		 */
+		name: string,
+
+		/**
+		 * 导出的内容
+		 */
+		exposes: Record<string, string>,
+	}
+
 }
 
 /**

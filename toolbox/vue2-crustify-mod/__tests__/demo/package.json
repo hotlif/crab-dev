@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "start": "crustify dev",
-        "bundle": "crustify bundle"
+        "bundle:library": "crustify bundle:library",
+        "bundle:mesh": "crustify bundle:mesh"
     },
     "devDependencies": {
         "@crab-dev/crustify": "workspace:^",

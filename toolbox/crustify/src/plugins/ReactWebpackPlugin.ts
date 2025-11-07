@@ -2,7 +2,9 @@ import Webpack, { type Compiler, type WebpackPluginInstance } from "webpack";
 import { renderToString } from "react-dom/server";
 import { createElement, type ComponentType } from "react";
 import { join, resolve } from "path";
-import { renderHTML } from "../conf";
+import { existsSync } from "fs";
+
+import { renderHTML, type Modification} from "../conf";
 
 const { RawSource } = Webpack.sources;
 
@@ -10,6 +12,7 @@ const PLUGIN_NAME = "ReactWebpackPlugin";
 
 interface ReactWebpackPluginParam {
   cwd: string;
+  mods?: Modification[]
 }
 
 export const generateHtml = async (
@@ -56,8 +59,18 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
             }
           });
 
-          const Template = await renderHTML(this.param.cwd);
-          const html = await generateHtml(Template, entrys);
+          let html = ""
+          if (existsSync(join(this.param.cwd, "bootstrap.tsx"))) {
+            const Template = await renderHTML(this.param.cwd);
+            html = await generateHtml(Template, entrys);
+          }
+
+          this.param.mods?.forEach(mod => {
+            if (mod.modifyHTML != null) {
+              html = mod.modifyHTML(html);
+            }
+          });
+
           assets["index.html"] = new RawSource(html);
         }
       );

@@ -22,7 +22,9 @@ export const getCwdDir = (rootDir?: string) => {
 export const getModsWebpackMerge = (mods: Modification[], webpackConfig: Configuration) => {
     let config = webpackConfig;
     mods.forEach(mod => {
-        config = mod.modifyWebpack(config)
+        if (mod.modifyWebpack != null) {
+            config = mod.modifyWebpack(config)
+        }
     });
     return config;
 }
