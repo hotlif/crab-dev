@@ -1,6 +1,6 @@
 import MiniExtractPlugin from "mini-css-extract-plugin";
 import { join } from "path";
-import { type Configuration } from "webpack";
+import webpack, { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
 import { writeFileSync, rmSync, existsSync } from "fs";
@@ -10,6 +10,9 @@ import { type Config } from "../conf";
 import { getTmpDir, getCwdDir } from "../util";
 
 const require = createRequire(import.meta.url);
+
+const { container } = webpack;
+const { ModuleFederationPlugin } = container;
 
 const presetStandard = async ({
     isProduction,
@@ -28,8 +31,14 @@ const presetStandard = async ({
     const entry = join(cwd, "entry.tsx");
     const entryTmp = join(tmpDir, "entry.tsx");
     const importEntry = entry.replace(cwd, "").replace(/\\/g, "/");
-    const entryTemplate = `import "@${importEntry}";`;
+    let entryTemplate = `import "@${importEntry}";`;
 
+    conf.mods?.forEach(mod => {
+        if (mod?.modifyEntry) {
+            entryTemplate = mod.modifyEntry(entryTemplate);
+        }
+    });
+    
     writeFileSync(entryTmp, entryTemplate);
 
     const aliasAutoScan: {
@@ -78,6 +87,22 @@ const presetStandard = async ({
                 componentScanRules: conf.componentScan ?? []
             })
         ]
+    }
+
+    if (conf.moduleFederationBundle != null) {
+        standardConfig.plugins?.push(
+            new ModuleFederationPlugin({
+                name: conf?.moduleFederationBundle?.name,
+                filename: "[name].mesh.bundle.[contenthash].js",
+                exposes: {
+                    ...(conf?.moduleFederationBundle?.exposes ?? {})
+                },
+                shared: {
+                    react: { singleton: true },
+                    "react-dom": { singleton: true },
+                },
+            })
+        )
     }
 
     if (isProduction) {

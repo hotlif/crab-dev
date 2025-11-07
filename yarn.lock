@@ -2208,6 +2208,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/docsy-crustify-mod@workspace:toolbox/docsy-crustify-mod":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/docsy-crustify-mod@workspace:toolbox/docsy-crustify-mod"
+  dependencies:
+    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.2.0"
+    "@types/node": "npm:24.9.2"
+    eslint: "npm:^9.22.0"
+    eslint-plugin-react: "npm:^7.37.4"
+    globals: "npm:^16.0.0"
+    jest: "npm:30.2.0"
+    typescript: "npm:^5.8.2"
+    typescript-eslint: "npm:^8.26.1"
+    webpack: "npm:^5.98.0"
+    webpack-merge: "npm:^6.0.1"
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/packify@workspace:^, @crab-dev/packify@workspace:toolbox/packify":
   version: 0.0.0-use.local
   resolution: "@crab-dev/packify@workspace:toolbox/packify"
