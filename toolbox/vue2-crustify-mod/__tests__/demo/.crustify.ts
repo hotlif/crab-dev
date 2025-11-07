@@ -12,7 +12,7 @@ export default defineConfig({
 			"hello2": join(process.cwd(), "src", "hello2.vue"),
 		}
 	},
-	moduleFederationBundle: {
+	moduleMeshBundle: {
 		name: "vue2App",
 		exposes: {
 			"./HelloVue2": join(process.cwd(), "src", "hello.vue"),
