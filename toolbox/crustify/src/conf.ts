@@ -110,7 +110,7 @@ export interface Config {
 	/**
 	 * 微前端组件导出配置
 	 */
-	moduleFederationBundle?:{
+	moduleMeshBundle?:{
 		/**
 		 * 微前端组件名, 需要保持唯一
 		 */

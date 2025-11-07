@@ -89,13 +89,13 @@ const presetStandard = async ({
         ]
     }
 
-    if (conf.moduleFederationBundle != null) {
+    if (conf.moduleMeshBundle != null) {
         standardConfig.plugins?.push(
             new ModuleFederationPlugin({
-                name: conf?.moduleFederationBundle?.name,
+                name: conf?.moduleMeshBundle?.name,
                 filename: "[name].mesh.bundle.[contenthash].js",
                 exposes: {
-                    ...(conf?.moduleFederationBundle?.exposes ?? {})
+                    ...(conf?.moduleMeshBundle?.exposes ?? {})
                 },
                 shared: {
                     react: { singleton: true },
