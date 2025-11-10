@@ -15,8 +15,7 @@ export default defineConfig({
 	moduleMeshBundle: {
 		name: "vue2App",
 		exposes: {
-			"./HelloVue2": join(process.cwd(), "src", "hello.vue"),
-			"./HelloVue22": join(process.cwd(), "src", "hello2.vue"),
+			"./Hello": join(process.cwd(), "src", "hello.tsx")
 		}
 	}
 });
