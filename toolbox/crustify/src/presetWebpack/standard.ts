@@ -1,17 +1,18 @@
 import MiniExtractPlugin from "mini-css-extract-plugin";
 import { join } from "path";
-import { type Configuration } from "webpack";
+import webpack, { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
 import { writeFileSync, rmSync, existsSync } from "fs";
 import { createRequire } from "module";
-import { ModuleFederationPlugin } from "@module-federation/enhanced/webpack"
-
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
 import { getTmpDir, getCwdDir } from "../util";
 
 const require = createRequire(import.meta.url);
+
+const { container } = webpack;
+const { ModuleFederationPlugin } = container;
 
 const presetStandard = async ({
     isProduction,
