@@ -28,7 +28,6 @@ export const generateHtml = async (
       return `<link rel="stylesheet" href="/${element}"></link>`;
     }
   });
-
   return html.replace("</head>", `${injections.join("\n")}</head>`);
 };
 
