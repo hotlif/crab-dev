@@ -180,7 +180,7 @@ export const bundleLibrary = async (conf: Config) => {
 
 
 /**
- * 执行 bundle 任务
+ * 执行 bundle 任务 Mesh
  */
 export const bundleMesh = async (conf: Config) => {
     const standard = await presetStandard({
@@ -198,12 +198,12 @@ export const bundleMesh = async (conf: Config) => {
             filename: '[name].bundle.[contenthash].js',
             library: '[name]',
             libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
-        },
-        externals: {
-            react: 'React',
-            'react-dom': 'ReactDOM',
-        },
+        }
     }));
+
+    if (webpackConfig.output?.publicPath) {
+        webpackConfig.output.publicPath = "auto"
+    }
 
     const webpackCompiler = Webpack(webpackConfig);
     webpackCompiler?.run((error, stats) => {
