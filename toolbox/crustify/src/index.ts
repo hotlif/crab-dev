@@ -10,7 +10,7 @@ import presetModule from "./presetWebpack/module";
 import { Config } from "./conf";
 import { join } from "path";
 import { getCwdDir, getModsWebpackMerge } from "./util";
-import ReactWebpackPlugin from "./plugins/ReactWebpackPlugin";
+
 export { getConfig } from "./conf";
 
 
@@ -60,6 +60,9 @@ export const run = async (conf: Config) => {
     });
 
     const cwd = getCwdDir(conf.rootDir);
+
+    const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
+    const ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport
 
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         entry: {
@@ -115,6 +118,9 @@ export const build = async (conf: Config) => {
     });
 
     const cwd = getCwdDir(conf.rootDir);
+
+    const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
+    const ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport
 
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         plugins: [
