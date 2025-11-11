@@ -82,17 +82,21 @@ export const build = async () => {
     });
 
     await bundle.write({
-        file: "esm/index.mjs",
+        dir: "esm",
         format: "es",
+        entryFileNames: "[name].mjs",
+        chunkFileNames: '[name].[hash].mjs',
         plugins: [
             terser()
         ]
     });
 
     await bundle.write({
-        file: "cjs/index.cjs",
+        dir: "cjs",
         format: "cjs",
         exports: "auto",
+        entryFileNames: "[name].cjs",
+        chunkFileNames: '[name].[hash].cjs',
         plugins: [
             terser()
         ]
