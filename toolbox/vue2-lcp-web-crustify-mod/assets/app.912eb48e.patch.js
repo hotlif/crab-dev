@@ -29599,10 +29599,11 @@
             },
             methods: {
                 execScript() {
+                    const self = this;
                     d["a"].globalConfigHandle(this.scriptStr).then(e => {
                         if (!Object(o["p"])(e))
                             try {
-                                const sheetCode = self.loadFormInfoResult.SheetCode;
+                                const sheetCode = self.getDataFormInfo().sheetCode;
                                 const extModuleName = window._$proxyLoadFormScript[sheetCode];
                                 console.debug(`[vue2-lcp-web-crustify-mod]: SheetCode=${sheetCode}, ModuleName=${extModuleName}`);
                                 if (extModuleName) {
