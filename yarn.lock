@@ -2412,6 +2412,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-button@workspace:components/rc-button"
   dependencies:
+    "@crab-dev/crustify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
