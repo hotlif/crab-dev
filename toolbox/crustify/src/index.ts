@@ -2,15 +2,16 @@ import { Writable } from "stream";
 import { merge } from "webpack-merge";
 import Webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
+import type { Configuration as WebpackConfiguration } from "webpack";
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
 import { Config } from "./conf";
 import { join } from "path";
 import { getCwdDir, getModsWebpackMerge } from "./util";
-import ReactWebpackPlugin from "./plugins/ReactWebpackPlugin";
-export { getConfig } from "./conf";
 
+export { getConfig } from "./conf";
 
 
 const originalConsoleLog = console.log;
@@ -59,6 +60,9 @@ export const run = async (conf: Config) => {
 
     const cwd = getCwdDir(conf.rootDir);
 
+    const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
+    const ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport
+
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         entry: {
             "main": standard.entry as string,
@@ -72,7 +76,8 @@ export const run = async (conf: Config) => {
         },
         plugins: [
             new ReactWebpackPlugin({
-                cwd: join(cwd, "src")
+                cwd: join(cwd, "src"),
+                mods: conf.mods
             })
         ],
         devServer: {
@@ -113,10 +118,14 @@ export const build = async (conf: Config) => {
 
     const cwd = getCwdDir(conf.rootDir);
 
+    const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
+    const ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport
+
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         plugins: [
             new ReactWebpackPlugin({
-                cwd: join(cwd, "src")
+                cwd: join(cwd, "src"),
+                mods: conf.mods
             })
         ]
     }));
@@ -137,7 +146,7 @@ export const build = async (conf: Config) => {
 /**
  * 执行 bundle 任务
  */
-export const bundle = async (conf: Config) => {
+export const bundleLibrary = async (conf: Config) => {
     const standard = await presetStandard({
         isProduction: true,
         conf,
@@ -174,8 +183,52 @@ export const bundle = async (conf: Config) => {
     });
 }
 
+
+/**
+ * 执行 bundle 任务 Mesh
+ */
+export const bundleMesh = async (conf: Config) => {
+    const standard = await presetStandard({
+        isProduction: true,
+        conf,
+    });
+
+    const module = await presetModule({
+        isProduction: true,
+    });
+
+    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module , {
+        output: {
+            path: join(process.cwd(), "bundle"),
+            filename: '[name].bundle.[contenthash].js',
+            library: '[name]',
+            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
+        }
+    }));
+
+    if (webpackConfig.output?.publicPath) {
+        webpackConfig.output.publicPath = "auto"
+    }
+
+    const webpackCompiler = Webpack(webpackConfig);
+    webpackCompiler?.run((error, stats) => {
+        if (stats?.hasErrors() || stats?.hasWarnings()) {
+            console.log(
+                stats.toString({
+                    chunks: false,
+                    colors: true,
+                })
+            );
+        }
+    });
+}
+
+
+
 export {
     defineConfig
 } from "./conf";
 export { type Modification } from "./conf";
-export { type Configuration } from "webpack";
+export type Configuration = WebpackConfiguration & {
+    devServer?: DevServerConfiguration;
+};

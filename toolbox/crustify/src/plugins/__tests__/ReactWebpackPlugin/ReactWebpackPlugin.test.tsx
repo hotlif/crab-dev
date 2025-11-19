@@ -1,16 +1,11 @@
 
 import { describe, it, expect } from "@jest/globals";
-import { type Configuration } from "webpack"; 
 
-import MiniExtractPlugin from "mini-css-extract-plugin";
-import TerserWebpackPlugin from "terser-webpack-plugin";
-import { join } from 'path';
 import { createRequire } from "module";
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
     
-import ReactWebpackPlugin, { generateHtml } from '../../ReactWebpackPlugin';
-import { compile, babelLoader } from "../util";
+import { generateHtml } from '../../ReactWebpackPlugin';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
