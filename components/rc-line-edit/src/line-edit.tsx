@@ -1,5 +1,4 @@
 import { css, cx } from "@linaria/core";
-import { fontSize } from '@crab-dev/styleify';
 import type { FC, InputHTMLAttributes, ReactNode } from "react";
 
 import Token from "./token";
@@ -69,15 +68,18 @@ const LineEdit: FC<LineEditProps> = ({
     const getSizeStyle = () => {
         if (size === "large") {
             return css`
-                ${fontSize("lg")}
+                font-size: 1.125rem;
+                line-height: 1.4;
             `
         } else if (size === "small") {
             return css`
-                ${fontSize("sm")}
+                font-size: 0.75rem;
+                line-height: 1.3; 
             `
         } else {
             return css`
-                ${fontSize("base")}
+                font-size: 1rem;
+                line-height: 1.5;
             `
         }
     }
@@ -85,15 +87,18 @@ const LineEdit: FC<LineEditProps> = ({
     const getIconSizeStyle = () => {
         if (size === "large") {
             return css`
-                ${fontSize("lg")}
+                font-size: 1.125rem;
+                line-height: 1.4;
             `
         } else if (size === "small") {
             return css`
-                ${fontSize("sm")}
+                font-size: 0.75rem;
+                line-height: 1.3;
             `
         } else {
             return css`
-                ${fontSize("base")}
+                font-size: 1rem;
+                line-height: 1.5;
             `
         }
     }

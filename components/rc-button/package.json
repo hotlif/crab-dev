@@ -3,6 +3,7 @@
     "description": "一个按钮, 用于即时操作",
     "packageManager": "yarn@4.7.0",
     "type": "module",
+    "version": "0.0.1",
     "scripts": {
         "start": "crustify dev",
         "build:library": "packify build",
