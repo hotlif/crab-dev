@@ -1,6 +1,6 @@
 {
-    "name": "@crab-dev/rc-line-edit",
-    "description": "单行文本编辑组件",
+    "name": "@crab-dev/rc-form",
+    "description": "高性能的表单组件",
     "version": "0.0.2",
     "packageManager": "yarn@4.7.0",
     "type": "module",
