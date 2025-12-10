@@ -4,11 +4,12 @@
  */
 
 import { css } from "@linaria/core";
-import Form, { Item, type ItemEditor, type FormInstance, FieldType } from "../../../src/index";
+import Form, { DefaultValidations, type ItemEditor, type FormInstance, FieldType, ItemEditorState } from "../../../src/index";
 import { type FC, useRef } from "react";
 
 
 const Input:FC<ItemEditor<string>> = ({
+	state,
 	value,
 	onChangeValue
 }) => {
@@ -16,7 +17,7 @@ const Input:FC<ItemEditor<string>> = ({
 		<input
 			value={value}
 			style={{
-				width: '100%'
+				width: '100%',
 			}}
 			onChange={(e) => {
 				onChangeValue?.(e.target.value)
@@ -41,7 +42,8 @@ const SimpleFrame = () => {
 				fields: [{
 					name: "username",
 					label: "用户名",
-					type: FieldType.String
+					type: FieldType.String,
+					validation: ["required"]
 				}, {
 					name: "password",
 					label: "密码",
@@ -50,6 +52,10 @@ const SimpleFrame = () => {
 			}}
 			editors={{
 				[FieldType.String]: <Input />
+			}}
+			validations={DefaultValidations}
+			onSubmit={async (param) => {
+				console.log("onSubmit", param)
 			}}
 		>
 			<button
@@ -70,6 +76,12 @@ const SimpleFrame = () => {
 				}}
 			>
 				点击设置 用户名为 utest, 设置密码为 ptest
+			</button>
+
+			<button
+				type="submit"
+			>
+				提交数据
 			</button>
 		</Form>
 	)

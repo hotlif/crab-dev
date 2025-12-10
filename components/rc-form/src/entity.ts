@@ -17,6 +17,8 @@ export interface Field {
     label: string
     // 字段类型
     type: FieldType | string
+    // 校验规则
+    validation?: Array<string>
 }
 
 export interface Entity {

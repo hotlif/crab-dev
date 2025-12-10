@@ -1,15 +1,20 @@
 
 import Form, { type FormInstance } from "./form";
-import Item, { type Editor as ItemEditor } from "./item";
+import Item, { type Editor as ItemEditor, EditorState as ItemEditorState } from "./item";
+import DefaultValidations from "./validations";
 export {
     type Entity,
     type Field,
     FieldType
 } from "./entity";
 
+
+
 export {
     Item,
     type ItemEditor,
-    type FormInstance
+    ItemEditorState,
+    type FormInstance,
+    DefaultValidations
 }
 export default Form;
