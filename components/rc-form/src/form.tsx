@@ -10,15 +10,12 @@ import {
     type ReactElement,
     type FormHTMLAttributes
 } from "react";
-import { Editor, type ItemInstance, type Result } from "./item";
-import { Entity } from "./entity";
-import useEntityCreateItems from "./hooks/useEntityCreateItems";
+import { type ItemInstance, type Result } from "./item";
 import { type Validation } from "./validations";
 import { findItemByName } from "./util";
 
 interface FormContextValue {
     items: RefObject<Set<ItemInstance<any>>>
-    entity: Entity
     labelClassName?: string
     editorClassName?: string
     itemClassName?: string
@@ -48,21 +45,6 @@ interface FormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"
      * 表单信息
      */
     form?: Ref<FormInstance>,
-
-    /**
-     * 生成的实体信息
-     */
-    entity: Entity,
-
-    /**
-     * 所有的编辑器, 都可以在此地方进行加载， 用于快速初始化实体信息
-     */
-    editors: Record<string, ReactElement<Editor<any>>>
-
-    /**
-     * 表单校验器
-     */
-    validations?: Record<string, Validation>
     
     /**
      * 标签页的样式
@@ -90,14 +72,11 @@ interface FormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"
 const Form: FC<FormProps> = ({
     className,
     form,
-    entity,
-    editors,
     children,
     labelClassName,
     editorClassName,
     itemClassName,
     onSubmit,
-    validations = {},
     ...restProps
 }) => {
     const formRef = useRef<HTMLFormElement>(null);
@@ -134,17 +113,14 @@ const Form: FC<FormProps> = ({
     }, [form, getFormInstance]);
 
 
-    const [itemsElement] = useEntityCreateItems(entity, editors);
 
     return (
         <FormContext.Provider
             value={{
                 items: itemsRef,
-                entity,
                 labelClassName,
                 editorClassName,
                 itemClassName,
-                validations
             }}
         >
             <form
@@ -155,37 +131,9 @@ const Form: FC<FormProps> = ({
                 ref={formRef}
                 onSubmit={async (e) => {
                     e.preventDefault();
-
-                    let isFailure = false; 
-
-                    const results: ValidationResult = [];
-                    const record: any = {}
-                    const entries = itemsRef.current.values();
-                    while (true) {
-                        const result = entries.next();
-                        if (result.done) break;
-                        const validationResult = await result.value.validation();
-                        if (validationResult.failureResults?.length > 0) {
-                            isFailure = true;
-                        }
-                        const name = result.value.getName();
-                        const value = result.value.getValue();
-
-                        record[name] = value;
-                        results.push({
-                            name,
-                            ...validationResult
-                        })
-                    }
-                    await onSubmit?.({
-                        isFailure,
-                        record,
-                        validationResult: results
-                    })
                 }}
                 {...restProps}
             >
-                {itemsElement}
                 {children}
             </form>
         </FormContext.Provider>

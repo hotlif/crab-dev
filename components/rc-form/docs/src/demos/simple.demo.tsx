@@ -4,7 +4,7 @@
  */
 
 import { css } from "@linaria/core";
-import Form, { DefaultValidations, type ItemEditor, type FormInstance, FieldType, ItemEditorState } from "../../../src/index";
+import Form, { Item, type ItemEditor, type FormInstance  } from "../../../src/index";
 import { type FC, useRef } from "react";
 
 
@@ -38,26 +38,22 @@ const SimpleFrame = () => {
 				width: 80px;
 				text-align: right;
 			`}
-			entity={{
-				fields: [{
-					name: "username",
-					label: "用户名",
-					type: FieldType.String,
-					validation: ["required"]
-				}, {
-					name: "password",
-					label: "密码",
-					type: FieldType.String
-				}]
-			}}
-			editors={{
-				[FieldType.String]: <Input />
-			}}
-			validations={DefaultValidations}
 			onSubmit={async (param) => {
 				console.log("onSubmit", param)
 			}}
 		>
+			<Item
+				name="username"
+				label="用户名"
+			>
+				<Input />
+			</Item>
+			<Item
+				name="password"
+				label="密码"
+			>
+				<Input />
+			</Item>
 			<button
 				type="button"
 				onClick={() => {
