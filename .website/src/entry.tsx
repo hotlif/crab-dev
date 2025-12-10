@@ -1,66 +1,50 @@
 import { createRoot } from "react-dom/client";
-import { css, cx } from "@linaria/core";
-import E404 from "./errors/E404";
-import { RouterProvider, createBrowserRouter } from "react-router";
+import {
+    RouterProvider,
+    createBrowserRouter,
+	type RouteObject
+} from "react-router";
 
-import mdxs from "@@@/mdx";
-import Layout from "./layouts";
-import MdxComponents from "./components/mdx";
+import pages from "@@@/pages"
 
-export const globals = cx(css`
-    :global() {
-        #root {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-        }
-        body {
-            margin: 0px;
-            background-color: rgb(245, 245, 245);
-        }
-        html {
-            font-size: 14px;
-        }
-    }
-`);
+const dataRouter: RouteObject[] = pages.map(page => {
+	const isIndex = page.metadata?.index === true;
+	const name = page.metadata?.path ?? page.name;
+	const path = isIndex ? "" : name
+	return {
+		path,
+		index: isIndex, 
+		lazy: async () => {
+			let mod = await page.component
+			return {
+				Component: mod.default
+			}
+		}
+	}
+})
 
+const Error404 = {
+	path: "*",
+	lazy: async () => {
+		let mod = await import("./pages/error/404.page");
+		return {
+			Component: mod.default
+		}
+	}
+}
 
-const reactRouters = createBrowserRouter([{
-    Component: Layout,
-    children: [
-        ...mdxs.map(mdx => ({
-            element: (
-                <mdx.component
-                    components={MdxComponents}
-                />
-            ),
-            path: mdx.metadata?.path ?? mdx.relativePath,
-            index: mdx.metadata?.path === "/",
-            caseSensitive: true,
-            loader: async () => {
-                return {
-                    metadata: mdx.metadata,
-                }
-            },
-        })),
-        {
-            path: "*",
-            loader: async () => {
-                return {
-                    metadata: {
-                        noAuthRequired: false
-                    }
-                }
-            },
-            Component: E404
-        }
-    ]
-}]);
+dataRouter.push(Error404)
+
+const router = createBrowserRouter([{
+	path: "/",
+	children: dataRouter
+}, Error404])
 
 const App = () => {
 	return (
-		<RouterProvider router={reactRouters} />
+		<RouterProvider
+            router={router}
+        />
 	)
 }
 

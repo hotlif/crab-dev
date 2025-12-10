@@ -1,10 +1,10 @@
 {
-  "name": "crab",
   "private": true,
   "version": "0.0.1",
   "packageManager": "yarn@4.7.0",
   "type": "module",
   "scripts": {
+    "start": "nx run @crab-dev/website:start",
     "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
     "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
   },
@@ -14,18 +14,17 @@
     "toolbox/*",
     "components/*",
     "styleify",
-    "website/",
     "toolbox/markify/__tests__/demo",
     "toolbox/vue2-crustify-mod/__tests__/demo"
   ],
   "devDependencies": {
     "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@nx/eslint": "22.0.2",
-    "@nx/jest": "22.0.2",
-    "@nx/rollup": "22.0.2",
-    "@nx/webpack": "22.0.2",
-    "@types/node": "24.10.0",
-    "nx": "22.0.2",
+    "@nx/eslint": "22.2.0",
+    "@nx/jest": "22.2.0",
+    "@nx/rollup": "22.2.0",
+    "@nx/webpack": "22.2.0",
+    "@types/node": "24.10.2",
+    "nx": "22.2.0",
     "typescript": "^5.9.3"
   }
 }

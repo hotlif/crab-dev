@@ -1,14 +1,17 @@
+import settings from "./settings";
+
 const App = () => {
     return (
         <html lang="zh-CN">
         <head>
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Crab Dev</title>
+            <title>{settings.defaultTitle}</title>
+            <link rel="stylesheet" href="/css/global.css" />
         </head>
         <body>
             <div id="root"></div>
-        </body>
+        </body> 
         </html>
     )
 }

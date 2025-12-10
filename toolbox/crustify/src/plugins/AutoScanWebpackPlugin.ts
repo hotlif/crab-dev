@@ -212,7 +212,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             }
 
             const metadata = await parseHeaderComments(file);
-            importStatements += `const ${importName} = import("@@/${importUrl}");\n`;
+            importStatements += `const ${importName} = import("${importUrl}");\n`;
             exportStatements += `   { name: "${importName}", component: ${importName}, relativePath: "${relativePath}"${
                 generateSourceCharacter !== false ? `, source: ${importName}_source` : ""
             }, metadata: ${JSON.stringify(metadata)}},\n`;

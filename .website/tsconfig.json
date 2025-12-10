@@ -1,10 +1,10 @@
 {
     "extends": [
         "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json",
-        "./.tmp/autoscan/tsconfig.json",
+        "./.tmp/autoscan/tsconfig.json"
     ],
     "compilerOptions": {
         "declaration": true, 
-        "declarationDir": "esm",
+        "declarationDir": "esm", 
     }
 }

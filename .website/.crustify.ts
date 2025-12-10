@@ -1,14 +1,9 @@
 import { defineConfig } from "@crab-dev/crustify";
 import { join } from "path";
-
 export default defineConfig({
     componentScan: [{
-		namespaces: "mdx",
-		cwd: join(process.cwd(), "docs"),
-		include: /\.mdx?$/,
-	},{
-		namespaces: "demos",
-		cwd: join(process.cwd(), "docs"),
-		include: /\.demo\.tsx?$/,
-	}],
+        namespaces: "pages",
+        cwd: join(process.cwd(), "src", "pages"),
+        generateSourceCharacter: false,
+    }]
 });
