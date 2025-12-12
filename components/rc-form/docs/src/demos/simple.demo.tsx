@@ -4,80 +4,48 @@
  */
 
 import { css } from "@linaria/core";
-import Form, { Item, type ItemEditor, type FormInstance  } from "../../../src/index";
+import Form, { Item, useForm } from "../../../src/index";
 import { type FC, useRef } from "react";
 
 
-const Input:FC<ItemEditor<string>> = ({
-	state,
+const Input = ({
 	value,
-	onChangeValue
-}) => {
+	onFormItemValueChange
+}: any) => {
 	return (
 		<input
 			value={value}
 			style={{
-				width: '100%',
+				width: "100%"
 			}}
 			onChange={(e) => {
-				onChangeValue?.(e.target.value)
+				onFormItemValueChange?.(e.target.value)
 			}}
 		/>
 	)
 }
 
 const SimpleFrame = () => {
-	const form = useRef<FormInstance>(null);
+	const [form] = useForm();
 	return (
 		<Form
 			className={css`
 				gap: 4px;
 			`}
 			form={form}
-			labelClassName={css`
-				width: 80px;
-				text-align: right;
-			`}
-			onSubmit={async (param) => {
-				console.log("onSubmit", param)
-			}}
 		>
 			<Item
 				name="username"
-				label="用户名"
 			>
 				<Input />
 			</Item>
-			<Item
-				name="password"
-				label="密码"
-			>
-				<Input />
-			</Item>
-			<button
-				type="button"
-				onClick={() => {
-					form.current?.setFieldValue("username", "test")
-				}}
-			>
-				点击设置 用户名为 test
-			</button>
-			<button
-				type="button"
-				onClick={() => {
-					form.current?.setFieldsValue({
-						username: `utest [${crypto.randomUUID()}]`,
-						password: `ptest [${crypto.randomUUID()}]`
-					})
-				}}
-			>
-				点击设置 用户名为 utest, 设置密码为 ptest
-			</button>
 
 			<button
-				type="submit"
+				onClick={() => {
+					form.setFieldValue("username", crypto.randomUUID());
+				}}
 			>
-				提交数据
+				设置 username 值为 test0001
 			</button>
 		</Form>
 	)

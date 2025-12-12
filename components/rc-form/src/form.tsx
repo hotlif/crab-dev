@@ -1,138 +1,147 @@
 import { css, cx } from "@linaria/core";
 import {
     type FC,
-    type Ref,
-    useRef,
+    type FormHTMLAttributes,
+    type ReactNode,
     useEffect,
-    useCallback,
-    createContext,
-    type RefObject,
-    type ReactElement,
-    type FormHTMLAttributes
+    useId,
+    useMemo,
+    useRef,
 } from "react";
-import { type ItemInstance, type Result } from "./item";
-import { type Validation } from "./validations";
-import { findItemByName } from "./util";
-
-interface FormContextValue {
-    items: RefObject<Set<ItemInstance<any>>>
-    labelClassName?: string
-    editorClassName?: string
-    itemClassName?: string
-    validations?: Record<string, Validation>
-}
-
-
-type ValidationResult = Array<{ name: string, failureResults: Result, warningResults: Result }>
-
-interface OnSubmitParam {
-    isFailure: boolean,
-    record: any
-    validationResult: ValidationResult
-}
-
-export const FormContext = createContext<FormContextValue | undefined>(undefined);
-
-export interface FormInstance {
-    setFieldValue: (fieldName: string, value: unknown) => void
-    setFieldsValue: (data: any) => void
-    submit: () => void
-}
+import {
+    NamePath,
+    type FormInstance,
+    type WrapperInstance
+} from "./types";
+import FormContext from "./context";
+import EventBus, { MessageEnum } from "./bus";
 
 interface FormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
-
-    /**
-     * 表单信息
-     */
-    form?: Ref<FormInstance>,
     
     /**
-     * 标签页的样式
+     * 设置 Form 实例, 以便后面调用 Form 的方法
      */
-    labelClassName?: string
+    form?: FormInstance
 
     /**
-     * 编辑器的样式
+     * 自定义渲染必填样式
      */
-    editorClassName?: string
+    requiredIndicatorRenderer?: (param: {
+        label: ReactNode,
+        required: boolean
+    }) => ReactNode
 
     /**
-     * 表单元素容器的样式
+     * 提交表单且数据验证成功后回调事件
      */
-    itemClassName?: string
+    onFinishSuccess?: () => Promise<void>
 
     /**
-     * 提交表单的时候触发的事件
+     * 提交表单并且数据校验失败后的回调事件
      */
-    onSubmit?: (param: OnSubmitParam) => Promise<void>
+    onFinishFailed?: () => Promise<void>
+
+    /**
+     * 字段值更新的时候触发的回调事件
+     */
+    onFieldValueChange?: () => Promise<void>
 }
 
 
-
-const Form: FC<FormProps> = ({
+const Form:FC<FormProps> = ({
     className,
     form,
+    requiredIndicatorRenderer,
+    onFinishSuccess,
+    onFinishFailed,
+    onFieldValueChange,
     children,
-    labelClassName,
-    editorClassName,
-    itemClassName,
-    onSubmit,
     ...restProps
 }) => {
-    const formRef = useRef<HTMLFormElement>(null);
-    const itemsRef = useRef<Set<ItemInstance<any>>>(new Set<ItemInstance<any>>());
+    const id = useId();
 
-    const getFormInstance = useCallback<() => FormInstance>(() => ({
-        setFieldValue: (fieldName, value) => {
-            const item = findItemByName(itemsRef.current, fieldName);
-            item?.setValue(value);
-        },
-        setFieldsValue: (data) => {
-            const keys = Object.keys(data);
-            keys.forEach(element => {
-                const item = findItemByName(itemsRef.current, element);
-                item?.setValue(data?.[element])
-            })
-        },
-        submit: () => {
-            formRef.current?.submit();
-        }
-    }), [
-        formRef.current
-    ]);
+    const formRef = useRef<HTMLFormElement>(null)
+    const eventBus = useMemo(() => {
+       return new EventBus();
+    }, [])
+
 
     useEffect(() => {
-        if (!form) return;
-        const instance = getFormInstance();
-        if (typeof form === "function" ) {
-            form(instance);
-            return () => { form(null) };
-        }
-        form.current = instance;
-        return () => { form.current = null };
-    }, [form, getFormInstance]);
+        let formRecord: Record<string, any> = {};
 
+        const onItemValueChange = (param: {
+            name: string,
+            value: any
+        }) => {
+            console.log(param)
+        }
+        const subscriber = {
+            id,
+            type: MessageEnum.ON_ITEM_VALUE_CHANGE,
+            ring: onItemValueChange
+        }
+        eventBus.subscribe(subscriber)
+
+        const formWrapper: WrapperInstance = form as any;
+        if (formWrapper) {
+            formWrapper.__INTERNAL__.setInstance({
+                submit: () => {
+                    formRef?.current?.submit();
+                },
+                getFieldValue: (name) => formRecord[name],
+                getFieldsValue: () => formRecord,
+                setFieldValue: (name, value) => {
+                    formRecord[name] = value;
+                    eventBus.dispatch({
+                        type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
+                        payload: [{
+                            name,
+                            value
+                        }]
+                    })
+                },
+                setFieldsValue: (values) => {
+                    formRecord = values;
+                    const keys = Object.keys(formRecord);
+                    keys.forEach(element => {
+                        eventBus.dispatch({
+                            type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
+                            payload: [{
+                                name: element,
+                                value: formRecord[element]
+                            }]
+                        })
+                    })
+                },
+                resetFields: () => {
+                }
+            })
+        }
+
+        return () => {
+            eventBus.unSubscribe(subscriber);
+        }
+    }, [])
 
 
     return (
         <FormContext.Provider
             value={{
-                items: itemsRef,
-                labelClassName,
-                editorClassName,
-                itemClassName,
+                eventBus: eventBus
             }}
         >
             <form
-                className={cx(css`
-                    display: grid;
-                    grid-template-columns: 1fr;
-                `, className)}
                 ref={formRef}
-                onSubmit={async (e) => {
-                    e.preventDefault();
-                }}
                 {...restProps}
+                className={cx(
+                    css`
+                        display: grid;
+                    `,
+                    className
+                )}
+                onSubmit={(e) => {
+                    e.preventDefault()
+                }}
             >
                 {children}
             </form>

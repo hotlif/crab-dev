@@ -1,107 +1,134 @@
-import { css, cx } from "@linaria/core";
 import {
+    type ReactElement,
+    type FC,
     type HTMLAttributes,
     type ReactNode,
-    type ReactElement,
-    useState,
     cloneElement,
+    useState,
     useEffect,
-    useId,
-    useContext,
+    useId
 } from "react";
+import { css, cx } from "@linaria/core";
 
-import { FormContext } from "./form";
-import { getItemsToObject } from "./util";
-import { type ValidationResult } from "./validations";
+import { type FormItemEditor } from "./types";
+import useFormContext from "./hooks/useFormContext";
+import { MessageEnum } from "./bus";
 
-export enum EditorState {
-    // 校验成功
-    SUCCESS,
-    // 失败
-    FAILURE,
-    // 警告
-    WARNING,
-    // 未校验
-    NOT_VERIFIED,
-    // 校验中
-    VERIFYING
-}
-
-export interface Editor<T> {
+interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+    /**
+     * 是否隐藏字段 
+     */
+    hidden?: boolean
 
     /**
-     * 状态
+     * 文本的标签
      */
-    state?: EditorState
+    label?: ReactNode
 
     /**
-     * 值
+     * 字段名称
      */
-    value?: T,
-
-    /**
-     * 改变值触发的事件
-     */
-    onChangeValue?: (value: T) => void,
-}
-
-
-export type Result = Array<{ validationName: string, validationResult: ValidationResult }>
-
-export interface ItemInstance<T> {
-    getId: () => string,
-    getName: () => string,
-    getValue: () => T | undefined,
-    setValue: (value: T | undefined) => void
-}
-
-interface ItemProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "item"> {
-    // 显示的标签信息
-    label?: ReactNode,
-    // 字段名称
     name: string
-    // 校验状态
-    state?: EditorState,
-    // 编辑器信息
-    children: ReactElement<Editor<T>>
+
+    /**
+     * 是否必填
+     */
+    required?: boolean
+
+    /**
+     * 编辑器
+     */
+    children?: ReactElement<FormItemEditor>
 }
 
-function Item<T>({
+const FormItem: FC<FormItem> = ({
     className,
+    hidden,
     label,
     name,
+    required,
     children,
     ...restProps
-}: ItemProps<T>) {
+}) => {
     const id = useId();
-    const [value, setValue] = useState<T>();
-    const [state, setState] = useState<EditorState>(EditorState.NOT_VERIFIED);
+    const {
+        eventBus
+    } = useFormContext();
 
-    const context = useContext(FormContext)
+    const [value, setValue] = useState<any>();
 
+    // 渲染 label
+    const renderLabelElement = () => {
+        if (label == null) {
+            return null;
+        }
+        return (
+            <div
+                className={css`
+                `}
+            >
+                {label}
+            </div>
+        );
+    }
+
+    // 渲染编辑器
+    const renderEditorElement = () => {
+        if (children == null) {
+            return null;
+        }
+        const props = children.props;
+        return (
+            <div
+                className={css`
+                    flex: 1;
+                `}
+            >
+                {cloneElement(children, {
+                    ...props,
+                    value,
+                    onFormItemValueChange: (newValue: any) => {
+                        setValue(newValue)
+                        eventBus?.dispatch({
+                            type: MessageEnum.ON_ITEM_VALUE_CHANGE,
+                            payload: [{
+                                name,
+                                value: newValue
+                            }]
+                        })
+                    },
+                })}
+            </div>
+        );
+    }
+
+    // 渲染校验状态
+    const renderCheckStatusElement = () => {
+        return (
+            <div>
+            </div>
+        )
+    }
 
     useEffect(() => {
-        if (context?.items) {
-            const item: ItemInstance<T> = {
-                getId: () => id,
-                getName: () => name,
-                getValue: () => value,
-                setValue: (value) => { setValue(value) },
-            }
-            context.items.current.add(item);
-            return () => {
-                context.items.current.delete(item);
+        const onSendToChangeItemValue = (param: {
+            name: string,
+            value: any
+        }) => {
+            if (param.name === name) {
+                setValue(param.value);
             }
         }
-    }, [id, name, value, context]);
-
-    const getCloneElement = () => {
-        return cloneElement<Editor<T>>(children, {
-            state,
-            value,
-            onChangeValue: setValue
-        });
-    }
+        const subscriber = {
+            id,
+            type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
+            ring: onSendToChangeItemValue
+        }
+        eventBus?.subscribe(subscriber);
+        return () => {
+            eventBus?.subscribe(subscriber);
+        }
+    }, [])
 
     return (
         <div
@@ -113,27 +140,11 @@ function Item<T>({
             )}
             {...restProps}
         >
-            <div
-                className={cx(css`
-                    display: flex;
-                    flex: 1;
-                `, context?.itemClassName)}
-            >
-                <div
-                    className={context?.labelClassName}
-                >
-                    {label}
-                </div>
-                <div
-                    className={cx(css`
-                        flex: 1;
-                    `, context?.editorClassName)}
-                >
-                    {getCloneElement()}
-                </div>
-            </div>
+            {renderLabelElement()}
+            {renderEditorElement()}
+            {renderCheckStatusElement()}
         </div>
     )
 }
 
-export default Item;
+export default FormItem;
