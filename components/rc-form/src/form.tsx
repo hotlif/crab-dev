@@ -1,4 +1,5 @@
 import { css, cx } from "@linaria/core";
+import { z } from "zod";
 import {
     type FC,
     type FormHTMLAttributes,
@@ -9,19 +10,18 @@ import {
     useRef,
 } from "react";
 import {
-    NamePath,
     type FormInstance,
     type WrapperInstance
 } from "./types";
 import FormContext from "./context";
 import EventBus, { MessageEnum } from "./bus";
 
-interface FormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
     
     /**
      * 设置 Form 实例, 以便后面调用 Form 的方法
      */
-    form?: FormInstance
+    form?: FormInstance<T>
 
     /**
      * 自定义渲染必填样式
@@ -44,11 +44,13 @@ interface FormProps extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"
     /**
      * 字段值更新的时候触发的回调事件
      */
-    onFieldValueChange?: () => Promise<void>
+    onFieldValueChange?: (
+        changed: { [K in keyof T]: { name: K; value: T[K] } }[keyof T],
+        allValues: T
+    ) => Promise<void>
 }
 
-
-const Form:FC<FormProps> = ({
+function Form<T extends Record<string, any>>({
     className,
     form,
     requiredIndicatorRenderer,
@@ -57,7 +59,7 @@ const Form:FC<FormProps> = ({
     onFieldValueChange,
     children,
     ...restProps
-}) => {
+}: FormProps<T>) {
     const id = useId();
 
     const formRef = useRef<HTMLFormElement>(null)
@@ -65,16 +67,26 @@ const Form:FC<FormProps> = ({
        return new EventBus();
     }, [])
 
+    /**
+     * 触发校验
+     */
+    const triggerVerification = async (fields: string[]) => {
+        const subscribers = eventBus.getSubscribers();
+        for (const value of subscribers.values()) {
+            if (value.type === MessageEnum.TRIGGER_ITEM_VERIFICATION) {
+                await value.ring(fields);
+            }
+        }
+    }
 
     useEffect(() => {
-        let formRecord: Record<string, any> = {};
+        let formRecord = {} as T;
 
-        const onItemValueChange = (param: {
-            name: string,
-            value: any
-        }) => {
-            console.log(param)
+        const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
+            formRecord[changed.name] = changed.value;
+            onFieldValueChange?.(changed, formRecord)
         }
+
         const subscriber = {
             id,
             type: MessageEnum.ON_ITEM_VALUE_CHANGE,
@@ -82,13 +94,17 @@ const Form:FC<FormProps> = ({
         }
         eventBus.subscribe(subscriber)
 
-        const formWrapper: WrapperInstance = form as any;
+        eventBus.dispatch({
+            type: MessageEnum.ON_PARENT_READY,
+        });
+
+        const formWrapper: WrapperInstance<T> = form as any;
         if (formWrapper) {
             formWrapper.__INTERNAL__.setInstance({
                 submit: () => {
                     formRef?.current?.submit();
                 },
-                getFieldValue: (name) => formRecord[name],
+                getFieldValue: (name) => formRecord?.[name],
                 getFieldsValue: () => formRecord,
                 setFieldValue: (name, value) => {
                     formRecord[name] = value;
@@ -112,6 +128,13 @@ const Form:FC<FormProps> = ({
                             }]
                         })
                     })
+                },
+                validateFields: async (fields) => {
+                    if (fields) {
+                        await triggerVerification(fields)
+                    } else {
+                        // Object.keys()
+                    }
                 },
                 resetFields: () => {
                 }

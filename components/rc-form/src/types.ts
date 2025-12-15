@@ -1,9 +1,22 @@
 export type NamePath = string | number | Array<string | number> 
 
+export enum ValidateState {
+    // 默认初始化情况， 没做任何校验
+    DEFAULT,
+    // 校验成功
+    SUCCESS,
+    // 校验失败
+    ERROR,
+    // 警告
+    WARNING,
+    // 在校验中
+    VALIDATING
+} 
+
 /**
  * 表单的实例， 用它来批量操作表单字段， 例如提交数据或者重置数据
  */
-export interface FormInstance<T = any> {
+export interface FormInstance<T extends Record<string, any>> {
     /**
      * 提交表单
      */
@@ -12,7 +25,7 @@ export interface FormInstance<T = any> {
     /**
      * 获取对应字段名的值
      */
-    getFieldValue(name: string): any
+    getFieldValue<K extends keyof T>(name: K): T[K];
 
     /**
      * 所有表单字段的值
@@ -22,22 +35,28 @@ export interface FormInstance<T = any> {
     /**
      * 设置表单字段的值
      */
-    setFieldValue(name: string, value: any): void
+    setFieldValue<K extends keyof T>(name: K, value: T[K]): void;
 
     /**
      * 设置所有表单的值
      */
-    setFieldsValue(values: Record<string, any>): void
+    setFieldsValue(values: T): void
+
+    /**
+     * 触发字段校验
+     */
+    validateFields(fields?: string[]): Promise<void>
 
     /**
      * 重置字段， 如果参数为空，则表示重置所有字段
      */
-    resetFields(names?: string[]): void
+    resetFields(names?: (keyof T)[]): void
+
 }
 
-export type WrapperInstance = FormInstance & {
+export type WrapperInstance<T extends Record<string, any>> = FormInstance<T> & {
     __INTERNAL__: {
-        setInstance(instance: FormInstance): void
+        setInstance(instance: FormInstance<T>): void
     }
 }
 
@@ -51,6 +70,28 @@ export interface FormItemEditor<T = any> {
     /**
      * 值改变后触发的事件
      */
-    onFormItemValueChange(value: T): void
+    onChange(value: T): void
 
+}
+
+
+export enum RuleType {
+    WARNING,
+    ERROR
+}
+
+export interface Rule {
+
+    /**
+     * 类型
+     * 
+     * - RuleType.WARNING 警告类型
+     * - RuleType.ERROR   错误类型
+     */
+    type: RuleType,
+
+    /**
+     * 通过此方法进行校验
+     */
+    validator: () => Promise<void>
 }

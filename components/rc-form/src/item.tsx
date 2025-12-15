@@ -10,11 +10,13 @@ import {
 } from "react";
 import { css, cx } from "@linaria/core";
 
-import { type FormItemEditor } from "./types";
+import { type FormItemEditor, Rule, RuleType, ValidateState } from "./types";
 import useFormContext from "./hooks/useFormContext";
 import { MessageEnum } from "./bus";
+import { CheckCircle } from "./icon"
 
 interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+
     /**
      * 是否隐藏字段 
      */
@@ -36,6 +38,11 @@ interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     required?: boolean
 
     /**
+     * 校验规则
+     */
+    rules?: Rule[]
+
+    /**
      * 编辑器
      */
     children?: ReactElement<FormItemEditor>
@@ -47,6 +54,7 @@ const FormItem: FC<FormItem> = ({
     label,
     name,
     required,
+    rules = [],
     children,
     ...restProps
 }) => {
@@ -55,7 +63,29 @@ const FormItem: FC<FormItem> = ({
         eventBus
     } = useFormContext();
 
+    // 实际上存储的值
     const [value, setValue] = useState<any>();
+    // 校验状态
+    const [validateState, setValidateState] = useState<ValidateState>(ValidateState.DEFAULT);
+    // 校验消息
+    const [validateMessage, setValidateMessage] = useState<string>("");
+
+    const renderRequiredElement = () => {
+        if (required) {
+            return (
+                <div
+                    className={css`
+                        color: #f85149;
+                        margin-right: 4px;
+                        font-family: SimSun, sans-serif;
+                    `}
+                >
+                    *
+                </div>
+            )
+        }
+        return null;
+    }
 
     // 渲染 label
     const renderLabelElement = () => {
@@ -65,8 +95,15 @@ const FormItem: FC<FormItem> = ({
         return (
             <div
                 className={css`
+                    display: flex;
+                    font-size: 14px;
+                    box-sizing: border-box;
+                    height: 100%;
+                    align-items: center;
+                    color: rgba(0,0,0, 0.88);
                 `}
             >
+                {renderRequiredElement()}
                 {label}
             </div>
         );
@@ -87,7 +124,7 @@ const FormItem: FC<FormItem> = ({
                 {cloneElement(children, {
                     ...props,
                     value,
-                    onFormItemValueChange: (newValue: any) => {
+                    onChange: (newValue: any) => {
                         setValue(newValue)
                         eventBus?.dispatch({
                             type: MessageEnum.ON_ITEM_VALUE_CHANGE,
@@ -104,10 +141,19 @@ const FormItem: FC<FormItem> = ({
 
     // 渲染校验状态
     const renderCheckStatusElement = () => {
-        return (
-            <div>
-            </div>
-        )
+        if (validateState === ValidateState.SUCCESS) {
+            return (
+                <span
+                    className={css`
+                        color: #16A34A;
+                        margin-inline: 10px;
+                    `}
+                >
+                    <CheckCircle />
+                </span>
+            )
+        }
+        return null;
     }
 
     useEffect(() => {
@@ -117,24 +163,82 @@ const FormItem: FC<FormItem> = ({
         }) => {
             if (param.name === name) {
                 setValue(param.value);
+                eventBus?.dispatch({
+                    type: MessageEnum.ON_ITEM_VALUE_CHANGE,
+                    payload: [{
+                        name,
+                        value: param.value
+                    }]
+                })
             }
         }
+
         const subscriber = {
             id,
             type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
             ring: onSendToChangeItemValue
         }
         eventBus?.subscribe(subscriber);
-        return () => {
-            eventBus?.subscribe(subscriber);
+        const onTriggerItemVerification = async (fields: string) => {
+            if (!fields?.includes(name)) {
+                return;
+            }
+            setValidateState(ValidateState.VALIDATING);
+            for (let i = 0; i < rules.length; i += 1) {
+                const rule = rules[i];
+                if (rule.type == RuleType.ERROR || rule.type == RuleType.WARNING) {
+                    try {
+                        await rule.validator()
+                    } catch (error: unknown) {
+                        const err = error as Error;
+                        if (rule.type == RuleType.ERROR) {
+                            setValidateState(ValidateState.ERROR);
+                        } else {
+                            setValidateState(ValidateState.WARNING);
+                        }
+                        setValidateMessage(err.message);
+                        throw error;
+                    }
+                }
+            }
+            setValidateState(ValidateState.SUCCESS);
         }
-    }, [])
+        const verificationSubscriber = {
+            id,
+            type: MessageEnum.TRIGGER_ITEM_VERIFICATION,
+            ring: onTriggerItemVerification
+        }
+        eventBus?.subscribe(verificationSubscriber);
 
+        const onParentReady = () => {
+            onSendToChangeItemValue({
+                name,
+                value
+            })
+        }
+        const parentReadySubscriber = {
+            id,
+            type: MessageEnum.ON_PARENT_READY,
+            ring: onParentReady
+        }
+        eventBus?.subscribe(parentReadySubscriber)
+        return () => {
+            eventBus?.unSubscribe(subscriber);
+            eventBus?.unSubscribe(verificationSubscriber);
+            eventBus?.unSubscribe(parentReadySubscriber);
+        }
+    }, [rules])
+
+    if (hidden) {
+        return null;
+    }
     return (
         <div
             className={cx(
                 css`
                     display: flex;
+                    height: 32px;
+                    align-items: center;
                 `,
                 className
             )}

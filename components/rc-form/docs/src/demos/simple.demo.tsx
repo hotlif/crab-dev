@@ -5,12 +5,11 @@
 
 import { css } from "@linaria/core";
 import Form, { Item, useForm } from "../../../src/index";
-import { type FC, useRef } from "react";
 
 
 const Input = ({
 	value,
-	onFormItemValueChange
+	onChange
 }: any) => {
 	return (
 		<input
@@ -19,33 +18,62 @@ const Input = ({
 				width: "100%"
 			}}
 			onChange={(e) => {
-				onFormItemValueChange?.(e.target.value)
+				onChange?.(e.target.value)
 			}}
 		/>
 	)
 }
 
+interface UserInfo {
+	username: string,
+	password: string
+}
+
 const SimpleFrame = () => {
-	const [form] = useForm();
+	const [form] = useForm<UserInfo>();
 	return (
 		<Form
 			className={css`
 				gap: 4px;
 			`}
 			form={form}
+			onFieldValueChange={async (changed, allValues) => {
+				console.log("--------onFieldValueChange Start -------")
+				console.log("[changed]: ", changed);
+				console.log("[allValues]: ", allValues)
+				console.log("--------onFieldValueChange End -------")
+			}}
 		>
 			<Item
+				label="用户名"
 				name="username"
+				required
 			>
 				<Input />
 			</Item>
-
+			<Item
+				label="密码"
+				name="password"
+				required
+			>
+				<Input />
+			</Item>
 			<button
 				onClick={() => {
-					form.setFieldValue("username", crypto.randomUUID());
+					const values = form.getFieldsValue();
+					console.log("getFieldsValue", values)
 				}}
 			>
-				设置 username 值为 test0001
+				getFieldsValue
+			</button>
+			<button
+				onClick={() => {
+					const username = form.getFieldValue("username");
+					const password = form.getFieldValue("password");
+					console.log("getFieldsValue:", "username = " + username, "password = " + password)
+				}}
+			>
+				getFieldValue
 			</button>
 		</Form>
 	)
