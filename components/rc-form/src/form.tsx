@@ -1,6 +1,5 @@
 import { css, cx } from "@linaria/core";
 import {
-    type FC,
     type FormHTMLAttributes,
     type ReactNode,
     useEffect,
@@ -9,11 +8,16 @@ import {
     useRef,
 } from "react";
 import {
+    NamePath,
     type FormInstance,
     type WrapperInstance
 } from "./types";
 import FormContext from "./context";
 import EventBus, { MessageEnum } from "./bus";
+import {
+    setRecordValue,
+    getRecordValue
+} from "./util";
 
 interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture"> {
     
@@ -48,6 +52,9 @@ interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttribut
         allValues: T
     ) => Promise<void>
 }
+
+
+
 
 function Form<T extends Record<string, any>>({
     className,
@@ -90,8 +97,10 @@ function Form<T extends Record<string, any>>({
 
     useEffect(() => {
         const formRecord = formRecordRef.current;
+
+
         const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
-            formRecord[changed.name] = changed.value;
+            setRecordValue(formRecord, changed.name as NamePath, changed.value);
             onFieldValueChange?.(changed, formRecord)
         }
 
@@ -112,10 +121,10 @@ function Form<T extends Record<string, any>>({
                 submit: () => {
                     formRef?.current?.requestSubmit();
                 },
-                getFieldValue: (name) => formRecord?.[name],
+                getFieldValue: (name) => getRecordValue(formRecord, name),
                 getFieldsValue: () => formRecord,
                 setFieldValue: (name, value) => {
-                    formRecord[name] = value;
+                    setRecordValue(formRecord, name, value)
                     eventBus.dispatch({
                         type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
                         payload: [{
@@ -126,15 +135,9 @@ function Form<T extends Record<string, any>>({
                 },
                 setFieldsValue: (values) => {
                     formRecordRef.current = values;
-                    const keys = Object.keys(formRecord);
-                    keys.forEach(element => {
-                        eventBus.dispatch({
-                            type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
-                            payload: [{
-                                name: element,
-                                value: formRecord[element]
-                            }]
-                        })
+                    eventBus.dispatch({
+                        type: MessageEnum.SEND_TO_CHAGE_VALUES,
+                        payload: [values]
                     })
                 },
                 validateFields: async (fields) => {

@@ -26,8 +26,10 @@ const Input = ({
 }
 
 interface UserInfo {
-	username: string,
-	password: string
+	user: {
+		username: string,
+		password: string
+	}
 }
 
 const SimpleFrame = () => {
@@ -53,14 +55,14 @@ const SimpleFrame = () => {
 		>
 			<Item
 				label="用户"
-				name="username"
+				name={["user", "username"]}
 				required
 			>
 				<Input />
 			</Item>
 			<Item
 				label="密码"
-				name="password"
+				name={["user", "password"]}
 				required
 			>
 				<Input />
@@ -75,12 +77,24 @@ const SimpleFrame = () => {
 			</button>
 			<button
 				onClick={() => {
-					const username = form.getFieldValue("username");
-					const password = form.getFieldValue("password");
+					const username = form.getFieldValue(["user", "name"]);
+					const password = form.getFieldValue(["user", "password"]);
 					console.log("getFieldsValue:", "username = " + username, "password = " + password)
 				}}
 			>
 				getFieldValue
+			</button>
+			<button
+				onClick={() => {
+					form.setFieldsValue({
+						user: {
+							username: `username - ${crypto.randomUUID()}`,
+							password: `password - ${crypto.randomUUID()}`
+						}
+					})
+				}}
+			>
+				setFieldsValue
 			</button>
 			<button
 				type="submit"

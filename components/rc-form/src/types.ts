@@ -1,4 +1,4 @@
-export type NamePath = string | number | Array<string | number> 
+export type NamePath = string | Array<string> 
 
 export enum ValidateState {
     // 默认初始化情况， 没做任何校验
@@ -25,7 +25,7 @@ export interface FormInstance<T extends Record<string, any>> {
     /**
      * 获取对应字段名的值
      */
-    getFieldValue<K extends keyof T>(name: K): T[K];
+    getFieldValue(name: NamePath): any;
 
     /**
      * 所有表单字段的值
@@ -35,7 +35,7 @@ export interface FormInstance<T extends Record<string, any>> {
     /**
      * 设置表单字段的值
      */
-    setFieldValue<K extends keyof T>(name: K, value: T[K]): void;
+    setFieldValue(name: NamePath, value: any): void;
 
     /**
      * 设置所有表单的值

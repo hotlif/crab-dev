@@ -10,9 +10,13 @@ import {
 } from "react";
 import { css, cx } from "@linaria/core";
 
-import { type FormItemEditor, Rule, RuleType, ValidateState } from "./types";
+import { type FormItemEditor, NamePath, Rule, RuleType, ValidateState } from "./types";
 import useFormContext from "./hooks/useFormContext";
 import { MessageEnum } from "./bus";
+import {
+    setRecordValue,
+    getRecordValue
+} from "./util";
 
 interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
@@ -29,7 +33,7 @@ interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     /**
      * 字段名称
      */
-    name: string
+    name: NamePath
 
     /**
      * 是否必填
@@ -148,7 +152,7 @@ const FormItem: FC<FormItem> = ({
 
     useEffect(() => {
         const onSendToChangeItemValue = (param: {
-            name: string,
+            name: NamePath,
             value: any
         }) => {
             if (param.name === name) {
@@ -169,7 +173,7 @@ const FormItem: FC<FormItem> = ({
             ring: onSendToChangeItemValue
         }
         eventBus?.subscribe(subscriber);
-        const onTriggerItemVerification = async (fields: string) => {
+        const onTriggerItemVerification = async (fields: NamePath[]) => {
             if (fields != null && !fields.includes(name)) {
                 return;
             }
@@ -218,6 +222,20 @@ const FormItem: FC<FormItem> = ({
             ring: onParentReady
         }
         eventBus?.subscribe(parentReadySubscriber)
+
+        const onChangeValues = (values: any) => {
+            const newValue = getRecordValue(values, name);
+            setValue(newValue);
+            setRecordValue(values, name, newValue)
+        }
+
+        const changeValuesSubscriber = {
+            id,
+            type: MessageEnum.SEND_TO_CHAGE_VALUES,
+            ring: onChangeValues
+        }
+        eventBus?.subscribe(changeValuesSubscriber)
+
         return () => {
             eventBus?.unSubscribe(subscriber);
             eventBus?.unSubscribe(verificationSubscriber);

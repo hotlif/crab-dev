@@ -4,6 +4,8 @@ export enum MessageEnum {
     ON_ITEM_VALUE_CHANGE,
     // 发送数据改变表单值
     SEND_TO_CHAGE_ITEM_VALUE,
+    // 设置所有数据
+    SEND_TO_CHAGE_VALUES,
     // 触发子元素校验
     TRIGGER_ITEM_VERIFICATION,
     // 父节点加载完成
