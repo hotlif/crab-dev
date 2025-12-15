@@ -45,7 +45,7 @@ export interface FormInstance<T extends Record<string, any>> {
     /**
      * 触发字段校验
      */
-    validateFields(fields?: string[]): Promise<void>
+    validateFields(fields?: string[]): Promise<T>
 
     /**
      * 重置字段， 如果参数为空，则表示重置所有字段

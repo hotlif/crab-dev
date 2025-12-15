@@ -1,5 +1,4 @@
 import { css, cx } from "@linaria/core";
-import { z } from "zod";
 import {
     type FC,
     type FormHTMLAttributes,
@@ -16,7 +15,7 @@ import {
 import FormContext from "./context";
 import EventBus, { MessageEnum } from "./bus";
 
-interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture"> {
     
     /**
      * 设置 Form 实例, 以便后面调用 Form 的方法
@@ -34,12 +33,12 @@ interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttribut
     /**
      * 提交表单且数据验证成功后回调事件
      */
-    onFinishSuccess?: () => Promise<void>
+    onSubmitSuccess?: (record: T) => Promise<void>
 
     /**
      * 提交表单并且数据校验失败后的回调事件
      */
-    onFinishFailed?: () => Promise<void>
+    onSubmitFailed?: (record: T) => Promise<void>
 
     /**
      * 字段值更新的时候触发的回调事件
@@ -54,8 +53,8 @@ function Form<T extends Record<string, any>>({
     className,
     form,
     requiredIndicatorRenderer,
-    onFinishSuccess,
-    onFinishFailed,
+    onSubmitSuccess,
+    onSubmitFailed,
     onFieldValueChange,
     children,
     ...restProps
@@ -63,6 +62,9 @@ function Form<T extends Record<string, any>>({
     const id = useId();
 
     const formRef = useRef<HTMLFormElement>(null)
+    const formRecordRef = useRef<T>({} as T);
+
+
     const eventBus = useMemo(() => {
        return new EventBus();
     }, [])
@@ -70,18 +72,24 @@ function Form<T extends Record<string, any>>({
     /**
      * 触发校验
      */
-    const triggerVerification = async (fields: string[]) => {
+    const triggerVerification = async (fields?: string[]) => {
+        let result = true;
         const subscribers = eventBus.getSubscribers();
         for (const value of subscribers.values()) {
             if (value.type === MessageEnum.TRIGGER_ITEM_VERIFICATION) {
-                await value.ring(fields);
+                try {
+                    await value.ring(fields);
+                } catch (error) {
+                    result = false;
+                }
+               
             }
         }
+        return result;
     }
 
     useEffect(() => {
-        let formRecord = {} as T;
-
+        const formRecord = formRecordRef.current;
         const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
             formRecord[changed.name] = changed.value;
             onFieldValueChange?.(changed, formRecord)
@@ -102,7 +110,7 @@ function Form<T extends Record<string, any>>({
         if (formWrapper) {
             formWrapper.__INTERNAL__.setInstance({
                 submit: () => {
-                    formRef?.current?.submit();
+                    formRef?.current?.requestSubmit();
                 },
                 getFieldValue: (name) => formRecord?.[name],
                 getFieldsValue: () => formRecord,
@@ -117,7 +125,7 @@ function Form<T extends Record<string, any>>({
                     })
                 },
                 setFieldsValue: (values) => {
-                    formRecord = values;
+                    formRecordRef.current = values;
                     const keys = Object.keys(formRecord);
                     keys.forEach(element => {
                         eventBus.dispatch({
@@ -130,10 +138,11 @@ function Form<T extends Record<string, any>>({
                     })
                 },
                 validateFields: async (fields) => {
-                    if (fields) {
-                        await triggerVerification(fields)
+                    const result = await triggerVerification(fields);
+                    if (result) {
+                        return formRecord;
                     } else {
-                        // Object.keys()
+                        throw formRecord;
                     }
                 },
                 resetFields: () => {
@@ -163,7 +172,14 @@ function Form<T extends Record<string, any>>({
                     className
                 )}
                 onSubmit={(e) => {
-                    e.preventDefault()
+                    e.preventDefault();
+                    triggerVerification().then((result) => {
+                        if (result === true) {
+                            onSubmitSuccess?.(formRecordRef.current)
+                        } else {
+                            onSubmitFailed?.(formRecordRef.current)
+                        }
+                    })
                 }}
             >
                 {children}

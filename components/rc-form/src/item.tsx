@@ -13,7 +13,6 @@ import { css, cx } from "@linaria/core";
 import { type FormItemEditor, Rule, RuleType, ValidateState } from "./types";
 import useFormContext from "./hooks/useFormContext";
 import { MessageEnum } from "./bus";
-import { CheckCircle } from "./icon"
 
 interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
@@ -98,7 +97,6 @@ const FormItem: FC<FormItem> = ({
                     display: flex;
                     font-size: 14px;
                     box-sizing: border-box;
-                    height: 100%;
                     align-items: center;
                     color: rgba(0,0,0, 0.88);
                 `}
@@ -126,6 +124,7 @@ const FormItem: FC<FormItem> = ({
                     value,
                     onChange: (newValue: any) => {
                         setValue(newValue)
+                        setValidateMessage("");
                         eventBus?.dispatch({
                             type: MessageEnum.ON_ITEM_VALUE_CHANGE,
                             payload: [{
@@ -135,25 +134,16 @@ const FormItem: FC<FormItem> = ({
                         })
                     },
                 })}
-            </div>
-        );
-    }
-
-    // 渲染校验状态
-    const renderCheckStatusElement = () => {
-        if (validateState === ValidateState.SUCCESS) {
-            return (
-                <span
+                <div
                     className={css`
-                        color: #16A34A;
-                        margin-inline: 10px;
+                        color: #f85149;
+                        font-size: 14px;
                     `}
                 >
-                    <CheckCircle />
-                </span>
-            )
-        }
-        return null;
+                    {validateMessage}
+                </div>
+            </div>
+        );
     }
 
     useEffect(() => {
@@ -180,10 +170,15 @@ const FormItem: FC<FormItem> = ({
         }
         eventBus?.subscribe(subscriber);
         const onTriggerItemVerification = async (fields: string) => {
-            if (!fields?.includes(name)) {
+            if (fields != null && !fields.includes(name)) {
                 return;
             }
             setValidateState(ValidateState.VALIDATING);
+            if (required === true && (value == null || value === "")) {
+                const message = `请输入${label?.toString()}`;
+                setValidateMessage(message);
+                throw new Error(message);
+            }
             for (let i = 0; i < rules.length; i += 1) {
                 const rule = rules[i];
                 if (rule.type == RuleType.ERROR || rule.type == RuleType.WARNING) {
@@ -201,6 +196,7 @@ const FormItem: FC<FormItem> = ({
                     }
                 }
             }
+            setValidateMessage("");
             setValidateState(ValidateState.SUCCESS);
         }
         const verificationSubscriber = {
@@ -227,26 +223,22 @@ const FormItem: FC<FormItem> = ({
             eventBus?.unSubscribe(verificationSubscriber);
             eventBus?.unSubscribe(parentReadySubscriber);
         }
-    }, [rules])
+    }, [rules, value])
 
     if (hidden) {
         return null;
     }
     return (
         <div
-            className={cx(
-                css`
-                    display: flex;
-                    height: 32px;
-                    align-items: center;
-                `,
-                className
-            )}
+            className={cx(css`
+                display: flex;
+                height: 56px;
+                align-items: baseline; 
+            `,className)}
             {...restProps}
         >
             {renderLabelElement()}
             {renderEditorElement()}
-            {renderCheckStatusElement()}
         </div>
     )
 }

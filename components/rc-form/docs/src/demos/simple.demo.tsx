@@ -15,7 +15,8 @@ const Input = ({
 		<input
 			value={value}
 			style={{
-				width: "100%"
+				width: "100%",
+				height: 32
 			}}
 			onChange={(e) => {
 				onChange?.(e.target.value)
@@ -43,9 +44,15 @@ const SimpleFrame = () => {
 				console.log("[allValues]: ", allValues)
 				console.log("--------onFieldValueChange End -------")
 			}}
+			onSubmitSuccess={async (result) => {
+				console.log("this is onSubmitSuccess", result)
+			}}
+			onSubmitFailed={async (result) => {
+				console.log("this is onSubmitFailed", result)
+			}}
 		>
 			<Item
-				label="用户名"
+				label="用户"
 				name="username"
 				required
 			>
@@ -74,6 +81,13 @@ const SimpleFrame = () => {
 				}}
 			>
 				getFieldValue
+			</button>
+			<button
+				type="submit"
+				onClick={() => {
+				}}
+			>
+				submit
 			</button>
 		</Form>
 	)
