@@ -4446,7 +4446,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@jest/globals", "npm:30.2.0"],\
           ["@linaria/core", "npm:6.3.0"],\
-          ["@types/node", "npm:24.10.2"],\
+          ["@types/node", "npm:25.0.2"],\
           ["@types/react", "npm:19.2.7"],\
           ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:9.39.1"],\
@@ -4458,8 +4458,7 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.1"],\
           ["react-icons", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:5.5.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
-          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.49.0"],\
-          ["zod", "npm:4.1.13"]\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.49.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -8062,6 +8061,14 @@ const RAW_RUNTIME_STATE =
           ["undici-types", "npm:7.16.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:25.0.2", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-node-npm-25.0.2-b65c6c7cba-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:25.0.2"],\
+          ["undici-types", "npm:7.16.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@types/node-forge", [\
@@ -10213,10 +10220,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["baseline-browser-mapping", [\
-      ["npm:2.9.5", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/baseline-browser-mapping-npm-2.9.5-6fdb02a5a3-10c0.zip/node_modules/baseline-browser-mapping/",\
+      ["npm:2.9.7", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/baseline-browser-mapping-npm-2.9.7-fcb7e16891-10c0.zip/node_modules/baseline-browser-mapping/",\
         "packageDependencies": [\
-          ["baseline-browser-mapping", "npm:2.9.5"]\
+          ["baseline-browser-mapping", "npm:2.9.7"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10344,7 +10351,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/browserslist-npm-4.28.1-e455c4c2e8-10c0.zip/node_modules/browserslist/",\
         "packageDependencies": [\
           ["browserslist", "npm:4.28.1"],\
-          ["baseline-browser-mapping", "npm:2.9.5"],\
+          ["baseline-browser-mapping", "npm:2.9.7"],\
           ["caniuse-lite", "npm:1.0.30001760"],\
           ["electron-to-chromium", "npm:1.5.267"],\
           ["node-releases", "npm:2.0.27"],\
@@ -25252,15 +25259,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/yocto-queue-npm-1.2.2-04a540db16-10c0.zip/node_modules/yocto-queue/",\
         "packageDependencies": [\
           ["yocto-queue", "npm:1.2.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["zod", [\
-      ["npm:4.1.13", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/zod-npm-4.1.13-21040ff0ef-10c0.zip/node_modules/zod/",\
-        "packageDependencies": [\
-          ["zod", "npm:4.1.13"]\
         ],\
         "linkType": "HARD"\
       }]\

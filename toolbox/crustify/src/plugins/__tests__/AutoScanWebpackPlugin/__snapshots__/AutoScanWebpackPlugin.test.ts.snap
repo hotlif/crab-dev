@@ -3,9 +3,9 @@
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 1`] = `
 "import { lazy } from "react";
 
-const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts = lazy(() => import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts"));
-const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts"));
-const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts = lazy(() => import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts"));
+const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts = import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts");
+const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts = import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts");
+const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts = import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts");
 
 const components = [
    { name: "___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts", component: ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts, relativePath: "/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts", metadata: null},
@@ -22,9 +22,9 @@ import ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A
 import ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts_source from ".//src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts.raw";
 import ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts_source from ".//src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts.raw";
 
-const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts = lazy(() => import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts"));
-const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts = lazy(() => import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts"));
-const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts = lazy(() => import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts"));
+const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts = import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts");
+const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_AA_AA1_ts = import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/AA/AA1.ts");
+const ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts = import("@@/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts");
 
 const components = [
    { name: "___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts", component: ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts, relativePath: "/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A/A1.ts", source: ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_A1_ts_source, metadata: null},

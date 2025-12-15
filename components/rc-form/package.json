@@ -41,7 +41,5 @@
     },
     "engines": {
         "node": ">=22"
-    },
-    "dependencies": {
     }
 }
