@@ -27,3 +27,18 @@ export const getRecordValue = (formRecord: any, name: NamePath) => {
         return acc[key];
     }, formRecord);
 }
+
+export const equalsNamePath = (name: NamePath, newName: NamePath) => {
+    if (typeof name === "string" && typeof newName === "string" && name === newName) {
+        return true;
+    } else if (Array.isArray(name) && Array.isArray(newName) && name.length === newName.length) {
+        for (let i = 0; i < name.length; i += 1) {
+            if (newName[i] != name[i]) {
+                return false;
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}

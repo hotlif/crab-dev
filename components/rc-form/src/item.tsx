@@ -15,7 +15,8 @@ import useFormContext from "./hooks/useFormContext";
 import { MessageEnum } from "./bus";
 import {
     setRecordValue,
-    getRecordValue
+    getRecordValue,
+    equalsNamePath
 } from "./util";
 
 interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -155,7 +156,7 @@ const FormItem: FC<FormItem> = ({
             name: NamePath,
             value: any
         }) => {
-            if (param.name === name) {
+            if (equalsNamePath(param.name, name)) {
                 setValue(param.value);
                 eventBus?.dispatch({
                     type: MessageEnum.ON_ITEM_VALUE_CHANGE,

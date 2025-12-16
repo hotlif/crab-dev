@@ -16,15 +16,20 @@ import FormContext from "./context";
 import EventBus, { MessageEnum } from "./bus";
 import {
     setRecordValue,
-    getRecordValue
+    getRecordValue,
 } from "./util";
 
-interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture"> {
+interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture" | "defaultValue"> {
     
     /**
      * 设置 Form 实例, 以便后面调用 Form 的方法
      */
     form?: FormInstance<T>
+
+    /**
+     * 设置默认值
+     */
+    defaultValue?: T
 
     /**
      * 自定义渲染必填样式
@@ -53,12 +58,10 @@ interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttribut
     ) => Promise<void>
 }
 
-
-
-
 function Form<T extends Record<string, any>>({
     className,
     form,
+    defaultValue = {} as T,
     requiredIndicatorRenderer,
     onSubmitSuccess,
     onSubmitFailed,
@@ -71,7 +74,6 @@ function Form<T extends Record<string, any>>({
     const formRef = useRef<HTMLFormElement>(null)
     const formRecordRef = useRef<T>({} as T);
 
-
     const eventBus = useMemo(() => {
        return new EventBus();
     }, [])
@@ -79,7 +81,7 @@ function Form<T extends Record<string, any>>({
     /**
      * 触发校验
      */
-    const triggerVerification = async (fields?: string[]) => {
+    const triggerVerification = async (fields?: NamePath[]) => {
         let result = true;
         const subscribers = eventBus.getSubscribers();
         for (const value of subscribers.values()) {
@@ -89,7 +91,6 @@ function Form<T extends Record<string, any>>({
                 } catch (error) {
                     result = false;
                 }
-               
             }
         }
         return result;
@@ -97,7 +98,6 @@ function Form<T extends Record<string, any>>({
 
     useEffect(() => {
         const formRecord = formRecordRef.current;
-
 
         const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
             setRecordValue(formRecord, changed.name as NamePath, changed.value);
@@ -116,6 +116,49 @@ function Form<T extends Record<string, any>>({
         });
 
         const formWrapper: WrapperInstance<T> = form as any;
+
+        const setFieldValue = (name: NamePath, value: any) => {
+            setRecordValue(formRecord, name, value)
+            eventBus.dispatch({
+                type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
+                payload: [{
+                    name,
+                    value
+                }]
+            })
+        }
+
+        const setFieldsValue = (values: T) => {
+            formRecordRef.current = values;
+            eventBus.dispatch({
+                type: MessageEnum.SEND_TO_CHAGE_VALUES,
+                payload: [values]
+            })
+        }
+
+
+        const resetFields = async (names?: NamePath[]) => {
+            formRecordRef.current = defaultValue;
+            if (names == null) {
+                setFieldsValue(defaultValue);
+            } else {
+                names.forEach(name => {
+                    const value = getRecordValue(defaultValue, name);
+                    setFieldValue(name, value)
+                })
+            }
+        }
+
+        const validateFields = async (fields: NamePath[]) => {
+            const result = await triggerVerification(fields);
+            if (result) {
+                return formRecord;
+            } else {
+                throw formRecord;
+            }
+        }
+
+
         if (formWrapper) {
             formWrapper.__INTERNAL__.setInstance({
                 submit: () => {
@@ -123,36 +166,13 @@ function Form<T extends Record<string, any>>({
                 },
                 getFieldValue: (name) => getRecordValue(formRecord, name),
                 getFieldsValue: () => formRecord,
-                setFieldValue: (name, value) => {
-                    setRecordValue(formRecord, name, value)
-                    eventBus.dispatch({
-                        type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
-                        payload: [{
-                            name,
-                            value
-                        }]
-                    })
-                },
-                setFieldsValue: (values) => {
-                    formRecordRef.current = values;
-                    eventBus.dispatch({
-                        type: MessageEnum.SEND_TO_CHAGE_VALUES,
-                        payload: [values]
-                    })
-                },
-                validateFields: async (fields) => {
-                    const result = await triggerVerification(fields);
-                    if (result) {
-                        return formRecord;
-                    } else {
-                        throw formRecord;
-                    }
-                },
-                resetFields: () => {
-                }
+                setFieldValue,
+                setFieldsValue,
+                validateFields,
+                resetFields,
             })
         }
-
+        resetFields();
         return () => {
             eventBus.unSubscribe(subscriber);
         }

@@ -13,7 +13,7 @@ const Input = ({
 }: any) => {
 	return (
 		<input
-			value={value}
+			value={value ?? ""}
 			style={{
 				width: "100%",
 				height: 32
@@ -39,6 +39,13 @@ const SimpleFrame = () => {
 			className={css`
 				gap: 4px;
 			`}
+
+			defaultValue={{
+				user: {
+					username: "你好",
+					password: "password"
+				}
+			}}
 			form={form}
 			onFieldValueChange={async (changed, allValues) => {
 				console.log("--------onFieldValueChange Start -------")
@@ -68,6 +75,7 @@ const SimpleFrame = () => {
 				<Input />
 			</Item>
 			<button
+				type="button"
 				onClick={() => {
 					const values = form.getFieldsValue();
 					console.log("getFieldsValue", values)
@@ -76,6 +84,7 @@ const SimpleFrame = () => {
 				getFieldsValue
 			</button>
 			<button
+				type="button"
 				onClick={() => {
 					const username = form.getFieldValue(["user", "name"]);
 					const password = form.getFieldValue(["user", "password"]);
@@ -85,6 +94,7 @@ const SimpleFrame = () => {
 				getFieldValue
 			</button>
 			<button
+				type="button"
 				onClick={() => {
 					form.setFieldsValue({
 						user: {
@@ -96,6 +106,25 @@ const SimpleFrame = () => {
 			>
 				setFieldsValue
 			</button>
+			<button
+				type="button"
+				onClick={() => {
+					form.setFieldValue(["user", "username"], crypto.randomUUID())
+				}}
+			>
+				setFieldValue
+			</button>
+
+			<button
+				type="button"
+				onClick={() => {
+					form.resetFields()
+				}}
+			>
+				resetFields
+			</button>
+			
+			
 			<button
 				type="submit"
 				onClick={() => {

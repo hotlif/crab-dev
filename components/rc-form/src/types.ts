@@ -45,13 +45,12 @@ export interface FormInstance<T extends Record<string, any>> {
     /**
      * 触发字段校验
      */
-    validateFields(fields?: string[]): Promise<T>
+    validateFields(fields?: NamePath[]): Promise<T>
 
     /**
      * 重置字段， 如果参数为空，则表示重置所有字段
      */
-    resetFields(names?: (keyof T)[]): void
-
+    resetFields(names?: NamePath[]): Promise<void>
 }
 
 export type WrapperInstance<T extends Record<string, any>> = FormInstance<T> & {

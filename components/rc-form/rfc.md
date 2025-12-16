@@ -62,6 +62,6 @@ const Demo = () => {
 |---                       |----                                       |-----      |------
 |hidden                    | 是否隐藏字段                               | `boolean` | `false`
 |label                     | 文本的标签                                 | `ReactNode` | `""`
-|name                      | 字段名称                                   | `string \| number \| (string \| number)[]` | `""` 
+|name                      | 字段名称                                   | `NamePath` | `""` 
 |required                  | 是否必填                                   | `boolean` | `false`
 |rules                     | 校验规则，设置字段的校验逻辑                 | `Rule[]`  | `[]`
