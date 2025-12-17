@@ -3,7 +3,7 @@ import type { FC, InputHTMLAttributes, ReactNode } from "react";
 
 import Token from "./token";
 
-interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
+export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
 
     /**
      * 单行输入框的值

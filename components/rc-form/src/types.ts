@@ -62,14 +62,19 @@ export type WrapperInstance<T extends Record<string, any>> = FormInstance<T> & {
 export interface FormItemEditor<T = any> {
 
     /**
+     * 编辑器的校验状态
+     */
+    validateState?: ValidateState
+
+    /**
      * 编辑器的值
      */
-    value: T,
+    value?: T,
 
     /**
      * 值改变后触发的事件
      */
-    onChange(value: T): void
+    onChange?: (value: T) => void
 
 }
 

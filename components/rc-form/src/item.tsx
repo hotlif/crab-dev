@@ -19,7 +19,7 @@ import {
     equalsNamePath
 } from "./util";
 
-interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
     /**
      * 是否隐藏字段 
@@ -127,6 +127,7 @@ const FormItem: FC<FormItem> = ({
                 {cloneElement(children, {
                     ...props,
                     value,
+                    validateState,
                     onChange: (newValue: any) => {
                         setValue(newValue)
                         setValidateMessage("");

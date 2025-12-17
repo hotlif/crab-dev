@@ -19,7 +19,7 @@ import {
     getRecordValue,
 } from "./util";
 
-interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture" | "defaultValue"> {
+export interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture" | "defaultValue"> {
     
     /**
      * 设置 Form 实例, 以便后面调用 Form 的方法
@@ -97,11 +97,10 @@ function Form<T extends Record<string, any>>({
     }
 
     useEffect(() => {
-        const formRecord = formRecordRef.current;
 
         const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
-            setRecordValue(formRecord, changed.name as NamePath, changed.value);
-            onFieldValueChange?.(changed, formRecord)
+            setRecordValue(formRecordRef.current, changed.name as NamePath, changed.value);
+            onFieldValueChange?.(changed, formRecordRef.current)
         }
 
         const subscriber = {
@@ -118,7 +117,7 @@ function Form<T extends Record<string, any>>({
         const formWrapper: WrapperInstance<T> = form as any;
 
         const setFieldValue = (name: NamePath, value: any) => {
-            setRecordValue(formRecord, name, value)
+            setRecordValue(formRecordRef.current, name, value)
             eventBus.dispatch({
                 type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,
                 payload: [{
@@ -152,9 +151,9 @@ function Form<T extends Record<string, any>>({
         const validateFields = async (fields: NamePath[]) => {
             const result = await triggerVerification(fields);
             if (result) {
-                return formRecord;
+                return formRecordRef.current;
             } else {
-                throw formRecord;
+                throw formRecordRef.current;
             }
         }
 
@@ -164,8 +163,8 @@ function Form<T extends Record<string, any>>({
                 submit: () => {
                     formRef?.current?.requestSubmit();
                 },
-                getFieldValue: (name) => getRecordValue(formRecord, name),
-                getFieldsValue: () => formRecord,
+                getFieldValue: (name) => getRecordValue(formRecordRef.current, name),
+                getFieldsValue: () => formRecordRef.current,
                 setFieldValue,
                 setFieldsValue,
                 validateFields,
