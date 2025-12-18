@@ -122,6 +122,9 @@ const FormItem: FC<FormItem> = ({
             <div
                 className={css`
                     flex: 1;
+                    margin-bottom: 24px;
+                    margin-left: 0.5rem;
+                    position: relative;
                 `}
             >
                 {cloneElement(children, {
@@ -144,6 +147,7 @@ const FormItem: FC<FormItem> = ({
                     className={css`
                         color: #f85149;
                         font-size: 14px;
+                        position: absolute;
                     `}
                 >
                     {validateMessage}
@@ -252,8 +256,7 @@ const FormItem: FC<FormItem> = ({
         <div
             className={cx(css`
                 display: flex;
-                height: 56px;
-                align-items: baseline; 
+                align-items: baseline;
             `,className)}
             {...restProps}
         >

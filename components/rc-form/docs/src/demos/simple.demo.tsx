@@ -16,7 +16,7 @@ const Input = ({
 			value={value ?? ""}
 			style={{
 				width: "100%",
-				height: 32
+				height: 40
 			}}
 			onChange={(e) => {
 				onChange?.(e.target.value)
