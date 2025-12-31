@@ -1,8 +1,4 @@
 import { type HTMLAttributes, type FC, useState, useEffect, type Key } from "react";
-import {
-    width,
-    padding,
-} from "@crab-dev/styleify";
 import { cx, css } from "@linaria/core";
 import RcMenu, { MenuItem } from "@crab-dev/rc-menu";
 
@@ -35,9 +31,8 @@ const Sidebar: FC<SidebarProps> = ({
     return (
         <aside
             className={cx(className, css`
-                ${width(64)}
-                ${padding(3, "y")}
-                ${padding(1, "x")}
+                width: 16rem;
+                padding: 0.75rem 0.25rem;
                 box-sizing: border-box;
                 overflow-y: auto;
                 border-inline-end: 1px solid rgba(5, 5, 5, 0.06);

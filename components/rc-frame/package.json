@@ -2,6 +2,7 @@
     "name": "@crab-dev/rc-frame",
     "description": "布局组件，适用于管理后台、仪表盘等",
     "packageManager": "yarn@4.7.0",
+    "version": "0.0.3",
     "type": "module",
     "scripts": {
         "start": "crustify dev",
@@ -34,8 +35,7 @@
         "typescript-eslint": "^8.50.0"
     },
     "dependencies": {
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/styleify": "workspace:^"
+        "@crab-dev/rc-menu": "workspace:^"
     },
     "peerDependencies": {
         "react": "^19.0.0",

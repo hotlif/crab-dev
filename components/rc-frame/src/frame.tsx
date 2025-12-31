@@ -1,9 +1,3 @@
-import {
-    height,
-    width,
-    flex,
-    flexDirection,
-} from "@crab-dev/styleify";
 import type { FC, HTMLAttributes, ReactNode } from "react";
 import { cx, css } from "@linaria/core";
 import Header from "./header";
@@ -31,10 +25,10 @@ const Frame: FC<FrameProps> = ({
     return (
         <div
             className={cx(className, css`
-                ${flex()}
-                ${flexDirection("column")}
-                ${width("100%")}
-                ${height("100%")}
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
                 box-sizing: border-box;
                 overflow: hidden;
             `)}
@@ -48,8 +42,8 @@ const Frame: FC<FrameProps> = ({
             />
             <div
                 className={css`
-                    ${flex()}
-                    ${height("100%")}
+                    display: flex;
+                    height: 100%;
                     flex-grow: 1;
                 `}
             >

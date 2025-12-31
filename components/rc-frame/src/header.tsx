@@ -1,13 +1,3 @@
-import {
-    flex,
-    height,
-    boxShadow,
-    fontSize,
-    padding,
-    width,
-    margin,
-    flexAlignItems
-} from "@crab-dev/styleify";
 import { css, cx } from "@linaria/core";
 import { FC, ReactNode, type HTMLAttributes } from "react";
 
@@ -47,10 +37,10 @@ const Header: FC<HeaderProps> = ({
     return (
         <header
             className={cx(className, css`
-                ${flex()}
-                ${height(14)}
-                ${boxShadow("sm")}
-                ${flexAlignItems("center")}
+                display: flex;
+                height: 3.5rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);
+                align-items: center;
                 box-sizing: border-box;
                 flex-shrink: 0;
             `)}
@@ -58,12 +48,12 @@ const Header: FC<HeaderProps> = ({
         >
             <div
                 className={css`
-                    ${flex()}
+                    display: flex;
                     cursor: pointer;
-                    ${flexAlignItems("center")} 
-                    ${width(64)}
+                    align-items: center;
+                    width: 15rem;
                     box-sizing: border-box;
-                    ${padding(5)}
+                    padding: 1.25rem;
                     user-select: none;
                 `}
             >
@@ -81,8 +71,9 @@ const Header: FC<HeaderProps> = ({
                 <div
                     className={css`
                         display: inline-block;
-                        ${fontSize("lg")}
-                        ${padding(4)}
+                        font-size: 1.125rem;
+                        line-height: 1.4;
+                        padding: 1rem;
                     `}
                 >
                     {title}
