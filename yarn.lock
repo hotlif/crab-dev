@@ -1516,13 +1516,13 @@ __metadata:
     memory-fs: "npm:^0.5.0"
     mini-css-extract-plugin: "npm:^2.9.4"
     path-browserify: "npm:^1.0.1"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
     remark-frontmatter: "npm:^5.0.0"
     remark-gfm: "npm:^4.0.1"
     remark-parse: "npm:^11.0.0"
     remark-stringify: "npm:^11.0.0"
     smol-toml: "npm:^1.6.0"
-    ssr-react: "npm:react@19.2.3"
-    ssr-react-dom: "npm:react-dom@19.2.3"
     style-loader: "npm:^4.0.0"
     tapable: "npm:^2.3.0"
     terser-webpack-plugin: "npm:^5.3.16"
@@ -14723,7 +14723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^19.2.3, ssr-react-dom@npm:react-dom@19.2.3":
+"react-dom@npm:^19.2.3":
   version: 19.2.3
   resolution: "react-dom@npm:19.2.3"
   dependencies:
@@ -14780,7 +14780,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^19.2.3, ssr-react@npm:react@19.2.3":
+"react@npm:^19.2.3":
   version: 19.2.3
   resolution: "react@npm:19.2.3"
   checksum: 10c0/094220b3ba3a76c1b668f972ace1dd15509b157aead1b40391d1c8e657e720c201d9719537375eff08f5e0514748c0319063392a6f000e31303aafc4471f1436

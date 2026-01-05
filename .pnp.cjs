@@ -4253,19 +4253,13 @@ const RAW_RUNTIME_STATE =
           ["memory-fs", "npm:0.5.0"],\
           ["mini-css-extract-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:2.9.4"],\
           ["path-browserify", "npm:1.0.1"],\
+          ["react", "npm:19.2.3"],\
+          ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["remark-frontmatter", "npm:5.0.0"],\
           ["remark-gfm", "npm:4.0.1"],\
           ["remark-parse", "npm:11.0.0"],\
           ["remark-stringify", "npm:11.0.0"],\
           ["smol-toml", "npm:1.6.0"],\
-          ["ssr-react", [\
-            "react",\
-            "npm:19.2.3"\
-          ]],\
-          ["ssr-react-dom", [\
-            "react-dom",\
-            "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:19.2.3"\
-          ]],\
           ["style-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.0"],\
           ["tapable", "npm:2.3.0"],\
           ["terser-webpack-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:5.3.16"],\
@@ -4324,19 +4318,13 @@ const RAW_RUNTIME_STATE =
           ["memory-fs", "npm:0.5.0"],\
           ["mini-css-extract-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:2.9.4"],\
           ["path-browserify", "npm:1.0.1"],\
+          ["react", "npm:19.2.3"],\
+          ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["remark-frontmatter", "npm:5.0.0"],\
           ["remark-gfm", "npm:4.0.1"],\
           ["remark-parse", "npm:11.0.0"],\
           ["remark-stringify", "npm:11.0.0"],\
           ["smol-toml", "npm:1.6.0"],\
-          ["ssr-react", [\
-            "react",\
-            "npm:19.2.3"\
-          ]],\
-          ["ssr-react-dom", [\
-            "react-dom",\
-            "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:19.2.3"\
-          ]],\
           ["style-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.0"],\
           ["tapable", "npm:2.3.0"],\
           ["terser-webpack-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:5.3.16"],\
@@ -6215,7 +6203,7 @@ const RAW_RUNTIME_STATE =
           ["@mdx-js/react", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.1.1"],\
           ["@types/mdx", "npm:2.0.13"],\
           ["@types/react", "npm:19.2.7"],\
-          ["react", null]\
+          ["react", "npm:19.2.3"]\
         ],\
         "packagePeers": [\
           "@types/react",\
@@ -21363,20 +21351,6 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["@types/react", "npm:19.2.7"],\
           ["react", "npm:19.2.3"],\
-          ["scheduler", "npm:0.27.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/react",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:19.2.3", {\
-        "packageLocation": "./.yarn/__virtual__/react-dom-virtual-4cc6802fcd/3/AppData/Local/Yarn/Berry/cache/react-dom-npm-19.2.3-93a2378518-10c0.zip/node_modules/react-dom/",\
-        "packageDependencies": [\
-          ["react-dom", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:19.2.3"],\
-          ["@types/react", "npm:19.2.7"],\
-          ["react", null],\
           ["scheduler", "npm:0.27.0"]\
         ],\
         "packagePeers": [\
