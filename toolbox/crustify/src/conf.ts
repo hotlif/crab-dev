@@ -1,5 +1,5 @@
 import { type ComponentType } from "react";
-import { type WebpackPluginInstance, type Configuration } from "webpack";
+import { type Configuration } from "webpack";
 import { loadConfig } from "unconfig";
 import { transformSync } from "@swc/core";
 
@@ -14,11 +14,6 @@ export interface Modification {
 	 * 修改文件
 	 */
 	modifyEntry?(entry: string): string
-
-	/**
-	 * 当应用在非 react 项目的时候就可以使用该插件进行修改 ReactWebpackPlugin, 避免 react 版本冲突的问题
-	 */
-	modifyReactWebpackPlugin?(reactWebpackPlugin: Promise<any>): Promise<WebpackPluginInstance>
 
 	/**
 	 * 修改 Webpack 配置

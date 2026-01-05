@@ -13,26 +13,15 @@ import { getCwdDir, getModsWebpackMerge } from "./util";
 
 export { getConfig } from "./conf";
 
-
 const getReactWebpackPluginInstance = async (conf: Config) => {
     const cwd = getCwdDir(conf.rootDir);
     const ReactWebpackPluginImport = import("./plugins/ReactWebpackPlugin");
-    let ReactWebpackPluginInstance: WebpackPluginInstance | null = null;
-    for (let i = 0; i < (conf.mods?.length ?? 0); i++) {
-        const mod = conf.mods?.[i];
-        if (mod?.modifyReactWebpackPlugin) {
-            ReactWebpackPluginInstance = await mod.modifyReactWebpackPlugin(ReactWebpackPluginImport);
-        }
-    }
-
-    if (ReactWebpackPluginInstance == null) {
-        const AwaitReactWebpackPluginImport = await ReactWebpackPluginImport;
-        let ReactWebpackPlugin = AwaitReactWebpackPluginImport.default || AwaitReactWebpackPluginImport;
-        ReactWebpackPluginInstance = new ReactWebpackPlugin({
-            cwd: join(cwd, "src"),
-            mods: conf.mods
-        });
-    }
+    const AwaitReactWebpackPluginImport = await ReactWebpackPluginImport;
+    const ReactWebpackPlugin = AwaitReactWebpackPluginImport.default || AwaitReactWebpackPluginImport;
+    const ReactWebpackPluginInstance = new ReactWebpackPlugin({
+        cwd: join(cwd, "src"),
+        mods: conf.mods
+    });
     return ReactWebpackPluginInstance;
 }
 
