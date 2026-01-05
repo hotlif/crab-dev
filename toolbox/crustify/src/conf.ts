@@ -18,7 +18,7 @@ export interface Modification {
 	/**
 	 * 当应用在非 react 项目的时候就可以使用该插件进行修改 ReactWebpackPlugin, 避免 react 版本冲突的问题
 	 */
-	modifyReactWebpackPlugin?(reactWebpackPlugin: WebpackPluginInstance): WebpackPluginInstance
+	modifyReactWebpackPlugin?(reactWebpackPlugin: Promise<any>): Promise<WebpackPluginInstance>
 
 	/**
 	 * 修改 Webpack 配置

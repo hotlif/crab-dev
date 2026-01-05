@@ -14,6 +14,28 @@ import { getCwdDir, getModsWebpackMerge } from "./util";
 export { getConfig } from "./conf";
 
 
+const getReactWebpackPluginInstance = async (conf: Config) => {
+    const cwd = getCwdDir(conf.rootDir);
+    const ReactWebpackPluginImport = import("./plugins/ReactWebpackPlugin");
+    let ReactWebpackPluginInstance: WebpackPluginInstance | null = null;
+    for (let i = 0; i < (conf.mods?.length ?? 0); i++) {
+        const mod = conf.mods?.[i];
+        if (mod?.modifyReactWebpackPlugin) {
+            ReactWebpackPluginInstance = await mod.modifyReactWebpackPlugin(ReactWebpackPluginImport);
+        }
+    }
+
+    if (ReactWebpackPluginInstance == null) {
+        const AwaitReactWebpackPluginImport = await ReactWebpackPluginImport;
+        let ReactWebpackPlugin = AwaitReactWebpackPluginImport.default || AwaitReactWebpackPluginImport;
+        ReactWebpackPluginInstance = new ReactWebpackPlugin({
+            cwd: join(cwd, "src"),
+            mods: conf.mods
+        });
+    }
+    return ReactWebpackPluginInstance;
+}
+
 const originalConsoleLog = console.log;
 const originalConsoleError = console.error;
 
@@ -58,22 +80,7 @@ export const run = async (conf: Config) => {
         isProduction: false,
     });
 
-    const cwd = getCwdDir(conf.rootDir);
-
-    const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
-    let ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport;
-
-    let ReactWebpackPluginInstance: WebpackPluginInstance = new ReactWebpackPlugin({
-        cwd: join(cwd, "src"),
-        mods: conf.mods
-    })
-
-    conf.mods?.forEach((mod) => {
-        if (mod.modifyReactWebpackPlugin) {
-            ReactWebpackPluginInstance = mod.modifyReactWebpackPlugin(ReactWebpackPluginInstance);
-        }
-    });
-
+    const ReactWebpackPluginInstance = await getReactWebpackPluginInstance(conf);
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         entry: {
             "main": standard.entry as string,
@@ -122,18 +129,9 @@ export const build = async (conf: Config) => {
         isProduction: true,
     });
 
-    const cwd = getCwdDir(conf.rootDir);
-
-    const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
-    const ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport
-
+    const ReactWebpackPluginInstance = await getReactWebpackPluginInstance(conf);
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
-        plugins: [
-            new ReactWebpackPlugin({
-                cwd: join(cwd, "src"),
-                mods: conf.mods
-            })
-        ]
+        plugins: [ReactWebpackPluginInstance]
     }));
 
     const webpackCompiler = Webpack(webpackConfig);
@@ -228,8 +226,6 @@ export const bundleMesh = async (conf: Config) => {
         }
     });
 }
-
-
 
 export {
     defineConfig
