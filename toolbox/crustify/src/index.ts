@@ -2,7 +2,7 @@ import { Writable } from "stream";
 import { merge } from "webpack-merge";
 import Webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
-import type { Configuration as WebpackConfiguration } from "webpack";
+import type { Configuration as WebpackConfiguration, WebpackPluginInstance } from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
 import presetStandard from "./presetWebpack/standard";
@@ -61,7 +61,18 @@ export const run = async (conf: Config) => {
     const cwd = getCwdDir(conf.rootDir);
 
     const ReactWebpackPluginImport = await import("./plugins/ReactWebpackPlugin");
-    const ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport
+    let ReactWebpackPlugin = ReactWebpackPluginImport.default || ReactWebpackPluginImport;
+
+    let ReactWebpackPluginInstance: WebpackPluginInstance = new ReactWebpackPlugin({
+        cwd: join(cwd, "src"),
+        mods: conf.mods
+    })
+
+    conf.mods?.forEach((mod) => {
+        if (mod.modifyReactWebpackPlugin) {
+            ReactWebpackPluginInstance = mod.modifyReactWebpackPlugin(ReactWebpackPluginInstance);
+        }
+    });
 
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         entry: {
@@ -74,12 +85,7 @@ export const run = async (conf: Config) => {
             library: '[name]',
             libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
         },
-        plugins: [
-            new ReactWebpackPlugin({
-                cwd: join(cwd, "src"),
-                mods: conf.mods
-            })
-        ],
+        plugins: [ReactWebpackPluginInstance],
         devServer: {
             historyApiFallback: true,
             server: conf.devServer?.server || "http",

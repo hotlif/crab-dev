@@ -9,7 +9,7 @@ export default declare((api, options, dirname)  => {
                 if (/^@crab-dev\/rc-[a-zA-Z0-9_\-]+$/g.test(importPath)) {
                     const styleImport = types.importDeclaration(
                         [],
-                        types.stringLiteral(`${importPath}/esm/index.styles.css`)
+                        types.stringLiteral(`${importPath}/css/index.css`)
                     );
                     path.insertAfter(styleImport)
                 }

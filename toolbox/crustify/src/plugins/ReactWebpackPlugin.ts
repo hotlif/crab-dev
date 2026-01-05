@@ -1,6 +1,6 @@
 import Webpack, { type Compiler, type WebpackPluginInstance } from "webpack";
-import { renderToString } from "ssr-react-dom/server";
-import { createElement, type ComponentType } from "ssr-react";
+import { renderToString } from "react-dom/server";
+import { createElement, type ComponentType } from "react";
 import { join, resolve } from "path";
 import { existsSync } from "fs";
 

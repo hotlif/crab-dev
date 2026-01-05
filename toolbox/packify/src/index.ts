@@ -3,19 +3,18 @@ import { isAbsolute } from "node:path";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import wyw from "@wyw-in-js/rollup";
-import { join } from "path";
+import { join, dirname} from "path";
 //@ts-ignore
 import css from 'rollup-plugin-css-only';
 import babel from '@rollup/plugin-babel';
 import { dts } from "rollup-plugin-dts";
 import { createRequire } from "module";
-import { readFileSync } from "fs";
-import { writeFileSync } from "node:fs";
+import { rm, writeFile, mkdir } from 'fs/promises';
+import { existsSync } from "fs";
 
 const require = createRequire(import.meta.url);
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
-
 
 const commonBabelConfig = {
     presets: [
@@ -45,26 +44,12 @@ const babelPlugin = babel({
     extensions,
 });
 
-
-const writeCssPreDependency = (path: string, type: "cjs" | "esm") => {
-    const pkgs = readFileSync(join(process.cwd(), "package.json"));
-    const { cssDependencies } = JSON.parse(pkgs.toString());
-
-    if (cssDependencies) {
-        let importCss = "";
-        Object.keys(cssDependencies).forEach((pkg) => {
-            if (type === "cjs") {
-                importCss += `@import '${pkg}/cjs/index.styles.css';\n`;
-            } else {
-                importCss += `@import '${pkg}/esm/index.styles.css';\n`;
-            }
-        })
-        const content = readFileSync(path, "utf-8");
-        writeFileSync(path, importCss + content, "utf-8");
-    }
-}
-
 export const build = async () => {
+    await rm(join(process.cwd(), "esm"), { recursive: true, force: true });
+    await rm(join(process.cwd(), "cjs"), { recursive: true, force: true });
+    await rm(join(process.cwd(), "declarations"), { recursive: true, force: true });    
+    await rm(join(process.cwd(), "css"), { recursive: true, force: true });
+    console.log(`[@crab-dev/packify]: 🧹 cleaning esm, cjs, declarations, css`);
     const bundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
@@ -74,7 +59,15 @@ export const build = async () => {
                 babelOptions: commonBabelConfig
             }),
             css({
-                output: "index.styles.css",
+                output: async (styles: any) => {
+                    const cssFilePath = join(process.cwd(), "css", "index.css");
+                    if (styles && !existsSync(cssFilePath)) {
+                        const cssDir = dirname(cssFilePath);
+                        await mkdir(cssDir, { recursive: true });
+                        await writeFile(cssFilePath, styles);
+                        console.log(`[@crab-dev/packify]: 🎨 CSS generated at ${cssFilePath}`);
+                    }
+                }
             }),
             nodeResolve({ extensions }),
             babelPlugin
@@ -110,11 +103,11 @@ export const build = async () => {
         ]
     });
 
-    writeCssPreDependency(join(process.cwd(), "esm","index.styles.css"), "esm");
-    writeCssPreDependency(join(process.cwd(), "cjs","index.styles.css"), "cjs");
-    
     await typesBundle.write({
         file: "declarations/index.d.ts",
         format: "es",
     });
+
+
+    console.log("[@crab-dev/packify]: ✅ build success !");
 }

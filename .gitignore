@@ -17,6 +17,7 @@ node_modules
 declarations
 esm
 cjs
+css
 coverage
 .tmp
 dist
