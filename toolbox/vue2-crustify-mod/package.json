@@ -24,15 +24,15 @@
         "@types/node": "25.0.3",
         "eslint": "^9.39.2",
         "eslint-plugin-react": "^7.37.5",
-        "globals": "^16.5.0",
+        "globals": "^17.0.0",
         "jest": "30.2.0",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.50.0",
-        "webpack": "^5.104.0"
+        "typescript-eslint": "^8.51.0",
+        "webpack": "^5.104.1"
     },
     "dependencies": {
         "css-loader": "^7.1.2",
-        "sass": "^1.97.0",
+        "sass": "^1.97.1",
         "sass-loader": "^16.0.6",
         "vue-loader": "~15.11.1",
         "vue-style-loader": "^4.1.3",
