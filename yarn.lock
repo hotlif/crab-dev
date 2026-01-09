@@ -1538,6 +1538,7 @@ __metadata:
     webpackbar: "npm:^7.0.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
+    core-js: ^3.47.0
     tapable: ^2.3.0
   bin:
     crustify: bin/cli.js

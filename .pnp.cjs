@@ -4233,6 +4233,7 @@ const RAW_RUNTIME_STATE =
           ["@swc/core", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:1.15.8"],\
           ["@types/babel__core", "npm:7.20.5"],\
           ["@types/babel__preset-env", "npm:7.10.0"],\
+          ["@types/core-js", null],\
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/memory-fs", "npm:0.3.7"],\
           ["@types/node", "npm:25.0.3"],\
@@ -4243,6 +4244,7 @@ const RAW_RUNTIME_STATE =
           ["@wyw-in-js/webpack-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:0.8.1"],\
           ["babel-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:10.0.0"],\
           ["babel-plugin-react-compiler", "npm:1.0.0"],\
+          ["core-js", null],\
           ["css-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:7.1.2"],\
           ["css-minimizer-webpack-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:7.0.4"],\
           ["eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:9.39.2"],\
@@ -4276,7 +4278,9 @@ const RAW_RUNTIME_STATE =
           ["yargs", "npm:18.0.0"]\
         ],\
         "packagePeers": [\
-          "@types/tapable"\
+          "@types/core-js",\
+          "@types/tapable",\
+          "core-js"\
         ],\
         "linkType": "SOFT"\
       }],\
