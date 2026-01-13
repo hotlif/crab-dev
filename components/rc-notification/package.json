@@ -1,6 +1,6 @@
 {
-    "name": "@crab-dev/rc-button",
-    "description": "一个按钮, 用于即时操作",
+    "name": "@crab-dev/rc-notification",
+    "description": "全局展示通知提醒信息",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "version": "0.0.1",

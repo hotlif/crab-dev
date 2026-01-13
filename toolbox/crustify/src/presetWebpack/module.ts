@@ -22,7 +22,10 @@ const presetModule = async ({
         loader: require.resolve("babel-loader"),
         options: {
             presets: [
-                [require.resolve("@babel/preset-env")],
+                [require.resolve("@babel/preset-env"), {
+                    // @wyw-in-js/webpack-loader 不支持 @babel/plugin-transform-template-literals 
+                    exclude: ['@babel/plugin-transform-template-literals'],
+                }],
                 [require.resolve("@babel/preset-typescript"), {
                 }],
                 [require.resolve("@babel/preset-react"), {
@@ -52,12 +55,16 @@ const presetModule = async ({
             }, {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                use: [{
-                    loader: require.resolve('@wyw-in-js/webpack-loader'),
-                }, babelLoader],
+                use: [
+                    {
+                        loader: require.resolve('@wyw-in-js/webpack-loader'),
+                    },
+                        babelLoader
+                ],
             }, {
                 test: /\.mdx?$/,
-                use: [{
+                use: [
+                {
                     loader: require.resolve('@wyw-in-js/webpack-loader'),
                 },
                 babelLoader,

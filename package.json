@@ -23,7 +23,7 @@
     "@nx/jest": "22.3.3",
     "@nx/rollup": "22.3.3",
     "@nx/webpack": "22.3.3",
-    "@types/node": "25.0.3",
+    "@types/node": "25.0.7",
     "nx": "22.3.3",
     "typescript": "^5.9.3"
   }

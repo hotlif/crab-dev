@@ -25,36 +25,36 @@ const getReactWebpackPluginInstance = async (conf: Config) => {
     return ReactWebpackPluginInstance;
 }
 
-const originalConsoleLog = console.log;
-const originalConsoleError = console.error;
+// const originalConsoleLog = console.log;
+// const originalConsoleError = console.error;
 
-const outputConsoleLogStream = new Writable({
-    write(chunk, encoding, callback) {
-        const message = chunk.toString();
+// const outputConsoleLogStream = new Writable({
+//     write(chunk, encoding, callback) {
+//         const message = chunk.toString();
 
-        if (message.includes("webpack")) {
-            originalConsoleLog(message.replace("webpack", "Crustify"));
-        } else {
-            originalConsoleLog(message);
-        }
-        callback();
-    },
-});
+//         if (message.includes("webpack")) {
+//             originalConsoleLog(message.replace("webpack", "Crustify"));
+//         } else {
+//             originalConsoleLog(message);
+//         }
+//         callback();
+//     },
+// });
 
-const outputConsoleErrorStream = new Writable({
-    write(chunk, encoding, callback) {
-        const message = chunk.toString();
-        if (message.includes("webpack")) {
-            originalConsoleError(message.replace("webpack", "crustify"));
-        } else {
-            originalConsoleError(message);
-        }
-        callback();
-    },
-});
+// const outputConsoleErrorStream = new Writable({
+//     write(chunk, encoding, callback) {
+//         const message = chunk.toString();
+//         if (message.includes("webpack")) {
+//             originalConsoleError(message.replace("webpack", "crustify"));
+//         } else {
+//             originalConsoleError(message);
+//         }
+//         callback();
+//     },
+// });
 
-console.log = outputConsoleLogStream.write.bind(outputConsoleLogStream);
-console.error = outputConsoleErrorStream.write.bind(outputConsoleErrorStream);
+// console.log = outputConsoleLogStream.write.bind(outputConsoleLogStream);
+// console.error = outputConsoleErrorStream.write.bind(outputConsoleErrorStream);
 
 /**
  * 执行开发任务
@@ -92,7 +92,7 @@ export const run = async (conf: Config) => {
     const webpackCompiler = Webpack(webpackConfig);
     if (webpackCompiler) {
         const devServer = new WebpackDevServer(
-            webpackConfig.devServer,
+            webpackConfig.devServer!,
             webpackCompiler
         );
     
