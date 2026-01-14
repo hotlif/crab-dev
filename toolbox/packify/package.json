@@ -38,7 +38,8 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "rollup": "^4.55.1",
         "rollup-plugin-css-only": "^4.5.5",
-        "rollup-plugin-dts": "^6.3.0"
+        "rollup-plugin-dts": "^6.3.0",
+        "smol-toml": "^1.6.0"
     },
     "engines": {
         "node": ">=22"

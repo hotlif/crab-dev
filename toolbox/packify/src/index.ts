@@ -11,6 +11,9 @@ import { dts } from "rollup-plugin-dts";
 import { createRequire } from "module";
 import { rm, writeFile, mkdir } from 'fs/promises';
 import { existsSync } from "fs";
+import { log } from "./util";
+export { default as generateCssToken }  from "./generateCssToken";
+
 
 const require = createRequire(import.meta.url);
 
@@ -49,7 +52,7 @@ export const build = async () => {
     await rm(join(process.cwd(), "cjs"), { recursive: true, force: true });
     await rm(join(process.cwd(), "declarations"), { recursive: true, force: true });    
     await rm(join(process.cwd(), "css"), { recursive: true, force: true });
-    console.log(`[@crab-dev/packify]: 🧹 cleaning esm, cjs, declarations, css`);
+    log(`🧹 cleaning esm, cjs, declarations, css`);
     const bundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
@@ -65,7 +68,7 @@ export const build = async () => {
                         const cssDir = dirname(cssFilePath);
                         await mkdir(cssDir, { recursive: true });
                         await writeFile(cssFilePath, styles);
-                        console.log(`[@crab-dev/packify]: 🎨 CSS generated at ${cssFilePath}`);
+                        log(`🎨 CSS generated at ${cssFilePath}`);
                     }
                 }
             }),
@@ -108,6 +111,5 @@ export const build = async () => {
         format: "es",
     });
 
-
-    console.log("[@crab-dev/packify]: ✅ build success !");
+    log("✅ build success !");
 }
