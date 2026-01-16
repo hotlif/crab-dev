@@ -1,42 +1,7 @@
 import { css, cx } from "@linaria/core";
-import { useRef, type ButtonHTMLAttributes, type FC } from "react";
-
+import { useRef, type FC } from "react";
 import token from "./token";
-
-
-interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
-
-    /**
-     * 加载中
-     */
-    loading?: boolean
-
-	/**
-	 * 按钮类型
-	 * @default 'subtle'
-	 */
-	appearance?: "primary" | "subtle" | "dashed" | "text" | "link"
-    
-    /**
-     * 按钮的大小, 默认为 middle
-     */
-    size?: "large" | "middle" | "small"
-
-    /**
-	 * 宽度设置为父容器宽度
-	 */
-	shouldFitContainer?: boolean
-
-    /**
-     * see ButtonHTMLAttributes<HTMLButtonElement>["onClick"]
-     */
-    onClick?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClick"]>>[0]) => Promise<void> | void
-
-    /**
-     * see ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]
-     */
-    onClickCapture?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]>>[0]) => Promise<void> | void
-}
+import type { ButtonProps } from "./types";
 
 const motionTransition = token.motion.transition;
 
@@ -99,6 +64,8 @@ const dimensionSmallBorderRadius = token.dimension["small-border-radius"];
 const typographySmallFontSize = token.typography["small-font-size"];
 
 const typographyFontFamily = token.typography["font-family"];
+const typographyLinkTextDecoration = token.typography["link-text-decoration"];
+const typographyLinkTextUnderlineOffset = token.typography["link-text-underline-offset"];
 
 const opacityLoading = token.opacity.loading;
 
@@ -131,7 +98,6 @@ const Button: FC<ButtonProps> = ({
     onClickCapture,
     ...restProps
 }) => {
-
     // 点击状态, 默认情况下是 false, 点击后就是 true
     const clickState = useRef<boolean>(false);
 
@@ -163,8 +129,11 @@ const Button: FC<ButtonProps> = ({
                 &:not(:disabled) {
                     background-color: ${colorLinkBackground};
                     color: ${colorLink};
+
                     &:hover {
                         color: ${colorLinkHover};
+                        text-decoration: ${typographyLinkTextDecoration};
+                        text-underline-offset: ${typographyLinkTextUnderlineOffset};
                     }
                     &:active {
                         transform: scale(0.97);
@@ -247,6 +216,7 @@ const Button: FC<ButtonProps> = ({
             `
         }
     }
+
 
     const getSizeStyle = () => {
         if (size === "large") {

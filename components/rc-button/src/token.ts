@@ -19,7 +19,6 @@ const token = {
 		'subtle-hover': 'var(--button-color-subtle-hover, oklch(0 0 0 / 88%))',
 		'subtle-active': 'var(--button-color-subtle-active, oklch(0 0 0 / 88%))',
 		'subtle-background': 'var(--button-color-subtle-background, oklch(1 0 0))',
-		
     },
     dimension: {
         'large-gap': 'var(--button-dimension-large-gap, 10px)',
@@ -41,6 +40,8 @@ const token = {
 		'middle-font-size': 'var(--button-typography-middle-font-size, 14px)',
 		'small-font-size': 'var(--button-typography-small-font-size, 14px)',
 		'font-family': 'var(--button-typography-font-family, inherit)',
+		'link-text-underline-offset': 'var(--button-typography-link-text-underline-offset, 4px)',
+		'link-text-decoration': 'var(--button-typography-link-text-decoration, underline solid red 2px)',
 		
     },
     motion: {
