@@ -25,37 +25,6 @@ const getReactWebpackPluginInstance = async (conf: Config) => {
     return ReactWebpackPluginInstance;
 }
 
-// const originalConsoleLog = console.log;
-// const originalConsoleError = console.error;
-
-// const outputConsoleLogStream = new Writable({
-//     write(chunk, encoding, callback) {
-//         const message = chunk.toString();
-
-//         if (message.includes("webpack")) {
-//             originalConsoleLog(message.replace("webpack", "Crustify"));
-//         } else {
-//             originalConsoleLog(message);
-//         }
-//         callback();
-//     },
-// });
-
-// const outputConsoleErrorStream = new Writable({
-//     write(chunk, encoding, callback) {
-//         const message = chunk.toString();
-//         if (message.includes("webpack")) {
-//             originalConsoleError(message.replace("webpack", "crustify"));
-//         } else {
-//             originalConsoleError(message);
-//         }
-//         callback();
-//     },
-// });
-
-// console.log = outputConsoleLogStream.write.bind(outputConsoleLogStream);
-// console.error = outputConsoleErrorStream.write.bind(outputConsoleErrorStream);
-
 /**
  * 执行开发任务
  */
@@ -73,13 +42,10 @@ export const run = async (conf: Config) => {
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
         entry: {
             "main": standard.entry as string,
-            ...(conf.libraryBundle?.entry ?? {})
         },
         output: {
             path: join(process.cwd(), "dist"),
-            filename: '[name].bundle.js',
-            library: '[name]',
-            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
+            filename: '[name].bundle.js'
         },
         plugins: [ReactWebpackPluginInstance],
         devServer: {
@@ -135,86 +101,6 @@ export const build = async (conf: Config) => {
         }
     });
 };
-
-/**
- * 执行 bundle 任务
- */
-export const bundleLibrary = async (conf: Config) => {
-    const standard = await presetStandard({
-        isProduction: true,
-        conf,
-    });
-
-    const module = await presetModule({
-        isProduction: true,
-    });
-
-    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module , {
-        entry: conf.libraryBundle?.entry,
-        output: {
-            path: join(process.cwd(), "bundle"),
-            filename: '[name].bundle.[contenthash].js',
-            library: '[name]',
-            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
-        },
-        externals: {
-            react: 'React',
-            'react-dom': 'ReactDOM',
-        },
-    }));
-
-    const webpackCompiler = Webpack(webpackConfig);
-    webpackCompiler?.run((error, stats) => {
-        if (stats?.hasErrors() || stats?.hasWarnings()) {
-            console.log(
-                stats.toString({
-                    chunks: false,
-                    colors: true,
-                })
-            );
-        }
-    });
-}
-
-
-/**
- * 执行 bundle 任务 Mesh
- */
-export const bundleMesh = async (conf: Config) => {
-    const standard = await presetStandard({
-        isProduction: true,
-        conf,
-    });
-
-    const module = await presetModule({
-        isProduction: true,
-    });
-
-    const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module , {
-        output: {
-            path: join(process.cwd(), "bundle"),
-            filename: '[name].bundle.[contenthash].js',
-            library: '[name]',
-            libraryTarget: conf.libraryBundle?.libraryTarget ?? 'umd',
-        }
-    }));
-
-    if (webpackConfig.output?.publicPath) {
-        webpackConfig.output.publicPath = "auto"
-    }
-
-    const webpackCompiler = Webpack(webpackConfig);
-    webpackCompiler?.run((error, stats) => {
-        if (stats?.hasErrors() || stats?.hasWarnings()) {
-            console.log(
-                stats.toString({
-                    chunks: false,
-                    colors: true,
-                })
-            );
-        }
-    });
-}
 
 export {
     defineConfig

@@ -19,6 +19,7 @@ const token = {
 		'subtle-hover': 'var(--button-color-subtle-hover, oklch(0 0 0 / 88%))',
 		'subtle-active': 'var(--button-color-subtle-active, oklch(0 0 0 / 88%))',
 		'subtle-background': 'var(--button-color-subtle-background, oklch(1 0 0))',
+		
     },
     dimension: {
         'large-gap': 'var(--button-dimension-large-gap, 10px)',

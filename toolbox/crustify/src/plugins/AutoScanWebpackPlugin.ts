@@ -5,16 +5,17 @@ import { join, sep } from "path";
 import * as ts from "typescript";
 import { parse } from "smol-toml";
 
+import { Eta } from "eta";
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
 
 import { read } from "to-vfile";
 import { unified } from "unified";
+import { existsSync, mkdirSync } from "fs";
 
 import { type ComponentScanRule } from "../conf";
 import { getTmpDir } from "../util";
-import { existsSync, mkdirSync } from "fs";
 
 const PLUGIN_NAME = "AutoScanWebpackPlugin";
 
@@ -128,10 +129,47 @@ export const getAllFiles = async (dir: string, include: RegExp | null, exclude: 
     return files
 }
 
+
+const template = `import { lazy } from "react";
+<% it.sources.forEach(source => { %>
+const <%=source.name%> = import("<%=source.path%>");
+<% }) %>
+
+<% it.entries.forEach(entry => { %>
+const <%=entry.name%> = import("<%=entry.path%>");
+<% }) %>
+
+const components = [
+    <% it.components.forEach(component => { %>
+    { name:"<%= component.name %>", component: <%= component.name %>, path: "<%= component.path %>", frontmatter: <%= component.frontmatter %>, source: <%= component.source %>}
+    <% }) %>
+];
+
+export default components;   
+`
+
+interface TemplateEntry {
+    name: string,
+    path: string
+}
+
+interface TemplateComponent{
+    name: string
+    path: string
+    source: string
+    frontmatter: string
+}
+
 interface AutoScanWebpackPluginParam {
     componentScanRules: ComponentScanRule[]
     rootDir: string
 }
+
+
+const eta = new Eta({
+    autoEscape: false,
+});
+
 
 /**
  * 自动扫描指定目录下的所有文件，并生成一个包含所有组件的 ES 模块文件。
@@ -192,13 +230,12 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
         } = componentScan;
 
         const files = await getAllFiles(cwd, include ?? null, exclude ?? null);
-        let importStatements: string = "";
-        let exportStatements: string = "const components = [\n";
-        let importSourceStatements: string = "";
+        const entries: TemplateEntry[] = [];
+        const sources: TemplateEntry[] = [];
+        const components: TemplateComponent[] = [];
 
         for (let i = 0; i < files.length; i += 1) {
             const file = files[i];
-
 
             const importUrl = file.replace(process.cwd(), "@@").replaceAll(sep, "/");
             const importName = importUrl.replace(/[^a-zA-Z0-9]/g, "_");
@@ -206,25 +243,35 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
 
             const sourcePath = join(getTmpDir(rootDir), `${relativePath}.raw`);
             await copy(file, sourcePath);
+            
+            const metadata = await parseHeaderComments(file);
 
+            const sourceName = `${importName}_source`
             if (generateSourceCharacter !== false) {
-                importSourceStatements += `import ${importName}_source from "./${relativePath}.raw";\n`;
+                sources.push({
+                    name: sourceName,
+                    path: `./${relativePath}.raw`
+                })
             }
 
-            const metadata = await parseHeaderComments(file);
-            importStatements += `const ${importName} = import("${importUrl}");\n`;
-            exportStatements += `   { name: "${importName}", component: ${importName}, relativePath: "${relativePath}"${
-                generateSourceCharacter !== false ? `, source: ${importName}_source` : ""
-            }, metadata: ${JSON.stringify(metadata)}},\n`;
+            entries.push({
+                name: importName,
+                path: importUrl
+            });
+        
+            components.push({
+                name: importName,
+                path: relativePath,
+                source: generateSourceCharacter ? sourceName : "null",
+                frontmatter: JSON.stringify(metadata),
+            });
         }
-        exportStatements += "];\n";
-        return `import { lazy } from "react";\n${
-            importSourceStatements
-        }\n${
-            importStatements
-        }\n${
-            exportStatements
-        }\nexport default components;`;
+
+        return eta.renderString(template, {
+            entries,
+            sources,
+            components
+        });
     }
 
     apply(compiler: Compiler) {

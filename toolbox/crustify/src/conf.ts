@@ -97,30 +97,6 @@ export interface Config {
 	 * 开发的服务器配置
 	 */
 	devServer?: DevServer
-
-	/**
-	 * 使用 bundle 生成对应的文件
-	 */
-	libraryBundle?: {
-		entry: Record<string, string>,
-		libraryTarget?: string 
-	}
-
-	/**
-	 * 微前端组件导出配置
-	 */
-	moduleMeshBundle?:{
-		/**
-		 * 微前端组件名, 需要保持唯一
-		 */
-		name: string,
-
-		/**
-		 * 导出的内容
-		 */
-		exposes: Record<string, string>,
-	}
-
 }
 
 /**

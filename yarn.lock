@@ -1506,10 +1506,12 @@ __metadata:
     "@wyw-in-js/webpack-loader": "npm:^1.0.4"
     babel-loader: "npm:^10.0.0"
     babel-plugin-react-compiler: "npm:^1.0.0"
+    commander: "npm:^14.0.2"
     css-loader: "npm:^7.1.2"
     css-minimizer-webpack-plugin: "npm:^7.0.4"
     eslint: "npm:^9.39.2"
     eslint-plugin-react: "npm:^7.37.5"
+    eta: "npm:^4.5.0"
     fs-extra: "npm:^11.3.3"
     globals: "npm:^17.0.0"
     jest: "npm:^30.2.0"
@@ -6785,6 +6787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^14.0.2":
+  version: 14.0.2
+  resolution: "commander@npm:14.0.2"
+  checksum: 10c0/245abd1349dbad5414cb6517b7b5c584895c02c4f7836ff5395f301192b8566f9796c82d7bd6c92d07eba8775fe4df86602fca5d86d8d10bcc2aded1e21c2aeb
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.20.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -8525,6 +8534,13 @@ __metadata:
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 10c0/9a2fe69a41bfdade834ba7c42de4723c97ec776e40656919c62cbd13607c45e127a003f05f724a1ea55e5029a4cf2de444b13009f2af71271e42d93a637137c7
+  languageName: node
+  linkType: hard
+
+"eta@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "eta@npm:4.5.0"
+  checksum: 10c0/01c10f0f4001dfd77d5488f96980fcbc22872fe02051a768d28e3bace66003c6384b37ed8f355bc7e199529c24b6d99fcd6085471a53c34da93921b1980239b1
   languageName: node
   linkType: hard
 

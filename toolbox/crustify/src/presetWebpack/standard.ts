@@ -12,7 +12,6 @@ import { getTmpDir, getCwdDir } from "../util";
 const require = createRequire(import.meta.url);
 
 const { container } = webpack;
-const { ModuleFederationPlugin } = container;
 
 const presetStandard = async ({
     isProduction,
@@ -87,28 +86,6 @@ const presetStandard = async ({
                 componentScanRules: conf.componentScan ?? []
             })
         ]
-    }
-
-    if (conf.moduleMeshBundle != null) {
-        standardConfig.plugins?.push(
-            new ModuleFederationPlugin({
-                name: conf?.moduleMeshBundle?.name,
-                filename: "[name].mesh.bundle.[contenthash].js",
-                exposes: {
-                    ...(conf?.moduleMeshBundle?.exposes ?? {})
-                },
-                shared: {
-                    react: {
-                        singleton: true,
-                        eager: true,
-                    },
-                    "react-dom": {
-                        singleton: true,
-                        eager: true
-                    },
-                },
-            })
-        )
     }
 
     if (isProduction) {
