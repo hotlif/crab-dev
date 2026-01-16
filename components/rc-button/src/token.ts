@@ -40,7 +40,7 @@ const token = {
         'large-font-size': 'var(--button-typography-large-font-size, 16px)',
 		'middle-font-size': 'var(--button-typography-middle-font-size, 14px)',
 		'small-font-size': 'var(--button-typography-small-font-size, 14px)',
-		'font-family': 'var(--button-typography-font-family, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;)',
+		'font-family': 'var(--button-typography-font-family, inherit)',
 		
     },
     motion: {

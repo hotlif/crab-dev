@@ -5,7 +5,7 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "start": "crustify dev",
+        "start": "yarn generate:token && crustify dev",
         "build:library": "packify build",
         "generate:token": "packify generate:css-token",
         "eslint": "eslint"

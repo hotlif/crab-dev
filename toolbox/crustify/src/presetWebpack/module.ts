@@ -48,9 +48,11 @@ const presetModule = async ({
                 use: [
                     isProduction ? MiniExtractPlugin.loader : require.resolve("style-loader"),
                     require.resolve("css-loader"),
+                    require.resolve("lightningcss-loader"),
                 ],
             }, {
                 test: /\.raw$/i,
+                exclude: /node_modules/,
                 type: 'asset/source',
             }, {
                 test: /\.tsx?$/,
@@ -63,6 +65,7 @@ const presetModule = async ({
                 ],
             }, {
                 test: /\.mdx?$/,
+                exclude: /node_modules/,
                 use: [
                 {
                     loader: require.resolve('@wyw-in-js/webpack-loader'),

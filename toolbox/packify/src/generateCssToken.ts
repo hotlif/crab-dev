@@ -18,11 +18,11 @@ interface Token {
   };
 }
 
-
 const generateToken = (prefix: string, value:  Record<string, any>) => {
     let tsStr = "";
     Object.keys(value).forEach(element => {
-        tsStr += `'${element}': 'var(--${prefix}-${element}, ${value[element]})',\n\t\t`
+        let cssValue: string = value[element].trim();
+        tsStr += `'${element}': 'var(--${prefix}-${element}, ${cssValue})',\n\t\t`
     })
     return tsStr;
 }

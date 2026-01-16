@@ -85,8 +85,6 @@ const dimensionLargePadding = token.dimension["large-padding"];
 const dimensionLargeBorderRadius = token.dimension["large-border-radius"];
 const typographyLargeFontSize = token.typography["large-font-size"];
 
-
-
 const dimensionMiddleGap = token.dimension["middle-gap"];
 const dimensionMiddleHeight = token.dimension["middle-height"];
 const dimensionMiddlePadding = token.dimension["middle-padding"];
