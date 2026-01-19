@@ -8,8 +8,8 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { compile, babelLoader } from "../util";
-import { getTmpDir } from "../../../util";
-import AutoScanWebpackPlugin, { getAllFiles, getTypeScriptComment } from "../../AutoScanWebpackPlugin";
+import { getTmpDir } from "../../util";
+import AutoScanWebpackPlugin, { getAllFiles, getTypeScriptComment } from "../../plugins/AutoScanWebpackPlugin";
 
 
 const require = createRequire(import.meta.url);

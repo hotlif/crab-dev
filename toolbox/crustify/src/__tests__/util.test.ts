@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 import { existsSync, rmdirSync} from "fs";
 import { fileURLToPath } from 'node:url';
 
-import { getTmpDir } from "../../util";
+import { getTmpDir } from "../util";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

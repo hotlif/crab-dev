@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync } from "fs";
 import { Configuration } from "webpack";
-import { join } from "path";
+import { join, dirname } from "path";
 import { Config, Modification } from "./conf";
 
 /**
@@ -27,4 +27,13 @@ export const getModsWebpackMerge = (mods: Modification[], webpackConfig: Configu
         }
     });
     return config;
+}
+
+
+export const getCurrentProjectPath= (path: string): string => {
+    if (existsSync(join(path, "package.json"))){
+        return path;
+    }
+    const parentDir = dirname(path);
+    return getCurrentProjectPath(parentDir);
 }

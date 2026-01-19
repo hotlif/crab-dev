@@ -5,7 +5,7 @@ import { createRequire } from "module";
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
     
-import { generateHtml } from '../../ReactWebpackPlugin';
+import { generateHtml } from '../../plugins/ReactWebpackPlugin';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);

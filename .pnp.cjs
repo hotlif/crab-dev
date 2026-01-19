@@ -4261,6 +4261,7 @@ const RAW_RUNTIME_STATE =
           ["lightningcss-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.0.0"],\
           ["memory-fs", "npm:0.5.0"],\
           ["mini-css-extract-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:2.9.4"],\
+          ["pkg-dir", "npm:9.0.0"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["remark-frontmatter", "npm:5.0.0"],\
@@ -4329,6 +4330,7 @@ const RAW_RUNTIME_STATE =
           ["lightningcss-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.0.0"],\
           ["memory-fs", "npm:0.5.0"],\
           ["mini-css-extract-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:2.9.4"],\
+          ["pkg-dir", "npm:9.0.0"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["remark-frontmatter", "npm:5.0.0"],\
@@ -13831,6 +13833,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["find-up-simple", [\
+      ["npm:1.0.1", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/find-up-simple-npm-1.0.1-84aa3c9703-10c0.zip/node_modules/find-up-simple/",\
+        "packageDependencies": [\
+          ["find-up-simple", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["flat", [\
       ["npm:5.0.2", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/flat-npm-5.0.2-12748102a5-10c0.zip/node_modules/flat/",\
@@ -19146,6 +19157,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["pkg-dir", "npm:7.0.0"],\
           ["find-up", "npm:6.3.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:9.0.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/pkg-dir-npm-9.0.0-1fac3eea7f-10c0.zip/node_modules/pkg-dir/",\
+        "packageDependencies": [\
+          ["pkg-dir", "npm:9.0.0"],\
+          ["find-up-simple", "npm:1.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\

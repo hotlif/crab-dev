@@ -15,7 +15,7 @@ import { unified } from "unified";
 import { existsSync, mkdirSync } from "fs";
 
 import { type ComponentScanRule } from "../conf";
-import { getTmpDir } from "../util";
+import { getCurrentProjectPath, getTmpDir } from "../util";
 
 const PLUGIN_NAME = "AutoScanWebpackPlugin";
 
@@ -248,7 +248,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             });
         }
 
-        const templateStr = await readFile(join(import.meta.dirname, '..', 'template', 'componentScan.eta'), "utf-8");
+        const templateStr = await readFile(join(getCurrentProjectPath(import.meta.dirname), 'template', 'componentScan.eta'), "utf-8");
         return eta.renderString(templateStr, {
             entries,
             sources,

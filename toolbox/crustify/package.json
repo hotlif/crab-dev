@@ -13,7 +13,8 @@
         "bin",
         "esm",
         "cjs",
-        "declarations"
+        "declarations",
+        "template"
     ],
     "bin": "bin/cli.js",
     "types": "declarations/index.d.ts",

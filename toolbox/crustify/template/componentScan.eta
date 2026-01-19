@@ -8,8 +8,9 @@ const <%=entry.name%> = import("<%=entry.path%>");
 <% }) %>
 
 const components = [
-    <% it.components.forEach(component => { %>
-    { name:"<%= component.name %>", component: <%= component.name %>, path: "<%= component.path %>", frontmatter: <%= component.frontmatter %>, source: <%= component.source %>}
+    <% it.components.forEach((component, index) => { %>
+    { name:"<%= component.name %>", component: <%= component.name %>, path: "<%= component.path %>", frontmatter: <%= component.frontmatter %>, source: <%= component.source %>}<% if (index < it.components.length - 1) { %>,<% } %>
+
     <% }) %>
 ];
 
