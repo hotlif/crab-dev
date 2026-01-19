@@ -66,12 +66,6 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
                         html = await generateHtml(Template, entrys);
                     }
 
-                    this.param.mods?.forEach(mod => {
-                        if (mod.modifyHTML != null) {
-                            html = mod.modifyHTML(html);
-                        }
-                    });
-
                     assets["index.html"] = new RawSource(html);
                 }
             );

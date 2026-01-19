@@ -63,13 +63,10 @@ const presetStandard = async ({
         },
         target: "web",
         watchOptions: {
-            ignored: ["**/node_modules", "**/.tmp", "**/.tmp-markify"],
+            ignored: ["**/node_modules", "**/.tmp"],
         },
         resolve: {
-            extensions: [".tsx", ".ts", ".js", ".raw", ".vue"],
-            fallback: {
-                path: require.resolve('path-browserify'),
-            },
+            extensions: [".tsx", ".ts", ".js", ".raw"],
             alias: {
 				"@": join(cwd, "src"),
                 "@@": process.cwd(),
@@ -77,6 +74,11 @@ const presetStandard = async ({
 			}
         },
         mode: isProduction ? "production" : "development",
+        cache: {
+            type: 'filesystem',
+            cacheDirectory: join(process.cwd(), ".cache"),
+            name: isProduction ? 'production-cache' : 'development-cache',
+        },
         plugins: [
             new WebpackBar({
                 name: "Crustify"

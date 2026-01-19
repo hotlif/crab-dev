@@ -4242,7 +4242,6 @@ const RAW_RUNTIME_STATE =
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/memory-fs", "npm:0.3.7"],\
           ["@types/node", "npm:25.0.9"],\
-          ["@types/path-browserify", "npm:1.0.3"],\
           ["@types/react", "npm:19.2.8"],\
           ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["@types/tapable", null],\
@@ -4262,7 +4261,6 @@ const RAW_RUNTIME_STATE =
           ["lightningcss-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.0.0"],\
           ["memory-fs", "npm:0.5.0"],\
           ["mini-css-extract-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:2.9.4"],\
-          ["path-browserify", "npm:1.0.1"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["remark-frontmatter", "npm:5.0.0"],\
@@ -4273,6 +4271,7 @@ const RAW_RUNTIME_STATE =
           ["style-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.0"],\
           ["tapable", "npm:2.3.0"],\
           ["terser-webpack-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:5.3.16"],\
+          ["thread-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.4"],\
           ["to-vfile", "npm:8.0.0"],\
           ["ts-node", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:10.9.2"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
@@ -4312,7 +4311,6 @@ const RAW_RUNTIME_STATE =
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/memory-fs", "npm:0.3.7"],\
           ["@types/node", "npm:25.0.9"],\
-          ["@types/path-browserify", "npm:1.0.3"],\
           ["@types/react", "npm:19.2.8"],\
           ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["@wyw-in-js/webpack-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:1.0.5"],\
@@ -4331,7 +4329,6 @@ const RAW_RUNTIME_STATE =
           ["lightningcss-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.0.0"],\
           ["memory-fs", "npm:0.5.0"],\
           ["mini-css-extract-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:2.9.4"],\
-          ["path-browserify", "npm:1.0.1"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["remark-frontmatter", "npm:5.0.0"],\
@@ -4342,6 +4339,7 @@ const RAW_RUNTIME_STATE =
           ["style-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.0"],\
           ["tapable", "npm:2.3.0"],\
           ["terser-webpack-plugin", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:5.3.16"],\
+          ["thread-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.4"],\
           ["to-vfile", "npm:8.0.0"],\
           ["ts-node", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:10.9.2"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
@@ -8311,15 +8309,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-parse-json-npm-4.0.2-f87f65692e-10c0.zip/node_modules/@types/parse-json/",\
         "packageDependencies": [\
           ["@types/parse-json", "npm:4.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/path-browserify", [\
-      ["npm:1.0.3", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-path-browserify-npm-1.0.3-ad09821516-10c0.zip/node_modules/@types/path-browserify/",\
-        "packageDependencies": [\
-          ["@types/path-browserify", "npm:1.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16365,6 +16354,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["json-parse-better-errors", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/json-parse-better-errors-npm-1.0.2-7f37637d19-10c0.zip/node_modules/json-parse-better-errors/",\
+        "packageDependencies": [\
+          ["json-parse-better-errors", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["json-parse-even-better-errors", [\
       ["npm:2.3.1", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/json-parse-even-better-errors-npm-2.3.1-144d62256e-10c0.zip/node_modules/json-parse-even-better-errors/",\
@@ -18978,15 +18976,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/parseurl-npm-1.3.3-1542397e00-10c0.zip/node_modules/parseurl/",\
         "packageDependencies": [\
           ["parseurl", "npm:1.3.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["path-browserify", [\
-      ["npm:1.0.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/path-browserify-npm-1.0.1-f975d99a99-10c0.zip/node_modules/path-browserify/",\
-        "packageDependencies": [\
-          ["path-browserify", "npm:1.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -23900,6 +23889,32 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/tslib",\
           "tslib"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["thread-loader", [\
+      ["npm:4.0.4", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/thread-loader-npm-4.0.4-5e794afa76-10c0.zip/node_modules/thread-loader/",\
+        "packageDependencies": [\
+          ["thread-loader", "npm:4.0.4"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.4", {\
+        "packageLocation": "./.yarn/__virtual__/thread-loader-virtual-885dda777d/3/AppData/Local/Yarn/Berry/cache/thread-loader-npm-4.0.4-5e794afa76-10c0.zip/node_modules/thread-loader/",\
+        "packageDependencies": [\
+          ["thread-loader", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:4.0.4"],\
+          ["@types/webpack", null],\
+          ["json-parse-better-errors", "npm:1.0.2"],\
+          ["loader-runner", "npm:4.3.1"],\
+          ["neo-async", "npm:2.6.2"],\
+          ["schema-utils", "npm:4.3.3"],\
+          ["webpack", "virtual:e147298b2343e51d89be7bc8dd2b47c21b358ce7af116e65643e809dd6c50cb8cb65cf9c12e08cc545fbe3cfe3b3627393ef14734c0cc3fcdcb962cf549f605b#npm:5.104.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/webpack",\
+          "webpack"\
         ],\
         "linkType": "HARD"\
       }]\

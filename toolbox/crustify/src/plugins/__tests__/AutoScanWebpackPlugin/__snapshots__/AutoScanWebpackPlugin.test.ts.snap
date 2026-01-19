@@ -13,8 +13,7 @@ const components = [
         { name:"___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts", component: ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts, path: "/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts", frontmatter: {"name":"zhangj","version":"0.0.1"}, source: null}
     ];
 
-export default components;   
-"
+export default components;"
 `;
 
 exports[`AutoScanWebpackPlugin should generate auto scan with Webpack configuration 2`] = `
@@ -33,6 +32,5 @@ const components = [
         { name:"___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts", component: ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts, path: "/src/plugins/__tests__/AutoScanWebpackPlugin/TestDirectoryStructure/A.ts", frontmatter: {"name":"zhangj","version":"0.0.1"}, source: ___src_plugins___tests___AutoScanWebpackPlugin_TestDirectoryStructure_A_ts_source}
     ];
 
-export default components;   
-"
+export default components;"
 `;

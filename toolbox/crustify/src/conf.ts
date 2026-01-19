@@ -6,11 +6,6 @@ import { transformSync } from "@swc/core";
 export interface Modification {
 
 	/**
-	 * 修改入口 HTML 文件
-	 */
-	modifyHTML?(html: string): string
-
-	/**
 	 * 修改文件
 	 */
 	modifyEntry?(entry: string): string

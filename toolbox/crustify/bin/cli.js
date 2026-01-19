@@ -22,8 +22,6 @@ program.command('run-task')
             run(conf);
         } else if (command === "app:build") {
             build(conf);
-        } else if (command === "playground:dev") {
-        } else if (command === "playground:build") {
         } else {
             throw new Error(`Invalid command. [${command}]`)
         }

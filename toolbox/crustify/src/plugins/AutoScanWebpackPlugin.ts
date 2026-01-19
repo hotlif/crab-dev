@@ -129,25 +129,6 @@ export const getAllFiles = async (dir: string, include: RegExp | null, exclude: 
     return files
 }
 
-
-const template = `import { lazy } from "react";
-<% it.sources.forEach(source => { %>
-const <%=source.name%> = import("<%=source.path%>");
-<% }) %>
-
-<% it.entries.forEach(entry => { %>
-const <%=entry.name%> = import("<%=entry.path%>");
-<% }) %>
-
-const components = [
-    <% it.components.forEach(component => { %>
-    { name:"<%= component.name %>", component: <%= component.name %>, path: "<%= component.path %>", frontmatter: <%= component.frontmatter %>, source: <%= component.source %>}
-    <% }) %>
-];
-
-export default components;   
-`
-
 interface TemplateEntry {
     name: string,
     path: string
@@ -267,7 +248,8 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             });
         }
 
-        return eta.renderString(template, {
+        const templateStr = await readFile(join(import.meta.dirname, '..', 'template', 'componentScan.eta'), "utf-8");
+        return eta.renderString(templateStr, {
             entries,
             sources,
             components

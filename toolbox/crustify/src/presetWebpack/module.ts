@@ -47,6 +47,7 @@ const presetModule = async ({
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniExtractPlugin.loader : require.resolve("style-loader"),
+                    require.resolve("thread-loader"),
                     require.resolve("css-loader"),
                     require.resolve("lightningcss-loader"),
                 ],
@@ -61,24 +62,27 @@ const presetModule = async ({
                     {
                         loader: require.resolve('@wyw-in-js/webpack-loader'),
                     },
-                        babelLoader
+                    require.resolve("thread-loader"),
+                    babelLoader
                 ],
             }, {
                 test: /\.mdx?$/,
                 exclude: /node_modules/,
                 use: [
-                {
-                    loader: require.resolve('@wyw-in-js/webpack-loader'),
-                },
-                babelLoader,
-                {
-                    loader: require.resolve('@mdx-js/loader'),
-                    options: {
-                        format: "mdx",
-                        remarkPlugins: [remarkGfm, [remarkFrontmatter, "toml"]],
-                        rehypePlugins: []
+                    {
+                        loader: require.resolve('@wyw-in-js/webpack-loader'),
+                    },
+                    require.resolve("thread-loader"),
+                    babelLoader,
+                    {
+                        loader: require.resolve('@mdx-js/loader'),
+                        options: {
+                            format: "mdx",
+                            remarkPlugins: [remarkGfm, [remarkFrontmatter, "toml"]],
+                            rehypePlugins: []
+                        }
                     }
-                }]
+                ]
             }]
         }
     }
