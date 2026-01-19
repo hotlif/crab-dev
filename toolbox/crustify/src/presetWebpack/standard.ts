@@ -30,7 +30,7 @@ const presetStandard = async ({
     const entry = join(cwd, "entry.tsx");
     const entryTmp = join(tmpDir, "entry.tsx");
     const importEntry = entry.replace(cwd, "").replace(/\\/g, "/");
-    let entryTemplate = `import "@${importEntry}";`;
+    let entryTemplate = `import("@${importEntry}");`;
 
     conf.mods?.forEach(mod => {
         if (mod?.modifyEntry) {

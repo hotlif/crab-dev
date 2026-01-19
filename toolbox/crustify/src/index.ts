@@ -1,17 +1,14 @@
-import { Writable } from "stream";
 import { merge } from "webpack-merge";
 import Webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import type { Configuration as WebpackConfiguration } from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import { join } from "path";
 
 import presetStandard from "./presetWebpack/standard";
 import presetModule from "./presetWebpack/module";
 import { Config } from "./conf";
-import { join } from "path";
 import { getCwdDir, getModsWebpackMerge } from "./util";
-
-export { getConfig } from "./conf";
 
 const getReactWebpackPluginInstance = async (conf: Config) => {
     const cwd = getCwdDir(conf.rootDir);
@@ -103,7 +100,8 @@ export const build = async (conf: Config) => {
 };
 
 export {
-    defineConfig
+    defineConfig,
+    getConfig
 } from "./conf";
 
 export { type Modification } from "./conf";

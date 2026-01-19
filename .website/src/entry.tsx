@@ -7,9 +7,11 @@ import {
 
 import pages from "@@@/pages"
 
+import("./global.css");
+
 const dataRouter: RouteObject[] = pages.map(page => {
-	const isIndex = page.metadata?.index === true;
-	const name = page.metadata?.path ?? page.name;
+	const isIndex = page.frontmatter?.index === true;
+	const name = page.frontmatter?.path ?? page.name;
 	const path = isIndex ? "" : name
 	return {
 		path,

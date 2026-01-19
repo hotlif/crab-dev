@@ -4,7 +4,8 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "start": "crustify run-task app:dev"
+        "start": "crustify run-task app:dev",
+        "build": "crustify run-task app:build"
     },
     "devDependencies": {
         "@crab-dev/crustify": "workspace:^",

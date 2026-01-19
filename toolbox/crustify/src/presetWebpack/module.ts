@@ -47,7 +47,6 @@ const presetModule = async ({
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniExtractPlugin.loader : require.resolve("style-loader"),
-                    require.resolve("thread-loader"),
                     require.resolve("css-loader"),
                     require.resolve("lightningcss-loader"),
                 ],
