@@ -2,7 +2,7 @@
 import { css, cx } from "@linaria/core";
 import { type FC, type HTMLAttributes, type ReactNode} from "react";
 import RcButton from "@crab-dev/rc-button";
-
+import token from "./token";
 
 /**
  * 国际化内容
@@ -58,6 +58,20 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> 
 
 }
 
+const colorOverlayBackgroundColor = token.color["overlay-background-color"];
+
+const dimensionPadding = token.dimension.padding;
+const dimensionBorderRadius = token.dimension["border-radius"];
+const dimensionFooterMarginTop = token.dimension["footer-margin-top"];
+const dimensionFooterButtonSpacing = token.dimension["footer-button-spacing"];
+const dimensionHeadingMarginBottom = token.dimension["heading-margin-bottom"];
+
+const typographyHeadingFontWeight = token.typography["heading-font-weight"];
+const typographyHeadingFontSize = token.typography["heading-font-size"];
+const typographyHeadingLineHeight = token.typography["heading-line-height"];
+
+const elevationBoxShadow = token.elevation["box-shadow"];
+
 const Dialog: FC<DialogProps> = ({
     className,
     open,
@@ -98,18 +112,16 @@ const Dialog: FC<DialogProps> = ({
                     className={css`
                         position: fixed;
                         inset: 0;
-                        background-color: rgba(0,0,0,0.45);
+                        background-color: ${colorOverlayBackgroundColor};
                     `}
                     onClick={cancel}
                 />
             ) : null}
             <dialog
                 className={cx(css`
-                    padding: 20px 24px;
-                    border-radius: 8px;
-                    outline: none;
-                    border: none;
-                    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+                    padding: ${dimensionPadding};
+                    border-radius: ${dimensionBorderRadius};
+                    box-shadow: ${elevationBoxShadow};
                 `, className)}
                 key={shouldResetContent ? (open ? 1 : 0) : -1}
                 open={open}
@@ -118,14 +130,14 @@ const Dialog: FC<DialogProps> = ({
                 <div
                     className={css`
                         display: flex;
-                        margin-bottom: 15px;
+                        margin-bottom: ${dimensionHeadingMarginBottom};
                     `}
                 >
                     <div
                         className={css`
-                            font-weight: 600;
-                            font-size: 16px;
-                            line-height: 1.5;
+                            font-weight: ${typographyHeadingFontWeight};
+                            font-size: ${typographyHeadingFontSize};
+                            line-height: ${typographyHeadingLineHeight};
                             flex: 1;
                         `}
                     >
@@ -162,7 +174,7 @@ const Dialog: FC<DialogProps> = ({
                 <div
                     className={css`
                         text-align: end;
-                        margin-top: 12px;
+                        margin-top: ${dimensionFooterMarginTop};
                     `}
                 >
                     <RcButton
@@ -172,7 +184,7 @@ const Dialog: FC<DialogProps> = ({
                     </RcButton>
                     <RcButton
                         className={css`
-                            margin-inline-start: 8px;    
+                            margin-inline-start: ${dimensionFooterButtonSpacing};    
                         `}
                         appearance="primary"
                         onClick={() => {

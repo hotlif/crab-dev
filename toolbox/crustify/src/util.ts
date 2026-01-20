@@ -1,7 +1,14 @@
 import { existsSync, mkdirSync } from "fs";
 import { Configuration } from "webpack";
 import { join, dirname } from "path";
-import { Config, Modification } from "./conf";
+
+import { Modification } from "./conf";
+import { Eta } from "eta";
+
+
+export const eta = new Eta({
+    autoEscape: false,
+});
 
 /**
  * 获取当前生成器的临时目录

@@ -5,7 +5,7 @@ import { join, sep } from "path";
 import * as ts from "typescript";
 import { parse } from "smol-toml";
 
-import { Eta } from "eta";
+import { eta } from "../util";
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
@@ -147,11 +147,6 @@ interface AutoScanWebpackPluginParam {
 }
 
 
-const eta = new Eta({
-    autoEscape: false,
-});
-
-
 /**
  * 自动扫描指定目录下的所有文件，并生成一个包含所有组件的 ES 模块文件。
  * 
@@ -248,7 +243,8 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             });
         }
 
-        const templateStr = await readFile(join(getCurrentProjectPath(import.meta.dirname), 'template', 'componentScan.eta'), "utf-8");
+        const templatePath = join(getCurrentProjectPath(import.meta.dirname), 'template', 'componentScan.eta');
+        const templateStr = await readFile(templatePath, "utf-8");
         return eta.renderString(templateStr, {
             entries,
             sources,

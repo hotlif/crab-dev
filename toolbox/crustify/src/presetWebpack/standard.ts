@@ -1,17 +1,25 @@
 import MiniExtractPlugin from "mini-css-extract-plugin";
 import { join } from "path";
-import webpack, { type Configuration } from "webpack";
+import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
-import { writeFileSync, rmSync, existsSync } from "fs";
-import { createRequire } from "module";
+import { rmSync, existsSync } from "fs";
+import { readFile, writeFile} from "fs/promises";
+
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
-import { getTmpDir, getCwdDir } from "../util";
+import { getTmpDir, getCwdDir, eta, getCurrentProjectPath } from "../util";
 
-const require = createRequire(import.meta.url);
-
-const { container } = webpack;
+const createEntryTsx = async (path: string, conf: Config) => {
+    const templateStr = await readFile(join(getCurrentProjectPath(import.meta.dirname), 'template', 'entry.eta'), "utf-8");
+    let entriesFile = eta.renderString(templateStr, {});
+    conf.mods?.forEach(mod => {
+        if (mod?.modifyEntry) {
+            entriesFile = mod.modifyEntry(entriesFile);
+        }
+    });
+    await writeFile(path, entriesFile);
+}
 
 const presetStandard = async ({
     isProduction,
@@ -27,18 +35,9 @@ const presetStandard = async ({
 
 	const tmpDir = getTmpDir(conf.rootDir);
     const cwd = getCwdDir(conf.rootDir);
-    const entry = join(cwd, "entry.tsx");
     const entryTmp = join(tmpDir, "entry.tsx");
-    const importEntry = entry.replace(cwd, "").replace(/\\/g, "/");
-    let entryTemplate = `import("@${importEntry}");`;
 
-    conf.mods?.forEach(mod => {
-        if (mod?.modifyEntry) {
-            entryTemplate = mod.modifyEntry(entryTemplate);
-        }
-    });
-    
-    writeFileSync(entryTmp, entryTemplate);
+    await createEntryTsx(entryTmp, conf);
 
     const aliasAutoScan: {
         [key: string]: string[]

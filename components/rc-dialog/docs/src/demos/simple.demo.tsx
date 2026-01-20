@@ -7,8 +7,6 @@ import { css } from "@linaria/core";
 import { useState } from "react"
 import Dialog, { useConfirm } from "../../../src/index";
 
-
-
 const paddingTop = css`
 	padding-top: 1rem;
 `;

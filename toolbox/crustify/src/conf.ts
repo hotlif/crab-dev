@@ -3,20 +3,6 @@ import { type Configuration } from "webpack";
 import { loadConfig } from "unconfig";
 import { transformSync } from "@swc/core";
 
-export interface Modification {
-
-	/**
-	 * 修改文件
-	 */
-	modifyEntry?(entry: string): string
-
-	/**
-	 * 修改 Webpack 配置
-	 * @param configuration Webpack 信息
-	 * @returns 返回一个修改好的 Webpack 信息
-	 */
-	modifyWebpack?(configuration: Configuration): Configuration
-}
 
 /**
  * 对应的规则信息
@@ -148,4 +134,30 @@ export const renderHTML = async (cwd: string): Promise<ComponentType>  => {
         merge: true
     });
     return config;
+}
+
+
+export interface Modification {
+
+	/**
+	 * 修改文件
+	 */
+	modifyEntry?(entry: string): string
+
+	/**
+	 * 修改 Webpack 配置
+	 * @param configuration Webpack 信息
+	 * @returns 返回一个修改好的 Webpack 信息
+	 */
+	modifyWebpack?(configuration: Configuration): Configuration
+
+	/**
+	 * 修改加载 Bootstrap 的文件路径
+	 */
+	modifyBootstrapPath?(string: string): string
+
+	/**
+	 * 修改构建器的配置信息
+	 */
+	modifyConfig?(config: Config): Config
 }

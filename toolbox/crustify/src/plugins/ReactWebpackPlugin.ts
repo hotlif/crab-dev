@@ -4,7 +4,6 @@ import { createElement, type ComponentType } from "react";
 import { join, resolve } from "path";
 import { existsSync } from "fs";
 
-
 import { renderHTML, type Modification } from "../conf";
 
 const { RawSource } = Webpack.sources;
@@ -35,9 +34,17 @@ export const generateHtml = async (
 
 class ReactWebpackPlugin implements WebpackPluginInstance {
     private param: ReactWebpackPluginParam;
+    private bootstrapPath;
 
     constructor(param: ReactWebpackPluginParam) {
         this.param = param;
+        this.bootstrapPath = this.param.cwd
+        param.mods?.forEach(element => {
+            const path = element?.modifyBootstrapPath?.(this.bootstrapPath);
+            if (typeof path === "string") {
+                this.bootstrapPath = path;
+            }
+        })
     }
 
     apply(compiler: Compiler) {
@@ -61,11 +68,10 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
                     });
 
                     let html = ""
-                    if (existsSync(join(this.param.cwd, "bootstrap.tsx"))) {
-                        const Template = await renderHTML(this.param.cwd);
+                    if (existsSync(join(this.bootstrapPath, "bootstrap.tsx"))) {
+                        const Template = await renderHTML(this.bootstrapPath);
                         html = await generateHtml(Template, entrys);
                     }
-
                     assets["index.html"] = new RawSource(html);
                 }
             );

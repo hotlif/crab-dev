@@ -25,7 +25,17 @@ const getReactWebpackPluginInstance = async (conf: Config) => {
 /**
  * 执行开发任务
  */
-export const run = async (conf: Config) => {
+export const run = async (defaultConf: Config) => {
+    /// START 初始化插件配置信息
+    let conf: Config = defaultConf;
+    defaultConf.mods?.forEach(mod => {
+        const result = mod.modifyConfig?.(conf);
+        if (result != null) {
+            conf = result
+        }
+    })
+    /// END
+
     const standard = await presetStandard({
         isProduction: false,
         conf,
@@ -37,9 +47,7 @@ export const run = async (conf: Config) => {
 
     const ReactWebpackPluginInstance = await getReactWebpackPluginInstance(conf);
     const webpackConfig = getModsWebpackMerge(conf.mods ?? [], merge(standard, module, {
-        entry: {
-            "main": standard.entry as string,
-        },
+        entry: standard.entry,
         output: {
             path: join(process.cwd(), "dist"),
             filename: '[name].bundle.js'
@@ -71,7 +79,17 @@ export const run = async (conf: Config) => {
 /**
  * 执行构建任务
  */
-export const build = async (conf: Config) => {
+export const build = async (defaultConf: Config) => {
+    /// START 初始化插件配置信息
+    let conf: Config = defaultConf;
+    defaultConf.mods?.forEach(mod => {
+        const result = mod.modifyConfig?.(conf);
+        if (result != null) {
+            conf = result
+        }
+    })
+    /// END
+
     const standard = await presetStandard({
         isProduction: true,
         conf,
