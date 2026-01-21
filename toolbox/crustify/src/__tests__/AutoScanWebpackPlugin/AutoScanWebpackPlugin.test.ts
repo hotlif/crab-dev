@@ -76,13 +76,33 @@ describe('AutoScanWebpackPlugin', () => {
 
         const fileName = Buffer.from("@@/TestDirectoryStructure").toString("base64");
         expect(existsSync(tempDir)).toBe(true);
-        expect(existsSync(join(tempDir, `${fileName}.ts`))).toBe(true)
-        expect(readFileSync(join(tempDir, `${fileName}.ts`)).toString()).toMatchSnapshot();
+        expect(existsSync(join(tempDir, `${fileName}.ts`))).toBe(true);
+        const generatedContent1 = readFileSync(join(tempDir, `${fileName}.ts`)).toString();
+        expect(generatedContent1).toMatchSnapshot();
+        // 验证生成的文件结构
+        expect(generatedContent1).toContain('import { lazy } from "react";');
+        expect(generatedContent1).toContain('const components = [');
+        expect(generatedContent1).toContain('export default components;');
+        expect(generatedContent1).toContain('name:');
+        expect(generatedContent1).toContain('component:');
+        expect(generatedContent1).toContain('path:');
+        expect(generatedContent1).toContain('frontmatter:');
+        expect(generatedContent1).toContain('source: null');
         
         const fileNameGenerateSourceCharacter = Buffer.from("@@/TestDirectoryStructureGenerateSourceCharacter").toString("base64");
         expect(existsSync(tempDir)).toBe(true);
-        expect(existsSync(join(tempDir, `${fileNameGenerateSourceCharacter}.ts`))).toBe(true)
-        expect(readFileSync(join(tempDir, `${fileNameGenerateSourceCharacter}.ts`)).toString()).toMatchSnapshot();
+        expect(existsSync(join(tempDir, `${fileNameGenerateSourceCharacter}.ts`))).toBe(true);
+        const generatedContent2 = readFileSync(join(tempDir, `${fileNameGenerateSourceCharacter}.ts`)).toString();
+        expect(generatedContent2).toMatchSnapshot();
+        // 验证生成的文件结构（包含源代码）
+        expect(generatedContent2).toContain('import { lazy } from "react";');
+        expect(generatedContent2).toContain('const components = [');
+        expect(generatedContent2).toContain('export default components;');
+        expect(generatedContent2).toContain('name:');
+        expect(generatedContent2).toContain('component:');
+        expect(generatedContent2).toContain('path:');
+        expect(generatedContent2).toContain('frontmatter:');
+        expect(generatedContent2).toContain('source:'); // 可能包含源代码而不是 null
         rmSync(tempDir, { recursive: true });
     });
 });
