@@ -1,19 +1,16 @@
 import { createRoot } from "react-dom/client";
 import { css, cx } from "@linaria/core";
-import { flex, width } from "@crab-dev/styleify";
 import README from "../../README.md";
 
 const App = () => {
 	return (
 		<div
 			className={css`
-				${flex()}
 				justify-content: center;
 			`}
 		>
 			<div
 				className={cx(css`
-					${width("10/12")}
 				`)}
 			>
 				<README />
