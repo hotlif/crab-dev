@@ -243,7 +243,16 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             });
         }
 
-        const templatePath = join(getCurrentProjectPath(import.meta.dirname), 'template', 'componentScan.eta');
+        const isCJS = () => typeof module !== 'undefined' && typeof module.exports !== 'undefined';
+        const getDirName = () => {
+            if (isCJS()) {
+                return __dirname;
+            } else {
+                return import.meta.dirname;
+            }
+        }
+
+        const templatePath = join(getCurrentProjectPath(getDirName()), 'template', 'componentScan.eta');
         const templateStr = await readFile(templatePath, "utf-8");
         return eta.renderString(templateStr, {
             entries,

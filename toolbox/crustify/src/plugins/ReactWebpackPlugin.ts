@@ -67,11 +67,8 @@ class ReactWebpackPlugin implements WebpackPluginInstance {
                         }
                     });
 
-                    let html = ""
-                    if (existsSync(join(this.bootstrapPath, "bootstrap.tsx"))) {
-                        const Template = await renderHTML(this.bootstrapPath);
-                        html = await generateHtml(Template, entrys);
-                    }
+                    const Template = await renderHTML(this.bootstrapPath);
+                    const html = await generateHtml(Template, entrys);
                     assets["index.html"] = new RawSource(html);
                 }
             );

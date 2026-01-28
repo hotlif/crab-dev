@@ -11,7 +11,15 @@ import { type Config } from "../conf";
 import { getTmpDir, getCwdDir, eta, getCurrentProjectPath } from "../util";
 
 const createEntryTsx = async (path: string, conf: Config) => {
-    const templateStr = await readFile(join(getCurrentProjectPath(import.meta.dirname), 'template', 'entry.eta'), "utf-8");
+    const isCJS = () => typeof module !== 'undefined' && typeof module.exports !== 'undefined';
+    const getDirName = () => {
+        if (isCJS()) {
+            return __dirname;
+        } else {
+            return import.meta.dirname;
+        }
+    }
+    const templateStr = await readFile(join(getCurrentProjectPath(getDirName()), 'template', 'entry.eta'), "utf-8");
     let entriesFile = eta.renderString(templateStr, {});
     conf.mods?.forEach(mod => {
         if (mod?.modifyEntry) {
@@ -73,11 +81,11 @@ const presetStandard = async ({
 			}
         },
         mode: isProduction ? "production" : "development",
-        cache: {
-            type: 'filesystem',
-            cacheDirectory: join(process.cwd(), ".cache"),
-            name: isProduction ? 'production-cache' : 'development-cache',
-        },
+        // cache: {
+        //     type: 'filesystem',
+        //     cacheDirectory: join(process.cwd(), ".cache"),
+        //     name: isProduction ? 'production-cache' : 'development-cache',
+        // },
         plugins: [
             new WebpackBar({
                 name: "Crustify"

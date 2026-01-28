@@ -11,9 +11,9 @@ import { dts } from "rollup-plugin-dts";
 import { createRequire } from "module";
 import { rm, writeFile, mkdir } from 'fs/promises';
 import { existsSync } from "fs";
+
 import { log } from "./util";
 export { default as generateCssToken }  from "./generateCssToken";
-
 
 const require = createRequire(import.meta.url);
 
@@ -36,6 +36,8 @@ const commonBabelConfig = {
     ],
 };
 
+
+
 const babelPlugin = babel({
     babelHelpers: "bundled",
     exclude: [
@@ -53,6 +55,7 @@ export const build = async () => {
     await rm(join(process.cwd(), "declarations"), { recursive: true, force: true });    
     await rm(join(process.cwd(), "css"), { recursive: true, force: true });
     log(`🧹 cleaning esm, cjs, declarations, css`);
+    
     const bundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
@@ -81,22 +84,23 @@ export const build = async () => {
         dir: "esm",
         format: "es",
         entryFileNames: "[name].mjs",
-        chunkFileNames: '[name].[hash].mjs',
+        chunkFileNames: '[name].mjs',
         plugins: [
             terser()
         ]
     });
+
 
     await bundle.write({
         dir: "cjs",
         format: "cjs",
         exports: "auto",
         entryFileNames: "[name].cjs",
-        chunkFileNames: '[name].[hash].cjs',
+        chunkFileNames: '[name].cjs',
         plugins: [
             terser()
         ]
-    });
+    });    
 
    const typesBundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),

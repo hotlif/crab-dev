@@ -1,11 +1,12 @@
 import { createRoot } from "react-dom/client";
 import {
     RouterProvider,
-    createBrowserRouter,
-	type RouteObject
 } from "react-router";
 
-const router = createBrowserRouter([])
+import pages from "@@@/pages";
+import { createRouter} from "./util/router";
+
+const router = createRouter(pages);
 
 const App = () => {
 	return (

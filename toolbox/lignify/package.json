@@ -1,7 +1,7 @@
 {
-    "name": "@crab-dev/crustify-playground-mod",
+    "name": "@crab-dev/lignify",
     "version": "0.0.3",
-    "description": "装配此模组, 用来开发和编写测试模组",
+    "description": "使用此快速开发 React 组件库，可用来调试和生成 CSS 变量主题。",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
@@ -9,18 +9,20 @@
         "eslint": "eslint"
     },
     "files": [
-        "esm"
+        "esm",
+        "template"
     ],
     "types": "declarations/index.d.ts",
+    "bin": "bin/cli.js",
     "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "devDependencies": {
-        "@crab-dev/crustify": "workspace:^",
         "@crab-dev/packify": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-jest-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@jest/globals": "30.2.0",
+        "@types/fs-extra": "^11.0.4",
         "@types/node": "25.0.7",
         "@types/react": "^19.2.8",
         "@types/react-dom": "^19.2.3",
@@ -33,7 +35,13 @@
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.53.0"
     },
-    "dependencies": {
+    "peerDependencies": {
+        "@linaria/core": "^7.0.0",
         "react-router": "^7.12.0"
+    },
+    "dependencies": {
+        "@crab-dev/crustify": "workspace:^",
+        "commander": "^14.0.2",
+        "fs-extra": "^11.3.3"
     }
 }

@@ -122,7 +122,9 @@ export {
     getConfig
 } from "./conf";
 
-export { type Modification } from "./conf";
+export { type Modification, type Config } from "./conf";
+
+export { getCurrentProjectPath } from "./util";
 
 export type Configuration = WebpackConfiguration & {
     devServer?: DevServerConfiguration;

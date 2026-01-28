@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync } from "fs";
 import { Configuration } from "webpack";
 import { join, dirname } from "path";
+import { Eta } from "eta";
 
 import { Modification } from "./conf";
-import { Eta } from "eta";
 
 
 export const eta = new Eta({
