@@ -15,7 +15,7 @@ for production, Crustify handles the complexity so you can focus on writing code
 
 program.command('run-task')
     .description('Run a task command')
-    .argument('<string>', 'The task to run (e.g. app:dev, app:build, playground:dev, playground:build)')
+    .argument('<string>', 'The task to run (e.g. app:dev, app:build)')
     .action(async (command, options) => {
         const conf = await getConfig(process.cwd());
         if (command === "app:dev") {

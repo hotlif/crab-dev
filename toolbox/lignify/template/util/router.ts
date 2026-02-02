@@ -37,20 +37,26 @@ export const createRouter = (components: ScanComponent[]) => {
             frontmatter,
             component,
             source
-        }) => ({
-            path: frontmatter?.path ?? path,
-            index: frontmatter?.index ?? false,
-            handle: {
-                frontmatter,
-                source
-            },
-            lazy: async () => {
-                const Component = await component;
-                return {
-                    Component: Component.default
-                }
-            } 
-        }))
+        }) => {
+            let newPath = frontmatter?.path ?? path;
+            if (/mdx?$/.test(path)) {
+                newPath = newPath.split(".")[0];
+            }
+            return {
+                path: newPath,
+                index: frontmatter?.index ?? false,
+                handle: {
+                    frontmatter,
+                    source
+                },
+                lazy: async () => {
+                    const Component = await component;
+                    return {
+                        Component: Component.default
+                    }
+                } 
+            }
+        })
     };
 
     const error404Router = {
