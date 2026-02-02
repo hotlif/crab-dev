@@ -57,7 +57,7 @@ class LignifyMod implements Modification {
             namespaces: "demos",
             include: /.*\.demo\.tsx$/,
             cwd: join(process.cwd(), "docs"),
-            generateSourceCharacter: false,
+            generateSourceCharacter: true,
         });
 
         // 添加扫描 MDX 的文档信息, 用于生成对应的文档页面

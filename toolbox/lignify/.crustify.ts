@@ -19,7 +19,7 @@ export default defineConfig({
 		namespaces: "demos",
 		include: /.*\.demo\.tsx$/,
 		cwd: join(process.cwd(), "docs"),
-		generateSourceCharacter: false,
+		generateSourceCharacter: true,
 	}, {
 		namespaces: "mdxs",
 		include: /.*\.mdx$/,

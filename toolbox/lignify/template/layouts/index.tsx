@@ -2,13 +2,15 @@ import { css } from "@linaria/core";
 import RcTree, { useTreeData, type Node} from "@crab-dev/rc-tree";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useOutlet } from "react-router";
-import demos from "@@@/demos";
+import { MDXProvider } from "@mdx-js/react";
 import mdxs from "@@@/mdxs";
+import Code from "../components/code";
 import sidebar from "@@/docs/sidebar";
 
 const LayoutIndex = () => {
     const [treeData, setTreeData, treeDataUtil] = useTreeData();
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([])
     const outlet = useOutlet();
     const navigate = useNavigate();
     return (
@@ -45,6 +47,7 @@ const LayoutIndex = () => {
                 className={css`
                     display: flex;
                     flex: 1;
+                    min-height: 0;
                 `}
             >
                 <aside
@@ -61,12 +64,14 @@ const LayoutIndex = () => {
                         height={500}
                         width={250}
                         expandedKeys={expandedKeys}
+                        selectKeys={selectKeys}
                         onSelect={({
                             node
                         }) => {
                             if (node.type === 1) {
                                 navigate(node.id as string);
                             }
+                            setSelectKeys([node.id])
                         }}
                         onExpanded={({
                             node
@@ -93,9 +98,20 @@ const LayoutIndex = () => {
                 <main
                     className={css`
                         margin-left: 1rem;
+                        height: 100%;
+                        overflow: auto;
+                        min-height: 0;
+                        min-width: 0;
+                        flex: 1;
                     `}
                 >
-                    {outlet}
+                    <MDXProvider
+                        components={{
+                            Demos: Code
+                        }}
+                    >
+                        {outlet}
+                    </MDXProvider>
                 </main>
             </div>
         </div>

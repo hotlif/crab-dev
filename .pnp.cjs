@@ -4352,17 +4352,20 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:toolbox/lignify"],\
           ["@crab-dev/crustify", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:toolbox/crustify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-live", "workspace:components/rc-live"],\
           ["@crab-dev/rc-tree", "virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#workspace:components/rc-tree"],\
           ["@crab-dev/standards-eslint-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@jest/globals", "npm:30.2.0"],\
           ["@linaria/core", "npm:6.3.0"],\
+          ["@mdx-js/react", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.1.1"],\
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/linaria__core", null],\
           ["@types/node", "npm:25.0.7"],\
           ["@types/react", "npm:19.2.8"],\
           ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
+          ["@types/react-icons", null],\
           ["@types/react-router", null],\
           ["commander", "npm:14.0.2"],\
           ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:9.39.2"],\
@@ -4372,14 +4375,18 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:30.2.0"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
+          ["react-icons", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:5.5.0"],\
           ["react-router", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:7.12.0"],\
+          ["react-syntax-highlighter", "virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#npm:16.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.53.0"]\
         ],\
         "packagePeers": [\
           "@linaria/core",\
           "@types/linaria__core",\
+          "@types/react-icons",\
           "@types/react-router",\
+          "react-icons",\
           "react-router"\
         ],\
         "linkType": "SOFT"\
@@ -4390,12 +4397,14 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "workspace:toolbox/lignify"],\
           ["@crab-dev/crustify", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:toolbox/crustify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-live", "workspace:components/rc-live"],\
           ["@crab-dev/rc-tree", "virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#workspace:components/rc-tree"],\
           ["@crab-dev/standards-eslint-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@jest/globals", "npm:30.2.0"],\
           ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.1.1"],\
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/node", "npm:25.0.7"],\
           ["@types/react", "npm:19.2.8"],\
@@ -4408,7 +4417,9 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:30.2.0"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
+          ["react-icons", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:5.5.0"],\
           ["react-router", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:7.12.0"],\
+          ["react-syntax-highlighter", "virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#npm:16.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.53.0"]\
         ],\
@@ -8359,6 +8370,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-parse-json-npm-4.0.2-f87f65692e-10c0.zip/node_modules/@types/parse-json/",\
         "packageDependencies": [\
           ["@types/parse-json", "npm:4.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/prismjs", [\
+      ["npm:1.26.5", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-prismjs-npm-1.26.5-5c39951991-10c0.zip/node_modules/@types/prismjs/",\
+        "packageDependencies": [\
+          ["@types/prismjs", "npm:1.26.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13453,6 +13473,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["fault", [\
+      ["npm:1.0.4", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/fault-npm-1.0.4-2788bc13e3-10c0.zip/node_modules/fault/",\
+        "packageDependencies": [\
+          ["fault", "npm:1.0.4"],\
+          ["format", "npm:0.2.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:2.0.1", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/fault-npm-2.0.1-c462630f58-10c0.zip/node_modules/fault/",\
         "packageDependencies": [\
@@ -14331,6 +14359,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["hast-util-parse-selector", [\
+      ["npm:4.0.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/hast-util-parse-selector-npm-4.0.0-adea10ab8c-10c0.zip/node_modules/hast-util-parse-selector/",\
+        "packageDependencies": [\
+          ["hast-util-parse-selector", "npm:4.0.0"],\
+          ["@types/hast", "npm:3.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["hast-util-to-estree", [\
       ["npm:3.1.3", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/hast-util-to-estree-npm-3.1.3-46e6c023ae-10c0.zip/node_modules/hast-util-to-estree/",\
@@ -14386,6 +14424,38 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["hast-util-whitespace", "npm:3.0.0"],\
           ["@types/hast", "npm:3.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["hastscript", [\
+      ["npm:9.0.1", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/hastscript-npm-9.0.1-1e9d654d34-10c0.zip/node_modules/hastscript/",\
+        "packageDependencies": [\
+          ["hastscript", "npm:9.0.1"],\
+          ["@types/hast", "npm:3.0.4"],\
+          ["comma-separated-tokens", "npm:2.0.3"],\
+          ["hast-util-parse-selector", "npm:4.0.0"],\
+          ["property-information", "npm:7.1.0"],\
+          ["space-separated-tokens", "npm:2.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["highlight.js", [\
+      ["npm:10.7.3", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/highlight.js-npm-10.7.3-247e67d5c0-10c0.zip/node_modules/highlight.js/",\
+        "packageDependencies": [\
+          ["highlight.js", "npm:10.7.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["highlightjs-vue", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/highlightjs-vue-npm-1.0.0-dde75cc994-10c0.zip/node_modules/highlightjs-vue/",\
+        "packageDependencies": [\
+          ["highlightjs-vue", "npm:1.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16661,6 +16731,17 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/lowercase-keys-npm-2.0.0-1876065a32-10c0.zip/node_modules/lowercase-keys/",\
         "packageDependencies": [\
           ["lowercase-keys", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["lowlight", [\
+      ["npm:1.20.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/lowlight-npm-1.20.0-771a13490e-10c0.zip/node_modules/lowlight/",\
+        "packageDependencies": [\
+          ["lowlight", "npm:1.20.0"],\
+          ["fault", "npm:1.0.4"],\
+          ["highlight.js", "npm:10.7.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20980,6 +21061,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["prismjs", [\
+      ["npm:1.30.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/prismjs-npm-1.30.0-c3c5ff824c-10c0.zip/node_modules/prismjs/",\
+        "packageDependencies": [\
+          ["prismjs", "npm:1.30.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["proc-log", [\
       ["npm:6.1.0", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/proc-log-npm-6.1.0-84e609b3f4-10c0.zip/node_modules/proc-log/",\
@@ -21290,6 +21380,34 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-syntax-highlighter", [\
+      ["npm:16.1.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/react-syntax-highlighter-npm-16.1.0-3a18429ce2-10c0.zip/node_modules/react-syntax-highlighter/",\
+        "packageDependencies": [\
+          ["react-syntax-highlighter", "npm:16.1.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#npm:16.1.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-syntax-highlighter-virtual-3a7ad44c8b/3/AppData/Local/Yarn/Berry/cache/react-syntax-highlighter-npm-16.1.0-3a18429ce2-10c0.zip/node_modules/react-syntax-highlighter/",\
+        "packageDependencies": [\
+          ["react-syntax-highlighter", "virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#npm:16.1.0"],\
+          ["@babel/runtime", "npm:7.28.6"],\
+          ["@types/react", "npm:19.2.8"],\
+          ["highlight.js", "npm:10.7.3"],\
+          ["highlightjs-vue", "npm:1.0.0"],\
+          ["lowlight", "npm:1.20.0"],\
+          ["prismjs", "npm:1.30.0"],\
+          ["react", "npm:19.2.3"],\
+          ["refractor", "npm:5.0.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["read-cache", [\
       ["npm:1.0.0", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/read-cache-npm-1.0.0-00fa89ed05-10c0.zip/node_modules/read-cache/",\
@@ -21441,6 +21559,19 @@ const RAW_RUNTIME_STATE =
           ["get-intrinsic", "npm:1.3.1"],\
           ["get-proto", "npm:1.0.1"],\
           ["which-builtin-type", "npm:1.2.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["refractor", [\
+      ["npm:5.0.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/refractor-npm-5.0.0-e9b599ac72-10c0.zip/node_modules/refractor/",\
+        "packageDependencies": [\
+          ["refractor", "npm:5.0.0"],\
+          ["@types/hast", "npm:3.0.4"],\
+          ["@types/prismjs", "npm:1.26.5"],\
+          ["hastscript", "npm:9.0.1"],\
+          ["parse-entities", "npm:4.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
