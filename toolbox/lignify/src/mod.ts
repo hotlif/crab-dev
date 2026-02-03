@@ -63,7 +63,7 @@ class LignifyMod implements Modification {
         // 添加扫描 MDX 的文档信息, 用于生成对应的文档页面
         config.componentScan.push({
             namespaces: "mdxs",
-            include: /.*\.mdx$/,
+            include: /.*\.mdx?$/,
             cwd: join(process.cwd(), "docs"),
             generateSourceCharacter: false,
         });

@@ -22,7 +22,7 @@ export default defineConfig({
 		generateSourceCharacter: true,
 	}, {
 		namespaces: "mdxs",
-		include: /.*\.mdx$/,
+		include: /.*\.mdx?$/,
 		cwd: join(process.cwd(), "docs"),
 		generateSourceCharacter: false,
 	}],

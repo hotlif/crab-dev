@@ -1553,8 +1553,7 @@ __metadata:
   dependencies:
     "@crab-dev/crustify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
-    "@crab-dev/rc-live": "workspace:^"
-    "@crab-dev/rc-tree": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -1579,6 +1578,7 @@ __metadata:
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.53.0"
   peerDependencies:
+    "@crab-dev/rc-menu": "workspace:^"
     "@linaria/core": ^7.0.0
     react-icons: ^5.5.0
     react-router: ^7.12.0
@@ -1626,11 +1626,13 @@ __metadata:
   dependencies:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.2.0"
     "@linaria/core": "npm:^6.3.0"
+    "@mdx-js/react": "npm:^3.1.1"
     "@types/node": "npm:^25.0.7"
     "@types/react": "npm:^19.2.8"
     "@types/react-dom": "npm:^19.2.3"
@@ -1643,6 +1645,7 @@ __metadata:
     react-dom: "npm:^19.2.3"
     react-icons: "npm:^5.5.0"
     react-router: "npm:^7.12.0"
+    react-syntax-highlighter: "npm:^16.1.0"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.53.0"
   languageName: unknown
@@ -1781,7 +1784,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-live@workspace:^, @crab-dev/rc-live@workspace:components/rc-live":
+"@crab-dev/rc-live@workspace:components/rc-live":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-live@workspace:components/rc-live"
   dependencies:
@@ -1895,7 +1898,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
+"@crab-dev/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tree@workspace:components/rc-tree"
   dependencies:

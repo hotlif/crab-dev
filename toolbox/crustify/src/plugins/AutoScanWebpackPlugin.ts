@@ -63,11 +63,14 @@ export const getMdxComment = async (path: string) => {
 		children: {type: string, value: string}[]
 	}
 	let tree: Tree | null = null;
+    const remarkParsePlugin = (remarkParse as unknown as { default?: typeof remarkParse }).default ?? remarkParse;
+    const remarkStringifyPlugin = (remarkStringify as unknown as { default?: typeof remarkStringify }).default ?? remarkStringify;
+    const remarkFrontmatterPlugin = (remarkFrontmatter as unknown as { default?: typeof remarkFrontmatter }).default ?? remarkFrontmatter;
 
 	await unified()
-	.use(remarkParse)
-	.use(remarkStringify)
-	.use(remarkFrontmatter, ['toml'])
+    .use(remarkParsePlugin)
+    .use(remarkStringifyPlugin)
+    .use(remarkFrontmatterPlugin, ['toml'])
 	.use(() => (t: any) => {
 		tree = t 
 	})

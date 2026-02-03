@@ -1,18 +1,53 @@
 import { css } from "@linaria/core";
-import RcTree, { useTreeData, type Node} from "@crab-dev/rc-tree";
-import { Key, useEffect, useState } from "react";
+import RcMenu, { MenuItem, MenuItemType } from "@crab-dev/rc-menu";
+import { Key, useState } from "react";
 import { useNavigate, useOutlet } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import mdxs from "@@@/mdxs";
 import Code from "../components/code";
-import sidebar from "@@/docs/sidebar";
+
+const getMenuItems = () => {
+    const items: MenuItem[] = [];
+    mdxs.forEach((mdx: any) => {
+        const title = mdx?.frontmatter?.title;
+        items.push({
+            type: MenuItemType.Item,
+            title: title || mdx?.name,
+            key: mdx?.name,
+            data: mdx
+        })
+    })
+    return items;
+}
+
 
 const LayoutIndex = () => {
-    const [treeData, setTreeData, treeDataUtil] = useTreeData();
-    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([])
     const outlet = useOutlet();
     const navigate = useNavigate();
+    const renderSidebar = () => {
+        return (
+            <aside
+                className={css`
+                    width: 250px;
+                    border-right: 1px solid #eaeaea;
+                    padding: 0.5rem 0.2rem;
+                `}
+            >
+                <RcMenu
+                    items={getMenuItems()}
+                    onSelectItem={({
+                        item
+                    }) => {
+                        const data: any = item.data;
+                        const path = (data?.frontmatter?.path ?? data?.path).split(".")[0];
+                        if (path) {
+                            navigate(path);
+                        }
+                    }}
+                />
+            </aside>   
+        )
+    }
     return (
         <div
             className={css`
@@ -50,51 +85,7 @@ const LayoutIndex = () => {
                     min-height: 0;
                 `}
             >
-                <aside
-                    className={css`
-                        width: 250px;
-                        border-right: 1px solid #eaeaea;
-                    `}
-                >
-                    <RcTree
-                        className={css`
-                            margin-top: 1rem;
-                        `}
-                        treeData={treeData}
-                        height={500}
-                        width={250}
-                        expandedKeys={expandedKeys}
-                        selectKeys={selectKeys}
-                        onSelect={({
-                            node
-                        }) => {
-                            if (node.type === 1) {
-                                navigate(node.id as string);
-                            }
-                            setSelectKeys([node.id])
-                        }}
-                        onExpanded={({
-                            node
-                        }) => {
-                            let newExpandedKeys = [...expandedKeys];
-                            if (newExpandedKeys.includes(node.id)) {
-                                newExpandedKeys = newExpandedKeys.filter(key => key !== node.id);
-                            } else {
-                                newExpandedKeys.push(node.id);
-                            }
-                            setExpandedKeys(newExpandedKeys)
-                        }}
-                        onTreeNodeChange={setTreeData}
-                        loadData={async (parentNode) => {
-                            const sidebarData: Node[] = sidebar();
-                            if (parentNode == null) {
-                                return sidebarData.filter(item => item.parent == null);
-                            } else {
-                                return sidebarData.filter(item => item.parent?.id === parentNode.id);
-                            }
-                        }}                        
-                    />
-                </aside>   
+                {renderSidebar()}
                 <main
                     className={css`
                         margin-left: 1rem;

@@ -18,6 +18,8 @@ const presetModule = async ({
 }: {
     isProduction: boolean
 }) => {
+    const remarkGfmPlugin = (remarkGfm as unknown as { default?: typeof remarkGfm }).default ?? remarkGfm;
+    const remarkFrontmatterPlugin = (remarkFrontmatter as unknown as { default?: typeof remarkFrontmatter }).default ?? remarkFrontmatter;
     const babelLoader = {
         loader: require.resolve("babel-loader"),
         options: {
@@ -78,7 +80,7 @@ const presetModule = async ({
                         options: {
                             format: "mdx",
                             providerImportSource:  require.resolve("@mdx-js/react"),
-                            remarkPlugins: [remarkGfm, [remarkFrontmatter, "toml"]],
+                            remarkPlugins: [remarkGfmPlugin, [remarkFrontmatterPlugin, "toml"]],
                             rehypePlugins: []
                         }
                     }

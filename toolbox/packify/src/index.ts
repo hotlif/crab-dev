@@ -86,7 +86,7 @@ export const build = async () => {
         entryFileNames: "[name].mjs",
         chunkFileNames: '[name].mjs',
         plugins: [
-            terser()
+            // terser()
         ]
     });
 
@@ -98,7 +98,7 @@ export const build = async () => {
         entryFileNames: "[name].cjs",
         chunkFileNames: '[name].cjs',
         plugins: [
-            terser()
+            // terser()
         ]
     });    
 
