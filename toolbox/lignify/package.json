@@ -26,18 +26,18 @@
         "@jest/globals": "30.2.0",
         "@linaria/core": "^7.0.0",
         "@types/fs-extra": "^11.0.4",
-        "@types/node": "25.0.7",
-        "@types/react": "^19.2.8",
+        "@types/node": "25.2.0",
+        "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
         "eslint": "^9.39.2",
         "eslint-plugin-react": "^7.37.5",
-        "globals": "^17.0.0",
+        "globals": "^17.3.0",
         "jest": "30.2.0",
-        "react": "^19.2.3",
-        "react-dom": "^19.2.3",
-        "react-router": "^7.12.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-router": "^7.13.0",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.53.0"
+        "typescript-eslint": "^8.54.0"
     },
     "peerDependencies": {
         "@crab-dev/rc-menu": "workspace:^",
@@ -48,7 +48,7 @@
     "dependencies": {
         "@crab-dev/crustify": "workspace:^",
         "@mdx-js/react": "^3.1.1",
-        "commander": "^14.0.2",
+        "commander": "^14.0.3",
         "fs-extra": "^11.3.3",
         "react-icons": "^5.5.0",
         "react-syntax-highlighter": "^16.1.0"
