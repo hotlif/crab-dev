@@ -1,7 +1,11 @@
 import { type Modification, type Configuration, type Config } from "@crab-dev/crustify";
 import { getCurrentProjectPath } from "@crab-dev/crustify";
 import { copy } from "fs-extra";
+import { createRequire } from "module";
+import { mergeWithRules } from "webpack-merge";
 import { join } from "path";
+
+const require = createRequire(import.meta.url);
 
 const dirname = () => {
     return typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;

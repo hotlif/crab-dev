@@ -5,8 +5,9 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "start": "yarn generate:token && lignify run-task app:dev",
+        "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
         "build:library": "packify build",
+        "generate:docgen": "react-docgen ./src/button.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "eslint": "eslint"
     },
@@ -28,6 +29,7 @@
         "@jest/globals": "30.2.0",
         "@linaria/core": "^7.0.0",
         "@mdx-js/react": "^3.1.1",
+        "@react-docgen/cli": "^3.0.5",
         "@types/node": "^25.2.0",
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",

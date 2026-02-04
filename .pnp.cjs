@@ -5857,6 +5857,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
           ["@types/react-icons", null],\
           ["@types/react-router", null],\
+          ["@types/react-syntax-highlighter", null],\
           ["commander", "npm:14.0.3"],\
           ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:9.39.2"],\
           ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
@@ -5869,7 +5870,9 @@ const RAW_RUNTIME_STATE =
           ["react-router", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:7.13.0"],\
           ["react-syntax-highlighter", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:16.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
-          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.54.0"]\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.54.0"],\
+          ["webpack", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:5.105.0"],\
+          ["webpack-merge", "npm:6.0.1"]\
         ],\
         "packagePeers": [\
           "@crab-dev/rc-menu",\
@@ -5878,8 +5881,10 @@ const RAW_RUNTIME_STATE =
           "@types/linaria__core",\
           "@types/react-icons",\
           "@types/react-router",\
+          "@types/react-syntax-highlighter",\
           "react-icons",\
-          "react-router"\
+          "react-router",\
+          "react-syntax-highlighter"\
         ],\
         "linkType": "SOFT"\
       }],\
@@ -5910,9 +5915,10 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.4"],\
           ["react-icons", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:5.5.0"],\
           ["react-router", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:7.13.0"],\
-          ["react-syntax-highlighter", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:16.1.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
-          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.54.0"]\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.54.0"],\
+          ["webpack", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:5.105.0"],\
+          ["webpack-merge", "npm:6.0.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5964,6 +5970,7 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.2.0"],\
           ["@linaria/core", "npm:7.0.0"],\
           ["@mdx-js/react", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:3.1.1"],\
+          ["@react-docgen/cli", "npm:3.0.5"],\
           ["@types/node", "npm:25.2.0"],\
           ["@types/react", "npm:19.2.10"],\
           ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
@@ -8532,6 +8539,21 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@react-docgen/cli", [\
+      ["npm:3.0.5", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@react-docgen-cli-npm-3.0.5-c673cfc9e6-10c0.zip/node_modules/@react-docgen/cli/",\
+        "packageDependencies": [\
+          ["@react-docgen/cli", "npm:3.0.5"],\
+          ["chalk", "npm:5.6.2"],\
+          ["commander", "npm:14.0.3"],\
+          ["debug", "virtual:643ed7cc338bcf145a82d8b05b3bef6bcf150ca545df386225596f10ce53cc90b88b3ca83e348ade1ccea5f3f8e76c92d2f0e2ba544da60d40aff9921c56872d#npm:4.4.3"],\
+          ["fast-glob", "npm:3.3.3"],\
+          ["react-docgen", "npm:8.0.2"],\
+          ["slash", "npm:5.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@rollup/plugin-babel", [\
       ["npm:6.1.0", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@rollup-plugin-babel-npm-6.1.0-07dda7e70d-10c0.zip/node_modules/@rollup/plugin-babel/",\
@@ -9698,6 +9720,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/doctrine", [\
+      ["npm:0.0.9", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-doctrine-npm-0.0.9-ffe93045db-10c0.zip/node_modules/@types/doctrine/",\
+        "packageDependencies": [\
+          ["@types/doctrine", "npm:0.0.9"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/emscripten", [\
       ["npm:1.41.5", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-emscripten-npm-1.41.5-b2109f80fb-10c0.zip/node_modules/@types/emscripten/",\
@@ -10087,6 +10118,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-resolve-npm-1.20.2-5fccb2ad46-10c0.zip/node_modules/@types/resolve/",\
         "packageDependencies": [\
           ["@types/resolve", "npm:1.20.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:1.20.6", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-resolve-npm-1.20.6-6ab126a04b-10c0.zip/node_modules/@types/resolve/",\
+        "packageDependencies": [\
+          ["@types/resolve", "npm:1.20.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12562,6 +12600,13 @@ const RAW_RUNTIME_STATE =
           ["supports-color", "npm:7.2.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:5.6.2", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/chalk-npm-5.6.2-ecbd482482-10c0.zip/node_modules/chalk/",\
+        "packageDependencies": [\
+          ["chalk", "npm:5.6.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["char-regex", [\
@@ -14052,6 +14097,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/doctrine-npm-2.1.0-ac15d049b7-10c0.zip/node_modules/doctrine/",\
         "packageDependencies": [\
           ["doctrine", "npm:2.1.0"],\
+          ["esutils", "npm:2.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:3.0.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/doctrine-npm-3.0.0-c6f1615f04-10c0.zip/node_modules/doctrine/",\
+        "packageDependencies": [\
+          ["doctrine", "npm:3.0.0"],\
           ["esutils", "npm:2.0.3"]\
         ],\
         "linkType": "HARD"\
@@ -22268,6 +22321,25 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-docgen", [\
+      ["npm:8.0.2", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/react-docgen-npm-8.0.2-86db1ae595-10c0.zip/node_modules/react-docgen/",\
+        "packageDependencies": [\
+          ["react-docgen", "npm:8.0.2"],\
+          ["@babel/core", "npm:7.29.0"],\
+          ["@babel/traverse", "npm:7.29.0"],\
+          ["@babel/types", "npm:7.28.6"],\
+          ["@types/babel__core", "npm:7.20.5"],\
+          ["@types/babel__traverse", "npm:7.28.0"],\
+          ["@types/doctrine", "npm:0.0.9"],\
+          ["@types/resolve", "npm:1.20.6"],\
+          ["doctrine", "npm:3.0.0"],\
+          ["resolve", "patch:resolve@npm%3A1.22.11#optional!builtin<compat/resolve>::version=1.22.11&hash=c3c19d"],\
+          ["strip-indent", "npm:4.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["react-dom", [\
       ["npm:19.2.4", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/react-dom-npm-19.2.4-4921ae503e-10c0.zip/node_modules/react-dom/",\
@@ -23718,6 +23790,13 @@ const RAW_RUNTIME_STATE =
           ["slash", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:5.1.0", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/slash-npm-5.1.0-718a84282e-10c0.zip/node_modules/slash/",\
+        "packageDependencies": [\
+          ["slash", "npm:5.1.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["smart-buffer", [\
@@ -24167,6 +24246,13 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["strip-indent", "npm:3.0.0"],\
           ["min-indent", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:4.1.1", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/strip-indent-npm-4.1.1-e5fb519bd9-10c0.zip/node_modules/strip-indent/",\
+        "packageDependencies": [\
+          ["strip-indent", "npm:4.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\

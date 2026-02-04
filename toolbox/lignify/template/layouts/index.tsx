@@ -1,10 +1,10 @@
-import { css } from "@linaria/core";
+import { css, cx } from "@linaria/core";
 import RcMenu, { MenuItem, MenuItemType } from "@crab-dev/rc-menu";
-import { Key, useState } from "react";
 import { useNavigate, useOutlet } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import mdxs from "@@@/mdxs";
 import Code from "../components/code";
+import DocGen from "../components/docgen";
 
 const getMenuItems = () => {
     const items: MenuItem[] = [];
@@ -24,7 +24,12 @@ const getMenuItems = () => {
 const LayoutIndex = () => {
     const outlet = useOutlet();
     const navigate = useNavigate();
+
+    const isSingleComponent = mdxs.find(element => element.path === "/docs/README.md") != null;
     const renderSidebar = () => {
+        if (isSingleComponent) {
+            return null;
+        }
         return (
             <aside
                 className={css`
@@ -56,28 +61,31 @@ const LayoutIndex = () => {
                 height: 100%;
             `}
         >
-            <header
-                className={css`
-                    display: flex;
-                    align-items: center;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);
-                    height: 50px;
-                    flex-shrink: 0;
-                    padding-left: 1rem;
-                `}
-            >
-                <div
+            {!isSingleComponent && (
+                <header
                     className={css`
-                        font-size: 16px;
-                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);
+                        height: 50px;
+                        flex-shrink: 0;
+                        padding-left: 1rem;
                     `}
-                    onClick={() => {
-                        navigate("/");
-                    }}
                 >
-                    Lignify
-                </div>
-            </header>
+                    <div
+                        className={css`
+                            font-size: 16px;
+                            cursor: pointer;
+                        `}
+                        onClick={() => {
+                            navigate("/");
+                        }}
+                    >
+                        Lignify
+                    </div>
+                </header>
+            )}
+            
             <div
                 className={css`
                     display: flex;
@@ -87,18 +95,21 @@ const LayoutIndex = () => {
             >
                 {renderSidebar()}
                 <main
-                    className={css`
+                    className={cx(css`
                         margin-left: 1rem;
                         height: 100%;
                         overflow: auto;
                         min-height: 0;
                         min-width: 0;
                         flex: 1;
-                    `}
+                    `, isSingleComponent && css`
+                        padding: 0rem 2rem;
+                    `)}
                 >
                     <MDXProvider
                         components={{
-                            Demos: Code
+                            Demos: Code,
+                            API: DocGen
                         }}
                     >
                         {outlet}

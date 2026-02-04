@@ -9,7 +9,6 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 
 	/**
 	 * 按钮类型
-	 * @default 'subtle'
 	 */
 	appearance?: "primary" | "subtle" | "dashed" | "text" | "link"
     

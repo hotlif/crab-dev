@@ -88,7 +88,7 @@ const baseStyle = css`
 `
 
 const Button: FC<ButtonProps> = ({
-    loading,
+    loading = false,
     appearance = "subtle",
     shouldFitContainer = false,
     className,

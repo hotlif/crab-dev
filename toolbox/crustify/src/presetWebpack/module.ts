@@ -44,7 +44,7 @@ const getRules = (isProduction: boolean) => [
         type: 'asset/source',
     },
     {
-        test: /\.tsx?$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: [
             { loader: require.resolve('@wyw-in-js/webpack-loader') },

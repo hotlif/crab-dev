@@ -39,12 +39,13 @@ export const createRouter = (components: ScanComponent[]) => {
             source
         }) => {
             let newPath = frontmatter?.path ?? path;
+            let index = frontmatter?.index ?? false;
             if (/\.mdx?$/.test(path)) {
                 newPath = newPath.split(".")[0];
             }
             return {
-                path: newPath,
-                index: frontmatter?.index ?? false,
+                path: index ? "" : newPath,
+                index,
                 handle: {
                     frontmatter,
                     source

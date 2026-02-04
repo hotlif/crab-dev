@@ -97,9 +97,9 @@ const Codes: FC<CodeProps> = ({
         const right = [];
         demos.filter(element => element.path?.startsWith(path)).forEach((element, index) => {
             if (index % 2 === 0) {
-                right.push(<Code key={element.path} path={element.path}/> )
-            } else {
                 left.push(<Code key={element.path} path={element.path}/> )
+            } else {
+                right.push(<Code key={element.path} path={element.path}/> )
             }
         });
         setReactElement(
