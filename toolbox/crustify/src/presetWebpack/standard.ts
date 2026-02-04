@@ -58,9 +58,9 @@ const presetStandard = async ({
 
     const standardConfig: Configuration =  {
         entry: entryTmp,
-        devtool: isProduction ? false : "source-map",
-        infrastructureLogging: { level: "warn" },
-        stats: "errors-warnings",
+        devtool: isProduction ? false : "eval-cheap-module-source-map",
+        infrastructureLogging: { level: "error" },
+        stats: "errors-only",
         output: {
             filename: "[name].bundle.[contenthash].js",
             path: join(process.cwd(), "dist"),
