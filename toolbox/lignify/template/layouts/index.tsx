@@ -103,7 +103,7 @@ const LayoutIndex = () => {
                         min-width: 0;
                         flex: 1;
                     `, isSingleComponent && css`
-                        padding: 0rem 2rem;
+                        padding: 0rem 4rem;
                     `)}
                 >
                     <MDXProvider

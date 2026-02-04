@@ -1,6 +1,7 @@
 import { useEffect, useState, type FC } from "react";
 import { css } from "@linaria/core";
-import { BsCode, BsCodeSlash } from "react-icons/bs";
+import { BsCode, BsCodeSlash, BsPalette } from "react-icons/bs";
+import ReactMarkdown from "react-markdown";
 import demos from "@@@/demos";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { vs } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -15,8 +16,10 @@ const Code: FC<CodeProps> = ({
     const [reactElement, setReactElement] = useState();
     const [isExpandCode, setIsExpandCode] = useState(false);
     const [code, setCode] = useState();
+    const [frontmatter, setFrontmatter] = useState<Record<string,any>>({});
     useEffect(() => {
         const element = demos.find(element => element.path === path);
+        setFrontmatter(element?.frontmatter);
         element?.source?.then(source => {
             setCode(source?.default);
         })
@@ -25,19 +28,13 @@ const Code: FC<CodeProps> = ({
         })
     }, [path])
     return (
-        <div
-            className={css`
-                margin-top: 2rem;
-            `}
-        >
+        <div>
             <div
                 className={css`
                     position: relative;
-                    border-left: 1px solid #eaeaea;
-                    border-right: 1px solid #eaeaea;
-                    border-top: 1px solid #eaeaea;
+                    border: 1px solid #eaeaea;
                     flex: 0 0 50%;
-                    min-height: 100px;
+                    min-height: 60px;
                     padding: 1rem;
                 `}
             >
@@ -45,23 +42,53 @@ const Code: FC<CodeProps> = ({
             </div>
             <div
                 className={css`
-                    padding: 12px 0px;
-                    display: flex;
-                    justify-content: center;
-                    cursor: pointer;
-                    border: 1px solid #eaeaea;
+                    position: relative;
+                    padding: 1rem;
+                    border-left: 1px solid #eaeaea;
+                    border-right: 1px solid #eaeaea;
                 `}
             >
                 <div
                     className={css`
-                        user-select: none;
+                        position: absolute;
+                        color: rgba(0,0,0,0.88);
+                        font-weight: 500;
+                        font-size: 14px;   
+                        top: -14px;
+                        padding: 1px 8px; 
+                        background-color: #fff;
                     `}
+                >
+                    {frontmatter?.title}
+                </div>
+                <div>
+                    <ReactMarkdown>
+                        {frontmatter?.description}
+                    </ReactMarkdown>
+                </div>
+            </div>
+            <div
+                className={css`
+                    padding: 12px 0px;
+                    display: flex;
+                    justify-content: center;
+                    border: 1px solid #eaeaea;
+                    gap: 1rem;
+                    > div {
+                        cursor: pointer;
+                        user-select: none;
+                    }
+                `}
+            >
+                <div
                     onClick={() => {
                         setIsExpandCode(!isExpandCode);
                     }}
                 >
                     {isExpandCode ?  <BsCodeSlash /> : <BsCode />}
-                    
+                </div>
+                <div>
+                    <BsPalette />
                 </div>
             </div>
             {
