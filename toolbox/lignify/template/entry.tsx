@@ -6,9 +6,10 @@ import { css } from "@linaria/core";
 
 import pages from "@@@/pages";
 import mdxs from "@@@/mdxs";
+import demos from "@@@/demos";
 import { createRouter} from "./util/router";
 
-const router = createRouter([...pages, ...mdxs]);
+const router = createRouter([...pages, ...mdxs, ...demos]);
 
 css`
 	:global() {

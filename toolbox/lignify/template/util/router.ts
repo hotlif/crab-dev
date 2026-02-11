@@ -38,11 +38,8 @@ export const createRouter = (components: ScanComponent[]) => {
             component,
             source
         }) => {
-            let newPath = frontmatter?.path ?? path;
+            let newPath = (frontmatter?.path ?? path).replaceAll(".", "/");
             let index = frontmatter?.index ?? false;
-            if (/\.mdx?$/.test(path)) {
-                newPath = newPath.split(".")[0];
-            }
             return {
                 path: index ? "" : newPath,
                 index,

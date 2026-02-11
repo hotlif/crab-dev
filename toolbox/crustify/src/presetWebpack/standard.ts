@@ -5,10 +5,15 @@ import TerserWebpackPlugin from "terser-webpack-plugin";
 import WebpackBar from "webpackbar";
 import { rmSync, existsSync } from "fs";
 import { readFile, writeFile} from "fs/promises";
+import { createRequire } from "module";
 
 import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
 import { type Config } from "../conf";
 import { getTmpDir, getCwdDir, eta, getCurrentProjectPath } from "../util";
+
+
+
+const require = createRequire(import.meta.url);
 
 const createEntryTsx = async (path: string, conf: Config) => {
     const isCJS = () => typeof module !== 'undefined' && typeof module.exports !== 'undefined';
@@ -78,8 +83,13 @@ const presetStandard = async ({
 				"@": join(cwd, "src"),
                 "@@": process.cwd(),
                 ...aliasAutoScan
-			}
+			},
+            fallback: {
+                "buffer": require.resolve('buffer/'),
+                "string_decoder": require.resolve('string_decoder/'),
+            },
         },
+
         mode: isProduction ? "production" : "development",
         // cache: {
         //     type: 'filesystem',

@@ -1752,6 +1752,7 @@ __metadata:
     "@wyw-in-js/webpack-loader": "npm:^1.0.6"
     babel-loader: "npm:^10.0.0"
     babel-plugin-react-compiler: "npm:^1.0.0"
+    buffer: "npm:^6.0.3"
     commander: "npm:^14.0.3"
     css-loader: "npm:^7.1.3"
     css-minimizer-webpack-plugin: "npm:^7.0.4"
@@ -1772,6 +1773,7 @@ __metadata:
     remark-parse: "npm:^11.0.0"
     remark-stringify: "npm:^11.0.0"
     smol-toml: "npm:^1.6.0"
+    string_decoder: "npm:^1.3.0"
     style-loader: "npm:^4.0.0"
     tapable: "npm:^2.3.0"
     terser-webpack-plugin: "npm:^5.3.16"
@@ -1907,14 +1909,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
   dependencies:
-    "@crab-dev/crustify": "workspace:^"
+    "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.2.0"
     "@linaria/core": "npm:^7.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@react-docgen/cli": "npm:^3.0.5"
     "@types/node": "npm:^25.2.0"
     "@types/react": "npm:^19.2.10"
     "@types/react-dom": "npm:^19.2.3"
@@ -1926,6 +1931,9 @@ __metadata:
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
     react-icons: "npm:^5.5.0"
+    react-markdown: "npm:^10.1.0"
+    react-router: "npm:^7.13.0"
+    react-syntax-highlighter: "npm:^16.1.0"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.54.0"
   languageName: unknown
@@ -2115,6 +2123,44 @@ __metadata:
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
     react-icons: "npm:^5.5.0"
+    typescript: "npm:^5.9.3"
+    typescript-eslint: "npm:^8.54.0"
+  languageName: unknown
+  linkType: soft
+
+"@crab-dev/rc-printer-draft@workspace:components/rc-printer-draft":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-printer-draft@workspace:components/rc-printer-draft"
+  dependencies:
+    "@crab-dev/lignify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@dnd-kit/core": "npm:^6.3.1"
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    "@jest/globals": "npm:30.2.0"
+    "@linaria/core": "npm:^7.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@react-docgen/cli": "npm:^3.0.5"
+    "@types/node": "npm:^25.2.0"
+    "@types/react": "npm:^19.2.10"
+    "@types/react-dom": "npm:^19.2.3"
+    eslint: "npm:^9.39.2"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^17.3.0"
+    jest: "npm:^30.2.0"
+    jest-environment-jsdom: "npm:30.2.0"
+    konva: "npm:^10.2.0"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.4"
+    react-icons: "npm:^5.5.0"
+    react-konva: "npm:^19.2.2"
+    react-markdown: "npm:^10.1.0"
+    react-router: "npm:^7.13.0"
+    react-syntax-highlighter: "npm:^16.1.0"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.54.0"
   languageName: unknown
@@ -5125,6 +5171,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-reconciler@npm:^0.28.9":
+  version: 0.28.9
+  resolution: "@types/react-reconciler@npm:0.28.9"
+  peerDependencies:
+    "@types/react": "*"
+  checksum: 10c0/9fe71fa856aab2cd4742fe0416bdd4f5c82ecc05ef6451ee7fcb65a5efdf5fa588f5820fbe2a665b15371b0da3bfc4097f28bb6d450b9a834af2d0fc00f403bd
+  languageName: node
+  linkType: hard
+
+"@types/react-reconciler@npm:^0.32.3":
+  version: 0.32.3
+  resolution: "@types/react-reconciler@npm:0.32.3"
+  peerDependencies:
+    "@types/react": "*"
+  checksum: 10c0/8d6485c6da3aa6d84b5c320c4cf9737e67511cd6c7ebfb7252ec032fd1cfb0515d3a2c06054491603c6ab040202694ff5ad125cd840e1da9e76d7447cef53dff
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:^19.2.10":
   version: 19.2.10
   resolution: "@types/react@npm:19.2.10"
@@ -6783,6 +6847,16 @@ __metadata:
     base64-js: "npm:^1.3.1"
     ieee754: "npm:^1.1.13"
   checksum: 10c0/27cac81cff434ed2876058d72e7c4789d11ff1120ef32c9de48f59eab58179b66710c488987d295ae89a228f835fc66d088652dffeb8e3ba8659f80eb091d55e
+  languageName: node
+  linkType: hard
+
+"buffer@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "buffer@npm:6.0.3"
+  dependencies:
+    base64-js: "npm:^1.3.1"
+    ieee754: "npm:^1.2.1"
+  checksum: 10c0/2a905fbbcde73cc5d8bd18d1caa23715d5f83a5935867c2329f0ac06104204ba7947be098fe1317fbd8830e26090ff8e764f08cd14fefc977bb248c3487bcbd0
   languageName: node
   linkType: hard
 
@@ -10069,7 +10143,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ieee754@npm:^1.1.13":
+"ieee754@npm:^1.1.13, ieee754@npm:^1.2.1":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: 10c0/b0782ef5e0935b9f12883a2e2aa37baa75da6e66ce6515c168697b42160807d9330de9a32ec1ed73149aea02e0d822e572bca6f1e22bdcbd2149e13b050b17bb
@@ -10725,6 +10799,17 @@ __metadata:
     has-symbols: "npm:^1.1.0"
     set-function-name: "npm:^2.0.2"
   checksum: 10c0/f7a262808e1b41049ab55f1e9c29af7ec1025a000d243b83edf34ce2416eedd56079b117fa59376bb4a724110690f13aa8427f2ee29a09eec63a7e72367626d0
+  languageName: node
+  linkType: hard
+
+"its-fine@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "its-fine@npm:2.0.0"
+  dependencies:
+    "@types/react-reconciler": "npm:^0.28.9"
+  peerDependencies:
+    react: ^19.0.0
+  checksum: 10c0/1ff1ff3257c0c7eb115c9c26cf0506eb84162edc1a63d3136780d146f7c7833298b240d0fcb46888909773f1a7d16539e0c03f2482cff1a5a502d6436686fe21
   languageName: node
   linkType: hard
 
@@ -11452,6 +11537,13 @@ __metadata:
   version: 2.0.6
   resolution: "klona@npm:2.0.6"
   checksum: 10c0/94eed2c6c2ce99f409df9186a96340558897b3e62a85afdc1ee39103954d2ebe1c1c4e9fe2b0952771771fa96d70055ede8b27962a7021406374fdb695fd4d01
+  languageName: node
+  linkType: hard
+
+"konva@npm:^10.2.0":
+  version: 10.2.0
+  resolution: "konva@npm:10.2.0"
+  checksum: 10c0/afbb59a8a83c41c75f6e3103aa7f2ddb7f4f2132dab612d54e7dcefcd50f9b28b6b02fb88ce1387fe2b33905e67dc73ba2dba2cd1cb01abfc47250798f61c88f
   languageName: node
   linkType: hard
 
@@ -14937,6 +15029,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-konva@npm:^19.2.2":
+  version: 19.2.2
+  resolution: "react-konva@npm:19.2.2"
+  dependencies:
+    "@types/react-reconciler": "npm:^0.32.3"
+    its-fine: "npm:^2.0.0"
+    react-reconciler: "npm:0.33.0"
+    scheduler: "npm:0.27.0"
+  peerDependencies:
+    konva: ^8.0.1 || ^7.2.5 || ^9.0.0 || ^10.0.0
+    react: ^19.2.0
+    react-dom: ^19.2.0
+  checksum: 10c0/375b05cee55511345b5d7be547e341ee27c71e0e8b4fece5b7dfcb75f7c3b5b08a556325e3237bcacbb411e69ee031fb37c770798a400a8dbb49b9d643ad0458
+  languageName: node
+  linkType: hard
+
 "react-markdown@npm:^10.1.0":
   version: 10.1.0
   resolution: "react-markdown@npm:10.1.0"
@@ -14956,6 +15064,17 @@ __metadata:
     "@types/react": ">=18"
     react: ">=18"
   checksum: 10c0/4a5dc7d15ca6d05e9ee95318c1904f83b111a76f7588c44f50f1d54d4c97193b84e4f64c4b592057c989228238a2590306cedd0c4d398e75da49262b2b5ae1bf
+  languageName: node
+  linkType: hard
+
+"react-reconciler@npm:0.33.0":
+  version: 0.33.0
+  resolution: "react-reconciler@npm:0.33.0"
+  dependencies:
+    scheduler: "npm:^0.27.0"
+  peerDependencies:
+    react: ^19.2.0
+  checksum: 10c0/3f7b27ea8d0ff4c8bf0e402a285e1af9b7d0e6f4c1a70a28f4384938bc1130bc82a90a31df0b79ef5e380e2e55e2598bd90b4dbf802b1203d735ba0355817d3a
   languageName: node
   linkType: hard
 
@@ -16027,7 +16146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.27.0":
+"scheduler@npm:0.27.0, scheduler@npm:^0.27.0":
   version: 0.27.0
   resolution: "scheduler@npm:0.27.0"
   checksum: 10c0/4f03048cb05a3c8fddc45813052251eca00688f413a3cee236d984a161da28db28ba71bd11e7a3dd02f7af84ab28d39fb311431d3b3772fed557945beb00c452
@@ -16656,7 +16775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string_decoder@npm:^1.1.1":
+"string_decoder@npm:^1.1.1, string_decoder@npm:^1.3.0":
   version: 1.3.0
   resolution: "string_decoder@npm:1.3.0"
   dependencies:

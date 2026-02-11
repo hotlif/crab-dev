@@ -1,26 +1,26 @@
 {
-    "name": "@crab-dev/lignify",
-    "version": "0.0.3",
-    "description": "使用此快速开发 React 组件库，可用来调试和生成 CSS 变量主题。",
+    "name": "@crab-dev/rc-printer-draft",
+    "description": "一个设计器， 用来设计打印机的打印的模板信息",
     "packageManager": "yarn@4.7.0",
     "type": "module",
+    "version": "0.0.1",
     "scripts": {
-        "start": "crustify run-task app:dev",
-        "build": "crustify run-task app:build",
+        "start": "lignify run-task app:dev",
         "build:library": "packify build",
+        "generate:docgen": "react-docgen ./src/button.tsx --out ./public/docgen.json",
+        "generate:token": "packify generate:css-token",
         "eslint": "eslint"
     },
     "files": [
         "esm",
-        "template"
+        "cjs",
+        "declarations"
     ],
     "types": "declarations/index.d.ts",
-    "bin": "bin/cli.js",
-    "exports": {
-        "import": "./esm/index.mjs",
-        "require": "./cjs/index.cjs"
-    },
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
     "devDependencies": {
+        "@crab-dev/lignify": "workspace:^",
         "@crab-dev/packify": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
@@ -29,34 +29,33 @@
         "@jest/globals": "30.2.0",
         "@linaria/core": "^7.0.0",
         "@mdx-js/react": "^3.1.1",
-        "@types/fs-extra": "^11.0.4",
-        "@types/node": "25.2.0",
+        "@react-docgen/cli": "^3.0.5",
+        "@types/node": "^25.2.0",
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
         "eslint": "^9.39.2",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^17.3.0",
-        "jest": "30.2.0",
+        "jest": "^30.2.0",
+        "jest-environment-jsdom": "30.2.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
-        "react-markdown": "^10.1.0",
-        "react-router": "^7.13.0",
-        "typescript": "^5.9.3",
-        "typescript-eslint": "^8.54.0",
-        "webpack": "^5.105.0"
-    },
-    "peerDependencies": {
-        "@crab-dev/rc-menu": "workspace:^",
-        "@linaria/core": "^7.0.0",
-        "@mdx-js/react": "^3.1.1",
         "react-icons": "^5.5.0",
         "react-markdown": "^10.1.0",
-        "react-router": "^7.12.0",
-        "react-syntax-highlighter": "^16.1.0"
+        "react-router": "^7.13.0",
+        "react-syntax-highlighter": "^16.1.0",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.54.0"
+    },
+    "engines": {
+        "node": ">=22"
     },
     "dependencies": {
-        "@crab-dev/crustify": "workspace:^",
-        "commander": "^14.0.3",
-        "fs-extra": "^11.3.3"
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-frame": "workspace:^",
+        "@dnd-kit/core": "^6.3.1",
+        "@dnd-kit/utilities": "^3.2.2",
+        "konva": "^10.2.0",
+        "react-konva": "^19.2.2"
     }
 }

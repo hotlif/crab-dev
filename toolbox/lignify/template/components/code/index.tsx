@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from "react";
 import { css } from "@linaria/core";
-import { BsCode, BsCodeSlash, BsPalette } from "react-icons/bs";
+import { BsCode, BsCodeSlash, BsPalette, BsWindowFullscreen } from "react-icons/bs";
 import ReactMarkdown from "react-markdown";
 import demos from "@@@/demos";
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -90,6 +90,13 @@ const Code: FC<CodeProps> = ({
                 <div>
                     <BsPalette />
                 </div>
+                <div
+                    onClick={() => {
+                        window.open(path.replaceAll(".", "/"))
+                    }}
+                >
+                    <BsWindowFullscreen />
+                </div>
             </div>
             {
                 isExpandCode ? (
@@ -115,6 +122,11 @@ const Code: FC<CodeProps> = ({
 }
 
 
+const iconStyle = css`
+    display: flex;
+    flex-direction: column;
+`
+
 const Codes: FC<CodeProps> = ({
     path
 }) => {
@@ -132,18 +144,12 @@ const Codes: FC<CodeProps> = ({
         setReactElement(
             <>
                 <div
-                    className={css`
-                        display: flex;
-                        flex-direction: column;
-                    `}
+                    className={iconStyle}
                 >
                     {left}
                 </div>
                 <div
-                    className={css`
-                        display: flex;
-                        flex-direction: column;
-                    `}
+                    className={iconStyle}
                 >
                     {right}
                 </div>

@@ -4,8 +4,9 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
-        "start": "yarn generate:token && crustify run-task app:dev",
+        "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
         "build:library": "packify build",
+        "generate:docgen": "react-docgen ./src/button.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "eslint": "eslint"
     },
@@ -21,13 +22,16 @@
         "@crab-dev/rc-button": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/crustify": "workspace:^",
+        "@crab-dev/lignify": "workspace:^",
         "@crab-dev/packify": "workspace:^",
+        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-jest-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@jest/globals": "30.2.0",
         "@linaria/core": "^7.0.0",
+        "@mdx-js/react": "^3.1.1",
+        "@react-docgen/cli": "^3.0.5",
         "@types/node": "^25.2.0",
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
@@ -39,6 +43,9 @@
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-icons": "^5.5.0",
+        "react-markdown": "^10.1.0",
+        "react-router": "^7.13.0",
+        "react-syntax-highlighter": "^16.1.0",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.54.0"
     },
