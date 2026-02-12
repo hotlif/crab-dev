@@ -9,7 +9,6 @@ import type { ResourceWidget } from "../types";
 const ResourcePanelItem: FC<{ widget: ResourceWidget }> = ({
     widget
 }) => {
-
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: widget.id,
         data: widget
@@ -58,6 +57,8 @@ const ResourcePanel: FC<ResourcePanelProps> = ({
             </div>
             <div
                 className={css`
+                    display: flex;
+                    gap: 8px;
                     padding: 8px 12px;
                 `}
             >

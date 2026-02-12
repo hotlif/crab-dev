@@ -11,7 +11,12 @@ index = true
 
 ## 何时使用
 
+
+
 ## 代码演示
 
 <Demos path="/docs/demos" />
 
+## API
+
+<API path="./src/editor.tsx" />

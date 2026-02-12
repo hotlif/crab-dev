@@ -31,6 +31,7 @@ const Code: FC<CodeProps> = ({
         <div>
             <div
                 className={css`
+                    display: flex;
                     position: relative;
                     border: 1px solid #eaeaea;
                     flex: 0 0 50%;

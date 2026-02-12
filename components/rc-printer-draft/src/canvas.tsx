@@ -14,6 +14,8 @@ interface CanvasProps extends StageProps {
     onSelectedWidgetIdChange: Dispatch<React.SetStateAction<string[]>>
 }
 
+const round2 = (v: number) => Math.round(v * 100) / 100;
+
 const Canvas: FC<CanvasProps> = ({
     stageRef,
     widgets,
@@ -78,34 +80,30 @@ const Canvas: FC<CanvasProps> = ({
                                 const node = event.target; 
                                 const scaleX = node.scaleX();
                                 const scaleY = node.scaleY();
+                                
                                 node.width(Math.max(10, node.width() * scaleX));
                                 node.height(Math.max(10, node.height() * scaleY));
                                 node.scaleX(1);
                                 node.scaleY(1);
-                                widget.props.height = node.height();
-                                widget.props.width = node.width();
-                                widget.props.x = node.x() - node.offsetX();
-                                widget.props.y = node.y() - node.offsetY();
+                                
+                                widget.props.height = round2(node.height());
+                                widget.props.width = round2(node.width());
+                                widget.props.x = round2(node.x() - node.offsetX());
+                                widget.props.y = round2(node.y() - node.offsetY());
+                                widget.props.rotation = round2(node.rotation());
+                                onWidgetsChange((widgets) => [...widgets])
                             }}
                             onDragMove={(e) => {
                                 const node = e.target;
-                                widget.props.x = node.x() - node.offsetX();
-                                widget.props.y = node.y() - node.offsetY();
+                                widget.props.x = round2(node.x() - node.offsetX());
+                                widget.props.y = round2(node.y() - node.offsetY());
+                                onWidgetsChange((widgets) => [...widgets])
                             }}
-                            dragBoundFunc={function({
-                                x,
-                                y
-                            }) {
+                            dragBoundFunc={function({x, y}) {
                                 const stage = this.getStage();
                                 let newX = x;
                                 let newY = y;
                                 if (stage) {
-                                    const {
-                                        width,
-                                        height
-                                    } = stage.getSize();
-                                    const widgetWidth = this.width();
-                                    const widgetHeight = this.height();
                                     const offsetX = this.offsetX();
                                     const offsetY = this.offsetY();
                                     if (x - offsetX <= 0) {
@@ -113,13 +111,6 @@ const Canvas: FC<CanvasProps> = ({
                                     }
                                     if (y - offsetY <= 0) {
                                         newY = offsetY;
-                                    }
-
-                                    if (x - offsetX + widgetWidth >= width) {
-                                        newX = width - widgetWidth + offsetX;
-                                    }
-                                    if (y - offsetY + widgetHeight >= height) {
-                                        newY = height - widgetHeight + offsetY;
                                     }
                                 }
                                 return {
@@ -129,9 +120,9 @@ const Canvas: FC<CanvasProps> = ({
                         }}
                     />
                 ) )}
-
                     <Transformer
                         ref={transformerRef}
+                        flipEnabled={false}
                     />
                 </Layer>
             </Stage>

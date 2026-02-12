@@ -113,7 +113,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-button", ["workspace:components/rc-button"]],\
     ["@crab-dev/rc-dialog", ["workspace:components/rc-dialog"]],\
     ["@crab-dev/rc-form", ["workspace:components/rc-form"]],\
-    ["@crab-dev/rc-frame", ["virtual:c52a8f3d6fd9bd5fdfcdb3006b1f8d1abaefe9a32926ca63fbd7e9ee79d927b895e778b8ac1944427f5dd40c7f99fbe772a147500ff604f05b2908d4978bb574#workspace:components/rc-frame", "workspace:components/rc-frame"]],\
+    ["@crab-dev/rc-frame", ["workspace:components/rc-frame"]],\
     ["@crab-dev/rc-hooks", ["workspace:components/rc-hooks"]],\
     ["@crab-dev/rc-line-edit", ["workspace:components/rc-line-edit"]],\
     ["@crab-dev/rc-live", ["workspace:components/rc-live"]],\
@@ -6071,35 +6071,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-frame", [\
-      ["virtual:c52a8f3d6fd9bd5fdfcdb3006b1f8d1abaefe9a32926ca63fbd7e9ee79d927b895e778b8ac1944427f5dd40c7f99fbe772a147500ff604f05b2908d4978bb574#workspace:components/rc-frame", {\
-        "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-frame-virtual-2b880a01a6/1/components/rc-frame/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-frame", "virtual:c52a8f3d6fd9bd5fdfcdb3006b1f8d1abaefe9a32926ca63fbd7e9ee79d927b895e778b8ac1944427f5dd40c7f99fbe772a147500ff604f05b2908d4978bb574#workspace:components/rc-frame"],\
-          ["@crab-dev/crustify", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:toolbox/crustify"],\
-          ["@crab-dev/packify", "workspace:toolbox/packify"],\
-          ["@crab-dev/rc-menu", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:components/rc-menu"],\
-          ["@crab-dev/standards-eslint-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/eslint-preset"],\
-          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
-          ["@linaria/core", "npm:7.0.0"],\
-          ["@types/node", "npm:25.2.0"],\
-          ["@types/react", "npm:19.2.10"],\
-          ["@types/react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.3"],\
-          ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:9.39.2"],\
-          ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
-          ["globals", "npm:17.3.0"],\
-          ["react", "npm:19.2.4"],\
-          ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.4"],\
-          ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
-          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.54.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
-        ],\
-        "linkType": "SOFT"\
-      }],\
       ["workspace:components/rc-frame", {\
         "packageLocation": "./components/rc-frame/",\
         "packageDependencies": [\
@@ -6311,7 +6282,8 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-button", "workspace:components/rc-button"],\
-          ["@crab-dev/rc-frame", "virtual:c52a8f3d6fd9bd5fdfcdb3006b1f8d1abaefe9a32926ca63fbd7e9ee79d927b895e778b8ac1944427f5dd40c7f99fbe772a147500ff604f05b2908d4978bb574#workspace:components/rc-frame"],\
+          ["@crab-dev/rc-form", "workspace:components/rc-form"],\
+          ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-menu", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:components/rc-menu"],\
           ["@crab-dev/standards-eslint-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#workspace:standards/jest-preset"],\
@@ -6330,6 +6302,7 @@ const RAW_RUNTIME_STATE =
           ["globals", "npm:17.3.0"],\
           ["jest", "virtual:51b210ce38c498a302f1a3096cc66f4ee692445327a1c0249236e1d0f097eff94770ed413f22b5d800ebc03dc72f60a4f23ad106c32471cfb5ecb52cbb838bf8#npm:30.2.0"],\
           ["jest-environment-jsdom", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:30.2.0"],\
+          ["jsbarcode", "npm:3.12.3"],\
           ["konva", "npm:10.2.0"],\
           ["react", "npm:19.2.4"],\
           ["react-dom", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:19.2.4"],\
@@ -17914,6 +17887,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["js-yaml", "npm:4.1.1"],\
           ["argparse", "npm:2.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["jsbarcode", [\
+      ["npm:3.12.3", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/jsbarcode-npm-3.12.3-0ce6abcf2b-10c0.zip/node_modules/jsbarcode/",\
+        "packageDependencies": [\
+          ["jsbarcode", "npm:3.12.3"]\
         ],\
         "linkType": "HARD"\
       }]\

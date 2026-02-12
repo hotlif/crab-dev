@@ -5,6 +5,7 @@ interface WidgetCommonProps {
     y: number
     width: number
     height: number
+    rotation?: number
 }
 
 export interface Widget<T = any> {
@@ -29,12 +30,18 @@ export interface Widget<T = any> {
     customProps?: T
 }
 
+type PropertyType = "number" | "string"
 
-interface Property {
+export interface Property {
     /**
      * 标题
      */
     title: string
+
+    /**
+     * 字段类型
+     */
+    type: PropertyType
 
     /**
      * 名称

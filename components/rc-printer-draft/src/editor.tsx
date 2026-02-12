@@ -27,8 +27,16 @@ const Editor: FC<EditorProps> = ({
     const stageRef = useRef<Konva.Stage>(null);
     const [selectedWidgetId, setSelectedWidgetId] = useState<string[]>([]);
 
-    const getResource = (type: string) => {
+    const getResource = (type?: string) => {
         return resources.find(element => element.type === type)
+    }
+
+    const getCurrentWidget = () => {
+        const currentWidget = widgets.find(element => selectedWidgetId.includes(element.id))
+        if (currentWidget) {
+            return {...currentWidget}
+        }
+        return undefined;
     }
 
     return (
@@ -37,8 +45,8 @@ const Editor: FC<EditorProps> = ({
                 const pointerPos = stageRef.current?.getRelativePointerPosition();
                 if (!pointerPos) return;    
                 if (event.over) {
-                    const finalX = pointerPos.x; 
-                    const finalY = pointerPos.y;
+                    const finalX = Math.ceil(pointerPos.x); 
+                    const finalY = Math.ceil(pointerPos.y);
     
                     const uuid = crypto.randomUUID();
                     const type = event.active.data.current?.type;
@@ -73,7 +81,6 @@ const Editor: FC<EditorProps> = ({
             <div
                 className={css`
                     display: flex;
-                    height: 100%;
                     background-color: #fff;
                 `}
                 {...props}
@@ -117,7 +124,20 @@ const Editor: FC<EditorProps> = ({
                         border-left: 1px solid #eaeaea; 
                     `}
                 >
-                    <PropertyPanel />
+                    <PropertyPanel
+                        resourceWidget={getResource(widgets.find(element => selectedWidgetId.includes(element.id))?.type)}
+                        widget={getCurrentWidget()}
+                        onWidgetChange={(newWidge) => {
+                            const updateData = widgets.map(element => {
+                                if (element.id === newWidge.id) {
+                                    return newWidge;
+                                } else {
+                                    return element;
+                                }
+                            })
+                            setWidgets(updateData)
+                        }}
+                    />
                 </aside>
             </div>
         </DndContext>

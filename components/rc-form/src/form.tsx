@@ -97,7 +97,6 @@ function Form<T extends Record<string, any>>({
     }
 
     useEffect(() => {
-
         const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
             setRecordValue(formRecordRef.current, changed.name as NamePath, changed.value);
             onFieldValueChange?.(changed, formRecordRef.current)
@@ -110,6 +109,12 @@ function Form<T extends Record<string, any>>({
         }
         eventBus.subscribe(subscriber)
 
+        return () => {
+            eventBus.unSubscribe(subscriber);
+        }
+    }, [onFieldValueChange])
+
+    useEffect(() => {
         eventBus.dispatch({
             type: MessageEnum.ON_PARENT_READY,
         });
@@ -172,10 +177,7 @@ function Form<T extends Record<string, any>>({
             })
         }
         resetFields();
-        return () => {
-            eventBus.unSubscribe(subscriber);
-        }
-    }, [])
+    }, [form, defaultValue])
 
 
     return (
@@ -190,6 +192,7 @@ function Form<T extends Record<string, any>>({
                 className={cx(
                     css`
                         display: grid;
+                        margin-block-end: unset;
                     `,
                     className
                 )}

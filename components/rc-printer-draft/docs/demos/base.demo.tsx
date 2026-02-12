@@ -5,26 +5,21 @@
  */
 
 import PrinterDraftEditor from "../../src/index";
-import { css } from "@linaria/core";
-import TSPL, { CustomizeWidget } from "../../src/widgets/TSPL";
+import TSPL, { CustomizeWidget } from "../../src/widgets/tspl";
 
 const SizeDemo = () => {
-
     return (
-        <div
-            className={css`
-                margin-bottom: 1rem;
-            `}
-        >
-            <PrinterDraftEditor
-                resources={TSPL}
-                pageSettings={{
-                    width: 500,
-                    height: 400
-                }}
-                CustomizeWidget={CustomizeWidget}
-            />
-        </div>
+        <PrinterDraftEditor
+            style={{
+                flex: 1
+            }}
+            resources={TSPL}
+            pageSettings={{
+                width: 500,
+                height: 400
+            }}
+            CustomizeWidget={CustomizeWidget}
+        />
     )
 }
 
