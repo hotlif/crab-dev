@@ -4,7 +4,8 @@ const token = {
 		
     },
     dimension: {
-        'padding': 'var(--dialog-dimension-padding, 20px 24px)',
+        'top': 'var(--dialog-dimension-top, 100px)',
+		'padding': 'var(--dialog-dimension-padding, 20px 24px)',
 		'border-radius': 'var(--dialog-dimension-border-radius, 8px)',
 		'heading-margin-bottom': 'var(--dialog-dimension-heading-margin-bottom, 15px)',
 		'footer-margin-top': 'var(--dialog-dimension-footer-margin-top, 12px)',

@@ -6,7 +6,7 @@
     "scripts": {
         "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
         "build:library": "packify build",
-        "generate:docgen": "react-docgen ./src/button.tsx --out ./public/docgen.json",
+        "generate:docgen": "react-docgen ./src/dialog.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "eslint": "eslint"
     },

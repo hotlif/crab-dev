@@ -5,7 +5,7 @@
  */
 
 import Button from "@crab-dev/rc-button";
-import Dialog from "@crab-dev/rc-dialog"
+import Dialog from "../../src/index"
 import { useState } from "react";
 
 
