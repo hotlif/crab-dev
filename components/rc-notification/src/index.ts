@@ -1,4 +1,5 @@
-import Button from "./button";
+import Notification from "./notification";
+export type { Direction } from "./types";
 
-export default Button;
+export default Notification;
 

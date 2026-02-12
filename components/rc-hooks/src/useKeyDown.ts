@@ -7,11 +7,9 @@ export const useKeyDown = () => {
         const onKeyDown = (e: KeyboardEvent) => {
             keyboardEvent.current = e;
         }
-
         const onKeyUp = (e: KeyboardEvent) => {
             keyboardEvent.current = e;
         }
-
         window.addEventListener("keyup", onKeyUp);
         window.addEventListener("keydown", onKeyDown);
         return () => {
