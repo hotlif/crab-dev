@@ -9,7 +9,7 @@ import Notification, { Direction } from "../../src/index";
 import { css } from "@linaria/core";
 
 const SizeDemo = () => {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
     const [direction, setDirection] = useState<Direction>("topRight")
     return (
         <div
@@ -31,6 +31,8 @@ const SizeDemo = () => {
                 <option value="bottomLeft">Bottom Left</option>
                 <option value="bottomRight">Bottom Right</option>
             </select>
+
+            <button onClick={() => setOpen(!open)}>切换状态</button>
             <Notification
                 open={open}
                 onOpenChange={setOpen}
