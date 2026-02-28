@@ -1,5 +1,7 @@
 import Notification from "./notification";
-export type { Direction } from "./types";
+import useNotification from "./hooks/useNotification";
 
-export default Notification;
+export type { Direction } from "./types";
+export { useNotification };
+export default Notification
 

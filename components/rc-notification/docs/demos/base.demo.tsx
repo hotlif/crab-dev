@@ -5,12 +5,15 @@
  */
 
 import { useState } from "react";
-import Notification, { Direction } from "../../src/index";
+import { type Direction, useNotification } from "../../src/index";
 import { css } from "@linaria/core";
 
+
+let i = 0;
+
 const SizeDemo = () => {
-    const [open, setOpen] = useState(false)
     const [direction, setDirection] = useState<Direction>("topRight")
+    const [notification, contextHolder] = useNotification();
     return (
         <div
             className={css`
@@ -32,15 +35,20 @@ const SizeDemo = () => {
                 <option value="bottomRight">Bottom Right</option>
             </select>
 
-            <button onClick={() => setOpen(!open)}>切换状态</button>
-            <Notification
-                open={open}
-                onOpenChange={setOpen}
-                direction={direction}
-                title="系统消息"
+            <button
+               onClick={() => {
+                    i += 1;
+                    notification.open({
+                        title: "系统消息",
+                        description: `这是一个发送的系统消息信息 ${i}`,
+                        direction: direction,
+                        duration: 0
+                    })
+               }}
             >
-                这是一个发送的系统消息信息
-            </Notification>
+                发送通知
+            </button>
+            {contextHolder}
         </div>
     )
 }
