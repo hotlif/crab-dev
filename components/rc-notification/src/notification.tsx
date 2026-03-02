@@ -36,6 +36,16 @@ export interface NotificationProps extends Omit<HTMLMotionProps<"div">, "title" 
      * 消息通知的内容
      */
     children?: ReactNode;
+
+    /**
+     * 是否显示进度条
+     */
+    showProgress?: boolean
+
+    /**
+     * 消息通知的持续时间，单位为毫秒
+     */
+    duration?: number
 }
 
 const Notification: FC<NotificationProps> = ({
@@ -45,16 +55,20 @@ const Notification: FC<NotificationProps> = ({
     onOpenChange,
     className,
     style,
+    duration = 3000,
+    showProgress = true,
     ...restProps
 }) => {
     return (
         <motion.div
             className={cx(css`
+                position: relative;
                 padding: 20px 24px;
                 border-radius: 8px;
                 isolation: isolate;
                 background-color: white;
                 grid-area: 1 / 1;
+                overflow: hidden;
             `)}
             {...restProps}
         >
@@ -99,6 +113,23 @@ const Notification: FC<NotificationProps> = ({
             >
                 {children}
             </div>
+            {showProgress && (
+                <motion.div
+                    className={css`
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 3px;
+                        transform-origin: left;
+                        background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+                        border-radius: 0 0 8px 8px;
+                    `}
+                    initial={{ scaleX: 1 }}
+                    animate={{ scaleX: 0 }}
+                    transition={{ duration: duration / 1000, ease: "linear" }}
+                />
+            )}
         </motion.div>
     )
 }

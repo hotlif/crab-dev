@@ -42,7 +42,7 @@ const SizeDemo = () => {
                         title: "系统消息",
                         description: `这是一个发送的系统消息信息 ${i}`,
                         direction: direction,
-                        duration: 0
+                        duration: 3000
                     })
                }}
             >
