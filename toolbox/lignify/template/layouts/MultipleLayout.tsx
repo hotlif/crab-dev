@@ -76,7 +76,7 @@ const LayoutIndex = () => {
                                 item
                             }) => {
                                 const data: any = item.data;
-                                const path = (data?.frontmatter?.path ?? data?.path).split(".")[0];
+                                const path = (data?.frontmatter?.path ?? data?.path).replaceAll(".", "/");
                                 if (path) {
                                     navigate(path);
                                 }

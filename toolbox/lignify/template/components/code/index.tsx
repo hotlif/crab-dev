@@ -126,6 +126,7 @@ const Code: FC<CodeProps> = ({
 const iconStyle = css`
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
 `
 
 const Codes: FC<CodeProps> = ({
