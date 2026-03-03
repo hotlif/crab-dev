@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react"
-import type { ValueKeyframesDefinition } from "motion/react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useMotionValueEvent, useTime, type ValueKeyframesDefinition } from "motion/react";
 
 import Notification from "../notification";
 import Container from "../container";
@@ -21,6 +21,7 @@ interface NotificationInstance {
     close: (id: string) => void
 }
 
+
 interface NotificationItem {
     id: string
     title: ReactNode
@@ -29,6 +30,14 @@ interface NotificationItem {
     direction: Direction
     duration: number
     showProgress: boolean
+    remaining: number
+    paused: boolean
+}
+
+interface TimerMeta {
+    remaining: number
+    startedAt: number
+    paused: boolean
 }
 
 type ReturnDirectionValue = ValueKeyframesDefinition | undefined;
@@ -66,8 +75,10 @@ const getAnimateDirectionPosition = (direction: Direction, offset: number): Dire
 
 const useNotification = (): [NotificationInstance, ReactNode] => {
     const [items, setItems] = useState<NotificationItem[]>([]);
+    const time = useTime();
 
-    const timers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
+    const timers = useRef<Map<string, true>>(new Map());
+    const timerMetas = useRef<Map<string, TimerMeta>>(new Map());
 
     const exploredDirections = useRef<Direction[]>([]);
 
@@ -79,22 +90,145 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
             const next = prev.filter(item => item.id !== id);
             return next;
         });
-        const timer = timers.current.get(id);
-        if (timer) {
-            clearTimeout(timer);
+        if (timers.current.has(id)) {
             timers.current.delete(id);
         }
+        timerMetas.current.delete(id);
     }, []);
 
     closeRef.current = close;
 
-    // 组件卸载时清除所有定时器
+    // 组件卸载时清除所有计时状态
     useEffect(() => {
         return () => {
-            timers.current.forEach(timer => clearTimeout(timer));
             timers.current.clear();
+            timerMetas.current.clear();
         };
     }, []);
+
+    const scheduleCloseTimer = useCallback((id: string) => {
+        const meta = timerMetas.current.get(id);
+        if (!meta) return;
+
+        if (meta.remaining <= 0) {
+            closeRef.current?.(id);
+            return;
+        }
+
+        const existingTimer = timers.current.get(id);
+        if (existingTimer) {
+            timers.current.delete(id);
+        }
+
+        meta.startedAt = time.get();
+        meta.paused = false;
+
+        setItems(prev => prev.map(item => (
+            item.id === id
+                ? { ...item, paused: false, remaining: meta.remaining }
+                : item
+        )));
+
+        timers.current.set(id, true);
+    }, [time]);
+
+    const pauseCloseTimer = useCallback((id: string) => {
+        const meta = timerMetas.current.get(id);
+        if (!meta || meta.paused) return;
+
+        if (timers.current.has(id)) {
+            timers.current.delete(id);
+        }
+
+        const elapsed = time.get() - meta.startedAt;
+        meta.remaining = Math.max(0, meta.remaining - elapsed);
+        meta.paused = true;
+
+        setItems(prev => prev.map(item => (
+            item.id === id
+                ? { ...item, paused: true, remaining: meta.remaining }
+                : item
+        )));
+    }, [time]);
+
+    const resumeCloseTimer = useCallback((id: string) => {
+        const meta = timerMetas.current.get(id);
+        if (!meta || !meta.paused) return;
+
+        setItems(prev => prev.map(item => (
+            item.id === id
+                ? { ...item, paused: false, remaining: meta.remaining }
+                : item
+        )));
+
+        scheduleCloseTimer(id);
+    }, [scheduleCloseTimer]);
+
+    useMotionValueEvent(time, "change", (latest) => {
+        if (timers.current.size === 0) {
+            return;
+        }
+
+        const expiredIds: string[] = [];
+
+        timers.current.forEach((_, id) => {
+            const meta = timerMetas.current.get(id);
+            if (!meta || meta.paused) {
+                return;
+            }
+
+            if (latest - meta.startedAt >= meta.remaining) {
+                expiredIds.push(id);
+            }
+        });
+
+        expiredIds.forEach(id => {
+            timers.current.delete(id);
+            closeRef.current?.(id);
+        });
+    });
+
+    // 每个方向仅最后一个通知自动消失；其余通知不计时
+    useEffect(() => {
+        const grouped = new Map<Direction, NotificationItem[]>();
+        items.forEach(item => {
+            let group = grouped.get(item.direction);
+            if (!group) {
+                group = [];
+                grouped.set(item.direction, group);
+            }
+            group.push(item);
+        });
+
+        const lastIds = new Set<string>();
+        grouped.forEach(group => {
+            const lastItem = group[group.length - 1];
+            if (lastItem) {
+                lastIds.add(lastItem.id);
+            }
+        });
+
+        timers.current.forEach((_, id) => {
+            if (!lastIds.has(id)) {
+                timers.current.delete(id);
+            }
+        });
+
+        items.forEach(item => {
+            if (!lastIds.has(item.id) || item.duration <= 0) {
+                return;
+            }
+
+            const meta = timerMetas.current.get(item.id);
+            if (!meta || meta.paused) {
+                return;
+            }
+
+            if (!timers.current.has(item.id)) {
+                scheduleCloseTimer(item.id);
+            }
+        });
+    }, [items, scheduleCloseTimer]);
 
     const open = useCallback((param: NotificationOpenParam) => {
         const key = crypto.randomUUID();
@@ -108,14 +242,19 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
             direction,
             duration,
             showProgress: param.showProgress ?? true,
+            remaining: duration,
+            paused: false,
         }
         setItems(prev => [...prev, newItem]);
 
         if (duration > 0) {
-            const timer = setTimeout(() => closeRef.current?.(key), duration);
-            timers.current.set(key, timer);
+            timerMetas.current.set(key, {
+                remaining: duration,
+                startedAt: time.get(),
+                paused: false,
+            });
         }
-    }, []);
+    }, [time]);
 
     const instance = useMemo<NotificationInstance>(() => ({
         open,
@@ -146,6 +285,7 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
             const visibleItems = len > 3 ? groupItems.slice(-3) : groupItems;
             const visibleStart = len > 3 ? len - 3 : 0;
             const children = visibleItems.map((item, i) => {
+                const isLastInDirection = groupItems[groupItems.length - 1]?.id === item.id;
                 const offsetFromTop = len - (visibleStart + i);
                 const initialPosition = getDirectionPosition(item.direction);
                 const animatePosition = getAnimateDirectionPosition(item.direction, offsetFromTop);
@@ -157,6 +297,8 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
                         direction={item.direction}
                         duration={item.duration}
                         showProgress={item.showProgress}
+                        remaining={isLastInDirection ? item.remaining : item.duration}
+                        paused={isLastInDirection ? item.paused : true}
                         initial={{
                             x: initialPosition.x,
                             y: initialPosition.y,
@@ -175,6 +317,16 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
                                 close(item.id);
                             }
                         }}
+                        onMouseEnter={() => {
+                            if (isLastInDirection && item.duration > 0) {
+                                pauseCloseTimer(item.id);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (isLastInDirection && item.duration > 0) {
+                                resumeCloseTimer(item.id);
+                            }
+                        }}
                     >
                         {item.description}
                     </Notification>
@@ -187,7 +339,7 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
                 </Container>
             );
         });
-    }, [groupedItems, activeDirections, close]);
+    }, [groupedItems, activeDirections, close, pauseCloseTimer, resumeCloseTimer]);
 
     return [instance, renderedDom];
 }

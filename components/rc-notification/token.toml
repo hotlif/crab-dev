@@ -3,11 +3,21 @@ output = "./src/token.ts"
 prefix = "notification"
 
 [token.color]
-
+background = "white"
+text = "rgba(0,0,0,0.88)"
+progress-start = "#22c55e"
+progress-end = "#16a34a"
 
 [token.dimension]
+padding = "20px 24px"
+border-radius = "8px"
+title-margin-bottom = "10px"
+progress-height = "3px"
 
 [token.typography]
+title-font-size = "16px"
+title-line-height = "1.5"
+content-font-size = "14px"
 
 
 [token.motion]
@@ -20,3 +30,4 @@ prefix = "notification"
 
 
 [token.opacity]
+close = "0.7"

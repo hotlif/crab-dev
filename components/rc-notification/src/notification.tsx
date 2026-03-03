@@ -9,6 +9,23 @@ import type { HTMLMotionProps } from "motion/react";
 
 import Close from "./icons/close";
 import { type Direction } from "./types";
+import token from "./token";
+
+const colorBackground = token.color.background;
+const colorText = token.color.text;
+const colorProgressStart = token.color["progress-start"];
+const colorProgressEnd = token.color["progress-end"];
+
+const dimensionPadding = token.dimension.padding;
+const dimensionBorderRadius = token.dimension["border-radius"];
+const dimensionTitleMarginBottom = token.dimension["title-margin-bottom"];
+const dimensionProgressHeight = token.dimension["progress-height"];
+
+const typographyTitleFontSize = token.typography["title-font-size"];
+const typographyTitleLineHeight = token.typography["title-line-height"];
+const typographyContentFontSize = token.typography["content-font-size"];
+
+const opacityClose = token.opacity.close;
 
 export interface NotificationProps extends Omit<HTMLMotionProps<"div">, "title" | "children"> {
 
@@ -46,6 +63,16 @@ export interface NotificationProps extends Omit<HTMLMotionProps<"div">, "title" 
      * 消息通知的持续时间，单位为毫秒
      */
     duration?: number
+
+    /**
+     * 剩余时间，单位为毫秒
+     */
+    remaining?: number
+
+    /**
+     * 是否暂停进度动画
+     */
+    paused?: boolean
 }
 
 const Notification: FC<NotificationProps> = ({
@@ -56,17 +83,23 @@ const Notification: FC<NotificationProps> = ({
     className,
     style,
     duration = 3000,
+    remaining,
+    paused = false,
     showProgress = true,
     ...restProps
 }) => {
+    const safeDuration = duration > 0 ? duration : 1;
+    const safeRemaining = Math.max(0, remaining ?? safeDuration);
+    const progressScale = Math.min(1, safeRemaining / safeDuration);
+
     return (
         <motion.div
             className={cx(css`
                 position: relative;
-                padding: 20px 24px;
-                border-radius: 8px;
+                padding: ${dimensionPadding};
+                border-radius: ${dimensionBorderRadius};
                 isolation: isolate;
-                background-color: white;
+                background-color: ${colorBackground};
                 grid-area: 1 / 1;
                 overflow: hidden;
             `)}
@@ -76,10 +109,10 @@ const Notification: FC<NotificationProps> = ({
                 <div
                     className={css`
                         display: flex;
-                        color: rgba(0,0,0,0.88);
-                        font-size: 16px;
-                        line-height: 1.5;
-                        margin-bottom: 10px;
+                        color: ${colorText};
+                        font-size: ${typographyTitleFontSize};
+                        line-height: ${typographyTitleLineHeight};
+                        margin-bottom: ${dimensionTitleMarginBottom};
                     `}
                 >
                     <div
@@ -93,7 +126,7 @@ const Notification: FC<NotificationProps> = ({
                         className={css`
                             display: flex;
                             align-items: center;
-                            opacity: 0.7;
+                            opacity: ${opacityClose};
                             user-select: none;
                             cursor: pointer;
                         `}
@@ -107,27 +140,29 @@ const Notification: FC<NotificationProps> = ({
             ): null}
             <div
                 className={css`
-                    color: rgba(0,0,0,0.88);
-                    font-size: 14px;
+                    color: ${colorText};
+                    font-size: ${typographyContentFontSize};
                 `}
             >
                 {children}
             </div>
             {showProgress && (
                 <motion.div
+                    key={`${paused ? "paused" : "running"}-${safeRemaining}`}
                     className={css`
                         position: absolute;
                         bottom: 0;
                         left: 0;
                         right: 0;
-                        height: 3px;
+                        height: ${dimensionProgressHeight};
                         transform-origin: left;
-                        background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
-                        border-radius: 0 0 8px 8px;
+                        background: linear-gradient(90deg, ${colorProgressStart} 0%, ${colorProgressEnd} 100%);
+                        border-top-right-radius: 0;
+                        border-bottom-left-radius: inherit;
                     `}
-                    initial={{ scaleX: 1 }}
-                    animate={{ scaleX: 0 }}
-                    transition={{ duration: duration / 1000, ease: "linear" }}
+                    initial={{ scaleX: progressScale }}
+                    animate={{ scaleX: paused ? progressScale : 0 }}
+                    transition={{ duration: paused ? 0 : safeRemaining / 1000, ease: "linear" }}
                 />
             )}
         </motion.div>
