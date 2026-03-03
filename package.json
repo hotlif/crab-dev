@@ -9,7 +9,6 @@
     "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
   },
   "workspaces": [
-    ".website",
     "standards/*",
     "toolbox/*",
     "components/*",
