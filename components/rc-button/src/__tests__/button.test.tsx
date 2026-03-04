@@ -1,48 +1,33 @@
 import { act } from "react";
-import { createRoot, type Root } from "react-dom/client";
-import { describe, expect, it, jest } from "@jest/globals";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 
 import Button from "../button";
 import type { ButtonProps } from "../types";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
-interface RenderResult {
-    container: HTMLDivElement;
-    button: HTMLButtonElement;
-    unmount: () => void;
-}
-
-const renderButton = (props: Partial<ButtonProps> = {}): RenderResult => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-
-    const root: Root = createRoot(container);
-    act(() => {
-        root.render(<Button {...props}>Button Text</Button>);
-    });
-
-    const button = container.querySelector("button") as HTMLButtonElement;
+const renderButton = (props: Partial<ButtonProps> = {}) => {
+    const renderResult = render(<Button {...props}>Button Text</Button>);
+    const button = screen.getByRole("button", { name: "Button Text" }) as HTMLButtonElement;
 
     return {
-        container,
-        button,
-        unmount: () => {
-            act(() => {
-                root.unmount();
-            });
-            container.remove();
-        }
+        ...renderResult,
+        button
     };
 };
 
 const clickButton = (button: HTMLButtonElement) => {
     act(() => {
-        button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+        fireEvent.click(button);
     });
 };
 
 describe("Button", () => {
+    afterEach(() => {
+        cleanup();
+    });
+
     it("renders all appearance variants without runtime error", () => {
         const appearanceList: NonNullable<ButtonProps["appearance"]>[] = ["primary", "subtle", "dashed", "text", "link"];
 
@@ -257,7 +242,6 @@ describe("Button", () => {
         clickButton(button);
 
         expect(onClick).toHaveBeenCalledTimes(2);
-
         window.removeEventListener("error", suppressGlobalError);
         unmount();
     });
@@ -280,7 +264,6 @@ describe("Button", () => {
         clickButton(button);
 
         expect(onClickCapture).toHaveBeenCalledTimes(2);
-
         window.removeEventListener("error", suppressGlobalError);
         unmount();
     });

@@ -5,7 +5,7 @@ import { css, cx } from "@linaria/core";
 import TableRow from "./tableRow";
 import TableBodyCell from "./bodyCell";
 import TableHeaderCell from "./headerCell";
-import { getSkippedCells, sortColumns, getBottomColumns, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray } from "./util";
+import { sortColumns, getBottomColumns, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray, buildMergeCellLookup } from "./util";
 import type { ColumnType, MergeCell, Row } from "./types";
 
 interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,8 +19,13 @@ interface TableProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement>
 	columns: ColumnType<T>[],
 	// 合并单元格的信息
 	mergeCells?: MergeCell[]
+	// 自定义行高（优先级高于 row.height）
+	getRowHeight?: (row: T, rowIndex: number) => number | undefined
+	// 表格头部的高度
+	headerRowHeight?: number
 }
 
+// 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域
 const paddingLeft = (
 	<div
 		key="table-virtual-left-padding"
@@ -33,6 +38,7 @@ const paddingLeft = (
 	/>
 )
 
+// 虚拟列表右侧占位：用于在可视区中补齐右侧被裁剪宽度
 const paddingRight = (
 	<div
 		key="table-virtual-right-padding"
@@ -45,6 +51,7 @@ const paddingRight = (
 	/>
 )
 
+// 虚拟列表底部占位：用于在纵向滚动时补齐不可见区域
 const paddingBottom = (
 	<div
 		key="table-virtual-bottom-padding"
@@ -57,6 +64,7 @@ const paddingBottom = (
 	/>
 )
 
+// 虚拟列表顶部占位：用于在纵向滚动时补齐不可见区域
 const paddingTop = (
 	<div
 		key="table-virtual-top-padding"
@@ -75,30 +83,54 @@ function Table<T extends Row>({
 	rows,
 	columns,
 	mergeCells = [],
+	getRowHeight,
+	headerRowHeight = 35,
 	...restProps
 }: TableProps<T>) {
 
+	// 先剔除隐藏列，再按列配置（含 children）排序，作为后续所有列计算基础
 	const sColumns = useMemo(() => {
 		return sortColumns(columns.filter(element => element.hidden !== true));
 	}, [columns])
 
+	// 拍平到叶子列（真正参与 body 渲染的列）
 	const bottomColumns = useMemo(() => {
 		return getBottomColumns(sColumns)
 	}, [sColumns]);
 
+	// 表头最大层级深度（用于生成多行表头）
 	const maxDepth = useMemo(() => {
 		return getMaxDepth(sColumns);
 	}, [sColumns]);
+
+	// 二维表头矩阵：headerCells[rowIndex][columnIndex]
+	const headerCells = useMemo(() => {
+		return getHeaderCellsTwoDimensionalArray(sColumns);
+	}, [sColumns]);
+
+	const headerGridTemplateRows = useMemo(() => {
+		return Array.from({ length: maxDepth }, () => headerRowHeight);
+	}, [maxDepth, headerRowHeight]);
 
 	const gridTemplateColumns = useMemo(() => {
 		return bottomColumns.filter(element => element.hidden !== true).map((column) => column.width ?? 120)
 	}, [width, bottomColumns])
 
+	// 行高优先级：getRowHeight > row.height > 默认 35
 	const gridTemplateRows = useMemo(() => {
-		return rows.map((row) => row.height ?? 35);
-	}, [height, rows])
+		return rows.map((row, rowIndex) => getRowHeight?.(row, rowIndex) ?? row.height ?? 35);
+	}, [height, rows, getRowHeight])
 
-	const skipCells = useMemo(() => getSkippedCells(mergeCells), [mergeCells]);
+	const {
+		skipCellSet,
+		mergeCellMap,
+		getCellKey
+	} = useMemo(() => {
+		// 预计算合并单元格查找结构：
+		// 1) skipCellSet: 被合并覆盖、无需渲染的单元格
+		// 2) mergeCellMap: 主单元格 -> 合并信息
+		return buildMergeCellLookup(mergeCells);
+	}, [mergeCells]);
 
 	const {
 		fixedLeftColumns,
@@ -106,6 +138,7 @@ function Table<T extends Row>({
 		fixedLeftColumnsIdx,
 		fixedRightColumnsIdx
 	} = useMemo(() => {
+		// 将叶子列分组为左固定列/右固定列，并保留其原始索引
 		const leftColumns: ColumnType<any>[] = [];
 		const rightColumns: ColumnType<any>[] = [];
 		const leftColumnsIdx: number[] = [];
@@ -129,13 +162,31 @@ function Table<T extends Row>({
 
 
 	const actualHeight = useMemo(() => {
+		// 实际总宽度
 		return gridTemplateColumns.reduce((acc, cur) => acc + cur, 0)
 	}, [gridTemplateColumns]);
-	
 
-	const getStickyRightOffset = (currentIndex: number, widths: number[]) => {
-		return widths.slice(currentIndex + 1).reduce((acc, cur) => acc + cur, 0);
-	}
+	const stickyLeftOffsets = useMemo(() => {
+		// 每一列作为 left sticky 时的起始偏移
+		const offsets: number[] = [];
+		let offset = 0;
+		for (let i = 0; i < gridTemplateColumns.length; i += 1) {
+			offsets[i] = offset;
+			offset += gridTemplateColumns[i];
+		}
+		return offsets;
+	}, [gridTemplateColumns]);
+
+	const stickyRightOffsets = useMemo(() => {
+		// 每一列作为 right sticky 时的起始偏移（从右向左累计）
+		const offsets: number[] = Array.from({ length: gridTemplateColumns.length }, () => 0);
+		let offset = 0;
+		for (let i = gridTemplateColumns.length - 1; i >= 0; i -= 1) {
+			offsets[i] = offset;
+			offset += gridTemplateColumns[i];
+		}
+		return offsets;
+	}, [gridTemplateColumns]);
 
 	const generateBodyElement = ({
 		rowRange,
@@ -144,16 +195,67 @@ function Table<T extends Row>({
 		rowRange: [number, number],
 		columnRange: [number, number],
 	}) => {
-		const bodyRows: ReactNode[] = [paddingTop];
-		for (let rowIndex = rowRange[0]; rowIndex <= rowRange[1]; rowIndex += 1) {
+		// body 由 "顶部占位 + 可见行 + 底部占位" 构成，降低大数据量渲染成本
+		const renderedColumnSet = new Set<number>([
+			...fixedLeftColumnsIdx,
+			...fixedRightColumnsIdx
+		]);
+		for (let c = columnRange[0]; c <= columnRange[1]; c += 1) {
+			if (bottomColumns[c]?.fixed !== "left" && bottomColumns[c]?.fixed !== "right") {
+				renderedColumnSet.add(c);
+			}
+		}
+
+		const getBodyRenderStart = (startRowIndex: number) => {
+			let renderStart = startRowIndex;
+			mergeCells.forEach((mergeCell) => {
+				if (!renderedColumnSet.has(mergeCell.columnIndex)) {
+					return;
+				}
+				const endRowIndex = mergeCell.rowIndex + mergeCell.rowSpan;
+				if (mergeCell.rowIndex < startRowIndex && endRowIndex >= startRowIndex) {
+					renderStart = Math.min(renderStart, mergeCell.rowIndex);
+				}
+			})
+			return renderStart;
+		}
+
+		const getBodyTopPaddingCompensation = (renderStart: number, startRowIndex: number) => {
+			let offset = 0;
+			for (let r = renderStart; r < startRowIndex; r += 1) {
+				offset += gridTemplateRows[r];
+			}
+			return offset;
+		}
+
+		const renderStart = getBodyRenderStart(rowRange[0]);
+		const topPaddingCompensation = getBodyTopPaddingCompensation(renderStart, rowRange[0]);
+
+		const bodyRows: ReactNode[] = [
+			<div
+				key="table-virtual-top-padding-body"
+				className={css`
+					display: inline-block;
+					box-sizing: border-box;
+					width: 100%;
+				`}
+				style={{
+					height: `calc(var(--crab-rc-virtual-top-padding-height, 0px) - var(--crab-rc-virtual-top-padding-height-offset, 0px) - ${topPaddingCompensation}px)`
+				}}
+			/>
+		];
+
+		for (let rowIndex = renderStart; rowIndex <= rowRange[1]; rowIndex += 1) {
 			const tableCells: ReactNode[] = [];
 			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
-				const isSkipCell = skipCells.find(element => element.rowIndex === rowIndex && element.columnIndex === columnIndex) != null;
+				const currentCellKey = getCellKey(rowIndex, columnIndex);
+				const isSkipCell = skipCellSet.has(currentCellKey);
 				const column = bottomColumns[columnIndex];
 				if (column.fixed === "left" || column.fixed === "right") {
+					// 固定列在两侧单独渲染，这里跳过
 					continue
 				}
-				const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === columnIndex);
+				const mergeCell = mergeCellMap.get(currentCellKey);
 
 				tableCells.push(
 					<TableBodyCell
@@ -181,27 +283,31 @@ function Table<T extends Row>({
 					}}
 				>
 					{fixedLeftColumns.map((column, index) => {
-						const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === fixedLeftColumnsIdx[index]);
+						const columnIndex = fixedLeftColumnsIdx[index];
+						const currentCellKey = getCellKey(rowIndex, columnIndex);
+						const isSkipCell = skipCellSet.has(currentCellKey);
+						const mergeCell = mergeCellMap.get(currentCellKey);
 						return (
 							<TableBodyCell
-								className={css`
+								className={cx(css`
 									position: sticky;
+								`, !isSkipCell && css`
 									z-index: 9;
 									background-color: #fff;
-								`}
+								`)}
 								key={`table-body-cell-${rowIndex}-${fixedLeftColumnsIdx[index]}`}
 								row={rows[rowIndex]}
 								rowIndex={rowIndex}
-								columnIndex={fixedLeftColumnsIdx[index]}
+								columnIndex={columnIndex}
 								column={column}
-								isSkipCell={false}
+								isSkipCell={isSkipCell}
 								mergeCell={mergeCell}
 								gridTemplateColumns={gridTemplateColumns}
 								gridTemplateRows={gridTemplateRows}
 								fixed="left"
 								style={{
-									width: gridTemplateColumns[fixedLeftColumnsIdx[index]],
-									left: gridTemplateColumns.slice(0, fixedLeftColumnsIdx[index]).reduce((acc, cur) => acc + cur, 0)
+									width: gridTemplateColumns[columnIndex],
+									left: stickyLeftOffsets[columnIndex]
 								}}
 							/>
 						)
@@ -210,27 +316,31 @@ function Table<T extends Row>({
 					{tableCells}
 					{paddingRight}
 					{fixedRightColumns.map((column, index) => {
-						const mergeCell = mergeCells.find(mergeCell => mergeCell.rowIndex === rowIndex && mergeCell.columnIndex === fixedRightColumnsIdx[index]);
+						const columnIndex = fixedRightColumnsIdx[index];
+						const currentCellKey = getCellKey(rowIndex, columnIndex);
+						const isSkipCell = skipCellSet.has(currentCellKey);
+						const mergeCell = mergeCellMap.get(currentCellKey);
 						return (
 							<TableBodyCell
-								className={css`
+								className={cx(css`
 									position: sticky;
+								`, !isSkipCell && css`
 									background-color: #fff;
-									z-index: 9;	
-								`}
+									z-index: 9;
+								`)}
 								key={`table-body-cell-${rowIndex}-${fixedRightColumnsIdx[index]}`}
 								row={rows[rowIndex]}
 								rowIndex={rowIndex}
-								columnIndex={fixedRightColumnsIdx[index]}
+								columnIndex={columnIndex}
 								column={column}
-								isSkipCell={false}
+								isSkipCell={isSkipCell}
 								mergeCell={mergeCell}
 								gridTemplateColumns={gridTemplateColumns}
 								gridTemplateRows={gridTemplateRows}
 								fixed="right"
 								style={{
-									width: gridTemplateColumns[fixedRightColumnsIdx[index]],
-									right: getStickyRightOffset(index, fixedRightColumns.map(element => element.width ?? 120))
+									width: gridTemplateColumns[columnIndex],
+									right: stickyRightOffsets[columnIndex]
 								}}
 							/>
 						)
@@ -243,12 +353,11 @@ function Table<T extends Row>({
 	}
 
 	const generateHeaderElement = ({
-		rowRange,
 		columnRange,
 	}:{
-		rowRange: [number, number],
 		columnRange: [number, number],
 	}) => {
+		// 将 header cell 转换为 TableHeaderCell 需要的 mergeCell 结构
 		const getMergeCell = (cell?: HeaderCellType | null) => {
 			if (cell) {
 				return {
@@ -263,22 +372,35 @@ function Table<T extends Row>({
 
 		const nodeRows: ReactNode[] = []
 
-		const headerFixedRightColumns: ColumnType<any>[] = []
-		const headerFixedLeftColumns: ColumnType<any>[] = []
-		const headerNormalColumns: ColumnType<any>[] = []
-		sColumns.forEach((column) => {
-			if (column.fixed === "left") {
-				headerFixedLeftColumns.push(column)
-			} else if (column.fixed === "right") {
-				headerFixedRightColumns.push(column)
-			} else {
-				headerNormalColumns.push(column);
+		const getHeaderRowRenderStart = (rowIndex: number, startColumnIndex: number) => {
+			let renderStart = startColumnIndex;
+			for (let c = startColumnIndex - 1; c >= 0; c -= 1) {
+				const cell = headerCells[rowIndex]?.[c] ?? null;
+				if (cell == null) {
+					continue;
+				}
+				if (cell.fixed === "left" || cell.fixed === "right") {
+					continue;
+				}
+				const endColumnIndex = cell.columnIndex + cell.colSpan;
+				if (cell.columnIndex < startColumnIndex && endColumnIndex >= startColumnIndex) {
+					renderStart = Math.min(renderStart, cell.columnIndex);
+				}
 			}
-		});
+			return renderStart;
+		}
 
-		const headerFixedRightCells = getHeaderCellsTwoDimensionalArray(headerFixedRightColumns);
-		const headerFixedLeftCells = getHeaderCellsTwoDimensionalArray(headerFixedLeftColumns);
-		const headerNormalCells = getHeaderCellsTwoDimensionalArray(sColumns);
+		const getHeaderRowLeftPaddingCompensation = (renderStart: number, startColumnIndex: number) => {
+			let offset = 0;
+			for (let c = renderStart; c < startColumnIndex; c += 1) {
+				const column = bottomColumns[c];
+				if (column?.fixed === "left" || column?.fixed === "right") {
+					continue;
+				}
+				offset += gridTemplateColumns[c];
+			}
+			return offset;
+		}
 
 		const getBottomBorderStyle = (rowIndex: number, maxRowIndex: number) => {
 			if (rowIndex === maxRowIndex) {
@@ -290,11 +412,16 @@ function Table<T extends Row>({
 		}
 	
 		for (let r = 0; r < maxDepth; r += 1) {
+			// 按 "行" 渲染表头，支持多级表头与跨行跨列
+			// 若合并表头从左侧不可视区跨入可视区，则将该行渲染起点左扩，确保“可见即显示”
+			const renderStart = getHeaderRowRenderStart(r, columnRange[0]);
+			const leftPaddingCompensation = getHeaderRowLeftPaddingCompensation(renderStart, columnRange[0]);
 			const cells: ReactNode[] = [];
-			for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
-				const cell = headerNormalCells[r]?.[columnIndex];
+			for (let columnIndex = renderStart; columnIndex <= columnRange[1]; columnIndex += 1) {
+				const cell = headerCells[r]?.[columnIndex];
 			
 				if (bottomColumns[columnIndex].fixed === "left" || bottomColumns[columnIndex].fixed === "right") {
+					// 固定列头在左右区域单独渲染，主滚动区跳过
 					continue;
 				}
 				cells.push(
@@ -305,7 +432,7 @@ function Table<T extends Row>({
 						maxRowIndex={maxDepth - 1}
 						column={cell?.column}
 						gridTemplateColumns={gridTemplateColumns}
-						gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+						gridTemplateRows={headerGridTemplateRows}
 						isSkipCell={cell == null ? true : false}
 						mergeCell={getMergeCell(cell)}
 						style={{
@@ -323,12 +450,14 @@ function Table<T extends Row>({
 						z-index: 10;
 					`, getBottomBorderStyle(r, maxDepth - 1))}
 					style={{
-						height: 35,
+						height: headerRowHeight,
 						width: actualHeight,
-						top: r * 35
+						top: r * headerRowHeight
 					}}
 				>
-					{headerFixedLeftCells?.[r]?.map((cell, columnIndex) => (
+					{fixedLeftColumnsIdx.map((columnIndex) => {
+						const cell = headerCells[r]?.[columnIndex] ?? null;
+						return (
 						<TableHeaderCell
 							key={`table-header-cell-${r}-${columnIndex}`}
 							className={css`
@@ -340,20 +469,33 @@ function Table<T extends Row>({
 							maxRowIndex={maxDepth - 1}
 							column={cell?.column}
 							gridTemplateColumns={gridTemplateColumns}
-							gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+							gridTemplateRows={headerGridTemplateRows}
 							isSkipCell={cell === null}
 							mergeCell={getMergeCell(cell)}
 							fixed="left"
 							style={{
 								width: gridTemplateColumns[columnIndex],
-								left: gridTemplateColumns.slice(0, columnIndex).reduce((acc, cur) => acc + cur, 0)
+								left: stickyLeftOffsets[columnIndex]
 							}}
 						/>
-					))}
-					{paddingLeft}
+						)
+					})}
+					<div
+						key={`table-header-left-padding-${r}`}
+						className={css`
+							display: inline-block;
+							box-sizing: border-box;
+							height: 100%;
+						`}
+						style={{
+							width: `calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px) - ${leftPaddingCompensation}px)`
+						}}
+					/>
 					{cells}
 					{paddingRight}
-					{headerFixedRightCells?.[r]?.map((cell, columnIndex) => (
+					{fixedRightColumnsIdx.map((columnIndex) => {
+						const cell = headerCells[r]?.[columnIndex] ?? null;
+						return (
 						<TableHeaderCell
 							key={`table-header-cell-${r}-${columnIndex}`}
 							className={css`
@@ -365,16 +507,17 @@ function Table<T extends Row>({
 							rowIndex={r}
 							maxRowIndex={maxDepth - 1}
 							gridTemplateColumns={gridTemplateColumns}
-							gridTemplateRows={Array.from({ length: maxDepth }, () => 35)}
+							gridTemplateRows={headerGridTemplateRows}
 							isSkipCell={cell === null}
 							mergeCell={getMergeCell(cell)}
 							fixed="right"
 							style={{
-								width: gridTemplateColumns[fixedRightColumnsIdx[columnIndex]],
-								right: getStickyRightOffset(columnIndex, gridTemplateColumns.slice(-headerFixedRightCells[r].length))
+								width: gridTemplateColumns[columnIndex],
+								right: stickyRightOffsets[columnIndex]
 							}}
 						/>
-					))}
+						)
+					})}
 				</TableRow>,
 			)
 		}
@@ -386,7 +529,7 @@ function Table<T extends Row>({
 			{...restProps}
 			style={{
 				'--crab-rc-virtual-left-padding-width-offset': `${fixedLeftColumns.reduce((acc, cur) => acc + (cur.width ?? 120), 0)}px`,
-				'--crab-rc-virtual-top-padding-height-offset':  `${maxDepth * 35}px`
+				'--crab-rc-virtual-top-padding-height-offset':  `${maxDepth * headerRowHeight}px`
 			} as React.CSSProperties & Record<string, any>}
 		>
 			<RcVirtual
@@ -400,8 +543,8 @@ function Table<T extends Row>({
 				viewportWidth={width}
 				viewportHeight={height}
 				renderRows={(rowRange, columnRange) => {
+					// 同一可视窗口内，先渲染 header 再渲染 body，保证层级与遮挡关系正确
 					const headers = generateHeaderElement({
-						rowRange,
 						columnRange
 					});
 

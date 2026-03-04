@@ -77,33 +77,33 @@ export const getBottomColumns = (columns: ColumnType<any>[], fixed?: "left" | "r
  */
 export const getHeaderCells = (columns: ColumnType<any>[]) => {
     const maxDepth = getMaxDepth(columns);
-    let columnIdxs = new Map<number, number>();
-    const traverse = (cols: ColumnType<any>[], depth: number, parent: HeaderCellType | null) => {
+    const traverse = (cols: ColumnType<any>[], depth: number, startColumnIndex: number, parent: HeaderCellType | null) => {
         const headerCells: HeaderCellType[] = [];
+        let currentColumnIndex = startColumnIndex;
         cols.forEach((element) => {
             const bottomColumn = getBottomColumns([element]);
             const currentMaxDepth = calculateColumnDepth(element, 1);
 
             const rowIndex = depth;
-            const cIdxs = columnIdxs.get(rowIndex) ?? 0;
             const colSpan = bottomColumn.length - 1;
             const headerCell = {
                 column: element,
                 colSpan,
                 rowSpan: maxDepth - currentMaxDepth - depth,
                 rowIndex,
-                columnIndex: cIdxs,
+                columnIndex: currentColumnIndex,
                 fixed: element.fixed ?? parent?.fixed
             }
             headerCells.push(headerCell);
             if (element.children && element.children.length > 0) {
-                headerCells.push(...traverse(element.children, depth + 1, headerCell))
+                const childCells = traverse(element.children, depth + 1, currentColumnIndex, headerCell);
+                headerCells.push(...childCells);
             }
-            columnIdxs.set(rowIndex, cIdxs + colSpan + 1)
+            currentColumnIndex += colSpan + 1;
         })
         return headerCells;
     }
-    return traverse(columns, 0, null);
+    return traverse(columns, 0, 0, null);
 }
 
 export const getHeaderCellsTwoDimensionalArray = (columns: ColumnType<any>[]) => {
@@ -161,6 +161,31 @@ export function getSkippedCells(mergeCells: MergeCell[]) {
     return skipCells;
 }
 
+export function buildMergeCellLookup(mergeCells: MergeCell[]) {
+    const getCellKey = (rowIndex: number, columnIndex: number) => `${rowIndex}:${columnIndex}`;
+    const skipCellSet = new Set<string>();
+    const mergeCellMap = new Map<string, MergeCell>();
+
+    mergeCells.forEach((mergeCell) => {
+        const { rowIndex, columnIndex, rowSpan, colSpan } = mergeCell;
+        mergeCellMap.set(getCellKey(rowIndex, columnIndex), mergeCell);
+        for (let c = 0; c <= colSpan; c += 1) {
+            for (let r = 0; r <= rowSpan; r += 1) {
+                if (c === 0 && r === 0) {
+                    continue;
+                }
+                skipCellSet.add(getCellKey(rowIndex + r, columnIndex + c));
+            }
+        }
+    })
+
+    return {
+        getCellKey,
+        skipCellSet,
+        mergeCellMap
+    }
+}
+
 
 export function getMergedCellSize({
     mergeCell,
@@ -172,12 +197,12 @@ export function getMergedCellSize({
     gridTemplateColumns: number[]
 }) {
     const { rowSpan, colSpan } = mergeCell;
-    let height = gridTemplateRows[mergeCell.rowIndex];
-    let width = gridTemplateColumns[mergeCell.columnIndex];
-    for (let r = 0; r < rowSpan; r += 1) {
+    let height = 0;
+    let width = 0;
+    for (let r = 0; r <= rowSpan; r += 1) {
         height += gridTemplateRows[mergeCell.rowIndex + r];
     }
-    for (let c = 0; c < colSpan; c += 1) {
+    for (let c = 0; c <= colSpan; c += 1) {
         width += gridTemplateColumns[mergeCell.columnIndex + c];
     }
     return {

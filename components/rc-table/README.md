@@ -16,3 +16,13 @@ import SimpleTableDemo from "./docs/src/demos/simple.demo";
 
 
 ## API
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| width | 表格宽度 | `number` | - |
+| height | 表格高度 | `number` | - |
+| rows | 表格数据行，支持通过 `row.height` 单独指定行高 | `T[]` | - |
+| columns | 表格列定义 | `ColumnType<T>[]` | - |
+| mergeCells | 合并单元格信息 | `MergeCell[]` | `[]` |
+| getRowHeight | 按行动态计算高度（优先级高于 `row.height`） | `(row, rowIndex) => number \| undefined` | - |
+| headerRowHeight | 表头行高 | `number` | `35` |

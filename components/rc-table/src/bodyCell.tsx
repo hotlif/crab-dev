@@ -38,12 +38,15 @@ function TableCell<T extends Row>({
 }: TableCellProps<T>){
 
     const dataValue = useMemo(() => {
+        if (isSkipCell) {
+            return null;
+        }
         const result = JSONPath({
             path: column.name,
             json: row.dataRef,
         })
         return result;
-    }, [column, row])
+    }, [isSkipCell, column.name, row.dataRef])
 
 
     const getBorderStyle = () => {

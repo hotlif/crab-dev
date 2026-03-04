@@ -1,5 +1,5 @@
 import { act } from "react";
-import { createRoot, type Root } from "react-dom/client";
+import { render } from "@testing-library/react";
 import { describe, expect, it, jest } from "@jest/globals";
 
 import Form from "../form";
@@ -48,13 +48,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { container, unmount } = render(<Demo />);
 
         await flush();
 
@@ -126,36 +120,24 @@ describe("Form integration", () => {
         });
         await flush();
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
     });
 
     it("supports hidden item and item without label/editor", async () => {
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(
-                <Form>
-                    <Item name="hidden" hidden>
-                        <InputEditor />
-                    </Item>
-                    <Item name="empty" />
-                </Form>
-            );
-        });
+        const { container, unmount } = render(
+            <Form>
+                <Item name="hidden" hidden>
+                    <InputEditor />
+                </Item>
+                <Item name="empty" />
+            </Form>
+        );
 
         await flush();
 
         expect(container.querySelectorAll('input[data-testid="editor"]').length).toBe(0);
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
     });
 
     it("covers warning/error rule branches and editor onChange path", async () => {
@@ -188,13 +170,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { container, unmount } = render(<Demo />);
 
         await flush();
 
@@ -217,10 +193,7 @@ describe("Form integration", () => {
         expect(errorValidator).not.toHaveBeenCalled();
         expect(container.textContent).toContain("warning message");
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
     });
 
     it("skips rule validator when rule type is neither ERROR nor WARNING", async () => {
@@ -246,13 +219,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { unmount } = render(<Demo />);
         await flush();
 
         act(() => {
@@ -268,10 +235,7 @@ describe("Form integration", () => {
         expect(validateResult).toEqual({ field: "ok" });
         expect(skippedValidator).not.toHaveBeenCalled();
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
     });
 
     it("uses JSON fallback clone path when structuredClone is unavailable", async () => {
@@ -291,13 +255,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { unmount } = render(<Demo />);
 
         await flush();
 
@@ -308,10 +266,7 @@ describe("Form integration", () => {
 
         expect(formApi.getFieldValue(["profile", "nick"])).toBe("n2");
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
         (globalThis as typeof globalThis & { structuredClone?: typeof structuredClone }).structuredClone = originalStructuredClone;
     });
 
@@ -354,13 +309,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { container, unmount } = render(<Demo />);
 
         await flush();
 
@@ -391,10 +340,7 @@ describe("Form integration", () => {
 
         expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
     });
 
     it("uses structuredClone branch when available", async () => {
@@ -415,13 +361,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { unmount } = render(<Demo />);
         await flush();
 
         act(() => {
@@ -432,10 +372,7 @@ describe("Form integration", () => {
         expect(structuredCloneMock).toHaveBeenCalled();
         expect(formApi.getFieldValue(["profile", "nick"])).toBe("s2");
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
         (globalThis as unknown as { structuredClone?: unknown }).structuredClone = originalStructuredClone;
     });
 
@@ -462,13 +399,7 @@ describe("Form integration", () => {
             );
         };
 
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        const root: Root = createRoot(container);
-
-        act(() => {
-            root.render(<Demo />);
-        });
+        const { container, unmount } = render(<Demo />);
         await flush();
 
         const trigger = container.querySelector('[data-testid="editor-trigger"]') as HTMLButtonElement;
@@ -492,9 +423,6 @@ describe("Form integration", () => {
         expect(errorValidator).toHaveBeenCalled();
         expect(container.textContent).toContain("error-level");
 
-        act(() => {
-            root.unmount();
-        });
-        container.remove();
+        unmount();
     });
 });

@@ -8,6 +8,7 @@ import { vs } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 interface CodeProps {
     path: string
+    columns: number
 }
 
 const Code: FC<CodeProps> = ({
@@ -130,46 +131,45 @@ const iconStyle = css`
 `
 
 const Codes: FC<CodeProps> = ({
-    path
+    path,
+    columns = 2
 }) => {
-    const [reactElement, setReactElement] = useState();
+    const [reactElement, setReactElement] = useState<JSX.Element>();
+    
     useEffect(() => {
-        const left = [];
-        const right = [];
+        const columns_array: JSX.Element[][] = Array.from({ length: columns }, () => []);
+        
         demos.filter(element => element.path?.startsWith(path)).forEach((element, index) => {
-            if (index % 2 === 0) {
-                left.push(<Code key={element.path} path={element.path}/> )
-            } else {
-                right.push(<Code key={element.path} path={element.path}/> )
-            }
+            columns_array[index % columns].push(
+                <Code key={element.path} path={element.path} />
+            );
         });
+        
         setReactElement(
             <>
-                <div
-                    className={iconStyle}
-                >
-                    {left}
-                </div>
-                <div
-                    className={iconStyle}
-                >
-                    {right}
-                </div>
+                {columns_array.map((col, idx) => (
+                    <div key={idx} className={iconStyle}>
+                        {col}
+                    </div>
+                ))}
             </>
-        )
-    }, [path])
+        );
+    }, [path]);
+    
     return (
         <div
             className={css`
                 display: grid;
-                grid-template-columns: 1fr 1fr;
                 width: 100%;
                 gap: 1rem;
             `}
+            style={{
+                gridTemplateColumns: `repeat(${columns}, 1fr)`
+            }}
         >
             {reactElement}
         </div>
-    )
+    );
 }
 
 export default Codes;

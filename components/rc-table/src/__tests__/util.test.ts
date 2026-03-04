@@ -4,6 +4,7 @@ import type { ColumnType } from "../types";
 import {
     sortColumns,
     getSkippedCells,
+    buildMergeCellLookup,
     getMergedCellSize,
     getMaxDepth,
     calculateColumnDepth,
@@ -138,6 +139,51 @@ describe("getSkippedCells", () => {
 
 })
 
+describe("buildMergeCellLookup", () => {
+    it("should build mergeCellMap and skipCellSet for a single merged area", () => {
+        const mergeCells = [
+            { rowIndex: 1, columnIndex: 2, rowSpan: 1, colSpan: 1 }
+        ];
+
+        const { mergeCellMap, skipCellSet, getCellKey } = buildMergeCellLookup(mergeCells);
+
+        expect(mergeCellMap.get(getCellKey(1, 2))).toEqual(mergeCells[0]);
+        expect(skipCellSet.has(getCellKey(2, 2))).toBe(true);
+        expect(skipCellSet.has(getCellKey(1, 3))).toBe(true);
+        expect(skipCellSet.has(getCellKey(2, 3))).toBe(true);
+        expect(skipCellSet.has(getCellKey(1, 2))).toBe(false);
+    });
+
+    it("should support multiple merge areas without key collision", () => {
+        const mergeCells = [
+            { rowIndex: 0, columnIndex: 0, rowSpan: 2, colSpan: 0 },
+            { rowIndex: 3, columnIndex: 1, rowSpan: 0, colSpan: 2 }
+        ];
+
+        const { mergeCellMap, skipCellSet, getCellKey } = buildMergeCellLookup(mergeCells);
+
+        expect(mergeCellMap.size).toBe(2);
+        expect(mergeCellMap.get(getCellKey(0, 0))).toEqual(mergeCells[0]);
+        expect(mergeCellMap.get(getCellKey(3, 1))).toEqual(mergeCells[1]);
+
+        expect(skipCellSet.has(getCellKey(1, 0))).toBe(true);
+        expect(skipCellSet.has(getCellKey(2, 0))).toBe(true);
+        expect(skipCellSet.has(getCellKey(3, 2))).toBe(true);
+        expect(skipCellSet.has(getCellKey(3, 3))).toBe(true);
+    });
+
+    it("should keep map entry and skip set empty area for zero span cell", () => {
+        const mergeCells = [
+            { rowIndex: 4, columnIndex: 5, rowSpan: 0, colSpan: 0 }
+        ];
+
+        const { mergeCellMap, skipCellSet, getCellKey } = buildMergeCellLookup(mergeCells);
+
+        expect(mergeCellMap.get(getCellKey(4, 5))).toEqual(mergeCells[0]);
+        expect(skipCellSet.size).toBe(0);
+    });
+});
+
 
 describe("getMergedCellSize", () => {
     it("should calculate merged cell size for single cell (rowSpan=0, colSpan=0)", () => {
@@ -152,10 +198,10 @@ describe("getMergedCellSize", () => {
         const mergeCell = { rowIndex: 0, columnIndex: 1, rowSpan: 2, colSpan: 0 };
         const gridTemplateRows = [10, 20, 30, 40];
         const gridTemplateColumns = [5, 15, 25, 35];
-        // height = rows[0] + rows[0+0] + rows[0+1] = 10 + 10 + 20 = 40
+        // height = rows[0] + rows[1] + rows[2] = 10 + 20 + 30 = 60
         // width = columns[1] = 15
         const result = getMergedCellSize({ mergeCell, gridTemplateRows, gridTemplateColumns });
-        expect(result).toEqual({ height: 40, width: 15 });
+        expect(result).toEqual({ height: 60, width: 15 });
     });
 
     it("should calculate merged cell size for colSpan only", () => {
@@ -163,19 +209,19 @@ describe("getMergedCellSize", () => {
         const gridTemplateRows = [10, 20, 30, 40];
         const gridTemplateColumns = [5, 15, 25, 35];
         // height = rows[2] = 30
-        // width = columns[0] + columns[0+0] + columns[0+1] = 5 + 5 + 15 = 25
+        // width = columns[0] + columns[1] + columns[2] = 5 + 15 + 25 = 45
         const result = getMergedCellSize({ mergeCell, gridTemplateRows, gridTemplateColumns });
-        expect(result).toEqual({ height: 30, width: 25 });
+        expect(result).toEqual({ height: 30, width: 45 });
     });
 
     it("should calculate merged cell size for both rowSpan and colSpan", () => {
         const mergeCell = { rowIndex: 1, columnIndex: 1, rowSpan: 2, colSpan: 2 };
         const gridTemplateRows = [10, 20, 30, 40];
         const gridTemplateColumns = [5, 15, 25, 35];
-        // height = rows[1] + rows[1+0] + rows[1+1] = 20 + 20 + 30 = 70
-        // width = columns[1] + columns[1+0] + columns[1+1] = 15 + 15 + 25 = 55
+        // height = rows[1] + rows[2] + rows[3] = 20 + 30 + 40 = 90
+        // width = columns[1] + columns[2] + columns[3] = 15 + 25 + 35 = 75
         const result = getMergedCellSize({ mergeCell, gridTemplateRows, gridTemplateColumns });
-        expect(result).toEqual({ height: 70, width: 55 });
+        expect(result).toEqual({ height: 90, width: 75 });
     });
 })
 
@@ -633,6 +679,59 @@ describe("getHeaderCells", () => {
                 rowSpan: 0,
                 rowIndex: 0,
                 columnIndex: 1
+            }
+        ]);
+    });
+
+    it("should align child columns correctly when top-level leaf and grouped headers are mixed", () => {
+        const columns = [
+            { name: "recordNo", title: "记录号" },
+            {
+                name: "employee",
+                title: "员工信息",
+                children: [
+                    { name: "employeeNo", title: "工号" },
+                    { name: "name", title: "姓名" }
+                ]
+            }
+        ];
+
+        const result = getHeaderCells(columns);
+        expect(result).toEqual([
+            {
+                column: { name: "recordNo", title: "记录号" },
+                colSpan: 0,
+                rowSpan: 1,
+                rowIndex: 0,
+                columnIndex: 0
+            },
+            {
+                column: {
+                    name: "employee",
+                    title: "员工信息",
+                    children: [
+                        { name: "employeeNo", title: "工号" },
+                        { name: "name", title: "姓名" }
+                    ]
+                },
+                colSpan: 1,
+                rowSpan: 0,
+                rowIndex: 0,
+                columnIndex: 1
+            },
+            {
+                column: { name: "employeeNo", title: "工号" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 1,
+                columnIndex: 1
+            },
+            {
+                column: { name: "name", title: "姓名" },
+                colSpan: 0,
+                rowSpan: 0,
+                rowIndex: 1,
+                columnIndex: 2
             }
         ]);
     });

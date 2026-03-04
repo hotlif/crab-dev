@@ -1,5 +1,5 @@
 import { act, useEffect } from "react";
-import { createRoot, type Root } from "react-dom/client";
+import { render } from "@testing-library/react";
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 
 import Dialog, { type DialogProps } from "../dialog";
@@ -10,7 +10,6 @@ type PartialDialogProps = Partial<DialogProps>;
 
 interface RenderDialogResult {
     container: HTMLDivElement;
-    root: Root;
     rerender: (nextProps?: PartialDialogProps) => void;
     unmount: () => void;
     getDialog: () => HTMLDialogElement;
@@ -23,10 +22,6 @@ const flush = async () => {
 };
 
 const renderDialog = (props: PartialDialogProps = {}): RenderDialogResult => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-    const root = createRoot(container);
-
     let currentProps: DialogProps = {
         open: false,
         onOpenChange: jest.fn(),
@@ -35,17 +30,16 @@ const renderDialog = (props: PartialDialogProps = {}): RenderDialogResult => {
         ...props,
     } as DialogProps;
 
+    const renderResult = render(<Dialog {...currentProps} />);
+
     const doRender = () => {
         act(() => {
-            root.render(<Dialog {...currentProps} />);
+            renderResult.rerender(<Dialog {...currentProps} />);
         });
     };
 
-    doRender();
-
     return {
-        container,
-        root,
+        container: renderResult.container as HTMLDivElement,
         rerender: (nextProps = {}) => {
             currentProps = {
                 ...currentProps,
@@ -54,12 +48,9 @@ const renderDialog = (props: PartialDialogProps = {}): RenderDialogResult => {
             doRender();
         },
         unmount: () => {
-            act(() => {
-                root.unmount();
-            });
-            container.remove();
+            renderResult.unmount();
         },
-        getDialog: () => container.querySelector("dialog") as HTMLDialogElement,
+        getDialog: () => renderResult.container.querySelector("dialog") as HTMLDialogElement,
     };
 };
 
