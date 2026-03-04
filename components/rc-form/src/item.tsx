@@ -64,7 +64,8 @@ const FormItem: FC<FormItem> = ({
 }) => {
     const id = useId();
     const {
-        eventBus
+        eventBus,
+        requiredIndicatorRenderer
     } = useFormContext();
 
     // 实际上存储的值
@@ -96,6 +97,15 @@ const FormItem: FC<FormItem> = ({
         if (label == null) {
             return null;
         }
+        const renderedLabel = requiredIndicatorRenderer ? requiredIndicatorRenderer({
+            label,
+            required: required === true
+        }) : (
+            <>
+                {renderRequiredElement()}
+                {label}
+            </>
+        );
         return (
             <div
                 className={css`
@@ -106,8 +116,7 @@ const FormItem: FC<FormItem> = ({
                     color: rgba(0,0,0, 0.88);
                 `}
             >
-                {renderRequiredElement()}
-                {label}
+                {renderedLabel}
             </div>
         );
     }
@@ -180,7 +189,7 @@ const FormItem: FC<FormItem> = ({
         }
         eventBus?.subscribe(subscriber);
         const onTriggerItemVerification = async (fields: NamePath[]) => {
-            if (fields != null && !fields.includes(name)) {
+            if (fields != null && !fields.some(field => equalsNamePath(field, name))) {
                 return;
             }
             setValidateState(ValidateState.VALIDATING);
@@ -232,7 +241,6 @@ const FormItem: FC<FormItem> = ({
         const onChangeValues = (values: any) => {
             const newValue = getRecordValue(values, name);
             setValue(newValue);
-            setRecordValue(values, name, newValue)
         }
 
         const changeValuesSubscriber = {
@@ -246,8 +254,9 @@ const FormItem: FC<FormItem> = ({
             eventBus?.unSubscribe(subscriber);
             eventBus?.unSubscribe(verificationSubscriber);
             eventBus?.unSubscribe(parentReadySubscriber);
+            eventBus?.unSubscribe(changeValuesSubscriber)
         }
-    }, [rules, value])
+    }, [eventBus, id, label, name, required, requiredIndicatorRenderer, rules, value])
 
     if (hidden) {
         return null;

@@ -1,5 +1,6 @@
 import { css, cx } from "@linaria/core";
 import {
+    useCallback,
     type FormHTMLAttributes,
     type ReactNode,
     useEffect,
@@ -78,28 +79,35 @@ function Form<T extends Record<string, any>>({
        return new EventBus();
     }, [])
 
+    const cloneRecord = (value: T) => {
+        if (typeof structuredClone === "function") {
+            return structuredClone(value);
+        }
+        return JSON.parse(JSON.stringify(value)) as T;
+    }
+
     /**
      * 触发校验
      */
-    const triggerVerification = async (fields?: NamePath[]) => {
+    const triggerVerification = useCallback(async (fields?: NamePath[]) => {
         let result = true;
         const subscribers = eventBus.getSubscribers();
         for (const value of subscribers.values()) {
             if (value.type === MessageEnum.TRIGGER_ITEM_VERIFICATION) {
                 try {
                     await value.ring(fields);
-                } catch (error) {
+                } catch (_error) {
                     result = false;
                 }
             }
         }
         return result;
-    }
+    }, [eventBus])
 
     useEffect(() => {
         const onItemValueChange = (changed:  { [K in keyof T]: { name: K; value: T[K] } }[keyof T]) => {
             setRecordValue(formRecordRef.current, changed.name as NamePath, changed.value);
-            onFieldValueChange?.(changed, formRecordRef.current)
+            void onFieldValueChange?.(changed, formRecordRef.current)
         }
 
         const subscriber = {
@@ -112,7 +120,7 @@ function Form<T extends Record<string, any>>({
         return () => {
             eventBus.unSubscribe(subscriber);
         }
-    }, [onFieldValueChange])
+    }, [eventBus, id, onFieldValueChange])
 
     useEffect(() => {
         eventBus.dispatch({
@@ -133,16 +141,15 @@ function Form<T extends Record<string, any>>({
         }
 
         const setFieldsValue = (values: T) => {
-            formRecordRef.current = values;
+            formRecordRef.current = cloneRecord(values);
             eventBus.dispatch({
                 type: MessageEnum.SEND_TO_CHAGE_VALUES,
-                payload: [values]
+                payload: [formRecordRef.current]
             })
         }
 
 
         const resetFields = async (names?: NamePath[]) => {
-            formRecordRef.current = defaultValue;
             if (names == null) {
                 setFieldsValue(defaultValue);
             } else {
@@ -153,7 +160,7 @@ function Form<T extends Record<string, any>>({
             }
         }
 
-        const validateFields = async (fields: NamePath[]) => {
+        const validateFields = async (fields?: NamePath[]) => {
             const result = await triggerVerification(fields);
             if (result) {
                 return formRecordRef.current;
@@ -177,13 +184,14 @@ function Form<T extends Record<string, any>>({
             })
         }
         resetFields();
-    }, [form, defaultValue])
+    }, [defaultValue, eventBus, form, triggerVerification])
 
 
     return (
         <FormContext.Provider
             value={{
-                eventBus: eventBus
+                eventBus: eventBus,
+                requiredIndicatorRenderer
             }}
         >
             <form
@@ -200,9 +208,9 @@ function Form<T extends Record<string, any>>({
                     e.preventDefault();
                     triggerVerification().then((result) => {
                         if (result === true) {
-                            onSubmitSuccess?.(formRecordRef.current)
+                            void onSubmitSuccess?.(formRecordRef.current)
                         } else {
-                            onSubmitFailed?.(formRecordRef.current)
+                            void onSubmitFailed?.(formRecordRef.current)
                         }
                     })
                 }}
