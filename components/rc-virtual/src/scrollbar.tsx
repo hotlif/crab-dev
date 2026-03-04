@@ -87,25 +87,41 @@ const ScrollBar = ({
 
 	const min = 20;
 
-	const dragDownDistance = useRef<number>(0);
 	const isDragStart = useRef<boolean>(false);
 	const divRef = useRef<HTMLDivElement>(null);
 
 	const thumbWidthTemp = ((viewportWidth / totalWidth) * viewportWidth);
 	const thumbWidth = thumbWidthTemp < min ? min : thumbWidthTemp;
-	const thumbLeft = (currentScrollPositionLeft / (totalWidth - viewportWidth)) * (viewportWidth - thumbWidth);
-	const getEndCoordinateX = (x: number) => (x * (totalWidth - viewportWidth)) / (viewportWidth - thumbWidth);
+	const xScrollableDistance = totalWidth - viewportWidth;
+	const xTrackDistance = viewportWidth - thumbWidth;
+	const thumbLeft = xScrollableDistance <= 0 || xTrackDistance <= 0
+		? 0
+		: (currentScrollPositionLeft / xScrollableDistance) * xTrackDistance;
+	const getEndCoordinateX = (x: number) => {
+		if (xScrollableDistance <= 0 || xTrackDistance <= 0) {
+			return 0;
+		}
+		return (x * xScrollableDistance) / xTrackDistance;
+	};
 
 	const thumbHeightTemp = (viewportHeight / totalHeight) * viewportHeight;
 	const thumbHeight = thumbHeightTemp < min ? min : thumbHeightTemp;
-	const thumbTop = (currentScrollPositionTop / (totalHeight - viewportHeight)) * (viewportHeight - thumbHeight);
-	const getEndCoordinateY = (y: number) => (y * (totalHeight - viewportHeight)) / (viewportHeight - thumbHeight);
+	const yScrollableDistance = totalHeight - viewportHeight;
+	const yTrackDistance = viewportHeight - thumbHeight;
+	const thumbTop = yScrollableDistance <= 0 || yTrackDistance <= 0
+		? 0
+		: (currentScrollPositionTop / yScrollableDistance) * yTrackDistance;
+	const getEndCoordinateY = (y: number) => {
+		if (yScrollableDistance <= 0 || yTrackDistance <= 0) {
+			return 0;
+		}
+		return (y * yScrollableDistance) / yTrackDistance;
+	};
 
 	const thumbMousePointer = useRef<number>(0);
 	
 	useEffect(() => {
 		const onMouseUp = (_e: globalThis.MouseEvent) => {
-			dragDownDistance.current = 0;
 			isDragStart.current = false;
 		};
 		document.addEventListener("mouseup" , onMouseUp);
@@ -119,7 +135,7 @@ const ScrollBar = ({
 				top
 			}  = divRef.current!.getBoundingClientRect();
 			if (direction === "x") {
-				const leftDistance = e.pageX - left;
+				const leftDistance = e.clientX - left;
 				const endCoordinateX = getEndCoordinateX(leftDistance - thumbMousePointer.current);
 				if (leftDistance - thumbMousePointer.current <= 0) {
 					onScroll?.(0);
@@ -129,7 +145,7 @@ const ScrollBar = ({
 					onScroll?.(endCoordinateX);
 				}
 			} else {
-				const topDistance = e.pageY - top;
+				const topDistance = e.clientY - top;
 				const endCoordinateY = getEndCoordinateY(topDistance - thumbMousePointer.current);
 				if (topDistance - thumbMousePointer.current <= 0) {
 					onScroll?.(0);
@@ -146,11 +162,24 @@ const ScrollBar = ({
 			document.removeEventListener("mousemove", onMouseMove);
 		};
 	}, [
+		direction,
+		onScroll,
+		thumbHeight,
+		thumbWidth,
 		viewportHeight,
 		totalHeight,
 		viewportWidth,
 		totalWidth,
 	]);
+
+	useEffect(() => {
+		return () => {
+			if (scrollbar) {
+				scrollbar.current = null;
+			}
+		};
+	}, [scrollbar]);
+
 	const onMouseDown = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
 		if (e.button === 0) {
 			isDragStart.current = true;
@@ -160,11 +189,9 @@ const ScrollBar = ({
 			} = e.currentTarget.getBoundingClientRect();
 			
 			if (direction === "x") {
-				thumbMousePointer.current = e.pageX - left;
-				dragDownDistance.current = e.pageX;
+				thumbMousePointer.current = e.clientX - left;
 			} else {
-				thumbMousePointer.current = e.pageY - top;
-				dragDownDistance.current = e.pageY;
+				thumbMousePointer.current = e.clientY - top;
 			}
 		}
 	};

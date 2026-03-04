@@ -239,7 +239,7 @@ const Virtual: FC<VirtualProps> = ({
 	}
 
 	const calculateBottomPaddingHeight = () => {
-		return gridTemplateRows.slice(rowRange[1], gridTemplateRows.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		return gridTemplateRows.slice(rowRange[1] + 1, gridTemplateRows.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 	}
 
 	const calculateLeftPaddingWidth = () => {
@@ -247,7 +247,7 @@ const Virtual: FC<VirtualProps> = ({
 	}
 
 	const calculateRightPaddingWidth = () => {
-		return gridTemplateColumns.slice(columnRange[1], gridTemplateColumns.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		return gridTemplateColumns.slice(columnRange[1] + 1, gridTemplateColumns.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 	}
 
 	return (

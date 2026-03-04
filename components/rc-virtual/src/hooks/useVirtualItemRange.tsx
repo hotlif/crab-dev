@@ -32,6 +32,97 @@ interface VirtualItemParamType {
 
 }
 
+const clampToNonNegativeFinite = (value: number) => {
+	if (!Number.isFinite(value)) {
+		return 0;
+	}
+	return Math.max(0, value);
+};
+
+const normalizeTemplateSizes = (sizes: number[]) => {
+	return sizes.map(size => {
+		if (!Number.isFinite(size) || size < 0) {
+			return 0;
+		}
+		return size;
+	});
+};
+
+const buildCumulativeEnds = (sizes: number[]) => {
+	const cumulativeEnds: number[] = [];
+	let accumulator = 0;
+
+	sizes.forEach(size => {
+		accumulator += size;
+		cumulativeEnds.push(accumulator);
+	});
+
+	return cumulativeEnds;
+};
+
+const lowerBound = (sortedArray: number[], target: number) => {
+	let left = 0;
+	let right = sortedArray.length;
+
+	while (left < right) {
+		const middle = (left + right) >>> 1;
+		if (sortedArray[middle] >= target) {
+			right = middle;
+		} else {
+			left = middle + 1;
+		}
+	}
+
+	return left;
+};
+
+const upperBound = (sortedArray: number[], target: number) => {
+	let left = 0;
+	let right = sortedArray.length;
+
+	while (left < right) {
+		const middle = (left + right) >>> 1;
+		if (sortedArray[middle] > target) {
+			right = middle;
+		} else {
+			left = middle + 1;
+		}
+	}
+
+	return left;
+};
+
+const getVisibleRangeByBinarySearch = (
+	sizes: number[],
+	viewportSize: number,
+	scrollPosition: number
+): [number, number] => {
+	if (sizes.length === 0) {
+		return [0, 0];
+	}
+
+	const normalizedViewportSize = clampToNonNegativeFinite(viewportSize);
+	const normalizedScrollPosition = clampToNonNegativeFinite(scrollPosition);
+	const cumulativeEnds = buildCumulativeEnds(sizes);
+	const maxIndex = sizes.length - 1;
+
+	let start = upperBound(cumulativeEnds, normalizedScrollPosition);
+	if (start > maxIndex) {
+		start = maxIndex;
+	}
+
+	let end = lowerBound(cumulativeEnds, normalizedScrollPosition + normalizedViewportSize);
+	if (end > maxIndex) {
+		end = maxIndex;
+	}
+
+	if (end < start) {
+		end = start;
+	}
+
+	return [start, end];
+};
+
 /**
  * 获取当前虚拟滚动的可见数据的范围
  * 
@@ -45,71 +136,23 @@ const useVirtualItemRange = ({
 	gridTemplateColumns,
 	gridTemplateRows,
 }: VirtualItemParamType) => {
+	const normalizedGridTemplateColumns = normalizeTemplateSizes(gridTemplateColumns);
+	const normalizedGridTemplateRows = normalizeTemplateSizes(gridTemplateRows);
 
 	const getGridColumnsRangeIndex = (): [number, number] => {
-		let start = 0;
-		let end = 0;
-		let currentWidth = 0;
-
-		gridTemplateColumns.some((width, index) => {
-			if (
-				currentScrollPositionLeft >= currentWidth &&
-				currentScrollPositionLeft <= currentWidth + width
-			) {
-				currentWidth += width;
-				start = index;
-				return false;
-			} else if (
-				(
-					currentWidth >= currentScrollPositionLeft &&
-					currentWidth + width >= currentScrollPositionLeft + viewportWidth
-				) || 
-				index === gridTemplateColumns.length - 1
-			) {
-				currentWidth += width;
-				end = index;
-				return true;
-			} else {
-				currentWidth += width;
-				return false;
-			}
-		});
-		return [start, end];
+		return getVisibleRangeByBinarySearch(
+			normalizedGridTemplateColumns,
+			viewportWidth,
+			currentScrollPositionLeft
+		);
 	};
 
-
 	const getGridRowsRangeIndex = (): [number, number] => {
-		let start = 0;
-		let end = 0;
-		let currentHeight = 0;
-		const exist = gridTemplateRows.some((height, index) => {
-			if (
-				currentScrollPositionTop >= currentHeight &&
-				currentScrollPositionTop <= currentHeight + height
-			) {
-				currentHeight = currentHeight + height;
-				start = index;
-				return false;
-			} else if (
-				(
-					currentHeight >= currentScrollPositionTop &&
-					currentHeight + height >= currentScrollPositionTop + viewportHeight
-				) || 
-				index === gridTemplateRows.length - 1
-			) {
-				currentHeight = currentHeight + height;
-				end = index;
-				return true;
-			} else {
-				currentHeight = currentHeight + height;
-				return false;
-			}
-		});
-
-		if (exist === false && gridTemplateRows.length > 0) {
-			end = gridTemplateRows.length - 1;
-		}
-		return [start, end];
+		return getVisibleRangeByBinarySearch(
+			normalizedGridTemplateRows,
+			viewportHeight,
+			currentScrollPositionTop
+		);
 	};
 
 	return {

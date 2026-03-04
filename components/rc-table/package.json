@@ -4,7 +4,7 @@
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "scripts": {
-        "start": "crustify dev",
+        "start": "crustify run-task app:dev",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "build:library": "packify build",
         "eslint": "eslint"
