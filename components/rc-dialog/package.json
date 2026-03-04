@@ -8,6 +8,7 @@
         "build:library": "packify build",
         "generate:docgen": "react-docgen ./src/dialog.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint"
     },
     "files": [

@@ -103,17 +103,30 @@ const Dialog: FC<DialogProps> = ({
         confirmText
     } = i18n;
 
-    const cancel = () => {
-        if (onCancel) {
-            onCancel?.()
-                .then(result => {
-                    if (result === true) {
-                        onOpenChange?.(false);
-                    }
-                });
-        } else {
-            onOpenChange?.(false);
+    const closeDialog = () => {
+        onOpenChange?.(false);
+    };
+
+    const runAction = (action?: () => Promise<boolean>, shouldCloseWhenActionIsEmpty = false) => {
+        if (!action) {
+            if (shouldCloseWhenActionIsEmpty) {
+                closeDialog();
+            }
+            return;
         }
+
+        void action()
+            .then(result => {
+                if (result === true) {
+                    closeDialog();
+                }
+            })
+            .catch(() => {
+            });
+    };
+
+    const cancel = () => {
+        runAction(onCancel, true);
     }
 
     useEffect(() => {
@@ -185,7 +198,7 @@ const Dialog: FC<DialogProps> = ({
                         onClick={cancel}
                     >
                         <svg
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             viewBox="64 64 896 896"
                             focusable="false"
                             data-icon="close"
@@ -220,12 +233,7 @@ const Dialog: FC<DialogProps> = ({
                         `}
                         appearance="primary"
                         onClick={() => {
-                            onConfirm?.()
-                                .then((result) => {
-                                    if (result === true) {
-                                        onOpenChange?.(false);
-                                    }
-                                });
+                            runAction(onConfirm);
                         }}
                     >
                         {confirmText}
