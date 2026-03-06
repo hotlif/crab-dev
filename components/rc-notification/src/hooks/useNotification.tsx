@@ -21,7 +21,6 @@ interface NotificationInstance {
     close: (id: string) => void
 }
 
-
 interface NotificationItem {
     id: string
     title: ReactNode
@@ -98,7 +97,6 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
 
     closeRef.current = close;
 
-    // 组件卸载时清除所有计时状态
     useEffect(() => {
         return () => {
             timers.current.clear();

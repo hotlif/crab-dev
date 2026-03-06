@@ -4,7 +4,6 @@
   "packageManager": "yarn@4.7.0",
   "type": "module",
   "scripts": {
-    "start": "nx run @crab-dev/website:start",
     "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
     "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
   },

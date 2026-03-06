@@ -1934,6 +1934,7 @@ __metadata:
     globals: "npm:^17.3.0"
     jest: "npm:^30.2.0"
     jest-environment-jsdom: "npm:30.2.0"
+    motion: "npm:^12.35.0"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
     react-icons: "npm:^5.5.0"
@@ -1945,7 +1946,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-form@workspace:^, @crab-dev/rc-form@workspace:components/rc-form":
+"@crab-dev/rc-form@workspace:components/rc-form":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-form@workspace:components/rc-form"
   dependencies:
@@ -2025,7 +2026,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-line-edit@workspace:^, @crab-dev/rc-line-edit@workspace:components/rc-line-edit":
+"@crab-dev/rc-line-edit@workspace:components/rc-line-edit":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-line-edit@workspace:components/rc-line-edit"
   dependencies:
@@ -2135,47 +2136,6 @@ __metadata:
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
     react-icons: "npm:^5.5.0"
-    react-markdown: "npm:^10.1.0"
-    react-router: "npm:^7.13.0"
-    react-syntax-highlighter: "npm:^16.1.0"
-    typescript: "npm:^5.9.3"
-    typescript-eslint: "npm:^8.54.0"
-  languageName: unknown
-  linkType: soft
-
-"@crab-dev/rc-printer-draft@workspace:components/rc-printer-draft":
-  version: 0.0.0-use.local
-  resolution: "@crab-dev/rc-printer-draft@workspace:components/rc-printer-draft"
-  dependencies:
-    "@crab-dev/lignify": "workspace:^"
-    "@crab-dev/packify": "workspace:^"
-    "@crab-dev/rc-button": "workspace:^"
-    "@crab-dev/rc-form": "workspace:^"
-    "@crab-dev/rc-line-edit": "workspace:^"
-    "@crab-dev/rc-menu": "workspace:^"
-    "@crab-dev/standards-eslint-preset": "workspace:^"
-    "@crab-dev/standards-jest-preset": "workspace:^"
-    "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@dnd-kit/core": "npm:^6.3.1"
-    "@dnd-kit/utilities": "npm:^3.2.2"
-    "@jest/globals": "npm:30.2.0"
-    "@linaria/core": "npm:^7.0.0"
-    "@mdx-js/react": "npm:^3.1.1"
-    "@react-docgen/cli": "npm:^3.0.5"
-    "@types/node": "npm:^25.2.0"
-    "@types/react": "npm:^19.2.10"
-    "@types/react-dom": "npm:^19.2.3"
-    eslint: "npm:^9.39.2"
-    eslint-plugin-react: "npm:^7.37.5"
-    globals: "npm:^17.3.0"
-    jest: "npm:^30.2.0"
-    jest-environment-jsdom: "npm:30.2.0"
-    jsbarcode: "npm:^3.12.3"
-    konva: "npm:^10.2.0"
-    react: "npm:^19.2.4"
-    react-dom: "npm:^19.2.4"
-    react-icons: "npm:^5.5.0"
-    react-konva: "npm:^19.2.2"
     react-markdown: "npm:^10.1.0"
     react-router: "npm:^7.13.0"
     react-syntax-highlighter: "npm:^16.1.0"
@@ -5180,24 +5140,6 @@ __metadata:
   peerDependencies:
     "@types/react": ^19.2.0
   checksum: 10c0/b486ebe0f4e2fb35e2e108df1d8fc0927ca5d6002d5771e8a739de11239fe62d0e207c50886185253c99eb9dedfeeb956ea7429e5ba17f6693c7acb4c02f8cd1
-  languageName: node
-  linkType: hard
-
-"@types/react-reconciler@npm:^0.28.9":
-  version: 0.28.9
-  resolution: "@types/react-reconciler@npm:0.28.9"
-  peerDependencies:
-    "@types/react": "*"
-  checksum: 10c0/9fe71fa856aab2cd4742fe0416bdd4f5c82ecc05ef6451ee7fcb65a5efdf5fa588f5820fbe2a665b15371b0da3bfc4097f28bb6d450b9a834af2d0fc00f403bd
-  languageName: node
-  linkType: hard
-
-"@types/react-reconciler@npm:^0.32.3":
-  version: 0.32.3
-  resolution: "@types/react-reconciler@npm:0.32.3"
-  peerDependencies:
-    "@types/react": "*"
-  checksum: 10c0/8d6485c6da3aa6d84b5c320c4cf9737e67511cd6c7ebfb7252ec032fd1cfb0515d3a2c06054491603c6ab040202694ff5ad125cd840e1da9e76d7447cef53dff
   languageName: node
   linkType: hard
 
@@ -9412,6 +9354,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.35.0":
+  version: 12.35.0
+  resolution: "framer-motion@npm:12.35.0"
+  dependencies:
+    motion-dom: "npm:^12.35.0"
+    motion-utils: "npm:^12.29.2"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/f79e2877d28f8f467bd7e936f2d67a53398c13adce5ac110bd4364da25b8e11b6c3daee7ea533df5d9624bef881ae2b7dd11a8805960bcdffaaee9d2438426f5
+  languageName: node
+  linkType: hard
+
 "fresh@npm:~0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
@@ -10836,17 +10800,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"its-fine@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "its-fine@npm:2.0.0"
-  dependencies:
-    "@types/react-reconciler": "npm:^0.28.9"
-  peerDependencies:
-    react: ^19.0.0
-  checksum: 10c0/1ff1ff3257c0c7eb115c9c26cf0506eb84162edc1a63d3136780d146f7c7833298b240d0fcb46888909773f1a7d16539e0c03f2482cff1a5a502d6436686fe21
-  languageName: node
-  linkType: hard
-
 "jackspeak@npm:^3.1.2":
   version: 3.4.3
   resolution: "jackspeak@npm:3.4.3"
@@ -11405,13 +11358,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsbarcode@npm:^3.12.3":
-  version: 3.12.3
-  resolution: "jsbarcode@npm:3.12.3"
-  checksum: 10c0/da6683fe036eb288b92159d4f46b96cc376bcd0b7048715aaa7dc47f20e3d6d505b59e645818ed9685c399ed79c513197e30cf0540c94627d9dee19d0a67ddaa
-  languageName: node
-  linkType: hard
-
 "jsdom@npm:^26.1.0":
   version: 26.1.0
   resolution: "jsdom@npm:26.1.0"
@@ -11578,13 +11524,6 @@ __metadata:
   version: 2.0.6
   resolution: "klona@npm:2.0.6"
   checksum: 10c0/94eed2c6c2ce99f409df9186a96340558897b3e62a85afdc1ee39103954d2ebe1c1c4e9fe2b0952771771fa96d70055ede8b27962a7021406374fdb695fd4d01
-  languageName: node
-  linkType: hard
-
-"konva@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "konva@npm:10.2.0"
-  checksum: 10c0/afbb59a8a83c41c75f6e3103aa7f2ddb7f4f2132dab612d54e7dcefcd50f9b28b6b02fb88ce1387fe2b33905e67dc73ba2dba2cd1cb01abfc47250798f61c88f
   languageName: node
   linkType: hard
 
@@ -13261,6 +13200,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^12.35.0":
+  version: 12.35.0
+  resolution: "motion-dom@npm:12.35.0"
+  dependencies:
+    motion-utils: "npm:^12.29.2"
+  checksum: 10c0/0f9491bae66baf2d09c02b57208a45f9bd2bc9292726c8115b8196d2bf65c56f1dd97ac36d5be3f40a581dee815fb2a745ff06c559cee9d5d6d6929fb70b9856
+  languageName: node
+  linkType: hard
+
 "motion-utils@npm:^12.29.2":
   version: 12.29.2
   resolution: "motion-utils@npm:12.29.2"
@@ -13307,6 +13255,27 @@ __metadata:
     react-dom:
       optional: true
   checksum: 10c0/bb16391e893c2df81e1447d920cb97f54da1c2660ca648c9bfee6cc5b482f96b4bcb223eee02da40e78bd33c4211168b444e3fefefeb1177e338f0e1063b4be1
+  languageName: node
+  linkType: hard
+
+"motion@npm:^12.35.0":
+  version: 12.35.0
+  resolution: "motion@npm:12.35.0"
+  dependencies:
+    framer-motion: "npm:^12.35.0"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/e43a0a6ea94ce755f53c4fd9906d3f230a7d3c1d572fe93b11a6b3adfe566df6f2fa1dfb2f84d8b39c42881abb66b0fc8fcd3742b6f3e63eecb7e33f4ba52fd7
   languageName: node
   linkType: hard
 
@@ -15109,22 +15078,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-konva@npm:^19.2.2":
-  version: 19.2.2
-  resolution: "react-konva@npm:19.2.2"
-  dependencies:
-    "@types/react-reconciler": "npm:^0.32.3"
-    its-fine: "npm:^2.0.0"
-    react-reconciler: "npm:0.33.0"
-    scheduler: "npm:0.27.0"
-  peerDependencies:
-    konva: ^8.0.1 || ^7.2.5 || ^9.0.0 || ^10.0.0
-    react: ^19.2.0
-    react-dom: ^19.2.0
-  checksum: 10c0/375b05cee55511345b5d7be547e341ee27c71e0e8b4fece5b7dfcb75f7c3b5b08a556325e3237bcacbb411e69ee031fb37c770798a400a8dbb49b9d643ad0458
-  languageName: node
-  linkType: hard
-
 "react-markdown@npm:^10.1.0":
   version: 10.1.0
   resolution: "react-markdown@npm:10.1.0"
@@ -15144,17 +15097,6 @@ __metadata:
     "@types/react": ">=18"
     react: ">=18"
   checksum: 10c0/4a5dc7d15ca6d05e9ee95318c1904f83b111a76f7588c44f50f1d54d4c97193b84e4f64c4b592057c989228238a2590306cedd0c4d398e75da49262b2b5ae1bf
-  languageName: node
-  linkType: hard
-
-"react-reconciler@npm:0.33.0":
-  version: 0.33.0
-  resolution: "react-reconciler@npm:0.33.0"
-  dependencies:
-    scheduler: "npm:^0.27.0"
-  peerDependencies:
-    react: ^19.2.0
-  checksum: 10c0/3f7b27ea8d0ff4c8bf0e402a285e1af9b7d0e6f4c1a70a28f4384938bc1130bc82a90a31df0b79ef5e380e2e55e2598bd90b4dbf802b1203d735ba0355817d3a
   languageName: node
   linkType: hard
 
@@ -16258,7 +16200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.27.0, scheduler@npm:^0.27.0":
+"scheduler@npm:^0.27.0":
   version: 0.27.0
   resolution: "scheduler@npm:0.27.0"
   checksum: 10c0/4f03048cb05a3c8fddc45813052251eca00688f413a3cee236d984a161da28db28ba71bd11e7a3dd02f7af84ab28d39fb311431d3b3772fed557945beb00c452

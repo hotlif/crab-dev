@@ -20,7 +20,8 @@
     "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
     "dependencies": {
-        "@crab-dev/rc-button": "workspace:^"
+        "@crab-dev/rc-button": "workspace:^",
+        "motion": "^12.35.0"
     },
     "devDependencies": {
         "@crab-dev/lignify": "workspace:^",

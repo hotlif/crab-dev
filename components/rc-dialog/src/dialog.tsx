@@ -1,7 +1,15 @@
 
 import { css, cx } from "@linaria/core";
-import { useEffect, useRef, type FC, type HTMLAttributes, type ReactNode} from "react";
+import {
+    useEffect,
+    useRef,
+    type FC,
+    type HTMLAttributes,
+    type ReactNode,
+    type MouseEvent
+} from "react";
 import RcButton from "@crab-dev/rc-button";
+import { motion, AnimatePresence } from "motion/react"
 import token from "./token";
 
 /**
@@ -49,16 +57,17 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> 
     /**
      * 确定按钮点击时触发的事件， 如果返回 `true`, 则关闭对话框
      */
-    onConfirm?: () => Promise<boolean>
+    onConfirm?: (event: MouseEvent<HTMLElement, globalThis.MouseEvent>) => Promise<boolean>
 
     /**
      * 取消按钮点击时触发的事件, 如果返回 `true`, 则关闭对话框
      */
-    onCancel?: () => Promise<boolean>
+    onCancel?: (event: MouseEvent<HTMLElement, globalThis.MouseEvent>) => Promise<boolean>
 
 }
 
 const colorOverlayBackgroundColor = token.color["overlay-background-color"];
+const colorDialogBackgroundColor = token.color["background-color"];
 
 const dimensionPadding = token.dimension.padding;
 const dimensionBorderRadius = token.dimension["border-radius"];
@@ -103,39 +112,30 @@ const Dialog: FC<DialogProps> = ({
         confirmText
     } = i18n;
 
-    const closeDialog = () => {
-        onOpenChange?.(false);
-    };
-
-    const runAction = (action?: () => Promise<boolean>, shouldCloseWhenActionIsEmpty = false) => {
-        if (!action) {
-            if (shouldCloseWhenActionIsEmpty) {
-                closeDialog();
-            }
-            return;
-        }
-
-        void action()
-            .then(result => {
-                if (result === true) {
-                    closeDialog();
-                }
-            })
-            .catch(() => {
-            });
-    };
-
-    const cancel = () => {
-        runAction(onCancel, true);
-    }
-
     useEffect(() => {
         if (open) {
             dialogRef.current?.showModal();
-        } else {
-            dialogRef.current?.close();
         }
     }, [open])
+
+
+    const cancel = (event: MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
+        const promiseCancel = Promise.resolve(onCancel?.(event));
+        promiseCancel.then(result => {
+            if (result !== false) {
+                onOpenChange(false);
+            }
+        });
+    }
+
+    const confirm = (event: MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
+        const promiseConfirm = Promise.resolve(onConfirm?.(event));
+        promiseConfirm.then(result => {
+            if (result !== false) {
+                onOpenChange(false);
+            }
+        });
+    }
 
     return (
          <>
@@ -143,18 +143,17 @@ const Dialog: FC<DialogProps> = ({
                 ref={dialogRef}
                 className={cx(css`
                     position: fixed;
-                    top: ${top};
                     bottom: auto; 
                     margin: 0 auto;
                     min-width: 520px;
-                    padding: ${dimensionPadding};
+                    padding: 0;
+                    overflow: visible;
+                    background: transparent;
                     border-radius: ${dimensionBorderRadius};
-                    box-shadow: ${elevationBoxShadow};
                     &::backdrop {
                         background-color: ${colorOverlayBackgroundColor};
                     }
                 `, dialogReset, className)}
-                key={shouldResetContent ? (open ? 1 : 0) : -1}
                 onClick={(event) => {
                     const rect = dialogRef.current?.getBoundingClientRect();
                     if (rect) {
@@ -165,7 +164,7 @@ const Dialog: FC<DialogProps> = ({
                             event.clientY <= rect.bottom
                         );
                         if (!isInDialog) {
-                            cancel();
+                            cancel(event);
                         } else {
                             onClick?.(event)
                         }
@@ -173,72 +172,96 @@ const Dialog: FC<DialogProps> = ({
                 }}
                 {...restProps}
             >
-                <div
-                    className={css`
-                        display: flex;
-                        margin-bottom: ${dimensionHeadingMarginBottom};
-                    `}
+                <AnimatePresence
+                    onExitComplete={() => {
+                        dialogRef.current?.close();
+                    }}
                 >
-                    <div
-                        className={css`
-                            font-weight: ${typographyHeadingFontWeight};
-                            font-size: ${typographyHeadingFontSize};
-                            line-height: ${typographyHeadingLineHeight};
-                            flex: 1;
-                        `}
-                    >
-                        {title}
-                    </div>
-                    <div
-                        className={css`
-                            cursor: pointer;
-                            display: flex;
-                            align-items: center;
-                        `}
-                        onClick={cancel}
-                    >
-                        <svg
-                            fillRule="evenodd"
-                            viewBox="64 64 896 896"
-                            focusable="false"
-                            data-icon="close"
-                            width="1em"
-                            height="1em"
-                            fill="currentColor"
-                            aria-hidden="true"
+                    {open && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 0 }}
+                            animate={{ opacity: 1, y: top }}
+                            exit={{ opacity: 0, y: 0 }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 260,
+                                damping: 24,
+                                mass: 1,
+                            }}
+                            className={css`
+                                padding: ${dimensionPadding};
+                                border-radius: ${dimensionBorderRadius};
+                                box-shadow: ${elevationBoxShadow};
+                                background:${colorDialogBackgroundColor};
+                            `}
                         >
-                            <path
-                                d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
-                            />
-                        </svg>
-                    </div>
-                </div>
-                <div>
-                    {children}
-                </div>
-                <div
-                    className={css`
-                        text-align: end;
-                        margin-top: ${dimensionFooterMarginTop};
-                    `}
-                >
-                    <RcButton
-                        onClick={cancel}
-                    >
-                        {cancelText}
-                    </RcButton>
-                    <RcButton
-                        className={css`
-                            margin-inline-start: ${dimensionFooterButtonSpacing};    
-                        `}
-                        appearance="primary"
-                        onClick={() => {
-                            runAction(onConfirm);
-                        }}
-                    >
-                        {confirmText}
-                    </RcButton>
-                </div>
+                            <div
+                                className={css`
+                                    display: flex;
+                                    margin-bottom: ${dimensionHeadingMarginBottom};
+                                `}
+                            >
+                                <div
+                                    className={css`
+                                        font-weight: ${typographyHeadingFontWeight};
+                                        font-size: ${typographyHeadingFontSize};
+                                        line-height: ${typographyHeadingLineHeight};
+                                        flex: 1;
+                                    `}
+                                >
+                                    {title}
+                                </div>
+                                <div
+                                    className={css`
+                                        cursor: pointer;
+                                        display: flex;
+                                        align-items: center;
+                                    `}
+                                    onClick={cancel}
+                                >
+                                    <svg
+                                        fillRule="evenodd"
+                                        viewBox="64 64 896 896"
+                                        focusable="false"
+                                        data-icon="close"
+                                        width="1em"
+                                        height="1em"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
+                                        />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                {children}
+                            </div>
+                            <div
+                                className={css`
+                                    text-align: end;
+                                    margin-top: ${dimensionFooterMarginTop};
+                                `}
+                            >
+                                <RcButton
+                                    onClick={cancel}
+                                >
+                                    {cancelText}
+                                </RcButton>
+                                <RcButton
+                                    className={css`
+                                        margin-inline-start: ${dimensionFooterButtonSpacing};    
+                                    `}
+                                    appearance="primary"
+                                    onClick={confirm}
+                                >
+                                    {confirmText}
+                                </RcButton>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </dialog>
         </>
     )

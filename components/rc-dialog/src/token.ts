@@ -1,6 +1,7 @@
 const token = {
     color: {
         'overlay-background-color': 'var(--dialog-color-overlay-background-color, rgba(0,0,0,0.45))',
+		'background-color': 'var(--dialog-color-background-color, #fff)',
 		
     },
     dimension: {

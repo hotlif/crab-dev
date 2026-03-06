@@ -4,7 +4,7 @@ prefix = "dialog"
 
 [token.color]
 overlay-background-color = "rgba(0,0,0,0.45)"
-
+background-color = "#fff"
 [token.dimension]
 top = "100px"
 padding = "20px 24px"
