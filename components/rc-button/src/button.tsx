@@ -94,6 +94,7 @@ const Button: FC<ButtonProps> = ({
     className,
     children,
     size,
+    disabled,
     onClick,
     onClickCapture,
     ...restProps
@@ -119,7 +120,7 @@ const Button: FC<ButtonProps> = ({
                     }
                 }
 
-                &:disabled {
+                &[aria-disabled="true"] {
                     cursor: default;
                     pointer-events: none;
                 }
@@ -300,6 +301,9 @@ const Button: FC<ButtonProps> = ({
 
     return (
         <button
+            {...restProps}
+            aria-busy={loading}
+            aria-disabled={disabled || loading}
             data-loading={loading ? `${loading}` : null}
             className={cx(
                 baseStyle,
@@ -308,6 +312,7 @@ const Button: FC<ButtonProps> = ({
                 getShouldFitContainerStyle(),
                 className
             )}
+            disabled={disabled}
             onClick={(e) => {
                 if (clickState.current === false) {
                     clickState.current = true;
@@ -358,7 +363,6 @@ const Button: FC<ButtonProps> = ({
                     }
                 }
             }}
-            {...restProps}
         >
             {renderLoadingDom()}
             <span>

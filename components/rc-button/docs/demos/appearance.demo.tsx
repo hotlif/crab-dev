@@ -16,7 +16,9 @@ const SizeDemo = () => {
                 gap: 1rem;
             `}
         >
-            <Button appearance="primary">
+            <Button
+                appearance="primary"
+            >
                 primary
             </Button>
             <Button appearance="subtle">

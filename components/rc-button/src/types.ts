@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes } from "react"
 
-export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
+interface BaseButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
 
     /**
      * 加载中
@@ -32,3 +32,8 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
      */
     onClickCapture?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]>>[0]) => Promise<void> | void
 }
+
+export type ButtonProps = BaseButtonProps & (
+  | { children: React.ReactNode; "aria-label"?: string }
+  | { children?: never; "aria-label": string }
+);
