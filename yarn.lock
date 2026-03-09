@@ -1909,6 +1909,41 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-date-picker@workspace:components/rc-date-picker":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-date-picker@workspace:components/rc-date-picker"
+  dependencies:
+    "@crab-dev/lignify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.2.0"
+    "@js-temporal/polyfill": "npm:^0.5.1"
+    "@linaria/core": "npm:^7.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@react-docgen/cli": "npm:^3.0.5"
+    "@types/node": "npm:^25.3.5"
+    "@types/react": "npm:^19.2.14"
+    "@types/react-dom": "npm:^19.2.3"
+    eslint: "npm:^10.0.3"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^17.4.0"
+    jest: "npm:^30.2.0"
+    jest-environment-jsdom: "npm:30.2.0"
+    motion: "npm:^12.35.1"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.4"
+    react-icons: "npm:^5.6.0"
+    react-markdown: "npm:^10.1.0"
+    react-router: "npm:^7.13.1"
+    react-syntax-highlighter: "npm:^16.1.1"
+    typescript: "npm:^5.9.3"
+    typescript-eslint: "npm:^8.56.1"
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-dialog@workspace:components/rc-dialog":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
@@ -2121,41 +2156,6 @@ __metadata:
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@jest/globals": "npm:30.2.0"
-    "@linaria/core": "npm:^7.0.0"
-    "@mdx-js/react": "npm:^3.1.1"
-    "@react-docgen/cli": "npm:^3.0.5"
-    "@types/node": "npm:^25.3.5"
-    "@types/react": "npm:^19.2.14"
-    "@types/react-dom": "npm:^19.2.3"
-    eslint: "npm:^10.0.3"
-    eslint-plugin-react: "npm:^7.37.5"
-    globals: "npm:^17.4.0"
-    jest: "npm:^30.2.0"
-    jest-environment-jsdom: "npm:30.2.0"
-    motion: "npm:^12.35.1"
-    react: "npm:^19.2.4"
-    react-dom: "npm:^19.2.4"
-    react-icons: "npm:^5.6.0"
-    react-markdown: "npm:^10.1.0"
-    react-router: "npm:^7.13.1"
-    react-syntax-highlighter: "npm:^16.1.1"
-    typescript: "npm:^5.9.3"
-    typescript-eslint: "npm:^8.56.1"
-  languageName: unknown
-  linkType: soft
-
-"@crab-dev/rc-picker@workspace:components/rc-picker":
-  version: 0.0.0-use.local
-  resolution: "@crab-dev/rc-picker@workspace:components/rc-picker"
-  dependencies:
-    "@crab-dev/lignify": "workspace:^"
-    "@crab-dev/packify": "workspace:^"
-    "@crab-dev/rc-menu": "workspace:^"
-    "@crab-dev/standards-eslint-preset": "workspace:^"
-    "@crab-dev/standards-jest-preset": "workspace:^"
-    "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@jest/globals": "npm:30.2.0"
-    "@js-temporal/polyfill": "npm:^0.5.1"
     "@linaria/core": "npm:^7.0.0"
     "@mdx-js/react": "npm:^3.1.1"
     "@react-docgen/cli": "npm:^3.0.5"
