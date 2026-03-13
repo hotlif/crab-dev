@@ -1,6 +1,6 @@
 {
-    "name": "@crab-dev/rc-date-picker",
-    "description": "日期选择组件",
+    "name": "@crab-dev/rc-dropdown-container",
+    "description": "下拉容器组件",
     "packageManager": "yarn@4.7.0",
     "type": "module",
     "version": "0.0.1",
@@ -9,7 +9,7 @@
         "build:library": "packify build",
         "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-        "generate:docgen": "react-docgen ./src/notification.tsx --out ./public/docgen.json",
+        "generate:docgen": "react-docgen ./src/dropdownContainer.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "eslint": "eslint"
     },
@@ -56,7 +56,6 @@
     },
     "dependencies": {
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-dropdown-container": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
         "@floating-ui/react": "^0.27.19",
         "motion": "^12.35.1"

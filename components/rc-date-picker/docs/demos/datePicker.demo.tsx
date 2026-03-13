@@ -1,22 +1,50 @@
 
 /**
- * title = "基本"
- * description = "一个基础的日期选择组件"
+ * title = "日期选择器"
+ * description = "三种不同规格的日期选择器示例"
  */
 
 import { Temporal } from "@js-temporal/polyfill";
+import { css } from "@linaria/core";
 import { useState } from "react";
 import DatePicker from "../../src/datePicker";
-
 
 const now = Temporal.Now.zonedDateTimeISO();
 
 const SizeDemo = () => {
     const [value, setValue] = useState(now);
+    const [size, setSize] = useState<"large" | "middle" | "small">("middle")
     return (
-        <div>
+        <div
+            className={css`
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 2rem;
+            `}
+        >
+            <div
+                className={css`
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-bottom: 1rem;
+                `}
+            >
+                <label>
+                    请选择大小
+                </label>
+                <select
+                    value={size}
+                    onChange={e => setSize(e.target.value as "large" | "middle" | "small")}
+                >
+                    <option value="large">Large</option>
+                    <option value="middle">Middle</option>
+                    <option value="small">Small</option>
+                </select>
+            </div>
             <DatePicker
                 value={value}
+                size={size}
                 onValueChange={setValue}
             />
         </div>
