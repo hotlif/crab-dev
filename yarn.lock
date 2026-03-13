@@ -1915,10 +1915,13 @@ __metadata:
   dependencies:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@floating-ui/react": "npm:^0.27.19"
     "@jest/globals": "npm:30.2.0"
     "@js-temporal/polyfill": "npm:^0.5.1"
     "@linaria/core": "npm:^7.0.0"
@@ -1933,6 +1936,7 @@ __metadata:
     jest: "npm:^30.2.0"
     jest-environment-jsdom: "npm:30.2.0"
     motion: "npm:^12.35.1"
+    prettier: "npm:^3.8.1"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
     react-icons: "npm:^5.6.0"
@@ -2061,7 +2065,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-line-edit@workspace:components/rc-line-edit":
+"@crab-dev/rc-line-edit@workspace:^, @crab-dev/rc-line-edit@workspace:components/rc-line-edit":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-line-edit@workspace:components/rc-line-edit"
   dependencies:
@@ -14805,6 +14809,15 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: 10c0/b00d617431e7886c520a6f498a2e14c75ec58f6d93ba48c3b639cf241b54232d90daa05d83a9e9b9fef6baa63cb7e1e4602c2372fea5bc169668401eb127d0cd
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.8.1":
+  version: 3.8.1
+  resolution: "prettier@npm:3.8.1"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/33169b594009e48f570471271be7eac7cdcf88a209eed39ac3b8d6d78984039bfa9132f82b7e6ba3b06711f3bfe0222a62a1bfb87c43f50c25a83df1b78a2c42
   languageName: node
   linkType: hard
 

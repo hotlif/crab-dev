@@ -6,6 +6,16 @@ import Token from "./token";
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
 
     /**
+     * 编辑器的对象
+     */
+    inputRef?: React.Ref<HTMLInputElement>;
+
+    /**
+     * 容器的对象
+     */
+    containerRef?: React.Ref<HTMLDivElement>;
+
+    /**
      * 单行输入框的值
      */
     value?: string
@@ -45,6 +55,8 @@ const LineEdit: FC<LineEditProps> = ({
     suffix,
     type,
     value,
+    containerRef,
+    inputRef,
     className,
     ...restProps
 }) => {
@@ -132,6 +144,7 @@ const LineEdit: FC<LineEditProps> = ({
 
     return (
         <div
+            ref={containerRef}
             className={cx(
                 css`
                     display: inline-flex;
@@ -154,6 +167,7 @@ const LineEdit: FC<LineEditProps> = ({
         >
             {renderPrefixIcon()}
             <input
+                ref={inputRef}
                 type={type}
                 value={value}
                 className={cx(

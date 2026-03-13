@@ -1,5 +1,5 @@
 
-import LineEdit, { type LineEditProps } from "./line-edit";
+import LineEdit, { type LineEditProps } from "./lineEdit";
 
 export {
     LineEditProps

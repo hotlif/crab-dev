@@ -1,4 +1,4 @@
-import type { Temporal } from "@js-temporal/polyfill";
+import type { Temporal } from '@js-temporal/polyfill';
 
 declare global {
     const Temporal: typeof Temporal;
@@ -24,6 +24,15 @@ declare global {
         type TimeUnit = 'hour' | 'minute' | 'second' | 'millisecond' | 'microsecond' | 'nanosecond';
         type DateTimeUnit = DateUnit | TimeUnit;
         type ComparisonResult = -1 | 0 | 1;
-        type RoundingMode = 'ceil' | 'floor' | 'expand' | 'trunc' | 'halfCeil' | 'halfFloor' | 'halfExpand' | 'halfTrunc' | 'halfEven';
+        type RoundingMode =
+            | 'ceil'
+            | 'floor'
+            | 'expand'
+            | 'trunc'
+            | 'halfCeil'
+            | 'halfFloor'
+            | 'halfExpand'
+            | 'halfTrunc'
+            | 'halfEven';
     }
 }
