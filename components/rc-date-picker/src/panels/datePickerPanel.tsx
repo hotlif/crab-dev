@@ -2,18 +2,51 @@ import { type HTMLAttributes, useMemo, useState } from 'react';
 import { css, cx } from '@linaria/core';
 import { getCalendarMatrix, getWeekDaysHeader } from '../util';
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons';
+import token from '../token';
 
-interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'selectValues' | 'onSelect'> {
+export interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'selectValues' | 'onSelect'> {
+
+    /**
+     * 当前选中的日期
+     */
     value: Temporal.ZonedDateTime;
+
+    /**
+     * 限制日期范围
+     */
+    range?: {
+        start?: Temporal.ZonedDateTime;
+        end?: Temporal.ZonedDateTime;
+    },
+
+    /**
+     * 时区
+     */
     timeZone?: string;
+
+    /**
+     * 一周的起始天
+     */
     weekStartDay?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+    /**
+     * 选中的时间
+     */
     selectValues?: Temporal.ZonedDateTime[];
+
+    /**
+     * 国际化
+     */
     locale?: string;
+
+    /**
+     * 选择的时间信息
+     */
     onSelect?: (values: Temporal.ZonedDateTime[]) => void;
 }
 
 const isOutOfRangeStyle = css`
-    opacity: 0.3;
+    opacity: ${token.opacity['out-of-range']};
 `;
 
 const centerFlexStyle = css`
@@ -26,6 +59,12 @@ const iconStyle = css`
     cursor: pointer;
 `;
 
+const iconDisabledStyle = css`
+    opacity: 0.25;
+    cursor: not-allowed;
+    pointer-events: none;
+`;
+
 const calendarCellStyle = css`
     text-align: center;
     vertical-align: middle;
@@ -36,33 +75,39 @@ const calendarHeaderCellContentStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 40px;
+    height: ${token.dimension['header-cell-height']};
+    font-size: ${token.typography['header-font-size']};
+    font-weight: ${token.typography['header-font-weight']};
+    line-height: ${token.dimension['header-cell-height']};
     box-sizing: border-box;
 `;
 
 const calendarDateCellStyle = css`
-    padding: 3px 4px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+    padding: ${token.dimension['cell-padding']};
+    border-radius: ${token.dimension['cell-border-radius']};
     cursor: pointer;
-    &:hover {
-        background-color: #f5f5f5;
-    }
 `;
+
+const calendarDateCellHoverStyle = css`
+    &:hover {
+        > div {
+            transition: ${token.motion['cell-transition']};
+            background-color: ${token.color['cell-hover-background']};
+            color: ${token.color['cell-hover-text']};
+        }
+    }
+`
 
 const calendarDateCellContentStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    font-size: 14px;
-    font-weight: 400;
+    border-radius: ${token.dimension['cell-border-radius']};
+    width: ${token.dimension['cell-content-size']};
+    height: ${token.dimension['cell-content-size']};
+    line-height: ${token.dimension['cell-content-size']};
+    font-size: ${token.typography['cell-font-size']};
+    font-weight: ${token.typography['cell-font-weight']};
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
@@ -74,8 +119,14 @@ const calendarTableStyle = css`
 `;
 
 const calendarSelectDateCellContentStyle = css`
-    background-color: #1677ff;
-    color: #fff;
+    background-color: ${token.color['selected-background']};
+    color: ${token.color['selected-text']};
+`
+
+const calendarDateCellDisableStyle = css`
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+    pointer-events: none;
 `
 
 const DatePickerPanel = ({
@@ -84,6 +135,7 @@ const DatePickerPanel = ({
     weekStartDay = 1,
     locale = 'zh-CN',
     selectValues = [],
+    range,
     onSelect,
     ...restProps
 }: DatePickerPanelProps) => {
@@ -116,13 +168,44 @@ const DatePickerPanel = ({
         selectValues.some(
             (v) => v.year === element.year && v.month === element.month && v.day === element.day,
         );
+    
+    const isAllowableRange = (element: Temporal.ZonedDateTime) => {
+        if (range) {
+            const { start, end } = range;
+            const t = element.epochNanoseconds;
+            if (start && end) {
+                let s = start.epochNanoseconds;
+                let e = end.epochNanoseconds;
+                if (s > e) {
+                    [s, e] = [e, s];
+                }
+                return t >= s && t <= e;
+            }
+            if (start) {
+                return t >= start.epochNanoseconds;
+            }
+            if (end) {
+                return t <= end.epochNanoseconds;
+            }
+        }
+        return true;
+    }
+
+    const canGoPrevYear = !range?.start || viewDate.subtract({ years: 1 }).year >= range.start.year;
+    const canGoPrevMonth = !range?.start
+        || viewDate.subtract({ months: 1 }).year > range.start.year
+        || (viewDate.subtract({ months: 1 }).year === range.start.year && viewDate.subtract({ months: 1 }).month >= range.start.month);
+    const canGoNextMonth = !range?.end
+        || viewDate.add({ months: 1 }).year < range.end.year
+        || (viewDate.add({ months: 1 }).year === range.end.year && viewDate.add({ months: 1 }).month <= range.end.month);
+    const canGoNextYear = !range?.end || viewDate.add({ years: 1 }).year <= range.end.year;
 
     return (
         <div
             className={css`
                 display: flex;
                 flex-direction: column;
-                font-size: 14px;
+                font-size: ${token.typography['panel-font-size']};
                 user-select: none;
             `}
             {...restProps}
@@ -131,23 +214,25 @@ const DatePickerPanel = ({
                 className={css`
                     display: flex;
                     justify-content: space-between;
-                    padding: 16px 8px;
+                    padding: ${token.dimension['header-padding']};
                 `}
             >
                 <div className={centerFlexStyle}>
                     <ChevronDoubleLeft
-                        className={iconStyle}
-                        onClick={() => {
-                            const lastYear = viewDate.subtract({ years: 1 });
-                            setViewDate(lastYear);
-                        }}
+                        className={cx(iconStyle, !canGoPrevYear && iconDisabledStyle)}
+                            onClick={() => {
+                                if (!canGoPrevYear) return;
+                                const lastYear = viewDate.subtract({ years: 1 });
+                                setViewDate(lastYear);
+                            }}
                     />
                     <ChevronLeft
-                        className={iconStyle}
-                        onClick={() => {
-                            const lastMonth = viewDate.subtract({ months: 1 });
-                            setViewDate(lastMonth);
-                        }}
+                        className={cx(iconStyle, !canGoPrevMonth && iconDisabledStyle)}
+                            onClick={() => {
+                                if (!canGoPrevMonth) return;
+                                const lastMonth = viewDate.subtract({ months: 1 });
+                                setViewDate(lastMonth);
+                            }}
                     />
                 </div>
                 <div
@@ -166,10 +251,10 @@ const DatePickerPanel = ({
                     }).format(new Date(viewDate.epochMilliseconds))}
                     <div
                         className={cx(css`
-                            opacity: 0.6;
+                            opacity: ${token.opacity['timezone']};
                             position: absolute;
                             top: calc(50% + 1.8em);
-                            font-size: 10px;
+                            font-size: ${token.typography['timezone-font-size']};
                             left: 50%;
                             transform: translate(-50%, -50%);
                         `)}
@@ -186,15 +271,17 @@ const DatePickerPanel = ({
                 </div>
                 <div className={centerFlexStyle}>
                     <ChevronRight
-                        className={iconStyle}
+                        className={cx(iconStyle, !canGoNextMonth && iconDisabledStyle)}
                         onClick={() => {
+                            if (!canGoNextMonth) return;
                             const nextMonth = viewDate.add({ months: 1 });
                             setViewDate(nextMonth);
                         }}
                     />
                     <ChevronDoubleRight
-                        className={iconStyle}
+                        className={cx(iconStyle, !canGoNextYear && iconDisabledStyle)}
                         onClick={() => {
+                            if (!canGoNextYear) return;
                             const nextYear = viewDate.add({ years: 1 });
                             setViewDate(nextYear);
                         }}
@@ -216,17 +303,22 @@ const DatePickerPanel = ({
                         <tr key={rowIndex}>
                             {row.map((element) => (
                                 <td
-                                    className={cx(calendarCellStyle, calendarDateCellStyle)}
+                                    className={cx(
+                                        calendarCellStyle,
+                                        calendarDateCellStyle,
+                                        isAllowableRange(element) ? calendarDateCellHoverStyle : calendarDateCellDisableStyle,
+                                    )}
                                     key={element.toString()}
                                     onClick={() => {
+                                        if (!isAllowableRange(element)) return;
                                         onSelect?.([element]);
                                     }}
                                 >
                                     <div
                                         className={cx(
                                             calendarDateCellContentStyle,
-                                            !isCurrentMonth(element) && isOutOfRangeStyle,
-                                            isSelected(element) && calendarSelectDateCellContentStyle,
+                                            isAllowableRange(element) && !isCurrentMonth(element) && isOutOfRangeStyle,
+                                            isAllowableRange(element) && isSelected(element) && calendarSelectDateCellContentStyle,
                                         )}
                                     >
                                         {element.day}

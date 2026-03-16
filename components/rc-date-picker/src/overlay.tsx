@@ -2,27 +2,20 @@ import RcButton from "@crab-dev/rc-button"
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css } from '@linaria/core';
 import { FC } from "react";
-import DatePickerPanel from './panels/datePickerPanel';
+import DatePickerPanel, { type DatePickerPanelProps } from './panels/datePickerPanel';
+import token from './token';
 
-
-interface DatePickerOverlayProps {
-    value: Temporal.ZonedDateTime;
-    timeZone?: string;
-    weekStartDay?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
-    locale?: string;
+interface DatePickerOverlayProps extends DatePickerPanelProps {
     onValueChange?: (value: Temporal.ZonedDateTime) => void;
-    selectValues?: Temporal.ZonedDateTime[];
     onSelectValuesChange?: (values: Temporal.ZonedDateTime[]) => void;
 }
 
 const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
     value,
-    timeZone,
-    weekStartDay,
-    locale,
-    onValueChange,
     selectValues,
-    onSelectValuesChange
+    onValueChange,
+    onSelectValuesChange,
+    ...restProps
 }) => {
     const {
         dispatch
@@ -31,20 +24,18 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
         <>
             <DatePickerPanel
                 value={value}
-                timeZone={timeZone}
-                weekStartDay={weekStartDay}
-                locale={locale}
                 selectValues={selectValues}
                 onSelect={(elements) => {
                     onSelectValuesChange?.(elements);
                 }}
+                {...restProps}
             />
             <div
                 className={css`
-                    margin-top: 0.5rem;
+                    margin-top: ${token.dimension['action-bar-margin-top']};
                     display: flex;
                     justify-content: flex-end;
-                    gap: 0.5rem;
+                    gap: ${token.dimension['action-bar-gap']};
                 `}
             >
                 <RcButton
@@ -63,7 +54,12 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
                     size="small"
                     appearance="primary"
                     onClick={(e) => {
-                        e.preventDefault()
+                        e.preventDefault();
+                        onValueChange?.(selectValues?.[0]);
+                        dispatch({
+                            type: "setOpen",
+                            payload: false
+                        });
                     }}
                 >
                     确定

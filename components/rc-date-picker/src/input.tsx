@@ -1,13 +1,21 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@linaria/core";
-import { FC } from "react";
+import { FC, useState } from "react";
 
-import { Calendar } from './icons';
-import { size } from "@floating-ui/react";
+import { Calendar, XCircleFill } from './icons';
+import token from './token';
 
 interface DatePickerInputProps {
     
+    /**
+     * 改变值值触发的事件
+     */
+    onChange?: (value: Temporal.ZonedDateTime | null) => void;
+
+    /**
+     * 输入的值信息
+     */
     value: string
 
     /**
@@ -16,14 +24,63 @@ interface DatePickerInputProps {
     size?: LineEditProps["size"]
 }
 
-const DatePickerInput: FC<DatePickerInputProps> = ({ value, ...restProps }) => {
+
+const iconStyle = css`
+    opacity: ${token.opacity['icon']};
+    cursor: pointer;
+    transition: opacity .2s;
+    &:hover {
+        opacity: ${token.opacity['icon-hover']};
+    }
+
+`
+
+const DatePickerInput: FC<DatePickerInputProps> = ({
+    value,
+    onChange,
+    ...restProps
+}) => {
     const {
         refs,
         dispatch
     } = useDropdownContext<HTMLInputElement>();
+
+    const [hover, setHover] = useState(false);
+
+    const renderSuffixIcon = () => {
+        if (value == null || value === '' || !hover) {
+            return (
+                <Calendar
+                    className={iconStyle}
+                    onClick={() => {
+                        dispatch({
+                            type: "setOpen",
+                            payload: true
+                        })
+                    }}
+                />
+            )
+        } else {
+            return (
+                <XCircleFill
+                    className={iconStyle}
+                    onMouseDown={(e) => {
+                        e.preventDefault();
+                        onChange?.(null);
+                    }}
+                />
+            )
+        }
+    }
     return (
         <RcLineEdit
             containerRef={refs.setReference}
+            onClick={() => {
+                dispatch({
+                    type: "setOpen",
+                    payload: true
+                })
+            }}
             onFocus={() => {
                 dispatch({
                     type: "setOpen",
@@ -36,14 +93,15 @@ const DatePickerInput: FC<DatePickerInputProps> = ({ value, ...restProps }) => {
                     payload: false
                 })
             }}
+            onPointerEnter={() => {
+                setHover(true);
+            }}
+            onPointerLeave={() => {
+                setHover(false)
+            }}
             value={value}
-            suffix={
-                <Calendar
-                    className={css`
-                        opacity: 0.5;
-                    `}
-                />
-            }
+            readOnly
+            suffix={renderSuffixIcon()}
             {...restProps}
         />
     )

@@ -17,6 +17,10 @@ const SizeDemo = () => {
             <DatePickerPanel
                 value={now}
                 weekStartDay={1}
+                range={{
+                    start: now.subtract({ days: 7 }),
+                    end: now.add({ days: 7 }),
+                }}
             />
         </div>
     )

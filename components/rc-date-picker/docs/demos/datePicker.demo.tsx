@@ -9,10 +9,9 @@ import { css } from "@linaria/core";
 import { useState } from "react";
 import DatePicker from "../../src/datePicker";
 
-const now = Temporal.Now.zonedDateTimeISO();
 
 const SizeDemo = () => {
-    const [value, setValue] = useState(now);
+    const [value, setValue] = useState(null);
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")
     return (
         <div

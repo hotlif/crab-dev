@@ -3,12 +3,17 @@ import type { FC, InputHTMLAttributes, ReactNode } from "react";
 
 import Token from "./token";
 
-export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
 
+export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
     /**
      * 编辑器的对象
      */
     inputRef?: React.Ref<HTMLInputElement>;
+
+    /**
+     * 输入框的 props 信息
+     */
+    inputProps?: InputHTMLAttributes<HTMLInputElement>;
 
     /**
      * 容器的对象
@@ -58,6 +63,7 @@ const LineEdit: FC<LineEditProps> = ({
     containerRef,
     inputRef,
     className,
+    inputProps = {},
     ...restProps
 }) => {
 
@@ -163,6 +169,7 @@ const LineEdit: FC<LineEditProps> = ({
                 getContainerPadding(),
                 className
             )}
+            {...restProps}
             
         >
             {renderPrefixIcon()}
@@ -183,7 +190,7 @@ const LineEdit: FC<LineEditProps> = ({
                     `,
                     getSizeStyle()
                 )}
-                {...restProps}
+                {...inputProps}
             />
             {renderSuffixIcon()}
         </div>

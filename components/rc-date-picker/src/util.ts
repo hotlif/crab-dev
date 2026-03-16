@@ -56,8 +56,11 @@ export const getWeekDaysHeader = (
  * @param {string} formatStr - 格式化字符串，如 'yyyy-MM-dd HH:mm:ss'
  * @returns {string} 格式化后的最终字符串
  */
-export function formatTemporal(zdt, formatStr) {
-    const pad = (n, len = 2) => String(n).padStart(len, '0');
+export function formatTemporal(zdt: Temporal.ZonedDateTime | null, formatStr: string) {
+    if (zdt === null) {
+        return '';
+    }
+    const pad = (n: number, len = 2) => String(n).padStart(len, '0');
 
     // 解构出所有需要的时间组件
     const { year, month, day, hour, minute, second, millisecond, offset, timeZoneId, dayOfWeek } =
@@ -131,7 +134,9 @@ export function formatTemporal(zdt, formatStr) {
         xx: offset.replace(':', ''), // +0800
         x: offset.slice(0, 3), // +08
         z: timeZoneId, // Asia/Shanghai (非标准 UTS#35 符号，但在前端极度实用)
-    };
+    } as const;
+
+    type TokenKey = keyof typeof tokens;
 
     // 核心逻辑 1：按 token 长度降序排列。确保 'yyyy' 会优先于 'yy' 和 'y' 被匹配到
     const tokenKeys = Object.keys(tokens).sort((a, b) => b.length - a.length);
@@ -145,7 +150,8 @@ export function formatTemporal(zdt, formatStr) {
     return formatStr.replace(regex, (match, escapedQuote, quotedString, token) => {
         if (escapedQuote) return "'"; // 遇到两个单引号，输出一个单引号
         if (quotedString) return quotedString.slice(1, -1); // 遇到转义文本，脱去外层单引号后输出
-        if (token) return tokens[token]; // 遇到占位符，替换为真实时间
+        if (token) return tokens[token as TokenKey]; // 遇到占位符，替换为真实时间
         return match;
     });
 }
+

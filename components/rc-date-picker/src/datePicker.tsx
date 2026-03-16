@@ -1,16 +1,22 @@
-import { useState, type FC, type HTMLAttributes } from 'react';
+import { useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import { formatTemporal } from "./util"
 import DatePickerInput from "./input";
 import DatePickerOverlay from "./overlay";
+import type { DatePickerPanelProps } from "./panels/datePickerPanel"
 
-interface DatePickerProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+export interface DatePickerProps extends DatePickerPanelProps {
 
     /**
      * 大小
      */
     size?: LineEditProps["size"]
+
+    /**
+     * 限制范围信息
+     */
+    range?: DatePickerPanelProps["range"]
 
     /**
      * 时区
@@ -30,18 +36,15 @@ interface DatePickerProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
     /**
      * 日期值
      */
-    value: Temporal.ZonedDateTime;
+    value: Temporal.ZonedDateTime | null;
 
     /**
      * 改变日期的时候触发的事件
-     * @param value 值
      */
     onValueChange?: (value: Temporal.ZonedDateTime) => void;
 
     /**
      * 自定义显示的日期字符串
-     * @param value 值
-     * @returns 显示的字符串
      */
     renderDisplayString?: (value: Temporal.ZonedDateTime) => string;
 }
@@ -53,26 +56,32 @@ const DatePicker: FC<DatePickerProps> = ({
     timeZone,
     weekStartDay,
     locale,
-    renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd hh:mm:ss"),
+    range,
+    renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd HH:mm:ss"),
     className,
-    ...props
+    ...restProps
 }) => {
     const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>([]);
     return (
         <RcDropdownContainer
             overlay={(
                 <DatePickerOverlay
-                    value={value}
+                    value={value ?? Temporal.Now.zonedDateTimeISO()}
                     timeZone={timeZone}
                     weekStartDay={weekStartDay}
                     locale={locale}
+                    range={range}
                     onValueChange={onValueChange}
                     selectValues={selectValues}
                     onSelectValuesChange={setSelectValues}
                 />
             )}
         >
-            <DatePickerInput value={renderDisplayString(value)} {...props} />
+            <DatePickerInput
+                value={renderDisplayString(value)}
+                onChange={onValueChange}
+                {...restProps}
+            />
         </RcDropdownContainer>
     );
 };

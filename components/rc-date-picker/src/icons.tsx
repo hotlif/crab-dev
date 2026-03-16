@@ -1,4 +1,3 @@
-import path from 'path/win32';
 import type { SVGProps } from 'react';
 
 export const ChevronDoubleLeft = (props: SVGProps<SVGSVGElement>) => {
@@ -12,11 +11,11 @@ export const ChevronDoubleLeft = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
             />
             <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
             />
         </svg>
@@ -34,7 +33,7 @@ export const ChevronLeft = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
             />
         </svg>
@@ -52,11 +51,11 @@ export const ChevronDoubleRight = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"
             />
             <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"
             />
         </svg>
@@ -74,7 +73,7 @@ export const ChevronRight = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
             />
         </svg>
@@ -95,3 +94,19 @@ export const Calendar = (props: SVGProps<SVGSVGElement>) => {
         </svg>
     );
 };
+
+
+export const XCircleFill = (props: SVGProps<SVGSVGElement>) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            {...props}
+        >
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+        </svg>
+    )
+}
