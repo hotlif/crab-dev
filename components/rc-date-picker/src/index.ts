@@ -1,5 +1,9 @@
-import DatePicker from "./datePicker/datePicker";
-export type { DatePickerProps } from "./datePicker/datePicker";
+export { default as DatePicker, type DatePickerProps } from "./datePicker";
 export type { DatePickerPanelProps } from "./panels/datePickerPanel";
 
-export default DatePicker;
+export { default as TimePicker,  type TimePickerProps } from "./timePicker"
+export type { TimePickerPanelProps } from "./panels/timePickerPanel"
+
+export { default as DateTimePicker, type DateTimePickerProps } from "./dateTimePicker";
+export type { DateTimePickerPanelProps } from "./panels/dateTimePickerPanel"
+

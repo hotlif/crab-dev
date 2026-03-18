@@ -2,11 +2,13 @@ import { useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import { formatTemporal } from "../util"
-import DatePickerInput from "./datePickerInput";
-import DatePickerOverlay from "./datePickerOverlay";
-import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel"
+import DateTimePickerInput from "./dateTimePickerInput";
+import DateTimePickerOverlay from "./dateTimePickerOverlay";
+import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel"
+import type { DatePickerPanelInstance } from '../panels/datePickerPanel';
+import { TimePickerPanelProps } from '../panels/timePickerPanel';
 
-export interface DatePickerProps extends DatePickerPanelProps {
+export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange'> {
 
     /**
      * 大小
@@ -16,7 +18,7 @@ export interface DatePickerProps extends DatePickerPanelProps {
     /**
      * 限制范围信息
      */
-    range?: DatePickerPanelProps["range"]
+    range?: DateTimePickerPanelProps["range"]
 
     /**
      * 时区
@@ -50,7 +52,7 @@ export interface DatePickerProps extends DatePickerPanelProps {
 }
 
 
-const DatePicker: FC<DatePickerProps> = ({
+const DateTimePicker: FC<DateTimePickerProps> = ({
     value,
     onValueChange,
     timeZone,
@@ -63,13 +65,13 @@ const DatePicker: FC<DatePickerProps> = ({
 }) => {
 
     const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(value == null ?  [] : [value]);
-
-    const datePickerPanelInstance = useRef<DatePickerPanelInstance>(null);
+    
+    const dateTimePickerPanelInstance = useRef<DatePickerPanelInstance>(null);
 
     return (
         <RcDropdownContainer
             overlay={(
-                <DatePickerOverlay
+                <DateTimePickerOverlay
                     value={value ?? Temporal.Now.zonedDateTimeISO()}
                     timeZone={timeZone}
                     weekStartDay={weekStartDay}
@@ -78,18 +80,17 @@ const DatePicker: FC<DatePickerProps> = ({
                     onValueChange={onValueChange}
                     selectValues={selectValues}
                     onSelectValuesChange={setSelectValues}
-                    instance={datePickerPanelInstance}
-                />
+                    instance={dateTimePickerPanelInstance}                />
             )}
         >
-            <DatePickerInput
+            <DateTimePickerInput
                 value={renderDisplayString(value)}
                 onChange={onValueChange}
-                instance={datePickerPanelInstance}
+                instance={dateTimePickerPanelInstance}
                 {...restProps}
             />
         </RcDropdownContainer>
     );
 };
 
-export default DatePicker;
+export default DateTimePicker;

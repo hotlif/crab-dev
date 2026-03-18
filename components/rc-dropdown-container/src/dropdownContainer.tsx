@@ -29,7 +29,7 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
         middleware: [
             offset(6),
             flip({
-                fallbackPlacements: ['top', 'right', 'left'],
+                fallbackPlacements: [ 'right-start', 'top-start', 'left-start'],
             }),
         ],
     });

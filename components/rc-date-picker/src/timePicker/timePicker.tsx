@@ -1,4 +1,4 @@
-import { useRef, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import TimePickerOverlay from "./timePickerOverlay";
@@ -21,11 +21,7 @@ export interface TimePickerProps extends TimePickerPanelProps {
 
 
 const TimePicker: FC<TimePickerProps> = ({
-    value = {
-        hour: 0,
-        minute: 0,
-        second: 0
-    },
+    value,
     onValueChange,
     renderDisplayString = (value) => value ? `${value.hour.toString().padStart(2, '0')}:${value.minute.toString().padStart(2, '0')}:${value.second.toString().padStart(2, '0')}` : "",
     ...restProps

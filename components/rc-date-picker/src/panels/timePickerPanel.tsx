@@ -65,7 +65,11 @@ const ulStyle = css`
 
 const TimePickerPanel: FC<TimePickerPanelProps> = ({
     className,
-    value,
+    value = {
+        hour: 0,
+        minute: 0,
+        second: 0
+    },
     onValueChange,
     ...restProps
 }) => {

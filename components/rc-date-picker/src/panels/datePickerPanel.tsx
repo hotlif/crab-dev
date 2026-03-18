@@ -1,6 +1,6 @@
 import { type HTMLAttributes, useMemo, useState, useEffect, RefObject } from 'react';
 import { css, cx } from '@linaria/core';
-import { formatTemporal, getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../datePicker/util';
+import { formatTemporal, getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util';
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons';
 import token from '../token';
 import { selectStyle } from "./universal.style";
@@ -8,7 +8,6 @@ import { selectStyle } from "./universal.style";
 export interface DatePickerPanelInstance {
     keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => void;
 }
-
 
 export interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'selectValues' | 'onSelect'> {
 
