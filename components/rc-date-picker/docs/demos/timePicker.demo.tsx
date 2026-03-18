@@ -1,7 +1,7 @@
 
 /**
- * title = "日期选择器"
- * description = "三种不同规格的日期选择器示例"
+ * title = "时间选择器"
+ * description = "三种不同规格的时间选择器示例"
  */
 
 import { css } from "@linaria/core";
