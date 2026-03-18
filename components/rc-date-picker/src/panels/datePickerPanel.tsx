@@ -1,8 +1,14 @@
-import { type HTMLAttributes, useMemo, useState } from 'react';
+import { type HTMLAttributes, useMemo, useState, useEffect, RefObject } from 'react';
 import { css, cx } from '@linaria/core';
-import { getCalendarMatrix, getWeekDaysHeader } from '../util';
+import { formatTemporal, getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util';
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons';
 import token from '../token';
+import { selectStyle } from "./universal.style";
+
+export interface DatePickerPanelInstance {
+    keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => void;
+}
+
 
 export interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'selectValues' | 'onSelect'> {
 
@@ -43,6 +49,11 @@ export interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement
      * 选择的时间信息
      */
     onSelect?: (values: Temporal.ZonedDateTime[]) => void;
+
+    /**
+     * 获取实例对象
+     */
+    instance?: RefObject<DatePickerPanelInstance | null>
 }
 
 const isOutOfRangeStyle = css`
@@ -118,10 +129,6 @@ const calendarTableStyle = css`
     border-collapse: collapse;
 `;
 
-const calendarSelectDateCellContentStyle = css`
-    background-color: ${token.color['selected-background']};
-    color: ${token.color['selected-text']};
-`
 
 const calendarDateCellDisableStyle = css`
     color: rgba(0, 0, 0, 0.25);
@@ -137,10 +144,40 @@ const DatePickerPanel = ({
     selectValues = [],
     range,
     onSelect,
+    instance,
     ...restProps
 }: DatePickerPanelProps) => {
     const viewValue = value.withTimeZone(timeZone);
     const [viewDate, setViewDate] = useState(viewValue);
+
+    useEffect(() => {
+        if (instance) {
+            instance.current = {
+                keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => {
+                    let [selectValue] = selectValues;
+                    let moved: Temporal.ZonedDateTime;
+                    switch (direction) {
+                        case 'left':
+                            moved = selectValue.subtract({ days: 1 });
+                            break;
+                        case 'right':
+                            moved = selectValue.add({ days: 1 });
+                            break;
+                        case 'up':
+                            moved = selectValue.subtract({ days: 7 });
+                            break;
+                        case 'down':
+                            moved = selectValue.add({ days: 7 });
+                            break;
+                    }
+                    if (isWithinDateRange(moved, range)) {
+                        onSelect?.([moved]);
+                    }
+                }
+            }
+        }
+    }, [instance, selectValues, range]);
+
     const calendarMatrix = useMemo(() => {
         const year = viewDate.year;
         const month = viewDate.month;
@@ -165,40 +202,18 @@ const DatePickerPanel = ({
         viewDate.year === element.year && viewDate.month === element.month;
 
     const isSelected = (element: Temporal.ZonedDateTime) =>
-        selectValues.some(
-            (v) => v.year === element.year && v.month === element.month && v.day === element.day,
-        );
-    
-    const isAllowableRange = (element: Temporal.ZonedDateTime) => {
-        if (range) {
-            const { start, end } = range;
-            const t = element.epochNanoseconds;
-            if (start && end) {
-                let s = start.epochNanoseconds;
-                let e = end.epochNanoseconds;
-                if (s > e) {
-                    [s, e] = [e, s];
-                }
-                return t >= s && t <= e;
-            }
-            if (start) {
-                return t >= start.epochNanoseconds;
-            }
-            if (end) {
-                return t <= end.epochNanoseconds;
-            }
-        }
-        return true;
-    }
+        selectValues.some((v) => v.withTimeZone(timeZone).toPlainDate().equals(element.toPlainDate()));
 
-    const canGoPrevYear = !range?.start || viewDate.subtract({ years: 1 }).year >= range.start.year;
-    const canGoPrevMonth = !range?.start
-        || viewDate.subtract({ months: 1 }).year > range.start.year
-        || (viewDate.subtract({ months: 1 }).year === range.start.year && viewDate.subtract({ months: 1 }).month >= range.start.month);
-    const canGoNextMonth = !range?.end
-        || viewDate.add({ months: 1 }).year < range.end.year
-        || (viewDate.add({ months: 1 }).year === range.end.year && viewDate.add({ months: 1 }).month <= range.end.month);
-    const canGoNextYear = !range?.end || viewDate.add({ years: 1 }).year <= range.end.year;
+    const rangeStart = range?.start ? range.start.withTimeZone(timeZone) : null;
+    const rangeEnd = range?.end ? range.end.withTimeZone(timeZone) : null;
+    const canGoPrevYear = !rangeStart || viewDate.subtract({ years: 1 }).year >= rangeStart.year;
+    const canGoPrevMonth = !rangeStart
+        || viewDate.subtract({ months: 1 }).year > rangeStart.year
+        || (viewDate.subtract({ months: 1 }).year === rangeStart.year && viewDate.subtract({ months: 1 }).month >= rangeStart.month);
+    const canGoNextMonth = !rangeEnd
+        || viewDate.add({ months: 1 }).year < rangeEnd.year
+        || (viewDate.add({ months: 1 }).year === rangeEnd.year && viewDate.add({ months: 1 }).month <= rangeEnd.month);
+    const canGoNextYear = !rangeEnd || viewDate.add({ years: 1 }).year <= rangeEnd.year;
 
     return (
         <div
@@ -248,6 +263,7 @@ const DatePickerPanel = ({
                     {new Intl.DateTimeFormat(locale, {
                         year: 'numeric',
                         month: 'long',
+                        timeZone: viewDate.timeZoneId
                     }).format(new Date(viewDate.epochMilliseconds))}
                     <div
                         className={cx(css`
@@ -306,19 +322,20 @@ const DatePickerPanel = ({
                                     className={cx(
                                         calendarCellStyle,
                                         calendarDateCellStyle,
-                                        isAllowableRange(element) ? calendarDateCellHoverStyle : calendarDateCellDisableStyle,
+                                        isWithinDateRange(element, range) ? calendarDateCellHoverStyle : calendarDateCellDisableStyle,
                                     )}
                                     key={element.toString()}
                                     onClick={() => {
-                                        if (!isAllowableRange(element)) return;
+                                        console.log(formatTemporal(element, "yyyy-MM-dd HH:mm:ss xxx"));
+                                        if (!isWithinDateRange(element, range)) return;
                                         onSelect?.([element]);
                                     }}
                                 >
                                     <div
                                         className={cx(
                                             calendarDateCellContentStyle,
-                                            isAllowableRange(element) && !isCurrentMonth(element) && isOutOfRangeStyle,
-                                            isAllowableRange(element) && isSelected(element) && calendarSelectDateCellContentStyle,
+                                            isWithinDateRange(element, range) && !isCurrentMonth(element) && isOutOfRangeStyle,
+                                            isWithinDateRange(element, range) && isSelected(element) && selectStyle,
                                         )}
                                     >
                                         {element.day}

@@ -1,10 +1,11 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@linaria/core";
-import { FC, useState } from "react";
+import { FC, RefObject, useEffect, useRef, useState } from "react";
 
 import { Calendar, XCircleFill } from './icons';
 import token from './token';
+import { DatePickerPanelInstance } from "./panels/datePickerPanel";
 
 interface DatePickerInputProps {
     
@@ -22,6 +23,11 @@ interface DatePickerInputProps {
      * 大小
      */
     size?: LineEditProps["size"]
+
+    /**
+     * 面板实例
+     */
+    instance?: RefObject<DatePickerPanelInstance | null> ;
 }
 
 
@@ -38,14 +44,25 @@ const iconStyle = css`
 const DatePickerInput: FC<DatePickerInputProps> = ({
     value,
     onChange,
+    instance,
     ...restProps
 }) => {
     const {
         refs,
+        state,
         dispatch
     } = useDropdownContext<HTMLInputElement>();
 
+    const inputRef = useRef<HTMLInputElement>(null)
+
     const [hover, setHover] = useState(false);
+
+
+    useEffect(() => {
+        if (state.open) {
+            inputRef.current?.focus();
+        }
+    }, [state.open]);
 
     const renderSuffixIcon = () => {
         if (value == null || value === '' || !hover) {
@@ -75,6 +92,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
     return (
         <RcLineEdit
             containerRef={refs.setReference}
+            inputRef={inputRef}
             onClick={() => {
                 dispatch({
                     type: "setOpen",
@@ -102,6 +120,30 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
             value={value}
             readOnly
             suffix={renderSuffixIcon()}
+            onKeyDown={(e) => {
+                if (instance && typeof instance.current?.keyboardNavigate === 'function') {
+                    switch (e.key) {
+                        case "ArrowUp":
+                            instance.current?.keyboardNavigate("up");
+                            break;
+                        case "ArrowDown":
+                            instance.current?.keyboardNavigate("down");
+                            break;
+                        case "ArrowLeft":
+                            instance.current?.keyboardNavigate("left");
+                            break;
+                        case "ArrowRight":
+                            instance.current?.keyboardNavigate("right");
+                            break;
+                        case "Enter":
+                            break;
+                    }
+                }
+
+                if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) {
+                    e.preventDefault();
+                }
+            }}
             {...restProps}
         />
     )

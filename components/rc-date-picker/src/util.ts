@@ -155,3 +155,35 @@ export function formatTemporal(zdt: Temporal.ZonedDateTime | null, formatStr: st
     });
 }
 
+
+export const isWithinDateRange = (
+    target: Temporal.ZonedDateTime,
+    range?: { start?: Temporal.ZonedDateTime; end?: Temporal.ZonedDateTime }
+) => {
+    if (!range || (!range.start && !range.end)) {
+        return true;
+    }
+
+    const { start, end } = range;
+    
+    const targetDate = target.toPlainDate();
+    const tz = target.timeZoneId; 
+
+    if (start && end) {
+        const startDate = start.withTimeZone(tz).toPlainDate();
+        const endDate = end.withTimeZone(tz).toPlainDate();
+        return Temporal.PlainDate.compare(targetDate, startDate) >= 0 && 
+               Temporal.PlainDate.compare(targetDate, endDate) <= 0;
+    }
+
+    if (start) {
+        const startDate = start.withTimeZone(tz).toPlainDate();
+        return Temporal.PlainDate.compare(targetDate, startDate) >= 0;
+    }
+
+    if (end) {
+        const endDate = end.withTimeZone(tz).toPlainDate();
+        return Temporal.PlainDate.compare(targetDate, endDate) <= 0;
+    }
+    return true;
+}

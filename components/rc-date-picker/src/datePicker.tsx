@@ -1,10 +1,10 @@
-import { useState, type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import { formatTemporal } from "./util"
 import DatePickerInput from "./input";
 import DatePickerOverlay from "./overlay";
-import type { DatePickerPanelProps } from "./panels/datePickerPanel"
+import type { DatePickerPanelInstance, DatePickerPanelProps } from "./panels/datePickerPanel"
 
 export interface DatePickerProps extends DatePickerPanelProps {
 
@@ -61,7 +61,11 @@ const DatePicker: FC<DatePickerProps> = ({
     className,
     ...restProps
 }) => {
-    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>([]);
+
+    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(value == null ?  [] : [value]);
+
+    const datePickerPanelInstance = useRef<DatePickerPanelInstance>(null);
+
     return (
         <RcDropdownContainer
             overlay={(
@@ -74,12 +78,14 @@ const DatePicker: FC<DatePickerProps> = ({
                     onValueChange={onValueChange}
                     selectValues={selectValues}
                     onSelectValuesChange={setSelectValues}
+                    instance={datePickerPanelInstance}
                 />
             )}
         >
             <DatePickerInput
                 value={renderDisplayString(value)}
                 onChange={onValueChange}
+                instance={datePickerPanelInstance}
                 {...restProps}
             />
         </RcDropdownContainer>
