@@ -4,14 +4,14 @@
  * description = "三种不同规格的日期选择器示例"
  */
 
-import { Temporal } from "@js-temporal/polyfill";
 import { css } from "@linaria/core";
 import { useState } from "react";
-import DatePicker from "../../src/datePicker/datePicker";
+import TimePicker from "../../src/timePicker/timePicker";
+import type { TimePickerPanelProps } from "../../src/panels/timePickerPanel";
 
 
 const SizeDemo = () => {
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState<TimePickerPanelProps["value"]>({ hour: 0, minute: 0, second: 0 });
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")
     return (
         <div
@@ -41,7 +41,7 @@ const SizeDemo = () => {
                     <option value="small">Small</option>
                 </select>
             </div>
-            <DatePicker
+            <TimePicker
                 value={value}
                 size={size}
                 onValueChange={setValue}

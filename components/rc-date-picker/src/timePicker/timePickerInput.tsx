@@ -1,13 +1,12 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@linaria/core";
-import { FC, RefObject, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
-import { Calendar, XCircleFill } from './icons';
-import token from './token';
-import { DatePickerPanelInstance } from "./panels/datePickerPanel";
+import { Clock, XCircleFill } from '../icons';
+import token from '../token';
 
-interface DatePickerInputProps {
+interface TimePickerInputProps {
     
     /**
      * 改变值值触发的事件
@@ -24,12 +23,7 @@ interface DatePickerInputProps {
      */
     size?: LineEditProps["size"]
 
-    /**
-     * 面板实例
-     */
-    instance?: RefObject<DatePickerPanelInstance | null> ;
 }
-
 
 const iconStyle = css`
     opacity: ${token.opacity['icon']};
@@ -41,10 +35,9 @@ const iconStyle = css`
 
 `
 
-const DatePickerInput: FC<DatePickerInputProps> = ({
+const TimePickerInput: FC<TimePickerInputProps> = ({
     value,
     onChange,
-    instance,
     ...restProps
 }) => {
     const {
@@ -67,7 +60,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
     const renderSuffixIcon = () => {
         if (value == null || value === '' || !hover) {
             return (
-                <Calendar
+                <Clock
                     className={iconStyle}
                     onClick={() => {
                         dispatch({
@@ -120,33 +113,9 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
             value={value}
             readOnly
             suffix={renderSuffixIcon()}
-            onKeyDown={(e) => {
-                if (instance && typeof instance.current?.keyboardNavigate === 'function') {
-                    switch (e.key) {
-                        case "ArrowUp":
-                            instance.current?.keyboardNavigate("up");
-                            break;
-                        case "ArrowDown":
-                            instance.current?.keyboardNavigate("down");
-                            break;
-                        case "ArrowLeft":
-                            instance.current?.keyboardNavigate("left");
-                            break;
-                        case "ArrowRight":
-                            instance.current?.keyboardNavigate("right");
-                            break;
-                        case "Enter":
-                            break;
-                    }
-                }
-
-                if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) {
-                    e.preventDefault();
-                }
-            }}
             {...restProps}
         />
     )
 }
 
-export default DatePickerInput;
+export default TimePickerInput;

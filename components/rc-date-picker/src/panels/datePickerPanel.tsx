@@ -1,6 +1,6 @@
 import { type HTMLAttributes, useMemo, useState, useEffect, RefObject } from 'react';
 import { css, cx } from '@linaria/core';
-import { formatTemporal, getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util';
+import { formatTemporal, getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../datePicker/util';
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons';
 import token from '../token';
 import { selectStyle } from "./universal.style";

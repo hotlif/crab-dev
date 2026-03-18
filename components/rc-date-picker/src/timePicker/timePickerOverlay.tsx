@@ -1,33 +1,34 @@
+import { useState, type FC } from "react";
+import TimePickerPanel, { type TimePickerPanelProps } from "../panels/timePickerPanel";
+import { css } from "@linaria/core";
 import RcButton from "@crab-dev/rc-button"
-import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { css } from '@linaria/core';
-import { FC } from "react";
-import DatePickerPanel, { type DatePickerPanelProps } from './panels/datePickerPanel';
-import token from './token';
 
-interface DatePickerOverlayProps extends DatePickerPanelProps {
-    onValueChange?: (value: Temporal.ZonedDateTime) => void;
-    onSelectValuesChange?: (values: Temporal.ZonedDateTime[]) => void;
+import token from "../token";
+import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
+
+
+interface TimePickerOverlayProps extends TimePickerPanelProps {
+    onValueChange?: TimePickerPanelProps["onValueChange"];
+    onSelectValuesChange?: TimePickerPanelProps["onValueChange"];
 }
 
-const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
+const TimePickerOverlay: FC<TimePickerOverlayProps> = ({
     value,
-    selectValues,
     onValueChange,
     onSelectValuesChange,
     ...restProps
 }) => {
+    const [selectValues, setSelectValues] = useState<TimePickerPanelProps["value"]>(value);
+
     const {
         dispatch
     } = useDropdownContext<HTMLInputElement>();
+
     return (
         <>
-            <DatePickerPanel
-                value={value}
-                selectValues={selectValues}
-                onSelect={(elements) => {
-                    onSelectValuesChange?.(elements);
-                }}
+            <TimePickerPanel
+                value={selectValues}
+                onValueChange={setSelectValues}
                 {...restProps}
             />
             <div
@@ -55,11 +56,13 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
                     appearance="primary"
                     onClick={(e) => {
                         e.preventDefault();
-                        onValueChange?.(selectValues?.[0]);
-                        dispatch({
-                            type: "setOpen",
-                            payload: false
-                        });
+                        if (selectValues) {
+                            onValueChange?.(selectValues);
+                            dispatch({
+                                type: "setOpen",
+                                payload: false
+                            });
+                        }
                     }}
                 >
                     确定
@@ -69,4 +72,4 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
     )
 }
 
-export default DatePickerOverlay;
+export default TimePickerOverlay;

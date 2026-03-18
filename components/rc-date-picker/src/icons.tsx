@@ -1,3 +1,4 @@
+import path from 'path/win32';
 import type { SVGProps } from 'react';
 
 export const ChevronDoubleLeft = (props: SVGProps<SVGSVGElement>) => {
@@ -107,6 +108,22 @@ export const XCircleFill = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+        </svg>
+    )
+}
+
+export const Clock = (props: SVGProps<SVGSVGElement>) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            {...props}
+        >
+            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
         </svg>
     )
 }

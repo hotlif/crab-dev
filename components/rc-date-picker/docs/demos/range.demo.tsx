@@ -7,7 +7,7 @@
 import { Temporal } from "@js-temporal/polyfill";
 import { css } from "@linaria/core";
 import { useState } from "react";
-import DatePicker from "../../src/datePicker";
+import DatePicker from "../../src/datePicker/datePicker";
 
 const now = Temporal.Now.zonedDateTimeISO();
 

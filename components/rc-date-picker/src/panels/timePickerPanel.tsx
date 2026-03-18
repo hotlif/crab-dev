@@ -10,7 +10,7 @@ interface TimePickerValue {
     second: number
 }
 
-interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, ''> {
+export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, ''> {
     value?: TimePickerValue,
     onValueChange?: (value: TimePickerValue) => void
 }

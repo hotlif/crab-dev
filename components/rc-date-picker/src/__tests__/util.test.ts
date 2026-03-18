@@ -1,6 +1,6 @@
 import { Temporal } from '@js-temporal/polyfill';
 import { describe, expect, it } from "@jest/globals";
-import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util';
+import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../datePicker/util';
 
 
 (window as any).Temporal = Temporal;
