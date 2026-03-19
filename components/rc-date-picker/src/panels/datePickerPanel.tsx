@@ -146,6 +146,7 @@ const DatePickerPanel = ({
     instance,
     ...restProps
 }: DatePickerPanelProps) => {
+    console.log(value)
     const viewValue = value.withTimeZone(timeZone);
     const [viewDate, setViewDate] = useState(viewValue);
 
@@ -154,7 +155,7 @@ const DatePickerPanel = ({
             instance.current = {
                 keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => {
                     let [selectValue] = selectValues;
-                    let moved: Temporal.ZonedDateTime;
+                    let moved: Temporal.ZonedDateTime = selectValue;
                     switch (direction) {
                         case 'left':
                             moved = selectValue.subtract({ days: 1 });
@@ -170,12 +171,15 @@ const DatePickerPanel = ({
                             break;
                     }
                     if (isWithinDateRange(moved, range)) {
+                        if (moved.year !== viewDate.year || moved.month !== viewDate.month) {
+                            setViewDate(moved);
+                        }
                         onSelect?.([moved]);
                     }
                 }
             }
         }
-    }, [instance, selectValues, range]);
+    }, [instance, selectValues, range, viewDate]);
 
     const calendarMatrix = useMemo(() => {
         const year = viewDate.year;

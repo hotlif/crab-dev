@@ -64,7 +64,7 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
     ...restProps
 }) => {
 
-    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(value == null ?  [] : [value]);
+    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(value == null ?  [Temporal.Now.zonedDateTimeISO()] : [value]);
     
     const dateTimePickerPanelInstance = useRef<DatePickerPanelInstance>(null);
 
@@ -72,7 +72,7 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
         <RcDropdownContainer
             overlay={(
                 <DateTimePickerOverlay
-                    value={value ?? Temporal.Now.zonedDateTimeISO()}
+                    value={value ?? selectValues?.[0]}
                     timeZone={timeZone}
                     weekStartDay={weekStartDay}
                     locale={locale}

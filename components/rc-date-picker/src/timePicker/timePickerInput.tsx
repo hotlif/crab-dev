@@ -50,7 +50,6 @@ const TimePickerInput: FC<TimePickerInputProps> = ({
 
     const [hover, setHover] = useState(false);
 
-
     useEffect(() => {
         if (state.open) {
             inputRef.current?.focus();
