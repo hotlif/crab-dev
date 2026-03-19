@@ -152,7 +152,7 @@ const rawGroupConfigs = groupedStructure.flatMap((region) => {
 	})
 })
 
-const totalRows = 2000
+const totalRows = 200
 const baseCount = Math.floor(totalRows / rawGroupConfigs.length)
 const remainder = totalRows % rawGroupConfigs.length
 
