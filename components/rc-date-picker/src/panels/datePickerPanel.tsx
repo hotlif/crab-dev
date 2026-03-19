@@ -146,7 +146,6 @@ const DatePickerPanel = ({
     instance,
     ...restProps
 }: DatePickerPanelProps) => {
-    console.log(value)
     const viewValue = value.withTimeZone(timeZone);
     const [viewDate, setViewDate] = useState(viewValue);
 
@@ -329,7 +328,6 @@ const DatePickerPanel = ({
                                     )}
                                     key={element.toString()}
                                     onClick={() => {
-                                        console.log(formatTemporal(element, "yyyy-MM-dd HH:mm:ss xxx"));
                                         if (!isWithinDateRange(element, range)) return;
                                         onSelect?.([element]);
                                     }}

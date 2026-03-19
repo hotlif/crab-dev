@@ -36,7 +36,7 @@ const iconStyle = css`
 `
 
 const TimePickerInput: FC<TimePickerInputProps> = ({
-    value,
+    value = "",
     onChange,
     ...restProps
 }) => {

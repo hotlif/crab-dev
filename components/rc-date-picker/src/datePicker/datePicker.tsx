@@ -83,7 +83,6 @@ const DatePicker: FC<DatePickerProps> = ({
         >
             <DatePickerInput
                 value={renderDisplayString(value)}
-                onChange={onValueChange}
                 instance={datePickerPanelInstance}
                 {...restProps}
             />

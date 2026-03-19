@@ -42,7 +42,7 @@ const iconStyle = css`
 `
 
 const DatePickerInput: FC<DatePickerInputProps> = ({
-    value,
+    value = "",
     onChange,
     instance,
     ...restProps

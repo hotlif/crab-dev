@@ -16,6 +16,11 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
     inputProps?: InputHTMLAttributes<HTMLInputElement>;
 
     /**
+     * 是否只读
+     */
+    readOnly?: boolean;
+
+    /**
      * 容器的对象
      */
     containerRef?: React.Ref<HTMLDivElement>;
@@ -64,9 +69,9 @@ const LineEdit: FC<LineEditProps> = ({
     inputRef,
     className,
     inputProps = {},
+    readOnly,
     ...restProps
 }) => {
-
     const getContainerPadding = () => {
         if (size === "large") {
             return css`
@@ -190,6 +195,7 @@ const LineEdit: FC<LineEditProps> = ({
                     `,
                     getSizeStyle()
                 )}
+                readOnly={readOnly}
                 {...inputProps}
             />
             {renderSuffixIcon()}
