@@ -1,33 +1,16 @@
-import { type Modification, type Configuration, type Config } from "@crab-dev/crustify";
+
 import { getCurrentProjectPath } from "@crab-dev/crustify";
-import { copy } from "fs-extra";
-import { createRequire } from "module";
-import { mergeWithRules } from "webpack-merge";
 import { join } from "path";
+import { copyTemplate } from "./utils/template";
+import type { Modification, Configuration, Config } from "./types/modification";
 
-const require = createRequire(import.meta.url);
-
-const dirname = () => {
-    return typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
-}
-
+const dirname = () => (typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname);
 const projectPath = getCurrentProjectPath(dirname());
 
 class LignifyMod implements Modification {
-
     constructor() {
-        const templateDir = join(projectPath, "template");
         const targetDir = join(process.cwd(), ".tmp", "lignify");
-        copy(
-            templateDir,
-            targetDir,
-            {
-                overwrite: true,
-                errorOnExist: false
-            })
-        .catch(err => {
-            console.error("failed to copy template directory:", err)
-        });
+        copyTemplate(projectPath, targetDir);
     }
 
     modifyEntry() {

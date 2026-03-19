@@ -1,6 +1,6 @@
 import mdxs from "@@@/mdxs";
-import MultipleLayout from "./MultipleLayout";
-import SingleLayout from "./SingleLayout";
+import MultipleLayout from "./tabsLayout";
+import SingleLayout from "./pageLayout";
 
 const LayoutIndex = () => {
     const isSingleComponent = mdxs.find(element => element.path === "/docs/README.md") != null;

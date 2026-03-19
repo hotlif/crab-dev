@@ -1,10 +1,10 @@
-import { useEffect, useState, type FC } from "react";
+import { useEffect, useState, type FC, useRef } from "react";
 import { css } from "@linaria/core";
 import { BsCode, BsCodeSlash, BsPalette, BsWindowFullscreen } from "react-icons/bs";
 import ReactMarkdown from "react-markdown";
 import demos from "@@@/demos";
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { vs } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { Prism } from 'react-syntax-highlighter';
+import { vs } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 interface CodeProps {
     path: string
@@ -18,6 +18,7 @@ const Code: FC<CodeProps> = ({
     const [isExpandCode, setIsExpandCode] = useState(false);
     const [code, setCode] = useState();
     const [frontmatter, setFrontmatter] = useState<Record<string,any>>({});
+    const codeBlockRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const element = demos.find(element => element.path === path);
         setFrontmatter(element?.frontmatter);
@@ -29,7 +30,10 @@ const Code: FC<CodeProps> = ({
         })
     }, [path])
     return (
-        <div>
+        <div
+            className={css`
+            `}
+        >
             <div
                 className={css`
                     display: flex;
@@ -103,18 +107,28 @@ const Code: FC<CodeProps> = ({
             {
                 isExpandCode ? (
                      <div
+                        ref={codeBlockRef}
                         className={css`
                             display: flex;
                             border-left: 1px solid #eaeaea;
                             border-right: 1px solid #eaeaea;
                             border-bottom: 1px solid #eaeaea;
-                            padding-left: 1rem;
-                            font-size: 16px;
+                            overflow: hidden;
                         `}
                     >
-                        <SyntaxHighlighter language="javascript" style={vs}>
+                        <Prism
+                            language="jsx"
+                            style={vs}
+                            wrapLongLines
+                            customStyle={{
+                                border: "unset",
+                                fontSize: 16,
+                                margin: 0,
+                                maxWidth: "100%",
+                            }}
+                        >
                             {code}
-                        </SyntaxHighlighter>
+                        </Prism>
                     </div>
                 ) : null
             }
@@ -160,11 +174,10 @@ const Codes: FC<CodeProps> = ({
         <div
             className={css`
                 display: grid;
-                width: 100%;
                 gap: 1rem;
             `}
             style={{
-                gridTemplateColumns: `repeat(${columns}, 1fr)`
+                gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`
             }}
         >
             {reactElement}

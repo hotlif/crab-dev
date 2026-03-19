@@ -5,7 +5,7 @@ import { css } from "@linaria/core";
 import Code from "../components/code";
 import DocGen from "../components/docgen";
 
-const MarkdownLayout = () => {
+const DocLayout = () => {
     const outlet = useOutlet();
     return (
         <div
@@ -25,4 +25,4 @@ const MarkdownLayout = () => {
     )
 }
 
-export default MarkdownLayout;
+export default DocLayout;

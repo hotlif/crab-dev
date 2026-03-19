@@ -2,7 +2,7 @@ import { css } from "@linaria/core";
 import { useOutlet } from "react-router";
 
 
-const CodeLayout = () => {
+const PlaygroundLayout = () => {
     const outlet = useOutlet();
     return (
         <div
@@ -16,4 +16,4 @@ const CodeLayout = () => {
     )
 }
 
-export default CodeLayout;
+export default PlaygroundLayout;

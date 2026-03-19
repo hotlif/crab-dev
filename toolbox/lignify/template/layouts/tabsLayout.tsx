@@ -21,7 +21,7 @@ const getMenuItems = () => {
 }
 
 
-const LayoutIndex = () => {
+const TabsLayout = () => {
     const outlet = useOutlet();
     const navigate = useNavigate();
 
@@ -88,6 +88,8 @@ const LayoutIndex = () => {
                             margin-left: 1rem;
                             height: 100%;
                             overflow: auto;
+                            scrollbar-gutter: stable;
+                            scroll-behavior: smooth;
                             min-height: 0;
                             min-width: 0;
                             flex: 1;
@@ -107,4 +109,4 @@ const LayoutIndex = () => {
     )
 }
 
-export default LayoutIndex;
+export default TabsLayout;
