@@ -142,17 +142,17 @@ export function formatTemporal(zdt: Temporal.ZonedDateTime | null, formatStr: st
     const tokenKeys = Object.keys(tokens).sort((a, b) => b.length - a.length);
     const tokenRegexStr = tokenKeys.join('|');
 
-    // 匹配组 1: ('') 匹配连续的两个单引号 (UTS#35 规范中代表输出一个真实的单引号)
-    // 匹配组 2: ('[^']*') 匹配被单引号包裹的任意文本 (转义保护，不进行替换)
-    // 匹配组 3: (${tokenRegexStr}) 匹配上述字典里支持的合法 token
-    const regex = new RegExp(`('')|('[^']*')|(${tokenRegexStr})`, 'g');
+    // 先全局替换连续两个单引号为一个单引号（不进入正则主替换流程）
+    let fmt = formatStr.replace(/''/g, "\u0000"); // 用特殊字符临时占位，避免和普通单引号冲突
 
-    return formatStr.replace(regex, (match, escapedQuote, quotedString, token) => {
-        if (escapedQuote) return "'"; // 遇到两个单引号，输出一个单引号
-        if (quotedString) return quotedString.slice(1, -1); // 遇到转义文本，脱去外层单引号后输出
-        if (token) return tokens[token as TokenKey]; // 遇到占位符，替换为真实时间
-        return match;
+    // 主正则：匹配被单引号包裹的文本（转义保护），或合法 token
+    const regex = new RegExp(`('[^']*')|(${tokenRegexStr})`, 'g');
+    fmt = fmt.replace(regex, (match, quotedString, token) => {
+        if (quotedString) return quotedString.slice(1, -1); // 转义文本，脱去外层单引号
+        return tokens[token as TokenKey];
     });
+    // 恢复所有单引号占位符
+    return fmt.replace(/\u0000/g, "'");
 }
 
 
@@ -160,7 +160,7 @@ export const isWithinDateRange = (
     target: Temporal.ZonedDateTime,
     range?: { start?: Temporal.ZonedDateTime; end?: Temporal.ZonedDateTime }
 ) => {
-    if (!range || (!range.start && !range.end)) {
+    if (!range) {
         return true;
     }
 

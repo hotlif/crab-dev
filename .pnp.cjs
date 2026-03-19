@@ -11873,7 +11873,7 @@ const RAW_RUNTIME_STATE =
           ["autoprefixer", "virtual:b2fb59bad47135e5d3c3668e1aa83e8b63ff27a8d533668306f8f5f623133b289423dc5d8749ed6197c74032a161d2aabfb184cba68729c982f5479e3835adb6#npm:10.4.23"],\
           ["@types/postcss", null],\
           ["browserslist", "npm:4.28.1"],\
-          ["caniuse-lite", "npm:1.0.30001777"],\
+          ["caniuse-lite", "npm:1.0.30001780"],\
           ["fraction.js", "npm:5.3.4"],\
           ["picocolors", "npm:1.1.1"],\
           ["postcss", "npm:8.5.6"],\
@@ -12458,10 +12458,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["baseline-browser-mapping", [\
-      ["npm:2.10.0", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/baseline-browser-mapping-npm-2.10.0-1f4172c310-10c0.zip/node_modules/baseline-browser-mapping/",\
+      ["npm:2.10.8", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/baseline-browser-mapping-npm-2.10.8-ac45efd2b9-10c0.zip/node_modules/baseline-browser-mapping/",\
         "packageDependencies": [\
-          ["baseline-browser-mapping", "npm:2.10.0"]\
+          ["baseline-browser-mapping", "npm:2.10.8"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12588,8 +12588,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/browserslist-npm-4.28.1-e455c4c2e8-10c0.zip/node_modules/browserslist/",\
         "packageDependencies": [\
           ["browserslist", "npm:4.28.1"],\
-          ["baseline-browser-mapping", "npm:2.10.0"],\
-          ["caniuse-lite", "npm:1.0.30001777"],\
+          ["baseline-browser-mapping", "npm:2.10.8"],\
+          ["caniuse-lite", "npm:1.0.30001780"],\
           ["electron-to-chromium", "npm:1.5.267"],\
           ["node-releases", "npm:2.0.27"],\
           ["update-browserslist-db", "virtual:e455c4c2e8dc3f3e2b2f64927f2b0dff7ca09ff7730ccbb69cae3e9342c0b24fae16e40b2aa46a2b677c172a1365ba425382266fccbf1e96179eec79a4a5c294#npm:1.2.3"]\
@@ -12784,7 +12784,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["caniuse-api", "npm:3.0.0"],\
           ["browserslist", "npm:4.28.1"],\
-          ["caniuse-lite", "npm:1.0.30001777"],\
+          ["caniuse-lite", "npm:1.0.30001780"],\
           ["lodash.memoize", "npm:4.1.2"],\
           ["lodash.uniq", "npm:4.5.0"]\
         ],\
@@ -12792,10 +12792,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["caniuse-lite", [\
-      ["npm:1.0.30001777", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/caniuse-lite-npm-1.0.30001777-9a10286060-10c0.zip/node_modules/caniuse-lite/",\
+      ["npm:1.0.30001780", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/caniuse-lite-npm-1.0.30001780-72bf229e0b-10c0.zip/node_modules/caniuse-lite/",\
         "packageDependencies": [\
-          ["caniuse-lite", "npm:1.0.30001777"]\
+          ["caniuse-lite", "npm:1.0.30001780"]\
         ],\
         "linkType": "HARD"\
       }]\
