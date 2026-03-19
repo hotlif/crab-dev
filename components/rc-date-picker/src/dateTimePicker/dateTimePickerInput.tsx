@@ -121,6 +121,13 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
             readOnly
             suffix={renderSuffixIcon()}
             onKeyDown={(e) => {
+                if (e.key === "Escape") {
+                    dispatch({
+                        type: "setOpen",
+                        payload: false
+                    });
+                    return;
+                }
                 if (instance && typeof instance.current?.keyboardNavigate === 'function') {
                     switch (e.key) {
                         case "ArrowUp":

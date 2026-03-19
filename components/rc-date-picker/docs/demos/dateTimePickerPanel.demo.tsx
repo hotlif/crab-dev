@@ -1,7 +1,6 @@
-
 /**
- * title = "基础的时间选择器带日期的"
- * description = "一个基础的时间选择器带日期的示例"
+ * title = "日期时间面板"
+ * description = "基础的日期时间选择面板组件示例。"
  */
 
 import { Temporal } from "@js-temporal/polyfill";

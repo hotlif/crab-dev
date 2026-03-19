@@ -1,13 +1,13 @@
-
 /**
  * title = "日期选择器"
- * description = "三种不同规格的日期选择器示例"
+ * description = "多种规格的日期选择器演示。"
  */
 
 import { Temporal } from "@js-temporal/polyfill";
 import { css } from "@linaria/core";
 import { useState } from "react";
 import DatePicker from "../../src/datePicker/datePicker";
+import { formatTemporal } from "../../src/util";
 
 
 const SizeDemo = () => {
@@ -44,6 +44,7 @@ const SizeDemo = () => {
             <DatePicker
                 value={value}
                 size={size}
+                renderDisplayString={(value) => formatTemporal(value, "yyyy-MM-dd")}
                 onValueChange={setValue}
             />
         </div>

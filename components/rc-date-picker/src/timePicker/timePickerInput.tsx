@@ -109,6 +109,15 @@ const TimePickerInput: FC<TimePickerInputProps> = ({
             onPointerLeave={() => {
                 setHover(false)
             }}
+            onKeyDown={(e) => {
+                if (e.key === "Escape") {
+                    dispatch({
+                        type: "setOpen",
+                        payload: false
+                    });
+                    return;
+                }
+            }}
             value={value}
             readOnly
             suffix={renderSuffixIcon()}

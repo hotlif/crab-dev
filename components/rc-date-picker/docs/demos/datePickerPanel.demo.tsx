@@ -1,7 +1,6 @@
-
 /**
- * title = "基本"
- * description = "一个基础的消息通知组件"
+ * title = "日期面板"
+ * description = "基础的日期选择面板组件示例。"
  */
 
 import { Temporal } from "@js-temporal/polyfill";
