@@ -3,7 +3,6 @@
  * description = "演示如何选择一段日期区间。"
  */
 
-import { Temporal } from "@js-temporal/polyfill";
 import { css } from "@linaria/core";
 import { useState } from "react";
 import DatePicker from "../../src/datePicker/datePicker";

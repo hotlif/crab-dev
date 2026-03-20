@@ -11,7 +11,7 @@ interface TimePickerValue {
 }
 
 export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, ''> {
-    value?: TimePickerValue,
+    value?: TimePickerValue | null,
     onValueChange?: (value: TimePickerValue) => void
 }
 
@@ -66,9 +66,9 @@ const ulStyle = css`
 const TimePickerPanel: FC<TimePickerPanelProps> = ({
     className,
     value = {
-        hour: 0,
-        minute: 0,
-        second: 0
+        hour: Temporal.Now.zonedDateTimeISO().hour,
+        minute: Temporal.Now.zonedDateTimeISO().minute,
+        second: Temporal.Now.zonedDateTimeISO().second
     },
     onValueChange,
     ...restProps

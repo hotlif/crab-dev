@@ -3,7 +3,6 @@
  * description = "多种规格的日期选择器演示。"
  */
 
-import { Temporal } from "@js-temporal/polyfill";
 import { css } from "@linaria/core";
 import { useState } from "react";
 import DatePicker from "../../src/datePicker/datePicker";

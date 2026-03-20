@@ -11,7 +11,7 @@ import type { TimePickerPanelProps } from "../../src/panels/timePickerPanel";
 
 
 const SizeDemo = () => {
-    const [value, setValue] = useState<TimePickerPanelProps["value"]>({ hour: 0, minute: 0, second: 0 });
+    const [value, setValue] = useState<TimePickerPanelProps["value"]>();
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")
     return (
         <div

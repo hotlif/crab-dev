@@ -4,7 +4,6 @@
  * description = "一个基础的时间选择面板组件"
  */
 
-import { Temporal } from "@js-temporal/polyfill";
 import TimePickerPanel from "../../src/panels/timePickerPanel";
 import { useState } from "react";
 

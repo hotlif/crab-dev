@@ -3,7 +3,6 @@
  * description = "基础的日期选择面板组件示例。"
  */
 
-import { Temporal } from "@js-temporal/polyfill";
 import DatePickerPanel from "../../src/panels/datePickerPanel";
 
 
