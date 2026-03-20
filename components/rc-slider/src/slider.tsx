@@ -38,6 +38,7 @@ const Slider: FC<SliderProps> = ({
 
     return (
         <div
+            tabIndex={-1}
             className={cx(css`
                 cursor: pointer;
                 position: relative;
@@ -45,7 +46,19 @@ const Slider: FC<SliderProps> = ({
                 touch-action: none; 
                 user-select: none;
                 overflow: visible;
+                padding: 0px 1rem;
             `,className)}
+            onKeyDown={(e) => {
+                let newValue = clampedValue;
+                if (e.key === "ArrowRight" || e.key === "ArrowUp") newValue += 1;
+                if (e.key === "ArrowLeft" || e.key === "ArrowDown") newValue -= 1;
+                if (e.key === "Home") newValue = 0;
+                if (e.key === "End") newValue = 100;
+                if (newValue !== clampedValue) {
+                    onValueChange?.(Math.max(0, Math.min(100, newValue)));
+                }
+            }}
+
             {...restProps}
         >
             <svg
@@ -93,14 +106,6 @@ const Slider: FC<SliderProps> = ({
                         cx(css`
                             fill: ${token.color['track-active-bg']};
                             height: ${token.dimension['track-height']};
-                        `,!isDragging && css`
-                            transition:
-                                width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                rx 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                ry 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                y 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                fill 0.25s cubic-bezier(0.4, 0, 0.2, 1);
                         `)
                     }
                     x="0"
@@ -119,15 +124,6 @@ const Slider: FC<SliderProps> = ({
                         &:hover {
                             filter: drop-shadow(${token.elevation['thumb-shadow-hover']});
                         }
-                    `, !isDragging && css`
-                            transition:
-                                cx 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                cy 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                r 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                fill 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                stroke 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                                stroke-width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-                    
                     `)}
                     x={token.dimension['thumb-radius']}
                     cx={`${clampedValue}%`}
