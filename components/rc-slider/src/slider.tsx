@@ -1,5 +1,5 @@
 import { css, cx } from "@linaria/core";
-import { type HTMLAttributes, type FC, useRef, useState } from "react";
+import { type HTMLAttributes, type FC, useRef } from "react";
 import token from "./token";
 
 export interface SliderProps extends HTMLAttributes<HTMLDivElement> {
@@ -79,12 +79,10 @@ const Slider: FC<SliderProps> = ({
                 onPointerUp={(e) => {
                     e.currentTarget.releasePointerCapture(e.pointerId);
                     rectRef.current = null;
-                    setIsDragging(false);
                 }}
                 onPointerCancel={(e) => {
                     e.currentTarget.releasePointerCapture(e.pointerId);
                     rectRef.current = null;
-                    setIsDragging(false);
                 }}
             >
                 <rect
