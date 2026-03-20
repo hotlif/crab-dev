@@ -6136,13 +6136,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./components/rc-form/",\
         "packageDependencies": [\
           ["@crab-dev/rc-form", "workspace:components/rc-form"],\
-          ["@crab-dev/crustify", "virtual:c833e42e87585a19c9219cea1d544faab1b246b509bd2e01b5bafa3a261bb18e077793e93e40cedf57320531217bd23a692a3518d48c2cad6b171655f7475044#workspace:toolbox/crustify"],\
+          ["@crab-dev/lignify", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-menu", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:components/rc-menu"],\
           ["@crab-dev/standards-eslint-preset", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@jest/globals", "npm:30.2.0"],\
           ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:3.1.1"],\
+          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:16.3.2"],\
           ["@types/node", "npm:25.3.5"],\
@@ -6156,6 +6159,9 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:19.2.4"],\
           ["react-dom", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:19.2.4"],\
           ["react-icons", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:5.6.0"],\
+          ["react-markdown", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:10.1.0"],\
+          ["react-router", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:7.13.1"],\
+          ["react-syntax-highlighter", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#npm:16.1.1"],\
           ["typescript", "patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.56.1"]\
         ],\
@@ -8679,6 +8685,19 @@ const RAW_RUNTIME_STATE =
           ["debug", "virtual:643ed7cc338bcf145a82d8b05b3bef6bcf150ca545df386225596f10ce53cc90b88b3ca83e348ade1ccea5f3f8e76c92d2f0e2ba544da60d40aff9921c56872d#npm:4.4.3"],\
           ["fast-glob", "npm:3.3.3"],\
           ["react-docgen", "npm:8.0.2"],\
+          ["slash", "npm:5.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:3.0.6", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@react-docgen-cli-npm-3.0.6-33366ebdd2-10c0.zip/node_modules/@react-docgen/cli/",\
+        "packageDependencies": [\
+          ["@react-docgen/cli", "npm:3.0.6"],\
+          ["chalk", "npm:5.6.2"],\
+          ["commander", "npm:14.0.3"],\
+          ["debug", "virtual:643ed7cc338bcf145a82d8b05b3bef6bcf150ca545df386225596f10ce53cc90b88b3ca83e348ade1ccea5f3f8e76c92d2f0e2ba544da60d40aff9921c56872d#npm:4.4.3"],\
+          ["fast-glob", "npm:3.3.3"],\
+          ["react-docgen", "npm:8.0.3"],\
           ["slash", "npm:5.1.0"]\
         ],\
         "linkType": "HARD"\
@@ -22562,6 +22581,23 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/react-docgen-npm-8.0.2-86db1ae595-10c0.zip/node_modules/react-docgen/",\
         "packageDependencies": [\
           ["react-docgen", "npm:8.0.2"],\
+          ["@babel/core", "npm:7.29.0"],\
+          ["@babel/traverse", "npm:7.29.0"],\
+          ["@babel/types", "npm:7.28.6"],\
+          ["@types/babel__core", "npm:7.20.5"],\
+          ["@types/babel__traverse", "npm:7.28.0"],\
+          ["@types/doctrine", "npm:0.0.9"],\
+          ["@types/resolve", "npm:1.20.6"],\
+          ["doctrine", "npm:3.0.0"],\
+          ["resolve", "patch:resolve@npm%3A1.22.11#optional!builtin<compat/resolve>::version=1.22.11&hash=c3c19d"],\
+          ["strip-indent", "npm:4.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:8.0.3", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/react-docgen-npm-8.0.3-a24b2cb540-10c0.zip/node_modules/react-docgen/",\
+        "packageDependencies": [\
+          ["react-docgen", "npm:8.0.3"],\
           ["@babel/core", "npm:7.29.0"],\
           ["@babel/traverse", "npm:7.29.0"],\
           ["@babel/types", "npm:7.28.6"],\

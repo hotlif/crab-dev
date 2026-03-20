@@ -1,10 +1,10 @@
 /**
  * label="基础用法"
- * description="一个简单的单行文本编辑器"
+ * description="一个简单的表单示例"
  */
 
 import { css } from "@linaria/core";
-import Form, { Item, useForm } from "../../../src/index";
+import Form, { Item, useForm } from "../../src/index";
 
 
 const Input = ({
@@ -16,7 +16,6 @@ const Input = ({
 			value={value ?? ""}
 			style={{
 				width: "100%",
-				height: 40
 			}}
 			onChange={(e) => {
 				onChange?.(e.target.value)
@@ -86,7 +85,7 @@ const SimpleFrame = () => {
 			<button
 				type="button"
 				onClick={() => {
-					const username = form.getFieldValue(["user", "name"]);
+					const username = form.getFieldValue(["user", "username"]);
 					const password = form.getFieldValue(["user", "password"]);
 					console.log("getFieldsValue:", "username = " + username, "password = " + password)
 				}}

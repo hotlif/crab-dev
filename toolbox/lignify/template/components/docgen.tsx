@@ -94,7 +94,9 @@ const DocGen: FC<DocGenProps> = ({
                         return element?.tsType?.name
                     }
                     return (
-                        <tr>
+                        <tr
+                            key={key}
+                        >
                             <td>{key}</td>
                             <td>{element?.description}</td>
                             <td>{getTypeString()}</td>
