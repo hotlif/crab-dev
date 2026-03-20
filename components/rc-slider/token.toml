@@ -1,0 +1,25 @@
+[build]
+output = "./src/token.ts"
+prefix = "slider"
+
+[token.color]
+thumb-bg = "#fff"
+thumb-border = "#91caff"
+track-bg = "rgba(0, 0, 0, 0.04)"
+track-active-bg = "rgb(145, 202, 255)"
+
+[token.dimension]
+track-height = "3px"
+thumb-radius = "6px"
+
+[token.typography]
+
+[token.motion]
+
+[token.elevation]
+thumb-shadow = "0 2px 8px rgba(0,0,0,0.15)"
+thumb-shadow-hover = "0 4px 12px rgba(0,0,0,0.20)"
+
+[token.border]
+stroke-width = "2px"
+[token.opacity]
