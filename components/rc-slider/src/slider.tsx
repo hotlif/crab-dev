@@ -20,8 +20,6 @@ const Slider: FC<SliderProps> = ({
     onValueChange,
     ...restProps
 }) => {
-    const [isDragging, setIsDragging] = useState(false);
-
     const svgRef = useRef<SVGSVGElement>(null);
     const rectRef = useRef<DOMRect>(null);
 
@@ -72,7 +70,6 @@ const Slider: FC<SliderProps> = ({
                     e.currentTarget.setPointerCapture(e.pointerId);
                     rectRef.current = e.currentTarget.getBoundingClientRect();
                     updateProgress(e.clientX);
-                    setIsDragging(true)
                 }}
                 onPointerMove={(e) => {
                     if (e.currentTarget.hasPointerCapture(e.pointerId)) {
