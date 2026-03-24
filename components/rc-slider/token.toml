@@ -2,24 +2,25 @@
 output = "./src/token.ts"
 prefix = "slider"
 
-[token.color]
-thumb-bg = "#fff"
-thumb-border = "#91caff"
-track-bg = "rgba(0, 0, 0, 0.04)"
-track-active-bg = "rgb(145, 202, 255)"
+[token]
 
-[token.dimension]
-track-height = "3px"
-thumb-radius = "6px"
-
-[token.typography]
-
-[token.motion]
-
-[token.elevation]
-thumb-shadow = "0 2px 8px rgba(0,0,0,0.15)"
-thumb-shadow-hover = "0 4px 12px rgba(0,0,0,0.20)"
-
-[token.border]
-stroke-width = "2px"
-[token.opacity]
+# 轨道总高度
+rail.interact.height = "12px"
+# 轨道线的粗细
+rail.thickness = "4px"
+# 轨道的背景色
+rail.inactive.fill = "#e5e7eb"
+# 轨道的激活颜色
+rail.active.fill = "#3b82f6"
+# 手柄半径
+thumb.radius = "8px"
+# 手柄填充颜色颜色
+thumb.fill = "#ffffff"
+# 手柄边框颜色
+thumb.stroke.color = "#3b82f6"
+# 手柄边框的宽度
+thumb.stroke.width = "2.5px"
+# 手柄光晕缩放因子
+thumb.halo.scale.factor = 1.8
+# 手柄光晕填充颜色
+thumb.halo.fill = "#3b82f6"

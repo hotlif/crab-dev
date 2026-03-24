@@ -1,131 +1,166 @@
 import { css, cx } from "@linaria/core";
-import { type HTMLAttributes, type FC, useRef } from "react";
+import { type HTMLAttributes, type FC, useRef, useCallback, useState } from "react";
 import token from "./token";
 
 export interface SliderProps extends HTMLAttributes<HTMLDivElement> {
-    /**
-     * 值
-     */
-    value?: number;
-
-    /**
-     * 改变值触发的事件
-     */
+    value: number;
+    min?: number
+    max?: number
+    step?: number
     onValueChange?: (value: number) => void;
 }
 
 const Slider: FC<SliderProps> = ({
     className,
+    min = 0,
+    max = 100,
+    step = 1,
     value = 0,
     onValueChange,
     ...restProps
 }) => {
-    const svgRef = useRef<SVGSVGElement>(null);
-    const rectRef = useRef<DOMRect>(null);
+    // 包裹元素引用，用於計算指針相對於組件的位置
+    const containerRef = useRef<HTMLDivElement>(null);
+    // 交互狀態：是否正在拖拽
+    const [isDragging, setIsDragging] = useState(false);
+    // 當前進度百分比（0-100）
+    const percent = Number(Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100)));
 
-    const updateProgress = (clientX: number) => {
-        if (!rectRef.current) return;
-        const rect = rectRef.current;
-        let newPercent = ((clientX - rect.left) / rect.width) * 100;
-        newPercent = Math.max(0, Math.min(100, newPercent));
-        newPercent = Math.round(newPercent);
-        onValueChange?.(newPercent);
-    }
+    const updateValue = useCallback((clientX: number) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        let newPercent = (clientX - rect.left) / rect.width;
+        newPercent = Math.max(0, Math.min(1, newPercent));
+        let rawValue = newPercent * (max - min) + min;
+        if (step > 0) {
+            rawValue = Math.round(rawValue / step) * step;
+        }
+        const finalValue = Math.max(min, Math.min(max, rawValue));
+        if (onValueChange && finalValue !== value) {
+            onValueChange(finalValue);
+        }
+    }, [min, max, step, value, onValueChange]);
 
-    const clampedValue = Math.max(0, Math.min(100, value));
+    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDragging(true);
+        updateValue(e.clientX);
+        e.currentTarget.setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (isDragging) {
+            updateValue(e.clientX);
+        }
+    };
+
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (isDragging) {
+            setIsDragging(false);
+            e.currentTarget.releasePointerCapture(e.pointerId);
+        }
+    };
 
     return (
         <div
-            tabIndex={-1}
-            className={cx(css`
-                cursor: pointer;
+            data-slot="root"
+            className={cx("slider", css`
                 position: relative;
-                display: block;
-                touch-action: none; 
+                width: 100%;
                 user-select: none;
-                overflow: visible;
-                padding: 0px 1rem;
-            `,className)}
-            onKeyDown={(e) => {
-                let newValue = clampedValue;
-                if (e.key === "ArrowRight" || e.key === "ArrowUp") newValue += 1;
-                if (e.key === "ArrowLeft" || e.key === "ArrowDown") newValue -= 1;
-                if (e.key === "Home") newValue = 0;
-                if (e.key === "End") newValue = 100;
-                if (newValue !== clampedValue) {
-                    onValueChange?.(Math.max(0, Math.min(100, newValue)));
-                }
-            }}
-
+                cursor: pointer;
+                touch-action: none;
+            `, className)}
+            ref={containerRef}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
             {...restProps}
         >
-            <svg
+            <div
                 className={css`
-                    overflow: visible;
+                    position: relative;
                     width: 100%;
-                    height: calc(${token.dimension['thumb-radius']} * 2 + ${token.border['stroke-width']} * 2);
+                    display: flex;
+                    align-items: center;
                 `}
-                ref={svgRef}
-                onPointerDown={(e) => {
-                    e.currentTarget.setPointerCapture(e.pointerId);
-                    rectRef.current = e.currentTarget.getBoundingClientRect();
-                    updateProgress(e.clientX);
-                }}
-                onPointerMove={(e) => {
-                    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-                        updateProgress(e.clientX);
-                    }
-                }}
-                onPointerUp={(e) => {
-                    e.currentTarget.releasePointerCapture(e.pointerId);
-                    rectRef.current = null;
-                }}
-                onPointerCancel={(e) => {
-                    e.currentTarget.releasePointerCapture(e.pointerId);
-                    rectRef.current = null;
-                }}
             >
-                <rect
+                <div
+                    data-slot="rail"
                     className={css`
-                        fill: ${token.color['track-bg']};
+                        position: absolute;
                         width: 100%;
-                        height: ${token.dimension['track-height']};
+                        height: ${token.rail.thickness};
+                        border-radius: calc(${token.rail.thickness} / 2);
+                        background: ${token.rail.inactive.fill};
                     `}
-                    x="0"
-                    y={`calc(${token.dimension['thumb-radius']} - ${token.dimension['track-height']} / 2)`}
-                    rx={`calc(${token.dimension['track-height']} / 2)`}
-                    ry={`calc(${token.dimension['track-height']} / 2)`}
                 />
-                <rect
-                    className={
-                        cx(css`
-                            fill: ${token.color['track-active-bg']};
-                            height: ${token.dimension['track-height']};
-                        `)
-                    }
-                    x="0"
-                    y={`calc(${token.dimension['thumb-radius']} - ${token.dimension['track-height']} / 2)`}
-                    width={`${clampedValue}%`}
-                    rx={`calc(${token.dimension['track-height']} / 2)`}
-                    ry={`calc(${token.dimension['track-height']} / 2)`}
+                
+                <div
+                    data-slot="track"
+                    className={css`
+                        position: absolute;
+                        height: ${token.rail.thickness};
+                        border-radius: calc(${token.rail.thickness} / 2);
+                        background: ${token.rail.active.fill};
+                    `}
+                    style={{ width: `${percent.toFixed(4)}%` }}
                 />
-                <circle
-                    className={cx(css`
-                        fill: ${token.color['thumb-bg']};
-                        filter: drop-shadow(${token.elevation['thumb-shadow']});
-                        cursor: pointer;
-                        stroke: ${token.color['thumb-border']};
-                        stroke-width: ${token.border['stroke-width']};
-                        &:hover {
-                            filter: drop-shadow(${token.elevation['thumb-shadow-hover']});
-                        }
-                    `)}
-                    x={token.dimension['thumb-radius']}
-                    cx={`${clampedValue}%`}
-                    cy={token.dimension['thumb-radius']}
-                    r={token.dimension['thumb-radius']}
-                />
-            </svg>
+            
+                <div
+                    data-slot="handle-container"
+                    className={css`
+                        position: absolute;
+                        top: 50%;
+                    `}
+                    style={{ 
+                        left: `${percent.toFixed(4)}%`,
+                        transform: `translate(-50%, -50%)`
+                    }}
+                >
+                    <div
+                        data-slot="halo"
+                        data-is-dragging={isDragging}
+                        className={css`
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            border-radius: 50%;
+                            background-color: ${token.thumb.halo.fill};
+                            opacity: 0.2;
+                            transition: width 200ms, height 200ms;
+                            pointer-events: none;
+                            width: 0;
+                            height: 0;
+                            [data-slot="handle-container"]:hover &,
+                            &[data-is-dragging="true"] {
+                                width: calc(${token.thumb.radius} * 2 * ${token.thumb.halo.scale.factor});
+                                height: calc(${token.thumb.radius} * 2 * ${token.thumb.halo.scale.factor});
+                            }
+                        `}
+                    />
+                    <div
+                        data-slot="handle"
+                        data-is-dragging={isDragging}
+                        className={css`
+                            position: relative;
+                            border-radius: 50%;
+                            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+                            transition: transform 200ms;
+                            transform: scale(1);
+                            width: calc(${token.thumb.radius} * 2);
+                            height: calc(${token.thumb.radius} * 2);
+                            background: ${token.thumb.fill};
+                            border: ${token.thumb.stroke.width} solid ${token.thumb.stroke.color};
+                            &[data-is-dragging="true"] {
+                                transform: scale(1.1);
+                            }
+                        `}
+                    />
+                </div>
+            </div>
         </div>
     )
 }

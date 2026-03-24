@@ -18,9 +18,12 @@ const BaseDemo = () => {
                 align-items: center;
                 gap: 8px;
             `}
+            style={{ width: 150 }}
         >
             <Slider
-                style={{ width: 150 }}
+                min={0}
+                max={360}
+                step={1}
                 value={value}
                 onValueChange={setValue}
             />
