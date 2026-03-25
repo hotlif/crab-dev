@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-virtual",
     "description": "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "version": "0.1.1",
     "type": "module",
     "scripts": {

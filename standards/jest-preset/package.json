@@ -1,6 +1,6 @@
 {
     "name": "@crab-dev/standards-jest-preset",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "version": "0.0.1",
     "description": "用于 Jest 的配置预设，包含 React 和 TypeScript 的支持",
     "type": "module",

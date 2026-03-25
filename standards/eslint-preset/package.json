@@ -1,16 +1,16 @@
 {
     "name": "@crab-dev/standards-eslint-preset",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "version": "0.0.1",
     "description": "用于 ESLint 的配置预设，包含 React 和 TypeScript 的支持",
     "type": "module",
     "main": "index.mjs",
     "module": "index.mjs",
     "peerDependencies": {
-        "eslint": "^9.17.0",
+        "eslint": "^10.1.0",
         "eslint-plugin-react": "^7.37.3",
         "globals": "^17.0.0",
-        "typescript": "^5.9.3",
+        "typescript": "^6.0.2",
         "typescript-eslint": "^8.18.2"
     },
     "dependencies": {

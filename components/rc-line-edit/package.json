@@ -2,7 +2,7 @@
     "name": "@crab-dev/rc-line-edit",
     "description": "单行文本编辑组件",
     "version": "0.0.3",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "scripts": {
         "start": "crustify dev",

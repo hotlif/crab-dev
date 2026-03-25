@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-color-picker",
     "description": "颜色选择组件",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "version": "0.0.1",
     "scripts": {
@@ -34,7 +34,6 @@
         "@linaria/core": "^7.0.0",
         "@mdx-js/react": "^3.1.1",
         "@react-docgen/cli": "^3.0.6",
-        "@types/culori": "^4",
         "@types/node": "^25.5.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",

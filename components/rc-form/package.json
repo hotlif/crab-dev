@@ -2,7 +2,7 @@
     "name": "@crab-dev/rc-form",
     "description": "高性能的表单组件",
     "version": "0.0.6",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "scripts": {
         "start": "yarn generate:docgen && lignify run-task app:dev",

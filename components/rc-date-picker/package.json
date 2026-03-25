@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-date-picker",
     "description": "日期选择组件",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "version": "0.0.1",
     "scripts": {

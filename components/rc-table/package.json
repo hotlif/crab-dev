@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-table",
     "description": "展示行列数据的表格组件",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "scripts": {
         "start": "yarn generate:docgen && lignify run-task app:dev",

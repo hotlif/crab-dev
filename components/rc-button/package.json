@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-button",
     "description": "一个按钮, 用于即时操作",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "version": "0.0.1",
     "scripts": {

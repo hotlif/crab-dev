@@ -1679,7 +1679,6 @@ __metadata:
     "@linaria/core": "npm:^7.0.0"
     "@mdx-js/react": "npm:^3.1.1"
     "@react-docgen/cli": "npm:^3.0.6"
-    "@types/culori": "npm:^4"
     "@types/node": "npm:^25.5.0"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
@@ -2036,7 +2035,6 @@ __metadata:
     "@react-docgen/cli": "npm:^3.0.6"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/react": "npm:^16.3.2"
-    "@types/culori": "npm:^4"
     "@types/node": "npm:^25.5.0"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
@@ -2166,10 +2164,10 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^10.0.1"
   peerDependencies:
-    eslint: ^9.17.0
+    eslint: ^10.1.0
     eslint-plugin-react: ^7.37.3
     globals: ^17.0.0
-    typescript: ^5.9.3
+    typescript: ^6.0.2
     typescript-eslint: ^8.18.2
   languageName: unknown
   linkType: soft
@@ -4709,13 +4707,6 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/2e1cdba2c410f25649e77856505cd60223250fa12dff7a503e492208dbfdd25f62859918f28aba95315251fd1f5e1ffbfca1e25e73037189ab85dd3f8d0a148c
-  languageName: node
-  linkType: hard
-
-"@types/culori@npm:^4":
-  version: 4.0.1
-  resolution: "@types/culori@npm:4.0.1"
-  checksum: 10c0/f25fcf01fe709d2fce569892eae71a268b19cf85a7c8f6bf6b041f02f232e5a7d1218e8213349d6b2a458be9f61158ed1e1893e7b81e2ee4a7cebc2a172b7ebb
   languageName: node
   linkType: hard
 

@@ -2,7 +2,7 @@
     "name": "@crab-dev/rc-live",
     "description": "代码预览组件, 可以预览编辑对应的代码片段",
     "version": "0.0.1",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "type": "module",
     "scripts": {
         "start": "crustify dev",

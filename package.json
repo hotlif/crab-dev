@@ -1,28 +1,27 @@
 {
-  "private": true,
-  "version": "0.0.1",
-  "packageManager": "yarn@4.7.0",
-  "type": "module",
-  "scripts": {
-    "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
-    "trivy": "trivy fs --scanners vuln,license,secret,config,misconfig .",
-    "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
-  },
-  "workspaces": [
-    "standards/*",
-    "toolbox/*",
-    "components/*",
-    "styleify"
-  ],
-  "devDependencies": {
-    "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@nx/eslint": "22.6.1",
-    "@nx/jest": "22.6.1",
-    "@nx/rollup": "22.6.1",
-    "@nx/webpack": "22.6.1",
-    "@types/node": "25.5.0",
-    "eslint": "^10.1.0",
-    "nx": "22.6.1",
-    "typescript": "^6.0.2"
-  }
+    "private": true,
+    "version": "0.0.1",
+    "packageManager": "yarn@4.13.0",
+    "type": "module",
+    "scripts": {
+        "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
+        "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
+    },
+    "workspaces": [
+        "standards/*",
+        "toolbox/*",
+        "components/*",
+        "styleify"
+    ],
+    "devDependencies": {
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@nx/eslint": "22.6.1",
+        "@nx/jest": "22.6.1",
+        "@nx/rollup": "22.6.1",
+        "@nx/webpack": "22.6.1",
+        "@types/node": "25.5.0",
+        "eslint": "^10.1.0",
+        "nx": "22.6.1",
+        "typescript": "^6.0.2"
+    }
 }

@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-frame",
     "description": "布局组件，适用于管理后台、仪表盘等",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "version": "0.0.3",
     "type": "module",
     "scripts": {

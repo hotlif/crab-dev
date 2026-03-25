@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-menu",
     "description": "为页面和功能提供导航的菜单列表。",
-    "packageManager": "yarn@4.7.0",
+    "packageManager": "yarn@4.13.0",
     "version": "0.0.2",
     "type": "module",
     "scripts": {
