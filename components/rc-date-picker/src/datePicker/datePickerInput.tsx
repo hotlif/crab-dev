@@ -7,12 +7,12 @@ import { Calendar, XCircleFill } from '../icons';
 import token from '../token';
 import { DatePickerPanelInstance } from "../panels/datePickerPanel";
 
-interface DatePickerInputProps {
+export interface DatePickerInputProps {
     
     /**
      * 改变值值触发的事件
      */
-    onChange?: (value: Temporal.ZonedDateTime | null) => void;
+    onValueChange?: (value: Temporal.ZonedDateTime | null) => void;
 
     /**
      * 输入的值信息
@@ -43,7 +43,7 @@ const iconStyle = css`
 
 const DatePickerInput: FC<DatePickerInputProps> = ({
     value = "",
-    onChange,
+    onValueChange,
     instance,
     ...restProps
 }) => {
@@ -83,7 +83,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
                     className={iconStyle}
                     onMouseDown={(e) => {
                         e.preventDefault();
-                        onChange?.(null);
+                        onValueChange?.(null);
                     }}
                 />
             )
@@ -151,7 +151,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
                     e.preventDefault();
                 }
             }}
-            // {...restProps}
+            {...restProps}
         />
     )
 }

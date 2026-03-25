@@ -2,11 +2,11 @@ import { useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import { formatTemporal } from "../util"
-import DatePickerInput from "./datePickerInput";
+import DatePickerInput, { DatePickerInputProps } from "./datePickerInput";
 import DatePickerOverlay from "./datePickerOverlay";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel"
 
-export interface DatePickerProps extends DatePickerPanelProps {
+export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
 
     /**
      * 大小
@@ -41,12 +41,12 @@ export interface DatePickerProps extends DatePickerPanelProps {
     /**
      * 改变日期的时候触发的事件
      */
-    onValueChange?: (value: Temporal.ZonedDateTime) => void;
+    onValueChange?: DatePickerInputProps["onValueChange"];
 
     /**
      * 自定义显示的日期字符串
      */
-    renderDisplayString?: (value: Temporal.ZonedDateTime) => string;
+    renderDisplayString?: (value: Temporal.ZonedDateTime | null) => string;
 }
 
 
@@ -82,8 +82,8 @@ const DatePicker: FC<DatePickerProps> = ({
             )}
         >
             <DatePickerInput
-                value={renderDisplayString(value)}
-                onChange={onValueChange}
+                value={renderDisplayString(value!)}
+                onValueChange={onValueChange}
                 instance={datePickerPanelInstance}
                 {...restProps}
             />

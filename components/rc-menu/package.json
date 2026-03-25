@@ -23,20 +23,20 @@
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^7.0.0",
-        "@types/node": "25.3.5",
+        "@types/node": "25.5.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
-        "eslint": "^10.0.3",
+        "eslint": "^10.1.0",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^17.4.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
-        "typescript": "^5.9.3",
-        "typescript-eslint": "^8.56.1"
+        "typescript": "^6.0.2",
+        "typescript-eslint": "^8.57.2"
     },
     "dependencies": {
         "@floating-ui/react": "^0.27.19",
-        "motion": "^12.35.1"
+        "motion": "^12.38.0"
     },
     "peerDependencies": {
         "react": "^19.0.0",

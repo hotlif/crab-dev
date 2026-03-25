@@ -55,11 +55,13 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
                     appearance="primary"
                     onClick={(e) => {
                         e.preventDefault();
-                        onValueChange?.(selectValues?.[0]);
-                        dispatch({
-                            type: "setOpen",
-                            payload: false
-                        });
+                        if (selectValues?.[0]) {
+                            onValueChange?.(selectValues![0]);
+                            dispatch({
+                                type: "setOpen",
+                                payload: false
+                            });
+                        }
                     }}
                 >
                     确定
