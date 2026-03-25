@@ -254,9 +254,7 @@ const Virtual: FC<VirtualProps> = ({
 		<div
 			className={cx(
 				className,
-				css`
-					${containerStyle}	
-				`
+				containerStyle
 			)}
 			style={{
 				...style,
@@ -271,9 +269,7 @@ const Virtual: FC<VirtualProps> = ({
 			} as React.CSSProperties & Record<string, any>}
 		>
 			<div
-				className={css`
-					${gridStyle}
-				`}
+				className={cx(gridStyle)}
 				style={{
 					width: viewportWidth,
 					height: viewportHeight,

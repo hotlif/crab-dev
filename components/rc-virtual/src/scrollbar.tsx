@@ -1,5 +1,5 @@
 import { type RefObject, useEffect, useRef, type MouseEvent } from "react";
-import { css } from "@linaria/core";
+import { css, cx } from "@linaria/core";
 
 import {
 	containerStyle,
@@ -209,10 +209,7 @@ const ScrollBar = ({
 
 		return (
 			<div
-				className={css`
-					${containerStyle}
-					${xContainerStyle}
-				`}
+				className={cx(containerStyle, xContainerStyle)}
 				ref={divRef}
 			>
 				<div
@@ -221,10 +218,7 @@ const ScrollBar = ({
 						left: thumbLeft,
 					}}
 					onMouseDown={onMouseDown}
-					className={css`
-						${thumbStyle}
-						${xThumbStyle}	
-					`}
+					className={cx(thumbStyle, xThumbStyle)}
 				/>
 			</div>
 		);
@@ -241,17 +235,11 @@ const ScrollBar = ({
 
 		return (
 			<div
-				className={css`
-					${containerStyle}
-					${yContainerStyle}
-				`}
+				className={cx(containerStyle, yContainerStyle)}
 				ref={divRef}
 			>
 				<div
-					className={css`
-						${thumbStyle}
-						${yThumbStyle}
-					`}
+					className={cx(thumbStyle, yThumbStyle)}
 					style={{
 						height: thumbHeight,
 						top: thumbTop

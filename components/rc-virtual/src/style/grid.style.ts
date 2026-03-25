@@ -1,9 +1,10 @@
+import { css } from "@linaria/core";
 
-export const containerStyle = `
+export const containerStyle = css`
 	position: relative;
 `;
 
-export const gridStyle = `
+export const gridStyle = css`
 	overflow: hidden;
 	position: relative;
 `;

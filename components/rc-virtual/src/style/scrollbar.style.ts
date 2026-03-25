@@ -1,17 +1,15 @@
-import {
-	zIndex
-} from "@crab-dev/styleify";
+import { css } from "@linaria/core";
 
-export const containerStyle = `
+export const containerStyle = css`
 	cursor: pointer;
 	background-color: unset;
 	position: absolute;
 	border-radius: 99px;
 	user-select: none;
-	${zIndex("mid")};
+	z-index: 200;
 `;
 
-export const thumbStyle = `
+export const thumbStyle = css`
 	cursor: pointer;
 	background-color: rgba(0, 0, 0, 0.5);
 	position: absolute;
@@ -19,23 +17,23 @@ export const thumbStyle = `
 	user-select: none;
 `;
 
-export const xContainerStyle = `
+export const xContainerStyle = css`
 	width: 100%;
 	height: 8px;
 	bottom: 0;
 `;
 
-export const xThumbStyle = `
+export const xThumbStyle = css`
 	height: 100%;
 `;
 
-export const yContainerStyle = `
+export const yContainerStyle = css`
 	width: 8px;
 	height: 100%;
 	top: 0;
 	right: 0;
 `;
 
-export const yThumbStyle = `
+export const yThumbStyle = css`
 	width: 100%;
 `;
