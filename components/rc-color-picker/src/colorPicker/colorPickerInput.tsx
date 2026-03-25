@@ -57,14 +57,6 @@ const ColorPickerInput: FC<ColorPickerInputProps> = ({
                     border-radius: inherit;
                 `}
             />
-            <label
-                className={css`
-                    cursor: pointer;
-                    margin-right: 4px;
-                `}
-            >
-                oklch({value.lightness} {value.chroma} {value.hue})
-            </label>   
         </div>
     )
 }
