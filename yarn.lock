@@ -1474,7 +1474,6 @@ __metadata:
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@types/babel__helper-plugin-utils": "npm:^7.10.3"
     "@types/node": "npm:^25.5.0"
-    dep-tree: "npm:^0.2.1"
   languageName: unknown
   linkType: soft
 
@@ -2141,7 +2140,6 @@ __metadata:
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/styleify": "workspace:^"
     "@linaria/core": "npm:^7.0.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
@@ -6562,13 +6560,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"big.js@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "big.js@npm:7.0.1"
-  checksum: 10c0/2ea2c2e263db37b2d5c6ad6246408eabf13ba07776cfd92bf464db201ef9aa9aa1712accbfe97f4aba5d358567ebefe768e8a50102cde11f35ef3497ddc2747c
-  languageName: node
-  linkType: hard
-
 "binary-extensions@npm:^2.0.0":
   version: 2.3.0
   resolution: "binary-extensions@npm:2.3.0"
@@ -7784,15 +7775,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dep-tree@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "dep-tree@npm:0.2.1"
-  dependencies:
-    underscore: "npm:1.5.x"
-  checksum: 10c0/5e373708961f4c915f2555ac01d9da3552873cf2a3bd53fa5f71ffed02983767bd1c062b5c62a76c5ee1b01789a6dd61e8f2811a7bed5ceca4f2f54d5034e066
-  languageName: node
-  linkType: hard
-
 "depd@npm:2.0.0, depd@npm:~2.0.0":
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
@@ -8017,9 +7999,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.263":
-  version: 1.5.322
-  resolution: "electron-to-chromium@npm:1.5.322"
-  checksum: 10c0/f8f338389879aae117143a7e28601b8129a51ff82bc641303c0def61ec68833828ca39f5252de30c0b0faf2139ce45ec16a126a6e02df4e7a1db9a138c5b024c
+  version: 1.5.323
+  resolution: "electron-to-chromium@npm:1.5.323"
+  checksum: 10c0/da3468ec9462347ace728c8d7621f38a6dc45d9f7e6b8a20cd0f631be7d2edca20d0c5f5fabb8c47496abfc97c45636ee14bcfdeef4ae6722ea03e5f2e2ad9df
   languageName: node
   linkType: hard
 
@@ -14836,7 +14818,6 @@ __metadata:
     "@nx/rollup": "npm:22.6.1"
     "@nx/webpack": "npm:22.6.1"
     "@types/node": "npm:25.5.0"
-    big.js: "npm:^7.0.1"
     eslint: "npm:^10.1.0"
     nx: "npm:22.6.1"
     typescript: "npm:^6.0.2"
@@ -16618,13 +16599,6 @@ __metadata:
     quansync: "npm:^1.0.0"
     unconfig-core: "npm:7.5.0"
   checksum: 10c0/940cb2b30d802e4edbb36c0469d122ec5d2402b20635aa71c223d24db431e2b83624672d1b42ba0023085111f3dddccc77516d23b79e1f0d6c67798a1351820c
-  languageName: node
-  linkType: hard
-
-"underscore@npm:1.5.x":
-  version: 1.5.2
-  resolution: "underscore@npm:1.5.2"
-  checksum: 10c0/2dd21f646261ec5978096518615bf9f846bd7368787e4021e96741c5f01013e52b0149719f9abcab663c605773ec952e3b05c84620f9503a0a187b87a8c2c8b9
   languageName: node
   linkType: hard
 

@@ -22,7 +22,7 @@ coverage
 .tmp
 dist
 .cache
-
+trivy.report.txt
 
 .nx/cache
 .nx/workspace-data

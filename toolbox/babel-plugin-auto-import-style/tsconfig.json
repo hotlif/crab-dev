@@ -3,6 +3,5 @@
     "compilerOptions": {
         "declaration": true,
         "resolveJsonModule": true,
-        "declarationDir": "esm", 
     }
 }

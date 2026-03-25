@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
+    "trivy": "trivy fs --scanners vuln,license,secret,config,misconfig .",
     "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
   },
   "workspaces": [
@@ -23,8 +24,5 @@
     "eslint": "^10.1.0",
     "nx": "22.6.1",
     "typescript": "^6.0.2"
-  },
-  "dependencies": {
-    "big.js": "^7.0.1"
   }
 }

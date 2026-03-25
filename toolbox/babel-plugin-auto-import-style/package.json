@@ -24,8 +24,7 @@
     },
     "dependencies": {
         "@babel/helper-plugin-utils": "^7.28.6",
-        "@babel/types": "^7.29.0",
-        "dep-tree": "^0.2.1"
+        "@babel/types": "^7.29.0"
     },
     "engines": {
         "node": ">=22"

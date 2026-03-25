@@ -153,7 +153,6 @@ const RAW_RUNTIME_STATE =
           ["@nx/rollup", "npm:22.6.1"],\
           ["@nx/webpack", "npm:22.6.1"],\
           ["@types/node", "npm:25.5.0"],\
-          ["big.js", "npm:7.0.1"],\
           ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.1.0"],\
           ["nx", "virtual:438c2284a1e35a14985bc35f11aa88a87fbf8e79a757904e3af60b0c19a7b8ee1ce014ec58cb4fe74a631959e957faffc57db2c2469ad5785f692c74467503b4#npm:22.6.1"],\
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\
@@ -4219,8 +4218,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@types/babel__helper-plugin-utils", "npm:7.10.3"],\
-          ["@types/node", "npm:25.5.0"],\
-          ["dep-tree", "npm:0.2.1"]\
+          ["@types/node", "npm:25.5.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5059,7 +5057,6 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/standards-eslint-preset", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:1abaa915786cc59d70ad686f3f11ab51ca8a6d84abe496d908946b4aa4cad2eac91b06056e7789ba7a29720ca9a76014b335e55fb999a57526dcdcdb8a9ca1ed#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
-          ["@crab-dev/styleify", "workspace:styleify"],\
           ["@linaria/core", "npm:7.0.0"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/jest-dom", "npm:6.9.1"],\
@@ -11051,13 +11048,6 @@ const RAW_RUNTIME_STATE =
           ["big.js", "npm:5.2.2"]\
         ],\
         "linkType": "HARD"\
-      }],\
-      ["npm:7.0.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/big.js-npm-7.0.1-b68233aba4-10c0.zip/node_modules/big.js/",\
-        "packageDependencies": [\
-          ["big.js", "npm:7.0.1"]\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["binary-extensions", [\
@@ -11166,7 +11156,7 @@ const RAW_RUNTIME_STATE =
           ["browserslist", "npm:4.28.1"],\
           ["baseline-browser-mapping", "npm:2.10.10"],\
           ["caniuse-lite", "npm:1.0.30001781"],\
-          ["electron-to-chromium", "npm:1.5.322"],\
+          ["electron-to-chromium", "npm:1.5.323"],\
           ["node-releases", "npm:2.0.36"],\
           ["update-browserslist-db", "virtual:e455c4c2e8dc3f3e2b2f64927f2b0dff7ca09ff7730ccbb69cae3e9342c0b24fae16e40b2aa46a2b677c172a1365ba425382266fccbf1e96179eec79a4a5c294#npm:1.2.3"]\
         ],\
@@ -12610,16 +12600,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["dep-tree", [\
-      ["npm:0.2.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/dep-tree-npm-0.2.1-722600e5b5-10c0.zip/node_modules/dep-tree/",\
-        "packageDependencies": [\
-          ["dep-tree", "npm:0.2.1"],\
-          ["underscore", "npm:1.5.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["depd", [\
       ["npm:1.1.2", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/depd-npm-1.1.2-b0c8414da7-10c0.zip/node_modules/depd/",\
@@ -12872,10 +12852,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["electron-to-chromium", [\
-      ["npm:1.5.322", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/electron-to-chromium-npm-1.5.322-b56df9fcf2-10c0.zip/node_modules/electron-to-chromium/",\
+      ["npm:1.5.323", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/electron-to-chromium-npm-1.5.323-383c525272-10c0.zip/node_modules/electron-to-chromium/",\
         "packageDependencies": [\
-          ["electron-to-chromium", "npm:1.5.322"]\
+          ["electron-to-chromium", "npm:1.5.323"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20955,7 +20935,6 @@ const RAW_RUNTIME_STATE =
           ["@nx/rollup", "npm:22.6.1"],\
           ["@nx/webpack", "npm:22.6.1"],\
           ["@types/node", "npm:25.5.0"],\
-          ["big.js", "npm:7.0.1"],\
           ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.1.0"],\
           ["nx", "virtual:438c2284a1e35a14985bc35f11aa88a87fbf8e79a757904e3af60b0c19a7b8ee1ce014ec58cb4fe74a631959e957faffc57db2c2469ad5785f692c74467503b4#npm:22.6.1"],\
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\
@@ -23119,15 +23098,6 @@ const RAW_RUNTIME_STATE =
           ["unconfig-core", "npm:7.5.0"],\
           ["@quansync/fs", "npm:1.0.0"],\
           ["quansync", "npm:1.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["underscore", [\
-      ["npm:1.5.2", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/underscore-npm-1.5.2-d8c305893c-10c0.zip/node_modules/underscore/",\
-        "packageDependencies": [\
-          ["underscore", "npm:1.5.2"]\
         ],\
         "linkType": "HARD"\
       }]\
