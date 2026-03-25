@@ -2,15 +2,12 @@ import { css } from "@linaria/core";
 import RcSlider, { TokenVars } from "@crab-dev/rc-slider";
 import { type FC, type HTMLAttributes } from "react";
 import token from "../token"
+import { type ColorPickerPanelLocale } from "../types";
 
-export interface ColorPickerLocale {
-    labelLightness: string;
-    labelChroma: string;
-    labelHue: string;
-}
+
 
 export interface ColorPickerPanelProps extends HTMLAttributes<HTMLDivElement> {
-    locale?: ColorPickerLocale;
+    locale?: ColorPickerPanelLocale;
     value: OKLCHValue;
     onValueChange: (value: OKLCHValue) => void;
 }
@@ -37,11 +34,7 @@ const sliderContainerStyle = css`
 `;
 
 const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
-    locale = {
-        labelLightness: "亮度",
-        labelChroma: "色度",
-        labelHue: "色相"
-    },
+    locale,
     value,
     onValueChange,
     ...restProps
@@ -69,7 +62,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
             />
             
             <div className={sliderContainerStyle}>
-                <label>{locale.labelLightness}</label>
+                <label>{locale?.labelLightness}</label>
                 <RcSlider
                     style={{
                         [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right, 
@@ -96,7 +89,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
             </div>
 
             <div className={sliderContainerStyle}>
-                <label>{locale.labelChroma}</label>
+                <label>{locale?.labelChroma}</label>
                 <RcSlider
                     style={{
                         [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right, 
@@ -124,7 +117,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
             </div>
 
             <div className={sliderContainerStyle}>
-                <label>{locale.labelHue}</label>
+                <label>{locale?.labelHue}</label>
                 <RcSlider
                     style={{
                         [TokenVars["thumb.fill"]]: `oklch(0.7 0.25 ${value.hue})`,

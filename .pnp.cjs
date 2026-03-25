@@ -153,6 +153,7 @@ const RAW_RUNTIME_STATE =
           ["@nx/rollup", "npm:22.6.1"],\
           ["@nx/webpack", "npm:22.6.1"],\
           ["@types/node", "npm:25.5.0"],\
+          ["big.js", "npm:7.0.1"],\
           ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.1.0"],\
           ["nx", "virtual:438c2284a1e35a14985bc35f11aa88a87fbf8e79a757904e3af60b0c19a7b8ee1ce014ec58cb4fe74a631959e957faffc57db2c2469ad5785f692c74467503b4#npm:22.6.1"],\
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\
@@ -4536,8 +4537,8 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-color-picker", "workspace:components/rc-color-picker"],\
           ["@crab-dev/lignify", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-button", "workspace:components/rc-button"],\
           ["@crab-dev/rc-dropdown-container", "workspace:components/rc-dropdown-container"],\
-          ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-menu", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:components/rc-menu"],\
           ["@crab-dev/rc-slider", "workspace:components/rc-slider"],\
           ["@crab-dev/standards-eslint-preset", "virtual:b0bf2183e7df3614edfa13221da03b5cce4850ececc496fc9d9a11eecdfd8d92cc99c1073bc1d87af9c3a88c27884363ce093b34ae9588e72a32d5a5bc15eccd#workspace:standards/eslint-preset"],\
@@ -11048,6 +11049,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/big.js-npm-5.2.2-e147c30820-10c0.zip/node_modules/big.js/",\
         "packageDependencies": [\
           ["big.js", "npm:5.2.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.0.1", {\
+        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/big.js-npm-7.0.1-b68233aba4-10c0.zip/node_modules/big.js/",\
+        "packageDependencies": [\
+          ["big.js", "npm:7.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20947,6 +20955,7 @@ const RAW_RUNTIME_STATE =
           ["@nx/rollup", "npm:22.6.1"],\
           ["@nx/webpack", "npm:22.6.1"],\
           ["@types/node", "npm:25.5.0"],\
+          ["big.js", "npm:7.0.1"],\
           ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.1.0"],\
           ["nx", "virtual:438c2284a1e35a14985bc35f11aa88a87fbf8e79a757904e3af60b0c19a7b8ee1ce014ec58cb4fe74a631959e957faffc57db2c2469ad5785f692c74467503b4#npm:22.6.1"],\
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\

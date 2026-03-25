@@ -23,5 +23,8 @@
     "eslint": "^10.1.0",
     "nx": "22.6.1",
     "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "big.js": "^7.0.1"
   }
 }

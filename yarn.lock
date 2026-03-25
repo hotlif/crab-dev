@@ -1668,8 +1668,8 @@ __metadata:
   dependencies:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
-    "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-slider": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
@@ -6559,6 +6559,13 @@ __metadata:
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
   checksum: 10c0/230520f1ff920b2d2ce3e372d77a33faa4fa60d802fe01ca4ffbc321ee06023fe9a741ac02793ee778040a16b7e497f7d60c504d1c402b8fdab6f03bb785a25f
+  languageName: node
+  linkType: hard
+
+"big.js@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "big.js@npm:7.0.1"
+  checksum: 10c0/2ea2c2e263db37b2d5c6ad6246408eabf13ba07776cfd92bf464db201ef9aa9aa1712accbfe97f4aba5d358567ebefe768e8a50102cde11f35ef3497ddc2747c
   languageName: node
   linkType: hard
 
@@ -14829,6 +14836,7 @@ __metadata:
     "@nx/rollup": "npm:22.6.1"
     "@nx/webpack": "npm:22.6.1"
     "@types/node": "npm:25.5.0"
+    big.js: "npm:^7.0.1"
     eslint: "npm:^10.1.0"
     nx: "npm:22.6.1"
     typescript: "npm:^6.0.2"

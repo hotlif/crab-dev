@@ -57,8 +57,8 @@
         "node": ">=22"
     },
     "dependencies": {
+        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-dropdown-container": "workspace:^",
-        "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-slider": "workspace:^"
     }
 }

@@ -10,6 +10,14 @@ export interface SliderProps extends HTMLAttributes<HTMLDivElement> {
     onValueChange?: (value: number) => void;
 }
 
+// 获取最大精度
+function getPrecision(num: number): number {
+    if (!isFinite(num)) return 0;
+    const s = num.toString();
+    if (s.indexOf('.') === -1) return 0;
+    return s.split('.')[1].length;
+}
+
 const Slider: FC<SliderProps> = ({
     className,
     min = 0,
@@ -21,6 +29,8 @@ const Slider: FC<SliderProps> = ({
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
+    const precision = Math.max(getPrecision(step), getPrecision(min), getPrecision(max));
+    const factor = Math.pow(10, precision);
     const percent = Number(Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100)));
 
     const updateValue = useCallback((clientX: number) => {
@@ -28,15 +38,19 @@ const Slider: FC<SliderProps> = ({
         const rect = containerRef.current.getBoundingClientRect();
         let newPercent = (clientX - rect.left) / rect.width;
         newPercent = Math.max(0, Math.min(1, newPercent));
-        let rawValue = newPercent * (max - min) + min;
+        let intMin = Math.round(min * factor);
+        let intMax = Math.round(max * factor);
+        let intStep = Math.round(step * factor);
+        let intRawValue = Math.round((newPercent * (max - min) + min) * factor);
         if (step > 0) {
-            rawValue = Math.round(rawValue / step) * step;
+            intRawValue = Math.round(intRawValue / intStep) * intStep;
         }
-        const finalValue = Math.max(min, Math.min(max, rawValue));
+        let intFinalValue = Math.max(intMin, Math.min(intMax, intRawValue));
+        const finalValue = intFinalValue / factor;
         if (onValueChange && finalValue !== value) {
             onValueChange(finalValue);
         }
-    }, [min, max, step, value, onValueChange]);
+    }, [min, max, step, value, onValueChange, factor]);
 
     const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -61,12 +75,17 @@ const Slider: FC<SliderProps> = ({
     const handleWheel = useCallback((e: WheelEvent) => {
         e.preventDefault();
         const direction = e.deltaY < 0 ? 1 : -1;
-        const newValue = value + direction * step;
-        const finalValue = Math.max(min, Math.min(max, Number(newValue.toFixed(10))));
+        let intValue = Math.round(value * factor);
+        let intStep = Math.round(step * factor);
+        let intMin = Math.round(min * factor);
+        let intMax = Math.round(max * factor);
+        const newIntValue = intValue + direction * intStep;
+        const intFinalValue = Math.max(intMin, Math.min(intMax, newIntValue));
+        const finalValue = intFinalValue / factor;
         if (onValueChange && finalValue !== value) {
             onValueChange(finalValue);
         }
-    }, [value, min, max, step, onValueChange]);
+    }, [value, min, max, step, onValueChange, factor]);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -79,7 +98,11 @@ const Slider: FC<SliderProps> = ({
 
     return (
         <div
-            data-slot="root"
+            data-slot="slider-root"
+            role="slider"
+            aria-valuemin={min}
+            aria-valuemax={max}
+            aria-valuenow={value}
             className={cx("slider", css`
                 position: relative;
                 width: 100%;
@@ -99,7 +122,7 @@ const Slider: FC<SliderProps> = ({
             {...restProps}
         >
             <div
-                data-slot="rail"
+                data-slot="slider-rail"
                 className={css`
                     position: absolute;
                     width: 100%;
@@ -110,7 +133,7 @@ const Slider: FC<SliderProps> = ({
             />
             
             <div
-                data-slot="track"
+                data-slot="slider-track"
                 className={css`
                     position: absolute;
                     height: ${token.rail.thickness};
@@ -121,7 +144,7 @@ const Slider: FC<SliderProps> = ({
             />
         
             <div
-                data-slot="handle-container"
+                data-slot="slider-handle-container"
                 className={css`
                     position: absolute;
                     top: 50%;
@@ -132,7 +155,7 @@ const Slider: FC<SliderProps> = ({
                 }}
             >
                 <div
-                    data-slot="halo"
+                    data-slot="slider-halo"
                     data-is-dragging={isDragging}
                     className={css`
                         position: absolute;
@@ -146,7 +169,7 @@ const Slider: FC<SliderProps> = ({
                         pointer-events: none;
                         width: 0;
                         height: 0;
-                        [data-slot="handle-container"]:hover &,
+                        [data-slot="slider-handle-container"]:hover &,
                         &[data-is-dragging="true"] {
                             width: calc(${token.thumb.radius} * 2 * ${token.thumb.halo.scale.factor});
                             height: calc(${token.thumb.radius} * 2 * ${token.thumb.halo.scale.factor});
@@ -154,7 +177,7 @@ const Slider: FC<SliderProps> = ({
                     `}
                 />
                 <div
-                    data-slot="handle"
+                    data-slot="slider-handle"
                     data-is-dragging={isDragging}
                     className={css`
                         position: relative;
