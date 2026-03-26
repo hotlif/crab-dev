@@ -3,7 +3,6 @@ import { useRef, type FC } from "react";
 import token from "./token";
 import type { ButtonProps } from "./types";
 
-
 const opacityLoading = token.opacity.loading;
 
 const baseStyle = css`
@@ -58,9 +57,10 @@ const Button: FC<ButtonProps> = ({
                     }
                 }
 
-                &[aria-disabled="true"] {
+                &:disabled {
                     cursor: default;
                     pointer-events: none;
+                    background-color: ${token.primary.background["color-disabled"]};
                 }
             `
         } else if (appearance === "link") {
@@ -68,7 +68,6 @@ const Button: FC<ButtonProps> = ({
                 &:not(:disabled) {
                     background-color: ${token.link.background.color};
                     color: ${token.link.color};
-
                     > span {
                         position: relative;
                         &::after {
@@ -129,6 +128,9 @@ const Button: FC<ButtonProps> = ({
                 &:disabled {
                     cursor: default;
                     pointer-events: none;
+                    background-color: ${token.dashed.background["color-disabled"]};
+                    border-style: unset;
+                    border-width: unset;
                 }
 
             `
@@ -172,6 +174,7 @@ const Button: FC<ButtonProps> = ({
                 &:disabled {
                     cursor: default;
                     pointer-events: none;
+                    background-color: ${token.subtle.background["color-disabled"]};
                 }
             `
         }

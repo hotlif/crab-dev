@@ -22,6 +22,7 @@ export const vars = {
     'size.small.font.size': '--button-size-small-font-size',
     'primary.color': '--button-primary-color',
     'primary.background.color': '--button-primary-background-color',
+    'primary.background.color-disabled': '--button-primary-background-color-disabled',
     'primary.background.color-hover': '--button-primary-background-color-hover',
     'primary.background.color-active': '--button-primary-background-color-active',
     'primary.box-shadow': '--button-primary-box-shadow',
@@ -39,6 +40,7 @@ export const vars = {
     'dashed.color-hover': '--button-dashed-color-hover',
     'dashed.color-active': '--button-dashed-color-active',
     'dashed.background.color': '--button-dashed-background-color',
+    'dashed.background.color-disabled': '--button-dashed-background-color-disabled',
     'dashed.box-shadow': '--button-dashed-box-shadow',
     'dashed.border-width': '--button-dashed-border-width',
     'dashed.border-style': '--button-dashed-border-style',
@@ -49,6 +51,7 @@ export const vars = {
     'subtle.color-hover': '--button-subtle-color-hover',
     'subtle.color-active': '--button-subtle-color-active',
     'subtle.background.color': '--button-subtle-background-color',
+    'subtle.background.color-disabled': '--button-subtle-background-color-disabled',
     'subtle.border-width': '--button-subtle-border-width',
     'subtle.border-style': '--button-subtle-border-style',
     'subtle.border-color': '--button-subtle-border-color',
@@ -101,6 +104,7 @@ const token = {
         'color': `var(${vars['primary.color']}, oklch(1 0 0))`,
         'background': {
             'color': `var(${vars['primary.background.color']}, oklch(0.2855 0.0113 271))`,
+            'color-disabled': `var(${vars['primary.background.color-disabled']}, rgba(0, 0, 0, 0.04))`,
             'color-hover': `var(${vars['primary.background.color-hover']}, oklch(0.2442 0.0077 274.63))`,
             'color-active': `var(${vars['primary.background.color-active']}, oklch(0.2855 0.0113 271))`
         },
@@ -133,7 +137,8 @@ const token = {
         'color-hover': `var(${vars['dashed.color-hover']}, oklch(0.2855 0.0113 271))`,
         'color-active': `var(${vars['dashed.color-active']}, oklch(0.2855 0.0113 271))`,
         'background': {
-            'color': `var(${vars['dashed.background.color']}, oklch(1 0 0))`
+            'color': `var(${vars['dashed.background.color']}, oklch(1 0 0))`,
+            'color-disabled': `var(${vars['dashed.background.color-disabled']}, rgba(0, 0, 0, 0.04))`
         },
         'box-shadow': `var(${vars['dashed.box-shadow']}, oklch(0 0 0 / 2%) 0px 2px 0px 0px)`,
         'border-width': `var(${vars['dashed.border-width']}, 1px)`,
@@ -147,7 +152,8 @@ const token = {
         'color-hover': `var(${vars['subtle.color-hover']}, oklch(0 0 0 / 88%))`,
         'color-active': `var(${vars['subtle.color-active']}, oklch(0 0 0 / 88%))`,
         'background': {
-            'color': `var(${vars['subtle.background.color']}, oklch(1 0 0))`
+            'color': `var(${vars['subtle.background.color']}, oklch(1 0 0))`,
+            'color-disabled': `var(${vars['subtle.background.color-disabled']}, rgba(0, 0, 0, 0.04))`
         },
         'border-width': `var(${vars['subtle.border-width']}, 1px)`,
         'border-style': `var(${vars['subtle.border-style']}, solid)`,
