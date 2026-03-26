@@ -4,7 +4,7 @@
  */
 
 import { css } from "@linaria/core";
-import { AiOutlineLock  } from "react-icons/ai";
+import { Lollipop } from 'lucide-react';
 import LineEdit from "../../../src/index";
 
 
@@ -19,19 +19,19 @@ const SimpleFrame = () => {
 				className={paddingTop}
 			>
 				<label> large </label>
-				<LineEdit prefix={<AiOutlineLock />} size="large" />
+				<LineEdit prefix={<Lollipop />} size="large" />
 			</div>
 			<div
 				className={paddingTop}
 			>
 				<label> middle </label>
-				<LineEdit prefix={<AiOutlineLock />} size="middle" />
+				<LineEdit prefix={<Lollipop />} size="middle" />
 			</div>
 			<div
 				className={paddingTop}
 			>
 				<label> small </label>
-				<LineEdit prefix={<AiOutlineLock />} size="small" />
+				<LineEdit prefix={<Lollipop />} size="small" />
 			</div>
 		</>
 	)

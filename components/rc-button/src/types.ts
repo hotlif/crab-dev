@@ -1,6 +1,11 @@
-import { type ButtonHTMLAttributes } from "react"
+import { type ReactNode, type ButtonHTMLAttributes } from "react"
 
 interface BaseButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
+
+    /**
+     * 图标信息
+     */
+    icon?: ReactNode
 
     /**
      * 加载中
