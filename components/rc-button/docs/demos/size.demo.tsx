@@ -4,9 +4,9 @@
  * description = "通过 `size` 属性设置按钮尺寸"
  */
 
-import Button from "@crab-dev/rc-button";
 import { css } from "@linaria/core";
 import { useState } from "react";
+import Button from "../../src/index";
 
 const SizeDemo = () => {
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")

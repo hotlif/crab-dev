@@ -51,7 +51,7 @@ const ulStyle = css`
     }
     > li {
         cursor: pointer;
-        padding-inline-start: 14px;
+        padding-inline-start: 8px;
         padding-inline-end: 8px;
         border-radius: ${token.dimension['cell-border-radius']};
         transition: ${token.motion['cell-transition']};

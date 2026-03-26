@@ -3,69 +3,6 @@ import { useRef, type FC } from "react";
 import token from "./token";
 import type { ButtonProps } from "./types";
 
-const motionTransition = token.motion.transition;
-
-const colorPrimary = token.color.primary;
-const colorPrimaryBackground = token.color["primary-background"];
-const colorPrimaryBackgroundHover = token.color["primary-background-hover"];
-const colorPrimaryBackgroundActive = token.color["primary-background-active"];
-const elevationPrimaryBoxShadow = token.elevation["primary-box-shadow"];
-
-const colorLink = token.color.link;
-const colorLinkHover = token.color["link-hover"];
-const colorLinkActive = token.color["link-active"];
-const colorLinkBackground = token.color["link-background"];
-const colorLinkBackgroundDisabled = token.color["link-background-disabled"];
-
-const colorDashed = token.color.dashed;
-const colorDashedHover = token.color["dashed-hover"];
-const colorDashedActive = token.color["dashed-active"];
-const colorDashedBackground = token.color["dashed-background"];
-const elevationDashedBoxShadow = token.elevation["dashed-box-shadow"];
-
-const colorTextBackgroundActive = token.color["text-background-active"];
-const colorTextBackgroundHover = token.color["text-background-hover"];
-
-const colorSubtle = token.color.subtle;
-const colorSubtleActive = token.color["subtle-active"];
-const colorSubtleHover = token.color["subtle-hover"];
-const colorSubtleBackground = token.color["subtle-background"];
-const elevationSubtleBoxShadow = token.elevation["subtle-box-shadow"]
-
-const borderDashedWidth = token.border["dashed-width"];
-const borderDashedStyle = token.border["dashed-style"];
-const borderDashedColor = token.border["dashed-color"];
-const borderDashedColorHover = token.border["dashed-color-hover"];
-const borderDashedColorActive = token.border["dashed-color-active"];
-
-const borderSubtleWidth = token.border["subtle-width"]
-const borderSubtleStyle = token.border["subtle-style"]
-const borderSubtleColor = token.border["subtle-color"]
-const borderSubtleColorHover = token.border["subtle-color-hover"]
-const borderSubtleColorActive = token.border["subtle-color-hover"]
-
-const dimensionLargeGap = token.dimension["large-gap"];
-const dimensionLargeHeight = token.dimension["large-height"];
-const dimensionLargePadding = token.dimension["large-padding"];
-const dimensionLargeBorderRadius = token.dimension["large-border-radius"];
-const typographyLargeFontSize = token.typography["large-font-size"];
-
-const dimensionMiddleGap = token.dimension["middle-gap"];
-const dimensionMiddleHeight = token.dimension["middle-height"];
-const dimensionMiddlePadding = token.dimension["middle-padding"];
-const dimensionMiddleBorderRadius = token.dimension["middle-border-radius"];
-const typographyMiddleFontSize = token.typography["middle-font-size"];
-
-
-const dimensionSmallGap = token.dimension["small-gap"];
-const dimensionSmallHeight = token.dimension["small-height"];
-const dimensionSmallPadding = token.dimension["small-padding"];
-const dimensionSmallBorderRadius = token.dimension["small-border-radius"];
-const typographySmallFontSize = token.typography["small-font-size"];
-
-const typographyFontFamily = token.typography["font-family"];
-const typographyLinkTextDecoration = token.typography["link-text-decoration"];
-const typographyLinkTextUnderlineOffset = token.typography["link-text-underline-offset"];
 
 const opacityLoading = token.opacity.loading;
 
@@ -75,12 +12,12 @@ const baseStyle = css`
     position: relative;
     align-items: center;
     cursor: pointer;
-    transition: ${motionTransition};
+    transition: ${token.transition};
     border: unset;
     user-select: none;
     background-color: unset;
-    font-family: ${typographyFontFamily};
-    &[data-loading] {
+    font-family: inherit;
+    &[data-is-loading] {
         opacity: ${opacityLoading};
         cursor: default;
         pointer-events: none;
@@ -106,16 +43,14 @@ const Button: FC<ButtonProps> = ({
         if (appearance === "primary") {
             return css`
                 &:not(:disabled) {
-                    box-shadow: ${elevationPrimaryBoxShadow};
-                    background-color: ${colorPrimaryBackground};
-                    color: ${colorPrimary};
-
+                    box-shadow: ${token.primary["box-shadow"]};
+                    background-color: ${token.primary.background.color};
+                    color: ${token.primary.color};
                     &:hover {
-                        background-color: ${colorPrimaryBackgroundHover};
+                        background-color: ${token.primary.background["color-hover"]};
                     }
-
                     &:active {
-                        background-color: ${colorPrimaryBackgroundActive};
+                        background-color: ${token.primary.background["color-active"]};
                         transform: scale(0.97);
                     }
                 }
@@ -128,43 +63,64 @@ const Button: FC<ButtonProps> = ({
         } else if (appearance === "link") {
             return css`
                 &:not(:disabled) {
-                    background-color: ${colorLinkBackground};
-                    color: ${colorLink};
+                    background-color: ${token.link.background.color};
+                    color: ${token.link.color};
+
+                    > span {
+                        position: relative;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: ${token.link.text["underline-offset"]};
+                            left: 0;
+                            width: 100%;
+                            height: ${token.link.text.decoration.width};
+                            background-color: ${token.link.text.decoration.color};
+                            transform: scaleX(0);
+                            transform-origin: right;
+                            transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        }
+                        &:hover {
+                            &::after {
+                                transform: scaleX(1);
+                                transform-origin: left;
+                            }
+                        }
+                    }
 
                     &:hover {
-                        color: ${colorLinkHover};
-                        text-decoration: ${typographyLinkTextDecoration};
-                        text-underline-offset: ${typographyLinkTextUnderlineOffset};
+                        color: ${token.link["color-hover"]};
+
                     }
                     &:active {
                         transform: scale(0.97);
-                        color: ${colorLinkActive};
+                        color: ${token.link["color-active"]};
                     }
                 }
 
                 &:disabled {
                     cursor: default;
-                    background-color: ${colorLinkBackgroundDisabled};
+                    background-color: ${token.link.background["color-disabled"]};
                     pointer-events: none;
                 }
             `
         } else if (appearance === "dashed") {
             return css`
-                border-width: ${borderDashedWidth};
-                border-style: ${borderDashedStyle};
-                box-shadow: ${elevationDashedBoxShadow};
+                border-width: ${token.dashed["border-width"]};
+                border-style: ${token.dashed["border-style"]};
+                box-shadow: ${token.dashed["box-shadow"]};
                 &:not(:disabled) {
-                    color: ${colorDashed};
-                    background-color: ${colorDashedBackground};
-                    border-color: ${borderDashedColor};
+                    color: ${token.dashed.color};
+                    background-color: ${token.dashed.background.color};
+                    border-color: ${token.dashed["border-color"]};
                     &:hover {
-                        color: ${colorDashedHover};
-                        border-color: ${borderDashedColorHover};
+                        color: ${token.dashed["color-hover"]};
+                        border-color: ${token.dashed["border-color-hover"]};
                     }
                     &:active {
                         transform: scale(0.97);
-                        color: ${colorDashedActive};
-                        border-color: ${borderDashedColorActive};
+                        color: ${token.dashed["color-active"]};
+                        border-color: ${token.dashed["border-color-active"]};
                     }
                 }
                 &:disabled {
@@ -177,11 +133,11 @@ const Button: FC<ButtonProps> = ({
             return css`
                 &:not(:disabled) {
                     &:hover {
-                        background-color: ${colorTextBackgroundHover};
+                        background-color: ${token.text.background["color-hover"]};
                     }
                     &:active {
                         transform: scale(0.97);
-                        background-color: ${colorTextBackgroundActive};
+                        background-color: ${token.text.background["color-active"]};
                     }
                 }
 
@@ -194,20 +150,20 @@ const Button: FC<ButtonProps> = ({
         } else {
             return css`
                 &:not(:disabled) {
-                    color: ${colorSubtle};
-                    border-style: ${borderSubtleStyle};
-                    border-width: ${borderSubtleWidth};
-                    background-color: ${colorSubtleBackground};
-                    border-color: ${borderSubtleColor};
-                    box-shadow: ${elevationSubtleBoxShadow};
+                    color: ${token.subtle.color};
+                    border-style: ${token.subtle["border-style"]};
+                    border-width: ${token.subtle["border-width"]};
+                    background-color: ${token.subtle.background["color"]};
+                    border-color: ${token.subtle["border-color"]};
+                    box-shadow: ${token.subtle["box-shadow"]};
                     &:hover {
-                        border-color: ${borderSubtleColorHover};
-                        color: ${colorSubtleHover};
+                        border-color: ${token.subtle["border-color-hover"]};
+                        color: ${token.subtle["color-hover"]};
                     }
                     &:active {
                         transform: scale(0.97);
-                        color: ${colorSubtleActive};
-                        border-color: ${borderSubtleColorActive};
+                        color: ${token.subtle["color-active"]};
+                        border-color: ${token.subtle["border-color-active"]};
                     }
                 }
                 &:disabled {
@@ -222,27 +178,27 @@ const Button: FC<ButtonProps> = ({
     const getSizeStyle = () => {
         if (size === "large") {
             return css`
-                font-size: ${typographyLargeFontSize};
-                padding: ${dimensionLargePadding};
-                height: ${dimensionLargeHeight};
-                border-radius: ${dimensionLargeBorderRadius};
-                gap: ${dimensionLargeGap};
+                font-size: ${token.size.large.font.size};
+                padding: ${token.size.large.padding};
+                height: ${token.size.large.height};
+                border-radius: ${token.size.large.border.radius};
+                gap: ${token.size.large.gap};
             `
         } else if (size === "small") {
             return css`
-                font-size: ${typographySmallFontSize};
-                height: ${dimensionSmallHeight};
-                padding: ${dimensionSmallPadding};
-                border-radius: ${dimensionSmallBorderRadius};
-                gap: ${dimensionSmallGap};
+                font-size: ${token.size.small.font.size};
+                height: ${token.size.small.height};
+                padding: ${token.size.small.padding};
+                border-radius: ${token.size.small.border.radius};
+                gap: ${token.size.small.gap};
             `
         } else {
             return css`
-                font-size: ${typographyMiddleFontSize};
-                height: ${dimensionMiddleHeight};
-                padding: ${dimensionMiddlePadding};
-                border-radius: ${dimensionMiddleBorderRadius};
-                gap: ${dimensionMiddleGap};
+                font-size: ${token.size.middle.font.size};
+                height: ${token.size.middle.height};
+                padding: ${token.size.middle.padding};
+                border-radius: ${token.size.middle.border.radius};
+                gap: ${token.size.middle.gap};
             `
         }
     }
@@ -304,7 +260,7 @@ const Button: FC<ButtonProps> = ({
             {...restProps}
             aria-busy={loading}
             aria-disabled={disabled || loading}
-            data-loading={loading ? `${loading}` : null}
+            data-is-loading={loading ? `${loading}` : null}
             className={cx(
                 baseStyle,
                 getAppearanceStyle(),

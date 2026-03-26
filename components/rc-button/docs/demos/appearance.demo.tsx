@@ -4,7 +4,7 @@
  * description = "通过 `appearance` 属性设置按钮外观"
  */
 
-import Button from "@crab-dev/rc-button";
+import Button from "../../src/index";
 import { css } from "@linaria/core";
 
 const SizeDemo = () => {
