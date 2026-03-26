@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC, useRef } from "react";
 import { css } from "@linaria/core";
-import { BsCode, BsCodeSlash, BsPalette, BsWindowFullscreen } from "react-icons/bs";
+import { Code as CodeIcon, CodeXml, Palette, AppWindow } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import demos from "@@@/demos";
 import { Prism } from 'react-syntax-highlighter';
@@ -91,17 +91,17 @@ const Code: FC<CodeProps> = ({
                         setIsExpandCode(!isExpandCode);
                     }}
                 >
-                    {isExpandCode ?  <BsCodeSlash /> : <BsCode />}
+                    {isExpandCode ?  <CodeXml size="1rem" /> : <CodeIcon size="1rem" />}
                 </div>
                 <div>
-                    <BsPalette />
+                    <Palette size="1rem" />
                 </div>
                 <div
                     onClick={() => {
                         window.open(path.replaceAll(".", "/"))
                     }}
                 >
-                    <BsWindowFullscreen />
+                    <AppWindow size="1rem" />
                 </div>
             </div>
             {

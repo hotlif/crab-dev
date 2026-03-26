@@ -17,6 +17,8 @@ const baseStyle = css`
     user-select: none;
     background-color: unset;
     font-family: inherit;
+    line-height: 1; 
+    vertical-align: middle;
     &[data-is-loading] {
         opacity: ${opacityLoading};
         cursor: default;
@@ -25,6 +27,7 @@ const baseStyle = css`
 `
 
 const Button: FC<ButtonProps> = ({
+    icon,
     loading = false,
     appearance = "subtle",
     shouldFitContainer = false,
@@ -253,6 +256,29 @@ const Button: FC<ButtonProps> = ({
         return null;
     }
 
+    const renderIcon = () => {
+        if (loading) {
+            return renderLoadingDom();
+        } else if (icon) {
+            return (
+                <div
+                    className={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        > svg {
+                            width: 1rem;
+                            height: 1rem;
+                        }
+                    `}
+                >
+                    {icon}
+                </div>
+            )
+        } else {
+            return null;
+        }
+    }
 
     return (
         <button
@@ -319,7 +345,7 @@ const Button: FC<ButtonProps> = ({
                 }
             }}
         >
-            {renderLoadingDom()}
+            {renderIcon()}
             <span>
                 {children}
             </span>
