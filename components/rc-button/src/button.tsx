@@ -174,7 +174,6 @@ const Button: FC<ButtonProps> = ({
         }
     }
 
-
     const getSizeStyle = () => {
         if (size === "large") {
             return css`
