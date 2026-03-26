@@ -52,7 +52,7 @@ describe("Button", () => {
         const { button, unmount } = renderButton();
 
         expect(button.textContent).toContain("Button Text");
-        expect(button.getAttribute("data-loading")).toBeNull();
+        expect(button.getAttribute("data-is-loading")).toBeNull();
 
         unmount();
     });
@@ -60,7 +60,7 @@ describe("Button", () => {
     it("renders loading icon when loading is true", () => {
         const { button, unmount } = renderButton({ loading: true });
 
-        expect(button.getAttribute("data-loading")).toBe("true");
+        expect(button.getAttribute("data-is-loading")).toBe("true");
         expect(button.querySelector("svg")).toBeTruthy();
 
         unmount();
