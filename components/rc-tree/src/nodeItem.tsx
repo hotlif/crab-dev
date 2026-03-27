@@ -1,31 +1,10 @@
 import { type MouseEvent, type FC, type HTMLAttributes, useRef, type ReactNode, Key } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx} from "@linaria/core";
-import {
-    fontSize,
-    flex,
-    flexAlignItems,
-    padding,
-    textAlign,
-    textOverflow,
-    margin,
-    column,
-    AnimSpinKeyframes
-} from "@crab-dev/styleify";
-import { NodeType, OverStateEnum, type Node, type OverState } from "./type";
-import { getTreeNodeDepth } from "./util";
-import { CaretDownFill, CaretRightFill, Loading } from "./icon";
-import {
-    TreeNodeIconHoverBgColor,
-    TreeNodeHoverBgColor,
-    TreeNodeIconLoadingColor,
-    TreeNodeSelectBgColor,
-    TreeNodeDraggableBorderWidth,
-    TreeNodeBorderRadius,
-    TreeIndentSize,
-    TreeNodeDraggableBorderStyle,
-    TreeNodeDraggableBorderColor,
-} from "./token";
+import { NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
+import { getTreeNodeDepth } from "./util.js";
+import { CaretDownFill, CaretRightFill, Loading } from "./icon.js";
+import token from "./token.js";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
     // 节点数据
@@ -52,9 +31,15 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const cssIconStyle = `
-    ${flex()}
-    ${fontSize("xs")}
-    ${flexAlignItems("center")}
+    display: flex;
+    > * {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+    }
+    font-size: var(--styleify-font-size-xs, 0.688rem);
+    line-height: var(--styleify-line-height-xs, 1.3);
+    align-items: center;
     height: 100%;
 `
 
@@ -62,9 +47,9 @@ const expandedAndCloseIcon = css`
     cursor: pointer;
     ${cssIconStyle}
     border-radius: inherit;
-    ${margin(2, "left")}
+    margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
     &:hover {
-       background-color: ${TreeNodeIconHoverBgColor};
+       background-color: ${token.node.icon.hover.bg.color};
     }
 `;
 
@@ -99,8 +84,15 @@ const NodeItem: FC<NodeItemProps> = ({
                     className={css`
                         animation: AnimSpinKeyframes 1s linear infinite;
                         ${cssIconStyle}
-                        color: ${TreeNodeIconLoadingColor};
-                        ${AnimSpinKeyframes}
+                        color: ${token.node.icon.loading.color};
+                        @keyframes AnimSpinKeyframes {
+                            from {
+                                transform: rotate(0deg);
+                            }
+                            to {
+                                transform: rotate(360deg);
+                            }
+                        }
                     `}
                 >
                     <Loading />
@@ -170,17 +162,25 @@ const NodeItem: FC<NodeItemProps> = ({
 
     const classNames = cx(
         css`
-            ${fontSize("base")}
-            ${column()}
-            ${flexAlignItems("center")}
+            font-size: var(--styleify-font-size-base, 1rem);
+            line-height: var(--styleify-line-height-base, 1.5);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            > * {
+                flex-grow: 0;
+                flex-shrink: 0;
+                flex-basis: auto;
+            }
+            align-items: center;
             white-space: nowrap;
-            border-radius: ${TreeNodeBorderRadius};
+            border-radius: ${token.border.radius};
             user-select: none;
             &:hover {
-                background-color: ${TreeNodeHoverBgColor};
+                background-color: ${token.node.hover.bg.color};
             }
             &[data-node-item-selectd="true"] {
-                background-color: ${TreeNodeSelectBgColor};
+                background-color: ${token.node.select.bg.color};
             }
         `,
         generateDraggingOverStyle(),
@@ -201,9 +201,9 @@ const NodeItem: FC<NodeItemProps> = ({
                     key={`tree-node-line-${node.id}-${i}`}
                     className={css`
                         position: relative;
-                        width: ${TreeIndentSize};
+                        width: ${token.indent.size};
                         height: 100%;
-                        ${textAlign("center")}
+                        text-align: center;
                         flex: 0 0 auto;
                         &::before {
                             display: inline-block;
@@ -225,7 +225,7 @@ const NodeItem: FC<NodeItemProps> = ({
     }
 
     if (showLine !== true) {
-        styles.paddingLeft = `calc(${depth} * ${TreeIndentSize})`;
+        styles.paddingLeft = `calc(${depth} * ${token.indent.size})`;
     }
 
     return (
@@ -249,8 +249,8 @@ const NodeItem: FC<NodeItemProps> = ({
             <span
                 className={css`
                     cursor: pointer;
-                    ${padding("0.5rem", "x")}
-                    ${textOverflow("ellipsis")}
+                    padding-inline: 0.5rem;
+                    text-overflow: ellipsis;
                     border-radius: inherit;
                 `}
                 {...listeners}

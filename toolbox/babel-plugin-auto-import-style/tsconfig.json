@@ -3,5 +3,6 @@
     "compilerOptions": {
         "declaration": true,
         "resolveJsonModule": true,
+        "types": ["node"]
     }
 }

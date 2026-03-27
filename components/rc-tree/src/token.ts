@@ -1,57 +1,55 @@
-import { css } from "@linaria/core";
+/**
+ * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
+ */
 
-export const prefix = "crab";
+export const vars = {
+    'indent.size': '--tree-indent-size',
+    'border.radius': '--tree-border-radius',
+    'node.draggable.border.width': '--tree-node-draggable-border-width',
+    'node.draggable.border.style': '--tree-node-draggable-border-style',
+    'node.draggable.border.color': '--tree-node-draggable-border-color',
+    'node.icon.hover.bg.color': '--tree-node-icon-hover-bg-color',
+    'node.icon.loading.color': '--tree-node-icon-loading-color',
+    'node.hover.bg.color': '--tree-node-hover-bg-color',
+    'node.select.bg.color': '--tree-node-select-bg-color'
+};
 
-// 树缩进大小变量名
-const TreeIndentSizeVarName = `--${prefix}-tree-indent-size`;
-export const TreeIndentSize = `var(${TreeIndentSizeVarName})`;
-
-// 树节点可拖动边框宽度变量名
-const TreeNodeDraggableBorderWidthVarName = `--${prefix}-tree-node-draggable-border-width`
-export const TreeNodeDraggableBorderWidth = `var(${TreeNodeDraggableBorderWidthVarName})`;
-
-// 树节点可拖动边框样式变量名
-const TreeNodeDraggableBorderStyleVarName = `--${prefix}-tree-node-draggable-border-style`
-export const TreeNodeDraggableBorderStyle = `var(${TreeNodeDraggableBorderStyleVarName})`;
-
-// 树节点可拖动边框颜色变量名
-const TreeNodeDraggableBorderColorVarName = `--${prefix}-tree-node-draggable-border-color`
-export const TreeNodeDraggableBorderColor = `var(${TreeNodeDraggableBorderColorVarName})`;
-
-// 树节点边框半径变量名
-const TreeNodeBorderRadiusVarName = `--${prefix}-tree-border-radius`
-export const TreeNodeBorderRadius = `var(${TreeNodeBorderRadiusVarName})`;
-
-// 树节点图标悬停背景颜色变量名
-const TreeNodeIconHoverBgColorVarName = `--${prefix}-tree-node-icon-hover-bg-color`
-export const TreeNodeIconHoverBgColor = `var(${TreeNodeIconHoverBgColorVarName})`;
-
-// 树节点图标加载颜色变量名
-const TreeNodeIconLoadingColorVarName = `--${prefix}-tree-node-icon-loading-color`
-export const TreeNodeIconLoadingColor = `var(${TreeNodeIconLoadingColorVarName})`;
-
-// 树节点标题悬停背景颜色变量名
-const TreeNodeHoverBgColorVarName = `--${prefix}-tree-node-hover-bg-color`
-export const TreeNodeHoverBgColor = `var(${TreeNodeHoverBgColorVarName})`;
-
-// 树节点标题选中背景颜色变量名
-const TreeNodeSelectBgColorVarName = `--${prefix}-tree-node-select-bg-color`
-export const TreeNodeSelectBgColor = `var(${TreeNodeSelectBgColorVarName})`;
-
-// 全局样式
-export const globals = css`
-    :global() {
-        html {
-            ${TreeIndentSizeVarName}: 24px; // 树缩进大小
-            ${TreeNodeBorderRadiusVarName}: 4px; // 树节点边框半径
-            ${TreeNodeDraggableBorderWidthVarName}: 1px; // 树节点可拖动边框宽度
-            ${TreeNodeDraggableBorderStyleVarName}: solid; // 树节点可拖动边框样式
-            ${TreeNodeDraggableBorderColorVarName}: #1677ff; // 树节点可拖动边框颜色
-            ${TreeNodeIconHoverBgColorVarName}: rgba(0, 0, 0, 0.06); // 树节点图标悬停背景颜色
-            ${TreeNodeIconLoadingColorVarName}: #0088f0; // 树节点图标加载颜色
-            ${TreeNodeHoverBgColorVarName}: rgba(0,0,0,0.04); // 树节点标题悬停背景颜色
-            ${TreeNodeSelectBgColorVarName}: #e6f4ff; // 树节点标题选中背景颜色
-
+const token = {
+    'indent': {
+        'size': `var(${vars['indent.size']}, 24px)`
+    },
+    'border': {
+        'radius': `var(${vars['border.radius']}, 4px)`
+    },
+    'node': {
+        'draggable': {
+            'border': {
+                'width': `var(${vars['node.draggable.border.width']}, 1px)`,
+                'style': `var(${vars['node.draggable.border.style']}, solid)`,
+                'color': `var(${vars['node.draggable.border.color']}, #1677ff)`
+            }
+        },
+        'icon': {
+            'hover': {
+                'bg': {
+                    'color': `var(${vars['node.icon.hover.bg.color']}, rgba(0, 0, 0, 0.06))`
+                }
+            },
+            'loading': {
+                'color': `var(${vars['node.icon.loading.color']}, #0088f0)`
+            }
+        },
+        'hover': {
+            'bg': {
+                'color': `var(${vars['node.hover.bg.color']}, rgba(0,0,0,0.04))`
+            }
+        },
+        'select': {
+            'bg': {
+                'color': `var(${vars['node.select.bg.color']}, #e6f4ff)`
+            }
         }
     }
-`;
+};
+
+export default token;

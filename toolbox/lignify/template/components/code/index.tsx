@@ -26,7 +26,7 @@ const Code: FC<CodeProps> = ({
     }, [path])
     return (
         <ComponentPreview
-            path={path}
+            path={path.replaceAll(".", "/")}
             title={frontmatter?.title}
             description={frontmatter?.description}
             sourceCode={code}

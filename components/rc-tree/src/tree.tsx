@@ -29,11 +29,10 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab-dev/rc-virtual";
-import { boxShadow, zIndex } from "@crab-dev/styleify";
 import { useKeyDown } from "@crab-dev/rc-hooks";
-import { LoadStateType, OverStateEnum, type Node, type OverState } from "./type";
-import NodeItem, { type NodeItemProps } from "./nodeItem";
-import { getLoadReadyTreeNodeData, loadDataFunc } from "./util";
+import { LoadStateType, OverStateEnum, type Node, type OverState } from "./type.js";
+import NodeItem, { type NodeItemProps } from "./nodeItem.js";
+import { getLoadReadyTreeNodeData, loadDataFunc } from "./util.js";
 
 interface Context {
     overState: OverState | null
@@ -424,6 +423,7 @@ const Tree: FC<TreeProps> = ({
                         renderRows={(rowRange) => {
                             const nodes: ReactNode[] = [
                                 	<div
+                                        key="__tree-top-padding__"
                                         className={css`
                                             display: inline-block;
                                             height: var(--crab-rc-virtual-top-padding-height, 0px);
@@ -508,6 +508,7 @@ const Tree: FC<TreeProps> = ({
                                 const node = displayedNodes[rowIndex];
                                 nodes.push(
                                     <div
+                                        key={node.id}
                                         className={css`
                                             white-space: nowrap    
                                         `}
@@ -521,6 +522,7 @@ const Tree: FC<TreeProps> = ({
                             }
                             nodes.push(
                                 <div
+                                    key="__tree-bottom-padding__"
                                     className={css`
                                         display: inline-block;
                                         height: var(--crab-rc-virtual-bottom-padding-height, 0px);
@@ -536,7 +538,7 @@ const Tree: FC<TreeProps> = ({
                             <DragOverlay
                                 className={css`
                                     pointer-events: none;
-                                    ${boxShadow("sm")};
+                                    box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);
                                 `}
                             >
                                 <NodeItem
@@ -557,9 +559,9 @@ const Tree: FC<TreeProps> = ({
 
                     <div
                         className={css`
-                            ${zIndex("fixed")}
+                            z-index: 600;
                             position: absolute;
-                            ${boxShadow("lg")};    
+                            box-shadow: 0 6px 10px rgba(0,0,0,0.035), 0 6px 16px rgba(0,0,0,0.045);
                         `}
                         style={{
                             visibility: isOpenContextMenu ? "visible" : "hidden",

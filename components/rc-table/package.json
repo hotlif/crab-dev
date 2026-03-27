@@ -52,7 +52,6 @@
     },
     "dependencies": {
         "@crab-dev/rc-virtual": "workspace:^",
-        "@crab-dev/styleify": "workspace:^",
         "jsonpath-plus": "^10.4.0"
     },
     "cssDependencies": {

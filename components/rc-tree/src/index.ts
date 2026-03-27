@@ -1,15 +1,15 @@
-import Tree from "./tree";
-import useTreeData from "./hooks/useTreeData";
+import Tree from "./tree.js";
+import useTreeData from "./hooks/useTreeData.js";
 export {
     useTreeData
 }
 export {
     getTreeNodeDepth
-} from "./util";
+} from "./util.js";
 export {
     LoadStateType,
     NodeType,
     type Node 
-} from "./type";
-export { type TreeProps } from "./tree";
+} from "./type.js";
+export { type TreeProps } from "./tree.js";
 export default Tree;

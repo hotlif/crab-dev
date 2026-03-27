@@ -77,6 +77,10 @@ const presetStandard = async ({
         },
         resolve: {
             extensions: [".tsx", ".ts", ".js", ".raw"],
+            extensionAlias: {
+                ".js": [".ts", ".tsx", ".js"],
+                ".mjs": [".mts", ".mjs"],
+            },
             alias: {
 				"@": join(cwd, "src"),
                 "@@": process.cwd(),

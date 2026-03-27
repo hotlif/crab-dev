@@ -1,7 +1,18 @@
 import { declare } from "@babel/helper-plugin-utils";
+import { createRequire } from "module";
 
 const CRAB_COMPONENT_RE = /^@crab-dev\/rc-[a-zA-Z0-9_-]+$/;
 const CSS_SUFFIX = "/css/index.css";
+
+function cssFileExists(packageName: string, filename: string | undefined): boolean {
+    try {
+        const req = createRequire(filename ?? process.cwd());
+        req.resolve(`${packageName}${CSS_SUFFIX}`);
+        return true;
+    } catch {
+        return false;
+    }
+}
 
 export default declare((api) => {
     api.assertVersion(7);
@@ -43,6 +54,10 @@ export default declare((api) => {
 
                 const seenStyleImports = state.get("seenStyleImports") as Set<string> | undefined;
                 if (seenStyleImports?.has(importPath)) {
+                    return;
+                }
+
+                if (!cssFileExists(importPath, state.filename)) {
                     return;
                 }
 

@@ -1,7 +1,6 @@
 import Decimal from "decimal.js";
-import { LoadStateType, type Node, OverStateEnum } from "./type";
-import { type TreeProps } from "./tree";
-
+import { LoadStateType, type Node, OverStateEnum } from "./type.js";
+import { type TreeProps } from "./tree.js";
 
 const sortRules = (a: Node, b: Node) => {
     const aPriority = a.priority ?? 0;
