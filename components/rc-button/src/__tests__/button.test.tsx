@@ -46,6 +46,56 @@ describe('Button', () => {
         });
     });
 
+    it('renders icon when provided', () => {
+        const TestIcon = () => <svg data-testid="test-icon" />;
+        const { button, unmount } = renderButton({ icon: <TestIcon /> });
+        expect(button.querySelector('[data-testid="test-icon"]')).toBeTruthy();
+        unmount();
+    });
+
+    it('renders with only aria-label and no children', () => {
+        const { container, unmount } = render(<Button aria-label="aria only" />);
+        const btn = container.querySelector('button');
+        expect(btn).toBeTruthy();
+        expect(btn?.getAttribute('aria-label')).toBe('aria only');
+        unmount();
+    });
+
+    it('sets aria-busy and aria-disabled correctly', () => {
+        const { button, unmount } = renderButton({ loading: true, disabled: true });
+        expect(button.getAttribute('aria-busy')).toBe('true');
+        expect(button.getAttribute('aria-disabled')).toBe('true');
+        unmount();
+    });
+
+    it('does not trigger onClick when disabled', () => {
+        const onClick = jest.fn() as ButtonProps['onClick'];
+        const { button, unmount } = renderButton({ disabled: true, onClick });
+        clickButton(button);
+        expect(onClick).not.toHaveBeenCalled();
+        unmount();
+    });
+
+    it('forwards className, style, and data-* attributes', () => {
+        const { button, unmount } = renderButton({
+            className: 'extra-class',
+            style: { color: 'red' },
+            'data-test-id': 'my-btn',
+        } as any);
+        expect(button.className).toContain('extra-class');
+        expect(button.style.color).toBe('red');
+        expect(button.getAttribute('data-test-id')).toBe('my-btn');
+        unmount();
+    });
+
+    it('renders with only children, no icon, no onClick', () => {
+        const { container, unmount } = render(<Button>test</Button>);
+        const btn = container.querySelector('button');
+        expect(btn).toBeTruthy();
+        expect(btn?.textContent).toBe('test');
+        unmount();
+    });
+
     it('renders all size variants and fit-container option', () => {
         const sizeList: NonNullable<ButtonProps['size']>[] = ['large', 'middle', 'small'];
 

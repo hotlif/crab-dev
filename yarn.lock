@@ -1699,6 +1699,7 @@ __metadata:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-slider": "workspace:^"
@@ -1718,13 +1719,10 @@ __metadata:
     globals: "npm:^17.4.0"
     jest: "npm:^30.3.0"
     jest-environment-jsdom: "npm:30.3.0"
-    lucide-react: "npm:^1.7.0"
     prettier: "npm:^3.8.1"
     react: "npm:^19.2.4"
     react-dom: "npm:^19.2.4"
-    react-markdown: "npm:^10.1.0"
     react-router: "npm:^7.13.2"
-    react-syntax-highlighter: "npm:^16.1.1"
     typescript: "npm:^6.0.2"
     typescript-eslint: "npm:^8.57.2"
   languageName: unknown
@@ -6574,11 +6572,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.10.10
-  resolution: "baseline-browser-mapping@npm:2.10.10"
+  version: 2.10.11
+  resolution: "baseline-browser-mapping@npm:2.10.11"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 10c0/39dee9d955a5e017852f338cb9057feee8d938c82f217d63158f04ccdbbc1c19e80bbed8d15223e3d410ee8b3703829d41fd7eb345e6e44230034ea9adaf8a1d
+  checksum: 10c0/6ae44b653c26de8ea7b75a109c0771c95c9676c32a11aff25f7c10b2ddeb864d2c387243a0ec083dffe3b76a7aacf2d777fa7e5a6df16e3a2624c1573e116285
   languageName: node
   linkType: hard
 

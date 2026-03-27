@@ -25,6 +25,7 @@
     "devDependencies": {
         "@crab-dev/lignify": "workspace:^",
         "@crab-dev/packify": "workspace:^",
+        "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-jest-preset": "workspace:^",
@@ -42,13 +43,10 @@
         "globals": "^17.4.0",
         "jest": "^30.3.0",
         "jest-environment-jsdom": "30.3.0",
-        "lucide-react": "^1.7.0",
         "prettier": "^3.8.1",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
-        "react-markdown": "^10.1.0",
         "react-router": "^7.13.2",
-        "react-syntax-highlighter": "^16.1.1",
         "typescript": "^6.0.2",
         "typescript-eslint": "^8.57.2"
     },
