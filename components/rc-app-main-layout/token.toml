@@ -1,0 +1,5 @@
+[build]
+output = "./src/token.ts"
+prefix = "app-main-layout"
+
+[token]

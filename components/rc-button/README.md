@@ -52,18 +52,3 @@ export default () => (
 | aria-label          | 无内容时的无障碍文本 | string                                                               | -          |
 
 > 其余原生 button 支持的属性也可透传。
-
-## 常见问题
-
-### 1. 如何防止异步点击时重复触发？
-组件内部已自动处理，异步 onClick/onClickCapture 执行期间会锁定按钮，防止重复点击。
-
-### 2. 如何自定义样式？
-可通过 className 传入自定义类名，或覆盖 CSS 变量实现主题定制。
-
-### 3. 如何只用图标无文本？
-可将 children 设为图标，并设置 aria-label 提供无障碍文本。
-
-```tsx
-<Button aria-label="删除"><DeleteIcon /></Button>
-```

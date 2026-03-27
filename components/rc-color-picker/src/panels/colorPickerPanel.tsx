@@ -5,7 +5,6 @@ import token from "../token"
 import { type ColorPickerPanelLocale } from "../types";
 
 
-
 export interface ColorPickerPanelProps extends HTMLAttributes<HTMLDivElement> {
     locale?: ColorPickerPanelLocale;
     value: OKLCHValue;

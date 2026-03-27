@@ -4,15 +4,20 @@ import Header from "./header";
 import Sidebar, { SidebarProps } from "./sidebar";
 import Content from "./content";
 
-interface FrameProps extends Omit<HTMLAttributes<HTMLDivElement>, ""> {
+interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, ""> {
+    /** 顶部标题文本 */
     headerTitle?: string
+    /** 顶部 logo 图标的 URL */
     headerLogoIconUrl?: string
+    /** 顶部用户名节点（可为 React 元素） */
     headerUserName?: ReactNode
+    /** 顶部用户头像节点（可为 React 元素） */
     headerUserAvatar?: ReactNode
+    /** 侧边栏菜单加载函数 */
     sidebarLoadMenus?: SidebarProps["loadMenus"]
 }
 
-const Frame: FC<FrameProps> = ({
+const Layout: FC<LayoutProps> = ({
     className,
     headerTitle,
     headerLogoIconUrl,
@@ -58,4 +63,4 @@ const Frame: FC<FrameProps> = ({
     )
 }
 
-export default Frame;
+export default Layout;

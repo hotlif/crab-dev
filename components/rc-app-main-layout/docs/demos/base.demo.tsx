@@ -1,15 +1,15 @@
 /**
  * label="基础用法"
- * description="一个简单的框架"
+ * description="基础的后台管理页面"
  */
 import { css } from "@linaria/core";
-import RcFrame from "../../../src/index";
+import AppMainLayout from "../../src/index";
 import { MenuItemType } from "@crab-dev/rc-menu";
 
 
 const SimpleFrame = () => {
 	return (
-		<RcFrame
+		<AppMainLayout
 			className={css`
 				body {
 					margin: 0px;
