@@ -6,7 +6,7 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import Button from "../../src/index";
+import Button from "../../src/index.js";
 
 const SizeDemo = () => {
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")

@@ -1,19 +1,21 @@
-import { act } from "react";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, jest } from "@jest/globals";
+import { act } from 'react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it, jest } from '@jest/globals';
 
-import Button from "../button";
-import type { ButtonProps } from "../types";
+import Button from '../button.js';
+import type { ButtonProps } from '../types.js';
 
-(globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
+(
+    globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
+).IS_REACT_ACT_ENVIRONMENT = true;
 
 const renderButton = (props: Partial<ButtonProps> = {}) => {
     const renderResult = render(<Button {...props}>Button Text</Button>);
-    const button = screen.getByRole("button", { name: "Button Text" }) as HTMLButtonElement;
+    const button = screen.getByRole('button', { name: 'Button Text' }) as HTMLButtonElement;
 
     return {
         ...renderResult,
-        button
+        button,
     };
 };
 
@@ -23,56 +25,65 @@ const clickButton = (button: HTMLButtonElement) => {
     });
 };
 
-describe("Button", () => {
+describe('Button', () => {
     afterEach(() => {
         cleanup();
     });
 
-    it("renders all appearance variants without runtime error", () => {
-        const appearanceList: NonNullable<ButtonProps["appearance"]>[] = ["primary", "subtle", "dashed", "text", "link"];
+    it('renders all appearance variants without runtime error', () => {
+        const appearanceList: NonNullable<ButtonProps['appearance']>[] = [
+            'primary',
+            'subtle',
+            'dashed',
+            'text',
+            'link',
+        ];
 
-        appearanceList.forEach(appearance => {
+        appearanceList.forEach((appearance) => {
             const { button, unmount } = renderButton({ appearance });
             expect(button.className.length).toBeGreaterThan(0);
             unmount();
         });
     });
 
-    it("renders all size variants and fit-container option", () => {
-        const sizeList: NonNullable<ButtonProps["size"]>[] = ["large", "middle", "small"];
+    it('renders all size variants and fit-container option', () => {
+        const sizeList: NonNullable<ButtonProps['size']>[] = ['large', 'middle', 'small'];
 
-        sizeList.forEach(size => {
+        sizeList.forEach((size) => {
             const { button, unmount } = renderButton({ size, shouldFitContainer: true });
             expect(button.className.length).toBeGreaterThan(0);
             unmount();
         });
     });
 
-    it("renders children and default non-loading state", () => {
+    it('renders children and default non-loading state', () => {
         const { button, unmount } = renderButton();
 
-        expect(button.textContent).toContain("Button Text");
-        expect(button.getAttribute("data-is-loading")).toBeNull();
+        expect(button.textContent).toContain('Button Text');
+        expect(button.getAttribute('data-is-loading')).toBeNull();
 
         unmount();
     });
 
-    it("renders loading icon when loading is true", () => {
+    it('renders loading icon when loading is true', () => {
         const { button, unmount } = renderButton({ loading: true });
 
-        expect(button.getAttribute("data-is-loading")).toBe("true");
-        expect(button.querySelector("svg")).toBeTruthy();
+        expect(button.getAttribute('data-is-loading')).toBe('true');
+        expect(button.querySelector('svg')).toBeTruthy();
 
         unmount();
     });
 
-    it("dedupes async onClick while pending", async () => {
+    it('dedupes async onClick while pending', async () => {
         let resolveClick: (() => void) | undefined;
-        const onClick = jest.fn(() => new Promise<void>(resolve => {
-            resolveClick = resolve;
-        }));
+        const onClick = jest.fn(
+            () =>
+                new Promise<void>((resolve) => {
+                    resolveClick = resolve;
+                }),
+        );
 
-        const { button, unmount } = renderButton({ onClick: onClick as ButtonProps["onClick"] });
+        const { button, unmount } = renderButton({ onClick: onClick as ButtonProps['onClick'] });
 
         clickButton(button);
         clickButton(button);
@@ -91,8 +102,8 @@ describe("Button", () => {
         unmount();
     });
 
-    it("does not lock sync onClick between clicks", () => {
-        const onClick = jest.fn() as ButtonProps["onClick"];
+    it('does not lock sync onClick between clicks', () => {
+        const onClick = jest.fn() as ButtonProps['onClick'];
 
         const { button, unmount } = renderButton({ onClick });
 
@@ -104,8 +115,8 @@ describe("Button", () => {
         unmount();
     });
 
-    it("releases click lock after rejected onClick", async () => {
-        const onClick = jest.fn(() => Promise.reject(new Error("failed")));
+    it('releases click lock after rejected onClick', async () => {
+        const onClick = jest.fn(() => Promise.reject(new Error('failed')));
 
         const { button, unmount } = renderButton({ onClick });
 
@@ -122,11 +133,14 @@ describe("Button", () => {
         unmount();
     });
 
-    it("dedupes async onClickCapture while pending", async () => {
+    it('dedupes async onClickCapture while pending', async () => {
         let resolveCapture: (() => void) | undefined;
-        const onClickCapture = jest.fn(() => new Promise<void>(resolve => {
-            resolveCapture = resolve;
-        }));
+        const onClickCapture = jest.fn(
+            () =>
+                new Promise<void>((resolve) => {
+                    resolveCapture = resolve;
+                }),
+        );
 
         const { button, unmount } = renderButton({ onClickCapture });
 
@@ -147,8 +161,8 @@ describe("Button", () => {
         unmount();
     });
 
-    it("releases click lock after rejected onClickCapture", async () => {
-        const onClickCapture = jest.fn(() => Promise.reject(new Error("capture failed")));
+    it('releases click lock after rejected onClickCapture', async () => {
+        const onClickCapture = jest.fn(() => Promise.reject(new Error('capture failed')));
 
         const { button, unmount } = renderButton({ onClickCapture });
 
@@ -165,13 +179,13 @@ describe("Button", () => {
         unmount();
     });
 
-    it("runs sync onClickCapture and sync onClick in one click", () => {
+    it('runs sync onClickCapture and sync onClick in one click', () => {
         const onClickCapture = jest.fn();
         const onClick = jest.fn();
 
         const { button, unmount } = renderButton({
-            onClickCapture: onClickCapture as ButtonProps["onClickCapture"],
-            onClick: onClick as ButtonProps["onClick"]
+            onClickCapture: onClickCapture as ButtonProps['onClickCapture'],
+            onClick: onClick as ButtonProps['onClick'],
         });
 
         clickButton(button);
@@ -182,32 +196,35 @@ describe("Button", () => {
         unmount();
     });
 
-    it("forwards native button attributes", () => {
+    it('forwards native button attributes', () => {
         const { button, unmount } = renderButton({
-            type: "submit",
+            type: 'submit',
             disabled: true,
-            className: "custom-btn",
-            title: "submit-button"
+            className: 'custom-btn',
+            title: 'submit-button',
         });
 
-        expect(button.type).toBe("submit");
+        expect(button.type).toBe('submit');
         expect(button.disabled).toBe(true);
-        expect(button.className).toContain("custom-btn");
-        expect(button.title).toBe("submit-button");
+        expect(button.className).toContain('custom-btn');
+        expect(button.title).toBe('submit-button');
 
         unmount();
     });
 
-    it("blocks bubble onClick while onClickCapture is pending", async () => {
+    it('blocks bubble onClick while onClickCapture is pending', async () => {
         let resolveCapture: (() => void) | undefined;
-        const onClickCapture = jest.fn(() => new Promise<void>(resolve => {
-            resolveCapture = resolve;
-        }));
+        const onClickCapture = jest.fn(
+            () =>
+                new Promise<void>((resolve) => {
+                    resolveCapture = resolve;
+                }),
+        );
         const onClick = jest.fn();
 
         const { button, unmount } = renderButton({
-            onClickCapture: onClickCapture as ButtonProps["onClickCapture"],
-            onClick: onClick as ButtonProps["onClick"]
+            onClickCapture: onClickCapture as ButtonProps['onClickCapture'],
+            onClick: onClick as ButtonProps['onClick'],
         });
 
         clickButton(button);
@@ -226,45 +243,45 @@ describe("Button", () => {
         unmount();
     });
 
-    it("resets lock after sync throw in onClick", () => {
+    it('resets lock after sync throw in onClick', () => {
         const suppressGlobalError = (event: ErrorEvent) => {
             event.preventDefault();
         };
-        window.addEventListener("error", suppressGlobalError);
+        window.addEventListener('error', suppressGlobalError);
 
         const onClick = jest.fn(() => {
-            throw new Error("sync click error");
+            throw new Error('sync click error');
         });
 
-        const { button, unmount } = renderButton({ onClick: onClick as ButtonProps["onClick"] });
+        const { button, unmount } = renderButton({ onClick: onClick as ButtonProps['onClick'] });
 
         clickButton(button);
         clickButton(button);
 
         expect(onClick).toHaveBeenCalledTimes(2);
-        window.removeEventListener("error", suppressGlobalError);
+        window.removeEventListener('error', suppressGlobalError);
         unmount();
     });
 
-    it("resets lock after sync throw in onClickCapture", () => {
+    it('resets lock after sync throw in onClickCapture', () => {
         const suppressGlobalError = (event: ErrorEvent) => {
             event.preventDefault();
         };
-        window.addEventListener("error", suppressGlobalError);
+        window.addEventListener('error', suppressGlobalError);
 
         const onClickCapture = jest.fn(() => {
-            throw new Error("sync capture error");
+            throw new Error('sync capture error');
         });
 
         const { button, unmount } = renderButton({
-            onClickCapture: onClickCapture as ButtonProps["onClickCapture"]
+            onClickCapture: onClickCapture as ButtonProps['onClickCapture'],
         });
 
         clickButton(button);
         clickButton(button);
 
         expect(onClickCapture).toHaveBeenCalledTimes(2);
-        window.removeEventListener("error", suppressGlobalError);
+        window.removeEventListener('error', suppressGlobalError);
         unmount();
     });
 });

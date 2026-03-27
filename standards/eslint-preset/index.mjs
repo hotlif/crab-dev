@@ -1,7 +1,7 @@
 import browserReact from "./eslint.browser.react.config.mjs";
 import node from "./eslint.node.config.mjs";
 
-export const BrowserReact = {
+export const Browser = {
     react: browserReact
 }
 

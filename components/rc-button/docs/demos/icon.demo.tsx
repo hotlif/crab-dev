@@ -7,7 +7,7 @@
 import { css } from "@linaria/core";
 import { Lollipop } from 'lucide-react';
 import { useState } from "react";
-import Button from "../../src/index";
+import Button from "../../src/index.js";
 
 const IconDemo = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +18,8 @@ const IconDemo = () => {
                     margin-bottom: 1rem;
                 `}
             >
-               <label> 是否加载: </label>
-               <input
+                <label> 是否加载: </label>
+                <input
                     type="checkbox"
                     checked={isLoading}
                     onChange={() => setIsLoading(!isLoading)}

@@ -4,7 +4,7 @@ import { createElement, type ComponentType } from "react";
 import { join, resolve } from "path";
 import { existsSync } from "fs";
 
-import { renderHTML, type Modification } from "../conf";
+import { renderHTML, type Modification } from "../conf.js";
 
 const { RawSource } = Webpack.sources;
 

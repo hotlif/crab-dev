@@ -3,7 +3,7 @@ import { Configuration } from "webpack";
 import { join, dirname } from "path";
 import { Eta } from "eta";
 
-import { Modification } from "./conf";
+import { Modification } from "./conf.js";
 
 
 export const eta = new Eta({

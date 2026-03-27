@@ -7,11 +7,9 @@ import { rmSync, existsSync } from "fs";
 import { readFile, writeFile} from "fs/promises";
 import { createRequire } from "module";
 
-import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin";
-import { type Config } from "../conf";
-import { getTmpDir, getCwdDir, eta, getCurrentProjectPath } from "../util";
-
-
+import AutoScanWebpackPlugin from "../plugins/AutoScanWebpackPlugin.js";
+import { type Config } from "../conf.js";
+import { getTmpDir, getCwdDir, eta, getCurrentProjectPath } from "../util.js";
 
 const require = createRequire(import.meta.url);
 

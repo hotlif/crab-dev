@@ -5,7 +5,7 @@ import { join, sep } from "path";
 import * as ts from "typescript";
 import { parse } from "smol-toml";
 
-import { eta } from "../util";
+import { eta, getCurrentProjectPath, getTmpDir } from "../util.js";
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
@@ -14,8 +14,7 @@ import { read } from "to-vfile";
 import { unified } from "unified";
 import { existsSync, mkdirSync } from "fs";
 
-import { type ComponentScanRule } from "../conf";
-import { getCurrentProjectPath, getTmpDir } from "../util";
+import { type ComponentScanRule } from "../conf.js";
 
 const PLUGIN_NAME = "AutoScanWebpackPlugin";
 

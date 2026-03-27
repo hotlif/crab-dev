@@ -10,11 +10,14 @@
         "eslint": "^10.1.0",
         "eslint-plugin-react": "^7.37.3",
         "globals": "^17.0.0",
-        "typescript": "^6.0.2",
-        "typescript-eslint": "^8.18.2"
+        "typescript": "^6.0.2"
     },
     "dependencies": {
-        "@eslint/js": "^10.0.1"
+        "@eslint/js": "^10.0.1",
+        "@typescript-eslint/eslint-plugin": "^8.57.2",
+        "@typescript-eslint/parser": "^8.57.2",
+        "eslint-plugin-import": "^2.32.0",
+        "typescript-eslint": "^8.57.2"
     },
     "engines": {
         "node": ">=22"

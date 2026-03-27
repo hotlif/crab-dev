@@ -1,4 +1,3 @@
-import path from 'path/win32';
 import type { SVGProps } from 'react';
 
 export const ChevronDoubleLeft = (props: SVGProps<SVGSVGElement>) => {

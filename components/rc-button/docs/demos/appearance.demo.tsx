@@ -4,7 +4,7 @@
  * description = "通过 `appearance` 属性设置按钮外观"
  */
 
-import Button from "../../src/index";
+import Button from "../../src/index.js";
 import { css } from "@linaria/core";
 
 const SizeDemo = () => {

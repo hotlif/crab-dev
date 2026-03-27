@@ -5,14 +5,14 @@ import type { Configuration as WebpackConfiguration } from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import { join } from "path";
 
-import presetStandard from "./presetWebpack/standard";
-import presetModule from "./presetWebpack/module";
-import { Config } from "./conf";
-import { getCwdDir, getModsWebpackMerge } from "./util";
+import presetStandard from "./presetWebpack/standard.js";
+import presetModule from "./presetWebpack/module.js";
+import { Config } from "./conf.js";
+import { getCwdDir, getModsWebpackMerge } from "./util.js";
 
 const getReactWebpackPluginInstance = async (conf: Config) => {
     const cwd = getCwdDir(conf.rootDir);
-    const ReactWebpackPluginImport = import("./plugins/ReactWebpackPlugin");
+    const ReactWebpackPluginImport = import("./plugins/ReactWebpackPlugin.js");
     const AwaitReactWebpackPluginImport = await ReactWebpackPluginImport;
     const ReactWebpackPlugin = AwaitReactWebpackPluginImport.default || AwaitReactWebpackPluginImport;
     const ReactWebpackPluginInstance = new ReactWebpackPlugin({
@@ -120,11 +120,11 @@ export const build = async (defaultConf: Config) => {
 export {
     defineConfig,
     getConfig
-} from "./conf";
+} from "./conf.js";
 
-export { type Modification, type Config } from "./conf";
+export { type Modification, type Config } from "./conf.js";
 
-export { getCurrentProjectPath } from "./util";
+export { getCurrentProjectPath } from "./util.js";
 
 export type Configuration = WebpackConfiguration & {
     devServer?: DevServerConfiguration;

@@ -1,7 +1,7 @@
-import { css, cx } from "@linaria/core";
-import { useRef, type FC } from "react";
-import token from "./token";
-import type { ButtonProps } from "./types";
+import { css, cx } from '@linaria/core';
+import { useRef, type FC } from 'react';
+import token from './token.js';
+import type { ButtonProps } from './types.js';
 
 const opacityLoading = token.opacity.loading;
 
@@ -16,19 +16,19 @@ const baseStyle = css`
     user-select: none;
     background-color: unset;
     font-family: inherit;
-    line-height: 1; 
+    line-height: 1;
     vertical-align: middle;
     &[data-is-loading] {
         opacity: ${opacityLoading};
         cursor: default;
         pointer-events: none;
     }
-`
+`;
 
 const Button: FC<ButtonProps> = ({
     icon,
     loading = false,
-    appearance = "subtle",
+    appearance = 'subtle',
     shouldFitContainer = false,
     className,
     children,
@@ -42,17 +42,17 @@ const Button: FC<ButtonProps> = ({
     const clickState = useRef<boolean>(false);
 
     const getAppearanceStyle = () => {
-        if (appearance === "primary") {
+        if (appearance === 'primary') {
             return css`
                 &:not(:disabled) {
-                    box-shadow: ${token.primary["box-shadow"]};
+                    box-shadow: ${token.primary['box-shadow']};
                     background-color: ${token.primary.background.color};
                     color: ${token.primary.color};
                     &:hover {
-                        background-color: ${token.primary.background["color-hover"]};
+                        background-color: ${token.primary.background['color-hover']};
                     }
                     &:active {
-                        background-color: ${token.primary.background["color-active"]};
+                        background-color: ${token.primary.background['color-active']};
                         transform: scale(0.97);
                     }
                 }
@@ -60,10 +60,10 @@ const Button: FC<ButtonProps> = ({
                 &:disabled {
                     cursor: default;
                     pointer-events: none;
-                    background-color: ${token.primary.background["color-disabled"]};
+                    background-color: ${token.primary.background['color-disabled']};
                 }
-            `
-        } else if (appearance === "link") {
+            `;
+        } else if (appearance === 'link') {
             return css`
                 &:not(:disabled) {
                     background-color: ${token.link.background.color};
@@ -73,7 +73,7 @@ const Button: FC<ButtonProps> = ({
                         &::after {
                             content: '';
                             position: absolute;
-                            bottom: ${token.link.text["underline-offset"]};
+                            bottom: ${token.link.text['underline-offset']};
                             left: 0;
                             width: 100%;
                             height: ${token.link.text.decoration.width};
@@ -91,58 +91,56 @@ const Button: FC<ButtonProps> = ({
                     }
 
                     &:hover {
-                        color: ${token.link["color-hover"]};
-
+                        color: ${token.link['color-hover']};
                     }
                     &:active {
                         transform: scale(0.97);
-                        color: ${token.link["color-active"]};
+                        color: ${token.link['color-active']};
                     }
                 }
 
                 &:disabled {
                     cursor: default;
-                    background-color: ${token.link.background["color-disabled"]};
+                    background-color: ${token.link.background['color-disabled']};
                     pointer-events: none;
                 }
-            `
-        } else if (appearance === "dashed") {
+            `;
+        } else if (appearance === 'dashed') {
             return css`
-                border-width: ${token.dashed["border-width"]};
-                border-style: ${token.dashed["border-style"]};
-                box-shadow: ${token.dashed["box-shadow"]};
+                border-width: ${token.dashed['border-width']};
+                border-style: ${token.dashed['border-style']};
+                box-shadow: ${token.dashed['box-shadow']};
                 &:not(:disabled) {
                     color: ${token.dashed.color};
                     background-color: ${token.dashed.background.color};
-                    border-color: ${token.dashed["border-color"]};
+                    border-color: ${token.dashed['border-color']};
                     &:hover {
-                        color: ${token.dashed["color-hover"]};
-                        border-color: ${token.dashed["border-color-hover"]};
+                        color: ${token.dashed['color-hover']};
+                        border-color: ${token.dashed['border-color-hover']};
                     }
                     &:active {
                         transform: scale(0.97);
-                        color: ${token.dashed["color-active"]};
-                        border-color: ${token.dashed["border-color-active"]};
+                        color: ${token.dashed['color-active']};
+                        border-color: ${token.dashed['border-color-active']};
                     }
                 }
                 &:disabled {
                     cursor: default;
                     pointer-events: none;
-                    background-color: ${token.dashed.background["color-disabled"]};
+                    background-color: ${token.dashed.background['color-disabled']};
                     border-style: unset;
                     border-width: unset;
                 }
-
-            `
-        } else if (appearance === "text") {
+            `;
+        } else if (appearance === 'text') {
             return css`
                 &:not(:disabled) {
                     &:hover {
-                        background-color: ${token.text.background["color-hover"]};
+                        background-color: ${token.text.background['color-hover']};
                     }
                     &:active {
                         transform: scale(0.97);
-                        background-color: ${token.text.background["color-active"]};
+                        background-color: ${token.text.background['color-active']};
                     }
                 }
 
@@ -151,52 +149,52 @@ const Button: FC<ButtonProps> = ({
                     background-color: transparent;
                     pointer-events: none;
                 }
-            `
+            `;
         } else {
             return css`
                 &:not(:disabled) {
                     color: ${token.subtle.color};
-                    border-style: ${token.subtle["border-style"]};
-                    border-width: ${token.subtle["border-width"]};
-                    background-color: ${token.subtle.background["color"]};
-                    border-color: ${token.subtle["border-color"]};
-                    box-shadow: ${token.subtle["box-shadow"]};
+                    border-style: ${token.subtle['border-style']};
+                    border-width: ${token.subtle['border-width']};
+                    background-color: ${token.subtle.background['color']};
+                    border-color: ${token.subtle['border-color']};
+                    box-shadow: ${token.subtle['box-shadow']};
                     &:hover {
-                        border-color: ${token.subtle["border-color-hover"]};
-                        color: ${token.subtle["color-hover"]};
+                        border-color: ${token.subtle['border-color-hover']};
+                        color: ${token.subtle['color-hover']};
                     }
                     &:active {
                         transform: scale(0.97);
-                        color: ${token.subtle["color-active"]};
-                        border-color: ${token.subtle["border-color-active"]};
+                        color: ${token.subtle['color-active']};
+                        border-color: ${token.subtle['border-color-active']};
                     }
                 }
                 &:disabled {
                     cursor: default;
                     pointer-events: none;
-                    background-color: ${token.subtle.background["color-disabled"]};
+                    background-color: ${token.subtle.background['color-disabled']};
                 }
-            `
+            `;
         }
-    }
+    };
 
     const getSizeStyle = () => {
-        if (size === "large") {
+        if (size === 'large') {
             return css`
                 font-size: ${token.size.large.font.size};
                 padding: ${token.size.large.padding};
                 height: ${token.size.large.height};
                 border-radius: ${token.size.large.border.radius};
                 gap: ${token.size.large.gap};
-            `
-        } else if (size === "small") {
+            `;
+        } else if (size === 'small') {
             return css`
                 font-size: ${token.size.small.font.size};
                 height: ${token.size.small.height};
                 padding: ${token.size.small.padding};
                 border-radius: ${token.size.small.border.radius};
                 gap: ${token.size.small.gap};
-            `
+            `;
         } else {
             return css`
                 font-size: ${token.size.middle.font.size};
@@ -204,18 +202,18 @@ const Button: FC<ButtonProps> = ({
                 padding: ${token.size.middle.padding};
                 border-radius: ${token.size.middle.border.radius};
                 gap: ${token.size.middle.gap};
-            `
+            `;
         }
-    }
+    };
 
     const getShouldFitContainerStyle = () => {
         if (shouldFitContainer) {
             return css`
                 width: 100%;
-            `
+            `;
         }
         return null;
-    }
+    };
 
     const renderLoadingDom = () => {
         if (loading) {
@@ -231,12 +229,11 @@ const Button: FC<ButtonProps> = ({
                                 transform: rotate(360deg);
                             }
                         }
-
                     `}
                 >
                     <svg
                         className={css`
-                            color: inherit;   
+                            color: inherit;
                         `}
                         viewBox="0 0 1024 1024"
                         focusable="false"
@@ -254,10 +251,10 @@ const Button: FC<ButtonProps> = ({
                         />
                     </svg>
                 </span>
-            )
+            );
         }
         return null;
-    }
+    };
 
     const renderIcon = () => {
         if (loading) {
@@ -277,11 +274,11 @@ const Button: FC<ButtonProps> = ({
                 >
                     {icon}
                 </div>
-            )
+            );
         } else {
             return null;
         }
-    }
+    };
 
     return (
         <button
@@ -294,7 +291,7 @@ const Button: FC<ButtonProps> = ({
                 getAppearanceStyle(),
                 getSizeStyle(),
                 getShouldFitContainerStyle(),
-                className
+                className,
             )}
             disabled={disabled}
             onClick={(e) => {
@@ -349,11 +346,9 @@ const Button: FC<ButtonProps> = ({
             }}
         >
             {renderIcon()}
-            <span>
-                {children}
-            </span>
+            <span>{children}</span>
         </button>
-    )
-}
+    );
+};
 
 export default Button;

@@ -1,44 +1,50 @@
-import { type ReactNode, type ButtonHTMLAttributes } from "react"
+import { type ReactNode, type ButtonHTMLAttributes } from 'react';
 
-interface BaseButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "onClickCapture"> {
-
+interface BaseButtonProps extends Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    'onClick' | 'onClickCapture'
+> {
     /**
      * 图标信息
      */
-    icon?: ReactNode
+    icon?: ReactNode;
 
     /**
      * 加载中
      */
-    loading?: boolean
+    loading?: boolean;
 
-	/**
-	 * 按钮类型
-	 */
-	appearance?: "primary" | "subtle" | "dashed" | "text" | "link"
-    
+    /**
+     * 按钮类型
+     */
+    appearance?: 'primary' | 'subtle' | 'dashed' | 'text' | 'link';
+
     /**
      * 按钮的大小, 默认为 middle
      */
-    size?: "large" | "middle" | "small"
+    size?: 'large' | 'middle' | 'small';
 
     /**
-	 * 宽度设置为父容器宽度
-	 */
-	shouldFitContainer?: boolean
+     * 宽度设置为父容器宽度
+     */
+    shouldFitContainer?: boolean;
 
     /**
      * see ButtonHTMLAttributes<HTMLButtonElement>["onClick"]
      */
-    onClick?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClick"]>>[0]) => Promise<void> | void
+    onClick?: (
+        param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0],
+    ) => Promise<void> | void;
 
     /**
      * see ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]
      */
-    onClickCapture?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]>>[0]) => Promise<void> | void
+    onClickCapture?: (
+        param: Parameters<
+            NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']>
+        >[0],
+    ) => Promise<void> | void;
 }
 
-export type ButtonProps = BaseButtonProps & (
-  | { children: React.ReactNode; "aria-label"?: string }
-  | { children?: never; "aria-label": string }
-);
+export type ButtonProps = BaseButtonProps &
+    ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });
