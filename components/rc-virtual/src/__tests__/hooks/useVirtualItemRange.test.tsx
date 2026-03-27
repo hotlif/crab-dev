@@ -146,4 +146,84 @@ describe('useVirtualItemRange', () => {
         expect(rowRange).toEqual([2, 2]);
         expect(columnRange).toEqual([2, 2]);
     });
+
+    it('should handle large number of items efficiently', () => {
+        const sizes = Array.from({ length: 100000 }, () => 20);
+        const params = {
+            viewportHeight: 500,
+            viewportWidth: 500,
+            currentScrollPositionTop: 50000,
+            currentScrollPositionLeft: 50000,
+            gridTemplateColumns: sizes,
+            gridTemplateRows: sizes,
+        };
+
+        const { rowRange, columnRange } = useVirtualItemRange(params);
+        expect(rowRange[0]).toBeGreaterThan(0);
+        expect(rowRange[1]).toBeGreaterThan(rowRange[0]);
+        expect(rowRange[1] - rowRange[0]).toBeLessThan(100);
+        expect(columnRange[0]).toBeGreaterThan(0);
+        expect(columnRange[1]).toBeGreaterThan(columnRange[0]);
+    });
+
+    it('should handle viewport larger than total content', () => {
+        const params = {
+            viewportHeight: 1000,
+            viewportWidth: 1000,
+            currentScrollPositionTop: 0,
+            currentScrollPositionLeft: 0,
+            gridTemplateColumns: [50, 50],
+            gridTemplateRows: [50, 50],
+        };
+
+        const { rowRange, columnRange } = useVirtualItemRange(params);
+        expect(rowRange).toEqual([0, 1]);
+        expect(columnRange).toEqual([0, 1]);
+    });
+
+    it('should return last item for scroll at end of content', () => {
+        const params = {
+            viewportHeight: 50,
+            viewportWidth: 50,
+            currentScrollPositionTop: 100,
+            currentScrollPositionLeft: 100,
+            gridTemplateColumns: [50, 50, 50],
+            gridTemplateRows: [50, 50, 50],
+        };
+
+        const { rowRange, columnRange } = useVirtualItemRange(params);
+        expect(rowRange[1]).toBe(2);
+        expect(columnRange[1]).toBe(2);
+    });
+
+    it('should handle all zero-sized items', () => {
+        const params = {
+            viewportHeight: 100,
+            viewportWidth: 100,
+            currentScrollPositionTop: 0,
+            currentScrollPositionLeft: 0,
+            gridTemplateColumns: [0, 0, 0],
+            gridTemplateRows: [0, 0, 0],
+        };
+
+        const { rowRange, columnRange } = useVirtualItemRange(params);
+        expect(rowRange[0]).toBeLessThanOrEqual(rowRange[1]);
+        expect(columnRange[0]).toBeLessThanOrEqual(columnRange[1]);
+    });
+
+    it('should handle mixed valid and invalid sizes', () => {
+        const params = {
+            viewportHeight: 100,
+            viewportWidth: 100,
+            currentScrollPositionTop: 0,
+            currentScrollPositionLeft: 0,
+            gridTemplateColumns: [50, -10, NaN, 50],
+            gridTemplateRows: [30, Infinity, -5, 30],
+        };
+
+        const { rowRange, columnRange } = useVirtualItemRange(params);
+        // Invalid sizes normalized to 0, so total columns = 50+0+0+50=100, rows = 30+0+0+30=60
+        expect(rowRange[0]).toBeGreaterThanOrEqual(0);
+        expect(columnRange[0]).toBeGreaterThanOrEqual(0);
+    });
 });
