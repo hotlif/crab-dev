@@ -1,7 +1,7 @@
 import { css, cx } from "@linaria/core";
 import type { FC, InputHTMLAttributes, ReactNode } from "react";
 
-import Token from "./token";
+import token from "./token";
 
 
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
@@ -56,7 +56,9 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
 const iconStyle = css`
     display: flex;
     align-items: center;
-    margin-right: 0.2rem;
+    flex-shrink: 0;
+    color: ${token.icon.color};
+    margin-right: ${token.icon["margin-right"]};
 `
 
 const LineEdit: FC<LineEditProps> = ({
@@ -72,18 +74,21 @@ const LineEdit: FC<LineEditProps> = ({
     readOnly,
     ...restProps
 }) => {
-    const getContainerPadding = () => {
+    const getContainerSize = () => {
         if (size === "large") {
             return css`
-                padding: 7px 11px;
+                height: ${token.size.large.height};
+                padding: ${token.size.large.padding};
             `
         } else if (size === "small") {
             return css`
-                padding: 0px 11px;
+                height: ${token.size.small.height};
+                padding: ${token.size.small.padding};
             `
         } else {
             return css`
-                padding: 4px 11px;
+                height: ${token.size.middle.height};
+                padding: ${token.size.middle.padding};
             `
         }
     }
@@ -91,18 +96,18 @@ const LineEdit: FC<LineEditProps> = ({
     const getSizeStyle = () => {
         if (size === "large") {
             return css`
-                font-size: 1.125rem;
-                line-height: 1.4;
+                font-size: ${token.size.large.font.size};
+                line-height: ${token.size.large["line-height"]};
             `
         } else if (size === "small") {
             return css`
-                font-size: 0.75rem;
-                line-height: 1.3; 
+                font-size: ${token.size.small.font.size};
+                line-height: ${token.size.small["line-height"]};
             `
         } else {
             return css`
-                font-size: 1rem;
-                line-height: 1.5;
+                font-size: ${token.size.middle.font.size};
+                line-height: ${token.size.middle["line-height"]};
             `
         }
     }
@@ -110,18 +115,18 @@ const LineEdit: FC<LineEditProps> = ({
     const getIconSizeStyle = () => {
         if (size === "large") {
             return css`
-                font-size: 1.125rem;
-                line-height: 1.4;
+                font-size: ${token.size.large.font.size};
+                line-height: ${token.size.large["line-height"]};
             `
         } else if (size === "small") {
             return css`
-                font-size: 0.75rem;
-                line-height: 1.3;
+                font-size: ${token.size.small.font.size};
+                line-height: ${token.size.small["line-height"]};
             `
         } else {
             return css`
-                font-size: 1rem;
-                line-height: 1.5;
+                font-size: ${token.size.middle.font.size};
+                line-height: ${token.size.middle["line-height"]};
             `
         }
     }
@@ -159,19 +164,26 @@ const LineEdit: FC<LineEditProps> = ({
             className={cx(
                 css`
                     display: inline-flex;
-                    border-radius: ${Token.border.radius};
-                    border-width: 1px;
-                    border-style: solid;
-                    border-color: ${Token.border.color.normal};
-                    transition: ${Token.transition};
-                    vertical-align: middle;
+                    align-items: center;
+                    border-radius: ${token.border.radius};
+                    border-width: ${token.border.width};
+                    border-style: ${token.border.style};
+                    border-color: ${token.border.color};
+                    background-color: ${token.background.color};
+                    box-shadow: ${token["box-shadow"].default};
+                    transition: ${token.transition};
+                    outline: none;
                     box-sizing: border-box;
                     &:focus-within {
-                        border-color: ${Token.border.color.focusWithin};
-                        box-shadow: ${Token.boxShadow.focusWithin}
+                        border-color: ${token.border["color-focus"]};
+                        box-shadow: ${token["box-shadow"]["focus-within"]};
+                    }
+                    &[aria-disabled="true"] {
+                        pointer-events: none;
+                        opacity: 0.5;
                     }
                 `,
-                getContainerPadding(),
+                getContainerSize(),
                 className
             )}
             {...restProps}
@@ -184,13 +196,21 @@ const LineEdit: FC<LineEditProps> = ({
                 value={value}
                 className={cx(
                     css`
+                        flex: 1;
+                        width: 100%;
                         border-radius: inherit;
                         outline: unset;
                         border: unset;
-                        background-color: inherit;
+                        background-color: transparent;
                         &::placeholder {
                             font-size: inherit;
-                            color: rgba(0, 0, 0, 0.3);
+                            color: ${token.placeholder.color};
+                        }
+                        &:disabled {
+                            cursor: not-allowed;
+                        }
+                        &:focus {
+                            outline: none;
                         }
                     `,
                     getSizeStyle()

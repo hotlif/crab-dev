@@ -1,21 +1,5 @@
 [build]
 output = "./src/token.ts"
-prefix = "picker"
+prefix = "dropdown-container"
 
-[token.color]
-
-[token.dimension]
-
-[token.typography]
-
-
-[token.motion]
-
-
-[token.elevation]
-
-
-[token.border]
-
-
-[token.opacity]
+[token]

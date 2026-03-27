@@ -26,7 +26,7 @@ interface TimePickerInputProps {
 }
 
 const iconStyle = css`
-    opacity: ${token.opacity['icon']};
+    opacity: ${token.opacity.icon};
     cursor: pointer;
     transition: opacity .2s;
     &:hover {

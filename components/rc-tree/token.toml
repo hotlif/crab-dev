@@ -6,10 +6,13 @@ prefix = "tree"
 
 indent.size = "24px"
 border.radius = "4px"
+
 node.draggable.border.width = "1px"
 node.draggable.border.style = "solid"
 node.draggable.border.color = "#1677ff"
-node.icon.hover.bg.color = "rgba(0, 0, 0, 0.06)"
+
+node.icon.hover.background.color = "rgba(0, 0, 0, 0.06)"
 node.icon.loading.color = "#0088f0"
-node.hover.bg.color = "rgba(0,0,0,0.04)"
-node.select.bg.color = "#e6f4ff"
+
+node.hover.background.color = "rgba(0,0,0,0.04)"
+node.select.background.color = "#e6f4ff"

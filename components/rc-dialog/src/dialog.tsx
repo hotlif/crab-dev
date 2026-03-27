@@ -66,22 +66,22 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, "title"> 
 
 }
 
-const colorOverlayBackgroundColor = token.color["overlay-background-color"];
-const colorDialogBackgroundColor = token.color["background-color"];
+const colorOverlayBackgroundColor = token.overlay.background.color;
+const colorDialogBackgroundColor = token.background.color;
 
-const dimensionPadding = token.dimension.padding;
-const dimensionBorderRadius = token.dimension["border-radius"];
-const dimensionFooterMarginTop = token.dimension["footer-margin-top"];
-const dimensionFooterButtonSpacing = token.dimension["footer-button-spacing"];
-const dimensionHeadingMarginBottom = token.dimension["heading-margin-bottom"];
+const dimensionPadding = token.padding;
+const dimensionBorderRadius = token.border.radius;
+const dimensionFooterMarginTop = token.footer.margin.top;
+const dimensionFooterButtonSpacing = token.footer.button.spacing;
+const dimensionHeadingMarginBottom = token.heading.margin.bottom;
 
-const typographyHeadingFontWeight = token.typography["heading-font-weight"];
-const typographyHeadingFontSize = token.typography["heading-font-size"];
-const typographyHeadingLineHeight = token.typography["heading-line-height"];
+const typographyHeadingFontWeight = token.heading.font.weight;
+const typographyHeadingFontSize = token.heading.font.size;
+const typographyHeadingLineHeight = token.heading.line.height;
 
-const elevationBoxShadow = token.elevation["box-shadow"];
+const elevationBoxShadow = token.box.shadow;
 
-const top = token.dimension.top;
+const top = token.top;
 
 
 const dialogReset = css`

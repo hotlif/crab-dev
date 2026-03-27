@@ -3,62 +3,86 @@
  */
 
 export const vars = {
-    'color.selected-background': '--picker-color-selected-background',
-    'color.selected-text': '--picker-color-selected-text',
-    'color.cell-hover-background': '--picker-color-cell-hover-background',
-    'color.cell-hover-text': '--picker-color-cell-hover-text',
-    'dimension.header-padding': '--picker-dimension-header-padding',
-    'dimension.header-cell-height': '--picker-dimension-header-cell-height',
-    'dimension.cell-padding': '--picker-dimension-cell-padding',
-    'dimension.cell-border-radius': '--picker-dimension-cell-border-radius',
-    'dimension.cell-content-size': '--picker-dimension-cell-content-size',
-    'dimension.action-bar-margin-top': '--picker-dimension-action-bar-margin-top',
-    'dimension.action-bar-gap': '--picker-dimension-action-bar-gap',
-    'typography.panel-font-size': '--picker-typography-panel-font-size',
-    'typography.header-font-size': '--picker-typography-header-font-size',
-    'typography.header-font-weight': '--picker-typography-header-font-weight',
-    'typography.cell-font-size': '--picker-typography-cell-font-size',
-    'typography.cell-font-weight': '--picker-typography-cell-font-weight',
-    'typography.timezone-font-size': '--picker-typography-timezone-font-size',
-    'motion.cell-transition': '--picker-motion-cell-transition',
-    'opacity.out-of-range': '--picker-opacity-out-of-range',
-    'opacity.icon': '--picker-opacity-icon',
-    'opacity.icon-hover': '--picker-opacity-icon-hover',
-    'opacity.timezone': '--picker-opacity-timezone'
+    'selected.background.color': '--date-picker-selected-background-color',
+    'selected.text.color': '--date-picker-selected-text-color',
+    'cell.background.color-hover': '--date-picker-cell-background-color-hover',
+    'cell.text.color-hover': '--date-picker-cell-text-color-hover',
+    'cell.padding': '--date-picker-cell-padding',
+    'cell.border.radius': '--date-picker-cell-border-radius',
+    'cell.content.size': '--date-picker-cell-content-size',
+    'cell.font.size': '--date-picker-cell-font-size',
+    'cell.font.weight': '--date-picker-cell-font-weight',
+    'cell.transition': '--date-picker-cell-transition',
+    'header.padding': '--date-picker-header-padding',
+    'header.cell.height': '--date-picker-header-cell-height',
+    'header.font.size': '--date-picker-header-font-size',
+    'header.font.weight': '--date-picker-header-font-weight',
+    'action.bar.margin.top': '--date-picker-action-bar-margin-top',
+    'action.bar.gap': '--date-picker-action-bar-gap',
+    'panel.font.size': '--date-picker-panel-font-size',
+    'timezone.font.size': '--date-picker-timezone-font-size',
+    'opacity.out-of-range': '--date-picker-opacity-out-of-range',
+    'opacity.icon': '--date-picker-opacity-icon',
+    'opacity.icon-hover': '--date-picker-opacity-icon-hover',
+    'opacity.timezone': '--date-picker-opacity-timezone'
 };
 
 const token = {
-    'color': {
-        'selected-background': `var(${vars['color.selected-background']}, oklch(0.2855 0.0113 271))`,
-        'selected-text': `var(${vars['color.selected-text']}, oklch(1 0 0))`,
-        'cell-hover-background': `var(${vars['color.cell-hover-background']}, oklch(0.2855 0.0113 271 / 75%))`,
-        'cell-hover-text': `var(${vars['color.cell-hover-text']}, oklch(1 0 0))`
+    'selected': {
+        'background': {
+            'color': `var(${vars['selected.background.color']}, oklch(0.2855 0.0113 271))`
+        },
+        'text': {
+            'color': `var(${vars['selected.text.color']}, oklch(1 0 0))`
+        }
     },
-    'dimension': {
-        'header-padding': `var(${vars['dimension.header-padding']}, 16px 8px)`,
-        'header-cell-height': `var(${vars['dimension.header-cell-height']}, 40px)`,
-        'cell-padding': `var(${vars['dimension.cell-padding']}, 3px 4px)`,
-        'cell-border-radius': `var(${vars['dimension.cell-border-radius']}, 4px)`,
-        'cell-content-size': `var(${vars['dimension.cell-content-size']}, 24px)`,
-        'action-bar-margin-top': `var(${vars['dimension.action-bar-margin-top']}, 0.5rem)`,
-        'action-bar-gap': `var(${vars['dimension.action-bar-gap']}, 0.5rem)`
+    'cell': {
+        'background': {
+            'color-hover': `var(${vars['cell.background.color-hover']}, oklch(0.2855 0.0113 271 / 75%))`
+        },
+        'text': {
+            'color-hover': `var(${vars['cell.text.color-hover']}, oklch(1 0 0))`
+        },
+        'padding': `var(${vars['cell.padding']}, 3px 4px)`,
+        'border': {
+            'radius': `var(${vars['cell.border.radius']}, 4px)`
+        },
+        'content': {
+            'size': `var(${vars['cell.content.size']}, 24px)`
+        },
+        'font': {
+            'size': `var(${vars['cell.font.size']}, 14px)`,
+            'weight': `var(${vars['cell.font.weight']}, 400)`
+        },
+        'transition': `var(${vars['cell.transition']}, background-color 0.2s, color 0.2s)`
     },
-    'typography': {
-        'panel-font-size': `var(${vars['typography.panel-font-size']}, 14px)`,
-        'header-font-size': `var(${vars['typography.header-font-size']}, 12px)`,
-        'header-font-weight': `var(${vars['typography.header-font-weight']}, 400)`,
-        'cell-font-size': `var(${vars['typography.cell-font-size']}, 14px)`,
-        'cell-font-weight': `var(${vars['typography.cell-font-weight']}, 400)`,
-        'timezone-font-size': `var(${vars['typography.timezone-font-size']}, 10px)`
+    'header': {
+        'padding': `var(${vars['header.padding']}, 16px 8px)`,
+        'cell': {
+            'height': `var(${vars['header.cell.height']}, 40px)`
+        },
+        'font': {
+            'size': `var(${vars['header.font.size']}, 12px)`,
+            'weight': `var(${vars['header.font.weight']}, 400)`
+        }
     },
-    'motion': {
-        'cell-transition': `var(${vars['motion.cell-transition']}, background-color 0.2s, color 0.2s)`
+    'action': {
+        'bar': {
+            'margin': {
+                'top': `var(${vars['action.bar.margin.top']}, 0.5rem)`
+            },
+            'gap': `var(${vars['action.bar.gap']}, 0.5rem)`
+        }
     },
-    'elevation': {
-
+    'panel': {
+        'font': {
+            'size': `var(${vars['panel.font.size']}, 14px)`
+        }
     },
-    'border': {
-
+    'timezone': {
+        'font': {
+            'size': `var(${vars['timezone.font.size']}, 10px)`
+        }
     },
     'opacity': {
         'out-of-range': `var(${vars['opacity.out-of-range']}, 0.3)`,

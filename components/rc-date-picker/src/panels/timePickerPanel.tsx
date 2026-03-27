@@ -24,9 +24,9 @@ const containerStyle = css`
 const mainStyle = css`
     height: 224px;
     display: flex;
-    line-height: ${token.dimension['cell-content-size']};
-    font-size: ${token.typography['cell-font-size']};
-    font-weight: ${token.typography['cell-font-weight']};
+    line-height: ${token.cell.content.size};
+    font-size: ${token.cell.font.size};
+    font-weight: ${token.cell.font.weight};
 `
 
 const ulStyle = css`
@@ -53,12 +53,12 @@ const ulStyle = css`
         cursor: pointer;
         padding-inline-start: 8px;
         padding-inline-end: 8px;
-        border-radius: ${token.dimension['cell-border-radius']};
-        transition: ${token.motion['cell-transition']};
+        border-radius: ${token.cell.border.radius};
+        transition: ${token.cell.transition};
         user-select: none;
         &:hover {
-            background-color: ${token.color['cell-hover-background']};
-            color: ${token.color['cell-hover-text']};
+            background-color: ${token.cell.background['color-hover']};
+            color: ${token.cell.text['color-hover']};
         }
     }
 `
@@ -109,7 +109,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    padding: ${token.dimension['header-padding']};
+                    padding: ${token.header.padding};
                 `}
             >
                 <div

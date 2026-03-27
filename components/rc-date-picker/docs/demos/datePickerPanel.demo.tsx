@@ -11,7 +11,11 @@ const now = Temporal.Now.zonedDateTimeISO();
 const SizeDemo = () => {
 
     return (
-        <div>
+        <div
+            style={{
+                width: 250
+            }}
+        >
             <DatePickerPanel
                 value={now}
                 weekStartDay={1}

@@ -1,21 +1,15 @@
-
-# 构建相关配置
 [build]
-output = "./src/token.ts" # 生成的 token 文件路径
-prefix = "color-picker"    # 变量名前缀
+output = "./src/token.ts"
+prefix = "color-picker"
 
-# 组件 token 配置
 [token]
 
-# 面板
-panel.padding = "16px" # 面板内边距
-panel.gap = "1rem"     # 面板子元素间距
+panel.padding = "16px"
+panel.gap = "1rem"
 
-# 颜色预览区域
-panel.preview.height = "5rem"         # 高度
-panel.preview.width = "100%"          # 宽度
-panel.preview.border.radius = "8px"   # 圆角
-panel.preview.margin.top = "1rem"     # 上边距
+panel.preview.height = "5rem"
+panel.preview.width = "100%"
+panel.preview.border.radius = "8px"
+panel.preview.margin.top = "1rem"
 
-# 滑块容器
-panel.slider.container.gap = "1rem"           # 滑块与标签的间距
+panel.slider.container.gap = "1rem"

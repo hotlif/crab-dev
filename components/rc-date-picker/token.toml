@@ -1,39 +1,33 @@
 [build]
 output = "./src/token.ts"
-prefix = "picker"
+prefix = "date-picker"
 
-[token.color]
-selected-background = "oklch(0.2855 0.0113 271)"
-selected-text = "oklch(1 0 0)"
-cell-hover-background = "oklch(0.2855 0.0113 271 / 75%)"
-cell-hover-text = "oklch(1 0 0)"
+[token]
 
-[token.dimension]
-header-padding = "16px 8px"
-header-cell-height = "40px"
-cell-padding = "3px 4px"
-cell-border-radius = "4px"
-cell-content-size = "24px"
-action-bar-margin-top = "0.5rem"
-action-bar-gap = "0.5rem"
+selected.background.color = "oklch(0.2855 0.0113 271)"
+selected.text.color = "oklch(1 0 0)"
+cell.background.color-hover = "oklch(0.2855 0.0113 271 / 75%)"
+cell.text.color-hover = "oklch(1 0 0)"
 
-[token.typography]
-panel-font-size = "14px"
-header-font-size = "12px"
-header-font-weight = "400"
-cell-font-size = "14px"
-cell-font-weight = "400"
-timezone-font-size = "10px"
+header.padding = "16px 8px"
+header.cell.height = "40px"
+header.font.size = "12px"
+header.font.weight = "400"
 
-[token.motion]
-cell-transition = "background-color 0.2s, color 0.2s"
+cell.padding = "3px 4px"
+cell.border.radius = "4px"
+cell.content.size = "24px"
+cell.font.size = "14px"
+cell.font.weight = "400"
+cell.transition = "background-color 0.2s, color 0.2s"
 
-[token.elevation]
+action.bar.margin.top = "0.5rem"
+action.bar.gap = "0.5rem"
 
-[token.border]
+panel.font.size = "14px"
+timezone.font.size = "10px"
 
-[token.opacity]
-out-of-range = "0.3"
-icon = "0.5"
-icon-hover = "0.8"
-timezone = "0.6"
+opacity.out-of-range = "0.3"
+opacity.icon = "0.5"
+opacity.icon-hover = "0.8"
+opacity.timezone = "0.6"

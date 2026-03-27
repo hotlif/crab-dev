@@ -49,7 +49,7 @@ const expandedAndCloseIcon = css`
     border-radius: inherit;
     margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
     &:hover {
-       background-color: ${token.node.icon.hover.bg.color};
+       background-color: ${token.node.icon.hover.background.color};
     }
 `;
 
@@ -177,10 +177,10 @@ const NodeItem: FC<NodeItemProps> = ({
             border-radius: ${token.border.radius};
             user-select: none;
             &:hover {
-                background-color: ${token.node.hover.bg.color};
+                background-color: ${token.node.hover.background.color};
             }
             &[data-node-item-selectd="true"] {
-                background-color: ${token.node.select.bg.color};
+                background-color: ${token.node.select.background.color};
             }
         `,
         generateDraggingOverStyle(),

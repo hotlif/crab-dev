@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "build": "nx run @crab-dev/packify:build:library && nx run-many -t build:library",
-        "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test"
+        "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test",
+        "generate:token": "nx run-many -t run generate:token"
     },
     "workspaces": [
         "standards/*",

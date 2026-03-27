@@ -11,21 +11,21 @@ import Close from "./icons/close";
 import { type Direction } from "./types";
 import token from "./token";
 
-const colorBackground = token.color.background;
-const colorText = token.color.text;
-const colorProgressStart = token.color["progress-start"];
-const colorProgressEnd = token.color["progress-end"];
+const colorBackground = token.background.color;
+const colorText = token.text.color;
+const colorProgressStart = token.progress.start.color;
+const colorProgressEnd = token.progress.end.color;
 
-const dimensionPadding = token.dimension.padding;
-const dimensionBorderRadius = token.dimension["border-radius"];
-const dimensionTitleMarginBottom = token.dimension["title-margin-bottom"];
-const dimensionProgressHeight = token.dimension["progress-height"];
+const dimensionPadding = token.padding;
+const dimensionBorderRadius = token.border.radius;
+const dimensionTitleMarginBottom = token.title.margin.bottom;
+const dimensionProgressHeight = token.progress.height;
 
-const typographyTitleFontSize = token.typography["title-font-size"];
-const typographyTitleLineHeight = token.typography["title-line-height"];
-const typographyContentFontSize = token.typography["content-font-size"];
+const typographyTitleFontSize = token.title.font.size;
+const typographyTitleLineHeight = token.title.line.height;
+const typographyContentFontSize = token.content.font.size;
 
-const opacityClose = token.opacity.close;
+const opacityClose = token.close.opacity;
 
 export interface NotificationProps extends Omit<HTMLMotionProps<"div">, "title" | "children"> {
 

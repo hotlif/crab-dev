@@ -8,10 +8,10 @@ export const vars = {
     'node.draggable.border.width': '--tree-node-draggable-border-width',
     'node.draggable.border.style': '--tree-node-draggable-border-style',
     'node.draggable.border.color': '--tree-node-draggable-border-color',
-    'node.icon.hover.bg.color': '--tree-node-icon-hover-bg-color',
+    'node.icon.hover.background.color': '--tree-node-icon-hover-background-color',
     'node.icon.loading.color': '--tree-node-icon-loading-color',
-    'node.hover.bg.color': '--tree-node-hover-bg-color',
-    'node.select.bg.color': '--tree-node-select-bg-color'
+    'node.hover.background.color': '--tree-node-hover-background-color',
+    'node.select.background.color': '--tree-node-select-background-color'
 };
 
 const token = {
@@ -31,8 +31,8 @@ const token = {
         },
         'icon': {
             'hover': {
-                'bg': {
-                    'color': `var(${vars['node.icon.hover.bg.color']}, rgba(0, 0, 0, 0.06))`
+                'background': {
+                    'color': `var(${vars['node.icon.hover.background.color']}, rgba(0, 0, 0, 0.06))`
                 }
             },
             'loading': {
@@ -40,13 +40,13 @@ const token = {
             }
         },
         'hover': {
-            'bg': {
-                'color': `var(${vars['node.hover.bg.color']}, rgba(0,0,0,0.04))`
+            'background': {
+                'color': `var(${vars['node.hover.background.color']}, rgba(0,0,0,0.04))`
             }
         },
         'select': {
-            'bg': {
-                'color': `var(${vars['node.select.bg.color']}, #e6f4ff)`
+            'background': {
+                'color': `var(${vars['node.select.background.color']}, #e6f4ff)`
             }
         }
     }
