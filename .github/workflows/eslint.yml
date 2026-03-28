@@ -1,0 +1,25 @@
+name: ESLint CI
+
+on:
+  push:
+    branches: [ "canary" ]
+  pull_request:
+    branches: [ "canary" ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Node 22
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Enable Corepack
+      run: corepack enable
+    - name: Set Yarn version to 4.x
+      run: yarn set version stable
+    - name: Install dependencies
+      run: yarn install
+    - name: Run ESLint
+      run: yarn eslint

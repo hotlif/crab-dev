@@ -1,11 +1,7 @@
 import type { FC, HTMLAttributes } from "react";
 import { cx, css } from "@linaria/core";
 
-interface ContentProps extends Omit<
-    HTMLAttributes<HTMLElement>, ""> {
-}
-
-const Content: FC<ContentProps> = ({
+const Content: FC<HTMLAttributes<HTMLElement>> = ({
     className,
     ...restProps
 }) => {

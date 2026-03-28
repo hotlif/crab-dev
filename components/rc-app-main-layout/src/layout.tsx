@@ -1,8 +1,8 @@
 import type { FC, HTMLAttributes, ReactNode } from "react";
 import { cx, css } from "@linaria/core";
-import Header from "./header";
-import Sidebar, { SidebarProps } from "./sidebar";
-import Content from "./content";
+import Header from "./header.js";
+import Sidebar, { SidebarProps } from "./sidebar.js";
+import Content from "./content.js";
 
 interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, ""> {
     /** 顶部标题文本 */

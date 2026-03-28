@@ -10,7 +10,7 @@
         "generate:docgen": "react-docgen ./src/layout.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-        "eslint": "eslint"
+        "eslint": "eslint --fix"
     },
     "files": [
         "esm",

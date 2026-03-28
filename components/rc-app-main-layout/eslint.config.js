@@ -1,7 +1,7 @@
 import {
-    Node
+    Browser
 } from "@crab-dev/standards-eslint-preset";
 
 export default [
-    ...Node
+    ...Browser.react
 ];
