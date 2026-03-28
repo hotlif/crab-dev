@@ -3,10 +3,10 @@ import { type FC, type ReactNode } from "react";
 
 import { type Item } from "../type";
 import groupStyle from "./styles/itemGroup.styles";
-import Token from "../token/horizontal";
+import token from "../token";
 
-const indentBase = Token.horizontal.groupItem.indentBase;
-const indentScale = Token.horizontal.groupItem.indentScale;
+const indentBase = token.horizontal["group-item"]["indent-base"];
+const indentScale = token.horizontal["group-item"]["indent-scale"];
 
 interface GroupItemProps {
     item: Item,

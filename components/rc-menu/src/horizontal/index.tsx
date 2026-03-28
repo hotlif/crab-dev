@@ -6,13 +6,14 @@ import { ItemType, type Item } from "../type";
 import ItemGroup from "./itemGroup";
 import ItemNormal from "./itemNormal";
 import { FloatingTree } from "@floating-ui/react";
+import token from "../token";
 
 const horizontalMenuRoot = css`
     display: flex;
     position: relative;
     flex-direction: row;
     list-style-type: none;
-    border-bottom: 1px solid rgba(5,5,5,0.06);
+    border-bottom: 1px solid ${token.horizontal["border-color"]};
     box-sizing: border-box;
 `
 

@@ -2,7 +2,7 @@
 import { useOutlet } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import { css } from "@linaria/core";
-import Code from "../components/code";
+import DemoMasonry from "../components/code";
 import DocGen from "../components/docgen";
 
 const DocLayout = () => {
@@ -15,7 +15,7 @@ const DocLayout = () => {
         >
             <MDXProvider
                 components={{
-                    Demos: Code,
+                    Demos: DemoMasonry,
                     API: DocGen
                 }}
             >

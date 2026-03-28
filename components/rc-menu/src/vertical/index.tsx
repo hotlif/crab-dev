@@ -6,27 +6,27 @@ import { motion, AnimatePresence } from "motion/react"
 import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon";
 import { type MenuProps } from "../menu";
 import { ItemType, type Item } from "../type";
-import Token from "../token/vertical";
+import token from "../token";
 
-const verticalItemTitleWidth = Token.vertical.item.title.width;
-const verticalItemTitleMarginBottom = Token.vertical.item.title.marginBottom;
-const verticalItemTitleMarginTop = Token.vertical.item.title.marginTop;
-const verticalItemTitlePaddingInlineStart = Token.vertical.item.title.paddingInlineStart;
-const verticalItemTitlePaddingInlineEnd = Token.vertical.item.title.paddingInlineEnd;
-const verticalItemTitleBorderRadius = Token.vertical.item.title.borderRadius;
-const verticalItemTitleBackgroundColorHover = Token.vertical.item.title.backgroundColor.hover;
-const verticalItemTitleBackgroundColorActive = Token.vertical.item.title.backgroundColor.active;
-const verticalItemTitleBackgroundColorSelect = Token.vertical.item.title.backgroundColor.select;
-const verticalItemTitleHeight = Token.vertical.item.title.height;
-const verticalItemFontSize = Token.vertical.item.title.fontSize;
-const verticalItemInlineIndent = Token.vertical.item.inlineIndent;
-const verticalItemChildrenBackgroundColor = Token.vertical.item.children.backgroundColor;
-const verticalItemChildrenPadding = Token.vertical.item.children.padding;
+const verticalItemTitleWidth = token.vertical.item.title.width;
+const verticalItemTitleMarginBottom = token.vertical.item.title["margin-bottom"];
+const verticalItemTitleMarginTop = token.vertical.item.title["margin-top"];
+const verticalItemTitlePaddingInlineStart = token.vertical.item.title["padding-inline-start"];
+const verticalItemTitlePaddingInlineEnd = token.vertical.item.title["padding-inline-end"];
+const verticalItemTitleBorderRadius = token.vertical.item.title["border-radius"];
+const verticalItemTitleBackgroundColorHover = token.vertical.item.title["background-color-hover"];
+const verticalItemTitleBackgroundColorActive = token.vertical.item.title["background-color-active"];
+const verticalItemTitleBackgroundColorSelect = token.vertical.item.title["background-color-select"];
+const verticalItemTitleHeight = token.vertical.item.title.height;
+const verticalItemFontSize = token.vertical.item.title["font-size"];
+const verticalItemInlineIndent = token.vertical.item["inline-indent"];
+const verticalItemChildrenBackgroundColor = token.vertical.item.children["background-color"];
+const verticalItemChildrenPadding = token.vertical.item.children.padding;
 
 
-const itemGroupTitleColor = Token.vertical.itemGroup.title.color;
-const itemGroupTitleFontSize = Token.vertical.itemGroup.title.fontSize;
-const itemGroupTitleHeight = Token.vertical.itemGroup.title.height;
+const itemGroupTitleColor = token.vertical["item-group"].title.color;
+const itemGroupTitleFontSize = token.vertical["item-group"].title["font-size"];
+const itemGroupTitleHeight = token.vertical["item-group"].title.height;
 
 
 const itemTitleStyle = css`

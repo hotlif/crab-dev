@@ -3,7 +3,7 @@ import RcMenu, { MenuItem, MenuItemType } from "@crab-dev/rc-menu";
 import { useNavigate, useOutlet } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import mdxs from "@@@/mdxs";
-import Code from "../components/code";
+import DemoMasonry from "../components/code";
 import DocGen from "../components/docgen";
 
 const getMenuItems = () => {
@@ -97,7 +97,7 @@ const TabsLayout = () => {
                     >
                         <MDXProvider
                             components={{
-                                Demos: Code,
+                                Demos: DemoMasonry,
                                 API: DocGen
                             }}
                         >

@@ -1,18 +1,19 @@
 import { css } from "@linaria/core"
+import token from "../../token";
 
 const menuItem = css`
     cursor: pointer;
-    font-size: 14px;
+    font-size: ${token.horizontal.item["font-size"]};
     position: relative;
     user-select: none;
-    transition: border-color 0.3s, color 0.3s;
+    transition: ${token.horizontal.item.transition};
 `
 
 const menuItemWithDivider = css`
     &:hover {
-        color: #1677ff;
+        color: ${token.horizontal.item["color-hover"]};
         &::after {
-            border-bottom: 2px solid #1677ff;
+            border-bottom: 2px solid ${token.horizontal.item["divider-color-hover"]};
         }
     }
     &::after {
@@ -28,9 +29,9 @@ const menuItemWithDivider = css`
 
 const menuItemContent = css`
     border-radius: 4px;
-    padding-left: 16px;
-    font-size: 14px;
-    height: 40px;
+    padding-left: ${token.horizontal.item.content["padding-left"]};
+    font-size: ${token.horizontal.item.content["font-size"]};
+    height: ${token.horizontal.item.content.height};
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -39,7 +40,7 @@ const menuItemContent = css`
 const menuItemFloatTrigger = css`
     margin: 4px;
     &:hover {
-        background-color: rgba(0, 0, 0, 0.06);
+        background-color: ${token.horizontal.item.content["background-color-hover"]};
     }
 `
 
@@ -51,7 +52,7 @@ const menuItemTitle = css`
 `
 
 const menuItemIcon = css`
-    margin-right: 8px;
+    margin-right: ${token.horizontal.item.icon["margin-right"]};
 `
 
 const menuItemLeftIcon = css`
@@ -63,16 +64,16 @@ const submenuList = css`
     list-style-type: none;
     padding-inline-start: unset;
     color: #000;
-    line-height: 40px;
-    border-radius: 4px;
+    line-height: ${token.horizontal.submenu["line-height"]};
+    border-radius: ${token.horizontal.submenu["border-radius"]};
 `
 
 const submenuFloat = css`
     z-index: 1000;
     white-space: nowrap;
-    padding: 6px 4px;
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px;
+    padding: ${token.horizontal.submenu.padding};
+    background-color: ${token.horizontal.submenu["background-color"]};
+    box-shadow: ${token.horizontal.submenu["box-shadow"]};
 `
 
 

@@ -1,36 +1,37 @@
 import { css } from "@linaria/core"
+import token from "../../token";
 
 const groupItemContainer = css`
-    font-size: 14px;
+    font-size: ${token.horizontal["group-item"]["font-size"]};
     position: relative;
     user-select: none;
-    margin: 6px 0px;
-    transition: border-color 0.3s, color 0.3s;
+    margin: ${token.horizontal["group-item"].margin};
+    transition: ${token.horizontal["group-item"].transition};
 `
 
 const groupChildrenList = css`
     list-style-type: none;
     padding-inline-start: unset;
     color: #000;
-    line-height: 40px;
-    border-radius: 4px;
+    line-height: ${token.horizontal.submenu["line-height"]};
+    border-radius: ${token.horizontal.submenu["border-radius"]};
 `
 
 const groupItemHeader = css`
     cursor: default;
     border-radius: 4px;
-    padding-inline: 16px;
+    padding-inline: ${token.horizontal["group-item"].header["padding-inline"]};
     display: flex;
     align-items: center;
 `
 
 const groupItemTitle = css`
-    opacity: 0.5;
+    opacity: ${token.horizontal["group-item"].title.opacity};
 `
 
 const groupItemIcon = css`
-    opacity: 0.5;
-    margin-right: 8px;
+    opacity: ${token.horizontal["group-item"].icon.opacity};
+    margin-right: ${token.horizontal["group-item"].icon["margin-right"]};
 `
 
 

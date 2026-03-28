@@ -1,0 +1,59 @@
+[build]
+output = "./src/token.ts"
+prefix = "menu"
+
+[token]
+
+# ── Vertical ──────────────────────────────────────────
+
+vertical.item.inline-indent = "24px"
+
+vertical.item.title.width = "100%"
+vertical.item.title.height = "2.5rem"
+vertical.item.title.font-size = "14px"
+vertical.item.title.padding-inline-start = "1rem"
+vertical.item.title.padding-inline-end = "1rem"
+vertical.item.title.margin-top = "0.125rem"
+vertical.item.title.margin-bottom = "0.125rem"
+vertical.item.title.border-radius = "8px"
+vertical.item.title.background-color-hover = "rgba(0,0,0,0.06)"
+vertical.item.title.background-color-active = "rgba(0,0,0,0.10)"
+vertical.item.title.background-color-select = "rgba(0,0,0,0.06)"
+
+vertical.item.children.background-color = "rgba(0,0,0,0.02)"
+vertical.item.children.padding = "0px 4px"
+
+vertical.item-group.title.color = "rgba(0, 0, 0, 0.45)"
+vertical.item-group.title.height = "2.25rem"
+vertical.item-group.title.font-size = "14px"
+
+# ── Horizontal ────────────────────────────────────────
+
+horizontal.border-color = "rgba(5,5,5,0.06)"
+
+horizontal.item.font-size = "14px"
+horizontal.item.transition = "border-color 0.3s, color 0.3s"
+horizontal.item.color-hover = "#1677ff"
+horizontal.item.divider-color-hover = "#1677ff"
+horizontal.item.content.height = "40px"
+horizontal.item.content.padding-left = "16px"
+horizontal.item.content.font-size = "14px"
+horizontal.item.content.background-color-hover = "rgba(0, 0, 0, 0.06)"
+
+horizontal.submenu.background-color = "#fff"
+horizontal.submenu.box-shadow = "rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px"
+horizontal.submenu.padding = "6px 4px"
+horizontal.submenu.line-height = "40px"
+horizontal.submenu.border-radius = "4px"
+
+horizontal.group-item.indent-base = "5px"
+horizontal.group-item.indent-scale = "0.7"
+horizontal.group-item.font-size = "14px"
+horizontal.group-item.margin = "6px 0px"
+horizontal.group-item.transition = "border-color 0.3s, color 0.3s"
+horizontal.group-item.title.opacity = "0.5"
+horizontal.group-item.header.padding-inline = "16px"
+horizontal.group-item.icon.opacity = "0.5"
+horizontal.group-item.icon.margin-right = "8px"
+
+horizontal.item.icon.margin-right = "8px"
