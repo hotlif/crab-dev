@@ -1,0 +1,122 @@
+[build]
+output = "./src/token.ts"
+prefix = "token-semantic"
+imports = ["@crab-dev/rc-token-global"]
+
+[token]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  🦀 Crab Design System — Semantic Tokens (Layer 2)
+#
+#  ┌─────────────────────────────────────────────────────────────────────────┐
+#  │  职责：将 Layer 1 原始刻度赋予设计意图                                    │
+#  │                                                                         │
+#  │  • 本层定义"用途"，不定义"值"——所有值通过 $ref() 引用 Layer 1             │
+#  │  • Light / Dark 主题切换只需在本层重新绑定                                │
+#  │  • 组件不应直接引用 Layer 1，而应引用本层语义变量                           │
+#  │  • 命名公式：{category}.{intent}[-{state}]                               │
+#  └─────────────────────────────────────────────────────────────────────────┘
+#
+#  以下为 Light 主题默认值。Dark 主题通过覆写本层 CSS 变量实现。
+#  参见 RFC-DESIGN-TOKEN-20260329 §4.1
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+# ─── 颜色 · 品牌 / 主色 ─────────────────────────────────────────────────────
+# shadcn 风格：Zinc 中性色做主色，Light 下极暗，Dark 下极亮
+
+color.brand.primary        = "$ref(zinc.900)"
+color.brand.primary-hover  = "$ref(zinc.800)"
+color.brand.primary-active = "$ref(zinc.950)"
+
+
+# ─── 颜色 · 背景 ────────────────────────────────────────────────────────────
+
+color.background.surface       = "$ref(white)"
+color.background.elevated      = "$ref(white)"
+color.background.overlay       = "oklch(0 0 0 / 0.45)"
+color.background.disabled      = "$ref(zinc.100)"
+color.background.hover-subtle  = "$ref(zinc.100)"
+color.background.active-subtle = "$ref(zinc.200)"
+
+
+# ─── 颜色 · 文本 ────────────────────────────────────────────────────────────
+
+color.text.primary     = "$ref(zinc.950)"
+color.text.secondary   = "$ref(zinc.500)"
+color.text.tertiary    = "$ref(zinc.400)"
+color.text.on-brand    = "$ref(zinc.50)"
+color.text.disabled    = "$ref(zinc.300)"
+color.text.link        = "$ref(zinc.900)"
+color.text.link-hover  = "$ref(zinc.700)"
+
+
+# ─── 颜色 · 边框 ────────────────────────────────────────────────────────────
+
+color.border.default  = "$ref(zinc.200)"
+color.border.hover    = "$ref(zinc.300)"
+color.border.focus    = "$ref(zinc.950)"
+color.border.error    = "$ref(red.500)"
+
+
+# ─── 颜色 · 反馈 ────────────────────────────────────────────────────────────
+
+color.feedback.error                  = "$ref(red.500)"
+color.feedback.error-background       = "$ref(red.50)"
+color.feedback.success                = "$ref(green.500)"
+color.feedback.success-background     = "$ref(green.50)"
+color.feedback.warning                = "$ref(amber.500)"
+color.feedback.warning-background     = "$ref(amber.50)"
+
+
+# ─── 颜色 · 填充 ────────────────────────────────────────────────────────────
+
+color.fill.inactive = "$ref(zinc.200)"
+color.fill.active   = "$ref(zinc.900)"
+
+
+# ─── 间距 · 语义 ────────────────────────────────────────────────────────────
+# 将 Layer 1 原始刻度映射到 UI 布局语义
+
+space.inline-gap        = "$ref(space.1)"
+space.component-gap     = "$ref(space.2)"
+space.stack-gap         = "$ref(space.3)"
+space.section-gap       = "$ref(space.4)"
+space.group-gap         = "$ref(space.6)"
+space.page-padding      = "$ref(space.6)"
+space.control-padding-x = "$ref(space.3)"
+space.control-padding-y = "$ref(space.1-5)"
+space.card-padding      = "$ref(space.5)"
+space.dialog-padding    = "$ref(space.6)"
+
+
+# ─── 圆角 · 语义 ────────────────────────────────────────────────────────────
+
+radius.sm      = "$ref(radius.1)"
+radius.md      = "$ref(radius.3)"
+radius.lg      = "$ref(radius.4)"
+radius.xl      = "$ref(radius.6)"
+radius.pill    = "$ref(radius.full)"
+
+
+# ─── 阴影 · 语义 ────────────────────────────────────────────────────────────
+
+shadow.float   = "$ref(shadow.md)"
+shadow.overlay = "$ref(shadow.lg)"
+
+
+# ─── 层级 · 语义 ────────────────────────────────────────────────────────────
+
+z-index.float   = "$ref(z.dropdown)"
+z-index.sticky  = "$ref(z.sticky)"
+z-index.overlay = "$ref(z.overlay)"
+z-index.modal   = "$ref(z.dialog)"
+z-index.popover = "$ref(z.popover)"
+z-index.notice  = "$ref(z.toast)"
+z-index.tooltip = "$ref(z.tooltip)"
+
+
+# ─── 动效 · 语义 ────────────────────────────────────────────────────────────
+
+motion.fade   = "$ref(duration.normal) $ref(easing.default)"
+motion.expand = "$ref(duration.slow) $ref(easing.out)"

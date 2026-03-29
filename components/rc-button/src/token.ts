@@ -3,8 +3,9 @@
  */
 
 export const vars = {
-    transition: '--button-transition',
+    'transition': '--button-transition',
     'opacity.loading': '--button-opacity-loading',
+    'opacity.disabled': '--button-opacity-disabled',
     'size.large.gap': '--button-size-large-gap',
     'size.large.height': '--button-size-large-height',
     'size.large.padding': '--button-size-large-padding',
@@ -57,111 +58,112 @@ export const vars = {
     'subtle.border-color': '--button-subtle-border-color',
     'subtle.border-color-hover': '--button-subtle-border-color-hover',
     'subtle.border-color-active': '--button-subtle-border-color-active',
-    'subtle.box-shadow': '--button-subtle-box-shadow',
+    'subtle.box-shadow': '--button-subtle-box-shadow'
 };
 
 const token = {
-    transition: `var(${vars['transition']}, transform 90ms ease-out, box-shadow 90ms ease-out, background-color 90ms ease-out)`,
-    opacity: {
-        loading: `var(${vars['opacity.loading']}, 0.65)`,
+    'transition': `var(${vars['transition']}, transform 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1), background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
+    'opacity': {
+        'loading': `var(${vars['opacity.loading']}, 0.65)`,
+        'disabled': `var(${vars['opacity.disabled']}, 0.4)`
     },
-    size: {
-        large: {
-            gap: `var(${vars['size.large.gap']}, 10px)`,
-            height: `var(${vars['size.large.height']}, 40px)`,
-            padding: `var(${vars['size.large.padding']}, 0 15px)`,
-            border: {
-                radius: `var(${vars['size.large.border.radius']}, 10px)`,
+    'size': {
+        'large': {
+            'gap': `var(${vars['size.large.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+            'height': `var(${vars['size.large.height']}, 40px)`,
+            'padding': `var(${vars['size.large.padding']}, 0 var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+            'border': {
+                'radius': `var(${vars['size.large.border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`
             },
-            font: {
-                size: `var(${vars['size.large.font.size']}, 16px)`,
-            },
+            'font': {
+                'size': `var(${vars['size.large.font.size']}, 18px)`
+            }
         },
-        middle: {
-            gap: `var(${vars['size.middle.gap']}, 8px)`,
-            height: `var(${vars['size.middle.height']}, 32px)`,
-            padding: `var(${vars['size.middle.padding']}, 0 15px)`,
-            border: {
-                radius: `var(${vars['size.middle.border.radius']}, 8px)`,
+        'middle': {
+            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+            'height': `var(${vars['size.middle.height']}, 32px)`,
+            'padding': `var(${vars['size.middle.padding']}, 0 var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+            'border': {
+                'radius': `var(${vars['size.middle.border.radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`
             },
-            font: {
-                size: `var(${vars['size.middle.font.size']}, 14px)`,
-            },
+            'font': {
+                'size': `var(${vars['size.middle.font.size']}, 14px)`
+            }
         },
-        small: {
-            gap: `var(${vars['size.small.gap']}, 6px)`,
-            height: `var(${vars['size.small.height']}, 24px)`,
-            padding: `var(${vars['size.small.padding']}, 0 7px)`,
-            border: {
-                radius: `var(${vars['size.small.border.radius']}, 6px)`,
+        'small': {
+            'gap': `var(${vars['size.small.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+            'height': `var(${vars['size.small.height']}, 24px)`,
+            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-control-padding-y, var(--token-global-space-1-5, 6px)))`,
+            'border': {
+                'radius': `var(${vars['size.small.border.radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`
             },
-            font: {
-                size: `var(${vars['size.small.font.size']}, 14px)`,
-            },
-        },
+            'font': {
+                'size': `var(${vars['size.small.font.size']}, 14px)`
+            }
+        }
     },
-    primary: {
-        color: `var(${vars['primary.color']}, oklch(1 0 0))`,
-        background: {
-            color: `var(${vars['primary.background.color']}, oklch(0.2855 0.0113 271))`,
-            'color-disabled': `var(${vars['primary.background.color-disabled']}, rgba(0, 0, 0, 0.04))`,
-            'color-hover': `var(${vars['primary.background.color-hover']}, oklch(0.2442 0.0077 274.63))`,
-            'color-active': `var(${vars['primary.background.color-active']}, oklch(0.2855 0.0113 271))`,
+    'primary': {
+        'color': `var(${vars['primary.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`,
+        'background': {
+            'color': `var(${vars['primary.background.color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+            'color-disabled': `var(${vars['primary.background.color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+            'color-hover': `var(${vars['primary.background.color-hover']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-zinc-800, oklch(0.320 0.008 286))))`,
+            'color-active': `var(${vars['primary.background.color-active']}, var(--token-semantic-color-brand-primary-active, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
         },
-        'box-shadow': `var(${vars['primary.box-shadow']}, oklch(0.6518 0.1916 251.64 / 10%) 0px 2px 0px 0px)`,
+        'box-shadow': `var(${vars['primary.box-shadow']}, none)`
     },
-    link: {
-        color: `var(${vars['link.color']}, oklch(0.3608 0.0113 271))`,
-        'color-hover': `var(${vars['link.color-hover']}, oklch(0.3608 0.0113 271))`,
-        'color-active': `var(${vars['link.color-active']}, oklch(0.3608 0.0113 271))`,
-        background: {
-            color: `var(${vars['link.background.color']}, transparent)`,
-            'color-disabled': `var(${vars['link.background.color-disabled']}, transparent)`,
+    'link': {
+        'color': `var(${vars['link.color']}, var(--token-semantic-color-text-link, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'color-hover': `var(${vars['link.color-hover']}, var(--token-semantic-color-text-link-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
+        'color-active': `var(${vars['link.color-active']}, var(--token-semantic-color-text-link, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'background': {
+            'color': `var(${vars['link.background.color']}, transparent)`,
+            'color-disabled': `var(${vars['link.background.color-disabled']}, transparent)`
         },
-        text: {
-            'underline-offset': `var(${vars['link.text.underline-offset']}, -2px)`,
-            decoration: {
-                color: `var(${vars['link.text.decoration.color']}, red)`,
-                width: `var(${vars['link.text.decoration.width']}, 2px)`,
-            },
-        },
+        'text': {
+            'underline-offset': `var(${vars['link.text.underline-offset']}, -4px)`,
+            'decoration': {
+                'color': `var(${vars['link.text.decoration.color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+                'width': `var(${vars['link.text.decoration.width']}, 2px)`
+            }
+        }
     },
-    text: {
-        background: {
-            'color-hover': `var(${vars['text.background.color-hover']}, rgba(0,0,0,0.04))`,
-            'color-active': `var(${vars['text.background.color-active']}, rgba(0,0,0,0.15))`,
-        },
+    'text': {
+        'background': {
+            'color-hover': `var(${vars['text.background.color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+            'color-active': `var(${vars['text.background.color-active']}, oklch(0 0 0 / 0.06))`
+        }
     },
-    dashed: {
-        color: `var(${vars['dashed.color']}, oklch(0.2855 0.0113 271))`,
-        'color-hover': `var(${vars['dashed.color-hover']}, oklch(0.2855 0.0113 271))`,
-        'color-active': `var(${vars['dashed.color-active']}, oklch(0.2855 0.0113 271))`,
-        background: {
-            color: `var(${vars['dashed.background.color']}, oklch(1 0 0))`,
-            'color-disabled': `var(${vars['dashed.background.color-disabled']}, rgba(0, 0, 0, 0.04))`,
+    'dashed': {
+        'color': `var(${vars['dashed.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'color-hover': `var(${vars['dashed.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'color-active': `var(${vars['dashed.color-active']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'background': {
+            'color': `var(${vars['dashed.background.color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
+            'color-disabled': `var(${vars['dashed.background.color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
         },
-        'box-shadow': `var(${vars['dashed.box-shadow']}, oklch(0 0 0 / 2%) 0px 2px 0px 0px)`,
+        'box-shadow': `var(${vars['dashed.box-shadow']}, none)`,
         'border-width': `var(${vars['dashed.border-width']}, 1px)`,
         'border-style': `var(${vars['dashed.border-style']}, dashed)`,
-        'border-color': `var(${vars['dashed.border-color']}, oklch(0.2855 0.0113 271))`,
-        'border-color-hover': `var(${vars['dashed.border-color-hover']}, oklch(0.2855 0.0113 271))`,
-        'border-color-active': `var(${vars['dashed.border-color-active']}, oklch(0.2855 0.0113 271))`,
+        'border-color': `var(${vars['dashed.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'border-color-hover': `var(${vars['dashed.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
+        'border-color-active': `var(${vars['dashed.border-color-active']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
     },
-    subtle: {
-        color: `var(${vars['subtle.color']}, oklch(0 0 0 / 88%))`,
-        'color-hover': `var(${vars['subtle.color-hover']}, oklch(0 0 0 / 88%))`,
-        'color-active': `var(${vars['subtle.color-active']}, oklch(0 0 0 / 88%))`,
-        background: {
-            color: `var(${vars['subtle.background.color']}, oklch(1 0 0))`,
-            'color-disabled': `var(${vars['subtle.background.color-disabled']}, rgba(0, 0, 0, 0.04))`,
+    'subtle': {
+        'color': `var(${vars['subtle.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'color-hover': `var(${vars['subtle.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'color-active': `var(${vars['subtle.color-active']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'background': {
+            'color': `var(${vars['subtle.background.color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
+            'color-disabled': `var(${vars['subtle.background.color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
         },
         'border-width': `var(${vars['subtle.border-width']}, 1px)`,
         'border-style': `var(${vars['subtle.border-style']}, solid)`,
-        'border-color': `var(${vars['subtle.border-color']}, oklch(0.8853 0 0))`,
-        'border-color-hover': `var(${vars['subtle.border-color-hover']}, oklch(0.8853 0 0))`,
-        'border-color-active': `var(${vars['subtle.border-color-active']}, oklch(0.8853 0 0))`,
-        'box-shadow': `var(${vars['subtle.box-shadow']}, 0 2px 0 oklch(0 0 0 / 2%))`,
-    },
+        'border-color': `var(${vars['subtle.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'border-color-hover': `var(${vars['subtle.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
+        'border-color-active': `var(${vars['subtle.border-color-active']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
+        'box-shadow': `var(${vars['subtle.box-shadow']}, none)`
+    }
 };
 
 export default token;

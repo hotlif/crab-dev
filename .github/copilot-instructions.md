@@ -28,6 +28,7 @@ Per-component scripts:
 ```bash
 yarn start                  # Dev server (lignify → crustify → webpack-dev-server)
 yarn build:library          # Publish build (packify → rollup)
+yarn generate:token         # Generate CSS tokens (packify generate:css-token)
 yarn test                   # Jest tests
 yarn eslint                 # Lint
 ```

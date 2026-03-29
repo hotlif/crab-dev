@@ -1,69 +1,99 @@
 [build]
 output = "./src/token.ts"
 prefix = "button"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-transition = "transform 90ms ease-out, box-shadow 90ms ease-out, background-color 90ms ease-out"
-opacity.loading = "0.65"
+# ─── 通用 ────────────────────────────────────────────────────────────────────
 
-size.large.gap = "10px"
-size.large.height = "40px"
-size.large.padding = "0 15px"
-size.large.border.radius = "10px"
-size.large.font.size = "16px"
+transition       = "transform 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1), background-color 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+opacity.loading  = "0.65"
+opacity.disabled = "0.4"
 
-size.middle.gap = "8px"
-size.middle.height = "32px"
-size.middle.padding = "0 15px"
-size.middle.border.radius = "8px"
-size.middle.font.size = "14px"
 
-size.small.gap = "6px"
-size.small.height = "24px"
-size.small.padding = "0 7px"
-size.small.border.radius = "6px"
-size.small.font.size = "14px"
+# ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-primary.color = "oklch(1 0 0)"
-primary.background.color = "oklch(0.2855 0.0113 271)"
-primary.background.color-disabled = "rgba(0, 0, 0, 0.04)"
-primary.background.color-hover = "oklch(0.2442 0.0077 274.63)"
-primary.background.color-active = "oklch(0.2855 0.0113 271)"
-primary.box-shadow = "oklch(0.6518 0.1916 251.64 / 10%) 0px 2px 0px 0px"
+size.large.gap           = "$ref(space.component-gap)"
+size.large.height        = "40px"
+size.large.padding       = "0 $ref(space.control-padding-x)"
+size.large.border.radius = "$ref(radius.lg)"
+size.large.font.size     = "18px"
 
-link.color = "oklch(0.3608 0.0113 271)"
-link.color-hover = "oklch(0.3608 0.0113 271)"
-link.color-active = "oklch(0.3608 0.0113 271)"
-link.background.color = "transparent"
+
+# ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
+
+size.middle.gap           = "$ref(space.component-gap)"
+size.middle.height        = "32px"
+size.middle.padding       = "0 $ref(space.control-padding-x)"
+size.middle.border.radius = "$ref(radius.md)"
+size.middle.font.size     = "14px"
+
+
+# ─── 尺寸 — Small ────────────────────────────────────────────────────────────
+
+size.small.gap           = "$ref(space.inline-gap)"
+size.small.height        = "24px"
+size.small.padding       = "0 $ref(space.control-padding-y)"
+size.small.border.radius = "$ref(radius.md)"
+size.small.font.size     = "14px"
+
+
+# ─── Primary — 主按钮 ────────────────────────────────────────────────────────
+
+primary.color                   = "$ref(color.text.on-brand)"
+primary.background.color          = "$ref(color.brand.primary)"
+primary.background.color-disabled = "$ref(color.background.disabled)"
+primary.background.color-hover    = "$ref(color.brand.primary-hover)"
+primary.background.color-active   = "$ref(color.brand.primary-active)"
+primary.box-shadow               = "none"
+
+
+# ─── Link — 链接按钮 ─────────────────────────────────────────────────────────
+
+link.color                   = "$ref(color.text.link)"
+link.color-hover             = "$ref(color.text.link-hover)"
+link.color-active            = "$ref(color.text.link)"
+link.background.color          = "transparent"
 link.background.color-disabled = "transparent"
-link.text.underline-offset = "-2px"
-link.text.decoration.color = "red"
-link.text.decoration.width = "2px"
+link.text.underline-offset   = "-4px"
+link.text.decoration.color   = "$ref(color.brand.primary)"
+link.text.decoration.width   = "2px"
 
-text.background.color-hover = "rgba(0,0,0,0.04)"
-text.background.color-active = "rgba(0,0,0,0.15)"
 
-dashed.color = "oklch(0.2855 0.0113 271)"
-dashed.color-hover = "oklch(0.2855 0.0113 271)"
-dashed.color-active = "oklch(0.2855 0.0113 271)"
-dashed.background.color = "oklch(1 0 0)"
-dashed.background.color-disabled = "rgba(0, 0, 0, 0.04)"
-dashed.box-shadow = "oklch(0 0 0 / 2%) 0px 2px 0px 0px"
-dashed.border-width = "1px"
-dashed.border-style = "dashed"
-dashed.border-color = "oklch(0.2855 0.0113 271)"
-dashed.border-color-hover = "oklch(0.2855 0.0113 271)"
-dashed.border-color-active = "oklch(0.2855 0.0113 271)"
+# ─── Text — 文本按钮 ─────────────────────────────────────────────────────────
 
-subtle.color = "oklch(0 0 0 / 88%)"
-subtle.color-hover = "oklch(0 0 0 / 88%)"
-subtle.color-active = "oklch(0 0 0 / 88%)"
-subtle.background.color = "oklch(1 0 0)"
-subtle.background.color-disabled = "rgba(0, 0, 0, 0.04)"
-subtle.border-width = "1px"
-subtle.border-style = "solid"
-subtle.border-color = "oklch(0.8853 0 0)"
-subtle.border-color-hover = "oklch(0.8853 0 0)"
-subtle.border-color-active = "oklch(0.8853 0 0)"
-subtle.box-shadow = "0 2px 0 oklch(0 0 0 / 2%)"
+text.background.color-hover  = "$ref(color.background.hover-subtle)"
+text.background.color-active = "oklch(0 0 0 / 0.06)"
+
+
+# ─── Dashed — 虚线按钮 ───────────────────────────────────────────────────────
+
+dashed.color                   = "$ref(color.text.primary)"
+dashed.color-hover             = "$ref(color.text.primary)"
+dashed.color-active            = "$ref(color.text.primary)"
+dashed.background.color          = "$ref(color.background.surface)"
+dashed.background.color-disabled = "$ref(color.background.disabled)"
+dashed.box-shadow              = "none"
+dashed.border-width            = "1px"
+dashed.border-style            = "dashed"
+dashed.border-color            = "$ref(color.border.default)"
+dashed.border-color-hover      = "$ref(color.border.hover)"
+dashed.border-color-active     = "$ref(color.text.primary)"
+
+
+# ─── Subtle — 次级按钮 ───────────────────────────────────────────────────────
+
+subtle.color                   = "$ref(color.text.primary)"
+subtle.color-hover             = "$ref(color.text.primary)"
+subtle.color-active            = "$ref(color.text.primary)"
+subtle.background.color          = "$ref(color.background.surface)"
+subtle.background.color-disabled = "$ref(color.background.disabled)"
+subtle.border-width            = "1px"
+subtle.border-style            = "solid"
+subtle.border-color            = "$ref(color.border.default)"
+subtle.border-color-hover      = "$ref(color.border.hover)"
+subtle.border-color-active     = "$ref(color.border.hover)"
+subtle.box-shadow              = "none"

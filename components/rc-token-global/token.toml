@@ -1,0 +1,255 @@
+[build]
+output = "./src/token.ts"
+prefix = "token-global"
+
+[token]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  🦀 Crab Design System — Global Tokens (Layer 1)
+#
+#  ┌─────────────────────────────────────────────────────────────────────────┐
+#  │  设计哲学：极简克制 · 中性锋利                                            │
+#  │                                                                         │
+#  │  • Zinc 中性灰为绝对主角，承担 90% UI 职责                                │
+#  │  • 功能色仅四组：Blue · Red · Green · Amber                              │
+#  │  • 主色无独立色板——通过 Zinc 明暗极值反转实现                              │
+#  │       Light → zinc.900 / zinc.950                                       │
+#  │       Dark  → zinc.50  / zinc.100                                       │
+#  │  • 色彩空间强制 OKLCh，暗色主题翻转 Lightness 即可                         │
+#  │  • 依赖 1px 边框分隔层级，阴影极度克制                                     │
+#  │  • 150ms 默认过渡，交互快速无感                                           │
+#  │  • 16px 基准排版，Inter + Geist Mono 紧凑体系                             │
+#  └─────────────────────────────────────────────────────────────────────────┘
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+# ─── 色板 · Colors ──────────────────────────────────────────────────────────
+
+
+# ── Zinc — 核心中性色 ───────────────────────────────────────────────────────
+# 角色    承担 90% 的 UI 职责：文本、背景、边框、分割线
+# 色相    H = 286（冷灰调）
+# 饱和度  极低 C ≤ 0.014，视觉近乎纯灰
+# 明度    50 → 950 对称递减，ΔL 呈钟形分布，感知过渡均匀
+
+zinc.50  = "oklch(0.980 0.002 286)"
+zinc.100 = "oklch(0.950 0.003 286)"
+zinc.200 = "oklch(0.900 0.004 286)"
+zinc.300 = "oklch(0.840 0.008 286)"
+zinc.400 = "oklch(0.760 0.012 286)"
+zinc.500 = "oklch(0.660 0.014 286)"
+zinc.600 = "oklch(0.550 0.014 286)"
+zinc.700 = "oklch(0.430 0.012 286)"
+zinc.800 = "oklch(0.320 0.008 286)"
+zinc.900 = "oklch(0.220 0.005 286)"
+zinc.950 = "oklch(0.140 0.004 286)"
+
+
+# ── Blue — 信息 / 焦点 ─────────────────────────────────────────────────────
+# 用途    焦点环、链接、选中态、信息提示
+# 色相    H = 254 → 267（从亮到暗逐步偏蓝）
+
+blue.50  = "oklch(0.970 0.014 254)"
+blue.100 = "oklch(0.932 0.032 255)"
+blue.200 = "oklch(0.882 0.059 256)"
+blue.300 = "oklch(0.809 0.105 257)"
+blue.400 = "oklch(0.714 0.165 259)"
+blue.500 = "oklch(0.623 0.214 261)"
+blue.600 = "oklch(0.546 0.245 262)"
+blue.700 = "oklch(0.488 0.230 264)"
+blue.800 = "oklch(0.424 0.199 265)"
+blue.900 = "oklch(0.379 0.146 266)"
+blue.950 = "oklch(0.282 0.091 267)"
+
+
+# ── Red — 危险 / 破坏性操作 ─────────────────────────────────────────────────
+# 用途    删除确认、错误状态、表单校验失败
+# 色相    H = 17 → 27（从亮到暗逐步偏暖）
+
+red.50  = "oklch(0.971 0.013 17)"
+red.100 = "oklch(0.936 0.032 18)"
+red.200 = "oklch(0.885 0.062 19)"
+red.300 = "oklch(0.808 0.114 20)"
+red.400 = "oklch(0.704 0.191 22)"
+red.500 = "oklch(0.637 0.237 24)"
+red.600 = "oklch(0.577 0.245 25)"
+red.700 = "oklch(0.505 0.213 26)"
+red.800 = "oklch(0.444 0.177 26)"
+red.900 = "oklch(0.396 0.141 27)"
+red.950 = "oklch(0.318 0.100 27)"
+
+
+# ── Green — 成功 ────────────────────────────────────────────────────────────
+# 用途    成功提示、完成状态、在线标识
+# 色相    H = 149 → 156（从亮到暗逐步偏冷）
+
+green.50  = "oklch(0.982 0.018 149)"
+green.100 = "oklch(0.962 0.044 150)"
+green.200 = "oklch(0.925 0.084 150)"
+green.300 = "oklch(0.871 0.138 151)"
+green.400 = "oklch(0.792 0.177 152)"
+green.500 = "oklch(0.723 0.219 152)"
+green.600 = "oklch(0.627 0.194 153)"
+green.700 = "oklch(0.527 0.154 154)"
+green.800 = "oklch(0.448 0.119 155)"
+green.900 = "oklch(0.393 0.095 155)"
+green.950 = "oklch(0.316 0.068 156)"
+
+
+# ── Amber — 警告 ────────────────────────────────────────────────────────────
+# 用途    警告提示、注意事项、待处理状态
+# 色相    H = 85 → 67（从亮到暗逐步偏暖）
+
+amber.50  = "oklch(0.987 0.022 85)"
+amber.100 = "oklch(0.962 0.059 83)"
+amber.200 = "oklch(0.924 0.112 81)"
+amber.300 = "oklch(0.879 0.169 79)"
+amber.400 = "oklch(0.828 0.189 77)"
+amber.500 = "oklch(0.769 0.188 75)"
+amber.600 = "oklch(0.666 0.179 73)"
+amber.700 = "oklch(0.555 0.163 71)"
+amber.800 = "oklch(0.473 0.137 69)"
+amber.900 = "oklch(0.414 0.112 68)"
+amber.950 = "oklch(0.332 0.080 67)"
+
+
+# ── 黑白 ────────────────────────────────────────────────────────────────────
+
+white = "oklch(1.000 0 0)"
+black = "oklch(0.000 0 0)"
+
+
+# ─── 间距 · Spacing ─────────────────────────────────────────────────────────
+# 基准    4px 乘数系统，含 1px / 2px 微调值
+# 节奏    4 → 8 → 12 → 16 → 20 → 24 → 32 → 40 → 48 → 64 → 80 → 96
+
+space.0   = "0px"
+space.px  = "1px"
+space.0-5 = "2px"
+space.1   = "4px"
+space.1-5 = "6px"
+space.2   = "8px"
+space.2-5 = "10px"
+space.3   = "12px"
+space.3-5 = "14px"
+space.4   = "16px"
+space.5   = "20px"
+space.6   = "24px"
+space.8   = "32px"
+space.10  = "40px"
+space.12  = "48px"
+space.16  = "64px"
+space.20  = "80px"
+space.24  = "96px"
+
+
+# ─── 圆角 · Radius ──────────────────────────────────────────────────────────
+# 设计标尺    radius.3 (6px)  → 控件    按钮、输入框、Badge
+#             radius.4 (8px)  → 卡片    Card、Panel
+#             radius.6 (12px) → 浮层    Dialog、Popover、Dropdown
+
+radius.0    = "0px"
+radius.0-5  = "1px"
+radius.1    = "2px"
+radius.1-5  = "3px"
+radius.2    = "4px"
+radius.2-5  = "5px"
+radius.3    = "6px"
+radius.4    = "8px"
+radius.5    = "10px"
+radius.6    = "12px"
+radius.8    = "16px"
+radius.full = "9999px"
+
+
+# ─── 排版 · Typography ──────────────────────────────────────────────────────
+
+
+# ── 字体族 ──────────────────────────────────────────────────────────────────
+
+font.family.sans = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+font.family.mono = "'Geist Mono', 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace"
+
+
+# ── 字号 — 16px 为基准 (md) ─────────────────────────────────────────────────
+
+font.size.xs  = "12px"
+font.size.sm  = "14px"
+font.size.md  = "16px"
+font.size.lg  = "18px"
+font.size.xl  = "20px"
+font.size.2xl = "24px"
+
+
+# ── 字重 ────────────────────────────────────────────────────────────────────
+
+font.weight.regular  = "400"
+font.weight.medium   = "500"
+font.weight.semibold = "600"
+font.weight.bold     = "700"
+
+
+# ── 行高 — 紧凑，匹配 Inter / Geist 无衬线体系 ──────────────────────────────
+
+line.height.none    = "1"
+line.height.tight   = "1.25"
+line.height.snug    = "1.375"
+line.height.normal  = "1.5"
+line.height.relaxed = "1.625"
+line.height.loose   = "2"
+
+
+# ─── 阴影 · Shadows ─────────────────────────────────────────────────────────
+# 设计原则    极度克制，透明度仅 0.03 → 0.08
+#             日常 UI 不使用阴影，依赖 1px border 分隔层级
+#             阴影保留给浮层：Dropdown、Dialog、Tooltip、Toast
+
+shadow.none = "none"
+shadow.xs   = "0 1px 2px oklch(0 0 0 / 0.03)"
+shadow.sm   = "0 1px 2px 0 oklch(0 0 0 / 0.05)"
+shadow.md   = "0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)"
+shadow.lg   = "0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1)"
+shadow.xl   = "0 20px 25px -5px oklch(0 0 0 / 0.08), 0 8px 10px -6px oklch(0 0 0 / 0.04)"
+
+
+# ─── 动效 · Motion ───────────────────────────────────────────────────────────
+# 设计原则    快速、无感、不抢注意力
+#             150ms 默认过渡 + ease-out 即覆盖绝大多数交互场景
+
+duration.0      = "0ms"
+duration.fast   = "100ms"
+duration.normal = "200ms"
+duration.slow   = "300ms"
+
+easing.default = "cubic-bezier(0.4, 0, 0.2, 1)"
+easing.in      = "cubic-bezier(0.4, 0, 1, 1)"
+easing.out     = "cubic-bezier(0, 0, 0.2, 1)"
+easing.linear  = "linear"
+
+
+# ─── 透明度 · Opacity ────────────────────────────────────────────────────────
+
+opacity.0   = "0"
+opacity.5   = "0.05"
+opacity.10  = "0.1"
+opacity.20  = "0.2"
+opacity.30  = "0.3"
+opacity.50  = "0.5"
+opacity.70  = "0.7"
+opacity.80  = "0.8"
+opacity.100 = "1"
+
+
+# ─── 层级 · Z-Index ─────────────────────────────────────────────────────────
+# 命名层级刻度，值之间保留 100 间隔便于插入自定义层
+# 消费者为 Layer 2 Semantic Token
+
+z.base     = "0"
+z.raised   = "1"
+z.dropdown = "1000"
+z.sticky   = "1100"
+z.overlay  = "1300"
+z.dialog   = "1400"
+z.popover  = "1500"
+z.toast    = "1600"
+z.tooltip  = "1700"
