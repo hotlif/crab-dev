@@ -151,25 +151,10 @@ const Dialog: FC<DialogProps> = ({
                     background: transparent;
                     border-radius: ${dimensionBorderRadius};
                     &::backdrop {
-                        background-color: ${colorOverlayBackgroundColor};
+                        background-color: transparent;
                     }
                 `, dialogReset, className)}
-                onClick={(event) => {
-                    const rect = dialogRef.current?.getBoundingClientRect();
-                    if (rect) {
-                        const isInDialog = (
-                            event.clientX >= rect.left &&
-                            event.clientX <= rect.right &&
-                            event.clientY >= rect.top &&
-                            event.clientY <= rect.bottom
-                        );
-                        if (!isInDialog) {
-                            cancel(event);
-                        } else {
-                            onClick?.(event)
-                        }
-                    }
-                }}
+                onClick={onClick}
                 {...restProps}
             >
                 <AnimatePresence
@@ -178,23 +163,38 @@ const Dialog: FC<DialogProps> = ({
                     }}
                 >
                     {open && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 0 }}
-                            animate={{ opacity: 1, y: top }}
-                            exit={{ opacity: 0, y: 0 }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 24,
-                                mass: 1,
-                            }}
-                            className={css`
-                                padding: ${dimensionPadding};
-                                border-radius: ${dimensionBorderRadius};
-                                box-shadow: ${elevationBoxShadow};
-                                background:${colorDialogBackgroundColor};
-                            `}
-                        >
+                        <>
+                            <motion.div
+                                key="overlay"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={cancel}
+                                className={css`
+                                    position: fixed;
+                                    inset: 0;
+                                    background-color: ${colorOverlayBackgroundColor};
+                                `}
+                            />
+                            <motion.div
+                                key="content"
+                                initial={{ opacity: 0, y: 0 }}
+                                animate={{ opacity: 1, y: top }}
+                                exit={{ opacity: 0, y: 0 }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 24,
+                                    mass: 1,
+                                }}
+                                className={css`
+                                    position: relative;
+                                    padding: ${dimensionPadding};
+                                    border-radius: ${dimensionBorderRadius};
+                                    box-shadow: ${elevationBoxShadow};
+                                    background:${colorDialogBackgroundColor};
+                                `}
+                            >
                             <div
                                 className={css`
                                     display: flex;
@@ -259,7 +259,8 @@ const Dialog: FC<DialogProps> = ({
                                     {confirmText}
                                 </RcButton>
                             </div>
-                        </motion.div>
+                            </motion.div>
+                        </>
                     )}
                 </AnimatePresence>
             </dialog>

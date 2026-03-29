@@ -1809,6 +1809,7 @@ __metadata:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"

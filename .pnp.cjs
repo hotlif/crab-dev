@@ -4781,6 +4781,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "virtual:92a9d371b908096042b14f086610ac09db818ad1c63dd1d3da94452a52a4327823949f5598376d1d7c3b14657a3e1ebe48092f65090da120211d87c85a9202d0#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-button", "workspace:components/rc-button"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
           ["@crab-dev/rc-dialog", "workspace:components/rc-dialog"],\
           ["@crab-dev/rc-menu", "virtual:92a9d371b908096042b14f086610ac09db818ad1c63dd1d3da94452a52a4327823949f5598376d1d7c3b14657a3e1ebe48092f65090da120211d87c85a9202d0#workspace:components/rc-menu"],\
           ["@crab-dev/standards-eslint-preset", "virtual:92a9d371b908096042b14f086610ac09db818ad1c63dd1d3da94452a52a4327823949f5598376d1d7c3b14657a3e1ebe48092f65090da120211d87c85a9202d0#workspace:standards/eslint-preset"],\
