@@ -17,13 +17,13 @@
     ],
     "devDependencies": {
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@nx/eslint": "22.6.1",
-        "@nx/jest": "22.6.1",
-        "@nx/rollup": "22.6.1",
-        "@nx/webpack": "22.6.1",
+        "@nx/eslint": "22.6.3",
+        "@nx/jest": "22.6.3",
+        "@nx/rollup": "22.6.3",
+        "@nx/webpack": "22.6.3",
         "@types/node": "25.5.0",
         "eslint": "^10.1.0",
-        "nx": "22.6.1",
+        "nx": "22.6.3",
         "typescript": "^6.0.2"
     }
 }

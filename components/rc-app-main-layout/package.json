@@ -23,6 +23,7 @@
     "devDependencies": {
         "@crab-dev/lignify": "workspace:^",
         "@crab-dev/packify": "workspace:^",
+        "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^7.0.0",
@@ -47,8 +48,8 @@
         "@crab-dev/rc-menu": "workspace:^"
     },
     "peerDependencies": {
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4"
     },
     "engines": {
         "node": ">=22"

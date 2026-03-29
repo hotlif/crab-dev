@@ -80,7 +80,7 @@ dashed.box-shadow              = "none"
 dashed.border-width            = "1px"
 dashed.border-style            = "dashed"
 dashed.border-color            = "$ref(color.border.default)"
-dashed.border-color-hover      = "$ref(color.border.hover)"
+dashed.border-color-hover      = "$ref(color.text.primary)"
 dashed.border-color-active     = "$ref(color.text.primary)"
 
 

@@ -146,7 +146,7 @@ const token = {
         'border-width': `var(${vars['dashed.border-width']}, 1px)`,
         'border-style': `var(${vars['dashed.border-style']}, dashed)`,
         'border-color': `var(${vars['dashed.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
-        'border-color-hover': `var(${vars['dashed.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
+        'border-color-hover': `var(${vars['dashed.border-color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'border-color-active': `var(${vars['dashed.border-color-active']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
     },
     'subtle': {
