@@ -6,24 +6,39 @@ name: Jest Test CI
 on:
   push:
     branches: [ "canary" ]
+    paths-ignore:
+      - "**/*.md"
+      - "rfc/**"
+      - "components/**/docs/**"
   pull_request:
     branches: [ "canary" ]
+    paths-ignore:
+      - "**/*.md"
+      - "rfc/**"
+      - "components/**/docs/**"
+
+concurrency:
+  group: jest-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Test Crustify Node 22
+    - name: Setup Node (latest)
       uses: actions/setup-node@v4
       with:
-        node-version: 22
+        node-version: latest
+        cache: yarn
+        cache-dependency-path: yarn.lock
     - name: Enable Corepack
       run: corepack enable 
-    - name: Set Yarn version to 4.x
-      run: yarn set version stable
     - name: Install dependencies
-      run: yarn install
+      run: yarn install --immutable
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
