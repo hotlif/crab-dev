@@ -25,28 +25,28 @@ const PLUGIN_NAME = "AutoScanWebpackPlugin";
  * @returns 提取的注释内容字符串，如果没有找到注释则返回 null。
  */
 export const getTypeScriptComment = (code: string) => {
-	const sourceFile = ts.createSourceFile("", code, ts.ScriptTarget.Latest, true);
+    const sourceFile = ts.createSourceFile("", code, ts.ScriptTarget.Latest, true);
     try {
         const statement = sourceFile.statements[0];
         const comments = ts.getLeadingCommentRanges(code, statement.pos);
         if (comments && comments?.[0]) {
-                const firstComment = comments[0];
-                const commentText = code.substring(firstComment.pos, firstComment.end);
-                const commentTextList = commentText.split("\n");
-                const commentTextListLength = commentTextList.length;
-                return commentTextList.map((line, index)=> {
-                    if (index === 0) {
-                        return line.trim().replace(/^\s*\/\*+/, "");
-                    } else if (index === commentTextListLength - 1) {
-                        return line.trim().replace(/^\s*\*+\//, "");
-                    } else {
-                        return line.trim().replace(/^\s*\*\s*/, "");
-                    }
-                }).join("\n").trim();
+            const firstComment = comments[0];
+            const commentText = code.substring(firstComment.pos, firstComment.end);
+            const commentTextList = commentText.split("\n");
+            const commentTextListLength = commentTextList.length;
+            return commentTextList.map((line, index)=> {
+                if (index === 0) {
+                    return line.trim().replace(/^\s*\/\*+/, "");
+                } else if (index === commentTextListLength - 1) {
+                    return line.trim().replace(/^\s*\*+\//, "");
+                } else {
+                    return line.trim().replace(/^\s*\*\s*/, "");
+                }
+            }).join("\n").trim();
 
         }
         return null;
-    } catch (error) {
+    } catch {
         return null;            
     }
 }
@@ -62,26 +62,27 @@ export const getMdxComment = async (path: string) => {
 		children: {type: string, value: string}[]
 	}
 	let tree: Tree | null = null;
-    const remarkParsePlugin = (remarkParse as unknown as { default?: typeof remarkParse }).default ?? remarkParse;
-    const remarkStringifyPlugin = (remarkStringify as unknown as { default?: typeof remarkStringify }).default ?? remarkStringify;
-    const remarkFrontmatterPlugin = (remarkFrontmatter as unknown as { default?: typeof remarkFrontmatter }).default ?? remarkFrontmatter;
+	const remarkParsePlugin = (remarkParse as unknown as { default?: typeof remarkParse }).default ?? remarkParse;
+	const remarkStringifyPlugin = (remarkStringify as unknown as { default?: typeof remarkStringify }).default ?? remarkStringify;
+	const remarkFrontmatterPlugin = (remarkFrontmatter as unknown as { default?: typeof remarkFrontmatter }).default ?? remarkFrontmatter;
 
 	await unified()
-    .use(remarkParsePlugin)
-    .use(remarkStringifyPlugin)
-    .use(remarkFrontmatterPlugin, ['toml'])
-	.use(() => (t: any) => {
-		tree = t 
-	})
-	.process(await read(path, "utf-8"));
+	    .use(remarkParsePlugin)
+	    .use(remarkStringifyPlugin)
+	    .use(remarkFrontmatterPlugin, ['toml'])
+	    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+	    .use(() => (t: any) => {
+	        tree = t 
+	    })
+	    .process(await read(path, "utf-8"));
 	const data = tree!.children.find(ele => ele.type === "toml")
 	try {
-		if (data?.value) {
-			return parse(data.value);
-		}
-		return null;
-	} catch (error) {
-		return null;
+	    if (data?.value) {
+	        return parse(data.value);
+	    }
+	    return null;
+	} catch {
+	    return null;
 	}
 }
 
@@ -247,6 +248,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
 
         const isCJS = () => typeof module !== 'undefined' && typeof module.exports !== 'undefined';
         const getDirName = () => {
+            /* istanbul ignore next -- CJS-only branch, unreachable in ESM */
             if (isCJS()) {
                 return __dirname;
             } else {

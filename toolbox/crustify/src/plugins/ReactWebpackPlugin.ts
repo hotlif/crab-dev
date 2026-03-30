@@ -2,7 +2,6 @@ import Webpack, { type Compiler, type WebpackPluginInstance } from "webpack";
 import { renderToString } from "react-dom/server";
 import { createElement, type ComponentType } from "react";
 import { join, resolve } from "path";
-import { existsSync } from "fs";
 
 import { renderHTML, type Modification } from "../conf.js";
 

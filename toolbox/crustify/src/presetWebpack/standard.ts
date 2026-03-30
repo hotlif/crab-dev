@@ -44,7 +44,7 @@ const presetStandard = async ({
         rmSync(tmp, { recursive: true });
     }
 
-	const tmpDir = getTmpDir(conf.rootDir);
+    const tmpDir = getTmpDir(conf.rootDir);
     const cwd = getCwdDir(conf.rootDir);
     const entryTmp = join(tmpDir, "entry.tsx");
 
@@ -82,10 +82,10 @@ const presetStandard = async ({
                 ".mjs": [".mts", ".mjs"],
             },
             alias: {
-				"@": join(cwd, "src"),
+                "@": join(cwd, "src"),
                 "@@": process.cwd(),
                 ...aliasAutoScan
-			},
+            },
             fallback: {
                 "buffer": require.resolve('buffer/'),
                 "string_decoder": require.resolve('string_decoder/'),

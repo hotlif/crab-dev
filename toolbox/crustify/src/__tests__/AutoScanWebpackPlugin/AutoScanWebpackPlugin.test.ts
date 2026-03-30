@@ -7,12 +7,12 @@ import { createRequire } from "module";
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { compile, babelLoader } from "../util";
-import { getTmpDir } from "../../util";
-import AutoScanWebpackPlugin, { getAllFiles, getTypeScriptComment } from "../../plugins/AutoScanWebpackPlugin";
+import { compile, babelLoader } from "../util.js";
+import { getTmpDir } from "../../util.js";
+import AutoScanWebpackPlugin, { getAllFiles, getTypeScriptComment, getMdxComment, parseHeaderComments } from "../../plugins/AutoScanWebpackPlugin.js";
 
 
-const require = createRequire(import.meta.url);
+const require = createRequire(import.meta.url); // eslint-disable-line @typescript-eslint/no-unused-vars
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('AutoScanWebpackPlugin', () => {
@@ -104,5 +104,94 @@ describe('AutoScanWebpackPlugin', () => {
         expect(generatedContent2).toContain('frontmatter:');
         expect(generatedContent2).toContain('source:'); // 可能包含源代码而不是 null
         rmSync(tempDir, { recursive: true });
+    });
+
+    it("should get all files without include/exclude filters", async () => {
+        const currentPath = join(__dirname, "TestDirectoryStructure");
+        const data = await getAllFiles(currentPath, null, null);
+        expect(data.length).toBeGreaterThanOrEqual(5);
+    });
+
+    it("should exclude files matching exclude when include does not match", async () => {
+        const currentPath = join(__dirname, "TestDirectoryStructure");
+        const data = await getAllFiles(currentPath, /\.ts$/, /\.css$/);
+        expect(data).not.toContain(join(currentPath, "A.css"));
+        expect(data).toContain(join(currentPath, "A.ts"));
+    });
+
+    it("should include files not matching include and not matching exclude", async () => {
+        const currentPath = join(__dirname, "TestDirectoryStructure");
+        const data = await getAllFiles(currentPath, /\.ts$/, /\.css$/);
+        expect(data).toContain(join(currentPath, "B.mdx"));
+    });
+
+    it("should return null for code without comments", () => {
+        const comment = getTypeScriptComment('const x = 1;');
+        expect(comment).toBeNull();
+    });
+
+    it("should return null for empty code", () => {
+        const comment = getTypeScriptComment('');
+        expect(comment).toBeNull();
+    });
+
+    it("should parse MDX frontmatter from .mdx file", async () => {
+        const mdxPath = join(__dirname, "TestDirectoryStructure", "B.mdx");
+        const result = await getMdxComment(mdxPath);
+        expect(result).toBeDefined();
+        expect(result).toHaveProperty("title", "Test MDX");
+        expect(result).toHaveProperty("version", "1.0.0");
+    });
+
+    it("should parse MDX frontmatter from .md file", async () => {
+        const mdPath = join(__dirname, "TestDirectoryStructure", "C.md");
+        const result = await getMdxComment(mdPath);
+        expect(result).toBeDefined();
+        expect(result).toHaveProperty("title", "Test MD");
+    });
+
+    it("getMdxComment should return null for MDX without TOML frontmatter", async () => {
+        const mdxPath = join(__dirname, "TestDirectoryStructure", "D.mdx");
+        const result = await getMdxComment(mdxPath);
+        expect(result).toBeNull();
+    });
+
+    it("parseHeaderComments should handle .ts files", async () => {
+        const tsPath = join(__dirname, "TestDirectoryStructure", "A.ts");
+        const result = await parseHeaderComments(tsPath);
+        expect(result).toBeDefined();
+        expect(result).toHaveProperty("name", "zhangj");
+    });
+
+    it("parseHeaderComments should handle .mdx files", async () => {
+        const mdxPath = join(__dirname, "TestDirectoryStructure", "B.mdx");
+        const result = await parseHeaderComments(mdxPath);
+        expect(result).toBeDefined();
+        expect(result).toHaveProperty("title", "Test MDX");
+    });
+
+    it("parseHeaderComments should handle .md files", async () => {
+        const mdPath = join(__dirname, "TestDirectoryStructure", "C.md");
+        const result = await parseHeaderComments(mdPath);
+        expect(result).toBeDefined();
+        expect(result).toHaveProperty("title", "Test MD");
+    });
+
+    it("parseHeaderComments should return null for unsupported file types", async () => {
+        const cssPath = join(__dirname, "TestDirectoryStructure", "A.css");
+        const result = await parseHeaderComments(cssPath);
+        expect(result).toBeNull();
+    });
+
+    it("parseHeaderComments should return null for .ts without comment", async () => {
+        const tsPath = join(__dirname, "TestDirectoryStructure", "A", "A1.ts");
+        const result = await parseHeaderComments(tsPath);
+        expect(result).toBeNull();
+    });
+
+    it("getMdxComment should return null for MDX with invalid TOML frontmatter", async () => {
+        const mdxPath = join(__dirname, "TestDirectoryStructure", "E.mdx");
+        const result = await getMdxComment(mdxPath);
+        expect(result).toBeNull();
     });
 });

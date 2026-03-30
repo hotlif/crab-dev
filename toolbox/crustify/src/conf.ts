@@ -96,38 +96,38 @@ export const defineConfig = (config: Config) => config
  * @returns {Promise<Config>} - 一个解析为加载的配置的 Promise。
  */
 export const getConfig = async (cwd: string): Promise<Config> => {
-	const { config } = await loadConfig<Config>({
-		sources: [
-			{
-				files: ".crustify",
-				extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs', 'tsx']
-			}
-		],
-		cwd,
-		merge: true
-	});
+    const { config } = await loadConfig<Config>({
+        sources: [
+            {
+                files: ".crustify",
+                extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs', 'tsx']
+            }
+        ],
+        cwd,
+        merge: true
+    });
     return config;
 };
 
 
 export const renderHTML = async (cwd: string): Promise<ComponentType>  => {
-	const { config } = await loadConfig<ComponentType>({
+    const { config } = await loadConfig<ComponentType>({
         sources: [
             {
                 files: "bootstrap",
                 extensions: ['tsx'],
-				transform: (source) => {
-					const sourceCode = "import React from \"react\";" + source;
-					const { code } = transformSync(sourceCode, {
-						jsc: {
-							parser: {
-								syntax: "typescript",
-								tsx: true
-							}
-						}
-					});
-					return code;
-				}
+                transform: (source) => {
+                    const sourceCode = "import React from \"react\";" + source;
+                    const { code } = transformSync(sourceCode, {
+                        jsc: {
+                            parser: {
+                                syntax: "typescript",
+                                tsx: true
+                            }
+                        }
+                    });
+                    return code;
+                }
             }
         ],
         cwd,
