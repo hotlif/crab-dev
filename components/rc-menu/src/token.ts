@@ -49,52 +49,52 @@ export const vars = {
 const token = {
     'vertical': {
         'item': {
-            'inline-indent': `var(${vars['vertical.item.inline-indent']}, 24px)`,
+            'inline-indent': `var(${vars['vertical.item.inline-indent']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
             'title': {
                 'width': `var(${vars['vertical.item.title.width']}, 100%)`,
                 'height': `var(${vars['vertical.item.title.height']}, 2.5rem)`,
-                'font-size': `var(${vars['vertical.item.title.font-size']}, 14px)`,
-                'padding-inline-start': `var(${vars['vertical.item.title.padding-inline-start']}, 1rem)`,
-                'padding-inline-end': `var(${vars['vertical.item.title.padding-inline-end']}, 1rem)`,
+                'font-size': `var(${vars['vertical.item.title.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
+                'padding-inline-start': `var(${vars['vertical.item.title.padding-inline-start']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+                'padding-inline-end': `var(${vars['vertical.item.title.padding-inline-end']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
                 'margin-top': `var(${vars['vertical.item.title.margin-top']}, 0.125rem)`,
                 'margin-bottom': `var(${vars['vertical.item.title.margin-bottom']}, 0.125rem)`,
-                'border-radius': `var(${vars['vertical.item.title.border-radius']}, 8px)`,
-                'background-color-hover': `var(${vars['vertical.item.title.background-color-hover']}, rgba(0,0,0,0.06))`,
-                'background-color-active': `var(${vars['vertical.item.title.background-color-active']}, rgba(0,0,0,0.10))`,
-                'background-color-select': `var(${vars['vertical.item.title.background-color-select']}, rgba(0,0,0,0.06))`
+                'border-radius': `var(${vars['vertical.item.title.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
+                'background-color-hover': `var(${vars['vertical.item.title.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+                'background-color-active': `var(${vars['vertical.item.title.background-color-active']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+                'background-color-select': `var(${vars['vertical.item.title.background-color-select']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
             },
             'children': {
-                'background-color': `var(${vars['vertical.item.children.background-color']}, rgba(0,0,0,0.02))`,
-                'padding': `var(${vars['vertical.item.children.padding']}, 0px 4px)`
+                'background-color': `var(${vars['vertical.item.children.background-color']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+                'padding': `var(${vars['vertical.item.children.padding']}, 0px var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
             }
         },
         'item-group': {
             'title': {
-                'color': `var(${vars['vertical.item-group.title.color']}, rgba(0, 0, 0, 0.45))`,
+                'color': `var(${vars['vertical.item-group.title.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-400, oklch(0.760 0.012 286))))`,
                 'height': `var(${vars['vertical.item-group.title.height']}, 2.25rem)`,
-                'font-size': `var(${vars['vertical.item-group.title.font-size']}, 14px)`
+                'font-size': `var(${vars['vertical.item-group.title.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
             }
         }
     },
     'horizontal': {
-        'border-color': `var(${vars['horizontal.border-color']}, rgba(5,5,5,0.06))`,
+        'border-color': `var(${vars['horizontal.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'item': {
-            'font-size': `var(${vars['horizontal.item.font-size']}, 14px)`,
-            'transition': `var(${vars['horizontal.item.transition']}, border-color 0.3s, color 0.3s)`,
-            'color-hover': `var(${vars['horizontal.item.color-hover']}, #1677ff)`,
-            'divider-color-hover': `var(${vars['horizontal.item.divider-color-hover']}, #1677ff)`,
+            'font-size': `var(${vars['horizontal.item.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
+            'transition': `var(${vars['horizontal.item.transition']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
+            'color-hover': `var(${vars['horizontal.item.color-hover']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+            'divider-color-hover': `var(${vars['horizontal.item.divider-color-hover']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
             'content': {
                 'height': `var(${vars['horizontal.item.content.height']}, 40px)`,
-                'padding-left': `var(${vars['horizontal.item.content.padding-left']}, 16px)`,
-                'font-size': `var(${vars['horizontal.item.content.font-size']}, 14px)`,
-                'background-color-hover': `var(${vars['horizontal.item.content.background-color-hover']}, rgba(0, 0, 0, 0.06))`
+                'padding-left': `var(${vars['horizontal.item.content.padding-left']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+                'font-size': `var(${vars['horizontal.item.content.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
+                'background-color-hover': `var(${vars['horizontal.item.content.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
             },
             'icon': {
                 'margin-right': `var(${vars['horizontal.item.icon.margin-right']}, 8px)`
             }
         },
         'submenu': {
-            'background-color': `var(${vars['horizontal.submenu.background-color']}, #fff)`,
+            'background-color': `var(${vars['horizontal.submenu.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
             'box-shadow': `var(${vars['horizontal.submenu.box-shadow']}, rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px)`,
             'padding': `var(${vars['horizontal.submenu.padding']}, 6px 4px)`,
             'line-height': `var(${vars['horizontal.submenu.line-height']}, 40px)`,
