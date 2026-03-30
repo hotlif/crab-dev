@@ -1,6 +1,6 @@
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
-import { TreeDataUtil, getLoadReadyTreeNodeData, getTreeNodeDepth, belongsToNode, loadDataFunc } from "../src/util.js";
-import { LoadStateType, NodeType, OverStateEnum, type Node } from "../src/type.js";
+import { TreeDataUtil, getLoadReadyTreeNodeData, getTreeNodeDepth, belongsToNode, loadDataFunc } from "../util.js";
+import { LoadStateType, NodeType, OverStateEnum, type Node } from "../type.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }

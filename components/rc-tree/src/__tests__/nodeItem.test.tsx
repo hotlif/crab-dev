@@ -1,7 +1,7 @@
 import { describe, expect, it, jest, afterEach } from "@jest/globals";
 import { act } from "react";
 import { cleanup, render, fireEvent, screen } from "@testing-library/react";
-import { NodeType, OverStateEnum, LoadStateType, type Node, type OverState } from "../src/type.js";
+import { NodeType, OverStateEnum, LoadStateType, type Node, type OverState } from "../type.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -24,7 +24,7 @@ jest.mock("@linaria/core", () => ({
     cx: (...args: any[]) => args.filter(Boolean).join(" "),
 }));
 
-import NodeItem from "../src/nodeItem.js";
+import NodeItem from "../nodeItem.js";
 
 const createNode = (id: string | number, overrides: Partial<Node> = {}): Node => ({
     id,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { OverStateEnum, NodeType, NodeEditStateType, LoadStateType } from "../src/type.js";
+import { OverStateEnum, NodeType, NodeEditStateType, LoadStateType } from "../type.js";
 
 describe("type enums", () => {
     describe("OverStateEnum", () => {

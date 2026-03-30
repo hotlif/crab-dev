@@ -1,6 +1,6 @@
 import { describe, expect, it, jest, beforeEach, afterEach } from "@jest/globals";
 import { cleanup, render } from "@testing-library/react";
-import { Loading, CaretRightFill, CaretDownFill } from "../src/icon.js";
+import { Loading, CaretRightFill, CaretDownFill } from "../icon.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }

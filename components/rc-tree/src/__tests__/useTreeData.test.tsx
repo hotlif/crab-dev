@@ -1,8 +1,8 @@
 import { describe, expect, it, afterEach } from "@jest/globals";
 import { act } from "react";
 import { cleanup, render } from "@testing-library/react";
-import useTreeData from "../src/hooks/useTreeData.js";
-import { LoadStateType, NodeType, type Node } from "../src/type.js";
+import useTreeData from "../hooks/useTreeData.js";
+import { LoadStateType, NodeType, type Node } from "../type.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }

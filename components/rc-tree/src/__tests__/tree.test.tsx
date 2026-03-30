@@ -1,7 +1,7 @@
 import { describe, expect, it, jest, beforeEach, afterEach } from "@jest/globals";
 import { act } from "react";
 import { cleanup, render, fireEvent, screen } from "@testing-library/react";
-import { LoadStateType, NodeType, type Node } from "../src/type.js";
+import { LoadStateType, NodeType, type Node } from "../type.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -46,8 +46,8 @@ jest.mock("@linaria/core", () => ({
     cx: (...args: any[]) => args.filter(Boolean).join(" "),
 }));
 
-import Tree from "../src/tree.js";
-import { getLoadReadyTreeNodeData, loadDataFunc } from "../src/util.js";
+import Tree from "../tree.js";
+import { getLoadReadyTreeNodeData, loadDataFunc } from "../util.js";
 
 const createNode = (id: string | number, overrides: Partial<Node> = {}): Node => ({
     id,
