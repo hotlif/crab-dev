@@ -34,7 +34,9 @@ jobs:
         cache-dependency-path: yarn.lock
     - name: Enable Corepack
       run: corepack enable
+    - name: Activate Yarn 4.13.0
+      run: corepack prepare yarn@4.13.0 --activate
     - name: Install dependencies
-      run: yarn install --immutable
+      run: corepack yarn install --immutable
     - name: Run ESLint
-      run: yarn eslint
+      run: corepack yarn eslint
