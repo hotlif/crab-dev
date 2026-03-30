@@ -28,10 +28,6 @@ jobs:
     - uses: actions/checkout@v4
     - name: Setup Node (latest)
       uses: actions/setup-node@v4
-      with:
-        node-version: latest
-        cache: yarn
-        cache-dependency-path: yarn.lock
     - name: Enable Corepack
       run: corepack enable
     - name: Activate Yarn 4.13.0
