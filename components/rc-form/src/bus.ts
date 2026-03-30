@@ -16,6 +16,7 @@ export enum MessageEnum {
 interface Subscriber {
     id: string
     type: MessageEnum,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     ring: Function
 }
 
@@ -44,7 +45,7 @@ class EventBus {
         payload = []
     }: {
         type: MessageEnum,
-        payload?: Array<any>
+        payload?: unknown[]
     }) {
         this.subscribers.forEach(element => {
             if (element.type === type) {

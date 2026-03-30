@@ -1,13 +1,13 @@
 import { Temporal } from '@js-temporal/polyfill';
 import { describe, expect, it } from "@jest/globals";
-import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util';
-import { formatTemporal } from '../util';
+import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util.js';
+import { formatTemporal } from '../util.js';
 
 const tz = 'Asia/Shanghai';
 
 
 
-(window as any).Temporal = Temporal;
+(window as unknown as Record<string, unknown>).Temporal = Temporal;
 const zdt = Temporal.ZonedDateTime.from({
     year: 2026,
     month: 3,

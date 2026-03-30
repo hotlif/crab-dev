@@ -2,9 +2,9 @@ import { css, cx } from '@linaria/core';
 import { useState, type FC, type HTMLAttributes, type ReactNode } from 'react';
 import ReactMarkdown from "react-markdown";
 import { Prism } from 'react-syntax-highlighter';
-// @ts-expect-error
+// @ts-expect-error: 这里的第三方库类型定义不全，暂且忽略
 import vs from 'react-syntax-highlighter/dist/esm/styles/prism/vs.js';
-import { CodeXml, Code, AppWindow } from "./icons";
+import { CodeXml, Code, AppWindow } from "./icons.js";
 
 export interface PreviewProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
     title: ReactNode
@@ -94,7 +94,7 @@ const Preview: FC<PreviewProps> = ({
             </div>
             {
                 isExpandCode ? (
-                     <div
+                    <div
                         className={css`
                             display: flex;
                             border-left: 1px solid #eaeaea;

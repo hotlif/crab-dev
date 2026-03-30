@@ -4,9 +4,10 @@
  * description = "一个基础的对话框"
  */
 
-import Button from "@crab-dev/rc-button";
-import Dialog from "../../src/index"
 import { useState } from "react";
+import Button from "@crab-dev/rc-button";
+
+import Dialog from "../../src/index.js";
 
 
 const BaseDemo = () => {

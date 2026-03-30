@@ -2,9 +2,10 @@ import RcButton from "@crab-dev/rc-button"
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css } from '@linaria/core';
 import { FC, useState } from "react";
-import DateTimePickerPanel, { type DateTimePickerPanelProps } from '../panels/dateTimePickerPanel';
-import token from '../token';
-import type { TimePickerPanelProps } from "../panels/timePickerPanel";
+
+import token from '../token.js';
+import type { TimePickerPanelProps } from "../panels/timePickerPanel.js";
+import DateTimePickerPanel, { type DateTimePickerPanelProps } from '../panels/dateTimePickerPanel.js';
 
 interface DateTimePickerOverlayProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange'> {
     onValueChange?: (value: Temporal.ZonedDateTime) => void;

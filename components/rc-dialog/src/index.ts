@@ -1,7 +1,7 @@
 
-import Dialog from './dialog';
-import useConfirm from  "./hooks/useConfirm";
-export type { DialogProps } from "./dialog";
+import Dialog from './dialog.js';
+import useConfirm from  "./hooks/useConfirm.js";
+export type { DialogProps } from "./dialog.js";
 
 export {
     useConfirm

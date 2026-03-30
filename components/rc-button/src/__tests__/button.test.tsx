@@ -81,7 +81,7 @@ describe('Button', () => {
             className: 'extra-class',
             style: { color: 'red' },
             'data-test-id': 'my-btn',
-        } as any);
+        } as Record<string, unknown>);
         expect(button.className).toContain('extra-class');
         expect(button.style.color).toBe('red');
         expect(button.getAttribute('data-test-id')).toBe('my-btn');

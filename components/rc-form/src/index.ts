@@ -1,8 +1,8 @@
 
-import Form, { type FormProps } from "./form";
-import Item, { type FormItem as ItemProps} from "./item";
-import useForm from "./hooks/useForm";
-import { type NamePath, ValidateState, type FormInstance, type FormItemEditor, type Rule, type RuleType } from "./types";
+import Form, { type FormProps } from "./form.js";
+import Item, { type FormItem as ItemProps} from "./item.js";
+import useForm from "./hooks/useForm.js";
+import { type NamePath, ValidateState, type FormInstance, type FormItemEditor, type Rule, type RuleType } from "./types.js";
 
 export {
     Item,

@@ -11,7 +11,8 @@
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "generate:docgen": "react-docgen ./src/dropdownContainer.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
-        "eslint": "eslint"
+        "eslint": "eslint",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
     },
     "files": [
         "esm",
@@ -33,6 +34,8 @@
         "@linaria/core": "^7.0.0",
         "@mdx-js/react": "^3.1.1",
         "@react-docgen/cli": "^3.0.6",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/react": "^16.3.2",
         "@types/node": "^25.5.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",

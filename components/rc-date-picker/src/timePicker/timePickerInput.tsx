@@ -3,15 +3,16 @@ import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@linaria/core";
 import { FC, useEffect, useRef, useState } from "react";
 
-import { Clock, XCircleFill } from '../icons';
-import token from '../token';
+import token from '../token.js';
+import { Clock, XCircleFill } from '../icons.js';
+import type { TimePickerPanelProps } from "../panels/timePickerPanel.js";
 
 interface TimePickerInputProps {
     
     /**
      * 改变值值触发的事件
      */
-    onChange?: (value: Temporal.ZonedDateTime | null) => void;
+    onValueChange?: TimePickerPanelProps["onValueChange"];
 
     /**
      * 输入的值信息
@@ -37,7 +38,7 @@ const iconStyle = css`
 
 const TimePickerInput: FC<TimePickerInputProps> = ({
     value = "",
-    onChange,
+    onValueChange,
     ...restProps
 }) => {
     const {
@@ -75,7 +76,7 @@ const TimePickerInput: FC<TimePickerInputProps> = ({
                     className={iconStyle}
                     onMouseDown={(e) => {
                         e.preventDefault();
-                        onChange?.(null);
+                        onValueChange?.(null);
                     }}
                 />
             )

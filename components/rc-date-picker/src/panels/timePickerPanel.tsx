@@ -1,10 +1,11 @@
 import { css, cx } from "@linaria/core";
 import { useEffect, useRef, type FC, type HTMLAttributes } from "react";
-import token from "../token";
-import { selectStyle } from "./universal.style";
+
+import token from "../token.js";
+import { selectStyle } from "./universal.style.js";
 
 
-interface TimePickerValue {
+export interface TimePickerValue {
     hour: number
     minute: number
     second: number
@@ -12,7 +13,7 @@ interface TimePickerValue {
 
 export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, ''> {
     value?: TimePickerValue | null,
-    onValueChange?: (value: TimePickerValue) => void
+    onValueChange?: (value: TimePickerValue | null) => void
 }
 
 

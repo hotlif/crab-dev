@@ -1,20 +1,23 @@
 [build]
 output = "./src/token.ts"
 prefix = "dialog"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-overlay.background.color = "rgba(0,0,0,0.45)"
-background.color = "#fff"
+overlay.background.color = "$ref(color.background.overlay)"
+background.color = "$ref(color.background.elevated)"
 top = "100px"
-padding = "20px 24px"
-border.radius = "8px"
-box.shadow = "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
+padding = "$ref(space.card-padding) $ref(space.dialog-padding)"
+border.radius = "$ref(radius.lg)"
+box.shadow = "$ref(shadow.overlay)"
 
-heading.margin.bottom = "15px"
-heading.font.weight = "600"
-heading.font.size = "16px"
+heading.margin.bottom = "$ref(space.stack-gap)"
+heading.font.weight = "$ref(font.weight.heading)"
+heading.font.size = "$ref(font.size.subhead)"
 heading.line.height = "1.5"
 
-footer.margin.top = "12px"
-footer.button.spacing = "8px"
+footer.margin.top = "$ref(space.stack-gap)"
+footer.button.spacing = "$ref(space.component-gap)"

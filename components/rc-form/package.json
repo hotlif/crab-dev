@@ -8,6 +8,7 @@
         "start": "yarn generate:docgen && lignify run-task app:dev",
         "build:library": "packify build",
         "generate:docgen": "react-docgen ./src/form.tsx --out ./public/docgen.json",
+        "check": "yarn tsc -p tsconfig.json --noEmit && yarn eslint && yarn test",
         "eslint": "eslint",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
     },

@@ -1,12 +1,12 @@
 
 import { useRef } from "react";
-import { type FormInstance, type WrapperInstance } from "../types";
+import { type FormInstance, type WrapperInstance } from "../types.js";
 
 
 /**
  * 获取一个 Form 对象， 用在操作 Form 表单对象
  */
-function useForm<T extends Record<string, any> = any> (): [FormInstance<T>] {
+function useForm<T extends object = Record<string, unknown>> (): [FormInstance<T>] {
     const instance = useRef<FormInstance<T>>(null)
     const wrapperInstance: WrapperInstance<T> = {
         submit: () => instance.current?.submit(),

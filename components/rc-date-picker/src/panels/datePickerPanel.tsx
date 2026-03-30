@@ -1,9 +1,9 @@
 import { type HTMLAttributes, useMemo, useState, useEffect, RefObject } from 'react';
 import { css, cx } from '@linaria/core';
-import { formatTemporal, getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util';
-import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons';
-import token from '../token';
-import { selectStyle } from "./universal.style";
+import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util.js';
+import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons.js';
+import token from '../token.js';
+import { selectStyle } from "./universal.style.js";
 
 export interface DatePickerPanelInstance {
     keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => void;
@@ -153,7 +153,7 @@ const DatePickerPanel = ({
         if (instance) {
             instance.current = {
                 keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => {
-                    let [selectValue] = selectValues;
+                    const [selectValue] = selectValues;
                     let moved: Temporal.ZonedDateTime = selectValue;
                     switch (direction) {
                         case 'left':
@@ -237,19 +237,19 @@ const DatePickerPanel = ({
                 <div className={centerFlexStyle}>
                     <ChevronDoubleLeft
                         className={cx(iconStyle, !canGoPrevYear && iconDisabledStyle)}
-                            onClick={() => {
-                                if (!canGoPrevYear) return;
-                                const lastYear = viewDate.subtract({ years: 1 });
-                                setViewDate(lastYear);
-                            }}
+                        onClick={() => {
+                            if (!canGoPrevYear) return;
+                            const lastYear = viewDate.subtract({ years: 1 });
+                            setViewDate(lastYear);
+                        }}
                     />
                     <ChevronLeft
                         className={cx(iconStyle, !canGoPrevMonth && iconDisabledStyle)}
-                            onClick={() => {
-                                if (!canGoPrevMonth) return;
-                                const lastMonth = viewDate.subtract({ months: 1 });
-                                setViewDate(lastMonth);
-                            }}
+                        onClick={() => {
+                            if (!canGoPrevMonth) return;
+                            const lastMonth = viewDate.subtract({ months: 1 });
+                            setViewDate(lastMonth);
+                        }}
                     />
                 </div>
                 <div

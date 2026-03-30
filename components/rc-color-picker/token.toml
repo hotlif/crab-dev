@@ -1,15 +1,18 @@
 [build]
 output = "./src/token.ts"
 prefix = "color-picker"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-panel.padding = "16px"
-panel.gap = "1rem"
+panel.padding = "$ref(space.section-gap)"
+panel.gap = "$ref(space.section-gap)"
 
 panel.preview.height = "5rem"
 panel.preview.width = "100%"
-panel.preview.border.radius = "8px"
-panel.preview.margin.top = "1rem"
+panel.preview.border.radius = "$ref(radius.lg)"
+panel.preview.margin.top = "$ref(space.section-gap)"
 
-panel.slider.container.gap = "1rem"
+panel.slider.container.gap = "$ref(space.section-gap)"

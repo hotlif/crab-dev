@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import EventBus from "./bus";
+import EventBus from "./bus.js";
 import type { ReactNode } from "react";
 
 

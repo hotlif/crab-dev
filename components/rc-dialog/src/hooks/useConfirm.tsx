@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { css } from "@linaria/core";
-import Dialog from "../dialog";
+import Dialog from "../dialog.js";
 
 
 interface ConfirmProps {
@@ -41,6 +41,7 @@ const useConfirm = (): [ReactNode, (param: ConfirmProps) => void] =>  {
                     `}
                     title={title}
                     open={open}
+                    key="dialog-use-confirm"
                     onOpenChange={setOpen}
                     onConfirm={onConfirm}
                     onCancel={onCancel}
@@ -48,7 +49,7 @@ const useConfirm = (): [ReactNode, (param: ConfirmProps) => void] =>  {
                     {content}
                 </Dialog>
             )
-        , confirm]
+            , confirm]
     }
 }
 

@@ -1,18 +1,21 @@
-import { act, useEffect } from "react";
+import React, { act, useEffect } from "react";
 import { render } from "@testing-library/react";
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 
-import Dialog, { type DialogProps } from "../dialog";
+import Dialog, { type DialogProps } from "../dialog.tsx";
 
 jest.mock("motion/react", () => {
-    const React = require("react");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
+    const mockReact = require("react");
+    const MockDiv = mockReact.forwardRef((props: Record<string, unknown>, ref: unknown) => mockReact.createElement("div", { ...props, ref }));
+    MockDiv.displayName = "MockMotionDiv";
     return {
         motion: {
-            div: React.forwardRef((props: Record<string, unknown>, ref: React.Ref<HTMLDivElement>) => React.createElement("div", { ...props, ref })),
+            div: MockDiv,
         },
-        AnimatePresence: ({ children, onExitComplete }: { children: React.ReactNode; onExitComplete?: () => void }) => {
-            const prevChildrenRef = React.useRef(children);
-            React.useEffect(() => {
+        AnimatePresence: ({ children, onExitComplete }: { children: unknown; onExitComplete?: () => void }) => {
+            const prevChildrenRef = mockReact.useRef(children);
+            mockReact.useEffect(() => {
                 if (prevChildrenRef.current && !children) {
                     onExitComplete?.();
                 }

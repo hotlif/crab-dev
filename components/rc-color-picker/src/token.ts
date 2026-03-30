@@ -14,21 +14,21 @@ export const vars = {
 
 const token = {
     'panel': {
-        'padding': `var(${vars['panel.padding']}, 16px)`,
-        'gap': `var(${vars['panel.gap']}, 1rem)`,
+        'padding': `var(${vars['panel.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
         'preview': {
             'height': `var(${vars['panel.preview.height']}, 5rem)`,
             'width': `var(${vars['panel.preview.width']}, 100%)`,
             'border': {
-                'radius': `var(${vars['panel.preview.border.radius']}, 8px)`
+                'radius': `var(${vars['panel.preview.border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`
             },
             'margin': {
-                'top': `var(${vars['panel.preview.margin.top']}, 1rem)`
+                'top': `var(${vars['panel.preview.margin.top']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
             }
         },
         'slider': {
             'container': {
-                'gap': `var(${vars['panel.slider.container.gap']}, 1rem)`
+                'gap': `var(${vars['panel.slider.container.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
             }
         }
     }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { equalsNamePath, getRecordValue, setRecordValue } from "../util";
+import { equalsNamePath, getRecordValue, setRecordValue } from "../util.js";
 
 describe("util", () => {
     it("setRecordValue and getRecordValue support string path", () => {

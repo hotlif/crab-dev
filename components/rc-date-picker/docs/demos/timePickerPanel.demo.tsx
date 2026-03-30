@@ -4,14 +4,14 @@
  * description = "一个基础的时间选择面板组件"
  */
 
-import TimePickerPanel from "../../src/panels/timePickerPanel";
 import { useState } from "react";
+import TimePickerPanel, { type TimePickerValue } from "../../src/panels/timePickerPanel.js";
 
 
 const now = Temporal.Now.zonedDateTimeISO();
 
 const SizeDemo = () => {
-    const [value, setValue] = useState({
+    const [value, setValue] = useState<TimePickerValue | null>({
         hour: now.hour,
         minute: now.minute,
         second: now.second

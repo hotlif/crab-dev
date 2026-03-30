@@ -16,7 +16,7 @@ export enum ValidateState {
 /**
  * 表单的实例， 用它来批量操作表单字段， 例如提交数据或者重置数据
  */
-export interface FormInstance<T extends Record<string, any>> {
+export interface FormInstance<T extends object> {
     /**
      * 提交表单
      */
@@ -25,7 +25,7 @@ export interface FormInstance<T extends Record<string, any>> {
     /**
      * 获取对应字段名的值
      */
-    getFieldValue(name: NamePath): any;
+    getFieldValue(name: NamePath): unknown;
 
     /**
      * 所有表单字段的值
@@ -35,7 +35,7 @@ export interface FormInstance<T extends Record<string, any>> {
     /**
      * 设置表单字段的值
      */
-    setFieldValue(name: NamePath, value: any): void;
+    setFieldValue(name: NamePath, value: unknown): void;
 
     /**
      * 设置所有表单的值
@@ -53,13 +53,13 @@ export interface FormInstance<T extends Record<string, any>> {
     resetFields(names?: NamePath[]): Promise<void>
 }
 
-export type WrapperInstance<T extends Record<string, any>> = FormInstance<T> & {
+export type WrapperInstance<T extends object> = FormInstance<T> & {
     __INTERNAL__: {
         setInstance(instance: FormInstance<T>): void
     }
 }
 
-export interface FormItemEditor<T = any> {
+export interface FormItemEditor<T = unknown> {
 
     /**
      * 编辑器的校验状态

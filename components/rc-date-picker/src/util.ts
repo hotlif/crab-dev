@@ -152,7 +152,8 @@ export function formatTemporal(zdt: Temporal.ZonedDateTime | null, formatStr: st
         return tokens[token as TokenKey];
     });
     // 恢复所有单引号占位符
-    return fmt.replace(/\u0000/g, "'");
+    // eslint-disable-next-line no-control-regex
+    return fmt.replace(/\x00/g, "'");
 }
 
 

@@ -90,6 +90,17 @@ space.card-padding      = "$ref(space.5)"
 space.dialog-padding    = "$ref(space.6)"
 
 
+# ─── 排版 · 语义 ─────────────────────────────────────────────────────────
+# 将 Layer 1 字号 / 字重映射到 UI 排版语义
+
+font.size.body      = "$ref(font.size.sm)"
+font.size.heading   = "$ref(font.size.lg)"
+font.size.subhead   = "$ref(font.size.md)"
+font.size.caption   = "$ref(font.size.xs)"
+font.weight.label   = "$ref(font.weight.medium)"
+font.weight.heading = "$ref(font.weight.semibold)"
+
+
 # ─── 圆角 · 语义 ────────────────────────────────────────────────────────────
 
 radius.sm      = "$ref(radius.1)"
@@ -106,17 +117,27 @@ shadow.overlay = "$ref(shadow.lg)"
 
 
 # ─── 层级 · 语义 ────────────────────────────────────────────────────────────
+# 按堆叠意图命名，组件到层级的绑定由 Layer 3 完成
 
-z-index.float   = "$ref(z.dropdown)"
-z-index.sticky  = "$ref(z.sticky)"
-z-index.overlay = "$ref(z.overlay)"
-z-index.modal   = "$ref(z.dialog)"
-z-index.popover = "$ref(z.popover)"
-z-index.notice  = "$ref(z.toast)"
-z-index.tooltip = "$ref(z.tooltip)"
+z-index.float    = "$ref(z-index.10)"
+z-index.sticky   = "$ref(z-index.20)"
+z-index.mask     = "$ref(z-index.30)"
+z-index.block    = "$ref(z-index.40)"
+z-index.elevated = "$ref(z-index.50)"
+z-index.alert    = "$ref(z-index.60)"
+z-index.top      = "$ref(z-index.70)"
 
 
 # ─── 动效 · 语义 ────────────────────────────────────────────────────────────
 
 motion.fade   = "$ref(duration.normal) $ref(easing.default)"
+
+
+# ─── 透明度 · 语义 ─────────────────────────────────────────────────────────
+
+opacity.disabled   = "$ref(opacity.30)"
+opacity.secondary  = "$ref(opacity.50)"
+opacity.tertiary   = "$ref(opacity.70)"
+opacity.hover      = "$ref(opacity.80)"
+
 motion.expand = "$ref(duration.slow) $ref(easing.out)"

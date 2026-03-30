@@ -5,7 +5,7 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import ColorPicker from "../../src/colorPicker";
+import ColorPicker from "../../src/colorPicker/index.js";
 
 
 const ColorPickerDemo = () => {

@@ -5,11 +5,11 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import DateTimePicker from "../../src/dateTimePicker";
+import DateTimePicker from "../../src/dateTimePicker/index.js";
 
 
 const SizeDemo = () => {
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState<Temporal.ZonedDateTime | null>(null);
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")
     return (
         <div

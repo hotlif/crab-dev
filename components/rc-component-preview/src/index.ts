@@ -1,6 +1,6 @@
-import Preview from "./preview";
+import Preview from "./preview.js";
 export {
     type PreviewProps
-} from "./preview";
+} from "./preview.js";
 
 export default Preview;

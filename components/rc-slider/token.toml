@@ -1,17 +1,20 @@
 [build]
 output = "./src/token.ts"
 prefix = "slider"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
 rail.interact.height = "12px"
 rail.thickness = "4px"
-rail.inactive.fill = "#e5e7eb"
-rail.active.fill = "#3b82f6"
+rail.inactive.fill = "$ref(color.fill.inactive)"
+rail.active.fill = "$ref(color.fill.active)"
 
 thumb.radius = "8px"
-thumb.fill = "#ffffff"
-thumb.stroke.color = "#3b82f6"
+thumb.fill = "$ref(color.background.surface)"
+thumb.stroke.color = "$ref(color.fill.active)"
 thumb.stroke.width = "2.5px"
 thumb.halo.scale.factor = 1.8
-thumb.halo.fill = "#3b82f6"
+thumb.halo.fill = "$ref(color.fill.active)"

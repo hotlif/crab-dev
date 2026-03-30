@@ -5,13 +5,14 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import DatePicker from "../../src/datePicker/datePicker";
-import { formatTemporal } from "../../src/util";
+
+import DatePicker from "../../src/datePicker/datePicker.js";
+import { formatTemporal } from "../../src/util.js";
 
 const now = Temporal.Now.zonedDateTimeISO();
 
 const SizeDemo = () => {
-    const [value, setValue] = useState(now);
+    const [value, setValue] = useState<Temporal.ZonedDateTime | null>(now);
     return (
         <div
             className={css`

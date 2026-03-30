@@ -20,7 +20,7 @@ size.large.gap           = "$ref(space.component-gap)"
 size.large.height        = "40px"
 size.large.padding       = "0 $ref(space.control-padding-x)"
 size.large.border.radius = "$ref(radius.lg)"
-size.large.font.size     = "18px"
+size.large.font.size     = "$ref(font.size.heading)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
@@ -29,7 +29,7 @@ size.middle.gap           = "$ref(space.component-gap)"
 size.middle.height        = "32px"
 size.middle.padding       = "0 $ref(space.control-padding-x)"
 size.middle.border.radius = "$ref(radius.md)"
-size.middle.font.size     = "14px"
+size.middle.font.size     = "$ref(font.size.body)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
@@ -38,7 +38,7 @@ size.small.gap           = "$ref(space.inline-gap)"
 size.small.height        = "24px"
 size.small.padding       = "0 $ref(space.control-padding-y)"
 size.small.border.radius = "$ref(radius.md)"
-size.small.font.size     = "14px"
+size.small.font.size     = "$ref(font.size.body)"
 
 
 # ─── Primary — 主按钮 ────────────────────────────────────────────────────────

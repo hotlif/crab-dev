@@ -20,27 +20,27 @@ export const vars = {
 const token = {
     'overlay': {
         'background': {
-            'color': `var(${vars['overlay.background.color']}, rgba(0,0,0,0.45))`
+            'color': `var(${vars['overlay.background.color']}, var(--token-semantic-color-background-overlay, oklch(0 0 0 / 0.45)))`
         }
     },
     'background': {
-        'color': `var(${vars['background.color']}, #fff)`
+        'color': `var(${vars['background.color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
     },
     'top': `var(${vars['top']}, 100px)`,
-    'padding': `var(${vars['padding']}, 20px 24px)`,
+    'padding': `var(${vars['padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
     'border': {
-        'radius': `var(${vars['border.radius']}, 8px)`
+        'radius': `var(${vars['border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`
     },
     'box': {
-        'shadow': `var(${vars['box.shadow']}, 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05))`
+        'shadow': `var(${vars['box.shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1))))`
     },
     'heading': {
         'margin': {
-            'bottom': `var(${vars['heading.margin.bottom']}, 15px)`
+            'bottom': `var(${vars['heading.margin.bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
         },
         'font': {
-            'weight': `var(${vars['heading.font.weight']}, 600)`,
-            'size': `var(${vars['heading.font.size']}, 16px)`
+            'weight': `var(${vars['heading.font.weight']}, var(--token-semantic-font-weight-heading, var(--token-global-font-weight-semibold, 600)))`,
+            'size': `var(${vars['heading.font.size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
         },
         'line': {
             'height': `var(${vars['heading.line.height']}, 1.5)`
@@ -48,10 +48,10 @@ const token = {
     },
     'footer': {
         'margin': {
-            'top': `var(${vars['footer.margin.top']}, 12px)`
+            'top': `var(${vars['footer.margin.top']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
         },
         'button': {
-            'spacing': `var(${vars['footer.button.spacing']}, 8px)`
+            'spacing': `var(${vars['footer.button.spacing']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         }
     }
 };

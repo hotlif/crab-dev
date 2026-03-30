@@ -1,33 +1,36 @@
 [build]
 output = "./src/token.ts"
 prefix = "line-edit"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-transition = "color 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1)"
-border.radius = "0.375rem"
+transition = "$ref(motion.fade)"
+border.radius = "$ref(radius.md)"
 border.width = "1px"
 border.style = "solid"
-border.color = "hsl(214.3 31.8% 91.4%)"
-border.color-focus = "hsl(215 20.2% 65.1%)"
-box-shadow.default = "0 1px 2px 0 rgb(0 0 0 / 0.05)"
-box-shadow.focus-within = "0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 0 3px hsl(215 20.2% 65.1% / 0.5)"
+border.color = "$ref(color.border.default)"
+border.color-focus = "$ref(color.border.focus)"
+box-shadow.default = "$ref(shadow.float)"
+box-shadow.focus-within = "$ref(shadow.float)"
 background.color = "transparent"
-placeholder.color = "hsl(215.4 16.3% 46.9%)"
-icon.color = "hsl(215.4 16.3% 46.9%)"
-icon.margin-right = "0.5rem"
+placeholder.color = "$ref(color.text.secondary)"
+icon.color = "$ref(color.text.secondary)"
+icon.margin-right = "$ref(space.component-gap)"
 
 size.large.height = "40px"
-size.large.padding = "0.25rem 0.75rem"
-size.large.font.size = "16px"
+size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.large.font.size = "$ref(font.size.subhead)"
 size.large.line-height = "1.5rem"
 
 size.middle.height = "32px"
-size.middle.padding = "0.25rem 0.75rem"
-size.middle.font.size = "14px"
+size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.middle.font.size = "$ref(font.size.body)"
 size.middle.line-height = "1.25rem"
 
 size.small.height = "24px"
-size.small.padding = "0.25rem 0.75rem"
-size.small.font.size = "14px"
+size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.small.font.size = "$ref(font.size.body)"
 size.small.line-height = "1.25rem"

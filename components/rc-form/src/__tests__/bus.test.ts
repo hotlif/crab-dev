@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import EventBus, { MessageEnum } from "../bus";
+import EventBus, { MessageEnum } from "../bus.js";
 
 describe("EventBus", () => {
     it("dispatches only subscribers with matching type", () => {

@@ -1,18 +1,21 @@
 [build]
 output = "./src/token.ts"
 prefix = "tree"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-indent.size = "24px"
-border.radius = "4px"
+indent.size = "$ref(space.dialog-padding)"
+border.radius = "$ref(radius.sm)"
 
 node.draggable.border.width = "1px"
 node.draggable.border.style = "solid"
-node.draggable.border.color = "#1677ff"
+node.draggable.border.color = "$ref(color.border.focus)"
 
-node.icon.hover.background.color = "rgba(0, 0, 0, 0.06)"
-node.icon.loading.color = "#0088f0"
+node.icon.hover.background.color = "$ref(color.background.hover-subtle)"
+node.icon.loading.color = "$ref(color.brand.primary)"
 
-node.hover.background.color = "rgba(0,0,0,0.04)"
-node.select.background.color = "#e6f4ff"
+node.hover.background.color = "$ref(color.background.hover-subtle)"
+node.select.background.color = "$ref(color.background.active-subtle)"

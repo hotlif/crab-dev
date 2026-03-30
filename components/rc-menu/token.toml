@@ -1,46 +1,49 @@
 [build]
 output = "./src/token.ts"
 prefix = "menu"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
 # ── Vertical ──────────────────────────────────────────
 
-vertical.item.inline-indent = "24px"
+vertical.item.inline-indent = "$ref(space.dialog-padding)"
 
 vertical.item.title.width = "100%"
 vertical.item.title.height = "2.5rem"
-vertical.item.title.font-size = "14px"
-vertical.item.title.padding-inline-start = "1rem"
-vertical.item.title.padding-inline-end = "1rem"
+vertical.item.title.font-size = "$ref(font.size.body)"
+vertical.item.title.padding-inline-start = "$ref(space.section-gap)"
+vertical.item.title.padding-inline-end = "$ref(space.section-gap)"
 vertical.item.title.margin-top = "0.125rem"
 vertical.item.title.margin-bottom = "0.125rem"
-vertical.item.title.border-radius = "8px"
-vertical.item.title.background-color-hover = "rgba(0,0,0,0.06)"
-vertical.item.title.background-color-active = "rgba(0,0,0,0.10)"
-vertical.item.title.background-color-select = "rgba(0,0,0,0.06)"
+vertical.item.title.border-radius = "$ref(radius.lg)"
+vertical.item.title.background-color-hover = "$ref(color.background.hover-subtle)"
+vertical.item.title.background-color-active = "$ref(color.background.active-subtle)"
+vertical.item.title.background-color-select = "$ref(color.background.hover-subtle)"
 
-vertical.item.children.background-color = "rgba(0,0,0,0.02)"
-vertical.item.children.padding = "0px 4px"
+vertical.item.children.background-color = "$ref(color.background.hover-subtle)"
+vertical.item.children.padding = "0px $ref(space.inline-gap)"
 
-vertical.item-group.title.color = "rgba(0, 0, 0, 0.45)"
+vertical.item-group.title.color = "$ref(color.text.tertiary)"
 vertical.item-group.title.height = "2.25rem"
-vertical.item-group.title.font-size = "14px"
+vertical.item-group.title.font-size = "$ref(font.size.body)"
 
 # ── Horizontal ────────────────────────────────────────
 
-horizontal.border-color = "rgba(5,5,5,0.06)"
+horizontal.border-color = "$ref(color.border.default)"
 
-horizontal.item.font-size = "14px"
-horizontal.item.transition = "border-color 0.3s, color 0.3s"
-horizontal.item.color-hover = "#1677ff"
-horizontal.item.divider-color-hover = "#1677ff"
+horizontal.item.font-size = "$ref(font.size.body)"
+horizontal.item.transition = "$ref(motion.fade)"
+horizontal.item.color-hover = "$ref(color.brand.primary)"
+horizontal.item.divider-color-hover = "$ref(color.brand.primary)"
 horizontal.item.content.height = "40px"
-horizontal.item.content.padding-left = "16px"
-horizontal.item.content.font-size = "14px"
-horizontal.item.content.background-color-hover = "rgba(0, 0, 0, 0.06)"
+horizontal.item.content.padding-left = "$ref(space.section-gap)"
+horizontal.item.content.font-size = "$ref(font.size.body)"
+horizontal.item.content.background-color-hover = "$ref(color.background.hover-subtle)"
 
-horizontal.submenu.background-color = "#fff"
+horizontal.submenu.background-color = "$ref(color.background.elevated)"
 horizontal.submenu.box-shadow = "rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px"
 horizontal.submenu.padding = "6px 4px"
 horizontal.submenu.line-height = "40px"

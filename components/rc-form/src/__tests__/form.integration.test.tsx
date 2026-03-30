@@ -2,10 +2,12 @@ import { act } from "react";
 import { render } from "@testing-library/react";
 import { describe, expect, it, jest } from "@jest/globals";
 
-import Form from "../form";
-import Item from "../item";
-import useForm from "../hooks/useForm";
-import { RuleType, type FormItemEditor } from "../types";
+import Form from "../form.js";
+import Item from "../item.js";
+import useForm from "../hooks/useForm.js";
+import { RuleType, type FormItemEditor } from "../types.js";
+
+type TestRecord = Record<string, unknown>;
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -27,10 +29,10 @@ const flush = async () => {
 
 describe("Form integration", () => {
     it("supports form instance operations and name-path validation filtering", async () => {
-        let formApi: any;
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
 
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
 
             return (
@@ -58,7 +60,7 @@ describe("Form integration", () => {
 
         expect(nameInput.value).toBe("Alice");
 
-        let validateResult: any;
+        let validateResult: unknown;
         await act(async () => {
             validateResult = await formApi.validateFields([["user", "name"]]);
         });
@@ -68,7 +70,7 @@ describe("Form integration", () => {
             age: "",
         });
 
-        let validateError: any;
+        let validateError: unknown;
         await act(async () => {
             try {
                 await formApi.validateFields();
@@ -141,7 +143,7 @@ describe("Form integration", () => {
     });
 
     it("covers warning/error rule branches and editor onChange path", async () => {
-        let formApi: any;
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const warningValidator = jest.fn(async () => {
             throw new Error("warning message");
         });
@@ -150,7 +152,7 @@ describe("Form integration", () => {
         });
 
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
 
             return (
@@ -161,7 +163,7 @@ describe("Form integration", () => {
                         rules={[
                             { type: RuleType.WARNING, validator: warningValidator },
                             { type: RuleType.ERROR, validator: errorValidator },
-                            { type: 999 as any, validator: jest.fn(async () => {}) },
+                            { type: 999 as unknown as RuleType, validator: jest.fn(async () => {}) },
                         ]}
                     >
                         <InputEditor />
@@ -179,7 +181,7 @@ describe("Form integration", () => {
         });
         await flush();
 
-        let error: any;
+        let error: unknown;
         await act(async () => {
             try {
                 await formApi.validateFields(["field"]);
@@ -197,13 +199,13 @@ describe("Form integration", () => {
     });
 
     it("skips rule validator when rule type is neither ERROR nor WARNING", async () => {
-        let formApi: any;
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const skippedValidator = jest.fn(async () => {
             throw new Error("should not run");
         });
 
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
 
             return (
@@ -211,7 +213,7 @@ describe("Form integration", () => {
                     <Item
                         name="field"
                         label="字段"
-                        rules={[{ type: 999 as any, validator: skippedValidator }]}
+                        rules={[{ type: 999 as unknown as RuleType, validator: skippedValidator }]}
                     >
                         <InputEditor />
                     </Item>
@@ -227,7 +229,7 @@ describe("Form integration", () => {
         });
         await flush();
 
-        let validateResult: any;
+        let validateResult: unknown;
         await act(async () => {
             validateResult = await formApi.validateFields(["field"]);
         });
@@ -242,9 +244,9 @@ describe("Form integration", () => {
         const originalStructuredClone = globalThis.structuredClone;
         (globalThis as unknown as { structuredClone?: unknown }).structuredClone = undefined;
 
-        let formApi: any;
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
             return (
                 <Form form={form} defaultValue={{ profile: { nick: "n1" } }}>
@@ -285,11 +287,11 @@ describe("Form integration", () => {
     it("triggers submit success/failed and requiredIndicatorRenderer", async () => {
         const onSubmitSuccess = jest.fn(async () => {});
         const onSubmitFailed = jest.fn(async () => {});
-        const onFieldValueChange = jest.fn(async () => {});
-        let formApi: any;
+        const onFieldValueChange = jest.fn<(changed: unknown, allValues: unknown) => Promise<void>>(async () => {});
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
 
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
 
             return (
@@ -345,12 +347,12 @@ describe("Form integration", () => {
 
     it("uses structuredClone branch when available", async () => {
         const originalStructuredClone = globalThis.structuredClone;
-        const structuredCloneMock = jest.fn((value: any) => JSON.parse(JSON.stringify(value)));
+        const structuredCloneMock = jest.fn((value: unknown) => JSON.parse(JSON.stringify(value)));
         (globalThis as unknown as { structuredClone?: unknown }).structuredClone = structuredCloneMock;
 
-        let formApi: any;
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
             return (
                 <Form form={form} defaultValue={{ profile: { nick: "s1" } }}>
@@ -377,13 +379,13 @@ describe("Form integration", () => {
     });
 
     it("covers editor onChange path and ERROR rule state", async () => {
-        let formApi: any;
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const errorValidator = jest.fn(async () => {
             throw new Error("error-level");
         });
 
         const Demo = () => {
-            const [form] = useForm<any>();
+            const [form] = useForm<TestRecord>();
             formApi = form;
 
             return (
@@ -410,7 +412,7 @@ describe("Form integration", () => {
 
         expect(formApi.getFieldValue("field")).toBe("editor-change");
 
-        let validateError: any;
+        let validateError: unknown;
         await act(async () => {
             try {
                 await formApi.validateFields(["field"]);
@@ -422,6 +424,88 @@ describe("Form integration", () => {
         expect(validateError).toEqual({ field: "editor-change" });
         expect(errorValidator).toHaveBeenCalled();
         expect(container.textContent).toContain("error-level");
+
+        unmount();
+    });
+
+    it("passes accurate changed/allValues to onFieldValueChange", async () => {
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
+        const onFieldValueChange = jest.fn<(changed: unknown, allValues: unknown) => Promise<void>>(async () => {});
+
+        const Demo = () => {
+            const [form] = useForm<TestRecord>();
+            formApi = form;
+
+            return (
+                <Form
+                    form={form}
+                    defaultValue={{ user: { name: "Alice" }, age: "18" }}
+                    onFieldValueChange={onFieldValueChange}
+                >
+                    <Item name={["user", "name"]}>
+                        <InputEditor />
+                    </Item>
+                    <Item name="age">
+                        <InputEditor />
+                    </Item>
+                </Form>
+            );
+        };
+
+        const { unmount } = render(<Demo />);
+        await flush();
+
+        onFieldValueChange.mockClear();
+
+        act(() => {
+            formApi.setFieldValue(["user", "name"], "Bob");
+        });
+        await flush();
+
+        expect(onFieldValueChange).toHaveBeenCalledTimes(1);
+        expect(onFieldValueChange).toHaveBeenLastCalledWith(
+            {
+                name: ["user", "name"],
+                value: "Bob",
+            },
+            {
+                user: { name: "Bob" },
+                age: "18",
+            }
+        );
+
+        unmount();
+    });
+
+    it("clones input object in setFieldsValue to avoid external mutation leaking", async () => {
+        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
+
+        const Demo = () => {
+            const [form] = useForm<TestRecord>();
+            formApi = form;
+
+            return (
+                <Form form={form} defaultValue={{ profile: { nick: "init" } }}>
+                    <Item name={["profile", "nick"]}>
+                        <InputEditor />
+                    </Item>
+                </Form>
+            );
+        };
+
+        const { unmount } = render(<Demo />);
+        await flush();
+
+        const payload = { profile: { nick: "safe" } };
+        act(() => {
+            formApi.setFieldsValue(payload);
+        });
+        await flush();
+
+        payload.profile.nick = "mutated";
+
+        expect(formApi.getFieldValue(["profile", "nick"])).toBe("safe");
+        expect(formApi.getFieldsValue()).toEqual({ profile: { nick: "safe" } });
 
         unmount();
     });

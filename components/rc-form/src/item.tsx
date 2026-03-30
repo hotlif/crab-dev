@@ -10,16 +10,15 @@ import {
 } from "react";
 import { css, cx } from "@linaria/core";
 
-import { type FormItemEditor, NamePath, Rule, RuleType, ValidateState } from "./types";
-import useFormContext from "./hooks/useFormContext";
-import { MessageEnum } from "./bus";
+import { type FormItemEditor, NamePath, Rule, RuleType, ValidateState } from "./types.js";
+import useFormContext from "./hooks/useFormContext.js";
+import { MessageEnum } from "./bus.js";
 import {
-    setRecordValue,
     getRecordValue,
     equalsNamePath
-} from "./util";
+} from "./util.js";
 
-export interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
     /**
      * 是否隐藏字段 
@@ -52,7 +51,7 @@ export interface FormItem extends Omit<HTMLAttributes<HTMLDivElement>, "children
     children?: ReactElement<FormItemEditor>
 }
 
-const FormItem: FC<FormItem> = ({
+const FormItemComponent: FC<FormItemProps> = ({
     className,
     hidden,
     label,
@@ -69,7 +68,7 @@ const FormItem: FC<FormItem> = ({
     } = useFormContext();
 
     // 实际上存储的值
-    const [value, setValue] = useState<any>();
+    const [value, setValue] = useState<unknown>();
     // 校验状态
     const [validateState, setValidateState] = useState<ValidateState>(ValidateState.DEFAULT);
     // 校验消息
@@ -140,7 +139,7 @@ const FormItem: FC<FormItem> = ({
                     ...props,
                     value,
                     validateState,
-                    onChange: (newValue: any) => {
+                    onChange: (newValue: unknown) => {
                         setValue(newValue)
                         setValidateMessage("");
                         eventBus?.dispatch({
@@ -168,7 +167,7 @@ const FormItem: FC<FormItem> = ({
     useEffect(() => {
         const onSendToChangeItemValue = (param: {
             name: NamePath,
-            value: any
+            value: unknown
         }) => {
             if (equalsNamePath(param.name, name)) {
                 setValue(param.value);
@@ -238,7 +237,7 @@ const FormItem: FC<FormItem> = ({
         }
         eventBus?.subscribe(parentReadySubscriber)
 
-        const onChangeValues = (values: any) => {
+        const onChangeValues = (values: Record<string, unknown>) => {
             const newValue = getRecordValue(values, name);
             setValue(newValue);
         }
@@ -275,4 +274,6 @@ const FormItem: FC<FormItem> = ({
     )
 }
 
-export default FormItem;
+export type FormItem = FormItemProps;
+
+export default FormItemComponent;

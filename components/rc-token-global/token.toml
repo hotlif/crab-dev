@@ -241,15 +241,16 @@ opacity.100 = "1"
 
 
 # ─── 层级 · Z-Index ─────────────────────────────────────────────────────────
-# 命名层级刻度，值之间保留 100 间隔便于插入自定义层
-# 消费者为 Layer 2 Semantic Token
+# 纯数字刻度，与间距 / 圆角保持统一命名风格
+# 语义名称（dropdown、dialog 等）由 Layer 2 定义
+# 值之间保留 100 间隔便于插入自定义层
 
-z.base     = "0"
-z.raised   = "1"
-z.dropdown = "1000"
-z.sticky   = "1100"
-z.overlay  = "1300"
-z.dialog   = "1400"
-z.popover  = "1500"
-z.toast    = "1600"
-z.tooltip  = "1700"
+z-index.0  = "0"
+z-index.1  = "1"
+z-index.10 = "1000"
+z-index.20 = "1100"
+z-index.30 = "1200"
+z-index.40 = "1300"
+z-index.50 = "1400"
+z-index.60 = "1500"
+z-index.70 = "1600"

@@ -1,9 +1,9 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container"
 import type { FC, HTMLAttributes } from "react";
-import ColorPickerInput from "./colorPickerInput";
-import ColorPickerOverlay from "./colorPickerOverlay";
-import type { OKLCHValue } from "../panels/colorPickerPanel";
-import type { Locale } from "../types";
+import ColorPickerInput from "./colorPickerInput.js";
+import ColorPickerOverlay from "./colorPickerOverlay.js";
+import type { OKLCHValue } from "../panels/colorPickerPanel.js";
+import type { Locale } from "../types.js";
 
 
 export interface ColorPickerProps extends Omit<HTMLAttributes<HTMLInputElement>, "onValueChange"> {

@@ -1,9 +1,9 @@
 import { type FC, useState } from "react";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcButton from "@crab-dev/rc-button";
-import ColorPickerPanel, { type ColorPickerPanelProps, type OKLCHValue} from "../panels/colorPickerPanel"
+import ColorPickerPanel, { type ColorPickerPanelProps, type OKLCHValue} from "../panels/colorPickerPanel.js"
 import { css } from "@linaria/core";
-import { Locale } from "../types";
+import { Locale } from "../types.js";
 
 interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "onValueChange" | "locale"> {
     locale?: Locale;

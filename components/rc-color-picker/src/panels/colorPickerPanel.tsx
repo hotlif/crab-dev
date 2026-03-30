@@ -1,8 +1,8 @@
 import { css } from "@linaria/core";
 import RcSlider, { TokenVars } from "@crab-dev/rc-slider";
 import { type FC, type HTMLAttributes } from "react";
-import token from "../token"
-import { type ColorPickerPanelLocale } from "../types";
+import token from "../token.js"
+import { type ColorPickerPanelLocale } from "../types.js";
 
 
 export interface ColorPickerPanelProps extends HTMLAttributes<HTMLDivElement> {

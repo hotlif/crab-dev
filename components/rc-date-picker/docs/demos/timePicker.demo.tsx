@@ -6,7 +6,7 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import TimePicker from "../../src/timePicker/timePicker";
+import TimePicker from "../../src/timePicker/timePicker.js";
 import type { TimePickerPanelProps } from "../../src/panels/timePickerPanel";
 
 

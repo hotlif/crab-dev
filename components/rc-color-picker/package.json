@@ -27,6 +27,7 @@
         "@crab-dev/packify": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-jest-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",

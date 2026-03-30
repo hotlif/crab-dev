@@ -1,33 +1,36 @@
 [build]
 output = "./src/token.ts"
 prefix = "date-picker"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-selected.background.color = "oklch(0.2855 0.0113 271)"
-selected.text.color = "oklch(1 0 0)"
-cell.background.color-hover = "oklch(0.2855 0.0113 271 / 75%)"
-cell.text.color-hover = "oklch(1 0 0)"
+selected.background.color = "$ref(color.brand.primary)"
+selected.text.color = "$ref(color.text.on-brand)"
+cell.background.color-hover = "$ref(color.background.hover-subtle)"
+cell.text.color-hover = "$ref(color.text.primary)"
 
-header.padding = "16px 8px"
+header.padding = "$ref(space.section-gap) $ref(space.component-gap)"
 header.cell.height = "40px"
-header.font.size = "12px"
+header.font.size = "$ref(font.size.caption)"
 header.font.weight = "400"
 
 cell.padding = "3px 4px"
-cell.border.radius = "4px"
+cell.border.radius = "$ref(radius.sm)"
 cell.content.size = "24px"
-cell.font.size = "14px"
+cell.font.size = "$ref(font.size.body)"
 cell.font.weight = "400"
-cell.transition = "background-color 0.2s, color 0.2s"
+cell.transition = "$ref(motion.fade)"
 
-action.bar.margin.top = "0.5rem"
-action.bar.gap = "0.5rem"
+action.bar.margin.top = "$ref(space.component-gap)"
+action.bar.gap = "$ref(space.component-gap)"
 
-panel.font.size = "14px"
+panel.font.size = "$ref(font.size.body)"
 timezone.font.size = "10px"
 
-opacity.out-of-range = "0.3"
-opacity.icon = "0.5"
-opacity.icon-hover = "0.8"
-opacity.timezone = "0.6"
+opacity.out-of-range = "$ref(opacity.disabled)"
+opacity.icon = "$ref(opacity.secondary)"
+opacity.icon-hover = "$ref(opacity.hover)"
+opacity.timezone = "$ref(opacity.tertiary)"

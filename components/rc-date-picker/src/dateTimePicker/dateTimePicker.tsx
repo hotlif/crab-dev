@@ -1,14 +1,14 @@
 import { useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
-import { type LineEditProps } from "@crab-dev/rc-line-edit"
-import { formatTemporal } from "../util"
-import DateTimePickerInput from "./dateTimePickerInput";
-import DateTimePickerOverlay from "./dateTimePickerOverlay";
-import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel"
-import type { DatePickerPanelInstance } from '../panels/datePickerPanel';
-import { TimePickerPanelProps } from '../panels/timePickerPanel';
+import { type LineEditProps } from "@crab-dev/rc-line-edit";
 
-export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange'> {
+import { formatTemporal } from "../util.js"
+import DateTimePickerInput from "./dateTimePickerInput.js";
+import DateTimePickerOverlay from "./dateTimePickerOverlay.js";
+import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel.js"
+import type { DatePickerPanelInstance } from '../panels/datePickerPanel.js';
+
+export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange' | 'value'> {
 
     /**
      * 大小
@@ -38,29 +38,28 @@ export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'sel
     /**
      * 日期值
      */
-    value: Temporal.ZonedDateTime | null;
+    value?: Temporal.ZonedDateTime | null;
 
     /**
      * 改变日期的时候触发的事件
      */
-    onValueChange?: (value: Temporal.ZonedDateTime) => void;
+    onValueChange?: (value: Temporal.ZonedDateTime | null) => void;
 
     /**
      * 自定义显示的日期字符串
      */
-    renderDisplayString?: (value: Temporal.ZonedDateTime) => string;
+    renderDisplayString?: (value?: Temporal.ZonedDateTime | null) => string;
 }
 
 
 const DateTimePicker: FC<DateTimePickerProps> = ({
     value,
-    onValueChange,
+    onValueChange = () => {},
     timeZone,
     weekStartDay,
     locale,
     range,
-    renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd HH:mm:ss"),
-    className,
+    renderDisplayString = (value) => value ? formatTemporal(value, "yyyy-MM-dd HH:mm:ss") : "",
     ...restProps
 }) => {
 
@@ -80,12 +79,13 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
                     onValueChange={onValueChange}
                     selectValues={selectValues}
                     onSelectValuesChange={setSelectValues}
-                    instance={dateTimePickerPanelInstance}                />
+                    instance={dateTimePickerPanelInstance}
+                />
             )}
         >
             <DateTimePickerInput
                 value={renderDisplayString(value)}
-                onChange={onValueChange}
+                onValueChange={onValueChange}
                 instance={dateTimePickerPanelInstance}
                 {...restProps}
             />

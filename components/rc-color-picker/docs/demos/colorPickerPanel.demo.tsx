@@ -5,7 +5,7 @@
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import ColorPickerPanel from "../../src/panels/colorPickerPanel";
+import ColorPickerPanel from "../../src/panels/colorPickerPanel.js";
 
 
 const SizeDemo = () => {

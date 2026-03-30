@@ -76,7 +76,7 @@ const token = {
                 'radius': `var(${vars['size.large.border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`
             },
             'font': {
-                'size': `var(${vars['size.large.font.size']}, 18px)`
+                'size': `var(${vars['size.large.font.size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-lg, 18px)))`
             }
         },
         'middle': {
@@ -87,7 +87,7 @@ const token = {
                 'radius': `var(${vars['size.middle.border.radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`
             },
             'font': {
-                'size': `var(${vars['size.middle.font.size']}, 14px)`
+                'size': `var(${vars['size.middle.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
             }
         },
         'small': {
@@ -98,7 +98,7 @@ const token = {
                 'radius': `var(${vars['size.small.border.radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`
             },
             'font': {
-                'size': `var(${vars['size.small.font.size']}, 14px)`
+                'size': `var(${vars['size.small.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
             }
         }
     },

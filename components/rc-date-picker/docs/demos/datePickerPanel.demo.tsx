@@ -3,7 +3,7 @@
  * description = "基础的日期选择面板组件示例。"
  */
 
-import DatePickerPanel from "../../src/panels/datePickerPanel";
+import DatePickerPanel from "../../src/panels/datePickerPanel.js";
 
 
 const now = Temporal.Now.zonedDateTimeISO();

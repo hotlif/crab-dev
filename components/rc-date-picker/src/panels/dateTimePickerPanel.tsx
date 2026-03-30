@@ -1,8 +1,8 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import { css } from "@linaria/core";
 
-import DatePickerPanel, { type DatePickerPanelProps } from "./datePickerPanel";
-import TimePickerPanel, { type TimePickerPanelProps } from "./timePickerPanel";
+import DatePickerPanel, { type DatePickerPanelProps } from "./datePickerPanel.js";
+import TimePickerPanel, { type TimePickerPanelProps } from "./timePickerPanel.js";
 
 
 export interface DateTimePickerPanelProps extends DatePickerPanelProps {

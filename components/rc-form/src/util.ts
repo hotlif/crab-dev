@@ -1,31 +1,50 @@
-import { type NamePath } from "./types";
+import { type NamePath } from "./types.js";
 
-export const setRecordValue = (formRecord: any, name: NamePath, value: any) => {
+type DataRecord = Record<string, unknown>;
+
+export const setRecordValue = <T extends object>(formRecord: T, name: NamePath, value: unknown) => {
     const path: string[] = Array.isArray(name) ? name : [name];
-    if (path.length === 0) return;
-    path.reduce((acc: any, key: string, index: number) => {
+    if (path.length === 0) {
+        return;
+    }
+
+    let current: DataRecord = formRecord as DataRecord;
+    for (let index = 0; index < path.length; index += 1) {
+        const key = path[index];
+
         if (index === path.length - 1) {
-            acc[key] = value;
-            return acc;
+            current[key] = value;
+            return;
         }
-        if (acc[key] == null || typeof acc[key] !== 'object') {
-            acc[key] = {};
+
+        const next = current[key];
+        if (typeof next !== "object" || next == null || Array.isArray(next)) {
+            const nextRecord: DataRecord = {};
+            current[key] = nextRecord;
+            current = nextRecord;
+            continue;
         }
-        return acc[key];
-    }, formRecord);
+
+        current = next as DataRecord;
+    }
 }
 
-export const getRecordValue = (formRecord: any, name: NamePath) => {
+export const getRecordValue = <T extends object>(formRecord: T | null | undefined, name: NamePath) => {
     if (formRecord == null) {
         return undefined;
     }
+
     const path: string[] = Array.isArray(name) ? name : [name];
-    return path.reduce((acc: any, key: string) => {
-        if (acc == null) {
+    let current: unknown = formRecord;
+
+    for (const key of path) {
+        if (typeof current !== "object" || current == null) {
             return undefined;
         }
-        return acc[key];
-    }, formRecord);
+        current = (current as DataRecord)[key];
+    }
+
+    return current;
 }
 
 export const equalsNamePath = (name: NamePath, newName: NamePath) => {

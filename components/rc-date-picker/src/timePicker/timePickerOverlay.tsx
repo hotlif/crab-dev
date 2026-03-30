@@ -1,10 +1,10 @@
 import { useState, type FC } from "react";
-import TimePickerPanel, { type TimePickerPanelProps } from "../panels/timePickerPanel";
 import { css } from "@linaria/core";
-import RcButton from "@crab-dev/rc-button"
-
-import token from "../token";
+import RcButton from "@crab-dev/rc-button";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
+
+import token from "../token.js";
+import TimePickerPanel, { type TimePickerPanelProps } from "../panels/timePickerPanel.js";
 
 
 interface TimePickerOverlayProps extends TimePickerPanelProps {
@@ -15,7 +15,6 @@ interface TimePickerOverlayProps extends TimePickerPanelProps {
 const TimePickerOverlay: FC<TimePickerOverlayProps> = ({
     value,
     onValueChange,
-    onSelectValuesChange,
     ...restProps
 }) => {
     const [selectValues, setSelectValues] = useState<TimePickerPanelProps["value"]>(value);

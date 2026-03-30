@@ -3,16 +3,17 @@ import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@linaria/core";
 import { FC, RefObject, useEffect, useRef, useState } from "react";
 
-import { Calendar, XCircleFill } from '../icons';
-import token from '../token';
-import { DatePickerPanelInstance } from "../panels/datePickerPanel";
+import { Calendar, XCircleFill } from '../icons.js';
+import token from '../token.js';
+import type { DatePickerPanelInstance } from "../panels/datePickerPanel.js";
+import type { DateTimePickerProps } from "./dateTimePicker.js";
 
 interface DatePickerInputProps {
     
     /**
      * 改变值值触发的事件
      */
-    onChange?: (value: Temporal.ZonedDateTime | null) => void;
+    onValueChange?: DateTimePickerProps["onValueChange"];
 
     /**
      * 输入的值信息
@@ -43,7 +44,7 @@ const iconStyle = css`
 
 const DatePickerInput: FC<DatePickerInputProps> = ({
     value = "",
-    onChange,
+    onValueChange,
     instance,
     ...restProps
 }) => {
@@ -83,7 +84,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
                     className={iconStyle}
                     onMouseDown={(e) => {
                         e.preventDefault();
-                        onChange?.(null);
+                        onValueChange?.(null);
                     }}
                 />
             )

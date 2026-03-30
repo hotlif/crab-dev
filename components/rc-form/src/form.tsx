@@ -12,15 +12,15 @@ import {
     NamePath,
     type FormInstance,
     type WrapperInstance
-} from "./types";
-import FormContext from "./context";
-import EventBus, { MessageEnum } from "./bus";
+} from "./types.js";
+import FormContext from "./context.js";
+import EventBus, { MessageEnum } from "./bus.js";
 import {
     setRecordValue,
     getRecordValue,
-} from "./util";
+} from "./util.js";
 
-export interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture" | "defaultValue"> {
+export interface FormProps<T extends Record<string, unknown>> extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "onSubmitCapture" | "defaultValue"> {
     
     /**
      * 设置 Form 实例, 以便后面调用 Form 的方法
@@ -59,7 +59,7 @@ export interface FormProps<T extends Record<string, any>> extends Omit<FormHTMLA
     ) => Promise<void>
 }
 
-function Form<T extends Record<string, any>>({
+function Form<T extends Record<string, unknown>>({
     className,
     form,
     defaultValue = {} as T,
@@ -76,7 +76,7 @@ function Form<T extends Record<string, any>>({
     const formRecordRef = useRef<T>({} as T);
 
     const eventBus = useMemo(() => {
-       return new EventBus();
+        return new EventBus();
     }, [])
 
     const cloneRecord = (value: T) => {
@@ -96,7 +96,7 @@ function Form<T extends Record<string, any>>({
             if (value.type === MessageEnum.TRIGGER_ITEM_VERIFICATION) {
                 try {
                     await value.ring(fields);
-                } catch (_error) {
+                } catch {
                     result = false;
                 }
             }
@@ -127,9 +127,9 @@ function Form<T extends Record<string, any>>({
             type: MessageEnum.ON_PARENT_READY,
         });
 
-        const formWrapper: WrapperInstance<T> = form as any;
+        const formWrapper = form as WrapperInstance<T> | undefined;
 
-        const setFieldValue = (name: NamePath, value: any) => {
+        const setFieldValue = (name: NamePath, value: unknown) => {
             setRecordValue(formRecordRef.current, name, value)
             eventBus.dispatch({
                 type: MessageEnum.SEND_TO_CHAGE_ITEM_VALUE,

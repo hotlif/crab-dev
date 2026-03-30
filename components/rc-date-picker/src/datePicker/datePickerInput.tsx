@@ -3,9 +3,9 @@ import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@linaria/core";
 import { FC, RefObject, useEffect, useRef, useState } from "react";
 
-import { Calendar, XCircleFill } from '../icons';
-import token from '../token';
-import { DatePickerPanelInstance } from "../panels/datePickerPanel";
+import { Calendar, XCircleFill } from '../icons.js';
+import token from '../token.js';
+import { DatePickerPanelInstance } from "../panels/datePickerPanel.js";
 
 export interface DatePickerInputProps {
     

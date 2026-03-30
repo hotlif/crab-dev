@@ -1,5 +1,6 @@
 import { css } from '@linaria/core';
-import token from "../token";
+
+import token from "../token.js";
 
 export const selectStyle = css`
     background-color: ${token.selected.background.color};

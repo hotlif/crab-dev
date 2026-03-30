@@ -1,10 +1,10 @@
 import { useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
-import { formatTemporal } from "../util"
-import DatePickerInput, { DatePickerInputProps } from "./datePickerInput";
-import DatePickerOverlay from "./datePickerOverlay";
-import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel"
+import { formatTemporal } from "../util.js"
+import DatePickerInput, { DatePickerInputProps } from "./datePickerInput.js";
+import DatePickerOverlay from "./datePickerOverlay.js";
+import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
 
 export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
 
@@ -58,7 +58,6 @@ const DatePicker: FC<DatePickerProps> = ({
     locale,
     range,
     renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd HH:mm:ss"),
-    className,
     ...restProps
 }) => {
 

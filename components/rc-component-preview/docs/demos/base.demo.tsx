@@ -4,7 +4,7 @@
  * description = "生成一个预览组件的框"
  */
 
-import Preview from "../../src/preview";
+import Preview from "../../src/preview.js";
 
 const SizeDemo = () => {
     return (

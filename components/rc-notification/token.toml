@@ -1,22 +1,25 @@
 [build]
 output = "./src/token.ts"
 prefix = "notification"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
 
-background.color = "white"
-text.color = "rgba(0,0,0,0.88)"
-padding = "20px 24px"
-border.radius = "8px"
+background.color = "$ref(color.background.elevated)"
+text.color = "$ref(color.text.primary)"
+padding = "$ref(space.card-padding) $ref(space.dialog-padding)"
+border.radius = "$ref(radius.lg)"
 
-title.margin.bottom = "10px"
-title.font.size = "16px"
+title.margin.bottom = "$ref(space.component-gap)"
+title.font.size = "$ref(font.size.subhead)"
 title.line.height = "1.5"
 
-content.font.size = "14px"
+content.font.size = "$ref(font.size.body)"
 
-progress.start.color = "#22c55e"
-progress.end.color = "#16a34a"
+progress.start.color = "$ref(color.feedback.success)"
+progress.end.color = "$ref(color.feedback.success)"
 progress.height = "3px"
 
-close.opacity = "0.7"
+close.opacity = "$ref(opacity.tertiary)"

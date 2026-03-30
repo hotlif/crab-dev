@@ -1,7 +1,7 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css } from "@linaria/core";
 import type { FC, HTMLAttributes } from "react";
-import { OKLCHValue } from "../panels/colorPickerPanel";
+import { OKLCHValue } from "../panels/colorPickerPanel.js";
 
 interface ColorPickerInputProps extends HTMLAttributes<HTMLDivElement> {
     value: OKLCHValue
