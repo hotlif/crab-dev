@@ -8,6 +8,7 @@ const require = createRequire(import.meta.url);
 
 const config = {
     extensionsToTreatAsEsm: [".ts", ".tsx"],
+
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
@@ -30,9 +31,9 @@ const config = {
     coverageDirectory: "coverage",
 
     // An array of regexp pattern strings used to skip coverage collection
-    // coveragePathIgnorePatterns: [
-    //   "\\\\node_modules\\\\"
-    // ],
+    coveragePathIgnorePatterns: [
+      "\\\\node_modules\\\\"
+    ],
 
     // Indicates which provider should be used to instrument code for coverage
     // coverageProvider: "babel",
@@ -189,15 +190,10 @@ const config = {
                         require.resolve("@babel/preset-env"),
                         {
                             targets: "defaults",
+                            modules: false,
                         },
                     ],
                     require.resolve("@babel/preset-typescript"),
-                    [
-                        require.resolve("@babel/preset-react"),
-                        {
-                            runtime: "automatic",
-                        },
-                    ],
                 ],
             },
         ],
