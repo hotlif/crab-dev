@@ -13,6 +13,7 @@
         "standards/*",
         "toolbox/*",
         "components/*",
+        "site",
         "styleify"
     ],
     "devDependencies": {

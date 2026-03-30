@@ -87,6 +87,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:components/rc-virtual"\
     },\
     {\
+      "name": "@crab-dev/site",\
+      "reference": "workspace:site"\
+    },\
+    {\
       "name": "@crab-dev/standards-eslint-preset",\
       "reference": "workspace:standards/eslint-preset"\
     },\
@@ -123,7 +127,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/crustify", ["virtual:01a557b2a49286a52f730d0f4978082fca1ad296534fa79a4d6ef9efdd05487a5866c66061b782d6f0f2f06d0841038dbc9d3a39fa263141d36478ccd1bee9ab#workspace:toolbox/crustify", "workspace:toolbox/crustify"]],\
     ["@crab-dev/lignify", ["virtual:0601b4b96e3aa929e66a9af16faa9071f8bbf5f966c3cd7a509d844111c8c3405dcf756c86a7a09a452a3fbf5b90de12cb5dd66ea5091af0ca59f517c6982218#workspace:toolbox/lignify", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:toolbox/lignify", "virtual:9d57a936b3a0e517a536209c81c23001083692dc89172a0eebe2dae53ee996b53ea3b2edcab907faf2f5d3ada07a350aefbcab5a817dd228e18d666f27df05e0#workspace:toolbox/lignify", "workspace:toolbox/lignify"]],\
     ["@crab-dev/packify", ["workspace:toolbox/packify"]],\
-    ["@crab-dev/rc-app-main-layout", ["workspace:components/rc-app-main-layout"]],\
+    ["@crab-dev/rc-app-main-layout", ["virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-app-main-layout", "workspace:components/rc-app-main-layout"]],\
     ["@crab-dev/rc-button", ["workspace:components/rc-button"]],\
     ["@crab-dev/rc-color-picker", ["workspace:components/rc-color-picker"]],\
     ["@crab-dev/rc-component-preview", ["workspace:components/rc-component-preview"]],\
@@ -139,8 +143,9 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-table", ["workspace:components/rc-table"]],\
     ["@crab-dev/rc-token-global", ["workspace:components/rc-token-global"]],\
     ["@crab-dev/rc-token-semantic", ["workspace:components/rc-token-semantic"]],\
-    ["@crab-dev/rc-tree", ["workspace:components/rc-tree"]],\
+    ["@crab-dev/rc-tree", ["virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-tree", "workspace:components/rc-tree"]],\
     ["@crab-dev/rc-virtual", ["workspace:components/rc-virtual"]],\
+    ["@crab-dev/site", ["workspace:site"]],\
     ["@crab-dev/standards-eslint-preset", ["virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/eslint-preset", "workspace:standards/eslint-preset"]],\
     ["@crab-dev/standards-jest-preset", ["virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/jest-preset", "virtual:1abaa915786cc59d70ad686f3f11ab51ca8a6d84abe496d908946b4aa4cad2eac91b06056e7789ba7a29720ca9a76014b335e55fb999a57526dcdcdb8a9ca1ed#workspace:standards/jest-preset", "workspace:standards/jest-preset"]],\
     ["@crab-dev/standards-typescript-preset", ["workspace:standards/typescript-preset"]],\
@@ -4589,6 +4594,40 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-app-main-layout", [\
+      ["virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-app-main-layout", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-app-main-layout-virtual-09c9aaf7a7/1/components/rc-app-main-layout/",\
+        "packageDependencies": [\
+          ["@crab-dev/lignify", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:toolbox/lignify"],\
+          ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-app-main-layout", "virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-app-main-layout"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-menu", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:components/rc-menu"],\
+          ["@crab-dev/standards-eslint-preset", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/eslint-preset"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:3.1.1"],\
+          ["@react-docgen/cli", "npm:3.0.6"],\
+          ["@types/node", "npm:25.5.0"],\
+          ["@types/react", "npm:19.2.14"],\
+          ["@types/react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.3"],\
+          ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.1.0"],\
+          ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
+          ["globals", "npm:17.4.0"],\
+          ["lucide-react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:1.7.0"],\
+          ["react", "npm:19.2.4"],\
+          ["react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.4"],\
+          ["react-markdown", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:10.1.0"],\
+          ["react-router", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:7.13.2"],\
+          ["react-syntax-highlighter", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:16.1.1"],\
+          ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"],\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.57.2"]\
+        ],\
+        "packagePeers": [\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["workspace:components/rc-app-main-layout", {\
         "packageLocation": "./components/rc-app-main-layout/",\
         "packageDependencies": [\
@@ -5262,6 +5301,47 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-tree", [\
+      ["virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-tree", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-tree-virtual-3dc383eba9/1/components/rc-tree/",\
+        "packageDependencies": [\
+          ["@crab-dev/lignify", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:toolbox/lignify"],\
+          ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
+          ["@crab-dev/rc-menu", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:components/rc-menu"],\
+          ["@crab-dev/rc-tree", "virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-tree"],\
+          ["@crab-dev/rc-virtual", "workspace:components/rc-virtual"],\
+          ["@crab-dev/standards-eslint-preset", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/eslint-preset"],\
+          ["@crab-dev/standards-jest-preset", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/jest-preset"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@dnd-kit/core", "virtual:7e2f05b4eeb329fc930ede645085a46e1fe26e9c65e9d09ec0668344702f9c413e5f415a90ca558bf5ab42b6faaed6b6bb632d15e5f13e960a652d7df58c9133#npm:6.3.1"],\
+          ["@dnd-kit/sortable", "virtual:7e2f05b4eeb329fc930ede645085a46e1fe26e9c65e9d09ec0668344702f9c413e5f415a90ca558bf5ab42b6faaed6b6bb632d15e5f13e960a652d7df58c9133#npm:10.0.0"],\
+          ["@jest/globals", "npm:30.3.0"],\
+          ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:3.1.1"],\
+          ["@testing-library/dom", "npm:10.4.1"],\
+          ["@testing-library/react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:16.3.2"],\
+          ["@types/node", "npm:25.5.0"],\
+          ["@types/react", "npm:19.2.14"],\
+          ["@types/react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.3"],\
+          ["decimal.js", "npm:10.6.0"],\
+          ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.1.0"],\
+          ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
+          ["globals", "npm:17.4.0"],\
+          ["jest", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:30.3.0"],\
+          ["jest-environment-jsdom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:30.3.0"],\
+          ["react", "npm:19.2.4"],\
+          ["react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.4"],\
+          ["react-router", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:7.13.2"],\
+          ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"],\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.57.2"]\
+        ],\
+        "packagePeers": [\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["workspace:components/rc-tree", {\
         "packageLocation": "./components/rc-tree/",\
         "packageDependencies": [\
@@ -5327,6 +5407,43 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.4"],\
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"],\
           ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.57.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@crab-dev/site", [\
+      ["workspace:site", {\
+        "packageLocation": "./site/",\
+        "packageDependencies": [\
+          ["@crab-dev/lignify", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:toolbox/lignify"],\
+          ["@crab-dev/rc-app-main-layout", "virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-app-main-layout"],\
+          ["@crab-dev/rc-button", "workspace:components/rc-button"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-date-picker", "workspace:components/rc-date-picker"],\
+          ["@crab-dev/rc-dialog", "workspace:components/rc-dialog"],\
+          ["@crab-dev/rc-dropdown-container", "workspace:components/rc-dropdown-container"],\
+          ["@crab-dev/rc-form", "workspace:components/rc-form"],\
+          ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
+          ["@crab-dev/rc-menu", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:components/rc-menu"],\
+          ["@crab-dev/rc-notification", "workspace:components/rc-notification"],\
+          ["@crab-dev/rc-slider", "workspace:components/rc-slider"],\
+          ["@crab-dev/rc-table", "workspace:components/rc-table"],\
+          ["@crab-dev/rc-token-global", "workspace:components/rc-token-global"],\
+          ["@crab-dev/rc-token-semantic", "workspace:components/rc-token-semantic"],\
+          ["@crab-dev/rc-tree", "virtual:6ad6ca1ff70f89eeae70c924d3a2bee6f93abe7201081b9adda56449e11b3e996bc033eccc46030876bad8eeb793024f3cc96af501b7b4a870b46f11d5055c6a#workspace:components/rc-tree"],\
+          ["@crab-dev/rc-virtual", "workspace:components/rc-virtual"],\
+          ["@crab-dev/site", "workspace:site"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@faker-js/faker", "npm:10.4.0"],\
+          ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:3.1.1"],\
+          ["@types/react", "npm:19.2.14"],\
+          ["@types/react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.3"],\
+          ["lucide-react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:1.7.0"],\
+          ["react", "npm:19.2.4"],\
+          ["react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.4"],\
+          ["react-router", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:7.13.2"],\
+          ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\
         ],\
         "linkType": "SOFT"\
       }]\

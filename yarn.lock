@@ -1622,7 +1622,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout":
+"@crab-dev/rc-app-main-layout@workspace:^, @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout"
   dependencies:
@@ -1764,7 +1764,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-date-picker@workspace:components/rc-date-picker":
+"@crab-dev/rc-date-picker@workspace:^, @crab-dev/rc-date-picker@workspace:components/rc-date-picker":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-date-picker@workspace:components/rc-date-picker"
   dependencies:
@@ -1804,7 +1804,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-dialog@workspace:components/rc-dialog":
+"@crab-dev/rc-dialog@workspace:^, @crab-dev/rc-dialog@workspace:components/rc-dialog":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
   dependencies:
@@ -1884,7 +1884,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-form@workspace:components/rc-form":
+"@crab-dev/rc-form@workspace:^, @crab-dev/rc-form@workspace:components/rc-form":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-form@workspace:components/rc-form"
   dependencies:
@@ -2013,7 +2013,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-notification@workspace:components/rc-notification":
+"@crab-dev/rc-notification@workspace:^, @crab-dev/rc-notification@workspace:components/rc-notification":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-notification@workspace:components/rc-notification"
   dependencies:
@@ -2081,7 +2081,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-table@workspace:components/rc-table":
+"@crab-dev/rc-table@workspace:^, @crab-dev/rc-table@workspace:components/rc-table":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-table@workspace:components/rc-table"
   dependencies:
@@ -2191,7 +2191,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tree@workspace:components/rc-tree":
+"@crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tree@workspace:components/rc-tree"
   dependencies:
@@ -2257,6 +2257,41 @@ __metadata:
     react-dom: "npm:^19.2.4"
     typescript: "npm:^6.0.2"
     typescript-eslint: "npm:^8.57.2"
+  languageName: unknown
+  linkType: soft
+
+"@crab-dev/site@workspace:site":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/site@workspace:site"
+  dependencies:
+    "@crab-dev/lignify": "workspace:^"
+    "@crab-dev/rc-app-main-layout": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-date-picker": "workspace:^"
+    "@crab-dev/rc-dialog": "workspace:^"
+    "@crab-dev/rc-dropdown-container": "workspace:^"
+    "@crab-dev/rc-form": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-notification": "workspace:^"
+    "@crab-dev/rc-slider": "workspace:^"
+    "@crab-dev/rc-table": "workspace:^"
+    "@crab-dev/rc-token-global": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/rc-tree": "workspace:^"
+    "@crab-dev/rc-virtual": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@faker-js/faker": "npm:^10.4.0"
+    "@linaria/core": "npm:^7.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@types/react": "npm:^19.2.14"
+    "@types/react-dom": "npm:^19.2.3"
+    lucide-react: "npm:^1.7.0"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.4"
+    react-router: "npm:^7.13.2"
+    typescript: "npm:^6.0.2"
   languageName: unknown
   linkType: soft
 

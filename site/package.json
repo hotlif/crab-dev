@@ -1,0 +1,46 @@
+{
+    "name": "@crab-dev/site",
+    "private": true,
+    "version": "0.0.1",
+    "packageManager": "yarn@4.13.0",
+    "type": "module",
+    "scripts": {
+        "start": "lignify run-task app:dev",
+        "build": "lignify run-task app:build"
+    },
+    "devDependencies": {
+        "@crab-dev/lignify": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@linaria/core": "^7.0.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "typescript": "^6.0.2"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "dependencies": { 
+        "@mdx-js/react": "^3.1.1",
+        "@faker-js/faker": "^10.4.0",
+        "@crab-dev/rc-app-main-layout": "workspace:^",
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/rc-date-picker": "workspace:^",
+        "@crab-dev/rc-dialog": "workspace:^",
+        "@crab-dev/rc-dropdown-container": "workspace:^",
+        "@crab-dev/rc-form": "workspace:^",
+        "@crab-dev/rc-line-edit": "workspace:^",
+        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-notification": "workspace:^",
+        "@crab-dev/rc-slider": "workspace:^",
+        "@crab-dev/rc-table": "workspace:^",
+        "@crab-dev/rc-token-global": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/rc-tree": "workspace:^",
+        "@crab-dev/rc-virtual": "workspace:^",
+        "lucide-react": "^1.7.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-router": "^7.13.2"
+    }
+}
