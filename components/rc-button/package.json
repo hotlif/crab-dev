@@ -9,7 +9,7 @@
         "build:library": "packify build",
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-        "generate:docgen": "react-docgen ./src/button.tsx --out ./public/docgen.json",
+        "generate:docgen": "mkdir -p public && react-docgen ./src/button.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "check": "yarn eslint . && yarn prettier:check && yarn test",
