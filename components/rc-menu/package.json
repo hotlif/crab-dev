@@ -60,5 +60,12 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "nx": {
+        "targets": {
+            "build:library": {
+                "dependsOn": []
+            }
+        }
     }
 }

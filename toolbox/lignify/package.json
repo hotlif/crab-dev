@@ -56,5 +56,12 @@
         "@crab-dev/crustify": "workspace:^",
         "commander": "^14.0.3",
         "fs-extra": "^11.3.4"
+    },
+    "nx": {
+        "targets": {
+            "build:library": {
+                "dependsOn": []
+            }
+        }
     }
 }
