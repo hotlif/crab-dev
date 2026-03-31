@@ -1,0 +1,60 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+        "build:library": {
+            "dependsOn": ["^build:library"],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!docs/**/*",
+                "!coverage/**/*",
+                "!jest.config.mjs",
+                "!eslint.config.js"
+            ],
+            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        },
+        "test": {
+            "dependsOn": ["^build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["coverage/**"]
+        },
+        "eslint": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "../../standards/eslint-preset/**/*"
+            ],
+            "outputs": []
+        },
+        "generate:token": {
+            "inputs": ["token.toml"],
+            "outputs": ["src/token.ts"]
+        },
+        "@crab-dev/lignify#build:library": {
+            "dependsOn": ["@crab-dev/packify#build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["esm/**", "cjs/**", "declarations/**"]
+        },
+        "@crab-dev/rc-token-global#build:library": {
+            "dependsOn": ["@crab-dev/packify#build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        },
+        "@crab-dev/rc-token-semantic#build:library": {
+            "dependsOn": ["@crab-dev/rc-token-global#build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        },
+        "@crab-dev/rc-menu#build:library": {
+            "dependsOn": ["@crab-dev/packify#build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        },
+        "@crab-dev/rc-component-preview#build:library": {
+            "dependsOn": ["@crab-dev/packify#build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        }
+    }
+}

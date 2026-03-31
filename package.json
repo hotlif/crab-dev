@@ -4,10 +4,10 @@
   "packageManager": "yarn@4.13.0",
   "type": "module",
   "scripts": {
-    "build": "yarn workspace @crab-dev/packify build:library && nx run-many -t build:library",
-    "test": "nx run-many -t run test",
-    "eslint": "nx run-many -t run eslint",
-    "generate:token": "nx run-many -t run generate:token",
+    "build": "yarn workspace @crab-dev/packify build:library && turbo run build:library",
+    "test": "turbo run test",
+    "eslint": "turbo run eslint",
+    "generate:token": "turbo run generate:token",
     "prepare": "husky"
   },
   "workspaces": [
@@ -23,7 +23,7 @@
     "@types/node": "25.5.0",
     "eslint": "^10.1.0",
     "husky": "^9.1.7",
-    "nx": "22.6.3",
+    "turbo": "^2.5.4",
     "typescript": "^6.0.2"
   }
 }
