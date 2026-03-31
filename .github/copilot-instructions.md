@@ -10,7 +10,13 @@ Nx monorepo（基于 package.json 的项目推断，无自定义 Nx 插件），
 | `standards/` | 共享的 ESLint、Jest、TypeScript 预设 | `@crab-dev/standards-{name}` |
 | `toolbox/` | 内部构建/开发工具 | `@crab-dev/{tool-name}` |
 
-**运行环境：** Node ≥ 22，Yarn 4.13.0（Corepack），全局使用 `"type": "module"`。
+**运行环境：** Node ≥ 22，Yarn 4.13.0（Corepack，Plug'n'Play 模式），全局使用 `"type": "module"`。
+
+> **Yarn PnP 注意事项：**
+> - 依赖存储在 `.yarn/cache/` 的 zip 归档中，不使用 `node_modules`
+> - `.pnp.cjs` 是 PnP 运行时，必须提交到仓库
+> - 某些包（如含 ESM 的 `happy-dom`）可能无法从 zip 内正确加载，需在根 `package.json` 的 `dependenciesMeta` 中标记 `"unplugged": true`
+> - CI 中使用 `yarn install --immutable` 确保 lockfile 一致性
 
 **工具链：**
 
