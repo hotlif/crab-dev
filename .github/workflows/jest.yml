@@ -36,7 +36,7 @@ jobs:
     - name: Activate Yarn 4.13.0
       run: corepack prepare yarn@4.13.0 --activate
     - name: Install dependencies
-      run: yarn install --immutable
+      run: yarn install
     - name: Build the project
       run: yarn build
     - name: Run Jest Test
