@@ -33,94 +33,94 @@ interface VirtualItemParamType {
 }
 
 const clampToNonNegativeFinite = (value: number) => {
-	if (!Number.isFinite(value)) {
-		return 0;
-	}
-	return Math.max(0, value);
+    if (!Number.isFinite(value)) {
+        return 0;
+    }
+    return Math.max(0, value);
 };
 
 const normalizeTemplateSizes = (sizes: number[]) => {
-	return sizes.map(size => {
-		if (!Number.isFinite(size) || size < 0) {
-			return 0;
-		}
-		return size;
-	});
+    return sizes.map(size => {
+        if (!Number.isFinite(size) || size < 0) {
+            return 0;
+        }
+        return size;
+    });
 };
 
 const buildCumulativeEnds = (sizes: number[]) => {
-	const cumulativeEnds: number[] = [];
-	let accumulator = 0;
+    const cumulativeEnds: number[] = [];
+    let accumulator = 0;
 
-	sizes.forEach(size => {
-		accumulator += size;
-		cumulativeEnds.push(accumulator);
-	});
+    sizes.forEach(size => {
+        accumulator += size;
+        cumulativeEnds.push(accumulator);
+    });
 
-	return cumulativeEnds;
+    return cumulativeEnds;
 };
 
 const lowerBound = (sortedArray: number[], target: number) => {
-	let left = 0;
-	let right = sortedArray.length;
+    let left = 0;
+    let right = sortedArray.length;
 
-	while (left < right) {
-		const middle = (left + right) >>> 1;
-		if (sortedArray[middle] >= target) {
-			right = middle;
-		} else {
-			left = middle + 1;
-		}
-	}
+    while (left < right) {
+        const middle = (left + right) >>> 1;
+        if (sortedArray[middle] >= target) {
+            right = middle;
+        } else {
+            left = middle + 1;
+        }
+    }
 
-	return left;
+    return left;
 };
 
 const upperBound = (sortedArray: number[], target: number) => {
-	let left = 0;
-	let right = sortedArray.length;
+    let left = 0;
+    let right = sortedArray.length;
 
-	while (left < right) {
-		const middle = (left + right) >>> 1;
-		if (sortedArray[middle] > target) {
-			right = middle;
-		} else {
-			left = middle + 1;
-		}
-	}
+    while (left < right) {
+        const middle = (left + right) >>> 1;
+        if (sortedArray[middle] > target) {
+            right = middle;
+        } else {
+            left = middle + 1;
+        }
+    }
 
-	return left;
+    return left;
 };
 
 const getVisibleRangeByBinarySearch = (
-	sizes: number[],
-	viewportSize: number,
-	scrollPosition: number
+    sizes: number[],
+    viewportSize: number,
+    scrollPosition: number
 ): [number, number] => {
-	if (sizes.length === 0) {
-		return [0, 0];
-	}
+    if (sizes.length === 0) {
+        return [0, 0];
+    }
 
-	const normalizedViewportSize = clampToNonNegativeFinite(viewportSize);
-	const normalizedScrollPosition = clampToNonNegativeFinite(scrollPosition);
-	const cumulativeEnds = buildCumulativeEnds(sizes);
-	const maxIndex = sizes.length - 1;
+    const normalizedViewportSize = clampToNonNegativeFinite(viewportSize);
+    const normalizedScrollPosition = clampToNonNegativeFinite(scrollPosition);
+    const cumulativeEnds = buildCumulativeEnds(sizes);
+    const maxIndex = sizes.length - 1;
 
-	let start = upperBound(cumulativeEnds, normalizedScrollPosition);
-	if (start > maxIndex) {
-		start = maxIndex;
-	}
+    let start = upperBound(cumulativeEnds, normalizedScrollPosition);
+    if (start > maxIndex) {
+        start = maxIndex;
+    }
 
-	let end = lowerBound(cumulativeEnds, normalizedScrollPosition + normalizedViewportSize);
-	if (end > maxIndex) {
-		end = maxIndex;
-	}
+    let end = lowerBound(cumulativeEnds, normalizedScrollPosition + normalizedViewportSize);
+    if (end > maxIndex) {
+        end = maxIndex;
+    }
 
-	if (end < start) {
-		end = start;
-	}
+    if (end < start) {
+        end = start;
+    }
 
-	return [start, end];
+    return [start, end];
 };
 
 /**
@@ -129,36 +129,36 @@ const getVisibleRangeByBinarySearch = (
  *  - optimize 目前时间复杂度为 O(n) 需要优化为 O(log2n)
  */
 const useVirtualItemRange = ({
-	viewportHeight,
-	viewportWidth,
-	currentScrollPositionTop,
-	currentScrollPositionLeft,
-	gridTemplateColumns,
-	gridTemplateRows,
+    viewportHeight,
+    viewportWidth,
+    currentScrollPositionTop,
+    currentScrollPositionLeft,
+    gridTemplateColumns,
+    gridTemplateRows,
 }: VirtualItemParamType) => {
-	const normalizedGridTemplateColumns = normalizeTemplateSizes(gridTemplateColumns);
-	const normalizedGridTemplateRows = normalizeTemplateSizes(gridTemplateRows);
+    const normalizedGridTemplateColumns = normalizeTemplateSizes(gridTemplateColumns);
+    const normalizedGridTemplateRows = normalizeTemplateSizes(gridTemplateRows);
 
-	const getGridColumnsRangeIndex = (): [number, number] => {
-		return getVisibleRangeByBinarySearch(
-			normalizedGridTemplateColumns,
-			viewportWidth,
-			currentScrollPositionLeft
-		);
-	};
+    const getGridColumnsRangeIndex = (): [number, number] => {
+        return getVisibleRangeByBinarySearch(
+            normalizedGridTemplateColumns,
+            viewportWidth,
+            currentScrollPositionLeft
+        );
+    };
 
-	const getGridRowsRangeIndex = (): [number, number] => {
-		return getVisibleRangeByBinarySearch(
-			normalizedGridTemplateRows,
-			viewportHeight,
-			currentScrollPositionTop
-		);
-	};
+    const getGridRowsRangeIndex = (): [number, number] => {
+        return getVisibleRangeByBinarySearch(
+            normalizedGridTemplateRows,
+            viewportHeight,
+            currentScrollPositionTop
+        );
+    };
 
-	return {
-		rowRange: getGridRowsRangeIndex(),
-		columnRange: getGridColumnsRangeIndex()
-	};
+    return {
+        rowRange: getGridRowsRangeIndex(),
+        columnRange: getGridColumnsRangeIndex()
+    };
 };
 
 export default useVirtualItemRange;

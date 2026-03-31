@@ -2,10 +2,6 @@
     "extends": "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json",
     "compilerOptions": {
         "declaration": true, 
-        "declarationDir": "esm",
-        "types": [
-            "jest",
-            "@testing-library/jest-dom"
-        ]
+        "declarationDir": "esm"
     }
 }

@@ -1,9 +1,17 @@
 import { createRef } from "react";
-import { fireEvent, render, renderHook } from "@testing-library/react";
+import { cleanup, fireEvent, render, renderHook } from "@testing-library/react";
+import { afterEach, describe, it, expect, jest } from "@jest/globals";
 
-import ScrollBar, { useScrollbar } from "../scrollbar";
+import ScrollBar, { useScrollbar } from "../scrollbar.js";
+
+(
+    globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
+).IS_REACT_ACT_ENVIRONMENT = true;
 
 describe("ScrollBar", () => {
+    afterEach(() => {
+        cleanup();
+    });
     it("should create scrollbar ref via useScrollbar hook", () => {
         const { result } = renderHook(() => useScrollbar());
 

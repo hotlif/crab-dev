@@ -142,7 +142,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-tree", ["workspace:components/rc-tree"]],\
     ["@crab-dev/rc-virtual", ["workspace:components/rc-virtual"]],\
     ["@crab-dev/standards-eslint-preset", ["virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/eslint-preset", "workspace:standards/eslint-preset"]],\
-    ["@crab-dev/standards-jest-preset", ["virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/jest-preset", "virtual:1abaa915786cc59d70ad686f3f11ab51ca8a6d84abe496d908946b4aa4cad2eac91b06056e7789ba7a29720ca9a76014b335e55fb999a57526dcdcdb8a9ca1ed#workspace:standards/jest-preset", "workspace:standards/jest-preset"]],\
+    ["@crab-dev/standards-jest-preset", ["virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/jest-preset", "workspace:standards/jest-preset"]],\
     ["@crab-dev/standards-typescript-preset", ["workspace:standards/typescript-preset"]],\
     ["root-workspace-0b6124", ["workspace:."]]\
   ],\
@@ -165,15 +165,6 @@ const RAW_RUNTIME_STATE =
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\
         ],\
         "linkType": "SOFT"\
-      }]\
-    ]],\
-    ["@adobe/css-tools", [\
-      ["npm:4.4.4", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@adobe-css-tools-npm-4.4.4-a2900386bf-10c0.zip/node_modules/@adobe/css-tools/",\
-        "packageDependencies": [\
-          ["@adobe/css-tools", "npm:4.4.4"]\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["@arcanis/slice-ansi", [\
@@ -5307,17 +5298,20 @@ const RAW_RUNTIME_STATE =
       ["workspace:components/rc-virtual", {\
         "packageLocation": "./components/rc-virtual/",\
         "packageDependencies": [\
-          ["@crab-dev/crustify", "virtual:01a557b2a49286a52f730d0f4978082fca1ad296534fa79a4d6ef9efdd05487a5866c66061b782d6f0f2f06d0841038dbc9d3a39fa263141d36478ccd1bee9ab#workspace:toolbox/crustify"],\
+          ["@crab-dev/lignify", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-menu", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:components/rc-menu"],\
           ["@crab-dev/rc-virtual", "workspace:components/rc-virtual"],\
           ["@crab-dev/standards-eslint-preset", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/eslint-preset"],\
-          ["@crab-dev/standards-jest-preset", "virtual:1abaa915786cc59d70ad686f3f11ab51ca8a6d84abe496d908946b4aa4cad2eac91b06056e7789ba7a29720ca9a76014b335e55fb999a57526dcdcdb8a9ca1ed#workspace:standards/jest-preset"],\
+          ["@crab-dev/standards-jest-preset", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@jest/globals", "npm:30.3.0"],\
           ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:3.1.1"],\
+          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
-          ["@testing-library/jest-dom", "npm:6.9.1"],\
           ["@testing-library/react", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:16.3.2"],\
-          ["@types/jest", "npm:30.0.0"],\
           ["@types/node", "npm:25.5.0"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.3"],\
@@ -5328,6 +5322,7 @@ const RAW_RUNTIME_STATE =
           ["jest-environment-jsdom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:30.3.0"],\
           ["react", "npm:19.2.4"],\
           ["react-dom", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:19.2.4"],\
+          ["react-router", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:7.13.2"],\
           ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"],\
           ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.57.2"]\
         ],\
@@ -5388,27 +5383,6 @@ const RAW_RUNTIME_STATE =
           ["@babel/preset-typescript", "virtual:b9f3295da68b0ebcc9f313b5ccfda7c4bfe283def838c9e561f62437ea987b2829d46c2891e8f6fe3575daa8826f7a0a1870c8d134f4cb75b61e2be20f2ddc00#npm:7.28.5"],\
           ["@crab-dev/standards-jest-preset", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:standards/jest-preset"],\
           ["@types/jest", null],\
-          ["@types/node", "npm:25.5.0"],\
-          ["@yarnpkg/pnpify", "npm:4.1.6"],\
-          ["babel-jest", "virtual:57ddc297987046042e66a9f44e317d071d647740fd3ed6cd5f0d64dc6751a081b6cc298412600dc892475a20c8649ea2a613118461781450d52db26a007b013e#npm:30.3.0"],\
-          ["jest", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:30.3.0"],\
-          ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"]\
-        ],\
-        "packagePeers": [\
-          "@types/jest",\
-          "jest"\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:1abaa915786cc59d70ad686f3f11ab51ca8a6d84abe496d908946b4aa4cad2eac91b06056e7789ba7a29720ca9a76014b335e55fb999a57526dcdcdb8a9ca1ed#workspace:standards/jest-preset", {\
-        "packageLocation": "./.yarn/__virtual__/@crab-dev-standards-jest-preset-virtual-cc40f4795c/1/standards/jest-preset/",\
-        "packageDependencies": [\
-          ["@babel/core", "npm:7.29.0"],\
-          ["@babel/preset-env", "virtual:b9f3295da68b0ebcc9f313b5ccfda7c4bfe283def838c9e561f62437ea987b2829d46c2891e8f6fe3575daa8826f7a0a1870c8d134f4cb75b61e2be20f2ddc00#npm:7.29.2"],\
-          ["@babel/preset-react", "virtual:a9cb1e37e59dea53fc697c61ddf93b9dfeff9047ad03eefe874bf28e0033c2e08d67eddb3ded580bbb58cff3acb5f7fe3ed4d3fbfb1e46b7d88ff058a77cdc52#npm:7.28.5"],\
-          ["@babel/preset-typescript", "virtual:b9f3295da68b0ebcc9f313b5ccfda7c4bfe283def838c9e561f62437ea987b2829d46c2891e8f6fe3575daa8826f7a0a1870c8d134f4cb75b61e2be20f2ddc00#npm:7.28.5"],\
-          ["@crab-dev/standards-jest-preset", "virtual:1abaa915786cc59d70ad686f3f11ab51ca8a6d84abe496d908946b4aa4cad2eac91b06056e7789ba7a29720ca9a76014b335e55fb999a57526dcdcdb8a9ca1ed#workspace:standards/jest-preset"],\
-          ["@types/jest", "npm:30.0.0"],\
           ["@types/node", "npm:25.5.0"],\
           ["@yarnpkg/pnpify", "npm:4.1.6"],\
           ["babel-jest", "virtual:57ddc297987046042e66a9f44e317d071d647740fd3ed6cd5f0d64dc6751a081b6cc298412600dc892475a20c8649ea2a613118461781450d52db26a007b013e#npm:30.3.0"],\
@@ -8607,21 +8581,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@testing-library/jest-dom", [\
-      ["npm:6.9.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@testing-library-jest-dom-npm-6.9.1-125d97d1a5-10c0.zip/node_modules/@testing-library/jest-dom/",\
-        "packageDependencies": [\
-          ["@adobe/css-tools", "npm:4.4.4"],\
-          ["@testing-library/jest-dom", "npm:6.9.1"],\
-          ["aria-query", "npm:5.3.2"],\
-          ["css.escape", "npm:1.5.1"],\
-          ["dom-accessibility-api", "npm:0.6.3"],\
-          ["picocolors", "npm:1.1.1"],\
-          ["redent", "npm:3.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@testing-library/react", [\
       ["npm:16.3.2", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@testing-library-react-npm-16.3.2-67b0b894c8-10c0.zip/node_modules/@testing-library/react/",\
@@ -9044,17 +9003,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/istanbul-lib-report", "npm:3.0.3"],\
           ["@types/istanbul-reports", "npm:3.0.4"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/jest", [\
-      ["npm:30.0.0", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/@types-jest-npm-30.0.0-7c3c407336-10c0.zip/node_modules/@types/jest/",\
-        "packageDependencies": [\
-          ["@types/jest", "npm:30.0.0"],\
-          ["expect", "npm:30.3.0"],\
-          ["pretty-format", "npm:30.3.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10776,13 +10724,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["aria-query", "npm:5.3.0"],\
           ["dequal", "npm:2.0.3"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:5.3.2", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/aria-query-npm-5.3.2-78632ac5c5-10c0.zip/node_modules/aria-query/",\
-        "packageDependencies": [\
-          ["aria-query", "npm:5.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12628,15 +12569,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["css.escape", [\
-      ["npm:1.5.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/css.escape-npm-1.5.1-b24d2ba77a-10c0.zip/node_modules/css.escape/",\
-        "packageDependencies": [\
-          ["css.escape", "npm:1.5.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["cssesc", [\
       ["npm:3.0.0", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/cssesc-npm-3.0.0-15ec56f86f-10c0.zip/node_modules/cssesc/",\
@@ -13183,13 +13115,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/dom-accessibility-api-npm-0.5.16-d3e2310666-10c0.zip/node_modules/dom-accessibility-api/",\
         "packageDependencies": [\
           ["dom-accessibility-api", "npm:0.5.16"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:0.6.3", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/dom-accessibility-api-npm-0.6.3-0345e4dede-10c0.zip/node_modules/dom-accessibility-api/",\
-        "packageDependencies": [\
-          ["dom-accessibility-api", "npm:0.6.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15600,15 +15525,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/imurmurhash-npm-0.1.4-610c5068a0-10c0.zip/node_modules/imurmurhash/",\
         "packageDependencies": [\
           ["imurmurhash", "npm:0.1.4"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["indent-string", [\
-      ["npm:4.0.0", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/indent-string-npm-4.0.0-7b717435b2-10c0.zip/node_modules/indent-string/",\
-        "packageDependencies": [\
-          ["indent-string", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -18621,15 +18537,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["min-indent", [\
-      ["npm:1.0.1", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/min-indent-npm-1.0.1-77031f50e1-10c0.zip/node_modules/min-indent/",\
-        "packageDependencies": [\
-          ["min-indent", "npm:1.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["mini-css-extract-plugin", [\
       ["npm:2.10.2", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/mini-css-extract-plugin-npm-2.10.2-1056a0d2e3-10c0.zip/node_modules/mini-css-extract-plugin/",\
@@ -21082,17 +20989,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["redent", [\
-      ["npm:3.0.0", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/redent-npm-3.0.0-31892f4906-10c0.zip/node_modules/redent/",\
-        "packageDependencies": [\
-          ["indent-string", "npm:4.0.0"],\
-          ["redent", "npm:3.0.0"],\
-          ["strip-indent", "npm:3.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["reflect-metadata", [\
       ["npm:0.2.2", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/reflect-metadata-npm-0.2.2-5e0bfac201-10c0.zip/node_modules/reflect-metadata/",\
@@ -22690,14 +22586,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["strip-indent", [\
-      ["npm:3.0.0", {\
-        "packageLocation": "../../AppData/Local/Yarn/Berry/cache/strip-indent-npm-3.0.0-519e75a28d-10c0.zip/node_modules/strip-indent/",\
-        "packageDependencies": [\
-          ["min-indent", "npm:1.0.1"],\
-          ["strip-indent", "npm:3.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:4.1.1", {\
         "packageLocation": "../../AppData/Local/Yarn/Berry/cache/strip-indent-npm-4.1.1-e5fb519bd9-10c0.zip/node_modules/strip-indent/",\
         "packageDependencies": [\

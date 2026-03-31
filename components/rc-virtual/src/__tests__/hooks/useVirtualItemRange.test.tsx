@@ -1,4 +1,5 @@
-import useVirtualItemRange from "../../hooks/useVirtualItemRange";
+import { describe, it, expect } from "@jest/globals";
+import useVirtualItemRange from "../../hooks/useVirtualItemRange.js";
 
 describe('useVirtualItemRange', () => {
     it('should return correct range for simple grid and no scroll', () => {

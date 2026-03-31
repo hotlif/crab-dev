@@ -1,9 +1,19 @@
-import { createRef } from "react";
-import { render, act, fireEvent } from "@testing-library/react";
-import Virtual, { type VirtualHandle } from "../virtual";
+import { createRef, act } from "react";
+import { cleanup, render, fireEvent } from "@testing-library/react";
+import { afterEach, describe, it, expect, jest } from "@jest/globals";
+
+import Virtual, { type VirtualHandle } from "../virtual.js";
+
+(
+    globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
+).IS_REACT_ACT_ENVIRONMENT = true;
 
 describe("Virtual", () => {
-    const createProps = (overrides: Record<string, any> = {}) => ({
+    afterEach(() => {
+        cleanup();
+    });
+
+    const createProps = (overrides: Record<string, unknown> = {}) => ({
         gridTemplateColumns: [100, 100, 100] as number[],       // totalWidth = 300
         gridTemplateRows: [50, 50, 50, 50, 50, 50] as number[], // totalHeight = 300
         viewportWidth: 200,
@@ -18,7 +28,7 @@ describe("Virtual", () => {
         const props = createProps();
         const { getByTestId } = render(<Virtual {...props} />);
         expect(props.renderRows).toHaveBeenCalled();
-        expect(getByTestId("content")).toBeInTheDocument();
+        expect(getByTestId("content")).toBeTruthy();
     });
 
     it("should render with correct viewport dimensions on outer container", () => {
@@ -672,7 +682,7 @@ describe("Virtual", () => {
                 gridTemplateRows: [200],
             });
             const { container } = render(<Virtual {...props} />);
-            expect(container.firstElementChild).toBeInTheDocument();
+            expect(container.firstElementChild).toBeTruthy();
             const [rowRange, columnRange] = props.renderRows.mock.calls[0];
             expect(rowRange).toEqual([0, 0]);
             expect(columnRange).toEqual([0, 0]);
@@ -685,7 +695,7 @@ describe("Virtual", () => {
                 viewportHeight: 300,
             });
             const { container } = render(<Virtual {...props} />);
-            expect(container.firstElementChild).toBeInTheDocument();
+            expect(container.firstElementChild).toBeTruthy();
             const [rowRange] = props.renderRows.mock.calls[0];
             expect(rowRange[1] - rowRange[0]).toBeLessThan(100);
         });
@@ -697,7 +707,7 @@ describe("Virtual", () => {
                 viewportWidth: 300,
             });
             const { container } = render(<Virtual {...props} />);
-            expect(container.firstElementChild).toBeInTheDocument();
+            expect(container.firstElementChild).toBeTruthy();
             const [, columnRange] = props.renderRows.mock.calls[0];
             expect(columnRange[1] - columnRange[0]).toBeLessThan(100);
         });
@@ -708,7 +718,7 @@ describe("Virtual", () => {
                 viewportHeight: 0,
             });
             const { container } = render(<Virtual {...props} />);
-            expect(container.firstElementChild).toBeInTheDocument();
+            expect(container.firstElementChild).toBeTruthy();
         });
 
         it("should handle empty row/column arrays", () => {
@@ -719,7 +729,7 @@ describe("Virtual", () => {
                 viewportHeight: 200,
             });
             const { container } = render(<Virtual {...props} />);
-            expect(container.firstElementChild).toBeInTheDocument();
+            expect(container.firstElementChild).toBeTruthy();
             // No scrollbars when arrays are empty (total = 0 which is not > viewport)
             const outerDiv = container.firstElementChild as HTMLDivElement;
             expect(outerDiv.children.length).toBe(1);
