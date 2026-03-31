@@ -9,7 +9,7 @@
         "build:library": "packify build",
         "generate:docgen": "react-docgen ./src/layout.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest) --passWithNoTests",
         "eslint": "eslint --fix"
     },
     "files": [
@@ -25,6 +25,7 @@
         "@crab-dev/packify": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-jest-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^7.0.0",
         "@mdx-js/react": "^3.1.1",
@@ -35,6 +36,8 @@
         "eslint": "^10.1.0",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^17.4.0",
+        "jest": "^30.3.0",
+        "jest-environment-jsdom": "30.3.0",
         "lucide-react": "^1.7.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
