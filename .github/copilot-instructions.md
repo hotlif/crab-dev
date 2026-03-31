@@ -2,7 +2,7 @@
 
 ## 架构
 
-Nx monorepo（基于 package.json 的项目推断，无自定义 Nx 插件），包含四个工作区域：
+Turbo monorepo（基于 package.json 的项目推断），包含四个工作区域：
 
 | 区域 | 用途 | 命名规则 |
 |------|------|----------|
@@ -31,9 +31,9 @@ Nx monorepo（基于 package.json 的项目推断，无自定义 Nx 插件），
 
 ```bash
 # 根目录
-yarn build                  # 先构建 packify，再通过 Nx 构建所有库
-yarn test                   # 更新 browserslist，再通过 Nx 运行所有测试
-yarn eslint                 # 通过 Nx 检查所有包
+yarn build                  # 先构建 packify，再通过 Turbo 构建所有库
+yarn test                   # 通过 Turbo 运行所有测试
+yarn eslint                 # 通过 Turbo 检查所有包
 yarn generate:token         # 为所有包重新生成 CSS 令牌
 
 # 单组件（在组件目录下运行）

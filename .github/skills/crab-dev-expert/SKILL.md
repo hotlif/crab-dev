@@ -1,22 +1,22 @@
 ---
 name: crab-dev-expert
-description: "UI component library development expert for crab-dev monorepo. USE FOR: creating new rc-* components, designing token.toml design tokens, troubleshooting Yarn 4 PnP issues, configuring Webpack/Rollup builds, fixing Nx task graph circular dependencies, writing Jest+RTL tests, Linaria CSS-in-JS styling, ESM module resolution. DO NOT USE FOR: non-crab-dev projects."
+description: "UI component library development expert for crab-dev monorepo. USE FOR: creating new rc-* components, designing token.toml design tokens, troubleshooting Yarn 4 PnP issues, configuring Webpack/Rollup builds, fixing Turbo task graph circular dependencies, writing Jest+RTL tests, Linaria CSS-in-JS styling, ESM module resolution. DO NOT USE FOR: non-crab-dev projects."
 argument-hint: "Describe the component, token, build, or PnP task you need help with"
 ---
 
 # Crab Dev Expert
 
-Expert assistant for the `@crab-dev` monorepo — covers UI component development, design token architecture, Yarn 4 PnP, Webpack/Rollup build tooling, and Nx orchestration.
+Expert assistant for the `@crab-dev` monorepo — covers UI component development, design token architecture, Yarn 4 PnP, Webpack/Rollup build tooling, and Turbo orchestration.
 
 ## When to Use
 
 - Creating a new `rc-*` component from scratch
 - Designing or modifying `token.toml` design tokens (3-tier system)
 - Troubleshooting Yarn PnP module resolution failures
-- Fixing Nx circular dependency errors in the task graph
+- Fixing Turbo circular dependency warnings in the task graph
 - Configuring packify/crustify/lignify build pipelines
 - Writing Jest 30 + React Testing Library tests in ESM mode
-- Debugging CI workflow failures (Node 24, PnP, Nx caching)
+- Debugging CI workflow failures (Node 24, PnP, Turbo caching)
 
 ## Component Creation Procedure
 
@@ -207,59 +207,44 @@ primary.background.color = "$ref(color.brand.primary)"
 - CI: `yarn install --immutable` to enforce lockfile consistency
 - Some ESM packages fail from zip — use `dependenciesMeta` + `unplugged: true`
 
-## Nx Build Orchestration
+## Turbo Build Orchestration
 
 ### Circular dependency resolution
 
-Nx treats ALL workspace dependencies (including devDependencies) as edges in the project graph. When `dependsOn: ["^build:library"]` causes cycles:
+Turbo treats ALL workspace dependencies (including devDependencies) as edges in the package graph. When `dependsOn: ["^build:library"]` causes cycles:
 
-1. Identify the cycle from Nx error: `A → B → C → A`
+1. Identify the cycle from Turbo warning: `A, B, C`
 2. Check if the cycle is through devDependencies only
-3. Add project-level override in the package's `package.json`:
+3. Add task-level override in `turbo.json`:
 
 ```json
 {
-    "nx": {
-        "targets": {
-            "build:library": {
-                "dependsOn": []
-            }
-        }
+    "@crab-dev/rc-menu#build:library": {
+        "dependsOn": ["@crab-dev/packify#build:library"],
+        "inputs": ["$TURBO_DEFAULT$"],
+        "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
     }
 }
 ```
 
-### Current known cycles (break with `dependsOn: []`)
+### Cycle prevention
 
-Five packages form a strongly connected component in the Nx project graph:
+Cycles were resolved by removing unnecessary devDependencies:
+- **lignify**: rc-component-preview/rc-menu removed from devDeps and peerDeps (kept as runtime imports in template/)
+- **rc-token-global/rc-token-semantic**: lignify, rc-component-preview, rc-menu removed from devDeps (not imported in src/)
+- **rc-component-preview**: rc-menu removed from devDeps (not imported in src/)
 
-| Package | Cycle edges (all devDependencies unless noted) |
-|---------|-----------------------------------------------|
-| **lignify** | → rc-component-preview (dev+peer), → rc-menu (dev+peer) |
-| **rc-component-preview** | → rc-menu (dev), → lignify (dev) |
-| **rc-menu** | → rc-component-preview (dev), → rc-token-semantic (dev), → lignify (dev) |
-| **rc-token-semantic** | → rc-menu (dev), → rc-component-preview (dev), → lignify (dev) |
-| **rc-token-global** | → rc-menu (dev), → rc-component-preview (dev), → lignify (dev) |
-
-**Key cycles:**
-- `rc-menu ↔ rc-component-preview` (direct 2-node, all dev)
-- `rc-menu ↔ lignify` (direct 2-node, dev+peer)
-- `rc-component-preview ↔ lignify` (direct 2-node, dev+peer)
-- `rc-menu ↔ rc-token-semantic` (direct 2-node, all dev)
-- `rc-menu → rc-token-semantic → rc-token-global → rc-menu` (3-node, mixes `dependencies` edge: rc-token-semantic → rc-token-global)
-
-**Currently broken with `dependsOn: []`:** lignify, rc-component-preview, rc-menu.
-
-> **Note:** If new components add `rc-token-global` or `rc-token-semantic` to devDependencies while also being depended on by those token packages, new cycles may form. Always check with `yarn nx run-many -t build:library --dry-run` after adding cross-package deps.
+> **Note:** If new components add devDependencies that create cycles, remove them if they are not imported in `src/`. Use `turbo run build:library --dry-run` to verify.
 
 ### Build order
 - **packify** must build first (other packages use its CLI)
-- Root script: `yarn workspace @crab-dev/packify build:library && nx run-many -t build:library`
-- Nx `targetDefaults.build:library.dependsOn: ["^build:library"]` handles the rest
+- Root script: `yarn workspace @crab-dev/packify build:library && turbo run build:library`
+- Default `build:library.dependsOn: ["^build:library"]` handles the rest
+- Override packages use `dependsOn: ["@crab-dev/packify#build:library"]`
 
-### Nx cache configuration (nx.json)
-- `namedInputs.production` excludes tests, docs, coverage, config files
-- `build:library` outputs: `esm/`, `cjs/`, `declarations/`, `css/`
+### Turbo cache configuration (turbo.json)
+- `build:library` inputs exclude tests, docs, coverage, config files
+- `build:library` outputs: `esm/**`, `cjs/**`, `declarations/**`, `css/**`
 - `generate:token` inputs: only `token.toml`, output: `src/token.ts`
 
 ## Build Toolchain

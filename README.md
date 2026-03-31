@@ -6,7 +6,7 @@
 
 ## 概述
 
-Crab Dev 是一个 **Nx Monorepo**，包含 React 19 UI 组件、共享工程规范和内部构建工具。所有包均以 ESM 为主，全局使用 `"type": "module"`，优先支持 Yarn Plug'n'Play。
+Crab Dev 是一个 **Turbo Monorepo**，包含 React 19 UI 组件、共享工程规范和内部构建工具。所有包均以 ESM 为主，全局使用 `"type": "module"`，优先支持 Yarn Plug'n'Play。
 
 ## 架构
 
@@ -64,7 +64,7 @@ crab-dev/
 |------|------|
 | 运行时 | Node ≥ 22 |
 | 包管理 | Yarn 4.13.0（Corepack + PnP） |
-| 构建编排 | Nx 22 |
+| 构建编排 | Turbo |
 | 框架 | React 19 |
 | 语言 | TypeScript 6（严格模式） |
 | 样式 | Linaria（零运行时 CSS-in-JS） |

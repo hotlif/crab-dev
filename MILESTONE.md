@@ -29,7 +29,7 @@
 
 | 领域 | 内容 |
 |------|------|
-| **Monorepo** | Nx（package.json 推断）+ Yarn 4 PnP + Corepack |
+| **Monorepo** | Turbo + Yarn 4 PnP + Corepack |
 | **CI** | GitHub Actions（Jest + ESLint），`canary` 分支触发 |
 | **构建** | `yarn build` 自动按依赖顺序编排 |
 | **Packify** `v0.0.4` | Rollup 4 → ESM / CJS / 类型声明 / CSS |

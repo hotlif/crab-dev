@@ -942,7 +942,7 @@ opacity.loading              → --button-opacity-loading
 # 单组件生成
 packify generate:css-token
 
-# 全量生成（monorepo 场景，通过 Nx 并行）
+# 全量生成（monorepo 场景，通过 Turbo 并行）
 yarn generate:token
 ```
 
