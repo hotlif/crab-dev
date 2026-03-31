@@ -28,3 +28,7 @@ trivy.report.txt
 .nx/workspace-data
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json
