@@ -4,8 +4,8 @@
     "packageManager": "yarn@4.13.0",
     "type": "module",
     "scripts": {
-        "build": "nx run @crab-dev/packify:build:library && nx run @crab-dev/rc-token-global:build:library && nx run @crab-dev/rc-token-semantic:build:library && nx run-many -t build:library",
-        "test": "yarn dlx update-browserslist-db@latest && nx run-many -t run test",
+        "build": "yarn workspace @crab-dev/packify build:library && nx run-many -t build:library",
+        "test": "nx run-many -t run test",
         "eslint": "nx run-many -t run eslint",
         "generate:token": "nx run-many -t run generate:token"
     },

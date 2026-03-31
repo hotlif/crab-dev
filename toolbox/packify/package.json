@@ -5,7 +5,7 @@
     "version": "0.0.4",
     "type": "module",
     "scripts": {
-        "build": "rollup -c",
+        "build:library": "rollup -c",
         "eslint": "eslint"
     },
     "files": [
