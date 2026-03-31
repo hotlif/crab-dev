@@ -4,7 +4,7 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import wyw from "@wyw-in-js/rollup";
 import { join, dirname} from "path";
-//@ts-ignore
+// @ts-expect-error rollup-plugin-css-only has no type declarations
 import css from 'rollup-plugin-css-only';
 import babel from '@rollup/plugin-babel';
 import { dts } from "rollup-plugin-dts";
@@ -12,8 +12,8 @@ import { createRequire } from "module";
 import { rm, writeFile, mkdir } from 'fs/promises';
 import { existsSync } from "fs";
 
-import { log } from "./util";
-export { default as generateCssToken }  from "./generateCssToken";
+import { log } from "./util.js";
+export { default as generateCssToken }  from "./generateCssToken.js";
 
 const require = createRequire(import.meta.url);
 
@@ -65,7 +65,7 @@ export const build = async () => {
                 babelOptions: commonBabelConfig
             }),
             css({
-                output: async (styles: any) => {
+                output: async (styles: string) => {
                     const cssFilePath = join(process.cwd(), "css", "index.css");
                     if (styles && !existsSync(cssFilePath)) {
                         const cssDir = dirname(cssFilePath);
@@ -86,7 +86,7 @@ export const build = async () => {
         entryFileNames: "[name].mjs",
         chunkFileNames: '[name].mjs',
         plugins: [
-            // terser()
+            terser()
         ]
     });
 
@@ -98,11 +98,11 @@ export const build = async () => {
         entryFileNames: "[name].cjs",
         chunkFileNames: '[name].cjs',
         plugins: [
-            // terser()
+            terser()
         ]
     });    
 
-   const typesBundle = await rollup({
+    const typesBundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
         plugins: [

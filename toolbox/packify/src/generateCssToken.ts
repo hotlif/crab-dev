@@ -5,7 +5,7 @@ import { createRequire } from 'module';
 
 interface TokenConfig {
     build: { output: string; prefix: string; imports?: string[]; };
-    token: Record<string, any>;
+    token: Record<string, unknown>;
 }
 
 interface GlobalTokenSource {
@@ -21,7 +21,7 @@ interface GlobalTokenInfo {
 /**
  * Flatten nested token object into a flat { dotKey: rawValue } map.
  */
-const flattenTokens = (obj: Record<string, any>, path: string[] = []): Record<string, string> => {
+const flattenTokens = (obj: Record<string, unknown>, path: string[] = []): Record<string, string> => {
     const result: Record<string, string> = {};
     for (const [key, value] of Object.entries(obj)) {
         const currentPath = [...path, key];
@@ -62,7 +62,7 @@ const resolveRefs = (value: string, globals: GlobalTokenInfo): string => {
  * Reads the package's token.toml and returns its prefix + flattened token map.
  * If the package itself has imports, recursively loads and resolves them first.
  */
-const loadGlobalTokenSource = async (packageName: string, reqFn?: NodeRequire): Promise<GlobalTokenSource | null> => {
+const loadGlobalTokenSource = async (packageName: string, reqFn?: ReturnType<typeof createRequire>): Promise<GlobalTokenSource | null> => {
     try {
         const req = reqFn ?? createRequire(join(process.cwd(), 'package.json'));
         const packageJsonPath = req.resolve(`${packageName}/package.json`);
@@ -99,7 +99,7 @@ const loadGlobalTokenSource = async (packageName: string, reqFn?: NodeRequire): 
  * Load and merge multiple global token packages.
  * Later packages override earlier ones on key collision.
  */
-const loadGlobalTokens = async (packageNames: string[], reqFn?: NodeRequire): Promise<GlobalTokenInfo | null> => {
+const loadGlobalTokens = async (packageNames: string[], reqFn?: ReturnType<typeof createRequire>): Promise<GlobalTokenInfo | null> => {
     const sources: GlobalTokenSource[] = [];
     for (const name of packageNames) {
         const source = await loadGlobalTokenSource(name, reqFn);
@@ -120,7 +120,7 @@ const loadGlobalTokens = async (packageNames: string[], reqFn?: NodeRequire): Pr
  * Recursive function to format the token object with 4-space indentation
  */
 const formatTokenObject = (
-    obj: Record<string, any>, 
+    obj: Record<string, unknown>, 
     path: string[], 
     level: number = 1, 
     varsMap: Record<string, string>,
