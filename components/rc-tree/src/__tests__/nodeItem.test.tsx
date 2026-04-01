@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, jest, afterEach } from "@jest/globals";
 import { act } from "react";
 import { cleanup, render, fireEvent, screen } from "@testing-library/react";

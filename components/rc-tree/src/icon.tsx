@@ -1,3 +1,4 @@
+/* global HTMLOrSVGElement */
 import { type FC, type HTMLAttributes } from "react"
 
 

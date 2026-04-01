@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 import { TreeDataUtil, getLoadReadyTreeNodeData, getTreeNodeDepth, belongsToNode, loadDataFunc } from "../util.js";
 import { LoadStateType, NodeType, OverStateEnum, type Node } from "../type.js";

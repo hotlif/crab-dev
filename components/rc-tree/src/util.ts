@@ -43,6 +43,7 @@ export class TreeDataUtil {
      * @param predicate 过滤方法
      * @param thisArg 传入的 this
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     deleteByFilter(predicate: (value: Node, index: number, array: Node[]) => unknown, thisArg?: any) {
         this.onTreeNodeChange((newTreeData) => {
             return newTreeData.filter((element, elementIndex, elementArray) => !predicate(element, elementIndex, elementArray), thisArg);
@@ -201,8 +202,8 @@ export class TreeDataUtil {
                 newTreeData[dragNodeIndex].parent = targetNode?.parent ?? null;
                 if (previousNode != null) {
                     newTreeData[dragNodeIndex].priority = new Decimal(previousNode?.priority ?? 0)
-                                                    .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
-                                                    .div(2).toNumber();
+                        .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
+                        .div(2).toNumber();
                 } else {
                     if (targetNodes.length === 0) {
                         newTreeData[dragNodeIndex].priority = 1;
@@ -215,8 +216,8 @@ export class TreeDataUtil {
                 newTreeData[dragNodeIndex].parent = targetNode?.parent ?? null;
                 if (nextNode != null) {
                     newTreeData[dragNodeIndex].priority = new Decimal(nextNode?.priority ?? 0)
-                                    .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
-                                    .div(2).toNumber();
+                        .plus(new Decimal(targetNodes[targetIndex].priority ?? 0))
+                        .div(2).toNumber();
                 } else {
                     newTreeData[dragNodeIndex].priority = (targetNodes[targetIndex].priority ?? 0) + 1;
                 }

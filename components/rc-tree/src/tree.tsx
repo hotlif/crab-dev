@@ -390,7 +390,7 @@ const Tree: FC<TreeProps> = ({
                 })
             }}
         >
-             <SortableContext
+            <SortableContext
                 disabled={!draggable}
                 items={displayedNodes}
             >
@@ -423,13 +423,13 @@ const Tree: FC<TreeProps> = ({
                         renderRows={(rowRange) => {
                             const nodes: ReactNode[] = [
                                 	<div
-                                        key="__tree-top-padding__"
-                                        className={css`
+                                    key="__tree-top-padding__"
+                                    className={css`
                                             display: inline-block;
                                             height: var(--crab-rc-virtual-top-padding-height, 0px);
                                             width: 100%;
                                         `}
-                                    />
+                                />
                             ];
                             let rowIndex = rowRange[0];
                             if (rowIndex > 0) {
@@ -577,7 +577,7 @@ const Tree: FC<TreeProps> = ({
                     </div>
 
                 </div>
-             </SortableContext>
+            </SortableContext>
         </DndContext>
     )
 }

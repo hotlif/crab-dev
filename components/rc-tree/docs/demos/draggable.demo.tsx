@@ -134,6 +134,7 @@ const DraggableDemo = () => {
                     </div>
                 );
             }}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onDragEnd={(event: any, context: any) => {
                 const over = event.over;
                 const active = event.active;
