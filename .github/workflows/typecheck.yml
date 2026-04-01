@@ -1,0 +1,44 @@
+name: TypeCheck CI
+
+on:
+  push:
+    branches: [ "canary" ]
+    paths-ignore:
+      - "**/*.md"
+      - "rfc/**"
+      - "components/**/docs/**"
+  pull_request:
+    branches: [ "canary" ]
+    paths-ignore:
+      - "**/*.md"
+      - "rfc/**"
+      - "components/**/docs/**"
+
+concurrency:
+  group: typecheck-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        lfs: true
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - name: Enable Corepack
+      run: corepack enable
+    - name: Activate Yarn 4.13.0
+      run: corepack prepare yarn@4.13.0 --activate
+    - name: Install dependencies
+      run: yarn install --immutable
+    - name: Build the project
+      run: yarn build
+    - name: Run TypeCheck
+      run: yarn typecheck

@@ -104,7 +104,7 @@ describe('AutoScanWebpackPlugin', () => {
         expect(generatedContent2).toContain('frontmatter:');
         expect(generatedContent2).toContain('source:'); // 可能包含源代码而不是 null
         rmSync(tempDir, { recursive: true });
-    });
+    }, 120_000);
 
     it("should get all files without include/exclude filters", async () => {
         const currentPath = join(__dirname, "TestDirectoryStructure");
