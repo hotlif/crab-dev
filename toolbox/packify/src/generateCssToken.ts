@@ -26,7 +26,7 @@ const flattenTokens = (obj: Record<string, unknown>, path: string[] = []): Recor
     for (const [key, value] of Object.entries(obj)) {
         const currentPath = [...path, key];
         if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-            Object.assign(result, flattenTokens(value, currentPath));
+            Object.assign(result, flattenTokens(value as Record<string, unknown>, currentPath));
         } else {
             result[currentPath.join('.')] = String(value).trim();
         }
@@ -147,7 +147,7 @@ const formatTokenObject = (
     const entries = Object.entries(obj).map(([key, value]) => {
         const currentPath = [...path, key];
         if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-            return `${indent}'${key}': {\n${formatTokenObject(value, currentPath, level + 1, varsMap, globals)}\n${indent}}`;
+            return `${indent}'${key}': {\n${formatTokenObject(value as Record<string, unknown>, currentPath, level + 1, varsMap, globals)}\n${indent}}`;
         }
         
         // 完整的 CSS 變數名稱 (Value) -> 例如: --rc-slider-rail-interact-height

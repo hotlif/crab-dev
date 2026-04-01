@@ -1,50 +1,51 @@
 {
-    "name": "@crab-dev/rc-line-edit",
-    "description": "单行文本编辑组件",
-    "version": "0.0.3",
-    "packageManager": "yarn@4.13.0",
-    "type": "module",
-    "scripts": {
-        "start": "yarn generate:token && lignify run-task app:dev",
-        "build:library": "packify build",
-        "generate:token": "packify generate:css-token",
-        "eslint": "eslint"
-    },
-    "files": [
-        "esm",
-        "cjs",
-        "declarations"
-    ],
-    "types": "declarations/index.d.ts",
-    "main": "cjs/index.cjs",
-    "module": "esm/index.mjs",
-    "devDependencies": {
-        "@crab-dev/lignify": "workspace:^",
-        "@crab-dev/packify": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/standards-eslint-preset": "workspace:^",
-        "@crab-dev/standards-jest-preset": "workspace:^",
-        "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@jest/globals": "30.3.0",
-        "@linaria/core": "^7.0.0",
-        "@mdx-js/react": "^3.1.1",
-        "@types/node": "^25.5.0",
-        "@types/react": "^19.2.14",
-        "@types/react-dom": "^19.2.3",
-        "eslint": "^10.1.0",
-        "eslint-plugin-react": "^7.37.5",
-        "globals": "^17.4.0",
-        "jest": "^30.3.0",
-        "jest-environment-jsdom": "30.3.0",
-        "lucide-react": "^1.7.0",
-        "react": "^19.2.4",
-        "react-dom": "^19.2.4",
-        "react-router": "^7.13.2",
-        "typescript": "^6.0.2",
-        "typescript-eslint": "^8.57.2"
-    },
-    "engines": {
-        "node": ">=22"
-    }
+  "name": "@crab-dev/rc-line-edit",
+  "description": "单行文本编辑组件",
+  "version": "0.0.3",
+  "packageManager": "yarn@4.13.0",
+  "type": "module",
+  "scripts": {
+    "start": "yarn generate:token && lignify run-task app:dev",
+    "build:library": "packify build",
+    "generate:token": "packify generate:css-token",
+    "eslint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "declarations"
+  ],
+  "types": "declarations/index.d.ts",
+  "main": "cjs/index.cjs",
+  "module": "esm/index.mjs",
+  "devDependencies": {
+    "@crab-dev/lignify": "workspace:^",
+    "@crab-dev/packify": "workspace:^",
+    "@crab-dev/rc-component-preview": "workspace:^",
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/standards-eslint-preset": "workspace:^",
+    "@crab-dev/standards-jest-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@jest/globals": "30.3.0",
+    "@linaria/core": "^7.0.0",
+    "@mdx-js/react": "^3.1.1",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "30.3.0",
+    "lucide-react": "^1.7.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router": "^7.13.2",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.57.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

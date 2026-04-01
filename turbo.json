@@ -27,6 +27,14 @@
             ],
             "outputs": []
         },
+        "typecheck": {
+            "dependsOn": ["^build:library"],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "../../standards/typescript-preset/**/*"
+            ],
+            "outputs": []
+        },
         "generate:token": {
             "inputs": ["token.toml"],
             "outputs": ["src/token.ts"]

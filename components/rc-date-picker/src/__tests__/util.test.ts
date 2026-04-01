@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Temporal } from '@js-temporal/polyfill';
 import { describe, expect, it } from "@jest/globals";
 import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util.js';
 import { formatTemporal } from '../util.js';
 
 const tz = 'Asia/Shanghai';
-
-
 
 (window as unknown as Record<string, unknown>).Temporal = Temporal;
 const zdt = Temporal.ZonedDateTime.from({
@@ -17,8 +16,8 @@ const zdt = Temporal.ZonedDateTime.from({
     second: 5,
     millisecond: 42,
     timeZone: tz,
-});
-const base = Temporal.ZonedDateTime.from({ year: 2026, month: 3, day: 18, timeZone: tz });
+}) as any;
+const base = Temporal.ZonedDateTime.from({ year: 2026, month: 3, day: 18, timeZone: tz }) as any;
 describe('getCalendarMatrix', () => {
     it('should return 42 days for a month', () => {
         const matrix = getCalendarMatrix(2026, 3, 1, 'Asia/Shanghai');
@@ -55,7 +54,7 @@ describe('formatTemporal', () => {
     it('should format AM/PM/aaa for morning', () => {
         const morning = Temporal.ZonedDateTime.from({
             year: 2026, month: 3, day: 19, hour: 0, minute: 0, second: 0, millisecond: 0, timeZone: tz,
-        });
+        }) as any;
         expect(formatTemporal(morning, 'a')).toBe('AM');
         expect(formatTemporal(morning, 'aa')).toBe('AM');
         expect(formatTemporal(morning, 'aaa')).toBe('am');
@@ -64,7 +63,7 @@ describe('formatTemporal', () => {
     it('should format 12-hour for midnight', () => {
         const midnight = Temporal.ZonedDateTime.from({
             year: 2026, month: 3, day: 19, hour: 0, minute: 0, second: 0, millisecond: 0, timeZone: tz,
-        });
+        }) as any;
         expect(formatTemporal(midnight, 'hh')).toBe('12');
         expect(formatTemporal(midnight, 'h')).toBe('12');
     });

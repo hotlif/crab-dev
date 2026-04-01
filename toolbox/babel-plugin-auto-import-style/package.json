@@ -1,32 +1,33 @@
 {
-    "name": "@crab-dev/babel-plugin-auto-import-style",
-    "description": "用于处理组件样式自动导入, 属于 @crab-dev/crustify 的内部组件",
-    "version": "0.0.3",
-    "packageManager": "yarn@4.13.0",
-    "type": "module",
-    "scripts": {
-        "build:library": "packify build"
-    },
-    "files": [
-        "bin",
-        "esm",
-        "cjs",
-        "declarations"
-    ],
-    "types": "declarations/index.d.ts",
-    "main": "cjs/index.cjs",
-    "module": "esm/index.mjs",
-    "devDependencies": {
-        "@crab-dev/packify": "workspace:^",
-        "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@types/babel__helper-plugin-utils": "^7.10.3",
-        "@types/node": "^25.5.0"
-    },
-    "dependencies": {
-        "@babel/helper-plugin-utils": "^7.28.6",
-        "@babel/types": "^7.29.0"
-    },
-    "engines": {
-        "node": ">=22"
-    }
+  "name": "@crab-dev/babel-plugin-auto-import-style",
+  "description": "用于处理组件样式自动导入, 属于 @crab-dev/crustify 的内部组件",
+  "version": "0.0.3",
+  "packageManager": "yarn@4.13.0",
+  "type": "module",
+  "scripts": {
+    "build:library": "packify build",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "bin",
+    "esm",
+    "cjs",
+    "declarations"
+  ],
+  "types": "declarations/index.d.ts",
+  "main": "cjs/index.cjs",
+  "module": "esm/index.mjs",
+  "devDependencies": {
+    "@crab-dev/packify": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@types/babel__helper-plugin-utils": "^7.10.3",
+    "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.28.6",
+    "@babel/types": "^7.29.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

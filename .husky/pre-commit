@@ -1,2 +1,3 @@
+yarn typecheck
 yarn eslint
 yarn test

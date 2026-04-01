@@ -6,6 +6,15 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "chat.tools.terminal.autoApprove": {
-    "yarn node": true
+    "yarn node": true,
+    "git add": true,
+    "git commit": true,
+    "git stash": true,
+    "/^cd c:\\\\Users\\\\zhang\\\\Desktop\\\\crab-dev ; node -e \"\nconst fs = require\\('fs'\\);\nconst path = require\\('path'\\);\n\nconst dirs = \\[\n  \\.\\.\\.fs\\.readdirSync\\('components'\\)\\.map\\(d => path\\.join\\('components', d\\)\\),\n  \\.\\.\\.fs\\.readdirSync\\('toolbox'\\)\\.map\\(d => path\\.join\\('toolbox', d\\)\\),\n\\];\n\nlet count = 0;\nfor \\(const dir of dirs\\) \\{\n  const pkgPath = path\\.join\\(dir, 'package\\.json'\\);\n  const tscPath = path\\.join\\(dir, 'tsconfig\\.json'\\);\n  if \\(!fs\\.existsSync\\(pkgPath\\) \\|\\| !fs\\.existsSync\\(tscPath\\)\\) continue;\n\n  const pkg = JSON\\.parse\\(fs\\.readFileSync\\(pkgPath, 'utf8'\\)\\);\n  if \\(!pkg\\.scripts\\) pkg\\.scripts = \\{\\};\n  if \\(pkg\\.scripts\\.typecheck\\) \\{ console\\.log\\('SKIP \\(exists\\):', dir\\); continue; \\}\n\n  pkg\\.scripts\\.typecheck = 'tsc --noEmit';\n  fs\\.writeFileSync\\(pkgPath, JSON\\.stringify\\(pkg, null, 2\\) \\+ '\\\\n'\\);\n  console\\.log\\('ADDED:', dir\\);\n  count\\+\\+;\n\\}\nconsole\\.log\\('Total:', count, 'packages updated'\\);\n\"$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "yarn turbo": true,
+    "ForEach-Object": true
   }
 }

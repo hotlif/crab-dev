@@ -38,6 +38,7 @@ const commonBabelConfig = {
 
 
 
+// @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
 const babelPlugin = babel({
     babelHelpers: "bundled",
     exclude: [
@@ -60,6 +61,7 @@ export const build = async () => {
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
         plugins: [
+            // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
             wyw({
                 sourceMap: false,
                 babelOptions: commonBabelConfig
@@ -75,6 +77,7 @@ export const build = async () => {
                     }
                 }
             }),
+            // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
             nodeResolve({ extensions }),
             babelPlugin
         ]
@@ -86,6 +89,7 @@ export const build = async () => {
         entryFileNames: "[name].mjs",
         chunkFileNames: '[name].mjs',
         plugins: [
+            // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
             terser()
         ]
     });
@@ -98,6 +102,7 @@ export const build = async () => {
         entryFileNames: "[name].cjs",
         chunkFileNames: '[name].cjs',
         plugins: [
+            // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
             terser()
         ]
     });    

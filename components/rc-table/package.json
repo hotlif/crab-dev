@@ -1,63 +1,64 @@
 {
-    "name": "@crab-dev/rc-table",
-    "description": "展示行列数据的表格组件",
-    "packageManager": "yarn@4.13.0",
-    "type": "module",
-    "scripts": {
-        "start": "yarn generate:docgen && lignify run-task app:dev",
-        "generate:docgen": "mkdir -p public && react-docgen ./src/table.tsx --out ./public/docgen.json",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-        "build:library": "packify build",
-        "eslint": "eslint"
-    },
-    "files": [
-        "esm",
-        "cjs",
-        "declarations"
-    ],
-    "types": "declarations/index.d.ts",
-    "main": "cjs/index.cjs",
-    "module": "esm/index.mjs",
-    "devDependencies": {
-        "@crab-dev/lignify": "workspace:^",
-        "@crab-dev/packify": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/standards-eslint-preset": "workspace:^",
-        "@crab-dev/standards-jest-preset": "workspace:^",
-        "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@faker-js/faker": "^10.4.0",
-        "@jest/globals": "30.3.0",
-        "@linaria/core": "^7.0.0",
-        "@mdx-js/react": "^3.1.1",
-        "@react-docgen/cli": "^3.0.6",
-        "@testing-library/dom": "^10.4.1",
-        "@testing-library/react": "^16.3.2",
-        "@types/node": "^25.5.0",
-        "@types/react": "^19.2.14",
-        "@types/react-dom": "^19.2.3",
-        "eslint": "^10.1.0",
-        "eslint-plugin-react": "^7.37.5",
-        "globals": "^17.4.0",
-        "jest": "^30.3.0",
-        "jest-environment-jsdom": "30.3.0",
-        "lucide-react": "^1.7.0",
-        "react": "^19.2.4",
-        "react-docgen": "^8.0.3",
-        "react-dom": "^19.2.4",
-        "react-markdown": "^10.1.0",
-        "react-router": "^7.13.2",
-        "react-syntax-highlighter": "^16.1.1",
-        "typescript": "^6.0.2",
-        "typescript-eslint": "^8.57.2"
-    },
-    "dependencies": {
-        "@crab-dev/rc-virtual": "workspace:^",
-        "jsonpath-plus": "^10.4.0"
-    },
-    "cssDependencies": {
-        "@crab-dev/rc-virtual": "workspace:^"
-    },
-    "engines": {
-        "node": ">=22"
-    }
+  "name": "@crab-dev/rc-table",
+  "description": "展示行列数据的表格组件",
+  "packageManager": "yarn@4.13.0",
+  "type": "module",
+  "scripts": {
+    "start": "yarn generate:docgen && lignify run-task app:dev",
+    "generate:docgen": "mkdir -p public && react-docgen ./src/table.tsx --out ./public/docgen.json",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "build:library": "packify build",
+    "eslint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "declarations"
+  ],
+  "types": "declarations/index.d.ts",
+  "main": "cjs/index.cjs",
+  "module": "esm/index.mjs",
+  "devDependencies": {
+    "@crab-dev/lignify": "workspace:^",
+    "@crab-dev/packify": "workspace:^",
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/standards-eslint-preset": "workspace:^",
+    "@crab-dev/standards-jest-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@faker-js/faker": "^10.4.0",
+    "@jest/globals": "30.3.0",
+    "@linaria/core": "^7.0.0",
+    "@mdx-js/react": "^3.1.1",
+    "@react-docgen/cli": "^3.0.6",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "30.3.0",
+    "lucide-react": "^1.7.0",
+    "react": "^19.2.4",
+    "react-docgen": "^8.0.3",
+    "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
+    "react-router": "^7.13.2",
+    "react-syntax-highlighter": "^16.1.1",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.57.2"
+  },
+  "dependencies": {
+    "@crab-dev/rc-virtual": "workspace:^",
+    "jsonpath-plus": "^10.4.0"
+  },
+  "cssDependencies": {
+    "@crab-dev/rc-virtual": "workspace:^"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

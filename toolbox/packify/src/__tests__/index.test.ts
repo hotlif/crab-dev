@@ -4,8 +4,8 @@ import { join } from 'path';
 import { tmpdir } from 'os';
 
 // Mock rollup and all heavy plugins to avoid real bundling
-const mockWrite = jest.fn<() => Promise<void>>().mockResolvedValue(undefined);
-const mockRollup = jest.fn<() => Promise<{ write: typeof mockWrite }>>().mockResolvedValue({ write: mockWrite });
+const mockWrite = jest.fn<(options: unknown) => Promise<void>>().mockResolvedValue(undefined);
+const mockRollup = jest.fn<(options: unknown) => Promise<{ write: typeof mockWrite }>>().mockResolvedValue({ write: mockWrite });
 
 jest.unstable_mockModule('rollup', () => ({
     rollup: mockRollup,
