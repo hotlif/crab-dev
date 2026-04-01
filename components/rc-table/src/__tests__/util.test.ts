@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from "@jest/globals";
-import type { ColumnType } from "../types";
+import type { ColumnType } from "../types.js";
 
 import {
     sortColumns,
@@ -10,7 +11,7 @@ import {
     calculateColumnDepth,
     getBottomColumns,
     getHeaderCells
-} from "../util";
+} from "../util.js";
 
 describe("sortColumns", () => {
     it("should not change order if all columns are unfixed", () => {

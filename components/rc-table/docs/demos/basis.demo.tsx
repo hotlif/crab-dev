@@ -4,8 +4,8 @@
  * description = "一个简单的表格信息，展示基础的表格功能"
  */
 
-import Table from "../../src/index";
-import type { ColumnType, Row } from "../../src/index";
+import Table from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/index.js";
 import { fakerZH_CN as faker } from "@faker-js/faker";
 
 

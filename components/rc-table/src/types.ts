@@ -5,6 +5,7 @@ export type Align = "left" | "right" | "center";
 
 export interface Row {
     id: Key,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dataRef: any,
     height?: number
 }
@@ -17,6 +18,7 @@ interface RenderParam<T extends Row> {
 	originalElement: ReactNode
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ColumnChildrenType<T extends Row> extends Omit<ColumnType<T>, "fixed">{
 
 }

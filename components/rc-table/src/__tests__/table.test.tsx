@@ -1,8 +1,8 @@
 import { cleanup, render } from "@testing-library/react";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 
-import Table from "../table";
-import type { ColumnType, MergeCell, Row } from "../types";
+import Table from "../table.js";
+import type { ColumnType, MergeCell, Row } from "../types.js";
 
 interface DemoRow extends Row {
     dataRef: {
@@ -80,7 +80,9 @@ const fixedColumns: ColumnType<DemoRow>[] = [
     }
 ];
 
-const renderTable = (element: React.ReactElement) => render(element);
+import { type ReactElement } from 'react';
+
+const renderTable = (element: ReactElement) => render(element);
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 

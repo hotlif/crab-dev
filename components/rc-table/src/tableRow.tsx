@@ -1,7 +1,8 @@
 import { css, cx } from "@linaria/core";
-import { type FC } from "react";
+import { type FC, type HTMLAttributes } from "react";
 
-interface TableRowProps extends React.HTMLAttributes<HTMLDivElement> {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface TableRowProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const TableRow: FC<TableRowProps> = ({

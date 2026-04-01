@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ColumnType, MergeCell } from "./types";
 
 export interface HeaderCellType {

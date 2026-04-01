@@ -1,8 +1,10 @@
 import { css, cx } from "@linaria/core";
-import type { ColumnType, MergeCell, Row } from "./types";
-import { getMergedCellSize } from "./util";
+import type { ColumnType, MergeCell, Row } from "./types.js";
+import { getMergedCellSize } from "./util.js";
 
-interface TableHeaderCellProps<T extends Row> extends React.HTMLAttributes<HTMLDivElement> {
+import type { HTMLAttributes } from "react";
+
+interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
     rowIndex: number,
     maxRowIndex: number,
@@ -16,7 +18,7 @@ interface TableHeaderCellProps<T extends Row> extends React.HTMLAttributes<HTMLD
 
 function TableHeaderCell<T extends Row>({
     column,
-    columnIndex,
+    columnIndex: _columnIndex,
     className,
     isSkipCell,
     mergeCell,
