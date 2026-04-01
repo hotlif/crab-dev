@@ -1,12 +1,12 @@
 import { type ReactNode, type FC } from "react";
 import { css, cx } from "@linaria/core";
 
-import { type MenuProps } from "../menu";
-import { ItemType, type Item } from "../type";
-import ItemGroup from "./itemGroup";
-import ItemNormal from "./itemNormal";
+import { type MenuProps } from "../menu.js";
+import { ItemType, type Item } from "../type.js";
+import ItemGroup from "./itemGroup.js";
+import ItemNormal from "./itemNormal.js";
 import { FloatingTree } from "@floating-ui/react";
-import token from "../token";
+import token from "../token.js";
 
 const horizontalMenuRoot = css`
     display: flex;
@@ -17,6 +17,7 @@ const horizontalMenuRoot = css`
     box-sizing: border-box;
 `
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface HorizontalMenuProps extends Omit<MenuProps, "mode"> {
 }
 

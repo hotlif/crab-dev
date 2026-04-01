@@ -9,10 +9,10 @@ import {
 } from "@floating-ui/react";
 import { type FC, useState, type ReactNode, useEffect } from "react";
 import { css, cx } from "@linaria/core";
-import { type Item } from "../type";
-import itemStyle from "./styles/itemNormal.styles";
-import { type MenuProps } from "../menu";
-import { iconArrayBase, iconArrayRight } from "../icon";
+import { type Item } from "../type.js";
+import itemStyle from "./styles/itemNormal.styles.js";
+import { type MenuProps } from "../menu.js";
+import { iconArrayBase, iconArrayRight } from "../icon.js";
 
 
 interface ItemProps {
@@ -102,18 +102,18 @@ const ItemNormal: FC<ItemProps> = ({
                     </span>
                 </div>
                 <FloatingNode id={nodeId}>
-                {
-                    isOpenFloatChildren ? (
-                        <ul
-                            className={cx(itemStyle.submenu.container, itemStyle.submenu.float)}
-                            ref={refs.setFloating}
-                            style={floatingStyles}
-                            {...getFloatingProps()}
-                        >
-                            {children}
-                        </ul>
-                    ) : null
-                }
+                    {
+                        isOpenFloatChildren ? (
+                            <ul
+                                className={cx(itemStyle.submenu.container, itemStyle.submenu.float)}
+                                ref={refs.setFloating}
+                                style={floatingStyles}
+                                {...getFloatingProps()}
+                            >
+                                {children}
+                            </ul>
+                        ) : null
+                    }
                 </FloatingNode>
             </li>
         </>

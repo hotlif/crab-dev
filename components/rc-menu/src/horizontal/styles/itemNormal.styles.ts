@@ -1,5 +1,5 @@
 import { css } from "@linaria/core"
-import token from "../../token";
+import token from "../../token.js";
 
 const menuItem = css`
     cursor: pointer;
@@ -79,19 +79,19 @@ const submenuFloat = css`
 
 
 const styles = {
-  item: {
-    base: menuItem,
-    withDivider: menuItemWithDivider,
-    content: menuItemContent,
-    floatTrigger: menuItemFloatTrigger,
-    icon: menuItemIcon,
-    leftIcon: menuItemLeftIcon,
-    title: menuItemTitle,
-  },
-  submenu: {
-    container: submenuList,
-    float: submenuFloat,
-  }
+    item: {
+        base: menuItem,
+        withDivider: menuItemWithDivider,
+        content: menuItemContent,
+        floatTrigger: menuItemFloatTrigger,
+        icon: menuItemIcon,
+        leftIcon: menuItemLeftIcon,
+        title: menuItemTitle,
+    },
+    submenu: {
+        container: submenuList,
+        float: submenuFloat,
+    }
 };
 
 export default styles;

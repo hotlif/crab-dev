@@ -1,9 +1,9 @@
 import { cx } from "@linaria/core";
 import { type FC, type ReactNode } from "react";
 
-import { type Item } from "../type";
-import groupStyle from "./styles/itemGroup.styles";
-import token from "../token";
+import { type Item } from "../type.js";
+import groupStyle from "./styles/itemGroup.styles.js";
+import token from "../token.js";
 
 const indentBase = token.horizontal["group-item"]["indent-base"];
 const indentScale = token.horizontal["group-item"]["indent-scale"];

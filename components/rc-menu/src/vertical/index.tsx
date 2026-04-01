@@ -3,10 +3,10 @@ import { css, cx } from "@linaria/core";
 
 import { motion, AnimatePresence } from "motion/react"
 
-import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon";
-import { type MenuProps } from "../menu";
-import { ItemType, type Item } from "../type";
-import token from "../token";
+import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon.js";
+import { type MenuProps } from "../menu.js";
+import { ItemType, type Item } from "../type.js";
+import token from "../token.js";
 
 const verticalItemTitleWidth = token.vertical.item.title.width;
 const verticalItemTitleMarginBottom = token.vertical.item.title["margin-bottom"];
@@ -101,6 +101,7 @@ const menuItemIcon = css`
     margin-right: 8px;
 `
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
 }
 
@@ -205,21 +206,21 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                 <AnimatePresence initial={false}>
                     {
                         openKeys?.includes(item.key) ?
-                        (
-                            <motion.ul
-                                className={cx(ulStyle, ulChildrenStyle)}
-                                animate="open"
-                                initial="collapsed"
-                                exit="collapsed"
-                                variants={{
-                                    open: { height: "auto" },
-                                    collapsed: { height: 0 }
-                                }}
-                                transition={{ duration: 0.4, ease: "anticipate"}}
-                            >
-                                {children}
-                            </motion.ul>
-                        ) : null
+                            (
+                                <motion.ul
+                                    className={cx(ulStyle, ulChildrenStyle)}
+                                    animate="open"
+                                    initial="collapsed"
+                                    exit="collapsed"
+                                    variants={{
+                                        open: { height: "auto" },
+                                        collapsed: { height: 0 }
+                                    }}
+                                    transition={{ duration: 0.4, ease: "anticipate"}}
+                                >
+                                    {children}
+                                </motion.ul>
+                            ) : null
                     }
                 </AnimatePresence>
             </li>

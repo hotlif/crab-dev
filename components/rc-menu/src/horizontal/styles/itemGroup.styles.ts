@@ -1,5 +1,5 @@
 import { css } from "@linaria/core"
-import token from "../../token";
+import token from "../../token.js";
 
 const groupItemContainer = css`
     font-size: ${token.horizontal["group-item"]["font-size"]};

@@ -1,4 +1,4 @@
-import { act } from "react";
+import { act, type ReactNode, type HTMLAttributes, type Key } from "react";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 
@@ -14,9 +14,9 @@ jest.mock("@linaria/core", () => ({
 }));
 
 jest.mock("motion/react", () => ({
-    AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
+    AnimatePresence: ({ children }: { children?: ReactNode }) => <>{children}</>,
     motion: {
-        ul: ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => <ul {...props}>{children}</ul>,
+        ul: ({ children, ...props }: HTMLAttributes<HTMLUListElement>) => <ul {...props}>{children}</ul>,
     },
 }));
 
@@ -27,8 +27,8 @@ let mockFloatingForceOpen = false;
 let mockFloatingOnOpenChange: ((value: boolean) => void) | undefined;
 
 jest.mock("@floating-ui/react", () => ({
-    FloatingTree: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
-    FloatingNode: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
+    FloatingTree: ({ children }: { children?: ReactNode }) => <>{children}</>,
+    FloatingNode: ({ children }: { children?: ReactNode }) => <>{children}</>,
     useFloatingNodeId: () => "node-id",
     useFloatingTree: () => ({
         events: {
@@ -78,7 +78,7 @@ describe("Menu", () => {
         const onClick = jest.fn();
         const onSelectItem = jest.fn();
         const onOpenChange = jest.fn();
-        const openKeys: React.Key[] = [];
+        const openKeys: Key[] = [];
 
         render(
             <Menu
@@ -243,7 +243,7 @@ describe("Menu", () => {
     it("covers vertical item group branch and open icon state", () => {
         const onSelectItem = jest.fn();
         const onOpenChange = jest.fn();
-        const openKeys: React.Key[] = ["open-parent", "toggle-item", "group-parent"];
+        const openKeys: Key[] = ["open-parent", "toggle-item", "group-parent"];
 
         render(
             <Menu

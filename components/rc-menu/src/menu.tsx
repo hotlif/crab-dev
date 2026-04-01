@@ -1,7 +1,7 @@
-import { type Key, type FC, type HTMLAttributes } from "react";
-import { type Item } from "./type";
-import VerticalMenu from "./vertical";
-import HorizontalMenu from "./horizontal";
+import { type Key, type FC, type HTMLAttributes, type MouseEvent } from "react";
+import { type Item } from "./type.js";
+import VerticalMenu from "./vertical/index.js";
+import HorizontalMenu from "./horizontal/index.js";
 
 
 interface OnSelectItemParam {
@@ -45,7 +45,7 @@ export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onCli
      * 点击事件
      */
     onClick?: (param: {
-        event: React.MouseEvent<HTMLElement>,
+        event: MouseEvent<HTMLElement>,
         item: Item,
     }) => void
 }
