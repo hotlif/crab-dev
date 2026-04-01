@@ -1,6 +1,6 @@
-import Slider from "./slider";
+import Slider from "./slider.js";
 
-export type { SliderProps } from "./slider";
-export { vars as TokenVars } from "./token";
+export type { SliderProps } from "./slider.js";
+export { vars as TokenVars } from "./token.js";
 
 export default Slider;

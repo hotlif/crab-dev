@@ -13,10 +13,13 @@ const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
 
 // jsdom does not implement pointer capture APIs or layout
 beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Element.prototype.setPointerCapture = jest.fn() as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Element.prototype.releasePointerCapture = jest.fn() as any;
     Element.prototype.getBoundingClientRect = (() => ({
         left: 0, width: 200, top: 0, height: 20, right: 200, bottom: 20, x: 0, y: 0, toJSON() {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     })) as any;
 });
 
@@ -101,6 +104,7 @@ describe('Slider', () => {
         const { slider, unmount } = renderSlider({
             className: 'custom-slider',
             'data-test-id': 'my-slider',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any);
         expect(slider.className).toContain('custom-slider');
         expect(slider.getAttribute('data-test-id')).toBe('my-slider');
@@ -197,6 +201,7 @@ describe('Slider', () => {
         const onValueChange = jest.fn();
         Element.prototype.getBoundingClientRect = (() => ({
             left: 100, width: 200, top: 0, height: 20, right: 300, bottom: 20, x: 100, y: 0, toJSON() {},
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         })) as any;
         const { slider, unmount } = renderSlider({ value: 50, min: 0, max: 100, onValueChange });
 

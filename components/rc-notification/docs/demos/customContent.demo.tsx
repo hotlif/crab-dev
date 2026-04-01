@@ -5,7 +5,7 @@
  */
 
 import { useState } from "react";
-import { useNotification } from "../../src/index";
+import { useNotification } from "../../src/index.js";
 import { css } from "@linaria/core";
 
 
@@ -21,7 +21,7 @@ const SizeDemo = () => {
             `}
         >
             <button
-               onClick={() => {
+                onClick={() => {
                     i += 1;
                     notification.open({
                         title: "自定义内容",
@@ -34,7 +34,7 @@ const SizeDemo = () => {
                         direction: "bottomRight",
                         duration: 0
                     })
-               }}
+                }}
             >
                 发送通知
             </button>

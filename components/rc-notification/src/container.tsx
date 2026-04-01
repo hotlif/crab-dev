@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { AnimatePresence } from "motion/react"
-import { type Direction } from "./types";
+import { type Direction } from "./types.js";
 
 export interface ContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
 

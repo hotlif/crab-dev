@@ -2,8 +2,8 @@ import { type HTMLAttributes, type ReactNode, useMemo, useReducer } from 'react'
 import { css, cx } from '@linaria/core';
 import { useFloating, autoUpdate, offset, flip, FloatingPortal } from '@floating-ui/react';
 import { motion, AnimatePresence } from 'motion/react';
-import { dropdownReducer, initialDropdownState } from './reducer';
-import { DropdownContext } from './context';
+import { dropdownReducer, initialDropdownState } from './reducer.js';
+import { DropdownContext } from './context.js';
 
 export interface DropdownContainerProps extends HTMLAttributes<HTMLElement> {
     /**

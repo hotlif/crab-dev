@@ -5,7 +5,7 @@
  */
 
 import RcLineEdit from "@crab-dev/rc-line-edit"
-import DropdownContainer, { useDropdownContext } from "../../src/index";
+import DropdownContainer, { useDropdownContext } from "../../src/index.js";
 
 const Input = () => {
     const {

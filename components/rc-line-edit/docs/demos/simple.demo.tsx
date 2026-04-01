@@ -5,29 +5,29 @@
 
 import { css } from "@linaria/core";
 import { Lollipop } from "lucide-react";
-import LineEdit from "../../src/index";
+import LineEdit from "../../src/index.js";
 
 const paddingTop = css`
 	padding-top: 1rem;
 `;
 
 const SimpleDemo = () => {
-	return (
-		<>
-			<div className={paddingTop}>
-				<label> large </label>
-				<LineEdit prefix={<Lollipop />} size="large" />
-			</div>
-			<div className={paddingTop}>
-				<label> middle </label>
-				<LineEdit prefix={<Lollipop />} size="middle" />
-			</div>
-			<div className={paddingTop}>
-				<label> small </label>
-				<LineEdit prefix={<Lollipop />} size="small" />
-			</div>
-		</>
-	);
+    return (
+        <>
+            <div className={paddingTop}>
+                <label> large </label>
+                <LineEdit prefix={<Lollipop />} size="large" />
+            </div>
+            <div className={paddingTop}>
+                <label> middle </label>
+                <LineEdit prefix={<Lollipop />} size="middle" />
+            </div>
+            <div className={paddingTop}>
+                <label> small </label>
+                <LineEdit prefix={<Lollipop />} size="small" />
+            </div>
+        </>
+    );
 };
 
 export default SimpleDemo;

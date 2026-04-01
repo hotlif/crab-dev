@@ -1,1 +1,1 @@
-export { useKeyDown } from "./useKeyDown";
+export { useKeyDown } from "./useKeyDown.js";

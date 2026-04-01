@@ -1,14 +1,14 @@
 import { css, cx } from "@linaria/core";
-import type { FC, InputHTMLAttributes, ReactNode } from "react";
+import type { FC, InputHTMLAttributes, ReactNode, Ref } from "react";
 
-import token from "./token";
+import token from "./token.js";
 
 
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
     /**
      * 编辑器的对象
      */
-    inputRef?: React.Ref<HTMLInputElement>;
+    inputRef?: Ref<HTMLInputElement>;
 
     /**
      * 输入框的 props 信息
@@ -23,7 +23,7 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
     /**
      * 容器的对象
      */
-    containerRef?: React.Ref<HTMLDivElement>;
+    containerRef?: Ref<HTMLDivElement>;
 
     /**
      * 单行输入框的值

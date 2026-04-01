@@ -7,9 +7,9 @@ import {
 import { motion } from "motion/react"
 import type { HTMLMotionProps } from "motion/react";
 
-import Close from "./icons/close";
-import { type Direction } from "./types";
-import token from "./token";
+import Close from "./icons/close.js";
+import { type Direction } from "./types.js";
+import token from "./token.js";
 
 const colorBackground = token.background.color;
 const colorText = token.text.color;

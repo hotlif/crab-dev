@@ -1,6 +1,6 @@
 import { css, cx } from "@linaria/core";
-import { type HTMLAttributes, type FC, useRef, useCallback, useState, useEffect } from "react";
-import token from "./token";
+import { type HTMLAttributes, type FC, type PointerEvent, useRef, useCallback, useState, useEffect } from "react";
+import token from "./token.js";
 
 export interface SliderProps extends HTMLAttributes<HTMLDivElement> {
     value: number;
@@ -52,20 +52,20 @@ const Slider: FC<SliderProps> = ({
         }
     }, [min, max, step, value, onValueChange, factor]);
 
-    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
         e.preventDefault();
         setIsDragging(true);
         updateValue(e.clientX);
         e.currentTarget.setPointerCapture(e.pointerId);
     };
 
-    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
         if (isDragging) {
             updateValue(e.clientX);
         }
     };
 
-    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const handlePointerUp = (e: PointerEvent<HTMLDivElement>) => {
         if (isDragging) {
             setIsDragging(false);
             e.currentTarget.releasePointerCapture(e.pointerId);

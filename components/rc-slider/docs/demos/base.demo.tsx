@@ -5,7 +5,7 @@
  */
 
 import { useState } from "react";
-import Slider from "../../src/slider";
+import Slider from "../../src/slider.js";
 import { css } from "@linaria/core";
 
 const BaseDemo = () => {

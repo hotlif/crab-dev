@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useMotionValueEvent, useTime, type ValueKeyframesDefinition } from "motion/react";
 
-import Notification from "../notification";
-import Container from "../container";
-import type { Direction } from "../types";
+import Notification from "../notification.js";
+import Container from "../container.js";
+import type { Direction } from "../types.js";
 
 const defaultDuration = 3000;
 const defaultDirection = "topRight";
