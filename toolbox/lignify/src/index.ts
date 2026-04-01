@@ -1,5 +1,5 @@
 import { run as cRun, build as cBuild } from "@crab-dev/crustify";
-import LignifyMod from "./mod";
+import LignifyMod from "./mod.js";
 
 export const build = async () => {
     await cBuild({

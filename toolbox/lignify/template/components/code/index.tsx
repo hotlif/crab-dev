@@ -12,6 +12,7 @@ interface DemoItemProps {
 const DemoItem: FC<DemoItemProps> = ({ path }) => {
     const [reactElement, setReactElement] = useState<ReactNode>();
     const [code, setCode] = useState("");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [frontmatter, setFrontmatter] = useState<Record<string, any>>({});
 
     useEffect(() => {

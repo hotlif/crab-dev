@@ -6,6 +6,7 @@ interface DocGenProps {
     path: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let DocGenJSONCache: any = null;
 
 const DocGen: FC<DocGenProps> = ({

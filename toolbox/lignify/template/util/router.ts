@@ -14,6 +14,7 @@ interface Frontmatter {
  */
 interface ScanComponent {
     name: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: Promise<any>
     path: string
     frontmatter: Frontmatter
@@ -27,11 +28,11 @@ export const createRouter = (components: ScanComponent[]) => {
     const routers = {
         path: "/",
         lazy: async () => {
-			const Layout = await import("../layouts");
-			return {
-				Component: Layout.default
-			}
-		},
+            const Layout = await import("../layouts/index.js");
+            return {
+                Component: Layout.default
+            }
+        },
         children: components.map(({
             path,
             frontmatter,
@@ -60,7 +61,7 @@ export const createRouter = (components: ScanComponent[]) => {
     const error404Router = {
         path: "*",
         lazy: async () => {
-            const ErrorLayout = await import("../components/errors/404");
+            const ErrorLayout = await import("../components/errors/404.js");
             return {
                 Component: ErrorLayout.default
             }

@@ -7,10 +7,10 @@ import { css } from "@linaria/core";
 import pages from "@@@/pages";
 import mdxs from "@@@/mdxs";
 import demos from "@@@/demos";
-import { createRouter} from "./util/router";
+import { createRouter} from "./util/router.js";
 
 const router = createRouter([...pages, ...mdxs, ...demos]);
-
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 css`
 	:global() {
 		html, body, #root {
@@ -22,16 +22,16 @@ css`
 `
 
 const App = () => {
-	return (
-		<RouterProvider
+    return (
+        <RouterProvider
             router={router}
         />
-	)
+    )
 }
 
 const rootDom = document.querySelector("#root");
 
 if (rootDom != null) {
-	const root = createRoot(rootDom);
-	root.render(<App />);
+    const root = createRoot(rootDom);
+    root.render(<App />);
 }

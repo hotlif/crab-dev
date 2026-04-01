@@ -1,7 +1,7 @@
 
 import { getCurrentProjectPath } from "@crab-dev/crustify";
 import { join } from "path";
-import { copyTemplate } from "./utils/template";
+import { copyTemplate } from "./utils/template.js";
 import type { Modification, Configuration, Config } from "./types/modification";
 
 const dirname = () => (typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname);

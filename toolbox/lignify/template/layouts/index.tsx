@@ -1,8 +1,8 @@
 import { useLocation } from "react-router";
 import mdxs from "@@@/mdxs";
-import MultipleLayout from "./tabsLayout";
-import PlaygroundLayout from "./playgroundLayout";
-import DocLayout from "./docLayout";
+import MultipleLayout from "./tabsLayout.js";
+import PlaygroundLayout from "./playgroundLayout.js";
+import DocLayout from "./docLayout.js";
 
 const isSingleComponent = mdxs.some(element => element.path === "/docs/README.md");
 

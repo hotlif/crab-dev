@@ -3,11 +3,12 @@ import RcMenu, { MenuItem, MenuItemType } from "@crab-dev/rc-menu";
 import { useNavigate, useOutlet } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import mdxs from "@@@/mdxs";
-import DemoMasonry from "../components/code";
-import DocGen from "../components/docgen";
+import DemoMasonry from "../components/code/index.js";
+import DocGen from "../components/docgen.js";
 
 const getMenuItems = () => {
     const items: MenuItem[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mdxs.forEach((mdx: any) => {
         const title = mdx?.frontmatter?.title;
         items.push({
@@ -33,8 +34,8 @@ const TabsLayout = () => {
                 height: 100%;
             `}
         >
-                <header
-                    className={css`
+            <header
+                className={css`
                         display: flex;
                         align-items: center;
                         box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);
@@ -42,49 +43,50 @@ const TabsLayout = () => {
                         flex-shrink: 0;
                         padding-left: 1rem;
                     `}
-                >
-                    <div
-                        className={css`
+            >
+                <div
+                    className={css`
                             font-size: 16px;
                             cursor: pointer;
                         `}
-                        onClick={() => {
-                            navigate("/");
-                        }}
-                    >
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                >
                         Lignify
-                    </div>
-                </header>
+                </div>
+            </header>
             
-                <div
-                    className={css`
+            <div
+                className={css`
                         display: flex;
                         flex: 1;
                         min-height: 0;
                     `}
-                >
-                    <aside
-                        className={css`
+            >
+                <aside
+                    className={css`
                             width: 250px;
                             border-right: 1px solid #eaeaea;
                             padding: 0.5rem 0.2rem;
                         `}
-                    >
-                        <RcMenu
-                            items={getMenuItems()}
-                            onSelectItem={({
-                                item
-                            }) => {
-                                const data: any = item.data;
-                                const path = (data?.frontmatter?.path ?? data?.path).replaceAll(".", "/");
-                                if (path) {
-                                    navigate(path);
-                                }
-                            }}
-                        />
-                    </aside>   
-                    <main
-                        className={cx(css`
+                >
+                    <RcMenu
+                        items={getMenuItems()}
+                        onSelectItem={({
+                            item
+                        }) => {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            const data: any = item.data;
+                            const path = String(data?.frontmatter?.path ?? data?.path ?? "").replaceAll(".", "/");
+                            if (path) {
+                                navigate(path);
+                            }
+                        }}
+                    />
+                </aside>   
+                <main
+                    className={cx(css`
                             margin-left: 1rem;
                             height: 100%;
                             overflow: auto;
@@ -94,16 +96,16 @@ const TabsLayout = () => {
                             min-width: 0;
                             flex: 1;
                         `)}
+                >
+                    <MDXProvider
+                        components={{
+                            Demos: DemoMasonry,
+                            API: DocGen
+                        }}
                     >
-                        <MDXProvider
-                            components={{
-                                Demos: DemoMasonry,
-                                API: DocGen
-                            }}
-                        >
-                            {outlet}
-                        </MDXProvider>
-                    </main>
+                        {outlet}
+                    </MDXProvider>
+                </main>
             </div>
         </div>
     )

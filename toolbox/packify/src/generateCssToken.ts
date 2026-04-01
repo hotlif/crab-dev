@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile, access } from "fs/promises";
 import { join, dirname } from "path";
 import { parse } from 'smol-toml';
 import { createRequire } from 'module';
@@ -58,15 +58,31 @@ const resolveRefs = (value: string, globals: GlobalTokenInfo): string => {
 };
 
 /**
+ * Resolve a package's directory, with fallback for environments where
+ * require.resolve cannot find packages in node_modules (e.g. Yarn PnP).
+ */
+const resolvePackageDir = async (packageName: string, reqFn: ReturnType<typeof createRequire>, baseCwd: string): Promise<string> => {
+    try {
+        const packageJsonPath = reqFn.resolve(`${packageName}/package.json`);
+        return dirname(packageJsonPath);
+    } catch {
+        // Fallback: manually look up node_modules (for non-PnP or test scenarios)
+        const candidate = join(baseCwd, 'node_modules', ...packageName.split('/'));
+        await access(join(candidate, 'package.json'));
+        return candidate;
+    }
+};
+
+/**
  * Load global token definitions from a workspace package.
  * Reads the package's token.toml and returns its prefix + flattened token map.
  * If the package itself has imports, recursively loads and resolves them first.
  */
-const loadGlobalTokenSource = async (packageName: string, reqFn?: ReturnType<typeof createRequire>): Promise<GlobalTokenSource | null> => {
+const loadGlobalTokenSource = async (packageName: string, reqFn?: ReturnType<typeof createRequire>, baseCwd?: string): Promise<GlobalTokenSource | null> => {
     try {
-        const req = reqFn ?? createRequire(join(process.cwd(), 'package.json'));
-        const packageJsonPath = req.resolve(`${packageName}/package.json`);
-        const packageDir = dirname(packageJsonPath);
+        const cwd = baseCwd ?? process.cwd();
+        const req = reqFn ?? createRequire(join(cwd, 'package.json'));
+        const packageDir = await resolvePackageDir(packageName, req, cwd);
         const tomlContent = await readFile(join(packageDir, 'token.toml'), 'utf-8');
         const config = parse(tomlContent) as unknown as TokenConfig;
 
@@ -75,7 +91,7 @@ const loadGlobalTokenSource = async (packageName: string, reqFn?: ReturnType<typ
         // 递归解析：如果上游包自身也有 imports，先加载并解析其 $ref()
         if (config.build.imports && config.build.imports.length > 0) {
             const upstreamReq = createRequire(join(packageDir, 'package.json'));
-            const upstream = await loadGlobalTokens(config.build.imports, upstreamReq);
+            const upstream = await loadGlobalTokens(config.build.imports, upstreamReq, packageDir);
             if (upstream) {
                 for (const [key, value] of Object.entries(tokens)) {
                     if (value.includes('$ref(')) {
@@ -99,10 +115,10 @@ const loadGlobalTokenSource = async (packageName: string, reqFn?: ReturnType<typ
  * Load and merge multiple global token packages.
  * Later packages override earlier ones on key collision.
  */
-const loadGlobalTokens = async (packageNames: string[], reqFn?: ReturnType<typeof createRequire>): Promise<GlobalTokenInfo | null> => {
+const loadGlobalTokens = async (packageNames: string[], reqFn?: ReturnType<typeof createRequire>, baseCwd?: string): Promise<GlobalTokenInfo | null> => {
     const sources: GlobalTokenSource[] = [];
     for (const name of packageNames) {
-        const source = await loadGlobalTokenSource(name, reqFn);
+        const source = await loadGlobalTokenSource(name, reqFn, baseCwd);
         if (source) sources.push(source);
     }
     if (sources.length === 0) return null;
