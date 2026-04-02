@@ -12,6 +12,11 @@
         "skipLibCheck": true,
         "noEmit": true
     },
-    "include": [],
-    "exclude": ["node_modules", "components", "toolbox", "standards", "styleify"]
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }
