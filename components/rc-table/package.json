@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "yarn generate:docgen && lignify run-task app:dev",
-    "generate:docgen": "mkdir -p public && react-docgen ./src/table.tsx --out ./public/docgen.json",
+    "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/table.tsx --out ./public/docgen.json",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "build:library": "packify build",
     "eslint": "eslint",
