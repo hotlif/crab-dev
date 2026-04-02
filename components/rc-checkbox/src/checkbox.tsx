@@ -9,7 +9,6 @@ const wrapperStyle = css`
     align-items: center;
     gap: ${token.label.gap};
     cursor: pointer;
-    font-size: ${token.label.font.size};
     color: ${token.label.color};
     line-height: 1;
     user-select: none;
@@ -38,9 +37,6 @@ const boxStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.box.size};
-    height: ${token.box.size};
-    border-radius: ${token.box.border.radius};
     border-width: ${token.border.width};
     border-style: ${token.border.style};
     border-color: ${token.border.color};
@@ -77,14 +73,10 @@ const boxDisabledStyle = css`
 `;
 
 const checkIconStyle = css`
-    width: 12px;
-    height: 12px;
     color: ${token.checked.icon.color};
 `;
 
 const indeterminateIconStyle = css`
-    width: 8px;
-    height: 2px;
     background-color: ${token.indeterminate.icon.color};
     border-radius: 1px;
 `;
@@ -98,6 +90,7 @@ const Checkbox: FC<CheckboxProps> = ({
     defaultChecked = false,
     indeterminate = false,
     disabled: disabledProp,
+    size: sizeProp,
     onChange,
     value,
     children,
@@ -106,6 +99,70 @@ const Checkbox: FC<CheckboxProps> = ({
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const group = useCheckboxGroup();
+    const size = sizeProp ?? group?.size ?? 'middle';
+
+    const getSizeStyle = () => {
+        if (size === 'large') {
+            return {
+                wrapper: css`
+                    font-size: ${token.size.large.label.font.size};
+                `,
+                box: css`
+                    width: ${token.size.large.box.size};
+                    height: ${token.size.large.box.size};
+                    border-radius: ${token.size.large.box.border.radius};
+                `,
+                icon: css`
+                    width: ${token.size.large.icon.size};
+                    height: ${token.size.large.icon.size};
+                `,
+                indeterminate: css`
+                    width: ${token.size.large.indeterminate.width};
+                    height: ${token.size.large.indeterminate.height};
+                `,
+            };
+        } else if (size === 'small') {
+            return {
+                wrapper: css`
+                    font-size: ${token.size.small.label.font.size};
+                `,
+                box: css`
+                    width: ${token.size.small.box.size};
+                    height: ${token.size.small.box.size};
+                    border-radius: ${token.size.small.box.border.radius};
+                `,
+                icon: css`
+                    width: ${token.size.small.icon.size};
+                    height: ${token.size.small.icon.size};
+                `,
+                indeterminate: css`
+                    width: ${token.size.small.indeterminate.width};
+                    height: ${token.size.small.indeterminate.height};
+                `,
+            };
+        } else {
+            return {
+                wrapper: css`
+                    font-size: ${token.size.middle.label.font.size};
+                `,
+                box: css`
+                    width: ${token.size.middle.box.size};
+                    height: ${token.size.middle.box.size};
+                    border-radius: ${token.size.middle.box.border.radius};
+                `,
+                icon: css`
+                    width: ${token.size.middle.icon.size};
+                    height: ${token.size.middle.icon.size};
+                `,
+                indeterminate: css`
+                    width: ${token.size.middle.indeterminate.width};
+                    height: ${token.size.middle.indeterminate.height};
+                `,
+            };
+        }
+    };
+
+    const sizeStyle = getSizeStyle();
 
     const isInGroup = group !== null && value !== undefined;
     const isControlled = checkedProp !== undefined || isInGroup;
@@ -144,12 +201,12 @@ const Checkbox: FC<CheckboxProps> = ({
 
     const renderCheckIcon = () => {
         if (indeterminate) {
-            return <span className={cx(indeterminateIconStyle, disabled && disabledIconStyle)} />;
+            return <span className={cx(indeterminateIconStyle, sizeStyle.indeterminate, disabled && disabledIconStyle)} />;
         }
         if (checked) {
             return (
                 <svg
-                    className={cx(checkIconStyle, disabled && disabledIconStyle)}
+                    className={cx(checkIconStyle, sizeStyle.icon, disabled && disabledIconStyle)}
                     viewBox="0 0 12 12"
                     fill="none"
                     stroke="currentColor"
@@ -166,7 +223,7 @@ const Checkbox: FC<CheckboxProps> = ({
 
     return (
         <label
-            className={cx(wrapperStyle, className)}
+            className={cx(wrapperStyle, sizeStyle.wrapper, className)}
             data-disabled={disabled ? '' : undefined}
         >
             <input
@@ -182,6 +239,7 @@ const Checkbox: FC<CheckboxProps> = ({
             <span
                 className={cx(
                     boxStyle,
+                    sizeStyle.box,
                     checked && !indeterminate && boxCheckedStyle,
                     indeterminate && boxIndeterminateStyle,
                     disabled && boxDisabledStyle,

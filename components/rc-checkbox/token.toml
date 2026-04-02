@@ -12,13 +12,40 @@ imports = [
 transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
 
 
-# ─── 尺寸 ────────────────────────────────────────────────────────────────────
+# ─── 通用尺寸 ────────────────────────────────────────────────────────────────
 
-box.size             = "16px"
-box.border.radius    = "$ref(radius.sm)"
 label.gap            = "$ref(space.inline-gap)"
-label.font.size     = "$ref(font.size.body)"
 group.gap           = "$ref(space.component-gap)"
+
+
+# ─── 尺寸 — Large ────────────────────────────────────────────────────────────
+
+size.large.box.size          = "20px"
+size.large.box.border.radius = "$ref(radius.sm)"
+size.large.icon.size         = "14px"
+size.large.label.font.size   = "$ref(font.size.heading)"
+size.large.indeterminate.width  = "10px"
+size.large.indeterminate.height = "2px"
+
+
+# ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
+
+size.middle.box.size          = "16px"
+size.middle.box.border.radius = "$ref(radius.sm)"
+size.middle.icon.size         = "12px"
+size.middle.label.font.size   = "$ref(font.size.body)"
+size.middle.indeterminate.width  = "8px"
+size.middle.indeterminate.height = "2px"
+
+
+# ─── 尺寸 — Small ────────────────────────────────────────────────────────────
+
+size.small.box.size          = "14px"
+size.small.box.border.radius = "$ref(radius.sm)"
+size.small.icon.size         = "10px"
+size.small.label.font.size   = "$ref(font.size.body)"
+size.small.indeterminate.width  = "6px"
+size.small.indeterminate.height = "2px"
 
 
 # ─── 默认状态 ────────────────────────────────────────────────────────────────

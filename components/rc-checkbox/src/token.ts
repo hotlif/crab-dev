@@ -4,13 +4,28 @@
 
 export const vars = {
     'transition': '--checkbox-transition',
-    'box.size': '--checkbox-box-size',
-    'box.border.radius': '--checkbox-box-border-radius',
     'label.gap': '--checkbox-label-gap',
-    'label.font.size': '--checkbox-label-font-size',
     'label.color': '--checkbox-label-color',
     'label.color-disabled': '--checkbox-label-color-disabled',
     'group.gap': '--checkbox-group-gap',
+    'size.large.box.size': '--checkbox-size-large-box-size',
+    'size.large.box.border.radius': '--checkbox-size-large-box-border-radius',
+    'size.large.icon.size': '--checkbox-size-large-icon-size',
+    'size.large.label.font.size': '--checkbox-size-large-label-font-size',
+    'size.large.indeterminate.width': '--checkbox-size-large-indeterminate-width',
+    'size.large.indeterminate.height': '--checkbox-size-large-indeterminate-height',
+    'size.middle.box.size': '--checkbox-size-middle-box-size',
+    'size.middle.box.border.radius': '--checkbox-size-middle-box-border-radius',
+    'size.middle.icon.size': '--checkbox-size-middle-icon-size',
+    'size.middle.label.font.size': '--checkbox-size-middle-label-font-size',
+    'size.middle.indeterminate.width': '--checkbox-size-middle-indeterminate-width',
+    'size.middle.indeterminate.height': '--checkbox-size-middle-indeterminate-height',
+    'size.small.box.size': '--checkbox-size-small-box-size',
+    'size.small.box.border.radius': '--checkbox-size-small-box-border-radius',
+    'size.small.icon.size': '--checkbox-size-small-icon-size',
+    'size.small.label.font.size': '--checkbox-size-small-label-font-size',
+    'size.small.indeterminate.width': '--checkbox-size-small-indeterminate-width',
+    'size.small.indeterminate.height': '--checkbox-size-small-indeterminate-height',
     'border.width': '--checkbox-border-width',
     'border.style': '--checkbox-border-style',
     'border.color': '--checkbox-border-color',
@@ -30,22 +45,75 @@ export const vars = {
 
 const token = {
     'transition': `var(${vars['transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
-    'box': {
-        'size': `var(${vars['box.size']}, 16px)`,
-        'border': {
-            'radius': `var(${vars['box.border.radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`
-        }
-    },
     'label': {
         'gap': `var(${vars['label.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'font': {
-            'size': `var(${vars['label.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
-        },
         'color': `var(${vars['label.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'color-disabled': `var(${vars['label.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`
     },
     'group': {
         'gap': `var(${vars['group.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+    },
+    'size': {
+        'large': {
+            'box': {
+                'size': `var(${vars['size.large.box.size']}, 20px)`,
+                'border': {
+                    'radius': `var(${vars['size.large.box.border.radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`
+                }
+            },
+            'icon': {
+                'size': `var(${vars['size.large.icon.size']}, 14px)`
+            },
+            'label': {
+                'font': {
+                    'size': `var(${vars['size.large.label.font.size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-lg, 18px)))`
+                }
+            },
+            'indeterminate': {
+                'width': `var(${vars['size.large.indeterminate.width']}, 10px)`,
+                'height': `var(${vars['size.large.indeterminate.height']}, 2px)`
+            }
+        },
+        'middle': {
+            'box': {
+                'size': `var(${vars['size.middle.box.size']}, 16px)`,
+                'border': {
+                    'radius': `var(${vars['size.middle.box.border.radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`
+                }
+            },
+            'icon': {
+                'size': `var(${vars['size.middle.icon.size']}, 12px)`
+            },
+            'label': {
+                'font': {
+                    'size': `var(${vars['size.middle.label.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
+                }
+            },
+            'indeterminate': {
+                'width': `var(${vars['size.middle.indeterminate.width']}, 8px)`,
+                'height': `var(${vars['size.middle.indeterminate.height']}, 2px)`
+            }
+        },
+        'small': {
+            'box': {
+                'size': `var(${vars['size.small.box.size']}, 14px)`,
+                'border': {
+                    'radius': `var(${vars['size.small.box.border.radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`
+                }
+            },
+            'icon': {
+                'size': `var(${vars['size.small.icon.size']}, 10px)`
+            },
+            'label': {
+                'font': {
+                    'size': `var(${vars['size.small.label.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
+                }
+            },
+            'indeterminate': {
+                'width': `var(${vars['size.small.indeterminate.width']}, 6px)`,
+                'height': `var(${vars['size.small.indeterminate.height']}, 2px)`
+            }
+        }
     },
     'border': {
         'width': `var(${vars['border.width']}, 1px)`,

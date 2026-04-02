@@ -2,7 +2,7 @@ import { type ReactNode, type InputHTMLAttributes, type ChangeEvent } from 'reac
 
 interface BaseCheckboxProps extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
-    'onChange' | 'type' | 'value' | 'checked' | 'defaultChecked'
+    'onChange' | 'type' | 'value' | 'checked' | 'defaultChecked' | 'size'
 > {
     /**
      * 是否选中（受控）
@@ -18,6 +18,11 @@ interface BaseCheckboxProps extends Omit<
      * 是否半选状态
      */
     indeterminate?: boolean;
+
+    /**
+     * 复选框的大小, 默认为 middle
+     */
+    size?: 'large' | 'middle' | 'small';
 
     /**
      * 值变化时的回调
@@ -55,6 +60,11 @@ export interface CheckboxGroupProps {
     disabled?: boolean;
 
     /**
+     * 复选框组的大小, 默认为 middle
+     */
+    size?: 'large' | 'middle' | 'small';
+
+    /**
      * 子元素
      */
     children: ReactNode;
@@ -68,5 +78,6 @@ export interface CheckboxGroupProps {
 export interface CheckboxGroupContextValue {
     value: Array<string | number>;
     disabled: boolean;
+    size?: 'large' | 'middle' | 'small';
     toggleValue: (val: string | number) => void;
 }

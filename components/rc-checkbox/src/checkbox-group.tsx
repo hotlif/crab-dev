@@ -15,6 +15,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
     defaultValue = [],
     onChange,
     disabled = false,
+    size,
     children,
     className,
 }) => {
@@ -39,7 +40,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
     );
 
     return (
-        <CheckboxGroupContext.Provider value={{ value, disabled, toggleValue }}>
+        <CheckboxGroupContext.Provider value={{ value, disabled, size, toggleValue }}>
             <div className={cx(groupStyle, className)} role="group">
                 {children}
             </div>
