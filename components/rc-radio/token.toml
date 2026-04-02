@@ -1,0 +1,69 @@
+[build]
+output = "./src/token.ts"
+prefix = "radio"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 通用 ────────────────────────────────────────────────────────────────────
+
+transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+
+# ─── 通用尺寸 ────────────────────────────────────────────────────────────────
+
+label.gap            = "$ref(space.inline-gap)"
+group.gap            = "$ref(space.component-gap)"
+
+
+# ─── 尺寸 — Large ────────────────────────────────────────────────────────────
+
+size.large.box.size          = "20px"
+size.large.dot.size          = "10px"
+size.large.label.font.size   = "$ref(font.size.heading)"
+
+
+# ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
+
+size.middle.box.size          = "16px"
+size.middle.dot.size          = "8px"
+size.middle.label.font.size   = "$ref(font.size.body)"
+
+
+# ─── 尺寸 — Small ────────────────────────────────────────────────────────────
+
+size.small.box.size          = "14px"
+size.small.dot.size          = "6px"
+size.small.label.font.size   = "$ref(font.size.body)"
+
+
+# ─── 默认状态 ────────────────────────────────────────────────────────────────
+
+border.width         = "1px"
+border.style         = "solid"
+border.color         = "$ref(color.border.default)"
+border.color-hover   = "$ref(color.border.hover)"
+background.color     = "$ref(color.background.surface)"
+
+
+# ─── 选中状态 ────────────────────────────────────────────────────────────────
+
+checked.background.color       = "$ref(color.brand.primary)"
+checked.background.color-hover = "$ref(color.brand.primary-hover)"
+checked.border.color           = "$ref(color.brand.primary)"
+checked.dot.color              = "$ref(color.text.on-brand)"
+
+
+# ─── 禁用状态 ────────────────────────────────────────────────────────────────
+
+disabled.background.color = "$ref(color.background.disabled)"
+disabled.border.color     = "$ref(color.border.default)"
+disabled.dot.color        = "$ref(color.text.disabled)"
+
+
+# ─── 标签 ────────────────────────────────────────────────────────────────────
+
+label.color          = "$ref(color.text.primary)"
+label.color-disabled = "$ref(color.text.disabled)"
