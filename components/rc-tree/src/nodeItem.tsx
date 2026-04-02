@@ -85,6 +85,8 @@ const NodeItem: FC<NodeItemProps> = ({
                         animation: AnimSpinKeyframes 1s linear infinite;
                         ${cssIconStyle}
                         color: ${token.node.icon.loading.color};
+                        border-radius: inherit;
+                        margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
                         @keyframes AnimSpinKeyframes {
                             from {
                                 transform: rotate(0deg);

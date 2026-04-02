@@ -255,11 +255,11 @@ const Tree: FC<TreeProps> = ({
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
             onTreeNodeChange(oldNodes => {
-                const node = oldNodes.find(element => element.id === e.node.id);
-                if (node != null) {
-                    node.loadState = LoadStateType.LOADING;
-                }
-                return oldNodes
+                return oldNodes.map(element =>
+                    element.id === e.node.id
+                        ? { ...element, loadState: LoadStateType.LOADING }
+                        : element
+                );
             })
 
             loadDataFunc({
@@ -268,12 +268,14 @@ const Tree: FC<TreeProps> = ({
                 expandedKeys
             }).then((nodes) => {
                 onTreeNodeChange((oldNodes) => {
-                    const nodeIndex = oldNodes.findIndex(element => element.id === e.node.id);
-                    const node = oldNodes[nodeIndex];
-                    if (node != null) {
-                        node.loadState = LoadStateType.LOADING_COMPLETED;
-                    }
-                    return [...oldNodes, ...nodes]
+                    return [
+                        ...oldNodes.map(element =>
+                            element.id === e.node.id
+                                ? { ...element, loadState: LoadStateType.LOADING_COMPLETED }
+                                : element
+                        ),
+                        ...nodes
+                    ];
                 })
             });
         }
@@ -432,9 +434,6 @@ const Tree: FC<TreeProps> = ({
                                 />
                             ];
                             let rowIndex = rowRange[0];
-                            if (rowIndex > 0) {
-                                rowIndex -= 1;
-                            }
 
                             const getNodeItemElement = (node: Node) => {
                                 return (
@@ -510,7 +509,8 @@ const Tree: FC<TreeProps> = ({
                                     <div
                                         key={node.id}
                                         className={css`
-                                            white-space: nowrap    
+                                            white-space: nowrap;
+                                            overflow: hidden;
                                         `}
                                         style={{
                                             height: gridTemplateRows[rowIndex],
