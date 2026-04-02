@@ -5245,6 +5245,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@crab-dev/lignify", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
           ["@crab-dev/rc-menu", "virtual:92a9d371b908096042b14f086610ac09db818ad1c63dd1d3da94452a52a4327823949f5598376d1d7c3b14657a3e1ebe48092f65090da120211d87c85a9202d0#workspace:components/rc-menu"],\
           ["@crab-dev/rc-table", "workspace:components/rc-table"],\
           ["@crab-dev/rc-virtual", "workspace:components/rc-virtual"],\
