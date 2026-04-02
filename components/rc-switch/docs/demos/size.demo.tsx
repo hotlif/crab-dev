@@ -1,6 +1,6 @@
 /**
  * title = "开关尺寸"
- * description = "通过 `size` 属性设置开关尺寸, 支持 `default` 和 `small` 两种"
+ * description = "通过 `size` 属性设置开关尺寸, 支持 `large`、`middle`、`small` 三种"
  */
 
 import { css } from "@linaria/core";
@@ -19,10 +19,18 @@ const SizeDemo = () => {
             `}
         >
             <Switch
+                size="large"
                 checked={checked}
                 onChange={(val) => setChecked(val)}
             >
-                Default
+                Large
+            </Switch>
+            <Switch
+                size="middle"
+                checked={checked}
+                onChange={(val) => setChecked(val)}
+            >
+                Middle
             </Switch>
             <Switch
                 size="small"

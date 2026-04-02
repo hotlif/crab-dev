@@ -24,9 +24,6 @@ const trackStyle = css`
     position: relative;
     display: inline-flex;
     align-items: center;
-    width: ${token.track.width};
-    height: ${token.track.height};
-    border-radius: ${token.track.border.radius};
     background-color: ${token.track.background.color};
     transition: ${token.transition};
     border: none;
@@ -64,45 +61,22 @@ const trackDisabledCheckedStyle = css`
 
 const handleStyle = css`
     position: absolute;
-    width: ${token.handle.size};
-    height: ${token.handle.size};
     border-radius: 50%;
     background-color: ${token.handle.background.color};
     box-shadow: ${token.handle['box-shadow']};
     transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    left: ${token.handle.offset};
     transform: translateX(0);
-`;
-
-const handleCheckedStyle = css`
-    transform: translateX(calc(${token.track.width} - ${token.handle.size} - ${token.handle.offset} - ${token.handle.offset}));
 `;
 
 const handleDisabledStyle = css`
     background-color: ${token.disabled.handle.background.color};
 `;
 
-const trackSmallStyle = css`
-    width: ${token.small.track.width};
-    height: ${token.small.track.height};
-    border-radius: ${token.small.track.border.radius};
-`;
-
-const handleSmallStyle = css`
-    width: ${token.small.handle.size};
-    height: ${token.small.handle.size};
-    left: ${token.small.handle.offset};
-`;
-
-const handleSmallCheckedStyle = css`
-    transform: translateX(calc(${token.small.track.width} - ${token.small.handle.size} - ${token.small.handle.offset} - ${token.small.handle.offset}));
-`;
-
 const Switch: FC<SwitchProps> = ({
     checked: checkedProp,
     defaultChecked = false,
     disabled = false,
-    size = 'default',
+    size,
     onChange,
     children,
     className,
@@ -111,7 +85,60 @@ const Switch: FC<SwitchProps> = ({
     const [internalChecked, setInternalChecked] = useState(defaultChecked);
     const isControlled = checkedProp !== undefined;
     const checked = isControlled ? checkedProp : internalChecked;
-    const isSmall = size === 'small';
+
+    const getSizeStyles = () => {
+        if (size === 'large') {
+            return {
+                track: css`
+                    width: ${token.size.large.track.width};
+                    height: ${token.size.large.track.height};
+                    border-radius: ${token.size.large.track.border.radius};
+                `,
+                handle: css`
+                    width: ${token.size.large.handle.size};
+                    height: ${token.size.large.handle.size};
+                    left: ${token.size.large.handle.offset};
+                `,
+                handleChecked: css`
+                    transform: translateX(calc(${token.size.large.track.width} - ${token.size.large.handle.size} - ${token.size.large.handle.offset} - ${token.size.large.handle.offset}));
+                `,
+            };
+        } else if (size === 'small') {
+            return {
+                track: css`
+                    width: ${token.size.small.track.width};
+                    height: ${token.size.small.track.height};
+                    border-radius: ${token.size.small.track.border.radius};
+                `,
+                handle: css`
+                    width: ${token.size.small.handle.size};
+                    height: ${token.size.small.handle.size};
+                    left: ${token.size.small.handle.offset};
+                `,
+                handleChecked: css`
+                    transform: translateX(calc(${token.size.small.track.width} - ${token.size.small.handle.size} - ${token.size.small.handle.offset} - ${token.size.small.handle.offset}));
+                `,
+            };
+        } else {
+            return {
+                track: css`
+                    width: ${token.size.middle.track.width};
+                    height: ${token.size.middle.track.height};
+                    border-radius: ${token.size.middle.track.border.radius};
+                `,
+                handle: css`
+                    width: ${token.size.middle.handle.size};
+                    height: ${token.size.middle.handle.size};
+                    left: ${token.size.middle.handle.offset};
+                `,
+                handleChecked: css`
+                    transform: translateX(calc(${token.size.middle.track.width} - ${token.size.middle.handle.size} - ${token.size.middle.handle.offset} - ${token.size.middle.handle.offset}));
+                `,
+            };
+        }
+    };
+
+    const sizeStyles = getSizeStyles();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
         const nextChecked = !checked;
@@ -136,21 +163,20 @@ const Switch: FC<SwitchProps> = ({
                 disabled={disabled}
                 className={cx(
                     trackStyle,
+                    sizeStyles.track,
                     checked && trackCheckedStyle,
                     disabled && !checked && trackDisabledStyle,
                     disabled && checked && trackDisabledCheckedStyle,
                     disabled && trackDisabledStyle,
-                    isSmall && trackSmallStyle,
                 )}
                 onClick={handleClick}
             >
                 <span
                     className={cx(
                         handleStyle,
-                        checked && handleCheckedStyle,
+                        sizeStyles.handle,
+                        checked && sizeStyles.handleChecked,
                         disabled && handleDisabledStyle,
-                        isSmall && handleSmallStyle,
-                        isSmall && checked && handleSmallCheckedStyle,
                     )}
                 />
             </button>

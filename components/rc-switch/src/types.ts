@@ -15,9 +15,9 @@ interface BaseSwitchProps extends Omit<
     defaultChecked?: boolean;
 
     /**
-     * 开关大小
+     * 按钮的大小, 默认为 middle
      */
-    size?: 'default' | 'small';
+    size?: 'large' | 'middle' | 'small';
 
     /**
      * 值变化时的回调

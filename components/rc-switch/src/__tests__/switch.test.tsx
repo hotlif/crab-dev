@@ -110,6 +110,16 @@ describe('Switch', () => {
         expect(button.getAttribute('type')).toBe('button');
     });
 
+    it('renders with large size', () => {
+        const { container } = render(<Switch size="large" aria-label="toggle" />);
+        expect(container.querySelector('button[role="switch"]')).toBeTruthy();
+    });
+
+    it('renders with middle size', () => {
+        const { container } = render(<Switch size="middle" aria-label="toggle" />);
+        expect(container.querySelector('button[role="switch"]')).toBeTruthy();
+    });
+
     it('renders with small size', () => {
         const { container } = render(<Switch size="small" aria-label="toggle" />);
         expect(container.querySelector('button[role="switch"]')).toBeTruthy();
