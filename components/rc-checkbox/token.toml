@@ -1,0 +1,58 @@
+[build]
+output = "./src/token.ts"
+prefix = "checkbox"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 通用 ────────────────────────────────────────────────────────────────────
+
+transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+
+# ─── 尺寸 ────────────────────────────────────────────────────────────────────
+
+box.size             = "16px"
+box.border.radius    = "$ref(radius.sm)"
+label.gap            = "$ref(space.inline-gap)"
+label.font.size     = "$ref(font.size.body)"
+group.gap           = "$ref(space.component-gap)"
+
+
+# ─── 默认状态 ────────────────────────────────────────────────────────────────
+
+border.width         = "1px"
+border.style         = "solid"
+border.color         = "$ref(color.border.default)"
+border.color-hover   = "$ref(color.border.hover)"
+background.color     = "$ref(color.background.surface)"
+
+
+# ─── 选中状态 ────────────────────────────────────────────────────────────────
+
+checked.background.color       = "$ref(color.brand.primary)"
+checked.background.color-hover = "$ref(color.brand.primary-hover)"
+checked.border.color           = "$ref(color.brand.primary)"
+checked.icon.color             = "$ref(color.text.on-brand)"
+
+
+# ─── 半选状态 ────────────────────────────────────────────────────────────────
+
+indeterminate.background.color = "$ref(color.brand.primary)"
+indeterminate.border.color     = "$ref(color.brand.primary)"
+indeterminate.icon.color       = "$ref(color.text.on-brand)"
+
+
+# ─── 禁用状态 ────────────────────────────────────────────────────────────────
+
+disabled.background.color = "$ref(color.background.disabled)"
+disabled.border.color     = "$ref(color.border.default)"
+disabled.icon.color       = "$ref(color.text.disabled)"
+
+
+# ─── 标签 ────────────────────────────────────────────────────────────────────
+
+label.color          = "$ref(color.text.primary)"
+label.color-disabled = "$ref(color.text.disabled)"
