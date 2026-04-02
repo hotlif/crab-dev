@@ -1,0 +1,63 @@
+[build]
+output = "./src/token.ts"
+prefix = "switch"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 通用 ────────────────────────────────────────────────────────────────────
+
+transition = "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+
+# ─── 尺寸 ────────────────────────────────────────────────────────────────────
+
+track.width           = "44px"
+track.height          = "22px"
+track.border.radius   = "11px"
+handle.size           = "18px"
+handle.offset         = "2px"
+label.gap             = "$ref(space.inline-gap)"
+label.font.size       = "$ref(font.size.body)"
+
+
+# ─── 尺寸 — Small ────────────────────────────────────────────────────────────
+
+small.track.width         = "28px"
+small.track.height        = "16px"
+small.track.border.radius = "8px"
+small.handle.size         = "12px"
+small.handle.offset       = "2px"
+
+
+# ─── 默认状态（未选中） ──────────────────────────────────────────────────────
+
+track.background.color       = "$ref(color.background.active-subtle)"
+track.background.color-hover = "$ref(color.border.hover)"
+
+
+# ─── 选中状态 ────────────────────────────────────────────────────────────────
+
+checked.track.background.color       = "$ref(color.brand.primary)"
+checked.track.background.color-hover = "$ref(color.brand.primary-hover)"
+
+
+# ─── 手柄 ────────────────────────────────────────────────────────────────────
+
+handle.background.color = "$ref(color.background.surface)"
+handle.box-shadow       = "0 1px 2px oklch(0 0 0 / 0.2)"
+
+
+# ─── 禁用状态 ────────────────────────────────────────────────────────────────
+
+disabled.track.background.color         = "$ref(color.background.disabled)"
+disabled.checked.track.background.color = "$ref(color.background.disabled)"
+disabled.handle.background.color        = "$ref(color.background.surface)"
+
+
+# ─── 标签 ────────────────────────────────────────────────────────────────────
+
+label.color          = "$ref(color.text.primary)"
+label.color-disabled = "$ref(color.text.disabled)"
