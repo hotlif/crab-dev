@@ -18,6 +18,13 @@ interface RenderParam<T extends Row> {
 	originalElement: ReactNode
 }
 
+export interface FilterEditorParam<T extends Row> {
+	column: ColumnType<T>
+	columnIndex: number
+	value: string
+	onValueChange: (value: string) => void
+}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ColumnChildrenType<T extends Row> extends Omit<ColumnType<T>, "fixed">{
 
@@ -64,6 +71,21 @@ export interface ColumnType<T extends Row> {
 	 * 自定义渲染单元格数据
 	 */
 	render?: (param: RenderParam<T>) => ReactNode
+
+	/**
+	 * 是否开启当前列过滤输入（仅叶子列生效）
+	 */
+	filterable?: boolean
+
+	/**
+	 * 当前列过滤单元格 className
+	 */
+	filterCellClassName?: string
+
+	/**
+	 * 自定义当前列过滤编辑器
+	 */
+	filterEditor?: (param: FilterEditorParam<T>) => ReactNode
 }
 
 export interface MergeCell {

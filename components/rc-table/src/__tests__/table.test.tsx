@@ -1,8 +1,20 @@
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 
 import Table from "../table.js";
 import type { ColumnType, MergeCell, Row } from "../types.js";
+
+const renderDefaultFilterEditor = <T extends Row>({ columnIndex, value, onValueChange }: { columnIndex: number, value: string, onValueChange: (nextValue: string) => void }) => {
+    return (
+        <input
+            value={value}
+            aria-label={`table-filter-input-${columnIndex}`}
+            onChange={(event) => {
+                onValueChange(event.target.value);
+            }}
+        />
+    );
+};
 
 interface DemoRow extends Row {
     dataRef: {
@@ -195,6 +207,232 @@ describe("Table", () => {
 
         const root = container.firstElementChild as HTMLElement;
         expect(root.getAttribute("style")).toContain("--crab-rc-virtual-top-padding-height-offset: 80px");
+
+        unmount();
+    });
+
+    it("does not filter rows by itself and only emits filter conditions", () => {
+        const onFilterChange = jest.fn();
+
+        const { container, getByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={groupedColumns}
+                rows={buildRows()}
+                filterBar
+                onFilterChange={onFilterChange}
+                renderDefaultFilterEditor={renderDefaultFilterEditor}
+            />
+        );
+
+        const textBefore = container.textContent ?? "";
+        expect(textBefore).toContain("R-0001");
+        expect(textBefore).toContain("R-0002");
+        expect(textBefore).toContain("R-0003");
+
+        const input = getByLabelText("table-filter-input-0") as HTMLInputElement;
+        fireEvent.change(input, {
+            target: {
+                value: "R-0002"
+            }
+        });
+
+        const textAfter = container.textContent ?? "";
+        expect(textAfter).toContain("R-0001");
+        expect(textAfter).toContain("R-0002");
+        expect(textAfter).toContain("R-0003");
+        expect(onFilterChange).toHaveBeenCalledWith({
+            "$.recordNo": "R-0002"
+        });
+
+        unmount();
+    });
+
+    it("supports controlled filters from outside", () => {
+        const onFilterChange = jest.fn();
+        const { getByLabelText, rerender, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={groupedColumns}
+                rows={buildRows()}
+                filterBar
+                filters={{ "$.recordNo": "R-0001" }}
+                onFilterChange={onFilterChange}
+                renderDefaultFilterEditor={renderDefaultFilterEditor}
+            />
+        );
+
+        const inputBefore = getByLabelText("table-filter-input-0") as HTMLInputElement;
+        expect(inputBefore.value).toBe("R-0001");
+
+        rerender(
+            <Table
+                width={700}
+                height={260}
+                columns={groupedColumns}
+                rows={buildRows()}
+                filterBar
+                filters={{ "$.recordNo": "R-0003" }}
+                onFilterChange={onFilterChange}
+                renderDefaultFilterEditor={renderDefaultFilterEditor}
+            />
+        );
+
+        const inputAfter = getByLabelText("table-filter-input-0") as HTMLInputElement;
+        expect(inputAfter.value).toBe("R-0003");
+
+        fireEvent.change(inputAfter, {
+            target: {
+                value: "R-0002"
+            }
+        });
+
+        expect(onFilterChange).toHaveBeenCalledWith({
+            "$.recordNo": "R-0002"
+        });
+
+        unmount();
+    });
+
+    it("supports custom filter editor", () => {
+        const columnsWithCustomFilterEditor: ColumnType<DemoRow>[] = [
+            {
+                ...groupedColumns[0],
+                filterEditor: ({ onValueChange }) => {
+                    return (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                onValueChange("R-0003");
+                            }}
+                        >
+                            只看R-0003
+                        </button>
+                    );
+                }
+            },
+            ...groupedColumns.slice(1)
+        ];
+
+        const onFilterChange = jest.fn();
+        const { container, getByText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={columnsWithCustomFilterEditor}
+                rows={buildRows()}
+                filterBar
+                onFilterChange={onFilterChange}
+            />
+        );
+
+        fireEvent.click(getByText("只看R-0003"));
+
+        const textAfter = container.textContent ?? "";
+        expect(textAfter).toContain("R-0001");
+        expect(textAfter).toContain("R-0003");
+        expect(textAfter).toContain("R-0002");
+        expect(onFilterChange).toHaveBeenCalledWith({
+            "$.recordNo": "R-0003"
+        });
+
+        unmount();
+    });
+
+    it("supports external renderDefaultFilterEditor", () => {
+        const onFilterChange = jest.fn();
+
+        const { getByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={groupedColumns}
+                rows={buildRows()}
+                filterBar
+                onFilterChange={onFilterChange}
+                renderDefaultFilterEditor={({ columnIndex, value, onValueChange }) => {
+                    return (
+                        <button
+                            type="button"
+                            aria-label={`default-filter-editor-${columnIndex}`}
+                            onClick={() => {
+                                onValueChange("R-0002");
+                            }}
+                        >
+                            {value === "" ? "设置默认过滤" : `默认过滤:${value}`}
+                        </button>
+                    );
+                }}
+            />
+        );
+
+        fireEvent.click(getByLabelText("default-filter-editor-0"));
+
+        expect(onFilterChange).toHaveBeenCalledWith({
+            "$.recordNo": "R-0002"
+        });
+
+        unmount();
+    });
+
+    it("renders empty filter cell when no filter editor is provided", () => {
+        const { queryByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={groupedColumns}
+                rows={buildRows()}
+                filterBar
+            />
+        );
+
+        expect(queryByLabelText("table-filter-input-0")).toBeNull();
+
+        unmount();
+    });
+
+    it("supports custom filter cell className", () => {
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={groupedColumns}
+                rows={buildRows()}
+                filterBar
+                filterCellClassName="custom-filter-cell"
+            />
+        );
+
+        expect(container.querySelector(".custom-filter-cell")).not.toBeNull();
+
+        unmount();
+    });
+
+    it("supports column-level filter cell className", () => {
+        const columnsWithFilterCellClassName: ColumnType<DemoRow>[] = [
+            {
+                ...groupedColumns[0],
+                filterCellClassName: "column-filter-cell"
+            },
+            ...groupedColumns.slice(1)
+        ];
+
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={columnsWithFilterCellClassName}
+                rows={buildRows()}
+                filterBar
+                filterCellClassName="global-filter-cell"
+            />
+        );
+
+        const cell = container.querySelector(".column-filter-cell");
+        expect(cell).not.toBeNull();
+        expect(cell?.classList.contains("global-filter-cell")).toBe(true);
 
         unmount();
     });

@@ -1,12 +1,12 @@
 import RcVirtual from "@crab-dev/rc-virtual";
-import { type CSSProperties, type HTMLAttributes, type ReactNode, useMemo } from "react";
+import { type CSSProperties, type HTMLAttributes, type ReactNode, useMemo, useState } from "react";
 import { css, cx } from "@linaria/core";
 
 import TableRow from "./tableRow.js";
 import TableBodyCell from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
 import { sortColumns, getBottomColumns, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray, buildMergeCellLookup } from "./util.js";
-import type { ColumnType, MergeCell, Row } from "./types.js";
+import type { ColumnType, FilterEditorParam, MergeCell, Row } from "./types.js";
 
 interface TableProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
 	// 表格的宽度
@@ -23,6 +23,18 @@ interface TableProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
 	getRowHeight?: (row: T, rowIndex: number) => number | undefined
 	// 表格头部的高度
 	headerRowHeight?: number
+    // 是否展示过滤栏
+    filterBar?: boolean
+    // 过滤栏高度
+    filterRowHeight?: number
+    // 过滤栏单元格样式类名（可传入 css`` 生成的 className）
+    filterCellClassName?: string
+    // 外部受控过滤条件（key 为列 name）
+    filters?: Record<string, string>
+    // 自定义默认过滤编辑器（列级 filterEditor 优先级更高）
+    renderDefaultFilterEditor?: (param: FilterEditorParam<T>) => ReactNode
+    // 过滤条件变化回调
+    onFilterChange?: (filters: Record<string, string>) => void
 }
 
 // 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域
@@ -85,8 +97,16 @@ function Table<T extends Row>({
     mergeCells = [],
     getRowHeight,
     headerRowHeight = 35,
+    filterBar = false,
+    filterRowHeight = 35,
+    filterCellClassName,
+    filters,
+    renderDefaultFilterEditor,
+    onFilterChange,
     ...restProps
 }: TableProps<T>) {
+
+    const [innerFilterKeywordMap, setInnerFilterKeywordMap] = useState<Record<string, string>>({});
 
     // 先剔除隐藏列，再按列配置（含 children）排序，作为后续所有列计算基础
     const sColumns = useMemo(() => {
@@ -115,6 +135,9 @@ function Table<T extends Row>({
     const gridTemplateColumns = useMemo(() => {
         return bottomColumns.filter(element => element.hidden !== true).map((column) => column.width ?? 120)
     }, [width, bottomColumns])
+
+    const filterKeywordMap = filters ?? innerFilterKeywordMap;
+    const isFilterEnabled = filterBar === true;
 
     // 行高优先级：getRowHeight > row.height > 默认 35
     const gridTemplateRows = useMemo(() => {
@@ -354,6 +377,92 @@ function Table<T extends Row>({
         return bodyRows;
     }
 
+    const handleFilterValueChange = (columnIndex: number, keyword: string) => {
+        const column = bottomColumns[columnIndex];
+        if (!column) {
+            return;
+        }
+
+        const next = {
+            ...filterKeywordMap
+        };
+        if (keyword.trim() === "") {
+            delete next[column.name];
+        } else {
+            next[column.name] = keyword;
+        }
+
+        const normalizedNext = Object.entries(next).reduce<Record<string, string>>((acc, [key, value]) => {
+            if (value.trim() === "") {
+                return acc;
+            }
+            acc[key] = value;
+            return acc;
+        }, {});
+
+        if (filters == null) {
+            setInnerFilterKeywordMap(normalizedNext);
+        }
+
+        onFilterChange?.(normalizedNext);
+    }
+
+    const renderFilterCell = (columnIndex: number, fixed?: "left" | "right") => {
+        const column = bottomColumns[columnIndex];
+        const canFilter = column?.filterable !== false;
+        const keyword = column ? (filterKeywordMap[column.name] ?? "") : "";
+
+        return (
+            <div
+                key={`table-filter-cell-${columnIndex}`}
+                className={cx(css`
+					display: inline-flex;
+					align-items: center;
+					box-sizing: border-box;
+					vertical-align: top;
+					height: 100%;
+                    padding: 2px;
+					border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+					border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+					background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
+				`, fixed && css`
+					position: sticky;
+					z-index: 11;
+				`, fixed === "right" && css`
+					border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
+					border-right: 0;
+                `, filterCellClassName, column?.filterCellClassName)}
+                style={{
+                    width: gridTemplateColumns[columnIndex],
+                    left: fixed === "left" ? stickyLeftOffsets[columnIndex] : undefined,
+                    right: fixed === "right" ? stickyRightOffsets[columnIndex] : undefined
+                }}
+            >
+                {canFilter ? (
+                    column?.filterEditor
+                        ? column.filterEditor({
+                            column,
+                            columnIndex,
+                            value: keyword,
+                            onValueChange: (nextValue) => {
+                                handleFilterValueChange(columnIndex, nextValue);
+                            }
+                        })
+                        : renderDefaultFilterEditor
+                            ? renderDefaultFilterEditor({
+                                column,
+                                columnIndex,
+                                value: keyword,
+                                onValueChange: (nextValue) => {
+                                    handleFilterValueChange(columnIndex, nextValue);
+                                }
+                            })
+                            : null
+                ) : null}
+            </div>
+        )
+    }
+
     const generateHeaderElement = ({
         columnRange,
     }:{
@@ -523,6 +632,38 @@ function Table<T extends Row>({
                 </TableRow>,
             )
         }
+
+        if (isFilterEnabled) {
+            const filterCells: ReactNode[] = [];
+            for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
+                if (bottomColumns[columnIndex].fixed === "left" || bottomColumns[columnIndex].fixed === "right") {
+                    continue;
+                }
+                filterCells.push(renderFilterCell(columnIndex));
+            }
+
+            nodeRows.push(
+                <TableRow
+                    key="table-header-filter-row"
+                    className={css`
+					position: sticky;
+					z-index: 10;
+				`}
+                    style={{
+                        height: filterRowHeight,
+                        width: actualHeight,
+                        top: maxDepth * headerRowHeight
+                    }}
+                >
+                    {fixedLeftColumnsIdx.map((columnIndex) => renderFilterCell(columnIndex, "left"))}
+                    {paddingLeft}
+                    {filterCells}
+                    {paddingRight}
+                    {fixedRightColumnsIdx.map((columnIndex) => renderFilterCell(columnIndex, "right"))}
+                </TableRow>
+            )
+        }
+
         return nodeRows;
     }
 
@@ -531,7 +672,7 @@ function Table<T extends Row>({
             {...restProps}
             style={{
                 '--crab-rc-virtual-left-padding-width-offset': `${fixedLeftColumns.reduce((acc, cur) => acc + (cur.width ?? 120), 0)}px`,
-                '--crab-rc-virtual-top-padding-height-offset':  `${maxDepth * headerRowHeight}px`
+                '--crab-rc-virtual-top-padding-height-offset':  `${(maxDepth * headerRowHeight) + (isFilterEnabled ? filterRowHeight : 0)}px`
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as CSSProperties & Record<string, any>}
         >
