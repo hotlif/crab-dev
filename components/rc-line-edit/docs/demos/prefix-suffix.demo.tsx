@@ -15,6 +15,7 @@ const PrefixSuffixDemo = () => {
 				flex-direction: column;
 				align-items: flex-start;
 				gap: 1rem;
+				padding: 1rem;
 			`}
         >
             <LineEdit prefix={<Search size={16} />} placeholder="搜索" />

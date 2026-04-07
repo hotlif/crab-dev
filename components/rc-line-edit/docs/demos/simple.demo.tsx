@@ -7,26 +7,29 @@ import { css } from "@linaria/core";
 import { Lollipop } from "lucide-react";
 import LineEdit from "../../src/index.js";
 
-const paddingTop = css`
-	padding-top: 1rem;
+const wrapperStyle = css`
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 `;
 
 const SimpleDemo = () => {
     return (
-        <>
-            <div className={paddingTop}>
+        <div className={wrapperStyle}>
+            <div>
                 <label> large </label>
                 <LineEdit prefix={<Lollipop />} size="large" />
             </div>
-            <div className={paddingTop}>
+            <div>
                 <label> middle </label>
                 <LineEdit prefix={<Lollipop />} size="middle" />
             </div>
-            <div className={paddingTop}>
+            <div>
                 <label> small </label>
                 <LineEdit prefix={<Lollipop />} size="small" />
             </div>
-        </>
+        </div>
     );
 };
 

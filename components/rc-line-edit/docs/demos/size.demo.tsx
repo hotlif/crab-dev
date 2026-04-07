@@ -11,7 +11,11 @@ const SizeDemo = () => {
     const [size, setSize] = useState<"large" | "middle" | "small">("middle");
 
     return (
-        <div>
+        <div
+            className={css`
+                padding: 1rem;
+            `}
+        >
             <div
                 className={css`
 					display: flex;
