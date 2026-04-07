@@ -3,6 +3,7 @@ import { containerStyle as scrollbarContainerStyle } from "./scrollbar.style";
 
 export const containerStyle = css`
 	position: relative;
+	background-color: inherit;
 	& > .${scrollbarContainerStyle} {
 		opacity: 0;
 		transition: opacity 150ms;

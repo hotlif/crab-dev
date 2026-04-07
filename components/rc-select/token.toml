@@ -1,0 +1,64 @@
+[build]
+output = "./src/token.ts"
+prefix = "select"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+border.width = "1px"
+border.style = "solid"
+border.color = "$ref(color.border.default)"
+border.color-hover = "$ref(color.border.hover)"
+border.color-focus = "$ref(color.border.focus)"
+border.color-error = "$ref(color.border.error)"
+border.color-warning = "$ref(color.feedback.warning)"
+border.radius = "$ref(radius.md)"
+
+background.color = "$ref(color.background.surface)"
+background.color-disabled = "$ref(color.background.disabled)"
+
+text.color = "$ref(color.text.primary)"
+text.color-placeholder = "$ref(color.text.secondary)"
+text.color-disabled = "$ref(color.text.disabled)"
+
+option.color-hover = "$ref(color.background.hover-subtle)"
+option.color-selected = "$ref(color.brand.primary)"
+option.background-selected = "$ref(color.background.hover-subtle)"
+option.color-disabled = "$ref(color.text.disabled)"
+option.highlight-background = "$ref(color.background.hover-subtle)"
+
+shadow.default = "$ref(shadow.float)"
+shadow.focus = "$ref(shadow.float)"
+
+tag.background = "$ref(color.background.hover-subtle)"
+tag.color = "$ref(color.text.primary)"
+tag.close-hover = "$ref(color.text.secondary)"
+
+clear.color = "$ref(color.text.secondary)"
+clear.color-hover = "$ref(color.text.primary)"
+
+group.color = "$ref(color.text.secondary)"
+group.font-size = "$ref(font.size.caption)"
+
+loading.color = "$ref(color.text.secondary)"
+
+size.large.height = "40px"
+size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.large.font.size = "$ref(font.size.subhead)"
+
+size.middle.height = "32px"
+size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.middle.font.size = "$ref(font.size.body)"
+
+size.small.height = "24px"
+size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.small.font.size = "$ref(font.size.caption)"
+
+dropdown.offset = "6px"
+dropdown.max-height = "240px"
+dropdown.padding = "4px"
+dropdown.option.padding = "8px"
+dropdown.z-index = "1000"

@@ -7,7 +7,6 @@ import {
     useEffect,
     useRef,
     useState,
-    useLayoutEffect,
     useImperativeHandle,
 } from "react";
 import { cx } from "@linaria/core";
@@ -65,6 +64,7 @@ const Virtual: FC<VirtualProps> = ({
     const [topScrollbar] = useScrollbar();
 
     const divGridRef = useRef<HTMLDivElement>(null);
+    const scrollPositionRef = useRef({ top: 0, left: 0 });
 
     let {
         columnRange,
@@ -81,14 +81,6 @@ const Virtual: FC<VirtualProps> = ({
     const totalWidth = gridTemplateColumns.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const totalHeight = gridTemplateRows.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-    useLayoutEffect(() => {
-        if (divGridRef.current) {
-			
-            divGridRef.current.scrollTop = currentScrollPositionTop;
-            divGridRef.current.scrollLeft = currentScrollPositionLeft;
-        }
-    }, [currentScrollPositionTop, currentScrollPositionLeft]);
-
     const isShowScrollBarsY = totalHeight > viewportHeight;
     const isShowScrollBarsX = totalWidth > viewportWidth;
 
@@ -101,10 +93,12 @@ const Virtual: FC<VirtualProps> = ({
     }
 
     const scrollToLeft = (left: number) => {
+        scrollPositionRef.current.left = left;
         setCurrentScrollPositionLeft(left);
     };
 
     const scrollToTop = (top: number) => {
+        scrollPositionRef.current.top = top;
         setCurrentScrollPositionTop(top);
     };
 
@@ -183,13 +177,8 @@ const Virtual: FC<VirtualProps> = ({
         if (divGridRef.current) {
             const onWheel = (e: globalThis.WheelEvent) => {
                 e.preventDefault();
-                const currentTarget = e.currentTarget as HTMLDivElement;
-                const {
-                    scrollLeft,
-                    scrollTop
-                } = currentTarget;
-                let newScrollLeft = scrollLeft;
-                let newScrollTop = scrollTop;
+                let newScrollLeft = scrollPositionRef.current.left;
+                let newScrollTop = scrollPositionRef.current.top;
                 const distance = 30;
 
                 if (e.shiftKey) {

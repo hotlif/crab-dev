@@ -21,8 +21,15 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
     const {
         onMouseDown,
+        className: floatingClassName,
+        style: floatingUserStyle,
         ...restFloatingContainerProps
-    } = floatingContainerProps
+    } = floatingContainerProps;
+
+    const floatingContainerStyle = css`
+        z-index: 1000;
+    `;
+
     const { refs, floatingStyles } = useFloating({
         placement: 'bottom-start',
         whileElementsMounted: autoUpdate,
@@ -56,7 +63,8 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
                         {state.open && (
                             <div
                                 ref={refs.setFloating}
-                                style={floatingStyles}
+                                className={cx(floatingContainerStyle, floatingClassName)}
+                                style={{ ...floatingStyles, ...floatingUserStyle }}
                                 onMouseDown={(e) => {
                                     onMouseDown?.(e);
                                     e.preventDefault();
@@ -71,7 +79,6 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
                                             0 3px 6px -4px rgba(0, 0, 0, 0.12),
                                             0 9px 28px 8px rgba(0, 0, 0, 0.05);
                                         border-radius: 8px;
-                                        padding: 0.2rem 1rem 1rem 1rem;
                                         transform-origin: top;
                                     `}
                                     initial={{ opacity: 0, scaleY: 0.8, y: -8 }}
