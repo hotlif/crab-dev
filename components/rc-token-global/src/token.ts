@@ -131,15 +131,15 @@ export const vars = {
     'opacity.70': '--token-global-opacity-70',
     'opacity.80': '--token-global-opacity-80',
     'opacity.100': '--token-global-opacity-100',
-    'z.base': '--token-global-z-base',
-    'z.raised': '--token-global-z-raised',
-    'z.dropdown': '--token-global-z-dropdown',
-    'z.sticky': '--token-global-z-sticky',
-    'z.overlay': '--token-global-z-overlay',
-    'z.dialog': '--token-global-z-dialog',
-    'z.popover': '--token-global-z-popover',
-    'z.toast': '--token-global-z-toast',
-    'z.tooltip': '--token-global-z-tooltip'
+    'z-index.0': '--token-global-z-index-0',
+    'z-index.1': '--token-global-z-index-1',
+    'z-index.10': '--token-global-z-index-10',
+    'z-index.20': '--token-global-z-index-20',
+    'z-index.30': '--token-global-z-index-30',
+    'z-index.40': '--token-global-z-index-40',
+    'z-index.50': '--token-global-z-index-50',
+    'z-index.60': '--token-global-z-index-60',
+    'z-index.70': '--token-global-z-index-70'
 };
 
 const token = {
@@ -279,7 +279,7 @@ const token = {
         'xs': `var(${vars['shadow.xs']}, 0 1px 2px oklch(0 0 0 / 0.03))`,
         'sm': `var(${vars['shadow.sm']}, 0 1px 2px 0 oklch(0 0 0 / 0.05))`,
         'md': `var(${vars['shadow.md']}, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))`,
-        'lg': `var(${vars['shadow.lg']}, 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1))`,
+        'lg': `var(${vars['shadow.lg']}, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08))`,
         'xl': `var(${vars['shadow.xl']}, 0 20px 25px -5px oklch(0 0 0 / 0.08), 0 8px 10px -6px oklch(0 0 0 / 0.04))`
     },
     'duration': {
@@ -305,16 +305,16 @@ const token = {
         '80': `var(${vars['opacity.80']}, 0.8)`,
         '100': `var(${vars['opacity.100']}, 1)`
     },
-    'z': {
-        'base': `var(${vars['z.base']}, 0)`,
-        'raised': `var(${vars['z.raised']}, 1)`,
-        'dropdown': `var(${vars['z.dropdown']}, 1000)`,
-        'sticky': `var(${vars['z.sticky']}, 1100)`,
-        'overlay': `var(${vars['z.overlay']}, 1300)`,
-        'dialog': `var(${vars['z.dialog']}, 1400)`,
-        'popover': `var(${vars['z.popover']}, 1500)`,
-        'toast': `var(${vars['z.toast']}, 1600)`,
-        'tooltip': `var(${vars['z.tooltip']}, 1700)`
+    'z-index': {
+        '0': `var(${vars['z-index.0']}, 0)`,
+        '1': `var(${vars['z-index.1']}, 1)`,
+        '10': `var(${vars['z-index.10']}, 1000)`,
+        '20': `var(${vars['z-index.20']}, 1100)`,
+        '30': `var(${vars['z-index.30']}, 1200)`,
+        '40': `var(${vars['z-index.40']}, 1300)`,
+        '50': `var(${vars['z-index.50']}, 1400)`,
+        '60': `var(${vars['z-index.60']}, 1500)`,
+        '70': `var(${vars['z-index.70']}, 1600)`
     }
 };
 

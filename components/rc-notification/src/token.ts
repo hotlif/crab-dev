@@ -19,21 +19,21 @@ export const vars = {
 
 const token = {
     'background': {
-        'color': `var(${vars['background.color']}, white)`
+        'color': `var(${vars['background.color']}, $ref(color.background.elevated))`
     },
     'text': {
-        'color': `var(${vars['text.color']}, rgba(0,0,0,0.88))`
+        'color': `var(${vars['text.color']}, $ref(color.text.primary))`
     },
-    'padding': `var(${vars['padding']}, 20px 24px)`,
+    'padding': `var(${vars['padding']}, $ref(space.card-padding) $ref(space.dialog-padding))`,
     'border': {
-        'radius': `var(${vars['border.radius']}, 8px)`
+        'radius': `var(${vars['border.radius']}, $ref(radius.lg))`
     },
     'title': {
         'margin': {
-            'bottom': `var(${vars['title.margin.bottom']}, 10px)`
+            'bottom': `var(${vars['title.margin.bottom']}, $ref(space.component-gap))`
         },
         'font': {
-            'size': `var(${vars['title.font.size']}, 16px)`
+            'size': `var(${vars['title.font.size']}, $ref(font.size.subhead))`
         },
         'line': {
             'height': `var(${vars['title.line.height']}, 1.5)`
@@ -41,20 +41,20 @@ const token = {
     },
     'content': {
         'font': {
-            'size': `var(${vars['content.font.size']}, 14px)`
+            'size': `var(${vars['content.font.size']}, $ref(font.size.body))`
         }
     },
     'progress': {
         'start': {
-            'color': `var(${vars['progress.start.color']}, #22c55e)`
+            'color': `var(${vars['progress.start.color']}, $ref(color.feedback.success))`
         },
         'end': {
-            'color': `var(${vars['progress.end.color']}, #16a34a)`
+            'color': `var(${vars['progress.end.color']}, $ref(color.feedback.success))`
         },
         'height': `var(${vars['progress.height']}, 3px)`
     },
     'close': {
-        'opacity': `var(${vars['close.opacity']}, 0.7)`
+        'opacity': `var(${vars['close.opacity']}, $ref(opacity.tertiary))`
     }
 };
 

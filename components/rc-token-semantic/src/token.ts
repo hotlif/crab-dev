@@ -41,6 +41,12 @@ export const vars = {
     'space.control-padding-y': '--token-semantic-space-control-padding-y',
     'space.card-padding': '--token-semantic-space-card-padding',
     'space.dialog-padding': '--token-semantic-space-dialog-padding',
+    'font.size.body': '--token-semantic-font-size-body',
+    'font.size.heading': '--token-semantic-font-size-heading',
+    'font.size.subhead': '--token-semantic-font-size-subhead',
+    'font.size.caption': '--token-semantic-font-size-caption',
+    'font.weight.label': '--token-semantic-font-weight-label',
+    'font.weight.heading': '--token-semantic-font-weight-heading',
     'radius.sm': '--token-semantic-radius-sm',
     'radius.md': '--token-semantic-radius-md',
     'radius.lg': '--token-semantic-radius-lg',
@@ -50,13 +56,17 @@ export const vars = {
     'shadow.overlay': '--token-semantic-shadow-overlay',
     'z-index.float': '--token-semantic-z-index-float',
     'z-index.sticky': '--token-semantic-z-index-sticky',
-    'z-index.overlay': '--token-semantic-z-index-overlay',
-    'z-index.modal': '--token-semantic-z-index-modal',
-    'z-index.popover': '--token-semantic-z-index-popover',
-    'z-index.notice': '--token-semantic-z-index-notice',
-    'z-index.tooltip': '--token-semantic-z-index-tooltip',
+    'z-index.mask': '--token-semantic-z-index-mask',
+    'z-index.block': '--token-semantic-z-index-block',
+    'z-index.elevated': '--token-semantic-z-index-elevated',
+    'z-index.alert': '--token-semantic-z-index-alert',
+    'z-index.top': '--token-semantic-z-index-top',
     'motion.fade': '--token-semantic-motion-fade',
-    'motion.expand': '--token-semantic-motion-expand'
+    'motion.expand': '--token-semantic-motion-expand',
+    'opacity.disabled': '--token-semantic-opacity-disabled',
+    'opacity.secondary': '--token-semantic-opacity-secondary',
+    'opacity.tertiary': '--token-semantic-opacity-tertiary',
+    'opacity.hover': '--token-semantic-opacity-hover'
 };
 
 const token = {
@@ -114,6 +124,18 @@ const token = {
         'card-padding': `var(${vars['space.card-padding']}, var(--token-global-space-5, 20px))`,
         'dialog-padding': `var(${vars['space.dialog-padding']}, var(--token-global-space-6, 24px))`
     },
+    'font': {
+        'size': {
+            'body': `var(${vars['font.size.body']}, var(--token-global-font-size-sm, 14px))`,
+            'heading': `var(${vars['font.size.heading']}, var(--token-global-font-size-lg, 18px))`,
+            'subhead': `var(${vars['font.size.subhead']}, var(--token-global-font-size-md, 16px))`,
+            'caption': `var(${vars['font.size.caption']}, var(--token-global-font-size-xs, 12px))`
+        },
+        'weight': {
+            'label': `var(${vars['font.weight.label']}, var(--token-global-font-weight-medium, 500))`,
+            'heading': `var(${vars['font.weight.heading']}, var(--token-global-font-weight-semibold, 600))`
+        }
+    },
     'radius': {
         'sm': `var(${vars['radius.sm']}, var(--token-global-radius-1, 2px))`,
         'md': `var(${vars['radius.md']}, var(--token-global-radius-3, 6px))`,
@@ -123,20 +145,26 @@ const token = {
     },
     'shadow': {
         'float': `var(${vars['shadow.float']}, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))`,
-        'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-lg, 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1)))`
+        'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))`
     },
     'z-index': {
-        'float': `var(${vars['z-index.float']}, var(--token-global-z-dropdown, 1000))`,
-        'sticky': `var(${vars['z-index.sticky']}, var(--token-global-z-sticky, 1100))`,
-        'overlay': `var(${vars['z-index.overlay']}, var(--token-global-z-overlay, 1300))`,
-        'modal': `var(${vars['z-index.modal']}, var(--token-global-z-dialog, 1400))`,
-        'popover': `var(${vars['z-index.popover']}, var(--token-global-z-popover, 1500))`,
-        'notice': `var(${vars['z-index.notice']}, var(--token-global-z-toast, 1600))`,
-        'tooltip': `var(${vars['z-index.tooltip']}, var(--token-global-z-tooltip, 1700))`
+        'float': `var(${vars['z-index.float']}, var(--token-global-z-index-10, 1000))`,
+        'sticky': `var(${vars['z-index.sticky']}, var(--token-global-z-index-20, 1100))`,
+        'mask': `var(${vars['z-index.mask']}, var(--token-global-z-index-30, 1200))`,
+        'block': `var(${vars['z-index.block']}, var(--token-global-z-index-40, 1300))`,
+        'elevated': `var(${vars['z-index.elevated']}, var(--token-global-z-index-50, 1400))`,
+        'alert': `var(${vars['z-index.alert']}, var(--token-global-z-index-60, 1500))`,
+        'top': `var(${vars['z-index.top']}, var(--token-global-z-index-70, 1600))`
     },
     'motion': {
         'fade': `var(${vars['motion.fade']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))`,
         'expand': `var(${vars['motion.expand']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`
+    },
+    'opacity': {
+        'disabled': `var(${vars['opacity.disabled']}, var(--token-global-opacity-30, 0.3))`,
+        'secondary': `var(${vars['opacity.secondary']}, var(--token-global-opacity-50, 0.5))`,
+        'tertiary': `var(${vars['opacity.tertiary']}, var(--token-global-opacity-70, 0.7))`,
+        'hover': `var(${vars['opacity.hover']}, var(--token-global-opacity-80, 0.8))`
     }
 };
 

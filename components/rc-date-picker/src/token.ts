@@ -30,53 +30,53 @@ export const vars = {
 const token = {
     'selected': {
         'background': {
-            'color': `var(${vars['selected.background.color']}, oklch(0.2855 0.0113 271))`
+            'color': `var(${vars['selected.background.color']}, $ref(color.brand.primary))`
         },
         'text': {
-            'color': `var(${vars['selected.text.color']}, oklch(1 0 0))`
+            'color': `var(${vars['selected.text.color']}, $ref(color.text.on-brand))`
         }
     },
     'cell': {
         'background': {
-            'color-hover': `var(${vars['cell.background.color-hover']}, oklch(0.2855 0.0113 271 / 75%))`
+            'color-hover': `var(${vars['cell.background.color-hover']}, $ref(color.background.hover-subtle))`
         },
         'text': {
-            'color-hover': `var(${vars['cell.text.color-hover']}, oklch(1 0 0))`
+            'color-hover': `var(${vars['cell.text.color-hover']}, $ref(color.text.primary))`
         },
         'padding': `var(${vars['cell.padding']}, 3px 4px)`,
         'border': {
-            'radius': `var(${vars['cell.border.radius']}, 4px)`
+            'radius': `var(${vars['cell.border.radius']}, $ref(radius.sm))`
         },
         'content': {
             'size': `var(${vars['cell.content.size']}, 24px)`
         },
         'font': {
-            'size': `var(${vars['cell.font.size']}, 14px)`,
+            'size': `var(${vars['cell.font.size']}, $ref(font.size.body))`,
             'weight': `var(${vars['cell.font.weight']}, 400)`
         },
-        'transition': `var(${vars['cell.transition']}, background-color 0.2s, color 0.2s)`
+        'transition': `var(${vars['cell.transition']}, $ref(motion.fade))`
     },
     'header': {
-        'padding': `var(${vars['header.padding']}, 16px 8px)`,
+        'padding': `var(${vars['header.padding']}, $ref(space.section-gap) $ref(space.component-gap))`,
         'cell': {
             'height': `var(${vars['header.cell.height']}, 40px)`
         },
         'font': {
-            'size': `var(${vars['header.font.size']}, 12px)`,
+            'size': `var(${vars['header.font.size']}, $ref(font.size.caption))`,
             'weight': `var(${vars['header.font.weight']}, 400)`
         }
     },
     'action': {
         'bar': {
             'margin': {
-                'top': `var(${vars['action.bar.margin.top']}, 0.5rem)`
+                'top': `var(${vars['action.bar.margin.top']}, $ref(space.component-gap))`
             },
-            'gap': `var(${vars['action.bar.gap']}, 0.5rem)`
+            'gap': `var(${vars['action.bar.gap']}, $ref(space.component-gap))`
         }
     },
     'panel': {
         'font': {
-            'size': `var(${vars['panel.font.size']}, 14px)`
+            'size': `var(${vars['panel.font.size']}, $ref(font.size.body))`
         }
     },
     'timezone': {
@@ -85,10 +85,10 @@ const token = {
         }
     },
     'opacity': {
-        'out-of-range': `var(${vars['opacity.out-of-range']}, 0.3)`,
-        'icon': `var(${vars['opacity.icon']}, 0.5)`,
-        'icon-hover': `var(${vars['opacity.icon-hover']}, 0.8)`,
-        'timezone': `var(${vars['opacity.timezone']}, 0.6)`
+        'out-of-range': `var(${vars['opacity.out-of-range']}, $ref(opacity.disabled))`,
+        'icon': `var(${vars['opacity.icon']}, $ref(opacity.secondary))`,
+        'icon-hover': `var(${vars['opacity.icon-hover']}, $ref(opacity.hover))`,
+        'timezone': `var(${vars['opacity.timezone']}, $ref(opacity.tertiary))`
     }
 };
 

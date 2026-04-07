@@ -30,50 +30,50 @@ export const vars = {
 };
 
 const token = {
-    'transition': `var(${vars['transition']}, color 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1))`,
+    'transition': `var(${vars['transition']}, $ref(motion.fade))`,
     'border': {
-        'radius': `var(${vars['border.radius']}, 0.375rem)`,
+        'radius': `var(${vars['border.radius']}, $ref(radius.md))`,
         'width': `var(${vars['border.width']}, 1px)`,
         'style': `var(${vars['border.style']}, solid)`,
-        'color': `var(${vars['border.color']}, hsl(214.3 31.8% 91.4%))`,
-        'color-focus': `var(${vars['border.color-focus']}, hsl(215 20.2% 65.1%))`
+        'color': `var(${vars['border.color']}, $ref(color.border.default))`,
+        'color-focus': `var(${vars['border.color-focus']}, $ref(color.border.focus))`
     },
     'box-shadow': {
-        'default': `var(${vars['box-shadow.default']}, 0 1px 2px 0 rgb(0 0 0 / 0.05))`,
-        'focus-within': `var(${vars['box-shadow.focus-within']}, 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 0 3px hsl(215 20.2% 65.1% / 0.5))`
+        'default': `var(${vars['box-shadow.default']}, $ref(shadow.float))`,
+        'focus-within': `var(${vars['box-shadow.focus-within']}, $ref(shadow.float))`
     },
     'background': {
         'color': `var(${vars['background.color']}, transparent)`
     },
     'placeholder': {
-        'color': `var(${vars['placeholder.color']}, hsl(215.4 16.3% 46.9%))`
+        'color': `var(${vars['placeholder.color']}, $ref(color.text.secondary))`
     },
     'icon': {
-        'color': `var(${vars['icon.color']}, hsl(215.4 16.3% 46.9%))`,
-        'margin-right': `var(${vars['icon.margin-right']}, 0.5rem)`
+        'color': `var(${vars['icon.color']}, $ref(color.text.secondary))`,
+        'margin-right': `var(${vars['icon.margin-right']}, $ref(space.component-gap))`
     },
     'size': {
         'large': {
             'height': `var(${vars['size.large.height']}, 40px)`,
-            'padding': `var(${vars['size.large.padding']}, 0.25rem 0.75rem)`,
+            'padding': `var(${vars['size.large.padding']}, $ref(space.inline-gap) $ref(space.control-padding-x))`,
             'font': {
-                'size': `var(${vars['size.large.font.size']}, 16px)`
+                'size': `var(${vars['size.large.font.size']}, $ref(font.size.subhead))`
             },
             'line-height': `var(${vars['size.large.line-height']}, 1.5rem)`
         },
         'middle': {
             'height': `var(${vars['size.middle.height']}, 32px)`,
-            'padding': `var(${vars['size.middle.padding']}, 0.25rem 0.75rem)`,
+            'padding': `var(${vars['size.middle.padding']}, $ref(space.inline-gap) $ref(space.control-padding-x))`,
             'font': {
-                'size': `var(${vars['size.middle.font.size']}, 14px)`
+                'size': `var(${vars['size.middle.font.size']}, $ref(font.size.body))`
             },
             'line-height': `var(${vars['size.middle.line-height']}, 1.25rem)`
         },
         'small': {
             'height': `var(${vars['size.small.height']}, 24px)`,
-            'padding': `var(${vars['size.small.padding']}, 0.25rem 0.75rem)`,
+            'padding': `var(${vars['size.small.padding']}, $ref(space.inline-gap) $ref(space.control-padding-x))`,
             'font': {
-                'size': `var(${vars['size.small.font.size']}, 14px)`
+                'size': `var(${vars['size.small.font.size']}, $ref(font.size.body))`
             },
             'line-height': `var(${vars['size.small.line-height']}, 1.25rem)`
         }

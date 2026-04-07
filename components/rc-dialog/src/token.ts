@@ -32,7 +32,7 @@ const token = {
         'radius': `var(${vars['border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`
     },
     'box': {
-        'shadow': `var(${vars['box.shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1))))`
+        'shadow': `var(${vars['box.shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08))))`
     },
     'heading': {
         'margin': {

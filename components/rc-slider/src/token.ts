@@ -22,24 +22,24 @@ const token = {
         },
         'thickness': `var(${vars['rail.thickness']}, 4px)`,
         'inactive': {
-            'fill': `var(${vars['rail.inactive.fill']}, #e5e7eb)`
+            'fill': `var(${vars['rail.inactive.fill']}, $ref(color.fill.inactive))`
         },
         'active': {
-            'fill': `var(${vars['rail.active.fill']}, #3b82f6)`
+            'fill': `var(${vars['rail.active.fill']}, $ref(color.fill.active))`
         }
     },
     'thumb': {
         'radius': `var(${vars['thumb.radius']}, 8px)`,
-        'fill': `var(${vars['thumb.fill']}, #ffffff)`,
+        'fill': `var(${vars['thumb.fill']}, $ref(color.background.surface))`,
         'stroke': {
-            'color': `var(${vars['thumb.stroke.color']}, #3b82f6)`,
+            'color': `var(${vars['thumb.stroke.color']}, $ref(color.fill.active))`,
             'width': `var(${vars['thumb.stroke.width']}, 2.5px)`
         },
         'halo': {
             'scale': {
                 'factor': `var(${vars['thumb.halo.scale.factor']}, 1.8)`
             },
-            'fill': `var(${vars['thumb.halo.fill']}, #3b82f6)`
+            'fill': `var(${vars['thumb.halo.fill']}, $ref(color.fill.active))`
         }
     }
 };
