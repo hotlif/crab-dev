@@ -1,5 +1,9 @@
 [build]
 output = "./src/token.ts"
 prefix = "dropdown-container"
+imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
+box-shadow = "$ref(shadow.overlay)"
+border-radius = "8px"
+background-color = "#fff"

@@ -61,6 +61,7 @@
   "dependencies": {
     "@crab-dev/rc-button": "workspace:^",
     "@crab-dev/rc-line-edit": "workspace:^",
+    "@crab-dev/rc-token-semantic": "workspace:^",
     "@floating-ui/react": "^0.27.19",
     "motion": "^12.38.0"
   }
