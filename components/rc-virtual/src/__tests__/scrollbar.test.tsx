@@ -4,6 +4,42 @@ import { afterEach, describe, it, expect, jest } from "@jest/globals";
 
 import ScrollBar, { useScrollbar } from "../scrollbar.js";
 
+if (globalThis.PointerEvent == null) {
+    type PointerEventPolyfillInit = {
+        pointerId?: number
+        bubbles?: boolean
+        cancelable?: boolean
+        composed?: boolean
+        clientX?: number
+        clientY?: number
+        button?: number
+        buttons?: number
+        ctrlKey?: boolean
+        shiftKey?: boolean
+        altKey?: boolean
+        metaKey?: boolean
+    }
+
+    class PointerEventPolyfill extends MouseEvent {
+        pointerId: number;
+
+        constructor(type: string, params: PointerEventPolyfillInit = {}) {
+            super(type, params);
+            this.pointerId = params.pointerId ?? 1;
+        }
+    }
+
+    (globalThis as { PointerEvent?: typeof PointerEvent }).PointerEvent = PointerEventPolyfill as unknown as typeof PointerEvent;
+}
+
+if (globalThis.HTMLElement.prototype.setPointerCapture == null) {
+    globalThis.HTMLElement.prototype.setPointerCapture = () => {};
+}
+
+if (globalThis.HTMLElement.prototype.releasePointerCapture == null) {
+    globalThis.HTMLElement.prototype.releasePointerCapture = () => {};
+}
+
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
@@ -19,10 +55,10 @@ describe("ScrollBar", () => {
         expect(result.current[0].current).toBeNull();
     });
 
-    it("should ignore mouse move before drag starts", () => {
+    it("should ignore pointer move before drag starts", () => {
         const onScroll = jest.fn();
 
-        render(
+        const { container } = render(
             <ScrollBar
                 direction="x"
                 viewportWidth={100}
@@ -35,7 +71,9 @@ describe("ScrollBar", () => {
             />
         );
 
-        fireEvent.mouseMove(document, { clientX: 30 });
+        const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
+
+        fireEvent.pointerMove(thumb, { clientX: 30, pointerId: 1 });
 
         expect(onScroll).not.toHaveBeenCalled();
     });
@@ -58,8 +96,8 @@ describe("ScrollBar", () => {
 
         const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
 
-        fireEvent.mouseDown(thumb, { button: 0, clientX: 10 });
-        fireEvent.mouseMove(document, { clientX: 30 });
+        fireEvent.pointerDown(thumb, { button: 0, clientX: 10, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientX: 30, pointerId: 1 });
 
         expect(onScroll).toHaveBeenCalled();
         expect(onScroll).toHaveBeenLastCalledWith(expect.closeTo(60, 6));
@@ -83,15 +121,15 @@ describe("ScrollBar", () => {
 
         const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
 
-        fireEvent.mouseDown(thumb, { button: 0, clientX: 10 });
-        fireEvent.mouseMove(document, { clientX: 0 });
-        fireEvent.mouseMove(document, { clientX: 100 });
+        fireEvent.pointerDown(thumb, { button: 0, clientX: 10, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientX: 0, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientX: 100, pointerId: 1 });
 
         expect(onScroll).toHaveBeenNthCalledWith(1, 0);
         expect(onScroll).toHaveBeenNthCalledWith(2, expect.closeTo(200, 6));
     });
 
-    it("should stop dragging after mouseup", () => {
+    it("should stop dragging after pointerup", () => {
         const onScroll = jest.fn();
 
         const { container } = render(
@@ -109,15 +147,15 @@ describe("ScrollBar", () => {
 
         const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
 
-        fireEvent.mouseDown(thumb, { button: 0, clientX: 10 });
-        fireEvent.mouseMove(document, { clientX: 30 });
-        fireEvent.mouseUp(document);
-        fireEvent.mouseMove(document, { clientX: 50 });
+        fireEvent.pointerDown(thumb, { button: 0, clientX: 10, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientX: 30, pointerId: 1 });
+        fireEvent.pointerUp(thumb, { pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientX: 50, pointerId: 1 });
 
         expect(onScroll).toHaveBeenCalledTimes(1);
     });
 
-    it("should not start dragging when mousedown is not left button", () => {
+    it("should not start dragging when pointerdown is not left button", () => {
         const onScroll = jest.fn();
 
         const { container } = render(
@@ -135,8 +173,8 @@ describe("ScrollBar", () => {
 
         const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
 
-        fireEvent.mouseDown(thumb, { button: 2, clientX: 10 });
-        fireEvent.mouseMove(document, { clientX: 60 });
+        fireEvent.pointerDown(thumb, { button: 2, clientX: 10, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientX: 60, pointerId: 1 });
 
         expect(onScroll).not.toHaveBeenCalled();
     });
@@ -159,8 +197,8 @@ describe("ScrollBar", () => {
 
         const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
 
-        fireEvent.mouseDown(thumb, { button: 0, clientY: 10 });
-        fireEvent.mouseMove(document, { clientY: 30 });
+        fireEvent.pointerDown(thumb, { button: 0, clientY: 10, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientY: 30, pointerId: 1 });
 
         expect(onScroll).toHaveBeenCalled();
         expect(onScroll).toHaveBeenLastCalledWith(expect.closeTo(80, 6));
@@ -184,9 +222,9 @@ describe("ScrollBar", () => {
 
         const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
 
-        fireEvent.mouseDown(thumb, { button: 0, clientY: 10 });
-        fireEvent.mouseMove(document, { clientY: 0 });
-        fireEvent.mouseMove(document, { clientY: 100 });
+        fireEvent.pointerDown(thumb, { button: 0, clientY: 10, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientY: 0, pointerId: 1 });
+        fireEvent.pointerMove(thumb, { clientY: 100, pointerId: 1 });
 
         expect(onScroll).toHaveBeenNthCalledWith(1, 0);
         expect(onScroll).toHaveBeenNthCalledWith(2, expect.closeTo(300, 6));

@@ -4,6 +4,42 @@ import { afterEach, describe, it, expect, jest } from "@jest/globals";
 
 import Virtual, { type VirtualHandle } from "../virtual.js";
 
+if (globalThis.PointerEvent == null) {
+    type PointerEventPolyfillInit = {
+        pointerId?: number
+        bubbles?: boolean
+        cancelable?: boolean
+        composed?: boolean
+        clientX?: number
+        clientY?: number
+        button?: number
+        buttons?: number
+        ctrlKey?: boolean
+        shiftKey?: boolean
+        altKey?: boolean
+        metaKey?: boolean
+    }
+
+    class PointerEventPolyfill extends MouseEvent {
+        pointerId: number;
+
+        constructor(type: string, params: PointerEventPolyfillInit = {}) {
+            super(type, params);
+            this.pointerId = params.pointerId ?? 1;
+        }
+    }
+
+    (globalThis as { PointerEvent?: typeof PointerEvent }).PointerEvent = PointerEventPolyfill as unknown as typeof PointerEvent;
+}
+
+if (globalThis.HTMLElement.prototype.setPointerCapture == null) {
+    globalThis.HTMLElement.prototype.setPointerCapture = () => {};
+}
+
+if (globalThis.HTMLElement.prototype.releasePointerCapture == null) {
+    globalThis.HTMLElement.prototype.releasePointerCapture = () => {};
+}
+
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
@@ -637,16 +673,16 @@ describe("Virtual", () => {
             const callCountBefore = props.renderRows.mock.calls.length;
 
             act(() => {
-                fireEvent.mouseDown(yThumb, { button: 0, clientY: 5 });
+                fireEvent.pointerDown(yThumb, { button: 0, clientY: 5, pointerId: 1 });
             });
             act(() => {
-                fireEvent.mouseMove(document, { clientY: 30 });
+                fireEvent.pointerMove(yThumb, { clientY: 30, pointerId: 1 });
             });
 
             expect(props.renderRows.mock.calls.length).toBeGreaterThan(callCountBefore);
 
             act(() => {
-                fireEvent.mouseUp(document);
+                fireEvent.pointerUp(yThumb, { pointerId: 1 });
             });
         });
 
@@ -661,16 +697,16 @@ describe("Virtual", () => {
             const callCountBefore = props.renderRows.mock.calls.length;
 
             act(() => {
-                fireEvent.mouseDown(xThumb, { button: 0, clientX: 5 });
+                fireEvent.pointerDown(xThumb, { button: 0, clientX: 5, pointerId: 1 });
             });
             act(() => {
-                fireEvent.mouseMove(document, { clientX: 30 });
+                fireEvent.pointerMove(xThumb, { clientX: 30, pointerId: 1 });
             });
 
             expect(props.renderRows.mock.calls.length).toBeGreaterThan(callCountBefore);
 
             act(() => {
-                fireEvent.mouseUp(document);
+                fireEvent.pointerUp(xThumb, { pointerId: 1 });
             });
         });
     });

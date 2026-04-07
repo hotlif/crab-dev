@@ -1,5 +1,5 @@
-import { type RefObject, useEffect, useRef, type MouseEvent } from "react";
-import { css, cx } from "@linaria/core";
+import { type RefObject, useEffect, useRef, type PointerEvent } from "react";
+import { cx } from "@linaria/core";
 
 import {
     containerStyle,
@@ -88,6 +88,7 @@ const ScrollBar = ({
     const min = 20;
 
     const isDragStart = useRef<boolean>(false);
+    const activePointerId = useRef<number | null>(null);
     const divRef = useRef<HTMLDivElement>(null);
 
     const thumbWidthTemp = ((viewportWidth / totalWidth) * viewportWidth);
@@ -119,58 +120,50 @@ const ScrollBar = ({
     };
 
     const thumbMousePointer = useRef<number>(0);
-	
-    useEffect(() => {
-        const onMouseUp = (_e: globalThis.MouseEvent) => {
-            isDragStart.current = false;
-        };
-        document.addEventListener("mouseup" , onMouseUp);
 
-        const onMouseMove = (e: globalThis.MouseEvent) => {
-            if (!isDragStart.current) {
-                return;
-            }
-            const {
-                left,
-                top
-            }  = divRef.current!.getBoundingClientRect();
-            if (direction === "x") {
-                const leftDistance = e.clientX - left;
-                const endCoordinateX = getEndCoordinateX(leftDistance - thumbMousePointer.current);
-                if (leftDistance - thumbMousePointer.current <= 0) {
-                    onScroll?.(0);
-                } else if (leftDistance + thumbWidth - thumbMousePointer.current >= viewportWidth) {
-                    onScroll?.(getEndCoordinateX(viewportWidth - thumbWidth));
-                } else {
-                    onScroll?.(endCoordinateX);
-                }
+    const stopDragging = (e: PointerEvent<HTMLDivElement>) => {
+        if (activePointerId.current !== e.pointerId) {
+            return;
+        }
+        isDragStart.current = false;
+        activePointerId.current = null;
+        e.currentTarget.releasePointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+        if (!isDragStart.current || activePointerId.current !== e.pointerId || !divRef.current) {
+            return;
+        }
+
+        const {
+            left,
+            top
+        } = divRef.current.getBoundingClientRect();
+
+        if (direction === "x") {
+            const leftDistance = e.clientX - left;
+            const endCoordinateX = getEndCoordinateX(leftDistance - thumbMousePointer.current);
+
+            if (leftDistance - thumbMousePointer.current <= 0) {
+                onScroll?.(0);
+            } else if (leftDistance + thumbWidth - thumbMousePointer.current >= viewportWidth) {
+                onScroll?.(getEndCoordinateX(viewportWidth - thumbWidth));
             } else {
-                const topDistance = e.clientY - top;
-                const endCoordinateY = getEndCoordinateY(topDistance - thumbMousePointer.current);
-                if (topDistance - thumbMousePointer.current <= 0) {
-                    onScroll?.(0);
-                } else if (topDistance + thumbHeight - thumbMousePointer.current >= viewportHeight) {
-                    onScroll?.(getEndCoordinateY(viewportHeight - thumbHeight));
-                } else {
-                    onScroll?.(endCoordinateY);
-                }
+                onScroll?.(endCoordinateX);
             }
-        };
-        document.addEventListener("mousemove", onMouseMove);
-        return () => {
-            document.removeEventListener("mouseup", onMouseUp);
-            document.removeEventListener("mousemove", onMouseMove);
-        };
-    }, [
-        direction,
-        onScroll,
-        thumbHeight,
-        thumbWidth,
-        viewportHeight,
-        totalHeight,
-        viewportWidth,
-        totalWidth,
-    ]);
+        } else {
+            const topDistance = e.clientY - top;
+            const endCoordinateY = getEndCoordinateY(topDistance - thumbMousePointer.current);
+
+            if (topDistance - thumbMousePointer.current <= 0) {
+                onScroll?.(0);
+            } else if (topDistance + thumbHeight - thumbMousePointer.current >= viewportHeight) {
+                onScroll?.(getEndCoordinateY(viewportHeight - thumbHeight));
+            } else {
+                onScroll?.(endCoordinateY);
+            }
+        }
+    };
 
     useEffect(() => {
         return () => {
@@ -180,19 +173,24 @@ const ScrollBar = ({
         };
     }, [scrollbar]);
 
-    const onMouseDown = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-        if (e.button === 0) {
-            isDragStart.current = true;
-            const {
-                left,
-                top
-            } = e.currentTarget.getBoundingClientRect();
-			
-            if (direction === "x") {
-                thumbMousePointer.current = e.clientX - left;
-            } else {
-                thumbMousePointer.current = e.clientY - top;
-            }
+    const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+        if (e.button !== 0) {
+            return;
+        }
+
+        isDragStart.current = true;
+        activePointerId.current = e.pointerId;
+        e.currentTarget.setPointerCapture(e.pointerId);
+
+        const {
+            left,
+            top
+        } = e.currentTarget.getBoundingClientRect();
+
+        if (direction === "x") {
+            thumbMousePointer.current = e.clientX - left;
+        } else {
+            thumbMousePointer.current = e.clientY - top;
         }
     };
 
@@ -216,8 +214,12 @@ const ScrollBar = ({
                     style={{
                         width: thumbWidth,
                         left: thumbLeft,
+                        touchAction: "none",
                     }}
-                    onMouseDown={onMouseDown}
+                    onPointerDown={onPointerDown}
+                    onPointerMove={onPointerMove}
+                    onPointerUp={stopDragging}
+                    onPointerCancel={stopDragging}
                     className={cx(thumbStyle, xThumbStyle)}
                 />
             </div>
@@ -242,9 +244,13 @@ const ScrollBar = ({
                     className={cx(thumbStyle, yThumbStyle)}
                     style={{
                         height: thumbHeight,
-                        top: thumbTop
+                        top: thumbTop,
+                        touchAction: "none"
                     }}
-                    onMouseDown={onMouseDown}
+                    onPointerDown={onPointerDown}
+                    onPointerMove={onPointerMove}
+                    onPointerUp={stopDragging}
+                    onPointerCancel={stopDragging}
                 />
             </div>
         );
