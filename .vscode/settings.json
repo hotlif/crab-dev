@@ -15,6 +15,7 @@
       "matchCommandLine": true
     },
     "yarn turbo": true,
-    "ForEach-Object": true
+    "ForEach-Object": true,
+    ".": true
   }
 }

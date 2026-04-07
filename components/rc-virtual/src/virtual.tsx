@@ -10,7 +10,7 @@ import {
     useLayoutEffect,
     useImperativeHandle,
 } from "react";
-import { css, cx } from "@linaria/core";
+import { cx } from "@linaria/core";
 
 import {
     containerStyle,
