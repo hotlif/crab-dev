@@ -53,12 +53,19 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
 }
 
 
-const iconStyle = css`
-    display: flex;
+const iconBaseStyle = css`
+    display: inline-flex;
     align-items: center;
     flex-shrink: 0;
     color: ${token.icon.color};
-    margin-right: ${token.icon["margin-right"]};
+`
+
+const prefixStyle = css`
+    margin-right: ${token.icon.gap};
+`
+
+const suffixStyle = css`
+    margin-left: ${token.icon.gap};
 `
 
 const LineEdit: FC<LineEditProps> = ({
@@ -112,30 +119,11 @@ const LineEdit: FC<LineEditProps> = ({
         }
     }
 
-    const getIconSizeStyle = () => {
-        if (size === "large") {
-            return css`
-                font-size: ${token.size.large.font.size};
-                line-height: ${token.size.large["line-height"]};
-            `
-        } else if (size === "small") {
-            return css`
-                font-size: ${token.size.small.font.size};
-                line-height: ${token.size.small["line-height"]};
-            `
-        } else {
-            return css`
-                font-size: ${token.size.middle.font.size};
-                line-height: ${token.size.middle["line-height"]};
-            `
-        }
-    }
-
     const renderPrefixIcon = () => {
         if (prefix) {
             return (
                 <div
-                    className={cx(iconStyle, getIconSizeStyle())}
+                    className={cx(iconBaseStyle, prefixStyle, getSizeStyle())}
                 >
                     {prefix}
                 </div>
@@ -144,12 +132,11 @@ const LineEdit: FC<LineEditProps> = ({
         return null;
     }
 
-
     const renderSuffixIcon = () => {
         if (suffix) {
             return (
                 <div
-                    className={cx(iconStyle, getIconSizeStyle())}
+                    className={cx(iconBaseStyle, suffixStyle, getSizeStyle())}
                 >
                     {suffix}
                 </div>
@@ -170,10 +157,14 @@ const LineEdit: FC<LineEditProps> = ({
                     border-style: ${token.border.style};
                     border-color: ${token.border.color};
                     background-color: ${token.background.color};
+                    color: ${token.text.color};
                     box-shadow: ${token["box-shadow"].default};
                     transition: ${token.transition};
                     outline: none;
                     box-sizing: border-box;
+                    &:hover:not(:focus-within):not([aria-disabled="true"]) {
+                        border-color: ${token.border["color-hover"]};
+                    }
                     &:focus-within {
                         border-color: ${token.border["color-focus"]};
                         box-shadow: ${token["box-shadow"]["focus-within"]};
@@ -198,19 +189,20 @@ const LineEdit: FC<LineEditProps> = ({
                     css`
                         flex: 1;
                         width: 100%;
-                        border-radius: inherit;
-                        outline: unset;
+                        min-width: 0;
+                        padding: 0;
                         border: unset;
+                        border-radius: inherit;
+                        outline: none;
                         background-color: transparent;
+                        color: inherit;
+                        font-family: inherit;
                         &::placeholder {
                             font-size: inherit;
                             color: ${token.placeholder.color};
                         }
                         &:disabled {
                             cursor: not-allowed;
-                        }
-                        &:focus {
-                            outline: none;
                         }
                     `,
                     getSizeStyle()
