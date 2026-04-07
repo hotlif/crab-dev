@@ -2,14 +2,14 @@
 	<h1>里程碑</h1>
 </div>
 
-> 最后更新：2026-03-30 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
+> 最后更新：2026-04-07 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
 
 ---
 
 ## 总览
 
 ```
-组件进度    ██████████░░░░░░░░░░░░░░░░░░░░  18 / 61（30%）
+组件进度    ███████████░░░░░░░░░░░░░░░░░░░  21 / 61（34%）
 基础设施    ████████████████████████████████  全部就绪
 工具链      ████████████████████████████████  4/4 已发布
 工程规范    ████████████████████████████████  3/3 已发布
@@ -18,9 +18,9 @@
 
 | 指标 | 数值 |
 |------|------|
-| ✅ 已完成组件 | 15 |
+| ✅ 已完成组件 | 18 |
 | 🚧 开发中组件 | 3（date-picker / color-picker / table） |
-| 🔴 P0 核心缺失 | 8（Select / Checkbox / Radio / Switch / Tooltip / Tag / Alert / Message） |
+| 🔴 P0 核心缺失 | 5（Select / Tooltip / Tag / Alert / Message） |
 | ⬚ 待规划组件 | 35（P1: 15 · P2: 12 · P3: 8） |
 
 ---
@@ -83,12 +83,12 @@
 | Form | ✅ | `0.0.6` | ✅ | — | 表单引擎 |
 | Slider | ✅ | `0.0.1` | ✅ | ✅ | 滑块 |
 | DropdownContainer | ✅ | `0.0.1` | ✅ | ✅ | 下拉容器 |
-| DatePicker | 🚧 | `0.0.1` | — | ✅ | 日期选择器 |
-| ColorPicker | 🚧 | `0.0.1` | — | ✅ | 颜色选择器 |
+| DatePicker | 🚧 | `0.0.1` | ✅ | ✅ | 日期选择器 |
+| ColorPicker | 🚧 | `0.0.1` | ✅ | ✅ | 颜色选择器 |
 | **Select** | 🔴 | — | — | — | 下拉选择（单选 / 多选 / 搜索） |
-| **Checkbox** | 🔴 | — | — | — | 复选框（含 Group） |
-| **Radio** | 🔴 | — | — | — | 单选框（含 Group） |
-| **Switch** | 🔴 | — | — | — | 开关 |
+| Checkbox | ✅ | `0.0.1` | ✅ | ✅ | 复选框（含 Group） |
+| Radio | ✅ | `0.0.1` | ✅ | ✅ | 单选框（含 Group） |
+| Switch | ✅ | `0.0.1` | ✅ | ✅ | 开关 |
 | Textarea | 🟡 | — | — | — | 多行文本 |
 | InputNumber | 🟡 | — | — | — | 数字输入 |
 | TimePicker | 🟡 | — | — | — | 时间选择器 |
@@ -104,7 +104,7 @@
 | 组件 | 状态 | 版本 | 测试 | 令牌 | 说明 |
 |------|:----:|------|:----:|:----:|------|
 | Tree | ✅ | `0.1.1` | ✅ | ✅ | 树形控件 |
-| Virtual | ✅ | `0.1.1` | — | — | 虚拟滚动 |
+| Virtual | ✅ | `0.1.1` | ✅ | — | 虚拟滚动（含滚动条 Pointer 拖拽优化） |
 | ComponentPreview | ✅ | `0.0.1` | ✅ | ✅ | 组件预览 |
 | Table | 🚧 | — | — | ✅ | 表格（虚拟滚动 + 排序 + 筛选） |
 | **Tooltip** | 🔴 | — | — | — | 文字提示 |
@@ -161,15 +161,16 @@
 
 | 任务 | 状态 |
 |------|------|
-| rc-date-picker 完善交互与测试 | 🚧 进行中 |
-| rc-color-picker 完善交互与测试 | 🚧 进行中 |
-| rc-table 核心功能开发 | 🚧 进行中 |
+| rc-date-picker 完善交互与测试 | ✅ 已完成 |
+| rc-color-picker 完善交互与测试 | ✅ 已完成 |
+| rc-table 核心功能开发（新增过滤栏与受控筛选 API） | 🚧 进行中 |
+| rc-virtual 滚动条拖拽升级 Pointer Events | ✅ 已完成 |
 | RFC-MARKDOWN-THEME prose 令牌实现 | 🚧 进行中 |
 | 深色主题语义令牌适配 | 🚧 进行中 |
 
 ### 短期目标
 
-- [ ] **P0 组件交付** — Select、Checkbox、Radio、Switch、Tooltip、Tag、Alert、Message
+- [ ] **P0 组件交付** — Select、Tooltip、Tag、Alert、Message
 - [ ] **ConfigProvider** — 全局主题 / 语言 / 尺寸注入机制
 - [ ] 已有组件补齐单元测试（rc-notification / rc-virtual / rc-hooks / rc-app-main-layout）
 - [ ] rc-dialog / rc-table 发布正式版本号
