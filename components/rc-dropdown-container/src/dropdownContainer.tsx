@@ -13,6 +13,11 @@ export interface DropdownContainerProps extends HTMLAttributes<HTMLElement> {
     overlay: ReactNode;
 
     /**
+     * 浮层弹出面板的自定义类名
+     */
+    overlayClassName?: string;
+
+    /**
      * 浮动面板的属性信息
      */
     floatingContainerProps?: HTMLAttributes<HTMLDivElement>;
@@ -36,7 +41,7 @@ const overlayStyle = css`
     transform-origin: top;
 `;
 
-function DropdownContainer({ className, children, overlay, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
+function DropdownContainer({ className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
     const floatingElementRef = useRef<HTMLDivElement | null>(null);
     const {
@@ -100,7 +105,7 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
                                 {...restFloatingContainerProps}
                             >
                                 <motion.div
-                                    className={overlayStyle}
+                                    className={cx(overlayStyle, overlayClassName)}
                                     initial={{ opacity: 0, scaleY: 0.8, y: -8 }}
                                     animate={{ opacity: 1, scaleY: 1, y: 0 }}
                                     exit={{ opacity: 0, scaleY: 0.8, y: -8 }}
