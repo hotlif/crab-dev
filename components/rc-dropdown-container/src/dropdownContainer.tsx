@@ -1,9 +1,10 @@
-import { type HTMLAttributes, type ReactNode, useMemo, useReducer } from 'react';
+import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useReducer, useRef } from 'react';
 import { css, cx } from '@linaria/core';
 import { useFloating, autoUpdate, offset, flip, FloatingPortal } from '@floating-ui/react';
 import { motion, AnimatePresence } from 'motion/react';
 import { dropdownReducer, initialDropdownState } from './reducer.js';
 import { DropdownContext } from './context.js';
+import token from './token.js';
 
 export interface DropdownContainerProps extends HTMLAttributes<HTMLElement> {
     /**
@@ -17,8 +18,27 @@ export interface DropdownContainerProps extends HTMLAttributes<HTMLElement> {
     floatingContainerProps?: HTMLAttributes<HTMLDivElement>;
 }
 
+const containerStyle = css`
+    position: relative;
+`;
+
+const floatingContainerStyle = css`
+    z-index: 1000;
+    margin: 0;
+    border: unset;
+    border-radius: ${token['border-radius']};
+`;
+
+const overlayStyle = css`
+    background-color: ${token['background-color']};
+    box-shadow: ${token['box-shadow']};
+    border-radius: inherit;
+    transform-origin: top;
+`;
+
 function DropdownContainer({ className, children, overlay, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
+    const floatingElementRef = useRef<HTMLDivElement | null>(null);
     const {
         onMouseDown,
         className: floatingClassName,
@@ -26,30 +46,38 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
         ...restFloatingContainerProps
     } = floatingContainerProps;
 
-    const floatingContainerStyle = css`
-        z-index: 1000;
-    `;
-
     const { refs, floatingStyles } = useFloating({
         placement: 'bottom-start',
+        strategy: 'fixed',
         whileElementsMounted: autoUpdate,
         middleware: [
             offset(6),
             flip({
-                fallbackPlacements: [ 'right-start', 'top-start', 'left-start'],
+                fallbackPlacements: ['right-start', 'top-start', 'left-start'],
             }),
         ],
     });
+
+    useEffect(() => {
+        const el = floatingElementRef.current;
+        if (!el || typeof el.showPopover !== 'function') return;
+
+        el.popover = 'manual';
+
+        if (state.open) {
+            el.showPopover();
+        } else {
+            el.hidePopover();
+        }
+    }, [state.open]);
+
+    const setFloatingRef = useCallback((node: HTMLDivElement | null) => {
+        floatingElementRef.current = node;
+        refs.setFloating(node);
+    }, [refs]);
+
     return (
-        <div
-            className={cx(
-                className,
-                css`
-                    position: relative;
-                `,
-            )}
-            {...restProps}
-        >
+        <div className={cx(containerStyle, className)} {...restProps}>
             <DropdownContext.Provider
                 value={{
                     state,
@@ -62,7 +90,7 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
                     <AnimatePresence>
                         {state.open && (
                             <div
-                                ref={refs.setFloating}
+                                ref={setFloatingRef}
                                 className={cx(floatingContainerStyle, floatingClassName)}
                                 style={{ ...floatingStyles, ...floatingUserStyle }}
                                 onMouseDown={(e) => {
@@ -72,15 +100,7 @@ function DropdownContainer({ className, children, overlay, floatingContainerProp
                                 {...restFloatingContainerProps}
                             >
                                 <motion.div
-                                    className={css`
-                                        background-color: #fff;
-                                        box-shadow:
-                                            0 6px 16px 0 rgba(0, 0, 0, 0.08),
-                                            0 3px 6px -4px rgba(0, 0, 0, 0.12),
-                                            0 9px 28px 8px rgba(0, 0, 0, 0.05);
-                                        border-radius: 8px;
-                                        transform-origin: top;
-                                    `}
+                                    className={overlayStyle}
                                     initial={{ opacity: 0, scaleY: 0.8, y: -8 }}
                                     animate={{ opacity: 1, scaleY: 1, y: 0 }}
                                     exit={{ opacity: 0, scaleY: 0.8, y: -8 }}
