@@ -46,6 +46,185 @@ yarn eslint                 # ESLint
 
 CI 在 `canary` 分支上运行 — 参见 `.github/workflows/jest.yml` 和 `eslint.yml`。路径忽略规则：`**/*.md`、`rfc/**`、`components/**/docs/**`。
 
+## 执行优先级（Instruction Priority）
+
+当规则冲突时，按以下顺序决策：
+
+1. **Must（必须）**：违反会导致错误、构建失败、规范破坏或产物不一致。
+2. **Should（应该）**：默认遵循，若因上下文限制无法满足，需在变更说明中标注原因。
+3. **Can（可选）**：增强项，仅在不影响 Must/Should 的前提下采用。
+
+### Must
+
+- 保持 ESM 语义与导入规则：相对导入保留扩展名（`.js`）
+- 禁止手动编辑 `src/token.ts`（仅通过 `yarn generate:token` 生成）
+- Linaria `css`` 模板中禁止使用运行时变量（props/state）
+- 依赖声明遵循 Yarn 4 PnP：workspace 包使用 `workspace:^`
+- 不提交破坏性更改（构建失败、测试失败、类型错误）
+
+### Should
+
+- 遵循组件目录结构与 `index.ts` 导出模式
+- 新增/修改组件时补充最小必要测试
+- 优先最小改动，避免无关重构
+
+### Can
+
+- 在不改变外部 API 前提下做轻量重构（可读性、重复代码收敛）
+- 补充文档示例与说明性注释
+
+## 任务验收清单（Definition of Done）
+
+按改动范围选择最小检查集：
+
+### 组件代码改动（`components/rc-*/src/**`）
+
+```bash
+yarn eslint
+yarn test
+```
+
+### 涉及设计令牌（`token.toml` 或样式 token 使用）
+
+```bash
+yarn generate:token
+yarn eslint
+yarn test
+```
+
+### 涉及构建配置/导出边界（Rollup/Webpack/入口导出）
+
+```bash
+yarn build
+yarn test
+```
+
+验收标准：
+
+- 相关命令通过，无新增错误
+- 导出入口与类型导出一致
+- 无手改生成文件（尤其 `src/token.ts`）
+
+## 常见任务 Playbook
+
+### Playbook A：新增 rc-* 组件
+
+1. 在 `components/` 下创建 `rc-{name}`，补齐基础文件：`package.json`、`tsconfig.json`、`eslint.config.js`、`jest.config.mjs`。
+2. 在 `src/` 创建 `{component}.tsx`、`index.ts`、`types.ts`（可选）与 `__tests__/{component}.test.tsx`。
+3. 若需要令牌，在根目录添加 `token.toml`，执行 `yarn generate:token` 生成 `src/token.ts`。
+4. 在 `docs/` 添加最小 `*.demo.tsx` 或 `*.view.tsx` 用于预览验证。
+5. 确认 `index.ts` 为 default 导出组件，并导出类型/Hook。
+6. 执行 `yarn eslint`、`yarn test`，必要时执行 `yarn build:library`。
+
+### Playbook B：新增/调整 token
+
+1. 修改 `token.toml`，优先通过 `$ref()` 引用语义令牌。
+2. 执行 `yarn generate:token`，仅接受生成结果，不手改 `src/token.ts`。
+3. 在组件样式中通过 `token.*` 使用变量，避免运行时分支插值。
+4. 执行 `yarn eslint`、`yarn test`，必要时执行 `yarn build` 验证产物。
+
+### Playbook C：修复 workspace 包解析/PnP 问题
+
+1. 确认依赖是否在对应 `package.json` 声明（workspace 包使用 `workspace:^`）。
+2. 运行安装并校验：`yarn install --immutable`。
+3. 若 ESM 包在 zip 中加载异常，按需在根 `package.json` 的 `dependenciesMeta` 标记 `"unplugged": true`。
+4. 重新执行 `yarn eslint` / `yarn test` / `yarn build` 验证。
+
+## 变更边界（Guardrails）
+
+默认不直接修改以下内容，除非任务明确要求：
+
+- 构建产物目录：`cjs/`、`esm/`、`declarations/`、`css/`
+- 覆盖率与缓存产物：`coverage/`、临时缓存文件
+- 自动生成文件：`src/token.ts`、`public/docgen.json`
+
+若需要更新这些文件，应通过对应命令生成，而不是手工编辑。
+
+## 失败回退策略（Failure Handling）
+
+当修改后出现失败时，按顺序处理：
+
+1. **先定位失败类别**：类型、Lint、测试、构建、依赖解析。
+2. **最小修复一次**：仅修复与本次改动直接相关问题，避免扩大改动面。
+3. **再次验证**：执行对应最小命令集（例如只跑目标包的 test/eslint）。
+4. **最多尝试 3 轮**：若仍失败，停止继续扩改，输出失败点与已尝试步骤，请求人工决策。
+
+输出失败信息时应包含：
+
+- 失败命令
+- 关键报错摘要
+- 已尝试修复动作
+- 建议下一步（回滚局部改动 / 拆分任务 / 补充上下文）
+
+## 提交规范（Commit Convention）
+
+采用 Conventional Commits，并结合 monorepo scope：
+
+`<type>(<scope>): <subject>`
+
+- type 允许值：`feat`、`fix`、`refactor`、`perf`、`test`、`docs`、`build`、`ci`、`chore`、`revert`
+- scope 优先使用工作区或包名：`rc-button`、`rc-tag`、`packify`、`standards-jest-preset`、`repo`
+- subject 使用祈使句，首字母小写，不加句号，建议不超过 72 字符
+
+### Breaking Change
+
+- 破坏性变更在 header 后追加 `!`：`feat(rc-form)!: rename field api`
+- 并在 commit body 中追加：`BREAKING CHANGE: <impact>`
+
+### 提交粒度
+
+- 一个 commit 只做一件事（功能、修复、重构分开提交）
+- 生成文件与源码变更同 commit 提交，仅当该生成文件由本次改动直接触发
+- 禁止把无关格式化、重命名、大规模移动与功能改动混在同一 commit
+
+### 分不同 commit 提交策略
+
+当一次开发包含多类改动时，按以下顺序拆分提交：
+
+1. `refactor`：不改变行为的重构（重命名、提取函数、目录整理）。
+2. `feat` / `fix`：实际功能或缺陷修复。
+3. `test`：补充或调整测试用例。
+4. `docs`：文档、示例、注释更新。
+5. `build` / `ci` / `chore`：构建脚本、流水线、仓库维护。
+
+执行要求：
+
+- 每个 commit 必须可独立通过最小验证（至少 lint + 相关 test）
+- 若某步依赖上一步，保持历史线性，不交叉混入其他类型改动
+- 自动生成文件应与触发它的源码改动放在同一个 commit
+
+常见拆分示例：
+
+- 新增组件并补测试：`feat(rc-xx)` + `test(rc-xx)` + `docs(rc-xx)`
+- 调整 token 并重生成：`feat(rc-xx)`（含 `token.toml` 与生成的 `src/token.ts`）+ `test(rc-xx)`
+- 修复构建与业务 bug 同时出现：`fix(rc-xx)` + `build(repo)`
+
+反例（禁止）：
+
+- `feat` 与无关 `docs`、`ci` 混在一个 commit
+- 多个组件无关联改动打包成单个 commit
+- 先提交生成文件，后提交触发它的源码
+
+### Monorepo Scope 约定
+
+- 单包改动：使用具体包名 scope，例如 `fix(rc-checkbox): correct indeterminate style`
+- 多包同类改动：使用 `components` / `standards` / `toolbox`
+- 跨仓级别改动（turbo、根配置、工作流）：使用 `repo` 或 `ci`
+
+### 提交前检查
+
+- 至少通过本次改动对应的最小验收命令集（见 Definition of Done）
+- 确认无误改产物与缓存目录（`coverage/`、临时文件）
+- 确认未手动编辑生成文件（尤其 `src/token.ts`）
+
+### 示例
+
+- `feat(rc-tag): add closable interaction and keyboard support`
+- `fix(rc-date-picker): prevent timezone offset regression`
+- `refactor(components): unify token import path handling`
+- `build(packify): align css token generation hook`
+- `ci(repo): run eslint and jest on canary changes`
+
 ## 组件结构
 
 每个 `rc-*` 组件遵循以下目录布局：
@@ -114,6 +293,24 @@ const baseStyle = css`
 ```
 
 Linaria 在构建时将样式编译为静态 CSS 类名，输出到 `css/index.css`。在 css`` 模板中使用 `token.*` 值 — 它们会解析为 `var(--prefix-key, fallback)`。
+
+> **⚠️ 严禁在 `css` 模板中使用运行时变量进行条件判断。** Linaria 是零运行时方案，`css``` 内的插值在**构建时**求值，JavaScript 变量（如 props、state）此时不存在。
+>
+> ```typescript
+> // ❌ 错误 — 运行时变量在构建时无法求值
+> const style = css`
+>     border-color: ${bordered ? token.primary['border-color'] : 'transparent'};
+> `;
+>
+> // ✅ 正确 — 拆分为独立静态样式，通过 cx() 在运行时组合
+> const borderedStyle = css`
+>     border-color: ${token.primary['border-color']};
+> `;
+> const noBorderStyle = css`
+>     border-color: transparent;
+> `;
+> <span className={cx(baseStyle, bordered ? borderedStyle : noBorderStyle)} />
+> ```
 
 ### 设计令牌系统 — 三层架构
 

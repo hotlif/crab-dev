@@ -1,0 +1,62 @@
+[build]
+output = "./src/token.ts"
+prefix = "tag"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 通用 ────────────────────────────────────────────────────────────────────
+transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+# ─── 尺寸 — Large ────────────────────────────────────────────────────────────
+size.large.height        = "32px"
+size.large.padding       = "0 10px"
+size.large.border.radius = "$ref(radius.md)"
+size.large.font.size     = "$ref(font.size.body)"
+size.large.gap           = "$ref(space.component-gap)"
+
+# ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
+size.middle.height        = "24px"
+size.middle.padding       = "0 8px"
+size.middle.border.radius = "$ref(radius.md)"
+size.middle.font.size     = "$ref(font.size.caption)"
+size.middle.gap           = "$ref(space.inline-gap)"
+
+# ─── 尺寸 — Small ────────────────────────────────────────────────────────────
+size.small.height        = "20px"
+size.small.padding       = "0 6px"
+size.small.border.radius = "$ref(radius.sm)"
+size.small.font.size     = "$ref(font.size.caption)"
+size.small.gap           = "$ref(space.inline-gap)"
+
+# ─── Default — 默认标签 ──────────────────────────────────────────────────────
+default.color              = "$ref(color.text.primary)"
+default.background.color   = "$ref(color.background.hover-subtle)"
+default.border-color       = "$ref(color.border.default)"
+
+# ─── Primary — 品牌标签 ──────────────────────────────────────────────────────
+primary.color              = "$ref(color.text.on-brand)"
+primary.background.color   = "$ref(color.brand.primary)"
+primary.border-color       = "$ref(color.brand.primary)"
+
+# ─── Success — 成功标签 ──────────────────────────────────────────────────────
+success.color              = "$ref(color.feedback.success)"
+success.background.color   = "$ref(color.feedback.success-background)"
+success.border-color       = "$ref(color.feedback.success)"
+
+# ─── Warning — 警告标签 ──────────────────────────────────────────────────────
+warning.color              = "$ref(color.feedback.warning)"
+warning.background.color   = "$ref(color.feedback.warning-background)"
+warning.border-color       = "$ref(color.feedback.warning)"
+
+# ─── Error — 错误标签 ────────────────────────────────────────────────────────
+error.color                = "$ref(color.feedback.error)"
+error.background.color     = "$ref(color.feedback.error-background)"
+error.border-color         = "$ref(color.feedback.error)"
+
+# ─── 关闭按钮 ────────────────────────────────────────────────────────────────
+close.size         = "14px"
+close.color        = "$ref(color.text.secondary)"
+close.color-hover  = "$ref(color.text.primary)"
