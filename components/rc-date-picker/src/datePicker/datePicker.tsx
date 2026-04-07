@@ -5,6 +5,7 @@ import { formatTemporal } from "../util.js"
 import DatePickerInput, { DatePickerInputProps } from "./datePickerInput.js";
 import DatePickerOverlay from "./datePickerOverlay.js";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
+import { css } from '@linaria/core';
 
 export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
 
@@ -66,6 +67,9 @@ const DatePicker: FC<DatePickerProps> = ({
 
     return (
         <RcDropdownContainer
+            overlayClassName={css`
+                padding: 0.2rem 1rem 1rem 1rem;
+            `}
             overlay={(
                 <DatePickerOverlay
                     value={value ?? selectValues?.[0]}

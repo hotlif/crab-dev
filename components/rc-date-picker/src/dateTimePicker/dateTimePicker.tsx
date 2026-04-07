@@ -7,6 +7,7 @@ import DateTimePickerInput from "./dateTimePickerInput.js";
 import DateTimePickerOverlay from "./dateTimePickerOverlay.js";
 import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel.js"
 import type { DatePickerPanelInstance } from '../panels/datePickerPanel.js';
+import { css } from '@linaria/core';
 
 export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange' | 'value'> {
 
@@ -69,6 +70,9 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
 
     return (
         <RcDropdownContainer
+            overlayClassName={css`
+                padding: 0.2rem 1rem 1rem 1rem;
+            `}
             overlay={(
                 <DateTimePickerOverlay
                     value={value ?? selectValues?.[0]}

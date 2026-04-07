@@ -6,6 +6,7 @@ import { type LineEditProps } from "@crab-dev/rc-line-edit";
 import TimePickerOverlay from "./timePickerOverlay.js";
 import { type TimePickerPanelProps } from '../panels/timePickerPanel.js';
 import TimePickerInput from './timePickerInput.js';
+import { css } from '@linaria/core';
 
 
 export interface TimePickerProps extends TimePickerPanelProps {
@@ -31,6 +32,9 @@ const TimePicker: FC<TimePickerProps> = ({
     const [selectValues, setSelectValues] = useState<TimePickerPanelProps["value"]>(value);
     return (
         <RcDropdownContainer
+            overlayClassName={css`
+                padding: 0.2rem 1rem 1rem 1rem;
+            `}
             overlay={(
                 <TimePickerOverlay
                     value={selectValues}
