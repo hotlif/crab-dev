@@ -424,7 +424,7 @@ const Tree: FC<TreeProps> = ({
                         }}
                         renderRows={(rowRange) => {
                             const nodes: ReactNode[] = [
-                                	<div
+                                <div
                                     key="__tree-top-padding__"
                                     className={css`
                                             display: inline-block;
