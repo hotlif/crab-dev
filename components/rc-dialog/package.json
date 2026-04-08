@@ -2,6 +2,7 @@
   "name": "@crab-dev/rc-dialog",
   "description": "A dialog component for React applications.",
   "packageManager": "yarn@4.13.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
