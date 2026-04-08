@@ -205,7 +205,16 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
             gridTemplateColumns={[contentWidth]}
             gridTemplateRows={rows}
             renderRows={(rowRange: [number, number]): ReactNode => {
-                const nodes: ReactNode[] = [];
+                const nodes: ReactNode[] = [
+                    <div
+                        key="__select-top-padding__"
+                        className={css`
+							display: inline-block;
+							height: var(--crab-rc-virtual-top-padding-height, 0px);
+							width: 100%;
+						`}
+                    />
+                ];
 
                 for (let i = rowRange[0]; i <= rowRange[1]; i += 1) {
                     const option = filteredOptions[i];
@@ -263,6 +272,17 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                         </div>,
                     );
                 }
+
+                nodes.push(
+                    <div
+                        key="__select-bottom-padding__"
+                        className={css`
+							display: inline-block;
+							height: var(--crab-rc-virtual-bottom-padding-height, 0px);
+							width: 100%;
+						`}
+                    />
+                );
 
                 return nodes;
             }}
