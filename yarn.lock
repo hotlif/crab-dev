@@ -1716,6 +1716,8 @@ __metadata:
   dependencies:
     "@crab-dev/crustify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -1739,6 +1741,7 @@ __metadata:
     typescript-eslint: "npm:^8.57.2"
     webpack: "npm:^5.105.4"
   peerDependencies:
+    "@crab-dev/rc-component-preview": "workspace:^"
     "@linaria/core": ^7.0.0
     "@mdx-js/react": ^3.1.1
     react-router: ^7.12.0
@@ -2181,6 +2184,39 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-masonry@workspace:^, @crab-dev/rc-masonry@workspace:components/rc-masonry":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-masonry@workspace:components/rc-masonry"
+  dependencies:
+    "@crab-dev/lignify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.3.0"
+    "@linaria/core": "npm:^7.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@react-docgen/cli": "npm:^3.0.6"
+    "@testing-library/dom": "npm:^10.4.1"
+    "@testing-library/react": "npm:^16.3.2"
+    "@types/node": "npm:^25.5.2"
+    "@types/react": "npm:^19.2.14"
+    "@types/react-dom": "npm:^19.2.3"
+    eslint: "npm:^10.1.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^17.4.0"
+    jest: "npm:^30.3.0"
+    jest-environment-jsdom: "npm:30.3.0"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.4"
+    react-router: "npm:^7.14.0"
+    typescript: "npm:^6.0.2"
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-menu@workspace:^, @crab-dev/rc-menu@workspace:components/rc-menu":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-menu@workspace:components/rc-menu"
@@ -2297,6 +2333,7 @@ __metadata:
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
     "@crab-dev/rc-line-edit": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
@@ -2401,6 +2438,7 @@ __metadata:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
@@ -2541,6 +2579,7 @@ __metadata:
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
@@ -2581,6 +2620,7 @@ __metadata:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"

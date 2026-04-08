@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, type FC, type ReactNode } from "react";
-import { css } from "@linaria/core";
 import ComponentPreview from "@crab-dev/rc-component-preview";
+import RcMasonry from "@crab-dev/rc-masonry";
 import demos from "@@@/demos";
 
 // ─── DemoItem ───────────────────────────────────────────────────────────────
@@ -50,46 +50,22 @@ interface DemoMasonryProps {
     gutter?: number | [number, number];
 }
 
-const masonryRootStyle = css`
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-`;
-
-const masonryColumnStyle = css`
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-`;
-
 const DemoMasonry: FC<DemoMasonryProps> = ({ path, columns = 2, gutter = 16 }) => {
     const filteredDemos = useMemo(
         () => demos.filter((element) => element.path?.startsWith(path)),
         [path],
     );
 
-    const [gutterH, gutterV] = Array.isArray(gutter) ? gutter : [gutter, gutter];
-
-    // Round-robin distribution: left column first (1→L, 2→R, 3→L, 4→R…)
-    const columnArrays = useMemo(() => {
-        const cols: (typeof filteredDemos)[] = Array.from({ length: columns }, () => []);
-        filteredDemos.forEach((demo, i) => {
-            cols[i % columns].push(demo);
-        });
-        return cols;
-    }, [filteredDemos, columns]);
-
     return (
-        <div className={masonryRootStyle} style={{ gap: gutterH }}>
-            {columnArrays.map((col, colIndex) => (
-                <div key={colIndex} className={masonryColumnStyle} style={{ gap: gutterV }}>
-                    {col.map((demo) => (
-                        <DemoItem key={demo.path} path={demo.path} />
-                    ))}
-                </div>
+        <RcMasonry
+            columns={columns}
+            gutter={gutter}
+            sequential
+        >
+            {filteredDemos.map(demo => (
+                <DemoItem key={demo.path} path={demo.path} />
             ))}
-        </div>
+        </RcMasonry>
     );
 };
 

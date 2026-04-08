@@ -2,6 +2,7 @@
   "name": "@crab-dev/rc-table",
   "description": "展示行列数据的表格组件",
   "packageManager": "yarn@4.13.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "yarn generate:docgen && lignify run-task app:dev",
@@ -23,6 +24,7 @@
     "@crab-dev/lignify": "workspace:^",
     "@crab-dev/packify": "workspace:^",
     "@crab-dev/rc-component-preview": "workspace:^",
+    "@crab-dev/rc-masonry": "workspace:^",
     "@crab-dev/rc-menu": "workspace:^",
     "@crab-dev/standards-eslint-preset": "workspace:^",
     "@crab-dev/standards-jest-preset": "workspace:^",
