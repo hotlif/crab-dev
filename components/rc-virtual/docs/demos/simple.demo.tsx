@@ -2,7 +2,7 @@
  * title = "基础示例"
  * description = "虚拟滚动组件的基础使用示例"
  */
-import { type Key, ReactNode, useState } from "react"
+import { type ReactNode } from "react"
 import RcVirtual from "../../src/index.js";
 import { css } from "@linaria/core";
 
@@ -21,14 +21,55 @@ const mockRowData = () => {
     return mockData;
 }
 
-
-const styleClass = css`
+const cellStyle = css`
 	display: inline-block;
+	box-sizing: border-box;
 	border: 1px solid #000;
 `
 
+// 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域
+const paddingLeft = (
+    <div
+        key="virtual-left-padding"
+        className={css`
+			display: inline-block;
+			box-sizing: border-box;
+			width: var(--crab-rc-virtual-left-padding-width, 0px);
+			height: 100%;
+		`}
+    />
+)
+
+// 虚拟列表右侧占位：用于在可视区中补齐右侧被裁剪宽度
+const paddingRight = (
+    <div
+        key="virtual-right-padding"
+        className={css`
+			display: inline-block;
+			box-sizing: border-box;
+			width: var(--crab-rc-virtual-right-padding-width, 0px);
+			height: 100%;
+		`}
+    />
+)
+
+// 虚拟列表底部占位：用于在纵向滚动时补齐不可见区域
+const paddingBottom = (
+    <div
+        key="virtual-bottom-padding"
+        className={css`
+			display: inline-block;
+			box-sizing: border-box;
+			height: var(--crab-rc-virtual-bottom-padding-height, 0px);
+			width: 100%;
+		`}
+    />
+)
+
 const mockData = mockRowData();
 const gridTemplateColumns = [120, 120, 120, 120, 120, 120]
+const ROW_HEIGHT = 24;
+const totalWidth = gridTemplateColumns.reduce((a, b) => a + b, 0);
 
 const SimpleDemo = () => {
     return (
@@ -36,89 +77,55 @@ const SimpleDemo = () => {
             viewportHeight={400}
             viewportWidth={300}
             gridTemplateColumns={gridTemplateColumns}
-            gridTemplateRows={mockData.map(element => 24)}
-            renderRows={(rowRange) => {
-                const rows: ReactNode[] = [];
-                let rowIndex = rowRange[0];
-                if (rowIndex > 0) {
-                    rowIndex -= 1;
-                }
+            gridTemplateRows={mockData.map(() => ROW_HEIGHT)}
+            renderRows={(rowRange, columnRange) => {
+                const rows: ReactNode[] = [
+                    <div
+                        key="virtual-top-padding"
+                        className={css`
+							display: inline-block;
+							box-sizing: border-box;
+							height: var(--crab-rc-virtual-top-padding-height, 0px);
+							width: 100%;
+						`}
+                    />
+                ];
 
-
-                for (; rowIndex <= rowRange[1]; rowIndex += 1) {
-                    const nodes: ReactNode[] = [];
+                for (let rowIndex = rowRange[0]; rowIndex <= rowRange[1]; rowIndex += 1) {
                     const node = mockData[rowIndex];
-                    nodes.push((
-                        <div
-                            className={styleClass}
-                            style={{
-                                width: gridTemplateColumns[0],
-                            }}
-                        >
-                            {node.a}
-                        </div>
-                    ))
-                    nodes.push((
-                        <div
-                            className={styleClass}
-                            style={{
-                                width: gridTemplateColumns[1],
-                            }}
-                        >
-                            {node.b}
-                        </div>
-                    ))
-                    nodes.push((
-                        <div
-                            className={styleClass}
-                            style={{
-                                width: gridTemplateColumns[2],
-                            }}
-                        >
-                            {node.c}
-                        </div>
-                    ))
-                    nodes.push((
-                        <div
-                            className={styleClass}
-                            style={{
-                                width: gridTemplateColumns[3],
-                            }}
-                        >
-                            {node.d}
-                        </div>
-                    ))
-                    nodes.push((
-                        <div
-                            className={styleClass}
-                            style={{
-                                width: gridTemplateColumns[4],
-                            }}
-                        >
-                            {node.e}
-                        </div>
-                    ))
-                    nodes.push((
-                        <div
-                            className={styleClass}
-                            style={{
-                                width: gridTemplateColumns[5],
-                            }}
-                        >
-                            {node.f}
-                        </div>
-                    ))
+                    const cells: ReactNode[] = [];
+                    for (let colIndex = columnRange[0]; colIndex <= columnRange[1]; colIndex += 1) {
+                        const keys = Object.keys(node) as (keyof typeof node)[];
+                        cells.push(
+                            <div
+                                key={`cell-${rowIndex}-${colIndex}`}
+                                className={cellStyle}
+                                style={{ width: gridTemplateColumns[colIndex] }}
+                            >
+                                {node[keys[colIndex]]}
+                            </div>
+                        );
+                    }
 
-                    rows.push((
+                    rows.push(
                         <div
+                            key={`row-${rowIndex}`}
                             className={css`
-									white-space: nowrap;	
-								`}
+								white-space: nowrap;
+							`}
+                            style={{
+                                height: ROW_HEIGHT,
+                                width: totalWidth,
+                            }}
                         >
-                            {nodes}
+                            {paddingLeft}
+                            {cells}
+                            {paddingRight}
                         </div>
-                    ));
+                    );
                 }
+
+                rows.push(paddingBottom);
                 return rows;
             }}
         />
