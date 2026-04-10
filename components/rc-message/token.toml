@@ -1,0 +1,34 @@
+[build]
+output = "./src/token.ts"
+prefix = "message"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 通用 ────────────────────────────────────────────────────────────────────
+padding = "$ref(space.component-gap) $ref(space.card-padding)"
+border.radius = "$ref(radius.lg)"
+font.size = "$ref(font.size.body)"
+line.height = "1.625"
+background.color = "$ref(color.background.elevated)"
+box-shadow = "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
+
+# ─── 图标 ────────────────────────────────────────────────────────────────────
+icon.size = "18px"
+icon.margin.right = "$ref(space.component-gap)"
+
+# ─── 类型颜色 ────────────────────────────────────────────────────────────────
+success.color = "$ref(color.feedback.success)"
+warning.color = "$ref(color.feedback.warning)"
+error.color = "$ref(color.feedback.error)"
+info.color = "$ref(color.feedback.info)"
+
+# ─── 文本 ────────────────────────────────────────────────────────────────────
+text.color = "$ref(color.text.primary)"
+
+# ─── 进度条 ──────────────────────────────────────────────────────────────────
+progress.start.color = "$ref(color.feedback.success)"
+progress.end.color = "$ref(color.feedback.success)"
+progress.height = "3px"
