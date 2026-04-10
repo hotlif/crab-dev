@@ -659,6 +659,73 @@ describe("Virtual", () => {
             const [, columnRange] = lastCall;
             expect(columnRange[1]).toBe(1); // last column should be visible
         });
+
+        it("should not change scroll position when deltaY is 0 (no wheel movement)", () => {
+            const props = createProps();
+            const { container } = render(<Virtual {...props} />);
+            const outerDiv = container.firstElementChild as HTMLDivElement;
+            const gridDiv = outerDiv.firstElementChild as HTMLDivElement;
+
+            const callsBefore = props.renderRows.mock.calls.length;
+
+            act(() => {
+                gridDiv.dispatchEvent(new WheelEvent("wheel", {
+                    deltaY: 0,
+                    bubbles: true,
+                    cancelable: true,
+                }));
+            });
+            act(() => {
+                gridDiv.dispatchEvent(new WheelEvent("wheel", {
+                    deltaY: 0,
+                    shiftKey: true,
+                    bubbles: true,
+                    cancelable: true,
+                }));
+            });
+
+            // Neither scroll direction changes — rowRange and columnRange stay at origin
+            const lastCall = props.renderRows.mock.calls[props.renderRows.mock.calls.length - 1];
+            const [rowRange, columnRange] = lastCall;
+            expect(rowRange[0]).toBe(props.renderRows.mock.calls[callsBefore - 1][0][0]);
+            expect(columnRange[0]).toBe(props.renderRows.mock.calls[callsBefore - 1][1][0]);
+        });
+    });
+
+    describe("unmount cleanup", () => {
+        it("should remove wheel listener without error when component is unmounted", () => {
+            const props = createProps();
+            const { container, unmount } = render(<Virtual {...props} />);
+            const outerDiv = container.firstElementChild as HTMLDivElement;
+            const gridDiv = outerDiv.firstElementChild as HTMLDivElement;
+
+            // Establish that wheel events work before unmount
+            act(() => {
+                gridDiv.dispatchEvent(new WheelEvent("wheel", {
+                    deltaY: 100,
+                    bubbles: true,
+                    cancelable: true,
+                }));
+            });
+
+            const callsBeforeUnmount = props.renderRows.mock.calls.length;
+
+            // Unmount cleans up the wheel listener (covers the useEffect cleanup branch)
+            act(() => {
+                unmount();
+            });
+
+            // After unmount, wheel events on the detached node should not cause further renders
+            act(() => {
+                gridDiv.dispatchEvent(new WheelEvent("wheel", {
+                    deltaY: 100,
+                    bubbles: true,
+                    cancelable: true,
+                }));
+            });
+
+            expect(props.renderRows.mock.calls.length).toBe(callsBeforeUnmount);
+        });
     });
 
     describe("scrollbar interaction", () => {

@@ -375,4 +375,60 @@ describe("ScrollBar", () => {
 
         expect(scrollbarRef.current).toBeNull();
     });
+
+    it("should ignore stopDragging when pointerUp fires from a different pointer ID", () => {
+        const onScroll = jest.fn();
+
+        const { container } = render(
+            <ScrollBar
+                direction="x"
+                viewportWidth={100}
+                viewportHeight={100}
+                totalWidth={300}
+                totalHeight={400}
+                currentScrollPositionLeft={0}
+                currentScrollPositionTop={0}
+                onScroll={onScroll}
+            />
+        );
+
+        const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
+
+        // Start drag with pointer 1
+        fireEvent.pointerDown(thumb, { button: 0, clientX: 10, pointerId: 1 });
+
+        // Release with a *different* pointer ID — stopDragging should bail out
+        fireEvent.pointerUp(thumb, { pointerId: 99 });
+
+        // Pointer 1 is still "active", so a subsequent move still triggers scroll
+        fireEvent.pointerMove(thumb, { clientX: 30, pointerId: 1 });
+        expect(onScroll).toHaveBeenCalled();
+    });
+
+    it("should ignore pointerCancel from a different pointer ID", () => {
+        const onScroll = jest.fn();
+
+        const { container } = render(
+            <ScrollBar
+                direction="y"
+                viewportWidth={100}
+                viewportHeight={100}
+                totalWidth={300}
+                totalHeight={400}
+                currentScrollPositionLeft={0}
+                currentScrollPositionTop={0}
+                onScroll={onScroll}
+            />
+        );
+
+        const thumb = container.firstElementChild?.firstElementChild as HTMLDivElement;
+
+        fireEvent.pointerDown(thumb, { button: 0, clientY: 10, pointerId: 1 });
+
+        // Cancel with wrong pointer ID — drag should continue
+        fireEvent.pointerCancel(thumb, { pointerId: 99 });
+
+        fireEvent.pointerMove(thumb, { clientY: 40, pointerId: 1 });
+        expect(onScroll).toHaveBeenCalled();
+    });
 });
