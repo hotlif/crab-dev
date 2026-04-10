@@ -1,0 +1,15 @@
+[build]
+output = "./src/token.ts"
+prefix = "tooltip"
+imports = ["@crab-dev/rc-token-semantic"]
+
+[token]
+background-color = "$ref(color.brand.primary)"
+color = "$ref(color.text.on-brand)"
+padding-x = "$ref(space.component-gap)"
+padding-y = "$ref(space.inline-gap)"
+font-size = "$ref(font.size.caption)"
+line-height = "1.5"
+border-radius = "$ref(radius.md)"
+max-width = "250px"
+z-index = "$ref(z-index.elevated)"
