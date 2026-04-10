@@ -67,6 +67,8 @@ color.feedback.success                = "$ref(green.500)"
 color.feedback.success-background     = "$ref(green.50)"
 color.feedback.warning                = "$ref(amber.500)"
 color.feedback.warning-background     = "$ref(amber.50)"
+color.feedback.info                   = "$ref(blue.500)"
+color.feedback.info-background        = "$ref(blue.50)"
 
 
 # ─── 颜色 · 填充 ────────────────────────────────────────────────────────────

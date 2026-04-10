@@ -29,6 +29,8 @@ export const vars = {
     'color.feedback.success-background': '--token-semantic-color-feedback-success-background',
     'color.feedback.warning': '--token-semantic-color-feedback-warning',
     'color.feedback.warning-background': '--token-semantic-color-feedback-warning-background',
+    'color.feedback.info': '--token-semantic-color-feedback-info',
+    'color.feedback.info-background': '--token-semantic-color-feedback-info-background',
     'color.fill.inactive': '--token-semantic-color-fill-inactive',
     'color.fill.active': '--token-semantic-color-fill-active',
     'space.inline-gap': '--token-semantic-space-inline-gap',
@@ -105,7 +107,9 @@ const token = {
             'success': `var(${vars['color.feedback.success']}, var(--token-global-green-500, oklch(0.723 0.219 152)))`,
             'success-background': `var(${vars['color.feedback.success-background']}, var(--token-global-green-50, oklch(0.982 0.018 149)))`,
             'warning': `var(${vars['color.feedback.warning']}, var(--token-global-amber-500, oklch(0.769 0.188 75)))`,
-            'warning-background': `var(${vars['color.feedback.warning-background']}, var(--token-global-amber-50, oklch(0.987 0.022 85)))`
+            'warning-background': `var(${vars['color.feedback.warning-background']}, var(--token-global-amber-50, oklch(0.987 0.022 85)))`,
+            'info': `var(${vars['color.feedback.info']}, var(--token-global-blue-500, oklch(0.623 0.214 261)))`,
+            'info-background': `var(${vars['color.feedback.info-background']}, var(--token-global-blue-50, oklch(0.970 0.014 254)))`
         },
         'fill': {
             'inactive': `var(${vars['color.fill.inactive']}, var(--token-global-zinc-200, oklch(0.900 0.004 286)))`,
