@@ -1,0 +1,55 @@
+[build]
+output = "./src/token.ts"
+prefix = "prose"
+imports = [
+    "@crab-dev/rc-token-semantic",
+    "@crab-dev/rc-token-global"
+]
+
+[token]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  Prose — Markdown 排版令牌（Layer 3）
+#  颜色与字重通过令牌管理（支持主题覆写），度量值由 CSS 直接提供（匹配 tailwindcss-typography）
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── 全局 ────────────────────────────────────────────────────────────────────
+max-width = "68ch"
+
+# ── 颜色 ────────────────────────────────────────────────────────────────────
+body           = "$ref(color.text.primary)"
+headings       = "$ref(color.text.primary)"
+lead.color     = "$ref(color.text.secondary)"
+links          = "$ref(color.text.link)"
+links-hover    = "$ref(color.text.link-hover)"
+bold           = "$ref(color.text.primary)"
+counters       = "$ref(color.text.secondary)"
+bullets        = "$ref(color.border.hover)"
+hr.color       = "$ref(color.border.default)"
+quotes         = "$ref(color.text.primary)"
+quote-borders  = "$ref(color.border.default)"
+captions       = "$ref(color.text.secondary)"
+code.color     = "$ref(color.text.primary)"
+code.bg        = "$ref(zinc.100)"
+pre.color      = "$ref(color.text.primary)"
+pre.bg         = "$ref(zinc.100)"
+kbd.color      = "$ref(color.text.primary)"
+kbd.shadows    = "oklch(0 0 0 / 10%)"
+th-borders     = "$ref(color.border.hover)"
+thead.bg       = "$ref(zinc.50)"
+td-borders     = "$ref(color.border.default)"
+
+# ── 字重 ────────────────────────────────────────────────────────────────────
+a.font-weight          = "$ref(font.weight.regular)"
+strong.font-weight     = "$ref(font.weight.semibold)"
+h1.font-weight         = "600"
+h2.font-weight         = "$ref(font.weight.semibold)"
+h3.font-weight         = "$ref(font.weight.medium)"
+h4.font-weight         = "$ref(font.weight.medium)"
+blockquote.font-weight = "$ref(font.weight.regular)"
+code.font-weight       = "$ref(font.weight.regular)"
+pre.font-weight        = "$ref(font.weight.regular)"
+kbd.font-weight        = "$ref(font.weight.medium)"
+dt.font-weight         = "$ref(font.weight.semibold)"
+th.font-weight         = "$ref(font.weight.semibold)"
+marker.font-weight     = "$ref(font.weight.regular)"
