@@ -31,10 +31,13 @@ Turbo monorepo（基于 package.json 的项目推断），包含四个工作区�
 
 ```bash
 # 根目录
-yarn build                  # 先构建 packify，再通过 Turbo 构建所有库
+yarn build:library          # 先构建 packify，再通过 Turbo 构建所有库
 yarn test                   # 通过 Turbo 运行所有测试
-yarn eslint                 # 通过 Turbo 检查所有包
+yarn lint                   # 通过 Turbo 检查所有包
+yarn typecheck              # 通过 Turbo 类型检查所有包
 yarn generate:token         # 为所有包重新生成 CSS 令牌
+yarn docs:dev               # 文档站开发服务器
+yarn docs:build             # 文档站构建
 
 # 单组件（在组件目录下运行）
 yarn start                  # 开发服务器（lignify → crustify → webpack-dev-server）
@@ -95,7 +98,7 @@ yarn test
 ### 涉及构建配置/导出边界（Rollup/Webpack/入口导出）
 
 ```bash
-yarn build
+yarn build:library
 yarn test
 ```
 
@@ -121,14 +124,14 @@ yarn test
 1. 修改 `token.toml`，优先通过 `$ref()` 引用语义令牌。
 2. 执行 `yarn generate:token`，仅接受生成结果，不手改 `src/token.ts`。
 3. 在组件样式中通过 `token.*` 使用变量，避免运行时分支插值。
-4. 执行 `yarn eslint`、`yarn test`，必要时执行 `yarn build` 验证产物。
+4. 执行 `yarn eslint`、`yarn test`，必要时执行 `yarn build:library` 验证产物。
 
 ### Playbook C：修复 workspace 包解析/PnP 问题
 
 1. 确认依赖是否在对应 `package.json` 声明（workspace 包使用 `workspace:^`）。
 2. 运行安装并校验：`yarn install --immutable`。
 3. 若 ESM 包在 zip 中加载异常，按需在根 `package.json` 的 `dependenciesMeta` 标记 `"unplugged": true`。
-4. 重新执行 `yarn eslint` / `yarn test` / `yarn build` 验证。
+4. 重新执行 `yarn eslint` / `yarn test` / `yarn build:library` 验证。
 
 ## 变更边界（Guardrails）
 

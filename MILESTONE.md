@@ -2,7 +2,7 @@
 	<h1>里程碑</h1>
 </div>
 
-> 最后更新：2026-04-13 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
+> 最后更新：2026-04-14 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
 
 ---
 
@@ -181,11 +181,11 @@
 
 - [x] **P0 组件交付** — Message
 - [ ] **ConfigProvider** — 全局主题 / 语言 / 尺寸注入机制
-- [ ] 已有组件补齐单元测试（rc-virtual / rc-hooks / rc-app-main-layout）
-- [ ] rc-dialog / rc-table 发布正式版本号
-- [ ] 组件文档站点完善（lignify demo/mdx）
+- [ ] 已有组件补齐单元测试（rc-hooks / rc-app-main-layout）
+- [x] rc-dialog / rc-table 发布正式版本号
+- [x] 组件文档站点完善（lignify demo/mdx）
 - [ ] 深色主题切换（语义层 CSS 变量覆盖）
-- [ ] Markdown prose 排版令牌
+- [x] Markdown prose 排版令牌
 
 ### 中期目标
 
