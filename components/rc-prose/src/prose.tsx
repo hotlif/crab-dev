@@ -1,4 +1,5 @@
 import { css, cx } from '@linaria/core';
+import type { Ref } from 'react';
 import type { ProseProps, ProseSize } from './types.js';
 import token from './token.js';
 
@@ -1225,7 +1226,7 @@ function Prose({
 }: ProseProps) {
     return (
         <Tag
-            ref={ref as React.Ref<HTMLDivElement>}
+            ref={ref as Ref<HTMLDivElement>}
             className={cx(
                 baseStyle,
                 sizeStyles[size],
