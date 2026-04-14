@@ -39,4 +39,4 @@ jobs:
     - name: Install dependencies
       run: yarn install --immutable
     - name: Run ESLint
-      run: yarn eslint
+      run: yarn lint

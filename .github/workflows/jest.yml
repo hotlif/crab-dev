@@ -42,6 +42,6 @@ jobs:
     - name: Install dependencies
       run: yarn install --immutable
     - name: Build the project
-      run: yarn build
+      run: yarn build:library
     - name: Run Jest Test
       run: yarn test
