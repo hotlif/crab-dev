@@ -10,7 +10,7 @@ const LayoutIndex = () => {
     const { pathname } = useLocation();
 
     if (!isSingleComponent) {
-        return <MultipleLayout />;
+        return pathname.endsWith("/demo/tsx") ? <PlaygroundLayout /> : <MultipleLayout />;
     }
 
     return pathname.endsWith("/demo/tsx") ? <PlaygroundLayout /> : <DocLayout />;

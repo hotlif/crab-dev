@@ -161,7 +161,7 @@ const RAW_RUNTIME_STATE =
   "fallbackExclusionList": [\
     ["@crab-dev/babel-plugin-auto-import-style", ["workspace:toolbox/babel-plugin-auto-import-style"]],\
     ["@crab-dev/crustify", ["virtual:db8f90583e01e2c21d7355c17a714278ac1b9fd96f1c42ab3ec7817ffe083bf6a541638f863c044b60167464ef1c815f6a5b009c57e61d36aef03b9075bed5e1#workspace:toolbox/crustify", "workspace:toolbox/crustify"]],\
-    ["@crab-dev/lignify", ["virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:toolbox/lignify", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#workspace:toolbox/lignify", "workspace:toolbox/lignify"]],\
+    ["@crab-dev/lignify", ["virtual:0601b4b96e3aa929e66a9af16faa9071f8bbf5f966c3cd7a509d844111c8c3405dcf756c86a7a09a452a3fbf5b90de12cb5dd66ea5091af0ca59f517c6982218#workspace:toolbox/lignify", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:toolbox/lignify", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#workspace:toolbox/lignify", "workspace:toolbox/lignify"]],\
     ["@crab-dev/packify", ["workspace:toolbox/packify"]],\
     ["@crab-dev/rc-alert", ["workspace:components/rc-alert"]],\
     ["@crab-dev/rc-app-main-layout", ["workspace:components/rc-app-main-layout"]],\
@@ -176,7 +176,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-hooks", ["workspace:components/rc-hooks"]],\
     ["@crab-dev/rc-line-edit", ["workspace:components/rc-line-edit"]],\
     ["@crab-dev/rc-masonry", ["workspace:components/rc-masonry"]],\
-    ["@crab-dev/rc-menu", ["virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu", "workspace:components/rc-menu"]],\
+    ["@crab-dev/rc-menu", ["virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu", "virtual:69f64a600a5634d1f393081237969049d724a551dd61f878d218577fdee0186f74323d0e59524857710d1208da24eeecbff5a44bb5c3297cf8d8031340f323f6#workspace:components/rc-menu", "workspace:components/rc-menu"]],\
     ["@crab-dev/rc-message", ["workspace:components/rc-message"]],\
     ["@crab-dev/rc-notification", ["workspace:components/rc-notification"]],\
     ["@crab-dev/rc-prose", ["workspace:components/rc-prose"]],\
@@ -4574,6 +4574,54 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/lignify", [\
+      ["virtual:0601b4b96e3aa929e66a9af16faa9071f8bbf5f966c3cd7a509d844111c8c3405dcf756c86a7a09a452a3fbf5b90de12cb5dd66ea5091af0ca59f517c6982218#workspace:toolbox/lignify", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-lignify-virtual-266c9f7bc1/1/toolbox/lignify/",\
+        "packageDependencies": [\
+          ["@crab-dev/crustify", "virtual:db8f90583e01e2c21d7355c17a714278ac1b9fd96f1c42ab3ec7817ffe083bf6a541638f863c044b60167464ef1c815f6a5b009c57e61d36aef03b9075bed5e1#workspace:toolbox/crustify"],\
+          ["@crab-dev/lignify", "virtual:0601b4b96e3aa929e66a9af16faa9071f8bbf5f966c3cd7a509d844111c8c3405dcf756c86a7a09a452a3fbf5b90de12cb5dd66ea5091af0ca59f517c6982218#workspace:toolbox/lignify"],\
+          ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
+          ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\
+          ["@crab-dev/standards-eslint-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/eslint-preset"],\
+          ["@crab-dev/standards-jest-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/jest-preset"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@jest/globals", "npm:30.3.0"],\
+          ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
+          ["@types/crab-dev__rc-component-preview", null],\
+          ["@types/fs-extra", "npm:11.0.4"],\
+          ["@types/linaria__core", null],\
+          ["@types/mdx-js__react", null],\
+          ["@types/node", "npm:25.5.0"],\
+          ["@types/react", "npm:19.2.14"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
+          ["@types/react-router", null],\
+          ["commander", "npm:14.0.3"],\
+          ["eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:10.1.0"],\
+          ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
+          ["fs-extra", "npm:11.3.4"],\
+          ["globals", "npm:17.4.0"],\
+          ["jest", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:30.3.0"],\
+          ["react", "npm:19.2.4"],\
+          ["react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.4"],\
+          ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:7.13.2"],\
+          ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"],\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.58.0"],\
+          ["webpack", "virtual:db8f90583e01e2c21d7355c17a714278ac1b9fd96f1c42ab3ec7817ffe083bf6a541638f863c044b60167464ef1c815f6a5b009c57e61d36aef03b9075bed5e1#npm:5.105.4"]\
+        ],\
+        "packagePeers": [\
+          "@crab-dev/rc-component-preview",\
+          "@linaria/core",\
+          "@mdx-js/react",\
+          "@types/crab-dev__rc-component-preview",\
+          "@types/linaria__core",\
+          "@types/mdx-js__react",\
+          "@types/react-router",\
+          "react-router"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:toolbox/lignify", {\
         "packageLocation": "./.yarn/__virtual__/@crab-dev-lignify-virtual-db8f90583e/1/toolbox/lignify/",\
         "packageDependencies": [\
@@ -4581,6 +4629,8 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
+          ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\
           ["@crab-dev/standards-eslint-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
@@ -4627,6 +4677,8 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
+          ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\
           ["@crab-dev/standards-eslint-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
@@ -4673,6 +4725,8 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/lignify", "workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
+          ["@crab-dev/rc-menu", "virtual:69f64a600a5634d1f393081237969049d724a551dd61f878d218577fdee0186f74323d0e59524857710d1208da24eeecbff5a44bb5c3297cf8d8031340f323f6#workspace:components/rc-menu"],\
           ["@crab-dev/standards-eslint-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/eslint-preset"],\
           ["@crab-dev/standards-jest-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/jest-preset"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
@@ -5269,10 +5323,50 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:69f64a600a5634d1f393081237969049d724a551dd61f878d218577fdee0186f74323d0e59524857710d1208da24eeecbff5a44bb5c3297cf8d8031340f323f6#workspace:components/rc-menu", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-menu-virtual-9d57a936b3/1/components/rc-menu/",\
+        "packageDependencies": [\
+          ["@crab-dev/lignify", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#workspace:toolbox/lignify"],\
+          ["@crab-dev/packify", "workspace:toolbox/packify"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
+          ["@crab-dev/rc-menu", "virtual:69f64a600a5634d1f393081237969049d724a551dd61f878d218577fdee0186f74323d0e59524857710d1208da24eeecbff5a44bb5c3297cf8d8031340f323f6#workspace:components/rc-menu"],\
+          ["@crab-dev/rc-token-semantic", "workspace:components/rc-token-semantic"],\
+          ["@crab-dev/standards-eslint-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/eslint-preset"],\
+          ["@crab-dev/standards-jest-preset", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#workspace:standards/jest-preset"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@floating-ui/react", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#npm:0.27.19"],\
+          ["@jest/globals", "npm:30.3.0"],\
+          ["@linaria/core", "npm:7.0.0"],\
+          ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
+          ["@react-docgen/cli", "npm:3.0.6"],\
+          ["@testing-library/dom", "npm:10.4.1"],\
+          ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
+          ["@types/node", "npm:25.5.0"],\
+          ["@types/react", "npm:19.2.14"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
+          ["eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:10.1.0"],\
+          ["eslint-plugin-react", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:7.37.5"],\
+          ["globals", "npm:17.4.0"],\
+          ["jest", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:30.3.0"],\
+          ["jest-environment-jsdom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:30.3.0"],\
+          ["motion", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#npm:12.38.0"],\
+          ["react", "npm:19.2.4"],\
+          ["react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.4"],\
+          ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:7.13.2"],\
+          ["typescript", "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5"],\
+          ["typescript-eslint", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:8.58.0"]\
+        ],\
+        "packagePeers": [\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["workspace:components/rc-menu", {\
         "packageLocation": "./components/rc-menu/",\
         "packageDependencies": [\
-          ["@crab-dev/lignify", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#workspace:toolbox/lignify"],\
+          ["@crab-dev/lignify", "virtual:0601b4b96e3aa929e66a9af16faa9071f8bbf5f966c3cd7a509d844111c8c3405dcf756c86a7a09a452a3fbf5b90de12cb5dd66ea5091af0ca59f517c6982218#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
           ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
