@@ -10,6 +10,8 @@ export interface TabsState {
 export type TabsAction =
     | { type: "open", tab: TabItem, activate?: boolean, reloadIfExists?: boolean }
     | { type: "close", key: Key }
+    | { type: "closeOthers", key: Key }
+    | { type: "closeAll" }
     | { type: "activate", key: Key }
     | { type: "reorder", keys: Key[] }
     | { type: "reload", key?: Key };
@@ -40,6 +42,26 @@ function bumpVersion(map: ReadonlyMap<Key, number>, key: Key): ReadonlyMap<Key, 
     const next = new Map(map);
     next.set(key, (next.get(key) ?? 0) + 1);
     return next;
+}
+
+function dropVersions(map: ReadonlyMap<Key, number>, removedKeys: ReadonlySet<Key>): ReadonlyMap<Key, number> {
+    if (removedKeys.size === 0) return map;
+    let mutated = false;
+    let next: Map<Key, number> | null = null;
+    for (const key of removedKeys) {
+        if (map.has(key)) {
+            if (!mutated) {
+                next = new Map(map);
+                mutated = true;
+            }
+            next!.delete(key);
+        }
+    }
+    return mutated ? next! : map;
+}
+
+function isClosable(item: TabItem): boolean {
+    return item.closable !== false;
 }
 
 export function tabsReducer(state: TabsState, action: TabsAction): TabsState {
@@ -82,6 +104,44 @@ export function tabsReducer(state: TabsState, action: TabsAction): TabsState {
                 tabs: nextTabs,
                 activeKey: nextActiveKey,
                 reloadVersions: nextReloadVersions,
+            };
+        }
+        case "closeOthers": {
+            const target = state.tabs.find((item) => item.key === action.key);
+            if (!target) return state;
+
+            const removedKeys = new Set<Key>();
+            const nextTabs = state.tabs.filter((item) => {
+                if (item.key === action.key) return true;
+                if (!isClosable(item)) return true;
+                removedKeys.add(item.key);
+                return false;
+            });
+            if (removedKeys.size === 0) return state;
+
+            return {
+                tabs: nextTabs,
+                activeKey: action.key,
+                reloadVersions: dropVersions(state.reloadVersions, removedKeys),
+            };
+        }
+        case "closeAll": {
+            const removedKeys = new Set<Key>();
+            const nextTabs = state.tabs.filter((item) => {
+                if (!isClosable(item)) return true;
+                removedKeys.add(item.key);
+                return false;
+            });
+            if (removedKeys.size === 0) return state;
+
+            const activeStillExists = state.activeKey !== undefined
+                && nextTabs.some((item) => item.key === state.activeKey);
+            const nextActiveKey = activeStillExists ? state.activeKey : nextTabs[0]?.key;
+
+            return {
+                tabs: nextTabs,
+                activeKey: nextActiveKey,
+                reloadVersions: dropVersions(state.reloadVersions, removedKeys),
             };
         }
         case "activate": {

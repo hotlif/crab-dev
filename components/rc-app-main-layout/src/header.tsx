@@ -25,6 +25,12 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
     onTabChange?: (key: Key) => void
     /** 关闭标签时的回调 */
     onTabClose?: (key: Key) => void
+    /** 关闭除指定 key 之外的全部可关闭标签 */
+    onTabCloseOthers?: (key: Key) => void
+    /** 关闭全部可关闭标签 */
+    onTabCloseAll?: () => void
+    /** 重新加载指定标签页 */
+    onTabReload?: (key: Key) => void
     /** 拖拽重排后的回调；传入则启用拖拽排序 */
     onTabReorder?: (keys: Key[]) => void
     /** 当前激活标签的路径面包屑；渲染于 toolbar */
@@ -213,6 +219,9 @@ const Header: FC<HeaderProps> = ({
     activeTabKey,
     onTabChange,
     onTabClose,
+    onTabCloseOthers,
+    onTabCloseAll,
+    onTabReload,
     onTabReorder,
     breadcrumbs,
     ...restProps
@@ -226,6 +235,9 @@ const Header: FC<HeaderProps> = ({
                         activeKey={activeTabKey}
                         onChange={onTabChange}
                         onClose={onTabClose}
+                        onCloseOthers={onTabCloseOthers}
+                        onCloseAll={onTabCloseAll}
+                        onReload={onTabReload}
                         onReorder={onTabReorder}
                     />
                 </div>

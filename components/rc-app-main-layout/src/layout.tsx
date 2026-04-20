@@ -103,6 +103,9 @@ const Layout: FC<LayoutProps> = ({
                     activeTabKey={resolvedActiveKey}
                     onTabChange={(key: Key) => dispatch({ type: "activate", key })}
                     onTabClose={(key: Key) => dispatch({ type: "close", key })}
+                    onTabCloseOthers={(key: Key) => dispatch({ type: "closeOthers", key })}
+                    onTabCloseAll={() => dispatch({ type: "closeAll" })}
+                    onTabReload={(key: Key) => dispatch({ type: "reload", key })}
                     onTabReorder={(keys: Key[]) => dispatch({ type: "reorder", keys })}
                     breadcrumbs={activeTab?.breadcrumbs}
                 />

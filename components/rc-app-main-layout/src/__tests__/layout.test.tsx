@@ -1,5 +1,5 @@
 import { act } from "react";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "@jest/globals";
 import Layout from "../layout.js";
 import AppMainLayoutProvider from "../context.js";
@@ -74,5 +74,30 @@ describe("Layout", () => {
 
         const active = screen.getByText("dashboard-content").closest("[role=tabpanel]");
         expect(active?.getAttribute("aria-hidden")).toBe("false");
+    });
+
+    it("reloads tab content from context menu", () => {
+        let mountCount = 0;
+        const UsersContent = () => {
+            mountCount += 1;
+            return <div>{`users-content-v${mountCount}`}</div>;
+        };
+        const tabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false, children: <div>dashboard-content</div> },
+            { key: "users", title: "用户管理", children: <UsersContent /> },
+        ];
+
+        render(
+            <AppMainLayoutProvider initialTabs={tabs} initialActiveTabKey="users">
+                <Layout />
+            </AppMainLayoutProvider>
+        );
+
+        expect(screen.getByText("users-content-v1")).toBeTruthy();
+
+        fireEvent.contextMenu(screen.getByRole("tab", { name: "用户管理" }));
+        fireEvent.click(screen.getByRole("menuitem", { name: "重新加载页面" }));
+
+        expect(screen.getByText("users-content-v2")).toBeTruthy();
     });
 });

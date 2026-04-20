@@ -12,18 +12,6 @@ const menuItem = css`
 const menuItemWithDivider = css`
     &:hover {
         color: ${token.horizontal.item["color-hover"]};
-        &::after {
-            border-bottom: 2px solid ${token.horizontal.item["divider-color-hover"]};
-        }
-    }
-    &::after {
-        position: absolute;
-        content: "";
-        inset-inline-end: 12px;
-        inset-inline-start: 14px;
-        bottom: 0;
-        transition: border-bottom 0.3s;
-        border-bottom: 2px solid transparent;
     }
 `
 

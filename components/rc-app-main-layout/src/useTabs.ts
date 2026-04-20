@@ -16,6 +16,10 @@ export interface UseAppMainLayoutTabsResult {
     reloadVersions: ReadonlyMap<Key, number>
     openTab: (tab: TabItem, options?: OpenTabOptions) => void
     closeTab: (key: Key) => void
+    /** 关闭除指定 key 以外的所有可关闭标签；不可关闭（closable=false）的标签会被保留 */
+    closeOtherTabs: (key: Key) => void
+    /** 关闭所有可关闭标签；不可关闭（closable=false）的标签会被保留 */
+    closeAllTabs: () => void
     activateTab: (key: Key) => void
     reorderTabs: (keys: Key[]) => void
     reloadTab: (key?: Key) => void
@@ -38,6 +42,14 @@ export default function useAppMainLayoutTabs(): UseAppMainLayoutTabsResult {
 
     const closeTab = useCallback((key: Key) => {
         dispatch({ type: "close", key });
+    }, [dispatch]);
+
+    const closeOtherTabs = useCallback((key: Key) => {
+        dispatch({ type: "closeOthers", key });
+    }, [dispatch]);
+
+    const closeAllTabs = useCallback(() => {
+        dispatch({ type: "closeAll" });
     }, [dispatch]);
 
     const activateTab = useCallback((key: Key) => {
@@ -63,9 +75,11 @@ export default function useAppMainLayoutTabs(): UseAppMainLayoutTabsResult {
         reloadVersions,
         openTab,
         closeTab,
+        closeOtherTabs,
+        closeAllTabs,
         activateTab,
         reorderTabs,
         reloadTab,
         getReloadVersion,
-    }), [tabs, activeKey, reloadVersions, openTab, closeTab, activateTab, reorderTabs, reloadTab, getReloadVersion]);
+    }), [tabs, activeKey, reloadVersions, openTab, closeTab, closeOtherTabs, closeAllTabs, activateTab, reorderTabs, reloadTab, getReloadVersion]);
 }

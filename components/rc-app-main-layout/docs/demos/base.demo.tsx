@@ -172,6 +172,7 @@ const SimpleFrame = () => {
                             <div className={pageStyle}>
                                 <h2>{item.title}</h2>
                                 <p>页面 key：{String(item.key)}</p>
+                                <input />
                             </div>
                         ),
                     });

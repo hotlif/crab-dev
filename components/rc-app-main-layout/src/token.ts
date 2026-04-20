@@ -68,7 +68,26 @@ export const vars = {
     'tab.item.close.size': '--app-main-layout-tab-item-close-size',
     'tab.item.close.color': '--app-main-layout-tab-item-close-color',
     'tab.item.close.color-hover': '--app-main-layout-tab-item-close-color-hover',
-    'tab.item.close.background.color-hover': '--app-main-layout-tab-item-close-background-color-hover'
+    'tab.item.close.background.color-hover': '--app-main-layout-tab-item-close-background-color-hover',
+    'tab.context-menu.min-width': '--app-main-layout-tab-context-menu-min-width',
+    'tab.context-menu.padding': '--app-main-layout-tab-context-menu-padding',
+    'tab.context-menu.background.color': '--app-main-layout-tab-context-menu-background-color',
+    'tab.context-menu.border.color': '--app-main-layout-tab-context-menu-border-color',
+    'tab.context-menu.border.radius': '--app-main-layout-tab-context-menu-border-radius',
+    'tab.context-menu.shadow': '--app-main-layout-tab-context-menu-shadow',
+    'tab.context-menu.z-index': '--app-main-layout-tab-context-menu-z-index',
+    'tab.context-menu.item.height': '--app-main-layout-tab-context-menu-item-height',
+    'tab.context-menu.item.padding': '--app-main-layout-tab-context-menu-item-padding',
+    'tab.context-menu.item.gap': '--app-main-layout-tab-context-menu-item-gap',
+    'tab.context-menu.item.font.size': '--app-main-layout-tab-context-menu-item-font-size',
+    'tab.context-menu.item.color': '--app-main-layout-tab-context-menu-item-color',
+    'tab.context-menu.item.color-disabled': '--app-main-layout-tab-context-menu-item-color-disabled',
+    'tab.context-menu.item.background.color-hover': '--app-main-layout-tab-context-menu-item-background-color-hover',
+    'tab.context-menu.item.border.radius': '--app-main-layout-tab-context-menu-item-border-radius',
+    'tab.context-menu.item.icon.size': '--app-main-layout-tab-context-menu-item-icon-size',
+    'tab.context-menu.item.icon.color': '--app-main-layout-tab-context-menu-item-icon-color',
+    'tab.context-menu.separator.color': '--app-main-layout-tab-context-menu-separator-color',
+    'tab.context-menu.separator.margin': '--app-main-layout-tab-context-menu-separator-margin'
 };
 
 const token = {
@@ -225,6 +244,43 @@ const token = {
                 'background': {
                     'color-hover': `var(${vars['tab.item.close.background.color-hover']}, oklch(0.85 0.005 264))`
                 }
+            }
+        },
+        'context-menu': {
+            'min-width': `var(${vars['tab.context-menu.min-width']}, 176px)`,
+            'padding': `var(${vars['tab.context-menu.padding']}, 4px)`,
+            'background': {
+                'color': `var(${vars['tab.context-menu.background.color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
+            },
+            'border': {
+                'color': `var(${vars['tab.context-menu.border.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+                'radius': `var(${vars['tab.context-menu.border.radius']}, 10px)`
+            },
+            'shadow': `var(${vars['tab.context-menu.shadow']}, 0 8px 24px oklch(0 0 0 / 0.12), 0 2px 6px oklch(0 0 0 / 0.06))`,
+            'z-index': `var(${vars['tab.context-menu.z-index']}, var(--token-semantic-z-index-elevated, var(--token-global-z-index-50, 1400)))`,
+            'item': {
+                'height': `var(${vars['tab.context-menu.item.height']}, 32px)`,
+                'padding': `var(${vars['tab.context-menu.item.padding']}, 0 12px)`,
+                'gap': `var(${vars['tab.context-menu.item.gap']}, 10px)`,
+                'font': {
+                    'size': `var(${vars['tab.context-menu.item.font.size']}, 13px)`
+                },
+                'color': `var(${vars['tab.context-menu.item.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+                'color-disabled': `var(${vars['tab.context-menu.item.color-disabled']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-400, oklch(0.760 0.012 286))))`,
+                'background': {
+                    'color-hover': `var(${vars['tab.context-menu.item.background.color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
+                },
+                'border': {
+                    'radius': `var(${vars['tab.context-menu.item.border.radius']}, 6px)`
+                },
+                'icon': {
+                    'size': `var(${vars['tab.context-menu.item.icon.size']}, 16px)`,
+                    'color': `var(${vars['tab.context-menu.item.icon.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+                }
+            },
+            'separator': {
+                'color': `var(${vars['tab.context-menu.separator.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+                'margin': `var(${vars['tab.context-menu.separator.margin']}, 4px 0)`
             }
         }
     }

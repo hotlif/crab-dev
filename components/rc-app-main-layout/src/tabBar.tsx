@@ -1,8 +1,9 @@
-import type { FC, Key, PointerEvent as ReactPointerEvent } from "react";
+import type { FC, Key, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useRef, useState } from "react";
 import { css, cx } from "@linaria/core";
 import token from "./token.js";
 import type { TabItem } from "./types.js";
+import TabContextMenu, { type TabContextMenuItem } from "./tabContextMenu.js";
 
 export type { TabItem };
 
@@ -15,6 +16,12 @@ export interface TabBarProps {
     onChange?: (key: Key) => void
     /** 关闭标签时的回调 */
     onClose?: (key: Key) => void
+    /** 关闭除指定 key 之外的全部可关闭标签 */
+    onCloseOthers?: (key: Key) => void
+    /** 关闭全部可关闭标签 */
+    onCloseAll?: () => void
+    /** 重新加载指定标签页 */
+    onReload?: (key: Key) => void
     /** 拖拽重排后的回调；传入则启用拖拽排序 */
     onReorder?: (keys: Key[]) => void
 }
@@ -214,11 +221,43 @@ const CloseIcon = () => (
     </svg>
 );
 
+/** 关闭其他：一个保留项 + 两侧的 X，语义暗示"保留中间、关闭两侧" */
+const CloseOthersIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <rect x="9" y="5" width="6" height="14" rx="1.5" />
+        <line x1="3" y1="7" x2="6" y2="10" />
+        <line x1="6" y1="7" x2="3" y2="10" />
+        <line x1="18" y1="7" x2="21" y2="10" />
+        <line x1="21" y1="7" x2="18" y2="10" />
+    </svg>
+);
+
+/** 关闭全部：叠层 + X */
+const CloseAllIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <rect x="4" y="4" width="12" height="12" rx="1.5" />
+        <rect x="8" y="8" width="12" height="12" rx="1.5" />
+        <line x1="11.5" y1="11.5" x2="16.5" y2="16.5" />
+        <line x1="16.5" y1="11.5" x2="11.5" y2="16.5" />
+    </svg>
+);
+
+/** 重新加载：顺时针环形箭头 */
+const ReloadIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M20 12a8 8 0 1 1-2.34-5.66" />
+        <polyline points="20 4 20 10 14 10" />
+    </svg>
+);
+
 const TabBar: FC<TabBarProps> = ({
     items,
     activeKey,
     onChange,
     onClose,
+    onCloseOthers,
+    onCloseAll,
+    onReload,
     onReorder,
 }) => {
     const draggable = !!onReorder;
@@ -375,6 +414,66 @@ const TabBar: FC<TabBarProps> = ({
         return 0;
     };
 
+    /** 右键菜单状态：仅当任一回调被传入时才启用 */
+    const contextMenuEnabled = !!(onReload || onClose || onCloseOthers || onCloseAll);
+    const [menuState, setMenuState] = useState<{ x: number, y: number, key: Key } | null>(null);
+    const closeMenu = useCallback(() => setMenuState(null), []);
+
+    const handleContextMenu = useCallback((e: ReactMouseEvent<HTMLDivElement>, key: Key) => {
+        if (!contextMenuEnabled) return;
+        e.preventDefault();
+        // 拖动结束的瞬间忽略右键菜单
+        if (justDraggedRef.current) return;
+        setMenuState({ x: e.clientX, y: e.clientY, key });
+    }, [contextMenuEnabled]);
+
+    const buildMenuItems = (key: Key): TabContextMenuItem[] => {
+        const target = items.find((it) => it.key === key);
+        const targetClosable = !!target && target.closable !== false;
+        const otherClosableCount = items.reduce(
+            (acc, it) => acc + (it.key !== key && it.closable !== false ? 1 : 0),
+            0,
+        );
+        const anyClosable = items.some((it) => it.closable !== false);
+        const result: TabContextMenuItem[] = [];
+        if (onReload) {
+            result.push({
+                id: "reload",
+                label: "重新加载页面",
+                icon: <ReloadIcon />,
+                onSelect: () => onReload(key),
+            });
+        }
+        if (onClose) {
+            result.push({
+                id: "close",
+                label: "关闭",
+                icon: <CloseIcon />,
+                disabled: !targetClosable,
+                onSelect: () => onClose(key),
+            });
+        }
+        if (onCloseOthers) {
+            result.push({
+                id: "close-others",
+                label: "关闭其他",
+                icon: <CloseOthersIcon />,
+                disabled: otherClosableCount === 0,
+                onSelect: () => onCloseOthers(key),
+            });
+        }
+        if (onCloseAll) {
+            result.push({
+                id: "close-all",
+                label: "关闭所有",
+                icon: <CloseAllIcon />,
+                disabled: !anyClosable,
+                onSelect: () => onCloseAll(),
+            });
+        }
+        return result;
+    };
+
     return (
         <div className={barStyle} role="tablist">
             {items.map((item, index) => {
@@ -413,6 +512,7 @@ const TabBar: FC<TabBarProps> = ({
                         onPointerMove={handlePointerMove}
                         onPointerUp={handlePointerUp}
                         onPointerCancel={handlePointerCancel}
+                        onContextMenu={(e) => handleContextMenu(e, item.key)}
                     >
                         {item.icon ? (
                             <span className={iconStyle}>{item.icon}</span>
@@ -436,6 +536,14 @@ const TabBar: FC<TabBarProps> = ({
                     </div>
                 );
             })}
+            {menuState ? (
+                <TabContextMenu
+                    x={menuState.x}
+                    y={menuState.y}
+                    items={buildMenuItems(menuState.key)}
+                    onClose={closeMenu}
+                />
+            ) : null}
         </div>
     );
 };

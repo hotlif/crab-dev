@@ -26,11 +26,12 @@ const groupItemHeader = css`
 `
 
 const groupItemTitle = css`
-    opacity: ${token.horizontal["group-item"].title.opacity};
+    color: ${token.horizontal["group-item"].title.color};
+    font-weight: ${token.horizontal["group-item"].title["font-weight"]};
 `
 
 const groupItemIcon = css`
-    opacity: ${token.horizontal["group-item"].icon.opacity};
+    color: ${token.horizontal["group-item"].icon.color};
     margin-right: ${token.horizontal["group-item"].icon["margin-right"]};
 `
 

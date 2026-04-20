@@ -9,7 +9,7 @@ export const iconArrayBase = css`
         height: 1.5px;
         width: 6px;
         transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
-        background-color: #000;
+        background-color: currentColor;
         border-radius: 6px;
     }
 `

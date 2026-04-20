@@ -134,4 +134,118 @@ describe("useAppMainLayoutTabs", () => {
         });
         expect(hookResult!.getReloadVersion("users")).toBe(0);
     });
+
+    it("closes other tabs while preserving non-closable tabs and activates target", () => {
+        const initialTabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false },
+            { key: "users", title: "用户管理" },
+            { key: "settings", title: "系统设置" },
+            { key: "report", title: "报表中心" },
+        ];
+        let hookResult: ReturnType<typeof useAppMainLayoutTabs> | null = null;
+
+        render(
+            <Harness
+                initialTabs={initialTabs}
+                initialActiveTabKey="users"
+                onReady={(result) => { hookResult = result; }}
+            />
+        );
+
+        act(() => {
+            hookResult!.reloadTab("settings");
+        });
+        expect(hookResult!.getReloadVersion("settings")).toBe(1);
+
+        act(() => {
+            hookResult!.closeOtherTabs("settings");
+        });
+
+        // 不可关闭的 dashboard 被保留；目标 settings 被激活；其他可关闭项被移除
+        expect(hookResult!.tabs.map((item) => item.key)).toEqual(["dashboard", "settings"]);
+        expect(hookResult!.activeTabKey).toBe("settings");
+        // 关闭的 tab 的 reloadVersion 不应残留；保留 tab 的 version 不变
+        expect(hookResult!.getReloadVersion("users")).toBe(0);
+        expect(hookResult!.getReloadVersion("settings")).toBe(1);
+    });
+
+    it("closeOtherTabs is a no-op when only the target and non-closable tabs remain", () => {
+        const initialTabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false },
+            { key: "users", title: "用户管理" },
+        ];
+        let hookResult: ReturnType<typeof useAppMainLayoutTabs> | null = null;
+
+        render(
+            <Harness
+                initialTabs={initialTabs}
+                initialActiveTabKey="users"
+                onReady={(result) => { hookResult = result; }}
+            />
+        );
+
+        const before = hookResult!.tabs;
+
+        act(() => {
+            hookResult!.closeOtherTabs("users");
+        });
+
+        // 没有可关闭的"其他"标签 → state 应保持引用不变
+        expect(hookResult!.tabs).toBe(before);
+    });
+
+    it("closes all closable tabs and falls back to first non-closable tab", () => {
+        const initialTabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false },
+            { key: "users", title: "用户管理" },
+            { key: "settings", title: "系统设置" },
+        ];
+        let hookResult: ReturnType<typeof useAppMainLayoutTabs> | null = null;
+
+        render(
+            <Harness
+                initialTabs={initialTabs}
+                initialActiveTabKey="settings"
+                onReady={(result) => { hookResult = result; }}
+            />
+        );
+
+        act(() => {
+            hookResult!.reloadTab("users");
+        });
+        expect(hookResult!.getReloadVersion("users")).toBe(1);
+
+        act(() => {
+            hookResult!.closeAllTabs();
+        });
+
+        expect(hookResult!.tabs.map((item) => item.key)).toEqual(["dashboard"]);
+        expect(hookResult!.activeTabKey).toBe("dashboard");
+        // 被关闭的 tab 的 reloadVersion 必须清空
+        expect(hookResult!.getReloadVersion("users")).toBe(0);
+        expect(hookResult!.getReloadVersion("settings")).toBe(0);
+    });
+
+    it("closeAllTabs leaves activeKey undefined when no tab survives", () => {
+        const initialTabs: TabItem[] = [
+            { key: "users", title: "用户管理" },
+            { key: "settings", title: "系统设置" },
+        ];
+        let hookResult: ReturnType<typeof useAppMainLayoutTabs> | null = null;
+
+        render(
+            <Harness
+                initialTabs={initialTabs}
+                initialActiveTabKey="users"
+                onReady={(result) => { hookResult = result; }}
+            />
+        );
+
+        act(() => {
+            hookResult!.closeAllTabs();
+        });
+
+        expect(hookResult!.tabs).toEqual([]);
+        expect(hookResult!.activeTabKey).toBeUndefined();
+    });
 });

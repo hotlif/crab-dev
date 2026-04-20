@@ -18,6 +18,8 @@ const verticalItemTitleBackgroundColorHover = token.vertical.item.title["backgro
 const verticalItemTitleBackgroundColorActive = token.vertical.item.title["background-color-active"];
 const verticalItemTitleBackgroundColorSelect = token.vertical.item.title["background-color-select"];
 const verticalItemTitleBackgroundColorOpen = token.vertical.item.title["background-color-open"];
+const verticalItemTitleColorHover = token.vertical.item.title["color-hover"];
+const verticalItemTitleColorOpen = token.vertical.item.title["color-open"];
 const verticalItemTitleHeight = token.vertical.item.title.height;
 const verticalItemFontSize = token.vertical.item.title["font-size"];
 const verticalItemInlineIndent = token.vertical.item["inline-indent"];
@@ -45,13 +47,21 @@ const itemTitleStyle = css`
 const itemTitleBaseStyle = css`
     height: ${verticalItemTitleHeight};
     font-size: ${verticalItemFontSize};
+    color: ${token.vertical.item.title.color};
     border-radius: ${verticalItemTitleBorderRadius};
+    transition: ${token.vertical.item.title.transition};
     &:hover {
         background-color: ${verticalItemTitleBackgroundColorHover};
+        color: ${verticalItemTitleColorHover};
     }
 
     &:active {
         background-color: ${verticalItemTitleBackgroundColorActive};
+        color: ${token.vertical.item.title["color-active"]};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
     }
 `
 
@@ -68,15 +78,20 @@ const itemGroupTitleStyle = css`
     cursor: default;
     height: ${itemGroupTitleHeight};
     font-size: ${itemGroupTitleFontSize};
+    font-weight: ${token.vertical["item-group"].title["font-weight"]};
+    letter-spacing: ${token.vertical["item-group"].title["letter-spacing"]};
+    text-transform: ${token.vertical["item-group"].title["text-transform"]};
     color: ${itemGroupTitleColor};
 `
 
 const itemSelectStyle = css`
     background-color: ${verticalItemTitleBackgroundColorSelect};
+    font-weight: ${token.vertical.item.title["font-weight-select"]};
 `
 
 const itemOpenStyle = css`
     background-color: ${verticalItemTitleBackgroundColorOpen};
+    color: ${verticalItemTitleColorOpen};
 `
 
 const ulStyle = css`
