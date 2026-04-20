@@ -28,6 +28,7 @@ imports = ["@crab-dev/rc-token-global"]
 color.brand.primary        = "$ref(zinc.900)"
 color.brand.primary-hover  = "$ref(zinc.800)"
 color.brand.primary-active = "$ref(zinc.950)"
+color.brand.primary-subtle = "$ref(zinc.600)"
 
 
 # ─── 颜色 · 背景 ────────────────────────────────────────────────────────────

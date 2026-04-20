@@ -6,6 +6,7 @@ export const vars = {
     'color.brand.primary': '--token-semantic-color-brand-primary',
     'color.brand.primary-hover': '--token-semantic-color-brand-primary-hover',
     'color.brand.primary-active': '--token-semantic-color-brand-primary-active',
+    'color.brand.primary-subtle': '--token-semantic-color-brand-primary-subtle',
     'color.background.surface': '--token-semantic-color-background-surface',
     'color.background.elevated': '--token-semantic-color-background-elevated',
     'color.background.overlay': '--token-semantic-color-background-overlay',
@@ -76,7 +77,8 @@ const token = {
         'brand': {
             'primary': `var(${vars['color.brand.primary']}, var(--token-global-zinc-900, oklch(0.220 0.005 286)))`,
             'primary-hover': `var(${vars['color.brand.primary-hover']}, var(--token-global-zinc-800, oklch(0.320 0.008 286)))`,
-            'primary-active': `var(${vars['color.brand.primary-active']}, var(--token-global-zinc-950, oklch(0.140 0.004 286)))`
+            'primary-active': `var(${vars['color.brand.primary-active']}, var(--token-global-zinc-950, oklch(0.140 0.004 286)))`,
+            'primary-subtle': `var(${vars['color.brand.primary-subtle']}, var(--token-global-zinc-600, oklch(0.550 0.014 286)))`
         },
         'background': {
             'surface': `var(${vars['color.background.surface']}, var(--token-global-white, oklch(1.000 0 0)))`,
