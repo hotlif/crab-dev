@@ -1,264 +1,185 @@
 # Crab Dev — 项目规范
 
-## 架构
+> 本文件是 Copilot 在本仓库中的行为契约。措辞遵循 RFC 2119 语义：**必须 / 不得 (MUST / MUST NOT)**、**应 / 不应 (SHOULD / SHOULD NOT)**、**可 (MAY)**。出现冲突时优先级为：**必须 > 应 > 可**。
 
-Turbo monorepo（基于 package.json 的项目推断），包含四个工作区域：
+---
 
-| 区域 | 用途 | 命名规则 |
-|------|------|----------|
-| `components/` | React 19 UI 组件 | `@crab-dev/rc-{name}` |
-| `standards/` | 共享的 ESLint、Jest、TypeScript 预设 | `@crab-dev/standards-{name}` |
-| `toolbox/` | 内部构建/开发工具 | `@crab-dev/{tool-name}` |
+## 1. 项目拓扑
 
-**运行环境：** Node ≥ 22，Yarn 4.13.0（Corepack，Plug'n'Play 模式），全局使用 `"type": "module"`。
+Turbo 驱动的 Yarn Monorepo，划分为三个顶层工作区，职责互不重叠：
 
-> **Yarn PnP 注意事项：**
-> - 依赖存储在 `.yarn/cache/` 的 zip 归档中，不使用 `node_modules`
-> - `.pnp.cjs` 是 PnP 运行时，必须提交到仓库
-> - 某些包（如含 ESM 的 `happy-dom`）可能无法从 zip 内正确加载，需在根 `package.json` 的 `dependenciesMeta` 中标记 `"unplugged": true`
-> - CI 中使用 `yarn install --immutable` 确保 lockfile 一致性
+| 工作区 | 职责 | 包命名 |
+|--------|------|--------|
+| `components/` | React 19 UI 组件库 | `@crab-dev/rc-{name}` |
+| `standards/`  | 共享的 ESLint / Jest / TypeScript 预设 | `@crab-dev/standards-{name}` |
+| `toolbox/`    | 内部构建与开发工具 | `@crab-dev/{tool-name}` |
+
+**运行环境（硬性约束）：**
+
+- Node.js **≥ 22**
+- Yarn **4.13.0**，经 Corepack 启用，采用 **Plug'n'Play (PnP)** 模式
+- 所有 `package.json` 必须声明 `"type": "module"`（即所有包一律为 ESM）
 
 **工具链：**
 
-| 工具 | 职责 |
+| 工具 | 定位 |
 |------|------|
-| **Packify** | Rollup 4 库打包器 → 输出 `esm/`、`cjs/`、`declarations/`、`css/`。同时执行 `generate:css-token` 从 `token.toml` 生成令牌。 |
-| **Crustify** | Webpack 5 开发服务器，集成 React Compiler、Linaria（`@wyw-in-js/webpack-loader`）、SWC、MDX 及自动扫描插件。 |
-| **Lignify** | 零配置文档/开发环境，包裹 Crustify；自动扫描 `*.view.tsx`、`*.demo.tsx`、`*.mdx`。 |
-| **babel-plugin-auto-import-style** | Babel 插件，编译时自动注入 `@crab-dev/rc-*/css/index.css` 导入。 |
+| **Packify**  | 基于 Rollup 4 的库打包器；产出 `esm/`、`cjs/`、`declarations/`、`css/`，并驱动 `generate:css-token` 从 `token.toml` 生成 `src/token.ts`。 |
+| **Crustify** | 基于 Webpack 5 的开发服务器，集成 React Compiler、Linaria（`@wyw-in-js/webpack-loader`）、SWC、MDX 及自动扫描插件。 |
+| **Lignify**  | 零配置文档 / 预览环境，封装 Crustify，自动扫描 `*.view.tsx`、`*.demo.tsx`、`*.mdx`。 |
+| **babel-plugin-auto-import-style** | Babel 插件，编译期为消费方自动注入 `@crab-dev/rc-*/css/index.css`。 |
 
-## 构建与测试
+### 1.1 Yarn PnP 硬性事实
 
-```bash
-# 根目录
-yarn build:library          # 先构建 packify，再通过 Turbo 构建所有库
-yarn test                   # 通过 Turbo 运行所有测试
-yarn lint                   # 通过 Turbo 检查所有包
-yarn typecheck              # 通过 Turbo 类型检查所有包
-yarn generate:token         # 为所有包重新生成 CSS 令牌
-yarn docs:dev               # 文档站开发服务器
-yarn docs:build             # 文档站构建
+- 依赖以 zip 归档形式存放于 `.yarn/cache/`，**不存在** `node_modules`；
+- `.pnp.cjs` 是 PnP 运行时，**必须**提交至版本库；
+- 少数含 ESM 的包（如 `happy-dom`）无法从 zip 内正确加载，**必须**在根 `package.json` 的 `dependenciesMeta` 中标记 `"unplugged": true`；
+- CI 及本地重置安装**必须**使用 `yarn install --immutable` 以保证 lockfile 一致性。
 
-# 单组件（在组件目录下运行）
-yarn start                  # 开发服务器（lignify → crustify → webpack-dev-server）
-yarn build:library          # 库构建（packify → rollup）
-yarn generate:token         # 从 token.toml 重新生成 token.ts
-yarn test                   # Jest（yarn node --experimental-vm-modules $(yarn bin jest)）
-yarn eslint                 # ESLint
-```
+---
 
-CI 在 `canary` 分支上运行 — 参见 `.github/workflows/jest.yml` 和 `eslint.yml`。路径忽略规则：`**/*.md`、`rfc/**`、`components/**/docs/**`。
+## 2. 命令矩阵
 
-## 执行优先级（Instruction Priority）
+### 2.1 根目录
 
-当规则冲突时，按以下顺序决策：
+| 命令 | 语义 |
+|------|------|
+| `yarn build:library` | 先构建 `packify`，再经 Turbo 拓扑构建全部库产物 |
+| `yarn test`          | Turbo 并行运行全部测试 |
+| `yarn lint`          | Turbo 并行运行全部 ESLint |
+| `yarn typecheck`     | Turbo 并行运行全部类型检查 |
+| `yarn generate:token`| 为全部使用令牌的包重新生成 `src/token.ts` |
+| `yarn docs:dev`      | 文档站开发服务器 |
+| `yarn docs:build`    | 文档站生产构建 |
 
-1. **Must（必须）**：违反会导致错误、构建失败、规范破坏或产物不一致。
-2. **Should（应该）**：默认遵循，若因上下文限制无法满足，需在变更说明中标注原因。
-3. **Can（可选）**：增强项，仅在不影响 Must/Should 的前提下采用。
+### 2.2 单包（在包目录下执行）
 
-### Must
+| 命令 | 语义 |
+|------|------|
+| `yarn start`           | 开发服务器（lignify → crustify → webpack-dev-server） |
+| `yarn build:library`   | 当前包库构建（packify → rollup） |
+| `yarn generate:token`  | 基于当前包 `token.toml` 重新生成 `src/token.ts` |
+| `yarn test`            | Jest，以 ESM 模式运行（`yarn node --experimental-vm-modules $(yarn bin jest)`） |
+| `yarn eslint`          | 当前包 ESLint |
 
-- 保持 ESM 语义与导入规则：相对导入保留扩展名（`.js`）
-- 禁止手动编辑 `src/token.ts`（仅通过 `yarn generate:token` 生成）
-- Linaria `css`` 模板中禁止使用运行时变量（props/state）
-- 依赖声明遵循 Yarn 4 PnP：workspace 包使用 `workspace:^`
-- 不提交破坏性更改（构建失败、测试失败、类型错误）
+### 2.3 CI
 
-### Should
+工作流定义于 `.github/workflows/jest.yml` 与 `eslint.yml`，针对 `canary` 分支触发。路径忽略：`**/*.md`、`rfc/**`、`components/**/docs/**`。
 
-- 遵循组件目录结构与 `index.ts` 导出模式
-- 新增/修改组件时补充最小必要测试
-- 优先最小改动，避免无关重构
+---
 
-### Can
+## 3. 变更规则
 
-- 在不改变外部 API 前提下做轻量重构（可读性、重复代码收敛）
-- 补充文档示例与说明性注释
+### 3.1 必须 (MUST)
 
-## 任务验收清单（Definition of Done）
+1. **ESM 语义**：相对导入**必须**保留显式扩展名（`.js` / `.ts` / `.tsx`）；`npm` 包导入**不得**带扩展名。由 ESLint `import/extensions` 强制。
+2. **生成文件不可手改**：`src/token.ts`、`public/docgen.json`、`esm/`、`cjs/`、`declarations/`、`css/` 及 `coverage/` **不得**手工编辑或直接提交差异；必要时只能通过对应命令重新生成。
+3. **Linaria 模板**：`` css`...` `` 模板中**不得**使用运行时变量（props、state、函数入参）进行条件插值（详见 §6.1）。
+4. **Yarn PnP 依赖声明**：引用 workspace 内部包**必须**使用 `workspace:^` 协议；**不得**在任一包中出现 `node_modules` 路径或相对路径依赖。
+5. **交付准入**：**不得**提交破坏 lint / test / typecheck / build 的变更。
+6. **不越权**：**不得**修改未被任务直接要求的文件；**不得**顺带做与任务无关的重命名、格式化或重构。
 
-按改动范围选择最小检查集：
+### 3.2 应 (SHOULD)
 
-### 组件代码改动（`components/rc-*/src/**`）
+1. 新增与修改组件**应**遵循 §5 的目录结构与 `index.ts` 导出模式；
+2. 任何影响行为的改动**应**伴随最小可验证测试；
+3. **应**优先选择最小改动路径，避免跨包涟漪；
+4. 遇到失败时**应**按 §4.3 的失败处理流程执行。
 
-```bash
-yarn eslint
-yarn test
-```
+### 3.3 可 (MAY)
 
-### 涉及设计令牌（`token.toml` 或样式 token 使用）
+1. 在不改变对外 API 的前提下**可**做局部可读性重构；
+2. **可**补充示例 demo 与说明性注释（不得提交无关的文档文件，详见项目协作约定）。
 
-```bash
-yarn generate:token
-yarn eslint
-yarn test
-```
+---
 
-### 涉及构建配置/导出边界（Rollup/Webpack/入口导出）
+## 4. 任务执行流程
 
-```bash
-yarn build:library
-yarn test
-```
+### 4.1 Definition of Done（按影响面选取最小命令集）
 
-验收标准：
+| 影响面 | 必跑命令 |
+|--------|----------|
+| 组件源码（`components/rc-*/src/**`） | `yarn eslint` + `yarn test` |
+| 设计令牌（`token.toml` 或消费 `token.*`） | `yarn generate:token` + `yarn eslint` + `yarn test` |
+| 构建配置 / 导出边界 / Rollup / Webpack | `yarn build:library` + `yarn test` |
+| `standards/*` 预设改动 | 至少选取一个受影响的下游包运行 `yarn eslint` / `yarn test` |
+| `toolbox/*` 工具改动 | 根目录 `yarn build:library` |
 
-- 相关命令通过，无新增错误
-- 导出入口与类型导出一致
-- 无手改生成文件（尤其 `src/token.ts`）
+验收硬性条件：
 
-## 常见任务 Playbook
+- 选定命令全部通过且**不得**引入新的告警；
+- 对外导出（`index.ts`）与类型导出保持一致；
+- 所有生成文件为命令产物，非手改。
 
-### Playbook A：新增 rc-* 组件
+### 4.2 常用 Playbook
 
-1. 在 `components/` 下创建 `rc-{name}`，补齐基础文件：`package.json`、`tsconfig.json`、`eslint.config.js`、`jest.config.mjs`。
-2. 在 `src/` 创建 `{component}.tsx`、`index.ts`、`types.ts`（可选）与 `__tests__/{component}.test.tsx`。
-3. 若需要令牌，在根目录添加 `token.toml`，执行 `yarn generate:token` 生成 `src/token.ts`。
-4. 在 `docs/` 添加最小 `*.demo.tsx` 或 `*.view.tsx` 用于预览验证。
-5. 确认 `index.ts` 为 default 导出组件，并导出类型/Hook。
-6. 执行 `yarn eslint`、`yarn test`，必要时执行 `yarn build:library`。
+#### A. 新增 `rc-*` 组件
 
-### Playbook B：新增/调整 token
+1. 在 `components/` 下创建 `rc-{name}`，补齐：`package.json`、`tsconfig.json`、`eslint.config.js`、`jest.config.mjs`；
+2. `src/` 下创建 `{component}.tsx`、`index.ts`、（可选）`types.ts` 与 `__tests__/{component}.test.tsx`；
+3. 若需令牌：创建 `token.toml` → 执行 `yarn generate:token` → 仅消费生成的 `src/token.ts`；
+4. `docs/` 下添加至少一个 `*.demo.tsx` 或 `*.view.tsx` 供预览；
+5. 校验 `index.ts` 采用 default 导出组件并具名导出类型 / Hook；
+6. 运行最小验收命令（见 §4.1）。
 
-1. 修改 `token.toml`，优先通过 `$ref()` 引用语义令牌。
-2. 执行 `yarn generate:token`，仅接受生成结果，不手改 `src/token.ts`。
-3. 在组件样式中通过 `token.*` 使用变量，避免运行时分支插值。
-4. 执行 `yarn eslint`、`yarn test`，必要时执行 `yarn build:library` 验证产物。
+#### B. 新增或调整设计令牌
 
-### Playbook C：修复 workspace 包解析/PnP 问题
+1. 编辑 `token.toml`，**必须**优先以 `$ref()` 引用上一层令牌（见 §6.2）；
+2. 执行 `yarn generate:token`，仅接受其产物；
+3. 样式代码通过 `token.*` 消费变量，**不得**在模板中进行运行时分支；
+4. 执行 §4.1 中设计令牌对应的最小命令集。
 
-1. 确认依赖是否在对应 `package.json` 声明（workspace 包使用 `workspace:^`）。
-2. 运行安装并校验：`yarn install --immutable`。
-3. 若 ESM 包在 zip 中加载异常，按需在根 `package.json` 的 `dependenciesMeta` 标记 `"unplugged": true`。
-4. 重新执行 `yarn eslint` / `yarn test` / `yarn build:library` 验证。
+#### C. workspace 包解析 / PnP 解析失败
 
-## 变更边界（Guardrails）
+1. 在对应 `package.json` 以 `workspace:^` 补齐依赖；
+2. 执行 `yarn install --immutable`；
+3. 若 ESM 包无法从 zip 加载，于根 `package.json` 的 `dependenciesMeta` 增加 `"unplugged": true`；
+4. 重新执行对应最小命令集。
 
-默认不直接修改以下内容，除非任务明确要求：
+### 4.3 失败处理流程
 
-- 构建产物目录：`cjs/`、`esm/`、`declarations/`、`css/`
-- 覆盖率与缓存产物：`coverage/`、临时缓存文件
-- 自动生成文件：`src/token.ts`、`public/docgen.json`
+1. **分类**：判定失败属于 类型 / Lint / 测试 / 构建 / 依赖解析；
+2. **定点修复**：仅修复与本次改动直接相关的失败，**不得**扩大改动面；
+3. **最小复验**：只跑受影响的包或命令；
+4. **上限 3 轮**：连续 3 轮仍未恢复，**必须**停止扩改，输出结构化报告：
+   - 失败命令
+   - 关键报错摘要
+   - 已尝试的修复动作
+   - 建议下一步（回滚局部改动 / 拆分任务 / 请求补充上下文）。
 
-若需要更新这些文件，应通过对应命令生成，而不是手工编辑。
+---
 
-## 失败回退策略（Failure Handling）
+## 5. 组件目录与导出
 
-当修改后出现失败时，按顺序处理：
-
-1. **先定位失败类别**：类型、Lint、测试、构建、依赖解析。
-2. **最小修复一次**：仅修复与本次改动直接相关问题，避免扩大改动面。
-3. **再次验证**：执行对应最小命令集（例如只跑目标包的 test/eslint）。
-4. **最多尝试 3 轮**：若仍失败，停止继续扩改，输出失败点与已尝试步骤，请求人工决策。
-
-输出失败信息时应包含：
-
-- 失败命令
-- 关键报错摘要
-- 已尝试修复动作
-- 建议下一步（回滚局部改动 / 拆分任务 / 补充上下文）
-
-## 提交规范（Commit Convention）
-
-采用 Conventional Commits，并结合 monorepo scope：
-
-`<type>(<scope>): <subject>`
-
-- type 允许值：`feat`、`fix`、`refactor`、`perf`、`test`、`docs`、`build`、`ci`、`chore`、`revert`
-- scope 优先使用工作区或包名：`rc-button`、`rc-tag`、`packify`、`standards-jest-preset`、`repo`
-- subject 使用祈使句，首字母小写，不加句号，建议不超过 72 字符
-
-### Breaking Change
-
-- 破坏性变更在 header 后追加 `!`：`feat(rc-form)!: rename field api`
-- 并在 commit body 中追加：`BREAKING CHANGE: <impact>`
-
-### 提交粒度
-
-- 一个 commit 只做一件事（功能、修复、重构分开提交）
-- 生成文件与源码变更同 commit 提交，仅当该生成文件由本次改动直接触发
-- 禁止把无关格式化、重命名、大规模移动与功能改动混在同一 commit
-
-### 分不同 commit 提交策略
-
-当一次开发包含多类改动时，按以下顺序拆分提交：
-
-1. `refactor`：不改变行为的重构（重命名、提取函数、目录整理）。
-2. `feat` / `fix`：实际功能或缺陷修复。
-3. `test`：补充或调整测试用例。
-4. `docs`：文档、示例、注释更新。
-5. `build` / `ci` / `chore`：构建脚本、流水线、仓库维护。
-
-执行要求：
-
-- 每个 commit 必须可独立通过最小验证（至少 lint + 相关 test）
-- 若某步依赖上一步，保持历史线性，不交叉混入其他类型改动
-- 自动生成文件应与触发它的源码改动放在同一个 commit
-
-常见拆分示例：
-
-- 新增组件并补测试：`feat(rc-xx)` + `test(rc-xx)` + `docs(rc-xx)`
-- 调整 token 并重生成：`feat(rc-xx)`（含 `token.toml` 与生成的 `src/token.ts`）+ `test(rc-xx)`
-- 修复构建与业务 bug 同时出现：`fix(rc-xx)` + `build(repo)`
-
-反例（禁止）：
-
-- `feat` 与无关 `docs`、`ci` 混在一个 commit
-- 多个组件无关联改动打包成单个 commit
-- 先提交生成文件，后提交触发它的源码
-
-### Monorepo Scope 约定
-
-- 单包改动：使用具体包名 scope，例如 `fix(rc-checkbox): correct indeterminate style`
-- 多包同类改动：使用 `components` / `standards` / `toolbox`
-- 跨仓级别改动（turbo、根配置、工作流）：使用 `repo` 或 `ci`
-
-### 提交前检查
-
-- 至少通过本次改动对应的最小验收命令集（见 Definition of Done）
-- 确认无误改产物与缓存目录（`coverage/`、临时文件）
-- 确认未手动编辑生成文件（尤其 `src/token.ts`）
-
-### 示例
-
-- `feat(rc-tag): add closable interaction and keyboard support`
-- `fix(rc-date-picker): prevent timezone offset regression`
-- `refactor(components): unify token import path handling`
-- `build(packify): align css token generation hook`
-- `ci(repo): run eslint and jest on canary changes`
-
-## 组件结构
-
-每个 `rc-*` 组件遵循以下目录布局：
+每个 `rc-*` 组件**必须**遵循以下布局：
 
 ```
 src/
-├── {component}.tsx          # 主组件
-├── types.ts                 # Props 接口与类型（也可内联在组件文件中）
-├── token.ts                 # 由 token.toml 自动生成 — 禁止手动编辑
-├── index.ts                 # 默认导出 + 具名类型/Hook 导出
-├── hooks/                   # 可选：组件专用 Hooks
+├── {component}.tsx          # 主组件（PascalCase 文件名可选，工程内统一为 kebab/camel）
+├── types.ts                 # Props 与对外类型（允许与组件同文件）
+├── token.ts                 # 由 token.toml 生成 —— 不得手改
+├── index.ts                 # default 导出组件 + 具名导出类型 / Hook
+├── hooks/                   # 可选：组件内部 Hook
 └── __tests__/
     └── {component}.test.tsx # Jest + React Testing Library
 docs/
-├── *.demo.tsx               # 在线示例（由 lignify 自动扫描）
+├── *.demo.tsx               # 在线示例（lignify 自动扫描）
 ├── *.view.tsx               # 页面入口
-└── *.mdx                    # 文档
+└── *.mdx                    # 说明文档
 public/
-└── docgen.json              # 由 react-docgen 自动生成
+└── docgen.json              # react-docgen 生成 —— 不得手改
 token.toml                   # 设计令牌定义（可选）
 ```
 
-### index.ts 导出模式
+`index.ts` 必须采用以下两种形态之一：
 
 ```typescript
-// 简单组件
+// 形态 1：单一组件
 import Button from './button.js';
 export type { ButtonProps } from './types.js';
 export default Button;
 
-// 带 Hooks + 多导出的组件
+// 形态 2：组件 + 附属 Hook / 类型
 import Dialog from './dialog.js';
 import useConfirm from './hooks/useConfirm.js';
 export type { DialogProps } from './dialog.js';
@@ -266,20 +187,23 @@ export { useConfirm };
 export default Dialog;
 ```
 
-## 代码风格
+### 5.1 代码风格硬性约束
 
-- **TypeScript 严格模式**，ESNext 目标，`bundler` 模块解析
-- **4 空格缩进**（ESLint 强制）
-- **路径别名**：`@/` → `src/`，`@@/` → 项目根目录
-- **相对导入必须带扩展名**：`.js` / `.ts` / `.tsx` — npm 包不加扩展名（ESLint `import/extensions` 强制）
-- **`export default Component`** + `export type { Props }` 从 `index.ts` 导出
-- 各组件 ESLint 配置：`import { Browser } from "@crab-dev/standards-eslint-preset"; export default [...Browser.react];`
-- 各组件 TypeScript 配置：`"extends": "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json"`
-- 各组件 Jest 配置：`import { browser } from "@crab-dev/standards-jest-preset"; export default browser;`
+- TypeScript **严格模式**，`target: ESNext`，`moduleResolution: bundler`；
+- **4 空格**缩进（ESLint 强制）；
+- 路径别名：`@/` → `src/`，`@@/` → 仓库根；
+- 每包必须基于标准预设，不得重写：
+  - ESLint：`import { Browser } from "@crab-dev/standards-eslint-preset"; export default [...Browser.react];`
+  - TypeScript：`"extends": "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json"`
+  - Jest：`import { browser } from "@crab-dev/standards-jest-preset"; export default browser;`
 
-## 约定
+---
 
-### 样式 — Linaria（零运行时 CSS-in-JS）
+## 6. 技术约定
+
+### 6.1 样式 — Linaria（零运行时 CSS-in-JS）
+
+Linaria 在**构建时**将 `` css`...` `` 模板编译为静态类；`token.*` 值会被解析为 `var(--prefix-key, fallback)` 形式并最终写入 `css/index.css`。
 
 ```typescript
 import { css, cx } from '@linaria/core';
@@ -291,93 +215,277 @@ const baseStyle = css`
     background-color: ${token.primary.background.color};
 `;
 
-// 使用 cx() 组合样式：
 <button className={cx(baseStyle, getSizeStyle(), props.className)} />
 ```
 
-Linaria 在构建时将样式编译为静态 CSS 类名，输出到 `css/index.css`。在 css`` 模板中使用 `token.*` 值 — 它们会解析为 `var(--prefix-key, fallback)`。
+> **严禁：**在 `` css`...` `` 模板中通过运行时变量（props、state、函数入参）进行条件插值。Linaria 为零运行时方案，模板内所有插值**必须**在构建期可求值。
 
-> **⚠️ 严禁在 `css` 模板中使用运行时变量进行条件判断。** Linaria 是零运行时方案，`css``` 内的插值在**构建时**求值，JavaScript 变量（如 props、state）此时不存在。
->
-> ```typescript
-> // ❌ 错误 — 运行时变量在构建时无法求值
-> const style = css`
->     border-color: ${bordered ? token.primary['border-color'] : 'transparent'};
-> `;
->
-> // ✅ 正确 — 拆分为独立静态样式，通过 cx() 在运行时组合
-> const borderedStyle = css`
->     border-color: ${token.primary['border-color']};
-> `;
-> const noBorderStyle = css`
->     border-color: transparent;
-> `;
-> <span className={cx(baseStyle, bordered ? borderedStyle : noBorderStyle)} />
-> ```
+```typescript
+// ❌ 错误 —— 运行时变量在构建期不存在
+const style = css`
+    border-color: ${bordered ? token.primary['border-color'] : 'transparent'};
+`;
 
-### 设计令牌系统 — 三层架构
+// ✅ 正确 —— 拆成静态样式，使用 cx() 在运行时组合
+const borderedStyle = css`
+    border-color: ${token.primary['border-color']};
+`;
+const noBorderStyle = css`
+    border-color: transparent;
+`;
 
-```
-第 1 层：rc-token-global    — 原始基元（颜色、间距、圆角、排版、阴影）
-第 2 层：rc-token-semantic  — 基于语义的映射（$ref → 全局令牌）
-第 3 层：rc-{component}     — 组件专属令牌（$ref → 语义令牌）
+<span className={cx(baseStyle, bordered ? borderedStyle : noBorderStyle)} />
 ```
 
-**token.toml 格式：**
+### 6.2 设计令牌系统（三层架构）
+
+```
+L1  rc-token-global    —— 原始基元（颜色、间距、圆角、排版、阴影）
+L2  rc-token-semantic  —— 语义映射（$ref → L1）
+L3  rc-{component}     —— 组件专属令牌（$ref → L2）
+```
+
+`token.toml` 示例：
 
 ```toml
 [build]
-output = "./src/token.ts"
-prefix = "button"
+output  = "./src/token.ts"
+prefix  = "button"
 imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
-transition = "transform 100ms cubic-bezier(0.4, 0, 0.2, 1)"
-opacity.loading = "0.65"
-size.large.height = "40px"
-primary.color = "$ref(color.text.on-brand)"          # 引用语义令牌
-primary.background.color = "$ref(color.brand.primary)"
+transition                   = "transform 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+opacity.loading              = "0.65"
+size.large.height            = "40px"
+primary.color                = "$ref(color.text.on-brand)"
+primary.background.color     = "$ref(color.brand.primary)"
 ```
 
-- `$ref()` 会解析为所导入令牌的 CSS 变量及回退链
-- 生成的 `token.ts` 导出 `vars`（扁平映射：点路径 → CSS 变量名）和 `token`（嵌套对象，带 `var()` + 回退值）
-- 解析链：`var(--button-primary-color, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(...))))`
-- 深色主题：覆盖语义层 CSS 变量即可
-- 颜色系统使用 **OKLCh** 色彩空间：`oklch(lightness chroma hue)`
-- **禁止手动编辑 `token.ts`** — 运行 `yarn generate:token` 重新生成
+规则：
 
-### Props 模式
+- `$ref()` 将被解析为对应 CSS 变量及回退链；
+- 生成的 `token.ts` 导出 `vars`（扁平映射：点路径 → CSS 变量名）与 `token`（嵌套对象，值为 `var()` + fallback）；
+- 典型解析链：`var(--button-primary-color, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(...))))`；
+- 颜色系统**必须**使用 **OKLCh** 色彩空间：`oklch(lightness chroma hue)`；
+- 主题切换**必须**通过覆盖 L2 CSS 变量实现，**不得**在组件层做分支；
+- `src/token.ts` **不得**手改。
 
-- 通过 `Omit<>` 继承原生 HTML 属性并覆盖特定 prop：
-  ```typescript
-  interface BaseProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
-      onClick?: (e: MouseEvent) => Promise<void> | void;
-  }
-  ```
-- 使用可辨识联合类型强制无障碍约束：
-  ```typescript
-  type Props = BaseProps &
-      ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });
-  ```
-- 泛型组件使用普通函数签名（不用 `FC<>`）：
-  ```typescript
-  function Form<T extends Record<string, unknown>>(props: FormProps<T>) { ... }
-  ```
+### 6.3 Props 模式
 
-### 测试
+```typescript
+// 继承原生属性并覆盖特定 prop
+interface BaseProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
+    onClick?: (e: MouseEvent) => Promise<void> | void;
+}
 
-- **Jest 30** + `@testing-library/react` + jsdom
-- 从 `@jest/globals` 导入：`describe`、`it`、`expect`、`jest`、`afterEach`
-- 以 ESM 模式运行：`yarn node --experimental-vm-modules $(yarn bin jest)`
-- 设置 React act 环境：`(globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;`
-- 每个测试后清理：`afterEach(() => cleanup())`
-- 测试文件位于 `src/__tests__/{component}.test.tsx`
-- 模块名称映射去除 `.js` 扩展名：`'^(\\.{1,2}/.*)\\.js$': '$1'`
-- 从源文件导入组件（不从 index）：`import Button from '../button.js';`
+// 使用可辨识联合强制无障碍约束
+type Props =
+    & BaseProps
+    & (
+        | { children: ReactNode;  'aria-label'?: string }
+        | { children?: never;     'aria-label': string  }
+    );
 
-### 依赖管理
+// 泛型组件使用普通函数签名（不得使用 React.FC）
+function Form<T extends Record<string, unknown>>(props: FormProps<T>) { /* ... */ }
+```
 
-- 组件可依赖其他 `@crab-dev/rc-*` 包 — 在 `dependencies` 中使用 `workspace:^`
-- 内部 toolbox/standards 同样使用 `workspace:^`
-- React 19 作为 devDependency（隐式 peer，不声明在 `peerDependencies` 中）
-- 外部依赖（如 `motion`）放在 `dependencies` 中
+### 6.4 测试
+
+- **Jest 30** + `@testing-library/react` + jsdom；
+- **必须**从 `@jest/globals` 导入 `describe` / `it` / `expect` / `jest` / `afterEach`；
+- **必须**以 ESM 模式运行：`yarn node --experimental-vm-modules $(yarn bin jest)`；
+- **必须**开启 React act 环境：`(globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;`
+- **必须**在每个测试后清理：`afterEach(() => cleanup())`；
+- 测试文件位置：`src/__tests__/{component}.test.tsx`；
+- Jest `moduleNameMapper` 去除 `.js` 扩展名：`'^(\\.{1,2}/.*)\\.js$': '$1'`；
+- **必须**从源文件导入被测组件，**不得**从 `index.ts` 导入：`import Button from '../button.js';`
+
+### 6.5 依赖管理
+
+- 内部 `@crab-dev/*` 包（含 components / toolbox / standards）**必须**声明为 `"workspace:^"`；
+- React 19 **必须**放在 `devDependencies`（作为隐式 peer，不得声明于 `peerDependencies`）；
+- 外部运行时依赖（如 `motion`）**必须**声明在 `dependencies`；
+- 构建期工具（打包器、插件、预设）**必须**声明在 `devDependencies`。
+
+---
+
+## 7. 变更边界（Guardrails）
+
+除非任务明确要求，**不得**直接修改：
+
+- 构建产物：`cjs/`、`esm/`、`declarations/`、`css/`
+- 覆盖率与缓存：`coverage/`、`.turbo/`、临时缓存
+- 自动生成文件：`src/token.ts`、`public/docgen.json`、`.pnp.*`（PnP 运行时除外——新增依赖后必须提交更新）
+
+如需刷新这些产物，**必须**通过对应命令生成，而非手工编辑。
+
+---
+
+## 8. AI 代码生成行为约束
+
+本节面向 Copilot / 其他 AI 代码代理，定义在本仓库生成代码时**必须**遵守的强约束。违反本节任一条款视同交付破损。
+
+### 8.1 上下文与边界
+
+1. 生成任何代码前，**必须**先阅读相关文件以确认真实状态，**不得**凭记忆或命名猜测 API、路径、类型、导出形态；
+2. **必须**严格遵循 §3「变更规则」与 §7「变更边界」，**不得**修改未被任务直接要求的文件；
+3. **不得**新建与任务无关的文件（含 README、变更说明、示例），除非用户明确要求；
+4. **不得**为已存在但未被触及的代码补写 docstring、注释或类型注解；
+5. **不得**顺带重命名、重排 import、重新格式化未被任务直接要求的代码段。
+
+### 8.2 产物一致性
+
+1. 生成的代码**必须**能在当前仓库直接通过 §4.1 对应影响面的最小验收命令集；
+2. **不得**输出占位实现（`TODO`、`// implement later`、空函数体）作为最终交付；
+3. **不得**捏造依赖包、API、类型名、CSS 变量、token 路径；涉及以上对象时**必须**从源文件或生成产物中核实；
+4. 引用内部包时**必须**使用 `@crab-dev/*` 具名导入与 `workspace:^` 协议，**不得**使用相对路径跨包引用；
+5. 涉及 `token.toml` 改动时，**必须**一并调用 `yarn generate:token`，并将 `token.toml` 与生成的 `src/token.ts` 一并交付（见 §6.2 / §9.6）。
+
+### 8.3 规范遵从
+
+1. TypeScript **不得**使用 `any` 与非必要的 `as unknown as` 强转；类型缺失时优先补齐 `types.ts` 而非就地断言；
+2. 样式**必须**走 Linaria + `token.*`，**不得**内联 `style={{...}}`，**不得**在 `` css`...` `` 模板中插入运行时变量（§6.1）；
+3. React 组件**必须**遵循 §6.3 Props 模式：原生属性继承用 `Omit<...>`，无障碍约束用可辨识联合，泛型组件用普通函数签名；
+4. 导出形态**必须**匹配 §5 的 `index.ts` 两种形态之一；
+5. 测试**必须**遵循 §6.4：从 `@jest/globals` 导入、ESM 运行、`afterEach(cleanup)`、从源文件而非 `index.ts` 导入被测对象。
+
+### 8.4 错误处理边界
+
+1. **仅**在系统边界（用户输入、网络、文件 I/O、跨包 API）做输入校验与错误处理；
+2. **不得**为内部调用添加防御性 `try/catch` 或不可能触发的分支；
+3. **不得**吞错：`catch` 块必须或抛出、或转换为可观测错误，**不得**空 `catch`。
+
+### 8.5 执行纪律
+
+1. 对可逆的本地动作（编辑文件、运行测试、重跑生成）**可**直接执行；
+2. 对不可逆或影响面大的动作**必须**先确认后执行，包括：删除文件 / 分支、`rm -rf`、`git reset --hard`、`git push --force`、修订已推送提交、发布包、修改共享 CI；
+3. **不得**使用 `--no-verify`、`--force` 等绕过仓库校验的开关；
+4. 失败处理严格按 §4.3，**上限 3 轮**后停止扩改并输出结构化报告。
+
+### 8.6 输出与报告
+
+1. 给用户的回复**必须**简洁，聚焦"改了什么 / 为什么这样改 / 如何验证"；
+2. **不得**在回复中粘贴未经实际执行验证的命令输出或虚构的测试结果；
+3. 对存在不确定性的地方**必须**显式标注（而非默默选择一种），并给出最小可选项；
+4. **不得**擅自扩展任务范围或追加"顺手优化"；如发现仓库存在与本次任务无关的问题，**应**仅以提示形式列出，由用户决策。
+
+### 8.7 安全基线
+
+1. **不得**生成硬编码凭证、密钥、令牌、真实邮箱 / 手机号；
+2. **不得**引入未声明来源的二进制或远程脚本；
+3. **不得**在代码中直接拼接未转义的 HTML / SQL / Shell 片段；涉及 DOM 写入必须使用 React 原生机制，**不得**使用 `dangerouslySetInnerHTML` 除非任务明确需要并附来源说明；
+4. 对 OWASP Top 10 相关风险点（XSS、注入、不安全反序列化、权限绕过等）**必须**主动规避。
+
+### 8.8 UI 质感与交互细节
+
+本仓库是组件库，视觉与交互质量是交付的核心指标。AI 生成的 UI 代码**不得**止步于"功能可用"，**必须**达到可直接上架的质感。
+
+**视觉精度（MUST）：**
+
+1. 所有尺寸、间距、圆角、字号、阴影、透明度**必须**来自 `token.*`，**不得**在组件中出现魔法数值（如 `12px`、`#000`、`0.65`）；缺对应令牌时**必须**先在 `token.toml` 中补齐并重新生成，**不得**就地硬编码；
+2. 颜色**必须**使用 OKLCh；渐变、阴影**应**基于同一色相做亮度 / 色度微调，**不得**引入未经语义层定义的新颜色；
+3. 边框、分隔线、描边**必须**使用 `1px` 逻辑像素（或 token），**不得**在 hover / active 态切换边框宽度导致布局跳动；应改用 `box-shadow` / `outline` 模拟；
+4. 密度系统**必须**统一：同一组件的 small / medium / large 尺寸间应保持等差或等比的 height / padding / font-size 阶梯，**不得**任意赋值。
+
+**交互细节（MUST）：**
+
+5. **必须**为所有可交互元素提供完整状态样式：`:hover`、`:focus-visible`、`:active`、`:disabled`、`[aria-selected]` / `[aria-expanded]` / `[data-state]` 等；**不得**遗漏 `:focus-visible`（键盘可达性硬性要求）；
+6. 过渡动画**必须**使用 `token.transition` 或语义层定义的缓动；**必须**遵循 Material / Apple HIG 的时长区间（微交互 ≤ 200ms，展开 / 折叠 200–400ms，页面级 ≤ 500ms），**不得**使用线性 `ease` 或超长动画；
+7. **必须**尊重用户系统偏好：`@media (prefers-reduced-motion: reduce)` 下禁用非必要动画；
+8. 鼠标光标**必须**与语义一致：可点击 → `pointer`，禁用 → `not-allowed`，文本 → `text`，拖拽 → `grab` / `grabbing`；
+9. 加载、空态、错误态**必须**显式设计：不得只返回 `null` 或裸文字；应使用仓库已有的 skeleton / empty / error 语义。
+
+**无障碍（MUST）：**
+
+10. 所有非文本的可交互元素**必须**具备 `aria-label` 或可见标签；图标按钮**不得**仅靠视觉传达语义；
+11. **必须**保持逻辑 DOM 顺序与视觉顺序一致；**不得**使用 `tabindex` 正数跳序；
+12. 颜色对比度**必须**达到 WCAG 2.2 AA（正文 4.5:1，大字号 / 图标 3:1）；**不得**仅以颜色区分状态（需配合形状 / 文案 / 图标）。
+
+**响应式与边界（SHOULD）：**
+
+13. 文本**应**在容器内优雅截断：单行 `text-overflow: ellipsis`，多行用 `-webkit-line-clamp`，并提供 `title` 或 Tooltip 回退；
+14. 长列表 / 长文本**应**考虑溢出滚动与粘性表头，**不应**直接撑破父容器；
+15. 组件**应**在 320px 最小宽度下不破版；图标与文本间距**应**随尺寸等比调整。
+
+**禁止清单（MUST NOT）：**
+
+16. **不得**使用 `!important`（token 层覆盖除外，并须注释原因）；
+17. **不得**使用内联 `style`（见 §6.1）；
+18. **不得**在组件内写死 `z-index` 数字；**必须**走语义层（如 `token.z-index.modal`）；
+19. **不得**使用浏览器默认 `outline: none` 而不提供替代 focus 指示；
+20. **不得**以 `px` 书写字号与行高；**应**用 token 或 `rem`。
+
+**验收心态：**
+
+> 写完后**必须**自问：这份组件能否直接放进 Apple HIG / Material 3 / Radix / shadcn 的示例页而不掉级？若否，**必须**继续打磨而非交付。
+
+---
+
+
+## 9. 提交规范
+
+采用 Conventional Commits，结合 monorepo scope：
+
+```
+<type>(<scope>): <subject>
+```
+
+### 9.1 Type
+
+允许值：`feat` / `fix` / `refactor` / `perf` / `test` / `docs` / `build` / `ci` / `chore` / `revert`。
+
+### 9.2 Scope
+
+- **单包改动**：使用具体包名，如 `rc-button`、`rc-tag`、`packify`、`standards-jest-preset`；
+- **同工作区多包同类改动**：使用 `components` / `standards` / `toolbox`；
+- **跨仓基础设施**（Turbo、根配置、CI）：使用 `repo` 或 `ci`。
+
+### 9.3 Subject
+
+- **必须**使用祈使句；
+- **必须**小写开头，末尾**不得**加句号；
+- 长度**应** ≤ 72 字符。
+
+### 9.4 Breaking Change
+
+- **必须**在 header `type` 后追加 `!`，例：`feat(rc-form)!: rename field api`；
+- **必须**在 body 中追加 `BREAKING CHANGE: <impact>` 段落。
+
+### 9.5 提交粒度（硬性约束）
+
+- 一个 commit **必须**只做一件事（功能、修复、重构分开）；
+- 生成文件**仅**在与其触发变更同一次 commit 中提交；
+- **不得**将无关格式化、重命名或大规模移动与功能改动混入同一 commit；
+- 每个 commit **必须**能独立通过对应的最小验收命令集。
+
+### 9.6 多类改动的拆分顺序
+
+按以下顺序拆分：
+
+1. `refactor`：无行为变化的重构（重命名、提取函数、目录整理）；
+2. `feat` / `fix`：功能或缺陷修复（触发生成文件刷新时，`token.toml` 与生成的 `src/token.ts` 必须合并进同一 commit）；
+3. `test`：测试补充或调整；
+4. `docs`：文档 / 示例 / 注释；
+5. `build` / `ci` / `chore`：构建脚本、流水线、仓库维护。
+
+**正例：**
+
+- `feat(rc-tag): add closable interaction and keyboard support`
+- `fix(rc-date-picker): prevent timezone offset regression`
+- `refactor(components): unify token import path handling`
+- `build(packify): align css token generation hook`
+- `ci(repo): run eslint and jest on canary changes`
+
+**反例（禁止）：**
+
+- `feat` 与无关 `docs`、`ci` 混合；
+- 多个组件的无关改动打包进同一 commit；
+- 先提交生成文件、后提交触发它的源码。
+
+### 9.7 提交前自检
+
+- 已通过对应最小验收命令集（§4.1）；
+- 未误提交 `coverage/`、临时缓存、编辑器配置；
+- 未手动编辑任何生成文件。
+
