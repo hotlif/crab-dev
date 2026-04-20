@@ -1,5 +1,85 @@
 [build]
 output = "./src/token.ts"
 prefix = "app-main-layout"
+imports = [
+    "@crab-dev/rc-token-global",
+    "@crab-dev/rc-token-semantic"
+]
 
 [token]
+
+background.color = "$ref(color.background.surface)"
+
+header.shadow = "0 1px 0 oklch(0 0 0 / 0.04)"
+header.background.color = "$ref(color.background.elevated)"
+header.z-index = "$ref(z-index.sticky)"
+header.divider.color = "$ref(color.border.default)"
+
+header.toolbar.height = "52px"
+header.toolbar.padding = "0 16px"
+header.toolbar.gap = "6px"
+header.toolbar.background.color = "$ref(color.background.elevated)"
+
+header.nav-btn.size = "36px"
+header.nav-btn.color = "$ref(color.text.secondary)"
+header.nav-btn.color-hover = "$ref(color.text.primary)"
+header.nav-btn.background.color-hover = "$ref(color.background.hover-subtle)"
+header.nav-btn.background.color-active = "$ref(color.background.active-subtle)"
+header.nav-btn.border.radius = "10px"
+header.nav-btn.dot.color = "$ref(color.feedback.error)"
+
+header.user.pill.padding = "4px 6px 4px 12px"
+header.user.pill.gap = "10px"
+header.user.pill.border.radius = "9999px"
+header.user.pill.background.color-hover = "$ref(color.background.hover-subtle)"
+header.user.name.font.size = "$ref(font.size.body)"
+header.user.name.color = "$ref(color.text.primary)"
+header.user.name.font.weight = "500"
+header.user.avatar.size = "30px"
+header.user.avatar.font.size = "14px"
+header.user.avatar.background.color = "$ref(color.brand.primary)"
+header.user.avatar.color = "$ref(color.text.on-brand)"
+
+sidebar.width = "16rem"
+sidebar.padding = "12px 8px"
+sidebar.gap = "4px"
+sidebar.background.color = "$ref(color.background.elevated)"
+sidebar.border.color = "$ref(color.border.default)"
+sidebar.logo.size = "40px"
+sidebar.logo.gap = "12px"
+sidebar.logo.padding = "4px 8px 16px"
+sidebar.logo.border.radius = "10px"
+sidebar.logo.background.color = "$ref(color.brand.primary)"
+sidebar.logo.color = "$ref(color.text.on-brand)"
+sidebar.logo.title.font.size = "$ref(font.size.heading)"
+sidebar.logo.title.color = "$ref(color.text.primary)"
+
+content.background.color = "$ref(color.background.surface)"
+
+breadcrumbs.padding = "10px 16px"
+breadcrumbs.background.color = "$ref(color.background.elevated)"
+breadcrumbs.border.color = "$ref(color.border.default)"
+
+tab.strip.height = "40px"
+tab.strip.background.color = "oklch(0.93 0.004 264)"
+tab.strip.padding = "6px 8px 0"
+tab.font.size = "13px"
+
+tab.item.height = "34px"
+tab.item.min-width = "28px"
+tab.item.max-width = "240px"
+tab.item.padding = "0 10px"
+tab.item.color = "$ref(color.text.secondary)"
+tab.item.color-active = "$ref(color.text.primary)"
+tab.item.background.color = "$ref(color.background.elevated)"
+tab.item.background.color-hover = "oklch(0.96 0.003 264)"
+tab.item.border.radius = "10px"
+tab.item.curve.size = "10px"
+tab.item.gap = "8px"
+tab.item.separator.color = "oklch(0.78 0.005 264)"
+tab.item.indicator.color = "$ref(color.brand.primary)"
+tab.item.icon.size = "16px"
+tab.item.close.size = "18px"
+tab.item.close.color = "$ref(color.text.tertiary)"
+tab.item.close.color-hover = "$ref(color.text.primary)"
+tab.item.close.background.color-hover = "oklch(0.85 0.005 264)"
