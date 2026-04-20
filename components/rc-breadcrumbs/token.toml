@@ -1,0 +1,26 @@
+[build]
+output = "./src/token.ts"
+prefix = "breadcrumbs"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 容器 ────────────────────────────────────────────────────────────────────
+font.size = "$ref(font.size.body)"
+line.height = "1.5"
+gap = "$ref(space.inline-gap)"
+
+# ─── 颜色 ────────────────────────────────────────────────────────────────────
+item.color = "$ref(color.text.secondary)"
+item.color-hover = "$ref(color.text.primary)"
+item.color-active = "$ref(color.text.primary)"
+item.color-disabled = "$ref(color.text.disabled)"
+
+# ─── 分隔符 ──────────────────────────────────────────────────────────────────
+separator.color = "$ref(color.text.disabled)"
+separator.padding = "0 4px"
+
+# ─── 椭圆折叠项 ──────────────────────────────────────────────────────────────
+ellipsis.color = "$ref(color.text.tertiary)"
