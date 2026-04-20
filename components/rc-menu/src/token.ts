@@ -15,8 +15,11 @@ export const vars = {
     'vertical.item.title.background-color-hover': '--menu-vertical-item-title-background-color-hover',
     'vertical.item.title.background-color-active': '--menu-vertical-item-title-background-color-active',
     'vertical.item.title.background-color-select': '--menu-vertical-item-title-background-color-select',
+    'vertical.item.title.background-color-open': '--menu-vertical-item-title-background-color-open',
     'vertical.item.children.background-color': '--menu-vertical-item-children-background-color',
     'vertical.item.children.padding': '--menu-vertical-item-children-padding',
+    'vertical.item.icon.size': '--menu-vertical-item-icon-size',
+    'vertical.item.icon.margin-right': '--menu-vertical-item-icon-margin-right',
     'vertical.item-group.title.color': '--menu-vertical-item-group-title-color',
     'vertical.item-group.title.height': '--menu-vertical-item-group-title-height',
     'vertical.item-group.title.font-size': '--menu-vertical-item-group-title-font-size',
@@ -61,11 +64,16 @@ const token = {
                 'border-radius': `var(${vars['vertical.item.title.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
                 'background-color-hover': `var(${vars['vertical.item.title.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
                 'background-color-active': `var(${vars['vertical.item.title.background-color-active']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
-                'background-color-select': `var(${vars['vertical.item.title.background-color-select']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
+                'background-color-select': `var(${vars['vertical.item.title.background-color-select']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+                'background-color-open': `var(${vars['vertical.item.title.background-color-open']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
             },
             'children': {
-                'background-color': `var(${vars['vertical.item.children.background-color']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+                'background-color': `var(${vars['vertical.item.children.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
                 'padding': `var(${vars['vertical.item.children.padding']}, 0px var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+            },
+            'icon': {
+                'size': `var(${vars['vertical.item.icon.size']}, 1rem)`,
+                'margin-right': `var(${vars['vertical.item.icon.margin-right']}, 8px)`
             }
         },
         'item-group': {

@@ -17,6 +17,7 @@ const verticalItemTitleBorderRadius = token.vertical.item.title["border-radius"]
 const verticalItemTitleBackgroundColorHover = token.vertical.item.title["background-color-hover"];
 const verticalItemTitleBackgroundColorActive = token.vertical.item.title["background-color-active"];
 const verticalItemTitleBackgroundColorSelect = token.vertical.item.title["background-color-select"];
+const verticalItemTitleBackgroundColorOpen = token.vertical.item.title["background-color-open"];
 const verticalItemTitleHeight = token.vertical.item.title.height;
 const verticalItemFontSize = token.vertical.item.title["font-size"];
 const verticalItemInlineIndent = token.vertical.item["inline-indent"];
@@ -74,6 +75,10 @@ const itemSelectStyle = css`
     background-color: ${verticalItemTitleBackgroundColorSelect};
 `
 
+const itemOpenStyle = css`
+    background-color: ${verticalItemTitleBackgroundColorOpen};
+`
+
 const ulStyle = css`
     list-style-type: none;
     width: 100%;
@@ -98,7 +103,21 @@ const stateIconStyle = css`
 `
 
 const menuItemIcon = css`
-    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: ${token.vertical.item.icon.size};
+    height: ${token.vertical.item.icon.size};
+    margin-right: ${token.vertical.item.icon["margin-right"]};
+    line-height: 1;
+
+    & > svg,
+    & > img {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
 `
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -168,6 +187,7 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                     className={cx(
                         itemTitleStyle,
                         itemTitleBaseStyle,
+                        children.length > 0 && openKeys?.includes(item.key) ? itemOpenStyle : null,
                         children.length === 0 && selectedKeys.includes(item.key) ? itemSelectStyle : null)
                     }
                     style={{

@@ -22,13 +22,17 @@ vertical.item.title.border-radius = "$ref(radius.lg)"
 vertical.item.title.background-color-hover = "$ref(color.background.hover-subtle)"
 vertical.item.title.background-color-active = "$ref(color.background.active-subtle)"
 vertical.item.title.background-color-select = "$ref(color.background.hover-subtle)"
+vertical.item.title.background-color-open = "$ref(color.background.active-subtle)"
 
-vertical.item.children.background-color = "$ref(color.background.hover-subtle)"
+vertical.item.children.background-color = "$ref(color.background.elevated)"
 vertical.item.children.padding = "0px $ref(space.inline-gap)"
 
 vertical.item-group.title.color = "$ref(color.text.tertiary)"
 vertical.item-group.title.height = "2.25rem"
 vertical.item-group.title.font-size = "$ref(font.size.body)"
+
+vertical.item.icon.size = "1rem"
+vertical.item.icon.margin-right = "8px"
 
 # ── Horizontal ────────────────────────────────────────
 
