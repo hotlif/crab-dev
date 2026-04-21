@@ -32,6 +32,14 @@ export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onCli
     items?: Item[]
 
     /**
+     * 仅在 `vertical` / `inline` 模式下生效：是否将菜单收起为仅图标宽度。
+     * 收起状态下顶层子菜单通过浮层展开，其他项悬停显示 Tooltip。
+     *
+     * @default false
+     */
+    inlineCollapsed?: boolean
+
+    /**
      * 选中时, 进行调用
      */
     onSelectItem?: (param: OnSelectItemParam) => void
@@ -54,13 +62,15 @@ const Menu: FC<MenuProps> = ({
     mode = "vertical",
     selectedKeys,
     items,
+    inlineCollapsed,
     ...props
 }) => {
-    if (mode === "vertical") {
+    if (mode === "vertical" || mode === "inline") {
         return (
             <VerticalMenu
                 selectedKeys={selectedKeys}
                 items={items}
+                inlineCollapsed={inlineCollapsed}
                 {...props}
             />
         )

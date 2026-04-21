@@ -44,6 +44,30 @@ vertical.item-group.title.text-transform = "uppercase"
 vertical.item.icon.size = "1rem"
 vertical.item.icon.margin-right = "$ref(space.component-gap)"
 
+# ── Vertical (inline-collapsed) ───────────────────────
+
+vertical.collapsed.width = "4rem"
+vertical.collapsed.item.title.height = "2.5rem"
+vertical.collapsed.item.title.padding-inline = "$ref(space.inline-gap)"
+vertical.collapsed.item.icon.size = "1.125rem"
+vertical.collapsed.transition = "width $ref(motion.expand), padding $ref(motion.fade)"
+
+vertical.submenu.background-color = "$ref(color.background.elevated)"
+vertical.submenu.box-shadow = "$ref(shadow.float)"
+vertical.submenu.padding = "$ref(space.inline-gap)"
+vertical.submenu.border-radius = "$ref(radius.md)"
+vertical.submenu.min-width = "10rem"
+vertical.submenu.z-index = "$ref(z-index.float)"
+vertical.submenu.offset = "$ref(space.inline-gap)"
+
+vertical.tooltip.background-color = "$ref(color.background.overlay)"
+vertical.tooltip.color = "$ref(color.text.on-brand)"
+vertical.tooltip.padding-inline = "$ref(space.component-gap)"
+vertical.tooltip.padding-block = "$ref(space.inline-gap)"
+vertical.tooltip.border-radius = "$ref(radius.sm)"
+vertical.tooltip.font-size = "$ref(font.size.caption)"
+vertical.tooltip.z-index = "$ref(z-index.float)"
+
 # ── Horizontal ────────────────────────────────────────
 
 horizontal.border-color = "$ref(color.border.default)"
@@ -61,6 +85,7 @@ horizontal.submenu.box-shadow = "$ref(shadow.float)"
 horizontal.submenu.padding = "$ref(space.inline-gap)"
 horizontal.submenu.line-height = "2.5rem"
 horizontal.submenu.border-radius = "$ref(radius.sm)"
+horizontal.submenu.z-index = "$ref(z-index.float)"
 
 horizontal.group-item.indent-base = "$ref(space.inline-gap)"
 horizontal.group-item.indent-scale = "1"

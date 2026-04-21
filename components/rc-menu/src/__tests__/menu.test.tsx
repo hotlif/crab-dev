@@ -62,6 +62,10 @@ jest.mock("@floating-ui/react", () => ({
         getReferenceProps: () => ({}),
         getFloatingProps: () => ({}),
     }),
+    offset: jest.fn(() => ({})),
+    flip: jest.fn(() => ({})),
+    shift: jest.fn(() => ({})),
+    safePolygon: jest.fn(() => jest.fn()),
 }));
 
 afterEach(() => {
@@ -196,7 +200,7 @@ describe("Menu", () => {
 
     it("throws when mode is unsupported", () => {
         const renderInvalidMode = () => {
-            render(<Menu mode={"inline"} items={[]} />);
+            render(<Menu mode={"invalid" as unknown as "vertical"} items={[]} />);
         };
 
         expect(renderInvalidMode).toThrow("The parameter `mode` is incorrect");
@@ -356,5 +360,88 @@ describe("Menu", () => {
         });
 
         consoleErrorSpy.mockRestore();
+    });
+
+    it("renders inline-collapsed vertical menu with icons only and opens floating submenu on hover", () => {
+        mockFloatingForceOpen = true;
+        const onSelectItem = jest.fn();
+        const onClick = jest.fn();
+
+        render(
+            <Menu
+                mode="inline"
+                inlineCollapsed
+                selectedKeys={["dashboard"]}
+                onSelectItem={onSelectItem}
+                onClick={onClick}
+                items={[
+                    {
+                        type: ItemType.Item,
+                        key: "dashboard",
+                        title: "仪表盘",
+                        icon: <span data-testid="dashboard-icon" />,
+                    },
+                    {
+                        type: ItemType.Item,
+                        key: "system",
+                        title: "系统管理",
+                        icon: <span data-testid="system-icon" />,
+                        children: [
+                            {
+                                type: ItemType.Item,
+                                key: "system-menu",
+                                title: "菜单维护",
+                            },
+                        ],
+                    },
+                    {
+                        type: ItemType.ItemGroup,
+                        key: "tools-group",
+                        title: "工具",
+                        children: [
+                            {
+                                type: ItemType.Item,
+                                key: "tools-logs",
+                                title: "日志",
+                                icon: <span data-testid="tools-logs-icon" />,
+                            },
+                        ],
+                    },
+                ]}
+            />
+        );
+
+        expect(screen.getByTestId("dashboard-icon")).toBeTruthy();
+        expect(screen.getByTestId("system-icon")).toBeTruthy();
+        expect(screen.getByTestId("tools-logs-icon")).toBeTruthy();
+
+        act(() => {
+            mockFloatingOnOpenChange?.(true);
+        });
+
+        act(() => {
+            fireEvent.click(screen.getByLabelText("系统管理"));
+        });
+
+        act(() => {
+            fireEvent.click(screen.getByLabelText("仪表盘"));
+        });
+
+        expect(onSelectItem).toHaveBeenCalled();
+        expect(onClick).toHaveBeenCalledWith(
+            expect.objectContaining({
+                item: expect.objectContaining({ key: "dashboard" }),
+            })
+        );
+
+        act(() => {
+            fireEvent.keyDown(screen.getByLabelText("仪表盘"), { key: "Enter" });
+        });
+
+        expect(screen.getByRole("tooltip")).toBeTruthy();
+
+        act(() => {
+            mockFloatingCloseHandler?.();
+        });
     });
 });

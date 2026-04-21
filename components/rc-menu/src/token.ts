@@ -33,6 +33,25 @@ export const vars = {
     'vertical.item-group.title.font-weight': '--menu-vertical-item-group-title-font-weight',
     'vertical.item-group.title.letter-spacing': '--menu-vertical-item-group-title-letter-spacing',
     'vertical.item-group.title.text-transform': '--menu-vertical-item-group-title-text-transform',
+    'vertical.collapsed.width': '--menu-vertical-collapsed-width',
+    'vertical.collapsed.item.title.height': '--menu-vertical-collapsed-item-title-height',
+    'vertical.collapsed.item.title.padding-inline': '--menu-vertical-collapsed-item-title-padding-inline',
+    'vertical.collapsed.item.icon.size': '--menu-vertical-collapsed-item-icon-size',
+    'vertical.collapsed.transition': '--menu-vertical-collapsed-transition',
+    'vertical.submenu.background-color': '--menu-vertical-submenu-background-color',
+    'vertical.submenu.box-shadow': '--menu-vertical-submenu-box-shadow',
+    'vertical.submenu.padding': '--menu-vertical-submenu-padding',
+    'vertical.submenu.border-radius': '--menu-vertical-submenu-border-radius',
+    'vertical.submenu.min-width': '--menu-vertical-submenu-min-width',
+    'vertical.submenu.z-index': '--menu-vertical-submenu-z-index',
+    'vertical.submenu.offset': '--menu-vertical-submenu-offset',
+    'vertical.tooltip.background-color': '--menu-vertical-tooltip-background-color',
+    'vertical.tooltip.color': '--menu-vertical-tooltip-color',
+    'vertical.tooltip.padding-inline': '--menu-vertical-tooltip-padding-inline',
+    'vertical.tooltip.padding-block': '--menu-vertical-tooltip-padding-block',
+    'vertical.tooltip.border-radius': '--menu-vertical-tooltip-border-radius',
+    'vertical.tooltip.font-size': '--menu-vertical-tooltip-font-size',
+    'vertical.tooltip.z-index': '--menu-vertical-tooltip-z-index',
     'horizontal.border-color': '--menu-horizontal-border-color',
     'horizontal.item.font-size': '--menu-horizontal-item-font-size',
     'horizontal.item.transition': '--menu-horizontal-item-transition',
@@ -47,6 +66,7 @@ export const vars = {
     'horizontal.submenu.padding': '--menu-horizontal-submenu-padding',
     'horizontal.submenu.line-height': '--menu-horizontal-submenu-line-height',
     'horizontal.submenu.border-radius': '--menu-horizontal-submenu-border-radius',
+    'horizontal.submenu.z-index': '--menu-horizontal-submenu-z-index',
     'horizontal.group-item.indent-base': '--menu-horizontal-group-item-indent-base',
     'horizontal.group-item.indent-scale': '--menu-horizontal-group-item-indent-scale',
     'horizontal.group-item.font-size': '--menu-horizontal-group-item-font-size',
@@ -102,6 +122,37 @@ const token = {
                 'letter-spacing': `var(${vars['vertical.item-group.title.letter-spacing']}, 0.04em)`,
                 'text-transform': `var(${vars['vertical.item-group.title.text-transform']}, uppercase)`
             }
+        },
+        'collapsed': {
+            'width': `var(${vars['vertical.collapsed.width']}, 4rem)`,
+            'item': {
+                'title': {
+                    'height': `var(${vars['vertical.collapsed.item.title.height']}, 2.5rem)`,
+                    'padding-inline': `var(${vars['vertical.collapsed.item.title.padding-inline']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+                },
+                'icon': {
+                    'size': `var(${vars['vertical.collapsed.item.icon.size']}, 1.125rem)`
+                }
+            },
+            'transition': `var(${vars['vertical.collapsed.transition']}, width var(--token-semantic-motion-expand, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), padding var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`
+        },
+        'submenu': {
+            'background-color': `var(${vars['vertical.submenu.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
+            'box-shadow': `var(${vars['vertical.submenu.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`,
+            'padding': `var(${vars['vertical.submenu.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+            'border-radius': `var(${vars['vertical.submenu.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
+            'min-width': `var(${vars['vertical.submenu.min-width']}, 10rem)`,
+            'z-index': `var(${vars['vertical.submenu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`,
+            'offset': `var(${vars['vertical.submenu.offset']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        },
+        'tooltip': {
+            'background-color': `var(${vars['vertical.tooltip.background-color']}, var(--token-semantic-color-background-overlay, oklch(0 0 0 / 0.45)))`,
+            'color': `var(${vars['vertical.tooltip.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`,
+            'padding-inline': `var(${vars['vertical.tooltip.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+            'padding-block': `var(${vars['vertical.tooltip.padding-block']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+            'border-radius': `var(${vars['vertical.tooltip.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
+            'font-size': `var(${vars['vertical.tooltip.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`,
+            'z-index': `var(${vars['vertical.tooltip.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`
         }
     },
     'horizontal': {
@@ -125,7 +176,8 @@ const token = {
             'box-shadow': `var(${vars['horizontal.submenu.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`,
             'padding': `var(${vars['horizontal.submenu.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'line-height': `var(${vars['horizontal.submenu.line-height']}, 2.5rem)`,
-            'border-radius': `var(${vars['horizontal.submenu.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`
+            'border-radius': `var(${vars['horizontal.submenu.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
+            'z-index': `var(${vars['horizontal.submenu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`
         },
         'group-item': {
             'indent-base': `var(${vars['horizontal.group-item.indent-base']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,

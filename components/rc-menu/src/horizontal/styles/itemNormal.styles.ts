@@ -57,7 +57,7 @@ const submenuList = css`
 `
 
 const submenuFloat = css`
-    z-index: 1000;
+    z-index: ${token.horizontal.submenu["z-index"]};
     white-space: nowrap;
     padding: ${token.horizontal.submenu.padding};
     background-color: ${token.horizontal.submenu["background-color"]};

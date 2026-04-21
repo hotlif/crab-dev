@@ -35,12 +35,15 @@ const itemGroupTitleHeight = token.vertical["item-group"].title.height;
 const itemTitleStyle = css`
     display: flex;
     align-items: center;
+    flex-wrap: nowrap;
+    min-width: 0;
     width: ${verticalItemTitleWidth};
     padding-inline-start: ${verticalItemTitlePaddingInlineStart};
     padding-inline-end: ${verticalItemTitlePaddingInlineEnd};
     margin-top: ${verticalItemTitleMarginTop};
     margin-bottom: ${verticalItemTitleMarginBottom};
     box-sizing: border-box;
+    overflow: hidden;
 `
 
 
@@ -99,6 +102,7 @@ const ulStyle = css`
     width: 100%;
     padding: 0px;
     margin: 0px;
+    overflow: hidden;
 `
 
 const ulChildrenStyle = css`
@@ -139,7 +143,7 @@ const menuItemIcon = css`
 interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
 }
 
-const VerticalMenu: FC<VerticalMenuProps> = ({
+const VerticalNormalMenu: FC<VerticalMenuProps> = ({
     className,
     openKeys,
     selectedKeys = [],
@@ -147,6 +151,8 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
     onSelectItem,
     onOpenChange,
     onClick,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    inlineCollapsed,
     ...props
 }) => {
 
@@ -229,7 +235,11 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
                     <span
                         className={css`
                             flex: 1;
+                            min-width: 0;
                             font-size: inherit;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         `}
                     >
                         {item.title}
@@ -319,4 +329,4 @@ const VerticalMenu: FC<VerticalMenuProps> = ({
     )
 }
 
-export default VerticalMenu;
+export default VerticalNormalMenu;

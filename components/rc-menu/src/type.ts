@@ -1,4 +1,4 @@
-import { ReactNode, type Key } from "react";
+import type { ReactNode, Key } from "react";
 
 export enum ItemType {
     // 单个元素
@@ -15,7 +15,7 @@ export interface Item {
     /**
      * 用户绑定的数据
      */
-    data?: unknown
+    data?: unknown;
 
     /**
      * 类型
