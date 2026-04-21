@@ -32,6 +32,36 @@ describe('Tabs', () => {
         expect(firstTab.getAttribute('tabindex')).toBe('0');
     });
 
+    it('uses instance-scoped aria ids to avoid collisions', () => {
+        const sharedItems: TabsItem[] = [
+            { key: 'one', label: 'One', children: <p>One Panel</p> },
+            { key: 'two', label: 'Two', children: <p>Two Panel</p> },
+        ];
+
+        render(
+            <div>
+                <Tabs items={sharedItems} />
+                <Tabs items={sharedItems} />
+            </div>,
+        );
+
+        const firstTabs = screen.getAllByRole('tab', { name: 'One' });
+        expect(firstTabs).toHaveLength(2);
+
+        const panelIds = firstTabs.map(tab => tab.getAttribute('aria-controls'));
+        expect(panelIds[0]).toBeTruthy();
+        expect(panelIds[1]).toBeTruthy();
+        expect(panelIds[0]).not.toBe(panelIds[1]);
+
+        panelIds.forEach((panelId) => {
+            const panel = panelId != null ? document.getElementById(panelId) : null;
+            expect(panel).toBeTruthy();
+
+            const labelledBy = panel?.getAttribute('aria-labelledby');
+            expect(labelledBy).toBeTruthy();
+        });
+    });
+
     it('respects defaultActiveKey', () => {
         render(<Tabs items={baseItems} defaultActiveKey="two" />);
         expect(screen.getByRole('tab', { name: 'Two' }).getAttribute('aria-selected')).toBe('true');

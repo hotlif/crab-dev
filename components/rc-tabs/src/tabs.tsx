@@ -6,6 +6,7 @@ import {
     type ReactNode,
     useCallback,
     useEffect,
+    useId,
     useLayoutEffect,
     useMemo,
     useRef,
@@ -281,6 +282,22 @@ const Tabs = ({
     className,
     ...restProps
 }: TabsProps) => {
+    const reactId = useId();
+    const tabsIdPrefix = useMemo(
+        () => `rc-tabs-${reactId.replace(/:/g, '')}`,
+        [reactId],
+    );
+
+    const getTabId = useCallback(
+        (index: number) => `${tabsIdPrefix}-tab-${index}`,
+        [tabsIdPrefix],
+    );
+
+    const getPanelId = useCallback(
+        (index: number) => `${tabsIdPrefix}-panel-${index}`,
+        [tabsIdPrefix],
+    );
+
     const firstEnabledItem = useMemo(
         () => items.find(item => !item.disabled),
         [items],
@@ -418,7 +435,8 @@ const Tabs = ({
         ['--rc-tabs-indicator-w' as never]: `${indicatorPosition.width}px`,
     }), [indicatorPosition.left, indicatorPosition.width]);
 
-    const activeItem = items.find(item => item.key === activeKey);
+    const activeItemIndex = items.findIndex(item => item.key === activeKey);
+    const activeItem = activeItemIndex >= 0 ? items[activeItemIndex] : null;
 
     return (
         <div {...restProps} className={cx(rootStyle, className)}>
@@ -435,18 +453,16 @@ const Tabs = ({
                     <div className={cx(barListStyle, centered ? barCenteredStyle : '')}>
                         {items.map((item, index) => {
                             const isActive = item.key === activeKey;
-                            const tabId = `rc-tabs-tab-${item.key}`;
-                            const panelId = `rc-tabs-panel-${item.key}`;
 
                             return (
                                 <button
                                     type="button"
                                     key={item.key}
                                     ref={registerTabRef(item.key)}
-                                    id={tabId}
+                                    id={getTabId(index)}
                                     role="tab"
                                     aria-selected={isActive}
-                                    aria-controls={panelId}
+                                    aria-controls={getPanelId(index)}
                                     aria-disabled={item.disabled || undefined}
                                     tabIndex={isActive ? 0 : -1}
                                     disabled={item.disabled}
@@ -507,22 +523,22 @@ const Tabs = ({
                         ? (
                             <div
                                 key={activeItem.key}
-                                id={`rc-tabs-panel-${activeItem.key}`}
+                                id={getPanelId(activeItemIndex)}
                                 role="tabpanel"
-                                aria-labelledby={`rc-tabs-tab-${activeItem.key}`}
+                                aria-labelledby={getTabId(activeItemIndex)}
                             >
                                 {activeItem.children}
                             </div>
                         )
                         : null
-                    : items.map((item) => {
+                    : items.map((item, index) => {
                         const isActive = item.key === activeKey;
                         return (
                             <div
                                 key={item.key}
-                                id={`rc-tabs-panel-${item.key}`}
+                                id={getPanelId(index)}
                                 role="tabpanel"
-                                aria-labelledby={`rc-tabs-tab-${item.key}`}
+                                aria-labelledby={getTabId(index)}
                                 hidden={!isActive}
                             >
                                 {isActive ? item.children : null}
