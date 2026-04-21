@@ -57,6 +57,7 @@ export const vars = {
     'radius.pill': '--token-semantic-radius-pill',
     'shadow.float': '--token-semantic-shadow-float',
     'shadow.overlay': '--token-semantic-shadow-overlay',
+    'z-index.base': '--token-semantic-z-index-base',
     'z-index.float': '--token-semantic-z-index-float',
     'z-index.sticky': '--token-semantic-z-index-sticky',
     'z-index.mask': '--token-semantic-z-index-mask',
@@ -154,6 +155,7 @@ const token = {
         'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))`
     },
     'z-index': {
+        'base': `var(${vars['z-index.base']}, var(--token-global-z-index-1, 1))`,
         'float': `var(${vars['z-index.float']}, var(--token-global-z-index-10, 1000))`,
         'sticky': `var(${vars['z-index.sticky']}, var(--token-global-z-index-20, 1100))`,
         'mask': `var(${vars['z-index.mask']}, var(--token-global-z-index-30, 1200))`,
