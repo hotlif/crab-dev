@@ -1,72 +1,72 @@
 ---
 name: link-workspace-packages
-description: 'Link workspace packages in Yarn 4 PnP monorepo. USE WHEN: (1) you just created or generated new packages and need to wire up their dependencies, (2) user imports from a sibling package and needs to add it as a dependency, (3) you get resolution errors for workspace packages (@org/*) like "cannot find module", "failed to resolve import", "TS2307", or "cannot resolve". DO NOT patch around with tsconfig paths or manual package.json edits - use Yarn workspace commands to fix actual linking.'
+description: '在 Yarn 4 PnP monorepo 中链接 workspace 包。使用场景：（1）刚创建或生成了新包，需要连通它们之间的依赖；（2）用户从兄弟包中导入符号，需要将其登记为依赖；（3）出现 workspace 包（@org/*）的解析错误，如 "cannot find module"、"failed to resolve import"、"TS2307" 或 "cannot resolve"。禁止通过 tsconfig paths 或手编 package.json 绕过问题 —— 必须使用 Yarn workspace 命令修复真实的链接关系。'
 ---
 
-# Link Workspace Packages (Yarn 4 PnP)
+# 链接 Workspace 包（Yarn 4 PnP）
 
-Add dependencies between packages in a Yarn 4 Plug'n'Play monorepo.
+为 Yarn 4 Plug'n'Play monorepo 中的包之间建立依赖关系。
 
-## Detect
+## 识别环境
 
-- Lockfile: `yarn.lock`
-- Runtime: `.pnp.cjs` (Plug'n'Play, no `node_modules`)
-- Dependencies stored in `.yarn/cache/` as zip archives
-- `packageManager` field in root `package.json`: `"yarn@4.x.x"`
+- 锁文件：`yarn.lock`
+- 运行时：`.pnp.cjs`（Plug'n'Play 模式，没有 `node_modules`）
+- 依赖以 zip 归档存放于 `.yarn/cache/`
+- 根 `package.json` 的 `packageManager` 字段为 `"yarn@4.x.x"`
 
-## Workflow
+## 工作流
 
-1. Identify consumer package (the one importing)
-2. Identify provider package(s) (being imported)
-3. Add dependency using `yarn workspace` command
-4. Verify resolution via `.pnp.cjs` (no symlinks in PnP mode)
+1. 识别消费方包（发起 import 的一方）
+2. 识别提供方包（被 import 的一方）
+3. 使用 `yarn workspace` 命令登记依赖
+4. 通过 `.pnp.cjs` 验证解析（PnP 模式下没有软链）
 
 ---
 
-## Commands
+## 命令
 
 ```bash
-# Add a workspace sibling as dependency
+# 将一个 workspace 兄弟包添加为依赖
 yarn workspace @org/app add @org/ui
 
-# Remove a workspace dependency
+# 移除一个 workspace 依赖
 yarn workspace @org/app remove @org/ui
 ```
 
-Result in consumer's `package.json`:
+消费方 `package.json` 中结果形态：
 
 ```json
 { "dependencies": { "@org/ui": "workspace:^" } }
 ```
 
-## Examples
+## 示例
 
-**Example 1: Link a component to another component**
+**示例 1：将一个组件链接到另一个组件**
 
 ```bash
 yarn workspace @crab-dev/rc-dialog add @crab-dev/rc-button
 ```
 
-**Example 2: Link an internal tool as devDependency**
+**示例 2：将内部工具作为 devDependency 链接**
 
 ```bash
 yarn workspace @crab-dev/rc-button add -D @crab-dev/standards-eslint-preset
 ```
 
-**Example 3: Debug "Cannot find module"**
+**示例 3：排查 "Cannot find module"**
 
-1. Check if dependency is declared in consumer's `package.json`
-2. If not, add it: `yarn workspace <consumer> add <provider>`
-3. If the package can't load from zip (ESM issues), mark it as unplugged in root `package.json`:
+1. 确认依赖是否已声明在消费方的 `package.json` 中
+2. 若未声明，添加之：`yarn workspace <consumer> add <provider>`
+3. 若该包无法从 zip 加载（ESM 问题），在根 `package.json` 中将其标记为 unplugged：
    ```json
    { "dependenciesMeta": { "problematic-pkg": { "unplugged": true } } }
    ```
-4. Run `yarn install` to unpack it
+4. 执行 `yarn install` 将其解压
 
-## Notes
+## 备忘
 
-- Yarn 4 PnP does **not** use `node_modules` — dependencies resolve via `.pnp.cjs`
-- Dependencies are stored as zip archives in `.yarn/cache/`
-- `workspace:^` resolves to the local package during development and is replaced with the actual version on publish
-- Some packages (e.g. those with native binaries or broken ESM) may need `"unplugged": true` in `dependenciesMeta`
-- Root `package.json` should have `"private": true` to prevent accidental publish
+- Yarn 4 PnP **不使用** `node_modules`，依赖通过 `.pnp.cjs` 解析
+- 依赖以 zip 归档形式存放于 `.yarn/cache/`
+- `workspace:^` 在开发期解析为本地包，发布时会被替换为实际版本号
+- 部分包（如含原生二进制或 ESM 损坏的包）可能需要在 `dependenciesMeta` 中配置 `"unplugged": true`
+- 根 `package.json` 应设置 `"private": true`，防止误发布

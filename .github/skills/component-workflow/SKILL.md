@@ -1,10 +1,10 @@
 ---
-name: crab-dev-expert
-description: "UI component library development expert for crab-dev monorepo. USE FOR: creating new rc-* components, designing token.toml design tokens, troubleshooting Yarn 4 PnP issues, configuring Webpack/Rollup builds, fixing Turbo task graph circular dependencies, writing Jest+RTL tests, Linaria CSS-in-JS styling, ESM module resolution. DO NOT USE FOR: non-crab-dev projects."
-argument-hint: "Describe the component, token, build, or PnP task you need help with"
+name: component-workflow
+description: "crab-dev monorepo 的组件开发全流程手册。使用场景：创建新的 rc-* 组件；设计 token.toml 设计令牌；排查 Yarn 4 PnP 问题；配置 Webpack / Rollup 构建；修复 Turbo 任务图循环依赖；编写 Jest + RTL 测试；Linaria CSS-in-JS 样式；ESM 模块解析。禁止用于：非 crab-dev 项目。"
+argument-hint: "描述你需要帮助的组件、令牌、构建或 PnP 任务"
 ---
 
-# Crab Dev Expert
+# 组件开发工作流（Component Workflow）
 
 > 本 SKILL 聚焦可操作流程与实战模板。通用规范（代码风格、提交规范、验收清单等）见 `copilot-instructions.md`，此处不重复。
 

@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Jest Test CI
+name: Lint
 
 on:
   push:
@@ -18,14 +15,14 @@ on:
       - "components/**/docs/**"
 
 concurrency:
-  group: jest-${{ github.workflow }}-${{ github.ref }}
+  group: lint-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -36,12 +33,10 @@ jobs:
       with:
         node-version: '24'
     - name: Enable Corepack
-      run: corepack enable 
+      run: corepack enable
     - name: Activate Yarn 4.13.0
       run: corepack prepare yarn@4.13.0 --activate
     - name: Install dependencies
       run: yarn install --immutable
-    - name: Build the project
-      run: yarn build:library
-    - name: Run Jest Test
-      run: yarn test
+    - name: Run ESLint
+      run: yarn lint

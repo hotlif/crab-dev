@@ -64,7 +64,7 @@ Turbo 驱动的 Yarn Monorepo，划分为三个顶层工作区，职责互不重
 
 ### 2.3 CI
 
-工作流定义于 `.github/workflows/jest.yml` 与 `eslint.yml`，针对 `canary` 分支触发。路径忽略：`**/*.md`、`rfc/**`、`components/**/docs/**`。
+工作流定义于 `.github/workflows/test.yml`、`lint.yml` 与 `typecheck.yml`，针对 `canary` 分支触发。路径忽略：`**/*.md`、`rfc/**`、`components/**/docs/**`。
 
 ---
 
@@ -391,7 +391,7 @@ function Form<T extends Record<string, unknown>>(props: FormProps<T>) { /* ... *
 **交互细节（MUST）：**
 
 5. **必须**为所有可交互元素提供完整状态样式：`:hover`、`:focus-visible`、`:active`、`:disabled`、`[aria-selected]` / `[aria-expanded]` / `[data-state]` 等；**不得**遗漏 `:focus-visible`（键盘可达性硬性要求）；
-6. 过渡动画**必须**使用 `token.transition` 或语义层定义的缓动；**必须**遵循 Material / Apple HIG 的时长区间（微交互 ≤ 200ms，展开 / 折叠 200–400ms，页面级 ≤ 500ms），**不得**使用线性 `ease` 或超长动画；
+6. 过渡动画**必须**使用 `token.transition` 或语义层定义的缓动；**必须**遵循 crab-dev 时长分档（微交互 ≤ 200ms，展开 / 折叠 200–400ms，页面级 ≤ 500ms），**不得**使用线性 `ease` 或超长动画；
 7. **必须**尊重用户系统偏好：`@media (prefers-reduced-motion: reduce)` 下禁用非必要动画；
 8. 鼠标光标**必须**与语义一致：可点击 → `pointer`，禁用 → `not-allowed`，文本 → `text`，拖拽 → `grab` / `grabbing`；
 9. 加载、空态、错误态**必须**显式设计：不得只返回 `null` 或裸文字；应使用仓库已有的 skeleton / empty / error 语义。
@@ -418,7 +418,7 @@ function Form<T extends Record<string, unknown>>(props: FormProps<T>) { /* ... *
 
 **验收心态：**
 
-> 写完后**必须**自问：这份组件能否直接放进 Apple HIG / Material 3 / Radix / shadcn 的示例页而不掉级？若否，**必须**继续打磨而非交付。
+> 写完后**必须**自问：这份组件的每一个像素、每一次反馈、每一层状态，是否都能在 crab-dev 令牌层与设计四原则（精准 / 克制 / 理性 / 稳态）中找到解释？任一处解释不通，**必须**继续打磨而非交付。
 
 ---
 
