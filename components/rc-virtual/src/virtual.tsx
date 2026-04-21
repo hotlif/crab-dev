@@ -82,6 +82,7 @@ const Virtual: FC<VirtualProps> = ({
     const totalHeight = gridTemplateRows.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
     useLayoutEffect(() => {
+        /* istanbul ignore else -- ref is always populated after mount */
         if (divGridRef.current) {
 			
             divGridRef.current.scrollTop = currentScrollPositionTop;
@@ -180,6 +181,7 @@ const Virtual: FC<VirtualProps> = ({
     }));
 
     useEffect(() => {
+        /* istanbul ignore else -- ref is always populated after mount */
         if (divGridRef.current) {
             const onWheel = (e: globalThis.WheelEvent) => {
                 e.preventDefault();
