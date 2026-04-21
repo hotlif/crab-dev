@@ -9,7 +9,7 @@
 ## 总览
 
 ```
-组件进度    █████████████░░░░░░░░░░░░░░░░░░░  25 / 63（40%）
+组件进度    █████████████░░░░░░░░░░░░░░░░░░░  26 / 63（41%）
 基础设施    ████████████████████████████████  全部就绪
 工具链      ████████████████████████████████  4/4 已发布
 工程规范    ████████████████████████████████  3/3 已发布
@@ -18,10 +18,10 @@
 
 | 指标 | 数值 |
 |------|------|
-| ✅ 已完成组件 | 25 |
+| ✅ 已完成组件 | 26 |
 | 🚧 开发中组件 | 1（Table） |
 | 🔴 P0 核心缺失 | 0 |
-| ⬚ 待规划组件 | 38（P1: 17 · P2: 14 · P3: 7） |
+| ⬚ 待规划组件 | 37（P1: 16 · P2: 14 · P3: 7） |
 
 ---
 
@@ -70,7 +70,7 @@
 | 组件 | 状态 | 版本 | 测试 | 令牌 | 说明 |
 |------|:----:|------|:----:|:----:|------|
 | Menu | ✅ | `0.0.2` | ✅ | ✅ | 菜单（含 inline-collapsed 折叠模式） |
-| Tabs | 🟡 | — | — | — | 标签页 |
+| Tabs | ✅ | `0.0.1` | ✅ | ✅ | 标签页（line / card / pill 三种形态） |
 | Breadcrumbs | ✅ | `0.0.1` | ✅ | ✅ | 面包屑（含 maxCount 截断 + 自定义分隔符） |
 | Pagination | 🟡 | — | — | — | 分页器 |
 | Steps | 🔵 | — | — | — | 步骤条 |
@@ -179,6 +179,7 @@
 | rc-menu inline-collapsed 折叠模式 | ✅ 已完成 |
 | rc-app-main-layout 标签栏 + 侧边栏折叠 | ✅ 已完成 |
 | rc-virtual 分支覆盖率达 100% | ✅ 已完成 |
+| rc-tabs 标签页组件 | ✅ 已完成 |
 | 深色主题语义令牌适配 | 🚧 进行中 |
 
 ### 短期目标
@@ -191,11 +192,11 @@
 - [x] 组件文档站点完善（lignify demo/mdx）
 - [ ] 深色主题切换（语义层 CSS 变量覆盖）
 - [x] Markdown prose 排版令牌
-- [x] **P1 组件交付** — Breadcrumbs
+- [x] **P1 组件交付** — Breadcrumbs、Tabs
 
 ### 中期目标
 
-- [ ] **P1 组件交付** — Tabs、Pagination、Grid、Icon、Textarea、InputNumber、TimePicker、Upload、Badge、Avatar、Card、Collapse、Popover、Progress、Skeleton、Spin、Drawer
+- [ ] **P1 组件交付** — Pagination、Grid、Icon、Textarea、InputNumber、TimePicker、Upload、Badge、Avatar、Card、Collapse、Popover、Progress、Skeleton、Spin、Drawer
 - [ ] npm 发布流程（自动化版本管理 + CHANGELOG）
 - [ ] 无障碍（a11y）合规审查
 - [ ] 性能基准（打包体积 + 运行时）
