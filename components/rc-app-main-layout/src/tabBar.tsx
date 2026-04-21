@@ -18,6 +18,8 @@ export interface TabBarProps {
     onClose?: (key: Key) => void
     /** 关闭除指定 key 之外的全部可关闭标签 */
     onCloseOthers?: (key: Key) => void
+    /** 关闭指定 key 右侧的全部可关闭标签 */
+    onCloseRight?: (key: Key) => void
     /** 关闭全部可关闭标签 */
     onCloseAll?: () => void
     /** 重新加载指定标签页 */
@@ -232,6 +234,15 @@ const CloseOthersIcon = () => (
     </svg>
 );
 
+/** 关闭右侧：左保留项 + 右侧 X */
+const CloseRightIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <rect x="4" y="5" width="6" height="14" rx="1.5" />
+        <line x1="14" y1="9" x2="20" y2="15" />
+        <line x1="20" y1="9" x2="14" y2="15" />
+    </svg>
+);
+
 /** 关闭全部：叠层 + X */
 const CloseAllIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -256,6 +267,7 @@ const TabBar: FC<TabBarProps> = ({
     onChange,
     onClose,
     onCloseOthers,
+    onCloseRight,
     onCloseAll,
     onReload,
     onReorder,
@@ -415,7 +427,7 @@ const TabBar: FC<TabBarProps> = ({
     };
 
     /** 右键菜单状态：仅当任一回调被传入时才启用 */
-    const contextMenuEnabled = !!(onReload || onClose || onCloseOthers || onCloseAll);
+    const contextMenuEnabled = !!(onReload || onClose || onCloseOthers || onCloseRight || onCloseAll);
     const [menuState, setMenuState] = useState<{ x: number, y: number, key: Key } | null>(null);
     const closeMenu = useCallback(() => setMenuState(null), []);
 
@@ -430,10 +442,17 @@ const TabBar: FC<TabBarProps> = ({
     const buildMenuItems = (key: Key): TabContextMenuItem[] => {
         const target = items.find((it) => it.key === key);
         const targetClosable = !!target && target.closable !== false;
+        const targetIndex = items.findIndex((it) => it.key === key);
         const otherClosableCount = items.reduce(
             (acc, it) => acc + (it.key !== key && it.closable !== false ? 1 : 0),
             0,
         );
+        const rightClosableCount = targetIndex < 0
+            ? 0
+            : items.slice(targetIndex + 1).reduce(
+                (acc, it) => acc + (it.closable !== false ? 1 : 0),
+                0,
+            );
         const anyClosable = items.some((it) => it.closable !== false);
         const result: TabContextMenuItem[] = [];
         if (onReload) {
@@ -460,6 +479,15 @@ const TabBar: FC<TabBarProps> = ({
                 icon: <CloseOthersIcon />,
                 disabled: otherClosableCount === 0,
                 onSelect: () => onCloseOthers(key),
+            });
+        }
+        if (onCloseRight) {
+            result.push({
+                id: "close-right",
+                label: "关闭右侧",
+                icon: <CloseRightIcon />,
+                disabled: rightClosableCount === 0,
+                onSelect: () => onCloseRight(key),
             });
         }
         if (onCloseAll) {

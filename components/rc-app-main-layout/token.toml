@@ -12,7 +12,7 @@ background.color = "$ref(color.background.surface)"
 
 header.shadow = "0 1px 0 oklch(0 0 0 / 0.04)"
 header.background.color = "$ref(color.background.elevated)"
-header.z-index = "$ref(z-index.sticky)"
+header.z-index = "$ref(z-index.base)"
 header.divider.color = "$ref(color.border.default)"
 
 header.toolbar.height = "52px"
@@ -41,7 +41,9 @@ header.user.avatar.background.color = "$ref(color.brand.primary)"
 header.user.avatar.color = "$ref(color.text.on-brand)"
 
 sidebar.width = "16rem"
+sidebar.collapsed.width = "64px"
 sidebar.padding = "12px 8px"
+sidebar.collapsed.padding = "12px 0"
 sidebar.gap = "4px"
 sidebar.background.color = "$ref(color.background.elevated)"
 sidebar.border.color = "$ref(color.border.default)"

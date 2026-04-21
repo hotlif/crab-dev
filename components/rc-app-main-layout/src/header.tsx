@@ -11,6 +11,8 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
     userAvatar?: ReactNode
     /** 点击菜单按钮 */
     onMenuToggle?: () => void
+    /** 菜单按钮的激活状态（侧边栏是否已折叠） */
+    menuToggled?: boolean
     /** 点击铃铛（通知） */
     onBell?: () => void
     /** 是否有未读通知 */
@@ -27,6 +29,8 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
     onTabClose?: (key: Key) => void
     /** 关闭除指定 key 之外的全部可关闭标签 */
     onTabCloseOthers?: (key: Key) => void
+    /** 关闭指定 key 右侧的全部可关闭标签 */
+    onTabCloseRight?: (key: Key) => void
     /** 关闭全部可关闭标签 */
     onTabCloseAll?: () => void
     /** 重新加载指定标签页 */
@@ -212,6 +216,7 @@ const Header: FC<HeaderProps> = ({
     username,
     userAvatar,
     onMenuToggle,
+    menuToggled,
     onBell,
     hasNotification,
     onUserClick,
@@ -220,6 +225,7 @@ const Header: FC<HeaderProps> = ({
     onTabChange,
     onTabClose,
     onTabCloseOthers,
+    onTabCloseRight,
     onTabCloseAll,
     onTabReload,
     onTabReorder,
@@ -236,6 +242,7 @@ const Header: FC<HeaderProps> = ({
                         onChange={onTabChange}
                         onClose={onTabClose}
                         onCloseOthers={onTabCloseOthers}
+                        onCloseRight={onTabCloseRight}
                         onCloseAll={onTabCloseAll}
                         onReload={onTabReload}
                         onReorder={onTabReorder}
@@ -243,7 +250,14 @@ const Header: FC<HeaderProps> = ({
                 </div>
             ) : null}
             <div className={toolbarStyle}>
-                <button className={navBtnStyle} onClick={onMenuToggle} aria-label="Menu">
+                <button
+                    type="button"
+                    className={navBtnStyle}
+                    onClick={onMenuToggle}
+                    aria-label="Toggle sidebar"
+                    aria-expanded={!menuToggled}
+                    aria-pressed={menuToggled}
+                >
                     <MenuIcon />
                 </button>
                 {breadcrumbs?.length ? (

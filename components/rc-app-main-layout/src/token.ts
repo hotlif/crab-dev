@@ -31,6 +31,8 @@ export const vars = {
     'header.user.avatar.background.color': '--app-main-layout-header-user-avatar-background-color',
     'header.user.avatar.color': '--app-main-layout-header-user-avatar-color',
     'sidebar.width': '--app-main-layout-sidebar-width',
+    'sidebar.collapsed.width': '--app-main-layout-sidebar-collapsed-width',
+    'sidebar.collapsed.padding': '--app-main-layout-sidebar-collapsed-padding',
     'sidebar.padding': '--app-main-layout-sidebar-padding',
     'sidebar.gap': '--app-main-layout-sidebar-gap',
     'sidebar.background.color': '--app-main-layout-sidebar-background-color',
@@ -99,7 +101,7 @@ const token = {
         'background': {
             'color': `var(${vars['header.background.color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
         },
-        'z-index': `var(${vars['header.z-index']}, var(--token-semantic-z-index-sticky, var(--token-global-z-index-20, 1100)))`,
+        'z-index': `var(${vars['header.z-index']}, var(--token-semantic-z-index-base, var(--token-global-z-index-1, 1)))`,
         'divider': {
             'color': `var(${vars['header.divider.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
         },
@@ -158,6 +160,10 @@ const token = {
     },
     'sidebar': {
         'width': `var(${vars['sidebar.width']}, 16rem)`,
+        'collapsed': {
+            'width': `var(${vars['sidebar.collapsed.width']}, 64px)`,
+            'padding': `var(${vars['sidebar.collapsed.padding']}, 12px 0)`
+        },
         'padding': `var(${vars['sidebar.padding']}, 12px 8px)`,
         'gap': `var(${vars['sidebar.gap']}, 4px)`,
         'background': {

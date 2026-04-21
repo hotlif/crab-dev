@@ -1,4 +1,5 @@
 import type { FC, HTMLAttributes, Key, ReactNode } from "react";
+import { useState } from "react";
 import { cx, css } from "@linaria/core";
 import token from "./token.js";
 import Header from "./header.js";
@@ -21,8 +22,6 @@ interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     headerUserName?: ReactNode
     /** 顶部用户头像节点 */
     headerUserAvatar?: ReactNode
-    /** 点击菜单按钮 */
-    onMenuToggle?: () => void
     /** 点击铃铛 */
     onBell?: () => void
     /** 是否有未读通知 */
@@ -71,7 +70,6 @@ const Layout: FC<LayoutProps> = ({
     onSidebarMenuItemClick,
     headerUserName,
     headerUserAvatar,
-    onMenuToggle,
     onBell,
     hasNotification,
     onUserClick,
@@ -81,6 +79,7 @@ const Layout: FC<LayoutProps> = ({
     const { tabs, activeKey, reloadVersions } = state;
     const resolvedActiveKey = activeKey ?? tabs[0]?.key;
     const activeTab = tabs.find((t) => t.key === resolvedActiveKey);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
     return (
         <div className={cx(layoutStyle, className)} {...restProps}>
@@ -90,12 +89,14 @@ const Layout: FC<LayoutProps> = ({
                 onLogoClick={onLogoClick}
                 loadMenus={sidebarLoadMenus}
                 onMenuItemClick={onSidebarMenuItemClick}
+                collapsed={sidebarCollapsed}
             />
             <div className={mainColStyle}>
                 <Header
                     username={headerUserName}
                     userAvatar={headerUserAvatar}
-                    onMenuToggle={onMenuToggle}
+                    onMenuToggle={() => setSidebarCollapsed((v) => !v)}
+                    menuToggled={sidebarCollapsed}
                     onBell={onBell}
                     hasNotification={hasNotification}
                     onUserClick={onUserClick}
@@ -104,6 +105,7 @@ const Layout: FC<LayoutProps> = ({
                     onTabChange={(key: Key) => dispatch({ type: "activate", key })}
                     onTabClose={(key: Key) => dispatch({ type: "close", key })}
                     onTabCloseOthers={(key: Key) => dispatch({ type: "closeOthers", key })}
+                    onTabCloseRight={(key: Key) => dispatch({ type: "closeRight", key })}
                     onTabCloseAll={() => dispatch({ type: "closeAll" })}
                     onTabReload={(key: Key) => dispatch({ type: "reload", key })}
                     onTabReorder={(keys: Key[]) => dispatch({ type: "reorder", keys })}

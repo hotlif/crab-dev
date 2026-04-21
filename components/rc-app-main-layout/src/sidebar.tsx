@@ -13,6 +13,8 @@ export interface SidebarProps extends Omit<HTMLAttributes<HTMLElement>, "title">
     onLogoClick?: () => void
     /** 点击菜单项；参数 `path` 为从根到当前项的菜单链 */
     onMenuItemClick?: (param: { item: MenuItem, path: MenuItem[] }) => void
+    /** 是否折叠侧边栏 */
+    collapsed?: boolean
 }
 
 const sidebarStyle = css`
@@ -26,7 +28,19 @@ const sidebarStyle = css`
     border-inline-end: 1px solid ${token.sidebar.border.color};
     box-sizing: border-box;
     flex-shrink: 0;
-    overflow-y: auto;
+    overflow: hidden auto;
+    transition:
+        width 300ms cubic-bezier(0, 0, 0.2, 1),
+        padding 300ms cubic-bezier(0, 0, 0.2, 1);
+
+    &[data-collapsed="true"] {
+        width: ${token.sidebar.collapsed.width};
+        padding: ${token.sidebar.collapsed.padding};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 `;
 
 const logoRowStyle = css`
@@ -36,6 +50,13 @@ const logoRowStyle = css`
     padding: ${token.sidebar.logo.padding};
     cursor: pointer;
     user-select: none;
+    min-width: 0;
+`;
+
+const logoRowCollapsedStyle = css`
+    justify-content: center;
+    gap: 0;
+    padding-inline: 0;
 `;
 
 const logoStyle = css`
@@ -85,6 +106,7 @@ const Sidebar: FC<SidebarProps> = ({
     title,
     onLogoClick,
     onMenuItemClick,
+    collapsed,
     ...restProps
 }) => {
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -103,16 +125,23 @@ const Sidebar: FC<SidebarProps> = ({
     return (
         <aside
             className={cx(sidebarStyle, className)}
+            data-collapsed={collapsed ? "true" : "false"}
             {...restProps}
         >
             {logo || title ? (
-                <div className={logoRowStyle} onClick={onLogoClick} role="button" aria-label="Logo">
+                <div
+                    className={cx(logoRowStyle, collapsed && logoRowCollapsedStyle)}
+                    onClick={onLogoClick}
+                    role="button"
+                    aria-label="Logo"
+                >
                     {logo ? <span className={logoStyle}>{logo}</span> : null}
-                    {title ? <span className={logoTitleStyle}>{title}</span> : null}
+                    {title && !collapsed ? <span className={logoTitleStyle}>{title}</span> : null}
                 </div>
             ) : null}
             <div className={menuWrapStyle}>
                 <RcMenu
+                    inlineCollapsed={collapsed}
                     openKeys={openKeys}
                     onOpenChange={setOpenKeys}
                     items={menuItems}

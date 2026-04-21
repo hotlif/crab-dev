@@ -18,6 +18,8 @@ export interface UseAppMainLayoutTabsResult {
     closeTab: (key: Key) => void
     /** 关闭除指定 key 以外的所有可关闭标签；不可关闭（closable=false）的标签会被保留 */
     closeOtherTabs: (key: Key) => void
+    /** 关闭指定 key 右侧的所有可关闭标签；不可关闭（closable=false）的标签会被保留 */
+    closeRightTabs: (key: Key) => void
     /** 关闭所有可关闭标签；不可关闭（closable=false）的标签会被保留 */
     closeAllTabs: () => void
     activateTab: (key: Key) => void
@@ -48,6 +50,10 @@ export default function useAppMainLayoutTabs(): UseAppMainLayoutTabsResult {
         dispatch({ type: "closeOthers", key });
     }, [dispatch]);
 
+    const closeRightTabs = useCallback((key: Key) => {
+        dispatch({ type: "closeRight", key });
+    }, [dispatch]);
+
     const closeAllTabs = useCallback(() => {
         dispatch({ type: "closeAll" });
     }, [dispatch]);
@@ -76,10 +82,11 @@ export default function useAppMainLayoutTabs(): UseAppMainLayoutTabsResult {
         openTab,
         closeTab,
         closeOtherTabs,
+        closeRightTabs,
         closeAllTabs,
         activateTab,
         reorderTabs,
         reloadTab,
         getReloadVersion,
-    }), [tabs, activeKey, reloadVersions, openTab, closeTab, closeOtherTabs, closeAllTabs, activateTab, reorderTabs, reloadTab, getReloadVersion]);
+    }), [tabs, activeKey, reloadVersions, openTab, closeTab, closeOtherTabs, closeRightTabs, closeAllTabs, activateTab, reorderTabs, reloadTab, getReloadVersion]);
 }

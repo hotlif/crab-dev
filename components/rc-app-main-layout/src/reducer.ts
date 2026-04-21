@@ -11,6 +11,7 @@ export type TabsAction =
     | { type: "open", tab: TabItem, activate?: boolean, reloadIfExists?: boolean }
     | { type: "close", key: Key }
     | { type: "closeOthers", key: Key }
+    | { type: "closeRight", key: Key }
     | { type: "closeAll" }
     | { type: "activate", key: Key }
     | { type: "reorder", keys: Key[] }
@@ -122,6 +123,29 @@ export function tabsReducer(state: TabsState, action: TabsAction): TabsState {
             return {
                 tabs: nextTabs,
                 activeKey: action.key,
+                reloadVersions: dropVersions(state.reloadVersions, removedKeys),
+            };
+        }
+        case "closeRight": {
+            const targetIndex = state.tabs.findIndex((item) => item.key === action.key);
+            if (targetIndex < 0) return state;
+
+            const removedKeys = new Set<Key>();
+            const nextTabs = state.tabs.filter((item, index) => {
+                if (index <= targetIndex) return true;
+                if (!isClosable(item)) return true;
+                removedKeys.add(item.key);
+                return false;
+            });
+            if (removedKeys.size === 0) return state;
+
+            const activeStillExists = state.activeKey !== undefined
+                && nextTabs.some((item) => item.key === state.activeKey);
+            const nextActiveKey = activeStillExists ? state.activeKey : action.key;
+
+            return {
+                tabs: nextTabs,
+                activeKey: nextActiveKey,
                 reloadVersions: dropVersions(state.reloadVersions, removedKeys),
             };
         }
