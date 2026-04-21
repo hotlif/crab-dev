@@ -39,6 +39,10 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
     onTabReorder?: (keys: Key[]) => void
     /** 当前激活标签的路径面包屑；渲染于 toolbar */
     breadcrumbs?: BreadcrumbsItem[]
+    /** 当前是否处于全屏 */
+    fullscreenActive?: boolean
+    /** 点击全屏按钮 */
+    onFullscreenToggle?: () => void
 }
 
 const headerStyle = css`
@@ -211,6 +215,24 @@ const BellIcon = () => (
     </svg>
 );
 
+const EnterFullscreenIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="9 3 3 3 3 9" />
+        <polyline points="15 21 21 21 21 15" />
+        <polyline points="21 9 21 3 15 3" />
+        <polyline points="3 15 3 21 9 21" />
+    </svg>
+);
+
+const ExitFullscreenIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="9 9 3 9 3 3" />
+        <polyline points="15 15 21 15 21 21" />
+        <polyline points="21 3 21 9 15 9" />
+        <polyline points="3 21 3 15 9 15" />
+    </svg>
+);
+
 const Header: FC<HeaderProps> = ({
     className,
     username,
@@ -230,6 +252,8 @@ const Header: FC<HeaderProps> = ({
     onTabReload,
     onTabReorder,
     breadcrumbs,
+    fullscreenActive,
+    onFullscreenToggle,
     ...restProps
 }) => {
     return (
@@ -264,6 +288,17 @@ const Header: FC<HeaderProps> = ({
                     <Breadcrumbs className={breadcrumbsStyle} items={breadcrumbs} />
                 ) : null}
                 <div className={toolbarSpacerStyle} />
+                {onFullscreenToggle ? (
+                    <button
+                        type="button"
+                        className={navBtnStyle}
+                        onClick={onFullscreenToggle}
+                        aria-label={fullscreenActive ? "Exit fullscreen" : "Enter fullscreen"}
+                        aria-pressed={fullscreenActive}
+                    >
+                        {fullscreenActive ? <ExitFullscreenIcon /> : <EnterFullscreenIcon />}
+                    </button>
+                ) : null}
                 <button className={navBtnStyle} onClick={onBell} aria-label="Notifications" disabled={!onBell}>
                     <BellIcon />
                     {hasNotification ? <span className={notificationDotStyle} aria-hidden /> : null}
