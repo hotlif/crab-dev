@@ -29,6 +29,22 @@ const getBabelLoader = () => ({
     },
 });
 
+// @wyw-in-js/webpack-loader 在分析 barrel re-export 时会绕开 babel-loader 直接
+// 从磁盘读取被引用文件并用自带的 @babel/parser 解析，默认不带 TS / JSX 插件。
+// 为此显式把 preset-typescript 与 preset-react 传给 wyw-in-js，使其内部的
+// parseFile 能理解 TS 语法（如 `interface`、`enum`、`import type`）。
+const getWywLoader = () => ({
+    loader: require.resolve('@wyw-in-js/webpack-loader'),
+    options: {
+        babelOptions: {
+            presets: [
+                [require.resolve("@babel/preset-typescript"), {}],
+                [require.resolve("@babel/preset-react"), { runtime: "automatic" }],
+            ],
+        },
+    },
+});
+
 const getRules = (isProduction: boolean) => [
     {
         test: /\.css$/i,
@@ -47,7 +63,7 @@ const getRules = (isProduction: boolean) => [
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: [
-            { loader: require.resolve('@wyw-in-js/webpack-loader') },
+            getWywLoader(),
             require.resolve("thread-loader"),
             getBabelLoader()
         ],
@@ -56,7 +72,7 @@ const getRules = (isProduction: boolean) => [
         test: /\.mdx?$/,
         exclude: /node_modules/,
         use: [
-            { loader: require.resolve('@wyw-in-js/webpack-loader') },
+            getWywLoader(),
             require.resolve("thread-loader"),
             getBabelLoader(),
             {
