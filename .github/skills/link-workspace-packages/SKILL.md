@@ -53,6 +53,16 @@ yarn workspace @crab-dev/rc-dialog add @crab-dev/rc-button
 yarn workspace @crab-dev/rc-button add -D @crab-dev/standards-eslint-preset
 ```
 
+**示例 2.1：补齐高频漏项 `rc-masonry`（推荐固定检查）**
+
+```bash
+yarn workspace @crab-dev/rc-xxx add -D @crab-dev/rc-masonry
+```
+
+适用场景：
+1. 新建 `rc-*` 组件后可启动测试，但 `yarn start`（lignify）偶发解析失败
+2. 消费方包里已有 `@crab-dev/rc-component-preview`、`@crab-dev/rc-menu`，但漏了 `@crab-dev/rc-masonry`
+
 **示例 3：排查 "Cannot find module"**
 
 1. 确认依赖是否已声明在消费方的 `package.json` 中

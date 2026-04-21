@@ -130,6 +130,29 @@ export default browser;
 - 外部运行时依赖放 `dependencies`
 - `rc-component-preview`、`rc-menu`、`rc-masonry` 为 lignify 文档环境所需
 
+### 4.1 高频漏项：`rc-masonry`（MUST）
+
+`rc-masonry` 是文档开发环境的稳定依赖，新增 rc-* 组件时**必须**放在 `devDependencies`。这条规则与业务代码是否直接 import 无关。
+
+**必须包含：**
+- `"@crab-dev/rc-masonry": "workspace:^"`
+
+**典型漏加症状：**
+- `yarn start`（lignify）启动失败或模板渲染报包解析错误
+- PnP 提示 workspace 包缺失（常见为 `Cannot find module` / `qualified path resolution failed`）
+
+**提交前自检（建议固定执行）：**
+
+```bash
+cat components/rc-{name}/package.json | rg "rc-component-preview|rc-menu|rc-masonry"
+```
+
+若缺失，立刻补齐：
+
+```bash
+yarn workspace @crab-dev/rc-{name} add -D @crab-dev/rc-masonry
+```
+
 ### 5. index.ts 导出模式
 
 ```typescript
