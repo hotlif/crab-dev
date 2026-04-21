@@ -2,14 +2,14 @@
 	<h1>里程碑</h1>
 </div>
 
-> 最后更新：2026-04-14 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
+> 最后更新：2026-04-21 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
 
 ---
 
 ## 总览
 
 ```
-组件进度    █████████████░░░░░░░░░░░░░░░░░░░  24 / 63（38%）
+组件进度    █████████████░░░░░░░░░░░░░░░░░░░  25 / 63（40%）
 基础设施    ████████████████████████████████  全部就绪
 工具链      ████████████████████████████████  4/4 已发布
 工程规范    ████████████████████████████████  3/3 已发布
@@ -18,10 +18,10 @@
 
 | 指标 | 数值 |
 |------|------|
-| ✅ 已完成组件 | 24 |
+| ✅ 已完成组件 | 25 |
 | 🚧 开发中组件 | 1（Table） |
 | 🔴 P0 核心缺失 | 0 |
-| ⬚ 待规划组件 | 39（P1: 18 · P2: 14 · P3: 7） |
+| ⬚ 待规划组件 | 38（P1: 17 · P2: 14 · P3: 7） |
 
 ---
 
@@ -59,7 +59,7 @@
 
 | 组件 | 状态 | 版本 | 测试 | 令牌 | 说明 |
 |------|:----:|------|:----:|:----:|------|
-| AppMainLayout | ✅ | `0.0.3` | — | ✅ | 应用主布局 |
+| AppMainLayout | ✅ | `0.0.3` | ✅ | ✅ | 应用主布局（标签栏 + 侧边栏折叠） |
 | Masonry | ✅ | `0.0.1` | ✅ | ✅ | 瀑布流布局 |
 | Grid | 🟡 | — | — | — | 栅格系统（Row / Col，响应式） |
 | Space | 🔵 | — | — | — | 间距容器 |
@@ -69,9 +69,9 @@
 
 | 组件 | 状态 | 版本 | 测试 | 令牌 | 说明 |
 |------|:----:|------|:----:|:----:|------|
-| Menu | ✅ | `0.0.2` | ✅ | ✅ | 菜单 |
+| Menu | ✅ | `0.0.2` | ✅ | ✅ | 菜单（含 inline-collapsed 折叠模式） |
 | Tabs | 🟡 | — | — | — | 标签页 |
-| Breadcrumb | 🟡 | — | — | — | 面包屑 |
+| Breadcrumbs | ✅ | `0.0.1` | ✅ | ✅ | 面包屑（含 maxCount 截断 + 自定义分隔符） |
 | Pagination | 🟡 | — | — | — | 分页器 |
 | Steps | 🔵 | — | — | — | 步骤条 |
 | Anchor | ⚪ | — | — | — | 锚点导航 |
@@ -105,7 +105,7 @@
 | 组件 | 状态 | 版本 | 测试 | 令牌 | 说明 |
 |------|:----:|------|:----:|:----:|------|
 | Tree | ✅ | `0.1.1` | ✅ | ✅ | 树形控件 |
-| Virtual | ✅ | `0.1.1` | ✅ | — | 虚拟滚动（含滚动条 Pointer 拖拽优化） |
+| Virtual | ✅ | `0.1.1` | ✅ | — | 虚拟滚动（含滚动条 Pointer 拖拽优化，100% 覆盖率） |
 | ComponentPreview | ✅ | `0.0.1` | ✅ | ✅ | 组件预览 |
 | Table | 🚧 | — | — | ✅ | 表格（虚拟滚动 + 排序 + 筛选） |
 | **Tooltip** | ✅ | `0.0.1` | ✅ | ✅ | 文字提示（Floating UI + CSS 箭头） |
@@ -175,21 +175,27 @@
 | rc-notification 补充单元测试 | ✅ 已完成 |
 | rc-prose Markdown 排版组件 | ✅ 已完成 |
 | RFC-MARKDOWN-THEME prose 令牌实现 | ✅ 已完成 |
+| rc-breadcrumbs 面包屑组件 | ✅ 已完成 |
+| rc-menu inline-collapsed 折叠模式 | ✅ 已完成 |
+| rc-app-main-layout 标签栏 + 侧边栏折叠 | ✅ 已完成 |
+| rc-virtual 分支覆盖率达 100% | ✅ 已完成 |
 | 深色主题语义令牌适配 | 🚧 进行中 |
 
 ### 短期目标
 
 - [x] **P0 组件交付** — Message
 - [ ] **ConfigProvider** — 全局主题 / 语言 / 尺寸注入机制
-- [ ] 已有组件补齐单元测试（rc-hooks / rc-app-main-layout）
+- [ ] 已有组件补齐单元测试（rc-hooks）
+- [x] rc-app-main-layout 补充单元测试
 - [x] rc-dialog / rc-table 发布正式版本号
 - [x] 组件文档站点完善（lignify demo/mdx）
 - [ ] 深色主题切换（语义层 CSS 变量覆盖）
 - [x] Markdown prose 排版令牌
+- [x] **P1 组件交付** — Breadcrumbs
 
 ### 中期目标
 
-- [ ] **P1 组件交付** — Tabs、Breadcrumb、Pagination、Grid、Icon、Textarea、InputNumber、TimePicker、Upload、Badge、Avatar、Card、Collapse、Popover、Progress、Skeleton、Spin、Drawer
+- [ ] **P1 组件交付** — Tabs、Pagination、Grid、Icon、Textarea、InputNumber、TimePicker、Upload、Badge、Avatar、Card、Collapse、Popover、Progress、Skeleton、Spin、Drawer
 - [ ] npm 发布流程（自动化版本管理 + CHANGELOG）
 - [ ] 无障碍（a11y）合规审查
 - [ ] 性能基准（打包体积 + 运行时）
