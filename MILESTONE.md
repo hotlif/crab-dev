@@ -2,14 +2,14 @@
 	<h1>里程碑</h1>
 </div>
 
-> 最后更新：2026-04-21 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
+> 最后更新：2026-04-22 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
 
 ---
 
 ## 总览
 
 ```
-组件进度    █████████████░░░░░░░░░░░░░░░░░░░  27 / 63（43%）
+组件进度    ██████████████░░░░░░░░░░░░░░░░░  29 / 63（46%）
 基础设施    ████████████████████████████████  全部就绪
 工具链      ████████████████████████████████  4/4 已发布
 工程规范    ████████████████████████████████  3/3 已发布
@@ -18,10 +18,10 @@
 
 | 指标 | 数值 |
 |------|------|
-| ✅ 已完成组件 | 27 |
+| ✅ 已完成组件 | 29 |
 | 🚧 开发中组件 | 1（Table） |
 | 🔴 P0 核心缺失 | 0 |
-| ⬚ 待规划组件 | 37（P1: 16 · P2: 14 · P3: 7） |
+| ⬚ 待规划组件 | 35（P1: 14 · P2: 14 · P3: 7） |
 
 ---
 
@@ -72,7 +72,7 @@
 | Menu | ✅ | `0.0.2` | ✅ | ✅ | 菜单（含 inline-collapsed 折叠模式） |
 | Tabs | ✅ | `0.0.1` | ✅ | ✅ | 标签页（line / card / pill 三种形态） |
 | Breadcrumbs | ✅ | `0.0.1` | ✅ | ✅ | 面包屑（含 maxCount 截断 + 自定义分隔符） |
-| Pagination | 🟡 | — | — | — | 分页器 |
+| **Pagination** | ✅ | `0.0.1` | ✅ | ✅ | 分页器（快速跳转 / 总量显示 / 小尺寸） |
 | Steps | 🔵 | — | — | — | 步骤条 |
 | Anchor | ⚪ | — | — | — | 锚点导航 |
 
@@ -134,7 +134,7 @@
 | **Alert** | ✅ | `0.0.1` | ✅ | ✅ | 警告提示（内联） |
 | **Message** | ✅ | `0.0.1` | ✅ | ✅ | 全局消息（轻量反馈） |
 | Progress | 🟡 | — | — | — | 进度条 |
-| Skeleton | 🟡 | — | — | — | 骨架屏 |
+| **Skeleton** | ✅ | `0.0.1` | ✅ | ✅ | 骨架屏（text / rect / circle / button / avatar / image · pulse / wave） |
 | Spin | 🟡 | — | — | — | 加载中 |
 | Drawer | 🟡 | — | — | — | 抽屉 |
 | Popconfirm | 🔵 | — | — | — | 气泡确认框 |
@@ -196,7 +196,7 @@
 
 ### 中期目标
 
-- [ ] **P1 组件交付** — Pagination、Grid、Icon、Textarea、InputNumber、TimePicker、Upload、Badge、Avatar、Card、Collapse、Popover、Progress、Skeleton、Spin、Drawer
+- [ ] **P1 组件交付** — Grid、Icon、Textarea、InputNumber、TimePicker、Upload、Badge、Avatar、Card、Collapse、Popover、Progress、Spin、Drawer
 - [ ] npm 发布流程（自动化版本管理 + CHANGELOG）
 - [ ] 无障碍（a11y）合规审查
 - [ ] 性能基准（打包体积 + 运行时）
