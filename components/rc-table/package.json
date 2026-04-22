@@ -58,9 +58,6 @@
     "@crab-dev/rc-virtual": "workspace:^",
     "jsonpath-plus": "^10.4.0"
   },
-  "cssDependencies": {
-    "@crab-dev/rc-virtual": "workspace:^"
-  },
   "engines": {
     "node": ">=22"
   }
