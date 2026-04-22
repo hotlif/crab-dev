@@ -48,6 +48,7 @@ export const vars = {
     'font.size.heading': '--token-semantic-font-size-heading',
     'font.size.subhead': '--token-semantic-font-size-subhead',
     'font.size.caption': '--token-semantic-font-size-caption',
+    'font.weight.body': '--token-semantic-font-weight-body',
     'font.weight.label': '--token-semantic-font-weight-label',
     'font.weight.heading': '--token-semantic-font-weight-heading',
     'radius.sm': '--token-semantic-radius-sm',
@@ -139,6 +140,7 @@ const token = {
             'caption': `var(${vars['font.size.caption']}, var(--token-global-font-size-xs, 12px))`
         },
         'weight': {
+            'body': `var(${vars['font.weight.body']}, var(--token-global-font-weight-regular, 400))`,
             'label': `var(${vars['font.weight.label']}, var(--token-global-font-weight-medium, 500))`,
             'heading': `var(${vars['font.weight.heading']}, var(--token-global-font-weight-semibold, 600))`
         }

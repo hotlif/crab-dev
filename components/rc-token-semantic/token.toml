@@ -100,6 +100,7 @@ font.size.body      = "$ref(font.size.sm)"
 font.size.heading   = "$ref(font.size.lg)"
 font.size.subhead   = "$ref(font.size.md)"
 font.size.caption   = "$ref(font.size.xs)"
+font.weight.body    = "$ref(font.weight.regular)"
 font.weight.label   = "$ref(font.weight.medium)"
 font.weight.heading = "$ref(font.weight.semibold)"
 
