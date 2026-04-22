@@ -1,0 +1,61 @@
+[build]
+output = "./src/token.ts"
+prefix = "avatar"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 通用 ────────────────────────────────────────────────────────────────────
+transition = "box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1), transform 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), color 120ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+# ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
+size.small.value     = "28px"
+size.small.font.size = "$ref(font.size.caption)"
+
+size.middle.value     = "40px"
+size.middle.font.size = "$ref(font.size.body)"
+
+size.large.value     = "48px"
+size.large.font.size = "$ref(font.size.subhead)"
+
+icon.size.small  = "14px"
+icon.size.middle = "18px"
+icon.size.large  = "22px"
+
+content.max-width   = "70%"
+content.font.weight = "$ref(font.weight.label)"
+
+# ─── 形态 ────────────────────────────────────────────────────────────────────
+shape.square.radius = "$ref(radius.lg)"
+
+# ─── 交互语义 ────────────────────────────────────────────────────────────────
+border.color     = "$ref(color.border.default)"
+border.hover     = "$ref(color.border.hover)"
+focus.ring.color = "$ref(color.border.focus)"
+disabled.opacity = "$ref(opacity.disabled)"
+
+# ─── 颜色语义 ────────────────────────────────────────────────────────────────
+default.color            = "$ref(color.text.primary)"
+default.background.color = "$ref(color.background.hover-subtle)"
+
+primary.color            = "$ref(color.text.on-brand)"
+primary.background.color = "$ref(color.brand.primary)"
+
+success.color            = "$ref(color.feedback.success)"
+success.background.color = "$ref(color.feedback.success-background)"
+
+warning.color            = "$ref(color.feedback.warning)"
+warning.background.color = "$ref(color.feedback.warning-background)"
+
+error.color              = "$ref(color.feedback.error)"
+error.background.color   = "$ref(color.feedback.error-background)"
+
+# ─── AvatarGroup ─────────────────────────────────────────────────────────────
+group.overlap                = "-8px"
+group.transition             = "transform 180ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1)"
+group.hover.translate.y      = "-2px"
+
+group.item.ring.width        = "2px"
+group.item.border.color      = "$ref(color.background.surface)"
