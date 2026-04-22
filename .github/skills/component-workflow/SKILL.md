@@ -230,25 +230,91 @@ index = true
 <API path="./src/{name}.tsx" />
 ```
 
-### 9. Demo 文件规范
+### 9. Demo 文件规范（硬性约束）
 
-每个 demo 文件必须以 JSDoc 注释开头声明元数据：
+Demo 元数据由 `crustify/AutoScanWebpackPlugin` 的 `getTypeScriptComment` + `smol-toml` 解析，决定了 demo 卡片的标题、描述与排序。下述四条**必须**同时满足，否则 frontmatter 会被丢弃成 `null`，demo 会以无标题形态渲染（典型表现：卡片只显示一段裸代码，没有中文标题和说明）。
+
+**规则 M1 — 注释必须置于文件最顶部**
+
+注释取的是"源文件第一个 statement 的 leading comment"。因此 JSDoc 块**必须**在 `import` 之前，**不得**放在组件定义上方或任何 `import` 之后。
+
+**规则 M2 — 注释体必须是 TOML，不是散文**
+
+内容按 `key = "value"` 逐行书写，值**必须**使用双引号包裹。禁止仅写一段中文标题 / 描述段落——解析器会抛错并把 frontmatter 归零。
+
+**规则 M3 — 字段白名单**
+
+目前被消费的字段：
+
+| 字段 | 类型 | 语义 |
+|------|------|------|
+| `title` | string（必填） | demo 卡片标题，中文 |
+| `description` | string（可选） | 一句话说明，支持 `` ` `` 行内代码 |
+
+未来新增字段前须同步更新 scanner；demo 里**不得**自创字段。
+
+**规则 M4 — 注释内不得使用 Markdown 列表 / 多段落**
+
+`smol-toml` 按 TOML 规则解析；`-`、空行、`>` 等符号会让整块变成非法 TOML。如需多行描述，使用 TOML 的多行字符串 `"""..."""`。
+
+#### ✅ 正确范式
 
 ```typescript
 /**
  * title = "基础用法"
- * description = "组件的基本展示"
+ * description = "通过 `open` 控制显示；点击遮罩或按 `Esc` 均可关闭。"
  */
 
-import { css } from "@linaria/core";
+import { useState } from "react";
 import Component from "../../src/index.js";
 
 const BasicDemo = () => {
-    return ( <Component>内容</Component> );
+    return <Component />;
 };
 
 export default BasicDemo;
 ```
+
+#### ❌ 常见错误（对照自查）
+
+```typescript
+// ❌ 错误 1：注释写在 import 之后 —— 不是"第一个 statement 的 leading comment"，被忽略
+import Component from "../../src/index.js";
+
+/**
+ * title = "基础用法"
+ */
+const Demo = () => <Component />;
+```
+
+```typescript
+// ❌ 错误 2：散文式 JSDoc —— 不是合法 TOML，parse() 抛错后 frontmatter = null
+/**
+ * 基础用法
+ *
+ * 通过 `open` 控制显示……
+ */
+import Component from "../../src/index.js";
+```
+
+```typescript
+// ❌ 错误 3：值未加引号 / 使用 Markdown 列表 —— 非法 TOML
+/**
+ * title = 基础用法
+ * description =
+ *   - 第一行
+ *   - 第二行
+ */
+```
+
+#### 自查清单
+
+提交 demo 前逐项核对：
+
+- [ ] JSDoc 块是文件**第一行**，前面没有任何 `import` 或其它代码；
+- [ ] 至少包含 `title = "..."`（双引号）；
+- [ ] 多行描述使用 TOML 多行字符串 `"""..."""`，不使用 Markdown 列表；
+- [ ] 在 lignify 预览中卡片**标题正确显示**为中文，而非文件名。
 
 ### 10. 创建后执行
 
