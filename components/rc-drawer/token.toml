@@ -1,0 +1,44 @@
+[build]
+output = "./src/token.ts"
+prefix = "drawer"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+overlay.background.color = "$ref(color.background.overlay)"
+background.color         = "$ref(color.background.elevated)"
+box.shadow               = "$ref(shadow.overlay)"
+
+size.small.width   = "280px"
+size.medium.width  = "420px"
+size.large.width   = "560px"
+
+size.small.height  = "240px"
+size.medium.height = "360px"
+size.large.height  = "480px"
+
+header.padding              = "$ref(space.card-padding) $ref(space.dialog-padding)"
+header.border.color         = "$ref(color.border.default)"
+header.title.font.weight    = "$ref(font.weight.heading)"
+header.title.font.size      = "$ref(font.size.heading)"
+header.title.color          = "$ref(color.text.primary)"
+header.title.line.height    = "1.35"
+header.title.letter.spacing = "-0.01em"
+
+body.padding              = "$ref(space.card-padding) $ref(space.dialog-padding)"
+
+footer.padding            = "$ref(space.stack-gap) $ref(space.dialog-padding)"
+footer.border.color       = "$ref(color.border.default)"
+footer.gap                = "$ref(space.component-gap)"
+
+close.size                = "32px"
+close.icon.size           = "16px"
+close.color               = "$ref(color.text.secondary)"
+close.color-hover         = "$ref(color.text.primary)"
+close.background.color-hover = "$ref(color.background.hover-subtle)"
+close.border.radius       = "$ref(radius.md)"
+
+transition.duration       = "280ms"
+transition.easing         = "cubic-bezier(0.32, 0.72, 0, 1)"
