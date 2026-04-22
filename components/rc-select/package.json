@@ -24,7 +24,6 @@
         "@crab-dev/lignify": "workspace:^",
         "@crab-dev/packify": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-dropdown-container": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
@@ -56,6 +55,7 @@
     },
     "dependencies": {
         "@crab-dev/rc-line-edit": "workspace:^",
-        "@crab-dev/rc-virtual": "workspace:^"
+        "@crab-dev/rc-virtual": "workspace:^",
+        "@crab-dev/rc-dropdown-container": "workspace:^"
     }
 }
