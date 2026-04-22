@@ -1,0 +1,43 @@
+[build]
+output = "./src/token.ts"
+prefix = "skeleton"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 颜色 ───────────────────────────────────────────────────────────────────
+# 底色选用最浅的中性灰，高亮色稍深，形成低饱和、弱对比的占位观感
+color.background = "$ref(color.background.hover-subtle)"
+color.highlight  = "$ref(color.background.active-subtle)"
+
+# ─── 圆角 ───────────────────────────────────────────────────────────────────
+radius.default = "$ref(radius.md)"
+radius.text    = "$ref(radius.sm)"
+radius.pill    = "$ref(radius.pill)"
+
+# ─── 文本行 · 尺寸阶梯 ─────────────────────────────────────────────────────
+text.size.small.height  = "12px"
+text.size.medium.height = "16px"
+text.size.large.height  = "20px"
+
+text.rows.gap           = "$ref(space.stack-gap)"
+text.last-row.width     = "65%"
+
+# ─── 矩形 / 圆形默认尺寸 ────────────────────────────────────────────────────
+rect.default.width  = "100%"
+rect.default.height = "120px"
+circle.default.size = "40px"
+button.default.width  = "88px"
+button.default.height = "32px"
+avatar.default.size   = "40px"
+
+# ─── 动效 ───────────────────────────────────────────────────────────────────
+animation.pulse.duration = "1600ms"
+animation.pulse.easing   = "cubic-bezier(0.4, 0, 0.6, 1)"
+animation.pulse.opacity-min = "$ref(opacity.secondary)"
+animation.pulse.opacity-max = "1"
+
+animation.wave.duration  = "1600ms"
+animation.wave.easing    = "cubic-bezier(0.4, 0, 0.2, 1)"
