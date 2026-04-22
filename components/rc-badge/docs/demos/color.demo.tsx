@@ -17,8 +17,7 @@ const ColorDemo = () => {
             `}
         >
             <Badge count={1} color="default" />
-            <Badge count={2} color="primary" />
-            <Badge count={3} color="success" />
+            <Badge count={2} color="success" />
             <Badge count={4} color="warning" />
             <Badge count={5} color="error" />
             <Badge count={6} color="#ff6b00" />

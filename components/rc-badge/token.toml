@@ -36,7 +36,6 @@ count.font.weight        = "$ref(font.weight.label)"
 
 # ─── 状态圆点颜色 ────────────────────────────────────────────────────────────
 status.default.color    = "$ref(color.fill.inactive)"
-status.primary.color    = "$ref(color.brand.primary)"
 status.processing.color = "$ref(color.feedback.info)"
 status.success.color    = "$ref(color.feedback.success)"
 status.warning.color    = "$ref(color.feedback.warning)"

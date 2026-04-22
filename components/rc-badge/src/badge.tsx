@@ -118,10 +118,6 @@ const colorDefaultStyle = css`
     background-color: ${token.status.default.color};
 `;
 
-const colorPrimaryStyle = css`
-    background-color: ${token.status.primary.color};
-`;
-
 const colorProcessingStyle = css`
     background-color: ${token.status.processing.color};
 `;
@@ -140,7 +136,6 @@ const colorErrorStyle = css`
 
 const PRESET_COLOR_MAP: Record<BadgePresetColor, string> = {
     default: colorDefaultStyle,
-    primary: colorPrimaryStyle,
     processing: colorProcessingStyle,
     success: colorSuccessStyle,
     warning: colorWarningStyle,

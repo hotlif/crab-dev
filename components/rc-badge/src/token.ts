@@ -21,7 +21,6 @@ export const vars = {
     'count.border-color': '--badge-count-border-color',
     'count.font.weight': '--badge-count-font-weight',
     'status.default.color': '--badge-status-default-color',
-    'status.primary.color': '--badge-status-primary-color',
     'status.processing.color': '--badge-status-processing-color',
     'status.success.color': '--badge-status-success-color',
     'status.warning.color': '--badge-status-warning-color',
@@ -78,9 +77,6 @@ const token = {
     'status': {
         'default': {
             'color': `var(${vars['status.default.color']}, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
-        },
-        'primary': {
-            'color': `var(${vars['status.primary.color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
         },
         'processing': {
             'color': `var(${vars['status.processing.color']}, var(--token-semantic-color-feedback-info, var(--token-global-blue-500, oklch(0.623 0.214 261))))`

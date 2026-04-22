@@ -1,7 +1,7 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 export type BadgeStatus = 'default' | 'processing' | 'success' | 'warning' | 'error';
-export type BadgePresetColor = BadgeStatus | 'primary';
+export type BadgePresetColor = BadgeStatus;
 
 interface BaseBadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'title'> {
     /** 展示的数字，大于 overflowCount 时显示为 `${overflowCount}+` */
