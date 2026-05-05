@@ -114,7 +114,15 @@ export const parseHeaderComments = async (path: string) => {
 }
 
 export const getAllFiles = async (dir: string, include: RegExp | null, exclude: RegExp | null) => {
-    const dirents = await readdir(dir, { withFileTypes: true });
+    let dirents;
+    try {
+        dirents = await readdir(dir, { withFileTypes: true });
+    } catch (err: any) {
+        if (err?.code === 'ENOENT') {
+            return [];
+        }
+        throw err;
+    }
     const files: string[] = [];
     for (let i = 0; i < dirents.length; i++) {
         const currentPath = join(dir, dirents[i].name);
