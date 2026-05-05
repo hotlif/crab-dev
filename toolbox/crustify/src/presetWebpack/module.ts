@@ -73,7 +73,6 @@ const getRules = (isProduction: boolean) => [
         exclude: /node_modules/,
         use: [
             getWywLoader(),
-            require.resolve("thread-loader"),
             getBabelLoader(),
             {
                 loader: require.resolve('@mdx-js/loader'),
