@@ -4490,7 +4490,7 @@ const RAW_RUNTIME_STATE =
           ["@types/babel__preset-env", "npm:7.10.0"],\
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/memory-fs", "npm:0.3.7"],\
-          ["@types/node", "npm:25.5.0"],\
+          ["@types/node", "npm:25.6.0"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
           ["@types/tapable", null],\
@@ -4561,7 +4561,7 @@ const RAW_RUNTIME_STATE =
           ["@types/babel__preset-env", "npm:7.10.0"],\
           ["@types/fs-extra", "npm:11.0.4"],\
           ["@types/memory-fs", "npm:0.3.7"],\
-          ["@types/node", "npm:25.5.0"],\
+          ["@types/node", "npm:25.6.0"],\
           ["@types/react", "npm:19.2.14"],\
           ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
           ["@wyw-in-js/webpack-loader", "virtual:5e7e3b7e73e207cc2ac3370cc9ef7eead2039b1d46e5af0ce988de078b612ebb678031937c9d86283b12ef980920b1ce9b4611260293d4d41c2b148e5cf67f3b#npm:1.0.7"],\
@@ -9418,6 +9418,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/node", "npm:25.5.2"],\
           ["undici-types", "npm:7.18.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:25.6.0", {\
+        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@types-node-npm-25.6.0-429799b5e8-10c0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:25.6.0"],\
+          ["undici-types", "npm:7.19.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -21959,7 +21967,7 @@ const RAW_RUNTIME_STATE =
           ["@tsconfig/node12", "npm:1.0.11"],\
           ["@tsconfig/node14", "npm:1.0.3"],\
           ["@tsconfig/node16", "npm:1.0.4"],\
-          ["@types/node", "npm:25.5.0"],\
+          ["@types/node", "npm:25.6.0"],\
           ["@types/swc__core", null],\
           ["@types/swc__wasm", null],\
           ["@types/typescript", null],\
@@ -22291,6 +22299,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/undici-types-npm-7.18.2-3e6d69d829-10c0.zip/node_modules/undici-types/",\
         "packageDependencies": [\
           ["undici-types", "npm:7.18.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:7.19.2", {\
+        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/undici-types-npm-7.19.2-93c792b6dd-10c0.zip/node_modules/undici-types/",\
+        "packageDependencies": [\
+          ["undici-types", "npm:7.19.2"]\
         ],\
         "linkType": "HARD"\
       }]\
