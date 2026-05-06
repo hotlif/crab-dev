@@ -17,5 +17,6 @@
     "yarn turbo": true,
     "ForEach-Object": true,
     ".": true
-  }
+  },
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib"
 }
