@@ -47,7 +47,7 @@ export const getTypeScriptComment = (code: string) => {
         }
         return null;
     } catch {
-        return null;            
+        return null;
     }
 }
 
@@ -72,7 +72,7 @@ export const getMdxComment = async (path: string) => {
 	    .use(remarkFrontmatterPlugin, ['toml'])
 	    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 	    .use(() => (t: any) => {
-	        tree = t 
+	        tree = t
 	    })
 	    .process(await read(path, "utf-8"));
 	const data = tree!.children.find(ele => ele.type === "toml")
@@ -88,7 +88,7 @@ export const getMdxComment = async (path: string) => {
 
 /**
  * 解析文件头部注释
- * 
+ *
  * @param path - 文件路径
  * @returns 解析后的注释内容
  */
@@ -117,8 +117,8 @@ export const getAllFiles = async (dir: string, include: RegExp | null, exclude: 
     let dirents;
     try {
         dirents = await readdir(dir, { withFileTypes: true });
-    } catch (err: any) {
-        if (err?.code === 'ENOENT') {
+    } catch (err: unknown) {
+        if ((err as { code?: string })?.code === 'ENOENT') {
             return [];
         }
         throw err;
@@ -160,15 +160,15 @@ interface AutoScanWebpackPluginParam {
 
 /**
  * 自动扫描指定目录下的所有文件，并生成一个包含所有组件的 ES 模块文件。
- * 
+ *
  * @param rootDir - 扫描的根目录。
  * @param componentScan - 扫描组件的规则。
  * @returns 一个字符串，表示生成的 ES 模块文件的内容。
- * 
+ *
  * 生成的文件将包括：
  * - 每个找到的组件的 import 语句。
  * - 一个包含组件元数据的数组，包括名称、相对路径和可选的源代码。
- * 
+ *
  * `componentScan` 参数包括：
  * - `cwd`: 开始扫描的目录。
  * - `generateSourceCharacter`: 是否包含组件的源代码。
@@ -230,7 +230,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
 
             const sourcePath = join(getTmpDir(rootDir), `${relativePath}.raw`);
             await copy(file, sourcePath);
-            
+
             const metadata = await parseHeaderComments(file);
 
             const sourceName = `${importName}_source`
@@ -245,7 +245,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
                 name: importName,
                 path: importUrl
             });
-        
+
             components.push({
                 name: importName,
                 path: relativePath,

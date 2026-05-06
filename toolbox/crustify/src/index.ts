@@ -66,7 +66,7 @@ export const run = async (defaultConf: Config) => {
             webpackConfig.devServer!,
             webpackCompiler
         );
-    
+
         devServer.startCallback(() => {
             const protocol = devServer.isTlsServer ? "https" : "http";
             const host = devServer.options.host ?? "localhost";

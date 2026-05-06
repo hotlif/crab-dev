@@ -2,7 +2,7 @@
 import { getCurrentProjectPath } from "@crab-dev/crustify";
 import { join } from "path";
 import { copyTemplate } from "./utils/template.js";
-import type { Modification, Configuration, Config } from "./types/modification";
+import type { Modification, Configuration, Config } from "./types/modification.js";
 
 const dirname = () => (typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname);
 const projectPath = getCurrentProjectPath(dirname());
@@ -16,7 +16,7 @@ class LignifyMod implements Modification {
     modifyEntry() {
         return `import("@@/.tmp/lignify/entry.tsx");`;
     }
- 
+
     modifyWebpack(conf: Configuration) {
         return conf;
     }
@@ -54,7 +54,7 @@ class LignifyMod implements Modification {
             cwd: join(process.cwd(), "docs"),
             generateSourceCharacter: false,
         });
-    
+
         return config
     }
 }
