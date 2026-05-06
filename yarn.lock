@@ -14288,7 +14288,7 @@ __metadata:
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@linaria/core": "npm:^7.0.0"
-    "@types/node": "npm:25.5.0"
+    "@types/node": "npm:^25.5.0"
     eslint: "npm:^10.1.0"
     husky: "npm:^9.1.7"
     turbo: "npm:^2.5.4"
