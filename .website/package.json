@@ -1,0 +1,43 @@
+{
+    "name": "@crab-dev/website",
+    "private": true,
+    "version": "0.0.1",
+    "description": "crab-dev 官方组件库文档站，基于 Crustify。",
+    "packageManager": "yarn@4.13.0",
+    "type": "module",
+    "scripts": {
+        "start": "crustify run-task app:dev",
+        "build": "crustify run-task app:build",
+        "eslint": "eslint",
+        "typecheck": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@crab-dev/crustify": "workspace:^",
+        "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/rc-masonry": "workspace:^",
+        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@linaria/core": "^7.0.0",
+        "@mdx-js/react": "^3.1.1",
+        "@types/node": "^25.5.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^10.1.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.4.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-markdown": "^10.1.0",
+        "react-router": "^7.13.2",
+        "react-syntax-highlighter": "^16.1.1",
+        "remark-gfm": "^4.0.1",
+        "typescript": "^6.0.2"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "dependencies": {
+        "rehype-raw": "^7.0.0"
+    }
+}

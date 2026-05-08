@@ -1,7 +1,7 @@
 import { Compiler, WebpackPluginInstance } from "webpack";
 import { readdir, writeFile, readFile } from "fs/promises";
 import { copy } from "fs-extra";
-import { join, sep } from "path";
+import { join, relative, sep } from "path";
 import * as ts from "typescript";
 import { parse } from "smol-toml";
 
@@ -224,11 +224,13 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
         for (let i = 0; i < files.length; i += 1) {
             const file = files[i];
 
-            const importUrl = file.replace(process.cwd(), "@@").replaceAll(sep, "/");
+            const relativePath = relative(process.cwd(), file).replaceAll(sep, "/");
+            const safeRelativePath = relativePath.replace(/^(\.\.\/)+/, "");
+            const relativeImportPath = relativePath.startsWith(".") ? relativePath : `./${relativePath}`;
+            const importUrl = `@@/${relativeImportPath}`.replace(/\/+/g, "/");
             const importName = importUrl.replace(/[^a-zA-Z0-9]/g, "_");
-            const relativePath = file.replace(process.cwd(), "").replaceAll(sep, "/");
 
-            const sourcePath = join(getTmpDir(rootDir), `${relativePath}.raw`);
+            const sourcePath = join(getTmpDir(rootDir), `${safeRelativePath}.raw`);
             await copy(file, sourcePath);
 
             const metadata = await parseHeaderComments(file);
@@ -237,7 +239,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
             if (generateSourceCharacter !== false) {
                 sources.push({
                     name: sourceName,
-                    path: `./${relativePath}.raw`
+                    path: `./${safeRelativePath}.raw`
                 })
             }
 
@@ -248,7 +250,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
 
             components.push({
                 name: importName,
-                path: relativePath,
+                path: safeRelativePath,
                 source: generateSourceCharacter ? sourceName : "null",
                 frontmatter: JSON.stringify(metadata),
             });
