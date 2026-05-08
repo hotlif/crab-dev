@@ -4,6 +4,7 @@ import { Link, NavLink, useParams } from "react-router";
 import manifest from "../_generated/manifest.js";
 import Markdown from "../components/markdown.js";
 import { groupComponents } from "../components/categories.js";
+import { GithubIcon, IssueIcon, EditIcon, CompassIcon, HistoryIcon } from "../components/icons.js";
 
 const wrapStyle = css`
     display: grid;
@@ -84,8 +85,8 @@ const contentStyle = css`
 `;
 
 const headerStyle = css`
-    margin-bottom: 24px;
-    padding: 20px;
+    margin-bottom: 16px;
+    padding: 16px 20px;
     border-radius: var(--radius-lg);
     background: var(--card);
 `;
@@ -96,7 +97,7 @@ const breadcrumbStyle = css`
     gap: 6px;
     font-size: 12px;
     color: var(--muted-foreground);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 
     > a:hover { color: var(--accent-600); }
 `;
@@ -106,7 +107,7 @@ const titleRowStyle = css`
     flex-wrap: wrap;
     align-items: baseline;
     gap: 14px;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 `;
 
 const titleStyle = css`
@@ -115,6 +116,7 @@ const titleStyle = css`
     letter-spacing: -0.02em;
     font-weight: 700;
     color: var(--text-primary);
+    margin: 0;
 `;
 
 const pkgStyle = css`
@@ -131,6 +133,86 @@ const subtitleStyle = css`
     color: var(--muted-foreground);
     font-size: 15px;
     line-height: 1.6;
+    margin: 8px 0 0;
+`;
+
+const metaPanelStyle = css`
+    margin-top: 6px;
+    padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+`;
+
+const metaRowStyle = css`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 26px;
+
+    @media (max-width: 720px) {
+        align-items: flex-start;
+        min-height: 0;
+    }
+`;
+
+const metaLabelStyle = css`
+    flex-shrink: 0;
+    width: 40px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+`;
+
+const usageCodeStyle = css`
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+`;
+
+const linksRowStyle = css`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+`;
+
+const actionLinkStyle = css`
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    padding: 2px 0;
+
+    & + & {
+        margin-left: 12px;
+        padding-left: 12px;
+    }
+
+    &:hover {
+        color: var(--foreground);
+    }
+
+    &:focus-visible {
+        outline: none;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+`;
+
+const iconStyle = css`
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    opacity: 0.88;
 `;
 
 const sidebarGroupStyle = css`
@@ -161,6 +243,44 @@ const sidebarGroupLabelStyle = css`
 const ComponentView = () => {
     const { slug } = useParams<{ slug: string }>();
     const item = useMemo(() => manifest.find(m => m.slug === slug), [slug]);
+    const repoBase = "https://github.com/hotlif/crab-dev";
+
+    const usageName = useMemo(() => {
+        if (!item) return "Component";
+        return item.slug
+            .replace(/^rc-/, "")
+            .split("-")
+            .filter(Boolean)
+            .map(part => part[0]?.toUpperCase() + part.slice(1))
+            .join("");
+    }, [item]);
+
+    const usageCode = useMemo(() => {
+        if (!item) return "";
+        return `import ${usageName} from '${item.pkg}';`;
+    }, [item, usageName]);
+
+    const sourceHref = useMemo(() => {
+        if (!item) return repoBase;
+        return `${repoBase}/tree/canary/components/${item.slug}`;
+    }, [item]);
+
+    const issueHref = useMemo(() => {
+        if (!item) return `${repoBase}/issues/new`;
+        return `${repoBase}/issues/new?title=${encodeURIComponent(`[${item.pkg}] `)}`;
+    }, [item]);
+
+    const readmeHref = useMemo(() => {
+        if (!item) return repoBase;
+        return `${repoBase}/blob/canary/components/${item.slug}/README.md`;
+    }, [item]);
+
+    const guideHref = `${repoBase}/blob/canary/rfc/RFC-DESIGN-TOKEN-20260329.md`;
+
+    const changelogHref = useMemo(() => {
+        if (!item) return `${repoBase}/commits/canary`;
+        return `${repoBase}/commits/canary/components/${item.slug}`;
+    }, [item]);
     const normalizedReadme = useMemo(() => {
         if (!item?.readme) return "";
 
@@ -227,6 +347,42 @@ const ComponentView = () => {
                     {item.description && (
                         <p className={subtitleStyle}>{item.description}</p>
                     )}
+                    <div className={metaPanelStyle}>
+                        <div className={metaRowStyle}>
+                            <span className={metaLabelStyle}>使用</span>
+                            <code className={usageCodeStyle}>{usageCode}</code>
+                        </div>
+                        <div className={metaRowStyle}>
+                            <span className={metaLabelStyle}>反馈</span>
+                            <div className={linksRowStyle}>
+                                <a className={actionLinkStyle} href={sourceHref} target="_blank" rel="noreferrer">
+                                    <GithubIcon className={iconStyle} />
+                                    components/{item.slug}
+                                </a>
+                                <a className={actionLinkStyle} href={issueHref} target="_blank" rel="noreferrer">
+                                    <IssueIcon className={iconStyle} />
+                                    提交问题
+                                </a>
+                            </div>
+                        </div>
+                        <div className={metaRowStyle}>
+                            <span className={metaLabelStyle}>文档</span>
+                            <div className={linksRowStyle}>
+                                <a className={actionLinkStyle} href={readmeHref} target="_blank" rel="noreferrer">
+                                    <EditIcon className={iconStyle} />
+                                    编辑此页
+                                </a>
+                                <a className={actionLinkStyle} href={guideHref} target="_blank" rel="noreferrer">
+                                    <CompassIcon className={iconStyle} />
+                                    设计指南
+                                </a>
+                                <a className={actionLinkStyle} href={changelogHref} target="_blank" rel="noreferrer">
+                                    <HistoryIcon className={iconStyle} />
+                                    更新日志
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </header>
 
                 {normalizedReadme && (

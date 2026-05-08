@@ -78,6 +78,36 @@ export const PackageIcon = (p: SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
+export const IssueIcon = (p: SVGProps<SVGSVGElement>) => (
+    <svg {...base} {...p}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v5" />
+        <circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+);
+
+export const EditIcon = (p: SVGProps<SVGSVGElement>) => (
+    <svg {...base} {...p}>
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5z" />
+    </svg>
+);
+
+export const CompassIcon = (p: SVGProps<SVGSVGElement>) => (
+    <svg {...base} {...p}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" />
+    </svg>
+);
+
+export const HistoryIcon = (p: SVGProps<SVGSVGElement>) => (
+    <svg {...base} {...p}>
+        <path d="M3 12a9 9 0 1 0 2.64-6.36" />
+        <path d="M3 4v4h4" />
+        <path d="M12 7v5l3 2" />
+    </svg>
+);
+
 export const MenuIcon = (p: SVGProps<SVGSVGElement>) => (
     <svg {...base} {...p}>
         <path d="M3 6h18M3 12h18M3 18h18" />
