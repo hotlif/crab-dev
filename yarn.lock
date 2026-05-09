@@ -2562,7 +2562,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-prose@workspace:components/rc-prose":
+"@crab-dev/rc-prose@workspace:^, @crab-dev/rc-prose@workspace:components/rc-prose":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-prose@workspace:components/rc-prose"
   dependencies:
@@ -3114,6 +3114,7 @@ __metadata:
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-prose": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@linaria/core": "npm:^7.0.0"

@@ -1,147 +1,17 @@
-import { css, cx } from "@linaria/core";
+import { css } from "@linaria/core";
 import { useState, type FC, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import Prose from "@crab-dev/rc-prose";
 import { Prism } from "react-syntax-highlighter";
-import oneLight from "react-syntax-highlighter/dist/esm/styles/prism/one-light.js";
-import oneDark from "react-syntax-highlighter/dist/esm/styles/prism/one-dark.js";
+import vs from "react-syntax-highlighter/dist/esm/styles/prism/vs.js";
+import vsDark from "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js";
 import { CopyIcon, CheckIcon } from "./icons.js";
 import { useTheme } from "../theme/useTheme.js";
 import DemoGallery from "./demoGallery.js";
 import type { DemoMeta, ApiPropMeta } from "../_generated/manifest.js";
-
-const proseStyle = css`
-    color: var(--text-primary);
-    font-size: 15px;
-    line-height: 1.75;
-
-    > :first-child {
-        margin-top: 0;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        color: var(--text-primary);
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        line-height: 1.25;
-        margin: 2em 0 0.6em;
-        scroll-margin-top: 96px;
-    }
-    h1 { font-size: 32px; margin-top: 0; }
-    h2 {
-        font-size: 22px;
-        margin-top: 1.6em;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--border-subtle);
-    }
-    h3 { font-size: 18px; }
-    h4 { font-size: 16px; }
-
-    p {
-        margin: 0.8em 0;
-        color: var(--text-secondary);
-    }
-
-    a {
-        color: var(--accent-600);
-        text-decoration: none;
-        border-bottom: 1px solid transparent;
-        transition: border-color var(--transition-fast);
-    }
-    a:hover {
-        border-bottom-color: var(--accent-600);
-    }
-
-    ul, ol {
-        margin: 0.8em 0;
-        padding-left: 1.4em;
-        color: var(--text-secondary);
-    }
-    li { margin: 0.3em 0; }
-    li::marker { color: var(--text-tertiary); }
-
-    blockquote {
-        margin: 1em 0;
-        padding: 12px 16px;
-        border-left: 3px solid var(--accent-500);
-        background: var(--surface-sunken);
-        border-radius: 0 var(--radius-md) var(--radius-md) 0;
-        color: var(--text-secondary);
-        > p { margin: 0.4em 0; }
-    }
-
-    hr {
-        border: none;
-        border-top: 1px solid var(--border-subtle);
-        margin: 2em 0;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 1.2em 0;
-        font-size: 14px;
-        border: 1px solid var(--border-default);
-        border-radius: var(--radius-md);
-        overflow: hidden;
-        background: var(--surface-raised);
-        box-shadow: 0 1px 0 color-mix(in oklab, var(--border-subtle) 72%, transparent) inset;
-    }
-    thead {
-        background: color-mix(in oklab, var(--surface-sunken) 78%, var(--surface-raised));
-    }
-    th, td {
-        padding: 12px 16px;
-        text-align: left;
-        border-bottom: 1px solid color-mix(in oklab, var(--border-subtle) 88%, transparent);
-    }
-    th {
-        font-weight: 600;
-        color: var(--text-primary);
-        white-space: nowrap;
-        letter-spacing: 0.01em;
-    }
-    td {
-        color: var(--text-secondary);
-    }
-    tbody tr:nth-child(2n) {
-        background: color-mix(in oklab, var(--surface-sunken) 48%, transparent);
-    }
-    tbody tr:last-child td {
-        border-bottom: none;
-    }
-    tbody tr:hover {
-        background: color-mix(in oklab, var(--accent-50) 52%, var(--surface-raised));
-    }
-
-    code {
-        font-family: var(--font-mono);
-        font-size: 0.88em;
-        padding: 2px 6px;
-        background: var(--surface-sunken);
-        border: 1px solid var(--border-subtle);
-        border-radius: 4px;
-        color: var(--accent-700);
-    }
-
-    pre {
-        margin: 1.2em 0;
-        background: transparent !important;
-    }
-
-    img {
-        max-width: 100%;
-        border-radius: var(--radius-md);
-    }
-
-    div[align="center"] {
-        text-align: center;
-        margin: 0.8em 0;
-        > h1 { margin-top: 0; }
-    }
-`;
 
 const codeBlockStyle = css`
     position: relative;
@@ -226,7 +96,7 @@ const CodeRenderer: FC<CodeProps> = ({ inline, className, children }) => {
             </div>
             <Prism
                 language={lang}
-                style={theme === "dark" ? oneDark : oneLight}
+                style={theme === "dark" ? vsDark : vs}
                 wrapLongLines
                 customStyle={{
                     margin: 0,
@@ -298,7 +168,7 @@ const Markdown: FC<MarkdownProps> = ({ children, className, demos = [], api = []
     } as Components;
 
     return (
-        <div className={cx(proseStyle, className)}>
+        <Prose className={className}>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
@@ -306,7 +176,7 @@ const Markdown: FC<MarkdownProps> = ({ children, className, demos = [], api = []
             >
                 {children}
             </ReactMarkdown>
-        </div>
+        </Prose>
     );
 };
 

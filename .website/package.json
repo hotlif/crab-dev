@@ -16,6 +16,7 @@
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-prose": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^7.0.0",
