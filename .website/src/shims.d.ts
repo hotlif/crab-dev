@@ -11,12 +11,12 @@ declare module "react-syntax-highlighter" {
     export const Prism: ComponentType<HighlighterProps>;
 }
 
-declare module "react-syntax-highlighter/dist/esm/styles/prism/one-light.js" {
+declare module "react-syntax-highlighter/dist/esm/styles/prism/vs.js" {
     const style: Record<string, import("react").CSSProperties>;
     export default style;
 }
 
-declare module "react-syntax-highlighter/dist/esm/styles/prism/one-dark.js" {
+declare module "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js" {
     const style: Record<string, import("react").CSSProperties>;
     export default style;
 }

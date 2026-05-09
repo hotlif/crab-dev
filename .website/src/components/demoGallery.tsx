@@ -1,8 +1,9 @@
 import { css } from "@linaria/core";
 import { useEffect, useState, type FC, type ReactNode, type ComponentType } from "react";
 import { Prism } from "react-syntax-highlighter";
-import oneLight from "react-syntax-highlighter/dist/esm/styles/prism/one-light.js";
-import oneDark from "react-syntax-highlighter/dist/esm/styles/prism/one-dark.js";
+import vs from "react-syntax-highlighter/dist/esm/styles/prism/vs.js";
+import vsDark from "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js";
+
 
 import demoLoaders from "../_generated/demoLoaders.js";
 import type { DemoMeta } from "../_generated/manifest.js";
@@ -271,7 +272,7 @@ const DemoBlock: FC<DemoBlockProps> = ({ meta }) => {
                 <div className={sourceStyle}>
                     <Prism
                         language="tsx"
-                        style={theme === "dark" ? oneDark : oneLight}
+                        style={theme === "dark" ? vsDark : vs}
                         wrapLongLines
                         customStyle={{
                             margin: 0,
