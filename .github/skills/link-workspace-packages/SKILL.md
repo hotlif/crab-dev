@@ -1,6 +1,6 @@
 ---
-name: link-workspace-packages
-description: '在 Yarn 4 PnP monorepo 中链接 workspace 包。使用场景：（1）刚创建或生成了新包，需要连通它们之间的依赖；（2）用户从兄弟包中导入符号，需要将其登记为依赖；（3）出现 workspace 包（@org/*）的解析错误，如 "cannot find module"、"failed to resolve import"、"TS2307" 或 "cannot resolve"。禁止通过 tsconfig paths 或手编 package.json 绕过问题 —— 必须使用 Yarn workspace 命令修复真实的链接关系。'
+name: 03-link-packages
+description: '在 Yarn 4 PnP monorepo 中链接 workspace 包。使用场景：（1）刚创建或生成了新包，需要连通它们之间的依赖；（2）用户从兄弟包中导入符号，需要将其登记为依赖；（3）出现 workspace 包（@org/*）的解析错误，如 "cannot find module"、"failed to resolve import"、"TS2307"、"cannot resolve"、"qualified path resolution failed"。禁止通过 tsconfig paths 或手编 package.json 绕过问题 —— 必须使用 Yarn workspace 命令修复真实的链接关系。'
 ---
 
 # 链接 Workspace 包（Yarn 4 PnP）

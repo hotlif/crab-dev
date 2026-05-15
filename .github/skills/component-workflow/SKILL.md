@@ -1,6 +1,6 @@
 ---
-name: component-workflow
-description: "crab-dev monorepo 的组件开发全流程手册。使用场景：创建新的 rc-* 组件；设计 token.toml 设计令牌；排查 Yarn 4 PnP 问题；配置 Webpack / Rollup 构建；修复 Turbo 任务图循环依赖；编写 Jest + RTL 测试；Linaria CSS-in-JS 样式；ESM 模块解析。禁止用于：非 crab-dev 项目。"
+name: 01-workflow
+description: "crab-dev monorepo 的组件开发全流程手册。使用场景：创建新的 rc-* 组件；设计 token.toml 设计令牌；排查 Yarn 4 PnP 问题；配置 Webpack / Rollup 构建；修复 Turbo 任务图循环依赖；编写 Jest + RTL 测试；Linaria CSS-in-JS 样式；ESM 模块解析；编写 demo 或 MDX 文档。禁止用于：非 crab-dev 项目。"
 argument-hint: "描述你需要帮助的组件、令牌、构建或 PnP 任务"
 ---
 
@@ -17,6 +17,8 @@ argument-hint: "描述你需要帮助的组件、令牌、构建或 PnP 任务"
 创建 `package.json` 前，**必须先读取一个已有组件**（如 `components/rc-tag/package.json`）获取当前 devDependencies 版本号。不要猜测版本。
 
 ### 2. 脚手架文件清单
+
+> **样式注意**：编写组件源码中的 Linaria 样式时，**应**同步调用 `02-style` 技能以确保状态覆盖与令牌合规。
 
 ```
 components/rc-{name}/

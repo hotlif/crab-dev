@@ -1,5 +1,5 @@
 ---
-name: component-style
+name: 02-style
 description: "crab-dev 组件视觉与交互质感规范。设计语言四原则：精准（Precision）、克制（Restraint）、理性（Rational）、稳态（Steady）。使用场景：编写或审查 Linaria 样式；设计尺寸 / 间距 / 圆角 / 字号 / 阴影阶梯；实现 hover / focus-visible / active / disabled / selected / loading / 空态等全量状态；选择动效时长与缓动；修复无障碍（ARIA、键盘可达、对比度）问题；处理文本截断、溢出滚动、响应式边界；审查颜色 / z-index / elevation 是否走令牌；做交付前质感自检。禁止用于：纯逻辑 / 纯数据处理代码。"
 argument-hint: "描述需要样式约束的组件、状态或视觉细节"
 ---
