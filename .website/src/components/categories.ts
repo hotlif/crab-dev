@@ -1,6 +1,8 @@
+import manifest from "../_generated/manifest.js";
+
 /**
  * 组件分类 —— 用于侧边栏与总览页分组。
- * 顺序代表展示顺序; 未列出的 slug 归入 "其他"。
+ * 顺序代表展示顺序; 分类数据来自各组件 package.json 的 category 字段。
  */
 export interface ComponentCategory {
     id: string;
@@ -8,65 +10,47 @@ export interface ComponentCategory {
     slugs: string[];
 }
 
+const categoryDefinitions = [
+    { id: "general", title: "通用" },
+    { id: "layout", title: "布局" },
+    { id: "navigation", title: "导航" },
+    { id: "data-entry", title: "数据录入" },
+    { id: "data-display", title: "数据展示" },
+    { id: "feedback", title: "反馈" },
+    { id: "primitive", title: "底层与令牌" },
+] as const;
+
+const knownCategoryIds = new Set<string>(categoryDefinitions.map(item => item.id));
+
+const categorySlugs = new Map<string, string[]>();
+const uncategorizedSlugs: string[] = [];
+
+for (const item of manifest as Array<{ slug: string; category?: string }>) {
+    const categoryId = item.category ?? "other";
+    if (!knownCategoryIds.has(categoryId)) {
+        uncategorizedSlugs.push(item.slug);
+        continue;
+    }
+
+    const slugs = categorySlugs.get(categoryId);
+    if (slugs) {
+        slugs.push(item.slug);
+    } else {
+        categorySlugs.set(categoryId, [item.slug]);
+    }
+}
+
 export const componentCategories: ComponentCategory[] = [
-    {
-        id: "general",
-        title: "通用",
-        slugs: ["rc-button", "rc-tag", "rc-badge", "rc-avatar", "rc-skeleton"],
-    },
-    {
-        id: "layout",
-        title: "布局",
-        slugs: ["rc-app-main-layout", "rc-masonry"],
-    },
-    {
-        id: "navigation",
-        title: "导航",
-        slugs: ["rc-menu", "rc-tabs", "rc-breadcrumbs", "rc-pagination", "rc-tree"],
-    },
-    {
-        id: "data-entry",
-        title: "数据录入",
-        slugs: [
-            "rc-form",
-            "rc-line-edit",
-            "rc-checkbox",
-            "rc-radio",
-            "rc-switch",
-            "rc-select",
-            "rc-slider",
-            "rc-date-picker",
-            "rc-color-picker",
-        ],
-    },
-    {
-        id: "data-display",
-        title: "数据展示",
-        slugs: ["rc-table", "rc-prose", "rc-virtual"],
-    },
-    {
-        id: "feedback",
-        title: "反馈",
-        slugs: [
-            "rc-alert",
-            "rc-message",
-            "rc-notification",
-            "rc-dialog",
-            "rc-drawer",
-            "rc-tooltip",
-        ],
-    },
-    {
-        id: "primitive",
-        title: "底层与令牌",
-        slugs: [
-            "rc-token-global",
-            "rc-token-semantic",
-            "rc-hooks",
-            "rc-dropdown-container",
-            "rc-component-preview",
-        ],
-    },
+    ...categoryDefinitions
+        .map(category => ({
+            id: category.id,
+            title: category.title,
+            slugs: categorySlugs.get(category.id) ?? [],
+        }))
+        .filter(category => category.slugs.length > 0),
+    ...(uncategorizedSlugs.length > 0
+        ? [{ id: "other", title: "其他", slugs: uncategorizedSlugs }]
+        : []),
 ];
 
 /**

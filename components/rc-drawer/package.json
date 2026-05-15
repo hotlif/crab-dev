@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-drawer",
+    "websiteConfig": { "title": "Drawer 抽屉", "category": "feedback" },
     "description": "抽屉组件：从屏幕边缘滑出的浮层面板",
     "packageManager": "yarn@4.13.0",
     "version": "0.0.1",

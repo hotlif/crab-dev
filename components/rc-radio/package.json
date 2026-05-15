@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-radio",
+    "websiteConfig": { "title": "Radio 单选框", "category": "data-entry" },
     "description": "单选框, 用于在一组选项中选择一个值",
     "packageManager": "yarn@4.13.0",
     "type": "module",

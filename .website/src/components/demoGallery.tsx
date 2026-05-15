@@ -4,10 +4,9 @@ import { Prism } from "react-syntax-highlighter";
 import vs from "react-syntax-highlighter/dist/esm/styles/prism/vs.js";
 import vsDark from "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js";
 
-
 import demoLoaders from "../_generated/demoLoaders.js";
 import type { DemoMeta } from "../_generated/manifest.js";
-import { CodeIcon, CopyIcon, CheckIcon } from "./icons.js";
+import { CodeIcon, CopyIcon, CheckIcon, ExternalLinkIcon } from "./icons.js";
 import { useTheme } from "../theme/useTheme.js";
 
 const cardStyle = css`
@@ -116,19 +115,26 @@ const iconButtonStyle = css`
     font-size: 12px;
     color: var(--text-tertiary);
     cursor: pointer;
+    text-decoration: none;
     transition: color var(--transition-fast), background-color var(--transition-fast);
 
     &:hover {
         color: var(--text-primary);
         background: var(--surface-raised);
+        text-decoration: none;
     }
     &:focus-visible {
         outline: none;
         border-color: var(--accent-500);
+        text-decoration: none;
     }
     &[data-active="true"] {
         color: var(--accent-700);
         background: var(--accent-50);
+    }
+    &:visited {
+        color: var(--text-tertiary);
+        text-decoration: none;
     }
     &:disabled {
         opacity: 0.5;
@@ -187,6 +193,8 @@ const getStageDensity = (demoPath: string): StageDensity => {
     if (SPACIOUS_STAGE_SLUGS.has(slug)) return "spacious";
     return "regular";
 };
+
+const getStandaloneDemoHref = (demoPath: string): string => `/demo?path=${encodeURIComponent(demoPath)}`;
 
 const DemoBlock: FC<DemoBlockProps> = ({ meta }) => {
     const { theme } = useTheme();
@@ -266,6 +274,15 @@ const DemoBlock: FC<DemoBlockProps> = ({ meta }) => {
                 >
                     <CodeIcon />
                     {open ? "收起" : "源码"}
+                </button>
+                <button
+                    type="button"
+                    className={iconButtonStyle}
+                    onClick={() => window.open(getStandaloneDemoHref(meta.path), "_blank", "noopener,noreferrer")}
+                    aria-label="在独立页面打开示例"
+                >
+                    <ExternalLinkIcon />
+                    新窗口打开
                 </button>
             </div>
             {open && meta.source && (

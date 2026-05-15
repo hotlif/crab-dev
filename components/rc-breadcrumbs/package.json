@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-breadcrumbs",
+    "websiteConfig": { "title": "Breadcrumbs 面包屑导航", "category": "navigation" },
     "description": "面包屑导航，用于展示当前页面在层级结构中的位置",
     "packageManager": "yarn@4.13.0",
     "type": "module",

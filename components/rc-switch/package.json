@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-switch",
+    "websiteConfig": { "title": "Switch 开关", "category": "data-entry" },
     "description": "开关组件, 用于在两种状态之间切换",
     "packageManager": "yarn@4.13.0",
     "type": "module",

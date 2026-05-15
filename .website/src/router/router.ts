@@ -39,6 +39,13 @@ export const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "/demo",
+        lazy: async () => {
+            const Page = await import("../pages/demo.view.js");
+            return { Component: Page.default };
+        },
+    },
 ]);
 
 export { manifest };

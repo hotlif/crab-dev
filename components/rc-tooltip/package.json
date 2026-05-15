@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-tooltip",
+    "websiteConfig": { "title": "Tooltip 文字提示", "category": "feedback" },
     "description": "文字提示，鼠标悬浮时展示说明性文字",
     "packageManager": "yarn@4.13.0",
     "type": "module",

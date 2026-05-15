@@ -1,5 +1,6 @@
 {
   "name": "@crab-dev/rc-table",
+  "websiteConfig": { "title": "Table 表格", "category": "data-display" },
   "description": "展示行列数据的表格组件",
   "packageManager": "yarn@4.13.0",
   "version": "0.0.1",

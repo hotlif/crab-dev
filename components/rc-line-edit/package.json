@@ -1,5 +1,6 @@
 {
   "name": "@crab-dev/rc-line-edit",
+  "websiteConfig": { "title": "LineEdit 单行输入框", "category": "data-entry" },
   "description": "单行文本编辑组件",
   "version": "0.0.3",
   "packageManager": "yarn@4.13.0",

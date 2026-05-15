@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-alert",
+    "websiteConfig": { "title": "Alert 警告提示", "category": "feedback" },
     "description": "警告提示，用于页面中展示重要的提示信息",
     "packageManager": "yarn@4.13.0",
     "type": "module",

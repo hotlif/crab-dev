@@ -4,6 +4,7 @@
     "packageManager": "yarn@4.13.0",
     "type": "module",
     "scripts": {
+        "start": "yarn workspace @crab-dev/website start",
         "build:library": "yarn workspace @crab-dev/packify build:library && turbo run build:library",
         "docs:dev": "yarn node ./toolbox/crustify/bin/cli.js run-task app:dev",
         "docs:build": "yarn node ./toolbox/crustify/bin/cli.js run-task app:build",

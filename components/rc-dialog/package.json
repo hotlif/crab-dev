@@ -1,5 +1,6 @@
 {
   "name": "@crab-dev/rc-dialog",
+  "websiteConfig": { "title": "Dialog 对话框", "category": "feedback" },
   "description": "A dialog component for React applications.",
   "packageManager": "yarn@4.13.0",
   "version": "0.0.1",

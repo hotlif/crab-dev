@@ -27,6 +27,7 @@ interface ComponentEntry {
     version: string;
     title: string;
     description: string;
+    category: string;
     readme: string;
     demos: DemoEntry[];
     api: ApiPropEntry[];
@@ -117,7 +118,7 @@ const scanComponents = (): ComponentEntry[] => {
         const docgenPath = join(dir, "public", "docgen.json");
         if (!existsSync(pkgPath)) continue;
 
-        let pkgJson: { name?: string; description?: string; version?: string } = {};
+        let pkgJson: { name?: string; description?: string; version?: string; websiteConfig?: { title?: string; category?: string } } = {};
         try {
             pkgJson = JSON.parse(readFileSync(pkgPath, "utf-8"));
         } catch {
@@ -151,8 +152,9 @@ const scanComponents = (): ComponentEntry[] => {
             slug,
             pkg: pkgJson.name ?? `@crab-dev/${slug}`,
             version: pkgJson.version ?? "0.0.0",
-            title: slug.replace(/^rc-/, ""),
+            title: pkgJson.websiteConfig?.title ?? slug.replace(/^rc-/, ""),
             description: pkgJson.description ?? "",
+            category: pkgJson.websiteConfig?.category ?? "other",
             readme,
             demos: demos.sort((a, b) => a.path.localeCompare(b.path)),
             api: parseDocgenApi(docgenPath),
@@ -188,6 +190,7 @@ const writeManifest = (entries: ComponentEntry[]): void => {
     lines.push("    version: string;");
     lines.push("    title: string;");
     lines.push("    description: string;");
+    lines.push("    category: string;");
     lines.push("    readme: string;");
     lines.push("    demos: DemoMeta[];");
     lines.push("    api: ApiPropMeta[];");
@@ -201,6 +204,7 @@ const writeManifest = (entries: ComponentEntry[]): void => {
         lines.push(`        version: ${JSON.stringify(e.version)},`);
         lines.push(`        title: ${JSON.stringify(e.title)},`);
         lines.push(`        description: ${JSON.stringify(e.description)},`);
+        lines.push(`        category: ${JSON.stringify(e.category)},`);
         lines.push(`        readme: \`${escapeTpl(e.readme)}\`,`);
         lines.push("        demos: [");
         for (const d of e.demos) {

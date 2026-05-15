@@ -1,5 +1,6 @@
 {
     "name": "@crab-dev/rc-select",
+    "websiteConfig": { "title": "Select 选择器", "category": "data-entry" },
     "description": "下拉选择器，支持单选、多选和搜索",
     "packageManager": "yarn@4.13.0",
     "type": "module",

@@ -31,6 +31,14 @@ export const ArrowRightIcon = (p: SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
+export const ExternalLinkIcon = (p: SVGProps<SVGSVGElement>) => (
+    <svg {...base} {...p}>
+        <path d="M14 4h6v6" />
+        <path d="M10 14 20 4" />
+        <path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" />
+    </svg>
+);
+
 export const SparkIcon = (p: SVGProps<SVGSVGElement>) => (
     <svg {...base} {...p}>
         <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M5.5 18.5l2.1-2.1M16.4 7.6l2.1-2.1" />

@@ -1,5 +1,6 @@
 {
   "name": "@crab-dev/rc-form",
+  "websiteConfig": { "title": "Form 表单", "category": "data-entry" },
   "description": "高性能的表单组件",
   "version": "0.0.6",
   "packageManager": "yarn@4.13.0",

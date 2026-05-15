@@ -1,5 +1,6 @@
 {
   "name": "@crab-dev/rc-date-picker",
+  "websiteConfig": { "title": "DatePicker 日期选择器", "category": "data-entry" },
   "description": "日期选择组件",
   "packageManager": "yarn@4.13.0",
   "type": "module",
