@@ -29,7 +29,7 @@ const listStyle = css`
     display: inline-flex;
     align-items: center;
     gap: ${token.gap};
-    list-style: none;
+    list-style-type: none;
     padding: 0;
     margin: 0;
 `;
