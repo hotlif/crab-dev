@@ -1831,6 +1831,7 @@ __metadata:
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-breadcrumbs": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-drawer": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-token-global": "workspace:^"
@@ -2202,7 +2203,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-drawer@workspace:components/rc-drawer":
+"@crab-dev/rc-drawer@workspace:^, @crab-dev/rc-drawer@workspace:components/rc-drawer":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-drawer@workspace:components/rc-drawer"
   dependencies:

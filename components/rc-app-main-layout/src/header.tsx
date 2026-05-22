@@ -61,6 +61,10 @@ const tabStripStyle = css`
     padding: ${token.tab.strip.padding};
     min-height: ${token.tab.strip.height};
     box-sizing: border-box;
+
+    @media (max-width: 767px) {
+        display: none;
+    }
 `;
 
 const toolbarStyle = css`
@@ -71,6 +75,11 @@ const toolbarStyle = css`
     padding: ${token.header.toolbar.padding};
     background-color: ${token.header.toolbar.background.color};
     box-sizing: border-box;
+
+    @media (max-width: 767px) {
+        gap: 4px;
+        padding-inline: 8px;
+    }
 `;
 
 const toolbarSpacerStyle = css`
@@ -81,6 +90,26 @@ const breadcrumbsStyle = css`
     min-width: 0;
     flex: 0 1 auto;
     overflow: hidden;
+
+    @media (max-width: 767px) {
+        display: none;
+    }
+`;
+
+const mobileTitleStyle = css`
+    display: none;
+
+    @media (max-width: 767px) {
+        display: block;
+        min-width: 0;
+        flex: 1;
+        font-size: ${token.header.user.name.font.size};
+        font-weight: 600;
+        color: ${token.header.user.name.color};
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 const dividerStyle = css`
@@ -89,6 +118,10 @@ const dividerStyle = css`
     background-color: ${token.header.divider.color};
     margin: 0 6px;
     flex-shrink: 0;
+
+    @media (max-width: 767px) {
+        display: none;
+    }
 `;
 
 const navBtnStyle = css`
@@ -164,6 +197,10 @@ const userPillStyle = css`
     &:focus-visible {
         outline: 2px solid currentColor;
         outline-offset: 2px;
+    }
+
+    @media (max-width: 767px) {
+        padding: 4px;
     }
 `;
 
@@ -256,6 +293,8 @@ const Header: FC<HeaderProps> = ({
     onFullscreenToggle,
     ...restProps
 }) => {
+    const mobileTitle = breadcrumbs?.[breadcrumbs.length - 1]?.title;
+
     return (
         <header className={cx(headerStyle, className)} {...restProps}>
             {tabs ? (
@@ -284,6 +323,7 @@ const Header: FC<HeaderProps> = ({
                 >
                     <MenuIcon />
                 </button>
+                {mobileTitle ? <span className={mobileTitleStyle}>{mobileTitle}</span> : null}
                 {breadcrumbs?.length ? (
                     <Breadcrumbs className={breadcrumbsStyle} items={breadcrumbs} />
                 ) : null}

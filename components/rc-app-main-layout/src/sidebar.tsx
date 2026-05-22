@@ -3,19 +3,16 @@ import { cx, css } from "@linaria/core";
 import RcMenu, { MenuItem } from "@crab-dev/rc-menu";
 import token from "./token.js";
 
-export interface SidebarProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
-    loadMenus?: () => Promise<MenuItem[]>
-    /** 顶部 Logo 节点（图标或字母） */
+export interface SidebarBodyProps {
     logo?: ReactNode
-    /** 顶部标题 */
     title?: ReactNode
-    /** 点击 Logo */
     onLogoClick?: () => void
-    /** 点击菜单项；参数 `path` 为从根到当前项的菜单链 */
-    onMenuItemClick?: (param: { item: MenuItem, path: MenuItem[] }) => void
-    /** 是否折叠侧边栏 */
+    loadMenus?: () => Promise<MenuItem[]>
+    onMenuItemClick?: (param: { item: MenuItem; path: MenuItem[] }) => void
     collapsed?: boolean
 }
+
+export interface SidebarProps extends Omit<HTMLAttributes<HTMLElement>, "title">, SidebarBodyProps {}
 
 const sidebarStyle = css`
     display: flex;
@@ -99,15 +96,17 @@ const menuWrapStyle = css`
     align-items: stretch;
 `;
 
-const Sidebar: FC<SidebarProps> = ({
-    className,
-    loadMenus,
+/**
+ * 侧边栏内容体（logo 区 + 菜单），不含容器样式。
+ * 可在桌面端 Sidebar 和移动端 Drawer 中共用。
+ */
+export const SidebarBody: FC<SidebarBodyProps> = ({
     logo,
     title,
     onLogoClick,
+    loadMenus,
     onMenuItemClick,
-    collapsed,
-    ...restProps
+    collapsed = false,
 }) => {
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
     const [openKeys, setOpenKeys] = useState<Key[]>([]);
@@ -115,19 +114,13 @@ const Sidebar: FC<SidebarProps> = ({
     useEffect(() => {
         if (loadMenus) {
             loadMenus()
-                .then((items) => {
-                    setMenuItems(items)
-                })
+                .then((items) => { setMenuItems(items); })
                 .catch(() => {});
         }
-    }, [])
+    }, []);
 
     return (
-        <aside
-            className={cx(sidebarStyle, className)}
-            data-collapsed={collapsed ? "true" : "false"}
-            {...restProps}
-        >
+        <>
             {logo || title ? (
                 <div
                     className={cx(logoRowStyle, collapsed && logoRowCollapsedStyle)}
@@ -152,8 +145,36 @@ const Sidebar: FC<SidebarProps> = ({
                     }}
                 />
             </div>
+        </>
+    );
+};
+
+const Sidebar: FC<SidebarProps> = ({
+    className,
+    loadMenus,
+    logo,
+    title,
+    onLogoClick,
+    onMenuItemClick,
+    collapsed,
+    ...restProps
+}) => {
+    return (
+        <aside
+            className={cx(sidebarStyle, className)}
+            data-collapsed={collapsed ? "true" : "false"}
+            {...restProps}
+        >
+            <SidebarBody
+                logo={logo}
+                title={title}
+                onLogoClick={onLogoClick}
+                loadMenus={loadMenus}
+                onMenuItemClick={onMenuItemClick}
+                collapsed={collapsed}
+            />
         </aside>
-    )
+    );
 }
 
 function findMenuPath(items: MenuItem[], key: Key): MenuItem[] {

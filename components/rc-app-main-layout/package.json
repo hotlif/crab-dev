@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-app-main-layout",
-  "websiteConfig": { "title": "AppMainLayout 布局", "category": "layout" },
+  "websiteConfig": {
+    "title": "AppMainLayout 布局",
+    "category": "layout"
+  },
   "description": "布局组件，适用于管理后台、仪表盘等",
   "packageManager": "yarn@4.13.0",
   "version": "0.0.3",
@@ -57,6 +60,7 @@
   },
   "dependencies": {
     "@crab-dev/rc-breadcrumbs": "workspace:^",
+    "@crab-dev/rc-drawer": "workspace:^",
     "@crab-dev/rc-menu": "workspace:^"
   },
   "peerDependencies": {

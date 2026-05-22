@@ -1,9 +1,10 @@
 import type { FC, HTMLAttributes, Key, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cx, css } from "@linaria/core";
+import Drawer from "@crab-dev/rc-drawer";
 import token from "./token.js";
 import Header from "./header.js";
-import Sidebar, { SidebarProps } from "./sidebar.js";
+import Sidebar, { SidebarBody, type SidebarProps } from "./sidebar.js";
 import Content from "./content.js";
 import { useAppMainLayoutContext } from "./context.js";
 
@@ -60,6 +61,11 @@ const paneStyle = css`
     }
 `;
 
+const mobileNavDrawerStyle = css`
+    --drawer-body-padding: 0;
+    --drawer-size-small-width: min(86vw, ${token.sidebar.width});
+`;
+
 /**
  * 管理后台主布局。
  *
@@ -85,7 +91,16 @@ const Layout: FC<LayoutProps> = ({
     const { tabs, activeKey, reloadVersions } = state;
     const resolvedActiveKey = activeKey ?? tabs[0]?.key;
     const activeTab = tabs.find((t) => t.key === resolvedActiveKey);
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(
+        () => typeof window !== "undefined"
+            && typeof window.matchMedia === "function"
+            && window.matchMedia("(max-width: 767px)").matches,
+    );
+    const [isMobile, setIsMobile] = useState(
+        () => typeof window !== "undefined"
+            && typeof window.matchMedia === "function"
+            && window.matchMedia("(max-width: 767px)").matches,
+    );
     const [isFullscreen, setIsFullscreen] = useState(false);
     const layoutRef = useRef<HTMLDivElement>(null);
 
@@ -134,16 +149,57 @@ const Layout: FC<LayoutProps> = ({
         void element.requestFullscreen();
     }, [fullscreenSupported, fullscreenable]);
 
+    const handleSidebarMenuItemClick = useCallback<NonNullable<SidebarProps["onMenuItemClick"]>>(
+        (param) => {
+            onSidebarMenuItemClick?.(param);
+            if (isMobile && !param.item.children?.length) {
+                setSidebarCollapsed(true);
+            }
+        },
+        [onSidebarMenuItemClick, isMobile],
+    );
+
+    useEffect(() => {
+        if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+        const mq = window.matchMedia("(max-width: 767px)");
+        const handler = (e: MediaQueryListEvent) => {
+            setIsMobile(e.matches);
+            setSidebarCollapsed(e.matches);
+        };
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
+
     return (
         <div ref={layoutRef} className={cx(layoutStyle, className)} {...restProps}>
-            <Sidebar
-                logo={sidebarLogo}
-                title={sidebarTitle}
-                onLogoClick={onLogoClick}
-                loadMenus={sidebarLoadMenus}
-                onMenuItemClick={onSidebarMenuItemClick}
-                collapsed={sidebarCollapsed}
-            />
+            {isMobile ? (
+                <Drawer
+                    className={mobileNavDrawerStyle}
+                    placement="left"
+                    size="small"
+                    open={!sidebarCollapsed}
+                    onOpenChange={(open) => setSidebarCollapsed(!open)}
+                    closable={false}
+                    shouldResetContent={false}
+                >
+                    <SidebarBody
+                        logo={sidebarLogo}
+                        title={sidebarTitle}
+                        onLogoClick={onLogoClick}
+                        loadMenus={sidebarLoadMenus}
+                        onMenuItemClick={handleSidebarMenuItemClick}
+                    />
+                </Drawer>
+            ) : (
+                <Sidebar
+                    logo={sidebarLogo}
+                    title={sidebarTitle}
+                    onLogoClick={onLogoClick}
+                    loadMenus={sidebarLoadMenus}
+                    onMenuItemClick={handleSidebarMenuItemClick}
+                    collapsed={sidebarCollapsed}
+                />
+            )}
             <div className={mainColStyle}>
                 <Header
                     username={headerUserName}
