@@ -2010,7 +2010,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-checkbox@workspace:components/rc-checkbox":
+"@crab-dev/rc-checkbox@workspace:^, @crab-dev/rc-checkbox@workspace:components/rc-checkbox":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-checkbox@workspace:components/rc-checkbox"
   dependencies:
@@ -2092,6 +2092,7 @@ __metadata:
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -2293,9 +2294,16 @@ __metadata:
   dependencies:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-radio": "workspace:^"
+    "@crab-dev/rc-select": "workspace:^"
+    "@crab-dev/rc-slider": "workspace:^"
+    "@crab-dev/rc-switch": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -2599,7 +2607,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-radio@workspace:components/rc-radio":
+"@crab-dev/rc-radio@workspace:^, @crab-dev/rc-radio@workspace:components/rc-radio":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-radio@workspace:components/rc-radio"
   dependencies:
@@ -2741,7 +2749,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-switch@workspace:components/rc-switch":
+"@crab-dev/rc-switch@workspace:^, @crab-dev/rc-switch@workspace:components/rc-switch":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-switch@workspace:components/rc-switch"
   dependencies:
