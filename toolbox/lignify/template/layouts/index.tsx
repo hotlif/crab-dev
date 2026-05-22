@@ -4,14 +4,14 @@ import MultipleLayout from "./tabsLayout.js";
 import PlaygroundLayout from "./playgroundLayout.js";
 import DocLayout from "./docLayout.js";
 
-const isSingleComponent = mdxs.some(element => element.path === "/docs/README.md");
+// const isSingleComponent = mdxs.some(element => element.path === "/docs/README.md");
 
 const LayoutIndex = () => {
     const { pathname } = useLocation();
 
-    if (!isSingleComponent) {
-        return pathname.endsWith("/demo/tsx") ? <PlaygroundLayout /> : <MultipleLayout />;
-    }
+    // if (!isSingleComponent) {
+    //     return pathname.endsWith("/demo/tsx") ? <PlaygroundLayout /> : <MultipleLayout />;
+    // }
 
     return pathname.endsWith("/demo/tsx") ? <PlaygroundLayout /> : <DocLayout />;
 }
