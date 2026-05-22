@@ -21,7 +21,7 @@ import {
 export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
     /**
-     * 是否隐藏字段 
+     * 是否隐藏字段
      */
     hidden?: boolean
 
@@ -112,6 +112,7 @@ const FormItemComponent: FC<FormItemProps> = ({
                     font-size: 14px;
                     box-sizing: border-box;
                     align-items: center;
+                    margin-bottom: 24px;
                     color: rgba(0,0,0, 0.88);
                 `}
             >
@@ -264,7 +265,7 @@ const FormItemComponent: FC<FormItemProps> = ({
         <div
             className={cx(css`
                 display: flex;
-                align-items: baseline;
+                align-items: center;
             `,className)}
             {...restProps}
         >
