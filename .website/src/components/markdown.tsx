@@ -1,5 +1,5 @@
 import { css } from "@linaria/core";
-import { useState, type FC, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FC, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -63,33 +63,64 @@ interface CodeProps {
     children?: ReactNode;
 }
 
+const COPY_FEEDBACK_MS = 1400;
+
+const copyToClipboard = async (code: string): Promise<boolean> => {
+    if (typeof navigator === "undefined") return false;
+    const clipboard = navigator.clipboard;
+    if (!clipboard?.writeText) return false;
+    try {
+        await clipboard.writeText(code);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
 const CodeRenderer: FC<CodeProps> = ({ inline, className, children }) => {
     const { theme } = useTheme();
     const [copied, setCopied] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (timerRef.current != null) {
+                clearTimeout(timerRef.current);
+                timerRef.current = null;
+            }
+        };
+    }, []);
 
     if (inline || !className) {
         return <code className={className}>{children}</code>;
     }
 
-    const match = /language-(\w+)/.exec(className ?? "");
+    const match = /language-(\w+)/.exec(className);
     const lang = match?.[1] ?? "text";
     const codeText = String(children ?? "").replace(/\n$/, "");
 
     const onCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(codeText);
-            setCopied(true);
-            window.setTimeout(() => setCopied(false), 1400);
-        } catch {
-            // ignore
-        }
+        const ok = await copyToClipboard(codeText);
+        if (!ok) return;
+        setCopied(true);
+        if (timerRef.current != null) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+            setCopied(false);
+            timerRef.current = null;
+        }, COPY_FEEDBACK_MS);
     };
 
     return (
         <div className={codeBlockStyle}>
             <div className={codeHeaderStyle}>
                 <span>{lang}</span>
-                <button type="button" className={copyButtonStyle} onClick={onCopy} aria-label="复制代码">
+                <button
+                    type="button"
+                    className={copyButtonStyle}
+                    onClick={onCopy}
+                    aria-label="复制代码"
+                    aria-live="polite"
+                >
                     {copied ? <CheckIcon /> : <CopyIcon />}
                     {copied ? "已复制" : "复制"}
                 </button>

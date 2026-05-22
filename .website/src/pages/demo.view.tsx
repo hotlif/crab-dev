@@ -109,21 +109,37 @@ const getSlugFromPath = (demoPath: string): string | null => {
 const DemoStandaloneView: FC = () => {
     const [searchParams] = useSearchParams();
     const [element, setElement] = useState<ReactNode>(null);
+    const [error, setError] = useState<string | null>(null);
     const demoPath = searchParams.get("path") ?? "";
+
+    const meta = useMemo(() => {
+        if (!demoPath) return null;
+        for (const item of manifest) {
+            const matched = item.demos.find(d => d.path === demoPath);
+            if (matched) return { item, demo: matched };
+        }
+        return null;
+    }, [demoPath]);
+
+    const slug = useMemo(() => getSlugFromPath(demoPath), [demoPath]);
+    const backHref = slug ? `/components/${slug}` : "/components";
 
     useEffect(() => {
         if (!demoPath) {
             setElement(null);
+            setError("缺少 path 查询参数，无法定位 demo。");
             return;
         }
 
         const loader = demoLoaders[demoPath];
         if (!loader) {
             setElement(null);
+            setError(`未找到 demo 加载器：${demoPath}`);
             return;
         }
 
         let mounted = true;
+        setError(null);
         loader()
             .then(mod => {
                 if (!mounted) return;
@@ -133,6 +149,8 @@ const DemoStandaloneView: FC = () => {
             .catch((err: unknown) => {
                 if (!mounted) return;
                 const message = err instanceof Error ? err.message : String(err);
+                setElement(null);
+                setError(`无法加载示例：${message}`);
             });
 
         return () => {
@@ -140,7 +158,32 @@ const DemoStandaloneView: FC = () => {
         };
     }, [demoPath]);
 
-    return element
+    const title = meta?.demo.title ?? "独立示例";
+    const description = meta?.demo.description ?? meta?.item.title ?? demoPath;
+
+    return (
+        <div className={pageStyle}>
+            <div className={panelStyle}>
+                <div className={headerStyle}>
+                    <span className="title">{title}</span>
+                    <span className="desc">{description}</span>
+                </div>
+                <div className={stageStyle}>
+                    {error
+                        ? <div className={errorStyle}>{error}</div>
+                        : element}
+                </div>
+            </div>
+            <div className={actionRowStyle}>
+                <Link to={backHref} className={actionLinkStyle}>
+                    返回{slug ? `「${slug}」` : "组件总览"}
+                </Link>
+                <Link to="/components" className={actionLinkStyle}>
+                    所有组件
+                </Link>
+            </div>
+        </div>
+    );
 };
 
 export default DemoStandaloneView;

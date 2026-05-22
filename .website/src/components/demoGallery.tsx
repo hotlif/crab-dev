@@ -1,151 +1,10 @@
 import { css } from "@linaria/core";
 import { useEffect, useState, type FC, type ReactNode, type ComponentType } from "react";
-import { Prism } from "react-syntax-highlighter";
-import vs from "react-syntax-highlighter/dist/esm/styles/prism/vs.js";
-import vsDark from "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js";
+import Preview, { type PreviewDensity } from "@crab-dev/rc-component-preview";
 
 import demoLoaders from "../_generated/demoLoaders.js";
 import type { DemoMeta } from "../_generated/manifest.js";
-import { CodeIcon, CopyIcon, CheckIcon, ExternalLinkIcon } from "./icons.js";
 import { useTheme } from "../theme/useTheme.js";
-
-const cardStyle = css`
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    background: var(--surface-raised);
-    overflow: hidden;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-
-    &:hover {
-        border-color: var(--border-default);
-        box-shadow: var(--shadow-md);
-    }
-`;
-
-const stageStyle = css`
-    padding: 24px 22px;
-    background:
-        linear-gradient(var(--surface-raised), var(--surface-raised)) padding-box,
-        repeating-linear-gradient(
-            45deg,
-            var(--border-subtle) 0 1px,
-            transparent 1px 12px
-        );
-    background-clip: padding-box;
-    border-bottom: 1px solid var(--border-subtle);
-    min-height: 120px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-x: auto;
-
-    &[data-density="compact"] {
-        padding: 16px 18px;
-        min-height: 88px;
-    }
-
-    &[data-density="spacious"] {
-        padding: 30px 24px;
-        min-height: 156px;
-    }
-
-    @media (max-width: 720px) {
-        padding: 18px 14px;
-        min-height: 96px;
-
-        &[data-density="compact"] {
-            padding: 12px;
-            min-height: 76px;
-        }
-
-        &[data-density="spacious"] {
-            padding: 18px 14px;
-            min-height: 108px;
-        }
-    }
-
-    > * {
-        max-width: 100%;
-    }
-`;
-
-const headerStyle = css`
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-bottom: 1px solid var(--border-subtle);
-`;
-
-const titleStyle = css`
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.005em;
-`;
-
-const descStyle = css`
-    font-size: 13px;
-    color: var(--text-tertiary);
-    line-height: 1.6;
-`;
-
-const toolbarStyle = css`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-    padding: 8px 12px;
-    background: var(--surface-sunken);
-    border-bottom: 1px solid transparent;
-
-    &[data-open="true"] {
-        border-bottom-color: var(--border-subtle);
-    }
-`;
-
-const iconButtonStyle = css`
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: var(--radius-sm);
-    border: 1px solid transparent;
-    background: transparent;
-    font-size: 12px;
-    color: var(--text-tertiary);
-    cursor: pointer;
-    text-decoration: none;
-    transition: color var(--transition-fast), background-color var(--transition-fast);
-
-    &:hover {
-        color: var(--text-primary);
-        background: var(--surface-raised);
-        text-decoration: none;
-    }
-    &:focus-visible {
-        outline: none;
-        border-color: var(--accent-500);
-        text-decoration: none;
-    }
-    &[data-active="true"] {
-        color: var(--accent-700);
-        background: var(--accent-50);
-    }
-    &:visited {
-        color: var(--text-tertiary);
-        text-decoration: none;
-    }
-    &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-`;
-
-const sourceStyle = css`
-    background: var(--surface-sunken);
-    overflow: hidden;
-`;
 
 const errorStyle = css`
     padding: 24px;
@@ -158,11 +17,11 @@ const errorStyle = css`
     word-break: break-word;
 `;
 
-interface DemoBlockProps {
-    meta: DemoMeta;
-}
-
-type StageDensity = "compact" | "regular" | "spacious";
+const gridStyle = css`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+`;
 
 const COMPACT_STAGE_SLUGS = new Set([
     "rc-button",
@@ -185,7 +44,7 @@ const SPACIOUS_STAGE_SLUGS = new Set([
     "rc-masonry",
 ]);
 
-const getStageDensity = (demoPath: string): StageDensity => {
+const getStageDensity = (demoPath: string): PreviewDensity => {
     const matched = demoPath.match(/components\/(rc-[^/]+)/);
     const slug = matched?.[1];
     if (!slug) return "regular";
@@ -194,15 +53,18 @@ const getStageDensity = (demoPath: string): StageDensity => {
     return "regular";
 };
 
-const getStandaloneDemoHref = (demoPath: string): string => `/demo?path=${encodeURIComponent(demoPath)}`;
+const getStandaloneDemoHref = (demoPath: string): string =>
+    `/demo?path=${encodeURIComponent(demoPath)}`;
+
+interface DemoBlockProps {
+    meta: DemoMeta;
+}
 
 const DemoBlock: FC<DemoBlockProps> = ({ meta }) => {
     const { theme } = useTheme();
     const [Element, setElement] = useState<ReactNode>(null);
     const [error, setError] = useState<string | null>(null);
-    const [open, setOpen] = useState(false);
-    const [copied, setCopied] = useState(false);
-    const stageDensity = getStageDensity(meta.path);
+    const density = getStageDensity(meta.path);
 
     useEffect(() => {
         const loader = demoLoaders[meta.path];
@@ -228,91 +90,20 @@ const DemoBlock: FC<DemoBlockProps> = ({ meta }) => {
         };
     }, [meta.path]);
 
-    const onCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(meta.source);
-            setCopied(true);
-            window.setTimeout(() => setCopied(false), 1400);
-        } catch {
-            // ignore
-        }
-    };
-
     return (
-        <article className={cardStyle}>
-            <div className={stageStyle} data-density={stageDensity}>
-                {error ? (
-                    <div className={errorStyle}>{error}</div>
-                ) : (
-                    Element
-                )}
-            </div>
-            {(meta.title || meta.description) && (
-                <div className={headerStyle}>
-                    {meta.title && <div className={titleStyle}>{meta.title}</div>}
-                    {meta.description && <div className={descStyle}>{meta.description}</div>}
-                </div>
-            )}
-            <div className={toolbarStyle} data-open={open}>
-                <button
-                    type="button"
-                    className={iconButtonStyle}
-                    onClick={onCopy}
-                    aria-label="复制代码"
-                    disabled={!meta.source}
-                >
-                    {copied ? <CheckIcon /> : <CopyIcon />}
-                    {copied ? "已复制" : "复制"}
-                </button>
-                <button
-                    type="button"
-                    className={iconButtonStyle}
-                    onClick={() => setOpen(prev => !prev)}
-                    aria-expanded={open}
-                    aria-label={open ? "收起代码" : "展开代码"}
-                    data-active={open}
-                >
-                    <CodeIcon />
-                    {open ? "收起" : "源码"}
-                </button>
-                <button
-                    type="button"
-                    className={iconButtonStyle}
-                    onClick={() => window.open(getStandaloneDemoHref(meta.path), "_blank", "noopener,noreferrer")}
-                    aria-label="在独立页面打开示例"
-                >
-                    <ExternalLinkIcon />
-                    新窗口打开
-                </button>
-            </div>
-            {open && meta.source && (
-                <div className={sourceStyle}>
-                    <Prism
-                        language="tsx"
-                        style={theme === "dark" ? vsDark : vs}
-                        wrapLongLines
-                        customStyle={{
-                            margin: 0,
-                            padding: "18px 20px",
-                            background: "transparent",
-                            fontSize: 13,
-                            fontFamily: "var(--font-mono)",
-                        }}
-                        codeTagProps={{ style: { fontFamily: "var(--font-mono)" } }}
-                    >
-                        {meta.source}
-                    </Prism>
-                </div>
-            )}
-        </article>
+        <Preview
+            title={meta.title}
+            description={meta.description}
+            path={getStandaloneDemoHref(meta.path)}
+            sourceCode={meta.source}
+            language="tsx"
+            density={density}
+            codeTheme={theme === "dark" ? "dark" : "light"}
+        >
+            {error ? <div className={errorStyle}>{error}</div> : Element}
+        </Preview>
     );
 };
-
-const gridStyle = css`
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-`;
 
 interface DemoGalleryProps {
     demos: DemoMeta[];
