@@ -250,7 +250,7 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
 
             components.push({
                 name: importName,
-                path: safeRelativePath,
+                path: `/${safeRelativePath}`,
                 source: generateSourceCharacter ? sourceName : "null",
                 frontmatter: JSON.stringify(metadata),
             });
