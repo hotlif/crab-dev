@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-hooks",
-  "websiteConfig": { "title": "Hooks", "category": "primitive" },
+  "websiteConfig": {
+    "title": "Hooks",
+    "category": "primitive"
+  },
   "description": "A common library of React Hooks for executing some common methods of Hooks",
   "version": "0.0.1",
   "packageManager": "yarn@4.13.0",

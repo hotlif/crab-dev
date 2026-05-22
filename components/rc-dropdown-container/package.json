@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-dropdown-container",
-  "websiteConfig": { "title": "DropdownContainer 下拉容器", "category": "primitive" },
+  "websiteConfig": {
+    "title": "DropdownContainer 下拉容器",
+    "category": "primitive"
+  },
   "description": "下拉容器组件",
   "packageManager": "yarn@4.13.0",
   "type": "module",

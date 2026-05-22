@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-checkbox",
-    "websiteConfig": { "title": "Checkbox 复选框", "category": "data-entry" },
+    "websiteConfig": {
+        "title": "Checkbox 复选框",
+        "category": "data-entry"
+    },
     "description": "复选框, 用于在一组选项中选择多个值",
     "packageManager": "yarn@4.13.0",
     "type": "module",

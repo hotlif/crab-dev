@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-slider",
-  "websiteConfig": { "title": "Slider 滑块", "category": "data-entry" },
+  "websiteConfig": {
+    "title": "Slider 滑块",
+    "category": "data-entry"
+  },
   "description": "一个滑块组件",
   "packageManager": "yarn@4.13.0",
   "type": "module",

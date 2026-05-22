@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-tree",
-  "websiteConfig": { "title": "Tree 树形控件", "category": "navigation" },
+  "websiteConfig": {
+    "title": "Tree 树形控件",
+    "category": "navigation"
+  },
   "description": "一个多功能且可定制的树形组件, 用于React应用程序, 提供高效的渲染和拖放功能。",
   "packageManager": "yarn@4.13.0",
   "version": "0.1.1",

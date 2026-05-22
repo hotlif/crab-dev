@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-skeleton",
-    "websiteConfig": { "title": "Skeleton 骨架屏", "category": "general" },
+    "websiteConfig": {
+        "title": "Skeleton 骨架屏",
+        "category": "general"
+    },
     "description": "骨架屏，用于在内容加载时占位，降低用户感知等待时间",
     "packageManager": "yarn@4.13.0",
     "type": "module",

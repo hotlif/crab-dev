@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-component-preview",
-  "websiteConfig": { "title": "ComponentPreview 组件预览", "category": "primitive" },
+  "websiteConfig": {
+    "title": "ComponentPreview 组件预览",
+    "category": "primitive"
+  },
   "description": "用于预览组件, 提供组件的预览和组件介绍说明",
   "packageManager": "yarn@4.13.0",
   "type": "module",

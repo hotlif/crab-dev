@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-masonry",
-    "websiteConfig": { "title": "Masonry 瀑布流", "category": "layout" },
+    "websiteConfig": {
+        "title": "Masonry 瀑布流",
+        "category": "layout"
+    },
     "description": "瀑布流布局组件，支持多列自适应排列",
     "packageManager": "yarn@4.13.0",
     "type": "module",

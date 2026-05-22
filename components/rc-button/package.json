@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-button",
-    "websiteConfig": { "title": "Button 按钮", "category": "general" },
+    "websiteConfig": {
+        "title": "Button 按钮",
+        "category": "general"
+    },
     "description": "一个按钮, 用于即时操作",
     "packageManager": "yarn@4.13.0",
     "type": "module",

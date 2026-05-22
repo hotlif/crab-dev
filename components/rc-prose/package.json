@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-prose",
-    "websiteConfig": { "title": "Prose 长文本排版", "category": "data-display" },
+    "websiteConfig": {
+        "title": "Prose 长文本排版",
+        "category": "data-display"
+    },
     "description": "Markdown 排版样式组件，提供 prose 容器类与多尺寸变体",
     "packageManager": "yarn@4.13.0",
     "type": "module",

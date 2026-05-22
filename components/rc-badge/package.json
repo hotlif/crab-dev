@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-badge",
-    "websiteConfig": { "title": "Badge 徽标数", "category": "general" },
+    "websiteConfig": {
+        "title": "Badge 徽标数",
+        "category": "general"
+    },
     "description": "徽标数，用于展示计数、状态与提醒",
     "packageManager": "yarn@4.13.0",
     "type": "module",

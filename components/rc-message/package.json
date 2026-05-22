@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-message",
-    "websiteConfig": { "title": "Message 全局提示", "category": "feedback" },
+    "websiteConfig": {
+        "title": "Message 全局提示",
+        "category": "feedback"
+    },
     "description": "全局消息，用于轻量级反馈提示",
     "packageManager": "yarn@4.13.0",
     "type": "module",

@@ -1,6 +1,9 @@
 {
     "name": "@crab-dev/rc-tag",
-    "websiteConfig": { "title": "Tag 标签", "category": "general" },
+    "websiteConfig": {
+        "title": "Tag 标签",
+        "category": "general"
+    },
     "description": "标签，用于分类与标记",
     "packageManager": "yarn@4.13.0",
     "type": "module",

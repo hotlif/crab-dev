@@ -1,6 +1,9 @@
 {
   "name": "@crab-dev/rc-token-semantic",
-  "websiteConfig": { "title": "TokenSemantic 语义令牌", "category": "primitive" },
+  "websiteConfig": {
+    "title": "TokenSemantic 语义令牌",
+    "category": "primitive"
+  },
   "description": "一个全局的 token 管理组件",
   "packageManager": "yarn@4.13.0",
   "type": "module",
