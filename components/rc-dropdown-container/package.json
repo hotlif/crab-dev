@@ -10,7 +10,9 @@
   "version": "0.0.1",
   "scripts": {
     "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
-    "build:library": "packify build",
+    "build:library": "packify build",
+
+    "prepack": "yarn build:library",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/dropdownContainer.tsx --out ./public/docgen.json",

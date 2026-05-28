@@ -9,7 +9,9 @@
   "packageManager": "yarn@4.13.0",
   "type": "module",
   "scripts": {
-    "build:library": "packify build",
+    "build:library": "packify build",
+
+    "prepack": "yarn build:library",
     "eslint": "eslint",
     "typecheck": "tsc --noEmit"
   },

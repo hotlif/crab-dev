@@ -10,7 +10,9 @@
   "type": "module",
   "scripts": {
     "start": "yarn generate:docgen && lignify run-task app:dev",
-    "build:library": "packify build",
+    "build:library": "packify build",
+
+    "prepack": "yarn build:library",
     "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/virtual.tsx --out ./public/docgen.json",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "eslint": "eslint --fix",
