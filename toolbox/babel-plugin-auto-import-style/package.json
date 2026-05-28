@@ -5,9 +5,7 @@
   "packageManager": "yarn@4.13.0",
   "type": "module",
   "scripts": {
-    "build:library": "packify build",
-
-    "prepack": "yarn build:library",
+    "build:library": "packify build",
     "typecheck": "tsc --noEmit"
   },
   "files": [

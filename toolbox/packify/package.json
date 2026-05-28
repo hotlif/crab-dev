@@ -5,9 +5,7 @@
   "version": "0.0.4",
   "type": "module",
   "scripts": {
-    "build:library": "rollup -c",
-
-    "prepack": "yarn build:library",
+    "build:library": "rollup -c",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "eslint": "eslint .",
     "typecheck": "tsc --noEmit"

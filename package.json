@@ -5,9 +5,8 @@
     "type": "module",
     "scripts": {
         "start": "yarn workspace @crab-dev/website start",
-        "build:library": "yarn workspace @crab-dev/packify build:library && turbo run build:library",
-
-        "prepack": "yarn build:library",
+        "build:library": "yarn workspace @crab-dev/packify build:library && turbo run build:library",
+        "gitsource:build": "yarn build:library",
         "docs:dev": "yarn node ./toolbox/crustify/bin/cli.js run-task app:dev",
         "docs:build": "yarn node ./toolbox/crustify/bin/cli.js run-task app:build",
         "test": "turbo run test",
