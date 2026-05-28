@@ -9,9 +9,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build:library": "packify build",
-
-    "prepack": "yarn build:library",
+    "build:library": "packify build",
     "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "generate:token": "packify generate:css-token",

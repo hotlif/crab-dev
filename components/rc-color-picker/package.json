@@ -10,9 +10,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "yarn generate:docgen && yarn generate:token && yarn lignify run-task app:dev",
-    "build:library": " yarn generate:token && packify build",
-
-    "prepack": "yarn build:library",
+    "build:library": " yarn generate:token && packify build",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) --passWithNoTests",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",

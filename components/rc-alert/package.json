@@ -10,9 +10,7 @@
     "version": "0.0.1",
     "scripts": {
         "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
-        "build:library": "packify build",
-
-        "prepack": "yarn build:library",
+        "build:library": "packify build",
         "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/alert.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
