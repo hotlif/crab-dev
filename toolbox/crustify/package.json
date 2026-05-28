@@ -8,7 +8,7 @@
         "build:library": "packify build",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "eslint": "eslint",
-        "prepack": "yarn build:library",
+        "prepack": "yarn -T gitsource:build",
         "typecheck": "tsc --noEmit"
     },
     "files": [
