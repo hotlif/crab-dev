@@ -13,6 +13,7 @@
         "lint": "turbo run eslint",
         "typecheck": "turbo run typecheck",
         "generate:token": "turbo run generate:token",
+        "prepack": "yarn gitsource:build",
         "prepare": "husky"
     },
     "workspaces": [
