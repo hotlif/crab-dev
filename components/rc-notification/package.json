@@ -21,6 +21,7 @@
   "files": [
     "esm",
     "cjs",
+    "css",
     "declarations"
   ],
   "types": "declarations/index.d.ts",

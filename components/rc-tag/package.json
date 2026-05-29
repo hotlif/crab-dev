@@ -1,60 +1,61 @@
 {
-    "name": "@crab-dev/rc-tag",
-    "websiteConfig": {
-        "title": "Tag 标签",
-        "category": "general"
-    },
-    "description": "标签，用于分类与标记",
-    "packageManager": "yarn@4.13.0",
-    "type": "module",
-    "version": "0.0.1",
-    "scripts": {
-        "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
-        "build:library": "packify build",
-        "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/tag.tsx --out ./public/docgen.json",
-        "generate:token": "packify generate:css-token",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-        "eslint": "eslint . ",
-        "prepack": "cd ../.. && yarn build:library"
-    },
-    "files": [
-        "esm",
-        "cjs",
-        "declarations"
-    ],
-    "types": "declarations/index.d.ts",
-    "main": "cjs/index.cjs",
-    "module": "esm/index.mjs",
-    "devDependencies": {
-        "@crab-dev/lignify": "workspace:^",
-        "@crab-dev/packify": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/rc-token-semantic": "workspace:^",
-        "@crab-dev/standards-eslint-preset": "workspace:^",
-        "@crab-dev/standards-jest-preset": "workspace:^",
-        "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@jest/globals": "30.3.0",
-        "@linaria/core": "^7.0.0",
-        "@mdx-js/react": "^3.1.1",
-        "@react-docgen/cli": "^3.0.6",
-        "@testing-library/dom": "^10.4.1",
-        "@testing-library/react": "^16.3.2",
-        "@types/node": "^25.5.2",
-        "@types/react": "^19.2.14",
-        "@types/react-dom": "^19.2.3",
-        "eslint": "^10.1.0",
-        "eslint-plugin-react": "^7.37.5",
-        "globals": "^17.4.0",
-        "jest": "^30.3.0",
-        "jest-environment-jsdom": "30.3.0",
-        "react": "^19.2.4",
-        "react-dom": "^19.2.4",
-        "react-router": "^7.14.0",
-        "typescript": "^6.0.2",
-        "typescript-eslint": "^8.57.2"
-    },
-    "engines": {
-        "node": ">=22"
-    }
+  "name": "@crab-dev/rc-tag",
+  "websiteConfig": {
+    "title": "Tag 标签",
+    "category": "general"
+  },
+  "description": "标签，用于分类与标记",
+  "packageManager": "yarn@4.13.0",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
+    "build:library": "packify build",
+    "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/tag.tsx --out ./public/docgen.json",
+    "generate:token": "packify generate:css-token",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "eslint": "eslint . ",
+    "prepack": "cd ../.. && yarn build:library"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "css",
+    "declarations"
+  ],
+  "types": "declarations/index.d.ts",
+  "main": "cjs/index.cjs",
+  "module": "esm/index.mjs",
+  "devDependencies": {
+    "@crab-dev/lignify": "workspace:^",
+    "@crab-dev/packify": "workspace:^",
+    "@crab-dev/rc-component-preview": "workspace:^",
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/rc-token-semantic": "workspace:^",
+    "@crab-dev/standards-eslint-preset": "workspace:^",
+    "@crab-dev/standards-jest-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@jest/globals": "30.3.0",
+    "@linaria/core": "^7.0.0",
+    "@mdx-js/react": "^3.1.1",
+    "@react-docgen/cli": "^3.0.6",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.5.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "30.3.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router": "^7.14.0",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.57.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }
