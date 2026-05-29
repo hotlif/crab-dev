@@ -14,6 +14,7 @@
     "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/virtual.tsx --out ./public/docgen.json",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "eslint": "eslint --fix",
+    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [

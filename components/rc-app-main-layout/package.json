@@ -15,6 +15,7 @@
     "generate:token": "packify generate:css-token",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) --passWithNoTests",
     "eslint": "eslint --fix",
+    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [

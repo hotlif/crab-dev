@@ -18,6 +18,7 @@
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "check": "yarn eslint . && yarn prettier:check && yarn test",
         "eslint": "eslint . ",
+        "prepack": "cd ../.. && yarn build:library",
         "typecheck": "tsc --noEmit"
     },
     "files": [

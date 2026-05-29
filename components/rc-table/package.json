@@ -14,6 +14,7 @@
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "build:library": "packify build",
     "eslint": "eslint",
+    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [

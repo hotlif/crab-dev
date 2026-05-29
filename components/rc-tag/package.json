@@ -14,7 +14,8 @@
         "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/tag.tsx --out ./public/docgen.json",
         "generate:token": "packify generate:css-token",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-        "eslint": "eslint . "
+        "eslint": "eslint . ",
+        "prepack": "cd ../.. && yarn build:library"
     },
     "files": [
         "esm",

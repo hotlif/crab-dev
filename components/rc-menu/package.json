@@ -17,6 +17,7 @@
     "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/menu.tsx --out ./public/docgen.json",
     "generate:token": "packify generate:css-token",
     "eslint": "eslint",
+    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [
