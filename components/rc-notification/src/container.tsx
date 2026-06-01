@@ -1,5 +1,5 @@
 import { css, cx } from "@linaria/core";
-import { 
+import {
     HTMLAttributes,
     useEffect,
     useRef,
@@ -83,6 +83,7 @@ const Container: FC<ContainerProps> = ({
                     padding: unset;
                     margin: unset;
                     overflow: visible;
+                    background: unset;
                 `,
                 getDirectionStyle(direction),
                 className
