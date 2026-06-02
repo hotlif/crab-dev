@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import manifest from "../_generated/manifest.js";
 
 export const router = createBrowserRouter([
     {
@@ -47,5 +46,3 @@ export const router = createBrowserRouter([
         },
     },
 ]);
-
-export { manifest };

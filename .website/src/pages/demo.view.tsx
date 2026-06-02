@@ -1,6 +1,17 @@
+import { css } from "@linaria/core";
 import { useEffect, useState, type ComponentType, type FC, type ReactNode } from "react";
 import { useSearchParams } from "react-router";
 import demoLoaders from "../_generated/demoLoaders.js";
+
+const errorStyle = css`
+    padding: 24px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    line-height: 1.6;
+    text-align: center;
+    word-break: break-word;
+`;
 
 const DemoStandaloneView: FC = () => {
     const [searchParams] = useSearchParams();
@@ -42,7 +53,10 @@ const DemoStandaloneView: FC = () => {
         };
     }, [demoPath]);
 
-    return element
+    if (error) {
+        return <div className={errorStyle}>{error}</div>;
+    }
+    return <>{element}</>;
 };
 
 export default DemoStandaloneView;

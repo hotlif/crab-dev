@@ -182,7 +182,7 @@ const SiteHeader: FC = () => {
                 <div className={actionsStyle}>
                     <a
                         className={iconButtonStyle}
-                        href="https://github.com/"
+                        href="https://github.com/hotlif/crab-dev"
                         target="_blank"
                         rel="noreferrer"
                         aria-label="GitHub 仓库"

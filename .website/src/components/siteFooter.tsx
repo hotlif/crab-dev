@@ -39,7 +39,7 @@ const SiteFooter: FC = () => {
             <div className={innerStyle}>
                 <span>© {new Date().getFullYear()} @crab-dev · 安静而精确的 React 组件库</span>
                 <nav className={linksStyle} aria-label="次级导航">
-                    <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+                    <a href="https://github.com/hotlif/crab-dev" target="_blank" rel="noreferrer">GitHub</a>
                     <a href="/components">组件</a>
                 </nav>
             </div>
