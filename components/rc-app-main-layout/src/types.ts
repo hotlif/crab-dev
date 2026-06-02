@@ -4,10 +4,12 @@ import type { BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 export interface HeaderUserEntity {
     /** 用户名 */
     name?: ReactNode
-    /** 用户角色名称 */
-    roleName?: ReactNode
     /** 用户头像 */
     avatar?: ReactNode
+    /** 用户角色名称 */
+    roleName?: ReactNode
+    /** 用户角色 ID */
+    roleId?: string
 }
 
 export interface TabItem {
