@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import Layout from "../layout.js";
 import AppMainLayoutProvider from "../context.js";
 import useAppMainLayoutTabs, { type UseAppMainLayoutTabsResult } from "../useTabs.js";
-import type { TabItem } from "../types.js";
+import type { HeaderUserEntity, TabItem } from "../types.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -171,5 +171,65 @@ describe("Layout", () => {
             restoreDescriptor(document, "exitFullscreen", originalExitFullscreen);
             restoreDescriptor(Element.prototype, "requestFullscreen", originalRequestFullscreen);
         }
+    });
+
+    it("shows skeleton while loading remote header user and renders loaded entity", async () => {
+        const tabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false, children: <div>dashboard-content</div> },
+        ];
+
+        let resolveUser: ((value: HeaderUserEntity) => void) | null = null;
+        const loadHeaderUser = jest.fn(() => new Promise<HeaderUserEntity>((resolve) => {
+            resolveUser = resolve;
+        }));
+
+        render(
+            <AppMainLayoutProvider initialTabs={tabs} initialActiveTabKey="dashboard">
+                <Layout headerLoadUser={loadHeaderUser} />
+            </AppMainLayoutProvider>
+        );
+
+        expect(loadHeaderUser).toHaveBeenCalledTimes(1);
+        expect(await screen.findByRole("button", { name: "Loading user" })).toBeTruthy();
+
+        await act(async () => {
+            resolveUser?.({
+                name: "Admin",
+                roleName: "系统管理员",
+                avatar: "A",
+            });
+            await Promise.resolve();
+        });
+
+        expect(await screen.findByText("Admin")).toBeTruthy();
+        expect(screen.getByText("系统管理员")).toBeTruthy();
+    });
+
+    it("shows user menu on hover and triggers switch role/logout actions", async () => {
+        const tabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false, children: <div>dashboard-content</div> },
+        ];
+        const onSwitchRole = jest.fn();
+        const onLogout = jest.fn();
+
+        render(
+            <AppMainLayoutProvider initialTabs={tabs} initialActiveTabKey="dashboard">
+                <Layout
+                    headerLoadUser={async () => ({ name: "Admin", avatar: "A", roleName: "系统管理员" })}
+                    onSwitchRole={onSwitchRole}
+                    onLogout={onLogout}
+                />
+            </AppMainLayoutProvider>
+        );
+
+        const userButton = await screen.findByRole("button", { name: "Admin" });
+        fireEvent.mouseEnter(userButton);
+
+        fireEvent.click(await screen.findByRole("menuitem", { name: "切换角色" }));
+        expect(onSwitchRole).toHaveBeenCalledTimes(1);
+
+        fireEvent.mouseEnter(userButton);
+        fireEvent.click(await screen.findByRole("menuitem", { name: "退出登录" }));
+        expect(onLogout).toHaveBeenCalledTimes(1);
     });
 });
