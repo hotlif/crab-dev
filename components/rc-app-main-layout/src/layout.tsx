@@ -107,6 +107,7 @@ const Layout: FC<LayoutProps> = ({
     );
     const [isFullscreen, setIsFullscreen] = useState(false);
     const layoutRef = useRef<HTMLDivElement>(null);
+    const headerUserPromiseRef = useRef<Promise<HeaderUserEntity> | null>(null);
 
     const fullscreenSupported = typeof document !== "undefined"
         && typeof document.exitFullscreen === "function"
@@ -164,6 +165,30 @@ const Layout: FC<LayoutProps> = ({
     );
 
     useEffect(() => {
+        headerUserPromiseRef.current = null;
+    }, [headerLoadUser]);
+
+    const loadResolvedHeaderUser = useCallback<NonNullable<LayoutProps["headerLoadUser"]>>(async () => {
+        if (!headerLoadUser) {
+            return {};
+        }
+        if (!headerUserPromiseRef.current) {
+            headerUserPromiseRef.current = headerLoadUser()
+                .then((user) => user ?? {})
+                .catch(() => ({}));
+        }
+        return headerUserPromiseRef.current;
+    }, [headerLoadUser]);
+
+    const loadSidebarMenus = useCallback<NonNullable<SidebarProps["loadMenus"]>>(async () => {
+        if (!sidebarLoadMenus) {
+            return [];
+        }
+        const headerUser = await loadResolvedHeaderUser();
+        return sidebarLoadMenus(headerUser);
+    }, [loadResolvedHeaderUser, sidebarLoadMenus]);
+
+    useEffect(() => {
         if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
         const mq = window.matchMedia("(max-width: 767px)");
         const handler = (e: MediaQueryListEvent) => {
@@ -190,7 +215,7 @@ const Layout: FC<LayoutProps> = ({
                         logo={sidebarLogo}
                         title={sidebarTitle}
                         onLogoClick={onLogoClick}
-                        loadMenus={sidebarLoadMenus}
+                        loadMenus={sidebarLoadMenus ? loadSidebarMenus : undefined}
                         onMenuItemClick={handleSidebarMenuItemClick}
                     />
                 </Drawer>
@@ -199,14 +224,14 @@ const Layout: FC<LayoutProps> = ({
                     logo={sidebarLogo}
                     title={sidebarTitle}
                     onLogoClick={onLogoClick}
-                    loadMenus={sidebarLoadMenus}
+                    loadMenus={sidebarLoadMenus ? loadSidebarMenus : undefined}
                     onMenuItemClick={handleSidebarMenuItemClick}
                     collapsed={sidebarCollapsed}
                 />
             )}
             <div className={mainColStyle}>
                 <Header
-                    loadUser={headerLoadUser}
+                    loadUser={headerLoadUser ? loadResolvedHeaderUser : undefined}
                     onMenuToggle={() => setSidebarCollapsed((v) => !v)}
                     menuToggled={sidebarCollapsed}
                     onBell={onBell}

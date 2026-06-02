@@ -3,12 +3,13 @@ import { cx, css } from "@linaria/core";
 import RcMenu, { MenuItem } from "@crab-dev/rc-menu";
 import Skeleton from "@crab-dev/rc-skeleton";
 import token from "./token.js";
+import type { HeaderUserEntity } from "./types.js";
 
 export interface SidebarBodyProps {
     logo?: ReactNode
     title?: ReactNode
     onLogoClick?: () => void
-    loadMenus?: () => Promise<MenuItem[]>
+    loadMenus?: (headerUser?: HeaderUserEntity) => Promise<MenuItem[]>
     onMenuItemClick?: (param: { item: MenuItem; path: MenuItem[] }) => void
     collapsed?: boolean
 }

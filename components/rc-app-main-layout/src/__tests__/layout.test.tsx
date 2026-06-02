@@ -5,6 +5,7 @@ import Layout from "../layout.js";
 import AppMainLayoutProvider from "../context.js";
 import useAppMainLayoutTabs, { type UseAppMainLayoutTabsResult } from "../useTabs.js";
 import type { HeaderUserEntity, TabItem } from "../types.js";
+import { type MenuItem, MenuItemType } from "@crab-dev/rc-menu";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -231,5 +232,40 @@ describe("Layout", () => {
         fireEvent.mouseEnter(userButton);
         fireEvent.click(await screen.findByRole("menuitem", { name: "退出登录" }));
         expect(onLogout).toHaveBeenCalledTimes(1);
+    });
+
+    it("loads header user before sidebar menus and passes resolved user to sidebarLoadMenus", async () => {
+        const tabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false, children: <div>dashboard-content</div> },
+        ];
+        const events: string[] = [];
+        const menuItems: MenuItem[] = [{ key: "dashboard", type: MenuItemType.Item, title: "控制台" }];
+        const resolvedUser: HeaderUserEntity = {
+            name: "Admin",
+            roleName: "系统管理员",
+            avatar: "A",
+        };
+        const loadHeaderUser = jest.fn(async () => {
+            events.push("header-start");
+            await Promise.resolve();
+            events.push("header-done");
+            return resolvedUser;
+        });
+        const loadSidebarMenus = jest.fn(async (headerUser?: HeaderUserEntity) => {
+            events.push(`sidebar:${String(headerUser?.name ?? "")}`);
+            return menuItems;
+        });
+
+        render(
+            <AppMainLayoutProvider initialTabs={tabs} initialActiveTabKey="dashboard">
+                <Layout headerLoadUser={loadHeaderUser} sidebarLoadMenus={loadSidebarMenus} />
+            </AppMainLayoutProvider>
+        );
+
+        expect(await screen.findByText("Admin")).toBeTruthy();
+        expect(loadHeaderUser).toHaveBeenCalledTimes(1);
+        expect(loadSidebarMenus).toHaveBeenCalledTimes(1);
+        expect(loadSidebarMenus).toHaveBeenCalledWith(resolvedUser);
+        expect(events).toEqual(["header-start", "header-done", "sidebar:Admin"]);
     });
 });
