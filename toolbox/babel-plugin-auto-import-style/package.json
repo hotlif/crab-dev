@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build:library": "packify build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepack": "cd ../.. && yarn build:library"
   },
   "files": [
     "bin",
