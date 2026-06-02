@@ -3,6 +3,7 @@
  * description="点击侧边栏菜单打开标签页，顶部展示路径面包屑"
  */
 import { css } from "@linaria/core";
+import { useCallback } from "react";
 import AppMainLayout, {
     type TabItem,
     AppMainLayoutProvider,
@@ -149,18 +150,44 @@ const isLeafMenu = (item: MenuItem) => item.type === MenuItemType.Item && !item.
 
 const toBreadcrumbs = (path: MenuItem[]): BreadcrumbsItem[] => path.map((m) => ({ key: String(m.key), title: m.title ?? "" }));
 
+const sleep = (ms: number) => new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+});
+
 const SimpleFrame = () => {
     const TabsBridge = () => {
         const { openTab } = useAppMainLayoutTabs();
+        const loadHeaderUser = useCallback(async () => {
+            await sleep(1200);
+            return {
+                name: "Admin",
+                avatar: "A",
+                roleName: "系统管理员",
+            };
+        }, []);
+        const loadSidebarMenus = useCallback(async () => {
+            await sleep(900);
+            return menus;
+        }, []);
+        const handleSwitchRole = useCallback(() => {
+            // 示例：业务可在此打开角色选择弹窗或跳转角色页
+            console.info("[rc-app-main-layout demo] switch role");
+        }, []);
+        const handleLogout = useCallback(() => {
+            // 示例：业务可在此清理登录态并跳转登录页
+            console.info("[rc-app-main-layout demo] logout");
+        }, []);
+
         return (
             <AppMainLayout
                 className={css`body { margin: 0; }`}
                 sidebarLogo={<ShieldIcon />}
                 sidebarTitle="Crab Frame"
-                headerUserName="Admin"
-                headerUserAvatar="A"
+                headerLoadUser={loadHeaderUser}
                 hasNotification
-                sidebarLoadMenus={async () => menus}
+                onSwitchRole={handleSwitchRole}
+                onLogout={handleLogout}
+                sidebarLoadMenus={loadSidebarMenus}
                 onSidebarMenuItemClick={({ item, path }) => {
                     if (!isLeafMenu(item)) return;
                     openTab({
