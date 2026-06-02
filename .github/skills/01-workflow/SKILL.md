@@ -1,7 +1,7 @@
 ---
 name: 01-workflow
-description: "crab-dev monorepo 的组件开发全流程手册。使用场景：创建新的 rc-* 组件；设计 token.toml 设计令牌；排查 Yarn 4 PnP 问题；配置 Webpack / Rollup 构建；修复 Turbo 任务图循环依赖；编写 Jest + RTL 测试；Linaria CSS-in-JS 样式；ESM 模块解析；编写 demo 或 MDX 文档。禁止用于：非 crab-dev 项目。"
-argument-hint: "描述你需要帮助的组件、令牌、构建或 PnP 任务"
+description: "crab-dev monorepo 组件开发的端到端实战流程与可复制模板。**触发场景**：新建或脚手架化 rc-* 组件；编辑 token.toml 并运行 generate:token；配置或排错 Packify(Rollup) / Crustify(Webpack) / Lignify / Turbo 任务图；编写 Jest 30 + RTL 测试（ESM + experimental-vm-modules）；处理 ESM 相对导入 .js 扩展名、bare specifier、moduleResolution: bundler；新增 *.demo.tsx / *.view.tsx / *.mdx；定义 index.ts 导出形态；落实 §4 验收命令矩阵。**不要用于**：纯样式质感打磨（→ 02-style）；workspace 包链接 / TS2307 / qualified path resolution failed（→ 03-link-packages）；非 crab-dev 仓库的通用建议。"
+argument-hint: "描述要新建或修改的 rc-* 包、令牌改动、构建或测试问题。"
 ---
 
 # 组件开发工作流（Component Workflow）

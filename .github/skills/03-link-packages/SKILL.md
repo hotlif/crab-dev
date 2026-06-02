@@ -1,6 +1,7 @@
 ---
 name: 03-link-packages
-description: '在 Yarn 4 PnP monorepo 中链接 workspace 包。使用场景：（1）刚创建或生成了新包，需要连通它们之间的依赖；（2）用户从兄弟包中导入符号，需要将其登记为依赖；（3）出现 workspace 包（@org/*）的解析错误，如 "cannot find module"、"failed to resolve import"、"TS2307"、"cannot resolve"、"qualified path resolution failed"。禁止通过 tsconfig paths 或手编 package.json 绕过问题 —— 必须使用 Yarn workspace 命令修复真实的链接关系。'
+description: "在 Yarn 4 PnP monorepo 中以 workspace:^ 协议正确连通 @crab-dev/* 包，并修复 PnP 解析失败。**触发场景**：新建 rc-* 包后需声明对兄弟包的依赖；新增 import '@crab-dev/...' 时同步登记 dependencies / devDependencies；出现 PnP 报错（'Cannot find module'、'failed to resolve import'、'TS2307: Cannot find module'、'qualified path resolution failed'、'is not declared in dependencies'）；ESM-only 包需在根 package.json dependenciesMeta 标 unplugged: true；CI 出现 lockfile 漂移需 yarn install --immutable 复核。**严禁**：用 tsconfig paths、relative ../../ 跨包路径、手编 .pnp.cjs 或手填 package.json 版本号来绕过 —— 必须用 yarn workspace 命令修复真实链接关系。**不要用于**：外部 npm 包安装、构建产物问题、样式问题。"
+argument-hint: "描述失败的 import、报错信息或要链接的包。"
 ---
 
 # 链接 Workspace 包（Yarn 4 PnP）
