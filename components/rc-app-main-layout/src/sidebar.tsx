@@ -1,6 +1,7 @@
 import { type HTMLAttributes, type FC, useState, useEffect, type Key, type ReactNode } from "react";
 import { cx, css } from "@linaria/core";
 import RcMenu, { MenuItem } from "@crab-dev/rc-menu";
+import Skeleton from "@crab-dev/rc-skeleton";
 import token from "./token.js";
 
 export interface SidebarBodyProps {
@@ -96,6 +97,17 @@ const menuWrapStyle = css`
     align-items: stretch;
 `;
 
+const menuSkeletonWrapStyle = css`
+    display: inline-flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+`;
+
+const menuSkeletonItemStyle = css`
+    display: inline-flex;
+`;
+
 /**
  * 侧边栏内容体（logo 区 + 菜单），不含容器样式。
  * 可在桌面端 Sidebar 和移动端 Drawer 中共用。
@@ -109,15 +121,34 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
     collapsed = false,
 }) => {
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+    const [menuLoading, setMenuLoading] = useState(false);
     const [openKeys, setOpenKeys] = useState<Key[]>([]);
 
     useEffect(() => {
-        if (loadMenus) {
-            loadMenus()
-                .then((items) => { setMenuItems(items); })
-                .catch(() => {});
+        if (!loadMenus) {
+            setMenuLoading(false);
+            return;
         }
-    }, []);
+        let cancelled = false;
+        setMenuLoading(true);
+        void loadMenus()
+            .then((items) => {
+                if (!cancelled) {
+                    setMenuItems(items);
+                    setMenuLoading(false);
+                }
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    setMenuItems([]);
+                    setMenuLoading(false);
+                }
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [loadMenus]);
 
     return (
         <>
@@ -133,17 +164,27 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
                 </div>
             ) : null}
             <div className={menuWrapStyle}>
-                <RcMenu
-                    inlineCollapsed={collapsed}
-                    openKeys={openKeys}
-                    onOpenChange={setOpenKeys}
-                    items={menuItems}
-                    onClick={({ item }) => {
-                        if (!onMenuItemClick) return;
-                        const path = findMenuPath(menuItems, item.key);
-                        onMenuItemClick({ item, path });
-                    }}
-                />
+                {menuLoading ? (
+                    <div className={menuSkeletonWrapStyle} aria-hidden>
+                        <span className={menuSkeletonItemStyle}><Skeleton variant="text" width="90%" size="medium" /></span>
+                        <span className={menuSkeletonItemStyle}><Skeleton variant="text" width="82%" size="medium" /></span>
+                        <span className={menuSkeletonItemStyle}><Skeleton variant="text" width="86%" size="medium" /></span>
+                        <span className={menuSkeletonItemStyle}><Skeleton variant="text" width="74%" size="medium" /></span>
+                        <span className={menuSkeletonItemStyle}><Skeleton variant="text" width="80%" size="medium" /></span>
+                    </div>
+                ) : (
+                    <RcMenu
+                        inlineCollapsed={collapsed}
+                        openKeys={openKeys}
+                        onOpenChange={setOpenKeys}
+                        items={menuItems}
+                        onClick={({ item }) => {
+                            if (!onMenuItemClick) return;
+                            const path = findMenuPath(menuItems, item.key);
+                            onMenuItemClick({ item, path });
+                        }}
+                    />
+                )}
             </div>
         </>
     );

@@ -1,6 +1,15 @@
 import type { Key, ReactNode } from "react";
 import type { BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 
+export interface HeaderUserEntity {
+    /** 用户名 */
+    name?: ReactNode
+    /** 用户角色名称 */
+    roleName?: ReactNode
+    /** 用户头像 */
+    avatar?: ReactNode
+}
+
 export interface TabItem {
     /** 标签唯一标识 */
     key: Key

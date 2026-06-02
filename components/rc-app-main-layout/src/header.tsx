@@ -1,14 +1,26 @@
 import { css, cx } from "@linaria/core";
-import type { FC, Key, ReactNode, HTMLAttributes } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { FC, Key, HTMLAttributes } from "react";
+import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/react";
+import { AnimatePresence, motion } from "motion/react";
 import Breadcrumbs, { type BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
+import Skeleton from "@crab-dev/rc-skeleton";
+
 import token from "./token.js";
 import TabBar, { TabItem } from "./tabBar.js";
+import type { HeaderUserEntity } from "./types.js";
+import {
+    BellIcon,
+    EnterFullscreenIcon,
+    ExitFullscreenIcon,
+    LogoutIcon,
+    MenuIcon,
+    SwitchRoleIcon,
+} from "./icons.js";
 
 interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
-    /** 用户名 */
-    username?: ReactNode
-    /** 用户头像 */
-    userAvatar?: ReactNode
+    /** 远程加载顶部用户实体 */
+    loadUser?: () => Promise<HeaderUserEntity>
     /** 点击菜单按钮 */
     onMenuToggle?: () => void
     /** 菜单按钮的激活状态（侧边栏是否已折叠） */
@@ -19,6 +31,10 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
     hasNotification?: boolean
     /** 点击用户区域 */
     onUserClick?: () => void
+    /** 点击切换角色 */
+    onSwitchRole?: () => void
+    /** 点击退出登录 */
+    onLogout?: () => void
     /** 标签页列表 */
     tabs?: TabItem[]
     /** 当前激活的标签 key */
@@ -204,11 +220,99 @@ const userPillStyle = css`
     }
 `;
 
+const userMenuWrapStyle = css`
+    position: relative;
+    display: inline-flex;
+`;
+
+const userMenuStyle = css`
+    min-width: ${token.tab['context-menu']['min-width']};
+    padding: ${token.tab['context-menu'].padding};
+    background-color: ${token.tab['context-menu'].background.color};
+    border: 1px solid ${token.tab['context-menu'].border.color};
+    border-radius: ${token.tab['context-menu'].border.radius};
+    box-shadow: ${token.tab['context-menu'].shadow};
+    z-index: ${token.tab['context-menu']['z-index']};
+    box-sizing: border-box;
+    transform-origin: top center;
+    will-change: transform, opacity;
+`;
+
+const userMenuItemStyle = css`
+    display: flex;
+    align-items: center;
+    gap: ${token.tab['context-menu'].item.gap};
+    width: 100%;
+    height: ${token.tab['context-menu'].item.height};
+    padding: ${token.tab['context-menu'].item.padding};
+    border: none;
+    border-radius: ${token.tab['context-menu'].item.border.radius};
+    background: transparent;
+    color: ${token.tab['context-menu'].item.color};
+    font-size: ${token.tab['context-menu'].item.font.size};
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+        background-color: ${token.tab['context-menu'].item.background['color-hover']};
+    }
+
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: -2px;
+    }
+`;
+
+const userMenuItemIconStyle = css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: ${token.tab['context-menu'].item.icon.size};
+    height: ${token.tab['context-menu'].item.icon.size};
+    color: ${token.tab['context-menu'].item.icon.color};
+
+    & > svg {
+        width: 100%;
+        height: 100%;
+    }
+`;
+
 const usernameStyle = css`
     font-size: ${token.header.user.name.font.size};
     color: ${token.header.user.name.color};
     font-weight: ${token.header.user.name.font.weight};
     white-space: nowrap;
+
+    @media (max-width: 640px) {
+        display: none;
+    }
+`;
+
+const userInfoStyle = css`
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 0;
+    line-height: 1.15;
+
+    @media (max-width: 640px) {
+        display: none;
+    }
+`;
+
+const userRoleStyle = css`
+    margin-top: 2px;
+    font-size: calc(${token.tab.font.size} - 2px);
+    color: ${token.header['nav-btn'].color};
+    white-space: nowrap;
+`;
+
+const userInfoSkeletonStyle = css`
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 76px;
 
     @media (max-width: 640px) {
         display: none;
@@ -236,49 +340,16 @@ const avatarStyle = css`
     }
 `;
 
-const MenuIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
-        <line x1="4" y1="7" x2="20" y2="7" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="17" x2="14" y2="17" />
-    </svg>
-);
-
-
-const BellIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-    </svg>
-);
-
-const EnterFullscreenIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 3 3 3 3 9" />
-        <polyline points="15 21 21 21 21 15" />
-        <polyline points="21 9 21 3 15 3" />
-        <polyline points="3 15 3 21 9 21" />
-    </svg>
-);
-
-const ExitFullscreenIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 9 3 9 3 3" />
-        <polyline points="15 15 21 15 21 21" />
-        <polyline points="21 3 21 9 15 9" />
-        <polyline points="3 21 3 15 9 15" />
-    </svg>
-);
-
 const Header: FC<HeaderProps> = ({
     className,
-    username,
-    userAvatar,
+    loadUser,
     onMenuToggle,
     menuToggled,
     onBell,
     hasNotification,
     onUserClick,
+    onSwitchRole,
+    onLogout,
     tabs,
     activeTabKey,
     onTabChange,
@@ -294,6 +365,88 @@ const Header: FC<HeaderProps> = ({
     ...restProps
 }) => {
     const mobileTitle = breadcrumbs?.[breadcrumbs.length - 1]?.title;
+    const [userLoading, setUserLoading] = useState(false);
+    const [resolvedUser, setResolvedUser] = useState<HeaderUserEntity>({});
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const userMenuWrapRef = useRef<HTMLDivElement>(null);
+    const userMenuCloseTimerRef = useRef<number | null>(null);
+    const canShowUserMenu = !userLoading && userMenuOpen;
+    const { refs, floatingStyles } = useFloating({
+        placement: "bottom",
+        strategy: "absolute",
+        transform: false,
+        open: canShowUserMenu,
+        onOpenChange: setUserMenuOpen,
+        middleware: [
+            offset(0),
+            flip(),
+            shift({ padding: 8 }),
+        ],
+        whileElementsMounted: autoUpdate,
+    });
+
+    useEffect(() => {
+        if (!loadUser) {
+            setUserLoading(false);
+            setResolvedUser({});
+            return;
+        }
+
+        let cancelled = false;
+        setUserLoading(true);
+        void loadUser().then((next) => {
+            if (!cancelled) {
+                setResolvedUser(next ?? {});
+                setUserLoading(false);
+            }
+        }).catch(() => {
+            if (!cancelled) {
+                setResolvedUser({});
+                setUserLoading(false);
+            }
+        });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [loadUser]);
+
+    useEffect(() => {
+        if (userLoading) {
+            setUserMenuOpen(false);
+        }
+    }, [userLoading]);
+
+    useEffect(() => {
+        return () => {
+            if (userMenuCloseTimerRef.current !== null) {
+                window.clearTimeout(userMenuCloseTimerRef.current);
+                userMenuCloseTimerRef.current = null;
+            }
+        };
+    }, []);
+
+    const clearUserMenuCloseTimer = () => {
+        if (userMenuCloseTimerRef.current !== null) {
+            window.clearTimeout(userMenuCloseTimerRef.current);
+            userMenuCloseTimerRef.current = null;
+        }
+    };
+
+    const scheduleUserMenuClose = () => {
+        clearUserMenuCloseTimer();
+        userMenuCloseTimerRef.current = window.setTimeout(() => {
+            setUserMenuOpen(false);
+            userMenuCloseTimerRef.current = null;
+        }, 120);
+    };
+
+    const openUserMenu = () => {
+        clearUserMenuCloseTimer();
+        if (!userLoading) {
+            setUserMenuOpen(true);
+        }
+    };
 
     return (
         <header className={cx(headerStyle, className)} {...restProps}>
@@ -339,20 +492,101 @@ const Header: FC<HeaderProps> = ({
                         {fullscreenActive ? <ExitFullscreenIcon /> : <EnterFullscreenIcon />}
                     </button>
                 ) : null}
-                <button className={navBtnStyle} onClick={onBell} aria-label="Notifications" disabled={!onBell}>
+                <button className={navBtnStyle} onClick={onBell} aria-label="Notifications">
                     <BellIcon />
                     {hasNotification ? <span className={notificationDotStyle} aria-hidden /> : null}
                 </button>
                 <div className={dividerStyle} aria-hidden />
-                <button
-                    type="button"
-                    className={userPillStyle}
-                    onClick={onUserClick}
-                    aria-label={typeof username === "string" ? username : "User menu"}
+                <div
+                    ref={userMenuWrapRef}
+                    className={userMenuWrapStyle}
+                    onMouseEnter={openUserMenu}
+                    onMouseLeave={scheduleUserMenuClose}
+                    onFocusCapture={openUserMenu}
+                    onBlurCapture={(e) => {
+                        const next = e.relatedTarget;
+                        if (next instanceof Node && userMenuWrapRef.current?.contains(next)) {
+                            return;
+                        }
+                        setUserMenuOpen(false);
+                    }}
                 >
-                    {username ? <span className={usernameStyle}>{username}</span> : null}
-                    <span className={avatarStyle}>{userAvatar}</span>
-                </button>
+                    <button
+                        ref={refs.setReference}
+                        type="button"
+                        className={userPillStyle}
+                        onClick={onUserClick}
+                        aria-label={userLoading ? "Loading user" : (typeof resolvedUser.name === "string" ? resolvedUser.name : "User menu")}
+                        aria-haspopup="menu"
+                        aria-expanded={userMenuOpen}
+                        onKeyDown={(e) => {
+                            if (e.key === "Escape") {
+                                setUserMenuOpen(false);
+                            }
+                        }}
+                    >
+                        {userLoading ? (
+                            <span className={userInfoSkeletonStyle} aria-hidden>
+                                <Skeleton variant="text" width="72px" size="small" />
+                                <Skeleton variant="text" width="56px" size="small" />
+                            </span>
+                        ) : (resolvedUser.name || resolvedUser.roleName) ? (
+                            <span className={userInfoStyle}>
+                                {resolvedUser.name ? <span className={usernameStyle}>{resolvedUser.name}</span> : null}
+                                {resolvedUser.roleName ? <span className={userRoleStyle}>{resolvedUser.roleName}</span> : null}
+                            </span>
+                        ) : null}
+                        {userLoading ? (
+                            <Skeleton variant="avatar" width={token.header.user.avatar.size} height={token.header.user.avatar.size} aria-hidden />
+                        ) : (
+                            <span className={avatarStyle}>{resolvedUser.avatar}</span>
+                        )}
+                    </button>
+                    <AnimatePresence>
+                        {canShowUserMenu ? (
+                            <motion.div
+                                ref={refs.setFloating}
+                                className={userMenuStyle}
+                                style={floatingStyles}
+                                role="menu"
+                                aria-label="User actions"
+                                initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                <button
+                                    type="button"
+                                    role="menuitem"
+                                    className={userMenuItemStyle}
+                                    onClick={() => {
+                                        setUserMenuOpen(false);
+                                        onSwitchRole?.();
+                                    }}
+                                >
+                                    <span className={userMenuItemIconStyle} aria-hidden>
+                                        <SwitchRoleIcon />
+                                    </span>
+                                    切换角色
+                                </button>
+                                <button
+                                    type="button"
+                                    role="menuitem"
+                                    className={userMenuItemStyle}
+                                    onClick={() => {
+                                        setUserMenuOpen(false);
+                                        onLogout?.();
+                                    }}
+                                >
+                                    <span className={userMenuItemIconStyle} aria-hidden>
+                                        <LogoutIcon />
+                                    </span>
+                                    退出登录
+                                </button>
+                            </motion.div>
+                        ) : null}
+                    </AnimatePresence>
+                </div>
             </div>
         </header>
     );

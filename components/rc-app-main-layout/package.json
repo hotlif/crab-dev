@@ -63,7 +63,10 @@
   "dependencies": {
     "@crab-dev/rc-breadcrumbs": "workspace:^",
     "@crab-dev/rc-drawer": "workspace:^",
-    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/rc-skeleton": "workspace:^",
+    "@floating-ui/react": "^0.27.19",
+    "motion": "^12.40.0"
   },
   "peerDependencies": {
     "react": "^19.2.4",

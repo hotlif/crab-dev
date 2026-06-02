@@ -1,6 +1,6 @@
 import AppMainLayout from "./layout.js";
 
-export type { TabItem } from "./types.js";
+export type { HeaderUserEntity, TabItem } from "./types.js";
 export type { TabBarProps } from "./tabBar.js";
 
 export {

@@ -7,6 +7,7 @@ import Header from "./header.js";
 import Sidebar, { SidebarBody, type SidebarProps } from "./sidebar.js";
 import Content from "./content.js";
 import { useAppMainLayoutContext } from "./context.js";
+import type { HeaderUserEntity } from "./types.js";
 
 interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     /** 侧边栏顶部 Logo */
@@ -19,16 +20,18 @@ interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     sidebarLoadMenus?: SidebarProps["loadMenus"]
     /** 点击侧边栏菜单项 */
     onSidebarMenuItemClick?: SidebarProps["onMenuItemClick"]
-    /** 顶部用户名 */
-    headerUserName?: ReactNode
-    /** 顶部用户头像节点 */
-    headerUserAvatar?: ReactNode
+    /** 远程加载顶部用户实体 */
+    headerLoadUser?: () => Promise<HeaderUserEntity>
     /** 点击铃铛 */
     onBell?: () => void
     /** 是否有未读通知 */
     hasNotification?: boolean
     /** 点击用户区域 */
     onUserClick?: () => void
+    /** 点击切换角色 */
+    onSwitchRole?: () => void
+    /** 点击退出登录 */
+    onLogout?: () => void
     /** 是否显示全屏按钮，默认 true */
     fullscreenable?: boolean
     /** 全屏状态变化回调 */
@@ -78,11 +81,12 @@ const Layout: FC<LayoutProps> = ({
     onLogoClick,
     sidebarLoadMenus,
     onSidebarMenuItemClick,
-    headerUserName,
-    headerUserAvatar,
+    headerLoadUser,
     onBell,
     hasNotification,
     onUserClick,
+    onSwitchRole,
+    onLogout,
     fullscreenable = true,
     onFullscreenChange,
     ...restProps
@@ -202,13 +206,14 @@ const Layout: FC<LayoutProps> = ({
             )}
             <div className={mainColStyle}>
                 <Header
-                    username={headerUserName}
-                    userAvatar={headerUserAvatar}
+                    loadUser={headerLoadUser}
                     onMenuToggle={() => setSidebarCollapsed((v) => !v)}
                     menuToggled={sidebarCollapsed}
                     onBell={onBell}
                     hasNotification={hasNotification}
                     onUserClick={onUserClick}
+                    onSwitchRole={onSwitchRole}
+                    onLogout={onLogout}
                     tabs={tabs}
                     activeTabKey={resolvedActiveKey}
                     onTabChange={(key: Key) => dispatch({ type: "activate", key })}
