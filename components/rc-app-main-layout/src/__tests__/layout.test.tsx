@@ -268,4 +268,26 @@ describe("Layout", () => {
         expect(loadSidebarMenus).toHaveBeenCalledWith(resolvedUser);
         expect(events).toEqual(["header-start", "header-done", "sidebar:Admin"]);
     });
+
+    it("does not call sidebarLoadMenus when headerLoadUser fails", async () => {
+        const tabs: TabItem[] = [
+            { key: "dashboard", title: "控制台", closable: false, children: <div>dashboard-content</div> },
+        ];
+        const loadHeaderUser = jest.fn(async () => {
+            throw new Error("failed");
+        });
+        const loadSidebarMenus = jest.fn(async () => {
+            return [{ key: "dashboard", type: MenuItemType.Item, title: "控制台" }];
+        });
+
+        render(
+            <AppMainLayoutProvider initialTabs={tabs} initialActiveTabKey="dashboard">
+                <Layout headerLoadUser={loadHeaderUser} sidebarLoadMenus={loadSidebarMenus} />
+            </AppMainLayoutProvider>
+        );
+
+        expect(await screen.findByRole("button", { name: "User menu" })).toBeTruthy();
+        expect(loadHeaderUser).toHaveBeenCalledTimes(1);
+        expect(loadSidebarMenus).toHaveBeenCalledTimes(0);
+    });
 });

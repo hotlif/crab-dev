@@ -174,8 +174,7 @@ const Layout: FC<LayoutProps> = ({
         }
         if (!headerUserPromiseRef.current) {
             headerUserPromiseRef.current = headerLoadUser()
-                .then((user) => user ?? {})
-                .catch(() => ({}));
+                .then((user) => user ?? {});
         }
         return headerUserPromiseRef.current;
     }, [headerLoadUser]);

@@ -61,7 +61,7 @@ const presetStandard = async ({
 
     const standardConfig: Configuration =  {
         entry: entryTmp,
-        devtool: isProduction ? false : "eval-cheap-module-source-map",
+        devtool: isProduction ? false : "eval-source-map",
         infrastructureLogging: { level: "error" },
         stats: "errors-only",
         output: {
