@@ -1,38 +1,124 @@
-import type { FC } from "react";
+import type { FC, ReactNode, SVGProps } from "react";
 
+const baseSvgProps: SVGProps<SVGSVGElement> = {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: 16,
+    height: 16,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.75,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+    focusable: false,
+};
+
+const Svg: FC<{ children: ReactNode }> = ({ children }) => (
+    <svg {...baseSvgProps}>{children}</svg>
+);
+
+/** 菜单：三条等距横线 */
 export const MenuIcon: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
-        <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-    </svg>
+    <Svg>
+        <path d="M4 7h16" />
+        <path d="M4 12h16" />
+        <path d="M4 17h16" />
+    </Svg>
 );
 
+/** 通知：钟身 + 钟舌 */
 export const BellIcon: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bell" viewBox="0 0 16 16">
-        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
-    </svg>
+    <Svg>
+        <path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6" />
+        <path d="M10.5 18a1.8 1.8 0 0 0 3 0" />
+    </Svg>
 );
 
+/** 进入全屏:四角向外 */
 export const EnterFullscreenIcon: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-fullscreen" viewBox="0 0 16 16">
-        <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
-    </svg>
+    <Svg>
+        <path d="M4 9V4h5" />
+        <path d="M15 4h5v5" />
+        <path d="M20 15v5h-5" />
+        <path d="M9 20H4v-5" />
+    </Svg>
 );
 
+/** 退出全屏:四角向内 */
 export const ExitFullscreenIcon: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-fullscreen-exit" viewBox="0 0 16 16">
-        <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5m5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5M0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5m10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0z" />
-    </svg>
+    <Svg>
+        <path d="M9 4v5H4" />
+        <path d="M15 4v5h5" />
+        <path d="M15 20v-5h5" />
+        <path d="M9 20v-5H4" />
+    </Svg>
 );
 
+/** 切换角色：双人 + 中间双向箭头，强调"切换" */
 export const SwitchRoleIcon: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-gear" viewBox="0 0 16 16">
-        <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
-    </svg>
+    <Svg>
+        <circle cx="7" cy="7" r="2.4" />
+        <path d="M3 18a4 4 0 0 1 8 0" />
+        <circle cx="17" cy="7" r="2.4" />
+        <path d="M13 18a4 4 0 0 1 8 0" />
+        <path d="M8.5 13h7" />
+        <path d="M10 11.5l-1.5 1.5 1.5 1.5" />
+        <path d="M14 14.5l1.5-1.5-1.5-1.5" />
+    </Svg>
 );
 
+/** 退出登录：门框 + 向外箭头 */
 export const LogoutIcon: FC = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">
-        <path fillRule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-        <path fillRule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-    </svg>
+    <Svg>
+        <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4" />
+        <path d="M15 8l4 4-4 4" />
+        <path d="M19 12H9" />
+    </Svg>
+);
+
+/** 关闭：标准 × */
+export const CloseIcon: FC = () => (
+    <Svg>
+        <path d="M6 6l12 12" />
+        <path d="M18 6L6 18" />
+    </Svg>
+);
+
+/** 关闭其他：中间标签保留，左右两侧各一个 × */
+export const CloseOthersIcon: FC = () => (
+    <Svg>
+        <path d="M3 9l3 3" />
+        <path d="M6 9l-3 3" />
+        <rect x="9" y="6" width="6" height="12" rx="1" />
+        <path d="M18 9l3 3" />
+        <path d="M21 9l-3 3" />
+    </Svg>
+);
+
+/** 关闭右侧：左侧标签保留，右侧大 × 关掉余下标签 */
+export const CloseRightIcon: FC = () => (
+    <Svg>
+        <rect x="3" y="7" width="7" height="10" rx="1" />
+        <path d="M13 8l8 8" />
+        <path d="M21 8l-8 8" />
+    </Svg>
+);
+
+/** 关闭全部：堆叠的两个 tab + 右上角 × —— "把整摞标签一起关掉" */
+export const CloseAllIcon: FC = () => (
+    <Svg>
+        <rect x="3" y="7" width="11" height="11" rx="1.5" />
+        <path d="M7 4h9a2 2 0 0 1 2 2v8" />
+        <path d="M16 16l5 5" />
+        <path d="M21 16l-5 5" />
+    </Svg>
+);
+
+/** 重新加载：顺时针环形箭头 */
+export const ReloadIcon: FC = () => (
+    <Svg>
+        <path d="M21 12a9 9 0 1 1-3.51-7.13" />
+        <path d="M21 4v5h-5" />
+    </Svg>
 );
