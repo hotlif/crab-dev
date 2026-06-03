@@ -57,8 +57,6 @@ const mainColStyle = css`
 `;
 
 const paneStyle = css`
-    height: 100%;
-
     &[hidden] {
         display: none;
     }
