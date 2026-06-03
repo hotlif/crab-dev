@@ -187,12 +187,14 @@ class AutoScanWebpackPlugin implements WebpackPluginInstance {
     async generateTsConfigFile(componentScan: ComponentScanRule[]) {
         const tsconfig: {
             compilerOptions: {
+                composite: boolean,
                 paths: {
                     [key: string]: string[]
                 }
             }
         } = {
             "compilerOptions": {
+                "composite": true,
                 "paths": {
                 }
             }
