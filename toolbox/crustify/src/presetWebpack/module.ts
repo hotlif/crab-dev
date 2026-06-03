@@ -16,7 +16,7 @@ const getBabelLoader = () => ({
     options: {
         presets: [
             [require.resolve("@babel/preset-env"), {
-                // @wyw-in-js/webpack-loader 不支持 @babel/plugin-transform-template-literals 
+                // @wyw-in-js/webpack-loader 不支持 @babel/plugin-transform-template-literals
                 exclude: ['@babel/plugin-transform-template-literals'],
             }],
             [require.resolve("@babel/preset-typescript"), {}],
@@ -62,9 +62,13 @@ const getRules = (isProduction: boolean) => [
     {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
+        // thread-loader 不支持传递 source map（官方已知限制），开发模式下会导致
+        // babel-loader 生成的行列信息在 worker 线程边界丢失，致使浏览器 DevTools
+        // 中显示的行号与实际源码不符。生产模式 devtool: false，不需要 source map，
+        // 保留 thread-loader 以加速构建。
         use: [
             getWywLoader(),
-            require.resolve("thread-loader"),
+            ...(isProduction ? [require.resolve("thread-loader")] : []),
             getBabelLoader()
         ],
     },
