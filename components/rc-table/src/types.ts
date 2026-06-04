@@ -18,11 +18,39 @@ interface RenderParam<T extends Row> {
 	originalElement: ReactNode
 }
 
+
+interface EditorParam<T extends Row, V = unknown> extends RenderParam<T> {
+    /** 当前编辑器值；首次进入编辑时为 null，需消费方自行回退到 row 中的原值 */
+    editorValue: V | null
+    onEditorValueChange: (value: V) => void
+    /**
+     * 通知表格退出编辑态。
+     * 注意：表格不会自动写回 row.dataRef —— 最终值的落盘必须由消费方在调用 onCommit 之前完成
+     * （如 setState / 接口提交）。本回调仅用于"关闭编辑器"。
+     */
+    onCommit?: () => void
+    /** 通知表格放弃编辑并退出，缓存的 editorValue 会被清空 */
+    onCancel?: () => void
+}
+
 export interface FilterEditorParam<T extends Row> {
 	column: ColumnType<T>
 	columnIndex: number
 	value: string
 	onValueChange: (value: string) => void
+}
+
+/**
+ * 单元格选区状态：由表格父级聚合“当前选中集合 + 锚点”后下发到每个 BodyCell，
+ * 用于决定该单元格是否填充淡蓝背景、以及在哪一边绘制选区描边。
+ */
+export interface CellSelectionState {
+	selected: boolean
+	isAnchor: boolean
+	edgeTop: boolean
+	edgeBottom: boolean
+	edgeLeft: boolean
+	edgeRight: boolean
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -71,6 +99,11 @@ export interface ColumnType<T extends Row> {
 	 * 自定义渲染单元格数据
 	 */
 	render?: (param: RenderParam<T>) => ReactNode
+
+    /**
+     * 自定义单元格编辑器
+     */
+    editRender?: (param: EditorParam<T>) => ReactNode
 
 	/**
 	 * 是否开启当前列过滤输入（仅叶子列生效）

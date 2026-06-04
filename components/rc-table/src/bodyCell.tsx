@@ -1,10 +1,10 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
-import type { ColumnType, MergeCell, Row } from "./types.js";
-import { type HTMLAttributes, useMemo } from "react";
+import type { CellSelectionState, ColumnType, MergeCell, Row } from "./types.js";
+import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 
-interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
+export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     row: T
     rowIndex: number,
     columnIndex: number,
@@ -14,6 +14,10 @@ interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     gridTemplateColumns: number[],
     isSkipCell: boolean
     mergeCell?: MergeCell
+    editType?: "cell"
+    selection?: CellSelectionState
+    onCellMouseDown?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
+    onCellMouseEnter?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
 }
 
 const mapping = {
@@ -34,8 +38,33 @@ function TableCell<T extends Row>({
     gridTemplateColumns,
     style,
     fixed,
+    editType,
+    selection,
+    onCellMouseDown,
+    onCellMouseEnter,
+    onDoubleClick,
+    onMouseDown,
+    onMouseEnter,
     ...restProps
 }: TableCellProps<T>){
+    const [editorValue, setEditorValue] = useState<unknown>(null);
+    const [isEditing, setIsEditing] = useState(false);
+
+    const exitEditing = useCallback(() => {
+        // 退出编辑态必须把缓存的 editorValue 一并清掉，
+        // 否则下次进入编辑器会读到上一次的陈旧值（外部数据已经更新过）
+        setIsEditing(false);
+        setEditorValue(null);
+    }, []);
+
+    // 如果父级在编辑过程中关掉了 editType / 移除了 editRender，
+    // isEditing 不会自动复位 —— 必须主动同步，否则该格永远卡在"既看不到编辑器、双击也进不去"的死态
+    const canEdit = column.editRender != null && editType === "cell";
+    useEffect(() => {
+        if (isEditing && !canEdit) {
+            exitEditing();
+        }
+    }, [isEditing, canEdit, exitEditing]);
 
     const dataValue = useMemo(() => {
         if (isSkipCell) {
@@ -96,7 +125,7 @@ function TableCell<T extends Row>({
                 <div
                     className={css`
                         overflow: hidden;
-                        text-overflow: ellipsis;    
+                        text-overflow: ellipsis;
                     `}
                 >
                     {dataValue}
@@ -107,16 +136,13 @@ function TableCell<T extends Row>({
         /**
          * 如果有合并单元格，则需要计算合并单元格的宽度和高度, 并且生产合并单元格的信息
          */
+        let mergedSize: { width: number; height: number } | null = null;
         if (mergeCell) {
-            const { 
-                width,
-                height
-            } = getMergedCellSize({
+            mergedSize = getMergedCellSize({
                 gridTemplateRows,
                 gridTemplateColumns,
                 mergeCell
             });
-            
             renderElement = (
                 <div
                     className={cx(css`
@@ -131,8 +157,8 @@ function TableCell<T extends Row>({
                         border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
                     `, getBorderStyle())}
                     style={{
-                        width,
-                        height,
+                        width: mergedSize.width,
+                        height: mergedSize.height,
                         justifyContent: getJustifyContent()
                     }}
                 >
@@ -141,7 +167,46 @@ function TableCell<T extends Row>({
             )
         }
 
-        if (column.render) {
+        if (isEditing && canEdit) {
+            const editorElement: ReactNode = column.editRender!({
+                row,
+                rowIndex,
+                columnIndex,
+                column,
+                editorValue,
+                onEditorValueChange: setEditorValue,
+                onCommit: () => {
+                    exitEditing();
+                },
+                onCancel: () => {
+                    exitEditing();
+                },
+                originalElement: renderElement
+            });
+            // 合并单元格进入编辑时，必须让编辑器跨越整片合并区域，
+            // 否则编辑器只占主格单格尺寸、合并区域露白，视觉抖动严重
+            if (mergedSize) {
+                return (
+                    <div
+                        className={cx(css`
+                            position: absolute;
+                            z-index: 3;
+                            top: 0;
+                            left: 0;
+                            box-sizing: border-box;
+                            background-color: #fff;
+                        `, getBorderStyle())}
+                        style={{
+                            width: mergedSize.width,
+                            height: mergedSize.height
+                        }}
+                    >
+                        {editorElement}
+                    </div>
+                );
+            }
+            return editorElement;
+        } else if (column.render) {
             return column.render({
                 row,
                 rowIndex,
@@ -152,6 +217,49 @@ function TableCell<T extends Row>({
         } else {
             return renderElement;
         }
+    }
+
+    const renderSelectionOverlay = () => {
+        // 被合并覆盖的次单元格本身不渲染内容，让主单元格的 overlay 跨整片合并区
+        if (isSkipCell || !selection?.selected) {
+            return null;
+        }
+        // 用 inset box-shadow 模拟 Excel 风格的选区边框：相邻已选单元格之间不画线，仅在选区外缘描边
+        // 这样不会占用布局空间，避免单元格出现 1~2px 尺寸抖动
+        const color = "var(--crab-rc-table-selection-border-color, #1976d2)";
+        const shadows: string[] = [];
+        if (selection.edgeTop) shadows.push(`inset 0 2px 0 0 ${color}`);
+        if (selection.edgeBottom) shadows.push(`inset 0 -2px 0 0 ${color}`);
+        if (selection.edgeLeft) shadows.push(`inset 2px 0 0 0 ${color}`);
+        if (selection.edgeRight) shadows.push(`inset -2px 0 0 0 ${color}`);
+        // 锚点（活动单元格）保留单元格原色，其余选区填充淡蓝以体现范围
+        const background = selection.isAnchor
+            ? "transparent"
+            : "var(--crab-rc-table-selection-bg-color, rgb(25 118 210 / 8%))";
+
+        // 合并单元格主格的视觉尺寸跨多格，overlay 必须按合并后的宽高铺开，
+        // 否则只会覆盖单格大小、出现裸露的"漏色"区域
+        const overlaySize = mergeCell
+            ? getMergedCellSize({ gridTemplateRows, gridTemplateColumns, mergeCell })
+            : null;
+
+        return (
+            <div
+                aria-hidden
+                className={css`
+                    position: absolute;
+                    inset: 0;
+                    pointer-events: none;
+                    z-index: 2;
+                `}
+                style={{
+                    width: overlaySize?.width,
+                    height: overlaySize?.height,
+                    backgroundColor: background,
+                    boxShadow: shadows.length > 0 ? shadows.join(", ") : undefined
+                }}
+            />
+        );
     }
 
     return (
@@ -165,12 +273,32 @@ function TableCell<T extends Row>({
                 position: relative;
                 border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
             `, getBorderStyle(), className)}
-            style={{
-                ...style,
+            style={style}
+            onDoubleClick={(e) => {
+                if (canEdit) {
+                    setEditorValue(null);
+                    setIsEditing(true);
+                }
+                onDoubleClick?.(e);
+            }}
+            onMouseDown={(e) => {
+                // 编辑态下不再触发选区拖拽，避免父级 preventDefault() 吞掉
+                // 输入框的光标定位 / 文本选择
+                if (!isSkipCell && !isEditing) {
+                    onCellMouseDown?.(rowIndex, columnIndex, e);
+                }
+                onMouseDown?.(e);
+            }}
+            onMouseEnter={(e) => {
+                if (!isSkipCell && !isEditing) {
+                    onCellMouseEnter?.(rowIndex, columnIndex, e);
+                }
+                onMouseEnter?.(e);
             }}
             {...restProps}
         >
             {renderChildrenElement()}
+            {renderSelectionOverlay()}
         </div>
     )
 }
