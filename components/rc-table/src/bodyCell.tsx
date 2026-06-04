@@ -243,18 +243,32 @@ function TableCell<T extends Row>({
             ? getMergedCellSize({ gridTemplateRows, gridTemplateColumns, mergeCell })
             : null;
 
+        // 单元格自带 1px border（border-right / border-bottom，固定列还会有 border-left），
+        // 而 overlay 默认坐落在 padding 边内，导致相邻被选中格之间的灰色边线会"切"进选区背景。
+        // 在"内边"（邻居也被选中、edge=false 的那条边）向外溢出 1px，正好把单元格自带的边线盖掉；
+        // "外边"保持对齐，避免画到表格容器之外或覆盖未被选中邻居的内容。
+        const extTop = selection.edgeTop ? 0 : 1;
+        const extRight = selection.edgeRight ? 0 : 1;
+        const extBottom = selection.edgeBottom ? 0 : 1;
+        const extLeft = selection.edgeLeft ? 0 : 1;
+
         return (
             <div
                 aria-hidden
                 className={css`
                     position: absolute;
-                    inset: 0;
                     pointer-events: none;
                     z-index: 2;
                 `}
                 style={{
-                    width: overlaySize?.width,
-                    height: overlaySize?.height,
+                    top: -extTop,
+                    left: -extLeft,
+                    // 合并单元格用显式 width/height；普通单元格用 right/bottom 让浏览器自动撑满，
+                    // 两种模式互斥，避免同时设置导致冲突
+                    right: overlaySize ? undefined : -extRight,
+                    bottom: overlaySize ? undefined : -extBottom,
+                    width: overlaySize ? overlaySize.width + extLeft + extRight : undefined,
+                    height: overlaySize ? overlaySize.height + extTop + extBottom : undefined,
                     backgroundColor: background,
                     boxShadow: shadows.length > 0 ? shadows.join(", ") : undefined
                 }}
