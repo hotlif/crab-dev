@@ -3,7 +3,6 @@
  * description = "过滤栏只负责收集条件，筛选逻辑在外部实现"
  */
 
-import { css } from "@linaria/core";
 import { useMemo, useState } from "react";
 
 import Table from "../../src/index.js";

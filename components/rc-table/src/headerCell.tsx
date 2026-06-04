@@ -18,7 +18,7 @@ interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElem
 
 function TableHeaderCell<T extends Row>({
     column,
-    columnIndex: _columnIndex,
+    columnIndex,
     className,
     isSkipCell,
     mergeCell,
@@ -74,7 +74,7 @@ function TableHeaderCell<T extends Row>({
          * 如果有合并单元格，则需要计算合并单元格的宽度和高度, 并且生产合并单元格的信息
          */
         if (mergeCell) {
-            const { 
+            const {
                 width,
                 height
             } = getMergedCellSize({
@@ -115,6 +115,7 @@ function TableHeaderCell<T extends Row>({
                 vertical-align: top;
                 height: 100%;
             `, className)}
+            data-column-index={columnIndex}
             {...restProps}
         >
             {renderChildrenElement()}

@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import Table from "../table.js";
 import type { ColumnType, MergeCell, Row } from "../types.js";
 
-const renderDefaultFilterEditor = <T extends Row>({ columnIndex, value, onValueChange }: { columnIndex: number, value: string, onValueChange: (nextValue: string) => void }) => {
+const renderDefaultFilterEditor = ({ columnIndex, value, onValueChange }: { columnIndex: number, value: string, onValueChange: (nextValue: string) => void }) => {
     return (
         <input
             value={value}

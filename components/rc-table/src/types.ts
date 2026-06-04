@@ -121,6 +121,48 @@ export interface ColumnType<T extends Row> {
 	filterEditor?: (param: FilterEditorParam<T>) => ReactNode
 }
 
+/**
+ * 分组行的展示数据：由表格内部根据 `groupBy` + `rows` 自动构造，
+ * 不会出现在用户传入的 `rows` 中。`renderGroupCell` 可拿到此结构以自定义渲染。
+ */
+export interface GroupRowMeta<T extends Row> {
+    /** 该分组的稳定 id（包含层级路径，保证全局唯一），可用于受控 expandedGroupIds */
+    groupId: Key
+    /** 层级，从 0 开始 */
+    level: number
+    /** 该分组对应的列 name（即 groupBy 中的项） */
+    columnName: string
+    /** 该分组解析得到的列值（取自第一条命中行经 JSONPath 求值后的结果） */
+    value: unknown
+    /** 该分组直接 / 间接包含的叶子数据行数量 */
+    count: number
+    /** 是否当前展开 */
+    expanded: boolean
+    /** 直接归属此分组的叶子数据行（仅在最末级分组中包含完整列表） */
+    leafRows: T[]
+}
+
+/**
+ * 渲染分组行 banner 时的参数。
+ */
+export interface GroupCellRenderParam<T extends Row> {
+    group: GroupRowMeta<T>
+	/** 该 groupBy 列对应的列定义（若 groupBy 名称未命中任何列则为 undefined） */
+	column?: ColumnType<T>
+	/** 当前正在渲染的列 */
+	currentColumn: ColumnType<T>
+	/** 当前正在渲染的列下标（叶子列） */
+	columnIndex: number
+	/** 当前列是否就是本层分组列 */
+	isGroupColumn: boolean
+    /** 切换该分组的展开状态 */
+    onToggle: () => void
+    /** 缩进像素（基于 level） */
+    indent: number
+	/** 当前列的默认节点（分组列默认是 banner，其它列默认是 null） */
+    originalElement: ReactNode
+}
+
 export interface MergeCell {
 	/**
 	 * 单元格所在行
