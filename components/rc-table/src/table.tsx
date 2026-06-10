@@ -1195,6 +1195,7 @@ function Table<T extends Row>({
                 gridTemplateRows={gridTemplateRows}
                 viewportWidth={width}
                 viewportHeight={height}
+                reservedTopHeight={(maxDepth * headerRowHeight) + (isFilterEnabled ? filterRowHeight : 0)}
                 renderRows={(rowRange, columnRange) => {
                     // 同一可视窗口内，先渲染 header 再渲染 body，保证层级与遮挡关系正确
                     const headers = generateHeaderElement({

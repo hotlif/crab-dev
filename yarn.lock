@@ -1410,6 +1410,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chenglou/pretext@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@chenglou/pretext@npm:0.0.7"
+  checksum: 10c0/538711926543040b0248ca7a6346fc383fec3d96d33e409f5acd6e8dbe8ecda4f795e3a757fd32690c13797f834a2538fecef2debca8c892b7a33864bf26823a
+  languageName: node
+  linkType: hard
+
 "@colordx/core@npm:^5.0.0":
   version: 5.0.0
   resolution: "@colordx/core@npm:5.0.0"
@@ -2791,6 +2798,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-table@workspace:components/rc-table"
   dependencies:
+    "@chenglou/pretext": "npm:^0.0.7"
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"

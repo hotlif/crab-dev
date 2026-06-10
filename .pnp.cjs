@@ -4215,6 +4215,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@chenglou/pretext", [\
+      ["npm:0.0.7", {\
+        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@chenglou-pretext-npm-0.0.7-0b884b83d0-10c0.zip/node_modules/@chenglou/pretext/",\
+        "packageDependencies": [\
+          ["@chenglou/pretext", "npm:0.0.7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@colordx/core", [\
       ["npm:5.0.0", {\
         "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@colordx-core-npm-5.0.0-6d81affdd3-10c0.zip/node_modules/@colordx/core/",\
@@ -5964,6 +5973,7 @@ const RAW_RUNTIME_STATE =
       ["workspace:components/rc-table", {\
         "packageLocation": "./components/rc-table/",\
         "packageDependencies": [\
+          ["@chenglou/pretext", "npm:0.0.7"],\
           ["@crab-dev/lignify", "virtual:7d0b6f94cccd655b13dd9bde15ae5e802713cbf823deba0171fd5f127038de3351f83a147acd9ded1794b679ccc1e937819683355d25ddf454464c621007b021#workspace:toolbox/lignify"],\
           ["@crab-dev/packify", "workspace:toolbox/packify"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
