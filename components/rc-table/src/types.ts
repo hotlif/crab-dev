@@ -131,6 +131,13 @@ export interface ColumnType<T extends Row> {
 	 * 是否允许该列的单元格被选中（默认 true）
 	 */
 	selectable?: boolean
+
+    /**
+     * 自定义该列用于关键字高亮匹配的文本。
+     * 当单元格显示内容与原始数据不同（如枚举值转换）时，通过此函数返回实际展示的文本，
+     * 使 highlightKeyword 匹配计数正确。
+     */
+    getSearchText?: (row: T) => string
 }
 
 /**

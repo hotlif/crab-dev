@@ -644,8 +644,8 @@ function Table<T extends Row>({
             if (isGroupRow(row)) return;
             bottomColumns.forEach((column, columnIndex) => {
                 if (skipCellSet.has(getCellKey(rowIndex, columnIndex))) return;
-                const jsonResult = JSONPath({ path: column.name, json: (row as T).dataRef });
-                const arr: unknown[] = Array.isArray(jsonResult) ? jsonResult : [jsonResult];
+                const searchText = column.getSearchText?.(row as T);
+                const arr: unknown[] = searchText != null ? [searchText] : (() => { const r = JSONPath({ path: column.name, json: (row as T).dataRef }); return Array.isArray(r) ? r : [r]; })();
                 let occurrenceInCell = 0;
                 arr.forEach(item => {
                     const text = typeof item === "string" ? item : typeof item === "number" ? String(item) : null;
