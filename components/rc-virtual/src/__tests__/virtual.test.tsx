@@ -252,10 +252,11 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ rowIndex: 1 });
+                // rowIndex=4 is fully outside the 200px viewport (y=200-250); triggers a minimal scroll
+                gridRef.current!.scrollToCell({ rowIndex: 4 });
             });
 
-            // rowIndex=1: toTop=50, 50+200=250 < 300 → scrollTop=50
+            // rowIndex=4: toTop=200, viewport=200 → scroll minimally → scrollTop=50 → rowRange starts at row 1
             const lastCall = props.renderRows.mock.calls[props.renderRows.mock.calls.length - 1];
             const [rowRange] = lastCall;
             expect(rowRange[0]).toBeGreaterThanOrEqual(1);
@@ -267,7 +268,8 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ columnIndex: 1 });
+                // columnIndex=2 is fully outside the 200px viewport (x=200-300); triggers a minimal scroll
+                gridRef.current!.scrollToCell({ columnIndex: 2 });
             });
 
             const lastCall = props.renderRows.mock.calls[props.renderRows.mock.calls.length - 1];
@@ -281,7 +283,8 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ rowIndex: 2 });
+                // rowIndex=4 is outside the viewport, so it triggers a real scroll
+                gridRef.current!.scrollToCell({ rowIndex: 4 });
             });
             act(() => {
                 gridRef.current!.scrollToCell({ rowIndex: 0 });
@@ -373,7 +376,8 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ rowIndex: 2, columnIndex: 1 });
+                // row 4 (y=200-250) and col 2 (x=200-300) are both outside the 200×200 viewport
+                gridRef.current!.scrollToCell({ rowIndex: 4, columnIndex: 2 });
             });
 
             const lastCall = props.renderRows.mock.calls[props.renderRows.mock.calls.length - 1];
@@ -425,10 +429,11 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ rowIndex: 1 });
+                // rowIndex=4 is outside the viewport, triggers scroll to scrollTop=50
+                gridRef.current!.scrollToCell({ rowIndex: 4 });
             });
 
-            // scrollToTop(50) → row 0 cumulative=50, 50>50? No. row 1 cumulative=100, 100>50? Yes → rowIndex=1
+            // scrollTop=50 → row 0 cumulative=50, 50>50? No. row 1 cumulative=100, 100>50? Yes → rowIndex=1
             const position = gridRef.current!.getScrollCellPosition();
             expect(position.rowIndex).toBe(1);
         });
@@ -442,10 +447,11 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ columnIndex: 1 });
+                // columnIndex=2 is outside the 200px viewport (x=200-300), triggers scroll to scrollLeft=100
+                gridRef.current!.scrollToCell({ columnIndex: 2 });
             });
 
-            // scrollToLeft(100) → col 0 cumulative=100, 100>100? No. col 1 cumulative=200, 200>100? Yes → columnIndex=1
+            // scrollLeft=100 → col 0 cumulative=100, 100>100? No. col 1 cumulative=200, 200>100? Yes → columnIndex=1
             const position = gridRef.current!.getScrollCellPosition();
             expect(position.columnIndex).toBe(1);
         });
@@ -459,7 +465,8 @@ describe("Virtual", () => {
             render(<Virtual {...props} gridRef={gridRef} />);
 
             act(() => {
-                gridRef.current!.scrollToCell({ rowIndex: 3 });
+                // rowIndex=4 is outside the 150px viewport (y=200-250), triggers scroll to scrollTop=100 → rowIndex=2
+                gridRef.current!.scrollToCell({ rowIndex: 4 });
             });
             const pos1 = gridRef.current!.getScrollCellPosition();
             expect(pos1.rowIndex).toBeGreaterThanOrEqual(2);

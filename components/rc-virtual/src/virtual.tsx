@@ -24,7 +24,11 @@ import ScrollBar, { useScrollbar } from "./scrollbar.js";
 export interface VirtualHandle {
 	scrollToCell: (position: {
 		rowIndex?: number,
-		columnIndex?: number
+		columnIndex?: number,
+		/** 从顶部留出的偏移量（px），用于避免行被固定表头遮挡 */
+		topOffset?: number,
+		/** 从左侧留出的偏移量（px），用于避免列被固定左列遮挡 */
+		leftOffset?: number,
 	}) => void;
 
 	getScrollCellPosition: () => {
@@ -121,43 +125,44 @@ const Virtual: FC<VirtualProps> = ({
     useImperativeHandle(gridRef, () => ({
         scrollToCell: (position) => {
             if (position.rowIndex != null) {
+                const topOffset = position.topOffset ?? 0;
+                // toTop：目标行在数据行坐标系中的偏移（不含 sticky header）
+                // 实际内容坐标 = topOffset + toTop
                 let toTop = 0;
-                if (position.rowIndex <= 0) {
-                    scrollToTop(0);
-                } else {
-                    gridTemplateRows.some((width, index) => {
-                        if (index === position.rowIndex) {
-                            return true;
-                        }
-                        toTop += width;
-                        return false;
-                    });
-                    if (toTop + viewportHeight < totalHeight) {
-                        scrollToTop(toTop);
-                    } else {
-                        scrollToTop(totalHeight - viewportHeight);
-                    }
+                for (let i = 0; i < position.rowIndex; i++) toTop += gridTemplateRows[i] ?? 0;
+                const rowH = gridTemplateRows[position.rowIndex] ?? 0;
+
+                // 仅当行完全不在可视区时才滚动（部分可见则不滚动）：
+                //   内容坐标 = topOffset + toTop（行顶）~ topOffset + toTop + rowH（行底）
+                //   可视数据区：[scrollTop + topOffset, scrollTop + viewportHeight]
+                if (toTop + rowH <= currentScrollPositionTop) {
+                    // 行完全在可视区上方：向上滚，使行顶贴着 header 底部
+                    scrollToTop(Math.max(0, toTop));
+                } else if (toTop >= currentScrollPositionTop + viewportHeight - topOffset) {
+                    // 行完全在可视区下方：向下滚最小距离，使行底刚好贴视口底部
+                    scrollToTop(Math.max(0, Math.min(topOffset + toTop + rowH - viewportHeight, totalHeight - viewportHeight)));
                 }
+                // 否则行（部分或完全）在可视区内，不滚动
             }
             if (position.columnIndex != null) {
+                const leftOffset = position.leftOffset ?? 0;
+                // 计算目标列的像素起止位置
                 let toLeft = 0;
-                if (position.columnIndex <= 0) {
-                    scrollToLeft(0);
-                } else {
-                    gridTemplateColumns.some((height, index) => {
-                        if (index === position.columnIndex) {
-                            return true;
-                        }
-                        toLeft += height;
-                        return false;
-                    });
-					
-                    if (toLeft + viewportWidth < totalWidth) {
-                        scrollToLeft(toLeft);
-                    } else {
-                        scrollToLeft(totalWidth - viewportWidth);
-                    }
+                for (let i = 0; i < position.columnIndex; i++) toLeft += gridTemplateColumns[i] ?? 0;
+                const colW = gridTemplateColumns[position.columnIndex] ?? 0;
+
+                // 当前可视内容区（扣除固定左列）
+                const visibleLeft = currentScrollPositionLeft + leftOffset;
+                const visibleRight = currentScrollPositionLeft + viewportWidth;
+
+                if (toLeft + colW <= visibleLeft) {
+                    // 列完全在可视区左侧：向左滚，使列左边刚好贴着固定列右边
+                    scrollToLeft(Math.max(0, toLeft - leftOffset));
+                } else if (toLeft >= visibleRight) {
+                    // 列完全在可视区右侧：向右滚最小距离，使列右边刚好出现在视口右边
+                    scrollToLeft(Math.min(toLeft + colW - viewportWidth, totalWidth - viewportWidth));
                 }
+                // 否则列（部分或完全）在可视区内，不滚动
             }
         },
         getScrollCellPosition: () => {
