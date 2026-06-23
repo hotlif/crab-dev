@@ -505,7 +505,11 @@ function Table<T extends Row>({
     const bottomColumns = useMemo(() => {
         return getBottomColumns(sColumns)
     }, [sColumns]);
-    bottomColumnsRef.current = bottomColumns;
+
+    useEffect(() => {
+        bottomColumnsRef.current = bottomColumns;
+    }, [bottomColumns]);
+
 
     // 表头最大层级深度（用于生成多行表头）
     const maxDepth = useMemo(() => {
@@ -664,6 +668,11 @@ function Table<T extends Row>({
         return result;
     }, [highlightKeyword, displayRows, bottomColumns, skipCellSet, getCellKey]);
 
+    const allMatchesRef = useRef<MatchEntry[]>(allMatches);
+    useEffect(() => {
+        allMatchesRef.current = allMatches;
+    }, [allMatches])
+
     useEffect(() => {
         onMatchCountChange?.(allMatches.length);
     }, [allMatches.length, onMatchCountChange]);
@@ -673,8 +682,8 @@ function Table<T extends Row>({
     const fixedLeftWidth = fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0);
 
     useEffect(() => {
-        if (activeMatchIndex == null || allMatches.length === 0) return;
-        const match = allMatches[activeMatchIndex];
+        if (activeMatchIndex == null || allMatchesRef.current.length === 0) return;
+        const match = allMatchesRef.current[activeMatchIndex];
         if (!match) return;
         const col = bottomColumns[match.columnIndex];
         // 固定列（左/右）始终可见，不需要横向滚动；非固定列才需要滚动并留出左侧固定列的宽度
@@ -686,7 +695,7 @@ function Table<T extends Row>({
             topOffset: reservedTopPx,
             leftOffset: scrollLeftOffset,
         });
-    }, [activeMatchIndex, allMatches, bottomColumns, reservedTopPx, fixedLeftWidth]);
+    }, [activeMatchIndex, bottomColumns, reservedTopPx, fixedLeftWidth]);
 
     // 当前活动匹配的单元格位置，用于在 generateBodyElement 中按 (rowIndex, columnIndex) 快速查找
     const activeMatchMeta = useMemo((): MatchEntry | null => {
