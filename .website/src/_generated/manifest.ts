@@ -5875,27 +5875,7 @@ export default TableDemo;
         title: "高阶 Table 表格",
         description: "高效的协议表格库，旨在提升大规模列表或内容渲染的性能。",
         category: "data-display",
-        readme: `高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。
-
-## ✨ 特性
-
-- 提供虚拟滚动能力，优化大数据量列表渲染性能
-- 通过按需渲染降低首屏与滚动过程开销
-- 适用于长列表、日志流与高频更新数据面板
-- 当前版本：\`0.1.1\`
-- 示例数量：\`1\` 个 Demo
-- 主题能力：按组件实现提供样式能力
-
-## 🔨 使用示例
-
-<demos />
-
-## API
-
-<api />
-
-> 其余原生属性按底层实现透传，详见 API。
-`,
+        readme: ``,
         demos: [
             {
                 path: "components/rc-protocol-table/docs/demos/basic.demo.tsx",
@@ -5979,153 +5959,176 @@ export default BasicDemo;
 `,
             },
             {
-                path: "components/rc-protocol-table/docs/demos/filterable.demo.tsx",
-                title: "服务端过滤",
-                description: "ProtocolTable 的数据和列定义均来自接口。通过外部过滤条件变更 key 强制重新挂载，触发 fetchData/fetchColumns 再次调用，模拟向服务端发送查询参数的场景。",
+                path: "components/rc-protocol-table/docs/demos/pagination.demo.tsx",
+                title: "服务端分页",
+                description: "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。",
                 source: `/**
- * title = "服务端过滤"
- * description = "ProtocolTable 的数据和列定义均来自接口。通过外部过滤条件变更 key 强制重新挂载，触发 fetchData/fetchColumns 再次调用，模拟向服务端发送查询参数的场景。"
+ * title = "服务端分页"
+ * description = "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。"
  */
 
+import { useState, useEffect } from "react";
 import { css } from "@linaria/core";
-import { type ChangeEvent, useState } from "react";
 import ProtocolTable from "../../src/table.js";
-import type { ProtocolColumnType } from "../../src/types.js";
+import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";
 
-interface StaffRow extends Row {
+interface EmployeeRow extends Row {
     dataRef: {
         employeeNo: string;
-        name:       string;
+        name: string;
         department: string;
-        status:     string;
-        level:      string;
-        salary:     number;
+        jobTitle: string;
+        city: string;
+        age: number;
+        salary: number;
+        hireDate: string;
     };
 }
 
-const DEPARTMENTS = ["前端", "后端", "产品", "设计", "测试"];
-const STATUSES    = ["在职", "试用", "离职"];
-const LEVELS      = ["P4", "P5", "P6", "P7", "P8"];
+const COLUMNS: ProtocolColumnType[] = [
+    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left" },
+    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120 },
+    { name: "$.department", title: "部门",       dataType: "text",   width: 140 },
+    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180 },
+    { name: "$.city",       title: "城市",       dataType: "text",   width: 120 },
+    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: "right" },
+    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: "right" },
+    { name: "$.hireDate",   title: "入职日期",    dataType: "text"  },
+];
+
+const filterInputStyle = css\`
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 6px;
+    font-size: 12px;
+    &::placeholder { color: #bbb; }
+\`;
+
+const TextFilterEditor = ({ value, onValueChange }: { value: string; onValueChange: (v: string) => void }) => {
+    const [local, setLocal] = useState(value);
+    useEffect(() => { setLocal(value); }, [value]);
+    return (
+        <input
+            className={filterInputStyle}
+            type="text"
+            value={local}
+            onChange={(e) => setLocal(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") onValueChange(local); }}
+            placeholder="搜索…"
+        />
+    );
+};
+
+const NumberFilterEditor = ({ value, onValueChange }: { value: string; onValueChange: (v: string) => void }) => {
+    const [local, setLocal] = useState(value);
+    useEffect(() => { setLocal(value); }, [value]);
+    return (
+        <input
+            className={filterInputStyle}
+            type="number"
+            value={local}
+            onChange={(e) => setLocal(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") onValueChange(local); }}
+            placeholder="筛选…"
+        />
+    );
+};
+
+const TYPE_LOADERS: DataTypeLoader[] = [
+    {
+        name: "text",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: ({ value, onValueChange }) => (
+            <TextFilterEditor value={value} onValueChange={onValueChange} />
+        ),
+    },
+    {
+        name: "number",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: ({ value, onValueChange }) => (
+            <NumberFilterEditor value={value} onValueChange={onValueChange} />
+        ),
+    },
+];
+
+const DEPARTMENTS = ["前端", "后端", "产品", "设计", "测试", "运维"];
+const JOB_TITLES  = ["工程师", "高级工程师", "技术专家", "架构师", "经理", "总监"];
+const CITIES      = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
 const NAMES       = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
 
-const ALL_ROWS: StaffRow[] = Array.from({ length: 400 }, (_, index) => ({
+const ALL_ROWS: EmployeeRow[] = Array.from({ length: 500 }, (_, index) => ({
     id: String(index + 1),
     dataRef: {
         employeeNo: \`EMP-\${String(index + 1).padStart(4, "0")}\`,
         name:       \`\${NAMES[index % NAMES.length]}\${String(index + 1).padStart(2, "0")}\`,
         department: DEPARTMENTS[index % DEPARTMENTS.length],
-        status:     STATUSES[index % STATUSES.length],
-        level:      LEVELS[index % LEVELS.length],
+        jobTitle:   JOB_TITLES[index % JOB_TITLES.length],
+        city:       CITIES[index % CITIES.length],
+        age:        22 + (index % 20),
         salary:     10000 + (index % 40) * 1000,
+        hireDate:   \`202\${index % 4}-\${String((index % 12) + 1).padStart(2, "0")}-\${String((index % 28) + 1).padStart(2, "0")}\`,
     },
 }));
 
-const COLUMNS: ProtocolColumnType[] = [
-    { name: "$.employeeNo", title: "工号",     dataType: "text",   width: 140, fixed: "left" },
-    { name: "$.name",       title: "姓名",     dataType: "text",   width: 120 },
-    { name: "$.department", title: "部门",     dataType: "text",   width: 140 },
-    { name: "$.status",     title: "状态",     dataType: "text",   width: 110, align: "center" },
-    { name: "$.level",      title: "级别",     dataType: "text",   width: 100, align: "center" },
-    { name: "$.salary",     title: "月薪（元）", dataType: "number", width: 140, align: "right" },
-];
+const fetchColumns = (): Promise<ProtocolColumnType[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 200));
 
-interface Filters {
-    department: string;
-    status: string;
-    level: string;
-}
-
-/** 模拟带过滤条件的异步接口 */
-const fetchFilteredData = (filters: Filters): Promise<StaffRow[]> =>
+/** 模拟服务端分页接口：接收 page/pageSize/filters，返回对应切片与总条数 */
+const fetchData = (
+    page: number,
+    pageSize: number,
+    filters: Record<string, string>
+): Promise<{ rows: EmployeeRow[]; total: number }> =>
     new Promise((resolve) =>
         setTimeout(() => {
-            const result = ALL_ROWS.filter(({ dataRef }) =>
-                (!filters.department || dataRef.department === filters.department) &&
-                (!filters.status     || dataRef.status     === filters.status)     &&
-                (!filters.level      || dataRef.level      === filters.level)
+            console.log("fetchData called with", { page, pageSize, filters });
+            const filtered = ALL_ROWS.filter((row) =>
+                Object.entries(filters).every(([colName, keyword]) => {
+                    if (!keyword) return true;
+                    const key = colName.replace(/^\\$\\./, "") as keyof EmployeeRow["dataRef"];
+                    const val = String(row.dataRef[key] ?? "");
+                    return val.toLowerCase().includes(keyword.toLowerCase());
+                })
             );
-            resolve(result);
-        }, 200)
+            const start = (page - 1) * pageSize;
+            resolve({
+                rows: filtered.slice(start, start + pageSize),
+                total: filtered.length,
+            });
+        }, 300)
     );
-
-const fetchColumns = (): Promise<ProtocolColumnType[]> =>
-    Promise.resolve(COLUMNS);
-
-const toolbarStyle = css\`
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-\`;
-
-const labelStyle = css\`
-    font-size: 13px;
-    color: #555;
-\`;
-
-const selectStyle = css\`
-    height: 28px;
-    padding-inline: 8px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    font-size: 13px;
-    background-color: #fff;
-    cursor: pointer;
-
-    &:focus {
-        outline: none;
-        border-color: #4096ff;
-    }
-\`;
 
 const containerStyle = css\`
     width: 100%;
-    height: 360px;
+    height: 400px;
 \`;
 
-const FilterableDemo = () => {
-    const [filters, setFilters] = useState<Filters>({ department: "", status: "", level: "" });
-
-    const tableKey = \`\${filters.department}|\${filters.status}|\${filters.level}\`;
-
-    const patchFilter = (key: keyof Filters) => (e: ChangeEvent<HTMLSelectElement>) =>
-        setFilters((prev) => ({ ...prev, [key]: e.target.value }));
-
+const PaginationDemo = () => {
     return (
-        <div>
-            <div className={toolbarStyle}>
-                <span className={labelStyle}>部门：</span>
-                <select className={selectStyle} value={filters.department} onChange={patchFilter("department")}>
-                    <option value="">全部</option>
-                    {DEPARTMENTS.map((d) => <option key={d} value={d}>{d}</option>)}
-                </select>
-
-                <span className={labelStyle}>状态：</span>
-                <select className={selectStyle} value={filters.status} onChange={patchFilter("status")}>
-                    <option value="">全部</option>
-                    {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-                </select>
-
-                <span className={labelStyle}>级别：</span>
-                <select className={selectStyle} value={filters.level} onChange={patchFilter("level")}>
-                    <option value="">全部</option>
-                    {LEVELS.map((l) => <option key={l} value={l}>{l}</option>)}
-                </select>
-            </div>
-
-            <ProtocolTable<StaffRow>
-                key={tableKey}
-                className={containerStyle}
-                fetchColumns={fetchColumns}
-                fetchData={() => fetchFilteredData(filters)}
-            />
-        </div>
+        <ProtocolTable<EmployeeRow>
+            className={containerStyle}
+            fetchColumns={fetchColumns}
+            fetchData={fetchData}
+            typeLoaders={TYPE_LOADERS}
+            pagination={{
+                defaultPageSize: 20,
+                showSizeChanger: true,
+                showQuickJumper: true,
+                showTotal: true,
+                size: "small",
+            }}
+        />
     );
 };
 
-export default FilterableDemo;
+export default PaginationDemo;
 `,
             },
             {
@@ -6194,10 +6197,10 @@ const statusTagStyle = css\`
 \`;
 
 const STATUS_COLOR_MAP: Record<string, { background: string; color: string }> = {
-    待确认: { background: "#fff7e6", color: "#d46b08" },
-    处理中: { background: "#e6f4ff", color: "#0958d9" },
-    已完成: { background: "#f6ffed", color: "#389e0d" },
-    已取消: { background: "#fff1f0", color: "#cf1322" },
+    "待确认": { background: "#fff7e6", color: "#d46b08" },
+    "处理中": { background: "#e6f4ff", color: "#0958d9" },
+    "已完成": { background: "#f6ffed", color: "#389e0d" },
+    "已取消": { background: "#fff1f0", color: "#cf1322" },
 };
 
 const TYPE_LOADERS: DataTypeLoader[] = [
@@ -8591,6 +8594,150 @@ export default FilterDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/highlight.demo.tsx",
+                title: "关键字高亮",
+                description: "通过 highlightKeyword 高亮单元格中的匹配文本，activeMatchIndex 控制当前活动匹配（橙色）并同时滚动到对应行列，效果类似浏览器 Ctrl+F。默认 render 自动处理；自定义 render 可通过 keyword 参数配合 highlightText 工具函数手动处理。",
+                source: `/**
+ * title = "关键字高亮"
+ * description = "通过 highlightKeyword 高亮单元格中的匹配文本，activeMatchIndex 控制当前活动匹配（橙色）并同时滚动到对应行列，效果类似浏览器 Ctrl+F。默认 render 自动处理；自定义 render 可通过 keyword 参数配合 highlightText 工具函数手动处理。"
+ */
+
+import React, { useEffect, useMemo, useState } from "react";
+import Table, { highlightText } from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/index.js";
+
+interface DemoRow extends Row {
+    dataRef: {
+        name: string
+        gender: number
+        department: string
+        city: string
+        jobTitle: string
+        email: string
+        salary: number
+        project: string
+        status: string
+        manager: string
+        phone: string
+    }
+}
+
+const names = ["张伟", "李娜", "王芳", "赵磊", "陈静", "刘洋", "周鑫", "吴丽", "孙鹏", "徐敏", "朱辉", "胡博"];
+const genders = [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1];
+const departments = ["研发部", "产品部", "销售部", "人事部", "财务部", "运维部"];
+const cities = ["北京", "上海", "深圳", "广州", "杭州", "成都"];
+const titles = ["高级工程师", "产品经理", "前端工程师", "销售总监", "HR 经理", "架构师", "财务总监", "UX 设计师", "测试工程师", "运维工程师", "后端工程师"];
+const projects = ["主数据平台", "经营看板", "供应链优化", "门店数字化", "风控中台", "物流协同", "能源巡检", "医药追溯"];
+const statuses = ["进行中", "已完成", "已暂停", "待启动"];
+const managers = ["王建国", "李晓明", "张华", "陈伟", "刘芳"];
+
+const rawRows: DemoRow[] = Array.from({ length: 80 }, (_, i) => {
+    const name = names[i % names.length];
+    return {
+        id: String(i + 1),
+        dataRef: {
+            name,
+            gender: genders[i % genders.length],
+            department: departments[i % departments.length],
+            city: cities[i % cities.length],
+            jobTitle: titles[i % titles.length],
+            email: \`\${name}\${i + 1}@example.com\`,
+            salary: 18000 + (i * 317) % 22000,
+            project: projects[i % projects.length],
+            status: statuses[i % statuses.length],
+            manager: managers[i % managers.length],
+            phone: \`1\${3 + (i % 7)}\${String(100000000 + i * 9973).slice(0, 9)}\`,
+        },
+    };
+});
+
+const HighlightDemo = () => {
+    const [keyword, setKeyword] = useState("");
+    const [activeIdx, setActiveIdx] = useState(0);
+    const [matchCount, setMatchCount] = useState(0);
+
+    useEffect(() => {
+        setActiveIdx(0);
+    }, [keyword]);
+
+    const columns = useMemo((): ColumnType<DemoRow>[] => [
+        { title: "姓名", name: "name", width: 90, fixed: "left" },
+        { title: "性别", name: "gender", width: 70, getSearchText: (row) => row.dataRef.gender === 1 ? "男" : "女", render: ({ row, keyword: kw, activeOccurrenceInCell }) => highlightText(row.dataRef.gender === 1 ? "男" : "女", kw ?? "", activeOccurrenceInCell) },
+        { title: "部门", name: "department", width: 110 },
+        { title: "城市", name: "city", width: 90 },
+        { title: "职位", name: "jobTitle", width: 150 },
+        {
+            title: "邮箱（自定义）",
+            name: "email",
+            width: 210,
+            render: ({ row, keyword: kw, activeOccurrenceInCell, originalElement }) => {
+                if (!kw) return originalElement;
+                return (
+                    <div style={{ padding: "0 8px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: "#1976d2", width: "100%", boxSizing: "border-box" }}>
+                        {highlightText(row.dataRef.email, kw, activeOccurrenceInCell)}
+                    </div>
+                );
+            },
+        },
+        { title: "薪资", name: "salary", width: 100, align: "right" },
+        { title: "项目", name: "project", width: 140 },
+        { title: "状态", name: "status", width: 90 },
+        { title: "负责人", name: "manager", width: 90 },
+        { title: "电话", name: "phone", width: 130 },
+    ], []);
+
+    const canNav = matchCount > 0 && keyword.trim() !== "";
+    const goNext = () => setActiveIdx(i => (i + 1) % matchCount);
+    const goPrev = () => setActiveIdx(i => (i - 1 + matchCount) % matchCount);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") { if (e.shiftKey) goPrev(); else goNext(); }
+    };
+
+    const btnStyle = (disabled: boolean): React.CSSProperties => ({
+        width: 28, height: 28, border: "1px solid #ddd", borderRadius: 4,
+        background: disabled ? "#f5f5f5" : "#fff", cursor: disabled ? "not-allowed" : "pointer",
+        display: "inline-flex", alignItems: "center", justifyContent: "center",
+        fontSize: 14, color: disabled ? "#bbb" : "#333", flexShrink: 0,
+    });
+
+    return (
+        <div>
+            <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+                <input
+                    value={keyword}
+                    placeholder="输入关键字（Enter 跳转下一个）"
+                    onChange={(e) => setKeyword(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    style={{
+                        width: 230, height: 30, boxSizing: "border-box",
+                        border: "1px solid #ddd", borderRadius: 4,
+                        paddingInline: 8, fontSize: 13, outline: "none",
+                    }}
+                />
+                <span style={{ fontSize: 12, color: "#888", minWidth: 70 }}>
+                    {keyword.trim() === "" ? "" : matchCount === 0 ? "无匹配" : \`\${activeIdx + 1} / \${matchCount}\`}
+                </span>
+                <button style={btnStyle(!canNav)} disabled={!canNav} onClick={goPrev} title="上一个（Shift+Enter）">↑</button>
+                <button style={btnStyle(!canNav)} disabled={!canNav} onClick={goNext} title="下一个（Enter）">↓</button>
+            </div>
+            <Table
+                width={1120}
+                height={400}
+                columns={columns}
+                rows={rawRows}
+                highlightKeyword={keyword}
+                activeMatchIndex={canNav ? activeIdx : undefined}
+                onMatchCountChange={setMatchCount}
+            />
+        </div>
+    );
+};
+
+export default HighlightDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/largeScale.demo.tsx",
                 title: "大规模数据",
                 description: "1000 列 × 1000 行，验证虚拟滚动在大数据量下的滚动性能",
@@ -9252,6 +9399,172 @@ export default RowGroupingDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/rowState.demo.tsx",
+                title: "行状态（新增 / 修改 / 删除）",
+                description: "通过 row.state 标记行的变更状态，结合自定义渲染为不同状态的行呈现不同视觉样式。",
+                source: `
+/**
+ * title = "行状态（新增 / 修改 / 删除）"
+ * description = "通过 row.state 标记行的变更状态，结合自定义渲染为不同状态的行呈现不同视觉样式。"
+ */
+
+import { css } from "@linaria/core";
+import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
+
+import Table from "../../src/index.js";
+import type { ColumnType, Row, RowState } from "../../src/index.js";
+
+interface DemoRow extends Row {
+    dataRef: {
+        name: string
+        department: string
+        salary: number
+        joinDate: string
+    }
+}
+
+const STATE_CONFIG: Record<NonNullable<RowState>, { label: string; color: string; bg: string }> = {
+    new:      { label: "新增",   color: "#16a34a", bg: "#dcfce7" },
+    modified: { label: "已修改", color: "#b45309", bg: "#fef3c7" },
+    deleted:  { label: "已删除", color: "#dc2626", bg: "#fee2e2" },
+};
+
+const wrapCell = (child: ReactNode, state?: RowState): ReactNode => (
+    <div
+        style={{
+            width: "100%",
+            height: "100%",
+            opacity: state === "deleted" ? 0.45 : 1,
+            textDecoration: state === "deleted" ? "line-through" : "none",
+        }}
+    >
+        {child}
+    </div>
+);
+
+const btnStyle = css\`
+    padding: 2px 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    &:hover { background: #f3f4f6; }
+\`;
+
+const actionBarStyle = css\`
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+\`;
+
+let nextId = 100;
+
+const initialRows: DemoRow[] = [
+    { id: "1", dataRef: { name: "王明", department: "前端", salary: 18000, joinDate: "2021-03-15" } },
+    { id: "2", state: "modified", dataRef: { name: "李婷", department: "后端", salary: 22000, joinDate: "2020-07-01" } },
+    { id: "3", state: "deleted", dataRef: { name: "赵阳", department: "设计", salary: 15000, joinDate: "2022-11-08" } },
+    { id: "4", state: "new",     dataRef: { name: "陈晨", department: "测试", salary: 14000, joinDate: "2024-01-20" } },
+    { id: "5", dataRef: { name: "孙浩", department: "产品", salary: 20000, joinDate: "2019-05-12" } },
+];
+
+const RowStateDemo = () => {
+    const [rows, setRows] = useState<DemoRow[]>(initialRows);
+
+    const updateState = (id: DemoRow["id"], state: RowState | undefined) => {
+        setRows(prev => prev.map(r => r.id === id ? { ...r, state } : r));
+    };
+
+    const addRow = () => {
+        const id = String(nextId++);
+        setRows(prev => [...prev, {
+            id,
+            state: "new",
+            dataRef: { name: "新员工", department: "待分配", salary: 12000, joinDate: new Date().toISOString().slice(0, 10) },
+        }]);
+    };
+
+    const columns = useMemo<ColumnType<DemoRow>[]>(() => [
+        {
+            title: "状态",
+            name: "_state",
+            width: 90,
+            render: ({ row }) => {
+                if (!row.state) {
+                    return <div style={{ paddingInline: 8, color: "#9ca3af", fontSize: 12 }}>—</div>;
+                }
+                const { label, color, bg } = STATE_CONFIG[row.state];
+                return (
+                    <div style={{ paddingInline: 8 }}>
+                        <span style={{ padding: "2px 6px", borderRadius: 4, fontSize: 11, color, backgroundColor: bg }}>
+                            {label}
+                        </span>
+                    </div>
+                );
+            },
+        },
+        {
+            title: "姓名",
+            name: "name",
+            width: 110,
+            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
+        },
+        {
+            title: "部门",
+            name: "department",
+            width: 110,
+            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
+        },
+        {
+            title: "月薪",
+            name: "salary",
+            width: 110,
+            align: "right",
+            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
+        },
+        {
+            title: "入职日期",
+            name: "joinDate",
+            width: 120,
+            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
+        },
+        {
+            title: "操作",
+            name: "_actions",
+            selectable: false,
+            render: ({ row }) => (
+                <div style={{ display: "flex", gap: 4, paddingInline: 6 }}>
+                    <button className={btnStyle} onClick={() => updateState(row.id, "new")}>新增</button>
+                    <button className={btnStyle} onClick={() => updateState(row.id, "modified")}>修改</button>
+                    <button className={btnStyle} onClick={() => updateState(row.id, "deleted")}>删除</button>
+                    <button className={btnStyle} onClick={() => updateState(row.id, undefined)}>重置</button>
+                </div>
+            ),
+        },
+    ], []);
+
+    return (
+        <div>
+            <div className={actionBarStyle}>
+                <button className={btnStyle} onClick={addRow}>+ 新增行</button>
+                <button className={btnStyle} onClick={() => setRows(initialRows)}>重置全部</button>
+            </div>
+            <Table
+                width={780}
+                height={260}
+                columns={columns}
+                rows={rows}
+            />
+        </div>
+    );
+};
+
+export default RowStateDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/selectCells.demo.tsx",
                 title: "单元格选择",
                 description: "类似 Excel 的单元格选区：点击选中、按住拖拽框选、Shift 扩选、Ctrl/⌘ 切换单格",
@@ -9481,6 +9794,42 @@ export default SelectCellsDemo;
                 name: "renderGroupCell",
                 description: "-",
                 type: "(param: GroupCellRenderParam<T>) => ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "cellEditRecords",
+                description: "-",
+                type: "CellEditRecord[]",
+                defaultValue: "-",
+            },
+            {
+                name: "onCellEditRecordsChange",
+                description: "-",
+                type: "(records: CellEditRecord[]) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onUndo",
+                description: "-",
+                type: "(record: CellEditRecord) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "highlightKeyword",
+                description: "-",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "activeMatchIndex",
+                description: "-",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "onMatchCountChange",
+                description: "-",
+                type: "(count: number) => void",
                 defaultValue: "-",
             },
         ],
