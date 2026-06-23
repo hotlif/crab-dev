@@ -5,8 +5,8 @@ import { css, cx } from "@linaria/core";
 import TableRow from "./tableRow.js";
 import TableBodyCell, { type TableCellProps } from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
-import { sortColumns, getBottomColumns, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray, buildMergeCellLookup, buildGroupedDisplayRows, isGroupRow, type InternalGroupRow } from "./util.js";
-import type { CellSelectionState, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row } from "./types.js";
+import { sortColumns, getBottomColumns, getMaxDepth, HeaderCellType, getHeaderCellsTwoDimensionalArray, buildMergeCellLookup, buildGroupedDisplayRows, isGroupRow, setValueByJsonPath, type InternalGroupRow } from "./util.js";
+import type { CellEditRecord, CellSelectionState, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row } from "./types.js";
 
 interface TableProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
 	// 表格的宽度
@@ -57,6 +57,12 @@ interface TableProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     onExpandedGroupIdsChange?: (expandedGroupIds: Set<Key>) => void
     // 自定义分组 banner 渲染
     renderGroupCell?: (param: GroupCellRenderParam<T>) => ReactNode
+    // 受控编辑操作记录
+    cellEditRecords?: CellEditRecord[]
+    // 编辑操作记录变化回调（每次 commit 后追加一条记录）
+    onCellEditRecordsChange?: (records: CellEditRecord[]) => void
+    // Ctrl+Z 撤销最近一次单元格编辑时触发，携带被撤销的记录
+    onUndo?: (record: CellEditRecord) => void
 }
 
 // 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域
@@ -169,10 +175,37 @@ function Table<T extends Row>({
     defaultExpandAll = true,
     onExpandedGroupIdsChange,
     renderGroupCell,
+    cellEditRecords,
+    onCellEditRecordsChange,
+    onUndo,
     ...restProps
 }: TableProps<T>) {
 
     const [innerFilterKeywordMap, setInnerFilterKeywordMap] = useState<Record<string, string>>({});
+
+    // ====== 单元格编辑记录 ======
+    const [innerEditRecords, setInnerEditRecords] = useState<CellEditRecord[]>([]);
+    // 每次撤销后递增，用于通知 bodyCell 重新读取 row.dataRef（绕过 useMemo 缓存）
+    const [undoDataVersion, setUndoDataVersion] = useState(0);
+    const committedEditRecords = cellEditRecords ?? innerEditRecords;
+
+    const editedCellKeys = useMemo(() => {
+        const set = new Set<string>();
+        committedEditRecords.forEach((r) => set.add(makeSelectKey(r.rowId, r.columnIndex)));
+        return set;
+    }, [committedEditRecords]);
+
+    const handleCellCommit = useCallback((rowId: Key, columnName: string, columnIndex: number, oldValue: unknown, newValue: unknown) => {
+        // oldValue 是 JSONPath 结果数组，取第一个元素与 newValue 比较；值相同则无需记录
+        const scalarOld = Array.isArray(oldValue) && oldValue.length > 0 ? oldValue[0] : oldValue;
+        if (scalarOld === newValue) return;
+        const record: CellEditRecord = { rowId, columnName, columnIndex, oldValue, newValue, timestamp: Date.now() };
+        const next = [...committedEditRecords, record];
+        if (cellEditRecords == null) {
+            setInnerEditRecords(next);
+        }
+        onCellEditRecordsChange?.(next);
+    }, [committedEditRecords, cellEditRecords, onCellEditRecordsChange]);
 
     // 稳定化 groupBy 引用：消费方经常写成字面量数组，每次父组件重渲都会制造新引用，
     // 会让后续 memo 链（displayRows / sColumns / bottomColumns / gridTemplate*）雪崩失效
@@ -238,6 +271,8 @@ function Table<T extends Row>({
     const dragRectRef = useRef<typeof dragRect>(null);
     // 始终维护最新的 dragRect 引用，供 window mouseup 在闭包外读取
     dragRectRef.current = dragRect;
+    // 始终维护最新的 bottomColumns 引用，供 keydown handler 在 bottomColumns 声明之前读取
+    const bottomColumnsRef = useRef<ColumnType<T>[]>([]);
 
     const committedSelectCells = selectCells ?? innerSelectCells;
 
@@ -354,8 +389,36 @@ function Table<T extends Row>({
             }
             setDragRect(null);
         };
-        // Esc：清空选区与锚点（与 Excel 行为一致）
         const handleKeyDown = (event: KeyboardEvent) => {
+            // Ctrl/Cmd+Z：撤销最近一次单元格编辑
+            // 当焦点在原生输入框内时跳过，让浏览器的原生 undo 正常工作
+            if ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key === "z") {
+                const activeTag = (document.activeElement as HTMLElement | null)?.tagName?.toLowerCase();
+                if (activeTag !== "input" && activeTag !== "textarea" && activeTag !== "select") {
+                    if (committedEditRecords.length > 0) {
+                        const last = committedEditRecords[committedEditRecords.length - 1];
+                        const next = committedEditRecords.slice(0, -1);
+                        if (cellEditRecords == null) {
+                            setInnerEditRecords(next);
+                        }
+                        onCellEditRecordsChange?.(next);
+                        onUndo?.(last);
+                        // 把 oldValue 写回 row.dataRef，然后递增 dataVersion 让 bodyCell 重新读取
+                        const rowObj = displayRows.find(r => !isGroupRow(r) && r.id === last.rowId);
+                        const col = bottomColumnsRef.current[last.columnIndex];
+                        if (rowObj && !isGroupRow(rowObj) && col) {
+                            const scalar = Array.isArray(last.oldValue) && last.oldValue.length > 0
+                                ? last.oldValue[0]
+                                : last.oldValue;
+                            setValueByJsonPath((rowObj as T).dataRef, col.name, scalar);
+                        }
+                        setUndoDataVersion(v => v + 1);
+                        event.preventDefault();
+                    }
+                    return;
+                }
+            }
+            // Esc：清空选区与锚点（与 Excel 行为一致）
             if (event.key !== "Escape") return;
             if (committedSelectCells.length === 0 && anchorCell == null && dragRectRef.current == null) return;
             setAnchorCell(null);
@@ -371,7 +434,7 @@ function Table<T extends Row>({
             window.removeEventListener("mouseup", handleMouseUp);
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [displayRows, emitSelectCells, committedSelectCells, anchorCell]);
+    }, [displayRows, emitSelectCells, committedSelectCells, anchorCell, committedEditRecords, cellEditRecords, onCellEditRecordsChange, onUndo]);
 
     const getCellSelectionState = useCallback((rowIndex: number, columnIndex: number, mergeCell?: MergeCell): CellSelectionState | undefined => {
         const row = displayRows[rowIndex];
@@ -425,6 +488,7 @@ function Table<T extends Row>({
     const bottomColumns = useMemo(() => {
         return getBottomColumns(sColumns)
     }, [sColumns]);
+    bottomColumnsRef.current = bottomColumns;
 
     // 表头最大层级深度（用于生成多行表头）
     const maxDepth = useMemo(() => {
@@ -441,8 +505,12 @@ function Table<T extends Row>({
     }, [maxDepth, headerRowHeight]);
 
     const gridTemplateColumns = useMemo(() => {
-        return bottomColumns.filter(element => element.hidden !== true).map((column) => column.width ?? 120)
-    }, [bottomColumns])
+        const cols = bottomColumns.filter(element => element.hidden !== true);
+        const fixedWidthTotal = cols.reduce((acc, col) => acc + (col.width != null ? col.width : 0), 0);
+        const autoColCount = cols.filter(col => col.width == null).length;
+        const autoColWidth = autoColCount > 0 ? Math.max(0, (width - fixedWidthTotal) / autoColCount) : 0;
+        return cols.map((column) => column.width ?? autoColWidth);
+    }, [bottomColumns, width])
 
     const filterKeywordMap = filters ?? innerFilterKeywordMap;
     const isFilterEnabled = filterBar === true;
@@ -791,7 +859,10 @@ function Table<T extends Row>({
                         gridTemplateColumns={gridTemplateColumns}
                         gridTemplateRows={gridTemplateRows}
                         editType={editType}
+                        isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
+                        onCellCommit={handleCellCommit}
                         selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
+                        dataVersion={undoDataVersion}
                         onCellMouseDown={handleCellMouseDown}
                         onCellMouseEnter={handleCellMouseEnter}
                         style={{
@@ -832,6 +903,8 @@ function Table<T extends Row>({
                                 gridTemplateRows={gridTemplateRows}
                                 fixed="left"
                                 editType={editType}
+                                isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
+                                onCellCommit={handleCellCommit}
                                 selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                                 onCellMouseDown={handleCellMouseDown}
                                 onCellMouseEnter={handleCellMouseEnter}
@@ -869,6 +942,8 @@ function Table<T extends Row>({
                                 gridTemplateRows={gridTemplateRows}
                                 fixed="right"
                                 editType={editType}
+                                isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
+                                onCellCommit={handleCellCommit}
                                 selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                                 onCellMouseDown={handleCellMouseDown}
                                 onCellMouseEnter={handleCellMouseEnter}
@@ -1180,7 +1255,7 @@ function Table<T extends Row>({
         <div
             {...restProps}
             style={{
-                '--crab-rc-virtual-left-padding-width-offset': `${fixedLeftColumns.reduce((acc, cur) => acc + (cur.width ?? 120), 0)}px`,
+                '--crab-rc-virtual-left-padding-width-offset': `${fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`,
                 '--crab-rc-virtual-top-padding-height-offset':  `${(maxDepth * headerRowHeight) + (isFilterEnabled ? filterRowHeight : 0)}px`
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as CSSProperties & Record<string, any>}

@@ -3,6 +3,24 @@ import type { Key } from "react";
 import { JSONPath } from "jsonpath-plus";
 import type { ColumnType, GroupRowMeta, MergeCell, Row } from "./types";
 
+/**
+ * 按简单 JSONPath（$.a 或 $.a.b.c）把值写回对象。
+ * 仅支持点号路径，不处理数组下标或通配符。
+ */
+export const setValueByJsonPath = (obj: unknown, path: string, value: unknown): void => {
+    if (obj == null || typeof obj !== 'object') return;
+    const parts = path.replace(/^\$\.?/, '').split('.').filter(Boolean);
+    if (parts.length === 0) return;
+    let cur: any = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+        if (cur == null || typeof cur !== 'object') return;
+        cur = cur[parts[i]];
+    }
+    if (cur != null && typeof cur === 'object') {
+        cur[parts[parts.length - 1]] = value;
+    }
+};
+
 export interface HeaderCellType {
     column?: ColumnType<any>;
     rowSpan: number
@@ -253,7 +271,7 @@ const stringifyGroupValue = (value: unknown): string => {
 };
 
 const resolveColumnValue = <T extends Row>(row: T, columnName: string): unknown => {
-    const result = JSONPath({ path: columnName, json: row.dataRef });
+    const result = JSONPath({ path: columnName, json: row?.dataRef, wrap: false });
     if (Array.isArray(result)) {
         return result[0];
     }

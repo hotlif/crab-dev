@@ -2,12 +2,15 @@ import { Key, type ReactNode } from "react";
 
 export type Align = "left" | "right" | "center";
 
+/** 行的变更状态：new 新增、modified 已修改、deleted 已删除，undefined 表示未变更 */
+export type RowState = "new" | "modified" | "deleted";
 
 export interface Row {
     id: Key,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dataRef: any,
-    height?: number
+    height?: number,
+    state?: RowState
 }
 
 interface RenderParam<T extends Row> {
@@ -161,6 +164,20 @@ export interface GroupCellRenderParam<T extends Row> {
     indent: number
 	/** 当前列的默认节点（分组列默认是 banner，其它列默认是 null） */
     originalElement: ReactNode
+}
+
+/**
+ * 单次单元格编辑的操作记录，在消费方调用 onCommit 时由表格自动生成并追加到历史列表。
+ */
+export interface CellEditRecord {
+    rowId: Key;
+    columnName: string;
+    columnIndex: number;
+    /** 编辑前的值（进入编辑模式时 JSONPath 查到的原始值） */
+    oldValue: unknown;
+    /** 编辑后的值（editorValue，即消费方在编辑器中最后设置的值） */
+    newValue: unknown;
+    timestamp: number;
 }
 
 export interface MergeCell {

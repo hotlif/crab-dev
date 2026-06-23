@@ -1,7 +1,7 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
 import type { CellSelectionState, ColumnType, MergeCell, Row } from "./types.js";
-import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 
 export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
@@ -16,6 +16,12 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     mergeCell?: MergeCell
     editType?: "cell"
     selection?: CellSelectionState
+    /** 该单元格是否已被编辑过（用于显示编辑标记） */
+    isEdited?: boolean
+    /** 递增时强制 dataValue 重新从 row.dataRef 读取（用于撤销后刷新显示） */
+    dataVersion?: number
+    /** 提交编辑时回调，携带编辑前后的值 */
+    onCellCommit?: (rowId: Key, columnName: string, columnIndex: number, oldValue: unknown, newValue: unknown) => void
     onCellMouseDown?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
     onCellMouseEnter?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
 }
@@ -40,6 +46,9 @@ function TableCell<T extends Row>({
     fixed,
     editType,
     selection,
+    isEdited,
+    dataVersion,
+    onCellCommit,
     onCellMouseDown,
     onCellMouseEnter,
     onDoubleClick,
@@ -49,6 +58,8 @@ function TableCell<T extends Row>({
 }: TableCellProps<T>){
     const [editorValue, setEditorValue] = useState<unknown>(null);
     const [isEditing, setIsEditing] = useState(false);
+    // 进入编辑时快照原值，提交时作为 oldValue 写入操作记录
+    const originalValueRef = useRef<unknown>(null);
 
     const exitEditing = useCallback(() => {
         // 退出编辑态必须把缓存的 editorValue 一并清掉，
@@ -75,7 +86,7 @@ function TableCell<T extends Row>({
             json: row.dataRef,
         })
         return result;
-    }, [isSkipCell, column.name, row.dataRef])
+    }, [isSkipCell, column.name, row.dataRef, dataVersion])
 
 
     const getBorderStyle = () => {
@@ -176,6 +187,10 @@ function TableCell<T extends Row>({
                 editorValue,
                 onEditorValueChange: setEditorValue,
                 onCommit: () => {
+                    // editorValue 为 null 说明用户从未调用 onEditorValueChange，内容未变，不记录
+                    if (editorValue !== null) {
+                        onCellCommit?.(row.id, column.name, columnIndex, originalValueRef.current, editorValue);
+                    }
                     exitEditing();
                 },
                 onCancel: () => {
@@ -195,6 +210,12 @@ function TableCell<T extends Row>({
                             left: 0;
                             box-sizing: border-box;
                             background-color: #fff;
+                            font-size: inherit;
+                            font-family: inherit;
+                            & input, & textarea, & select {
+                                font-size: inherit;
+                                font-family: inherit;
+                            }
                         `, getBorderStyle())}
                         style={{
                             width: mergedSize.width,
@@ -205,7 +226,23 @@ function TableCell<T extends Row>({
                     </div>
                 );
             }
-            return editorElement;
+            // 普通单元格：用 wrapper 把字体属性透传给内部表单元素
+            return (
+                <div
+                    className={css`
+                        width: 100%;
+                        height: 100%;
+                        font-size: inherit;
+                        font-family: inherit;
+                        & input, & textarea, & select {
+                            font-size: inherit;
+                            font-family: inherit;
+                        }
+                    `}
+                >
+                    {editorElement}
+                </div>
+            );
         } else if (column.render) {
             return column.render({
                 row,
@@ -217,6 +254,27 @@ function TableCell<T extends Row>({
         } else {
             return renderElement;
         }
+    }
+
+    const renderEditedIndicator = () => {
+        if (!isEdited || isSkipCell) return null;
+        return (
+            <div
+                aria-hidden
+                className={css`
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 0 6px 6px 0;
+                    border-color: transparent var(--crab-rc-table-edited-indicator-color, #f59e0b) transparent transparent;
+                    pointer-events: none;
+                    z-index: 4;
+                `}
+            />
+        );
     }
 
     const renderSelectionOverlay = () => {
@@ -285,11 +343,13 @@ function TableCell<T extends Row>({
                 vertical-align: top;
                 height: 100%;
                 position: relative;
+                font-size: inherit;
                 border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
             `, getBorderStyle(), className)}
             style={style}
             onDoubleClick={(e) => {
                 if (canEdit) {
+                    originalValueRef.current = dataValue;
                     setEditorValue(null);
                     setIsEditing(true);
                 }
@@ -312,6 +372,7 @@ function TableCell<T extends Row>({
             {...restProps}
         >
             {renderChildrenElement()}
+            {renderEditedIndicator()}
             {renderSelectionOverlay()}
         </div>
     )
