@@ -1,4 +1,5 @@
-import RcVirtual from "@crab-dev/rc-virtual";
+import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
+import { JSONPath } from "jsonpath-plus";
 import { type CSSProperties, type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { css, cx } from "@linaria/core";
 
@@ -63,6 +64,14 @@ interface TableProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     onCellEditRecordsChange?: (records: CellEditRecord[]) => void
     // Ctrl+Z 撤销最近一次单元格编辑时触发，携带被撤销的记录
     onUndo?: (record: CellEditRecord) => void
+    // 高亮关键字：在默认渲染的单元格中高亮匹配文本，大小写不敏感；
+    // 自定义 render 可通过 column.render 的 keyword 参数拿到同一值，并配合 highlightText 自行处理
+    highlightKeyword?: string
+    // 当前活动匹配项（0-based）；表格会自动滚动到该匹配并以橙色标记。
+    // 与 onMatchCountChange 配合使用：先拿到 count，再用 0..count-1 控制此值。
+    activeMatchIndex?: number
+    // 关键字或数据变化后，总匹配数变化时回调（用于消费方显示"X / Y"并控制 activeMatchIndex 上限）
+    onMatchCountChange?: (count: number) => void
 }
 
 // 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域
@@ -134,7 +143,8 @@ interface SelectionAnchor {
 const buildRectKeys = (
     rows: Array<{ id: Key }>,
     a: { rowIndex: number; columnIndex: number },
-    b: { rowIndex: number; columnIndex: number }
+    b: { rowIndex: number; columnIndex: number },
+    isColumnSelectable?: (columnIndex: number) => boolean
 ): Key[] => {
     const r1 = Math.min(a.rowIndex, b.rowIndex);
     const r2 = Math.max(a.rowIndex, b.rowIndex);
@@ -145,6 +155,7 @@ const buildRectKeys = (
         const row = rows[r];
         if (!row) continue;
         for (let c = c1; c <= c2; c += 1) {
+            if (isColumnSelectable && !isColumnSelectable(c)) continue;
             keys.push(makeSelectKey(row.id, c));
         }
     }
@@ -178,6 +189,9 @@ function Table<T extends Row>({
     cellEditRecords,
     onCellEditRecordsChange,
     onUndo,
+    highlightKeyword,
+    activeMatchIndex,
+    onMatchCountChange,
     ...restProps
 }: TableProps<T>) {
 
@@ -293,7 +307,7 @@ function Table<T extends Row>({
     const selectedKeySet = useMemo(() => {
         const set = new Set<string>();
         if (dragRect) {
-            buildRectKeys(displayRows, dragRect.anchor, dragRect.end).forEach((key) => set.add(String(key)));
+            buildRectKeys(displayRows, dragRect.anchor, dragRect.end, (c) => bottomColumnsRef.current[c]?.selectable !== false).forEach((key) => set.add(String(key)));
         } else {
             committedSelectCells.forEach((key) => set.add(String(key)));
         }
@@ -324,6 +338,8 @@ function Table<T extends Row>({
         const row = displayRows[rowIndex];
         // 分组 banner 行不参与选区
         if (!row || isGroupRow(row)) return;
+        // selectable === false 的列不参与选区
+        if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
         const cell = { rowIndex, columnIndex };
         const keyString = makeSelectKey(row.id, columnIndex);
 
@@ -385,7 +401,7 @@ function Table<T extends Row>({
             isDraggingRef.current = false;
             const finalRect = dragRectRef.current;
             if (finalRect) {
-                emitSelectCells(buildRectKeys(displayRows, finalRect.anchor, finalRect.end));
+                emitSelectCells(buildRectKeys(displayRows, finalRect.anchor, finalRect.end, (c) => bottomColumnsRef.current[c]?.selectable !== false));
             }
             setDragRect(null);
         };
@@ -439,6 +455,7 @@ function Table<T extends Row>({
     const getCellSelectionState = useCallback((rowIndex: number, columnIndex: number, mergeCell?: MergeCell): CellSelectionState | undefined => {
         const row = displayRows[rowIndex];
         if (!row || isGroupRow(row)) return undefined;
+        if (bottomColumnsRef.current[columnIndex]?.selectable === false) return undefined;
         const key = makeSelectKey(row.id, columnIndex);
         if (!selectedKeySet.has(key)) {
             return undefined;
@@ -612,6 +629,70 @@ function Table<T extends Row>({
         walk(columns);
         return map;
     }, [columns]);
+
+    // ====== 关键字匹配 / 跳转 ======
+    const virtualRef = useRef<VirtualHandle | null>(null);
+
+    // 扫描所有数据行，计算每个匹配的位置（rowIndex, columnIndex, occurrenceInCell）
+    interface MatchEntry { rowIndex: number; columnIndex: number; occurrenceInCell: number }
+    const allMatches = useMemo((): MatchEntry[] => {
+        const kw = highlightKeyword?.trim();
+        if (!kw) return [];
+        const lower = kw.toLowerCase();
+        const result: MatchEntry[] = [];
+        displayRows.forEach((row, rowIndex) => {
+            if (isGroupRow(row)) return;
+            bottomColumns.forEach((column, columnIndex) => {
+                if (skipCellSet.has(getCellKey(rowIndex, columnIndex))) return;
+                const jsonResult = JSONPath({ path: column.name, json: (row as T).dataRef });
+                const arr: unknown[] = Array.isArray(jsonResult) ? jsonResult : [jsonResult];
+                let occurrenceInCell = 0;
+                arr.forEach(item => {
+                    const text = typeof item === "string" ? item : typeof item === "number" ? String(item) : null;
+                    if (text == null) return;
+                    let from = 0;
+                    while (true) {
+                        const idx = text.toLowerCase().indexOf(lower, from);
+                        if (idx === -1) break;
+                        result.push({ rowIndex, columnIndex, occurrenceInCell });
+                        occurrenceInCell++;
+                        from = idx + lower.length;
+                    }
+                });
+            });
+        });
+        return result;
+    }, [highlightKeyword, displayRows, bottomColumns, skipCellSet, getCellKey]);
+
+    useEffect(() => {
+        onMatchCountChange?.(allMatches.length);
+    }, [allMatches.length, onMatchCountChange]);
+
+    const reservedTopPx = maxDepth * headerRowHeight + (isFilterEnabled ? filterRowHeight : 0);
+    // 固定左列的总宽度：水平滚动时需留出此偏移，避免目标列停在固定列背后
+    const fixedLeftWidth = fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0);
+
+    useEffect(() => {
+        if (activeMatchIndex == null || allMatches.length === 0) return;
+        const match = allMatches[activeMatchIndex];
+        if (!match) return;
+        const col = bottomColumns[match.columnIndex];
+        // 固定列（左/右）始终可见，不需要横向滚动；非固定列才需要滚动并留出左侧固定列的宽度
+        const scrollColumnIndex = col?.fixed ? undefined : match.columnIndex;
+        const scrollLeftOffset = col?.fixed ? undefined : fixedLeftWidth;
+        virtualRef.current?.scrollToCell({
+            rowIndex: match.rowIndex,
+            columnIndex: scrollColumnIndex,
+            topOffset: reservedTopPx,
+            leftOffset: scrollLeftOffset,
+        });
+    }, [activeMatchIndex, allMatches, bottomColumns, reservedTopPx, fixedLeftWidth]);
+
+    // 当前活动匹配的单元格位置，用于在 generateBodyElement 中按 (rowIndex, columnIndex) 快速查找
+    const activeMatchMeta = useMemo((): MatchEntry | null => {
+        if (activeMatchIndex == null || activeMatchIndex < 0 || allMatches.length === 0) return null;
+        return allMatches[activeMatchIndex] ?? null;
+    }, [activeMatchIndex, allMatches]);
 
     // 分组 banner 行：与普通行共用 grid 结构，但每个 cell 的内容由"该列是否是当前分组列"决定。
     // - 命中 meta.columnName 的列：默认渲染 chevron + 分组值 + 计数
@@ -863,6 +944,8 @@ function Table<T extends Row>({
                         onCellCommit={handleCellCommit}
                         selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                         dataVersion={undoDataVersion}
+                        highlightKeyword={highlightKeyword}
+                        activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
                         onCellMouseDown={handleCellMouseDown}
                         onCellMouseEnter={handleCellMouseEnter}
                         style={{
@@ -906,6 +989,8 @@ function Table<T extends Row>({
                                 isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
                                 onCellCommit={handleCellCommit}
                                 selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
+                                highlightKeyword={highlightKeyword}
+                                activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
                                 onCellMouseDown={handleCellMouseDown}
                                 onCellMouseEnter={handleCellMouseEnter}
                                 style={{
@@ -945,6 +1030,8 @@ function Table<T extends Row>({
                                 isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
                                 onCellCommit={handleCellCommit}
                                 selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
+                                highlightKeyword={highlightKeyword}
+                                activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
                                 onCellMouseDown={handleCellMouseDown}
                                 onCellMouseEnter={handleCellMouseEnter}
                                 style={{
@@ -1261,6 +1348,7 @@ function Table<T extends Row>({
             } as CSSProperties & Record<string, any>}
         >
             <RcVirtual
+                gridRef={virtualRef}
                 className={css`
 					border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
 					border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);

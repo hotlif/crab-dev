@@ -19,6 +19,10 @@ interface RenderParam<T extends Row> {
 	columnIndex: number,
 	column: ColumnType<T>
 	originalElement: ReactNode
+	/** 当前高亮关键字，与 Table highlightKeyword 保持同步；originalElement 已自动处理高亮 */
+	keyword?: string
+	/** 当前单元格内第几个（0-based）匹配为活动匹配（橙色）；undefined 表示无活动匹配。自定义 render 若重新调用 highlightText，需将此值作为第三参数传入 */
+	activeOccurrenceInCell?: number
 }
 
 
@@ -122,6 +126,11 @@ export interface ColumnType<T extends Row> {
 	 * 自定义当前列过滤编辑器
 	 */
 	filterEditor?: (param: FilterEditorParam<T>) => ReactNode
+
+	/**
+	 * 是否允许该列的单元格被选中（默认 true）
+	 */
+	selectable?: boolean
 }
 
 /**

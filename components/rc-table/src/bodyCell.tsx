@@ -1,8 +1,49 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
 import type { CellSelectionState, ColumnType, MergeCell, Row } from "./types.js";
-import { type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
+
+const highlightMarkStyle = css`
+    background-color: var(--crab-rc-table-highlight-bg, #ffeb3b);
+    color: var(--crab-rc-table-highlight-color, inherit);
+    padding: 0;
+    border-radius: 2px;
+    font-weight: inherit;
+    font-style: normal;
+`;
+
+const activeHighlightMarkStyle = css`
+    background-color: var(--crab-rc-table-highlight-active-bg, #ff9632);
+    color: var(--crab-rc-table-highlight-active-color, #fff);
+    padding: 0;
+    border-radius: 2px;
+    font-weight: inherit;
+    font-style: normal;
+`;
+
+/**
+ * 将文本中匹配 keyword 的部分用高亮 mark 包裹后返回 ReactNode。
+ * 大小写不敏感；keyword 为空时原样返回。
+ * activeOccurrenceIndex：此字符串中第几个（0-based）匹配为"活动"匹配，显示橙色；省略则全部为黄色。
+ * 可在自定义 column.render 中直接调用，配合 highlightText 工具函数手动处理高亮。
+ */
+export function highlightText(text: string, keyword: string, activeOccurrenceIndex?: number): ReactNode {
+    if (!keyword.trim()) return text;
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const parts = text.split(new RegExp(`(${escaped})`, "gi"));
+    if (parts.length <= 1) return text;
+    const lower = keyword.toLowerCase();
+    let occIdx = 0;
+    return parts.map((part, i) => {
+        if (part.toLowerCase() === lower) {
+            const isActive = activeOccurrenceIndex !== undefined && occIdx === activeOccurrenceIndex;
+            occIdx++;
+            return <mark key={i} className={isActive ? activeHighlightMarkStyle : highlightMarkStyle}>{part}</mark>;
+        }
+        return <Fragment key={i}>{part}</Fragment>;
+    });
+}
 
 export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     row: T
@@ -20,6 +61,10 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     isEdited?: boolean
     /** 递增时强制 dataValue 重新从 row.dataRef 读取（用于撤销后刷新显示） */
     dataVersion?: number
+    /** 高亮关键字；默认 render 自动应用，自定义 render 可通过 keyword 参数拿到同一值 */
+    highlightKeyword?: string
+    /** 当前单元格内第几个（0-based）匹配为活动匹配（橙色）；undefined 表示无活动匹配 */
+    activeOccurrenceInCell?: number
     /** 提交编辑时回调，携带编辑前后的值 */
     onCellCommit?: (rowId: Key, columnName: string, columnIndex: number, oldValue: unknown, newValue: unknown) => void
     onCellMouseDown?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
@@ -48,6 +93,8 @@ function TableCell<T extends Row>({
     selection,
     isEdited,
     dataVersion,
+    highlightKeyword,
+    activeOccurrenceInCell,
     onCellCommit,
     onCellMouseDown,
     onCellMouseEnter,
@@ -119,6 +166,36 @@ function TableCell<T extends Row>({
             return null;
         }
 
+        const displayContent = (() => {
+            if (!highlightKeyword || !dataValue) return dataValue;
+            const arr = Array.isArray(dataValue) ? dataValue : [dataValue];
+            const lower = highlightKeyword.toLowerCase();
+            let occurrenceOffset = 0;
+            return arr.map((item, idx) => {
+                const text = typeof item === "string" ? item
+                    : typeof item === "number" ? String(item)
+                        : null;
+                if (text == null) return item;
+                // Which occurrence within this string is the active one?
+                const activeInItem = activeOccurrenceInCell !== undefined && activeOccurrenceInCell >= occurrenceOffset
+                    ? activeOccurrenceInCell - occurrenceOffset
+                    : undefined;
+                const node = highlightText(text, highlightKeyword, activeInItem);
+                // Count occurrences in this string to advance the offset for the next item
+                let count = 0;
+                let from = 0;
+                const tl = text.toLowerCase();
+                while (true) {
+                    const i = tl.indexOf(lower, from);
+                    if (i === -1) break;
+                    count++;
+                    from = i + lower.length;
+                }
+                occurrenceOffset += count;
+                return <Fragment key={idx}>{node}</Fragment>;
+            });
+        })();
+
         let renderElement = (
             <div
                 className={css`
@@ -139,7 +216,7 @@ function TableCell<T extends Row>({
                         text-overflow: ellipsis;
                     `}
                 >
-                    {dataValue}
+                    {displayContent}
                 </div>
             </div>
         )
@@ -249,6 +326,8 @@ function TableCell<T extends Row>({
                 rowIndex,
                 columnIndex,
                 column,
+                keyword: highlightKeyword,
+                activeOccurrenceInCell,
                 originalElement: renderElement
             })
         } else {

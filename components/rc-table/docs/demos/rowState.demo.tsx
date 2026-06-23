@@ -85,7 +85,7 @@ const RowStateDemo = () => {
     const columns = useMemo<ColumnType<DemoRow>[]>(() => [
         {
             title: "状态",
-            name: "$._state",
+            name: "_state",
             width: 90,
             render: ({ row }) => {
                 if (!row.state) {
@@ -103,32 +103,33 @@ const RowStateDemo = () => {
         },
         {
             title: "姓名",
-            name: "$.name",
+            name: "name",
             width: 110,
             render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
         },
         {
             title: "部门",
-            name: "$.department",
+            name: "department",
             width: 110,
             render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
         },
         {
             title: "月薪",
-            name: "$.salary",
+            name: "salary",
             width: 110,
             align: "right",
             render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
         },
         {
             title: "入职日期",
-            name: "$.joinDate",
+            name: "joinDate",
             width: 120,
             render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
         },
         {
             title: "操作",
-            name: "$._actions",
+            name: "_actions",
+            selectable: false,
             render: ({ row }) => (
                 <div style={{ display: "flex", gap: 4, paddingInline: 6 }}>
                     <button className={btnStyle} onClick={() => updateState(row.id, "new")}>新增</button>
