@@ -2,7 +2,7 @@ import { css, cx } from "@linaria/core";
 import type { ColumnType, MergeCell, Row } from "./types.js";
 import { getMergedCellSize } from "./util.js";
 
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, MouseEvent } from "react";
 
 interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
@@ -14,6 +14,7 @@ interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElem
     gridTemplateRows: number[]
     mergeCell?: MergeCell
     isSkipCell: boolean
+    onResizeMouseDown?: (e: MouseEvent<HTMLDivElement>) => void
 }
 
 function TableHeaderCell<T extends Row>({
@@ -27,6 +28,7 @@ function TableHeaderCell<T extends Row>({
     fixed,
     rowIndex,
     maxRowIndex,
+    onResizeMouseDown,
     ...restProps
 }: TableHeaderCellProps<T>){
 
@@ -109,6 +111,7 @@ function TableHeaderCell<T extends Row>({
     return (
         <div
             className={cx(css`
+                position: relative;
                 display: inline-flex;
                 align-items: center;
                 box-sizing: border-box;
@@ -119,6 +122,20 @@ function TableHeaderCell<T extends Row>({
             {...restProps}
         >
             {renderChildrenElement()}
+            {onResizeMouseDown && !isSkipCell && (
+                <div
+                    className={css`
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 4px;
+                        cursor: col-resize;
+                        z-index: 1;
+                    `}
+                    onMouseDown={onResizeMouseDown}
+                />
+            )}
         </div>
     )
 }

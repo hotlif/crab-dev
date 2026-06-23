@@ -72,6 +72,10 @@ interface TableProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     activeMatchIndex?: number
     // 关键字或数据变化后，总匹配数变化时回调（用于消费方显示"X / Y"并控制 activeMatchIndex 上限）
     onMatchCountChange?: (count: number) => void
+    // 是否允许拖拽调整列宽（默认 false；可通过 ColumnType.resizable 逐列覆盖）
+    resizable?: boolean
+    // 拖拽调整列宽完成后的回调（columnName 为列 name，width 为调整后的像素宽度）
+    onColumnResize?: (columnName: string, width: number) => void
 }
 
 // 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域
@@ -192,6 +196,8 @@ function Table<T extends Row>({
     highlightKeyword,
     activeMatchIndex,
     onMatchCountChange,
+    resizable = false,
+    onColumnResize,
     ...restProps
 }: TableProps<T>) {
 
@@ -287,6 +293,13 @@ function Table<T extends Row>({
     dragRectRef.current = dragRect;
     // 始终维护最新的 bottomColumns 引用，供 keydown handler 在 bottomColumns 声明之前读取
     const bottomColumnsRef = useRef<ColumnType<T>[]>([]);
+
+    // ====== 列宽拖拽 ======
+    const [resizedWidths, setResizedWidths] = useState<Record<string, number>>({});
+    const resizeDragRef = useRef<{ columnName: string; startX: number; startWidth: number } | null>(null);
+    const gridTemplateColumnsRef = useRef<number[]>([]);
+    const onColumnResizeRef = useRef(onColumnResize);
+    onColumnResizeRef.current = onColumnResize;
 
     const committedSelectCells = selectCells ?? innerSelectCells;
 
@@ -481,6 +494,46 @@ function Table<T extends Row>({
         };
     }, [anchorCell, displayRows, selectedKeySet]);
 
+    const handleResizeMouseDown = useCallback((columnIndex: number, e: ReactMouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const column = bottomColumnsRef.current[columnIndex];
+        if (!column) return;
+        resizeDragRef.current = {
+            columnName: column.name,
+            startX: e.clientX,
+            startWidth: gridTemplateColumnsRef.current[columnIndex],
+        };
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+    }, []);
+
+    useEffect(() => {
+        const MIN_COL_WIDTH = 30;
+        const onMouseMove = (e: MouseEvent) => {
+            if (!resizeDragRef.current) return;
+            const { columnName, startX, startWidth } = resizeDragRef.current;
+            const newWidth = Math.max(MIN_COL_WIDTH, startWidth + e.clientX - startX);
+            setResizedWidths(prev => ({ ...prev, [columnName]: newWidth }));
+        };
+        const onMouseUp = (e: MouseEvent) => {
+            if (!resizeDragRef.current) return;
+            const { columnName, startX, startWidth } = resizeDragRef.current;
+            const newWidth = Math.max(MIN_COL_WIDTH, startWidth + e.clientX - startX);
+            setResizedWidths(prev => ({ ...prev, [columnName]: newWidth }));
+            onColumnResizeRef.current?.(columnName, newWidth);
+            resizeDragRef.current = null;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+        };
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+        return () => {
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+        };
+    }, []);
+
     // 先剔除隐藏列，再按列配置（含 children）排序，作为后续所有列计算基础
     const groupBySet = useMemo(() => new Set(groupBy), [groupBy]);
     const sColumns = useMemo(() => {
@@ -527,11 +580,17 @@ function Table<T extends Row>({
 
     const gridTemplateColumns = useMemo(() => {
         const cols = bottomColumns.filter(element => element.hidden !== true);
-        const fixedWidthTotal = cols.reduce((acc, col) => acc + (col.width != null ? col.width : 0), 0);
-        const autoColCount = cols.filter(col => col.width == null).length;
+        const getEffectiveWidth = (col: ColumnType<T>) => resizedWidths[col.name] ?? col.width;
+        const fixedWidthTotal = cols.reduce((acc, col) => {
+            const w = getEffectiveWidth(col);
+            return acc + (w != null ? w : 0);
+        }, 0);
+        const autoColCount = cols.filter(col => getEffectiveWidth(col) == null).length;
         const autoColWidth = autoColCount > 0 ? Math.max(0, (width - fixedWidthTotal) / autoColCount) : 0;
-        return cols.map((column) => column.width ?? autoColWidth);
-    }, [bottomColumns, width])
+        return cols.map((column) => getEffectiveWidth(column) ?? autoColWidth);
+    }, [bottomColumns, width, resizedWidths]);
+
+    gridTemplateColumnsRef.current = gridTemplateColumns;
 
     const filterKeywordMap = filters ?? innerFilterKeywordMap;
     const isFilterEnabled = filterBar === true;
@@ -1215,6 +1274,10 @@ function Table<T extends Row>({
                     // 固定列头在左右区域单独渲染，主滚动区跳过
                     continue;
                 }
+                const isSkipCell = cell == null;
+                const isLeafColumn = !cell?.column?.children?.length;
+                const colResizable = cell?.column?.resizable;
+                const showResizeHandle = (resizable || colResizable === true) && colResizable !== false && !isSkipCell && isLeafColumn;
                 cells.push(
                     <TableHeaderCell
                         key={`table-header-cell-${r}-${columnIndex}`}
@@ -1224,8 +1287,9 @@ function Table<T extends Row>({
                         column={cell?.column}
                         gridTemplateColumns={gridTemplateColumns}
                         gridTemplateRows={headerGridTemplateRows}
-                        isSkipCell={cell == null ? true : false}
+                        isSkipCell={isSkipCell}
                         mergeCell={getMergeCell(cell)}
+                        onResizeMouseDown={showResizeHandle ? (e) => handleResizeMouseDown(columnIndex, e) : undefined}
                         style={{
                             width: gridTemplateColumns[columnIndex],
                         }}
@@ -1248,6 +1312,10 @@ function Table<T extends Row>({
                 >
                     {fixedLeftColumnsIdx.map((columnIndex) => {
                         const cell = headerCells[r]?.[columnIndex] ?? null;
+                        const isSkipCellLeft = cell === null;
+                        const isLeafColumnLeft = !cell?.column?.children?.length;
+                        const colResizableLeft = cell?.column?.resizable;
+                        const showResizeHandleLeft = (resizable || colResizableLeft === true) && colResizableLeft !== false && !isSkipCellLeft && isLeafColumnLeft;
                         return (
                             <TableHeaderCell
                                 key={`table-header-cell-${r}-${columnIndex}`}
@@ -1261,9 +1329,10 @@ function Table<T extends Row>({
                                 column={cell?.column}
                                 gridTemplateColumns={gridTemplateColumns}
                                 gridTemplateRows={headerGridTemplateRows}
-                                isSkipCell={cell === null}
+                                isSkipCell={isSkipCellLeft}
                                 mergeCell={getMergeCell(cell)}
                                 fixed="left"
+                                onResizeMouseDown={showResizeHandleLeft ? (e) => handleResizeMouseDown(columnIndex, e) : undefined}
                                 style={{
                                     width: gridTemplateColumns[columnIndex],
                                     left: stickyLeftOffsets[columnIndex]
@@ -1286,6 +1355,10 @@ function Table<T extends Row>({
                     {paddingRight}
                     {fixedRightColumnsIdx.map((columnIndex) => {
                         const cell = headerCells[r]?.[columnIndex] ?? null;
+                        const isSkipCellRight = cell === null;
+                        const isLeafColumnRight = !cell?.column?.children?.length;
+                        const colResizableRight = cell?.column?.resizable;
+                        const showResizeHandleRight = (resizable || colResizableRight === true) && colResizableRight !== false && !isSkipCellRight && isLeafColumnRight;
                         return (
                             <TableHeaderCell
                                 key={`table-header-cell-${r}-${columnIndex}`}
@@ -1299,9 +1372,10 @@ function Table<T extends Row>({
                                 maxRowIndex={maxDepth - 1}
                                 gridTemplateColumns={gridTemplateColumns}
                                 gridTemplateRows={headerGridTemplateRows}
-                                isSkipCell={cell === null}
+                                isSkipCell={isSkipCellRight}
                                 mergeCell={getMergeCell(cell)}
                                 fixed="right"
+                                onResizeMouseDown={showResizeHandleRight ? (e) => handleResizeMouseDown(columnIndex, e) : undefined}
                                 style={{
                                     width: gridTemplateColumns[columnIndex],
                                     right: stickyRightOffsets[columnIndex]
