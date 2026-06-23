@@ -10,6 +10,7 @@ import type { ColumnType, Row } from "../../src/index.js";
 interface DemoRow extends Row {
     dataRef: {
         name: string
+        gender: number
         department: string
         city: string
         jobTitle: string
@@ -23,6 +24,7 @@ interface DemoRow extends Row {
 }
 
 const names = ["张伟", "李娜", "王芳", "赵磊", "陈静", "刘洋", "周鑫", "吴丽", "孙鹏", "徐敏", "朱辉", "胡博"];
+const genders = [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1];
 const departments = ["研发部", "产品部", "销售部", "人事部", "财务部", "运维部"];
 const cities = ["北京", "上海", "深圳", "广州", "杭州", "成都"];
 const titles = ["高级工程师", "产品经理", "前端工程师", "销售总监", "HR 经理", "架构师", "财务总监", "UX 设计师", "测试工程师", "运维工程师", "后端工程师"];
@@ -36,6 +38,7 @@ const rawRows: DemoRow[] = Array.from({ length: 80 }, (_, i) => {
         id: String(i + 1),
         dataRef: {
             name,
+            gender: genders[i % genders.length],
             department: departments[i % departments.length],
             city: cities[i % cities.length],
             jobTitle: titles[i % titles.length],
@@ -60,6 +63,7 @@ const HighlightDemo = () => {
 
     const columns = useMemo((): ColumnType<DemoRow>[] => [
         { title: "姓名", name: "name", width: 90, fixed: "left" },
+        { title: "性别", name: "gender", width: 70, getSearchText: (row) => row.dataRef.gender === 1 ? "男" : "女", render: ({ row, keyword: kw, activeOccurrenceInCell }) => highlightText(row.dataRef.gender === 1 ? "男" : "女", kw ?? "", activeOccurrenceInCell) },
         { title: "部门", name: "department", width: 110 },
         { title: "城市", name: "city", width: 90 },
         { title: "职位", name: "jobTitle", width: 150 },
@@ -78,6 +82,9 @@ const HighlightDemo = () => {
         },
         { title: "薪资", name: "salary", width: 100, align: "right" },
         { title: "项目", name: "project", width: 140 },
+        { title: "状态", name: "status", width: 90 },
+        { title: "负责人", name: "manager", width: 90 },
+        { title: "电话", name: "phone", width: 130 },
     ], []);
 
     const canNav = matchCount > 0 && keyword.trim() !== "";
@@ -116,7 +123,7 @@ const HighlightDemo = () => {
                 <button style={btnStyle(!canNav)} disabled={!canNav} onClick={goNext} title="下一个（Enter）">↓</button>
             </div>
             <Table
-                width={860}
+                width={1120}
                 height={400}
                 columns={columns}
                 rows={rawRows}
