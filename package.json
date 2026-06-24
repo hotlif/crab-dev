@@ -19,7 +19,6 @@
         "standards/*",
         "toolbox/*",
         "components/*",
-        "styleify",
         ".website"
     ],
     "devDependencies": {
