@@ -1,5 +1,5 @@
 import { type Key, useCallback, useMemo, useState } from "react";
-import { buildGroupedDisplayRows } from "../util.js";
+import { buildGroupedDisplayRows, KEY_SEP } from "../util.js";
 import type { Row } from "../types.js";
 
 export function useRowGroup<T extends Row>(params: {
@@ -16,7 +16,7 @@ export function useRowGroup<T extends Row>(params: {
     } = params;
 
     // 稳定化引用，避免字面量数组每次创建新引用导致下游 memo 雪崩
-    const groupBy = useMemo(() => groupByProp ?? [], [(groupByProp ?? []).join("")]);
+    const groupBy = useMemo(() => groupByProp ?? [], [(groupByProp ?? []).join(KEY_SEP)]);
 
     const [innerExpandedGroupIds, setInnerExpandedGroupIds] = useState<Set<Key> | null>(() => {
         if (defaultExpandedGroupIds != null) return new Set(defaultExpandedGroupIds);

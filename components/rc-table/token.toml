@@ -48,3 +48,11 @@ highlight.border-radius = "$ref(radius.sm)"
 # ─── 编辑标记 ────────────────────────────────────────────────────────────────
 edited-indicator.color = "$ref(color.feedback.warning)"
 edited-indicator.size  = "6px"
+
+# ─── 树形数据 ─────────────────────────────────────────────────────────────────
+tree.indent             = "20px"
+tree.chevron-size       = "16px"
+tree.chevron-color      = "oklch(0.400 0 0)"
+tree.chevron-transition = "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)"
+tree.button-radius      = "$ref(radius.sm)"
+tree.button-gap         = "4px"

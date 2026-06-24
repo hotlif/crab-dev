@@ -1,7 +1,7 @@
 import { JSONPath } from "jsonpath-plus";
 import { type Key, type MouseEvent as ReactMouseEvent, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CellSelectionState, ColumnType, MergeCell, Row } from "../types.js";
-import { SELECT_KEY_SEP, isGroupRow, makeSelectKey } from "../util.js";
+import { KEY_SEP, isGroupRow, makeSelectKey } from "../util.js";
 import type { InternalGroupRow } from "../util.js";
 
 interface SelectionAnchor {
@@ -184,7 +184,7 @@ export function useCellSelection<T extends Row>(params: {
                     if (committedSelectCells.length > 0 && onCopyRef.current) {
                         const cells = committedSelectCells.flatMap((key) => {
                             const str = String(key);
-                            const sepIdx = str.indexOf(SELECT_KEY_SEP);
+                            const sepIdx = str.indexOf(KEY_SEP);
                             const rowIdRaw = str.substring(0, sepIdx);
                             const columnIndex = Number(str.substring(sepIdx + 1));
                             const column = bottomColumnsRef.current[columnIndex];

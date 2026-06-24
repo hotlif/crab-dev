@@ -1,5 +1,5 @@
 import RcVirtual from "@crab-dev/rc-virtual";
-import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, useRef } from "react";
+import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, useMemo, useRef } from "react";
 import { css, cx } from "@linaria/core";
 
 import BodyRow from "./bodyRow.js";
@@ -15,6 +15,7 @@ import { useCellEdit } from "./hooks/useCellEdit.js";
 import { useCellSelection } from "./hooks/useCellSelection.js";
 import { useTableFilter } from "./hooks/useTableFilter.js";
 import { useKeywordMatch } from "./hooks/useKeywordMatch.js";
+import { useTreeData } from "./hooks/useTreeData.js";
 import type { InternalGroupRow } from "./util.js";
 import { isGroupRow } from "./util.js";
 
@@ -72,6 +73,21 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     onColumnResize?: (columnName: string, width: number) => void
     // 按下 Ctrl/Cmd+C 时触发；携带当前选区内所有单元格的数据
     onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void
+    // ====== 树形数据 ======
+    /** 启用树形数据模式 */
+    treeData?: boolean
+    /** 获取每行的子行；返回空数组或 null/undefined 表示叶子节点 */
+    getChildRows?: (row: T) => T[] | undefined | null
+    /** 显示缩进和展开/收起按钮的列名；默认使用第一个非 fixed="right" 的叶子列 */
+    treeColumn?: string
+    /** 受控展开行 id 集合 */
+    expandedRowIds?: Set<Key>
+    /** 非受控初始展开行 id 集合 */
+    defaultExpandedRowIds?: Set<Key>
+    /** 是否默认全部展开（默认 false） */
+    defaultTreeExpandAll?: boolean
+    /** 展开状态变化回调 */
+    onExpandedRowIdsChange?: (ids: Set<Key>) => void
 }
 
 // 虚拟列表左侧占位
@@ -170,13 +186,26 @@ function Table<T extends Row>({
     resizable = false,
     onColumnResize,
     onCopy,
+    treeData,
+    getChildRows,
+    treeColumn: treeColumnProp,
+    expandedRowIds,
+    defaultExpandedRowIds,
+    defaultTreeExpandAll,
+    onExpandedRowIdsChange,
     ...restProps
 }: TableProps<T>) {
 
-    // ====== 行分组 ======
+    // ====== 树形数据 ======
+    const { flatRows, treeRowMetaMap, isTree, toggleTreeRow } = useTreeData<T>({
+        rows, treeData, getChildRows, expandedRowIds, defaultExpandedRowIds,
+        defaultTreeExpandAll, onExpandedRowIdsChange
+    });
+
+    // ====== 行分组（树形模式下跳过分组） ======
     const { groupBy, displayRows, isGrouped, toggleGroup } = useRowGroup<T>({
-        rows, groupBy: groupByProp, expandedGroupIds, defaultExpandedGroupIds,
-        defaultExpandAll, onExpandedGroupIdsChange
+        rows: flatRows, groupBy: isTree ? [] : groupByProp, expandedGroupIds,
+        defaultExpandedGroupIds, defaultExpandAll, onExpandedGroupIdsChange
     });
 
     // ====== 列宽与布局（bottomColumnsRef 在 table 层创建并共享给多个 hook） ======
@@ -199,6 +228,25 @@ function Table<T extends Row>({
 
     // 供 handleResizeMouseDown 读取当前列宽
     gridTemplateColumnsRef.current = gridTemplateColumns;
+
+    // ====== 树形列解析 ======
+    const resolvedTreeColumn = useMemo(() => {
+        if (!isTree) return undefined;
+        return treeColumnProp ?? bottomColumns.find(col => col.fixed !== 'right')?.name;
+    }, [isTree, treeColumnProp, bottomColumns]);
+
+    // 获取指定行/列应注入的树形 props（非树形列或分组行返回空对象）
+    const getTreeCellProps = (row: T | InternalGroupRow<T>, columnIndex: number) => {
+        if (!isTree || isGroupRow(row) || !resolvedTreeColumn) return {};
+        const column = bottomColumns[columnIndex];
+        if (!column || column.name !== resolvedTreeColumn) return {};
+        const meta = treeRowMetaMap.get((row as T).id);
+        if (!meta) return {};
+        return {
+            treeNode: meta,
+            onTreeToggle: () => toggleTreeRow((row as T).id)
+        };
+    };
 
     // ====== 单元格编辑 ======
     const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo } = useCellEdit<T>({
@@ -397,7 +445,8 @@ function Table<T extends Row>({
 
         for (let rowIndex = renderStart; rowIndex <= rowRange[1]; rowIndex += 1) {
             const currentRow = displayRows[rowIndex];
-            if (currentRow && isGroupRow(currentRow)) {
+            if (!currentRow) continue;
+            if (isGroupRow(currentRow)) {
                 bodyRows.push(renderGroupBannerRow(rowIndex, currentRow, columnRange));
                 continue;
             }
@@ -431,6 +480,7 @@ function Table<T extends Row>({
                         onCellMouseDown={handleCellMouseDown}
                         onCellMouseEnter={handleCellMouseEnter}
                         style={{ width: gridTemplateColumns[columnIndex] }}
+                        {...getTreeCellProps(currentRow, columnIndex)}
                     />
                 );
             }
@@ -470,6 +520,7 @@ function Table<T extends Row>({
                                 ? stickyLeftOffsets[columnIndex]
                                 : stickyRightOffsets[columnIndex]
                         }}
+                        {...getTreeCellProps(currentRow, columnIndex)}
                     />
                 );
             };
@@ -674,9 +725,9 @@ function Table<T extends Row>({
             <RcVirtual
                 gridRef={virtualRef}
                 className={css`
-                    border-left: 1px solid ${token.border.color};
-                    border-bottom: 1px solid ${token.border.color};
-                    box-shadow: inset -1px 0 0 ${token.border.color};
+                    box-shadow: -1px 0 0 0 ${token.border.color},
+                                0 1px 0 0 ${token.border.color},
+                                1px 0 0 0 ${token.border.color};
                     box-sizing: border-box;
                     user-select: none;
                 `}

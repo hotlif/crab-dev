@@ -30,7 +30,13 @@ export const vars = {
     'highlight.active-color': '--table-highlight-active-color',
     'highlight.border-radius': '--table-highlight-border-radius',
     'edited-indicator.color': '--table-edited-indicator-color',
-    'edited-indicator.size': '--table-edited-indicator-size'
+    'edited-indicator.size': '--table-edited-indicator-size',
+    'tree.indent': '--table-tree-indent',
+    'tree.chevron-size': '--table-tree-chevron-size',
+    'tree.chevron-color': '--table-tree-chevron-color',
+    'tree.chevron-transition': '--table-tree-chevron-transition',
+    'tree.button-radius': '--table-tree-button-radius',
+    'tree.button-gap': '--table-tree-button-gap'
 };
 
 const token = {
@@ -79,6 +85,14 @@ const token = {
     'edited-indicator': {
         'color': `var(${vars['edited-indicator.color']}, var(--token-semantic-color-feedback-warning, var(--token-global-amber-500, oklch(0.769 0.188 75))))`,
         'size': `var(${vars['edited-indicator.size']}, 6px)`
+    },
+    'tree': {
+        'indent': `var(${vars['tree.indent']}, 20px)`,
+        'chevron-size': `var(${vars['tree.chevron-size']}, 16px)`,
+        'chevron-color': `var(${vars['tree.chevron-color']}, oklch(0.400 0 0))`,
+        'chevron-transition': `var(${vars['tree.chevron-transition']}, transform 150ms cubic-bezier(0.4, 0, 0.2, 1))`,
+        'button-radius': `var(${vars['tree.button-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
+        'button-gap': `var(${vars['tree.button-gap']}, 4px)`
     }
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Key } from "react";
 import { JSONPath } from "jsonpath-plus";
-import type { ColumnType, GroupRowMeta, MergeCell, Row } from "./types";
+import type { ColumnType, GroupRowMeta, MergeCell, Row, TreeRowMeta } from "./types";
 
 /**
  * 按简单 JSONPath（$.a 或 $.a.b.c）把值写回对象。
@@ -56,6 +56,7 @@ export const calculateColumnDepth = (columns: ColumnType<any>, depth: number): n
  * @returns 拥有最大深度的列对象。
  */
 export const getMaxDepth = (columns: ColumnType<any>[]) => {
+    if (columns.length === 0) return 0;
     let maxColumnDepth = calculateColumnDepth(columns[0], 1);
     columns.forEach(element => {
         const nextColumnDepth = calculateColumnDepth(element, 1);
@@ -207,7 +208,6 @@ export function buildMergeCellLookup(mergeCells: MergeCell[]) {
     }
 }
 
-
 export function getMergedCellSize({
     mergeCell,
     gridTemplateRows,
@@ -231,6 +231,14 @@ export function getMergedCellSize({
         width
     }
 }
+
+// =============== 单元格选中 Key ===============
+
+export const KEY_SEP = "\u001F";
+
+export const makeSelectKey = (rowId: Key, columnIndex: number): string =>
+    `${String(rowId)}${KEY_SEP}${columnIndex}`;
+
 
 // =============== 行分组（Row Grouping） ===============
 
@@ -446,4 +454,53 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
     walk({ level: 0, parentGroupId: "", rowsSlice: rows });
 
     return { displayRows, allGroupIds, allPossibleGroupIds };
+}
+
+
+// =============== 树形数据（Tree Data） ===============
+
+/**
+ * 将树形结构数据深度优先展开为扁平行列表，同时构造每行的树形元数据。
+ *
+ * 设计要点：
+ * 1. 保留原始 rows 顺序，相同层级的兄弟节点按原始顺序排列；
+ * 2. expandedSet 缺省视为"按 defaultExpanded 决定"，空集合表示全部收起；
+ * 3. treeRowMetaMap 覆盖所有被展开路径上的节点，收起节点的子孙不在其中。
+ */
+export function buildTreeDisplayRows<T extends Row>(params: {
+    rows: T[]
+    getChildRows: (row: T) => T[] | undefined | null
+    expandedSet: Set<Key> | null
+    defaultExpanded: boolean
+}): {
+    displayRows: T[]
+    treeRowMetaMap: Map<Key, TreeRowMeta>
+    allExpandableIds: Key[]
+} {
+    const { rows, getChildRows, expandedSet, defaultExpanded } = params;
+    const displayRows: T[] = [];
+    const treeRowMetaMap = new Map<Key, TreeRowMeta>();
+    const allExpandableIds: Key[] = [];
+
+    const isExpanded = (id: Key): boolean => {
+        if (expandedSet == null) return defaultExpanded;
+        return expandedSet.has(id);
+    };
+
+    const walk = (rowSlice: T[], level: number) => {
+        for (const row of rowSlice) {
+            const children = getChildRows(row);
+            const hasChildren = Array.isArray(children) && children.length > 0;
+            if (hasChildren) allExpandableIds.push(row.id);
+            const expanded = hasChildren && isExpanded(row.id);
+            treeRowMetaMap.set(row.id, { level, hasChildren, isExpanded: expanded });
+            displayRows.push(row);
+            if (expanded && children) {
+                walk(children as T[], level + 1);
+            }
+        }
+    };
+
+    walk(rows, 0);
+    return { displayRows, treeRowMetaMap, allExpandableIds };
 }

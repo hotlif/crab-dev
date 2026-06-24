@@ -1,7 +1,7 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
 import token from "./token.js";
-import type { CellSelectionState, ColumnType, MergeCell, Row } from "./types.js";
+import type { CellSelectionState, ColumnType, MergeCell, Row, TreeRowMeta } from "./types.js";
 import { Fragment, type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 
@@ -72,6 +72,10 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     onCellCommit?: (rowId: Key, columnName: string, columnIndex: number, oldValue: unknown, newValue: unknown) => void
     onCellMouseDown?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
     onCellMouseEnter?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
+    /** 树形行元数据；仅在 treeColumn 列传入，其他列不传 */
+    treeNode?: TreeRowMeta
+    /** 切换当前行展开/收起 */
+    onTreeToggle?: () => void
 }
 
 const mapping = {
@@ -105,6 +109,8 @@ function TableCell<T extends Row>({
     onDoubleClick,
     onMouseDown,
     onMouseEnter,
+    treeNode,
+    onTreeToggle,
     ...restProps
 }: TableCellProps<T>){
     const [editorValue, setEditorValue] = useState<unknown>(null);
@@ -222,9 +228,70 @@ function TableCell<T extends Row>({
                     box-sizing: border-box;
                 `}
                 style={{
-                    justifyContent: getJustifyContent()
+                    justifyContent: treeNode ? 'flex-start' : getJustifyContent()
                 }}
             >
+                {treeNode && (
+                    <>
+                        {/* 层级缩进占位 */}
+                        <div
+                            aria-hidden
+                            className={css`flex-shrink: 0;`}
+                            style={{ width: `calc(${treeNode.level} * ${token.tree.indent})` }}
+                        />
+                        {/* 展开/收起按钮（非叶子）或等宽占位（叶子） */}
+                        {treeNode.hasChildren ? (
+                            <div
+                                role="button"
+                                tabIndex={0}
+                                aria-expanded={treeNode.isExpanded}
+                                className={css`
+                                    display: inline-flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: ${token.tree['chevron-size']};
+                                    height: ${token.tree['chevron-size']};
+                                    flex-shrink: 0;
+                                    cursor: pointer;
+                                    border-radius: ${token.tree['button-radius']};
+                                    margin-right: ${token.tree['button-gap']};
+                                    color: ${token.tree['chevron-color']};
+                                `}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onTreeToggle?.();
+                                }}
+                                onMouseDown={(e) => {
+                                    e.stopPropagation();
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        onTreeToggle?.();
+                                    }
+                                }}
+                            >
+                                <svg
+                                    width="10"
+                                    height="10"
+                                    viewBox="0 0 10 10"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={css`transition: ${token.tree['chevron-transition']};`}
+                                    style={{ transform: treeNode.isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                                >
+                                    <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </div>
+                        ) : (
+                            <div
+                                aria-hidden
+                                className={css`flex-shrink: 0;`}
+                                style={{ width: token.tree['chevron-size'] }}
+                            />
+                        )}
+                    </>
+                )}
                 <div
                     className={css`
                         overflow: hidden;

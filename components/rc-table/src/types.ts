@@ -204,6 +204,18 @@ export interface CellEditRecord {
     timestamp: number;
 }
 
+/**
+ * 树形行的层级与展开元数据，由 useTreeData 构造并通过 TableBodyCell 下发到树形列单元格。
+ */
+export interface TreeRowMeta {
+    /** 层级，从 0 开始（根节点为 0） */
+    level: number
+    /** 是否有子行（false 时为叶子节点，不显示展开按钮） */
+    hasChildren: boolean
+    /** 当前是否已展开 */
+    isExpanded: boolean
+}
+
 export interface MergeCell {
 	/**
 	 * 单元格所在行
