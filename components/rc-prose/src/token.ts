@@ -41,7 +41,7 @@ export const vars = {
 };
 
 const token = {
-    'max-width': `var(${vars['max-width']}, 68ch)`,
+    'max-width': `var(${vars['max-width']}, 100%)`,
     'body': `var(${vars['body']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
     'headings': `var(${vars['headings']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
     'lead': {
