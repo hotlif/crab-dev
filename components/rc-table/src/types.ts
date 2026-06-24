@@ -34,8 +34,9 @@ interface EditorParam<T extends Row, V = unknown> extends RenderParam<T> {
      * 通知表格退出编辑态。
      * 注意：表格不会自动写回 row.dataRef —— 最终值的落盘必须由消费方在调用 onCommit 之前完成
      * （如 setState / 接口提交）。本回调仅用于"关闭编辑器"。
+     * 可传入显式终值（如 select onChange 场景，避免 React state 异步更新导致 editorValue 读取陈旧值）。
      */
-    onCommit?: () => void
+    onCommit?: (value?: V) => void
     /** 通知表格放弃编辑并退出，缓存的 editorValue 会被清空 */
     onCancel?: () => void
 }

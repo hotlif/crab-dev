@@ -1,23 +1,24 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
+import token from "./token.js";
 import type { CellSelectionState, ColumnType, MergeCell, Row } from "./types.js";
 import { Fragment, type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 
 const highlightMarkStyle = css`
-    background-color: var(--crab-rc-table-highlight-bg, #ffeb3b);
-    color: var(--crab-rc-table-highlight-color, inherit);
+    background-color: ${token.highlight.bg};
+    color: ${token.highlight.color};
     padding: 0;
-    border-radius: 2px;
+    border-radius: ${token.highlight['border-radius']};
     font-weight: inherit;
     font-style: normal;
 `;
 
 const activeHighlightMarkStyle = css`
-    background-color: var(--crab-rc-table-highlight-active-bg, #ff9632);
-    color: var(--crab-rc-table-highlight-active-color, #fff);
+    background-color: ${token.highlight['active-bg']};
+    color: ${token.highlight['active-color']};
     padding: 0;
-    border-radius: 2px;
+    border-radius: ${token.highlight['border-radius']};
     font-weight: inherit;
     font-style: normal;
 `;
@@ -61,6 +62,8 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     isEdited?: boolean
     /** 递增时强制 dataValue 重新从 row.dataRef 读取（用于撤销后刷新显示） */
     dataVersion?: number
+    /** 是否是最后一列（最右列），用于控制右侧阴影边框显示 */
+    isLastColumn?: boolean
     /** 高亮关键字；默认 render 自动应用，自定义 render 可通过 keyword 参数拿到同一值 */
     highlightKeyword?: string
     /** 当前单元格内第几个（0-based）匹配为活动匹配（橙色）；undefined 表示无活动匹配 */
@@ -93,6 +96,7 @@ function TableCell<T extends Row>({
     selection,
     isEdited,
     dataVersion,
+    isLastColumn,
     highlightKeyword,
     activeOccurrenceInCell,
     onCellCommit,
@@ -137,19 +141,30 @@ function TableCell<T extends Row>({
 
 
     const getBorderStyle = () => {
-        if (fixed === "left") {
+        if (isLastColumn) {
             return css`
-                border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
-            `;
-        } else if (fixed === "right") {
-            return css`
-                border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
+                box-shadow: inset 0 -1px 0 ${token.border.color};
             `;
         }
         return css`
-            border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+            box-shadow: inset -1px 0 0 ${token.border.color},
+                        inset 0 -1px 0 ${token.border.color};
         `;
-    }
+    };
+
+    const getMergedContentBorderStyle = () => {
+        if (isLastColumn) {
+            return css`
+                box-shadow: inset 0 1px 0 ${token.border.color},
+                            inset 0 -1px 0 ${token.border.color};
+            `;
+        }
+        return css`
+            box-shadow: inset 0 1px 0 ${token.border.color},
+                        inset -1px 0 0 ${token.border.color},
+                        inset 0 -1px 0 ${token.border.color};
+        `;
+    };
 
     const getJustifyContent = () => {
         if (column.align && typeof column.align === "string") {
@@ -202,7 +217,7 @@ function TableCell<T extends Row>({
                     display: inline-flex;
                     height: 100%;
                     width: 100%;
-                    padding-inline: 8px;
+                    padding-inline: ${token.cell['padding-inline']};
                     align-items: center;
                     box-sizing: border-box;
                 `}
@@ -238,12 +253,10 @@ function TableCell<T extends Row>({
                         z-index: 1;
                         top: 0;
                         box-sizing: border-box;
-                        background-color: #fff;
+                        background-color: ${token.cell['bg-color']};
                         display: inline-flex;
                         align-items: center;
-                        border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
-                        border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-                    `, getBorderStyle())}
+                    `, getMergedContentBorderStyle())}
                     style={{
                         width: mergedSize.width,
                         height: mergedSize.height,
@@ -263,10 +276,12 @@ function TableCell<T extends Row>({
                 column,
                 editorValue,
                 onEditorValueChange: setEditorValue,
-                onCommit: () => {
-                    // editorValue 为 null 说明用户从未调用 onEditorValueChange，内容未变，不记录
-                    if (editorValue !== null) {
-                        onCellCommit?.(row.id, column.name, columnIndex, originalValueRef.current, editorValue);
+                onCommit: (explicitValue?: unknown) => {
+                    // 优先使用调用方传入的显式终值（select onChange 等同步场景），
+                    // 否则回退到 editorValue state（input onBlur / onKeyDown 等场景）
+                    const valueToCommit = explicitValue !== undefined ? explicitValue : editorValue;
+                    if (valueToCommit !== null) {
+                        onCellCommit?.(row.id, column.name, columnIndex, originalValueRef.current, valueToCommit);
                     }
                     exitEditing();
                 },
@@ -286,7 +301,7 @@ function TableCell<T extends Row>({
                             top: 0;
                             left: 0;
                             box-sizing: border-box;
-                            background-color: #fff;
+                            background-color: ${token.cell['bg-color']};
                             font-size: inherit;
                             font-family: inherit;
                             & input, & textarea, & select {
@@ -347,8 +362,8 @@ function TableCell<T extends Row>({
                     width: 0;
                     height: 0;
                     border-style: solid;
-                    border-width: 0 6px 6px 0;
-                    border-color: transparent var(--crab-rc-table-edited-indicator-color, #f59e0b) transparent transparent;
+                    border-width: 0 ${token['edited-indicator'].size} ${token['edited-indicator'].size} 0;
+                    border-color: transparent ${token['edited-indicator'].color} transparent transparent;
                     pointer-events: none;
                     z-index: 4;
                 `}
@@ -363,31 +378,23 @@ function TableCell<T extends Row>({
         }
         // 用 inset box-shadow 模拟 Excel 风格的选区边框：相邻已选单元格之间不画线，仅在选区外缘描边
         // 这样不会占用布局空间，避免单元格出现 1~2px 尺寸抖动
-        const color = "var(--crab-rc-table-selection-border-color, #1976d2)";
+        const color = token.selection['border-color'];
+        const bw = token.selection['border-width'];
         const shadows: string[] = [];
-        if (selection.edgeTop) shadows.push(`inset 0 2px 0 0 ${color}`);
-        if (selection.edgeBottom) shadows.push(`inset 0 -2px 0 0 ${color}`);
-        if (selection.edgeLeft) shadows.push(`inset 2px 0 0 0 ${color}`);
-        if (selection.edgeRight) shadows.push(`inset -2px 0 0 0 ${color}`);
+        if (selection.edgeTop) shadows.push(`inset 0 ${bw} 0 0 ${color}`);
+        if (selection.edgeBottom) shadows.push(`inset 0 calc(-1 * ${bw}) 0 0 ${color}`);
+        if (selection.edgeLeft) shadows.push(`inset ${bw} 0 0 0 ${color}`);
+        if (selection.edgeRight) shadows.push(`inset calc(-1 * ${bw}) 0 0 0 ${color}`);
         // 锚点（活动单元格）保留单元格原色，其余选区填充淡蓝以体现范围
         const background = selection.isAnchor
             ? "transparent"
-            : "var(--crab-rc-table-selection-bg-color, rgb(25 118 210 / 8%))";
+            : token.selection['bg-color'];
 
         // 合并单元格主格的视觉尺寸跨多格，overlay 必须按合并后的宽高铺开，
         // 否则只会覆盖单格大小、出现裸露的"漏色"区域
         const overlaySize = mergeCell
             ? getMergedCellSize({ gridTemplateRows, gridTemplateColumns, mergeCell })
             : null;
-
-        // 单元格自带 1px border（border-right / border-bottom，固定列还会有 border-left），
-        // 而 overlay 默认坐落在 padding 边内，导致相邻被选中格之间的灰色边线会"切"进选区背景。
-        // 在"内边"（邻居也被选中、edge=false 的那条边）向外溢出 1px，正好把单元格自带的边线盖掉；
-        // "外边"保持对齐，避免画到表格容器之外或覆盖未被选中邻居的内容。
-        const extTop = selection.edgeTop ? 0 : 1;
-        const extRight = selection.edgeRight ? 0 : 1;
-        const extBottom = selection.edgeBottom ? 0 : 1;
-        const extLeft = selection.edgeLeft ? 0 : 1;
 
         return (
             <div
@@ -396,16 +403,16 @@ function TableCell<T extends Row>({
                     position: absolute;
                     pointer-events: none;
                     z-index: 2;
+                    top: 0;
+                    left: 0;
                 `}
                 style={{
-                    top: -extTop,
-                    left: -extLeft,
                     // 合并单元格用显式 width/height；普通单元格用 right/bottom 让浏览器自动撑满，
                     // 两种模式互斥，避免同时设置导致冲突
-                    right: overlaySize ? undefined : -extRight,
-                    bottom: overlaySize ? undefined : -extBottom,
-                    width: overlaySize ? overlaySize.width + extLeft + extRight : undefined,
-                    height: overlaySize ? overlaySize.height + extTop + extBottom : undefined,
+                    right: overlaySize ? undefined : 0,
+                    bottom: overlaySize ? undefined : 0,
+                    width: overlaySize ? overlaySize.width : undefined,
+                    height: overlaySize ? overlaySize.height : undefined,
                     backgroundColor: background,
                     boxShadow: shadows.length > 0 ? shadows.join(", ") : undefined
                 }}
@@ -423,7 +430,6 @@ function TableCell<T extends Row>({
                 height: 100%;
                 position: relative;
                 font-size: inherit;
-                border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
             `, getBorderStyle(), className)}
             style={style}
             onDoubleClick={(e) => {

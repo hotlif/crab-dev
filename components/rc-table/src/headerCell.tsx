@@ -1,4 +1,5 @@
 import { css, cx } from "@linaria/core";
+import token from "./token.js";
 import type { ColumnType, MergeCell, Row } from "./types.js";
 import { getMergedCellSize } from "./util.js";
 
@@ -14,6 +15,7 @@ interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElem
     gridTemplateRows: number[]
     mergeCell?: MergeCell
     isSkipCell: boolean
+    isLastColumn?: boolean
     onResizeMouseDown?: (e: MouseEvent<HTMLDivElement>) => void
 }
 
@@ -28,32 +30,34 @@ function TableHeaderCell<T extends Row>({
     fixed,
     rowIndex,
     maxRowIndex,
+    isLastColumn,
     onResizeMouseDown,
     ...restProps
 }: TableHeaderCellProps<T>){
 
-    const getBorderStyle = () => {
-        if (fixed === "left") {
+    const getMergedHeaderCellBorderStyle = () => {
+        if (isLastColumn) {
+            if (rowIndex === maxRowIndex) {
+                return css`
+                    box-shadow: inset 0 1px 0 ${token.border.color},
+                                inset 0 -1px 0 ${token.border.color};
+                `;
+            }
             return css`
-                border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+                box-shadow: inset 0 1px 0 ${token.border.color};
             `;
-        } else if (fixed === "right") {
+        }
+        if (rowIndex === maxRowIndex) {
             return css`
-                border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
+                box-shadow: inset 0 1px 0 ${token.border.color},
+                            inset -1px 0 0 ${token.border.color},
+                            inset 0 -1px 0 ${token.border.color};
             `;
         }
         return css`
-            border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
+            box-shadow: inset 0 1px 0 ${token.border.color},
+                        inset -1px 0 0 ${token.border.color};
         `;
-    }
-
-    const getBottomBorderStyle = () => {
-        if (rowIndex === maxRowIndex) {
-            return css`
-                border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-            `;
-        }
-        return "";
     }
 
     const renderChildrenElement = () => {
@@ -65,7 +69,7 @@ function TableHeaderCell<T extends Row>({
             <div
                 className={css`
                     display: inline-block;
-                    padding-inline: 8px;
+                    padding-inline: ${token.cell['padding-inline']};
                 `}
             >
                 {column?.title}
@@ -92,9 +96,8 @@ function TableHeaderCell<T extends Row>({
                         box-sizing: border-box;
                         display: inline-flex;
                         align-items: center;
-                        background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
-                        border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
-                    `, getBorderStyle(), getBottomBorderStyle())}
+                        background-color: ${token.header['bg-color']};
+                    `, getMergedHeaderCellBorderStyle())}
                     style={{
                         width,
                         height,
@@ -129,7 +132,7 @@ function TableHeaderCell<T extends Row>({
                         right: 0;
                         top: 0;
                         height: 100%;
-                        width: 4px;
+                        width: ${token['resize-handle'].width};
                         cursor: col-resize;
                         z-index: 1;
                     `}
