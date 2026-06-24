@@ -3,7 +3,8 @@
  */
 
 export const vars = {
-    'panel.padding': '--color-picker-panel-padding',
+    'panel.padding.y': '--color-picker-panel-padding-y',
+    'panel.padding.x': '--color-picker-panel-padding-x',
     'panel.gap': '--color-picker-panel-gap',
     'panel.preview.height': '--color-picker-panel-preview-height',
     'panel.preview.width': '--color-picker-panel-preview-width',
@@ -14,7 +15,10 @@ export const vars = {
 
 const token = {
     'panel': {
-        'padding': `var(${vars['panel.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'padding': {
+            'y': `var(${vars['panel.padding.y']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+            'x': `var(${vars['panel.padding.x']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
+        },
         'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
         'preview': {
             'height': `var(${vars['panel.preview.height']}, 5rem)`,

@@ -1,9 +1,12 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container"
+import { css } from "@linaria/core";
 import type { FC, HTMLAttributes } from "react";
+
 import ColorPickerInput from "./colorPickerInput.js";
 import ColorPickerOverlay from "./colorPickerOverlay.js";
 import type { OKLCHValue } from "../panels/colorPickerPanel.js";
 import type { Locale } from "../types.js";
+import token from "../token.js";
 
 
 export interface ColorPickerProps extends Omit<HTMLAttributes<HTMLInputElement>, "onValueChange"> {
@@ -26,6 +29,9 @@ const ColorPicker: FC<ColorPickerProps> = ({
                     value={value}
                     onConfirm={onValueChange}
                 />}
+            overlayClassName={css`
+                padding: ${token.panel.padding.y} ${token.panel.padding.x};
+            `}
         >
             <ColorPickerInput
                 value={value}

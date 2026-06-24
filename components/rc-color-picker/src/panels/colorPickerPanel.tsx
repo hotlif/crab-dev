@@ -1,7 +1,7 @@
 import { css } from "@linaria/core";
 import RcSlider, { TokenVars } from "@crab-dev/rc-slider";
 import { type FC, type HTMLAttributes } from "react";
-import token from "../token.js"
+import token from "../token.js";
 import { type ColorPickerPanelLocale } from "../types.js";
 
 
@@ -59,13 +59,13 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                     backgroundColor: `oklch(${value.lightness} ${value.chroma} ${value.hue})`
                 }}
             />
-            
+
             <div className={sliderContainerStyle}>
                 <label>{locale?.labelLightness}</label>
                 <RcSlider
                     style={{
-                        [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right, 
-                            oklch(0 ${value.chroma} ${value.hue}), 
+                        [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right,
+                            oklch(0 ${value.chroma} ${value.hue}),
                             oklch(1 ${value.chroma} ${value.hue})
                         )`,
                         [TokenVars["thumb.fill"]]: `oklch(${value.lightness} ${value.chroma} ${value.hue})`,
@@ -91,8 +91,8 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                 <label>{locale?.labelChroma}</label>
                 <RcSlider
                     style={{
-                        [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right, 
-                            oklch(0.6 0 ${value.hue}), 
+                        [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right,
+                            oklch(0.6 0 ${value.hue}),
                             oklch(0.6 0.4 ${value.hue})
                         )`,
                         [TokenVars["thumb.fill"]]: `oklch(0.6 ${value.chroma} ${value.hue})`,
@@ -103,7 +103,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                         ${TokenVars["thumb.stroke.color"]}: #fff;
                         ${TokenVars["rail.active.fill"]}: transparent;
                         ${TokenVars["thumb.fill"]}: transparent;
-                     
+
                     `}
                     min={0}
                     max={0.4}
@@ -126,13 +126,13 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                         ${TokenVars["rail.thickness"]}: 12px;
                         ${TokenVars["thumb.stroke.color"]}: #fff;
                         ${TokenVars["rail.active.fill"]}: transparent;
-                        ${TokenVars["rail.inactive.fill"]}: linear-gradient(to right, 
-                            oklch(0.7 0.15 0), 
-                            oklch(0.7 0.15 60), 
-                            oklch(0.7 0.15 120), 
-                            oklch(0.7 0.15 180), 
-                            oklch(0.7 0.15 240), 
-                            oklch(0.7 0.15 300), 
+                        ${TokenVars["rail.inactive.fill"]}: linear-gradient(to right,
+                            oklch(0.7 0.15 0),
+                            oklch(0.7 0.15 60),
+                            oklch(0.7 0.15 120),
+                            oklch(0.7 0.15 180),
+                            oklch(0.7 0.15 240),
+                            oklch(0.7 0.15 300),
                             oklch(0.7 0.15 360)
                         );
                     `}
