@@ -9,8 +9,9 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "start": "yarn generate:docgen && lignify run-task app:dev",
+        "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
         "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/table.tsx --out ./public/docgen.json",
+        "generate:token": "packify generate:css-token",
         "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
         "build:library": "packify build",
         "eslint": "eslint",
@@ -32,6 +33,7 @@
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-jest-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",

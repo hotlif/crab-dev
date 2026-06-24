@@ -1,0 +1,50 @@
+[build]
+output  = "./src/token.ts"
+prefix  = "table"
+imports = ["@crab-dev/rc-token-semantic"]
+
+[token]
+
+# ─── 边框 ────────────────────────────────────────────────────────────────────
+border.color = "$ref(color.border.default)"
+
+# ─── 单元格 ──────────────────────────────────────────────────────────────────
+cell.bg-color       = "$ref(color.background.surface)"
+cell.padding-inline = "$ref(space.component-gap)"
+
+# ─── 表头 / 过滤栏 ───────────────────────────────────────────────────────────
+header.bg-color     = "oklch(0.975 0.002 286)"
+filter-cell.padding = "2px"
+
+# ─── 拖拽调整列宽手柄 ────────────────────────────────────────────────────────
+resize-handle.width = "4px"
+
+# ─── 分组行 ──────────────────────────────────────────────────────────────────
+group.bg-color           = "$ref(color.background.hover-subtle)"
+group.color              = "oklch(0.267 0 0)"
+group.count-color        = "oklch(0.508 0 0)"
+group.chevron-color      = "oklch(0.400 0 0)"
+group.gap                = "$ref(space.component-gap)"
+group.padding-inline     = "$ref(space.component-gap)"
+group.text-gap           = "6px"
+group.font-weight        = "$ref(font.weight.label)"
+group.count-font-size    = "$ref(font.size.caption)"
+group.chevron-size       = "14px"
+group.chevron-transition = "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+# ─── 选区 ────────────────────────────────────────────────────────────────────
+selection.border-color   = "oklch(0.506 0.174 260)"
+selection.bg-color       = "oklch(0.506 0.174 260 / 0.08)"
+selection.border-width   = "2px"
+selection.outline-offset = "-2px"
+
+# ─── 关键字高亮 ──────────────────────────────────────────────────────────────
+highlight.bg            = "oklch(0.937 0.171 98)"
+highlight.color         = "inherit"
+highlight.active-bg     = "oklch(0.760 0.183 52)"
+highlight.active-color  = "$ref(color.background.surface)"
+highlight.border-radius = "$ref(radius.sm)"
+
+# ─── 编辑标记 ────────────────────────────────────────────────────────────────
+edited-indicator.color = "$ref(color.feedback.warning)"
+edited-indicator.size  = "6px"
