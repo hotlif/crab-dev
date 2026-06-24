@@ -8,7 +8,7 @@ import { css, cx } from "@linaria/core";
 import { useMemo, useState } from "react";
 
 import Table from "../../src/index.js";
-import type { ColumnType, Row } from "../../src/index.js";
+import type { CellEditRecord, ColumnType, Row } from "../../src/index.js";
 
 interface DemoRow extends Row {
     dataRef: {
@@ -20,6 +20,21 @@ interface DemoRow extends Row {
         status: "在职" | "试用" | "离职"
     }
 }
+
+const columnTitleMap: Record<string, string> = {
+    "$.name": "姓名",
+    "$.age": "年龄",
+    "$.department": "部门",
+    "$.salary": "月薪",
+    "$.status": "状态",
+};
+
+const formatTime = (ts: number) => {
+    const d = new Date(ts);
+    return [d.getHours(), d.getMinutes(), d.getSeconds()]
+        .map(n => String(n).padStart(2, "0"))
+        .join(":");
+};
 
 const departments: Array<DemoRow["dataRef"]["department"]> = ["前端", "后端", "产品", "设计", "测试", "运维"];
 const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
@@ -67,8 +82,95 @@ const hintStyle = css`
     font-size: 12px;
 `;
 
+const historyWrapStyle = css`
+    margin-top: 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 780px;
+`;
+
+const historyHeaderStyle = css`
+    padding: 8px 12px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+`;
+
+const historyListStyle = css`
+    max-height: 160px;
+    overflow-y: auto;
+`;
+
+const historyItemStyle = css`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #333;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+`;
+
+const historyTimeStyle = css`
+    color: #bbb;
+    flex-shrink: 0;
+    width: 64px;
+`;
+
+const historyEmpStyle = css`
+    color: #888;
+    flex-shrink: 0;
+    width: 100px;
+`;
+
+const historyFieldStyle = css`
+    color: #666;
+    flex-shrink: 0;
+    width: 32px;
+`;
+
+const historyOldStyle = css`
+    text-decoration: line-through;
+    color: #cf1322;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
+const historyArrowStyle = css`
+    color: #ccc;
+    flex-shrink: 0;
+`;
+
+const historyNewStyle = css`
+    color: #389e0d;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
+const historyEmptyStyle = css`
+    padding: 20px;
+    text-align: center;
+    color: #bbb;
+    font-size: 12px;
+`;
+
 const EditDemo = () => {
     const [rows, setRows] = useState<DemoRow[]>(initialRows);
+    const [editRecords, setEditRecords] = useState<CellEditRecord[]>([]);
+
+    const findEmployeeNo = (rowId: CellEditRecord["rowId"]) =>
+        rows.find(r => r.id === rowId)?.dataRef.employeeNo ?? String(rowId);
 
     const patchRow = (rowId: DemoRow["id"], key: keyof DemoRow["dataRef"], value: string | number) => {
         setRows((prev) => {
@@ -235,7 +337,7 @@ const EditDemo = () => {
                                 const nextValue = event.target.value as DemoRow["dataRef"]["status"];
                                 onEditorValueChange(nextValue);
                                 patchRow(row.id, "status", nextValue);
-                                onCommit?.();
+                                onCommit?.(nextValue);
                             }}
                             onBlur={() => {
                                 onCommit?.();
@@ -259,8 +361,31 @@ const EditDemo = () => {
                 columns={columns}
                 rows={rows}
                 editType="cell"
+                cellEditRecords={editRecords}
+                onCellEditRecordsChange={setEditRecords}
             />
             <div className={cx(hintStyle)}>双击姓名、年龄、部门、月薪或状态单元格可编辑。</div>
+            <div className={historyWrapStyle}>
+                <div className={historyHeaderStyle}>
+                    编辑历史（共 {editRecords.length} 条，Ctrl+Z 撤销）
+                </div>
+                <div className={historyListStyle}>
+                    {editRecords.length === 0 ? (
+                        <div className={historyEmptyStyle}>暂无编辑记录</div>
+                    ) : (
+                        [...editRecords].reverse().map((record, i) => (
+                            <div key={`${record.timestamp}-${i}`} className={historyItemStyle}>
+                                <span className={historyTimeStyle}>{formatTime(record.timestamp)}</span>
+                                <span className={historyEmpStyle}>{findEmployeeNo(record.rowId)}</span>
+                                <span className={historyFieldStyle}>{columnTitleMap[record.columnName] ?? record.columnName}</span>
+                                <span className={historyOldStyle}>{String(record.oldValue)}</span>
+                                <span className={historyArrowStyle}>→</span>
+                                <span className={historyNewStyle}>{String(record.newValue)}</span>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
