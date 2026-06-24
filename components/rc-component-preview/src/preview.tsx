@@ -83,7 +83,7 @@ const stageStyle = css`
 `;
 
 const stageContentStyle = css`
-    max-width: 100%;
+    width: 100%;
 `;
 
 const stageCompactStyle = css`
@@ -96,15 +96,16 @@ const stageSpaciousStyle = css`
     min-height: 156px;
 `;
 
-/* ────────────────────────── 中间信息栏（上：信息 / 下：按钮） ────────────────────────── */
+/* ────────────────────────── 标题栏（Stage 上方） ────────────────────────── */
 
 const metaInfoStyle = css`
     display: flex;
     flex-direction: column;
     gap: ${token.meta.info.gap};
-    padding: ${token.meta.info.padding};
+    padding: 16px 20px;
     background-color: ${token.meta.info.background.color};
     min-width: 0;
+    border-bottom: 1px ${token.meta.info.divider.style} ${token.meta.border.color};
 `;
 
 /* 标题行：标题靠左，虚线在右侧填充到行尾 */
@@ -113,7 +114,6 @@ const metaTitleRowStyle = css`
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: ${token.meta.title.offset};
     margin-bottom: 4px;
 
     &::after {
@@ -131,14 +131,6 @@ const metaTitleStyle = css`
     font-weight: ${token.meta.title.font.weight};
     letter-spacing: ${token.meta.title['letter-spacing']};
     line-height: ${token.meta.title['line-height']};
-`;
-
-/* 没有标题但有描述时：仅画一条虚线 */
-
-const metaPlainDividerStyle = css`
-    height: 0;
-    margin: ${token.meta.title.offset} 0 12px;
-    border-top: 1px ${token.meta.info.divider.style} ${token.meta.border.color};
 `;
 
 const metaDescStyle = css`
@@ -429,24 +421,12 @@ const Preview: FC<PreviewProps> = ({
 
     return (
         <article className={cx(cardStyle, className)} {...restProps}>
-            <div
-                className={cx(
-                    stageStyle,
-                    density === 'compact' && stageCompactStyle,
-                    density === 'spacious' && stageSpaciousStyle,
-                )}
-            >
-                <div className={stageContentStyle}>{children}</div>
-            </div>
-
             {hasInfo && (
                 <div className={metaInfoStyle}>
-                    {title != null ? (
+                    {title != null && (
                         <div className={metaTitleRowStyle}>
                             <span className={metaTitleStyle}>{title}</span>
                         </div>
-                    ) : (
-                        <div className={metaPlainDividerStyle} aria-hidden />
                     )}
                     {hasDescription && (
                         <div className={metaDescStyle}>
@@ -457,6 +437,16 @@ const Preview: FC<PreviewProps> = ({
                     )}
                 </div>
             )}
+
+            <div
+                className={cx(
+                    stageStyle,
+                    density === 'compact' && stageCompactStyle,
+                    density === 'spacious' && stageSpaciousStyle,
+                )}
+            >
+                <div className={stageContentStyle}>{children}</div>
+            </div>
 
             {(hasSource || hasPath) && (
                 <div className={metaActionsStyle} role="group" aria-label="预览操作">
