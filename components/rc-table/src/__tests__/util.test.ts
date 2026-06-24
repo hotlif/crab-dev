@@ -291,6 +291,10 @@ describe("calculateColumnDepth", () => {
 
 
 describe("getMaxDepth", () => {
+    it("should return 0 for empty columns array", () => {
+        expect(getMaxDepth([])).toBe(0);
+    });
+
     it("should return 1 for columns with no children", () => {
         const columns = [
             { name: "a", title: "A" },
