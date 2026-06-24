@@ -8,11 +8,11 @@ import { GithubIcon, IssueIcon, EditIcon, CompassIcon, HistoryIcon } from "../co
 
 const wrapStyle = css`
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: 200px minmax(0, 1fr);
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px 24px 72px;
-    gap: 24px;
+    gap: 32px;
 
     @media (max-width: 960px) {
         grid-template-columns: 1fr;
@@ -137,11 +137,10 @@ const subtitleStyle = css`
 `;
 
 const metaPanelStyle = css`
-    margin-top: 6px;
-    padding-top: 2px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
 `;
 
 const metaRowStyle = css`
@@ -195,6 +194,7 @@ const actionLinkStyle = css`
     & + & {
         margin-left: 12px;
         padding-left: 12px;
+        border-left: 1px solid var(--border);
     }
 
     &:hover {
@@ -386,9 +386,15 @@ const ComponentView = () => {
                 </header>
 
                 {normalizedReadme && (
-                    <>
-                        <Markdown demos={item.demos} api={item.api}>{normalizedReadme}</Markdown>
-                    </>
+                    <Markdown
+                        className={css`
+                            width: 100%;
+                        `}
+                        demos={item.demos}
+                        api={item.api}
+                    >
+                        {normalizedReadme}
+                    </Markdown>
                 )}
             </article>
         </div>

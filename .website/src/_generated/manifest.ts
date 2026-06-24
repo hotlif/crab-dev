@@ -5875,7 +5875,28 @@ export default TableDemo;
         title: "高阶 Table 表格",
         description: "高效的协议表格库，旨在提升大规模列表或内容渲染的性能。",
         category: "data-display",
-        readme: ``,
+        readme: `协议驱动的高阶表格组件
+
+## ✨ 特性
+
+- 通过 \`fetchColumns\` / \`fetchData\` 协议接口异步加载列定义与数据，便于对接后端
+- 支持 \`typeLoaders\` 插件机制，为不同 \`dataType\` 注入渲染器、过滤器与编辑器
+- 支持服务端分页，自动管理 page / pageSize / filters 状态
+- 与 \`rc-auto-sizer\` 无缝配合，天然支持虚拟滚动与自适应容器
+- 当前版本：\`0.1.1\`
+- 示例数量：\`3\` 个 Demo
+- 主题能力：复用 rc-table 样式令牌
+
+## 🔨 使用示例
+
+<demos />
+
+## API
+
+<api />
+
+> 其余原生属性按底层实现透传，详见 API。
+`,
         demos: [
             {
                 path: "components/rc-protocol-table/docs/demos/basic.demo.tsx",
@@ -7600,6 +7621,230 @@ const BasisDemo = () => {
 export default BasisDemo;`,
             },
             {
+                path: "components/rc-table/docs/demos/columnResize.demo.tsx",
+                title: "列宽拖拽调整",
+                description: "在表头右边缘拖拽可调整列宽。设置 Table resizable 全局开启，也可通过 ColumnType.resizable 逐列控制。",
+                source: `
+/**
+ * title = "列宽拖拽调整"
+ * description = "在表头右边缘拖拽可调整列宽。设置 Table resizable 全局开启，也可通过 ColumnType.resizable 逐列控制。"
+ */
+
+import { useState } from "react";
+import Table from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/index.js";
+import { fakerZH_CN as faker } from "@faker-js/faker";
+
+interface DemoRow extends Row {
+    dataRef: {
+        name: string
+        age: number
+        email: string
+        department: string
+        jobTitle: string
+        city: string
+        salary: number
+    }
+}
+
+faker.seed(20260601)
+
+const rows: DemoRow[] = Array.from({ length: 500 }, (_, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: {
+        name: faker.person.fullName(),
+        age: faker.number.int({ min: 22, max: 55 }),
+        email: faker.internet.email(),
+        department: faker.commerce.department(),
+        jobTitle: faker.person.jobTitle(),
+        city: faker.location.city(),
+        salary: faker.number.int({ min: 8000, max: 50000 }),
+    }
+}))
+
+const ColumnResizeDemo = () => {
+    const [columns, setColumns] = useState<ColumnType<DemoRow>[]>([
+        { title: "姓名", name: "$.name", width: 140, fixed: "left" },
+        { title: "年龄", name: "$.age", width: 80, align: "right" },
+        { title: "邮箱", name: "$.email", width: 260 },
+        { title: "部门", name: "$.department", width: 160 },
+        { title: "职位", name: "$.jobTitle", width: 200 },
+        { title: "城市", name: "$.city", width: 120 },
+        { title: "月薪", name: "$.salary", width: 120, align: "right", resizable: false },
+    ])
+
+    return (
+        <div>
+            <p style={{ marginBottom: 8, color: "#666", fontSize: 13 }}>
+                拖拽列头右边缘调整列宽；「月薪」列通过 <code>resizable: false</code> 单独禁用了拖拽
+            </p>
+            <Table
+                width={900}
+                height={360}
+                columns={columns}
+                rows={rows}
+                resizable
+                onColumnResize={(columnName, width) => {
+                    setColumns(prev => prev.map(col =>
+                        col.name === columnName ? { ...col, width } : col
+                    ))
+                }}
+            />
+        </div>
+    )
+}
+
+export default ColumnResizeDemo;`,
+            },
+            {
+                path: "components/rc-table/docs/demos/copy.demo.tsx",
+                title: "复制单元格",
+                description: "选中单元格后按 Ctrl/⌘+C，触发 onCopy 回调并将选区数据写入剪贴板（TSV 格式，可直接粘贴到 Excel）。",
+                source: `
+/**
+ * title = "复制单元格"
+ * description = "选中单元格后按 Ctrl/⌘+C，触发 onCopy 回调并将选区数据写入剪贴板（TSV 格式，可直接粘贴到 Excel）。"
+ */
+
+import { css } from "@linaria/core";
+import { type Key, useState } from "react";
+
+import Table from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/index.js";
+
+interface DemoRow extends Row {
+    dataRef: {
+        employeeNo: string
+        name: string
+        department: string
+        city: string
+        salary: number
+    }
+}
+
+const departments = ["前端", "后端", "产品", "设计", "测试", "运维"];
+const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
+const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁"];
+
+const rows: DemoRow[] = Array.from({ length: 100 }, (_, index) => {
+    const rowId = index + 1;
+    return {
+        id: String(rowId),
+        dataRef: {
+            employeeNo: \`EMP-\${String(rowId).padStart(4, "0")}\`,
+            name: \`\${names[index % names.length]}\${String(rowId).padStart(2, "0")}\`,
+            department: departments[index % departments.length],
+            city: cities[index % cities.length],
+            salary: 12000 + (index % 30) * 1000
+        }
+    };
+});
+
+const columns: ColumnType<DemoRow>[] = [
+    { title: "工号", name: "$.employeeNo", width: 140, fixed: "left" },
+    { title: "姓名", name: "$.name", width: 120 },
+    { title: "部门", name: "$.department", width: 120 },
+    { title: "城市", name: "$.city", width: 120 },
+    { title: "月薪", name: "$.salary", width: 120, align: "right" }
+];
+
+const hintStyle = css\`
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 12px;
+    line-height: 1.6;
+\`;
+
+const toastStyle = css\`
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.6;
+    background: #f0f7ff;
+    border: 1px solid #bcd8f7;
+    color: #1565c0;
+\`;
+
+const previewLabelStyle = css\`
+    font-weight: 600;
+    margin-bottom: 4px;
+\`;
+
+const previewStyle = css\`
+    margin: 0;
+    padding: 6px 8px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #dde8f5;
+    font-family: monospace;
+    font-size: 11px;
+    color: #333;
+    white-space: pre;
+    overflow: auto;
+    max-height: 80px;
+\`;
+
+type CopiedCell = { rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown };
+
+function buildTsv(cells: CopiedCell[]): string {
+    if (cells.length === 0) return "";
+
+    const minRow = Math.min(...cells.map(c => c.rowIndex));
+    const maxRow = Math.max(...cells.map(c => c.rowIndex));
+    const minCol = Math.min(...cells.map(c => c.columnIndex));
+    const maxCol = Math.max(...cells.map(c => c.columnIndex));
+
+    const grid: string[][] = Array.from({ length: maxRow - minRow + 1 }, () =>
+        Array.from({ length: maxCol - minCol + 1 }, () => "")
+    );
+
+    for (const cell of cells) {
+        grid[cell.rowIndex - minRow][cell.columnIndex - minCol] = String(cell.value ?? "");
+    }
+
+    return grid.map(r => r.join("\\t")).join("\\n");
+}
+
+const CopyDemo = () => {
+    const [selectCells, setSelectCells] = useState<Key[]>([]);
+    const [lastCopy, setLastCopy] = useState<{ count: number; tsv: string } | null>(null);
+
+    const handleCopy = (cells: CopiedCell[]) => {
+        const tsv = buildTsv(cells);
+        navigator.clipboard.writeText(tsv).catch(() => undefined);
+        setLastCopy({ count: cells.length, tsv });
+    };
+
+    return (
+        <div>
+            <div className={hintStyle}>
+                · 单击 / 拖拽 / Shift+单击 选中单元格<br />
+                · 按 Ctrl / ⌘ + C 复制选区（TSV 格式，可直接粘贴到 Excel）
+            </div>
+            <Table
+                width={640}
+                height={360}
+                columns={columns}
+                rows={rows}
+                selectCells={selectCells}
+                onSelectCellsChange={setSelectCells}
+                onCopy={handleCopy}
+            />
+            {lastCopy !== null && (
+                <div className={toastStyle}>
+                    <div className={previewLabelStyle}>已复制 {lastCopy.count} 个单元格</div>
+                    <pre className={previewStyle}>{lastCopy.tsv}</pre>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default CopyDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/dynamicRowHeight.demo.tsx",
                 title: "动态行高",
                 description: "使用原生 DOM 动态计算行高，并演示 row.height 的优先级",
@@ -7829,7 +8074,7 @@ import { css, cx } from "@linaria/core";
 import { useMemo, useState } from "react";
 
 import Table from "../../src/index.js";
-import type { ColumnType, Row } from "../../src/index.js";
+import type { CellEditRecord, ColumnType, Row } from "../../src/index.js";
 
 interface DemoRow extends Row {
     dataRef: {
@@ -7841,6 +8086,21 @@ interface DemoRow extends Row {
         status: "在职" | "试用" | "离职"
     }
 }
+
+const columnTitleMap: Record<string, string> = {
+    "$.name": "姓名",
+    "$.age": "年龄",
+    "$.department": "部门",
+    "$.salary": "月薪",
+    "$.status": "状态",
+};
+
+const formatTime = (ts: number) => {
+    const d = new Date(ts);
+    return [d.getHours(), d.getMinutes(), d.getSeconds()]
+        .map(n => String(n).padStart(2, "0"))
+        .join(":");
+};
 
 const departments: Array<DemoRow["dataRef"]["department"]> = ["前端", "后端", "产品", "设计", "测试", "运维"];
 const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
@@ -7888,8 +8148,95 @@ const hintStyle = css\`
     font-size: 12px;
 \`;
 
+const historyWrapStyle = css\`
+    margin-top: 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 780px;
+\`;
+
+const historyHeaderStyle = css\`
+    padding: 8px 12px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #e8e8e8;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+\`;
+
+const historyListStyle = css\`
+    max-height: 160px;
+    overflow-y: auto;
+\`;
+
+const historyItemStyle = css\`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #333;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+\`;
+
+const historyTimeStyle = css\`
+    color: #bbb;
+    flex-shrink: 0;
+    width: 64px;
+\`;
+
+const historyEmpStyle = css\`
+    color: #888;
+    flex-shrink: 0;
+    width: 100px;
+\`;
+
+const historyFieldStyle = css\`
+    color: #666;
+    flex-shrink: 0;
+    width: 32px;
+\`;
+
+const historyOldStyle = css\`
+    text-decoration: line-through;
+    color: #cf1322;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+\`;
+
+const historyArrowStyle = css\`
+    color: #ccc;
+    flex-shrink: 0;
+\`;
+
+const historyNewStyle = css\`
+    color: #389e0d;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+\`;
+
+const historyEmptyStyle = css\`
+    padding: 20px;
+    text-align: center;
+    color: #bbb;
+    font-size: 12px;
+\`;
+
 const EditDemo = () => {
     const [rows, setRows] = useState<DemoRow[]>(initialRows);
+    const [editRecords, setEditRecords] = useState<CellEditRecord[]>([]);
+
+    const findEmployeeNo = (rowId: CellEditRecord["rowId"]) =>
+        rows.find(r => r.id === rowId)?.dataRef.employeeNo ?? String(rowId);
 
     const patchRow = (rowId: DemoRow["id"], key: keyof DemoRow["dataRef"], value: string | number) => {
         setRows((prev) => {
@@ -8056,7 +8403,7 @@ const EditDemo = () => {
                                 const nextValue = event.target.value as DemoRow["dataRef"]["status"];
                                 onEditorValueChange(nextValue);
                                 patchRow(row.id, "status", nextValue);
-                                onCommit?.();
+                                onCommit?.(nextValue);
                             }}
                             onBlur={() => {
                                 onCommit?.();
@@ -8080,8 +8427,31 @@ const EditDemo = () => {
                 columns={columns}
                 rows={rows}
                 editType="cell"
+                cellEditRecords={editRecords}
+                onCellEditRecordsChange={setEditRecords}
             />
             <div className={cx(hintStyle)}>双击姓名、年龄、部门、月薪或状态单元格可编辑。</div>
+            <div className={historyWrapStyle}>
+                <div className={historyHeaderStyle}>
+                    编辑历史（共 {editRecords.length} 条，Ctrl+Z 撤销）
+                </div>
+                <div className={historyListStyle}>
+                    {editRecords.length === 0 ? (
+                        <div className={historyEmptyStyle}>暂无编辑记录</div>
+                    ) : (
+                        [...editRecords].reverse().map((record, i) => (
+                            <div key={\`\${record.timestamp}-\${i}\`} className={historyItemStyle}>
+                                <span className={historyTimeStyle}>{formatTime(record.timestamp)}</span>
+                                <span className={historyEmpStyle}>{findEmployeeNo(record.rowId)}</span>
+                                <span className={historyFieldStyle}>{columnTitleMap[record.columnName] ?? record.columnName}</span>
+                                <span className={historyOldStyle}>{String(record.oldValue)}</span>
+                                <span className={historyArrowStyle}>→</span>
+                                <span className={historyNewStyle}>{String(record.newValue)}</span>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
@@ -9656,6 +10026,122 @@ const SelectCellsDemo = () => {
 export default SelectCellsDemo;
 `,
             },
+            {
+                path: "components/rc-table/docs/demos/tree.demo.tsx",
+                title: "树形数据",
+                description: "通过 `treeData` 和 `getChildRows` 展示层级关系，点击行首箭头可展开或收起子行。",
+                source: `/**
+ * title = "树形数据"
+ * description = "通过 \`treeData\` 和 \`getChildRows\` 展示层级关系，点击行首箭头可展开或收起子行。"
+ */
+
+import { type Key, useState } from "react";
+import Table from "../../src/index.js";
+import type { Row } from "../../src/types.js";
+
+interface OrgRow extends Row {
+    dataRef: {
+        name: string
+        type: string
+        headcount?: number
+        location?: string
+    }
+    children?: OrgRow[]
+}
+
+const orgData: OrgRow[] = [
+    {
+        id: "tech",
+        dataRef: { name: "技术部", type: "部门", headcount: 85, location: "北京" },
+        children: [
+            {
+                id: "tech-fe",
+                dataRef: { name: "前端组", type: "小组", headcount: 22, location: "北京" },
+                children: [
+                    { id: "tech-fe-1", dataRef: { name: "张伟", type: "员工", location: "北京" } },
+                    { id: "tech-fe-2", dataRef: { name: "李芳", type: "员工", location: "北京" } },
+                    { id: "tech-fe-3", dataRef: { name: "王磊", type: "员工", location: "上海" } },
+                ],
+            },
+            {
+                id: "tech-be",
+                dataRef: { name: "后端组", type: "小组", headcount: 35, location: "北京" },
+                children: [
+                    { id: "tech-be-1", dataRef: { name: "刘洋", type: "员工", location: "北京" } },
+                    { id: "tech-be-2", dataRef: { name: "陈静", type: "员工", location: "北京" } },
+                ],
+            },
+            {
+                id: "tech-infra",
+                dataRef: { name: "基础设施组", type: "小组", headcount: 28, location: "北京" },
+                children: [
+                    { id: "tech-infra-1", dataRef: { name: "赵强", type: "员工", location: "深圳" } },
+                ],
+            },
+        ],
+    },
+    {
+        id: "product",
+        dataRef: { name: "产品部", type: "部门", headcount: 40, location: "上海" },
+        children: [
+            {
+                id: "product-design",
+                dataRef: { name: "设计组", type: "小组", headcount: 15, location: "上海" },
+                children: [
+                    { id: "product-design-1", dataRef: { name: "孙丽", type: "员工", location: "上海" } },
+                    { id: "product-design-2", dataRef: { name: "周平", type: "员工", location: "上海" } },
+                ],
+            },
+            {
+                id: "product-pm",
+                dataRef: { name: "产品管理", type: "小组", headcount: 25, location: "上海" },
+                children: [
+                    { id: "product-pm-1", dataRef: { name: "吴雪", type: "员工", location: "上海" } },
+                ],
+            },
+        ],
+    },
+    {
+        id: "ops",
+        dataRef: { name: "运营部", type: "部门", headcount: 30, location: "广州" },
+        children: [
+            { id: "ops-1", dataRef: { name: "郑明", type: "员工", location: "广州" } },
+            { id: "ops-2", dataRef: { name: "冯华", type: "员工", location: "广州" } },
+        ],
+    },
+];
+
+const columns = [
+    { name: "$.name", title: "名称", width: 180 },
+    { name: "$.type", title: "类型", width: 100 },
+    { name: "$.headcount", title: "人数", width: 80, align: "right" as const },
+    { name: "$.location", title: "所在地" },
+];
+
+const getChildRows = (row: OrgRow) => row.children;
+
+const TreeDemo = () => {
+    const [expandedRowIds, setExpandedRowIds] = useState<Set<Key>>(
+        new Set(["tech", "product"])
+    );
+
+    return (
+        <Table<OrgRow>
+            width={560}
+            height={420}
+            rows={orgData}
+            columns={columns}
+            treeData
+            getChildRows={getChildRows}
+            expandedRowIds={expandedRowIds}
+            onExpandedRowIdsChange={setExpandedRowIds}
+        />
+    );
+};
+
+export default TreeDemo;
+`,
+            },
         ],
         api: [
             {
@@ -9830,6 +10316,66 @@ export default SelectCellsDemo;
                 name: "onMatchCountChange",
                 description: "-",
                 type: "(count: number) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "resizable",
+                description: "-",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "onColumnResize",
+                description: "-",
+                type: "(columnName: string, width: number) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onCopy",
+                description: "-",
+                type: "(cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "treeData",
+                description: "启用树形数据模式",
+                type: "boolean",
+                defaultValue: "-",
+            },
+            {
+                name: "getChildRows",
+                description: "获取每行的子行；返回空数组或 null/undefined 表示叶子节点",
+                type: "(row: T) => T[] | undefined | null",
+                defaultValue: "-",
+            },
+            {
+                name: "treeColumn",
+                description: "显示缩进和展开/收起按钮的列名；默认使用第一个非 fixed=\"right\" 的叶子列",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "expandedRowIds",
+                description: "受控展开行 id 集合",
+                type: "Set<Key>",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultExpandedRowIds",
+                description: "非受控初始展开行 id 集合",
+                type: "Set<Key>",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultTreeExpandAll",
+                description: "是否默认全部展开（默认 false）",
+                type: "boolean",
+                defaultValue: "-",
+            },
+            {
+                name: "onExpandedRowIdsChange",
+                description: "展开状态变化回调",
+                type: "(ids: Set<Key>) => void",
                 defaultValue: "-",
             },
         ],
