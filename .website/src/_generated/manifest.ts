@@ -7639,6 +7639,146 @@ const BasisDemo = () => {
 export default BasisDemo;`,
             },
             {
+                path: "components/rc-table/docs/demos/columnDrag.demo.tsx",
+                title: "拖拽调整列顺序（固定列 + 分组表头）",
+                description: "左侧「序号」「姓名」、右侧「邮箱」固定；拖拽分组表头可整体调整分组顺序，拖拽分组内的子列可在分组内部重排。",
+                source: `/**
+ * title = "拖拽调整列顺序（固定列 + 分组表头）"
+ * description = "左侧「序号」「姓名」、右侧「邮箱」固定；拖拽分组表头可整体调整分组顺序，拖拽分组内的子列可在分组内部重排。"
+ */
+
+import { useState } from "react";
+import Table from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/index.js";
+import { fakerZH_CN as faker } from "@faker-js/faker";
+
+interface DemoRow extends Row {
+    dataRef: {
+        name: string
+        age: number
+        gender: string
+        city: string
+        department: string
+        jobTitle: string
+        startDate: string
+        salary: number
+        bonus: number
+        email: string
+    }
+}
+
+faker.seed(20260602)
+
+const rows: DemoRow[] = Array.from({ length: 200 }, (_, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: {
+        name: faker.person.fullName(),
+        age: faker.number.int({ min: 22, max: 55 }),
+        gender: faker.helpers.arrayElement(["男", "女"]),
+        city: faker.location.city(),
+        department: faker.commerce.department(),
+        jobTitle: faker.person.jobTitle(),
+        startDate: faker.date.between({ from: "2015-01-01", to: "2024-12-31" }).toISOString().slice(0, 10),
+        salary: faker.number.int({ min: 8000, max: 50000 }),
+        bonus: faker.number.int({ min: 0, max: 80000 }),
+        email: faker.internet.email(),
+    },
+}))
+
+const initialColumns: ColumnType<DemoRow>[] = [
+    {
+        title: "序号",
+        name: "index",
+        width: 60,
+        fixed: "left",
+        align: "right",
+        render: ({ rowIndex }) => rowIndex + 1,
+    },
+    { title: "姓名", name: "$.name", width: 140, fixed: "left" },
+    {
+        title: "基本信息",
+        name: "group-basic",
+        children: [
+            { title: "年龄", name: "$.age", width: 80, align: "right" },
+            { title: "性别", name: "$.gender", width: 80, align: "center" },
+            { title: "城市", name: "$.city", width: 120 },
+        ],
+    },
+    {
+        title: "工作信息",
+        name: "group-work",
+        children: [
+            { title: "部门", name: "$.department", width: 160 },
+            { title: "职位", name: "$.jobTitle", width: 200 },
+            { title: "入职日期", name: "$.startDate", width: 120, align: "center" },
+        ],
+    },
+    {
+        title: "薪资信息",
+        name: "group-salary",
+        children: [
+            {
+                title: "月薪",
+                name: "$.salary",
+                width: 120,
+                align: "right",
+                render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\`,
+            },
+            {
+                title: "年终奖",
+                name: "$.bonus",
+                width: 120,
+                align: "right",
+                render: ({ row }) => \`¥\${row.dataRef.bonus.toLocaleString()}\`,
+            },
+        ],
+    },
+    { title: "邮箱", name: "$.email", width: 240, fixed: "right" },
+]
+
+const ColumnDragComplexDemo = () => {
+    const [columns, setColumns] = useState<ColumnType<DemoRow>[]>(initialColumns)
+
+    return (
+        <div>
+            <p style={{ marginBottom: 8, color: "#666", fontSize: 13 }}>
+                拖拽分组列头可整体调整顺序，固定列不参与拖拽。
+                当前顺序：{columns.filter(c => !c.fixed).map(c => c.title).join(" → ")}
+            </p>
+            <Table
+                width={960}
+                height={400}
+                columns={columns}
+                rows={rows}
+                draggableColumns
+                onColumnOrderChange={(orderedNames) => {
+                    const nameIndex = new Map(orderedNames.map((n, i) => [n, i]))
+                    setColumns(prev => [...prev].sort((a, b) => {
+                        if (a.fixed || b.fixed) return 0
+                        return (nameIndex.get(a.name) ?? 0) - (nameIndex.get(b.name) ?? 0)
+                    }))
+                }}
+                onGroupColumnOrderChange={(groupName, orderedChildNames) => {
+                    const nameIndex = new Map(orderedChildNames.map((n, i) => [n, i]))
+                    setColumns(prev => prev.map(col => {
+                        if (col.name !== groupName || !col.children) return col
+                        return {
+                            ...col,
+                            children: [...col.children].sort(
+                                (a, b) => (nameIndex.get(a.name) ?? 0) - (nameIndex.get(b.name) ?? 0)
+                            ),
+                        }
+                    }))
+                }}
+            />
+        </div>
+    )
+}
+
+export default ColumnDragComplexDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/columnResize.demo.tsx",
                 title: "列宽拖拽调整",
                 description: "在表头右边缘拖拽可调整列宽。设置 Table resizable 全局开启，也可通过 ColumnType.resizable 逐列控制。",
@@ -9630,6 +9770,447 @@ export default MergeTableHeadersDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/rowEdit.demo.tsx",
+                title: "行编辑",
+                description: "双击任意行进入行编辑模式，整行同时展示编辑器；在右侧工具栏确认或取消，按 Esc 快速退出",
+                source: `
+/**
+ * title = "行编辑"
+ * description = "双击任意行进入行编辑模式，整行同时展示编辑器；在右侧工具栏确认或取消，按 Esc 快速退出"
+ */
+
+import { css, cx } from "@linaria/core";
+import { type ChangeEvent, type Key, useMemo, useState } from "react";
+
+import Table from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/index.js";
+
+interface DemoRow extends Row {
+    dataRef: {
+        employeeNo: string
+        name: string
+        age: number
+        position: string
+        department: string
+        city: string
+        salary: number
+        performance: "S" | "A" | "B" | "C"
+        status: "在职" | "试用" | "离职"
+        email: string
+        joinYear: number
+    }
+}
+
+const departments = ["前端", "后端", "产品", "设计", "测试", "运维", "数据", "安全"] as const;
+const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
+const performances: DemoRow["dataRef"]["performance"][] = ["S", "A", "B", "C"];
+const positions = ["工程师", "高级工程师", "资深工程师", "技术专家", "团队负责人", "技术经理", "总监"] as const;
+const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都", "武汉"] as const;
+const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
+
+const initialRows: DemoRow[] = Array.from({ length: 50 }, (_, i) => ({
+    id: String(i + 1),
+    dataRef: {
+        employeeNo: \`EMP-\${String(i + 1).padStart(4, "0")}\`,
+        name: \`\${names[i % names.length]}\${String(i + 1).padStart(2, "0")}\`,
+        age: 22 + (i % 20),
+        position: positions[i % positions.length],
+        department: departments[i % departments.length],
+        city: cities[i % cities.length],
+        salary: 10000 + (i % 20) * 2000,
+        performance: performances[i % performances.length],
+        status: statuses[i % statuses.length],
+        email: \`user\${String(i + 1).padStart(3, "0")}@corp.example.com\`,
+        joinYear: 2017 + (i % 8),
+    },
+    state: undefined,
+}));
+
+// ─── 编辑器 ──────────────────────────────────────────────────────────────────
+
+const fieldStyle = css\`
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-inline: 8px;
+    border: none;
+    background-color: transparent;
+    color: oklch(0.220 0.005 286);
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+    transition: box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+        box-shadow: inset 0 0 0 1px oklch(0.840 0.008 286);
+    }
+    &:focus {
+        box-shadow: inset 0 0 0 2px oklch(0.220 0.005 286);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+\`;
+
+const numberFieldStyle = css\`
+    text-align: right;
+    appearance: textfield;
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+\`;
+
+const selectWrapperStyle = css\`
+    position: relative;
+    width: 100%;
+    height: 100%;
+\`;
+
+const selectFieldStyle = css\`
+    padding-right: 26px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+\`;
+
+const selectArrowStyle = css\`
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: oklch(0.550 0.014 286);
+\`;
+
+interface SelectFieldProps {
+    value: string
+    options: readonly string[]
+    onChange: (value: string) => void
+}
+
+const SelectField = ({ value, options, onChange }: SelectFieldProps) => (
+    <div className={selectWrapperStyle}>
+        <select
+            className={cx(fieldStyle, selectFieldStyle)}
+            value={value}
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
+        >
+            {options.map(o => <option key={o} value={o}>{o}</option>)}
+        </select>
+        <svg
+            className={selectArrowStyle}
+            width="10"
+            height="10"
+            viewBox="0 0 10 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
+        >
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    </div>
+);
+
+// ─── 状态 Tag ────────────────────────────────────────────────────────────────
+
+const tagBaseStyle = css\`
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+\`;
+
+const statusActiveStyle = css\`
+    background-color: oklch(0.962 0.044 150);
+    color: oklch(0.527 0.154 154);
+\`;
+
+const statusTrialStyle = css\`
+    background-color: oklch(0.932 0.032 255);
+    color: oklch(0.488 0.230 264);
+\`;
+
+const statusInactiveStyle = css\`
+    background-color: oklch(0.950 0.003 286);
+    color: oklch(0.550 0.014 286);
+\`;
+
+function getStatusClass(status: string) {
+    if (status === "在职") return cx(tagBaseStyle, statusActiveStyle);
+    if (status === "试用") return cx(tagBaseStyle, statusTrialStyle);
+    return cx(tagBaseStyle, statusInactiveStyle);
+}
+
+// ─── 绩效 Tag ────────────────────────────────────────────────────────────────
+
+const perfSStyle = css\`
+    background-color: oklch(0.924 0.112 81);
+    color: oklch(0.473 0.137 69);
+\`;
+
+const perfAStyle = css\`
+    background-color: oklch(0.962 0.044 150);
+    color: oklch(0.527 0.154 154);
+\`;
+
+const perfBStyle = css\`
+    background-color: oklch(0.932 0.032 255);
+    color: oklch(0.488 0.230 264);
+\`;
+
+const perfCStyle = css\`
+    background-color: oklch(0.950 0.003 286);
+    color: oklch(0.550 0.014 286);
+\`;
+
+function getPerfClass(perf: string) {
+    if (perf === "S") return cx(tagBaseStyle, perfSStyle);
+    if (perf === "A") return cx(tagBaseStyle, perfAStyle);
+    if (perf === "B") return cx(tagBaseStyle, perfBStyle);
+    return cx(tagBaseStyle, perfCStyle);
+}
+
+// ─── 修改标记 Tag ─────────────────────────────────────────────────────────────
+
+const modifiedTagStyle = css\`
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    background-color: oklch(0.220 0.005 286);
+    color: oklch(0.980 0.002 286);
+\`;
+
+// ─── Demo ─────────────────────────────────────────────────────────────────────
+
+const RowEditDemo = () => {
+    const [rows, setRows] = useState<DemoRow[]>(initialRows);
+    const [editingRowId, setEditingRowId] = useState<Key | null>(null);
+
+    const handleRowCommit = (rowId: Key, changes: Record<string, unknown>) => {
+        setRows(prev => prev.map(row => {
+            if (row.id !== rowId) return row;
+            const updatedDataRef = { ...row.dataRef };
+            for (const [colName, value] of Object.entries(changes)) {
+                const key = colName.replace(/^\\$\\./, "") as keyof DemoRow["dataRef"];
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (updatedDataRef as any)[key] = value;
+            }
+            return { ...row, state: "modified" as const, dataRef: updatedDataRef };
+        }));
+    };
+
+    const columns = useMemo<ColumnType<DemoRow>[]>(() => [
+        {
+            title: "工号",
+            name: "$.employeeNo",
+            width: 120,
+            fixed: "left",
+        },
+        {
+            title: "姓名",
+            name: "$.name",
+            width: 110,
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <input
+                    autoFocus
+                    className={fieldStyle}
+                    value={String(editorValue ?? row.dataRef.name)}
+                    onChange={e => onEditorValueChange(e.target.value)}
+                />
+            ),
+        },
+        {
+            title: "年龄",
+            name: "$.age",
+            width: 70,
+            align: "right",
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <input
+                    className={cx(fieldStyle, numberFieldStyle)}
+                    type="number"
+                    value={String(editorValue ?? row.dataRef.age)}
+                    onChange={e => onEditorValueChange(e.target.value)}
+                />
+            ),
+        },
+        {
+            title: "职位",
+            name: "$.position",
+            width: 130,
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <SelectField
+                    value={String(editorValue ?? row.dataRef.position)}
+                    options={positions}
+                    onChange={onEditorValueChange}
+                />
+            ),
+        },
+        {
+            title: "部门",
+            name: "$.department",
+            width: 90,
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <SelectField
+                    value={String(editorValue ?? row.dataRef.department)}
+                    options={departments}
+                    onChange={onEditorValueChange}
+                />
+            ),
+        },
+        {
+            title: "城市",
+            name: "$.city",
+            width: 80,
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <SelectField
+                    value={String(editorValue ?? row.dataRef.city)}
+                    options={cities}
+                    onChange={onEditorValueChange}
+                />
+            ),
+        },
+        {
+            title: "入职年份",
+            name: "$.joinYear",
+            width: 90,
+            align: "right",
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <input
+                    className={cx(fieldStyle, numberFieldStyle)}
+                    type="number"
+                    value={String(editorValue ?? row.dataRef.joinYear)}
+                    onChange={e => onEditorValueChange(e.target.value)}
+                />
+            ),
+        },
+        {
+            title: "月薪",
+            name: "$.salary",
+            width: 100,
+            align: "right",
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <input
+                    className={cx(fieldStyle, numberFieldStyle)}
+                    type="number"
+                    value={String(editorValue ?? row.dataRef.salary)}
+                    onChange={e => onEditorValueChange(e.target.value)}
+                />
+            ),
+        },
+        {
+            title: "绩效",
+            name: "$.performance",
+            width: 80,
+            render: ({ row }) => (
+                <div className={css\`
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    padding-inline: 8px;
+                \`}>
+                    <span className={getPerfClass(row.dataRef.performance)}>
+                        {row.dataRef.performance}
+                    </span>
+                </div>
+            ),
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <SelectField
+                    value={String(editorValue ?? row.dataRef.performance)}
+                    options={performances}
+                    onChange={onEditorValueChange}
+                />
+            ),
+        },
+        {
+            title: "状态",
+            name: "$.status",
+            width: 90,
+            render: ({ row }) => (
+                <div className={css\`
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    padding-inline: 8px;
+                \`}>
+                    <span className={getStatusClass(row.dataRef.status)}>
+                        {row.dataRef.status}
+                    </span>
+                </div>
+            ),
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <SelectField
+                    value={String(editorValue ?? row.dataRef.status)}
+                    options={statuses}
+                    onChange={onEditorValueChange}
+                />
+            ),
+        },
+        {
+            title: "邮箱",
+            name: "$.email",
+            width: 210,
+            editRender: ({ row, editorValue, onEditorValueChange }) => (
+                <input
+                    className={fieldStyle}
+                    type="email"
+                    value={String(editorValue ?? row.dataRef.email)}
+                    onChange={e => onEditorValueChange(e.target.value)}
+                />
+            ),
+        },
+    ], []);
+
+    const modifiedCount = rows.filter(r => r.state === "modified").length;
+
+    return (
+        <div>
+            <Table
+                width={960}
+                height={420}
+                rows={rows}
+                columns={columns}
+                editType="row"
+                editingRowId={editingRowId}
+                onEditingRowIdChange={setEditingRowId}
+                onRowCommit={handleRowCommit}
+                onRowCancel={() => setEditingRowId(null)}
+            />
+            <div
+                className={css\`
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-top: 10px;
+                    font-size: 12px;
+                    color: oklch(0.500 0 0);
+                \`}
+            >
+                <span>双击任意行进入编辑，按 Esc 或点击取消放弃修改</span>
+                {modifiedCount > 0 && (
+                    <span className={modifiedTagStyle}>已修改 {modifiedCount} 行</span>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default RowEditDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/rowGrouping.demo.tsx",
                 title: "行分组",
                 description: "通过 groupBy 按列名进行多级分组。分组 banner 渲染在对应列的位置，叶子行中已分组的列保持空白以避免信息重复（与 react-data-grid 行为一致）。",
@@ -9784,6 +10365,106 @@ const RowGroupingDemo = () => {
 };
 
 export default RowGroupingDemo;
+`,
+            },
+            {
+                path: "components/rc-table/docs/demos/rowSelection.demo.tsx",
+                title: "行选中",
+                description: "通过 `rowSelection` prop 启用行选中功能。`type: 'checkbox'` 为多选（表头显示全选），`type: 'radio'` 为单选。支持受控与非受控两种用法，可通过 `getDisabled` 禁用特定行。",
+                source: `/**
+ * title = "行选中"
+ * description = "通过 \`rowSelection\` prop 启用行选中功能。\`type: 'checkbox'\` 为多选（表头显示全选），\`type: 'radio'\` 为单选。支持受控与非受控两种用法，可通过 \`getDisabled\` 禁用特定行。"
+ */
+
+import { useState, type Key } from "react";
+import Table from "../../src/index.js";
+import type { ColumnType, Row, RowSelection } from "../../src/index.js";
+import { fakerZH_CN as faker } from "@faker-js/faker";
+
+interface DemoRow extends Row {
+    dataRef: {
+        name: string
+        department: string
+        salary: number
+        status: "active" | "inactive"
+    }
+}
+
+faker.seed(20260625);
+
+const rows: DemoRow[] = Array.from({ length: 20 }, (_, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: {
+        name: faker.person.fullName(),
+        department: faker.helpers.arrayElement(["工程", "产品", "设计", "运营", "市场"]),
+        salary: faker.number.int({ min: 8000, max: 50000 }),
+        status: faker.helpers.arrayElement(["active", "inactive"]) as "active" | "inactive",
+    },
+}));
+
+const columns: ColumnType<DemoRow>[] = [
+    { name: "name",       title: "姓名",   width: 140 },
+    { name: "department", title: "部门",   width: 120 },
+    { name: "salary",     title: "薪资",   width: 120, align: "right",
+        render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\` },
+    { name: "status",     title: "状态",   width: 100,
+        render: ({ row }) => row.dataRef.status === "active" ? "在职" : "离职" },
+];
+
+const RowSelectionDemo = () => {
+    const [mode, setMode] = useState<"checkbox" | "radio">("checkbox");
+    const [selectedRowIds, setSelectedRowIds] = useState<Set<Key>>(new Set());
+
+    const rowSelection: RowSelection<DemoRow> = {
+        type: mode,
+        selectedRowIds,
+        onChange: (ids) => setSelectedRowIds(ids),
+        getDisabled: (row) => row.dataRef.status === "inactive",
+    };
+
+    const selectedNames = rows
+        .filter(r => selectedRowIds.has(r.id))
+        .map(r => r.dataRef.name)
+        .join("、");
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", gap: 12, alignItems: "center", fontSize: 13 }}>
+                <span>选择模式：</span>
+                <label style={{ display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
+                    <input
+                        type="radio"
+                        checked={mode === "checkbox"}
+                        onChange={() => { setMode("checkbox"); setSelectedRowIds(new Set()); }}
+                    />
+                    多选（checkbox）
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
+                    <input
+                        type="radio"
+                        checked={mode === "radio"}
+                        onChange={() => { setMode("radio"); setSelectedRowIds(new Set()); }}
+                    />
+                    单选（radio）
+                </label>
+            </div>
+            <div style={{ fontSize: 13, color: "#666", minHeight: 18 }}>
+                {selectedRowIds.size > 0
+                    ? \`已选 \${selectedRowIds.size} 行：\${selectedNames}\`
+                    : '未选中任何行（状态为「离职」的行已禁用）'}
+            </div>
+            <Table
+                width={560}
+                height={420}
+                rows={rows}
+                columns={columns}
+                rowSelection={rowSelection}
+            />
+        </div>
+    );
+};
+
+export default RowSelectionDemo;
 `,
             },
             {
@@ -10042,6 +10723,81 @@ const SelectCellsDemo = () => {
 };
 
 export default SelectCellsDemo;
+`,
+            },
+            {
+                path: "components/rc-table/docs/demos/sort.demo.tsx",
+                title: "列排序",
+                description: "点击列头切换升序 / 降序 / 无序；按住 Shift 可追加多列排序。`sortable: true` 启用单列，`sorter` 可自定义比较逻辑。",
+                source: `/**
+ * title = "列排序"
+ * description = "点击列头切换升序 / 降序 / 无序；按住 Shift 可追加多列排序。\`sortable: true\` 启用单列，\`sorter\` 可自定义比较逻辑。"
+ */
+
+import { useState } from "react";
+import Table from "../../src/index.js";
+import type { ColumnType, Row, SortColumn } from "../../src/index.js";
+import { fakerZH_CN as faker } from "@faker-js/faker";
+
+interface DemoRow extends Row {
+    dataRef: {
+        name: string
+        age: number
+        department: string
+        salary: number
+        startDate: string
+        score: number
+    }
+}
+
+faker.seed(20260625);
+
+const rows: DemoRow[] = Array.from({ length: 60 }, (_, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: {
+        name: faker.person.fullName(),
+        age: faker.number.int({ min: 22, max: 55 }),
+        department: faker.helpers.arrayElement(["工程", "产品", "设计", "运营", "市场"]),
+        salary: faker.number.int({ min: 8000, max: 50000 }),
+        startDate: faker.date.between({ from: "2015-01-01", to: "2024-12-31" }).toISOString().slice(0, 10),
+        score: faker.number.int({ min: 60, max: 100 }),
+    },
+}));
+
+const columns: ColumnType<DemoRow>[] = [
+    { name: "name",       title: "姓名",   width: 140 },
+    { name: "age",        title: "年龄",   width: 80,  sortable: true, align: "right" },
+    { name: "department", title: "部门",   width: 120, sortable: true },
+    { name: "salary",     title: "薪资",   width: 100, sortable: true, align: "right",
+        render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\` },
+    { name: "startDate",  title: "入职日期", width: 130, sortable: true },
+    { name: "score",      title: "绩效分",  width: 100, sortable: true, align: "right",
+        sorter: (a, b) => a.dataRef.score - b.dataRef.score },
+];
+
+const SortDemo = () => {
+    const [sortColumns, setSortColumns] = useState<SortColumn[]>([]);
+
+    const sortLabel = sortColumns.length === 0
+        ? "无排序"
+        : sortColumns.map(sc => \`\${sc.columnName} \${sc.direction === "asc" ? "↑" : "↓"}\`).join("，");
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ fontSize: 13, color: "#666" }}>当前排序：{sortLabel}</div>
+            <Table
+                width={700}
+                height={400}
+                rows={rows}
+                columns={columns}
+                sortColumns={sortColumns}
+                onSortColumnsChange={setSortColumns}
+            />
+        </div>
+    );
+};
+
+export default SortDemo;
 `,
             },
             {
@@ -10319,6 +11075,36 @@ export default TreeDemo;
                 defaultValue: "-",
             },
             {
+                name: "editingRowId",
+                description: "受控当前编辑行 ID",
+                type: "Key | null",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultEditingRowId",
+                description: "非受控初始编辑行 ID",
+                type: "Key | null",
+                defaultValue: "-",
+            },
+            {
+                name: "onEditingRowIdChange",
+                description: "编辑行 ID 变化回调",
+                type: "(id: Key | null) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onRowCommit",
+                description: "确认整行编辑：changes 为各列 name → 编辑后值的映射",
+                type: "(rowId: Key, changes: Record<string, unknown>) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onRowCancel",
+                description: "取消整行编辑",
+                type: "(rowId: Key) => void",
+                defaultValue: "-",
+            },
+            {
                 name: "highlightKeyword",
                 description: "-",
                 type: "string",
@@ -10349,9 +11135,51 @@ export default TreeDemo;
                 defaultValue: "-",
             },
             {
+                name: "draggableColumns",
+                description: "-",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "onColumnOrderChange",
+                description: "-",
+                type: "(orderedColumnNames: string[]) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onGroupColumnOrderChange",
+                description: "-",
+                type: "(groupName: string, orderedChildNames: string[]) => void",
+                defaultValue: "-",
+            },
+            {
                 name: "onCopy",
                 description: "-",
                 type: "(cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "sortColumns",
+                description: "受控排序列配置",
+                type: "SortColumn[]",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultSortColumns",
+                description: "非受控初始排序",
+                type: "SortColumn[]",
+                defaultValue: "-",
+            },
+            {
+                name: "onSortColumnsChange",
+                description: "排序变化回调",
+                type: "(columns: SortColumn[]) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "rowSelection",
+                description: "-",
+                type: "RowSelection<T>",
                 defaultValue: "-",
             },
             {
