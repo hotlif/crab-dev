@@ -56,6 +56,18 @@ export interface FilterEditorParam<T extends Row> {
 }
 
 /**
+ * 底部汇总 / 合计行单元格渲染参数。
+ */
+export interface SummaryCellParam<T extends Row> {
+	/** 当前列定义 */
+	column: ColumnType<T>
+	/** 当前列下标（叶子列） */
+	columnIndex: number
+	/** 表格全量数据行，可据此计算合计、平均等聚合值 */
+	rows: T[]
+}
+
+/**
  * 单元格选区状态：由表格父级聚合“当前选中集合 + 锚点”后下发到每个 BodyCell，
  * 用于决定该单元格是否填充淡蓝背景、以及在哪一边绘制选区描边。
  */
@@ -163,6 +175,12 @@ export interface ColumnType<T extends Row> {
      * 使 highlightKeyword 匹配计数正确。
      */
     getSearchText?: (row: T) => string
+
+    /**
+     * 自定义该列底部汇总 / 合计单元格内容（需 Table showSummary 开启）。
+     * 未设置时该列汇总单元格为空。
+     */
+    summaryRender?: (param: SummaryCellParam<T>) => ReactNode
 }
 
 /**

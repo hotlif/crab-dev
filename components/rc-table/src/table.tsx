@@ -24,6 +24,7 @@ import { useColumnDrag } from "./hooks/useColumnDrag.js";
 import { useColumnSort } from "./hooks/useColumnSort.js";
 import { useCellEditNav } from "./hooks/useCellEditNav.js";
 import type { CellNavDirection } from "./hooks/useCellEditNav.js";
+import { useSummary } from "./hooks/useSummary.js";
 import type { InternalGroupRow } from "./util.js";
 import { isGroupRow } from "./util.js";
 
@@ -122,6 +123,11 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     defaultTreeExpandAll?: boolean
     /** 展开状态变化回调 */
     onExpandedRowIdsChange?: (ids: Set<Key>) => void
+    // ====== 底部汇总 / 合计行 ======
+    /** 是否显示底部固定汇总行；各列内容由 ColumnType.summaryRender 提供，未设置的列为空 */
+    showSummary?: boolean
+    /** 汇总行高度（默认 35） */
+    summaryRowHeight?: number
 }
 
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
@@ -386,6 +392,8 @@ function Table<T extends Row>({
     defaultSortColumns,
     onSortColumnsChange,
     rowSelection,
+    showSummary = false,
+    summaryRowHeight = 35,
     ...restProps
 }: TableProps<T>) {
 
@@ -879,6 +887,14 @@ function Table<T extends Row>({
         return bodyRows;
     };
 
+    // ====== 底部汇总 / 合计行 ======
+    const { generateSummaryElement } = useSummary<T>({
+        showSummary, summaryRowHeight, rows, bottomColumns,
+        fixedLeftColumnsIdx, fixedRightColumnsIdx, gridTemplateColumns,
+        stickyLeftOffsets, stickyRightOffsets, actualHeight,
+        paddingLeft, paddingRight, selectionColumnName: SELECTION_COLUMN_NAME
+    });
+
     // ====== 渲染：过滤栏单元格 ======
     const renderFilterCell = (columnIndex: number, fixed?: "left" | "right") => {
         const column = bottomColumns[columnIndex];
@@ -1162,10 +1178,12 @@ function Table<T extends Row>({
                 viewportWidth={width}
                 viewportHeight={height}
                 reservedTopHeight={reservedTopPx}
+                reservedBottomHeight={showSummary ? summaryRowHeight : 0}
                 renderRows={(rowRange, columnRange) => {
                     return [
                         ...generateHeaderElement({ columnRange }),
-                        ...generateBodyElement({ rowRange, columnRange })
+                        ...generateBodyElement({ rowRange, columnRange }),
+                        generateSummaryElement({ columnRange })
                     ];
                 }}
             />

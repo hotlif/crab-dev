@@ -100,3 +100,9 @@ sort.badge-font-size   = "11px"
 
 # ─── 行选中 ───────────────────────────────────────────────────────────────────
 row-selection.selected-bg = "oklch(0.506 0.174 260 / 0.08)"
+
+# ─── 底部汇总 / 合计行 ────────────────────────────────────────────────────────
+# 背景沿用表头底色（token.header.bg-color），加粗主文本以区别于普通数据行
+summary.color          = "$ref(color.text.primary)"
+summary.font-weight    = "$ref(font.weight.bold)"
+summary.padding-inline = "$ref(space.component-gap)"

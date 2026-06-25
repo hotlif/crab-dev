@@ -70,7 +70,10 @@ export const vars = {
     'sort.header-cursor': '--table-sort-header-cursor',
     'sort.badge-color': '--table-sort-badge-color',
     'sort.badge-font-size': '--table-sort-badge-font-size',
-    'row-selection.selected-bg': '--table-row-selection-selected-bg'
+    'row-selection.selected-bg': '--table-row-selection-selected-bg',
+    'summary.color': '--table-summary-color',
+    'summary.font-weight': '--table-summary-font-weight',
+    'summary.padding-inline': '--table-summary-padding-inline'
 };
 
 const token = {
@@ -169,6 +172,11 @@ const token = {
     },
     'row-selection': {
         'selected-bg': `var(${vars['row-selection.selected-bg']}, oklch(0.506 0.174 260 / 0.08))`
+    },
+    'summary': {
+        'color': `var(${vars['summary.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'font-weight': `var(${vars['summary.font-weight']}, $ref(font.weight.bold))`,
+        'padding-inline': `var(${vars['summary.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     }
 };
 
