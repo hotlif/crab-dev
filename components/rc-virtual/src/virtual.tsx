@@ -52,6 +52,12 @@ export interface VirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "chil
 	 * 因此需要计入纵向滚动总高度，否则末尾内容会被裁切且无法滚动到底。
 	 */
 	reservedTopHeight?: number,
+	/**
+	 * 可视区底部被常驻（sticky）内容占据的高度，单位为 px。
+	 * 例如表格底部固定的汇总 / 合计行：它贴在可视区底部却不在 gridTemplateRows 中，
+	 * 因此需要计入纵向滚动总高度，否则末尾数据行会被汇总行遮挡且无法滚动出来。
+	 */
+	reservedBottomHeight?: number,
 	/** 渲染回调，根据当前可见的行列范围返回对应的 ReactNode */
 	renderRows: (rowRange: [number, number], columnRange: [number, number]) => ReactNode,
 	/** 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动 */
@@ -67,6 +73,7 @@ const Virtual: FC<VirtualProps> = ({
     viewportWidth,
     viewportHeight,
     reservedTopHeight = 0,
+    reservedBottomHeight = 0,
     gridRef,
     ...restProps
 }) => {
@@ -90,9 +97,10 @@ const Virtual: FC<VirtualProps> = ({
     });
 
     const totalWidth = gridTemplateColumns.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    // 计入顶部常驻内容（如固定表头）高度：它在滚动容器内占位但不属于行，
-    // 否则当行总高略小于可视高度、却被表头挤出可视区时，末尾内容无法滚动到底。
-    const totalHeight = gridTemplateRows.reduce((accumulator, currentValue) => accumulator + currentValue, 0) + reservedTopHeight;
+    // 计入顶部 / 底部常驻内容（如固定表头、固定汇总行）高度：它们在滚动容器内占位但不属于行，
+    // 否则当行总高略小于可视高度、却被表头挤出可视区时，末尾内容无法滚动到底；
+    // 或底部固定汇总行遮挡最后一行数据时，该行无法滚动出来。
+    const totalHeight = gridTemplateRows.reduce((accumulator, currentValue) => accumulator + currentValue, 0) + reservedTopHeight + reservedBottomHeight;
 
     useLayoutEffect(() => {
         /* istanbul ignore else -- ref is always populated after mount */
