@@ -10,7 +10,8 @@ const rowEditActiveCellStyle = css`
     background-color: ${token['row-edit']['cell-bg']};
 `;
 import type { CellSelectionState, ColumnType, MergeCell, Row, TreeRowMeta } from "./types.js";
-import { Fragment, type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { CellNavDirection } from "./hooks/useCellEditNav.js";
+import { Fragment, type HTMLAttributes, type Key, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 
 const highlightMarkStyle = css`
@@ -92,6 +93,15 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     onRowEditorValueChange?: (value: unknown) => void
     /** 行编辑模式下取消整行编辑 */
     onRowCancel?: () => void
+    /**
+     * cell-edit 键盘导航：table 层激活此格时为 true，激活其他格时为 false，非 cell-edit 模式时为 undefined。
+     * 变为 true → 自动进入编辑；变为 false → 强制退出编辑。
+     */
+    isActivatedByNav?: boolean
+    /** 双击进入 cell-edit 时通知 table 层，使 table 层能追踪当前编辑格以支持键盘导航 */
+    onCellEditStart?: (rowIndex: number, columnIndex: number) => void
+    /** Tab / Enter / Escape 键盘导航回调；table 层根据方向激活下一个可编辑格或退出编辑 */
+    onCellEditNavigate?: (rowIndex: number, columnIndex: number, direction: CellNavDirection) => void
 }
 
 const mapping = {
@@ -131,6 +141,9 @@ function TableCell<T extends Row>({
     rowEditorValue,
     onRowEditorValueChange,
     onRowCancel,
+    isActivatedByNav,
+    onCellEditStart,
+    onCellEditNavigate,
     ...restProps
 }: TableCellProps<T>){
     const [editorValue, setEditorValue] = useState<unknown>(null);
@@ -156,6 +169,24 @@ function TableCell<T extends Row>({
         }
     }, [isEditing, canEdit, exitEditing]);
 
+    // cell-edit 导航：table 层切换激活格时同步本地编辑状态。
+    // 用 ref 持有最新值，避免把 isEditing/canEdit/dataValue 加入 deps 导致 effect 在非预期时机触发。
+    const canEditRef = useRef(canEdit);
+    canEditRef.current = canEdit;
+    const isEditingRef = useRef(isEditing);
+    isEditingRef.current = isEditing;
+    const dataValueForNavRef = useRef<unknown>(undefined);
+    useEffect(() => {
+        if (isActivatedByNav === true && canEditRef.current && !isEditingRef.current) {
+            // dataValue 尚未计算完（useMemo 在后面），通过 ref 在 commit 时读取
+            originalValueRef.current = dataValueForNavRef.current;
+            setEditorValue(null);
+            setIsEditing(true);
+        } else if (isActivatedByNav === false && isEditingRef.current) {
+            exitEditing();
+        }
+    }, [isActivatedByNav, exitEditing]);
+
     const dataValue = useMemo(() => {
         if (isSkipCell) {
             return null;
@@ -167,6 +198,7 @@ function TableCell<T extends Row>({
         return result;
     }, [isSkipCell, column.name, row.dataRef, dataVersion])
 
+    dataValueForNavRef.current = dataValue;
 
     const getBorderStyle = () => {
         if (fixed === "right") {
@@ -386,9 +418,37 @@ function TableCell<T extends Row>({
                         }
                         exitEditing();
                     },
-                onCancel: isRowEditActive ? () => onRowCancel?.() : () => exitEditing(),
+                onCancel: isRowEditActive
+                    ? () => onRowCancel?.()
+                    : () => {
+                        exitEditing();
+                        onCellEditNavigate?.(rowIndex, columnIndex, 'escape');
+                    },
                 originalElement: renderElement
             });
+
+            // cell-edit 模式下：Tab / Enter 提交当前值并跳转到相邻可编辑格。
+            // 通过手动 blur() 触发消费者的 onBlur → patchRow → onCommit → exitEditing 路径，
+            // 而非在 capture 阶段直接 exitEditing()，避免 input unmount 导致 onBlur 不触发、
+            // 消费者无法调用 patchRow 而显示陈旧值。
+            const handleEditKeyDown = !isRowEditActive
+                ? (e: ReactKeyboardEvent<HTMLDivElement>) => {
+                    if (e.key === 'Tab') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        (document.activeElement as HTMLElement | null)?.blur?.();
+                        onCellEditNavigate?.(rowIndex, columnIndex, e.shiftKey ? 'tab-backward' : 'tab-forward');
+                    } else if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                        // textarea 里的 Enter 保留默认换行行为
+                        if ((e.target as HTMLElement).tagName.toLowerCase() === 'textarea') return;
+                        e.preventDefault();
+                        e.stopPropagation();
+                        (document.activeElement as HTMLElement | null)?.blur?.();
+                        onCellEditNavigate?.(rowIndex, columnIndex, e.shiftKey ? 'shift-enter' : 'enter');
+                    }
+                }
+                : undefined;
+
             // 合并单元格进入编辑时，必须让编辑器跨越整片合并区域，
             // 否则编辑器只占主格单格尺寸、合并区域露白，视觉抖动严重
             if (mergedSize) {
@@ -412,6 +472,7 @@ function TableCell<T extends Row>({
                             width: mergedSize.width,
                             height: mergedSize.height
                         }}
+                        onKeyDownCapture={handleEditKeyDown}
                     >
                         {editorElement}
                     </div>
@@ -430,6 +491,7 @@ function TableCell<T extends Row>({
                             font-family: inherit;
                         }
                     `}
+                    onKeyDownCapture={handleEditKeyDown}
                 >
                     {editorElement}
                 </div>
@@ -536,6 +598,7 @@ function TableCell<T extends Row>({
                     originalValueRef.current = dataValue;
                     setEditorValue(null);
                     setIsEditing(true);
+                    onCellEditStart?.(rowIndex, columnIndex);
                 }
                 onDoubleClick?.(e);
             }}

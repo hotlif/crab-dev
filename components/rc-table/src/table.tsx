@@ -1,5 +1,5 @@
 import RcVirtual from "@crab-dev/rc-virtual";
-import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, useMemo, useRef } from "react";
+import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, useCallback, useMemo, useRef } from "react";
 import { css, cx } from "@linaria/core";
 import Checkbox from "@crab-dev/rc-checkbox";
 import Radio from "@crab-dev/rc-radio";
@@ -22,6 +22,8 @@ import { useTreeData } from "./hooks/useTreeData.js";
 import { useRowEdit } from "./hooks/useRowEdit.js";
 import { useColumnDrag } from "./hooks/useColumnDrag.js";
 import { useColumnSort } from "./hooks/useColumnSort.js";
+import { useCellEditNav } from "./hooks/useCellEditNav.js";
+import type { CellNavDirection } from "./hooks/useCellEditNav.js";
 import type { InternalGroupRow } from "./util.js";
 import { isGroupRow } from "./util.js";
 
@@ -519,13 +521,39 @@ function Table<T extends Row>({
         displayRows, bottomColumnsRef, cellEditRecords, onCellEditRecordsChange, onUndo
     });
 
+    // ====== cell-edit 键盘导航 ======
+    const { editingCellPos, startCellEdit, exitCellEdit, navigateCellEdit } = useCellEditNav<T>({
+        editType, displayRows, bottomColumnsRef, skipCellSet, getCellKey,
+        selectionColumnName: SELECTION_COLUMN_NAME,
+    });
+
     // ====== 单元格选区（同时处理 Ctrl+Z/C/Esc 键盘事件） ======
     const {
-        handleCellMouseDown, handleCellMouseEnter, getCellSelectionState
+        handleCellMouseDown, handleCellMouseEnter, getCellSelectionState, selectSingleCell
     } = useCellSelection<T>({
         displayRows, bottomColumnsRef, selectCells, onSelectCellsChange,
         onCopy, onCtrlZ: handleUndo
     });
+
+    const handleCellEditNavigate = useCallback((rowIndex: number, columnIndex: number, direction: CellNavDirection) => {
+        if (direction === 'escape') {
+            exitCellEdit();
+        } else {
+            const next = navigateCellEdit(rowIndex, columnIndex, direction);
+            if (next) selectSingleCell(next.rowIndex, next.columnIndex);
+        }
+    }, [exitCellEdit, navigateCellEdit, selectSingleCell]);
+
+    const getCellNavProps = (rowIndex: number, columnIndex: number) => {
+        if (editType !== 'cell') return {};
+        return {
+            isActivatedByNav: editingCellPos !== null
+                && editingCellPos.rowIndex === rowIndex
+                && editingCellPos.columnIndex === columnIndex,
+            onCellEditStart: startCellEdit,
+            onCellEditNavigate: handleCellEditNavigate,
+        };
+    };
 
     // ====== 过滤栏 ======
     const { filterKeywordMap, isFilterEnabled, handleFilterValueChange } = useTableFilter<T>({
@@ -758,6 +786,7 @@ function Table<T extends Row>({
                         style={{ width: gridTemplateColumns[columnIndex] }}
                         {...getTreeCellProps(currentRow, columnIndex)}
                         {...getRowEditCellProps(column)}
+                        {...getCellNavProps(rowIndex, columnIndex)}
                     />
                 );
             }
@@ -796,6 +825,7 @@ function Table<T extends Row>({
                         }}
                         {...getTreeCellProps(currentRow, columnIndex)}
                         {...getRowEditCellProps(column)}
+                        {...getCellNavProps(rowIndex, columnIndex)}
                     />
                 );
             };

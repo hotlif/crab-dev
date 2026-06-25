@@ -223,12 +223,22 @@ export function useCellSelection<T extends Row>(params: {
         };
     }, [displayRows, emitSelectCells, committedSelectCells, anchorCell, rowIdToIndex, bottomColumnsRef]);
 
+    const selectSingleCell = useCallback((rowIndex: number, columnIndex: number) => {
+        const row = displayRows[rowIndex];
+        if (!row || isGroupRow(row)) return;
+        if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
+        setAnchorCell({ rowId: row.id, columnIndex });
+        setDragRect(null);
+        emitSelectCells([makeSelectKey(row.id, columnIndex)]);
+    }, [displayRows, bottomColumnsRef, emitSelectCells]);
+
     return {
         committedSelectCells,
         selectedKeySet,
         anchorCell,
         rowIdToIndex,
         emitSelectCells,
+        selectSingleCell,
         handleCellMouseDown,
         handleCellMouseEnter,
         getCellSelectionState,
