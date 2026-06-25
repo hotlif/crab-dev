@@ -1,8 +1,8 @@
 import { JSONPath } from "jsonpath-plus";
 import { type Key, type MouseEvent as ReactMouseEvent, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CellSelectionState, ColumnType, MergeCell, Row } from "../types.js";
-import { KEY_SEP, isGroupRow, makeSelectKey } from "../util.js";
-import type { InternalGroupRow } from "../util.js";
+import { KEY_SEP, isInternalRow, makeSelectKey } from "../util.js";
+import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 
 interface SelectionAnchor {
     rowId: Key
@@ -32,7 +32,7 @@ const buildRectKeys = (
 };
 
 export function useCellSelection<T extends Row>(params: {
-    displayRows: Array<T | InternalGroupRow<T>>
+    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     bottomColumnsRef: RefObject<ColumnType<T>[]>
     selectCells?: Key[]
     onSelectCellsChange?: (cells: Key[]) => void
@@ -97,7 +97,7 @@ export function useCellSelection<T extends Row>(params: {
     const handleCellMouseDown = useCallback((rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => {
         if (event.button !== 0) return;
         const row = displayRows[rowIndex];
-        if (!row || isGroupRow(row)) return;
+        if (!row || isInternalRow(row)) return;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
         const cell = { rowIndex, columnIndex };
         const keyString = makeSelectKey(row.id, columnIndex);
@@ -123,7 +123,7 @@ export function useCellSelection<T extends Row>(params: {
     const handleCellMouseEnter = useCallback((_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => {
         if (!isDraggingRef.current) return;
         if (event.buttons === 0) { isDraggingRef.current = false; return; }
-        if (isGroupRow(displayRows[_rowIndex])) return;
+        if (isInternalRow(displayRows[_rowIndex])) return;
         setDragRect((prev) => {
             if (!prev) return prev;
             if (prev.end.rowIndex === _rowIndex && prev.end.columnIndex === _columnIndex) return prev;
@@ -133,7 +133,7 @@ export function useCellSelection<T extends Row>(params: {
 
     const getCellSelectionState = useCallback((rowIndex: number, columnIndex: number, mergeCell?: MergeCell): CellSelectionState | undefined => {
         const row = displayRows[rowIndex];
-        if (!row || isGroupRow(row)) return undefined;
+        if (!row || isInternalRow(row)) return undefined;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return undefined;
         const key = makeSelectKey(row.id, columnIndex);
         if (!selectedKeySet.has(key)) return undefined;
@@ -141,8 +141,8 @@ export function useCellSelection<T extends Row>(params: {
         const rightColIdx = columnIndex + (mergeCell ? mergeCell.colSpan + 1 : 1);
         const prevRow = displayRows[rowIndex - 1];
         const bottomRow = displayRows[bottomRowIdx];
-        const prevSelected = prevRow && !isGroupRow(prevRow) && selectedKeySet.has(makeSelectKey(prevRow.id, columnIndex));
-        const bottomSelected = bottomRow && !isGroupRow(bottomRow) && selectedKeySet.has(makeSelectKey(bottomRow.id, columnIndex));
+        const prevSelected = prevRow && !isInternalRow(prevRow) && selectedKeySet.has(makeSelectKey(prevRow.id, columnIndex));
+        const bottomSelected = bottomRow && !isInternalRow(bottomRow) && selectedKeySet.has(makeSelectKey(bottomRow.id, columnIndex));
         return {
             selected: true,
             isAnchor: anchorCell?.rowId === row.id && anchorCell?.columnIndex === columnIndex,
@@ -189,9 +189,9 @@ export function useCellSelection<T extends Row>(params: {
                             const columnIndex = Number(str.substring(sepIdx + 1));
                             const column = bottomColumnsRef.current[columnIndex];
                             if (!column) return [];
-                            const row = displayRows.find(r => !isGroupRow(r) && String(r.id) === rowIdRaw);
+                            const row = displayRows.find(r => !isInternalRow(r) && String(r.id) === rowIdRaw);
                             const rowIndex = row ? (rowIdToIndex.get(row.id) ?? -1) : -1;
-                            const value = row && !isGroupRow(row)
+                            const value = row && !isInternalRow(row)
                                 ? (() => {
                                     const res = JSONPath({ path: column.name, json: (row as T).dataRef });
                                     return Array.isArray(res) && res.length > 0 ? res[0] : undefined;
@@ -225,7 +225,7 @@ export function useCellSelection<T extends Row>(params: {
 
     const selectSingleCell = useCallback((rowIndex: number, columnIndex: number) => {
         const row = displayRows[rowIndex];
-        if (!row || isGroupRow(row)) return;
+        if (!row || isInternalRow(row)) return;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
         setAnchorCell({ rowId: row.id, columnIndex });
         setDragRect(null);

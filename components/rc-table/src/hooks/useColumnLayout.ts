@@ -2,25 +2,26 @@ import { type MutableRefObject, useEffect, useMemo } from "react";
 import type { ColumnType, MergeCell, Row } from "../types.js";
 import {
     buildMergeCellLookup, getBottomColumns, getHeaderCellsTwoDimensionalArray,
-    getMaxDepth, isGroupRow, sortColumns
+    getMaxDepth, isExpandedContentRow, isGroupRow, sortColumns
 } from "../util.js";
-import type { InternalGroupRow } from "../util.js";
+import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 
 export function useColumnLayout<T extends Row>(params: {
     columns: ColumnType<T>[]
     width: number
     resizedWidths: Record<string, number>
     isGrouped: boolean
+    isExpansion: boolean
     groupBy: string[]
     headerRowHeight: number
-    displayRows: Array<T | InternalGroupRow<T>>
+    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     getRowHeight?: (row: T, rowIndex: number) => number | undefined
     groupRowHeight: number
     mergeCells: MergeCell[]
     bottomColumnsRef: MutableRefObject<ColumnType<T>[]>
 }) {
     const {
-        columns, width, resizedWidths, isGrouped, groupBy, headerRowHeight,
+        columns, width, resizedWidths, isGrouped, isExpansion, groupBy, headerRowHeight,
         displayRows, getRowHeight, groupRowHeight, mergeCells, bottomColumnsRef
     } = params;
 
@@ -122,14 +123,19 @@ export function useColumnLayout<T extends Row>(params: {
     const gridTemplateRows = useMemo(() => {
         return displayRows.map((row, rowIndex) => {
             if (isGroupRow(row)) return row.height ?? groupRowHeight;
-            return getRowHeight?.(row, rowIndex) ?? row.height ?? 35;
+            // 展开内容行的高度在构造时已写入 row.height（expandedRowHeight 或逐行覆盖值）
+            if (isExpandedContentRow(row)) return row.height ?? 35;
+            // 上方两个守卫已排除分组 / 展开内容行，此处必为数据行（泛型守卫无法自动收窄联合）
+            const dataRow = row as T;
+            return getRowHeight?.(dataRow, rowIndex) ?? dataRow.height ?? 35;
         });
     }, [displayRows, getRowHeight, groupRowHeight]);
 
     const { skipCellSet, mergeCellMap, getCellKey } = useMemo(() => {
-        if (isGrouped) return buildMergeCellLookup([]);
+        // 分组 / 行展开均会插入虚拟行，使 mergeCells 的 rowIndex 失准，故一并禁用合并
+        if (isGrouped || isExpansion) return buildMergeCellLookup([]);
         return buildMergeCellLookup(mergeCells);
-    }, [mergeCells, isGrouped]);
+    }, [mergeCells, isGrouped, isExpansion]);
 
     return {
         sColumns,

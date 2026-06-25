@@ -73,7 +73,13 @@ export const vars = {
     'row-selection.selected-bg': '--table-row-selection-selected-bg',
     'summary.color': '--table-summary-color',
     'summary.font-weight': '--table-summary-font-weight',
-    'summary.padding-inline': '--table-summary-padding-inline'
+    'summary.padding-inline': '--table-summary-padding-inline',
+    'expand.chevron-size': '--table-expand-chevron-size',
+    'expand.chevron-color': '--table-expand-chevron-color',
+    'expand.chevron-transition': '--table-expand-chevron-transition',
+    'expand.button-radius': '--table-expand-button-radius',
+    'expand.content-bg': '--table-expand-content-bg',
+    'expand.content-padding': '--table-expand-content-padding'
 };
 
 const token = {
@@ -177,6 +183,14 @@ const token = {
         'color': `var(${vars['summary.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'font-weight': `var(${vars['summary.font-weight']}, $ref(font.weight.bold))`,
         'padding-inline': `var(${vars['summary.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+    },
+    'expand': {
+        'chevron-size': `var(${vars['expand.chevron-size']}, 16px)`,
+        'chevron-color': `var(${vars['expand.chevron-color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'chevron-transition': `var(${vars['expand.chevron-transition']}, transform 150ms cubic-bezier(0.4, 0, 0.2, 1))`,
+        'button-radius': `var(${vars['expand.button-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
+        'content-bg': `var(${vars['expand.content-bg']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
+        'content-padding': `var(${vars['expand.content-padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     }
 };
 

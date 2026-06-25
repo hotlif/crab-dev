@@ -1,10 +1,10 @@
 import { type Key, type RefObject, useCallback, useMemo, useState } from "react";
 import type { CellEditRecord, ColumnType, Row } from "../types.js";
-import { isGroupRow, makeSelectKey, setValueByJsonPath } from "../util.js";
-import type { InternalGroupRow } from "../util.js";
+import { isInternalRow, makeSelectKey, setValueByJsonPath } from "../util.js";
+import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 
 export function useCellEdit<T extends Row>(params: {
-    displayRows: Array<T | InternalGroupRow<T>>
+    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     bottomColumnsRef: RefObject<ColumnType<T>[]>
     cellEditRecords?: CellEditRecord[]
     onCellEditRecordsChange?: (records: CellEditRecord[]) => void
@@ -40,9 +40,9 @@ export function useCellEdit<T extends Row>(params: {
         if (cellEditRecords == null) setInnerEditRecords(next);
         onCellEditRecordsChange?.(next);
         onUndo?.(last);
-        const rowObj = displayRows.find(r => !isGroupRow(r) && r.id === last.rowId);
+        const rowObj = displayRows.find(r => !isInternalRow(r) && r.id === last.rowId);
         const col = bottomColumnsRef.current[last.columnIndex];
-        if (rowObj && !isGroupRow(rowObj) && col) {
+        if (rowObj && !isInternalRow(rowObj) && col) {
             const scalar = Array.isArray(last.oldValue) && last.oldValue.length > 0
                 ? last.oldValue[0]
                 : last.oldValue;

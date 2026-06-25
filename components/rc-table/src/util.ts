@@ -504,3 +504,90 @@ export function buildTreeDisplayRows<T extends Row>(params: {
     walk(rows, 0);
     return { displayRows, treeRowMetaMap, allExpandableIds };
 }
+
+
+// =============== 行展开（Row Expansion / 详情面板） ===============
+
+// 内部展开图标列的列名：用户列 name 不应与此撞车
+export const EXPAND_COLUMN_NAME = "__rc_table_expand__";
+
+// 展开内容行 id 前缀：拼接源行 id 生成稳定且唯一的虚拟行 id
+export const EXPANDED_CONTENT_ROW_ID_PREFIX = "__rc_table_expanded_content__";
+
+/**
+ * 展开内容行在内部 displayRows 中的实际形态。
+ * 与分组行一样对外兼容 `Row`（保留 id / dataRef / height），通过 dataRef 上的 `__expandedContent` 标记区分；
+ * sourceRow 指向触发展开的原始数据行，供 expandedRowRender 消费。
+ */
+export interface InternalExpandedRow<T extends Row> {
+    id: Key
+    height?: number
+    dataRef: {
+        __expandedContent: true
+        sourceRow: T
+    }
+}
+
+export function isExpandedContentRow<T extends Row>(
+    row: T | InternalGroupRow<T> | InternalExpandedRow<T>
+): row is InternalExpandedRow<T> {
+    return (row as InternalExpandedRow<T>).dataRef != null
+        && typeof (row as InternalExpandedRow<T>).dataRef === "object"
+        && (row as InternalExpandedRow<T>).dataRef.__expandedContent === true;
+}
+
+/**
+ * 是否为内部虚拟行（分组 banner 或展开内容行）—— 即非用户数据行。
+ * 供各 cell 相关 hook 在按 rowIndex 遍历 displayRows 时统一跳过非数据行，
+ * 其 false 分支可将联合类型收窄回纯数据行 T。
+ */
+export function isInternalRow<T extends Row>(
+    row: T | InternalGroupRow<T> | InternalExpandedRow<T>
+): row is InternalGroupRow<T> | InternalExpandedRow<T> {
+    return isGroupRow(row) || isExpandedContentRow(row);
+}
+
+/**
+ * 在已有 displayRows（可能已经过分组/树形处理）基础上，为每个「已展开 + 可展开」的数据行
+ * 在其后插入一条展开内容行（InternalExpandedRow）。
+ *
+ * 设计要点：
+ * 1. 仅对真实数据行生效，分组 banner / 树形等内部行不插入；
+ * 2. 展开内容行高度优先取 getExpandedRowHeight(row)，否则回退 expandedRowHeight；
+ * 3. allExpandableIds 收集所有可展开的数据行 id，供全量切换使用。
+ */
+export function buildExpansionDisplayRows<T extends Row>(params: {
+    displayRows: Array<T | InternalGroupRow<T>>
+    expandedSet: Set<Key>
+    isRowExpandable?: (row: T) => boolean
+    expandedRowHeight: number
+    getExpandedRowHeight?: (row: T) => number | undefined
+}): {
+    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
+    allExpandableIds: Key[]
+} {
+    const { displayRows, expandedSet, isRowExpandable, expandedRowHeight, getExpandedRowHeight } = params;
+    const result: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>> = [];
+    const allExpandableIds: Key[] = [];
+
+    displayRows.forEach((row) => {
+        result.push(row);
+        if (isGroupRow(row)) return;
+        const dataRow = row as T;
+        const expandable = isRowExpandable ? isRowExpandable(dataRow) : true;
+        if (!expandable) return;
+        allExpandableIds.push(dataRow.id);
+        if (!expandedSet.has(dataRow.id)) return;
+        const height = getExpandedRowHeight?.(dataRow) ?? expandedRowHeight;
+        result.push({
+            id: `${EXPANDED_CONTENT_ROW_ID_PREFIX}::${String(dataRow.id)}`,
+            height,
+            dataRef: {
+                __expandedContent: true,
+                sourceRow: dataRow
+            }
+        });
+    });
+
+    return { displayRows: result, allExpandableIds };
+}

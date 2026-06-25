@@ -2,8 +2,8 @@ import { JSONPath } from "jsonpath-plus";
 import { useEffect, useMemo, useRef } from "react";
 import type { VirtualHandle } from "@crab-dev/rc-virtual";
 import type { ColumnType, Row } from "../types.js";
-import { isGroupRow } from "../util.js";
-import type { InternalGroupRow } from "../util.js";
+import { isInternalRow } from "../util.js";
+import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 
 interface MatchEntry {
     rowIndex: number
@@ -14,7 +14,7 @@ interface MatchEntry {
 export function useKeywordMatch<T extends Row>(params: {
     highlightKeyword?: string
     activeMatchIndex?: number
-    displayRows: Array<T | InternalGroupRow<T>>
+    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     bottomColumns: ColumnType<T>[]
     skipCellSet: Set<string>
     getCellKey: (rowIndex: number, columnIndex: number) => string
@@ -35,7 +35,7 @@ export function useKeywordMatch<T extends Row>(params: {
         const lower = kw.toLowerCase();
         const result: MatchEntry[] = [];
         displayRows.forEach((row, rowIndex) => {
-            if (isGroupRow(row)) return;
+            if (isInternalRow(row)) return;
             bottomColumns.forEach((column, columnIndex) => {
                 if (skipCellSet.has(getCellKey(rowIndex, columnIndex))) return;
                 const searchText = column.getSearchText?.(row as T);

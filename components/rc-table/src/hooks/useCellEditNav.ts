@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState, type RefObject } from "react";
 import type { ColumnType, Row } from "../types.js";
-import type { InternalGroupRow } from "../util.js";
-import { isGroupRow } from "../util.js";
+import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
+import { isInternalRow } from "../util.js";
 
 /** Tab-forward / Tab-backward：行内左右；Enter / Shift-Enter：列内上下；Escape：退出 */
 export type CellNavDirection = 'tab-forward' | 'tab-backward' | 'enter' | 'shift-enter' | 'escape';
 
 interface UseCellEditNavOptions<T extends Row> {
     editType?: "cell" | "row";
-    displayRows: (T | InternalGroupRow<T>)[];
+    displayRows: (T | InternalGroupRow<T> | InternalExpandedRow<T>)[];
     bottomColumnsRef: RefObject<ColumnType<T>[]>;
     skipCellSet: Set<string>;
     getCellKey: (rowIndex: number, columnIndex: number) => string;
@@ -31,7 +31,7 @@ export function useCellEditNav<T extends Row>({
 
     const isEditableCell = useCallback((rowIndex: number, columnIndex: number): boolean => {
         const row = displayRows[rowIndex];
-        if (!row || isGroupRow(row)) return false;
+        if (!row || isInternalRow(row)) return false;
         if (skipCellSet.has(getCellKey(rowIndex, columnIndex))) return false;
         const col = (bottomColumnsRef.current ?? [])[columnIndex];
         if (!col || !col.editRender || col.name === selectionColumnName) return false;

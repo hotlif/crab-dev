@@ -106,3 +106,12 @@ row-selection.selected-bg = "oklch(0.506 0.174 260 / 0.08)"
 summary.color          = "$ref(color.text.primary)"
 summary.font-weight    = "$ref(font.weight.bold)"
 summary.padding-inline = "$ref(space.component-gap)"
+
+# ─── 行展开（详情面板） ───────────────────────────────────────────────────────
+# 展开图标沿用树形 chevron 的尺寸与缓动；展开内容区用微提亮底 + 顶边分隔，区别于普通数据行
+expand.chevron-size       = "16px"
+expand.chevron-color      = "$ref(color.text.secondary)"
+expand.chevron-transition = "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)"
+expand.button-radius      = "$ref(radius.sm)"
+expand.content-bg         = "$ref(color.background.surface)"
+expand.content-padding    = "$ref(space.component-gap)"

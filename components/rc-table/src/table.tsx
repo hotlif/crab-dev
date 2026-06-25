@@ -1,5 +1,5 @@
 import RcVirtual from "@crab-dev/rc-virtual";
-import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, useCallback, useMemo, useRef } from "react";
+import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 import { css, cx } from "@linaria/core";
 import Checkbox from "@crab-dev/rc-checkbox";
 import Radio from "@crab-dev/rc-radio";
@@ -25,8 +25,9 @@ import { useColumnSort } from "./hooks/useColumnSort.js";
 import { useCellEditNav } from "./hooks/useCellEditNav.js";
 import type { CellNavDirection } from "./hooks/useCellEditNav.js";
 import { useSummary } from "./hooks/useSummary.js";
-import type { InternalGroupRow } from "./util.js";
-import { isGroupRow } from "./util.js";
+import { useRowExpansion } from "./hooks/useRowExpansion.js";
+import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
+import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
 
 interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
     // 表格的宽度
@@ -128,6 +129,25 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     showSummary?: boolean
     /** 汇总行高度（默认 35） */
     summaryRowHeight?: number
+    // ====== 行展开（详情面板，独立于 treeData） ======
+    /** 提供即启用行展开：返回某行展开后在其下方插入的详情内容 */
+    expandedRowRender?: (row: T) => ReactNode
+    /** 控制某行能否展开；默认所有数据行均可展开 */
+    isRowExpandable?: (row: T) => boolean
+    /** 受控展开行 key 集合（与树形 expandedRowIds 相互独立） */
+    expandedRowKeys?: Set<Key>
+    /** 非受控初始展开行 key 集合 */
+    defaultExpandedRowKeys?: Set<Key>
+    /** 展开行 key 集合变化回调 */
+    onExpandedRowKeysChange?: (keys: Set<Key>) => void
+    /** 展开内容区默认高度（默认 200） */
+    expandedRowHeight?: number
+    /** 逐行覆盖展开内容区高度 */
+    getExpandedRowHeight?: (row: T) => number | undefined
+    /** 展开图标列宽度（默认 40） */
+    expandColumnWidth?: number
+    /** 展开图标列是否固定到左侧（默认 true） */
+    expandColumnFixed?: boolean
 }
 
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
@@ -141,6 +161,78 @@ const selectionCellStyle = css`
     width: 100%;
     height: 100%;
 `;
+
+// 展开图标按钮：方形可点区域 + 焦点环，hover 提亮底，内嵌旋转 chevron
+const expandButtonStyle = css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: ${token.expand['chevron-size']};
+    height: ${token.expand['chevron-size']};
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: ${token.expand['button-radius']};
+    color: ${token.expand['chevron-color']};
+    background: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    &:focus-visible {
+        outline: ${token.selection['border-width']} solid ${token.selection['border-color']};
+        outline-offset: ${token.selection['outline-offset']};
+    }
+`;
+
+const expandChevronStyle = css`
+    transition: ${token.expand['chevron-transition']};
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+`;
+
+// 展开内容区：跨所有列、宽度等于内容总宽，作为整行内容随表格一起横向滚动；
+// 微提亮底 + 顶边分隔，内容超高时纵向独立可滚（横向交给表格，故 overflow-x 隐藏）
+const expandContentStyle = css`
+    display: inline-block;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: ${token.expand['content-padding']};
+    background-color: ${token.expand['content-bg']};
+    box-shadow: inset 0 1px 0 ${token.border.color},
+                inset 0 -1px 0 ${token.border.color};
+`;
+
+// 展开内容容器：RcVirtual 在网格容器上挂了原生 wheel 监听并 preventDefault 劫持滚轮去滚表格，
+// 导致面板自身的 overflow:auto 无法用滚轮滚动。这里在面板上挂冒泡阶段的原生 wheel 监听：
+// 当面板内部在该方向上仍可滚动时 stopPropagation（阻止冒泡到 RcVirtual 容器监听，浏览器默认行为即滚动面板）；
+// 滚到边界时不拦截，事件照常冒泡给表格，形成自然的嵌套滚动。
+const ExpandedRowContent: FC<{ width: number; children: ReactNode }> = ({ width, children }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const el = ref.current;
+        /* istanbul ignore if -- ref 挂载后必有值 */
+        if (!el) return;
+        const onWheel = (e: WheelEvent) => {
+            // 按住 Shift 表示横向滚动意图，始终交给表格（面板随表格一起横向滚动）
+            if (e.shiftKey) return;
+            if (el.scrollHeight <= el.clientHeight) return;
+            const atTop = el.scrollTop <= 0;
+            const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+            if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
+                e.stopPropagation();
+            }
+        };
+        el.addEventListener("wheel", onWheel, { passive: false });
+        return () => el.removeEventListener("wheel", onWheel);
+    }, []);
+    return (
+        <div ref={ref} className={expandContentStyle} style={{ width }}>
+            {children}
+        </div>
+    );
+};
 
 // 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承）
 const ROW_BG_VAR = '--rc-table-row-bg';
@@ -394,6 +486,15 @@ function Table<T extends Row>({
     rowSelection,
     showSummary = false,
     summaryRowHeight = 35,
+    expandedRowRender,
+    isRowExpandable,
+    expandedRowKeys,
+    defaultExpandedRowKeys,
+    onExpandedRowKeysChange,
+    expandedRowHeight = 200,
+    getExpandedRowHeight,
+    expandColumnWidth,
+    expandColumnFixed,
     ...restProps
 }: TableProps<T>) {
 
@@ -450,10 +551,62 @@ function Table<T extends Row>({
         };
     }, [rowSelection]);
 
-    const effectiveColumns = useMemo(
-        () => selectionColumn ? [selectionColumn, ...columns] : columns,
-        [selectionColumn, columns]
-    );
+    // 行展开状态 ref：供展开图标列 render 读取最新展开集合 / 切换函数（避免闭包陈旧，仿 selectionStateRef）
+    const expansionStateRef = useRef<{ expandedKeySet: Set<Key>; toggleExpandRow: (id: Key) => void; isRowExpandable?: (row: T) => boolean }>({ expandedKeySet: new Set(), toggleExpandRow: () => { }, isRowExpandable });
+
+    const expandColumn = useMemo<ColumnType<T> | null>(() => {
+        if (!expandedRowRender) return null;
+        const isFixed = expandColumnFixed !== false;
+        return {
+            name: EXPAND_COLUMN_NAME,
+            title: '',
+            fixed: isFixed ? 'left' : undefined,
+            width: expandColumnWidth ?? 40,
+            selectable: false,
+            sortable: false,
+            resizable: false,
+            filterable: false,
+            align: 'center',
+            render: ({ row }) => {
+                const { expandedKeySet, toggleExpandRow, isRowExpandable: canExpand } = expansionStateRef.current;
+                const expandable = canExpand ? canExpand(row) : true;
+                if (!expandable) return null;
+                const expanded = expandedKeySet.has(row.id);
+                return (
+                    <div className={selectionCellStyle}>
+                        <button
+                            type="button"
+                            className={expandButtonStyle}
+                            aria-expanded={expanded}
+                            aria-label={expanded ? '收起此行' : '展开此行'}
+                            onClick={(e) => { e.stopPropagation(); toggleExpandRow(row.id); }}
+                            onMouseDown={(e) => e.stopPropagation()}
+                        >
+                            <svg
+                                width="10"
+                                height="10"
+                                viewBox="0 0 10 10"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className={expandChevronStyle}
+                                style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                            >
+                                <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                );
+            },
+        };
+    }, [expandedRowRender, expandColumnFixed, expandColumnWidth]);
+
+    const effectiveColumns = useMemo(() => {
+        const cols = [...columns];
+        if (selectionColumn) cols.unshift(selectionColumn);
+        // 展开图标列置于最左（在选择列之前）
+        if (expandColumn) cols.unshift(expandColumn);
+        return cols;
+    }, [selectionColumn, expandColumn, columns]);
 
     // ====== 列排序 ======
     const { sortedRows, handleSort, getSortState, isSortable } = useColumnSort<T>({
@@ -467,10 +620,18 @@ function Table<T extends Row>({
     });
 
     // ====== 行分组（树形模式下跳过分组） ======
-    const { groupBy, displayRows, isGrouped, toggleGroup } = useRowGroup<T>({
+    const { groupBy, displayRows: groupedDisplayRows, isGrouped, toggleGroup } = useRowGroup<T>({
         rows: flatRows, groupBy: isTree ? [] : groupByProp, expandedGroupIds,
         defaultExpandedGroupIds, defaultExpandAll, onExpandedGroupIdsChange
     });
+
+    // ====== 行展开（详情面板）：在分组后向 displayRows 插入展开内容行 ======
+    const { displayRows, expandedKeySet, isExpansion, toggleExpandRow } = useRowExpansion<T>({
+        displayRows: groupedDisplayRows, expandedRowRender, isRowExpandable,
+        expandedRowKeys, defaultExpandedRowKeys, onExpandedRowKeysChange,
+        expandedRowHeight, getExpandedRowHeight
+    });
+    expansionStateRef.current = { expandedKeySet, toggleExpandRow, isRowExpandable };
 
     // ====== 列宽与布局（bottomColumnsRef 在 table 层创建并共享给多个 hook） ======
     const bottomColumnsRef = useRef<ColumnType<T>[]>([]);
@@ -487,7 +648,7 @@ function Table<T extends Row>({
         stickyLeftOffsets, stickyRightOffsets, columnByName,
         gridTemplateRows, skipCellSet, mergeCellMap, getCellKey
     } = useColumnLayout<T>({
-        columns: effectiveColumns, width, resizedWidths, isGrouped, groupBy, headerRowHeight,
+        columns: effectiveColumns, width, resizedWidths, isGrouped, isExpansion, groupBy, headerRowHeight,
         displayRows, getRowHeight, groupRowHeight, mergeCells, bottomColumnsRef
     });
 
@@ -506,9 +667,9 @@ function Table<T extends Row>({
         return treeColumnProp ?? bottomColumns.find(col => col.fixed !== 'right' && col.name !== SELECTION_COLUMN_NAME)?.name;
     }, [isTree, treeColumnProp, bottomColumns]);
 
-    // 获取指定行/列应注入的树形 props（非树形列或分组行返回空对象）
-    const getTreeCellProps = (row: T | InternalGroupRow<T>, columnIndex: number) => {
-        if (!isTree || isGroupRow(row) || !resolvedTreeColumn) return {};
+    // 获取指定行/列应注入的树形 props（非树形列或非数据行返回空对象）
+    const getTreeCellProps = (row: T | InternalGroupRow<T> | InternalExpandedRow<T>, columnIndex: number) => {
+        if (!isTree || isExpandedContentRow(row) || isGroupRow(row) || !resolvedTreeColumn) return {};
         const column = bottomColumns[columnIndex];
         if (!column || column.name !== resolvedTreeColumn) return {};
         const meta = treeRowMetaMap.get((row as T).id);
@@ -750,6 +911,20 @@ function Table<T extends Row>({
             if (!currentRow) continue;
             if (isGroupRow(currentRow)) {
                 bodyRows.push(renderGroupBannerRow(rowIndex, currentRow, columnRange));
+                continue;
+            }
+            if (isExpandedContentRow(currentRow)) {
+                // 展开内容行：单个贴左固定容器，宽度等于视口宽，横向滚动时始终完整可见
+                bodyRows.push(
+                    <BodyRow
+                        key={`table-expanded-row-${String(currentRow.id)}`}
+                        style={{ height: gridTemplateRows[rowIndex], width: actualHeight }}
+                    >
+                        <ExpandedRowContent width={actualHeight}>
+                            {expandedRowRender?.(currentRow.dataRef.sourceRow)}
+                        </ExpandedRowContent>
+                    </BodyRow>
+                );
                 continue;
             }
 
