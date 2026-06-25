@@ -275,7 +275,20 @@ class WebsiteMod implements Modification {
     }
 
     modifyWebpack(conf: Configuration): Configuration {
-        return conf;
+        const rules = conf.module?.rules ?? [];
+        return {
+            ...conf,
+            module: {
+                ...conf.module,
+                rules: [
+                    ...rules,
+                    {
+                        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                        type: "asset/resource",
+                    },
+                ],
+            },
+        };
     }
 }
 

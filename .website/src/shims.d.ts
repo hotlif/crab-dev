@@ -21,6 +21,10 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js" {
     export default style;
 }
 
+declare module "@fontsource-variable/*" {}
+declare module "@fontsource/*" {}
+declare module "@fontsource/*/*" {}
+
 // Demo files imported via webpack alias `@@/` from generated loader map.
 declare module "@@/../components/*" {
     import type { ComponentType } from "react";

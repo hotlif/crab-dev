@@ -74,8 +74,8 @@ css`
             --shadow-lg: 0 20px 48px oklch(0% 0 0 / 0.10), 0 8px 14px oklch(0% 0 0 / 0.08);
 
             /* typography */
-            --font-sans: "Inter", "IBM Plex Sans", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
             /* sizing */
             --radius-sm: 6px;
@@ -161,7 +161,6 @@ css`
 
         html {
             font-family: var(--font-sans);
-            font-feature-settings: "cv11", "ss01", "ss03";
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
