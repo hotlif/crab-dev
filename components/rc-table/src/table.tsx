@@ -1,13 +1,16 @@
 import RcVirtual from "@crab-dev/rc-virtual";
 import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, useMemo, useRef } from "react";
 import { css, cx } from "@linaria/core";
+import Checkbox from "@crab-dev/rc-checkbox";
+import Radio from "@crab-dev/rc-radio";
 
 import BodyRow from "./bodyRow.js";
 import token from "./token.js";
 import TableBodyCell, { type TableCellProps } from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
 import { type HeaderCellType, makeSelectKey } from "./util.js";
-import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row } from "./types.js";
+import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn } from "./types.js";
+import { useRowSelection } from "./hooks/useRowSelection.js";
 import { useRowGroup } from "./hooks/useRowGroup.js";
 import { useColumnLayout } from "./hooks/useColumnLayout.js";
 import { useColumnResize } from "./hooks/useColumnResize.js";
@@ -17,6 +20,8 @@ import { useTableFilter } from "./hooks/useTableFilter.js";
 import { useKeywordMatch } from "./hooks/useKeywordMatch.js";
 import { useTreeData } from "./hooks/useTreeData.js";
 import { useRowEdit } from "./hooks/useRowEdit.js";
+import { useColumnDrag } from "./hooks/useColumnDrag.js";
+import { useColumnSort } from "./hooks/useColumnSort.js";
 import type { InternalGroupRow } from "./util.js";
 import { isGroupRow } from "./util.js";
 
@@ -83,8 +88,23 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     // 是否允许拖拽调整列宽（默认 false；可通过 ColumnType.resizable 逐列覆盖）
     resizable?: boolean
     onColumnResize?: (columnName: string, width: number) => void
+    // 是否允许拖拽列头改变列顺序（默认 false；非固定的顶层列及分组内子列均生效）
+    draggableColumns?: boolean
+    // 顶层列顺序变化回调，参数为非固定顶层列的新 name 顺序
+    onColumnOrderChange?: (orderedColumnNames: string[]) => void
+    // 分组内子列顺序变化回调，groupName 为父分组列名，orderedChildNames 为新子列顺序
+    onGroupColumnOrderChange?: (groupName: string, orderedChildNames: string[]) => void
     // 按下 Ctrl/Cmd+C 时触发；携带当前选区内所有单元格的数据
     onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void
+    // ====== 列排序 ======
+    /** 受控排序列配置 */
+    sortColumns?: SortColumn[]
+    /** 非受控初始排序 */
+    defaultSortColumns?: SortColumn[]
+    /** 排序变化回调 */
+    onSortColumnsChange?: (columns: SortColumn[]) => void
+    // ====== 行选中 ======
+    rowSelection?: RowSelection<T>
     // ====== 树形数据 ======
     /** 启用树形数据模式 */
     treeData?: boolean
@@ -101,6 +121,31 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     /** 展开状态变化回调 */
     onExpandedRowIdsChange?: (ids: Set<Key>) => void
 }
+
+const SELECTION_COLUMN_NAME = '__rc_table_selection__';
+
+// 选择列 body cell 居中容器
+const selectionCellStyle = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+`;
+
+// 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承）
+const ROW_BG_VAR = '--rc-table-row-bg';
+
+const selectedRowStyle = css`
+    background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+`;
+
+// 固定列背景 —— 通过 CSS 变量感知行选中状态
+const fixedCellBgWithRowVar = css`
+    z-index: 9;
+    background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+`;
 
 // 虚拟列表左侧占位
 const paddingLeft = (
@@ -324,6 +369,9 @@ function Table<T extends Row>({
     onMatchCountChange,
     resizable = false,
     onColumnResize,
+    draggableColumns = false,
+    onColumnOrderChange,
+    onGroupColumnOrderChange,
     onCopy,
     treeData,
     getChildRows,
@@ -332,12 +380,79 @@ function Table<T extends Row>({
     defaultExpandedRowIds,
     defaultTreeExpandAll,
     onExpandedRowIdsChange,
+    sortColumns: sortColumnsProp,
+    defaultSortColumns,
+    onSortColumnsChange,
+    rowSelection,
     ...restProps
 }: TableProps<T>) {
 
+    // ====== 行选中 ======
+    const { selectedRowIds, isAllSelected, isIndeterminate, toggleRow, selectAllRows, clearAllRows } = useRowSelection<T>({
+        dataRows: rows,
+        rowSelection,
+    });
+
+    // ref 持有最新选中状态，供选择列的 render 函数读取（避免 useMemo 闭包陈旧）
+    const selectionStateRef = useRef({ selectedRowIds, toggleRow });
+    selectionStateRef.current = { selectedRowIds, toggleRow };
+
+    const selectionColumn = useMemo<ColumnType<T> | null>(() => {
+        if (!rowSelection) return null;
+        const isFixed = rowSelection.fixed !== false;
+        return {
+            name: SELECTION_COLUMN_NAME,
+            title: '',
+            fixed: isFixed ? 'left' : undefined,
+            width: rowSelection.columnWidth ?? 40,
+            selectable: false,
+            sortable: false,
+            resizable: false,
+            filterable: false,
+            align: 'center',
+            render: ({ row }) => {
+                const { selectedRowIds: ids, toggleRow: toggle } = selectionStateRef.current;
+                const isSelected = ids.has(row.id);
+                const disabled = rowSelection.getDisabled?.(row) ?? false;
+                if (rowSelection.type === 'checkbox') {
+                    return (
+                        <div className={selectionCellStyle}>
+                            <Checkbox
+                                checked={isSelected}
+                                disabled={disabled}
+                                aria-label="选择此行"
+                                onChange={() => toggle(row.id)}
+                            />
+                        </div>
+                    );
+                }
+                return (
+                    <div className={selectionCellStyle}>
+                        <Radio
+                            checked={isSelected}
+                            disabled={disabled}
+                            aria-label="选择此行"
+                            onChange={() => toggle(row.id)}
+                        />
+                    </div>
+                );
+            },
+        };
+    }, [rowSelection]);
+
+    const effectiveColumns = useMemo(
+        () => selectionColumn ? [selectionColumn, ...columns] : columns,
+        [selectionColumn, columns]
+    );
+
+    // ====== 列排序 ======
+    const { sortedRows, handleSort, getSortState, isSortable } = useColumnSort<T>({
+        rows, columns: effectiveColumns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange
+    });
+
     // ====== 树形数据 ======
     const { flatRows, treeRowMetaMap, isTree, toggleTreeRow } = useTreeData<T>({
-        rows, treeData, getChildRows, expandedRowIds, defaultExpandedRowIds,
+        rows: sortedRows, treeData, getChildRows, expandedRowIds, defaultExpandedRowIds,
         defaultTreeExpandAll, onExpandedRowIdsChange
     });
 
@@ -355,23 +470,30 @@ function Table<T extends Row>({
     });
 
     const {
+        sColumns,
         bottomColumns, maxDepth, headerCells, headerGridTemplateRows,
         gridTemplateColumns, fixedLeftColumns, fixedRightColumns,
         fixedLeftColumnsIdx, fixedRightColumnsIdx, actualHeight,
         stickyLeftOffsets, stickyRightOffsets, columnByName,
         gridTemplateRows, skipCellSet, mergeCellMap, getCellKey
     } = useColumnLayout<T>({
-        columns, width, resizedWidths, isGrouped, groupBy, headerRowHeight,
+        columns: effectiveColumns, width, resizedWidths, isGrouped, groupBy, headerRowHeight,
         displayRows, getRowHeight, groupRowHeight, mergeCells, bottomColumnsRef
     });
 
     // 供 handleResizeMouseDown 读取当前列宽
     gridTemplateColumnsRef.current = gridTemplateColumns;
 
+    // ====== 列拖拽排序 ======
+    const {
+        draggingColumnName, draggingGroupName, dropIndicator,
+        handleDragStart, handleDragOver, handleDrop, handleDragEnd, handleDragLeave
+    } = useColumnDrag({ sColumns, onColumnOrderChange, onGroupColumnOrderChange });
+
     // ====== 树形列解析 ======
     const resolvedTreeColumn = useMemo(() => {
         if (!isTree) return undefined;
-        return treeColumnProp ?? bottomColumns.find(col => col.fixed !== 'right')?.name;
+        return treeColumnProp ?? bottomColumns.find(col => col.fixed !== 'right' && col.name !== SELECTION_COLUMN_NAME)?.name;
     }, [isTree, treeColumnProp, bottomColumns]);
 
     // 获取指定行/列应注入的树形 props（非树形列或分组行返回空对象）
@@ -596,6 +718,7 @@ function Table<T extends Row>({
             }
 
             const isEditingThisRow = isRowEditMode && currentEditingRowId === (currentRow as T).id;
+            const isRowSelected = rowSelection != null && selectedRowIds.has((currentRow as T).id);
 
             const getRowEditCellProps = (col: ColumnType<T>) => isEditingThisRow ? {
                 isRowEditing: true,
@@ -623,7 +746,7 @@ function Table<T extends Row>({
                         gridTemplateColumns={gridTemplateColumns}
                         gridTemplateRows={gridTemplateRows}
                         editType={editType}
-                        isLastColumn={columnIndex === bottomColumns.length - 1}
+                        isLastColumn={columnIndex === bottomColumns.length - 1 || (fixedRightColumnsIdx.length > 0 && columnIndex === fixedRightColumnsIdx[0] - 1)}
                         isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
                         onCellCommit={handleCellCommit}
                         selection={isEditingThisRow ? undefined : getCellSelectionState(rowIndex, columnIndex, mergeCell)}
@@ -645,10 +768,7 @@ function Table<T extends Row>({
                 const mergeCell = mergeCellMap.get(currentCellKey);
                 return (
                     <TableBodyCell
-                        className={cx(css`position: sticky;`, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : css`
-                            z-index: 9;
-                            background-color: ${token.cell['bg-color']};
-                        `))}
+                        className={cx(css`position: sticky;`, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : fixedCellBgWithRowVar))}
                         key={`table-body-cell-${rowIndex}-${columnIndex}`}
                         row={currentRow as T}
                         rowIndex={rowIndex}
@@ -683,8 +803,13 @@ function Table<T extends Row>({
             bodyRows.push(
                 <BodyRow
                     key={`table-body-row-${rowIndex}`}
-                    className={isEditingThisRow ? rowEditingRowStyle : undefined}
-                    style={{ height: gridTemplateRows[rowIndex], width: actualHeight }}
+                    className={cx(isEditingThisRow ? rowEditingRowStyle : undefined, isRowSelected ? selectedRowStyle : undefined)}
+                    style={{
+                        height: gridTemplateRows[rowIndex],
+                        width: actualHeight,
+                        ...(isRowSelected ? { [ROW_BG_VAR]: token['row-selection']['selected-bg'] } : null)
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    } as CSSProperties & Record<string, any>}
                     onDoubleClick={isRowEditMode && !isEditingThisRow ? () => startRowEdit((currentRow as T).id) : undefined}
                 >
                     {isEditingThisRow && <div className={rowEditBorderOverlayStyle} aria-hidden />}
@@ -814,6 +939,85 @@ function Table<T extends Row>({
                 const isLeafColumn = !cell?.column?.children?.length;
                 const colResizable = cell?.column?.resizable;
                 const showResizeHandle = (resizable || colResizable === true) && colResizable !== false && !isSkipCell && isLeafColumn;
+
+                const columnName = cell?.column?.name ?? '';
+
+                // 顶层（r=0）父单元格
+                // 分组的非第一个子列在 r=0 行是 skip cell（null），向左追溯找到父分组 cell
+                let topLevelCell = headerCells[0]?.[columnIndex] ?? null;
+                if (!topLevelCell && r > 0) {
+                    for (let c = columnIndex - 1; c >= 0; c -= 1) {
+                        const candidate = headerCells[0]?.[c];
+                        if (candidate !== null && candidate !== undefined) {
+                            if (candidate.columnIndex + candidate.colSpan >= columnIndex) {
+                                topLevelCell = candidate;
+                            }
+                            break;
+                        }
+                    }
+                }
+                const topLevelColumnName = topLevelCell?.column?.name ?? '';
+                const topLevelFixed = topLevelCell?.fixed;
+
+                // 当前单元格的拖拽 scope：r=0 为顶层（null），r>0 为其父分组名
+                const currentScope = r === 0 ? null : topLevelColumnName;
+
+                // 拖拽源：
+                //   r=0 非固定非 skip → 顶层列/分组可拖
+                //   r=1 非固定非 skip 且父分组有子列 → 组内子列可拖（仅在同一分组内重排）
+                const isTopLevelDraggable = draggableColumns && r === 0 && !isSkipCell && !topLevelFixed;
+                const isChildDraggable = draggableColumns && r === 1 && !isSkipCell && !topLevelFixed
+                    && !!(topLevelCell?.column?.children?.length);
+
+                // Drop 目标：所有行的非固定、非跳过单元格（scope 匹配由 handleDragOver 内部校验）
+                const isDropTarget = draggableColumns && !isSkipCell && !topLevelFixed;
+
+                // 当前是否正在被拖拽（顶层或子列）
+                const isDragging = draggingColumnName === columnName && draggingGroupName === currentScope;
+
+                // 顶层拖拽时 r>0 的单元格作为传播点：使用顶层列名和 null scope
+                // 子列拖拽时 r>0 的单元格作为真实 drop 目标：使用自身列名和父分组 scope
+                const isDragTopLevel = draggingGroupName === null;
+                const effectiveColumnName = isDragTopLevel && r > 0 ? topLevelColumnName : columnName;
+                const effectiveScope = isDragTopLevel && r > 0 ? null : currentScope;
+                const isSubCellPropagation = isDragTopLevel && r > 0;
+
+                // Drop 指示器显示条件：
+                //   顶层拖拽时 → 仅在 r=0 的顶层列头上显示（代表整个分组/列的边界）
+                //   子列拖拽时 → 仅在 r>0 的同一父分组内的子列上显示
+                const dropIndicatorSide = (() => {
+                    if (!isDropTarget || !dropIndicator) return null;
+                    if (draggingGroupName === null) {
+                        // 顶层拖拽：r=0 且列名匹配
+                        return r === 0 && dropIndicator.columnName === columnName ? dropIndicator.side : null;
+                    }
+                    // 子列拖拽：r>0 且在相同父分组内且列名匹配
+                    return r > 0 && draggingGroupName === topLevelColumnName && dropIndicator.columnName === columnName
+                        ? dropIndicator.side
+                        : null;
+                })();
+
+                const onDragStart = isTopLevelDraggable
+                    ? (e: Parameters<typeof handleDragStart>[2]) => handleDragStart(columnName, null, e)
+                    : isChildDraggable
+                        ? (e: Parameters<typeof handleDragStart>[2]) => handleDragStart(columnName, topLevelColumnName, e)
+                        : undefined;
+
+                const isSelectionCol = cell?.column?.name === SELECTION_COLUMN_NAME;
+                const selectionHeaderContent = (() => {
+                    if (!isSelectionCol || isSkipCell || rowSelection?.type !== 'checkbox') return undefined;
+                    return (
+                        <div className={selectionCellStyle}>
+                            <Checkbox
+                                checked={isAllSelected}
+                                indeterminate={isIndeterminate}
+                                aria-label={isAllSelected ? "取消全选" : "全选"}
+                                onChange={(checked) => { if (checked) selectAllRows(); else clearAllRows(); }}
+                            />
+                        </div>
+                    );
+                })();
+
                 return (
                     <TableHeaderCell
                         key={`table-header-cell-${r}-${columnIndex}`}
@@ -825,11 +1029,23 @@ function Table<T extends Row>({
                         gridTemplateColumns={gridTemplateColumns}
                         gridTemplateRows={headerGridTemplateRows}
                         isSkipCell={isSkipCell}
-                        isLastColumn={columnIndex === bottomColumns.length - 1}
+                        isLastColumn={(() => { const lastIdx = columnIndex + (cell?.colSpan ?? 0); return lastIdx === bottomColumns.length - 1 || (fixedRightColumnsIdx.length > 0 && lastIdx === fixedRightColumnsIdx[0] - 1); })()}
                         mergeCell={getMergeCell(cell)}
                         fixed={extraStyle?.left != null ? "left" : extraStyle?.right != null ? "right" : undefined}
                         onResizeMouseDown={showResizeHandle ? (e) => handleResizeMouseDown(columnIndex, e) : undefined}
                         style={{ width: gridTemplateColumns[columnIndex], ...extraStyle }}
+                        draggable={(isTopLevelDraggable || isChildDraggable) || undefined}
+                        isDragging={isDragging}
+                        dropIndicatorSide={dropIndicatorSide}
+                        onDragStart={onDragStart}
+                        onDragOver={isDropTarget ? (e) => handleDragOver(effectiveColumnName, effectiveScope, e, isSubCellPropagation) : undefined}
+                        onDrop={isDropTarget ? (e) => handleDrop(effectiveColumnName, effectiveScope, e) : undefined}
+                        onDragEnd={(isTopLevelDraggable || isChildDraggable) ? handleDragEnd : undefined}
+                        onDragLeave={isDropTarget ? handleDragLeave : undefined}
+                        isSortable={!isSelectionCol && isLeafColumn && !isSkipCell && isSortable(columnName)}
+                        sortState={!isSelectionCol && isLeafColumn && !isSkipCell ? getSortState(columnName) : null}
+                        onSortClick={!isSelectionCol && isLeafColumn && !isSkipCell && isSortable(columnName) ? (isMulti) => handleSort(columnName, isMulti) : undefined}
+                        customContent={selectionHeaderContent}
                     />
                 );
             };
@@ -845,9 +1061,8 @@ function Table<T extends Row>({
                     key={`table-header-row-${r}`}
                     className={cx(css`
                         position: sticky;
-                        z-index: 10;
                     `, getBottomBorderStyle(r, maxDepth - 1))}
-                    style={{ height: headerRowHeight, width: actualHeight, top: r * headerRowHeight }}
+                    style={{ height: headerRowHeight, width: actualHeight, top: r * headerRowHeight, zIndex: 10 + maxDepth - r }}
                 >
                     {fixedLeftColumnsIdx.map((columnIndex) => makeHeaderCell(
                         columnIndex,

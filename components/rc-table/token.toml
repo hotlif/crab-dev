@@ -85,3 +85,18 @@ row-edit.button-radius      = "$ref(radius.md)"
 row-edit.button-font-size   = "$ref(font.size.body)"
 row-edit.button-font-weight = "$ref(font.weight.label)"
 row-edit.button-gap         = "$ref(space.inline-gap)"
+
+# ─── 列拖拽排序 ───────────────────────────────────────────────────────────────
+column-drag.indicator-color   = "$ref(color.brand.primary)"
+column-drag.indicator-width   = "2px"
+column-drag.dragging-opacity  = "0.45"
+
+# ─── 列排序 ───────────────────────────────────────────────────────────────────
+sort.icon-color        = "$ref(color.text.tertiary)"
+sort.icon-active-color = "$ref(color.brand.primary)"
+sort.header-cursor     = "pointer"
+sort.badge-color       = "$ref(color.brand.primary)"
+sort.badge-font-size   = "11px"
+
+# ─── 行选中 ───────────────────────────────────────────────────────────────────
+row-selection.selected-bg = "oklch(0.506 0.174 260 / 0.08)"

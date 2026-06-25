@@ -169,6 +169,13 @@ function TableCell<T extends Row>({
 
 
     const getBorderStyle = () => {
+        if (fixed === "right") {
+            // 固定右列的右边框被该列自身的 sticky 背景覆盖不可见，改用左边框分隔
+            return css`
+                box-shadow: inset 1px 0 0 ${token.border.color},
+                            inset 0 -1px 0 ${token.border.color};
+            `;
+        }
         if (isLastColumn) {
             return css`
                 box-shadow: inset 0 -1px 0 ${token.border.color};
@@ -342,7 +349,7 @@ function TableCell<T extends Row>({
                         z-index: 1;
                         top: 0;
                         box-sizing: border-box;
-                        background-color: ${token.cell['bg-color']};
+                        background-color: var(--rc-table-row-bg, ${token.cell['bg-color']});
                         display: inline-flex;
                         align-items: center;
                     `, getMergedContentBorderStyle())}

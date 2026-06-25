@@ -1,6 +1,13 @@
-import { Key, type ReactNode } from "react";
+import { type Key, type ReactNode } from "react";
 
 export type Align = "left" | "right" | "center";
+
+export type SortDirection = "asc" | "desc";
+
+export interface SortColumn {
+    columnName: string;
+    direction: SortDirection;
+}
 
 /** 行的变更状态：new 新增、modified 已修改、deleted 已删除，undefined 表示未变更 */
 export type RowState = "new" | "modified" | "deleted";
@@ -140,6 +147,16 @@ export interface ColumnType<T extends Row> {
 	 */
 	resizable?: boolean
 
+	/**
+	 * 是否允许该列排序（仅叶子列生效）
+	 */
+	sortable?: boolean
+
+	/**
+	 * 自定义排序函数；未设置时按列 name 对应的 dataRef 字段做默认比较
+	 */
+	sorter?: (a: T, b: T) => number
+
     /**
      * 自定义该列用于关键字高亮匹配的文本。
      * 当单元格显示内容与原始数据不同（如枚举值转换）时，通过此函数返回实际展示的文本，
@@ -214,6 +231,26 @@ export interface TreeRowMeta {
     hasChildren: boolean
     /** 当前是否已展开 */
     isExpanded: boolean
+}
+
+/**
+ * 行选中配置：支持多选（checkbox）和单选（radio）两种模式。
+ */
+export interface RowSelection<T extends Row> {
+    /** 选择类型：checkbox 多选 / radio 单选 */
+    type: 'checkbox' | 'radio'
+    /** 受控：当前选中行 id 集合 */
+    selectedRowIds?: Set<Key>
+    /** 非受控：初始选中行 id 集合 */
+    defaultSelectedRowIds?: Set<Key>
+    /** 选中状态变化回调 */
+    onChange?: (ids: Set<Key>, rows: T[]) => void
+    /** 判断某行是否禁用选择 */
+    getDisabled?: (row: T) => boolean
+    /** 选择列宽度（默认 40）*/
+    columnWidth?: number
+    /** 是否固定选择列到左侧（默认 true） */
+    fixed?: boolean
 }
 
 export interface MergeCell {

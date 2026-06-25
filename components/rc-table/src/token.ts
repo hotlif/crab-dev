@@ -61,7 +61,16 @@ export const vars = {
     'row-edit.button-radius': '--table-row-edit-button-radius',
     'row-edit.button-font-size': '--table-row-edit-button-font-size',
     'row-edit.button-font-weight': '--table-row-edit-button-font-weight',
-    'row-edit.button-gap': '--table-row-edit-button-gap'
+    'row-edit.button-gap': '--table-row-edit-button-gap',
+    'column-drag.indicator-color': '--table-column-drag-indicator-color',
+    'column-drag.indicator-width': '--table-column-drag-indicator-width',
+    'column-drag.dragging-opacity': '--table-column-drag-dragging-opacity',
+    'sort.icon-color': '--table-sort-icon-color',
+    'sort.icon-active-color': '--table-sort-icon-active-color',
+    'sort.header-cursor': '--table-sort-header-cursor',
+    'sort.badge-color': '--table-sort-badge-color',
+    'sort.badge-font-size': '--table-sort-badge-font-size',
+    'row-selection.selected-bg': '--table-row-selection-selected-bg'
 };
 
 const token = {
@@ -145,6 +154,21 @@ const token = {
         'button-font-size': `var(${vars['row-edit.button-font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
         'button-font-weight': `var(${vars['row-edit.button-font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
         'button-gap': `var(${vars['row-edit.button-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+    },
+    'column-drag': {
+        'indicator-color': `var(${vars['column-drag.indicator-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'indicator-width': `var(${vars['column-drag.indicator-width']}, 2px)`,
+        'dragging-opacity': `var(${vars['column-drag.dragging-opacity']}, 0.45)`
+    },
+    'sort': {
+        'icon-color': `var(${vars['sort.icon-color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-400, oklch(0.760 0.012 286))))`,
+        'icon-active-color': `var(${vars['sort.icon-active-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'header-cursor': `var(${vars['sort.header-cursor']}, pointer)`,
+        'badge-color': `var(${vars['sort.badge-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'badge-font-size': `var(${vars['sort.badge-font-size']}, 11px)`
+    },
+    'row-selection': {
+        'selected-bg': `var(${vars['row-selection.selected-bg']}, oklch(0.506 0.174 260 / 0.08))`
     }
 };
 
