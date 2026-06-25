@@ -2351,6 +2351,24 @@ export default SizeDemo;`,
             },
         ],
         api: [
+            {
+                name: "locale",
+                description: "-",
+                type: "Locale",
+                defaultValue: "-",
+            },
+            {
+                name: "value",
+                description: "-",
+                type: "OKLCHValue",
+                defaultValue: "required",
+            },
+            {
+                name: "onValueChange",
+                description: "-",
+                type: "(value: OKLCHValue) => void",
+                defaultValue: "required",
+            },
         ],
     },
     {
