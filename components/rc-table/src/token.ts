@@ -36,7 +36,32 @@ export const vars = {
     'tree.chevron-color': '--table-tree-chevron-color',
     'tree.chevron-transition': '--table-tree-chevron-transition',
     'tree.button-radius': '--table-tree-button-radius',
-    'tree.button-gap': '--table-tree-button-gap'
+    'tree.button-gap': '--table-tree-button-gap',
+    'row-edit.row-bg': '--table-row-edit-row-bg',
+    'row-edit.cell-bg': '--table-row-edit-cell-bg',
+    'row-edit.ring-color': '--table-row-edit-ring-color',
+    'row-edit.card-shadow': '--table-row-edit-card-shadow',
+    'row-edit.card-radius': '--table-row-edit-card-radius',
+    'row-edit.transition': '--table-row-edit-transition',
+    'row-edit.actions-bg': '--table-row-edit-actions-bg',
+    'row-edit.actions-border': '--table-row-edit-actions-border',
+    'row-edit.actions-radius': '--table-row-edit-actions-radius',
+    'row-edit.actions-shadow': '--table-row-edit-actions-shadow',
+    'row-edit.actions-padding': '--table-row-edit-actions-padding',
+    'row-edit.actions-gap': '--table-row-edit-actions-gap',
+    'row-edit.confirm-bg': '--table-row-edit-confirm-bg',
+    'row-edit.confirm-color': '--table-row-edit-confirm-color',
+    'row-edit.confirm-hover-bg': '--table-row-edit-confirm-hover-bg',
+    'row-edit.confirm-active-bg': '--table-row-edit-confirm-active-bg',
+    'row-edit.cancel-color': '--table-row-edit-cancel-color',
+    'row-edit.cancel-hover-bg': '--table-row-edit-cancel-hover-bg',
+    'row-edit.cancel-border': '--table-row-edit-cancel-border',
+    'row-edit.button-height': '--table-row-edit-button-height',
+    'row-edit.button-padding-x': '--table-row-edit-button-padding-x',
+    'row-edit.button-radius': '--table-row-edit-button-radius',
+    'row-edit.button-font-size': '--table-row-edit-button-font-size',
+    'row-edit.button-font-weight': '--table-row-edit-button-font-weight',
+    'row-edit.button-gap': '--table-row-edit-button-gap'
 };
 
 const token = {
@@ -93,6 +118,33 @@ const token = {
         'chevron-transition': `var(${vars['tree.chevron-transition']}, transform 150ms cubic-bezier(0.4, 0, 0.2, 1))`,
         'button-radius': `var(${vars['tree.button-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
         'button-gap': `var(${vars['tree.button-gap']}, 4px)`
+    },
+    'row-edit': {
+        'row-bg': `var(${vars['row-edit.row-bg']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'cell-bg': `var(${vars['row-edit.cell-bg']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
+        'ring-color': `var(${vars['row-edit.ring-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'card-shadow': `var(${vars['row-edit.card-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08))))`,
+        'card-radius': `var(${vars['row-edit.card-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
+        'transition': `var(${vars['row-edit.transition']}, 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
+        'actions-bg': `var(${vars['row-edit.actions-bg']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
+        'actions-border': `var(${vars['row-edit.actions-border']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'actions-radius': `var(${vars['row-edit.actions-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
+        'actions-shadow': `var(${vars['row-edit.actions-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08))))`,
+        'actions-padding': `var(${vars['row-edit.actions-padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+        'actions-gap': `var(${vars['row-edit.actions-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+        'confirm-bg': `var(${vars['row-edit.confirm-bg']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'confirm-color': `var(${vars['row-edit.confirm-color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`,
+        'confirm-hover-bg': `var(${vars['row-edit.confirm-hover-bg']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-zinc-800, oklch(0.320 0.008 286))))`,
+        'confirm-active-bg': `var(${vars['row-edit.confirm-active-bg']}, var(--token-semantic-color-brand-primary-active, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'cancel-color': `var(${vars['row-edit.cancel-color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'cancel-hover-bg': `var(${vars['row-edit.cancel-hover-bg']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'cancel-border': `var(${vars['row-edit.cancel-border']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'button-height': `var(${vars['row-edit.button-height']}, 28px)`,
+        'button-padding-x': `var(${vars['row-edit.button-padding-x']}, var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+        'button-radius': `var(${vars['row-edit.button-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
+        'button-font-size': `var(${vars['row-edit.button-font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
+        'button-font-weight': `var(${vars['row-edit.button-font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
+        'button-gap': `var(${vars['row-edit.button-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
     }
 };
 

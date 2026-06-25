@@ -1,6 +1,14 @@
 import { css, cx } from "@linaria/core";
 import { JSONPath } from "jsonpath-plus";
 import token from "./token.js";
+
+const rowEditingCellStyle = css`
+    background-color: ${token['row-edit']['row-bg']};
+`;
+
+const rowEditActiveCellStyle = css`
+    background-color: ${token['row-edit']['cell-bg']};
+`;
 import type { CellSelectionState, ColumnType, MergeCell, Row, TreeRowMeta } from "./types.js";
 import { Fragment, type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
@@ -56,7 +64,7 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     gridTemplateColumns: number[],
     isSkipCell: boolean
     mergeCell?: MergeCell
-    editType?: "cell"
+    editType?: "cell" | "row"
     selection?: CellSelectionState
     /** 该单元格是否已被编辑过（用于显示编辑标记） */
     isEdited?: boolean
@@ -76,6 +84,14 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     treeNode?: TreeRowMeta
     /** 切换当前行展开/收起 */
     onTreeToggle?: () => void
+    /** 当前行是否处于行编辑态（editType="row" 时由 table 下发） */
+    isRowEditing?: boolean
+    /** 行编辑模式下当前列的编辑值（外部受控，替代内部 editorValue state） */
+    rowEditorValue?: unknown
+    /** 行编辑模式下编辑值变更回调 */
+    onRowEditorValueChange?: (value: unknown) => void
+    /** 行编辑模式下取消整行编辑 */
+    onRowCancel?: () => void
 }
 
 const mapping = {
@@ -111,6 +127,10 @@ function TableCell<T extends Row>({
     onMouseEnter,
     treeNode,
     onTreeToggle,
+    isRowEditing,
+    rowEditorValue,
+    onRowEditorValueChange,
+    onRowCancel,
     ...restProps
 }: TableCellProps<T>){
     const [editorValue, setEditorValue] = useState<unknown>(null);
@@ -128,6 +148,8 @@ function TableCell<T extends Row>({
     // 如果父级在编辑过程中关掉了 editType / 移除了 editRender，
     // isEditing 不会自动复位 —— 必须主动同步，否则该格永远卡在"既看不到编辑器、双击也进不去"的死态
     const canEdit = column.editRender != null && editType === "cell";
+    // 行编辑模式：该列有 editRender 且当前行处于行编辑态
+    const isRowEditActive = isRowEditing === true && column.editRender != null;
     useEffect(() => {
         if (isEditing && !canEdit) {
             exitEditing();
@@ -335,26 +357,29 @@ function TableCell<T extends Row>({
             )
         }
 
-        if (isEditing && canEdit) {
+        if (isRowEditActive || (isEditing && canEdit)) {
             const editorElement: ReactNode = column.editRender!({
                 row,
                 rowIndex,
                 columnIndex,
                 column,
-                editorValue,
-                onEditorValueChange: setEditorValue,
-                onCommit: (explicitValue?: unknown) => {
-                    // 优先使用调用方传入的显式终值（select onChange 等同步场景），
-                    // 否则回退到 editorValue state（input onBlur / onKeyDown 等场景）
-                    const valueToCommit = explicitValue !== undefined ? explicitValue : editorValue;
-                    if (valueToCommit !== null) {
-                        onCellCommit?.(row.id, column.name, columnIndex, originalValueRef.current, valueToCommit);
-                    }
-                    exitEditing();
-                },
-                onCancel: () => {
-                    exitEditing();
-                },
+                editorValue: isRowEditActive ? (rowEditorValue ?? null) : editorValue,
+                onEditorValueChange: isRowEditActive
+                    ? (value: unknown) => onRowEditorValueChange?.(value)
+                    : setEditorValue,
+                onCommit: isRowEditActive
+                    // 行编辑模式：单列 commit 是 no-op，由行级确认按钮统一提交
+                    ? undefined
+                    : (explicitValue?: unknown) => {
+                        // 优先使用调用方传入的显式终值（select onChange 等同步场景），
+                        // 否则回退到 editorValue state（input onBlur / onKeyDown 等场景）
+                        const valueToCommit = explicitValue !== undefined ? explicitValue : editorValue;
+                        if (valueToCommit !== null) {
+                            onCellCommit?.(row.id, column.name, columnIndex, originalValueRef.current, valueToCommit);
+                        }
+                        exitEditing();
+                    },
+                onCancel: isRowEditActive ? () => onRowCancel?.() : () => exitEditing(),
                 originalElement: renderElement
             });
             // 合并单元格进入编辑时，必须让编辑器跨越整片合并区域，
@@ -497,7 +522,7 @@ function TableCell<T extends Row>({
                 height: 100%;
                 position: relative;
                 font-size: inherit;
-            `, getBorderStyle(), className)}
+            `, getBorderStyle(), isRowEditing && rowEditingCellStyle, isRowEditActive && rowEditActiveCellStyle, className)}
             style={style}
             onDoubleClick={(e) => {
                 if (canEdit) {

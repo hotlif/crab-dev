@@ -16,6 +16,7 @@ import { useCellSelection } from "./hooks/useCellSelection.js";
 import { useTableFilter } from "./hooks/useTableFilter.js";
 import { useKeywordMatch } from "./hooks/useKeywordMatch.js";
 import { useTreeData } from "./hooks/useTreeData.js";
+import { useRowEdit } from "./hooks/useRowEdit.js";
 import type { InternalGroupRow } from "./util.js";
 import { isGroupRow } from "./util.js";
 
@@ -64,6 +65,17 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     cellEditRecords?: CellEditRecord[]
     onCellEditRecordsChange?: (records: CellEditRecord[]) => void
     onUndo?: (record: CellEditRecord) => void
+    // ====== 行编辑（editType="row" 时生效） ======
+    /** 受控当前编辑行 ID */
+    editingRowId?: Key | null
+    /** 非受控初始编辑行 ID */
+    defaultEditingRowId?: Key | null
+    /** 编辑行 ID 变化回调 */
+    onEditingRowIdChange?: (id: Key | null) => void
+    /** 确认整行编辑：changes 为各列 name → 编辑后值的映射 */
+    onRowCommit?: (rowId: Key, changes: Record<string, unknown>) => void
+    /** 取消整行编辑 */
+    onRowCancel?: (rowId: Key) => void
     // 高亮关键字
     highlightKeyword?: string
     activeMatchIndex?: number
@@ -149,6 +161,128 @@ const filterCellBorderShadow = css`
                 inset 0 -1px 0 ${token.border.color};
 `;
 
+const rowEditingRowStyle = css`
+    position: relative;
+    z-index: 1;
+`;
+
+// 编辑行整行描一道主题色边并浮起：用单层 overlay 画卡片边框 + 投影，
+// 不占布局空间（pointer-events:none），避免 hover/编辑切换时单元格盒模型抖动。
+// 底部留方角，与紧贴其下的操作浮条共用一条底边，二者衔接成连体卡片
+const rowEditBorderOverlayStyle = css`
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid ${token['row-edit']['ring-color']};
+    border-radius: ${token['row-edit']['card-radius']} ${token['row-edit']['card-radius']} 0 0;
+    box-shadow: ${token['row-edit']['card-shadow']};
+    pointer-events: none;
+    z-index: 10;
+`;
+
+const rowEditActionsWrapperStyle = css`
+    display: inline-block;
+    position: sticky;
+    right: 0;
+    width: 0;
+    height: 100%;
+    vertical-align: top;
+    z-index: 25;
+    overflow: visible;
+`;
+
+// 操作浮条：紧贴编辑行底边右侧、省去顶边与卡片底边共线，从右下角连体延伸而出；
+// 左/右/下三边沿用同一主题色描边，下两角圆角，与编辑行卡片拼成一张完整卡片
+const rowEditActionsInnerStyle = css`
+    position: absolute;
+    top: 100%;
+    right: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: ${token['row-edit']['actions-gap']};
+    padding: ${token['row-edit']['actions-padding']};
+    background-color: ${token['row-edit']['actions-bg']};
+    border: 1px solid ${token['row-edit']['actions-border']};
+    border-top: none;
+    border-radius: 0 0 ${token['row-edit']['actions-radius']} ${token['row-edit']['actions-radius']};
+    box-shadow: ${token['row-edit']['actions-shadow']};
+`;
+
+const rowEditConfirmBtnStyle = css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: ${token['row-edit']['button-height']};
+    padding: 0 ${token['row-edit']['button-padding-x']};
+    border-radius: ${token['row-edit']['button-radius']};
+    font-size: ${token['row-edit']['button-font-size']};
+    font-weight: ${token['row-edit']['button-font-weight']};
+    line-height: 1;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: none;
+    background-color: ${token['row-edit']['confirm-bg']};
+    color: ${token['row-edit']['confirm-color']};
+    transition: background-color ${token['row-edit']['transition']};
+    white-space: nowrap;
+    &:hover {
+        background-color: ${token['row-edit']['confirm-hover-bg']};
+    }
+    &:active {
+        background-color: ${token['row-edit']['confirm-active-bg']};
+    }
+    &:focus-visible {
+        outline: 2px solid ${token['row-edit']['ring-color']};
+        outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+`;
+
+const rowEditCancelBtnStyle = css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: ${token['row-edit']['button-height']};
+    padding: 0 ${token['row-edit']['button-padding-x']};
+    border-radius: ${token['row-edit']['button-radius']};
+    font-size: ${token['row-edit']['button-font-size']};
+    font-weight: ${token['row-edit']['button-font-weight']};
+    line-height: 1;
+    cursor: pointer;
+    background: transparent;
+    color: ${token['row-edit']['cancel-color']};
+    border: 1px solid ${token['row-edit']['cancel-border']};
+    outline: none;
+    transition: background-color ${token['row-edit']['transition']},
+                border-color ${token['row-edit']['transition']};
+    white-space: nowrap;
+    &:hover {
+        background-color: ${token['row-edit']['cancel-hover-bg']};
+        border-color: ${token['row-edit']['ring-color']};
+    }
+    &:active {
+        background-color: ${token['row-edit']['cancel-hover-bg']};
+    }
+    &:focus-visible {
+        outline: 2px solid ${token['row-edit']['ring-color']};
+        outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+`;
+
+const fixedCellRowEditBgStyle = css`
+    z-index: 9;
+    background-color: ${token['row-edit']['row-bg']};
+`;
+
 const filterCellBottomOnlyShadow = css`
     box-shadow: inset 0 -1px 0 ${token.border.color};
 `;
@@ -180,6 +314,11 @@ function Table<T extends Row>({
     cellEditRecords,
     onCellEditRecordsChange,
     onUndo,
+    editingRowId,
+    defaultEditingRowId,
+    onEditingRowIdChange,
+    onRowCommit,
+    onRowCancel,
     highlightKeyword,
     activeMatchIndex,
     onMatchCountChange,
@@ -247,6 +386,11 @@ function Table<T extends Row>({
             onTreeToggle: () => toggleTreeRow((row as T).id)
         };
     };
+
+    // ====== 行编辑 ======
+    const { isRowEditMode, currentEditingRowId, editorValues, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit } = useRowEdit({
+        editType, editingRowId, defaultEditingRowId, onEditingRowIdChange, onRowCommit, onRowCancel
+    });
 
     // ====== 单元格编辑 ======
     const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo } = useCellEdit<T>({
@@ -451,6 +595,15 @@ function Table<T extends Row>({
                 continue;
             }
 
+            const isEditingThisRow = isRowEditMode && currentEditingRowId === (currentRow as T).id;
+
+            const getRowEditCellProps = (col: ColumnType<T>) => isEditingThisRow ? {
+                isRowEditing: true,
+                rowEditorValue: editorValues[col.name] ?? null,
+                onRowEditorValueChange: (value: unknown) => setColumnValue(col.name, value),
+                onRowCancel: cancelRowEdit,
+            } : {};
+
             const tableCells: ReactNode[] = [];
             for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
                 const currentCellKey = getCellKey(rowIndex, columnIndex);
@@ -473,14 +626,15 @@ function Table<T extends Row>({
                         isLastColumn={columnIndex === bottomColumns.length - 1}
                         isEdited={editedCellKeys.has(makeSelectKey((currentRow as T).id, columnIndex))}
                         onCellCommit={handleCellCommit}
-                        selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
+                        selection={isEditingThisRow ? undefined : getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                         dataVersion={undoDataVersion}
                         highlightKeyword={highlightKeyword}
                         activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
-                        onCellMouseDown={handleCellMouseDown}
-                        onCellMouseEnter={handleCellMouseEnter}
+                        onCellMouseDown={isEditingThisRow ? undefined : handleCellMouseDown}
+                        onCellMouseEnter={isEditingThisRow ? undefined : handleCellMouseEnter}
                         style={{ width: gridTemplateColumns[columnIndex] }}
                         {...getTreeCellProps(currentRow, columnIndex)}
+                        {...getRowEditCellProps(column)}
                     />
                 );
             }
@@ -491,10 +645,10 @@ function Table<T extends Row>({
                 const mergeCell = mergeCellMap.get(currentCellKey);
                 return (
                     <TableBodyCell
-                        className={cx(css`position: sticky;`, !isSkipCell && css`
+                        className={cx(css`position: sticky;`, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : css`
                             z-index: 9;
                             background-color: ${token.cell['bg-color']};
-                        `)}
+                        `))}
                         key={`table-body-cell-${rowIndex}-${columnIndex}`}
                         row={currentRow as T}
                         rowIndex={rowIndex}
@@ -512,8 +666,8 @@ function Table<T extends Row>({
                         selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                         highlightKeyword={highlightKeyword}
                         activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
-                        onCellMouseDown={handleCellMouseDown}
-                        onCellMouseEnter={handleCellMouseEnter}
+                        onCellMouseDown={isEditingThisRow ? undefined : handleCellMouseDown}
+                        onCellMouseEnter={isEditingThisRow ? undefined : handleCellMouseEnter}
                         style={{
                             width: gridTemplateColumns[columnIndex],
                             [fixed === "left" ? "left" : "right"]: fixed === "left"
@@ -521,6 +675,7 @@ function Table<T extends Row>({
                                 : stickyRightOffsets[columnIndex]
                         }}
                         {...getTreeCellProps(currentRow, columnIndex)}
+                        {...getRowEditCellProps(column)}
                     />
                 );
             };
@@ -528,13 +683,39 @@ function Table<T extends Row>({
             bodyRows.push(
                 <BodyRow
                     key={`table-body-row-${rowIndex}`}
+                    className={isEditingThisRow ? rowEditingRowStyle : undefined}
                     style={{ height: gridTemplateRows[rowIndex], width: actualHeight }}
+                    onDoubleClick={isRowEditMode && !isEditingThisRow ? () => startRowEdit((currentRow as T).id) : undefined}
                 >
+                    {isEditingThisRow && <div className={rowEditBorderOverlayStyle} aria-hidden />}
                     {fixedLeftColumns.map((column, index) => makeFixedBodyCell(column, fixedLeftColumnsIdx[index], "left"))}
                     {paddingLeft}
                     {tableCells}
                     {paddingRight}
                     {fixedRightColumns.map((column, index) => makeFixedBodyCell(column, fixedRightColumnsIdx[index], "right"))}
+                    {isEditingThisRow && (
+                        <div className={rowEditActionsWrapperStyle}>
+                            <div
+                                className={rowEditActionsInnerStyle}
+                                onMouseDown={e => e.stopPropagation()}
+                            >
+                                <button
+                                    type="button"
+                                    className={rowEditConfirmBtnStyle}
+                                    onClick={commitRowEdit}
+                                >
+                                    确认
+                                </button>
+                                <button
+                                    type="button"
+                                    className={rowEditCancelBtnStyle}
+                                    onClick={cancelRowEdit}
+                                >
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </BodyRow>
             );
         }
