@@ -5,31 +5,10 @@
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-	dataRef: {
-		recordNo: string
-		employeeNo: string
-		name: string
-		gender: string
-		age: number
-		phone: string
-		email: string
-		province: string
-		address: string
-		company: string
-		department: string
-		jobTitle: string
-		city: string
-		performance: string
-		salary: number
-		bonus: number
-		status: string
-		createdAt: string
-		tag: string
-		yearsOfService: number
-	}
+	dataRef: Employee & { recordNo: string }
 }
 
 const columns: ColumnType<DemoRow>[] = [
@@ -139,7 +118,7 @@ const columns: ColumnType<DemoRow>[] = [
             },
             {
                 title: "入职日期",
-                name: "$.createdAt",
+                name: "$.joinDate",
                 width: 150
             }
         ]
@@ -157,39 +136,13 @@ const columns: ColumnType<DemoRow>[] = [
     }
 ]
 
-faker.seed(20260304)
-
-const rows: DemoRow[] = Array.from({ length: 2000 }, (_, index) => {
-    const salary = faker.number.int({ min: 8000, max: 50000 })
-    const bonus = faker.number.int({ min: 1000, max: 20000 })
-    const hireDate = faker.date.past({ years: 8 })
-
-    return {
-        id: `${index + 1}`,
-        dataRef: {
-            recordNo: `R-${String(index + 1).padStart(5, "0")}`,
-            employeeNo: `EMP-${String(index + 1).padStart(4, "0")}`,
-            name: faker.person.fullName(),
-            gender: faker.helpers.arrayElement(["男", "女"]),
-            age: faker.number.int({ min: 22, max: 55 }),
-            phone: `1${faker.string.numeric(10)}`,
-            email: faker.internet.email(),
-            province: faker.location.state(),
-            address: faker.location.streetAddress(),
-            company: faker.company.name(),
-            department: faker.commerce.department(),
-            jobTitle: faker.person.jobTitle(),
-            city: faker.location.city(),
-            performance: faker.helpers.arrayElement(["A", "B", "C"]),
-            salary,
-            bonus,
-            status: faker.helpers.arrayElement(["在职", "试用", "离职中"]),
-            createdAt: hireDate.toISOString().slice(0, 10),
-            tag: faker.helpers.arrayElement(["核心", "候选", "稳定"]),
-            yearsOfService: faker.number.int({ min: 0, max: 12 })
-        }
-    }
-})
+const rows: DemoRow[] = makeEmployees(2000, 20260304).map((employee, index) => ({
+    id: `${index + 1}`,
+    dataRef: {
+        ...employee,
+        recordNo: `R-${String(index + 1).padStart(5, "0")}`,
+    },
+}))
 
 const MergeTableHeadersDemo = () => {
     return (

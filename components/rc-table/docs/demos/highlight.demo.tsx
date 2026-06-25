@@ -6,51 +6,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Table, { highlightText } from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        gender: number
-        department: string
-        city: string
-        jobTitle: string
-        email: string
-        salary: number
-        project: string
-        status: string
-        manager: string
-        phone: string
-    }
+    dataRef: Employee
 }
 
-const names = ["张伟", "李娜", "王芳", "赵磊", "陈静", "刘洋", "周鑫", "吴丽", "孙鹏", "徐敏", "朱辉", "胡博"];
-const genders = [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1];
-const departments = ["研发部", "产品部", "销售部", "人事部", "财务部", "运维部"];
-const cities = ["北京", "上海", "深圳", "广州", "杭州", "成都"];
-const titles = ["高级工程师", "产品经理", "前端工程师", "销售总监", "HR 经理", "架构师", "财务总监", "UX 设计师", "测试工程师", "运维工程师", "后端工程师"];
-const projects = ["主数据平台", "经营看板", "供应链优化", "门店数字化", "风控中台", "物流协同", "能源巡检", "医药追溯"];
-const statuses = ["进行中", "已完成", "已暂停", "待启动"];
-const managers = ["王建国", "李晓明", "张华", "陈伟", "刘芳"];
-
-const rawRows: DemoRow[] = Array.from({ length: 80 }, (_, i) => {
-    const name = names[i % names.length];
-    return {
-        id: String(i + 1),
-        dataRef: {
-            name,
-            gender: genders[i % genders.length],
-            department: departments[i % departments.length],
-            city: cities[i % cities.length],
-            jobTitle: titles[i % titles.length],
-            email: `${name}${i + 1}@example.com`,
-            salary: 18000 + (i * 317) % 22000,
-            project: projects[i % projects.length],
-            status: statuses[i % statuses.length],
-            manager: managers[i % managers.length],
-            phone: `1${3 + (i % 7)}${String(100000000 + i * 9973).slice(0, 9)}`,
-        },
-    };
-});
+const rawRows: DemoRow[] = makeEmployees(80, 20260615).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const HighlightDemo = () => {
     const [keyword, setKeyword] = useState("");
@@ -63,7 +28,7 @@ const HighlightDemo = () => {
 
     const columns = useMemo((): ColumnType<DemoRow>[] => [
         { title: "姓名", name: "name", width: 90, fixed: "left" },
-        { title: "性别", name: "gender", width: 70, getSearchText: (row) => row.dataRef.gender === 1 ? "男" : "女", render: ({ row, keyword: kw, activeOccurrenceInCell }) => highlightText(row.dataRef.gender === 1 ? "男" : "女", kw ?? "", activeOccurrenceInCell) },
+        { title: "性别", name: "gender", width: 70, align: "center" },
         { title: "部门", name: "department", width: 110 },
         { title: "城市", name: "city", width: 90 },
         { title: "职位", name: "jobTitle", width: 150 },
@@ -80,10 +45,18 @@ const HighlightDemo = () => {
                 );
             },
         },
-        { title: "薪资", name: "salary", width: 100, align: "right" },
+        {
+            title: "薪资（getSearchText）",
+            name: "salary",
+            width: 150,
+            align: "right",
+            getSearchText: (row) => `¥${row.dataRef.salary.toLocaleString()}`,
+            render: ({ row, keyword: kw, activeOccurrenceInCell }) =>
+                highlightText(`¥${row.dataRef.salary.toLocaleString()}`, kw ?? "", activeOccurrenceInCell),
+        },
         { title: "项目", name: "project", width: 140 },
         { title: "状态", name: "status", width: 90 },
-        { title: "负责人", name: "manager", width: 90 },
+        { title: "公司", name: "company", width: 150 },
         { title: "电话", name: "phone", width: 130 },
     ], []);
 

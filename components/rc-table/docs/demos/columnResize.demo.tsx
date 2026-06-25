@@ -7,33 +7,15 @@
 import { useState } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        age: number
-        email: string
-        department: string
-        jobTitle: string
-        city: string
-        salary: number
-    }
+    dataRef: Employee
 }
 
-faker.seed(20260601)
-
-const rows: DemoRow[] = Array.from({ length: 500 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(500, 20260601).map((employee, index) => ({
     id: `${index + 1}`,
-    dataRef: {
-        name: faker.person.fullName(),
-        age: faker.number.int({ min: 22, max: 55 }),
-        email: faker.internet.email(),
-        department: faker.commerce.department(),
-        jobTitle: faker.person.jobTitle(),
-        city: faker.location.city(),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-    }
+    dataRef: employee,
 }))
 
 const ColumnResizeDemo = () => {

@@ -10,6 +10,7 @@ import type { ReactNode } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row, RowState } from "../../src/index.js";
+import { makeEmployees } from "./_mock.js";
 
 interface DemoRow extends Row {
     dataRef: {
@@ -58,13 +59,21 @@ const actionBarStyle = css`
 
 let nextId = 100;
 
-const initialRows: DemoRow[] = [
-    { id: "1", dataRef: { name: "王明", department: "前端", salary: 18000, joinDate: "2021-03-15" } },
-    { id: "2", state: "modified", dataRef: { name: "李婷", department: "后端", salary: 22000, joinDate: "2020-07-01" } },
-    { id: "3", state: "deleted", dataRef: { name: "赵阳", department: "设计", salary: 15000, joinDate: "2022-11-08" } },
-    { id: "4", state: "new",     dataRef: { name: "陈晨", department: "测试", salary: 14000, joinDate: "2024-01-20" } },
-    { id: "5", dataRef: { name: "孙浩", department: "产品", salary: 20000, joinDate: "2019-05-12" } },
+const INITIAL_STATES: (RowState | undefined)[] = [
+    undefined, "modified", "deleted", "new", undefined, undefined,
+    "modified", undefined, "new", undefined, "deleted", undefined,
 ];
+
+const initialRows: DemoRow[] = makeEmployees(12, 20260618).map((employee, index) => ({
+    id: String(index + 1),
+    state: INITIAL_STATES[index],
+    dataRef: {
+        name: employee.name,
+        department: employee.department,
+        salary: employee.salary,
+        joinDate: employee.joinDate,
+    },
+}));
 
 const RowStateDemo = () => {
     const [rows, setRows] = useState<DemoRow[]>(initialRows);

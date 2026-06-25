@@ -4,84 +4,76 @@
  */
 
 import { type Key, useState } from "react";
+import { fakerZH_CN as faker } from "@faker-js/faker";
 import Table from "../../src/index.js";
-import type { Row } from "../../src/types.js";
+import type { ColumnType, Row } from "../../src/types.js";
+import { CITIES, JOB_TITLES } from "./_mock.js";
 
 interface OrgRow extends Row {
     dataRef: {
         name: string
         type: string
+        jobTitle?: string
         headcount?: number
         location?: string
     }
     children?: OrgRow[]
 }
 
+faker.seed(20260620);
+
+let uid = 0;
+
+const makeEmployee = (): OrgRow => ({
+    id: `emp-${uid += 1}`,
+    dataRef: {
+        name: faker.person.fullName(),
+        type: "员工",
+        jobTitle: faker.helpers.arrayElement(JOB_TITLES),
+        location: faker.helpers.arrayElement(CITIES),
+    },
+});
+
+const makeGroup = (name: string): OrgRow => {
+    const members = Array.from({ length: faker.number.int({ min: 3, max: 6 }) }, makeEmployee);
+    return {
+        id: `grp-${uid += 1}`,
+        dataRef: {
+            name,
+            type: "小组",
+            headcount: members.length,
+            location: members[0].dataRef.location,
+        },
+        children: members,
+    };
+};
+
+const makeDept = (deptId: string, name: string, groupNames: string[]): OrgRow => {
+    const groups = groupNames.map(makeGroup);
+    return {
+        id: deptId,
+        dataRef: {
+            name,
+            type: "部门",
+            headcount: groups.reduce((acc, group) => acc + (group.dataRef.headcount ?? 0), 0),
+            location: faker.helpers.arrayElement(CITIES),
+        },
+        children: groups,
+    };
+};
+
 const orgData: OrgRow[] = [
-    {
-        id: "tech",
-        dataRef: { name: "技术部", type: "部门", headcount: 85, location: "北京" },
-        children: [
-            {
-                id: "tech-fe",
-                dataRef: { name: "前端组", type: "小组", headcount: 22, location: "北京" },
-                children: [
-                    { id: "tech-fe-1", dataRef: { name: "张伟", type: "员工", location: "北京" } },
-                    { id: "tech-fe-2", dataRef: { name: "李芳", type: "员工", location: "北京" } },
-                    { id: "tech-fe-3", dataRef: { name: "王磊", type: "员工", location: "上海" } },
-                ],
-            },
-            {
-                id: "tech-be",
-                dataRef: { name: "后端组", type: "小组", headcount: 35, location: "北京" },
-                children: [
-                    { id: "tech-be-1", dataRef: { name: "刘洋", type: "员工", location: "北京" } },
-                    { id: "tech-be-2", dataRef: { name: "陈静", type: "员工", location: "北京" } },
-                ],
-            },
-            {
-                id: "tech-infra",
-                dataRef: { name: "基础设施组", type: "小组", headcount: 28, location: "北京" },
-                children: [
-                    { id: "tech-infra-1", dataRef: { name: "赵强", type: "员工", location: "深圳" } },
-                ],
-            },
-        ],
-    },
-    {
-        id: "product",
-        dataRef: { name: "产品部", type: "部门", headcount: 40, location: "上海" },
-        children: [
-            {
-                id: "product-design",
-                dataRef: { name: "设计组", type: "小组", headcount: 15, location: "上海" },
-                children: [
-                    { id: "product-design-1", dataRef: { name: "孙丽", type: "员工", location: "上海" } },
-                    { id: "product-design-2", dataRef: { name: "周平", type: "员工", location: "上海" } },
-                ],
-            },
-            {
-                id: "product-pm",
-                dataRef: { name: "产品管理", type: "小组", headcount: 25, location: "上海" },
-                children: [
-                    { id: "product-pm-1", dataRef: { name: "吴雪", type: "员工", location: "上海" } },
-                ],
-            },
-        ],
-    },
-    {
-        id: "ops",
-        dataRef: { name: "运营部", type: "部门", headcount: 30, location: "广州" },
-        children: [
-            { id: "ops-1", dataRef: { name: "郑明", type: "员工", location: "广州" } },
-            { id: "ops-2", dataRef: { name: "冯华", type: "员工", location: "广州" } },
-        ],
-    },
+    makeDept("dept-tech", "技术部", ["前端组", "后端组", "测试组", "基础设施组"]),
+    makeDept("dept-product", "产品部", ["产品策划组", "用户研究组"]),
+    makeDept("dept-design", "设计部", ["视觉设计组", "交互设计组"]),
+    makeDept("dept-market", "市场部", ["品牌组", "增长组", "活动组"]),
+    makeDept("dept-ops", "运营部", ["内容运营组", "数据运营组"]),
 ];
 
-const columns = [
-    { name: "$.name", title: "名称", width: 180 },
+const columns: ColumnType<OrgRow>[] = [
+    { name: "$.name", title: "名称", width: 200 },
     { name: "$.type", title: "类型", width: 100 },
+    { name: "$.jobTitle", title: "职位", width: 150 },
     { name: "$.headcount", title: "人数", width: 80, align: "right" as const },
     { name: "$.location", title: "所在地" },
 ];
@@ -90,13 +82,13 @@ const getChildRows = (row: OrgRow) => row.children;
 
 const TreeDemo = () => {
     const [expandedRowIds, setExpandedRowIds] = useState<Set<Key>>(
-        new Set(["tech", "product"])
+        new Set(["dept-tech", "dept-product"])
     );
 
     return (
         <Table<OrgRow>
-            width={560}
-            height={420}
+            width={680}
+            height={460}
             rows={orgData}
             columns={columns}
             treeData

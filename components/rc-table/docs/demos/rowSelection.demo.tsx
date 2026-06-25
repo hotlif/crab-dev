@@ -6,36 +6,27 @@
 import { useState, type Key } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row, RowSelection } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        department: string
-        salary: number
-        status: "active" | "inactive"
-    }
+    dataRef: Employee
 }
 
-faker.seed(20260625);
-
-const rows: DemoRow[] = Array.from({ length: 20 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(30, 20260617).map((employee, index) => ({
     id: `${index + 1}`,
-    dataRef: {
-        name: faker.person.fullName(),
-        department: faker.helpers.arrayElement(["工程", "产品", "设计", "运营", "市场"]),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-        status: faker.helpers.arrayElement(["active", "inactive"]) as "active" | "inactive",
-    },
+    dataRef: employee,
 }));
 
 const columns: ColumnType<DemoRow>[] = [
-    { name: "name",       title: "姓名",   width: 140 },
+    { name: "employeeNo", title: "工号",   width: 120 },
+    { name: "name",       title: "姓名",   width: 110 },
     { name: "department", title: "部门",   width: 120 },
+    { name: "jobTitle",   title: "职位",   width: 150 },
+    { name: "city",       title: "城市",   width: 100 },
+    { name: "performance", title: "绩效",  width: 90, align: "center" },
     { name: "salary",     title: "薪资",   width: 120, align: "right",
         render: ({ row }) => `¥${row.dataRef.salary.toLocaleString()}` },
-    { name: "status",     title: "状态",   width: 100,
-        render: ({ row }) => row.dataRef.status === "active" ? "在职" : "离职" },
+    { name: "status",     title: "状态",   width: 90 },
 ];
 
 const RowSelectionDemo = () => {
@@ -46,7 +37,7 @@ const RowSelectionDemo = () => {
         type: mode,
         selectedRowIds,
         onChange: (ids) => setSelectedRowIds(ids),
-        getDisabled: (row) => row.dataRef.status === "inactive",
+        getDisabled: (row) => row.dataRef.status === "离职",
     };
 
     const selectedNames = rows
@@ -81,7 +72,7 @@ const RowSelectionDemo = () => {
                     : '未选中任何行（状态为「离职」的行已禁用）'}
             </div>
             <Table
-                width={560}
+                width={820}
                 height={420}
                 rows={rows}
                 columns={columns}

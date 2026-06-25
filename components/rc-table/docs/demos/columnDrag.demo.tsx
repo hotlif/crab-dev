@@ -6,39 +6,15 @@
 import { useState } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        age: number
-        gender: string
-        city: string
-        department: string
-        jobTitle: string
-        startDate: string
-        salary: number
-        bonus: number
-        email: string
-    }
+    dataRef: Employee
 }
 
-faker.seed(20260602)
-
-const rows: DemoRow[] = Array.from({ length: 200 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(200, 20260602).map((employee, index) => ({
     id: `${index + 1}`,
-    dataRef: {
-        name: faker.person.fullName(),
-        age: faker.number.int({ min: 22, max: 55 }),
-        gender: faker.helpers.arrayElement(["男", "女"]),
-        city: faker.location.city(),
-        department: faker.commerce.department(),
-        jobTitle: faker.person.jobTitle(),
-        startDate: faker.date.between({ from: "2015-01-01", to: "2024-12-31" }).toISOString().slice(0, 10),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-        bonus: faker.number.int({ min: 0, max: 80000 }),
-        email: faker.internet.email(),
-    },
+    dataRef: employee,
 }))
 
 const initialColumns: ColumnType<DemoRow>[] = [
@@ -66,7 +42,7 @@ const initialColumns: ColumnType<DemoRow>[] = [
         children: [
             { title: "部门", name: "$.department", width: 160 },
             { title: "职位", name: "$.jobTitle", width: 200 },
-            { title: "入职日期", name: "$.startDate", width: 120, align: "center" },
+            { title: "入职日期", name: "$.joinDate", width: 120, align: "center" },
         ],
     },
     {

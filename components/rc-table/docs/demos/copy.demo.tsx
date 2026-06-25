@@ -9,40 +9,25 @@ import { type Key, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        department: string
-        city: string
-        salary: number
-    }
+    dataRef: Employee
 }
 
-const departments = ["前端", "后端", "产品", "设计", "测试", "运维"];
-const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁"];
-
-const rows: DemoRow[] = Array.from({ length: 100 }, (_, index) => {
-    const rowId = index + 1;
-    return {
-        id: String(rowId),
-        dataRef: {
-            employeeNo: `EMP-${String(rowId).padStart(4, "0")}`,
-            name: `${names[index % names.length]}${String(rowId).padStart(2, "0")}`,
-            department: departments[index % departments.length],
-            city: cities[index % cities.length],
-            salary: 12000 + (index % 30) * 1000
-        }
-    };
-});
+const rows: DemoRow[] = makeEmployees(100, 20260611).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const columns: ColumnType<DemoRow>[] = [
-    { title: "工号", name: "$.employeeNo", width: 140, fixed: "left" },
-    { title: "姓名", name: "$.name", width: 120 },
+    { title: "工号", name: "$.employeeNo", width: 130, fixed: "left" },
+    { title: "姓名", name: "$.name", width: 110 },
     { title: "部门", name: "$.department", width: 120 },
-    { title: "城市", name: "$.city", width: 120 },
+    { title: "职位", name: "$.jobTitle", width: 150 },
+    { title: "城市", name: "$.city", width: 100 },
+    { title: "项目", name: "$.project", width: 150 },
+    { title: "状态", name: "$.status", width: 90 },
     { title: "月薪", name: "$.salary", width: 120, align: "right" }
 ];
 

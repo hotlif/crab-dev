@@ -4,6 +4,7 @@
  */
 
 import { useMemo, useState } from "react";
+import { fakerZH_CN as faker } from "@faker-js/faker";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
@@ -343,27 +344,29 @@ const priorities = ["P0", "P1", "P2"];
 const quarters = ["Q1", "Q2", "Q3", "Q4"];
 const statuses = ["进行中", "已完成", "风险"];
 
-const rows: DemoRow[] = Array.from({ length: 300 }, (_, index) => {
+faker.seed(20260616);
+
+const rows: DemoRow[] = Array.from({ length: 400 }, (_, index) => {
     const rowNumber = index + 1;
     return {
         id: `row-${rowNumber}`,
         dataRef: {
             recordNo: `R-${String(rowNumber).padStart(5, "0")}`,
-            customerName: customerNames[index % customerNames.length],
-            projectName: `${projectNames[index % projectNames.length]}-${(index % 6) + 1}`,
-            businessUnit: businessUnits[index % businessUnits.length],
-            industry: industries[(index * 2) % industries.length],
-            city: cities[(index * 3) % cities.length],
-            accountManager: accountManagers[(index * 5) % accountManagers.length],
-            channel: channels[index % channels.length],
-            customerLevel: customerLevels[(index * 2) % customerLevels.length],
-            contractType: contractTypes[index % contractTypes.length],
-            paymentStatus: paymentStatuses[(index * 4) % paymentStatuses.length],
-            deliveryMode: deliveryModes[(index * 3) % deliveryModes.length],
-            priority: priorities[(index * 7) % priorities.length],
-            quarter: quarters[index % quarters.length],
-            amount: 20000 + ((index * 13791) % 480001),
-            status: statuses[index % statuses.length]
+            customerName: `${faker.helpers.arrayElement(customerNames)}${faker.helpers.arrayElement(["集团", "科技", "信息", "数字"])}`,
+            projectName: `${faker.helpers.arrayElement(projectNames)}-${faker.number.int({ min: 1, max: 6 })}`,
+            businessUnit: faker.helpers.arrayElement(businessUnits),
+            industry: faker.helpers.arrayElement(industries),
+            city: faker.helpers.arrayElement(cities),
+            accountManager: faker.helpers.arrayElement(accountManagers),
+            channel: faker.helpers.arrayElement(channels),
+            customerLevel: faker.helpers.arrayElement(customerLevels),
+            contractType: faker.helpers.arrayElement(contractTypes),
+            paymentStatus: faker.helpers.arrayElement(paymentStatuses),
+            deliveryMode: faker.helpers.arrayElement(deliveryModes),
+            priority: faker.helpers.arrayElement(priorities),
+            quarter: faker.helpers.arrayElement(quarters),
+            amount: faker.number.int({ min: 20000, max: 500000 }),
+            status: faker.helpers.arrayElement(statuses)
         }
     }
 })

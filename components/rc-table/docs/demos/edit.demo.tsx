@@ -9,22 +9,18 @@ import { useMemo, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { CellEditRecord, ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        age: number
-        department: string
-        salary: number
-        status: "在职" | "试用" | "离职"
-    }
+    dataRef: Employee
 }
 
 const columnTitleMap: Record<string, string> = {
     "$.name": "姓名",
     "$.age": "年龄",
     "$.department": "部门",
+    "$.jobTitle": "职位",
+    "$.city": "城市",
     "$.salary": "月薪",
     "$.status": "状态",
 };
@@ -36,24 +32,10 @@ const formatTime = (ts: number) => {
         .join(":");
 };
 
-const departments: Array<DemoRow["dataRef"]["department"]> = ["前端", "后端", "产品", "设计", "测试", "运维"];
-const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
-
-const initialRows: DemoRow[] = Array.from({ length: 1000 }, (_, index) => {
-    const rowId = index + 1;
-    return {
-        id: String(rowId),
-        dataRef: {
-            employeeNo: `EMP-${String(rowId).padStart(4, "0")}`,
-            name: `${names[index % names.length]}${String(rowId).padStart(2, "0")}`,
-            age: 22 + (index % 19),
-            department: departments[index % departments.length],
-            salary: 12000 + (index % 30) * 1000,
-            status: statuses[index % statuses.length]
-        }
-    };
-});
+const initialRows: DemoRow[] = makeEmployees(1000, 20260613).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const inputStyle = css`
     width: 100%;
@@ -87,7 +69,7 @@ const historyWrapStyle = css`
     border: 1px solid #e8e8e8;
     border-radius: 4px;
     overflow: hidden;
-    width: 780px;
+    width: 980px;
 `;
 
 const historyHeaderStyle = css`
@@ -290,6 +272,64 @@ const EditDemo = () => {
                 }
             },
             {
+                title: "职位",
+                name: "$.jobTitle",
+                width: 160,
+                editRender: ({ row, editorValue, onEditorValueChange, onCommit }) => {
+                    return (
+                        <input
+                            autoFocus
+                            className={inputStyle}
+                            value={String(editorValue ?? row.dataRef.jobTitle)}
+                            onChange={(event) => {
+                                onEditorValueChange(event.target.value);
+                            }}
+                            onBlur={(event) => {
+                                const nextValue = event.target.value.trim() || row.dataRef.jobTitle;
+                                patchRow(row.id, "jobTitle", nextValue);
+                                onCommit?.();
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter") {
+                                    const nextValue = event.currentTarget.value.trim() || row.dataRef.jobTitle;
+                                    patchRow(row.id, "jobTitle", nextValue);
+                                    onCommit?.();
+                                }
+                            }}
+                        />
+                    );
+                }
+            },
+            {
+                title: "城市",
+                name: "$.city",
+                width: 110,
+                editRender: ({ row, editorValue, onEditorValueChange, onCommit }) => {
+                    return (
+                        <input
+                            autoFocus
+                            className={inputStyle}
+                            value={String(editorValue ?? row.dataRef.city)}
+                            onChange={(event) => {
+                                onEditorValueChange(event.target.value);
+                            }}
+                            onBlur={(event) => {
+                                const nextValue = event.target.value.trim() || row.dataRef.city;
+                                patchRow(row.id, "city", nextValue);
+                                onCommit?.();
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter") {
+                                    const nextValue = event.currentTarget.value.trim() || row.dataRef.city;
+                                    patchRow(row.id, "city", nextValue);
+                                    onCommit?.();
+                                }
+                            }}
+                        />
+                    );
+                }
+            },
+            {
                 title: "月薪",
                 name: "$.salary",
                 width: 120,
@@ -356,7 +396,7 @@ const EditDemo = () => {
     return (
         <div>
             <Table
-                width={780}
+                width={980}
                 height={260}
                 columns={columns}
                 rows={rows}
@@ -364,7 +404,7 @@ const EditDemo = () => {
                 cellEditRecords={editRecords}
                 onCellEditRecordsChange={setEditRecords}
             />
-            <div className={cx(hintStyle)}>双击姓名、年龄、部门、月薪或状态单元格可编辑。</div>
+            <div className={cx(hintStyle)}>双击姓名、年龄、部门、职位、城市、月薪或状态单元格可编辑。</div>
             <div className={historyWrapStyle}>
                 <div className={historyHeaderStyle}>
                     编辑历史（共 {editRecords.length} 条，Ctrl+Z 撤销）

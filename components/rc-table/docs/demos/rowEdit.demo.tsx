@@ -9,45 +9,19 @@ import { type ChangeEvent, type Key, useMemo, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import {
+    makeEmployees, type Employee,
+    DEPARTMENTS as departments, POSITIONS as positions, CITIES as cities,
+    PERFORMANCES as performances, STATUSES as statuses,
+} from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        age: number
-        position: string
-        department: string
-        city: string
-        salary: number
-        performance: "S" | "A" | "B" | "C"
-        status: "在职" | "试用" | "离职"
-        email: string
-        joinYear: number
-    }
+    dataRef: Employee
 }
 
-const departments = ["前端", "后端", "产品", "设计", "测试", "运维", "数据", "安全"] as const;
-const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
-const performances: DemoRow["dataRef"]["performance"][] = ["S", "A", "B", "C"];
-const positions = ["工程师", "高级工程师", "资深工程师", "技术专家", "团队负责人", "技术经理", "总监"] as const;
-const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都", "武汉"] as const;
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
-
-const initialRows: DemoRow[] = Array.from({ length: 50 }, (_, i) => ({
-    id: String(i + 1),
-    dataRef: {
-        employeeNo: `EMP-${String(i + 1).padStart(4, "0")}`,
-        name: `${names[i % names.length]}${String(i + 1).padStart(2, "0")}`,
-        age: 22 + (i % 20),
-        position: positions[i % positions.length],
-        department: departments[i % departments.length],
-        city: cities[i % cities.length],
-        salary: 10000 + (i % 20) * 2000,
-        performance: performances[i % performances.length],
-        status: statuses[i % statuses.length],
-        email: `user${String(i + 1).padStart(3, "0")}@corp.example.com`,
-        joinYear: 2017 + (i % 8),
-    },
+const initialRows: DemoRow[] = makeEmployees(50, 20260614).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
     state: undefined,
 }));
 
