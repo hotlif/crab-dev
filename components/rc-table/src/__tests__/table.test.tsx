@@ -466,4 +466,89 @@ describe("Table", () => {
 
         unmount();
     });
+
+    const expansionColumns: ColumnType<DemoRow>[] = [
+        { title: "记录号", name: "$.recordNo", width: 120 },
+        { title: "城市", name: "$.city", width: 120 }
+    ];
+
+    it("renders expanded content only for rows in expandedRowKeys", () => {
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={expansionColumns}
+                rows={buildRows()}
+                expandedRowRender={(row) => <div>{`详情-${row.dataRef.recordNo}`}</div>}
+                expandedRowKeys={new Set(["1"])}
+            />
+        );
+
+        const text = container.textContent ?? "";
+        expect(text).toContain("详情-R-0001");
+        expect(text).not.toContain("详情-R-0002");
+
+        unmount();
+    });
+
+    it("toggles expansion via icon click and emits onExpandedRowKeysChange", () => {
+        const onExpandedRowKeysChange = jest.fn();
+
+        const { getAllByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={expansionColumns}
+                rows={buildRows()}
+                expandedRowRender={(row) => <div>{`详情-${row.dataRef.recordNo}`}</div>}
+                onExpandedRowKeysChange={onExpandedRowKeysChange}
+            />
+        );
+
+        const expandButtons = getAllByLabelText("展开此行");
+        expect(expandButtons.length).toBe(3);
+        fireEvent.click(expandButtons[0]);
+
+        expect(onExpandedRowKeysChange).toHaveBeenCalledTimes(1);
+        const nextKeys = onExpandedRowKeysChange.mock.calls[0][0] as Set<string>;
+        expect(nextKeys.has("1")).toBe(true);
+
+        unmount();
+    });
+
+    it("uncontrolled expansion shows content after clicking the expand icon", () => {
+        const { container, getAllByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={expansionColumns}
+                rows={buildRows()}
+                expandedRowRender={(row) => <div>{`详情-${row.dataRef.recordNo}`}</div>}
+            />
+        );
+
+        expect(container.textContent ?? "").not.toContain("详情-R-0001");
+        fireEvent.click(getAllByLabelText("展开此行")[0]);
+        expect(container.textContent ?? "").toContain("详情-R-0001");
+
+        unmount();
+    });
+
+    it("hides the expand icon for rows disabled by isRowExpandable", () => {
+        const { getAllByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={expansionColumns}
+                rows={buildRows()}
+                expandedRowRender={(row) => <div>{`详情-${row.dataRef.recordNo}`}</div>}
+                isRowExpandable={(row) => row.id !== "2"}
+            />
+        );
+
+        // 三行中第 2 行禁用展开，故仅 2 个展开按钮
+        expect(getAllByLabelText("展开此行").length).toBe(2);
+
+        unmount();
+    });
 });
