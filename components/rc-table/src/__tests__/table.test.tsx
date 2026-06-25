@@ -158,6 +158,36 @@ describe("Table", () => {
         unmount();
     });
 
+    it("renders summary row with fixed columns when showSummary enabled", () => {
+        const summaryColumns: ColumnType<DemoRow>[] = [
+            { title: "记录号", name: "$.recordNo", width: 120, fixed: "left", summaryRender: () => "合计" },
+            { title: "客户经理", name: "$.accountManager", width: 140 },
+            {
+                title: "金额",
+                name: "$.amount",
+                width: 120,
+                align: "right",
+                summaryRender: ({ rows }) => `¥${rows.reduce((acc, row) => acc + Number(row.dataRef.amount), 0)}`
+            }
+        ];
+
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={summaryColumns}
+                rows={buildRows()}
+                showSummary
+            />
+        );
+
+        const text = container.textContent ?? "";
+        expect(text).toContain("合计");
+        expect(text).toContain("¥406000");
+
+        unmount();
+    });
+
     it("renders merged text when mergeCells and fixed columns are used together", () => {
         const mergeCells: MergeCell[] = [
             { rowIndex: 0, columnIndex: 1, rowSpan: 1, colSpan: 0 },
