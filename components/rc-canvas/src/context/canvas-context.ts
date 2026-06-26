@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import type { DrawCommand } from '../renderer/draw-command.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from '../drag-types.js';
+import type { PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from '../drag-types.js';
 import { identityMat3 } from '../math/matrix.js';
 
 /** 单位矩阵（所有叶子组件的默认父矩阵） */
@@ -20,11 +20,11 @@ export interface HitEntry {
     /** hover 时显示的 CSS cursor */
     cursor?: string;
     /** 点击时触发（pointerdown→up 移动 < 4px） */
-    onClick?: () => void;
+    onClick?: (e: PointerHitEvent) => void;
     /** 指针进入形状时触发 */
-    onMouseEnter?: () => void;
+    onMouseEnter?: (e: PointerHitEvent) => void;
     /** 指针离开形状时触发 */
-    onMouseLeave?: () => void;
+    onMouseLeave?: (e: PointerHitEvent) => void;
     onDragStart?: (e: DragStartEvent) => void;
     onDrag?: (e: DragMoveEvent) => void;
     onDragEnd?: (e: DragEndEvent) => void;

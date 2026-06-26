@@ -189,7 +189,7 @@ function Canvas({
             // 进入 drag 前清除 hover 状态（拖拽期间不响应 hover）
             const prevHoveredId = hoveredIdRef.current;
             if (prevHoveredId !== null) {
-                hitRegistryRef.current.get(prevHoveredId)?.onMouseLeave?.();
+                hitRegistryRef.current.get(prevHoveredId)?.onMouseLeave?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
                 hoveredIdRef.current = null;
             }
 
@@ -243,10 +243,10 @@ function Canvas({
                 const prevId = hoveredIdRef.current;
                 if (prevId !== newId) {
                     if (prevId !== null) {
-                        hitRegistryRef.current.get(prevId)?.onMouseLeave?.();
+                        hitRegistryRef.current.get(prevId)?.onMouseLeave?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
                     }
                     if (newId !== null) {
-                        result!.entry.onMouseEnter?.();
+                        result!.entry.onMouseEnter?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
                     }
                     hoveredIdRef.current = newId;
                 }
@@ -270,7 +270,7 @@ function Canvas({
                 const { lx, ly } = toLogical(e);
                 if (Math.hypot(lx - click.startLx, ly - click.startLy) < 4) {
                     if (click.hitEntry?.onClick) {
-                        click.hitEntry.onClick();
+                        click.hitEntry.onClick({ canvasX: lx, canvasY: ly, nativeEvent: e });
                     } else if (!click.hitEntry) {
                         onEmptyClickRef.current?.();
                     }
@@ -279,10 +279,11 @@ function Canvas({
             }
         };
 
-        const onPointerLeave = () => {
+        const onPointerLeave = (e: PointerEvent) => {
+            const { lx, ly } = toLogical(e);
             const prevId = hoveredIdRef.current;
             if (prevId !== null) {
-                hitRegistryRef.current.get(prevId)?.onMouseLeave?.();
+                hitRegistryRef.current.get(prevId)?.onMouseLeave?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
                 hoveredIdRef.current = null;
                 node.style.cursor = '';
             }

@@ -1,4 +1,11 @@
-/** 拖拽交互事件类型 */
+/** 指针/拖拽交互事件类型 */
+
+export interface PointerHitEvent {
+    /** canvas 逻辑坐标（已除以 DPR，对应 CSS px） */
+    canvasX: number;
+    canvasY: number;
+    nativeEvent: PointerEvent;
+}
 
 export interface DragStartEvent {
     /** 按下时的 canvas 逻辑坐标（已除以 DPR，对应 CSS px） */

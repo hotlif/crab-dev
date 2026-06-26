@@ -10,7 +10,7 @@ import InfiniteGrid from './infinite-grid.js';
 import Transformer from './transformer.js';
 import Edge from './edge.js';
 
-export type { CanvasNodeProps, CanvasInteractiveProps } from './types.js';
+export type { CanvasNodeProps, CanvasInteractiveProps, PointerHitEvent } from './types.js';
 export type { CanvasProps } from './canvas.js';
 export type { RectProps } from './rect.js';
 export type { CircleProps } from './circle.js';
