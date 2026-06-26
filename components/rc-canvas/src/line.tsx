@@ -46,6 +46,9 @@ export interface LineProps {
     draggable?: boolean;
     /** hover 时的 CSS cursor */
     cursor?: string;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
+    onClick?: () => void;
     onDragStart?: (e: DragStartEvent) => void;
     onDrag?: (e: DragMoveEvent) => void;
     onDragEnd?: (e: DragEndEvent) => void;
@@ -64,6 +67,9 @@ function Line({
     zIndex = 0,
     draggable = false,
     cursor,
+    onMouseEnter,
+    onMouseLeave,
+    onClick,
     onDragStart,
     onDrag,
     onDragEnd,
@@ -104,18 +110,23 @@ function Line({
             return dist <= lineWidth / 2 + HIT_TOLERANCE;
         },
         cursor,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
         onDragStart,
         onDrag,
         onDragEnd,
     });
 
+    const needsHit = draggable || !!onMouseEnter || !!onMouseLeave || !!onClick || !!cursor;
+
     useEffect(() => {
         const id = ctx.register(buildCmd());
         cmdIdRef.current = id;
-        if (draggable) ctx.registerHit(id, buildHitEntry());
+        if (needsHit) ctx.registerHit(id, buildHitEntry());
         return () => {
             ctx.unregister(id);
-            if (draggable) ctx.unregisterHit(id);
+            if (needsHit) ctx.unregisterHit(id);
             cmdIdRef.current = null;
         };
     }, []);
@@ -123,7 +134,7 @@ function Line({
     useEffect(() => {
         if (cmdIdRef.current === null) return;
         ctx.update(cmdIdRef.current, buildCmd());
-        if (draggable) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
     });
 
     return null;

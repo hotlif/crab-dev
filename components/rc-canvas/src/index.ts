@@ -8,6 +8,7 @@ import Group from './group.js';
 import Viewport from './viewport.js';
 import InfiniteGrid from './infinite-grid.js';
 import Transformer from './transformer.js';
+import Edge from './edge.js';
 
 export type { CanvasProps } from './canvas.js';
 export type { RectProps } from './rect.js';
@@ -19,6 +20,7 @@ export type { GroupProps } from './group.js';
 export type { ViewportProps, ViewportState } from './viewport.js';
 export type { InfiniteGridProps } from './infinite-grid.js';
 export type { TransformerProps, TransformState } from './transformer.js';
+export type { EdgeProps } from './edge.js';
 
-export { Canvas, Rect, Circle, Line, CanvasImage, Text, Group, Viewport, InfiniteGrid, Transformer };
+export { Canvas, Rect, Circle, Line, CanvasImage, Text, Group, Viewport, InfiniteGrid, Transformer, Edge };
 export default Canvas;
