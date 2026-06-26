@@ -34,15 +34,17 @@ function findTopHit(
     registry: Map<number, HitEntry>,
     cx: number,
     cy: number,
-): HitEntry | null {
-    let top: HitEntry | null = null;
-    for (const entry of registry.values()) {
+): { id: number; entry: HitEntry } | null {
+    let topId: number | null = null;
+    let topEntry: HitEntry | null = null;
+    for (const [id, entry] of registry.entries()) {
         if (!entry.containsPoint(cx, cy)) continue;
-        if (top === null || compareZIndexPaths(entry.zIndexPath, top.zIndexPath) > 0) {
-            top = entry;
+        if (topEntry === null || compareZIndexPaths(entry.zIndexPath, topEntry.zIndexPath) > 0) {
+            topId = id;
+            topEntry = entry;
         }
     }
-    return top;
+    return topEntry !== null ? { id: topId!, entry: topEntry } : null;
 }
 
 function Canvas({
@@ -84,6 +86,8 @@ function Canvas({
     const invViewMatrixRef = useRef<Float32Array | null>(null);
     // 可变实例状态 ref：canvas 事件订阅总线（Viewport 通过 subscribeCanvasEvent 注册）
     const eventBusRef = useRef<Map<string, Set<(e: Event) => void>>>(new Map());
+    // 可变实例状态 ref：当前悬停图元的 id，null = 无悬停
+    const hoveredIdRef = useRef<number | null>(null);
     // 可变实例状态 ref：pointerdown 时的快照，用于区分 click vs drag
     const clickStateRef = useRef<{
         pointerId: number;
@@ -167,7 +171,8 @@ function Canvas({
             // hit-test 在世界坐标系中进行：先用缓存的逆矩阵变换到世界坐标
             const invView = invViewMatrixRef.current;
             const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
-            const hit = findTopHit(hitRegistryRef.current, wx, wy);
+            const result = findTopHit(hitRegistryRef.current, wx, wy);
+            const hit = result?.entry ?? null;
 
             // 无论是否命中，都记录 click 快照（用于 pointerUp 时判断 click）
             clickStateRef.current = { pointerId: e.pointerId, startLx: lx, startLy: ly, hitEntry: hit };
@@ -181,9 +186,16 @@ function Canvas({
 
             node.setPointerCapture(e.pointerId);
 
+            // 进入 drag 前清除 hover 状态（拖拽期间不响应 hover）
+            const prevHoveredId = hoveredIdRef.current;
+            if (prevHoveredId !== null) {
+                hitRegistryRef.current.get(prevHoveredId)?.onMouseLeave?.();
+                hoveredIdRef.current = null;
+            }
+
             dragStateRef.current = {
                 pointerId: e.pointerId,
-                entryId: [...hitRegistryRef.current.entries()].find(([, v]) => v === hit)?.[0] ?? -1,
+                entryId: result!.id,
                 startCanvasX: lx,
                 startCanvasY: ly,
                 prevCanvasX: lx,
@@ -223,11 +235,22 @@ function Canvas({
                 };
                 drag.entry.onDrag?.(event);
             } else {
-                // 非拖拽：hit-test 在世界坐标系中查找，更新 cursor（用缓存的逆矩阵）
+                // 非拖拽：hit-test 在世界坐标系中查找，更新 cursor 并触发 enter/leave
                 const invView = invViewMatrixRef.current;
                 const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
-                const hit = findTopHit(hitRegistryRef.current, wx, wy);
-                node.style.cursor = hit?.cursor ?? '';
+                const result = findTopHit(hitRegistryRef.current, wx, wy);
+                const newId = result?.id ?? null;
+                const prevId = hoveredIdRef.current;
+                if (prevId !== newId) {
+                    if (prevId !== null) {
+                        hitRegistryRef.current.get(prevId)?.onMouseLeave?.();
+                    }
+                    if (newId !== null) {
+                        result!.entry.onMouseEnter?.();
+                    }
+                    hoveredIdRef.current = newId;
+                }
+                node.style.cursor = result?.entry.cursor ?? '';
             }
         };
 
@@ -256,10 +279,20 @@ function Canvas({
             }
         };
 
+        const onPointerLeave = () => {
+            const prevId = hoveredIdRef.current;
+            if (prevId !== null) {
+                hitRegistryRef.current.get(prevId)?.onMouseLeave?.();
+                hoveredIdRef.current = null;
+                node.style.cursor = '';
+            }
+        };
+
         node.addEventListener('pointerdown', onPointerDown);
         node.addEventListener('pointermove', onPointerMove);
         node.addEventListener('pointerup', onPointerUp);
         node.addEventListener('pointercancel', onPointerUp);
+        node.addEventListener('pointerleave', onPointerLeave);
 
         return () => {
             cancelAnimationFrame(rafHandleRef.current);
@@ -270,6 +303,7 @@ function Canvas({
             node.removeEventListener('pointermove', onPointerMove);
             node.removeEventListener('pointerup', onPointerUp);
             node.removeEventListener('pointercancel', onPointerUp);
+            node.removeEventListener('pointerleave', onPointerLeave);
         };
     }, []);
 
@@ -329,6 +363,10 @@ function Canvas({
                 hitRegistryRef.current.delete(id);
                 if (dragStateRef.current?.entryId === id) {
                     dragStateRef.current = null;
+                }
+                // 图元卸载时不触发 onMouseLeave（回调已随组件销毁），仅清除 id
+                if (hoveredIdRef.current === id) {
+                    hoveredIdRef.current = null;
                 }
             },
             updateHit(id, entry) {

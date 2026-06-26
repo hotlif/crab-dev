@@ -22,6 +22,8 @@ export interface CircleProps {
     cursor?: string;
     /** 点击时触发（移动 < 4px），提供即注册 hit-test */
     onClick?: () => void;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
     onDragStart?: (e: DragStartEvent) => void;
     onDrag?: (e: DragMoveEvent) => void;
     onDragEnd?: (e: DragEndEvent) => void;
@@ -39,6 +41,8 @@ function Circle({
     draggable = false,
     cursor,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
     onDragStart,
     onDrag,
     onDragEnd,
@@ -57,11 +61,15 @@ function Circle({
             opacity !== 1
                 ? [fillColor[0], fillColor[1], fillColor[2], fillColor[3] * opacity]
                 : fillColor;
+        const appliedStroke: ColorRGBA =
+            opacity !== 1
+                ? [strokeColor[0], strokeColor[1], strokeColor[2], strokeColor[3] * opacity]
+                : strokeColor;
         return {
             kind: 'sdf-circle' as const,
             cx, cy, r,
             fill: appliedFill,
-            stroke: strokeColor,
+            stroke: appliedStroke,
             strokeWidth,
             worldMatrix: ctx.parentMatrix,
             zIndexPath: [...ctx.parentZIndexPath, zIndex],
@@ -82,19 +90,23 @@ function Circle({
         },
         cursor,
         onClick,
+        onMouseEnter,
+        onMouseLeave,
         onDragStart,
         onDrag,
         onDragEnd,
     });
 
-    // mount 时注册，unmount 时注销（draggable/onClick 视为静态配置）
+    const needsHit = draggable || !!onClick || !!onMouseEnter || !!onMouseLeave || !!cursor;
+
+    // mount 时注册，unmount 时注销（needsHit 视为静态配置）
     useEffect(() => {
         const id = ctx.register(buildCmd());
         cmdIdRef.current = id;
-        if (draggable || onClick) ctx.registerHit(id, buildHitEntry());
+        if (needsHit) ctx.registerHit(id, buildHitEntry());
         return () => {
             ctx.unregister(id);
-            if (draggable || onClick) ctx.unregisterHit(id);
+            if (needsHit) ctx.unregisterHit(id);
             cmdIdRef.current = null;
         };
     }, []);
@@ -103,7 +115,7 @@ function Circle({
     useEffect(() => {
         if (cmdIdRef.current === null) return;
         ctx.update(cmdIdRef.current, buildCmd());
-        if (draggable || onClick) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
     });
 
     return null;

@@ -14,6 +14,8 @@ export interface ImageProps {
     draggable?: boolean;
     /** hover 时的 CSS cursor */
     cursor?: string;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
     onDragStart?: (e: DragStartEvent) => void;
     onDrag?: (e: DragMoveEvent) => void;
     onDragEnd?: (e: DragEndEvent) => void;
@@ -29,6 +31,8 @@ function CanvasImage({
     zIndex = 0,
     draggable = false,
     cursor,
+    onMouseEnter,
+    onMouseLeave,
     onDragStart,
     onDrag,
     onDragEnd,
@@ -62,19 +66,23 @@ function CanvasImage({
             return lx >= x && lx <= x + width && ly >= y && ly <= y + height;
         },
         cursor,
+        onMouseEnter,
+        onMouseLeave,
         onDragStart,
         onDrag,
         onDragEnd,
     });
 
+    const needsHit = draggable || !!onMouseEnter || !!onMouseLeave || !!cursor;
+
     // mount 时注册（textureKey 暂为 undefined）
     useEffect(() => {
         const id = ctx.register(buildCmd(undefined));
         cmdIdRef.current = id;
-        if (draggable) ctx.registerHit(id, buildHitEntry());
+        if (needsHit) ctx.registerHit(id, buildHitEntry());
         return () => {
             ctx.unregister(id);
-            if (draggable) ctx.unregisterHit(id);
+            if (needsHit) ctx.unregisterHit(id);
             cmdIdRef.current = null;
         };
     }, []);
@@ -102,7 +110,7 @@ function CanvasImage({
     useEffect(() => {
         if (cmdIdRef.current === null) return;
         ctx.update(cmdIdRef.current, buildCmd(loadedKeyRef.current));
-        if (draggable) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
     });
 
     return null;

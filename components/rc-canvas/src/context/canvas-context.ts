@@ -21,6 +21,10 @@ export interface HitEntry {
     cursor?: string;
     /** 点击时触发（pointerdown→up 移动 < 4px） */
     onClick?: () => void;
+    /** 指针进入形状时触发 */
+    onMouseEnter?: () => void;
+    /** 指针离开形状时触发 */
+    onMouseLeave?: () => void;
     onDragStart?: (e: DragStartEvent) => void;
     onDrag?: (e: DragMoveEvent) => void;
     onDragEnd?: (e: DragEndEvent) => void;
@@ -65,16 +69,7 @@ export interface CanvasContextValue {
      */
     uploadTexture(key: string, source: HTMLImageElement | ImageBitmap): void;
 
-    /**
-     * 请求将文字字形纹理上传到 GPU（由 TextAtlas 生成）。
-     * Text 组件调用；返回字形纹理信息。
-     */
-    uploadGlyph(
-        key: string,
-        data: Uint8Array,
-        width: number,
-        height: number,
-    ): void;
+    uploadGlyph(key: string, data: Uint8Array, width: number, height: number): void;
 
     /**
      * 注册 hit-test 条目（与 register DrawCommand 共用 id 空间）。
