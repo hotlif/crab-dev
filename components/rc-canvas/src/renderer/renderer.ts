@@ -21,6 +21,8 @@ import { TEXTURE_VERT } from '../shaders/texture.vert.js';
 import { TEXTURE_FRAG } from '../shaders/texture.frag.js';
 import { GRID_VERT } from '../shaders/grid.vert.js';
 import { GRID_FRAG } from '../shaders/grid.frag.js';
+import { MARKER_VERT } from '../shaders/marker.vert.js';
+import { MARKER_FRAG } from '../shaders/marker.frag.js';
 
 // 单位四边形顶点：[position.x, position.y, uv.x, uv.y]
 const QUAD_VERTICES = new Float32Array([
@@ -99,6 +101,16 @@ interface GridLocs {
     originColor: WebGLUniformLocation | null;
 }
 
+interface MarkerLocs {
+    projection: WebGLUniformLocation | null;
+    view: WebGLUniformLocation | null;
+    world: WebGLUniformLocation | null;
+    tip: WebGLUniformLocation | null;
+    angle: WebGLUniformLocation | null;
+    size: WebGLUniformLocation | null;
+    color: WebGLUniformLocation | null;
+}
+
 export class WebGLRenderer {
     private readonly gl: WebGL2RenderingContext;
     private projMatrix: Float32Array;
@@ -118,12 +130,14 @@ export class WebGLRenderer {
     private readonly lineProg: WebGLProgram;
     private readonly textureProg: WebGLProgram;
     private readonly gridProg: WebGLProgram;
+    private readonly markerProg: WebGLProgram;
 
     private readonly flatLocs: FlatLocs;
     private readonly sdfLocs: SdfLocs;
     private readonly lineLocs: LineLocs;
     private readonly textureLocs: TextureLocs;
     private readonly gridLocs: GridLocs;
+    private readonly markerLocs: MarkerLocs;
 
     // 可变实例状态 ref 等价：直接持有 WebGL 对象，生命周期由 dispose() 管理
     private readonly quadVAO: WebGLVertexArrayObject;
@@ -134,6 +148,7 @@ export class WebGLRenderer {
     private readonly lineIBO: WebGLBuffer;
     private readonly gridVAO: WebGLVertexArrayObject;
     private readonly gridVBO: WebGLBuffer;
+    private readonly markerVAO: WebGLVertexArrayObject;
 
     private readonly textures = new Map<string, WebGLTexture>();
 
@@ -157,6 +172,7 @@ export class WebGLRenderer {
         this.lineProg = this.compileProgram(LINE_VERT, LINE_FRAG);
         this.textureProg = this.compileProgram(TEXTURE_VERT, TEXTURE_FRAG);
         this.gridProg = this.compileProgram(GRID_VERT, GRID_FRAG);
+        this.markerProg = this.compileProgram(MARKER_VERT, MARKER_FRAG);
 
         this.flatLocs = {
             projection: gl.getUniformLocation(this.flatProg, 'u_projection'),
@@ -211,6 +227,15 @@ export class WebGLRenderer {
             color: gl.getUniformLocation(this.gridProg, 'u_color'),
             originColor: gl.getUniformLocation(this.gridProg, 'u_origin_color'),
         };
+        this.markerLocs = {
+            projection: gl.getUniformLocation(this.markerProg, 'u_projection'),
+            view: gl.getUniformLocation(this.markerProg, 'u_view'),
+            world: gl.getUniformLocation(this.markerProg, 'u_world'),
+            tip: gl.getUniformLocation(this.markerProg, 'u_tip'),
+            angle: gl.getUniformLocation(this.markerProg, 'u_angle'),
+            size: gl.getUniformLocation(this.markerProg, 'u_size'),
+            color: gl.getUniformLocation(this.markerProg, 'u_color'),
+        };
 
         // 初始化通用 QUAD VAO
         const [qVAO, qVBO, qIBO] = this.createQuadVAO();
@@ -228,6 +253,9 @@ export class WebGLRenderer {
         const [gVAO, gVBO] = this.createGridVAO();
         this.gridVAO = gVAO;
         this.gridVBO = gVBO;
+
+        // 初始化 Marker 空 VAO（完全依赖 gl_VertexID，无 attribute）
+        this.markerVAO = this.createMarkerVAO();
 
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -271,6 +299,7 @@ export class WebGLRenderer {
                 [this.sdfProg,     this.sdfLocs.projection,     this.sdfLocs.view],
                 [this.lineProg,    this.lineLocs.projection,    this.lineLocs.view],
                 [this.textureProg, this.textureLocs.projection, this.textureLocs.view],
+                [this.markerProg,  this.markerLocs.projection,  this.markerLocs.view],
             ];
             for (const [prog, projLoc, viewLoc] of entries) {
                 gl.useProgram(prog);
@@ -328,7 +357,6 @@ export class WebGLRenderer {
         this.textures.set(key, tex);
     }
 
-    /** 上传字形纹理（R8 单通道）到 GPU 并缓存 */
     uploadGlyph(key: string, data: Uint8Array, width: number, height: number): void {
         const { gl } = this;
         const existing = this.textures.get(key);
@@ -355,11 +383,13 @@ export class WebGLRenderer {
         gl.deleteBuffer(this.lineIBO);
         gl.deleteVertexArray(this.gridVAO);
         gl.deleteBuffer(this.gridVBO);
+        gl.deleteVertexArray(this.markerVAO);
         gl.deleteProgram(this.flatProg);
         gl.deleteProgram(this.sdfProg);
         gl.deleteProgram(this.lineProg);
         gl.deleteProgram(this.textureProg);
         gl.deleteProgram(this.gridProg);
+        gl.deleteProgram(this.markerProg);
         for (const tex of this.textures.values()) gl.deleteTexture(tex);
         this.textures.clear();
     }
@@ -375,6 +405,7 @@ export class WebGLRenderer {
             case 'texture-image':  this.drawTextureImage(cmd); break;
             case 'sdf-text':       this.drawSdfText(cmd); break;
             case 'grid':           this.drawGrid(cmd); break;
+            case 'marker':         this.drawMarker(cmd); break;
         }
     }
 
@@ -563,6 +594,28 @@ export class WebGLRenderer {
 
         gl.bindVertexArray(null);
         return [vao, vbo, ibo];
+    }
+
+    private drawMarker(cmd: import('./draw-command.js').MarkerCommand): void {
+        const { gl, markerProg: prog, markerLocs: L } = this;
+        gl.useProgram(prog);
+        gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
+        gl.uniform2f(L.tip, cmd.x, cmd.y);
+        gl.uniform1f(L.angle, cmd.angle);
+        gl.uniform1f(L.size, cmd.size);
+        gl.uniform4fv(L.color, cmd.fill);
+        gl.bindVertexArray(this.markerVAO);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        gl.bindVertexArray(null);
+    }
+
+    private createMarkerVAO(): WebGLVertexArrayObject {
+        const { gl } = this;
+        const vao = gl.createVertexArray()!;
+        // 无 attribute：完全依赖 gl_VertexID 和 uniforms
+        gl.bindVertexArray(vao);
+        gl.bindVertexArray(null);
+        return vao;
     }
 
     private compileProgram(vertSrc: string, fragSrc: string): WebGLProgram {

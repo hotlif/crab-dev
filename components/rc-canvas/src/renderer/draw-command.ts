@@ -121,6 +121,18 @@ export interface GridCommand extends BaseDrawCommand {
     originColor: ColorRGBA;
 }
 
+export interface MarkerCommand extends BaseDrawCommand {
+    kind: 'marker';
+    /** 箭头尖端位置（局部坐标，在 worldMatrix 坐标系中） */
+    x: number;
+    y: number;
+    /** 箭头指向角度（弧度，0 = 向右） */
+    angle: number;
+    /** 箭头大小（px） */
+    size: number;
+    fill: ColorRGBA;
+}
+
 export type DrawCommand =
     | FlatRectCommand
     | SdfRectCommand
@@ -128,4 +140,5 @@ export type DrawCommand =
     | LineCommand
     | TextureImageCommand
     | SdfTextCommand
-    | GridCommand;
+    | GridCommand
+    | MarkerCommand;
