@@ -56,7 +56,10 @@ export const run = async (defaultConf: Config) => {
         devServer: {
             historyApiFallback: true,
             server: conf.devServer?.server || "http",
-            proxy: conf.devServer?.proxy
+            proxy: conf.devServer?.proxy,
+            port: conf.devServer?.port,
+            host: conf.devServer?.host,
+            open: conf.devServer?.open,
         }
     }));
 
@@ -106,6 +109,11 @@ export const build = async (defaultConf: Config) => {
 
     const webpackCompiler = Webpack(webpackConfig);
     webpackCompiler?.run((error, stats) => {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+            return;
+        }
         if (stats?.hasErrors() || stats?.hasWarnings()) {
             console.log(
                 stats.toString({
@@ -113,6 +121,9 @@ export const build = async (defaultConf: Config) => {
                     colors: true,
                 })
             );
+        }
+        if (stats?.hasErrors()) {
+            process.exit(1);
         }
     });
 };

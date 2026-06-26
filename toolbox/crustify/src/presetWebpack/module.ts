@@ -47,6 +47,21 @@ const getWywLoader = () => ({
 
 const getRules = (isProduction: boolean) => [
     {
+        test: /\.(png|jpe?g|gif|webp|avif)$/i,
+        type: 'asset/resource',
+    },
+    {
+        test: /\.svg$/i,
+        type: 'asset',
+        parser: {
+            dataUrlCondition: { maxSize: 4 * 1024 },
+        },
+    },
+    {
+        test: /\.(woff2?|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+    },
+    {
         test: /\.css$/i,
         use: [
             isProduction ? MiniExtractPlugin.loader : require.resolve("style-loader"),

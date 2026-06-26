@@ -1,4 +1,5 @@
 import MiniExtractPlugin from "mini-css-extract-plugin";
+import CssMinimizerWebpackPlugin from "css-minimizer-webpack-plugin";
 import { join } from "path";
 import { type Configuration } from "webpack";
 import TerserWebpackPlugin from "terser-webpack-plugin";
@@ -67,7 +68,7 @@ const presetStandard = async ({
         output: {
             filename: "[name].bundle.[contenthash].js",
             path: join(process.cwd(), "dist"),
-            publicPath: "/",
+            publicPath: conf.publicPath ?? "/",
             pathinfo: false,
             clean: true
         },
@@ -93,11 +94,11 @@ const presetStandard = async ({
         },
 
         mode: isProduction ? "production" : "development",
-        // cache: {
-        //     type: 'filesystem',
-        //     cacheDirectory: join(process.cwd(), ".cache"),
-        //     name: isProduction ? 'production-cache' : 'development-cache',
-        // },
+        cache: {
+            type: 'filesystem',
+            cacheDirectory: join(process.cwd(), ".cache"),
+            name: isProduction ? 'production-cache' : 'development-cache',
+        },
         plugins: [
             new WebpackBar({
                 name: "Crustify"
@@ -110,6 +111,10 @@ const presetStandard = async ({
     }
 
     if (isProduction) {
+        standardConfig.plugins = [
+            ...(standardConfig.plugins ?? []),
+            new MiniExtractPlugin(),
+        ];
         standardConfig.optimization = {
             minimize: true,
             minimizer: [
@@ -121,7 +126,7 @@ const presetStandard = async ({
                     },
                     extractComments: false
                 }),
-                new MiniExtractPlugin()
+                new CssMinimizerWebpackPlugin(),
             ]
         };
     }

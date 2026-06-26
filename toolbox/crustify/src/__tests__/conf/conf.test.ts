@@ -47,4 +47,28 @@ describe("conf", () => {
         const Component = await renderHTML(__dirname);
         expect(Component).toBe(MockComponent);
     });
+
+    it("defineConfig should accept publicPath field", () => {
+        const input = { publicPath: "/app/" };
+        const result = defineConfig(input);
+        expect(result.publicPath).toBe("/app/");
+    });
+
+    it("defineConfig should accept devServer port, host and open fields", () => {
+        const input = {
+            devServer: { server: "http" as const, port: 3000, host: "0.0.0.0", open: true },
+        };
+        const result = defineConfig(input);
+        expect(result.devServer?.port).toBe(3000);
+        expect(result.devServer?.host).toBe("0.0.0.0");
+        expect(result.devServer?.open).toBe(true);
+    });
+
+    it("defineConfig should allow omitting the new devServer fields", () => {
+        const input = { devServer: { server: "https" as const } };
+        const result = defineConfig(input);
+        expect(result.devServer?.port).toBeUndefined();
+        expect(result.devServer?.host).toBeUndefined();
+        expect(result.devServer?.open).toBeUndefined();
+    });
 });

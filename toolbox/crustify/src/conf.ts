@@ -52,6 +52,9 @@ interface Proxy {
 interface DevServer {
 	server?: "http" | "https"
 	proxy?: Proxy[]
+	port?: number
+	host?: string
+	open?: boolean
 }
 
 /**
@@ -78,6 +81,12 @@ export interface Config {
 	 * 开发的服务器配置
 	 */
 	devServer?: DevServer
+
+	/**
+	 * 静态资源的公共路径，默认为 "/"，部署到子路径时需设置（如 "/app/"）
+	 * @default "/"
+	 */
+	publicPath?: string
 }
 
 /**
