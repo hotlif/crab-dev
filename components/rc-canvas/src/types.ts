@@ -26,6 +26,6 @@ export type { LineProps } from './line.js';
 export type { ImageProps } from './image.js';
 export type { TextProps } from './text.js';
 export type { GroupProps } from './group.js';
-export type { PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+export type { CanvasPointerEvent, PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
 export type { TransformerProps, TransformState } from './transformer.js';
 export type { EdgeProps } from './edge.js';
