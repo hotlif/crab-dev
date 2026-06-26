@@ -2004,6 +2004,316 @@ export default SizeDemo;`,
         ],
     },
     {
+        slug: "rc-canvas",
+        pkg: "@crab-dev/rc-canvas",
+        version: "0.0.1",
+        title: "Canvas WebGL 画布",
+        description: "基于纯 WebGL 2 的 2D React 绘制组件库，提供 Canvas、Rect、Circle、Line、Image、Text、Group 等组件",
+        category: "data-display",
+        readme: ``,
+        demos: [
+            {
+                path: "components/rc-canvas/docs/demos/animation.demo.tsx",
+                title: "属性驱动动画",
+                description: "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘，演示流畅动画。",
+                source: `/**
+ * title = "属性驱动动画"
+ * description = "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘，演示流畅动画。"
+ */
+
+import { css } from "@linaria/core";
+import { useEffect, useState } from "react";
+import { Canvas, Group, Rect, Circle } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: inline-block;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0b0b12;
+\`;
+
+const CX = 210;
+const CY = 110;
+const COUNT = 6;
+
+const AnimationDemo = () => {
+    const [t, setT] = useState(0);
+
+    useEffect(() => {
+        let raf = 0;
+        const start = performance.now();
+        const tick = () => {
+            setT((performance.now() - start) / 1000);
+            raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, []);
+
+    const planets = Array.from({ length: COUNT }, (_, i) => {
+        const speed = 0.6 + i * 0.25;
+        const radius = 28 + i * 13;
+        const angle = t * speed + (i / COUNT) * Math.PI * 2;
+        return {
+            cx: CX + Math.cos(angle) * radius,
+            cy: CY + Math.sin(angle) * radius,
+            hue: Math.round((i / COUNT) * 360),
+        };
+    });
+
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={220}>
+                {/* 整体随时间缓慢自转 */}
+                <Group x={CX} y={CY} rotation={t * 0.1}>
+                    <Rect x={-6} y={-6} width={12} height={12} radius={3} fill="oklch(0.85 0.18 90)" />
+                </Group>
+                {planets.map((p, i) => (
+                    <Circle
+                        key={i}
+                        cx={p.cx}
+                        cy={p.cy}
+                        r={6 + i}
+                        fill={\`oklch(0.7 0.2 \${p.hue})\`}
+                    />
+                ))}
+            </Canvas>
+        </div>
+    );
+};
+
+export default AnimationDemo;
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/basic.demo.tsx",
+                title: "基础图元",
+                description: "在 Canvas 中声明矩形与圆形，颜色支持 OKLCh / 十六进制，opacity 控制透明度。",
+                source: `/**
+ * title = "基础图元"
+ * description = "在 Canvas 中声明矩形与圆形，颜色支持 OKLCh / 十六进制，opacity 控制透明度。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Rect, Circle } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: inline-block;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+const BasicDemo = () => {
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={220}>
+                <Rect x={30} y={40} width={140} height={90} fill="oklch(0.62 0.21 28)" />
+                <Rect x={90} y={90} width={140} height={90} fill="oklch(0.7 0.16 160)" opacity={0.75} />
+                <Circle cx={320} cy={90} r={55} fill="oklch(0.6 0.2 255)" />
+                <Circle cx={350} cy={150} r={40} fill="oklch(0.8 0.16 90)" opacity={0.8} />
+            </Canvas>
+        </div>
+    );
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/group.demo.tsx",
+                title: "分组变换与嵌套",
+                description: "Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。",
+                source: `/**
+ * title = "分组变换与嵌套"
+ * description = "Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Group, Rect, Circle } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: inline-block;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+// 一个可复用的"图标"：内部用本地坐标系绘制，被不同 Group 变换复用
+const Badge = () => (
+    <>
+        <Rect x={-30} y={-30} width={60} height={60} radius={12} fill="oklch(0.6 0.2 255)" />
+        <Circle cx={0} cy={0} r={16} fill="oklch(0.95 0.02 255)" />
+    </>
+);
+
+const GroupDemo = () => {
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={220}>
+                {/* 原始 */}
+                <Group x={70} y={110}>
+                    <Badge />
+                </Group>
+                {/* 旋转 30° */}
+                <Group x={170} y={110} rotation={Math.PI / 6}>
+                    <Badge />
+                </Group>
+                {/* 放大 1.4 倍 */}
+                <Group x={270} y={110} scaleX={1.4} scaleY={1.4}>
+                    <Badge />
+                </Group>
+                {/* 嵌套：外层旋转 + 内层平移 */}
+                <Group x={360} y={110} rotation={-Math.PI / 8}>
+                    <Group scaleX={0.9} scaleY={0.9}>
+                        <Badge />
+                    </Group>
+                </Group>
+            </Canvas>
+        </div>
+    );
+};
+
+export default GroupDemo;
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/line.demo.tsx",
+                title: "任意角度直线",
+                description: "直线在顶点着色器端挤出为带宽度的四边形，支持任意斜率与线宽。",
+                source: `/**
+ * title = "任意角度直线"
+ * description = "直线在顶点着色器端挤出为带宽度的四边形，支持任意斜率与线宽。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Line } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: inline-block;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+// 以画布中心为原点放射一圈直线，直观展示任意角度支持
+const CX = 210;
+const CY = 110;
+const R = 90;
+const SPOKES = 12;
+
+const LineDemo = () => {
+    const lines = Array.from({ length: SPOKES }, (_, i) => {
+        const angle = (i / SPOKES) * Math.PI * 2;
+        return {
+            x2: CX + Math.cos(angle) * R,
+            y2: CY + Math.sin(angle) * R,
+            hue: Math.round((i / SPOKES) * 360),
+        };
+    });
+
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={220}>
+                {lines.map((l, i) => (
+                    <Line
+                        key={i}
+                        x1={CX}
+                        y1={CY}
+                        x2={l.x2}
+                        y2={l.y2}
+                        color={\`oklch(0.6 0.2 \${l.hue})\`}
+                        lineWidth={i % 2 === 0 ? 4 : 2}
+                    />
+                ))}
+            </Canvas>
+        </div>
+    );
+};
+
+export default LineDemo;
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/rounded.demo.tsx",
+                title: "圆角矩形（SDF）",
+                description: "radius > 0 时自动切换到 SDF 着色器，边缘与圆角均为亚像素级抗锯齿。",
+                source: `/**
+ * title = "圆角矩形（SDF）"
+ * description = "radius > 0 时自动切换到 SDF 着色器，边缘与圆角均为亚像素级抗锯齿。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Rect } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: inline-block;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+const RoundedDemo = () => {
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={180}>
+                <Rect x={30} y={50} width={100} height={80} radius={4} fill="oklch(0.62 0.21 28)" />
+                <Rect x={160} y={50} width={100} height={80} radius={16} fill="oklch(0.6 0.2 255)" />
+                <Rect x={290} y={50} width={100} height={80} radius={40} fill="oklch(0.7 0.16 160)" />
+            </Canvas>
+        </div>
+    );
+};
+
+export default RoundedDemo;
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/text.demo.tsx",
+                title: "文字渲染",
+                description: "文字经 OffscreenCanvas 生成字形位图并上传为 R8 纹理，在 GPU 端以 alpha mask 着色。",
+                source: `/**
+ * title = "文字渲染"
+ * description = "文字经 OffscreenCanvas 生成字形位图并上传为 R8 纹理，在 GPU 端以 alpha mask 着色。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Text, Rect } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: inline-block;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+const TextDemo = () => {
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={200}>
+                <Text x={24} y={50} fontSize={28} fill="oklch(0.2 0 0)">Hello WebGL</Text>
+                <Text x={24} y={95} fontSize={18} fill="oklch(0.6 0.2 255)">纯 GPU 文字渲染</Text>
+                <Rect x={24} y={120} width={200} height={40} radius={8} fill="oklch(0.62 0.21 28)" />
+                <Text x={40} y={148} fontSize={18} fill="oklch(0.98 0 0)">叠加在图形之上</Text>
+            </Canvas>
+        </div>
+    );
+};
+
+export default TextDemo;
+`,
+            },
+        ],
+        api: [
+        ],
+    },
+    {
         slug: "rc-checkbox",
         pkg: "@crab-dev/rc-checkbox",
         version: "0.0.1",
