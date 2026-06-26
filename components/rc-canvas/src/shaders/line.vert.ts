@@ -22,6 +22,7 @@ uniform vec2 u_end;
 uniform float u_line_width;
 
 out float v_line_pos;
+out float v_side;
 
 void main() {
     vec2 dir = u_end - u_start;
@@ -33,5 +34,6 @@ void main() {
     vec3 clip = u_projection * u_view * u_world * vec3(pos, 1.0);
     gl_Position = vec4(clip.xy, 0.0, 1.0);
     v_line_pos = a_t * len;
+    v_side = a_side;
 }
 `;

@@ -27,8 +27,8 @@ void main() {
         min(py, u_size.y - py)
     );
 
-    if (u_stroke_width > 0.0 && dist_to_edge < u_stroke_width) {
-        if (u_dash_length > 0.0 && u_gap_length > 0.0) {
+    if (u_stroke_width > 0.0) {
+        if (dist_to_edge < u_stroke_width && u_dash_length > 0.0 && u_gap_length > 0.0) {
             // 计算当前像素在矩形周长上的顺时针累积偏移量 s（从左上角出发）
             float W = u_size.x;
             float H = u_size.y;
@@ -50,7 +50,9 @@ void main() {
                 discard;
             }
         }
-        out_color = u_stroke;
+        float aa = fwidth(dist_to_edge);
+        float in_stroke = 1.0 - smoothstep(u_stroke_width - aa, u_stroke_width + aa, dist_to_edge);
+        out_color = mix(u_fill, u_stroke, in_stroke);
     } else {
         out_color = u_fill;
     }

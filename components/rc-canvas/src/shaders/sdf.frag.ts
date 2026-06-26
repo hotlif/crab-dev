@@ -1,9 +1,9 @@
 /**
  * SDF 片元着色器：圆角矩形（u_mode=0）和圆形（u_mode=1）。
  *
- * 使用 Signed Distance Field 实现亚像素抗锯齿边缘：
- * smoothstep(-0.5, 0.5, dist) 将 ±0.5px 范围内的像素渐变为透明，
- * 消除锯齿而无需 MSAA。
+ * 使用 Signed Distance Field 实现抗锯齿边缘：
+ * fwidth(dist) 计算屏幕空间导数，smoothstep 在 ±1px 内渐变，AA 宽度随缩放自动适应。
+ * alpha 由 mix(fill.a, stroke.a, in_stroke) * fill_alpha 合成，保留 opacity 信息。
  */
 export const SDF_FRAG = /* glsl */ `#version 300 es
 precision mediump float;
@@ -38,13 +38,15 @@ void main() {
         dist = sdRoundedBox(p, half_size, u_radius);
     }
 
-    float fill_alpha = 1.0 - smoothstep(-0.5, 0.5, dist);
+    float aa = fwidth(dist);
+    float fill_alpha = 1.0 - smoothstep(-aa, aa, dist);
 
     vec4 color;
     if (u_stroke_width > 0.0) {
-        float in_stroke = 1.0 - smoothstep(-0.5, 0.5, dist + u_stroke_width);
-        color = mix(u_fill, u_stroke, in_stroke * fill_alpha);
-        color.a = fill_alpha;
+        float in_stroke = 1.0 - smoothstep(-aa, aa, dist + u_stroke_width);
+        vec3 rgb = mix(u_fill.rgb, u_stroke.rgb, in_stroke);
+        float a = mix(u_fill.a, u_stroke.a, in_stroke) * fill_alpha;
+        color = vec4(rgb, a);
     } else {
         color = u_fill;
         color.a *= fill_alpha;
