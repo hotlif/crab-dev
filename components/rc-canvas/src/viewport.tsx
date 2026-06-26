@@ -70,9 +70,6 @@ function Viewport({
     const panYRef = useRef(controlledPanY ?? 0);
     const zoomRef = useRef(controlledZoom ?? 1);
 
-    // 立即写入初始 viewMatrix（mount 前 rAF 已在跑）
-    ctx.setViewMatrix(buildViewMatrix(panXRef.current, panYRef.current, zoomRef.current));
-
     const applyViewport = (newPanX: number, newPanY: number, newZoom: number) => {
         panXRef.current = newPanX;
         panYRef.current = newPanY;
@@ -81,13 +78,15 @@ function Viewport({
         onViewportChange?.({ zoom: newZoom, panX: newPanX, panY: newPanY });
     };
 
-    // 受控模式：props 变化时同步到 ref 并更新 viewMatrix
+    // 受控模式同步 + 初始 viewMatrix 写入。
+    // React effect 先子后父执行，此 effect 必先于 Canvas 的 mount effect（rAF 启动）运行，
+    // 因此首帧 rAF tick 读到的 viewMatrix 已经是正确值，无需在渲染期写 ref。
     useEffect(() => {
         if (controlledZoom !== undefined) zoomRef.current = clamp(controlledZoom, minZoom, maxZoom);
         if (controlledPanX !== undefined) panXRef.current = controlledPanX;
         if (controlledPanY !== undefined) panYRef.current = controlledPanY;
         ctx.setViewMatrix(buildViewMatrix(panXRef.current, panYRef.current, zoomRef.current));
-    });
+    }, [controlledZoom, controlledPanX, controlledPanY, minZoom, maxZoom]);
 
     // 订阅 wheel 事件实现缩放
     useEffect(() => {

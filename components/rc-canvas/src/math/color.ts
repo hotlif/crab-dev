@@ -1,11 +1,22 @@
 /** RGBA 颜色，每通道归一化到 [0, 1] */
 export type ColorRGBA = [number, number, number, number];
 
+const colorCache = new Map<string, ColorRGBA>();
+
 /**
  * 将 CSS 颜色字符串解析为归一化 [r, g, b, a]。
  * 支持：transparent、#rgb、#rrggbb、#rrggbbaa、rgb()、rgba()、oklch()。
+ * 结果按输入字符串缓存，oklch 等计算密集型颜色只解析一次。
  */
 export function parseColor(css: string): ColorRGBA {
+    const cached = colorCache.get(css);
+    if (cached) return cached;
+    const result = parseColorRaw(css);
+    colorCache.set(css, result);
+    return result;
+}
+
+function parseColorRaw(css: string): ColorRGBA {
     const s = css.trim();
 
     if (s === 'transparent') return [0, 0, 0, 0];

@@ -65,6 +65,11 @@ function Canvas({
     const nextIdRef = useRef(0);
     // 可变实例状态 ref：rAF 句柄
     const rafHandleRef = useRef(0);
+    // 可变实例状态 ref：脏标记，命令队列或视图矩阵变更时置 true，tick 渲染后清零
+    const dirtyRef = useRef(true);
+    // 可变实例状态 ref：commands 版本号，仅 register/update/unregister 时递增，
+    // 传给 renderer.render 以区分"commands 变化"与"仅 viewMatrix 变化"，避免重排
+    const commandsVersionRef = useRef(0);
     // 可变实例状态 ref：待上传纹理 / 字形缓存。
     // React effect 执行顺序为「子先于父」，叶子组件（Text / Image）在 mount effect 中
     // 请求上传时，本组件的 init effect 尚未运行、renderer 还是 null。这里先缓存请求，
@@ -75,6 +80,8 @@ function Canvas({
     const hitRegistryRef = useRef<Map<number, HitEntry>>(new Map());
     // 可变实例状态 ref：viewMatrix（world → canvas），由 Viewport 写入，tick 时注入 GPU
     const viewMatrixRef = useRef<Float32Array>(identityMat3());
+    // 可变实例状态 ref：viewMatrix 的逆矩阵缓存，setViewMatrix 时同步更新，避免 pointer 事件每次重算
+    const invViewMatrixRef = useRef<Float32Array | null>(null);
     // 可变实例状态 ref：canvas 事件订阅总线（Viewport 通过 subscribeCanvasEvent 注册）
     const eventBusRef = useRef<Map<string, Set<(e: Event) => void>>>(new Map());
     // 可变实例状态 ref：pointerdown 时的快照，用于区分 click vs drag
@@ -141,8 +148,11 @@ function Canvas({
         node.addEventListener('wheel', onWheel, { passive: false });
 
         const tick = () => {
-            renderer.setViewMatrix(viewMatrixRef.current);
-            renderer.render(commandMapRef.current);
+            if (dirtyRef.current) {
+                renderer.setViewMatrix(viewMatrixRef.current);
+                renderer.render(commandMapRef.current, commandsVersionRef.current);
+                dirtyRef.current = false;
+            }
             rafHandleRef.current = requestAnimationFrame(tick);
         };
         rafHandleRef.current = requestAnimationFrame(tick);
@@ -154,8 +164,8 @@ function Canvas({
             if (dragStateRef.current !== null) return;
 
             const { lx, ly } = toLogical(e);
-            // hit-test 在世界坐标系中进行：先用 viewMatrix 逆变换到世界坐标
-            const invView = invertMat3(viewMatrixRef.current);
+            // hit-test 在世界坐标系中进行：先用缓存的逆矩阵变换到世界坐标
+            const invView = invViewMatrixRef.current;
             const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
             const hit = findTopHit(hitRegistryRef.current, wx, wy);
 
@@ -195,8 +205,8 @@ function Canvas({
                 const canvasDy = ly - drag.startCanvasY;
                 const frameDx = lx - drag.prevCanvasX;
                 const frameDy = ly - drag.prevCanvasY;
-                // canvas 帧增量 → 世界坐标帧增量 → 局部坐标帧增量
-                const invView = invertMat3(viewMatrixRef.current);
+                // canvas 帧增量 → 世界坐标帧增量 → 局部坐标帧增量（用缓存的逆矩阵）
+                const invView = invViewMatrixRef.current;
                 const [worldDx, worldDy] = invView
                     ? applyMat3Vector(invView, frameDx, frameDy)
                     : [frameDx, frameDy];
@@ -213,8 +223,8 @@ function Canvas({
                 };
                 drag.entry.onDrag?.(event);
             } else {
-                // 非拖拽：hit-test 在世界坐标系中查找，更新 cursor
-                const invView = invertMat3(viewMatrixRef.current);
+                // 非拖拽：hit-test 在世界坐标系中查找，更新 cursor（用缓存的逆矩阵）
+                const invView = invViewMatrixRef.current;
                 const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
                 const hit = findTopHit(hitRegistryRef.current, wx, wy);
                 node.style.cursor = hit?.cursor ?? '';
@@ -267,6 +277,7 @@ function Canvas({
     useEffect(() => {
         const devicePixelRatio = dpr ?? window.devicePixelRatio ?? 1;
         rendererRef.current?.resize(width, height, devicePixelRatio);
+        dirtyRef.current = true;
     }, [width, height, dpr]);
 
     // 合并内部 ref 和外部 ref 的回调（React 19：ref 作为普通 prop）
@@ -279,63 +290,76 @@ function Canvas({
         }
     };
 
-    // CanvasContext value（React Compiler 负责记忆化，不手写 useMemo）
-    const ctxValue: CanvasContextValue = {
-        register(cmd) {
-            const id = nextIdRef.current++;
-            commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
-            return id;
-        },
-        update(id, cmd) {
-            commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
-        },
-        unregister(id) {
-            commandMapRef.current.delete(id);
-        },
-        uploadTexture(key, source) {
-            pendingTexturesRef.current.set(key, source);
-            rendererRef.current?.uploadTexture(key, source);
-        },
-        uploadGlyph(key, data, w, h) {
-            pendingGlyphsRef.current.set(key, { data, w, h });
-            rendererRef.current?.uploadGlyph(key, data, w, h);
-        },
-        registerHit(id, entry) {
-            hitRegistryRef.current.set(id, entry);
-        },
-        unregisterHit(id) {
-            hitRegistryRef.current.delete(id);
-            // 若被注销的 entry 正在拖拽，强制终止
-            if (dragStateRef.current?.entryId === id) {
-                dragStateRef.current = null;
-            }
-        },
-        updateHit(id, entry) {
-            hitRegistryRef.current.set(id, entry);
-            // 同步更新 drag 中对 entry 的引用
-            if (dragStateRef.current?.entryId === id) {
-                dragStateRef.current.entry = entry;
-                const inv = invertMat3(entry.parentMatrix);
-                if (inv) dragStateRef.current.invertedParentMatrix = inv;
-            }
-        },
-        nextId() {
-            return nextIdRef.current++;
-        },
-        viewMatrixRef,
-        setViewMatrix(mat) {
-            viewMatrixRef.current = mat;
-        },
-        subscribeCanvasEvent(type, handler) {
-            const bus = eventBusRef.current;
-            if (!bus.has(type)) bus.set(type, new Set());
-            const handlers = bus.get(type)!;
-            handlers.add(handler as (e: Event) => void);
-            return () => handlers.delete(handler as (e: Event) => void);
-        },
-        parentMatrix: identityMat3(),
-        parentZIndexPath: [],
-    };
+    // 面向库消费方的稳定化（例外白名单）：ctxValue 只在 mount 时创建一次，
+    // 所有方法通过 ref 访问最新状态，Canvas 重渲染不产生新对象，避免触发全量子树重渲染。
+    const ctxValueRef = useRef<CanvasContextValue | null>(null);
+    if (ctxValueRef.current === null) {
+        ctxValueRef.current = {
+            register(cmd) {
+                const id = nextIdRef.current++;
+                commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
+                commandsVersionRef.current++;
+                dirtyRef.current = true;
+                return id;
+            },
+            update(id, cmd) {
+                commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
+                commandsVersionRef.current++;
+                dirtyRef.current = true;
+            },
+            unregister(id) {
+                commandMapRef.current.delete(id);
+                commandsVersionRef.current++;
+                dirtyRef.current = true;
+            },
+            uploadTexture(key, source) {
+                pendingTexturesRef.current.set(key, source);
+                rendererRef.current?.uploadTexture(key, source);
+                dirtyRef.current = true;
+            },
+            uploadGlyph(key, data, w, h) {
+                pendingGlyphsRef.current.set(key, { data, w, h });
+                rendererRef.current?.uploadGlyph(key, data, w, h);
+                dirtyRef.current = true;
+            },
+            registerHit(id, entry) {
+                hitRegistryRef.current.set(id, entry);
+            },
+            unregisterHit(id) {
+                hitRegistryRef.current.delete(id);
+                if (dragStateRef.current?.entryId === id) {
+                    dragStateRef.current = null;
+                }
+            },
+            updateHit(id, entry) {
+                hitRegistryRef.current.set(id, entry);
+                if (dragStateRef.current?.entryId === id) {
+                    dragStateRef.current.entry = entry;
+                    const inv = invertMat3(entry.parentMatrix);
+                    if (inv) dragStateRef.current.invertedParentMatrix = inv;
+                }
+            },
+            nextId() {
+                return nextIdRef.current++;
+            },
+            viewMatrixRef,
+            setViewMatrix(mat) {
+                viewMatrixRef.current = mat;
+                invViewMatrixRef.current = invertMat3(mat);
+                dirtyRef.current = true;
+            },
+            subscribeCanvasEvent(type, handler) {
+                const bus = eventBusRef.current;
+                if (!bus.has(type)) bus.set(type, new Set());
+                const handlers = bus.get(type)!;
+                handlers.add(handler as (e: Event) => void);
+                return () => handlers.delete(handler as (e: Event) => void);
+            },
+            parentMatrix: identityMat3(),
+            parentZIndexPath: [],
+        };
+    }
+    const ctxValue = ctxValueRef.current;
 
     const devicePixelRatio = dpr ?? (typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1);
 

@@ -103,8 +103,15 @@ export class WebGLRenderer {
     private readonly gl: WebGL2RenderingContext;
     private projMatrix: Float32Array;
     private viewMatrix: Float32Array = identityMat3();
+    private invViewMatrix: Float32Array | null = null;
     private canvasWidth: number;
     private canvasHeight: number;
+
+    // projection / view 变更版本号：只有版本变化时才向各 program 重传这两个 uniform
+    private projVersion = 0;
+    private viewVersion = 0;
+    private lastUploadedProjVersion = -1;
+    private lastUploadedViewVersion = -1;
 
     private readonly flatProg: WebGLProgram;
     private readonly sdfProg: WebGLProgram;
@@ -129,6 +136,10 @@ export class WebGLRenderer {
     private readonly gridVBO: WebGLBuffer;
 
     private readonly textures = new Map<string, WebGLTexture>();
+
+    // 排序缓存：commands 不变时（仅 viewMatrix 变化）复用，避免每帧 O(n log n) 重排
+    private sortedCache: DrawCommand[] = [];
+    private lastCommandsVersion = -1;
 
     constructor(
         gl: WebGL2RenderingContext,
@@ -227,20 +238,51 @@ export class WebGLRenderer {
         this.projMatrix = makeOrthographicMat3(width, height);
         this.canvasWidth = width;
         this.canvasHeight = height;
+        this.projVersion++;
         this.gl.viewport(0, 0, Math.round(width * dpr), Math.round(height * dpr));
     }
 
     setViewMatrix(mat: Float32Array): void {
         this.viewMatrix = mat;
+        this.invViewMatrix = invertMat3(mat);
+        this.viewVersion++;
     }
 
-    render(commands: Map<number, DrawCommand>): void {
+    render(commands: Map<number, DrawCommand>, commandsVersion: number): void {
         const { gl } = this;
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
-        // 计算视口的世界坐标 AABB，用于视口剔除
-        const invView = invertMat3(this.viewMatrix);
+        // 只在 commands 本身变化时重排；viewMatrix 平移/缩放不触发重排
+        if (commandsVersion !== this.lastCommandsVersion) {
+            this.sortedCache = [...commands.values()].sort((a, b) => {
+                const r = compareZIndexPaths(a.zIndexPath, b.zIndexPath);
+                return r !== 0 ? r : a.id - b.id;
+            });
+            this.lastCommandsVersion = commandsVersion;
+        }
+
+        // projection / view 变化时批量上传到所有 program，避免每个 draw call 重复设置
+        const needProjUpload = this.projVersion !== this.lastUploadedProjVersion;
+        const needViewUpload = this.viewVersion !== this.lastUploadedViewVersion;
+        if (needProjUpload || needViewUpload) {
+            const entries: Array<[WebGLProgram, WebGLUniformLocation | null, WebGLUniformLocation | null]> = [
+                [this.flatProg,    this.flatLocs.projection,    this.flatLocs.view],
+                [this.sdfProg,     this.sdfLocs.projection,     this.sdfLocs.view],
+                [this.lineProg,    this.lineLocs.projection,    this.lineLocs.view],
+                [this.textureProg, this.textureLocs.projection, this.textureLocs.view],
+            ];
+            for (const [prog, projLoc, viewLoc] of entries) {
+                gl.useProgram(prog);
+                if (needProjUpload && projLoc) gl.uniformMatrix3fv(projLoc, false, this.projMatrix);
+                if (needViewUpload && viewLoc)  gl.uniformMatrix3fv(viewLoc, false, this.viewMatrix);
+            }
+            this.lastUploadedProjVersion = this.projVersion;
+            this.lastUploadedViewVersion = this.viewVersion;
+        }
+
+        // 使用 setViewMatrix 时缓存的逆矩阵，避免每帧重算
+        const invView = this.invViewMatrix;
         let viewAABB: { minX: number; minY: number; maxX: number; maxY: number } | null = null;
         if (invView) {
             const w = this.canvasWidth;
@@ -259,11 +301,7 @@ export class WebGLRenderer {
             };
         }
 
-        const sorted = [...commands.values()].sort((a, b) => {
-            const r = compareZIndexPaths(a.zIndexPath, b.zIndexPath);
-            return r !== 0 ? r : a.id - b.id;
-        });
-        for (const cmd of sorted) {
+        for (const cmd of this.sortedCache) {
             // 视口剔除：有 aabb 且视口已知时，跳过视口外元素
             if (cmd.kind !== 'grid' && cmd.aabb && viewAABB) {
                 const { minX, minY, maxX, maxY } = cmd.aabb;
@@ -343,8 +381,6 @@ export class WebGLRenderer {
     private drawFlatRect(cmd: import('./draw-command.js').FlatRectCommand): void {
         const { gl, flatProg: prog, flatLocs: L } = this;
         gl.useProgram(prog);
-        gl.uniformMatrix3fv(L.projection, false, this.projMatrix);
-        gl.uniformMatrix3fv(L.view, false, this.viewMatrix);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         gl.uniform4f(L.bounds, cmd.x, cmd.y, cmd.width, cmd.height);
         gl.uniform4fv(L.fill, cmd.fill);
@@ -359,8 +395,6 @@ export class WebGLRenderer {
     private drawSdfRect(cmd: import('./draw-command.js').SdfRectCommand): void {
         const { gl, sdfProg: prog, sdfLocs: L } = this;
         gl.useProgram(prog);
-        gl.uniformMatrix3fv(L.projection, false, this.projMatrix);
-        gl.uniformMatrix3fv(L.view, false, this.viewMatrix);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         gl.uniform4f(L.bounds, cmd.x, cmd.y, cmd.width, cmd.height);
         gl.uniform4fv(L.fill, cmd.fill);
@@ -376,8 +410,6 @@ export class WebGLRenderer {
         const { gl, sdfProg: prog, sdfLocs: L } = this;
         const size = cmd.r * 2;
         gl.useProgram(prog);
-        gl.uniformMatrix3fv(L.projection, false, this.projMatrix);
-        gl.uniformMatrix3fv(L.view, false, this.viewMatrix);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         // bounds：以圆心为参考，左上角为 (cx-r, cy-r)，尺寸为 (2r, 2r)
         gl.uniform4f(L.bounds, cmd.cx - cmd.r, cmd.cy - cmd.r, size, size);
@@ -393,8 +425,6 @@ export class WebGLRenderer {
     private drawLine(cmd: import('./draw-command.js').LineCommand): void {
         const { gl, lineProg: prog, lineLocs: L } = this;
         gl.useProgram(prog);
-        gl.uniformMatrix3fv(L.projection, false, this.projMatrix);
-        gl.uniformMatrix3fv(L.view, false, this.viewMatrix);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         gl.uniform2f(L.start, cmd.x1, cmd.y1);
         gl.uniform2f(L.end, cmd.x2, cmd.y2);
@@ -414,8 +444,6 @@ export class WebGLRenderer {
 
         const { gl, textureProg: prog, textureLocs: L } = this;
         gl.useProgram(prog);
-        gl.uniformMatrix3fv(L.projection, false, this.projMatrix);
-        gl.uniformMatrix3fv(L.view, false, this.viewMatrix);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         gl.uniform4f(L.bounds, cmd.x, cmd.y, cmd.width, cmd.height);
         gl.activeTexture(gl.TEXTURE0);
@@ -435,8 +463,6 @@ export class WebGLRenderer {
 
         const { gl, textureProg: prog, textureLocs: L } = this;
         gl.useProgram(prog);
-        gl.uniformMatrix3fv(L.projection, false, this.projMatrix);
-        gl.uniformMatrix3fv(L.view, false, this.viewMatrix);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         gl.uniform4f(L.bounds, cmd.x, cmd.y, cmd.glyphWidth, cmd.glyphHeight);
         gl.activeTexture(gl.TEXTURE0);
