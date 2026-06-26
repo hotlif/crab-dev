@@ -14,10 +14,20 @@ export interface TextProps {
     fontFamily?: string;
     fill?: string;
     opacity?: number;
+    /** 水平对齐：x 为文字块左 / 中 / 右边的位置，默认 'left' */
+    textAlign?: 'left' | 'center' | 'right';
+    /** 垂直基线：y 为文字块顶 / 中 / 底边的位置，默认 'top' */
+    textBaseline?: 'top' | 'middle' | 'bottom';
+    /** 行高（world px），默认 fontSize × 1.4 */
+    lineHeight?: number;
+    /** 超出此宽度（world px）时自动词换行；不设则不限宽 */
+    maxWidth?: number;
     zIndex?: number;
     draggable?: boolean;
     /** hover 时的 CSS cursor */
     cursor?: string;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
     onDragStart?: (e: DragStartEvent) => void;
     onDrag?: (e: DragMoveEvent) => void;
     onDragEnd?: (e: DragEndEvent) => void;
@@ -28,12 +38,18 @@ function Text({
     y,
     children,
     fontSize = 14,
-    fontFamily = 'sans-serif',
+    fontFamily = 'system-ui',
     fill = '#000000',
     opacity = 1,
+    textAlign = 'left',
+    textBaseline = 'top',
+    lineHeight,
+    maxWidth,
     zIndex = 0,
     draggable = false,
     cursor,
+    onMouseEnter,
+    onMouseLeave,
     onDragStart,
     onDrag,
     onDragEnd,
@@ -47,6 +63,12 @@ function Text({
     const worldMatrixRef = useRef<Float32Array>(ctx.parentMatrix);
     worldMatrixRef.current = ctx.parentMatrix;
 
+    const alignOffset = (w: number): number =>
+        textAlign === 'center' ? -w / 2 : textAlign === 'right' ? -w : 0;
+
+    const baselineOffset = (h: number): number =>
+        textBaseline === 'middle' ? -h / 2 : textBaseline === 'bottom' ? -h : 0;
+
     const buildCmd = (glyphKey: string | undefined, glyphWidth: number, glyphHeight: number) => {
         const parsedFill = parseColor(fill);
         const appliedFill: ColorRGBA =
@@ -55,7 +77,8 @@ function Text({
                 : parsedFill;
         return {
             kind: 'sdf-text' as const,
-            x, y,
+            x: x + alignOffset(glyphWidth),
+            y: y + baselineOffset(glyphHeight),
             glyphKey,
             glyphWidth,
             glyphHeight,
@@ -75,35 +98,40 @@ function Text({
             const inv = invertMat3(worldMatrixRef.current);
             if (!inv) return false;
             const [lx, ly] = applyMat3(inv, canvasX, canvasY);
-            return lx >= x && lx <= x + glyph.width && ly >= y && ly <= y + glyph.height;
+            const ex = x + alignOffset(glyph.width);
+            const ey = y + baselineOffset(glyph.height);
+            return lx >= ex && lx <= ex + glyph.width && ly >= ey && ly <= ey + glyph.height;
         },
         cursor,
+        onMouseEnter,
+        onMouseLeave,
         onDragStart,
         onDrag,
         onDragEnd,
     });
 
+    const needsHit = draggable || !!onMouseEnter || !!onMouseLeave || !!cursor;
+
     // mount 时注册（glyphKey 暂为 undefined）
     useEffect(() => {
         const id = ctx.register(buildCmd(undefined, 0, 0));
         cmdIdRef.current = id;
-        if (draggable) ctx.registerHit(id, buildHitEntry());
+        if (needsHit) ctx.registerHit(id, buildHitEntry());
         return () => {
             ctx.unregister(id);
-            if (draggable) ctx.unregisterHit(id);
+            if (needsHit) ctx.unregisterHit(id);
             cmdIdRef.current = null;
         };
     }, []);
 
-    // 文字内容或字体变化时重新生成 SDF 字形纹理并上传
+    // 文字内容或字体变化时重新生成字形纹理并上传
     useEffect(() => {
         if (cmdIdRef.current === null) return;
-        const glyph = generateGlyph(children, fontSize, fontFamily);
+        const glyph = generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth);
         ctx.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
         glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight };
         ctx.update(cmdIdRef.current, buildCmd(glyph.key, glyph.worldWidth, glyph.worldHeight));
-        // 字形加载后更新 hit entry（现在 glyphRef 已就绪）
-        if (draggable) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
     }, [children, fontSize, fontFamily]);
 
     // 颜色/位置/透明度变化时更新（使用缓存的字形尺寸，不重新上传）
@@ -111,7 +139,7 @@ function Text({
         if (cmdIdRef.current === null || !glyphRef.current) return;
         const { key, width, height } = glyphRef.current;
         ctx.update(cmdIdRef.current, buildCmd(key, width, height));
-        if (draggable) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
     });
 
     return null;
