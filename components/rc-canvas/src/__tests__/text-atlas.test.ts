@@ -36,8 +36,9 @@ describe('generateGlyph', () => {
         expect(glyph.data).toBeInstanceOf(Uint8Array);
     });
 
-    it('data 长度等于 width * height（R8 单通道）', () => {
+    it('channels=1（SDF），data 长度等于 width * height', () => {
         const glyph = generateGlyph('Hi', 20, 'monospace');
+        expect(glyph.channels).toBe(1);
         expect(glyph.data.length).toBe(glyph.width * glyph.height);
     });
 
@@ -62,5 +63,32 @@ describe('generateGlyph', () => {
         for (const v of glyph.data) {
             expect(v).toBe(255);
         }
+    });
+
+    it('含 \\n 的文字高度大于单行', () => {
+        const single = generateGlyph('Hello', 16, 'sans-serif');
+        const multi  = generateGlyph('Hello\nWorld', 16, 'sans-serif');
+        expect(multi.worldHeight).toBeGreaterThan(single.worldHeight);
+        expect(multi.data.length).toBe(multi.width * multi.height * multi.channels);
+    });
+
+    it('lineHeight 影响 key 唯一性', () => {
+        const g1 = generateGlyph('Hi', 14, 'sans-serif');
+        const g2 = generateGlyph('Hi', 14, 'sans-serif', 24);
+        expect(g1.key).not.toBe(g2.key);
+    });
+
+    it('maxWidth 影响 key 唯一性', () => {
+        const g1 = generateGlyph('Hi', 14, 'sans-serif');
+        const g2 = generateGlyph('Hi', 14, 'sans-serif', undefined, 100);
+        expect(g1.key).not.toBe(g2.key);
+    });
+
+    it('maxWidth 较小时高度大于不限宽', () => {
+        // mock measureText 对所有字符串返回 width:80（超采样后为 80px）
+        // maxWidth=10（超采样 40px）< 80px，每个词都会单独换行
+        const single  = generateGlyph('a b c', 16, 'sans-serif');
+        const wrapped = generateGlyph('a b c', 16, 'sans-serif', undefined, 10);
+        expect(wrapped.worldHeight).toBeGreaterThan(single.worldHeight);
     });
 });
