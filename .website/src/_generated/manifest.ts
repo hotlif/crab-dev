@@ -7522,108 +7522,35 @@ export default SizeDemo;
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
-
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        age: number
-        email: string
-        phone: string
-        company: string
-        department: string
-        jobTitle: string
-        city: string
-        salary: number
-        createdAt: string
-    }
+    dataRef: Employee
 }
 
 const columns: ColumnType<DemoRow>[] = [
-    {
-        title: "工号",
-        name: "$.employeeNo",
-        width: 140
-    },
-    {
-        title: "姓名",
-        name: "$.name",
-        width: 140
-    },
-    {
-        title: "年龄",
-        name: "$.age",
-        width: 100,
-        align: "right"
-    },
-    {
-        title: "邮箱",
-        name: "$.email",
-        width: 260
-    },
-    {
-        title: "电话",
-        name: "$.phone",
-        width: 180
-    },
-    {
-        title: "公司",
-        name: "$.company",
-        width: 220
-    },
-    {
-        title: "部门",
-        name: "$.department",
-        width: 160
-    },
-    {
-        title: "职位",
-        name: "$.jobTitle",
-        width: 180
-    },
-    {
-        title: "城市",
-        name: "$.city",
-        width: 140
-    },
-    {
-        title: "月薪",
-        name: "$.salary",
-        width: 140,
-        align: "right"
-    },
-    {
-        title: "入职日期",
-        name: "$.createdAt",
-        width: 160
-    }
-]
+    { title: "工号", name: "$.employeeNo", width: 120 },
+    { title: "姓名", name: "$.name", width: 110 },
+    { title: "性别", name: "$.gender", width: 80, align: "center" },
+    { title: "年龄", name: "$.age", width: 80, align: "right" },
+    { title: "部门", name: "$.department", width: 130 },
+    { title: "职位", name: "$.jobTitle", width: 150 },
+    { title: "职级", name: "$.position", width: 110 },
+    { title: "城市", name: "$.city", width: 100 },
+    { title: "公司", name: "$.company", width: 160 },
+    { title: "邮箱", name: "$.email", width: 240 },
+    { title: "电话", name: "$.phone", width: 150 },
+    { title: "绩效", name: "$.performance", width: 80, align: "center" },
+    { title: "状态", name: "$.status", width: 90 },
+    { title: "月薪", name: "$.salary", width: 120, align: "right",
+        render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\` },
+    { title: "入职日期", name: "$.joinDate", width: 130 },
+];
 
-faker.seed(20260304)
-
-const rows: DemoRow[] = Array.from({ length: 2000 }, (_, index) => {
-    const salary = faker.number.int({ min: 8000, max: 50000 })
-    const hireDate = faker.date.past({ years: 8 })
-
-    return {
-        id: \`\${index + 1}\`,
-        dataRef: {
-            employeeNo: \`EMP-\${String(index + 1).padStart(4, "0")}\`,
-            name: faker.person.fullName(),
-            age: faker.number.int({ min: 22, max: 55 }),
-            email: faker.internet.email(),
-            phone: \`1\${faker.string.numeric(10)}\`,
-            company: faker.company.name(),
-            department: faker.commerce.department(),
-            jobTitle: faker.person.jobTitle(),
-            city: faker.location.city(),
-            salary,
-            createdAt: hireDate.toISOString().slice(0, 10)
-        }
-    }
-})
+const rows: DemoRow[] = makeEmployees(2000).map((employee, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: employee,
+}));
 
 const BasisDemo = () => {
     return (
@@ -7633,10 +7560,11 @@ const BasisDemo = () => {
             columns={columns}
             rows={rows}
         />
-    )
-}
+    );
+};
 
-export default BasisDemo;`,
+export default BasisDemo;
+`,
             },
             {
                 path: "components/rc-table/docs/demos/columnDrag.demo.tsx",
@@ -7650,39 +7578,15 @@ export default BasisDemo;`,
 import { useState } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        age: number
-        gender: string
-        city: string
-        department: string
-        jobTitle: string
-        startDate: string
-        salary: number
-        bonus: number
-        email: string
-    }
+    dataRef: Employee
 }
 
-faker.seed(20260602)
-
-const rows: DemoRow[] = Array.from({ length: 200 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(200, 20260602).map((employee, index) => ({
     id: \`\${index + 1}\`,
-    dataRef: {
-        name: faker.person.fullName(),
-        age: faker.number.int({ min: 22, max: 55 }),
-        gender: faker.helpers.arrayElement(["男", "女"]),
-        city: faker.location.city(),
-        department: faker.commerce.department(),
-        jobTitle: faker.person.jobTitle(),
-        startDate: faker.date.between({ from: "2015-01-01", to: "2024-12-31" }).toISOString().slice(0, 10),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-        bonus: faker.number.int({ min: 0, max: 80000 }),
-        email: faker.internet.email(),
-    },
+    dataRef: employee,
 }))
 
 const initialColumns: ColumnType<DemoRow>[] = [
@@ -7710,7 +7614,7 @@ const initialColumns: ColumnType<DemoRow>[] = [
         children: [
             { title: "部门", name: "$.department", width: 160 },
             { title: "职位", name: "$.jobTitle", width: 200 },
-            { title: "入职日期", name: "$.startDate", width: 120, align: "center" },
+            { title: "入职日期", name: "$.joinDate", width: 120, align: "center" },
         ],
     },
     {
@@ -7791,33 +7695,15 @@ export default ColumnDragComplexDemo;
 import { useState } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        age: number
-        email: string
-        department: string
-        jobTitle: string
-        city: string
-        salary: number
-    }
+    dataRef: Employee
 }
 
-faker.seed(20260601)
-
-const rows: DemoRow[] = Array.from({ length: 500 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(500, 20260601).map((employee, index) => ({
     id: \`\${index + 1}\`,
-    dataRef: {
-        name: faker.person.fullName(),
-        age: faker.number.int({ min: 22, max: 55 }),
-        email: faker.internet.email(),
-        department: faker.commerce.department(),
-        jobTitle: faker.person.jobTitle(),
-        city: faker.location.city(),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-    }
+    dataRef: employee,
 }))
 
 const ColumnResizeDemo = () => {
@@ -7869,40 +7755,25 @@ import { type Key, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        department: string
-        city: string
-        salary: number
-    }
+    dataRef: Employee
 }
 
-const departments = ["前端", "后端", "产品", "设计", "测试", "运维"];
-const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁"];
-
-const rows: DemoRow[] = Array.from({ length: 100 }, (_, index) => {
-    const rowId = index + 1;
-    return {
-        id: String(rowId),
-        dataRef: {
-            employeeNo: \`EMP-\${String(rowId).padStart(4, "0")}\`,
-            name: \`\${names[index % names.length]}\${String(rowId).padStart(2, "0")}\`,
-            department: departments[index % departments.length],
-            city: cities[index % cities.length],
-            salary: 12000 + (index % 30) * 1000
-        }
-    };
-});
+const rows: DemoRow[] = makeEmployees(100, 20260611).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const columns: ColumnType<DemoRow>[] = [
-    { title: "工号", name: "$.employeeNo", width: 140, fixed: "left" },
-    { title: "姓名", name: "$.name", width: 120 },
+    { title: "工号", name: "$.employeeNo", width: 130, fixed: "left" },
+    { title: "姓名", name: "$.name", width: 110 },
     { title: "部门", name: "$.department", width: 120 },
-    { title: "城市", name: "$.city", width: 120 },
+    { title: "职位", name: "$.jobTitle", width: 150 },
+    { title: "城市", name: "$.city", width: 100 },
+    { title: "项目", name: "$.project", width: 150 },
+    { title: "状态", name: "$.status", width: 90 },
     { title: "月薪", name: "$.salary", width: 120, align: "right" }
 ];
 
@@ -8132,68 +8003,47 @@ const columns: ColumnType<DemoRow>[] = [
     },
 ]
 
-const rows: DemoRow[] = [
-    {
-        id: "1",
-        dataRef: {
-            id: "REQ-001",
-            title: "单行备注",
-            summary: "短句只需要一行高度。",
-            owner: "陈晨",
-            priority: "低"
-        }
-    },
-    {
-        id: "2",
-        dataRef: {
-            id: "REQ-002",
-            title: "双行备注",
-            summary: "当内容稍微变长时，行高会被放大到足够容纳两行文本，避免出现压缩或裁切。",
-            owner: "李然",
-            priority: "中"
-        }
-    },
-    {
-        id: "3",
-        dataRef: {
-            id: "REQ-003",
-            title: "手动覆盖",
-            summary: "这一行直接通过 row.height 指定高度，用来展示手动高度会优先于自动计算。",
-            owner: "王敏",
-            priority: "高"
-        }
-    },
-    {
-        id: "4",
-        dataRef: {
-            id: "REQ-004",
-            title: "长说明",
-            summary: "适合写需求背景、交互说明或风险备注的长文本会继续把行撑高，保证整段内容在表格里保持可读。",
-            owner: "赵宁",
-            priority: "中"
-        }
-    },
-    {
-        id: "5",
-        dataRef: {
-            id: "REQ-005",
-            title: "更长说明",
-            summary: "在后台列表里，经常会遇到一部分记录只占一行、另一部分记录需要三四行高度的情况。这个示例用同一张表同时展示这些差异，便于验证虚拟滚动和固定列下的行高表现。",
-            owner: "周帆",
-            priority: "高"
-        }
-    },
-    {
-        id: "6",
-        dataRef: {
-            id: "REQ-006",
-            title: "多段备注",
-            summary: "这一条特意写得更长一些，观察大行高在滚动区域中的占位、顶部偏移和单元格对齐是否稳定。",
-            owner: "刘泽",
-            priority: "低"
-        }
-    },
+interface Ticket {
+    title: string
+    summary: string
+    priority: DemoRow["dataRef"]["priority"]
+    /** 显式行高：演示 row.height 优先于自动测量 */
+    height?: number
+}
+
+const tickets: Ticket[] = [
+    { title: "登录页报错", summary: "用户反馈部分浏览器下登录按钮无响应，已复现，待排查。", priority: "高" },
+    { title: "列表分页异常", summary: "翻页后偶现重复数据，怀疑与缓存键有关，需要补充单测覆盖边界场景。", priority: "中" },
+    { title: "文案微调", summary: "把「确定」改为「保存」。", priority: "低" },
+    { title: "导出超时", summary: "大数据量导出在十万行以上会超时，计划改为后台异步任务 + 邮件通知下载链接，前端增加进度查询轮询。", priority: "高" },
+    { title: "手动覆盖行高", summary: "这一行通过 row.height 直接指定固定高度，用来展示手动高度会优先于自动测量（无论文本多短都保持该高度）。", priority: "中", height: 96 },
+    { title: "移动端适配", summary: "在后台列表里，经常会遇到一部分记录只占一行、另一部分记录需要三四行高度的情况；本条特意写长，便于同时观察虚拟滚动、固定列以及顶部偏移在大行高下的对齐表现是否稳定。", priority: "高" },
+    { title: "权限校验缺失", summary: "详情接口未校验数据归属，存在越权读取风险，需在网关与服务层双重校验。", priority: "高" },
+    { title: "图表配色优化", summary: "调整默认调色板，提升色弱可读性。", priority: "低" },
+    { title: "搜索高亮", summary: "关键字命中需要高亮，并支持上一个 / 下一个跳转定位。", priority: "中" },
+    { title: "批量操作", summary: "支持多选后批量归档、批量分配负责人，并在操作前给出二次确认与影响行数提示。", priority: "中" },
+    { title: "空状态缺失", summary: "无数据时仅显示空白，需补充插画 + 引导文案。", priority: "低" },
+    { title: "并发编辑冲突", summary: "两人同时编辑同一条记录时后保存的会覆盖前者，需要引入乐观锁版本号，冲突时提示用户刷新合并，避免静默丢失修改。", priority: "高" },
+    { title: "国际化", summary: "抽取硬编码中文文案到语言包，先支持中英两种语言。", priority: "中" },
+    { title: "性能埋点", summary: "补充首屏渲染与接口耗时埋点。", priority: "低" },
 ]
+
+const OWNERS = [
+    "林昭", "周岚", "陈默", "苏晚晴", "黄屹", "郑澄", "何沐阳",
+    "孙桉", "罗宇", "蒋彦", "唐悦", "韩疏", "冯霁", "沈洲",
+] as const;
+
+const rows: DemoRow[] = tickets.map((ticket, index) => ({
+    id: String(index + 1),
+    height: ticket.height,
+    dataRef: {
+        id: \`REQ-\${String(index + 1).padStart(3, "0")}\`,
+        title: ticket.title,
+        summary: ticket.summary,
+        owner: OWNERS[index % OWNERS.length],
+        priority: ticket.priority,
+    },
+}))
 
 const getRowHeight = (row: DemoRow) => {
     if (row.height != null) {
@@ -8233,22 +8083,18 @@ import { useMemo, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { CellEditRecord, ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        age: number
-        department: string
-        salary: number
-        status: "在职" | "试用" | "离职"
-    }
+    dataRef: Employee
 }
 
 const columnTitleMap: Record<string, string> = {
     "$.name": "姓名",
     "$.age": "年龄",
     "$.department": "部门",
+    "$.jobTitle": "职位",
+    "$.city": "城市",
     "$.salary": "月薪",
     "$.status": "状态",
 };
@@ -8260,24 +8106,10 @@ const formatTime = (ts: number) => {
         .join(":");
 };
 
-const departments: Array<DemoRow["dataRef"]["department"]> = ["前端", "后端", "产品", "设计", "测试", "运维"];
-const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
-
-const initialRows: DemoRow[] = Array.from({ length: 1000 }, (_, index) => {
-    const rowId = index + 1;
-    return {
-        id: String(rowId),
-        dataRef: {
-            employeeNo: \`EMP-\${String(rowId).padStart(4, "0")}\`,
-            name: \`\${names[index % names.length]}\${String(rowId).padStart(2, "0")}\`,
-            age: 22 + (index % 19),
-            department: departments[index % departments.length],
-            salary: 12000 + (index % 30) * 1000,
-            status: statuses[index % statuses.length]
-        }
-    };
-});
+const initialRows: DemoRow[] = makeEmployees(1000, 20260613).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const inputStyle = css\`
     width: 100%;
@@ -8311,7 +8143,7 @@ const historyWrapStyle = css\`
     border: 1px solid #e8e8e8;
     border-radius: 4px;
     overflow: hidden;
-    width: 780px;
+    width: 980px;
 \`;
 
 const historyHeaderStyle = css\`
@@ -8514,6 +8346,64 @@ const EditDemo = () => {
                 }
             },
             {
+                title: "职位",
+                name: "$.jobTitle",
+                width: 160,
+                editRender: ({ row, editorValue, onEditorValueChange, onCommit }) => {
+                    return (
+                        <input
+                            autoFocus
+                            className={inputStyle}
+                            value={String(editorValue ?? row.dataRef.jobTitle)}
+                            onChange={(event) => {
+                                onEditorValueChange(event.target.value);
+                            }}
+                            onBlur={(event) => {
+                                const nextValue = event.target.value.trim() || row.dataRef.jobTitle;
+                                patchRow(row.id, "jobTitle", nextValue);
+                                onCommit?.();
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter") {
+                                    const nextValue = event.currentTarget.value.trim() || row.dataRef.jobTitle;
+                                    patchRow(row.id, "jobTitle", nextValue);
+                                    onCommit?.();
+                                }
+                            }}
+                        />
+                    );
+                }
+            },
+            {
+                title: "城市",
+                name: "$.city",
+                width: 110,
+                editRender: ({ row, editorValue, onEditorValueChange, onCommit }) => {
+                    return (
+                        <input
+                            autoFocus
+                            className={inputStyle}
+                            value={String(editorValue ?? row.dataRef.city)}
+                            onChange={(event) => {
+                                onEditorValueChange(event.target.value);
+                            }}
+                            onBlur={(event) => {
+                                const nextValue = event.target.value.trim() || row.dataRef.city;
+                                patchRow(row.id, "city", nextValue);
+                                onCommit?.();
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter") {
+                                    const nextValue = event.currentTarget.value.trim() || row.dataRef.city;
+                                    patchRow(row.id, "city", nextValue);
+                                    onCommit?.();
+                                }
+                            }}
+                        />
+                    );
+                }
+            },
+            {
                 title: "月薪",
                 name: "$.salary",
                 width: 120,
@@ -8580,7 +8470,7 @@ const EditDemo = () => {
     return (
         <div>
             <Table
-                width={780}
+                width={980}
                 height={260}
                 columns={columns}
                 rows={rows}
@@ -8588,7 +8478,7 @@ const EditDemo = () => {
                 cellEditRecords={editRecords}
                 onCellEditRecordsChange={setEditRecords}
             />
-            <div className={cx(hintStyle)}>双击姓名、年龄、部门、月薪或状态单元格可编辑。</div>
+            <div className={cx(hintStyle)}>双击姓名、年龄、部门、职位、城市、月薪或状态单元格可编辑。</div>
             <div className={historyWrapStyle}>
                 <div className={historyHeaderStyle}>
                     编辑历史（共 {editRecords.length} 条，Ctrl+Z 撤销）
@@ -8627,6 +8517,7 @@ export default EditDemo;
  */
 
 import { useMemo, useState } from "react";
+import { fakerZH_CN as faker } from "@faker-js/faker";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
@@ -8966,27 +8857,29 @@ const priorities = ["P0", "P1", "P2"];
 const quarters = ["Q1", "Q2", "Q3", "Q4"];
 const statuses = ["进行中", "已完成", "风险"];
 
-const rows: DemoRow[] = Array.from({ length: 300 }, (_, index) => {
+faker.seed(20260616);
+
+const rows: DemoRow[] = Array.from({ length: 400 }, (_, index) => {
     const rowNumber = index + 1;
     return {
         id: \`row-\${rowNumber}\`,
         dataRef: {
             recordNo: \`R-\${String(rowNumber).padStart(5, "0")}\`,
-            customerName: customerNames[index % customerNames.length],
-            projectName: \`\${projectNames[index % projectNames.length]}-\${(index % 6) + 1}\`,
-            businessUnit: businessUnits[index % businessUnits.length],
-            industry: industries[(index * 2) % industries.length],
-            city: cities[(index * 3) % cities.length],
-            accountManager: accountManagers[(index * 5) % accountManagers.length],
-            channel: channels[index % channels.length],
-            customerLevel: customerLevels[(index * 2) % customerLevels.length],
-            contractType: contractTypes[index % contractTypes.length],
-            paymentStatus: paymentStatuses[(index * 4) % paymentStatuses.length],
-            deliveryMode: deliveryModes[(index * 3) % deliveryModes.length],
-            priority: priorities[(index * 7) % priorities.length],
-            quarter: quarters[index % quarters.length],
-            amount: 20000 + ((index * 13791) % 480001),
-            status: statuses[index % statuses.length]
+            customerName: \`\${faker.helpers.arrayElement(customerNames)}\${faker.helpers.arrayElement(["集团", "科技", "信息", "数字"])}\`,
+            projectName: \`\${faker.helpers.arrayElement(projectNames)}-\${faker.number.int({ min: 1, max: 6 })}\`,
+            businessUnit: faker.helpers.arrayElement(businessUnits),
+            industry: faker.helpers.arrayElement(industries),
+            city: faker.helpers.arrayElement(cities),
+            accountManager: faker.helpers.arrayElement(accountManagers),
+            channel: faker.helpers.arrayElement(channels),
+            customerLevel: faker.helpers.arrayElement(customerLevels),
+            contractType: faker.helpers.arrayElement(contractTypes),
+            paymentStatus: faker.helpers.arrayElement(paymentStatuses),
+            deliveryMode: faker.helpers.arrayElement(deliveryModes),
+            priority: faker.helpers.arrayElement(priorities),
+            quarter: faker.helpers.arrayElement(quarters),
+            amount: faker.number.int({ min: 20000, max: 500000 }),
+            status: faker.helpers.arrayElement(statuses)
         }
     }
 })
@@ -9133,51 +9026,16 @@ export default FilterDemo;
 import React, { useEffect, useMemo, useState } from "react";
 import Table, { highlightText } from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        gender: number
-        department: string
-        city: string
-        jobTitle: string
-        email: string
-        salary: number
-        project: string
-        status: string
-        manager: string
-        phone: string
-    }
+    dataRef: Employee
 }
 
-const names = ["张伟", "李娜", "王芳", "赵磊", "陈静", "刘洋", "周鑫", "吴丽", "孙鹏", "徐敏", "朱辉", "胡博"];
-const genders = [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1];
-const departments = ["研发部", "产品部", "销售部", "人事部", "财务部", "运维部"];
-const cities = ["北京", "上海", "深圳", "广州", "杭州", "成都"];
-const titles = ["高级工程师", "产品经理", "前端工程师", "销售总监", "HR 经理", "架构师", "财务总监", "UX 设计师", "测试工程师", "运维工程师", "后端工程师"];
-const projects = ["主数据平台", "经营看板", "供应链优化", "门店数字化", "风控中台", "物流协同", "能源巡检", "医药追溯"];
-const statuses = ["进行中", "已完成", "已暂停", "待启动"];
-const managers = ["王建国", "李晓明", "张华", "陈伟", "刘芳"];
-
-const rawRows: DemoRow[] = Array.from({ length: 80 }, (_, i) => {
-    const name = names[i % names.length];
-    return {
-        id: String(i + 1),
-        dataRef: {
-            name,
-            gender: genders[i % genders.length],
-            department: departments[i % departments.length],
-            city: cities[i % cities.length],
-            jobTitle: titles[i % titles.length],
-            email: \`\${name}\${i + 1}@example.com\`,
-            salary: 18000 + (i * 317) % 22000,
-            project: projects[i % projects.length],
-            status: statuses[i % statuses.length],
-            manager: managers[i % managers.length],
-            phone: \`1\${3 + (i % 7)}\${String(100000000 + i * 9973).slice(0, 9)}\`,
-        },
-    };
-});
+const rawRows: DemoRow[] = makeEmployees(80, 20260615).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const HighlightDemo = () => {
     const [keyword, setKeyword] = useState("");
@@ -9190,7 +9048,7 @@ const HighlightDemo = () => {
 
     const columns = useMemo((): ColumnType<DemoRow>[] => [
         { title: "姓名", name: "name", width: 90, fixed: "left" },
-        { title: "性别", name: "gender", width: 70, getSearchText: (row) => row.dataRef.gender === 1 ? "男" : "女", render: ({ row, keyword: kw, activeOccurrenceInCell }) => highlightText(row.dataRef.gender === 1 ? "男" : "女", kw ?? "", activeOccurrenceInCell) },
+        { title: "性别", name: "gender", width: 70, align: "center" },
         { title: "部门", name: "department", width: 110 },
         { title: "城市", name: "city", width: 90 },
         { title: "职位", name: "jobTitle", width: 150 },
@@ -9207,10 +9065,18 @@ const HighlightDemo = () => {
                 );
             },
         },
-        { title: "薪资", name: "salary", width: 100, align: "right" },
+        {
+            title: "薪资（getSearchText）",
+            name: "salary",
+            width: 150,
+            align: "right",
+            getSearchText: (row) => \`¥\${row.dataRef.salary.toLocaleString()}\`,
+            render: ({ row, keyword: kw, activeOccurrenceInCell }) =>
+                highlightText(\`¥\${row.dataRef.salary.toLocaleString()}\`, kw ?? "", activeOccurrenceInCell),
+        },
         { title: "项目", name: "project", width: 140 },
         { title: "状态", name: "status", width: 90 },
-        { title: "负责人", name: "manager", width: 90 },
+        { title: "公司", name: "company", width: 150 },
         { title: "电话", name: "phone", width: 130 },
     ], []);
 
@@ -9569,31 +9435,10 @@ export default MergeCellsDemo;
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-	dataRef: {
-		recordNo: string
-		employeeNo: string
-		name: string
-		gender: string
-		age: number
-		phone: string
-		email: string
-		province: string
-		address: string
-		company: string
-		department: string
-		jobTitle: string
-		city: string
-		performance: string
-		salary: number
-		bonus: number
-		status: string
-		createdAt: string
-		tag: string
-		yearsOfService: number
-	}
+	dataRef: Employee & { recordNo: string }
 }
 
 const columns: ColumnType<DemoRow>[] = [
@@ -9703,7 +9548,7 @@ const columns: ColumnType<DemoRow>[] = [
             },
             {
                 title: "入职日期",
-                name: "$.createdAt",
+                name: "$.joinDate",
                 width: 150
             }
         ]
@@ -9721,39 +9566,13 @@ const columns: ColumnType<DemoRow>[] = [
     }
 ]
 
-faker.seed(20260304)
-
-const rows: DemoRow[] = Array.from({ length: 2000 }, (_, index) => {
-    const salary = faker.number.int({ min: 8000, max: 50000 })
-    const bonus = faker.number.int({ min: 1000, max: 20000 })
-    const hireDate = faker.date.past({ years: 8 })
-
-    return {
-        id: \`\${index + 1}\`,
-        dataRef: {
-            recordNo: \`R-\${String(index + 1).padStart(5, "0")}\`,
-            employeeNo: \`EMP-\${String(index + 1).padStart(4, "0")}\`,
-            name: faker.person.fullName(),
-            gender: faker.helpers.arrayElement(["男", "女"]),
-            age: faker.number.int({ min: 22, max: 55 }),
-            phone: \`1\${faker.string.numeric(10)}\`,
-            email: faker.internet.email(),
-            province: faker.location.state(),
-            address: faker.location.streetAddress(),
-            company: faker.company.name(),
-            department: faker.commerce.department(),
-            jobTitle: faker.person.jobTitle(),
-            city: faker.location.city(),
-            performance: faker.helpers.arrayElement(["A", "B", "C"]),
-            salary,
-            bonus,
-            status: faker.helpers.arrayElement(["在职", "试用", "离职中"]),
-            createdAt: hireDate.toISOString().slice(0, 10),
-            tag: faker.helpers.arrayElement(["核心", "候选", "稳定"]),
-            yearsOfService: faker.number.int({ min: 0, max: 12 })
-        }
-    }
-})
+const rows: DemoRow[] = makeEmployees(2000, 20260304).map((employee, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: {
+        ...employee,
+        recordNo: \`R-\${String(index + 1).padStart(5, "0")}\`,
+    },
+}))
 
 const MergeTableHeadersDemo = () => {
     return (
@@ -9784,45 +9603,19 @@ import { type ChangeEvent, type Key, useMemo, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import {
+    makeEmployees, type Employee,
+    DEPARTMENTS as departments, POSITIONS as positions, CITIES as cities,
+    PERFORMANCES as performances, STATUSES as statuses,
+} from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        age: number
-        position: string
-        department: string
-        city: string
-        salary: number
-        performance: "S" | "A" | "B" | "C"
-        status: "在职" | "试用" | "离职"
-        email: string
-        joinYear: number
-    }
+    dataRef: Employee
 }
 
-const departments = ["前端", "后端", "产品", "设计", "测试", "运维", "数据", "安全"] as const;
-const statuses: DemoRow["dataRef"]["status"][] = ["在职", "试用", "离职"];
-const performances: DemoRow["dataRef"]["performance"][] = ["S", "A", "B", "C"];
-const positions = ["工程师", "高级工程师", "资深工程师", "技术专家", "团队负责人", "技术经理", "总监"] as const;
-const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都", "武汉"] as const;
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
-
-const initialRows: DemoRow[] = Array.from({ length: 50 }, (_, i) => ({
-    id: String(i + 1),
-    dataRef: {
-        employeeNo: \`EMP-\${String(i + 1).padStart(4, "0")}\`,
-        name: \`\${names[i % names.length]}\${String(i + 1).padStart(2, "0")}\`,
-        age: 22 + (i % 20),
-        position: positions[i % positions.length],
-        department: departments[i % departments.length],
-        city: cities[i % cities.length],
-        salary: 10000 + (i % 20) * 2000,
-        performance: performances[i % performances.length],
-        status: statuses[i % statuses.length],
-        email: \`user\${String(i + 1).padStart(3, "0")}@corp.example.com\`,
-        joinYear: 2017 + (i % 8),
-    },
+const initialRows: DemoRow[] = makeEmployees(50, 20260614).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
     state: undefined,
 }));
 
@@ -10211,6 +10004,132 @@ export default RowEditDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/rowExpansion.demo.tsx",
+                title: "行展开（详情面板）",
+                description: "通过 `expandedRowRender` 在行下方插入自定义详情区，点击行首图标展开或收起。展开内容跨所有列、随表格一起横向滚动；当详情高度超过 `expandedRowHeight` 时面板内部可独立纵向滚动（滚轮 / 触控板）。区别于树形数据：这里展示的是异构详情而非同构子行。",
+                source: `/**
+ * title = "行展开（详情面板）"
+ * description = "通过 \`expandedRowRender\` 在行下方插入自定义详情区，点击行首图标展开或收起。展开内容跨所有列、随表格一起横向滚动；当详情高度超过 \`expandedRowHeight\` 时面板内部可独立纵向滚动（滚轮 / 触控板）。区别于树形数据：这里展示的是异构详情而非同构子行。"
+ */
+
+import { type Key, useState } from "react";
+import { fakerZH_CN as faker } from "@faker-js/faker";
+import Table from "../../src/index.js";
+import type { ColumnType, Row } from "../../src/types.js";
+import { COMPANIES, CITIES, CHANNELS } from "./_mock.js";
+
+interface OrderRow extends Row {
+    dataRef: {
+        orderNo: string
+        customer: string
+        owner: string
+        category: string
+        quantity: number
+        unitPrice: number
+        amount: number
+        channel: string
+        city: string
+        status: string
+        orderDate: string
+        deliveryDate: string
+        address: string
+        remark: string
+    }
+}
+
+const ORDER_STATUSES = ["待付款", "待发货", "已发货", "已完成", "已取消"];
+const CATEGORIES = ["标准版授权", "专业版授权", "旗舰版授权", "私有化部署", "增值服务包", "技术支持续费"];
+const UNIT_PRICES = [1980, 4980, 9800, 19800, 39800, 88000];
+const REMARKS = [
+    "需开具增值税专用发票，收货请提前电话联系。",
+    "客户要求分两批发货，首批本周内送达。",
+    "长期合作客户，享受 9 折协议价。",
+    "收货仅限工作日上午，请提前预约。",
+    "含定制化配置，交付前需二次确认参数。",
+    "尾款月结 30 天，已签署补充协议。",
+];
+
+faker.seed(20260619);
+
+const orders: OrderRow[] = Array.from({ length: 30 }, (_, index) => {
+    const orderNo = \`PO-\${1001 + index}\`;
+    const quantity = faker.number.int({ min: 1, max: 50 });
+    const unitPrice = faker.helpers.arrayElement(UNIT_PRICES);
+    const orderDate = faker.date.between({ from: "2024-06-01", to: "2025-12-31" });
+    const deliveryDate = new Date(orderDate.getTime() + faker.number.int({ min: 3, max: 30 }) * 86400000);
+    return {
+        id: orderNo,
+        dataRef: {
+            orderNo,
+            customer: faker.helpers.arrayElement(COMPANIES),
+            owner: faker.person.fullName(),
+            category: faker.helpers.arrayElement(CATEGORIES),
+            quantity,
+            unitPrice,
+            amount: quantity * unitPrice,
+            channel: faker.helpers.arrayElement(CHANNELS),
+            city: faker.helpers.arrayElement(CITIES),
+            status: faker.helpers.arrayElement(ORDER_STATUSES),
+            orderDate: orderDate.toISOString().slice(0, 10),
+            deliveryDate: deliveryDate.toISOString().slice(0, 10),
+            address: \`\${faker.helpers.arrayElement(CITIES)}\${faker.location.streetAddress()}\`,
+            remark: faker.helpers.arrayElement(REMARKS),
+        },
+    };
+});
+
+const columns: ColumnType<OrderRow>[] = [
+    { name: "$.orderNo", title: "订单号", width: 120, fixed: "left" },
+    { name: "$.customer", title: "客户", width: 150 },
+    { name: "$.owner", title: "负责人", width: 100 },
+    { name: "$.category", title: "品类", width: 130 },
+    { name: "$.quantity", title: "数量", width: 90, align: "right" },
+    { name: "$.unitPrice", title: "单价", width: 110, align: "right",
+        render: ({ row }) => \`¥\${row.dataRef.unitPrice.toLocaleString()}\` },
+    { name: "$.amount", title: "金额", width: 140, align: "right",
+        render: ({ row }) => \`¥\${row.dataRef.amount.toLocaleString()}\` },
+    { name: "$.channel", title: "渠道", width: 100 },
+    { name: "$.city", title: "地区", width: 100 },
+    { name: "$.status", title: "状态", width: 110 },
+    { name: "$.orderDate", title: "下单日期", width: 120 },
+];
+
+const cellLabelStyle = { color: "#888", marginRight: 6 } as const;
+
+const RowExpansionDemo = () => {
+    const [expandedRowKeys, setExpandedRowKeys] = useState<Set<Key>>(
+        new Set(["PO-1001"])
+    );
+
+    return (
+        <Table<OrderRow>
+            width={900}
+            height={440}
+            rows={orders}
+            columns={columns}
+            expandedRowKeys={expandedRowKeys}
+            onExpandedRowKeysChange={setExpandedRowKeys}
+            expandedRowHeight={96}
+            expandedRowRender={(row) => (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "6px 32px", fontSize: 13, lineHeight: 1.6 }}>
+                    <div><span style={cellLabelStyle}>客户</span>{row.dataRef.customer}</div>
+                    <div><span style={cellLabelStyle}>负责人</span>{row.dataRef.owner}</div>
+                    <div><span style={cellLabelStyle}>品类</span>{row.dataRef.category}</div>
+                    <div><span style={cellLabelStyle}>渠道</span>{row.dataRef.channel}</div>
+                    <div><span style={cellLabelStyle}>明细</span>{row.dataRef.quantity} × ¥{row.dataRef.unitPrice.toLocaleString()} = ¥{row.dataRef.amount.toLocaleString()}</div>
+                    <div><span style={cellLabelStyle}>交付日期</span>{row.dataRef.orderDate} → {row.dataRef.deliveryDate}</div>
+                    <div style={{ gridColumn: "1 / -1" }}><span style={cellLabelStyle}>收货地址</span>{row.dataRef.address}</div>
+                    <div style={{ gridColumn: "1 / -1" }}><span style={cellLabelStyle}>备注</span>{row.dataRef.remark}</div>
+                </div>
+            )}
+        />
+    );
+};
+
+export default RowExpansionDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/rowGrouping.demo.tsx",
                 title: "行分组",
                 description: "通过 groupBy 按列名进行多级分组。分组 banner 渲染在对应列的位置，叶子行中已分组的列保持空白以避免信息重复（与 react-data-grid 行为一致）。",
@@ -10379,36 +10298,27 @@ export default RowGroupingDemo;
 import { useState, type Key } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row, RowSelection } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        department: string
-        salary: number
-        status: "active" | "inactive"
-    }
+    dataRef: Employee
 }
 
-faker.seed(20260625);
-
-const rows: DemoRow[] = Array.from({ length: 20 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(30, 20260617).map((employee, index) => ({
     id: \`\${index + 1}\`,
-    dataRef: {
-        name: faker.person.fullName(),
-        department: faker.helpers.arrayElement(["工程", "产品", "设计", "运营", "市场"]),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-        status: faker.helpers.arrayElement(["active", "inactive"]) as "active" | "inactive",
-    },
+    dataRef: employee,
 }));
 
 const columns: ColumnType<DemoRow>[] = [
-    { name: "name",       title: "姓名",   width: 140 },
+    { name: "employeeNo", title: "工号",   width: 120 },
+    { name: "name",       title: "姓名",   width: 110 },
     { name: "department", title: "部门",   width: 120 },
+    { name: "jobTitle",   title: "职位",   width: 150 },
+    { name: "city",       title: "城市",   width: 100 },
+    { name: "performance", title: "绩效",  width: 90, align: "center" },
     { name: "salary",     title: "薪资",   width: 120, align: "right",
         render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\` },
-    { name: "status",     title: "状态",   width: 100,
-        render: ({ row }) => row.dataRef.status === "active" ? "在职" : "离职" },
+    { name: "status",     title: "状态",   width: 90 },
 ];
 
 const RowSelectionDemo = () => {
@@ -10419,7 +10329,7 @@ const RowSelectionDemo = () => {
         type: mode,
         selectedRowIds,
         onChange: (ids) => setSelectedRowIds(ids),
-        getDisabled: (row) => row.dataRef.status === "inactive",
+        getDisabled: (row) => row.dataRef.status === "离职",
     };
 
     const selectedNames = rows
@@ -10454,7 +10364,7 @@ const RowSelectionDemo = () => {
                     : '未选中任何行（状态为「离职」的行已禁用）'}
             </div>
             <Table
-                width={560}
+                width={820}
                 height={420}
                 rows={rows}
                 columns={columns}
@@ -10483,6 +10393,7 @@ import type { ReactNode } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row, RowState } from "../../src/index.js";
+import { makeEmployees } from "./_mock.js";
 
 interface DemoRow extends Row {
     dataRef: {
@@ -10531,13 +10442,21 @@ const actionBarStyle = css\`
 
 let nextId = 100;
 
-const initialRows: DemoRow[] = [
-    { id: "1", dataRef: { name: "王明", department: "前端", salary: 18000, joinDate: "2021-03-15" } },
-    { id: "2", state: "modified", dataRef: { name: "李婷", department: "后端", salary: 22000, joinDate: "2020-07-01" } },
-    { id: "3", state: "deleted", dataRef: { name: "赵阳", department: "设计", salary: 15000, joinDate: "2022-11-08" } },
-    { id: "4", state: "new",     dataRef: { name: "陈晨", department: "测试", salary: 14000, joinDate: "2024-01-20" } },
-    { id: "5", dataRef: { name: "孙浩", department: "产品", salary: 20000, joinDate: "2019-05-12" } },
+const INITIAL_STATES: (RowState | undefined)[] = [
+    undefined, "modified", "deleted", "new", undefined, undefined,
+    "modified", undefined, "new", undefined, "deleted", undefined,
 ];
+
+const initialRows: DemoRow[] = makeEmployees(12, 20260618).map((employee, index) => ({
+    id: String(index + 1),
+    state: INITIAL_STATES[index],
+    dataRef: {
+        name: employee.name,
+        department: employee.department,
+        salary: employee.salary,
+        joinDate: employee.joinDate,
+    },
+}));
 
 const RowStateDemo = () => {
     const [rows, setRows] = useState<DemoRow[]>(initialRows);
@@ -10648,41 +10567,24 @@ import { type Key, useState } from "react";
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        employeeNo: string
-        name: string
-        department: string
-        city: string
-        salary: number
-    }
+    dataRef: Employee
 }
 
-const departments = ["前端", "后端", "产品", "设计", "测试", "运维"];
-const cities = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
-const names = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁"];
-
-const rows: DemoRow[] = Array.from({ length: 200 }, (_, index) => {
-    const rowId = index + 1;
-    return {
-        id: String(rowId),
-        dataRef: {
-            employeeNo: \`EMP-\${String(rowId).padStart(4, "0")}\`,
-            name: \`\${names[index % names.length]}\${String(rowId).padStart(2, "0")}\`,
-            department: departments[index % departments.length],
-            city: cities[index % cities.length],
-            salary: 12000 + (index % 30) * 1000
-        }
-    };
-});
+const rows: DemoRow[] = makeEmployees(200, 20260612).map((employee, index) => ({
+    id: String(index + 1),
+    dataRef: employee,
+}));
 
 const columns: ColumnType<DemoRow>[] = [
-    { title: "工号", name: "$.employeeNo", width: 140, fixed: "left" },
-    { title: "姓名", name: "$.name", width: 160 },
-    { title: "部门", name: "$.department", width: 140 },
-    { title: "城市", name: "$.city", width: 140 },
-    { title: "月薪", name: "$.salary", width: 140, align: "right" }
+    { title: "工号", name: "$.employeeNo", width: 130, fixed: "left" },
+    { title: "姓名", name: "$.name", width: 120 },
+    { title: "部门", name: "$.department", width: 130 },
+    { title: "职位", name: "$.jobTitle", width: 150 },
+    { title: "城市", name: "$.city", width: 110 },
+    { title: "月薪", name: "$.salary", width: 130, align: "right" }
 ];
 
 const hintStyle = css\`
@@ -10737,40 +10639,30 @@ export default SelectCellsDemo;
 import { useState } from "react";
 import Table from "../../src/index.js";
 import type { ColumnType, Row, SortColumn } from "../../src/index.js";
-import { fakerZH_CN as faker } from "@faker-js/faker";
+import { makeEmployees, type Employee } from "./_mock.js";
 
 interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        age: number
-        department: string
-        salary: number
-        startDate: string
-        score: number
-    }
+    dataRef: Employee & { score: number }
 }
 
-faker.seed(20260625);
-
-const rows: DemoRow[] = Array.from({ length: 60 }, (_, index) => ({
+const rows: DemoRow[] = makeEmployees(60, 20260625).map((employee, index) => ({
     id: \`\${index + 1}\`,
     dataRef: {
-        name: faker.person.fullName(),
-        age: faker.number.int({ min: 22, max: 55 }),
-        department: faker.helpers.arrayElement(["工程", "产品", "设计", "运营", "市场"]),
-        salary: faker.number.int({ min: 8000, max: 50000 }),
-        startDate: faker.date.between({ from: "2015-01-01", to: "2024-12-31" }).toISOString().slice(0, 10),
-        score: faker.number.int({ min: 60, max: 100 }),
+        ...employee,
+        score: 60 + ((index * 7) % 41),
     },
 }));
 
 const columns: ColumnType<DemoRow>[] = [
-    { name: "name",       title: "姓名",   width: 140 },
+    { name: "name",       title: "姓名",   width: 120 },
     { name: "age",        title: "年龄",   width: 80,  sortable: true, align: "right" },
     { name: "department", title: "部门",   width: 120, sortable: true },
-    { name: "salary",     title: "薪资",   width: 100, sortable: true, align: "right",
+    { name: "jobTitle",   title: "职位",   width: 150, sortable: true },
+    { name: "city",       title: "城市",   width: 100, sortable: true },
+    { name: "salary",     title: "薪资",   width: 110, sortable: true, align: "right",
         render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\` },
-    { name: "startDate",  title: "入职日期", width: 130, sortable: true },
+    { name: "joinDate",   title: "入职日期", width: 130, sortable: true },
+    { name: "status",     title: "状态",   width: 90,  sortable: true },
     { name: "score",      title: "绩效分",  width: 100, sortable: true, align: "right",
         sorter: (a, b) => a.dataRef.score - b.dataRef.score },
 ];
@@ -10801,6 +10693,91 @@ export default SortDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/summary.demo.tsx",
+                title: "底部汇总行",
+                description: "通过 showSummary 开启底部固定汇总行，各列由 summaryRender 提供合计 / 平均等聚合内容；汇总行始终贴住底部，固定列横向同步固定。",
+                source: `
+/**
+ * title = "底部汇总行"
+ * description = "通过 showSummary 开启底部固定汇总行，各列由 summaryRender 提供合计 / 平均等聚合内容；汇总行始终贴住底部，固定列横向同步固定。"
+ */
+
+import Table from "../../src/index.js";
+import type { ColumnType, Row, SummaryCellParam } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
+
+interface DemoRow extends Row {
+    dataRef: Employee
+}
+
+const sum = (rows: DemoRow[], pick: (row: DemoRow) => number) =>
+    rows.reduce((acc, row) => acc + pick(row), 0);
+
+const columns: ColumnType<DemoRow>[] = [
+    {
+        title: "工号",
+        name: "$.employeeNo",
+        width: 140,
+        fixed: "left",
+        summaryRender: () => "合计"
+    },
+    {
+        title: "姓名",
+        name: "$.name",
+        width: 140,
+        summaryRender: ({ rows }: SummaryCellParam<DemoRow>) => \`\${rows.length} 人\`
+    },
+    {
+        title: "年龄",
+        name: "$.age",
+        width: 120,
+        align: "right",
+        summaryRender: ({ rows }: SummaryCellParam<DemoRow>) =>
+            \`平均 \${(sum(rows, (row) => row.dataRef.age) / rows.length).toFixed(1)}\`
+    },
+    {
+        title: "部门",
+        name: "$.department",
+        width: 180
+    },
+    {
+        title: "城市",
+        name: "$.city",
+        width: 160
+    },
+    {
+        title: "月薪",
+        name: "$.salary",
+        width: 160,
+        fixed: "right",
+        align: "right",
+        render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\`,
+        summaryRender: ({ rows }: SummaryCellParam<DemoRow>) =>
+            \`¥\${sum(rows, (row) => row.dataRef.salary).toLocaleString()}\`
+    }
+];
+
+const rows: DemoRow[] = makeEmployees(200, 20260625).map((employee, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: employee,
+}))
+
+const SummaryDemo = () => {
+    return (
+        <Table
+            width={900}
+            height={320}
+            columns={columns}
+            rows={rows}
+            showSummary
+        />
+    )
+}
+
+export default SummaryDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/tree.demo.tsx",
                 title: "树形数据",
                 description: "通过 `treeData` 和 `getChildRows` 展示层级关系，点击行首箭头可展开或收起子行。",
@@ -10810,84 +10787,76 @@ export default SortDemo;
  */
 
 import { type Key, useState } from "react";
+import { fakerZH_CN as faker } from "@faker-js/faker";
 import Table from "../../src/index.js";
-import type { Row } from "../../src/types.js";
+import type { ColumnType, Row } from "../../src/types.js";
+import { CITIES, JOB_TITLES } from "./_mock.js";
 
 interface OrgRow extends Row {
     dataRef: {
         name: string
         type: string
+        jobTitle?: string
         headcount?: number
         location?: string
     }
     children?: OrgRow[]
 }
 
+faker.seed(20260620);
+
+let uid = 0;
+
+const makeEmployee = (): OrgRow => ({
+    id: \`emp-\${uid += 1}\`,
+    dataRef: {
+        name: faker.person.fullName(),
+        type: "员工",
+        jobTitle: faker.helpers.arrayElement(JOB_TITLES),
+        location: faker.helpers.arrayElement(CITIES),
+    },
+});
+
+const makeGroup = (name: string): OrgRow => {
+    const members = Array.from({ length: faker.number.int({ min: 3, max: 6 }) }, makeEmployee);
+    return {
+        id: \`grp-\${uid += 1}\`,
+        dataRef: {
+            name,
+            type: "小组",
+            headcount: members.length,
+            location: members[0].dataRef.location,
+        },
+        children: members,
+    };
+};
+
+const makeDept = (deptId: string, name: string, groupNames: string[]): OrgRow => {
+    const groups = groupNames.map(makeGroup);
+    return {
+        id: deptId,
+        dataRef: {
+            name,
+            type: "部门",
+            headcount: groups.reduce((acc, group) => acc + (group.dataRef.headcount ?? 0), 0),
+            location: faker.helpers.arrayElement(CITIES),
+        },
+        children: groups,
+    };
+};
+
 const orgData: OrgRow[] = [
-    {
-        id: "tech",
-        dataRef: { name: "技术部", type: "部门", headcount: 85, location: "北京" },
-        children: [
-            {
-                id: "tech-fe",
-                dataRef: { name: "前端组", type: "小组", headcount: 22, location: "北京" },
-                children: [
-                    { id: "tech-fe-1", dataRef: { name: "张伟", type: "员工", location: "北京" } },
-                    { id: "tech-fe-2", dataRef: { name: "李芳", type: "员工", location: "北京" } },
-                    { id: "tech-fe-3", dataRef: { name: "王磊", type: "员工", location: "上海" } },
-                ],
-            },
-            {
-                id: "tech-be",
-                dataRef: { name: "后端组", type: "小组", headcount: 35, location: "北京" },
-                children: [
-                    { id: "tech-be-1", dataRef: { name: "刘洋", type: "员工", location: "北京" } },
-                    { id: "tech-be-2", dataRef: { name: "陈静", type: "员工", location: "北京" } },
-                ],
-            },
-            {
-                id: "tech-infra",
-                dataRef: { name: "基础设施组", type: "小组", headcount: 28, location: "北京" },
-                children: [
-                    { id: "tech-infra-1", dataRef: { name: "赵强", type: "员工", location: "深圳" } },
-                ],
-            },
-        ],
-    },
-    {
-        id: "product",
-        dataRef: { name: "产品部", type: "部门", headcount: 40, location: "上海" },
-        children: [
-            {
-                id: "product-design",
-                dataRef: { name: "设计组", type: "小组", headcount: 15, location: "上海" },
-                children: [
-                    { id: "product-design-1", dataRef: { name: "孙丽", type: "员工", location: "上海" } },
-                    { id: "product-design-2", dataRef: { name: "周平", type: "员工", location: "上海" } },
-                ],
-            },
-            {
-                id: "product-pm",
-                dataRef: { name: "产品管理", type: "小组", headcount: 25, location: "上海" },
-                children: [
-                    { id: "product-pm-1", dataRef: { name: "吴雪", type: "员工", location: "上海" } },
-                ],
-            },
-        ],
-    },
-    {
-        id: "ops",
-        dataRef: { name: "运营部", type: "部门", headcount: 30, location: "广州" },
-        children: [
-            { id: "ops-1", dataRef: { name: "郑明", type: "员工", location: "广州" } },
-            { id: "ops-2", dataRef: { name: "冯华", type: "员工", location: "广州" } },
-        ],
-    },
+    makeDept("dept-tech", "技术部", ["前端组", "后端组", "测试组", "基础设施组"]),
+    makeDept("dept-product", "产品部", ["产品策划组", "用户研究组"]),
+    makeDept("dept-design", "设计部", ["视觉设计组", "交互设计组"]),
+    makeDept("dept-market", "市场部", ["品牌组", "增长组", "活动组"]),
+    makeDept("dept-ops", "运营部", ["内容运营组", "数据运营组"]),
 ];
 
-const columns = [
-    { name: "$.name", title: "名称", width: 180 },
+const columns: ColumnType<OrgRow>[] = [
+    { name: "$.name", title: "名称", width: 200 },
     { name: "$.type", title: "类型", width: 100 },
+    { name: "$.jobTitle", title: "职位", width: 150 },
     { name: "$.headcount", title: "人数", width: 80, align: "right" as const },
     { name: "$.location", title: "所在地" },
 ];
@@ -10896,13 +10865,13 @@ const getChildRows = (row: OrgRow) => row.children;
 
 const TreeDemo = () => {
     const [expandedRowIds, setExpandedRowIds] = useState<Set<Key>>(
-        new Set(["tech", "product"])
+        new Set(["dept-tech", "dept-product"])
     );
 
     return (
         <Table<OrgRow>
-            width={560}
-            height={420}
+            width={680}
+            height={460}
             rows={orgData}
             columns={columns}
             treeData
@@ -11222,6 +11191,72 @@ export default TreeDemo;
                 name: "onExpandedRowIdsChange",
                 description: "展开状态变化回调",
                 type: "(ids: Set<Key>) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "showSummary",
+                description: "是否显示底部固定汇总行；各列内容由 ColumnType.summaryRender 提供，未设置的列为空",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "summaryRowHeight",
+                description: "汇总行高度（默认 35）",
+                type: "number",
+                defaultValue: "35",
+            },
+            {
+                name: "expandedRowRender",
+                description: "提供即启用行展开：返回某行展开后在其下方插入的详情内容",
+                type: "(row: T) => ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "isRowExpandable",
+                description: "控制某行能否展开；默认所有数据行均可展开",
+                type: "(row: T) => boolean",
+                defaultValue: "-",
+            },
+            {
+                name: "expandedRowKeys",
+                description: "受控展开行 key 集合（与树形 expandedRowIds 相互独立）",
+                type: "Set<Key>",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultExpandedRowKeys",
+                description: "非受控初始展开行 key 集合",
+                type: "Set<Key>",
+                defaultValue: "-",
+            },
+            {
+                name: "onExpandedRowKeysChange",
+                description: "展开行 key 集合变化回调",
+                type: "(keys: Set<Key>) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "expandedRowHeight",
+                description: "展开内容区默认高度（默认 200）",
+                type: "number",
+                defaultValue: "200",
+            },
+            {
+                name: "getExpandedRowHeight",
+                description: "逐行覆盖展开内容区高度",
+                type: "(row: T) => number | undefined",
+                defaultValue: "-",
+            },
+            {
+                name: "expandColumnWidth",
+                description: "展开图标列宽度（默认 40）",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "expandColumnFixed",
+                description: "展开图标列是否固定到左侧（默认 true）",
+                type: "boolean",
                 defaultValue: "-",
             },
         ],
