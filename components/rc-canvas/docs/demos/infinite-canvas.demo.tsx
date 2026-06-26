@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import Canvas from '../../src/canvas.js';
-import Rect from '../../src/rect.js';
-import Circle from '../../src/circle.js';
-import Group from '../../src/group.js';
-import Text from '../../src/text.js';
+import Rect from '../../src/shapes/rect.js';
+import Circle from '../../src/shapes/circle.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
 import Viewport from '../../src/viewport.js';
-import InfiniteGrid from '../../src/infinite-grid.js';
+import InfiniteGrid from '../../src/shapes/infinite-grid.js';
 import type { DragMoveEvent } from '../../src/drag-types.js';
 
 interface CardData {

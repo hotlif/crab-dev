@@ -1,9 +1,9 @@
 import { use, useEffect, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import { parseColor } from './math/color.js';
-import type { ColorRGBA } from './math/color.js';
-import { invertMat3, applyMat3, computeRectAABB } from './math/matrix.js';
-import type { CanvasInteractiveProps } from './types.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import { parseColor } from '../math/color.js';
+import type { ColorRGBA } from '../math/color.js';
+import { invertMat3, applyMat3, computeRectAABB } from '../math/matrix.js';
+import type { CanvasInteractiveProps } from '../types.js';
 
 export interface RectProps extends CanvasInteractiveProps {
     x: number;

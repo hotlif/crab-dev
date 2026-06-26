@@ -1,10 +1,10 @@
 import { use, useEffect, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import { parseColor } from './math/color.js';
-import type { ColorRGBA } from './math/color.js';
-import { generateGlyph } from './renderer/text-atlas.js';
-import { invertMat3, applyMat3 } from './math/matrix.js';
-import type { CanvasInteractiveProps } from './types.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import { parseColor } from '../math/color.js';
+import type { ColorRGBA } from '../math/color.js';
+import { generateGlyph } from '../renderer/text-atlas.js';
+import { invertMat3, applyMat3 } from '../math/matrix.js';
+import type { CanvasInteractiveProps } from '../types.js';
 
 export interface TextProps extends CanvasInteractiveProps {
     x: number;

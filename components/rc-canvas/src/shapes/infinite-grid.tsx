@@ -1,7 +1,7 @@
 import { use, useEffect, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import { identityMat3 } from './math/matrix.js';
-import { parseColor } from './math/color.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import { identityMat3 } from '../math/matrix.js';
+import { parseColor } from '../math/color.js';
 
 export interface InfiniteGridProps {
     /** 基础网格间距（world 坐标 px），默认 50 */
@@ -26,9 +26,9 @@ function InfiniteGrid({
     const ctx = use(CanvasContext);
     const cmdIdRef = useRef<number | null>(null);
 
-    const buildCmd = (): Omit<import('./renderer/draw-command.js').GridCommand, 'id'> => {
+    const buildCmd = (): Omit<import('../renderer/draw-command.js').GridCommand, 'id'> => {
         const parsedColor = parseColor(color);
-        const parsedOriginColor = originColor ? parseColor(originColor) : [0, 0, 0, 0] as import('./math/color.js').ColorRGBA;
+        const parsedOriginColor = originColor ? parseColor(originColor) : [0, 0, 0, 0] as import('../math/color.js').ColorRGBA;
         // GridCommand 不需要 AABB（始终全屏渲染，跳过剔除）
         return {
             kind: 'grid',

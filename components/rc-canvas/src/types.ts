@@ -20,12 +20,12 @@ export interface CanvasInteractiveProps extends CanvasNodeProps {
 }
 
 export type { CanvasProps } from './canvas.js';
-export type { RectProps } from './rect.js';
-export type { CircleProps } from './circle.js';
-export type { LineProps } from './line.js';
-export type { ImageProps } from './image.js';
-export type { TextProps } from './text.js';
-export type { GroupProps } from './group.js';
+export type { RectProps } from './shapes/rect.js';
+export type { CircleProps } from './shapes/circle.js';
+export type { LineProps } from './shapes/line.js';
+export type { ImageProps } from './shapes/image.js';
+export type { TextProps } from './shapes/text.js';
+export type { GroupProps } from './shapes/group.js';
 export type { CanvasPointerEvent, PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
-export type { TransformerProps, TransformState } from './transformer.js';
-export type { EdgeProps } from './edge.js';
+export type { TransformerProps, TransformState } from './shapes/transformer.js';
+export type { EdgeProps } from './shapes/edge.js';

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Canvas from '../../src/canvas.js';
-import Rect from '../../src/rect.js';
-import Group from '../../src/group.js';
-import Text from '../../src/text.js';
+import Rect from '../../src/shapes/rect.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
 import Viewport from '../../src/viewport.js';
-import InfiniteGrid from '../../src/infinite-grid.js';
-import Transformer from '../../src/transformer.js';
+import InfiniteGrid from '../../src/shapes/infinite-grid.js';
+import Transformer from '../../src/shapes/transformer.js';
 import type { TransformState } from '../../src/transform-types.js';
 
 interface ShapeData {

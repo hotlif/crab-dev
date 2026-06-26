@@ -1,12 +1,12 @@
 import { use, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
+import { CanvasContext } from '../context/canvas-context.js';
 import Group from './group.js';
 import Rect from './rect.js';
 import Circle from './circle.js';
 import Line from './line.js';
-import type { TransformState } from './transform-types.js';
-import { applyMat3, applyMat3Vector, invertMat3, makeRotateMat3 } from './math/matrix.js';
-import type { DragMoveEvent, DragStartEvent } from './drag-types.js';
+import type { TransformState } from '../transform-types.js';
+import { applyMat3, applyMat3Vector, invertMat3, makeRotateMat3 } from '../math/matrix.js';
+import type { DragMoveEvent, DragStartEvent } from '../drag-types.js';
 
 export type { TransformState };
 

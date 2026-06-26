@@ -1,8 +1,8 @@
 import { describe, it, expect, jest, afterEach } from '@jest/globals';
 import { render, cleanup } from '@testing-library/react';
 import React, { type ReactNode } from 'react';
-import Group from '../group.js';
-import Rect from '../rect.js';
+import Group from '../shapes/group.js';
+import Rect from '../shapes/rect.js';
 import { CanvasContext, type CanvasContextValue } from '../context/canvas-context.js';
 import { identityMat3 } from '../math/matrix.js';
 

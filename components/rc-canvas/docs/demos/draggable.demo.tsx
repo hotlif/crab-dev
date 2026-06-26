@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import Canvas from '../../src/canvas.js';
-import Rect from '../../src/rect.js';
-import Group from '../../src/group.js';
-import Text from '../../src/text.js';
+import Rect from '../../src/shapes/rect.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
 import type { DragMoveEvent } from '../../src/drag-types.js';
 
 function DraggableCard({

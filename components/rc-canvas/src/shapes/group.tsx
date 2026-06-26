@@ -1,6 +1,6 @@
 import { use, useEffect, useRef, type ReactNode } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import type { DragStartEvent, DragMoveEvent, DragEndEvent } from '../drag-types.js';
 import {
     multiplyMat3,
     makeTranslateMat3,
@@ -8,7 +8,7 @@ import {
     makeScaleMat3,
     invertMat3,
     applyMat3,
-} from './math/matrix.js';
+} from '../math/matrix.js';
 
 export interface GroupProps {
     /** 平移 x（px） */

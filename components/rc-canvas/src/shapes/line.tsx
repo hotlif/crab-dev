@@ -1,9 +1,9 @@
 import { use, useEffect, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import { parseColor } from './math/color.js';
-import type { ColorRGBA } from './math/color.js';
-import { invertMat3, applyMat3 } from './math/matrix.js';
-import type { CanvasInteractiveProps } from './types.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import { parseColor } from '../math/color.js';
+import type { ColorRGBA } from '../math/color.js';
+import { invertMat3, applyMat3 } from '../math/matrix.js';
+import type { CanvasInteractiveProps } from '../types.js';
 
 /** 细线 hit-test 额外容差（px），避免细线几乎无法点击 */
 const HIT_TOLERANCE = 8;

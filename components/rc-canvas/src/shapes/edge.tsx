@@ -1,6 +1,6 @@
 import Line from './line.js';
 import Marker from './marker.js';
-import type { CanvasInteractiveProps } from './types.js';
+import type { CanvasInteractiveProps } from '../types.js';
 
 export interface EdgeProps extends CanvasInteractiveProps {
     x1: number;

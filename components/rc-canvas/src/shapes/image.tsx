@@ -1,7 +1,7 @@
 import { use, useEffect, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import { invertMat3, applyMat3, computeRectAABB } from './math/matrix.js';
-import type { CanvasInteractiveProps } from './types.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import { invertMat3, applyMat3, computeRectAABB } from '../math/matrix.js';
+import type { CanvasInteractiveProps } from '../types.js';
 
 export interface ImageProps extends CanvasInteractiveProps {
     src: string;

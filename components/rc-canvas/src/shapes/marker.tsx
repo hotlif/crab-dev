@@ -1,7 +1,7 @@
 import { use, useEffect, useRef } from 'react';
-import { CanvasContext } from './context/canvas-context.js';
-import { parseColor } from './math/color.js';
-import type { ColorRGBA } from './math/color.js';
+import { CanvasContext } from '../context/canvas-context.js';
+import { parseColor } from '../math/color.js';
+import type { ColorRGBA } from '../math/color.js';
 
 interface MarkerProps {
     /** 箭头尖端位置（局部坐标） */
