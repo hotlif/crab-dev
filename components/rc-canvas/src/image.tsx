@@ -1,24 +1,14 @@
 import { use, useEffect, useRef } from 'react';
 import { CanvasContext } from './context/canvas-context.js';
 import { invertMat3, applyMat3, computeRectAABB } from './math/matrix.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import type { CanvasInteractiveProps } from './types.js';
 
-export interface ImageProps {
+export interface ImageProps extends CanvasInteractiveProps {
     src: string;
     x: number;
     y: number;
     width: number;
     height: number;
-    opacity?: number;
-    zIndex?: number;
-    draggable?: boolean;
-    /** hover 时的 CSS cursor */
-    cursor?: string;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
-    onDragStart?: (e: DragStartEvent) => void;
-    onDrag?: (e: DragMoveEvent) => void;
-    onDragEnd?: (e: DragEndEvent) => void;
 }
 
 function CanvasImage({
@@ -31,6 +21,7 @@ function CanvasImage({
     zIndex = 0,
     draggable = false,
     cursor,
+    onClick,
     onMouseEnter,
     onMouseLeave,
     onDragStart,
@@ -66,6 +57,7 @@ function CanvasImage({
             return lx >= x && lx <= x + width && ly >= y && ly <= y + height;
         },
         cursor,
+        onClick,
         onMouseEnter,
         onMouseLeave,
         onDragStart,
@@ -73,7 +65,7 @@ function CanvasImage({
         onDragEnd,
     });
 
-    const needsHit = draggable || !!onMouseEnter || !!onMouseLeave || !!cursor;
+    const needsHit = draggable || !!onClick || !!onMouseEnter || !!onMouseLeave || !!cursor;
 
     // mount 时注册（textureKey 暂为 undefined）
     useEffect(() => {

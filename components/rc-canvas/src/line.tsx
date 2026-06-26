@@ -3,7 +3,7 @@ import { CanvasContext } from './context/canvas-context.js';
 import { parseColor } from './math/color.js';
 import type { ColorRGBA } from './math/color.js';
 import { invertMat3, applyMat3 } from './math/matrix.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import type { CanvasInteractiveProps } from './types.js';
 
 /** 细线 hit-test 额外容差（px），避免细线几乎无法点击 */
 const HIT_TOLERANCE = 8;
@@ -30,28 +30,17 @@ function pointToSegmentDist(
     return Math.sqrt(ex * ex + ey * ey);
 }
 
-export interface LineProps {
+export interface LineProps extends CanvasInteractiveProps {
     x1: number;
     y1: number;
     x2: number;
     y2: number;
     color?: string;
     lineWidth?: number;
-    opacity?: number;
     /** 虚线实线段长度（world px）；不设置或 0 为实线 */
     dashLength?: number;
     /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
     gapLength?: number;
-    zIndex?: number;
-    draggable?: boolean;
-    /** hover 时的 CSS cursor */
-    cursor?: string;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
-    onClick?: () => void;
-    onDragStart?: (e: DragStartEvent) => void;
-    onDrag?: (e: DragMoveEvent) => void;
-    onDragEnd?: (e: DragEndEvent) => void;
 }
 
 function Line({

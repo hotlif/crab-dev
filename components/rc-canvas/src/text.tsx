@@ -4,16 +4,15 @@ import { parseColor } from './math/color.js';
 import type { ColorRGBA } from './math/color.js';
 import { generateGlyph } from './renderer/text-atlas.js';
 import { invertMat3, applyMat3 } from './math/matrix.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import type { CanvasInteractiveProps } from './types.js';
 
-export interface TextProps {
+export interface TextProps extends CanvasInteractiveProps {
     x: number;
     y: number;
     children: string;
     fontSize?: number;
     fontFamily?: string;
     fill?: string;
-    opacity?: number;
     /** 水平对齐：x 为文字块左 / 中 / 右边的位置，默认 'left' */
     textAlign?: 'left' | 'center' | 'right';
     /** 垂直基线：y 为文字块顶 / 中 / 底边的位置，默认 'top' */
@@ -22,15 +21,6 @@ export interface TextProps {
     lineHeight?: number;
     /** 超出此宽度（world px）时自动词换行；不设则不限宽 */
     maxWidth?: number;
-    zIndex?: number;
-    draggable?: boolean;
-    /** hover 时的 CSS cursor */
-    cursor?: string;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
-    onDragStart?: (e: DragStartEvent) => void;
-    onDrag?: (e: DragMoveEvent) => void;
-    onDragEnd?: (e: DragEndEvent) => void;
 }
 
 function Text({
@@ -48,6 +38,7 @@ function Text({
     zIndex = 0,
     draggable = false,
     cursor,
+    onClick,
     onMouseEnter,
     onMouseLeave,
     onDragStart,
@@ -103,6 +94,7 @@ function Text({
             return lx >= ex && lx <= ex + glyph.width && ly >= ey && ly <= ey + glyph.height;
         },
         cursor,
+        onClick,
         onMouseEnter,
         onMouseLeave,
         onDragStart,
@@ -110,7 +102,7 @@ function Text({
         onDragEnd,
     });
 
-    const needsHit = draggable || !!onMouseEnter || !!onMouseLeave || !!cursor;
+    const needsHit = draggable || !!onClick || !!onMouseEnter || !!onMouseLeave || !!cursor;
 
     // mount 时注册（glyphKey 暂为 undefined）
     useEffect(() => {

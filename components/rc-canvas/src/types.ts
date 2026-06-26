@@ -1,4 +1,23 @@
 /** 统一的对外 Props 类型导出 */
+import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+
+/** All canvas node primitives share these base props. */
+export interface CanvasNodeProps {
+    opacity?: number;
+    zIndex?: number;
+}
+
+/** Interactive canvas nodes additionally expose pointer/drag events. */
+export interface CanvasInteractiveProps extends CanvasNodeProps {
+    draggable?: boolean;
+    cursor?: string;
+    onClick?: () => void;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
+    onDragStart?: (e: DragStartEvent) => void;
+    onDrag?: (e: DragMoveEvent) => void;
+    onDragEnd?: (e: DragEndEvent) => void;
+}
 
 export type { CanvasProps } from './canvas.js';
 export type { RectProps } from './rect.js';
@@ -9,3 +28,4 @@ export type { TextProps } from './text.js';
 export type { GroupProps } from './group.js';
 export type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
 export type { TransformerProps, TransformState } from './transformer.js';
+export type { EdgeProps } from './edge.js';

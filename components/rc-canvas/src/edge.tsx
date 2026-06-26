@@ -1,15 +1,14 @@
 import Line from './line.js';
 import Marker from './marker.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import type { CanvasInteractiveProps } from './types.js';
 
-export interface EdgeProps {
+export interface EdgeProps extends CanvasInteractiveProps {
     x1: number;
     y1: number;
     x2: number;
     y2: number;
     color?: string;
     lineWidth?: number;
-    opacity?: number;
     /** 虚线实段长度（world px）；不设置或 0 为实线 */
     dashLength?: number;
     /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
@@ -20,16 +19,6 @@ export interface EdgeProps {
     arrowEnd?: boolean;
     /** 箭头大小（px），默认 10 */
     arrowSize?: number;
-    zIndex?: number;
-    draggable?: boolean;
-    /** hover 时的 CSS cursor */
-    cursor?: string;
-    onClick?: () => void;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
-    onDragStart?: (e: DragStartEvent) => void;
-    onDrag?: (e: DragMoveEvent) => void;
-    onDragEnd?: (e: DragEndEvent) => void;
 }
 
 function Edge({

@@ -3,9 +3,9 @@ import { CanvasContext } from './context/canvas-context.js';
 import { parseColor } from './math/color.js';
 import type { ColorRGBA } from './math/color.js';
 import { invertMat3, applyMat3, computeCircleAABB } from './math/matrix.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import type { CanvasInteractiveProps } from './types.js';
 
-export interface CircleProps {
+export interface CircleProps extends CanvasInteractiveProps {
     /** 圆心 x（px） */
     cx: number;
     /** 圆心 y（px） */
@@ -15,18 +15,6 @@ export interface CircleProps {
     fill?: string;
     stroke?: string;
     strokeWidth?: number;
-    opacity?: number;
-    zIndex?: number;
-    draggable?: boolean;
-    /** hover 时的 CSS cursor */
-    cursor?: string;
-    /** 点击时触发（移动 < 4px），提供即注册 hit-test */
-    onClick?: () => void;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
-    onDragStart?: (e: DragStartEvent) => void;
-    onDrag?: (e: DragMoveEvent) => void;
-    onDragEnd?: (e: DragEndEvent) => void;
 }
 
 function Circle({

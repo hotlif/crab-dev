@@ -3,9 +3,9 @@ import { CanvasContext } from './context/canvas-context.js';
 import { parseColor } from './math/color.js';
 import type { ColorRGBA } from './math/color.js';
 import { invertMat3, applyMat3, computeRectAABB } from './math/matrix.js';
-import type { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
+import type { CanvasInteractiveProps } from './types.js';
 
-export interface RectProps {
+export interface RectProps extends CanvasInteractiveProps {
     x: number;
     y: number;
     width: number;
@@ -19,18 +19,6 @@ export interface RectProps {
     dashLength?: number;
     /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
     gapLength?: number;
-    opacity?: number;
-    zIndex?: number;
-    draggable?: boolean;
-    /** hover 时的 CSS cursor */
-    cursor?: string;
-    /** 点击时触发（移动 < 4px），提供即注册 hit-test */
-    onClick?: () => void;
-    onMouseEnter?: () => void;
-    onMouseLeave?: () => void;
-    onDragStart?: (e: DragStartEvent) => void;
-    onDrag?: (e: DragMoveEvent) => void;
-    onDragEnd?: (e: DragEndEvent) => void;
 }
 
 function Rect({
