@@ -1,5 +1,6 @@
 import { css, cx } from "@linaria/core";
-import type { FC, InputHTMLAttributes, ReactNode, Ref } from "react";
+import { Eye, EyeOff, X } from "lucide-react";
+import { useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
 
 import token from "./token.js";
 
@@ -36,7 +37,7 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
     type?: InputHTMLAttributes<HTMLInputElement>["type"]
 
     /**
-     * 设置当行文本输入框的大小, 默认为 middle
+     * 设置单行文本输入框的大小，默认为 middle
      */
     size?: "large" | "middle" | "small"
 
@@ -44,20 +45,152 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
      * 前缀图标
      */
     prefix?: ReactNode
-    
+
     /**
      * 后缀图标
      */
     suffix?: ReactNode
 
+    /**
+     * 验证状态，影响边框颜色以提供即时反馈
+     */
+    status?: "error" | "warning"
+
+    /**
+     * 是否允许一键清除内容（仅受控模式生效）
+     */
+    allowClear?: boolean
+
+    /**
+     * 点击清除按钮时的回调
+     */
+    onClear?: () => void
+
+    /**
+     * 是否显示字符计数，配合 maxLength 使用
+     */
+    showCount?: boolean
 }
 
+
+// --- 容器样式 ---
+
+const containerBaseStyle = css`
+    display: inline-flex;
+    align-items: center;
+    border-radius: ${token.border.radius};
+    border-width: ${token.border.width};
+    border-style: ${token.border.style};
+    border-color: ${token.border.color};
+    background-color: ${token.background.color};
+    color: ${token.text.color};
+    box-shadow: ${token['box-shadow'].default};
+    transition: ${token.transition};
+    outline: none;
+    box-sizing: border-box;
+    &:hover:not(:focus-within):not([aria-disabled="true"]) {
+        border-color: ${token.border['color-hover']};
+    }
+    &:focus-within {
+        border-color: ${token.border['color-focus']};
+        box-shadow: ${token['box-shadow']['focus-within']};
+    }
+    &[aria-disabled="true"] {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+`
+
+// 按尺寸预生成容器高度/内边距，避免在渲染中创建动态类
+const sizeContainerStyles = {
+    large: css`
+        height: ${token.size.large.height};
+        padding: ${token.size.large.padding};
+    `,
+    middle: css`
+        height: ${token.size.middle.height};
+        padding: ${token.size.middle.padding};
+    `,
+    small: css`
+        height: ${token.size.small.height};
+        padding: ${token.size.small.padding};
+    `,
+} as const;
+
+// 按尺寸预生成字体样式，共享给 input 和图标
+const sizeTextStyles = {
+    large: css`
+        font-size: ${token.size.large.font.size};
+        line-height: ${token.size.large['line-height']};
+    `,
+    middle: css`
+        font-size: ${token.size.middle.font.size};
+        line-height: ${token.size.middle['line-height']};
+    `,
+    small: css`
+        font-size: ${token.size.small.font.size};
+        line-height: ${token.size.small['line-height']};
+    `,
+} as const;
+
+// 验证状态样式：覆盖 hover/focus 时的边框颜色和焦点光环颜色，保持视觉一致性
+const errorStyle = css`
+    border-color: ${token.status.error.border.color};
+    &:hover:not(:focus-within):not([aria-disabled="true"]) {
+        border-color: ${token.status.error.border.color};
+    }
+    &:focus-within {
+        border-color: ${token.status.error.border.color};
+        box-shadow: ${token.status.error['box-shadow']['focus-within']};
+    }
+`
+
+const warningStyle = css`
+    border-color: ${token.status.warning.border.color};
+    &:hover:not(:focus-within):not([aria-disabled="true"]) {
+        border-color: ${token.status.warning.border.color};
+    }
+    &:focus-within {
+        border-color: ${token.status.warning.border.color};
+        box-shadow: ${token.status.warning['box-shadow']['focus-within']};
+    }
+`
+
+
+// --- 输入框样式 ---
+
+const inputBaseStyle = css`
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: unset;
+    border-radius: inherit;
+    outline: none;
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+    &::placeholder {
+        font-size: inherit;
+        color: ${token.placeholder.color};
+    }
+    &:disabled {
+        cursor: not-allowed;
+    }
+`
+
+
+// --- 图标与操作区样式 ---
 
 const iconBaseStyle = css`
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
     color: ${token.icon.color};
+    & > svg {
+        width: 1em;
+        height: 1em;
+    }
 `
 
 const prefixStyle = css`
@@ -68,7 +201,42 @@ const suffixStyle = css`
     margin-left: ${token.icon.gap};
 `
 
-const LineEdit: FC<LineEditProps> = ({
+// 清除按钮、密码切换按钮：reset button 样式，图标跟随字体大小
+const actionButtonStyle = css`
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: ${token.icon.gap};
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: ${token.icon.color};
+    cursor: pointer;
+    transition: ${token.transition};
+    font-size: inherit;
+    line-height: inherit;
+    & > svg {
+        width: 1em;
+        height: 1em;
+    }
+    &:hover {
+        opacity: 0.7;
+    }
+`
+
+// 字符计数
+const countStyle = css`
+    flex-shrink: 0;
+    margin-left: ${token.icon.gap};
+    font-size: ${token.count['font-size']};
+    color: ${token.count.color};
+    white-space: nowrap;
+    user-select: none;
+`
+
+
+function LineEdit({
     size = "middle",
     prefix,
     suffix,
@@ -79,138 +247,83 @@ const LineEdit: FC<LineEditProps> = ({
     className,
     inputProps = {},
     readOnly,
+    disabled,
+    maxLength,
+    status,
+    allowClear,
+    onClear,
+    showCount,
     ...restProps
-}) => {
-    const getContainerSize = () => {
-        if (size === "large") {
-            return css`
-                height: ${token.size.large.height};
-                padding: ${token.size.large.padding};
-            `
-        } else if (size === "small") {
-            return css`
-                height: ${token.size.small.height};
-                padding: ${token.size.small.padding};
-            `
-        } else {
-            return css`
-                height: ${token.size.middle.height};
-                padding: ${token.size.middle.padding};
-            `
-        }
-    }
+}: LineEditProps) {
+    // 密码可见性：内部 UI 状态，与业务无关
+    const [showPassword, setShowPassword] = useState(false);
 
-    const getSizeStyle = () => {
-        if (size === "large") {
-            return css`
-                font-size: ${token.size.large.font.size};
-                line-height: ${token.size.large["line-height"]};
-            `
-        } else if (size === "small") {
-            return css`
-                font-size: ${token.size.small.font.size};
-                line-height: ${token.size.small["line-height"]};
-            `
-        } else {
-            return css`
-                font-size: ${token.size.middle.font.size};
-                line-height: ${token.size.middle["line-height"]};
-            `
-        }
-    }
-
-    const renderPrefixIcon = () => {
-        if (prefix) {
-            return (
-                <div
-                    className={cx(iconBaseStyle, prefixStyle, getSizeStyle())}
-                >
-                    {prefix}
-                </div>
-            )
-        }
-        return null;
-    }
-
-    const renderSuffixIcon = () => {
-        if (suffix) {
-            return (
-                <div
-                    className={cx(iconBaseStyle, suffixStyle, getSizeStyle())}
-                >
-                    {suffix}
-                </div>
-            )
-        }
-        return null;
-    }
+    const isPassword = type === "password";
+    const inputType = isPassword ? (showPassword ? "text" : "password") : type;
+    const hasValue = typeof value === "string" && value.length > 0;
+    const showClearButton = allowClear && hasValue && !disabled && !readOnly;
 
     return (
         <div
             ref={containerRef}
+            aria-disabled={disabled || undefined}
             className={cx(
-                css`
-                    display: inline-flex;
-                    align-items: center;
-                    border-radius: ${token.border.radius};
-                    border-width: ${token.border.width};
-                    border-style: ${token.border.style};
-                    border-color: ${token.border.color};
-                    background-color: ${token.background.color};
-                    color: ${token.text.color};
-                    box-shadow: ${token["box-shadow"].default};
-                    transition: ${token.transition};
-                    outline: none;
-                    box-sizing: border-box;
-                    &:hover:not(:focus-within):not([aria-disabled="true"]) {
-                        border-color: ${token.border["color-hover"]};
-                    }
-                    &:focus-within {
-                        border-color: ${token.border["color-focus"]};
-                        box-shadow: ${token["box-shadow"]["focus-within"]};
-                    }
-                    &[aria-disabled="true"] {
-                        pointer-events: none;
-                        opacity: 0.5;
-                    }
-                `,
-                getContainerSize(),
+                containerBaseStyle,
+                sizeContainerStyles[size],
+                status === "error" && errorStyle,
+                status === "warning" && warningStyle,
                 className
             )}
             {...restProps}
-            
         >
-            {renderPrefixIcon()}
+            {prefix && (
+                <div className={cx(iconBaseStyle, prefixStyle, sizeTextStyles[size])}>
+                    {prefix}
+                </div>
+            )}
             <input
                 ref={inputRef}
-                type={type}
+                type={inputType}
                 value={value}
-                className={cx(
-                    css`
-                        flex: 1;
-                        width: 100%;
-                        min-width: 0;
-                        padding: 0;
-                        border: unset;
-                        border-radius: inherit;
-                        outline: none;
-                        background-color: transparent;
-                        color: inherit;
-                        font-family: inherit;
-                        &::placeholder {
-                            font-size: inherit;
-                            color: ${token.placeholder.color};
-                        }
-                        &:disabled {
-                            cursor: not-allowed;
-                        }
-                    `,
-                    getSizeStyle()
-                )}
+                maxLength={maxLength}
+                disabled={disabled}
                 readOnly={readOnly}
+                className={cx(inputBaseStyle, sizeTextStyles[size])}
                 {...inputProps}
             />
-            {renderSuffixIcon()}
+            {showClearButton && (
+                <button
+                    type="button"
+                    aria-label="清除"
+                    className={cx(actionButtonStyle, sizeTextStyles[size])}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onClear?.();
+                    }}
+                >
+                    <X />
+                </button>
+            )}
+            {suffix && (
+                <div className={cx(iconBaseStyle, suffixStyle, sizeTextStyles[size])}>
+                    {suffix}
+                </div>
+            )}
+            {isPassword && (
+                <button
+                    type="button"
+                    aria-label={showPassword ? "隐藏密码" : "显示密码"}
+                    className={cx(actionButtonStyle, sizeTextStyles[size])}
+                    onClick={() => setShowPassword(prev => !prev)}
+                >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                </button>
+            )}
+            {showCount && typeof value === "string" && (
+                <span className={countStyle}>
+                    {value.length}{maxLength != null ? `/${maxLength}` : ""}
+                </span>
+            )}
         </div>
     )
 }

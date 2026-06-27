@@ -16,5 +16,5 @@ index = true
 
 ## 代码演示
 
-<Demos path="/docs/demos" />
+<Demos path="/docs/demos" columns={1} density="compact" />
 

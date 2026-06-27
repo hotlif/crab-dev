@@ -15,12 +15,22 @@ border.color = "$ref(color.border.default)"
 border.color-hover = "$ref(color.border.hover)"
 border.color-focus = "$ref(color.border.focus)"
 box-shadow.default = "none"
-box-shadow.focus-within = "$ref(shadow.float)"
+box-shadow.focus-within = "$ref(shadow.focus-ring)"
 background.color = "$ref(color.background.surface)"
 text.color = "$ref(color.text.primary)"
 placeholder.color = "$ref(color.text.secondary)"
 icon.color = "$ref(color.text.secondary)"
 icon.gap = "$ref(space.component-gap)"
+
+# 验证状态令牌（反馈原理：通过边框颜色和焦点光环给用户清晰的表单验证反馈）
+status.error.border.color = "$ref(color.border.error)"
+status.error.box-shadow.focus-within = "0 0 0 3px oklch(0.637 0.237 24 / 0.25)"
+status.warning.border.color = "$ref(color.feedback.warning)"
+status.warning.box-shadow.focus-within = "0 0 0 3px oklch(0.769 0.188 75 / 0.25)"
+
+# 字符计数令牌（认知负荷减轻：让用户不必推算剩余字数）
+count.color = "$ref(color.text.tertiary)"
+count.font-size = "$ref(font.size.caption)"
 
 size.large.height = "40px"
 size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"

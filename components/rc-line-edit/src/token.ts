@@ -17,6 +17,12 @@ export const vars = {
     'placeholder.color': '--line-edit-placeholder-color',
     'icon.color': '--line-edit-icon-color',
     'icon.gap': '--line-edit-icon-gap',
+    'status.error.border.color': '--line-edit-status-error-border-color',
+    'status.error.box-shadow.focus-within': '--line-edit-status-error-box-shadow-focus-within',
+    'status.warning.border.color': '--line-edit-status-warning-border-color',
+    'status.warning.box-shadow.focus-within': '--line-edit-status-warning-box-shadow-focus-within',
+    'count.color': '--line-edit-count-color',
+    'count.font-size': '--line-edit-count-font-size',
     'size.large.height': '--line-edit-size-large-height',
     'size.large.padding': '--line-edit-size-large-padding',
     'size.large.font.size': '--line-edit-size-large-font-size',
@@ -43,7 +49,7 @@ const token = {
     },
     'box-shadow': {
         'default': `var(${vars['box-shadow.default']}, none)`,
-        'focus-within': `var(${vars['box-shadow.focus-within']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`
+        'focus-within': `var(${vars['box-shadow.focus-within']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px oklch(0.140 0.004 286 / 0.25)))`
     },
     'background': {
         'color': `var(${vars['background.color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`
@@ -57,6 +63,28 @@ const token = {
     'icon': {
         'color': `var(${vars['icon.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
         'gap': `var(${vars['icon.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+    },
+    'status': {
+        'error': {
+            'border': {
+                'color': `var(${vars['status.error.border.color']}, var(--token-semantic-color-border-error, var(--token-global-red-500, oklch(0.637 0.237 24))))`
+            },
+            'box-shadow': {
+                'focus-within': `var(${vars['status.error.box-shadow.focus-within']}, 0 0 0 3px oklch(0.637 0.237 24 / 0.25))`
+            }
+        },
+        'warning': {
+            'border': {
+                'color': `var(${vars['status.warning.border.color']}, var(--token-semantic-color-feedback-warning, var(--token-global-amber-500, oklch(0.769 0.188 75))))`
+            },
+            'box-shadow': {
+                'focus-within': `var(${vars['status.warning.box-shadow.focus-within']}, 0 0 0 3px oklch(0.769 0.188 75 / 0.25))`
+            }
+        }
+    },
+    'count': {
+        'color': `var(${vars['count.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-400, oklch(0.760 0.012 286))))`,
+        'font-size': `var(${vars['count.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`
     },
     'size': {
         'large': {
