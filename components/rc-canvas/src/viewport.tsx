@@ -78,6 +78,12 @@ function Viewport({
         onViewportChange?.({ zoom: newZoom, panX: newPanX, panY: newPanY });
     };
 
+    // 向 context 注册 seekPan 回调，供 Minimap 驱动视口平移（保持 Viewport 内部 ref 同步）
+    useEffect(() => {
+        ctx.seekPanRef.current = (panX, panY) => applyViewport(panX, panY, zoomRef.current);
+        return () => { ctx.seekPanRef.current = null; };
+    }, []);
+
     // 受控模式同步 + 初始 viewMatrix 写入。
     // React effect 先子后父执行，此 effect 必先于 Canvas 的 mount effect（rAF 启动）运行，
     // 因此首帧 rAF tick 读到的 viewMatrix 已经是正确值，无需在渲染期写 ref。

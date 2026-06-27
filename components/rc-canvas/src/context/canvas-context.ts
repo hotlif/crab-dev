@@ -108,6 +108,13 @@ export interface CanvasContextValue {
     readonly canvasSizeRef: { readonly current: { width: number; height: number } };
 
     /**
+     * 由 Viewport 在 mount 时注入：以 canvas 逻辑坐标 panX/panY 重新定位视口。
+     * Minimap 等叠加层调用此方法驱动视口平移，Viewport 的内部 ref 保持同步。
+     * null 表示当前无 Viewport 挂载。
+     */
+    readonly seekPanRef: { current: ((panX: number, panY: number) => void) | null };
+
+    /**
      * 由 Viewport 调用：将新的 viewMatrix 写入 Canvas 内部 ref，下一帧自动注入 GPU。
      * 不触发任何 React 渲染。
      */
@@ -139,6 +146,7 @@ export const CanvasContext = createContext<CanvasContextValue>({
     viewMatrixRef: DEFAULT_VIEW_MATRIX_REF,
     commandMapRef: { current: EMPTY_MAP },
     canvasSizeRef: { current: { width: 0, height: 0 } },
+    seekPanRef: { current: null },
     setViewMatrix: () => {},
     subscribeCanvasEvent: () => () => {},
     parentMatrix: IDENTITY,
