@@ -30,6 +30,7 @@ function makeCtxMock() {
         commandMapRef: { current: new Map() },
         canvasSizeRef: { current: { width: 800, height: 600 } },
         seekPanRef: { current: null },
+        applyZoomRef: { current: null },
         setViewMatrix: jest.fn(),
         subscribeCanvasEvent: jest.fn(() => () => {}),
     } satisfies CanvasContextValue;

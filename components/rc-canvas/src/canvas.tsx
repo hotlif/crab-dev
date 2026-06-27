@@ -104,6 +104,8 @@ function Canvas({
     const canvasSizeRef = useRef({ width, height });
     // 可变实例状态 ref：Viewport 注入的 seekPan 回调（Minimap 调用以驱动视口平移）
     const seekPanRef = useRef<((panX: number, panY: number) => void) | null>(null);
+    // 可变实例状态 ref：Viewport 注入的 applyZoom 回调（Minimap 调用以驱动缩放）
+    const applyZoomRef = useRef<((deltaY: number, pivotX: number, pivotY: number) => void) | null>(null);
 
     // 可变实例状态 ref：当前活跃拖拽状态
     const dragStateRef = useRef<{
@@ -391,6 +393,7 @@ function Canvas({
             commandMapRef,
             canvasSizeRef,
             seekPanRef,
+            applyZoomRef,
             setViewMatrix(mat) {
                 viewMatrixRef.current = mat;
                 invViewMatrixRef.current = invertMat3(mat);

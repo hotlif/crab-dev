@@ -21,12 +21,12 @@ export interface MinimapProps {
     viewportFill?: string;
 }
 
-/** ColorRGBA（0-1）→ CSS rgba 字符串，alpha 额外乘以 factor */
+// ── 颜色工具 ─────────────────────────────────────────────────────────────────
+
 function toCSS([r, g, b, a]: ColorRGBA, alphaFactor = 0.85): string {
     return `rgba(${Math.round(r * 255)},${Math.round(g * 255)},${Math.round(b * 255)},${(a * alphaFactor).toFixed(2)})`;
 }
 
-/** 从 DrawCommand 中提取用于 Minimap 的填充色 */
 function cmdFillColor(cmd: DrawCommand): string | null {
     switch (cmd.kind) {
         case 'marker':
@@ -46,7 +46,8 @@ function cmdFillColor(cmd: DrawCommand): string | null {
     }
 }
 
-/** Minimap 世界↔minimap 坐标映射参数，每帧更新 */
+// ── 坐标映射 ─────────────────────────────────────────────────────────────────
+
 interface Mapping {
     minX: number;
     minY: number;
@@ -54,6 +55,16 @@ interface Mapping {
     ox: number;
     oy: number;
 }
+
+/** 视口框在 minimap 坐标系中的轴对齐包围盒，供指针事件判断 hover */
+interface ViewportBounds {
+    mmMinX: number;
+    mmMinY: number;
+    mmMaxX: number;
+    mmMaxY: number;
+}
+
+// ── 组件 ─────────────────────────────────────────────────────────────────────
 
 function Minimap({
     width: mmW = 180,
@@ -68,11 +79,11 @@ function Minimap({
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rafRef = useRef(0);
 
-    // 每帧更新的 world↔minimap 映射（供指针事件读取）
-    // 可变实例状态 ref：不触发 re-render，指针处理器直接读取最新值
+    // 可变实例状态 ref：每帧更新的映射参数，供指针事件读取
     const mappingRef = useRef<Mapping | null>(null);
-
-    // 拖拽状态
+    // 可变实例状态 ref：视口框在 minimap 坐标中的 AABB，供 cursor 判断
+    const viewportBoundsRef = useRef<ViewportBounds | null>(null);
+    // 可变实例状态 ref：是否处于拖拽状态
     const dragRef = useRef<{ lastMmX: number; lastMmY: number } | null>(null);
 
     // ── rAF 绘制循环 ──────────────────────────────────────────────────────────
@@ -94,11 +105,10 @@ function Minimap({
             c.setTransform(dpr, 0, 0, dpr, 0, 0);
             c.clearRect(0, 0, mmW, mmH);
 
-            // 背景
             c.fillStyle = background;
             c.fillRect(0, 0, mmW, mmH);
 
-            // 收集所有有 AABB 的命令的世界坐标包围盒
+            // 收集世界坐标包围盒
             let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
             let hasAabb = false;
 
@@ -130,11 +140,12 @@ function Minimap({
 
             if (!hasAabb || maxX <= minX || maxY <= minY) {
                 mappingRef.current = null;
+                viewportBoundsRef.current = null;
                 rafRef.current = requestAnimationFrame(draw);
                 return;
             }
 
-            // world → minimap 映射（居中 + 8px 内边距）
+            // world → minimap 映射
             const INSET = 8;
             const worldW = maxX - minX;
             const worldH = maxY - minY;
@@ -148,34 +159,60 @@ function Minimap({
                 oy + (wy - minY) * scale,
             ];
 
-            // 绘制每个图元（跳过网格；使用图元自身颜色）
+            // 绘制图元（精确形状：circle 用 arc，其余用 AABB 矩形）
             for (const cmd of commands.values()) {
                 if (!cmd.aabb || cmd.kind === 'grid') continue;
                 const color = cmdFillColor(cmd);
                 if (!color) continue;
-                const { minX: ax, minY: ay, maxX: bx, maxY: by } = cmd.aabb;
-                const [sx, sy] = toMm(ax, ay);
-                const w = Math.max((bx - ax) * scale, 1);
-                const h = Math.max((by - ay) * scale, 1);
+
                 c.fillStyle = color;
-                c.fillRect(sx, sy, w, h);
+
+                if (cmd.kind === 'sdf-circle') {
+                    // 从 AABB 反推圆心 + 半径，避免再做矩阵变换
+                    const cx = (cmd.aabb.minX + cmd.aabb.maxX) / 2;
+                    const cy = (cmd.aabb.minY + cmd.aabb.maxY) / 2;
+                    const r = Math.max((cmd.aabb.maxX - cmd.aabb.minX) / 2 * scale, 1);
+                    const [mmCx, mmCy] = toMm(cx, cy);
+                    c.beginPath();
+                    c.arc(mmCx, mmCy, r, 0, Math.PI * 2);
+                    c.fill();
+                } else if (cmd.kind === 'line') {
+                    // 线段：用两端点连线（宽度固定为 1.5px，视觉优于细长矩形）
+                    // 需要把 AABB 的中心轴还原——但 AABB 已经抹掉了方向信息。
+                    // 退回用矩形：线宽通常很细，AABB 近似足够
+                    const { minX: ax, minY: ay, maxX: bx, maxY: by } = cmd.aabb;
+                    const [sx, sy] = toMm(ax, ay);
+                    c.fillRect(sx, sy, Math.max((bx - ax) * scale, 1), Math.max((by - ay) * scale, 1));
+                } else {
+                    const { minX: ax, minY: ay, maxX: bx, maxY: by } = cmd.aabb;
+                    const [sx, sy] = toMm(ax, ay);
+                    c.fillRect(sx, sy, Math.max((bx - ax) * scale, 1), Math.max((by - ay) * scale, 1));
+                }
             }
 
             // 绘制视口框
             if (viewportCorners) {
-                c.beginPath();
-                const [fx, fy] = toMm(viewportCorners[0][0], viewportCorners[0][1]);
-                c.moveTo(fx, fy);
-                for (let i = 1; i < 4; i++) {
-                    const [px, py] = toMm(viewportCorners[i][0], viewportCorners[i][1]);
-                    c.lineTo(px, py);
+                const mmCorners = viewportCorners.map(([wx, wy]) => toMm(wx, wy));
+
+                // 更新视口框 AABB（供 cursor 判断）
+                let vbMinX = Infinity, vbMinY = Infinity, vbMaxX = -Infinity, vbMaxY = -Infinity;
+                for (const [mx, my] of mmCorners) {
+                    if (mx < vbMinX) vbMinX = mx; if (my < vbMinY) vbMinY = my;
+                    if (mx > vbMaxX) vbMaxX = mx; if (my > vbMaxY) vbMaxY = my;
                 }
+                viewportBoundsRef.current = { mmMinX: vbMinX, mmMinY: vbMinY, mmMaxX: vbMaxX, mmMaxY: vbMaxY };
+
+                c.beginPath();
+                c.moveTo(mmCorners[0][0], mmCorners[0][1]);
+                for (let i = 1; i < 4; i++) c.lineTo(mmCorners[i][0], mmCorners[i][1]);
                 c.closePath();
                 c.fillStyle = viewportFill;
                 c.fill();
                 c.strokeStyle = viewportStroke;
                 c.lineWidth = 1.5;
                 c.stroke();
+            } else {
+                viewportBoundsRef.current = null;
             }
 
             rafRef.current = requestAnimationFrame(draw);
@@ -185,19 +222,24 @@ function Minimap({
         return () => cancelAnimationFrame(rafRef.current);
     }, [ctx, mmW, mmH, background, viewportFill, viewportStroke]);
 
-    // ── 指针事件：拖拽 Minimap → 平移主视口 ───────────────────────────────────
+    // ── 原生 wheel：控制主视口缩放 ───────────────────────────────────────────
 
-    /** 将 Minimap 逻辑坐标转换为世界坐标 */
-    const mmToWorld = (mmX: number, mmY: number): { wx: number; wy: number } | null => {
-        const m = mappingRef.current;
-        if (!m || m.scale === 0) return null;
-        return {
-            wx: m.minX + (mmX - m.ox) / m.scale,
-            wy: m.minY + (mmY - m.oy) / m.scale,
+    useEffect(() => {
+        const cvs = canvasRef.current;
+        if (!cvs) return;
+        const onWheel = (e: WheelEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const { width: cW, height: cH } = ctx.canvasSizeRef.current;
+            // 以 canvas 中心为缩放锚点（Minimap 的鼠标位置转为世界坐标再映射代价高，用中心已足够直觉）
+            ctx.applyZoomRef.current?.(e.deltaY, cW / 2, cH / 2);
         };
-    };
+        cvs.addEventListener('wheel', onWheel, { passive: false });
+        return () => cvs.removeEventListener('wheel', onWheel);
+    }, [ctx]);
 
-    /** 获取相对 Minimap canvas 元素的逻辑坐标 */
+    // ── 指针事件工具 ──────────────────────────────────────────────────────────
+
     const toMmLocal = (e: PointerEvent<HTMLCanvasElement>): { mmX: number; mmY: number } => {
         const cvs = canvasRef.current;
         if (!cvs) return { mmX: 0, mmY: 0 };
@@ -208,55 +250,74 @@ function Minimap({
         };
     };
 
+    const isInViewport = (mmX: number, mmY: number): boolean => {
+        const vb = viewportBoundsRef.current;
+        if (!vb) return false;
+        return mmX >= vb.mmMinX && mmX <= vb.mmMaxX && mmY >= vb.mmMinY && mmY <= vb.mmMaxY;
+    };
+
     /** 将视口平移使世界坐标 (wx, wy) 对应 canvas 中心 */
     const seekWorld = (wx: number, wy: number) => {
         const viewMat = ctx.viewMatrixRef.current;
         const { width: cW, height: cH } = ctx.canvasSizeRef.current;
-        // viewMatrix: canvas = zoom * world + pan  →  mat[0]=zoom, mat[6]=panX, mat[7]=panY
         const zoom = viewMat[0];
-        const newPanX = cW / 2 - zoom * wx;
-        const newPanY = cH / 2 - zoom * wy;
-        ctx.seekPanRef.current?.(newPanX, newPanY);
+        ctx.seekPanRef.current?.(cW / 2 - zoom * wx, cH / 2 - zoom * wy);
     };
 
+    // ── 指针事件处理 ──────────────────────────────────────────────────────────
+
     const onPointerDown = (e: PointerEvent<HTMLCanvasElement>) => {
+        e.stopPropagation();
         e.currentTarget.setPointerCapture(e.pointerId);
         const { mmX, mmY } = toMmLocal(e);
-        dragRef.current = { lastMmX: mmX, lastMmY: mmY };
 
-        // 点击时立即将视口中心移到该世界坐标
-        const world = mmToWorld(mmX, mmY);
-        if (world) seekWorld(world.wx, world.wy);
+        if (!isInViewport(mmX, mmY)) {
+            // 视口框外点击：先跳转视口中心到该世界坐标
+            const m = mappingRef.current;
+            if (m && m.scale !== 0) {
+                seekWorld(
+                    m.minX + (mmX - m.ox) / m.scale,
+                    m.minY + (mmY - m.oy) / m.scale,
+                );
+            }
+        }
+
+        dragRef.current = { lastMmX: mmX, lastMmY: mmY };
+        e.currentTarget.style.cursor = 'grabbing';
     };
 
     const onPointerMove = (e: PointerEvent<HTMLCanvasElement>) => {
-        const drag = dragRef.current;
-        if (!drag) return;
-
         const { mmX, mmY } = toMmLocal(e);
-        const dmX = mmX - drag.lastMmX;
-        const dmY = mmY - drag.lastMmY;
-        drag.lastMmX = mmX;
-        drag.lastMmY = mmY;
+        const drag = dragRef.current;
 
-        const m = mappingRef.current;
-        if (!m || m.scale === 0) return;
+        if (drag) {
+            // 拖拽中：minimap 增量 → 世界增量 → 更新 pan
+            const dmX = mmX - drag.lastMmX;
+            const dmY = mmY - drag.lastMmY;
+            drag.lastMmX = mmX;
+            drag.lastMmY = mmY;
 
-        // minimap 坐标增量 → 世界坐标增量
-        const dWx = dmX / m.scale;
-        const dWy = dmY / m.scale;
-
-        // 世界坐标增量 → canvas pan 增量（canvas = zoom * world + pan）
-        const viewMat = ctx.viewMatrixRef.current;
-        const zoom = viewMat[0];
-        const newPanX = viewMat[6] - zoom * dWx;
-        const newPanY = viewMat[7] - zoom * dWy;
-        ctx.seekPanRef.current?.(newPanX, newPanY);
+            const m = mappingRef.current;
+            if (m && m.scale !== 0) {
+                const viewMat = ctx.viewMatrixRef.current;
+                const zoom = viewMat[0];
+                ctx.seekPanRef.current?.(
+                    viewMat[6] - zoom * (dmX / m.scale),
+                    viewMat[7] - zoom * (dmY / m.scale),
+                );
+            }
+        } else {
+            // 非拖拽：根据是否在视口框内更新 cursor
+            e.currentTarget.style.cursor = isInViewport(mmX, mmY) ? 'grab' : 'crosshair';
+        }
     };
 
     const onPointerUp = (e: PointerEvent<HTMLCanvasElement>) => {
         e.currentTarget.releasePointerCapture(e.pointerId);
         dragRef.current = null;
+        // 恢复 cursor：检测当前鼠标位置
+        const { mmX, mmY } = toMmLocal(e);
+        e.currentTarget.style.cursor = isInViewport(mmX, mmY) ? 'grab' : 'crosshair';
     };
 
     // ── JSX ───────────────────────────────────────────────────────────────────

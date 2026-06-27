@@ -78,11 +78,24 @@ function Viewport({
         onViewportChange?.({ zoom: newZoom, panX: newPanX, panY: newPanY });
     };
 
-    // 向 context 注册 seekPan 回调，供 Minimap 驱动视口平移（保持 Viewport 内部 ref 同步）
+    // 向 context 注册 seekPan / applyZoom 回调，供 Minimap 驱动视口（保持内部 ref 同步）
     useEffect(() => {
         ctx.seekPanRef.current = (panX, panY) => applyViewport(panX, panY, zoomRef.current);
-        return () => { ctx.seekPanRef.current = null; };
-    }, []);
+        ctx.applyZoomRef.current = (deltaY, pivotX, pivotY) => {
+            const oldZoom = zoomRef.current;
+            const newZoom = clamp(oldZoom * (1 + -deltaY * zoomSpeed), minZoom, maxZoom);
+            const factor = newZoom / oldZoom;
+            applyViewport(
+                pivotX - factor * (pivotX - panXRef.current),
+                pivotY - factor * (pivotY - panYRef.current),
+                newZoom,
+            );
+        };
+        return () => {
+            ctx.seekPanRef.current = null;
+            ctx.applyZoomRef.current = null;
+        };
+    }, [zoomSpeed, minZoom, maxZoom]);
 
     // 受控模式同步 + 初始 viewMatrix 写入。
     // React effect 先子后父执行，此 effect 必先于 Canvas 的 mount effect（rAF 启动）运行，

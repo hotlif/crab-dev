@@ -115,6 +115,12 @@ export interface CanvasContextValue {
     readonly seekPanRef: { current: ((panX: number, panY: number) => void) | null };
 
     /**
+     * 由 Viewport 注入：以 canvas 坐标 (pivotX, pivotY) 为缩放中心，
+     * 按 deltaY 进行缩放（与 wheel 事件语义一致，Viewport 内部处理速率/边界限制）。
+     */
+    readonly applyZoomRef: { current: ((deltaY: number, pivotX: number, pivotY: number) => void) | null };
+
+    /**
      * 由 Viewport 调用：将新的 viewMatrix 写入 Canvas 内部 ref，下一帧自动注入 GPU。
      * 不触发任何 React 渲染。
      */
@@ -147,6 +153,7 @@ export const CanvasContext = createContext<CanvasContextValue>({
     commandMapRef: { current: EMPTY_MAP },
     canvasSizeRef: { current: { width: 0, height: 0 } },
     seekPanRef: { current: null },
+    applyZoomRef: { current: null },
     setViewMatrix: () => {},
     subscribeCanvasEvent: () => () => {},
     parentMatrix: IDENTITY,
