@@ -3,6 +3,8 @@ import type { DrawCommand } from '../renderer/draw-command.js';
 import type { PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from '../drag-types.js';
 import { identityMat3 } from '../math/matrix.js';
 
+const EMPTY_MAP: ReadonlyMap<number, DrawCommand> = new Map();
+
 /** 单位矩阵（所有叶子组件的默认父矩阵） */
 const IDENTITY = identityMat3();
 
@@ -94,6 +96,18 @@ export interface CanvasContextValue {
     readonly viewMatrixRef: { readonly current: Float32Array };
 
     /**
+     * 所有已注册 DrawCommand 的只读 ref。
+     * Minimap 等叠加层可每帧直接读取，无需额外订阅。
+     */
+    readonly commandMapRef: { readonly current: ReadonlyMap<number, DrawCommand> };
+
+    /**
+     * 当前 canvas 逻辑尺寸（CSS 像素）的 ref。
+     * Minimap 用来计算视口框的四个角点。
+     */
+    readonly canvasSizeRef: { readonly current: { width: number; height: number } };
+
+    /**
      * 由 Viewport 调用：将新的 viewMatrix 写入 Canvas 内部 ref，下一帧自动注入 GPU。
      * 不触发任何 React 渲染。
      */
@@ -123,6 +137,8 @@ export const CanvasContext = createContext<CanvasContextValue>({
     updateHit: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     nextId: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     viewMatrixRef: DEFAULT_VIEW_MATRIX_REF,
+    commandMapRef: { current: EMPTY_MAP },
+    canvasSizeRef: { current: { width: 0, height: 0 } },
     setViewMatrix: () => {},
     subscribeCanvasEvent: () => () => {},
     parentMatrix: IDENTITY,

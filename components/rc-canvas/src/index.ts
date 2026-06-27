@@ -9,6 +9,7 @@ import Viewport from './viewport.js';
 import InfiniteGrid from './shapes/infinite-grid.js';
 import Transformer from './shapes/transformer.js';
 import Edge from './shapes/edge.js';
+import Minimap from './shapes/minimap.js';
 
 export type { CanvasNodeProps, CanvasInteractiveProps, CanvasPointerEvent, PointerHitEvent } from './types.js';
 export type { CanvasProps } from './canvas.js';
@@ -22,6 +23,7 @@ export type { ViewportProps, ViewportState } from './viewport.js';
 export type { InfiniteGridProps } from './shapes/infinite-grid.js';
 export type { TransformerProps, TransformState } from './shapes/transformer.js';
 export type { EdgeProps } from './shapes/edge.js';
+export type { MinimapProps } from './shapes/minimap.js';
 
-export { Canvas, Rect, Circle, Line, CanvasImage, Text, Group, Viewport, InfiniteGrid, Transformer, Edge };
+export { Canvas, Rect, Circle, Line, CanvasImage, Text, Group, Viewport, InfiniteGrid, Transformer, Edge, Minimap };
 export default Canvas;

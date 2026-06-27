@@ -27,6 +27,8 @@ function makeCtxMock() {
         parentMatrix: IDENTITY,
         parentZIndexPath: [],
         viewMatrixRef: { current: IDENTITY },
+        commandMapRef: { current: new Map() },
+        canvasSizeRef: { current: { width: 800, height: 600 } },
         setViewMatrix: jest.fn(),
         subscribeCanvasEvent: jest.fn(() => () => {}),
     } satisfies CanvasContextValue;

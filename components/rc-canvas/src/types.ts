@@ -29,3 +29,4 @@ export type { GroupProps } from './shapes/group.js';
 export type { CanvasPointerEvent, PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-types.js';
 export type { TransformerProps, TransformState } from './shapes/transformer.js';
 export type { EdgeProps } from './shapes/edge.js';
+export type { MinimapProps } from './shapes/minimap.js';

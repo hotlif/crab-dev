@@ -100,6 +100,9 @@ function Canvas({
     const onEmptyClickRef = useRef(onEmptyClick);
     onEmptyClickRef.current = onEmptyClick;
 
+    // 可变实例状态 ref：canvas 逻辑尺寸，供 Minimap 读取视口框角点
+    const canvasSizeRef = useRef({ width, height });
+
     // 可变实例状态 ref：当前活跃拖拽状态
     const dragStateRef = useRef<{
         pointerId: number;
@@ -310,6 +313,7 @@ function Canvas({
 
     // width/height/dpr 变化时更新 viewport（仅在 mount 后生效）
     useEffect(() => {
+        canvasSizeRef.current = { width, height };
         const devicePixelRatio = dpr ?? window.devicePixelRatio ?? 1;
         rendererRef.current?.resize(width, height, devicePixelRatio);
         dirtyRef.current = true;
@@ -382,6 +386,8 @@ function Canvas({
                 return nextIdRef.current++;
             },
             viewMatrixRef,
+            commandMapRef,
+            canvasSizeRef,
             setViewMatrix(mat) {
                 viewMatrixRef.current = mat;
                 invViewMatrixRef.current = invertMat3(mat);
@@ -404,14 +410,15 @@ function Canvas({
 
     return (
         <CanvasContext value={ctxValue}>
-            <canvas
-                ref={mergedRefCallback}
-                className={className}
-                style={{ display: 'block', width, height, touchAction: 'none', ...style }}
-                width={Math.round(width * devicePixelRatio)}
-                height={Math.round(height * devicePixelRatio)}
-            />
-            {children}
+            <div className={className} style={{ position: 'relative', display: 'inline-block', ...style }}>
+                <canvas
+                    ref={mergedRefCallback}
+                    style={{ display: 'block', width, height, touchAction: 'none' }}
+                    width={Math.round(width * devicePixelRatio)}
+                    height={Math.round(height * devicePixelRatio)}
+                />
+                {children}
+            </div>
         </CanvasContext>
     );
 }
