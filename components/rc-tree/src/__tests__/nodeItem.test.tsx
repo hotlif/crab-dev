@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, it, jest, afterEach } from "@jest/globals";
 import { act } from "react";
-import { cleanup, render, fireEvent, screen } from "@testing-library/react";
+import { cleanup, render, fireEvent, createEvent, screen } from "@testing-library/react";
 import { NodeType, OverStateEnum, LoadStateType, type Node, type OverState } from "../type.js";
 
 (
@@ -79,7 +79,7 @@ describe("NodeItem", () => {
         expect(svgs.length).toBeGreaterThanOrEqual(1);
     });
 
-    it("renders CaretRightFill icon for collapsed folder", async () => {
+    it("renders ChevronRight icon for collapsed folder", async () => {
         const node = createNode("1", { type: NodeType.FOLDER });
 
         let container: HTMLElement;
@@ -100,7 +100,7 @@ describe("NodeItem", () => {
         expect(svgs.length).toBeGreaterThanOrEqual(1);
     });
 
-    it("renders CaretDownFill icon for expanded folder", async () => {
+    it("renders ChevronRight icon for expanded folder", async () => {
         const node = createNode("1", { type: NodeType.FOLDER });
 
         let container: HTMLElement;
@@ -141,7 +141,7 @@ describe("NodeItem", () => {
         expect(svgs.length).toBe(0);
     });
 
-    it("calls onExpanded when clicking collapsed folder icon", async () => {
+    it("calls onExpanded when pointer-up on collapsed folder icon", async () => {
         const node = createNode("1", { type: NodeType.FOLDER });
         const onExpanded = jest.fn();
 
@@ -159,12 +159,12 @@ describe("NodeItem", () => {
             container = result.container;
         });
 
-        // Click on the icon span (parent of svg)
+        // PointerUp on the icon span (parent of svg)
         const svg = container!.querySelector("svg");
         const iconSpan = svg?.parentElement;
         if (iconSpan) {
             act(() => {
-                fireEvent.click(iconSpan);
+                fireEvent.pointerUp(iconSpan);
             });
         }
 
@@ -173,7 +173,7 @@ describe("NodeItem", () => {
         );
     });
 
-    it("calls onExpanded when clicking expanded folder icon", async () => {
+    it("calls onExpanded when pointer-up on expanded folder icon", async () => {
         const node = createNode("1", { type: NodeType.FOLDER });
         const onExpanded = jest.fn();
 
@@ -195,13 +195,177 @@ describe("NodeItem", () => {
         const iconSpan = svg?.parentElement;
         if (iconSpan) {
             act(() => {
-                fireEvent.click(iconSpan);
+                fireEvent.pointerUp(iconSpan);
             });
         }
 
         expect(onExpanded).toHaveBeenCalledWith(
             expect.objectContaining({ node })
         );
+    });
+
+    it("calls onExpanded when pointer-up on row title (expandOnTitleClick=true, FOLDER)", async () => {
+        const node = createNode("1", { type: NodeType.FOLDER });
+        const onExpanded = jest.fn();
+
+        let container: HTMLElement;
+        await act(async () => {
+            const result = render(
+                <NodeItem
+                    node={node}
+                    overState={null}
+                    expanded={false}
+                    loading={false}
+                    expandOnTitleClick={true}
+                    onExpanded={onExpanded}
+                />
+            );
+            container = result.container;
+        });
+
+        const rootDiv = container!.firstElementChild as HTMLElement;
+        act(() => {
+            fireEvent.pointerUp(rootDiv, { button: 0 });
+        });
+
+        expect(onExpanded).toHaveBeenCalledWith(
+            expect.objectContaining({ node })
+        );
+    });
+
+    it("does NOT call onExpanded on right-click (button=2)", async () => {
+        const node = createNode("1", { type: NodeType.FOLDER });
+        const onExpanded = jest.fn();
+        const onTitleClick = jest.fn();
+
+        let container: HTMLElement;
+        await act(async () => {
+            const result = render(
+                <NodeItem
+                    node={node}
+                    overState={null}
+                    expanded={false}
+                    loading={false}
+                    expandOnTitleClick={true}
+                    onExpanded={onExpanded}
+                    onTitleClick={onTitleClick}
+                />
+            );
+            container = result.container;
+        });
+
+        const rootDiv = container!.firstElementChild as HTMLElement;
+        act(() => {
+            // jsdom 不支持通过 init 传递 button，手动定义属性
+            const event = createEvent.pointerUp(rootDiv);
+            Object.defineProperty(event, "button", { get: () => 2 });
+            fireEvent(rootDiv, event);
+        });
+
+        expect(onExpanded).not.toHaveBeenCalled();
+        expect(onTitleClick).not.toHaveBeenCalled();
+    });
+
+    it("does NOT call onExpanded when expandOnTitleClick=false and clicking row", async () => {
+        const node = createNode("1", { type: NodeType.FOLDER });
+        const onExpanded = jest.fn();
+
+        let container: HTMLElement;
+        await act(async () => {
+            const result = render(
+                <NodeItem
+                    node={node}
+                    overState={null}
+                    expanded={false}
+                    loading={false}
+                    expandOnTitleClick={false}
+                    onExpanded={onExpanded}
+                />
+            );
+            container = result.container;
+        });
+
+        const rootDiv = container!.firstElementChild as HTMLElement;
+        act(() => {
+            fireEvent.pointerUp(rootDiv);
+        });
+
+        expect(onExpanded).not.toHaveBeenCalled();
+    });
+
+    it("does NOT call onExpanded when row click on FILE node", async () => {
+        const node = createNode("1", { type: NodeType.FILE });
+        const onExpanded = jest.fn();
+
+        let container: HTMLElement;
+        await act(async () => {
+            const result = render(
+                <NodeItem
+                    node={node}
+                    overState={null}
+                    expanded={false}
+                    loading={false}
+                    onExpanded={onExpanded}
+                />
+            );
+            container = result.container;
+        });
+
+        const rootDiv = container!.firstElementChild as HTMLElement;
+        act(() => {
+            fireEvent.pointerUp(rootDiv);
+        });
+
+        expect(onExpanded).not.toHaveBeenCalled();
+    });
+
+    it("disabled node: does NOT call onExpanded or onTitleClick on row click", async () => {
+        const node = createNode("1", { type: NodeType.FOLDER, disabled: true });
+        const onExpanded = jest.fn();
+        const onTitleClick = jest.fn();
+
+        let container: HTMLElement;
+        await act(async () => {
+            const result = render(
+                <NodeItem
+                    node={node}
+                    overState={null}
+                    expanded={false}
+                    loading={false}
+                    onExpanded={onExpanded}
+                    onTitleClick={onTitleClick}
+                />
+            );
+            container = result.container;
+        });
+
+        const rootDiv = container!.firstElementChild as HTMLElement;
+        act(() => {
+            fireEvent.pointerUp(rootDiv);
+        });
+
+        expect(onExpanded).not.toHaveBeenCalled();
+        expect(onTitleClick).not.toHaveBeenCalled();
+    });
+
+    it("disabled node: has data-disabled=true attribute", async () => {
+        const node = createNode("1", { disabled: true });
+
+        let container: HTMLElement;
+        await act(async () => {
+            const result = render(
+                <NodeItem
+                    node={node}
+                    overState={null}
+                    expanded={false}
+                    loading={false}
+                />
+            );
+            container = result.container;
+        });
+
+        const rootDiv = container!.firstElementChild as HTMLElement;
+        expect(rootDiv.getAttribute("data-disabled")).toBe("true");
     });
 
     it("calls onExpanded on mouseEnter when overState is set and folder is collapsed", async () => {
@@ -285,7 +449,7 @@ describe("NodeItem", () => {
         // The root div receives onPointerUp
         const rootDiv = container!.firstElementChild as HTMLElement;
         act(() => {
-            fireEvent.pointerUp(rootDiv);
+            fireEvent.pointerUp(rootDiv, { button: 0 });
         });
 
         expect(onTitleClick).toHaveBeenCalled();
@@ -317,7 +481,7 @@ describe("NodeItem", () => {
         expect(onTitleContextMenu).toHaveBeenCalled();
     });
 
-    it("sets data-node-item-selectd attribute when node is in selectKeys", async () => {
+    it("sets data-selected attribute when node is in selectKeys", async () => {
         const node = createNode("1");
 
         let container: HTMLElement;
@@ -335,10 +499,10 @@ describe("NodeItem", () => {
         });
 
         const rootDiv = container!.firstElementChild as HTMLElement;
-        expect(rootDiv.getAttribute("data-node-item-selectd")).toBe("true");
+        expect(rootDiv.getAttribute("data-selected")).toBe("true");
     });
 
-    it("sets data-node-item-selectd to false when node not in selectKeys", async () => {
+    it("sets data-selected to false when node not in selectKeys", async () => {
         const node = createNode("1");
 
         let container: HTMLElement;
@@ -356,7 +520,7 @@ describe("NodeItem", () => {
         });
 
         const rootDiv = container!.firstElementChild as HTMLElement;
-        expect(rootDiv.getAttribute("data-node-item-selectd")).toBe("false");
+        expect(rootDiv.getAttribute("data-selected")).toBe("false");
     });
 
     it("applies UPWARD over state style", async () => {

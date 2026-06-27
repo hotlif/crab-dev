@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { LoadStateType, type Node, OverStateEnum } from "./type.js";
+import { LoadStateType, NodeType, type Node, OverStateEnum } from "./type.js";
 import { type TreeProps } from "./tree.js";
 
 const sortRules = (a: Node, b: Node) => {
@@ -162,6 +162,25 @@ export class TreeDataUtil {
      * moveNodeOnDrag('node1', 'node2', OverStateEnum.UPWARD);
      * ```
      */
+    /**
+     * 展开所有 FOLDER 类型节点。
+     * @param onExpandedKeysChange 用于更新 expandedKeys 的回调
+     */
+    expandAll(onExpandedKeysChange: (keys: Node["id"][]) => void): void {
+        const keys = this.treeData
+            .filter(node => node.type === NodeType.FOLDER)
+            .map(node => node.id);
+        onExpandedKeysChange(keys);
+    }
+
+    /**
+     * 折叠所有节点。
+     * @param onExpandedKeysChange 用于更新 expandedKeys 的回调
+     */
+    collapseAll(onExpandedKeysChange: (keys: Node["id"][]) => void): void {
+        onExpandedKeysChange([]);
+    }
+
     moveNodeOnDrag(dragNodeId: Node["id"], targetNodeId: Node["id"], position: OverStateEnum) {
         this.onTreeNodeChange(newTreeData => {
             const dragNode = newTreeData.find(element => element.id === dragNodeId);
@@ -281,6 +300,40 @@ export const belongsToNode = (parent: Node, target: Node): boolean => {
         return false;
     }
 }
+
+/**
+ * 获取某节点的所有后代节点 id（基于平铺 treeData）。
+ */
+export const getDescendantIds = (node: Node, treeData: Node[]): Node["id"][] => {
+    const result: Node["id"][] = [];
+    const stack = [node];
+    while (stack.length > 0) {
+        const current = stack.pop()!;
+        const children = treeData.filter(n => n.parent?.id === current.id);
+        children.forEach(child => {
+            result.push(child.id);
+            stack.push(child);
+        });
+    }
+    return result;
+};
+
+/**
+ * 计算半选 key 列表。
+ * FOLDER 节点中：有后代在 checkedKeys 里但自身不在 → 半选。
+ */
+export const getHalfCheckedKeys = (checkedKeys: Node["id"][], treeData: Node[]): Node["id"][] => {
+    const checkedSet = new Set(checkedKeys);
+    const halfChecked: Node["id"][] = [];
+    treeData.filter(n => n.type === NodeType.FOLDER).forEach(folder => {
+        if (checkedSet.has(folder.id)) return;
+        const descendants = getDescendantIds(folder, treeData);
+        if (descendants.some(id => checkedSet.has(id))) {
+            halfChecked.push(folder.id);
+        }
+    });
+    return halfChecked;
+};
 
 export const loadDataFunc = async ({
     parentNode,

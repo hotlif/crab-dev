@@ -71,6 +71,11 @@ export interface Node {
     disabled?: boolean
 
     /**
+     * 节点前置图标，渲染在展开图标与标题之间
+     */
+    icon?: ReactNode
+
+    /**
      * 节点高度, 默认 24px
      */
     height?: number

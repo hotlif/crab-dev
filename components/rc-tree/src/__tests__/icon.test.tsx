@@ -1,6 +1,6 @@
-import { describe, expect, it, jest, beforeEach, afterEach } from "@jest/globals";
+import { describe, expect, it, afterEach } from "@jest/globals";
 import { cleanup, render } from "@testing-library/react";
-import { Loading, CaretRightFill, CaretDownFill } from "../icon.js";
+import { Loading, ChevronRight } from "../icon.js";
 
 (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -25,29 +25,23 @@ describe("Icon components", () => {
         expect(svg?.getAttribute("class")).toBe("custom");
     });
 
-    it("renders CaretRightFill icon", () => {
-        const { container } = render(<CaretRightFill />);
+    it("renders ChevronRight icon", () => {
+        const { container } = render(<ChevronRight />);
         const svg = container.querySelector("svg");
         expect(svg).toBeTruthy();
-        expect(svg?.getAttribute("viewBox")).toBe("0 0 16 16");
+        expect(svg?.getAttribute("viewBox")).toBe("0 0 24 24");
     });
 
-    it("renders CaretRightFill icon with extra props", () => {
-        const { container } = render(<CaretRightFill data-testid="right" />);
+    it("renders ChevronRight icon with extra props", () => {
+        const { container } = render(<ChevronRight data-testid="chevron" />);
         const svg = container.querySelector("svg");
-        expect(svg?.getAttribute("data-testid")).toBe("right");
+        expect(svg?.getAttribute("data-testid")).toBe("chevron");
     });
 
-    it("renders CaretDownFill icon", () => {
-        const { container } = render(<CaretDownFill />);
+    it("renders ChevronRight as a line-style icon (fill=none)", () => {
+        const { container } = render(<ChevronRight />);
         const svg = container.querySelector("svg");
-        expect(svg).toBeTruthy();
-        expect(svg?.getAttribute("viewBox")).toBe("0 0 16 16");
-    });
-
-    it("renders CaretDownFill icon with extra props", () => {
-        const { container } = render(<CaretDownFill data-testid="down" />);
-        const svg = container.querySelector("svg");
-        expect(svg?.getAttribute("data-testid")).toBe("down");
+        expect(svg?.getAttribute("fill")).toBe("none");
+        expect(svg?.getAttribute("stroke")).toBe("currentColor");
     });
 });

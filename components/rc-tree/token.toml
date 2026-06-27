@@ -7,15 +7,26 @@ imports = [
 
 [token]
 
-indent.size = "$ref(space.dialog-padding)"
+indent.size = "$ref(space.section-gap)"
 border.radius = "$ref(radius.sm)"
+
+node.hover.background.color = "$ref(color.background.hover-subtle)"
+node.select.background.color = "$ref(color.background.active-subtle)"
+node.select.indicator.color = "$ref(color.fill.active)"
+node.select.indicator.width = "3px"
+
+node.expand.icon.color = "$ref(color.text.secondary)"
+node.icon.hover.background.color = "$ref(color.background.hover-subtle)"
+node.icon.loading.color = "$ref(color.brand.primary)"
+
+node.indent.line.color = "$ref(color.border.default)"
 
 node.draggable.border.width = "1px"
 node.draggable.border.style = "solid"
 node.draggable.border.color = "$ref(color.border.focus)"
+node.drag.indicator.color = "$ref(color.feedback.info)"
+node.drag.inside.background.color = "$ref(color.feedback.info-background)"
+node.drag.inside.border.color = "$ref(color.feedback.info)"
 
-node.icon.hover.background.color = "$ref(color.background.hover-subtle)"
-node.icon.loading.color = "$ref(color.brand.primary)"
-
-node.hover.background.color = "$ref(color.background.hover-subtle)"
-node.select.background.color = "$ref(color.background.active-subtle)"
+node.disabled.color = "$ref(color.text.disabled)"
+node.disabled.background.color = "transparent"

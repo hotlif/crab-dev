@@ -4,12 +4,17 @@ export {
     useTreeData
 }
 export {
-    getTreeNodeDepth
+    getTreeNodeDepth,
+    getDescendantIds,
+    getHalfCheckedKeys,
 } from "./util.js";
 export {
     LoadStateType,
     NodeType,
-    type Node 
+    NodeEditStateType,
+    OverStateEnum,
+    type Node,
+    type OverState,
 } from "./type.js";
 export { type TreeProps } from "./tree.js";
 export default Tree;

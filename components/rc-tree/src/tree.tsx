@@ -30,9 +30,9 @@ import {
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab-dev/rc-virtual";
 import { useKeyDown } from "@crab-dev/rc-hooks";
-import { LoadStateType, OverStateEnum, type Node, type OverState } from "./type.js";
+import { LoadStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import NodeItem, { type NodeItemProps } from "./nodeItem.js";
-import { getLoadReadyTreeNodeData, loadDataFunc } from "./util.js";
+import { belongsToNode, getDescendantIds, getHalfCheckedKeys, getLoadReadyTreeNodeData, loadDataFunc } from "./util.js";
 
 interface Context {
     overState: OverState | null
@@ -77,6 +77,18 @@ export interface TreeProps extends Omit<
      * 设置节点可拖拽
      */
     draggable?: boolean
+
+    /**
+     * 拖拽放置前的校验回调，返回 false 则阻止此次放置。
+     * @param param.dragNode 被拖拽的节点
+     * @param param.targetNode 放置目标节点
+     * @param param.position 放置位置
+     */
+    allowDrop?: (param: {
+        dragNode: Node
+        targetNode: Node
+        position: OverStateEnum
+    }) => boolean
 
     /**
      * 展开指定的树节点
@@ -169,6 +181,51 @@ export interface TreeProps extends Omit<
     onContextMenu?: (event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, node: Node | null) => void;
 
     /**
+     * 是否开启复选框
+     */
+    checkable?: boolean
+
+    /**
+     * 受控的已选中节点 key 列表
+     */
+    checkedKeys?: Key[]
+
+    /**
+     * 复选框勾选/取消时触发。内部已完成级联计算，halfCheckedKeys 由组件自动计算。
+     */
+    onCheck?: (param: {
+        checkedKeys: Key[]
+        halfCheckedKeys: Key[]
+        node: Node
+        checked: boolean
+    }) => void
+
+    /**
+     * 过滤树节点。返回 true 则保留该节点（及其所有祖先）；返回 false 则隐藏。
+     * 不传时不过滤，显示全部可见节点。
+     */
+    filterTreeNode?: (node: Node) => boolean
+
+    /**
+     * 双击节点标题行时触发。常用于进入 inline 编辑模式。
+     */
+    onNodeDoubleClick?: (node: Node, event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => void
+
+    /**
+     * 节点 inline 编辑完成时触发。
+     * cancelled=true 表示按 Esc 取消，此时 newTitle 无意义。
+     * 调用方应在此回调里更新标题并清除 editState。
+     */
+    onEditEnd?: (node: Node, newTitle: string, cancelled: boolean) => void
+    /**
+     * 自定义编辑器渲染函数，替换默认 `<input>`。
+     * 消费方负责聚焦管理，调用 `onCommit(value)` 提交，`onCancel()` 取消。
+     */
+    renderEditInput?: NodeItemProps["renderEditInput"]
+    /** 拖拽位置 badge 文字，用于国际化覆盖。默认中文。 */
+    dragBadgeLabels?: NodeItemProps["dragBadgeLabels"]
+
+    /**
      * 节点改变时触发的事件
      */
     onTreeNodeChange: Dispatch<SetStateAction<TreeProps["treeData"]>>;
@@ -197,6 +254,15 @@ const Tree: FC<TreeProps> = ({
     onDragCancel,
     onContextMenu,
     onSelect,
+    allowDrop,
+    filterTreeNode,
+    checkable,
+    checkedKeys = [],
+    onCheck,
+    onEditEnd,
+    renderEditInput,
+    dragBadgeLabels,
+    onNodeDoubleClick,
     ...restProps
 }) => {
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -209,13 +275,15 @@ const Tree: FC<TreeProps> = ({
     const [overState, setOverState] = useState<OverState | null>(null);
 
     useEffect(() => {
-        loadDataFunc({
-            parentNode: null,
-            loadData,
-            expandedKeys
-        }).then((nodes) => {
-            onTreeNodeChange?.(nodes)
-        });
+        if (loadData) {
+            loadDataFunc({
+                parentNode: null,
+                loadData,
+                expandedKeys
+            }).then((nodes) => {
+                onTreeNodeChange?.(nodes)
+            });
+        }
 
         const onClick = (event: globalThis.MouseEvent) => {
             if (!contextMenuDivRef.current?.contains(event.target as globalThis.Node)) {
@@ -240,8 +308,15 @@ const Tree: FC<TreeProps> = ({
 
     let activeNode: Node | null = null;
     const displayedNodes = useMemo(() => {
+        const visibleData = filterTreeNode
+            ? treeData.filter(node =>
+                filterTreeNode(node) ||
+                treeData.some(other => filterTreeNode(other) && belongsToNode(node, other))
+            )
+            : treeData;
+
         const _displayedNodes: Node[] = [];
-        treeData.forEach((node) => {
+        visibleData.forEach((node) => {
             if (node.parent === null || expandedKeys?.includes(node.parent.id)) {
                 _displayedNodes.push(node);
                 if (activeId === node.id) {
@@ -250,7 +325,7 @@ const Tree: FC<TreeProps> = ({
             }
         });
         return getDisplayedNodes(_displayedNodes);
-    }, [treeData, expandedKeys]);
+    }, [treeData, expandedKeys, filterTreeNode]);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
@@ -281,6 +356,25 @@ const Tree: FC<TreeProps> = ({
         }
         _onExpanded?.(e);
     }
+
+    const handleCheck = (node: Node, checked: boolean) => {
+        const descendants = getDescendantIds(node, treeData);
+        let newCheckedKeys: Key[];
+        if (checked) {
+            newCheckedKeys = [...new Set([...checkedKeys, node.id, ...descendants])];
+        } else {
+            const ancestors: Key[] = [];
+            let p: Node | null = node.parent;
+            while (p != null) {
+                ancestors.push(p.id);
+                p = p.parent;
+            }
+            const removeIds = new Set([node.id, ...descendants, ...ancestors]);
+            newCheckedKeys = checkedKeys.filter(k => !removeIds.has(k));
+        }
+        const halfCheckedKeys = getHalfCheckedKeys(newCheckedKeys as Node["id"][], treeData);
+        onCheck?.({ checkedKeys: newCheckedKeys, halfCheckedKeys, node, checked });
+    };
 
     const getLeftAndTop = () => {
         const rect = divRef.current?.getBoundingClientRect()
@@ -350,21 +444,26 @@ const Tree: FC<TreeProps> = ({
                     const rect = event.over.rect;
                     const top = dragStartPosition.current.y + event.delta.y - rect.top
                     const left = dragStartPosition.current.x + event.delta.x - rect.left
-                    if (left >=  rect.width / 3) {
-                        setOverState({
-                            id: event.over.id,
-                            state: OverStateEnum.INSIDE
-                        })
+
+                    let nextPosition: OverStateEnum;
+                    if (left >= rect.width / 3) {
+                        nextPosition = OverStateEnum.INSIDE;
                     } else if (top <= rect.height / 3) {
-                        setOverState({
-                            id: event.over.id,
-                            state: OverStateEnum.UPWARD
-                        })
+                        nextPosition = OverStateEnum.UPWARD;
                     } else {
-                        setOverState({
-                            id: event.over.id,
-                            state: OverStateEnum.DOWN
-                        })
+                        nextPosition = OverStateEnum.DOWN;
+                    }
+
+                    const dragNode = treeData.find(n => n.id === event.active.id) ?? null;
+                    const targetNode = treeData.find(n => n.id === event.over!.id) ?? null;
+                    const allowed = dragNode && targetNode && allowDrop
+                        ? allowDrop({ dragNode, targetNode, position: nextPosition })
+                        : true;
+
+                    if (allowed) {
+                        setOverState({ id: event.over.id, state: nextPosition });
+                    } else {
+                        setOverState(null);
                     }
                 } else {
                     setOverState(null)
@@ -394,14 +493,73 @@ const Tree: FC<TreeProps> = ({
         >
             <SortableContext
                 disabled={!draggable}
-                items={displayedNodes}
+                items={activeId !== null ? displayedNodes : []}
             >
                 <div
                     ref={divRef}
+                    tabIndex={0}
                     className={css`
                         display: inline-block;
                         position: relative;
+                        outline: none;
                     `}
+                    onKeyDown={(e) => {
+                        const focusedId = selectKeys[selectKeys.length - 1];
+                        const focusedIndex = focusedId != null
+                            ? displayedNodes.findIndex(n => n.id === focusedId)
+                            : -1;
+
+                        if (e.key === "ArrowDown") {
+                            e.preventDefault();
+                            for (let i = focusedIndex + 1; i < displayedNodes.length; i++) {
+                                const n = displayedNodes[i];
+                                if (!n.disabled) {
+                                    onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: [n.id], node: n, isSelect: true });
+                                    break;
+                                }
+                            }
+                        } else if (e.key === "ArrowUp") {
+                            e.preventDefault();
+                            for (let i = focusedIndex - 1; i >= 0; i--) {
+                                const n = displayedNodes[i];
+                                if (!n.disabled) {
+                                    onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: [n.id], node: n, isSelect: true });
+                                    break;
+                                }
+                            }
+                        } else if (e.key === "ArrowRight") {
+                            e.preventDefault();
+                            if (focusedIndex >= 0) {
+                                const n = displayedNodes[focusedIndex];
+                                if (n.type === NodeType.FOLDER && !expandedKeys?.includes(n.id)) {
+                                    onExpanded({ node: n });
+                                }
+                            }
+                        } else if (e.key === "ArrowLeft") {
+                            e.preventDefault();
+                            if (focusedIndex >= 0) {
+                                const n = displayedNodes[focusedIndex];
+                                if (n.type === NodeType.FOLDER && expandedKeys?.includes(n.id)) {
+                                    onExpanded({ node: n });
+                                } else if (n.parent != null) {
+                                    const parentIndex = displayedNodes.findIndex(p => p.id === n.parent!.id);
+                                    if (parentIndex >= 0) {
+                                        const parent = displayedNodes[parentIndex];
+                                        onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: [parent.id], node: parent, isSelect: true });
+                                    }
+                                }
+                            }
+                        } else if (e.key === "Enter") {
+                            e.preventDefault();
+                            if (focusedIndex >= 0) {
+                                const n = displayedNodes[focusedIndex];
+                                if (!n.disabled) {
+                                    const isSelect = !selectKeys.includes(n.id);
+                                    onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: isSelect ? [n.id] : [], node: n, isSelect });
+                                }
+                            }
+                        }
+                    }}
                     onContextMenu={e => {
                         const x = e.clientX;
                         const y = e.clientY;
@@ -435,6 +593,10 @@ const Tree: FC<TreeProps> = ({
                             ];
                             let rowIndex = rowRange[0];
 
+                            const halfCheckedKeys = checkable
+                                ? getHalfCheckedKeys(checkedKeys as Node["id"][], treeData)
+                                : [];
+
                             const getNodeItemElement = (node: Node) => {
                                 return (
                                     <NodeItem
@@ -446,7 +608,19 @@ const Tree: FC<TreeProps> = ({
                                         expanded={expandedKeys?.includes(node.id) === true}
                                         draggable={draggable}
                                         showLine={showLine}
+                                        checkable={checkable}
+                                        checked={checkedKeys.includes(node.id)}
+                                        indeterminate={halfCheckedKeys.includes(node.id)}
+                                        onCheck={(c) => handleCheck(node, c)}
+                                        onEditEnd={onEditEnd}
+                                        renderEditInput={renderEditInput}
+                                        dragBadgeLabels={dragBadgeLabels}
+                                        onDoubleClick={(e) => {
+                                            e.stopPropagation();
+                                            onNodeDoubleClick?.(node, e);
+                                        }}
                                         onTitleClick={(e) => {
+                                            divRef.current?.focus();
                                             if (keyboardEvent.current?.ctrlKey === true) {
                                                 if (selectKeys.includes(node.id)) {
                                                     const newSelectNodeKeys = selectKeys.filter(element => element !== node.id);
@@ -510,7 +684,8 @@ const Tree: FC<TreeProps> = ({
                                         key={node.id}
                                         className={css`
                                             white-space: nowrap;
-                                            overflow: hidden;
+                                            overflow: visible;
+                                            position: relative;
                                         `}
                                         style={{
                                             height: gridTemplateRows[rowIndex],
@@ -538,17 +713,23 @@ const Tree: FC<TreeProps> = ({
                             <DragOverlay
                                 className={css`
                                     pointer-events: none;
-                                    box-shadow: 0 2px 4px rgba(0,0,0,0.025), 0 2px 6px rgba(0,0,0,0.035);
+                                    border-radius: 4px;
+                                    box-shadow:
+                                        0 0 0 1px rgba(0,0,0,0.06),
+                                        0 4px 8px rgba(0,0,0,0.1),
+                                        0 8px 16px rgba(0,0,0,0.08);
                                 `}
                             >
                                 <NodeItem
                                     loading={false}
                                     node={activeNode}
                                     overState={null}
-                                    selectKeys={selectKeys}
+                                    selectKeys={[]}
                                     style={{
                                         height: (activeNode as Node)?.height ?? defaultNodeHeight,
                                         width: width,
+                                        borderRadius: 4,
+                                        opacity: 1,
                                     }}
                                     expanded={expandedKeys?.includes((activeNode as Node )?.id) === true}
                                 />
