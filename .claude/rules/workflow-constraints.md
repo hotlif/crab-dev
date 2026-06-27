@@ -47,7 +47,9 @@
 
 ## §3 提交规范
 
+- commit 消息**必须**使用**英文**书写（含 subject 与 body）；
 - **必须**遵循 Conventional Commits：`<type>(<scope>): <subject>`；
 - scope **应**用组件名 / 工具名（如 `feat(rc-table): ...`、`build(packify): ...`），
   跨工作区基础设施用 `repo` / `ci`；
-- 一个 commit **应**只做一件事；生成文件**仅**在与其触发变更同一次 commit 中提交。
+- 一个 commit **应**只做一件事；生成文件**仅**在与其触发变更同一次 commit 中提交；
+- **不得**在提交信息中添加 `Co-Authored-By` 行。

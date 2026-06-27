@@ -15,7 +15,6 @@ React 19 企业级 UI 组件库 **Turbo Monorepo**：Yarn 4 PnP + 全仓 ESM（`
 
 ## 规则文件（`.claude/rules/`，会话开始即加载，必须遵守）
 
-@.claude/rules/think-first.md
 @.claude/rules/tech-stack-constraints.md
 @.claude/rules/component-constraints.md
 @.claude/rules/workflow-constraints.md
