@@ -58,6 +58,7 @@ export const vars = {
     'radius.pill': '--token-semantic-radius-pill',
     'shadow.float': '--token-semantic-shadow-float',
     'shadow.overlay': '--token-semantic-shadow-overlay',
+    'shadow.focus-ring': '--token-semantic-shadow-focus-ring',
     'z-index.base': '--token-semantic-z-index-base',
     'z-index.float': '--token-semantic-z-index-float',
     'z-index.sticky': '--token-semantic-z-index-sticky',
@@ -154,7 +155,8 @@ const token = {
     },
     'shadow': {
         'float': `var(${vars['shadow.float']}, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))`,
-        'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))`
+        'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))`,
+        'focus-ring': `var(${vars['shadow.focus-ring']}, 0 0 0 3px oklch(0.140 0.004 286 / 0.25))`
     },
     'z-index': {
         'base': `var(${vars['z-index.base']}, var(--token-global-z-index-1, 1))`,

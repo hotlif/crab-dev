@@ -116,8 +116,9 @@ radius.pill    = "$ref(radius.full)"
 
 # ─── 阴影 · 语义 ────────────────────────────────────────────────────────────
 
-shadow.float   = "$ref(shadow.md)"
-shadow.overlay = "$ref(shadow.lg)"
+shadow.float      = "$ref(shadow.md)"
+shadow.overlay    = "$ref(shadow.lg)"
+shadow.focus-ring = "0 0 0 3px oklch(0.140 0.004 286 / 0.25)"
 
 
 # ─── 层级 · 语义 ────────────────────────────────────────────────────────────
