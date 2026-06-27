@@ -1,0 +1,62 @@
+{
+    "name": "@crab-dev/rc-flow-diagram",
+    "websiteConfig": {
+        "title": "FlowDiagram 流程图",
+        "category": "data-display"
+    },
+    "description": "基于 rc-canvas 的流程图组件库，提供 Edge 连线、ELK 自动布局和正交边路由能力",
+    "packageManager": "yarn@4.13.0",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "lignify run-task app:dev",
+        "build:library": "packify build",
+        "test": "yarn node --experimental-vm-modules $(yarn bin jest) --passWithNoTests",
+        "eslint": "eslint .",
+        "typecheck": "tsc --noEmit",
+        "prepack": "cd ../.. && yarn build:library"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "devDependencies": {
+        "@crab-dev/lignify": "workspace:^",
+        "@crab-dev/packify": "workspace:^",
+        "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/rc-masonry": "workspace:^",
+        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-jest-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@jest/globals": "30.3.0",
+        "@linaria/core": "^7.0.0",
+        "@mdx-js/react": "^3.1.1",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/react": "^16.3.2",
+        "@types/node": "^25.5.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^10.1.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.4.0",
+        "jest": "^30.3.0",
+        "jest-environment-jsdom": "30.3.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-router": "^7.13.2",
+        "typescript": "^6.0.2",
+        "typescript-eslint": "^8.57.2"
+    },
+    "dependencies": {
+        "@crab-dev/rc-canvas": "workspace:^",
+        "elkjs": "^0.11.1"
+    },
+    "engines": {
+        "node": ">=22"
+    }
+}

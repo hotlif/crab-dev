@@ -1,0 +1,38 @@
++++
+title = "FlowDiagram"
+index = true
++++
+
+
+# FlowDiagram
+
+基于 **rc-canvas** 的高级流程图组件库。内置 [ELK.js](https://eclipse.dev/elk/) 自动图布局与正交边路由，
+以 Render Prop 模式对外暴露布局结果，消费方只需声明节点 / 边数据并描述渲染内容，
+无需直接接触底层 WebGL 画布。
+
+
+## 何时使用
+
+- 需要在画布上渲染 **有向流程图 / 架构图**，并希望节点位置由布局算法自动决定时。
+- 需要边路由**自动绕开节点**（正交折线），或对个别边做手动走线覆盖时。
+- 需要节点**可拖拽移动**、画布**可缩放平移**，以及一键 **fitView** 自适应视图时。
+
+
+## 功能特性
+
+- **ELK 自动布局**：内置 Web Worker + ELK.js，支持 `layered`（层次）、`mrtree`（树形）、`stress`（力导向）等算法。
+- **正交边路由**：基于 A\* 的障碍物避让，自动分配端口、生成折线，支持虚线与箭头方向。
+- **Render Prop 模式**：`<FlowDiagram>` 提供 `children({ nodeRects, routes, zoom, loading, controls })`，节点 / 边的渲染完全由消费方控制。
+- **封装 rc-canvas**：`@crab-dev/rc-canvas` 为内部依赖，消费方无需引用，升级底层渲染引擎不影响上层 API。
+- **节点拖拽**：`FlowNode` 的 `draggable` + `onDrag(dx, dy)` 支持拖拽覆盖布局位置。
+- **手动走线**：通过 `manualRoutes` 对单条边指定端口与途经点，其余边仍自动路由。
+- **无限网格 + 视口控制**：内置 `InfiniteGrid` 背景网格，支持 `useFlowDiagramControls()` 程序化缩放 / 平移 / fitView。
+
+
+## 代码演示
+
+<Demos path="/docs/demos" columns={1} density="compact" />
+
+## API
+
+<API path="./src/flow-diagram.tsx" />
