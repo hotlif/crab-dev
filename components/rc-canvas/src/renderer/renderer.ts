@@ -64,7 +64,7 @@ interface FlatLocs {
     gapLength: WebGLUniformLocation | null;
 }
 
-interface SdfLocs extends Omit<FlatLocs, 'dashLength' | 'gapLength'> {
+interface SdfLocs extends FlatLocs {
     radius: WebGLUniformLocation | null;
     mode: WebGLUniformLocation | null;
 }
@@ -195,6 +195,8 @@ export class WebGLRenderer {
             stroke: gl.getUniformLocation(this.sdfProg, 'u_stroke'),
             strokeWidth: gl.getUniformLocation(this.sdfProg, 'u_stroke_width'),
             size: gl.getUniformLocation(this.sdfProg, 'u_size'),
+            dashLength: gl.getUniformLocation(this.sdfProg, 'u_dash_length'),
+            gapLength: gl.getUniformLocation(this.sdfProg, 'u_gap_length'),
             radius: gl.getUniformLocation(this.sdfProg, 'u_radius'),
             mode: gl.getUniformLocation(this.sdfProg, 'u_mode'),
         };
@@ -432,6 +434,8 @@ export class WebGLRenderer {
         gl.uniform4fv(L.stroke, cmd.stroke);
         gl.uniform1f(L.strokeWidth, cmd.strokeWidth);
         gl.uniform2f(L.size, cmd.width, cmd.height);
+        gl.uniform1f(L.dashLength, cmd.dashLength ?? 0);
+        gl.uniform1f(L.gapLength, cmd.gapLength ?? 0);
         gl.uniform1f(L.radius, cmd.radius);
         gl.uniform1i(L.mode, 0);
         this.drawQuad();
@@ -605,7 +609,7 @@ export class WebGLRenderer {
         gl.uniform1f(L.size, cmd.size);
         gl.uniform4fv(L.color, cmd.fill);
         gl.bindVertexArray(this.markerVAO);
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
         gl.bindVertexArray(null);
     }
 

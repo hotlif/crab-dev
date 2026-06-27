@@ -1,11 +1,13 @@
 /**
- * Marker（实心三角箭头）顶点着色器。
- * 使用 gl_VertexID 选取三角形 3 个顶点，无需 VBO。
+ * Marker（实心箭头）顶点着色器。
+ * 使用 gl_VertexID 选取 2 个三角形（6 顶点）拼出带凹口的经典箭头，无需 VBO。
  *
- * 对象空间中尖端朝 +X（angle=0 时向右）：
- *   0: (0.00,  0.00)  尖端
- *   1: (-1.00, -0.45) 左翼
- *   2: (-1.00, +0.45) 右翼
+ * 对象空间中尖端朝 +X（angle=0 时向右），尾部带凹口（更像箭头、不臃肿）：
+ *   尖端  TIP   = ( 0.00,  0.00)
+ *   上翼  TOP   = (-1.00,  0.42)
+ *   凹口  NOTCH = (-0.62,  0.00)
+ *   下翼  BOT   = (-1.00, -0.42)
+ * 两三角：(TIP, TOP, NOTCH) 与 (TIP, NOTCH, BOT)。
  *
  * 乘以 u_size 后旋转 u_angle，再平移到 u_tip（局部坐标）。
  */
@@ -19,10 +21,14 @@ uniform vec2 u_tip;
 uniform float u_angle;
 uniform float u_size;
 
-const vec2 LOCAL_VERTS[3] = vec2[3](
-    vec2( 0.00,  0.00),
-    vec2(-1.00, -0.45),
-    vec2(-1.00,  0.45)
+const vec2 TIP   = vec2( 0.00,  0.00);
+const vec2 TOP   = vec2(-1.00,  0.42);
+const vec2 NOTCH = vec2(-0.62,  0.00);
+const vec2 BOT   = vec2(-1.00, -0.42);
+
+const vec2 LOCAL_VERTS[6] = vec2[6](
+    TIP, TOP, NOTCH,
+    TIP, NOTCH, BOT
 );
 
 void main() {

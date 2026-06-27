@@ -39,7 +39,7 @@ describe('Canvas', () => {
 
     it('调用 getContext("webgl2") 初始化 WebGL', () => {
         render(<Canvas width={100} height={100} />);
-        expect(HTMLCanvasElement.prototype.getContext).toHaveBeenCalledWith('webgl2');
+        expect(HTMLCanvasElement.prototype.getContext).toHaveBeenCalledWith('webgl2', { preserveDrawingBuffer: true });
     });
 
     it('unmount 时调用 dispose（deleteProgram 被调用）', () => {

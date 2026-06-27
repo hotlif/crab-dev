@@ -1,4 +1,4 @@
-import { type CSSProperties, type ReactNode, type Ref, type RefObject, useEffect, useRef } from 'react';
+import { type CSSProperties, type ReactNode, type Ref, type RefObject, useEffect, useRef, useState } from 'react';
 import { CanvasContext, type CanvasContextValue, type HitEntry } from './context/canvas-context.js';
 import { WebGLRenderer } from './renderer/renderer.js';
 import type { DrawCommand } from './renderer/draw-command.js';
@@ -6,8 +6,13 @@ import { identityMat3, invertMat3, applyMat3, applyMat3Vector } from './math/mat
 import type { DragMoveEvent } from './drag-types.js';
 
 export interface CanvasProps {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
+    /**
+     * 自动填充父容器尺寸（ResizeObserver 驱动）。
+     * 开启时 width/height 被忽略；父容器必须有明确的 CSS 尺寸。
+     */
+    fillParent?: boolean;
     /** 设备像素比，默认 window.devicePixelRatio（≥1）*/
     dpr?: number;
     children?: ReactNode;
@@ -16,6 +21,10 @@ export interface CanvasProps {
     style?: CSSProperties;
     /** 点击空白区域（无命中形状）时触发，常用于取消选中 */
     onEmptyClick?: () => void;
+    /** 键盘按下时触发（容器 div 已内置 tabIndex=0） */
+    onKeyDown?: (e: KeyboardEvent) => void;
+    /** 键盘释放时触发 */
+    onKeyUp?: (e: KeyboardEvent) => void;
 }
 
 /** 字典序比较两个 zIndexPath（与 renderer 保持一致）。 */
@@ -48,17 +57,27 @@ function findTopHit(
 }
 
 function Canvas({
-    width,
-    height,
+    width: propWidth,
+    height: propHeight,
+    fillParent = false,
     dpr,
     children,
     ref: externalRef,
     className,
     style,
     onEmptyClick,
+    onKeyDown,
+    onKeyUp,
 }: CanvasProps) {
+    // fillParent 模式下由 ResizeObserver 驱动容器尺寸
+    const [containerSize, setContainerSize] = useState({ width: propWidth ?? 0, height: propHeight ?? 0 });
+    const effectiveWidth = fillParent ? containerSize.width : (propWidth ?? 0);
+    const effectiveHeight = fillParent ? containerSize.height : (propHeight ?? 0);
+
     // 可变实例状态 ref：持有 <canvas> DOM 节点
     const internalCanvasRef = useRef<HTMLCanvasElement | null>(null);
+    // 可变实例状态 ref：持有容器 div，供 portal overlay 使用
+    const containerDivRef = useRef<HTMLDivElement | null>(null);
     // 可变实例状态 ref：持有 WebGLRenderer 实例，跨渲染不触发 rerender
     const rendererRef = useRef<WebGLRenderer | null>(null);
     // 可变实例状态 ref：DrawCommand 队列
@@ -69,22 +88,18 @@ function Canvas({
     const rafHandleRef = useRef(0);
     // 可变实例状态 ref：脏标记，命令队列或视图矩阵变更时置 true，tick 渲染后清零
     const dirtyRef = useRef(true);
-    // 可变实例状态 ref：commands 版本号，仅 register/update/unregister 时递增，
-    // 传给 renderer.render 以区分"commands 变化"与"仅 viewMatrix 变化"，避免重排
+    // 可变实例状态 ref：commands 版本号，仅 register/update/unregister 时递增
     const commandsVersionRef = useRef(0);
-    // 可变实例状态 ref：待上传纹理 / 字形缓存。
-    // React effect 执行顺序为「子先于父」，叶子组件（Text / Image）在 mount effect 中
-    // 请求上传时，本组件的 init effect 尚未运行、renderer 还是 null。这里先缓存请求，
-    // 待 renderer 创建后统一重放；renderer 因尺寸变化重建时也可据此恢复纹理。
+    // 可变实例状态 ref：待上传纹理 / 字形缓存
     const pendingGlyphsRef = useRef<Map<string, { data: Uint8Array; w: number; h: number }>>(new Map());
     const pendingTexturesRef = useRef<Map<string, HTMLImageElement | ImageBitmap>>(new Map());
     // 可变实例状态 ref：hit-test 注册表
     const hitRegistryRef = useRef<Map<number, HitEntry>>(new Map());
     // 可变实例状态 ref：viewMatrix（world → canvas），由 Viewport 写入，tick 时注入 GPU
     const viewMatrixRef = useRef<Float32Array>(identityMat3());
-    // 可变实例状态 ref：viewMatrix 的逆矩阵缓存，setViewMatrix 时同步更新，避免 pointer 事件每次重算
+    // 可变实例状态 ref：viewMatrix 的逆矩阵缓存
     const invViewMatrixRef = useRef<Float32Array | null>(null);
-    // 可变实例状态 ref：canvas 事件订阅总线（Viewport 通过 subscribeCanvasEvent 注册）
+    // 可变实例状态 ref：canvas 事件订阅总线
     const eventBusRef = useRef<Map<string, Set<(e: Event) => void>>>(new Map());
     // 可变实例状态 ref：当前悬停图元的 id，null = 无悬停
     const hoveredIdRef = useRef<number | null>(null);
@@ -95,17 +110,25 @@ function Canvas({
         startLy: number;
         hitEntry: HitEntry | null;
     } | null>(null);
+    // 可变实例状态 ref：上次 click 的时间/位置（用于 dblclick 检测）
+    const lastClickRef = useRef<{ time: number; lx: number; ly: number } | null>(null);
     // latest-ref：供单次注册的 effect 内读取最新 onEmptyClick
     // 注：渲染期写 ref 违反 Rules of React，使编译器降级——是 latest-ref 的有意取舍
     const onEmptyClickRef = useRef(onEmptyClick);
     onEmptyClickRef.current = onEmptyClick;
+    const onKeyDownRef = useRef(onKeyDown);
+    onKeyDownRef.current = onKeyDown;
+    const onKeyUpRef = useRef(onKeyUp);
+    onKeyUpRef.current = onKeyUp;
 
-    // 可变实例状态 ref：canvas 逻辑尺寸，供 Minimap 读取视口框角点
-    const canvasSizeRef = useRef({ width, height });
-    // 可变实例状态 ref：Viewport 注入的 seekPan 回调（Minimap 调用以驱动视口平移）
+    // 可变实例状态 ref：canvas 逻辑尺寸，供 Minimap / fitView 读取
+    const canvasSizeRef = useRef({ width: effectiveWidth, height: effectiveHeight });
+    // 可变实例状态 ref：Viewport 注入的 seekPan 回调
     const seekPanRef = useRef<((panX: number, panY: number) => void) | null>(null);
-    // 可变实例状态 ref：Viewport 注入的 applyZoom 回调（Minimap 调用以驱动缩放）
+    // 可变实例状态 ref：Viewport 注入的 applyZoom 回调
     const applyZoomRef = useRef<((deltaY: number, pivotX: number, pivotY: number) => void) | null>(null);
+    // 可变实例状态 ref：Viewport 注入的 fitView 回调
+    const fitViewRef = useRef<((padding?: number) => void) | null>(null);
 
     // 可变实例状态 ref：当前活跃拖拽状态
     const dragStateRef = useRef<{
@@ -119,14 +142,15 @@ function Canvas({
         entry: HitEntry;
     } | null>(null);
 
-    // 逻辑坐标计算：用 getBoundingClientRect 归一化，兼容 CSS 缩放
+    // 逻辑坐标计算：通过 getBoundingClientRect 归一化，始终用 canvasSizeRef（fillParent 兼容）
     const toLogical = (e: PointerEvent): { lx: number; ly: number } => {
         const node = internalCanvasRef.current;
         if (!node) return { lx: 0, ly: 0 };
+        const { width: w, height: h } = canvasSizeRef.current;
         const rect = node.getBoundingClientRect();
         return {
-            lx: (e.clientX - rect.left) * (width / rect.width),
-            ly: (e.clientY - rect.top) * (height / rect.height),
+            lx: (e.clientX - rect.left) * (w / rect.width),
+            ly: (e.clientY - rect.top) * (h / rect.height),
         };
     };
 
@@ -134,13 +158,15 @@ function Canvas({
     useEffect(() => {
         const node = internalCanvasRef.current;
         if (!node) return;
-        const gl = node.getContext('webgl2');
+        // preserveDrawingBuffer: true 允许 toDataURL() 在帧结束后读取
+        const gl = node.getContext('webgl2', { preserveDrawingBuffer: true });
         if (!gl) {
             console.error('[rc-canvas] WebGL2 is not supported in this environment.');
             return;
         }
+        const { width: w, height: h } = canvasSizeRef.current;
         const devicePixelRatio = dpr ?? window.devicePixelRatio ?? 1;
-        const renderer = new WebGLRenderer(gl, width, height, devicePixelRatio);
+        const renderer = new WebGLRenderer(gl, w, h, devicePixelRatio);
         rendererRef.current = renderer;
 
         // 重放在 renderer 就绪前由子组件缓存的上传请求
@@ -171,21 +197,17 @@ function Canvas({
         // ─── pointer 事件处理 ────────────────────────────────────────────────
 
         const onPointerDown = (e: PointerEvent) => {
-            // 已有活跃 drag 时忽略新 pointer（单 pointer 语义）
             if (dragStateRef.current !== null) return;
 
             const { lx, ly } = toLogical(e);
-            // hit-test 在世界坐标系中进行：先用缓存的逆矩阵变换到世界坐标
             const invView = invViewMatrixRef.current;
             const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
             const result = findTopHit(hitRegistryRef.current, wx, wy);
             const hit = result?.entry ?? null;
 
-            // 无论是否命中，都记录 click 快照（用于 pointerUp 时判断 click）
             clickStateRef.current = { pointerId: e.pointerId, startLx: lx, startLy: ly, hitEntry: hit };
 
             if (!hit) return;
-            // 只有携带 drag 事件的命中才进入 drag 模式
             if (!hit.onDragStart && !hit.onDrag && !hit.onDragEnd) return;
 
             const inv = invertMat3(hit.parentMatrix);
@@ -193,7 +215,6 @@ function Canvas({
 
             node.setPointerCapture(e.pointerId);
 
-            // 进入 drag 前清除 hover 状态（拖拽期间不响应 hover）
             const prevHoveredId = hoveredIdRef.current;
             if (prevHoveredId !== null) {
                 hitRegistryRef.current.get(prevHoveredId)?.onMouseLeave?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
@@ -219,12 +240,10 @@ function Canvas({
             const drag = dragStateRef.current;
 
             if (drag && e.pointerId === drag.pointerId) {
-                // 拖拽中：canvasDx/canvasDy 为相对起点的 canvas 坐标总偏移
                 const canvasDx = lx - drag.startCanvasX;
                 const canvasDy = ly - drag.startCanvasY;
                 const frameDx = lx - drag.prevCanvasX;
                 const frameDy = ly - drag.prevCanvasY;
-                // canvas 帧增量 → 世界坐标帧增量 → 局部坐标帧增量（用缓存的逆矩阵）
                 const invView = invViewMatrixRef.current;
                 const [worldDx, worldDy] = invView
                     ? applyMat3Vector(invView, frameDx, frameDy)
@@ -242,7 +261,6 @@ function Canvas({
                 };
                 drag.entry.onDrag?.(event);
             } else {
-                // 非拖拽：hit-test 在世界坐标系中查找，更新 cursor 并触发 enter/leave
                 const invView = invViewMatrixRef.current;
                 const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
                 const result = findTopHit(hitRegistryRef.current, wx, wy);
@@ -271,16 +289,34 @@ function Canvas({
                 dragStateRef.current = null;
             }
 
-            // click 判断：移动距离 < 4px 视为点击
+            // click / dblclick 判断
             const click = clickStateRef.current;
             if (click && e.pointerId === click.pointerId) {
                 const { lx, ly } = toLogical(e);
                 if (Math.hypot(lx - click.startLx, ly - click.startLy) < 4) {
-                    if (click.hitEntry?.onClick) {
-                        click.hitEntry.onClick({ canvasX: lx, canvasY: ly, nativeEvent: e });
-                    } else if (!click.hitEntry) {
-                        onEmptyClickRef.current?.();
+                    const invView = invViewMatrixRef.current;
+                    const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
+
+                    const now = performance.now();
+                    const last = lastClickRef.current;
+                    const isDbl = last !== null &&
+                        (now - last.time) < 300 &&
+                        Math.hypot(lx - last.lx, ly - last.ly) < 8;
+
+                    if (isDbl) {
+                        const result = findTopHit(hitRegistryRef.current, wx, wy);
+                        result?.entry.onDblClick?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
+                        lastClickRef.current = null;
+                    } else {
+                        if (click.hitEntry?.onClick) {
+                            click.hitEntry.onClick({ canvasX: lx, canvasY: ly, nativeEvent: e });
+                        } else if (!click.hitEntry) {
+                            onEmptyClickRef.current?.();
+                        }
+                        lastClickRef.current = { time: now, lx, ly };
                     }
+                } else {
+                    lastClickRef.current = null;
                 }
                 clickStateRef.current = null;
             }
@@ -315,15 +351,50 @@ function Canvas({
         };
     }, []);
 
-    // width/height/dpr 变化时更新 viewport（仅在 mount 后生效）
+    // 有效尺寸变化时更新 renderer 和 canvasSizeRef
     useEffect(() => {
-        canvasSizeRef.current = { width, height };
+        canvasSizeRef.current = { width: effectiveWidth, height: effectiveHeight };
         const devicePixelRatio = dpr ?? window.devicePixelRatio ?? 1;
-        rendererRef.current?.resize(width, height, devicePixelRatio);
+        rendererRef.current?.resize(effectiveWidth, effectiveHeight, devicePixelRatio);
         dirtyRef.current = true;
-    }, [width, height, dpr]);
+    }, [effectiveWidth, effectiveHeight, dpr]);
 
-    // 合并内部 ref 和外部 ref 的回调（React 19：ref 作为普通 prop）
+    // fillParent 模式：ResizeObserver 监听容器 div
+    useEffect(() => {
+        if (!fillParent) return;
+        const div = containerDivRef.current;
+        if (!div) return;
+        const ro = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (!entry) return;
+            const { width, height } = entry.contentRect;
+            setContainerSize({ width: Math.round(width), height: Math.round(height) });
+        });
+        ro.observe(div);
+        return () => ro.disconnect();
+    }, [fillParent]);
+
+    // 键盘事件：在容器 div 上监听，通过 eventBus 分发，同时调用 prop 回调
+    useEffect(() => {
+        const div = containerDivRef.current;
+        if (!div) return;
+        const onKD = (e: KeyboardEvent) => {
+            eventBusRef.current.get('keydown')?.forEach(h => h(e));
+            onKeyDownRef.current?.(e);
+        };
+        const onKU = (e: KeyboardEvent) => {
+            eventBusRef.current.get('keyup')?.forEach(h => h(e));
+            onKeyUpRef.current?.(e);
+        };
+        div.addEventListener('keydown', onKD);
+        div.addEventListener('keyup', onKU);
+        return () => {
+            div.removeEventListener('keydown', onKD);
+            div.removeEventListener('keyup', onKU);
+        };
+    }, []);
+
+    // 合并内部 ref 和外部 ref
     const mergedRefCallback = (node: HTMLCanvasElement | null) => {
         internalCanvasRef.current = node;
         if (typeof externalRef === 'function') {
@@ -333,8 +404,7 @@ function Canvas({
         }
     };
 
-    // 面向库消费方的稳定化（例外白名单）：ctxValue 只在 mount 时创建一次，
-    // 所有方法通过 ref 访问最新状态，Canvas 重渲染不产生新对象，避免触发全量子树重渲染。
+    // 面向库消费方的稳定化（例外白名单）：ctxValue 只在 mount 时创建一次
     const ctxValueRef = useRef<CanvasContextValue | null>(null);
     if (ctxValueRef.current === null) {
         ctxValueRef.current = {
@@ -373,7 +443,6 @@ function Canvas({
                 if (dragStateRef.current?.entryId === id) {
                     dragStateRef.current = null;
                 }
-                // 图元卸载时不触发 onMouseLeave（回调已随组件销毁），仅清除 id
                 if (hoveredIdRef.current === id) {
                     hoveredIdRef.current = null;
                 }
@@ -394,6 +463,11 @@ function Canvas({
             canvasSizeRef,
             seekPanRef,
             applyZoomRef,
+            fitViewRef,
+            containerRef: containerDivRef,
+            exportPNG() {
+                return internalCanvasRef.current?.toDataURL('image/png') ?? '';
+            },
             setViewMatrix(mat) {
                 viewMatrixRef.current = mat;
                 invViewMatrixRef.current = invertMat3(mat);
@@ -414,14 +488,23 @@ function Canvas({
 
     const devicePixelRatio = dpr ?? (typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1);
 
+    const divStyle: CSSProperties = fillParent
+        ? { position: 'relative', width: '100%', height: '100%', ...style }
+        : { position: 'relative', display: 'inline-block', ...style };
+
     return (
         <CanvasContext value={ctxValue}>
-            <div className={className} style={{ position: 'relative', display: 'inline-block', ...style }}>
+            <div
+                ref={containerDivRef}
+                className={className}
+                style={divStyle}
+                tabIndex={0}
+            >
                 <canvas
                     ref={mergedRefCallback}
-                    style={{ display: 'block', width, height, touchAction: 'none' }}
-                    width={Math.round(width * devicePixelRatio)}
-                    height={Math.round(height * devicePixelRatio)}
+                    style={{ display: 'block', width: effectiveWidth, height: effectiveHeight, touchAction: 'none' }}
+                    width={Math.round(effectiveWidth * devicePixelRatio)}
+                    height={Math.round(effectiveHeight * devicePixelRatio)}
                 />
                 {children}
             </div>

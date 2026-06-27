@@ -3,7 +3,7 @@ import { CanvasContext } from '../context/canvas-context.js';
 import { parseColor } from '../math/color.js';
 import type { ColorRGBA } from '../math/color.js';
 
-interface MarkerProps {
+export interface MarkerProps {
     /** 箭头尖端位置（局部坐标） */
     x: number;
     y: number;

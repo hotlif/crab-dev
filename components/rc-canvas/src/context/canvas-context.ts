@@ -23,6 +23,8 @@ export interface HitEntry {
     cursor?: string;
     /** 点击时触发（pointerdown→up 移动 < 4px） */
     onClick?: (e: PointerHitEvent) => void;
+    /** 双击时触发（两次 click 间隔 < 300ms 且位移 < 8px） */
+    onDblClick?: (e: PointerHitEvent) => void;
     /** 指针进入形状时触发 */
     onMouseEnter?: (e: PointerHitEvent) => void;
     /** 指针离开形状时触发 */
@@ -127,14 +129,33 @@ export interface CanvasContextValue {
     setViewMatrix(mat: Float32Array): void;
 
     /**
-     * 订阅 canvas DOM 节点上的原生事件。
-     * Viewport 用此订阅 'wheel'（缩放）和空白区平移所需事件。
+     * 订阅 canvas DOM 节点或容器 div 上的原生事件。
+     * Viewport 用此订阅 'wheel'（缩放）；内部组件可订阅 'keydown'/'keyup'。
      * 返回取消订阅函数，在 useEffect cleanup 中调用。
      */
     subscribeCanvasEvent<K extends keyof HTMLElementEventMap>( // eslint-disable-line no-undef
         type: K,
         handler: (e: HTMLElementEventMap[K]) => void, // eslint-disable-line no-undef
     ): () => void;
+
+    /**
+     * Canvas 容器 div 的 ref（position: relative 的包裹层）。
+     * Text / 自定义形状可通过 createPortal 在此容器内渲染 DOM overlay（如内联编辑 input）。
+     */
+    readonly containerRef: { readonly current: HTMLDivElement | null };
+
+    /**
+     * 由 Viewport 在 mount 时注入：将视口平移+缩放调整为恰好显示所有图元的最佳状态。
+     * padding 为距边缘的 world px 留白，默认 40。
+     * null 表示当前无 Viewport 挂载。
+     */
+    readonly fitViewRef: { current: ((padding?: number) => void) | null };
+
+    /**
+     * 将当前帧输出为 PNG DataURL（base64）。
+     * 依赖 preserveDrawingBuffer: true（Canvas 内部已开启）。
+     */
+    exportPNG(): string;
 }
 
 const DEFAULT_VIEW_MATRIX_REF = { current: identityMat3() };
@@ -156,6 +177,9 @@ export const CanvasContext = createContext<CanvasContextValue>({
     applyZoomRef: { current: null },
     setViewMatrix: () => {},
     subscribeCanvasEvent: () => () => {},
+    containerRef: { current: null },
+    fitViewRef: { current: null },
+    exportPNG: () => '',
     parentMatrix: IDENTITY,
     parentZIndexPath: [],
 });

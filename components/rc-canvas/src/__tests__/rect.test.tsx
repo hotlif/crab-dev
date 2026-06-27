@@ -30,6 +30,9 @@ function makeCtxMock() {
         canvasSizeRef: { current: { width: 800, height: 600 } },
         seekPanRef: { current: null },
         applyZoomRef: { current: null },
+        fitViewRef: { current: null },
+        containerRef: { current: null },
+        exportPNG: jest.fn(() => ''),
         setViewMatrix: jest.fn(),
         subscribeCanvasEvent: jest.fn(() => () => {}),
     } satisfies CanvasContextValue;

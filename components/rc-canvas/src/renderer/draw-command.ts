@@ -53,6 +53,10 @@ export interface SdfRectCommand extends BaseDrawCommand {
     fill: ColorRGBA;
     stroke: ColorRGBA;
     strokeWidth: number;
+    /** 虚线实段长度（world px）；0 或未设置为实线 */
+    dashLength?: number;
+    /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
+    gapLength?: number;
 }
 
 export interface SdfCircleCommand extends BaseDrawCommand {

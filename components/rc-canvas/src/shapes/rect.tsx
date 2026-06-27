@@ -71,7 +71,7 @@ function Rect({
             aabb: computeRectAABB(x, y, width, height, ctx.parentMatrix),
         };
         return radius > 0
-            ? { kind: 'sdf-rect' as const, radius, ...base }
+            ? { kind: 'sdf-rect' as const, radius, dashLength, gapLength, ...base }
             : { kind: 'flat-rect' as const, dashLength, gapLength, ...base };
     };
 
