@@ -2026,7 +2026,9 @@ import { useEffect, useState } from "react";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 
 const wrapStyle = css\`
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
     overflow: hidden;
@@ -2099,7 +2101,9 @@ import { css } from "@linaria/core";
 import { Canvas, Rect, Circle } from "../../src/index.js";
 
 const wrapStyle = css\`
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
     overflow: hidden;
@@ -2123,6 +2127,91 @@ export default BasicDemo;
 `,
             },
             {
+                path: "components/rc-canvas/docs/demos/draggable.demo.tsx",
+                title: "",
+                description: "",
+                source: `import React, { useRef, useState } from 'react';
+import Canvas from '../../src/canvas.js';
+import Rect from '../../src/shapes/rect.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
+import type { DragMoveEvent } from '../../src/drag-types.js';
+
+function DraggableCard({
+    label,
+    initX,
+    initY,
+    fill,
+    getNextZ,
+}: {
+    label: string;
+    initX: number;
+    initY: number;
+    fill: string;
+    getNextZ: () => number;
+}) {
+    const [pos, setPos] = useState({ x: initX, y: initY });
+    const [z, setZ] = useState(0);
+
+    return (
+        <Group
+            x={pos.x}
+            y={pos.y}
+            zIndex={z}
+            draggable
+            hitArea={{ x: 0, y: 0, width: 160, height: 80 }}
+            cursor="grab"
+            onDragStart={() => setZ(getNextZ())}
+            onDrag={({ localDx, localDy }: DragMoveEvent) =>
+                setPos(p => ({ x: p.x + localDx, y: p.y + localDy }))
+            }
+        >
+            <Rect x={0} y={0} width={160} height={80} fill={fill} radius={8} />
+            <Text x={16} y={24} fontSize={14} fill="#ffffff">{label}</Text>
+        </Group>
+    );
+}
+
+function RotatedDraggable({ getNextZ }: { getNextZ: () => number }) {
+    const [pos, setPos] = useState({ x: 300, y: 200 });
+    const [z, setZ] = useState(0);
+
+    return (
+        <Group x={pos.x} y={pos.y} rotation={Math.PI / 6} zIndex={z}>
+            <Rect
+                x={0}
+                y={0}
+                width={120}
+                height={60}
+                fill="oklch(0.6 0.2 160)"
+                radius={6}
+                draggable
+                cursor="move"
+                onDragStart={() => setZ(getNextZ())}
+                onDrag={({ canvasFrameDx, canvasFrameDy }: DragMoveEvent) =>
+                    setPos(p => ({ x: p.x + canvasFrameDx, y: p.y + canvasFrameDy }))
+                }
+            />
+            <Text x={10} y={18} fontSize={12} fill="#ffffff">旋转 30°</Text>
+        </Group>
+    );
+}
+
+export default function DraggableDemo() {
+    const maxZRef = useRef(0);
+    const getNextZ = () => ++maxZRef.current;
+
+    return (
+        <Canvas width={600} height={400} style={{ border: '1px solid #e0e0e0', borderRadius: 8 }}>
+            <DraggableCard label="卡片 A" initX={40} initY={60} fill="oklch(0.55 0.2 260)" getNextZ={getNextZ} />
+            <DraggableCard label="卡片 B" initX={140} initY={120} fill="oklch(0.55 0.2 30)" getNextZ={getNextZ} />
+            <RotatedDraggable getNextZ={getNextZ} />
+        </Canvas>
+    );
+}
+`,
+            },
+            {
                 path: "components/rc-canvas/docs/demos/group.demo.tsx",
                 title: "分组变换与嵌套",
                 description: "Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。",
@@ -2135,7 +2224,9 @@ import { css } from "@linaria/core";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 
 const wrapStyle = css\`
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
     overflow: hidden;
@@ -2181,6 +2272,189 @@ export default GroupDemo;
 `,
             },
             {
+                path: "components/rc-canvas/docs/demos/hover.demo.tsx",
+                title: "hover 回调",
+                description: "通过 onMouseEnter / onMouseLeave 响应图元悬停事件，驱动颜色高亮与状态提示。三种图元均支持该回调。",
+                source: `/**
+ * title = "hover 回调"
+ * description = "通过 onMouseEnter / onMouseLeave 响应图元悬停事件，驱动颜色高亮与状态提示。三种图元均支持该回调。"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+import { Canvas, Rect, Circle, Line, Text } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+export default function HoverDemo() {
+    const [hovered, setHovered] = useState<string | null>(null);
+
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={240}>
+                <Text
+                    x={20} y={14}
+                    fontSize={12}
+                    fill={hovered ? "oklch(0.4 0.15 250)" : "oklch(0.65 0 0)"}
+                >
+                    {hovered ? \`当前悬停：\${hovered}\` : "将鼠标移到图形上"}
+                </Text>
+
+                <Rect
+                    x={40} y={56}
+                    width={120} height={72}
+                    radius={8}
+                    fill={hovered === 'Rect' ? "oklch(0.55 0.22 28)" : "oklch(0.72 0.15 28)"}
+                    cursor="pointer"
+                    onMouseEnter={() => setHovered('Rect')}
+                    onMouseLeave={() => setHovered(null)}
+                />
+
+                <Circle
+                    cx={280} cy={96}
+                    r={54}
+                    fill={hovered === 'Circle' ? "oklch(0.5 0.22 255)" : "oklch(0.66 0.18 255)"}
+                    cursor="pointer"
+                    onMouseEnter={() => setHovered('Circle')}
+                    onMouseLeave={() => setHovered(null)}
+                />
+
+                <Line
+                    x1={40} y1={190}
+                    x2={220} y2={190}
+                    lineWidth={hovered === 'Line' ? 8 : 4}
+                    color={hovered === 'Line' ? "oklch(0.42 0.22 160)" : "oklch(0.6 0.18 160)"}
+                    cursor="pointer"
+                    onMouseEnter={() => setHovered('Line')}
+                    onMouseLeave={() => setHovered(null)}
+                />
+            </Canvas>
+        </div>
+    );
+}
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/infinite-canvas.demo.tsx",
+                title: "",
+                description: "",
+                source: `import { useRef, useState } from 'react';
+import Canvas from '../../src/canvas.js';
+import Rect from '../../src/shapes/rect.js';
+import Circle from '../../src/shapes/circle.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
+import Viewport from '../../src/viewport.js';
+import InfiniteGrid from '../../src/shapes/infinite-grid.js';
+import type { DragMoveEvent } from '../../src/drag-types.js';
+
+interface CardData {
+    id: number;
+    x: number;
+    y: number;
+    label: string;
+    fill: string;
+}
+
+const INITIAL_CARDS: CardData[] = [
+    { id: 1, x: -200, y: -100, label: '卡片 A', fill: 'oklch(0.55 0.2 260)' },
+    { id: 2, x: 50,   y: -150, label: '卡片 B', fill: 'oklch(0.55 0.2 30)' },
+    { id: 3, x: 150,  y: 80,   label: '卡片 C', fill: 'oklch(0.55 0.2 140)' },
+    { id: 4, x: -100, y: 120,  label: '卡片 D', fill: 'oklch(0.55 0.2 320)' },
+    { id: 5, x: 300,  y: -50,  label: '卡片 E', fill: 'oklch(0.55 0.2 60)' },
+];
+
+function DraggableCard({
+    data,
+    getNextZ,
+}: {
+    data: CardData;
+    getNextZ: () => number;
+}) {
+    const [pos, setPos] = useState({ x: data.x, y: data.y });
+    const [z, setZ] = useState(0);
+
+    return (
+        <Group x={pos.x} y={pos.y} zIndex={z}>
+            <Rect
+                x={0} y={0} width={160} height={80}
+                fill={data.fill}
+                radius={10}
+                draggable
+                cursor="grab"
+                onDragStart={() => setZ(getNextZ())}
+                onDrag={({ localDx, localDy }: DragMoveEvent) =>
+                    setPos(p => ({ x: p.x + localDx, y: p.y + localDy }))
+                }
+            />
+            <Text x={16} y={28} fontSize={14} fill="#ffffff">{data.label}</Text>
+            <Text x={16} y={52} fontSize={11} fill="rgba(255,255,255,0.7)">
+                {\`(\${Math.round(pos.x)}, \${Math.round(pos.y)})\`}
+            </Text>
+        </Group>
+    );
+}
+
+function CircleCluster() {
+    return (
+        <Group x={-400} y={200}>
+            {Array.from({ length: 8 }, (_, i) => {
+                const angle = (i / 8) * Math.PI * 2;
+                const r = 80;
+                return (
+                    <Circle
+                        key={i}
+                        cx={Math.cos(angle) * r}
+                        cy={Math.sin(angle) * r}
+                        r={20}
+                        fill={\`oklch(0.65 0.25 \${i * 45})\`}
+                        stroke="#ffffff"
+                        strokeWidth={2}
+                    />
+                );
+            })}
+            <Circle cx={0} cy={0} r={28} fill="oklch(0.4 0.1 250)" />
+            <Text x={-16} y={6} fontSize={12} fill="#ffffff">中心</Text>
+        </Group>
+    );
+}
+
+export default function InfiniteCanvasDemo() {
+    const maxZRef = useRef(1);
+    const getNextZ = () => ++maxZRef.current;
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 13, color: '#666', padding: '4px 0' }}>
+                滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动
+            </div>
+            <Canvas
+                width={800}
+                height={520}
+                style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
+            >
+                <Viewport minZoom={0.1} maxZoom={8}>
+                    <InfiniteGrid baseSpacing={50} subdivisions={5} color="#cccccc" originColor="oklch(0.55 0.2 260)" />
+                    {INITIAL_CARDS.map(card => (
+                        <DraggableCard key={card.id} data={card} getNextZ={getNextZ} />
+                    ))}
+                    <CircleCluster />
+                </Viewport>
+            </Canvas>
+        </div>
+    );
+}
+`,
+            },
+            {
                 path: "components/rc-canvas/docs/demos/line.demo.tsx",
                 title: "任意角度直线",
                 description: "直线在顶点着色器端挤出为带宽度的四边形，支持任意斜率与线宽。",
@@ -2193,7 +2467,9 @@ import { css } from "@linaria/core";
 import { Canvas, Line } from "../../src/index.js";
 
 const wrapStyle = css\`
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
     overflow: hidden;
@@ -2239,6 +2515,200 @@ export default LineDemo;
 `,
             },
             {
+                path: "components/rc-canvas/docs/demos/minimap.demo.tsx",
+                title: "",
+                description: "",
+                source: `import { useRef, useState } from 'react';
+import Canvas from '../../src/canvas.js';
+import Rect from '../../src/shapes/rect.js';
+import Circle from '../../src/shapes/circle.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
+import Viewport from '../../src/viewport.js';
+import InfiniteGrid from '../../src/shapes/infinite-grid.js';
+import Minimap from '../../src/shapes/minimap.js';
+import type { DragMoveEvent } from '../../src/drag-types.js';
+
+interface CardData {
+    id: number;
+    x: number;
+    y: number;
+    label: string;
+    fill: string;
+}
+
+const INITIAL_CARDS: CardData[] = [
+    { id: 1, x: -300, y: -150, label: '节点 A', fill: 'oklch(0.55 0.2 260)' },
+    { id: 2, x: 50,   y: -200, label: '节点 B', fill: 'oklch(0.55 0.2 30)' },
+    { id: 3, x: 250,  y: 50,   label: '节点 C', fill: 'oklch(0.55 0.2 140)' },
+    { id: 4, x: -150, y: 180,  label: '节点 D', fill: 'oklch(0.55 0.2 320)' },
+    { id: 5, x: 400,  y: -100, label: '节点 E', fill: 'oklch(0.55 0.2 60)' },
+    { id: 6, x: -400, y: 100,  label: '节点 F', fill: 'oklch(0.55 0.2 200)' },
+    { id: 7, x: 100,  y: 250,  label: '节点 G', fill: 'oklch(0.55 0.2 350)' },
+];
+
+function DraggableCard({
+    data,
+    getNextZ,
+}: {
+    data: CardData;
+    getNextZ: () => number;
+}) {
+    const [pos, setPos] = useState({ x: data.x, y: data.y });
+    const [z, setZ] = useState(0);
+
+    return (
+        <Group x={pos.x} y={pos.y} zIndex={z}>
+            <Rect
+                x={0} y={0} width={160} height={72}
+                fill={data.fill}
+                radius={10}
+                draggable
+                cursor="grab"
+                onDragStart={() => setZ(getNextZ())}
+                onDrag={({ localDx, localDy }: DragMoveEvent) =>
+                    setPos(p => ({ x: p.x + localDx, y: p.y + localDy }))
+                }
+            />
+            <Text x={16} y={26} fontSize={14} fill="#ffffff">{data.label}</Text>
+            <Text x={16} y={50} fontSize={11} fill="rgba(255,255,255,0.65)">
+                {\`(\${Math.round(pos.x)}, \${Math.round(pos.y)})\`}
+            </Text>
+        </Group>
+    );
+}
+
+const CLUSTERS: { cx: number; cy: number; color: string }[] = [
+    { cx: -600, cy: -300, color: 'oklch(0.65 0.2 280)' },
+    { cx: 600,  cy: 300,  color: 'oklch(0.65 0.2 120)' },
+];
+
+function CircleCluster({ cx, cy, color }: { cx: number; cy: number; color: string }) {
+    return (
+        <Group x={cx} y={cy}>
+            {Array.from({ length: 6 }, (_, i) => {
+                const angle = (i / 6) * Math.PI * 2;
+                return (
+                    <Circle
+                        key={i}
+                        cx={Math.cos(angle) * 60}
+                        cy={Math.sin(angle) * 60}
+                        r={18}
+                        fill={color}
+                        stroke="#ffffff"
+                        strokeWidth={2}
+                    />
+                );
+            })}
+            <Circle cx={0} cy={0} r={24} fill="oklch(0.35 0.08 250)" />
+        </Group>
+    );
+}
+
+export default function MinimapDemo() {
+    const maxZRef = useRef(1);
+    const getNextZ = () => ++maxZRef.current;
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 13, color: '#666', padding: '4px 0' }}>
+                滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图
+            </div>
+            <Canvas
+                width={800}
+                height={520}
+                style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
+            >
+                <Viewport minZoom={0.08} maxZoom={8}>
+                    <InfiniteGrid baseSpacing={50} subdivisions={5} color="#d8d8d8" />
+                    {INITIAL_CARDS.map(card => (
+                        <DraggableCard key={card.id} data={card} getNextZ={getNextZ} />
+                    ))}
+                    {CLUSTERS.map(cl => (
+                        <CircleCluster key={\`\${cl.cx},\${cl.cy}\`} {...cl} />
+                    ))}
+                </Viewport>
+                <Minimap position="bottom-right" padding={12} width={180} height={120} />
+            </Canvas>
+        </div>
+    );
+}
+`,
+            },
+            {
+                path: "components/rc-canvas/docs/demos/opacity.demo.tsx",
+                title: "整体透明度（opacity）",
+                description: "opacity 同时作用于 fill 和 stroke，从 1.0 到 0.1 均匀过渡，Line 的 color 同样受影响。",
+                source: `/**
+ * title = "整体透明度（opacity）"
+ * description = "opacity 同时作用于 fill 和 stroke，从 1.0 到 0.1 均匀过渡，Line 的 color 同样受影响。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Rect, Circle, Line } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+const STEPS = 5;
+const opacities = Array.from({ length: STEPS }, (_, i) => 1 - i * (0.9 / (STEPS - 1)));
+
+export default function OpacityDemo() {
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={420} height={240}>
+                {/* Rect：fill + stroke 同时透明 */}
+                {opacities.map((op, i) => (
+                    <Rect
+                        key={i}
+                        x={20 + i * 76} y={20}
+                        width={64} height={64}
+                        radius={8}
+                        fill="oklch(0.62 0.21 28)"
+                        stroke="oklch(0.35 0.2 28)"
+                        strokeWidth={3}
+                        opacity={op}
+                    />
+                ))}
+
+                {/* Circle：同上 */}
+                {opacities.map((op, i) => (
+                    <Circle
+                        key={i}
+                        cx={52 + i * 76} cy={148}
+                        r={28}
+                        fill="oklch(0.6 0.2 255)"
+                        stroke="oklch(0.35 0.2 255)"
+                        strokeWidth={3}
+                        opacity={op}
+                    />
+                ))}
+
+                {/* Line */}
+                {opacities.map((op, i) => (
+                    <Line
+                        key={i}
+                        x1={20 + i * 76} y1={210}
+                        x2={72 + i * 76} y2={210}
+                        color="oklch(0.45 0.2 160)"
+                        lineWidth={4}
+                        opacity={op}
+                    />
+                ))}
+            </Canvas>
+        </div>
+    );
+}
+`,
+            },
+            {
                 path: "components/rc-canvas/docs/demos/rounded.demo.tsx",
                 title: "圆角矩形（SDF）",
                 description: "radius > 0 时自动切换到 SDF 着色器，边缘与圆角均为亚像素级抗锯齿。",
@@ -2251,7 +2721,9 @@ import { css } from "@linaria/core";
 import { Canvas, Rect } from "../../src/index.js";
 
 const wrapStyle = css\`
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
     overflow: hidden;
@@ -2274,6 +2746,86 @@ export default RoundedDemo;
 `,
             },
             {
+                path: "components/rc-canvas/docs/demos/text-advanced.demo.tsx",
+                title: "文字对齐与多行",
+                description: "textAlign（left / center / right）、textBaseline（top / middle / bottom）以及 \\n 换行和 maxWidth 自动词换行的综合演示。",
+                source: `/**
+ * title = "文字对齐与多行"
+ * description = "textAlign（left / center / right）、textBaseline（top / middle / bottom）以及 \\\\n 换行和 maxWidth 自动词换行的综合演示。"
+ */
+
+import { css } from "@linaria/core";
+import { Canvas, Line, Text } from "../../src/index.js";
+
+const wrapStyle = css\`
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    border: 1px solid var(--border-subtle, #e5e5e5);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+\`;
+
+const RED   = "oklch(0.38 0.18 28)";
+const GREEN = "oklch(0.38 0.18 160)";
+const BLUE  = "oklch(0.38 0.18 255)";
+const GUIDE = "oklch(0.80 0.05 250)";
+const LABEL = "oklch(0.55 0 0)";
+
+export default function TextAdvancedDemo() {
+    return (
+        <div className={wrapStyle}>
+            <Canvas width={480} height={270}>
+
+                {/* ── textAlign ─────────────────────────────────── */}
+                <Text x={240} y={10} fontSize={12} fill={LABEL} textAlign="center">textAlign</Text>
+
+                <Line x1={100} y1={25} x2={100} y2={70} color={GUIDE} lineWidth={1} />
+                <Line x1={240} y1={25} x2={240} y2={70} color={GUIDE} lineWidth={1} />
+                <Line x1={380} y1={25} x2={380} y2={70} color={GUIDE} lineWidth={1} />
+
+                <Text x={100} y={48} fontSize={14} fill={RED}   textAlign="left"   textBaseline="middle">left</Text>
+                <Text x={240} y={48} fontSize={14} fill={GREEN} textAlign="center" textBaseline="middle">center</Text>
+                <Text x={380} y={48} fontSize={14} fill={BLUE}  textAlign="right"  textBaseline="middle">right</Text>
+
+                {/* ── textBaseline（三列，各持一条短参考线）──────── */}
+                <Text x={240} y={82} fontSize={12} fill={LABEL} textAlign="center">textBaseline</Text>
+
+                {/* 子标签 */}
+                <Text x={105} y={96} fontSize={12} fill={LABEL} textAlign="center">top</Text>
+                <Text x={240} y={96} fontSize={12} fill={LABEL} textAlign="center">middle</Text>
+                <Text x={375} y={96} fontSize={12} fill={LABEL} textAlign="center">bottom</Text>
+
+                {/* 三列各自短参考线，y 统一 138：
+                    top 列文字顶部在 138 → 文字在线下方；
+                    middle 文字中心在 138 → 文字跨线；
+                    bottom 文字底部在 138 → 文字在线上方，与子标签留足间距 */}
+                <Line x1={40}  y1={138} x2={170} y2={138} color={GUIDE} lineWidth={1} />
+                <Line x1={185} y1={138} x2={295} y2={138} color={GUIDE} lineWidth={1} />
+                <Line x1={310} y1={138} x2={440} y2={138} color={GUIDE} lineWidth={1} />
+
+                {/* 三段文字 y=138，baseline 不同 → 相对参考线的位置不同 */}
+                <Text x={105} y={138} fontSize={14} fill={RED}   textAlign="center" textBaseline="top">AaBb</Text>
+                <Text x={240} y={138} fontSize={14} fill={GREEN} textAlign="center" textBaseline="middle">AaBb</Text>
+                <Text x={375} y={138} fontSize={14} fill={BLUE}  textAlign="center" textBaseline="bottom">AaBb</Text>
+
+                {/* ── 多行 ──────────────────────────────────────── */}
+                <Text x={20}  y={160} fontSize={12} fill={LABEL}>{'\\\\n 换行'}</Text>
+                <Text x={20}  y={178} fontSize={13} fill={BLUE}  lineHeight={20}>{"第一行\\n第二行\\n第三行"}</Text>
+
+                <Text x={250} y={160} fontSize={12} fill={LABEL}>maxWidth 自动换行</Text>
+                <Text x={250} y={178} fontSize={13} fill={GREEN} lineHeight={20} maxWidth={130}>
+                    {"自动按宽度换行的长文本 with mixed English"}
+                </Text>
+
+            </Canvas>
+        </div>
+    );
+}
+`,
+            },
+            {
                 path: "components/rc-canvas/docs/demos/text.demo.tsx",
                 title: "文字渲染",
                 description: "文字经 OffscreenCanvas 生成字形位图并上传为 R8 纹理，在 GPU 端以 alpha mask 着色。",
@@ -2286,7 +2838,9 @@ import { css } from "@linaria/core";
 import { Canvas, Text, Rect } from "../../src/index.js";
 
 const wrapStyle = css\`
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
     overflow: hidden;
@@ -2309,8 +2863,183 @@ const TextDemo = () => {
 export default TextDemo;
 `,
             },
+            {
+                path: "components/rc-canvas/docs/demos/transformer.demo.tsx",
+                title: "",
+                description: "",
+                source: `import { useState } from 'react';
+import Canvas from '../../src/canvas.js';
+import Rect from '../../src/shapes/rect.js';
+import Group from '../../src/shapes/group.js';
+import Text from '../../src/shapes/text.js';
+import Viewport from '../../src/viewport.js';
+import InfiniteGrid from '../../src/shapes/infinite-grid.js';
+import Transformer from '../../src/shapes/transformer.js';
+import type { TransformState } from '../../src/transform-types.js';
+
+interface ShapeData {
+    id: number;
+    label: string;
+    fill: string;
+    state: TransformState;
+}
+
+const INITIAL_SHAPES: ShapeData[] = [
+    {
+        id: 1,
+        label: '矩形 A',
+        fill: 'oklch(0.55 0.2 260)',
+        state: { x: -220, y: -80, width: 180, height: 100, rotation: 0 },
+    },
+    {
+        id: 2,
+        label: '矩形 B',
+        fill: 'oklch(0.55 0.2 30)',
+        state: { x: 60, y: -120, width: 140, height: 120, rotation: 0.3 },
+    },
+    {
+        id: 3,
+        label: '矩形 C',
+        fill: 'oklch(0.55 0.2 140)',
+        state: { x: -60, y: 80, width: 200, height: 80, rotation: -0.2 },
+    },
+];
+
+export default function TransformerDemo() {
+    const [shapes, setShapes] = useState<ShapeData[]>(INITIAL_SHAPES);
+    const [selectedId, setSelectedId] = useState<number | null>(null);
+
+    const updateShape = (id: number, next: TransformState) => {
+        setShapes(prev => prev.map(s => s.id === id ? { ...s, state: next } : s));
+    };
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 13, color: '#666', padding: '4px 0' }}>
+                点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中
+            </div>
+            <Canvas
+                width={800}
+                height={520}
+                style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
+                onEmptyClick={() => setSelectedId(null)}
+            >
+                <Viewport minZoom={0.1} maxZoom={8}>
+                    <InfiniteGrid baseSpacing={50} subdivisions={5} color="#e8e8e8" originColor="oklch(0.55 0.2 260)" />
+
+                    {shapes.map(shape => {
+                        const { state } = shape;
+                        // Group 以 x/y 为平移原点，rotation 绕 Group 原点旋转
+                        // Transformer 以中心为 Group 锚点，children 需相对于中心偏移
+                        return (
+                            <Group key={shape.id} x={state.x + state.width / 2} y={state.y + state.height / 2} rotation={state.rotation}>
+                                {/* 主体形状，偏移到以中心为原点的局部坐标系 */}
+                                <Rect
+                                    x={-state.width / 2}
+                                    y={-state.height / 2}
+                                    width={state.width}
+                                    height={state.height}
+                                    fill={shape.fill}
+                                    radius={8}
+                                    onClick={() => setSelectedId(shape.id)}
+                                    cursor="pointer"
+                                />
+                                <Text
+                                    x={-state.width / 2 + 14}
+                                    y={-state.height / 2 + 22}
+                                    fontSize={13}
+                                    fill="#ffffff"
+                                >
+                                    {shape.label}
+                                </Text>
+                            </Group>
+                        );
+                    })}
+
+                    {/* Transformer 覆盖在选中形状上 */}
+                    {shapes.map(shape => selectedId === shape.id && (
+                        <Transformer
+                            key={shape.id}
+                            {...shape.state}
+                            zIndex={100}
+                            onChange={next => updateShape(shape.id, next)}
+                        />
+                    ))}
+                </Viewport>
+            </Canvas>
+        </div>
+    );
+}
+`,
+            },
         ],
         api: [
+            {
+                name: "width",
+                description: "-",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "height",
+                description: "-",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "fillParent",
+                description: "自动填充父容器尺寸（ResizeObserver 驱动）。\n开启时 width/height 被忽略；父容器必须有明确的 CSS 尺寸。",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "dpr",
+                description: "设备像素比，默认 window.devicePixelRatio（≥1）",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "children",
+                description: "-",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "ref",
+                description: "-",
+                type: "Ref<HTMLCanvasElement>",
+                defaultValue: "-",
+            },
+            {
+                name: "className",
+                description: "-",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "style",
+                description: "-",
+                type: "CSSProperties",
+                defaultValue: "-",
+            },
+            {
+                name: "onEmptyClick",
+                description: "点击空白区域（无命中形状）时触发，常用于取消选中",
+                type: "() => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onKeyDown",
+                description: "键盘按下时触发（容器 div 已内置 tabIndex=0）",
+                type: "(e: KeyboardEvent) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onKeyUp",
+                description: "键盘释放时触发",
+                type: "(e: KeyboardEvent) => void",
+                defaultValue: "-",
+            },
         ],
     },
     {
@@ -3635,6 +4364,600 @@ export default SizeDemo;`,
         ],
     },
     {
+        slug: "rc-empty",
+        pkg: "@crab-dev/rc-empty",
+        version: "0.0.1",
+        title: "Empty 空状态",
+        description: "空状态组件，用于展示无数据、搜索无结果、无权限等场景",
+        category: "feedback",
+        readme: ``,
+        demos: [
+            {
+                path: "components/rc-empty/docs/demos/basic.demo.tsx",
+                title: "基础用法",
+                description: "最基础的空状态，使用 `preset` 选择预置场景",
+                source: `/**
+ * title = "基础用法"
+ * description = "最基础的空状态，使用 \`preset\` 选择预置场景"
+ */
+
+import Empty from "../../src/index.js";
+
+const BasicDemo = () => {
+    return <Empty />;
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-empty/docs/demos/custom.demo.tsx",
+                title: "自定义内容",
+                description: "通过 `image`、`title`、`description` 完全自定义内容。传入 `null` 可隐藏对应区域。",
+                source: `
+/**
+ * title = "自定义内容"
+ * description = "通过 \`image\`、\`title\`、\`description\` 完全自定义内容。传入 \`null\` 可隐藏对应区域。"
+ */
+
+import Empty from "../../src/index.js";
+import { css } from "@linaria/core";
+
+const wrapStyle = css\`
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+\`;
+
+const cardStyle = css\`
+    flex: 1;
+    min-width: 200px;
+    border: 1px solid oklch(0.92 0.003 286);
+    border-radius: 8px;
+    overflow: hidden;
+\`;
+
+const emojiStyle = css\`
+    font-size: 56px;
+    line-height: 1;
+    user-select: none;
+\`;
+
+const CustomDemo = () => {
+    return (
+        <div className={wrapStyle}>
+            {/* 自定义图像 */}
+            <div className={cardStyle}>
+                <Empty
+                    image={<span className={emojiStyle}>📭</span>}
+                    title="收件箱是空的"
+                    description="新邮件会在这里显示"
+                />
+            </div>
+
+            {/* 隐藏描述 */}
+            <div className={cardStyle}>
+                <Empty
+                    preset="search"
+                    title="没有找到「React」"
+                    description={null}
+                />
+            </div>
+
+            {/* 仅图示，无文字 */}
+            <div className={cardStyle}>
+                <Empty
+                    title={null}
+                    description={null}
+                />
+            </div>
+        </div>
+    );
+};
+
+export default CustomDemo;
+`,
+            },
+            {
+                path: "components/rc-empty/docs/demos/preset.demo.tsx",
+                title: "预置场景",
+                description: "三种内置场景：`default`（无数据）、`search`（搜索无结果）、`no-permission`（无权限）。每种预置均内置图示与文案，基于设计心理学为不同情绪场景匹配合适的视觉传达。",
+                source: `
+/**
+ * title = "预置场景"
+ * description = "三种内置场景：\`default\`（无数据）、\`search\`（搜索无结果）、\`no-permission\`（无权限）。每种预置均内置图示与文案，基于设计心理学为不同情绪场景匹配合适的视觉传达。"
+ */
+
+import Empty from "../../src/index.js";
+import { css } from "@linaria/core";
+
+const wrapStyle = css\`
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+\`;
+
+const cardStyle = css\`
+    flex: 1;
+    min-width: 220px;
+    border: 1px solid oklch(0.92 0.003 286);
+    border-radius: 8px;
+    overflow: hidden;
+\`;
+
+const PresetDemo = () => {
+    return (
+        <div className={wrapStyle}>
+            <div className={cardStyle}>
+                <Empty preset="default" />
+            </div>
+            <div className={cardStyle}>
+                <Empty preset="search" />
+            </div>
+            <div className={cardStyle}>
+                <Empty preset="no-permission" />
+            </div>
+        </div>
+    );
+};
+
+export default PresetDemo;
+`,
+            },
+            {
+                path: "components/rc-empty/docs/demos/with-action.demo.tsx",
+                title: "带操作区域",
+                description: "通过 `action` 插槽提供行动引导，将空状态从「终点」转变为「起点」，减少用户挫败感。",
+                source: `
+/**
+ * title = "带操作区域"
+ * description = "通过 \`action\` 插槽提供行动引导，将空状态从「终点」转变为「起点」，减少用户挫败感。"
+ */
+
+import Empty from "../../src/index.js";
+import { css } from "@linaria/core";
+
+const buttonStyle = css\`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid oklch(0.87 0.005 286);
+    background-color: oklch(0.220 0.005 286);
+    color: oklch(0.980 0.002 286);
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+        background-color: oklch(0.320 0.008 286);
+    }
+\`;
+
+const WithActionDemo = () => {
+    return (
+        <Empty
+            preset="default"
+            action={
+                <button type="button" className={buttonStyle}>
+                    立即创建
+                </button>
+            }
+        />
+    );
+};
+
+export default WithActionDemo;
+`,
+            },
+        ],
+        api: [
+            {
+                name: "preset",
+                description: "预置空状态类型，内置图示与默认文案",
+                type: "'default' | 'search' | 'no-permission'",
+                defaultValue: "'default'",
+            },
+            {
+                name: "image",
+                description: "自定义图像/图标节点，设置后忽略 preset 的内置图示",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "imageSize",
+                description: "图像区域的宽高，默认 80px",
+                type: "number | string",
+                defaultValue: "`var(${vars['image.size']}, 80px)`",
+            },
+            {
+                name: "title",
+                description: "主标题，不传则显示 preset 对应默认文案",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "description",
+                description: "补充说明文字",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "action",
+                description: "操作区域（如按钮、链接），位于描述文字下方",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+        ],
+    },
+    {
+        slug: "rc-flow-diagram",
+        pkg: "@crab-dev/rc-flow-diagram",
+        version: "0.0.1",
+        title: "FlowDiagram 流程图",
+        description: "基于 rc-canvas 的流程图组件库，提供 Edge 连线、ELK 自动布局和正交边路由能力",
+        category: "data-display",
+        readme: ``,
+        demos: [
+            {
+                path: "components/rc-flow-diagram/docs/demos/edge.demo.tsx",
+                title: "FlowEdge 样式",
+                description: "FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。",
+                source: `/**
+ * title = "FlowEdge 样式"
+ * description = "FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。"
+ */
+
+import { useState } from 'react';
+import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';
+import type { ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
+
+const NODE_W = 110;
+const NODE_H = 44;
+
+const NODES: ElkLayoutNode[] = [
+    { id: 'a', width: NODE_W, height: NODE_H },
+    { id: 'b', width: NODE_W, height: NODE_H },
+    { id: 'c', width: NODE_W, height: NODE_H },
+    { id: 'd', width: NODE_W, height: NODE_H },
+];
+
+const EDGES: ElkLayoutEdge[] = [
+    { id: 'e1', source: 'a', target: 'b' },
+    { id: 'e2', source: 'a', target: 'c' },
+    { id: 'e3', source: 'b', target: 'd' },
+    { id: 'e4', source: 'c', target: 'd' },
+];
+
+const NODE_FILLS: Record<string, string> = {
+    a: 'oklch(0.55 0.2 260)',
+    b: 'oklch(0.55 0.2 30)',
+    c: 'oklch(0.55 0.2 140)',
+    d: 'oklch(0.55 0.2 320)',
+};
+
+const NODE_LABELS: Record<string, string> = {
+    a: '节点 A',
+    b: '节点 B',
+    c: '节点 C',
+    d: '节点 D',
+};
+
+interface EdgeStyle {
+    color?: string;
+    dashLength?: number;
+    gapLength?: number;
+    arrowStart?: boolean;
+    arrowEnd?: boolean;
+    lineWidth?: number;
+}
+
+const EDGE_STYLES: Record<string, EdgeStyle> = {
+    e1: {},
+    e2: { dashLength: 6, gapLength: 4, color: 'oklch(0.45 0.15 140)' },
+    e3: { arrowStart: true, color: 'oklch(0.45 0.15 30)' },
+    e4: { arrowEnd: false, color: 'oklch(0.45 0.15 320)', lineWidth: 2.5 },
+};
+
+const EDGE_LABELS: Record<string, string> = {
+    e1: '默认箭头',
+    e2: '虚线',
+    e3: '双向箭头',
+    e4: '无箭头',
+};
+
+export default function EdgeDemo() {
+    const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ fontSize: 13, color: '#64748b', padding: '4px 0' }}>
+                e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动
+            </div>
+
+            <FlowDiagram
+                nodes={NODES}
+                edges={EDGES}
+                elkOptions={{ 'elk.algorithm': 'layered', 'elk.direction': 'RIGHT' }}
+                nodePositions={nodePositions}
+                routingOptions={{ margin: 10, terminalStub: 22 }}
+                width={680}
+                height={380}
+                style={{ border: '1px solid #e0e4ec', borderRadius: 8, background: '#fafbfc' }}
+            >
+                {({ nodeRects, routes, crossings }) => (
+                    <>
+                        {/* 边：每条样式不同，演示 FlowEdge props */}
+                        {EDGES.map(e => {
+                            const pts = routes[e.id]?.points;
+                            if (!pts || pts.length < 2) return null;
+                            return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} {...EDGE_STYLES[e.id]} />;
+                        })}
+
+                        {/* 节点 */}
+                        {NODES.map(n => {
+                            const rect = nodeRects[n.id];
+                            if (!rect) return null;
+                            return (
+                                <FlowNode
+                                    key={n.id}
+                                    x={rect.x} y={rect.y}
+                                    width={NODE_W} height={NODE_H}
+                                    label={NODE_LABELS[n.id]}
+                                    fill={NODE_FILLS[n.id]}
+                                    draggable
+                                    onDrag={(dx, dy) => setNodePositions(prev => {
+                                        const base = prev[n.id] ?? rect;
+                                        return { ...prev, [n.id]: { x: base.x + dx, y: base.y + dy } };
+                                    })}
+                                />
+                            );
+                        })}
+                    </>
+                )}
+            </FlowDiagram>
+
+            {/* 图例 */}
+            <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#94a3b8', flexWrap: 'wrap' }}>
+                {EDGES.map(e => (
+                    <span key={e.id}>
+                        <span style={{ color: EDGE_STYLES[e.id]?.color ?? '#6b7280', fontWeight: 500 }}>
+                            {e.source.toUpperCase()}→{e.target.toUpperCase()}
+                        </span>{' '}
+                        {EDGE_LABELS[e.id]}
+                    </span>
+                ))}
+            </div>
+        </div>
+    );
+}
+`,
+            },
+            {
+                path: "components/rc-flow-diagram/docs/demos/elk-layout.demo.tsx",
+                title: "ELK 自动图布局",
+                description: "FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。",
+                source: `/**
+ * title = "ELK 自动图布局"
+ * description = "FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。"
+ */
+
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';
+import type { FlowDiagramControls, ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
+
+// ─── 图数据（软件架构示例） ────────────────────────────────────────────────────
+
+const NODE_W = 140;
+const NODE_H = 48;
+
+type Category = 'client' | 'infra' | 'service' | 'storage';
+
+const CATEGORY_FILL: Record<Category, string> = {
+    client:  'oklch(0.60 0.14 256)',
+    infra:   'oklch(0.64 0.14 55)',
+    service: 'oklch(0.62 0.13 162)',
+    storage: 'oklch(0.58 0.14 300)',
+};
+
+const CATEGORY_STROKE: Record<Category, string> = {
+    client:  'oklch(0.48 0.15 256)',
+    infra:   'oklch(0.52 0.15 55)',
+    service: 'oklch(0.50 0.14 162)',
+    storage: 'oklch(0.46 0.15 300)',
+};
+
+const CATEGORY_LABEL: Record<Category, string> = {
+    client:  '客户端',
+    infra:   '基础设施',
+    service: '业务服务',
+    storage: '存储层',
+};
+
+interface NodeMeta { id: string; label: string; category: Category }
+
+const NODE_META: NodeMeta[] = [
+    { id: 'browser',  label: 'Browser',         category: 'client' },
+    { id: 'cdn',      label: 'CDN',              category: 'infra' },
+    { id: 'gateway',  label: 'API Gateway',      category: 'infra' },
+    { id: 'auth',     label: 'Auth Service',     category: 'service' },
+    { id: 'user',     label: 'User Service',     category: 'service' },
+    { id: 'order',    label: 'Order Service',    category: 'service' },
+    { id: 'product',  label: 'Product Service',  category: 'service' },
+    { id: 'db',       label: 'Database',         category: 'storage' },
+    { id: 'cache',    label: 'Cache',            category: 'storage' },
+    { id: 'mq',       label: 'Message Queue',    category: 'infra' },
+    { id: 'notify',   label: 'Notify Service',   category: 'service' },
+];
+
+const ELK_NODES: ElkLayoutNode[] = NODE_META.map(n => ({ id: n.id, width: NODE_W, height: NODE_H }));
+
+const ELK_EDGES: ElkLayoutEdge[] = [
+    { id: 'e1',  source: 'browser',  target: 'cdn' },
+    { id: 'e2',  source: 'browser',  target: 'gateway' },
+    { id: 'e3',  source: 'cdn',      target: 'gateway' },
+    { id: 'e4',  source: 'gateway',  target: 'auth' },
+    { id: 'e5',  source: 'gateway',  target: 'user' },
+    { id: 'e6',  source: 'gateway',  target: 'order' },
+    { id: 'e7',  source: 'gateway',  target: 'product' },
+    { id: 'e8',  source: 'user',     target: 'db' },
+    { id: 'e9',  source: 'order',    target: 'db' },
+    { id: 'e10', source: 'product',  target: 'db' },
+    { id: 'e11', source: 'user',     target: 'cache' },
+    { id: 'e12', source: 'order',    target: 'mq' },
+    { id: 'e13', source: 'mq',       target: 'notify' },
+    { id: 'e14', source: 'auth',     target: 'cache' },
+];
+
+// ─── 样式常量 ──────────────────────────────────────────────────────────────────
+
+const labelStyle: CSSProperties = {
+    fontSize: 13, color: '#475569', display: 'flex', alignItems: 'center', gap: 6,
+};
+const controlStyle: CSSProperties = {
+    fontSize: 13, padding: '4px 8px', borderRadius: 6,
+    border: '1px solid #d4d9e0', background: '#fff', color: '#1e293b',
+    cursor: 'pointer', outline: 'none',
+};
+
+// ─── 布局完成后自动 fitView ───────────────────────────────────────────────────
+
+function AutoFitOnLayout({ loading, controls }: { loading: boolean; controls: FlowDiagramControls }) {
+    // 可变实例状态 ref（例外白名单：跨渲染持有布尔标志，不应触发渲染）
+    const wasLoadingRef = useRef(true);
+    useEffect(() => {
+        const wasLoading = wasLoadingRef.current;
+        wasLoadingRef.current = loading;
+        if (wasLoading && !loading) {
+            const h = requestAnimationFrame(() => controls.fitView(50));
+            return () => cancelAnimationFrame(h);
+        }
+    }, [loading]);
+    return null;
+}
+
+// ─── Demo 主体 ────────────────────────────────────────────────────────────────
+
+export default function ElkLayoutDemo() {
+    const [algo, setAlgo] = useState('layered');
+    const [dir,  setDir]  = useState('RIGHT');
+    const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
+
+    const elkOptions: Record<string, string> = {
+        'elk.algorithm': algo,
+        'elk.spacing.nodeNode': '48',
+        'elk.layered.spacing.nodeNodeBetweenLayers': '80',
+        ...(algo !== 'stress' ? { 'elk.direction': dir } : {}),
+    };
+
+    // 切换算法 / 方向时清空拖拽覆盖，让新布局结果完整生效
+    const handleAlgoChange = (newAlgo: string) => {
+        setAlgo(newAlgo);
+        setNodePositions({});
+    };
+    const handleDirChange = (newDir: string) => {
+        setDir(newDir);
+        setNodePositions({});
+    };
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* 工具栏 */}
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+                <label style={labelStyle}>
+                    算法
+                    <select value={algo} onChange={e => handleAlgoChange(e.target.value)} style={controlStyle}>
+                        <option value="layered">Layered（层次化）</option>
+                        <option value="mrtree">Mr. Tree（树形）</option>
+                        <option value="stress">Stress（力导向）</option>
+                    </select>
+                </label>
+                {algo !== 'stress' && (
+                    <label style={labelStyle}>
+                        方向
+                        <select value={dir} onChange={e => handleDirChange(e.target.value)} style={controlStyle}>
+                            <option value="RIGHT">→ 从左到右</option>
+                            <option value="DOWN">↓ 从上到下</option>
+                        </select>
+                    </label>
+                )}
+            </div>
+
+            {/* 画布：FlowDiagram 封装了 Canvas + Viewport + 网格 + ELK + 路由，消费方只需声明数据和渲染内容 */}
+            <FlowDiagram
+                nodes={ELK_NODES}
+                edges={ELK_EDGES}
+                elkOptions={elkOptions}
+                nodePositions={nodePositions}
+                routingOptions={{ margin: 12, terminalStub: 26 }}
+                width={820}
+                height={520}
+                style={{ border: '1px solid #e2e6ec', borderRadius: 10, background: '#f7f8fa' }}
+            >
+                {({ nodeRects, routes, crossings, loading, controls }) => (
+                    <>
+                        {/* 布局完成后自动 fitView（必须在 Canvas 上下文内，由此访问 controls） */}
+                        <AutoFitOnLayout loading={loading} controls={controls} />
+
+                        {/* 边（zIndex=1，在节点之下） */}
+                        {ELK_EDGES.map(e => {
+                            const pts = routes[e.id]?.points;
+                            if (!pts || pts.length < 2) return null;
+                            return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} />;
+                        })}
+
+                        {/* 节点（zIndex=2，始终在边之上） */}
+                        {NODE_META.map(meta => {
+                            const rect = nodeRects[meta.id];
+                            if (!rect) return null;
+                            return (
+                                <FlowNode
+                                    key={meta.id}
+                                    x={rect.x} y={rect.y}
+                                    width={NODE_W} height={NODE_H}
+                                    label={meta.label}
+                                    fill={CATEGORY_FILL[meta.category]}
+                                    stroke={CATEGORY_STROKE[meta.category]}
+                                    radius={10}
+                                    draggable
+                                    onDrag={(dx, dy) => setNodePositions(prev => {
+                                        const base = prev[meta.id] ?? rect;
+                                        return { ...prev, [meta.id]: { x: base.x + dx, y: base.y + dy } };
+                                    })}
+                                />
+                            );
+                        })}
+                    </>
+                )}
+            </FlowDiagram>
+
+            {/* 图例 */}
+            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+                {(Object.entries(CATEGORY_LABEL) as [Category, string][]).map(([cat, label]) => (
+                    <span key={cat} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#475569' }}>
+                        <span style={{
+                            width: 12, height: 12, borderRadius: 4,
+                            background: CATEGORY_FILL[cat], display: 'inline-block', flexShrink: 0,
+                        }} />
+                        {label}
+                    </span>
+                ))}
+                <span style={{ fontSize: 12, color: '#94a3b8', marginLeft: 'auto' }}>
+                    拖拽节点移动 · 边自动绕开节点 · 滚轮缩放
+                </span>
+            </div>
+        </div>
+    );
+}
+`,
+            },
+        ],
+        api: [
+        ],
+    },
+    {
         slug: "rc-form",
         pkg: "@crab-dev/rc-form",
         version: "0.0.6",
@@ -4333,6 +5656,111 @@ export default Demo;
 `,
         demos: [
             {
+                path: "components/rc-line-edit/docs/demos/allow-clear.demo.tsx",
+                title: "可清除",
+                description: "设置 `allowClear` 后，输入框有内容时右侧显示清除按钮；配合受控 `value` 和 `onClear` 回调使用，`disabled` 或 `readOnly` 时清除按钮自动隐藏",
+                source: `/**
+ * title = "可清除"
+ * description = "设置 \`allowClear\` 后，输入框有内容时右侧显示清除按钮；配合受控 \`value\` 和 \`onClear\` 回调使用，\`disabled\` 或 \`readOnly\` 时清除按钮自动隐藏"
+ */
+
+import { css } from "@linaria/core";
+import { Search } from "lucide-react";
+import { useState } from "react";
+import LineEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 300px;
+\`;
+
+const AllowClearDemo = () => {
+    const [keyword, setKeyword] = useState("React 设计心理学");
+    const [note, setNote] = useState("");
+
+    return (
+        <div className={wrapperStyle}>
+            <LineEdit
+                value={keyword}
+                allowClear
+                prefix={<Search />}
+                onClear={() => setKeyword("")}
+                onChange={(e) => setKeyword(e.target.value)}
+                placeholder="搜索"
+            />
+            <LineEdit
+                value={note}
+                allowClear
+                onClear={() => setNote("")}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="备注（输入后可清除）"
+            />
+            <LineEdit
+                value="禁用状态不显示清除按钮"
+                allowClear
+                disabled
+                placeholder=""
+            />
+        </div>
+    );
+};
+
+export default AllowClearDemo;
+`,
+            },
+            {
+                path: "components/rc-line-edit/docs/demos/password.demo.tsx",
+                title: "密码输入",
+                description: "设置 `type=\"password\"` 时右侧自动出现可见性切换按钮（眼睛图标），用户可随时核查已输入的密码内容，降低因误输入导致的挫败感",
+                source: `/**
+ * title = "密码输入"
+ * description = "设置 \`type=\\"password\\"\` 时右侧自动出现可见性切换按钮（眼睛图标），用户可随时核查已输入的密码内容，降低因误输入导致的挫败感"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+import LineEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 300px;
+\`;
+
+const PasswordDemo = () => {
+    const [password, setPassword] = useState("");
+    const [confirm, setConfirm] = useState("");
+
+    const mismatch = confirm.length > 0 && password !== confirm;
+
+    return (
+        <div className={wrapperStyle}>
+            <LineEdit
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="密码"
+            />
+            <LineEdit
+                type="password"
+                value={confirm}
+                status={mismatch ? "error" : undefined}
+                onChange={(e) => setConfirm(e.target.value)}
+                placeholder="确认密码"
+            />
+        </div>
+    );
+};
+
+export default PasswordDemo;
+`,
+            },
+            {
                 path: "components/rc-line-edit/docs/demos/prefix-suffix.demo.tsx",
                 title: "前缀和后缀",
                 description: "通过 `prefix` 和 `suffix` 属性设置前缀/后缀图标",
@@ -4368,6 +5796,53 @@ const PrefixSuffixDemo = () => {
 };
 
 export default PrefixSuffixDemo;
+`,
+            },
+            {
+                path: "components/rc-line-edit/docs/demos/show-count.demo.tsx",
+                title: "字符计数",
+                description: "设置 `showCount` 后在输入框右侧实时显示已输入字符数；配合 `maxLength` 使用时显示「已输入 / 上限」格式，帮助用户掌握剩余可输入量",
+                source: `/**
+ * title = "字符计数"
+ * description = "设置 \`showCount\` 后在输入框右侧实时显示已输入字符数；配合 \`maxLength\` 使用时显示「已输入 / 上限」格式，帮助用户掌握剩余可输入量"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+import LineEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 320px;
+\`;
+
+const ShowCountDemo = () => {
+    const [title, setTitle] = useState("");
+    const [bio, setBio] = useState("前端开发者");
+
+    return (
+        <div className={wrapperStyle}>
+            <LineEdit
+                value={title}
+                showCount
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="标题（仅显示字符数）"
+            />
+            <LineEdit
+                value={bio}
+                showCount
+                maxLength={30}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="简介（30 字以内）"
+            />
+        </div>
+    );
+};
+
+export default ShowCountDemo;
 `,
             },
             {
@@ -4460,6 +5935,101 @@ const SizeDemo = () => {
 };
 
 export default SizeDemo;
+`,
+            },
+            {
+                path: "components/rc-line-edit/docs/demos/status.demo.tsx",
+                title: "验证状态",
+                description: "通过 `status` 属性设置 `error` 或 `warning` 验证状态。失焦时触发校验，边框颜色随状态改变，配合提示文字形成完整反馈闭环",
+                source: `/**
+ * title = "验证状态"
+ * description = "通过 \`status\` 属性设置 \`error\` 或 \`warning\` 验证状态。失焦时触发校验，边框颜色随状态改变，配合提示文字形成完整反馈闭环"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+import LineEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1rem;
+    max-width: 300px;
+\`;
+
+const fieldStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+\`;
+
+const hintStyle = css\`
+    font-size: 12px;
+    margin: 0;
+\`;
+
+const errorHintStyle = css\`
+    color: oklch(0.637 0.237 24);
+\`;
+
+const warningHintStyle = css\`
+    color: oklch(0.769 0.188 75);
+\`;
+
+type FieldStatus = "error" | "warning" | undefined;
+
+const validate = (value: string): FieldStatus => {
+    if (!value.trim()) return "error";
+    if (value.length < 6) return "warning";
+    return undefined;
+};
+
+const StatusDemo = () => {
+    const [email, setEmail] = useState("");
+    const [emailStatus, setEmailStatus] = useState<FieldStatus>();
+
+    const [name, setName] = useState("");
+    const [nameStatus, setNameStatus] = useState<FieldStatus>();
+
+    return (
+        <div className={wrapperStyle}>
+            <div className={fieldStyle}>
+                <LineEdit
+                    value={email}
+                    status={emailStatus}
+                    placeholder="邮箱（失焦后触发校验）"
+                    onChange={(e) => { setEmail(e.target.value); setEmailStatus(undefined); }}
+                    onBlur={() => setEmailStatus(validate(email))}
+                />
+                {emailStatus === "error" && (
+                    <p className={\`\${hintStyle} \${errorHintStyle}\`}>邮箱不能为空</p>
+                )}
+                {emailStatus === "warning" && (
+                    <p className={\`\${hintStyle} \${warningHintStyle}\`}>邮箱过短，请检查是否填写完整</p>
+                )}
+            </div>
+
+            <div className={fieldStyle}>
+                <LineEdit
+                    value={name}
+                    status={nameStatus}
+                    placeholder="用户名（至少 6 个字符）"
+                    onChange={(e) => { setName(e.target.value); setNameStatus(undefined); }}
+                    onBlur={() => setNameStatus(validate(name))}
+                />
+                {nameStatus === "error" && (
+                    <p className={\`\${hintStyle} \${errorHintStyle}\`}>用户名不能为空</p>
+                )}
+                {nameStatus === "warning" && (
+                    <p className={\`\${hintStyle} \${warningHintStyle}\`}>用户名过短，建议至少 6 个字符</p>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default StatusDemo;
 `,
             },
         ],
@@ -12678,6 +14248,91 @@ export default PlacementDemo;
 `,
         demos: [
             {
+                path: "components/rc-tree/docs/demos/allow-drop.demo.tsx",
+                title: "拖拽限制 allowDrop",
+                description: "通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。",
+                source: `/**
+ * title = "拖拽限制 allowDrop"
+ * description = "通过 \`allowDrop\` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。"
+ */
+
+import { type Key, useState } from "react";
+import RcTree, { LoadStateType, NodeType, OverStateEnum, type Node, type TreeProps, useTreeData } from "../../src/index.js";
+
+const buildNodes = (): Node[] => {
+    const nodes: Node[] = [];
+    for (let i = 1; i <= 5; i++) {
+        const folder: Node = {
+            id: \`folder-\${i}\`,
+            type: NodeType.FOLDER,
+            title: \`文件夹 \${i}\`,
+            parent: null,
+            loadState: LoadStateType.LOADING_COMPLETED,
+            priority: i,
+        };
+        nodes.push(folder);
+        for (let j = 1; j <= 3; j++) {
+            nodes.push({
+                id: \`file-\${i}-\${j}\`,
+                type: NodeType.FILE,
+                title: \`文件 \${i}-\${j}\`,
+                parent: folder,
+                loadState: LoadStateType.LOADING_COMPLETED,
+                priority: j,
+            });
+        }
+    }
+    return nodes;
+};
+
+const AllowDropDemo = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>(["folder-1", "folder-2"]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <p style={{ fontSize: "0.875rem", color: "#666", margin: 0 }}>
+                当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。
+            </p>
+            <RcTree
+                height={360}
+                width={400}
+                treeData={treeData}
+                draggable
+                onTreeNodeChange={setTreeData}
+                expandedKeys={expandedKeys}
+                selectKeys={selectKeys}
+                allowDrop={({ position, dragNode, targetNode }) => {
+                    if (position === OverStateEnum.INSIDE) return false;
+                    // DOWN/UPWARD 会把 dragNode.parent 设为 targetNode.parent
+                    // 只有同层级（相同 parent）才允许排序，避免跨文件夹移动
+                    const dragParentId = dragNode.parent?.id ?? null;
+                    const targetParentId = targetNode.parent?.id ?? null;
+                    return dragParentId === targetParentId;
+                }}
+                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                onExpanded={({ node }: { node: Node }) => {
+                    setExpandedKeys(prev =>
+                        prev.includes(node.id)
+                            ? prev.filter(k => k !== node.id)
+                            : [...prev, node.id]
+                    );
+                }}
+                onDragEnd={((event, context) => {
+                    if (context.overState?.state != null && event.over) {
+                        treeDataUtils.moveNodeOnDrag(event.active.id, event.over.id, context.overState.state);
+                    }
+                }) as TreeProps["onDragEnd"]}
+            />
+        </div>
+    );
+};
+
+export default AllowDropDemo;
+`,
+            },
+            {
                 path: "components/rc-tree/docs/demos/basic.demo.tsx",
                 title: "基础用法",
                 description: "最基本的树形组件用法，展示节点的展开、收起和选择功能。",
@@ -12750,6 +14405,95 @@ const BasicDemo = () => {
 };
 
 export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-tree/docs/demos/checkable.demo.tsx",
+                title: "复选框 checkable",
+                description: "通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheck` 实现受控。",
+                source: `/**
+ * title = "复选框 checkable"
+ * description = "通过 \`checkable\` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。\`checkedKeys\` 与 \`onCheck\` 实现受控。"
+ */
+
+import { type Key, useState } from "react";
+import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
+
+const buildNodes = (): Node[] => {
+    const fe: Node = { id: "fe", type: NodeType.FOLDER, title: "前端技术", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const be: Node = { id: "be", type: NodeType.FOLDER, title: "后端技术", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const react: Node = { id: "react", type: NodeType.FOLDER, title: "React 生态", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+    const css: Node = { id: "css", type: NodeType.FOLDER, title: "CSS 方案", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const spring: Node = { id: "spring", type: NodeType.FOLDER, title: "Spring 生态", parent: be, loadState: LoadStateType.LOADING_COMPLETED };
+    const node: Node = { id: "node", type: NodeType.FOLDER, title: "Node.js", parent: be, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const rReact: Node = { id: "r-react", type: NodeType.FILE, title: "React", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+    const rRouter: Node = { id: "r-router", type: NodeType.FILE, title: "React Router", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+    const rQuery: Node = { id: "r-query", type: NodeType.FILE, title: "TanStack Query", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const cLinaria: Node = { id: "c-linaria", type: NodeType.FILE, title: "Linaria", parent: css, loadState: LoadStateType.LOADING_COMPLETED };
+    const cTailwind: Node = { id: "c-tailwind", type: NodeType.FILE, title: "Tailwind CSS", parent: css, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const sBoot: Node = { id: "s-boot", type: NodeType.FILE, title: "Spring Boot", parent: spring, loadState: LoadStateType.LOADING_COMPLETED };
+    const sCloud: Node = { id: "s-cloud", type: NodeType.FILE, title: "Spring Cloud", parent: spring, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const nKoa: Node = { id: "n-koa", type: NodeType.FILE, title: "Koa", parent: node, loadState: LoadStateType.LOADING_COMPLETED };
+    const nNestjs: Node = { id: "n-nestjs", type: NodeType.FILE, title: "NestJS", parent: node, loadState: LoadStateType.LOADING_COMPLETED };
+
+    return [fe, be, react, css, spring, node, rReact, rRouter, rQuery, cLinaria, cTailwind, sBoot, sCloud, nKoa, nNestjs];
+};
+
+const CheckableDemo = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>(["fe", "be", "react", "css"]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [checkedKeys, setCheckedKeys] = useState<Key[]>([]);
+    const [halfCheckedKeys, setHalfCheckedKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData] = useTreeData(buildNodes());
+
+    return (
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
+            <RcTree
+                height={320}
+                width={320}
+                treeData={treeData}
+                onTreeNodeChange={setTreeData}
+                expandedKeys={expandedKeys}
+                selectKeys={selectKeys}
+                checkable
+                checkedKeys={checkedKeys}
+                onCheck={({ checkedKeys: keys, halfCheckedKeys: half }) => {
+                    setCheckedKeys(keys);
+                    setHalfCheckedKeys(half);
+                }}
+                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                onExpanded={({ node }: { node: Node }) => {
+                    setExpandedKeys(prev =>
+                        prev.includes(node.id)
+                            ? prev.filter(k => k !== node.id)
+                            : [...prev, node.id]
+                    );
+                }}
+            />
+            <div style={{ fontSize: "0.8125rem", color: "#555", lineHeight: 1.8, minWidth: 160 }}>
+                <div><strong>已选中（{checkedKeys.length}）：</strong></div>
+                {checkedKeys.length === 0
+                    ? <div style={{ color: "#999" }}>无</div>
+                    : checkedKeys.map(k => <div key={String(k)}>· {k}</div>)
+                }
+                {halfCheckedKeys.length > 0 && (
+                    <>
+                        <div style={{ marginTop: "0.5rem" }}><strong>半选（{halfCheckedKeys.length}）：</strong></div>
+                        {halfCheckedKeys.map(k => <div key={String(k)}>· {k}</div>)}
+                    </>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default CheckableDemo;
 `,
             },
             {
@@ -12915,6 +14659,538 @@ const DraggableDemo = () => {
 };
 
 export default DraggableDemo;
+`,
+            },
+            {
+                path: "components/rc-tree/docs/demos/expand-all.demo.tsx",
+                title: "全部展开 / 折叠",
+                description: "通过 `TreeDataUtil` 提供的 `expandAll` 与 `collapseAll` 方法，一键展开或折叠所有 FOLDER 节点。",
+                source: `/**
+ * title = "全部展开 / 折叠"
+ * description = "通过 \`TreeDataUtil\` 提供的 \`expandAll\` 与 \`collapseAll\` 方法，一键展开或折叠所有 FOLDER 节点。"
+ */
+
+import { type Key, useState } from "react";
+import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
+
+const buildNodes = (): Node[] => {
+    const fe: Node = { id: "fe", type: NodeType.FOLDER, title: "前端", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const be: Node = { id: "be", type: NodeType.FOLDER, title: "后端", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const react: Node = { id: "react", type: NodeType.FOLDER, title: "React", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+    const vue: Node = { id: "vue", type: NodeType.FOLDER, title: "Vue", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const node: Node = { id: "node", type: NodeType.FOLDER, title: "Node.js", parent: be, loadState: LoadStateType.LOADING_COMPLETED };
+    const go: Node = { id: "go", type: NodeType.FOLDER, title: "Go", parent: be, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const hooks: Node = { id: "hooks", type: NodeType.FOLDER, title: "Hooks", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+    const components: Node = { id: "components", type: NodeType.FOLDER, title: "Components", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const useState_: Node = { id: "useState", type: NodeType.FILE, title: "useState.ts", parent: hooks, loadState: LoadStateType.LOADING_COMPLETED };
+    const useEffect_: Node = { id: "useEffect", type: NodeType.FILE, title: "useEffect.ts", parent: hooks, loadState: LoadStateType.LOADING_COMPLETED };
+    const button: Node = { id: "button", type: NodeType.FILE, title: "Button.tsx", parent: components, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const composable: Node = { id: "composable", type: NodeType.FOLDER, title: "Composables", parent: vue, loadState: LoadStateType.LOADING_COMPLETED };
+    const ref_: Node = { id: "ref", type: NodeType.FILE, title: "ref.ts", parent: composable, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const koa: Node = { id: "koa", type: NodeType.FILE, title: "koa.ts", parent: node, loadState: LoadStateType.LOADING_COMPLETED };
+    const gin: Node = { id: "gin", type: NodeType.FILE, title: "gin.go", parent: go, loadState: LoadStateType.LOADING_COMPLETED };
+
+    return [fe, be, react, vue, node, go, hooks, components, composable, useState_, useEffect_, button, ref_, koa, gin];
+};
+
+const ExpandAllDemo = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button onClick={() => treeDataUtils.expandAll(keys => setExpandedKeys(keys))}>
+                    展开全部
+                </button>
+                <button onClick={() => treeDataUtils.collapseAll(keys => setExpandedKeys(keys))}>
+                    折叠全部
+                </button>
+            </div>
+            <RcTree
+                height={320}
+                width={400}
+                treeData={treeData}
+                onTreeNodeChange={setTreeData}
+                expandedKeys={expandedKeys}
+                selectKeys={selectKeys}
+                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                onExpanded={({ node }: { node: Node }) => {
+                    setExpandedKeys(prev =>
+                        prev.includes(node.id)
+                            ? prev.filter(k => k !== node.id)
+                            : [...prev, node.id]
+                    );
+                }}
+            />
+        </div>
+    );
+};
+
+export default ExpandAllDemo;
+`,
+            },
+            {
+                path: "components/rc-tree/docs/demos/filter.demo.tsx",
+                title: "搜索过滤 filterTreeNode",
+                description: "通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。",
+                source: `/**
+ * title = "搜索过滤 filterTreeNode"
+ * description = "通过 \`filterTreeNode\` prop 过滤节点。返回 \`true\` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。"
+ */
+
+import { type Key, useState, useEffect } from "react";
+import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
+
+const buildNodes = (): Node[] => {
+    const fe: Node = { id: "fe", type: NodeType.FOLDER, title: "前端", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const be: Node = { id: "be", type: NodeType.FOLDER, title: "后端", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const mobile: Node = { id: "mobile", type: NodeType.FOLDER, title: "移动端", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const react: Node = { id: "react", type: NodeType.FOLDER, title: "React", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+    const vue: Node = { id: "vue", type: NodeType.FOLDER, title: "Vue", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+    const angular: Node = { id: "angular", type: NodeType.FOLDER, title: "Angular", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const node: Node = { id: "node", type: NodeType.FOLDER, title: "Node.js", parent: be, loadState: LoadStateType.LOADING_COMPLETED };
+    const spring: Node = { id: "spring", type: NodeType.FOLDER, title: "Spring Boot", parent: be, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const ios: Node = { id: "ios", type: NodeType.FOLDER, title: "iOS", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };
+    const android: Node = { id: "android", type: NodeType.FOLDER, title: "Android", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };
+    const rn: Node = { id: "rn", type: NodeType.FOLDER, title: "React Native", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const reactHooks: Node = { id: "hooks", type: NodeType.FILE, title: "Hooks 指南.md", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+    const reactRouter: Node = { id: "router", type: NodeType.FILE, title: "React Router.md", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
+    const vueComposable: Node = { id: "composable", type: NodeType.FILE, title: "Composable API.md", parent: vue, loadState: LoadStateType.LOADING_COMPLETED };
+    const koa: Node = { id: "koa", type: NodeType.FILE, title: "Koa 中间件.md", parent: node, loadState: LoadStateType.LOADING_COMPLETED };
+    const jpa: Node = { id: "jpa", type: NodeType.FILE, title: "Spring Data JPA.md", parent: spring, loadState: LoadStateType.LOADING_COMPLETED };
+    const swift: Node = { id: "swift", type: NodeType.FILE, title: "Swift 基础.md", parent: ios, loadState: LoadStateType.LOADING_COMPLETED };
+    const kotlin: Node = { id: "kotlin", type: NodeType.FILE, title: "Kotlin 入门.md", parent: android, loadState: LoadStateType.LOADING_COMPLETED };
+    const rnNav: Node = { id: "rn-nav", type: NodeType.FILE, title: "Navigation.md", parent: rn, loadState: LoadStateType.LOADING_COMPLETED };
+
+    return [fe, be, mobile, react, vue, angular, node, spring, ios, android, rn,
+        reactHooks, reactRouter, vueComposable, koa, jpa, swift, kotlin, rnNav];
+};
+
+const ALL_NODES = buildNodes();
+
+const FilterDemo = () => {
+    const [keyword, setKeyword] = useState("");
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData] = useTreeData(ALL_NODES);
+
+    const filterFn = keyword.trim()
+        ? (node: Node) => {
+            const title = typeof node.title === "string" ? node.title : "";
+            return title.toLowerCase().includes(keyword.trim().toLowerCase());
+        }
+        : undefined;
+
+    useEffect(() => {
+        if (!keyword.trim()) {
+            setExpandedKeys([]);
+            return;
+        }
+        const matched = ALL_NODES.filter(n => {
+            const title = typeof n.title === "string" ? n.title : "";
+            return title.toLowerCase().includes(keyword.trim().toLowerCase());
+        });
+        const ancestorIds = new Set<Key>();
+        matched.forEach(n => {
+            let p: Node | null = n.parent;
+            while (p) {
+                ancestorIds.add(p.id);
+                p = p.parent;
+            }
+        });
+        setExpandedKeys([...ancestorIds]);
+    }, [keyword]);
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <input
+                type="search"
+                placeholder="搜索节点..."
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                style={{
+                    padding: "0.375rem 0.625rem",
+                    borderRadius: "6px",
+                    border: "1px solid #d9d9d9",
+                    fontSize: "0.875rem",
+                    width: "300px",
+                    outline: "none",
+                }}
+            />
+            <RcTree
+                height={300}
+                width={400}
+                treeData={treeData}
+                onTreeNodeChange={setTreeData}
+                expandedKeys={expandedKeys}
+                selectKeys={selectKeys}
+                filterTreeNode={filterFn}
+                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                onExpanded={({ node }: { node: Node }) => {
+                    setExpandedKeys(prev =>
+                        prev.includes(node.id)
+                            ? prev.filter(k => k !== node.id)
+                            : [...prev, node.id]
+                    );
+                }}
+            />
+        </div>
+    );
+};
+
+export default FilterDemo;
+`,
+            },
+            {
+                path: "components/rc-tree/docs/demos/icon-and-disabled.demo.tsx",
+                title: "图标插槽与禁用节点",
+                description: "通过 `icon` 字段为节点设置前置图标；`disabled` 字段禁用节点，禁用节点不可点击、不可拖拽、样式置灰。",
+                source: `/**
+ * title = "图标插槽与禁用节点"
+ * description = "通过 \`icon\` 字段为节点设置前置图标；\`disabled\` 字段禁用节点，禁用节点不可点击、不可拖拽、样式置灰。"
+ */
+
+import { type Key, useState } from "react";
+import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
+
+const folderIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+    </svg>
+);
+
+const fileIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+        <polyline points="13 2 13 9 20 9" />
+    </svg>
+);
+
+const lockIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+);
+
+const buildNodes = (): Node[] => {
+    const root1: Node = { id: "src", type: NodeType.FOLDER, title: "src", parent: null, loadState: LoadStateType.LOADING_COMPLETED, icon: folderIcon };
+    const root2: Node = { id: "public", type: NodeType.FOLDER, title: "public（禁用）", parent: null, loadState: LoadStateType.LOADING_COMPLETED, icon: folderIcon, disabled: true };
+
+    const components: Node = { id: "components", type: NodeType.FOLDER, title: "components", parent: root1, loadState: LoadStateType.LOADING_COMPLETED, icon: folderIcon };
+    const utils: Node = { id: "utils", type: NodeType.FOLDER, title: "utils（禁用）", parent: root1, loadState: LoadStateType.LOADING_COMPLETED, icon: folderIcon, disabled: true };
+
+    const appFile: Node = { id: "app.tsx", type: NodeType.FILE, title: "App.tsx", parent: root1, loadState: LoadStateType.LOADING_COMPLETED, icon: fileIcon };
+    const indexFile: Node = { id: "index.ts", type: NodeType.FILE, title: "index.ts", parent: root1, loadState: LoadStateType.LOADING_COMPLETED, icon: fileIcon };
+    const secretFile: Node = { id: "secret.ts", type: NodeType.FILE, title: "secret.ts（禁用）", parent: root1, loadState: LoadStateType.LOADING_COMPLETED, icon: lockIcon, disabled: true };
+
+    const btnFile: Node = { id: "button.tsx", type: NodeType.FILE, title: "Button.tsx", parent: components, loadState: LoadStateType.LOADING_COMPLETED, icon: fileIcon };
+    const inputFile: Node = { id: "input.tsx", type: NodeType.FILE, title: "Input.tsx", parent: components, loadState: LoadStateType.LOADING_COMPLETED, icon: fileIcon };
+
+    return [root1, root2, components, utils, appFile, indexFile, secretFile, btnFile, inputFile];
+};
+
+const IconAndDisabledDemo = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>(["src", "components"]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData] = useTreeData(buildNodes());
+
+    return (
+        <RcTree
+            height={320}
+            width={400}
+            treeData={treeData}
+            onTreeNodeChange={setTreeData}
+            expandedKeys={expandedKeys}
+            selectKeys={selectKeys}
+            onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+            onExpanded={({ node }: { node: Node }) => {
+                setExpandedKeys(prev =>
+                    prev.includes(node.id)
+                        ? prev.filter(k => k !== node.id)
+                        : [...prev, node.id]
+                );
+            }}
+        />
+    );
+};
+
+export default IconAndDisabledDemo;
+`,
+            },
+            {
+                path: "components/rc-tree/docs/demos/inline-edit.demo.tsx",
+                title: "Inline 节点编辑",
+                description: "双击节点标题进入 inline 编辑模式。默认使用内置 `<input>`；通过 `renderEditInput` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。`onCommit(value)` 提交，`onCancel()` 取消。",
+                source: `/**
+ * title = "Inline 节点编辑"
+ * description = "双击节点标题进入 inline 编辑模式。默认使用内置 \`<input>\`；通过 \`renderEditInput\` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。\`onCommit(value)\` 提交，\`onCancel()\` 取消。"
+ */
+
+import { type Key, useState, useRef, useEffect } from "react";
+import RcTree, { LoadStateType, NodeType, NodeEditStateType, type Node, useTreeData } from "../../src/index.js";
+
+let nextId = 100;
+
+const buildNodes = (): Node[] => {
+    const root: Node = { id: "docs", type: NodeType.FOLDER, title: "文档", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const n1: Node = { id: "guide", type: NodeType.FOLDER, title: "使用指南", parent: root, loadState: LoadStateType.LOADING_COMPLETED };
+    const n2: Node = { id: "api", type: NodeType.FOLDER, title: "API 参考", parent: root, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const f1: Node = { id: "quick-start", type: NodeType.FILE, title: "快速开始.md", parent: n1, loadState: LoadStateType.LOADING_COMPLETED };
+    const f2: Node = { id: "install", type: NodeType.FILE, title: "安装说明.md", parent: n1, loadState: LoadStateType.LOADING_COMPLETED };
+    const f3: Node = { id: "tree-api", type: NodeType.FILE, title: "Tree.md", parent: n2, loadState: LoadStateType.LOADING_COMPLETED };
+    const f4: Node = { id: "button-api", type: NodeType.FILE, title: "Button.md", parent: n2, loadState: LoadStateType.LOADING_COMPLETED };
+
+    return [root, n1, n2, f1, f2, f3, f4];
+};
+
+const MAX_LEN = 20;
+
+interface CustomInputProps {
+    defaultValue: string;
+    onCommit: (value: string) => void;
+    onCancel: () => void;
+}
+
+const CustomInput = ({ defaultValue, onCommit, onCancel }: CustomInputProps) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [value, setValue] = useState(defaultValue);
+    const committed = useRef(false);
+
+    useEffect(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+    }, []);
+
+    const commit = (v: string) => {
+        if (committed.current) return;
+        committed.current = true;
+        onCommit(v);
+    };
+
+    const cancel = () => {
+        if (committed.current) return;
+        committed.current = true;
+        onCancel();
+    };
+
+    const isError = value.trim() === "" || value.length > MAX_LEN;
+
+    return (
+        <div
+            style={{ display: "flex", alignItems: "center", gap: "0.25rem", flex: "1 1 auto", minWidth: 0 }}
+            onClick={(e) => e.stopPropagation()}
+        >
+            <input
+                ref={inputRef}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" && !isError) {
+                        commit(value.trim());
+                        inputRef.current?.blur();
+                    } else if (e.key === "Escape") {
+                        cancel();
+                        inputRef.current?.blur();
+                    }
+                }}
+                onBlur={() => {
+                    if (!isError) {
+                        commit(value.trim());
+                    } else {
+                        cancel();
+                    }
+                }}
+                style={{
+                    flex: "1 1 auto",
+                    minWidth: 0,
+                    padding: "0 0.375rem",
+                    fontSize: "inherit",
+                    lineHeight: "inherit",
+                    border: \`1px solid \${isError ? "#f5222d" : "#1677ff"}\`,
+                    borderRadius: "3px",
+                    outline: "none",
+                    background: "transparent",
+                    color: "inherit",
+                    boxSizing: "border-box",
+                }}
+            />
+            <span style={{
+                fontSize: "0.75rem",
+                flexShrink: 0,
+                color: value.length > MAX_LEN ? "#f5222d" : "#999",
+            }}>
+                {value.length}/{MAX_LEN}
+            </span>
+        </div>
+    );
+};
+
+const InlineEditDemo = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>(["docs", "guide", "api"]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
+
+    const handleEditEnd = (node: Node, newTitle: string, cancelled: boolean) => {
+        if (cancelled || newTitle.trim() === "") {
+            treeDataUtils.update({ ...node, editState: undefined });
+        } else {
+            treeDataUtils.update({ ...node, title: newTitle.trim(), editState: undefined });
+        }
+    };
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <p style={{ fontSize: "0.875rem", color: "#666", margin: 0 }}>
+                双击节点名称进入编辑，<kbd>Enter</kbd> 保存，<kbd>Esc</kbd> 取消。
+                自定义编辑器带字数限制（最多 {MAX_LEN} 字），超出或为空时失焦自动取消。
+            </p>
+            <button
+                style={{ alignSelf: "flex-start" }}
+                onClick={() => {
+                    const newNode: Node = {
+                        id: \`new-\${nextId++}\`,
+                        type: NodeType.FILE,
+                        title: "新文件",
+                        parent: null,
+                        loadState: LoadStateType.LOADING_COMPLETED,
+                        editState: NodeEditStateType.UPDATE,
+                    };
+                    setTreeData(prev => [...prev, newNode]);
+                }}
+            >
+                + 新建根节点（直接进入编辑）
+            </button>
+            <RcTree
+                height={320}
+                width={460}
+                treeData={treeData}
+                onTreeNodeChange={setTreeData}
+                expandedKeys={expandedKeys}
+                selectKeys={selectKeys}
+                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                onExpanded={({ node }: { node: Node }) => {
+                    setExpandedKeys(prev =>
+                        prev.includes(node.id)
+                            ? prev.filter(k => k !== node.id)
+                            : [...prev, node.id]
+                    );
+                }}
+                onNodeDoubleClick={(node) => {
+                    if (node.disabled) return;
+                    treeDataUtils.update({ ...node, editState: NodeEditStateType.UPDATE });
+                }}
+                onEditEnd={handleEditEnd}
+                renderEditInput={({ defaultValue, onCommit, onCancel }) => (
+                    <CustomInput
+                        defaultValue={defaultValue}
+                        onCommit={onCommit}
+                        onCancel={onCancel}
+                    />
+                )}
+            />
+        </div>
+    );
+};
+
+export default InlineEditDemo;
+`,
+            },
+            {
+                path: "components/rc-tree/docs/demos/keyboard.demo.tsx",
+                title: "键盘导航",
+                description: "点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。",
+                source: `/**
+ * title = "键盘导航"
+ * description = "点击树组件后可使用键盘操作：\`↑↓\` 移动焦点，\`→\` 展开文件夹，\`←\` 折叠文件夹或跳转到父节点，\`Enter\` 选中/取消选中当前节点。"
+ */
+
+import { type Key, useState } from "react";
+import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
+
+const buildNodes = (): Node[] => {
+    const root1: Node = { id: "r1", type: NodeType.FOLDER, title: "文档", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const root2: Node = { id: "r2", type: NodeType.FOLDER, title: "图片", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+    const root3: Node = { id: "r3", type: NodeType.FOLDER, title: "视频", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const r1c1: Node = { id: "r1c1", type: NodeType.FOLDER, title: "工作", parent: root1, loadState: LoadStateType.LOADING_COMPLETED };
+    const r1c2: Node = { id: "r1c2", type: NodeType.FOLDER, title: "学习", parent: root1, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const r1c1f1: Node = { id: "r1c1f1", type: NodeType.FILE, title: "季度报告.docx", parent: r1c1, loadState: LoadStateType.LOADING_COMPLETED };
+    const r1c1f2: Node = { id: "r1c1f2", type: NodeType.FILE, title: "项目计划.xlsx", parent: r1c1, loadState: LoadStateType.LOADING_COMPLETED };
+    const r1c2f1: Node = { id: "r1c2f1", type: NodeType.FILE, title: "React 笔记.md", parent: r1c2, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const r2f1: Node = { id: "r2f1", type: NodeType.FILE, title: "头像.png", parent: root2, loadState: LoadStateType.LOADING_COMPLETED };
+    const r2f2: Node = { id: "r2f2", type: NodeType.FILE, title: "封面.jpg", parent: root2, loadState: LoadStateType.LOADING_COMPLETED };
+
+    const r3f1: Node = { id: "r3f1", type: NodeType.FILE, title: "录屏.mp4", parent: root3, loadState: LoadStateType.LOADING_COMPLETED };
+
+    return [root1, root2, root3, r1c1, r1c2, r1c1f1, r1c1f2, r1c2f1, r2f1, r2f2, r3f1];
+};
+
+const KeyboardDemo = () => {
+    const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
+    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [treeData, setTreeData] = useTreeData(buildNodes());
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <div style={{
+                padding: "0.625rem 0.75rem",
+                borderRadius: "6px",
+                background: "#f5f5f5",
+                fontSize: "0.8125rem",
+                color: "#555",
+                lineHeight: 1.6,
+            }}>
+                <strong>键盘快捷键：</strong>&nbsp;
+                <kbd>↑</kbd><kbd>↓</kbd> 移动焦点 &nbsp;
+                <kbd>→</kbd> 展开 &nbsp;
+                <kbd>←</kbd> 折叠 / 跳父节点 &nbsp;
+                <kbd>Enter</kbd> 选中
+            </div>
+            <RcTree
+                height={300}
+                width={400}
+                treeData={treeData}
+                onTreeNodeChange={setTreeData}
+                expandedKeys={expandedKeys}
+                selectKeys={selectKeys}
+                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                onExpanded={({ node }: { node: Node }) => {
+                    setExpandedKeys(prev =>
+                        prev.includes(node.id)
+                            ? prev.filter(k => k !== node.id)
+                            : [...prev, node.id]
+                    );
+                }}
+            />
+            {selectKeys.length > 0 && (
+                <p style={{ fontSize: "0.875rem", margin: 0, color: "#666" }}>
+                    已选中：{selectKeys.join(", ")}
+                </p>
+            )}
+        </div>
+    );
+};
+
+export default KeyboardDemo;
 `,
             },
             {
