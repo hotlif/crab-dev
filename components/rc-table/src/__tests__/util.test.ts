@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from "@jest/globals";
-import type { ColumnType } from "../types.js";
+import type { ColumnType, Row } from "../types.js";
 
 import {
     sortColumns,
@@ -15,7 +14,7 @@ import {
 
 describe("sortColumns", () => {
     it("should not change order if all columns are unfixed", () => {
-        const testData: ColumnType<any>[] = [
+        const testData: ColumnType<Row>[] = [
             { name: "a", title: "A" },
             { name: "b", title: "B" },
             { name: "c", title: "C" }
@@ -25,7 +24,7 @@ describe("sortColumns", () => {
     });
 
     it("should move left fixed columns to the front", () => {
-        const testData: ColumnType<any>[] = [
+        const testData: ColumnType<Row>[] = [
             { name: "a", title: "A" },
             { name: "b", title: "B", fixed: "left" },
             { name: "c", title: "C" }
@@ -35,7 +34,7 @@ describe("sortColumns", () => {
     });
 
     it("should move right fixed columns to the end", () => {
-        const testData: ColumnType<any>[] = [
+        const testData: ColumnType<Row>[] = [
             { name: "a", title: "A" },
             { name: "b", title: "B", fixed: "right" },
             { name: "c", title: "C" }
@@ -45,7 +44,7 @@ describe("sortColumns", () => {
     });
 
     it("should order left, normal, right columns correctly", () => {
-        const testData: ColumnType<any>[] = [
+        const testData: ColumnType<Row>[] = [
             { name: "a", title: "A", fixed: "right" },
             { name: "b", title: "B" },
             { name: "c", title: "C", fixed: "left" },
@@ -56,7 +55,7 @@ describe("sortColumns", () => {
     });
 
     it("should handle multiple left and right fixed columns", () => {
-        const testData: ColumnType<any>[] = [
+        const testData: ColumnType<Row>[] = [
             { name: "a", title: "A", fixed: "right" },
             { name: "b", title: "B", fixed: "left" },
             { name: "c", title: "C" },
@@ -69,7 +68,7 @@ describe("sortColumns", () => {
     });
 
     it("should not mutate the original array", () => {
-        const testData: ColumnType<any>[] = [
+        const testData: ColumnType<Row>[] = [
             { name: "a", title: "A", fixed: "right" },
             { name: "b", title: "B", fixed: "left" },
             { name: "c", title: "C" }
