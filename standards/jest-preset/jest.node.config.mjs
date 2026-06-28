@@ -194,6 +194,10 @@ const config = {
                         },
                     ],
                     require.resolve("@babel/preset-typescript"),
+                    [
+                        require.resolve("@babel/preset-react"),
+                        { runtime: "automatic" },
+                    ],
                 ],
             },
         ],
