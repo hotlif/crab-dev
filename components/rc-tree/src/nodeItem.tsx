@@ -4,7 +4,7 @@ import { css, cx } from "@linaria/core";
 import Checkbox from "@crab-dev/rc-checkbox";
 import { NodeEditStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import { getTreeNodeDepth } from "./util.js";
-import { ChevronRight, Loading } from "./icon.js";
+import { ChevronRight, GripVertical, Loading } from "./icon.js";
 import token from "./token.js";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -143,6 +143,14 @@ const nodeItemBase = css`
     &[data-dragging="true"] {
         opacity: 0.35;
     }
+
+    &:hover:not([data-disabled="true"]) [data-grip] {
+        opacity: 0.3;
+    }
+
+    &:hover:not([data-disabled="true"]) [data-grip]:hover {
+        opacity: 0.8;
+    }
 `;
 
 /* ::before 画左侧实心圆 + 水平插入线，文字 badge 由 JSX 渲染（支持国际化） */
@@ -239,6 +247,23 @@ const nodeIconStyle = css`
     color: ${token.node.expand.icon.color};
 `;
 
+const dragHandleStyle = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 16px;
+    height: 100%;
+    cursor: grab;
+    color: ${token.node.expand.icon.color};
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    &:active {
+        cursor: grabbing;
+    }
+`;
+
 const titleSpanStyle = css`
     cursor: pointer;
     padding-inline: 0.375rem;
@@ -291,6 +316,7 @@ const NodeItem: FC<NodeItemProps> = ({
         listeners,
         setNodeRef,
         isDragging,
+        isSorting,
     } = useSortable({ id: node.id, disabled: node.disabled === true || !draggable });
 
     const divRef = useRef<HTMLDivElement>(null);
@@ -395,6 +421,7 @@ const NodeItem: FC<NodeItemProps> = ({
             onPointerUp={(e) => {
                 if (e.button === 2) return;
                 if (node.disabled === true || isEditing) return;
+                if (isSorting) return;
                 onTitleClick?.(e);
                 if (expandOnTitleClick && node.type === NodeType.FOLDER && !loading) {
                     onExpanded?.({ node, event: e });
@@ -403,6 +430,16 @@ const NodeItem: FC<NodeItemProps> = ({
             onContextMenu={node.disabled === true ? undefined : onTitleContextMenu}
         >
             {showLine ? renderIndentLines() : null}
+            {draggable && !isEditing && (
+                <span
+                    data-grip
+                    className={dragHandleStyle}
+                    {...listeners}
+                    onPointerUp={(e) => e.stopPropagation()}
+                >
+                    <GripVertical />
+                </span>
+            )}
             {renderIcon()}
             {checkable && (
                 <span onPointerUp={(e) => e.stopPropagation()}>
@@ -464,10 +501,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         />
                     )
             ) : (
-                <span
-                    className={titleSpanStyle}
-                    {...listeners}
-                >
+                <span className={titleSpanStyle}>
                     {node.title}
                 </span>
             )}
