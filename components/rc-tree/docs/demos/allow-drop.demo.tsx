@@ -1,6 +1,6 @@
 /**
  * title = "拖拽限制 allowDrop"
- * description = "通过 `allowDrop` 回调控制节点的放置规则。本示例禁止将节点拖入任意文件夹内部（只允许排序），演示如何过滤 INSIDE 放置位置。"
+ * description = "通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。"
  */
 
 import { type Key, useState } from "react";
@@ -40,7 +40,7 @@ const AllowDropDemo = () => {
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             <p style={{ fontSize: "0.875rem", color: "#666", margin: 0 }}>
-                当前规则：禁止拖入文件夹内（INSIDE），只允许同级排序。
+                当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。
             </p>
             <RcTree
                 height={360}
@@ -50,7 +50,14 @@ const AllowDropDemo = () => {
                 onTreeNodeChange={setTreeData}
                 expandedKeys={expandedKeys}
                 selectKeys={selectKeys}
-                allowDrop={({ position }) => position !== OverStateEnum.INSIDE}
+                allowDrop={({ position, dragNode, targetNode }) => {
+                    if (position === OverStateEnum.INSIDE) return false;
+                    // DOWN/UPWARD 会把 dragNode.parent 设为 targetNode.parent
+                    // 只有同层级（相同 parent）才允许排序，避免跨文件夹移动
+                    const dragParentId = dragNode.parent?.id ?? null;
+                    const targetParentId = targetNode.parent?.id ?? null;
+                    return dragParentId === targetParentId;
+                }}
                 onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
                 onExpanded={({ node }: { node: Node }) => {
                     setExpandedKeys(prev =>
