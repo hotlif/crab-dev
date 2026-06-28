@@ -12,6 +12,12 @@ export interface ProtocolColumnType {
     children?: ProtocolColumnType[];
     dataType: string;
     filterCellClassName?: ColumnType<Row>["filterCellClassName"];
+    /** 是否允许排序（仅叶子列生效） */
+    sortable?: ColumnType<Row>["sortable"];
+    /** 是否允许拖拽调整列宽 */
+    resizable?: ColumnType<Row>["resizable"];
+    /** 是否允许该列单元格被选中 */
+    selectable?: ColumnType<Row>["selectable"];
 }
 
 export interface DataTypeLoader {
@@ -19,6 +25,10 @@ export interface DataTypeLoader {
     render: ColumnType<Row>["render"];
     filterEditor: ColumnType<Row>["filterEditor"];
     editRender: ColumnType<Row>["editRender"];
+    /** 自定义该 dataType 用于关键字高亮匹配的文本（枚举值转换场景） */
+    getSearchText?: ColumnType<Row>["getSearchText"];
+    /** 自定义该 dataType 的底部汇总单元格内容（需 Table showSummary 开启） */
+    summaryRender?: ColumnType<Row>["summaryRender"];
 }
 
 export interface PaginationConfig {

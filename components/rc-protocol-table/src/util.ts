@@ -18,11 +18,16 @@ export const transformColumns = (
             hidden: element.hidden,
             fixed: element.fixed,
             filterable: element.filterable,
+            sortable: element.sortable,
+            resizable: element.resizable,
+            selectable: element.selectable,
             render,
             editRender,
+            filterEditor,
+            getSearchText: dataTypeLoader?.getSearchText,
+            summaryRender: dataTypeLoader?.summaryRender,
             children: Array.isArray(element.children) ? transformColumns(element.children, dataTypeLoaders) : undefined,
             filterCellClassName: element.filterCellClassName,
-            filterEditor,
         }
     })
 }
