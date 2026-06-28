@@ -1,0 +1,35 @@
+[build]
+output = "./src/token.ts"
+prefix = "empty"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 容器 ────────────────────────────────────────────────────────────────────
+
+container.padding    = "$ref(space.dialog-padding)"
+container.min-height = "200px"
+
+
+# ─── 图像 ────────────────────────────────────────────────────────────────────
+
+image.size         = "80px"
+image.color        = "$ref(color.fill.inactive)"
+image.margin-bottom = "$ref(space.stack-gap)"
+
+
+# ─── 标题 ────────────────────────────────────────────────────────────────────
+
+title.color         = "$ref(color.text.secondary)"
+title.font-size     = "$ref(font.size.subhead)"
+title.font-weight   = "$ref(font.weight.label)"
+title.margin-bottom = "$ref(space.component-gap)"
+
+
+# ─── 描述 ────────────────────────────────────────────────────────────────────
+
+description.color         = "$ref(color.text.tertiary)"
+description.font-size     = "$ref(font.size.caption)"
+description.margin-bottom = "$ref(space.stack-gap)"
