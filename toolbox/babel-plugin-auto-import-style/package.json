@@ -19,14 +19,14 @@
   "main": "cjs/index.cjs",
   "module": "esm/index.mjs",
   "devDependencies": {
+    "@babel/core": "^8.0.1",
     "@crab-dev/packify": "workspace:^",
     "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@types/babel__helper-plugin-utils": "^7.10.3",
-    "@types/node": "^25.5.0"
+    "@types/node": "^26.0.1"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "^7.28.6",
-    "@babel/types": "^7.29.0"
+    "@babel/helper-plugin-utils": "^8.0.1",
+    "@babel/types": "^8.0.0"
   },
   "engines": {
     "node": ">=22"

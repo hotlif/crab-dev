@@ -22,18 +22,18 @@
         ".website"
     ],
     "devDependencies": {
-        "@commitlint/cli": "^20.5.0",
-        "@commitlint/config-conventional": "^20.5.0",
+        "@commitlint/cli": "^21.1.0",
+        "@commitlint/config-conventional": "^21.1.0",
         "@crab-dev/crustify": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@linaria/core": "^7.0.0",
-        "@types/node": "^25.5.0",
-        "eslint": "^10.1.0",
+        "@linaria/core": "^8.0.0",
+        "@types/node": "^26.0.1",
+        "eslint": "^10.6.0",
         "husky": "^9.1.7",
-        "react": "^19.2.4",
-        "react-dom": "^19.2.4",
-        "turbo": "^2.5.4",
-        "typescript": "^6.0.2"
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
+        "turbo": "^2.10.0",
+        "typescript": "^6.0.3"
     }
 }
