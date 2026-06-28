@@ -40,7 +40,11 @@ export default [
         rules: {
             ...tsPlugin.configs.recommended.rules,
             "indent": ["error", 4, { "SwitchCase": 1 }],
-            "@typescript-eslint/no-unused-vars": "warn",
+            "@typescript-eslint/no-unused-vars": ["warn", {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }],
         }
     },
     { languageOptions: { globals: globals.browser } },
