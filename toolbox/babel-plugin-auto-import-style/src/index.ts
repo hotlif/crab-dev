@@ -1,4 +1,6 @@
 import { declare } from "@babel/helper-plugin-utils";
+import type { NodePath, PluginPass } from "@babel/core";
+import type { Program as BabelProgram, ImportDeclaration as BabelImportDeclaration } from "@babel/types";
 import { createRequire } from "module";
 
 const CRAB_COMPONENT_RE = /^@crab-dev\/rc-[a-zA-Z0-9_-]+$/;
@@ -91,13 +93,13 @@ function collectTransitiveCssAbsolutePaths(
 }
 
 export default declare((api) => {
-    api.assertVersion(7);
+    api.assertVersion(8);
 
     const types = api.types;
 
     return {
         visitor: {
-            Program(path, state) {
+            Program(path: NodePath<BabelProgram>, state: PluginPass) {
                 const seenStyleImports = new Set<string>();
 
                 for (const node of path.node.body) {
@@ -118,7 +120,7 @@ export default declare((api) => {
                 state.set("seenStyleImports", seenStyleImports);
             },
 
-            ImportDeclaration(path, state) {
+            ImportDeclaration(path: NodePath<BabelImportDeclaration>, state: PluginPass) {
                 if (path.node.importKind === "type") {
                     return;
                 }
