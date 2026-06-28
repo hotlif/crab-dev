@@ -64,6 +64,7 @@
     },
     "dependencies": {
         "@crab-dev/rc-checkbox": "workspace:^",
+        "@crab-dev/rc-empty": "workspace:^",
         "@crab-dev/rc-radio": "workspace:^",
         "@crab-dev/rc-virtual": "workspace:^",
         "jsonpath-plus": "^10.4.0"

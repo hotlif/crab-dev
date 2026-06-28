@@ -3,6 +3,7 @@ import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactN
 import { css, cx } from "@linaria/core";
 import Checkbox from "@crab-dev/rc-checkbox";
 import Radio from "@crab-dev/rc-radio";
+import Empty from "@crab-dev/rc-empty";
 
 import BodyRow from "./bodyRow.js";
 import token from "./token.js";
@@ -148,6 +149,13 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     expandColumnWidth?: number
     /** 展开图标列是否固定到左侧（默认 true） */
     expandColumnFixed?: boolean
+    /**
+     * 无数据时渲染的空状态内容（rows 为空时显示）。
+     * - 不传（undefined）：显示默认 <Empty /> 组件
+     * - 传 null：不显示任何空状态
+     * - 传 ReactNode：显示自定义内容
+     */
+    empty?: ReactNode
 }
 
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
@@ -304,6 +312,21 @@ const paddingTop = (topPaddingCompensation = 0) => (
 const filterCellBorderShadow = css`
     box-shadow: inset -1px 0 0 ${token.border.color},
                 inset 0 -1px 0 ${token.border.color};
+`;
+
+// 外层容器开启相对定位，以便 emptyBodyStyle 通过 absolute 定位到 body 区域
+const emptyContainerStyle = css`
+    position: relative;
+`;
+
+// 空状态覆盖层：绝对定位到 body 区域（top/width 由内联样式注入，匹配 viewport 尺寸）
+const emptyBodyStyle = css`
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const rowEditingRowStyle = css`
@@ -495,6 +518,7 @@ function Table<T extends Row>({
     getExpandedRowHeight,
     expandColumnWidth,
     expandColumnFixed,
+    empty,
     ...restProps
 }: TableProps<T>) {
 
@@ -1330,9 +1354,14 @@ function Table<T extends Row>({
         return nodeRows;
     };
 
+    const emptyNode = rows.length === 0
+        ? (empty === undefined ? <Empty /> : empty)
+        : null;
+
     return (
         <div
             {...restProps}
+            className={cx(emptyNode !== null && emptyContainerStyle, restProps.className)}
             style={{
                 "--crab-rc-virtual-left-padding-width-offset": `${fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`,
                 "--crab-rc-virtual-top-padding-height-offset": `${reservedTopPx}px`
@@ -1362,6 +1391,14 @@ function Table<T extends Row>({
                     ];
                 }}
             />
+            {emptyNode !== null && (
+                <div
+                    className={emptyBodyStyle}
+                    style={{ top: reservedTopPx, width }}
+                >
+                    {emptyNode}
+                </div>
+            )}
         </div>
     );
 }
