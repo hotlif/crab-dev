@@ -273,6 +273,10 @@ const Tree: FC<TreeProps> = ({
     const divRef = useRef<HTMLDivElement>(null);
     const contextMenuDivRef = useRef<HTMLDivElement>(null);
     const [overState, setOverState] = useState<OverState | null>(null);
+    // ref 同步追踪最新 overState，让 onDragEnd 在 React 尚未重新渲染时也能读到正确值
+    const overStateRef = useRef<OverState | null>(null);
+    // 动态 <style> 标签，用 !important 覆盖所有子节点的 cursor，body.style.cursor 会被子节点自身 cursor 覆盖
+    const dragCursorStyleRef = useRef<HTMLStyleElement | null>(null);
 
     useEffect(() => {
         if (loadData) {
@@ -294,6 +298,8 @@ const Tree: FC<TreeProps> = ({
         document.addEventListener("click", onClick);
         return () => {
             document.removeEventListener("click", onClick);
+            dragCursorStyleRef.current?.remove();
+            dragCursorStyleRef.current = null;
         }
     }, [])
 
@@ -461,12 +467,27 @@ const Tree: FC<TreeProps> = ({
                         : true;
 
                     if (allowed) {
-                        setOverState({ id: event.over.id, state: nextPosition });
+                        const next = { id: event.over.id, state: nextPosition };
+                        overStateRef.current = next;
+                        setOverState(next);
+                        if (dragCursorStyleRef.current) {
+                            dragCursorStyleRef.current.textContent = '';
+                        }
                     } else {
+                        overStateRef.current = null;
                         setOverState(null);
+                        if (!dragCursorStyleRef.current) {
+                            dragCursorStyleRef.current = document.createElement('style');
+                            document.head.appendChild(dragCursorStyleRef.current);
+                        }
+                        dragCursorStyleRef.current.textContent = '* { cursor: not-allowed !important; }';
                     }
                 } else {
-                    setOverState(null)
+                    overStateRef.current = null;
+                    setOverState(null);
+                    if (dragCursorStyleRef.current) {
+                        dragCursorStyleRef.current.textContent = '';
+                    }
                 }
                 onDragMove?.(event, {
                     overState
@@ -478,14 +499,23 @@ const Tree: FC<TreeProps> = ({
                 })
             }}
             onDragEnd={(event) => {
+                const latestOverState = overStateRef.current;
+                overStateRef.current = null;
                 dragStartPosition.current.x = 0;
                 dragStartPosition.current.y = 0;
                 setOverState(null);
+                if (dragCursorStyleRef.current) {
+                    dragCursorStyleRef.current.textContent = '';
+                }
                 onDragEnd?.(event, {
-                    overState
+                    overState: latestOverState
                 })
             }}
             onDragCancel={(event) => {
+                overStateRef.current = null;
+                if (dragCursorStyleRef.current) {
+                    dragCursorStyleRef.current.textContent = '';
+                }
                 onDragCancel?.(event, {
                     overState
                 })
