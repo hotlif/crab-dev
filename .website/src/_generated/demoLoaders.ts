@@ -135,6 +135,7 @@ const loaders: Record<string, Loader> = {
     "components/rc-table/docs/demos/copy.demo.tsx": () => import("@@/../components/rc-table/docs/demos/copy.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/dynamicRowHeight.demo.tsx": () => import("@@/../components/rc-table/docs/demos/dynamicRowHeight.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/edit.demo.tsx": () => import("@@/../components/rc-table/docs/demos/edit.demo.tsx") as Promise<{ default: ComponentType }>,
+    "components/rc-table/docs/demos/empty.demo.tsx": () => import("@@/../components/rc-table/docs/demos/empty.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/filter.demo.tsx": () => import("@@/../components/rc-table/docs/demos/filter.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/highlight.demo.tsx": () => import("@@/../components/rc-table/docs/demos/highlight.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/largeScale.demo.tsx": () => import("@@/../components/rc-table/docs/demos/largeScale.demo.tsx") as Promise<{ default: ComponentType }>,
