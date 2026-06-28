@@ -20,9 +20,9 @@ src/
 └── __tests__/
     └── {component}.test.tsx
 docs/
-├── *.demo.tsx               # 在线示例（lignify 自动扫描）
-├── *.view.tsx               # 页面入口
-└── *.mdx                    # 说明文档
+├── demos/
+│   └── *.demo.tsx           # 在线示例（lignify 自动扫描）
+└── README.md                # 说明文档
 public/
 └── docgen.json              # react-docgen 生成 —— 不得手改
 token.toml                   # 设计令牌定义（可选）
