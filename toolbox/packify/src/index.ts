@@ -61,7 +61,6 @@ export const build = async () => {
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
         plugins: [
-            // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
             wyw({
                 sourceMap: false,
                 babelOptions: commonBabelConfig
