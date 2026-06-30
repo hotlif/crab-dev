@@ -20,30 +20,9 @@ index = true
 - 需要为多种数据类型（金额、日期、富文本、状态）提供可插拔渲染器；
 - 需要将筛选/排序逻辑放到服务端，前端只负责展示与收集条件。
 
-## 快速开始
-
-示例（简化）：
-
-```tsx
-import ProtocolTable from "../src/table.js";
-import type { ProtocolColumnType } from "../src/types.js";
-
-// fetchColumns / fetchData 为异步接口示例
-const fetchColumns = async (): Promise<ProtocolColumnType[]> => { /* ... */ };
-const fetchData = async () => { /* ... */ };
-
-export default function Demo() {
-	return (
-		<ProtocolTable
-			fetchColumns={fetchColumns}
-			fetchData={fetchData}
-		/>
-	);
-}
-```
 
 ## 演示
 
-<Demos path="/docs/demos" />
+<Demos path="/docs/demos" columns={1} density="compact" />
 
 

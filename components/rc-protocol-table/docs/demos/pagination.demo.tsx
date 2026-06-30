@@ -1,6 +1,6 @@
 /**
  * title = "服务端分页"
- * description = "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。"
+ * description = "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。"
  */
 
 import { useState, useEffect } from "react";
@@ -23,14 +23,14 @@ interface EmployeeRow extends Row {
 }
 
 const COLUMNS: ProtocolColumnType[] = [
-    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left" },
-    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120 },
-    { name: "$.department", title: "部门",       dataType: "text",   width: 140 },
-    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180 },
-    { name: "$.city",       title: "城市",       dataType: "text",   width: 120 },
-    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: "right" },
-    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: "right" },
-    { name: "$.hireDate",   title: "入职日期",    dataType: "text"  },
+    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left", align: ["center", "left"] },
+    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120, align: ["center", "left"] },
+    { name: "$.department", title: "部门",       dataType: "text",   width: 140, align: ["center", "left"] },
+    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180, align: ["center", "left"] },
+    { name: "$.city",       title: "城市",       dataType: "text",   width: 120, align: ["center", "left"] },
+    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: ["center", "right"] },
+    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: ["center", "right"] },
+    { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140, align: ["center", "left"] },
 ];
 
 const filterInputStyle = css`
@@ -153,6 +153,7 @@ const PaginationDemo = () => {
             fetchColumns={fetchColumns}
             fetchData={fetchData}
             typeLoaders={TYPE_LOADERS}
+            sideBar
             pagination={{
                 defaultPageSize: 20,
                 showSizeChanger: true,
