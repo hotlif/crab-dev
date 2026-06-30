@@ -23,10 +23,8 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
         value={value ?? ""}
         type={type}
         className={css`width: 100%;`}
-        inputProps={{
-            placeholder,
-            onChange: (e) => onChange?.(e.target.value),
-        }}
+        placeholder={placeholder}
+        onChange={(e) => onChange?.(e.target.value)}
     />
 );
 
