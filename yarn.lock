@@ -3943,12 +3943,15 @@ __metadata:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-date-picker": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-pagination": "workspace:^"
     "@crab-dev/rc-table": "workspace:^"
+    "@crab-dev/rc-tree": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -4368,7 +4371,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tree@workspace:components/rc-tree":
+"@crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tree@workspace:components/rc-tree"
   dependencies:
