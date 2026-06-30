@@ -27,6 +27,7 @@ import { useCellEditNav } from "./hooks/useCellEditNav.js";
 import type { CellNavDirection } from "./hooks/useCellEditNav.js";
 import { useSummary } from "./hooks/useSummary.js";
 import { useRowExpansion } from "./hooks/useRowExpansion.js";
+import { useRowNumber, ROW_NUMBER_COLUMN_NAME } from "./hooks/useRowNumber.js";
 import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
 
@@ -156,6 +157,13 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
      * - 传 ReactNode：显示自定义内容
      */
     empty?: ReactNode
+    // ====== 行序号 ======
+    /** 是否在最左侧（功能列之后）显示行序号列，从 1 开始，分组行与展开内容行不计入序号 */
+    showRowNumber?: boolean
+    /** 序号列宽度（默认 50） */
+    rowNumberColumnWidth?: number
+    /** 序号列是否固定到左侧（默认 true） */
+    rowNumberColumnFixed?: boolean
 }
 
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
@@ -455,6 +463,7 @@ const filterCellBottomOnlyShadow = css`
     box-shadow: inset 0 -1px 0 ${token.border.color};
 `;
 
+
 function Table<T extends Row>({
     width,
     height,
@@ -519,6 +528,9 @@ function Table<T extends Row>({
     expandColumnWidth,
     expandColumnFixed,
     empty,
+    showRowNumber = false,
+    rowNumberColumnWidth,
+    rowNumberColumnFixed,
     ...restProps
 }: TableProps<T>) {
 
@@ -575,6 +587,9 @@ function Table<T extends Row>({
         };
     }, [rowSelection]);
 
+    // ====== 行序号列 ======
+    const { numberColumn, syncRowNumbers } = useRowNumber<T>({ showRowNumber, rowNumberColumnFixed, rowNumberColumnWidth });
+
     // 行展开状态 ref：供展开图标列 render 读取最新展开集合 / 切换函数（避免闭包陈旧，仿 selectionStateRef）
     const expansionStateRef = useRef<{ expandedKeySet: Set<Key>; toggleExpandRow: (id: Key) => void; isRowExpandable?: (row: T) => boolean }>({ expandedKeySet: new Set(), toggleExpandRow: () => { }, isRowExpandable });
 
@@ -625,12 +640,14 @@ function Table<T extends Row>({
     }, [expandedRowRender, expandColumnFixed, expandColumnWidth]);
 
     const effectiveColumns = useMemo(() => {
-        const cols = [...columns];
-        if (selectionColumn) cols.unshift(selectionColumn);
-        // 展开图标列置于最左（在选择列之前）
-        if (expandColumn) cols.unshift(expandColumn);
+        const cols: ColumnType<T>[] = [];
+        // 列顺序：序号 → 展开 → 选中 → 数据
+        if (numberColumn) cols.push(numberColumn);
+        if (expandColumn) cols.push(expandColumn);
+        if (selectionColumn) cols.push(selectionColumn);
+        cols.push(...columns);
         return cols;
-    }, [selectionColumn, expandColumn, columns]);
+    }, [numberColumn, selectionColumn, expandColumn, columns]);
 
     // ====== 列排序 ======
     const { sortedRows, handleSort, getSortState, isSortable } = useColumnSort<T>({
@@ -656,6 +673,9 @@ function Table<T extends Row>({
         expandedRowHeight, getExpandedRowHeight
     });
     expansionStateRef.current = { expandedKeySet, toggleExpandRow, isRowExpandable };
+
+    // displayRows 确定后同步序号映射（直接写 ref，不触发 re-render）
+    syncRowNumbers(displayRows);
 
     // ====== 列宽与布局（bottomColumnsRef 在 table 层创建并共享给多个 hook） ======
     const bottomColumnsRef = useRef<ColumnType<T>[]>([]);
@@ -688,7 +708,7 @@ function Table<T extends Row>({
     // ====== 树形列解析 ======
     const resolvedTreeColumn = useMemo(() => {
         if (!isTree) return undefined;
-        return treeColumnProp ?? bottomColumns.find(col => col.fixed !== 'right' && col.name !== SELECTION_COLUMN_NAME)?.name;
+        return treeColumnProp ?? bottomColumns.find(col => col.fixed !== 'right' && col.name !== SELECTION_COLUMN_NAME && col.name !== ROW_NUMBER_COLUMN_NAME)?.name;
     }, [isTree, treeColumnProp, bottomColumns]);
 
     // 获取指定行/列应注入的树形 props（非树形列或非数据行返回空对象）
