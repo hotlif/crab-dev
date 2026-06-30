@@ -1,6 +1,6 @@
 import { css, cx } from "@linaria/core";
 import token from "./token.js";
-import type { ColumnType, MergeCell, Row, SortDirection } from "./types.js";
+import type { Align, ColumnType, MergeCell, Row, SortDirection } from "./types.js";
 import { getMergedCellSize } from "./util.js";
 
 import type { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
@@ -43,14 +43,19 @@ const sortableRootStyle = css`
     }
 `;
 
-// 标题 + 排序图标的行内容器
-const sortTitleInnerStyle = css`
+// sortable / 非 sortable 公共基础样式：确保两种状态盒模型一致，切换时不产生高度偏移
+const titleInnerBaseStyle = css`
     display: inline-flex;
     align-items: center;
-    gap: 4px;
     width: 100%;
     padding-inline: ${token.cell['padding-inline']};
     box-sizing: border-box;
+    overflow: hidden;
+`;
+
+// 标题 + 排序图标的行内容器（sortable 额外需要 gap 和交互样式）
+const sortTitleInnerStyle = css`
+    cursor: pointer;
     &:focus {
         outline: none;
     }
@@ -67,6 +72,12 @@ const sortIconWrapStyle = css`
     align-items: center;
     flex-shrink: 0;
     gap: 2px;
+`;
+
+// 非 sortable 时：占位但不可见（visibility:hidden 不触发 reflow，切换时无布局抖动）
+const sortIconPlaceholderStyle = css`
+    visibility: hidden;
+    pointer-events: none;
 `;
 
 // 未激活时不可见（父 hover 时通过 .rc-table-sort-icon-idle 选择器恢复）
@@ -269,43 +280,49 @@ function TableHeaderCell<T extends Row>({
             if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSortClick?.(e.shiftKey); }
         };
 
-        const titleElement = isSortable ? (
-            <div
-                className={sortTitleInnerStyle}
-                role="button"
-                tabIndex={0}
-                onClick={(e) => onSortClick?.(e.shiftKey)}
-                onKeyDown={handleSortKeyDown}
-                aria-sort={sortState ? (sortState.direction === "asc" ? "ascending" : "descending") : "none"}
+        const rawAlign = column?.align;
+        const headerAlign: Align = rawAlign
+            ? (Array.isArray(rawAlign) ? rawAlign[0] : rawAlign)
+            : "left";
+
+        const titleSpanStyle = css`
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+            min-width: 0;
+        `;
+
+        // 始终渲染图标 span（保持 DOM 结构稳定），非 sortable 时 visibility:hidden 占位，
+        // 避免 isSortable 切换时因 DOM 插入/删除触发 flex 重算导致视觉抖动。
+        const stableIconEl = (
+            <span
+                className={cx(
+                    sortIconWrapStyle,
+                    !isSortable && sortIconPlaceholderStyle,
+                    isSortable && !sortState && sortIconIdleStyle,
+                    isSortable && !sortState && "rc-table-sort-icon-idle"
+                )}
             >
-                <span className={css`
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    flex: 1;
-                    min-width: 0;
-                `}>{column?.title}</span>
-                <span
-                    className={cx(
-                        sortIconWrapStyle,
-                        !sortState && sortIconIdleStyle,
-                        !sortState && "rc-table-sort-icon-idle"
-                    )}
-                >
-                    <SortIcon direction={sortState?.direction ?? null} />
-                    {sortState && sortState.priority > 0 && (
-                        <span className={sortBadgeStyle}>{sortState.priority}</span>
-                    )}
-                </span>
-            </div>
-        ) : (
+                <SortIcon direction={sortState?.direction ?? null} />
+                {isSortable && sortState && sortState.priority > 0 && (
+                    <span className={sortBadgeStyle}>{sortState.priority}</span>
+                )}
+            </span>
+        );
+
+        const titleElement = (
             <div
-                className={css`
-                    display: inline-block;
-                    padding-inline: ${token.cell['padding-inline']};
-                `}
+                className={cx(titleInnerBaseStyle, isSortable && sortTitleInnerStyle)}
+                role={isSortable ? "button" : undefined}
+                tabIndex={isSortable ? 0 : undefined}
+                onClick={isSortable ? (e) => onSortClick?.(e.shiftKey) : undefined}
+                onKeyDown={isSortable ? handleSortKeyDown : undefined}
+                aria-sort={isSortable ? (sortState ? (sortState.direction === "asc" ? "ascending" : "descending") : "none") : undefined}
             >
-                {column?.title}
+                {headerAlign === "right" && stableIconEl}
+                <span className={titleSpanStyle} style={{ textAlign: headerAlign }}>{column?.title}</span>
+                {headerAlign !== "right" && stableIconEl}
             </div>
         );
 
