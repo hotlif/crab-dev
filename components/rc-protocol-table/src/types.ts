@@ -29,6 +29,23 @@ export interface DataTypeLoader {
     getSearchText?: ColumnType<Row>["getSearchText"];
     /** 自定义该 dataType 的底部汇总单元格内容（需 Table showSummary 开启） */
     summaryRender?: ColumnType<Row>["summaryRender"];
+    /** CSV 导出时将原始值转换为字符串（不提供则 String(rawValue)） */
+    exportValue?: (rawValue: unknown, row: Row) => string;
+}
+
+/** 可序列化的表格状态快照，用于持久化和恢复 */
+export interface ProtocolTableState {
+    /** 各列属性（key = String(col.name)） */
+    columnProps: Record<string, {
+        hidden?: boolean;
+        width?: number;
+        fixed?: "left" | "right";
+        sortable?: boolean;
+    }>;
+    /** 列顺序（深度优先遍历的所有列 name，包含列组） */
+    columnOrder?: (string | number)[];
+    /** 过滤器条件 */
+    filters?: Record<string, string>;
 }
 
 export interface PaginationConfig {
