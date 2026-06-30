@@ -1,5 +1,5 @@
 import { describe, it, expect, jest, afterEach } from "@jest/globals";
-import { render, cleanup, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor, fireEvent } from "@testing-library/react";
 import ProtocolTable from "../table.js";
 import type { ProtocolColumnType } from "../types.js";
 import type { Row } from "@crab-dev/rc-table";
@@ -126,6 +126,134 @@ describe("ProtocolTable", () => {
 
         await waitFor(() => {
             expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeNull();
+        });
+    });
+
+    it("shows columns error overlay when fetchColumns rejects", async () => {
+        const fetchColumns = jest.fn<FetchColumnsFn>().mockRejectedValue(new Error("网络错误"));
+        const fetchData    = jest.fn<FetchDataFn>().mockResolvedValue(ROWS);
+
+        const { container } = render(
+            <ProtocolTable<PersonRow>
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                style={{ width: 400, height: 300 }}
+            />
+        );
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-testid="protocol-table-columns-error"]')).toBeTruthy();
+        });
+        expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeNull();
+    });
+
+    it("shows data error overlay when fetchData rejects", async () => {
+        const fetchColumns = jest.fn<FetchColumnsFn>().mockResolvedValue(COLUMNS);
+        const fetchData    = jest.fn<FetchDataFn>().mockRejectedValue(new Error("服务器错误"));
+
+        const { container } = render(
+            <ProtocolTable<PersonRow>
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                style={{ width: 400, height: 300 }}
+            />
+        );
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeTruthy();
+        });
+        expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeNull();
+    });
+
+    it("calls onError with source='columns' when fetchColumns rejects", async () => {
+        type OnErrorFn = (error: Error, source: "columns" | "data") => void;
+        const onError      = jest.fn<OnErrorFn>();
+        const fetchColumns = jest.fn<FetchColumnsFn>().mockRejectedValue(new Error("列加载失败"));
+        const fetchData    = jest.fn<FetchDataFn>().mockResolvedValue(ROWS);
+
+        render(
+            <ProtocolTable<PersonRow>
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                onError={onError}
+                style={{ width: 400, height: 300 }}
+            />
+        );
+
+        await waitFor(() => {
+            expect(onError).toHaveBeenCalledWith(expect.any(Error), "columns");
+        });
+    });
+
+    it("calls onError with source='data' when fetchData rejects", async () => {
+        type OnErrorFn = (error: Error, source: "columns" | "data") => void;
+        const onError      = jest.fn<OnErrorFn>();
+        const fetchColumns = jest.fn<FetchColumnsFn>().mockResolvedValue(COLUMNS);
+        const fetchData    = jest.fn<FetchDataFn>().mockRejectedValue(new Error("数据加载失败"));
+
+        render(
+            <ProtocolTable<PersonRow>
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                onError={onError}
+                style={{ width: 400, height: 300 }}
+            />
+        );
+
+        await waitFor(() => {
+            expect(onError).toHaveBeenCalledWith(expect.any(Error), "data");
+        });
+    });
+
+    it("retries fetchColumns when retry button is clicked after columns error", async () => {
+        const fetchColumns = jest.fn<FetchColumnsFn>()
+            .mockRejectedValueOnce(new Error("首次失败"))
+            .mockResolvedValue(COLUMNS);
+        const fetchData = jest.fn<FetchDataFn>().mockResolvedValue(ROWS);
+
+        const { container, getByText } = render(
+            <ProtocolTable<PersonRow>
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                style={{ width: 400, height: 300 }}
+            />
+        );
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-testid="protocol-table-columns-error"]')).toBeTruthy();
+        });
+
+        fireEvent.click(getByText("重试"));
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-testid="protocol-table-columns-error"]')).toBeNull();
+            expect(fetchColumns).toHaveBeenCalledTimes(2);
+        });
+    });
+
+    it("clears data error overlay and retries when retry button is clicked", async () => {
+        const fetchColumns = jest.fn<FetchColumnsFn>().mockResolvedValue(COLUMNS);
+        const fetchData    = jest.fn<FetchDataFn>()
+            .mockRejectedValueOnce(new Error("首次失败"))
+            .mockResolvedValue(ROWS);
+
+        const { container, getByText } = render(
+            <ProtocolTable<PersonRow>
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                style={{ width: 400, height: 300 }}
+            />
+        );
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeTruthy();
+        });
+
+        fireEvent.click(getByText("重试"));
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeNull();
+            expect(fetchData).toHaveBeenCalledTimes(2);
         });
     });
 });
