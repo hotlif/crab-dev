@@ -85,7 +85,7 @@ const TimePickerInput: FC<TimePickerInputProps> = ({
     return (
         <RcLineEdit
             containerRef={refs.setReference}
-            inputRef={inputRef}
+            ref={inputRef}
             onClick={() => {
                 dispatch({
                     type: "setOpen",

@@ -93,7 +93,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
     return (
         <RcLineEdit
             containerRef={refs.setReference}
-            inputRef={inputRef}
+            ref={inputRef}
             onClick={() => {
                 dispatch({
                     type: "setOpen",

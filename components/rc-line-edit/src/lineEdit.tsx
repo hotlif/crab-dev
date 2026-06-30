@@ -7,34 +7,14 @@ import token from "./token.js";
 
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
     /**
-     * 编辑器的对象
+     * input 元素的 ref
      */
-    inputRef?: Ref<HTMLInputElement>;
+    ref?: Ref<HTMLInputElement>;
 
     /**
-     * 输入框的 props 信息
-     */
-    inputProps?: InputHTMLAttributes<HTMLInputElement>;
-
-    /**
-     * 是否只读
-     */
-    readOnly?: boolean;
-
-    /**
-     * 容器的对象
+     * 容器 div 的 ref
      */
     containerRef?: Ref<HTMLDivElement>;
-
-    /**
-     * 单行输入框的值
-     */
-    value?: string
-
-    /**
-     * 文本输入框类型
-     */
-    type?: InputHTMLAttributes<HTMLInputElement>["type"]
 
     /**
      * 设置单行文本输入框的大小，默认为 middle
@@ -237,15 +217,15 @@ const countStyle = css`
 
 
 function LineEdit({
+    ref,
     size = "middle",
     prefix,
     suffix,
     type,
     value,
     containerRef,
-    inputRef,
     className,
-    inputProps = {},
+    style,
     readOnly,
     disabled,
     maxLength,
@@ -253,7 +233,7 @@ function LineEdit({
     allowClear,
     onClear,
     showCount,
-    ...restProps
+    ...rest
 }: LineEditProps) {
     // 密码可见性：内部 UI 状态，与业务无关
     const [showPassword, setShowPassword] = useState(false);
@@ -267,6 +247,7 @@ function LineEdit({
         <div
             ref={containerRef}
             aria-disabled={disabled || undefined}
+            style={style}
             className={cx(
                 containerBaseStyle,
                 sizeContainerStyles[size],
@@ -274,7 +255,6 @@ function LineEdit({
                 status === "warning" && warningStyle,
                 className
             )}
-            {...restProps}
         >
             {prefix && (
                 <div className={cx(iconBaseStyle, prefixStyle, sizeTextStyles[size])}>
@@ -282,14 +262,14 @@ function LineEdit({
                 </div>
             )}
             <input
-                ref={inputRef}
+                ref={ref}
                 type={inputType}
                 value={value}
                 maxLength={maxLength}
                 disabled={disabled}
                 readOnly={readOnly}
                 className={cx(inputBaseStyle, sizeTextStyles[size])}
-                {...inputProps}
+                {...rest}
             />
             {showClearButton && (
                 <button
