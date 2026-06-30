@@ -58,7 +58,18 @@ export const vars = {
     'subtle.border-color': '--button-subtle-border-color',
     'subtle.border-color-hover': '--button-subtle-border-color-hover',
     'subtle.border-color-active': '--button-subtle-border-color-active',
-    'subtle.box-shadow': '--button-subtle-box-shadow'
+    'subtle.box-shadow': '--button-subtle-box-shadow',
+    'danger.color': '--button-danger-color',
+    'danger.background.color': '--button-danger-background-color',
+    'danger.background.color-disabled': '--button-danger-background-color-disabled',
+    'danger.background.color-hover': '--button-danger-background-color-hover',
+    'danger.background.color-active': '--button-danger-background-color-active',
+    'danger.box-shadow': '--button-danger-box-shadow',
+    'selected.background.color': '--button-selected-background-color',
+    'selected.color': '--button-selected-color',
+    'selected.border-color': '--button-selected-border-color',
+    'shape.circle.border-radius': '--button-shape-circle-border-radius',
+    'shape.circle.padding': '--button-shape-circle-padding'
 };
 
 const token = {
@@ -163,6 +174,29 @@ const token = {
         'border-color-hover': `var(${vars['subtle.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
         'border-color-active': `var(${vars['subtle.border-color-active']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
         'box-shadow': `var(${vars['subtle.box-shadow']}, none)`
+    },
+    'danger': {
+        'color': `var(${vars['danger.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`,
+        'background': {
+            'color': `var(${vars['danger.background.color']}, var(--token-semantic-color-feedback-error, var(--token-global-red-500, oklch(0.637 0.237 24))))`,
+            'color-disabled': `var(${vars['danger.background.color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+            'color-hover': `var(${vars['danger.background.color-hover']}, oklch(0.577 0.245 25))`,
+            'color-active': `var(${vars['danger.background.color-active']}, oklch(0.505 0.213 26))`
+        },
+        'box-shadow': `var(${vars['danger.box-shadow']}, none)`
+    },
+    'selected': {
+        'background': {
+            'color': `var(${vars['selected.background.color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
+        },
+        'color': `var(${vars['selected.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`,
+        'border-color': `var(${vars['selected.border-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
+    },
+    'shape': {
+        'circle': {
+            'border-radius': `var(${vars['shape.circle.border-radius']}, 9999px)`,
+            'padding': `var(${vars['shape.circle.padding']}, 0)`
+        }
     }
 };
 

@@ -97,3 +97,26 @@ subtle.border-color            = "$ref(color.border.default)"
 subtle.border-color-hover      = "$ref(color.border.hover)"
 subtle.border-color-active     = "$ref(color.border.hover)"
 subtle.box-shadow              = "none"
+
+
+# ─── Danger — 危险按钮 ───────────────────────────────────────────────────────
+
+danger.color                      = "$ref(color.text.on-brand)"
+danger.background.color           = "$ref(color.feedback.error)"
+danger.background.color-disabled  = "$ref(color.background.disabled)"
+danger.background.color-hover     = "oklch(0.577 0.245 25)"
+danger.background.color-active    = "oklch(0.505 0.213 26)"
+danger.box-shadow                 = "none"
+
+
+# ─── Selected — 选中状态覆盖 ─────────────────────────────────────────────────
+
+selected.background.color = "$ref(color.brand.primary)"
+selected.color            = "$ref(color.text.on-brand)"
+selected.border-color     = "$ref(color.brand.primary)"
+
+
+# ─── Shape — 形状变体 ────────────────────────────────────────────────────────
+
+shape.circle.border-radius = "9999px"
+shape.circle.padding       = "0"
