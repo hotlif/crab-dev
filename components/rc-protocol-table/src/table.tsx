@@ -484,6 +484,8 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     exportFileName?: string;
     showSearchBar?: boolean;
     onError?: (error: Error, source: "columns" | "data") => void;
+    /** 是否在最左侧显示行序号列（默认 true） */
+    showRowNumber?: boolean;
 }
 
 interface NoPaginationProps<T extends Row> extends BaseProps<T> {
@@ -571,6 +573,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
         exportFileName,
         showSearchBar,
         onError,
+        showRowNumber = true,
         ...rest
     } = props;
 
@@ -692,6 +695,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
                         cellEditRecords={cellEditRecords}
                         onCellEditRecordsChange={onCellEditRecordsChange}
                         onUndo={onUndo}
+                        showRowNumber={showRowNumber}
                     />
                 )}
             </AutoSizer>
