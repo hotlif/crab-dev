@@ -55,12 +55,17 @@ const ulStyle = css`
         padding-inline-start: 8px;
         padding-inline-end: 8px;
         border-radius: ${token.cell.border.radius};
-        transition: ${token.cell.transition};
+        transition: background-color ${token.cell.transition}, color ${token.cell.transition};
         user-select: none;
-        &:hover {
-            background-color: ${token.cell.background['color-hover']};
-            color: ${token.cell.text['color-hover']};
-        }
+    }
+`
+
+// hover 反馈只挂在未选中的项上（JSX 分支），避免 :hover 规则以更高特异性
+// 压过选中样式，导致点击后选中高亮被 hover 色遮住、直到移开鼠标才显现
+const liHoverStyle = css`
+    &:hover {
+        background-color: ${token.cell.background['color-hover']};
+        color: ${token.cell.text['color-hover']};
     }
 `
 
@@ -132,7 +137,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                         Array.from({ length: 24 }).map((_, index) => (
                             <li
                                 key={index}
-                                className={cx(index === value?.hour ? selectStyle : undefined)}
+                                className={cx(index === value?.hour ? selectStyle : liHoverStyle)}
                                 onClick={() => {
                                     onValueChange?.({
                                         hour: index,
@@ -155,7 +160,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                         Array.from({ length: 60 }).map((_, index) => (
                             <li
                                 key={index}
-                                className={cx(index === value?.minute ? selectStyle : undefined)}
+                                className={cx(index === value?.minute ? selectStyle : liHoverStyle)}
                                 onClick={() => {
                                     onValueChange?.({
                                         hour: value?.hour ?? 0,
@@ -176,7 +181,7 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                     {
                         Array.from({ length: 60 }).map((_, index) => (
                             <li
-                                className={cx(index === value?.second ? selectStyle : undefined)}
+                                className={cx(index === value?.second ? selectStyle : liHoverStyle)}
                                 key={index}
                                 onClick={() => {
                                     onValueChange?.({

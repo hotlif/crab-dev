@@ -54,7 +54,7 @@ const token = {
             'size': `var(${vars['cell.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
             'weight': `var(${vars['cell.font.weight']}, 400)`
         },
-        'transition': `var(${vars['cell.transition']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`
+        'transition': `var(${vars['cell.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`
     },
     'header': {
         'padding': `var(${vars['header.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)) var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,

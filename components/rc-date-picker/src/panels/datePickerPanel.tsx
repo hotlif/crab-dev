@@ -98,10 +98,11 @@ const calendarDateCellStyle = css`
     cursor: pointer;
 `;
 
+// hover 反馈只挂在未选中的格子上（JSX 分支），避免 :hover 规则以更高特异性
+// 压过选中样式，导致点击后选中高亮被 hover 色遮住、直到移开鼠标才显现
 const calendarDateCellHoverStyle = css`
     &:hover {
         > div {
-            transition: ${token.cell.transition};
             background-color: ${token.cell.background['color-hover']};
             color: ${token.cell.text['color-hover']};
         }
@@ -121,6 +122,8 @@ const calendarDateCellContentStyle = css`
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
+    /* 常驻过渡：hover 进出与选中切换获得对称、即时的颜色反馈 */
+    transition: background-color ${token.cell.transition}, color ${token.cell.transition};
 `;
 
 const calendarTableStyle = css`
@@ -319,30 +322,35 @@ const DatePickerPanel = ({
                 <tbody>
                     {calendarRows.map((row, rowIndex) => (
                         <tr key={rowIndex}>
-                            {row.map((element) => (
-                                <td
-                                    className={cx(
-                                        calendarCellStyle,
-                                        calendarDateCellStyle,
-                                        isWithinDateRange(element, range) ? calendarDateCellHoverStyle : calendarDateCellDisableStyle,
-                                    )}
-                                    key={element.toString()}
-                                    onClick={() => {
-                                        if (!isWithinDateRange(element, range)) return;
-                                        onSelect?.([element]);
-                                    }}
-                                >
-                                    <div
+                            {row.map((element) => {
+                                const inRange = isWithinDateRange(element, range);
+                                const selected = inRange && isSelected(element);
+                                return (
+                                    <td
                                         className={cx(
-                                            calendarDateCellContentStyle,
-                                            isWithinDateRange(element, range) && !isCurrentMonth(element) && isOutOfRangeStyle,
-                                            isWithinDateRange(element, range) && isSelected(element) && selectStyle,
+                                            calendarCellStyle,
+                                            calendarDateCellStyle,
+                                            !inRange && calendarDateCellDisableStyle,
+                                            inRange && !selected && calendarDateCellHoverStyle,
                                         )}
+                                        key={element.toString()}
+                                        onClick={() => {
+                                            if (!inRange) return;
+                                            onSelect?.([element]);
+                                        }}
                                     >
-                                        {element.day}
-                                    </div>
-                                </td>
-                            ))}
+                                        <div
+                                            className={cx(
+                                                calendarDateCellContentStyle,
+                                                inRange && !isCurrentMonth(element) && isOutOfRangeStyle,
+                                                selected && selectStyle,
+                                            )}
+                                        >
+                                            {element.day}
+                                        </div>
+                                    </td>
+                                );
+                            })}
                         </tr>
                     ))}
                 </tbody>

@@ -22,7 +22,7 @@ cell.border.radius = "$ref(radius.sm)"
 cell.content.size = "24px"
 cell.font.size = "$ref(font.size.body)"
 cell.font.weight = "400"
-cell.transition = "$ref(motion.fade)"
+cell.transition = "$ref(motion.interaction)"
 
 action.bar.margin.top = "$ref(space.component-gap)"
 action.bar.gap = "$ref(space.component-gap)"
