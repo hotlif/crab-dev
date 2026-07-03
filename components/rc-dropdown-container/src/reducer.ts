@@ -1,5 +1,3 @@
-import type { CSSProperties } from 'react';
-
 export type DropdownAction = { type: 'setOpen'; payload: boolean };
 
 export interface DropdownState {

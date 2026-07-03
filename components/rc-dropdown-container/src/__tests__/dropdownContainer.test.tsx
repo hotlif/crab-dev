@@ -1,6 +1,6 @@
 import React, { act } from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { describe, expect, it, jest, beforeEach } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
 import DropdownContainer, { useDropdownContext, type DropdownContainerProps } from "../index.js";
 import { dropdownReducer, initialDropdownState } from "../reducer.js";
@@ -18,19 +18,25 @@ jest.mock("motion/react", () => {
     };
 });
 
-jest.mock("@floating-ui/react", () => ({
-    useFloating: () => ({
-        refs: {
-            setReference: jest.fn(),
-            setFloating: jest.fn(),
-        },
-        floatingStyles: {},
-    }),
-    autoUpdate: jest.fn(),
-    offset: jest.fn(),
-    flip: jest.fn(),
-    FloatingPortal: ({ children }: { children: unknown }) => children,
-}));
+jest.mock("@floating-ui/react", () => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
+    const { createPortal } = require("react-dom");
+    return {
+        useFloating: () => ({
+            refs: {
+                setReference: jest.fn(),
+                setFloating: jest.fn(),
+            },
+            floatingStyles: {},
+        }),
+        autoUpdate: jest.fn(),
+        offset: jest.fn(),
+        flip: jest.fn(),
+        // 与真实 FloatingPortal 对齐：root 存在时 portal 到 root，否则就地渲染（真实实现挂 body）
+        FloatingPortal: ({ children, root }: { children: unknown; root?: HTMLElement | null }) =>
+            (root ? createPortal(children, root) : children),
+    };
+});
 
 jest.mock("@linaria/core", () => ({
     css: () => "mocked-css",
@@ -166,6 +172,37 @@ describe("DropdownContainer", () => {
         });
 
         expect(getByText("Custom Overlay")).toBeTruthy();
+    });
+
+    it("portals overlay into the enclosing dialog to escape modal inert", () => {
+        // 模拟在原生 modal <dialog> 中使用下拉组件的场景
+        const { getByTestId, container } = render(
+            <dialog open data-testid="host-dialog">
+                <DropdownContainer overlay={<div data-testid="overlay">Dropdown Content</div>}>
+                    <Trigger />
+                </DropdownContainer>
+            </dialog>,
+        );
+
+        act(() => {
+            fireEvent.focus(getByTestId("trigger"));
+        });
+
+        const overlay = getByTestId("overlay");
+        const dialog = container.querySelector("dialog") as HTMLDialogElement;
+        // 浮层必须位于 dialog 子树内，否则会被 showModal 的 inert 机制屏蔽交互
+        expect(dialog.contains(overlay)).toBe(true);
+    });
+
+    it("does not portal into a dialog when trigger is outside of one", () => {
+        const { getByTestId } = renderDropdown();
+
+        act(() => {
+            fireEvent.focus(getByTestId("trigger"));
+        });
+
+        const overlay = getByTestId("overlay");
+        expect(overlay.closest("dialog")).toBeNull();
     });
 });
 

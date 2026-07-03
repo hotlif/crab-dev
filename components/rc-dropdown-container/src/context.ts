@@ -1,4 +1,4 @@
-import { createContext, type Dispatch, type Ref, useContext } from 'react';
+import { createContext, type Dispatch, type Ref, use } from 'react';
 import type { DropdownAction, DropdownState } from './reducer';
 
 export interface DropdownContextValue<T extends HTMLElement = HTMLElement> {
@@ -12,7 +12,7 @@ export interface DropdownContextValue<T extends HTMLElement = HTMLElement> {
 export const DropdownContext = createContext<DropdownContextValue | null>(null);
 
 export function useDropdownContext<T extends HTMLElement = HTMLElement>() {
-    const context = useContext(DropdownContext);
+    const context = use(DropdownContext);
     if (!context) {
         throw new Error('useDropdownContext must be used within a DropdownContainer');
     }

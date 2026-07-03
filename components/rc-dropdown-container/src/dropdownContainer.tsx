@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useReducer, useRef } from 'react';
+import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { css, cx } from '@linaria/core';
 import { useFloating, autoUpdate, offset, flip, FloatingPortal } from '@floating-ui/react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -44,6 +44,10 @@ const overlayStyle = css`
 function DropdownContainer({ className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
     const floatingElementRef = useRef<HTMLDivElement | null>(null);
+    // 触发元素位于原生 <dialog>（showModal）内时，浮层必须挂载进该 dialog 子树：
+    // modal dialog 会使 dialog 之外的整个文档 inert，挂在 body 下的浮层虽经 popover
+    // 提升到 top layer 可见，但仍不可交互（点击穿透、无法聚焦）。
+    const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
     const {
         onMouseDown,
         className: floatingClassName,
@@ -82,8 +86,18 @@ function DropdownContainer({ className, children, overlay, overlayClassName, flo
     }, [refs]);
 
     return (
-        <div className={cx(containerStyle, className)} {...restProps}>
-            <DropdownContext.Provider
+        <div
+            className={cx(containerStyle, className)}
+            ref={(node) => {
+                if (node) {
+                    const dialog = node.closest('dialog');
+                    // 函数式更新 + 同值复用，避免 ref 回调重复挂载时触发多余渲染
+                    setPortalRoot((prev) => (prev === dialog ? prev : dialog));
+                }
+            }}
+            {...restProps}
+        >
+            <DropdownContext
                 value={{
                     state,
                     dispatch,
@@ -91,7 +105,7 @@ function DropdownContainer({ className, children, overlay, overlayClassName, flo
                 }}
             >
                 {children}
-                <FloatingPortal>
+                <FloatingPortal root={portalRoot}>
                     <AnimatePresence>
                         {state.open && (
                             <div
@@ -120,7 +134,7 @@ function DropdownContainer({ className, children, overlay, overlayClassName, flo
                         )}
                     </AnimatePresence>
                 </FloatingPortal>
-            </DropdownContext.Provider>
+            </DropdownContext>
         </div>
     );
 }
