@@ -6,6 +6,8 @@ export const vars = {
     'overlay.background.color': '--dialog-overlay-background-color',
     'background.color': '--dialog-background-color',
     'top': '--dialog-top',
+    'min.width': '--dialog-min-width',
+    'confirm.min.width': '--dialog-confirm-min-width',
     'padding': '--dialog-padding',
     'border.radius': '--dialog-border-radius',
     'box.shadow': '--dialog-box-shadow',
@@ -27,6 +29,14 @@ const token = {
         'color': `var(${vars['background.color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
     },
     'top': `var(${vars['top']}, 100px)`,
+    'min': {
+        'width': `var(${vars['min.width']}, 520px)`
+    },
+    'confirm': {
+        'min': {
+            'width': `var(${vars['confirm.min.width']}, 22rem)`
+        }
+    },
     'padding': `var(${vars['padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
     'border': {
         'radius': `var(${vars['border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`

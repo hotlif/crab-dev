@@ -1,14 +1,14 @@
 import React, { act, useEffect } from "react";
-import { render } from "@testing-library/react";
-import { describe, expect, it, jest, beforeEach } from "@jest/globals";
+import { cleanup, render } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import Dialog, { type DialogProps } from "../dialog.tsx";
+import Dialog, { type DialogProps } from "../dialog.js";
 
 jest.mock("motion/react", () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
     const mockReact = require("react");
-    const MockDiv = mockReact.forwardRef((props: Record<string, unknown>, ref: unknown) => mockReact.createElement("div", { ...props, ref }));
-    MockDiv.displayName = "MockMotionDiv";
+    // React 19 下 ref 是普通 prop，直接透传即可，无需 forwardRef
+    const MockDiv = (props: Record<string, unknown>) => mockReact.createElement("div", props);
     return {
         motion: {
             div: MockDiv,
@@ -40,7 +40,17 @@ interface RenderDialogResult {
 const flush = async () => {
     await act(async () => {
         await Promise.resolve();
+        await Promise.resolve();
     });
+};
+
+const findButton = (container: HTMLElement, text: string): HTMLButtonElement => {
+    const buttons = Array.from(container.querySelectorAll("button"));
+    const target = buttons.find((button) => button.textContent?.includes(text));
+    if (!target) {
+        throw new Error(`button not found: ${text}`);
+    }
+    return target;
 };
 
 const renderDialog = (props: PartialDialogProps = {}): RenderDialogResult => {
@@ -87,20 +97,22 @@ beforeEach(() => {
     jest.spyOn(HTMLDialogElement.prototype, "close").mockImplementation(() => {});
 });
 
+afterEach(() => {
+    cleanup();
+});
+
 describe("Dialog", () => {
     it("renders title, content and default i18n texts", () => {
-        const { container, unmount } = renderDialog({ open: true });
+        const { container } = renderDialog({ open: true });
 
         expect(container.textContent).toContain("Dialog Title");
         expect(container.textContent).toContain("Dialog Content");
         expect(container.textContent).toContain("取消");
         expect(container.textContent).toContain("确定");
-
-        unmount();
     });
 
     it("renders custom i18n texts", () => {
-        const { container, unmount } = renderDialog({
+        const { container } = renderDialog({
             open: true,
             i18n: {
                 cancelText: "Cancel",
@@ -110,37 +122,82 @@ describe("Dialog", () => {
 
         expect(container.textContent).toContain("Cancel");
         expect(container.textContent).toContain("Confirm");
+    });
+
+    it("keeps default texts when i18n is partially provided", () => {
+        const { container } = renderDialog({
+            open: true,
+            i18n: {
+                confirmText: "OK",
+            },
+        });
+
+        expect(container.textContent).toContain("OK");
+        expect(container.textContent).toContain("取消");
+    });
+
+    it("labels the dialog with the title and hides the close icon from a11y tree", () => {
+        const { container, getDialog } = renderDialog({ open: true });
+
+        const dialog = getDialog();
+        const labelledBy = dialog.getAttribute("aria-labelledby");
+        expect(labelledBy).toBeTruthy();
+        const titleElement = container.querySelector(`[id="${labelledBy}"]`);
+        expect(titleElement?.textContent).toBe("Dialog Title");
+
+        // 关闭图标不可聚焦且对读屏隐藏，等效关闭路径为 ESC / 取消按钮
+        const closeIcon = container.querySelector('svg[data-icon="close"]') as SVGElement;
+        const closeTrigger = closeIcon.parentElement as HTMLElement;
+        expect(closeTrigger.tagName).not.toBe("BUTTON");
+        expect(closeTrigger.getAttribute("aria-hidden")).toBe("true");
+    });
+
+    it("exposes the dialog element through the ref prop", () => {
+        const refCallback = jest.fn();
+        const { getDialog, unmount } = renderDialog({
+            open: true,
+            ref: refCallback,
+        } as PartialDialogProps);
+
+        expect(refCallback).toHaveBeenCalledWith(getDialog());
 
         unmount();
+        expect(refCallback).toHaveBeenLastCalledWith(null);
     });
 
     it("calls showModal when open=true and close via onExitComplete when open=false", () => {
-        const { rerender, unmount } = renderDialog({ open: true });
+        const { rerender } = renderDialog({ open: true });
 
         expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
 
         rerender({ open: false });
 
         expect(HTMLDialogElement.prototype.close).toHaveBeenCalled();
+    });
 
-        unmount();
+    it("locks body scroll while open and restores it after close", () => {
+        const { rerender } = renderDialog({ open: true });
+
+        expect(document.body.style.overflow).toBe("hidden");
+
+        rerender({ open: false });
+
+        expect(document.body.style.overflow).toBe("");
     });
 
     it("clicking close icon without onCancel closes dialog", async () => {
         const onOpenChange = jest.fn();
-        const { container, unmount } = renderDialog({ open: true, onOpenChange });
+        const { container } = renderDialog({ open: true, onOpenChange });
 
         const closeIcon = container.querySelector('svg[data-icon="close"]') as SVGElement;
-        const closeButton = closeIcon.parentElement as HTMLElement;
+        const closeTrigger = closeIcon.parentElement as HTMLElement;
 
         act(() => {
-            closeButton.click();
+            closeTrigger.click();
         });
         await flush();
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
-
-        unmount();
     });
 
     it("clicking cancel button handles onCancel true/false branches", async () => {
@@ -150,26 +207,21 @@ describe("Dialog", () => {
             .mockResolvedValueOnce(false)
             .mockResolvedValueOnce(true);
 
-        const { container, unmount } = renderDialog({ open: true, onOpenChange, onCancel });
-
-        const buttons = container.querySelectorAll("button");
-        const cancelButton = buttons[0] as HTMLButtonElement;
+        const { container } = renderDialog({ open: true, onOpenChange, onCancel });
 
         act(() => {
-            cancelButton.click();
+            findButton(container, "取消").click();
         });
         await flush();
 
         expect(onOpenChange).not.toHaveBeenCalled();
 
         act(() => {
-            cancelButton.click();
+            findButton(container, "取消").click();
         });
         await flush();
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
-
-        unmount();
     });
 
     it("clicking confirm button handles onConfirm true/false branches", async () => {
@@ -179,135 +231,174 @@ describe("Dialog", () => {
             .mockResolvedValueOnce(false)
             .mockResolvedValueOnce(true);
 
-        const { container, unmount } = renderDialog({ open: true, onOpenChange, onConfirm });
-
-        const buttons = container.querySelectorAll("button");
-        const confirmButton = buttons[1] as HTMLButtonElement;
+        const { container } = renderDialog({ open: true, onOpenChange, onConfirm });
 
         act(() => {
-            confirmButton.click();
+            findButton(container, "确定").click();
         });
         await flush();
 
         expect(onOpenChange).not.toHaveBeenCalled();
 
         act(() => {
-            confirmButton.click();
+            findButton(container, "确定").click();
         });
         await flush();
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
-
-        unmount();
     });
 
     it("clicking confirm button does nothing when onConfirm is missing", async () => {
         const onOpenChange = jest.fn();
 
-        const { container, unmount } = renderDialog({
+        const { container } = renderDialog({
             open: true,
             onOpenChange,
             onConfirm: undefined,
         });
 
-        const buttons = container.querySelectorAll("button");
-        const confirmButton = buttons[1] as HTMLButtonElement;
-
         act(() => {
-            confirmButton.click();
+            findButton(container, "确定").click();
         });
         await flush();
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
-
-        unmount();
     });
 
-    it("clicking dialog backdrop triggers cancel when click is outside", async () => {
+    it("disables footer buttons and ignores re-entry while onConfirm is pending", async () => {
+        let resolveConfirm: (value: boolean) => void = () => {};
         const onOpenChange = jest.fn();
-        const { getDialog, unmount } = renderDialog({ open: true, onOpenChange });
+        const onConfirm = jest.fn<() => Promise<boolean>>().mockImplementation(
+            () => new Promise<boolean>((resolve) => {
+                resolveConfirm = resolve;
+            }),
+        );
+
+        const { container, getDialog } = renderDialog({ open: true, onOpenChange, onConfirm });
+
+        act(() => {
+            findButton(container, "确定").click();
+        });
+        await flush();
+
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+        expect(findButton(container, "确定").disabled).toBe(true);
+        expect(findButton(container, "取消").disabled).toBe(true);
+
+        // pending 期间 ESC（原生 cancel）也应被忽略
+        act(() => {
+            getDialog().dispatchEvent(new Event("cancel", { bubbles: false, cancelable: true }));
+        });
+        await flush();
+        expect(onOpenChange).not.toHaveBeenCalled();
+
+        act(() => {
+            resolveConfirm(true);
+        });
+        await flush();
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onConfirm).toHaveBeenCalledTimes(1);
+    });
+
+    it("pressing ESC (native cancel) is intercepted and routed through onOpenChange", async () => {
+        const onOpenChange = jest.fn();
+        const { getDialog } = renderDialog({ open: true, onOpenChange });
 
         const dialog = getDialog();
-        Object.defineProperty(dialog, "getBoundingClientRect", {
-            configurable: true,
-            value: () => ({
-                left: 100,
-                right: 300,
-                top: 100,
-                bottom: 300,
-            }),
-        });
+        const cancelEvent = new Event("cancel", { bubbles: false, cancelable: true });
 
         act(() => {
-            dialog.dispatchEvent(new MouseEvent("click", {
-                bubbles: true,
-                cancelable: true,
-                clientX: 50,
-                clientY: 50,
-            }));
+            dialog.dispatchEvent(cancelEvent);
+        });
+        await flush();
+
+        // 原生关闭被拦截，改走受控关闭；否则 open 会与 DOM 失步、无法再次打开
+        expect(cancelEvent.defaultPrevented).toBe(true);
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it("pressing ESC respects onCancel returning false", async () => {
+        const onOpenChange = jest.fn();
+        const onCancel = jest.fn<() => Promise<boolean>>().mockResolvedValue(false);
+        const { getDialog } = renderDialog({ open: true, onOpenChange, onCancel });
+
+        act(() => {
+            getDialog().dispatchEvent(new Event("cancel", { bubbles: false, cancelable: true }));
+        });
+        await flush();
+
+        expect(onCancel).toHaveBeenCalledTimes(1);
+        expect(onOpenChange).not.toHaveBeenCalled();
+    });
+
+    it("syncs controlled state when the dialog is force-closed (native close)", async () => {
+        const onOpenChange = jest.fn();
+        const { getDialog } = renderDialog({ open: true, onOpenChange });
+
+        // Chrome 连续第二次 ESC 会强制关闭且不可 preventDefault，只会触发 close 事件
+        act(() => {
+            getDialog().dispatchEvent(new Event("close", { bubbles: false }));
         });
         await flush();
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
-
-        unmount();
     });
 
-    it("clicking inside dialog calls onClick handler", () => {
+    it("clicking overlay does NOT close by default (maskClosable=false)", async () => {
         const onClick = jest.fn();
         const onOpenChange = jest.fn();
-        const { getDialog, unmount } = renderDialog({ open: true, onClick, onOpenChange });
+        const onCancel = jest.fn<() => Promise<boolean>>().mockResolvedValue(true);
+        const { getDialog } = renderDialog({ open: true, onClick, onOpenChange, onCancel });
 
-        const dialog = getDialog();
-        Object.defineProperty(dialog, "getBoundingClientRect", {
-            configurable: true,
-            value: () => ({
-                left: 100,
-                right: 300,
-                top: 100,
-                bottom: 300,
-            }),
-        });
+        const overlay = getDialog().firstElementChild as HTMLElement;
 
         act(() => {
-            dialog.dispatchEvent(new MouseEvent("click", {
-                bubbles: true,
-                cancelable: true,
-                clientX: 150,
-                clientY: 150,
-            }));
+            overlay.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
         });
+        await flush();
+
+        expect(onCancel).not.toHaveBeenCalled();
+        expect(onOpenChange).not.toHaveBeenCalled();
+        // 遮罩点击也不应冒泡触发透传给 <dialog> 的 onClick
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it("clicking overlay triggers cancel when maskClosable is true", async () => {
+        const onClick = jest.fn();
+        const onOpenChange = jest.fn();
+        const { getDialog } = renderDialog({
+            open: true,
+            onClick,
+            onOpenChange,
+            maskClosable: true,
+        });
+
+        const overlay = getDialog().firstElementChild as HTMLElement;
+
+        act(() => {
+            overlay.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+        });
+        await flush();
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it("clicking dialog content fires pass-through onClick without closing", async () => {
+        const onClick = jest.fn();
+        const onOpenChange = jest.fn();
+        const { getDialog } = renderDialog({ open: true, onClick, onOpenChange });
+
+        const content = getDialog().children[1] as HTMLElement;
+
+        act(() => {
+            content.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+        });
+        await flush();
 
         expect(onClick).toHaveBeenCalledTimes(1);
         expect(onOpenChange).not.toHaveBeenCalled();
-
-        unmount();
-    });
-
-    it("does nothing when dialog rect is unavailable", () => {
-        const onClick = jest.fn();
-        const onOpenChange = jest.fn();
-        const { getDialog, unmount } = renderDialog({ open: true, onClick, onOpenChange });
-
-        const dialog = getDialog();
-        Object.defineProperty(dialog, "getBoundingClientRect", {
-            configurable: true,
-            value: () => undefined,
-        });
-
-        act(() => {
-            dialog.dispatchEvent(new MouseEvent("click", {
-                bubbles: true,
-                cancelable: true,
-                clientX: 10,
-                clientY: 10,
-            }));
-        });
-
-        expect(onClick).not.toHaveBeenCalled();
-        expect(onOpenChange).not.toHaveBeenCalled();
-
-        unmount();
     });
 
     it("resets content when shouldResetContent is true and keeps content when false", () => {
