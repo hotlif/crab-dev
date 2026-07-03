@@ -32,9 +32,10 @@ jest.mock("@floating-ui/react", () => {
         autoUpdate: jest.fn(),
         offset: jest.fn(),
         flip: jest.fn(),
-        // 与真实 FloatingPortal 对齐：root 存在时 portal 到 root，否则就地渲染（真实实现挂 body）
-        FloatingPortal: ({ children, root }: { children: unknown; root?: HTMLElement | null }) =>
-            (root ? createPortal(children, root) : children),
+        // 与真实 FloatingPortal 对齐：root === null 表示"等待 root 就绪"，不渲染任何内容；
+        // undefined 挂默认 body；指定 root 时 portal 到 root
+        FloatingPortal: ({ children, root }: { children: React.ReactNode; root?: HTMLElement | null }) =>
+            (root === null ? null : createPortal(children, root ?? globalThis.document.body)),
     };
 });
 

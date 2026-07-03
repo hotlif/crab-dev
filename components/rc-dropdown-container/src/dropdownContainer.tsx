@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import { type HTMLAttributes, type ReactNode, useReducer, useState } from 'react';
 import { css, cx } from '@linaria/core';
 import { useFloating, autoUpdate, offset, flip, FloatingPortal } from '@floating-ui/react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -43,11 +43,12 @@ const overlayStyle = css`
 
 function DropdownContainer({ className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
-    const floatingElementRef = useRef<HTMLDivElement | null>(null);
     // 触发元素位于原生 <dialog>（showModal）内时，浮层必须挂载进该 dialog 子树：
-    // modal dialog 会使 dialog 之外的整个文档 inert，挂在 body 下的浮层虽经 popover
-    // 提升到 top layer 可见，但仍不可交互（点击穿透、无法聚焦）。
-    const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+    // modal dialog 会使 dialog 之外的整个文档 inert，挂在 body 下的浮层不可交互
+    // （点击穿透、无法聚焦），挂进 dialog 子树即可恢复交互。
+    // FloatingPortal 对 root 的语义：null = 等待 root 就绪（不渲染），undefined = 挂默认 body。
+    // 初始 null 表示"尚未检测"，检测后必须落到 dialog 或 undefined，否则面板永不渲染。
+    const [portalRoot, setPortalRoot] = useState<HTMLElement | null | undefined>(null);
     const {
         onMouseDown,
         className: floatingClassName,
@@ -67,30 +68,13 @@ function DropdownContainer({ className, children, overlay, overlayClassName, flo
         ],
     });
 
-    useEffect(() => {
-        const el = floatingElementRef.current;
-        if (!el || typeof el.showPopover !== 'function') return;
-
-        el.popover = 'manual';
-
-        if (state.open) {
-            el.showPopover();
-        } else {
-            el.hidePopover();
-        }
-    }, [state.open]);
-
-    const setFloatingRef = useCallback((node: HTMLDivElement | null) => {
-        floatingElementRef.current = node;
-        refs.setFloating(node);
-    }, [refs]);
-
     return (
         <div
             className={cx(containerStyle, className)}
             ref={(node) => {
                 if (node) {
-                    const dialog = node.closest('dialog');
+                    // 不在 dialog 内时落到 undefined（而非 null），让 FloatingPortal 挂默认 body
+                    const dialog = node.closest('dialog') ?? undefined;
                     // 函数式更新 + 同值复用，避免 ref 回调重复挂载时触发多余渲染
                     setPortalRoot((prev) => (prev === dialog ? prev : dialog));
                 }
@@ -109,7 +93,7 @@ function DropdownContainer({ className, children, overlay, overlayClassName, flo
                     <AnimatePresence>
                         {state.open && (
                             <div
-                                ref={setFloatingRef}
+                                ref={refs.setFloating}
                                 className={cx(floatingContainerStyle, floatingClassName)}
                                 style={{ ...floatingStyles, ...floatingUserStyle }}
                                 onMouseDown={(e) => {
