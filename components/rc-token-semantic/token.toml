@@ -135,8 +135,12 @@ z-index.top      = "$ref(z-index.70)"
 
 
 # ─── 动效 · 语义 ────────────────────────────────────────────────────────────
+# interaction：即时状态反馈（hover / selected / active 的颜色切换），要求"快到近乎即时"
+# fade：内容淡入淡出；expand：容器展开收起
 
-motion.fade   = "$ref(duration.normal) $ref(easing.default)"
+motion.interaction = "$ref(duration.fast) $ref(easing.default)"
+motion.fade        = "$ref(duration.normal) $ref(easing.default)"
+motion.expand      = "$ref(duration.slow) $ref(easing.out)"
 
 
 # ─── 透明度 · 语义 ─────────────────────────────────────────────────────────
@@ -145,5 +149,3 @@ opacity.disabled   = "$ref(opacity.30)"
 opacity.secondary  = "$ref(opacity.50)"
 opacity.tertiary   = "$ref(opacity.70)"
 opacity.hover      = "$ref(opacity.80)"
-
-motion.expand = "$ref(duration.slow) $ref(easing.out)"

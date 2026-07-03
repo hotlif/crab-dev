@@ -67,6 +67,7 @@ export const vars = {
     'z-index.elevated': '--token-semantic-z-index-elevated',
     'z-index.alert': '--token-semantic-z-index-alert',
     'z-index.top': '--token-semantic-z-index-top',
+    'motion.interaction': '--token-semantic-motion-interaction',
     'motion.fade': '--token-semantic-motion-fade',
     'motion.expand': '--token-semantic-motion-expand',
     'opacity.disabled': '--token-semantic-opacity-disabled',
@@ -169,6 +170,7 @@ const token = {
         'top': `var(${vars['z-index.top']}, var(--token-global-z-index-70, 1600))`
     },
     'motion': {
+        'interaction': `var(${vars['motion.interaction']}, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))`,
         'fade': `var(${vars['motion.fade']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))`,
         'expand': `var(${vars['motion.expand']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`
     },
