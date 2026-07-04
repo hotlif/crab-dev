@@ -218,29 +218,10 @@ describe('ColorPicker', () => {
         expect(screen.getByText('确定')).toBeTruthy();
     });
 
-    it('closes on pointerdown outside the trigger and overlay', () => {
-        const { trigger } = renderColorPicker();
-        act(() => {
-            fireEvent.click(trigger);
-        });
-        expect(screen.getByText('确定')).toBeTruthy();
-        act(() => {
-            document.body.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
-        });
-        expect(screen.queryByText('确定')).toBeNull();
-    });
-
-    it('stays open on pointerdown inside the overlay', () => {
-        const { trigger } = renderColorPicker();
-        act(() => {
-            fireEvent.click(trigger);
-        });
-        const dialog = screen.getByRole('dialog');
-        act(() => {
-            dialog.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
-        });
-        expect(screen.getByText('确定')).toBeTruthy();
-    });
+    // "点击外部关闭 / 点击内部不关闭" 现由 @crab-dev/rc-dropdown-container 统一收口并覆盖测试
+    // (含嵌套下拉场景,见该包的 dropdownContainer.nested.test.tsx);本文件 mock 掉了
+    // rc-dropdown-container,不适合再重复验证这个机制本身。真实端到端场景见
+    // colorPickerSelectNesting.test.tsx(不 mock rc-dropdown-container / rc-select)。
 
     it('falls back to default texts when a partial locale is given', () => {
         const { trigger } = renderColorPicker({

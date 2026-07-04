@@ -1,6 +1,6 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@linaria/core";
-import { type HTMLAttributes, type Ref, useRef, useState } from "react";
+import { type HTMLAttributes, type Ref, useState } from "react";
 import ColorPickerInput from "./colorPickerInput.js";
 import ColorPickerOverlay from "./colorPickerOverlay.js";
 import type { ColorFormat, ColorPreset, Locale, OKLCHValue } from "../types.js";
@@ -53,8 +53,6 @@ const ColorPicker = ({
     const isControlled = value !== undefined;
     const [inner, setInner] = useState<OKLCHValue>(defaultValue ?? value ?? DEFAULT_VALUE);
     const current = isControlled ? value : inner;
-    // 可变实例状态 ref(例外白名单第 1 类):持有弹层根 DOM,供触发器的 outside-click 判定,不驱动渲染
-    const overlayRef = useRef<HTMLDivElement | null>(null);
 
     const handleChange = (next: OKLCHValue) => {
         if (!isControlled) setInner(next);
@@ -65,7 +63,6 @@ const ColorPicker = ({
         <RcDropdownContainer
             overlay={
                 <ColorPickerOverlay
-                    rootRef={overlayRef}
                     locale={locale}
                     value={current}
                     onConfirm={handleChange}
@@ -83,7 +80,6 @@ const ColorPicker = ({
                 size={size}
                 disabled={disabled}
                 ref={ref}
-                overlayRef={overlayRef}
                 {...restProps}
             />
         </RcDropdownContainer>

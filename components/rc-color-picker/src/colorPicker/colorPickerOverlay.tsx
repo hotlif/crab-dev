@@ -1,4 +1,4 @@
-import { type FC, type Ref, useState } from "react";
+import { type FC, useState } from "react";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcButton from "@crab-dev/rc-button";
 import { css } from "@linaria/core";
@@ -9,8 +9,6 @@ interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "onValueCh
     locale?: Locale;
     onConfirm?: (value: OKLCHValue) => void;
     allowClear?: boolean;
-    /** 弹层根节点 ref(ref 作为普通 prop),供触发器的 outside-click 判定读取。 */
-    rootRef?: Ref<HTMLDivElement>;
 }
 
 const DEFAULT_LOCALE: Required<Locale> = {
@@ -47,7 +45,6 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     showAlpha,
     showEyeDropper,
     format,
-    rootRef,
     ...restProps
 }) => {
     const { dispatch } = useDropdownContext<HTMLDivElement>();
@@ -60,7 +57,7 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     const close = () => dispatch({ type: "setOpen", payload: false });
 
     return (
-        <div ref={rootRef} role="dialog" aria-label="颜色选择">
+        <div role="dialog" aria-label="颜色选择">
             <ColorPickerPanel
                 locale={panelLocale}
                 value={selectValue}
