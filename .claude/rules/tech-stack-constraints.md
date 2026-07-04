@@ -267,6 +267,23 @@ function Form<T extends Record<string, unknown>>(props: FormProps<T>) { /* ... *
 - 外部运行时依赖（如 `motion`）**必须**声明在 `dependencies`；
 - 构建期工具（打包器、插件、预设）**必须**声明在 `devDependencies`。
 
+**组件复用优先（禁止造轮子）：**
+
+- 某 `components/rc-*` 组件内部需要通用交互 / 展示能力（按钮、输入框、下拉容器、弹层、骨架屏、
+  虚拟滚动等）时，**必须**优先复用组件库内已有的 `@crab-dev/rc-*` 组件（并声明为 `workspace:^`
+  依赖），**不得**用原生 HTML 元素重新拼装等价能力，也**不得**引入第三方 UI 库实现同等能力；
+- 仅当组件库内**确无**对应能力时，方可自行用原生元素实现——此时该组件即成为该能力在库内的
+  首个提供者，后续其他组件应转而复用它，而非各自重复实现。
+
+```typescript
+// ✅ rc-dialog 内部复用 rc-button 渲染操作区按钮（真实案例，见 components/rc-dialog）
+import Button from '@crab-dev/rc-button';
+<Button onClick={onConfirm}>确定</Button>
+
+// ❌ 库内已有 rc-button，却在组件内部重新拼装原生 button
+<button className={styles.confirmBtn} onClick={onConfirm}>确定</button>
+```
+
 ---
 
 ## §9 生成文件与变更边界（Guardrails）
