@@ -7,6 +7,7 @@ imports = [
 
 [token]
 
+# ===== 面板 Panel =====
 panel.padding.y = "$ref(space.stack-gap)"
 panel.padding.x = "$ref(space.section-gap)"
 panel.gap = "$ref(space.section-gap)"
@@ -14,6 +15,35 @@ panel.gap = "$ref(space.section-gap)"
 panel.preview.height = "5rem"
 panel.preview.width = "100%"
 panel.preview.border.radius = "$ref(radius.lg)"
+panel.preview.border.color = "$ref(color.border.default)"
 panel.preview.margin.top = "$ref(space.section-gap)"
 
 panel.slider.container.gap = "$ref(space.section-gap)"
+
+# ===== 滑块 Slider(覆盖 rc-slider 令牌变量所需的语义色)=====
+slider.thumb.stroke.color = "$ref(color.background.surface)"
+# alpha 滑块的棋盘格底色(表示透明)
+slider.alpha.checker.color = "$ref(color.border.hover)"
+
+# ===== 触发器 Trigger =====
+trigger.border.color = "$ref(color.border.default)"
+trigger.border.radius = "$ref(radius.md)"
+trigger.padding = "0.25rem"
+trigger.gap = "$ref(space.inline-gap)"
+trigger.focus.color = "$ref(color.border.focus)"
+trigger.disabled.background = "$ref(color.background.disabled)"
+trigger.disabled.border.color = "$ref(color.border.default)"
+
+trigger.swatch.size.small = "16px"
+trigger.swatch.size.medium = "24px"
+trigger.swatch.size.large = "32px"
+
+# ===== 文本输入 Input =====
+input.gap = "$ref(space.inline-gap)"
+
+# ===== 预设色板 Swatches =====
+swatch.size = "20px"
+swatch.gap = "$ref(space.inline-gap)"
+swatch.border.color = "$ref(color.border.default)"
+swatch.border.radius = "$ref(radius.sm)"
+swatch.group.label.color = "$ref(color.text.secondary)"

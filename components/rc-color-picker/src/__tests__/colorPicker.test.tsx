@@ -1,12 +1,13 @@
-import React, { act } from 'react';
+import { act } from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 
-import type { OKLCHValue } from '../panels/colorPickerPanel.js';
+import type { OKLCHValue } from '../types.js';
 
 /**
- * Mock @crab-dev/rc-dropdown-container to avoid transitive motion/floating-ui deps.
+ * Mock @crab-dev/rc-dropdown-container to avoid transitive floating-ui deps in jsdom.
  * Provides a minimal implementation that renders children + overlay when open.
+ * refs 形状与真实 DropdownContainer 提供的 context 保持一致:仅暴露 setReference。
  */
 jest.mock('@crab-dev/rc-dropdown-container', () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
@@ -18,26 +19,23 @@ jest.mock('@crab-dev/rc-dropdown-container', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function MockDropdownContainer({ children, overlay }: { children: any; overlay: any }) {
         const [open, setOpen] = mockReact.useState(false);
-        const ctx = mockReact.useMemo(
-            () => ({
-                state: { open },
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                dispatch: (action: any) => {
-                    if (action.type === 'setOpen') setOpen(action.payload);
-                },
-                refs: { setReference: () => {} },
-            }),
-            [open],
-        );
+        const ctx = {
+            state: { open },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            dispatch: (action: any) => {
+                if (action.type === 'setOpen') setOpen(action.payload);
+            },
+            refs: { setReference: () => {} },
+        };
         return mockReact.createElement(
             'div',
             null,
-            mockReact.createElement(DropdownContext.Provider, { value: ctx }, children, open ? overlay : null),
+            mockReact.createElement(DropdownContext, { value: ctx }, children, open ? overlay : null),
         );
     }
 
     function useDropdownContext() {
-        const ctx = mockReact.useContext(DropdownContext);
+        const ctx = mockReact.use(DropdownContext);
         if (!ctx) throw new Error('useDropdownContext must be used within a DropdownContainer');
         return ctx;
     }
@@ -57,6 +55,13 @@ import type { ColorPickerProps } from '../colorPicker/colorPicker.js';
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
+// jsdom 未内置 ResizeObserver;面板内的 RcSelect(颜色格式选择器)依赖它测量触发器宽度。
+(globalThis as typeof globalThis & { ResizeObserver?: unknown }).ResizeObserver ??= class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+};
+
 const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
 
 beforeEach(() => {
@@ -72,6 +77,7 @@ beforeEach(() => {
 
 afterEach(() => {
     Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+    cleanup();
 });
 
 const defaultValue: OKLCHValue = { lightness: 0.5, chroma: 0.15, hue: 180 };
@@ -79,133 +85,183 @@ const defaultValue: OKLCHValue = { lightness: 0.5, chroma: 0.15, hue: 180 };
 const renderColorPicker = (props: Partial<ColorPickerProps> = {}) => {
     const onValueChange = jest.fn<(v: OKLCHValue) => void>();
     const renderResult = render(
-        <ColorPicker
-            value={defaultValue}
-            onValueChange={onValueChange}
-            {...props}
-        />,
+        <ColorPicker value={defaultValue} onValueChange={onValueChange} {...props} />,
     );
-    const colorInput = renderResult.container.querySelector('[tabindex="0"]') as HTMLElement;
-
-    return {
-        ...renderResult,
-        colorInput,
-        onValueChange,
-    };
+    const trigger = screen.getByRole('button', { name: '选择颜色' });
+    return { ...renderResult, trigger, onValueChange };
 };
 
 describe('ColorPicker', () => {
-    afterEach(() => {
-        cleanup();
-    });
-
     it('renders without runtime error', () => {
         const { container } = renderColorPicker();
         expect(container.firstElementChild).toBeTruthy();
     });
 
-    it('shows color swatch with correct background color', () => {
+    it('shows a swatch tinted with the current color', () => {
         const value: OKLCHValue = { lightness: 0.7, chroma: 0.2, hue: 120 };
         const { container } = renderColorPicker({ value });
-        const swatch = container.querySelector('[style]') as HTMLElement;
+        const swatch = container.querySelector('[style*="oklch"]') as HTMLElement;
+        // jsdom 会把 `oklch(... / 1)` 归一化为不带 alpha 的形式
         expect(swatch.style.backgroundColor).toBe('oklch(0.7 0.2 120)');
     });
 
-    it('opens overlay when input is clicked', () => {
-        const { colorInput } = renderColorPicker();
+    it('exposes the trigger as an accessible button', () => {
+        const { trigger } = renderColorPicker();
+        expect(trigger.getAttribute('aria-haspopup')).toBe('dialog');
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    });
 
+    it('opens the overlay on click', () => {
+        const { trigger } = renderColorPicker();
         expect(screen.queryByText('确定')).toBeNull();
-
         act(() => {
-            fireEvent.click(colorInput);
+            fireEvent.click(trigger);
         });
-
         expect(screen.getByText('确定')).toBeTruthy();
         expect(screen.getByText('取消')).toBeTruthy();
     });
 
-    it('opens overlay when input is focused', () => {
-        const { colorInput } = renderColorPicker();
-
+    it('opens the overlay via keyboard (Enter)', () => {
+        const { trigger } = renderColorPicker();
         act(() => {
-            fireEvent.focus(colorInput);
+            fireEvent.keyDown(trigger, { key: 'Enter' });
         });
-
         expect(screen.getByText('确定')).toBeTruthy();
     });
 
-    it('shows three sliders in the overlay when opened', () => {
-        const { colorInput } = renderColorPicker();
-
+    it('does NOT open on focus (focus must not auto-open)', () => {
+        const { trigger } = renderColorPicker();
         act(() => {
-            fireEvent.click(colorInput);
+            fireEvent.focus(trigger);
         });
-
-        const sliders = screen.getAllByRole('slider');
-        expect(sliders).toHaveLength(3);
+        expect(screen.queryByText('确定')).toBeNull();
     });
 
-    it('closes overlay when cancel button is clicked', () => {
-        const { colorInput } = renderColorPicker();
-
+    it('shows four sliders (incl. alpha) in the overlay by default', () => {
+        const { trigger } = renderColorPicker();
         act(() => {
-            fireEvent.click(colorInput);
+            fireEvent.click(trigger);
         });
-
-        expect(screen.getByText('取消')).toBeTruthy();
-
-        act(() => {
-            fireEvent.click(screen.getByText('取消'));
-        });
-
-        expect(screen.queryByText('取消')).toBeNull();
+        expect(screen.getAllByRole('slider')).toHaveLength(4);
     });
 
-    it('calls onValueChange and closes overlay when confirm is clicked', () => {
-        const { colorInput, onValueChange } = renderColorPicker();
-
+    it('shows three sliders when showAlpha is false', () => {
+        const { trigger } = renderColorPicker({ showAlpha: false });
         act(() => {
-            fireEvent.click(colorInput);
+            fireEvent.click(trigger);
         });
+        expect(screen.getAllByRole('slider')).toHaveLength(3);
+    });
 
+    it('commits the value and closes on confirm', () => {
+        const { trigger, onValueChange } = renderColorPicker();
+        act(() => {
+            fireEvent.click(trigger);
+        });
         act(() => {
             fireEvent.click(screen.getByText('确定'));
         });
-
         expect(onValueChange).toHaveBeenCalledWith(defaultValue);
         expect(screen.queryByText('确定')).toBeNull();
     });
 
-    it('renders with custom locale', () => {
-        const { colorInput } = renderColorPicker({
-            locale: {
-                overlay: { confirmText: 'OK', cancelText: 'Cancel' },
-                panel: { labelLightness: 'L', labelChroma: 'C', labelHue: 'H' },
-            },
-        });
-
+    it('does not call onValueChange on cancel', () => {
+        const { trigger, onValueChange } = renderColorPicker();
         act(() => {
-            fireEvent.click(colorInput);
+            fireEvent.click(trigger);
         });
-
-        expect(screen.getByText('OK')).toBeTruthy();
-        expect(screen.getByText('Cancel')).toBeTruthy();
-        expect(screen.getByText('L')).toBeTruthy();
-        expect(screen.getByText('C')).toBeTruthy();
-        expect(screen.getByText('H')).toBeTruthy();
-    });
-
-    it('does not call onValueChange when cancel is clicked', () => {
-        const { colorInput, onValueChange } = renderColorPicker();
-
-        act(() => {
-            fireEvent.click(colorInput);
-        });
-
         act(() => {
             fireEvent.click(screen.getByText('取消'));
         });
-
         expect(onValueChange).not.toHaveBeenCalled();
+        expect(screen.queryByText('取消')).toBeNull();
+    });
+
+    it('does not open when disabled', () => {
+        const { trigger } = renderColorPicker({ disabled: true });
+        expect(trigger.getAttribute('aria-disabled')).toBe('true');
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        expect(screen.queryByText('确定')).toBeNull();
+    });
+
+    it('shows the reset button only when allowClear is set', () => {
+        const { trigger } = renderColorPicker({ allowClear: true });
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        expect(screen.getByText('重置')).toBeTruthy();
+    });
+
+    it('renders with a custom locale', () => {
+        const { trigger } = renderColorPicker({
+            locale: {
+                overlay: { confirmText: 'OK', cancelText: 'Cancel' },
+                panel: { labelLightness: 'L', labelChroma: 'C', labelHue: 'H', labelAlpha: 'A' },
+            },
+        });
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        expect(screen.getByText('OK')).toBeTruthy();
+        expect(screen.getByText('Cancel')).toBeTruthy();
+        expect(screen.getByText('L')).toBeTruthy();
+    });
+
+    it('works uncontrolled via defaultValue', () => {
+        render(<ColorPicker defaultValue={defaultValue} />);
+        const trigger = screen.getByRole('button', { name: '选择颜色' });
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        expect(screen.getByText('确定')).toBeTruthy();
+    });
+
+    it('closes on pointerdown outside the trigger and overlay', () => {
+        const { trigger } = renderColorPicker();
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        expect(screen.getByText('确定')).toBeTruthy();
+        act(() => {
+            document.body.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+        });
+        expect(screen.queryByText('确定')).toBeNull();
+    });
+
+    it('stays open on pointerdown inside the overlay', () => {
+        const { trigger } = renderColorPicker();
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        const dialog = screen.getByRole('dialog');
+        act(() => {
+            dialog.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+        });
+        expect(screen.getByText('确定')).toBeTruthy();
+    });
+
+    it('falls back to default texts when a partial locale is given', () => {
+        const { trigger } = renderColorPicker({
+            locale: { panel: { labelLightness: 'L', labelChroma: 'C', labelHue: 'H' } },
+        });
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        // overlay 文案与可选的 labelAlpha 均回退默认
+        expect(screen.getByText('确定')).toBeTruthy();
+        expect(screen.getByText('取消')).toBeTruthy();
+        expect(screen.getByText('L')).toBeTruthy();
+        expect(screen.getByText('透明度')).toBeTruthy();
+    });
+
+    it('merges a user className instead of replacing the trigger style', () => {
+        const { trigger } = renderColorPicker({ className: 'my-custom' });
+        expect(trigger.classList.contains('my-custom')).toBe(true);
+        act(() => {
+            fireEvent.click(trigger);
+        });
+        expect(screen.getByText('确定')).toBeTruthy();
     });
 });

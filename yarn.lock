@@ -3309,8 +3309,10 @@ __metadata:
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-select": "workspace:^"
     "@crab-dev/rc-slider": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
@@ -3634,6 +3636,9 @@ __metadata:
     "@crab-dev/rc-select": "workspace:^"
     "@crab-dev/rc-slider": "workspace:^"
     "@crab-dev/rc-switch": "workspace:^"
+    "@crab-dev/rc-token-global": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/rc-tooltip": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-jest-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -4338,7 +4343,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tooltip@workspace:components/rc-tooltip":
+"@crab-dev/rc-tooltip@workspace:^, @crab-dev/rc-tooltip@workspace:components/rc-tooltip":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tooltip@workspace:components/rc-tooltip"
   dependencies:
