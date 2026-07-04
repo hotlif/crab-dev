@@ -22,16 +22,29 @@ jest.mock("@floating-ui/react", () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
     const { createPortal } = require("react-dom");
     return {
-        useFloating: () => ({
+        useFloating: (options: { open?: boolean; onOpenChange?: (open: boolean) => void }) => ({
             refs: {
                 setReference: jest.fn(),
                 setFloating: jest.fn(),
             },
             floatingStyles: {},
+            // 本文件不测试真实的 dismiss 机制(那由 dropdownContainer.nested.test.tsx 覆盖,
+            // 使用未 mock 的真实 @floating-ui/react),这里只需把 open/onOpenChange 原样透出，
+            // 供 useDismiss 的 mock 读取即可。
+            context: { open: options?.open, onOpenChange: options?.onOpenChange },
         }),
         autoUpdate: jest.fn(),
         offset: jest.fn(),
         flip: jest.fn(),
+        useDismiss: () => ({}),
+        useInteractions: () => ({
+            getReferenceProps: (props?: Record<string, unknown>) => props ?? {},
+            getFloatingProps: (props?: Record<string, unknown>) => props ?? {},
+        }),
+        useFloatingNodeId: () => undefined,
+        useFloatingParentNodeId: () => null,
+        FloatingTree: ({ children }: { children: React.ReactNode }) => children,
+        FloatingNode: ({ children }: { children: React.ReactNode }) => children,
         // 与真实 FloatingPortal 对齐：root === null 表示"等待 root 就绪"，不渲染任何内容；
         // undefined 挂默认 body；指定 root 时 portal 到 root
         FloatingPortal: ({ children, root }: { children: React.ReactNode; root?: HTMLElement | null }) =>
