@@ -130,7 +130,10 @@ function Tooltip({
 
     return (
         <>
-            {cloneElement(children, getReferenceProps({ ref: mergedRef }))}
+            {cloneElement(
+                children,
+                getReferenceProps({ ref: mergedRef, ...(children.props as Record<string, unknown>) }),
+            )}
             <FloatingPortal>
                 <AnimatePresence>
                     {isOpen && title != null && title !== '' && (
