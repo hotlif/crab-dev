@@ -62,9 +62,16 @@ export type WrapperInstance<T extends object> = FormInstance<T> & {
 export interface FormItemEditor<T = unknown> {
 
     /**
-     * 编辑器的校验状态
+     * 编辑器的校验状态（枚举形态，语义完整，保留向后兼容）
      */
     validateState?: ValidateState
+
+    /**
+     * 校验状态的精简映射：仅在 error / warning 时透传给编辑器，用于驱动边框等即时
+     * 视觉反馈；校验通过或未校验时为 undefined。与 rc-line-edit 等编辑器的 `status`
+     * 契约对齐，编辑器可选择消费。
+     */
+    status?: "error" | "warning"
 
     /**
      * 编辑器的值

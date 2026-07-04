@@ -1,4 +1,5 @@
 import { css, cx } from "@linaria/core";
+import token from "./token.js";
 import {
     useCallback,
     type FormHTMLAttributes,
@@ -9,7 +10,7 @@ import {
     useRef,
 } from "react";
 import {
-    NamePath,
+    type NamePath,
     type FormInstance,
     type WrapperInstance
 } from "./types.js";
@@ -200,7 +201,21 @@ function Form<T extends Record<string, unknown>>({
                 className={cx(
                     css`
                         display: grid;
+                        /* 标签列 auto（自动撑到最长标签）/ 编辑器列 1fr / 状态图标列 auto */
+                        grid-template-columns: auto minmax(0, 1fr) auto;
+                        align-items: center;
+                        /* 行轨道恒为内容高度：align-content 默认 normal 在 grid 中等同 stretch，
+                           当表单被放入更高的容器（如全屏 flex 布局）时会把富余高度摊到各行、
+                           撑大行距，故显式 start 锁定，行距只由 row-gap 决定。 */
+                        align-content: start;
+                        column-gap: ${token.item.gap};
+                        row-gap: ${token.row.gap};
                         margin-block-end: unset;
+
+                        /* 非字段子节点（按钮组等）跨整行，不参与标签列对齐 */
+                        & > :not([data-form-item]) {
+                            grid-column: 1 / -1;
+                        }
                     `,
                     className
                 )}

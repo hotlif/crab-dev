@@ -1,0 +1,33 @@
+[build]
+output = "./src/token.ts"
+prefix = "form"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 字段行布局 ──────────────────────────────────────────────────────────────
+# 行内元素（标签 / 编辑器 / 状态图标）之间的水平列间距
+item.gap = "$ref(space.component-gap)"
+# 相邻字段行之间的垂直行间距（Form 以 grid 统一控制，取代各示例自行设置的 gap）
+row.gap = "$ref(space.stack-gap)"
+
+# ─── 标签 ────────────────────────────────────────────────────────────────────
+label.color = "$ref(color.text.primary)"
+label.font-size = "$ref(font.size.body)"
+label.font-weight = "$ref(font.weight.label)"
+
+# ─── 必填指示符 ──────────────────────────────────────────────────────────────
+# 反馈原理：以醒目色 + 紧邻标签的星号，第一时间告知字段必填
+required.color = "$ref(color.feedback.error)"
+required.gap = "$ref(space.inline-gap)"
+
+# ─── 校验状态图标 ────────────────────────────────────────────────────────────
+# 内联反馈：字段末尾以固定尺寸的状态图标承载校验结果，避免文案常驻挤占布局；
+# 图标槽尺寸固定，无论有无校验结果都占位，杜绝出现 / 消失引发的布局抖动。
+status.size = "$ref(font.size.subhead)"
+status.error.color = "$ref(color.feedback.error)"
+status.warning.color = "$ref(color.feedback.warning)"
+status.success.color = "$ref(color.feedback.success)"
+status.validating.color = "$ref(color.text.secondary)"

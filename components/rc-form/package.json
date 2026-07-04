@@ -9,8 +9,9 @@
   "packageManager": "yarn@4.13.0",
   "type": "module",
   "scripts": {
-    "start": "yarn generate:docgen && lignify run-task app:dev",
-    "build:library": "packify build",
+    "start": "yarn generate:token && yarn generate:docgen && lignify run-task app:dev",
+    "build:library": "yarn generate:token && packify build",
+    "generate:token": "packify generate:css-token",
     "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/form.tsx --out ./public/docgen.json",
     "check": "yarn tsc -p tsconfig.json --noEmit && yarn eslint && yarn test",
     "eslint": "eslint",
@@ -40,6 +41,8 @@
     "@crab-dev/rc-select": "workspace:^",
     "@crab-dev/rc-slider": "workspace:^",
     "@crab-dev/rc-switch": "workspace:^",
+    "@crab-dev/rc-token-global": "workspace:^",
+    "@crab-dev/rc-token-semantic": "workspace:^",
     "@crab-dev/standards-eslint-preset": "workspace:^",
     "@crab-dev/standards-jest-preset": "workspace:^",
     "@crab-dev/standards-typescript-preset": "workspace:^",
@@ -68,5 +71,8 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "@crab-dev/rc-tooltip": "workspace:^"
   }
 }

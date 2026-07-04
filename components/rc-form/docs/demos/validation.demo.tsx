@@ -18,10 +18,12 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
     onChange,
     placeholder,
     type,
+    status,
 }) => (
     <LineEdit
         value={value ?? ""}
         type={type}
+        status={status}
         className={css`width: 100%;`}
         placeholder={placeholder}
         onChange={(e) => onChange?.(e.target.value)}
@@ -36,9 +38,6 @@ interface SignupForm extends Record<string, unknown> {
 }
 
 const formStyle = css`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     max-width: 520px;
 `;
 

@@ -82,10 +82,9 @@ interface ProfileForm extends Record<string, unknown> {
     quota: number;
 }
 
+// Form 内部使用 grid + subgrid 承载「标签 / 编辑器 / 状态」三列布局，
+// 这里只约束宽度，不得覆盖 display，否则 subgrid 因父级非 grid 而失效、布局塌陷。
 const formStyle = css`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     max-width: 520px;
 `;
 
