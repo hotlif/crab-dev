@@ -361,31 +361,19 @@ const SelectInput: FC<SelectInputProps> = ({
         }
     }, [autoFocus]);
 
-    // Close dropdown when clicking outside the control and overlay
+    // 点击外部关闭已由 RcDropdownContainer 统一收口(基于 FloatingTree 的 useDismiss,
+    // 能正确识别嵌套下拉自身浮层,不会像手写 ref.contains() 判定那样误判)。
+    // 这里只需把 open 的每次变化(无论是本组件触发还是 RcDropdownContainer 外部关闭触发)
+    // 都转发给外部 onOpenChange,避免在各处触发点重复调用。
+    const isFirstOpenRender = useRef(true);
     useEffect(() => {
-        if (!open) {
+        if (isFirstOpenRender.current) {
+            isFirstOpenRender.current = false;
             return;
         }
 
-        const handleMouseDown = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-
-            if (controlRef.current?.contains(target)) {
-                return;
-            }
-
-            if (target.closest("[data-select-overlay]")) {
-                return;
-            }
-
-            dispatch({ type: "setOpen", payload: false });
-            onOpenChangeRef.current(false);
-        };
-
-        document.addEventListener("mousedown", handleMouseDown);
-
-        return () => document.removeEventListener("mousedown", handleMouseDown);
-    }, [open, dispatch]);
+        onOpenChangeRef.current(open);
+    }, [open]);
 
     const handleClick = () => {
         if (disabled) {
@@ -393,7 +381,6 @@ const SelectInput: FC<SelectInputProps> = ({
         }
 
         dispatch({ type: "setOpen", payload: !open });
-        onOpenChangeRef.current(!open);
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -407,7 +394,6 @@ const SelectInput: FC<SelectInputProps> = ({
 
                 if (!open) {
                     dispatch({ type: "setOpen", payload: true });
-                    onOpenChangeRef.current(true);
                 }
 
                 onMoveHighlight(1);
@@ -418,7 +404,6 @@ const SelectInput: FC<SelectInputProps> = ({
 
                 if (!open) {
                     dispatch({ type: "setOpen", payload: true });
-                    onOpenChangeRef.current(true);
                 }
 
                 onMoveHighlight(-1);
@@ -432,11 +417,9 @@ const SelectInput: FC<SelectInputProps> = ({
 
                     if (!multiple) {
                         dispatch({ type: "setOpen", payload: false });
-                        onOpenChangeRef.current(false);
                     }
                 } else if (!open) {
                     dispatch({ type: "setOpen", payload: true });
-                    onOpenChangeRef.current(true);
                 }
 
                 break;
@@ -447,7 +430,6 @@ const SelectInput: FC<SelectInputProps> = ({
 
                     if (!open) {
                         dispatch({ type: "setOpen", payload: true });
-                        onOpenChangeRef.current(true);
                     }
                 }
 
@@ -457,7 +439,6 @@ const SelectInput: FC<SelectInputProps> = ({
                 if (open) {
                     e.preventDefault();
                     dispatch({ type: "setOpen", payload: false });
-                    onOpenChangeRef.current(false);
                 }
 
                 break;
@@ -481,7 +462,6 @@ const SelectInput: FC<SelectInputProps> = ({
 
         if (open) {
             dispatch({ type: "setOpen", payload: false });
-            onOpenChangeRef.current(false);
         }
     };
 
