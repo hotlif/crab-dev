@@ -98,13 +98,14 @@ export const build = async () => {
         dir: "cjs",
         format: "cjs",
         exports: "auto",
+        interop: "auto",
         entryFileNames: "[name].cjs",
         chunkFileNames: '[name].cjs',
         plugins: [
             // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
             terser()
         ]
-    });    
+    });
 
     const typesBundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),
