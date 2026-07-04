@@ -189,7 +189,7 @@ function Form<T extends Record<string, unknown>>({
 
 
     return (
-        <FormContext.Provider
+        <FormContext
             value={{
                 eventBus: eventBus,
                 requiredIndicatorRenderer
@@ -232,7 +232,7 @@ function Form<T extends Record<string, unknown>>({
             >
                 {children}
             </form>
-        </FormContext.Provider>
+        </FormContext>
     )
 }
 
