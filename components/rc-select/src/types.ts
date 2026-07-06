@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, Ref } from "react";
 
 // 这是 Select 组件的类型定义文件，包含：
 // - 选项类型（单个选项、选项分组）
@@ -51,6 +51,8 @@ export interface FlatOption {
  * `onChange` 和 `defaultValue`，因为它们在单选/多选中有不同签名。
  */
 interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+    // combobox 容器 DOM 节点的 ref
+    ref?: Ref<HTMLDivElement>;
     // 数据源：支持扁平选项数组或分组数组
     options: SelectOptionOrGroup[];
     // 占位符文本
