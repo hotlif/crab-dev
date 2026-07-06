@@ -167,6 +167,44 @@ describe('Select', () => {
         );
     });
 
+    it('renders a checkbox indicator reflecting selected state in multiple mode', () => {
+        const onChange = jest.fn();
+
+        render(
+            <Select
+                aria-label='indicator-select'
+                multiple
+                defaultValue={['javascript']}
+                onChange={onChange}
+                options={[
+                    { label: 'JavaScript', value: 'javascript' },
+                    { label: 'TypeScript', value: 'typescript' },
+                ]}
+            />,
+        );
+
+        fireEvent.click(screen.getByRole('combobox', { name: 'indicator-select' }));
+
+        const selectedOption = screen.getByRole('option', { name: 'JavaScript' });
+        const unselectedOption = screen.getByRole('option', { name: 'TypeScript' });
+
+        expect(selectedOption.querySelector('input[type="checkbox"]')).toHaveProperty('checked', true);
+        expect(unselectedOption.querySelector('input[type="checkbox"]')).toHaveProperty('checked', false);
+
+        // Clicking the row must toggle exactly once — the checkbox is decorative only
+        // and must not fire its own change in addition to the row's onClick.
+        fireEvent.click(unselectedOption);
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith(
+            ['javascript', 'typescript'],
+            [
+                expect.objectContaining({ value: 'javascript' }),
+                expect.objectContaining({ value: 'typescript' }),
+            ],
+        );
+    });
+
     // ─── Disabled ────────────────────────────────────────────────────────
 
     it('does not open when disabled', () => {
