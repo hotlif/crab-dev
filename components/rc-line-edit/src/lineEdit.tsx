@@ -37,6 +37,13 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
     status?: "error" | "warning"
 
     /**
+     * 是否显示外层边框/背景/阴影，默认为 true。
+     * 设为 false 时容器变为无样式（透明、无边框、高度随内容自适应），
+     * 用于嵌入到已有边框的宿主容器中（例如作为另一个组件内部的搜索框）
+     */
+    bordered?: boolean
+
+    /**
      * 是否允许一键清除内容（仅受控模式生效）
      */
     allowClear?: boolean
@@ -136,6 +143,25 @@ const warningStyle = css`
     }
 `
 
+// bordered=false：容器无边框/背景/阴影，高度随内容自适应，交由宿主容器提供外观。
+// 与 sizeContainerStyles/errorStyle/warningStyle 互斥选用（而非叠加覆盖），
+// 避免依赖 Linaria 抽取后的 CSS 规则顺序来决定优先级
+const borderlessStyle = css`
+    border-width: 0;
+    border-color: transparent;
+    background-color: transparent;
+    box-shadow: none;
+    height: auto;
+    padding: 0;
+    &:hover:not(:focus-within):not([aria-disabled="true"]) {
+        border-color: transparent;
+    }
+    &:focus-within {
+        border-color: transparent;
+        box-shadow: none;
+    }
+`
+
 
 // --- 输入框样式 ---
 
@@ -157,6 +183,13 @@ const inputBaseStyle = css`
     &:disabled {
         cursor: not-allowed;
     }
+`
+
+// bordered=false：字号/行高交由宿主容器继承，而非固定为某个 size 预设。
+// 与 sizeTextStyles 互斥选用（而非叠加覆盖），理由同 borderlessStyle
+const borderlessInputStyle = css`
+    font-size: inherit;
+    line-height: inherit;
 `
 
 
@@ -233,6 +266,7 @@ function LineEdit({
     allowClear,
     onClear,
     showCount,
+    bordered = true,
     ...rest
 }: LineEditProps) {
     // 密码可见性：内部 UI 状态，与业务无关
@@ -250,9 +284,9 @@ function LineEdit({
             style={style}
             className={cx(
                 containerBaseStyle,
-                sizeContainerStyles[size],
-                status === "error" && errorStyle,
-                status === "warning" && warningStyle,
+                bordered ? sizeContainerStyles[size] : borderlessStyle,
+                bordered && status === "error" && errorStyle,
+                bordered && status === "warning" && warningStyle,
                 className
             )}
         >
@@ -268,7 +302,7 @@ function LineEdit({
                 maxLength={maxLength}
                 disabled={disabled}
                 readOnly={readOnly}
-                className={cx(inputBaseStyle, sizeTextStyles[size])}
+                className={cx(inputBaseStyle, bordered ? sizeTextStyles[size] : borderlessInputStyle)}
                 {...rest}
             />
             {showClearButton && (

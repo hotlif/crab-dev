@@ -47,6 +47,14 @@ describe("LineEdit", () => {
         });
     });
 
+    describe("bordered", () => {
+        it("bordered={false} 时应仍渲染 input 且不报错", async () => {
+            await act(async () => { render(<LineEdit bordered={false} value="x" />); });
+            const input = document.querySelector("input") as HTMLInputElement;
+            expect(input.value).toBe("x");
+        });
+    });
+
     describe("disabled 状态", () => {
         it("disabled 时 input 应被禁用", async () => {
             await act(async () => { render(<LineEdit disabled />); });
