@@ -24,6 +24,8 @@ export const vars = {
     'option.highlight-background': '--select-option-highlight-background',
     'shadow.default': '--select-shadow-default',
     'shadow.focus': '--select-shadow-focus',
+    'shadow.focus-error': '--select-shadow-focus-error',
+    'shadow.focus-warning': '--select-shadow-focus-warning',
     'tag.background': '--select-tag-background',
     'tag.color': '--select-tag-color',
     'tag.close-hover': '--select-tag-close-hover',
@@ -78,7 +80,9 @@ const token = {
     },
     'shadow': {
         'default': `var(${vars['shadow.default']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`,
-        'focus': `var(${vars['shadow.focus']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`
+        'focus': `var(${vars['shadow.focus']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px oklch(0.140 0.004 286 / 0.25)))`,
+        'focus-error': `var(${vars['shadow.focus-error']}, 0 0 0 3px oklch(0.637 0.237 24 / 0.25))`,
+        'focus-warning': `var(${vars['shadow.focus-warning']}, 0 0 0 3px oklch(0.769 0.188 75 / 0.25))`
     },
     'tag': {
         'background': `var(${vars['tag.background']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,

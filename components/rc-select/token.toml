@@ -31,7 +31,9 @@ option.color-disabled = "$ref(color.text.disabled)"
 option.highlight-background = "$ref(color.background.hover-subtle)"
 
 shadow.default = "$ref(shadow.float)"
-shadow.focus = "$ref(shadow.float)"
+shadow.focus = "$ref(shadow.focus-ring)"
+shadow.focus-error = "0 0 0 3px oklch(0.637 0.237 24 / 0.25)"
+shadow.focus-warning = "0 0 0 3px oklch(0.769 0.188 75 / 0.25)"
 
 tag.background = "$ref(color.background.hover-subtle)"
 tag.color = "$ref(color.text.primary)"
