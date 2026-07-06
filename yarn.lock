@@ -4027,11 +4027,13 @@ __metadata:
   dependencies:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-tag": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
@@ -4244,7 +4246,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tag@workspace:components/rc-tag":
+"@crab-dev/rc-tag@workspace:^, @crab-dev/rc-tag@workspace:components/rc-tag":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tag@workspace:components/rc-tag"
   dependencies:
