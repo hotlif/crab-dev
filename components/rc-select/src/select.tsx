@@ -1,5 +1,5 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
-import { useCallback, useMemo, useRef, useState, type FC } from "react";
+import { useId, useRef, useState, type FC } from "react";
 
 import useKeyboardNavigation from "./hooks/useKeyboardNavigation.js";
 import SelectInput from "./selectInput.js";
@@ -22,9 +22,11 @@ const asArray = (value: string | string[] | undefined): string[] => {
 const flattenOptions = (options: SelectOptionOrGroup[]): FlatOption[] => {
     const result: FlatOption[] = [];
 
-    for (const item of options) {
+    // 分组标题用所在下标生成合成 value,保证唯一;不得用 String(label),因为 label 是
+    // ReactNode,序列化后多个分组会碰撞成 "__group_[object Object]",导致重复 React key。
+    options.forEach((item, index) => {
         if (isGroup(item)) {
-            result.push({ label: item.label, value: `__group_${String(item.label)}`, isGroupLabel: true });
+            result.push({ label: item.label, value: `__group_${index}`, isGroupLabel: true });
 
             for (const opt of item.options) {
                 result.push(opt);
@@ -32,7 +34,7 @@ const flattenOptions = (options: SelectOptionOrGroup[]): FlatOption[] => {
         } else {
             result.push(item);
         }
-    }
+    });
 
     return result;
 };
@@ -53,9 +55,33 @@ const flattenPlainOptions = (options: SelectOptionOrGroup[]): SelectOption[] => 
     return result;
 };
 
+const filterOptions = (flatOptions: FlatOption[], searchable: boolean, searchText: string): FlatOption[] => {
+    if (!searchable || searchText.trim() === "") {
+        return flatOptions;
+    }
+
+    const keyword = searchText.trim().toLowerCase();
+
+    return flatOptions.filter((opt) => {
+        if (opt.isGroupLabel) {
+            return false;
+        }
+
+        if (typeof opt.label === "string") {
+            return opt.label.toLowerCase().includes(keyword);
+        }
+
+        return opt.value.toLowerCase().includes(keyword);
+    });
+};
+
+const firstEnabledIndex = (flatOptions: FlatOption[]): number =>
+    flatOptions.findIndex((opt) => !opt.disabled && !opt.isGroupLabel);
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const Select: FC<SelectProps> = ({
+    ref,
     options,
     placeholder = "请选择",
     disabled = false,
@@ -84,6 +110,9 @@ const Select: FC<SelectProps> = ({
     ...restProps
 }) => {
     const isControlled = value !== undefined;
+    // combobox 的 aria-controls / aria-activedescendant 与 listbox 及各 option 的 id
+    // 共享同一前缀(§3 触发器与目标显式关联),故在两个子组件的共同父级生成一次。
+    const listboxId = useId();
     const [searchText, setSearchText] = useState("");
     const [internalValue, setInternalValue] = useState<string[]>(() => asArray(defaultValue));
     const [triggerWidth, setTriggerWidth] = useState(0);
@@ -93,48 +122,27 @@ const Select: FC<SelectProps> = ({
 
     const selectedValues = isControlled ? asArray(value) : internalValue;
 
-    const allPlainOptions = useMemo(() => flattenPlainOptions(options), [options]);
+    const allPlainOptions = flattenPlainOptions(options);
 
-    const selectedOptions = useMemo(
-        () => allPlainOptions.filter((opt) => selectedValues.includes(opt.value)),
-        [allPlainOptions, selectedValues],
-    );
+    const selectedOptions = allPlainOptions.filter((opt) => selectedValues.includes(opt.value));
 
-    const flatOptions = useMemo(() => flattenOptions(options), [options]);
+    const flatOptions = flattenOptions(options);
 
-    const filteredOptions = useMemo(() => {
-        if (!searchable || searchText.trim() === "") {
-            return flatOptions;
-        }
-
-        const keyword = searchText.trim().toLowerCase();
-
-        return flatOptions.filter((opt) => {
-            if (opt.isGroupLabel) {
-                return false;
-            }
-
-            if (typeof opt.label === "string") {
-                return opt.label.toLowerCase().includes(keyword);
-            }
-
-            return opt.value.toLowerCase().includes(keyword);
-        });
-    }, [flatOptions, searchable, searchText]);
+    const filteredOptions = filterOptions(flatOptions, searchable, searchText);
 
     const { highlightIndex, highlightedOption, moveHighlight, resetHighlight, setHighlightIndex } =
         useKeyboardNavigation({ filteredOptions, open: true });
 
-    const emitOpenChange = useCallback((nextOpen: boolean) => {
+    const emitOpenChange = (nextOpen: boolean) => {
         if (!nextOpen) {
             setSearchText("");
             resetHighlight();
         }
 
         onOpenChangeRef.current?.(nextOpen);
-    }, [resetHighlight]);
+    };
 
-    const updateValue = useCallback((nextValues: string[]) => {
+    const updateValue = (nextValues: string[]) => {
         if (!isControlled) {
             setInternalValue(nextValues);
         }
@@ -151,9 +159,9 @@ const Select: FC<SelectProps> = ({
             nextValue,
             nextOption,
         );
-    }, [isControlled, multiple, allPlainOptions, onChange]);
+    };
 
-    const handleOptionSelect = useCallback((option: FlatOption) => {
+    const handleOptionSelect = (option: FlatOption) => {
         if (option.disabled || option.isGroupLabel) {
             return;
         }
@@ -169,20 +177,30 @@ const Select: FC<SelectProps> = ({
         }
 
         updateValue([option.value]);
-    }, [multiple, selectedValues, updateValue]);
+    };
 
-    const handleClear = useCallback(() => {
+    const handleClear = () => {
         updateValue([]);
         setSearchText("");
-    }, [updateValue]);
+    };
 
-    const handleRemoveTag = useCallback((val: string) => {
+    const handleRemoveTag = (val: string) => {
         updateValue(selectedValues.filter((v) => v !== val));
-    }, [selectedValues, updateValue]);
+    };
 
-    const handleTriggerWidthChange = useCallback((width: number) => {
+    const handleTriggerWidthChange = (width: number) => {
         setTriggerWidth(width);
-    }, []);
+    };
+
+    const handleSearchTextChange = (text: string) => {
+        setSearchText(text);
+
+        // 过滤结果随搜索词变化,把高亮重置到新结果的第一个可选项:
+        // 既避免旧高亮索引越界(highlightedOption 变 undefined 导致回车失效),
+        // 也让「筛出唯一项后直接回车即可选中」成立。
+        const nextFiltered = filterOptions(flatOptions, searchable, text);
+        setHighlightIndex(firstEnabledIndex(nextFiltered));
+    };
 
     const floatingStyle = popupMatchSelectWidth
         ? { width: triggerWidth }
@@ -200,6 +218,7 @@ const Select: FC<SelectProps> = ({
                     selectedValues={selectedValues}
                     triggerWidth={triggerWidth}
                     highlightIndex={highlightIndex}
+                    listboxId={listboxId}
                     notFoundContent={notFoundContent}
                     popupClassName={popupClassName}
                     optionRender={optionRender}
@@ -212,6 +231,7 @@ const Select: FC<SelectProps> = ({
             floatingContainerProps={{ style: floatingStyle }}
         >
             <SelectInput
+                ref={ref}
                 ariaLabel={ariaLabel}
                 disabled={disabled}
                 searchable={searchable}
@@ -225,9 +245,11 @@ const Select: FC<SelectProps> = ({
                 placeholder={placeholder}
                 selectedOptions={selectedOptions}
                 searchText={searchText}
+                highlightIndex={highlightIndex}
                 highlightedOption={highlightedOption}
+                listboxId={listboxId}
                 tagRender={tagRender}
-                onSearchTextChange={setSearchText}
+                onSearchTextChange={handleSearchTextChange}
                 onOpenChange={emitOpenChange}
                 onWidthChange={handleTriggerWidthChange}
                 onMoveHighlight={moveHighlight}

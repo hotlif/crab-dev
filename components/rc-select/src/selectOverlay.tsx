@@ -1,4 +1,5 @@
-import RcVirtual from "@crab-dev/rc-virtual";
+import Checkbox from "@crab-dev/rc-checkbox";
+import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
 import { css, cx } from "@linaria/core";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { useEffect, useRef, type Dispatch, type FC, type ReactNode, type SetStateAction } from "react";
@@ -24,15 +25,24 @@ const optionStyle = css`
     width: 100%;
     padding: 6px 8px;
     border-radius: 3px;
-    cursor: default;
+    cursor: pointer;
     user-select: none;
     height: 32px;
     box-sizing: border-box;
     font-size: 14px;
     outline: none;
+    transition: ${token.transition};
 
     &:hover {
         background-color: ${token.option["color-hover"]};
+    }
+
+    &:active {
+        background-color: ${token.option["color-hover"]};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
     }
 `;
 
@@ -65,6 +75,15 @@ const checkIconStyle = css`
     width: 16px;
     height: 16px;
     margin-left: 8px;
+`;
+
+// 复选框仅作选中态的视觉指示，实际选中/取消由整行 onClick 统一触发（见下方 onClick），
+// 这里用 pointer-events: none 阻止其抢占点击，避免与整行点击重复触发切换。
+const checkboxIndicatorStyle = css`
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-right: 8px;
+    pointer-events: none;
 `;
 
 const emptyStyle = css`
@@ -110,6 +129,13 @@ const loadingStyle = css`
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
+
+    /* spinner 本身传达"进行中"是必要信息,不能移除;仅大幅放慢速度以降低前庭刺激 */
+    @media (prefers-reduced-motion: reduce) {
+        & > svg {
+            animation-duration: 2.5s;
+        }
+    }
 `;
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -127,6 +153,7 @@ interface SelectOverlayProps {
     selectedValues: string[];
     triggerWidth: number;
     highlightIndex: number;
+    listboxId: string;
     notFoundContent?: ReactNode;
     popupClassName?: string;
     optionRender?: (option: SelectOption, info: { selected: boolean }) => ReactNode;
@@ -145,6 +172,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     selectedValues,
     triggerWidth,
     highlightIndex,
+    listboxId,
     notFoundContent,
     popupClassName,
     optionRender,
@@ -154,26 +182,23 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     onHighlightChange,
 }) => {
     const { dispatch } = useDropdownContext<HTMLDivElement>();
-    const listRef = useRef<HTMLDivElement>(null);
+    // 例外 1(可变实例状态 ref):持有 RcVirtual 的命令式句柄,用于把高亮行滚入视口。
+    const gridRef = useRef<VirtualHandle | null>(null);
 
-    // Scroll the highlighted option into view
+    // 把高亮项滚入视口。RcVirtual 是受控虚拟列表:可见行由其内部 scrollTop state 决定,
+    // 原生 scrollIntoView 无法驱动它(改 DOM scrollTop 不会同步回 state),因此必须走它
+    // 暴露的命令式 scrollToCell,按【全局行索引】滚动。highlightIndex 恰好等于该行索引。
     useEffect(() => {
-        if (highlightIndex < 0 || !listRef.current) {
+        if (highlightIndex < 0) {
             return;
         }
 
-        const container = listRef.current;
-        const items = container.querySelectorAll("[role='option'], [data-group-label]");
-        const target = items[highlightIndex] as HTMLElement | undefined;
-
-        if (target && typeof target.scrollIntoView === "function") {
-            target.scrollIntoView({ block: "nearest" });
-        }
+        gridRef.current?.scrollToCell({ rowIndex: highlightIndex });
     }, [highlightIndex]);
 
     if (loading) {
         return (
-            <div data-select-overlay className={cx(overlayStyle, popupClassName)}>
+            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx(overlayStyle, popupClassName)}>
                 <div className={loadingStyle}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
@@ -185,7 +210,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (filteredOptions.length === 0) {
         return (
-            <div data-select-overlay className={cx(overlayStyle, popupClassName)}>
+            <div id={listboxId} role="listbox" data-select-overlay className={cx(overlayStyle, popupClassName)}>
                 <div className={emptyStyle}>{notFoundContent ?? "无匹配选项"}</div>
             </div>
         );
@@ -200,6 +225,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     const menu = (
         <RcVirtual
+            gridRef={gridRef}
             viewportWidth={contentWidth}
             viewportHeight={viewportHeight}
             gridTemplateColumns={[contentWidth]}
@@ -235,8 +261,17 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                         ? optionRender(option, { selected })
                         : (
                             <>
+                                {multiple ? (
+                                    <Checkbox
+                                        className={checkboxIndicatorStyle}
+                                        checked={selected}
+                                        disabled={option.disabled}
+                                        tabIndex={-1}
+                                        aria-label={typeof option.label === "string" ? option.label : option.value}
+                                    />
+                                ) : null}
                                 <span className={optionLabelStyle}>{option.label}</span>
-                                {selected ? (
+                                {!multiple && selected ? (
                                     <span className={checkIconStyle}>
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 6 9 17l-5-5" />
@@ -246,11 +281,20 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                             </>
                         );
 
+                    // 多选行内的 Checkbox 自带 aria-label,若不显式覆盖,option 的无障碍名会走
+                    // name-from-content 把 checkbox 的 aria-label 与后面的文案标签拼接两遍
+                    // (读作"JavaScript JavaScript")。单选没有这个子控件,保留原生 name-from-content。
+                    const optionAriaLabel = multiple
+                        ? (typeof option.label === "string" ? option.label : option.value)
+                        : undefined;
+
                     nodes.push(
                         <div
                             key={option.value}
+                            id={`${listboxId}-option-${i}`}
                             role="option"
                             aria-selected={selected}
+                            aria-label={optionAriaLabel}
                             className={cx(
                                 optionStyle,
                                 isGrouped && groupedOptionStyle,
@@ -291,7 +335,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     return (
         <div
-            ref={listRef}
+            id={listboxId}
             data-select-overlay
             className={cx(overlayStyle, popupClassName)}
             role="listbox"

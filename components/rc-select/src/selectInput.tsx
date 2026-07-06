@@ -1,9 +1,20 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
+import RcLineEdit from "@crab-dev/rc-line-edit";
+import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@linaria/core";
-import { useCallback, useEffect, useRef, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
 
 import token from "./token.js";
 import type { FlatOption, SelectOption } from "./types.js";
+
+// ref 可能是回调形式或 RefObject 形式，统一赋值以便与内部 ref 合并
+const setRef = (ref: Ref<HTMLDivElement> | undefined, node: HTMLDivElement | null) => {
+    if (typeof ref === "function") {
+        ref(node);
+    } else if (ref) {
+        ref.current = node;
+    }
+};
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
@@ -19,6 +30,7 @@ const controlStyle = css`
     cursor: pointer;
     user-select: none;
     outline: none;
+    transition: ${token.transition};
 
     &:hover:not([aria-disabled="true"]) {
         border-color: ${token.border["color-hover"]};
@@ -31,11 +43,24 @@ const controlStyle = css`
     &:hover:not([aria-disabled="true"]) [data-role="select-caret"] {
         opacity: 0;
     }
+
+    &:focus-visible {
+        border-color: ${token.border["color-focus"]};
+        box-shadow: ${token.shadow.focus};
+    }
+
+    &:active:not([aria-disabled="true"]) {
+        transform: scale(0.99);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 `;
 
 const controlFocusStyle = css`
     border-color: ${token.border["color-focus"]};
-    box-shadow: 0 0 0 1px ${token.border["color-focus"]};
+    box-shadow: ${token.shadow.focus};
 `;
 
 const controlDisabledStyle = css`
@@ -50,11 +75,16 @@ const controlErrorStyle = css`
     &:hover:not([aria-disabled="true"]) {
         border-color: ${token.border["color-error"]};
     }
+
+    &:focus-visible {
+        border-color: ${token.border["color-error"]};
+        box-shadow: ${token.shadow["focus-error"]};
+    }
 `;
 
 const controlErrorFocusStyle = css`
     border-color: ${token.border["color-error"]};
-    box-shadow: 0 0 0 1px ${token.border["color-error"]};
+    box-shadow: ${token.shadow["focus-error"]};
 `;
 
 const controlWarningStyle = css`
@@ -63,11 +93,16 @@ const controlWarningStyle = css`
     &:hover:not([aria-disabled="true"]) {
         border-color: ${token.border["color-warning"]};
     }
+
+    &:focus-visible {
+        border-color: ${token.border["color-warning"]};
+        box-shadow: ${token.shadow["focus-warning"]};
+    }
 `;
 
 const controlWarningFocusStyle = css`
     border-color: ${token.border["color-warning"]};
-    box-shadow: 0 0 0 1px ${token.border["color-warning"]};
+    box-shadow: ${token.shadow["focus-warning"]};
 `;
 
 const valueWrapStyle = css`
@@ -93,20 +128,9 @@ const placeholderStyle = css`
     white-space: nowrap;
 `;
 
-const inputStyle = css`
-    border: 0;
-    outline: none;
-    background: transparent;
-    color: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    min-width: 0;
+const searchInputStyle = css`
     flex: 1;
-    padding: 0;
-
-    &::placeholder {
-        color: ${token.text["color-placeholder"]};
-    }
+    min-width: 0;
 `;
 
 const caretStyle = css`
@@ -116,51 +140,34 @@ const caretStyle = css`
     align-items: center;
     color: ${token.text["color-placeholder"]};
     transition: transform 200ms ease, opacity 100ms ease;
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 `;
 
 const caretOpenStyle = css`
     transform: rotate(180deg);
 `;
 
-const tagStyle = css`
-    display: inline-flex;
-    align-items: center;
-    background-color: ${token.tag.background};
-    color: ${token.tag.color};
-    border: 1px solid ${token.border.color};
-    border-radius: ${token.border.radius};
-    padding: 0 6px;
-    height: 22px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-    max-width: 120px;
+const tagLabelStyle = css`
     overflow: hidden;
     text-overflow: ellipsis;
-    gap: 4px;
+    white-space: nowrap;
+    max-width: 120px;
 `;
 
-const tagCloseStyle = css`
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    color: ${token.tag["close-hover"]};
-    flex-shrink: 0;
-
-    &:hover {
-        color: ${token.text.color};
-    }
-`;
-
+// 命中区域下限 24x24(§1 命中区域即示能):caret 与 clear 共用此容器,视觉图标仍是 12px,
+// 用 min-block-size / min-inline-size 撑出可点区域,而非放大图标本身。
 const suffixWrapStyle = css`
     position: relative;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     flex-shrink: 0;
     margin-left: 8px;
-    width: 12px;
-    height: 12px;
+    min-block-size: 24px;
+    min-inline-size: 24px;
 `;
 
 const clearStyle = css`
@@ -177,23 +184,17 @@ const clearStyle = css`
     &:hover {
         color: ${token.clear["color-hover"]};
     }
-`;
 
+    /* 键盘聚焦时的持久替代路径(§2):hover 之外唯一能让清除按钮可见的意符 */
+    &:focus-visible {
+        opacity: 1;
+        outline: none;
+        box-shadow: ${token.shadow.focus};
+    }
 
-
-const overflowTagStyle = css`
-    display: inline-flex;
-    align-items: center;
-    background-color: ${token.tag.background};
-    color: ${token.tag.color};
-    border: 1px solid ${token.border.color};
-    border-radius: ${token.border.radius};
-    padding: 0 6px;
-    height: 22px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 `;
 
 const loadingIconStyle = css`
@@ -208,6 +209,26 @@ const loadingIconStyle = css`
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
+
+    /* spinner 本身传达"进行中"是必要信息,不能移除;仅大幅放慢速度以降低前庭刺激 */
+    @media (prefers-reduced-motion: reduce) {
+        animation-duration: 2.5s;
+    }
+`;
+
+const statusIconStyle = css`
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 8px;
+`;
+
+const statusIconErrorStyle = css`
+    color: ${token.border["color-error"]};
+`;
+
+const statusIconWarningStyle = css`
+    color: ${token.border["color-warning"]};
 `;
 
 const sizeStyleMap = {
@@ -243,21 +264,33 @@ const ClearIcon = () => (
     </svg>
 );
 
-const TagCloseIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 6 6 18M6 6l12 12" />
-    </svg>
-);
-
 const LoadingIcon = () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
 );
 
+// 错误/警告用不同形状(圆形叹号 vs 三角叹号)+ 不同令牌色叠加,而非仅靠边框颜色区分(§2)
+const ErrorCircleIcon = () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+    </svg>
+);
+
+const WarningTriangleIcon = () => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+        <line x1="12" y1="9" x2="12" y2="13" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+);
+
 // ─── Props ───────────────────────────────────────────────────────────────────
 
 interface SelectInputProps {
+    ref?: Ref<HTMLDivElement>;
     ariaLabel?: string;
     disabled: boolean;
     searchable: boolean;
@@ -271,7 +304,9 @@ interface SelectInputProps {
     placeholder: string;
     selectedOptions: SelectOption[];
     searchText: string;
+    highlightIndex: number;
     highlightedOption: FlatOption | undefined;
+    listboxId: string;
     tagRender?: (option: SelectOption, onClose: () => void) => ReactNode;
     onSearchTextChange: (value: string) => void;
     onOpenChange: (nextOpen: boolean) => void;
@@ -287,6 +322,7 @@ interface SelectInputProps {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const SelectInput: FC<SelectInputProps> = ({
+    ref,
     ariaLabel,
     disabled,
     searchable,
@@ -300,7 +336,9 @@ const SelectInput: FC<SelectInputProps> = ({
     placeholder,
     selectedOptions,
     searchText,
+    highlightIndex,
     highlightedOption,
+    listboxId,
     tagRender,
     onSearchTextChange,
     onOpenChange,
@@ -320,6 +358,8 @@ const SelectInput: FC<SelectInputProps> = ({
     const onOpenChangeRef = useRef(onOpenChange);
     onOpenChangeRef.current = onOpenChange;
 
+    // 例外 1（可变实例状态 ref）：ref callback 需要稳定，避免每次渲染都以 null 触发一轮
+    // 卸载态 refs.setReference(null) / 外部 ref 清空后再重新挂载。
     const mergeRef = useCallback(
         (node: HTMLDivElement | null) => {
             controlRef.current = node;
@@ -327,8 +367,10 @@ const SelectInput: FC<SelectInputProps> = ({
             if (typeof refs.setReference === "function") {
                 refs.setReference(node);
             }
+
+            setRef(ref, node);
         },
-        [refs.setReference],
+        [refs.setReference, ref],
     );
 
     useEffect(() => {
@@ -456,12 +498,26 @@ const SelectInput: FC<SelectInputProps> = ({
         }
     };
 
-    const handleClearClick = (e: ReactMouseEvent) => {
-        e.stopPropagation();
+    const triggerClear = () => {
         onClear();
 
         if (open) {
             dispatch({ type: "setOpen", payload: false });
+        }
+    };
+
+    const handleClearClick = (e: ReactMouseEvent) => {
+        e.stopPropagation();
+        triggerClear();
+    };
+
+    // 清除按钮的键盘等价路径(§1/§2):没有它,role="button" 但无法用 Enter/Space 触发的
+    // 元素形同虚设——键盘用户能 Tab 到它,却按不动它。
+    const handleClearKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            e.stopPropagation();
+            triggerClear();
         }
     };
 
@@ -475,20 +531,15 @@ const SelectInput: FC<SelectInputProps> = ({
         }
 
         return (
-            <span key={opt.value} className={tagStyle}>
-                <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{opt.label}</span>
-                <span
-                    className={tagCloseStyle}
-                    role="button"
-                    aria-label={`Remove ${typeof opt.label === "string" ? opt.label : opt.value}`}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        handleClose();
-                    }}
-                >
-                    <TagCloseIcon />
-                </span>
-            </span>
+            <Tag
+                key={opt.value}
+                size="small"
+                closable
+                closeAriaLabel={`Remove ${typeof opt.label === "string" ? opt.label : opt.value}`}
+                onClose={handleClose}
+            >
+                <span className={tagLabelStyle}>{opt.label}</span>
+            </Tag>
         );
     };
 
@@ -500,7 +551,7 @@ const SelectInput: FC<SelectInputProps> = ({
             return (
                 <>
                     {visible.map(renderTag)}
-                    <span className={overflowTagStyle}>+{overflowCount}</span>
+                    <Tag size="small">+{overflowCount}</Tag>
                 </>
             );
         }
@@ -513,13 +564,14 @@ const SelectInput: FC<SelectInputProps> = ({
             return (
                 <>
                     {multiple && renderTags()}
-                    <input
+                    <RcLineEdit
                         ref={inputRef}
+                        bordered={false}
                         value={searchText}
                         placeholder={multiple && selectedOptions.length > 0 ? "" : placeholder}
                         onChange={(e) => onSearchTextChange(e.target.value)}
                         onClick={(e) => e.stopPropagation()}
-                        className={inputStyle}
+                        className={searchInputStyle}
                     />
                 </>
             );
@@ -552,6 +604,11 @@ const SelectInput: FC<SelectInputProps> = ({
         return cx(controlWarningStyle, open && controlWarningFocusStyle);
     };
 
+    // 仅在展开时暴露 aria-controls/aria-activedescendant:浮层关闭时 SelectOverlay 未挂载,
+    // 引用一个不存在的 id 对屏幕阅读器没有意义(§3 触发器与目标显式关联)。
+    const activeDescendantId =
+        open && highlightIndex >= 0 ? `${listboxId}-option-${highlightIndex}` : undefined;
+
     return (
         <div
             role="combobox"
@@ -559,6 +616,9 @@ const SelectInput: FC<SelectInputProps> = ({
             aria-expanded={open}
             aria-disabled={disabled}
             aria-haspopup="listbox"
+            aria-controls={open ? listboxId : undefined}
+            aria-activedescendant={activeDescendantId}
+            aria-invalid={status === "error" ? true : undefined}
             tabIndex={disabled ? -1 : 0}
             ref={mergeRef}
             className={cx(
@@ -579,6 +639,14 @@ const SelectInput: FC<SelectInputProps> = ({
                     <LoadingIcon />
                 </span>
             ) : null}
+            {!loading && status ? (
+                <span
+                    className={cx(statusIconStyle, status === "error" ? statusIconErrorStyle : statusIconWarningStyle)}
+                    aria-hidden="true"
+                >
+                    {status === "error" ? <ErrorCircleIcon /> : <WarningTriangleIcon />}
+                </span>
+            ) : null}
             <span className={suffixWrapStyle}>
                 <span data-role={canClear ? "select-caret" : undefined} className={cx(caretStyle, open && caretOpenStyle)}>
                     <CaretIcon />
@@ -588,8 +656,10 @@ const SelectInput: FC<SelectInputProps> = ({
                         data-role="select-clear"
                         className={clearStyle}
                         role="button"
+                        tabIndex={0}
                         aria-label="Clear"
                         onClick={handleClearClick}
+                        onKeyDown={handleClearKeyDown}
                     >
                         <ClearIcon />
                     </span>
