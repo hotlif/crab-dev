@@ -82,6 +82,7 @@ const Tag: FC<TagProps> = ({
     bordered = true,
     closable = false,
     closeIcon,
+    closeAriaLabel = 'close',
     icon,
     className,
     children,
@@ -169,7 +170,7 @@ const Tag: FC<TagProps> = ({
             <span
                 role="button"
                 tabIndex={0}
-                aria-label="close"
+                aria-label={closeAriaLabel}
                 className={css`
                     display: inline-flex;
                     align-items: center;
