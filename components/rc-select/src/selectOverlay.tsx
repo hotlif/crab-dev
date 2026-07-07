@@ -41,6 +41,14 @@ const optionStyle = css`
         background-color: ${token.option["color-hover"]};
     }
 
+    /* 选中背景直接绑定 aria-selected(而非另开一个由 JS 条件应用的 class),
+       靠 [属性选择器] 叠加 class 把 specificity 提到 (0,2,0)——正好压过
+       上面的 :hover/:active(同为 (0,2,0) 但声明更早)以及下面 optionHighlightStyle
+       这个纯 class 选择器 (0,1,0),确保"选中"背景不会被鼠标悬停或键盘高亮盖掉。 */
+    &[aria-selected="true"] {
+        background-color: ${token.option["background-selected"]};
+    }
+
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
@@ -52,6 +60,14 @@ const optionHighlightStyle = css`
 
 const optionSelectedStyle = css`
     font-weight: 500;
+`;
+
+// 单选选中态:token.option['color-selected'](品牌色)此前定义了却从未被引用,
+// 选中项只靠 font-weight:500 区分——太弱,容易被忽略。多选场景的选中态已经由
+// Checkbox 的勾选视觉承担,故不叠加文字变色,只强化单选这一支(§2 状态必须有意符)。
+const optionSelectedSingleStyle = css`
+    font-weight: 500;
+    color: ${token.option["color-selected"]};
 `;
 
 const optionDisabledStyle = css`
@@ -75,6 +91,7 @@ const checkIconStyle = css`
     width: 16px;
     height: 16px;
     margin-left: 8px;
+    color: ${token.option["color-selected"]};
 `;
 
 // 复选框仅作选中态的视觉指示，实际选中/取消由整行 onClick 统一触发（见下方 onClick），
@@ -298,7 +315,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                             className={cx(
                                 optionStyle,
                                 isGrouped && groupedOptionStyle,
-                                selected && optionSelectedStyle,
+                                selected && (multiple ? optionSelectedStyle : optionSelectedSingleStyle),
                                 highlighted && optionHighlightStyle,
                                 option.disabled && optionDisabledStyle,
                             )}
