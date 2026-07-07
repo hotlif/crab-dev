@@ -37,12 +37,15 @@ export const vars = {
     'size.large.height': '--select-size-large-height',
     'size.large.padding': '--select-size-large-padding',
     'size.large.font.size': '--select-size-large-font-size',
+    'size.large.line-height': '--select-size-large-line-height',
     'size.middle.height': '--select-size-middle-height',
     'size.middle.padding': '--select-size-middle-padding',
     'size.middle.font.size': '--select-size-middle-font-size',
+    'size.middle.line-height': '--select-size-middle-line-height',
     'size.small.height': '--select-size-small-height',
     'size.small.padding': '--select-size-small-padding',
     'size.small.font.size': '--select-size-small-font-size',
+    'size.small.line-height': '--select-size-small-line-height',
     'dropdown.offset': '--select-dropdown-offset',
     'dropdown.max-height': '--select-dropdown-max-height',
     'dropdown.padding': '--select-dropdown-padding',
@@ -74,7 +77,7 @@ const token = {
     'option': {
         'color-hover': `var(${vars['option.color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
         'color-selected': `var(${vars['option.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
-        'background-selected': `var(${vars['option.background-selected']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'background-selected': `var(${vars['option.background-selected']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'color-disabled': `var(${vars['option.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`,
         'highlight-background': `var(${vars['option.highlight-background']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
     },
@@ -106,21 +109,24 @@ const token = {
             'padding': `var(${vars['size.large.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
             'font': {
                 'size': `var(${vars['size.large.font.size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
-            }
+            },
+            'line-height': `var(${vars['size.large.line-height']}, 1.5rem)`
         },
         'middle': {
             'height': `var(${vars['size.middle.height']}, 32px)`,
             'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
             'font': {
                 'size': `var(${vars['size.middle.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
-            }
+            },
+            'line-height': `var(${vars['size.middle.line-height']}, 1.25rem)`
         },
         'small': {
             'height': `var(${vars['size.small.height']}, 24px)`,
             'padding': `var(${vars['size.small.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
             'font': {
-                'size': `var(${vars['size.small.font.size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`
-            }
+                'size': `var(${vars['size.small.font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
+            },
+            'line-height': `var(${vars['size.small.line-height']}, 1.25rem)`
         }
     },
     'dropdown': {

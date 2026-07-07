@@ -26,7 +26,7 @@ text.color-disabled = "$ref(color.text.disabled)"
 
 option.color-hover = "$ref(color.background.hover-subtle)"
 option.color-selected = "$ref(color.brand.primary)"
-option.background-selected = "$ref(color.background.hover-subtle)"
+option.background-selected = "$ref(color.background.active-subtle)"
 option.color-disabled = "$ref(color.text.disabled)"
 option.highlight-background = "$ref(color.background.hover-subtle)"
 
@@ -50,14 +50,19 @@ loading.color = "$ref(color.text.secondary)"
 size.large.height = "40px"
 size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
 size.large.font.size = "$ref(font.size.subhead)"
+size.large.line-height = "1.5rem"
 
 size.middle.height = "32px"
 size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
 size.middle.font.size = "$ref(font.size.body)"
+size.middle.line-height = "1.25rem"
 
+# small 与 middle 同用 body 字号(14px),不再降到 caption(12px)——与 RcLineEdit 的
+# size 规格对齐:靠高度(24px vs 32px)区分尺寸感,不靠缩字号,可读性更好。
 size.small.height = "24px"
 size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
-size.small.font.size = "$ref(font.size.caption)"
+size.small.font.size = "$ref(font.size.body)"
+size.small.line-height = "1.25rem"
 
 dropdown.offset = "6px"
 dropdown.max-height = "240px"

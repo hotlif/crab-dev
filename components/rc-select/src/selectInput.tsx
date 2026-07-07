@@ -49,10 +49,6 @@ const controlStyle = css`
         box-shadow: ${token.shadow.focus};
     }
 
-    &:active:not([aria-disabled="true"]) {
-        transform: scale(0.99);
-    }
-
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
@@ -157,8 +153,11 @@ const tagLabelStyle = css`
     max-width: 120px;
 `;
 
-// 命中区域下限 24x24(§1 命中区域即示能):caret 与 clear 共用此容器,视觉图标仍是 12px,
-// 用 min-block-size / min-inline-size 撑出可点区域,而非放大图标本身。
+// 容器本身跟随图标自然尺寸(12px),不设最小尺寸——之前在这里用 min-block-size:24px
+// 撑命中区域,结果把它当成 flex 子项撑高了整个 controlStyle 的实际高度:small(24px)/
+// middle(32px)两档的可视高度都被拖到接近 34px,small 完全没矮下去。
+// 命中区域下限改由 clearStyle 自己用 inset 负值向外扩展(见下方),
+// absolute 定位不占文档流,不会影响这里的 flex 布局高度。
 const suffixWrapStyle = css`
     position: relative;
     display: inline-flex;
@@ -166,17 +165,17 @@ const suffixWrapStyle = css`
     justify-content: center;
     flex-shrink: 0;
     margin-left: 8px;
-    min-block-size: 24px;
-    min-inline-size: 24px;
 `;
 
+// inset:-6px 让 12px 图标的可点击范围向四周各扩 6px,凑够 24px 命中区域下限(§1),
+// 靠 absolute 定位脱离文档流实现,不像撑大父容器 min-size 那样连带撑高整行控件。
 const clearStyle = css`
     display: inline-flex;
     align-items: center;
     color: ${token.clear.color};
     cursor: pointer;
     position: absolute;
-    inset: 0;
+    inset: -6px;
     justify-content: center;
     opacity: 0;
     transition: opacity 100ms ease;
@@ -216,37 +215,40 @@ const loadingIconStyle = css`
     }
 `;
 
-const statusIconStyle = css`
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    margin-left: 8px;
-`;
-
-const statusIconErrorStyle = css`
-    color: ${token.border["color-error"]};
-`;
-
-const statusIconWarningStyle = css`
-    color: ${token.border["color-warning"]};
-`;
-
-const sizeStyleMap = {
+// 度量(padding/字号/行高)与"高度策略"分开维护——原因见下方 sizeHeight*Map 的注释。
+const sizeMetricsMap = {
     large: css`
-        min-height: ${token.size.large.height};
         padding: ${token.size.large.padding};
         font-size: ${token.size.large.font.size};
+        line-height: ${token.size.large["line-height"]};
     `,
     middle: css`
-        min-height: ${token.size.middle.height};
         padding: ${token.size.middle.padding};
         font-size: ${token.size.middle.font.size};
+        line-height: ${token.size.middle["line-height"]};
     `,
     small: css`
-        min-height: ${token.size.small.height};
         padding: ${token.size.small.padding};
         font-size: ${token.size.small.font.size};
+        line-height: ${token.size.small["line-height"]};
     `,
+};
+
+// 单选:固定 height,精确对齐 RcLineEdit 的三档尺寸——line-height+padding-y+border
+// 之和本就会超过 24/32/40px 这几个设计值(例如 small: 20+8+2=30px),RcLineEdit 靠固定
+// height(而非 min-height)把它按设计尺寸截住,这里跟随同样的处理方式。
+const sizeHeightFixedMap = {
+    large: css`height: ${token.size.large.height};`,
+    middle: css`height: ${token.size.middle.height};`,
+    small: css`height: ${token.size.small.height};`,
+};
+
+// 多选:必须用 min-height——tag 多到换行时若也用固定 height,换行的 tag 会直接
+// 溢出边框外(已用真实多标签场景验证过),因此多选场景保留可被内容撑高的弹性。
+const sizeHeightFlexibleMap = {
+    large: css`min-height: ${token.size.large.height};`,
+    middle: css`min-height: ${token.size.middle.height};`,
+    small: css`min-height: ${token.size.small.height};`,
 };
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
@@ -267,23 +269,6 @@ const ClearIcon = () => (
 const LoadingIcon = () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-    </svg>
-);
-
-// 错误/警告用不同形状(圆形叹号 vs 三角叹号)+ 不同令牌色叠加,而非仅靠边框颜色区分(§2)
-const ErrorCircleIcon = () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" y1="8" x2="12" y2="12" />
-        <line x1="12" y1="16" x2="12.01" y2="16" />
-    </svg>
-);
-
-const WarningTriangleIcon = () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-        <line x1="12" y1="9" x2="12" y2="13" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
     </svg>
 );
 
@@ -623,7 +608,8 @@ const SelectInput: FC<SelectInputProps> = ({
             ref={mergeRef}
             className={cx(
                 controlStyle,
-                sizeStyleMap[size],
+                sizeMetricsMap[size],
+                multiple ? sizeHeightFlexibleMap[size] : sizeHeightFixedMap[size],
                 !status && open && controlFocusStyle,
                 disabled && controlDisabledStyle,
                 getStatusStyles(),
@@ -637,14 +623,6 @@ const SelectInput: FC<SelectInputProps> = ({
             {loading ? (
                 <span className={loadingIconStyle}>
                     <LoadingIcon />
-                </span>
-            ) : null}
-            {!loading && status ? (
-                <span
-                    className={cx(statusIconStyle, status === "error" ? statusIconErrorStyle : statusIconWarningStyle)}
-                    aria-hidden="true"
-                >
-                    {status === "error" ? <ErrorCircleIcon /> : <WarningTriangleIcon />}
                 </span>
             ) : null}
             <span className={suffixWrapStyle}>
