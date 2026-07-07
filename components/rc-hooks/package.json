@@ -30,7 +30,7 @@
     "@crab-dev/standards-typescript-preset": "workspace:^",
     "@jest/globals": "30.4.1",
     "@linaria/core": "^8.0.0",
-    "@types/node": "^26.0.1",
+    "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.6.0",
@@ -41,7 +41,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.0"
+    "typescript-eslint": "^8.63.0"
   },
   "engines": {
     "node": ">=22"

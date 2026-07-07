@@ -22,7 +22,7 @@
     "@babel/core": "^8.0.1",
     "@crab-dev/packify": "workspace:^",
     "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@types/node": "^26.0.1"
+    "@types/node": "^26.1.0"
   },
   "dependencies": {
     "@babel/helper-plugin-utils": "^8.0.1",

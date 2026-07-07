@@ -32,7 +32,7 @@
         "@linaria/core": "^8.0.0",
         "@mdx-js/react": "^3.1.1",
         "@types/fs-extra": "^11.0.4",
-        "@types/node": "26.0.1",
+        "@types/node": "26.1.0",
         "@types/react": "^19.2.17",
         "@types/react-dom": "^19.2.3",
         "eslint": "^10.6.0",
@@ -41,10 +41,10 @@
         "jest": "30.4.2",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
-        "react-router": "^8.0.1",
+        "react-router": "^8.1.0",
         "typescript": "^6.0.3",
-        "typescript-eslint": "^8.62.0",
-        "webpack": "^5.108.1"
+        "typescript-eslint": "^8.63.0",
+        "webpack": "^5.108.4"
     },
     "peerDependencies": {
         "@crab-dev/rc-component-preview": "workspace:^",
@@ -56,6 +56,6 @@
         "@crab-dev/crustify": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "commander": "^15.0.0",
-        "fs-extra": "^11.3.5"
+        "fs-extra": "^11.3.6"
     }
 }

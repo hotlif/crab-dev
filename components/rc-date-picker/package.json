@@ -45,7 +45,7 @@
     "@linaria/core": "^8.0.0",
     "@mdx-js/react": "^3.1.1",
     "@react-docgen/cli": "^3.0.6",
-    "@types/node": "^26.0.1",
+    "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.6.0",
@@ -53,14 +53,14 @@
     "globals": "^17.7.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "30.4.1",
-    "prettier": "^3.9.1",
+    "prettier": "^3.9.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-markdown": "^10.1.0",
-    "react-router": "^8.0.1",
+    "react-router": "^8.1.0",
     "react-syntax-highlighter": "^16.1.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.0"
+    "typescript-eslint": "^8.63.0"
   },
   "engines": {
     "node": ">=22"
@@ -70,6 +70,6 @@
     "@crab-dev/rc-dropdown-container": "workspace:^",
     "@crab-dev/rc-line-edit": "workspace:^",
     "@floating-ui/react": "^0.27.19",
-    "motion": "^12.42.0"
+    "motion": "^12.42.2"
   }
 }

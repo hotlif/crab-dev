@@ -28,12 +28,12 @@
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@linaria/core": "^8.0.0",
-        "@types/node": "^26.0.1",
+        "@types/node": "^26.1.0",
         "eslint": "^10.6.0",
         "husky": "^9.1.7",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
-        "turbo": "^2.10.0",
+        "turbo": "^2.10.4",
         "typescript": "^6.0.3"
     }
 }
