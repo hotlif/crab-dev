@@ -22,24 +22,24 @@ const token = {
         },
         'thickness': `var(${vars['rail.thickness']}, 4px)`,
         'inactive': {
-            'fill': `var(${vars['rail.inactive.fill']}, $ref(color.fill.inactive))`
+            'fill': `var(${vars['rail.inactive.fill']}, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
         },
         'active': {
-            'fill': `var(${vars['rail.active.fill']}, $ref(color.fill.active))`
+            'fill': `var(${vars['rail.active.fill']}, var(--token-semantic-color-fill-active, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
         }
     },
     'thumb': {
         'radius': `var(${vars['thumb.radius']}, 8px)`,
-        'fill': `var(${vars['thumb.fill']}, $ref(color.background.surface))`,
+        'fill': `var(${vars['thumb.fill']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
         'stroke': {
-            'color': `var(${vars['thumb.stroke.color']}, $ref(color.fill.active))`,
+            'color': `var(${vars['thumb.stroke.color']}, var(--token-semantic-color-fill-active, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
             'width': `var(${vars['thumb.stroke.width']}, 2.5px)`
         },
         'halo': {
             'scale': {
                 'factor': `var(${vars['thumb.halo.scale.factor']}, 1.8)`
             },
-            'fill': `var(${vars['thumb.halo.fill']}, $ref(color.fill.active))`
+            'fill': `var(${vars['thumb.halo.fill']}, var(--token-semantic-color-fill-active, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
         }
     }
 };
