@@ -134,7 +134,15 @@ const Select: FC<SelectProps> = ({
         useKeyboardNavigation({ filteredOptions, open: true });
 
     const emitOpenChange = (nextOpen: boolean) => {
-        if (!nextOpen) {
+        if (nextOpen) {
+            // 单选且已有选中值时,打开下拉应直接高亮当前选中项(继而被 SelectOverlay
+            // 的滚动 effect 带入视口),而非从 -1 开始——否则选中项不在首屏时,
+            // 用户得自己往下翻找才能看到"当前选的是哪个"。
+            if (!multiple && selectedValues.length > 0) {
+                const selectedIndex = filteredOptions.findIndex((opt) => opt.value === selectedValues[0]);
+                setHighlightIndex(selectedIndex);
+            }
+        } else {
             setSearchText("");
             resetHighlight();
         }

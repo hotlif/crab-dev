@@ -193,4 +193,23 @@ describe('rc-select 严重问题回归', () => {
         // 分组合成 value 用下标生成 → 两个分组 key 唯一,无重复 key 警告。
         expect(messages.some((m) => /same key|two children|Encountered two/i.test(m))).toBe(false);
     });
+
+    // ── #4:打开时定位到已选项 ───────────────────────────────────────────────────
+    // 单选且已有值时,打开下拉必须直接把当前选中项滚入视口并高亮,而非停在顶部
+    // 让用户自己往下翻找"选的到底是哪个"。
+    it('#4: 单选已有值时,打开下拉应把选中项滚入视口', () => {
+        const options = Array.from({ length: 20 }, (_, i) => ({
+            label: `Option ${i + 1}`,
+            value: `opt-${i}`,
+        }));
+
+        render(<Select aria-label="s4" defaultValue="opt-15" options={options} />);
+        const combobox = screen.getByRole('combobox', { name: 's4' });
+
+        fireEvent.click(combobox);
+
+        // 视口只能看到 8 行;若打开时未定位到选中项,Option 16 会停留在视口外。
+        expect(screen.getByRole('option', { name: 'Option 16' })).toBeTruthy();
+        expect(screen.getByRole('option', { name: 'Option 16' }).getAttribute('aria-selected')).toBe('true');
+    });
 });
