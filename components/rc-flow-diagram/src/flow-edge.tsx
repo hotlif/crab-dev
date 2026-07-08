@@ -14,6 +14,12 @@ export interface FlowEdgeProps {
     dashLength?: number;
     /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
     gapLength?: number;
+    /**
+     * 虚线流动速度（world px/s）；> 0 沿起点→终点方向流动，< 0 反向，不设或 0 为静态。
+     * 仅 dashLength > 0 时可见；prefers-reduced-motion: reduce 下自动降级为静态虚线。
+     * 流动相位按累计弧长逐段衔接，跨拐角与交叉缺口保持连续。
+     */
+    flowSpeed?: number;
     /** 终点箭头，默认 true */
     arrowEnd?: boolean;
     /** 起点箭头，默认 false */
@@ -99,6 +105,7 @@ function FlowEdge({
     lineWidth = 1.5,
     dashLength,
     gapLength,
+    flowSpeed,
     arrowEnd = true,
     arrowStart = false,
     arrowSize = 10,
@@ -114,6 +121,10 @@ function FlowEdge({
     const shrink = arrowSize * 0.62;
     const last = points.length - 1;
     const hasCrossings = crossings && crossings.length > 0;
+
+    // 累计绘制弧长：各段 Line 的 v_line_pos 均从 0 起算，把累计弧长作为
+    // dashPhase 传入才能让虚线图案（含流动动效）跨拐角、跨交叉缺口连续。
+    let arcAcc = 0;
 
     return (
         <>
@@ -140,6 +151,9 @@ function FlowEdge({
                     ? splitSeg(from, to, crossings, hopGap)
                     : [{ from, to }];
 
+                const segStart = arcAcc;
+                arcAcc += Math.hypot(to.x - from.x, to.y - from.y);
+
                 return segs.map((seg, si) => (
                     <Line
                         key={`${i}-${si}`}
@@ -149,6 +163,8 @@ function FlowEdge({
                         lineWidth={lineWidth}
                         dashLength={dashLength}
                         gapLength={gapLength}
+                        flowSpeed={flowSpeed}
+                        dashPhase={segStart + Math.hypot(seg.from.x - from.x, seg.from.y - from.y)}
                         zIndex={zIndex}
                         onClick={onClick}
                         onMouseEnter={onMouseEnter}
