@@ -1,6 +1,7 @@
 import Slider from "./slider.js";
+import { vars } from "./token.js";
 
 export type { SliderProps } from "./slider.js";
-export { vars as TokenVars } from "./token.js";
 
+export const TokenVars = vars;
 export default Slider;
