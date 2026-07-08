@@ -79,6 +79,7 @@ interface LineLocs {
     color: WebGLUniformLocation | null;
     dashLength: WebGLUniformLocation | null;
     gapLength: WebGLUniformLocation | null;
+    dashOffset: WebGLUniformLocation | null;
 }
 
 interface TextureLocs {
@@ -156,6 +157,13 @@ export class WebGLRenderer {
     private sortedCache: DrawCommand[] = [];
     private lastCommandsVersion = -1;
 
+    // 流动虚线动画的时间基准：elapsed = frameTime - timeOrigin（秒）
+    private readonly timeOrigin = performance.now();
+    // 每帧在 render() 开头采样一次，帧内所有线共享同一时间点，保证相位一致
+    private frameTime = 0;
+    /** prefers-reduced-motion: reduce 时由宿主置 true，流动虚线降级为静态虚线 */
+    reducedMotion = false;
+
     constructor(
         gl: WebGL2RenderingContext,
         width: number,
@@ -210,6 +218,7 @@ export class WebGLRenderer {
             color: gl.getUniformLocation(this.lineProg, 'u_color'),
             dashLength: gl.getUniformLocation(this.lineProg, 'u_dash_length'),
             gapLength: gl.getUniformLocation(this.lineProg, 'u_gap_length'),
+            dashOffset: gl.getUniformLocation(this.lineProg, 'u_dash_offset'),
         };
         this.textureLocs = {
             projection: gl.getUniformLocation(this.textureProg, 'u_projection'),
@@ -280,6 +289,7 @@ export class WebGLRenderer {
 
     render(commands: Map<number, DrawCommand>, commandsVersion: number): void {
         const { gl } = this;
+        this.frameTime = performance.now();
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -459,6 +469,14 @@ export class WebGLRenderer {
 
     private drawLine(cmd: import('./draw-command.js').LineCommand): void {
         const { gl, lineProg: prog, lineLocs: L } = this;
+
+        // 流动偏移：offset = flowSpeed * elapsed - dashPhase。
+        // CPU 侧先对周期取模，避免长时间运行后 offset 增大、mediump float 的 mod 精度劣化。
+        const speed = this.reducedMotion ? 0 : (cmd.flowSpeed ?? 0);
+        const period = (cmd.dashLength ?? 0) + (cmd.gapLength ?? 0);
+        let dashOffset = speed * ((this.frameTime - this.timeOrigin) / 1000) - (cmd.dashPhase ?? 0);
+        if (period > 0) dashOffset %= period;
+
         gl.useProgram(prog);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
         gl.uniform2f(L.start, cmd.x1, cmd.y1);
@@ -467,6 +485,7 @@ export class WebGLRenderer {
         gl.uniform4fv(L.color, cmd.color);
         gl.uniform1f(L.dashLength, cmd.dashLength ?? 0);
         gl.uniform1f(L.gapLength, cmd.gapLength ?? 0);
+        gl.uniform1f(L.dashOffset, dashOffset);
         gl.bindVertexArray(this.lineVAO);
         gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
         gl.bindVertexArray(null);

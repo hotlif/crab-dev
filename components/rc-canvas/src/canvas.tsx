@@ -1,7 +1,7 @@
 import { type CSSProperties, type ReactNode, type Ref, type RefObject, useEffect, useRef, useState } from 'react';
 import { CanvasContext, type CanvasContextValue, type HitEntry } from './context/canvas-context.js';
 import { WebGLRenderer } from './renderer/renderer.js';
-import type { DrawCommand } from './renderer/draw-command.js';
+import type { DrawCommand, LineCommand } from './renderer/draw-command.js';
 import { identityMat3, invertMat3, applyMat3, applyMat3Vector } from './math/matrix.js';
 import type { DragMoveEvent } from './drag-types.js';
 
@@ -25,6 +25,11 @@ export interface CanvasProps {
     onKeyDown?: (e: KeyboardEvent) => void;
     /** 键盘释放时触发 */
     onKeyUp?: (e: KeyboardEvent) => void;
+}
+
+/** 是否为需要逐帧重绘的动画命令（当前仅流动虚线 Line：flowSpeed ≠ 0）。 */
+function isAnimatedCommand(cmd: Omit<DrawCommand, 'id'>): boolean {
+    return cmd.kind === 'line' && !!(cmd as Omit<LineCommand, 'id'>).flowSpeed;
 }
 
 /** 字典序比较两个 zIndexPath（与 renderer 保持一致）。 */
@@ -88,6 +93,10 @@ function Canvas({
     const rafHandleRef = useRef(0);
     // 可变实例状态 ref：脏标记，命令队列或视图矩阵变更时置 true，tick 渲染后清零
     const dirtyRef = useRef(true);
+    // 可变实例状态 ref：动画命令计数（flowSpeed ≠ 0 的 Line），> 0 时渲染循环持续重绘
+    const animatedCountRef = useRef(0);
+    // 可变实例状态 ref：prefers-reduced-motion 偏好，reduce 时流动动画降级为静态
+    const reducedMotionRef = useRef(false);
     // 可变实例状态 ref：commands 版本号，仅 register/update/unregister 时递增
     const commandsVersionRef = useRef(0);
     // 可变实例状态 ref：待上传纹理 / 字形缓存
@@ -184,8 +193,24 @@ function Canvas({
         };
         node.addEventListener('wheel', onWheel, { passive: false });
 
+        // prefers-reduced-motion：reduce 时流动虚线降级为静态虚线
+        // （渲染循环回到按需模式，renderer 侧将 flowSpeed 视为 0）
+        let motionQuery: MediaQueryList | null = null;
+        const onMotionChange = () => {
+            const reduce = motionQuery?.matches ?? false;
+            reducedMotionRef.current = reduce;
+            renderer.reducedMotion = reduce;
+            dirtyRef.current = true;
+        };
+        if (typeof window.matchMedia === 'function') {
+            motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            onMotionChange();
+            motionQuery.addEventListener('change', onMotionChange);
+        }
+
         const tick = () => {
-            if (dirtyRef.current) {
+            // 存在动画命令且未开启"减弱动态"偏好时持续重绘；否则按脏标记按需渲染
+            if (dirtyRef.current || (animatedCountRef.current > 0 && !reducedMotionRef.current)) {
                 renderer.setViewMatrix(viewMatrixRef.current);
                 renderer.render(commandMapRef.current, commandsVersionRef.current);
                 dirtyRef.current = false;
@@ -340,6 +365,7 @@ function Canvas({
 
         return () => {
             cancelAnimationFrame(rafHandleRef.current);
+            motionQuery?.removeEventListener('change', onMotionChange);
             renderer.dispose();
             rendererRef.current = null;
             node.removeEventListener('wheel', onWheel);
@@ -413,17 +439,23 @@ function Canvas({
                 commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
                 commandsVersionRef.current++;
                 dirtyRef.current = true;
+                if (isAnimatedCommand(cmd)) animatedCountRef.current++;
                 return id;
             },
             update(id, cmd) {
+                const prev = commandMapRef.current.get(id);
                 commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
                 commandsVersionRef.current++;
                 dirtyRef.current = true;
+                animatedCountRef.current +=
+                    (isAnimatedCommand(cmd) ? 1 : 0) - (prev && isAnimatedCommand(prev) ? 1 : 0);
             },
             unregister(id) {
+                const prev = commandMapRef.current.get(id);
                 commandMapRef.current.delete(id);
                 commandsVersionRef.current++;
                 dirtyRef.current = true;
+                if (prev && isAnimatedCommand(prev)) animatedCountRef.current--;
             },
             uploadTexture(key, source) {
                 pendingTexturesRef.current.set(key, source);

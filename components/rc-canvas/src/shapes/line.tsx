@@ -41,6 +41,16 @@ export interface LineProps extends CanvasInteractiveProps {
     dashLength?: number;
     /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
     gapLength?: number;
+    /**
+     * 虚线流动速度（world px/s）；> 0 沿起点→终点方向流动，< 0 反向，不设置或 0 为静态。
+     * 仅 dashLength > 0 时有视觉效果；prefers-reduced-motion: reduce 下自动降级为静态虚线。
+     */
+    flowSpeed?: number;
+    /**
+     * 虚线相位起点（world px）：本段起点在整条折线上的累计弧长。
+     * 多段折线逐段渲染时传入，可让虚线图案（含流动动效）跨段连续。
+     */
+    dashPhase?: number;
 }
 
 function Line({
@@ -53,6 +63,8 @@ function Line({
     opacity = 1,
     dashLength,
     gapLength,
+    flowSpeed,
+    dashPhase,
     zIndex = 0,
     draggable = false,
     cursor,
@@ -83,6 +95,8 @@ function Line({
             lineWidth,
             dashLength,
             gapLength,
+            flowSpeed,
+            dashPhase,
             worldMatrix: ctx.parentMatrix,
             zIndexPath: [...ctx.parentZIndexPath, zIndex],
         };

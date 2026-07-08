@@ -84,6 +84,18 @@ export interface LineCommand extends BaseDrawCommand {
     dashLength?: number;
     /** 虚线空隙长度（world px）；dashLength > 0 时生效 */
     gapLength?: number;
+    /**
+     * 虚线流动速度（world px/s）；> 0 沿起点→终点方向流动，< 0 反向。
+     * 0 或未设置为静态虚线。存在非零值的命令时渲染循环转为持续渲染。
+     * prefers-reduced-motion: reduce 下自动降级为静态虚线。
+     */
+    flowSpeed?: number;
+    /**
+     * 虚线相位起点（world px）：本段起点在整条折线上的累计弧长。
+     * 多段折线逐段绘制时各段 v_line_pos 均从 0 起算，流动时拐角处会产生
+     * 相位跳变；传入累计弧长可让虚线图案跨段连续。
+     */
+    dashPhase?: number;
 }
 
 export interface TextureImageCommand extends BaseDrawCommand {
