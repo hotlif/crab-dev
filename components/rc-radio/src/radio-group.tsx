@@ -1,5 +1,6 @@
 import { css, cx } from '@linaria/core';
-import { useRef, useCallback, type FC } from 'react';
+import { type FC } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type { RadioGroupProps } from './types.js';
 import { RadioGroupContext } from './context.js';
@@ -20,28 +21,20 @@ const RadioGroup: FC<RadioGroupProps> = ({
     children,
     className,
 }) => {
-    const isControlled = valueProp !== undefined;
-    const internalValueRef = useRef(defaultValue);
+    const [value, setValue] = useControllableValue<string | number>({
+        value: valueProp,
+        defaultValue,
+        onChange,
+    });
 
-    const value = isControlled ? valueProp : internalValueRef.current;
-
-    const selectValue = useCallback(
-        (val: string | number) => {
-            if (!isControlled) {
-                internalValueRef.current = val;
-            }
-
-            onChange?.(val);
-        },
-        [isControlled, onChange],
-    );
+    const selectValue = (val: string | number) => setValue(val);
 
     return (
-        <RadioGroupContext.Provider value={{ value, disabled, size, name, selectValue }}>
+        <RadioGroupContext value={{ value, disabled, size, name, selectValue }}>
             <div className={cx(groupStyle, className)} role="radiogroup">
                 {children}
             </div>
-        </RadioGroupContext.Provider>
+        </RadioGroupContext>
     );
 };
 

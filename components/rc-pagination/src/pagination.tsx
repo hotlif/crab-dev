@@ -9,6 +9,7 @@ import {
 } from "react";
 import { css, cx } from "@linaria/core";
 import RcSelect from "@crab-dev/rc-select";
+import { useControllableValue } from "@crab-dev/rc-hooks";
 
 import token from "./token.js";
 import type { PaginationProps, PaginationShowTotal } from "./types.js";
@@ -358,16 +359,20 @@ const Pagination: FC<PaginationProps> = ({
     className,
     ...restProps
 }) => {
-    const isControlledCurrent = controlledCurrent !== undefined;
-    const isControlledPageSize = controlledPageSize !== undefined;
+    // 仅用 useControllableValue 统一"受控优先 / 非受控兜底"取值；current 与 pageSize
+    // 的 onChange 相互耦合（onChange(current, pageSize)），故不交给它触发，仍在下方手动派发。
+    const [currentValue, setCurrentValue] = useControllableValue<number>({
+        value: controlledCurrent,
+        defaultValue: Math.max(1, defaultCurrent),
+    });
+    const [pageSizeValue, setPageSizeValue] = useControllableValue<number>({
+        value: controlledPageSize,
+        defaultValue: Math.max(1, defaultPageSize),
+    });
 
-    const [internalCurrent, setInternalCurrent] = useState<number>(Math.max(1, defaultCurrent));
-    const [internalPageSize, setInternalPageSize] = useState<number>(Math.max(1, defaultPageSize));
-
-    const activePageSize = isControlledPageSize ? Math.max(1, controlledPageSize as number) : internalPageSize;
+    const activePageSize = Math.max(1, pageSizeValue);
     const totalPages = Math.max(1, Math.ceil(Math.max(0, total) / activePageSize));
-    const rawCurrent = isControlledCurrent ? (controlledCurrent as number) : internalCurrent;
-    const activeCurrent = clamp(rawCurrent, 1, totalPages);
+    const activeCurrent = clamp(currentValue, 1, totalPages);
 
     const [quickJumperValue, setQuickJumperValue] = useState<string>("");
 
@@ -386,9 +391,7 @@ const Pagination: FC<PaginationProps> = ({
     const commitChange = (nextPage: number) => {
         const clamped = clamp(Math.floor(nextPage), 1, totalPages);
         if (clamped === activeCurrent) return;
-        if (!isControlledCurrent) {
-            setInternalCurrent(clamped);
-        }
+        setCurrentValue(clamped);
         onChange?.(clamped, activePageSize);
     };
 
@@ -402,11 +405,9 @@ const Pagination: FC<PaginationProps> = ({
         const nextTotalPages = Math.max(1, Math.ceil(Math.max(0, total) / nextSize));
         const nextCurrent = clamp(Math.floor(firstItemIndex / nextSize) + 1, 1, nextTotalPages);
 
-        if (!isControlledPageSize) {
-            setInternalPageSize(nextSize);
-        }
-        if (!isControlledCurrent && nextCurrent !== activeCurrent) {
-            setInternalCurrent(nextCurrent);
+        setPageSizeValue(nextSize);
+        if (nextCurrent !== activeCurrent) {
+            setCurrentValue(nextCurrent);
         }
         onShowSizeChange?.(nextCurrent, nextSize);
         onChange?.(nextCurrent, nextSize);

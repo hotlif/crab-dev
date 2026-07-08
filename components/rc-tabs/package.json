@@ -26,6 +26,9 @@
   "types": "declarations/index.d.ts",
   "main": "cjs/index.cjs",
   "module": "esm/index.mjs",
+  "dependencies": {
+    "@crab-dev/rc-hooks": "workspace:^"
+  },
   "devDependencies": {
     "@crab-dev/lignify": "workspace:^",
     "@crab-dev/packify": "workspace:^",

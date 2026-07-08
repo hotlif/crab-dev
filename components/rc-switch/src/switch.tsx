@@ -1,5 +1,6 @@
 import { css, cx } from '@linaria/core';
-import { useState, type FC, type MouseEvent } from 'react';
+import { type FC, type KeyboardEvent, type MouseEvent } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type { SwitchProps } from './types.js';
 
@@ -82,9 +83,14 @@ const Switch: FC<SwitchProps> = ({
     className,
     ...restProps
 }) => {
-    const [internalChecked, setInternalChecked] = useState(defaultChecked);
-    const isControlled = checkedProp !== undefined;
-    const checked = isControlled ? checkedProp : internalChecked;
+    const [checked, setChecked] = useControllableValue<
+        boolean,
+        [MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>]
+    >({
+        value: checkedProp,
+        defaultValue: defaultChecked,
+        onChange,
+    });
 
     const getSizeStyles = () => {
         if (size === 'large') {
@@ -141,13 +147,7 @@ const Switch: FC<SwitchProps> = ({
     const sizeStyles = getSizeStyles();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        const nextChecked = !checked;
-
-        if (!isControlled) {
-            setInternalChecked(nextChecked);
-        }
-
-        onChange?.(nextChecked, e);
+        setChecked(!checked, e);
     };
 
     return (

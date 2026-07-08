@@ -12,6 +12,7 @@ import {
     useRef,
     useState,
 } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 
 import token from './token.js';
 import type {
@@ -308,10 +309,11 @@ const Tabs = ({
         ?? items[0]?.key
         ?? '';
 
-    const [internalActiveKey, setInternalActiveKey] = useState<string>(resolvedDefault);
-
-    const isControlled = activeKeyProp !== undefined;
-    const activeKey = isControlled ? activeKeyProp : internalActiveKey;
+    const [activeKey, setActiveKey] = useControllableValue<string>({
+        value: activeKeyProp,
+        defaultValue: resolvedDefault,
+        onChange,
+    });
 
     const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
     const barRef = useRef<HTMLDivElement | null>(null);
@@ -344,12 +346,7 @@ const Tabs = ({
         return () => observer.disconnect();
     }, [type, updateIndicator]);
 
-    const activateKey = useCallback((nextKey: string) => {
-        if (!isControlled) {
-            setInternalActiveKey(nextKey);
-        }
-        onChange?.(nextKey);
-    }, [isControlled, onChange]);
+    const activateKey = (nextKey: string) => setActiveKey(nextKey);
 
     const handleTabClick = (item: TabsItem) => {
         if (item.disabled || item.key === activeKey) return;

@@ -1,5 +1,6 @@
 import { css, cx } from '@linaria/core';
 import { useRef, useEffect, type FC, type ChangeEvent } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type { CheckboxProps } from './types.js';
 import { useCheckboxGroup } from './context.js';
@@ -165,18 +166,18 @@ const Checkbox: FC<CheckboxProps> = ({
     const sizeStyle = getSizeStyle();
 
     const isInGroup = group !== null && value !== undefined;
-    const isControlled = checkedProp !== undefined || isInGroup;
 
-    const getChecked = () => {
-        if (isInGroup) {
-            return group.value.includes(value);
-        }
-        return checkedProp;
-    };
+    // 独立模式的受控 / 非受控选中态；group 模式下选中态由 group.value 决定，此值不参与
+    const [standaloneChecked, setStandaloneChecked] = useControllableValue<
+        boolean,
+        [ChangeEvent<HTMLInputElement>]
+    >({
+        value: checkedProp,
+        defaultValue: defaultChecked,
+        onChange,
+    });
 
-    const internalCheckedRef = useRef(defaultChecked);
-
-    const checked = isControlled ? getChecked()! : internalCheckedRef.current;
+    const checked = isInGroup ? group.value.includes(value) : standaloneChecked;
     const disabled = disabledProp ?? (group?.disabled ?? false);
 
     useEffect(() => {
@@ -186,17 +187,12 @@ const Checkbox: FC<CheckboxProps> = ({
     }, [indeterminate]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const nextChecked = e.target.checked;
-
-        if (!isControlled) {
-            internalCheckedRef.current = nextChecked;
-        }
-
         if (isInGroup) {
             group.toggleValue(value);
+            onChange?.(e.target.checked, e);
+        } else {
+            setStandaloneChecked(e.target.checked, e);
         }
-
-        onChange?.(nextChecked, e);
     };
 
     const renderCheckIcon = () => {

@@ -1,5 +1,6 @@
 import { css, cx } from '@linaria/core';
-import { useRef, useCallback, type FC } from 'react';
+import { type FC } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type { CheckboxGroupProps } from './types.js';
 import { CheckboxGroupContext } from './context.js';
@@ -19,32 +20,25 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
     children,
     className,
 }) => {
-    const isControlled = valueProp !== undefined;
-    const internalValueRef = useRef(defaultValue);
+    const [value, setValue] = useControllableValue<Array<string | number>>({
+        value: valueProp,
+        defaultValue,
+        onChange,
+    });
 
-    const value = isControlled ? valueProp : internalValueRef.current;
-
-    const toggleValue = useCallback(
-        (val: string | number) => {
-            const nextValue = value.includes(val)
-                ? value.filter((v) => v !== val)
-                : [...value, val];
-
-            if (!isControlled) {
-                internalValueRef.current = nextValue;
-            }
-
-            onChange?.(nextValue);
-        },
-        [value, isControlled, onChange],
-    );
+    const toggleValue = (val: string | number) => {
+        const nextValue = value.includes(val)
+            ? value.filter((v) => v !== val)
+            : [...value, val];
+        setValue(nextValue);
+    };
 
     return (
-        <CheckboxGroupContext.Provider value={{ value, disabled, size, toggleValue }}>
+        <CheckboxGroupContext value={{ value, disabled, size, toggleValue }}>
             <div className={cx(groupStyle, className)} role="group">
                 {children}
             </div>
-        </CheckboxGroupContext.Provider>
+        </CheckboxGroupContext>
     );
 };
 

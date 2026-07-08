@@ -1,5 +1,6 @@
 import { css, cx } from '@linaria/core';
-import { useRef, type FC, type ChangeEvent } from 'react';
+import { type FC, type ChangeEvent } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type { RadioProps } from './types.js';
 import { useRadioGroup } from './context.js';
@@ -140,33 +141,28 @@ const Radio: FC<RadioProps> = ({
     const sizeStyle = getSizeStyle();
 
     const isInGroup = group !== null && value !== undefined;
-    const isControlled = checkedProp !== undefined || isInGroup;
 
-    const getChecked = () => {
-        if (isInGroup) {
-            return group.value === value;
-        }
-        return checkedProp;
-    };
+    // 独立模式的受控 / 非受控选中态；group 模式下选中态由 group.value 决定，此值不参与
+    const [standaloneChecked, setStandaloneChecked] = useControllableValue<
+        boolean,
+        [ChangeEvent<HTMLInputElement>]
+    >({
+        value: checkedProp,
+        defaultValue: defaultChecked,
+        onChange,
+    });
 
-    const internalCheckedRef = useRef(defaultChecked);
-
-    const checked = isControlled ? getChecked()! : internalCheckedRef.current;
+    const checked = isInGroup ? group.value === value : standaloneChecked;
     const disabled = disabledProp ?? (group?.disabled ?? false);
     const name = restProps.name ?? group?.name;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const nextChecked = e.target.checked;
-
-        if (!isControlled) {
-            internalCheckedRef.current = nextChecked;
-        }
-
-        if (isInGroup && value !== undefined) {
+        if (isInGroup) {
             group.selectValue(value);
+            onChange?.(e.target.checked, e);
+        } else {
+            setStandaloneChecked(e.target.checked, e);
         }
-
-        onChange?.(nextChecked, e);
     };
 
     const renderDot = () => {
