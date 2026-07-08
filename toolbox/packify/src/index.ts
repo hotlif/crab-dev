@@ -63,7 +63,24 @@ export const build = async () => {
         plugins: [
             wyw({
                 sourceMap: false,
-                babelOptions: commonBabelConfig
+                babelOptions: commonBabelConfig,
+                eval: {
+                    // 构建期求值时,@crab-dev/* 兄弟包一律按外部模块用原生 require
+                    // 加载(PnP 感知),而不是把其 cjs 产物当 ESM 源码解析——CJS 的
+                    // 运行期 exports 赋值没有 ESM 静态命名导出,后者会在 link 阶段
+                    // 报 "does not provide an export named ..."。
+                    customResolver: async (specifier: string, importer: string) => {
+                        if (!specifier.startsWith("@crab-dev/")) {
+                            return null;
+                        }
+                        try {
+                            const req = createRequire(importer.split("?")[0]);
+                            return { id: req.resolve(specifier), external: true };
+                        } catch {
+                            return null;
+                        }
+                    }
+                }
             }),
             css({
                 output: async (styles: string) => {
