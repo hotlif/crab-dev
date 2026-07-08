@@ -53,10 +53,10 @@ const babelPlugin = babel({
 export const build = async () => {
     await rm(join(process.cwd(), "esm"), { recursive: true, force: true });
     await rm(join(process.cwd(), "cjs"), { recursive: true, force: true });
-    await rm(join(process.cwd(), "declarations"), { recursive: true, force: true });    
+    await rm(join(process.cwd(), "declarations"), { recursive: true, force: true });
     await rm(join(process.cwd(), "css"), { recursive: true, force: true });
     log(`🧹 cleaning esm, cjs, declarations, css`);
-    
+
     const bundle = await rollup({
         input: join(process.cwd(), "src", "index.ts"),
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
@@ -64,23 +64,19 @@ export const build = async () => {
             wyw({
                 sourceMap: false,
                 babelOptions: commonBabelConfig,
+                // 构建期求值跑在独立 runner 子进程里,函数型 eval.customResolver 无法
+                // 序列化,只能每次解析都经 IPC 往返主进程——并发构建下会死锁挂死。
+                // 这里改用纯数据配置:native(oxc)解析器在 runner 进程内同步解析,
+                // mainFields 优先取 module,把 @crab-dev/* 兄弟包解析到 esm 产物
+                // (真 ESM,link 阶段有静态命名导出);解析失败时回落 bundler。
+                oxcOptions: {
+                    resolver: {
+                        mainFields: ["module", "main"],
+                    },
+                },
                 eval: {
-                    // 构建期求值时,@crab-dev/* 兄弟包一律按外部模块用原生 require
-                    // 加载(PnP 感知),而不是把其 cjs 产物当 ESM 源码解析——CJS 的
-                    // 运行期 exports 赋值没有 ESM 静态命名导出,后者会在 link 阶段
-                    // 报 "does not provide an export named ..."。
-                    customResolver: async (specifier: string, importer: string) => {
-                        if (!specifier.startsWith("@crab-dev/")) {
-                            return null;
-                        }
-                        try {
-                            const req = createRequire(importer.split("?")[0]);
-                            return { id: req.resolve(specifier), external: true };
-                        } catch {
-                            return null;
-                        }
-                    }
-                }
+                    resolver: "hybrid",
+                },
             }),
             css({
                 output: async (styles: string) => {
@@ -114,7 +110,7 @@ export const build = async () => {
     await bundle.write({
         dir: "cjs",
         format: "cjs",
-        exports: "auto",
+        exports: "named",
         interop: "auto",
         entryFileNames: "[name].cjs",
         chunkFileNames: '[name].cjs',
