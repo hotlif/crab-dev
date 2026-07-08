@@ -12,6 +12,7 @@
     "build:library": "packify build",
     "eslint": "eslint",
     "prepack": "cd ../.. && yarn build:library",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "typecheck": "tsc --noEmit"
   },
   "files": [
@@ -30,6 +31,8 @@
     "@crab-dev/standards-typescript-preset": "workspace:^",
     "@jest/globals": "30.4.1",
     "@linaria/core": "^8.0.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

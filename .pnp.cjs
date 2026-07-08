@@ -6277,6 +6277,8 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
+          ["@testing-library/dom", "npm:10.4.1"],\
+          ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
           ["@types/react", "npm:19.2.17"],\
           ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
