@@ -95,7 +95,7 @@ describe('build', () => {
         expect(mockWrite).toHaveBeenNthCalledWith(2, expect.objectContaining({
             dir: 'cjs',
             format: 'cjs',
-            exports: 'auto',
+            exports: 'named',
             entryFileNames: '[name].cjs',
         }));
 
