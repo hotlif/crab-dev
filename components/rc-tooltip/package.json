@@ -28,6 +28,7 @@
   "main": "cjs/index.cjs",
   "module": "esm/index.mjs",
   "dependencies": {
+    "@crab-dev/rc-hooks": "workspace:^",
     "@floating-ui/react": "^0.27.19",
     "motion": "^12.42.2"
   },

@@ -1,6 +1,7 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@linaria/core";
-import { type HTMLAttributes, type Ref, useState } from "react";
+import { type HTMLAttributes, type Ref } from "react";
+import { useControllableValue } from "@crab-dev/rc-hooks";
 import ColorPickerInput from "./colorPickerInput.js";
 import ColorPickerOverlay from "./colorPickerOverlay.js";
 import type { ColorFormat, ColorPreset, Locale, OKLCHValue } from "../types.js";
@@ -50,14 +51,11 @@ const ColorPicker = ({
     ref,
     ...restProps
 }: ColorPickerProps) => {
-    const isControlled = value !== undefined;
-    const [inner, setInner] = useState<OKLCHValue>(defaultValue ?? value ?? DEFAULT_VALUE);
-    const current = isControlled ? value : inner;
-
-    const handleChange = (next: OKLCHValue) => {
-        if (!isControlled) setInner(next);
-        onValueChange?.(next);
-    };
+    const [current, setCurrent] = useControllableValue<OKLCHValue>({
+        value,
+        defaultValue: defaultValue ?? DEFAULT_VALUE,
+        onChange: onValueChange,
+    });
 
     return (
         <RcDropdownContainer
@@ -65,7 +63,7 @@ const ColorPicker = ({
                 <ColorPickerOverlay
                     locale={locale}
                     value={current}
-                    onConfirm={handleChange}
+                    onConfirm={setCurrent}
                     allowClear={allowClear}
                     showAlpha={showAlpha}
                     showEyeDropper={showEyeDropper}

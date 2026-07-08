@@ -1,5 +1,6 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { useId, useRef, useState, type FC } from "react";
+import { useControllableValue } from "@crab-dev/rc-hooks";
 
 import useKeyboardNavigation from "./hooks/useKeyboardNavigation.js";
 import SelectInput from "./selectInput.js";
@@ -109,18 +110,19 @@ const Select: FC<SelectProps> = ({
     "aria-label": ariaLabel,
     ...restProps
 }) => {
-    const isControlled = value !== undefined;
     // combobox 的 aria-controls / aria-activedescendant 与 listbox 及各 option 的 id
     // 共享同一前缀(§3 触发器与目标显式关联),故在两个子组件的共同父级生成一次。
     const listboxId = useId();
     const [searchText, setSearchText] = useState("");
-    const [internalValue, setInternalValue] = useState<string[]>(() => asArray(defaultValue));
+    // 内部统一以 string[] 表示选中值（单选也用长度 ≤1 的数组）；受控 / 非受控由 hook 统一
+    const [selectedValues, setSelectedValues] = useControllableValue<string[]>({
+        value: value !== undefined ? asArray(value) : undefined,
+        defaultValue: asArray(defaultValue),
+    });
     const [triggerWidth, setTriggerWidth] = useState(0);
 
     const onOpenChangeRef = useRef(onOpenChange);
     onOpenChangeRef.current = onOpenChange;
-
-    const selectedValues = isControlled ? asArray(value) : internalValue;
 
     const allPlainOptions = flattenPlainOptions(options);
 
@@ -151,9 +153,7 @@ const Select: FC<SelectProps> = ({
     };
 
     const updateValue = (nextValues: string[]) => {
-        if (!isControlled) {
-            setInternalValue(nextValues);
-        }
+        setSelectedValues(nextValues);
 
         if (multiple) {
             const nextOptions = allPlainOptions.filter((opt) => nextValues.includes(opt.value));

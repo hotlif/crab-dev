@@ -1,4 +1,5 @@
-import { type ReactElement, type Ref, cloneElement, useCallback, useRef, useState } from 'react';
+import { type ReactElement, type Ref, cloneElement, useRef } from 'react';
+import { useControllableOpen } from '@crab-dev/rc-hooks';
 import { css, cx } from '@linaria/core';
 import {
     useFloating,
@@ -78,23 +79,17 @@ function Tooltip({
     arrow: showArrow = true,
     className,
 }: TooltipProps) {
-    const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-    const isControlled = controlledOpen !== undefined;
-    const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
+    const [isOpen, setOpen] = useControllableOpen({
+        open: controlledOpen,
+        defaultOpen,
+        onOpenChange,
+    });
 
     const arrowRef = useRef<HTMLDivElement>(null);
 
-    const handleOpenChange = useCallback(
-        (nextOpen: boolean) => {
-            if (!isControlled) setUncontrolledOpen(nextOpen);
-            onOpenChange?.(nextOpen);
-        },
-        [isControlled, onOpenChange],
-    );
-
     const { refs, floatingStyles, context, middlewareData, placement: resolvedPlacement } = useFloating({
         open: isOpen,
-        onOpenChange: handleOpenChange,
+        onOpenChange: setOpen,
         placement,
         strategy: 'fixed',
         whileElementsMounted: autoUpdate,
