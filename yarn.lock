@@ -3060,6 +3060,7 @@ __metadata:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
