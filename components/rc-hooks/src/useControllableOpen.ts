@@ -1,4 +1,5 @@
 import { useControllableValue } from "./useControllableValue.js";
+import { useEventCallback } from "./useEventCallback.js";
 
 export interface ControllableOpenOptions {
     /** 受控展开态：非 `undefined` 即进入受控模式 */
@@ -17,9 +18,16 @@ export function useControllableOpen(
     options: ControllableOpenOptions,
 ): readonly [boolean, (open: boolean) => void] {
     const { open, defaultOpen = false, onOpenChange } = options;
-    return useControllableValue<boolean>({
+    const [value, setValue] = useControllableValue<boolean>({
         value: open,
         defaultValue: defaultOpen,
         onChange: onOpenChange,
     });
+
+    // 仅暴露 (open: boolean) 签名：调用方（如 Floating UI 的 onOpenChange 会附带
+    // event / reason）传入的额外参数不应透传到 onOpenChange —— 其语义固定为
+    // (open: boolean) => void。
+    const setOpen = useEventCallback((next: boolean) => setValue(next));
+
+    return [value, setOpen];
 }

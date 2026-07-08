@@ -109,4 +109,18 @@ describe("useControllableOpen", () => {
         rerender({ open: true });
         expect(result.current[0]).toBe(true);
     });
+
+    it("setOpen 忽略调用方附带的额外参数（如 Floating UI 的 event / reason）", () => {
+        const onOpenChange = jest.fn();
+        const { result } = renderHook(() =>
+            useControllableOpen({ onOpenChange }),
+        );
+
+        const setOpen = result.current[1] as (
+            open: boolean,
+            ...extra: unknown[]
+        ) => void;
+        act(() => setOpen(true, { isTrusted: false }, "focus"));
+        expect(onOpenChange).toHaveBeenCalledWith(true);
+    });
 });
