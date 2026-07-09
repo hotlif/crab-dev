@@ -1,0 +1,40 @@
+[build]
+output = "./src/token.ts"
+prefix = "number-edit"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# 交互反馈动效：hover/active 颜色切换要求"快到近乎即时"，走 interaction 语义档
+transition = "$ref(motion.interaction)"
+
+# ─── 步进器（Stepper）─────────────────────────────────────────────
+# 右侧竖排 +/- 微调按钮的示能与反馈：默认 / hover / 激活 / 禁用，及与输入区的分隔线
+stepper.color            = "$ref(color.text.secondary)"
+stepper.color-hover      = "$ref(color.text.primary)"
+stepper.color-disabled   = "$ref(color.text.disabled)"
+stepper.background-hover  = "$ref(color.background.hover-subtle)"
+stepper.background-active = "$ref(color.background.active-subtle)"
+# 极浅的区域分隔线（划分步进区与输入区、上下半区），非装饰性粗线
+stepper.divider.color    = "$ref(color.border.default)"
+# 右缘圆角对齐 rc-line-edit 的边框圆角（radius.md）
+stepper.radius           = "$ref(radius.md)"
+stepper.width            = "24px"
+stepper.icon-size        = "12px"
+
+# ─── 上标科学计数法覆盖层（Display overlay）───────────────────────
+# 失焦时覆盖在 input 文本区之上、用真 <sup> 呈现 1.23×10²¹。
+# 背景须与输入框表面同色，以完全遮盖底层 input 的原始文本。
+display.background       = "$ref(color.background.surface)"
+display.color           = "$ref(color.text.primary)"
+# <sup> 相对基线的字号比例（视觉打磨）
+display.superscript.font-size = "0.75em"
+
+# ─── 禁用 ─────────────────────────────────────────────────────────
+# 覆盖层在禁用态跟随降低不透明度（外壳整体禁用由 rc-line-edit 容器负责）
+disabled.opacity = "$ref(opacity.disabled)"
+
+# ─── 右侧操作区图标间隙（清除按钮与步进器共处）────────────────────
+icon.gap = "$ref(space.component-gap)"
