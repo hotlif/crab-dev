@@ -1,0 +1,70 @@
+{
+  "name": "@crab-dev/rc-segmented",
+  "websiteConfig": {
+    "title": "Segmented 分段控制器",
+    "category": "data-entry"
+  },
+  "description": "分段控制器, 用于在一组互斥选项中展示并选择单个选项",
+  "packageManager": "yarn@4.13.0",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
+    "build:library": "packify build",
+    "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "generate:docgen": "node -e \"require('fs').mkdirSync('public',{recursive:true})\" && react-docgen ./src/segmented.tsx --out ./public/docgen.json",
+    "generate:token": "packify generate:css-token",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "check": "yarn eslint . && yarn prettier:check && yarn test",
+    "eslint": "eslint . ",
+    "prepack": "cd ../.. && yarn build:library",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "css",
+    "declarations"
+  ],
+  "types": "declarations/index.d.ts",
+  "main": "cjs/index.cjs",
+  "module": "esm/index.mjs",
+  "dependencies": {
+    "@crab-dev/rc-hooks": "workspace:^"
+  },
+  "devDependencies": {
+    "@crab-dev/lignify": "workspace:^",
+    "@crab-dev/packify": "workspace:^",
+    "@crab-dev/rc-component-preview": "workspace:^",
+    "@crab-dev/rc-masonry": "workspace:^",
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/rc-token-semantic": "workspace:^",
+    "@crab-dev/standards-eslint-preset": "workspace:^",
+    "@crab-dev/standards-jest-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@jest/globals": "30.4.1",
+    "@linaria/core": "^8.0.0",
+    "@mdx-js/react": "^3.1.1",
+    "@react-docgen/cli": "^3.0.6",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.7.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "30.4.1",
+    "prettier": "^3.9.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router": "^8.1.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.63.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
