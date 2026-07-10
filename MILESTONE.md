@@ -9,7 +9,7 @@
 ## 总览
 
 ```
-标准组件    ████████████████░░░░░░░░░░░░░░░░  38 / 75（51%）
+标准组件    █████████████████░░░░░░░░░░░░░░░  39 / 75（52%）
 基础设施    ████████████████████████████████  全部就绪
 工具链      ████████████████████████████████  4/4 已发布
 工程规范    ████████████████████████████████  3/3 已发布
@@ -18,11 +18,11 @@
 
 | 指标 | 数值 |
 |------|------|
-| ✅ 已交付标准组件 | 38 |
+| ✅ 已交付标准组件 | 39 |
 | ✨ 图形与可视化（扩展赛道，不计入 75） | 2（Canvas 已发布 · FlowDiagram 待补单测） |
 | 🚧 持续打磨 | `rc-flow-diagram` 单测 / 深色主题落地 |
 | 🔴 P0 核心缺失 | 0 |
-| ⬚ 待规划标准组件 | 37（P1: 12 · P2: 14 · P3: 11） |
+| ⬚ 待规划标准组件 | 36（P1: 11 · P2: 14 · P3: 11） |
 
 > 本期重点：**新增图形与可视化赛道** —— `rc-canvas`（纯 WebGL 2 的 2D 绘制引擎，提供 Rect /
 > Circle / Line / Image / Text / Group / Edge / Marker / Minimap 及拖拽 / 悬浮 / 键盘交互）
@@ -124,7 +124,7 @@
 | Virtual | ✅ | `0.1.1` | ✅ | — | 虚拟滚动（Pointer 拖拽 / reservedBottomHeight / scrollToCell 智能定位） |
 | Prose | ✅ | `0.0.1` | ✅ | ✅ | Markdown 排版容器（prose / 尺寸变体 / invert） |
 | Empty | ✅ | `0.0.1` | ✅ | ✅ | 空状态，用于无数据 / 搜索无结果 / 无权限场景，已接入 `rc-table` |
-| Card | 🟡 | — | — | — | 卡片容器 |
+| Card | ✅ | `0.0.1` | ✅ | ✅ | 卡片容器（elevated / outlined / filled 三变体 · hoverable 浮起 · 整卡可点击 · 加载骨架 · Cover/Header/Body/Footer/Meta 自由拼装） |
 | Collapse | 🟡 | — | — | — | 折叠面板 / 手风琴 |
 | Popover | 🟡 | — | — | — | 气泡卡片 |
 | Descriptions | 🔵 | — | — | — | 描述列表 |
@@ -206,7 +206,7 @@
 
 ### 中期目标
 
-- [ ] **P1 组件交付** —— Textarea、InputNumber、TimePicker、Upload、Card、Collapse、Popover、Progress、Spin
+- [ ] **P1 组件交付** —— Textarea、InputNumber、TimePicker、Upload、Collapse、Popover、Progress、Spin
 - [ ] npm 发布流程（自动化版本管理 + CHANGELOG）
 - [ ] 无障碍（a11y）合规审查
 - [ ] 性能基准（打包体积 + 运行时）
@@ -247,6 +247,7 @@ rc-token-global（L1 原始基元）──→ rc-token-semantic（L2 语义映�
 | rc-form | rc-tooltip |
 | rc-pagination | rc-select |
 | rc-app-main-layout | rc-breadcrumbs、rc-drawer、rc-menu、rc-skeleton |
+| rc-card | rc-skeleton |
 | rc-tree | rc-checkbox、rc-hooks、rc-virtual |
 | rc-table | rc-checkbox、rc-empty、rc-radio、rc-virtual |
 | rc-protocol-table | rc-auto-sizer、rc-checkbox、rc-date-picker、rc-line-edit、rc-pagination、rc-table、rc-tree |
