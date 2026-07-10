@@ -25,4 +25,4 @@ index = true
 
 ## API
 
-<API path="./src/datePicker.tsx" />
+<API path="./src/datePicker/datePicker.tsx" />

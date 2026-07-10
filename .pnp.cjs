@@ -5541,6 +5541,7 @@ const RAW_RUNTIME_STATE =
           ["globals", "npm:17.7.0"],\
           ["jest", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:30.4.2"],\
           ["jest-environment-jsdom", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:30.4.1"],\
+          ["react-docgen", "npm:8.0.3"],\
           ["rollup", "npm:4.62.2"],\
           ["rollup-plugin-css-only", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:4.5.5"],\
           ["rollup-plugin-dts", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:6.4.1"],\
@@ -5569,7 +5570,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5611,7 +5611,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5652,7 +5651,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5690,7 +5688,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5727,7 +5724,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5764,7 +5760,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5801,7 +5796,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5839,7 +5833,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5851,7 +5844,6 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:30.4.2"],\
           ["jest-environment-jsdom", "virtual:fda60aae118ceb6f86fa333fc83ec7bce7603fccac9e57e2be5b31d2c348babced1d6f5d99cf9d343f4dc606deec0563463fbe709e5624f18837d9b7fefc05fd#npm:30.4.1"],\
           ["react", "npm:19.2.7"],\
-          ["react-docgen", "npm:8.0.3"],\
           ["react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.7"],\
           ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.1.0"],\
           ["typescript", "patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"],\
@@ -5881,7 +5873,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5919,7 +5910,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -5964,7 +5954,6 @@ const RAW_RUNTIME_STATE =
           ["@js-temporal/polyfill", "npm:0.5.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6000,7 +5989,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6047,7 +6035,6 @@ const RAW_RUNTIME_STATE =
           ["@js-temporal/polyfill", "npm:0.5.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@types/node", "npm:26.1.0"],\
           ["@types/react", "npm:19.2.17"],\
           ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
@@ -6090,7 +6077,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6132,7 +6118,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6177,7 +6162,6 @@ const RAW_RUNTIME_STATE =
           ["@js-temporal/polyfill", "npm:0.5.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6219,7 +6203,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6303,7 +6286,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6409,7 +6391,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6445,7 +6426,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6485,7 +6465,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6525,7 +6504,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6563,7 +6541,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6599,7 +6576,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6641,7 +6617,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6682,7 +6657,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6720,7 +6694,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6763,7 +6736,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6800,7 +6772,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6839,7 +6810,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6883,7 +6853,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6920,7 +6889,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6958,7 +6926,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -6997,7 +6964,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -7040,7 +7006,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -7054,7 +7019,6 @@ const RAW_RUNTIME_STATE =
           ["jsonpath-plus", "npm:10.4.0"],\
           ["lucide-react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:1.23.0"],\
           ["react", "npm:19.2.7"],\
-          ["react-docgen", "npm:8.0.3"],\
           ["react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.7"],\
           ["react-markdown", "virtual:140915ec81d7e69d637542b78f5fe8efcb944d9fa1e10b27a82c9cd80557c9faa1394a955665922bdb3fc9315dcee13e8830606e48dfcd73bdd30dd0a6e3c14c#npm:10.1.0"],\
           ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.1.0"],\
@@ -7083,7 +7047,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -7119,7 +7082,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -7227,7 +7189,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
@@ -7350,7 +7311,6 @@ const RAW_RUNTIME_STATE =
           ["@jest/globals", "npm:30.4.1"],\
           ["@linaria/core", "npm:8.0.0"],\
           ["@mdx-js/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:3.1.1"],\
-          ["@react-docgen/cli", "npm:3.0.6"],\
           ["@testing-library/dom", "npm:10.4.1"],\
           ["@testing-library/react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:16.3.2"],\
           ["@types/node", "npm:26.1.0"],\
