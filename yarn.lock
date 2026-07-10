@@ -3088,7 +3088,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-avatar@workspace:components/rc-avatar":
+"@crab-dev/rc-avatar@workspace:^, @crab-dev/rc-avatar@workspace:components/rc-avatar":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-avatar@workspace:components/rc-avatar"
   dependencies:
@@ -3259,6 +3259,46 @@ __metadata:
     jest-environment-jsdom: "npm:30.4.1"
     react: "npm:^19.2.7"
     react-docgen: "npm:^8.0.3"
+    react-dom: "npm:^19.2.7"
+    react-router: "npm:^8.1.0"
+    typescript: "npm:^6.0.3"
+    typescript-eslint: "npm:^8.63.0"
+  languageName: unknown
+  linkType: soft
+
+"@crab-dev/rc-card@workspace:components/rc-card":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-card@workspace:components/rc-card"
+  dependencies:
+    "@crab-dev/lignify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-avatar": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-skeleton": "workspace:^"
+    "@crab-dev/rc-tag": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.4.1"
+    "@linaria/core": "npm:^8.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@react-docgen/cli": "npm:^3.0.6"
+    "@testing-library/dom": "npm:^10.4.1"
+    "@testing-library/react": "npm:^16.3.2"
+    "@types/node": "npm:^26.1.0"
+    "@types/react": "npm:^19.2.17"
+    "@types/react-dom": "npm:^19.2.3"
+    eslint: "npm:^10.6.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^17.7.0"
+    jest: "npm:^30.4.2"
+    jest-environment-jsdom: "npm:30.4.1"
+    prettier: "npm:^3.9.4"
+    react: "npm:^19.2.7"
     react-dom: "npm:^19.2.7"
     react-router: "npm:^8.1.0"
     typescript: "npm:^6.0.3"

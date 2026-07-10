@@ -1,0 +1,104 @@
+[build]
+output = "./src/token.ts"
+prefix = "card"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 表面 ────────────────────────────────────────────────────────────────────
+# 卡片底面：elevated / outlined 共用 surface 白底，filled 用弱灰底。
+
+surface.background = "$ref(color.background.surface)"
+
+# ─── 变体 — outlined / filled ────────────────────────────────────────────────
+
+border.color       = "$ref(color.border.default)"
+border.color-hover = "$ref(color.border.hover)"
+
+filled.background       = "$ref(color.background.hover-subtle)"
+filled.background-hover = "$ref(color.background.active-subtle)"
+
+# ─── 拟物纵深 elevation 三档 ─────────────────────────────────────────────────
+# rest 近乎平贴；hover 轻抬一档（克制的悬浮反馈）；active 按压回落。
+# L2 无多档阴影，此处为组件级自建阶梯。
+
+elevation.rest   = "0 1px 2px 0 oklch(0 0 0 / 0.05), 0 1px 3px 0 oklch(0 0 0 / 0.08)"
+elevation.hover  = "0 4px 12px -2px oklch(0 0 0 / 0.10), 0 8px 24px -8px oklch(0 0 0 / 0.07)"
+elevation.active = "0 2px 6px -1px oklch(0 0 0 / 0.08), 0 3px 10px -4px oklch(0 0 0 / 0.06)"
+
+# ─── 浮起位移 ────────────────────────────────────────────────────────────────
+
+lift.hover  = "-2px"
+lift.active = "0"
+
+# ─── 尺寸 — Large ────────────────────────────────────────────────────────────
+
+size.large.padding    = "$ref(space.dialog-padding)"
+size.large.gap        = "$ref(space.stack-gap)"
+size.large.radius     = "$ref(radius.xl)"
+size.large.title-size = "$ref(font.size.heading)"
+
+# ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
+
+size.middle.padding    = "$ref(space.card-padding)"
+size.middle.gap        = "$ref(space.stack-gap)"
+size.middle.radius     = "$ref(radius.xl)"
+size.middle.title-size = "$ref(font.size.subhead)"
+
+# ─── 尺寸 — Small ────────────────────────────────────────────────────────────
+
+size.small.padding    = "$ref(space.section-gap)"
+size.small.gap        = "$ref(space.component-gap)"
+size.small.radius     = "$ref(radius.lg)"
+size.small.title-size = "$ref(font.size.body)"
+
+# ─── 标题区 ──────────────────────────────────────────────────────────────────
+
+header.title-color  = "$ref(color.text.primary)"
+header.title-weight = "$ref(font.weight.heading)"
+
+# ─── 正文区 ──────────────────────────────────────────────────────────────────
+# L2 未定义 line-height 语义令牌，正文行高取静态 1.6。
+
+body.color       = "$ref(color.text.primary)"
+body.font-size   = "$ref(font.size.body)"
+body.line-height = "1.6"
+
+# ─── 封面 ────────────────────────────────────────────────────────────────────
+# background 作图片加载前的占位底色。
+
+cover.background = "$ref(color.background.hover-subtle)"
+
+# ─── 操作区（footer）─────────────────────────────────────────────────────────
+# L2 无 divider 令牌，分割线复用 border.default（库内既定 workaround）。
+
+footer.divider-color = "$ref(color.border.default)"
+footer.padding-y     = "$ref(space.component-gap)"
+footer.gap           = "$ref(space.component-gap)"
+
+# ─── Meta（头像 + 标题 + 描述）───────────────────────────────────────────────
+
+meta.gap          = "$ref(space.stack-gap)"
+meta.text-gap     = "$ref(space.inline-gap)"
+meta.title-color  = "$ref(color.text.primary)"
+meta.title-weight = "$ref(font.weight.label)"
+meta.title-size   = "$ref(font.size.body)"
+meta.desc-color   = "$ref(color.text.secondary)"
+meta.desc-size    = "$ref(font.size.caption)"
+
+# ─── 动效 ────────────────────────────────────────────────────────────────────
+# 浮起 / 封面缩放走 easeOutExpo（快出缓收，丝滑收尾）；时长略长于 L2 interaction，
+# 让阴影展开有可感知的过渡但不拖沓。
+
+motion.lift  = "transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms cubic-bezier(0.16, 1, 0.3, 1)"
+motion.cover = "transform 320ms cubic-bezier(0.16, 1, 0.3, 1)"
+
+# ─── 焦点环 ──────────────────────────────────────────────────────────────────
+
+focus.ring.color = "$ref(color.border.focus)"
+
+# ─── 禁用 ────────────────────────────────────────────────────────────────────
+
+disabled.opacity = "$ref(opacity.disabled)"
