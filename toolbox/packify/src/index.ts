@@ -14,6 +14,7 @@ import { existsSync, readFileSync } from "fs";
 
 import { log } from "./util.js";
 export { default as generateCssToken }  from "./generateCssToken.js";
+export { default as generateDocgen } from "./generateDocgen.js";
 
 const require = createRequire(import.meta.url);
 
