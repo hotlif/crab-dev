@@ -5,7 +5,7 @@
     "category": "data-entry"
   },
   "description": "分段控制器, 用于在一组互斥选项中展示并选择单个选项",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

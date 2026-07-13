@@ -5,7 +5,7 @@
     "category": "navigation"
   },
   "description": "面包屑导航，用于展示当前页面在层级结构中的位置",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

@@ -5,7 +5,7 @@
         "category": "data-display"
     },
     "description": "基于纯 WebGL 2 的 2D React 绘制组件库，提供 Canvas、Rect、Circle、Line、Image、Text、Group 等组件",
-    "packageManager": "yarn@4.13.0",
+    "packageManager": "yarn@4.16.0",
     "type": "module",
     "version": "0.0.1",
     "scripts": {

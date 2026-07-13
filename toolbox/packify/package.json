@@ -1,7 +1,7 @@
 {
   "name": "@crab-dev/packify",
   "description": "用来构建依赖库的打包工具, 预设了 babel 和 linaria 等一些配置",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "version": "0.0.4",
   "type": "module",
   "scripts": {

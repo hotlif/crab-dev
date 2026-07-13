@@ -5,7 +5,7 @@
     "category": "navigation"
   },
   "description": "分页器，用于长列表的页码导航与每页条数控制",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

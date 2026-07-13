@@ -2,7 +2,7 @@
     "name": "@crab-dev/lignify",
     "version": "0.0.3",
     "description": "使用此快速开发 React 组件库，可用来调试和生成 CSS 变量主题。",
-    "packageManager": "yarn@4.13.0",
+    "packageManager": "yarn@4.16.0",
     "type": "module",
     "scripts": {
         "start": "crustify run-task app:dev",

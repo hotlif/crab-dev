@@ -5,7 +5,7 @@
     "category": "navigation"
   },
   "description": "标签页组件，用于在不同内容视图之间切换",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

@@ -6,7 +6,7 @@
   },
   "description": "A common library of React Hooks for executing some common methods of Hooks",
   "version": "0.0.1",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "scripts": {
     "build:library": "packify build",

@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/crustify",
     "description": "用来构建 React 开发的构建器, 预设了 babel 和 linaria 等一些配置",
-    "packageManager": "yarn@4.13.0",
+    "packageManager": "yarn@4.16.0",
     "version": "0.0.19",
     "type": "module",
     "scripts": {

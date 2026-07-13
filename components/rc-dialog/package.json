@@ -5,7 +5,7 @@
     "category": "feedback"
   },
   "description": "A dialog component for React applications.",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

@@ -5,7 +5,7 @@
         "category": "utility"
     },
     "description": "自动测量容器宽高并传入子渲染函数，常与虚拟滚动组件配合使用",
-    "packageManager": "yarn@4.13.0",
+    "packageManager": "yarn@4.16.0",
     "type": "module",
     "version": "0.0.1",
     "scripts": {

@@ -5,7 +5,7 @@
     "category": "layout"
   },
   "description": "瀑布流布局组件，支持多列自适应排列",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

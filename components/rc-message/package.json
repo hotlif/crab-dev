@@ -5,7 +5,7 @@
     "category": "feedback"
   },
   "description": "全局消息，用于轻量级反馈提示",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

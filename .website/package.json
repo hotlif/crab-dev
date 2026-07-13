@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.1",
     "description": "crab-dev 官方组件库文档站，基于 Crustify。",
-    "packageManager": "yarn@4.13.0",
+    "packageManager": "yarn@4.16.0",
     "type": "module",
     "scripts": {
         "start": "crustify run-task app:dev",

@@ -6,7 +6,7 @@
   },
   "description": "单行文本编辑组件",
   "version": "0.0.3",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.16.0",
   "type": "module",
   "scripts": {
     "start": "yarn generate:token && lignify run-task app:dev",
