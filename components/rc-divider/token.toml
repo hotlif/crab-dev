@@ -1,0 +1,43 @@
+[build]
+output = "./src/token.ts"
+prefix = "divider"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 线 ──────────────────────────────────────────────────────────────────────
+# 分割线是"限制"的可视化：它把内容切成组，因此线本身必须克制——用 border.default
+# 而非更重的色阶，避免线比内容更抢眼。
+
+line.color = "$ref(color.border.default)"
+line.width = "1px"
+
+
+# ─── 间距 ────────────────────────────────────────────────────────────────────
+# 格式塔接近性：线两侧的留白决定"谁属于谁"。四档对应不同的分组强度。
+
+spacing.none   = "0px"
+spacing.small  = "$ref(space.component-gap)"
+spacing.middle = "$ref(space.section-gap)"
+spacing.large  = "$ref(space.group-gap)"
+
+
+# ─── 文字 ────────────────────────────────────────────────────────────────────
+# 带文字的分割线兼作小标题：默认用 label 字重 + 主文本色；plain 降级为正文字重 +
+# 次要色，供"仅作说明"的场景使用。
+
+text.color              = "$ref(color.text.primary)"
+text.color-plain        = "$ref(color.text.secondary)"
+text.font-size          = "$ref(font.size.body)"
+text.font-weight        = "$ref(font.weight.label)"
+text.font-weight-plain  = "$ref(font.weight.body)"
+text.gap                = "$ref(space.component-gap)"
+text.offset             = "5%"
+
+
+# ─── 垂直分割线 ──────────────────────────────────────────────────────────────
+# 高度跟随当前字号（1em），使其在按钮组 / 面包屑等行内场景中天然与文字等高。
+
+vertical.size = "1em"
