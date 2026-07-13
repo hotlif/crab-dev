@@ -13,7 +13,7 @@
     "build:library": "packify build",
     "generate:docgen": "packify generate:docgen",
     "generate:token": "packify generate:css-token",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --passWithNoTests",
+    "test": "packify test --passWithNoTests",
     "eslint": "eslint --fix",
     "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"

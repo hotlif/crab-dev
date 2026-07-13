@@ -11,7 +11,7 @@
     "scripts": {
         "start": "lignify run-task app:dev",
         "build:library": "packify build",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest) --passWithNoTests",
+        "test": "packify test --passWithNoTests",
         "eslint": "eslint .",
         "typecheck": "tsc --noEmit",
         "prepack": "cd ../.. && yarn build:library"

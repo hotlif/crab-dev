@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "build:library": "packify build",
-        "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+        "test": "packify test",
         "eslint": "eslint",
         "prepack": "cd ../.. && yarn build:library",
         "typecheck": "tsc --noEmit"

@@ -12,7 +12,7 @@
     "build:library": "packify build",
     "eslint": "eslint",
     "prepack": "cd ../.. && yarn build:library",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "test": "packify test",
     "typecheck": "tsc --noEmit"
   },
   "files": [

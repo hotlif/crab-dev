@@ -12,7 +12,7 @@
     "start": "yarn generate:docgen && lignify run-task app:dev",
     "build:library": "packify build",
     "generate:docgen": "packify generate:docgen",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "test": "packify test",
     "eslint": "eslint --fix",
     "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
