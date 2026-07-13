@@ -5,6 +5,7 @@ import Checkbox from "@crab-dev/rc-checkbox";
 import LineEdit from "@crab-dev/rc-line-edit";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
 import Pagination from "@crab-dev/rc-pagination";
+import Spin from "@crab-dev/rc-spin";
 import { css, cx } from "@linaria/core";
 import type { ProtocolColumnType, DataTypeLoader, PaginationConfig, ProtocolTableState } from "./types.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
@@ -42,18 +43,6 @@ const loadingOverlayStyle = css`
     z-index: 10;
 `;
 
-const spinnerStyle = css`
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 3px solid var(--crab-rc-table-border-color, #ddd);
-    border-top-color: oklch(55% 0.2 262);
-
-    @keyframes protocol-table-spin {
-        to { transform: rotate(360deg); }
-    }
-    animation: protocol-table-spin 0.8s linear infinite;
-`;
 
 const paginationBarStyle = css`
     display: flex;
@@ -635,7 +624,9 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
             )}
             {loading && !colMgmt.columnsError && !tableData.dataError && (
                 <div className={loadingOverlayStyle} data-testid="protocol-table-loading">
-                    <div className={spinnerStyle} />
+                    {/* 复用 rc-spin：随之带来 role="status" / aria-live 与 reduced-motion 降级,
+                        原先这层遮罩对读屏完全不可感知 */}
+                    <Spin tip="加载中" />
                 </div>
             )}
         </>

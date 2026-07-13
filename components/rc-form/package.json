@@ -72,6 +72,7 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@crab-dev/rc-spin": "workspace:^",
     "@crab-dev/rc-tooltip": "workspace:^"
   }
 }

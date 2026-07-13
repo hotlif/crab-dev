@@ -63,6 +63,7 @@
     "@crab-dev/rc-dropdown-container": "workspace:^",
     "@crab-dev/rc-hooks": "workspace:^",
     "@crab-dev/rc-line-edit": "workspace:^",
+    "@crab-dev/rc-spin": "workspace:^",
     "@crab-dev/rc-tag": "workspace:^",
     "@crab-dev/rc-virtual": "workspace:^"
   }

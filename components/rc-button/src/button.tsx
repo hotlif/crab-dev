@@ -1,5 +1,6 @@
 import { css, cx } from '@linaria/core';
 import { useRef, use, type FC, type MouseEvent } from 'react';
+import { SpinIndicator, vars as spinVars } from '@crab-dev/rc-spin';
 import token from './token.js';
 import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
@@ -37,12 +38,20 @@ const iconWrapStyle = css`
     }
 `;
 
-const spinStyle = css`
-    animation: rotate 1s linear infinite;
-    @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to   { transform: rotate(360deg); }
-    }
+/**
+ * 加载指示环：复用 @crab-dev/rc-spin 的纯视觉环, 不再自造 keyframes。
+ *
+ * - 尺寸跟随按钮字号（1em）, 三档尺寸自动缩放；
+ * - 描边改用 currentColor —— rc-spin 默认的品牌色在 primary / danger 这类深底按钮上会看不见；
+ * - 底环设为透明, 只留旋转弧, 与按钮原本的视觉分量保持一致。
+ */
+const loadingIndicatorStyle = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --rc-spin-size: 1em;
+    ${spinVars['ring.indicator-color']}: currentColor;
+    ${spinVars['ring.track-color']}: transparent;
 `;
 
 const primaryStyle = css`
@@ -287,19 +296,11 @@ const Button: FC<ButtonProps> = ({
         if (loadingIcon) {
             return <div className={iconWrapStyle}>{loadingIcon}</div>;
         }
+        // 按钮自身已声明 aria-busy, 故用纯视觉的 SpinIndicator；
+        // 若在此嵌入带 role="status" + aria-live 的 Spin, 读屏会把"加载中"播报两次。
         return (
-            <span className={spinStyle}>
-                <svg
-                    viewBox="0 0 1024 1024"
-                    focusable="false"
-                    width="1em"
-                    height="1em"
-                    fill="currentColor"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                >
-                    <path d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z" />
-                </svg>
+            <span className={loadingIndicatorStyle}>
+                <SpinIndicator />
             </span>
         );
     };

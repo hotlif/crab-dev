@@ -8,7 +8,8 @@ import {
     useId
 } from "react";
 import { css, cx } from "@linaria/core";
-import { CircleAlert, TriangleAlert, CircleCheck, LoaderCircle } from "lucide-react";
+import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
+import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
 import Tooltip from "@crab-dev/rc-tooltip";
 
 import token from "./token.js";
@@ -139,19 +140,12 @@ const successColorStyle = css`
     color: ${token.status.success.color};
 `;
 
-// 校验中：图标持续旋转。@keyframes 内嵌于 css 块，命名唯一以避免全局冲突。
+// 校验中：复用 rc-spin 的纯视觉环（旋转与 reduced-motion 降级由其统一承担）。
+// 校验文案已由下方 srOnly 的 role="alert" 播报，故此处只是视觉意符，描边跟随槽位前景色。
 const validatingStyle = css`
     color: ${token.status.validating.color};
-
-    @keyframes rc-form-status-spin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    & svg {
-        animation: rc-form-status-spin 0.8s linear infinite;
-    }
+    ${spinVars['ring.indicator-color']}: currentColor;
+    ${spinVars['ring.track-color']}: transparent;
 `;
 
 // 视觉隐藏但保留在无障碍树中：承载完整校验文案，供屏幕阅读器播报（role="alert"），
@@ -237,7 +231,7 @@ function FormItemComponent({
         if (validateState === ValidateState.VALIDATING) {
             return (
                 <span className={cx(statusSlotStyle, validatingStyle)} aria-hidden>
-                    <LoaderCircle />
+                    <SpinIndicator />
                 </span>
             );
         }

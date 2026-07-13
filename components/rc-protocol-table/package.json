@@ -60,6 +60,7 @@
         "@crab-dev/rc-date-picker": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-pagination": "workspace:^",
+        "@crab-dev/rc-spin": "workspace:^",
         "@crab-dev/rc-table": "workspace:^",
         "@crab-dev/rc-tree": "workspace:^"
     },

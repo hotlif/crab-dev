@@ -30,6 +30,9 @@
   "types": "declarations/index.d.ts",
   "main": "cjs/index.cjs",
   "module": "esm/index.mjs",
+  "dependencies": {
+    "@crab-dev/rc-spin": "workspace:^"
+  },
   "devDependencies": {
     "@crab-dev/lignify": "workspace:^",
     "@crab-dev/packify": "workspace:^",

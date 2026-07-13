@@ -1,5 +1,6 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit from "@crab-dev/rc-line-edit";
+import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@linaria/core";
 import { useCallback, useEffect, useRef, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
@@ -196,23 +197,18 @@ const clearStyle = css`
     }
 `;
 
+// 复用 rc-spin 的纯视觉环：旋转与 reduced-motion 降级由其统一承担。
+// 加载语义由 combobox 的 aria-busy 承担（展开后则是 listbox），此处仅作视觉意符，
+// 故用 SpinIndicator 而非 Spin —— 后者会再嵌一层 role="status"，导致重复播报。
 const loadingIconStyle = css`
     display: inline-flex;
     align-items: center;
     color: ${token.loading.color};
     flex-shrink: 0;
     margin-left: 8px;
-    animation: select-spin 1s linear infinite;
-
-    @keyframes select-spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    /* spinner 本身传达"进行中"是必要信息,不能移除;仅大幅放慢速度以降低前庭刺激 */
-    @media (prefers-reduced-motion: reduce) {
-        animation-duration: 2.5s;
-    }
+    --rc-spin-size: 14px;
+    ${spinVars['ring.indicator-color']}: currentColor;
+    ${spinVars['ring.track-color']}: transparent;
 `;
 
 // 度量(padding/字号/行高)与"高度策略"分开维护——原因见下方 sizeHeight*Map 的注释。
@@ -263,12 +259,6 @@ const ClearIcon = () => (
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <path d="m15 9-6 6M9 9l6 6" />
-    </svg>
-);
-
-const LoadingIcon = () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
 );
 
@@ -600,6 +590,9 @@ const SelectInput: FC<SelectInputProps> = ({
             aria-label={ariaLabel}
             aria-expanded={open}
             aria-disabled={disabled}
+            // 未展开时并无 listbox 可承载加载语义，故由 combobox 自身标注：
+            // 否则输入框里那枚 spinner 对读屏完全不可感知
+            aria-busy={loading || undefined}
             aria-haspopup="listbox"
             aria-controls={open ? listboxId : undefined}
             aria-activedescendant={activeDescendantId}
@@ -622,7 +615,7 @@ const SelectInput: FC<SelectInputProps> = ({
             <div className={valueWrapStyle}>{renderContent()}</div>
             {loading ? (
                 <span className={loadingIconStyle}>
-                    <LoadingIcon />
+                    <SpinIndicator />
                 </span>
             ) : null}
             <span className={suffixWrapStyle}>

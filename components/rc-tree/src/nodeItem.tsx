@@ -4,7 +4,8 @@ import { css, cx } from "@linaria/core";
 import Checkbox from "@crab-dev/rc-checkbox";
 import { NodeEditStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import { getTreeNodeDepth } from "./util.js";
-import { ChevronRight, GripVertical, Loading } from "./icon.js";
+import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
+import { ChevronRight, GripVertical } from "./icon.js";
 import token from "./token.js";
 
 export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -82,6 +83,8 @@ const expandIconStyle = css`
     }
 `;
 
+// 复用 rc-spin 的纯视觉环：旋转与 reduced-motion 降级由其统一承担
+// （原先此处的动画在减弱动效偏好下照转不误）。
 const loadingIconStyle = css`
     display: flex;
     align-items: center;
@@ -91,12 +94,9 @@ const loadingIconStyle = css`
     flex-shrink: 0;
     margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
     color: ${token.node.icon.loading.color};
-    animation: TreeNodeLoadingSpin 0.8s linear infinite;
-
-    @keyframes TreeNodeLoadingSpin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
+    --rc-spin-size: 1em;
+    ${spinVars['ring.indicator-color']}: currentColor;
+    ${spinVars['ring.track-color']}: transparent;
 `;
 
 const fileIconPlaceholderStyle = css`
@@ -344,7 +344,7 @@ const NodeItem: FC<NodeItemProps> = ({
         if (loading) {
             return (
                 <span className={loadingIconStyle}>
-                    <Loading />
+                    <SpinIndicator />
                 </span>
             );
         }

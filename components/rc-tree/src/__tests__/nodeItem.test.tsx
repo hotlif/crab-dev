@@ -74,7 +74,7 @@ describe("NodeItem", () => {
             container = result.container;
         });
 
-        // Loading icon should be rendered (SVG)
+        // 加载中渲染 rc-spin 的指示环（SVG）
         const svgs = container!.querySelectorAll("svg");
         expect(svgs.length).toBeGreaterThanOrEqual(1);
     });

@@ -1,4 +1,5 @@
 import Checkbox from "@crab-dev/rc-checkbox";
+import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
 import { css, cx } from "@linaria/core";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
@@ -131,28 +132,17 @@ const groupedOptionStyle = css`
     padding-left: 20px;
 `;
 
+// 复用 rc-spin 的纯视觉环：旋转与 reduced-motion 降级由其统一承担。
+// 外层 listbox 已标注 aria-busy="true"，故此处不再嵌套 role="status"（会重复播报且破坏 listbox 结构）。
 const loadingStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px 8px;
     color: ${token.loading.color};
-
-    & > svg {
-        animation: overlay-spin 1s linear infinite;
-    }
-
-    @keyframes overlay-spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    /* spinner 本身传达"进行中"是必要信息,不能移除;仅大幅放慢速度以降低前庭刺激 */
-    @media (prefers-reduced-motion: reduce) {
-        & > svg {
-            animation-duration: 2.5s;
-        }
-    }
+    --rc-spin-size: 20px;
+    ${spinVars['ring.indicator-color']}: currentColor;
+    ${spinVars['ring.track-color']}: transparent;
 `;
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -217,9 +207,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
         return (
             <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx(overlayStyle, popupClassName)}>
                 <div className={loadingStyle}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                    </svg>
+                    <SpinIndicator />
                 </div>
             </div>
         );
