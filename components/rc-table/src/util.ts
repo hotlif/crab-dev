@@ -164,25 +164,6 @@ export function sortColumns(columns: ColumnType<any>[]) {
     return columns;
 }
 
-export function getSkippedCells(mergeCells: MergeCell[]) {
-    const skipCells: { rowIndex: number, columnIndex: number }[] = [];
-    mergeCells.forEach(mergeCell => {
-        const { rowIndex, columnIndex, rowSpan, colSpan } = mergeCell;
-        for (let c = 0; c <= colSpan; c += 1) {
-            for (let r = 0; r <= rowSpan; r += 1) {
-                if (c === 0 && r === 0) {
-                    continue;
-                }
-                skipCells.push({
-                    rowIndex: rowIndex + r,
-                    columnIndex: columnIndex + c
-                });
-            }
-        }
-    });
-    return skipCells;
-}
-
 export function buildMergeCellLookup(mergeCells: MergeCell[]) {
     const getCellKey = (rowIndex: number, columnIndex: number) => `${rowIndex}:${columnIndex}`;
     const skipCellSet = new Set<string>();

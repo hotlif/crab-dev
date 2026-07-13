@@ -3,7 +3,6 @@ import type { ColumnType, Row } from "../types.js";
 
 import {
     sortColumns,
-    getSkippedCells,
     buildMergeCellLookup,
     getMergedCellSize,
     getMaxDepth,
@@ -78,66 +77,6 @@ describe("sortColumns", () => {
         expect(copy).toEqual(testData);
     });
 });
-
-describe("getSkippedCells", () => {
-    it("should return empty array when mergeCells is empty", () => {
-        expect(getSkippedCells([])).toEqual([]);
-    });
-
-    it("should skip correct cells for a single mergeCell with rowSpan and colSpan", () => {
-        const mergeCells = [
-            { rowIndex: 1, columnIndex: 2, rowSpan: 1, colSpan: 1 }
-        ];
-
-        expect(getSkippedCells(mergeCells)).toEqual([
-            { rowIndex: 2, columnIndex: 2 },
-            { rowIndex: 1, columnIndex: 3 },
-            { rowIndex: 2, columnIndex: 3 }
-        ]);
-    });
-
-    it("should skip correct cells for multiple mergeCells", () => {
-        const mergeCells = [
-            { rowIndex: 0, columnIndex: 0, rowSpan: 1, colSpan: 1 },
-            { rowIndex: 2, columnIndex: 2, rowSpan: 0, colSpan: 2 }
-        ];
-        expect(getSkippedCells(mergeCells)).toEqual([
-            { rowIndex: 1, columnIndex: 0 },
-            { rowIndex: 0, columnIndex: 1 },
-            { rowIndex: 1, columnIndex: 1 },
-            { rowIndex: 2, columnIndex: 3 },
-            { rowIndex: 2, columnIndex: 4 }
-        ]);
-    });
-
-    it("should handle mergeCell with zero rowSpan and colSpan (no skipped cells)", () => {
-        const mergeCells = [
-            { rowIndex: 1, columnIndex: 1, rowSpan: 0, colSpan: 0 }
-        ];
-        expect(getSkippedCells(mergeCells)).toEqual([]);
-    });
-
-    it("should handle mergeCell with only rowSpan", () => {
-        const mergeCells = [
-            { rowIndex: 0, columnIndex: 0, rowSpan: 2, colSpan: 0 }
-        ];
-        expect(getSkippedCells(mergeCells)).toEqual([
-            { rowIndex: 1, columnIndex: 0 },
-            { rowIndex: 2, columnIndex: 0 }
-        ]);
-    });
-
-    it("should handle mergeCell with only colSpan", () => {
-        const mergeCells = [
-            { rowIndex: 0, columnIndex: 0, rowSpan: 0, colSpan: 2 }
-        ];
-        expect(getSkippedCells(mergeCells)).toEqual([
-            { rowIndex: 0, columnIndex: 1 },
-            { rowIndex: 0, columnIndex: 2 }
-        ]);
-    });
-
-})
 
 describe("buildMergeCellLookup", () => {
     it("should build mergeCellMap and skipCellSet for a single merged area", () => {
