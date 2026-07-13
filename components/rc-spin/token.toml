@@ -1,0 +1,58 @@
+[build]
+output = "./src/token.ts"
+prefix = "spin"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 指示环 ──────────────────────────────────────────────────────────────────
+# 底环（track）给出"整圈进度槽"的心智模型, 高亮弧（indicator）在其上旋转。
+# 只画一段弧而非整圈, 是为了让"正在转"这件事在任何角度都可被瞬间辨认。
+# stroke-width / dash 为 SVG viewBox（50×50）内的用户单位, 与像素尺寸解耦。
+
+ring.track-color     = "$ref(color.fill.inactive)"
+ring.indicator-color = "$ref(color.brand.primary)"
+ring.stroke-width    = "4"
+ring.dash            = "31.4 125.7"
+
+
+# ─── 动效 ────────────────────────────────────────────────────────────────────
+# 匀速旋转（linear）：转速一旦有快慢, 用户会误读为"进度有快慢"。
+# reduce 偏好下不能静止——加载指示器是耗时操作的唯一反馈, 静止等同于"死界面"；
+# 改为低频透明度脉动, 去掉前庭刺激但保留"仍在进行"的意符。
+
+motion.duration          = "0.9s"
+motion.easing            = "linear"
+motion.reduced-duration  = "1.6s"
+motion.reduced-opacity   = "$ref(opacity.disabled)"
+motion.appear            = "$ref(motion.fade)"
+
+
+# ─── 尺寸 ────────────────────────────────────────────────────────────────────
+
+size.small.size       = "16px"
+size.small.font-size  = "$ref(font.size.caption)"
+
+size.middle.size      = "24px"
+size.middle.font-size = "$ref(font.size.body)"
+
+size.large.size       = "40px"
+size.large.font-size  = "$ref(font.size.subhead)"
+
+
+# ─── 提示文案 ────────────────────────────────────────────────────────────────
+
+tip.color = "$ref(color.text.secondary)"
+tip.gap   = "$ref(space.component-gap)"
+
+
+# ─── 包裹模式 ────────────────────────────────────────────────────────────────
+# 被遮罩的内容降透明度 + 轻微模糊：既保留"内容还在、只是暂不可用"的概念模型,
+# 又明确它当前不可读、不可点。不使用整块底色遮罩, 以免在深色主题下反白刺眼。
+
+content.opacity = "$ref(opacity.secondary)"
+content.blur    = "1px"
+
+overlay.z-index = "$ref(z-index.float)"

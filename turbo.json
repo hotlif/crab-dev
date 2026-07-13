@@ -68,6 +68,14 @@
             "dependsOn": ["@crab-dev/packify#build:library"],
             "inputs": ["$TURBO_DEFAULT$"],
             "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        },
+        "@crab-dev/rc-spin#build:library": {
+            "dependsOn": [
+                "@crab-dev/packify#build:library",
+                "@crab-dev/rc-hooks#build:library"
+            ],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
         }
     }
 }
