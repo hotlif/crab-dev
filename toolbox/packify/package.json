@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build:library": "rollup -c",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
+    "test": "packify test",
     "eslint": "eslint .",
     "typecheck": "tsc --noEmit"
   },

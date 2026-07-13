@@ -1,4 +1,4 @@
-import { build, generateCssToken, generateDocgen } from "../esm/index.mjs";
+import { build, generateCssToken, generateDocgen, runTest } from "../esm/index.mjs";
 const param = process.argv[2];
 
 if (param === "build") {
@@ -7,4 +7,6 @@ if (param === "build") {
     generateCssToken();
 } else if (param === "generate:docgen") {
     generateDocgen();
+} else if (param === "test") {
+    runTest();
 }

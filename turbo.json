@@ -39,6 +39,11 @@
             "inputs": ["token.toml"],
             "outputs": ["src/token.ts"]
         },
+        "@crab-dev/packify#test": {
+            "dependsOn": ["^build:library", "@crab-dev/packify#build:library"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["coverage/**"]
+        },
         "@crab-dev/lignify#build:library": {
             "dependsOn": ["@crab-dev/packify#build:library"],
             "inputs": ["$TURBO_DEFAULT$"],
