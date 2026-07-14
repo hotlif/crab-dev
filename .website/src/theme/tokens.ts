@@ -57,6 +57,42 @@ css`
             --tone-rose: oklch(72% 0.1 24);
             --tone-rose-soft: oklch(95% 0.04 24);
 
+            /*
+             * rc-prose 覆盖点 —— 绑到站点自己的语义变量上。
+             * 这些语义变量本身随 [data-theme] 变化, 所以这里定义一次即可明暗通用,
+             * 不必在 dark 块里重复一遍。不这样绑定的话, rc-prose 会退回它自己的浅色默认值,
+             * 于是暗色主题下表头与行内 code 会是刺眼的白底。
+             */
+            --prose-body: var(--text-secondary);
+            --prose-headings: var(--text-primary);
+            --prose-lead-color: var(--muted-foreground);
+            --prose-links: var(--text-primary);
+            --prose-links-hover: var(--accent-600);
+            --prose-bold: var(--text-primary);
+            --prose-counters: var(--text-tertiary);
+            --prose-bullets: var(--border-strong);
+            --prose-hr-color: var(--border);
+            --prose-quotes: var(--text-primary);
+            --prose-quote-borders: var(--border);
+            --prose-captions: var(--text-tertiary);
+            --prose-code-color: var(--text-primary);
+            --prose-code-bg: var(--muted);
+            --prose-pre-color: var(--code-fg);
+            --prose-pre-bg: transparent;
+            --prose-kbd-color: var(--text-primary);
+            --prose-th-borders: var(--border);
+            --prose-td-borders: var(--border-subtle);
+            --prose-thead-bg: var(--muted);
+
+            /* syntax highlighting —— 低饱和, 与中性调性一致; 密集代码下不刺眼 */
+            --code-fg: oklch(32% 0 0);
+            --code-comment: oklch(58% 0.015 260);
+            --code-keyword: oklch(46% 0.11 264);
+            --code-string: oklch(46% 0.08 152);
+            --code-number: oklch(50% 0.1 45);
+            --code-function: oklch(46% 0.1 300);
+            --code-punctuation: oklch(56% 0 0);
+
             /* showcase effects */
             --focus-ring-soft: oklch(70.8% 0 0 / 0.28);
             --showcase-top-tint: oklch(99% 0 0 / 0.42);
@@ -136,6 +172,14 @@ css`
             --tone-amber-soft: oklch(34% 0.035 88);
             --tone-rose: oklch(78% 0.09 24);
             --tone-rose-soft: oklch(32% 0.03 24);
+
+            --code-fg: oklch(88% 0 0);
+            --code-comment: oklch(62% 0.015 260);
+            --code-keyword: oklch(76% 0.1 264);
+            --code-string: oklch(76% 0.08 152);
+            --code-number: oklch(79% 0.09 45);
+            --code-function: oklch(78% 0.09 300);
+            --code-punctuation: oklch(66% 0 0);
 
             --focus-ring-soft: oklch(55.6% 0 0 / 0.45);
             --showcase-top-tint: oklch(24% 0 0 / 0.72);

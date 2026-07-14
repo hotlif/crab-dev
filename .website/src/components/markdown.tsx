@@ -1,15 +1,14 @@
 import { css } from "@linaria/core";
-import { useEffect, useRef, useState, type FC, type ReactNode } from "react";
+import { isValidElement, useEffect, useRef, useState, type FC, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Prose from "@crab-dev/rc-prose";
 import { Prism } from "react-syntax-highlighter";
-import vs from "react-syntax-highlighter/dist/esm/styles/prism/vs.js";
-import vsDark from "react-syntax-highlighter/dist/esm/styles/prism/vs-dark.js";
+import codeTheme from "./codeTheme.js";
 import { CopyIcon, CheckIcon } from "./icons.js";
-import { useTheme } from "../theme/useTheme.js";
+import { slugify } from "./toc.js";
 import DemoGallery from "./demoGallery.js";
 import type { DemoMeta, ApiPropMeta } from "../_generated/manifest.js";
 
@@ -20,6 +19,24 @@ const codeBlockStyle = css`
     border-radius: var(--radius-md);
     overflow: hidden;
     background: var(--surface-sunken);
+
+    /*
+     * rc-prose 用 :where(& pre / & code) 给代码上了自己的底色与内距。本容器已提供底色,
+     * 若不中和, 灰底里会再套一层浅底, 成为"框中框"。:where() 特异性为 0, 这里直接覆盖。
+     */
+    & pre {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+    }
+
+    & pre code {
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        font-weight: 400;
+    }
 `;
 
 const codeHeaderStyle = css`
@@ -78,7 +95,6 @@ const copyToClipboard = async (code: string): Promise<boolean> => {
 };
 
 const CodeRenderer: FC<CodeProps> = ({ inline, className, children }) => {
-    const { theme } = useTheme();
     const [copied, setCopied] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -127,16 +143,19 @@ const CodeRenderer: FC<CodeProps> = ({ inline, className, children }) => {
             </div>
             <Prism
                 language={lang}
-                style={theme === "dark" ? vsDark : vs}
+                style={codeTheme}
                 wrapLongLines
                 customStyle={{
                     margin: 0,
                     padding: "16px 18px",
                     background: "transparent",
-                    fontSize: 13.5,
+                    fontSize: 13,
+                    lineHeight: 1.7,
                     fontFamily: "var(--font-mono)",
                 }}
-                codeTagProps={{ style: { fontFamily: "var(--font-mono)" } }}
+                codeTagProps={{
+                    style: { fontFamily: "var(--font-mono)", background: "transparent" },
+                }}
             >
                 {codeText}
             </Prism>
@@ -191,9 +210,25 @@ const ApiTable: FC<ApiTableProps> = ({ api }) => {
     );
 };
 
+/** 标题文本可能夹着 <code> 等元素, 取其纯文本以生成与 TOC 一致的 slug。 */
+const childrenToText = (node: ReactNode): string => {
+    if (typeof node === "string" || typeof node === "number") return String(node);
+    if (Array.isArray(node)) return node.map(childrenToText).join("");
+    if (isValidElement(node)) {
+        return childrenToText((node.props as { children?: ReactNode }).children);
+    }
+    return "";
+};
+
 const Markdown: FC<MarkdownProps> = ({ children, className, demos = [], api = [] }) => {
     const markdownComponents: Components = {
         code: CodeRenderer,
+        // 锚点 id —— 供右侧 TOC 跳转与滚动高亮定位。
+        h2: ({ children: c }) => <h2 id={slugify(childrenToText(c))}>{c}</h2>,
+        h3: ({ children: c }) => <h3 id={slugify(childrenToText(c))}>{c}</h3>,
+        // CodeRenderer 自带容器, 若仍包在 markdown 原生的 <pre> 里, rc-prose 会再给外层 pre
+        // 上一层底色与内距, 形成"框中框"。这里让 pre 透传, 由 CodeRenderer 独立成块。
+        pre: ({ children }) => <>{children}</>,
         demos: () => (demos.length > 0 ? <DemoGallery demos={demos} /> : null),
         api: () => <ApiTable api={api} />,
     } as Components;
