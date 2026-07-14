@@ -101,6 +101,18 @@ sort.badge-font-size   = "11px"
 # ─── 行选中 ───────────────────────────────────────────────────────────────────
 row-selection.selected-bg = "oklch(0.506 0.174 260 / 0.08)"
 
+# ─── 行点击（提供 onRowClick / onRowDoubleClick 时生效） ───────────────────────
+# 行成为可点击目标后必须具备可感知的示能：pointer 光标 + hover 反馈；
+# 二者仅在使用方传入行事件时才施加，纯展示的表格不得伪造交互暗示。
+#
+# row-bg-transition 只给时长与缓动，属性名留在 CSS 里写。
+# 它必须同时施加于「行」与「左右固定列」——一行的底色由这几个元素共同呈现，
+# 少给任何一处，那一处就会瞬时换色而其余仍在渐变，交界处撕裂、拖尾。
+# 用 ease-out（快起慢收）让底色淡入，而非匀速；时长压到 90ms，掠过多行时不留拖影。
+row-click.cursor            = "pointer"
+row-click.hover-bg          = "$ref(color.background.hover-subtle)"
+row-click.row-bg-transition = "90ms cubic-bezier(0, 0, 0.2, 1)"
+
 # ─── 底部汇总 / 合计行 ────────────────────────────────────────────────────────
 # 背景沿用表头底色（token.header.bg-color），加粗主文本以区别于普通数据行
 summary.color          = "$ref(color.text.primary)"

@@ -28,6 +28,9 @@ import type { CellNavDirection } from "./hooks/useCellEditNav.js";
 import { useSummary } from "./hooks/useSummary.js";
 import { useRowExpansion } from "./hooks/useRowExpansion.js";
 import { useRowNumber, ROW_NUMBER_COLUMN_NAME } from "./hooks/useRowNumber.js";
+import { useRowEvents } from "./hooks/useRowEvents.js";
+import type { RowEventHandler } from "./hooks/useRowEvents.js";
+import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
 import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
 
@@ -164,6 +167,26 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     rowNumberColumnWidth?: number
     /** 序号列是否固定到左侧（默认 true） */
     rowNumberColumnFixed?: boolean
+    // ====== 行事件 ======
+    /**
+     * 点击数据行。传入后该行即成为可点击目标（pointer 光标 + hover 反馈），
+     * 并可用键盘触发：选中行内任一单元格后按 Enter。
+     *
+     * 以下情形**不会**触发，避免与既有交互打架：
+     * - 点在行内的控件上（展开图标、行选择复选框、单选框、按钮、链接、输入框等）；
+     * - 单元格拖选之后的那次 click（按下与抬起之间发生了拖动）；
+     * - 该行正处于行编辑态。
+     *
+     * 注意：双击会先产生两次 click（浏览器语义），如需与 onRowDoubleClick 互斥请自行去抖。
+     */
+    onRowClick?: RowEventHandler<T>
+    /**
+     * 双击数据行。以下情形**不会**触发：
+     * - `editType="cell"` 下双击可编辑单元格（该次双击已被单元格编辑消费）；
+     * - `editType="row"` 下双击进入行编辑（该次双击已被行编辑消费）；
+     * - 点在行内控件上，或该行正处于行编辑态。
+     */
+    onRowDoubleClick?: RowEventHandler<T>
 }
 
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
@@ -250,17 +273,46 @@ const ExpandedRowContent: FC<{ width: number; children: ReactNode }> = ({ width,
     );
 };
 
-// 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承）
-const ROW_BG_VAR = '--rc-table-row-bg';
-
+// 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承；见 rowBg.ts）
 const selectedRowStyle = css`
     background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+    transition: ${ROW_BG_TRANSITION};
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 `;
 
-// 固定列背景 —— 通过 CSS 变量感知行选中状态
+/*
+ * 可点击行的示能 —— 仅在使用方传入 onRowClick / onRowDoubleClick 时才施加。
+ * 纯展示的表格不得伪造交互暗示（无 pointer、无 hover 高亮）。
+ *
+ * hover 底色写进行级 CSS 变量而非直接 background-color：只有走同一个变量，
+ * 左右固定列才会跟着一起变，否则 hover 时整行会被固定列切成三段。
+ */
+const clickableRowStyle = css`
+    cursor: ${token['row-click'].cursor};
+    background-color: var(${ROW_BG_VAR}, transparent);
+    transition: ${ROW_BG_TRANSITION};
+
+    &:hover {
+        ${ROW_BG_VAR}: ${token['row-click']['hover-bg']};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+`;
+
+// 固定列背景 —— 通过 CSS 变量感知行选中 / hover 状态，过渡必须与行严格一致（见 rowBgTransition）
 const fixedCellBgWithRowVar = css`
     z-index: 9;
     background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+    transition: ${ROW_BG_TRANSITION};
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 `;
 
 // 虚拟列表左侧占位
@@ -531,6 +583,8 @@ function Table<T extends Row>({
     showRowNumber = false,
     rowNumberColumnWidth,
     rowNumberColumnFixed,
+    onRowClick,
+    onRowDoubleClick,
     ...restProps
 }: TableProps<T>) {
 
@@ -742,10 +796,24 @@ function Table<T extends Row>({
 
     // ====== 单元格选区（同时处理 Ctrl+Z/C/Esc 键盘事件） ======
     const {
-        handleCellMouseDown, handleCellMouseEnter, getCellSelectionState, selectSingleCell
+        handleCellMouseDown, handleCellMouseEnter, getCellSelectionState, selectSingleCell,
+        anchorCell, rowIdToIndex
     } = useCellSelection<T>({
         displayRows, bottomColumnsRef, selectCells, onSelectCellsChange,
         onCopy, onCtrlZ: handleUndo
+    });
+
+    // ====== 行事件（点击 / 双击） ======
+    // 依赖选区的锚点：键盘触发行点击时，以"最后点选的单元格所在行"为目标行。
+    const { hasRowEvents, getRowEventProps } = useRowEvents<T>({
+        onRowClick,
+        onRowDoubleClick,
+        isRowEditMode,
+        startRowEdit,
+        currentEditingRowId,
+        displayRows,
+        anchorCell,
+        rowIdToIndex,
     });
 
     const handleCellEditNavigate = useCallback((rowIndex: number, columnIndex: number, direction: CellNavDirection) => {
@@ -992,6 +1060,7 @@ function Table<T extends Row>({
                 tableCells.push(
                     <TableBodyCell
                         key={`table-body-cell-${rowIndex}-${columnIndex}`}
+                        data-col-index={columnIndex}
                         row={currentRow as T}
                         rowIndex={rowIndex}
                         columnIndex={columnIndex}
@@ -1060,14 +1129,21 @@ function Table<T extends Row>({
             bodyRows.push(
                 <BodyRow
                     key={`table-body-row-${rowIndex}`}
-                    className={cx(isEditingThisRow ? rowEditingRowStyle : undefined, isRowSelected ? selectedRowStyle : undefined)}
+                    // 数据行在 DOM 中的定位锚点（供测试与使用方的自动化脚本使用）
+                    data-row-index={rowIndex}
+                    className={cx(
+                        isEditingThisRow ? rowEditingRowStyle : undefined,
+                        // 可点击示能只给真正可点的数据行：编辑态的行此时不响应行点击
+                        hasRowEvents && !isEditingThisRow ? clickableRowStyle : undefined,
+                        isRowSelected ? selectedRowStyle : undefined,
+                    )}
                     style={{
                         height: gridTemplateRows[rowIndex],
                         width: actualHeight,
                         ...(isRowSelected ? { [ROW_BG_VAR]: token['row-selection']['selected-bg'] } : null)
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     } as CSSProperties & Record<string, any>}
-                    onDoubleClick={isRowEditMode && !isEditingThisRow ? () => startRowEdit((currentRow as T).id) : undefined}
+                    {...getRowEventProps(currentRow as T, rowIndex, isEditingThisRow)}
                 >
                     {isEditingThisRow && <div className={rowEditBorderOverlayStyle} aria-hidden />}
                     {fixedLeftColumns.map((column, index) => makeFixedBodyCell(column, fixedLeftColumnsIdx[index], "left"))}

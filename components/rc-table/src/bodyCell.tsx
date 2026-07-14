@@ -13,6 +13,7 @@ import type { CellSelectionState, ColumnType, MergeCell, Row, TreeRowMeta } from
 import type { CellNavDirection } from "./hooks/useCellEditNav.js";
 import { Fragment, type HTMLAttributes, type Key, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
+import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
 
 const highlightMarkStyle = css`
     background-color: ${token.highlight.bg};
@@ -381,9 +382,14 @@ function TableCell<T extends Row>({
                         z-index: 1;
                         top: 0;
                         box-sizing: border-box;
-                        background-color: var(--rc-table-row-bg, ${token.cell['bg-color']});
-                        display: inline-flex;
-                        align-items: center;
+                        /* 合并单元格自带一层不透明底，同样读行底色变量 —— 过渡必须与行、
+                           固定列严格一致，否则 hover 时它会瞬时跳色而其余仍在渐变。 */
+                        background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+                        transition: ${ROW_BG_TRANSITION};
+
+                        @media (prefers-reduced-motion: reduce) {
+                            transition: none;
+                        }
                     `, getMergedContentBorderStyle())}
                     style={{
                         width: mergedSize.width,
@@ -599,6 +605,8 @@ function TableCell<T extends Row>({
                     setEditorValue(null);
                     setIsEditing(true);
                     onCellEditStart?.(rowIndex, columnIndex);
+                    // 这次双击已被单元格编辑消费：不再冒泡到行，否则会连带触发 onRowDoubleClick
+                    e.stopPropagation();
                 }
                 onDoubleClick?.(e);
             }}

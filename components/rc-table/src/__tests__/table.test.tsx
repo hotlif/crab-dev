@@ -551,4 +551,263 @@ describe("Table", () => {
 
         unmount();
     });
+
+    // ====== 行事件（onRowClick / onRowDoubleClick） ======
+    const rowEventColumns: ColumnType<DemoRow>[] = [
+        { title: "记录号", name: "$.recordNo", width: 120 },
+        { title: "城市", name: "$.city", width: 120 }
+    ];
+
+    const getRow = (container: HTMLElement, rowIndex: number): HTMLElement => {
+        const row = container.querySelector<HTMLElement>(`[data-row-index="${rowIndex}"]`);
+        if (!row) throw new Error(`row ${rowIndex} not found`);
+        return row;
+    };
+
+    const getCell = (container: HTMLElement, rowIndex: number, columnIndex: number): HTMLElement => {
+        const cell = getRow(container, rowIndex).querySelector<HTMLElement>(`[data-col-index="${columnIndex}"]`);
+        if (!cell) throw new Error(`cell ${rowIndex},${columnIndex} not found`);
+        return cell;
+    };
+
+    it("emits onRowClick with the row and its index", () => {
+        const onRowClick = jest.fn();
+        const { container, unmount } = renderTable(
+            <Table width={700} height={260} columns={rowEventColumns} rows={buildRows()} onRowClick={onRowClick} />
+        );
+
+        fireEvent.click(getRow(container, 1));
+
+        expect(onRowClick).toHaveBeenCalledTimes(1);
+        const [row, rowIndex] = onRowClick.mock.calls[0] as [DemoRow, number];
+        expect(row.id).toBe("2");
+        expect(rowIndex).toBe(1);
+
+        unmount();
+    });
+
+    it("emits onRowDoubleClick with the row and its index", () => {
+        const onRowDoubleClick = jest.fn();
+        const { container, unmount } = renderTable(
+            <Table width={700} height={260} columns={rowEventColumns} rows={buildRows()} onRowDoubleClick={onRowDoubleClick} />
+        );
+
+        fireEvent.doubleClick(getRow(container, 2));
+
+        expect(onRowDoubleClick).toHaveBeenCalledTimes(1);
+        const [row, rowIndex] = onRowDoubleClick.mock.calls[0] as [DemoRow, number];
+        expect(row.id).toBe("3");
+        expect(rowIndex).toBe(2);
+
+        unmount();
+    });
+
+    it("does not emit onRowClick when clicking the row-selection checkbox", () => {
+        const onRowClick = jest.fn();
+        const onChange = jest.fn();
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={rowEventColumns}
+                rows={buildRows()}
+                rowSelection={{ type: "checkbox", onChange }}
+                onRowClick={onRowClick}
+            />
+        );
+
+        const checkbox = getRow(container, 0).querySelector("input");
+        expect(checkbox).not.toBeNull();
+        fireEvent.click(checkbox as HTMLInputElement);
+
+        // 复选框消费了这次点击：行选中生效，行点击不触发
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onRowClick).not.toHaveBeenCalled();
+
+        unmount();
+    });
+
+    it("does not emit onRowClick when clicking the expand icon", () => {
+        const onRowClick = jest.fn();
+        const onExpandedRowKeysChange = jest.fn();
+        const { getAllByLabelText, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={rowEventColumns}
+                rows={buildRows()}
+                expandedRowRender={(row) => <div>{`详情-${row.dataRef.recordNo}`}</div>}
+                onExpandedRowKeysChange={onExpandedRowKeysChange}
+                onRowClick={onRowClick}
+            />
+        );
+
+        fireEvent.click(getAllByLabelText("展开此行")[0]);
+
+        expect(onExpandedRowKeysChange).toHaveBeenCalledTimes(1);
+        expect(onRowClick).not.toHaveBeenCalled();
+
+        unmount();
+    });
+
+    it("does not emit onRowClick when clicking a button rendered inside a cell", () => {
+        const onRowClick = jest.fn();
+        const onAction = jest.fn();
+        const columnsWithButton: ColumnType<DemoRow>[] = [
+            ...rowEventColumns,
+            {
+                title: "操作",
+                name: "$.action",
+                width: 100,
+                render: () => (
+                    <button type="button" onClick={() => onAction()}>删除</button>
+                )
+            }
+        ];
+
+        const { getAllByText, unmount } = renderTable(
+            <Table width={700} height={260} columns={columnsWithButton} rows={buildRows()} onRowClick={onRowClick} />
+        );
+
+        fireEvent.click(getAllByText("删除")[0]);
+
+        expect(onAction).toHaveBeenCalledTimes(1);
+        expect(onRowClick).not.toHaveBeenCalled();
+
+        unmount();
+    });
+
+    it("does not emit onRowClick after a cell drag-selection", () => {
+        const onRowClick = jest.fn();
+        const { container, unmount } = renderTable(
+            <Table width={700} height={260} columns={rowEventColumns} rows={buildRows()} onRowClick={onRowClick} />
+        );
+
+        const row = getRow(container, 0);
+        // 按下后拖出 40px 再抬起：这是一次拖选，不是点击
+        fireEvent.mouseDown(row, { clientX: 10, clientY: 10 });
+        fireEvent.click(row, { clientX: 50, clientY: 10 });
+
+        expect(onRowClick).not.toHaveBeenCalled();
+
+        // 原地按下抬起仍是正常点击
+        fireEvent.mouseDown(row, { clientX: 10, clientY: 10 });
+        fireEvent.click(row, { clientX: 11, clientY: 10 });
+        expect(onRowClick).toHaveBeenCalledTimes(1);
+
+        unmount();
+    });
+
+    it("does not emit onRowDoubleClick when a cell enters edit mode (editType=cell)", () => {
+        const onRowDoubleClick = jest.fn();
+        const editableColumns: ColumnType<DemoRow>[] = [
+            {
+                title: "记录号",
+                name: "$.recordNo",
+                width: 120,
+                editRender: ({ editorValue, onEditorValueChange }) => (
+                    <input value={String(editorValue ?? "")} onChange={(e) => onEditorValueChange(e.target.value)} />
+                )
+            },
+            { title: "城市", name: "$.city", width: 120 }
+        ];
+
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={editableColumns}
+                rows={buildRows()}
+                editType="cell"
+                onRowDoubleClick={onRowDoubleClick}
+            />
+        );
+
+        // 双击可编辑单元格：该次双击被单元格编辑消费，不冒泡为行双击
+        fireEvent.doubleClick(getCell(container, 0, 0));
+        expect(onRowDoubleClick).not.toHaveBeenCalled();
+
+        // 双击不可编辑的单元格：无人消费，正常上报行双击
+        fireEvent.doubleClick(getCell(container, 1, 1));
+        expect(onRowDoubleClick).toHaveBeenCalledTimes(1);
+
+        unmount();
+    });
+
+    it("lets row-edit consume the double click instead of emitting onRowDoubleClick (editType=row)", () => {
+        const onRowDoubleClick = jest.fn();
+        const onEditingRowIdChange = jest.fn();
+        const editableColumns: ColumnType<DemoRow>[] = [
+            {
+                title: "记录号",
+                name: "$.recordNo",
+                width: 120,
+                editRender: ({ editorValue, onEditorValueChange }) => (
+                    <input value={String(editorValue ?? "")} onChange={(e) => onEditorValueChange(e.target.value)} />
+                )
+            },
+            { title: "城市", name: "$.city", width: 120 }
+        ];
+
+        const { container, unmount } = renderTable(
+            <Table
+                width={700}
+                height={260}
+                columns={editableColumns}
+                rows={buildRows()}
+                editType="row"
+                onEditingRowIdChange={onEditingRowIdChange}
+                onRowDoubleClick={onRowDoubleClick}
+            />
+        );
+
+        fireEvent.doubleClick(getRow(container, 0));
+
+        // 行编辑优先：进入编辑态，且不再上报行双击
+        expect(onEditingRowIdChange).toHaveBeenCalledWith("1");
+        expect(onRowDoubleClick).not.toHaveBeenCalled();
+
+        unmount();
+    });
+
+    it("emits onRowClick via keyboard Enter on the anchored row", () => {
+        const onRowClick = jest.fn();
+        const { container, unmount } = renderTable(
+            <Table width={700} height={260} columns={rowEventColumns} rows={buildRows()} onRowClick={onRowClick} />
+        );
+
+        // 没有锚点单元格时，Enter 不应触发
+        fireEvent.keyDown(window, { key: "Enter" });
+        expect(onRowClick).not.toHaveBeenCalled();
+
+        // 点选第 2 行的单元格建立锚点后，Enter 触发该行的行点击
+        fireEvent.mouseDown(getCell(container, 1, 1));
+        fireEvent.keyDown(window, { key: "Enter" });
+
+        expect(onRowClick).toHaveBeenCalledTimes(1);
+        const [row, rowIndex] = onRowClick.mock.calls[0] as [DemoRow, number];
+        expect(row.id).toBe("2");
+        expect(rowIndex).toBe(1);
+
+        unmount();
+    });
+
+    it("adds the clickable affordance class only when a row event is provided", () => {
+        const countRowClasses = (element: ReactElement): number => {
+            const { container, unmount } = renderTable(element);
+            const classes = getRow(container, 0).className.split(/\s+/).filter(Boolean).length;
+            unmount();
+            return classes;
+        };
+
+        // 纯展示的表格不得伪造交互暗示（无 pointer / hover）；传入 onRowClick 后才多出可点击样式类
+        const plain = countRowClasses(
+            <Table width={700} height={260} columns={rowEventColumns} rows={buildRows()} />
+        );
+        const clickable = countRowClasses(
+            <Table width={700} height={260} columns={rowEventColumns} rows={buildRows()} onRowClick={jest.fn()} />
+        );
+
+        expect(clickable).toBe(plain + 1);
+    });
 });

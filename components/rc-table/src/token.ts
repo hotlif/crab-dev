@@ -71,6 +71,9 @@ export const vars = {
     'sort.badge-color': '--table-sort-badge-color',
     'sort.badge-font-size': '--table-sort-badge-font-size',
     'row-selection.selected-bg': '--table-row-selection-selected-bg',
+    'row-click.cursor': '--table-row-click-cursor',
+    'row-click.hover-bg': '--table-row-click-hover-bg',
+    'row-click.row-bg-transition': '--table-row-click-row-bg-transition',
     'summary.color': '--table-summary-color',
     'summary.font-weight': '--table-summary-font-weight',
     'summary.padding-inline': '--table-summary-padding-inline',
@@ -178,6 +181,11 @@ const token = {
     },
     'row-selection': {
         'selected-bg': `var(${vars['row-selection.selected-bg']}, oklch(0.506 0.174 260 / 0.08))`
+    },
+    'row-click': {
+        'cursor': `var(${vars['row-click.cursor']}, pointer)`,
+        'hover-bg': `var(${vars['row-click.hover-bg']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'row-bg-transition': `var(${vars['row-click.row-bg-transition']}, 90ms cubic-bezier(0, 0, 0.2, 1))`
     },
     'summary': {
         'color': `var(${vars['summary.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
