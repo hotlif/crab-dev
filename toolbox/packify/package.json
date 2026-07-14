@@ -3,6 +3,14 @@
   "description": "用来构建依赖库的打包工具, 预设了 babel 和 linaria 等一些配置",
   "packageManager": "yarn@4.16.0",
   "version": "0.0.4",
+  "websiteConfig": {
+    "title": "Packify 库打包器",
+    "role": "Rollup 4",
+    "stage": "构建",
+    "summary": "把组件打成库。一次构建同时产出四种格式，并生成设计令牌与 API 文档。",
+    "output": "esm / cjs / declarations / css",
+    "order": 3
+  },
   "type": "module",
   "scripts": {
     "build:library": "rollup -c",

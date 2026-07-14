@@ -3,6 +3,14 @@
   "description": "用于处理组件样式自动导入, 属于 @crab-dev/crustify 的内部组件",
   "version": "0.0.3",
   "packageManager": "yarn@4.16.0",
+  "websiteConfig": {
+    "title": "Auto Import Style 插件",
+    "role": "Babel",
+    "stage": "消费",
+    "summary": "编译期为消费方注入样式。import 组件即自动带上它与传递依赖的 CSS。",
+    "output": "消费方的样式 import",
+    "order": 4
+  },
   "type": "module",
   "scripts": {
     "build:library": "packify build",

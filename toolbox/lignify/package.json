@@ -3,6 +3,14 @@
     "version": "0.0.3",
     "description": "使用此快速开发 React 组件库，可用来调试和生成 CSS 变量主题。",
     "packageManager": "yarn@4.16.0",
+    "websiteConfig": {
+        "title": "Lignify 文档环境",
+        "role": "零配置",
+        "stage": "文档",
+        "summary": "零配置的文档与预览环境。自动扫描示例与 MDX，边写组件边调主题令牌。",
+        "output": "文档站与在线预览",
+        "order": 2
+    },
     "type": "module",
     "scripts": {
         "start": "crustify run-task app:dev",
