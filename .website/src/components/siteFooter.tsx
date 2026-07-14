@@ -41,6 +41,7 @@ const SiteFooter: FC = () => {
                 <nav className={linksStyle} aria-label="次级导航">
                     <a href="https://github.com/hotlif/crab-dev" target="_blank" rel="noreferrer">GitHub</a>
                     <a href="/components">组件</a>
+                    <a href="/toolchain">工具链</a>
                 </nav>
             </div>
         </footer>

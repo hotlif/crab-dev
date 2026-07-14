@@ -137,16 +137,38 @@ interface NavEntry {
     to: string;
     label: string;
     end?: boolean;
+    /** 详情页（如 /components/rc-button）下仍需高亮所属 tab。 */
+    matchPrefix?: string;
 }
 
 const NAV_ENTRIES: NavEntry[] = [
     { to: "/", label: "首页", end: true },
+    { to: "/components", label: "组件库", matchPrefix: "/components/" },
+    { to: "/toolchain", label: "工具链", matchPrefix: "/toolchain/" },
 ];
 
 const SiteHeader: FC = () => {
     const { theme, toggle } = useTheme();
     const [mobileOpen, setMobileOpen] = useState(false);
     const location = useLocation();
+
+    const renderNavLink = (entry: NavEntry, onClick?: () => void) => (
+        <NavLink
+            key={entry.to}
+            to={entry.to}
+            end={entry.end}
+            className={({ isActive }) =>
+                cx(
+                    navLinkStyle,
+                    (isActive || (entry.matchPrefix !== undefined && location.pathname.startsWith(entry.matchPrefix)))
+                    && "active",
+                )
+            }
+            onClick={onClick}
+        >
+            {entry.label}
+        </NavLink>
+    );
 
     return (
         <header className={headerStyle}>
@@ -159,24 +181,7 @@ const SiteHeader: FC = () => {
                 </Link>
 
                 <nav className={navStyle} aria-label="主导航">
-                    {NAV_ENTRIES.map(entry => (
-                        <NavLink
-                            key={entry.to}
-                            to={entry.to}
-                            end={entry.end}
-                            className={({ isActive }) => cx(navLinkStyle, isActive && "active")}
-                        >
-                            {entry.label}
-                        </NavLink>
-                    ))}
-                    <NavLink
-                        to="/components"
-                        className={({ isActive }) =>
-                            cx(navLinkStyle, (isActive || location.pathname.startsWith("/components/")) && "active")
-                        }
-                    >
-                        组件库
-                    </NavLink>
+                    {NAV_ENTRIES.map(entry => renderNavLink(entry))}
                 </nav>
 
                 <div className={actionsStyle}>
@@ -209,19 +214,9 @@ const SiteHeader: FC = () => {
                 </div>
             </div>
             {mobileOpen && (
-                <div className={mobileNavStyle}>
-                    {NAV_ENTRIES.map(entry => (
-                        <NavLink
-                            key={entry.to}
-                            to={entry.to}
-                            end={entry.end}
-                            className={({ isActive }) => cx(navLinkStyle, isActive && "active")}
-                            onClick={() => setMobileOpen(false)}
-                        >
-                            {entry.label}
-                        </NavLink>
-                    ))}
-                </div>
+                <nav className={mobileNavStyle} aria-label="移动端导航">
+                    {NAV_ENTRIES.map(entry => renderNavLink(entry, () => setMobileOpen(false)))}
+                </nav>
             )}
         </header>
     );

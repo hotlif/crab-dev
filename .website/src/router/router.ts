@@ -30,6 +30,20 @@ export const router = createBrowserRouter([
                 },
             },
             {
+                path: "toolchain",
+                lazy: async () => {
+                    const Page = await import("../pages/toolchain.view.js");
+                    return { Component: Page.default };
+                },
+            },
+            {
+                path: "toolchain/:slug",
+                lazy: async () => {
+                    const Page = await import("../pages/tool.view.js");
+                    return { Component: Page.default };
+                },
+            },
+            {
                 path: "*",
                 lazy: async () => {
                     const Page = await import("../pages/notFound.view.js");
