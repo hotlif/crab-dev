@@ -1688,6 +1688,169 @@ const SizeDemo = () => {
 export default SizeDemo;`,
             },
             {
+                path: "components/rc-button/docs/demos/button-group.demo.tsx",
+                title: "按钮组",
+                description: "`ButtonGroup` 统一管理子按钮的 `size` 和 `appearance`，适用于工具栏场景",
+                source: `
+/**
+ * title = "按钮组"
+ * description = "\`ButtonGroup\` 统一管理子按钮的 \`size\` 和 \`appearance\`，适用于工具栏场景"
+ */
+
+import Button, { ButtonGroup } from '../../src/index.js';
+import { css } from '@linaria/core';
+import { Bold, Italic, Underline } from 'lucide-react';
+import { useState } from 'react';
+
+const ButtonGroupDemo = () => {
+    const [formats, setFormats] = useState<Set<string>>(new Set());
+
+    const toggle = (key: string) => {
+        setFormats((prev) => {
+            const next = new Set(prev);
+            if (next.has(key)) { next.delete(key); } else { next.add(key); }
+            return next;
+        });
+    };
+
+    return (
+        <div
+            className={css\`
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            \`}
+        >
+            <ButtonGroup>
+                <Button appearance="primary">创建</Button>
+                <Button>编辑</Button>
+                <Button appearance="danger">删除</Button>
+            </ButtonGroup>
+
+            <ButtonGroup size="small">
+                <Button>上一页</Button>
+                <Button>1</Button>
+                <Button isSelected>2</Button>
+                <Button>3</Button>
+                <Button>下一页</Button>
+            </ButtonGroup>
+
+            <ButtonGroup appearance="subtle">
+                <Button
+                    icon={<Bold />}
+                    aria-label="粗体"
+                    isSelected={formats.has('bold')}
+                    onClick={() => toggle('bold')}
+                />
+                <Button
+                    icon={<Italic />}
+                    aria-label="斜体"
+                    isSelected={formats.has('italic')}
+                    onClick={() => toggle('italic')}
+                />
+                <Button
+                    icon={<Underline />}
+                    aria-label="下划线"
+                    isSelected={formats.has('underline')}
+                    onClick={() => toggle('underline')}
+                />
+            </ButtonGroup>
+        </div>
+    );
+};
+
+export default ButtonGroupDemo;
+`,
+            },
+            {
+                path: "components/rc-button/docs/demos/circle.demo.tsx",
+                title: "圆形按钮",
+                description: "`shape=\"circle\"` 搭配纯图标（无 children）适用于工具栏操作图标",
+                source: `
+/**
+ * title = "圆形按钮"
+ * description = "\`shape=\\"circle\\"\` 搭配纯图标（无 children）适用于工具栏操作图标"
+ */
+
+import Button from '../../src/index.js';
+import { css } from '@linaria/core';
+import { Plus, Pencil, Trash2, Search, Settings } from 'lucide-react';
+
+const CircleDemo = () => {
+    return (
+        <div
+            className={css\`
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            \`}
+        >
+            <div
+                className={css\`
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                \`}
+            >
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="large" />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="small" />
+            </div>
+
+            <div
+                className={css\`
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                \`}
+            >
+                <Button shape="circle" aria-label="搜索" icon={<Search />} />
+                <Button shape="circle" aria-label="编辑" icon={<Pencil />} />
+                <Button shape="circle" aria-label="设置" icon={<Settings />} />
+                <Button appearance="danger" shape="circle" aria-label="删除" icon={<Trash2 />} />
+                <Button shape="circle" aria-label="删除" icon={<Trash2 />} disabled />
+            </div>
+        </div>
+    );
+};
+
+export default CircleDemo;
+`,
+            },
+            {
+                path: "components/rc-button/docs/demos/danger.demo.tsx",
+                title: "危险操作",
+                description: "使用 `appearance=\"danger\"` 标识删除、清空等破坏性操作",
+                source: `
+/**
+ * title = "危险操作"
+ * description = "使用 \`appearance=\\"danger\\"\` 标识删除、清空等破坏性操作"
+ */
+
+import Button from '../../src/index.js';
+import { css } from '@linaria/core';
+
+const DangerDemo = () => {
+    return (
+        <div
+            className={css\`
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            \`}
+        >
+            <Button appearance="danger">删除</Button>
+            <Button appearance="danger" disabled>禁用</Button>
+            <Button appearance="danger" loading>删除中</Button>
+        </div>
+    );
+};
+
+export default DangerDemo;
+`,
+            },
+            {
                 path: "components/rc-button/docs/demos/disabled.demo.tsx",
                 title: "禁用状态",
                 description: "添加 `disabled` 属性即可让按钮处于禁用状态",
@@ -1744,6 +1907,42 @@ const SizeDemo = () => {
 }
 
 export default SizeDemo;`,
+            },
+            {
+                path: "components/rc-button/docs/demos/icon-after.demo.tsx",
+                title: "图标位置",
+                description: "`icon` 在文字左侧，`iconAfter` 在文字右侧，可同时使用",
+                source: `
+/**
+ * title = "图标位置"
+ * description = "\`icon\` 在文字左侧，\`iconAfter\` 在文字右侧，可同时使用"
+ */
+
+import Button from '../../src/index.js';
+import { css } from '@linaria/core';
+import { ArrowRight, ChevronDown, Download, Search } from 'lucide-react';
+
+const IconAfterDemo = () => {
+    return (
+        <div
+            className={css\`
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            \`}
+        >
+            <Button icon={<Search />}>搜索</Button>
+            <Button iconAfter={<ArrowRight />}>下一步</Button>
+            <Button iconAfter={<ChevronDown />}>更多选项</Button>
+            <Button appearance="primary" iconAfter={<Download />}>下载</Button>
+            <Button icon={<Search />} iconAfter={<ChevronDown />}>搜索并展开</Button>
+        </div>
+    );
+};
+
+export default IconAfterDemo;
+`,
             },
             {
                 path: "components/rc-button/docs/demos/icon.demo.tsx",
@@ -1828,6 +2027,59 @@ const IconDemo = () => {
 export default IconDemo;`,
             },
             {
+                path: "components/rc-button/docs/demos/link-button.demo.tsx",
+                title: "链接按钮",
+                description: "传入 `href` 时渲染为 `<a>` 元素，保留所有 Button 样式与交互",
+                source: `
+/**
+ * title = "链接按钮"
+ * description = "传入 \`href\` 时渲染为 \`<a>\` 元素，保留所有 Button 样式与交互"
+ */
+
+import Button from '../../src/index.js';
+import { css } from '@linaria/core';
+import { ExternalLink } from 'lucide-react';
+
+const LinkButtonDemo = () => {
+    return (
+        <div
+            className={css\`
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            \`}
+        >
+            <Button appearance="primary" href="https://example.com" target="_blank" rel="noopener noreferrer">
+                主要链接
+            </Button>
+            <Button appearance="subtle" href="https://example.com" target="_blank" rel="noopener noreferrer">
+                次级链接
+            </Button>
+            <Button
+                appearance="link"
+                href="https://example.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                iconAfter={<ExternalLink />}
+            >
+                外部链接
+            </Button>
+            <Button
+                appearance="subtle"
+                href="https://example.com"
+                disabled
+            >
+                禁用链接
+            </Button>
+        </div>
+    );
+};
+
+export default LinkButtonDemo;
+`,
+            },
+            {
                 path: "components/rc-button/docs/demos/loading.demo.tsx",
                 title: "加载中",
                 description: "添加 `loading` 属性即可让按钮处于加载状态",
@@ -1884,6 +2136,94 @@ const SizeDemo = () => {
 }
 
 export default SizeDemo;`,
+            },
+            {
+                path: "components/rc-button/docs/demos/selected.demo.tsx",
+                title: "选中状态",
+                description: "`isSelected` 用于工具栏过滤器、视图切换等 toggle 场景",
+                source: `
+/**
+ * title = "选中状态"
+ * description = "\`isSelected\` 用于工具栏过滤器、视图切换等 toggle 场景"
+ */
+
+import Button from '../../src/index.js';
+import { css } from '@linaria/core';
+import { useState } from 'react';
+import { AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
+
+type Align = 'left' | 'center' | 'right';
+
+const SelectedDemo = () => {
+    const [align, setAlign] = useState<Align>('left');
+    const [view, setView] = useState<'table' | 'card'>('table');
+
+    return (
+        <div
+            className={css\`
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            \`}
+        >
+            <div
+                className={css\`
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                \`}
+            >
+                <Button
+                    appearance="subtle"
+                    icon={<AlignLeft />}
+                    aria-label="左对齐"
+                    isSelected={align === 'left'}
+                    onClick={() => setAlign('left')}
+                />
+                <Button
+                    appearance="subtle"
+                    icon={<AlignCenter />}
+                    aria-label="居中对齐"
+                    isSelected={align === 'center'}
+                    onClick={() => setAlign('center')}
+                />
+                <Button
+                    appearance="subtle"
+                    icon={<AlignRight />}
+                    aria-label="右对齐"
+                    isSelected={align === 'right'}
+                    onClick={() => setAlign('right')}
+                />
+            </div>
+
+            <div
+                className={css\`
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                \`}
+            >
+                <Button
+                    appearance="text"
+                    isSelected={view === 'table'}
+                    onClick={() => setView('table')}
+                >
+                    列表视图
+                </Button>
+                <Button
+                    appearance="text"
+                    isSelected={view === 'card'}
+                    onClick={() => setView('card')}
+                >
+                    卡片视图
+                </Button>
+            </div>
+        </div>
+    );
+};
+
+export default SelectedDemo;
+`,
             },
             {
                 path: "components/rc-button/docs/demos/size.demo.tsx",
@@ -1961,7 +2301,13 @@ export default SizeDemo;`,
         api: [
             {
                 name: "icon",
-                description: "图标信息",
+                description: "图标（左侧）",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "iconAfter",
+                description: "图标（右侧）",
                 type: "ReactNode",
                 defaultValue: "-",
             },
@@ -1972,33 +2318,69 @@ export default SizeDemo;`,
                 defaultValue: "false",
             },
             {
+                name: "loadingIcon",
+                description: "自定义加载图标，替换默认旋转 Spinner",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
                 name: "appearance",
-                description: "按钮类型",
-                type: "'primary' | 'subtle' | 'dashed' | 'text' | 'link'",
-                defaultValue: "'subtle'",
+                description: "按钮外观",
+                type: "'primary' | 'subtle' | 'dashed' | 'text' | 'link' | 'danger'",
+                defaultValue: "-",
             },
             {
                 name: "size",
-                description: "按钮的大小, 默认为 middle",
+                description: "按钮大小，默认 middle",
                 type: "'large' | 'middle' | 'small'",
                 defaultValue: "-",
             },
             {
-                name: "shouldFitContainer",
-                description: "宽度设置为父容器宽度",
+                name: "shape",
+                description: "按钮形状，circle 时宽高相等、边框全圆",
+                type: "literal",
+                defaultValue: "-",
+            },
+            {
+                name: "isSelected",
+                description: "选中状态（toggle / 工具栏过滤器场景）",
                 type: "boolean",
                 defaultValue: "false",
             },
             {
+                name: "shouldFitContainer",
+                description: "宽度撑满父容器",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "href",
+                description: "存在时渲染为 <a> 元素",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "target",
+                description: "链接打开方式（_blank / _self / _parent / _top）",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "rel",
+                description: "链接 rel 属性，href 为外部地址时建议传 \"noopener noreferrer\"",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
                 name: "onClick",
                 description: "see ButtonHTMLAttributes<HTMLButtonElement>[\"onClick\"]",
-                type: "(\r\n    param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0],\r\n) => Promise<void> | void",
+                type: "(\n    param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0],\n) => Promise<void> | void",
                 defaultValue: "-",
             },
             {
                 name: "onClickCapture",
                 description: "see ButtonHTMLAttributes<HTMLButtonElement>[\"onClickCapture\"]",
-                type: "(\r\n    param: Parameters<\r\n        NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']>\r\n    >[0],\r\n) => Promise<void> | void",
+                type: "(\n    param: Parameters<\n        NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']>\n    >[0],\n) => Promise<void> | void",
                 defaultValue: "-",
             },
         ],
@@ -3043,6 +3425,365 @@ export default function TransformerDemo() {
         ],
     },
     {
+        slug: "rc-card",
+        pkg: "@crab-dev/rc-card",
+        version: "0.0.1",
+        title: "Card 卡片",
+        description: "卡片容器, 用于承载标题、封面、内容与操作的通用信息单元",
+        category: "data-display",
+        readme: ``,
+        demos: [
+            {
+                path: "components/rc-card/docs/demos/basic.demo.tsx",
+                title: "基础用法",
+                description: "title 与 extra 组成标题区, 裸内容自动落入内容区。",
+                source: `/**
+ * title = "基础用法"
+ * description = "title 与 extra 组成标题区, 裸内容自动落入内容区。"
+ */
+
+import Button from '@crab-dev/rc-button';
+import Card from '../../src/index.js';
+
+const BasicDemo = () => {
+    return (
+        <Card
+            title="项目周报"
+            extra={<Button appearance="link">更多</Button>}
+            style={{ maxWidth: 360 }}
+        >
+            本周完成卡片组件的令牌设计与交互实现, 覆盖三种视觉变体与整卡点击语义,
+            下周进入文档与回归测试阶段。
+        </Card>
+    );
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-card/docs/demos/clickable.demo.tsx",
+                title: "整卡可点击",
+                description: "clickable 赋予按钮语义：浮起反馈、键盘激活与焦点环; extra 与 actions 的点击自动与整卡隔离。",
+                source: `/**
+ * title = "整卡可点击"
+ * description = "clickable 赋予按钮语义：浮起反馈、键盘激活与焦点环; extra 与 actions 的点击自动与整卡隔离。"
+ */
+
+import { useState } from 'react';
+import Button from '@crab-dev/rc-button';
+import Card from '../../src/index.js';
+
+const ClickableDemo = () => {
+    const [message, setMessage] = useState('点击卡片任意位置, 或 Tab 聚焦后按 Enter');
+
+    return (
+        <Card
+            clickable
+            onClick={() => setMessage(\`整卡点击 · \${new Date().toLocaleTimeString()}\`)}
+            title="可点击卡片"
+            extra={
+                <Button appearance="text" onClick={() => setMessage('点击了 extra, 未触发整卡')}>
+                    更多
+                </Button>
+            }
+            actions={[
+                <Button key="edit" appearance="subtle" onClick={() => setMessage('点击了操作区, 未触发整卡')}>
+                    编辑
+                </Button>,
+            ]}
+            style={{ maxWidth: 360 }}
+        >
+            {message}
+        </Card>
+    );
+};
+
+export default ClickableDemo;
+`,
+            },
+            {
+                path: "components/rc-card/docs/demos/composition.demo.tsx",
+                title: "自由拼装",
+                description: "传入 Card.Cover / Header / Body / Footer 结构子组件时切换为自由模式, 完全掌控区块次序。",
+                source: `/**
+ * title = "自由拼装"
+ * description = "传入 Card.Cover / Header / Body / Footer 结构子组件时切换为自由模式, 完全掌控区块次序。"
+ */
+
+import { css } from '@linaria/core';
+import Button from '@crab-dev/rc-button';
+import Tag from '@crab-dev/rc-tag';
+import Card from '../../src/index.js';
+
+const coverArtStyle = css\`
+    height: 120px;
+    background: linear-gradient(135deg, oklch(0.75 0.13 60), oklch(0.68 0.17 20));
+\`;
+
+const CompositionDemo = () => {
+    return (
+        <Card hoverable style={{ maxWidth: 340 }}>
+            <Card.Header title="自由拼装模式" extra={<Tag color="primary">Beta</Tag>} />
+            <Card.Body>结构子组件可任意排布 —— 这里把封面放在了正文与操作区之间。</Card.Body>
+            <Card.Cover>
+                <div className={coverArtStyle} />
+            </Card.Cover>
+            <Card.Footer>
+                <Button appearance="text">取消</Button>
+                <Button appearance="primary">确认</Button>
+            </Card.Footer>
+        </Card>
+    );
+};
+
+export default CompositionDemo;
+`,
+            },
+            {
+                path: "components/rc-card/docs/demos/cover.demo.tsx",
+                title: "封面与悬浮浮起",
+                description: "cover 出血铺满顶部; hoverable 悬浮时卡片浮起、封面同步微缩放。",
+                source: `/**
+ * title = "封面与悬浮浮起"
+ * description = "cover 出血铺满顶部; hoverable 悬浮时卡片浮起、封面同步微缩放。"
+ */
+
+import { css } from '@linaria/core';
+import Avatar from '@crab-dev/rc-avatar';
+import Card from '../../src/index.js';
+
+const coverArtStyle = css\`
+    height: 160px;
+    background: linear-gradient(135deg, oklch(0.72 0.15 250), oklch(0.62 0.19 300));
+\`;
+
+const CoverDemo = () => {
+    return (
+        <Card hoverable cover={<div className={coverArtStyle} />} style={{ maxWidth: 320 }}>
+            <Card.Meta
+                avatar={<Avatar variant="primary">曦</Avatar>}
+                title="晨曦航线"
+                description="穿越晨雾的第一班渡轮, 记录海面苏醒的十五分钟。"
+            />
+        </Card>
+    );
+};
+
+export default CoverDemo;
+`,
+            },
+            {
+                path: "components/rc-card/docs/demos/loading.demo.tsx",
+                title: "加载骨架",
+                description: "loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。",
+                source: `/**
+ * title = "加载骨架"
+ * description = "loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。"
+ */
+
+import { css } from '@linaria/core';
+import { useState } from 'react';
+import Avatar from '@crab-dev/rc-avatar';
+import Button from '@crab-dev/rc-button';
+import Card from '../../src/index.js';
+
+const stackStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 320px;
+\`;
+
+const coverArtStyle = css\`
+    height: 140px;
+    background: linear-gradient(135deg, oklch(0.8 0.12 150), oklch(0.7 0.14 200));
+\`;
+
+const LoadingDemo = () => {
+    const [loading, setLoading] = useState(true);
+
+    return (
+        <div className={stackStyle}>
+            <Button appearance="subtle" onClick={() => setLoading((prev) => !prev)}>
+                {loading ? '完成加载' : '重新加载'}
+            </Button>
+            <Card loading={loading} cover={<div className={coverArtStyle} />}>
+                <Card.Meta
+                    avatar={<Avatar variant="success">禾</Avatar>}
+                    title="内容加载完成"
+                    description="骨架的封面 / 标题 / 三行正文与真实内容一一对应。"
+                />
+            </Card>
+        </div>
+    );
+};
+
+export default LoadingDemo;
+`,
+            },
+            {
+                path: "components/rc-card/docs/demos/size.demo.tsx",
+                title: "三档尺寸",
+                description: "size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。",
+                source: `/**
+ * title = "三档尺寸"
+ * description = "size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。"
+ */
+
+import { css } from '@linaria/core';
+import Card from '../../src/index.js';
+
+const rowStyle = css\`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 16px;
+
+    & > * {
+        flex: 1 1 200px;
+    }
+\`;
+
+const SizeDemo = () => {
+    return (
+        <div className={rowStyle}>
+            <Card size="small" variant="outlined" title="Small">
+                紧凑列表场景。
+            </Card>
+            <Card size="middle" variant="outlined" title="Middle">
+                默认档位, 适合常规信息卡。
+            </Card>
+            <Card size="large" variant="outlined" title="Large">
+                页面级重点区块。
+            </Card>
+        </div>
+    );
+};
+
+export default SizeDemo;
+`,
+            },
+            {
+                path: "components/rc-card/docs/demos/variant.demo.tsx",
+                title: "三种变体",
+                description: "elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。",
+                source: `/**
+ * title = "三种变体"
+ * description = "elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。"
+ */
+
+import { css } from '@linaria/core';
+import Card from '../../src/index.js';
+
+const rowStyle = css\`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+\`;
+
+const VariantDemo = () => {
+    return (
+        <div className={rowStyle}>
+            <Card variant="elevated" title="Elevated">
+                白底 + 静态微投影, 适合置于灰底页面之上。
+            </Card>
+            <Card variant="outlined" title="Outlined">
+                白底 + 1px 描边, 适合信息密集的平铺列表。
+            </Card>
+            <Card variant="filled" title="Filled">
+                弱灰底无描边, 适合嵌在白底容器内部做轻分组。
+            </Card>
+        </div>
+    );
+};
+
+export default VariantDemo;
+`,
+            },
+        ],
+        api: [
+            {
+                name: "variant",
+                description: "视觉变体\n@default \"elevated\"",
+                type: "'elevated' | 'outlined' | 'filled'",
+                defaultValue: "'elevated'",
+            },
+            {
+                name: "size",
+                description: "尺寸档位\n@default \"middle\"",
+                type: "'large' | 'middle' | 'small'",
+                defaultValue: "'middle'",
+            },
+            {
+                name: "title",
+                description: "标题, 渲染在标题区左侧",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "extra",
+                description: "标题区右侧的操作区（如\"更多\"按钮）",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "cover",
+                description: "封面媒体, 出血铺满卡片顶部并随圆角裁切",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "actions",
+                description: "底部操作组, 渲染在分割线下方并靠右排布",
+                type: "ReactNode[]",
+                defaultValue: "-",
+            },
+            {
+                name: "hoverable",
+                description: "悬浮时是否浮起（大投影 + 上移 + 封面微缩放）\n@default false",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "clickable",
+                description: "整卡是否可点击：自带浮起反馈 / 键盘激活（Enter / Space）/ 焦点环,\n卡内 extra 与 actions 的点击自动与整卡点击隔离\n@default false",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "loading",
+                description: "是否处于加载态, 为 true 时渲染骨架占位\n@default false",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "disabled",
+                description: "是否禁用：撤销全部交互示能并降低不透明度\n@default false",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "onClick",
+                description: "整卡点击回调, 仅 clickable 时生效",
+                type: "MouseEventHandler<HTMLDivElement>",
+                defaultValue: "-",
+            },
+            {
+                name: "children",
+                description: "卡片内容：裸内容自动包裹进内容区; 传入 Card.Cover / Card.Header /\nCard.Body / Card.Footer 时切换为自由拼装模式",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "ref",
+                description: "根节点 ref",
+                type: "Ref<HTMLDivElement>",
+                defaultValue: "-",
+            },
+        ],
+    },
+    {
         slug: "rc-checkbox",
         pkg: "@crab-dev/rc-checkbox",
         version: "0.0.1",
@@ -3297,12 +4038,13 @@ export default SizeDemo;
 
 ## ✨ 特性
 
-- 提供颜色选择能力，适用于主题与样式配置场景
-- 支持可视化取色流程，降低颜色输入成本
-- 便于接入设计面板、品牌配置与个性化编辑功能
-- 当前版本：\`0.0.1\`
-- 示例数量：\`2\` 个 Demo
-- 主题能力：支持 Design Token（token.toml）
+- OKLCH 四通道:亮度 / 色度 / 色相 / **透明度**,滑块实时可视化
+- **文本输入**并支持 HEX / RGB / HSL / OKLCH **格式切换**(仅影响显示,输出恒为 OKLCH)
+- **预设色板**(扁平或分组)与**吸管取色**(基于原生 EyeDropper,自动特性检测)
+- 受控 / 非受控(\`defaultValue\`)、\`disabled\`、\`size\`、\`allowClear\` 重置
+- 无障碍:触发器为 \`role="button"\`,支持 Enter/Space 键盘打开、\`aria-*\` 与滑块标签
+- 主题能力:全量走三层 Design Token(\`token.toml\`),无硬编码颜色
+- 当前版本:\`0.0.1\`;示例数量:\`2\` 个 Demo
 
 ## 🔨 使用示例
 
@@ -3317,76 +4059,137 @@ export default SizeDemo;
         demos: [
             {
                 path: "components/rc-color-picker/docs/demos/colorPicker.demo.tsx",
-                title: "颜色面板",
-                description: "选择颜色的面板演示。",
+                title: "颜色选择器",
+                description: "可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。",
                 source: `/**
- * title = "颜色面板"
- * description = "选择颜色的面板演示。"
+ * title = "颜色选择器"
+ * description = "可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。"
  */
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import ColorPicker from "../../src/colorPicker/index.js";
+import ColorPicker, { type ColorPreset, type OKLCHValue } from "../../src/index.js";
 
+const rowStyle = css\`
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    > span:first-child {
+        width: 12rem;
+        font-size: 13px;
+        color: #666;
+    }
+\`;
+
+const presets: ColorPreset[] = [
+    {
+        label: "品牌色",
+        colors: [
+            { lightness: 0.62, chroma: 0.19, hue: 255 },
+            { lightness: 0.7, chroma: 0.16, hue: 145 },
+            { lightness: 0.68, chroma: 0.2, hue: 25 },
+        ],
+    },
+    {
+        label: "中性色",
+        colors: [
+            { lightness: 0.2, chroma: 0, hue: 0 },
+            { lightness: 0.5, chroma: 0, hue: 0 },
+            { lightness: 0.85, chroma: 0, hue: 0 },
+        ],
+    },
+];
 
 const ColorPickerDemo = () => {
-    const [value, setValue] = useState({
-        lightness: 0.6,
-        chroma: 0,
-        hue: 0
-    })
+    const [value, setValue] = useState<OKLCHValue>({
+        lightness: 0.62,
+        chroma: 0.19,
+        hue: 255,
+        alpha: 1,
+    });
 
     return (
         <div
             className={css\`
                 display: flex;
                 flex-direction: column;
+                gap: 1.5rem;
                 margin-bottom: 2rem;
             \`}
-            style={{ width: 250 }}
         >
-            <ColorPicker value={value} onValueChange={setValue} />
-        </div>
-    )
-}
+            <label className={rowStyle}>
+                <span>基础(透明度 / 输入 / 格式 / 吸管 / 预设 / 重置)</span>
+                <ColorPicker value={value} onValueChange={setValue} allowClear presets={presets} />
+            </label>
 
-export default ColorPickerDemo;`,
+            <label className={rowStyle}>
+                <span>非受控 + 尺寸(small / large)</span>
+                <ColorPicker defaultValue={{ lightness: 0.7, chroma: 0.16, hue: 145 }} size="small" />
+                <ColorPicker defaultValue={{ lightness: 0.68, chroma: 0.2, hue: 25 }} size="large" />
+            </label>
+
+            <label className={rowStyle}>
+                <span>无透明度 + RGB 格式</span>
+                <ColorPicker
+                    defaultValue={{ lightness: 0.7, chroma: 0.1, hue: 200 }}
+                    showAlpha={false}
+                    format="rgb"
+                />
+            </label>
+
+            <label className={rowStyle}>
+                <span>禁用</span>
+                <ColorPicker value={value} onValueChange={setValue} disabled />
+            </label>
+        </div>
+    );
+};
+
+export default ColorPickerDemo;
+`,
             },
             {
                 path: "components/rc-color-picker/docs/demos/colorPickerPanel.demo.tsx",
                 title: "颜色面板",
-                description: "选择颜色的面板演示。",
+                description: "内嵌式颜色面板:亮度 / 色度 / 色相 / 透明度 + 文本输入 + 预设色板。",
                 source: `/**
  * title = "颜色面板"
- * description = "选择颜色的面板演示。"
+ * description = "内嵌式颜色面板:亮度 / 色度 / 色相 / 透明度 + 文本输入 + 预设色板。"
  */
 
 import { css } from "@linaria/core";
 import { useState } from "react";
-import ColorPickerPanel from "../../src/panels/colorPickerPanel.js";
+import { ColorPickerPanel, type OKLCHValue } from "../../src/index.js";
 
+const presets: OKLCHValue[] = [
+    { lightness: 0.5, chroma: 0.2, hue: 0 },
+    { lightness: 0.7, chroma: 0.18, hue: 145 },
+    { lightness: 0.62, chroma: 0.19, hue: 255 },
+    { lightness: 0.8, chroma: 0.15, hue: 90 },
+];
 
-const SizeDemo = () => {
-    const [value, setValue] = useState({
+const ColorPickerPanelDemo = () => {
+    const [value, setValue] = useState<OKLCHValue>({
         lightness: 0.6,
-        chroma: 0,
-        hue: 0
-    })
+        chroma: 0.12,
+        hue: 200,
+        alpha: 0.8,
+    });
+
     return (
         <div
             className={css\`
-                display: flex;
-                flex-direction: column;
+                width: 280px;
                 margin-bottom: 2rem;
             \`}
-            style={{ width: 250 }}
         >
-            <ColorPickerPanel value={value} onValueChange={setValue} />
+            <ColorPickerPanel value={value} onValueChange={setValue} presets={presets} />
         </div>
-    )
-}
+    );
+};
 
-export default SizeDemo;`,
+export default ColorPickerPanelDemo;
+`,
             },
         ],
         api: [
@@ -3398,15 +4201,69 @@ export default SizeDemo;`,
             },
             {
                 name: "value",
-                description: "-",
+                description: "受控值。与 defaultValue 二选一。",
                 type: "OKLCHValue",
-                defaultValue: "required",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultValue",
+                description: "非受控初始值。",
+                type: "OKLCHValue",
+                defaultValue: "-",
             },
             {
                 name: "onValueChange",
                 description: "-",
                 type: "(value: OKLCHValue) => void",
-                defaultValue: "required",
+                defaultValue: "-",
+            },
+            {
+                name: "disabled",
+                description: "-",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "size",
+                description: "-",
+                type: "\"small\" | \"medium\" | \"large\"",
+                defaultValue: "\"medium\"",
+            },
+            {
+                name: "format",
+                description: "文本输入框初始展示格式,默认 \"hex\"。仅影响显示,输出恒为 OKLCHValue。",
+                type: "\"hex\" | \"rgb\" | \"hsl\" | \"oklch\"",
+                defaultValue: "\"hex\"",
+            },
+            {
+                name: "presets",
+                description: "预设色板:扁平色或带标题的分组色。",
+                type: "ColorPreset[]",
+                defaultValue: "-",
+            },
+            {
+                name: "showAlpha",
+                description: "是否显示透明度滑块,默认 true。",
+                type: "boolean",
+                defaultValue: "true",
+            },
+            {
+                name: "showEyeDropper",
+                description: "是否显示吸管取色按钮(仍需浏览器支持 EyeDropper),默认 true。",
+                type: "boolean",
+                defaultValue: "true",
+            },
+            {
+                name: "allowClear",
+                description: "是否显示「重置」按钮,默认 false。",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "ref",
+                description: "-",
+                type: "Ref<HTMLDivElement>",
+                defaultValue: "-",
             },
         ],
     },
@@ -3526,6 +4383,18 @@ export default BaseDemo;
                 description: "源码语言，默认 tsx",
                 type: "string",
                 defaultValue: "'tsx'",
+            },
+            {
+                name: "codeTheme",
+                description: "源码高亮主题，默认 light",
+                type: "'light' | 'dark'",
+                defaultValue: "'light'",
+            },
+            {
+                name: "density",
+                description: "预览区密度，控制舞台留白",
+                type: "'compact' | 'regular' | 'spacious'",
+                defaultValue: "'regular'",
             },
             {
                 name: "defaultExpanded",
@@ -3897,6 +4766,54 @@ export default SizeDemo;`,
             },
         ],
         api: [
+            {
+                name: "size",
+                description: "大小",
+                type: "LineEditProps[\"size\"]",
+                defaultValue: "-",
+            },
+            {
+                name: "range",
+                description: "限制范围信息",
+                type: "DatePickerPanelProps[\"range\"]",
+                defaultValue: "-",
+            },
+            {
+                name: "timeZone",
+                description: "时区",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "weekStartDay",
+                description: "一周的起始天",
+                type: "1 | 2 | 3 | 4 | 5 | 6 | 7",
+                defaultValue: "-",
+            },
+            {
+                name: "locale",
+                description: "国际化",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "value",
+                description: "日期值",
+                type: "Temporal.ZonedDateTime | null",
+                defaultValue: "required",
+            },
+            {
+                name: "onValueChange",
+                description: "改变日期的时候触发的事件",
+                type: "DatePickerInputProps[\"onValueChange\"]",
+                defaultValue: "-",
+            },
+            {
+                name: "renderDisplayString",
+                description: "自定义显示的日期字符串",
+                type: "(value: Temporal.ZonedDateTime | null) => string",
+                defaultValue: "(value) => formatTemporal(value, \"yyyy-MM-dd HH:mm:ss\")",
+            },
         ],
     },
     {
@@ -3968,8 +4885,482 @@ const BaseDemo = () => {
 
 export default BaseDemo;`,
             },
+            {
+                path: "components/rc-dialog/docs/demos/formWithDatePicker.demo.tsx",
+                title: "表单 + 日期选择器",
+                description: "在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。",
+                source: `
+/**
+ * title = "表单 + 日期选择器"
+ * description = "在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。"
+ */
+
+import { css } from "@linaria/core";
+import { useState, type FC } from "react";
+
+import Button from "@crab-dev/rc-button";
+import LineEdit from "@crab-dev/rc-line-edit";
+import { DatePicker } from "@crab-dev/rc-date-picker";
+import Form, { Item, useForm } from "@crab-dev/rc-form";
+import type { FormItemEditor } from "@crab-dev/rc-form";
+
+import Dialog from "../../src/index.js";
+
+// rc-date-picker 基于 Temporal，直接复用其全局 Temporal 类型。
+interface AppointmentForm extends Record<string, unknown> {
+    name: string;
+    date: Temporal.ZonedDateTime | null;
+}
+
+// ---------- 适配器：把 crab-dev 组件包装成 FormItemEditor ----------
+
+const LineEditField: FC<FormItemEditor<string> & { placeholder?: string }> = ({
+    value,
+    onChange,
+    placeholder,
+}) => (
+    <LineEdit
+        value={value ?? ""}
+        className={css\`width: 100%;\`}
+        placeholder={placeholder}
+        onChange={(e) => onChange?.(e.target.value)}
+    />
+);
+
+const DatePickerField: FC<FormItemEditor<Temporal.ZonedDateTime | null>> = ({ value, onChange }) => (
+    <DatePicker
+        value={value ?? null}
+        renderDisplayString={(current) => (current ? current.toPlainDate().toString() : "请选择日期")}
+        onValueChange={(next) => onChange?.(next)}
+    />
+);
+
+// ---------- 样式 ----------
+
+const formStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 320px;
+\`;
+
+const FormWithDatePickerDemo = () => {
+    const [open, setOpen] = useState(false);
+    const [form] = useForm<AppointmentForm>();
+
+    return (
+        <>
+            <Dialog
+                title="预约信息"
+                open={open}
+                onOpenChange={setOpen}
+                onConfirm={async () => {
+                    try {
+                        const values = await form.validateFields();
+                        console.log("[submit:success]", values);
+                        return true; // 校验通过 → 关闭对话框
+                    } catch (error) {
+                        console.warn("[submit:failed]", error);
+                        return false; // 校验失败 → 保持打开
+                    }
+                }}
+            >
+                <Form
+                    className={formStyle}
+                    form={form}
+                    defaultValue={{ name: "", date: null }}
+                >
+                    <Item label="姓名" name="name" required>
+                        <LineEditField placeholder="请输入姓名" />
+                    </Item>
+                    <Item label="预约日期" name="date" required>
+                        <DatePickerField />
+                    </Item>
+                </Form>
+            </Dialog>
+            <Button onClick={() => setOpen(true)}>打开预约对话框</Button>
+        </>
+    );
+};
+
+export default FormWithDatePickerDemo;
+`,
+            },
         ],
         api: [
+            {
+                name: "ref",
+                description: "对话框根元素（原生 dialog）的 ref",
+                type: "Ref<HTMLDialogElement>",
+                defaultValue: "-",
+            },
+            {
+                name: "i18n",
+                description: "国际化内容",
+                type: "DialogI18n",
+                defaultValue: "{}",
+            },
+            {
+                name: "title",
+                description: "标题",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "open",
+                description: "是否开启",
+                type: "boolean",
+                defaultValue: "required",
+            },
+            {
+                name: "shouldResetContent",
+                description: "是否在关闭的时候重置内容",
+                type: "boolean",
+                defaultValue: "true",
+            },
+            {
+                name: "maskClosable",
+                description: "点击遮罩（对话框外部区域）是否触发取消并关闭，默认 `false`",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "onOpenChange",
+                description: "状态发生改变的时候触发的事件",
+                type: "(open: boolean) => void",
+                defaultValue: "required",
+            },
+            {
+                name: "onConfirm",
+                description: "确定按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭",
+                type: "(\n    event?: MouseEvent<HTMLElement, globalThis.MouseEvent>,\n) => boolean | void | Promise<boolean | void>",
+                defaultValue: "-",
+            },
+            {
+                name: "onCancel",
+                description: "取消按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭",
+                type: "(\n    event?: MouseEvent<HTMLElement, globalThis.MouseEvent>,\n) => boolean | void | Promise<boolean | void>",
+                defaultValue: "-",
+            },
+        ],
+    },
+    {
+        slug: "rc-divider",
+        pkg: "@crab-dev/rc-divider",
+        version: "0.0.1",
+        title: "Divider 分割线",
+        description: "分割线, 用于在内容之间划分区隔并表达从属边界",
+        category: "layout",
+        readme: `分割线, 用于在内容之间划分区隔并表达从属边界
+
+## ✨ 特性
+
+- 横向 / 竖向双方向, 竖线高度跟随字号, 天然适配按钮组与状态栏等行内场景
+- 横线可嵌入文字兼作分节标题, 支持 \`start\` / \`center\` / \`end\` 三种落点与偏移量
+- \`solid\` / \`dashed\` / \`dotted\` 三种线型, 四档留白（\`none\` / \`small\` / \`middle\` / \`large\`）
+- 无障碍分级：默认为语义 \`separator\`；\`decorative\` 可将纯装饰线移出无障碍树, 避免读屏噪声
+- 带文字时以 \`aria-labelledby\` 回指文字, 读屏播报「XX 分隔线」而非空洞的「分隔线」
+- 类型层限制：竖线不可嵌文字、带文字的线不可声明 \`decorative\`, 非法组合在编译期即不可拼出
+- 当前版本：\`0.0.1\`
+- 主题能力：支持 Design Token（token.toml）
+
+## 🔨 使用示例
+
+<demos />
+
+## API
+
+<api />
+
+> 其余原生属性按底层实现透传, 详见 API。
+`,
+        demos: [
+            {
+                path: "components/rc-divider/docs/demos/basic.demo.tsx",
+                title: "基础用法",
+                description: "默认渲染一条语义分隔线（role=separator）, 用于切分上下两段内容。",
+                source: `/**
+ * title = "基础用法"
+ * description = "默认渲染一条语义分隔线（role=separator）, 用于切分上下两段内容。"
+ */
+
+import { css } from '@linaria/core';
+import Divider from '../../src/index.js';
+
+const textStyle = css\`
+    margin: 0;
+    color: oklch(0.44 0.01 286);
+\`;
+
+const BasicDemo = () => {
+    return (
+        <div>
+            <p className={textStyle}>
+                分割线把连续的内容切成可辨认的段落, 让「哪些属于一组」无需说明即可看出。
+            </p>
+            <Divider />
+            <p className={textStyle}>
+                它是一种视觉限制：用一条线收窄用户对内容边界的猜测范围。
+            </p>
+        </div>
+    );
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-divider/docs/demos/decorative.demo.tsx",
+                title: "语义线与装饰线",
+                description: "默认线会被读屏播报为「分隔线」; 当线只是重复了已有的视觉分组时, 用 decorative 把它移出无障碍树, 避免噪声反馈。",
+                source: `/**
+ * title = "语义线与装饰线"
+ * description = "默认线会被读屏播报为「分隔线」; 当线只是重复了已有的视觉分组时, 用 decorative 把它移出无障碍树, 避免噪声反馈。"
+ */
+
+import { css } from '@linaria/core';
+import Divider from '../../src/index.js';
+
+const cardStyle = css\`
+    padding: 16px;
+    border: 1px solid oklch(0.9 0.004 286);
+    border-radius: 8px;
+\`;
+
+const titleStyle = css\`
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+\`;
+
+const bodyStyle = css\`
+    margin: 0;
+    color: oklch(0.44 0.01 286);
+    font-size: 14px;
+\`;
+
+const DecorativeDemo = () => {
+    return (
+        <div className={cardStyle}>
+            <h4 className={titleStyle}>卡片标题</h4>
+            {/* 标题与正文的从属关系已由排版表达, 这条线纯属修饰 —— 让读屏跳过它 */}
+            <Divider decorative spacing="small" />
+            <p className={bodyStyle}>
+                正文内容。这条线不进入无障碍树, 读屏不会在标题与正文之间插入一句「分隔线」。
+            </p>
+        </div>
+    );
+};
+
+export default DecorativeDemo;
+`,
+            },
+            {
+                path: "components/rc-divider/docs/demos/spacing.demo.tsx",
+                title: "留白档位",
+                description: "线两侧的留白决定分组强度（格式塔接近性）: 留白越大, 两段内容「离得越远」。",
+                source: `/**
+ * title = "留白档位"
+ * description = "线两侧的留白决定分组强度（格式塔接近性）: 留白越大, 两段内容「离得越远」。"
+ */
+
+import { css } from '@linaria/core';
+import Divider from '../../src/index.js';
+
+const rowStyle = css\`
+    margin: 0;
+    padding: 4px 8px;
+    background-color: oklch(0.97 0.002 286);
+    border-radius: 6px;
+\`;
+
+const SpacingDemo = () => {
+    return (
+        <div>
+            <p className={rowStyle}>none — 线与内容贴合, 仅作切分</p>
+            <Divider spacing="none" />
+            <p className={rowStyle}>small</p>
+            <Divider spacing="small" />
+            <p className={rowStyle}>middle（默认）</p>
+            <Divider spacing="middle" />
+            <p className={rowStyle}>large — 留白最大, 分组感最强</p>
+            <Divider spacing="large" />
+            <p className={rowStyle}>末段</p>
+        </div>
+    );
+};
+
+export default SpacingDemo;
+`,
+            },
+            {
+                path: "components/rc-divider/docs/demos/text.demo.tsx",
+                title: "带文字",
+                description: "传入 children 即成为分节标题。textAlign 控制文字落点, plain 让文字退回正文字重。",
+                source: `/**
+ * title = "带文字"
+ * description = "传入 children 即成为分节标题。textAlign 控制文字落点, plain 让文字退回正文字重。"
+ */
+
+import { css } from '@linaria/core';
+import Divider from '../../src/index.js';
+
+const stackStyle = css\`
+    display: flex;
+    flex-direction: column;
+\`;
+
+const TextDemo = () => {
+    return (
+        <div className={stackStyle}>
+            <Divider>居中标题</Divider>
+            <Divider textAlign="start">左侧标题</Divider>
+            <Divider textAlign="end">右侧标题</Divider>
+            <Divider plain>plain 说明文字</Divider>
+        </div>
+    );
+};
+
+export default TextDemo;
+`,
+            },
+            {
+                path: "components/rc-divider/docs/demos/variant.demo.tsx",
+                title: "线型",
+                description: "solid 用于正式分区; dashed / dotted 语义更轻, 常用于表达「可选」或「临时」的边界。",
+                source: `/**
+ * title = "线型"
+ * description = "solid 用于正式分区; dashed / dotted 语义更轻, 常用于表达「可选」或「临时」的边界。"
+ */
+
+import { css } from '@linaria/core';
+import Divider from '../../src/index.js';
+
+const stackStyle = css\`
+    display: flex;
+    flex-direction: column;
+\`;
+
+const VariantDemo = () => {
+    return (
+        <div className={stackStyle}>
+            <Divider>solid</Divider>
+            <Divider variant="dashed">dashed</Divider>
+            <Divider variant="dotted">dotted</Divider>
+        </div>
+    );
+};
+
+export default VariantDemo;
+`,
+            },
+            {
+                path: "components/rc-divider/docs/demos/vertical.demo.tsx",
+                title: "竖向分割线",
+                description: "direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。",
+                source: `/**
+ * title = "竖向分割线"
+ * description = "direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。"
+ */
+
+import { css } from '@linaria/core';
+import Button from '@crab-dev/rc-button';
+import Divider from '../../src/index.js';
+
+const rowStyle = css\`
+    display: flex;
+    align-items: center;
+\`;
+
+const linkRowStyle = css\`
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    color: oklch(0.44 0.01 286);
+    font-size: 14px;
+\`;
+
+const VerticalDemo = () => {
+    return (
+        <div>
+            <div className={rowStyle}>
+                <Button appearance="subtle">编辑</Button>
+                <Divider direction="vertical" spacing="small" />
+                <Button appearance="subtle">复制</Button>
+                <Divider direction="vertical" spacing="small" />
+                <Button appearance="subtle">删除</Button>
+            </div>
+
+            <div className={linkRowStyle}>
+                <span>已完成 12 项</span>
+                <Divider direction="vertical" spacing="small" />
+                <span>进行中 3 项</span>
+                <Divider direction="vertical" spacing="small" />
+                <span>失败 1 项</span>
+            </div>
+        </div>
+    );
+};
+
+export default VerticalDemo;
+`,
+            },
+        ],
+        api: [
+            {
+                name: "direction",
+                description: "方向, 默认 horizontal",
+                type: "'horizontal' | 'vertical'",
+                defaultValue: "'horizontal'",
+            },
+            {
+                name: "variant",
+                description: "线型, 默认 solid",
+                type: "'solid' | 'dashed' | 'dotted'",
+                defaultValue: "'solid'",
+            },
+            {
+                name: "spacing",
+                description: "线两侧的留白, 默认 middle",
+                type: "'none' | 'small' | 'middle' | 'large'",
+                defaultValue: "'middle'",
+            },
+            {
+                name: "decorative",
+                description: "是否为纯装饰线。为 true 时从无障碍树移除（role=none + aria-hidden）, 读屏不再播报「分隔线」。\n当线只是重复了已有的视觉分组时应设为 true, 避免噪声反馈。与 children 互斥",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "children",
+                description: "嵌在线中的文字, 兼作分节小标题。仅横向分割线支持",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "textAlign",
+                description: "文字落点, 默认 center。仅在传入 children 时有效",
+                type: "'start' | 'center' | 'end'",
+                defaultValue: "'center'",
+            },
+            {
+                name: "textOffset",
+                description: "文字距起止端的偏移, 仅在 textAlign 为 start / end 时生效。数字按 px 处理, 默认 5%",
+                type: "number | string",
+                defaultValue: "-",
+            },
+            {
+                name: "plain",
+                description: "文字是否降级为正文字重 + 次要色（仅作说明而非小标题时使用）",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "ref",
+                description: "根节点 ref",
+                type: "Ref<HTMLDivElement>",
+                defaultValue: "-",
+            },
         ],
     },
     {
@@ -4361,6 +5752,24 @@ export default SizeDemo;`,
             },
         ],
         api: [
+            {
+                name: "overlay",
+                description: "下拉组件内容",
+                type: "ReactNode",
+                defaultValue: "required",
+            },
+            {
+                name: "overlayClassName",
+                description: "浮层弹出面板的自定义类名",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "floatingContainerProps",
+                description: "浮动面板的属性信息",
+                type: "HTMLAttributes<HTMLDivElement>",
+                defaultValue: "-",
+            },
         ],
     },
     {
@@ -4601,6 +6010,139 @@ export default WithActionDemo;
         category: "data-display",
         readme: ``,
         demos: [
+            {
+                path: "components/rc-flow-diagram/docs/demos/animated-edge.demo.tsx",
+                title: "FlowEdge 流动动效",
+                description: "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。",
+                source: `/**
+ * title = "FlowEdge 流动动效"
+ * description = "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。"
+ */
+
+import { useState } from 'react';
+import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';
+import type { ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
+
+const NODE_W = 110;
+const NODE_H = 44;
+
+const NODES: ElkLayoutNode[] = [
+    { id: 'a', width: NODE_W, height: NODE_H },
+    { id: 'b', width: NODE_W, height: NODE_H },
+    { id: 'c', width: NODE_W, height: NODE_H },
+    { id: 'd', width: NODE_W, height: NODE_H },
+];
+
+const EDGES: ElkLayoutEdge[] = [
+    { id: 'e1', source: 'a', target: 'b' },
+    { id: 'e2', source: 'a', target: 'c' },
+    { id: 'e3', source: 'b', target: 'd' },
+    { id: 'e4', source: 'c', target: 'd' },
+];
+
+const NODE_FILLS: Record<string, string> = {
+    a: 'oklch(0.55 0.2 260)',
+    b: 'oklch(0.55 0.2 30)',
+    c: 'oklch(0.55 0.2 140)',
+    d: 'oklch(0.55 0.2 320)',
+};
+
+const NODE_LABELS: Record<string, string> = {
+    a: '数据源',
+    b: '处理器',
+    c: '过滤器',
+    d: '汇聚点',
+};
+
+interface EdgeStyle {
+    color?: string;
+    dashLength?: number;
+    gapLength?: number;
+    flowSpeed?: number;
+    lineWidth?: number;
+}
+
+const EDGE_STYLES: Record<string, EdgeStyle> = {
+    e1: { dashLength: 6, gapLength: 4, flowSpeed: 24, color: 'oklch(0.5 0.18 260)' },
+    e2: { dashLength: 6, gapLength: 4, flowSpeed: -24, color: 'oklch(0.45 0.15 140)' },
+    e3: { dashLength: 10, gapLength: 6, flowSpeed: 60, lineWidth: 2, color: 'oklch(0.45 0.15 30)' },
+    e4: { dashLength: 6, gapLength: 4, color: 'oklch(0.45 0.15 320)' },
+};
+
+const EDGE_LABELS: Record<string, string> = {
+    e1: '顺流 24 px/s',
+    e2: '逆流 -24 px/s',
+    e3: '快速 60 px/s',
+    e4: '静态虚线（对比）',
+};
+
+export default function AnimatedEdgeDemo() {
+    const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ fontSize: 13, color: '#64748b', padding: '4px 0' }}>
+                e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续
+            </div>
+
+            <FlowDiagram
+                nodes={NODES}
+                edges={EDGES}
+                elkOptions={{ 'elk.algorithm': 'layered', 'elk.direction': 'RIGHT' }}
+                nodePositions={nodePositions}
+                routingOptions={{ margin: 10, terminalStub: 22 }}
+                width={680}
+                height={380}
+                style={{ border: '1px solid #e0e4ec', borderRadius: 8, background: '#fafbfc' }}
+            >
+                {({ nodeRects, routes, crossings }) => (
+                    <>
+                        {/* 边：flowSpeed 驱动虚线流动，方向与速度各不相同 */}
+                        {EDGES.map(e => {
+                            const pts = routes[e.id]?.points;
+                            if (!pts || pts.length < 2) return null;
+                            return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} {...EDGE_STYLES[e.id]} />;
+                        })}
+
+                        {/* 节点 */}
+                        {NODES.map(n => {
+                            const rect = nodeRects[n.id];
+                            if (!rect) return null;
+                            return (
+                                <FlowNode
+                                    key={n.id}
+                                    x={rect.x} y={rect.y}
+                                    width={NODE_W} height={NODE_H}
+                                    label={NODE_LABELS[n.id]}
+                                    fill={NODE_FILLS[n.id]}
+                                    draggable
+                                    onDrag={(dx, dy) => setNodePositions(prev => {
+                                        const base = prev[n.id] ?? rect;
+                                        return { ...prev, [n.id]: { x: base.x + dx, y: base.y + dy } };
+                                    })}
+                                />
+                            );
+                        })}
+                    </>
+                )}
+            </FlowDiagram>
+
+            {/* 图例 */}
+            <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#94a3b8', flexWrap: 'wrap' }}>
+                {EDGES.map(e => (
+                    <span key={e.id}>
+                        <span style={{ color: EDGE_STYLES[e.id]?.color ?? '#6b7280', fontWeight: 500 }}>
+                            {e.source.toUpperCase()}→{e.target.toUpperCase()}
+                        </span>{' '}
+                        {EDGE_LABELS[e.id]}
+                    </span>
+                ))}
+            </div>
+        </div>
+    );
+}
+`,
+            },
             {
                 path: "components/rc-flow-diagram/docs/demos/edge.demo.tsx",
                 title: "FlowEdge 样式",
@@ -5007,15 +6549,15 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
     onChange,
     placeholder,
     type,
+    status,
 }) => (
     <LineEdit
         value={value ?? ""}
         type={type}
+        status={status}
         className={css\`width: 100%;\`}
-        inputProps={{
-            placeholder,
-            onChange: (e) => onChange?.(e.target.value),
-        }}
+        placeholder={placeholder}
+        onChange={(e) => onChange?.(e.target.value)}
     />
 );
 
@@ -5027,9 +6569,6 @@ interface UserInfo extends Record<string, unknown> {
 }
 
 const formStyle = css\`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     max-width: 480px;
 \`;
 
@@ -5160,10 +6699,8 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
         value={value ?? ""}
         type={type}
         className={css\`width: 100%;\`}
-        inputProps={{
-            placeholder,
-            onChange: (e) => onChange?.(e.target.value),
-        }}
+        placeholder={placeholder}
+        onChange={(e) => onChange?.(e.target.value)}
     />
 );
 
@@ -5215,10 +6752,9 @@ interface ProfileForm extends Record<string, unknown> {
     quota: number;
 }
 
+// Form 内部使用 grid + subgrid 承载「标签 / 编辑器 / 状态」三列布局，
+// 这里只约束宽度，不得覆盖 display，否则 subgrid 因父级非 grid 而失效、布局塌陷。
 const formStyle = css\`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     max-width: 520px;
 \`;
 
@@ -5348,15 +6884,15 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
     onChange,
     placeholder,
     type,
+    status,
 }) => (
     <LineEdit
         value={value ?? ""}
         type={type}
+        status={status}
         className={css\`width: 100%;\`}
-        inputProps={{
-            placeholder,
-            onChange: (e) => onChange?.(e.target.value),
-        }}
+        placeholder={placeholder}
+        onChange={(e) => onChange?.(e.target.value)}
     />
 );
 
@@ -5368,9 +6904,6 @@ interface SignupForm extends Record<string, unknown> {
 }
 
 const formStyle = css\`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
     max-width: 520px;
 \`;
 
@@ -7137,6 +8670,384 @@ export default SizeDemo;`,
             },
         ],
         api: [
+            {
+                name: "title",
+                description: "消息的标题信息",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "direction",
+                description: "消息通知显示的位置",
+                type: "\"top\" | \"topLeft\" | \"topRight\" | \"bottom\" | \"bottomLeft\" | \"bottomRight\"",
+                defaultValue: "-",
+            },
+            {
+                name: "open",
+                description: "是否开启",
+                type: "boolean",
+                defaultValue: "required",
+            },
+            {
+                name: "onOpenChange",
+                description: "状态发生改变的时候触发的事件",
+                type: "(open: boolean) => void",
+                defaultValue: "required",
+            },
+            {
+                name: "children",
+                description: "消息通知的内容",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "showProgress",
+                description: "是否显示进度条",
+                type: "boolean",
+                defaultValue: "true",
+            },
+            {
+                name: "duration",
+                description: "消息通知的持续时间，单位为毫秒",
+                type: "number",
+                defaultValue: "3000",
+            },
+            {
+                name: "remaining",
+                description: "剩余时间，单位为毫秒",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "paused",
+                description: "是否暂停进度动画",
+                type: "boolean",
+                defaultValue: "false",
+            },
+        ],
+    },
+    {
+        slug: "rc-number-edit",
+        pkg: "@crab-dev/rc-number-edit",
+        version: "0.0.1",
+        title: "NumberEdit 数字输入框",
+        description: "数字输入框, 支持步进、范围钳制、千分位与科学计数法自适应显示",
+        category: "data-entry",
+        readme: ``,
+        demos: [
+            {
+                path: "components/rc-number-edit/docs/demos/basic.demo.tsx",
+                title: "基础用法",
+                description: "受控数字输入：右侧步进按钮、键盘 ↑↓ 步进、长按连续加速",
+                source: `/**
+ * title = "基础用法"
+ * description = "受控数字输入：右侧步进按钮、键盘 ↑↓ 步进、长按连续加速"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+
+import NumberEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+\`;
+
+const BasicDemo = () => {
+    const [value, setValue] = useState<number | null>(3);
+    return (
+        <div className={wrapperStyle}>
+            <NumberEdit value={value} onChange={setValue} min={0} max={100} />
+            <span>当前值：{value === null ? "（空）" : value}</span>
+        </div>
+    );
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-number-edit/docs/demos/format.demo.tsx",
+                title: "千分位与自定义格式化",
+                description: "thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）",
+                source: `/**
+ * title = "千分位与自定义格式化"
+ * description = "thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+
+import NumberEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 320px;
+\`;
+
+const fieldStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+\`;
+
+const toCurrency = (value: number | null): string =>
+    value === null ? "" : \`¥ \${value.toLocaleString("zh-CN")}\`;
+
+const fromCurrency = (text: string): number | null => {
+    const n = Number(text.replace(/[^\\d.-]/g, ""));
+    return Number.isFinite(n) ? n : null;
+};
+
+const FormatDemo = () => {
+    const [amount, setAmount] = useState<number | null>(1234567);
+    const [price, setPrice] = useState<number | null>(8888);
+    return (
+        <div className={wrapperStyle}>
+            <label className={fieldStyle}>
+                千分位
+                <NumberEdit value={amount} onChange={setAmount} thousandSeparator />
+            </label>
+            <label className={fieldStyle}>
+                货币 formatter
+                <NumberEdit value={price} onChange={setPrice} formatter={toCurrency} parser={fromCurrency} />
+            </label>
+        </div>
+    );
+};
+
+export default FormatDemo;
+`,
+            },
+            {
+                path: "components/rc-number-edit/docs/demos/range.demo.tsx",
+                title: "范围、步长与精度",
+                description: "min/max 失焦钳制、到边界步进按钮禁用；step 步长、precision 小数精度；Shift+↑↓ 或 PageUp/Down 走大步长",
+                source: `/**
+ * title = "范围、步长与精度"
+ * description = "min/max 失焦钳制、到边界步进按钮禁用；step 步长、precision 小数精度；Shift+↑↓ 或 PageUp/Down 走大步长"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+
+import NumberEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 320px;
+\`;
+
+const fieldStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+\`;
+
+const RangeDemo = () => {
+    const [percent, setPercent] = useState<number | null>(50);
+    const [amount, setAmount] = useState<number | null>(1.5);
+    return (
+        <div className={wrapperStyle}>
+            <label className={fieldStyle}>
+                0–100，step 5，大步长 25
+                <NumberEdit value={percent} onChange={setPercent} min={0} max={100} step={5} largeStep={25} suffix="%" />
+            </label>
+            <label className={fieldStyle}>
+                step 0.1，precision 2
+                <NumberEdit value={amount} onChange={setAmount} step={0.1} precision={2} min={0} />
+            </label>
+        </div>
+    );
+};
+
+export default RangeDemo;
+`,
+            },
+            {
+                path: "components/rc-number-edit/docs/demos/scientific.demo.tsx",
+                title: "科学计数法自适应",
+                description: "默认十进制；数值大到不好显示时失焦自动切上标科学计数法，聚焦又展开为可编辑 e 记法。试试输入 1e21 或 0.0000000000000001",
+                source: `/**
+ * title = "科学计数法自适应"
+ * description = "默认十进制；数值大到不好显示时失焦自动切上标科学计数法，聚焦又展开为可编辑 e 记法。试试输入 1e21 或 0.0000000000000001"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+
+import NumberEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    max-width: 320px;
+\`;
+
+const ScientificDemo = () => {
+    const [value, setValue] = useState<number | null>(1.23e21);
+    return (
+        <div className={wrapperStyle}>
+            <NumberEdit value={value} onChange={setValue} />
+            <span>原始值：{value === null ? "（空）" : String(value)}</span>
+        </div>
+    );
+};
+
+export default ScientificDemo;
+`,
+            },
+            {
+                path: "components/rc-number-edit/docs/demos/states.demo.tsx",
+                title: "尺寸与状态",
+                description: "large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit",
+                source: `/**
+ * title = "尺寸与状态"
+ * description = "large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit"
+ */
+
+import { css } from "@linaria/core";
+import { useState } from "react";
+
+import NumberEdit from "../../src/index.js";
+
+const wrapperStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    max-width: 320px;
+\`;
+
+const StatesDemo = () => {
+    const [value, setValue] = useState<number | null>(42);
+    return (
+        <div className={wrapperStyle}>
+            <NumberEdit value={value} onChange={setValue} size="large" />
+            <NumberEdit value={value} onChange={setValue} size="middle" />
+            <NumberEdit value={value} onChange={setValue} size="small" />
+            <NumberEdit value={value} onChange={setValue} status="error" />
+            <NumberEdit value={value} onChange={setValue} status="warning" />
+            <NumberEdit value={value} onChange={setValue} disabled />
+            <NumberEdit value={value} onChange={setValue} readOnly />
+        </div>
+    );
+};
+
+export default StatesDemo;
+`,
+            },
+        ],
+        api: [
+            {
+                name: "value",
+                description: "受控值；空值以 `null` 表示",
+                type: "number | null",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultValue",
+                description: "非受控默认值",
+                type: "number | null",
+                defaultValue: "-",
+            },
+            {
+                name: "onChange",
+                description: "值变化回调（编辑失焦钳制、步进、清除后触发）；空值回传 `null`",
+                type: "(value: number | null) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "min",
+                description: "最小值，默认 `-Infinity`",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "max",
+                description: "最大值，默认 `Infinity`",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "step",
+                description: "步进步长，默认 `1`",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "largeStep",
+                description: "大步长（Shift+↑↓ 或 PageUp/PageDown），默认 `step * 10`",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "precision",
+                description: "小数精度（四舍五入保留位数）；不传则不强制精度",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "scientific",
+                description: "科学计数法策略，默认 `auto`",
+                type: "\"auto\" | \"never\" | \"always\"",
+                defaultValue: "-",
+            },
+            {
+                name: "scientificThreshold",
+                description: "`auto` 模式触发阈值：十进制有效数字位数超过它即转科学计数法，默认 `15`\n（贴近 JS number 的精度极限）。",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "thousandSeparator",
+                description: "千分位分隔：`true` 用 `,`，或传自定义分隔符字符串；默认关闭",
+                type: "boolean | string",
+                defaultValue: "-",
+            },
+            {
+                name: "decimalSeparator",
+                description: "小数点符号，默认 `.`",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "formatter",
+                description: "自定义显示格式化（失焦态）；返回展示字符串，优先级高于内置千分位",
+                type: "(value: number | null) => string",
+                defaultValue: "-",
+            },
+            {
+                name: "parser",
+                description: "自定义解析（编辑文本 → 数值），与 {@link NumberEditProps.formatter} 配对",
+                type: "(text: string) => number | null",
+                defaultValue: "-",
+            },
+            {
+                name: "controls",
+                description: "是否显示步进按钮，默认 `true`",
+                type: "boolean",
+                defaultValue: "-",
+            },
+            {
+                name: "stringMode",
+                description: "【预留 API — 第一版仅类型签名，尚未实现运算】高精度字符串模式。\n未来开启后 value / onChange 将以 string 承载任意精度（BigInt / decimal）。\n当前版本传入 `true` 不生效，仍按 number 处理。",
+                type: "boolean",
+                defaultValue: "-",
+            },
         ],
     },
     {
@@ -7797,6 +9708,148 @@ export default TableDemo;
 `,
         demos: [
             {
+                path: "components/rc-protocol-table/docs/demos/auto-refresh.demo.tsx",
+                title: "自动刷新",
+                description: "autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。",
+                source: `/**
+ * title = "自动刷新"
+ * description = "autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。"
+ */
+
+import { css } from "@linaria/core";
+import ProtocolTable from "../../src/table.js";
+import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
+import type { Row } from "@crab-dev/rc-table";
+
+interface MetricRow extends Row {
+    dataRef: {
+        service:    string;
+        instance:   string;
+        cpuPct:     number;
+        memPct:     number;
+        qps:        number;
+        latencyMs:  number;
+        status:     "healthy" | "warning" | "critical";
+        updatedAt:  string;
+    };
+}
+
+const SERVICES  = ["auth-service", "user-service", "order-service", "payment-service", "notify-service"];
+const INSTANCES = ["inst-01", "inst-02", "inst-03"];
+const STATUSES: MetricRow["dataRef"]["status"][] = ["healthy", "warning", "critical"];
+
+const STATUS_COLOR: Record<string, string> = {
+    healthy:  "oklch(55% 0.18 140)",
+    warning:  "oklch(60% 0.18 85)",
+    critical: "oklch(50% 0.22 25)",
+};
+
+function generateRows(): MetricRow[] {
+    const now = new Date().toLocaleTimeString("zh-CN");
+    return SERVICES.flatMap((svc, si) =>
+        INSTANCES.map((inst, ii) => {
+            const idx = si * INSTANCES.length + ii;
+            // 每次调用时引入随机抖动，模拟实时监控数据波动
+            const cpu  = Math.min(99, 15 + idx * 7 + Math.round(Math.random() * 20));
+            const mem  = Math.min(99, 30 + idx * 5 + Math.round(Math.random() * 15));
+            const qps  = 100 + idx * 50 + Math.round(Math.random() * 80);
+            const lat  = 5  + idx * 3  + Math.round(Math.random() * 20);
+            const statusIdx = cpu > 80 ? 2 : cpu > 60 ? 1 : 0;
+            return {
+                id: \`\${si}-\${ii}\`,
+                dataRef: {
+                    service:   svc,
+                    instance:  inst,
+                    cpuPct:    cpu,
+                    memPct:    mem,
+                    qps,
+                    latencyMs: lat,
+                    status:    STATUSES[statusIdx],
+                    updatedAt: now,
+                },
+            };
+        })
+    );
+}
+
+const COLUMNS: ProtocolColumnType[] = [
+    { name: "$.service",   title: "服务",        dataType: "text",    width: 160, fixed: "left" },
+    { name: "$.instance",  title: "实例",        dataType: "text",    width: 100 },
+    { name: "$.cpuPct",   title: "CPU %",      dataType: "percent", width: 90,  align: "right" },
+    { name: "$.memPct",   title: "内存 %",      dataType: "percent", width: 90,  align: "right" },
+    { name: "$.qps",      title: "QPS",         dataType: "number",  width: 90,  align: "right" },
+    { name: "$.latencyMs",title: "延迟（ms）",   dataType: "number",  width: 100, align: "right" },
+    { name: "$.status",   title: "状态",         dataType: "status",  width: 90 },
+    { name: "$.updatedAt",title: "更新时间",     dataType: "text",    width: 120 },
+];
+
+const TYPE_LOADERS: DataTypeLoader[] = [
+    {
+        name: "text",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: undefined,
+    },
+    {
+        name: "number",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: undefined,
+    },
+    {
+        name: "percent",
+        render: ({ row, column }) => {
+            const field = String(column.name).replace(/^\\$\\./, "");
+            const n = Number(row.dataRef[field] ?? 0);
+            const color = n > 80 ? "oklch(50% 0.22 25)" : n > 60 ? "oklch(60% 0.18 85)" : undefined;
+            return <span style={{ color }}>{n}%</span>;
+        },
+        editRender: undefined,
+        filterEditor: undefined,
+    },
+    {
+        name: "status",
+        render: ({ row, column }) => {
+            const field = String(column.name).replace(/^\\$\\./, "");
+            const s = String(row.dataRef[field] ?? "");
+            const LABEL: Record<string, string> = { healthy: "正常", warning: "告警", critical: "严重" };
+            return (
+                <span style={{ color: STATUS_COLOR[s], fontWeight: 500 }}>
+                    {LABEL[s] ?? s}
+                </span>
+            );
+        },
+        editRender: undefined,
+        filterEditor: undefined,
+    },
+];
+
+const fetchColumns = (): Promise<ProtocolColumnType[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 100));
+
+const fetchData = (): Promise<MetricRow[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(generateRows()), 200));
+
+const containerStyle = css\`
+    width: 100%;
+    height: 420px;
+\`;
+
+const AutoRefreshDemo = () => (
+    <ProtocolTable<MetricRow>
+        className={containerStyle}
+        fetchColumns={fetchColumns}
+        fetchData={fetchData}
+        typeLoaders={TYPE_LOADERS}
+        sideBar
+        autoRefreshInterval={3000}
+    />
+);
+
+export default AutoRefreshDemo;
+`,
+            },
+            {
                 path: "components/rc-protocol-table/docs/demos/basic.demo.tsx",
                 title: "基础用法",
                 description: "通过 fetchData 与 fetchColumns 异步加载数据和列定义，ProtocolTable 会自动适应容器宽高。",
@@ -7878,12 +9931,141 @@ export default BasicDemo;
 `,
             },
             {
+                path: "components/rc-protocol-table/docs/demos/export.demo.tsx",
+                title: "CSV 导出",
+                description: "设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。",
+                source: `/**
+ * title = "CSV 导出"
+ * description = "设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。"
+ */
+
+import { css } from "@linaria/core";
+import ProtocolTable from "../../src/table.js";
+import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
+import type { Row } from "@crab-dev/rc-table";
+
+interface OrderRow extends Row {
+    dataRef: {
+        orderId: string;
+        customer: string;
+        product: string;
+        quantity: number;
+        unitPrice: number;
+        status: "pending" | "shipped" | "completed" | "cancelled";
+        orderDate: string;
+    };
+}
+
+const STATUS_LABEL: Record<string, string> = {
+    pending:   "待处理",
+    shipped:   "已发货",
+    completed: "已完成",
+    cancelled: "已取消",
+};
+
+const STATUSES = ["pending", "shipped", "completed", "cancelled"] as const;
+const PRODUCTS = ["笔记本电脑", "无线鼠标", "机械键盘", "显示器", "耳机", "摄像头"];
+const CUSTOMERS = ["张三", "李四", "王五", "赵六", "陈七", "刘八"];
+
+const ALL_ROWS: OrderRow[] = Array.from({ length: 80 }, (_, i) => {
+    const unitPrice = 299 + (i % 30) * 100;
+    const quantity = 1 + (i % 5);
+    return {
+        id: String(i + 1),
+        dataRef: {
+            orderId:   \`ORD-\${String(i + 1).padStart(5, "0")}\`,
+            customer:  CUSTOMERS[i % CUSTOMERS.length],
+            product:   PRODUCTS[i % PRODUCTS.length],
+            quantity,
+            unitPrice,
+            status:    STATUSES[i % STATUSES.length],
+            orderDate: \`2024-\${String((i % 12) + 1).padStart(2, "0")}-\${String((i % 28) + 1).padStart(2, "0")}\`,
+        },
+    };
+});
+
+const COLUMNS: ProtocolColumnType[] = [
+    { name: "$.orderId",   title: "订单号",   dataType: "text",   width: 160, fixed: "left" },
+    { name: "$.customer",  title: "客户",     dataType: "text",   width: 100 },
+    { name: "$.product",   title: "商品",     dataType: "text",   width: 160 },
+    { name: "$.quantity",  title: "数量",     dataType: "number", width: 80,  align: "right" },
+    { name: "$.unitPrice", title: "单价（元）", dataType: "currency", width: 120, align: "right" },
+    { name: "$.status",    title: "状态",     dataType: "status", width: 100 },
+    { name: "$.orderDate", title: "下单日期",  dataType: "text",   width: 140 },
+];
+
+const TYPE_LOADERS: DataTypeLoader[] = [
+    {
+        name: "text",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: undefined,
+    },
+    {
+        name: "number",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: undefined,
+        exportValue: (raw) => String(raw ?? ""),
+    },
+    {
+        name: "currency",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: undefined,
+        // 导出时格式化为带千分位的数字字符串
+        exportValue: (raw) => {
+            const n = Number(raw);
+            return isNaN(n) ? "" : n.toLocaleString("zh-CN");
+        },
+    },
+    {
+        name: "status",
+        // 渲染时显示中文标签
+        render: ({ row, column }) => {
+            const field = String(column.name).replace(/^\\$\\./, "");
+            const s = String(row.dataRef[field] ?? "");
+            return STATUS_LABEL[s] ?? s;
+        },
+        editRender: undefined,
+        filterEditor: undefined,
+        // 导出时同样转换为中文标签
+        exportValue: (raw) => STATUS_LABEL[raw as string] ?? String(raw ?? ""),
+    },
+];
+
+const fetchColumns = (): Promise<ProtocolColumnType[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 150));
+
+const fetchData = (): Promise<OrderRow[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(ALL_ROWS), 200));
+
+const containerStyle = css\`
+    width: 100%;
+    height: 420px;
+\`;
+
+const ExportDemo = () => (
+    <ProtocolTable<OrderRow>
+        className={containerStyle}
+        fetchColumns={fetchColumns}
+        fetchData={fetchData}
+        typeLoaders={TYPE_LOADERS}
+        sideBar
+        exportFileName="订单数据"
+    />
+);
+
+export default ExportDemo;
+`,
+            },
+            {
                 path: "components/rc-protocol-table/docs/demos/pagination.demo.tsx",
                 title: "服务端分页",
-                description: "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。",
+                description: "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。",
                 source: `/**
  * title = "服务端分页"
- * description = "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。"
+ * description = "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。"
  */
 
 import { useState, useEffect } from "react";
@@ -7906,14 +10088,14 @@ interface EmployeeRow extends Row {
 }
 
 const COLUMNS: ProtocolColumnType[] = [
-    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left" },
-    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120 },
-    { name: "$.department", title: "部门",       dataType: "text",   width: 140 },
-    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180 },
-    { name: "$.city",       title: "城市",       dataType: "text",   width: 120 },
-    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: "right" },
-    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: "right" },
-    { name: "$.hireDate",   title: "入职日期",    dataType: "text"  },
+    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left", align: ["center", "left"] },
+    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120, align: ["center", "left"] },
+    { name: "$.department", title: "部门",       dataType: "text",   width: 140, align: ["center", "left"] },
+    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180, align: ["center", "left"] },
+    { name: "$.city",       title: "城市",       dataType: "text",   width: 120, align: ["center", "left"] },
+    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: ["center", "right"] },
+    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: ["center", "right"] },
+    { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140, align: ["center", "left"] },
 ];
 
 const filterInputStyle = css\`
@@ -8036,6 +10218,7 @@ const PaginationDemo = () => {
             fetchColumns={fetchColumns}
             fetchData={fetchData}
             typeLoaders={TYPE_LOADERS}
+            sideBar
             pagination={{
                 defaultPageSize: 20,
                 showSizeChanger: true,
@@ -8048,6 +10231,430 @@ const PaginationDemo = () => {
 };
 
 export default PaginationDemo;
+`,
+            },
+            {
+                path: "components/rc-protocol-table/docs/demos/search-bar.demo.tsx",
+                title: "全局关键字搜索",
+                description: "showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。",
+                source: `/**
+ * title = "全局关键字搜索"
+ * description = "showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。"
+ */
+
+import { css } from "@linaria/core";
+import ProtocolTable from "../../src/table.js";
+import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
+import type { Row } from "@crab-dev/rc-table";
+
+interface BookRow extends Row {
+    dataRef: {
+        isbn:      string;
+        title:     string;
+        author:    string;
+        category:  "fiction" | "tech" | "history" | "science" | "art";
+        publisher: string;
+        year:      number;
+        price:     number;
+        inStock:   boolean;
+    };
+}
+
+const CATEGORY_LABEL: Record<string, string> = {
+    fiction:  "小说",
+    tech:     "技术",
+    history:  "历史",
+    science:  "科学",
+    art:      "艺术",
+};
+
+const CATEGORIES = ["fiction", "tech", "history", "science", "art"] as const;
+const AUTHORS    = ["张伟", "李静", "王芳", "陈刚", "刘洋", "赵磊", "孙丽", "周军"];
+const PUBLISHERS = ["人民文学出版社", "机械工业出版社", "商务印书馆", "清华大学出版社", "中信出版社"];
+const TITLES     = [
+    "深入理解计算机系统", "三体", "人类简史", "算法导论", "枪炮、病菌与钢铁",
+    "白夜行", "设计心理学", "自私的基因", "追风筝的人", "活着",
+];
+
+const ALL_ROWS: BookRow[] = Array.from({ length: 120 }, (_, i) => ({
+    id: String(i + 1),
+    dataRef: {
+        isbn:      \`978-7-\${String(100 + i).padStart(3, "0")}-\${String(i * 13 + 1).padStart(5, "0")}-\${i % 10}\`,
+        title:     \`\${TITLES[i % TITLES.length]}（第\${(i % 3) + 1}版）\`,
+        author:    AUTHORS[i % AUTHORS.length],
+        category:  CATEGORIES[i % CATEGORIES.length],
+        publisher: PUBLISHERS[i % PUBLISHERS.length],
+        year:      2015 + (i % 10),
+        price:     29.9 + (i % 30) * 5,
+        inStock:   i % 3 !== 2,
+    },
+}));
+
+const COLUMNS: ProtocolColumnType[] = [
+    { name: "$.isbn",      title: "ISBN",      dataType: "text",     width: 200, fixed: "left" },
+    { name: "$.title",     title: "书名",      dataType: "text",     width: 240 },
+    { name: "$.author",    title: "作者",      dataType: "text",     width: 100 },
+    { name: "$.category",  title: "分类",      dataType: "category", width: 90  },
+    { name: "$.publisher", title: "出版社",    dataType: "text",     width: 180 },
+    { name: "$.year",      title: "出版年",    dataType: "number",   width: 80, align: "right" },
+    { name: "$.price",     title: "定价（元）", dataType: "number",   width: 100, align: "right" },
+    { name: "$.inStock",   title: "库存",      dataType: "stock",    width: 80  },
+];
+
+const TYPE_LOADERS: DataTypeLoader[] = [
+    { name: "text",   render: undefined, editRender: undefined, filterEditor: undefined },
+    { name: "number", render: undefined, editRender: undefined, filterEditor: undefined },
+    {
+        name: "category",
+        render: ({ row, column }) => {
+            const field = String(column.name).replace(/^\\$\\./, "");
+            const s = String(row.dataRef[field] ?? "");
+            return CATEGORY_LABEL[s] ?? s;
+        },
+        editRender: undefined,
+        filterEditor: undefined,
+        // 搜索时同时匹配中文标签和英文 key（getSearchText 接收 row）
+        getSearchText: (row) => {
+            const s = String((row as BookRow).dataRef.category ?? "");
+            return \`\${s} \${CATEGORY_LABEL[s] ?? ""}\`;
+        },
+    },
+    {
+        name: "stock",
+        render: ({ row, column }) => {
+            const field = String(column.name).replace(/^\\$\\./, "");
+            const inStock = Boolean(row.dataRef[field]);
+            return (
+                <span style={{ color: inStock ? "oklch(55% 0.18 140)" : "oklch(55% 0.18 25)" }}>
+                    {inStock ? "有货" : "缺货"}
+                </span>
+            );
+        },
+        editRender: undefined,
+        filterEditor: undefined,
+        // 搜索时用中文标签匹配
+        getSearchText: (row) => ((row as BookRow).dataRef.inStock ? "有货" : "缺货"),
+    },
+];
+
+const fetchColumns = (): Promise<ProtocolColumnType[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 150));
+
+const fetchData = (): Promise<BookRow[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(ALL_ROWS), 200));
+
+const containerStyle = css\`
+    width: 100%;
+    height: 440px;
+\`;
+
+const SearchBarDemo = () => (
+    <ProtocolTable<BookRow>
+        className={containerStyle}
+        fetchColumns={fetchColumns}
+        fetchData={fetchData}
+        typeLoaders={TYPE_LOADERS}
+        showSearchBar
+    />
+);
+
+export default SearchBarDemo;
+`,
+            },
+            {
+                path: "components/rc-protocol-table/docs/demos/sidebar.demo.tsx",
+                title: "侧边栏（列 / 过滤器）",
+                description: "sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。",
+                source: `/**
+ * title = "侧边栏（列 / 过滤器）"
+ * description = "sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。"
+ */
+
+import { useState, useEffect } from "react";
+import { css } from "@linaria/core";
+import ProtocolTable from "../../src/table.js";
+import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
+import type { Row } from "@crab-dev/rc-table";
+
+interface EmployeeRow extends Row {
+    dataRef: {
+        employeeNo: string;
+        name: string;
+        department: string;
+        jobTitle: string;
+        city: string;
+        age: number;
+        salary: number;
+        hireDate: string;
+    };
+}
+
+const COLUMNS: ProtocolColumnType[] = [
+    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left" },
+    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120 },
+    { name: "$.department", title: "部门",       dataType: "text",   width: 140 },
+    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180 },
+    { name: "$.city",       title: "城市",       dataType: "text",   width: 120 },
+    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: "right" },
+    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: "right" },
+    { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140 },
+];
+
+const filterInputStyle = css\`
+    width: 100%; height: 100%; box-sizing: border-box;
+    border: none; outline: none; background: transparent;
+    padding: 0 6px; font-size: 12px;
+    &::placeholder { color: #bbb; }
+\`;
+
+const TextFilter = ({ value, onValueChange }: { value: string; onValueChange: (v: string) => void }) => {
+    const [local, setLocal] = useState(value);
+    useEffect(() => { setLocal(value); }, [value]);
+    return (
+        <input className={filterInputStyle} type="text" value={local}
+            onChange={(e) => setLocal(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") onValueChange(local); }}
+            placeholder="回车确认…" />
+    );
+};
+
+const NumberFilter = ({ value, onValueChange }: { value: string; onValueChange: (v: string) => void }) => {
+    const [local, setLocal] = useState(value);
+    useEffect(() => { setLocal(value); }, [value]);
+    return (
+        <input className={filterInputStyle} type="number" value={local}
+            onChange={(e) => setLocal(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") onValueChange(local); }}
+            placeholder="回车确认…" />
+    );
+};
+
+const TYPE_LOADERS: DataTypeLoader[] = [
+    {
+        name: "text",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: ({ value, onValueChange }) => <TextFilter value={value} onValueChange={onValueChange} />,
+    },
+    {
+        name: "number",
+        render: undefined,
+        editRender: undefined,
+        filterEditor: ({ value, onValueChange }) => <NumberFilter value={value} onValueChange={onValueChange} />,
+    },
+];
+
+const DEPARTMENTS = ["前端", "后端", "产品", "设计", "测试", "运维"];
+const JOB_TITLES  = ["工程师", "高级工程师", "技术专家", "架构师", "经理", "总监"];
+const CITIES      = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
+const NAMES       = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
+
+const ALL_ROWS: EmployeeRow[] = Array.from({ length: 200 }, (_, i) => ({
+    id: String(i + 1),
+    dataRef: {
+        employeeNo: \`EMP-\${String(i + 1).padStart(4, "0")}\`,
+        name:       \`\${NAMES[i % NAMES.length]}\${String(i + 1).padStart(2, "0")}\`,
+        department: DEPARTMENTS[i % DEPARTMENTS.length],
+        jobTitle:   JOB_TITLES[i % JOB_TITLES.length],
+        city:       CITIES[i % CITIES.length],
+        age:        22 + (i % 20),
+        salary:     10000 + (i % 40) * 1000,
+        hireDate:   \`202\${i % 4}-\${String((i % 12) + 1).padStart(2, "0")}-\${String((i % 28) + 1).padStart(2, "0")}\`,
+    },
+}));
+
+const fetchColumns = (): Promise<ProtocolColumnType[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 200));
+
+const fetchData = (filters: Record<string, string>): Promise<EmployeeRow[]> =>
+    new Promise((resolve) =>
+        setTimeout(() => {
+            const result = ALL_ROWS.filter((row) =>
+                Object.entries(filters).every(([col, kw]) => {
+                    if (!kw) return true;
+                    const key = col.replace(/^\\$\\./, "") as keyof EmployeeRow["dataRef"];
+                    return String(row.dataRef[key] ?? "").toLowerCase().includes(kw.toLowerCase());
+                })
+            );
+            resolve(result);
+        }, 200)
+    );
+
+const containerStyle = css\`
+    width: 100%;
+    height: 440px;
+\`;
+
+const SidebarDemo = () => (
+    <ProtocolTable<EmployeeRow>
+        className={containerStyle}
+        fetchColumns={fetchColumns}
+        fetchData={fetchData}
+        typeLoaders={TYPE_LOADERS}
+        sideBar
+        defaultSideBarOpen
+        filterBar
+        resizable
+    />
+);
+
+export default SidebarDemo;
+`,
+            },
+            {
+                path: "components/rc-protocol-table/docs/demos/state-persistence.demo.tsx",
+                title: "状态持久化",
+                description: "initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。",
+                source: `/**
+ * title = "状态持久化"
+ * description = "initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。"
+ */
+
+import { useRef, useState } from "react";
+import { css } from "@linaria/core";
+import ProtocolTable from "../../src/table.js";
+import type { DataTypeLoader, ProtocolColumnType, ProtocolTableState } from "../../src/types.js";
+import type { Row } from "@crab-dev/rc-table";
+
+interface EmployeeRow extends Row {
+    dataRef: {
+        employeeNo: string;
+        name: string;
+        department: string;
+        jobTitle: string;
+        city: string;
+        age: number;
+        salary: number;
+        hireDate: string;
+    };
+}
+
+const STORAGE_KEY = "rc-protocol-table-demo-state";
+
+function loadState(): ProtocolTableState | undefined {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? (JSON.parse(raw) as ProtocolTableState) : undefined;
+    } catch {
+        return undefined;
+    }
+}
+
+function saveState(state: ProtocolTableState) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch { /* ignore */ }
+}
+
+const COLUMNS: ProtocolColumnType[] = [
+    { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left" },
+    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120 },
+    { name: "$.department", title: "部门",       dataType: "text",   width: 140 },
+    { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180 },
+    { name: "$.city",       title: "城市",       dataType: "text",   width: 120 },
+    { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: "right" },
+    { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: "right" },
+    { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140 },
+];
+
+const TYPE_LOADERS: DataTypeLoader[] = [
+    { name: "text",   render: undefined, editRender: undefined, filterEditor: undefined },
+    { name: "number", render: undefined, editRender: undefined, filterEditor: undefined },
+];
+
+const DEPARTMENTS = ["前端", "后端", "产品", "设计", "测试", "运维"];
+const JOB_TITLES  = ["工程师", "高级工程师", "技术专家", "架构师", "经理", "总监"];
+const CITIES      = ["北京", "上海", "广州", "深圳", "杭州", "成都"];
+const NAMES       = ["王明", "李婷", "赵阳", "陈晨", "孙浩", "周楠", "吴迪", "郑宁", "冯雪", "蒋凡"];
+
+const ALL_ROWS: EmployeeRow[] = Array.from({ length: 100 }, (_, i) => ({
+    id: String(i + 1),
+    dataRef: {
+        employeeNo: \`EMP-\${String(i + 1).padStart(4, "0")}\`,
+        name:       \`\${NAMES[i % NAMES.length]}\${String(i + 1).padStart(2, "0")}\`,
+        department: DEPARTMENTS[i % DEPARTMENTS.length],
+        jobTitle:   JOB_TITLES[i % JOB_TITLES.length],
+        city:       CITIES[i % CITIES.length],
+        age:        22 + (i % 20),
+        salary:     10000 + (i % 40) * 1000,
+        hireDate:   \`202\${i % 4}-\${String((i % 12) + 1).padStart(2, "0")}-\${String((i % 28) + 1).padStart(2, "0")}\`,
+    },
+}));
+
+const fetchColumns = (): Promise<ProtocolColumnType[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 200));
+
+const fetchData = (): Promise<EmployeeRow[]> =>
+    new Promise((resolve) => setTimeout(() => resolve(ALL_ROWS), 200));
+
+const containerStyle = css\`
+    width: 100%;
+    height: 420px;
+\`;
+
+const toolbarStyle = css\`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 6px;
+    font-size: 12px;
+    color: oklch(50% 0 0);
+\`;
+
+const resetBtnStyle = css\`
+    padding: 0 10px;
+    height: 24px;
+    font-size: 12px;
+    border: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    color: oklch(40% 0.12 25);
+    &:hover { background-color: oklch(95% 0.04 25); }
+\`;
+
+const StatePersistenceDemo = () => {
+    // 从 localStorage 读取初始状态（仅首次渲染时执行）
+    const initialStateRef = useRef(loadState());
+    const [saveCount, setSaveCount] = useState(0);
+
+    const handleStateChange = (state: ProtocolTableState) => {
+        saveState(state);
+        setSaveCount(c => c + 1);
+    };
+
+    const handleReset = () => {
+        localStorage.removeItem(STORAGE_KEY);
+        // 重新挂载组件以应用空初始状态（开发演示用途）
+        window.location.reload();
+    };
+
+    return (
+        <div>
+            <div className={toolbarStyle}>
+                <span>
+                    状态已保存 <strong>{saveCount}</strong> 次到 localStorage（key: <code>{STORAGE_KEY}</code>）
+                </span>
+                <button type="button" className={resetBtnStyle} onClick={handleReset}>
+                    清除并刷新
+                </button>
+            </div>
+            <ProtocolTable<EmployeeRow>
+                className={containerStyle}
+                fetchColumns={fetchColumns}
+                fetchData={fetchData}
+                typeLoaders={TYPE_LOADERS}
+                sideBar
+                defaultSideBarOpen
+                resizable
+                initialState={initialStateRef.current}
+                onStateChange={handleStateChange}
+            />
+        </div>
+    );
+};
+
+export default StatePersistenceDemo;
 `,
             },
             {
@@ -8349,6 +10956,325 @@ export default SizeDemo;
             },
         ],
         api: [
+            {
+                name: "checked",
+                description: "是否选中（受控）",
+                type: "boolean",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultChecked",
+                description: "默认是否选中（非受控）",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "size",
+                description: "单选框的大小, 默认为 middle",
+                type: "'large' | 'middle' | 'small'",
+                defaultValue: "-",
+            },
+            {
+                name: "onChange",
+                description: "值变化时的回调",
+                type: "(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "value",
+                description: "Radio 的值, 在 RadioGroup 中使用",
+                type: "string | number",
+                defaultValue: "-",
+            },
+        ],
+    },
+    {
+        slug: "rc-segmented",
+        pkg: "@crab-dev/rc-segmented",
+        version: "0.0.1",
+        title: "Segmented 分段控制器",
+        description: "分段控制器, 用于在一组互斥选项中展示并选择单个选项",
+        category: "data-entry",
+        readme: `分段控制器, 用于在一组互斥选项中展示并选择单个选项
+
+## ✨ 特性
+
+- 一屏内平铺全部选项, 选中项由滑动的 thumb 高亮, 切换所见即所得
+- 基于原生 radio 语义, 天然支持键盘方向键导航、表单提交与读屏播报
+- 支持受控与非受控模式, 便于接入业务状态管理
+- 支持 \`large\` / \`middle\` / \`small\` 三档尺寸与 \`block\` 等宽铺满
+- 当前版本：\`0.0.1\`
+- 主题能力：支持 Design Token（token.toml）
+
+## 🔨 使用示例
+
+<demos />
+
+## API
+
+<api />
+
+> 其余原生属性按底层实现透传, 详见 API。
+`,
+        demos: [
+            {
+                path: "components/rc-segmented/docs/demos/basic.demo.tsx",
+                title: "基础用法",
+                description: "通过 options 传入选项, 默认选中第一个可用项。",
+                source: `/**
+ * title = "基础用法"
+ * description = "通过 options 传入选项, 默认选中第一个可用项。"
+ */
+
+import Segmented from '../../src/index.js';
+
+const BasicDemo = () => {
+    return (
+        <Segmented
+            options={[
+                { label: '日', value: 'day' },
+                { label: '周', value: 'week' },
+                { label: '月', value: 'month' },
+            ]}
+        />
+    );
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-segmented/docs/demos/block.demo.tsx",
+                title: "撑满容器",
+                description: "设置 `block` 让控制器铺满父容器, 各选项等宽分布。",
+                source: `/**
+ * title = "撑满容器"
+ * description = "设置 \`block\` 让控制器铺满父容器, 各选项等宽分布。"
+ */
+
+import { css } from '@linaria/core';
+import Segmented from '../../src/index.js';
+
+const containerStyle = css\`
+    width: 360px;
+\`;
+
+const BlockDemo = () => {
+    return (
+        <div className={containerStyle}>
+            <Segmented
+                block
+                options={[
+                    { label: '全部', value: 'all' },
+                    { label: '进行中', value: 'active' },
+                    { label: '已完成', value: 'done' },
+                ]}
+            />
+        </div>
+    );
+};
+
+export default BlockDemo;
+`,
+            },
+            {
+                path: "components/rc-segmented/docs/demos/controlled.demo.tsx",
+                title: "受控模式",
+                description: "传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。",
+                source: `/**
+ * title = "受控模式"
+ * description = "传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。"
+ */
+
+import { useState } from 'react';
+import Segmented, { type SegmentedValue } from '../../src/index.js';
+
+const ControlledDemo = () => {
+    const [value, setValue] = useState<SegmentedValue>('列表');
+
+    return (
+        <div>
+            <Segmented options={['列表', '看板', '日历']} value={value} onChange={setValue} />
+            <p>当前视图: {value}</p>
+        </div>
+    );
+};
+
+export default ControlledDemo;
+`,
+            },
+            {
+                path: "components/rc-segmented/docs/demos/disabled.demo.tsx",
+                title: "禁用状态",
+                description: "整体 `disabled` 或对单个选项设 `disabled`, 键盘方向键会自动跳过禁用项。",
+                source: `/**
+ * title = "禁用状态"
+ * description = "整体 \`disabled\` 或对单个选项设 \`disabled\`, 键盘方向键会自动跳过禁用项。"
+ */
+
+import { css } from '@linaria/core';
+import Segmented from '../../src/index.js';
+
+const stackStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+\`;
+
+const DisabledDemo = () => {
+    return (
+        <div className={stackStyle}>
+            <Segmented
+                options={[
+                    { label: '日', value: 'day' },
+                    { label: '周', value: 'week', disabled: true },
+                    { label: '月', value: 'month' },
+                ]}
+            />
+            <Segmented disabled options={['日', '周', '月']} defaultValue="周" />
+        </div>
+    );
+};
+
+export default DisabledDemo;
+`,
+            },
+            {
+                path: "components/rc-segmented/docs/demos/size.demo.tsx",
+                title: "尺寸",
+                description: "通过 `size` 设置 `large`、`middle`、`small` 三档尺寸。",
+                source: `/**
+ * title = "尺寸"
+ * description = "通过 \`size\` 设置 \`large\`、\`middle\`、\`small\` 三档尺寸。"
+ */
+
+import { css } from '@linaria/core';
+import Segmented from '../../src/index.js';
+
+const options = ['日', '周', '月'];
+
+const SizeDemo = () => {
+    return (
+        <div
+            className={css\`
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            \`}
+        >
+            <Segmented size="large" options={options} />
+            <Segmented size="middle" options={options} />
+            <Segmented size="small" options={options} />
+        </div>
+    );
+};
+
+export default SizeDemo;
+`,
+            },
+            {
+                path: "components/rc-segmented/docs/demos/with-icon.demo.tsx",
+                title: "带图标",
+                description: "选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。",
+                source: `/**
+ * title = "带图标"
+ * description = "选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。"
+ */
+
+import Segmented from '../../src/index.js';
+
+const ListIcon = () => (
+    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+        <path
+            d="M2 4h12M2 8h12M2 12h12"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+        />
+    </svg>
+);
+
+const GridIcon = () => (
+    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+        <path
+            d="M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z"
+            fill="currentColor"
+        />
+    </svg>
+);
+
+const WithIconDemo = () => {
+    return (
+        <Segmented
+            options={[
+                { label: '列表', value: 'list', icon: <ListIcon /> },
+                { label: '网格', value: 'grid', icon: <GridIcon /> },
+            ]}
+        />
+    );
+};
+
+export default WithIconDemo;
+`,
+            },
+        ],
+        api: [
+            {
+                name: "options",
+                description: "选项数据源, 支持对象或原始值简写",
+                type: "SegmentedRawOption[]",
+                defaultValue: "required",
+            },
+            {
+                name: "value",
+                description: "当前选中值（受控）",
+                type: "string | number",
+                defaultValue: "-",
+            },
+            {
+                name: "defaultValue",
+                description: "默认选中值（非受控）, 缺省时取第一个可用选项",
+                type: "string | number",
+                defaultValue: "-",
+            },
+            {
+                name: "onChange",
+                description: "选中值变化时的回调",
+                type: "(value: SegmentedValue) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "disabled",
+                description: "是否禁用整个控制器",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "size",
+                description: "尺寸, 默认为 middle",
+                type: "'large' | 'middle' | 'small'",
+                defaultValue: "'middle'",
+            },
+            {
+                name: "block",
+                description: "是否撑满父容器并等宽分布各选项",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "name",
+                description: "底层 radio 分组的 name, 缺省时自动生成, 用于隔离页面上多个控制器的键盘导航",
+                type: "string",
+                defaultValue: "-",
+            },
+            {
+                name: "ref",
+                description: "根节点 ref",
+                type: "Ref<HTMLDivElement>",
+                defaultValue: "-",
+            },
         ],
     },
     {
@@ -9191,6 +12117,419 @@ export default BaseDemo;`,
             },
         ],
         api: [
+            {
+                name: "value",
+                description: "-",
+                type: "number",
+                defaultValue: "0",
+            },
+            {
+                name: "min",
+                description: "-",
+                type: "number",
+                defaultValue: "0",
+            },
+            {
+                name: "max",
+                description: "-",
+                type: "number",
+                defaultValue: "100",
+            },
+            {
+                name: "step",
+                description: "-",
+                type: "number",
+                defaultValue: "1",
+            },
+            {
+                name: "onValueChange",
+                description: "-",
+                type: "(value: number) => void",
+                defaultValue: "-",
+            },
+        ],
+    },
+    {
+        slug: "rc-spin",
+        pkg: "@crab-dev/rc-spin",
+        version: "0.0.1",
+        title: "Spin 加载中",
+        description: "加载中指示器, 用于表达耗时操作正在进行",
+        category: "feedback",
+        readme: `加载中指示器, 用于表达耗时操作正在进行
+
+## ✨ 特性
+
+- 独立指示器与包裹模式二合一：传入 \`children\` 即笼罩该区域, 不传则单独渲染一枚指示环
+- \`delay\` 延迟显示：秒回的请求全程不闪 spinner, 消除「闪一下就消失」的噪声反馈
+- 包裹模式下内容被 \`inert\` 阻断——鼠标点不到, 键盘 Tab 也进不去, 而非只是看起来禁用
+- \`tip\` 提示文案说明「正在做什么」, 并自动成为读屏播报的可访问名
+- \`role="status"\` + \`aria-live="polite"\` + \`aria-busy\`, 加载状态对读屏可感知
+- \`prefers-reduced-motion\` 下不静止, 而是降级为低频呼吸——加载反馈不可缺席
+- \`large\` / \`middle\` / \`small\` 三档尺寸, 支持 \`indicator\` 自定义指示器
+- 具名导出 \`SpinIndicator\`：纯视觉的旋转环, 供自身已声明 \`aria-busy\` 的宿主复用（如 rc-button）,
+  避免嵌套 \`role="status"\` 造成读屏重复播报
+- 当前版本：\`0.0.1\`
+- 主题能力：支持 Design Token（token.toml）
+
+## 🔨 使用示例
+
+<demos />
+
+## API
+
+<api />
+
+> 其余原生属性按底层实现透传, 详见 API。
+`,
+        demos: [
+            {
+                path: "components/rc-spin/docs/demos/basic.demo.tsx",
+                title: "基础用法",
+                description: "默认即处于加载中, 渲染一枚匀速旋转的指示环, 并以 role=status 向读屏播报。",
+                source: `/**
+ * title = "基础用法"
+ * description = "默认即处于加载中, 渲染一枚匀速旋转的指示环, 并以 role=status 向读屏播报。"
+ */
+
+import Spin from '../../src/index.js';
+
+const BasicDemo = () => {
+    return <Spin />;
+};
+
+export default BasicDemo;
+`,
+            },
+            {
+                path: "components/rc-spin/docs/demos/delay.demo.tsx",
+                title: "延迟显示",
+                description: "秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。",
+                source: `/**
+ * title = "延迟显示"
+ * description = "秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。"
+ */
+
+import { css } from '@linaria/core';
+import { useState } from 'react';
+import Button from '@crab-dev/rc-button';
+import Spin from '../../src/index.js';
+
+const stackStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 420px;
+\`;
+
+const rowStyle = css\`
+    display: flex;
+    gap: 12px;
+\`;
+
+const panelStyle = css\`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 96px;
+    border: 1px dashed oklch(0.9 0.004 286);
+    border-radius: 8px;
+    color: oklch(0.44 0.01 286);
+    font-size: 14px;
+\`;
+
+const DelayDemo = () => {
+    const [spinning, setSpinning] = useState(false);
+
+    // 模拟一次请求：duration 决定它是「秒回」还是「真的慢」
+    const request = (duration: number) => {
+        setSpinning(true);
+        setTimeout(() => setSpinning(false), duration);
+    };
+
+    return (
+        <div className={stackStyle}>
+            <div className={rowStyle}>
+                <Button onClick={() => request(150)}>秒回请求（150ms）</Button>
+                <Button onClick={() => request(1500)}>慢请求（1500ms）</Button>
+            </div>
+
+            {/* delay=300：150ms 的请求全程不闪 spinner, 1500ms 的请求在 300ms 后才给出反馈 */}
+            <Spin spinning={spinning} delay={300}>
+                <div className={panelStyle}>
+                    秒回请求不会闪出转圈; 慢请求才会。
+                </div>
+            </Spin>
+        </div>
+    );
+};
+
+export default DelayDemo;
+`,
+            },
+            {
+                path: "components/rc-spin/docs/demos/indicator.demo.tsx",
+                title: "自定义指示器",
+                description: "indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。",
+                source: `/**
+ * title = "自定义指示器"
+ * description = "indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。"
+ */
+
+import { css } from '@linaria/core';
+import Spin from '../../src/index.js';
+
+const rowStyle = css\`
+    display: flex;
+    gap: 48px;
+    align-items: center;
+\`;
+
+const dotsStyle = css\`
+    display: flex;
+    gap: 6px;
+
+    & > span {
+        width: 8px;
+        height: 8px;
+        background-color: oklch(0.22 0.005 286);
+        border-radius: 50%;
+        animation: rc-spin-demo-bounce 1.2s ease-in-out infinite;
+    }
+
+    & > span:nth-child(2) {
+        animation-delay: 0.15s;
+    }
+
+    & > span:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    @keyframes rc-spin-demo-bounce {
+        0%,
+        80%,
+        100% {
+            opacity: 0.25;
+            transform: translateY(0);
+        }
+        40% {
+            opacity: 1;
+            transform: translateY(-4px);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        & > span {
+            animation-name: rc-spin-demo-fade;
+        }
+
+        @keyframes rc-spin-demo-fade {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+    }
+\`;
+
+const Dots = () => (
+    <div className={dotsStyle} aria-hidden="true">
+        <span />
+        <span />
+        <span />
+    </div>
+);
+
+const IndicatorDemo = () => {
+    return (
+        <div className={rowStyle}>
+            <Spin indicator={<Dots />} />
+            <Spin indicator={<Dots />} tip="正在处理" />
+        </div>
+    );
+};
+
+export default IndicatorDemo;
+`,
+            },
+            {
+                path: "components/rc-spin/docs/demos/size.demo.tsx",
+                title: "尺寸",
+                description: "通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。",
+                source: `/**
+ * title = "尺寸"
+ * description = "通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。"
+ */
+
+import { css } from '@linaria/core';
+import Spin from '../../src/index.js';
+
+const rowStyle = css\`
+    display: flex;
+    gap: 40px;
+    align-items: center;
+\`;
+
+const SizeDemo = () => {
+    return (
+        <div className={rowStyle}>
+            <Spin size="small" />
+            <Spin size="middle" />
+            <Spin size="large" />
+        </div>
+    );
+};
+
+export default SizeDemo;
+`,
+            },
+            {
+                path: "components/rc-spin/docs/demos/tip.demo.tsx",
+                title: "提示文案",
+                description: "tip 说明「正在做什么」, 比一枚沉默的转圈更能安抚等待。它同时成为读屏播报的内容。",
+                source: `/**
+ * title = "提示文案"
+ * description = "tip 说明「正在做什么」, 比一枚沉默的转圈更能安抚等待。它同时成为读屏播报的内容。"
+ */
+
+import { css } from '@linaria/core';
+import Spin from '../../src/index.js';
+
+const rowStyle = css\`
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+\`;
+
+const TipDemo = () => {
+    return (
+        <div className={rowStyle}>
+            <Spin tip="加载中" />
+            <Spin size="large" tip="正在同步 3 个文件…" />
+        </div>
+    );
+};
+
+export default TipDemo;
+`,
+            },
+            {
+                path: "components/rc-spin/docs/demos/wrapper.demo.tsx",
+                title: "包裹内容",
+                description: "传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。",
+                source: `/**
+ * title = "包裹内容"
+ * description = "传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。"
+ */
+
+import { css } from '@linaria/core';
+import { useState } from 'react';
+import Button from '@crab-dev/rc-button';
+import Spin from '../../src/index.js';
+
+const stackStyle = css\`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 360px;
+\`;
+
+const panelStyle = css\`
+    padding: 16px;
+    border: 1px solid oklch(0.9 0.004 286);
+    border-radius: 8px;
+\`;
+
+const titleStyle = css\`
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+\`;
+
+const bodyStyle = css\`
+    margin: 0 0 12px;
+    color: oklch(0.44 0.01 286);
+    font-size: 14px;
+\`;
+
+const WrapperDemo = () => {
+    const [spinning, setSpinning] = useState(true);
+
+    return (
+        <div className={stackStyle}>
+            <Button appearance="subtle" onClick={() => setSpinning((prev) => !prev)}>
+                {spinning ? '结束加载' : '开始加载'}
+            </Button>
+
+            <Spin spinning={spinning} tip="正在保存">
+                <div className={panelStyle}>
+                    <h4 className={titleStyle}>草稿</h4>
+                    <p className={bodyStyle}>
+                        加载期间试着用 Tab 键聚焦下面的按钮 —— 焦点不会落进来。
+                    </p>
+                    <Button>提交</Button>
+                </div>
+            </Spin>
+        </div>
+    );
+};
+
+export default WrapperDemo;
+`,
+            },
+        ],
+        api: [
+            {
+                name: "spinning",
+                description: "是否处于加载中, 默认 true",
+                type: "boolean",
+                defaultValue: "true",
+            },
+            {
+                name: "size",
+                description: "尺寸, 默认 middle",
+                type: "'large' | 'middle' | 'small'",
+                defaultValue: "'middle'",
+            },
+            {
+                name: "tip",
+                description: "指示器下方的提示文案。给出后即作为无障碍名, 读屏播报该文案而非默认的 label",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "delay",
+                description: "延迟显示的毫秒数, 默认 0（立即显示）。\n\n设为 300–500 可避免\"请求秒回却闪一下 spinner\"的噪声反馈：在该时长内完成的操作\n全程无指示器；超出则说明操作确实耗时, 此时才给出进行中反馈。",
+                type: "number",
+                defaultValue: "0",
+            },
+            {
+                name: "indicator",
+                description: "自定义指示器, 替换默认的旋转环",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "label",
+                description: "无障碍名, 默认 \"加载中\"。仅在未提供 tip 时生效",
+                type: "string",
+                defaultValue: "'加载中'",
+            },
+            {
+                name: "children",
+                description: "被加载状态笼罩的内容。传入后进入包裹模式：内容变淡并被 inert 阻断交互,\n指示器浮于其上；不传则作为独立指示器渲染",
+                type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "ref",
+                description: "根节点 ref",
+                type: "Ref<HTMLDivElement>",
+                defaultValue: "-",
+            },
         ],
     },
     {
@@ -12241,6 +15580,114 @@ export default RowGroupingDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/rowNumber.demo.tsx",
+                title: "行序号",
+                description: "通过 `showRowNumber` 开启行序号列，序号从 1 开始、反映当前渲染顺序（排序后随之重排）。分组 banner 行不计入序号，数据行始终连续编号。`rowNumberColumnWidth` 控制列宽（默认 50），`rowNumberColumnFixed` 控制是否固定到左侧（默认 true）。",
+                source: `/**
+ * title = "行序号"
+ * description = "通过 \`showRowNumber\` 开启行序号列，序号从 1 开始、反映当前渲染顺序（排序后随之重排）。分组 banner 行不计入序号，数据行始终连续编号。\`rowNumberColumnWidth\` 控制列宽（默认 50），\`rowNumberColumnFixed\` 控制是否固定到左侧（默认 true）。"
+ */
+
+import { useState, type Key } from "react";
+import Table from "../../src/index.js";
+import type { ColumnType, Row, RowSelection } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
+
+interface DemoRow extends Row {
+    dataRef: Employee
+}
+
+const allRows: DemoRow[] = makeEmployees(30, 20260630).map((emp, i) => ({
+    id: \`\${i + 1}\`,
+    dataRef: emp,
+}));
+
+const columns: ColumnType<DemoRow>[] = [
+    { name: "name",        title: "姓名",   width: 110, sortable: true },
+    { name: "department",  title: "部门",   width: 120, sortable: true },
+    { name: "jobTitle",    title: "职位",   width: 150 },
+    { name: "city",        title: "城市",   width: 100, sortable: true },
+    { name: "performance", title: "绩效",   width: 80,  align: "center", sortable: true },
+    { name: "salary",      title: "薪资",   width: 120, align: "right", sortable: true,
+        render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\` },
+    { name: "status",      title: "状态",   width: 90 },
+];
+
+const groupedRows: DemoRow[] = makeEmployees(20, 20260631).map((emp, i) => ({
+    id: \`g-\${i + 1}\`,
+    dataRef: emp,
+}));
+
+const RowNumberDemo = () => {
+    const [showSelection, setShowSelection] = useState(false);
+    const [useGrouping, setUseGrouping] = useState(false);
+    const [selectedRowIds, setSelectedRowIds] = useState<Set<Key>>(new Set());
+
+    const rows = useGrouping ? groupedRows : allRows;
+
+    const rowSelection: RowSelection<DemoRow> | undefined = showSelection
+        ? {
+            type: "checkbox",
+            selectedRowIds,
+            onChange: (ids) => setSelectedRowIds(ids),
+        }
+        : undefined;
+
+    const selectedNames = rows
+        .filter(r => selectedRowIds.has(r.id))
+        .map(r => r.dataRef.name)
+        .join("、");
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", gap: 20, alignItems: "center", fontSize: 13 }}>
+                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
+                    <input
+                        type="checkbox"
+                        checked={showSelection}
+                        onChange={e => { setShowSelection(e.target.checked); setSelectedRowIds(new Set()); }}
+                    />
+                    显示行选中列
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}>
+                    <input
+                        type="checkbox"
+                        checked={useGrouping}
+                        onChange={e => { setUseGrouping(e.target.checked); setSelectedRowIds(new Set()); }}
+                    />
+                    启用分组（按部门）
+                </label>
+            </div>
+            {showSelection && (
+                <div style={{ fontSize: 13, color: "#666", minHeight: 18 }}>
+                    {selectedRowIds.size > 0
+                        ? \`已选 \${selectedRowIds.size} 行：\${selectedNames}\`
+                        : "未选中任何行"}
+                </div>
+            )}
+            <Table
+                width={820}
+                height={420}
+                rows={rows}
+                columns={columns}
+                showRowNumber
+                rowSelection={rowSelection}
+                groupBy={useGrouping ? ["department"] : undefined}
+                defaultSortColumns={[{ columnName: "department", direction: "asc" }]}
+            />
+            {useGrouping && (
+                <p style={{ margin: 0, fontSize: 12, color: "#888" }}>
+                    分组 banner 行不占序号，展开 / 收起分组后数据行序号始终连续。
+                </p>
+            )}
+        </div>
+    );
+};
+
+export default RowNumberDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/rowSelection.demo.tsx",
                 title: "行选中",
                 description: "通过 `rowSelection` prop 启用行选中功能。`type: 'checkbox'` 为多选（表头显示全选），`type: 'radio'` 为单选。支持受控与非受控两种用法，可通过 `getDisabled` 禁用特定行。",
@@ -13217,6 +16664,24 @@ export default TreeDemo;
                 name: "empty",
                 description: "无数据时渲染的空状态内容（rows 为空时显示）。\n- 不传（undefined）：显示默认 <Empty /> 组件\n- 传 null：不显示任何空状态\n- 传 ReactNode：显示自定义内容",
                 type: "ReactNode",
+                defaultValue: "-",
+            },
+            {
+                name: "showRowNumber",
+                description: "是否在最左侧（功能列之后）显示行序号列，从 1 开始，分组行与展开内容行不计入序号",
+                type: "boolean",
+                defaultValue: "false",
+            },
+            {
+                name: "rowNumberColumnWidth",
+                description: "序号列宽度（默认 50）",
+                type: "number",
+                defaultValue: "-",
+            },
+            {
+                name: "rowNumberColumnFixed",
+                description: "序号列是否固定到左侧（默认 true）",
+                type: "boolean",
                 defaultValue: "-",
             },
         ],
@@ -15550,6 +19015,18 @@ export default SimpleDemo;
                 defaultValue: "required",
             },
             {
+                name: "reservedTopHeight",
+                description: "可视区顶部被常驻（sticky）内容占据的高度，单位为 px。\r\n例如表格在滚动容器内渲染的固定表头 / 过滤栏：它们占用可视区却不在 gridTemplateRows 中，\r\n因此需要计入纵向滚动总高度，否则末尾内容会被裁切且无法滚动到底。",
+                type: "number",
+                defaultValue: "0",
+            },
+            {
+                name: "reservedBottomHeight",
+                description: "可视区底部被常驻（sticky）内容占据的高度，单位为 px。\r\n例如表格底部固定的汇总 / 合计行：它贴在可视区底部却不在 gridTemplateRows 中，\r\n因此需要计入纵向滚动总高度，否则末尾数据行会被汇总行遮挡且无法滚动出来。",
+                type: "number",
+                defaultValue: "0",
+            },
+            {
                 name: "renderRows",
                 description: "渲染回调，根据当前可见的行列范围返回对应的 ReactNode",
                 type: "(rowRange: [number, number], columnRange: [number, number]) => ReactNode",
@@ -15560,12 +19037,6 @@ export default SimpleDemo;
                 description: "组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动",
                 type: "RefObject<VirtualHandle | null>",
                 defaultValue: "-",
-            },
-            {
-                name: "stickyHeaderHeight",
-                description: "顶部固定（sticky）区域的高度，单位为 px，默认 0。\n\n该区域属于滚动内容的一部分（计入容器 scrollHeight），但不包含在 gridTemplateRows 中，\n典型场景为表格的 sticky 表头 / 过滤栏。纵向滚动边界（是否显示滚动条、滚动条尺寸、\n滚轮与 scrollToCell 的到底坐标）必须把这段高度计入内容总高，否则可滚动距离会少算该高度，\n导致无法滚动到底部。",
-                type: "number",
-                defaultValue: "0",
             },
         ],
     },
