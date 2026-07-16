@@ -25,12 +25,16 @@
         "typecheck": "tsc --noEmit"
     },
     "files": [
+        "bin",
         "esm",
+        "cjs",
+        "declarations",
         "template"
     ],
     "types": "declarations/index.d.ts",
     "bin": "bin/cli.js",
     "exports": {
+        "types": "./declarations/index.d.ts",
         "import": "./esm/index.mjs",
         "require": "./cjs/index.cjs"
     },
