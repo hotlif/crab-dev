@@ -11,3 +11,4 @@ export { useInterval } from "./useInterval.js";
 export { useMediaQuery } from "./useMediaQuery.js";
 export { usePrevious } from "./usePrevious.js";
 export { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect.js";
+export { uniqueId } from "./uniqueId.js";
