@@ -61,6 +61,7 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@crab-dev/rc-hooks": "workspace:^",
     "motion": "^12.42.2"
   }
 }

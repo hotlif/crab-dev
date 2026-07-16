@@ -57,6 +57,7 @@
     "typescript-eslint": "^8.63.0"
   },
   "dependencies": {
+    "@crab-dev/rc-hooks": "workspace:^",
     "motion": "^12.42.2"
   },
   "engines": {

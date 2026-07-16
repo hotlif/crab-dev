@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useMotionValueEvent, useTime, type ValueKeyframesDefinition } from "motion/react";
+import { uniqueId } from "@crab-dev/rc-hooks";
 
 import Notification from "../notification.js";
 import Container from "../container.js";
@@ -229,7 +230,7 @@ const useNotification = (): [NotificationInstance, ReactNode] => {
     }, [items, scheduleCloseTimer]);
 
     const open = useCallback((param: NotificationOpenParam) => {
-        const key = crypto.randomUUID();
+        const key = uniqueId('notification-');
         const duration = param.duration ?? defaultDuration;
         const direction = param.direction ?? defaultDirection;
         const newItem: NotificationItem = {

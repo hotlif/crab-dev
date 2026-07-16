@@ -1,6 +1,7 @@
 import { css } from '@linaria/core';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, useMotionValueEvent, useTime } from 'motion/react';
+import { uniqueId } from '@crab-dev/rc-hooks';
 
 import Message from '../message.js';
 import type { MessageInstance, MessageItemData, MessageOpenParam, MessageType } from '../types.js';
@@ -173,7 +174,7 @@ const useMessage = (): [MessageInstance, ReactNode] => {
     }, [items, scheduleCloseTimer]);
 
     const open = useCallback((param: MessageOpenParam) => {
-        const key = crypto.randomUUID();
+        const key = uniqueId('message-');
         const duration = param.duration ?? defaultDuration;
 
         const newItem: MessageItemData = {
