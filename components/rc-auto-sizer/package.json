@@ -30,6 +30,15 @@
     "types": "declarations/index.d.ts",
     "main": "cjs/index.cjs",
     "module": "esm/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./css/index.css": "./css/index.css",
+        "./package.json": "./package.json"
+    },
     "dependencies": {
         "@crab-dev/rc-hooks": "workspace:^"
     },

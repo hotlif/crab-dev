@@ -11,6 +11,10 @@
     "type": "module",
     "main": "index.mjs",
     "module": "index.mjs",
+    "exports": {
+        ".": "./index.mjs",
+        "./package.json": "./package.json"
+    },
     "peerDependencies": {
         "eslint": "^10.1.0",
         "eslint-plugin-react": "^7.37.3",

@@ -34,9 +34,12 @@
     "types": "declarations/index.d.ts",
     "bin": "bin/cli.js",
     "exports": {
-        "types": "./declarations/index.d.ts",
-        "import": "./esm/index.mjs",
-        "require": "./cjs/index.cjs"
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./package.json": "./package.json"
     },
     "devDependencies": {
         "@crab-dev/packify": "workspace:^",

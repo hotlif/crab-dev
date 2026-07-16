@@ -17,6 +17,10 @@
     ],
     "main": "./index.mjs",
     "module": "./index.mjs",
+    "exports": {
+        ".": "./index.mjs",
+        "./package.json": "./package.json"
+    },
     "devDependencies": {
         "@types/node": "^26.1.0",
         "@yarnpkg/pnpify": "^4.1.6",

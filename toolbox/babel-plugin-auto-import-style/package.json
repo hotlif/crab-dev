@@ -30,6 +30,14 @@
   "types": "declarations/index.d.ts",
   "main": "cjs/index.cjs",
   "module": "esm/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./cjs/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@crab-dev/packify": "workspace:^",

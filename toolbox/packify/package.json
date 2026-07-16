@@ -28,6 +28,12 @@
     "esm"
   ],
   "bin": "bin/cli.js",
+  "exports": {
+    ".": {
+      "import": "./esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "devDependencies": {
     "@crab-dev/standards-eslint-preset": "workspace:^",
     "@crab-dev/standards-jest-preset": "workspace:^",
