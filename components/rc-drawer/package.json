@@ -7,6 +7,11 @@
   "description": "抽屉组件：从屏幕边缘滑出的浮层面板",
   "packageManager": "yarn@4.16.0",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "components/rc-drawer"
+  },
   "type": "module",
   "scripts": {
     "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",

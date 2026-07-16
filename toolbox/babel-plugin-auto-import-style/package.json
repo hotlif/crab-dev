@@ -2,6 +2,11 @@
   "name": "@crab-dev/babel-plugin-auto-import-style",
   "description": "用于处理组件样式自动导入, 属于 @crab-dev/crustify 的内部组件",
   "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "toolbox/babel-plugin-auto-import-style"
+  },
   "packageManager": "yarn@4.16.0",
   "websiteConfig": {
     "title": "Auto Import Style 插件",

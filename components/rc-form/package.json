@@ -6,6 +6,11 @@
   },
   "description": "高性能的表单组件",
   "version": "0.0.6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "components/rc-form"
+  },
   "packageManager": "yarn@4.16.0",
   "type": "module",
   "scripts": {

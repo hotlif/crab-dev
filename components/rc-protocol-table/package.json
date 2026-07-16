@@ -7,6 +7,11 @@
     "description": "高效的协议表格库，旨在提升大规模列表或内容渲染的性能。",
     "packageManager": "yarn@4.16.0",
     "version": "0.1.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-protocol-table"
+    },
     "type": "module",
     "scripts": {
         "start": "yarn generate:docgen && lignify run-task app:dev",

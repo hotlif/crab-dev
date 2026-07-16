@@ -1,6 +1,11 @@
 {
     "name": "@crab-dev/standards-typescript-preset",
     "version": "0.0.3",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "standards/typescript-preset"
+    },
     "description": "用于 TypeScript 项目的 tsconfig 预设",
     "packageManager": "yarn@4.16.0",
     "type": "module",

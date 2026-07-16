@@ -8,6 +8,11 @@
   "packageManager": "yarn@4.16.0",
   "type": "module",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "components/rc-slider"
+  },
   "scripts": {
     "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
     "build:library": "packify build",

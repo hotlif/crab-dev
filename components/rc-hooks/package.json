@@ -6,6 +6,11 @@
   },
   "description": "A common library of React Hooks for executing some common methods of Hooks",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "components/rc-hooks"
+  },
   "packageManager": "yarn@4.16.0",
   "type": "module",
   "scripts": {
