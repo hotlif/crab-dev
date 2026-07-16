@@ -185,6 +185,7 @@ const loaders: Record<string, Loader> = {
     "components/rc-table/docs/demos/mergeCells.demo.tsx": () => import("@@/../components/rc-table/docs/demos/mergeCells.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/mergeTableHeaders.demo.tsx": () => import("@@/../components/rc-table/docs/demos/mergeTableHeaders.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/rowEdit.demo.tsx": () => import("@@/../components/rc-table/docs/demos/rowEdit.demo.tsx") as Promise<{ default: ComponentType }>,
+    "components/rc-table/docs/demos/rowEvent.demo.tsx": () => import("@@/../components/rc-table/docs/demos/rowEvent.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/rowExpansion.demo.tsx": () => import("@@/../components/rc-table/docs/demos/rowExpansion.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/rowGrouping.demo.tsx": () => import("@@/../components/rc-table/docs/demos/rowGrouping.demo.tsx") as Promise<{ default: ComponentType }>,
     "components/rc-table/docs/demos/rowNumber.demo.tsx": () => import("@@/../components/rc-table/docs/demos/rowNumber.demo.tsx") as Promise<{ default: ComponentType }>,

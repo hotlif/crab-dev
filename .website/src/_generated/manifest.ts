@@ -12714,6 +12714,7 @@ export default SizeDemo;
 - 提供表格展示能力，适用于结构化数据阅读与操作
 - 支持与筛选、排序、分页等能力协同使用
 - 可用于后台列表、报表页与管理数据面板
+- 行事件：\`onRowClick\` / \`onRowDoubleClick\`，传入后行即具备 pointer 光标与 hover 反馈，并可用键盘 Enter 触发；点在复选框、单选框、展开图标、按钮、链接、输入框等控件上，或单元格拖选之后的抬起，均不会误报为行事件；\`editType="cell"\` 的双击进编辑、\`editType="row"\` 的双击进行编辑会各自消费该次双击，不再上报 \`onRowDoubleClick\`
 - 当前版本：\`0.0.1\`
 - 示例数量：\`6\` 个 Demo
 - 主题能力：按组件实现提供样式能力
@@ -15297,6 +15298,129 @@ export default RowEditDemo;
 `,
             },
             {
+                path: "components/rc-table/docs/demos/rowEvent.demo.tsx",
+                title: "行点击与行双击",
+                description: "通过 `onRowClick` / `onRowDoubleClick` 监听行事件。传入后行即成为可点击目标（pointer 光标 + hover 反馈），也可用键盘触发：点选行内任一单元格后按 Enter。点在复选框、展开图标、操作按钮等控件上时不会触发行事件；单元格拖选之后的那次抬起也不算点击。",
+                source: `/**
+ * title = "行点击与行双击"
+ * description = "通过 \`onRowClick\` / \`onRowDoubleClick\` 监听行事件。传入后行即成为可点击目标（pointer 光标 + hover 反馈），也可用键盘触发：点选行内任一单元格后按 Enter。点在复选框、展开图标、操作按钮等控件上时不会触发行事件；单元格拖选之后的那次抬起也不算点击。"
+ */
+
+import { useState, type Key } from "react";
+import Table from "../../src/index.js";
+import type { ColumnType, Row, RowSelection } from "../../src/index.js";
+import { makeEmployees, type Employee } from "./_mock.js";
+
+interface DemoRow extends Row {
+    dataRef: Employee
+}
+
+const rows: DemoRow[] = makeEmployees(30, 20260617).map((employee, index) => ({
+    id: \`\${index + 1}\`,
+    dataRef: employee,
+}));
+
+const MAX_LOG = 6;
+
+const RowEventDemo = () => {
+    const [selectedRowIds, setSelectedRowIds] = useState<Set<Key>>(new Set());
+    const [logs, setLogs] = useState<string[]>([]);
+    const [detailRow, setDetailRow] = useState<DemoRow | null>(null);
+
+    // 序号随日志条数递增，避免在渲染期读取时间造成的不确定性
+    const appendLog = (message: string) => {
+        setLogs(prev => [\`\${prev.length + 1}. \${message}\`, ...prev].slice(0, MAX_LOG));
+    };
+
+    const columns: ColumnType<DemoRow>[] = [
+        { name: "employeeNo", title: "工号", width: 110 },
+        { name: "name", title: "姓名", width: 100 },
+        { name: "department", title: "部门", width: 110 },
+        { name: "city", title: "城市", width: 90 },
+        {
+            name: "salary", title: "薪资", width: 110, align: "right",
+            render: ({ row }) => \`¥\${row.dataRef.salary.toLocaleString()}\`,
+        },
+        {
+            name: "action", title: "操作", width: 90, align: "center",
+            // 单元格内的按钮自己消费点击，不会连带触发 onRowClick
+            render: ({ row }) => (
+                <button
+                    type="button"
+                    style={{ cursor: "pointer", fontSize: 12, padding: "2px 8px" }}
+                    onClick={() => appendLog(\`点了「\${row.dataRef.name}」行内的操作按钮（未触发行点击）\`)}
+                >
+                    操作
+                </button>
+            ),
+        },
+    ];
+
+    const rowSelection: RowSelection<DemoRow> = {
+        type: "checkbox",
+        selectedRowIds,
+        onChange: (ids) => {
+            setSelectedRowIds(ids);
+            appendLog(\`勾选复选框，已选 \${ids.size} 行（未触发行点击）\`);
+        },
+    };
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ fontSize: 13, color: "#666" }}>
+                单击行查看反馈，双击行打开详情；也可点选某个单元格后按 <kbd>Enter</kbd> 触发行点击。
+                试着点复选框、展开图标或「操作」按钮——它们不会触发行事件。
+            </div>
+
+            <div
+                style={{
+                    minHeight: 96,
+                    padding: "8px 12px",
+                    borderRadius: 8,
+                    background: "#fafafa",
+                    border: "1px solid #eee",
+                    fontSize: 12.5,
+                    lineHeight: 1.9,
+                    color: "#444",
+                }}
+            >
+                {detailRow && (
+                    <div style={{ marginBottom: 6, fontWeight: 600, color: "#1a1a1a" }}>
+                        详情：{detailRow.dataRef.name} · {detailRow.dataRef.department} · {detailRow.dataRef.jobTitle}
+                    </div>
+                )}
+                {logs.length === 0
+                    ? <span style={{ color: "#999" }}>尚无事件</span>
+                    : logs.map(log => <div key={log}>{log}</div>)}
+            </div>
+
+            <Table
+                width={820}
+                height={420}
+                rows={rows}
+                columns={columns}
+                rowSelection={rowSelection}
+                expandedRowRender={(row) => (
+                    <div style={{ padding: 12, fontSize: 13 }}>
+                        {row.dataRef.name}（{row.dataRef.jobTitle}）· 绩效 {row.dataRef.performance} · 状态 {row.dataRef.status}
+                    </div>
+                )}
+                onRowClick={(row, rowIndex) => {
+                    appendLog(\`单击第 \${rowIndex + 1} 行：\${row.dataRef.name}\`);
+                }}
+                onRowDoubleClick={(row, rowIndex) => {
+                    setDetailRow(row);
+                    appendLog(\`双击第 \${rowIndex + 1} 行：\${row.dataRef.name}，打开详情\`);
+                }}
+            />
+        </div>
+    );
+};
+
+export default RowEventDemo;
+`,
+            },
+            {
                 path: "components/rc-table/docs/demos/rowExpansion.demo.tsx",
                 title: "行展开（详情面板）",
                 description: "通过 `expandedRowRender` 在行下方插入自定义详情区，点击行首图标展开或收起。展开内容跨所有列、随表格一起横向滚动；当详情高度超过 `expandedRowHeight` 时面板内部可独立纵向滚动（滚轮 / 触控板）。区别于树形数据：这里展示的是异构详情而非同构子行。",
@@ -16682,6 +16806,18 @@ export default TreeDemo;
                 name: "rowNumberColumnFixed",
                 description: "序号列是否固定到左侧（默认 true）",
                 type: "boolean",
+                defaultValue: "-",
+            },
+            {
+                name: "onRowClick",
+                description: "点击数据行。传入后该行即成为可点击目标（pointer 光标 + hover 反馈），\n并可用键盘触发：选中行内任一单元格后按 Enter。\n\n以下情形**不会**触发，避免与既有交互打架：\n- 点在行内的控件上（展开图标、行选择复选框、单选框、按钮、链接、输入框等）；\n- 单元格拖选之后的那次 click（按下与抬起之间发生了拖动）；\n- 该行正处于行编辑态。\n\n注意：双击会先产生两次 click（浏览器语义），如需与 onRowDoubleClick 互斥请自行去抖。",
+                type: "(\n    row: T,\n    rowIndex: number,\n    event: ReactMouseEvent<HTMLDivElement> | KeyboardEvent,\n) => void",
+                defaultValue: "-",
+            },
+            {
+                name: "onRowDoubleClick",
+                description: "双击数据行。以下情形**不会**触发：\n- `editType=\"cell\"` 下双击可编辑单元格（该次双击已被单元格编辑消费）；\n- `editType=\"row\"` 下双击进入行编辑（该次双击已被行编辑消费）；\n- 点在行内控件上，或该行正处于行编辑态。",
+                type: "(\n    row: T,\n    rowIndex: number,\n    event: ReactMouseEvent<HTMLDivElement> | KeyboardEvent,\n) => void",
                 defaultValue: "-",
             },
         ],
