@@ -25,7 +25,6 @@
     "generate:docgen": "packify generate:docgen",
     "generate:token": "packify generate:css-token",
     "eslint": "eslint",
-    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [

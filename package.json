@@ -14,7 +14,6 @@
         "generate:token": "turbo run generate:token",
         "changeset:version": "changeset version && yarn install --mode=update-lockfile",
         "changeset:release": "yarn build:library && yarn workspaces foreach --all --no-private --topological npm publish --tolerate-republish --access public && changeset tag",
-        "prepack": "yarn gitsource:build",
         "prepare": "husky"
     },
     "workspaces": [

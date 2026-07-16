@@ -19,7 +19,6 @@
     "generate:token": "packify generate:css-token",
     "eslint": "eslint",
     "test": "packify test",
-    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [

@@ -19,8 +19,7 @@
     "generate:docgen": "packify generate:docgen",
     "generate:token": "packify generate:css-token",
     "test": "packify test",
-    "eslint": "eslint .",
-    "prepack": "cd ../.. && yarn build:library"
+    "eslint": "eslint ."
   },
   "files": [
     "esm",

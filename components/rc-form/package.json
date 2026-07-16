@@ -21,7 +21,6 @@
     "check": "yarn tsc -p tsconfig.json --noEmit && yarn eslint && yarn test",
     "eslint": "eslint",
     "test": "packify test",
-    "prepack": "cd ../.. && yarn build:library",
     "typecheck": "tsc --noEmit"
   },
   "files": [

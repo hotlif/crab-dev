@@ -18,8 +18,7 @@
         "build:library": "packify build",
         "test": "packify test --passWithNoTests",
         "eslint": "eslint .",
-        "typecheck": "tsc --noEmit",
-        "prepack": "cd ../.. && yarn build:library"
+        "typecheck": "tsc --noEmit"
     },
     "files": [
         "esm",

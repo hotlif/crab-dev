@@ -16,7 +16,6 @@
   "scripts": {
     "build:library": "packify build",
     "eslint": "eslint",
-    "prepack": "cd ../.. && yarn build:library",
     "test": "packify test",
     "typecheck": "tsc --noEmit"
   },

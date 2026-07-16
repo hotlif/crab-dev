@@ -19,7 +19,6 @@
         "generate:docgen": "packify generate:docgen",
         "test": "packify test --passWithNoTests",
         "eslint": "eslint --fix",
-        "prepack": "cd ../.. && yarn build:library",
         "typecheck": "tsc --noEmit"
     },
     "files": [
