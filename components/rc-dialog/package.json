@@ -6,7 +6,7 @@
   },
   "description": "A dialog component for React applications.",
   "packageManager": "yarn@4.16.0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

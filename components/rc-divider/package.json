@@ -7,7 +7,7 @@
   "description": "分割线, 用于在内容之间划分区隔并表达从属边界",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

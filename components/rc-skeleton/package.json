@@ -7,7 +7,7 @@
   "description": "骨架屏，用于在内容加载时占位，降低用户感知等待时间",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

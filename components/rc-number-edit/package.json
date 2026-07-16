@@ -7,7 +7,7 @@
   "description": "数字输入框, 支持步进、范围钳制、千分位与科学计数法自适应显示",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

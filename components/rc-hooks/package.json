@@ -5,7 +5,7 @@
     "category": "primitive"
   },
   "description": "A common library of React Hooks for executing some common methods of Hooks",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

@@ -6,7 +6,7 @@
   },
   "description": "布局组件，适用于管理后台、仪表盘等",
   "packageManager": "yarn@4.16.0",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

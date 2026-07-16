@@ -7,7 +7,7 @@
     "description": "Markdown 排版样式组件，提供 prose 容器类与多尺寸变体",
     "packageManager": "yarn@4.16.0",
     "type": "module",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",

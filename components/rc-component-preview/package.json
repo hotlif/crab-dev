@@ -7,7 +7,7 @@
   "description": "用于预览组件, 提供组件的预览和组件介绍说明",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

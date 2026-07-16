@@ -7,7 +7,7 @@
   "description": "警告提示，用于页面中展示重要的提示信息",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

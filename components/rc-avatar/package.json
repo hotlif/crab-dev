@@ -7,7 +7,7 @@
   "description": "头像组件，用于展示用户或实体的图像与标识",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",
