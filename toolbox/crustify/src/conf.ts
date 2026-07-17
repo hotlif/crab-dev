@@ -44,6 +44,22 @@ interface Proxy {
 	context: string[],
 	target: string,
 	pathRewrite?: Record<string, string>
+
+	/**
+	 * 是否代理 WebSocket, 开启后 dev-server 会将匹配 context 的
+	 * HTTP Upgrade 请求转发到 target
+	 *
+	 * @default false
+	 */
+	ws?: boolean
+
+	/**
+	 * 是否将请求头中的 Host 改写为 target 的 host,
+	 * 代理到跨域名的远端(含 WebSocket 握手)被拒时需开启
+	 *
+	 * @default false
+	 */
+	changeOrigin?: boolean
 }
 
 /**
