@@ -6,6 +6,7 @@ import type { RadioProps } from './types.js';
 import { useRadioGroup } from './context.js';
 
 const wrapperStyle = css`
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: ${token.label.gap};
