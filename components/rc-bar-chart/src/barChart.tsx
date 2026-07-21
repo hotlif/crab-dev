@@ -5,7 +5,7 @@ import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
 import Empty from '@crab-dev/rc-empty';
 import token from './token.js';
-import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES } from './palette.js';
+import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES, dimColor } from './palette.js';
 import { computeLayout, measureLabelWidth, CHART_METRICS } from './layout.js';
 import { useBarTransition } from './hooks/useBarTransition.js';
 import { useCategoryDim } from './hooks/useCategoryDim.js';
@@ -415,8 +415,9 @@ function BarChartInner({
                             const radius = bar.dataEnd === null
                                 ? 0
                                 : Math.min(CHART_METRICS.barRadius, bar.width / 2, bar.height / 2);
-                            const color = colors[shownIndices[bar.seriesIndex]];
                             const dim = dims[bar.categoryIndex] ?? 1;
+                            // 淡化走不透明混色而非 opacity：柱与圆角补丁的重叠区不会叠出深色条带
+                            const color = dimColor(colors[shownIndices[bar.seriesIndex]], dim);
                             // 基线端补丁矩形的位置：盖住与数据端相对一侧的圆角
                             const patch = radius <= 0
                                 ? null
@@ -442,7 +443,6 @@ function BarChartInner({
                                         height={bar.height}
                                         radius={radius}
                                         fill={color}
-                                        opacity={dim}
                                         zIndex={3}
                                         cursor={onBarClick ? 'pointer' : undefined}
                                         onMouseEnter={() => hoverCategory(bar.categoryIndex)}
@@ -459,7 +459,6 @@ function BarChartInner({
                                             width={patch.width}
                                             height={patch.height}
                                             fill={color}
-                                            opacity={dim}
                                             zIndex={3.1}
                                         />
                                     )}

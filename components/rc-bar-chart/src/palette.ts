@@ -6,6 +6,8 @@
  * （其产物为 CSS var 映射）；HTML 层（图例 / 悬浮提示）样式仍走设计令牌。
  */
 
+import { parseColor } from '@crab-dev/rc-canvas';
+
 /**
  * 分类系列色板（≤ 8 系列）。
  *
@@ -35,6 +37,29 @@ export const CHART_INK = {
     baseline: 'oklch(0.8118 0.0152 102.51)',
     /** 轴文本（= semantic color.text.secondary → global zinc.500 的字面量） */
     axisLabel: 'oklch(0.660 0.014 286)',
-    /** 悬停类目列的背景水洗色 */
-    hoverWash: 'oklch(0.9055 0.0095 100 / 0.45)',
+    /** 悬停类目列的背景水洗色（renderer 修正 alpha 合成后按有效透明度取值） */
+    hoverWash: 'oklch(0.9055 0.0095 100 / 0.25)',
 } as const;
+
+/** 亮色画布背景假设——与绘制层不响应主题的既有限制同一前提 */
+const CANVAS_BG: readonly [number, number, number] = [1, 1, 1];
+
+const dimCache = new Map<string, string>();
+
+/**
+ * 把系列色向画布背景混合为「不透明的淡化色」：keep ∈ (0, 1]，1 为原色。
+ * 用不透明混色而非 opacity 淡化，柱体与其圆角补丁矩形的重叠区不会
+ * 因半透明叠加出现深色条带。keep 量化到 1/64，限制补间期间的缓存增长。
+ */
+export function dimColor(color: string, keep: number): string {
+    const q = Math.min(1, Math.max(0, Math.round(keep * 64) / 64));
+    if (q === 1) return color;
+    const key = `${color}|${q}`;
+    const hit = dimCache.get(key);
+    if (hit) return hit;
+    const [r, g, b] = parseColor(color);
+    const mix = (c: number, bg: number) => Math.round((bg + (c - bg) * q) * 255);
+    const out = `rgb(${mix(r, CANVAS_BG[0])}, ${mix(g, CANVAS_BG[1])}, ${mix(b, CANVAS_BG[2])})`;
+    dimCache.set(key, out);
+    return out;
+}

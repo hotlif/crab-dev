@@ -8,8 +8,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-/** 非活动类目的柱不透明度 */
-export const DIM_OPACITY = 0.35;
+/** 非活动类目的保留系数：柱色向背景混合后仍清晰可辨，只是退居次要 */
+export const DIM_OPACITY = 0.45;
 /** 淡化补间时长（ms），对齐 semantic motion.interaction 的 duration.fast 档 */
 const DIM_DURATION = 150;
 
