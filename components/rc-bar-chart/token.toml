@@ -1,0 +1,29 @@
+[build]
+output = "./src/token.ts"
+prefix = "bar-chart"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ─── 图例 ───────────────────────────────────
+legend.gap             = "$ref(space.component-gap)"
+legend.item-gap        = "$ref(space.component-gap)"
+legend.swatch-gap      = "$ref(space.inline-gap)"
+legend.swatch-size     = "10px"
+legend.label.color     = "$ref(color.text.secondary)"
+legend.label.font.size = "$ref(font.size.caption)"
+
+# ─── 悬浮提示 ───────────────────────────────
+tooltip.background        = "$ref(color.background.elevated)"
+tooltip.radius            = "$ref(radius.md)"
+tooltip.shadow            = "$ref(shadow.float)"
+tooltip.padding           = "8px 12px"
+tooltip.row-gap           = "$ref(space.inline-gap)"
+tooltip.key-gap           = "$ref(space.inline-gap)"
+tooltip.font.size         = "$ref(font.size.caption)"
+tooltip.category.color    = "$ref(color.text.secondary)"
+tooltip.name.color        = "$ref(color.text.secondary)"
+tooltip.value.color       = "$ref(color.text.primary)"
+tooltip.value.font.weight = "$ref(font.weight.label)"
