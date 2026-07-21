@@ -1,0 +1,35 @@
+[build]
+output = "./src/token.ts"
+prefix = "cron-picker"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+overlay.width = "420px"
+overlay.padding = "$ref(space.section-gap)"
+
+field.gap = "$ref(space.component-gap)"
+mode-row.gap = "$ref(space.inline-gap)"
+mode-row.text.color = "$ref(color.text.primary)"
+mode-row.font.size = "$ref(font.size.body)"
+mode-row.opacity-inactive = "$ref(opacity.tertiary)"
+
+value-grid.gap = "4px"
+
+expression.font-size = "$ref(font.size.body)"
+expression.color = "$ref(color.text.primary)"
+expression.background = "$ref(color.background.hover-subtle)"
+expression.radius = "$ref(radius.sm)"
+expression.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+
+describe.color = "$ref(color.text.secondary)"
+describe.font.size = "$ref(font.size.caption)"
+
+preview.color = "$ref(color.text.secondary)"
+preview.font.size = "$ref(font.size.caption)"
+preview.time.color = "$ref(color.text.primary)"
+
+divider.color = "$ref(color.border.default)"
+
+transition = "$ref(motion.interaction)"

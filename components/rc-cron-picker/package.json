@@ -1,0 +1,86 @@
+{
+  "name": "@crab-dev/rc-cron-picker",
+  "websiteConfig": {
+    "title": "CronPicker Cron 表达式选择器",
+    "category": "data-entry"
+  },
+  "description": "Cron 表达式选择器, 支持五段式表达式的可视化编辑、手动输入解析与下次执行时间预览",
+  "packageManager": "yarn@4.16.0",
+  "type": "module",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "components/rc-cron-picker"
+  },
+  "scripts": {
+    "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
+    "build:library": "packify build",
+    "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "generate:docgen": "packify generate:docgen",
+    "generate:token": "packify generate:css-token",
+    "test": "packify test",
+    "check": "yarn eslint . && yarn prettier:check && yarn test",
+    "eslint": "eslint . ",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "css",
+    "declarations"
+  ],
+  "exports": {
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./cjs/index.cjs"
+    },
+    "./css/index.css": "./css/index.css",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@crab-dev/rc-dropdown-container": "workspace:^",
+    "@crab-dev/rc-hooks": "workspace:^",
+    "@crab-dev/rc-line-edit": "workspace:^",
+    "@crab-dev/rc-number-edit": "workspace:^",
+    "@crab-dev/rc-radio": "workspace:^",
+    "@crab-dev/rc-select": "workspace:^",
+    "@crab-dev/rc-tabs": "workspace:^",
+    "@crab-dev/rc-tag": "workspace:^"
+  },
+  "devDependencies": {
+    "@crab-dev/lignify": "workspace:^",
+    "@crab-dev/packify": "workspace:^",
+    "@crab-dev/rc-component-preview": "workspace:^",
+    "@crab-dev/rc-masonry": "workspace:^",
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/rc-token-semantic": "workspace:^",
+    "@crab-dev/standards-eslint-preset": "workspace:^",
+    "@crab-dev/standards-jest-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@jest/globals": "30.4.1",
+    "@linaria/core": "^8.0.0",
+    "@mdx-js/react": "^3.1.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.7.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "30.4.1",
+    "prettier": "^3.9.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router": "^8.2.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.63.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
