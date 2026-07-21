@@ -1,16 +1,6 @@
 import type { DrawCommand } from './draw-command.js';
 
-/** 字典序比较两个 zIndexPath。短路径缺失层以 -Infinity 补齐（浅层在深层之下）。 */
-function compareZIndexPaths(a: number[], b: number[]): number {
-    const len = Math.max(a.length, b.length);
-    for (let i = 0; i < len; i++) {
-        const av = i < a.length ? a[i] : -Infinity;
-        const bv = i < b.length ? b[i] : -Infinity;
-        if (av !== bv) return av - bv;
-    }
-    return 0;
-}
-import { makeOrthographicMat3, identityMat3, invertMat3, applyMat3 } from '../math/matrix.js';
+import { makeOrthographicMat3, identityMat3, invertMat3, applyMat3, multiplyMat3 } from '../math/matrix.js';
 import { FLAT_VERT } from '../shaders/flat.vert.js';
 import { FLAT_FRAG } from '../shaders/flat.frag.js';
 import { SDF_VERT } from '../shaders/sdf.vert.js';
@@ -23,6 +13,18 @@ import { GRID_VERT } from '../shaders/grid.vert.js';
 import { GRID_FRAG } from '../shaders/grid.frag.js';
 import { MARKER_VERT } from '../shaders/marker.vert.js';
 import { MARKER_FRAG } from '../shaders/marker.frag.js';
+
+
+/** 字典序比较两个 zIndexPath。短路径缺失层以 -Infinity 补齐（浅层在深层之下）。 */
+function compareZIndexPaths(a: number[], b: number[]): number {
+    const len = Math.max(a.length, b.length);
+    for (let i = 0; i < len; i++) {
+        const av = i < a.length ? a[i] : -Infinity;
+        const bv = i < b.length ? b[i] : -Infinity;
+        if (av !== bv) return av - bv;
+    }
+    return 0;
+}
 
 // 单位四边形顶点：[position.x, position.y, uv.x, uv.y]
 const QUAD_VERTICES = new Float32Array([
@@ -119,6 +121,8 @@ export class WebGLRenderer {
     private invViewMatrix: Float32Array | null = null;
     private canvasWidth: number;
     private canvasHeight: number;
+    /** 设备像素比：bitmap 文本据此吸附到物理像素网格 */
+    private dpr: number;
 
     // projection / view 变更版本号：只有版本变化时才向各 program 重传这两个 uniform
     private projVersion = 0;
@@ -174,6 +178,7 @@ export class WebGLRenderer {
         this.projMatrix = makeOrthographicMat3(width, height);
         this.canvasWidth = width;
         this.canvasHeight = height;
+        this.dpr = dpr;
 
         this.flatProg = this.compileProgram(FLAT_VERT, FLAT_FRAG);
         this.sdfProg = this.compileProgram(SDF_VERT, SDF_FRAG);
@@ -277,6 +282,7 @@ export class WebGLRenderer {
         this.projMatrix = makeOrthographicMat3(width, height);
         this.canvasWidth = width;
         this.canvasHeight = height;
+        this.dpr = dpr;
         this.projVersion++;
         this.gl.viewport(0, 0, Math.round(width * dpr), Math.round(height * dpr));
     }
@@ -416,6 +422,7 @@ export class WebGLRenderer {
             case 'line':           this.drawLine(cmd); break;
             case 'texture-image':  this.drawTextureImage(cmd); break;
             case 'sdf-text':       this.drawSdfText(cmd); break;
+            case 'bitmap-text':    this.drawBitmapText(cmd); break;
             case 'grid':           this.drawGrid(cmd); break;
             case 'marker':         this.drawMarker(cmd); break;
         }
@@ -525,6 +532,42 @@ export class WebGLRenderer {
         gl.uniform1f(L.opacity, 1);
         gl.uniform4fv(L.color, cmd.color);
         gl.uniform1i(L.mode, 1);
+        this.drawQuad();
+        gl.bindTexture(gl.TEXTURE_2D, null);
+    }
+
+    private drawBitmapText(cmd: import('./draw-command.js').BitmapTextCommand): void {
+        if (!cmd.glyphKey) return;
+        const tex = this.textures.get(cmd.glyphKey);
+        if (!tex) return;
+
+        // 物理像素吸附（bitmap 文本清晰的关键，PixiJS ROUND_PIXELS 同思路）：
+        // 视图 × 世界为纯平移时，把 quad 原点取整到物理像素网格；纹理物理尺寸
+        // 恒为整数，故整个 quad 与像素网格重合，LINEAR 采样退化为逐像素拷贝，
+        // 浏览器字体光栅化的 AA/hinting 原样呈现。存在缩放/旋转时跳过吸附
+        // （此时位图必然经插值，应改用 SDF 文本）。
+        let x = cmd.x;
+        let y = cmd.y;
+        const m = multiplyMat3(this.viewMatrix, cmd.worldMatrix);
+        const isPureTranslation =
+            Math.abs(m[0] - 1) < 1e-6 && Math.abs(m[4] - 1) < 1e-6 &&
+            Math.abs(m[1]) < 1e-6 && Math.abs(m[3]) < 1e-6;
+        if (isPureTranslation) {
+            const { dpr } = this;
+            x = Math.round((cmd.x + m[6]) * dpr) / dpr - m[6];
+            y = Math.round((cmd.y + m[7]) * dpr) / dpr - m[7];
+        }
+
+        const { gl, textureProg: prog, textureLocs: L } = this;
+        gl.useProgram(prog);
+        gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
+        gl.uniform4f(L.bounds, x, y, cmd.glyphWidth, cmd.glyphHeight);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.uniform1i(L.texture, 0);
+        gl.uniform1f(L.opacity, 1);
+        gl.uniform4fv(L.color, cmd.color);
+        gl.uniform1i(L.mode, 2);
         this.drawQuad();
         gl.bindTexture(gl.TEXTURE_2D, null);
     }

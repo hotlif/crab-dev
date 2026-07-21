@@ -110,6 +110,12 @@ export interface CanvasContextValue {
     readonly canvasSizeRef: { readonly current: { width: number; height: number } };
 
     /**
+     * 当前设备像素比的 ref。Text 的 bitmap 模式据此按物理像素光栅化字形，
+     * 保证纹理 texel 与屏幕像素 1:1（ECharts/zrender 清晰文本同机制）。
+     */
+    readonly dprRef: { readonly current: number };
+
+    /**
      * 由 Viewport 在 mount 时注入：以 canvas 逻辑坐标 panX/panY 重新定位视口。
      * Minimap 等叠加层调用此方法驱动视口平移，Viewport 的内部 ref 保持同步。
      * null 表示当前无 Viewport 挂载。
@@ -173,6 +179,7 @@ export const CanvasContext = createContext<CanvasContextValue>({
     viewMatrixRef: DEFAULT_VIEW_MATRIX_REF,
     commandMapRef: { current: EMPTY_MAP },
     canvasSizeRef: { current: { width: 0, height: 0 } },
+    dprRef: { current: 1 },
     seekPanRef: { current: null },
     applyZoomRef: { current: null },
     setViewMatrix: () => {},

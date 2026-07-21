@@ -1,5 +1,5 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
-import { generateGlyph } from '../renderer/text-atlas.js';
+import { generateGlyph, generateBitmapGlyph } from '../renderer/text-atlas.js';
 
 beforeEach(() => {
     // jsdom 不支持 OffscreenCanvas，用最小 mock 代替
@@ -90,5 +90,39 @@ describe('generateGlyph', () => {
         const single  = generateGlyph('a b c', 16, 'sans-serif');
         const wrapped = generateGlyph('a b c', 16, 'sans-serif', undefined, 10);
         expect(wrapped.worldHeight).toBeGreaterThan(single.worldHeight);
+    });
+});
+
+describe('generateBitmapGlyph', () => {
+    it('channels=1，data 长度等于 width * height', () => {
+        const glyph = generateBitmapGlyph('Hi', 12, 'system-ui', 2);
+        expect(glyph.channels).toBe(1);
+        expect(glyph.data).toBeInstanceOf(Uint8Array);
+        expect(glyph.data.length).toBe(glyph.width * glyph.height);
+    });
+
+    it('纹理为物理像素尺寸，world 尺寸 = 纹理 / dpr', () => {
+        const dpr = 2;
+        const glyph = generateBitmapGlyph('Hello', 12, 'system-ui', dpr);
+        // mock measureText width=80，pad = ceil(dpr) = 2 → w = 80 + 2*2
+        expect(glyph.width).toBe(84);
+        expect(glyph.worldWidth).toBe(glyph.width / dpr);
+        expect(glyph.worldHeight).toBe(glyph.height / dpr);
+    });
+
+    it('data 直接取光栅 R 通道（无 SDF 变换）', () => {
+        const glyph = generateBitmapGlyph('T', 12, 'system-ui', 1);
+        // mock getImageData 每像素 R=200 → coverage 原样保留
+        for (const v of glyph.data) {
+            expect(v).toBe(200);
+        }
+    });
+
+    it('key 含 dpr，且与同参数的 SDF key 不冲突', () => {
+        const bmp1 = generateBitmapGlyph('A', 14, 'sans-serif', 1);
+        const bmp2 = generateBitmapGlyph('A', 14, 'sans-serif', 2);
+        const sdf  = generateGlyph('A', 14, 'sans-serif');
+        expect(bmp1.key).not.toBe(bmp2.key);
+        expect(bmp1.key).not.toBe(sdf.key);
     });
 });

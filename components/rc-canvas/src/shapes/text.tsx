@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { CanvasContext } from '../context/canvas-context.js';
 import { parseColor } from '../math/color.js';
 import type { ColorRGBA } from '../math/color.js';
-import { generateGlyph } from '../renderer/text-atlas.js';
+import { generateGlyph, generateBitmapGlyph } from '../renderer/text-atlas.js';
 import { invertMat3, applyMat3 } from '../math/matrix.js';
 import type { CanvasInteractiveProps } from '../types.js';
 
@@ -22,6 +22,15 @@ export interface TextProps extends CanvasInteractiveProps {
     lineHeight?: number;
     /** 超出此宽度（world px）时自动词换行；不设则不限宽 */
     maxWidth?: number;
+    /**
+     * 文本渲染模式，默认 'sdf'：
+     * - 'sdf'：距离场纹理，任意缩放级别下边缘平滑，适合可缩放画布（Viewport）；
+     *   代价是小字号（≲14px）细节圆化、发虚。
+     * - 'bitmap'：按设备像素比直接光栅化（ECharts/zrender 清晰文本同机制），
+     *   配合渲染器物理像素吸附，小字号下与 DOM 文本同等清晰；
+     *   适合视图不缩放的场景（图表轴文本等），放大后会呈现位图插值模糊。
+     */
+    mode?: 'sdf' | 'bitmap';
     /** 双击进入内联编辑模式（createPortal 挂载到 Canvas 容器 div） */
     editable?: boolean;
     /** 编辑完成（失焦或按 Enter，Shift+Enter 换行）时触发，返回新文本内容 */
@@ -40,6 +49,7 @@ function Text({
     textBaseline = 'top',
     lineHeight,
     maxWidth,
+    mode = 'sdf',
     zIndex = 0,
     draggable = false,
     cursor,
@@ -82,7 +92,7 @@ function Text({
                 ? [parsedFill[0], parsedFill[1], parsedFill[2], parsedFill[3] * opacity]
                 : parsedFill;
         return {
-            kind: 'sdf-text' as const,
+            kind: mode === 'bitmap' ? ('bitmap-text' as const) : ('sdf-text' as const),
             x: x + alignOffset(glyphWidth),
             y: y + baselineOffset(glyphHeight),
             glyphKey,
@@ -131,15 +141,19 @@ function Text({
         };
     }, []);
 
-    // 文字内容或字体变化时重新生成字形纹理并上传
+    // 文字内容、字体或渲染模式变化时重新生成字形纹理并上传。
+    // bitmap 模式按 dprRef 当帧值光栅化；dpr 事后变化（跨屏拖动窗口）不触发
+    // 重新光栅化，仅轻微失去 1:1 对齐——与 ECharts v6.2.0 之前的行为一致。
     useEffect(() => {
         if (cmdIdRef.current === null) return;
-        const glyph = generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth);
+        const glyph = mode === 'bitmap'
+            ? generateBitmapGlyph(children, fontSize, fontFamily, ctx.dprRef.current, lineHeight, maxWidth)
+            : generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth);
         ctx.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
         glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight };
         ctx.update(cmdIdRef.current, buildCmd(glyph.key, glyph.worldWidth, glyph.worldHeight));
         if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
-    }, [children, fontSize, fontFamily]);
+    }, [children, fontSize, fontFamily, lineHeight, maxWidth, mode]);
 
     // 颜色/位置/透明度变化时更新（使用缓存的字形尺寸，不重新上传）
     useEffect(() => {

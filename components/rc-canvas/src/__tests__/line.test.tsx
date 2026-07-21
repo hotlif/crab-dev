@@ -28,6 +28,7 @@ function makeCtxMock() {
         viewMatrixRef: { current: IDENTITY },
         commandMapRef: { current: new Map() },
         canvasSizeRef: { current: { width: 800, height: 600 } },
+        dprRef: { current: 1 },
         seekPanRef: { current: null },
         applyZoomRef: { current: null },
         fitViewRef: { current: null },

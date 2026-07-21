@@ -21,10 +21,16 @@ export interface CanvasProps {
     style?: CSSProperties;
     /** 点击空白区域（无命中形状）时触发，常用于取消选中 */
     onEmptyClick?: () => void;
-    /** 键盘按下时触发（容器 div 已内置 tabIndex=0） */
+    /** 键盘按下时触发（容器 div 默认 tabIndex=0） */
     onKeyDown?: (e: KeyboardEvent) => void;
     /** 键盘释放时触发 */
     onKeyUp?: (e: KeyboardEvent) => void;
+    /**
+     * 容器 div 的 tabIndex。消费方在 Canvas 外自建键盘通道
+     * （如 aria-hidden 包裹绘制层）时传 -1 将其移出 Tab 流。
+     * @default 0
+     */
+    tabIndex?: number;
 }
 
 /** 是否为需要逐帧重绘的动画命令（当前仅流动虚线 Line：flowSpeed ≠ 0）。 */
@@ -73,11 +79,14 @@ function Canvas({
     onEmptyClick,
     onKeyDown,
     onKeyUp,
+    tabIndex = 0,
 }: CanvasProps) {
     // fillParent 模式下由 ResizeObserver 驱动容器尺寸
     const [containerSize, setContainerSize] = useState({ width: propWidth ?? 0, height: propHeight ?? 0 });
     const effectiveWidth = fillParent ? containerSize.width : (propWidth ?? 0);
     const effectiveHeight = fillParent ? containerSize.height : (propHeight ?? 0);
+
+    const devicePixelRatio = dpr ?? (typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1);
 
     // 可变实例状态 ref：持有 <canvas> DOM 节点
     const internalCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -132,6 +141,10 @@ function Canvas({
 
     // 可变实例状态 ref：canvas 逻辑尺寸，供 Minimap / fitView 读取
     const canvasSizeRef = useRef({ width: effectiveWidth, height: effectiveHeight });
+    // 可变实例状态 ref：设备像素比，供 Text bitmap 模式光栅化读取。
+    // 初值渲染期求值：子组件（Text）的 effect 先于 Canvas 的 effect 执行，
+    // 首次生成字形时必须已经拿到正确 dpr。
+    const dprRef = useRef(devicePixelRatio);
     // 可变实例状态 ref：Viewport 注入的 seekPan 回调
     const seekPanRef = useRef<((panX: number, panY: number) => void) | null>(null);
     // 可变实例状态 ref：Viewport 注入的 applyZoom 回调
@@ -174,8 +187,7 @@ function Canvas({
             return;
         }
         const { width: w, height: h } = canvasSizeRef.current;
-        const devicePixelRatio = dpr ?? window.devicePixelRatio ?? 1;
-        const renderer = new WebGLRenderer(gl, w, h, devicePixelRatio);
+        const renderer = new WebGLRenderer(gl, w, h, dprRef.current);
         rendererRef.current = renderer;
 
         // 重放在 renderer 就绪前由子组件缓存的上传请求
@@ -377,11 +389,12 @@ function Canvas({
         };
     }, []);
 
-    // 有效尺寸变化时更新 renderer 和 canvasSizeRef
+    // 有效尺寸变化时更新 renderer 和 canvasSizeRef / dprRef
     useEffect(() => {
         canvasSizeRef.current = { width: effectiveWidth, height: effectiveHeight };
-        const devicePixelRatio = dpr ?? window.devicePixelRatio ?? 1;
-        rendererRef.current?.resize(effectiveWidth, effectiveHeight, devicePixelRatio);
+        const nextDpr = dpr ?? window.devicePixelRatio ?? 1;
+        dprRef.current = nextDpr;
+        rendererRef.current?.resize(effectiveWidth, effectiveHeight, nextDpr);
         dirtyRef.current = true;
     }, [effectiveWidth, effectiveHeight, dpr]);
 
@@ -493,6 +506,7 @@ function Canvas({
             viewMatrixRef,
             commandMapRef,
             canvasSizeRef,
+            dprRef,
             seekPanRef,
             applyZoomRef,
             fitViewRef,
@@ -518,8 +532,6 @@ function Canvas({
     }
     const ctxValue = ctxValueRef.current;
 
-    const devicePixelRatio = dpr ?? (typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1);
-
     const divStyle: CSSProperties = fillParent
         ? { position: 'relative', width: '100%', height: '100%', ...style }
         : { position: 'relative', display: 'inline-block', ...style };
@@ -530,7 +542,7 @@ function Canvas({
                 ref={containerDivRef}
                 className={className}
                 style={divStyle}
-                tabIndex={0}
+                tabIndex={tabIndex}
             >
                 <canvas
                     ref={mergedRefCallback}

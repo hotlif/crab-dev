@@ -15,7 +15,7 @@ export interface GlyphInfo {
     worldWidth: number;
     /** 在世界坐标中的显示高度（world px，传给 DrawCommand.glyphHeight） */
     worldHeight: number;
-    /** 纹理通道数：固定为 1（R8 单通道 SDF） */
+    /** 纹理通道数：固定为 1（R8 单通道，SDF 距离场或 bitmap coverage） */
     channels: 1;
     /** 纹理数据：width×height R8 */
     data: Uint8Array;
@@ -155,23 +155,32 @@ function wrapLine(
     return result;
 }
 
-// ─── 公开 API：Canvas 2D SDF ──────────────────────────────────────────────
+// ─── 共享光栅化 ───────────────────────────────────────────────────────────
+
+interface RasterizedText {
+    /** RGBA 像素（白字黑底，R 通道即 coverage alpha） */
+    data: Uint8ClampedArray;
+    width: number;
+    height: number;
+}
 
 /**
- * 以 OVERSAMPLE 倍超采样渲染文字，计算 SDF 纹理，返回 R8 格式数据（channels=1）。
- * 支持 \n 显式换行与 maxWidth 自动词换行；多行共享同一张纹理。
- * SDF 保证在任意缩放级别下，配合着色器 smoothstep 都能呈现清晰边缘。
+ * 以 scale 倍分辨率将文字光栅化为白字黑底位图（R 通道 = coverage）。
+ * 分行（\n 显式换行 + maxWidth 词换行）、测量与行内基线对齐统一在此完成，
+ * SDF 与 bitmap 两条纹理路径共享。pad 为四周留白（光栅化空间 px）。
  */
-export function generateGlyph(
+function rasterizeText(
     text: string,
     fontSize: number,
     fontFamily: string,
+    scale: number,
+    pad: number,
     lineHeight?: number,
     maxWidth?: number,
-): GlyphInfo {
-    const scaledSize = fontSize * OVERSAMPLE;
-    const scaledLineHeight = Math.ceil((lineHeight ?? fontSize * 1.4) * OVERSAMPLE);
-    const scaledMaxWidth = maxWidth !== undefined ? maxWidth * OVERSAMPLE : undefined;
+): RasterizedText {
+    const scaledSize = fontSize * scale;
+    const scaledLineHeight = Math.ceil((lineHeight ?? fontSize * 1.4) * scale);
+    const scaledMaxWidth = maxWidth !== undefined ? maxWidth * scale : undefined;
     const fontStr = `${scaledSize}px ${fontFamily}`;
 
     const probe = new OffscreenCanvas(1, 1);
@@ -194,10 +203,8 @@ export function generateGlyph(
     // 取最宽行宽，确保至少 1px
     const maxLineWidth = Math.max(1, ...lines.map(l => probeCtx.measureText(l).width));
 
-    const key = `${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}`;
-
-    const w = Math.ceil(maxLineWidth) + SDF_SPREAD * 2;
-    const h = lines.length * scaledLineHeight + SDF_SPREAD * 2;
+    const w = Math.ceil(maxLineWidth) + pad * 2;
+    const h = lines.length * scaledLineHeight + pad * 2;
 
     const canvas = new OffscreenCanvas(w, h);
     const ctx2d = canvas.getContext('2d')!;
@@ -211,21 +218,80 @@ export function generateGlyph(
         // 确保 textBaseline='middle' 时 worldHeight/2 精确对应字形视觉中心
         const m = ctx2d.measureText(lines[i] || ' ');
         const halfShift = (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
-        const centerY = SDF_SPREAD + (i + 0.5) * scaledLineHeight;
-        ctx2d.fillText(lines[i], SDF_SPREAD, centerY + halfShift);
+        const centerY = pad + (i + 0.5) * scaledLineHeight;
+        ctx2d.fillText(lines[i], pad, centerY + halfShift);
     }
 
-    const imageData = ctx2d.getImageData(0, 0, w, h);
-    const sdfData = computeSDF(imageData.data, w, h, SDF_SPREAD);
+    return { data: ctx2d.getImageData(0, 0, w, h).data, width: w, height: h };
+}
+
+// ─── 公开 API ─────────────────────────────────────────────────────────────
+
+/**
+ * 以 OVERSAMPLE 倍超采样渲染文字，计算 SDF 纹理，返回 R8 格式数据（channels=1）。
+ * 支持 \n 显式换行与 maxWidth 自动词换行；多行共享同一张纹理。
+ * SDF 保证在任意缩放级别下，配合着色器 smoothstep 都能呈现清晰边缘；
+ * 代价是距离场重建会圆化亚像素细节，小字号（≲14px）请改用 generateBitmapGlyph。
+ */
+export function generateGlyph(
+    text: string,
+    fontSize: number,
+    fontFamily: string,
+    lineHeight?: number,
+    maxWidth?: number,
+): GlyphInfo {
+    const raster = rasterizeText(text, fontSize, fontFamily, OVERSAMPLE, SDF_SPREAD, lineHeight, maxWidth);
+    const { width, height } = raster;
+    const sdfData = computeSDF(raster.data, width, height, SDF_SPREAD);
 
     return {
-        key,
-        width: w,
-        height: h,
-        worldWidth: w / OVERSAMPLE,
-        worldHeight: h / OVERSAMPLE,
+        key: `sdf\x00${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}`,
+        width,
+        height,
+        worldWidth: width / OVERSAMPLE,
+        worldHeight: height / OVERSAMPLE,
         channels: 1,
         data: sdfData,
+    };
+}
+
+/**
+ * 按设备像素比直接光栅化文字位图（R8 coverage，channels=1）。
+ *
+ * 与 ECharts/zrender 的清晰文本方案同机制：backing store 按 dpr 放大，
+ * 由浏览器原生文本光栅化器一次成形（保留字体 hinting 与灰度 AA），全程无
+ * 重采样；配合渲染器把四边形吸附到物理像素网格，texel 与屏幕像素 1:1，
+ * 小字号下与 DOM 文本同等清晰。
+ *
+ * 适用于视图不缩放的场景（图表轴文本等）；可缩放画布请用 generateGlyph（SDF）。
+ */
+export function generateBitmapGlyph(
+    text: string,
+    fontSize: number,
+    fontFamily: string,
+    dpr: number,
+    lineHeight?: number,
+    maxWidth?: number,
+): GlyphInfo {
+    // 四周留 1 CSS px 边距：防 LINEAR 采样在纹理边缘处 clamp 切掉字形反走样像素
+    const pad = Math.ceil(dpr);
+    const raster = rasterizeText(text, fontSize, fontFamily, dpr, pad, lineHeight, maxWidth);
+    const { width, height } = raster;
+
+    // 白字黑底 → R 通道即 coverage alpha
+    const output = new Uint8Array(width * height);
+    for (let i = 0; i < output.length; i++) {
+        output[i] = raster.data[i * 4];
+    }
+
+    return {
+        key: `bmp\x00${dpr}\x00${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}`,
+        width,
+        height,
+        worldWidth: width / dpr,
+        worldHeight: height / dpr,
+        channels: 1,
+        data: output,
     };
 }
 
