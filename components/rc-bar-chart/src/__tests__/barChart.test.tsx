@@ -255,6 +255,34 @@ describe('BarChart', () => {
         expect(screen.getByRole('button', { name: '三月 30' })).toBeDefined();
     });
 
+    it('orientation=horizontal 渲染不抛错，键盘按钮仍逐条生成', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+                orientation="horizontal"
+                animate={false}
+            />,
+        );
+        expect(container.querySelector('canvas')).not.toBeNull();
+        expect(container.querySelectorAll('button[aria-label]')).toHaveLength(3);
+        expect(screen.getByRole('button', { name: '二月 20' })).toBeDefined();
+    });
+
+    it('width="auto" 经 AutoSizer 包裹渲染，首帧回退默认宽度', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+                width="auto"
+                animate={false}
+            />,
+        );
+        // jsdom 中 ResizeObserver 不触发，回退 DEFAULT_WIDTH 仍完整渲染
+        expect(container.querySelector('canvas')).not.toBeNull();
+        expect(screen.getByRole('table', { name: '柱状图' })).toBeDefined();
+    });
+
     it('className 透传到容器', () => {
         const { container } = render(
             <BarChart

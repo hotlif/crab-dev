@@ -41,6 +41,7 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
+    "@crab-dev/rc-auto-sizer": "workspace:^",
     "@crab-dev/rc-canvas": "workspace:^",
     "@crab-dev/rc-empty": "workspace:^"
   },

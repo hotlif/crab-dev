@@ -44,16 +44,24 @@ export interface BarChartProps {
     series: BarChartSeries[];
 
     /**
-     * 画布宽度（px，含坐标轴）
+     * 画布宽度（px，含坐标轴）；传 `'auto'` 时跟随父容器宽度
+     * （内部复用 `@crab-dev/rc-auto-sizer`，父容器需有确定宽度）。
      * @default 600
      */
-    width?: number;
+    width?: number | 'auto';
 
     /**
      * 画布高度（px，含坐标轴；图例与空态另计）
      * @default 320
      */
     height?: number;
+
+    /**
+     * 轴向：`vertical` 类目沿横轴、柱纵向生长；`horizontal` 类目沿纵轴、
+     * 条横向生长（类目名较长时更耐读）。
+     * @default 'vertical'
+     */
+    orientation?: 'vertical' | 'horizontal';
 
     /**
      * 堆叠模式；关闭时多系列在类目内并列分组。

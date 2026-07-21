@@ -3415,9 +3415,11 @@ __metadata:
   dependencies:
     "@crab-dev/lignify": "workspace:^"
     "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-canvas": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-empty": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"

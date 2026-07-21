@@ -64,13 +64,13 @@ describe('sampleBars', () => {
     const target = [bar({ categoryIndex: 0, y: 40, height: 160 })];
 
     it('elapsed=0、无起点：从基线（height=0）生长', () => {
-        const [b] = sampleBars(target, new Map(), 200, 0, 50);
+        const [b] = sampleBars(target, new Map(), 200, 'vertical',0, 50);
         expect(b.height).toBeCloseTo(0);
         expect(b.y).toBeCloseTo(200); // zeroY
     });
 
     it('时长走完：精确抵达目标几何', () => {
-        const [b] = sampleBars(target, new Map(), 200, 10000, 50);
+        const [b] = sampleBars(target, new Map(), 200, 'vertical',10000, 50);
         expect(b.height).toBeCloseTo(160);
         expect(b.y).toBeCloseTo(40);
     });
@@ -79,7 +79,7 @@ describe('sampleBars', () => {
         const from = new Map<string, BarGeom>([
             [barKey(target[0]), { x: 0, y: 120, width: 20, height: 80 }],
         ]);
-        const [b] = sampleBars(target, from, 200, 0, 50);
+        const [b] = sampleBars(target, from, 200, 'vertical', 0, 50);
         expect(b.y).toBeCloseTo(120);
         expect(b.height).toBeCloseTo(80);
     });
@@ -89,15 +89,26 @@ describe('sampleBars', () => {
         const from = new Map<string, BarGeom>([
             [barKey(moved[0]), { x: 0, y: 40, width: 20, height: 160 }],
         ]);
-        const [start] = sampleBars(moved, from, 200, 0, 50);
+        const [start] = sampleBars(moved, from, 200, 'vertical', 0, 50);
         expect(start.x).toBeCloseTo(0);
-        const [end] = sampleBars(moved, from, 200, 10000, 50);
+        const [end] = sampleBars(moved, from, 200, 'vertical', 10000, 50);
         expect(end.x).toBeCloseTo(60);
         expect(end.width).toBeCloseTo(24);
     });
 
+    it('horizontal 轴向：缺省起点贴零值基线、宽度为 0（沿 x 生长）', () => {
+        const hTarget = [bar({ x: 100, y: 30, width: 80, height: 20, dataEnd: 'right' })];
+        const [start] = sampleBars(hTarget, new Map(), 100, 'horizontal', 0, 50);
+        expect(start.x).toBeCloseTo(100); // zeroPos
+        expect(start.width).toBeCloseTo(0);
+        expect(start.y).toBeCloseTo(30);
+        expect(start.height).toBeCloseTo(20);
+        const [end] = sampleBars(hTarget, new Map(), 100, 'horizontal', 10000, 50);
+        expect(end.width).toBeCloseTo(80);
+    });
+
     it('透传非几何字段（value / dataEnd / x / width / 下标）', () => {
-        const [b] = sampleBars(target, new Map(), 200, 300, 50);
+        const [b] = sampleBars(target, new Map(), 200, 'vertical',300, 50);
         expect(b.value).toBe(10);
         expect(b.dataEnd).toBe('top');
         expect(b.categoryIndex).toBe(0);

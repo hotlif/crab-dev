@@ -12,7 +12,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
-import type { BarRect } from '../layout.js';
+import type { BarRect, ChartOrientation } from '../layout.js';
 
 /** 入场 / 更新的基准时长（ms） */
 const DURATION = 600;
@@ -53,21 +53,29 @@ export function barProgress(categoryIndex: number, elapsed: number, stagger: num
     return easeOutCubic(Math.min(1, Math.max(0, t)));
 }
 
+/** 入场缺省起点：贴在零值基线上的零厚矩形（沿值轴生长，类目轴方向取终值） */
+export function baselineGeom(bar: BarRect, zeroPos: number, orientation: ChartOrientation): BarGeom {
+    return orientation === 'horizontal'
+        ? { x: zeroPos, y: bar.y, width: 0, height: bar.height }
+        : { x: bar.x, y: zeroPos, width: bar.width, height: 0 };
+}
+
 /**
  * 采样某一帧的显示几何：从 fromMap 补间到 target。
- * 缺省起点为基线零厚（x / width 取终值），因此入场只有纵向生长；
- * 数据更新 / 系列显隐时四个字段全补间，柱在横向也平滑重排。
+ * 缺省起点为基线零厚（类目轴方向取终值），因此入场只沿值轴生长；
+ * 数据更新 / 系列显隐时四个字段全补间，柱在类目轴方向也平滑重排。
  */
 export function sampleBars(
     target: BarRect[],
     fromMap: Map<string, BarGeom>,
-    zeroY: number,
+    zeroPos: number,
+    orientation: ChartOrientation,
     elapsed: number,
     stagger: number,
 ): BarRect[] {
     return target.map(bar => {
         const e = barProgress(bar.categoryIndex, elapsed, stagger);
-        const from = fromMap.get(barKey(bar)) ?? { x: bar.x, y: zeroY, width: bar.width, height: 0 };
+        const from = fromMap.get(barKey(bar)) ?? baselineGeom(bar, zeroPos, orientation);
         return {
             ...bar,
             x: from.x + (bar.x - from.x) * e,
@@ -78,10 +86,10 @@ export function sampleBars(
     });
 }
 
-/** 几何签名：仅当柱的位置 / 高度实际改变时才重启动画 */
-function signature(bars: BarRect[], zeroY: number): string {
-    let s = `${zeroY}`;
-    for (const b of bars) s += `|${b.categoryIndex}:${b.seriesIndex}:${b.y}:${b.height}`;
+/** 几何签名：仅当柱的位置 / 尺寸实际改变时才重启动画 */
+function signature(bars: BarRect[], zeroPos: number): string {
+    let s = `${zeroPos}`;
+    for (const b of bars) s += `|${b.categoryIndex}:${b.seriesIndex}:${b.x}:${b.y}:${b.width}:${b.height}`;
     return s;
 }
 
@@ -91,22 +99,21 @@ function prefersReducedMotion(): boolean {
         && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function baselineBars(bars: BarRect[], zeroY: number): BarRect[] {
-    return bars.map(b => ({ ...b, y: zeroY, height: 0 }));
-}
-
 /**
  * 返回当前帧应渲染的柱几何。`animate` 关闭或系统偏好「减弱动态」时直接返回终态。
  */
 export function useBarTransition(
     bars: BarRect[],
-    zeroY: number,
+    zeroPos: number,
+    orientation: ChartOrientation,
     categoryCount: number,
     animate: boolean,
 ): BarRect[] {
     // 首帧即为基线态，避免「先闪终态再回落」；reduce / 关闭动画时直接终态
     const [display, setDisplay] = useState<BarRect[]>(() =>
-        animate && !prefersReducedMotion() ? baselineBars(bars, zeroY) : bars,
+        (animate && !prefersReducedMotion()
+            ? bars.map(b => ({ ...b, ...baselineGeom(b, zeroPos, orientation) }))
+            : bars),
     );
 
     // 可变实例状态 ref：rAF 句柄，跨渲染持有、不应触发重渲染
@@ -117,7 +124,7 @@ export function useBarTransition(
     const sigRef = useRef<string>('');
 
     useEffect(() => {
-        const sig = signature(bars, zeroY);
+        const sig = signature(bars, zeroPos);
         if (sig === sigRef.current) return; // target 未变（含每帧动画重渲染），不重启
         const isFirst = sigRef.current === '';
         sigRef.current = sig;
@@ -149,13 +156,13 @@ export function useBarTransition(
                 setDisplay(bars); // 精确落到终态，消除累计误差
                 return;
             }
-            const sampled = sampleBars(bars, fromMap, zeroY, elapsed, stagger);
+            const sampled = sampleBars(bars, fromMap, zeroPos, orientation, elapsed, stagger);
             displayRef.current = sampled;
             setDisplay(sampled);
             rafRef.current = requestAnimationFrame(tick);
         };
         rafRef.current = requestAnimationFrame(tick);
-    }, [bars, zeroY, categoryCount, animate]);
+    }, [bars, zeroPos, orientation, categoryCount, animate]);
 
     // 卸载时停止动画
     useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
