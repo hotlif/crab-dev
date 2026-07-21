@@ -13,6 +13,19 @@ export interface BarChartSeries {
     color?: string;
 }
 
+/** 横向参考线（均值 / 目标线等） */
+export interface BarChartReferenceLine {
+
+    /** 参考值（值轴数值域），自动纳入刻度值域，保证线始终落在图内 */
+    value: number;
+
+    /** 线右端的标签文本；缺省显示 formatValue(value) */
+    label?: string;
+
+    /** 线与标签颜色（任意可求值颜色字面量）；缺省用轴文本色 */
+    color?: string;
+}
+
 /** 点击柱子时的回调信息 */
 export interface BarClickInfo {
     categoryIndex: number;
@@ -55,6 +68,16 @@ export interface BarChartProps {
      * @default true
      */
     animate?: boolean;
+
+    /**
+     * 在柱的数据端显示数值标签（堆叠模式显示各类目的正 / 负向合计）。
+     * 空间不足以容纳而会互相叠压的标签自动省略。
+     * @default false
+     */
+    showValues?: boolean;
+
+    /** 横向参考线（均值 / 目标线等），以虚线绘制并纳入值轴刻度域 */
+    referenceLines?: BarChartReferenceLine[];
 
     /** 数值格式化，作用于 y 轴刻度、悬浮提示与数据表 */
     formatValue?: (value: number) => string;

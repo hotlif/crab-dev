@@ -104,6 +104,32 @@ describe('computeLayout（分组）', () => {
     });
 });
 
+describe('computeLayout（参考线）', () => {
+    const base = {
+        width: 600,
+        height: 320,
+        categories: ['一', '二'],
+        series: [{ data: [10, 20] }],
+        stacked: false,
+        formatValue: fmt,
+    };
+
+    it('参考值并入值域：超出数据最大值的参考线仍落在绘图区内', () => {
+        const layout = computeLayout({ ...base, referenceValues: [50] });
+        expect(layout.referenceYs).toHaveLength(1);
+        const [refY] = layout.referenceYs;
+        expect(refY).toBeGreaterThanOrEqual(layout.plotTop);
+        expect(refY).toBeLessThanOrEqual(layout.plotBottom);
+        // 值域被拉伸到 ≥ 50：顶部刻度不小于参考值
+        const topTick = layout.ticks[layout.ticks.length - 1];
+        expect(topTick.value).toBeGreaterThanOrEqual(50);
+    });
+
+    it('无参考值时 referenceYs 为空数组', () => {
+        expect(computeLayout(base).referenceYs).toEqual([]);
+    });
+});
+
 describe('computeLayout（堆叠）', () => {
     const base = {
         width: 600,

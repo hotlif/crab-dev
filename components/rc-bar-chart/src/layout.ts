@@ -25,6 +25,10 @@ export const CHART_METRICS = {
     bandInnerRatio: 0.7,
     /** y 轴目标刻度数 */
     tickTarget: 5,
+    /** 柱端数值标签字号 */
+    valueLabelSize: 11,
+    /** 数值标签与柱端 / 参考线与其标签的间距 */
+    valueLabelGap: 4,
 } as const;
 
 /** 单根柱（或堆叠段）的绘制矩形 */
@@ -63,6 +67,8 @@ export interface ChartLayout {
     ticks: ChartTick[];
     bands: ChartBand[];
     bars: BarRect[];
+    /** 各参考值的 y 坐标，与 referenceValues 同序 */
+    referenceYs: number[];
 }
 
 export interface LayoutOptions {
@@ -72,6 +78,8 @@ export interface LayoutOptions {
     series: { data: number[] }[];
     stacked: boolean;
     formatValue: (value: number) => string;
+    /** 参考线数值，参与值域计算（保证参考线始终落在图内） */
+    referenceValues?: number[];
 }
 
 interface MeasureContext {
@@ -170,12 +178,16 @@ function computeDomain(categories: string[], series: { data: number[] }[], stack
 }
 
 export function computeLayout(options: LayoutOptions): ChartLayout {
-    const { width, height, categories, series, stacked, formatValue } = options;
+    const { width, height, categories, series, stacked, formatValue, referenceValues = [] } = options;
     const M = CHART_METRICS;
     const n = categories.length;
     const m = series.length;
 
-    const [dataMin, dataMax] = computeDomain(categories, series, stacked);
+    let [dataMin, dataMax] = computeDomain(categories, series, stacked);
+    for (const v of referenceValues) {
+        if (v < dataMin) dataMin = v;
+        if (v > dataMax) dataMax = v;
+    }
     const tickValues = niceTicks(dataMin, dataMax);
     const domainMin = tickValues[0];
     const domainMax = tickValues[tickValues.length - 1];
@@ -260,5 +272,7 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
         }
     }
 
-    return { plotLeft, plotTop, plotRight, plotBottom, zeroY, ticks, bands, bars };
+    const referenceYs = referenceValues.map(v => Math.round(yFor(v)));
+
+    return { plotLeft, plotTop, plotRight, plotBottom, zeroY, ticks, bands, bars, referenceYs };
 }

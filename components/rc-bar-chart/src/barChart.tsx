@@ -5,7 +5,7 @@ import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import Empty from '@crab-dev/rc-empty';
 import token from './token.js';
 import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES } from './palette.js';
-import { computeLayout, CHART_METRICS } from './layout.js';
+import { computeLayout, measureLabelWidth, CHART_METRICS } from './layout.js';
 import { useBarTransition } from './hooks/useBarTransition.js';
 import { useCategoryDim } from './hooks/useCategoryDim.js';
 import type { BarChartProps } from './types.js';
@@ -189,6 +189,8 @@ function BarChart({
     height = DEFAULT_HEIGHT,
     stacked = false,
     animate = true,
+    showValues = false,
+    referenceLines,
     formatValue = defaultFormatValue,
     onBarClick,
     'aria-label': ariaLabel = '柱状图',
@@ -220,7 +222,15 @@ function BarChart({
     const shownSeries = shownIndices.map(i => visibleSeries[i]);
 
     // 空输入时 computeLayout 安全返回空 bands / bars；hook 须在 early-return 前无条件调用
-    const layout = computeLayout({ width, height, categories, series: shownSeries, stacked, formatValue });
+    const layout = computeLayout({
+        width,
+        height,
+        categories,
+        series: shownSeries,
+        stacked,
+        formatValue,
+        referenceValues: referenceLines?.map(r => r.value) ?? [],
+    });
     const displayBars = useBarTransition(layout.bars, layout.zeroY, categories.length, animate);
 
     // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
@@ -432,6 +442,110 @@ function BarChart({
                                             zIndex={3.1}
                                         />
                                     )}
+                                </Fragment>
+                            );
+                        })}
+
+                        {/* 数值标签（分组）：柱数据端外侧；宽度放不下会与邻位叠压的自动省略 */}
+                        {showValues && !stacked && displayBars.map(bar => {
+                            const text = formatValue(bar.value);
+                            const budget = shownSeries.length > 1
+                                ? bar.width + CHART_METRICS.barGap
+                                : layout.bands[bar.categoryIndex].width;
+                            if (measureLabelWidth(text, CHART_METRICS.valueLabelSize) > budget) return null;
+                            const atTop = bar.dataEnd !== 'bottom';
+                            return (
+                                <Text
+                                    key={`val-${bar.categoryIndex}-${bar.seriesIndex}`}
+                                    mode="bitmap"
+                                    x={bar.x + bar.width / 2}
+                                    y={atTop
+                                        ? bar.y - CHART_METRICS.valueLabelGap
+                                        : bar.y + bar.height + CHART_METRICS.valueLabelGap}
+                                    fontSize={CHART_METRICS.valueLabelSize}
+                                    fill={CHART_INK.axisLabel}
+                                    opacity={dims[bar.categoryIndex] ?? 1}
+                                    textAlign="center"
+                                    textBaseline={atTop ? 'bottom' : 'top'}
+                                    zIndex={4}
+                                >
+                                    {text}
+                                </Text>
+                            );
+                        })}
+
+                        {/* 数值标签（堆叠）：逐段标注会叠压，改标各类目的正 / 负向合计 */}
+                        {showValues && stacked && categories.map((_, i) => {
+                            const segs = displayBars.filter(b => b.categoryIndex === i);
+                            if (segs.length === 0) return null;
+                            let posSum = 0;
+                            let negSum = 0;
+                            for (const s of shownSeries) {
+                                const v = s.data[i] ?? 0;
+                                if (v > 0) posSum += v;
+                                else negSum += v;
+                            }
+                            const topY = Math.min(...segs.map(b => b.y));
+                            const bottomY = Math.max(...segs.map(b => b.y + b.height));
+                            const budget = layout.bands[i].width;
+                            const labels: { key: string; text: string; y: number; atTop: boolean }[] = [];
+                            if (posSum > 0) {
+                                labels.push({ key: `sum-pos-${i}`, text: formatValue(posSum), y: topY, atTop: true });
+                            }
+                            if (negSum < 0) {
+                                labels.push({ key: `sum-neg-${i}`, text: formatValue(negSum), y: bottomY, atTop: false });
+                            }
+                            return labels
+                                .filter(l => measureLabelWidth(l.text, CHART_METRICS.valueLabelSize) <= budget)
+                                .map(l => (
+                                    <Text
+                                        key={l.key}
+                                        mode="bitmap"
+                                        x={layout.bands[i].centerX}
+                                        y={l.atTop
+                                            ? l.y - CHART_METRICS.valueLabelGap
+                                            : l.y + CHART_METRICS.valueLabelGap}
+                                        fontSize={CHART_METRICS.valueLabelSize}
+                                        fill={CHART_INK.axisLabel}
+                                        opacity={dims[i] ?? 1}
+                                        textAlign="center"
+                                        textBaseline={l.atTop ? 'bottom' : 'top'}
+                                        zIndex={4}
+                                    >
+                                        {l.text}
+                                    </Text>
+                                ));
+                        })}
+
+                        {/* 参考线：虚线 + 右端标签，值域已并入刻度计算，保证始终落在图内 */}
+                        {referenceLines?.map((refLine, i) => {
+                            const y = layout.referenceYs[i];
+                            const color = refLine.color ?? CHART_INK.axisLabel;
+                            return (
+                                <Fragment key={`ref-${i}`}>
+                                    <Line
+                                        x1={layout.plotLeft}
+                                        y1={y + 0.5}
+                                        x2={layout.plotRight}
+                                        y2={y + 0.5}
+                                        color={color}
+                                        lineWidth={1}
+                                        dashLength={4}
+                                        gapLength={4}
+                                        zIndex={4}
+                                    />
+                                    <Text
+                                        mode="bitmap"
+                                        x={layout.plotRight}
+                                        y={y - CHART_METRICS.valueLabelGap}
+                                        fontSize={CHART_METRICS.valueLabelSize}
+                                        fill={color}
+                                        textAlign="right"
+                                        textBaseline="bottom"
+                                        zIndex={4}
+                                    >
+                                        {refLine.label ?? formatValue(refLine.value)}
+                                    </Text>
                                 </Fragment>
                             );
                         })}

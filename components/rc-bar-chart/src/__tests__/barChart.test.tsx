@@ -228,6 +228,21 @@ describe('BarChart', () => {
         }));
     });
 
+    it('showValues 与 referenceLines 组合渲染不抛错（绘制层冒烟）', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, -20, 30] }]}
+                showValues
+                referenceLines={[{ value: 25, label: '目标' }]}
+                animate={false}
+            />,
+        );
+        expect(container.querySelector('canvas')).not.toBeNull();
+        // 参考线标签绘制于 Canvas，不进入 DOM 文本
+        expect(container.textContent).not.toContain('目标');
+    });
+
     it('animate=false 时直接呈现终态，不依赖动画帧', () => {
         render(
             <BarChart
