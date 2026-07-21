@@ -7,7 +7,7 @@
   "description": "柱状图, 基于 rc-canvas 的 WebGL 数据可视化组件, 支持分组与堆叠",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",
