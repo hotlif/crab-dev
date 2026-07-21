@@ -11,4 +11,6 @@ export { useInterval } from "./useInterval.js";
 export { useMediaQuery } from "./useMediaQuery.js";
 export { usePrevious } from "./usePrevious.js";
 export { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect.js";
+export { useDragResize } from "./useDragResize.js";
+export type { DragResizeOptions, DragResizeResult } from "./useDragResize.js";
 export { uniqueId } from "./uniqueId.js";
