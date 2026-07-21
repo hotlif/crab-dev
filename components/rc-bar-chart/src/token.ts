@@ -3,6 +3,7 @@
  */
 
 export const vars = {
+    'axis.label.color': '--bar-chart-axis-label-color',
     'legend.gap': '--bar-chart-legend-gap',
     'legend.item-gap': '--bar-chart-legend-item-gap',
     'legend.swatch-gap': '--bar-chart-legend-swatch-gap',
@@ -23,6 +24,11 @@ export const vars = {
 };
 
 const token = {
+    'axis': {
+        'label': {
+            'color': `var(${vars['axis.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+        }
+    },
     'legend': {
         'gap': `var(${vars['legend.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'item-gap': `var(${vars['legend.item-gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,

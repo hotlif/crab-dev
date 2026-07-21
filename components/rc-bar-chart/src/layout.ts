@@ -157,9 +157,10 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
     const plotH = plotBottom - plotTop;
     const span = domainMax - domainMin;
     const yFor = (v: number): number => plotBottom - ((v - domainMin) / span) * plotH;
-    const zeroY = yFor(0);
+    // 几何全部对齐到整数像素：非整数坐标经线性采样会让 hairline 与柱缘发糊
+    const zeroY = Math.round(yFor(0));
 
-    const ticks: ChartTick[] = tickValues.map((value, i) => ({ value, y: yFor(value), label: labels[i] }));
+    const ticks: ChartTick[] = tickValues.map((value, i) => ({ value, y: Math.round(yFor(value)), label: labels[i] }));
 
     const bandWidth = n > 0 ? (plotRight - plotLeft) / n : 0;
     const bands: ChartBand[] = categories.map((_, i) => {
@@ -171,9 +172,9 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
     const bars: BarRect[] = [];
 
     if (stacked) {
-        const barW = Math.max(1, Math.min(M.maxBarThickness, inner));
+        const barW = Math.round(Math.max(1, Math.min(M.maxBarThickness, inner)));
         for (let i = 0; i < n; i++) {
-            const x = bands[i].x + (bandWidth - barW) / 2;
+            const x = Math.round(bands[i].x + (bandWidth - barW) / 2);
             let posAcc = 0;
             let negAcc = 0;
             let lastPos = -1;
@@ -182,8 +183,8 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
                 const v = series[j].data[i] ?? 0;
                 if (v === 0) continue;
                 if (v > 0) {
-                    const y0 = yFor(posAcc);
-                    const y1 = yFor(posAcc + v);
+                    const y0 = Math.round(yFor(posAcc));
+                    const y1 = Math.round(yFor(posAcc + v));
                     // 非贴基线段在其底部收进 barGap，形成段间表面留白
                     const gap = posAcc > 0 ? M.barGap : 0;
                     const h = y0 - y1 - gap;
@@ -192,8 +193,8 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
                     bars.push({ x, y: y1, width: barW, height: h, categoryIndex: i, seriesIndex: j, value: v, dataEnd: null });
                     lastPos = bars.length - 1;
                 } else {
-                    const y0 = yFor(negAcc);
-                    const y1 = yFor(negAcc + v);
+                    const y0 = Math.round(yFor(negAcc));
+                    const y1 = Math.round(yFor(negAcc + v));
                     const gap = negAcc < 0 ? M.barGap : 0;
                     const h = y1 - y0 - gap;
                     negAcc += v;
@@ -207,19 +208,19 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
             if (lastNeg >= 0) bars[lastNeg].dataEnd = 'bottom';
         }
     } else {
-        const barW = Math.max(1, Math.min(M.maxBarThickness, (inner - (m - 1) * M.barGap) / m));
+        const barW = Math.round(Math.max(1, Math.min(M.maxBarThickness, (inner - (m - 1) * M.barGap) / m)));
         const contentW = m * barW + (m - 1) * M.barGap;
         for (let i = 0; i < n; i++) {
             const baseX = bands[i].x + (bandWidth - contentW) / 2;
             for (let j = 0; j < m; j++) {
                 const v = series[j].data[i] ?? 0;
                 if (v === 0) continue;
-                const x = baseX + j * (barW + M.barGap);
+                const x = Math.round(baseX + j * (barW + M.barGap));
                 if (v > 0) {
-                    const y = yFor(v);
+                    const y = Math.min(zeroY - 1, Math.round(yFor(v)));
                     bars.push({ x, y, width: barW, height: zeroY - y, categoryIndex: i, seriesIndex: j, value: v, dataEnd: 'top' });
                 } else {
-                    const y1 = yFor(v);
+                    const y1 = Math.max(zeroY + 1, Math.round(yFor(v)));
                     bars.push({ x, y: zeroY, width: barW, height: y1 - zeroY, categoryIndex: i, seriesIndex: j, value: v, dataEnd: 'bottom' });
                 }
             }

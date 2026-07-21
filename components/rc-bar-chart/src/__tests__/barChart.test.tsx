@@ -114,6 +114,18 @@ describe('BarChart', () => {
         expect(screen.getAllByRole('columnheader')).toHaveLength(9);
     });
 
+    it('轴类目标签以 HTML 呈现（span 轴标签 + 数据表行头各一次）', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+            />,
+        );
+        expect(screen.getByText('一月', { selector: 'span' })).toBeDefined();
+        const occurrences = container.textContent!.split('一月').length - 1;
+        expect(occurrences).toBe(2);
+    });
+
     it('className 透传到容器', () => {
         const { container } = render(
             <BarChart

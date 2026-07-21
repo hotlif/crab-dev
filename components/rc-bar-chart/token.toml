@@ -7,6 +7,9 @@ imports = [
 
 [token]
 
+# ─── 坐标轴文本（HTML 层渲染，保证小字号清晰） ───
+axis.label.color = "$ref(color.text.secondary)"
+
 # ─── 图例 ───────────────────────────────────
 legend.gap             = "$ref(space.component-gap)"
 legend.item-gap        = "$ref(space.component-gap)"

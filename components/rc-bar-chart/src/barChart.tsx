@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { css, cx } from '@linaria/core';
-import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
+import { Canvas, Rect, Line } from '@crab-dev/rc-canvas';
 import Empty from '@crab-dev/rc-empty';
 import token from './token.js';
 import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES } from './palette.js';
@@ -48,6 +48,30 @@ const legendSwatchStyle = css`
 const canvasWrapStyle = css`
     position: relative;
     line-height: 0;
+`;
+
+/*
+ * 轴文本在 HTML 层渲染而非 canvas：SDF 距离场文本在 12px 小字号下细节
+ * 圆化、缩小采样后发虚，浏览器原生文本渲染始终清晰，且颜色可接入令牌。
+ */
+const axisLabelStyle = css`
+    position: absolute;
+    font-size: ${CHART_METRICS.fontSize}px;
+    line-height: 1;
+    color: ${token.axis.label.color};
+    pointer-events: none;
+    user-select: none;
+`;
+
+const yTickLabelStyle = css`
+    text-align: right;
+    transform: translateY(-50%);
+    font-variant-numeric: tabular-nums;
+`;
+
+const xCategoryLabelStyle = css`
+    transform: translateX(-50%);
+    white-space: nowrap;
 `;
 
 const tooltipStyle = css`
@@ -188,43 +212,17 @@ function BarChart({
                 onPointerLeave={() => setPointer(null)}
             >
                 <Canvas width={width} height={height}>
-                    {/* 网格线（hairline 实线）与零值基线 */}
+                    {/* 网格线（hairline 实线）与零值基线：中心 +0.5 使 1px 线覆盖整数物理像素行 */}
                     {layout.ticks.map(tick => (
                         <Line
                             key={`grid-${tick.value}`}
                             x1={layout.plotLeft}
-                            y1={tick.y}
+                            y1={tick.y + 0.5}
                             x2={layout.plotRight}
-                            y2={tick.y}
+                            y2={tick.y + 0.5}
                             color={tick.value === 0 ? CHART_INK.baseline : CHART_INK.gridline}
                             lineWidth={1}
                         />
-                    ))}
-                    {layout.ticks.map(tick => (
-                        <Text
-                            key={`tick-${tick.value}`}
-                            x={layout.plotLeft - CHART_METRICS.axisLabelGap}
-                            y={tick.y}
-                            textAlign="right"
-                            textBaseline="middle"
-                            fontSize={CHART_METRICS.fontSize}
-                            fill={CHART_INK.axisLabel}
-                        >
-                            {tick.label}
-                        </Text>
-                    ))}
-                    {categories.map((category, i) => (
-                        <Text
-                            key={`cat-${i}`}
-                            x={layout.bands[i].centerX}
-                            y={layout.plotBottom + 6}
-                            textAlign="center"
-                            textBaseline="top"
-                            fontSize={CHART_METRICS.fontSize}
-                            fill={CHART_INK.axisLabel}
-                        >
-                            {String(category)}
-                        </Text>
                     ))}
 
                     {/* 悬停类目水洗背景（不改变盒尺寸的反馈） */}
@@ -296,6 +294,30 @@ function BarChart({
                         );
                     })}
                 </Canvas>
+
+                {/* 轴文本（HTML 层，定位为数据驱动值走内联传递） */}
+                {layout.ticks.map(tick => (
+                    <span
+                        key={`tick-${tick.value}`}
+                        className={cx(axisLabelStyle, yTickLabelStyle)}
+                        style={{
+                            left: 0,
+                            top: tick.y,
+                            inlineSize: layout.plotLeft - CHART_METRICS.axisLabelGap,
+                        }}
+                    >
+                        {tick.label}
+                    </span>
+                ))}
+                {categories.map((category, i) => (
+                    <span
+                        key={`cat-${i}`}
+                        className={cx(axisLabelStyle, xCategoryLabelStyle)}
+                        style={{ left: layout.bands[i].centerX, top: layout.plotBottom + 6 }}
+                    >
+                        {String(category)}
+                    </span>
+                ))}
 
                 {/* 悬浮提示：跟随指针，靠近右/下缘时向反方向翻转；列出该类目下全部系列 */}
                 {hoverIndex !== null && pointer !== null && (

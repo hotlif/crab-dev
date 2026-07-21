@@ -27,10 +27,8 @@ export const CATEGORICAL_PALETTE = [
 /** 支持的最大系列数，超出部分不渲染并在开发期告警 */
 export const MAX_SERIES = CATEGORICAL_PALETTE.length;
 
-/** 图表基底（网格 / 坐标轴 / 轴文本 / 悬停背景）用色 */
+/** 图表基底（网格 / 基线 / 悬停背景）用色；轴文本在 HTML 层走设计令牌 */
 export const CHART_INK = {
-    /** 轴刻度与类目标签 */
-    axisLabel: 'oklch(0.6233 0.0092 91.53)',
     /** 横向网格线（hairline，退居背景） */
     gridline: 'oklch(0.9055 0.0095 100)',
     /** 零值基线（比网格线深一档） */
