@@ -1,4 +1,5 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
+import { renderHook, cleanup, act } from '@testing-library/react';
 import {
     easeOutCubic,
     barProgress,
@@ -6,9 +7,13 @@ import {
     staggerStep,
     totalSpan,
     barKey,
+    useBarTransition,
     type BarGeom,
+    type BarTransitionOptions,
 } from '../hooks/useBarTransition.js';
 import type { BarRect } from '../layout.js';
+
+(globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 
 const bar = (over: Partial<BarRect> = {}): BarRect => ({
     x: 0,
@@ -113,5 +118,93 @@ describe('sampleBars', () => {
         expect(b.dataEnd).toBe('top');
         expect(b.categoryIndex).toBe(0);
         expect(b.width).toBe(20);
+    });
+});
+
+describe('useBarTransition（resize 即时同步与 ready 门控）', () => {
+    // 手动驱动 rAF：收集回调、cancel 真正移除，验证「resize 后无残留动画帧」
+    let rafCallbacks: Map<number, (time: number) => void>;
+    let rafId: number;
+
+    beforeEach(() => {
+        rafCallbacks = new Map();
+        rafId = 0;
+        jest.spyOn(globalThis, 'requestAnimationFrame').mockImplementation(cb => {
+            rafCallbacks.set(++rafId, cb);
+            return rafId;
+        });
+        jest.spyOn(globalThis, 'cancelAnimationFrame').mockImplementation(id => {
+            rafCallbacks.delete(id);
+        });
+    });
+
+    afterEach(() => {
+        cleanup();
+        jest.restoreAllMocks();
+    });
+
+    const runFrame = () => {
+        const cbs = [...rafCallbacks.values()];
+        rafCallbacks.clear();
+        for (const cb of cbs) cb(performance.now());
+    };
+
+    /** 宽度 w 下的目标几何：x 随宽度变化，模拟 computeLayout 对 width 的依赖 */
+    const barsAt = (w: number): BarRect[] => [bar({ x: w / 10, y: 40, width: 20, height: 160 })];
+
+    const opts = (w: number, over: Partial<BarTransitionOptions> = {}): BarTransitionOptions => ({
+        zeroPos: 200,
+        orientation: 'vertical',
+        categoryCount: 1,
+        animate: true,
+        width: w,
+        height: 320,
+        ...over,
+    });
+
+    it('入场首帧为基线零厚，动画帧沿值轴生长（x 不滑移）', () => {
+        const { result } = renderHook(() => useBarTransition(barsAt(600), opts(600)));
+        expect(result.current[0].height).toBe(0);
+        expect(result.current[0].y).toBe(200);
+        act(() => runFrame());
+        expect(result.current[0].x).toBe(60);
+        expect(result.current[0].height).toBeLessThan(160);
+    });
+
+    it('宽度变化（容器 resize）：立即同步新布局终态，不补间不错峰', () => {
+        const { result, rerender } = renderHook(
+            ({ w }) => useBarTransition(barsAt(w), opts(w)),
+            { initialProps: { w: 600 } },
+        );
+        rerender({ w: 900 });
+        expect(result.current[0]).toMatchObject({ x: 90, y: 40, width: 20, height: 160 });
+        // 入场动画已被取消：不存在把几何拉回旧布局的残留帧
+        act(() => runFrame());
+        expect(result.current[0].x).toBe(90);
+        expect(result.current[0].height).toBe(160);
+    });
+
+    it('数据变化（宽度不变）：从当前几何补间，柱不瞬移到终态', () => {
+        const { result, rerender } = renderHook(
+            ({ bars }) => useBarTransition(bars, opts(600)),
+            { initialProps: { bars: [bar({ y: 40, height: 160 })] } },
+        );
+        rerender({ bars: [bar({ y: 20, height: 180 })] });
+        // 补间分支不同步落终态（首帧尚未执行），区别于 resize 的立即同步
+        expect(result.current[0].height).not.toBe(180);
+    });
+
+    it('ready=false 时入场待命；ready=true 后以真实布局从基线生长', () => {
+        const { result, rerender } = renderHook(
+            ({ w, ready }) => useBarTransition(barsAt(w), opts(w, { ready })),
+            { initialProps: { w: 600, ready: false } },
+        );
+        // 待命：不启动动画
+        expect(rafCallbacks.size).toBe(0);
+        rerender({ w: 900, ready: true });
+        act(() => runFrame());
+        // 从 900 布局的基线生长（x=90），而非从 600 布局的 x=60 滑移过去
+        expect(result.current[0].x).toBe(90);
+        expect(result.current[0].height).toBeLessThan(160);
     });
 });

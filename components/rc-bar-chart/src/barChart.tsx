@@ -173,7 +173,11 @@ const visuallyHiddenStyle = css`
     border: 0;
 `;
 
-type InnerProps = Omit<BarChartProps, 'width'> & { width: number };
+type InnerProps = Omit<BarChartProps, 'width'> & {
+    width: number;
+    /** width="auto" 首测完成前为 false：入场动画待命，测定后以真实宽度启动 */
+    widthReady?: boolean;
+};
 
 /** 图表主体：width 已解析为确定像素值（'auto' 由外壳经 AutoSizer 解析） */
 function BarChartInner({
@@ -192,6 +196,7 @@ function BarChartInner({
     className,
     style,
     ref,
+    widthReady = true,
 }: InnerProps) {
     const [active, setActive] = useState<ActiveCategory | null>(null);
     /** 指针在画布包装层内的坐标，驱动悬浮提示跟随鼠标；无指针（键盘 / 触屏）时提示锚定类目列 */
@@ -228,7 +233,15 @@ function BarChartInner({
         orientation,
         referenceValues: referenceLines?.map(r => r.value) ?? [],
     });
-    const displayBars = useBarTransition(layout.bars, layout.zeroPos, orientation, categories.length, animate);
+    const displayBars = useBarTransition(layout.bars, {
+        zeroPos: layout.zeroPos,
+        orientation,
+        categoryCount: categories.length,
+        animate,
+        width,
+        height,
+        ready: widthReady,
+    });
 
     // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
     const activeIndex = active !== null && active.index < categories.length ? active.index : null;
@@ -717,7 +730,8 @@ function BarChartInner({
  * - 键盘：Tab 进入图表后方向键（Home/End）在柱间移动，聚焦即显示该类目
  *   的悬浮提示，Enter/Space 触发 onBarClick；触屏点按柱或类目列固定提示，
  *   点击空白清除。
- * - `width="auto"` 时经 `rc-auto-sizer` 跟随父容器宽度。
+ * - `width="auto"` 时经 `rc-auto-sizer` 跟随父容器宽度：容器尺寸变化即时
+ *   同步布局（不触发补间动画），入场动画在首次测量后以真实宽度启动。
  * - 系列颜色按分类色板顺序分配（颜色跟随系列，不随过滤重排）。
  */
 function BarChart(props: BarChartProps) {
@@ -727,13 +741,18 @@ function BarChart(props: BarChartProps) {
         return (
             <AutoSizer
                 disableHeight
-                defaultWidth={DEFAULT_WIDTH}
                 className={className}
                 /* 覆盖 AutoSizer 的 height:100% / overflow:hidden：高度由图表内容撑开，悬浮提示不被裁剪 */
                 style={{ blockSize: 'auto', overflow: 'visible', ...style }}
             >
+                {/* 不传 defaultWidth（保持 0）以识别「尚未测量」：首测前 widthReady=false，
+                    入场动画待命，避免在回退宽度下启动后被真实宽度打断而横向漂移 */}
                 {({ width: measured }) => (
-                    <BarChartInner {...inner} width={measured > 0 ? measured : DEFAULT_WIDTH} />
+                    <BarChartInner
+                        {...inner}
+                        width={measured > 0 ? measured : DEFAULT_WIDTH}
+                        widthReady={measured > 0}
+                    />
                 )}
             </AutoSizer>
         );

@@ -283,6 +283,40 @@ describe('BarChart', () => {
         expect(screen.getByRole('table', { name: '柱状图' })).toBeDefined();
     });
 
+    it('width="auto"：首测后按真实宽度重排布局（柱几何跟随容器）', () => {
+        type ObserverCallback = (entries: ResizeObserverEntry[], observer: ResizeObserver) => void;
+        const observers: ObserverCallback[] = [];
+        (globalThis as Record<string, unknown>).ResizeObserver = class {
+            constructor(cb: ObserverCallback) { observers.push(cb); }
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+        };
+        try {
+            render(
+                <BarChart
+                    categories={CATEGORIES}
+                    series={[{ name: '销量', data: [10, 20, 30] }]}
+                    width="auto"
+                    animate={false}
+                />,
+            );
+            const barButton = () => screen.getByRole('button', { name: '三月 30' });
+            const before = barButton().style.left;
+            act(() => {
+                observers[0](
+                    [{ contentRect: { width: 1200, height: 0 } } as ResizeObserverEntry],
+                    {} as ResizeObserver,
+                );
+            });
+            // 1200px 布局下第三类目的柱明显右移（回退宽度 600px 时约在中部）
+            expect(barButton().style.left).not.toBe(before);
+            expect(parseFloat(barButton().style.left)).toBeGreaterThan(parseFloat(before));
+        } finally {
+            delete (globalThis as Record<string, unknown>).ResizeObserver;
+        }
+    });
+
     it('className 透传到容器', () => {
         const { container } = render(
             <BarChart

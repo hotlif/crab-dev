@@ -9,6 +9,10 @@
  * - 入场：起点 = 基线（y = zeroY, height = 0），柱从零值线生长到目标高度；
  * - 数据更新：起点 = 上一帧显示几何，柱从旧几何平滑补间到新几何。
  * 该式对分组 / 堆叠、正 / 负值一致成立（负值段的 y、height 同样朝基线收缩）。
+ *
+ * 补间与错峰只响应数据形态变化（数值更新 / 系列显隐）；画布 width / height
+ * 变化视为容器 resize，直接同步终态——尺寸跟随不是数据变化，若走补间会让
+ * 画面呈现自左向右的波浪式重排（错峰）与追赶容器的橡皮筋迟滞。
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -99,16 +103,26 @@ function prefersReducedMotion(): boolean {
         && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+export interface BarTransitionOptions {
+    /** 零值基线在值轴方向上的坐标 */
+    zeroPos: number;
+    orientation: ChartOrientation;
+    categoryCount: number;
+    animate: boolean;
+    /** 画布宽度：变化视为容器 resize，直接同步终态而非补间 */
+    width: number;
+    /** 画布高度：同 width，变化即 resize */
+    height: number;
+    /** width="auto" 首测完成前为 false：入场待命，测定后再从真实布局的基线生长 */
+    ready?: boolean;
+}
+
 /**
  * 返回当前帧应渲染的柱几何。`animate` 关闭或系统偏好「减弱动态」时直接返回终态。
  */
-export function useBarTransition(
-    bars: BarRect[],
-    zeroPos: number,
-    orientation: ChartOrientation,
-    categoryCount: number,
-    animate: boolean,
-): BarRect[] {
+export function useBarTransition(bars: BarRect[], options: BarTransitionOptions): BarRect[] {
+    const { zeroPos, orientation, categoryCount, animate, width, height, ready = true } = options;
+
     // 首帧即为基线态，避免「先闪终态再回落」；reduce / 关闭动画时直接终态
     const [display, setDisplay] = useState<BarRect[]>(() =>
         (animate && !prefersReducedMotion()
@@ -122,14 +136,25 @@ export function useBarTransition(
     const displayRef = useRef<BarRect[]>(display);
     // 可变实例状态 ref：上次 target 签名，用于判定是否需要重启动画
     const sigRef = useRef<string>('');
+    // 可变实例状态 ref：上次画布尺寸，区分「容器 resize」与「数据变化」
+    const sizeRef = useRef<{ width: number; height: number } | null>(null);
 
     useEffect(() => {
+        // 宽度未测定（width="auto" 首测前）：不消费入场，避免动画在回退宽度下启动
+        // 后立刻被真实宽度打断、从错误布局的中间几何滑移过去
+        if (!ready) return;
+
         const sig = signature(bars, zeroPos);
+        const resized = sizeRef.current !== null
+            && (sizeRef.current.width !== width || sizeRef.current.height !== height);
+        sizeRef.current = { width, height };
+
         if (sig === sigRef.current) return; // target 未变（含每帧动画重渲染），不重启
         const isFirst = sigRef.current === '';
         sigRef.current = sig;
 
-        if (!animate || prefersReducedMotion()) {
+        // resize 直接落终态：柱即时跟随新布局，补间 / 错峰只留给数据变化
+        if (!animate || prefersReducedMotion() || resized) {
             cancelAnimationFrame(rafRef.current);
             displayRef.current = bars;
             setDisplay(bars);
@@ -162,7 +187,7 @@ export function useBarTransition(
             rafRef.current = requestAnimationFrame(tick);
         };
         rafRef.current = requestAnimationFrame(tick);
-    }, [bars, zeroPos, orientation, categoryCount, animate]);
+    }, [bars, zeroPos, orientation, categoryCount, animate, width, height, ready]);
 
     // 卸载时停止动画
     useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
