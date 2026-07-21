@@ -187,6 +187,18 @@ describe('BarChart', () => {
         expect(container.textContent!.split('销量').length - 1).toBe(1);
     });
 
+    it('animate=false 时直接呈现终态，不依赖动画帧', () => {
+        render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+                animate={false}
+            />,
+        );
+        expect(screen.getByRole('cell', { name: '30' })).toBeDefined();
+        expect(screen.getByRole('button', { name: '三月 30' })).toBeDefined();
+    });
+
     it('className 透传到容器', () => {
         const { container } = render(
             <BarChart

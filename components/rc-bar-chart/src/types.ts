@@ -49,6 +49,13 @@ export interface BarChartProps {
      */
     stacked?: boolean;
 
+    /**
+     * 柱几何过渡动画：入场时从零值基线生长，数据变化时平滑补间到新高度。
+     * 系统偏好「减弱动态」(prefers-reduced-motion: reduce) 时自动降级为直接呈现。
+     * @default true
+     */
+    animate?: boolean;
+
     /** 数值格式化，作用于 y 轴刻度、悬浮提示与数据表 */
     formatValue?: (value: number) => string;
 

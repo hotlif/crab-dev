@@ -6,6 +6,7 @@ import Empty from '@crab-dev/rc-empty';
 import token from './token.js';
 import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES } from './palette.js';
 import { computeLayout, CHART_METRICS } from './layout.js';
+import { useBarTransition } from './hooks/useBarTransition.js';
 import type { BarChartProps } from './types.js';
 
 const DEFAULT_WIDTH = 600;
@@ -160,6 +161,7 @@ function BarChart({
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,
     stacked = false,
+    animate = true,
     formatValue = defaultFormatValue,
     onBarClick,
     'aria-label': ariaLabel = '柱状图',
@@ -184,6 +186,10 @@ function BarChart({
 
     const visibleSeries = series.length > MAX_SERIES ? series.slice(0, MAX_SERIES) : series;
 
+    // 空输入时 computeLayout 安全返回空 bands / bars；hook 须在 early-return 前无条件调用
+    const layout = computeLayout({ width, height, categories, series: visibleSeries, stacked, formatValue });
+    const displayBars = useBarTransition(layout.bars, layout.zeroY, categories.length, animate);
+
     if (categories.length === 0 || visibleSeries.length === 0) {
         return (
             <div ref={ref} className={cx(rootStyle, className)} style={style}>
@@ -194,7 +200,6 @@ function BarChart({
         );
     }
 
-    const layout = computeLayout({ width, height, categories, series: visibleSeries, stacked, formatValue });
     const colors = visibleSeries.map((s, i) => s.color ?? CATEGORICAL_PALETTE[i]);
     const plotHeight = layout.plotBottom - layout.plotTop;
 
@@ -328,8 +333,8 @@ function BarChart({
                             />
                         ))}
 
-                        {/* 柱：数据端 4px 圆角、基线端方角（补丁矩形盖住基线侧圆角） */}
-                        {layout.bars.map(bar => {
+                        {/* 柱：数据端 4px 圆角、基线端方角（补丁矩形盖住基线侧圆角）；几何经入场 / 更新动画补间 */}
+                        {displayBars.map(bar => {
                             const radius = bar.dataEnd === null
                                 ? 0
                                 : Math.min(CHART_METRICS.barRadius, bar.width / 2, bar.height / 2);
