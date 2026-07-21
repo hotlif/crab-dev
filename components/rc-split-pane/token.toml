@@ -1,0 +1,17 @@
+[build]
+output = "./src/token.ts"
+prefix = "split-pane"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# 分隔条命中区厚度：可见线只有 1px，命中区必须更宽才抓得住
+separator.size = "7px"
+separator.line.width = "1px"
+separator.line.color = "$ref(color.border.default)"
+separator.line.color-active = "$ref(color.brand.primary)"
+separator.transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+
+focus.ring = "$ref(shadow.focus-ring)"

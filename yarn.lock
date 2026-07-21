@@ -4595,6 +4595,42 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-split-pane@workspace:components/rc-split-pane":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-split-pane@workspace:components/rc-split-pane"
+  dependencies:
+    "@crab-dev/lignify": "workspace:^"
+    "@crab-dev/packify": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-hooks": "workspace:^"
+    "@crab-dev/rc-masonry": "workspace:^"
+    "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-jest-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@jest/globals": "npm:30.4.1"
+    "@linaria/core": "npm:^8.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@testing-library/dom": "npm:^10.4.1"
+    "@testing-library/react": "npm:^16.3.2"
+    "@types/node": "npm:^26.1.0"
+    "@types/react": "npm:^19.2.17"
+    "@types/react-dom": "npm:^19.2.3"
+    eslint: "npm:^10.6.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^17.7.0"
+    jest: "npm:^30.4.2"
+    jest-environment-jsdom: "npm:30.4.1"
+    prettier: "npm:^3.9.4"
+    react: "npm:^19.2.7"
+    react-dom: "npm:^19.2.7"
+    react-router: "npm:^8.2.0"
+    typescript: "npm:^6.0.3"
+    typescript-eslint: "npm:^8.63.0"
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-switch@workspace:^, @crab-dev/rc-switch@workspace:components/rc-switch":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-switch@workspace:components/rc-switch"
@@ -16351,6 +16387,21 @@ __metadata:
     react-dom:
       optional: true
   checksum: 10c0/28c336a5c32ad011a305b82fb27ae1abb892a971591618d3dcb4c8ff3fef3440c215e2b9b365217dd43774db4b3d526c4a95e5d3faecacf42ed9356402bab03f
+  languageName: node
+  linkType: hard
+
+"react-router@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "react-router@npm:8.2.0"
+  dependencies:
+    cookie-es: "npm:^3.1.1"
+  peerDependencies:
+    react: ">=19.2.7"
+    react-dom: ">=19.2.7"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10c0/6137d8db61f1a011d40a1b167d509c806a15ea9a04d238d9ea149d9063b640e4cccbf45974a85924fe44bd3e1080fecc613fe6e5af1d7e7caf648bba16280f6f
   languageName: node
   linkType: hard
 
