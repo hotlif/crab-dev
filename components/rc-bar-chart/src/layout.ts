@@ -74,6 +74,40 @@ export interface LayoutOptions {
     formatValue: (value: number) => string;
 }
 
+interface MeasureContext {
+    font: string;
+    measureText(text: string): { width: number };
+}
+
+/** 惰性单例：undefined 未初始化，null 表示环境不支持（SSR / jsdom），走估宽回退 */
+let measureCtx: MeasureContext | null | undefined;
+
+/** CJK 表意 / 假名 / 谚文 / 全角形，占 1em；其余字符按 0.6em 估 */
+const FULL_WIDTH_RE = /[ᄀ-ᅟ⺀-꓏가-힣豈-﫿︰-﹏＀-｠￠-￦]/;
+
+/**
+ * y 轴刻度标签测宽：优先用 canvas 2d 真实测量（与 Text 绘制同为 system-ui，
+ * formatValue 返回中文 / 任意字符也准确）；环境无 OffscreenCanvas 时分档估宽。
+ */
+export function measureLabelWidth(text: string, fontSize: number): number {
+    if (measureCtx === undefined) {
+        try {
+            measureCtx = new OffscreenCanvas(1, 1).getContext('2d');
+        } catch {
+            measureCtx = null;
+        }
+    }
+    if (measureCtx) {
+        measureCtx.font = `${fontSize}px system-ui`;
+        return measureCtx.measureText(text).width;
+    }
+    let em = 0;
+    for (const ch of text) {
+        em += FULL_WIDTH_RE.test(ch) ? 1 : 0.6;
+    }
+    return em * fontSize;
+}
+
 /**
  * 计算「整洁刻度」：步长取 1/2/5 × 10^n，起止对齐到步长整数倍。
  * 返回从起点到终点（含）的等距刻度值，min === max 时扩为单位跨度。
@@ -147,9 +181,8 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
     const domainMax = tickValues[tickValues.length - 1];
 
     const labels = tickValues.map(formatValue);
-    const maxLabelLen = labels.reduce((len, l) => Math.max(len, l.length), 0);
-    // 轴文本为 system-ui 数字，按 0.6em/字符估宽
-    const plotLeft = Math.max(24, Math.ceil(maxLabelLen * M.fontSize * 0.6) + M.axisLabelGap);
+    const maxLabelW = labels.reduce((w, l) => Math.max(w, measureLabelWidth(l, M.fontSize)), 0);
+    const plotLeft = Math.max(24, Math.ceil(maxLabelW) + M.axisLabelGap);
     const plotTop = M.plotTopPad;
     const plotRight = Math.max(plotLeft, width - M.plotRightPad);
     const plotBottom = Math.max(plotTop, height - M.xAxisBand);

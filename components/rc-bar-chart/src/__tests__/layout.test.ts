@@ -1,7 +1,27 @@
 import { describe, it, expect } from '@jest/globals';
-import { niceTicks, computeLayout, CHART_METRICS } from '../layout.js';
+import { niceTicks, computeLayout, measureLabelWidth, CHART_METRICS } from '../layout.js';
 
 const fmt = (v: number): string => String(v);
+
+describe('measureLabelWidth（jsdom 无 OffscreenCanvas，走估宽回退）', () => {
+    it('CJK 字符按 1em、西文按 0.6em 估宽', () => {
+        expect(measureLabelWidth('一万', 12)).toBeCloseTo(24);
+        expect(measureLabelWidth('10', 12)).toBeCloseTo(14.4);
+    });
+
+    it('中文刻度标签获得更宽的 y 轴留白', () => {
+        const base = {
+            width: 600,
+            height: 320,
+            categories: ['一'],
+            series: [{ data: [10000] }],
+            stacked: false,
+        };
+        const cjk = computeLayout({ ...base, formatValue: v => `${v / 10000}万` });
+        const latin = computeLayout({ ...base, formatValue: v => String(v / 10000) });
+        expect(cjk.plotLeft).toBeGreaterThan(latin.plotLeft);
+    });
+});
 
 describe('niceTicks', () => {
     it('步长取 1/2/5 × 10^n，起止对齐步长整数倍', () => {

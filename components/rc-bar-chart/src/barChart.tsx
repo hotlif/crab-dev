@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
+import type { FocusEvent, KeyboardEvent } from 'react';
 import { css, cx } from '@linaria/core';
-import { Canvas, Rect, Line } from '@crab-dev/rc-canvas';
+import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import Empty from '@crab-dev/rc-empty';
 import token from './token.js';
 import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES } from './palette.js';
@@ -10,10 +11,19 @@ import type { BarChartProps } from './types.js';
 const DEFAULT_WIDTH = 600;
 const DEFAULT_HEIGHT = 320;
 
-/** 悬浮提示与指针的间距（px），避免提示框压住指针 */
+/** 悬浮提示与指针（或锚定柱缘）的间距（px），避免提示框压住目标 */
 const TOOLTIP_OFFSET = 12;
 
 const defaultFormatValue = (value: number): string => value.toLocaleString();
+
+/**
+ * 活动类目。sticky 表示由点按（触屏）或键盘聚焦固定：
+ * 鼠标移出不清除，被新的 hover、点击空白或失焦覆盖时才更新。
+ */
+interface ActiveCategory {
+    index: number;
+    sticky: boolean;
+}
 
 const rootStyle = css`
     display: inline-flex;
@@ -50,28 +60,24 @@ const canvasWrapStyle = css`
     line-height: 0;
 `;
 
-/*
- * 轴文本在 HTML 层渲染而非 canvas：SDF 距离场文本在 12px 小字号下细节
- * 圆化、缩小采样后发虚，浏览器原生文本渲染始终清晰，且颜色可接入令牌。
- */
-const axisLabelStyle = css`
+/* 键盘专用层：不拦截指针，鼠标 / 触摸事件穿透到 Canvas 命中层 */
+const keyboardLayerStyle = css`
     position: absolute;
-    font-size: ${CHART_METRICS.fontSize}px;
-    line-height: 1;
-    color: ${token.axis.label.color};
+    inset: 0;
     pointer-events: none;
-    user-select: none;
 `;
 
-const yTickLabelStyle = css`
-    text-align: right;
-    transform: translateY(-50%);
-    font-variant-numeric: tabular-nums;
-`;
-
-const xCategoryLabelStyle = css`
-    transform: translateX(-50%);
-    white-space: nowrap;
+const barButtonStyle = css`
+    position: absolute;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 2px;
+    pointer-events: none;
+    &:focus-visible {
+        outline: none;                    /* 仅因下一行立即给出替代焦点意符，方才允许 */
+        box-shadow: ${token.focus.ring};
+    }
 `;
 
 const tooltipStyle = css`
@@ -143,6 +149,9 @@ const visuallyHiddenStyle = css`
  *
  * - 绘制层（柱 / 网格 / 轴文本）渲染在 Canvas 中，对辅助技术隐藏；
  *   完整数据以视觉隐藏的 `<table>` 提供（悬浮提示只增强、不守门）。
+ * - 键盘：Tab 进入图表后 ←/→（Home/End）在柱间移动，聚焦即显示该类目
+ *   的悬浮提示，Enter/Space 触发 onBarClick；触屏点按柱或类目列固定提示，
+ *   点击空白清除。
  * - 系列颜色按分类色板顺序分配（颜色跟随系列，不随过滤重排）。
  */
 function BarChart({
@@ -158,9 +167,11 @@ function BarChart({
     style,
     ref,
 }: BarChartProps) {
-    const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-    /** 指针在画布包装层内的坐标，驱动悬浮提示跟随鼠标 */
+    const [active, setActive] = useState<ActiveCategory | null>(null);
+    /** 指针在画布包装层内的坐标，驱动悬浮提示跟随鼠标；无指针（键盘 / 触屏）时提示锚定类目列 */
     const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
+    /** roving tabindex：当前可 Tab 进入的柱按钮下标 */
+    const [focusBarIndex, setFocusBarIndex] = useState(0);
 
     useEffect(() => {
         if (series.length > MAX_SERIES) {
@@ -186,7 +197,37 @@ function BarChart({
     const layout = computeLayout({ width, height, categories, series: visibleSeries, stacked, formatValue });
     const colors = visibleSeries.map((s, i) => s.color ?? CATEGORICAL_PALETTE[i]);
     const plotHeight = layout.plotBottom - layout.plotTop;
-    const hoverBand = hoverIndex !== null ? layout.bands[hoverIndex] : null;
+
+    // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
+    const activeIndex = active !== null && active.index < categories.length ? active.index : null;
+    const activeBand = activeIndex !== null ? layout.bands[activeIndex] : null;
+    const focusIndex = Math.min(focusBarIndex, Math.max(0, layout.bars.length - 1));
+
+    const hoverCategory = (index: number) => setActive({ index, sticky: false });
+    const leaveCategory = () => setActive(prev => (prev !== null && prev.sticky ? prev : null));
+    const pinCategory = (index: number) => setActive({ index, sticky: true });
+
+    const onLayerKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        const total = layout.bars.length;
+        if (total === 0) return;
+        let next: number;
+        switch (e.key) {
+            case 'ArrowRight': next = Math.min(focusIndex + 1, total - 1); break;
+            case 'ArrowLeft': next = Math.max(focusIndex - 1, 0); break;
+            case 'Home': next = 0; break;
+            case 'End': next = total - 1; break;
+            default: return;
+        }
+        e.preventDefault();
+        e.currentTarget.querySelectorAll('button')[next]?.focus();
+    };
+
+    const onLayerBlur = (e: FocusEvent<HTMLDivElement>) => {
+        // 焦点在柱按钮间移动时 relatedTarget 仍在层内，仅整体离开图表时清除
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+            setActive(null);
+        }
+    };
 
     return (
         <div ref={ref} className={cx(rootStyle, className)} style={style}>
@@ -204,141 +245,204 @@ function BarChart({
 
             <div
                 className={canvasWrapStyle}
-                aria-hidden="true"
                 onPointerMove={e => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     setPointer({ x: e.clientX - rect.left, y: e.clientY - rect.top });
                 }}
                 onPointerLeave={() => setPointer(null)}
             >
-                <Canvas width={width} height={height}>
-                    {/* 网格线（hairline 实线）与零值基线：中心 +0.5 使 1px 线覆盖整数物理像素行 */}
-                    {layout.ticks.map(tick => (
-                        <Line
-                            key={`grid-${tick.value}`}
-                            x1={layout.plotLeft}
-                            y1={tick.y + 0.5}
-                            x2={layout.plotRight}
-                            y2={tick.y + 0.5}
-                            color={tick.value === 0 ? CHART_INK.baseline : CHART_INK.gridline}
-                            lineWidth={1}
-                        />
-                    ))}
+                <div aria-hidden="true">
+                    {/* tabIndex -1：绘制层在 aria-hidden 内，不得进入 Tab 流（键盘走覆盖按钮层） */}
+                    <Canvas width={width} height={height} tabIndex={-1} onEmptyClick={() => setActive(null)}>
+                        {/* 网格线（hairline 实线）与零值基线：中心 +0.5 使 1px 线覆盖整数物理像素行 */}
+                        {layout.ticks.map(tick => (
+                            <Line
+                                key={`grid-${tick.value}`}
+                                x1={layout.plotLeft}
+                                y1={tick.y + 0.5}
+                                x2={layout.plotRight}
+                                y2={tick.y + 0.5}
+                                color={tick.value === 0 ? CHART_INK.baseline : CHART_INK.gridline}
+                                lineWidth={1}
+                            />
+                        ))}
 
-                    {/* 悬停类目水洗背景（不改变盒尺寸的反馈） */}
-                    {hoverBand && (
-                        <Rect
-                            x={hoverBand.x}
-                            y={layout.plotTop}
-                            width={hoverBand.width}
-                            height={plotHeight}
-                            fill={CHART_INK.hoverWash}
-                            zIndex={1}
-                        />
-                    )}
+                        {/*
+                         * 轴文本：bitmap 模式（ECharts/zrender 同款）——按 dpr 由浏览器原生
+                         * 光栅化并 1:1 物理像素对齐绘制，12px 小字号与 DOM 文本同等清晰。
+                         */}
+                        {layout.ticks.map(tick => (
+                            <Text
+                                key={`tick-${tick.value}`}
+                                mode="bitmap"
+                                x={layout.plotLeft - CHART_METRICS.axisLabelGap}
+                                y={tick.y}
+                                fontSize={CHART_METRICS.fontSize}
+                                fill={CHART_INK.axisLabel}
+                                textAlign="right"
+                                textBaseline="middle"
+                            >
+                                {tick.label}
+                            </Text>
+                        ))}
+                        {categories.map((category, i) => (
+                            <Text
+                                key={`cat-${i}`}
+                                mode="bitmap"
+                                x={layout.bands[i].centerX}
+                                y={layout.plotBottom + 6}
+                                fontSize={CHART_METRICS.fontSize}
+                                fill={CHART_INK.axisLabel}
+                                textAlign="center"
+                                textBaseline="top"
+                            >
+                                {String(category)}
+                            </Text>
+                        ))}
 
-                    {/* 类目命中区：比柱子更大的悬停目标 */}
-                    {layout.bands.map((band, i) => (
-                        <Rect
-                            key={`band-${i}`}
-                            x={band.x}
-                            y={layout.plotTop}
-                            width={band.width}
-                            height={plotHeight}
-                            fill="transparent"
-                            zIndex={2}
-                            onMouseEnter={() => setHoverIndex(i)}
-                            onMouseLeave={() => setHoverIndex(null)}
-                        />
-                    ))}
+                        {/* 活动类目水洗背景（hover / 点按固定 / 键盘聚焦共用的反馈，不改变盒尺寸） */}
+                        {activeBand !== null && (
+                            <Rect
+                                x={activeBand.x}
+                                y={layout.plotTop}
+                                width={activeBand.width}
+                                height={plotHeight}
+                                fill={CHART_INK.hoverWash}
+                                zIndex={1}
+                            />
+                        )}
 
-                    {/* 柱：数据端 4px 圆角、基线端方角（补丁矩形盖住基线侧圆角） */}
-                    {layout.bars.map(bar => {
-                        const radius = bar.dataEnd === null
-                            ? 0
-                            : Math.min(CHART_METRICS.barRadius, bar.width / 2, bar.height / 2);
-                        return (
-                            <Fragment key={`bar-${bar.categoryIndex}-${bar.seriesIndex}`}>
-                                <Rect
-                                    x={bar.x}
-                                    y={bar.y}
-                                    width={bar.width}
-                                    height={bar.height}
-                                    radius={radius}
-                                    fill={colors[bar.seriesIndex]}
-                                    zIndex={3}
-                                    cursor={onBarClick ? 'pointer' : undefined}
-                                    onMouseEnter={() => setHoverIndex(bar.categoryIndex)}
-                                    onMouseLeave={() => setHoverIndex(null)}
-                                    onClick={onBarClick
-                                        ? () => onBarClick({
-                                            categoryIndex: bar.categoryIndex,
-                                            seriesIndex: bar.seriesIndex,
-                                            category: categories[bar.categoryIndex],
-                                            seriesName: visibleSeries[bar.seriesIndex].name,
-                                            value: bar.value,
-                                        })
-                                        : undefined}
-                                />
-                                {radius > 0 && (
+                        {/* 类目命中区：比柱子更大的悬停目标；点按（触屏）固定该类目的提示 */}
+                        {layout.bands.map((band, i) => (
+                            <Rect
+                                key={`band-${i}`}
+                                x={band.x}
+                                y={layout.plotTop}
+                                width={band.width}
+                                height={plotHeight}
+                                fill="transparent"
+                                zIndex={2}
+                                onMouseEnter={() => hoverCategory(i)}
+                                onMouseLeave={leaveCategory}
+                                onClick={() => pinCategory(i)}
+                            />
+                        ))}
+
+                        {/* 柱：数据端 4px 圆角、基线端方角（补丁矩形盖住基线侧圆角） */}
+                        {layout.bars.map(bar => {
+                            const radius = bar.dataEnd === null
+                                ? 0
+                                : Math.min(CHART_METRICS.barRadius, bar.width / 2, bar.height / 2);
+                            return (
+                                <Fragment key={`bar-${bar.categoryIndex}-${bar.seriesIndex}`}>
                                     <Rect
                                         x={bar.x}
-                                        y={bar.dataEnd === 'top' ? bar.y + bar.height - radius : bar.y}
+                                        y={bar.y}
                                         width={bar.width}
-                                        height={radius}
+                                        height={bar.height}
+                                        radius={radius}
                                         fill={colors[bar.seriesIndex]}
-                                        zIndex={3.1}
+                                        zIndex={3}
+                                        cursor={onBarClick ? 'pointer' : undefined}
+                                        onMouseEnter={() => hoverCategory(bar.categoryIndex)}
+                                        onMouseLeave={leaveCategory}
+                                        onClick={() => {
+                                            pinCategory(bar.categoryIndex);
+                                            onBarClick?.({
+                                                categoryIndex: bar.categoryIndex,
+                                                seriesIndex: bar.seriesIndex,
+                                                category: categories[bar.categoryIndex],
+                                                seriesName: visibleSeries[bar.seriesIndex].name,
+                                                value: bar.value,
+                                            });
+                                        }}
                                     />
-                                )}
-                            </Fragment>
-                        );
-                    })}
-                </Canvas>
+                                    {radius > 0 && (
+                                        <Rect
+                                            x={bar.x}
+                                            y={bar.dataEnd === 'top' ? bar.y + bar.height - radius : bar.y}
+                                            width={bar.width}
+                                            height={radius}
+                                            fill={colors[bar.seriesIndex]}
+                                            zIndex={3.1}
+                                        />
+                                    )}
+                                </Fragment>
+                            );
+                        })}
+                    </Canvas>
+                </div>
 
-                {/* 轴文本（HTML 层，定位为数据驱动值走内联传递） */}
-                {layout.ticks.map(tick => (
-                    <span
-                        key={`tick-${tick.value}`}
-                        className={cx(axisLabelStyle, yTickLabelStyle)}
-                        style={{
-                            left: 0,
-                            top: tick.y,
-                            inlineSize: layout.plotLeft - CHART_METRICS.axisLabelGap,
-                        }}
-                    >
-                        {tick.label}
-                    </span>
-                ))}
-                {categories.map((category, i) => (
-                    <span
-                        key={`cat-${i}`}
-                        className={cx(axisLabelStyle, xCategoryLabelStyle)}
-                        style={{ left: layout.bands[i].centerX, top: layout.plotBottom + 6 }}
-                    >
-                        {String(category)}
-                    </span>
-                ))}
+                {/* 键盘通道：每根柱一个覆盖按钮，roving tabindex，聚焦即固定该类目的提示 */}
+                <div
+                    role="group"
+                    aria-label={ariaLabel}
+                    className={keyboardLayerStyle}
+                    onKeyDown={onLayerKeyDown}
+                    onBlur={onLayerBlur}
+                >
+                    {layout.bars.map((bar, k) => (
+                        <button
+                            key={`focus-${bar.categoryIndex}-${bar.seriesIndex}`}
+                            type="button"
+                            className={barButtonStyle}
+                            /* 柱矩形为数据驱动几何，无法静态成 css 块，走内联定位 */
+                            style={{ left: bar.x, top: bar.y, width: bar.width, height: bar.height }}
+                            tabIndex={k === focusIndex ? 0 : -1}
+                            aria-label={
+                                visibleSeries.length > 1
+                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[bar.seriesIndex].name} ${formatValue(bar.value)}`
+                                    : `${categories[bar.categoryIndex]} ${formatValue(bar.value)}`
+                            }
+                            onFocus={() => {
+                                setFocusBarIndex(k);
+                                pinCategory(bar.categoryIndex);
+                            }}
+                            onClick={onBarClick
+                                ? () => onBarClick({
+                                    categoryIndex: bar.categoryIndex,
+                                    seriesIndex: bar.seriesIndex,
+                                    category: categories[bar.categoryIndex],
+                                    seriesName: visibleSeries[bar.seriesIndex].name,
+                                    value: bar.value,
+                                })
+                                : undefined}
+                        />
+                    ))}
+                </div>
 
-                {/* 悬浮提示：跟随指针，靠近右/下缘时向反方向翻转；列出该类目下全部系列 */}
-                {hoverIndex !== null && pointer !== null && (
+                {/*
+                 * 悬浮提示：有指针时跟随（靠近右/下缘向反方向翻转）；键盘聚焦或触屏
+                 * 点按固定时锚定在类目列侧边。列出该类目下全部系列。
+                 */}
+                {activeIndex !== null && activeBand !== null && (pointer !== null || (active?.sticky ?? false)) && (
                     <div
                         className={tooltipStyle}
-                        style={{
-                            left: pointer.x,
-                            top: pointer.y,
-                            transform: `translate(${
-                                pointer.x > width * 0.6 ? `calc(-100% - ${TOOLTIP_OFFSET}px)` : `${TOOLTIP_OFFSET}px`
-                            }, ${
-                                pointer.y > height * 0.6 ? `calc(-100% - ${TOOLTIP_OFFSET}px)` : `${TOOLTIP_OFFSET}px`
-                            })`,
-                        }}
+                        aria-hidden="true"
+                        style={pointer !== null
+                            ? {
+                                left: pointer.x,
+                                top: pointer.y,
+                                transform: `translate(${
+                                    pointer.x > width * 0.6 ? `calc(-100% - ${TOOLTIP_OFFSET}px)` : `${TOOLTIP_OFFSET}px`
+                                }, ${
+                                    pointer.y > height * 0.6 ? `calc(-100% - ${TOOLTIP_OFFSET}px)` : `${TOOLTIP_OFFSET}px`
+                                })`,
+                            }
+                            : {
+                                left: activeBand.centerX > width * 0.6 ? activeBand.x : activeBand.x + activeBand.width,
+                                top: layout.plotTop,
+                                transform: activeBand.centerX > width * 0.6
+                                    ? `translate(calc(-100% - ${TOOLTIP_OFFSET}px), 0)`
+                                    : `translate(${TOOLTIP_OFFSET}px, 0)`,
+                            }}
                     >
-                        <div className={tooltipCategoryStyle}>{categories[hoverIndex]}</div>
+                        <div className={tooltipCategoryStyle}>{categories[activeIndex]}</div>
                         {visibleSeries.map((s, i) => (
                             <div key={s.name} className={tooltipRowStyle}>
                                 <span className={tooltipKeyStyle} style={{ backgroundColor: colors[i] }} />
                                 <span className={tooltipNameStyle}>{s.name}</span>
-                                <span className={tooltipValueStyle}>{formatValue(s.data[hoverIndex] ?? 0)}</span>
+                                <span className={tooltipValueStyle}>{formatValue(s.data[activeIndex] ?? 0)}</span>
                             </div>
                         ))}
                     </div>

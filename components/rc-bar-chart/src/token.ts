@@ -3,13 +3,13 @@
  */
 
 export const vars = {
-    'axis.label.color': '--bar-chart-axis-label-color',
     'legend.gap': '--bar-chart-legend-gap',
     'legend.item-gap': '--bar-chart-legend-item-gap',
     'legend.swatch-gap': '--bar-chart-legend-swatch-gap',
     'legend.swatch-size': '--bar-chart-legend-swatch-size',
     'legend.label.color': '--bar-chart-legend-label-color',
     'legend.label.font.size': '--bar-chart-legend-label-font-size',
+    'focus.ring': '--bar-chart-focus-ring',
     'tooltip.background': '--bar-chart-tooltip-background',
     'tooltip.radius': '--bar-chart-tooltip-radius',
     'tooltip.shadow': '--bar-chart-tooltip-shadow',
@@ -24,11 +24,6 @@ export const vars = {
 };
 
 const token = {
-    'axis': {
-        'label': {
-            'color': `var(${vars['axis.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
-        }
-    },
     'legend': {
         'gap': `var(${vars['legend.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'item-gap': `var(${vars['legend.item-gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
@@ -40,6 +35,9 @@ const token = {
                 'size': `var(${vars['legend.label.font.size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`
             }
         }
+    },
+    'focus': {
+        'ring': `var(${vars['focus.ring']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px oklch(0.140 0.004 286 / 0.25)))`
     },
     'tooltip': {
         'background': `var(${vars['tooltip.background']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,

@@ -27,12 +27,14 @@ export const CATEGORICAL_PALETTE = [
 /** 支持的最大系列数，超出部分不渲染并在开发期告警 */
 export const MAX_SERIES = CATEGORICAL_PALETTE.length;
 
-/** 图表基底（网格 / 基线 / 悬停背景）用色；轴文本在 HTML 层走设计令牌 */
+/** 图表基底（网格 / 基线 / 轴文本 / 悬停背景）用色 */
 export const CHART_INK = {
     /** 横向网格线（hairline，退居背景） */
     gridline: 'oklch(0.9055 0.0095 100)',
     /** 零值基线（比网格线深一档） */
     baseline: 'oklch(0.8118 0.0152 102.51)',
+    /** 轴文本（= semantic color.text.secondary → global zinc.500 的字面量） */
+    axisLabel: 'oklch(0.660 0.014 286)',
     /** 悬停类目列的背景水洗色 */
     hoverWash: 'oklch(0.9055 0.0095 100 / 0.45)',
 } as const;

@@ -1,5 +1,5 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, act } from '@testing-library/react';
 import React from 'react';
 import BarChart from '../barChart.js';
 
@@ -114,16 +114,77 @@ describe('BarChart', () => {
         expect(screen.getAllByRole('columnheader')).toHaveLength(9);
     });
 
-    it('轴类目标签以 HTML 呈现（span 轴标签 + 数据表行头各一次）', () => {
+    it('轴文本渲染于 Canvas（bitmap 文本），DOM 中类目仅出现在数据表', () => {
         const { container } = render(
             <BarChart
                 categories={CATEGORIES}
                 series={[{ name: '销量', data: [10, 20, 30] }]}
             />,
         );
-        expect(screen.getByText('一月', { selector: 'span' })).toBeDefined();
+        expect(screen.getByRole('rowheader', { name: '一月' })).toBeDefined();
         const occurrences = container.textContent!.split('一月').length - 1;
-        expect(occurrences).toBe(2);
+        expect(occurrences).toBe(1);
+    });
+
+    it('键盘：聚焦柱按钮即显示该类目的提示，方向键在柱间移动', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+            />,
+        );
+        const first = screen.getByRole('button', { name: '一月 10' });
+        act(() => first.focus());
+        // 聚焦固定该类目：系列名在表头之外（提示行）出现第二次
+        expect(container.textContent!.split('销量').length - 1).toBe(2);
+
+        fireEvent.keyDown(first, { key: 'ArrowRight' });
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: '二月 20' }));
+    });
+
+    it('aria-hidden 的绘制层内没有 Tab 停靠点（键盘只经覆盖按钮层进入）', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+            />,
+        );
+        expect(container.querySelector('[aria-hidden="true"] [tabindex="0"]')).toBeNull();
+        // roving tabindex：柱按钮中恰有一个 Tab 入口
+        expect(container.querySelectorAll('button[tabindex="0"]')).toHaveLength(1);
+    });
+
+    it('键盘 Enter（原生 click）触发 onBarClick 并携带完整信息', () => {
+        const onBarClick = jest.fn();
+        render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+                onBarClick={onBarClick}
+            />,
+        );
+        fireEvent.click(screen.getByRole('button', { name: '三月 30' }));
+        expect(onBarClick).toHaveBeenCalledWith({
+            categoryIndex: 2,
+            seriesIndex: 0,
+            category: '三月',
+            seriesName: '销量',
+            value: 30,
+        });
+    });
+
+    it('数据变短后残留的活动下标被失效，不渲染 undefined', () => {
+        const { container, rerender } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[{ name: '销量', data: [10, 20, 30] }]}
+            />,
+        );
+        act(() => screen.getByRole('button', { name: '三月 30' }).focus());
+        rerender(<BarChart categories={['一月']} series={[{ name: '销量', data: [10] }]} />);
+        expect(container.textContent).not.toContain('undefined');
+        // 活动类目已失效：提示不再渲染，系列名仅剩表头一次
+        expect(container.textContent!.split('销量').length - 1).toBe(1);
     });
 
     it('className 透传到容器', () => {
