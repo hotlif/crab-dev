@@ -41,6 +41,7 @@ export function createWebGL2Mock(): WebGL2RenderingContext {
         // 方法 stub
         enable: mockFn(),
         blendFunc: mockFn(),
+        blendFuncSeparate: mockFn(),
         viewport: mockFn(),
         clearColor: mockFn(),
         clear: mockFn(),

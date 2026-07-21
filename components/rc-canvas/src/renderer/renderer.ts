@@ -274,7 +274,10 @@ export class WebGLRenderer {
         this.markerVAO = this.createMarkerVAO();
 
         gl.enable(gl.BLEND);
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        // RGB 用标准 over 合成；alpha 通道必须用 (ONE, ONE_MINUS_SRC_ALPHA)：
+        // 若 alpha 也乘 SRC_ALPHA，半透明形状画在透明画布上写入的 alpha 为 α²，
+        // 经浏览器 premultiplied 合成到页面背景后远比预期淡（0.35 → 视觉 ~0.12）。
+        gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
         gl.viewport(0, 0, Math.round(width * dpr), Math.round(height * dpr));
     }
 
