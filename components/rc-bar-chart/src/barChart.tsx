@@ -10,6 +10,9 @@ import type { BarChartProps } from './types.js';
 const DEFAULT_WIDTH = 600;
 const DEFAULT_HEIGHT = 320;
 
+/** 悬浮提示与指针的间距（px），避免提示框压住指针 */
+const TOOLTIP_OFFSET = 12;
+
 const defaultFormatValue = (value: number): string => value.toLocaleString();
 
 const rootStyle = css`
@@ -49,7 +52,6 @@ const canvasWrapStyle = css`
 
 const tooltipStyle = css`
     position: absolute;
-    transform: translateX(-50%);
     pointer-events: none;
     display: flex;
     flex-direction: column;
@@ -133,6 +135,8 @@ function BarChart({
     ref,
 }: BarChartProps) {
     const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+    /** 指针在画布包装层内的坐标，驱动悬浮提示跟随鼠标 */
+    const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
 
     useEffect(() => {
         if (series.length > MAX_SERIES) {
@@ -174,7 +178,15 @@ function BarChart({
                 </div>
             )}
 
-            <div className={canvasWrapStyle} aria-hidden="true">
+            <div
+                className={canvasWrapStyle}
+                aria-hidden="true"
+                onPointerMove={e => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    setPointer({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+                }}
+                onPointerLeave={() => setPointer(null)}
+            >
                 <Canvas width={width} height={height}>
                     {/* 网格线（hairline 实线）与零值基线 */}
                     {layout.ticks.map(tick => (
@@ -285,11 +297,19 @@ function BarChart({
                     })}
                 </Canvas>
 
-                {/* 悬浮提示：列出该类目下全部系列，指针无需精确落在柱上 */}
-                {hoverIndex !== null && hoverBand && (
+                {/* 悬浮提示：跟随指针，靠近右/下缘时向反方向翻转；列出该类目下全部系列 */}
+                {hoverIndex !== null && pointer !== null && (
                     <div
                         className={tooltipStyle}
-                        style={{ left: hoverBand.centerX, top: layout.plotTop + 4 }}
+                        style={{
+                            left: pointer.x,
+                            top: pointer.y,
+                            transform: `translate(${
+                                pointer.x > width * 0.6 ? `calc(-100% - ${TOOLTIP_OFFSET}px)` : `${TOOLTIP_OFFSET}px`
+                            }, ${
+                                pointer.y > height * 0.6 ? `calc(-100% - ${TOOLTIP_OFFSET}px)` : `${TOOLTIP_OFFSET}px`
+                            })`,
+                        }}
                     >
                         <div className={tooltipCategoryStyle}>{categories[hoverIndex]}</div>
                         {visibleSeries.map((s, i) => (
