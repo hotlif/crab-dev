@@ -141,7 +141,16 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
                                     {...getFloatingProps({
                                         onMouseDown: (e: ReactMouseEvent<HTMLDivElement>) => {
                                             onMouseDown?.(e);
-                                            e.preventDefault();
+
+                                            // 阻止 mousedown 默认行为,是为了点击选项 / 空白时不抢走
+                                            // 触发器的焦点;但落点是浮层内的表单控件时(如 rc-cron-picker
+                                            // 面板里的数字输入框),preventDefault 会连"点击聚焦"一起吞掉,
+                                            // 使控件永远无法进入编辑态——这类目标必须放行默认聚焦。
+                                            const target = e.target as HTMLElement;
+
+                                            if (!target.closest('input, textarea, select, [contenteditable="true"]')) {
+                                                e.preventDefault();
+                                            }
                                         },
                                         ...restFloatingContainerProps,
                                     })}

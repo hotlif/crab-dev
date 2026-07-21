@@ -160,6 +160,35 @@ describe("DropdownContainer", () => {
         expect(onMouseDown).toHaveBeenCalled();
     });
 
+    it("prevents default mousedown on non-control area but allows focusing form controls", () => {
+        const { getByTestId } = renderDropdown({
+            overlay: (
+                <div data-testid="overlay">
+                    <span data-testid="plain">text</span>
+                    <input data-testid="field" />
+                </div>
+            ),
+        });
+
+        act(() => {
+            fireEvent.focus(getByTestId("trigger"));
+        });
+
+        // fireEvent 返回 false 表示事件被 preventDefault:
+        // 点击浮层空白 / 列表项仍阻止默认(不抢触发器焦点),
+        // 点击表单控件必须放行默认行为,否则控件无法通过点击进入编辑态
+        let notPrevented = true;
+        act(() => {
+            notPrevented = fireEvent.mouseDown(getByTestId("plain"));
+        });
+        expect(notPrevented).toBe(false);
+
+        act(() => {
+            notPrevented = fireEvent.mouseDown(getByTestId("field"));
+        });
+        expect(notPrevented).toBe(true);
+    });
+
     it("works without floatingContainerProps.onMouseDown", () => {
         const { getByTestId } = renderDropdown();
 
