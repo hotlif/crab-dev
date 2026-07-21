@@ -7,7 +7,7 @@
   "description": "颜色选择组件",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",
@@ -30,9 +30,6 @@
     "css",
     "declarations"
   ],
-  "types": "declarations/index.d.ts",
-  "main": "cjs/index.cjs",
-  "module": "esm/index.mjs",
   "exports": {
     ".": {
       "types": "./declarations/index.d.ts",
