@@ -37,8 +37,6 @@ export const CHART_INK = {
     baseline: 'oklch(0.8118 0.0152 102.51)',
     /** 轴文本（= semantic color.text.secondary → global zinc.500 的字面量） */
     axisLabel: 'oklch(0.660 0.014 286)',
-    /** 悬停类目列的背景水洗色（renderer 修正 alpha 合成后按有效透明度取值） */
-    hoverWash: 'oklch(0.9055 0.0095 100 / 0.25)',
 } as const;
 
 /** 亮色画布背景假设——与绘制层不响应主题的既有限制同一前提 */

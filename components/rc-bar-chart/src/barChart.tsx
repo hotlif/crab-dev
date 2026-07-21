@@ -379,18 +379,6 @@ function BarChartInner({
                             </Text>
                         ))}
 
-                        {/* 活动类目水洗背景（hover / 点按固定 / 键盘聚焦共用的反馈，不改变盒尺寸） */}
-                        {activeBand !== null && (
-                            <Rect
-                                x={horizontal ? layout.plotLeft : activeBand.start}
-                                y={horizontal ? activeBand.start : layout.plotTop}
-                                width={horizontal ? plotWidth : activeBand.size}
-                                height={horizontal ? activeBand.size : plotHeight}
-                                fill={CHART_INK.hoverWash}
-                                zIndex={1}
-                            />
-                        )}
-
                         {/* 类目命中区：比柱子更大的悬停目标；点按（触屏）固定该类目的提示 */}
                         {layout.bands.map((band, i) => (
                             <Rect
