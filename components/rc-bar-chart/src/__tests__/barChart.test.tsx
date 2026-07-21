@@ -187,6 +187,47 @@ describe('BarChart', () => {
         expect(container.textContent!.split('销量').length - 1).toBe(1);
     });
 
+    it('图例点击隐藏系列：布局剔除该系列，数据表保持全量', () => {
+        const { container } = render(
+            <BarChart
+                categories={CATEGORIES}
+                series={[
+                    { name: '线上', data: [1, 2, 3] },
+                    { name: '线下', data: [4, 5, 6] },
+                ]}
+            />,
+        );
+        // 隐藏前：键盘层 3 类目 × 2 系列 = 6 个柱按钮
+        expect(container.querySelectorAll('button[aria-label]')).toHaveLength(6);
+
+        fireEvent.click(screen.getByRole('button', { name: '线下', pressed: true }));
+
+        expect(screen.getByRole('button', { name: '线下', pressed: false })).toBeDefined();
+        expect(container.querySelectorAll('button[aria-label]')).toHaveLength(3);
+        // 数据表是等价数据通道，不随视觉过滤
+        expect(screen.getByRole('columnheader', { name: '线下' })).toBeDefined();
+    });
+
+    it('隐藏系列后 onBarClick 仍报告原始 seriesIndex 与系列名', () => {
+        const onBarClick = jest.fn();
+        render(
+            <BarChart
+                categories={['一']}
+                series={[
+                    { name: 'A', data: [1] },
+                    { name: 'B', data: [2] },
+                ]}
+                onBarClick={onBarClick}
+            />,
+        );
+        fireEvent.click(screen.getByRole('button', { name: 'A', pressed: true }));
+        fireEvent.click(screen.getByRole('button', { name: '一 B 2' }));
+        expect(onBarClick).toHaveBeenCalledWith(expect.objectContaining({
+            seriesIndex: 1,
+            seriesName: 'B',
+        }));
+    });
+
     it('animate=false 时直接呈现终态，不依赖动画帧', () => {
         render(
             <BarChart

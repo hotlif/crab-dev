@@ -18,6 +18,12 @@ legend.swatch-size     = "10px"
 legend.label.color     = "$ref(color.text.secondary)"
 legend.label.font.size = "$ref(font.size.caption)"
 
+# 图例项为切换系列显隐的按钮
+legend.item.radius         = "$ref(radius.sm)"
+legend.item.color-hover    = "$ref(color.background.hover-subtle)"
+legend.item.transition     = "$ref(motion.interaction)"
+legend.item.opacity-hidden = "$ref(opacity.secondary)"
+
 # ─── 键盘焦点 ───────────────────────────────
 focus.ring = "$ref(shadow.focus-ring)"
 

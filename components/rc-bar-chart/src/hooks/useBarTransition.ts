@@ -22,7 +22,9 @@ const STAGGER = 50;
 const MAX_TOTAL_STAGGER = 300;
 
 export interface BarGeom {
+    x: number;
     y: number;
+    width: number;
     height: number;
 }
 
@@ -51,7 +53,11 @@ export function barProgress(categoryIndex: number, elapsed: number, stagger: num
     return easeOutCubic(Math.min(1, Math.max(0, t)));
 }
 
-/** 采样某一帧的显示几何：从 fromMap（缺省为基线）补间到 target */
+/**
+ * 采样某一帧的显示几何：从 fromMap 补间到 target。
+ * 缺省起点为基线零厚（x / width 取终值），因此入场只有纵向生长；
+ * 数据更新 / 系列显隐时四个字段全补间，柱在横向也平滑重排。
+ */
 export function sampleBars(
     target: BarRect[],
     fromMap: Map<string, BarGeom>,
@@ -61,10 +67,12 @@ export function sampleBars(
 ): BarRect[] {
     return target.map(bar => {
         const e = barProgress(bar.categoryIndex, elapsed, stagger);
-        const from = fromMap.get(barKey(bar)) ?? { y: zeroY, height: 0 };
+        const from = fromMap.get(barKey(bar)) ?? { x: bar.x, y: zeroY, width: bar.width, height: 0 };
         return {
             ...bar,
+            x: from.x + (bar.x - from.x) * e,
             y: from.y + (bar.y - from.y) * e,
+            width: from.width + (bar.width - from.width) * e,
             height: from.height + (bar.height - from.height) * e,
         };
     });
@@ -124,7 +132,9 @@ export function useBarTransition(
         // 首次入场从基线生长；后续更新从当前显示几何补间
         const fromMap = new Map<string, BarGeom>();
         if (!isFirst) {
-            for (const b of displayRef.current) fromMap.set(barKey(b), { y: b.y, height: b.height });
+            for (const b of displayRef.current) {
+                fromMap.set(barKey(b), { x: b.x, y: b.y, width: b.width, height: b.height });
+            }
         }
 
         const stagger = staggerStep(categoryCount);

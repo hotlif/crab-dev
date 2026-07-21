@@ -76,10 +76,24 @@ describe('sampleBars', () => {
     });
 
     it('给定起点几何：从旧几何补间而非基线（数据更新场景）', () => {
-        const from = new Map<string, BarGeom>([[barKey(target[0]), { y: 120, height: 80 }]]);
+        const from = new Map<string, BarGeom>([
+            [barKey(target[0]), { x: 0, y: 120, width: 20, height: 80 }],
+        ]);
         const [b] = sampleBars(target, from, 200, 0, 50);
         expect(b.y).toBeCloseTo(120);
         expect(b.height).toBeCloseTo(80);
+    });
+
+    it('横向位置也补间：系列显隐引起的重排平滑滑动', () => {
+        const moved = [bar({ x: 60, width: 24 })];
+        const from = new Map<string, BarGeom>([
+            [barKey(moved[0]), { x: 0, y: 40, width: 20, height: 160 }],
+        ]);
+        const [start] = sampleBars(moved, from, 200, 0, 50);
+        expect(start.x).toBeCloseTo(0);
+        const [end] = sampleBars(moved, from, 200, 10000, 50);
+        expect(end.x).toBeCloseTo(60);
+        expect(end.width).toBeCloseTo(24);
     });
 
     it('透传非几何字段（value / dataEnd / x / width / 下标）', () => {

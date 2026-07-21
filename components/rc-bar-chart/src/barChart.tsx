@@ -7,6 +7,7 @@ import token from './token.js';
 import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES } from './palette.js';
 import { computeLayout, CHART_METRICS } from './layout.js';
 import { useBarTransition } from './hooks/useBarTransition.js';
+import { useCategoryDim } from './hooks/useCategoryDim.js';
 import type { BarChartProps } from './types.js';
 
 const DEFAULT_WIDTH = 600;
@@ -41,12 +42,34 @@ const legendStyle = css`
     row-gap: ${token.legend['swatch-gap']};
 `;
 
+/* 图例项是切换系列显隐的按钮：光标 / hover 背景 / 焦点环齐备 */
 const legendItemStyle = css`
     display: inline-flex;
     align-items: center;
     gap: ${token.legend['swatch-gap']};
+    padding: 2px 8px;
+    border: 0;
+    background: transparent;
+    border-radius: ${token.legend.item.radius};
     font-size: ${token.legend.label.font.size};
     color: ${token.legend.label.color};
+    cursor: pointer;
+    transition: ${token.legend.item.transition};
+    &:hover {
+        background-color: ${token.legend.item['color-hover']};
+    }
+    &:focus-visible {
+        outline: none;                    /* 仅因下一行立即给出替代焦点意符，方才允许 */
+        box-shadow: ${token.focus.ring};
+    }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+`;
+
+/* 隐藏中的系列：整体减淡，保留位置与可点性（禁用而非消失） */
+const legendItemHiddenStyle = css`
+    opacity: ${token.legend.item['opacity-hidden']};
 `;
 
 const legendSwatchStyle = css`
@@ -54,6 +77,10 @@ const legendSwatchStyle = css`
     block-size: ${token.legend['swatch-size']};
     border-radius: 2px;
     flex-shrink: 0;
+`;
+
+const legendSwatchHiddenStyle = css`
+    filter: grayscale(1);
 `;
 
 const canvasWrapStyle = css`
@@ -174,6 +201,8 @@ function BarChart({
     const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
     /** roving tabindex：当前可 Tab 进入的柱按钮下标 */
     const [focusBarIndex, setFocusBarIndex] = useState(0);
+    /** 图例点击隐藏的系列（visibleSeries 下标）；隐藏系列不参与布局与提示，数据表保持全量 */
+    const [hiddenSeries, setHiddenSeries] = useState<ReadonlySet<number>>(new Set());
 
     useEffect(() => {
         if (series.length > MAX_SERIES) {
@@ -186,9 +215,17 @@ function BarChart({
 
     const visibleSeries = series.length > MAX_SERIES ? series.slice(0, MAX_SERIES) : series;
 
+    // 图例过滤后的系列；bars 的 seriesIndex 是 shown 下标，经 shownIndices 映射回原始下标
+    const shownIndices = visibleSeries.map((_, i) => i).filter(i => !hiddenSeries.has(i));
+    const shownSeries = shownIndices.map(i => visibleSeries[i]);
+
     // 空输入时 computeLayout 安全返回空 bands / bars；hook 须在 early-return 前无条件调用
-    const layout = computeLayout({ width, height, categories, series: visibleSeries, stacked, formatValue });
+    const layout = computeLayout({ width, height, categories, series: shownSeries, stacked, formatValue });
     const displayBars = useBarTransition(layout.bars, layout.zeroY, categories.length, animate);
+
+    // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
+    const activeIndex = active !== null && active.index < categories.length ? active.index : null;
+    const dims = useCategoryDim(activeIndex, categories.length, animate);
 
     if (categories.length === 0 || visibleSeries.length === 0) {
         return (
@@ -200,11 +237,10 @@ function BarChart({
         );
     }
 
+    // 颜色按原始系列下标分配：隐藏系列不引起其余系列换色（颜色跟随系列）
     const colors = visibleSeries.map((s, i) => s.color ?? CATEGORICAL_PALETTE[i]);
     const plotHeight = layout.plotBottom - layout.plotTop;
 
-    // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
-    const activeIndex = active !== null && active.index < categories.length ? active.index : null;
     const activeBand = activeIndex !== null ? layout.bands[activeIndex] : null;
     const focusIndex = Math.min(focusBarIndex, Math.max(0, layout.bars.length - 1));
 
@@ -237,14 +273,31 @@ function BarChart({
     return (
         <div ref={ref} className={cx(rootStyle, className)} style={style}>
             {visibleSeries.length >= 2 && (
-                <div className={legendStyle}>
-                    {visibleSeries.map((s, i) => (
-                        <span key={s.name} className={legendItemStyle}>
-                            {/* 系列色为数据驱动值，无法静态成 css 块，走内联传递 */}
-                            <span className={legendSwatchStyle} style={{ backgroundColor: colors[i] }} />
-                            {s.name}
-                        </span>
-                    ))}
+                <div className={legendStyle} role="group" aria-label="图例">
+                    {visibleSeries.map((s, i) => {
+                        const hidden = hiddenSeries.has(i);
+                        return (
+                            <button
+                                key={s.name}
+                                type="button"
+                                className={cx(legendItemStyle, hidden && legendItemHiddenStyle)}
+                                aria-pressed={!hidden}
+                                onClick={() => setHiddenSeries(prev => {
+                                    const next = new Set(prev);
+                                    if (next.has(i)) next.delete(i);
+                                    else next.add(i);
+                                    return next;
+                                })}
+                            >
+                                {/* 系列色为数据驱动值，无法静态成 css 块，走内联传递 */}
+                                <span
+                                    className={cx(legendSwatchStyle, hidden && legendSwatchHiddenStyle)}
+                                    style={{ backgroundColor: colors[i] }}
+                                />
+                                {s.name}
+                            </button>
+                        );
+                    })}
                 </div>
             )}
 
@@ -333,11 +386,16 @@ function BarChart({
                             />
                         ))}
 
-                        {/* 柱：数据端 4px 圆角、基线端方角（补丁矩形盖住基线侧圆角）；几何经入场 / 更新动画补间 */}
+                        {/*
+                         * 柱：数据端 4px 圆角、基线端方角（补丁矩形盖住基线侧圆角）。
+                         * 几何经入场 / 更新动画补间；非活动类目经 dims 淡化形成聚焦层次。
+                         */}
                         {displayBars.map(bar => {
                             const radius = bar.dataEnd === null
                                 ? 0
                                 : Math.min(CHART_METRICS.barRadius, bar.width / 2, bar.height / 2);
+                            const color = colors[shownIndices[bar.seriesIndex]];
+                            const dim = dims[bar.categoryIndex] ?? 1;
                             return (
                                 <Fragment key={`bar-${bar.categoryIndex}-${bar.seriesIndex}`}>
                                     <Rect
@@ -346,7 +404,8 @@ function BarChart({
                                         width={bar.width}
                                         height={bar.height}
                                         radius={radius}
-                                        fill={colors[bar.seriesIndex]}
+                                        fill={color}
+                                        opacity={dim}
                                         zIndex={3}
                                         cursor={onBarClick ? 'pointer' : undefined}
                                         onMouseEnter={() => hoverCategory(bar.categoryIndex)}
@@ -355,9 +414,9 @@ function BarChart({
                                             pinCategory(bar.categoryIndex);
                                             onBarClick?.({
                                                 categoryIndex: bar.categoryIndex,
-                                                seriesIndex: bar.seriesIndex,
+                                                seriesIndex: shownIndices[bar.seriesIndex],
                                                 category: categories[bar.categoryIndex],
-                                                seriesName: visibleSeries[bar.seriesIndex].name,
+                                                seriesName: visibleSeries[shownIndices[bar.seriesIndex]].name,
                                                 value: bar.value,
                                             });
                                         }}
@@ -368,7 +427,8 @@ function BarChart({
                                             y={bar.dataEnd === 'top' ? bar.y + bar.height - radius : bar.y}
                                             width={bar.width}
                                             height={radius}
-                                            fill={colors[bar.seriesIndex]}
+                                            fill={color}
+                                            opacity={dim}
                                             zIndex={3.1}
                                         />
                                     )}
@@ -396,7 +456,7 @@ function BarChart({
                             tabIndex={k === focusIndex ? 0 : -1}
                             aria-label={
                                 visibleSeries.length > 1
-                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[bar.seriesIndex].name} ${formatValue(bar.value)}`
+                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[shownIndices[bar.seriesIndex]].name} ${formatValue(bar.value)}`
                                     : `${categories[bar.categoryIndex]} ${formatValue(bar.value)}`
                             }
                             onFocus={() => {
@@ -406,9 +466,9 @@ function BarChart({
                             onClick={onBarClick
                                 ? () => onBarClick({
                                     categoryIndex: bar.categoryIndex,
-                                    seriesIndex: bar.seriesIndex,
+                                    seriesIndex: shownIndices[bar.seriesIndex],
                                     category: categories[bar.categoryIndex],
-                                    seriesName: visibleSeries[bar.seriesIndex].name,
+                                    seriesName: visibleSeries[shownIndices[bar.seriesIndex]].name,
                                     value: bar.value,
                                 })
                                 : undefined}
@@ -443,11 +503,14 @@ function BarChart({
                             }}
                     >
                         <div className={tooltipCategoryStyle}>{categories[activeIndex]}</div>
-                        {visibleSeries.map((s, i) => (
-                            <div key={s.name} className={tooltipRowStyle}>
-                                <span className={tooltipKeyStyle} style={{ backgroundColor: colors[i] }} />
-                                <span className={tooltipNameStyle}>{s.name}</span>
-                                <span className={tooltipValueStyle}>{formatValue(s.data[activeIndex] ?? 0)}</span>
+                        {/* 只列当前显示中的系列，与画面所见一致 */}
+                        {shownIndices.map(si => (
+                            <div key={visibleSeries[si].name} className={tooltipRowStyle}>
+                                <span className={tooltipKeyStyle} style={{ backgroundColor: colors[si] }} />
+                                <span className={tooltipNameStyle}>{visibleSeries[si].name}</span>
+                                <span className={tooltipValueStyle}>
+                                    {formatValue(visibleSeries[si].data[activeIndex] ?? 0)}
+                                </span>
                             </div>
                         ))}
                     </div>

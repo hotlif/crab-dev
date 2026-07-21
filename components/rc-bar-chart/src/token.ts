@@ -9,6 +9,10 @@ export const vars = {
     'legend.swatch-size': '--bar-chart-legend-swatch-size',
     'legend.label.color': '--bar-chart-legend-label-color',
     'legend.label.font.size': '--bar-chart-legend-label-font-size',
+    'legend.item.radius': '--bar-chart-legend-item-radius',
+    'legend.item.color-hover': '--bar-chart-legend-item-color-hover',
+    'legend.item.transition': '--bar-chart-legend-item-transition',
+    'legend.item.opacity-hidden': '--bar-chart-legend-item-opacity-hidden',
     'focus.ring': '--bar-chart-focus-ring',
     'tooltip.background': '--bar-chart-tooltip-background',
     'tooltip.radius': '--bar-chart-tooltip-radius',
@@ -34,6 +38,12 @@ const token = {
             'font': {
                 'size': `var(${vars['legend.label.font.size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`
             }
+        },
+        'item': {
+            'radius': `var(${vars['legend.item.radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
+            'color-hover': `var(${vars['legend.item.color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+            'transition': `var(${vars['legend.item.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
+            'opacity-hidden': `var(${vars['legend.item.opacity-hidden']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`
         }
     },
     'focus': {
