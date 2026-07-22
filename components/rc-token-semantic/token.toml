@@ -122,11 +122,15 @@ shadow.focus-ring = "0 0 0 3px oklch(0.140 0.004 286 / 0.25)"
 
 
 # ─── 层级 · 语义 ────────────────────────────────────────────────────────────
-# 按堆叠意图命名，组件到层级的绑定由 Layer 3 完成
+# 按堆叠意图命名，组件到层级的绑定由 Layer 3 完成。
+# 层级故事（自下而上）：内容(base) < 页面内吸顶(sticky) < portal 浮层(float)
+# < 遮罩(mask) < 阻塞窗体(block) < 提示气泡(elevated) < 警报(alert) < 兜底(top)。
+# sticky 必须低于 float：本库浮层一律 portal + fixed，吸顶元素不得盖住浮层。
+# （dialog / drawer / message / notification 走原生 top-layer，不消费此刻度。）
 
 z-index.base     = "$ref(z-index.1)"
-z-index.float    = "$ref(z-index.10)"
-z-index.sticky   = "$ref(z-index.20)"
+z-index.sticky   = "$ref(z-index.10)"
+z-index.float    = "$ref(z-index.20)"
 z-index.mask     = "$ref(z-index.30)"
 z-index.block    = "$ref(z-index.40)"
 z-index.elevated = "$ref(z-index.50)"

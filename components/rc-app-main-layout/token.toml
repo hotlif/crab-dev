@@ -92,7 +92,8 @@ tab.context-menu.background.color = "$ref(color.background.elevated)"
 tab.context-menu.border.color = "$ref(color.border.default)"
 tab.context-menu.border.radius = "10px"
 tab.context-menu.shadow = "0 8px 24px oklch(0 0 0 / 0.12), 0 2px 6px oklch(0 0 0 / 0.06)"
-tab.context-menu.z-index = "$ref(z-index.elevated)"
+# 右键菜单属 portal 浮层，与库内下拉 / 树右键菜单同档（float），tooltip(elevated) 仍在其上
+tab.context-menu.z-index = "$ref(z-index.float)"
 
 tab.context-menu.item.height = "32px"
 tab.context-menu.item.padding = "0 12px"

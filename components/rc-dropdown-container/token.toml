@@ -7,3 +7,4 @@ imports = ["@crab-dev/rc-token-semantic"]
 box-shadow = "$ref(shadow.overlay)"
 border-radius = "8px"
 background-color = "#fff"
+z-index = "$ref(z-index.float)"

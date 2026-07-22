@@ -263,7 +263,7 @@ const token = {
                 'radius': `var(${vars['tab.context-menu.border.radius']}, 10px)`
             },
             'shadow': `var(${vars['tab.context-menu.shadow']}, 0 8px 24px oklch(0 0 0 / 0.12), 0 2px 6px oklch(0 0 0 / 0.06))`,
-            'z-index': `var(${vars['tab.context-menu.z-index']}, var(--token-semantic-z-index-elevated, var(--token-global-z-index-50, 1400)))`,
+            'z-index': `var(${vars['tab.context-menu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`,
             'item': {
                 'height': `var(${vars['tab.context-menu.item.height']}, 32px)`,
                 'padding': `var(${vars['tab.context-menu.item.padding']}, 0 12px)`,

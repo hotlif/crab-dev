@@ -62,7 +62,7 @@ const token = {
         'blur': `var(${vars['content.blur']}, 1px)`
     },
     'overlay': {
-        'z-index': `var(${vars['overlay.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`
+        'z-index': `var(${vars['overlay.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`
     }
 };
 

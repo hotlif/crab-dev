@@ -30,3 +30,5 @@ node.drag.inside.border.color = "$ref(color.feedback.info)"
 
 node.disabled.color = "$ref(color.text.disabled)"
 node.disabled.background.color = "transparent"
+
+context-menu.z-index = "$ref(z-index.float)"

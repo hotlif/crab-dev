@@ -142,7 +142,7 @@ const token = {
             'padding': `var(${vars['vertical.submenu.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'border-radius': `var(${vars['vertical.submenu.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
             'min-width': `var(${vars['vertical.submenu.min-width']}, 10rem)`,
-            'z-index': `var(${vars['vertical.submenu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`,
+            'z-index': `var(${vars['vertical.submenu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`,
             'offset': `var(${vars['vertical.submenu.offset']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
         'tooltip': {
@@ -152,7 +152,7 @@ const token = {
             'padding-block': `var(${vars['vertical.tooltip.padding-block']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'border-radius': `var(${vars['vertical.tooltip.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
             'font-size': `var(${vars['vertical.tooltip.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`,
-            'z-index': `var(${vars['vertical.tooltip.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`
+            'z-index': `var(${vars['vertical.tooltip.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`
         }
     },
     'horizontal': {
@@ -177,7 +177,7 @@ const token = {
             'padding': `var(${vars['horizontal.submenu.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'line-height': `var(${vars['horizontal.submenu.line-height']}, 2.5rem)`,
             'border-radius': `var(${vars['horizontal.submenu.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
-            'z-index': `var(${vars['horizontal.submenu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-10, 1000)))`
+            'z-index': `var(${vars['horizontal.submenu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`
         },
         'group-item': {
             'indent-base': `var(${vars['horizontal.group-item.indent-base']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,

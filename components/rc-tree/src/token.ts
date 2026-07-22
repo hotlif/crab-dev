@@ -20,7 +20,8 @@ export const vars = {
     'node.drag.inside.background.color': '--tree-node-drag-inside-background-color',
     'node.drag.inside.border.color': '--tree-node-drag-inside-border-color',
     'node.disabled.color': '--tree-node-disabled-color',
-    'node.disabled.background.color': '--tree-node-disabled-background-color'
+    'node.disabled.background.color': '--tree-node-disabled-background-color',
+    'context-menu.z-index': '--tree-context-menu-z-index'
 };
 
 const token = {
@@ -91,6 +92,9 @@ const token = {
                 'color': `var(${vars['node.disabled.background.color']}, transparent)`
             }
         }
+    },
+    'context-menu': {
+        'z-index': `var(${vars['context-menu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`
     }
 };
 

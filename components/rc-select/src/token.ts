@@ -49,8 +49,7 @@ export const vars = {
     'dropdown.offset': '--select-dropdown-offset',
     'dropdown.max-height': '--select-dropdown-max-height',
     'dropdown.padding': '--select-dropdown-padding',
-    'dropdown.option.padding': '--select-dropdown-option-padding',
-    'dropdown.z-index': '--select-dropdown-z-index'
+    'dropdown.option.padding': '--select-dropdown-option-padding'
 };
 
 const token = {
@@ -135,8 +134,7 @@ const token = {
         'padding': `var(${vars['dropdown.padding']}, 4px)`,
         'option': {
             'padding': `var(${vars['dropdown.option.padding']}, 8px)`
-        },
-        'z-index': `var(${vars['dropdown.z-index']}, 1000)`
+        }
     }
 };
 

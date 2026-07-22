@@ -40,7 +40,7 @@ const containerStyle = css`
 `;
 
 const floatingContainerStyle = css`
-    z-index: 1000;
+    z-index: ${token['z-index']};
     margin: 0;
     border: unset;
     border-radius: ${token['border-radius']};

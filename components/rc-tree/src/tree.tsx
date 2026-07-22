@@ -30,6 +30,7 @@ import {
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual from "@crab-dev/rc-virtual";
 import { useKeyDown } from "@crab-dev/rc-hooks";
+import token from "./token.js";
 import { LoadStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import NodeItem, { type NodeItemProps } from "./nodeItem.js";
 import { belongsToNode, getDescendantIds, getHalfCheckedKeys, getLoadReadyTreeNodeData, loadDataFunc } from "./util.js";
@@ -770,7 +771,7 @@ const Tree: FC<TreeProps> = ({
 
                     <div
                         className={css`
-                            z-index: 600;
+                            z-index: ${token['context-menu']['z-index']};
                             position: absolute;
                             box-shadow: 0 6px 10px rgba(0,0,0,0.035), 0 6px 16px rgba(0,0,0,0.045);
                         `}
