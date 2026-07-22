@@ -241,6 +241,8 @@ function BarChartInner({
         width,
         height,
         ready: widthReady,
+        // 堆叠表达整体构成，入场全类目同步生长；逐类目涌现（错峰）只留给分组 / 单系列
+        staggered: !stacked,
     });
 
     // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined

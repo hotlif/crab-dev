@@ -13,6 +13,10 @@
  * 补间与错峰只响应数据形态变化（数值更新 / 系列显隐）；画布 width / height
  * 变化视为容器 resize，直接同步终态——尺寸跟随不是数据变化，若走补间会让
  * 画面呈现自左向右的波浪式重排（错峰）与追赶容器的橡皮筋迟滞。
+ *
+ * 类目错峰只用于分组 / 单系列（`staggered`，涌现次序呼应「类目间对比」的语义）；
+ * 堆叠表达的是整体的构成结构，逐类目涌现会呈现为整面「自左向右扫动」，与语义
+ * 冲突，因此堆叠模式关闭错峰、全类目同步生长。
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -20,7 +24,7 @@ import type { BarRect, ChartOrientation } from '../layout.js';
 
 /** 入场 / 更新的基准时长（ms） */
 const DURATION = 600;
-/** 每类目错峰延迟（ms），形成自左向右的涌现 */
+/** 每类目错峰延迟（ms），形成自左向右的涌现（仅 staggered 模式，堆叠不错峰） */
 const STAGGER = 50;
 /** 错峰总量上限（ms）：类目多时压缩每档延迟，避免整体过长 */
 const MAX_TOTAL_STAGGER = 300;
@@ -115,13 +119,15 @@ export interface BarTransitionOptions {
     height: number;
     /** width="auto" 首测完成前为 false：入场待命，测定后再从真实布局的基线生长 */
     ready?: boolean;
+    /** 是否按类目错峰（自左向右涌现），默认 true；堆叠模式应传 false 同步生长 */
+    staggered?: boolean;
 }
 
 /**
  * 返回当前帧应渲染的柱几何。`animate` 关闭或系统偏好「减弱动态」时直接返回终态。
  */
 export function useBarTransition(bars: BarRect[], options: BarTransitionOptions): BarRect[] {
-    const { zeroPos, orientation, categoryCount, animate, width, height, ready = true } = options;
+    const { zeroPos, orientation, categoryCount, animate, width, height, ready = true, staggered = true } = options;
 
     // 首帧即为基线态，避免「先闪终态再回落」；reduce / 关闭动画时直接终态
     const [display, setDisplay] = useState<BarRect[]>(() =>
@@ -169,7 +175,7 @@ export function useBarTransition(bars: BarRect[], options: BarTransitionOptions)
             }
         }
 
-        const stagger = staggerStep(categoryCount);
+        const stagger = staggered ? staggerStep(categoryCount) : 0;
         const span = totalSpan(categoryCount, stagger);
         const start = performance.now();
 
@@ -187,10 +193,16 @@ export function useBarTransition(bars: BarRect[], options: BarTransitionOptions)
             rafRef.current = requestAnimationFrame(tick);
         };
         rafRef.current = requestAnimationFrame(tick);
-    }, [bars, zeroPos, orientation, categoryCount, animate, width, height, ready]);
+    }, [bars, zeroPos, orientation, categoryCount, animate, width, height, ready, staggered]);
 
-    // 卸载时停止动画
-    useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+    // 卸载时停止动画，并重置签名与尺寸记录：重挂载（StrictMode 双调用 / HMR）即视作
+    // 全新入场。否则签名去重会拦下重挂后的 effect，而 rAF 已在卸载时取消——
+    // 动画永不启动，画面停留在基线零厚（空白），直到下一次数据变化
+    useEffect(() => () => {
+        cancelAnimationFrame(rafRef.current);
+        sigRef.current = '';
+        sizeRef.current = null;
+    }, []);
 
     return display;
 }

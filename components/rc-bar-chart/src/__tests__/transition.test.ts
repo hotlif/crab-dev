@@ -1,4 +1,5 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
+import { StrictMode } from 'react';
 import { renderHook, cleanup, act } from '@testing-library/react';
 import {
     easeOutCubic,
@@ -205,6 +206,44 @@ describe('useBarTransition（resize 即时同步与 ready 门控）', () => {
         act(() => runFrame());
         // 从 900 布局的基线生长（x=90），而非从 600 布局的 x=60 滑移过去
         expect(result.current[0].x).toBe(90);
+        expect(result.current[0].height).toBeLessThan(160);
+    });
+
+    /** 两个错峰档位相距最远的类目（0 与 3），categoryCount=4 */
+    const spreadBars: BarRect[] = [
+        bar({ categoryIndex: 0, x: 10, y: 40, height: 160 }),
+        bar({ categoryIndex: 3, x: 90, y: 40, height: 160 }),
+    ];
+
+    it('staggered 缺省（分组）：同一时刻靠后类目生长落后（自左向右涌现）', () => {
+        const nowSpy = jest.spyOn(performance, 'now').mockReturnValue(1000);
+        const { result } = renderHook(() =>
+            useBarTransition(spreadBars, opts(600, { categoryCount: 4 })));
+        nowSpy.mockReturnValue(1300); // elapsed=300ms，类目 3 错峰 150ms 后仅走了 150ms
+        act(() => runFrame());
+        expect(result.current[1].height).toBeLessThan(result.current[0].height);
+    });
+
+    it('staggered=false（堆叠）：全类目同帧同步生长，无错峰', () => {
+        const nowSpy = jest.spyOn(performance, 'now').mockReturnValue(1000);
+        const { result } = renderHook(() =>
+            useBarTransition(spreadBars, opts(600, { categoryCount: 4, staggered: false })));
+        nowSpy.mockReturnValue(1300);
+        act(() => runFrame());
+        expect(result.current[0].height).toBeGreaterThan(0);
+        expect(result.current[1].height).toBeCloseTo(result.current[0].height);
+    });
+
+    it('StrictMode 双挂载：重挂载视作全新入场，动画正常启动而非停留基线空白', () => {
+        const nowSpy = jest.spyOn(performance, 'now').mockReturnValue(1000);
+        const { result } = renderHook(() => useBarTransition(barsAt(600), opts(600)), {
+            wrapper: StrictMode,
+        });
+        // 第一次挂载排的 rAF 已被模拟卸载取消；重挂载后必须重新排帧
+        expect(rafCallbacks.size).toBeGreaterThan(0);
+        nowSpy.mockReturnValue(1300);
+        act(() => runFrame());
+        expect(result.current[0].height).toBeGreaterThan(0);
         expect(result.current[0].height).toBeLessThan(160);
     });
 });
