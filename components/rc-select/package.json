@@ -7,7 +7,7 @@
   "description": "下拉选择器，支持单选、多选和搜索",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",

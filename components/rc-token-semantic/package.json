@@ -7,7 +7,7 @@
   "description": "一个全局的 token 管理组件",
   "packageManager": "yarn@4.16.0",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/hotlif/crab-dev.git",
