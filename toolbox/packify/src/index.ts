@@ -42,6 +42,19 @@ const getPackagePrefix = (): string => {
     }
 };
 
+/**
+ * terser 注释保留策略：默认的 "some" 只留法律注释（`!` 起头、@license、@preserve），
+ * 会把 webpack 魔法注释（webpackIgnore / webpackChunkName 等）一并剥掉——库产物一旦
+ * 丢失它们，消费方 webpack 对动态 import() 的处理语义即失效（变量表达式被编成空
+ * ContextModule，运行时必败）。此处在 "some" 语义上追加保留 webpack 魔法注释；
+ * 其判定正则与 webpack 的 webpackCommentRegExp 一致。
+ */
+const terserComments = (_node: unknown, comment: { value: string }): boolean =>
+    /(^|\W)webpack[A-Z][A-Za-z]+:/.test(comment.value) ||
+    /@license|@preserve|^!/i.test(comment.value);
+
+const terserOptions = { format: { comments: terserComments } };
+
 const commonBabelConfig = {
     presets: [
         [require.resolve("@babel/preset-env"), {
@@ -129,7 +142,7 @@ export const build = async () => {
         chunkFileNames: '[name].mjs',
         plugins: [
             // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
-            terser()
+            terser(terserOptions)
         ]
     });
 
@@ -143,7 +156,7 @@ export const build = async () => {
         chunkFileNames: '[name].cjs',
         plugins: [
             // @ts-expect-error rollup plugin exports namespace, not callable in NodeNext resolution
-            terser()
+            terser(terserOptions)
         ]
     });
 
