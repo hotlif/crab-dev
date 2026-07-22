@@ -1,0 +1,15 @@
+# rc-realm 组件令牌：Realm 是视觉中性的透明容器, 外观归远程内容, 只保留真实被消费的键
+
+[build]
+output = "./src/token.ts"
+prefix = "realm"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+# loading 占位下限：防 Spin 包裹遮罩塌陷成 0 高、防内容就绪时布局跳动
+placeholder.min-block-size = "80px"
+
+# 远程内容就绪淡入（fade：normal 时长 + 默认缓动）, prefers-reduced-motion 下移除
+motion.appear = "$ref(motion.fade)"
