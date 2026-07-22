@@ -27,9 +27,6 @@
     "css",
     "declarations"
   ],
-  "types": "declarations/index.d.ts",
-  "main": "cjs/index.cjs",
-  "module": "esm/index.mjs",
   "exports": {
     ".": {
       "types": "./declarations/index.d.ts",
