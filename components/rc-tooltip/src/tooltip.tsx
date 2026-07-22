@@ -1,4 +1,4 @@
-import { type ReactElement, type Ref, cloneElement, useRef } from 'react';
+import { type ReactElement, type Ref, cloneElement, useRef, useState } from 'react';
 import { useControllableOpen } from '@crab-dev/rc-hooks';
 import { css, cx } from '@linaria/core';
 import {
@@ -110,8 +110,24 @@ function Tooltip({
 
     const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, dismiss, role]);
 
+    // 触发元素位于原生 <dialog>（showModal）内时，浮层必须挂载进该 dialog 子树：
+    // modal dialog 位于 top-layer 且使外部文档 inert，挂在 body 下的 tooltip 会被
+    // dialog 完全遮挡而不可见。语义与 rc-dropdown-container 的 portalRoot 一致：
+    // null = 尚未探测（浮层不渲染），undefined = 不在 dialog 内，挂默认 body。
+    const [portalRoot, setPortalRoot] = useState<HTMLElement | null | undefined>(null);
+
     const childRef = (children as ReactElement & { props?: { ref?: Ref<unknown> } }).props?.ref;
-    const mergedRef = useMergeRefs([refs.setReference, childRef]);
+    const mergedRef = useMergeRefs([
+        refs.setReference,
+        childRef,
+        (node: Element | null) => {
+            if (node) {
+                const dialog = node.closest('dialog') ?? undefined;
+                // 同值复用，避免 ref 回调重复触发时产生多余渲染
+                setPortalRoot((prev) => (prev === dialog ? prev : dialog));
+            }
+        },
+    ]);
 
     const side = resolvedPlacement.split('-')[0] as string;
     const arrowData = middlewareData.arrow;
@@ -129,7 +145,7 @@ function Tooltip({
                 children,
                 getReferenceProps({ ref: mergedRef, ...(children.props as Record<string, unknown>) }),
             )}
-            <FloatingPortal>
+            <FloatingPortal root={portalRoot}>
                 <AnimatePresence>
                     {isOpen && title != null && title !== '' && (
                         <div

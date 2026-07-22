@@ -198,4 +198,39 @@ describe('Tooltip', () => {
         expect(screen.getByTestId('rich-title')).toBeTruthy();
         expect(screen.getByText('富文本提示')).toBeTruthy();
     });
+
+    // ─── dialog 内挂载 ─────────────────────────────────────────────────────
+
+    it('portals tooltip into the enclosing dialog to escape modal top-layer', () => {
+        // 模拟在原生 modal <dialog> 中使用 tooltip 的场景：
+        // 浮层必须位于 dialog 子树内，否则会被 top-layer 的 dialog 遮挡且受 inert 屏蔽
+        const { container } = render(
+            <dialog open>
+                <Tooltip title="对话框内提示" mouseEnterDelay={0}>
+                    <button>触发</button>
+                </Tooltip>
+            </dialog>,
+        );
+        act(() => {
+            fireEvent.focus(screen.getByRole('button'));
+        });
+
+        const tooltip = screen.getByRole('tooltip');
+        const dialog = container.querySelector('dialog') as HTMLDialogElement;
+        expect(dialog.contains(tooltip)).toBe(true);
+    });
+
+    it('does not portal into a dialog when trigger is outside of one', () => {
+        render(
+            <Tooltip title="普通提示" mouseEnterDelay={0}>
+                <button>触发</button>
+            </Tooltip>,
+        );
+        act(() => {
+            fireEvent.focus(screen.getByRole('button'));
+        });
+
+        const tooltip = screen.getByRole('tooltip');
+        expect(tooltip.closest('dialog')).toBeNull();
+    });
 });
