@@ -1,0 +1,50 @@
+[build]
+output = "./src/token.ts"
+prefix = "text-edit"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+transition = "$ref(motion.fade)"
+border.radius = "$ref(radius.md)"
+border.width = "1px"
+border.style = "solid"
+border.color = "$ref(color.border.default)"
+border.color-hover = "$ref(color.border.hover)"
+border.color-focus = "$ref(color.border.focus)"
+box-shadow.default = "none"
+box-shadow.focus-within = "$ref(shadow.focus-ring)"
+background.color = "$ref(color.background.surface)"
+text.color = "$ref(color.text.primary)"
+placeholder.color = "$ref(color.text.secondary)"
+icon.color = "$ref(color.text.secondary)"
+icon.gap = "$ref(space.component-gap)"
+
+# 清除按钮定位：与容器内边距对齐，使其落在首行文本的行内高度上
+clear.inset-block-start = "$ref(space.inline-gap)"
+clear.inset-inline-end = "$ref(space.control-padding-x)"
+
+# 验证状态令牌（反馈原理：通过边框颜色和焦点光环给用户清晰的表单验证反馈）
+status.error.border.color = "$ref(color.border.error)"
+status.error.box-shadow.focus-within = "0 0 0 3px oklch(0.637 0.237 24 / 0.25)"
+status.warning.border.color = "$ref(color.feedback.warning)"
+status.warning.box-shadow.focus-within = "0 0 0 3px oklch(0.769 0.188 75 / 0.25)"
+
+# 字符计数令牌（认知负荷减轻：让用户不必推算剩余字数）
+count.color = "$ref(color.text.tertiary)"
+count.font-size = "$ref(font.size.caption)"
+
+# 多行输入的高度由 rows / autoSize 决定，尺寸令牌只控制内边距与排版
+size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.large.font.size = "$ref(font.size.subhead)"
+size.large.line-height = "1.5rem"
+
+size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.middle.font.size = "$ref(font.size.body)"
+size.middle.line-height = "1.25rem"
+
+size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.small.font.size = "$ref(font.size.body)"
+size.small.line-height = "1.25rem"
