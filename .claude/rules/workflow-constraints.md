@@ -1,6 +1,6 @@
-# 工作流约束（命令 / 验收 / 提交）
+# 工作流约束（命令 / 验收 / 提交 / 发布）
 
-> 本文件规定**常用命令、交付验收（Definition of Done）与提交规范**。措辞遵循 RFC 2119：
+> 本文件规定**常用命令、交付验收（Definition of Done）、提交规范与版本发布**。措辞遵循 RFC 2119：
 > **必须 / 不得 (MUST / MUST NOT)**、**应 / 不应 (SHOULD / SHOULD NOT)**、**可 (MAY)**。
 >
 > **范围声明**：终端选择见 [`platform-scripts-constraints.md`](./platform-scripts-constraints.md)；
@@ -15,12 +15,13 @@
 | 命令 | 语义 |
 |------|------|
 | `yarn build:library` | 先构建 packify，再经 Turbo 拓扑构建全部库产物 |
-| `yarn test` / `yarn lint` / `yarn typecheck` | Turbo 并行运行全部测试 / ESLint / 类型检查 |
+| `yarn test` / `yarn lint` / `yarn typecheck` | Turbo 并行运行全部测试 / ESLint / 类型检查（`lint` 映射各包的 `eslint` 脚本） |
 | `yarn generate:token` | 为全部用令牌的包重新生成 `src/token.ts` |
 | `yarn docs:dev` / `yarn docs:build` | 文档站开发 / 生产构建 |
 
 **单包（在 `components/rc-*` 内）：** `yarn start`（开发服务器）、`build:library`、`eslint`、
-`typecheck`、`generate:token`（从 `token.toml` 生成 `src/token.ts`）、`test`。
+`typecheck`、`generate:token`（从 `token.toml` 生成 `src/token.ts`）、`generate:docgen`
+（刷新 `public/docgen.json`）、`test`、`check`（eslint + prettier 检查 + test 一键跑）。
 
 - 测试为 ESM 模式：`yarn test`；跑单个：`yarn test -- src/__tests__/x.test.tsx`
   或 `yarn test -- -t "用例名"`；
@@ -48,8 +49,20 @@
 ## §3 提交规范
 
 - commit 消息**必须**使用**英文**书写（含 subject 与 body）；
-- **必须**遵循 Conventional Commits：`<type>(<scope>): <subject>`；
+- **必须**遵循 Conventional Commits：`<type>(<scope>): <subject>`（由 husky +
+  commitlint 在提交时强制校验，不合规直接拒绝提交）；
 - scope **应**用组件名 / 工具名（如 `feat(rc-table): ...`、`build(packify): ...`），
   跨工作区基础设施用 `repo` / `ci`；
 - 一个 commit **应**只做一件事；生成文件**仅**在与其触发变更同一次 commit 中提交；
 - **不得**在提交信息中添加 `Co-Authored-By` 行。
+
+---
+
+## §4 版本与发布
+
+- 发布**必须**由 CI（`release.yml`，`changesets/action` + `yarn changeset:release`）驱动，
+  **不得**在本地手工 `npm publish`；
+- 版本推进采用**手动 bump**：改动包 `package.json` 的 `version` 字段，并以独立
+  `chore({pkg}): bump version to x.y.z` 提交（多包同时 bump 用 `chore(repo): ...`，
+  见 git 历史 `0ba494b` / `a89f3cf`）；
+- bump **应**与功能改动分开提交，且仅在功能已验收后进行。

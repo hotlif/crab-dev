@@ -16,7 +16,8 @@
 **运行环境（硬性）：**
 
 - Node.js **必须 ≥ 22**；
-- 包管理器**必须**为 **Yarn 4.13.0**，经 Corepack 启用，采用 **Plug'n'Play (PnP)** 模式；
+- 包管理器**必须**为 **Yarn 4**（版本以根 `package.json` 的 `packageManager` 字段为准，
+  当前 `yarn@4.16.0`），经 Corepack 启用，采用 **Plug'n'Play (PnP)** 模式；
 - 全仓 ESM：每个 `package.json` **必须**声明 `"type": "module"`。
 
 **四个工作区，职责互不重叠：**
@@ -54,7 +55,8 @@
 - 相对导入**必须**带显式扩展名：引用 `.tsx` / `.ts` 源文件一律写 **`.js`**；
 - npm 包导入**不得**带扩展名；
 - 以上由 ESLint `import/extensions` 强制；
-- 路径别名：`@/` → `src/`，`@@/` → 仓库根。
+- 路径别名（由 `standards-typescript-preset` 的 `paths` 提供）：`@/` → 包内 `src/`，
+  `@@/` → 包根；组件源码**应**优先用相对导入，别名仅用于深层目录中避免 `../../..` 链。
 
 ```typescript
 import Button from './button.js';                 // ✅ 相对导入带 .js（实为 .tsx）
@@ -303,3 +305,7 @@ import Button from '@crab-dev/rc-button';
 - ESLint：`import { Browser } from "@crab-dev/standards-eslint-preset"; export default [...Browser.react];`
 - TypeScript：`"extends": "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json"`
 - Jest：`import { browser } from "@crab-dev/standards-jest-preset"; export default browser;`
+
+「不得重写」指**不得覆盖预设已有选项**；按构建需要**增补**预设未涉及的字段是允许的
+（如组件包 tsconfig 增补 `"declaration": true, "declarationDir": "esm"` 以产出声明文件，
+真实案例见 `components/rc-cron-picker/tsconfig.json`）。
