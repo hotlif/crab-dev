@@ -1,0 +1,42 @@
++++
+title = "Empty 空状态"
+description = "空状态组件，用于展示无数据、搜索无结果、无权限等场景"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-empty.js";
+
+# Empty 空状态
+
+空状态用于展示页面或区域中没有内容时的占位界面。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 设计理念
+
+基于设计心理学，Empty 组件的核心目标是**将「终点」转变为「起点」**：
+
+- **减轻认知焦虑**：清晰说明"为什么是空的"，消除用户的不确定感
+- **情境匹配**：不同场景（无数据 / 搜索无结果 / 无权限）配套专属图示与文案，情感基调各异
+- **行动引导**：通过 `action` 插槽提供下一步操作路径，将空状态变为引导入口
+- **格式塔接近性**：图像 → 标题 → 描述 → 操作，间距递进表达层次关系
+
+## 何时使用
+
+- 列表、表格、搜索结果为空时
+- 用户没有相应权限时
+- 页面或模块首次使用，尚无内容时
+
+
+
+
+## API
+
+<ComponentApi api={api} />

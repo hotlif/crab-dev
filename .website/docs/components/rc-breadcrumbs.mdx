@@ -1,0 +1,38 @@
++++
+title = "Breadcrumbs 面包屑导航"
+description = "面包屑导航，用于展示当前页面在层级结构中的位置"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-breadcrumbs.js";
+
+# Breadcrumbs
+
+面包屑导航，用于展示用户当前位置以及返回上级路径。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 何时使用
+
+- 页面存在明确层级关系，需要展示当前位置。
+- 需要在深层页面中提供快速返回上层路径的入口。
+
+## 功能特性
+
+- 支持通过 `items` 配置导航层级。
+- 支持 `separator` 自定义分隔符。
+- 支持 `maxCount` 折叠中间层级，避免路径过长。
+- 支持每一项配置 `href`、`onClick`、`disabled`。
+
+
+
+## API
+
+<ComponentApi api={api} />

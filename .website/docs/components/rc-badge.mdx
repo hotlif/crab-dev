@@ -1,0 +1,42 @@
++++
+title = "Badge 徽标数"
+description = "徽标数，用于展示计数、状态与提醒"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-badge.js";
+
+# Badge
+
+徽标数，在按钮、图标、头像等元素的角落展示提醒计数或状态。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 何时使用
+
+- 在导航项、头像或图标上展示未读计数。
+- 用独立的圆点（`dot`）表达"有更新"但不强调具体数字。
+- 以"状态点 + 文字"的形式展示运行、成功、告警等状态。
+
+
+## 功能特性
+
+- 支持 `count` 数字与 `overflowCount` 溢出显示（默认 `99+`）。
+- 支持 `dot` 小圆点模式，适合表达"是否有更新"。
+- 支持 `status`（`default` / `processing` / `success` / `warning` / `error`）与 `text` 组合的状态模式；其中 `processing` 带脉冲动画，并自动尊重 `prefers-reduced-motion`。
+- 支持预设语义颜色与任意 CSS 颜色字符串。
+- 包裹子节点时角标自动定位到右上角，支持 `offset` 微调。
+- `showZero` 控制 `count = 0` 时是否显示。
+
+
+
+## API
+
+<ComponentApi api={api} />
