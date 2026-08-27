@@ -2,43 +2,37 @@
     "name": "@crab-dev/website",
     "private": true,
     "version": "0.0.1",
-    "description": "crab-dev 官方组件库文档站，基于 Crustify。",
-    "packageManager": "yarn@4.16.0",
+    "description": "crab-dev 官方 Wake Docs 组件文档站。",
+    "packageManager": "yarn@4.18.0",
     "type": "module",
     "scripts": {
-        "start": "crustify run-task app:dev",
-        "build": "crustify run-task app:build",
-        "eslint": "eslint",
-        "typecheck": "tsc --noEmit"
+        "start": "yarn generate:docs && wake docs dev .",
+        "build": "yarn generate:docs && wake docs build . --outdir docs-dist",
+        "generate:docs": "node scripts/generate-component-docs.mjs",
+        "check:docs": "node scripts/generate-component-docs.mjs --check",
+        "eslint": "eslint docs scripts",
+        "typecheck": "tsc --noEmit",
+        "test": "yarn check:docs && wake test --serial"
     },
     "devDependencies": {
-        "@crab-dev/crustify": "workspace:^",
+        "@crab-dev/css": "0.1.23",
         "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/rc-prose": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@linaria/core": "^8.0.0",
-        "@mdx-js/react": "^3.1.1",
+        "@crab-dev/wake": "0.1.23",
         "@types/node": "^26.1.0",
         "@types/react": "^19.2.17",
         "@types/react-dom": "^19.2.3",
         "eslint": "^10.6.0",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^17.7.0",
-        "react": "^19.2.7",
-        "react-dom": "^19.2.7",
-        "react-markdown": "^10.1.0",
-        "react-router": "^8.1.0",
-        "react-syntax-highlighter": "^16.1.1",
-        "remark-gfm": "^4.0.1",
-        "typescript": "^6.0.3"
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.63.0"
     },
     "engines": {
         "node": ">=22"
-    },
-    "dependencies": {
-        "rehype-raw": "^7.0.0"
     }
 }
