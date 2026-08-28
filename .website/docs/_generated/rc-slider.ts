@@ -13,7 +13,9 @@ export const demos = [
         "sourceCode": "\nexport const meta = {\n    title: \"滑块基础用法\",\n    description: \"这是一个滑块的基础示例\",\n};\n\nimport { useState } from \"react\";\nimport Slider from \"../../src/slider.js\";\nimport { css } from \"@crab-dev/css\";\n\nconst BaseDemo = () => {\n    const [value, setValue] = useState(20);\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                align-items: center;\n                gap: 8px;\n            `}\n            style={{ width: 150 }}\n        >\n            \u003cSlider\n                min={0}\n                max={360}\n                step={1}\n                value={value}\n                onValueChange={setValue}\n            />\n\n            \u003cdiv\n                className={css`\n                    margin-top: 1rem;\n                `}\n            >\n                \u003clabel>Value:\u003c/label>\n                \u003cinput\n                    type=\"number\"\n                    value={value}\n                    onChange={(e) => {\n                        setValue(e.currentTarget.valueAsNumber)\n                    }}\n                />\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default BaseDemo;\n",
         "previewPath": "/components/rc-slider/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
         "workbenchPath": "/components/rc-slider/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
-        "density": "compact"
+        "density": "compact",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
 
