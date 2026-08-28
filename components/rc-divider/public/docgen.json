@@ -1,0 +1,1 @@
+{"./src/index.ts":[{"description":"对外收窄为可辨识联合：竖线不可嵌文字、带文字的线不可声明 decorative, 非法组合在编译期即拼不出来（见 types.ts）。 实现侧保持扁平签名, 是为了让 Wake docgen 能提取出完整的 API 属性表—— 顶层联合会让文档站的说明与类型整列丢空。","methods":[],"displayName":"Divider","props":{},"composes":["DividerLineProps | DividerWithTextProps | DividerVerticalProps"]}]}
