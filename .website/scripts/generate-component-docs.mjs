@@ -26,13 +26,228 @@ const compactComponents = new Set([
     "rc-tooltip",
 ]);
 
+const gridLayoutComponents = new Set([
+    "rc-alert",
+    "rc-avatar",
+    "rc-badge",
+    "rc-button",
+    "rc-card",
+    "rc-checkbox",
+    "rc-divider",
+    "rc-empty",
+    "rc-line-edit",
+    "rc-number-edit",
+    "rc-radio",
+    "rc-select",
+    "rc-skeleton",
+    "rc-slider",
+    "rc-spin",
+    "rc-switch",
+    "rc-tag",
+    "rc-text-edit",
+    "rc-tooltip",
+]);
+
 const spaciousComponents = new Set([
     "rc-app-main-layout",
     "rc-masonry",
     "rc-prose",
-    "rc-table",
     "rc-tree",
     "rc-virtual",
+]);
+
+const demoGroupDefinitions = new Map([
+    ["rc-button", [
+        ["基础与外观", [
+            "appearance.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "icon.demo.tsx",
+            "icon-after.demo.tsx",
+            "link-button.demo.tsx",
+            "size.demo.tsx",
+        ]],
+        ["状态与反馈", [
+            "disabled.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+        ]],
+        ["组合", ["button-group.demo.tsx"]],
+    ]],
+    ["rc-canvas", [
+        ["基础图形", [
+            "basic.demo.tsx",
+            "line.demo.tsx",
+            "rounded.demo.tsx",
+            "opacity.demo.tsx",
+            "text.demo.tsx",
+            "text-advanced.demo.tsx",
+            "group.demo.tsx",
+        ]],
+        ["交互与变换", [
+            "draggable.demo.tsx",
+            "hover.demo.tsx",
+            "transformer.demo.tsx",
+        ]],
+        ["场景与性能", [
+            "animation.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "minimap.demo.tsx",
+        ]],
+    ]],
+    ["rc-card", [
+        ["基础与布局", [
+            "basic.demo.tsx",
+            "composition.demo.tsx",
+            "cover.demo.tsx",
+            "size.demo.tsx",
+            "variant.demo.tsx",
+        ]],
+        ["交互与状态", [
+            "clickable.demo.tsx",
+            "loading.demo.tsx",
+        ]],
+    ]],
+    ["rc-date-picker", [
+        ["日期选择", [
+            "datePicker.demo.tsx",
+            "datePickerRange.demo.tsx",
+            "datePickerPanel.demo.tsx",
+        ]],
+        ["日期时间", [
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+        ]],
+        ["时间选择", [
+            "timePicker.demo.tsx",
+            "timePickerPanel.demo.tsx",
+        ]],
+    ]],
+    ["rc-line-edit", [
+        ["基础与尺寸", [
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "prefix-suffix.demo.tsx",
+        ]],
+        ["输入能力", [
+            "allow-clear.demo.tsx",
+            "password.demo.tsx",
+            "show-count.demo.tsx",
+            "status.demo.tsx",
+        ]],
+    ]],
+    ["rc-pagination", [
+        ["基础与外观", [
+            "basic.demo.tsx",
+            "size.demo.tsx",
+            "disabled.demo.tsx",
+        ]],
+        ["页码控制", [
+            "controlled.demo.tsx",
+            "many-pages.demo.tsx",
+            "quick-jumper.demo.tsx",
+            "show-total.demo.tsx",
+            "size-changer.demo.tsx",
+        ]],
+    ]],
+    ["rc-protocol-table", [
+        ["基础与数据", [
+            "basic.demo.tsx",
+            "type-loaders.demo.tsx",
+            "auto-refresh.demo.tsx",
+        ]],
+        ["工作区能力", [
+            "search-bar.demo.tsx",
+            "sidebar.demo.tsx",
+            "pagination.demo.tsx",
+        ]],
+        ["导出与状态", [
+            "export.demo.tsx",
+            "state-persistence.demo.tsx",
+        ]],
+    ]],
+    ["rc-select", [
+        ["基础与状态", [
+            "basic.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx",
+            "disabled.demo.tsx",
+            "loading.demo.tsx",
+            "allowClear.demo.tsx",
+        ]],
+        ["数据与搜索", [
+            "group.demo.tsx",
+            "searchable.demo.tsx",
+        ]],
+        ["多选能力", [
+            "multiple.demo.tsx",
+            "maxTagCount.demo.tsx",
+        ]],
+    ]],
+    ["rc-table", [
+        ["基础、汇总与性能", [
+            "basis.demo.tsx",
+            "empty.demo.tsx",
+            "highlight.demo.tsx",
+            "summary.demo.tsx",
+            "largeScale.demo.tsx",
+        ]],
+        ["列与表头", [
+            "columnDrag.demo.tsx",
+            "columnResize.demo.tsx",
+            "filter.demo.tsx",
+            "mergeTableHeaders.demo.tsx",
+            "sort.demo.tsx",
+        ]],
+        ["行与结构", [
+            "dynamicRowHeight.demo.tsx",
+            "mergeCells.demo.tsx",
+            "rowExpansion.demo.tsx",
+            "rowGrouping.demo.tsx",
+            "rowNumber.demo.tsx",
+            "rowSelection.demo.tsx",
+            "rowState.demo.tsx",
+            "tree.demo.tsx",
+        ]],
+        ["编辑与交互", [
+            "copy.demo.tsx",
+            "edit.demo.tsx",
+            "rowEdit.demo.tsx",
+            "rowEvent.demo.tsx",
+            "selectCells.demo.tsx",
+        ]],
+    ]],
+    ["rc-tag", [
+        ["基础与外观", [
+            "basic.demo.tsx",
+            "bordered.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx",
+        ]],
+        ["交互与自定义", [
+            "checkable.demo.tsx",
+            "closable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+        ]],
+    ]],
+    ["rc-tree", [
+        ["基础展示", [
+            "basic.demo.tsx",
+            "expand-all.demo.tsx",
+            "show-line.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+        ]],
+        ["选择与筛选", [
+            "checkable.demo.tsx",
+            "filter.demo.tsx",
+        ]],
+        ["编辑与交互", [
+            "draggable.demo.tsx",
+            "allow-drop.demo.tsx",
+            "inline-edit.demo.tsx",
+            "keyboard.demo.tsx",
+        ]],
+    ]],
 ]);
 
 function normalizeNewlines(value) {
@@ -179,6 +394,44 @@ function densityFor(componentSlug) {
     return "regular";
 }
 
+function layoutFor(componentSlug) {
+    return gridLayoutComponents.has(componentSlug) ? "grid" : "wide";
+}
+
+function organizeDemos(componentSlug, demos) {
+    const definitions = demoGroupDefinitions.get(componentSlug);
+    if (!definitions) {
+        return demos.map((demo) => ({ ...demo, group: null }));
+    }
+
+    const demosByFileName = new Map(
+        demos.map((demo) => [path.posix.basename(demo.id), demo]),
+    );
+    const organized = [];
+    const assigned = new Set();
+
+    for (const [group, demoFiles] of definitions) {
+        for (const demoFile of demoFiles) {
+            if (assigned.has(demoFile)) {
+                throw new Error(`${componentSlug}: Demo 分组重复：${demoFile}`);
+            }
+            const demo = demosByFileName.get(demoFile);
+            if (!demo) {
+                throw new Error(`${componentSlug}: Demo 分组引用不存在的文件：${demoFile}`);
+            }
+            assigned.add(demoFile);
+            organized.push({ ...demo, group });
+        }
+    }
+
+    const unassigned = [...demosByFileName.keys()].filter((demoFile) => !assigned.has(demoFile));
+    if (unassigned.length > 0) {
+        throw new Error(`${componentSlug}: Demo 未分组：${unassigned.join(", ")}`);
+    }
+
+    return organized;
+}
+
 function serialize(value) {
     return JSON.stringify(value, null, 4).replace(/</g, "\\u003c");
 }
@@ -307,14 +560,16 @@ async function main() {
                 previewPath: `/components/${slug}/workbench/?__wake_demo=${encodeURIComponent(id)}`,
                 workbenchPath: `/components/${slug}/workbench/#/components/${encodeURIComponent(id)}`,
                 density: densityFor(slug),
+                layout: layoutFor(slug),
             });
         }
-        demoCount += demos.length;
+        const organizedDemos = organizeDemos(slug, demos);
+        demoCount += organizedDemos.length;
 
         const api = await extractApiRecord(componentDirectory, canonicalMdx);
         outputs.push({
             filePath: path.join(generatedDataDirectory, `${slug}.ts`),
-            content: createDataModule(demos, api),
+            content: createDataModule(organizedDemos, api),
         });
         outputs.push({
             filePath: path.join(generatedPagesDirectory, `${slug}.mdx`),

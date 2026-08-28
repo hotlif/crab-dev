@@ -6,6 +6,7 @@ import ComponentDemoFrame, {
 } from "../componentDemoFrame.js";
 import type { ComponentDemoFrameRenderState } from "../componentDemoFrame.js";
 import type { ComponentDemoFrameWindow } from "../componentDemoFrame.js";
+import ComponentDemos from "../componentDemos.js";
 import type { ComponentDemoRecord } from "../componentDemos.js";
 
 const demo: ComponentDemoRecord = {
@@ -16,6 +17,8 @@ const demo: ComponentDemoRecord = {
     previewPath: "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
     workbenchPath: "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
     density: "compact",
+    layout: "grid",
+    group: null,
 };
 
 const testFrameWindow: ComponentDemoFrameWindow = {
@@ -240,5 +243,30 @@ describe("ComponentDemoFrame", () => {
     it("未知或无 Demo 的组件显示稳定回退", async () => {
         await render(<EmptyComponentDemos />);
         expect(screen.getByRole("status").textContent).toContain("暂无可用的组件演示");
+    });
+
+    it("按分组组织 Demo 并为宽预览输出明确布局标记", async () => {
+        const groupedDemos = [
+            {
+                ...demo,
+                group: "基础能力",
+            },
+            {
+                ...demo,
+                id: "docs/demos/wide.demo.tsx",
+                title: "宽内容",
+                group: "进阶能力",
+                layout: "wide",
+            },
+        ] satisfies readonly ComponentDemoRecord[];
+
+        await render(<ComponentDemos demos={groupedDemos} />);
+
+        expect(screen.getByRole("heading", { name: "基础能力", level: 3 })).toBeTruthy();
+        expect(screen.getByRole("heading", { name: "进阶能力", level: 3 })).toBeTruthy();
+        const cards = document.querySelectorAll("[data-component-demo-id]");
+        expect(cards).toHaveLength(2);
+        expect(cards[0]?.getAttribute("data-demo-layout")).toBe("grid");
+        expect(cards[1]?.getAttribute("data-demo-layout")).toBe("wide");
     });
 });
