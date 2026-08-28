@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--badge-transition',
     'size.default.height': '--badge-size-default-height',
     'size.default.min-width': '--badge-size-default-min-width',
@@ -30,9 +32,9 @@ export const vars = {
     'status.text.font.size': '--badge-status-text-font-size',
     'offset.x': '--badge-offset-x',
     'offset.y': '--badge-offset-y'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1), transform 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'size': {
         'default': {
@@ -102,6 +104,6 @@ const token = {
         'x': `var(${vars['offset.x']}, 50%)`,
         'y': `var(${vars['offset.y']}, -50%)`
     }
-};
+});
 
 export default token;

@@ -1,7 +1,7 @@
-/**
- * title = "受控与常用预设"
- * description = "受控模式配合快捷预设:外部一键切换常用调度周期,面板与输入框同步跟随"
- */
+export const meta = {
+    title: "受控与常用预设",
+    description: "受控模式配合快捷预设:外部一键切换常用调度周期,面板与输入框同步跟随",
+};
 
 import { useState } from 'react';
 import CronPicker from '../../src/index.js';

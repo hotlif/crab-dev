@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { type CSSProperties, useId } from 'react';
 
 import token from './token.js';
@@ -13,7 +13,7 @@ import type { DividerOwnProps, DividerSpacing, DividerVariant } from './types.js
  *   --rc-divider-spacing    —— 横线走 margin-block, 竖线走 margin-inline, 同一档位
  *                              在两个方向上语义一致
  *
- * 变量的默认值写在 var() 的 fallback 里, 因此不依赖 Linaria 的类名输出顺序。
+ * 变量的默认值写在 var() 的 fallback 里, 因此不依赖静态 CSS 的类名输出顺序。
  */
 
 const baseStyle = css`

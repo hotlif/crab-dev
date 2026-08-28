@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--text-edit-transition',
     'border.radius': '--text-edit-border-radius',
     'border.width': '--text-edit-border-width',
@@ -34,9 +36,9 @@ export const vars = {
     'size.small.padding': '--text-edit-size-small-padding',
     'size.small.font.size': '--text-edit-size-small-font-size',
     'size.small.line-height': '--text-edit-size-small-line-height'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
     'border': {
         'radius': `var(${vars['border.radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
@@ -112,6 +114,6 @@ const token = {
             'line-height': `var(${vars['size.small.line-height']}, 1.25rem)`
         }
     }
-};
+});
 
 export default token;

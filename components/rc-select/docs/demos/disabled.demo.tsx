@@ -1,9 +1,9 @@
-/**
- * title = "禁用"
- * description = "设置 disabled 禁用整个选择器，或在选项中设置 disabled 禁用单个选项"
- */
+export const meta = {
+    title: "禁用",
+    description: "设置 disabled 禁用整个选择器，或在选项中设置 disabled 禁用单个选项",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Select from '../../src/index.js';
 
 const containerStyle = css`

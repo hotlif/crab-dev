@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "最简单的数字徽标、圆点徽标与独立标记。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "最简单的数字徽标、圆点徽标与独立标记。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Badge from "../../src/index.js";
 
 const BasicDemo = () => {

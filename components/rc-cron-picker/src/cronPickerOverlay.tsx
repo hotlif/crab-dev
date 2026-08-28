@@ -1,6 +1,6 @@
 import { useInterval } from '@crab-dev/rc-hooks';
 import Tabs from '@crab-dev/rc-tabs';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useState, type FC } from 'react';
 
 import {

@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'rail.interact.height': '--slider-rail-interact-height',
     'rail.thickness': '--slider-rail-thickness',
     'rail.inactive.fill': '--slider-rail-inactive-fill',
@@ -13,9 +15,9 @@ export const vars = {
     'thumb.stroke.width': '--slider-thumb-stroke-width',
     'thumb.halo.scale.factor': '--slider-thumb-halo-scale-factor',
     'thumb.halo.fill': '--slider-thumb-halo-fill'
-};
+});
 
-const token = {
+const token = defineTokens({
     'rail': {
         'interact': {
             'height': `var(${vars['rail.interact.height']}, 12px)`
@@ -42,6 +44,6 @@ const token = {
             'fill': `var(${vars['thumb.halo.fill']}, var(--token-semantic-color-fill-active, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
         }
     }
-};
+});
 
 export default token;

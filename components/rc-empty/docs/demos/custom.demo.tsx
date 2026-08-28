@@ -1,11 +1,11 @@
 
-/**
- * title = "自定义内容"
- * description = "通过 `image`、`title`、`description` 完全自定义内容。传入 `null` 可隐藏对应区域。"
- */
+export const meta = {
+    title: "自定义内容",
+    description: "通过 `image`、`title`、`description` 完全自定义内容。传入 `null` 可隐藏对应区域。",
+};
 
 import Empty from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const wrapStyle = css`
     display: flex;

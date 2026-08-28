@@ -1,9 +1,9 @@
-/**
- * title = "形态与尺寸"
- * description = "支持 `circle` / `square` 形态与三档尺寸。"
- */
+export const meta = {
+    title: "形态与尺寸",
+    description: "支持 `circle` / `square` 形态与三档尺寸。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Avatar from "../../src/index.js";
 
 const wrapStyle = css`

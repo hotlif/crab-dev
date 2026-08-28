@@ -1,9 +1,9 @@
-/**
- * title = "hover 回调"
- * description = "通过 onMouseEnter / onMouseLeave 响应图元悬停事件，驱动颜色高亮与状态提示。三种图元均支持该回调。"
- */
+export const meta = {
+    title: "hover 回调",
+    description: "通过 onMouseEnter / onMouseLeave 响应图元悬停事件，驱动颜色高亮与状态提示。三种图元均支持该回调。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import { Canvas, Rect, Circle, Line, Text } from "../../src/index.js";
 

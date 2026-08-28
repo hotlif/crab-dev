@@ -1,10 +1,10 @@
-/**
- * title = "基础示例"
- * description = "虚拟滚动组件的基础使用示例"
- */
+export const meta = {
+    title: "基础示例",
+    description: "虚拟滚动组件的基础使用示例",
+};
 import { type ReactNode } from "react"
 import RcVirtual from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const mockRowData = () => {
     const mockData = []

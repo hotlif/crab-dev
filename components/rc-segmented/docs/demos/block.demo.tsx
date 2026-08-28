@@ -1,9 +1,9 @@
-/**
- * title = "撑满容器"
- * description = "设置 `block` 让控制器铺满父容器, 各选项等宽分布。"
- */
+export const meta = {
+    title: "撑满容器",
+    description: "设置 `block` 让控制器铺满父容器, 各选项等宽分布。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Segmented from '../../src/index.js';
 
 const containerStyle = css`

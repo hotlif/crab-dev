@@ -6,7 +6,7 @@ import { type LineEditProps } from "@crab-dev/rc-line-edit";
 import TimePickerOverlay from "./timePickerOverlay.js";
 import { type TimePickerPanelProps } from '../panels/timePickerPanel.js';
 import TimePickerInput from './timePickerInput.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 
 
 export interface TimePickerProps extends TimePickerPanelProps {

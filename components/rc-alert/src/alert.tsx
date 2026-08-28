@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, useState } from 'react';
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from './icons.js';
 import token from './token.js';

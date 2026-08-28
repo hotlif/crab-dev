@@ -1,10 +1,10 @@
 
-/**
- * title = "加载中"
- * description = "添加 `loading` 属性即可让按钮处于加载状态"
- */
+export const meta = {
+    title: "加载中",
+    description: "添加 `loading` 属性即可让按钮处于加载状态",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Button from "../../src/index.js";
 
 const SizeDemo = () => {

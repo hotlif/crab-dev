@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'gap': '--pagination-gap',
     'group.gap': '--pagination-group-gap',
     'font.size': '--pagination-font-size',
@@ -40,9 +42,9 @@ export const vars = {
     'focus.outline.offset': '--pagination-focus-outline-offset',
     'focus.outline.width': '--pagination-focus-outline-width',
     'transition': '--pagination-transition'
-};
+});
 
-const token = {
+const token = defineTokens({
     'gap': `var(${vars['gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
     'group': {
         'gap': `var(${vars['group.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
@@ -116,6 +118,6 @@ const token = {
         }
     },
     'transition': `var(${vars['transition']}, background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), color 120ms cubic-bezier(0.4, 0, 0.2, 1), border-color 120ms cubic-bezier(0.4, 0, 0.2, 1))`
-};
+});
 
 export default token;

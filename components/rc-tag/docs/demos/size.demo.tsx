@@ -1,9 +1,9 @@
-/**
- * title = "标签尺寸"
- * description = "通过 `size` 属性设置标签尺寸"
- */
+export const meta = {
+    title: "标签尺寸",
+    description: "通过 `size` 属性设置标签尺寸",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Tag from "../../src/index.js";
 

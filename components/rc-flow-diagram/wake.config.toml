@@ -1,0 +1,30 @@
+[alias]
+"web-worker" = "./docs/shims/web-worker.ts"
+
+[docs]
+source_dir = "docs"
+title = "FlowDiagram 流程图"
+description = "基于 rc-canvas 的流程图组件库，提供 Edge 连线、ELK 自动布局和正交边路由能力"
+locale = "zh-CN"
+
+[test]
+setup = ["../../test/wake-css.setup.ts"]
+environment = "dom"
+include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

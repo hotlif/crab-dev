@@ -1,9 +1,9 @@
-/**
- * title = "留白档位"
- * description = "线两侧的留白决定分组强度（格式塔接近性）: 留白越大, 两段内容「离得越远」。"
- */
+export const meta = {
+    title: "留白档位",
+    description: "线两侧的留白决定分组强度（格式塔接近性）: 留白越大, 两段内容「离得越远」。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Divider from '../../src/index.js';
 
 const rowStyle = css`

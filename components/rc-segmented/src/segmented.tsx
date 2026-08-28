@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { type CSSProperties, useEffect, useId, useRef, useState } from 'react';
 import {
     useControllableValue,

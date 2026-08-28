@@ -1,8 +1,8 @@
 
-/**
- * title = "大规模数据"
- * description = "1000 列 × 1000 行，验证虚拟滚动在大数据量下的滚动性能"
- */
+export const meta = {
+    title: "大规模数据",
+    description: "1000 列 × 1000 行，验证虚拟滚动在大数据量下的滚动性能",
+};
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";

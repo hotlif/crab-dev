@@ -1,9 +1,9 @@
-/**
- * title = "配合虚拟滚动"
- * description = "AutoSizer 将容器尺寸透传给 Virtual 组件的 viewportWidth / viewportHeight，实现响应式虚拟滚动。"
- */
+export const meta = {
+    title: "配合虚拟滚动",
+    description: "AutoSizer 将容器尺寸透传给 Virtual 组件的 viewportWidth / viewportHeight，实现响应式虚拟滚动。",
+};
 import AutoSizer from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const wrapperStyle = css`
     width: 100%;

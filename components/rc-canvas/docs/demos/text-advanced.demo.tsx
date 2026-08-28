@@ -1,9 +1,9 @@
-/**
- * title = "文字对齐与多行"
- * description = "textAlign（left / center / right）、textBaseline（top / middle / bottom）以及 \\n 换行和 maxWidth 自动词换行的综合演示。"
- */
+export const meta = {
+    title: "文字对齐与多行",
+    description: "textAlign（left / center / right）、textBaseline（top / middle / bottom）以及 \\\\n 换行和 maxWidth 自动词换行的综合演示。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Line, Text } from "../../src/index.js";
 
 const wrapStyle = css`

@@ -1,8 +1,8 @@
 
-/**
- * title = "基本"
- * description = "一个基础的对话框"
- */
+export const meta = {
+    title: "基本",
+    description: "一个基础的对话框",
+};
 
 import { useState } from "react";
 import Button from "@crab-dev/rc-button";

@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import type { FocusEvent, KeyboardEvent } from 'react';
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
 import Empty from '@crab-dev/rc-empty';

@@ -1,7 +1,7 @@
-/**
- * title = "ELK 自动图布局"
- * description = "FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。"
- */
+export const meta = {
+    title: "ELK 自动图布局",
+    description: "FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。",
+};
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';

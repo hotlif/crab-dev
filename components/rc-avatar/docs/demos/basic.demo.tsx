@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "通过文本缩写与语义变体展示头像。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过文本缩写与语义变体展示头像。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Avatar from "../../src/index.js";
 
 const listStyle = css`

@@ -1,20 +1,12 @@
 
-import Form, { type FormProps } from "./form.js";
-import Item, { type FormItem as ItemProps} from "./item.js";
+import Form from "./form.js";
+import Item from "./item.js";
 import useForm from "./hooks/useForm.js";
-import { type NamePath, ValidateState, type FormInstance, type FormItemEditor, type Rule, RuleType } from "./types.js";
+import { ValidateState, RuleType } from "./types.js";
 
-export {
-    Item,
-    useForm,
-    ItemProps,
-    FormProps,
-    NamePath,
-    ValidateState,
-    FormInstance,
-    FormItemEditor,
-    Rule,
-    RuleType
-}
+export { Item, useForm, ValidateState, RuleType };
+export type { FormProps } from "./form.js";
+export type { FormItem as ItemProps } from "./item.js";
+export type { NamePath, FormInstance, FormItemEditor, Rule } from "./types.js";
 
 export default Form;

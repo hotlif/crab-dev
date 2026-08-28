@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'legend.gap': '--bar-chart-legend-gap',
     'legend.item-gap': '--bar-chart-legend-item-gap',
     'legend.swatch-gap': '--bar-chart-legend-swatch-gap',
@@ -25,9 +27,9 @@ export const vars = {
     'tooltip.name.color': '--bar-chart-tooltip-name-color',
     'tooltip.value.color': '--bar-chart-tooltip-value-color',
     'tooltip.value.font.weight': '--bar-chart-tooltip-value-font-weight'
-};
+});
 
-const token = {
+const token = defineTokens({
     'legend': {
         'gap': `var(${vars['legend.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'item-gap': `var(${vars['legend.item-gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
@@ -72,6 +74,6 @@ const token = {
             }
         }
     }
-};
+});
 
 export default token;

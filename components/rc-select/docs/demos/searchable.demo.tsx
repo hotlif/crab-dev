@@ -1,7 +1,7 @@
-/**
- * title = "可搜索"
- * description = "设置 searchable 支持关键字过滤"
- */
+export const meta = {
+    title: "可搜索",
+    description: "设置 searchable 支持关键字过滤",
+};
 
 import Select from '../../src/index.js';
 

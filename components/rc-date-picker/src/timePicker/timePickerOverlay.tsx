@@ -1,5 +1,5 @@
 import { useState, type FC } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import RcButton from "@crab-dev/rc-button";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 

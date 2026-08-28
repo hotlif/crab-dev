@@ -1,5 +1,5 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { type CSSProperties, type HTMLAttributes, type Ref } from "react";
 import token from "../token.js";
 import type { OKLCHValue } from "../types.js";

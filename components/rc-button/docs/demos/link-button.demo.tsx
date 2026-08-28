@@ -1,11 +1,11 @@
 
-/**
- * title = "链接按钮"
- * description = "传入 `href` 时渲染为 `<a>` 元素，保留所有 Button 样式与交互"
- */
+export const meta = {
+    title: "链接按钮",
+    description: "传入 `href` 时渲染为 `<a>` 元素，保留所有 Button 样式与交互",
+};
 
 import Button from '../../src/index.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { ExternalLink } from 'lucide-react';
 
 const LinkButtonDemo = () => {

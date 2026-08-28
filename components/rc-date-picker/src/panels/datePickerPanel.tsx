@@ -1,5 +1,6 @@
-import { type HTMLAttributes, useMemo, useState, useEffect, RefObject } from 'react';
-import { css, cx } from '@linaria/core';
+import { useMemo, useState, useEffect } from 'react';
+import type { HTMLAttributes, RefObject } from 'react';
+import { css, cx } from '@crab-dev/css';
 import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util.js';
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons.js';
 import token from '../token.js';

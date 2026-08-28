@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'padding': '--message-padding',
     'border.radius': '--message-border-radius',
     'font.size': '--message-font-size',
@@ -19,9 +21,9 @@ export const vars = {
     'progress.start.color': '--message-progress-start-color',
     'progress.end.color': '--message-progress-end-color',
     'progress.height': '--message-progress-height'
-};
+});
 
-const token = {
+const token = defineTokens({
     'padding': `var(${vars['padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)))`,
     'border': {
         'radius': `var(${vars['border.radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`
@@ -66,6 +68,6 @@ const token = {
         },
         'height': `var(${vars['progress.height']}, 3px)`
     }
-};
+});
 
 export default token;

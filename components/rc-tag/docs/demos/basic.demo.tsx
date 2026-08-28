@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "基础的标签展示，通过 `color` 属性设置不同颜色预设"
- */
+export const meta = {
+    title: "基础用法",
+    description: "基础的标签展示，通过 `color` 属性设置不同颜色预设",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Tag from "../../src/index.js";
 
 const BasicDemo = () => {

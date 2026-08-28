@@ -1,9 +1,9 @@
-/**
- * title = "前缀和后缀"
- * description = "通过 `prefix` 和 `suffix` 属性设置前缀/后缀图标"
- */
+export const meta = {
+    title: "前缀和后缀",
+    description: "通过 `prefix` 和 `suffix` 属性设置前缀/后缀图标",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Search, X } from "lucide-react";
 import LineEdit from "../../src/index.js";
 

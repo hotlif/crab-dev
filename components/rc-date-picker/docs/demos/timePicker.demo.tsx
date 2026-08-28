@@ -1,10 +1,10 @@
 
-/**
- * title = "时间选择器"
- * description = "三种不同规格的时间选择器示例"
- */
+export const meta = {
+    title: "时间选择器",
+    description: "三种不同规格的时间选择器示例",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import TimePicker from "../../src/timePicker/timePicker.js";
 import type { TimePickerPanelProps } from "../../src/panels/timePickerPanel";

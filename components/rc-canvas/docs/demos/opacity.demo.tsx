@@ -1,9 +1,9 @@
-/**
- * title = "整体透明度（opacity）"
- * description = "opacity 同时作用于 fill 和 stroke，从 1.0 到 0.1 均匀过渡，Line 的 color 同样受影响。"
- */
+export const meta = {
+    title: "整体透明度（opacity）",
+    description: "opacity 同时作用于 fill 和 stroke，从 1.0 到 0.1 均匀过渡，Line 的 color 同样受影响。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Rect, Circle, Line } from "../../src/index.js";
 
 const wrapStyle = css`

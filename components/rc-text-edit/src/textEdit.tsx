@@ -1,4 +1,4 @@
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { X } from "lucide-react";
 import type { Ref, TextareaHTMLAttributes } from "react";
 
@@ -146,7 +146,7 @@ const warningStyle = css`
 
 // bordered=false：容器无边框/背景/阴影，交由宿主容器提供外观。
 // 与 sizeContainerStyles/errorStyle/warningStyle 互斥选用（而非叠加覆盖），
-// 避免依赖 Linaria 抽取后的 CSS 规则顺序来决定优先级
+// 避免依赖 Crab CSS 抽取后的规则顺序来决定优先级
 const borderlessStyle = css`
     border-width: 0;
     border-color: transparent;
@@ -193,7 +193,7 @@ const borderlessTextareaStyle = css`
     line-height: inherit;
 `
 
-// resize 方向拆为静态类，运行时用 cx() 选用（Linaria 零运行时约束）
+// resize 方向拆为静态类，运行时用 cx() 选用（Crab CSS 零运行时约束）
 const resizeStyles = {
     none: css`
         resize: none;

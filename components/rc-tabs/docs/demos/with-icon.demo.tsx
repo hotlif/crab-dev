@@ -1,7 +1,7 @@
-/**
- * title = "带图标与额外内容"
- * description = "通过 icon 为标签添加视觉标识，tabBarExtraContent 在右侧注入操作。"
- */
+export const meta = {
+    title: "带图标与额外内容",
+    description: "通过 icon 为标签添加视觉标识，tabBarExtraContent 在右侧注入操作。",
+};
 
 import Tabs from '../../src/index.js';
 

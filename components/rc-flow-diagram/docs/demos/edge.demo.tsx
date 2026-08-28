@@ -1,7 +1,7 @@
-/**
- * title = "FlowEdge 样式"
- * description = "FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。"
- */
+export const meta = {
+    title: "FlowEdge 样式",
+    description: "FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。",
+};
 
 import { useState } from 'react';
 import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';

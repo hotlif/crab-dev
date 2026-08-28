@@ -1,0 +1,36 @@
++++
+title = "Tabs 标签页"
+description = "标签页组件，用于在不同内容视图之间切换"
+kind = "component"
+status = "experimental"
++++
+
+# Tabs
+
+标签页，用于在同一层级切换多个内容面板。
+
+[打开 Tabs 标签页 工作台](/components/rc-tabs/workbench/)
+
+## 何时使用
+
+- 页面需要在同一区域内展示多组相关但可独立查看的内容。
+- 需要减少页面切换与滚动，将内容分组组织。
+
+## 功能特性
+
+- 支持 `line` / `card` / `pill` 三种视觉形态。
+- 支持 `small` / `medium` / `large` 三档尺寸。
+- 支持受控（`activeKey`）与非受控（`defaultActiveKey`）两种用法。
+- 支持 `closable` 标签页以及 `onTabClose` 回调。
+- 支持 `tabBarExtraContent` 在左右两侧注入自定义内容。
+- 支持 `destroyInactiveTabPane` 按需销毁未激活面板。
+- 键盘可达：`←` / `→` / `Home` / `End` 切换、`Enter` / `Space` 激活、`Delete` 关闭可关闭项。
+- `line` 形态的激活指示条随激活项位置与宽度平滑过渡。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/types.ts" symbol="TabsProps" component="Tabs" />

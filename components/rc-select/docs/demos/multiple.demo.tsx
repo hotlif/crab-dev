@@ -1,7 +1,7 @@
-/**
- * title = "多选模式"
- * description = "设置 multiple 启用多选"
- */
+export const meta = {
+    title: "多选模式",
+    description: "设置 multiple 启用多选",
+};
 
 import Select from '../../src/index.js';
 

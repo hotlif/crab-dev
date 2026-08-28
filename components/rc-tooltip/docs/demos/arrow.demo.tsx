@@ -1,7 +1,7 @@
-/**
- * title = "箭头"
- * description = "通过 arrow 属性控制是否显示箭头。"
- */
+export const meta = {
+    title: "箭头",
+    description: "通过 arrow 属性控制是否显示箭头。",
+};
 
 import Tooltip from "../../src/index.js";
 

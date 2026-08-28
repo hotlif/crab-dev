@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'overlay.background.color': '--drawer-overlay-background-color',
     'background.color': '--drawer-background-color',
     'box.shadow': '--drawer-box-shadow',
@@ -31,9 +33,9 @@ export const vars = {
     'close.border.radius': '--drawer-close-border-radius',
     'transition.duration': '--drawer-transition-duration',
     'transition.easing': '--drawer-transition-easing'
-};
+});
 
-const token = {
+const token = defineTokens({
     'overlay': {
         'background': {
             'color': `var(${vars['overlay.background.color']}, var(--token-semantic-color-background-overlay, oklch(0 0 0 / 0.45)))`
@@ -106,6 +108,6 @@ const token = {
         'duration': `var(${vars['transition.duration']}, 280ms)`,
         'easing': `var(${vars['transition.easing']}, cubic-bezier(0.32, 0.72, 0, 1))`
     }
-};
+});
 
 export default token;

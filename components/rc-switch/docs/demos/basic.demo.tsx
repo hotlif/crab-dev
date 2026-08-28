@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "最简单的 Switch 用法"
- */
+export const meta = {
+    title: "基础用法",
+    description: "最简单的 Switch 用法",
+};
 
 import { useState } from "react";
 import Switch from "../../src/index.js";

@@ -1,10 +1,10 @@
 
-/**
- * title = "行编辑"
- * description = "双击任意行进入行编辑模式，整行同时展示编辑器；在右侧工具栏确认或取消，按 Esc 快速退出"
- */
+export const meta = {
+    title: "行编辑",
+    description: "双击任意行进入行编辑模式，整行同时展示编辑器；在右侧工具栏确认或取消，按 Esc 快速退出",
+};
 
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { type ChangeEvent, type Key, useMemo, useState } from "react";
 
 import Table from "../../src/index.js";

@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { use, type MouseEvent } from 'react';
 import token from '../token.js';
 import { CardContext } from '../context.js';

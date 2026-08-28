@@ -1,6 +1,7 @@
 import { type HTMLAttributes, type FC, useState, useEffect, type Key, type ReactNode } from "react";
-import { cx, css } from "@linaria/core";
-import RcMenu, { MenuItem } from "@crab-dev/rc-menu";
+import { cx, css } from "@crab-dev/css";
+import RcMenu from "@crab-dev/rc-menu";
+import type { MenuItem } from "@crab-dev/rc-menu";
 import Skeleton from "@crab-dev/rc-skeleton";
 import token from "./token.js";
 import type { HeaderUserEntity } from "./types.js";

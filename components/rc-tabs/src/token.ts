@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'font.weight': '--tabs-font-weight',
     'bar.gap': '--tabs-bar-gap',
     'bar.border.color': '--tabs-bar-border-color',
@@ -43,9 +45,9 @@ export const vars = {
     'focus.ring.width': '--tabs-focus-ring-width',
     'focus.ring.offset': '--tabs-focus-ring-offset',
     'motion.color': '--tabs-motion-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'font': {
         'weight': `var(${vars['font.weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`
     },
@@ -126,6 +128,6 @@ const token = {
     'motion': {
         'color': `var(${vars['motion.color']}, color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1))`
     }
-};
+});
 
 export default token;

@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'container.padding': '--empty-container-padding',
     'container.min-height': '--empty-container-min-height',
     'image.size': '--empty-image-size',
@@ -15,9 +17,9 @@ export const vars = {
     'description.color': '--empty-description-color',
     'description.font-size': '--empty-description-font-size',
     'description.margin-bottom': '--empty-description-margin-bottom'
-};
+});
 
-const token = {
+const token = defineTokens({
     'container': {
         'padding': `var(${vars['container.padding']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
         'min-height': `var(${vars['container.min-height']}, 200px)`
@@ -38,6 +40,6 @@ const token = {
         'font-size': `var(${vars['description.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`,
         'margin-bottom': `var(${vars['description.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     }
-};
+});
 
 export default token;

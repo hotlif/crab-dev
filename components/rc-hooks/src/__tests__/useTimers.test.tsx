@@ -1,87 +1,63 @@
-import { act, cleanup, renderHook } from "@testing-library/react";
-import {
-    afterEach,
-    beforeEach,
-    describe,
-    expect,
-    it,
-    jest,
-} from "@jest/globals";
-
+import { afterEach, beforeEach, describe, expect, it, mock, clock, act, renderHook } from "@crab-dev/wake/test/react";
 import { useTimeout } from "../useTimeout.js";
 import { useInterval } from "../useInterval.js";
-
-(
-    globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
-).IS_REACT_ACT_ENVIRONMENT = true;
-
+(globalThis as typeof globalThis & {
+    IS_REACT_ACT_ENVIRONMENT?: boolean;
+}).IS_REACT_ACT_ENVIRONMENT = true;
 describe("useTimeout", () => {
-    beforeEach(() => {
-        jest.useFakeTimers();
+    beforeEach(async () => {
+        await clock.fake();
     });
-    afterEach(() => {
-        cleanup();
-        jest.useRealTimers();
+    afterEach(async () => {
+        await clock.restore();
     });
-
-    it("delay 后触发一次回调", () => {
-        const cb = jest.fn();
-        renderHook(() => useTimeout(cb, 100));
-
+    it("delay 后触发一次回调", async () => {
+        const cb = mock.fn();
+        await renderHook(() => useTimeout(cb, 100));
         expect(cb).not.toHaveBeenCalled();
-        act(() => {
-            jest.advanceTimersByTime(100);
+        await act(async () => {
+            await clock.advanceBy(100);
         });
         expect(cb).toHaveBeenCalledTimes(1);
     });
-
-    it("delay 为 null 时不计时", () => {
-        const cb = jest.fn();
-        renderHook(() => useTimeout(cb, null));
-
-        act(() => {
-            jest.advanceTimersByTime(1000);
+    it("delay 为 null 时不计时", async () => {
+        const cb = mock.fn();
+        await renderHook(() => useTimeout(cb, null));
+        await act(async () => {
+            await clock.advanceBy(1000);
         });
         expect(cb).not.toHaveBeenCalled();
     });
-
-    it("卸载后清理，不再触发", () => {
-        const cb = jest.fn();
-        const { unmount } = renderHook(() => useTimeout(cb, 100));
-
-        unmount();
-        act(() => {
-            jest.advanceTimersByTime(100);
+    it("卸载后清理，不再触发", async () => {
+        const cb = mock.fn();
+        const { unmount } = await renderHook(() => useTimeout(cb, 100));
+        await unmount();
+        await act(async () => {
+            await clock.advanceBy(100);
         });
         expect(cb).not.toHaveBeenCalled();
     });
 });
-
 describe("useInterval", () => {
-    beforeEach(() => {
-        jest.useFakeTimers();
+    beforeEach(async () => {
+        await clock.fake();
     });
-    afterEach(() => {
-        cleanup();
-        jest.useRealTimers();
+    afterEach(async () => {
+        await clock.restore();
     });
-
-    it("按 delay 周期性触发", () => {
-        const cb = jest.fn();
-        renderHook(() => useInterval(cb, 100));
-
-        act(() => {
-            jest.advanceTimersByTime(300);
+    it("按 delay 周期性触发", async () => {
+        const cb = mock.fn();
+        await renderHook(() => useInterval(cb, 100));
+        await act(async () => {
+            await clock.advanceBy(300);
         });
         expect(cb).toHaveBeenCalledTimes(3);
     });
-
-    it("delay 为 null 时不计时", () => {
-        const cb = jest.fn();
-        renderHook(() => useInterval(cb, null));
-
-        act(() => {
-            jest.advanceTimersByTime(1000);
+    it("delay 为 null 时不计时", async () => {
+        const cb = mock.fn();
+        await renderHook(() => useInterval(cb, null));
+        await act(async () => {
+            await clock.advanceBy(1000);
         });
         expect(cb).not.toHaveBeenCalled();
     });

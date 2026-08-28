@@ -1,6 +1,6 @@
 import RcVirtual from "@crab-dev/rc-virtual";
 import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import Checkbox from "@crab-dev/rc-checkbox";
 import Radio from "@crab-dev/rc-radio";
 import Empty from "@crab-dev/rc-empty";

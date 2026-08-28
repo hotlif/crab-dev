@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { useResizeObserver } from "@crab-dev/rc-hooks";
 
 import type { AutoSizerProps, Size } from "./types.js";

@@ -18,7 +18,7 @@ export const getCalendarMatrix = (
         timeZone,
     });
     const startOffset = (startOfMonth.dayOfWeek - weekStartDay + 7) % 7;
-    const startDate = startOfMonth.subtract({ days: startOffset });
+    const startDate = startOfMonth.add({ days: -startOffset });
     return Array.from({ length: 42 }).map((_, index) => startDate.add({ days: index }));
 };
 

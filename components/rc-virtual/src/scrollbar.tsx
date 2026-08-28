@@ -1,5 +1,5 @@
 import { type RefObject, useEffect, useRef, type PointerEvent } from "react";
-import { cx } from "@linaria/core";
+import { cx } from "@crab-dev/css";
 
 import {
     containerStyle,

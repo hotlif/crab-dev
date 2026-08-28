@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'zinc.50': '--token-global-zinc-50',
     'zinc.100': '--token-global-zinc-100',
     'zinc.200': '--token-global-zinc-200',
@@ -61,9 +63,14 @@ export const vars = {
     'white': '--token-global-white',
     'black': '--token-global-black',
     'space.0': '--token-global-space-0',
+    'space.px': '--token-global-space-px',
+    'space.0-5': '--token-global-space-0-5',
     'space.1': '--token-global-space-1',
+    'space.1-5': '--token-global-space-1-5',
     'space.2': '--token-global-space-2',
+    'space.2-5': '--token-global-space-2-5',
     'space.3': '--token-global-space-3',
+    'space.3-5': '--token-global-space-3-5',
     'space.4': '--token-global-space-4',
     'space.5': '--token-global-space-5',
     'space.6': '--token-global-space-6',
@@ -73,22 +80,17 @@ export const vars = {
     'space.16': '--token-global-space-16',
     'space.20': '--token-global-space-20',
     'space.24': '--token-global-space-24',
-    'space.px': '--token-global-space-px',
-    'space.0-5': '--token-global-space-0-5',
-    'space.1-5': '--token-global-space-1-5',
-    'space.2-5': '--token-global-space-2-5',
-    'space.3-5': '--token-global-space-3-5',
     'radius.0': '--token-global-radius-0',
+    'radius.0-5': '--token-global-radius-0-5',
     'radius.1': '--token-global-radius-1',
+    'radius.1-5': '--token-global-radius-1-5',
     'radius.2': '--token-global-radius-2',
+    'radius.2-5': '--token-global-radius-2-5',
     'radius.3': '--token-global-radius-3',
     'radius.4': '--token-global-radius-4',
     'radius.5': '--token-global-radius-5',
     'radius.6': '--token-global-radius-6',
     'radius.8': '--token-global-radius-8',
-    'radius.0-5': '--token-global-radius-0-5',
-    'radius.1-5': '--token-global-radius-1-5',
-    'radius.2-5': '--token-global-radius-2-5',
     'radius.full': '--token-global-radius-full',
     'font.family.sans': '--token-global-font-family-sans',
     'font.family.mono': '--token-global-font-family-mono',
@@ -140,9 +142,9 @@ export const vars = {
     'z-index.50': '--token-global-z-index-50',
     'z-index.60': '--token-global-z-index-60',
     'z-index.70': '--token-global-z-index-70'
-};
+});
 
-const token = {
+const token = defineTokens({
     'zinc': {
         '50': `var(${vars['zinc.50']}, oklch(0.980 0.002 286))`,
         '100': `var(${vars['zinc.100']}, oklch(0.950 0.003 286))`,
@@ -212,9 +214,14 @@ const token = {
     'black': `var(${vars['black']}, oklch(0.000 0 0))`,
     'space': {
         '0': `var(${vars['space.0']}, 0px)`,
+        'px': `var(${vars['space.px']}, 1px)`,
+        '0-5': `var(${vars['space.0-5']}, 2px)`,
         '1': `var(${vars['space.1']}, 4px)`,
+        '1-5': `var(${vars['space.1-5']}, 6px)`,
         '2': `var(${vars['space.2']}, 8px)`,
+        '2-5': `var(${vars['space.2-5']}, 10px)`,
         '3': `var(${vars['space.3']}, 12px)`,
+        '3-5': `var(${vars['space.3-5']}, 14px)`,
         '4': `var(${vars['space.4']}, 16px)`,
         '5': `var(${vars['space.5']}, 20px)`,
         '6': `var(${vars['space.6']}, 24px)`,
@@ -223,25 +230,20 @@ const token = {
         '12': `var(${vars['space.12']}, 48px)`,
         '16': `var(${vars['space.16']}, 64px)`,
         '20': `var(${vars['space.20']}, 80px)`,
-        '24': `var(${vars['space.24']}, 96px)`,
-        'px': `var(${vars['space.px']}, 1px)`,
-        '0-5': `var(${vars['space.0-5']}, 2px)`,
-        '1-5': `var(${vars['space.1-5']}, 6px)`,
-        '2-5': `var(${vars['space.2-5']}, 10px)`,
-        '3-5': `var(${vars['space.3-5']}, 14px)`
+        '24': `var(${vars['space.24']}, 96px)`
     },
     'radius': {
         '0': `var(${vars['radius.0']}, 0px)`,
+        '0-5': `var(${vars['radius.0-5']}, 1px)`,
         '1': `var(${vars['radius.1']}, 2px)`,
+        '1-5': `var(${vars['radius.1-5']}, 3px)`,
         '2': `var(${vars['radius.2']}, 4px)`,
+        '2-5': `var(${vars['radius.2-5']}, 5px)`,
         '3': `var(${vars['radius.3']}, 6px)`,
         '4': `var(${vars['radius.4']}, 8px)`,
         '5': `var(${vars['radius.5']}, 10px)`,
         '6': `var(${vars['radius.6']}, 12px)`,
         '8': `var(${vars['radius.8']}, 16px)`,
-        '0-5': `var(${vars['radius.0-5']}, 1px)`,
-        '1-5': `var(${vars['radius.1-5']}, 3px)`,
-        '2-5': `var(${vars['radius.2-5']}, 5px)`,
         'full': `var(${vars['radius.full']}, 9999px)`
     },
     'font': {
@@ -316,6 +318,6 @@ const token = {
         '60': `var(${vars['z-index.60']}, 1500)`,
         '70': `var(${vars['z-index.70']}, 1600)`
     }
-};
+});
 
 export default token;

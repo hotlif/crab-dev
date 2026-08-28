@@ -1,19 +1,13 @@
-import {
-    type ReactElement,
-    type HTMLAttributes,
-    type ReactNode,
-    cloneElement,
-    useState,
-    useEffect,
-    useId
-} from "react";
-import { css, cx } from "@linaria/core";
+import { cloneElement, useState, useEffect, useId } from "react";
+import type { ReactElement, HTMLAttributes, ReactNode } from "react";
+import { css, cx } from "@crab-dev/css";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
 import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
 import Tooltip from "@crab-dev/rc-tooltip";
 
 import token from "./token.js";
-import { type FormItemEditor, type NamePath, type Rule, RuleType, ValidateState } from "./types.js";
+import { RuleType, ValidateState } from "./types.js";
+import type { FormItemEditor, NamePath, Rule } from "./types.js";
 import useFormContext from "./hooks/useFormContext.js";
 import { MessageEnum } from "./bus.js";
 import {
@@ -341,7 +335,7 @@ function FormItemComponent({
                 if (rule.type == RuleType.ERROR || rule.type == RuleType.WARNING) {
                     try {
                         await rule.validator()
-                    } catch (error: unknown) {
+                    } catch (error) {
                         const err = error as Error;
                         if (rule.type == RuleType.ERROR) {
                             setValidateState(ValidateState.ERROR);

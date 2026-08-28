@@ -4,7 +4,10 @@ import Rect from '../../src/shapes/rect.js';
 import Group from '../../src/shapes/group.js';
 import Text from '../../src/shapes/text.js';
 import type { DragMoveEvent } from '../../src/drag-types.js';
-
+export const meta = {
+    title: "Draggable",
+    description: "Draggable 示例",
+};
 function DraggableCard({
     label,
     initX,

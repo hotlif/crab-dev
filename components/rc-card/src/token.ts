@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'surface.background': '--card-surface-background',
     'border.color': '--card-border-color',
     'border.color-hover': '--card-border-color-hover',
@@ -45,9 +47,9 @@ export const vars = {
     'motion.cover': '--card-motion-cover',
     'focus.ring.color': '--card-focus-ring-color',
     'disabled.opacity': '--card-disabled-opacity'
-};
+});
 
-const token = {
+const token = defineTokens({
     'surface': {
         'background': `var(${vars['surface.background']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`
     },
@@ -126,6 +128,6 @@ const token = {
     'disabled': {
         'opacity': `var(${vars['disabled.opacity']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3)))`
     }
-};
+});
 
 export default token;

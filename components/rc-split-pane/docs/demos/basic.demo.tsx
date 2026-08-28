@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "左右分栏，拖动分隔条调整左侧宽度；双击分隔条复位到 defaultSize"
- */
+export const meta = {
+    title: "基础用法",
+    description: "左右分栏，拖动分隔条调整左侧宽度；双击分隔条复位到 defaultSize",
+};
 
 import type { CSSProperties } from 'react';
 import SplitPane from '../../src/index.js';

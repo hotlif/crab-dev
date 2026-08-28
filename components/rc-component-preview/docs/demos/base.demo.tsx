@@ -1,7 +1,7 @@
-/**
- * title = "Shortcuts"
- * description = "卡片顶部展示组件，下方代码区默认收起，仅露出前几行并通过 View Code 按钮展开。"
- */
+export const meta = {
+    title: "Shortcuts",
+    description: "卡片顶部展示组件，下方代码区默认收起，仅露出前几行并通过 View Code 按钮展开。",
+};
 
 import Preview from '../../src/preview.js';
 

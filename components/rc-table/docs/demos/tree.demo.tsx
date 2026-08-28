@@ -1,7 +1,7 @@
-/**
- * title = "树形数据"
- * description = "通过 `treeData` 和 `getChildRows` 展示层级关系，点击行首箭头可展开或收起子行。"
- */
+export const meta = {
+    title: "树形数据",
+    description: "通过 `treeData` 和 `getChildRows` 展示层级关系，点击行首箭头可展开或收起子行。",
+};
 
 import { type Key, useState } from "react";
 import { fakerZH_CN as faker } from "@faker-js/faker";

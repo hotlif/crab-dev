@@ -1,5 +1,5 @@
 import { type ReactNode, type FC } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 
 import { type MenuProps } from "../menu.js";
 import { ItemType, type Item } from "../type.js";
@@ -23,12 +23,12 @@ interface HorizontalMenuProps extends Omit<MenuProps, "mode"> {
 
 const HorizontalMenu: FC<HorizontalMenuProps> = ({
     className,
-    openKeys,
-    selectedKeys = [],
+    openKeys: _openKeys,
+    selectedKeys: _selectedKeys = [],
     items = [],
-    onSelectItem,
-    onOpenChange,
-    onClick,
+    onSelectItem: _onSelectItem,
+    onOpenChange: _onOpenChange,
+    onClick: _onClick,
     ...props
 }) => {
 

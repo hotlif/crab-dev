@@ -1,7 +1,7 @@
-/**
- * title = "卡片形态"
- * description = "type='card' 提供更清晰的容器边界，适用于表单或配置区。"
- */
+export const meta = {
+    title: "卡片形态",
+    description: "type='card' 提供更清晰的容器边界，适用于表单或配置区。",
+};
 
 import Tabs from '../../src/index.js';
 

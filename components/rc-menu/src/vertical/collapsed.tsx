@@ -1,5 +1,5 @@
 import { type FC, useState, type MouseEvent, useEffect } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import {
     useFloating,
     useHover,

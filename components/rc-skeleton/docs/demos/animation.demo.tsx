@@ -1,9 +1,9 @@
-/**
- * title = "动画形态"
- * description = "`pulse` 透明度脉动，性能开销最小；`wave` 高亮带从左向右扫过。"
- */
+export const meta = {
+    title: "动画形态",
+    description: "`pulse` 透明度脉动，性能开销最小；`wave` 高亮带从左向右扫过。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import Skeleton from "../../src/index.js";
 

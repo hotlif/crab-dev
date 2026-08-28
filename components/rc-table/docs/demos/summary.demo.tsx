@@ -1,8 +1,8 @@
 
-/**
- * title = "底部汇总行"
- * description = "通过 showSummary 开启底部固定汇总行，各列由 summaryRender 提供合计 / 平均等聚合内容；汇总行始终贴住底部，固定列横向同步固定。"
- */
+export const meta = {
+    title: "底部汇总行",
+    description: "通过 showSummary 开启底部固定汇总行，各列由 summaryRender 提供合计 / 平均等聚合内容；汇总行始终贴住底部，固定列横向同步固定。",
+};
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row, SummaryCellParam } from "../../src/index.js";

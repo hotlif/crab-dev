@@ -1,9 +1,9 @@
-/**
- * title = "状态点"
- * description = "以 `status + text` 表达系统或实体的运行状态。`processing` 带脉冲动画。"
- */
+export const meta = {
+    title: "状态点",
+    description: "以 `status + text` 表达系统或实体的运行状态。`processing` 带脉冲动画。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Badge from "../../src/index.js";
 
 const StatusDemo = () => {

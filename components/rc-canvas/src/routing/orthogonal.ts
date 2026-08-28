@@ -4,10 +4,8 @@
  * - connectThroughWaypoints：端口 → 用户折点 → 端口的正交连接（手动走线）。
  */
 
-import {
-    type EdgeAnchor, type Pt, type Side,
-    ROUTE_EPS, isHorizontalSide, simplifyOrthogonal,
-} from './geometry.js';
+import { ROUTE_EPS, isHorizontalSide, simplifyOrthogonal } from './geometry.js';
+import type { EdgeAnchor, Pt, Side } from './geometry.js';
 
 /**
  * 简单正交路由：根据两端所在边自动生成折线（中线居中）。

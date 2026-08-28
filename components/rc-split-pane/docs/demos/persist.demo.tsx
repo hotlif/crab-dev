@@ -1,7 +1,7 @@
-/**
- * title = "记住尺寸与键盘调整"
- * description = "persistKey 记住用户调整（刷新页面后仍生效）；Tab 聚焦分隔条后可用方向键步进、Home/End 到边界、Enter 复位"
- */
+export const meta = {
+    title: "记住尺寸与键盘调整",
+    description: "persistKey 记住用户调整（刷新页面后仍生效）；Tab 聚焦分隔条后可用方向键步进、Home/End 到边界、Enter 复位",
+};
 
 import { useState } from 'react';
 import type { CSSProperties } from 'react';

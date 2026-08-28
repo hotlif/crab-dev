@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import DatePickerPanel, { type DatePickerPanelProps } from "./datePickerPanel.js";
 import TimePickerPanel, { type TimePickerPanelProps } from "./timePickerPanel.js";

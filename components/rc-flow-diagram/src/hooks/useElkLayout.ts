@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-// elk-api.js 是纯 API 层，不含布局算法，依赖 Worker 运行；
-// elk-worker.min.js 包含完整算法，由 Webpack 5 打包为独立 chunk 在 Worker 线程执行
-import ELK from 'elkjs/lib/elk-api.js';
+// bundled 入口内含布局算法，避免在双格式库产物中保留仅 ESM 可用的 import.meta.url。
+import ELK from 'elkjs/lib/elk.bundled.js';
 import type { ElkNode, ElkExtendedEdge } from 'elkjs/lib/elk-api.js';
 
 /** 传入节点描述：必须提供稳定的 id 与明确的宽高（world px）。 */
@@ -37,30 +36,29 @@ export interface ElkLayoutResult {
     edges: Record<string, { points: Array<{ x: number; y: number }> }>;
 }
 
+export interface UseElkLayoutResult {
+    layout: ElkLayoutResult | null;
+    loading: boolean;
+    error: Error | null;
+}
+
 // 面向库消费方的稳定化（例外白名单）：单例，避免重复创建 Worker
 let elkInstance: InstanceType<typeof ELK> | null = null;
 
 function getElk(): InstanceType<typeof ELK> | null {
     if (elkInstance) return elkInstance;
-    // Worker 仅在浏览器中可用；Jest / SSR 环境返回 null，hook 以空结果 early-exit
-    if (typeof Worker === 'undefined') return null;
-    elkInstance = new ELK({
-        // Webpack 5 静态分析 new URL(..., import.meta.url) 并将 elk-worker.min.js
-        // 打包为独立 chunk，运行时提供正确 URL；workerFactory 参数 _url 被忽略
-        workerFactory: () => new Worker(
-            new URL('elkjs/lib/elk-worker.min.js', import.meta.url),
-        ),
-    });
+    if (typeof window === 'undefined') return null;
+    elkInstance = new ELK();
     return elkInstance;
 }
 
 /**
- * 使用 ELK.js 在 Web Worker 中自动计算节点图布局（不阻塞主线程）。
+ * 使用 ELK.js 异步计算节点图布局。
  *
  * - 节点/边数据变化时自动重新布局（以 JSON 序列化内容作为依赖 key）。
- * - 布局结果在 Worker 线程异步计算；计算中 loading 为 true，layout 保留上次结果。
+ * - 布局结果异步计算；计算中 loading 为 true，layout 保留上次结果。
  * - 默认采用 `layered` 算法、从左到右方向；可通过 options 覆盖任意 ELK 参数。
- * - SSR / Jest 环境（无 Worker）返回空 layout，不报错。
+ * - SSR / DOM 测试环境（无 window）返回空 layout，不报错。
  *
  * @example
  * const { layout, loading } = useElkLayout(nodes, edges, {
@@ -75,7 +73,7 @@ export function useElkLayout(
     nodes: ElkLayoutNode[],
     edges: ElkLayoutEdge[],
     options?: Record<string, string>,
-): { layout: ElkLayoutResult | null; loading: boolean; error: Error | null } {
+): UseElkLayoutResult {
     const [layout, setLayout] = useState<ElkLayoutResult | null>(null);
     const [loading, setLoading] = useState(nodes.length > 0);
     const [error, setError] = useState<Error | null>(null);

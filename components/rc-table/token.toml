@@ -1,7 +1,7 @@
 [build]
 output  = "./src/token.ts"
 prefix  = "table"
-imports = ["@crab-dev/rc-token-semantic"]
+imports = ["@crab-dev/rc-token-global", "@crab-dev/rc-token-semantic"]
 
 [token]
 

@@ -1,9 +1,9 @@
-/**
- * title = "分组变换与嵌套"
- * description = "Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。"
- */
+export const meta = {
+    title: "分组变换与嵌套",
+    description: "Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 
 const wrapStyle = css`

@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "默认 `size=base`，包含标题、段落、链接、粗体等基础排版元素"
- */
+export const meta = {
+    title: "基础用法",
+    description: "默认 `size=base`，包含标题、段落、链接、粗体等基础排版元素",
+};
 
 import Prose from '../../src/index.js';
 
@@ -10,7 +10,7 @@ const BasicDemo = () => {
         <Prose as="article">
             <h1>Prose 排版组件</h1>
             <p className="lead">
-                零运行时 Markdown 排版容器，基于 Linaria 编译为静态 CSS，不引入额外 JS 开销。
+                零运行时 Markdown 排版容器，基于 Crab CSS 编译为静态 CSS，不引入额外 JS 开销。
             </p>
 
             <h2>基本元素</h2>

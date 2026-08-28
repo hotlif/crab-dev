@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'track.background': '--segmented-track-background',
     'track.border.radius': '--segmented-track-border-radius',
     'font.weight': '--segmented-font-weight',
@@ -36,9 +38,9 @@ export const vars = {
     'focus.ring.offset': '--segmented-focus-ring-offset',
     'disabled.opacity': '--segmented-disabled-opacity',
     'motion.item': '--segmented-motion-item'
-};
+});
 
-const token = {
+const token = defineTokens({
     'track': {
         'background': `var(${vars['track.background']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
         'border': {
@@ -98,6 +100,6 @@ const token = {
     'motion': {
         'item': `var(${vars['motion.item']}, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`
     }
-};
+});
 
 export default token;

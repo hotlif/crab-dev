@@ -7,7 +7,10 @@ import Text from '../../src/shapes/text.js';
 import Viewport from '../../src/viewport.js';
 import InfiniteGrid from '../../src/shapes/infinite-grid.js';
 import type { DragMoveEvent } from '../../src/drag-types.js';
-
+export const meta = {
+    title: "Infinite Canvas",
+    description: "Infinite Canvas 示例",
+};
 interface CardData {
     id: number;
     x: number;

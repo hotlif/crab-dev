@@ -1,8 +1,4 @@
-import Virtual, { type VirtualProps, type VirtualHandle } from "./virtual.js";
-
-export {
-    type VirtualProps,
-    type VirtualHandle
-};
+import Virtual from "./virtual.js";
+export type { VirtualHandle, VirtualProps } from "./virtual.js";
 
 export default Virtual;

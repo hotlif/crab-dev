@@ -1,4 +1,4 @@
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import RcSlider, { TokenVars } from "@crab-dev/rc-slider";
 import { type FC, type HTMLAttributes, useState } from "react";
 import token from "../token.js";

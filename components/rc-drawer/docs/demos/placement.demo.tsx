@@ -1,11 +1,11 @@
-/**
- * title = "四个方向"
- * description = "通过 `placement` 控制抽屉从哪个方向滑出。"
- */
+export const meta = {
+    title: "四个方向",
+    description: "通过 `placement` 控制抽屉从哪个方向滑出。",
+};
 
 import { useState } from "react";
 import Button from "@crab-dev/rc-button";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import Drawer, { type DrawerPlacement } from "../../src/index.js";
 

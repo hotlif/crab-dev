@@ -1,4 +1,4 @@
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import LineEdit from "@crab-dev/rc-line-edit";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, Ref } from "react";

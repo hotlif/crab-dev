@@ -1,10 +1,10 @@
 
-/**
- * title = "单元格选择"
- * description = "类似 Excel 的单元格选区：点击选中、按住拖拽框选、Shift 扩选、Ctrl/⌘ 切换单格"
- */
+export const meta = {
+    title: "单元格选择",
+    description: "类似 Excel 的单元格选区：点击选中、按住拖拽框选、Shift 扩选、Ctrl/⌘ 切换单格",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type Key, useState } from "react";
 
 import Table from "../../src/index.js";

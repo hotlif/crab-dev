@@ -1,9 +1,9 @@
-/**
- * title = "自定义图标与持续时间"
- * description = "通过 `icon` 自定义图标，通过 `duration` 设置持续时间，设为 0 则不自动关闭"
- */
+export const meta = {
+    title: "自定义图标与持续时间",
+    description: "通过 `icon` 自定义图标，通过 `duration` 设置持续时间，设为 0 则不自动关闭",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useMessage } from "../../src/index.js";
 
 const CustomDemo = () => {

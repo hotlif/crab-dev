@@ -1,11 +1,11 @@
 
-/**
- * title = "危险操作"
- * description = "使用 `appearance=\"danger\"` 标识删除、清空等破坏性操作"
- */
+export const meta = {
+    title: "危险操作",
+    description: "使用 `appearance=\\\"danger\\\"` 标识删除、清空等破坏性操作",
+};
 
 import Button from '../../src/index.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 
 const DangerDemo = () => {
     return (

@@ -1,7 +1,7 @@
-/**
- * title = "堆叠模式"
- * description = "stacked 开启堆叠：正值向上、负值向下分别累计，段与段之间保持 2px 表面留白，仅最外侧段带数据端圆角。"
- */
+export const meta = {
+    title: "堆叠模式",
+    description: "stacked 开启堆叠：正值向上、负值向下分别累计，段与段之间保持 2px 表面留白，仅最外侧段带数据端圆角。",
+};
 
 import BarChart from '../../src/index.js';
 

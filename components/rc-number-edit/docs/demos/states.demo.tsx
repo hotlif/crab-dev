@@ -1,9 +1,9 @@
-/**
- * title = "尺寸与状态"
- * description = "large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit"
- */
+export const meta = {
+    title: "尺寸与状态",
+    description: "large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 
 import NumberEdit from "../../src/index.js";

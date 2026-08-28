@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { useEffect, useRef } from 'react';
 import type { FC, KeyboardEvent, CSSProperties } from 'react';
 import { useDragResize, useEventCallback } from '@crab-dev/rc-hooks';

@@ -1,9 +1,9 @@
-/**
- * title = "密码输入"
- * description = "设置 `type=\"password\"` 时右侧自动出现可见性切换按钮（眼睛图标），用户可随时核查已输入的密码内容，降低因误输入导致的挫败感"
- */
+export const meta = {
+    title: "密码输入",
+    description: "设置 `type=\\\"password\\\"` 时右侧自动出现可见性切换按钮（眼睛图标），用户可随时核查已输入的密码内容，降低因误输入导致的挫败感",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import LineEdit from "../../src/index.js";
 

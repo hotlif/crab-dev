@@ -1,5 +1,5 @@
 import { useMemo, useRef } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import token from "../token.js";
 import type { ColumnType, Row } from "../types.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";

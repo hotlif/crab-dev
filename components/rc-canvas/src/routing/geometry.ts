@@ -33,6 +33,11 @@ export interface EdgeAnchor {
     entrySide: Side;
 }
 
+export interface SideAnchor {
+    side: Side;
+    t: number;
+}
+
 /** 浮点比较容差。 */
 export const ROUTE_EPS = 1e-6;
 
@@ -73,7 +78,7 @@ export function anchorPoint(rect: Rect, side: Side, t: number): Pt {
  * 把世界点投影到矩形最近的一条边，返回 `{ side, t }`。
  * 用于端点重连（把拖到节点上的端点吸附到最近的边）。
  */
-export function nearestSideAnchor(rect: Rect, p: Pt): { side: Side; t: number } {
+export function nearestSideAnchor(rect: Rect, p: Pt): SideAnchor {
     const right = rect.x + rect.width;
     const bottom = rect.y + rect.height;
     const tY = clamp01((p.y - rect.y) / rect.height);

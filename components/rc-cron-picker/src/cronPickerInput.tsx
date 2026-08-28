@@ -1,6 +1,6 @@
 import { useDropdownContext } from '@crab-dev/rc-dropdown-container';
 import LineEdit from '@crab-dev/rc-line-edit';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useEffect, useRef, useState, type FC, type KeyboardEvent, type Ref } from 'react';
 
 import { parseCron } from './cron.js';

@@ -1,0 +1,72 @@
++++
+title = "Spin 加载中"
+description = "加载中指示器, 用于表达耗时操作正在进行"
+kind = "component"
+status = "experimental"
++++
+
+# Spin
+
+加载中指示器, 用于表达耗时操作正在进行。
+
+[打开 Spin 加载中 工作台](/components/rc-spin/workbench/)
+
+## 何时使用
+
+- 操作预计超过约 400ms（多尔蒂阈值）时, 必须给出进行中反馈, 否则界面看起来像「死了」
+- 局部区域正在刷新时, 用包裹模式笼罩该区域, 明确「哪一块在忙」
+- 若加载的是**结构已知**的内容（列表、卡片、表格行）, 应优先用 `@crab-dev/rc-skeleton` 骨架屏——
+  它同时给出「在加载」和「加载完长什么样」, 感知等待更短
+- 若操作能给出确定进度, 应优先用进度条而非无限旋转——已知进度永远比未知的转圈更安抚人
+
+
+## 延迟显示
+
+`delay` 是这个组件最容易被忽略、却最影响体感的能力。
+
+请求在 100ms 内返回时, 一枚闪现又消失的 spinner 只会制造视觉噪声, 让界面显得不稳。设
+`delay={300}` 后：300ms 内完成的操作全程无指示器（用户根本感知不到「加载」这回事）；
+超出 300ms 才说明它确实耗时, 此时才给出反馈。
+
+注意延迟只作用于「出现」：`spinning` 转假时指示器**立即**撤下, 不会为了凑满 delay 而多转一圈。
+
+
+## SpinIndicator —— 纯视觉的环
+
+`Spin` 自带 `role="status"` + `aria-live`。当宿主**自身已经声明了加载语义**时（例如 rc-button 的
+loading 态已有 `aria-busy`）, 再嵌一个 `Spin` 会让读屏把「加载中」播报两次。
+
+这类场景请改用具名导出的 `SpinIndicator`：它只是一枚 `aria-hidden` 的旋转环, 不带任何语义,
+语义交由宿主承担。尺寸与配色经 CSS 变量覆写, 因此能贴合宿主的字号与前景色：
+
+```tsx
+import { SpinIndicator, vars as spinVars } from '@crab-dev/rc-spin';
+
+// 环随宿主字号缩放, 描边跟随 currentColor（深底按钮上默认的品牌色会看不见）
+const style = css`
+    --rc-spin-size: 1em;
+    ${spinVars['ring.indicator-color']}: currentColor;
+    ${spinVars['ring.track-color']}: transparent;
+`;
+```
+
+`rc-button` 与 `rc-protocol-table` 已分别复用 `SpinIndicator` 与 `Spin`, 库内不再有第二份旋转动画。
+
+
+## 无障碍
+
+- 指示器渲染为 `role="status"` + `aria-live="polite"`, 加载开始时读屏会主动播报
+- 提供 `tip` 时它即为可访问名（读屏播报「正在保存」）; 未提供时回落到 `label`（默认「加载中」）
+- 包裹模式下容器标注 `aria-busy`, 内容以 `inert` 阻断——**键盘焦点无法进入加载中的区域**,
+  这比 `pointer-events: none` 更彻底：后者只挡鼠标, Tab 键照样能选中不可用的按钮
+- `prefers-reduced-motion` 下**不**移除动画, 而是把旋转降级为低频透明度呼吸：加载指示器是耗时
+  操作的唯一反馈, 一并停掉等于让界面陷入沉默；降级只去掉前庭刺激, 保留「仍在进行」的意符
+
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/types.ts" symbol="SpinProps" component="Spin" />

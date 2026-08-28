@@ -1,8 +1,8 @@
 
-/**
- * title = "行分组"
- * description = "通过 groupBy 按列名进行多级分组。分组 banner 渲染在对应列的位置，叶子行中已分组的列保持空白以避免信息重复（与 react-data-grid 行为一致）。"
- */
+export const meta = {
+    title: "行分组",
+    description: "通过 groupBy 按列名进行多级分组。分组 banner 渲染在对应列的位置，叶子行中已分组的列保持空白以避免信息重复（与 react-data-grid 行为一致）。",
+};
 
 import { useMemo, useState, type Key } from "react";
 import { fakerZH_CN as faker } from "@faker-js/faker";

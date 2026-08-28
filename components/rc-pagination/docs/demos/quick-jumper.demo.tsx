@@ -1,7 +1,7 @@
-/**
- * title = "快速跳转"
- * description = "开启 showQuickJumper 后，用户可直接输入目标页码并回车跳转"
- */
+export const meta = {
+    title: "快速跳转",
+    description: "开启 showQuickJumper 后，用户可直接输入目标页码并回车跳转",
+};
 import { useState } from "react";
 import Pagination from "../../src/index.js";
 

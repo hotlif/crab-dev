@@ -1,9 +1,9 @@
-/**
- * title = "自定义颜色与关闭图标"
- * description = "支持自定义颜色字符串与 `closeIcon`"
- */
+export const meta = {
+    title: "自定义颜色与关闭图标",
+    description: "支持自定义颜色字符串与 `closeIcon`",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Tag from "../../src/index.js";
 

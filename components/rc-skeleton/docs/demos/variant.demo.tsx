@@ -1,9 +1,9 @@
-/**
- * title = "形状变体"
- * description = "通过 `variant` 选择占位形状：`text` / `rect` / `circle` / `button` / `avatar` / `image`。"
- */
+export const meta = {
+    title: "形状变体",
+    description: "通过 `variant` 选择占位形状：`text` / `rect` / `circle` / `button` / `avatar` / `image`。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import Skeleton from "../../src/index.js";
 

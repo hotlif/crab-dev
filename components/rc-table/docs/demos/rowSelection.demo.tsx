@@ -1,7 +1,7 @@
-/**
- * title = "行选中"
- * description = "通过 `rowSelection` prop 启用行选中功能。`type: 'checkbox'` 为多选（表头显示全选），`type: 'radio'` 为单选。支持受控与非受控两种用法，可通过 `getDisabled` 禁用特定行。"
- */
+export const meta = {
+    title: "行选中",
+    description: "通过 `rowSelection` prop 启用行选中功能。`type: 'checkbox'` 为多选（表头显示全选），`type: 'radio'` 为单选。支持受控与非受控两种用法，可通过 `getDisabled` 禁用特定行。",
+};
 
 import { useState, type Key } from "react";
 import Table from "../../src/index.js";

@@ -1,8 +1,8 @@
-/**
- * title = "显示总量"
- * description = "showTotal 支持布尔值或自定义渲染函数，展示当前区间与总数"
- */
-import { css } from "@linaria/core";
+export const meta = {
+    title: "显示总量",
+    description: "showTotal 支持布尔值或自定义渲染函数，展示当前区间与总数",
+};
+import { css } from "@crab-dev/css";
 import Pagination from "../../src/index.js";
 
 const stackStyle = css`

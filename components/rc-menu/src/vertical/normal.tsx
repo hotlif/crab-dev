@@ -1,5 +1,5 @@
 import { type FC, type ReactNode } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 
 import { motion, AnimatePresence } from "motion/react"
 

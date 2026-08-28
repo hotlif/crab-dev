@@ -1,12 +1,12 @@
 
-/**
- * title = "基本"
- * description = "一个基础的消息通知组件"
- */
+export const meta = {
+    title: "基本",
+    description: "一个基础的消息通知组件",
+};
 
 import { useState } from "react";
 import { type Direction, useNotification } from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 
 let i = 0;

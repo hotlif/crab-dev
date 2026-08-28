@@ -1,7 +1,7 @@
-/**
- * title = "搜索过滤 filterTreeNode"
- * description = "通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。"
- */
+export const meta = {
+    title: "搜索过滤 filterTreeNode",
+    description: "通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。",
+};
 
 import { type Key, useState, useEffect } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";

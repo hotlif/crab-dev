@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'line.color': '--divider-line-color',
     'line.width': '--divider-line-width',
     'spacing.none': '--divider-spacing-none',
@@ -17,9 +19,9 @@ export const vars = {
     'text.gap': '--divider-text-gap',
     'text.offset': '--divider-text-offset',
     'vertical.size': '--divider-vertical-size'
-};
+});
 
-const token = {
+const token = defineTokens({
     'line': {
         'color': `var(${vars['line.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'width': `var(${vars['line.width']}, 1px)`
@@ -42,6 +44,6 @@ const token = {
     'vertical': {
         'size': `var(${vars['vertical.size']}, 1em)`
     }
-};
+});
 
 export default token;

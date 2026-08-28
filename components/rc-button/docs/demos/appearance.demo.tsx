@@ -1,11 +1,11 @@
 
-/**
- * title = "外观设置"
- * description = "通过 `appearance` 属性设置按钮外观"
- */
+export const meta = {
+    title: "外观设置",
+    description: "通过 `appearance` 属性设置按钮外观",
+};
 
 import Button from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const SizeDemo = () => {
     return (

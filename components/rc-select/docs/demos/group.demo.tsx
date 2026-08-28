@@ -1,7 +1,7 @@
-/**
- * title = "分组选项"
- * description = "使用 { label, options } 结构对选项进行分组"
- */
+export const meta = {
+    title: "分组选项",
+    description: "使用 { label, options } 结构对选项进行分组",
+};
 
 import Select from '../../src/index.js';
 

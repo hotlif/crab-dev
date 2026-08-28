@@ -1,6 +1,6 @@
 import { type ReactElement, type Ref, cloneElement, useRef } from 'react';
 import { useControllableOpen } from '@crab-dev/rc-hooks';
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import {
     useFloating,
     autoUpdate,

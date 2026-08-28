@@ -1,7 +1,8 @@
 import RcButton from "@crab-dev/rc-button"
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { css } from '@linaria/core';
-import { FC, useState } from "react";
+import { css } from '@crab-dev/css';
+import { useState } from "react";
+import type { FC } from "react";
 
 import token from '../token.js';
 import type { TimePickerPanelProps } from "../panels/timePickerPanel.js";

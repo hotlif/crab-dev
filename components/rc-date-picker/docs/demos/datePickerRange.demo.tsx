@@ -1,9 +1,9 @@
-/**
- * title = "日期范围选择"
- * description = "演示如何选择一段日期区间。"
- */
+export const meta = {
+    title: "日期范围选择",
+    description: "演示如何选择一段日期区间。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 
 import DatePicker from "../../src/datePicker/datePicker.js";

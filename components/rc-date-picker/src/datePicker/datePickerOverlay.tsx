@@ -1,7 +1,7 @@
 import RcButton from "@crab-dev/rc-button"
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { css } from '@linaria/core';
-import { FC } from "react";
+import { css } from '@crab-dev/css';
+import type { FC } from "react";
 import DatePickerPanel, { type DatePickerPanelProps } from '../panels/datePickerPanel.js';
 import token from '../token.js';
 

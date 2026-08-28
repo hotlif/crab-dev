@@ -1,9 +1,9 @@
-/**
- * title = "尺寸与偏移"
- * description = "`size` 提供 default / small 两档尺寸；`offset` 可微调角标的定位。"
- */
+export const meta = {
+    title: "尺寸与偏移",
+    description: "`size` 提供 default / small 两档尺寸；`offset` 可微调角标的定位。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Badge from "../../src/index.js";
 
 const avatarStyle = css`

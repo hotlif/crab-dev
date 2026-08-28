@@ -1,0 +1,12 @@
+[data-crab-preview="true"] {
+    box-sizing: border-box;
+    min-width: 0;
+    width: 100%;
+    padding: 1rem;
+}
+
+[data-crab-preview="true"] *,
+[data-crab-preview="true"] *::before,
+[data-crab-preview="true"] *::after {
+    box-sizing: inherit;
+}

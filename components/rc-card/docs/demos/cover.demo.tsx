@@ -1,9 +1,9 @@
-/**
- * title = "封面与悬浮浮起"
- * description = "cover 出血铺满顶部; hoverable 悬浮时卡片浮起、封面同步微缩放。"
- */
+export const meta = {
+    title: "封面与悬浮浮起",
+    description: "cover 出血铺满顶部; hoverable 悬浮时卡片浮起、封面同步微缩放。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Avatar from '@crab-dev/rc-avatar';
 import Card from '../../src/index.js';
 

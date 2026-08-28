@@ -1,7 +1,7 @@
-/**
- * title = "可关闭标签"
- * description = "开启 closable 并监听 onTabClose 管理标签页的增删。"
- */
+export const meta = {
+    title: "可关闭标签",
+    description: "开启 closable 并监听 onTabClose 管理标签页的增删。",
+};
 
 import { useState } from 'react';
 

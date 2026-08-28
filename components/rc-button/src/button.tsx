@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { useRef, use, type FC, type MouseEvent } from 'react';
 import { SpinIndicator, vars as spinVars } from '@crab-dev/rc-spin';
 import token from './token.js';

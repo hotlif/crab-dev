@@ -7,7 +7,10 @@ import Viewport from '../../src/viewport.js';
 import InfiniteGrid from '../../src/shapes/infinite-grid.js';
 import Transformer from '../../src/shapes/transformer.js';
 import type { TransformState } from '../../src/transform-types.js';
-
+export const meta = {
+    title: "Transformer",
+    description: "Transformer 示例",
+};
 interface ShapeData {
     id: number;
     label: string;

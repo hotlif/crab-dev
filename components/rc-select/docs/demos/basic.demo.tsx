@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "单选模式下的基础选择"
- */
+export const meta = {
+    title: "基础用法",
+    description: "单选模式下的基础选择",
+};
 
 import Select from '../../src/index.js';
 

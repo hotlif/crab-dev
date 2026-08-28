@@ -1,8 +1,8 @@
 
-/**
- * title = "列宽拖拽调整"
- * description = "在表头右边缘拖拽可调整列宽。设置 Table resizable 全局开启，也可通过 ColumnType.resizable 逐列控制。"
- */
+export const meta = {
+    title: "列宽拖拽调整",
+    description: "在表头右边缘拖拽可调整列宽。设置 Table resizable 全局开启，也可通过 ColumnType.resizable 逐列控制。",
+};
 
 import { useState } from "react";
 import Table from "../../src/index.js";

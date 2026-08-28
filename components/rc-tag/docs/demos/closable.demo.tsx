@@ -1,9 +1,9 @@
-/**
- * title = "可关闭标签"
- * description = "添加 `closable` 属性使标签可关闭，配合 `onClose` 回调处理关闭逻辑"
- */
+export const meta = {
+    title: "可关闭标签",
+    description: "添加 `closable` 属性使标签可关闭，配合 `onClose` 回调处理关闭逻辑",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Tag from "../../src/index.js";
 

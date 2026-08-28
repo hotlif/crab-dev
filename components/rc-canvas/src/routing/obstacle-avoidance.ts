@@ -10,11 +10,8 @@
  * 经离线对抗测试验证（障碍居中 / 竖直收窄 / 端口贴障碍 / 源被围死 / 同侧端口等）。
  */
 
-import {
-    type EdgeAnchor, type Pt, type Rect, type Side,
-    ROUTE_EPS, inflateRect,
-    segmentHitsAny, polylineClearOf, simplifyOrthogonal, uniqueSorted,
-} from './geometry.js';
+import { ROUTE_EPS, inflateRect, polylineClearOf, segmentHitsAny, simplifyOrthogonal, uniqueSorted } from './geometry.js';
+import type { EdgeAnchor, Pt, Rect, Side } from './geometry.js';
 import { routeOrthogonal } from './orthogonal.js';
 
 /** 避让参数。 */

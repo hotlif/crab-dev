@@ -1,9 +1,9 @@
-/**
- * title = "顺序排列"
- * description = "设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列"
- */
+export const meta = {
+    title: "顺序排列",
+    description: "设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Masonry from "../../src/index.js";
 

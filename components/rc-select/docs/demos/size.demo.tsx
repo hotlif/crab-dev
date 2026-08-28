@@ -1,9 +1,9 @@
-/**
- * title = "尺寸"
- * description = "提供 large、middle、small 三种尺寸"
- */
+export const meta = {
+    title: "尺寸",
+    description: "提供 large、middle、small 三种尺寸",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Select from '../../src/index.js';
 
 const containerStyle = css`

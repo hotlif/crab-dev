@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useKeyDown } from "../../src/index.js";
-
+export const meta = {
+    title: "Use Key Down",
+    description: "Use Key Down 示例",
+};
 const Demo = () => {
     const [keyboardRef] = useKeyDown();
     const [, setVersion] = useState(0);

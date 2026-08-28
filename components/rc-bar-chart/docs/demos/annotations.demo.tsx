@@ -1,7 +1,7 @@
-/**
- * title = "数值标签与参考线"
- * description = "showValues 在柱端标注数值（空间不足以容纳的自动省略；堆叠模式标注类目合计）；referenceLines 绘制均值 / 目标虚线，参考值自动纳入值轴刻度域。"
- */
+export const meta = {
+    title: "数值标签与参考线",
+    description: "showValues 在柱端标注数值（空间不足以容纳的自动省略；堆叠模式标注类目合计）；referenceLines 绘制均值 / 目标虚线，参考值自动纳入值轴刻度域。",
+};
 
 import BarChart from '../../src/index.js';
 

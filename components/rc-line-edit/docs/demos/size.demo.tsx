@@ -1,9 +1,9 @@
-/**
- * title = "尺寸"
- * description = "通过 `size` 属性设置输入框尺寸"
- */
+export const meta = {
+    title: "尺寸",
+    description: "通过 `size` 属性设置输入框尺寸",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import LineEdit from "../../src/index.js";
 

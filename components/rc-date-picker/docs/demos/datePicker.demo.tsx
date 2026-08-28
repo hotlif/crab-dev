@@ -1,9 +1,9 @@
-/**
- * title = "日期选择器"
- * description = "多种规格的日期选择器演示。"
- */
+export const meta = {
+    title: "日期选择器",
+    description: "多种规格的日期选择器演示。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 
 import DatePicker from "../../src/datePicker/datePicker.js";

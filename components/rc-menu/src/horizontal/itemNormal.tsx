@@ -8,7 +8,7 @@ import {
     useFloatingParentNodeId
 } from "@floating-ui/react";
 import { type FC, useState, type ReactNode, useEffect } from "react";
-import { css, cx } from "@linaria/core";
+import { cx } from "@crab-dev/css";
 import { type Item } from "../type.js";
 import itemStyle from "./styles/itemNormal.styles.js";
 import { type MenuProps } from "../menu.js";
@@ -25,7 +25,7 @@ interface ItemProps {
 const ItemNormal: FC<ItemProps> = ({
     item,
     children,
-    depth,
+    depth: _depth,
     onClick
 }) => {
     const [isOpen, setIsOpen] = useState(false);

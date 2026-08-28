@@ -1,7 +1,7 @@
-/**
- * title = "显示连接线"
- * description = "通过 `showLine` 属性展示树节点之间的连接线。"
- */
+export const meta = {
+    title: "显示连接线",
+    description: "通过 `showLine` 属性展示树节点之间的连接线。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";

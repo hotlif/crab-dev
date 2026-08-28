@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'max-width': '--prose-max-width',
     'body': '--prose-body',
     'headings': '--prose-headings',
@@ -38,9 +40,9 @@ export const vars = {
     'dt.font-weight': '--prose-dt-font-weight',
     'th.font-weight': '--prose-th-font-weight',
     'marker.font-weight': '--prose-marker-font-weight'
-};
+});
 
-const token = {
+const token = defineTokens({
     'max-width': `var(${vars['max-width']}, 100%)`,
     'body': `var(${vars['body']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
     'headings': `var(${vars['headings']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
@@ -108,6 +110,6 @@ const token = {
     'marker': {
         'font-weight': `var(${vars['marker.font-weight']}, var(--token-global-font-weight-regular, 400))`
     }
-};
+});
 
 export default token;

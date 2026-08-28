@@ -1,4 +1,4 @@
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { type FC, type HTMLAttributes } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

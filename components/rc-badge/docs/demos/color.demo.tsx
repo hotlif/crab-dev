@@ -1,9 +1,9 @@
-/**
- * title = "预设与自定义颜色"
- * description = "通过 `color` 指定预设语义色或任意 CSS 颜色字符串。"
- */
+export const meta = {
+    title: "预设与自定义颜色",
+    description: "通过 `color` 指定预设语义色或任意 CSS 颜色字符串。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Badge from "../../src/index.js";
 
 const ColorDemo = () => {

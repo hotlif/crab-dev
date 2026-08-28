@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "通过 options 传入选项, 默认选中第一个可用项。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过 options 传入选项, 默认选中第一个可用项。",
+};
 
 import Segmented from '../../src/index.js';
 

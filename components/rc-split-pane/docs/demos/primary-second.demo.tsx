@@ -1,7 +1,7 @@
-/**
- * title = "定宽侧在后"
- * description = "primary=second 时右侧面板定宽（编辑器右挂侧栏的典型布局），拖拽方向自动反转"
- */
+export const meta = {
+    title: "定宽侧在后",
+    description: "primary=second 时右侧面板定宽（编辑器右挂侧栏的典型布局），拖拽方向自动反转",
+};
 
 import type { CSSProperties } from 'react';
 import SplitPane from '../../src/index.js';

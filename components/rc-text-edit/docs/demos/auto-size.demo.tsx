@@ -1,9 +1,9 @@
-/**
- * title = "高度自适应"
- * description = "设置 `autoSize` 后高度随内容自动增长（CSS field-sizing，浏览器不支持时按 `rows` 回退）；开启后手动拖拽调整被禁用，两种高度控制方式不会互相冲突"
- */
+export const meta = {
+    title: "高度自适应",
+    description: "设置 `autoSize` 后高度随内容自动增长（CSS field-sizing，浏览器不支持时按 `rows` 回退）；开启后手动拖拽调整被禁用，两种高度控制方式不会互相冲突",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import TextEdit from "../../src/index.js";
 

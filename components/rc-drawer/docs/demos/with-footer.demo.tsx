@@ -1,7 +1,7 @@
-/**
- * title = "底部操作区"
- * description = "通过 `footer` 传入操作按钮，适合承载表单提交场景。"
- */
+export const meta = {
+    title: "底部操作区",
+    description: "通过 `footer` 传入操作按钮，适合承载表单提交场景。",
+};
 
 import { useState } from "react";
 import Button from "@crab-dev/rc-button";

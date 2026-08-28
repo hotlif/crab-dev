@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "AutoSizer 自动感知容器尺寸，将 width 和 height 传入子渲染函数。拖拽窗口边缘或改变面板大小时，子内容会随之更新。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "AutoSizer 自动感知容器尺寸，将 width 和 height 传入子渲染函数。拖拽窗口边缘或改变面板大小时，子内容会随之更新。",
+};
 import AutoSizer from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const wrapperStyle = css`
     width: 100%;

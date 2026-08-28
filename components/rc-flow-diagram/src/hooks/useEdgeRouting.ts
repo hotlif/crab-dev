@@ -11,9 +11,9 @@
 
 import { useMemo } from 'react';
 import {
-    type Pt, type RoutingRect, type Side, type EdgeAnchor, type AvoidOptions, type RoutableEdge,
     anchorPoint, assignPorts, connectThroughWaypoints, withTerminalStubs, routeOrthogonal, routeEdge,
 } from '@crab-dev/rc-canvas';
+import type { Pt, RoutingRect, Side, EdgeAnchor, AvoidOptions, RoutableEdge } from '@crab-dev/rc-canvas';
 
 /** 端口锚点：所在边 + 边上参数 t∈[0,1]。 */
 export interface PortAnchor {

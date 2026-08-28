@@ -1,9 +1,9 @@
-/**
- * title = "CSV 导出"
- * description = "设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。"
- */
+export const meta = {
+    title: "CSV 导出",
+    description: "设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

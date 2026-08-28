@@ -1,9 +1,9 @@
-/**
- * title = "千分位与自定义格式化"
- * description = "thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）"
- */
+export const meta = {
+    title: "千分位与自定义格式化",
+    description: "thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 
 import NumberEdit from "../../src/index.js";

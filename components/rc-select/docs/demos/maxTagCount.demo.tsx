@@ -1,7 +1,7 @@
-/**
- * title = "标签数量限制"
- * description = "多选模式下设置 maxTagCount 限制展示的标签数量"
- */
+export const meta = {
+    title: "标签数量限制",
+    description: "多选模式下设置 maxTagCount 限制展示的标签数量",
+};
 
 import Select from '../../src/index.js';
 

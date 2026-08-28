@@ -1,9 +1,9 @@
-/**
- * title = "带标题"
- * description = "通过 `title` 属性设置标题，适合展示更多详情"
- */
+export const meta = {
+    title: "带标题",
+    description: "通过 `title` 属性设置标题，适合展示更多详情",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Alert from "../../src/index.js";
 
 const TitleDemo = () => {

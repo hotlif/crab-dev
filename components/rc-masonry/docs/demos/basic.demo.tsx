@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "默认 2 列瀑布流布局"
- */
+export const meta = {
+    title: "基础用法",
+    description: "默认 2 列瀑布流布局",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Masonry from "../../src/index.js";
 
 const itemStyle = css`

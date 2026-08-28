@@ -1,9 +1,9 @@
-/**
- * title = "三种变体"
- * description = "elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。"
- */
+export const meta = {
+    title: "三种变体",
+    description: "elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Card from '../../src/index.js';
 
 const rowStyle = css`

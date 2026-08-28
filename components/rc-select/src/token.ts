@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--select-transition',
     'border.width': '--select-border-width',
     'border.style': '--select-border-style',
@@ -51,9 +53,9 @@ export const vars = {
     'dropdown.padding': '--select-dropdown-padding',
     'dropdown.option.padding': '--select-dropdown-option-padding',
     'dropdown.z-index': '--select-dropdown-z-index'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'border': {
         'width': `var(${vars['border.width']}, 1px)`,
@@ -138,6 +140,6 @@ const token = {
         },
         'z-index': `var(${vars['dropdown.z-index']}, 1000)`
     }
-};
+});
 
 export default token;

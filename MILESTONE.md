@@ -2,7 +2,7 @@
 	<h1>里程碑</h1>
 </div>
 
-> 最后更新：2026-07-07 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
+> 最后更新：2026-08-26 &nbsp;|&nbsp; 当前阶段：**Alpha（v0.x）**
 
 ---
 
@@ -11,8 +11,8 @@
 ```
 标准组件    █████████████████░░░░░░░░░░░░░░░  39 / 75（52%）
 基础设施    ████████████████████████████████  全部就绪
-工具链      ████████████████████████████████  4/4 已发布
-工程规范    ████████████████████████████████  3/3 已发布
+工具链      ████████████████████████████████  Wake 统一接管
+工程规范    ████████████████████████████████  2/2 已发布
 设计令牌    ████████████████████████████░░░░  三层架构落地，深色主题待落地
 ```
 
@@ -37,19 +37,16 @@
 
 | 领域 | 内容 |
 |------|------|
-| **Monorepo** | Turbo + Yarn 4.13 PnP + Corepack，全仓 ESM |
-| **CI** | GitHub Actions（Jest + ESLint），`canary` 分支触发 |
-| **构建** | `yarn build:library` 先建 packify，再经 Turbo 按拓扑编排全仓 |
-| **AI 协作规范** | `CLAUDE.md` + `.claude/rules/`（技术栈 / 组件 / 设计原则 / 工作流 / 平台脚本五类 MUST 级约束） |
-| **Packify** `v0.0.4` | Rollup 4 → ESM / CJS / 类型声明 / CSS，驱动 `generate:css-token`，CJS 输出自动 interop |
-| **Crustify** `v0.0.19` | Webpack 5 + React Compiler + Linaria + SWC + MDX + 自动扫描插件，静态资源 loader / CSS 压缩修复 |
-| **Lignify** `v0.0.3` | 零配置文档环境，自动扫描 demo/view/mdx，DemoMasonry 支持 density |
-| **auto-import-style** `v0.0.3` | 编译时自动注入组件 CSS，已升级 Babel 8 API |
+| **Monorepo** | Turbo + Yarn 4.16 PnP + Corepack，全仓 ESM |
+| **CI** | GitHub Actions（Wake Test + ESLint + TypeScript + Wake Docs），`canary` 分支触发 |
+| **构建** | Wake Library 生成 ESM / CJS / 类型声明 / CSS，Turbo 按拓扑编排全仓 |
+| **AI 协作规范** | `AGENTS.md` + `.agents/skills/`（Codex 项目约束与可复用工作流） |
+| **Wake** `v0.1.23` | 原子接管 Library / Test / Docs / 令牌 / docgen / 组件工作台，不保留旧工具兼容层 |
+| **Crab CSS** `v0.1.23` | 零运行时样式抽取；Wake 消费方自动发现组件 CSS，其他构建器显式导入 CSS |
 | **ESLint 预设** `v0.0.1` | 浏览器 React + Node 双配置 |
-| **Jest 预设** `v0.0.1` | 浏览器 React + Node 双配置（ESM 原生，v30.4.1 + jsdom + React act 环境） |
 | **TypeScript 预设** `v0.0.3` | 浏览器 React + Node 双配置（含 JSX） |
 | **设计令牌** | 三层架构 · TOML → TS 生成 · `$ref()` CSS 变量链 · OKLCh 色彩 |
-| **文档站** | 字体本地化（Google Fonts CDN → fontsource），生成式 manifest 收录全部组件（含 Canvas / FlowDiagram / Empty） |
+| **文档站** | Wake Docs 聚合 49 个组件工作台、239 个 Demo、MDX 说明和 Props API |
 
 ---
 

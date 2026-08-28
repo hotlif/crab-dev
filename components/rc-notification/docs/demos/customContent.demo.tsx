@@ -1,15 +1,12 @@
 
-/**
- * title = "自定义内容"
- * description = "一个自定义消息通知的示例"
- */
+export const meta = {
+    title: "自定义内容",
+    description: "一个自定义消息通知的示例",
+};
 
 import { useState } from "react";
 import { useNotification } from "../../src/index.js";
-import { css } from "@linaria/core";
-
-
-let i = 0;
+import { css } from "@crab-dev/css";
 
 const SizeDemo = () => {
     const [value, setValue] = useState<string>("")
@@ -22,7 +19,6 @@ const SizeDemo = () => {
         >
             <button
                 onClick={() => {
-                    i += 1;
                     notification.open({
                         title: "自定义内容",
                         description: (

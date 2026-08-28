@@ -1,10 +1,10 @@
-/**
- * title = "状态持久化"
- * description = "initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。"
- */
+export const meta = {
+    title: "状态持久化",
+    description: "initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。",
+};
 
 import { useRef, useState } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType, ProtocolTableState } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

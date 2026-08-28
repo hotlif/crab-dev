@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from "react";
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import token from "./token.js";
 
 export interface TabContextMenuItem {
@@ -124,7 +124,12 @@ const itemIconDisabledStyle = css`
  * 视口边缘吸附：当菜单初次渲染后若超出视口，则向左 / 向上翻转贴边，
  * 始终保留 8px 安全边距。
  */
-function clampToViewport(x: number, y: number, w: number, h: number): { left: number, top: number } {
+interface ViewportPosition {
+    left: number
+    top: number
+}
+
+function clampToViewport(x: number, y: number, w: number, h: number): ViewportPosition {
     const margin = 8;
     const vw = typeof window === "undefined" ? 0 : window.innerWidth;
     const vh = typeof window === "undefined" ? 0 : window.innerHeight;

@@ -1,9 +1,9 @@
-/**
- * title = "无边框"
- * description = "设置 `bordered={false}` 可移除标签边框"
- */
+export const meta = {
+    title: "无边框",
+    description: "设置 `bordered={false}` 可移除标签边框",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Tag from "../../src/index.js";
 
 const BorderedDemo = () => {

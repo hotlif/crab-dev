@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--component-preview-transition',
     'transition-expand': '--component-preview-transition-expand',
     'card.background.color': '--component-preview-card-background-color',
@@ -71,9 +73,9 @@ export const vars = {
     'source.gutter.padding-right': '--component-preview-source-gutter-padding-right',
     'source.gutter.margin-right': '--component-preview-source-gutter-margin-right',
     'feedback.success.color': '--component-preview-feedback-success-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), border-color 120ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.32, 0.72, 0, 1))`,
     'transition-expand': `var(${vars['transition-expand']}, max-height 280ms cubic-bezier(0.32, 0.72, 0, 1))`,
     'card': {
@@ -105,7 +107,7 @@ const token = {
                 'color': `var(${vars['meta.info.background.color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
             },
             'divider': {
-                'style': `var(${vars['meta.info.divider.style']}, dashed)`
+                'style': `var(${vars['meta.info.divider.style']}, solid)`
             },
             'gap': `var(${vars['meta.info.gap']}, 6px)`
         },
@@ -208,6 +210,6 @@ const token = {
             'color': `var(${vars['feedback.success.color']}, var(--token-semantic-color-feedback-success, var(--token-global-green-500, oklch(0.723 0.219 152))))`
         }
     }
-};
+});
 
 export default token;

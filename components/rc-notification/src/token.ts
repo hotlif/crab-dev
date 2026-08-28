@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'background.color': '--notification-background-color',
     'text.color': '--notification-text-color',
     'padding': '--notification-padding',
@@ -15,9 +17,9 @@ export const vars = {
     'progress.end.color': '--notification-progress-end-color',
     'progress.height': '--notification-progress-height',
     'close.opacity': '--notification-close-opacity'
-};
+});
 
-const token = {
+const token = defineTokens({
     'background': {
         'color': `var(${vars['background.color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
     },
@@ -56,6 +58,6 @@ const token = {
     'close': {
         'opacity': `var(${vars['close.opacity']}, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7)))`
     }
-};
+});
 
 export default token;

@@ -1,9 +1,9 @@
-/**
- * title = "语义线与装饰线"
- * description = "默认线会被读屏播报为「分隔线」; 当线只是重复了已有的视觉分组时, 用 decorative 把它移出无障碍树, 避免噪声反馈。"
- */
+export const meta = {
+    title: "语义线与装饰线",
+    description: "默认线会被读屏播报为「分隔线」; 当线只是重复了已有的视觉分组时, 用 decorative 把它移出无障碍树, 避免噪声反馈。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Divider from '../../src/index.js';
 
 const cardStyle = css`

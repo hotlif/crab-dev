@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { type FC, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import type { HTMLMotionProps } from 'motion/react';

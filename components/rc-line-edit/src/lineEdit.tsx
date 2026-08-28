@@ -1,4 +1,4 @@
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { Eye, EyeOff, X } from "lucide-react";
 import { useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
 
@@ -145,7 +145,7 @@ const warningStyle = css`
 
 // bordered=false：容器无边框/背景/阴影，高度随内容自适应，交由宿主容器提供外观。
 // 与 sizeContainerStyles/errorStyle/warningStyle 互斥选用（而非叠加覆盖），
-// 避免依赖 Linaria 抽取后的 CSS 规则顺序来决定优先级
+// 避免依赖 Crab CSS 抽取后的规则顺序来决定优先级
 const borderlessStyle = css`
     border-width: 0;
     border-color: transparent;

@@ -1,7 +1,7 @@
 import Checkbox from "@crab-dev/rc-checkbox";
 import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { useEffect, useRef, type Dispatch, type FC, type ReactNode, type SetStateAction } from "react";
 

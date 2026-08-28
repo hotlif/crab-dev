@@ -1,9 +1,9 @@
-/**
- * title = "图标占位"
- * description = "可通过 `icon` 自定义头像占位图标。"
- */
+export const meta = {
+    title: "图标占位",
+    description: "可通过 `icon` 自定义头像占位图标。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Avatar from "../../src/index.js";
 
 const wrapStyle = css`

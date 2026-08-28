@@ -6,7 +6,7 @@ import LineEdit from "@crab-dev/rc-line-edit";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
 import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import type { ProtocolColumnType, DataTypeLoader, PaginationConfig, ProtocolTableState } from "./types.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
 import { useColumnManagement } from "./hooks/useColumnManagement.js";

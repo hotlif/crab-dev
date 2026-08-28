@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import {
     Children,
     cloneElement,
@@ -6,10 +6,8 @@ import {
     useEffect,
     useRef,
     useState,
-    type CSSProperties,
-    type FC,
-    type ReactElement,
 } from 'react';
+import type { CSSProperties, FC, ReactElement } from 'react';
 import token from './token.js';
 import type { MasonryProps } from './types.js';
 

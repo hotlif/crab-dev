@@ -1,8 +1,6 @@
 
-import LineEdit, { type LineEditProps } from "./lineEdit.js";
+import LineEdit from "./lineEdit.js";
 
-export {
-    LineEditProps
-}
+export type { LineEditProps } from "./lineEdit.js";
 
 export default LineEdit;

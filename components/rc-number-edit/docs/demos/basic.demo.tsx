@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "受控数字输入：右侧步进按钮、键盘 ↑↓ 步进、长按连续加速"
- */
+export const meta = {
+    title: "基础用法",
+    description: "受控数字输入：右侧步进按钮、键盘 ↑↓ 步进、长按连续加速",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 
 import NumberEdit from "../../src/index.js";

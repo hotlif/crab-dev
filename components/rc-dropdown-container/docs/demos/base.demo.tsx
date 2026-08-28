@@ -1,8 +1,8 @@
 
-/**
- * title = "基本"
- * description = "一个基础的消息通知组件"
- */
+export const meta = {
+    title: "基本",
+    description: "一个基础的消息通知组件",
+};
 
 import RcLineEdit from "@crab-dev/rc-line-edit"
 import DropdownContainer, { useDropdownContext } from "../../src/index.js";

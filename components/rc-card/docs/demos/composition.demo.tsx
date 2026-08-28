@@ -1,9 +1,9 @@
-/**
- * title = "自由拼装"
- * description = "传入 Card.Cover / Header / Body / Footer 结构子组件时切换为自由模式, 完全掌控区块次序。"
- */
+export const meta = {
+    title: "自由拼装",
+    description: "传入 Card.Cover / Header / Body / Footer 结构子组件时切换为自由模式, 完全掌控区块次序。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import Tag from '@crab-dev/rc-tag';
 import Card from '../../src/index.js';

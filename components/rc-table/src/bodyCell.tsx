@@ -1,4 +1,4 @@
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { JSONPath } from "jsonpath-plus";
 import token from "./token.js";
 

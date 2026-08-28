@@ -15,6 +15,22 @@ interface UseCellEditNavOptions<T extends Row> {
     selectionColumnName: string;
 }
 
+interface CellEditPosition {
+    rowIndex: number;
+    columnIndex: number;
+}
+
+interface UseCellEditNavResult {
+    editingCellPos: CellEditPosition | null;
+    startCellEdit: (rowIndex: number, columnIndex: number) => void;
+    exitCellEdit: () => void;
+    navigateCellEdit: (
+        rowIndex: number,
+        columnIndex: number,
+        direction: Exclude<CellNavDirection, 'escape'>,
+    ) => CellEditPosition | null;
+}
+
 export function useCellEditNav<T extends Row>({
     editType,
     displayRows,
@@ -22,8 +38,8 @@ export function useCellEditNav<T extends Row>({
     skipCellSet,
     getCellKey,
     selectionColumnName,
-}: UseCellEditNavOptions<T>) {
-    const [editingCellPos, setEditingCellPos] = useState<{ rowIndex: number; columnIndex: number } | null>(null);
+}: UseCellEditNavOptions<T>): UseCellEditNavResult {
+    const [editingCellPos, setEditingCellPos] = useState<CellEditPosition | null>(null);
 
     useEffect(() => {
         if (editType !== 'cell') setEditingCellPos(null);
@@ -42,7 +58,7 @@ export function useCellEditNav<T extends Row>({
         rowIndex: number,
         columnIndex: number,
         direction: Exclude<CellNavDirection, 'escape'>,
-    ): { rowIndex: number; columnIndex: number } | null => {
+    ): CellEditPosition | null => {
         const columns = bottomColumnsRef.current ?? [];
         const totalRows = displayRows.length;
         const totalCols = columns.length;

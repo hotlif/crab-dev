@@ -1,10 +1,10 @@
-/**
- * title = "加载完成"
- * description = "`loading=false` 时直接渲染 `children`，便于包裹真实内容。"
- */
+export const meta = {
+    title: "加载完成",
+    description: "`loading=false` 时直接渲染 `children`，便于包裹真实内容。",
+};
 
 import { useEffect, useState } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import Skeleton from "../../src/index.js";
 

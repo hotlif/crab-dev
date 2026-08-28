@@ -1,16 +1,13 @@
 
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import {
     useEffect,
     useId,
     useRef,
     useState,
     useTransition,
-    type DialogHTMLAttributes,
-    type ReactNode,
-    type MouseEvent,
-    type Ref
 } from "react";
+import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
 import RcButton from "@crab-dev/rc-button";
 import { motion, AnimatePresence } from "motion/react";
 

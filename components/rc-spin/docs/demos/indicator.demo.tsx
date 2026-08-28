@@ -1,9 +1,9 @@
-/**
- * title = "自定义指示器"
- * description = "indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。"
- */
+export const meta = {
+    title: "自定义指示器",
+    description: "indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Spin from '../../src/index.js';
 
 const rowStyle = css`

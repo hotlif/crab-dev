@@ -1,4 +1,4 @@
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import type { PointerEvent } from "react";
 

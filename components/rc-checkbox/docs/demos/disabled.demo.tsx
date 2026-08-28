@@ -1,7 +1,7 @@
-/**
- * title = "禁用状态"
- * description = "添加 `disabled` 属性即可让复选框处于禁用状态"
- */
+export const meta = {
+    title: "禁用状态",
+    description: "添加 `disabled` 属性即可让复选框处于禁用状态",
+};
 
 import Checkbox from "../../src/index.js";
 

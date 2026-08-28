@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "四种类型的警告提示，通过 `type` 属性设置"
- */
+export const meta = {
+    title: "基础用法",
+    description: "四种类型的警告提示，通过 `type` 属性设置",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Alert from "../../src/index.js";
 
 const BasicDemo = () => {

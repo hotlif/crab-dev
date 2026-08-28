@@ -1,7 +1,7 @@
-/**
- * title = "加载中"
- * description = "设置 loading 展示加载状态"
- */
+export const meta = {
+    title: "加载中",
+    description: "设置 loading 展示加载状态",
+};
 
 import { useState } from 'react';
 import Select from '../../src/index.js';

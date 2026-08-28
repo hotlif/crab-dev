@@ -10,7 +10,7 @@
                 "!src/__tests__/**/*",
                 "!docs/**/*",
                 "!coverage/**/*",
-                "!jest.config.mjs",
+                "!wake.config.toml",
                 "!eslint.config.js"
             ],
             "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
@@ -39,43 +39,29 @@
             "inputs": ["token.toml"],
             "outputs": ["src/token.ts"]
         },
-        "@crab-dev/packify#test": {
-            "dependsOn": ["^build:library", "@crab-dev/packify#build:library"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["coverage/**"]
-        },
-        "@crab-dev/lignify#build:library": {
-            "dependsOn": ["@crab-dev/packify#build:library"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["esm/**", "cjs/**", "declarations/**"]
-        },
-        "@crab-dev/rc-token-global#build:library": {
-            "dependsOn": ["@crab-dev/packify#build:library"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+        "generate:docgen": {
+            "inputs": ["src/**/*", "tsconfig.json"],
+            "outputs": ["public/docgen.json"]
         },
         "@crab-dev/rc-token-semantic#build:library": {
             "dependsOn": ["@crab-dev/rc-token-global#build:library"],
             "inputs": ["$TURBO_DEFAULT$"],
             "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
         },
-        "@crab-dev/rc-menu#build:library": {
-            "dependsOn": ["@crab-dev/packify#build:library"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
-        },
         "@crab-dev/rc-component-preview#build:library": {
-            "dependsOn": ["@crab-dev/packify#build:library"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+            "dependsOn": ["@crab-dev/rc-token-semantic#build:library"]
+        },
+        "@crab-dev/rc-menu#build:library": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#build:library"]
+        },
+        "@crab-dev/rc-masonry#build:library": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#build:library"]
         },
         "@crab-dev/rc-spin#build:library": {
             "dependsOn": [
-                "@crab-dev/packify#build:library",
-                "@crab-dev/rc-hooks#build:library"
-            ],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**"]
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
         }
     }
 }

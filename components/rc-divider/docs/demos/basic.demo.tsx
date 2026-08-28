@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "默认渲染一条语义分隔线（role=separator）, 用于切分上下两段内容。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "默认渲染一条语义分隔线（role=separator）, 用于切分上下两段内容。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Divider from '../../src/index.js';
 
 const textStyle = css`

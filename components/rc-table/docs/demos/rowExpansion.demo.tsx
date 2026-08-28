@@ -1,7 +1,7 @@
-/**
- * title = "行展开（详情面板）"
- * description = "通过 `expandedRowRender` 在行下方插入自定义详情区，点击行首图标展开或收起。展开内容跨所有列、随表格一起横向滚动；当详情高度超过 `expandedRowHeight` 时面板内部可独立纵向滚动（滚轮 / 触控板）。区别于树形数据：这里展示的是异构详情而非同构子行。"
- */
+export const meta = {
+    title: "行展开（详情面板）",
+    description: "通过 `expandedRowRender` 在行下方插入自定义详情区，点击行首图标展开或收起。展开内容跨所有列、随表格一起横向滚动；当详情高度超过 `expandedRowHeight` 时面板内部可独立纵向滚动（滚轮 / 触控板）。区别于树形数据：这里展示的是异构详情而非同构子行。",
+};
 
 import { type Key, useState } from "react";
 import { fakerZH_CN as faker } from "@faker-js/faker";

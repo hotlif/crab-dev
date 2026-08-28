@@ -1,9 +1,9 @@
-/**
- * title = "验证状态"
- * description = "`status` 设置 error / warning 边框与焦点光环，为表单校验提供即时反馈；请同时配合错误文案与 `aria-invalid` 使用，不要只靠颜色传达状态"
- */
+export const meta = {
+    title: "验证状态",
+    description: "`status` 设置 error / warning 边框与焦点光环，为表单校验提供即时反馈；请同时配合错误文案与 `aria-invalid` 使用，不要只靠颜色传达状态",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import TextEdit from "../../src/index.js";
 

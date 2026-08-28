@@ -1,0 +1,27 @@
+[docs]
+source_dir = "docs"
+title = "Virtual 虚拟滚动"
+description = "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。"
+locale = "zh-CN"
+
+[test]
+setup = ["../../test/wake-css.setup.ts"]
+environment = "dom"
+include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

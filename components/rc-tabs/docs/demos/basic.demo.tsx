@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "通过 items 配置基础标签页，默认使用 line 形态。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过 items 配置基础标签页，默认使用 line 形态。",
+};
 
 import Tabs from '../../src/index.js';
 

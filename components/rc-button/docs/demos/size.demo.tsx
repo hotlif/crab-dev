@@ -1,10 +1,10 @@
 
-/**
- * title = "按钮尺寸"
- * description = "通过 `size` 属性设置按钮尺寸"
- */
+export const meta = {
+    title: "按钮尺寸",
+    description: "通过 `size` 属性设置按钮尺寸",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Button from "../../src/index.js";
 
