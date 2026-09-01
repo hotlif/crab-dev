@@ -1,16 +1,21 @@
-import { type Key, type RefObject, useCallback, useMemo, useState } from "react";
-import type { CellEditRecord, ColumnType, Row } from "../types.js";
-import { isInternalRow, makeSelectKey, setValueByJsonPath } from "../util.js";
+import { type Key, useCallback, useMemo, useState } from "react";
+import type { CellEditRecord, Row } from "../types.js";
+import { isInternalRow, makeCellIdentityKey, setValueByJsonPath } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 
 export function useCellEdit<T extends Row>(params: {
     displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
-    bottomColumnsRef: RefObject<ColumnType<T>[]>
     cellEditRecords?: CellEditRecord[]
     onCellEditRecordsChange?: (records: CellEditRecord[]) => void
     onUndo?: (record: CellEditRecord) => void
-}) {
-    const { displayRows, bottomColumnsRef, cellEditRecords, onCellEditRecordsChange, onUndo } = params;
+}): {
+    committedEditRecords: CellEditRecord[];
+    undoDataVersion: number;
+    editedCellKeys: Set<string>;
+    handleCellCommit: (rowId: Key, columnName: string, columnIndex: number, oldValue: unknown, newValue: unknown) => void;
+    handleUndo: () => boolean;
+} {
+    const { displayRows, cellEditRecords, onCellEditRecordsChange, onUndo } = params;
 
     const [innerEditRecords, setInnerEditRecords] = useState<CellEditRecord[]>([]);
     const [undoDataVersion, setUndoDataVersion] = useState(0);
@@ -19,7 +24,7 @@ export function useCellEdit<T extends Row>(params: {
 
     const editedCellKeys = useMemo(() => {
         const set = new Set<string>();
-        committedEditRecords.forEach((r) => set.add(makeSelectKey(r.rowId, r.columnIndex)));
+        committedEditRecords.forEach((r) => set.add(makeCellIdentityKey(r.rowId, r.columnName)));
         return set;
     }, [committedEditRecords]);
 
@@ -41,16 +46,15 @@ export function useCellEdit<T extends Row>(params: {
         onCellEditRecordsChange?.(next);
         onUndo?.(last);
         const rowObj = displayRows.find(r => !isInternalRow(r) && r.id === last.rowId);
-        const col = bottomColumnsRef.current[last.columnIndex];
-        if (rowObj && !isInternalRow(rowObj) && col) {
+        if (rowObj && !isInternalRow(rowObj)) {
             const scalar = Array.isArray(last.oldValue) && last.oldValue.length > 0
                 ? last.oldValue[0]
                 : last.oldValue;
-            setValueByJsonPath((rowObj as T).dataRef, col.name, scalar);
+            setValueByJsonPath((rowObj as T).dataRef, last.columnName, scalar);
         }
         setUndoDataVersion(v => v + 1);
         return true;
-    }, [committedEditRecords, cellEditRecords, onCellEditRecordsChange, onUndo, displayRows, bottomColumnsRef]);
+    }, [committedEditRecords, cellEditRecords, onCellEditRecordsChange, onUndo, displayRows]);
 
     return { committedEditRecords, undoDataVersion, editedCellKeys, handleCellCommit, handleUndo };
 }

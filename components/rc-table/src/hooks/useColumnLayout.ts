@@ -1,16 +1,29 @@
 import { type MutableRefObject, useEffect, useMemo } from "react";
 import type { ColumnType, MergeCell, Row } from "../types.js";
-import {
-    buildMergeCellLookup, getBottomColumns, getHeaderCellsTwoDimensionalArray,
-    getMaxDepth, isExpandedContentRow, isGroupRow, sortColumns
-} from "../util.js";
+import { buildMergeCellLookup, getBottomColumns, getHeaderCellsTwoDimensionalArray, getMaxDepth, isExpandedContentRow, isGroupRow, sortColumns } from "../util.js";
+import type { HeaderCellType } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
+
+export const buildHeaderCellOrigins = (
+    headerCells: (HeaderCellType | null)[][],
+    columnCount: number,
+): number[][] => headerCells.map((row) => {
+    const origins = Array.from({ length: columnCount }, () => -1);
+    row.forEach((cell) => {
+        if (!cell) return;
+        for (let columnIndex = cell.columnIndex; columnIndex <= cell.columnIndex + cell.colSpan; columnIndex += 1) {
+            origins[columnIndex] = cell.columnIndex;
+        }
+    });
+    return origins;
+});
 
 export function useColumnLayout<T extends Row>(params: {
     columns: ColumnType<T>[]
     width: number
     resizedWidths: Record<string, number>
     isGrouped: boolean
+    isTree: boolean
     isExpansion: boolean
     groupBy: string[]
     headerRowHeight: number
@@ -19,22 +32,56 @@ export function useColumnLayout<T extends Row>(params: {
     groupRowHeight: number
     mergeCells: MergeCell[]
     bottomColumnsRef: MutableRefObject<ColumnType<T>[]>
-}) {
+}): {
+    sColumns: ColumnType<T>[];
+    bottomColumns: ColumnType<T>[];
+    maxDepth: number;
+    headerCells: (import("../util.js").HeaderCellType | null)[][];
+    headerCellOriginByRow: number[][];
+    topLevelHeaderCellOriginByColumn: number[];
+    headerGridTemplateRows: number[];
+    gridTemplateColumns: number[];
+    fixedLeftColumns: ColumnType<T>[];
+    fixedRightColumns: ColumnType<T>[];
+    fixedLeftColumnsIdx: number[];
+    fixedRightColumnsIdx: number[];
+    actualHeight: number;
+    stickyLeftOffsets: number[];
+    stickyRightOffsets: number[];
+    columnByName: Map<string, ColumnType<T>>;
+    gridTemplateRows: number[];
+    skipCellSet: Set<string>;
+    mergeCellMap: Map<string, MergeCell>;
+    mergeCellsByCoveredRow: Map<number, MergeCell[]>;
+    mergeCellsByCoveredColumn: Map<number, MergeCell[]>;
+    getCellKey: (rowIndex: number, columnIndex: number) => string;
+} {
     const {
-        columns, width, resizedWidths, isGrouped, isExpansion, groupBy, headerRowHeight,
+        columns, width, resizedWidths, isGrouped, isTree, isExpansion, groupBy, headerRowHeight,
         displayRows, getRowHeight, groupRowHeight, mergeCells, bottomColumnsRef
     } = params;
 
     const groupBySet = useMemo(() => new Set(groupBy), [groupBy]);
 
     const sColumns = useMemo(() => {
-        const wrapped = isGrouped
-            ? columns.map((column) => {
-                if (!column.name || !groupBySet.has(column.name)) return column;
-                return { ...column, render: () => null, editRender: undefined };
-            })
-            : columns;
-        return sortColumns(wrapped.filter(element => element.hidden !== true));
+        const normalizeColumns = (source: ColumnType<T>[]): ColumnType<T>[] => source.flatMap((column) => {
+            if (column.hidden === true) return [];
+
+            const originalChildren = column.children as ColumnType<T>[] | undefined;
+            const visibleChildren = originalChildren ? normalizeColumns(originalChildren): undefined;
+            // 分组节点的子列全部隐藏时，父节点也不应退化成一个没有数据意义的叶子列。
+            if (originalChildren && originalChildren.length > 0 && visibleChildren?.length === 0) return [];
+
+            let normalized: ColumnType<T> = visibleChildren && visibleChildren !== originalChildren
+                ? { ...column, children: visibleChildren }
+                : column;
+            if (isGrouped && normalized.name && groupBySet.has(normalized.name)) {
+                normalized = { ...normalized, render: () => null, editRender: undefined };
+            }
+            return [normalized];
+        });
+
+        return sortColumns(normalizeColumns(columns));
     }, [columns, isGrouped, groupBySet]);
 
     const bottomColumns = useMemo(() => getBottomColumns(sColumns), [sColumns]);
@@ -47,20 +94,27 @@ export function useColumnLayout<T extends Row>(params: {
 
     const headerCells = useMemo(() => getHeaderCellsTwoDimensionalArray(sColumns), [sColumns]);
 
+    const headerCellOriginByRow = useMemo(
+        () => buildHeaderCellOrigins(headerCells, bottomColumns.length),
+        [headerCells, bottomColumns.length]
+    );
+
+    const topLevelHeaderCellOriginByColumn = headerCellOriginByRow[0] ?? [];
+
     const headerGridTemplateRows = useMemo(
         () => Array.from({ length: maxDepth }, () => headerRowHeight),
         [maxDepth, headerRowHeight]
     );
 
     const gridTemplateColumns = useMemo(() => {
-        const cols = bottomColumns.filter(element => element.hidden !== true);
+        const cols = bottomColumns;
         const getEffectiveWidth = (col: ColumnType<T>) => resizedWidths[col.name] ?? col.width;
         const fixedWidthTotal = cols.reduce((acc, col) => {
             const w = getEffectiveWidth(col);
             return acc + (w != null ? w : 0);
         }, 0);
         const autoColCount = cols.filter(col => getEffectiveWidth(col) == null).length;
-        const autoColWidth = autoColCount > 0 ? Math.max(0, (width - fixedWidthTotal) / autoColCount) : 0;
+        const autoColWidth = autoColCount > 0 ? Math.max(0, (width - fixedWidthTotal) / autoColCount): 0;
         return cols.map((column) => getEffectiveWidth(column) ?? autoColWidth);
     }, [bottomColumns, width, resizedWidths]);
 
@@ -131,17 +185,19 @@ export function useColumnLayout<T extends Row>(params: {
         });
     }, [displayRows, getRowHeight, groupRowHeight]);
 
-    const { skipCellSet, mergeCellMap, getCellKey } = useMemo(() => {
-        // 分组 / 行展开均会插入虚拟行，使 mergeCells 的 rowIndex 失准，故一并禁用合并
-        if (isGrouped || isExpansion) return buildMergeCellLookup([]);
+    const { skipCellSet, mergeCellMap, mergeCellsByCoveredRow, mergeCellsByCoveredColumn, getCellKey } = useMemo(() => {
+        // 分组 / 树 / 行展开均会插入或移除视图行，使 mergeCells 的 rowIndex 失准，故一并禁用合并
+        if (isGrouped || isTree || isExpansion) return buildMergeCellLookup([]);
         return buildMergeCellLookup(mergeCells);
-    }, [mergeCells, isGrouped, isExpansion]);
+    }, [mergeCells, isGrouped, isTree, isExpansion]);
 
     return {
         sColumns,
         bottomColumns,
         maxDepth,
         headerCells,
+        headerCellOriginByRow,
+        topLevelHeaderCellOriginByColumn,
         headerGridTemplateRows,
         gridTemplateColumns,
         fixedLeftColumns,
@@ -155,6 +211,8 @@ export function useColumnLayout<T extends Row>(params: {
         gridTemplateRows,
         skipCellSet,
         mergeCellMap,
+        mergeCellsByCoveredRow,
+        mergeCellsByCoveredColumn,
         getCellKey,
     };
 }

@@ -6,7 +6,11 @@ export function useTableFilter<T extends Row>(params: {
     filters?: Record<string, string>
     bottomColumns: ColumnType<T>[]
     onFilterChange?: (filters: Record<string, string>) => void
-}) {
+}): {
+    filterKeywordMap: Record<string, string>;
+    isFilterEnabled: boolean;
+    handleFilterValueChange: (columnIndex: number, keyword: string) => void;
+} {
     const { filterBar, filters, bottomColumns, onFilterChange } = params;
 
     const [innerFilterKeywordMap, setInnerFilterKeywordMap] = useState<Record<string, string>>({});

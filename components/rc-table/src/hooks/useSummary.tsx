@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { memo, type ReactNode, useMemo } from "react";
 import { css, cx } from "@crab-dev/css";
 
 import BodyRow from "../bodyRow.js";
@@ -47,10 +47,40 @@ const summaryCellRightFixedBorderStyle = css`
                 inset 1px 0 0 ${token.border.color};
 `;
 
-const getSummaryJustify = <T extends Row>(column: ColumnType<T>) => {
+function getSummaryJustify<T extends Row>(column: ColumnType<T>): "center" | "flex-end" | "flex-start" {
     const align = Array.isArray(column.align) ? column.align[1] : column.align;
     return align === "center" ? "center" : align === "right" ? "flex-end" : "flex-start";
-};
+}
+
+interface SummaryCellProps {
+    columnIndex: number
+    width: number
+    justifyContent: "center" | "flex-end" | "flex-start"
+    fixed?: "left" | "right"
+    offset?: number
+    borderStyle: string
+    content: ReactNode
+}
+
+const SummaryCell = memo(function SummaryCell({
+    columnIndex, width, justifyContent, fixed, offset, borderStyle, content
+}: SummaryCellProps) {
+    return (
+        <div
+            className={cx(summaryCellBaseStyle, borderStyle, fixed && summaryCellStickyStyle)}
+            style={{
+                width,
+                justifyContent,
+                left: fixed === "left" ? offset : undefined,
+                right: fixed === "right" ? offset : undefined
+            }}
+            role="gridcell"
+            aria-colindex={columnIndex + 1}
+        >
+            {content}
+        </div>
+    );
+});
 
 export function useSummary<T extends Row>(params: {
     /** 是否显示汇总行 */
@@ -76,13 +106,26 @@ export function useSummary<T extends Row>(params: {
     paddingRight: ReactNode
     /** 行选择列的列名（该列不渲染汇总内容） */
     selectionColumnName: string
-}) {
+    /** 同一轮 Table render 内保持稳定，供虚拟滚动行 memo 使用。 */
+    renderVersion: object
+}): {
+    generateSummaryElement: ({ columnRange }: {
+        columnRange: [number, number];
+    }) => ReactNode;
+} {
     const {
         showSummary, summaryRowHeight, rows, bottomColumns,
         fixedLeftColumnsIdx, fixedRightColumnsIdx, gridTemplateColumns,
         stickyLeftOffsets, stickyRightOffsets, actualHeight,
-        paddingLeft, paddingRight, selectionColumnName
+        paddingLeft, paddingRight, selectionColumnName, renderVersion
     } = params;
+
+    const summaryContents = useMemo(() => {
+        if (!showSummary) return [];
+        return bottomColumns.map((column, columnIndex) => column.name === selectionColumnName
+            ? null
+            : column.summaryRender?.({ column, columnIndex, rows }) ?? null);
+    }, [showSummary, bottomColumns, selectionColumnName, rows]);
 
     const renderSummaryCell = (columnIndex: number, fixed?: "left" | "right"): ReactNode => {
         const column = bottomColumns[columnIndex];
@@ -92,22 +135,17 @@ export function useSummary<T extends Row>(params: {
         const borderStyle = fixed === "right"
             ? summaryCellRightFixedBorderStyle
             : isLastColumn ? summaryCellLastBorderStyle : summaryCellBorderStyle;
-        const content = column.name === selectionColumnName
-            ? null
-            : column.summaryRender?.({ column, columnIndex, rows }) ?? null;
         return (
-            <div
+            <SummaryCell
                 key={`table-summary-cell-${columnIndex}`}
-                className={cx(summaryCellBaseStyle, borderStyle, fixed && summaryCellStickyStyle)}
-                style={{
-                    width: gridTemplateColumns[columnIndex],
-                    justifyContent: getSummaryJustify(column),
-                    left: fixed === "left" ? stickyLeftOffsets[columnIndex] : undefined,
-                    right: fixed === "right" ? stickyRightOffsets[columnIndex] : undefined
-                }}
-            >
-                {content}
-            </div>
+                columnIndex={columnIndex}
+                width={gridTemplateColumns[columnIndex]}
+                justifyContent={getSummaryJustify(column)}
+                fixed={fixed}
+                offset={fixed === "left" ? stickyLeftOffsets[columnIndex] : fixed === "right" ? stickyRightOffsets[columnIndex] : undefined}
+                borderStyle={borderStyle}
+                content={summaryContents[columnIndex]}
+            />
         );
     };
 
@@ -124,6 +162,9 @@ export function useSummary<T extends Row>(params: {
                 key="table-summary-row"
                 className={summaryRowStyle}
                 style={{ height: summaryRowHeight, width: actualHeight }}
+                role="row"
+                renderVersion={renderVersion}
+                virtualWindowKey={`${columnRange[0]}:${columnRange[1]}`}
             >
                 {fixedLeftColumnsIdx.map((columnIndex) => renderSummaryCell(columnIndex, "left"))}
                 {paddingLeft}

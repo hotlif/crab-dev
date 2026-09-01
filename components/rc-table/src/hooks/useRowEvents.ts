@@ -39,10 +39,15 @@ export type RowEventHandler<T> = (
     event: ReactMouseEvent<HTMLDivElement> | KeyboardEvent,
 ) => void;
 
-type RowEventProps = Pick<
+export type RowEventProps = Pick<
     HTMLAttributes<HTMLDivElement>,
     "onMouseDown" | "onClick" | "onDoubleClick"
 >;
+
+export interface UseRowEventsResult<T extends Row> {
+    hasRowEvents: boolean;
+    getRowEventProps: (row: T, rowIndex: number, isEditingThisRow: boolean) => RowEventProps;
+}
 
 interface UseRowEventsOptions<T extends Row> {
     onRowClick?: RowEventHandler<T>;
@@ -56,11 +61,7 @@ interface UseRowEventsOptions<T extends Row> {
     /** 键盘触发的锚点：用户最后一次点选的单元格所在行 */
     anchorCell: { rowId: Key; columnIndex: number } | null;
     rowIdToIndex: Map<Key, number>;
-}
-
-interface UseRowEventsResult<T extends Row> {
-    hasRowEvents: boolean;
-    getRowEventProps: (row: T, rowIndex: number, isEditingThisRow: boolean) => RowEventProps;
+    isInteractionActive: () => boolean;
 }
 
 export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): UseRowEventsResult<T> {
@@ -104,6 +105,7 @@ export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): Us
             if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
 
             const current = latestRef.current;
+            if (!current.isInteractionActive()) return;
             if (current.onRowClick == null) return;
             if (current.currentEditingRowId != null) return;
 

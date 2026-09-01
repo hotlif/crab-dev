@@ -53,6 +53,7 @@ export const vars = defineTokens({
     'font.weight.body': '--token-semantic-font-weight-body',
     'font.weight.label': '--token-semantic-font-weight-label',
     'font.weight.heading': '--token-semantic-font-weight-heading',
+    'font.weight.strong': '--token-semantic-font-weight-strong',
     'radius.sm': '--token-semantic-radius-sm',
     'radius.md': '--token-semantic-radius-md',
     'radius.lg': '--token-semantic-radius-lg',
@@ -146,7 +147,8 @@ const token = defineTokens({
         'weight': {
             'body': `var(${vars['font.weight.body']}, var(--token-global-font-weight-regular, 400))`,
             'label': `var(${vars['font.weight.label']}, var(--token-global-font-weight-medium, 500))`,
-            'heading': `var(${vars['font.weight.heading']}, var(--token-global-font-weight-semibold, 600))`
+            'heading': `var(${vars['font.weight.heading']}, var(--token-global-font-weight-semibold, 600))`,
+            'strong': `var(${vars['font.weight.strong']}, var(--token-global-font-weight-bold, 700))`
         }
     },
     'radius': {

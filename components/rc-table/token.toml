@@ -116,7 +116,7 @@ row-click.row-bg-transition = "90ms cubic-bezier(0, 0, 0.2, 1)"
 # ─── 底部汇总 / 合计行 ────────────────────────────────────────────────────────
 # 背景沿用表头底色（token.header.bg-color），加粗主文本以区别于普通数据行
 summary.color          = "$ref(color.text.primary)"
-summary.font-weight    = "$ref(font.weight.bold)"
+summary.font-weight    = "$ref(font.weight.strong)"
 summary.padding-inline = "$ref(space.component-gap)"
 
 # ─── 行展开（详情面板） ───────────────────────────────────────────────────────

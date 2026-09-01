@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Key } from "react";
-import { JSONPath } from "jsonpath-plus";
-import type { ColumnType, GroupRowMeta, MergeCell, Row, TreeRowMeta } from "./types.js";
+import type { ColumnType, GroupRowMeta, MergeCell, Row, TreeRowMeta } from "./types";
+import { getDataValueAccessor } from "./valueAccess.js";
 
 /**
  * 按简单 JSONPath（$.a 或 $.a.b.c）把值写回对象。
@@ -99,7 +99,7 @@ export const getBottomColumns = (columns: ColumnType<any>[], fixed?: "left" | "r
  */
 export const getHeaderCells = (columns: ColumnType<any>[]): HeaderCellType[] => {
     const maxDepth = getMaxDepth(columns);
-    const traverse = (cols: ColumnType<any>[], depth: number, startColumnIndex: number, parent: HeaderCellType | null): HeaderCellType[] => {
+    const traverse = (cols: ColumnType<any>[], depth: number, startColumnIndex: number, parent: HeaderCellType | null) => {
         const headerCells: HeaderCellType[] = [];
         let currentColumnIndex = startColumnIndex;
         cols.forEach((element) => {
@@ -153,7 +153,7 @@ export const getHeaderCellsTwoDimensionalArray = (columns: ColumnType<any>[]): (
 }
 
 export function sortColumns(columns: ColumnType<any>[]): ColumnType<any>[] {
-    const getOrder = (col: ColumnType<any>): number => {
+    const getOrder = (col: ColumnType<any>) => {
         if (col.fixed === "left") return -1;
         if (col.fixed === "right") return 1;
         return 0;
@@ -168,18 +168,40 @@ export interface MergeCellLookup {
     getCellKey: (rowIndex: number, columnIndex: number) => string;
     skipCellSet: Set<string>;
     mergeCellMap: Map<string, MergeCell>;
+    mergeCellsByCoveredRow: Map<number, MergeCell[]>;
+    mergeCellsByCoveredColumn: Map<number, MergeCell[]>;
 }
 
 export function buildMergeCellLookup(mergeCells: MergeCell[]): MergeCellLookup {
-    const getCellKey = (rowIndex: number, columnIndex: number): string => `${rowIndex}:${columnIndex}`;
+    const getCellKey = (rowIndex: number, columnIndex: number) => `${rowIndex}:${columnIndex}`;
     const skipCellSet = new Set<string>();
     const mergeCellMap = new Map<string, MergeCell>();
+    const mergeCellsByCoveredRow = new Map<number, MergeCell[]>();
+    const mergeCellsByCoveredColumn = new Map<number, MergeCell[]>();
 
     mergeCells.forEach((mergeCell) => {
         const { rowIndex, columnIndex, rowSpan, colSpan } = mergeCell;
         mergeCellMap.set(getCellKey(rowIndex, columnIndex), mergeCell);
         for (let c = 0; c <= colSpan; c += 1) {
             for (let r = 0; r <= rowSpan; r += 1) {
+                if (c === 0 && r > 0) {
+                    const coveredRowIndex = rowIndex + r;
+                    const coveringMergeCells = mergeCellsByCoveredRow.get(coveredRowIndex);
+                    if (coveringMergeCells) {
+                        coveringMergeCells.push(mergeCell);
+                    } else {
+                        mergeCellsByCoveredRow.set(coveredRowIndex, [mergeCell]);
+                    }
+                }
+                if (r === 0 && c > 0) {
+                    const coveredColumnIndex = columnIndex + c;
+                    const coveringMergeCells = mergeCellsByCoveredColumn.get(coveredColumnIndex);
+                    if (coveringMergeCells) {
+                        coveringMergeCells.push(mergeCell);
+                    } else {
+                        mergeCellsByCoveredColumn.set(coveredColumnIndex, [mergeCell]);
+                    }
+                }
                 if (c === 0 && r === 0) {
                     continue;
                 }
@@ -191,7 +213,9 @@ export function buildMergeCellLookup(mergeCells: MergeCell[]): MergeCellLookup {
     return {
         getCellKey,
         skipCellSet,
-        mergeCellMap
+        mergeCellMap,
+        mergeCellsByCoveredRow,
+        mergeCellsByCoveredColumn
     }
 }
 
@@ -231,6 +255,10 @@ export const KEY_SEP = "\u001F";
 export const makeSelectKey = (rowId: Key, columnIndex: number): string =>
     `${String(rowId)}${KEY_SEP}${columnIndex}`;
 
+/** 编辑记录使用稳定的业务身份，避免列重排后 columnIndex 指向其它列。 */
+export const makeCellIdentityKey = (rowId: Key, columnName: string): string =>
+    JSON.stringify([typeof rowId, String(rowId), columnName]);
+
 
 // =============== 行分组（Row Grouping） ===============
 
@@ -248,14 +276,6 @@ export interface InternalGroupRow<T extends Row> {
         __group: true
         meta: GroupRowMeta<T>
     }
-}
-
-export interface GroupedDisplayRowsResult<T extends Row> {
-    displayRows: Array<T | InternalGroupRow<T>>
-    /** 当前 displayRows 中实际出现的分组 id（仅可见 banner 节点） */
-    allGroupIds: Key[]
-    /** 数据集中理论上存在的全部分组 id，与展开状态无关。 */
-    allPossibleGroupIds: Key[]
 }
 
 export function isGroupRow<T extends Row>(row: T | InternalGroupRow<T>): row is InternalGroupRow<T> {
@@ -279,12 +299,18 @@ const stringifyGroupValue = (value: unknown): string => {
 };
 
 const resolveColumnValue = <T extends Row>(row: T, columnName: string): unknown => {
-    const result = JSONPath({ path: columnName, json: row?.dataRef, wrap: false });
-    if (Array.isArray(result)) {
-        return result[0];
-    }
-    return result;
+    const result = getDataValueAccessor(columnName).get(row?.dataRef);
+    // 保持原有 JSONPath({ wrap: false }) 后对数组取首项的分组语义。
+    return Array.isArray(result) ? result[0] : result;
 };
+
+export interface GroupedDisplayRows<T extends Row> {
+    displayRows: Array<T | InternalGroupRow<T>>
+    /** 当前 displayRows 中实际出现的分组 id（仅可见 banner 节点） */
+    allGroupIds: Key[]
+    /** 数据集中理论上存在的全部分组 id，与展开状态无关。 */
+    allPossibleGroupIds: Key[]
+}
 
 /**
  * 根据 groupBy 与 rows 构造扁平化的展示行序列（分组 banner 行 + 叶子数据行）。
@@ -301,7 +327,7 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
     groupBy: string[]
     expandedSet: Set<Key> | null
     defaultExpanded: boolean
-}): GroupedDisplayRowsResult<T> {
+}): GroupedDisplayRows<T> {
     const { rows, groupBy, expandedSet, defaultExpanded } = params;
     if (!groupBy || groupBy.length === 0) {
         return { displayRows: rows, allGroupIds: [], allPossibleGroupIds: [] };
@@ -317,12 +343,12 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
         rowsSlice: T[]
     }
 
-    const isExpanded = (groupId: string): boolean => {
+    const isExpanded = (groupId: string) => {
         if (expandedSet == null) return defaultExpanded;
         return expandedSet.has(groupId);
     };
 
-    const walk = (ctx: BuildContext): void => {
+    const walk = (ctx: BuildContext) => {
         const columnName = groupBy[ctx.level];
         if (columnName == null) {
             // 已到最深层，回归普通数据行
@@ -335,7 +361,7 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
         let currentValue: unknown = null;
         let currentBucket: T[] = [];
 
-        const flush = (): void => {
+        const flush = () => {
             if (currentBucket.length === 0) return;
             const groupIdStr = ctx.parentGroupId === ""
                 ? `${GROUP_ROW_ID_PREFIX}::${ctx.level}::${currentKey}`
@@ -382,7 +408,7 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
                     }
                 }
                 // 收起态下没有子节点可统计，退而用桶大小（叶子数据条数）
-                meta.count = expanded ? Math.max(leafCount, currentBucket.length) : currentBucket.length;
+                meta.count = expanded ? Math.max(leafCount, currentBucket.length): currentBucket.length;
             }
 
             currentKey = null;
@@ -415,7 +441,7 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
         if (columnName == null) return;
         let currentKey: string | null = null;
         let currentBucket: T[] = [];
-        const flushOne = (): void => {
+        const flushOne = () => {
             if (currentBucket.length === 0) return;
             const id = parentId === ""
                 ? `${GROUP_ROW_ID_PREFIX}::${level}::${currentKey}`
@@ -449,6 +475,12 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
 
 // =============== 树形数据（Tree Data） ===============
 
+export interface TreeDisplayRows<T extends Row> {
+    displayRows: T[]
+    treeRowMetaMap: Map<Key, TreeRowMeta>
+    allExpandableIds: Key[]
+}
+
 /**
  * 将树形结构数据深度优先展开为扁平行列表，同时构造每行的树形元数据。
  *
@@ -457,18 +489,12 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
  * 2. expandedSet 缺省视为"按 defaultExpanded 决定"，空集合表示全部收起；
  * 3. treeRowMetaMap 覆盖所有被展开路径上的节点，收起节点的子孙不在其中。
  */
-export interface TreeDisplayRowsResult<T extends Row> {
-    displayRows: T[]
-    treeRowMetaMap: Map<Key, TreeRowMeta>
-    allExpandableIds: Key[]
-}
-
 export function buildTreeDisplayRows<T extends Row>(params: {
     rows: T[]
     getChildRows: (row: T) => T[] | undefined | null
     expandedSet: Set<Key> | null
     defaultExpanded: boolean
-}): TreeDisplayRowsResult<T> {
+}): TreeDisplayRows<T> {
     const { rows, getChildRows, expandedSet, defaultExpanded } = params;
     const displayRows: T[] = [];
     const treeRowMetaMap = new Map<Key, TreeRowMeta>();
@@ -479,7 +505,7 @@ export function buildTreeDisplayRows<T extends Row>(params: {
         return expandedSet.has(id);
     };
 
-    const walk = (rowSlice: T[], level: number): void => {
+    const walk = (rowSlice: T[], level: number) => {
         for (const row of rowSlice) {
             const children = getChildRows(row);
             const hasChildren = Array.isArray(children) && children.length > 0;
@@ -520,7 +546,7 @@ export interface InternalExpandedRow<T extends Row> {
     }
 }
 
-export interface ExpansionDisplayRowsResult<T extends Row> {
+export interface ExpansionDisplayRows<T extends Row> {
     displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     allExpandableIds: Key[]
 }
@@ -559,7 +585,7 @@ export function buildExpansionDisplayRows<T extends Row>(params: {
     isRowExpandable?: (row: T) => boolean
     expandedRowHeight: number
     getExpandedRowHeight?: (row: T) => number | undefined
-}): ExpansionDisplayRowsResult<T> {
+}): ExpansionDisplayRows<T> {
     const { displayRows, expandedSet, isRowExpandable, expandedRowHeight, getExpandedRowHeight } = params;
     const result: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>> = [];
     const allExpandableIds: Key[] = [];
@@ -568,7 +594,7 @@ export function buildExpansionDisplayRows<T extends Row>(params: {
         result.push(row);
         if (isGroupRow(row)) return;
         const dataRow = row as T;
-        const expandable = isRowExpandable ? isRowExpandable(dataRow) : true;
+        const expandable = isRowExpandable ? isRowExpandable(dataRow): true;
         if (!expandable) return;
         allExpandableIds.push(dataRow.id);
         if (!expandedSet.has(dataRow.id)) return;

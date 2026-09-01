@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type RefObject } from "react";
+import { useCallback, useEffect, useState, type Key, type RefObject } from "react";
 import type { ColumnType, Row } from "../types.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 import { isInternalRow } from "../util.js";
@@ -15,20 +15,25 @@ interface UseCellEditNavOptions<T extends Row> {
     selectionColumnName: string;
 }
 
-interface CellEditPosition {
+export interface CellEditPosition {
+    rowId: Key;
+    columnName: string;
+}
+
+export interface CellNavigationTarget {
     rowIndex: number;
     columnIndex: number;
 }
 
-interface UseCellEditNavResult {
+export interface UseCellEditNavResult {
     editingCellPos: CellEditPosition | null;
     startCellEdit: (rowIndex: number, columnIndex: number) => void;
     exitCellEdit: () => void;
     navigateCellEdit: (
         rowIndex: number,
         columnIndex: number,
-        direction: Exclude<CellNavDirection, 'escape'>,
-    ) => CellEditPosition | null;
+        direction: Exclude<CellNavDirection, "escape">,
+    ) => CellNavigationTarget | null;
 }
 
 export function useCellEditNav<T extends Row>({
@@ -39,11 +44,20 @@ export function useCellEditNav<T extends Row>({
     getCellKey,
     selectionColumnName,
 }: UseCellEditNavOptions<T>): UseCellEditNavResult {
-    const [editingCellPos, setEditingCellPos] = useState<CellEditPosition | null>(null);
+    // 编辑身份必须跟随数据而不是可变的视图坐标。排序、树展开或拖列后，
+    // rowIndex / columnIndex 可能指向完全不同的记录与列。
+    const [editingCellPos, setEditingCellPos] = useState<{ rowId: Key; columnName: string } | null>(null);
 
     useEffect(() => {
         if (editType !== 'cell') setEditingCellPos(null);
     }, [editType]);
+
+    useEffect(() => {
+        if (!editingCellPos) return;
+        const rowExists = displayRows.some(row => !isInternalRow(row) && row.id === editingCellPos.rowId);
+        const columnExists = (bottomColumnsRef.current ?? []).some(column => column.name === editingCellPos.columnName);
+        if (!rowExists || !columnExists) setEditingCellPos(null);
+    }, [editingCellPos, displayRows, bottomColumnsRef]);
 
     const isEditableCell = useCallback((rowIndex: number, columnIndex: number): boolean => {
         const row = displayRows[rowIndex];
@@ -58,7 +72,7 @@ export function useCellEditNav<T extends Row>({
         rowIndex: number,
         columnIndex: number,
         direction: Exclude<CellNavDirection, 'escape'>,
-    ): CellEditPosition | null => {
+    ): { rowIndex: number; columnIndex: number } | null => {
         const columns = bottomColumnsRef.current ?? [];
         const totalRows = displayRows.length;
         const totalCols = columns.length;
@@ -99,8 +113,11 @@ export function useCellEditNav<T extends Row>({
 
     const startCellEdit = useCallback((rowIndex: number, columnIndex: number) => {
         if (editType !== 'cell') return;
-        setEditingCellPos({ rowIndex, columnIndex });
-    }, [editType]);
+        const row = displayRows[rowIndex];
+        const column = (bottomColumnsRef.current ?? [])[columnIndex];
+        if (!row || isInternalRow(row) || !column) return;
+        setEditingCellPos({ rowId: row.id, columnName: column.name });
+    }, [editType, displayRows, bottomColumnsRef]);
 
     const exitCellEdit = useCallback(() => {
         setEditingCellPos(null);
@@ -112,9 +129,17 @@ export function useCellEditNav<T extends Row>({
         direction: Exclude<CellNavDirection, 'escape'>,
     ) => {
         const next = findNext(rowIndex, columnIndex, direction);
-        setEditingCellPos(next);
+        if (!next) {
+            setEditingCellPos(null);
+            return next;
+        }
+        const row = displayRows[next.rowIndex];
+        const column = (bottomColumnsRef.current ?? [])[next.columnIndex];
+        setEditingCellPos(row && !isInternalRow(row) && column
+            ? { rowId: row.id, columnName: column.name }
+            : null);
         return next;
-    }, [findNext]);
+    }, [findNext, displayRows, bottomColumnsRef]);
 
     return { editingCellPos, startCellEdit, exitCellEdit, navigateCellEdit };
 }

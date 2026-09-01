@@ -1,8 +1,8 @@
-import { JSONPath } from "jsonpath-plus";
 import { type Key, type MouseEvent as ReactMouseEvent, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CellSelectionState, ColumnType, MergeCell, Row } from "../types.js";
 import { KEY_SEP, isInternalRow, makeSelectKey } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
+import { getDataValueAccessor } from "../valueAccess.js";
 
 interface SelectionAnchor {
     rowId: Key
@@ -38,8 +38,19 @@ export function useCellSelection<T extends Row>(params: {
     onSelectCellsChange?: (cells: Key[]) => void
     onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void
     onCtrlZ?: () => boolean
-}) {
-    const { displayRows, bottomColumnsRef, selectCells, onSelectCellsChange, onCopy, onCtrlZ } = params;
+    isInteractionActive: () => boolean
+}): {
+    committedSelectCells: Key[];
+    selectedKeySet: Set<string>;
+    anchorCell: SelectionAnchor | null;
+    rowIdToIndex: Map<Key, number>;
+    emitSelectCells: (next: Key[]) => void;
+    selectSingleCell: (rowIndex: number, columnIndex: number) => void;
+    handleCellMouseDown: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void;
+    handleCellMouseEnter: (_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void;
+    getCellSelectionState: (rowIndex: number, columnIndex: number, mergeCell?: MergeCell) => CellSelectionState | undefined;
+} {
+    const { displayRows, bottomColumnsRef, selectCells, onSelectCellsChange, onCopy, onCtrlZ, isInteractionActive } = params;
 
     const onCopyRef = useRef(onCopy);
     onCopyRef.current = onCopy;
@@ -55,12 +66,60 @@ export function useCellSelection<T extends Row>(params: {
     const isDraggingRef = useRef(false);
     const dragRectRef = useRef<typeof dragRect>(null);
     dragRectRef.current = dragRect;
+    const pendingDragEndRef = useRef<{ rowIndex: number; columnIndex: number } | null>(null);
+    const dragFrameRef = useRef<number | null>(null);
+
+    const cancelDragFrame = useCallback(() => {
+        if (dragFrameRef.current == null) return;
+        if (typeof globalThis.cancelAnimationFrame === "function") {
+            globalThis.cancelAnimationFrame(dragFrameRef.current);
+        } else {
+            globalThis.clearTimeout(dragFrameRef.current);
+        }
+        dragFrameRef.current = null;
+    }, []);
+
+    const scheduleDragEnd = useCallback((end: { rowIndex: number; columnIndex: number }) => {
+        pendingDragEndRef.current = end;
+        if (dragFrameRef.current != null) return;
+        const flush = () => {
+            dragFrameRef.current = null;
+            const nextEnd = pendingDragEndRef.current;
+            pendingDragEndRef.current = null;
+            if (!nextEnd) return;
+            setDragRect((prev) => {
+                if (!prev || (prev.end.rowIndex === nextEnd.rowIndex && prev.end.columnIndex === nextEnd.columnIndex)) {
+                    return prev;
+                }
+                const next = { anchor: prev.anchor, end: nextEnd };
+                dragRectRef.current = next;
+                return next;
+            });
+        };
+        // 先写哨兵，兼容测试环境提供的同步 requestAnimationFrame。
+        dragFrameRef.current = -1;
+        const frameId = typeof globalThis.requestAnimationFrame === "function"
+            ? globalThis.requestAnimationFrame(flush)
+            : globalThis.setTimeout(flush, 16) as unknown as number;
+        if (dragFrameRef.current === -1) dragFrameRef.current = frameId;
+    }, []);
 
     const committedSelectCells = selectCells ?? innerSelectCells;
 
     const rowIdToIndex = useMemo(() => {
         const map = new Map<Key, number>();
         displayRows.forEach((row, index) => map.set(row.id, index));
+        return map;
+    }, [displayRows]);
+
+    const serializedRowMap = useMemo(() => {
+        const map = new Map<string, { row: T; rowIndex: number }>();
+        displayRows.forEach((row, rowIndex) => {
+            if (isInternalRow(row)) return;
+            const serializedId = String(row.id);
+            // 保持旧版 displayRows.find 的“第一个同字符串 id 命中”语义。
+            if (!map.has(serializedId)) map.set(serializedId, { row: row as T, rowIndex });
+        });
         return map;
     }, [displayRows]);
 
@@ -71,15 +130,24 @@ export function useCellSelection<T extends Row>(params: {
 
     const selectedKeySet = useMemo(() => {
         const set = new Set<string>();
-        if (dragRect) {
-            buildRectKeys(displayRows, dragRect.anchor, dragRect.end,
-                (c) => bottomColumnsRef.current[c]?.selectable !== false)
-                .forEach((key) => set.add(String(key)));
-        } else {
-            committedSelectCells.forEach((key) => set.add(String(key)));
-        }
+        committedSelectCells.forEach((key) => set.add(String(key)));
         return set;
-    }, [dragRect, displayRows, committedSelectCells, bottomColumnsRef]);
+    }, [committedSelectCells]);
+
+    const isCellSelected = useCallback((rowIndex: number, columnIndex: number): boolean => {
+        const row = displayRows[rowIndex];
+        if (!row || isInternalRow(row)) return false;
+        if (bottomColumnsRef.current[columnIndex]?.selectable === false) return false;
+        if (dragRect) {
+            const minRow = Math.min(dragRect.anchor.rowIndex, dragRect.end.rowIndex);
+            const maxRow = Math.max(dragRect.anchor.rowIndex, dragRect.end.rowIndex);
+            const minColumn = Math.min(dragRect.anchor.columnIndex, dragRect.end.columnIndex);
+            const maxColumn = Math.max(dragRect.anchor.columnIndex, dragRect.end.columnIndex);
+            return rowIndex >= minRow && rowIndex <= maxRow
+                && columnIndex >= minColumn && columnIndex <= maxColumn;
+        }
+        return selectedKeySet.has(makeSelectKey(row.id, columnIndex));
+    }, [displayRows, bottomColumnsRef, dragRect, selectedKeySet]);
 
     const anchorRowIndex = useMemo(() => {
         if (!anchorCell) return -1;
@@ -103,7 +171,9 @@ export function useCellSelection<T extends Row>(params: {
         const keyString = makeSelectKey(row.id, columnIndex);
 
         if (event.shiftKey && anchorCell && anchorRowIndex >= 0) {
-            setDragRect({ anchor: { rowIndex: anchorRowIndex, columnIndex: anchorCell.columnIndex }, end: cell });
+            const nextRect = { anchor: { rowIndex: anchorRowIndex, columnIndex: anchorCell.columnIndex }, end: cell };
+            dragRectRef.current = nextRect;
+            setDragRect(nextRect);
             isDraggingRef.current = true;
         } else if (event.ctrlKey || event.metaKey) {
             const next = selectedKeySet.has(keyString)
@@ -113,7 +183,9 @@ export function useCellSelection<T extends Row>(params: {
             setAnchorCell({ rowId: row.id, columnIndex });
         } else {
             setAnchorCell({ rowId: row.id, columnIndex });
-            setDragRect({ anchor: cell, end: cell });
+            const nextRect = { anchor: cell, end: cell };
+            dragRectRef.current = nextRect;
+            setDragRect(nextRect);
             isDraggingRef.current = true;
         }
         (document.activeElement as HTMLElement | null)?.blur?.();
@@ -122,50 +194,54 @@ export function useCellSelection<T extends Row>(params: {
 
     const handleCellMouseEnter = useCallback((_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => {
         if (!isDraggingRef.current) return;
-        if (event.buttons === 0) { isDraggingRef.current = false; return; }
+        if (event.buttons === 0) {
+            isDraggingRef.current = false;
+            cancelDragFrame();
+            pendingDragEndRef.current = null;
+            return;
+        }
         if (isInternalRow(displayRows[_rowIndex])) return;
-        setDragRect((prev) => {
-            if (!prev) return prev;
-            if (prev.end.rowIndex === _rowIndex && prev.end.columnIndex === _columnIndex) return prev;
-            return { anchor: prev.anchor, end: { rowIndex: _rowIndex, columnIndex: _columnIndex } };
-        });
-    }, [displayRows]);
+        scheduleDragEnd({ rowIndex: _rowIndex, columnIndex: _columnIndex });
+    }, [displayRows, scheduleDragEnd, cancelDragFrame]);
 
     const getCellSelectionState = useCallback((rowIndex: number, columnIndex: number, mergeCell?: MergeCell): CellSelectionState | undefined => {
         const row = displayRows[rowIndex];
         if (!row || isInternalRow(row)) return undefined;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return undefined;
-        const key = makeSelectKey(row.id, columnIndex);
-        if (!selectedKeySet.has(key)) return undefined;
+        if (!isCellSelected(rowIndex, columnIndex)) return undefined;
         const bottomRowIdx = rowIndex + (mergeCell ? mergeCell.rowSpan + 1 : 1);
         const rightColIdx = columnIndex + (mergeCell ? mergeCell.colSpan + 1 : 1);
-        const prevRow = displayRows[rowIndex - 1];
-        const bottomRow = displayRows[bottomRowIdx];
-        const prevSelected = prevRow && !isInternalRow(prevRow) && selectedKeySet.has(makeSelectKey(prevRow.id, columnIndex));
-        const bottomSelected = bottomRow && !isInternalRow(bottomRow) && selectedKeySet.has(makeSelectKey(bottomRow.id, columnIndex));
         return {
             selected: true,
             isAnchor: anchorCell?.rowId === row.id && anchorCell?.columnIndex === columnIndex,
-            edgeTop: !prevSelected,
-            edgeBottom: !bottomSelected,
-            edgeLeft: !selectedKeySet.has(makeSelectKey(row.id, columnIndex - 1)),
-            edgeRight: !selectedKeySet.has(makeSelectKey(row.id, rightColIdx))
+            edgeTop: !isCellSelected(rowIndex - 1, columnIndex),
+            edgeBottom: !isCellSelected(bottomRowIdx, columnIndex),
+            edgeLeft: !isCellSelected(rowIndex, columnIndex - 1),
+            edgeRight: !isCellSelected(rowIndex, rightColIdx)
         };
-    }, [anchorCell, displayRows, selectedKeySet, bottomColumnsRef]);
+    }, [anchorCell, displayRows, bottomColumnsRef, isCellSelected]);
 
     useEffect(() => {
         const handleMouseUp = () => {
             if (!isDraggingRef.current) return;
             isDraggingRef.current = false;
-            const finalRect = dragRectRef.current;
+            const pendingEnd = pendingDragEndRef.current;
+            const currentRect = dragRectRef.current;
+            const finalRect = currentRect && pendingEnd
+                ? { anchor: currentRect.anchor, end: pendingEnd }
+                : currentRect;
+            cancelDragFrame();
+            pendingDragEndRef.current = null;
             if (finalRect) {
                 emitSelectCells(buildRectKeys(displayRows, finalRect.anchor, finalRect.end,
                     (c) => bottomColumnsRef.current[c]?.selectable !== false));
             }
+            dragRectRef.current = null;
             setDragRect(null);
         };
 
         const handleKeyDown = (event: KeyboardEvent) => {
+            if (!isInteractionActive()) return;
             const isMod = event.ctrlKey || event.metaKey;
 
             // Ctrl/Cmd+Z：撤销
@@ -189,15 +265,17 @@ export function useCellSelection<T extends Row>(params: {
                             const columnIndex = Number(str.substring(sepIdx + 1));
                             const column = bottomColumnsRef.current[columnIndex];
                             if (!column) return [];
-                            const row = displayRows.find(r => !isInternalRow(r) && String(r.id) === rowIdRaw);
-                            const rowIndex = row ? (rowIdToIndex.get(row.id) ?? -1) : -1;
-                            const value = row && !isInternalRow(row)
-                                ? (() => {
-                                    const res = JSONPath({ path: column.name, json: (row as T).dataRef });
-                                    return Array.isArray(res) && res.length > 0 ? res[0] : undefined;
-                                })()
+                            const rowEntry = serializedRowMap.get(rowIdRaw);
+                            const value = rowEntry
+                                ? getDataValueAccessor(column.name).get(rowEntry.row.dataRef)
                                 : undefined;
-                            return [{ rowId: row?.id ?? rowIdRaw as Key, rowIndex, columnIndex, columnName: column.name, value }];
+                            return [{
+                                rowId: rowEntry?.row.id ?? rowIdRaw as Key,
+                                rowIndex: rowEntry?.rowIndex ?? -1,
+                                columnIndex,
+                                columnName: column.name,
+                                value,
+                            }];
                         });
                         onCopyRef.current(cells);
                         event.preventDefault();
@@ -221,13 +299,19 @@ export function useCellSelection<T extends Row>(params: {
             window.removeEventListener("mouseup", handleMouseUp);
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [displayRows, emitSelectCells, committedSelectCells, anchorCell, rowIdToIndex, bottomColumnsRef]);
+    }, [displayRows, emitSelectCells, committedSelectCells, anchorCell, serializedRowMap, bottomColumnsRef, isInteractionActive, cancelDragFrame]);
+
+    useEffect(() => () => {
+        cancelDragFrame();
+        pendingDragEndRef.current = null;
+    }, [cancelDragFrame]);
 
     const selectSingleCell = useCallback((rowIndex: number, columnIndex: number) => {
         const row = displayRows[rowIndex];
         if (!row || isInternalRow(row)) return;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
         setAnchorCell({ rowId: row.id, columnIndex });
+        dragRectRef.current = null;
         setDragRect(null);
         emitSelectCells([makeSelectKey(row.id, columnIndex)]);
     }, [displayRows, bottomColumnsRef, emitSelectCells]);

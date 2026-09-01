@@ -1,4 +1,4 @@
-import { type Key, type ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import { type Key, type ReactNode, useCallback, useMemo, useState } from "react";
 import type { Row } from "../types.js";
 import { buildExpansionDisplayRows } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
@@ -33,22 +33,16 @@ export function useRowExpansion<T extends Row>(params: {
 
     const isExpansion = !!expandedRowRender;
 
-    // 用 ref 持有最新回调，避免消费方未 useCallback 导致 useMemo 每次重算
-    const isRowExpandableRef = useRef(isRowExpandable);
-    isRowExpandableRef.current = isRowExpandable;
-    const getExpandedRowHeightRef = useRef(getExpandedRowHeight);
-    getExpandedRowHeightRef.current = getExpandedRowHeight;
-
     const expandedDisplayRows = useMemo(() => {
         if (!isExpansion) return displayRows;
         return buildExpansionDisplayRows<T>({
             displayRows,
             expandedSet: currentExpandedSet,
-            isRowExpandable: isRowExpandableRef.current,
+            isRowExpandable,
             expandedRowHeight,
-            getExpandedRowHeight: getExpandedRowHeightRef.current
+            getExpandedRowHeight
         }).displayRows;
-    }, [displayRows, isExpansion, currentExpandedSet, expandedRowHeight]);
+    }, [displayRows, isExpansion, currentExpandedSet, isRowExpandable, expandedRowHeight, getExpandedRowHeight]);
 
     const toggleExpandRow = useCallback((id: Key) => {
         const base = new Set<Key>(currentExpandedSet);

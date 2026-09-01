@@ -1,15 +1,34 @@
-import { JSONPath } from "jsonpath-plus";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { VirtualHandle } from "@crab-dev/rc-virtual";
 import type { ColumnType, Row } from "../types.js";
 import { isInternalRow } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
+import { getDataValueAccessor } from "../valueAccess.js";
 
 interface MatchEntry {
     rowIndex: number
     columnIndex: number
     occurrenceInCell: number
 }
+
+interface MatchBucket extends MatchEntry {
+    count: number
+    endExclusive: number
+}
+
+interface MatchScanResult<T extends Row> {
+    keyword: string
+    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
+    bottomColumns: ColumnType<T>[]
+    skipCellSet: Set<string>
+    getCellKey: (rowIndex: number, columnIndex: number) => string
+    matchBuckets: MatchBucket[]
+    matchCount: number
+}
+
+const SYNC_SCAN_CELL_LIMIT = 5_000;
+const SCAN_CHUNK_CELL_LIMIT = 1_000;
+const SCAN_CHUNK_TIME_BUDGET_MS = 6;
 
 export function useKeywordMatch<T extends Row>(params: {
     highlightKeyword?: string
@@ -21,7 +40,10 @@ export function useKeywordMatch<T extends Row>(params: {
     reservedTopPx: number
     fixedLeftWidth: number
     onMatchCountChange?: (count: number) => void
-}) {
+}): {
+    virtualRef: import("react").RefObject<VirtualHandle | null>;
+    activeMatchMeta: MatchEntry | null;
+} {
     const {
         highlightKeyword, activeMatchIndex, displayRows, bottomColumns,
         skipCellSet, getCellKey, reservedTopPx, fixedLeftWidth, onMatchCountChange
@@ -29,64 +51,163 @@ export function useKeywordMatch<T extends Row>(params: {
 
     const virtualRef = useRef<VirtualHandle | null>(null);
 
-    const allMatches = useMemo((): MatchEntry[] => {
-        const kw = highlightKeyword?.trim();
-        if (!kw) return [];
-        const lower = kw.toLowerCase();
-        const result: MatchEntry[] = [];
-        displayRows.forEach((row, rowIndex) => {
-            if (isInternalRow(row)) return;
-            bottomColumns.forEach((column, columnIndex) => {
-                if (skipCellSet.has(getCellKey(rowIndex, columnIndex))) return;
+    const normalizedKeyword = highlightKeyword?.trim() ?? "";
+    const columnAccessors = useMemo(
+        () => bottomColumns.map(column => getDataValueAccessor(column.name)),
+        [bottomColumns]
+    );
+    const [scanResult, setScanResult] = useState<MatchScanResult<T> | null>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+        let timerId: number | null = null;
+        const lower = normalizedKeyword.toLowerCase();
+        const buckets: MatchBucket[] = [];
+        let totalCount = 0;
+        let rowIndex = 0;
+        let columnIndex = 0;
+
+        const commit = () => {
+            if (cancelled) return;
+            setScanResult({
+                keyword: normalizedKeyword,
+                displayRows,
+                bottomColumns,
+                skipCellSet,
+                getCellKey,
+                matchBuckets: buckets,
+                matchCount: totalCount,
+            });
+        };
+
+        if (!normalizedKeyword) {
+            commit();
+            return () => { cancelled = true; };
+        }
+
+        const scanNextCell = (): boolean => {
+            while (rowIndex < displayRows.length) {
+                const row = displayRows[rowIndex];
+                if (isInternalRow(row) || bottomColumns.length === 0) {
+                    rowIndex += 1;
+                    columnIndex = 0;
+                    continue;
+                }
+                if (columnIndex >= bottomColumns.length) {
+                    rowIndex += 1;
+                    columnIndex = 0;
+                    continue;
+                }
+
+                const currentColumnIndex = columnIndex;
+                const column = bottomColumns[currentColumnIndex];
+                columnIndex += 1;
+                if (skipCellSet.has(getCellKey(rowIndex, currentColumnIndex))) return true;
                 const searchText = column.getSearchText?.(row as T);
-                const arr: unknown[] = searchText != null
+                const values = searchText != null
                     ? [searchText]
-                    : (() => {
-                        const r = JSONPath({ path: column.name, json: (row as T).dataRef });
-                        return Array.isArray(r) ? r : [r];
-                    })();
-                let occurrenceInCell = 0;
-                arr.forEach(item => {
-                    const text = typeof item === "string" ? item : typeof item === "number" ? String(item) : null;
+                    : columnAccessors[currentColumnIndex].getAll((row as T).dataRef);
+                let countInCell = 0;
+                values.forEach(item => {
+                    const text = typeof item === "string" ? item : typeof item === "number" ? String(item): null;
                     if (text == null) return;
+                    const normalizedText = text.toLowerCase();
                     let from = 0;
                     while (true) {
-                        const idx = text.toLowerCase().indexOf(lower, from);
+                        const idx = normalizedText.indexOf(lower, from);
                         if (idx === -1) break;
-                        result.push({ rowIndex, columnIndex, occurrenceInCell });
-                        occurrenceInCell++;
+                        countInCell += 1;
                         from = idx + lower.length;
                     }
                 });
-            });
-        });
-        return result;
-    }, [highlightKeyword, displayRows, bottomColumns, skipCellSet, getCellKey]);
+                if (countInCell > 0) {
+                    totalCount += countInCell;
+                    buckets.push({
+                        rowIndex,
+                        columnIndex: currentColumnIndex,
+                        occurrenceInCell: 0,
+                        count: countInCell,
+                        endExclusive: totalCount,
+                    });
+                }
+                return true;
+            }
+            return false;
+        };
 
-    const allMatchesRef = useRef<MatchEntry[]>(allMatches);
-    useEffect(() => { allMatchesRef.current = allMatches; }, [allMatches]);
+        const totalCellCount = displayRows.length * bottomColumns.length;
+        if (totalCellCount <= SYNC_SCAN_CELL_LIMIT) {
+            while (scanNextCell()) { /* 同步小表，保持既有回调时序 */ }
+            commit();
+            return () => { cancelled = true; };
+        }
+
+        const runChunk = () => {
+            if (cancelled) return;
+            const startedAt = performance.now();
+            let processed = 0;
+            while (
+                processed < SCAN_CHUNK_CELL_LIMIT
+                && performance.now() - startedAt < SCAN_CHUNK_TIME_BUDGET_MS
+                && scanNextCell()
+            ) {
+                processed += 1;
+            }
+            if (rowIndex >= displayRows.length) {
+                commit();
+            } else {
+                timerId = globalThis.setTimeout(runChunk, 0) as unknown as number;
+            }
+        };
+        timerId = globalThis.setTimeout(runChunk, 0) as unknown as number;
+
+        return () => {
+            cancelled = true;
+            if (timerId != null) globalThis.clearTimeout(timerId);
+        };
+    }, [normalizedKeyword, displayRows, bottomColumns, columnAccessors, skipCellSet, getCellKey]);
+
+    const isCurrentScan = scanResult != null
+        && scanResult.keyword === normalizedKeyword
+        && scanResult.displayRows === displayRows
+        && scanResult.bottomColumns === bottomColumns
+        && scanResult.skipCellSet === skipCellSet
+        && scanResult.getCellKey === getCellKey;
+    const matchBuckets = isCurrentScan ? scanResult.matchBuckets : [];
+    const matchCount = isCurrentScan ? scanResult.matchCount : 0;
 
     useEffect(() => {
-        onMatchCountChange?.(allMatches.length);
-    }, [allMatches.length, onMatchCountChange]);
+        if (isCurrentScan) onMatchCountChange?.(matchCount);
+    }, [isCurrentScan, matchCount, onMatchCountChange]);
+
+    const activeMatchMeta = useMemo((): MatchEntry | null => {
+        if (activeMatchIndex == null || activeMatchIndex < 0 || activeMatchIndex >= matchCount) return null;
+        let low = 0;
+        let high = matchBuckets.length - 1;
+        while (low < high) {
+            const mid = low + Math.floor((high - low) / 2);
+            if (matchBuckets[mid].endExclusive > activeMatchIndex) high = mid;
+            else low = mid + 1;
+        }
+        const bucket = matchBuckets[low];
+        if (!bucket) return null;
+        return {
+            rowIndex: bucket.rowIndex,
+            columnIndex: bucket.columnIndex,
+            occurrenceInCell: activeMatchIndex - (bucket.endExclusive - bucket.count),
+        };
+    }, [activeMatchIndex, matchBuckets, matchCount]);
 
     useEffect(() => {
-        if (activeMatchIndex == null || allMatchesRef.current.length === 0) return;
-        const match = allMatchesRef.current[activeMatchIndex];
-        if (!match) return;
-        const col = bottomColumns[match.columnIndex];
+        if (!activeMatchMeta) return;
+        const col = bottomColumns[activeMatchMeta.columnIndex];
         virtualRef.current?.scrollToCell({
-            rowIndex: match.rowIndex,
-            columnIndex: col?.fixed ? undefined : match.columnIndex,
+            rowIndex: activeMatchMeta.rowIndex,
+            columnIndex: col?.fixed ? undefined : activeMatchMeta.columnIndex,
             topOffset: reservedTopPx,
             leftOffset: col?.fixed ? undefined : fixedLeftWidth,
         });
-    }, [activeMatchIndex, bottomColumns, reservedTopPx, fixedLeftWidth]);
-
-    const activeMatchMeta = useMemo((): MatchEntry | null => {
-        if (activeMatchIndex == null || activeMatchIndex < 0 || allMatches.length === 0) return null;
-        return allMatches[activeMatchIndex] ?? null;
-    }, [activeMatchIndex, allMatches]);
+    }, [activeMatchMeta, bottomColumns, reservedTopPx, fixedLeftWidth]);
 
     return { virtualRef, activeMatchMeta };
 }

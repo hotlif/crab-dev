@@ -1,4 +1,4 @@
-import { type DragEvent as ReactDragEvent, useCallback, useMemo, useRef, useState } from "react";
+import { type DragEvent as ReactDragEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ColumnType } from "../types.js";
 
 export type DropSide = 'left' | 'right';
@@ -19,7 +19,16 @@ export function useColumnDrag(params: {
     sColumns: ColumnType<any>[]
     onColumnOrderChange?: (orderedColumnNames: string[]) => void
     onGroupColumnOrderChange?: (groupName: string, orderedChildNames: string[]) => void
-}) {
+}): {
+    draggingColumnName: string | null;
+    draggingGroupName: string | null;
+    dropIndicator: DropIndicator | null;
+    handleDragStart: (columnName: string, groupName: string | null, e: ReactDragEvent) => void;
+    handleDragOver: (columnName: string, groupName: string | null, e: ReactDragEvent, isSubCell?: boolean) => void;
+    handleDrop: (columnName: string, groupName: string | null, e: ReactDragEvent) => void;
+    handleDragEnd: () => void;
+    handleDragLeave: (e: ReactDragEvent) => void;
+} {
     const { sColumns, onColumnOrderChange, onGroupColumnOrderChange } = params;
 
     const [draggingState, setDraggingState] = useState<DragState | null>(null);
@@ -29,6 +38,10 @@ export function useColumnDrag(params: {
     dropIndicatorRef.current = dropIndicator;
 
     const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => () => {
+        if (clearTimerRef.current !== null) clearTimeout(clearTimerRef.current);
+    }, []);
 
     // 顶层非固定列名（用于顶层重排）
     const movableTopNames = useMemo(

@@ -1,4 +1,4 @@
-import { type Key, useCallback, useMemo, useRef, useState } from "react";
+import { type Key, useCallback, useMemo, useState } from "react";
 import type { Row, TreeRowMeta } from "../types.js";
 import { buildTreeDisplayRows } from "../util.js";
 
@@ -29,12 +29,8 @@ export function useTreeData<T extends Row>(params: {
 
     const currentExpandedSet: Set<Key> | null = expandedRowIds ?? innerExpandedIds;
 
-    // 用 ref 持有最新的 getChildRows，避免因消费方未 useCallback 导致 useMemo 每次重算
-    const getChildRowsRef = useRef(getChildRows);
-    getChildRowsRef.current = getChildRows;
-
     const { flatRows, treeRowMetaMap, allExpandableIds } = useMemo(() => {
-        if (!treeData || !getChildRowsRef.current) {
+        if (!treeData || !getChildRows) {
             return {
                 flatRows: rows,
                 treeRowMetaMap: new Map<Key, TreeRowMeta>(),
@@ -43,7 +39,7 @@ export function useTreeData<T extends Row>(params: {
         }
         const result = buildTreeDisplayRows<T>({
             rows,
-            getChildRows: getChildRowsRef.current,
+            getChildRows,
             expandedSet: currentExpandedSet,
             defaultExpanded: defaultTreeExpandAll
         });
@@ -52,7 +48,7 @@ export function useTreeData<T extends Row>(params: {
             treeRowMetaMap: result.treeRowMetaMap,
             allExpandableIds: result.allExpandableIds
         };
-    }, [rows, treeData, currentExpandedSet, defaultTreeExpandAll]);
+    }, [rows, treeData, getChildRows, currentExpandedSet, defaultTreeExpandAll]);
 
     const isTree = treeData && !!getChildRows;
 

@@ -191,7 +191,7 @@ const token = defineTokens({
     },
     'summary': {
         'color': `var(${vars['summary.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-        'font-weight': `var(${vars['summary.font-weight']}, var(--token-global-font-weight-bold, 700))`,
+        'font-weight': `var(${vars['summary.font-weight']}, var(--token-semantic-font-weight-strong, var(--token-global-font-weight-bold, 700)))`,
         'padding-inline': `var(${vars['summary.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'expand': {

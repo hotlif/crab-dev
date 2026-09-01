@@ -19,6 +19,7 @@ export function useRowSelection<T extends Row>({
     dataRows,
     rowSelection,
 }: UseRowSelectionOptions<T>): UseRowSelectionResult {
+    const getDisabled = rowSelection?.getDisabled;
     const isControlled = rowSelection?.selectedRowIds !== undefined;
 
     const [uncontrolledIds, setUncontrolledIds] = useState<Set<Key>>(
@@ -30,14 +31,23 @@ export function useRowSelection<T extends Row>({
         : uncontrolledIds;
 
     const enabledRows = useMemo(
-        () => dataRows.filter(row => !(rowSelection?.getDisabled?.(row) ?? false)),
-        [dataRows, rowSelection]
+        () => dataRows.filter(row => !(getDisabled?.(row) ?? false)),
+        [dataRows, getDisabled]
     );
 
-    const isAllSelected =
-        enabledRows.length > 0 && enabledRows.every(row => selectedRowIds.has(row.id));
-    const isIndeterminate =
-        !isAllSelected && enabledRows.some(row => selectedRowIds.has(row.id));
+    const enabledIdSet = useMemo(() => new Set(enabledRows.map(row => row.id)), [enabledRows]);
+    const selectedEnabledCount = useMemo(() => {
+        let count = 0;
+        // 常见的少量选中场景只遍历 selectedRowIds，避免每点一行都扫描全量 rows。
+        if (selectedRowIds.size <= enabledIdSet.size) {
+            selectedRowIds.forEach(id => { if (enabledIdSet.has(id)) count += 1; });
+        } else {
+            enabledIdSet.forEach(id => { if (selectedRowIds.has(id)) count += 1; });
+        }
+        return count;
+    }, [selectedRowIds, enabledIdSet]);
+    const isAllSelected = enabledRows.length > 0 && selectedEnabledCount === enabledRows.length;
+    const isIndeterminate = selectedEnabledCount > 0 && !isAllSelected;
 
     const rowMap = useMemo(() => {
         const map = new Map<Key, T>();

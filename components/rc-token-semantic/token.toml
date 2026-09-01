@@ -103,6 +103,7 @@ font.size.caption   = "$ref(font.size.xs)"
 font.weight.body    = "$ref(font.weight.regular)"
 font.weight.label   = "$ref(font.weight.medium)"
 font.weight.heading = "$ref(font.weight.semibold)"
+font.weight.strong  = "$ref(font.weight.bold)"
 
 
 # ─── 圆角 · 语义 ────────────────────────────────────────────────────────────

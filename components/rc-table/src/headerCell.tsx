@@ -3,7 +3,7 @@ import token from "./token.js";
 import type { Align, ColumnType, MergeCell, Row, SortDirection } from "./types.js";
 import { getMergedCellSize } from "./util.js";
 
-import type { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
+import { memo, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import type { DropSide } from "./hooks/useColumnDrag.js";
 
 interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
@@ -18,6 +18,7 @@ interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElem
     isSkipCell: boolean
     isLastColumn?: boolean
     onResizeMouseDown?: (e: MouseEvent<HTMLDivElement>) => void
+    onResizeKeyboard?: (delta: number) => void
     isDragging?: boolean
     dropIndicatorSide?: DropSide | null
     isSortable?: boolean
@@ -25,6 +26,8 @@ interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElem
     onSortClick?: (isMulti: boolean) => void
     /** 自定义单元格内容；非 skip cell 时替换默认的 title/排序渲染 */
     customContent?: ReactNode
+    /** 同一轮 Table render 内稳定，用于忽略虚拟横向滚动产生的新事件包装函数。 */
+    renderVersion?: object
 }
 
 const draggableStyle = css`
@@ -101,7 +104,7 @@ const sortBadgeStyle = css`
 `;
 
 
-function SortIcon({ direction }: { direction: SortDirection | null }) {
+function SortIcon({ direction }: { direction: SortDirection | null }): ReactNode {
     const isAsc = direction === "asc";
     const isDesc = direction === "desc";
     if (direction == null) {
@@ -183,14 +186,16 @@ function TableHeaderCell<T extends Row>({
     maxRowIndex,
     isLastColumn,
     onResizeMouseDown,
+    onResizeKeyboard,
     isDragging,
     dropIndicatorSide,
     isSortable,
     sortState,
     onSortClick,
     customContent,
+    renderVersion: _renderVersion,
     ...restProps
-}: TableHeaderCellProps<T>){
+}: TableHeaderCellProps<T>): ReactNode {
 
     const getMergedHeaderCellBorderStyle = () => {
         if (isLastColumn) {
@@ -316,9 +321,8 @@ function TableHeaderCell<T extends Row>({
                 className={cx(titleInnerBaseStyle, isSortable && sortTitleInnerStyle)}
                 role={isSortable ? "button" : undefined}
                 tabIndex={isSortable ? 0 : undefined}
-                onClick={isSortable ? (e) => onSortClick?.(e.shiftKey) : undefined}
+                onClick={isSortable ? (e) => onSortClick?.(e.shiftKey): undefined}
                 onKeyDown={isSortable ? handleSortKeyDown : undefined}
-                aria-sort={isSortable ? (sortState ? (sortState.direction === "asc" ? "ascending" : "descending") : "none") : undefined}
             >
                 {headerAlign === "right" && stableIconEl}
                 <span className={titleSpanStyle} style={{ textAlign: headerAlign }}>{column?.title}</span>
@@ -420,6 +424,10 @@ function TableHeaderCell<T extends Row>({
             className)}
             data-column-index={columnIndex}
             {...restProps}
+            role={isSkipCell ? undefined : "columnheader"}
+            aria-hidden={isSkipCell || undefined}
+            aria-colindex={isSkipCell ? undefined : columnIndex + 1}
+            aria-sort={isSortable ? (sortState ? (sortState.direction === "asc" ? "ascending" : "descending"): "none"): undefined}
         >
             {renderChildrenElement()}
             {onResizeMouseDown && !isSkipCell && (
@@ -434,6 +442,17 @@ function TableHeaderCell<T extends Row>({
                         z-index: 1;
                     `}
                     onMouseDown={onResizeMouseDown}
+                    role="separator"
+                    aria-orientation="vertical"
+                    aria-label={`调整${column?.title ?? "当前"}列宽`}
+                    tabIndex={0}
+                    onKeyDown={(event) => {
+                        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+                        event.preventDefault();
+                        event.stopPropagation();
+                        const step = event.shiftKey ? 1 : 10;
+                        onResizeKeyboard?.(event.key === "ArrowLeft" ? -step : step);
+                    }}
                     // 阻止 drag 事件，避免 resize handle 触发列拖拽
                     draggable={false}
                     onDragStart={e => e.stopPropagation()}
@@ -443,4 +462,37 @@ function TableHeaderCell<T extends Row>({
     )
 }
 
-export default TableHeaderCell;
+const shallowEqualObject = (a: unknown, b: unknown): boolean => {
+    if (Object.is(a, b)) return true;
+    if (a == null || b == null || typeof a !== "object" || typeof b !== "object") return false;
+    const aRecord = a as Record<string, unknown>;
+    const bRecord = b as Record<string, unknown>;
+    const aKeys = Object.keys(aRecord);
+    if (aKeys.length !== Object.keys(bRecord).length) return false;
+    return aKeys.every(key => Object.prototype.hasOwnProperty.call(bRecord, key)
+        && Object.is(aRecord[key], bRecord[key]));
+};
+
+const areHeaderCellPropsEqual = <T extends Row>(
+    prev: Readonly<TableHeaderCellProps<T>>,
+    next: Readonly<TableHeaderCellProps<T>>,
+): boolean => {
+    if (prev.renderVersion !== next.renderVersion) return false;
+    const ignored = new Set([
+        "style", "mergeCell", "sortState", "customContent",
+        "onResizeMouseDown", "onResizeKeyboard", "onSortClick",
+        "onDragStart", "onDragOver", "onDrop", "onDragEnd", "onDragLeave",
+    ]);
+    const prevRecord = prev as Record<string, unknown>;
+    const nextRecord = next as Record<string, unknown>;
+    const keys = new Set([...Object.keys(prevRecord), ...Object.keys(nextRecord)]);
+    for (const key of keys) {
+        if (ignored.has(key)) continue;
+        if (!Object.is(prevRecord[key], nextRecord[key])) return false;
+    }
+    return shallowEqualObject(prev.style, next.style)
+        && shallowEqualObject(prev.mergeCell, next.mergeCell)
+        && shallowEqualObject(prev.sortState, next.sortState);
+};
+
+export default memo(TableHeaderCell, areHeaderCellPropsEqual) as typeof TableHeaderCell;

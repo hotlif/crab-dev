@@ -1,18 +1,8 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import type { ColumnType, Row, SortColumn, SortDirection } from "../types.js";
+import { getDataValueAccessor } from "../valueAccess.js";
 
-function getFieldValue(dataRef: unknown, columnName: string): unknown {
-    if (dataRef == null || typeof dataRef !== "object") return undefined;
-    // 支持 $.a.b.c 和 a.b.c 两种点路径格式
-    const path = columnName.startsWith("$.") ? columnName.slice(2) : columnName;
-    const parts = path.split(".");
-    let value: unknown = dataRef;
-    for (const part of parts) {
-        if (value == null || typeof value !== "object") return undefined;
-        value = (value as Record<string, unknown>)[part];
-    }
-    return value;
-}
+const defaultCollator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
 
 function defaultCompare(a: unknown, b: unknown): number {
     if (a == null && b == null) return 0;
@@ -20,7 +10,7 @@ function defaultCompare(a: unknown, b: unknown): number {
     if (b == null) return -1;
     if (typeof a === "number" && typeof b === "number") return a - b;
     if (typeof a === "boolean" && typeof b === "boolean") return Number(a) - Number(b);
-    return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" });
+    return defaultCollator.compare(String(a), String(b));
 }
 
 export function useColumnSort<T extends Row>(params: {
@@ -30,7 +20,16 @@ export function useColumnSort<T extends Row>(params: {
     sortColumns?: SortColumn[]
     defaultSortColumns?: SortColumn[]
     onSortColumnsChange?: (columns: SortColumn[]) => void
-}) {
+}): {
+    sortedRows: T[];
+    sortColumns: SortColumn[];
+    handleSort: (columnName: string, isMulti?: boolean) => void;
+    getSortState: (columnName: string) => {
+        direction: SortDirection;
+        priority: number;
+    } | null;
+    isSortable: (columnName: string) => boolean;
+} {
     const { rows, columns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange } = params;
 
     const isControlled = sortColumnsProp !== undefined;
@@ -85,20 +84,26 @@ export function useColumnSort<T extends Row>(params: {
     const sortedRows = useMemo(() => {
         if (sortColumns.length === 0) return rows;
 
+        // 排序计划只构造一次，避免在 O(n log n) 次 comparator 调用中重复查列和解析路径。
+        const sortPlan = sortColumns.map(sc => ({
+            direction: sc.direction,
+            sorter: columnInfoMap.get(sc.columnName)?.sorter,
+            accessor: getDataValueAccessor(sc.columnName),
+        }));
+
         return [...rows].sort((a, b) => {
-            for (const sc of sortColumns) {
-                const info = columnInfoMap.get(sc.columnName);
+            for (const step of sortPlan) {
                 let result: number;
 
-                if (info?.sorter) {
-                    result = info.sorter(a, b);
+                if (step.sorter) {
+                    result = step.sorter(a, b);
                 } else {
-                    const aVal = getFieldValue(a.dataRef, sc.columnName);
-                    const bVal = getFieldValue(b.dataRef, sc.columnName);
+                    const aVal = step.accessor.get(a.dataRef);
+                    const bVal = step.accessor.get(b.dataRef);
                     result = defaultCompare(aVal, bVal);
                 }
 
-                if (sc.direction === "desc") result = -result;
+                if (step.direction === "desc") result = -result;
                 if (result !== 0) return result;
             }
             return 0;

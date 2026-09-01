@@ -1,5 +1,4 @@
 import { css, cx } from "@crab-dev/css";
-import { JSONPath } from "jsonpath-plus";
 import token from "./token.js";
 
 const rowEditingCellStyle = css`
@@ -11,9 +10,10 @@ const rowEditActiveCellStyle = css`
 `;
 import type { CellSelectionState, ColumnType, MergeCell, Row, TreeRowMeta } from "./types.js";
 import type { CellNavDirection } from "./hooks/useCellEditNav.js";
-import { Fragment, type HTMLAttributes, type Key, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, memo, type HTMLAttributes, type Key, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
+import { getDataValueAccessor } from "./valueAccess.js";
 
 const highlightMarkStyle = css`
     background-color: ${token.highlight.bg};
@@ -72,6 +72,8 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     isEdited?: boolean
     /** 递增时强制 dataValue 重新从 row.dataRef 读取（用于撤销后刷新显示） */
     dataVersion?: number
+    /** 功能列通过该值通知 memo 边界其 ref 中读取的数据已经变化。 */
+    renderVersion?: unknown
     /** 是否是最后一列（最右列），用于控制右侧阴影边框显示 */
     isLastColumn?: boolean
     /** 高亮关键字；默认 render 自动应用，自定义 render 可通过 keyword 参数拿到同一值 */
@@ -127,6 +129,7 @@ function TableCell<T extends Row>({
     selection,
     isEdited,
     dataVersion,
+    renderVersion: _renderVersion,
     isLastColumn,
     highlightKeyword,
     activeOccurrenceInCell,
@@ -146,7 +149,7 @@ function TableCell<T extends Row>({
     onCellEditStart,
     onCellEditNavigate,
     ...restProps
-}: TableCellProps<T>){
+}: TableCellProps<T>): ReactNode {
     const [editorValue, setEditorValue] = useState<unknown>(null);
     const [isEditing, setIsEditing] = useState(false);
     // 进入编辑时快照原值，提交时作为 oldValue 写入操作记录
@@ -188,16 +191,13 @@ function TableCell<T extends Row>({
         }
     }, [isActivatedByNav, exitEditing]);
 
+    const dataAccessor = useMemo(() => getDataValueAccessor(column.name), [column.name]);
     const dataValue = useMemo(() => {
         if (isSkipCell) {
             return null;
         }
-        const result = JSONPath({
-            path: column.name,
-            json: row.dataRef,
-        })
-        return result;
-    }, [isSkipCell, column.name, row.dataRef, dataVersion])
+        return dataAccessor.getAll(row.dataRef);
+    }, [isSkipCell, dataAccessor, row.dataRef, dataVersion])
 
     dataValueForNavRef.current = dataValue;
 
@@ -307,6 +307,7 @@ function TableCell<T extends Row>({
                                 role="button"
                                 tabIndex={0}
                                 aria-expanded={treeNode.isExpanded}
+                                aria-label={treeNode.isExpanded ? "收起子行" : "展开子行"}
                                 className={css`
                                     display: inline-flex;
                                     align-items: center;
@@ -345,7 +346,7 @@ function TableCell<T extends Row>({
                                     <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
-                        ) : (
+                        ): (
                             <div
                                 aria-hidden
                                 className={css`flex-shrink: 0;`}
@@ -360,7 +361,7 @@ function TableCell<T extends Row>({
                         text-overflow: ellipsis;
                     `}
                 >
-                    {displayContent}
+                    {displayContent as ReactNode}
                 </div>
             </div>
         )
@@ -408,7 +409,7 @@ function TableCell<T extends Row>({
                 rowIndex,
                 columnIndex,
                 column,
-                editorValue: isRowEditActive ? (rowEditorValue ?? null) : editorValue,
+                editorValue: isRowEditActive ? (rowEditorValue ?? null): editorValue,
                 onEditorValueChange: isRowEditActive
                     ? (value: unknown) => onRowEditorValueChange?.(value)
                     : setEditorValue,
@@ -581,7 +582,7 @@ function TableCell<T extends Row>({
                     width: overlaySize ? overlaySize.width : undefined,
                     height: overlaySize ? overlaySize.height : undefined,
                     backgroundColor: background,
-                    boxShadow: shadows.length > 0 ? shadows.join(", ") : undefined
+                    boxShadow: shadows.length > 0 ? shadows.join(", "): undefined
                 }}
             />
         );
@@ -625,6 +626,8 @@ function TableCell<T extends Row>({
                 onMouseEnter?.(e);
             }}
             {...restProps}
+            role="gridcell"
+            aria-colindex={columnIndex + 1}
         >
             {renderChildrenElement()}
             {renderEditedIndicator()}
@@ -633,4 +636,42 @@ function TableCell<T extends Row>({
     )
 }
 
-export default TableCell;
+const shallowEqualObject = (a: unknown, b: unknown): boolean => {
+    if (Object.is(a, b)) return true;
+    if (a == null || b == null || typeof a !== "object" || typeof b !== "object") return false;
+    const aRecord = a as Record<string, unknown>;
+    const bRecord = b as Record<string, unknown>;
+    const aKeys = Object.keys(aRecord);
+    const bKeys = Object.keys(bRecord);
+    if (aKeys.length !== bKeys.length) return false;
+    return aKeys.every(key => Object.prototype.hasOwnProperty.call(bRecord, key)
+        && Object.is(aRecord[key], bRecord[key]));
+};
+
+const IGNORED_MEMO_PROPS = new Set<keyof TableCellProps<Row>>([
+    "style",
+    "selection",
+    "mergeCell",
+    "treeNode",
+    // 该包装函数按编辑单元格生成，目标由 row/column/rowEditorValue props 决定。
+    "onRowEditorValueChange",
+]);
+
+const areTableCellPropsEqual = <T extends Row>(
+    prev: Readonly<TableCellProps<T>>,
+    next: Readonly<TableCellProps<T>>,
+): boolean => {
+    const prevRecord = prev as Record<string, unknown>;
+    const nextRecord = next as Record<string, unknown>;
+    const keys = new Set([...Object.keys(prevRecord), ...Object.keys(nextRecord)]);
+    for (const key of keys) {
+        if (IGNORED_MEMO_PROPS.has(key as keyof TableCellProps<Row>)) continue;
+        if (!Object.is(prevRecord[key], nextRecord[key])) return false;
+    }
+    return shallowEqualObject(prev.style, next.style)
+        && shallowEqualObject(prev.selection, next.selection)
+        && shallowEqualObject(prev.mergeCell, next.mergeCell)
+        && shallowEqualObject(prev.treeNode, next.treeNode);
+};
+
+export default memo(TableCell, areTableCellPropsEqual) as typeof TableCell;

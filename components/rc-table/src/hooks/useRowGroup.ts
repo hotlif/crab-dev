@@ -9,7 +9,12 @@ export function useRowGroup<T extends Row>(params: {
     defaultExpandedGroupIds?: Set<Key>
     defaultExpandAll?: boolean
     onExpandedGroupIdsChange?: (ids: Set<Key>) => void
-}) {
+}): {
+    groupBy: string[];
+    displayRows: (T | import("../util.js").InternalGroupRow<T>)[];
+    isGrouped: boolean;
+    toggleGroup: (groupId: Key) => void;
+} {
     const {
         rows, groupBy: groupByProp, expandedGroupIds,
         defaultExpandedGroupIds, defaultExpandAll = true, onExpandedGroupIdsChange
