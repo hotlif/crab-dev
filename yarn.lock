@@ -693,7 +693,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-button@npm:^0.0.2, @crab-dev/rc-button@workspace:^, @crab-dev/rc-button@workspace:components/rc-button":
+"@crab-dev/rc-button@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-button@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-spin": "npm:^0.0.2"
+  checksum: 10c0/f041f0cdeed4da28ad86a558c00bc0ae4cf504d7f692cbbf93ee2283e6b306e8547f7a20bfca920ffb301a6a33eb6d770912fe231bbac36b6918be258fde6085
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-button@workspace:^, @crab-dev/rc-button@workspace:components/rc-button":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-button@workspace:components/rc-button"
   dependencies:
@@ -939,7 +948,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-dialog@npm:^0.0.2, @crab-dev/rc-dialog@workspace:components/rc-dialog":
+"@crab-dev/rc-dialog@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-dialog@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-button": "npm:^0.0.2"
+    motion: "npm:^12.42.2"
+  checksum: 10c0/69fcfb738ae6b8fc5ed34dbe5e495e800afc348a384c68db07b5fdc539d3d6fec71bd7dff5286683785e9702f5e9e52bd71ec5f741354abb3352770580e41cb8
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-dialog@workspace:components/rc-dialog":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
   dependencies:
@@ -1158,6 +1177,13 @@ __metadata:
     typescript-eslint: "npm:^8.63.0"
   languageName: unknown
   linkType: soft
+
+"@crab-dev/rc-hooks@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-hooks@npm:0.0.2"
+  checksum: 10c0/a01ddc1fb884fde05849a63b857bbe7a4868fcd2766f5bc653462846cd8afc28be98798de18f77881e5dc4109e047b2e8ea5f227924f16e46849ce11edb9bf65
+  languageName: node
+  linkType: hard
 
 "@crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
   version: 0.0.0-use.local
@@ -1630,6 +1656,15 @@ __metadata:
     typescript-eslint: "npm:^8.63.0"
   languageName: unknown
   linkType: soft
+
+"@crab-dev/rc-spin@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-spin@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-hooks": "npm:^0.0.2"
+  checksum: 10c0/728613c9cbd6ee9f98c2748c21b1649980659408eee8ffd32a7612d954e4f1cf085438a8dfa6774897a1bb389ae85c9d03c26c989bd4314eff85206311eabc9f
+  languageName: node
+  linkType: hard
 
 "@crab-dev/rc-spin@workspace:^, @crab-dev/rc-spin@workspace:components/rc-spin":
   version: 0.0.0-use.local
