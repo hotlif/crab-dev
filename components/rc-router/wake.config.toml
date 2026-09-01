@@ -1,0 +1,30 @@
+[docs]
+source_dir = "docs"
+title = "Router 路由"
+description = "面向 React 19 浏览器应用的轻量对象式路由组件"
+locale = "zh-CN"
+repository_url = "https://github.com/hotlif/crab-dev/tree/canary/components/rc-router"
+base_path = "/"
+default_theme = "system"
+
+[test]
+setup = ["../../test/wake-css.setup.ts"]
+environment = "dom"
+include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

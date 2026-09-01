@@ -155,6 +155,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:components/rc-realm"\
     },\
     {\
+      "name": "@crab-dev/rc-router",\
+      "reference": "workspace:components/rc-router"\
+    },\
+    {\
       "name": "@crab-dev/rc-segmented",\
       "reference": "workspace:components/rc-segmented"\
     },\
@@ -265,6 +269,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-protocol-table", ["workspace:components/rc-protocol-table"]],\
     ["@crab-dev/rc-radio", ["workspace:components/rc-radio"]],\
     ["@crab-dev/rc-realm", ["workspace:components/rc-realm"]],\
+    ["@crab-dev/rc-router", ["workspace:components/rc-router"]],\
     ["@crab-dev/rc-segmented", ["workspace:components/rc-segmented"]],\
     ["@crab-dev/rc-select", ["workspace:components/rc-select"]],\
     ["@crab-dev/rc-skeleton", ["workspace:components/rc-skeleton"]],\
@@ -1990,6 +1995,31 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:19.2.8"],\
           ["react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.8"],\
           ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.1.0"],\
+          ["typescript", "patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"],\
+          ["typescript-eslint", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.63.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@crab-dev/rc-router", [\
+      ["workspace:components/rc-router", {\
+        "packageLocation": "./components/rc-router/",\
+        "packageDependencies": [\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
+          ["@crab-dev/rc-menu", "virtual:946511e23c920fdc4f330d7ed276264d346603402310975057967f6fb8737887b95b63e382180270dfcb2383bcb26617ecd3ce8f9711ebda73723a7718d99c93#workspace:components/rc-menu"],\
+          ["@crab-dev/rc-router", "workspace:components/rc-router"],\
+          ["@crab-dev/standards-eslint-preset", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#workspace:standards/eslint-preset"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.23"],\
+          ["@types/node", "npm:26.1.0"],\
+          ["@types/react", "npm:19.2.17"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
+          ["eslint", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.6.0"],\
+          ["eslint-plugin-react", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:7.37.5"],\
+          ["globals", "npm:17.7.0"],\
+          ["react", "npm:19.2.8"],\
+          ["react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.8"],\
           ["typescript", "patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.63.0"]\
         ],\

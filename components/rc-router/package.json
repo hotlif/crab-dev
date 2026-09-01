@@ -1,0 +1,61 @@
+{
+  "name": "@crab-dev/rc-router",
+  "websiteConfig": {
+    "title": "Router 路由",
+    "category": "navigation"
+  },
+  "description": "面向 React 19 浏览器应用的轻量对象式路由组件",
+  "packageManager": "yarn@4.18.0",
+  "type": "module",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotlif/crab-dev.git",
+    "directory": "components/rc-router"
+  },
+  "scripts": {
+    "start": "yarn generate:docgen && wake docs dev . --mode components",
+    "build:library": "wake library build .",
+    "generate:docgen": "wake library docgen .",
+    "test": "wake test --serial --coverage",
+    "eslint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "declarations"
+  ],
+  "types": "declarations/index.d.ts",
+  "main": "cjs/index.cjs",
+  "module": "esm/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./cjs/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@crab-dev/rc-component-preview": "workspace:^",
+    "@crab-dev/rc-masonry": "workspace:^",
+    "@crab-dev/rc-menu": "workspace:^",
+    "@crab-dev/standards-eslint-preset": "workspace:^",
+    "@crab-dev/standards-typescript-preset": "workspace:^",
+    "@crab-dev/wake": "0.1.23",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.7.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.63.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
