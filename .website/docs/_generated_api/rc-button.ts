@@ -81,12 +81,12 @@ export interface ButtonPropsSearchIndex {
     /**
      * see ButtonHTMLAttributes<HTMLButtonElement>["onClick"]
      */
-    "onClick"?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0]) => Promise<void> | void;
+    "onClick"?: ( param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0], ) => Promise<void> | void;
 
     /**
      * see ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]
      */
-    "onClickCapture"?: (param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']>>[0]) => Promise<void> | void;
+    "onClickCapture"?: ( param: Parameters< NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']> >[0], ) => Promise<void> | void;
 
     /**
      * 暂无说明。

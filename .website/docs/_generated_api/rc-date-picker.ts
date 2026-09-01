@@ -8,9 +8,14 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: number]: DocsTypePlaceholder;
 };
 type DatePickerInputProps = DocsTypePlaceholder;
+type DatePickerPanelInstance = DocsTypePlaceholder;
 type DatePickerPanelProps = DocsTypePlaceholder;
 type LineEditProps = DocsTypePlaceholder;
-type Temporal_ZonedDateTime = DocsTypePlaceholder;
+type RefObject<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+// eslint-disable-next-line @typescript-eslint/no-namespace -- Generated type-only namespace preserves the public qualified API name.
+declare namespace Temporal {
+    type ZonedDateTime = DocsTypePlaceholder;
+}
 
 export interface DatePickerPropsSearchIndex {
     /**
@@ -41,7 +46,7 @@ export interface DatePickerPropsSearchIndex {
     /**
      * 日期值
      */
-    "value": Temporal_ZonedDateTime | null;
+    "value": Temporal.ZonedDateTime | null;
 
     /**
      * 改变日期的时候触发的事件
@@ -51,5 +56,20 @@ export interface DatePickerPropsSearchIndex {
     /**
      * 自定义显示的日期字符串
      */
-    "renderDisplayString"?: (value: Temporal_ZonedDateTime | null) => string;
+    "renderDisplayString"?: (value: Temporal.ZonedDateTime | null) => string;
+
+    /**
+     * 获取实例对象
+     */
+    "instance"?: RefObject<DatePickerPanelInstance | null>;
+
+    /**
+     * 选择的时间信息
+     */
+    "onSelect"?: (values: Temporal.ZonedDateTime[]) => void;
+
+    /**
+     * 选中的时间
+     */
+    "selectValues"?: Temporal.ZonedDateTime[];
 }

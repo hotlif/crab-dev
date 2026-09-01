@@ -17,7 +17,7 @@ export interface MessagePropsSearchIndex {
     "content": ReactNode;
 
     /**
-     * 消息通知的持续时间，单位为毫秒
+     * 自动关闭延时，单位毫秒，设为 0 时不自动关闭
      * @default 3000
      */
     "duration"?: number;
@@ -49,4 +49,9 @@ export interface MessagePropsSearchIndex {
      * @default 'info'
      */
     "type"?: MessageType;
+
+    /**
+     * 关闭时的回调
+     */
+    "onClose"?: () => void;
 }

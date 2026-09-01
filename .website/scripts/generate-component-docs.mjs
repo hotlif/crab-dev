@@ -565,7 +565,8 @@ function parseSourceApiProps(sourcePath, symbol) {
 
 function isValidTypeText(typeText) {
     if (
-        typeText === ""
+        typeof typeText !== "string"
+        || typeText === ""
         || typeText === "unknown"
         || typeText.length > MAX_API_TYPE_TEXT_LENGTH
         || typeText.includes("/**")
@@ -586,33 +587,46 @@ function isValidTypeText(typeText) {
 function normalizeApiProps(docgenProps, sourceProps, context) {
     const sourceByName = new Map(sourceProps.map((prop) => [prop.name, prop]));
     const docgenByName = new Map(docgenProps.map((prop) => [prop.name, prop]));
-    const preferSource = docgenProps.length === 0
+    if (sourceByName.size !== sourceProps.length) {
+        throw new Error(`${context}: API source 存在重复属性`);
+    }
+    if (docgenByName.size !== docgenProps.length) {
+        throw new Error(`${context}: docgen 存在重复属性`);
+    }
+    const preserveSourceOrder = docgenProps.length === 0
         || sourceProps.length > docgenProps.length
         || docgenProps.some((prop) => !isValidTypeText(prop.typeText));
-    const selected = preferSource ? sourceProps : docgenProps;
-    if (selected.length === 0) {
+    const primaryProps = preserveSourceOrder ? sourceProps : docgenProps;
+    const secondaryProps = preserveSourceOrder ? docgenProps : sourceProps;
+    const primaryNames = new Set(primaryProps.map((prop) => prop.name));
+    const names = [
+        ...primaryProps.map((prop) => prop.name),
+        ...secondaryProps
+            .map((prop) => prop.name)
+            .filter((name) => !primaryNames.has(name)),
+    ];
+    if (names.length === 0) {
         throw new Error(`${context}: Props 为空，且无法从 API source 提取兜底定义`);
     }
 
-    const seen = new Set();
-    return selected.map((prop) => {
-        if (seen.has(prop.name)) throw new Error(`${context}: Props 存在重复属性 ${prop.name}`);
-        seen.add(prop.name);
-        const sourceProp = sourceByName.get(prop.name);
-        const docgenProp = docgenByName.get(prop.name);
-        const sourceType = sourceProp?.typeText ?? "unknown";
-        const docgenType = docgenProp?.typeText ?? "unknown";
-        const typeText = preferSource || !isValidTypeText(docgenType) ? sourceType : docgenType;
+    return names.map((name) => {
+        const sourceProp = sourceByName.get(name);
+        const docgenProp = docgenByName.get(name);
+        const sourceType = sourceProp?.typeText;
+        const docgenType = docgenProp?.typeText;
+        const typeText = docgenType && isValidTypeText(docgenType)
+            ? docgenType
+            : sourceType;
         if (!isValidTypeText(typeText)) {
-            throw new Error(`${context}: ${prop.name} 的类型无法可靠解析：${typeText.slice(0, 120)}`);
+            const candidate = docgenType ?? sourceType ?? "unknown";
+            throw new Error(`${context}: ${name} 的类型无法可靠解析：${String(candidate).slice(0, 120)}`);
         }
         return {
-            name: prop.name,
-            required: preferSource ? prop.required : docgenProp?.required === true,
+            name,
+            required: sourceProp?.required ?? (docgenProp?.required === true),
             description: normalizeCommentText(
-                (preferSource ? sourceProp?.description : docgenProp?.description)
+                sourceProp?.description
                 || docgenProp?.description
-                || sourceProp?.description
                 || "暂无说明。",
             ),
             typeText,
@@ -660,7 +674,7 @@ async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPa
             : null,
         deprecated: prop?.deprecated === true,
     }));
-    const sourcePath = path.resolve(path.dirname(canonicalMdxPath), source);
+    const sourcePath = await resolveApiSourcePath(componentDirectory, canonicalMdxPath, source);
     const sourceProps = parseSourceApiProps(sourcePath, symbol);
     const props = normalizeApiProps(docgenProps, sourceProps, docgenPath);
 
@@ -670,6 +684,25 @@ async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPa
         searchSymbol: `${symbol}SearchIndex`,
         props,
     };
+}
+
+async function resolveApiSourcePath(componentDirectory, canonicalMdxPath, source) {
+    const sourceDirectory = path.resolve(componentDirectory, "src");
+    const sourcePath = path.resolve(path.dirname(canonicalMdxPath), source);
+    const relativePath = path.relative(sourceDirectory, sourcePath);
+    if (
+        relativePath === ".."
+        || relativePath.startsWith(`..${path.sep}`)
+        || path.isAbsolute(relativePath)
+    ) {
+        throw new Error(`${sourcePath}: API source 必须位于组件 src 目录内`);
+    }
+    try {
+        await readFile(sourcePath, "utf8");
+    } catch (error) {
+        throw new Error(`${sourcePath}: API source 不存在或无法读取`, { cause: error });
+    }
+    return sourcePath;
 }
 
 function densityFor(componentSlug) {
@@ -745,6 +778,7 @@ function qualifiedNameParts(name) {
 
 function createApiTypePlaceholders(props) {
     const aliases = new Map();
+    const namespaces = new Map();
     for (const prop of props) {
         const sourceFile = ts.createSourceFile(
             "api-property.ts",
@@ -765,6 +799,12 @@ function createApiTypePlaceholders(props) {
                 const arity = node.typeArguments?.length ?? 0;
                 if (parts.length === 1 && !boundNames.has(parts[0])) {
                     aliases.set(parts[0], Math.max(aliases.get(parts[0]) ?? 0, arity));
+                } else if (parts.length > 1 && parts[0] !== "globalThis") {
+                    const namespace = parts.slice(0, -1).join(".");
+                    const members = namespaces.get(namespace) ?? new Map();
+                    const member = parts.at(-1);
+                    members.set(member, Math.max(members.get(member) ?? 0, arity));
+                    namespaces.set(namespace, members);
                 }
             }
             ts.forEachChild(node, visit);
@@ -772,29 +812,31 @@ function createApiTypePlaceholders(props) {
         visit(sourceFile);
     }
 
+    for (const namespace of namespaces.keys()) aliases.delete(namespace.split(".")[0]);
     const aliasDeclarations = [...aliases]
         .sort(([left], [right]) => left.localeCompare(right))
         .map(([name, arity]) => `type ${name}${placeholderType(arity)};`);
-    if (aliasDeclarations.length === 0) return "";
+    const namespaceDeclarations = [...namespaces]
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([namespace, members]) => {
+            const memberDeclarations = [...members]
+                .sort(([left], [right]) => left.localeCompare(right))
+                .map(([name, arity]) => `    type ${name}${placeholderType(arity)};`)
+                .join("\n");
+            return "// eslint-disable-next-line @typescript-eslint/no-namespace -- "
+                + "Generated type-only namespace preserves the public qualified API name.\n"
+                + `declare namespace ${namespace} {\n${memberDeclarations}\n}`;
+        });
+    if (aliasDeclarations.length === 0 && namespaceDeclarations.length === 0) return "";
     const placeholder = "type DocsTypePlaceholder = ((...args: never[]) => unknown) & {\n"
         + "    readonly [key: string]: DocsTypePlaceholder;\n"
         + "    readonly [key: number]: DocsTypePlaceholder;\n"
         + "};";
-    return [placeholder, ...aliasDeclarations].join("\n");
-}
-
-function selfContainedTypeText(typeText) {
-    return typeText.replace(
-        /\b(?!globalThis\.)([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\b/g,
-        (_, namespace, member) => `${namespace}_${member}`,
-    );
+    return [placeholder, ...aliasDeclarations, ...namespaceDeclarations].join("\n");
 }
 
 function createSearchableApiSource(api) {
-    const searchableProps = api.props.map((prop) => ({
-        ...prop,
-        typeText: selfContainedTypeText(prop.typeText),
-    }));
+    const searchableProps = api.props;
     const properties = searchableProps.map((prop) => {
         const comments = [
             "/**",
@@ -837,8 +879,6 @@ function createDemoSearchMetadata(demos) {
     if (demos.length === 0) return "";
     const lines = [
         '<div hidden aria-hidden="true" data-docs-search-index="demos">',
-        "",
-        "### Demo 搜索索引",
         "",
     ];
     let currentGroup;
@@ -1047,4 +1087,5 @@ export {
     normalizeApiProps,
     parseSourceApiProps,
     removeOrphanGeneratedFiles,
+    resolveApiSourcePath,
 };

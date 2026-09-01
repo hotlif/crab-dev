@@ -20,8 +20,6 @@ import { demos } from "../_generated/rc-realm.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-### Demo 搜索索引
-
 ##### 基础用法 — component 协议加载远程 React 组件：远程与宿主共享同一 React 实例, remoteProps 实时透传, 与本地组件表现无异。此例通过预注册容器演示（globalThis[scope] 已存在时跳过 script 注入, 零网络）。
 
 ##### 错误态与重试 — 远程模块首次加载必然失败（模拟弱网）：Realm 渲染 rc-alert 错误态并就近提供重试按钮；失败已自动使缓存失效, 点击重试即重走加载链路, 第二次成功。

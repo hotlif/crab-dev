@@ -11,8 +11,9 @@ type HTMLDivElement = DocsTypePlaceholder;
 type P = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type RealmError = DocsTypePlaceholder;
+type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type SharedConfig = DocsTypePlaceholder;
+type SharedEntryConfig = DocsTypePlaceholder;
 
 export interface RealmPropsSearchIndex {
     /**
@@ -43,7 +44,7 @@ export interface RealmPropsSearchIndex {
     /**
      * 额外注入 share scope 的共享依赖
      */
-    "shared"?: SharedConfig;
+    "shared"?: Record<string, SharedEntryConfig>;
 
     /**
      * 全程加载期限（毫秒, script → init → get 全覆盖）, 超时判失败并使缓存失效。默认 15000
