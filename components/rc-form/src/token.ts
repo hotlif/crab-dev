@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'item.gap': '--form-item-gap',
     'row.gap': '--form-row-gap',
     'label.color': '--form-label-color',
@@ -15,9 +17,9 @@ export const vars = {
     'status.warning.color': '--form-status-warning-color',
     'status.success.color': '--form-status-success-color',
     'status.validating.color': '--form-status-validating-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'item': {
         'gap': `var(${vars['item.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
@@ -48,6 +50,6 @@ const token = {
             'color': `var(${vars['status.validating.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
         }
     }
-};
+});
 
 export default token;

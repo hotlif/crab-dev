@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { type ReactNode } from 'react';
 import token from './token.js';
 import ButtonGroupContext, { type ButtonGroupContextValue } from './buttonGroupContext.js';

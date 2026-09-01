@@ -1,11 +1,11 @@
 
-/**
- * title = "圆形按钮"
- * description = "`shape=\"circle\"` 搭配纯图标（无 children）适用于工具栏操作图标"
- */
+export const meta = {
+    title: "圆形按钮",
+    description: "`shape=\\\"circle\\\"` 搭配纯图标（无 children）适用于工具栏操作图标",
+};
 
 import Button from '../../src/index.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { Plus, Pencil, Trash2, Search, Settings } from 'lucide-react';
 
 const CircleDemo = () => {

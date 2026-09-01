@@ -1,11 +1,11 @@
 
-/**
- * title = "按钮组"
- * description = "`ButtonGroup` 统一管理子按钮的 `size` 和 `appearance`，适用于工具栏场景"
- */
+export const meta = {
+    title: "按钮组",
+    description: "`ButtonGroup` 统一管理子按钮的 `size` 和 `appearance`，适用于工具栏场景",
+};
 
 import Button, { ButtonGroup } from '../../src/index.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { Bold, Italic, Underline } from 'lucide-react';
 import { useState } from 'react';
 

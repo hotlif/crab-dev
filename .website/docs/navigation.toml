@@ -1,0 +1,105 @@
+[[group]]
+id = "project"
+title = "项目"
+pages = ["index"]
+
+[[group.section]]
+id = "guides"
+title = "开发指南"
+pages = ["guides/toolchain"]
+
+[[group]]
+id = "components"
+title = "组件"
+
+[[group.section]]
+id = "foundations"
+title = "基础能力"
+pages = [
+    "components/rc-token-global",
+    "components/rc-token-semantic",
+    "components/rc-hooks",
+    "components/rc-prose",
+    "components/rc-component-preview",
+    "components/rc-realm",
+]
+
+[[group.section]]
+id = "inputs-actions"
+title = "输入与操作"
+pages = [
+    "components/rc-button",
+    "components/rc-checkbox",
+    "components/rc-color-picker",
+    "components/rc-cron-picker",
+    "components/rc-date-picker",
+    "components/rc-form",
+    "components/rc-line-edit",
+    "components/rc-number-edit",
+    "components/rc-radio",
+    "components/rc-segmented",
+    "components/rc-select",
+    "components/rc-slider",
+    "components/rc-switch",
+    "components/rc-text-edit",
+]
+
+[[group.section]]
+id = "data-display"
+title = "信息展示"
+pages = [
+    "components/rc-avatar",
+    "components/rc-badge",
+    "components/rc-card",
+    "components/rc-divider",
+    "components/rc-empty",
+    "components/rc-skeleton",
+    "components/rc-tag",
+]
+
+[[group.section]]
+id = "feedback-overlays"
+title = "反馈与浮层"
+pages = [
+    "components/rc-alert",
+    "components/rc-dialog",
+    "components/rc-drawer",
+    "components/rc-dropdown-container",
+    "components/rc-message",
+    "components/rc-notification",
+    "components/rc-spin",
+    "components/rc-tooltip",
+]
+
+[[group.section]]
+id = "navigation"
+title = "导航"
+pages = [
+    "components/rc-breadcrumbs",
+    "components/rc-menu",
+    "components/rc-pagination",
+    "components/rc-tabs",
+]
+
+[[group.section]]
+id = "layout-performance"
+title = "布局与性能"
+pages = [
+    "components/rc-app-main-layout",
+    "components/rc-auto-sizer",
+    "components/rc-masonry",
+    "components/rc-split-pane",
+    "components/rc-virtual",
+]
+
+[[group.section]]
+id = "visualization"
+title = "数据与可视化"
+pages = [
+    "components/rc-bar-chart",
+    "components/rc-canvas",
+    "components/rc-flow-diagram",
+    "components/rc-protocol-table",
+    "components/rc-table",
+    "components/rc-tree",
+]

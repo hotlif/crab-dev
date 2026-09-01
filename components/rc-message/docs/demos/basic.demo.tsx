@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "通过 `useMessage` Hook 创建消息实例，支持五种类型的消息提示"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过 `useMessage` Hook 创建消息实例，支持五种类型的消息提示",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useMessage } from "../../src/index.js";
 
 const BasicDemo = () => {

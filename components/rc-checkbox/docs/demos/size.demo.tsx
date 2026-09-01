@@ -1,9 +1,9 @@
-/**
- * title = "复选框尺寸"
- * description = "通过 `size` 属性设置复选框尺寸, 支持 `large`、`middle`、`small` 三种"
- */
+export const meta = {
+    title: "复选框尺寸",
+    description: "通过 `size` 属性设置复选框尺寸, 支持 `large`、`middle`、`small` 三种",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Checkbox, { CheckboxGroup } from "../../src/index.js";
 

@@ -1,7 +1,7 @@
-/**
- * title = "入场与数据更新动画"
- * description = "首次挂载时柱体从零值基线逐类目生长；切换数据集时高度从旧值平滑补间到新值。WebGL 逐帧插值，数百根柱同时过渡仍流畅；系统偏好「减弱动态」时自动降级为直接呈现。"
- */
+export const meta = {
+    title: "入场与数据更新动画",
+    description: "首次挂载时柱体从零值基线逐类目生长；切换数据集时高度从旧值平滑补间到新值。WebGL 逐帧插值，数百根柱同时过渡仍流畅；系统偏好「减弱动态」时自动降级为直接呈现。",
+};
 
 import { useState } from 'react';
 import type { CSSProperties } from 'react';

@@ -1,17 +1,6 @@
-import { css, cx } from '@linaria/core';
-import {
-    type CSSProperties,
-    type KeyboardEvent as ReactKeyboardEvent,
-    type MouseEvent as ReactMouseEvent,
-    type ReactNode,
-    useCallback,
-    useEffect,
-    useId,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { css, cx } from '@crab-dev/css';
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 
 import token from './token.js';

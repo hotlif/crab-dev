@@ -1,5 +1,5 @@
-import { css, cx } from '@linaria/core';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { css, cx } from '@crab-dev/css';
+import { createElement, useEffect, useReducer, useRef, useState } from 'react';
 import Alert from '@crab-dev/rc-alert';
 import Button from '@crab-dev/rc-button';
 import { useEventCallback } from '@crab-dev/rc-hooks';
@@ -59,10 +59,10 @@ type RealmAction<P extends RealmRemoteProps> =
     | { type: 'ready'; loaded: LoadedRemote<P> }
     | { type: 'error'; error: RealmError };
 
-const reducer = <P extends RealmRemoteProps>(
+function reducer<P extends RealmRemoteProps>(
     state: RealmState<P>,
     action: RealmAction<P>,
-): RealmState<P> => {
+): RealmState<P> {
     switch (action.type) {
         case 'load':
             // loading → loading 返回原引用, 避免首次 effect 的冗余重渲染
@@ -72,7 +72,7 @@ const reducer = <P extends RealmRemoteProps>(
         case 'error':
             return { status: 'error', error: action.error };
     }
-};
+}
 
 /* ────────────────────────────────── 协议校验 ────────────────────────────────── */
 
@@ -82,13 +82,13 @@ const isComponentLike = (value: unknown): boolean =>
     (typeof value === 'object' && value !== null && '$$typeof' in value);
 
 /** 防错优于报错：形态不符立即给出指向另一协议的可行动提示, 而非渲染期才炸 */
-const pickRemote = <P extends RealmRemoteProps>(
+function pickRemote<P extends RealmRemoteProps>(
     ns: unknown,
     protocol: 'component' | 'mount',
     exportName: string,
     entry: string,
     scope: string,
-): LoadedRemote<P> => {
+): LoadedRemote<P> {
     const record = (typeof ns === 'object' && ns !== null ? ns : {}) as Record<string, unknown>;
     const candidate = record[exportName] ?? ns;
     if (protocol === 'mount') {
@@ -115,7 +115,7 @@ const pickRemote = <P extends RealmRemoteProps>(
         scope,
         `远程导出 '${exportName}' 不是 React 组件；若远程导出 mount/unmount 生命周期, 请改用 protocol="mount"`,
     );
-};
+}
 
 const toRealmError = (cause: unknown, entry: string, scope: string): RealmError => {
     if (cause instanceof RealmError) {
@@ -142,7 +142,7 @@ const toRealmError = (cause: unknown, entry: string, scope: string): RealmError 
  * - 宿主是否 webpack MF 环境均可工作：优先复用宿主 share scope, 否则自建并注入宿主 React
  * - 加载态复用 rc-spin（`delay` 防闪烁）, 错误态复用 rc-alert + rc-button 重试
  */
-function Realm<P extends RealmRemoteProps = RealmRemoteProps>(props: RealmProps<P>) {
+function Realm<P extends RealmRemoteProps>(props: RealmProps<P>): ReactNode {
     const {
         entry,
         scope,
@@ -166,7 +166,15 @@ function Realm<P extends RealmRemoteProps = RealmRemoteProps>(props: RealmProps<
         ...restProps
     } = props;
 
-    const [state, dispatch] = useReducer(reducer<P>, { status: 'loading' });
+    const realmReducer: (state: RealmState<P>, action: RealmAction<P>) => RealmState<P> = reducer;
+    const resolveRemote: (
+        ns: unknown,
+        protocol: 'component' | 'mount',
+        exportName: string,
+        entry: string,
+        scope: string,
+    ) => LoadedRemote<P> = pickRemote;
+    const [state, dispatch] = useReducer(realmReducer, { status: 'loading' });
     const [attempt, setAttempt] = useState(0);
     // 失败时缓存已由 loader 自动失效, retry 只需 bump attempt 触发 effect 重跑；
     // 渲染期错误的场景缓存仍有效, 重试命中缓存快速恢复并借 key 重建边界子树
@@ -194,7 +202,7 @@ function Realm<P extends RealmRemoteProps = RealmRemoteProps>(props: RealmProps<
                 }
                 try {
                     handleReady(
-                        pickRemote<P>(ns, protocol ?? 'component', exportName ?? 'default', entry, scope),
+                        resolveRemote(ns, protocol ?? 'component', exportName ?? 'default', entry, scope),
                     );
                 } catch (error) {
                     handleError(error as RealmError);
@@ -303,6 +311,11 @@ function Realm<P extends RealmRemoteProps = RealmRemoteProps>(props: RealmProps<
             </Alert>
         );
 
+    const RemoteComponent = state.status === 'ready' && state.loaded.kind === 'component'
+        ? state.loaded.Component
+        : null;
+    const resolvedRemoteProps = (remoteProps ?? {}) as P;
+
     return (
         <div
             {...restProps}
@@ -315,10 +328,10 @@ function Realm<P extends RealmRemoteProps = RealmRemoteProps>(props: RealmProps<
             ) : (
                 <Spin spinning={state.status === 'loading'} delay={delay} tip={tip}>
                     {state.status === 'ready' ? (
-                        state.loaded.kind === 'component' ? (
+                        RemoteComponent !== null ? (
                             // 同树内联、零额外 wrapper：宿主 context / 合成事件 / portal 全穿透
                             <RealmErrorBoundary key={attempt} onRenderError={handleRenderError}>
-                                <state.loaded.Component {...((remoteProps ?? {}) as P)} />
+                                {createElement(RemoteComponent, resolvedRemoteProps)}
                             </RealmErrorBoundary>
                         ) : (
                             <div key={remountKey} data-realm-host ref={mountHostRef} />

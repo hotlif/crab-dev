@@ -1,11 +1,11 @@
 
-/**
- * title = "预置场景"
- * description = "三种内置场景：`default`（无数据）、`search`（搜索无结果）、`no-permission`（无权限）。每种预置均内置图示与文案，基于设计心理学为不同情绪场景匹配合适的视觉传达。"
- */
+export const meta = {
+    title: "预置场景",
+    description: "三种内置场景：`default`（无数据）、`search`（搜索无结果）、`no-permission`（无权限）。每种预置均内置图示与文案，基于设计心理学为不同情绪场景匹配合适的视觉传达。",
+};
 
 import Empty from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const wrapStyle = css`
     display: flex;

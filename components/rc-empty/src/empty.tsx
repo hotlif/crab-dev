@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import type { FC } from 'react';
 import NoDataIllustration from './illustrations/no-data.js';
 import NoPermissionIllustration from './illustrations/no-permission.js';

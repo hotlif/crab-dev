@@ -1,9 +1,9 @@
-/**
- * title = "范围、步长与精度"
- * description = "min/max 失焦钳制、到边界步进按钮禁用；step 步长、precision 小数精度；Shift+↑↓ 或 PageUp/Down 走大步长"
- */
+export const meta = {
+    title: "范围、步长与精度",
+    description: "min/max 失焦钳制、到边界步进按钮禁用；step 步长、precision 小数精度；Shift+↑↓ 或 PageUp/Down 走大步长",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 
 import NumberEdit from "../../src/index.js";

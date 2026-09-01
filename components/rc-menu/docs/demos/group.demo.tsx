@@ -1,8 +1,8 @@
 
-/**
- * title = "分组菜单"
- * description = "使用 `ItemGroup` 类型对菜单项进行分组"
- */
+export const meta = {
+    title: "分组菜单",
+    description: "使用 `ItemGroup` 类型对菜单项进行分组",
+};
 
 import { Key, useState } from "react";
 import RcMenu, { MenuItemType } from "../../src/index.js";

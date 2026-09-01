@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import type { Ref } from 'react';
 import type { ProseProps, ProseSize } from './types.js';
 import token from './token.js';

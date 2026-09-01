@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'overlay.width': '--cron-picker-overlay-width',
     'overlay.padding': '--cron-picker-overlay-padding',
     'field.gap': '--cron-picker-field-gap',
@@ -23,9 +25,9 @@ export const vars = {
     'preview.time.color': '--cron-picker-preview-time-color',
     'divider.color': '--cron-picker-divider-color',
     'transition': '--cron-picker-transition'
-};
+});
 
-const token = {
+const token = defineTokens({
     'overlay': {
         'width': `var(${vars['overlay.width']}, 420px)`,
         'padding': `var(${vars['overlay.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
@@ -72,6 +74,6 @@ const token = {
         'color': `var(${vars['divider.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
     },
     'transition': `var(${vars['transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`
-};
+});
 
 export default token;

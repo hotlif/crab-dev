@@ -1,9 +1,9 @@
-/**
- * title = "禁用状态"
- * description = "整体 `disabled` 或对单个选项设 `disabled`, 键盘方向键会自动跳过禁用项。"
- */
+export const meta = {
+    title: "禁用状态",
+    description: "整体 `disabled` 或对单个选项设 `disabled`, 键盘方向键会自动跳过禁用项。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Segmented from '../../src/index.js';
 
 const stackStyle = css`

@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "最简单的用法，鼠标悬浮时展示提示文字。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "最简单的用法，鼠标悬浮时展示提示文字。",
+};
 
 import Tooltip from "../../src/index.js";
 

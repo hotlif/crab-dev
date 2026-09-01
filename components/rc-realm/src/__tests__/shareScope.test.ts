@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, jest } from '@jest/globals';
+import { afterEach, describe, expect, it, mock } from '@crab-dev/wake/test';
 import * as ReactNS from 'react';
 
 import { resolveShareScope as resolveViaDefaultRegistry } from '../shareScope.js';
@@ -6,11 +6,11 @@ import type { ShareScope, SharedVersionEntry } from '../types.js';
 
 type ShareScopeModule = typeof import('../shareScope.js');
 
-// 模块内的自建 scope 是惰性单例, 用 isolateModulesAsync 为每个用例取全新模块实例
+// 模块内的自建 scope 是惰性单例, 用 isolate 为每个用例取全新模块实例
 const importIsolated = async (): Promise<ShareScopeModule> => {
     let mod: ShareScopeModule | undefined;
-    await jest.isolateModulesAsync(async () => {
-        mod = (await import('../shareScope.js')) as ShareScopeModule;
+    await mock.isolate(async () => {
+        mod = await mock.import<ShareScopeModule>('../shareScope.js');
     });
     return mod as ShareScopeModule;
 };
@@ -26,6 +26,7 @@ describe('resolveShareScope', () => {
     afterEach(() => {
         delete (globalThis as Record<string, unknown>).__webpack_init_sharing__;
         delete (globalThis as Record<string, unknown>).__webpack_share_scopes__;
+        mock.restoreAll();
     });
 
     it('非 webpack 宿主：自建 scope 并注入 react 四件套, loaded=1 且版本为运行时真值', async () => {
@@ -40,7 +41,7 @@ describe('resolveShareScope', () => {
     });
 
     it('注入的 react 工厂产物与宿主 React 是同一实例', async () => {
-        // 此用例必须用默认模块注册表的实例：isolateModulesAsync 会连 react 一起
+        // 此用例必须用默认模块注册表的实例：isolate 会连 react 一起
         // 重新实例化, 造成"两份 react"的假象——真实宿主环境只有一份
         const scope = await resolveViaDefaultRegistry();
         const factory = await scope.react[ReactNS.version].get();
@@ -56,7 +57,7 @@ describe('resolveShareScope', () => {
     });
 
     it('webpack MF 宿主：复用其 default scope, 保留既有条目并补齐 react', async () => {
-        const initSharing = jest.fn<(scopeName: string) => Promise<void>>(async () => undefined);
+        const initSharing = mock.fn<(scopeName: string) => Promise<void>>(async () => undefined);
         const lodashEntry: SharedVersionEntry = {
             get: () => Promise.resolve(() => ({})),
             loaded: 1,
@@ -79,7 +80,7 @@ describe('resolveShareScope', () => {
             loaded: 1,
             from: 'host-webpack',
         };
-        (globalThis as Record<string, unknown>).__webpack_init_sharing__ = jest.fn(
+        (globalThis as Record<string, unknown>).__webpack_init_sharing__ = mock.fn(
             async () => undefined,
         );
         (globalThis as Record<string, unknown>).__webpack_share_scopes__ = {
@@ -92,7 +93,7 @@ describe('resolveShareScope', () => {
     });
 
     it('webpack sharing 运行时异常：降级自建 scope', async () => {
-        (globalThis as Record<string, unknown>).__webpack_init_sharing__ = jest.fn(() => {
+        (globalThis as Record<string, unknown>).__webpack_init_sharing__ = mock.fn(() => {
             throw new Error('sharing runtime broken');
         });
         (globalThis as Record<string, unknown>).__webpack_share_scopes__ = {};

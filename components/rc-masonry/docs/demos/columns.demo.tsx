@@ -1,9 +1,9 @@
-/**
- * title = "多列布局"
- * description = "通过 `columns` 属性控制列数"
- */
+export const meta = {
+    title: "多列布局",
+    description: "通过 `columns` 属性控制列数",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Masonry from "../../src/index.js";
 

@@ -1,9 +1,9 @@
-/**
- * title = "颜色选择器"
- * description = "可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。"
- */
+export const meta = {
+    title: "颜色选择器",
+    description: "可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import ColorPicker, { type ColorPreset, type OKLCHValue } from "../../src/index.js";
 

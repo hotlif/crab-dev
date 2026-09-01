@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import type { CSSProperties, FC, KeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
 import token from './token.js';
 import type { PresetTagColor, TagProps } from './types.js';

@@ -4,14 +4,12 @@ import globals from "globals";
 export default [
     ...Browser.react,
     {
-        files: [".crustify.ts"],
+        files: ["scripts/**/*.mjs"],
         languageOptions: {
-            globals: {
-                ...globals.node,
-            },
+            globals: globals.node,
         },
     },
     {
-        ignores: [".tmp/**", "dist/**", "src/_generated/**"],
+        ignores: [".tmp/**", ".wake/**", "docs-dist/**"],
     },
 ];

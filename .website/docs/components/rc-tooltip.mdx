@@ -1,0 +1,41 @@
++++
+title = "Tooltip 文字提示"
+description = "文字提示，鼠标悬浮时展示说明性文字"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-tooltip.js";
+
+# Tooltip 文字提示
+
+简单的文字提示气泡框，鼠标悬浮或聚焦时展示说明性文字。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 何时使用
+
+- 当需要对按钮、图标、链接等元素提供额外说明时。
+- 当空间有限无法直接展示文字时，使用 Tooltip 在悬浮时补充信息。
+
+
+## 功能特性
+
+- 支持 12 个弹出方位，自动跟随空间翻转。
+- 支持受控与非受控模式。
+- 支持鼠标悬浮与键盘聚焦触发。
+- 可配置出入场延迟与箭头显隐。
+- 内置无障碍支持（`role="tooltip"` + `aria-describedby`）。
+
+
+
+
+## API
+
+<ComponentApi api={api} />

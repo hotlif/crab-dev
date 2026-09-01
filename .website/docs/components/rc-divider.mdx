@@ -1,0 +1,47 @@
++++
+title = "Divider 分割线"
+description = "分割线, 用于在内容之间划分区隔并表达从属边界"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-divider.js";
+
+# Divider
+
+分割线, 用于在内容之间划分区隔并表达从属边界。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 何时使用
+
+- 需要把一段连续内容切成若干可辨认的分组时（表单分节、列表分段、卡片内分区）
+- 需要在行内切分并列的操作或状态时（按钮组、面包屑、状态栏）用 `direction="vertical"`
+- 需要给分组加一个轻量小标题时, 直接把文字作为 `children` 传入
+- 若分组已由留白、标题或卡片边框表达清楚, 则不必再画线——线越少, 每条线越有意义
+
+
+## 无障碍
+
+分割线是少数「画不画都不影响功能, 但画错就制造噪声」的组件, 因此它的无障碍取决于一个判断：
+**这条线是否承载了视觉之外的信息？**
+
+- **承载**（默认）：渲染为 `role="separator"`, 读屏会播报「分隔线」, 帮助盲用户建立与视觉一致的分组模型
+- **不承载**：设 `decorative`, 渲染为 `role="none"` + `aria-hidden`, 读屏完全跳过
+
+带文字的分割线始终是语义线：静态 `separator` 的子节点在 ARIA 中按 presentational 处理, 文字不会
+被自动读出, 因此组件用 `aria-labelledby` 回指文字, 使其播报为「分组标题 分隔线」。也正因如此,
+类型层禁止在带文字的线上声明 `decorative`——不得把可读内容藏出无障碍树。
+
+
+
+
+## API
+
+<ComponentApi api={api} />

@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "一个简单的单行文本编辑器"
- */
+export const meta = {
+    title: "基础用法",
+    description: "一个简单的单行文本编辑器",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Lollipop } from "lucide-react";
 import LineEdit from "../../src/index.js";
 

@@ -1,26 +1,14 @@
-import { css, cx } from '@linaria/core';
-import {
-    useEffect,
-    useRef,
-    useState,
-    type FC,
-    type HTMLAttributes,
-    type ReactNode,
-} from 'react';
+import { css, cx } from '@crab-dev/css';
+import { useEffect, useRef, useState } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism } from 'react-syntax-highlighter';
-// @ts-expect-error: 第三方库类型定义不全
-import oneLight from 'react-syntax-highlighter/dist/esm/styles/prism/one-light.js';
-// @ts-expect-error: 第三方库类型定义不全
-import oneDark from 'react-syntax-highlighter/dist/esm/styles/prism/one-dark.js';
+// @ts-expect-error: 第三方库类型定义不全；CJS 子路径同时兼容 Wake 的 ESM 与 CommonJS 产物。
+import oneLight from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light.js';
+// @ts-expect-error: 第三方库类型定义不全；CJS 子路径同时兼容 Wake 的 ESM 与 CommonJS 产物。
+import oneDark from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark.js';
 import token from './token.js';
-import {
-    CodeIcon,
-    EyeIcon,
-    CopyIcon,
-    CheckIcon,
-    ExternalLinkIcon,
-} from './icons.js';
+import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon, EyeIcon } from './icons.js';
 
 export type PreviewDensity = 'compact' | 'regular' | 'spacious';
 export type PreviewCodeTheme = 'light' | 'dark';
@@ -247,11 +235,6 @@ const sourceFrameStyle = css`
     overflow: hidden;
     transition: ${token['transition-expand']};
     padding: 1rem;
-`;
-
-const sourceFrameCollapsedStyle = css`
-    max-height: ${token.source['collapsed-height']};
-    border-top-width: 0;
 `;
 
 const sourceFrameExpandedStyle = css`

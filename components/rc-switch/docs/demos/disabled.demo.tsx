@@ -1,7 +1,7 @@
-/**
- * title = "禁用状态"
- * description = "添加 `disabled` 属性即可让开关处于禁用状态"
- */
+export const meta = {
+    title: "禁用状态",
+    description: "添加 `disabled` 属性即可让开关处于禁用状态",
+};
 
 import Switch from "../../src/index.js";
 

@@ -1,0 +1,25 @@
++++
+title = "Crab UI"
+description = "基于 React 19、Wake 和三层设计令牌的企业级组件库"
+kind = "overview"
+status = "experimental"
++++
+
+# Crab UI
+
+Crab UI 是面向企业应用的 React 19 组件库。组件使用 Wake 构建、测试和生成文档，样式由
+`@crab-dev/css` 在构建期抽取，并通过全局、语义、组件三层令牌保持主题一致。
+
+## 开始使用
+
+- 从左侧组件目录进入组件说明、交互示例与 Props API。
+- 每个组件页都链接到独立 Wake Components 工作台，可调整 Props、视口并查看源码。
+- 非 Wake 构建器消费发布包时，需要显式导入对应的 `css/index.css`。
+
+## 本地命令
+
+```sh
+yarn build:library
+yarn test
+yarn docs:dev
+```

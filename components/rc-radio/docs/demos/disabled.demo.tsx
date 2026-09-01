@@ -1,7 +1,7 @@
-/**
- * title = "禁用状态"
- * description = "添加 `disabled` 属性即可让单选框处于禁用状态"
- */
+export const meta = {
+    title: "禁用状态",
+    description: "添加 `disabled` 属性即可让单选框处于禁用状态",
+};
 
 import Radio from "../../src/index.js";
 

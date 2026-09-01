@@ -1,9 +1,9 @@
-/**
- * label="基础用法"
- * description="使用 rc-line-edit 作为编辑器，演示 getFieldValue / setFieldValue / resetFields 等实例方法。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "使用 rc-line-edit 作为编辑器，演示 getFieldValue / setFieldValue / resetFields 等实例方法。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type FC } from "react";
 import Button from "@crab-dev/rc-button";
 import LineEdit from "@crab-dev/rc-line-edit";

@@ -1,10 +1,10 @@
-/**
- * title = "收起内嵌菜单"
- * description = "通过 inlineCollapsed 控制菜单的收起与展开。收起时仅显示图标，悬停显示 Tooltip 或浮层子菜单。"
- */
+export const meta = {
+    title: "收起内嵌菜单",
+    description: "通过 inlineCollapsed 控制菜单的收起与展开。收起时仅显示图标，悬停显示 Tooltip 或浮层子菜单。",
+};
 
 import { Key, useState } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import RcMenu, { MenuItemType } from "../../src/index.js";
 
 const containerStyle = css`

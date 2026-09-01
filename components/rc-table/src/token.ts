@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'border.color': '--table-border-color',
     'cell.bg-color': '--table-cell-bg-color',
     'cell.padding-inline': '--table-cell-padding-inline',
@@ -83,9 +85,9 @@ export const vars = {
     'expand.button-radius': '--table-expand-button-radius',
     'expand.content-bg': '--table-expand-content-bg',
     'expand.content-padding': '--table-expand-content-padding'
-};
+});
 
-const token = {
+const token = defineTokens({
     'border': {
         'color': `var(${vars['border.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
     },
@@ -189,7 +191,7 @@ const token = {
     },
     'summary': {
         'color': `var(${vars['summary.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-        'font-weight': `var(${vars['summary.font-weight']}, $ref(font.weight.bold))`,
+        'font-weight': `var(${vars['summary.font-weight']}, var(--token-global-font-weight-bold, 700))`,
         'padding-inline': `var(${vars['summary.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'expand': {
@@ -200,6 +202,6 @@ const token = {
         'content-bg': `var(${vars['expand.content-bg']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
         'content-padding': `var(${vars['expand.content-padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     }
-};
+});
 
 export default token;

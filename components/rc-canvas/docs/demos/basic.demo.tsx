@@ -1,9 +1,9 @@
-/**
- * title = "基础图元"
- * description = "在 Canvas 中声明矩形与圆形，颜色支持 OKLCh / 十六进制，opacity 控制透明度。"
- */
+export const meta = {
+    title: "基础图元",
+    description: "在 Canvas 中声明矩形与圆形，颜色支持 OKLCh / 十六进制，opacity 控制透明度。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Rect, Circle } from "../../src/index.js";
 
 const wrapStyle = css`

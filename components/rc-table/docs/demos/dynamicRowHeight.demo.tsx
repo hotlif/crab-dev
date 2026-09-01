@@ -1,9 +1,9 @@
-/**
- * title = "动态行高"
- * description = "使用原生 DOM 动态计算行高，并演示 row.height 的优先级"
- */
+export const meta = {
+    title: "动态行高",
+    description: "使用原生 DOM 动态计算行高，并演示 row.height 的优先级",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";
 

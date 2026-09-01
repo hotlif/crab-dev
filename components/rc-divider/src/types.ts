@@ -24,7 +24,7 @@ export type DividerTextAlign = 'start' | 'center' | 'end';
  * Divider 的全部属性（扁平形态）。
  *
  * 这是**实现签名**与 API 文档的单一真源；对外暴露的 {@link DividerProps} 在此之上收窄为
- * 可辨识联合, 把非法组合挡在编译期。两者分离是有意为之：react-docgen 无法从顶层联合中
+ * 可辨识联合, 把非法组合挡在编译期。两者分离是有意为之：Wake docgen 无法从顶层联合中
  * 提取属性表, 若实现签名直接用联合, 文档站的 API 说明会整列丢空。
  */
 export interface DividerOwnProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {

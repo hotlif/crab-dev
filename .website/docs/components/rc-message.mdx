@@ -1,0 +1,50 @@
++++
+title = "Message 全局提示"
+description = "全局消息，用于轻量级反馈提示"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-message.js";
+
+# Message
+
+全局展示操作反馈信息。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 何时使用
+
+- 可提供成功、警告和错误等反馈信息。
+- 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+
+
+我们提供了五种类型的全局消息：
+
+- 🔵 信息提示：用于通知性的信息展示。
+- 🟢 成功提示：表示操作已成功完成。
+- 🟡 警告提示：提醒用户注意潜在的问题。
+- 🔴 错误提示：告知用户操作失败或发生了错误。
+- ⏳ 加载提示：表示操作正在执行中。
+
+## 功能特性
+
+- 支持五种类型：`success`、`info`、`warning`、`error`、`loading`。
+- 顶部居中弹出，自动消失。
+- 支持自定义 `duration` 控制显示时长。
+- 鼠标悬停时暂停自动关闭倒计时。
+- 支持自定义图标 `icon`。
+- 通过 `useMessage` Hook 创建实例。
+- 多条消息自动堆叠折叠，最多显示 3 条，旧消息依次缩小淡出。
+
+
+
+## API
+
+<ComponentApi api={api} />

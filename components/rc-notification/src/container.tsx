@@ -1,10 +1,9 @@
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import {
-    HTMLAttributes,
     useEffect,
     useRef,
-    type FC,
 } from "react";
+import type { FC, HTMLAttributes } from "react";
 
 import { AnimatePresence } from "motion/react"
 import { type Direction } from "./types.js";
@@ -61,7 +60,7 @@ const getDirectionStyle = (direction: ContainerProps["direction"]) => {
 
 const Container: FC<ContainerProps> = ({
     children,
-    offset,
+    offset: _offset,
     direction = "topRight",
     className,
     ...restProps

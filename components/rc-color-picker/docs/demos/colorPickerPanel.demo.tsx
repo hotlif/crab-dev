@@ -1,9 +1,9 @@
-/**
- * title = "颜色面板"
- * description = "内嵌式颜色面板:亮度 / 色度 / 色相 / 透明度 + 文本输入 + 预设色板。"
- */
+export const meta = {
+    title: "颜色面板",
+    description: "内嵌式颜色面板:亮度 / 色度 / 色相 / 透明度 + 文本输入 + 预设色板。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import { ColorPickerPanel, type OKLCHValue } from "../../src/index.js";
 

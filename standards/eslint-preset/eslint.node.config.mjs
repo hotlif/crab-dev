@@ -15,8 +15,7 @@ export default [
             "**/css/",
             "**/declarations/",
             "**/esm/",
-            "eslint.config.js",
-            "jest.config.mjs"
+            "eslint.config.js"
         ]
     },
     {

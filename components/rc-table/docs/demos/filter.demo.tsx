@@ -1,7 +1,7 @@
-/**
- * title = "过滤栏"
- * description = "过滤栏只负责收集条件，筛选逻辑在外部实现"
- */
+export const meta = {
+    title: "过滤栏",
+    description: "过滤栏只负责收集条件，筛选逻辑在外部实现",
+};
 
 import { useMemo, useState } from "react";
 import { fakerZH_CN as faker } from "@faker-js/faker";

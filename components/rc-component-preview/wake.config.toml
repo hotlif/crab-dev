@@ -1,0 +1,32 @@
+[alias]
+"#minpath" = "./docs/shims/vfile-minpath.ts"
+"#minproc" = "./docs/shims/vfile-minproc.ts"
+"#minurl" = "./docs/shims/vfile-minurl.ts"
+
+[docs]
+source_dir = "docs"
+title = "ComponentPreview 组件预览"
+description = "用于预览组件, 提供组件的预览和组件介绍说明"
+locale = "zh-CN"
+
+[test]
+setup = ["../../test/wake-css.setup.ts"]
+environment = "dom"
+include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

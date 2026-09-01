@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--number-edit-transition',
     'stepper.color': '--number-edit-stepper-color',
     'stepper.color-hover': '--number-edit-stepper-color-hover',
@@ -18,9 +20,9 @@ export const vars = {
     'display.superscript.font-size': '--number-edit-display-superscript-font-size',
     'disabled.opacity': '--number-edit-disabled-opacity',
     'icon.gap': '--number-edit-icon-gap'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
     'stepper': {
         'color': `var(${vars['stepper.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
@@ -48,6 +50,6 @@ const token = {
     'icon': {
         'gap': `var(${vars['icon.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     }
-};
+});
 
 export default token;

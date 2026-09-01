@@ -1,8 +1,8 @@
-/**
- * title = "紧凑尺寸"
- * description = "size=\"small\" 用于表格内联、抽屉底部等高密度场景"
- */
-import { css } from "@linaria/core";
+export const meta = {
+    title: "紧凑尺寸",
+    description: "size=\\\"small\\\" 用于表格内联、抽屉底部等高密度场景",
+};
+import { css } from "@crab-dev/css";
 import Pagination from "../../src/index.js";
 
 const stackStyle = css`

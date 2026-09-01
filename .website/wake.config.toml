@@ -1,0 +1,40 @@
+[docs]
+source_dir = "docs"
+title = "Crab UI"
+description = "React 19 企业级组件库与 Wake 工具链文档"
+locale = "zh-CN"
+repository_url = "https://github.com/hotlif/crab-dev"
+base_path = "/"
+theme_css = "docs/theme.css"
+default_theme = "system"
+accent_color = "#2563eb"
+
+[[docs.workspace]]
+root = "../components"
+include = ["rc-*"]
+base_path = "/components/{name}/workbench/"
+mode = "components"
+presentation = "embedded"
+dev_loading = "lazy"
+
+[test]
+setup = ["../test/wake-css.setup.ts"]
+environment = "dom"
+include = ["docs/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/coverage/**", "**/docs-dist/**", "**/.tmp/**", "**/.wake/**"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

@@ -1,9 +1,9 @@
-/**
- * title = "提示文案"
- * description = "tip 说明「正在做什么」, 比一枚沉默的转圈更能安抚等待。它同时成为读屏播报的内容。"
- */
+export const meta = {
+    title: "提示文案",
+    description: "tip 说明「正在做什么」, 比一枚沉默的转圈更能安抚等待。它同时成为读屏播报的内容。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Spin from '../../src/index.js';
 
 const rowStyle = css`

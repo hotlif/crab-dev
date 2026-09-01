@@ -1,12 +1,12 @@
 
-/**
- * title = "滑块基础用法"
- * description = "这是一个滑块的基础示例"
- */
+export const meta = {
+    title: "滑块基础用法",
+    description: "这是一个滑块的基础示例",
+};
 
 import { useState } from "react";
 import Slider from "../../src/slider.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const BaseDemo = () => {
     const [value, setValue] = useState(20);

@@ -1,10 +1,10 @@
 
-/**
- * title = "图标按钮"
- * description = "通过 `icon` 属性设置按钮图标"
- */
+export const meta = {
+    title: "图标按钮",
+    description: "通过 `icon` 属性设置按钮图标",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Lollipop } from 'lucide-react';
 import { useState } from "react";
 import Button from "../../src/index.js";

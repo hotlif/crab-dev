@@ -1,5 +1,5 @@
 import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useReducer, useState } from 'react';
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import {
     useFloating,
     autoUpdate,

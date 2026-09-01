@@ -1,7 +1,7 @@
-/**
- * title = "Inline 节点编辑"
- * description = "双击节点标题进入 inline 编辑模式。默认使用内置 `<input>`；通过 `renderEditInput` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。`onCommit(value)` 提交，`onCancel()` 取消。"
- */
+export const meta = {
+    title: "Inline 节点编辑",
+    description: "双击节点标题进入 inline 编辑模式。默认使用内置 `<input>`；通过 `renderEditInput` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。`onCommit(value)` 提交，`onCancel()` 取消。",
+};
 
 import { type Key, useState, useRef, useEffect } from "react";
 import RcTree, { LoadStateType, NodeType, NodeEditStateType, type Node, useTreeData } from "../../src/index.js";

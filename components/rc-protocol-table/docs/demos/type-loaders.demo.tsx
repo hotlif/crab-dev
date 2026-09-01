@@ -1,9 +1,9 @@
-/**
- * title = "自定义类型渲染"
- * description = "通过 typeLoaders 为不同 dataType 注入自定义渲染器，实现状态标签、金额格式化和日期格式化等效果。"
- */
+export const meta = {
+    title: "自定义类型渲染",
+    description: "通过 typeLoaders 为不同 dataType 注入自定义渲染器，实现状态标签、金额格式化和日期格式化等效果。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

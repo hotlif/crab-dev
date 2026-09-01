@@ -1,8 +1,8 @@
 
-/**
- * title = "空状态"
- * description = "当 rows 为空数组时，表格 body 区域自动显示空状态。默认使用内置 Empty 组件；可通过 empty prop 传入自定义内容，或传 null 禁用。"
- */
+export const meta = {
+    title: "空状态",
+    description: "当 rows 为空数组时，表格 body 区域自动显示空状态。默认使用内置 Empty 组件；可通过 empty prop 传入自定义内容，或传 null 禁用。",
+};
 
 import { useState } from "react";
 import Empty from "@crab-dev/rc-empty";

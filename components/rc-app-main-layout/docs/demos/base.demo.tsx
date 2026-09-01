@@ -1,8 +1,8 @@
-/**
- * label="基础用法"
- * description="点击侧边栏菜单打开标签页，顶部展示路径面包屑"
- */
-import { css } from "@linaria/core";
+export const meta = {
+    title: "基础用法",
+    description: "点击侧边栏菜单打开标签页，顶部展示路径面包屑",
+};
+import { css } from "@crab-dev/css";
 import { useCallback } from "react";
 import AppMainLayout, {
     type TabItem,

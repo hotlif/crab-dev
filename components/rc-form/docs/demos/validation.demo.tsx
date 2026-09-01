@@ -1,9 +1,9 @@
-/**
- * label="字段校验"
- * description="使用 required 与自定义 rules 组合 rc-line-edit / rc-select，演示同步与异步校验。"
- */
+export const meta = {
+    title: "字段校验",
+    description: "使用 required 与自定义 rules 组合 rc-line-edit / rc-select，演示同步与异步校验。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type FC } from "react";
 
 import Button from "@crab-dev/rc-button";

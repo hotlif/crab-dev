@@ -1,4 +1,4 @@
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, useMotionValueEvent, useTime } from 'motion/react';
 import { uniqueId } from '@crab-dev/rc-hooks';

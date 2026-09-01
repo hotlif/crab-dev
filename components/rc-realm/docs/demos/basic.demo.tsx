@@ -1,7 +1,9 @@
-/**
- * title = "基础用法"
- * description = "component 协议加载远程 React 组件：远程与宿主共享同一 React 实例, remoteProps 实时透传, 与本地组件表现无异。此例通过预注册容器演示（globalThis[scope] 已存在时跳过 script 注入, 零网络）。"
- */
+export const meta = {
+    title: "基础用法",
+    description:
+        "component 协议加载远程 React 组件：远程与宿主共享同一 React 实例, remoteProps 实时透传, 与本地组件表现无异。此例通过预注册容器演示（globalThis[scope] 已存在时跳过 script 注入, 零网络）。",
+};
+
 import { useState } from 'react';
 import Button from '@crab-dev/rc-button';
 import Realm from '../../src/index.js';

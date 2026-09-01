@@ -1,9 +1,9 @@
-/**
- * title = "全局关键字搜索"
- * description = "showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。"
- */
+export const meta = {
+    title: "全局关键字搜索",
+    description: "showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

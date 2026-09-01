@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'ring.track-color': '--spin-ring-track-color',
     'ring.indicator-color': '--spin-ring-indicator-color',
     'ring.stroke-width': '--spin-ring-stroke-width',
@@ -23,9 +25,9 @@ export const vars = {
     'content.opacity': '--spin-content-opacity',
     'content.blur': '--spin-content-blur',
     'overlay.z-index': '--spin-overlay-z-index'
-};
+});
 
-const token = {
+const token = defineTokens({
     'ring': {
         'track-color': `var(${vars['ring.track-color']}, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'indicator-color': `var(${vars['ring.indicator-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
@@ -64,6 +66,6 @@ const token = {
     'overlay': {
         'z-index': `var(${vars['overlay.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`
     }
-};
+});
 
 export default token;

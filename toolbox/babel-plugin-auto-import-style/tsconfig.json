@@ -1,8 +1,0 @@
-{
-    "extends": "@crab-dev/standards-typescript-preset/tsconfig.node.json",
-    "compilerOptions": {
-        "declaration": true,
-        "resolveJsonModule": true,
-        "types": ["node"]
-    }
-}

@@ -1,9 +1,9 @@
-/**
- * title = "单选框尺寸"
- * description = "通过 `size` 属性设置单选框尺寸, 支持 `large`、`middle`、`small` 三种"
- */
+export const meta = {
+    title: "单选框尺寸",
+    description: "通过 `size` 属性设置单选框尺寸, 支持 `large`、`middle`、`small` 三种",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Radio, { RadioGroup } from "../../src/index.js";
 

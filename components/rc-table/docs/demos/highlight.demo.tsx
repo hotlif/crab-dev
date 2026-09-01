@@ -1,7 +1,7 @@
-/**
- * title = "关键字高亮"
- * description = "通过 highlightKeyword 高亮单元格中的匹配文本，activeMatchIndex 控制当前活动匹配（橙色）并同时滚动到对应行列，效果类似浏览器 Ctrl+F。默认 render 自动处理；自定义 render 可通过 keyword 参数配合 highlightText 工具函数手动处理。"
- */
+export const meta = {
+    title: "关键字高亮",
+    description: "通过 highlightKeyword 高亮单元格中的匹配文本，activeMatchIndex 控制当前活动匹配（橙色）并同时滚动到对应行列，效果类似浏览器 Ctrl+F。默认 render 自动处理；自定义 render 可通过 keyword 参数配合 highlightText 工具函数手动处理。",
+};
 
 import React, { useEffect, useMemo, useState } from "react";
 import Table, { highlightText } from "../../src/index.js";

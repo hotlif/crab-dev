@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--avatar-transition',
     'size.small.value': '--avatar-size-small-value',
     'size.small.font.size': '--avatar-size-small-font-size',
@@ -35,9 +37,9 @@ export const vars = {
     'group.hover.translate.y': '--avatar-group-hover-translate-y',
     'group.item.ring.width': '--avatar-group-item-ring-width',
     'group.item.border.color': '--avatar-group-item-border-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1), transform 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), color 120ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'size': {
         'small': {
@@ -136,6 +138,6 @@ const token = {
             }
         }
     }
-};
+});
 
 export default token;

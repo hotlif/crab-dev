@@ -1,9 +1,9 @@
-/**
- * title = "包裹子节点"
- * description = "将 Badge 包裹在按钮、头像等元素外部，角标会自动定位到右上角。"
- */
+export const meta = {
+    title: "包裹子节点",
+    description: "将 Badge 包裹在按钮、头像等元素外部，角标会自动定位到右上角。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Badge from "../../src/index.js";
 
 const avatarStyle = css`

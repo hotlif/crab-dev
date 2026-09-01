@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'overlay.background.color': '--dialog-overlay-background-color',
     'background.color': '--dialog-background-color',
     'top': '--dialog-top',
@@ -17,9 +19,9 @@ export const vars = {
     'heading.line.height': '--dialog-heading-line-height',
     'footer.margin.top': '--dialog-footer-margin-top',
     'footer.button.spacing': '--dialog-footer-button-spacing'
-};
+});
 
-const token = {
+const token = defineTokens({
     'overlay': {
         'background': {
             'color': `var(${vars['overlay.background.color']}, var(--token-semantic-color-background-overlay, oklch(0 0 0 / 0.45)))`
@@ -64,6 +66,6 @@ const token = {
             'spacing': `var(${vars['footer.button.spacing']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         }
     }
-};
+});
 
 export default token;

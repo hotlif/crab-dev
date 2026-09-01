@@ -1,4 +1,4 @@
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 
 import token from "../token.js";
 

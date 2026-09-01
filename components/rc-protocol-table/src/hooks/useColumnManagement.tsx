@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type MutableRefObject, type Dispatch, type SetStateAction, type Key, type ReactNode } from "react";
-import { css, cx } from "@linaria/core";
-import { NodeType, LoadStateType, type Node as TreeNode, type OverState } from "@crab-dev/rc-tree";
+import { css, cx } from "@crab-dev/css";
+import { NodeType, LoadStateType } from "@crab-dev/rc-tree";
+import type { Node as TreeNode, OverState } from "@crab-dev/rc-tree";
 import type { ColumnType, Row } from "@crab-dev/rc-table";
 import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState } from "../types.js";
 import { transformColumns } from "../util.js";
@@ -16,7 +17,7 @@ import {
     applyInitialState,
 } from "../columnUtils.js";
 
-/* ─── 列节点样式（必须在 columnsToTreeNodes 之前声明，否则 Linaria 静态分析触发 TDZ） ─── */
+/* ─── 列节点样式（必须在 columnsToTreeNodes 之前声明，否则静态样式分析会触发 TDZ） ─── */
 
 const colNodeNameStyle = css`
     flex: 1;

@@ -1,7 +1,7 @@
-/**
- * title = "列排序"
- * description = "点击列头切换升序 / 降序 / 无序；按住 Shift 可追加多列排序。`sortable: true` 启用单列，`sorter` 可自定义比较逻辑。"
- */
+export const meta = {
+    title: "列排序",
+    description: "点击列头切换升序 / 降序 / 无序；按住 Shift 可追加多列排序。`sortable: true` 启用单列，`sorter` 可自定义比较逻辑。",
+};
 
 import { useState } from "react";
 import Table from "../../src/index.js";

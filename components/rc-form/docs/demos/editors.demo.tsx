@@ -1,9 +1,9 @@
-/**
- * label="搭配 crab-dev 编辑器"
- * description="将 rc-form 与同体系的 rc-line-edit / rc-select / rc-checkbox / rc-radio / rc-switch / rc-slider / rc-button 组合，演示生态内循环。"
- */
+export const meta = {
+    title: "搭配 crab-dev 编辑器",
+    description: "将 rc-form 与同体系的 rc-line-edit / rc-select / rc-checkbox / rc-radio / rc-switch / rc-slider / rc-button 组合，演示生态内循环。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type FC } from "react";
 
 import Button from "@crab-dev/rc-button";

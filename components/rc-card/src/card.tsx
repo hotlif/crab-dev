@@ -1,5 +1,5 @@
-import { css, cx } from '@linaria/core';
-import { Children, Fragment, isValidElement, type KeyboardEvent } from 'react';
+import { css, cx } from '@crab-dev/css';
+import { Children, Fragment, isValidElement, type KeyboardEvent, type ReactElement } from 'react';
 import Skeleton from '@crab-dev/rc-skeleton';
 import token from './token.js';
 import { CardContext } from './context.js';
@@ -249,13 +249,15 @@ const CardBase = ({
     );
 };
 
-// 复合子组件以静态属性挂载，支持 <Card.Cover /> / <Card.Header /> 等自由拼装
-const Card = Object.assign(CardBase, {
-    Cover: CardCover,
-    Header: CardHeader,
-    Body: CardBody,
-    Footer: CardFooter,
-    Meta: CardMeta,
-});
+// 显式组件入口同时供 Wake docgen 读取公开 Props；静态属性保持复合组件 API。
+function Card(props: CardProps): ReactElement {
+    return <CardBase {...props} />;
+}
+
+Card.Cover = CardCover;
+Card.Header = CardHeader;
+Card.Body = CardBody;
+Card.Footer = CardFooter;
+Card.Meta = CardMeta;
 
 export default Card;

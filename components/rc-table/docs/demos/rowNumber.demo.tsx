@@ -1,7 +1,7 @@
-/**
- * title = "行序号"
- * description = "通过 `showRowNumber` 开启行序号列，序号从 1 开始、反映当前渲染顺序（排序后随之重排）。分组 banner 行不计入序号，数据行始终连续编号。`rowNumberColumnWidth` 控制列宽（默认 50），`rowNumberColumnFixed` 控制是否固定到左侧（默认 true）。"
- */
+export const meta = {
+    title: "行序号",
+    description: "通过 `showRowNumber` 开启行序号列，序号从 1 开始、反映当前渲染顺序（排序后随之重排）。分组 banner 行不计入序号，数据行始终连续编号。`rowNumberColumnWidth` 控制列宽（默认 50），`rowNumberColumnFixed` 控制是否固定到左侧（默认 true）。",
+};
 
 import { useState, type Key } from "react";
 import Table from "../../src/index.js";

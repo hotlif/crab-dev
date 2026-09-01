@@ -1,9 +1,9 @@
-/**
- * title = "校验状态"
- * description = "设置 status 以展示 error 或 warning 状态"
- */
+export const meta = {
+    title: "校验状态",
+    description: "设置 status 以展示 error 或 warning 状态",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Select from '../../src/index.js';
 
 const containerStyle = css`

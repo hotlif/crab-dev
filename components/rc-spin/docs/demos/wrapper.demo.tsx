@@ -1,9 +1,9 @@
-/**
- * title = "包裹内容"
- * description = "传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。"
- */
+export const meta = {
+    title: "包裹内容",
+    description: "传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useState } from 'react';
 import Button from '@crab-dev/rc-button';
 import Spin from '../../src/index.js';

@@ -1,6 +1,6 @@
 import type { FC, Key, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useCallback, useRef, useState } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import token from "./token.js";
 import {
     CloseAllIcon,

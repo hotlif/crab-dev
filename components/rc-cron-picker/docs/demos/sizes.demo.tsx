@@ -1,7 +1,7 @@
-/**
- * title = "尺寸与状态"
- * description = "三档尺寸、禁用态与外部校验状态;预览条数可通过 previewCount 调整或关闭"
- */
+export const meta = {
+    title: "尺寸与状态",
+    description: "三档尺寸、禁用态与外部校验状态;预览条数可通过 previewCount 调整或关闭",
+};
 
 import CronPicker from '../../src/index.js';
 

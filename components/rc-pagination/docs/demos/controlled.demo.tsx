@@ -1,9 +1,9 @@
-/**
- * title = "受控模式"
- * description = "通过 current 与 onChange 完全托管页码状态"
- */
+export const meta = {
+    title: "受控模式",
+    description: "通过 current 与 onChange 完全托管页码状态",
+};
 import { useState } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Pagination from "../../src/index.js";
 
 const DATA = Array.from({ length: 87 }, (_, i) => `记录 #${i + 1}`);

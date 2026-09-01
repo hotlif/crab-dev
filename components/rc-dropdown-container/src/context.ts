@@ -11,7 +11,7 @@ export interface DropdownContextValue<T extends HTMLElement = HTMLElement> {
 
 export const DropdownContext = createContext<DropdownContextValue | null>(null);
 
-export function useDropdownContext<T extends HTMLElement = HTMLElement>() {
+export function useDropdownContext<T extends HTMLElement = HTMLElement>(): DropdownContextValue<T> {
     const context = use(DropdownContext);
     if (!context) {
         throw new Error('useDropdownContext must be used within a DropdownContainer');

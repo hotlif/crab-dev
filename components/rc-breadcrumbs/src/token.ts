@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'font.size': '--breadcrumbs-font-size',
     'line.height': '--breadcrumbs-line-height',
     'gap': '--breadcrumbs-gap',
@@ -13,9 +15,9 @@ export const vars = {
     'separator.color': '--breadcrumbs-separator-color',
     'separator.padding': '--breadcrumbs-separator-padding',
     'ellipsis.color': '--breadcrumbs-ellipsis-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'font': {
         'size': `var(${vars['font.size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
     },
@@ -36,6 +38,6 @@ const token = {
     'ellipsis': {
         'color': `var(${vars['ellipsis.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-400, oklch(0.760 0.012 286))))`
     }
-};
+});
 
 export default token;

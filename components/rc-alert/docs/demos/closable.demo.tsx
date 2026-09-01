@@ -1,9 +1,9 @@
-/**
- * title = "可关闭"
- * description = "设置 `closable` 属性可显示关闭按钮，点击关闭后组件从 DOM 中移除"
- */
+export const meta = {
+    title: "可关闭",
+    description: "设置 `closable` 属性可显示关闭按钮，点击关闭后组件从 DOM 中移除",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Alert from "../../src/index.js";
 

@@ -1,7 +1,7 @@
-/**
- * title = "可清除"
- * description = "设置 allowClear 允许一键清空已选值"
- */
+export const meta = {
+    title: "可清除",
+    description: "设置 allowClear 允许一键清空已选值",
+};
 
 import Select from '../../src/index.js';
 

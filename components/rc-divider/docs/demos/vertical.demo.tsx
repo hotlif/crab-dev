@@ -1,9 +1,9 @@
-/**
- * title = "竖向分割线"
- * description = "direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。"
- */
+export const meta = {
+    title: "竖向分割线",
+    description: "direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import Divider from '../../src/index.js';
 

@@ -1,7 +1,7 @@
-/**
- * title = "受控模式"
- * description = "传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。"
- */
+export const meta = {
+    title: "受控模式",
+    description: "传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。",
+};
 
 import { useState } from 'react';
 import Segmented, { type SegmentedValue } from '../../src/index.js';

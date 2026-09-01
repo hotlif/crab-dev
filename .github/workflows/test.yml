@@ -6,16 +6,8 @@ name: Test
 on:
   push:
     branches: [ "canary" ]
-    paths-ignore:
-      - "**/*.md"
-      - "rfc/**"
-      - "components/**/docs/**"
   pull_request:
     branches: [ "canary" ]
-    paths-ignore:
-      - "**/*.md"
-      - "rfc/**"
-      - "components/**/docs/**"
 
 concurrency:
   group: test-${{ github.workflow }}-${{ github.ref }}
@@ -28,20 +20,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with:
         lfs: true
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: '24'
     - name: Enable Corepack
       run: corepack enable
-    - name: Activate Yarn 4.13.0
-      run: corepack prepare yarn@4.16.0 --activate
+    - name: Install project package manager
+      run: corepack install
     - name: Install dependencies
       run: yarn install --immutable
+    - name: Generate design tokens
+      run: yarn generate:token
+    - name: Run ESLint
+      run: yarn lint
+    - name: Run typecheck
+      run: yarn typecheck
     - name: Build the project
       run: yarn build:library
-    - name: Run Jest Test
+    - name: Run Wake Test
       run: yarn test
+    - name: Build Wake Docs
+      run: yarn docs:build

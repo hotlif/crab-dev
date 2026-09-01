@@ -1,9 +1,9 @@
-/**
- * title = "位置"
- * description = "支持 12 个方向的弹出位置。"
- */
+export const meta = {
+    title: "位置",
+    description: "支持 12 个方向的弹出位置。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Tooltip from "../../src/index.js";
 
 const gridStyle = css`

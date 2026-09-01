@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import type { FC, KeyboardEvent } from 'react';
 import token from './token.js';
 import type { CheckableTagProps } from './types.js';

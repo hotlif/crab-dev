@@ -1,11 +1,11 @@
 
-/**
- * title = "基础用法"
- * description = "基础的垂直菜单，支持展开/收起子菜单和选中菜单项"
- */
+export const meta = {
+    title: "基础用法",
+    description: "基础的垂直菜单，支持展开/收起子菜单和选中菜单项",
+};
 
 import { Key, useState } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import RcMenu, { MenuItemType } from "../../src/index.js";
 
 const BasicDemo = () => {

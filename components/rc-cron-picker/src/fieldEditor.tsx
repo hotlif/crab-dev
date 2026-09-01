@@ -2,7 +2,7 @@ import NumberEdit from '@crab-dev/rc-number-edit';
 import Radio, { RadioGroup } from '@crab-dev/rc-radio';
 import Select from '@crab-dev/rc-select';
 import { CheckableTag } from '@crab-dev/rc-tag';
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { useId, type FC } from 'react';
 
 import { CRON_FIELD_SPECS, DOW_LABELS, type CronFieldKind, type CronFieldValue } from './cron.js';

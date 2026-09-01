@@ -7,7 +7,7 @@ import DateTimePickerInput from "./dateTimePickerInput.js";
 import DateTimePickerOverlay from "./dateTimePickerOverlay.js";
 import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel.js"
 import type { DatePickerPanelInstance } from '../panels/datePickerPanel.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 
 export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange' | 'value'> {
 

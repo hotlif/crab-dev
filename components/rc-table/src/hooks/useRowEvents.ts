@@ -58,7 +58,12 @@ interface UseRowEventsOptions<T extends Row> {
     rowIdToIndex: Map<Key, number>;
 }
 
-export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>) {
+interface UseRowEventsResult<T extends Row> {
+    hasRowEvents: boolean;
+    getRowEventProps: (row: T, rowIndex: number, isEditingThisRow: boolean) => RowEventProps;
+}
+
+export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): UseRowEventsResult<T> {
     // 其余字段（currentEditingRowId / displayRows / anchorCell / rowIdToIndex）仅供键盘监听器
     // 在 effect 内经 latestRef 读取最新值，不在渲染期直接使用。
     const { onRowClick, onRowDoubleClick, isRowEditMode, startRowEdit } = options;

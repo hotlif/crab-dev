@@ -1,10 +1,10 @@
-/**
- * title = "服务端分页"
- * description = "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。"
- */
+export const meta = {
+    title: "服务端分页",
+    description: "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。",
+};
 
 import { useState, useEffect } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

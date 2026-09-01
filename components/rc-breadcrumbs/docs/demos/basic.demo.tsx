@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "通过 items 快速配置基础面包屑"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过 items 快速配置基础面包屑",
+};
 
 import Breadcrumbs from '../../src/index.js';
 

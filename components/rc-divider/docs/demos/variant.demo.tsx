@@ -1,9 +1,9 @@
-/**
- * title = "线型"
- * description = "solid 用于正式分区; dashed / dotted 语义更轻, 常用于表达「可选」或「临时」的边界。"
- */
+export const meta = {
+    title: "线型",
+    description: "solid 用于正式分区; dashed / dotted 语义更轻, 常用于表达「可选」或「临时」的边界。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Divider from '../../src/index.js';
 
 const stackStyle = css`

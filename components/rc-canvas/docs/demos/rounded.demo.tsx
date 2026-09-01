@@ -1,9 +1,9 @@
-/**
- * title = "圆角矩形（SDF）"
- * description = "radius > 0 时自动切换到 SDF 着色器，边缘与圆角均为亚像素级抗锯齿。"
- */
+export const meta = {
+    title: "圆角矩形（SDF）",
+    description: "radius > 0 时自动切换到 SDF 着色器，边缘与圆角均为亚像素级抗锯齿。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Rect } from "../../src/index.js";
 
 const wrapStyle = css`

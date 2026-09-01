@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--radio-transition',
     'label.gap': '--radio-label-gap',
     'label.color': '--radio-label-color',
@@ -29,9 +31,9 @@ export const vars = {
     'disabled.background.color': '--radio-disabled-background-color',
     'disabled.border.color': '--radio-disabled-border-color',
     'disabled.dot.color': '--radio-disabled-dot-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'label': {
         'gap': `var(${vars['label.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
@@ -114,6 +116,6 @@ const token = {
             'color': `var(${vars['disabled.dot.color']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`
         }
     }
-};
+});
 
 export default token;

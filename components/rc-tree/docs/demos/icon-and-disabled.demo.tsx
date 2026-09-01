@@ -1,7 +1,7 @@
-/**
- * title = "图标插槽与禁用节点"
- * description = "通过 `icon` 字段为节点设置前置图标；`disabled` 字段禁用节点，禁用节点不可点击、不可拖拽、样式置灰。"
- */
+export const meta = {
+    title: "图标插槽与禁用节点",
+    description: "通过 `icon` 字段为节点设置前置图标；`disabled` 字段禁用节点，禁用节点不可点击、不可拖拽、样式置灰。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";

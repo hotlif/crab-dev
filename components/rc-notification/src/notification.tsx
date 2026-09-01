@@ -1,10 +1,7 @@
-import { css, cx } from "@linaria/core";
-import { 
-    ReactNode,
-    type FC,
-} from "react";
+import { css, cx } from "@crab-dev/css";
+import type { FC, ReactNode } from "react";
 
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 import type { HTMLMotionProps } from "motion/react";
 
 import Close from "./icons/close.js";
@@ -78,10 +75,10 @@ export interface NotificationProps extends Omit<HTMLMotionProps<"div">, "title" 
 const Notification: FC<NotificationProps> = ({
     title,
     children,
-    open,
+    open: _open,
     onOpenChange,
-    className,
-    style,
+    className: _className,
+    style: _style,
     duration = 3000,
     remaining,
     paused = false,

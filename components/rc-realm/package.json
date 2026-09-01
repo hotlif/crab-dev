@@ -1,82 +1,77 @@
 {
-  "name": "@crab-dev/rc-realm",
-  "websiteConfig": {
-    "title": "Realm 沙箱容器",
-    "category": "utility"
-  },
-  "description": "运行时加载 webpack Module Federation 远程模块并嵌入宿主页面的沙箱容器",
-  "packageManager": "yarn@4.16.0",
-  "type": "module",
-  "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hotlif/crab-dev.git",
-    "directory": "components/rc-realm"
-  },
-  "scripts": {
-    "start": "yarn generate:docgen && yarn generate:token && lignify run-task app:dev",
-    "build:library": "packify build",
-    "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "generate:docgen": "packify generate:docgen",
-    "generate:token": "packify generate:css-token",
-    "test": "packify test",
-    "check": "yarn eslint . && yarn prettier:check && yarn test",
-    "eslint": "eslint . ",
-    "typecheck": "tsc --noEmit"
-  },
-  "files": [
-    "esm",
-    "cjs",
-    "css",
-    "declarations"
-  ],
-  "exports": {
-    ".": {
-      "types": "./declarations/index.d.ts",
-      "import": "./esm/index.mjs",
-      "require": "./cjs/index.cjs"
+    "name": "@crab-dev/rc-realm",
+    "websiteConfig": {
+        "title": "Realm 沙箱容器",
+        "category": "utility"
     },
-    "./css/index.css": "./css/index.css",
-    "./package.json": "./package.json"
-  },
-  "dependencies": {
-    "@crab-dev/rc-alert": "workspace:^",
-    "@crab-dev/rc-button": "workspace:^",
-    "@crab-dev/rc-hooks": "workspace:^",
-    "@crab-dev/rc-spin": "workspace:^"
-  },
-  "devDependencies": {
-    "@crab-dev/lignify": "workspace:^",
-    "@crab-dev/packify": "workspace:^",
-    "@crab-dev/rc-component-preview": "workspace:^",
-    "@crab-dev/rc-masonry": "workspace:^",
-    "@crab-dev/rc-menu": "workspace:^",
-    "@crab-dev/rc-token-semantic": "workspace:^",
-    "@crab-dev/standards-eslint-preset": "workspace:^",
-    "@crab-dev/standards-jest-preset": "workspace:^",
-    "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@jest/globals": "30.4.1",
-    "@linaria/core": "^8.0.0",
-    "@mdx-js/react": "^3.1.1",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.2",
-    "@types/node": "^26.1.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^10.6.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.7.0",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "30.4.1",
-    "prettier": "^3.9.4",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-router": "^8.1.0",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.63.0"
-  },
-  "engines": {
-    "node": ">=22"
-  }
+    "description": "运行时加载 webpack Module Federation 远程模块并嵌入宿主页面的沙箱容器",
+    "packageManager": "yarn@4.18.0",
+    "type": "module",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-realm"
+    },
+    "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "tsc --noEmit"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "css",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./css/index.css": "./css/index.css",
+        "./package.json": "./package.json"
+    },
+    "dependencies": {
+        "@crab-dev/css": "0.1.23",
+        "@crab-dev/rc-alert": "workspace:^",
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-hooks": "workspace:^",
+        "@crab-dev/rc-spin": "workspace:^"
+    },
+    "devDependencies": {
+        "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/rc-masonry": "workspace:^",
+        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@crab-dev/wake": "0.1.23",
+        "@types/node": "^26.1.0",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^10.6.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.7.0",
+        "prettier": "^3.9.4",
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "react-router": "^8.1.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.63.0"
+    },
+    "engines": {
+        "node": ">=22"
+    }
 }

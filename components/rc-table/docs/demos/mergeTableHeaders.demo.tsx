@@ -1,7 +1,7 @@
-/**
- * title = "表头合并"
- * description = "通过 children 配置实现多级表头（头部合并）"
- */
+export const meta = {
+    title: "表头合并",
+    description: "通过 children 配置实现多级表头（头部合并）",
+};
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";

@@ -1,11 +1,11 @@
 
-/**
- * title = "图标位置"
- * description = "`icon` 在文字左侧，`iconAfter` 在文字右侧，可同时使用"
- */
+export const meta = {
+    title: "图标位置",
+    description: "`icon` 在文字左侧，`iconAfter` 在文字右侧，可同时使用",
+};
 
 import Button from '../../src/index.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { ArrowRight, ChevronDown, Download, Search } from 'lucide-react';
 
 const IconAfterDemo = () => {

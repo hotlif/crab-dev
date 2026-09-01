@@ -1,25 +1,44 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
+import {
+    afterEach,
+    beforeAll,
+    beforeEach,
+    clock,
+    describe,
+    expect,
+    it,
+    mock,
+} from '@crab-dev/wake/test';
 import * as ReactNS from 'react';
 
-// Jest ESM 下动态 import 无法直接拦截, importer.ts 即为此预留的 mock 接缝
-jest.mock('../importer.js', () => ({
-    __esModule: true,
-    importModule: jest.fn(),
-}));
-
-import { importModule } from '../importer.js';
-import { canUseDom, clearRemoteCache, loadRemoteModule, preloadRemote } from '../loader.js';
 import type { ShareScope } from '../types.js';
 
-const importModuleMock = jest.mocked(importModule);
+type ImportModule = (typeof import('../importer.js'))['importModule'];
+type LoaderModule = typeof import('../loader.js');
+
+const importModuleMock = mock.fn<ImportModule>();
+
+// loader.ts 使用该相对说明符导入接缝；Wake 模块替身按被测模块的说明符匹配。
+mock.module('./importer.js', () => ({
+    importModule: importModuleMock,
+}));
+
+let canUseDom: LoaderModule['canUseDom'];
+let clearRemoteCache: LoaderModule['clearRemoteCache'];
+let loadRemoteModule: LoaderModule['loadRemoteModule'];
+let preloadRemote: LoaderModule['preloadRemote'];
+
+beforeAll(async () => {
+    const loaderModule = await mock.import<LoaderModule>('../loader.js');
+    ({ canUseDom, clearRemoteCache, loadRemoteModule, preloadRemote } = loaderModule);
+});
 
 const ENTRY = 'https://cdn.example.com/remoteEntry.js';
 const SCOPE = 'testRemote';
 const MODULE = './Widget';
 
 const makeContainer = (moduleMap: Record<string, unknown> = { [MODULE]: { default: 'widget' } }) => ({
-    init: jest.fn((_scope: ShareScope): void => undefined),
-    get: jest.fn((id: string): Promise<() => unknown> => {
+    init: mock.fn((_scope: ShareScope): void => undefined),
+    get: mock.fn((id: string): Promise<() => unknown> => {
         const mod = moduleMap[id];
         if (mod === undefined) {
             return Promise.reject(new Error(`unknown module: ${id}`));
@@ -28,26 +47,31 @@ const makeContainer = (moduleMap: Record<string, unknown> = { [MODULE]: { defaul
     }),
 });
 
-// jsdom 不会真的加载外部 script, spy 仅用于观察注入行为, load/error 由用例手动派发
-const spyOnAppend = () => jest.spyOn(document.head, 'appendChild');
-
 describe('loadRemoteModule', () => {
-    let appendSpy: ReturnType<typeof spyOnAppend>;
+    let appendedScripts: HTMLScriptElement[];
 
     const lastScript = (): HTMLScriptElement => {
-        const calls = appendSpy.mock.calls;
-        return calls[calls.length - 1][0] as HTMLScriptElement;
+        return appendedScripts[appendedScripts.length - 1];
     };
 
     beforeEach(() => {
-        appendSpy = spyOnAppend();
+        appendedScripts = [];
+        Object.defineProperty(document.head, 'appendChild', {
+            configurable: true,
+            value(node: Node): Node {
+                if (node instanceof HTMLScriptElement) {
+                    appendedScripts.push(node);
+                }
+                return node;
+            },
+        });
     });
 
     afterEach(() => {
         clearRemoteCache();
         delete (globalThis as Record<string, unknown>)[SCOPE];
-        jest.restoreAllMocks();
-        jest.useRealTimers();
+        Reflect.deleteProperty(document.head, 'appendChild');
+        mock.clearAll();
     });
 
     it('canUseDom 在 jsdom 环境为真', () => {
@@ -61,7 +85,7 @@ describe('loadRemoteModule', () => {
             scope: SCOPE,
             module: MODULE,
         });
-        expect(appendSpy).toHaveBeenCalledTimes(1);
+        expect(appendedScripts).toHaveLength(1);
         const script = lastScript();
         expect(script.src).toBe(ENTRY);
         expect(script.async).toBe(true);
@@ -72,7 +96,7 @@ describe('loadRemoteModule', () => {
         const mod = await promise;
         expect(mod.default).toBe('remote-widget');
         expect(container.init).toHaveBeenCalledTimes(1);
-        const shareScope = container.init.mock.calls[0][0];
+        const shareScope = container.init.calls.calls[0][0];
         const reactEntry = shareScope.react?.[ReactNS.version];
         expect(reactEntry).toBeDefined();
         expect(reactEntry.loaded).toBe(1);
@@ -87,14 +111,14 @@ describe('loadRemoteModule', () => {
             module: MODULE,
         });
         expect(mod.default).toBe('widget');
-        expect(appendSpy).not.toHaveBeenCalled();
+        expect(appendedScripts).toHaveLength(0);
     });
 
     it('并发去重：同参并发只注入一个 script、init 恰一次、模块引用相同', async () => {
         const container = makeContainer();
         const first = loadRemoteModule({ entry: ENTRY, scope: SCOPE, module: MODULE });
         const second = loadRemoteModule({ entry: ENTRY, scope: SCOPE, module: MODULE });
-        expect(appendSpy).toHaveBeenCalledTimes(1);
+        expect(appendedScripts).toHaveLength(1);
 
         (globalThis as Record<string, unknown>)[SCOPE] = container;
         lastScript().dispatchEvent(new Event('load'));
@@ -121,7 +145,7 @@ describe('loadRemoteModule', () => {
             scope: SCOPE,
             module: MODULE,
         });
-        expect(appendSpy).toHaveBeenCalledTimes(2);
+        expect(appendedScripts).toHaveLength(2);
         (globalThis as Record<string, unknown>)[SCOPE] = container;
         lastScript().dispatchEvent(new Event('load'));
         await expect(retried).resolves.toMatchObject({ default: 'widget' });
@@ -137,7 +161,7 @@ describe('loadRemoteModule', () => {
 
     it('init 抛 already been initialized：静默豁免不视为失败', async () => {
         const container = makeContainer();
-        container.init.mockImplementation(() => {
+        container.init.implement(() => {
             throw new Error('Container has already been initialized');
         });
         (globalThis as Record<string, unknown>)[SCOPE] = container;
@@ -148,7 +172,7 @@ describe('loadRemoteModule', () => {
 
     it('init 抛其他异常：reject code=init 且缓存失效', async () => {
         const container = makeContainer();
-        container.init.mockImplementation(() => {
+        container.init.implement(() => {
             throw new Error('share scope shape mismatch');
         });
         (globalThis as Record<string, unknown>)[SCOPE] = container;
@@ -157,7 +181,7 @@ describe('loadRemoteModule', () => {
         ).rejects.toMatchObject({ code: 'init' });
 
         // 失效后重试重走 init（预注册短路, 不注入 script）
-        container.init.mockImplementation(() => undefined);
+        container.init.implement(() => undefined);
         await expect(
             loadRemoteModule<{ default: string }>({ entry: ENTRY, scope: SCOPE, module: MODULE }),
         ).resolves.toMatchObject({ default: 'widget' });
@@ -166,7 +190,7 @@ describe('loadRemoteModule', () => {
 
     it('factory 失败：reject code=factory, 仅 module 级失效（container 缓存保留, init 不重跑）', async () => {
         const container = makeContainer();
-        container.get.mockRejectedValueOnce(new Error('chunk load failed'));
+        container.get.rejectOnce(new Error('chunk load failed'));
         (globalThis as Record<string, unknown>)[SCOPE] = container;
 
         await expect(
@@ -180,7 +204,7 @@ describe('loadRemoteModule', () => {
     });
 
     it('超时：期限内未完成 → reject code=timeout, 失效后可重试', async () => {
-        jest.useFakeTimers();
+        await clock.fake();
         const promise = loadRemoteModule({
             entry: ENTRY,
             scope: SCOPE,
@@ -188,9 +212,9 @@ describe('loadRemoteModule', () => {
             timeout: 5000,
         });
         const failure = expect(promise).rejects.toMatchObject({ code: 'timeout' });
-        jest.advanceTimersByTime(5000);
+        await clock.advanceBy(5000);
         await failure;
-        jest.useRealTimers();
+        await clock.restore();
 
         const container = makeContainer();
         const retried = loadRemoteModule<{ default: string }>({
@@ -198,7 +222,7 @@ describe('loadRemoteModule', () => {
             scope: SCOPE,
             module: MODULE,
         });
-        expect(appendSpy).toHaveBeenCalledTimes(2);
+        expect(appendedScripts).toHaveLength(2);
         (globalThis as Record<string, unknown>)[SCOPE] = container;
         lastScript().dispatchEvent(new Event('load'));
         await expect(retried).resolves.toMatchObject({ default: 'widget' });
@@ -206,7 +230,7 @@ describe('loadRemoteModule', () => {
 
     it('module 型 remote：经 importModule 加载, 不注入 script', async () => {
         const container = makeContainer({ './W': { default: 42 } });
-        importModuleMock.mockResolvedValue({ default: container });
+        importModuleMock.resolve({ default: container });
         const mod = await loadRemoteModule<{ default: number }>({
             entry: 'https://cdn.example.com/remote.mjs',
             scope: 'moduleScope',
@@ -215,12 +239,12 @@ describe('loadRemoteModule', () => {
         });
         expect(importModuleMock).toHaveBeenCalledWith('https://cdn.example.com/remote.mjs');
         expect(mod.default).toBe(42);
-        expect(appendSpy).not.toHaveBeenCalled();
+        expect(appendedScripts).toHaveLength(0);
         clearRemoteCache('https://cdn.example.com/remote.mjs');
     });
 
     it('module 型导出不是容器：reject code=container', async () => {
-        importModuleMock.mockResolvedValue({ default: { notAContainer: true } });
+        importModuleMock.resolve({ default: { notAContainer: true } });
         await expect(
             loadRemoteModule({
                 entry: 'https://cdn.example.com/broken.mjs',
@@ -243,7 +267,7 @@ describe('loadRemoteModule', () => {
 
     it('preloadRemote 吞掉失败不产生未处理拒绝', async () => {
         preloadRemote({ entry: ENTRY, scope: SCOPE, module: MODULE });
-        expect(appendSpy).toHaveBeenCalledTimes(1);
+        expect(appendedScripts).toHaveLength(1);
         lastScript().dispatchEvent(new Event('error'));
         // 静默失败：等待微任务队列清空, 若产生 unhandled rejection 将由 Jest 报错
         await new Promise((resolve) => {

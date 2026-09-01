@@ -1,9 +1,9 @@
-/**
- * title = "尺寸"
- * description = "通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。"
- */
+export const meta = {
+    title: "尺寸",
+    description: "通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Spin from '../../src/index.js';
 
 const rowStyle = css`

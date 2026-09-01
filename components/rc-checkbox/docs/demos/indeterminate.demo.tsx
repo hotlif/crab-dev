@@ -1,7 +1,7 @@
-/**
- * title = "半选状态"
- * description = "使用 `indeterminate` 属性表示半选状态, 常用于全选/全不选场景"
- */
+export const meta = {
+    title: "半选状态",
+    description: "使用 `indeterminate` 属性表示半选状态, 常用于全选/全不选场景",
+};
 
 import { useState } from "react";
 import Checkbox, { CheckboxGroup } from "../../src/index.js";

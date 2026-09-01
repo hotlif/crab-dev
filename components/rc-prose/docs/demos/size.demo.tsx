@@ -1,9 +1,9 @@
-/**
- * title = "尺寸变体"
- * description = "通过 `size` 属性设置排版尺寸：`sm`、`base`（默认）、`lg`、`xl`"
- */
+export const meta = {
+    title: "尺寸变体",
+    description: "通过 `size` 属性设置排版尺寸：`sm`、`base`（默认）、`lg`、`xl`",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Prose from '../../src/index.js';
 
 const wrapperStyle = css`

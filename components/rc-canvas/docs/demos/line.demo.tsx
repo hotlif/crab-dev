@@ -1,9 +1,9 @@
-/**
- * title = "任意角度直线"
- * description = "直线在顶点着色器端挤出为带宽度的四边形，支持任意斜率与线宽。"
- */
+export const meta = {
+    title: "任意角度直线",
+    description: "直线在顶点着色器端挤出为带宽度的四边形，支持任意斜率与线宽。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Line } from "../../src/index.js";
 
 const wrapStyle = css`

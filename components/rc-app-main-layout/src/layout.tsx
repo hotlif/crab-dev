@@ -1,6 +1,6 @@
 import type { FC, HTMLAttributes, Key, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cx, css } from "@linaria/core";
+import { cx, css } from "@crab-dev/css";
 import Drawer from "@crab-dev/rc-drawer";
 import token from "./token.js";
 import Header from "./header.js";

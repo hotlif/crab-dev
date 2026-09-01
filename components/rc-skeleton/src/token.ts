@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'color.background': '--skeleton-color-background',
     'color.highlight': '--skeleton-color-highlight',
     'radius.default': '--skeleton-radius-default',
@@ -25,9 +27,9 @@ export const vars = {
     'animation.pulse.opacity-max': '--skeleton-animation-pulse-opacity-max',
     'animation.wave.duration': '--skeleton-animation-wave-duration',
     'animation.wave.easing': '--skeleton-animation-wave-easing'
-};
+});
 
-const token = {
+const token = defineTokens({
     'color': {
         'background': `var(${vars['color.background']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
         'highlight': `var(${vars['color.highlight']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
@@ -90,6 +92,6 @@ const token = {
             'easing': `var(${vars['animation.wave.easing']}, cubic-bezier(0.4, 0, 0.2, 1))`
         }
     }
-};
+});
 
 export default token;

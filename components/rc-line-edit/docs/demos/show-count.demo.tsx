@@ -1,9 +1,9 @@
-/**
- * title = "字符计数"
- * description = "设置 `showCount` 后在输入框右侧实时显示已输入字符数；配合 `maxLength` 使用时显示「已输入 / 上限」格式，帮助用户掌握剩余可输入量"
- */
+export const meta = {
+    title: "字符计数",
+    description: "设置 `showCount` 后在输入框右侧实时显示已输入字符数；配合 `maxLength` 使用时显示「已输入 / 上限」格式，帮助用户掌握剩余可输入量",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import LineEdit from "../../src/index.js";
 

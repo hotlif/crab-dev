@@ -1,5 +1,5 @@
 import type { FC, HTMLAttributes } from "react";
-import { cx, css } from "@linaria/core";
+import { cx, css } from "@crab-dev/css";
 import token from "./token.js";
 
 const contentStyle = css`

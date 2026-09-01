@@ -1,7 +1,7 @@
-/**
- * title = "带图标"
- * description = "选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。"
- */
+export const meta = {
+    title: "带图标",
+    description: "选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。",
+};
 
 import Segmented from '../../src/index.js';
 

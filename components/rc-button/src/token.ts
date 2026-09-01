@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--button-transition',
     'opacity.loading': '--button-opacity-loading',
     'opacity.disabled': '--button-opacity-disabled',
@@ -70,9 +72,9 @@ export const vars = {
     'selected.border-color': '--button-selected-border-color',
     'shape.circle.border-radius': '--button-shape-circle-border-radius',
     'shape.circle.padding': '--button-shape-circle-padding'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, transform 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1), background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'opacity': {
         'loading': `var(${vars['opacity.loading']}, 0.65)`,
@@ -198,6 +200,6 @@ const token = {
             'padding': `var(${vars['shape.circle.padding']}, 0)`
         }
     }
-};
+});
 
 export default token;

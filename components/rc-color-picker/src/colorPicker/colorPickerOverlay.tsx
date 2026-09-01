@@ -1,7 +1,7 @@
 import { type FC, useState } from "react";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcButton from "@crab-dev/rc-button";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ColorPickerPanel, { type ColorPickerPanelProps } from "../panels/colorPickerPanel.js";
 import type { Locale, OKLCHValue } from "../types.js";
 

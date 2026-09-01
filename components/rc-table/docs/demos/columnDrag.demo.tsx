@@ -1,7 +1,7 @@
-/**
- * title = "拖拽调整列顺序（固定列 + 分组表头）"
- * description = "左侧「序号」「姓名」、右侧「邮箱」固定；拖拽分组表头可整体调整分组顺序，拖拽分组内的子列可在分组内部重排。"
- */
+export const meta = {
+    title: "拖拽调整列顺序（固定列 + 分组表头）",
+    description: "左侧「序号」「姓名」、右侧「邮箱」固定；拖拽分组表头可整体调整分组顺序，拖拽分组内的子列可在分组内部重排。",
+};
 
 import { useState } from "react";
 import Table from "../../src/index.js";

@@ -1,9 +1,9 @@
-/**
- * title = "可选中标签"
- * description = "通过 `CheckableTag` 实现可选中/取消选中的标签"
- */
+export const meta = {
+    title: "可选中标签",
+    description: "通过 `CheckableTag` 实现可选中/取消选中的标签",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Tag, { CheckableTag } from "../../src/index.js";
 

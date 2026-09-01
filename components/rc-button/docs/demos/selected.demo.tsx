@@ -1,11 +1,11 @@
 
-/**
- * title = "选中状态"
- * description = "`isSelected` 用于工具栏过滤器、视图切换等 toggle 场景"
- */
+export const meta = {
+    title: "选中状态",
+    description: "`isSelected` 用于工具栏过滤器、视图切换等 toggle 场景",
+};
 
 import Button from '../../src/index.js';
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useState } from 'react';
 import { AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 

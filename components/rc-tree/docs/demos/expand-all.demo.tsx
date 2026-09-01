@@ -1,7 +1,7 @@
-/**
- * title = "全部展开 / 折叠"
- * description = "通过 `TreeDataUtil` 提供的 `expandAll` 与 `collapseAll` 方法，一键展开或折叠所有 FOLDER 节点。"
- */
+export const meta = {
+    title: "全部展开 / 折叠",
+    description: "通过 `TreeDataUtil` 提供的 `expandAll` 与 `collapseAll` 方法，一键展开或折叠所有 FOLDER 节点。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";

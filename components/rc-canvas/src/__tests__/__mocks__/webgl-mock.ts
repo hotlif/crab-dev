@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { mock } from '@crab-dev/wake/test';
 
 /**
  * 最小 WebGL2RenderingContext stub，供 jsdom 测试使用。
@@ -8,8 +8,8 @@ import { jest } from '@jest/globals';
  * 只 stub 被构造函数和 dispose() 调用的方法，不验证调用顺序。
  */
 export function createWebGL2Mock(): WebGL2RenderingContext {
-    const mockFn = () => jest.fn();
-    const mockObj = () => jest.fn(() => ({}));
+    const mockFn = () => mock.fn();
+    const mockObj = () => mock.fn(() => ({}));
 
     return {
         // 常量
@@ -86,8 +86,8 @@ export function createWebGL2Mock(): WebGL2RenderingContext {
         uniform4f: mockFn(),
         uniform4fv: mockFn(),
 
-        getUniformLocation: jest.fn(() => ({})),
-        getShaderInfoLog: jest.fn(() => ''),
-        getProgramInfoLog: jest.fn(() => ''),
+        getUniformLocation: mock.fn(() => ({})),
+        getShaderInfoLog: mock.fn(() => ''),
+        getProgramInfoLog: mock.fn(() => ''),
     } as unknown as WebGL2RenderingContext;
 }

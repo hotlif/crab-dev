@@ -1,4 +1,4 @@
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 export const containerStyle = css`
 	cursor: pointer;

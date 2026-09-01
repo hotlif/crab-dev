@@ -1,7 +1,7 @@
-/**
- * title = "拖拽限制 allowDrop"
- * description = "通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。"
- */
+export const meta = {
+    title: "拖拽限制 allowDrop",
+    description: "通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, OverStateEnum, type Node, type TreeProps, useTreeData } from "../../src/index.js";

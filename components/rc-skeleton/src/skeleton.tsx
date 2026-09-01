@@ -1,5 +1,5 @@
 import type { CSSProperties, FC } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 
 import token from "./token.js";
 import type { SkeletonAnimation, SkeletonProps, SkeletonSize, SkeletonVariant } from "./types.js";

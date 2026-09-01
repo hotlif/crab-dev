@@ -1,7 +1,7 @@
-/**
- * title = "FlowEdge 流动动效"
- * description = "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。"
- */
+export const meta = {
+    title: "FlowEdge 流动动效",
+    description: "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。",
+};
 
 import { useState } from 'react';
 import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';

@@ -1,9 +1,9 @@
-/**
- * title = "文字渲染"
- * description = "文字经 OffscreenCanvas 生成字形位图并上传为 R8 纹理，在 GPU 端以 alpha mask 着色。"
- */
+export const meta = {
+    title: "文字渲染",
+    description: "文字经 OffscreenCanvas 生成字形位图并上传为 R8 纹理，在 GPU 端以 alpha mask 着色。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Canvas, Text, Rect } from "../../src/index.js";
 
 const wrapStyle = css`

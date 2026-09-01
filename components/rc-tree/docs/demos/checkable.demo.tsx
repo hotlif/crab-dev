@@ -1,7 +1,7 @@
-/**
- * title = "复选框 checkable"
- * description = "通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheck` 实现受控。"
- */
+export const meta = {
+    title: "复选框 checkable",
+    description: "通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheck` 实现受控。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
@@ -20,7 +20,7 @@ const buildNodes = (): Node[] => {
     const rRouter: Node = { id: "r-router", type: NodeType.FILE, title: "React Router", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
     const rQuery: Node = { id: "r-query", type: NodeType.FILE, title: "TanStack Query", parent: react, loadState: LoadStateType.LOADING_COMPLETED };
 
-    const cLinaria: Node = { id: "c-linaria", type: NodeType.FILE, title: "Linaria", parent: css, loadState: LoadStateType.LOADING_COMPLETED };
+    const cCrabCss: Node = { id: "c-crab-css", type: NodeType.FILE, title: "Crab CSS", parent: css, loadState: LoadStateType.LOADING_COMPLETED };
     const cTailwind: Node = { id: "c-tailwind", type: NodeType.FILE, title: "Tailwind CSS", parent: css, loadState: LoadStateType.LOADING_COMPLETED };
 
     const sBoot: Node = { id: "s-boot", type: NodeType.FILE, title: "Spring Boot", parent: spring, loadState: LoadStateType.LOADING_COMPLETED };
@@ -29,7 +29,7 @@ const buildNodes = (): Node[] => {
     const nKoa: Node = { id: "n-koa", type: NodeType.FILE, title: "Koa", parent: node, loadState: LoadStateType.LOADING_COMPLETED };
     const nNestjs: Node = { id: "n-nestjs", type: NodeType.FILE, title: "NestJS", parent: node, loadState: LoadStateType.LOADING_COMPLETED };
 
-    return [fe, be, react, css, spring, node, rReact, rRouter, rQuery, cLinaria, cTailwind, sBoot, sCloud, nKoa, nNestjs];
+    return [fe, be, react, css, spring, node, rReact, rRouter, rQuery, cCrabCss, cTailwind, sBoot, sCloud, nKoa, nNestjs];
 };
 
 const CheckableDemo = () => {

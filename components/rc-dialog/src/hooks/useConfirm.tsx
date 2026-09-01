@@ -1,5 +1,5 @@
 import { useRef, useState, type ReactNode } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import Dialog, { type DialogProps } from "../dialog.js";
 import token from "../token.js";

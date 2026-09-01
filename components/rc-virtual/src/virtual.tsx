@@ -1,21 +1,8 @@
-import {
-    type CSSProperties,
-    type HTMLAttributes,
-    type FC,
-    type ReactNode,
-    type RefObject,
-    useEffect,
-    useRef,
-    useState,
-    useLayoutEffect,
-    useImperativeHandle,
-} from "react";
-import { cx } from "@linaria/core";
+import { useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
+import type { CSSProperties, FC, HTMLAttributes, ReactNode, RefObject } from "react";
+import { cx } from "@crab-dev/css";
 
-import {
-    containerStyle,
-    gridStyle
-} from "./style/grid.style";
+import { containerStyle, gridStyle } from "./style/grid.style.js";
 
 import useVirtualItemRange from "./hooks/useVirtualItemRange.js";
 import ScrollBar, { useScrollbar } from "./scrollbar.js";

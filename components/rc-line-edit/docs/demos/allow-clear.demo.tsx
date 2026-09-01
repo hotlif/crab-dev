@@ -1,9 +1,9 @@
-/**
- * title = "可清除"
- * description = "设置 `allowClear` 后，输入框有内容时右侧显示清除按钮；配合受控 `value` 和 `onClear` 回调使用，`disabled` 或 `readOnly` 时清除按钮自动隐藏"
- */
+export const meta = {
+    title: "可清除",
+    description: "设置 `allowClear` 后，输入框有内容时右侧显示清除按钮；配合受控 `value` 和 `onClear` 回调使用，`disabled` 或 `readOnly` 时清除按钮自动隐藏",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { Search } from "lucide-react";
 import { useState } from "react";
 import LineEdit from "../../src/index.js";

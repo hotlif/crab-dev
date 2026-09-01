@@ -1,10 +1,10 @@
 
-/**
- * title = "编辑单元格"
- * description = "双击单元格进入编辑，支持回车提交与失焦提交"
- */
+export const meta = {
+    title: "编辑单元格",
+    description: "双击单元格进入编辑，支持回车提交与失焦提交",
+};
 
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { useMemo, useState } from "react";
 
 import Table from "../../src/index.js";

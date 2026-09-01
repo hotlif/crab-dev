@@ -1,8 +1,8 @@
 
-/**
- * title = "水平模式"
- * description = "通过 `mode` 属性设置为 `horizontal` 来使用水平菜单"
- */
+export const meta = {
+    title: "水平模式",
+    description: "通过 `mode` 属性设置为 `horizontal` 来使用水平菜单",
+};
 
 import { Key, useState } from "react";
 import RcMenu, { MenuItemType } from "../../src/index.js";

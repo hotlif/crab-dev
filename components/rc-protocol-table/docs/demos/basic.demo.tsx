@@ -1,9 +1,9 @@
-/**
- * title = "基础用法"
- * description = "通过 fetchData 与 fetchColumns 异步加载数据和列定义，ProtocolTable 会自动适应容器宽高。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过 fetchData 与 fetchColumns 异步加载数据和列定义，ProtocolTable 会自动适应容器宽高。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

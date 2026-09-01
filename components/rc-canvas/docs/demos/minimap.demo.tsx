@@ -8,7 +8,10 @@ import Viewport from '../../src/viewport.js';
 import InfiniteGrid from '../../src/shapes/infinite-grid.js';
 import Minimap from '../../src/shapes/minimap.js';
 import type { DragMoveEvent } from '../../src/drag-types.js';
-
+export const meta = {
+    title: "Minimap",
+    description: "Minimap 示例",
+};
 interface CardData {
     id: number;
     x: number;

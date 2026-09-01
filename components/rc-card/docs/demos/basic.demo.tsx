@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "title 与 extra 组成标题区, 裸内容自动落入内容区。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "title 与 extra 组成标题区, 裸内容自动落入内容区。",
+};
 
 import Button from '@crab-dev/rc-button';
 import Card from '../../src/index.js';

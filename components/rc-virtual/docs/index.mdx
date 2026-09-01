@@ -1,0 +1,29 @@
++++
+title = "Virtual 虚拟滚动"
+description = "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。"
+kind = "component"
+status = "experimental"
++++
+
+# Virtual
+
+高效的虚拟滚动组件，用于大规模列表和网格的高性能渲染。
+
+[打开 Virtual 虚拟滚动 工作台](/components/rc-virtual/workbench/)
+
+## 何时使用
+
+当需要渲染大量数据行或列时（如数万行表格、无限滚动列表），直接渲染所有 DOM 节点会导致严重的性能问题。Virtual 组件仅渲染可视区域内的内容，通过二分查找快速定位可见范围，大幅降低内存占用和渲染开销。
+
+- 📊 大数据量表格：行列数量达到数千甚至数万时
+- 📜 长列表：聊天记录、日志、时间线等需要滚动浏览大量条目的场景
+- 🎯 精准滚动：支持通过 `scrollToCell` 编程式定位到指定行列
+
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/virtual.tsx" symbol="VirtualProps" component="Virtual" />

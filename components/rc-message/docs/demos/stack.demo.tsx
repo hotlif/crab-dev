@@ -1,9 +1,9 @@
-/**
- * title = "消息堆叠"
- * description = "当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出"
- */
+export const meta = {
+    title: "消息堆叠",
+    description: "当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useMessage } from "../../src/index.js";
 
 let count = 0;

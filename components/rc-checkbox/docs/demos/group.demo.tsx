@@ -1,7 +1,7 @@
-/**
- * title = "复选框组"
- * description = "使用 `CheckboxGroup` 管理一组复选框的状态"
- */
+export const meta = {
+    title: "复选框组",
+    description: "使用 `CheckboxGroup` 管理一组复选框的状态",
+};
 
 import { useState } from "react";
 import Checkbox, { CheckboxGroup } from "../../src/index.js";

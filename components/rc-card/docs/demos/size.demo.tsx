@@ -1,9 +1,9 @@
-/**
- * title = "三档尺寸"
- * description = "size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。"
- */
+export const meta = {
+    title: "三档尺寸",
+    description: "size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Card from '../../src/index.js';
 
 const rowStyle = css`

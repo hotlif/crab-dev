@@ -1,7 +1,7 @@
-/**
- * title = "表格与定义列表"
- * description = "展示表格与定义列表的排版效果"
- */
+export const meta = {
+    title: "表格与定义列表",
+    description: "展示表格与定义列表的排版效果",
+};
 
 import Prose from '../../src/index.js';
 
@@ -46,7 +46,7 @@ const TableDemo = () => {
                 <dt>Prose</dt>
                 <dd>Markdown 排版容器组件，提供完整的富文本排版样式。</dd>
 
-                <dt>Linaria</dt>
+                <dt>Crab CSS</dt>
                 <dd>零运行时 CSS-in-JS 方案，编译时提取静态 CSS。</dd>
 
                 <dt>Design Token</dt>

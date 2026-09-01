@@ -1,9 +1,9 @@
-/**
- * title = "延迟显示"
- * description = "秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。"
- */
+export const meta = {
+    title: "延迟显示",
+    description: "秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useState } from 'react';
 import Button from '@crab-dev/rc-button';
 import Spin from '../../src/index.js';

@@ -1,0 +1,27 @@
+[docs]
+source_dir = "docs"
+title = "Breadcrumbs 面包屑导航"
+description = "面包屑导航，用于展示当前页面在层级结构中的位置"
+locale = "zh-CN"
+
+[test]
+setup = ["../../test/wake-css.setup.ts"]
+environment = "dom"
+include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

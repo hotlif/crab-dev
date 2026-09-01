@@ -1,10 +1,10 @@
 
-/**
- * title = "复制单元格"
- * description = "选中单元格后按 Ctrl/⌘+C，触发 onCopy 回调并将选区数据写入剪贴板（TSV 格式，可直接粘贴到 Excel）。"
- */
+export const meta = {
+    title: "复制单元格",
+    description: "选中单元格后按 Ctrl/⌘+C，触发 onCopy 回调并将选区数据写入剪贴板（TSV 格式，可直接粘贴到 Excel）。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type Key, useState } from "react";
 
 import Table from "../../src/index.js";

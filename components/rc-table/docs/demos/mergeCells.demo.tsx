@@ -1,7 +1,7 @@
-/**
- * title = "合并单元格"
- * description = "按连续相同值自动合并单元格，展示更真实的业务台账数据"
- */
+export const meta = {
+    title: "合并单元格",
+    description: "按连续相同值自动合并单元格，展示更真实的业务台账数据",
+};
 
 import Table from "../../src/index.js";
 import type { ColumnType, Row } from "../../src/index.js";

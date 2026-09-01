@@ -1,10 +1,10 @@
 
-/**
- * title = "禁用状态"
- * description = "添加 `disabled` 属性即可让按钮处于禁用状态"
- */
+export const meta = {
+    title: "禁用状态",
+    description: "添加 `disabled` 属性即可让按钮处于禁用状态",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Button from "../../src/index.js";
 
 const SizeDemo = () => {

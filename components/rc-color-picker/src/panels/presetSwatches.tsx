@@ -1,5 +1,5 @@
 import RcMasonry from "@crab-dev/rc-masonry";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import type { FC } from "react";
 import token from "../token.js";
 import type { ColorPreset, OKLCHValue } from "../types.js";

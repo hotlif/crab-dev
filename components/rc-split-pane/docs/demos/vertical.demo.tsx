@@ -1,7 +1,7 @@
-/**
- * title = "上下分栏"
- * description = "direction=vertical 时拖动调整上方面板高度，适合主区 + 控制台的布局"
- */
+export const meta = {
+    title: "上下分栏",
+    description: "direction=vertical 时拖动调整上方面板高度，适合主区 + 控制台的布局",
+};
 
 import type { CSSProperties } from 'react';
 import SplitPane from '../../src/index.js';

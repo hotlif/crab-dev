@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "单系列柱状图：单系列不出现图例，悬停任意类目列即可读取数值，完整数据同时以隐藏数据表提供给辅助技术。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "单系列柱状图：单系列不出现图例，悬停任意类目列即可读取数值，完整数据同时以隐藏数据表提供给辅助技术。",
+};
 
 import BarChart from '../../src/index.js';
 

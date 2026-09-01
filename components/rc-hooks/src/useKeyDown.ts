@@ -1,7 +1,7 @@
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 
-export const useKeyDown = () => {
+export const useKeyDown = (): RefObject<KeyboardEvent | null>[] => {
     const keyboardEvent = useRef<KeyboardEvent>(null)
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {

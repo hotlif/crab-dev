@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "点击输入框打开可视化面板;也可直接手输表达式,回车提交(非法输入会以 error 边框提示并在失焦时回退)"
- */
+export const meta = {
+    title: "基础用法",
+    description: "点击输入框打开可视化面板;也可直接手输表达式,回车提交(非法输入会以 error 边框提示并在失焦时回退)",
+};
 
 import { useState } from 'react';
 import CronPicker, { describeCron, parseCron } from '../../src/index.js';

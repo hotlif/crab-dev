@@ -1,9 +1,9 @@
-/**
- * title = "验证状态"
- * description = "通过 `status` 属性设置 `error` 或 `warning` 验证状态。失焦时触发校验，边框颜色随状态改变，配合提示文字形成完整反馈闭环"
- */
+export const meta = {
+    title: "验证状态",
+    description: "通过 `status` 属性设置 `error` 或 `warning` 验证状态。失焦时触发校验，边框颜色随状态改变，配合提示文字形成完整反馈闭环",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import LineEdit from "../../src/index.js";
 

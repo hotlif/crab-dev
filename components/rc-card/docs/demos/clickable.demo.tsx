@@ -1,7 +1,7 @@
-/**
- * title = "整卡可点击"
- * description = "clickable 赋予按钮语义：浮起反馈、键盘激活与焦点环; extra 与 actions 的点击自动与整卡隔离。"
- */
+export const meta = {
+    title: "整卡可点击",
+    description: "clickable 赋予按钮语义：浮起反馈、键盘激活与焦点环; extra 与 actions 的点击自动与整卡隔离。",
+};
 
 import { useState } from 'react';
 import Button from '@crab-dev/rc-button';

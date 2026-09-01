@@ -1,9 +1,9 @@
-/**
- * title = "组合占位"
- * description = "搭配不同 `variant` 可以拼出卡片、列表项等复合占位形态。"
- */
+export const meta = {
+    title: "组合占位",
+    description: "搭配不同 `variant` 可以拼出卡片、列表项等复合占位形态。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 import Skeleton from "../../src/index.js";
 

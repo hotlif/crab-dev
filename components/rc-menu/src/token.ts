@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'vertical.item.inline-indent': '--menu-vertical-item-inline-indent',
     'vertical.item.title.width': '--menu-vertical-item-title-width',
     'vertical.item.title.height': '--menu-vertical-item-title-height',
@@ -77,9 +79,9 @@ export const vars = {
     'horizontal.group-item.header.padding-inline': '--menu-horizontal-group-item-header-padding-inline',
     'horizontal.group-item.icon.color': '--menu-horizontal-group-item-icon-color',
     'horizontal.group-item.icon.margin-right': '--menu-horizontal-group-item-icon-margin-right'
-};
+});
 
-const token = {
+const token = defineTokens({
     'vertical': {
         'item': {
             'inline-indent': `var(${vars['vertical.item.inline-indent']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
@@ -198,6 +200,6 @@ const token = {
             }
         }
     }
-};
+});
 
 export default token;

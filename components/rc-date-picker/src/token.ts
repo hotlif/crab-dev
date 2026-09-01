@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'selected.background.color': '--date-picker-selected-background-color',
     'selected.text.color': '--date-picker-selected-text-color',
     'cell.background.color-hover': '--date-picker-cell-background-color-hover',
@@ -25,9 +27,9 @@ export const vars = {
     'opacity.icon': '--date-picker-opacity-icon',
     'opacity.icon-hover': '--date-picker-opacity-icon-hover',
     'opacity.timezone': '--date-picker-opacity-timezone'
-};
+});
 
-const token = {
+const token = defineTokens({
     'selected': {
         'background': {
             'color': `var(${vars['selected.background.color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
@@ -90,6 +92,6 @@ const token = {
         'icon-hover': `var(${vars['opacity.icon-hover']}, var(--token-semantic-opacity-hover, var(--token-global-opacity-80, 0.8)))`,
         'timezone': `var(${vars['opacity.timezone']}, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7)))`
     }
-};
+});
 
 export default token;

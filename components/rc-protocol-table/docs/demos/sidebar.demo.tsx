@@ -1,10 +1,10 @@
-/**
- * title = "侧边栏（列 / 过滤器）"
- * description = "sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。"
- */
+export const meta = {
+    title: "侧边栏（列 / 过滤器）",
+    description: "sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。",
+};
 
 import { useState, useEffect } from "react";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

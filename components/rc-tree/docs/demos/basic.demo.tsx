@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "最基本的树形组件用法，展示节点的展开、收起和选择功能。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "最基本的树形组件用法，展示节点的展开、收起和选择功能。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";

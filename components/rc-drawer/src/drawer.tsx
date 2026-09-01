@@ -1,14 +1,6 @@
-import {
-    useEffect,
-    useRef,
-    useState,
-    type FC,
-    type HTMLAttributes,
-    type MouseEvent,
-    type ReactNode,
-    type SyntheticEvent,
-} from "react";
-import { css, cx } from "@linaria/core";
+import { useEffect, useRef, useState } from "react";
+import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
+import { css, cx } from "@crab-dev/css";
 import { AnimatePresence, motion } from "motion/react";
 
 import token from "./token.js";

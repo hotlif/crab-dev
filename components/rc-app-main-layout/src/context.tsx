@@ -1,14 +1,8 @@
-import {
-    createContext,
-    useContext,
-    useMemo,
-    useReducer,
-    type Dispatch,
-    type Key,
-    type ReactNode,
-} from "react";
+import { createContext, use, useMemo, useReducer } from "react";
+import type { Dispatch, Key, ReactNode } from "react";
 import type { TabItem } from "./types.js";
-import { initialTabsState, tabsReducer, type TabsAction, type TabsState } from "./reducer.js";
+import { initialTabsState, tabsReducer } from "./reducer.js";
+import type { TabsAction, TabsState } from "./reducer.js";
 
 export interface AppMainLayoutContextValue {
     state: TabsState
@@ -18,7 +12,7 @@ export interface AppMainLayoutContextValue {
 const AppMainLayoutContext = createContext<AppMainLayoutContextValue | null>(null);
 
 export function useAppMainLayoutContext(): AppMainLayoutContextValue {
-    const ctx = useContext(AppMainLayoutContext);
+    const ctx = use(AppMainLayoutContext);
     if (!ctx) {
         throw new Error("useAppMainLayoutContext must be used within <AppMainLayoutProvider>");
     }
@@ -62,8 +56,8 @@ export default function AppMainLayoutProvider({
     const value = useMemo(() => ({ state, dispatch }), [state]);
 
     return (
-        <AppMainLayoutContext.Provider value={value}>
+        <AppMainLayoutContext value={value}>
             {children}
-        </AppMainLayoutContext.Provider>
+        </AppMainLayoutContext>
     );
 }

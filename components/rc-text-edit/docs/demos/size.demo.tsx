@@ -1,9 +1,9 @@
-/**
- * title = "三种尺寸"
- * description = "`size` 控制内边距与字号排版（large / middle / small），可视高度仍由 `rows` 决定"
- */
+export const meta = {
+    title: "三种尺寸",
+    description: "`size` 控制内边距与字号排版（large / middle / small），可视高度仍由 `rows` 决定",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import TextEdit from "../../src/index.js";
 

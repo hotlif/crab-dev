@@ -269,7 +269,7 @@ export const getLoadReadyTreeNodeData = (parent: Node | null, loadReadyNodeData:
     return result;
 }
 
-export const getTreeNodeDepth = (node: Node) => {
+export const getTreeNodeDepth = (node: Node): number => {
     let parentNode: Node | null = node;
     let depth = 0;
     while(true) {
@@ -343,10 +343,10 @@ export const loadDataFunc = async ({
     parentNode: Node | null,
     loadData: TreeProps["loadData"],
     expandedKeys: TreeProps["expandedKeys"]
-}) => {
+}): Promise<Node[]> => {
     const nodes = await loadData?.(parentNode);
     if (nodes) {
-        const data = nodes.map((node, index) => ({...node, priority: (node.priority ?? index) + 1, parent: parentNode}));
+        const data: Node[] = nodes.map((node, index) => ({...node, priority: (node.priority ?? index) + 1, parent: parentNode}));
         for (let i = 0; i < nodes.length; i += 1) {
             const node = data[i];
             if (expandedKeys?.includes(node.id)) {

@@ -1,9 +1,9 @@
-/**
- * title = "加载骨架"
- * description = "loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。"
- */
+export const meta = {
+    title: "加载骨架",
+    description: "loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import { useState } from 'react';
 import Avatar from '@crab-dev/rc-avatar';
 import Button from '@crab-dev/rc-button';

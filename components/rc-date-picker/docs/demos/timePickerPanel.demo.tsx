@@ -1,8 +1,8 @@
 
-/**
- * title = "时间面板"
- * description = "一个基础的时间选择面板组件"
- */
+export const meta = {
+    title: "时间面板",
+    description: "一个基础的时间选择面板组件",
+};
 
 import { useState } from "react";
 import TimePickerPanel, { type TimePickerValue } from "../../src/panels/timePickerPanel.js";

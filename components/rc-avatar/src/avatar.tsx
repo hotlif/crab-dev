@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import { useEffect, useState } from 'react';
 import type { CSSProperties, FC, ReactNode, SyntheticEvent } from 'react';
 import token from './token.js';

@@ -1,11 +1,11 @@
 
-/**
- * title = "带操作区域"
- * description = "通过 `action` 插槽提供行动引导，将空状态从「终点」转变为「起点」，减少用户挫败感。"
- */
+export const meta = {
+    title: "带操作区域",
+    description: "通过 `action` 插槽提供行动引导，将空状态从「终点」转变为「起点」，减少用户挫败感。",
+};
 
 import Empty from "../../src/index.js";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 
 const buttonStyle = css`
     display: inline-flex;

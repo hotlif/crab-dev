@@ -1,76 +1,71 @@
 {
-  "name": "@crab-dev/rc-line-edit",
-  "websiteConfig": {
-    "title": "LineEdit 单行输入框",
-    "category": "data-entry"
-  },
-  "description": "单行文本编辑组件",
-  "version": "0.0.4",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hotlif/crab-dev.git",
-    "directory": "components/rc-line-edit"
-  },
-  "packageManager": "yarn@4.16.0",
-  "type": "module",
-  "scripts": {
-    "start": "yarn generate:token && lignify run-task app:dev",
-    "build:library": "yarn generate:token && packify build",
-    "generate:token": "packify generate:css-token",
-    "eslint": "eslint",
-    "test": "packify test",
-    "typecheck": "tsc --noEmit"
-  },
-  "files": [
-    "esm",
-    "cjs",
-    "css",
-    "declarations"
-  ],
-  "types": "declarations/index.d.ts",
-  "main": "cjs/index.cjs",
-  "module": "esm/index.mjs",
-  "exports": {
-    ".": {
-      "types": "./declarations/index.d.ts",
-      "import": "./esm/index.mjs",
-      "require": "./cjs/index.cjs"
+    "name": "@crab-dev/rc-line-edit",
+    "websiteConfig": {
+        "title": "LineEdit 单行输入框",
+        "category": "data-entry"
     },
-    "./css/index.css": "./css/index.css",
-    "./package.json": "./package.json"
-  },
-  "devDependencies": {
-    "@crab-dev/lignify": "workspace:^",
-    "@crab-dev/packify": "workspace:^",
-    "@crab-dev/rc-component-preview": "workspace:^",
-    "@crab-dev/rc-masonry": "workspace:^",
-    "@crab-dev/rc-menu": "workspace:^",
-    "@crab-dev/rc-token-global": "workspace:^",
-    "@crab-dev/rc-token-semantic": "workspace:^",
-    "@crab-dev/standards-eslint-preset": "workspace:^",
-    "@crab-dev/standards-jest-preset": "workspace:^",
-    "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@jest/globals": "30.4.1",
-    "@linaria/core": "^8.0.0",
-    "@mdx-js/react": "^3.1.1",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.2",
-    "@types/node": "^26.1.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^10.6.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.7.0",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "30.4.1",
-    "lucide-react": "^1.23.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-router": "^8.1.0",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.63.0"
-  },
-  "engines": {
-    "node": ">=22"
-  }
+    "description": "单行文本编辑组件",
+    "version": "0.0.4",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-line-edit"
+    },
+    "packageManager": "yarn@4.18.0",
+    "type": "module",
+    "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "tsc --noEmit"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "css",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./css/index.css": "./css/index.css",
+        "./package.json": "./package.json"
+    },
+    "devDependencies": {
+        "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/rc-masonry": "workspace:^",
+        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-token-global": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@crab-dev/wake": "0.1.23",
+        "@types/node": "^26.1.0",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^10.6.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.7.0",
+        "lucide-react": "^1.23.0",
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "react-router": "^8.1.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.63.0"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "dependencies": {
+        "@crab-dev/css": "0.1.23"
+    }
 }

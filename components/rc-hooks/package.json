@@ -1,64 +1,58 @@
 {
-  "name": "@crab-dev/rc-hooks",
-  "websiteConfig": {
-    "title": "Hooks",
-    "category": "primitive"
-  },
-  "description": "A common library of React Hooks for executing some common methods of Hooks",
-  "version": "0.0.3",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hotlif/crab-dev.git",
-    "directory": "components/rc-hooks"
-  },
-  "packageManager": "yarn@4.16.0",
-  "type": "module",
-  "scripts": {
-    "build:library": "packify build",
-    "eslint": "eslint",
-    "test": "packify test",
-    "typecheck": "tsc --noEmit"
-  },
-  "files": [
-    "esm",
-    "cjs",
-    "css",
-    "declarations"
-  ],
-  "types": "declarations/index.d.ts",
-  "main": "cjs/index.cjs",
-  "module": "esm/index.mjs",
-  "exports": {
-    ".": {
-      "types": "./declarations/index.d.ts",
-      "import": "./esm/index.mjs",
-      "require": "./cjs/index.cjs"
+    "name": "@crab-dev/rc-hooks",
+    "websiteConfig": {
+        "title": "Hooks",
+        "category": "primitive"
     },
-    "./package.json": "./package.json"
-  },
-  "devDependencies": {
-    "@crab-dev/packify": "workspace:^",
-    "@crab-dev/standards-eslint-preset": "workspace:^",
-    "@crab-dev/standards-jest-preset": "workspace:^",
-    "@crab-dev/standards-typescript-preset": "workspace:^",
-    "@jest/globals": "30.4.1",
-    "@linaria/core": "^8.0.0",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.2",
-    "@types/node": "^26.1.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^10.6.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.7.0",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "30.4.1",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.63.0"
-  },
-  "engines": {
-    "node": ">=22"
-  }
+    "description": "A common library of React Hooks for executing some common methods of Hooks",
+    "version": "0.0.3",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-hooks"
+    },
+    "packageManager": "yarn@4.18.0",
+    "type": "module",
+    "scripts": {
+        "build:library": "wake library build .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "tsc --noEmit",
+        "start": "wake docs dev . --mode components"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "css",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "devDependencies": {
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@crab-dev/wake": "0.1.23",
+        "@types/node": "^26.1.0",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^10.6.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.7.0",
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.63.0"
+    },
+    "engines": {
+        "node": ">=22"
+    }
 }

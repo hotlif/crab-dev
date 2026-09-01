@@ -1,4 +1,4 @@
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { containerStyle as scrollbarContainerStyle } from "./scrollbar.style";
 
 export const containerStyle = css`

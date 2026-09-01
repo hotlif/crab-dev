@@ -1,7 +1,7 @@
-/**
- * title = "横向条形与自适应宽度"
- * description = "orientation=\"horizontal\" 类目沿纵轴、条横向生长，长类目名更耐读；width=\"auto\" 经 rc-auto-sizer 跟随父容器宽度，拖动窗口观察布局与动画同步跟随。"
- */
+export const meta = {
+    title: "横向条形与自适应宽度",
+    description: "orientation=\\\"horizontal\\\" 类目沿纵轴、条横向生长，长类目名更耐读；width=\\\"auto\\\" 经 rc-auto-sizer 跟随父容器宽度，拖动窗口观察布局与动画同步跟随。",
+};
 
 import BarChart from '../../src/index.js';
 

@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'background.color': '--app-main-layout-background-color',
     'header.shadow': '--app-main-layout-header-shadow',
     'header.background.color': '--app-main-layout-header-background-color',
@@ -90,9 +92,9 @@ export const vars = {
     'tab.context-menu.item.icon.color': '--app-main-layout-tab-context-menu-item-icon-color',
     'tab.context-menu.separator.color': '--app-main-layout-tab-context-menu-separator-color',
     'tab.context-menu.separator.margin': '--app-main-layout-tab-context-menu-separator-margin'
-};
+});
 
-const token = {
+const token = defineTokens({
     'background': {
         'color': `var(${vars['background.color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`
     },
@@ -290,6 +292,6 @@ const token = {
             }
         }
     }
-};
+});
 
 export default token;

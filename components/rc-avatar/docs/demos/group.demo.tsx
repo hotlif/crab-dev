@@ -1,9 +1,9 @@
-/**
- * title = "头像组"
- * description = "使用 `AvatarGroup` 将多个头像水平叠放展示。`max` 限制显示数量，超出部分折叠为 `+N`；首个头像叠在最顶层，悬停会轻微抬起以便辨识。支持 `spacing` 调整重叠、`onExtraClick` 让 `+N` 可交互、`renderExtra` 自定义折叠内容。"
- */
+export const meta = {
+    title: "头像组",
+    description: "使用 `AvatarGroup` 将多个头像水平叠放展示。`max` 限制显示数量，超出部分折叠为 `+N`；首个头像叠在最顶层，悬停会轻微抬起以便辨识。支持 `spacing` 调整重叠、`onExtraClick` 让 `+N` 可交互、`renderExtra` 自定义折叠内容。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import Avatar, { AvatarGroup } from "../../src/index.js";
 

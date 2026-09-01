@@ -1,9 +1,9 @@
-/**
- * title = "语义标签"
- * description = "通过 `as` 属性指定根元素标签：`div`（默认）、`article`、`section`、`main`"
- */
+export const meta = {
+    title: "语义标签",
+    description: "通过 `as` 属性指定根元素标签：`div`（默认）、`article`、`section`、`main`",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Prose from '../../src/index.js';
 
 const wrapperStyle = css`

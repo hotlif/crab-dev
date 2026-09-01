@@ -1,10 +1,10 @@
 
-/**
- * title = "表单 + 日期选择器"
- * description = "在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。"
- */
+export const meta = {
+    title: "表单 + 日期选择器",
+    description: "在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState, type FC } from "react";
 
 import Button from "@crab-dev/rc-button";

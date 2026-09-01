@@ -1,7 +1,9 @@
-/**
- * title = "mount 协议 + Shadow DOM 沙箱"
- * description = "mount 协议适配跨框架 / 不同 React 版本的远程, 可开启 sandbox 做样式隔离：下方宿主与远程各有一个 .sandbox-demo-title 元素——远程标题被 styleSheets 染色, 宿主标题不受影响；主题令牌 CSS 变量仍穿透沙箱。"
- */
+export const meta = {
+    title: "mount 协议 + Shadow DOM 沙箱",
+    description:
+        "mount 协议适配跨框架 / 不同 React 版本的远程, 可开启 sandbox 做样式隔离：下方宿主与远程各有一个 .sandbox-demo-title 元素——远程标题被 styleSheets 染色, 宿主标题不受影响；主题令牌 CSS 变量仍穿透沙箱。",
+};
+
 import Realm from '../../src/index.js';
 import type { MountLifecycle, RemoteContainer } from '../../src/index.js';
 

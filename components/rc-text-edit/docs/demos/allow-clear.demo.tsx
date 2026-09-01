@@ -1,9 +1,9 @@
-/**
- * title = "一键清除"
- * description = "设置 `allowClear` 后，有内容时右上角出现清除按钮；开启后文本区常驻预留按钮空间，按钮出现或消失不会引起文本回流"
- */
+export const meta = {
+    title: "一键清除",
+    description: "设置 `allowClear` 后，有内容时右上角出现清除按钮；开启后文本区常驻预留按钮空间，按钮出现或消失不会引起文本回流",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import TextEdit from "../../src/index.js";
 

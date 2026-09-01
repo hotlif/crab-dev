@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 
 import BodyRow from "../bodyRow.js";
 import token from "../token.js";

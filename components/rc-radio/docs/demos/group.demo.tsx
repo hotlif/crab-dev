@@ -1,7 +1,7 @@
-/**
- * title = "单选框组"
- * description = "使用 `RadioGroup` 管理一组单选框的状态, 实现互斥选择"
- */
+export const meta = {
+    title: "单选框组",
+    description: "使用 `RadioGroup` 管理一组单选框的状态, 实现互斥选择",
+};
 
 import { useState } from "react";
 import Radio, { RadioGroup } from "../../src/index.js";

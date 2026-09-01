@@ -1,7 +1,7 @@
-/**
- * title = "药丸形态"
- * description = "type='pill' 提供紧凑的切换样式，常用于工具栏或筛选面板。"
- */
+export const meta = {
+    title: "药丸形态",
+    description: "type='pill' 提供紧凑的切换样式，常用于工具栏或筛选面板。",
+};
 
 import Tabs from '../../src/index.js';
 

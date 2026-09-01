@@ -1,7 +1,7 @@
-/**
- * title = "键盘导航"
- * description = "点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。"
- */
+export const meta = {
+    title: "键盘导航",
+    description: "点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";

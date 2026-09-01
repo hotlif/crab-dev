@@ -1,7 +1,7 @@
-/**
- * title = "日期面板"
- * description = "基础的日期选择面板组件示例。"
- */
+export const meta = {
+    title: "日期面板",
+    description: "基础的日期选择面板组件示例。",
+};
 
 import DatePickerPanel from "../../src/panels/datePickerPanel.js";
 

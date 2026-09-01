@@ -1,7 +1,7 @@
-/**
- * title = "嵌套打开"
- * description = "支持层层嵌套打开（示例共 10 层）；每层独立维护开关状态，关闭后不影响下层。"
- */
+export const meta = {
+    title: "嵌套打开",
+    description: "支持层层嵌套打开（示例共 10 层）；每层独立维护开关状态，关闭后不影响下层。",
+};
 
 import { useState } from "react";
 import Button from "@crab-dev/rc-button";

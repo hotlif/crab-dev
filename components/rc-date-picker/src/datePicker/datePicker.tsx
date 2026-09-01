@@ -2,10 +2,11 @@ import { useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import { formatTemporal } from "../util.js"
-import DatePickerInput, { DatePickerInputProps } from "./datePickerInput.js";
+import DatePickerInput from "./datePickerInput.js";
+import type { DatePickerInputProps } from "./datePickerInput.js";
 import DatePickerOverlay from "./datePickerOverlay.js";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 
 export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
 

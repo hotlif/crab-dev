@@ -49,12 +49,17 @@ function compareZIndexPaths(a: number[], b: number[]): number {
     return 0;
 }
 
+interface TopHit {
+    id: number;
+    entry: HitEntry;
+}
+
 /** 在 hitRegistry 中找 zIndexPath 最大（最顶层）的命中 entry，未命中返回 null。 */
 function findTopHit(
     registry: Map<number, HitEntry>,
     cx: number,
     cy: number,
-): { id: number; entry: HitEntry } | null {
+): TopHit | null {
     let topId: number | null = null;
     let topEntry: HitEntry | null = null;
     for (const [id, entry] of registry.entries()) {

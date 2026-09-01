@@ -1,9 +1,9 @@
-/**
- * title = "带文字"
- * description = "传入 children 即成为分节标题。textAlign 控制文字落点, plain 让文字退回正文字重。"
- */
+export const meta = {
+    title: "带文字",
+    description: "传入 children 即成为分节标题。textAlign 控制文字落点, plain 让文字退回正文字重。",
+};
 
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import Divider from '../../src/index.js';
 
 const stackStyle = css`

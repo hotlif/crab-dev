@@ -1,6 +1,6 @@
 import RcLineEdit from "@crab-dev/rc-line-edit";
 import RcSelect from "@crab-dev/rc-select";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type FC, useEffect, useRef, useState } from "react";
 import token from "../token.js";
 import type { ColorFormat, OKLCHValue } from "../types.js";

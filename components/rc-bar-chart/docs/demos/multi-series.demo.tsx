@@ -1,7 +1,7 @@
-/**
- * title = "多系列分组"
- * description = "多系列在类目内并列分组，颜色按分类色板顺序分配并跟随系列；提供 onBarClick 后柱子呈现 pointer 光标。"
- */
+export const meta = {
+    title: "多系列分组",
+    description: "多系列在类目内并列分组，颜色按分类色板顺序分配并跟随系列；提供 onBarClick 后柱子呈现 pointer 光标。",
+};
 
 import { useState } from 'react';
 import BarChart from '../../src/index.js';

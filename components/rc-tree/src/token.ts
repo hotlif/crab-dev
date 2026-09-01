@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'indent.size': '--tree-indent-size',
     'border.radius': '--tree-border-radius',
     'node.hover.background.color': '--tree-node-hover-background-color',
@@ -22,9 +24,9 @@ export const vars = {
     'node.disabled.color': '--tree-node-disabled-color',
     'node.disabled.background.color': '--tree-node-disabled-background-color',
     'context-menu.z-index': '--tree-context-menu-z-index'
-};
+});
 
-const token = {
+const token = defineTokens({
     'indent': {
         'size': `var(${vars['indent.size']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
     },
@@ -96,6 +98,6 @@ const token = {
     'context-menu': {
         'z-index': `var(${vars['context-menu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`
     }
-};
+});
 
 export default token;

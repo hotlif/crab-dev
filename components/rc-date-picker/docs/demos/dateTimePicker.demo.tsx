@@ -1,9 +1,9 @@
-/**
- * title = "带时间的日期选择器"
- * description = "三种不同规格的带时间的日期选择器示例"
- */
+export const meta = {
+    title: "带时间的日期选择器",
+    description: "三种不同规格的带时间的日期选择器示例",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useState } from "react";
 import DateTimePicker from "../../src/dateTimePicker/index.js";
 

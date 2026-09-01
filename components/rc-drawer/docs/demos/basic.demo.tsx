@@ -1,7 +1,7 @@
-/**
- * title = "基础用法"
- * description = "通过 `open` 控制显示；点击遮罩、关闭按钮或按 `Esc` 均可关闭。"
- */
+export const meta = {
+    title: "基础用法",
+    description: "通过 `open` 控制显示；点击遮罩、关闭按钮或按 `Esc` 均可关闭。",
+};
 
 import { useState } from "react";
 import Button from "@crab-dev/rc-button";

@@ -1,9 +1,9 @@
-/**
- * title = "自动刷新"
- * description = "autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。"
- */
+export const meta = {
+    title: "自动刷新",
+    description: "autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import ProtocolTable from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";

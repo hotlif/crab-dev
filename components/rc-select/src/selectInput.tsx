@@ -2,7 +2,7 @@ import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit from "@crab-dev/rc-line-edit";
 import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
 import Tag from "@crab-dev/rc-tag";
-import { css, cx } from "@linaria/core";
+import { css, cx } from "@crab-dev/css";
 import { useCallback, useEffect, useRef, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
 
 import token from "./token.js";

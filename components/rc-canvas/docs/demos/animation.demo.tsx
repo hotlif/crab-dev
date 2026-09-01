@@ -1,9 +1,9 @@
-/**
- * title = "属性驱动动画"
- * description = "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘，演示流畅动画。"
- */
+export const meta = {
+    title: "属性驱动动画",
+    description: "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘，演示流畅动画。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useEffect, useState } from "react";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 

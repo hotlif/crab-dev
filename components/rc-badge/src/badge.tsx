@@ -1,4 +1,4 @@
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import type { CSSProperties, FC, ReactNode } from 'react';
 import token from './token.js';
 import type { BadgePresetColor, BadgeProps } from './types.js';

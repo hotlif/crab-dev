@@ -1,0 +1,45 @@
++++
+title = "Alert 警告提示"
+description = "警告提示，用于页面中展示重要的提示信息"
+kind = "component"
+status = "experimental"
++++
+
+# Alert
+
+警告提示，用于页面中展示重要的提示信息。
+
+
+
+[打开 Alert 警告提示 工作台](/components/rc-alert/workbench/)
+
+## 何时使用
+
+- 当某个页面需要向用户显示警告的信息时。
+- 非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。
+
+
+我们提供了四种类型的警告提示。
+
+- 🔵 信息提示：用于通知性的信息展示。
+- 🟢 成功提示：表示操作已成功完成。
+- 🟡 警告提示：提醒用户注意潜在的问题。
+- 🔴 错误提示：告知用户操作失败或发生了错误。
+
+## 功能特性
+
+- 支持四种类型：`success`、`info`、`warning`、`error`。
+- 支持 `title` 标题与 `children` 描述内容组合展示。
+- 默认展示类型对应图标，可通过 `showIcon` 控制显隐。
+- 支持 `icon` 自定义图标。
+- 支持 `closable` 关闭交互与 `onClose` 回调。
+- 支持 `closeIcon` 自定义关闭按钮。
+- 支持 `action` 操作区域。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/types.ts" symbol="AlertProps" component="Alert" />

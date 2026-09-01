@@ -1,5 +1,5 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { type HTMLAttributes, type Ref } from "react";
 import { useControllableValue } from "@crab-dev/rc-hooks";
 import ColorPickerInput from "./colorPickerInput.js";

@@ -1,9 +1,9 @@
-/**
- * title = "图标标签"
- * description = "通过 `icon` 属性在标签前添加图标"
- */
+export const meta = {
+    title: "图标标签",
+    description: "通过 `icon` 属性在标签前添加图标",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import Tag from "../../src/index.js";
 
 const CheckIcon = () => (

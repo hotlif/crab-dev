@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--tag-transition',
     'size.large.height': '--tag-size-large-height',
     'size.large.padding': '--tag-size-large-padding',
@@ -37,9 +39,9 @@ export const vars = {
     'close.size': '--tag-close-size',
     'close.color': '--tag-close-color',
     'close.color-hover': '--tag-close-color-hover'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'size': {
         'large': {
@@ -116,6 +118,6 @@ const token = {
         'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
         'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
     }
-};
+});
 
 export default token;

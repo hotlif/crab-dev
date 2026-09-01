@@ -11,13 +11,13 @@ export default [
         ignores: [
             "**/.cache/",
             "**/.tmp/",
+            "**/.wake/",
             "**/cjs/",
             "**/coverage/",
             "**/css/",
             "**/declarations/",
             "**/esm/",
-            "eslint.config.js",
-            "jest.config.mjs"
+            "eslint.config.js"
         ]
     },
     {

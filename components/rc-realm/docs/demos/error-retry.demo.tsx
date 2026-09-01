@@ -1,7 +1,9 @@
-/**
- * title = "错误态与重试"
- * description = "远程模块首次加载必然失败（模拟弱网）：Realm 渲染 rc-alert 错误态并就近提供重试按钮；失败已自动使缓存失效, 点击重试即重走加载链路, 第二次成功。"
- */
+export const meta = {
+    title: "错误态与重试",
+    description:
+        "远程模块首次加载必然失败（模拟弱网）：Realm 渲染 rc-alert 错误态并就近提供重试按钮；失败已自动使缓存失效, 点击重试即重走加载链路, 第二次成功。",
+};
+
 import Realm from '../../src/index.js';
 import type { RemoteContainer } from '../../src/index.js';
 

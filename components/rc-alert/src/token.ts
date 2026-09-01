@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--alert-transition',
     'padding': '--alert-padding',
     'border.radius': '--alert-border-radius',
@@ -29,9 +31,9 @@ export const vars = {
     'info.color': '--alert-info-color',
     'info.background.color': '--alert-info-background-color',
     'info.border-color': '--alert-info-border-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'padding': `var(${vars['padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)))`,
     'border': {
@@ -92,6 +94,6 @@ const token = {
         },
         'border-color': `var(${vars['info.border-color']}, var(--token-semantic-color-feedback-info, var(--token-global-blue-500, oklch(0.623 0.214 261))))`
     }
-};
+});
 
 export default token;

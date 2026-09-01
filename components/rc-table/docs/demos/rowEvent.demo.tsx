@@ -1,7 +1,7 @@
-/**
- * title = "行点击与行双击"
- * description = "通过 `onRowClick` / `onRowDoubleClick` 监听行事件。传入后行即成为可点击目标（pointer 光标 + hover 反馈），也可用键盘触发：点选行内任一单元格后按 Enter。点在复选框、展开图标、操作按钮等控件上时不会触发行事件；单元格拖选之后的那次抬起也不算点击。"
- */
+export const meta = {
+    title: "行点击与行双击",
+    description: "通过 `onRowClick` / `onRowDoubleClick` 监听行事件。传入后行即成为可点击目标（pointer 光标 + hover 反馈），也可用键盘触发：点选行内任一单元格后按 Enter。点在复选框、展开图标、操作按钮等控件上时不会触发行事件；单元格拖选之后的那次抬起也不算点击。",
+};
 
 import { useState, type Key } from "react";
 import Table from "../../src/index.js";

@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'color.brand.primary': '--token-semantic-color-brand-primary',
     'color.brand.primary-hover': '--token-semantic-color-brand-primary-hover',
     'color.brand.primary-active': '--token-semantic-color-brand-primary-active',
@@ -74,9 +76,9 @@ export const vars = {
     'opacity.secondary': '--token-semantic-opacity-secondary',
     'opacity.tertiary': '--token-semantic-opacity-tertiary',
     'opacity.hover': '--token-semantic-opacity-hover'
-};
+});
 
-const token = {
+const token = defineTokens({
     'color': {
         'brand': {
             'primary': `var(${vars['color.brand.primary']}, var(--token-global-zinc-900, oklch(0.220 0.005 286)))`,
@@ -180,6 +182,6 @@ const token = {
         'tertiary': `var(${vars['opacity.tertiary']}, var(--token-global-opacity-70, 0.7))`,
         'hover': `var(${vars['opacity.hover']}, var(--token-global-opacity-80, 0.8))`
     }
-};
+});
 
 export default token;

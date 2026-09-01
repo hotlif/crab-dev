@@ -5,7 +5,7 @@
  * 仍返回英文（"Garden" / "Lead Solutions Orchestrator"），放进中文表格里很假；这里用
  * 人工整理的中文词库 + 固定 seed 的工厂，产出稳定、可复现、看着像真实业务的数据，供各 demo 复用。
  *
- * 注意：本文件不是 *.demo.tsx，lignify 不会把它当 demo 扫描。
+ * 注意：本文件不是 *.demo.tsx，Wake Docs 不会把它当 demo 扫描。
  */
 
 import { fakerZH_CN as faker } from "@faker-js/faker";

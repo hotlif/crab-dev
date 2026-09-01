@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'transition': '--switch-transition',
     'label.gap': '--switch-label-gap',
     'label.font.size': '--switch-label-font-size',
@@ -32,9 +34,9 @@ export const vars = {
     'disabled.track.background.color': '--switch-disabled-track-background-color',
     'disabled.checked.track.background.color': '--switch-disabled-checked-track-background-color',
     'disabled.handle.background.color': '--switch-disabled-handle-background-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'transition': `var(${vars['transition']}, background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1))`,
     'label': {
         'gap': `var(${vars['label.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
@@ -124,6 +126,6 @@ const token = {
             }
         }
     }
-};
+});
 
 export default token;

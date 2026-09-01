@@ -1,7 +1,7 @@
-/**
- * title = "拖拽排序"
- * description = "通过 `draggable` 属性启用拖拽功能，支持节点的拖拽排序和层级调整。"
- */
+export const meta = {
+    title: "拖拽排序",
+    description: "通过 `draggable` 属性启用拖拽功能，支持节点的拖拽排序和层级调整。",
+};
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData } from "../../src/index.js";

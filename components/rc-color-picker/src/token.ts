@@ -2,7 +2,9 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-export const vars = {
+import { defineTokens } from '@crab-dev/css';
+
+export const vars = defineTokens({
     'panel.padding.y': '--color-picker-panel-padding-y',
     'panel.padding.x': '--color-picker-panel-padding-x',
     'panel.gap': '--color-picker-panel-gap',
@@ -30,9 +32,9 @@ export const vars = {
     'swatch.border.color': '--color-picker-swatch-border-color',
     'swatch.border.radius': '--color-picker-swatch-border-radius',
     'swatch.group.label.color': '--color-picker-swatch-group-label-color'
-};
+});
 
-const token = {
+const token = defineTokens({
     'panel': {
         'padding': {
             'y': `var(${vars['panel.padding.y']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
@@ -108,6 +110,6 @@ const token = {
             }
         }
     }
-};
+});
 
 export default token;

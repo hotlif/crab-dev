@@ -1,10 +1,10 @@
 
-/**
- * title = "行状态（新增 / 修改 / 删除）"
- * description = "通过 row.state 标记行的变更状态，结合自定义渲染为不同状态的行呈现不同视觉样式。"
- */
+export const meta = {
+    title: "行状态（新增 / 修改 / 删除）",
+    description: "通过 row.state 标记行的变更状态，结合自定义渲染为不同状态的行呈现不同视觉样式。",
+};
 
-import { css } from "@linaria/core";
+import { css } from "@crab-dev/css";
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
