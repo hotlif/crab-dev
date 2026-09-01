@@ -1431,18 +1431,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-dropdown-container", [\
-      ["npm:0.0.3", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@crab-dev-rc-dropdown-container-npm-0.0.3-f32c453226-10c0.zip/node_modules/@crab-dev/rc-dropdown-container/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-button", "workspace:components/rc-button"],\
-          ["@crab-dev/rc-dropdown-container", "npm:0.0.3"],\
-          ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
-          ["@crab-dev/rc-token-semantic", "npm:0.0.2"],\
-          ["@floating-ui/react", "virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:0.27.19"],\
-          ["motion", "virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:12.42.2"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:components/rc-dropdown-container", {\
         "packageLocation": "./components/rc-dropdown-container/",\
         "packageDependencies": [\
@@ -1578,13 +1566,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-hooks", [\
-      ["npm:0.0.2", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@crab-dev-rc-hooks-npm-0.0.2-3bbf4d718e-10c0.zip/node_modules/@crab-dev/rc-hooks/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-hooks", "npm:0.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:components/rc-hooks", {\
         "packageLocation": "./components/rc-hooks/",\
         "packageDependencies": [\
@@ -2057,20 +2038,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-select", [\
-      ["npm:0.0.3", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@crab-dev-rc-select-npm-0.0.3-173258d8e2-10c0.zip/node_modules/@crab-dev/rc-select/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-checkbox", "workspace:components/rc-checkbox"],\
-          ["@crab-dev/rc-dropdown-container", "npm:0.0.3"],\
-          ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
-          ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
-          ["@crab-dev/rc-select", "npm:0.0.3"],\
-          ["@crab-dev/rc-spin", "npm:0.0.2"],\
-          ["@crab-dev/rc-tag", "workspace:components/rc-tag"],\
-          ["@crab-dev/rc-virtual", "workspace:components/rc-virtual"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:components/rc-select", {\
         "packageLocation": "./components/rc-select/",\
         "packageDependencies": [\
@@ -2164,14 +2131,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-spin", [\
-      ["npm:0.0.2", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@crab-dev-rc-spin-npm-0.0.2-659644a437-10c0.zip/node_modules/@crab-dev/rc-spin/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-hooks", "npm:0.0.2"],\
-          ["@crab-dev/rc-spin", "npm:0.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:components/rc-spin", {\
         "packageLocation": "./components/rc-spin/",\
         "packageDependencies": [\
@@ -2413,14 +2372,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-token-semantic", [\
-      ["npm:0.0.2", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@crab-dev-rc-token-semantic-npm-0.0.2-b814be70ba-10c0.zip/node_modules/@crab-dev/rc-token-semantic/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-token-global", "workspace:components/rc-token-global"],\
-          ["@crab-dev/rc-token-semantic", "npm:0.0.2"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:components/rc-token-semantic", {\
         "packageLocation": "./components/rc-token-semantic/",\
         "packageDependencies": [\
@@ -2448,16 +2399,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@crab-dev/rc-tooltip", [\
-      ["npm:0.0.2", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/@crab-dev-rc-tooltip-npm-0.0.2-5620659336-10c0.zip/node_modules/@crab-dev/rc-tooltip/",\
-        "packageDependencies": [\
-          ["@crab-dev/rc-hooks", "npm:0.0.2"],\
-          ["@crab-dev/rc-tooltip", "npm:0.0.2"],\
-          ["@floating-ui/react", "virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:0.27.19"],\
-          ["motion", "virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:12.42.2"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["workspace:components/rc-tooltip", {\
         "packageLocation": "./components/rc-tooltip/",\
         "packageDependencies": [\
@@ -2698,11 +2639,11 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-number-edit", "workspace:components/rc-number-edit"],\
           ["@crab-dev/rc-segmented", "workspace:components/rc-segmented"],\
-          ["@crab-dev/rc-select", "npm:0.0.3"],\
+          ["@crab-dev/rc-select", "workspace:components/rc-select"],\
           ["@crab-dev/rc-switch", "workspace:components/rc-switch"],\
           ["@crab-dev/rc-tag", "workspace:components/rc-tag"],\
           ["@crab-dev/rc-text-edit", "workspace:components/rc-text-edit"],\
-          ["@crab-dev/rc-tooltip", "npm:0.0.2"],\
+          ["@crab-dev/rc-tooltip", "workspace:components/rc-tooltip"],\
           ["@crab-dev/rc-tree", "virtual:98add339880182b9606b146b64d49c8f492bb235706dbee6d1a720a42bc5741b67aea2b27da191b59cffca0f2c3df9fe9c627f2b73ae3a5cc5f9486dfa9da150#workspace:components/rc-tree"],\
           ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.23"],\
           ["@crab-dev/wake-darwin-arm64", "npm:0.1.23"],\
@@ -2739,11 +2680,11 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-number-edit", "workspace:components/rc-number-edit"],\
           ["@crab-dev/rc-segmented", "workspace:components/rc-segmented"],\
-          ["@crab-dev/rc-select", "npm:0.0.3"],\
+          ["@crab-dev/rc-select", "workspace:components/rc-select"],\
           ["@crab-dev/rc-switch", "workspace:components/rc-switch"],\
           ["@crab-dev/rc-tag", "workspace:components/rc-tag"],\
           ["@crab-dev/rc-text-edit", "workspace:components/rc-text-edit"],\
-          ["@crab-dev/rc-tooltip", "npm:0.0.2"],\
+          ["@crab-dev/rc-tooltip", "workspace:components/rc-tooltip"],\
           ["@crab-dev/rc-tree", "virtual:e19aba8ce2f7d44679fc01d603660d220597c1c682355f439629ef5b8b1e793e556406cc1c94ee002e287350d77169c3ec9d87c741a48dbdb0e0bf1429ec23ba#workspace:components/rc-tree"],\
           ["@crab-dev/wake", "virtual:78cdbc56591cec98c3e7b1c706a0102395ea51f1008659cf56edcbc665db2bafa83abbf59d1225b099d8f31501176b0f7d127bc14d0b9c458f2cd0f5c2a3569d#npm:0.1.23"],\
           ["@crab-dev/wake-darwin-arm64", "npm:0.1.23"],\
@@ -2780,11 +2721,11 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-number-edit", "workspace:components/rc-number-edit"],\
           ["@crab-dev/rc-segmented", "workspace:components/rc-segmented"],\
-          ["@crab-dev/rc-select", "npm:0.0.3"],\
+          ["@crab-dev/rc-select", "workspace:components/rc-select"],\
           ["@crab-dev/rc-switch", "workspace:components/rc-switch"],\
           ["@crab-dev/rc-tag", "workspace:components/rc-tag"],\
           ["@crab-dev/rc-text-edit", "workspace:components/rc-text-edit"],\
-          ["@crab-dev/rc-tooltip", "npm:0.0.2"],\
+          ["@crab-dev/rc-tooltip", "workspace:components/rc-tooltip"],\
           ["@crab-dev/rc-tree", "virtual:98add339880182b9606b146b64d49c8f492bb235706dbee6d1a720a42bc5741b67aea2b27da191b59cffca0f2c3df9fe9c627f2b73ae3a5cc5f9486dfa9da150#workspace:components/rc-tree"],\
           ["@crab-dev/wake", "virtual:7e2f05b4eeb329fc930ede645085a46e1fe26e9c65e9d09ec0668344702f9c413e5f415a90ca558bf5ab42b6faaed6b6bb632d15e5f13e960a652d7df58c9133#npm:0.1.23"],\
           ["@crab-dev/wake-darwin-arm64", "npm:0.1.23"],\
@@ -2821,11 +2762,11 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-number-edit", "workspace:components/rc-number-edit"],\
           ["@crab-dev/rc-segmented", "workspace:components/rc-segmented"],\
-          ["@crab-dev/rc-select", "npm:0.0.3"],\
+          ["@crab-dev/rc-select", "workspace:components/rc-select"],\
           ["@crab-dev/rc-switch", "workspace:components/rc-switch"],\
           ["@crab-dev/rc-tag", "workspace:components/rc-tag"],\
           ["@crab-dev/rc-text-edit", "workspace:components/rc-text-edit"],\
-          ["@crab-dev/rc-tooltip", "npm:0.0.2"],\
+          ["@crab-dev/rc-tooltip", "workspace:components/rc-tooltip"],\
           ["@crab-dev/rc-tree", "virtual:e19aba8ce2f7d44679fc01d603660d220597c1c682355f439629ef5b8b1e793e556406cc1c94ee002e287350d77169c3ec9d87c741a48dbdb0e0bf1429ec23ba#workspace:components/rc-tree"],\
           ["@crab-dev/wake", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:0.1.23"],\
           ["@crab-dev/wake-darwin-arm64", "npm:0.1.23"],\
@@ -3273,26 +3214,6 @@ const RAW_RUNTIME_STATE =
           "react"\
         ],\
         "linkType": "HARD"\
-      }],\
-      ["virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:0.27.19", {\
-        "packageLocation": "./.yarn/unplugged/@floating-ui-react-virtual-563c52ff1d/node_modules/@floating-ui/react/",\
-        "packageDependencies": [\
-          ["@floating-ui/react", "virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:0.27.19"],\
-          ["@floating-ui/react-dom", "virtual:563c52ff1df6d9d48f096822f8d7c8023f3300b5ba38b167a5d74ce670834912c0d03a7997eed6c7fcae2fc082c65b5b68c8f3e3d0eaea81cde9943c6213154a#npm:2.1.8"],\
-          ["@floating-ui/utils", "npm:0.2.11"],\
-          ["@types/react", null],\
-          ["@types/react-dom", null],\
-          ["react", null],\
-          ["react-dom", null],\
-          ["tabbable", "npm:6.5.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["@floating-ui/react-dom", [\
@@ -3312,24 +3233,6 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.2.3"],\
           ["react", "npm:19.2.8"],\
           ["react-dom", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:19.2.8"]\
-        ],\
-        "packagePeers": [\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["virtual:563c52ff1df6d9d48f096822f8d7c8023f3300b5ba38b167a5d74ce670834912c0d03a7997eed6c7fcae2fc082c65b5b68c8f3e3d0eaea81cde9943c6213154a#npm:2.1.8", {\
-        "packageLocation": "./.yarn/unplugged/@floating-ui-react-dom-virtual-1263ce59b0/node_modules/@floating-ui/react-dom/",\
-        "packageDependencies": [\
-          ["@floating-ui/dom", "npm:1.7.6"],\
-          ["@floating-ui/react-dom", "virtual:563c52ff1df6d9d48f096822f8d7c8023f3300b5ba38b167a5d74ce670834912c0d03a7997eed6c7fcae2fc082c65b5b68c8f3e3d0eaea81cde9943c6213154a#npm:2.1.8"],\
-          ["@types/react", null],\
-          ["@types/react-dom", null],\
-          ["react", null],\
-          ["react-dom", null]\
         ],\
         "packagePeers": [\
           "@types/react-dom",\
@@ -5982,30 +5885,6 @@ const RAW_RUNTIME_STATE =
           "react"\
         ],\
         "linkType": "HARD"\
-      }],\
-      ["virtual:d2ba3c0056f95a29d0703ad6795535d7f5db22deb673cea083552662f9371c86a21fb8de0e4370f206988ca60a2a497480d81350b6f5b8333dbcad7fd7824a6b#npm:12.42.2", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-4a9a30e4db/5/AppData/Local/Yarn/Berry/cache/framer-motion-npm-12.42.2-7036162ca3-10c0.zip/node_modules/framer-motion/",\
-        "packageDependencies": [\
-          ["@emotion/is-prop-valid", null],\
-          ["@types/emotion__is-prop-valid", null],\
-          ["@types/react", null],\
-          ["@types/react-dom", null],\
-          ["framer-motion", "virtual:d2ba3c0056f95a29d0703ad6795535d7f5db22deb673cea083552662f9371c86a21fb8de0e4370f206988ca60a2a497480d81350b6f5b8333dbcad7fd7824a6b#npm:12.42.2"],\
-          ["motion-dom", "npm:12.42.2"],\
-          ["motion-utils", "npm:12.39.0"],\
-          ["react", null],\
-          ["react-dom", null],\
-          ["tslib", "npm:2.8.1"]\
-        ],\
-        "packagePeers": [\
-          "@emotion/is-prop-valid",\
-          "@types/emotion__is-prop-valid",\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["fs-extra", [\
@@ -7765,29 +7644,6 @@ const RAW_RUNTIME_STATE =
           ["motion", "virtual:d6010cef35fd2c04181e3038c201b4f361f3920afc7febc23885a6ea3ba72820d760d24406b36181981b89af7ca9aa8070f6b70cddaa7b573d5967a149693c63#npm:12.42.2"],\
           ["react", "npm:19.2.8"],\
           ["react-dom", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:19.2.8"],\
-          ["tslib", "npm:2.8.1"]\
-        ],\
-        "packagePeers": [\
-          "@emotion/is-prop-valid",\
-          "@types/emotion__is-prop-valid",\
-          "@types/react-dom",\
-          "@types/react",\
-          "react-dom",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:12.42.2", {\
-        "packageLocation": "./.yarn/__virtual__/motion-virtual-d2ba3c0056/5/AppData/Local/Yarn/Berry/cache/motion-npm-12.42.2-5af0e9e933-10c0.zip/node_modules/motion/",\
-        "packageDependencies": [\
-          ["@emotion/is-prop-valid", null],\
-          ["@types/emotion__is-prop-valid", null],\
-          ["@types/react", null],\
-          ["@types/react-dom", null],\
-          ["framer-motion", "virtual:d2ba3c0056f95a29d0703ad6795535d7f5db22deb673cea083552662f9371c86a21fb8de0e4370f206988ca60a2a497480d81350b6f5b8333dbcad7fd7824a6b#npm:12.42.2"],\
-          ["motion", "virtual:f32c45322636d81d35f620bc46d12a0a6f182094156b2ec7f8edd2bba0c6ded0d097518063249a0097938705dd75ffbbc8ac147f9110538017a1c1af5d36171a#npm:12.42.2"],\
-          ["react", null],\
-          ["react-dom", null],\
           ["tslib", "npm:2.8.1"]\
         ],\
         "packagePeers": [\

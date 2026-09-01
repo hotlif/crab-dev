@@ -778,7 +778,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-checkbox@npm:^0.0.3, @crab-dev/rc-checkbox@workspace:^, @crab-dev/rc-checkbox@workspace:components/rc-checkbox":
+"@crab-dev/rc-checkbox@workspace:^, @crab-dev/rc-checkbox@workspace:components/rc-checkbox":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-checkbox@workspace:components/rc-checkbox"
   dependencies:
@@ -1032,19 +1032,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-dropdown-container@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@crab-dev/rc-dropdown-container@npm:0.0.3"
-  dependencies:
-    "@crab-dev/rc-button": "npm:^0.0.2"
-    "@crab-dev/rc-line-edit": "npm:^0.0.4"
-    "@crab-dev/rc-token-semantic": "npm:^0.0.2"
-    "@floating-ui/react": "npm:^0.27.19"
-    motion: "npm:^12.42.2"
-  checksum: 10c0/2e850b51176da9317e72a677a7cd64a23c948c301eb9c8a8246edca35a3af8f87219cd08c7b7b78f9ca5d29014269bc90fb53a3b47053c1621a66fe6f384afc4
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-dropdown-container@workspace:^, @crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container"
@@ -1172,14 +1159,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-hooks@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-hooks@npm:0.0.2"
-  checksum: 10c0/a01ddc1fb884fde05849a63b857bbe7a4868fcd2766f5bc653462846cd8afc28be98798de18f77881e5dc4109e047b2e8ea5f227924f16e46849ce11edb9bf65
-  languageName: node
-  linkType: hard
-
-"@crab-dev/rc-hooks@npm:^0.0.3, @crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
+"@crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-hooks@workspace:components/rc-hooks"
   dependencies:
@@ -1564,21 +1544,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-select@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@crab-dev/rc-select@npm:0.0.3"
-  dependencies:
-    "@crab-dev/rc-checkbox": "npm:^0.0.3"
-    "@crab-dev/rc-dropdown-container": "npm:^0.0.3"
-    "@crab-dev/rc-hooks": "npm:^0.0.3"
-    "@crab-dev/rc-line-edit": "npm:^0.0.4"
-    "@crab-dev/rc-spin": "npm:^0.0.2"
-    "@crab-dev/rc-tag": "npm:^0.0.2"
-    "@crab-dev/rc-virtual": "npm:^0.1.2"
-  checksum: 10c0/5e233e7657020aaa0b4ce49833174a8418d288f57b4a4e956c7e87b0a810440db1f0f07eab016e6acedf7728b03f08acd4fb6144aa05b266fe97ae9f19104fd3
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-select@workspace:^, @crab-dev/rc-select@workspace:components/rc-select":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-select@workspace:components/rc-select"
@@ -1665,15 +1630,6 @@ __metadata:
     typescript-eslint: "npm:^8.63.0"
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-spin@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-spin@npm:0.0.2"
-  dependencies:
-    "@crab-dev/rc-hooks": "npm:^0.0.2"
-  checksum: 10c0/728613c9cbd6ee9f98c2748c21b1649980659408eee8ffd32a7612d954e4f1cf085438a8dfa6774897a1bb389ae85c9d03c26c989bd4314eff85206311eabc9f
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-spin@workspace:^, @crab-dev/rc-spin@workspace:components/rc-spin":
   version: 0.0.0-use.local
@@ -1876,7 +1832,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-token-global@npm:^0.0.2, @crab-dev/rc-token-global@workspace:^, @crab-dev/rc-token-global@workspace:components/rc-token-global":
+"@crab-dev/rc-token-global@workspace:^, @crab-dev/rc-token-global@workspace:components/rc-token-global":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-token-global@workspace:components/rc-token-global"
   dependencies:
@@ -1899,15 +1855,6 @@ __metadata:
     typescript-eslint: "npm:^8.63.0"
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-token-semantic@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-token-semantic@npm:0.0.2"
-  dependencies:
-    "@crab-dev/rc-token-global": "npm:^0.0.2"
-  checksum: 10c0/45afb3a211b9319114be300ca0b9dca2a852a50e52af67b60c3f338cf40912c3b16aba94be94b7b88108d755a2e2b571dfbf7bb0611ea32cffc8366f80bccaa3
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-token-semantic@workspace:^, @crab-dev/rc-token-semantic@workspace:components/rc-token-semantic":
   version: 0.0.0-use.local
@@ -1933,17 +1880,6 @@ __metadata:
     typescript-eslint: "npm:^8.63.0"
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-tooltip@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-tooltip@npm:0.0.2"
-  dependencies:
-    "@crab-dev/rc-hooks": "npm:^0.0.2"
-    "@floating-ui/react": "npm:^0.27.19"
-    motion: "npm:^12.42.2"
-  checksum: 10c0/e7ace5b5eb4cb4c091f2f46f9048ce74fc8a9d2dcdd2cbf31062681cb9382a5728d0e4275f33a30be546004f5348d721c48d12ace8acc23e0c87305be3b2a0c0
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-tooltip@workspace:^, @crab-dev/rc-tooltip@workspace:components/rc-tooltip":
   version: 0.0.0-use.local
@@ -2010,7 +1946,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-virtual@npm:^0.1.2, @crab-dev/rc-virtual@workspace:^, @crab-dev/rc-virtual@workspace:components/rc-virtual":
+"@crab-dev/rc-virtual@workspace:^, @crab-dev/rc-virtual@workspace:components/rc-virtual":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-virtual@workspace:components/rc-virtual"
   dependencies:

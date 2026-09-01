@@ -312,6 +312,8 @@
         }
     },
     "resolutions": {
+        "@crab-dev/rc-select@npm:^0.0.3": "workspace:components/rc-select",
+        "@crab-dev/rc-tooltip@npm:^0.0.2": "workspace:components/rc-tooltip",
         "vfile@npm:^6.0.0": "patch:vfile@npm%3A6.0.3#~/.yarn/patches/vfile-npm-6.0.3-a16e09914c.patch"
     }
 }
