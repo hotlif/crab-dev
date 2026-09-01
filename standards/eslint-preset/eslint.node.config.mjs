@@ -10,10 +10,14 @@ export default [
         ignores: [
             "**/.cache/",
             "**/.tmp/",
+            "**/.wake/",
+            "**/.wake-library-stage-*/",
             "**/cjs/",
+            "**/components-dist/",
             "**/coverage/",
             "**/css/",
             "**/declarations/",
+            "**/dist/",
             "**/esm/",
             "eslint.config.js"
         ]
