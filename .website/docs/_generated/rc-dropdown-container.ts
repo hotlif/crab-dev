@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -18,34 +17,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "DropdownContainer",
-    "symbol": "DropdownContainerProps",
-    "props": [
-        {
-            "name": "floatingContainerProps",
-            "required": false,
-            "description": "浮动面板的属性信息",
-            "typeText": "HTMLAttributes\u003cHTMLDivElement>",
-            "defaultValue": "{}",
-            "deprecated": false
-        },
-        {
-            "name": "overlay",
-            "required": true,
-            "description": "下拉组件内容",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "overlayClassName",
-            "required": false,
-            "description": "浮层弹出面板的自定义类名",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

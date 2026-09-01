@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -62,98 +61,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Skeleton",
-    "symbol": "SkeletonProps",
-    "props": [
-        {
-            "name": "active",
-            "required": false,
-            "description": "是否启用动画。关闭后骨架以静态背景展示。",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "animation",
-            "required": false,
-            "description": "动画形态",
-            "typeText": "SkeletonAnimation",
-            "defaultValue": "\"pulse\"",
-            "deprecated": false
-        },
-        {
-            "name": "children",
-            "required": false,
-            "description": "加载完成后要渲染的真实内容",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "height",
-            "required": false,
-            "description": "显式高度。数字按像素处理；字符串原样下发。",
-            "typeText": "number | string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "loading",
-            "required": false,
-            "description": "是否处于加载态。为 `false` 时渲染 `children`。",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "round",
-            "required": false,
-            "description": "是否强制圆角为 pill（常用于按钮 / 胶囊占位）",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "rows",
-            "required": false,
-            "description": "`text` 变体的行数；最后一行自动变短以模拟段落排版。",
-            "typeText": "number",
-            "defaultValue": "1",
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "尺寸阶梯（仅作用于 `text` 变体）",
-            "typeText": "SkeletonSize",
-            "defaultValue": "\"medium\"",
-            "deprecated": false
-        },
-        {
-            "name": "style",
-            "required": false,
-            "description": "透传到容器根节点的内联样式（不推荐在组件层使用；仅在变量桥接时使用）",
-            "typeText": "CSSProperties",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "variant",
-            "required": false,
-            "description": "骨架形状",
-            "typeText": "SkeletonVariant",
-            "defaultValue": "\"text\"",
-            "deprecated": false
-        },
-        {
-            "name": "width",
-            "required": false,
-            "description": "显式宽度。数字按像素处理；字符串原样下发。",
-            "typeText": "number | string",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

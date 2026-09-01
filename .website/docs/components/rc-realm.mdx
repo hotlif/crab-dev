@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-realm.js";
+import { demos } from "../_generated/rc-realm.js";
 
 # Realm 沙箱容器
 
@@ -19,6 +18,19 @@ import { api, demos } from "../_generated/rc-realm.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — component 协议加载远程 React 组件：远程与宿主共享同一 React 实例, remoteProps 实时透传, 与本地组件表现无异。此例通过预注册容器演示（globalThis[scope] 已存在时跳过 script 注入, 零网络）。
+
+##### 错误态与重试 — 远程模块首次加载必然失败（模拟弱网）：Realm 渲染 rc-alert 错误态并就近提供重试按钮；失败已自动使缓存失效, 点击重试即重走加载链路, 第二次成功。
+
+##### mount 协议 + Shadow DOM 沙箱 — mount 协议适配跨框架 / 不同 React 版本的远程, 可开启 sandbox 做样式隔离：下方宿主与远程各有一个 .sandbox-demo-title 元素——远程标题被 styleSheets 染色, 宿主标题不受影响；主题令牌 CSS 变量仍穿透沙箱。
+
+##### 真实 script 注入链路 — 从 URL 加载 remoteEntry.js（本包 public/remote/ 下的手写 var 格式容器）：script 注入 → init 收到含宿主 React 的 share scope → get('./Widget') → 渲染。远程组件用 init 时注入的宿主 React 实例创建元素, 端到端验证共享机制。
+
+</div>
 <ComponentDemos demos={demos} />
 
 - 宿主**是否** webpack MF 环境均可工作：优先复用宿主的 `default` share scope, 否则自建
@@ -107,4 +119,4 @@ clearRemoteCache(entry, scope);
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-realm.ts" symbol="RealmPropsSearchIndex" component="Realm" />

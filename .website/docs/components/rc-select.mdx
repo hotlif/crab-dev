@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-select.js";
+import { demos } from "../_generated/rc-select.js";
 
 # Select
 
@@ -17,6 +16,37 @@ import { api, demos } from "../_generated/rc-select.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+#### 基础与状态
+
+##### 基础用法 — 单选模式下的基础选择
+
+##### 尺寸 — 提供 large、middle、small 三种尺寸
+
+##### 校验状态 — 设置 status 以展示 error 或 warning 状态
+
+##### 禁用 — 设置 disabled 禁用整个选择器，或在选项中设置 disabled 禁用单个选项
+
+##### 加载中 — 设置 loading 展示加载状态
+
+##### 可清除 — 设置 allowClear 允许一键清空已选值
+
+#### 数据与搜索
+
+##### 分组选项 — 使用 （ label, options ） 结构对选项进行分组
+
+##### 可搜索 — 设置 searchable 支持关键字过滤
+
+#### 多选能力
+
+##### 多选模式 — 设置 multiple 启用多选
+
+##### 标签数量限制 — 多选模式下设置 maxTagCount 限制展示的标签数量
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -32,8 +62,17 @@ import { api, demos } from "../_generated/rc-select.js";
 - 支持受控与非受控用法。
 - 支持禁用状态与禁用选项。
 
+## 无障碍
+
+- Select 不内置业务标签；每个实例都应有可见标签，并通过 `aria-label` 提供一致的可访问名称。
+- 使用方向键移动选项、Enter 选择、Escape 关闭、Backspace 删除多选标签，确保业务包装层不会拦截这些按键。
+- `status="error"` 只表达错误状态；错误原因仍需在控件附近以文字显示，不能只改变边框颜色。
+- 自定义 `optionRender` 或 `tagRender` 时保留可读文本，纯装饰图标应设置 `aria-hidden="true"`。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-select.ts" symbol="SelectPropsSearchIndex" component="Select" />

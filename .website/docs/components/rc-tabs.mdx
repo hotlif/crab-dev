@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-tabs.js";
+import { demos } from "../_generated/rc-tabs.js";
 
 # Tabs
 
@@ -17,6 +16,21 @@ import { api, demos } from "../_generated/rc-tabs.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 通过 items 配置基础标签页，默认使用 line 形态。
+
+##### 卡片形态 — type='card' 提供更清晰的容器边界，适用于表单或配置区。
+
+##### 可关闭标签 — 开启 closable 并监听 onTabClose 管理标签页的增删。
+
+##### 药丸形态 — type='pill' 提供紧凑的切换样式，常用于工具栏或筛选面板。
+
+##### 带图标与额外内容 — 通过 icon 为标签添加视觉标识，tabBarExtraContent 在右侧注入操作。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -39,4 +53,4 @@ import { api, demos } from "../_generated/rc-tabs.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-tabs.ts" symbol="TabsPropsSearchIndex" component="Tabs" />

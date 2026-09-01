@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -40,90 +39,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Tooltip",
-    "symbol": "TooltipProps",
-    "props": [
-        {
-            "name": "arrow",
-            "required": false,
-            "description": "是否显示箭头",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "children",
-            "required": true,
-            "description": "触发元素，必须是单个可接受 ref 的 React 元素",
-            "typeText": "ReactElement",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "className",
-            "required": false,
-            "description": "浮层的自定义类名",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "defaultOpen",
-            "required": false,
-            "description": "非受控模式的默认显隐状态",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "mouseEnterDelay",
-            "required": false,
-            "description": "鼠标移入后延迟显示的毫秒数",
-            "typeText": "number",
-            "defaultValue": "100",
-            "deprecated": false
-        },
-        {
-            "name": "mouseLeaveDelay",
-            "required": false,
-            "description": "鼠标移出后延迟隐藏的毫秒数",
-            "typeText": "number",
-            "defaultValue": "100",
-            "deprecated": false
-        },
-        {
-            "name": "onOpenChange",
-            "required": false,
-            "description": "显隐状态变化时的回调",
-            "typeText": "(open: boolean) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "open",
-            "required": false,
-            "description": "受控模式下的显隐状态",
-            "typeText": "boolean",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "placement",
-            "required": false,
-            "description": "气泡相对于触发元素的位置",
-            "typeText": "Placement",
-            "defaultValue": "'top'",
-            "deprecated": false
-        },
-        {
-            "name": "title",
-            "required": true,
-            "description": "提示文字内容",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

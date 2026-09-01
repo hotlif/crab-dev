@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -84,90 +83,3 @@ export const demos = [
         "group": "时间选择"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "DatePicker",
-    "symbol": "DatePickerProps",
-    "props": [
-        {
-            "name": "instance",
-            "required": false,
-            "description": "获取实例对象",
-            "typeText": "RefObject\u003cDatePickerPanelInstance | null>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "locale",
-            "required": false,
-            "description": "国际化",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onSelect",
-            "required": false,
-            "description": "选择的时间信息",
-            "typeText": "(values: Temporal.ZonedDateTime[]) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onValueChange",
-            "required": false,
-            "description": "改变日期的时候触发的事件",
-            "typeText": "DatePickerInputProps[\"onValueChange\"]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "range",
-            "required": false,
-            "description": "限制日期范围",
-            "typeText": "{ start?: Temporal.ZonedDateTime; end?: Temporal.ZonedDateTime; }, /** * 时区 */ timeZone?: string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "renderDisplayString",
-            "required": false,
-            "description": "自定义显示的日期字符串",
-            "typeText": "(value: Temporal.ZonedDateTime | null) => string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "selectValues",
-            "required": false,
-            "description": "选中的时间",
-            "typeText": "Temporal.ZonedDateTime[]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "大小",
-            "typeText": "LineEditProps[\"size\"] /** * 限制范围信息 */ range?: DatePickerPanelProps[\"range\"] /** * 时区 */ timeZone?: string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "value",
-            "required": true,
-            "description": "日期值",
-            "typeText": "Temporal.ZonedDateTime | null",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "weekStartDay",
-            "required": false,
-            "description": "一周的起始天",
-            "typeText": "1 | 2 | 3 | 4 | 5 | 6 | 7",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

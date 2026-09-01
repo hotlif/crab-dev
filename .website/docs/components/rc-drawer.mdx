@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-drawer.js";
+import { demos } from "../_generated/rc-drawer.js";
 
 # Drawer
 
@@ -17,6 +16,19 @@ import { api, demos } from "../_generated/rc-drawer.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 通过 `open` 控制显示；点击遮罩、关闭按钮或按 `Esc` 均可关闭。
+
+##### 嵌套打开 — 支持层层嵌套打开（示例共 10 层）；每层独立维护开关状态，关闭后不影响下层。
+
+##### 四个方向 — 通过 `placement` 控制抽屉从哪个方向滑出。
+
+##### 底部操作区 — 通过 `footer` 传入操作按钮，适合承载表单提交场景。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -29,4 +41,4 @@ import { api, demos } from "../_generated/rc-drawer.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-drawer.ts" symbol="DrawerPropsSearchIndex" component="Drawer" />

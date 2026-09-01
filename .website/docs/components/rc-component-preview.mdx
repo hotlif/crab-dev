@@ -8,23 +8,31 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-component-preview.js";
+import { demos } from "../_generated/rc-component-preview.js";
 
 # ComponentPreview 组件预览
 
-按钮用于开始一个即时操作。
+用于在文档中展示组件效果、示例源码和补充说明。
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### Shortcuts — 卡片顶部展示组件，下方代码区默认收起，仅露出前几行并通过 View Code 按钮展开。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
 
-用于预览代码的组件， 一般在文档库里面
+- 在组件文档中并排展示实时预览与源码。
+- 为示例补充标题、说明和可复制代码。
+- 需要按需加载语法高亮，避免阻塞页面首屏时。
 
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-component-preview.ts" symbol="PreviewPropsSearchIndex" component="Preview" />

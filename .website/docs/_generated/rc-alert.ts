@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -40,90 +39,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Alert",
-    "symbol": "AlertProps",
-    "props": [
-        {
-            "name": "action",
-            "required": false,
-            "description": "操作区域，位于右侧关闭按钮左侧",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "aria-label",
-            "required": false,
-            "description": "",
-            "typeText": "string } | { children?: never; 'aria-label': string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "children",
-            "required": true,
-            "description": "",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "closable",
-            "required": false,
-            "description": "是否可关闭",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "closeIcon",
-            "required": false,
-            "description": "自定义关闭按钮，设置为 false 可隐藏",
-            "typeText": "ReactNode | false",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "icon",
-            "required": false,
-            "description": "自定义图标",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onClose",
-            "required": false,
-            "description": "关闭回调",
-            "typeText": "(e: ReactMouseEvent\u003cHTMLButtonElement>) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "showIcon",
-            "required": false,
-            "description": "是否显示图标",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "title",
-            "required": false,
-            "description": "标题",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "type",
-            "required": false,
-            "description": "警告类型",
-            "typeText": "AlertType",
-            "defaultValue": "'info'",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-card.js";
+import { demos } from "../_generated/rc-card.js";
 
 # Card
 
@@ -17,6 +16,29 @@ import { api, demos } from "../_generated/rc-card.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+#### 基础与布局
+
+##### 基础用法 — title 与 extra 组成标题区, 裸内容自动落入内容区。
+
+##### 自由拼装 — 传入 Card.Cover / Header / Body / Footer 结构子组件时切换为自由模式, 完全掌控区块次序。
+
+##### 封面与悬浮浮起 — cover 出血铺满顶部; hoverable 悬浮时卡片浮起、封面同步微缩放。
+
+##### 三档尺寸 — size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。
+
+##### 三种变体 — elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。
+
+#### 交互与状态
+
+##### 整卡可点击 — clickable 赋予按钮语义：浮起反馈、键盘激活与焦点环; extra 与 actions 的点击自动与整卡隔离。
+
+##### 加载骨架 — loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -55,4 +77,4 @@ import { api, demos } from "../_generated/rc-card.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-card.ts" symbol="CardPropsSearchIndex" component="Card" />

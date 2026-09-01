@@ -8,18 +8,34 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-bar-chart.js";
+import { demos } from "../_generated/rc-bar-chart.js";
 
 # BarChart
 
-基于 [rc-canvas](/rc-canvas)（WebGL 2）绘制的柱状图组件。以声明式 Props 描述数据，
+基于 [rc-canvas](/components/rc-canvas)（WebGL 2）绘制的柱状图组件。以声明式 Props 描述数据，
 GPU 渲染柱体、网格与轴文本（几何全部对齐整数像素；轴文本采用 ECharts 同款
 按设备像素比光栅化的 bitmap 文本，1:1 物理像素对齐，小字号与 DOM 文本同等清晰）；
 图例、悬浮提示与数据表为 HTML 层，接入设计令牌。
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 数值标签与参考线 — showValues 在柱端标注数值（空间不足以容纳的自动省略；堆叠模式标注类目合计）；referenceLines 绘制均值 / 目标虚线，参考值自动纳入值轴刻度域。
+
+##### 基础用法 — 单系列柱状图：单系列不出现图例，悬停任意类目列即可读取数值，完整数据同时以隐藏数据表提供给辅助技术。
+
+##### 横向条形与自适应宽度 — orientation=\"horizontal\" 类目沿纵轴、条横向生长，长类目名更耐读；width=\"auto\" 经 rc-auto-sizer 跟随父容器宽度，拖动窗口观察布局与动画同步跟随。
+
+##### 入场与数据更新动画 — 首次挂载时柱体从零值基线逐类目生长；切换数据集时高度从旧值平滑补间到新值。WebGL 逐帧插值，数百根柱同时过渡仍流畅；系统偏好「减弱动态」时自动降级为直接呈现。
+
+##### 多系列分组 — 多系列在类目内并列分组，颜色按分类色板顺序分配并跟随系列；提供 onBarClick 后柱子呈现 pointer 光标。
+
+##### 堆叠模式 — stacked 开启堆叠：正值向上、负值向下分别累计，段与段之间保持 2px 表面留白，仅最外侧段带数据端圆角。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -63,4 +79,4 @@ GPU 渲染柱体、网格与轴文本（几何全部对齐整数像素；轴文�
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-bar-chart.ts" symbol="BarChartPropsSearchIndex" component="BarChart" />

@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-empty.js";
+import { demos } from "../_generated/rc-empty.js";
 
 # Empty 空状态
 
@@ -17,6 +16,19 @@ import { api, demos } from "../_generated/rc-empty.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 最基础的空状态，使用 `preset` 选择预置场景
+
+##### 自定义内容 — 通过 `image`、`title`、`description` 完全自定义内容。传入 `null` 可隐藏对应区域。
+
+##### 预置场景 — 三种内置场景：`default`（无数据）、`search`（搜索无结果）、`no-permission`（无权限）。每种预置均内置图示与文案，基于设计心理学为不同情绪场景匹配合适的视觉传达。
+
+##### 带操作区域 — 通过 `action` 插槽提供行动引导，将空状态从「终点」转变为「起点」，减少用户挫败感。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 设计理念
@@ -39,4 +51,4 @@ import { api, demos } from "../_generated/rc-empty.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-empty.ts" symbol="EmptyPropsSearchIndex" component="Empty" />

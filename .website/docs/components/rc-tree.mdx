@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-tree.js";
+import { demos } from "../_generated/rc-tree.js";
 
 # Tree
 
@@ -17,12 +16,52 @@ import { api, demos } from "../_generated/rc-tree.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+#### 基础展示
+
+##### 基础用法 — 最基本的树形组件用法，展示节点的展开、收起和选择功能。
+
+##### 全部展开 / 折叠 — 通过 `TreeDataUtil` 提供的 `expandAll` 与 `collapseAll` 方法，一键展开或折叠所有 FOLDER 节点。
+
+##### 显示连接线 — 通过 `showLine` 属性展示树节点之间的连接线。
+
+##### 图标插槽与禁用节点 — 通过 `icon` 字段为节点设置前置图标；`disabled` 字段禁用节点，禁用节点不可点击、不可拖拽、样式置灰。
+
+#### 选择与筛选
+
+##### 复选框 checkable — 通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheck` 实现受控。
+
+##### 搜索过滤 filterTreeNode — 通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。
+
+#### 编辑与交互
+
+##### 拖拽排序 — 通过 `draggable` 属性启用拖拽功能，支持节点的拖拽排序和层级调整。
+
+##### 拖拽限制 allowDrop — 通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。
+
+##### Inline 节点编辑 — 双击节点标题进入 inline 编辑模式。默认使用内置 ` input `；通过 `renderEditInput` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。`onCommit(value)` 提交，`onCancel()` 取消。
+
+##### 键盘导航 — 点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
 
 例如文件夹、组织架构、生物分类、国家地区等。使用树控件可以完整展现这些层级关系，并提供展开、收起、选择等交互功能。
 
+
+## 无障碍
+
+- 为树所在区域提供可见标题，搜索框必须使用 `<label>` 建立可访问名称。
+- 保留方向键浏览、Enter 选择和清晰的 `:focus-visible` 焦点环；不要在业务层拦截这些按键。
+- 节点标题中的图标只作装饰时应从无障碍树隐藏，加载、禁用、展开和选中状态不能只靠颜色表示。
+- 拖拽和右键菜单必须提供键盘可操作的等价入口，并在操作后说明结果。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
 
 
 
@@ -59,4 +98,4 @@ import { api, demos } from "../_generated/rc-tree.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-tree.ts" symbol="TreePropsSearchIndex" component="Tree" />

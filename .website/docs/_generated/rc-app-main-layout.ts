@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -18,18 +17,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Layout",
-    "symbol": "LayoutProps",
-    "props": [
-        {
-            "name": "sidebarLogo",
-            "required": false,
-            "description": "侧边栏顶部 Logo",
-            "typeText": "ReactNode /** 侧边栏顶部标题 */ sidebarTitle?: ReactNode /** 点击 Logo */ onLogoClick?: () => void /** 侧边栏菜单加载函数 */ sidebarLoadMenus?: SidebarProps[\"loadMenus\"] /** 点击侧边栏菜单项 */ onSidebarMenuItemClick?: SidebarProps[\"onMenuItemClick\"] /** 远程加载顶部用户实体 */ headerLoadUser?: () => Promise\u003cHeaderUserEntity> /** 点击铃铛 */ onBell?: () => void /** 是否有未读通知 */ hasNotification?: boolean /** 点击用户区域 */ onUserClick?: () => void /** 点击切换角色 */ onSwitchRole?: () => void /** 点击退出登录 */ onLogout?: () => void /** 是否显示全屏按钮，默认 true */ fullscreenable?: boolean /** 全屏状态变化回调 */ onFullscreenChange?: (fullscreen: boolean) => void",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

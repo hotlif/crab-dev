@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -73,82 +72,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Segmented",
-    "symbol": "SegmentedProps",
-    "props": [
-        {
-            "name": "block",
-            "required": false,
-            "description": "是否撑满父容器并等宽分布各选项",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "defaultValue",
-            "required": false,
-            "description": "默认选中值（非受控）, 缺省时取第一个可用选项",
-            "typeText": "SegmentedValue",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "disabled",
-            "required": false,
-            "description": "是否禁用整个控制器",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "name",
-            "required": false,
-            "description": "底层 radio 分组的 name, 缺省时自动生成, 用于隔离页面上多个控制器的键盘导航",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onChange",
-            "required": false,
-            "description": "选中值变化时的回调",
-            "typeText": "(value: SegmentedValue) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "options",
-            "required": true,
-            "description": "选项数据源, 支持对象或原始值简写",
-            "typeText": "SegmentedRawOption[]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "ref",
-            "required": false,
-            "description": "根节点 ref",
-            "typeText": "Ref\u003cHTMLDivElement>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "尺寸, 默认为 middle",
-            "typeText": "SegmentedSize",
-            "defaultValue": "'middle'",
-            "deprecated": false
-        },
-        {
-            "name": "value",
-            "required": false,
-            "description": "当前选中值（受控）",
-            "typeText": "SegmentedValue",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

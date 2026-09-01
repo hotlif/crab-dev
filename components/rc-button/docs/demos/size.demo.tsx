@@ -1,14 +1,14 @@
-
 export const meta = {
     title: "按钮尺寸",
     description: "通过 `size` 属性设置按钮尺寸",
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import { useId, useState } from "react";
 import Button from "../../src/index.js";
 
 const SizeDemo = () => {
+    const sizeSelectId = useId();
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")
 
     return (
@@ -25,10 +25,11 @@ const SizeDemo = () => {
                     margin-bottom: 2rem;
                 `}
             >
-                <label>
+                <label htmlFor={sizeSelectId}>
                     请选择大小
                 </label>
                 <select
+                    id={sizeSelectId}
                     value={size}
                     onChange={e => setSize(e.target.value as "large" | "middle" | "small")}
                 >

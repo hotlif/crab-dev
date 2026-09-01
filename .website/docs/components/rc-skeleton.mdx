@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-skeleton.js";
+import { demos } from "../_generated/rc-skeleton.js";
 
 # Skeleton
 
@@ -17,6 +16,21 @@ import { api, demos } from "../_generated/rc-skeleton.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 动画形态 — `pulse` 透明度脉动，性能开销最小；`wave` 高亮带从左向右扫过。
+
+##### 基础用法 — 默认渲染一行文本占位；通过 `rows` 控制行数，末行自动收窄。
+
+##### 组合占位 — 搭配不同 `variant` 可以拼出卡片、列表项等复合占位形态。
+
+##### 加载完成 — `loading=false` 时直接渲染 `children`，便于包裹真实内容。
+
+##### 形状变体 — 通过 `variant` 选择占位形状：`text` / `rect` / `circle` / `button` / `avatar` / `image`。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -40,4 +54,4 @@ import { api, demos } from "../_generated/rc-skeleton.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-skeleton.ts" symbol="SkeletonPropsSearchIndex" component="Skeleton" />

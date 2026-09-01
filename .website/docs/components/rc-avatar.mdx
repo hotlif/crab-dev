@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-avatar.js";
+import { demos } from "../_generated/rc-avatar.js";
 
 # Avatar
 
@@ -17,6 +16,21 @@ import { api, demos } from "../_generated/rc-avatar.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 通过文本缩写与语义变体展示头像。
+
+##### 头像组 — 使用 `AvatarGroup` 将多个头像水平叠放展示。`max` 限制显示数量，超出部分折叠为 `+N`；首个头像叠在最顶层，悬停会轻微抬起以便辨识。支持 `spacing` 调整重叠、`onExtraClick` 让 `+N` 可交互、`renderExtra` 自定义折叠内容。
+
+##### 图标占位 — 可通过 `icon` 自定义头像占位图标。
+
+##### 图片与失败回退 — 当图片加载失败时，自动回退到文本内容。
+
+##### 形态与尺寸 — 支持 `circle` / `square` 形态与三档尺寸。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -38,4 +52,4 @@ import { api, demos } from "../_generated/rc-avatar.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-avatar.ts" symbol="AvatarPropsSearchIndex" component="Avatar" />

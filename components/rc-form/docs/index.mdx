@@ -16,6 +16,15 @@ status = "experimental"
 - 用于创建一个实体或收集信息。
 - 需要对输入的数据类型进行校验时。
 
+## 无障碍
+
+- 每个字段都使用可见 `<label>`；关联 ID 由 `useId` 生成，不使用占位符代替标签。
+- 帮助文本和错误信息通过 `aria-describedby` 关联，错误控件同时设置 `aria-invalid`。
+- 必填、格式和范围限制应在提交前说明；错误摘要需要能把焦点带回对应字段。
+- 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

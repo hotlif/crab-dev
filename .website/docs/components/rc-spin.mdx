@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-spin.js";
+import { demos } from "../_generated/rc-spin.js";
 
 # Spin
 
@@ -17,6 +16,23 @@ import { api, demos } from "../_generated/rc-spin.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 默认即处于加载中, 渲染一枚匀速旋转的指示环, 并以 role=status 向读屏播报。
+
+##### 延迟显示 — 秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。
+
+##### 自定义指示器 — indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。
+
+##### 尺寸 — 通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。
+
+##### 提示文案 — tip 说明「正在做什么」, 比一枚沉默的转圈更能安抚等待。它同时成为读屏播报的内容。
+
+##### 包裹内容 — 传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -75,4 +91,4 @@ const style = css`
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-spin.ts" symbol="SpinPropsSearchIndex" component="Spin" />

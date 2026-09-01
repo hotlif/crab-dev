@@ -3,8 +3,44 @@ export const meta = {
     description: "通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。",
 };
 
-import { type Key, useState, useEffect } from "react";
+import { css } from "@crab-dev/css";
+import semanticToken from "@crab-dev/rc-token-semantic";
+import { type Key, useEffect, useId, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
+
+const demoStyle = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${semanticToken.space["stack-gap"]};
+`;
+
+const searchGroupStyle = css`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: ${semanticToken.space["inline-gap"]};
+`;
+
+const searchInputStyle = css`
+    width: min(300px, 100%);
+    padding: ${semanticToken.space["control-padding-y"]} ${semanticToken.space["control-padding-x"]};
+    border: 1px solid ${semanticToken.color.border.default};
+    border-radius: ${semanticToken.radius.md};
+    background-color: ${semanticToken.color.background.surface};
+    color: ${semanticToken.color.text.primary};
+    font-size: ${semanticToken.font.size.body};
+    transition: border-color ${semanticToken.motion.interaction};
+
+    &:hover {
+        border-color: ${semanticToken.color.border.hover};
+    }
+
+    &:focus-visible {
+        border-color: ${semanticToken.color.border.focus};
+        outline: 2px solid ${semanticToken.color.border.focus};
+        outline-offset: 2px;
+    }
+`;
 
 const buildNodes = (): Node[] => {
     const fe: Node = { id: "fe", type: NodeType.FOLDER, title: "前端", parent: null, loadState: LoadStateType.LOADING_COMPLETED };
@@ -38,6 +74,7 @@ const buildNodes = (): Node[] => {
 const ALL_NODES = buildNodes();
 
 const FilterDemo = () => {
+    const searchInputId = useId();
     const [keyword, setKeyword] = useState("");
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
     const [selectKeys, setSelectKeys] = useState<Key[]>([]);
@@ -71,21 +108,18 @@ const FilterDemo = () => {
     }, [keyword]);
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            <input
-                type="search"
-                placeholder="搜索节点..."
-                value={keyword}
-                onChange={e => setKeyword(e.target.value)}
-                style={{
-                    padding: "0.375rem 0.625rem",
-                    borderRadius: "6px",
-                    border: "1px solid #d9d9d9",
-                    fontSize: "0.875rem",
-                    width: "300px",
-                    outline: "none",
-                }}
-            />
+        <div className={demoStyle}>
+            <div className={searchGroupStyle}>
+                <label htmlFor={searchInputId}>搜索树节点</label>
+                <input
+                    id={searchInputId}
+                    className={searchInputStyle}
+                    type="search"
+                    placeholder="输入节点名称"
+                    value={keyword}
+                    onChange={e => setKeyword(e.target.value)}
+                />
+            </div>
             <RcTree
                 height={300}
                 width={400}

@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-split-pane.js";
+import { demos } from "../_generated/rc-split-pane.js";
 
 # SplitPane
 
@@ -17,6 +16,19 @@ import { api, demos } from "../_generated/rc-split-pane.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 左右分栏，拖动分隔条调整左侧宽度；双击分隔条复位到 defaultSize
+
+##### 记住尺寸与键盘调整 — persistKey 记住用户调整（刷新页面后仍生效）；Tab 聚焦分隔条后可用方向键步进、Home/End 到边界、Enter 复位
+
+##### 定宽侧在后 — primary=second 时右侧面板定宽（编辑器右挂侧栏的典型布局），拖拽方向自动反转
+
+##### 上下分栏 — direction=vertical 时拖动调整上方面板高度，适合主区 + 控制台的布局
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -32,4 +44,4 @@ import { api, demos } from "../_generated/rc-split-pane.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-split-pane.ts" symbol="SplitPanePropsSearchIndex" component="SplitPane" />

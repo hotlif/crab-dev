@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -84,90 +83,3 @@ export const demos = [
         "group": "交互与自定义"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Tag",
-    "symbol": "TagProps",
-    "props": [
-        {
-            "name": "aria-label",
-            "required": false,
-            "description": "",
-            "typeText": "string } | { children?: never; 'aria-label': string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "bordered",
-            "required": false,
-            "description": "是否显示边框",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "children",
-            "required": true,
-            "description": "",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "closable",
-            "required": false,
-            "description": "是否可关闭",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "closeAriaLabel",
-            "required": false,
-            "description": "关闭按钮的无障碍标签，默认为 \"close\"；同一容器内出现多个可关闭标签时应传入可区分的描述",
-            "typeText": "string",
-            "defaultValue": "'close'",
-            "deprecated": false
-        },
-        {
-            "name": "closeIcon",
-            "required": false,
-            "description": "自定义关闭图标，设置为 false 可隐藏默认关闭图标",
-            "typeText": "ReactNode | false",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "color",
-            "required": false,
-            "description": "标签颜色预设",
-            "typeText": "PresetTagColor | string",
-            "defaultValue": "'default'",
-            "deprecated": false
-        },
-        {
-            "name": "icon",
-            "required": false,
-            "description": "标签图标",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onClose",
-            "required": false,
-            "description": "关闭回调",
-            "typeText": "(e: ReactMouseEvent\u003cHTMLSpanElement>) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "标签尺寸",
-            "typeText": "'large' | 'middle' | 'small'",
-            "defaultValue": "'middle'",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

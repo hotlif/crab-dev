@@ -1,6 +1,6 @@
 +++
 title = "TokenSemantic 语义令牌"
-description = "一个全局的 token 管理组件"
+description = "将全局视觉基元映射为界面语义的第二层设计令牌"
 kind = "component"
 status = "experimental"
 +++
@@ -10,10 +10,18 @@ status = "experimental"
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-token-semantic.js";
 
-# Token Global
+# Token Semantic
 
-全局设计令牌（Layer 1），定义 Crab Design System 的基础视觉原语。
+语义设计令牌（Layer 2）把 Token Global 的基础视觉原语映射为品牌色、表面色、文字色、
+间距、焦点环与动效等界面语义。组件令牌应优先引用这一层，以便主题切换时只覆盖语义变量。
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 按钮尺寸 — 通过 `size` 属性设置按钮尺寸
+
+</div>
 <ComponentDemos demos={demos} />

@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -73,74 +72,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Spin",
-    "symbol": "SpinProps",
-    "props": [
-        {
-            "name": "children",
-            "required": false,
-            "description": "被加载状态笼罩的内容。传入后进入包裹模式：内容变淡并被 inert 阻断交互, 指示器浮于其上；不传则作为独立指示器渲染",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "delay",
-            "required": false,
-            "description": "延迟显示的毫秒数, 默认 0（立即显示）。 设为 300–500 可避免\"请求秒回却闪一下 spinner\"的噪声反馈：在该时长内完成的操作 全程无指示器；超出则说明操作确实耗时, 此时才给出进行中反馈。",
-            "typeText": "number",
-            "defaultValue": "0",
-            "deprecated": false
-        },
-        {
-            "name": "indicator",
-            "required": false,
-            "description": "自定义指示器, 替换默认的旋转环",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "label",
-            "required": false,
-            "description": "无障碍名, 默认 \"加载中\"。仅在未提供 tip 时生效",
-            "typeText": "string",
-            "defaultValue": "'加载中'",
-            "deprecated": false
-        },
-        {
-            "name": "ref",
-            "required": false,
-            "description": "根节点 ref",
-            "typeText": "Ref\u003cHTMLDivElement>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "尺寸, 默认 middle",
-            "typeText": "SpinSize",
-            "defaultValue": "'middle'",
-            "deprecated": false
-        },
-        {
-            "name": "spinning",
-            "required": false,
-            "description": "是否处于加载中, 默认 true",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "tip",
-            "required": false,
-            "description": "指示器下方的提示文案。给出后即作为无障碍名, 读屏播报该文案而非默认的 label",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

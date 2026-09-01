@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-auto-sizer.js";
+import { demos } from "../_generated/rc-auto-sizer.js";
 
 # AutoSizer 自适应容器
 
@@ -17,6 +16,15 @@ import { api, demos } from "../_generated/rc-auto-sizer.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — AutoSizer 自动感知容器尺寸，将 width 和 height 传入子渲染函数。拖拽窗口边缘或改变面板大小时，子内容会随之更新。
+
+##### 配合虚拟滚动 — AutoSizer 将容器尺寸透传给 Virtual 组件的 viewportWidth / viewportHeight，实现响应式虚拟滚动。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -31,4 +39,4 @@ import { api, demos } from "../_generated/rc-auto-sizer.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-auto-sizer.ts" symbol="AutoSizerPropsSearchIndex" component="AutoSizer" />

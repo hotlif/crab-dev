@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -29,58 +28,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "AutoSizer",
-    "symbol": "AutoSizerProps",
-    "props": [
-        {
-            "name": "children",
-            "required": true,
-            "description": "渲染函数，接收当前容器的 { width, height }，返回需要渲染的内容。 用法与 react-virtualized-auto-sizer 保持一致。",
-            "typeText": "(size: Size) => ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "defaultHeight",
-            "required": false,
-            "description": "SSR 或首帧渲染时的默认高度，ResizeObserver 触发后自动替换。",
-            "typeText": "number",
-            "defaultValue": "0",
-            "deprecated": false
-        },
-        {
-            "name": "defaultWidth",
-            "required": false,
-            "description": "SSR 或首帧渲染时的默认宽度，ResizeObserver 触发后自动替换。",
-            "typeText": "number",
-            "defaultValue": "0",
-            "deprecated": false
-        },
-        {
-            "name": "disableHeight",
-            "required": false,
-            "description": "禁用高度自动测量，始终返回 defaultHeight 给子渲染函数。 适合只需感知宽度的场景（如水平虚拟列表）。",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "disableWidth",
-            "required": false,
-            "description": "禁用宽度自动测量，始终返回 defaultWidth 给子渲染函数。 适合只需感知高度的场景。",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "onResize",
-            "required": false,
-            "description": "容器尺寸变化时的回调，与子渲染函数收到的 size 一致。",
-            "typeText": "(size: Size) => void",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

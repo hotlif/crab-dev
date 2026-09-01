@@ -8,30 +8,31 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-dropdown-container.js";
+import { demos } from "../_generated/rc-dropdown-container.js";
 
-# Notification 通知提醒框
+# DropdownContainer 下拉容器
 
-全局展示通知提醒信息。
+用于将下拉内容定位到触发元素附近，并统一管理浮层的打开、关闭与边界位置。
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基本 — 一个基础的消息通知组件
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
 
-在系统四个角显示通知提醒信息。经常用于以下情况：
-
-
-我们提供了五种按钮。
-
-- 较为复杂的通知内容。
-- 带有交互的通知，给出用户下一步的行动点。
-- 系统主动推送
+- Select、Menu 等需要相对触发器定位的下拉浮层。
+- 下拉内容需要在窗口边缘自动调整位置，避免超出可视区域。
+- 需要统一处理点击外部区域关闭、滚动和窗口尺寸变化的场景。
 
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-dropdown-container.ts" symbol="DropdownContainerPropsSearchIndex" component="DropdownContainer" />

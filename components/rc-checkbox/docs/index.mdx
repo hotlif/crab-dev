@@ -18,6 +18,15 @@ status = "experimental"
 - 和 Switch 的区别是, 切换 Switch 会直接触发状态改变, 而 Checkbox 一般用于状态标记, 需要和提交操作配合
 
 
+## 无障碍
+
+- 将可见选项文字作为 `children` 传入；没有可见文字时必须提供准确的 `aria-label`。
+- 一组选项应放在带 `<legend>` 的 `<fieldset>` 中，让组名和每个选项的名称都可被感知。
+- `indeterminate` 表示“部分选中”，业务仍需维护明确的 `checked` 状态，不能把它作为第三种提交值。
+- 错误说明使用 `aria-describedby` 与控件关联，禁用原因应在附近以文字说明。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

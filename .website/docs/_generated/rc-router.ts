@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -18,34 +17,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Router",
-    "symbol": "RouterProps",
-    "props": [
-        {
-            "name": "basename",
-            "required": false,
-            "description": "",
-            "typeText": "string",
-            "defaultValue": "'/'",
-            "deprecated": false
-        },
-        {
-            "name": "routes",
-            "required": true,
-            "description": "",
-            "typeText": "readonly RouteObject[]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "window",
-            "required": false,
-            "description": "",
-            "typeText": "Window",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

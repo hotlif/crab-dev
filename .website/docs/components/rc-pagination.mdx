@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-pagination.js";
+import { demos } from "../_generated/rc-pagination.js";
 
 # Pagination
 
@@ -17,6 +16,31 @@ Pagination 提供标准的页码导航能力，支持受控 / 非受控、快速
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+#### 基础与外观
+
+##### 基本用法 — 默认为非受控模式，提供 total 即可正常使用
+
+##### 紧凑尺寸 — size=\"small\" 用于表格内联、抽屉底部等高密度场景
+
+##### 禁用状态 — disabled 会整体锁定分页器，所有按钮与输入框不可交互
+
+#### 页码控制
+
+##### 受控模式 — 通过 current 与 onChange 完全托管页码状态
+
+##### 大量数据 — 页数超过 7 时自动折叠为首尾 + 中部区间 + 省略号跳转
+
+##### 快速跳转 — 开启 showQuickJumper 后，用户可直接输入目标页码并回车跳转
+
+##### 显示总量 — showTotal 支持布尔值或自定义渲染函数，展示当前区间与总数
+
+##### 每页条数选择 — 传入 showSizeChanger 以显示每页条数下拉；切换时会保持当前首条可见。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -35,4 +59,4 @@ Pagination 提供标准的页码导航能力，支持受控 / 非受控、快速
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-pagination.ts" symbol="PaginationPropsSearchIndex" component="Pagination" />

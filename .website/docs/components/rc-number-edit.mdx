@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-number-edit.js";
+import { demos } from "../_generated/rc-number-edit.js";
 
 # NumberEdit
 
@@ -17,6 +16,21 @@ import { api, demos } from "../_generated/rc-number-edit.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 受控数字输入：右侧步进按钮、键盘 ↑↓ 步进、长按连续加速
+
+##### 千分位与自定义格式化 — thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）
+
+##### 范围、步长与精度 — min/max 失焦钳制、到边界步进按钮禁用；step 步长、precision 小数精度；Shift+↑↓ 或 PageUp/Down 走大步长
+
+##### 科学计数法自适应 — 默认十进制；数值大到不好显示时失焦自动切上标科学计数法，聚焦又展开为可编辑 e 记法。试试输入 1e21 或 0.0000000000000001
+
+##### 尺寸与状态 — large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -31,4 +45,4 @@ import { api, demos } from "../_generated/rc-number-edit.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-number-edit.ts" symbol="NumberEditPropsSearchIndex" component="NumberEdit" />

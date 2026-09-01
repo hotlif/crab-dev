@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-dialog.js";
+import { demos } from "../_generated/rc-dialog.js";
 
 # Dialog
 
@@ -17,14 +16,32 @@ import { api, demos } from "../_generated/rc-dialog.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基本 — 一个基础的对话框
+
+##### 表单 + 日期选择器 — 在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
 
 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 Dialog 在当前页面正中打开一个浮层，承载相应的操作。
 
+## 无障碍
+
+- 优先传入简洁的 `title`，组件会用它标记对话框；无标题时必须提供 `aria-label`。
+- 正文包含关键说明或错误时，使用 `aria-describedby` 指向对应元素，不要把必要信息只放在按钮 tooltip 中。
+- 保留 Escape 和取消按钮两条关闭路径；破坏性确认应使用明确的动作名称，例如“删除项目”，而不是“确定”。
+- 打开前保存触发器，关闭后将焦点还给它；不要在对话框外继续保留可操作的业务入口。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-dialog.ts" symbol="DialogPropsSearchIndex" component="Dialog" />

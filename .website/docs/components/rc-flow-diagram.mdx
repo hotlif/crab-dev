@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-flow-diagram.js";
+import { demos } from "../_generated/rc-flow-diagram.js";
 
 # FlowDiagram
 
@@ -19,6 +18,17 @@ import { api, demos } from "../_generated/rc-flow-diagram.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### FlowEdge 流动动效 — flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。
+
+##### FlowEdge 样式 — FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。
+
+##### ELK 自动图布局 — FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -43,4 +53,4 @@ import { api, demos } from "../_generated/rc-flow-diagram.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-flow-diagram.ts" symbol="FlowDiagramPropsSearchIndex" component="FlowDiagram" />

@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-segmented.js";
+import { demos } from "../_generated/rc-segmented.js";
 
 # Segmented
 
@@ -17,6 +16,23 @@ import { api, demos } from "../_generated/rc-segmented.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 通过 options 传入选项, 默认选中第一个可用项。
+
+##### 撑满容器 — 设置 `block` 让控制器铺满父容器, 各选项等宽分布。
+
+##### 受控模式 — 传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。
+
+##### 禁用状态 — 整体 `disabled` 或对单个选项设 `disabled`, 键盘方向键会自动跳过禁用项。
+
+##### 尺寸 — 通过 `size` 设置 `large`、`middle`、`small` 三档尺寸。
+
+##### 带图标 — 选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -31,4 +47,4 @@ import { api, demos } from "../_generated/rc-segmented.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-segmented.ts" symbol="SegmentedPropsSearchIndex" component="Segmented" />

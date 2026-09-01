@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -40,66 +39,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Message",
-    "symbol": "MessageProps",
-    "props": [
-        {
-            "name": "content",
-            "required": true,
-            "description": "消息内容",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "duration",
-            "required": false,
-            "description": "消息通知的持续时间，单位为毫秒",
-            "typeText": "number",
-            "defaultValue": "3000",
-            "deprecated": false
-        },
-        {
-            "name": "icon",
-            "required": false,
-            "description": "自定义图标",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "paused",
-            "required": false,
-            "description": "是否暂停进度动画",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "remaining",
-            "required": false,
-            "description": "剩余时间，单位为毫秒",
-            "typeText": "number",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "showProgress",
-            "required": false,
-            "description": "是否显示进度条",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "type",
-            "required": false,
-            "description": "消息类型",
-            "typeText": "MessageType",
-            "defaultValue": "'info'",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

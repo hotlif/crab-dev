@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -40,42 +39,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Masonry",
-    "symbol": "MasonryProps",
-    "props": [
-        {
-            "name": "children",
-            "required": false,
-            "description": "瀑布流子项",
-            "typeText": "ReactElement | ReactElement[]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "columns",
-            "required": false,
-            "description": "列数，默认为 2",
-            "typeText": "number",
-            "defaultValue": "2",
-            "deprecated": false
-        },
-        {
-            "name": "gutter",
-            "required": false,
-            "description": "子元素间距（像素），默认使用 token 中的 gutter 值。 传入数值时覆盖 token 默认值。",
-            "typeText": "number",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "sequential",
-            "required": false,
-            "description": "是否按 DOM 顺序排列（从左到右依次放置）， 默认 false，优先放入最短列。",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

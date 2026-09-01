@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -62,90 +61,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Tabs",
-    "symbol": "TabsProps",
-    "props": [
-        {
-            "name": "activeKey",
-            "required": false,
-            "description": "",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "centered",
-            "required": false,
-            "description": "",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "defaultActiveKey",
-            "required": false,
-            "description": "",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "destroyInactiveTabPane",
-            "required": false,
-            "description": "",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "items",
-            "required": true,
-            "description": "",
-            "typeText": "TabsItem[]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onChange",
-            "required": false,
-            "description": "",
-            "typeText": "(activeKey: string) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onTabClose",
-            "required": false,
-            "description": "",
-            "typeText": "(key: string, event: ReactMouseEvent\u003cHTMLElement> | ReactKeyboardEvent\u003cHTMLElement>) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "",
-            "typeText": "TabsSize",
-            "defaultValue": "'medium'",
-            "deprecated": false
-        },
-        {
-            "name": "tabBarExtraContent",
-            "required": false,
-            "description": "",
-            "typeText": "ReactNode | TabsBarExtraContent",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "type",
-            "required": false,
-            "description": "",
-            "typeText": "TabsType",
-            "defaultValue": "'line'",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

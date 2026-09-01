@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -95,9 +94,3 @@ export const demos = [
         "group": "导出与状态"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "ProtocolTable",
-    "symbol": "ProtocolTableProps",
-    "props": []
-} as const satisfies ComponentApiRecord | null;

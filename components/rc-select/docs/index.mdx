@@ -24,6 +24,15 @@ status = "experimental"
 - 支持受控与非受控用法。
 - 支持禁用状态与禁用选项。
 
+## 无障碍
+
+- Select 不内置业务标签；每个实例都应有可见标签，并通过 `aria-label` 提供一致的可访问名称。
+- 使用方向键移动选项、Enter 选择、Escape 关闭、Backspace 删除多选标签，确保业务包装层不会拦截这些按键。
+- `status="error"` 只表达错误状态；错误原因仍需在控件附近以文字显示，不能只改变边框颜色。
+- 自定义 `optionRender` 或 `tagRender` 时保留可读文本，纯装饰图标应设置 `aria-hidden="true"`。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

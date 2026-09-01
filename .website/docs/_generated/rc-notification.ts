@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -29,42 +28,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Notification",
-    "symbol": "NotificationProps",
-    "props": [
-        {
-            "name": "children",
-            "required": false,
-            "description": "消息通知的内容",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onOpenChange",
-            "required": true,
-            "description": "状态发生改变的时候触发的事件",
-            "typeText": "(open: boolean) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "showProgress",
-            "required": false,
-            "description": "是否显示进度条",
-            "typeText": "boolean /** * 消息通知的持续时间，单位为毫秒 */ duration?: number /** * 剩余时间，单位为毫秒 */ remaining?: number /** * 是否暂停进度动画 */ paused?: boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "title",
-            "required": false,
-            "description": "消息的标题信息",
-            "typeText": "ReactNode /** * 消息通知显示的位置 */ direction?: Direction /** * 是否开启 */ open: boolean",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

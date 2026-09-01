@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -51,18 +50,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Menu",
-    "symbol": "MenuProps",
-    "props": [
-        {
-            "name": "mode",
-            "required": false,
-            "description": "垂直、水平、和内嵌模式三种, 默认情况下为垂直模式 `vertical`",
-            "typeText": "\"vertical\" | \"horizontal\" | \"inline\" /** * 当前展开的 Menu 节点 */ openKeys?: Key[] /** * 当前选中的菜单项 key 数组 */ selectedKeys?: Key[] /** * 菜单内容 */ items?: Item[] /** * 仅在 `vertical` / `inline` 模式下生效：是否将菜单收起为仅图标宽度。 * 收起状态下顶层子菜单通过浮层展开，其他项悬停显示 Tooltip。 * * @default false */ inlineCollapsed?: boolean /** * 选中时, 进行调用 */ onSelectItem?: (param: OnSelectItemParam) => void /** * 展开/关闭的回调 */ onOpenChange?: (openKeys: Key[]) => void /** * 点击事件 */ onClick?: (param: { event: MouseEvent\u003cHTMLElement>, item: Item, }) => void",
-            "defaultValue": "\"vertical\"",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

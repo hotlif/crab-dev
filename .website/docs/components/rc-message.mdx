@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-message.js";
+import { demos } from "../_generated/rc-message.js";
 
 # Message
 
@@ -17,6 +16,17 @@ import { api, demos } from "../_generated/rc-message.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 通过 `useMessage` Hook 创建消息实例，支持五种类型的消息提示
+
+##### 自定义图标与持续时间 — 通过 `icon` 自定义图标，通过 `duration` 设置持续时间，设为 0 则不自动关闭
+
+##### 消息堆叠 — 当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -47,4 +57,4 @@ import { api, demos } from "../_generated/rc-message.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-message.ts" symbol="MessagePropsSearchIndex" component="Message" />

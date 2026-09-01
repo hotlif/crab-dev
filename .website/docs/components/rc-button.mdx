@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-button.js";
+import { demos } from "../_generated/rc-button.js";
 
 # Button
 
@@ -17,6 +16,41 @@ import { api, demos } from "../_generated/rc-button.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+#### 基础与外观
+
+##### 基础配置 — 在属性控件中组合文字、外观、尺寸与常用状态
+
+##### 外观设置 — 通过 `appearance` 属性设置按钮外观
+
+##### 圆形按钮 — `shape=\"circle\"` 搭配纯图标（无 children）适用于工具栏操作图标
+
+##### 危险操作 — 使用 `appearance=\"danger\"` 标识删除、清空等破坏性操作
+
+##### 图标按钮 — 通过 `icon` 属性设置按钮图标
+
+##### 图标位置 — `icon` 在文字左侧，`iconAfter` 在文字右侧，可同时使用
+
+##### 链接按钮 — 传入 `href` 时渲染为 ` a ` 元素，保留所有 Button 样式与交互
+
+##### 按钮尺寸 — 通过 `size` 属性设置按钮尺寸
+
+#### 状态与反馈
+
+##### 禁用状态 — 添加 `disabled` 属性即可让按钮处于禁用状态
+
+##### 加载中 — 添加 `loading` 属性即可让按钮处于加载状态
+
+##### 选中状态 — `isSelected` 用于工具栏过滤器、视图切换等 toggle 场景
+
+#### 组合
+
+##### 按钮组 — `ButtonGroup` 统一管理子按钮的 `size` 和 `appearance`，适用于工具栏场景
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -32,8 +66,17 @@ import { api, demos } from "../_generated/rc-button.js";
 - 🔤 文本按钮：用于最次级的行动点。
 - 🔗 链接按钮：一般用于链接，即导航至某位置
 
+## 无障碍
+
+- 优先使用清晰的可见文字；只有图标的按钮必须传入描述操作目的的 `aria-label`。
+- 切换按钮应同时传入 `isSelected` 与 `aria-pressed`，让视觉状态和辅助技术状态保持一致。
+- 异步操作使用 `loading` 提供 `aria-busy` 与防重复提交反馈；不要仅用颜色表示危险或选中状态。
+- 保持原生按钮的键盘行为和可见焦点，不要用普通元素模拟按钮。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-button.ts" symbol="ButtonPropsSearchIndex" component="Button" />

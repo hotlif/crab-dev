@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-checkbox.js";
+import { demos } from "../_generated/rc-checkbox.js";
 
 # Checkbox
 
@@ -17,6 +16,21 @@ import { api, demos } from "../_generated/rc-checkbox.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 最简单的 Checkbox 用法
+
+##### 禁用状态 — 添加 `disabled` 属性即可让复选框处于禁用状态
+
+##### 复选框组 — 使用 `CheckboxGroup` 管理一组复选框的状态
+
+##### 半选状态 — 使用 `indeterminate` 属性表示半选状态, 常用于全选/全不选场景
+
+##### 复选框尺寸 — 通过 `size` 属性设置复选框尺寸, 支持 `large`、`middle`、`small` 三种
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -26,8 +40,17 @@ import { api, demos } from "../_generated/rc-checkbox.js";
 - 和 Switch 的区别是, 切换 Switch 会直接触发状态改变, 而 Checkbox 一般用于状态标记, 需要和提交操作配合
 
 
+## 无障碍
+
+- 将可见选项文字作为 `children` 传入；没有可见文字时必须提供准确的 `aria-label`。
+- 一组选项应放在带 `<legend>` 的 `<fieldset>` 中，让组名和每个选项的名称都可被感知。
+- `indeterminate` 表示“部分选中”，业务仍需维护明确的 `checked` 状态，不能把它作为第三种提交值。
+- 错误说明使用 `aria-describedby` 与控件关联，禁用原因应在附近以文字说明。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-checkbox.ts" symbol="CheckboxPropsSearchIndex" component="Checkbox" />

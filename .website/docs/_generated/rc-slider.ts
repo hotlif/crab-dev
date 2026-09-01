@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -18,26 +17,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Slider",
-    "symbol": "SliderProps",
-    "props": [
-        {
-            "name": "min",
-            "required": false,
-            "description": "",
-            "typeText": "number max?: number step?: number onValueChange?: (value: number) => void",
-            "defaultValue": "0",
-            "deprecated": false
-        },
-        {
-            "name": "value",
-            "required": true,
-            "description": "",
-            "typeText": "number",
-            "defaultValue": "0",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

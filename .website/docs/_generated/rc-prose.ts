@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -51,42 +50,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Prose",
-    "symbol": "ProseProps",
-    "props": [
-        {
-            "name": "as",
-            "required": false,
-            "description": "根元素的 HTML 标签名",
-            "typeText": "ProseTag",
-            "defaultValue": "'div'",
-            "deprecated": false
-        },
-        {
-            "name": "invert",
-            "required": false,
-            "description": "是否启用暗色排版（独立于全局 data-theme）",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "ref",
-            "required": false,
-            "description": "",
-            "typeText": "Ref\u003cHTMLDivElement>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "排版尺寸变体",
-            "typeText": "ProseSize",
-            "defaultValue": "'base'",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

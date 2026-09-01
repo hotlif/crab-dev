@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-form.js";
+import { demos } from "../_generated/rc-form.js";
 
 # Form 表单
 
@@ -17,6 +16,17 @@ import { api, demos } from "../_generated/rc-form.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 使用 rc-line-edit 作为编辑器，演示 getFieldValue / setFieldValue / resetFields 等实例方法。
+
+##### 搭配 crab-dev 编辑器 — 将 rc-form 与同体系的 rc-line-edit / rc-select / rc-checkbox / rc-radio / rc-switch / rc-slider / rc-button 组合，演示生态内循环。
+
+##### 字段校验 — 使用 required 与自定义 rules 组合 rc-line-edit / rc-select，演示同步与异步校验。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -24,8 +34,17 @@ import { api, demos } from "../_generated/rc-form.js";
 - 用于创建一个实体或收集信息。
 - 需要对输入的数据类型进行校验时。
 
+## 无障碍
+
+- 每个字段都使用可见 `<label>`；关联 ID 由 `useId` 生成，不使用占位符代替标签。
+- 帮助文本和错误信息通过 `aria-describedby` 关联，错误控件同时设置 `aria-invalid`。
+- 必填、格式和范围限制应在提交前说明；错误摘要需要能把焦点带回对应字段。
+- 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
 
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-form.ts" symbol="FormPropsSearchIndex" component="Form" />

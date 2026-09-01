@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -40,42 +39,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Breadcrumbs",
-    "symbol": "BreadcrumbsProps",
-    "props": [
-        {
-            "name": "ellipsis",
-            "required": false,
-            "description": "",
-            "typeText": "ReactNode",
-            "defaultValue": "'... '",
-            "deprecated": false
-        },
-        {
-            "name": "items",
-            "required": true,
-            "description": "",
-            "typeText": "BreadcrumbsItem[]",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "maxCount",
-            "required": false,
-            "description": "",
-            "typeText": "number",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "separator",
-            "required": false,
-            "description": "",
-            "typeText": "ReactNode",
-            "defaultValue": "'/'",
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

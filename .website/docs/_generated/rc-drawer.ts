@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -51,98 +50,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Drawer",
-    "symbol": "DrawerProps",
-    "props": [
-        {
-            "name": "closable",
-            "required": false,
-            "description": "是否展示关闭图标按钮",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "closeLabel",
-            "required": false,
-            "description": "关闭按钮的无障碍标签",
-            "typeText": "string",
-            "defaultValue": "\"Close\"",
-            "deprecated": false
-        },
-        {
-            "name": "footer",
-            "required": false,
-            "description": "抽屉底部操作区",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "maskClosable",
-            "required": false,
-            "description": "点击遮罩是否关闭",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "onClose",
-            "required": false,
-            "description": "关闭前回调。返回 `false` 或 resolve 为 `false` 时可阻止关闭。",
-            "typeText": "(event: SyntheticEvent) => boolean | Promise\u003cboolean> | void | Promise\u003cvoid>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onOpenChange",
-            "required": true,
-            "description": "打开状态改变时触发",
-            "typeText": "(open: boolean) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "open",
-            "required": true,
-            "description": "是否打开抽屉",
-            "typeText": "boolean",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "placement",
-            "required": false,
-            "description": "弹出位置",
-            "typeText": "DrawerPlacement",
-            "defaultValue": "\"right\"",
-            "deprecated": false
-        },
-        {
-            "name": "shouldResetContent",
-            "required": false,
-            "description": "关闭后是否卸载内容",
-            "typeText": "boolean",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "尺寸阶梯",
-            "typeText": "DrawerSize",
-            "defaultValue": "\"medium\"",
-            "deprecated": false
-        },
-        {
-            "name": "title",
-            "required": false,
-            "description": "抽屉标题",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

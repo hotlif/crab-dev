@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-cron-picker.js";
+import { demos } from "../_generated/rc-cron-picker.js";
 
 # CronPicker
 
@@ -17,6 +16,17 @@ Cron 表达式选择器:五段式(分 时 日 月 周)表达式的可视化编�
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 点击输入框打开可视化面板;也可直接手输表达式,回车提交(非法输入会以 error 边框提示并在失焦时回退)
+
+##### 受控与常用预设 — 受控模式配合快捷预设:外部一键切换常用调度周期,面板与输入框同步跟随
+
+##### 尺寸与状态 — 三档尺寸、禁用态与外部校验状态;预览条数可通过 previewCount 调整或关闭
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -34,4 +44,4 @@ Cron 表达式选择器:五段式(分 时 日 月 周)表达式的可视化编�
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-cron-picker.ts" symbol="CronPickerPropsSearchIndex" component="CronPicker" />

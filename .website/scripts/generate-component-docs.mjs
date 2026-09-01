@@ -1,4 +1,4 @@
-import { readFile, readdir, mkdir, writeFile } from "node:fs/promises";
+import { readFile, readdir, mkdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
@@ -11,8 +11,11 @@ const repositoryRoot = path.resolve(scriptDirectory, "../..");
 const componentsDirectory = path.join(repositoryRoot, "components");
 const websiteDocsDirectory = path.join(repositoryRoot, ".website/docs");
 const generatedDataDirectory = path.join(websiteDocsDirectory, "_generated");
+const generatedApiDirectory = path.join(websiteDocsDirectory, "_generated_api");
 const generatedPagesDirectory = path.join(websiteDocsDirectory, "components");
 const checkOnly = process.argv.includes("--check");
+const MAX_API_TYPE_TEXT_LENGTH = 400;
+const apiTypePrinter = ts.createPrinter({ removeComments: true });
 
 const compactComponents = new Set([
     "rc-avatar",
@@ -344,15 +347,291 @@ function normalizeTypeText(type) {
     return typeof raw === "string" ? raw.replace(/\s+/g, " ").trim() : "unknown";
 }
 
-async function extractApiRecord(componentDirectory, canonicalMdx) {
+function normalizeCommentText(value) {
+    if (typeof value !== "string") return "";
+    return value
+        .replace(/\{@link\s+([^}\s]+)(?:\s+([^}]+))?\}/g, (_, target, label) => label ?? target)
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function leadingLineComment(node, sourceFile) {
+    const leadingText = sourceFile.text.slice(node.getFullStart(), node.getStart(sourceFile));
+    const lines = leadingText.split(/\r?\n/);
+    const comments = [];
+    for (let index = lines.length - 1; index >= 0; index -= 1) {
+        const line = lines[index].trim();
+        if (line === "") {
+            if (comments.length === 0) continue;
+            break;
+        }
+        if (!line.startsWith("//")) break;
+        const comment = line.slice(2).trim();
+        if (!/^[-=─\s]+$/.test(comment)) comments.unshift(comment);
+    }
+    return normalizeCommentText(comments.join(" "));
+}
+
+function propertyDescription(node, sourceFile) {
+    const jsDoc = ts.getJSDocCommentsAndTags(node).find(ts.isJSDoc);
+    const comment = typeof jsDoc?.comment === "string" ? jsDoc.comment : "";
+    return normalizeCommentText(comment) || leadingLineComment(node, sourceFile);
+}
+
+function propertyDeprecated(node) {
+    return ts.getJSDocTags(node).some((tag) => tag.tagName.text === "deprecated");
+}
+
+function memberName(member) {
+    if (!member.name) return undefined;
+    return propertyNameText(member.name);
+}
+
+function memberTypeText(member, sourceFile) {
+    if (ts.isPropertySignature(member)) {
+        return member.type
+            ? apiTypePrinter.printNode(ts.EmitHint.Unspecified, member.type, sourceFile)
+            : "unknown";
+    }
+    if (ts.isMethodSignature(member)) {
+        const typeParameters = member.typeParameters?.length
+            ? `<${member.typeParameters.map((parameter) => parameter.getText(sourceFile)).join(", ")}>`
+            : "";
+        const parameters = member.parameters.map((parameter) => parameter.getText(sourceFile)).join(", ");
+        const returnType = member.type?.getText(sourceFile) ?? "void";
+        return `${typeParameters}(${parameters}) => ${returnType}`;
+    }
+    return "unknown";
+}
+
+function sourceMemberRecord(member, sourceFile) {
+    const name = memberName(member);
+    if (!name || (!ts.isPropertySignature(member) && !ts.isMethodSignature(member))) {
+        return undefined;
+    }
+    return {
+        name,
+        required: member.questionToken === undefined,
+        description: propertyDescription(member, sourceFile),
+        typeText: memberTypeText(member, sourceFile).replace(/\s+/g, " ").trim(),
+        defaultValue: null,
+        deprecated: propertyDeprecated(member),
+    };
+}
+
+function mergeIntersectionRecords(recordGroups) {
+    const merged = new Map();
+    for (const records of recordGroups) {
+        for (const record of records) {
+            const current = merged.get(record.name);
+            merged.set(record.name, current ? {
+                ...current,
+                required: current.required || record.required,
+                description: current.description || record.description,
+                typeText: current.typeText === record.typeText
+                    ? current.typeText
+                    : `${current.typeText} | ${record.typeText}`,
+                deprecated: current.deprecated || record.deprecated,
+            } : record);
+        }
+    }
+    return [...merged.values()];
+}
+
+function mergeUnionRecords(recordGroups) {
+    const names = [...new Set(recordGroups.flatMap((records) => records.map((record) => record.name)))];
+    return names.map((name) => {
+        const variants = recordGroups
+            .map((records) => records.find((record) => record.name === name))
+            .filter(Boolean);
+        const concreteTypes = [...new Set(
+            variants.map((record) => record.typeText).filter((typeText) => typeText !== "never"),
+        )];
+        const unionTypes = concreteTypes.map((typeText) => (
+            typeText.includes("=>") ? `(${typeText})` : typeText
+        ));
+        return {
+            name,
+            required: recordGroups.every((records) => (
+                records.some((record) => record.name === name && record.required)
+            )),
+            description: variants.find((record) => record.description)?.description ?? "",
+            typeText: unionTypes.length > 0 ? unionTypes.join(" | ") : "never",
+            defaultValue: null,
+            deprecated: variants.some((record) => record.deprecated),
+        };
+    });
+}
+
+function literalPropertyNames(typeNode) {
+    if (ts.isLiteralTypeNode(typeNode) && ts.isStringLiteralLike(typeNode.literal)) {
+        return [typeNode.literal.text];
+    }
+    if (ts.isUnionTypeNode(typeNode)) {
+        return typeNode.types.flatMap(literalPropertyNames);
+    }
+    return [];
+}
+
+function parseSourceApiProps(sourcePath, symbol) {
+    const sourceCode = ts.sys.readFile(sourcePath);
+    if (sourceCode === undefined) return [];
+    const sourceFile = ts.createSourceFile(
+        sourcePath,
+        sourceCode,
+        ts.ScriptTarget.Latest,
+        true,
+        sourcePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+    );
+    const declarations = new Map();
+    for (const statement of sourceFile.statements) {
+        if (
+            (ts.isInterfaceDeclaration(statement) || ts.isTypeAliasDeclaration(statement))
+            && ts.isIdentifier(statement.name)
+        ) {
+            declarations.set(statement.name.text, statement);
+        }
+    }
+
+    const resolving = new Set();
+    function resolveNamedType(name, typeArguments) {
+        if (name === "Omit" || name === "Pick" || name === "Partial" || name === "Required") {
+            const base = resolveType(typeArguments?.[0]);
+            if (name === "Partial") return base.map((record) => ({ ...record, required: false }));
+            if (name === "Required") return base.map((record) => ({ ...record, required: true }));
+            const selected = new Set(literalPropertyNames(typeArguments?.[1]));
+            return base.filter((record) => name === "Pick"
+                ? selected.has(record.name)
+                : !selected.has(record.name));
+        }
+        return resolveDeclaration(name);
+    }
+
+    function resolveType(typeNode) {
+        if (!typeNode) return [];
+        if (ts.isParenthesizedTypeNode(typeNode)) return resolveType(typeNode.type);
+        if (ts.isTypeLiteralNode(typeNode)) {
+            return typeNode.members.map((member) => sourceMemberRecord(member, sourceFile)).filter(Boolean);
+        }
+        if (ts.isIntersectionTypeNode(typeNode)) {
+            return mergeIntersectionRecords(typeNode.types.map(resolveType));
+        }
+        if (ts.isUnionTypeNode(typeNode)) {
+            return mergeUnionRecords(typeNode.types.map(resolveType));
+        }
+        if (!ts.isTypeReferenceNode(typeNode)) return [];
+
+        return resolveNamedType(typeNode.typeName.getText(sourceFile), typeNode.typeArguments);
+    }
+
+    function resolveDeclaration(name) {
+        if (resolving.has(name)) return [];
+        const declaration = declarations.get(name);
+        if (!declaration) return [];
+        resolving.add(name);
+        let records;
+        if (ts.isTypeAliasDeclaration(declaration)) {
+            records = resolveType(declaration.type);
+        } else {
+            const inherited = declaration.heritageClauses?.flatMap((clause) => (
+                clause.types.flatMap((heritage) => (
+                    resolveNamedType(heritage.expression.getText(sourceFile), heritage.typeArguments)
+                ))
+            )) ?? [];
+            const own = declaration.members
+                .map((member) => sourceMemberRecord(member, sourceFile))
+                .filter(Boolean);
+            records = mergeIntersectionRecords([inherited, own]);
+        }
+        resolving.delete(name);
+        return records;
+    }
+
+    const descriptionsByName = new Map();
+    for (const declaration of declarations.values()) {
+        if (!ts.isInterfaceDeclaration(declaration)) continue;
+        for (const member of declaration.members) {
+            const record = sourceMemberRecord(member, sourceFile);
+            if (record?.description && !descriptionsByName.has(record.name)) {
+                descriptionsByName.set(record.name, record.description);
+            }
+        }
+    }
+    return resolveDeclaration(symbol).map((record) => ({
+        ...record,
+        description: record.description || descriptionsByName.get(record.name) || "",
+    }));
+}
+
+function isValidTypeText(typeText) {
+    if (
+        typeText === ""
+        || typeText === "unknown"
+        || typeText.length > MAX_API_TYPE_TEXT_LENGTH
+        || typeText.includes("/**")
+        || typeText.includes("*/")
+    ) {
+        return false;
+    }
+    const sourceFile = ts.createSourceFile(
+        "api-type.ts",
+        `type ApiType = ${typeText};`,
+        ts.ScriptTarget.Latest,
+        true,
+        ts.ScriptKind.TS,
+    );
+    return sourceFile.parseDiagnostics.length === 0;
+}
+
+function normalizeApiProps(docgenProps, sourceProps, context) {
+    const sourceByName = new Map(sourceProps.map((prop) => [prop.name, prop]));
+    const docgenByName = new Map(docgenProps.map((prop) => [prop.name, prop]));
+    const preferSource = docgenProps.length === 0
+        || sourceProps.length > docgenProps.length
+        || docgenProps.some((prop) => !isValidTypeText(prop.typeText));
+    const selected = preferSource ? sourceProps : docgenProps;
+    if (selected.length === 0) {
+        throw new Error(`${context}: Props 为空，且无法从 API source 提取兜底定义`);
+    }
+
+    const seen = new Set();
+    return selected.map((prop) => {
+        if (seen.has(prop.name)) throw new Error(`${context}: Props 存在重复属性 ${prop.name}`);
+        seen.add(prop.name);
+        const sourceProp = sourceByName.get(prop.name);
+        const docgenProp = docgenByName.get(prop.name);
+        const sourceType = sourceProp?.typeText ?? "unknown";
+        const docgenType = docgenProp?.typeText ?? "unknown";
+        const typeText = preferSource || !isValidTypeText(docgenType) ? sourceType : docgenType;
+        if (!isValidTypeText(typeText)) {
+            throw new Error(`${context}: ${prop.name} 的类型无法可靠解析：${typeText.slice(0, 120)}`);
+        }
+        return {
+            name: prop.name,
+            required: preferSource ? prop.required : docgenProp?.required === true,
+            description: normalizeCommentText(
+                (preferSource ? sourceProp?.description : docgenProp?.description)
+                || docgenProp?.description
+                || sourceProp?.description
+                || "暂无说明。",
+            ),
+            typeText,
+            defaultValue: docgenProp?.defaultValue ?? sourceProp?.defaultValue ?? null,
+            deprecated: docgenProp?.deprecated === true || sourceProp?.deprecated === true,
+        };
+    });
+}
+
+async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath) {
     const apiTag = canonicalMdx.match(/<API\b[^>]*\/>/)?.[0];
     if (!apiTag) return null;
 
     const attributes = parseAttributes(apiTag);
     const componentName = attributes.get("component");
     const symbol = attributes.get("symbol");
-    if (!componentName || !symbol) {
-        throw new Error(`${componentDirectory}: API 标签缺少 component 或 symbol`);
+    const source = attributes.get("source");
+    if (!componentName || !symbol || !source) {
+        throw new Error(`${componentDirectory}: API 标签缺少 component、symbol 或 source`);
     }
 
     const docgenPath = path.join(componentDirectory, "public/docgen.json");
@@ -371,7 +650,7 @@ async function extractApiRecord(componentDirectory, canonicalMdx) {
         throw new Error(`${docgenPath}: 未找到 ${componentName} 的 docgen 定义`);
     }
 
-    const props = Object.entries(definition.props ?? {}).map(([name, prop]) => ({
+    const docgenProps = Object.entries(definition.props ?? {}).map(([name, prop]) => ({
         name,
         required: prop?.required === true,
         description: typeof prop?.description === "string" ? prop.description : "",
@@ -381,10 +660,14 @@ async function extractApiRecord(componentDirectory, canonicalMdx) {
             : null,
         deprecated: prop?.deprecated === true,
     }));
+    const sourcePath = path.resolve(path.dirname(canonicalMdxPath), source);
+    const sourceProps = parseSourceApiProps(sourcePath, symbol);
+    const props = normalizeApiProps(docgenProps, sourceProps, docgenPath);
 
     return {
         component: componentName,
         symbol,
+        searchSymbol: `${symbol}SearchIndex`,
         props,
     };
 }
@@ -437,12 +720,140 @@ function serialize(value) {
     return JSON.stringify(value, null, 4).replace(/</g, "\\u003c");
 }
 
-function createDataModule(demos, api) {
-    const serializedApi = api === null ? "null" : `${serialize(api)} as const`;
-    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentApiRecord } from "../site/componentApi.js";\nimport type { ComponentDemoRecord } from "../site/componentDemos.js";\n\nexport const demos = ${serialize(demos)} as const satisfies readonly ComponentDemoRecord[];\n\nexport const api = ${serializedApi} satisfies ComponentApiRecord | null;\n`;
+function createDataModule(demos) {
+    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentDemoRecord } from "../site/componentDemos.js";\n\nexport const demos = ${serialize(demos)} as const satisfies readonly ComponentDemoRecord[];\n`;
 }
 
-function createPage(canonicalSource, slug, hasApi) {
+function escapeJsDoc(value) {
+    return value.replace(/\*\//g, "*\\/");
+}
+
+function placeholderType(typeArguments) {
+    if (typeArguments === 0) return " = DocsTypePlaceholder";
+    const parameters = Array.from(
+        { length: typeArguments },
+        (_, index) => `T${index} = unknown`,
+    ).join(", ");
+    const tuple = Array.from({ length: typeArguments }, (_, index) => `T${index}`).join(", ");
+    return `<${parameters}> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [${tuple}] }`;
+}
+
+function qualifiedNameParts(name) {
+    if (ts.isIdentifier(name)) return [name.text];
+    return [...qualifiedNameParts(name.left), name.right.text];
+}
+
+function createApiTypePlaceholders(props) {
+    const aliases = new Map();
+    for (const prop of props) {
+        const sourceFile = ts.createSourceFile(
+            "api-property.ts",
+            `type ApiProperty = ${prop.typeText};`,
+            ts.ScriptTarget.Latest,
+            true,
+            ts.ScriptKind.TS,
+        );
+        const boundNames = new Set();
+        function collectBoundNames(node) {
+            if (ts.isTypeParameterDeclaration(node)) boundNames.add(node.name.text);
+            ts.forEachChild(node, collectBoundNames);
+        }
+        collectBoundNames(sourceFile);
+        function visit(node) {
+            if (ts.isTypeReferenceNode(node)) {
+                const parts = qualifiedNameParts(node.typeName);
+                const arity = node.typeArguments?.length ?? 0;
+                if (parts.length === 1 && !boundNames.has(parts[0])) {
+                    aliases.set(parts[0], Math.max(aliases.get(parts[0]) ?? 0, arity));
+                }
+            }
+            ts.forEachChild(node, visit);
+        }
+        visit(sourceFile);
+    }
+
+    const aliasDeclarations = [...aliases]
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([name, arity]) => `type ${name}${placeholderType(arity)};`);
+    if (aliasDeclarations.length === 0) return "";
+    const placeholder = "type DocsTypePlaceholder = ((...args: never[]) => unknown) & {\n"
+        + "    readonly [key: string]: DocsTypePlaceholder;\n"
+        + "    readonly [key: number]: DocsTypePlaceholder;\n"
+        + "};";
+    return [placeholder, ...aliasDeclarations].join("\n");
+}
+
+function selfContainedTypeText(typeText) {
+    return typeText.replace(
+        /\b(?!globalThis\.)([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\b/g,
+        (_, namespace, member) => `${namespace}_${member}`,
+    );
+}
+
+function createSearchableApiSource(api) {
+    const searchableProps = api.props.map((prop) => ({
+        ...prop,
+        typeText: selfContainedTypeText(prop.typeText),
+    }));
+    const properties = searchableProps.map((prop) => {
+        const comments = [
+            "/**",
+            ` * ${escapeJsDoc(prop.description)}`,
+            prop.defaultValue === null ? null : ` * @default ${escapeJsDoc(prop.defaultValue)}`,
+            prop.deprecated ? " * @deprecated" : null,
+            " */",
+        ].filter(Boolean).join("\n");
+        const optional = prop.required ? "" : "?";
+        return `    ${comments.replace(/\n/g, "\n    ")}\n    ${JSON.stringify(prop.name)}${optional}: ${prop.typeText};`;
+    }).join("\n\n");
+    const placeholders = createApiTypePlaceholders(searchableProps);
+    const content = `/**\n * ${GENERATED_MARKER}\n * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。\n */\n\n${placeholders}\n\nexport interface ${api.searchSymbol} {\n${properties}\n}\n`;
+    const sourceFile = ts.createSourceFile(
+        `${api.searchSymbol}.ts`,
+        content,
+        ts.ScriptTarget.Latest,
+        true,
+        ts.ScriptKind.TS,
+    );
+    if (sourceFile.parseDiagnostics.length > 0) {
+        const message = sourceFile.parseDiagnostics
+            .map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, " "))
+            .join("; ");
+        throw new Error(`${api.component}: 生成的搜索 API 源码无法解析：${message}`);
+    }
+    return content;
+}
+
+function searchHeadingText(value) {
+    return value
+        .replace(/[\r\n<>]+/g, " ")
+        .replaceAll("{", "（")
+        .replaceAll("}", "）")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function createDemoSearchMetadata(demos) {
+    if (demos.length === 0) return "";
+    const lines = [
+        '<div hidden aria-hidden="true" data-docs-search-index="demos">',
+        "",
+        "### Demo 搜索索引",
+        "",
+    ];
+    let currentGroup;
+    for (const demo of demos) {
+        if (demo.group !== null && demo.group !== currentGroup) {
+            lines.push(`#### ${searchHeadingText(demo.group)}`, "");
+            currentGroup = demo.group;
+        }
+        lines.push(`##### ${searchHeadingText(`${demo.title} — ${demo.description}`)}`, "");
+    }
+    lines.push("</div>", "");
+    return lines.join("\n");
+}
+
+function createPage(canonicalSource, slug, demos, api) {
     const normalized = normalizeNewlines(canonicalSource);
     const frontmatterMatch = normalized.match(/^(\+\+\+\n[\s\S]*?\n\+\+\+)\n+/);
     if (!frontmatterMatch) {
@@ -450,7 +861,7 @@ function createPage(canonicalSource, slug, hasApi) {
     }
 
     let body = normalized.slice(frontmatterMatch[0].length);
-    const previewSection = "## 组件预览\n\n<ComponentDemos demos={demos} />\n";
+    const previewSection = `## 组件预览\n\n${createDemoSearchMetadata(demos)}<ComponentDemos demos={demos} />\n`;
     const workbenchLink = /^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m;
     if (!workbenchLink.test(body)) {
         throw new Error(`${slug}: index.mdx 缺少工作台入口，无法确定预览插入位置`);
@@ -465,21 +876,18 @@ function createPage(canonicalSource, slug, hasApi) {
     const beforeDemos = body.slice(0, demoIndex).replace(/\n##[^\n]+\n+$/, "\n");
     body = `${beforeDemos}${body.slice(demoIndex + demosTag.length)}`;
 
-    if (hasApi) {
+    if (api !== null) {
         let renderedApi = false;
         body = body.replace(/<API\b[^>]*\/>/g, () => {
             if (renderedApi) return "";
             renderedApi = true;
-            return "<ComponentApi api={api} />";
+            return `<API source="../_generated_api/${slug}.ts" symbol="${api.searchSymbol}" component="${api.component}" />`;
         });
     }
 
     const imports = [
         'import ComponentDemos from "../site/componentDemos.js";',
-        hasApi ? 'import ComponentApi from "../site/componentApi.js";' : null,
-        hasApi
-            ? `import { api, demos } from "../_generated/${slug}.js";`
-            : `import { demos } from "../_generated/${slug}.js";`,
+        `import { demos } from "../_generated/${slug}.js";`,
     ].filter(Boolean).join("\n");
 
     return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\n\n${body.trim()}\n`;
@@ -505,7 +913,24 @@ async function emitFile(filePath, content, drift) {
     return true;
 }
 
-async function main() {
+async function removeOrphanGeneratedFiles(directory, expectedFiles, drift, shouldCheck = checkOnly) {
+    let entries;
+    try {
+        entries = await readdir(directory, { withFileTypes: true });
+    } catch (error) {
+        if (error?.code === "ENOENT") return;
+        throw error;
+    }
+    for (const entry of entries) {
+        if (!entry.isFile() || !entry.name.endsWith(".ts")) continue;
+        const filePath = path.join(directory, entry.name);
+        if (expectedFiles.has(filePath)) continue;
+        drift.push(path.relative(repositoryRoot, filePath));
+        if (!shouldCheck) await unlink(filePath);
+    }
+}
+
+async function generateDocs() {
     const directoryEntries = await readdir(componentsDirectory, { withFileTypes: true });
     const componentSlugs = directoryEntries
         .filter((entry) => entry.isDirectory() && entry.name.startsWith("rc-"))
@@ -567,14 +992,20 @@ async function main() {
         const organizedDemos = organizeDemos(slug, demos);
         demoCount += organizedDemos.length;
 
-        const api = await extractApiRecord(componentDirectory, canonicalMdx);
+        const api = await extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath);
         outputs.push({
             filePath: path.join(generatedDataDirectory, `${slug}.ts`),
-            content: createDataModule(organizedDemos, api),
+            content: createDataModule(organizedDemos),
         });
+        if (api !== null) {
+            outputs.push({
+                filePath: path.join(generatedApiDirectory, `${slug}.ts`),
+                content: createSearchableApiSource(api),
+            });
+        }
         outputs.push({
             filePath: path.join(generatedPagesDirectory, `${slug}.mdx`),
-            content: createPage(canonicalMdx, slug, api !== null),
+            content: createPage(canonicalMdx, slug, organizedDemos, api),
         });
     }
 
@@ -588,6 +1019,12 @@ async function main() {
     for (const output of outputs) {
         await emitFile(output.filePath, output.content, drift);
     }
+    const expectedApiFiles = new Set(
+        outputs
+            .map((output) => output.filePath)
+            .filter((filePath) => path.dirname(filePath) === generatedApiDirectory),
+    );
+    await removeOrphanGeneratedFiles(generatedApiDirectory, expectedApiFiles, drift);
 
     if (checkOnly && drift.length > 0) {
         throw new Error(`组件文档生成产物存在漂移：\n${drift.map((file) => `- ${file}`).join("\n")}`);
@@ -597,4 +1034,17 @@ async function main() {
     console.log(`${action}完成：${componentSlugs.length} 个组件页，${demoCount} 个唯一 Demo，${drift.length} 个文件变化。`);
 }
 
-await main();
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isMain) await generateDocs();
+
+export {
+    createDemoSearchMetadata,
+    createPage,
+    createSearchableApiSource,
+    extractApiRecord,
+    generateDocs,
+    isValidTypeText,
+    normalizeApiProps,
+    parseSourceApiProps,
+    removeOrphanGeneratedFiles,
+};

@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-divider.js";
+import { demos } from "../_generated/rc-divider.js";
 
 # Divider
 
@@ -17,6 +16,23 @@ import { api, demos } from "../_generated/rc-divider.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 默认渲染一条语义分隔线（role=separator）, 用于切分上下两段内容。
+
+##### 语义线与装饰线 — 默认线会被读屏播报为「分隔线」; 当线只是重复了已有的视觉分组时, 用 decorative 把它移出无障碍树, 避免噪声反馈。
+
+##### 留白档位 — 线两侧的留白决定分组强度（格式塔接近性）: 留白越大, 两段内容「离得越远」。
+
+##### 带文字 — 传入 children 即成为分节标题。textAlign 控制文字落点, plain 让文字退回正文字重。
+
+##### 线型 — solid 用于正式分区; dashed / dotted 语义更轻, 常用于表达「可选」或「临时」的边界。
+
+##### 竖向分割线 — direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -44,4 +60,4 @@ import { api, demos } from "../_generated/rc-divider.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-divider.ts" symbol="DividerPropsSearchIndex" component="Divider" />

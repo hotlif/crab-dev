@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -51,58 +50,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Empty",
-    "symbol": "EmptyProps",
-    "props": [
-        {
-            "name": "action",
-            "required": false,
-            "description": "操作区域（如按钮、链接），位于描述文字下方",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "description",
-            "required": false,
-            "description": "补充说明文字",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "image",
-            "required": false,
-            "description": "自定义图像/图标节点，设置后忽略 preset 的内置图示",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "imageSize",
-            "required": false,
-            "description": "图像区域的宽高，默认 80px",
-            "typeText": "number | string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "preset",
-            "required": false,
-            "description": "预置空状态类型，内置图示与默认文案",
-            "typeText": "EmptyPreset",
-            "defaultValue": "'default'",
-            "deprecated": false
-        },
-        {
-            "name": "title",
-            "required": false,
-            "description": "主标题，不传则显示 preset 对应默认文案",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

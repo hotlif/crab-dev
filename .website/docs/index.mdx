@@ -12,14 +12,43 @@ Crab UI 是面向企业应用的 React 19 组件库。组件使用 Wake 构建�
 
 ## 开始使用
 
-- 从左侧组件目录进入组件说明、交互示例与 Props API。
-- 每个组件页都链接到独立 Wake Components 工作台，可调整 Props、视口并查看源码。
-- 非 Wake 构建器消费发布包时，需要显式导入对应的 `css/index.css`。
-
-## 本地命令
+Crab UI 按组件发布，应用只需安装实际使用的包。下面以 Button 为例：
 
 ```sh
+yarn add @crab-dev/rc-button
+```
+
+```tsx
+import Button from "@crab-dev/rc-button";
+import "@crab-dev/rc-button/css/index.css";
+
+export default function SaveAction() {
+    return <Button appearance="primary">保存</Button>;
+}
+```
+
+Wake 构建器会自动发现组件的静态 CSS；Vite、Webpack 等其他构建器需要像上例一样显式导入
+每个组件公开的 `css/index.css`。不要从包内的 `src/`、`esm/` 或其他未公开路径导入。
+
+[阅读完整入门指南](/guides/getting-started)
+
+## 浏览文档
+
+- 从左侧组件目录进入组件说明、交互示例与 Props API。
+- 每个组件页都链接到独立 Wake Components 工作台，可调整 Props、视口并查看源码。
+- 实现表单和复合交互前，请先阅读[无障碍使用指南](/guides/accessibility)。
+
+## 参与开发
+
+贡献代码需要 Node.js 22 或更高版本、Corepack 和仓库锁定的 Yarn 4。首次检出后运行：
+
+```sh
+yarn install --immutable
 yarn build:library
 yarn test
 yarn docs:dev
 ```
+
+文档内容位于各组件的 `docs/index.mdx` 与 `docs/demos/`；工具链、生成文件和校验约定见
+[Wake 工具链](/guides/toolchain)。也可以直接前往
+[GitHub 仓库](https://github.com/hotlif/crab-dev) 查看源码和提交问题。

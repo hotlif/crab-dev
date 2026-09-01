@@ -6,7 +6,11 @@ pages = ["index"]
 [[group.section]]
 id = "guides"
 title = "开发指南"
-pages = ["guides/toolchain"]
+pages = [
+    "guides/getting-started",
+    "guides/accessibility",
+    "guides/toolchain",
+]
 
 [[group]]
 id = "components"

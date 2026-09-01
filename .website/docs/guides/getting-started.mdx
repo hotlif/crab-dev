@@ -1,0 +1,55 @@
++++
+title = "开始使用"
+description = "安装 Crab UI 组件并在 React 19 应用中加载静态样式"
+kind = "guide"
+status = "experimental"
++++
+
+# 开始使用
+
+Crab UI 面向 React 19 应用，组件按包独立安装。选择左侧组件页查看包名、交互示例和 Props API。
+
+## 安装组件
+
+下面以 Button 为例；使用其他组件时，将包名替换为对应的 `@crab-dev/rc-*`：
+
+```sh
+yarn add @crab-dev/rc-button
+```
+
+项目使用 Yarn Plug'n'Play 时不需要也不应创建 `node_modules`。
+
+## 渲染第一个组件
+
+```tsx
+import Button from "@crab-dev/rc-button";
+import "@crab-dev/rc-button/css/index.css";
+
+export default function SaveAction() {
+    return (
+        <Button appearance="primary" onClick={() => console.log("saved")}>
+            保存
+        </Button>
+    );
+}
+```
+
+组件的默认导出是主组件，附属组件和类型从同一包具名导入。例如：
+
+```tsx
+import Button, { ButtonGroup, type ButtonProps } from "@crab-dev/rc-button";
+```
+
+## 加载静态 CSS
+
+Crab CSS 在构建期生成静态样式，不会向浏览器注入 CSS-in-JS 运行时。
+
+- 使用 Wake 构建时，Wake 会自动发现组件样式。
+- 使用 Vite、Webpack 等其他构建器时，为每个组件显式导入公开的 `css/index.css`。
+- 不要直接导入包内 `src/`、`esm/`、`cjs/` 或 `declarations/`，这些不是稳定的公共入口。
+
+## 下一步
+
+- 在组件页打开 Workbench，切换 Props、视口并查看可复制源码。
+- 阅读[无障碍使用指南](/guides/accessibility)，为控件提供名称、说明和完整键盘路径。
+- 参与组件开发时阅读[Wake 工具链](/guides/toolchain)。

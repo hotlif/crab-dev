@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -54,7 +53,7 @@ export const demos = [
         "id": "docs/demos/icon.demo.tsx",
         "title": "图标按钮",
         "description": "通过 `icon` 属性设置按钮图标",
-        "sourceCode": "\nexport const meta = {\n    title: \"图标按钮\",\n    description: \"通过 `icon` 属性设置按钮图标\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { Lollipop } from 'lucide-react';\nimport { useState } from \"react\";\nimport Button from \"../../src/index.js\";\n\nconst IconDemo = () => {\n    const [isLoading, setIsLoading] = useState(false);\n    return (\n        \u003cdiv>\n            \u003cdiv\n                className={css`\n                    margin-bottom: 1rem;\n                `}\n            >\n                \u003clabel> 是否加载: \u003c/label>\n                \u003cinput\n                    type=\"checkbox\"\n                    checked={isLoading}\n                    onChange={() => setIsLoading(!isLoading)}\n                />\n            \u003c/div>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 1rem;\n                    margin-bottom: 2rem;\n                `}\n            >\n                \n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"primary\"\n                >\n                    primary\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"subtle\"\n                >\n                    subtle\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"dashed\"\n                >\n                    dashed\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"text\"\n                >\n                    text\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"link\"\n                >\n                    link\n                \u003c/Button>\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default IconDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"图标按钮\",\n    description: \"通过 `icon` 属性设置按钮图标\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { Lollipop } from 'lucide-react';\nimport { useId, useState } from \"react\";\nimport Button from \"../../src/index.js\";\n\nconst IconDemo = () => {\n    const loadingCheckboxId = useId();\n    const [isLoading, setIsLoading] = useState(false);\n    return (\n        \u003cdiv>\n            \u003cdiv\n                className={css`\n                    margin-bottom: 1rem;\n                `}\n            >\n                \u003clabel htmlFor={loadingCheckboxId}>显示加载状态\u003c/label>\n                \u003cinput\n                    id={loadingCheckboxId}\n                    type=\"checkbox\"\n                    checked={isLoading}\n                    onChange={() => setIsLoading(!isLoading)}\n                />\n            \u003c/div>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 1rem;\n                    margin-bottom: 2rem;\n                `}\n            >\n                \n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"primary\"\n                >\n                    primary\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"subtle\"\n                >\n                    subtle\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"dashed\"\n                >\n                    dashed\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"text\"\n                >\n                    text\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"link\"\n                >\n                    link\n                \u003c/Button>\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default IconDemo;\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Ficon.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Ficon.demo.tsx",
         "density": "compact",
@@ -87,7 +86,7 @@ export const demos = [
         "id": "docs/demos/size.demo.tsx",
         "title": "按钮尺寸",
         "description": "通过 `size` 属性设置按钮尺寸",
-        "sourceCode": "\nexport const meta = {\n    title: \"按钮尺寸\",\n    description: \"通过 `size` 属性设置按钮尺寸\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport Button from \"../../src/index.js\";\n\nconst SizeDemo = () => {\n    const [size, setSize] = useState\u003c\"large\" | \"middle\" | \"small\">(\"middle\")\n\n    return (\n        \u003cdiv\n            className={css`\n                margin-bottom: 1rem;\n            `}\n        >\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 0.5rem;\n                    margin-bottom: 2rem;\n                `}\n            >\n                \u003clabel>\n                    请选择大小\n                \u003c/label>\n                \u003cselect\n                    value={size}\n                    onChange={e => setSize(e.target.value as \"large\" | \"middle\" | \"small\")}\n                >\n                    \u003coption value=\"large\">Large\u003c/option>\n                    \u003coption value=\"middle\">Middle\u003c/option>\n                    \u003coption value=\"small\">Small\u003c/option>\n                \u003c/select>\n            \u003c/div>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 1rem;\n                `}\n            >\n                \u003cButton appearance=\"primary\" size={size}>\n                    primary\n                \u003c/Button>\n                \u003cButton appearance=\"subtle\" size={size}>\n                    subtle\n                \u003c/Button>\n                \u003cButton appearance=\"dashed\" size={size}>\n                    dashed\n                \u003c/Button>\n                \u003cButton appearance=\"text\" size={size}>\n                    text\n                \u003c/Button>\n                \u003cButton appearance=\"link\" size={size}>\n                    link\n                \u003c/Button>\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"按钮尺寸\",\n    description: \"通过 `size` 属性设置按钮尺寸\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useId, useState } from \"react\";\nimport Button from \"../../src/index.js\";\n\nconst SizeDemo = () => {\n    const sizeSelectId = useId();\n    const [size, setSize] = useState\u003c\"large\" | \"middle\" | \"small\">(\"middle\")\n\n    return (\n        \u003cdiv\n            className={css`\n                margin-bottom: 1rem;\n            `}\n        >\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 0.5rem;\n                    margin-bottom: 2rem;\n                `}\n            >\n                \u003clabel htmlFor={sizeSelectId}>\n                    请选择大小\n                \u003c/label>\n                \u003cselect\n                    id={sizeSelectId}\n                    value={size}\n                    onChange={e => setSize(e.target.value as \"large\" | \"middle\" | \"small\")}\n                >\n                    \u003coption value=\"large\">Large\u003c/option>\n                    \u003coption value=\"middle\">Middle\u003c/option>\n                    \u003coption value=\"small\">Small\u003c/option>\n                \u003c/select>\n            \u003c/div>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 1rem;\n                `}\n            >\n                \u003cButton appearance=\"primary\" size={size}>\n                    primary\n                \u003c/Button>\n                \u003cButton appearance=\"subtle\" size={size}>\n                    subtle\n                \u003c/Button>\n                \u003cButton appearance=\"dashed\" size={size}>\n                    dashed\n                \u003c/Button>\n                \u003cButton appearance=\"text\" size={size}>\n                    text\n                \u003c/Button>\n                \u003cButton appearance=\"link\" size={size}>\n                    link\n                \u003c/Button>\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "compact",
@@ -139,138 +138,3 @@ export const demos = [
         "group": "组合"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Button",
-    "symbol": "ButtonProps",
-    "props": [
-        {
-            "name": "appearance",
-            "required": false,
-            "description": "按钮外观",
-            "typeText": "'primary' | 'subtle' | 'dashed' | 'text' | 'link' | 'danger'",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "aria-label",
-            "required": false,
-            "description": "",
-            "typeText": "string } | { children?: never; 'aria-label': string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "children",
-            "required": true,
-            "description": "",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "href",
-            "required": false,
-            "description": "存在时渲染为 \u003ca> 元素",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "icon",
-            "required": false,
-            "description": "图标（左侧）",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "iconAfter",
-            "required": false,
-            "description": "图标（右侧）",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "isSelected",
-            "required": false,
-            "description": "选中状态（toggle / 工具栏过滤器场景）",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "loading",
-            "required": false,
-            "description": "加载中",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "loadingIcon",
-            "required": false,
-            "description": "自定义加载图标，替换默认旋转 Spinner",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onClick",
-            "required": false,
-            "description": "see ButtonHTMLAttributes\u003cHTMLButtonElement>[\"onClick\"]",
-            "typeText": "( param: Parameters\u003cNonNullable\u003cButtonHTMLAttributes\u003cHTMLButtonElement>['onClick']>>[0], ) => Promise\u003cvoid> | void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onClickCapture",
-            "required": false,
-            "description": "see ButtonHTMLAttributes\u003cHTMLButtonElement>[\"onClickCapture\"]",
-            "typeText": "( param: Parameters\u003c NonNullable\u003cButtonHTMLAttributes\u003cHTMLButtonElement>['onClickCapture']> >[0], ) => Promise\u003cvoid> | void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "rel",
-            "required": false,
-            "description": "链接 rel 属性，href 为外部地址时建议传 \"noopener noreferrer\"",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "shape",
-            "required": false,
-            "description": "按钮形状，circle 时宽高相等、边框全圆",
-            "typeText": "'circle'",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "shouldFitContainer",
-            "required": false,
-            "description": "宽度撑满父容器",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "按钮大小，默认 middle",
-            "typeText": "'large' | 'middle' | 'small'",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "target",
-            "required": false,
-            "description": "链接打开方式（_blank / _self / _parent / _top）",
-            "typeText": "string",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

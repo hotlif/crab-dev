@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -51,66 +50,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Radio",
-    "symbol": "RadioProps",
-    "props": [
-        {
-            "name": "aria-label",
-            "required": false,
-            "description": "",
-            "typeText": "string } | { children?: never; 'aria-label': string",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "checked",
-            "required": false,
-            "description": "是否选中（受控）",
-            "typeText": "boolean",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "children",
-            "required": true,
-            "description": "",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "defaultChecked",
-            "required": false,
-            "description": "默认是否选中（非受控）",
-            "typeText": "boolean",
-            "defaultValue": "false",
-            "deprecated": false
-        },
-        {
-            "name": "onChange",
-            "required": false,
-            "description": "值变化时的回调",
-            "typeText": "(checked: boolean, event: ChangeEvent\u003cHTMLInputElement>) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "size",
-            "required": false,
-            "description": "单选框的大小, 默认为 middle",
-            "typeText": "'large' | 'middle' | 'small'",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "value",
-            "required": false,
-            "description": "Radio 的值, 在 RadioGroup 中使用",
-            "typeText": "string | number",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

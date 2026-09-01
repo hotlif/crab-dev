@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -40,18 +39,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Form",
-    "symbol": "FormProps",
-    "props": [
-        {
-            "name": "form",
-            "required": false,
-            "description": "设置 Form 实例, 以便后面调用 Form 的方法",
-            "typeText": "FormInstance\u003cT> /** * 设置默认值 */ defaultValue?: T /** * 自定义渲染必填样式 */ requiredIndicatorRenderer?: (param: { label: ReactNode, required: boolean }) => ReactNode /** * 提交表单且数据验证成功后回调事件 */ onSubmitSuccess?: (record: T) => Promise\u003cvoid> /** * 提交表单并且数据校验失败后的回调事件 */ onSubmitFailed?: (record: T) => Promise\u003cvoid> /** * 字段值更新的时候触发的回调事件 */ onFieldValueChange?: ( changed: { [K in keyof T]: { name: K; value: T[K] } }[keyof T], allValues: T ) => Promise\u003cvoid>",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

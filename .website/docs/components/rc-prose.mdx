@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-prose.js";
+import { demos } from "../_generated/rc-prose.js";
 
 # Prose
 
@@ -17,6 +16,19 @@ Markdown 排版容器，为富文本内容提供完整的排版样式。
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+##### 基础用法 — 默认 `size=base`，包含标题、段落、链接、粗体等基础排版元素
+
+##### 语义标签 — 通过 `as` 属性指定根元素标签：`div`（默认）、`article`、`section`、`main`
+
+##### 尺寸变体 — 通过 `size` 属性设置排版尺寸：`sm`、`base`（默认）、`lg`、`xl`
+
+##### 表格与定义列表 — 展示表格与定义列表的排版效果
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -39,4 +51,4 @@ Markdown 排版容器，为富文本内容提供完整的排版样式。
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-prose.ts" symbol="ProsePropsSearchIndex" component="Prose" />

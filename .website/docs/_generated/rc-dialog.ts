@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -29,58 +28,3 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Dialog",
-    "symbol": "DialogProps",
-    "props": [
-        {
-            "name": "i18n",
-            "required": false,
-            "description": "国际化内容",
-            "typeText": "DialogI18n",
-            "defaultValue": "{}",
-            "deprecated": false
-        },
-        {
-            "name": "onConfirm",
-            "required": false,
-            "description": "确定按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭",
-            "typeText": "DialogResultHandler /** * 取消按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭 */ onCancel?: DialogResultHandler",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "open",
-            "required": true,
-            "description": "是否开启",
-            "typeText": "boolean",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "ref",
-            "required": false,
-            "description": "对话框根元素（原生 dialog）的 ref",
-            "typeText": "Ref\u003cHTMLDialogElement>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "shouldResetContent",
-            "required": false,
-            "description": "是否在关闭的时候重置内容",
-            "typeText": "boolean /** * 点击遮罩（对话框外部区域）是否触发取消并关闭，默认 `false` */ maskClosable?: boolean /** * 状态发生改变的时候触发的事件 */ onOpenChange: (open: boolean) => void",
-            "defaultValue": "true",
-            "deprecated": false
-        },
-        {
-            "name": "title",
-            "required": false,
-            "description": "标题",
-            "typeText": "ReactNode",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;

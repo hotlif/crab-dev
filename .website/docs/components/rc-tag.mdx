@@ -8,8 +8,7 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import ComponentApi from "../site/componentApi.js";
-import { api, demos } from "../_generated/rc-tag.js";
+import { demos } from "../_generated/rc-tag.js";
 
 # Tag
 
@@ -17,6 +16,29 @@ import { api, demos } from "../_generated/rc-tag.js";
 
 ## 组件预览
 
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+### Demo 搜索索引
+
+#### 基础与外观
+
+##### 基础用法 — 基础的标签展示，通过 `color` 属性设置不同颜色预设
+
+##### 无边框 — 设置 `bordered=（false）` 可移除标签边框
+
+##### 图标标签 — 通过 `icon` 属性在标签前添加图标
+
+##### 标签尺寸 — 通过 `size` 属性设置标签尺寸
+
+#### 交互与自定义
+
+##### 可选中标签 — 通过 `CheckableTag` 实现可选中/取消选中的标签
+
+##### 可关闭标签 — 添加 `closable` 属性使标签可关闭，配合 `onClose` 回调处理关闭逻辑
+
+##### 自定义颜色与关闭图标 — 支持自定义颜色字符串与 `closeIcon`
+
+</div>
 <ComponentDemos demos={demos} />
 
 ## 何时使用
@@ -46,4 +68,4 @@ import { api, demos } from "../_generated/rc-tag.js";
 
 ## API
 
-<ComponentApi api={api} />
+<API source="../_generated_api/rc-tag.ts" symbol="TagPropsSearchIndex" component="Tag" />

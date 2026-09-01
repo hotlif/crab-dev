@@ -10,9 +10,10 @@
         "build": "yarn generate:docs && wake docs build . --outdir docs-dist",
         "generate:docs": "node scripts/generate-component-docs.mjs",
         "check:docs": "node scripts/generate-component-docs.mjs --check",
+        "test:generator": "node scripts/generate-component-docs.test.mjs",
         "eslint": "eslint docs scripts",
         "typecheck": "tsc --noEmit",
-        "test": "yarn check:docs && wake test --serial"
+        "test": "yarn test:generator && yarn check:docs && wake test --serial"
     },
     "devDependencies": {
         "@crab-dev/css": "0.1.23",

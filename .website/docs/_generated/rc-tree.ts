@@ -2,7 +2,6 @@
  * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
  */
 
-import type { ComponentApiRecord } from "../site/componentApi.js";
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
@@ -65,7 +64,7 @@ export const demos = [
         "id": "docs/demos/filter.demo.tsx",
         "title": "搜索过滤 filterTreeNode",
         "description": "通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。",
-        "sourceCode": "export const meta = {\n    title: \"搜索过滤 filterTreeNode\",\n    description: \"通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。\",\n};\n\nimport { type Key, useState, useEffect } from \"react\";\nimport RcTree, { LoadStateType, NodeType, type Node, useTreeData } from \"../../src/index.js\";\n\nconst buildNodes = (): Node[] => {\n    const fe: Node = { id: \"fe\", type: NodeType.FOLDER, title: \"前端\", parent: null, loadState: LoadStateType.LOADING_COMPLETED };\n    const be: Node = { id: \"be\", type: NodeType.FOLDER, title: \"后端\", parent: null, loadState: LoadStateType.LOADING_COMPLETED };\n    const mobile: Node = { id: \"mobile\", type: NodeType.FOLDER, title: \"移动端\", parent: null, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const react: Node = { id: \"react\", type: NodeType.FOLDER, title: \"React\", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };\n    const vue: Node = { id: \"vue\", type: NodeType.FOLDER, title: \"Vue\", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };\n    const angular: Node = { id: \"angular\", type: NodeType.FOLDER, title: \"Angular\", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const node: Node = { id: \"node\", type: NodeType.FOLDER, title: \"Node.js\", parent: be, loadState: LoadStateType.LOADING_COMPLETED };\n    const spring: Node = { id: \"spring\", type: NodeType.FOLDER, title: \"Spring Boot\", parent: be, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const ios: Node = { id: \"ios\", type: NodeType.FOLDER, title: \"iOS\", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };\n    const android: Node = { id: \"android\", type: NodeType.FOLDER, title: \"Android\", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };\n    const rn: Node = { id: \"rn\", type: NodeType.FOLDER, title: \"React Native\", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const reactHooks: Node = { id: \"hooks\", type: NodeType.FILE, title: \"Hooks 指南.md\", parent: react, loadState: LoadStateType.LOADING_COMPLETED };\n    const reactRouter: Node = { id: \"router\", type: NodeType.FILE, title: \"React Router.md\", parent: react, loadState: LoadStateType.LOADING_COMPLETED };\n    const vueComposable: Node = { id: \"composable\", type: NodeType.FILE, title: \"Composable API.md\", parent: vue, loadState: LoadStateType.LOADING_COMPLETED };\n    const koa: Node = { id: \"koa\", type: NodeType.FILE, title: \"Koa 中间件.md\", parent: node, loadState: LoadStateType.LOADING_COMPLETED };\n    const jpa: Node = { id: \"jpa\", type: NodeType.FILE, title: \"Spring Data JPA.md\", parent: spring, loadState: LoadStateType.LOADING_COMPLETED };\n    const swift: Node = { id: \"swift\", type: NodeType.FILE, title: \"Swift 基础.md\", parent: ios, loadState: LoadStateType.LOADING_COMPLETED };\n    const kotlin: Node = { id: \"kotlin\", type: NodeType.FILE, title: \"Kotlin 入门.md\", parent: android, loadState: LoadStateType.LOADING_COMPLETED };\n    const rnNav: Node = { id: \"rn-nav\", type: NodeType.FILE, title: \"Navigation.md\", parent: rn, loadState: LoadStateType.LOADING_COMPLETED };\n\n    return [fe, be, mobile, react, vue, angular, node, spring, ios, android, rn,\n        reactHooks, reactRouter, vueComposable, koa, jpa, swift, kotlin, rnNav];\n};\n\nconst ALL_NODES = buildNodes();\n\nconst FilterDemo = () => {\n    const [keyword, setKeyword] = useState(\"\");\n    const [expandedKeys, setExpandedKeys] = useState\u003cKey[]>([]);\n    const [selectKeys, setSelectKeys] = useState\u003cKey[]>([]);\n    const [treeData, setTreeData] = useTreeData(ALL_NODES);\n\n    const filterFn = keyword.trim()\n        ? (node: Node) => {\n            const title = typeof node.title === \"string\" ? node.title : \"\";\n            return title.toLowerCase().includes(keyword.trim().toLowerCase());\n        }\n        : undefined;\n\n    useEffect(() => {\n        if (!keyword.trim()) {\n            setExpandedKeys([]);\n            return;\n        }\n        const matched = ALL_NODES.filter(n => {\n            const title = typeof n.title === \"string\" ? n.title : \"\";\n            return title.toLowerCase().includes(keyword.trim().toLowerCase());\n        });\n        const ancestorIds = new Set\u003cKey>();\n        matched.forEach(n => {\n            let p: Node | null = n.parent;\n            while (p) {\n                ancestorIds.add(p.id);\n                p = p.parent;\n            }\n        });\n        setExpandedKeys([...ancestorIds]);\n    }, [keyword]);\n\n    return (\n        \u003cdiv style={{ display: \"flex\", flexDirection: \"column\", gap: \"0.75rem\" }}>\n            \u003cinput\n                type=\"search\"\n                placeholder=\"搜索节点...\"\n                value={keyword}\n                onChange={e => setKeyword(e.target.value)}\n                style={{\n                    padding: \"0.375rem 0.625rem\",\n                    borderRadius: \"6px\",\n                    border: \"1px solid #d9d9d9\",\n                    fontSize: \"0.875rem\",\n                    width: \"300px\",\n                    outline: \"none\",\n                }}\n            />\n            \u003cRcTree\n                height={300}\n                width={400}\n                treeData={treeData}\n                onTreeNodeChange={setTreeData}\n                expandedKeys={expandedKeys}\n                selectKeys={selectKeys}\n                filterTreeNode={filterFn}\n                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}\n                onExpanded={({ node }: { node: Node }) => {\n                    setExpandedKeys(prev =>\n                        prev.includes(node.id)\n                            ? prev.filter(k => k !== node.id)\n                            : [...prev, node.id]\n                    );\n                }}\n            />\n        \u003c/div>\n    );\n};\n\nexport default FilterDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"搜索过滤 filterTreeNode\",\n    description: \"通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport semanticToken from \"@crab-dev/rc-token-semantic\";\nimport { type Key, useEffect, useId, useState } from \"react\";\nimport RcTree, { LoadStateType, NodeType, type Node, useTreeData } from \"../../src/index.js\";\n\nconst demoStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: ${semanticToken.space[\"stack-gap\"]};\n`;\n\nconst searchGroupStyle = css`\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    gap: ${semanticToken.space[\"inline-gap\"]};\n`;\n\nconst searchInputStyle = css`\n    width: min(300px, 100%);\n    padding: ${semanticToken.space[\"control-padding-y\"]} ${semanticToken.space[\"control-padding-x\"]};\n    border: 1px solid ${semanticToken.color.border.default};\n    border-radius: ${semanticToken.radius.md};\n    background-color: ${semanticToken.color.background.surface};\n    color: ${semanticToken.color.text.primary};\n    font-size: ${semanticToken.font.size.body};\n    transition: border-color ${semanticToken.motion.interaction};\n\n    &:hover {\n        border-color: ${semanticToken.color.border.hover};\n    }\n\n    &:focus-visible {\n        border-color: ${semanticToken.color.border.focus};\n        outline: 2px solid ${semanticToken.color.border.focus};\n        outline-offset: 2px;\n    }\n`;\n\nconst buildNodes = (): Node[] => {\n    const fe: Node = { id: \"fe\", type: NodeType.FOLDER, title: \"前端\", parent: null, loadState: LoadStateType.LOADING_COMPLETED };\n    const be: Node = { id: \"be\", type: NodeType.FOLDER, title: \"后端\", parent: null, loadState: LoadStateType.LOADING_COMPLETED };\n    const mobile: Node = { id: \"mobile\", type: NodeType.FOLDER, title: \"移动端\", parent: null, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const react: Node = { id: \"react\", type: NodeType.FOLDER, title: \"React\", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };\n    const vue: Node = { id: \"vue\", type: NodeType.FOLDER, title: \"Vue\", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };\n    const angular: Node = { id: \"angular\", type: NodeType.FOLDER, title: \"Angular\", parent: fe, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const node: Node = { id: \"node\", type: NodeType.FOLDER, title: \"Node.js\", parent: be, loadState: LoadStateType.LOADING_COMPLETED };\n    const spring: Node = { id: \"spring\", type: NodeType.FOLDER, title: \"Spring Boot\", parent: be, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const ios: Node = { id: \"ios\", type: NodeType.FOLDER, title: \"iOS\", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };\n    const android: Node = { id: \"android\", type: NodeType.FOLDER, title: \"Android\", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };\n    const rn: Node = { id: \"rn\", type: NodeType.FOLDER, title: \"React Native\", parent: mobile, loadState: LoadStateType.LOADING_COMPLETED };\n\n    const reactHooks: Node = { id: \"hooks\", type: NodeType.FILE, title: \"Hooks 指南.md\", parent: react, loadState: LoadStateType.LOADING_COMPLETED };\n    const reactRouter: Node = { id: \"router\", type: NodeType.FILE, title: \"React Router.md\", parent: react, loadState: LoadStateType.LOADING_COMPLETED };\n    const vueComposable: Node = { id: \"composable\", type: NodeType.FILE, title: \"Composable API.md\", parent: vue, loadState: LoadStateType.LOADING_COMPLETED };\n    const koa: Node = { id: \"koa\", type: NodeType.FILE, title: \"Koa 中间件.md\", parent: node, loadState: LoadStateType.LOADING_COMPLETED };\n    const jpa: Node = { id: \"jpa\", type: NodeType.FILE, title: \"Spring Data JPA.md\", parent: spring, loadState: LoadStateType.LOADING_COMPLETED };\n    const swift: Node = { id: \"swift\", type: NodeType.FILE, title: \"Swift 基础.md\", parent: ios, loadState: LoadStateType.LOADING_COMPLETED };\n    const kotlin: Node = { id: \"kotlin\", type: NodeType.FILE, title: \"Kotlin 入门.md\", parent: android, loadState: LoadStateType.LOADING_COMPLETED };\n    const rnNav: Node = { id: \"rn-nav\", type: NodeType.FILE, title: \"Navigation.md\", parent: rn, loadState: LoadStateType.LOADING_COMPLETED };\n\n    return [fe, be, mobile, react, vue, angular, node, spring, ios, android, rn,\n        reactHooks, reactRouter, vueComposable, koa, jpa, swift, kotlin, rnNav];\n};\n\nconst ALL_NODES = buildNodes();\n\nconst FilterDemo = () => {\n    const searchInputId = useId();\n    const [keyword, setKeyword] = useState(\"\");\n    const [expandedKeys, setExpandedKeys] = useState\u003cKey[]>([]);\n    const [selectKeys, setSelectKeys] = useState\u003cKey[]>([]);\n    const [treeData, setTreeData] = useTreeData(ALL_NODES);\n\n    const filterFn = keyword.trim()\n        ? (node: Node) => {\n            const title = typeof node.title === \"string\" ? node.title : \"\";\n            return title.toLowerCase().includes(keyword.trim().toLowerCase());\n        }\n        : undefined;\n\n    useEffect(() => {\n        if (!keyword.trim()) {\n            setExpandedKeys([]);\n            return;\n        }\n        const matched = ALL_NODES.filter(n => {\n            const title = typeof n.title === \"string\" ? n.title : \"\";\n            return title.toLowerCase().includes(keyword.trim().toLowerCase());\n        });\n        const ancestorIds = new Set\u003cKey>();\n        matched.forEach(n => {\n            let p: Node | null = n.parent;\n            while (p) {\n                ancestorIds.add(p.id);\n                p = p.parent;\n            }\n        });\n        setExpandedKeys([...ancestorIds]);\n    }, [keyword]);\n\n    return (\n        \u003cdiv className={demoStyle}>\n            \u003cdiv className={searchGroupStyle}>\n                \u003clabel htmlFor={searchInputId}>搜索树节点\u003c/label>\n                \u003cinput\n                    id={searchInputId}\n                    className={searchInputStyle}\n                    type=\"search\"\n                    placeholder=\"输入节点名称\"\n                    value={keyword}\n                    onChange={e => setKeyword(e.target.value)}\n                />\n            \u003c/div>\n            \u003cRcTree\n                height={300}\n                width={400}\n                treeData={treeData}\n                onTreeNodeChange={setTreeData}\n                expandedKeys={expandedKeys}\n                selectKeys={selectKeys}\n                filterTreeNode={filterFn}\n                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}\n                onExpanded={({ node }: { node: Node }) => {\n                    setExpandedKeys(prev =>\n                        prev.includes(node.id)\n                            ? prev.filter(k => k !== node.id)\n                            : [...prev, node.id]\n                    );\n                }}\n            />\n        \u003c/div>\n    );\n};\n\nexport default FilterDemo;\n",
         "previewPath": "/components/rc-tree/workbench/?__wake_demo=docs%2Fdemos%2Ffilter.demo.tsx",
         "workbenchPath": "/components/rc-tree/workbench/#/components/docs%2Fdemos%2Ffilter.demo.tsx",
         "density": "spacious",
@@ -117,82 +116,3 @@ export const demos = [
         "group": "编辑与交互"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
-
-export const api = {
-    "component": "Tree",
-    "symbol": "TreeProps",
-    "props": [
-        {
-            "name": "checkable",
-            "required": false,
-            "description": "是否开启复选框",
-            "typeText": "boolean /** * 受控的已选中节点 key 列表 */ checkedKeys?: Key[] /** * 复选框勾选/取消时触发。内部已完成级联计算，halfCheckedKeys 由组件自动计算。 */ onCheck?: (param: { checkedKeys: Key[] halfCheckedKeys: Key[] node: Node checked: boolean }) => void /** * 过滤树节点。返回 true 则保留该节点（及其所有祖先）；返回 false 则隐藏。 * 不传时不过滤，显示全部可见节点。 */ filterTreeNode?: (node: Node) => boolean /** * 双击节点标题行时触发。常用于进入 inline 编辑模式。 */ onNodeDoubleClick?: (node: Node, event: MouseEvent\u003cHTMLDivElement, globalThis.MouseEvent>) => void /** * 节点 inline 编辑完成时触发。 * cancelled=true 表示按 Esc 取消，此时 newTitle 无意义。 * 调用方应在此回调里更新标题并清除 editState。 */ onEditEnd?: (node: Node, newTitle: string, cancelled: boolean) => void /** * 自定义编辑器渲染函数，替换默认 `\u003cinput>`。 * 消费方负责聚焦管理，调用 `onCommit(value)` 提交，`onCancel()` 取消。 */ renderEditInput?: NodeItemProps[\"renderEditInput\"] /** 拖拽位置 badge 文字，用于国际化覆盖。默认中文。 */ dragBadgeLabels?: NodeItemProps[\"dragBadgeLabels\"] /** * 节点改变时触发的事件 */ onTreeNodeChange: Dispatch\u003cSetStateAction\u003cTreeProps[\"treeData\"]>>",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onContextMenu",
-            "required": false,
-            "description": "右键点击的时候触发的事件",
-            "typeText": "(event: MouseEvent\u003cHTMLDivElement, globalThis.MouseEvent>, node: Node | null) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onDragCancel",
-            "required": false,
-            "description": "拖拽取消事件",
-            "typeText": "(event: DragCancelEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onDragEnd",
-            "required": false,
-            "description": "拖拽结束事件",
-            "typeText": "(event: DragEndEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onDragMove",
-            "required": false,
-            "description": "拖拽移动事件",
-            "typeText": "(event: DragMoveEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onDragOver",
-            "required": false,
-            "description": "拖拽悬停事件",
-            "typeText": "(event: DragOverEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onDragPending",
-            "required": false,
-            "description": "拖拽待定事件",
-            "typeText": "(event: DragPendingEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "onDragStart",
-            "required": false,
-            "description": "拖拽开始事件",
-            "typeText": "(event: DragStartEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        },
-        {
-            "name": "treeData",
-            "required": true,
-            "description": "树组件的数据信息",
-            "typeText": "Array\u003cNode> /** * 高度 */ height: number /** * 宽度 */ width: number /** * 设置节点可拖拽 */ draggable?: boolean /** * 拖拽放置前的校验回调，返回 false 则阻止此次放置。 * @param param.dragNode 被拖拽的节点 * @param param.targetNode 放置目标节点 * @param param.position 放置位置 */ allowDrop?: (param: { dragNode: Node targetNode: Node position: OverStateEnum }) => boolean /** * 展开指定的树节点 */ expandedKeys?: Key[] /** * 选择节点 */ selectKeys?: Key[] /** * 是否展示连接线 */ showLine?: boolean /** * 默认节点高度 */ defaultNodeHeight?: number /** * 加载节点信息 * @param parentNode 父节点, 如果没有父节点, 则表示为 null * @returns 返回当前父节点下的节点信息 */ loadData?: (parentNode: Node | null) => Promise\u003cArray\u003cNode>> /** * 渲染右键菜单 */ rendererContextMenu?: (param: { node: Node | null, hide: () => void }) => ReactNode /** * 展开节点的事件 */ onExpanded?: NodeItemProps[\"onExpanded\"] /** * 选择节点事件 */ onSelect?: (param: { event: MouseEvent\u003cHTMLSpanElement, globalThis.MouseEvent>, selectKeys: Key[], node: Node, isSelect: boolean }) => void /** * 拖拽中止事件 */ onDragAbort?: (event: DragAbortEvent, context: Context) => void",
-            "defaultValue": null,
-            "deprecated": false
-        }
-    ]
-} as const satisfies ComponentApiRecord | null;
