@@ -209,19 +209,20 @@ export function loadRemoteModule<T = unknown>(options: LoadRemoteOptions): Promi
         );
     }
     const containerKey = containerKeyOf(options);
+    // 显式取得本次调用绑定的 container promise 引用（哪怕它是缓存复用的旧引用）,
+    // 供下方超时回调做身份比较——不能等超时触发时才现取 containerCache, 那样拿到的
+    // 可能已是"超时失效 → 重试建的新一轮"容器, 对它做"自证式"身份检查恒真, 会误删。
+    const containerPromise = getContainer(options, containerKey);
     const modulePromise = getModule(options, containerKey);
     const timeout = options.timeout ?? DEFAULT_TIMEOUT;
     return new Promise<T>((resolve, reject) => {
         const timer = setTimeout(() => {
             // 超时视同失败：两级缓存立即失效, 让下一次重试重走全链。
-            // 此回调能运行说明 modulePromise 仍 pending（settle 会先 clearTimeout）,
-            // 因此当前缓存条目必属本轮加载, 直接失效不会误杀新一轮；
-            // 仍在等待同一底层 Promise 的其他实例不受影响, 各按各的 timeout 结算。
+            // 两处失效都用本次调用开始时捕获的 promise 引用做身份比较, 与新一轮加载
+            // 建立的条目引用不同, 因此不会误删新一轮；仍在等待同一底层 promise 的
+            // 其他实例不受影响, 各按各的 timeout 结算。
             invalidateModuleIfCurrent(moduleKeyOf(containerKey, options.module), modulePromise);
-            const currentContainer = containerCache.get(containerKey);
-            if (currentContainer !== undefined) {
-                invalidateContainerIfCurrent(containerKey, currentContainer);
-            }
+            invalidateContainerIfCurrent(containerKey, containerPromise);
             reject(
                 new RealmError(
                     'timeout',
@@ -252,19 +253,28 @@ export function preloadRemote(options: LoadRemoteOptions): void {
 /**
  * 清除远程缓存。无参清全部；带参只清匹配 entry（及可选 scope）的条目。
  * 不删除 globalThis[scope]——它可能被宿主或其他消费方持有。测试隔离与热更新用, 生产慎用。
+ *
+ * containerCache 与 moduleCache 独立遍历、各自按其自身键还原出的 (entry, scope) 过滤——
+ * 不能嵌套在 containerCache 的匹配循环里清 moduleCache：一旦某 containerKey 已经因超时
+ * 或其他路径提前从 containerCache 消失（但同键的 moduleCache 条目还在）, 嵌套写法会跳过
+ * 该 containerKey、留下孤儿 moduleCache 条目, 使"清全部"的承诺失真。
  */
 export function clearRemoteCache(entry?: string, scope?: string): void {
+    const matches = (keyEntry: string, keyScope: string): boolean =>
+        (entry === undefined || keyEntry === entry) && (scope === undefined || keyScope === scope);
+
     for (const key of [...containerCache.keys()]) {
         const [, keyEntry, keyScope] = JSON.parse(key) as [string, string, string];
-        if ((entry === undefined || keyEntry === entry) && (scope === undefined || keyScope === scope)) {
+        if (matches(keyEntry, keyScope)) {
             containerCache.delete(key);
             removeScript(key);
-            for (const moduleKey of [...moduleCache.keys()]) {
-                const [parentKey] = JSON.parse(moduleKey) as [string, string];
-                if (parentKey === key) {
-                    moduleCache.delete(moduleKey);
-                }
-            }
+        }
+    }
+    for (const moduleKey of [...moduleCache.keys()]) {
+        const [containerKey] = JSON.parse(moduleKey) as [string, string];
+        const [, keyEntry, keyScope] = JSON.parse(containerKey) as [string, string, string];
+        if (matches(keyEntry, keyScope)) {
+            moduleCache.delete(moduleKey);
         }
     }
 }
