@@ -4998,7 +4998,8 @@ const RAW_RUNTIME_STATE =
       ["npm:0.11.1", {\
         "packageLocation": "./.yarn/cache/elkjs-npm-0.11.1-899fa736b4-e2216a7439.zip/node_modules/elkjs/",\
         "packageDependencies": [\
-          ["elkjs", "npm:0.11.1"]\
+          ["elkjs", "npm:0.11.1"],\
+          ["web-worker", "npm:1.4.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9485,6 +9486,15 @@ const RAW_RUNTIME_STATE =
           ["@types/unist", "npm:3.0.3"],\
           ["unist-util-stringify-position", "npm:4.0.0"],\
           ["vfile-message", "npm:4.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["web-worker", [\
+      ["npm:1.4.1", {\
+        "packageLocation": "./.yarn/cache/web-worker-npm-1.4.1-2cd9909b75-8b5e609969.zip/node_modules/web-worker/",\
+        "packageDependencies": [\
+          ["web-worker", "npm:1.4.1"]\
         ],\
         "linkType": "HARD"\
       }]\

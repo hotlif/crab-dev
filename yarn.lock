@@ -7440,6 +7440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"web-worker@npm:1.4.1":
+  version: 1.4.1
+  resolution: "web-worker@npm:1.4.1"
+  checksum: 10c0/8b5e6099692ad83e0bcd72595e9bbec9c5cc0c910215dce21379050c9a96d9678f651c161e58f29d5ecf62d50bbd897543b4fa1bcea83cd273dbf219fdda1089
+  languageName: node
+  linkType: hard
+
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
