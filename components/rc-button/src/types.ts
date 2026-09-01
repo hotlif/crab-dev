@@ -83,3 +83,10 @@ interface BaseButtonProps extends Omit<
 
 export type ButtonProps = BaseButtonProps &
     ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });
+
+export interface ButtonGroupProps {
+    children: ReactNode;
+    className?: string;
+    size?: ButtonProps['size'];
+    appearance?: ButtonProps['appearance'];
+}

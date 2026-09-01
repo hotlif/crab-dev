@@ -3,8 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
-const EXPECTED_COMPONENT_COUNT = 50;
-const EXPECTED_DEMO_COUNT = 243;
+const EXPECTED_COMPONENT_COUNT = 51;
+const EXPECTED_DEMO_COUNT = 245;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");
@@ -59,6 +59,7 @@ const spaciousComponents = new Set([
 const demoGroupDefinitions = new Map([
     ["rc-button", [
         ["基础与外观", [
+            "basic.demo.tsx",
             "appearance.demo.tsx",
             "circle.demo.tsx",
             "danger.demo.tsx",

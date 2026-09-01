@@ -1,12 +1,7 @@
 import { css, cx } from '@crab-dev/css';
-import { type ReactNode } from 'react';
 import token from './token.js';
-import ButtonGroupContext, { type ButtonGroupContextValue } from './buttonGroupContext.js';
-
-export interface ButtonGroupProps extends ButtonGroupContextValue {
-    children: ReactNode;
-    className?: string;
-}
+import ButtonGroupContext from './buttonGroupContext.js';
+import type { ButtonGroupProps } from './types.js';
 
 const groupLargeStyle  = css`gap: ${token.size.large.gap};`;
 const groupMiddleStyle = css`gap: ${token.size.middle.gap};`;

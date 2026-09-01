@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import type { ButtonProps } from './types.js';
 
-export interface ButtonGroupContextValue {
+interface ButtonGroupContextValue {
     size?: ButtonProps['size'];
     appearance?: ButtonProps['appearance'];
 }

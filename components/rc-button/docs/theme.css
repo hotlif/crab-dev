@@ -1,0 +1,48 @@
+:root {
+    --token-semantic-color-background-surface: var(--surface);
+    --token-semantic-color-background-elevated: var(--surface-raised);
+    --token-semantic-color-background-hover-subtle: var(--surface-muted);
+    --token-semantic-color-background-disabled: color-mix(
+        in srgb,
+        var(--surface-muted) 88%,
+        var(--surface)
+    );
+    --token-semantic-color-border-default: var(--border);
+    --token-semantic-color-border-hover: var(--border-strong);
+    --token-semantic-color-border-focus: var(--wake-accent);
+    --token-semantic-color-brand-primary: var(--wake-accent);
+    --token-semantic-color-brand-primary-hover: color-mix(
+        in srgb,
+        var(--wake-accent) 84%,
+        var(--text)
+    );
+    --token-semantic-color-brand-primary-active: color-mix(
+        in srgb,
+        var(--wake-accent) 72%,
+        var(--text)
+    );
+    --token-semantic-color-text-primary: var(--text);
+    --token-semantic-color-text-secondary: var(--text-soft);
+    --token-semantic-color-text-link: var(--wake-accent);
+    --token-semantic-color-text-link-hover: color-mix(in srgb, var(--wake-accent) 78%, var(--text));
+    --token-semantic-color-text-on-brand: #fff;
+    --token-semantic-color-feedback-error: #e11d48;
+    --token-semantic-radius-md: 8px;
+    --token-semantic-radius-lg: 12px;
+}
+
+.rc-button-console-preview {
+    box-sizing: border-box;
+    min-height: calc(100vh - 2px);
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: clamp(20px, 6vw, 48px);
+    color: var(--text);
+    background-color: var(--surface);
+    background-image: radial-gradient(
+        color-mix(in srgb, var(--border) 68%, transparent) 0.7px,
+        transparent 0.7px
+    );
+    background-size: 18px 18px;
+}

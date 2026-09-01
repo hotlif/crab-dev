@@ -1,20 +1,39 @@
-一个按钮, 用于即时操作
+# @crab-dev/rc-button
 
-## ✨ 特性
+用于提交、确认或触发即时操作的 React 按钮组件。
 
-- 支持多种外观与尺寸，覆盖主次按钮操作语义
-- 支持加载态与异步点击流程，减少重复提交风险
-- 适用于表单提交、工具栏操作与页面主 CTA 入口
-- 当前版本：`0.0.1`
-- 示例数量：`5` 个 Demo
-- 主题能力：支持 Design Token（token.toml）
+## 安装
 
-## 🔨 使用示例
+```bash
+yarn add @crab-dev/rc-button
+```
 
-<demos />
+## 使用
 
-## API
+```tsx
+import Button, { ButtonGroup } from '@crab-dev/rc-button';
+import '@crab-dev/rc-button/css/index.css';
 
-<api />
+export default function Actions() {
+    return (
+        <ButtonGroup>
+            <Button appearance="primary">保存</Button>
+            <Button>取消</Button>
+        </ButtonGroup>
+    );
+}
+```
 
-> 其余原生属性按底层实现透传，详见 API。
+组件支持六种外观、三种尺寸、加载与选中状态、前后图标、圆形图标按钮和链接渲染。异步点击在 Promise 完成前自动去重。
+
+## 组件控制台
+
+```bash
+yarn start
+yarn generate:docgen
+yarn exec wake docs build . --mode components
+```
+
+`yarn start` 会启动 Wake Components 工作台：左侧按组件和场景选择 Demo，中间显示隔离画布，右侧根据 Demo Props 和 JSDoc 自动生成属性控件。外观、尺寸、状态和视口会保存在 URL 中，便于刷新和分享。
+
+`wake docs build` 会把可静态部署的组件控制台输出到 `components-dist`。

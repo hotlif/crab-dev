@@ -7,6 +7,17 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/basic.demo.tsx",
+        "title": "基础配置",
+        "description": "在属性控件中组合文字、外观、尺寸与常用状态",
+        "sourceCode": "import Button from '../../src/index.js';\n\ninterface BasicDemoProps {\n    /** 按钮内显示的操作名称。 */\n    children: string;\n    /** 按钮的视觉层级与操作语义。 */\n    appearance?: 'primary' | 'subtle' | 'dashed' | 'text' | 'link' | 'danger';\n    /** 按钮尺寸。 */\n    size?: 'large' | 'middle' | 'small';\n    /** 是否显示加载状态。 */\n    loading?: boolean;\n    /** 是否禁用当前操作。 */\n    disabled?: boolean;\n    /** 是否显示为选中状态。 */\n    isSelected?: boolean;\n    /** 是否撑满预览容器。 */\n    shouldFitContainer?: boolean;\n}\n\nexport const meta = {\n    title: '基础配置',\n    description: '在属性控件中组合文字、外观、尺寸与常用状态',\n    group: '基础组件',\n    component: 'Button 按钮',\n    order: 10,\n    args: {\n        children: '保存更改',\n        appearance: 'primary',\n        size: 'middle',\n        loading: false,\n        disabled: false,\n        isSelected: false,\n        shouldFitContainer: false,\n    },\n    background: 'surface',\n    padding: 'lg',\n};\n\nexport default function BasicDemo({ children, ...props }: BasicDemoProps) {\n    return (\n        \u003cdiv style={{ width: 'min(100%, 360px)' }}>\n            \u003cButton {...props}>{children}\u003c/Button>\n        \u003c/div>\n    );\n}\n",
+        "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": "基础与外观"
+    },
+    {
         "id": "docs/demos/appearance.demo.tsx",
         "title": "外观设置",
         "description": "通过 `appearance` 属性设置按钮外观",

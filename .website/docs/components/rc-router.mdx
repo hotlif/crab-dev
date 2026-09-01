@@ -1,0 +1,41 @@
++++
+title = "Router 路由"
+description = "面向 React 19 浏览器应用的轻量对象式路由组件"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentApi from "../site/componentApi.js";
+import { api, demos } from "../_generated/rc-router.js";
+
+# Router
+
+轻量对象式浏览器路由，用一个路由表组织页面、嵌套布局与导航状态。
+
+## 组件预览
+
+<ComponentDemos demos={demos} />
+
+## 何时使用
+
+- React 单页应用需要基于 URL 渲染不同页面。
+- 页面之间存在共享布局、动态参数或 404 兜底页。
+- 希望保留原生链接语义，同时获得无刷新导航体验。
+
+## 功能特性
+
+- 静态、动态、可选和尾部通配路径匹配。
+- 嵌套路由、无路径布局和索引路由。
+- Browser History 的 push、replace、前进与后退。
+- 路由级和路径级相对导航。
+- location state、查询参数与 Outlet context。
+- NavLink 激活态和 `aria-current="page"` 无障碍反馈。
+
+
+
+## API
+
+<ComponentApi api={api} />

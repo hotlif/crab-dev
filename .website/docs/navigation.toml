@@ -78,6 +78,7 @@ pages = [
     "components/rc-breadcrumbs",
     "components/rc-menu",
     "components/rc-pagination",
+    "components/rc-router",
     "components/rc-tabs",
 ]
 
