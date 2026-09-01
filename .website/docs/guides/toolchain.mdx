@@ -19,3 +19,9 @@ status = "experimental"
 
 Wake 原生输出 ESM、CommonJS、声明与静态 CSS。测试运行在隔离的 Wake DOM 中，模块 mock、时钟和
 React 操作均使用 Wake 的显式异步 API。
+
+## 文档站开发
+
+在仓库根目录运行 `yarn docs:dev`。Turbo 会复用未变化组件的 Library 构建产物；站点启动后，
+组件的 `docs/index.mdx`、`docs/demos/*.demo.tsx`、`package.json` 或 `public/docgen.json` 发生变化时，
+聚合文档会自动增量刷新，无需重启开发服务器。生成器只写入内容真正变化的文件。
