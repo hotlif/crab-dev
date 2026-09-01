@@ -1,4 +1,15 @@
-import { act, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
+import {
+    act,
+    clock,
+    describe,
+    expect,
+    fireEvent,
+    it,
+    mock,
+    render,
+    screen,
+} from "@crab-dev/wake/test/react";
+import { useLayoutEffect } from "react";
 import type { ReactElement } from "react";
 import ComponentDemoFrame, {
     EmptyComponentDemos,
@@ -34,9 +45,27 @@ function renderTestFrame(state: ComponentDemoFrameRenderState) {
             data-sandbox={state.sandbox}
             data-wake-demo={state.demoId}
             data-height={state.height}
+            data-attempt={state.attempt}
             aria-busy={!state.ready}
+            tabIndex={state.tabIndex}
         />
     );
+}
+
+function ImmediateReadyFrame({ state }: { readonly state: ComponentDemoFrameRenderState }) {
+    useLayoutEffect(() => {
+        const event = new Event("message");
+        Object.defineProperties(event, {
+            data: { value: { type: "wake:ready" } },
+            source: { value: testFrameWindow },
+        });
+        window.dispatchEvent(event);
+    }, []);
+    return renderTestFrame(state);
+}
+
+function renderImmediateReadyFrame(state: ComponentDemoFrameRenderState) {
+    return <ImmediateReadyFrame state={state} />;
 }
 
 async function dispatchWakeMessage(
@@ -101,6 +130,7 @@ describe("ComponentDemoFrame", () => {
         type ObserverCallback = ConstructorParameters<ObserverConstructor>[0];
 
         let callback: ObserverCallback | undefined;
+        let observedTarget: Element | undefined;
         const observerDescriptor = Object.getOwnPropertyDescriptor(
             globalThis,
             "IntersectionObserver",
@@ -117,7 +147,7 @@ describe("ComponentDemoFrame", () => {
             }
 
             disconnect() {}
-            observe() {}
+            observe(target: Element) { observedTarget = target; }
             takeRecords() { return []; }
             unobserve() {}
         }
@@ -145,7 +175,7 @@ describe("ComponentDemoFrame", () => {
                 intersectionRect: rectangle,
                 isIntersecting: true,
                 rootBounds: null,
-                target: document.body,
+                target: observedTarget ?? document.body,
                 time: 0,
             }], {} as InstanceType<ObserverConstructor>);
         });
@@ -181,6 +211,12 @@ describe("ComponentDemoFrame", () => {
 
         await dispatchWakeMessage(testFrameWindow, { type: "wake:resize", height: 346.2 });
         expect(frame.getAttribute("data-height")).toBe("347");
+
+        await dispatchWakeMessage(testFrameWindow, { type: "wake:resize", height: 100_000 });
+        expect(frame.getAttribute("data-height")).toBe("1200");
+
+        await dispatchWakeMessage(testFrameWindow, { type: "wake:resize", height: -100 });
+        expect(frame.getAttribute("data-height")).toBe("80");
     });
 
     it("ready 后同步主题并解除 busy 状态", async () => {
@@ -198,13 +234,104 @@ describe("ComponentDemoFrame", () => {
         const frame = screen.getByTitle("基础用法 交互演示");
 
         expect(frame.getAttribute("aria-busy")).toBe("true");
+        expect(frame.getAttribute("tabindex")).toBe("-1");
         await dispatchWakeMessage(themeFrameWindow, { type: "wake:ready" });
         expect(frame.getAttribute("aria-busy")).toBe("false");
+        expect(frame.getAttribute("tabindex")).toBeNull();
         expect(postMessage).toHaveBeenCalledWith(
             { type: "wake:theme", theme: "dark" },
             "*",
         );
         delete document.documentElement.dataset.theme;
+    });
+
+    it("在 iframe layout 阶段发送的 ready 消息不会丢失", async () => {
+        await renderImmediately(
+            <ComponentDemoFrame
+                demo={demo}
+                getFrameWindow={getTestFrameWindow}
+                renderFrame={renderImmediateReadyFrame}
+            />,
+        );
+
+        const frame = screen.getByTitle("基础用法 交互演示");
+        expect(frame.getAttribute("aria-busy")).toBe("false");
+        expect(frame.getAttribute("tabindex")).toBeNull();
+    });
+
+    it("加载超时后提供重试并重新创建演示", async () => {
+        await clock.fake();
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            const rendered = await renderImmediately(
+                <ComponentDemoFrame
+                    demo={demo}
+                    getFrameWindow={getTestFrameWindow}
+                    renderFrame={renderTestFrame}
+                    readyTimeoutMs={50}
+                />,
+            );
+            unmount = rendered.unmount;
+
+            expect(screen.getByRole("status").textContent).toContain("正在加载交互演示");
+            await act(async () => {
+                await clock.advanceBy(50);
+            });
+
+            expect(screen.getByRole("alert").textContent).toContain("演示加载超时");
+            await fireEvent.click(screen.getByRole("button", { name: "重新加载演示" }));
+
+            const frame = screen.getByTitle("基础用法 交互演示");
+            expect(frame.getAttribute("data-attempt")).toBe("1");
+            await dispatchWakeMessage(testFrameWindow, { type: "wake:ready" });
+            await act(async () => {
+                await clock.advanceBy(50);
+            });
+            expect(screen.queryByRole("alert")).toBeNull();
+        } finally {
+            await unmount?.();
+            await clock.restore();
+        }
+    });
+
+    it("重试时清理上一次加载尝试的超时计时器", async () => {
+        await clock.fake();
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            const rendered = await renderImmediately(
+                <ComponentDemoFrame
+                    demo={demo}
+                    getFrameWindow={getTestFrameWindow}
+                    renderFrame={renderTestFrame}
+                    readyTimeoutMs={100}
+                />,
+            );
+            unmount = rendered.unmount;
+
+            await act(async () => {
+                await clock.advanceBy(40);
+            });
+            await dispatchWakeMessage(testFrameWindow, {
+                type: "wake:error",
+                error: "首次加载失败",
+            });
+            await fireEvent.click(screen.getByRole("button", { name: "重新加载演示" }));
+
+            await act(async () => {
+                await clock.advanceBy(60);
+            });
+            expect(screen.queryByRole("alert")).toBeNull();
+            expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("1");
+
+            await dispatchWakeMessage(testFrameWindow, { type: "wake:ready" });
+            await act(async () => {
+                await clock.advanceBy(40);
+            });
+            expect(screen.queryByRole("alert")).toBeNull();
+        } finally {
+            await unmount?.();
+            await clock.restore();
+        }
     });
 
     it("将单个 Demo 的运行错误隔离在对应预览中", async () => {

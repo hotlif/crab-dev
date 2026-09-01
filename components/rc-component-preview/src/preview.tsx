@@ -1,14 +1,13 @@
 import { css, cx } from '@crab-dev/css';
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Prism } from 'react-syntax-highlighter';
-// @ts-expect-error: 第三方库类型定义不全；CJS 子路径同时兼容 Wake 的 ESM 与 CommonJS 产物。
-import oneLight from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light.js';
-// @ts-expect-error: 第三方库类型定义不全；CJS 子路径同时兼容 Wake 的 ESM 与 CommonJS 产物。
-import oneDark from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark.js';
 import token from './token.js';
 import { CheckIcon, CodeIcon, CopyIcon, ExternalLinkIcon, EyeIcon } from './icons.js';
+
+const SourceCode = lazy(() => import('./sourceCode.js').then((module) => ({
+    default: module.SourceCode,
+})));
 
 export type PreviewDensity = 'compact' | 'regular' | 'spacious';
 export type PreviewCodeTheme = 'light' | 'dark';
@@ -282,37 +281,13 @@ const sourceScrollStyle = css`
     }
 `;
 
-/* ────────────────────────── Prism 配置 ────────────────────────── */
-
-const prismCustomStyle = {
-    margin: 0,
-    padding: `${token.source['padding-block']} 0`,
-    background: 'transparent',
-    fontSize: token.source.font.size,
-    fontFamily: token.source.font.family,
-    lineHeight: token.source['line-height'],
-    tabSize: token.source['tab-size'],
-    MozTabSize: token.source['tab-size'],
-    textShadow: 'none',
-} as const;
-
-const prismCodeTagProps = {
-    style: {
-        fontFamily: token.source.font.family,
-        fontSize: token.source.font.size,
-        lineHeight: token.source['line-height'],
-    },
-} as const;
-
-const prismLineNumberStyle = {
-    minWidth: token.source.gutter['min-width'],
-    paddingRight: token.source.gutter['padding-right'],
-    marginRight: token.source.gutter['margin-right'],
-    color: token.source.gutter.color,
-    textAlign: 'right' as const,
-    userSelect: 'none' as const,
-    fontVariantNumeric: 'tabular-nums' as const,
-};
+const sourceLoadingStyle = css`
+    display: grid;
+    min-height: 7rem;
+    place-items: center;
+    color: ${token.meta.desc.color};
+    font-size: ${token.meta.desc.font.size};
+`;
 
 const COPY_FEEDBACK_MS = 1400;
 
@@ -486,17 +461,19 @@ const Preview: FC<PreviewProps> = ({
                     aria-hidden={!expanded}
                 >
                     <div className={sourceScrollStyle}>
-                        <Prism
-                            language={language}
-                            style={codeTheme === 'dark' ? oneDark : oneLight}
-                            wrapLongLines
-                            showLineNumbers
-                            lineNumberStyle={prismLineNumberStyle}
-                            customStyle={prismCustomStyle}
-                            codeTagProps={prismCodeTagProps}
+                        <Suspense
+                            fallback={(
+                                <div className={sourceLoadingStyle} role="status">
+                                    正在加载源码高亮…
+                                </div>
+                            )}
                         >
-                            {sourceCode ?? ""}
-                        </Prism>
+                            <SourceCode
+                                sourceCode={sourceCode ?? ''}
+                                language={language}
+                                codeTheme={codeTheme}
+                            />
+                        </Suspense>
                     </div>
                 </div>
             )}
