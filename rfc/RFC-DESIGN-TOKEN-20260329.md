@@ -2,6 +2,8 @@
 	<h1>RFC-DESIGN-TOKEN-20260329</h1>
 </div>
 
+> 历史 RFC：当前实现已迁移到 Wake 与 `@crab-dev/css`；文中的旧工具链描述仅用于记录提案背景。
+
 ## 概述
 
 当组件库中的组件各自硬编码颜色、间距、字号等视觉参数时，会出现以下问题：
@@ -993,7 +995,7 @@ export default token;
 在组件样式中直接引用生成的 `token` 对象：
 
 ```typescript
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 import token from './token.js';
 
 const primaryStyle = css`

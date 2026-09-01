@@ -2,6 +2,8 @@
 	<h1>RFC-MARKDOWN-THEME-20260329</h1>
 </div>
 
+> 历史 RFC：当前实现已迁移到 Wake 与 `@crab-dev/css`；文中的 Linaria/WYW 描述仅用于记录提案背景。
+
 ## 概述
 
 当应用需要渲染来自 CMS、Markdown 文件、用户输入等**不受控的 HTML 内容**时，缺乏统一的排版样式方案会导致：
@@ -232,7 +234,7 @@ Layer 3 — Component Tokens
 **实现原理**（Linaria CSS）：
 
 ```typescript
-import { css } from '@linaria/core';
+import { css } from '@crab-dev/css';
 
 export const prose = css`
     color: var(--prose-body);
@@ -795,7 +797,7 @@ export type { ProseProps, ProseSize };
 #### 6.3 组件实现
 
 ```typescript
-import { css, cx } from '@linaria/core';
+import { css, cx } from '@crab-dev/css';
 import type { ProseProps } from './types.js';
 
 const baseStyle = css`/* ... 完整排版样式 ... */`;
