@@ -545,7 +545,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@changesets/parse", "npm:0.4.3"],\
           ["@changesets/types", "npm:6.1.0"],\
-          ["js-yaml", "npm:4.3.0"]\
+          ["js-yaml", "npm:4.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4674,7 +4674,7 @@ const RAW_RUNTIME_STATE =
           ["cosmiconfig", "virtual:0d75bfa62ecc6a689574bf126797f7f06db03741be5f38241bf63e5c2aa75c41312edc360aab8c80d07e8f0ec6e990ce059e2be774d5892f31e5482ccd64eb98#npm:9.0.2"],\
           ["env-paths", "npm:2.2.1"],\
           ["import-fresh", "npm:3.3.1"],\
-          ["js-yaml", "npm:4.3.0"],\
+          ["js-yaml", "npm:4.3.2"],\
           ["parse-json", "npm:5.2.0"],\
           ["typescript", null]\
         ],\
@@ -6874,20 +6874,20 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["js-yaml", [\
-      ["npm:3.15.0", {\
-        "packageLocation": "./.yarn/cache/js-yaml-npm-3.15.0-c152ef7c11-ca966bd354.zip/node_modules/js-yaml/",\
+      ["npm:3.15.2", {\
+        "packageLocation": "./.yarn/cache/js-yaml-npm-3.15.2-ed3413b0f7-e341df211d.zip/node_modules/js-yaml/",\
         "packageDependencies": [\
           ["argparse", "npm:1.0.10"],\
           ["esprima", "npm:4.0.1"],\
-          ["js-yaml", "npm:3.15.0"]\
+          ["js-yaml", "npm:3.15.2"]\
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:4.3.0", {\
-        "packageLocation": "./.yarn/cache/js-yaml-npm-4.3.0-1586601382-058b30473d.zip/node_modules/js-yaml/",\
+      ["npm:4.3.2", {\
+        "packageLocation": "./.yarn/cache/js-yaml-npm-4.3.2-d3b0efff68-dedd34c2e8.zip/node_modules/js-yaml/",\
         "packageDependencies": [\
           ["argparse", "npm:2.0.1"],\
-          ["js-yaml", "npm:4.3.0"]\
+          ["js-yaml", "npm:4.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8420,7 +8420,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/read-yaml-file-npm-1.1.0-52eaf1c9d4-85a9ba08bb.zip/node_modules/read-yaml-file/",\
         "packageDependencies": [\
           ["graceful-fs", "npm:4.2.11"],\
-          ["js-yaml", "npm:3.15.0"],\
+          ["js-yaml", "npm:3.15.2"],\
           ["pify", "npm:4.0.1"],\
           ["read-yaml-file", "npm:1.1.0"],\
           ["strip-bom", "npm:3.0.0"]\
