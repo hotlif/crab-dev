@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 interface VirtualItemParamType {
 
 	/**
@@ -30,6 +32,25 @@ interface VirtualItemParamType {
 	 */
 	gridTemplateRows: number[]
 
+	/** 滚动容器内、不属于数据行的顶部常驻内容高度 */
+	reservedTopHeight?: number
+
+	/** 滚动容器内、不属于数据行的底部常驻内容高度 */
+	reservedBottomHeight?: number
+
+	/** 可视范围上下额外渲染的行数 */
+	overscanRowCount?: number
+
+	/** 可视范围左右额外渲染的列数 */
+	overscanColumnCount?: number
+
+}
+
+export interface VirtualAxisMetrics {
+    sizes: number[]
+    cumulativeEnds: number[]
+    totalSize: number
+    uniformSize: number | null
 }
 
 const clampToNonNegativeFinite = (value: number) => {
@@ -39,25 +60,45 @@ const clampToNonNegativeFinite = (value: number) => {
     return Math.max(0, value);
 };
 
-const normalizeTemplateSizes = (sizes: number[]) => {
-    return sizes.map(size => {
-        if (!Number.isFinite(size) || size < 0) {
-            return 0;
-        }
-        return size;
-    });
+const clampScrollPosition = (
+    scrollPosition: number,
+    totalSize: number,
+    viewportSize: number
+) => {
+    const normalizedScrollPosition = clampToNonNegativeFinite(scrollPosition);
+    const normalizedTotalSize = clampToNonNegativeFinite(totalSize);
+    const normalizedViewportSize = clampToNonNegativeFinite(viewportSize);
+    const maxScrollPosition = Math.max(0, normalizedTotalSize - normalizedViewportSize);
+
+    return Math.min(normalizedScrollPosition, maxScrollPosition);
 };
 
-const buildCumulativeEnds = (sizes: number[]) => {
-    const cumulativeEnds: number[] = [];
+export const createVirtualAxisMetrics = (sizes: number[]): VirtualAxisMetrics => {
+    const normalizedSizes = new Array<number>(sizes.length);
+    const cumulativeEnds = new Array<number>(sizes.length);
     let accumulator = 0;
+    let uniformSize: number | null = null;
+    let isUniform = sizes.length > 0;
 
-    sizes.forEach(size => {
-        accumulator += size;
-        cumulativeEnds.push(accumulator);
-    });
+    for (let index = 0; index < sizes.length; index += 1) {
+        const size = sizes[index];
+        const normalizedSize = Number.isFinite(size) && size >= 0 ? size : 0;
+        if (index === 0) {
+            uniformSize = normalizedSize;
+        } else if (normalizedSize !== uniformSize) {
+            isUniform = false;
+        }
+        normalizedSizes[index] = normalizedSize;
+        accumulator += normalizedSize;
+        cumulativeEnds[index] = accumulator;
+    }
 
-    return cumulativeEnds;
+    return {
+        sizes: normalizedSizes,
+        cumulativeEnds,
+        totalSize: accumulator,
+        uniformSize: isUniform ? uniformSize : null
+    };
 };
 
 const lowerBound = (sortedArray: number[], target: number) => {
@@ -93,25 +134,37 @@ const upperBound = (sortedArray: number[], target: number) => {
 };
 
 const getVisibleRangeByBinarySearch = (
-    sizes: number[],
+    metrics: VirtualAxisMetrics,
     viewportSize: number,
-    scrollPosition: number
+    scrollPosition: number,
+    overscanCount: number
 ): [number, number] => {
-    if (sizes.length === 0) {
+    if (metrics.sizes.length === 0) {
         return [0, 0];
     }
 
     const normalizedViewportSize = clampToNonNegativeFinite(viewportSize);
     const normalizedScrollPosition = clampToNonNegativeFinite(scrollPosition);
-    const cumulativeEnds = buildCumulativeEnds(sizes);
-    const maxIndex = sizes.length - 1;
+    const normalizedOverscanCount = Math.floor(clampToNonNegativeFinite(overscanCount));
+    const maxIndex = metrics.sizes.length - 1;
 
-    let start = upperBound(cumulativeEnds, normalizedScrollPosition);
+    let start: number;
+    let end: number;
+    if (metrics.uniformSize != null && metrics.uniformSize > 0) {
+        start = Math.floor(normalizedScrollPosition / metrics.uniformSize);
+        end = Math.max(
+            start,
+            Math.ceil((normalizedScrollPosition + normalizedViewportSize) / metrics.uniformSize) - 1
+        );
+    } else {
+        start = upperBound(metrics.cumulativeEnds, normalizedScrollPosition);
+        end = lowerBound(metrics.cumulativeEnds, normalizedScrollPosition + normalizedViewportSize);
+    }
+
     if (start > maxIndex) {
         start = maxIndex;
     }
 
-    let end = lowerBound(cumulativeEnds, normalizedScrollPosition + normalizedViewportSize);
     if (end > maxIndex) {
         end = maxIndex;
     }
@@ -120,13 +173,42 @@ const getVisibleRangeByBinarySearch = (
         end = start;
     }
 
-    return [start, end];
+    return [
+        Math.max(0, start - normalizedOverscanCount),
+        Math.min(maxIndex, end + normalizedOverscanCount)
+    ];
+};
+
+export const getVirtualItemStart = (metrics: VirtualAxisMetrics, index: number) => {
+    if (index <= 0 || metrics.cumulativeEnds.length === 0) {
+        return 0;
+    }
+    return metrics.cumulativeEnds[Math.min(index, metrics.cumulativeEnds.length) - 1] ?? 0;
+};
+
+export const getVirtualItemEnd = (metrics: VirtualAxisMetrics, index: number) => {
+    if (index < 0 || metrics.cumulativeEnds.length === 0) {
+        return 0;
+    }
+    return metrics.cumulativeEnds[Math.min(index, metrics.cumulativeEnds.length - 1)] ?? metrics.totalSize;
+};
+
+export const getVirtualItemIndex = (metrics: VirtualAxisMetrics, scrollPosition: number) => {
+    if (metrics.sizes.length === 0) {
+        return 0;
+    }
+
+    const index = metrics.uniformSize != null && metrics.uniformSize > 0
+        ? Math.floor(clampToNonNegativeFinite(scrollPosition) / metrics.uniformSize)
+        : upperBound(metrics.cumulativeEnds, scrollPosition);
+    // 保持既有 API 语义：若坐标超过末项，回退到第 0 项。
+    return index < metrics.sizes.length ? index : 0;
 };
 
 /**
  * 获取当前虚拟滚动的可见数据的范围
  * 
- *  - optimize 目前时间复杂度为 O(n) 需要优化为 O(log2n)
+ * 尺寸指标仅在模板数组引用变化时重建；滚动位置变化时仅执行二分查找。
  */
 const useVirtualItemRange = ({
     viewportHeight,
@@ -135,29 +217,61 @@ const useVirtualItemRange = ({
     currentScrollPositionLeft,
     gridTemplateColumns,
     gridTemplateRows,
+    reservedTopHeight = 0,
+    reservedBottomHeight = 0,
+    overscanRowCount = 0,
+    overscanColumnCount = 0,
 }: VirtualItemParamType) => {
-    const normalizedGridTemplateColumns = normalizeTemplateSizes(gridTemplateColumns);
-    const normalizedGridTemplateRows = normalizeTemplateSizes(gridTemplateRows);
+    "use no memo";
+    // 例外 3（编译器无法静态推断的稳定性）：前缀和是昂贵派生数据，且必须跨内部滚动渲染保持引用稳定。
+    const columnMetrics = useMemo(
+        () => createVirtualAxisMetrics(gridTemplateColumns),
+        [gridTemplateColumns]
+    );
+    // 例外 3（编译器无法静态推断的稳定性）：同上，避免每次滚动重新遍历全部行。
+    const rowMetrics = useMemo(
+        () => createVirtualAxisMetrics(gridTemplateRows),
+        [gridTemplateRows]
+    );
+
+    const effectiveScrollPositionLeft = clampScrollPosition(
+        currentScrollPositionLeft,
+        columnMetrics.totalSize,
+        viewportWidth
+    );
+    const effectiveScrollPositionTop = clampScrollPosition(
+        currentScrollPositionTop,
+        rowMetrics.totalSize
+            + clampToNonNegativeFinite(reservedTopHeight)
+            + clampToNonNegativeFinite(reservedBottomHeight),
+        viewportHeight
+    );
 
     const getGridColumnsRangeIndex = (): [number, number] => {
         return getVisibleRangeByBinarySearch(
-            normalizedGridTemplateColumns,
+            columnMetrics,
             viewportWidth,
-            currentScrollPositionLeft
+            effectiveScrollPositionLeft,
+            overscanColumnCount
         );
     };
 
     const getGridRowsRangeIndex = (): [number, number] => {
         return getVisibleRangeByBinarySearch(
-            normalizedGridTemplateRows,
+            rowMetrics,
             viewportHeight,
-            currentScrollPositionTop
+            effectiveScrollPositionTop,
+            overscanRowCount
         );
     };
 
     return {
         rowRange: getGridRowsRangeIndex(),
-        columnRange: getGridColumnsRangeIndex()
+        columnRange: getGridColumnsRangeIndex(),
+        rowMetrics,
+        columnMetrics,
+        effectiveScrollPositionTop,
+        effectiveScrollPositionLeft
     };
 };
 

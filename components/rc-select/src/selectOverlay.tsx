@@ -203,6 +203,13 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
         gridRef.current?.scrollToCell({ rowIndex: highlightIndex });
     }, [highlightIndex]);
 
+    const rowCount = filteredOptions.length;
+    const contentWidth = Math.max(triggerWidth - DROPDOWN_PADDING * 2, 160);
+    const viewportHeight = Math.min(MAX_VIEWPORT_HEIGHT, rowCount * ROW_HEIGHT);
+    // React Compiler 会按 rowCount / contentWidth 缓存这两个派生数组，保持 Virtual 前缀和缓存有效。
+    const rows = Array<number>(rowCount).fill(ROW_HEIGHT);
+    const columns = [contentWidth];
+
     if (loading) {
         return (
             <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx(overlayStyle, popupClassName)}>
@@ -221,11 +228,6 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
         );
     }
 
-    const rowCount = filteredOptions.length;
-    const contentWidth = Math.max(triggerWidth - DROPDOWN_PADDING * 2, 160);
-    const viewportHeight = Math.min(MAX_VIEWPORT_HEIGHT, rowCount * ROW_HEIGHT);
-    const rows = Array<number>(rowCount).fill(ROW_HEIGHT);
-
     const isGrouped = hasGroups(filteredOptions);
 
     const menu = (
@@ -233,8 +235,9 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
             gridRef={gridRef}
             viewportWidth={contentWidth}
             viewportHeight={viewportHeight}
-            gridTemplateColumns={[contentWidth]}
+            gridTemplateColumns={columns}
             gridTemplateRows={rows}
+            overscanRowCount={4}
             renderRows={(rowRange: [number, number]): ReactNode => {
                 const nodes: ReactNode[] = [
                     <div

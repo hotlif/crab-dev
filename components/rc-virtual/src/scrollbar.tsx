@@ -1,14 +1,7 @@
 import { type RefObject, useEffect, useRef, type PointerEvent } from "react";
 import { cx } from "@crab-dev/css";
 
-import {
-    containerStyle,
-    thumbStyle,
-    xContainerStyle,
-    xThumbStyle,
-    yContainerStyle,
-    yThumbStyle
-} from "./style/scrollbar.style";
+import { containerStyle, thumbStyle, xContainerStyle, xThumbStyle, yContainerStyle, yThumbStyle } from "./style/scrollbar.style";
 
 interface ScrollbarInstantiate {
 	
@@ -90,6 +83,12 @@ const ScrollBar = ({
     const isDragStart = useRef<boolean>(false);
     const activePointerId = useRef<number | null>(null);
     const divRef = useRef<HTMLDivElement>(null);
+    // 可变实例状态 ref（拖动测量缓存）：轨道位置在一次拖动期间保持稳定，避免 pointermove 强制同步布局。
+    const trackPositionRef = useRef<{ left: number, top: number } | null>(null);
+    // 可变实例状态 ref（拖动帧合并）：同一动画帧只向 Virtual 提交最后一个坐标。
+    const pendingCoordinateRef = useRef<number | null>(null);
+    // 可变实例状态 ref（动画帧句柄）：用于合并和清理高频 pointermove。
+    const animationFrameRef = useRef<number | null>(null);
 
     const thumbWidthTemp = ((viewportWidth / totalWidth) * viewportWidth);
     const thumbWidth = thumbWidthTemp < min ? min : thumbWidthTemp;
@@ -127,46 +126,81 @@ const ScrollBar = ({
         }
         isDragStart.current = false;
         activePointerId.current = null;
+        trackPositionRef.current = null;
         e.currentTarget.releasePointerCapture(e.pointerId);
     };
 
+    const commitPendingCoordinate = () => {
+        animationFrameRef.current = null;
+        const coordinate = pendingCoordinateRef.current;
+        pendingCoordinateRef.current = null;
+        if (coordinate != null) {
+            onScroll?.(coordinate);
+        }
+    };
+
+    const scheduleCoordinate = (coordinate: number) => {
+        pendingCoordinateRef.current = coordinate;
+        if (animationFrameRef.current != null) {
+            return;
+        }
+
+        const callback: (timestamp: number) => void = () => commitPendingCoordinate();
+        animationFrameRef.current = -1;
+        const frameId = typeof globalThis.requestAnimationFrame === "function"
+            ? globalThis.requestAnimationFrame(callback)
+            : globalThis.setTimeout(() => callback(performance.now()), 16) as unknown as number;
+        if (animationFrameRef.current === -1) {
+            animationFrameRef.current = frameId;
+        }
+    };
+
     const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
-        if (!isDragStart.current || activePointerId.current !== e.pointerId || !divRef.current) {
+        if (!isDragStart.current || activePointerId.current !== e.pointerId || !trackPositionRef.current) {
             return;
         }
 
         const {
             left,
             top
-        } = divRef.current.getBoundingClientRect();
+        } = trackPositionRef.current;
 
         if (direction === "x") {
             const leftDistance = e.clientX - left;
             const endCoordinateX = getEndCoordinateX(leftDistance - thumbMousePointer.current);
 
             if (leftDistance - thumbMousePointer.current <= 0) {
-                onScroll?.(0);
+                scheduleCoordinate(0);
             } else if (leftDistance + thumbWidth - thumbMousePointer.current >= viewportWidth) {
-                onScroll?.(getEndCoordinateX(viewportWidth - thumbWidth));
+                scheduleCoordinate(getEndCoordinateX(viewportWidth - thumbWidth));
             } else {
-                onScroll?.(endCoordinateX);
+                scheduleCoordinate(endCoordinateX);
             }
         } else {
             const topDistance = e.clientY - top;
             const endCoordinateY = getEndCoordinateY(topDistance - thumbMousePointer.current);
 
             if (topDistance - thumbMousePointer.current <= 0) {
-                onScroll?.(0);
+                scheduleCoordinate(0);
             } else if (topDistance + thumbHeight - thumbMousePointer.current >= viewportHeight) {
-                onScroll?.(getEndCoordinateY(viewportHeight - thumbHeight));
+                scheduleCoordinate(getEndCoordinateY(viewportHeight - thumbHeight));
             } else {
-                onScroll?.(endCoordinateY);
+                scheduleCoordinate(endCoordinateY);
             }
         }
     };
 
     useEffect(() => {
         return () => {
+            if (animationFrameRef.current != null && animationFrameRef.current !== -1) {
+                if (typeof globalThis.cancelAnimationFrame === "function") {
+                    globalThis.cancelAnimationFrame(animationFrameRef.current);
+                } else {
+                    globalThis.clearTimeout(animationFrameRef.current);
+                }
+            }
+            animationFrameRef.current = null;
+            pendingCoordinateRef.current = null;
             if (scrollbar) {
                 scrollbar.current = null;
             }
@@ -186,6 +220,10 @@ const ScrollBar = ({
             left,
             top
         } = e.currentTarget.getBoundingClientRect();
+        const trackRect = divRef.current?.getBoundingClientRect();
+        trackPositionRef.current = trackRect
+            ? { left: trackRect.left, top: trackRect.top }
+            : { left: 0, top: 0 };
 
         if (direction === "x") {
             thumbMousePointer.current = e.clientX - left;
