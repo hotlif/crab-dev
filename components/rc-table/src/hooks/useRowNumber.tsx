@@ -17,13 +17,13 @@ const rowNumberCellStyle = css`
     align-items: center;
     justify-content: flex-end;
     padding-right: ${token.cell['padding-inline']};
-    background-color: ${token.header['bg-color']};
-    color: ${token.sort['icon-color']};
-    font-size: ${token.group['count-font-size']};
+    background-color: ${token.header['background-color']};
+    color: ${token.sort.icon.color};
+    font-size: ${token.group.count["font-size"]};
     font-variant-numeric: tabular-nums;
     user-select: none;
-    box-shadow: inset -1px 0 0 ${token.border.color},
-                inset 0 -1px 0 ${token.border.color};
+    box-shadow: inset -1px 0 0 ${token.root["border-color"]},
+                inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 interface UseRowNumberOptions {

@@ -6,3 +6,4 @@ export { LoadStateType, NodeType, NodeEditStateType, OverStateEnum } from "./typ
 export type { Node, OverState } from "./type.js";
 export type { TreeProps } from "./tree.js";
 export default Tree;
+export { vars as TokenVars } from './token.js';

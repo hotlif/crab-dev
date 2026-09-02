@@ -21,4 +21,4 @@ export const ROW_BG_VAR = "--rc-table-row-bg";
  * table.tsx 的 selectedRowStyle / clickableRowStyle / fixedCellBgWithRowVar，
  * 以及 bodyCell.tsx 中合并单元格的内容容器。
  */
-export const ROW_BG_TRANSITION = `background-color ${token["row-click"]["row-bg-transition"]}`;
+export const ROW_BG_TRANSITION = `background-color ${token['row-click'].transition}`;

@@ -731,10 +731,7 @@ const Tree: FC<TreeProps> = ({
                                 className={css`
                                     pointer-events: none;
                                     border-radius: 4px;
-                                    box-shadow:
-                                        0 0 0 1px rgba(0,0,0,0.06),
-                                        0 4px 8px rgba(0,0,0,0.1),
-                                        0 8px 16px rgba(0,0,0,0.08);
+                                    box-shadow: ${token["drag-overlay"]["box-shadow"]};
                                 `}
                             >
                                 <NodeItem
@@ -759,7 +756,7 @@ const Tree: FC<TreeProps> = ({
                         className={css`
                             z-index: ${token['context-menu']['z-index']};
                             position: absolute;
-                            box-shadow: 0 6px 10px rgba(0,0,0,0.035), 0 6px 16px rgba(0,0,0,0.045);
+                            box-shadow: ${token["context-menu"]["box-shadow"]};
                         `}
                         style={{
                             visibility: isOpenContextMenu ? "visible" : "hidden",

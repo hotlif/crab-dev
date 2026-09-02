@@ -8,23 +8,23 @@ imports = [
 [token]
 
 # ─── 容器 ────────────────────────────────────────────────────────────────────
-font.weight = "$ref(font.weight.label)"
+root.font-weight = "var(--tabs-font-weight, $ref(font.weight.label))"
 bar.gap = "$ref(space.inline-gap)"
-bar.border.color = "$ref(color.border.default)"
+bar.border-color = "$ref(color.border.default)"
 content.padding-top = "$ref(space.stack-gap)"
 
 # ─── 尺寸 · 高度 / 字号 / 内边距 ─────────────────────────────────────────────
 size.small.height = "32px"
 size.small.font-size = "$ref(font.size.caption)"
-size.small.padding-x = "12px"
+size.small.padding-inline = "var(--tabs-size-small-padding-x, 12px)"
 
 size.medium.height = "40px"
 size.medium.font-size = "$ref(font.size.body)"
-size.medium.padding-x = "16px"
+size.medium.padding-inline = "var(--tabs-size-medium-padding-x, 16px)"
 
 size.large.height = "48px"
 size.large.font-size = "$ref(font.size.subhead)"
-size.large.padding-x = "20px"
+size.large.padding-inline = "var(--tabs-size-large-padding-x, 20px)"
 
 # ─── 标签 · 颜色 ────────────────────────────────────────────────────────────
 item.color = "$ref(color.text.secondary)"
@@ -40,30 +40,33 @@ indicator.color = "$ref(color.brand.primary)"
 indicator.transition = "transform 240ms cubic-bezier(0.4, 0, 0.2, 1), width 240ms cubic-bezier(0.4, 0, 0.2, 1)"
 
 # ─── Card 类型 ───────────────────────────────────────────────────────────────
-card.background = "transparent"
-card.background-hover = "$ref(color.background.hover-subtle)"
-card.background-active = "$ref(color.background.surface)"
-card.border.color = "$ref(color.border.default)"
-card.border.radius = "$ref(radius.md)"
+card.background-color = "var(--tabs-card-background, transparent)"
+card.background-color-hover = "var(--tabs-card-background-hover, $ref(color.background.hover-subtle))"
+card.background-color-active = "var(--tabs-card-background-active, $ref(color.background.surface))"
+card.border-color = "$ref(color.border.default)"
+card.border-radius = "$ref(radius.md)"
 
 # ─── Pill 类型 ───────────────────────────────────────────────────────────────
-pill.background-hover = "$ref(color.background.hover-subtle)"
-pill.background-active = "$ref(color.brand.primary)"
+pill.background-color-hover = "var(--tabs-pill-background-hover, $ref(color.background.hover-subtle))"
+pill.background-color-active = "var(--tabs-pill-background-active, $ref(color.brand.primary))"
 pill.color-active = "$ref(color.text.on-brand)"
-pill.border.radius = "$ref(radius.pill)"
+pill.border-radius = "$ref(radius.pill)"
 
 # ─── 关闭按钮 ────────────────────────────────────────────────────────────────
 close.color = "$ref(color.text.tertiary)"
 close.color-hover = "$ref(color.text.primary)"
-close.size = "16px"
+close.width = "var(--tabs-close-size, 16px)"
 close.gap = "$ref(space.inline-gap)"
-close.border.radius = "$ref(radius.sm)"
-close.background-hover = "$ref(color.background.active-subtle)"
+close.border-radius = "$ref(radius.sm)"
+close.background-color-hover = "var(--tabs-close-background-hover, $ref(color.background.active-subtle))"
 
 # ─── 焦点环 ──────────────────────────────────────────────────────────────────
-focus.ring.color = "$ref(color.border.focus)"
-focus.ring.width = "2px"
-focus.ring.offset = "2px"
+tab.outline-color-focus = "var(--tabs-focus-ring-color, $ref(color.focus.ring))"
+tab.outline-width-focus = "var(--tabs-focus-ring-width, 2px)"
+tab.outline-offset-focus = "var(--tabs-focus-ring-offset, 2px)"
+close.outline-color-focus = "var(--tabs-focus-ring-color, $ref(color.focus.ring))"
+close.outline-width-focus = "var(--tabs-focus-ring-width, 2px)"
+close.outline-offset-focus = "1px"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
 motion.color = "color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1)"

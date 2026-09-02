@@ -45,7 +45,7 @@ const layoutStyle = css`
     height: 100%;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: ${token.background.color};
+    background-color: ${token.root["background-color"]};
 `;
 
 const mainColStyle = css`

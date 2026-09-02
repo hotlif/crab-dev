@@ -5,26 +5,30 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
-    'separator.size': '--split-pane-separator-size',
+    'separator.vertical.width': '--split-pane-separator-vertical-width',
+    'separator.horizontal.height': '--split-pane-separator-horizontal-height',
     'separator.line.width': '--split-pane-separator-line-width',
-    'separator.line.color': '--split-pane-separator-line-color',
-    'separator.line.color-active': '--split-pane-separator-line-color-active',
+    'separator.line.background-color': '--split-pane-separator-line-background-color',
+    'separator.line.background-color-active': '--split-pane-separator-line-background-color-active',
     'separator.transition': '--split-pane-separator-transition',
-    'focus.ring': '--split-pane-focus-ring'
+    'separator.box-shadow-focus': '--split-pane-separator-box-shadow-focus'
 });
 
 const token = defineTokens({
     'separator': {
-        'size': `var(${vars['separator.size']}, 7px)`,
+        'vertical': {
+            'width': `var(${vars['separator.vertical.width']}, var(--split-pane-separator-size, 7px))`
+        },
+        'horizontal': {
+            'height': `var(${vars['separator.horizontal.height']}, var(--split-pane-separator-size, 7px))`
+        },
         'line': {
             'width': `var(${vars['separator.line.width']}, 1px)`,
-            'color': `var(${vars['separator.line.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
-            'color-active': `var(${vars['separator.line.color-active']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
+            'background-color': `var(${vars['separator.line.background-color']}, var(--split-pane-separator-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`,
+            'background-color-active': `var(${vars['separator.line.background-color-active']}, var(--split-pane-separator-line-color-active, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`
         },
-        'transition': `var(${vars['separator.transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))`
-    },
-    'focus': {
-        'ring': `var(${vars['focus.ring']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px oklch(0.140 0.004 286 / 0.25)))`
+        'transition': `var(${vars['separator.transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
+        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262))))))))`
     }
 });
 

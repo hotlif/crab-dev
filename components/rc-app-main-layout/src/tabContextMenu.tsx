@@ -34,10 +34,10 @@ const menuStyle = css`
     position: fixed;
     min-width: ${token.tab['context-menu']['min-width']};
     padding: ${token.tab['context-menu'].padding};
-    background-color: ${token.tab['context-menu'].background.color};
-    border: 1px solid ${token.tab['context-menu'].border.color};
-    border-radius: ${token.tab['context-menu'].border.radius};
-    box-shadow: ${token.tab['context-menu'].shadow};
+    background-color: ${token.tab['context-menu']["background-color"]};
+    border: 1px solid ${token.tab['context-menu']["border-color"]};
+    border-radius: ${token.tab['context-menu']["border-radius"]};
+    box-shadow: ${token.tab['context-menu']["box-shadow"]};
     z-index: ${token.tab['context-menu']['z-index']};
     list-style: none;
     margin: 0;
@@ -63,9 +63,9 @@ const itemBaseStyle = css`
     gap: ${token.tab['context-menu'].item.gap};
     height: ${token.tab['context-menu'].item.height};
     padding: ${token.tab['context-menu'].item.padding};
-    font-size: ${token.tab['context-menu'].item.font.size};
+    font-size: ${token.tab['context-menu'].item["font-size"]};
     color: ${token.tab['context-menu'].item.color};
-    border-radius: ${token.tab['context-menu'].item.border.radius};
+    border-radius: ${token.tab['context-menu'].item["border-radius"]};
     cursor: pointer;
     white-space: nowrap;
     background: transparent;
@@ -76,7 +76,7 @@ const itemBaseStyle = css`
     transition: background-color 100ms ease;
 
     &:hover {
-        background-color: ${token.tab['context-menu'].item.background['color-hover']};
+        background-color: ${token.tab['context-menu'].item['background-color-hover']};
     }
 
     &:focus-visible {
@@ -97,7 +97,7 @@ const itemDisabledStyle = css`
 const separatorStyle = css`
     height: 1px;
     margin: ${token.tab['context-menu'].separator.margin};
-    background-color: ${token.tab['context-menu'].separator.color};
+    background-color: ${token.tab['context-menu'].separator["background-color"]};
     list-style: none;
 `;
 
@@ -105,8 +105,8 @@ const itemIconStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.tab['context-menu'].item.icon.size};
-    height: ${token.tab['context-menu'].item.icon.size};
+    width: ${token.tab['context-menu'].item.icon.width};
+    height: ${token.tab['context-menu'].item.icon.width};
     flex-shrink: 0;
     color: ${token.tab['context-menu'].item.icon.color};
 

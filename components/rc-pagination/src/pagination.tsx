@@ -13,8 +13,8 @@ const rootStyle = css`
     display: inline-flex;
     align-items: center;
     gap: ${token.group.gap};
-    font-size: ${token.font.size};
-    font-weight: ${token.font.weight};
+    font-size: ${token.root['font-size']};
+    font-weight: ${token.root['font-weight']};
     color: ${token.item.color};
     line-height: 1;
 `;
@@ -22,7 +22,7 @@ const rootStyle = css`
 const listStyle = css`
     display: inline-flex;
     align-items: center;
-    gap: ${token.gap};
+    gap: ${token.root.gap};
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -36,41 +36,41 @@ const itemBaseStyle = css`
     height: ${token.size.medium.height};
     min-width: ${token.size.medium["min-width"]};
     padding: ${token.size.medium.padding};
-    font-size: ${token.size.medium.font.size};
+    font-size: ${token.size.medium['font-size']};
     font-weight: inherit;
     font-variant-numeric: tabular-nums;
     color: ${token.item.color};
-    background-color: ${token.item.background.color};
+    background-color: ${token.item['background-color']};
     border: 0;
-    border-radius: ${token.item.radius};
+    border-radius: ${token.item['border-radius']};
     cursor: pointer;
     user-select: none;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
     appearance: none;
     font-family: inherit;
 
     &:hover:not(:disabled):not([aria-disabled="true"]) {
         color: ${token.item["color-hover"]};
-        background-color: ${token.item.background["color-hover"]};
+        background-color: ${token.item["background-color-hover"]};
     }
 
     &:active:not(:disabled):not([aria-disabled="true"]) {
-        background-color: ${token.item.background["color-hover"]};
+        background-color: ${token.item["background-color-hover"]};
     }
 
     &:focus-visible {
-        outline: ${token.focus.outline.width} solid ${token.focus.outline.color};
-        outline-offset: ${token.focus.outline.offset};
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
     }
 
     &[aria-current="page"] {
         color: ${token.item["color-active"]};
-        background-color: ${token.item.background["color-active"]};
+        background-color: ${token.item["background-color-active"]};
     }
 
     &[aria-current="page"]:hover:not(:disabled) {
         color: ${token.item["color-active"]};
-        background-color: ${token.item.background["color-active"]};
+        background-color: ${token.item["background-color-active"]};
     }
 
     &:disabled,
@@ -97,7 +97,7 @@ const itemSmallStyle = css`
     height: ${token.size.small.height};
     min-width: ${token.size.small["min-width"]};
     padding: ${token.size.small.padding};
-    font-size: ${token.size.small.font.size};
+    font-size: ${token.size.small['font-size']};
 `;
 
 const ellipsisStyle = css`
@@ -112,10 +112,10 @@ const ellipsisStyle = css`
     color: ${token.ellipsis.color};
     background-color: transparent;
     border: 0;
-    border-radius: ${token.item.radius};
+    border-radius: ${token.item['border-radius']};
     cursor: pointer;
     user-select: none;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
     appearance: none;
     font-family: inherit;
     font-size: inherit;
@@ -140,7 +140,7 @@ const ellipsisStyle = css`
 
     &:hover:not(:disabled) {
         color: ${token.item["color-hover"]};
-        background-color: ${token.item.background["color-hover"]};
+        background-color: ${token.item["background-color-hover"]};
     }
     &:hover:not(:disabled) > .rc-pagination-ellipsis-dots {
         opacity: 0;
@@ -156,8 +156,8 @@ const ellipsisStyle = css`
     }
 
     &:focus-visible {
-        outline: ${token.focus.outline.width} solid ${token.focus.outline.color};
-        outline-offset: ${token.focus.outline.offset};
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
     }
 
     &:disabled {
@@ -177,7 +177,7 @@ const ellipsisStyle = css`
 const ellipsisSmallStyle = css`
     height: ${token.size.small.height};
     min-width: ${token.size.small["min-width"]};
-    font-size: ${token.size.small.font.size};
+    font-size: ${token.size.small['font-size']};
 `;
 
 const iconStyle = css`
@@ -188,7 +188,7 @@ const iconStyle = css`
 
 const totalStyle = css`
     color: ${token.total.color};
-    font-weight: ${token.font.weight};
+    font-weight: ${token.root['font-weight']};
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
 `;
@@ -207,27 +207,27 @@ const quickJumperInputStyle = css`
     height: ${token.size.medium.height};
     padding: ${token["quick-jumper"].input.padding};
     font-family: inherit;
-    font-size: ${token.size.medium.font.size};
+    font-size: ${token.size.medium['font-size']};
     font-variant-numeric: tabular-nums;
     color: ${token.input.color};
-    background-color: ${token.input.background.color};
-    border: ${token.input.border.width} solid ${token.input.border.color};
-    border-radius: ${token.input.border.radius};
+    background-color: ${token.input['background-color']};
+    border: ${token.input['border-width']} solid ${token.input['border-color']};
+    border-radius: ${token.input['border-radius']};
     text-align: center;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 
     &:hover:not(:disabled) {
-        border-color: ${token.input.border["color-hover"]};
+        border-color: ${token.input["border-color-hover"]};
     }
 
     &:focus {
         outline: none;
-        border-color: ${token.input.border["color-focus"]};
+        border-color: ${token.input["border-color-focus"]};
     }
 
     &:focus-visible {
-        outline: ${token.focus.outline.width} solid ${token.focus.outline.color};
-        outline-offset: ${token.focus.outline.offset};
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
     }
 
     &:disabled {
@@ -250,7 +250,7 @@ const quickJumperInputStyle = css`
 
 const quickJumperInputSmallStyle = css`
     height: ${token.size.small.height};
-    font-size: ${token.size.small.font.size};
+    font-size: ${token.size.small['font-size']};
 `;
 
 const sizeChangerStyle = css`

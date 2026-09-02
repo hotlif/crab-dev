@@ -64,7 +64,7 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
 const headerStyle = css`
     display: flex;
     flex-direction: column;
-    box-shadow: ${token.header.shadow};
+    box-shadow: ${token.header["box-shadow"]};
     z-index: ${token.header['z-index']};
     box-sizing: border-box;
     flex-shrink: 0;
@@ -73,7 +73,7 @@ const headerStyle = css`
 const tabStripStyle = css`
     display: flex;
     align-items: flex-end;
-    background-color: ${token.tab.strip.background.color};
+    background-color: ${token.tab.strip["background-color"]};
     padding: ${token.tab.strip.padding};
     min-height: ${token.tab.strip.height};
     box-sizing: border-box;
@@ -89,7 +89,7 @@ const toolbarStyle = css`
     gap: ${token.header.toolbar.gap};
     height: ${token.header.toolbar.height};
     padding: ${token.header.toolbar.padding};
-    background-color: ${token.header.toolbar.background.color};
+    background-color: ${token.header.toolbar["background-color"]};
     box-sizing: border-box;
 
     @media (max-width: 767px) {
@@ -119,7 +119,7 @@ const mobileTitleStyle = css`
         display: block;
         min-width: 0;
         flex: 1;
-        font-size: ${token.header.user.name.font.size};
+        font-size: ${token.header.user.name["font-size"]};
         font-weight: 600;
         color: ${token.header.user.name.color};
         white-space: nowrap;
@@ -131,7 +131,7 @@ const mobileTitleStyle = css`
 const dividerStyle = css`
     width: 1px;
     height: 20px;
-    background-color: ${token.header.divider.color};
+    background-color: ${token.header.divider["background-color"]};
     margin: 0 6px;
     flex-shrink: 0;
 
@@ -145,9 +145,9 @@ const navBtnStyle = css`
     align-items: center;
     justify-content: center;
     position: relative;
-    width: ${token.header['nav-btn'].size};
-    height: ${token.header['nav-btn'].size};
-    border-radius: ${token.header['nav-btn'].border.radius};
+    width: ${token.header['nav-btn'].width};
+    height: ${token.header['nav-btn'].width};
+    border-radius: ${token.header['nav-btn']["border-radius"]};
     color: ${token.header['nav-btn'].color};
     cursor: pointer;
     flex-shrink: 0;
@@ -158,11 +158,11 @@ const navBtnStyle = css`
 
     &:hover {
         color: ${token.header['nav-btn']['color-hover']};
-        background-color: ${token.header['nav-btn'].background['color-hover']};
+        background-color: ${token.header['nav-btn']['background-color-hover']};
     }
 
     &:active {
-        background-color: ${token.header['nav-btn'].background['color-active']};
+        background-color: ${token.header['nav-btn']['background-color-active']};
         transform: scale(0.96);
     }
 
@@ -189,8 +189,8 @@ const notificationDotStyle = css`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: ${token.header['nav-btn'].dot.color};
-    box-shadow: 0 0 0 2px ${token.header.toolbar.background.color};
+    background-color: ${token.header['nav-btn'].dot["background-color"]};
+    box-shadow: 0 0 0 2px ${token.header.toolbar["background-color"]};
     pointer-events: none;
 `;
 
@@ -199,7 +199,7 @@ const userPillStyle = css`
     align-items: center;
     gap: ${token.header.user.pill.gap};
     padding: ${token.header.user.pill.padding};
-    border-radius: ${token.header.user.pill.border.radius};
+    border-radius: ${token.header.user.pill["border-radius"]};
     background: transparent;
     border: none;
     cursor: pointer;
@@ -207,7 +207,7 @@ const userPillStyle = css`
     transition: background-color 160ms ease;
 
     &:hover {
-        background-color: ${token.header.user.pill.background['color-hover']};
+        background-color: ${token.header.user.pill['background-color-hover']};
     }
 
     &:focus-visible {
@@ -228,10 +228,10 @@ const userMenuWrapStyle = css`
 const userMenuStyle = css`
     min-width: ${token.tab['context-menu']['min-width']};
     padding: ${token.tab['context-menu'].padding};
-    background-color: ${token.tab['context-menu'].background.color};
-    border: 1px solid ${token.tab['context-menu'].border.color};
-    border-radius: ${token.tab['context-menu'].border.radius};
-    box-shadow: ${token.tab['context-menu'].shadow};
+    background-color: ${token.tab['context-menu']["background-color"]};
+    border: 1px solid ${token.tab['context-menu']["border-color"]};
+    border-radius: ${token.tab['context-menu']["border-radius"]};
+    box-shadow: ${token.tab['context-menu']["box-shadow"]};
     z-index: ${token.tab['context-menu']['z-index']};
     box-sizing: border-box;
     transform-origin: top center;
@@ -246,16 +246,16 @@ const userMenuItemStyle = css`
     height: ${token.tab['context-menu'].item.height};
     padding: ${token.tab['context-menu'].item.padding};
     border: none;
-    border-radius: ${token.tab['context-menu'].item.border.radius};
+    border-radius: ${token.tab['context-menu'].item["border-radius"]};
     background: transparent;
     color: ${token.tab['context-menu'].item.color};
-    font-size: ${token.tab['context-menu'].item.font.size};
+    font-size: ${token.tab['context-menu'].item["font-size"]};
     text-align: left;
     white-space: nowrap;
     cursor: pointer;
 
     &:hover {
-        background-color: ${token.tab['context-menu'].item.background['color-hover']};
+        background-color: ${token.tab['context-menu'].item['background-color-hover']};
     }
 
     &:focus-visible {
@@ -268,8 +268,8 @@ const userMenuItemIconStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.tab['context-menu'].item.icon.size};
-    height: ${token.tab['context-menu'].item.icon.size};
+    width: ${token.tab['context-menu'].item.icon.width};
+    height: ${token.tab['context-menu'].item.icon.width};
     color: ${token.tab['context-menu'].item.icon.color};
 
     & > svg {
@@ -279,9 +279,9 @@ const userMenuItemIconStyle = css`
 `;
 
 const usernameStyle = css`
-    font-size: ${token.header.user.name.font.size};
+    font-size: ${token.header.user.name["font-size"]};
     color: ${token.header.user.name.color};
-    font-weight: ${token.header.user.name.font.weight};
+    font-weight: ${token.header.user.name["font-weight"]};
     white-space: nowrap;
 
     @media (max-width: 640px) {
@@ -303,7 +303,7 @@ const userInfoStyle = css`
 
 const userRoleStyle = css`
     margin-top: 2px;
-    font-size: calc(${token.tab.font.size} - 2px);
+    font-size: calc(${token.tab["font-size"]} - 2px);
     color: ${token.header['nav-btn'].color};
     white-space: nowrap;
 `;
@@ -323,12 +323,12 @@ const avatarStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.header.user.avatar.size};
-    height: ${token.header.user.avatar.size};
-    font-size: ${token.header.user.avatar.font.size};
+    width: ${token.header.user.avatar.width};
+    height: ${token.header.user.avatar.width};
+    font-size: ${token.header.user.avatar["font-size"]};
     font-weight: 600;
     border-radius: 50%;
-    background-color: ${token.header.user.avatar.background.color};
+    background-color: ${token.header.user.avatar["background-color"]};
     color: ${token.header.user.avatar.color};
     overflow: hidden;
     flex-shrink: 0;
@@ -537,7 +537,7 @@ const Header: FC<HeaderProps> = ({
                             </span>
                         ) : null}
                         {userLoading ? (
-                            <Skeleton variant="avatar" width={token.header.user.avatar.size} height={token.header.user.avatar.size} aria-hidden />
+                            <Skeleton variant="avatar" width={token.header.user.avatar.width} height={token.header.user.avatar.width} aria-hidden />
                         ) : (
                             <span className={avatarStyle}>{resolvedUser.avatar}</span>
                         )}

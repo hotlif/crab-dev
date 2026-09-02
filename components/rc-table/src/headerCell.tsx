@@ -39,7 +39,7 @@ const draggableStyle = css`
 
 // 可排序列头：hover 时显示淡灰图标
 const sortableRootStyle = css`
-    cursor: ${token.sort['header-cursor']};
+    cursor: ${token.sort.header.cursor};
     user-select: none;
     &:hover .rc-table-sort-icon-idle {
         opacity: 1;
@@ -63,7 +63,7 @@ const sortTitleInnerStyle = css`
         outline: none;
     }
     &:focus-visible {
-        outline: 2px solid ${token.sort['icon-active-color']};
+        outline: 2px solid ${token.sort.icon['color-active']};
         outline-offset: -2px;
         border-radius: 2px;
     }
@@ -91,14 +91,14 @@ const sortIconIdleStyle = css`
 
 // 激活态（stroke 色）
 const sortIconActiveStyle = css`
-    stroke: ${token.sort['icon-active-color']};
+    stroke: ${token.sort.icon['color-active']};
 `;
 
 
 // 多列排序序号角标：无背景，小字号，垂直居中
 const sortBadgeStyle = css`
-    font-size: ${token.sort['badge-font-size']};
-    color: ${token.sort['badge-color']};
+    font-size: ${token.sort.badge['font-size']};
+    color: ${token.sort.badge.color};
     line-height: 1;
     font-variant-numeric: tabular-nums;
 `;
@@ -129,26 +129,26 @@ function SortIcon({ direction }: { direction: SortDirection | null }): ReactNode
 }
 
 const fixedHeaderBgStyle = css`
-    background-color: ${token.header['bg-color']};
+    background-color: ${token.header['background-color']};
 `;
 
 // 固定右列跨行起始格：上边框 + 左分隔线
 const fixedRightSpanStyle = css`
-    box-shadow: inset 0 1px 0 ${token.border.color}, inset 1px 0 0 ${token.border.color};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.root["border-color"]};
 `;
 
 // 固定右列跨行起始格（同时是最后一行时）：上边框 + 左分隔线 + 底部边框
 const fixedRightSpanWithBottomStyle = css`
-    box-shadow: inset 0 1px 0 ${token.border.color}, inset 1px 0 0 ${token.border.color}, inset 0 -1px 0 ${token.border.color};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 // 固定右列 skip 格（r>0）：左分隔线 + 底部边框
 const fixedRightSkipStyle = css`
-    box-shadow: inset 1px 0 0 ${token.border.color}, inset 0 -1px 0 ${token.border.color};
+    box-shadow: inset 1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 const draggingStyle = css`
-    opacity: ${token['column-drag']['dragging-opacity']};
+    opacity: ${token['column-drag']['opacity-dragging']};
 `;
 
 const skipCellStyle = css`
@@ -159,8 +159,8 @@ const dropLineBaseStyle = css`
     position: absolute;
     top: 0;
     bottom: 0;
-    width: ${token['column-drag']['indicator-width']};
-    background-color: ${token['column-drag']['indicator-color']};
+    width: ${token['column-drag'].indicator.width};
+    background-color: ${token['column-drag'].indicator["background-color"]};
     pointer-events: none;
     z-index: 2;
 `;
@@ -201,24 +201,24 @@ function TableHeaderCell<T extends Row>({
         if (isLastColumn) {
             if (rowIndex === maxRowIndex) {
                 return css`
-                    box-shadow: inset 0 1px 0 ${token.border.color},
-                                inset 0 -1px 0 ${token.border.color};
+                    box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                                inset 0 -1px 0 ${token.root["border-color"]};
                 `;
             }
             return css`
-                box-shadow: inset 0 1px 0 ${token.border.color};
+                box-shadow: inset 0 1px 0 ${token.root["border-color"]};
             `;
         }
         if (rowIndex === maxRowIndex) {
             return css`
-                box-shadow: inset 0 1px 0 ${token.border.color},
-                            inset -1px 0 0 ${token.border.color},
-                            inset 0 -1px 0 ${token.border.color};
+                box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                            inset -1px 0 0 ${token.root["border-color"]},
+                            inset 0 -1px 0 ${token.root["border-color"]};
             `;
         }
         return css`
-            box-shadow: inset 0 1px 0 ${token.border.color},
-                        inset -1px 0 0 ${token.border.color};
+            box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                        inset -1px 0 0 ${token.root["border-color"]};
         `;
     }
 
@@ -247,8 +247,8 @@ function TableHeaderCell<T extends Row>({
             }
             // 固定左列 skip 格：右分隔线 + 底部边框（不加上边框，避免在两行间画多余横线）
             const skipBorderStyle = isLastColumn
-                ? css`box-shadow: inset 0 -1px 0 ${token.border.color};`
-                : css`box-shadow: inset -1px 0 0 ${token.border.color}, inset 0 -1px 0 ${token.border.color};`;
+                ? css`box-shadow: inset 0 -1px 0 ${token.root["border-color"]};`
+                : css`box-shadow: inset -1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};`;
             return cx(fixedHeaderBgStyle, skipBorderStyle);
         }
 
@@ -271,7 +271,7 @@ function TableHeaderCell<T extends Row>({
                             vertical-align: top;
                             height: 100%;
                             width: 100%;
-                            background-color: ${token.header['bg-color']};
+                            background-color: ${token.header['background-color']};
                         `,
                         getMergedHeaderCellBorderStyle()
                     )}
@@ -377,7 +377,7 @@ function TableHeaderCell<T extends Row>({
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
-                        background-color: ${token.header['bg-color']};
+                        background-color: ${token.header['background-color']};
                     `, getMergedHeaderCellBorderStyle())}
                     style={{ width, height }}
                     draggable={isDraggable || undefined}

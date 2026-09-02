@@ -15,7 +15,7 @@ const rootStyle = css`
     display: flex;
     flex-direction: column;
     min-width: 0;
-    font-weight: ${token.font.weight};
+    font-weight: ${token.root['font-weight']};
 `;
 
 const barWrapperStyle = css`
@@ -46,7 +46,7 @@ const barListStyle = css`
 `;
 
 const barLineStyle = css`
-    border-bottom: 1px solid ${token.bar.border.color};
+    border-bottom: 1px solid ${token.bar['border-color']};
 `;
 
 const barCenteredStyle = css`
@@ -78,26 +78,26 @@ const itemBaseStyle = css`
     }
 
     &:focus-visible {
-        outline: ${token.focus.ring.width} solid ${token.focus.ring.color};
-        outline-offset: ${token.focus.ring.offset};
+        outline: ${token.tab['outline-width-focus']} solid ${token.tab['outline-color-focus']};
+        outline-offset: ${token.tab['outline-offset-focus']};
     }
 `;
 
 const itemSmallStyle = css`
     height: ${token.size.small.height};
-    padding: 0 ${token.size.small['padding-x']};
+    padding: 0 ${token.size.small['padding-inline']};
     font-size: ${token.size.small['font-size']};
 `;
 
 const itemMediumStyle = css`
     height: ${token.size.medium.height};
-    padding: 0 ${token.size.medium['padding-x']};
+    padding: 0 ${token.size.medium['padding-inline']};
     font-size: ${token.size.medium['font-size']};
 `;
 
 const itemLargeStyle = css`
     height: ${token.size.large.height};
-    padding: 0 ${token.size.large['padding-x']};
+    padding: 0 ${token.size.large['padding-inline']};
     font-size: ${token.size.large['font-size']};
 `;
 
@@ -115,41 +115,41 @@ const itemDisabledStyle = css`
 `;
 
 const itemCardStyle = css`
-    background: ${token.card.background};
+    background: ${token.card['background-color']};
     border: 1px solid transparent;
     border-bottom: 0;
-    border-top-left-radius: ${token.card.border.radius};
-    border-top-right-radius: ${token.card.border.radius};
+    border-top-left-radius: ${token.card['border-radius']};
+    border-top-right-radius: ${token.card['border-radius']};
     margin-bottom: -1px;
 
     &:hover {
-        background: ${token.card['background-hover']};
+        background: ${token.card['background-color-hover']};
     }
 `;
 
 const itemCardActiveStyle = css`
-    background: ${token.card['background-active']};
-    border-color: ${token.card.border.color};
+    background: ${token.card['background-color-active']};
+    border-color: ${token.card['border-color']};
 
     &:hover {
-        background: ${token.card['background-active']};
+        background: ${token.card['background-color-active']};
     }
 `;
 
 const itemPillStyle = css`
-    border-radius: ${token.pill.border.radius};
+    border-radius: ${token.pill['border-radius']};
 
     &:hover {
-        background: ${token.pill['background-hover']};
+        background: ${token.pill['background-color-hover']};
     }
 `;
 
 const itemPillActiveStyle = css`
-    background: ${token.pill['background-active']};
+    background: ${token.pill['background-color-active']};
     color: ${token.pill['color-active']};
 
     &:hover {
-        background: ${token.pill['background-active']};
+        background: ${token.pill['background-color-active']};
         color: ${token.pill['color-active']};
     }
 `;
@@ -176,19 +176,19 @@ const closeButtonStyle = css`
     align-items: center;
     justify-content: center;
     margin-left: ${token.close.gap};
-    width: ${token.close.size};
-    height: ${token.close.size};
+    width: ${token.close.width};
+    height: ${token.close.width};
     padding: 0;
     border: 0;
     background: transparent;
     color: ${token.close.color};
     cursor: pointer;
-    border-radius: ${token.close.border.radius};
+    border-radius: ${token.close['border-radius']};
     transition: ${token.motion.color};
 
     &:hover {
         color: ${token.close['color-hover']};
-        background: ${token.close['background-hover']};
+        background: ${token.close['background-color-hover']};
     }
 
     &:focus {
@@ -196,8 +196,8 @@ const closeButtonStyle = css`
     }
 
     &:focus-visible {
-        outline: ${token.focus.ring.width} solid ${token.focus.ring.color};
-        outline-offset: 1px;
+        outline: ${token.close['outline-width-focus']} solid ${token.close['outline-color-focus']};
+        outline-offset: ${token.close['outline-offset-focus']};
     }
 `;
 

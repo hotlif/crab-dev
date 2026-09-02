@@ -24,8 +24,8 @@ const sidebarStyle = css`
     width: ${token.sidebar.width};
     padding: ${token.sidebar.padding};
     gap: ${token.sidebar.gap};
-    background-color: ${token.sidebar.background.color};
-    border-inline-end: 1px solid ${token.sidebar.border.color};
+    background-color: ${token.sidebar["background-color"]};
+    border-inline-end: 1px solid ${token.sidebar["border-color"]};
     box-sizing: border-box;
     flex-shrink: 0;
     overflow: hidden auto;
@@ -63,10 +63,10 @@ const logoStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.sidebar.logo.size};
-    height: ${token.sidebar.logo.size};
-    border-radius: ${token.sidebar.logo.border.radius};
-    background-color: ${token.sidebar.logo.background.color};
+    width: ${token.sidebar.logo.width};
+    height: ${token.sidebar.logo.width};
+    border-radius: ${token.sidebar.logo["border-radius"]};
+    background-color: ${token.sidebar.logo["background-color"]};
     color: ${token.sidebar.logo.color};
     flex-shrink: 0;
 
@@ -83,7 +83,7 @@ const logoStyle = css`
 `;
 
 const logoTitleStyle = css`
-    font-size: ${token.sidebar.logo.title.font.size};
+    font-size: ${token.sidebar.logo.title["font-size"]};
     color: ${token.sidebar.logo.title.color};
     font-weight: 600;
     white-space: nowrap;

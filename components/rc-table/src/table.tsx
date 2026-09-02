@@ -214,12 +214,12 @@ const expandButtonStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.expand['chevron-size']};
-    height: ${token.expand['chevron-size']};
+    width: ${token.expand.chevron.width};
+    height: ${token.expand.chevron.width};
     flex-shrink: 0;
     cursor: pointer;
-    border-radius: ${token.expand['button-radius']};
-    color: ${token.expand['chevron-color']};
+    border-radius: ${token.expand.button["border-radius"]};
+    color: ${token.expand.chevron.color};
     background: transparent;
     border: none;
     padding: 0;
@@ -231,7 +231,7 @@ const expandButtonStyle = css`
 `;
 
 const expandChevronStyle = css`
-    transition: ${token.expand['chevron-transition']};
+    transition: ${token.expand.chevron.transition};
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
@@ -245,10 +245,10 @@ const expandContentStyle = css`
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: ${token.expand['content-padding']};
-    background-color: ${token.expand['content-bg']};
-    box-shadow: inset 0 1px 0 ${token.border.color},
-                inset 0 -1px 0 ${token.border.color};
+    padding: ${token.expand.content.padding};
+    background-color: ${token.expand.content["background-color"]};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 // 展开内容容器：RcVirtual 在网格容器上挂了原生 wheel 监听并 preventDefault 劫持滚轮去滚表格，
@@ -283,7 +283,7 @@ const ExpandedRowContent: FC<{ width: number; colSpan: number; children: ReactNo
 
 // 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承；见 rowBg.ts）
 const selectedRowStyle = css`
-    background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+    background-color: var(${ROW_BG_VAR}, ${token.cell['background-color']});
     transition: ${ROW_BG_TRANSITION};
 
     @media (prefers-reduced-motion: reduce) {
@@ -304,7 +304,7 @@ const clickableRowStyle = css`
     transition: ${ROW_BG_TRANSITION};
 
     &:hover {
-        ${ROW_BG_VAR}: ${token['row-click']['hover-bg']};
+        ${ROW_BG_VAR}: ${token['row-click']['background-color-hover']};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -315,7 +315,7 @@ const clickableRowStyle = css`
 // 固定列背景 —— 通过 CSS 变量感知行选中 / hover 状态，过渡必须与行严格一致（见 rowBgTransition）
 const fixedCellBgWithRowVar = css`
     z-index: 9;
-    background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+    background-color: var(${ROW_BG_VAR}, ${token.cell['background-color']});
     transition: ${ROW_BG_TRANSITION};
 
     @media (prefers-reduced-motion: reduce) {
@@ -399,8 +399,8 @@ const paddingTop = (topPaddingCompensation = 0) => (
 );
 
 const filterCellBorderShadow = css`
-    box-shadow: inset -1px 0 0 ${token.border.color},
-                inset 0 -1px 0 ${token.border.color};
+    box-shadow: inset -1px 0 0 ${token.root["border-color"]},
+                inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 // 外层容器开启相对定位，以便 emptyBodyStyle 通过 absolute 定位到 body 区域
@@ -433,9 +433,9 @@ const rowEditBorderOverlayStyle = css`
     left: 0;
     right: 0;
     bottom: 0;
-    border: 1px solid ${token['row-edit']['ring-color']};
-    border-radius: ${token['row-edit']['card-radius']} ${token['row-edit']['card-radius']} 0 0;
-    box-shadow: ${token['row-edit']['card-shadow']};
+    border: 1px solid ${token['row-edit']['border-color']};
+    border-radius: ${token['row-edit'].card["border-radius"]} ${token['row-edit'].card["border-radius"]} 0 0;
+    box-shadow: ${token['row-edit'].card["box-shadow"]};
     pointer-events: none;
     z-index: 10;
 `;
@@ -460,40 +460,40 @@ const rowEditActionsInnerStyle = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    gap: ${token['row-edit']['actions-gap']};
-    padding: ${token['row-edit']['actions-padding']};
-    background-color: ${token['row-edit']['actions-bg']};
-    border: 1px solid ${token['row-edit']['actions-border']};
+    gap: ${token['row-edit'].actions.gap};
+    padding: ${token['row-edit'].actions.padding};
+    background-color: ${token['row-edit'].actions["background-color"]};
+    border: 1px solid ${token['row-edit'].actions["border-color"]};
     border-top: none;
-    border-radius: 0 0 ${token['row-edit']['actions-radius']} ${token['row-edit']['actions-radius']};
-    box-shadow: ${token['row-edit']['actions-shadow']};
+    border-radius: 0 0 ${token['row-edit'].actions["border-radius"]} ${token['row-edit'].actions["border-radius"]};
+    box-shadow: ${token['row-edit'].actions["box-shadow"]};
 `;
 
 const rowEditConfirmBtnStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: ${token['row-edit']['button-height']};
-    padding: 0 ${token['row-edit']['button-padding-x']};
-    border-radius: ${token['row-edit']['button-radius']};
-    font-size: ${token['row-edit']['button-font-size']};
-    font-weight: ${token['row-edit']['button-font-weight']};
+    height: ${token['row-edit'].button.height};
+    padding: 0 ${token['row-edit'].button["padding-inline"]};
+    border-radius: ${token['row-edit'].button["border-radius"]};
+    font-size: ${token['row-edit'].button["font-size"]};
+    font-weight: ${token['row-edit'].button["font-weight"]};
     line-height: 1;
     cursor: pointer;
     border: 1px solid transparent;
     outline: none;
-    background-color: ${token['row-edit']['confirm-bg']};
-    color: ${token['row-edit']['confirm-color']};
+    background-color: ${token['row-edit'].confirm["background-color"]};
+    color: ${token['row-edit'].confirm.color};
     transition: background-color ${token['row-edit']['transition']};
     white-space: nowrap;
     &:hover {
-        background-color: ${token['row-edit']['confirm-hover-bg']};
+        background-color: ${token['row-edit'].confirm['background-color-hover']};
     }
     &:active {
-        background-color: ${token['row-edit']['confirm-active-bg']};
+        background-color: ${token['row-edit'].confirm['background-color-active']};
     }
     &:focus-visible {
-        outline: 2px solid ${token['row-edit']['ring-color']};
+        outline: 2px solid ${token['row-edit']['outline-color']};
         outline-offset: 2px;
     }
     @media (prefers-reduced-motion: reduce) {
@@ -505,29 +505,29 @@ const rowEditCancelBtnStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: ${token['row-edit']['button-height']};
-    padding: 0 ${token['row-edit']['button-padding-x']};
-    border-radius: ${token['row-edit']['button-radius']};
-    font-size: ${token['row-edit']['button-font-size']};
-    font-weight: ${token['row-edit']['button-font-weight']};
+    height: ${token['row-edit'].button.height};
+    padding: 0 ${token['row-edit'].button["padding-inline"]};
+    border-radius: ${token['row-edit'].button["border-radius"]};
+    font-size: ${token['row-edit'].button["font-size"]};
+    font-weight: ${token['row-edit'].button["font-weight"]};
     line-height: 1;
     cursor: pointer;
     background: transparent;
-    color: ${token['row-edit']['cancel-color']};
-    border: 1px solid ${token['row-edit']['cancel-border']};
+    color: ${token['row-edit'].cancel.color};
+    border: 1px solid ${token['row-edit'].cancel["border-color"]};
     outline: none;
     transition: background-color ${token['row-edit']['transition']},
                 border-color ${token['row-edit']['transition']};
     white-space: nowrap;
     &:hover {
-        background-color: ${token['row-edit']['cancel-hover-bg']};
-        border-color: ${token['row-edit']['ring-color']};
+        background-color: ${token['row-edit'].cancel['background-color-hover']};
+        border-color: ${token['row-edit']['border-color']};
     }
     &:active {
-        background-color: ${token['row-edit']['cancel-hover-bg']};
+        background-color: ${token['row-edit'].cancel['background-color-hover']};
     }
     &:focus-visible {
-        outline: 2px solid ${token['row-edit']['ring-color']};
+        outline: 2px solid ${token['row-edit']['outline-color']};
         outline-offset: 2px;
     }
     @media (prefers-reduced-motion: reduce) {
@@ -537,11 +537,11 @@ const rowEditCancelBtnStyle = css`
 
 const fixedCellRowEditBgStyle = css`
     z-index: 9;
-    background-color: ${token['row-edit']['row-bg']};
+    background-color: ${token['row-edit'].row["background-color"]};
 `;
 
 const filterCellBottomOnlyShadow = css`
-    box-shadow: inset 0 -1px 0 ${token.border.color};
+    box-shadow: inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 
@@ -955,14 +955,14 @@ function Table<T extends Row>({
                             white-space: nowrap;
                             display: inline-flex;
                             align-items: center;
-                            gap: ${token.group['text-gap']};
+                            gap: ${token.group.text.gap};
                         `}
                     >
                         <span>{valueText}</span>
                         <span
                             className={css`
-                                color: ${token.group['count-color']};
-                                font-size: ${token.group['count-font-size']};
+                                color: ${token.group.count.color};
+                                font-size: ${token.group.count["font-size"]};
                             `}
                         >({meta.count})</span>
                     </span>
@@ -972,10 +972,10 @@ function Table<T extends Row>({
                             display: inline-flex;
                             align-items: center;
                             justify-content: center;
-                            width: ${token.group['chevron-size']};
-                            height: ${token.group['chevron-size']};
-                            color: ${token.group['chevron-color']};
-                            transition: ${token.group['chevron-transition']};
+                            width: ${token.group.chevron.width};
+                            height: ${token.group.chevron.width};
+                            color: ${token.group.chevron.color};
+                            transition: ${token.group.chevron.transition};
                         `}
                         style={{ transform: meta.expanded ? "rotate(0deg)" : "rotate(-90deg)" }}
                     >
@@ -1019,8 +1019,8 @@ function Table<T extends Row>({
                         box-sizing: border-box;
                         vertical-align: top;
                         height: 100%;
-                        box-shadow: inset 0 -1px 0 ${token.border.color};
-                        background-color: ${token.group['bg-color']};
+                        box-shadow: inset 0 -1px 0 ${token.root["border-color"]};
+                        background-color: ${token.group['background-color']};
                     `, opts?.fixed && css`
                         position: sticky;
                         z-index: 9;
@@ -1234,7 +1234,7 @@ function Table<T extends Row>({
                     style={{
                         height: gridTemplateRows[rowIndex],
                         width: actualHeight,
-                        ...(isRowSelected ? { [ROW_BG_VAR]: token['row-selection']['selected-bg'] } : null)
+                        ...(isRowSelected ? { [ROW_BG_VAR]: token['row-selection']['background-color-selected'] } : null)
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     } as CSSProperties & Record<string, any>}
                     {...getRowEventProps(currentRow as T, rowIndex, isEditingThisRow)}
@@ -1302,7 +1302,7 @@ function Table<T extends Row>({
                     vertical-align: top;
                     height: 100%;
                     padding: ${token['filter-cell'].padding};
-                    background-color: ${token.header['bg-color']};
+                    background-color: ${token.header['background-color']};
                 `, fixed && css`
                     position: sticky;
                     z-index: 11;
@@ -1341,7 +1341,7 @@ function Table<T extends Row>({
 
         const getBottomBorderStyle = (rowIndex: number, maxRowIndex: number) =>
             rowIndex === maxRowIndex
-                ? css`box-shadow: inset 0 -1px 0 ${token.border.color};`
+                ? css`box-shadow: inset 0 -1px 0 ${token.root["border-color"]};`
                 : "";
 
         const getHeaderRowRenderStart = (rowIndex: number, startColumnIndex: number) => {
@@ -1585,9 +1585,9 @@ function Table<T extends Row>({
             <RcVirtual
                 gridRef={virtualRef}
                 className={css`
-                    box-shadow: -1px 0 0 0 ${token.border.color},
-                                0 1px 0 0 ${token.border.color},
-                                1px 0 0 0 ${token.border.color};
+                    box-shadow: -1px 0 0 0 ${token.root["border-color"]},
+                                0 1px 0 0 ${token.root["border-color"]},
+                                1px 0 0 0 ${token.root["border-color"]};
                     box-sizing: border-box;
                     user-select: none;
                 `}

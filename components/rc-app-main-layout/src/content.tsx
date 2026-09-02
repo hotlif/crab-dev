@@ -6,7 +6,7 @@ const contentStyle = css`
     flex: 1;
     min-width: 0;
     overflow-y: auto;
-    background-color: ${token.content.background.color};
+    background-color: ${token.content["background-color"]};
 `;
 
 const Content: FC<HTMLAttributes<HTMLElement>> = ({

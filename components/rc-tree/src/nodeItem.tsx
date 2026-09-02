@@ -6,7 +6,7 @@ import Checkbox from "@crab-dev/rc-checkbox";
 import { NodeEditStateType, NodeType, OverStateEnum } from "./type.js";
 import type { Node, OverState } from "./type.js";
 import { getTreeNodeDepth } from "./util.js";
-import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import { ChevronRight, GripVertical } from "./icon.js";
 import token from "./token.js";
 
@@ -64,7 +64,7 @@ const expandIconStyle = css`
     justify-content: center;
     width: 20px;
     height: 20px;
-    border-radius: ${token.border.radius};
+    border-radius: ${token.root["border-radius"]};
     color: ${token.node.expand.icon.color};
     cursor: pointer;
     flex-shrink: 0;
@@ -81,7 +81,7 @@ const expandIconStyle = css`
     }
 
     &:hover {
-        background-color: ${token.node.icon.hover.background.color};
+        background-color: ${token.node.icon["background-color-hover"]};
     }
 `;
 
@@ -95,10 +95,10 @@ const loadingIconStyle = css`
     height: 20px;
     flex-shrink: 0;
     margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
-    color: ${token.node.icon.loading.color};
+    color: ${token.node.icon["color-loading"]};
     --rc-spin-size: 1em;
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 
 const fileIconPlaceholderStyle = css`
@@ -116,23 +116,24 @@ const nodeItemBase = css`
     flex-wrap: nowrap;
     align-items: center;
     white-space: nowrap;
-    border-radius: ${token.border.radius};
+    border-radius: ${token.root["border-radius"]};
     user-select: none;
     padding-inline-end: 0.5rem;
     height: 100%;
     transition: background-color 0.1s ease, color 0.1s ease, opacity 0.1s ease;
 
     &:hover:not([data-disabled="true"]) {
-        background-color: ${token.node.hover.background.color};
+        background-color: ${token.node["background-color-hover"]};
     }
 
     &[data-selected="true"]:not([data-disabled="true"]) {
-        background-color: ${token.node.select.background.color};
-        box-shadow: inset ${token.node.select.indicator.width} 0 0 0 ${token.node.select.indicator.color};
+        background-color: ${token.node["background-color-selected"]};
+        box-shadow: inset ${token.node.selection['border-width']} 0 0 0 ${token.node.selection['border-color']};
     }
 
     &[data-disabled="true"] {
-        color: ${token.node.disabled.color};
+        color: ${token.node["color-disabled"]};
+        background-color: ${token.node["background-color-disabled"]};
         cursor: not-allowed;
         opacity: 0.6;
     }
@@ -167,9 +168,9 @@ const dragUpwardStyle = css`
         right: 0;
         height: 2px;
         background:
-            radial-gradient(circle 3px at 3px 50%, ${token.node.drag.indicator.color} 100%, transparent 100%)
+            radial-gradient(circle 3px at 3px 50%, ${token.node.drag.indicator['background-color']} 100%, transparent 100%)
             no-repeat left center,
-            linear-gradient(${token.node.drag.indicator.color}, ${token.node.drag.indicator.color})
+            linear-gradient(${token.node.drag.indicator['background-color']}, ${token.node.drag.indicator['background-color']})
             8px center / calc(100% - 8px) 2px no-repeat;
         pointer-events: none;
     }
@@ -186,17 +187,17 @@ const dragDownStyle = css`
         right: 0;
         height: 2px;
         background:
-            radial-gradient(circle 3px at 3px 50%, ${token.node.drag.indicator.color} 100%, transparent 100%)
+            radial-gradient(circle 3px at 3px 50%, ${token.node.drag.indicator['background-color']} 100%, transparent 100%)
             no-repeat left center,
-            linear-gradient(${token.node.drag.indicator.color}, ${token.node.drag.indicator.color})
+            linear-gradient(${token.node.drag.indicator['background-color']}, ${token.node.drag.indicator['background-color']})
             8px center / calc(100% - 8px) 2px no-repeat;
         pointer-events: none;
     }
 `;
 
 const dragInsideStyle = css`
-    background-color: ${token.node.drag.inside.background.color} !important;
-    box-shadow: inset 0 0 0 2px ${token.node.drag.inside.border.color};
+    background-color: ${token.node.drag.inside["background-color"]} !important;
+    box-shadow: inset 0 0 0 2px ${token.node.drag.inside["border-color"]};
 `;
 
 const dragBadgeBaseStyle = css`
@@ -208,23 +209,23 @@ const dragBadgeBaseStyle = css`
     line-height: 1;
     padding: 0.125rem 0.375rem;
     border-radius: 3px;
-    color: #fff;
+    color: ${token.node.drag.badge.color};
     white-space: nowrap;
     pointer-events: none;
 `;
 
 const dragBadgeIndicatorStyle = css`
-    background-color: ${token.node.drag.indicator.color};
+    background-color: ${token.node.drag.badge["background-color"]};
 `;
 
 const dragBadgeInsideStyle = css`
-    background-color: ${token.node.drag.inside.border.color};
+    background-color: ${token.node.drag.badge["background-color"]};
 `;
 
 const indentLineSpanStyle = css`
     position: relative;
     padding-left: 16px;
-    width: ${token.indent.size};
+    width: ${token.indent.width};
     height: 100%;
     text-align: center;
     flex: 0 0 auto;
@@ -233,7 +234,7 @@ const indentLineSpanStyle = css`
         display: inline-block;
         width: 1px;
         height: 100%;
-        border-inline-end: 1px solid ${token.node.indent.line.color};
+        border-inline-end: 1px solid ${token.node["indent-line"]["border-color"]};
         content: "";
     }
 `;
@@ -273,7 +274,7 @@ const titleSpanStyle = css`
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: ${token.border.radius};
+    border-radius: ${token.root["border-radius"]};
 `;
 
 const editInputStyle = css`
@@ -282,8 +283,8 @@ const editInputStyle = css`
     padding-inline: 0.375rem;
     font-size: inherit;
     line-height: inherit;
-    border: 1px solid ${token.node.select.indicator.color};
-    border-radius: ${token.border.radius};
+    border: 1px solid ${token.node.selection['border-color']};
+    border-radius: ${token.root["border-radius"]};
     background: transparent;
     color: inherit;
     outline: none;
@@ -404,7 +405,7 @@ const NodeItem: FC<NodeItemProps> = ({
     };
 
     if (showLine !== true) {
-        styles.paddingLeft = `calc(${depth} * ${token.indent.size})`;
+        styles.paddingLeft = `calc(${depth} * ${token.indent.width})`;
     }
 
     return (

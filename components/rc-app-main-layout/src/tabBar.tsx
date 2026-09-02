@@ -59,9 +59,9 @@ const tabItemStyle = css`
     max-width: ${token.tab.item['max-width']};
     padding: ${token.tab.item.padding};
     gap: ${token.tab.item.gap};
-    font-size: ${token.tab.font.size};
+    font-size: ${token.tab["font-size"]};
     color: ${token.tab.item.color};
-    border-radius: ${token.tab.item.border.radius} ${token.tab.item.border.radius} 0 0;
+    border-radius: ${token.tab.item["border-radius"]} ${token.tab.item["border-radius"]} 0 0;
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
@@ -73,7 +73,7 @@ const tabItemStyle = css`
     margin: 0;
 
     &:hover {
-        background-color: ${token.tab.item.background['color-hover']};
+        background-color: ${token.tab.item['background-color-hover']};
     }
 
     &:hover > .tab-close-btn {
@@ -88,19 +88,19 @@ const tabItemStyle = css`
         top: 25%;
         height: 50%;
         width: 1px;
-        background-color: ${token.tab.item.separator.color};
+        background-color: ${token.tab.item.separator["background-color"]};
         pointer-events: none;
     }
 `;
 
 const tabItemActiveStyle = css`
     color: ${token.tab.item['color-active']};
-    background-color: ${token.tab.item.background.color};
+    background-color: ${token.tab.item["background-color"]};
     font-weight: 500;
     z-index: 2;
 
     &:hover {
-        background-color: ${token.tab.item.background.color};
+        background-color: ${token.tab.item["background-color"]};
     }
 
     & > .tab-close-btn {
@@ -117,13 +117,13 @@ const tabItemActiveStyle = css`
         content: '';
         position: absolute;
         bottom: 0;
-        left: calc(-1 * ${token.tab.item.curve.size});
-        width: ${token.tab.item.curve.size};
-        height: ${token.tab.item.curve.size};
+        left: calc(-1 * ${token.tab.item.curve.width});
+        width: ${token.tab.item.curve.width};
+        height: ${token.tab.item.curve.width};
         background: radial-gradient(
             circle at 0 0,
-            transparent ${token.tab.item.curve.size},
-            ${token.tab.item.background.color} calc(${token.tab.item.curve.size} + 0.5px)
+            transparent ${token.tab.item.curve.width},
+            ${token.tab.item["background-color"]} calc(${token.tab.item.curve.width} + 0.5px)
         );
         pointer-events: none;
     }
@@ -137,13 +137,13 @@ const tabItemActiveRightCurveStyle = css`
         content: '';
         position: absolute;
         bottom: 0;
-        right: calc(-1 * ${token.tab.item.curve.size});
-        width: ${token.tab.item.curve.size};
-        height: ${token.tab.item.curve.size};
+        right: calc(-1 * ${token.tab.item.curve.width});
+        width: ${token.tab.item.curve.width};
+        height: ${token.tab.item.curve.width};
         background: radial-gradient(
             circle at 100% 0,
-            transparent ${token.tab.item.curve.size},
-            ${token.tab.item.background.color} calc(${token.tab.item.curve.size} + 0.5px)
+            transparent ${token.tab.item.curve.width},
+            ${token.tab.item["background-color"]} calc(${token.tab.item.curve.width} + 0.5px)
         );
         pointer-events: none;
     }
@@ -154,14 +154,14 @@ const tabLabelStyle = css`
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 12px), transparent 100%);
+    mask-image: linear-gradient(to right, currentColor 0, currentColor calc(100% - 12px), transparent 100%);
 `;
 
 const tabItemDraggingStyle = css`
     z-index: 10;
     transition: none !important;
     cursor: grabbing;
-    box-shadow: 0 6px 16px oklch(0 0 0 / 0.18);
+    box-shadow: ${token.tab.item["box-shadow-dragging"]};
 
     &::after {
         display: none !important;
@@ -172,7 +172,7 @@ const tabItemDraggingStyle = css`
 const tabItemSnappingStyle = css`
     z-index: 10;
     transition: transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 220ms ease;
-    box-shadow: 0 0 0 oklch(0 0 0 / 0);
+    box-shadow: ${token.tab.item["box-shadow-snapping"]};
 
     &::after {
         display: none !important;
@@ -190,8 +190,8 @@ const iconStyle = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: ${token.tab.item.icon.size};
-    height: ${token.tab.item.icon.size};
+    width: ${token.tab.item.icon.width};
+    height: ${token.tab.item.icon.width};
 
     & > svg, & > img {
         width: 100%;
@@ -203,8 +203,8 @@ const closeBtnStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.tab.item.close.size};
-    height: ${token.tab.item.close.size};
+    width: ${token.tab.item.close.width};
+    height: ${token.tab.item.close.width};
     border-radius: 50%;
     color: ${token.tab.item.close.color};
     flex-shrink: 0;
@@ -214,7 +214,7 @@ const closeBtnStyle = css`
 
     &:hover {
         color: ${token.tab.item.close['color-hover']};
-        background-color: ${token.tab.item.close.background['color-hover']};
+        background-color: ${token.tab.item.close['background-color-hover']};
     }
 
     & > svg {

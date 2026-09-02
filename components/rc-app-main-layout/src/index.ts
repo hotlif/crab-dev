@@ -23,3 +23,4 @@ export type {
 } from "./useTabs.js";
 
 export default AppMainLayout;
+export { vars as TokenVars } from './token.js';

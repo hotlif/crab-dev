@@ -2,11 +2,11 @@ import { css, cx } from "@crab-dev/css";
 import token from "./token.js";
 
 const rowEditingCellStyle = css`
-    background-color: ${token['row-edit']['row-bg']};
+    background-color: ${token['row-edit'].row["background-color"]};
 `;
 
 const rowEditActiveCellStyle = css`
-    background-color: ${token['row-edit']['cell-bg']};
+    background-color: ${token['row-edit'].cell["background-color"]};
 `;
 import type { CellSelectionState, ColumnType, MergeCell, Row, TreeRowMeta } from "./types.js";
 import type { CellNavDirection } from "./hooks/useCellEditNav.js";
@@ -16,7 +16,7 @@ import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
 import { getDataValueAccessor } from "./valueAccess.js";
 
 const highlightMarkStyle = css`
-    background-color: ${token.highlight.bg};
+    background-color: ${token.highlight["background-color"]};
     color: ${token.highlight.color};
     padding: 0;
     border-radius: ${token.highlight['border-radius']};
@@ -25,8 +25,8 @@ const highlightMarkStyle = css`
 `;
 
 const activeHighlightMarkStyle = css`
-    background-color: ${token.highlight['active-bg']};
-    color: ${token.highlight['active-color']};
+    background-color: ${token.highlight['background-color-active']};
+    color: ${token.highlight['color-active']};
     padding: 0;
     border-radius: ${token.highlight['border-radius']};
     font-weight: inherit;
@@ -205,32 +205,32 @@ function TableCell<T extends Row>({
         if (fixed === "right") {
             // 固定右列的右边框被该列自身的 sticky 背景覆盖不可见，改用左边框分隔
             return css`
-                box-shadow: inset 1px 0 0 ${token.border.color},
-                            inset 0 -1px 0 ${token.border.color};
+                box-shadow: inset 1px 0 0 ${token.root["border-color"]},
+                            inset 0 -1px 0 ${token.root["border-color"]};
             `;
         }
         if (isLastColumn) {
             return css`
-                box-shadow: inset 0 -1px 0 ${token.border.color};
+                box-shadow: inset 0 -1px 0 ${token.root["border-color"]};
             `;
         }
         return css`
-            box-shadow: inset -1px 0 0 ${token.border.color},
-                        inset 0 -1px 0 ${token.border.color};
+            box-shadow: inset -1px 0 0 ${token.root["border-color"]},
+                        inset 0 -1px 0 ${token.root["border-color"]};
         `;
     };
 
     const getMergedContentBorderStyle = () => {
         if (isLastColumn) {
             return css`
-                box-shadow: inset 0 1px 0 ${token.border.color},
-                            inset 0 -1px 0 ${token.border.color};
+                box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                            inset 0 -1px 0 ${token.root["border-color"]};
             `;
         }
         return css`
-            box-shadow: inset 0 1px 0 ${token.border.color},
-                        inset -1px 0 0 ${token.border.color},
-                        inset 0 -1px 0 ${token.border.color};
+            box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                        inset -1px 0 0 ${token.root["border-color"]},
+                        inset 0 -1px 0 ${token.root["border-color"]};
         `;
     };
 
@@ -299,7 +299,7 @@ function TableCell<T extends Row>({
                         <div
                             aria-hidden
                             className={css`flex-shrink: 0;`}
-                            style={{ width: `calc(${treeNode.level} * ${token.tree.indent})` }}
+                            style={{ width: `calc(${treeNode.level} * ${token.tree.indent.width})` }}
                         />
                         {/* 展开/收起按钮（非叶子）或等宽占位（叶子） */}
                         {treeNode.hasChildren ? (
@@ -312,13 +312,13 @@ function TableCell<T extends Row>({
                                     display: inline-flex;
                                     align-items: center;
                                     justify-content: center;
-                                    width: ${token.tree['chevron-size']};
-                                    height: ${token.tree['chevron-size']};
+                                    width: ${token.tree.chevron.width};
+                                    height: ${token.tree.chevron.width};
                                     flex-shrink: 0;
                                     cursor: pointer;
-                                    border-radius: ${token.tree['button-radius']};
-                                    margin-right: ${token.tree['button-gap']};
-                                    color: ${token.tree['chevron-color']};
+                                    border-radius: ${token.tree.button["border-radius"]};
+                                    margin-right: ${token.tree.button.gap};
+                                    color: ${token.tree.chevron.color};
                                 `}
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -340,7 +340,7 @@ function TableCell<T extends Row>({
                                     viewBox="0 0 10 10"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className={css`transition: ${token.tree['chevron-transition']};`}
+                                    className={css`transition: ${token.tree.chevron.transition};`}
                                     style={{ transform: treeNode.isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
                                 >
                                     <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -350,7 +350,7 @@ function TableCell<T extends Row>({
                             <div
                                 aria-hidden
                                 className={css`flex-shrink: 0;`}
-                                style={{ width: token.tree['chevron-size'] }}
+                                style={{ width: token.tree.chevron.width }}
                             />
                         )}
                     </>
@@ -385,7 +385,7 @@ function TableCell<T extends Row>({
                         box-sizing: border-box;
                         /* 合并单元格自带一层不透明底，同样读行底色变量 —— 过渡必须与行、
                            固定列严格一致，否则 hover 时它会瞬时跳色而其余仍在渐变。 */
-                        background-color: var(${ROW_BG_VAR}, ${token.cell['bg-color']});
+                        background-color: var(${ROW_BG_VAR}, ${token.cell['background-color']});
                         transition: ${ROW_BG_TRANSITION};
 
                         @media (prefers-reduced-motion: reduce) {
@@ -467,7 +467,7 @@ function TableCell<T extends Row>({
                             top: 0;
                             left: 0;
                             box-sizing: border-box;
-                            background-color: ${token.cell['bg-color']};
+                            background-color: ${token.cell['background-color']};
                             font-size: inherit;
                             font-family: inherit;
                             & input, & textarea, & select {
@@ -530,7 +530,7 @@ function TableCell<T extends Row>({
                     width: 0;
                     height: 0;
                     border-style: solid;
-                    border-width: 0 ${token['edited-indicator'].size} ${token['edited-indicator'].size} 0;
+                    border-width: 0 ${token['edited-indicator']['border-width']} ${token['edited-indicator']['border-width']} 0;
                     border-color: transparent ${token['edited-indicator'].color} transparent transparent;
                     pointer-events: none;
                     z-index: 4;
@@ -556,7 +556,7 @@ function TableCell<T extends Row>({
         // 锚点（活动单元格）保留单元格原色，其余选区填充淡蓝以体现范围
         const background = selection.isAnchor
             ? "transparent"
-            : token.selection['bg-color'];
+            : token.selection['background-color'];
 
         // 合并单元格主格的视觉尺寸跨多格，overlay 必须按合并后的宽高铺开，
         // 否则只会覆盖单格大小、出现裸露的"漏色"区域

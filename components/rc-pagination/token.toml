@@ -8,31 +8,31 @@ imports = [
 [token]
 
 # ─── 容器 ────────────────────────────────────────────────────────────────────
-gap                  = "$ref(space.inline-gap)"
+root.gap = "var(--pagination-gap, $ref(space.inline-gap))"
 group.gap            = "$ref(space.stack-gap)"
-font.size            = "$ref(font.size.body)"
-font.weight          = "$ref(font.weight.body)"
+root.font-size = "var(--pagination-font-size, $ref(font.size.body))"
+root.font-weight = "var(--pagination-font-weight, $ref(font.weight.body))"
 
 # ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
 size.medium.height     = "32px"
 size.medium.min-width  = "32px"
 size.medium.padding    = "0 $ref(space.component-gap)"
-size.medium.font.size  = "$ref(font.size.body)"
+size.medium.font-size  = "$ref(font.size.body)"
 
 size.small.height      = "28px"
 size.small.min-width   = "28px"
 size.small.padding     = "0 $ref(space.inline-gap)"
-size.small.font.size   = "$ref(font.size.caption)"
+size.small.font-size   = "$ref(font.size.caption)"
 
 # ─── 分页项（Ghost 按钮风格，无描边） ─────────────────────────────────────────
 item.color                    = "$ref(color.text.secondary)"
 item.color-hover              = "$ref(color.text.primary)"
 item.color-active             = "$ref(color.text.on-brand)"
 item.color-disabled           = "$ref(color.text.disabled)"
-item.background.color         = "transparent"
-item.background.color-hover   = "$ref(color.background.hover-subtle)"
-item.background.color-active  = "$ref(color.brand.primary)"
-item.radius                   = "$ref(radius.md)"
+item.background-color         = "transparent"
+item.background-color-hover   = "$ref(color.background.hover-subtle)"
+item.background-color-active  = "$ref(color.brand.primary)"
+item.border-radius                   = "var(--pagination-item-radius, $ref(radius.md))"
 
 # ─── 省略号 ──────────────────────────────────────────────────────────────────
 ellipsis.color = "$ref(color.text.tertiary)"
@@ -46,17 +46,17 @@ quick-jumper.input.padding = "0 $ref(space.component-gap)"
 # ─── 输入框（快速跳转保留描边） ──────────────────────────────────────────────
 input.color                = "$ref(color.text.primary)"
 input.color-disabled       = "$ref(color.text.disabled)"
-input.background.color     = "$ref(color.background.surface)"
-input.border.color         = "$ref(color.border.default)"
-input.border.color-hover   = "$ref(color.border.hover)"
-input.border.color-focus   = "$ref(color.border.focus)"
-input.border.width         = "1px"
-input.border.radius        = "$ref(radius.md)"
+input.background-color     = "$ref(color.background.surface)"
+input.border-color         = "$ref(color.border.default)"
+input.border-color-hover   = "$ref(color.border.hover)"
+input.border-color-focus   = "$ref(color.border.focus)"
+input.border-width         = "1px"
+input.border-radius        = "$ref(radius.md)"
 
 # ─── 焦点 ────────────────────────────────────────────────────────────────────
-focus.outline.color  = "$ref(color.border.focus)"
-focus.outline.offset = "2px"
-focus.outline.width  = "2px"
+root.outline-color-focus = "var(--pagination-focus-outline-color, $ref(color.focus.ring))"
+root.outline-offset-focus = "var(--pagination-focus-outline-offset, 2px)"
+root.outline-width-focus = "var(--pagination-focus-outline-width, 2px)"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
-transition = "background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), color 120ms cubic-bezier(0.4, 0, 0.2, 1), border-color 120ms cubic-bezier(0.4, 0, 0.2, 1)"
+root.transition = "var(--pagination-transition, background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), color 120ms cubic-bezier(0.4, 0, 0.2, 1), border-color 120ms cubic-bezier(0.4, 0, 0.2, 1))"

@@ -21,7 +21,7 @@ const summaryCellBaseStyle = css`
     height: 100%;
     overflow: hidden;
     padding-inline: ${token.summary['padding-inline']};
-    background-color: ${token.header['bg-color']};
+    background-color: ${token.header['background-color']};
     color: ${token.summary.color};
     font-weight: ${token.summary['font-weight']};
 `;
@@ -34,17 +34,17 @@ const summaryCellStickyStyle = css`
 
 // 顶边（与数据区分隔）+ 右边（列分隔）
 const summaryCellBorderStyle = css`
-    box-shadow: inset 0 1px 0 ${token.border.color},
-                inset -1px 0 0 ${token.border.color};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                inset -1px 0 0 ${token.root["border-color"]};
 `;
 // 最后一列：仅顶边
 const summaryCellLastBorderStyle = css`
-    box-shadow: inset 0 1px 0 ${token.border.color};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]};
 `;
 // 固定右列：右边被自身 sticky 背景覆盖，改用左边分隔
 const summaryCellRightFixedBorderStyle = css`
-    box-shadow: inset 0 1px 0 ${token.border.color},
-                inset 1px 0 0 ${token.border.color};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]},
+                inset 1px 0 0 ${token.root["border-color"]};
 `;
 
 function getSummaryJustify<T extends Row>(column: ColumnType<T>): "center" | "flex-end" | "flex-start" {

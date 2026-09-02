@@ -7,28 +7,32 @@ imports = [
 
 [token]
 
-indent.size = "$ref(space.section-gap)"
-border.radius = "$ref(radius.sm)"
+indent.width = "var(--tree-indent-size, $ref(space.section-gap))"
+root.border-radius = "var(--tree-border-radius, $ref(radius.sm))"
 
-node.hover.background.color = "$ref(color.background.hover-subtle)"
-node.select.background.color = "$ref(color.background.active-subtle)"
-node.select.indicator.color = "$ref(color.fill.active)"
-node.select.indicator.width = "3px"
+node.background-color-hover = "var(--tree-node-hover-background-color, $ref(color.background.hover-subtle))"
+node.background-color-selected = "var(--tree-node-select-background-color, $ref(color.selection.background))"
+node.selection.border-color = "var(--tree-node-select-indicator-color, $ref(color.selection.border))"
+node.selection.border-width = "var(--tree-node-select-indicator-width, 3px)"
 
 node.expand.icon.color = "$ref(color.text.secondary)"
-node.icon.hover.background.color = "$ref(color.background.hover-subtle)"
-node.icon.loading.color = "$ref(color.brand.primary)"
+node.icon.background-color-hover = "var(--tree-node-icon-hover-background-color, $ref(color.background.hover-subtle))"
+node.icon.color-loading = "var(--tree-node-icon-loading-color, $ref(color.brand.primary))"
 
-node.indent.line.color = "$ref(color.border.default)"
+node.indent-line.border-color = "var(--tree-node-indent-line-color, $ref(color.border.default))"
 
-node.draggable.border.width = "1px"
-node.draggable.border.style = "solid"
-node.draggable.border.color = "$ref(color.border.focus)"
-node.drag.indicator.color = "$ref(color.feedback.info)"
-node.drag.inside.background.color = "$ref(color.feedback.info-background)"
-node.drag.inside.border.color = "$ref(color.feedback.info)"
+node.draggable.border-width = "1px"
+node.draggable.border-style = "solid"
+node.draggable.border-color = "$ref(color.border.focus)"
+node.drag.indicator.background-color = "var(--tree-node-drag-indicator-color, $ref(color.feedback.info.border))"
+node.drag.inside.background-color = "$ref(color.feedback.info.background)"
+node.drag.inside.border-color = "$ref(color.feedback.info.border)"
+node.drag.badge.background-color = "$ref(color.feedback.info.solid)"
+node.drag.badge.color = "$ref(color.feedback.info.on-solid)"
+drag-overlay.box-shadow = "$ref(shadow.overlay)"
 
-node.disabled.color = "$ref(color.text.disabled)"
-node.disabled.background.color = "transparent"
+node.color-disabled = "var(--tree-node-disabled-color, $ref(color.text.disabled))"
+node.background-color-disabled = "var(--tree-node-disabled-background-color, transparent)"
 
 context-menu.z-index = "$ref(z-index.float)"
+context-menu.box-shadow = "$ref(shadow.float)"

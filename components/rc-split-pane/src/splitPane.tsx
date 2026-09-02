@@ -31,7 +31,7 @@ const flexPaneStyle = css`
     flex: 1;
 `;
 
-/* 命中区（separator.size）宽于可见线：1px 的线抓不住，7px 的空气抓得住 */
+/* 命中区宽于可见线：1px 的线抓不住，7px 的空气抓得住 */
 const separatorStyle = css`
     flex-shrink: 0;
     position: relative;
@@ -42,18 +42,18 @@ const separatorStyle = css`
     &::before {
         content: '';
         position: absolute;
-        background: ${token.separator.line.color};
+        background: ${token.separator.line["background-color"]};
         transition: ${token.separator.transition};
     }
 
     &:hover::before,
     &[data-dragging]::before {
-        background: ${token.separator.line['color-active']};
+        background: ${token.separator.line['background-color-active']};
     }
 
     &:focus-visible {
         outline: none; /* 仅因下一行立即给出替代焦点意符，方才允许 */
-        box-shadow: ${token.focus.ring};
+        box-shadow: ${token.separator['box-shadow-focus']};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -65,7 +65,7 @@ const separatorStyle = css`
 
 /* 左右分栏：分隔条是竖线 */
 const separatorHorizontalStyle = css`
-    width: ${token.separator.size};
+    width: ${token.separator.vertical.width};
     cursor: col-resize;
 
     &::before {
@@ -79,7 +79,7 @@ const separatorHorizontalStyle = css`
 
 /* 上下分栏：分隔条是横线 */
 const separatorVerticalStyle = css`
-    height: ${token.separator.size};
+    height: ${token.separator.horizontal.height};
     cursor: row-resize;
 
     &::before {
