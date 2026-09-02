@@ -1,0 +1,43 @@
++++
+title = "Theme 主题"
+description = "Light、Dark 与强制颜色模式的语义令牌主题"
+kind = "component"
+status = "experimental"
++++
+
+# Theme
+
+`@crab-dev/rc-theme` 是 CSS-only 主题包。应用入口只需导入一次：
+
+[打开 Theme 主题工作台](/components/rc-theme/workbench/)
+
+```ts
+import "@crab-dev/rc-theme/css/index.css";
+```
+
+默认主题为 Light。Dark 主题由 `data-theme` 驱动，并允许在页面局部建立主题边界：
+
+```tsx
+<main data-theme="dark">...</main>
+```
+
+## Light / Dark 并排示例
+
+<Demos glob="./demos/*.demo.tsx" columns={1} />
+
+## 避免首屏主题闪烁
+
+主题包不会监听 `prefers-color-scheme`，也不会读写持久化状态。应用应自行决定主题，并在应用脚本执行和
+首屏渲染之前尽早把 `data-theme="light"` 或 `data-theme="dark"` 写到 `document.documentElement`。
+例如，可把下面的短脚本放在文档 `<head>` 中、主 bundle 之前：
+
+```js
+const savedTheme = localStorage.getItem("theme");
+document.documentElement.dataset.theme = savedTheme === "dark" ? "dark" : "light";
+```
+
+如果应用选择跟随系统，也应由应用读取 `matchMedia("(prefers-color-scheme: dark)")`、持久化用户选择并
+设置 `data-theme`；`@crab-dev/rc-theme` 只负责 CSS 变量映射。运行时切换只需更新同一属性。
+
+主题包仅覆写 `--token-semantic-*`，所以组件级变量仍拥有最高优先级。`forced-colors: active`
+会自动切换到 `Canvas`、`CanvasText`、`Highlight` 等系统颜色。

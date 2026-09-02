@@ -1,5 +1,6 @@
 import { type ReactNode, use, useEffect, useRef } from 'react';
 import { CanvasContext } from './context/canvas-context.js';
+import { CanvasPaletteContext } from './context/palette-context.js';
 import { identityMat3, invertMat3, applyMat3 } from './math/matrix.js';
 
 export interface ViewportProps {
@@ -74,6 +75,7 @@ function Viewport({
     onSelect,
 }: ViewportProps) {
     const ctx = use(CanvasContext);
+    const { palette } = use(CanvasPaletteContext);
 
     // 可变实例状态 ref（非受控内部状态）
     const panXRef = useRef(controlledPanX ?? 0);
@@ -180,8 +182,8 @@ function Viewport({
         div.style.cssText = [
             'display:none',
             'position:absolute',
-            'border:1.5px dashed #4a9eff',
-            'background:rgba(74,158,255,0.08)',
+            `border:1.5px dashed ${palette.selectionStroke}`,
+            `background:${palette.selectionFill}`,
             'pointer-events:none',
             'box-sizing:border-box',
         ].join(';');
@@ -191,7 +193,7 @@ function Viewport({
             if (container.contains(div)) container.removeChild(div);
             selectionOverlayRef.current = null;
         };
-    }, [mode]);
+    }, [mode, palette.selectionStroke, palette.selectionFill]);
 
     // 兜底 HitEntry：平移（pan）或框选（select）
     useEffect(() => {

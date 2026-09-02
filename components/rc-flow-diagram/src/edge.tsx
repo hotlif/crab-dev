@@ -1,5 +1,7 @@
 import { Line, Marker } from '@crab-dev/rc-canvas';
 import type { CanvasInteractiveProps } from '@crab-dev/rc-canvas';
+import { use } from 'react';
+import { FlowDiagramPaletteContext } from './palette-context.js';
 
 export interface EdgeProps extends CanvasInteractiveProps {
     x1: number;
@@ -63,10 +65,10 @@ function StraightEdge({
                 onDragStart={onDragStart} onDrag={onDrag} onDragEnd={onDragEnd}
             />
             {arrowEnd && len > 0 && (
-                <Marker x={x2} y={y2} angle={angle} size={effSize} fill={color ?? '#000000'} opacity={opacity} zIndex={zIndex} />
+                <Marker x={x2} y={y2} angle={angle} size={effSize} fill={color} opacity={opacity} zIndex={zIndex} />
             )}
             {arrowStart && len > 0 && (
-                <Marker x={x1} y={y1} angle={angle + Math.PI} size={effSize} fill={color ?? '#000000'} opacity={opacity} zIndex={zIndex} />
+                <Marker x={x1} y={y1} angle={angle + Math.PI} size={effSize} fill={color} opacity={opacity} zIndex={zIndex} />
             )}
         </>
     );
@@ -112,10 +114,10 @@ function OrthogonalEdge({
             {/* 水平段 2：midX → x2 */}
             <Line x1={midX} y1={y2} x2={ex} y2={y2} {...sharedProps} />
             {arrowEnd && (
-                <Marker x={x2} y={y2} angle={endAngle} size={sz} fill={color ?? '#000000'} opacity={opacity} zIndex={zIndex} />
+                <Marker x={x2} y={y2} angle={endAngle} size={sz} fill={color} opacity={opacity} zIndex={zIndex} />
             )}
             {arrowStart && (
-                <Marker x={x1} y={y1} angle={startAngle} size={sz} fill={color ?? '#000000'} opacity={opacity} zIndex={zIndex} />
+                <Marker x={x1} y={y1} angle={startAngle} size={sz} fill={color} opacity={opacity} zIndex={zIndex} />
             )}
         </>
     );
@@ -129,7 +131,7 @@ function Edge({
     y1,
     x2,
     y2,
-    color = '#000000',
+    color: colorProp,
     lineWidth = 1.5,
     opacity = 1,
     dashLength,
@@ -147,6 +149,8 @@ function Edge({
     onDrag,
     onDragEnd,
 }: EdgeProps) {
+    const palette = use(FlowDiagramPaletteContext);
+    const color = colorProp ?? palette.edge;
     const commonProps = {
         x1, y1, x2, y2, color, lineWidth, opacity, dashLength, gapLength,
         arrowStart, arrowEnd, arrowSize, zIndex, draggable, cursor,

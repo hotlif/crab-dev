@@ -3,12 +3,15 @@ import type { MockFunction } from "@crab-dev/wake/test";
 import React, { type ReactNode } from 'react';
 import Rect from '../shapes/rect.js';
 import { CanvasContext, type CanvasContextValue } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
+import { DEFAULT_CANVAS_PALETTE } from '../palette.js';
 import { identityMat3 } from '../math/matrix.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 const IDENTITY = identityMat3();
 function makeCtxMock() {
     let idCounter = 0;
     return {
+        resolveColor: (value: string) => value,
         register: mock.fn(() => idCounter++),
         update: mock.fn(),
         unregister: mock.fn(),
@@ -33,11 +36,16 @@ function makeCtxMock() {
         subscribeCanvasEvent: mock.fn(() => () => { }),
     } satisfies CanvasContextValue;
 }
-function TestWrapper({ children, ctx }: {
+function TestWrapper({ children, ctx, paletteRevision = 0 }: {
     children: ReactNode;
     ctx: CanvasContextValue;
+    paletteRevision?: number;
 }) {
-    return <CanvasContext value={ctx}>{children}</CanvasContext>;
+    return (
+        <CanvasPaletteContext value={{ palette: DEFAULT_CANVAS_PALETTE, revision: paletteRevision }}>
+            <CanvasContext value={ctx}>{children}</CanvasContext>
+        </CanvasPaletteContext>
+    );
 }
 describe('Rect', () => {
     it('mount 时向 Context 注册一条 DrawCommand', async () => {
@@ -108,6 +116,27 @@ describe('Rect', () => {
         expect(cmd.fill[1]).toBeCloseTo(0);
         expect(cmd.fill[2]).toBeCloseTo(0);
         expect(cmd.fill[3]).toBeCloseTo(1);
+    });
+    it('palette revision 变化时重新解析显式 CSS 颜色并更新命令', async () => {
+        const ctx = makeCtxMock();
+        let resolved = '#ff0000';
+        ctx.resolveColor = () => resolved;
+        const { rerender } = await render(
+            <TestWrapper ctx={ctx} paletteRevision={0}>
+                <Rect x={0} y={0} width={100} height={50} fill="var(--shape-fill)" />
+            </TestWrapper>,
+        );
+
+        resolved = '#0000ff';
+        await rerender(
+            <TestWrapper ctx={ctx} paletteRevision={1}>
+                <Rect x={0} y={0} width={100} height={50} fill="var(--shape-fill)" />
+            </TestWrapper>,
+        );
+
+        const lastCall = (ctx.update as MockFunction).calls.calls.at(-1) as [number, { fill: number[] }];
+        expect(lastCall[1].fill[0]).toBeCloseTo(0);
+        expect(lastCall[1].fill[2]).toBeCloseTo(1);
     });
     it('opacity 影响 fill 的 alpha 通道', async () => {
         const ctx = makeCtxMock();

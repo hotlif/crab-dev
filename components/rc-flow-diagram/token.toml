@@ -1,0 +1,14 @@
+[build]
+output = "./src/token.ts"
+prefix = "flow-diagram"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+palette.grid.color             = "$ref(color.border.subtle)"
+palette.node.background-color = "$ref(color.brand.primary)"
+palette.node.border-color     = "$ref(color.border.default)"
+palette.node.label.color      = "$ref(color.text.on-brand)"
+palette.edge.color            = "$ref(color.text.secondary)"

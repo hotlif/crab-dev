@@ -5,6 +5,7 @@ import type { Node as TreeNode, OverState } from "@crab-dev/rc-tree";
 import type { ColumnType, Row } from "@crab-dev/rc-table";
 import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState } from "../types.js";
 import { transformColumns } from "../util.js";
+import token from "../token.js";
 import {
     collectAllLeafColumnNames,
     collectLeafColumns,
@@ -40,15 +41,15 @@ const colPinBtnStyle = css`
     cursor: pointer;
     padding: 0;
     opacity: 0;
-    color: oklch(55% 0 0);
+    color: ${token.icon.color};
     transition: opacity 0.1s;
-    &:hover { background-color: oklch(85% 0 0); color: oklch(25% 0 0); }
+    &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
 `;
 
 const colPinBtnActiveStyle = css`
     opacity: 1 !important;
-    color: oklch(50% 0.18 262);
-    &:hover { background-color: oklch(85% 0.06 262); color: oklch(40% 0.18 262); }
+    color: ${token.icon['color-selected']};
+    &:hover { background-color: ${token.icon.selection['background-color-hover']}; color: ${token.icon.selection['color-hover']}; }
 `;
 
 const sortableBtnStyle = css`
@@ -64,15 +65,15 @@ const sortableBtnStyle = css`
     cursor: pointer;
     padding: 0;
     opacity: 0;
-    color: oklch(55% 0 0);
+    color: ${token.icon.color};
     transition: opacity 0.1s;
-    &:hover { background-color: oklch(85% 0 0); color: oklch(25% 0 0); }
+    &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
 `;
 
 const sortableBtnActiveStyle = css`
     opacity: 1 !important;
-    color: oklch(50% 0.18 140);
-    &:hover { background-color: oklch(85% 0.06 140); color: oklch(40% 0.18 140); }
+    color: ${token.sort['color-selected']};
+    &:hover { background-color: ${token.sort.selection['background-color-hover']}; color: ${token.sort.selection['color-hover']}; }
 `;
 
 const colNodeHoverGroupStyle = css`

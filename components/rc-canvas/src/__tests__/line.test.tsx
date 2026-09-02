@@ -3,12 +3,15 @@ import type { MockFunction } from "@crab-dev/wake/test";
 import React, { type ReactNode } from 'react';
 import Line from '../shapes/line.js';
 import { CanvasContext, type CanvasContextValue } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
+import { DEFAULT_CANVAS_PALETTE, type CanvasPalette } from '../palette.js';
 import { identityMat3 } from '../math/matrix.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 const IDENTITY = identityMat3();
 function makeCtxMock() {
     let idCounter = 0;
     return {
+        resolveColor: (value: string) => value,
         register: mock.fn(() => idCounter++),
         update: mock.fn(),
         unregister: mock.fn(),
@@ -33,11 +36,16 @@ function makeCtxMock() {
         subscribeCanvasEvent: mock.fn(() => () => { }),
     } satisfies CanvasContextValue;
 }
-function TestWrapper({ children, ctx }: {
+function TestWrapper({ children, ctx, palette = DEFAULT_CANVAS_PALETTE }: {
     children: ReactNode;
     ctx: CanvasContextValue;
+    palette?: CanvasPalette;
 }) {
-    return <CanvasContext value={ctx}>{children}</CanvasContext>;
+    return (
+        <CanvasPaletteContext value={{ palette, revision: 0 }}>
+            <CanvasContext value={ctx}>{children}</CanvasContext>
+        </CanvasPaletteContext>
+    );
 }
 describe('Line', () => {
     it('mount 时注册 line 命令并携带端点与线宽', async () => {
@@ -74,6 +82,23 @@ describe('Line', () => {
         expect(cmd.gapLength).toBe(4);
         expect(cmd.flowSpeed).toBe(24);
         expect(cmd.dashPhase).toBe(42);
+    });
+    it('显式旧 color 优先于 palette.foreground，否则使用 palette', async () => {
+        const palette: CanvasPalette = { ...DEFAULT_CANVAS_PALETTE, foreground: '#00ff00' };
+        const paletteCtx = makeCtxMock();
+        await render(<TestWrapper ctx={paletteCtx} palette={palette}>
+            <Line x1={0} y1={0} x2={10} y2={0}/>
+        </TestWrapper>);
+        const paletteCommand = (paletteCtx.register as MockFunction).calls.calls[0]?.[0] as { color: number[] };
+        expect(paletteCommand.color[1]).toBeCloseTo(1);
+
+        const explicitCtx = makeCtxMock();
+        await render(<TestWrapper ctx={explicitCtx} palette={palette}>
+            <Line x1={0} y1={0} x2={10} y2={0} color="#ff0000"/>
+        </TestWrapper>);
+        const explicitCommand = (explicitCtx.register as MockFunction).calls.calls[0]?.[0] as { color: number[] };
+        expect(explicitCommand.color[0]).toBeCloseTo(1);
+        expect(explicitCommand.color[1]).toBeCloseTo(0);
     });
     it('未设置 flowSpeed 时命令中为 undefined（静态虚线）', async () => {
         const ctx = makeCtxMock();

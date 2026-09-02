@@ -8,6 +8,7 @@ import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
 import { css, cx } from "@crab-dev/css";
 import type { ProtocolColumnType, DataTypeLoader, PaginationConfig, ProtocolTableState } from "./types.js";
+import token from "./token.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
 import { useColumnManagement } from "./hooks/useColumnManagement.js";
 import { useTableData } from "./hooks/useTableData.js";
@@ -39,7 +40,7 @@ const loadingOverlayStyle = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: ${token.overlay['background-color-loading']};
     z-index: 10;
 `;
 
@@ -51,10 +52,10 @@ const paginationBarStyle = css`
     gap: 6px;
     padding: 6px 12px;
     flex-shrink: 0;
-    background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
-    border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
-    border-right: 1px solid var(--crab-rc-table-border-color, #ddd);
-    border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+    background-color: ${token.chrome['background-color']};
+    border-left: 1px solid ${token.root['border-color']};
+    border-right: 1px solid ${token.root['border-color']};
+    border-bottom: 1px solid ${token.root['border-color']};
 `;
 
 const paginationRefreshBtnStyle = css`
@@ -67,13 +68,13 @@ const paginationRefreshBtnStyle = css`
     border: none;
     background: transparent;
     cursor: pointer;
-    color: oklch(50% 0 0);
+    color: ${token.icon.color};
     padding: 0;
     flex-shrink: 0;
 
     &:hover {
-        background-color: oklch(88% 0 0);
-        color: oklch(30% 0 0);
+        background-color: ${token.icon['background-color-hover']};
+        color: ${token.icon['color-hover']};
     }
 `;
 
@@ -98,8 +99,8 @@ const sideToolbarStyle = css`
     align-items: center;
     padding-top: 4px;
     gap: 2px;
-    border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
-    background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
+    border-left: 1px solid ${token.root['border-color']};
+    background-color: ${token.chrome['background-color']};
 `;
 
 const sideToolbarBtnStyle = css`
@@ -112,22 +113,22 @@ const sideToolbarBtnStyle = css`
     border: none;
     background: transparent;
     cursor: pointer;
-    color: oklch(45% 0 0);
+    color: ${token.icon.color};
     padding: 0;
 
     &:hover {
-        background-color: oklch(88% 0 0);
-        color: oklch(30% 0 0);
+        background-color: ${token.icon['background-color-hover']};
+        color: ${token.icon['color-hover']};
     }
 `;
 
 const sideToolbarBtnActiveStyle = css`
-    background-color: oklch(88% 0.04 262);
-    color: oklch(50% 0.18 262);
+    background-color: ${token.icon['background-color-selected']};
+    color: ${token.icon['color-selected']};
 
     &:hover {
-        background-color: oklch(84% 0.06 262);
-        color: oklch(45% 0.18 262);
+        background-color: ${token.icon.selection['background-color-hover']};
+        color: ${token.icon.selection['color-hover']};
     }
 `;
 
@@ -136,8 +137,8 @@ const sideBarStyle = css`
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid var(--crab-rc-table-border-color, #ddd);
-    background-color: var(--crab-rc-table-bg-color, #fff);
+    border-left: 1px solid ${token.root['border-color']};
+    background-color: ${token.surface['background-color']};
     overflow: hidden;
 `;
 
@@ -147,8 +148,8 @@ const sideBarToolbarStyle = css`
     align-items: center;
     padding: 0 8px;
     gap: 6px;
-    border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
-    background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
+    border-bottom: 1px solid ${token.root['border-color']};
+    background-color: ${token.chrome['background-color']};
     flex-shrink: 0;
 `;
 
@@ -174,9 +175,9 @@ const panelIconBtnStyle = css`
     border-radius: 3px;
     background: transparent;
     cursor: pointer;
-    color: oklch(45% 0 0);
+    color: ${token.icon.color};
     padding: 0;
-    &:hover { background-color: oklch(88% 0 0); color: oklch(25% 0 0); }
+    &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
 `;
 
 const searchBarStyle = css`
@@ -185,8 +186,8 @@ const searchBarStyle = css`
     gap: 4px;
     padding: 4px 8px;
     flex-shrink: 0;
-    background-color: var(--crab-rc-table-header-bg-color, hsl(0deg 0% 97.5%));
-    border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+    background-color: ${token.chrome['background-color']};
+    border-bottom: 1px solid ${token.root['border-color']};
 `;
 
 const searchBarInputWrapStyle = css`
@@ -197,7 +198,7 @@ const searchBarInputWrapStyle = css`
 
 const searchBarCountStyle = css`
     font-size: 11px;
-    color: oklch(55% 0 0);
+    color: ${token.text.tertiary.color};
     white-space: nowrap;
     padding: 0 4px;
 `;
@@ -208,19 +209,19 @@ const searchBarNavBtnStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border: 1px solid ${token.root['border-color']};
     border-radius: 3px;
     background: transparent;
     cursor: pointer;
     padding: 0;
-    color: oklch(45% 0 0);
-    &:hover { background-color: oklch(90% 0 0); }
-    &:disabled { opacity: 0.4; cursor: default; }
+    color: ${token.icon.color};
+    &:hover { background-color: ${token.control['background-color-hover']}; }
+    &:disabled { opacity: ${token.control['opacity-disabled']}; cursor: not-allowed; }
 `;
 
 const sideBarFooterStyle = css`
     flex-shrink: 0;
-    border-top: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border-top: 1px solid ${token.root['border-color']};
     padding: 4px 8px;
     display: flex;
     justify-content: flex-end;
@@ -233,25 +234,25 @@ const resetWidthBtnStyle = css`
     padding: 0 8px;
     height: 24px;
     font-size: 11px;
-    border: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border: 1px solid ${token.root['border-color']};
     border-radius: 3px;
     background: transparent;
     cursor: pointer;
-    color: oklch(40% 0 0);
-    &:hover { background-color: oklch(92% 0 0); }
+    color: ${token.text.secondary.color};
+    &:hover { background-color: ${token.control['background-color-hover']}; }
 `;
 
 const clearAllBtnStyle = css`
     padding: 0 6px;
     height: 22px;
     font-size: 11px;
-    border: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border: 1px solid ${token.root['border-color']};
     border-radius: 3px;
     background: transparent;
     cursor: pointer;
-    color: oklch(45% 0 0);
+    color: ${token.text.secondary.color};
     white-space: nowrap;
-    &:hover { background-color: oklch(92% 0 0); }
+    &:hover { background-color: ${token.control['background-color-hover']}; }
 `;
 
 const filterPanelScrollStyle = css`
@@ -260,12 +261,12 @@ const filterPanelScrollStyle = css`
 
 const filterPanelRowStyle = css`
     padding: 6px 8px;
-    border-bottom: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border-bottom: 1px solid ${token.root['border-color']};
 `;
 
 const filterPanelLabelStyle = css`
     font-size: 11px;
-    color: oklch(50% 0 0);
+    color: ${token.text.secondary.color};
     margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -274,7 +275,7 @@ const filterPanelLabelStyle = css`
 
 const filterPanelEditorWrapStyle = css`
     height: 28px;
-    border: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border: 1px solid ${token.root['border-color']};
     border-radius: 4px;
     overflow: hidden;
 `;
@@ -283,7 +284,7 @@ const filterPanelEmptyStyle = css`
     padding: 20px 8px;
     text-align: center;
     font-size: 12px;
-    color: oklch(65% 0 0);
+    color: ${token.text.tertiary.color};
 `;
 
 const errorOverlayStyle = css`
@@ -294,14 +295,14 @@ const errorOverlayStyle = css`
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: ${token.overlay['background-color-error']};
     z-index: 10;
-    color: oklch(45% 0.15 25);
+    color: ${token.failure.icon.color};
 `;
 
 const errorMessageStyle = css`
     font-size: 12px;
-    color: oklch(50% 0 0);
+    color: ${token.failure.text.color};
     max-width: 280px;
     text-align: center;
     word-break: break-word;
@@ -312,13 +313,13 @@ const retryBtnStyle = css`
     padding: 0 12px;
     height: 26px;
     font-size: 12px;
-    border: 1px solid oklch(70% 0.08 25);
+    border: 1px solid ${token.failure['border-color']};
     border-radius: 4px;
     background: transparent;
     cursor: pointer;
-    color: oklch(45% 0.15 25);
+    color: ${token.failure.text.color};
     margin-top: 2px;
-    &:hover { background-color: oklch(96% 0.01 25); }
+    &:hover { background-color: ${token.failure['background-color-hover']}; }
 `;
 
 /* ───────────────────────────── Props ───────────────────────────── */

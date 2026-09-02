@@ -3,8 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
-const EXPECTED_COMPONENT_COUNT = 51;
-const EXPECTED_DEMO_COUNT = 245;
+const EXPECTED_COMPONENT_COUNT = 52;
+const EXPECTED_DEMO_COUNT = 246;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");

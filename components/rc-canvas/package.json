@@ -14,9 +14,10 @@
         "directory": "components/rc-canvas"
     },
     "scripts": {
-        "start": "yarn generate:docgen && wake docs dev . --mode components",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
         "generate:docgen": "wake library docgen .",
-        "build:library": "wake library build .",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "eslint": "eslint .",
         "typecheck": "tsc --noEmit"
@@ -41,6 +42,7 @@
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.23",

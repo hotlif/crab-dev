@@ -1,5 +1,6 @@
 import { use, useEffect, useRef } from 'react';
 import { CanvasContext } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
 import { parseColor } from '../math/color.js';
 import type { ColorRGBA } from '../math/color.js';
 
@@ -21,16 +22,18 @@ function Marker({
     y,
     angle,
     size,
-    fill = '#000000',
+    fill: fillProp,
     opacity = 1,
     zIndex = 0,
 }: MarkerProps) {
     const ctx = use(CanvasContext);
+    const { palette } = use(CanvasPaletteContext);
+    const fill = fillProp ?? palette.foreground;
     // 可变实例状态 ref：持有注册 id，跨渲染不触发 rerender
     const cmdIdRef = useRef<number | null>(null);
 
     const buildCmd = () => {
-        const parsedColor = parseColor(fill);
+        const parsedColor = parseColor(ctx.resolveColor(fill, palette.foreground, 'foreground'));
         const appliedColor: ColorRGBA =
             opacity !== 1
                 ? [parsedColor[0], parsedColor[1], parsedColor[2], parsedColor[3] * opacity]

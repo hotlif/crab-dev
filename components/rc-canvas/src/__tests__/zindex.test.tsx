@@ -10,6 +10,7 @@ const IDENTITY = identityMat3();
 function makeCtxMock() {
     let idCounter = 0;
     return {
+        resolveColor: (value: string) => value,
         register: mock.fn(() => idCounter++),
         update: mock.fn(),
         unregister: mock.fn(),

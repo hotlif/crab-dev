@@ -1,6 +1,7 @@
 import { type ReactNode, use, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CanvasContext } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
 import { parseColor } from '../math/color.js';
 import type { ColorRGBA } from '../math/color.js';
 import { generateGlyph, generateBitmapGlyph } from '../renderer/text-atlas.js';
@@ -43,7 +44,7 @@ function Text({
     children,
     fontSize = 14,
     fontFamily = 'system-ui',
-    fill = '#000000',
+    fill: fillProp,
     opacity = 1,
     textAlign = 'left',
     textBaseline = 'top',
@@ -63,6 +64,8 @@ function Text({
     onDragEnd,
 }: TextProps) {
     const ctx = use(CanvasContext);
+    const { palette } = use(CanvasPaletteContext);
+    const fill = fillProp ?? palette.foreground;
     // 可变实例状态 ref：持有注册 id
     const cmdIdRef = useRef<number | null>(null);
     // 可变实例状态 ref：缓存当前字形的 key 和尺寸（避免 update effect 中丢失）
@@ -86,7 +89,7 @@ function Text({
         textBaseline === 'middle' ? -h / 2 : textBaseline === 'bottom' ? -h : 0;
 
     const buildCmd = (glyphKey: string | undefined, glyphWidth: number, glyphHeight: number) => {
-        const parsedFill = parseColor(fill);
+        const parsedFill = parseColor(ctx.resolveColor(fill, palette.foreground, 'foreground'));
         const appliedFill: ColorRGBA =
             opacity !== 1
                 ? [parsedFill[0], parsedFill[1], parsedFill[2], parsedFill[3] * opacity]
@@ -190,8 +193,8 @@ function Text({
                     fontSize: fontSize * zoom,
                     fontFamily,
                     color: fill,
-                    background: 'white',
-                    border: '1.5px solid #4a9eff',
+                    background: palette.editorBackground,
+                    border: `1.5px solid ${palette.editorBorder}`,
                     outline: 'none',
                     padding: 2,
                     boxSizing: 'border-box',

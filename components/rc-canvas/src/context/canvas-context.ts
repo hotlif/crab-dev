@@ -35,6 +35,9 @@ export interface HitEntry {
 }
 
 export interface CanvasContextValue {
+    /** 在 Canvas DOM 继承上下文中解析 var()/color-mix()/系统色。 */
+    resolveColor(css: string, fallback?: string, field?: string): string;
+
     /**
      * 注册一条 DrawCommand，返回分配的 id。
      * 叶子组件在 mount 后（useEffect）调用，将返回的 id 存入 useRef。
@@ -167,6 +170,7 @@ export interface CanvasContextValue {
 const DEFAULT_VIEW_MATRIX_REF = { current: identityMat3() };
 
 export const CanvasContext = createContext<CanvasContextValue>({
+    resolveColor: css => css,
     register: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     update: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     unregister: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },

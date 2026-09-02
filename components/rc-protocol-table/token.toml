@@ -1,0 +1,41 @@
+[build]
+output = "./src/token.ts"
+prefix = "protocol-table"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# ProtocolTable previously consumed rc-table-looking custom properties directly.
+# Keep those variables in the fallback chain while giving this component its own
+# stable namespace.
+surface.background-color = "var(--crab-rc-table-bg-color, $ref(color.background.surface))"
+chrome.background-color = "var(--crab-rc-table-header-bg-color, $ref(color.background.sunken))"
+root.border-color = "var(--crab-rc-table-border-color, $ref(color.border.subtle))"
+
+overlay.background-color-loading = "color-mix(in oklch, $ref(color.background.surface) 65%, transparent)"
+overlay.background-color-error = "color-mix(in oklch, $ref(color.background.surface) 92%, transparent)"
+
+icon.color = "$ref(color.text.tertiary)"
+icon.color-hover = "$ref(color.text.primary)"
+icon.background-color-hover = "$ref(color.background.hover-subtle)"
+icon.background-color-selected = "$ref(color.selection.background)"
+icon.color-selected = "$ref(color.selection.foreground)"
+icon.selection.background-color-hover = "$ref(color.highlight.background-active)"
+icon.selection.color-hover = "$ref(color.highlight.foreground)"
+
+sort.color-selected = "$ref(color.brand.primary)"
+sort.selection.color-hover = "$ref(color.selection.foreground)"
+sort.selection.background-color-hover = "$ref(color.selection.background)"
+
+text.secondary.color = "$ref(color.text.secondary)"
+text.tertiary.color = "$ref(color.text.tertiary)"
+
+control.background-color-hover = "$ref(color.background.hover-subtle)"
+control.opacity-disabled = "$ref(opacity.disabled)"
+
+failure.icon.color = "$ref(color.feedback.error.icon)"
+failure.text.color = "$ref(color.feedback.error.text)"
+failure.border-color = "$ref(color.feedback.error.border)"
+failure.background-color-hover = "$ref(color.feedback.error.background)"

@@ -6,6 +6,8 @@ import { useEdgeRouting } from './hooks/useEdgeRouting.js';
 import { useEdgeCrossings } from './hooks/useEdgeCrossings.js';
 import type { ElkLayoutNode, ElkLayoutEdge } from './hooks/useElkLayout.js';
 import type { UseEdgeRoutingOptions, EdgeRoutes, ManualRoute } from './hooks/useEdgeRouting.js';
+import { FlowDiagramPaletteContext } from './palette-context.js';
+import { mergeFlowDiagramPalette, type FlowDiagramPalette } from './palette.js';
 
 export type FlowDiagramControls = Pick<CanvasControls, 'fitView' | 'exportPNG' | 'zoomIn' | 'zoomOut'>;
 
@@ -34,6 +36,8 @@ export interface FlowDiagramRenderContext {
     error: Error | null;
     /** 视口控制（fitView / zoomIn / zoomOut / exportPNG） */
     controls: FlowDiagramControls;
+    /** 当前合并后的流程图色板。 */
+    palette: FlowDiagramPalette;
 }
 
 export interface FlowDiagramProps {
@@ -64,8 +68,10 @@ export interface FlowDiagramProps {
     height?: number;
     style?: CSSProperties;
 
-    /** 无限网格颜色，默认 #eceef3 */
+    /** 无限网格颜色；缺省取 palette.grid */
     gridColor?: string;
+    /** FlowNode / FlowEdge / 网格的缺省色；各组件显式旧颜色 prop 优先。 */
+    palette?: Partial<FlowDiagramPalette>;
     gridBaseSpacing?: number;
     gridSubdivisions?: number;
 
@@ -100,13 +106,15 @@ export default function FlowDiagram({
     width = 800,
     height = 520,
     style,
-    gridColor = '#eceef3',
+    gridColor,
+    palette: paletteOverride,
     gridBaseSpacing = 64,
     gridSubdivisions = 4,
     onEmptyClick,
     children,
 }: FlowDiagramProps) {
     const [zoom, setZoom] = useState(1);
+    const palette = mergeFlowDiagramPalette(paletteOverride);
 
     const { layout, loading, error } = useElkLayout(nodes, edges, elkOptions);
 
@@ -131,25 +139,28 @@ export default function FlowDiagram({
         zoom,
         loading,
         error,
+        palette,
     };
 
     return (
-        <Canvas
-            width={width}
-            height={height}
-            style={style}
-            onEmptyClick={onEmptyClick}
-        >
-            <Viewport onViewportChange={v => setZoom(v.zoom)}>
-                <InfiniteGrid
-                    color={gridColor}
-                    baseSpacing={gridBaseSpacing}
-                    subdivisions={gridSubdivisions}
-                />
-                <FlowDiagramInner ctx={ctx}>
-                    {children}
-                </FlowDiagramInner>
-            </Viewport>
-        </Canvas>
+        <FlowDiagramPaletteContext value={palette}>
+            <Canvas
+                width={width}
+                height={height}
+                style={style}
+                onEmptyClick={onEmptyClick}
+            >
+                <Viewport onViewportChange={v => setZoom(v.zoom)}>
+                    <InfiniteGrid
+                        color={gridColor ?? palette.grid}
+                        baseSpacing={gridBaseSpacing}
+                        subdivisions={gridSubdivisions}
+                    />
+                    <FlowDiagramInner ctx={ctx}>
+                        {children}
+                    </FlowDiagramInner>
+                </Viewport>
+            </Canvas>
+        </FlowDiagramPaletteContext>
     );
 }

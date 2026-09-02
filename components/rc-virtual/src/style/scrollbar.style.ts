@@ -1,4 +1,5 @@
 import { css } from "@crab-dev/css";
+import token from "../token.js";
 
 export const containerStyle = css`
 	cursor: pointer;
@@ -13,7 +14,7 @@ export const containerStyle = css`
 
 export const thumbStyle = css`
 	cursor: pointer;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: ${token.scrollbar.thumb["background-color"]};
 	position: absolute;
 	border-radius: 99px;
 	user-select: none;

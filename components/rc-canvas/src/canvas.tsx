@@ -1,9 +1,20 @@
-import { type CSSProperties, type ReactNode, type Ref, type RefObject, useEffect, useRef, useState } from 'react';
+import { type CSSProperties, type ReactNode, type Ref, type RefObject, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from 'react';
 import { CanvasContext, type CanvasContextValue, type HitEntry } from './context/canvas-context.js';
+import { CanvasPaletteContext } from './context/palette-context.js';
 import { WebGLRenderer } from './renderer/renderer.js';
 import type { DrawCommand, LineCommand } from './renderer/draw-command.js';
 import { identityMat3, invertMat3, applyMat3, applyMat3Vector } from './math/matrix.js';
 import type { DragMoveEvent } from './drag-types.js';
+import { clearColorCache } from './math/color.js';
+import {
+    DEFAULT_CANVAS_PALETTE,
+    canvasPalettesEqual,
+    clearCanvasColorResolutionCache,
+    mergeCanvasPalette,
+    resolveCanvasColor,
+    resolveCanvasPalette,
+} from './palette.js';
+import type { CanvasPalette } from './palette.js';
 
 export interface CanvasProps {
     width?: number;
@@ -19,6 +30,11 @@ export interface CanvasProps {
     ref?: Ref<HTMLCanvasElement>;
     className?: string;
     style?: CSSProperties;
+    /**
+     * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。
+     * 各图元显式颜色 prop 始终优先；支持 var()/color-mix()/系统色。
+     */
+    palette?: Partial<CanvasPalette>;
     /** 点击空白区域（无命中形状）时触发，常用于取消选中 */
     onEmptyClick?: () => void;
     /** 键盘按下时触发（容器 div 默认 tabIndex=0） */
@@ -54,6 +70,34 @@ interface TopHit {
     entry: HitEntry;
 }
 
+function collectThemeTargets(element: Element): Element[] {
+    const targets: Element[] = [];
+    let current: Element | null = element;
+
+    while (current) {
+        if (!targets.includes(current)) targets.push(current);
+        if (current.parentElement) {
+            current = current.parentElement;
+            continue;
+        }
+
+        const root = current.getRootNode();
+        current = typeof ShadowRoot !== 'undefined' && root instanceof ShadowRoot
+            ? root.host
+            : null;
+    }
+
+    return targets;
+}
+
+const THEME_ATTRIBUTES = ['class', 'style', 'data-theme', 'data-color-scheme'] as const;
+
+function getThemeSnapshot(targets: readonly Element[]): string {
+    return JSON.stringify(targets.map(target =>
+        THEME_ATTRIBUTES.map(attribute => target.getAttribute(attribute)),
+    ));
+}
+
 /** 在 hitRegistry 中找 zIndexPath 最大（最顶层）的命中 entry，未命中返回 null。 */
 function findTopHit(
     registry: Map<number, HitEntry>,
@@ -81,6 +125,7 @@ function Canvas({
     ref: externalRef,
     className,
     style,
+    palette,
     onEmptyClick,
     onKeyDown,
     onKeyUp,
@@ -97,6 +142,11 @@ function Canvas({
     const internalCanvasRef = useRef<HTMLCanvasElement | null>(null);
     // 可变实例状态 ref：持有容器 div，供 portal overlay 使用
     const containerDivRef = useRef<HTMLDivElement | null>(null);
+    const colorProbeRef = useRef<HTMLSpanElement | null>(null);
+    const rawPalette = mergeCanvasPalette(palette);
+    const paletteKey = Object.values(rawPalette).join('\u0000');
+    const [resolvedPalette, setResolvedPalette] = useState<CanvasPalette>(DEFAULT_CANVAS_PALETTE);
+    const [paletteRevision, setPaletteRevision] = useState(0);
     // 可变实例状态 ref：持有 WebGLRenderer 实例，跨渲染不触发 rerender
     const rendererRef = useRef<WebGLRenderer | null>(null);
     // 可变实例状态 ref：DrawCommand 队列
@@ -156,6 +206,51 @@ function Canvas({
     const applyZoomRef = useRef<((deltaY: number, pivotX: number, pivotY: number) => void) | null>(null);
     // 可变实例状态 ref：Viewport 注入的 fitView 回调
     const fitViewRef = useRef<((padding?: number) => void) | null>(null);
+
+    const refreshPalette = useEffectEvent(() => {
+        clearColorCache();
+        clearCanvasColorResolutionCache(colorProbeRef.current);
+        const next = resolveCanvasPalette(rawPalette, colorProbeRef.current);
+        setResolvedPalette(previous => canvasPalettesEqual(previous, next) ? previous : next);
+        setPaletteRevision(previous => previous + 1);
+        dirtyRef.current = true;
+    });
+
+    useLayoutEffect(() => {
+        const handleThemeChange = () => refreshPalette();
+
+        refreshPalette();
+
+        const container = containerDivRef.current;
+        const themeTargets = container ? collectThemeTargets(container) : [];
+        let themeSnapshot = getThemeSnapshot(themeTargets);
+        const observer = typeof MutationObserver === 'function'
+            ? new MutationObserver(() => {
+                const nextSnapshot = getThemeSnapshot(themeTargets);
+                if (nextSnapshot === themeSnapshot) return;
+                themeSnapshot = nextSnapshot;
+                handleThemeChange();
+            })
+            : null;
+        if (container && observer) {
+            for (const target of themeTargets) {
+                observer.observe(target, {
+                    attributes: true,
+                    attributeFilter: [...THEME_ATTRIBUTES],
+                });
+            }
+        }
+
+        const mediaQueries = typeof matchMedia === 'function'
+            ? [matchMedia('(forced-colors: active)')]
+            : [];
+        for (const query of mediaQueries) query.addEventListener?.('change', handleThemeChange);
+
+        return () => {
+            observer?.disconnect();
+            for (const query of mediaQueries) query.removeEventListener?.('change', handleThemeChange);
+        };
+    }, [paletteKey]);
 
     // 可变实例状态 ref：当前活跃拖拽状态
     const dragStateRef = useRef<{
@@ -452,6 +547,9 @@ function Canvas({
     const ctxValueRef = useRef<CanvasContextValue | null>(null);
     if (ctxValueRef.current === null) {
         ctxValueRef.current = {
+            resolveColor(css, fallback, field) {
+                return resolveCanvasColor(css, colorProbeRef.current, fallback, field);
+            },
             register(cmd) {
                 const id = nextIdRef.current++;
                 commandMapRef.current.set(id, { ...cmd, id } as DrawCommand);
@@ -542,22 +640,36 @@ function Canvas({
         : { position: 'relative', display: 'inline-block', ...style };
 
     return (
-        <CanvasContext value={ctxValue}>
-            <div
-                ref={containerDivRef}
-                className={className}
-                style={divStyle}
-                tabIndex={tabIndex}
-            >
-                <canvas
-                    ref={mergedRefCallback}
-                    style={{ display: 'block', width: effectiveWidth, height: effectiveHeight, touchAction: 'none' }}
-                    width={Math.round(effectiveWidth * devicePixelRatio)}
-                    height={Math.round(effectiveHeight * devicePixelRatio)}
-                />
-                {children}
-            </div>
-        </CanvasContext>
+        <CanvasPaletteContext value={{ palette: resolvedPalette, revision: paletteRevision }}>
+            <CanvasContext value={ctxValue}>
+                <div
+                    ref={containerDivRef}
+                    className={className}
+                    style={divStyle}
+                    tabIndex={tabIndex}
+                >
+                    <span
+                        ref={colorProbeRef}
+                        aria-hidden="true"
+                        style={{
+                            position: 'absolute',
+                            inlineSize: 0,
+                            blockSize: 0,
+                            overflow: 'hidden',
+                            visibility: 'hidden',
+                            pointerEvents: 'none',
+                        }}
+                    />
+                    <canvas
+                        ref={mergedRefCallback}
+                        style={{ display: 'block', width: effectiveWidth, height: effectiveHeight, touchAction: 'none' }}
+                        width={Math.round(effectiveWidth * devicePixelRatio)}
+                        height={Math.round(effectiveHeight * devicePixelRatio)}
+                    />
+                    {children}
+                </div>
+            </CanvasContext>
+        </CanvasPaletteContext>
     );
 }
 

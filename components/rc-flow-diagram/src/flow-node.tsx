@@ -1,5 +1,7 @@
 import { Group, Rect, Text } from '@crab-dev/rc-canvas';
 import type { DragMoveEvent } from '@crab-dev/rc-canvas';
+import { use } from 'react';
+import { FlowDiagramPaletteContext } from './palette-context.js';
 
 export interface FlowNodeProps {
     x: number;
@@ -8,7 +10,7 @@ export interface FlowNodeProps {
     height: number;
     /** 节点标签文字 */
     label?: string;
-    /** 节点背景色，默认 oklch(0.60 0.14 256) */
+    /** 节点背景色；缺省取 FlowDiagram palette.nodeFill */
     fill?: string;
     /** 节点描边色 */
     stroke?: string;
@@ -16,7 +18,7 @@ export interface FlowNodeProps {
     strokeWidth?: number;
     /** 圆角半径，默认 8 */
     radius?: number;
-    /** 标签文字颜色，默认 #ffffff */
+    /** 标签文字颜色；缺省取 FlowDiagram palette.nodeLabel */
     labelColor?: string;
     /** 标签字体大小，默认 13 */
     fontSize?: number;
@@ -33,11 +35,11 @@ export interface FlowNodeProps {
 function FlowNode({
     x, y, width, height,
     label,
-    fill = 'oklch(0.60 0.14 256)',
-    stroke,
+    fill: fillProp,
+    stroke: strokeProp,
     strokeWidth = 1,
     radius = 8,
-    labelColor = '#ffffff',
+    labelColor: labelColorProp,
     fontSize = 13,
     zIndex = 2,
     draggable = false,
@@ -47,6 +49,11 @@ function FlowNode({
     onDragStart,
     onDragEnd,
 }: FlowNodeProps) {
+    const palette = use(FlowDiagramPaletteContext);
+    const fill = fillProp ?? palette.nodeFill;
+    const stroke = strokeProp ?? palette.nodeStroke;
+    const labelColor = labelColorProp ?? palette.nodeLabel;
+
     return (
         <Group
             x={x}
@@ -66,7 +73,7 @@ function FlowNode({
                 height={height}
                 fill={fill}
                 stroke={stroke}
-                strokeWidth={stroke ? strokeWidth : undefined}
+                strokeWidth={stroke !== 'transparent' ? strokeWidth : undefined}
                 radius={radius}
                 onClick={onClick}
             />

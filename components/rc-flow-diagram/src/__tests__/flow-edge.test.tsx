@@ -1,5 +1,7 @@
 import { describe, it, expect, afterEach, beforeAll, mock, render } from "@crab-dev/wake/test/react";
 import React from 'react';
+import { FlowDiagramPaletteContext } from '../palette-context.js';
+import type { FlowDiagramPalette } from '../palette.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 interface CapturedLineProps {
     x1: number;
@@ -10,6 +12,7 @@ interface CapturedLineProps {
     gapLength?: number;
     flowSpeed?: number;
     dashPhase?: number;
+    color?: string;
 }
 // mock rc-canvas：捕获 FlowEdge 渲染出的每条 Line 的 props，验证相位计算
 const mockCapturedLines: CapturedLineProps[] = [];
@@ -63,5 +66,28 @@ describe('FlowEdge 流动相位（dashPhase 累计弧长）', () => {
         expect(mockCapturedLines).toHaveLength(2);
         expect(mockCapturedLines[0].flowSpeed).toBeUndefined();
         expect(mockCapturedLines[1].dashPhase).toBeCloseTo(60);
+    });
+    it('显式旧 color 优先于 context palette，否则使用 palette.edge', async () => {
+        const palette: FlowDiagramPalette = {
+            grid: 'grid',
+            nodeFill: 'node-fill',
+            nodeStroke: 'node-stroke',
+            nodeLabel: 'node-label',
+            edge: 'palette-edge',
+        };
+        const { rerender } = await render(
+            <FlowDiagramPaletteContext value={palette}>
+                <FlowEdge points={[{ x: 0, y: 0 }, { x: 10, y: 0 }]} arrowEnd={false}/>
+            </FlowDiagramPaletteContext>,
+        );
+        expect(mockCapturedLines[0].color).toBe('palette-edge');
+
+        mockCapturedLines.length = 0;
+        await rerender(
+            <FlowDiagramPaletteContext value={palette}>
+                <FlowEdge points={[{ x: 0, y: 0 }, { x: 10, y: 0 }]} color="legacy-edge" arrowEnd={false}/>
+            </FlowDiagramPaletteContext>,
+        );
+        expect(mockCapturedLines[0].color).toBe('legacy-edge');
     });
 });

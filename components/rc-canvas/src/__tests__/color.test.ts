@@ -1,6 +1,12 @@
 import { describe, it, expect } from "@crab-dev/wake/test";
-import { parseColor } from '../math/color.js';
+import { clearColorCache, parseColor } from '../math/color.js';
 describe('parseColor', () => {
+    it('clearColorCache 清除主题切换前的解析引用', () => {
+        const before = parseColor('#123456');
+        expect(parseColor('#123456')).toBe(before);
+        clearColorCache();
+        expect(parseColor('#123456')).not.toBe(before);
+    });
     it('transparent → [0,0,0,0]', () => {
         expect(parseColor('transparent')).toEqual([0, 0, 0, 0]);
     });

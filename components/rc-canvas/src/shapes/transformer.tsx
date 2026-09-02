@@ -1,5 +1,6 @@
 import { use, useRef } from 'react';
 import { CanvasContext } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
 import Group from './group.js';
 import Rect from './rect.js';
 import Circle from './circle.js';
@@ -62,10 +63,10 @@ function Transformer({
     handleSize = 12,
     rotateHandleRadius,
     rotateHandleOffset = 24,
-    handleFill = '#ffffff',
-    handleStroke = '#4a90e2',
+    handleFill: handleFillProp,
+    handleStroke: handleStrokeProp,
     handleStrokeWidth = 1.5,
-    selectionStroke = '#4a90e2',
+    selectionStroke: selectionStrokeProp,
     selectionStrokeWidth = 1.5,
     selectionDashLength = 6,
     selectionGapLength = 4,
@@ -74,6 +75,10 @@ function Transformer({
     onChangeEnd,
 }: TransformerProps) {
     const ctx = use(CanvasContext);
+    const { palette } = use(CanvasPaletteContext);
+    const handleFill = handleFillProp ?? palette.transformerHandleFill;
+    const handleStroke = handleStrokeProp ?? palette.transformerHandleStroke;
+    const selectionStroke = selectionStrokeProp ?? palette.transformerSelectionStroke;
 
     // Group 以矩形中心为锚点，rotation 绕此旋转
     const cx = x + width / 2;

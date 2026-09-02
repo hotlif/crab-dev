@@ -1,0 +1,25 @@
+[build]
+output = "./src/token.ts"
+prefix = "canvas"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+# WebGL / Canvas2D 颜色会由 Canvas 根节点在 DOM 中解析为普通颜色后再传给绘制器。
+palette.foreground.color                             = "$ref(color.text.primary)"
+palette.grid.color                                   = "$ref(color.border.default)"
+palette.selection.border-color                       = "$ref(color.selection.border)"
+palette.selection.background-color                   = "$ref(color.selection.background)"
+palette.editor.background-color                      = "$ref(color.background.elevated)"
+palette.editor.border-color                          = "$ref(color.border.focus)"
+palette.transformer.handle.background-color          = "$ref(color.background.elevated)"
+palette.transformer.handle.border-color              = "$ref(color.border.focus)"
+palette.transformer.selection.border-color           = "$ref(color.selection.border)"
+palette.minimap.background-color                     = "color-mix(in oklch, $ref(color.background.elevated) 92%, transparent)"
+palette.minimap.viewport.border-color                = "color-mix(in oklch, $ref(color.selection.border) 80%, transparent)"
+palette.minimap.viewport.background-color            = "$ref(color.selection.background)"
+palette.minimap.border-color                         = "color-mix(in oklch, $ref(color.border.default) 8%, transparent)"
+palette.minimap.box-shadow                           = "$ref(shadow.float)"
+palette.minimap.image-fallback.background-color      = "color-mix(in oklch, $ref(color.text.secondary) 70%, transparent)"

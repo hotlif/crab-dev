@@ -1,4 +1,6 @@
 import { Line, Marker } from '@crab-dev/rc-canvas';
+import { use } from 'react';
+import { FlowDiagramPaletteContext } from './palette-context.js';
 
 export interface FlowEdgePoint {
     x: number;
@@ -101,7 +103,7 @@ function splitSeg(
 
 function FlowEdge({
     points,
-    color = '#6b7280',
+    color: colorProp,
     lineWidth = 1.5,
     dashLength,
     gapLength,
@@ -116,6 +118,9 @@ function FlowEdge({
     onMouseEnter,
     onMouseLeave,
 }: FlowEdgeProps) {
+    const palette = use(FlowDiagramPaletteContext);
+    const color = colorProp ?? palette.edge;
+
     if (points.length < 2) return null;
 
     const shrink = arrowSize * 0.62;

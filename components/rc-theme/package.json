@@ -1,0 +1,64 @@
+{
+    "name": "@crab-dev/rc-theme",
+    "websiteConfig": {
+        "title": "Theme 主题",
+        "category": "primitive"
+    },
+    "description": "Crab Design System 的 Light、Dark 与强制颜色主题",
+    "packageManager": "yarn@4.18.0",
+    "type": "module",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-theme"
+    },
+    "scripts": {
+        "start": "wake docs dev . --mode components",
+        "build:library": "wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "eslint": "eslint .",
+        "typecheck": "tsc --noEmit",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint && yarn prettier:check && yarn test"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "css",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "style": "css/index.css",
+    "exports": {
+        "./css/index.css": "./css/index.css",
+        "./package.json": "./package.json"
+    },
+    "dependencies": {
+        "@crab-dev/css": "0.1.23",
+        "@crab-dev/rc-token-global": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^"
+    },
+    "devDependencies": {
+        "@crab-dev/standards-eslint-preset": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@crab-dev/wake": "0.1.23",
+        "@types/node": "^26.1.0",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "eslint": "^10.6.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^17.7.0",
+        "prettier": "^3.9.4",
+        "react": "19.2.8",
+        "react-dom": "19.2.8",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.63.0"
+    },
+    "engines": {
+        "node": ">=22"
+    }
+}

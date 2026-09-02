@@ -3,6 +3,11 @@ export type ColorRGBA = [number, number, number, number];
 
 const colorCache = new Map<string, ColorRGBA>();
 
+/** 主题变化后清除已解析颜色，避免相同 CSS 表达式复用旧主题结果。 */
+export function clearColorCache(): void {
+    colorCache.clear();
+}
+
 /**
  * 将 CSS 颜色字符串解析为归一化 [r, g, b, a]。
  * 支持：transparent、#rgb、#rrggbb、#rrggbbaa、rgb()、rgba()、oklch()。

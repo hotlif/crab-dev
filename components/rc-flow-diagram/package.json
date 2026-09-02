@@ -14,8 +14,9 @@
         "directory": "components/rc-flow-diagram"
     },
     "scripts": {
-        "start": "yarn generate:docgen && wake docs dev . --mode components",
-        "build:library": "wake library build .",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:token": "wake library token .",
         "generate:docgen": "wake library docgen .",
         "test": "wake test --serial --coverage",
         "eslint": "eslint .",
@@ -41,6 +42,7 @@
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.23",
@@ -57,6 +59,7 @@
         "typescript-eslint": "^8.63.0"
     },
     "dependencies": {
+        "@crab-dev/css": "0.1.23",
         "@crab-dev/rc-canvas": "workspace:^",
         "elkjs": "^0.11.1"
     },

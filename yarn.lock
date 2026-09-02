@@ -730,6 +730,7 @@ __metadata:
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@crab-dev/wake": "npm:0.1.23"
@@ -1098,10 +1099,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram"
   dependencies:
+    "@crab-dev/css": "npm:0.1.23"
     "@crab-dev/rc-canvas": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@crab-dev/wake": "npm:0.1.23"
@@ -1417,6 +1420,7 @@ __metadata:
     "@crab-dev/rc-pagination": "workspace:^"
     "@crab-dev/rc-spin": "workspace:^"
     "@crab-dev/rc-table": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-tree": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -1832,6 +1836,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-theme@workspace:components/rc-theme":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-theme@workspace:components/rc-theme"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.23"
+    "@crab-dev/rc-token-global": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-eslint-preset": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.23"
+    "@types/node": "npm:^26.1.0"
+    "@types/react": "npm:^19.2.17"
+    "@types/react-dom": "npm:^19.2.3"
+    eslint: "npm:^10.6.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    globals: "npm:^17.7.0"
+    prettier: "npm:^3.9.4"
+    react: "npm:19.2.8"
+    react-dom: "npm:19.2.8"
+    typescript: "npm:^6.0.3"
+    typescript-eslint: "npm:^8.63.0"
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-token-global@workspace:^, @crab-dev/rc-token-global@workspace:components/rc-token-global":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-token-global@workspace:components/rc-token-global"
@@ -1954,6 +1982,7 @@ __metadata:
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-eslint-preset": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@crab-dev/wake": "npm:0.1.23"

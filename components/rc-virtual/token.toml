@@ -1,0 +1,10 @@
+[build]
+output = "./src/token.ts"
+prefix = "virtual"
+imports = [
+    "@crab-dev/rc-token-semantic"
+]
+
+[token]
+
+scrollbar.thumb.background-color = "color-mix(in oklch, $ref(color.text.primary) 50%, transparent)"

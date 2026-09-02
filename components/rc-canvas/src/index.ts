@@ -11,7 +11,8 @@ import Transformer from './shapes/transformer.js';
 import Marker from './shapes/marker.js';
 import Minimap from './shapes/minimap.js';
 import { useCanvasControls } from './hooks/useCanvasControls.js';
-import { parseColor } from './math/color.js';
+import { clearColorCache, parseColor } from './math/color.js';
+import { DEFAULT_CANVAS_PALETTE, SEMANTIC_CANVAS_PALETTE } from './palette.js';
 import {
     routeOrthogonal, connectThroughWaypoints, withTerminalStubs, routeEdge, routeAvoidingObstacles, assignPorts,
     anchorPoint, nearestSideAnchor, dominantSide, rectCenter, inflateRect,
@@ -35,10 +36,12 @@ export type { MinimapProps } from './shapes/minimap.js';
 export type { CanvasControls } from './hooks/useCanvasControls.js';
 export type { Pt, Rect as RoutingRect, Side, EdgeAnchor, AvoidOptions, RoutableEdge } from './routing/index.js';
 export type { ColorRGBA } from './math/color.js';
+export type { CanvasPalette } from './palette.js';
+export { vars as TokenVars } from './token.js';
 
 export {
     Canvas, Rect, Circle, Line, CanvasImage, Text, Group, Viewport, InfiniteGrid, Transformer, Marker, Minimap,
-    useCanvasControls, parseColor,
+    useCanvasControls, parseColor, clearColorCache, DEFAULT_CANVAS_PALETTE, SEMANTIC_CANVAS_PALETTE,
     routeOrthogonal, connectThroughWaypoints, withTerminalStubs, routeEdge, routeAvoidingObstacles, assignPorts,
     anchorPoint, nearestSideAnchor, dominantSide, rectCenter, inflateRect,
     segmentIntersectsRect, segmentHitsAny, polylineClearOf, simplifyOrthogonal, isHorizontalSide,

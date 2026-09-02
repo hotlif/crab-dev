@@ -1,5 +1,6 @@
 import { use, useEffect, useRef } from 'react';
 import { CanvasContext } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
 import { identityMat3 } from '../math/matrix.js';
 import { parseColor } from '../math/color.js';
 
@@ -8,7 +9,7 @@ export interface InfiniteGridProps {
     baseSpacing?: number;
     /** 细分数，每大格内的细线数量，默认 5 */
     subdivisions?: number;
-    /** 网格颜色，默认 '#b0b0b0' */
+    /** 网格颜色；缺省取 Canvas palette.grid */
     color?: string;
     /** 整体不透明度，默认 1 */
     opacity?: number;
@@ -19,16 +20,20 @@ export interface InfiniteGridProps {
 function InfiniteGrid({
     baseSpacing = 50,
     subdivisions = 5,
-    color = '#b0b0b0',
+    color: colorProp,
     opacity = 1,
     originColor,
 }: InfiniteGridProps) {
     const ctx = use(CanvasContext);
+    const { palette } = use(CanvasPaletteContext);
+    const color = colorProp ?? palette.grid;
     const cmdIdRef = useRef<number | null>(null);
 
     const buildCmd = (): Omit<import('../renderer/draw-command.js').GridCommand, 'id'> => {
-        const parsedColor = parseColor(color);
-        const parsedOriginColor = originColor ? parseColor(originColor) : [0, 0, 0, 0] as import('../math/color.js').ColorRGBA;
+        const parsedColor = parseColor(ctx.resolveColor(color, palette.grid, 'grid'));
+        const parsedOriginColor = originColor
+            ? parseColor(ctx.resolveColor(originColor, 'transparent', 'originColor'))
+            : [0, 0, 0, 0] as import('../math/color.js').ColorRGBA;
         // GridCommand 不需要 AABB（始终全屏渲染，跳过剔除）
         return {
             kind: 'grid',

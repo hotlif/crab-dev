@@ -1,7 +1,8 @@
 import { use, useRef, useEffect, type CSSProperties, type PointerEvent } from 'react';
 import { CanvasContext } from '../context/canvas-context.js';
+import { CanvasPaletteContext } from '../context/palette-context.js';
 import { invertMat3, applyMat3 } from '../math/matrix.js';
-import type { ColorRGBA } from '../math/color.js';
+import { parseColor, type ColorRGBA } from '../math/color.js';
 import type { DrawCommand } from '../renderer/draw-command.js';
 
 export interface MinimapProps {
@@ -13,11 +14,11 @@ export interface MinimapProps {
     position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
     /** 距 Canvas 边缘的内边距（px），默认 12 */
     padding?: number;
-    /** 背景色，默认 'rgba(240,242,245,0.92)' */
+    /** 背景色；缺省取 Canvas palette.minimapBackground */
     background?: string;
-    /** 视口框描边色，默认 'rgba(59,130,246,0.8)' */
+    /** 视口框描边色；缺省取 Canvas palette.minimapViewportStroke */
     viewportStroke?: string;
-    /** 视口框填充色，默认 'rgba(59,130,246,0.08)' */
+    /** 视口框填充色；缺省取 Canvas palette.minimapViewportFill */
     viewportFill?: string;
 }
 
@@ -27,7 +28,7 @@ function toCSS([r, g, b, a]: ColorRGBA, alphaFactor = 0.85): string {
     return `rgba(${Math.round(r * 255)},${Math.round(g * 255)},${Math.round(b * 255)},${(a * alphaFactor).toFixed(2)})`;
 }
 
-function cmdFillColor(cmd: DrawCommand): string | null {
+function cmdFillColor(cmd: DrawCommand, imageFallback: string): string | null {
     switch (cmd.kind) {
         case 'marker':
             return toCSS(cmd.fill);
@@ -40,7 +41,7 @@ function cmdFillColor(cmd: DrawCommand): string | null {
         case 'sdf-text':
             return toCSS(cmd.color, 0.7);
         case 'texture-image':
-            return `rgba(160,160,160,${(cmd.opacity * 0.7).toFixed(2)})`;
+            return toCSS(parseColor(imageFallback), cmd.opacity);
         default:
             return null;
     }
@@ -71,11 +72,12 @@ function Minimap({
     height: mmH = 120,
     position = 'bottom-right',
     padding = 12,
-    background = 'rgba(240,242,245,0.92)',
-    viewportStroke = 'rgba(59,130,246,0.8)',
-    viewportFill = 'rgba(59,130,246,0.08)',
+    background: backgroundProp,
+    viewportStroke: viewportStrokeProp,
+    viewportFill: viewportFillProp,
 }: MinimapProps) {
     const ctx = use(CanvasContext);
+    const { palette, revision: paletteRevision } = use(CanvasPaletteContext);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rafRef = useRef(0);
 
@@ -91,6 +93,26 @@ function Minimap({
     useEffect(() => {
         // 可变实例状态 ref：dpr 在 mount 时绑定，与 canvas attribute 保持一致
         const dpr = Math.max(window.devicePixelRatio ?? 1, 1);
+        const background = ctx.resolveColor(
+            backgroundProp ?? palette.minimapBackground,
+            palette.minimapBackground,
+            'minimapBackground',
+        );
+        const viewportStroke = ctx.resolveColor(
+            viewportStrokeProp ?? palette.minimapViewportStroke,
+            palette.minimapViewportStroke,
+            'minimapViewportStroke',
+        );
+        const viewportFill = ctx.resolveColor(
+            viewportFillProp ?? palette.minimapViewportFill,
+            palette.minimapViewportFill,
+            'minimapViewportFill',
+        );
+        const imageFallback = ctx.resolveColor(
+            palette.minimapImageFallback,
+            palette.minimapImageFallback,
+            'minimapImageFallback',
+        );
 
         const draw = () => {
             const cvs = canvasRef.current;
@@ -162,7 +184,7 @@ function Minimap({
             // 绘制图元（精确形状：circle 用 arc，其余用 AABB 矩形）
             for (const cmd of commands.values()) {
                 if (!cmd.aabb || cmd.kind === 'grid') continue;
-                const color = cmdFillColor(cmd);
+                const color = cmdFillColor(cmd, imageFallback);
                 if (!color) continue;
 
                 c.fillStyle = color;
@@ -220,7 +242,19 @@ function Minimap({
 
         rafRef.current = requestAnimationFrame(draw);
         return () => cancelAnimationFrame(rafRef.current);
-    }, [ctx, mmW, mmH, background, viewportFill, viewportStroke]);
+    }, [
+        ctx,
+        mmW,
+        mmH,
+        backgroundProp,
+        viewportFillProp,
+        viewportStrokeProp,
+        palette.minimapBackground,
+        palette.minimapViewportFill,
+        palette.minimapViewportStroke,
+        palette.minimapImageFallback,
+        paletteRevision,
+    ]);
 
     // ── 原生 wheel：控制主视口缩放 ───────────────────────────────────────────
 
@@ -340,9 +374,9 @@ function Minimap({
                 width: mmW,
                 height: mmH,
                 borderRadius: 6,
-                boxShadow: '0 2px 10px rgba(0,0,0,0.14)',
+                boxShadow: palette.minimapShadow,
                 cursor: 'crosshair',
-                border: '1px solid rgba(0,0,0,0.08)',
+                border: `1px solid ${palette.minimapBorder}`,
             }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}

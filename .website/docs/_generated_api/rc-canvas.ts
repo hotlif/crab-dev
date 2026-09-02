@@ -7,9 +7,11 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type CanvasPalette = DocsTypePlaceholder;
 type CSSProperties = DocsTypePlaceholder;
 type HTMLCanvasElement = DocsTypePlaceholder;
 type KeyboardEvent = DocsTypePlaceholder;
+type Partial<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
@@ -17,17 +19,12 @@ export interface CanvasPropsSearchIndex {
     /**
      * 暂无说明。
      */
-    "children"?: ReactNode;
+    "width"?: number;
 
     /**
      * 暂无说明。
      */
-    "className"?: string;
-
-    /**
-     * 设备像素比，默认 window.devicePixelRatio（≥1）
-     */
-    "dpr"?: number;
+    "height"?: number;
 
     /**
      * 自动填充父容器尺寸（ResizeObserver 驱动）。 开启时 width/height 被忽略；父容器必须有明确的 CSS 尺寸。
@@ -36,9 +33,34 @@ export interface CanvasPropsSearchIndex {
     "fillParent"?: boolean;
 
     /**
+     * 设备像素比，默认 window.devicePixelRatio（≥1）
+     */
+    "dpr"?: number;
+
+    /**
      * 暂无说明。
      */
-    "height"?: number;
+    "children"?: ReactNode;
+
+    /**
+     * 暂无说明。
+     */
+    "ref"?: Ref<HTMLCanvasElement>;
+
+    /**
+     * 暂无说明。
+     */
+    "className"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties;
+
+    /**
+     * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。 各图元显式颜色 prop 始终优先；支持 var()/color-mix()/系统色。
+     */
+    "palette"?: Partial<CanvasPalette>;
 
     /**
      * 点击空白区域（无命中形状）时触发，常用于取消选中
@@ -56,23 +78,8 @@ export interface CanvasPropsSearchIndex {
     "onKeyUp"?: (e: KeyboardEvent) => void;
 
     /**
-     * 暂无说明。
-     */
-    "ref"?: Ref<HTMLCanvasElement>;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties;
-
-    /**
      * 容器 div 的 tabIndex。消费方在 Canvas 外自建键盘通道 （如 aria-hidden 包裹绘制层）时传 -1 将其移出 Tab 流。
      * @default 0
      */
     "tabIndex"?: number;
-
-    /**
-     * 暂无说明。
-     */
-    "width"?: number;
 }
