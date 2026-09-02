@@ -18,6 +18,9 @@
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "generate:token": "wake library token .",
+        "eslint": "eslint .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn test",
         "typecheck": "tsc --noEmit",
         "start": "yarn generate:token && wake docs dev . --mode components"
     },

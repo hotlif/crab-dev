@@ -35,47 +35,99 @@ color.brand.primary-subtle = "$ref(zinc.600)"
 
 color.background.surface       = "$ref(white)"
 color.background.elevated      = "$ref(white)"
-color.background.overlay       = "oklch(0 0 0 / 0.45)"
+color.background.sunken        = "$ref(zinc.50)"
+color.background.inverse       = "$ref(zinc.950)"
+color.background.overlay       = "color-mix(in oklch, $ref(black) 45%, transparent)"
 color.background.disabled      = "$ref(zinc.100)"
 color.background.hover-subtle  = "$ref(zinc.100)"
 color.background.active-subtle = "$ref(zinc.200)"
+color.background.selected      = "$ref(blue.50)"
 
 
 # ─── 颜色 · 文本 ────────────────────────────────────────────────────────────
 
 color.text.primary     = "$ref(zinc.950)"
-color.text.secondary   = "$ref(zinc.500)"
-color.text.tertiary    = "$ref(zinc.400)"
+color.text.secondary   = "$ref(zinc.700)"
+color.text.tertiary    = "$ref(zinc.600)"
 color.text.on-brand    = "$ref(zinc.50)"
-color.text.disabled    = "$ref(zinc.300)"
+color.text.inverse     = "$ref(zinc.50)"
+color.text.disabled    = "$ref(zinc.500)"
 color.text.link        = "$ref(zinc.900)"
 color.text.link-hover  = "$ref(zinc.700)"
 
 
 # ─── 颜色 · 边框 ────────────────────────────────────────────────────────────
 
-color.border.default  = "$ref(zinc.200)"
-color.border.hover    = "$ref(zinc.300)"
-color.border.focus    = "$ref(zinc.950)"
-color.border.error    = "$ref(red.500)"
+color.border.subtle   = "var(--token-semantic-color-border-default, $ref(zinc.200))"
+color.border.default  = "$ref(zinc.500)"
+color.border.hover    = "$ref(zinc.600)"
+color.border.strong   = "var(--token-semantic-color-border-hover, $ref(zinc.700))"
+color.border.focus    = "$ref(blue.600)"
+color.border.error    = "$ref(red.600)"
+
+
+# ─── 颜色 · 焦点 / 选区 / 高亮 ───────────────────────────────────────────────
+
+color.focus.ring                  = "var(--token-semantic-color-border-focus, $ref(blue.600))"
+color.selection.background        = "$ref(blue.50)"
+color.selection.border            = "$ref(blue.700)"
+color.selection.foreground        = "$ref(zinc.950)"
+color.highlight.background        = "$ref(amber.100)"
+color.highlight.background-active = "$ref(amber.300)"
+color.highlight.foreground        = "$ref(zinc.950)"
 
 
 # ─── 颜色 · 反馈 ────────────────────────────────────────────────────────────
 
-color.feedback.error                  = "$ref(red.500)"
-color.feedback.error-background       = "$ref(red.50)"
-color.feedback.success                = "$ref(green.500)"
-color.feedback.success-background     = "$ref(green.50)"
-color.feedback.warning                = "$ref(amber.500)"
-color.feedback.warning-background     = "$ref(amber.50)"
-color.feedback.info                   = "$ref(blue.500)"
-color.feedback.info-background        = "$ref(blue.50)"
+color.feedback.error.text             = "var(--token-semantic-color-feedback-error, $ref(red.800))"
+color.feedback.error.icon             = "var(--token-semantic-color-feedback-error, $ref(red.600))"
+color.feedback.error.border           = "var(--token-semantic-color-feedback-error, $ref(red.600))"
+color.feedback.error.background       = "$ref(red.50)"
+color.feedback.error.background-hover = "var(--token-semantic-color-feedback-error-background, $ref(red.100))"
+color.feedback.error.solid            = "var(--token-semantic-color-feedback-error, $ref(red.600))"
+color.feedback.error.solid-hover      = "$ref(red.700)"
+color.feedback.error.solid-active     = "$ref(red.800)"
+color.feedback.error.on-solid         = "$ref(white)"
+
+color.feedback.success.text             = "var(--token-semantic-color-feedback-success, $ref(green.800))"
+color.feedback.success.icon             = "var(--token-semantic-color-feedback-success, $ref(green.700))"
+color.feedback.success.border           = "var(--token-semantic-color-feedback-success, $ref(green.700))"
+color.feedback.success.background       = "$ref(green.50)"
+color.feedback.success.background-hover = "var(--token-semantic-color-feedback-success-background, $ref(green.100))"
+color.feedback.success.solid            = "var(--token-semantic-color-feedback-success, $ref(green.700))"
+color.feedback.success.solid-hover      = "$ref(green.800)"
+color.feedback.success.solid-active     = "$ref(green.900)"
+color.feedback.success.on-solid         = "$ref(white)"
+
+color.feedback.warning.text             = "var(--token-semantic-color-feedback-warning, $ref(amber.900))"
+color.feedback.warning.icon             = "var(--token-semantic-color-feedback-warning, $ref(amber.700))"
+color.feedback.warning.border           = "var(--token-semantic-color-feedback-warning, $ref(amber.700))"
+color.feedback.warning.background       = "$ref(amber.50)"
+color.feedback.warning.background-hover = "var(--token-semantic-color-feedback-warning-background, $ref(amber.100))"
+color.feedback.warning.solid            = "var(--token-semantic-color-feedback-warning, $ref(amber.700))"
+color.feedback.warning.solid-hover      = "$ref(amber.800)"
+color.feedback.warning.solid-active     = "$ref(amber.900)"
+color.feedback.warning.on-solid         = "$ref(white)"
+
+color.feedback.info.text             = "var(--token-semantic-color-feedback-info, $ref(blue.800))"
+color.feedback.info.icon             = "var(--token-semantic-color-feedback-info, $ref(blue.600))"
+color.feedback.info.border           = "var(--token-semantic-color-feedback-info, $ref(blue.600))"
+color.feedback.info.background       = "$ref(blue.50)"
+color.feedback.info.background-hover = "var(--token-semantic-color-feedback-info-background, $ref(blue.100))"
+color.feedback.info.solid            = "var(--token-semantic-color-feedback-info, $ref(blue.600))"
+color.feedback.info.solid-hover      = "$ref(blue.700)"
+color.feedback.info.solid-active     = "$ref(blue.800)"
+color.feedback.info.on-solid         = "$ref(white)"
 
 
 # ─── 颜色 · 填充 ────────────────────────────────────────────────────────────
 
-color.fill.inactive = "$ref(zinc.200)"
-color.fill.active   = "$ref(zinc.900)"
+color.fill.subtle      = "var(--token-semantic-color-fill-inactive, $ref(zinc.100))"
+color.fill.default     = "var(--token-semantic-color-fill-inactive, $ref(zinc.300))"
+color.fill.strong      = "var(--token-semantic-color-fill-active, $ref(zinc.700))"
+color.fill.translucent = "color-mix(in oklch, var(--token-semantic-color-fill-active, $ref(black)) 8%, transparent)"
+color.fill.inactive    = "$ref(zinc.300)"
+color.fill.active      = "$ref(zinc.900)"
 
 
 # ─── 间距 · 语义 ────────────────────────────────────────────────────────────
@@ -119,7 +171,7 @@ radius.pill    = "$ref(radius.full)"
 
 shadow.float      = "$ref(shadow.md)"
 shadow.overlay    = "$ref(shadow.lg)"
-shadow.focus-ring = "0 0 0 3px oklch(0.140 0.004 286 / 0.25)"
+shadow.focus-ring = "0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, $ref(blue.600)))"
 
 
 # ─── 层级 · 语义 ────────────────────────────────────────────────────────────

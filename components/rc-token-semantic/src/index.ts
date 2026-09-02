@@ -1,4 +1,4 @@
-import Token from "./token.js";
-export { vars } from "./token.js";
+import Token from './token.js';
+export { TokenVars, vars } from './token-vars.js';
 
 export default Token;

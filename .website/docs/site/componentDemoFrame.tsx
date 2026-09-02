@@ -91,8 +91,8 @@ const errorStyle = css`
     border: 1px solid ${token.color.border.error};
     border-radius: ${token.radius.md};
     place-content: center;
-    background-color: ${token.color.feedback['error-background']};
-    color: ${token.color.feedback.error};
+    background-color: ${token.color.feedback.error.background};
+    color: ${token.color.feedback.error.text};
     font-size: ${token.font.size.body};
 `;
 
@@ -115,7 +115,7 @@ const errorActionStyle = css`
     border: 1px solid currentColor;
     border-radius: ${token.radius.sm};
     background-color: ${token.color.background.elevated};
-    color: ${token.color.feedback.error};
+    color: ${token.color.feedback.error.text};
     font: inherit;
     line-height: 1;
     text-decoration: none;
