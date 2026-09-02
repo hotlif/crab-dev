@@ -36,6 +36,7 @@
             "outputs": []
         },
         "generate:token": {
+            "dependsOn": ["^generate:token"],
             "inputs": ["token.toml"],
             "outputs": ["src/token.ts"]
         },
@@ -56,6 +57,31 @@
                 "!eslint.config.js"
             ],
             "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+        },
+        "@crab-dev/rc-component-preview#generate:token": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
+            "inputs": ["token.toml"],
+            "outputs": ["src/token.ts"]
+        },
+        "@crab-dev/rc-menu#generate:token": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
+            "inputs": ["token.toml"],
+            "outputs": ["src/token.ts"]
+        },
+        "@crab-dev/rc-masonry#generate:token": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
+            "inputs": ["token.toml"],
+            "outputs": ["src/token.ts"]
+        },
+        "@crab-dev/rc-spin#generate:token": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
+            "inputs": ["token.toml"],
+            "outputs": ["src/token.ts"]
+        },
+        "@crab-dev/rc-button#generate:token": {
+            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
+            "inputs": ["token.toml"],
+            "outputs": ["src/token.ts"]
         },
         "@crab-dev/rc-component-preview#build:library": {
             "dependsOn": ["@crab-dev/rc-token-semantic#build:library"],

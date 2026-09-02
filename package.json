@@ -12,6 +12,7 @@
         "lint": "turbo run eslint",
         "typecheck": "turbo run typecheck",
         "generate:token": "turbo run generate:token",
+        "check:tokens": "node ./scripts/check-token-contract.mjs",
         "changeset:version": "changeset version && yarn install --mode=update-lockfile",
         "changeset:release": "yarn build:library && yarn workspaces foreach --all --no-private --topological npm publish --tolerate-republish --access public && changeset tag",
         "prepare": "husky"

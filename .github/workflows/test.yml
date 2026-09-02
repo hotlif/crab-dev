@@ -35,6 +35,17 @@ jobs:
       run: yarn install --immutable
     - name: Generate design tokens
       run: yarn generate:token
+    - name: Verify generated design tokens are committed
+      shell: bash
+      run: |
+        token_status="$(git status --porcelain -- ':(glob)components/*/src/token.ts')"
+        if [[ -n "$token_status" ]]; then
+          echo "Generated token files are missing or stale:"
+          printf '%s\n' "$token_status"
+          exit 1
+        fi
+    - name: Verify design token contract
+      run: yarn check:tokens
     - name: Run ESLint
       run: yarn lint
     - name: Run typecheck
