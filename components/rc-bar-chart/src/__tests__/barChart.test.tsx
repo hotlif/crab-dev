@@ -65,6 +65,19 @@ describe('BarChart', () => {
         const occurrences = container.textContent!.split('线上').length - 1;
         expect(occurrences).toBe(2);
     });
+    it('系列显式 color 优先于 palette.series，其余系列消费 palette', async () => {
+        const { container } = await render(<BarChart
+            categories={CATEGORIES}
+            series={[
+                { name: '显式', data: [1, 2, 3], color: '#123456' },
+                { name: '色板', data: [4, 5, 6] },
+            ]}
+            palette={{ series: ['#abcdef', '#fedcba'] }}
+        />);
+        const swatches = container.querySelectorAll<HTMLElement>('[role="group"] button span');
+        expect(swatches[0].style.backgroundColor).toBe('#123456');
+        expect(swatches[1].style.backgroundColor).toBe('#fedcba');
+    });
     it('数值经 formatValue 呈现', async () => {
         const { container } = await render(<BarChart categories={['一']} series={[{ name: 's', data: [1500] }]} formatValue={v => `${v / 1000}k`}/>);
         expect(findTableEntry(getDataTable(container), 'tbody td', '1.5k')).toBeDefined();

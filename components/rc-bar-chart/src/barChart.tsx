@@ -5,7 +5,13 @@ import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
 import Empty from '@crab-dev/rc-empty';
 import token from './token.js';
-import { CATEGORICAL_PALETTE, CHART_INK, MAX_SERIES, dimColor } from './palette.js';
+import {
+    MAX_SERIES,
+    mergeBarChartPalette,
+    resolveDimmedBarColor,
+    resolveReferenceLineColor,
+    resolveSeriesColor,
+} from './palette.js';
 import { computeLayout, measureLabelWidth, CHART_METRICS } from './layout.js';
 import { useBarTransition } from './hooks/useBarTransition.js';
 import { useCategoryDim } from './hooks/useCategoryDim.js';
@@ -39,29 +45,29 @@ const legendStyle = css`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    column-gap: ${token.legend['item-gap']};
-    row-gap: ${token.legend['swatch-gap']};
+    column-gap: ${token.legend['column-gap']};
+    row-gap: ${token.legend['row-gap']};
 `;
 
 /* 图例项是切换系列显隐的按钮：光标 / hover 背景 / 焦点环齐备 */
 const legendItemStyle = css`
     display: inline-flex;
     align-items: center;
-    gap: ${token.legend['swatch-gap']};
+    gap: ${token.legend.item.gap};
     padding: 2px 8px;
     border: 0;
     background: transparent;
-    border-radius: ${token.legend.item.radius};
-    font-size: ${token.legend.label.font.size};
+    border-radius: ${token.legend.item['border-radius']};
+    font-size: ${token.legend.label['font-size']};
     color: ${token.legend.label.color};
     cursor: pointer;
     transition: ${token.legend.item.transition};
     &:hover {
-        background-color: ${token.legend.item['color-hover']};
+        background-color: ${token.legend.item['background-color-hover']};
     }
     &:focus-visible {
         outline: none;                    /* 仅因下一行立即给出替代焦点意符，方才允许 */
-        box-shadow: ${token.focus.ring};
+        box-shadow: ${token.root['box-shadow-focus']};
     }
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -74,8 +80,8 @@ const legendItemHiddenStyle = css`
 `;
 
 const legendSwatchStyle = css`
-    inline-size: ${token.legend['swatch-size']};
-    block-size: ${token.legend['swatch-size']};
+    inline-size: ${token.legend.swatch['inline-size']};
+    block-size: ${token.legend.swatch['block-size']};
     border-radius: 2px;
     flex-shrink: 0;
 `;
@@ -105,7 +111,7 @@ const barButtonStyle = css`
     pointer-events: none;
     &:focus-visible {
         outline: none;                    /* 仅因下一行立即给出替代焦点意符，方才允许 */
-        box-shadow: ${token.focus.ring};
+        box-shadow: ${token.root['box-shadow-focus']};
     }
 `;
 
@@ -114,12 +120,12 @@ const tooltipStyle = css`
     pointer-events: none;
     display: flex;
     flex-direction: column;
-    row-gap: ${token.tooltip['row-gap']};
+    row-gap: ${token.tooltip.rows['row-gap']};
     padding: ${token.tooltip.padding};
-    background: ${token.tooltip.background};
-    border-radius: ${token.tooltip.radius};
-    box-shadow: ${token.tooltip.shadow};
-    font-size: ${token.tooltip.font.size};
+    background-color: ${token.tooltip['background-color']};
+    border-radius: ${token.tooltip['border-radius']};
+    box-shadow: ${token.tooltip['box-shadow']};
+    font-size: ${token.tooltip['font-size']};
     line-height: 1.4;
     white-space: nowrap;
 `;
@@ -131,7 +137,7 @@ const tooltipCategoryStyle = css`
 const tooltipRowStyle = css`
     display: flex;
     align-items: center;
-    gap: ${token.tooltip['key-gap']};
+    column-gap: ${token.tooltip.row['column-gap']};
 `;
 
 /* 系列色键：短线而非色块，提示密度下线钥更轻 */
@@ -150,7 +156,7 @@ const tooltipValueStyle = css`
     margin-inline-start: auto;
     padding-inline-start: 12px;
     color: ${token.tooltip.value.color};
-    font-weight: ${token.tooltip.value.font.weight};
+    font-weight: ${token.tooltip.value['font-weight']};
     font-variant-numeric: tabular-nums;
 `;
 
@@ -183,6 +189,7 @@ type InnerProps = Omit<BarChartProps, 'width'> & {
 function BarChartInner({
     categories,
     series,
+    palette: paletteOverride,
     width,
     height = DEFAULT_HEIGHT,
     stacked = false,
@@ -198,6 +205,7 @@ function BarChartInner({
     ref,
     widthReady = true,
 }: InnerProps) {
+    const palette = mergeBarChartPalette(paletteOverride);
     const [active, setActive] = useState<ActiveCategory | null>(null);
     /** 指针在画布包装层内的坐标，驱动悬浮提示跟随鼠标；无指针（键盘 / 触屏）时提示锚定类目列 */
     const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
@@ -260,7 +268,9 @@ function BarChartInner({
     }
 
     // 颜色按原始系列下标分配：隐藏系列不引起其余系列换色（颜色跟随系列）
-    const colors = visibleSeries.map((s, i) => s.color ?? CATEGORICAL_PALETTE[i]);
+    const colors = visibleSeries.map((seriesItem, index) =>
+        resolveSeriesColor(seriesItem.color, index, palette),
+    );
     const plotHeight = layout.plotBottom - layout.plotTop;
     const plotWidth = layout.plotRight - layout.plotLeft;
 
@@ -354,7 +364,7 @@ function BarChartInner({
                                 y1={horizontal ? layout.plotTop : tick.pos + 0.5}
                                 x2={horizontal ? tick.pos + 0.5 : layout.plotRight}
                                 y2={horizontal ? layout.plotBottom : tick.pos + 0.5}
-                                color={tick.value === 0 ? CHART_INK.baseline : CHART_INK.gridline}
+                                color={tick.value === 0 ? palette.baseline : palette.gridline}
                                 lineWidth={1}
                             />
                         ))}
@@ -371,7 +381,7 @@ function BarChartInner({
                                 x={horizontal ? tick.pos : layout.plotLeft - CHART_METRICS.axisLabelGap}
                                 y={horizontal ? layout.plotBottom + 6 : tick.pos}
                                 fontSize={CHART_METRICS.fontSize}
-                                fill={CHART_INK.axisLabel}
+                                fill={palette.axisLabel}
                                 textAlign={horizontal ? 'center' : 'right'}
                                 textBaseline={horizontal ? 'top' : 'middle'}
                             >
@@ -386,7 +396,7 @@ function BarChartInner({
                                 x={horizontal ? layout.plotLeft - CHART_METRICS.axisLabelGap : layout.bands[i].center}
                                 y={horizontal ? layout.bands[i].center : layout.plotBottom + 6}
                                 fontSize={CHART_METRICS.fontSize}
-                                fill={CHART_INK.axisLabel}
+                                fill={palette.axisLabel}
                                 textAlign={horizontal ? 'right' : 'center'}
                                 textBaseline={horizontal ? 'middle' : 'top'}
                             >
@@ -420,7 +430,11 @@ function BarChartInner({
                                 : Math.min(CHART_METRICS.barRadius, bar.width / 2, bar.height / 2);
                             const dim = dims[bar.categoryIndex] ?? 1;
                             // 淡化走不透明混色而非 opacity：柱与圆角补丁的重叠区不会叠出深色条带
-                            const color = dimColor(colors[shownIndices[bar.seriesIndex]], dim);
+                            const color = resolveDimmedBarColor(
+                                colors[shownIndices[bar.seriesIndex]],
+                                dim,
+                                palette,
+                            );
                             // 基线端补丁矩形的位置：盖住与数据端相对一侧的圆角
                             const patch = radius <= 0
                                 ? null
@@ -489,7 +503,7 @@ function BarChartInner({
                                             : bar.x - CHART_METRICS.valueLabelGap}
                                         y={bar.y + bar.height / 2}
                                         fontSize={CHART_METRICS.valueLabelSize}
-                                        fill={CHART_INK.axisLabel}
+                                        fill={palette.axisLabel}
                                         opacity={dims[bar.categoryIndex] ?? 1}
                                         textAlign={atRight ? 'left' : 'right'}
                                         textBaseline="middle"
@@ -513,7 +527,7 @@ function BarChartInner({
                                         ? bar.y - CHART_METRICS.valueLabelGap
                                         : bar.y + bar.height + CHART_METRICS.valueLabelGap}
                                     fontSize={CHART_METRICS.valueLabelSize}
-                                    fill={CHART_INK.axisLabel}
+                                    fill={palette.axisLabel}
                                     opacity={dims[bar.categoryIndex] ?? 1}
                                     textAlign="center"
                                     textBaseline={atTop ? 'bottom' : 'top'}
@@ -563,7 +577,7 @@ function BarChartInner({
                                             ? layout.bands[i].center
                                             : (l.positive ? posEdge - gap : negEdge + gap)}
                                         fontSize={CHART_METRICS.valueLabelSize}
-                                        fill={CHART_INK.axisLabel}
+                                        fill={palette.axisLabel}
                                         opacity={dims[i] ?? 1}
                                         textAlign={horizontal ? (l.positive ? 'left' : 'right') : 'center'}
                                         textBaseline={horizontal ? 'middle' : (l.positive ? 'bottom' : 'top')}
@@ -577,7 +591,7 @@ function BarChartInner({
                         {/* 参考线：虚线 + 标签，值域已并入刻度计算，保证始终落在图内 */}
                         {referenceLines?.map((refLine, i) => {
                             const pos = layout.referencePositions[i];
-                            const color = refLine.color ?? CHART_INK.axisLabel;
+                            const color = resolveReferenceLineColor(refLine.color, palette);
                             const text = refLine.label ?? formatValue(refLine.value);
                             // 标签位置：vertical 在线右端上方；horizontal 在线顶端侧旁（靠右缘时翻到左侧）
                             const flip = horizontal && pos > width * 0.6;

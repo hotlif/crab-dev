@@ -7,35 +7,48 @@ imports = [
 
 [token]
 
-# 坐标轴文本渲染于 Canvas（bitmap 文本，WebGL 无法解析 CSS 变量），
-# 其颜色为 palette.ts 中与 color.text.secondary 同值的 oklch 字面量。
+# Canvas 根节点会先在 DOM 继承上下文中解析这些 L3 CSS 值，再交给 WebGL。
+palette.series.blue.color       = "oklch(0.5753 0.1626 255.53)"
+palette.series.orange.color     = "oklch(0.6708 0.175 40.64)"
+palette.series.aqua.color       = "oklch(0.669 0.1408 162.11)"
+palette.series.yellow.color     = "oklch(0.7644 0.1612 75.12)"
+palette.series.magenta.color    = "oklch(0.7163 0.1412 357.39)"
+palette.series.green.color      = "oklch(0.5285 0.1798 142.5)"
+palette.series.violet.color     = "oklch(0.4331 0.1671 283.62)"
+palette.series.red.color        = "oklch(0.6226 0.1909 24.91)"
+palette.gridline.color          = "$ref(color.border.subtle)"
+palette.baseline.color          = "$ref(color.border.default)"
+palette.axis-label.color        = "$ref(color.text.secondary)"
+palette.canvas.background-color = "$ref(color.background.surface)"
 
 # ─── 图例 ───────────────────────────────────
-legend.gap             = "$ref(space.component-gap)"
-legend.item-gap        = "$ref(space.component-gap)"
-legend.swatch-gap      = "$ref(space.inline-gap)"
-legend.swatch-size     = "10px"
-legend.label.color     = "$ref(color.text.secondary)"
-legend.label.font.size = "$ref(font.size.caption)"
+legend.gap                 = "$ref(space.component-gap)"
+legend.column-gap          = "var(--bar-chart-legend-item-gap, $ref(space.component-gap))"
+legend.row-gap             = "var(--bar-chart-legend-swatch-gap, $ref(space.inline-gap))"
+legend.item.gap            = "var(--bar-chart-legend-swatch-gap, $ref(space.inline-gap))"
+legend.swatch.inline-size  = "var(--bar-chart-legend-swatch-size, 10px)"
+legend.swatch.block-size   = "var(--bar-chart-legend-swatch-size, 10px)"
+legend.label.color         = "$ref(color.text.secondary)"
+legend.label.font-size     = "$ref(font.size.caption)"
 
 # 图例项为切换系列显隐的按钮
-legend.item.radius         = "$ref(radius.sm)"
-legend.item.color-hover    = "$ref(color.background.hover-subtle)"
+legend.item.border-radius  = "var(--bar-chart-legend-item-radius, $ref(radius.sm))"
+legend.item.background-color-hover = "var(--bar-chart-legend-item-color-hover, $ref(color.background.hover-subtle))"
 legend.item.transition     = "$ref(motion.interaction)"
 legend.item.opacity-hidden = "$ref(opacity.secondary)"
 
 # ─── 键盘焦点 ───────────────────────────────
-focus.ring = "$ref(shadow.focus-ring)"
+root.box-shadow-focus = "var(--bar-chart-focus-ring, $ref(shadow.focus-ring))"
 
 # ─── 悬浮提示 ───────────────────────────────
-tooltip.background        = "$ref(color.background.elevated)"
-tooltip.radius            = "$ref(radius.md)"
-tooltip.shadow            = "$ref(shadow.float)"
-tooltip.padding           = "8px 12px"
-tooltip.row-gap           = "$ref(space.inline-gap)"
-tooltip.key-gap           = "$ref(space.inline-gap)"
-tooltip.font.size         = "$ref(font.size.caption)"
-tooltip.category.color    = "$ref(color.text.secondary)"
-tooltip.name.color        = "$ref(color.text.secondary)"
-tooltip.value.color       = "$ref(color.text.primary)"
-tooltip.value.font.weight = "$ref(font.weight.label)"
+tooltip.background-color = "var(--bar-chart-tooltip-background, $ref(color.background.elevated))"
+tooltip.border-radius    = "var(--bar-chart-tooltip-radius, $ref(radius.md))"
+tooltip.box-shadow       = "var(--bar-chart-tooltip-shadow, $ref(shadow.float))"
+tooltip.padding          = "8px 12px"
+tooltip.rows.row-gap     = "var(--bar-chart-tooltip-row-gap, $ref(space.inline-gap))"
+tooltip.row.column-gap   = "var(--bar-chart-tooltip-key-gap, $ref(space.inline-gap))"
+tooltip.font-size        = "$ref(font.size.caption)"
+tooltip.category.color   = "$ref(color.text.secondary)"
+tooltip.name.color       = "$ref(color.text.secondary)"
+tooltip.value.color      = "$ref(color.text.primary)"
+tooltip.value.font-weight = "$ref(font.weight.label)"

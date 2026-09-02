@@ -1,4 +1,5 @@
 import type { CSSProperties, Ref } from 'react';
+import type { BarChartPalette } from './palette.js';
 
 /** 单个数据系列 */
 export interface BarChartSeries {
@@ -42,6 +43,9 @@ export interface BarChartProps {
 
     /** 数据系列，最多 8 个；超出部分不渲染并在开发期告警 */
     series: BarChartSeries[];
+
+    /** 绘制层缺省色板；series/refLine 的显式 color 始终优先。 */
+    palette?: Partial<BarChartPalette>;
 
     /**
      * 画布宽度（px，含坐标轴）；传 `'auto'` 时跟随父容器宽度
