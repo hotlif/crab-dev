@@ -8,27 +8,27 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-padding = "$ref(space.component-gap) $ref(space.card-padding)"
-border.radius = "$ref(radius.lg)"
-font.size = "$ref(font.size.body)"
-line.height = "1.625"
-background.color = "$ref(color.background.elevated)"
-box-shadow = "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)"
+root.padding = "var(--message-padding, $ref(space.component-gap) $ref(space.card-padding))"
+root.border-radius = "var(--message-border-radius, $ref(radius.lg))"
+root.font-size = "var(--message-font-size, $ref(font.size.body))"
+root.line-height = "var(--message-line-height, 1.625)"
+root.background-color = "var(--message-background-color, $ref(color.background.elevated))"
+root.box-shadow = "var(--message-box-shadow, $ref(shadow.overlay))"
 
 # ─── 图标 ────────────────────────────────────────────────────────────────────
-icon.size = "18px"
-icon.margin.right = "$ref(space.component-gap)"
+icon.width = "var(--message-icon-size, 18px)"
+icon.margin-right = "$ref(space.component-gap)"
 
 # ─── 类型颜色 ────────────────────────────────────────────────────────────────
-success.color = "$ref(color.feedback.success)"
-warning.color = "$ref(color.feedback.warning)"
-error.color = "$ref(color.feedback.error)"
-info.color = "$ref(color.feedback.info)"
+success.icon.color = "var(--message-success-color, $ref(color.feedback.success.icon))"
+warning.icon.color = "var(--message-warning-color, $ref(color.feedback.warning.icon))"
+icon.color-error = "var(--message-error-icon-color, var(--message-error-color, $ref(color.feedback.error.icon)))"
+info.icon.color = "var(--message-info-color, $ref(color.feedback.info.icon))"
 
 # ─── 文本 ────────────────────────────────────────────────────────────────────
 text.color = "$ref(color.text.primary)"
 
 # ─── 进度条 ──────────────────────────────────────────────────────────────────
-progress.start.color = "$ref(color.feedback.success)"
-progress.end.color = "$ref(color.feedback.success)"
+progress.start.color = "$ref(color.brand.primary)"
+progress.end.color = "$ref(color.brand.primary-hover)"
 progress.height = "3px"

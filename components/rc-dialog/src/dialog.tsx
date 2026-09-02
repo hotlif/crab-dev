@@ -84,23 +84,23 @@ export interface DialogProps extends Omit<
 
 }
 
-const colorOverlayBackgroundColor = token.overlay.background.color;
-const colorDialogBackgroundColor = token.background.color;
+const colorOverlayBackgroundColor = token.overlay['background-color'];
+const colorDialogBackgroundColor = token.root['background-color'];
 
-const dimensionMinWidth = token.min.width;
-const dimensionPadding = token.padding;
-const dimensionBorderRadius = token.border.radius;
-const dimensionFooterMarginTop = token.footer.margin.top;
-const dimensionFooterButtonSpacing = token.footer.button.spacing;
-const dimensionHeadingMarginBottom = token.heading.margin.bottom;
+const dimensionMinWidth = token.root['min-width'];
+const dimensionPadding = token.root.padding;
+const dimensionBorderRadius = token.root['border-radius'];
+const dimensionFooterMarginTop = token.footer['margin-top'];
+const dimensionFooterButtonSpacing = token.footer.button.margin;
+const dimensionHeadingMarginBottom = token.heading['margin-bottom'];
 
-const typographyHeadingFontWeight = token.heading.font.weight;
-const typographyHeadingFontSize = token.heading.font.size;
-const typographyHeadingLineHeight = token.heading.line.height;
+const typographyHeadingFontWeight = token.heading['font-weight'];
+const typographyHeadingFontSize = token.heading['font-size'];
+const typographyHeadingLineHeight = token.heading['line-height'];
 
-const elevationBoxShadow = token.box.shadow;
+const elevationBoxShadow = token.root['box-shadow'];
 
-const top = token.top;
+const top = token.root.top;
 
 // 进出场动画的位移距离（动效参数，与 spring 配置同级，不属于设计令牌）
 const contentMotionOffset = -12;

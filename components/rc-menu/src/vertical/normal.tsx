@@ -16,13 +16,13 @@ const verticalItemTitlePaddingInlineEnd = token.vertical.item.title["padding-inl
 const verticalItemTitleBorderRadius = token.vertical.item.title["border-radius"];
 const verticalItemTitleBackgroundColorHover = token.vertical.item.title["background-color-hover"];
 const verticalItemTitleBackgroundColorActive = token.vertical.item.title["background-color-active"];
-const verticalItemTitleBackgroundColorSelect = token.vertical.item.title["background-color-select"];
+const verticalItemTitleBackgroundColorSelect = token.vertical.item.title["background-color-selected"];
 const verticalItemTitleBackgroundColorOpen = token.vertical.item.title["background-color-open"];
 const verticalItemTitleColorHover = token.vertical.item.title["color-hover"];
 const verticalItemTitleColorOpen = token.vertical.item.title["color-open"];
 const verticalItemTitleHeight = token.vertical.item.title.height;
 const verticalItemFontSize = token.vertical.item.title["font-size"];
-const verticalItemInlineIndent = token.vertical.item["inline-indent"];
+const verticalItemInlineIndent = token.vertical.item.depth['padding-left'];
 const verticalItemChildrenBackgroundColor = token.vertical.item.children["background-color"];
 const verticalItemChildrenPadding = token.vertical.item.children.padding;
 
@@ -89,7 +89,7 @@ const itemGroupTitleStyle = css`
 
 const itemSelectStyle = css`
     background-color: ${verticalItemTitleBackgroundColorSelect};
-    font-weight: ${token.vertical.item.title["font-weight-select"]};
+    font-weight: ${token.vertical.item.title["font-weight-selected"]};
 `
 
 const itemOpenStyle = css`
@@ -126,8 +126,8 @@ const menuItemIcon = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: ${token.vertical.item.icon.size};
-    height: ${token.vertical.item.icon.size};
+    width: ${token.vertical.item.icon.width};
+    height: ${token.vertical.item.icon.width};
     margin-right: ${token.vertical.item.icon["margin-right"]};
     line-height: 1;
 

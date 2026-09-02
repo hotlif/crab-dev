@@ -13,7 +13,7 @@ export interface ConfirmProps extends Omit<DialogProps, "open" | "onOpenChange" 
 }
 
 const confirmDialogStyle = css`
-    min-width: ${token.confirm.min.width};
+    min-width: ${token.confirm['min-width']};
 `;
 
 /**

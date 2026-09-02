@@ -66,7 +66,7 @@ const collapsedItemButtonStyle = css`
     }
 
     &:focus-visible {
-        outline: 2px solid ${token.vertical.item.title["background-color-select"]};
+        outline: 2px solid ${token.vertical.item.title["background-color-selected"]};
         outline-offset: -2px;
     }
 
@@ -76,9 +76,9 @@ const collapsedItemButtonStyle = css`
 `;
 
 const collapsedItemSelectStyle = css`
-    background-color: ${token.vertical.item.title["background-color-select"]};
-    color: ${token.vertical.item.title["color-select"]};
-    font-weight: ${token.vertical.item.title["font-weight-select"]};
+    background-color: ${token.vertical.item.title["background-color-selected"]};
+    color: ${token.vertical.item.title["color-selected"]};
+    font-weight: ${token.vertical.item.title["font-weight-selected"]};
 `;
 
 const collapsedItemOpenStyle = css`
@@ -90,8 +90,8 @@ const collapsedIconStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.vertical.collapsed.item.icon.size};
-    height: ${token.vertical.collapsed.item.icon.size};
+    width: ${token.vertical.collapsed.item.icon.width};
+    height: ${token.vertical.collapsed.item.icon.width};
     flex-shrink: 0;
     line-height: 1;
 

@@ -242,7 +242,6 @@ const useMessage = (): [MessageInstance, ReactNode] => {
                     }}
                     animate={{
                         y: offsetFromTop * 20,
-                        boxShadow: `0 ${2 + (offsetFromTop - 1)}px ${6 + (offsetFromTop - 1) * 2}px rgba(0, 0, 0, ${Math.max(0.08, 0.12 - (offsetFromTop - 1) * 0.02)})`,
                     }}
                     exit={{
                         y: "-100%",

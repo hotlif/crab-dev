@@ -51,7 +51,7 @@ const menuItemLeftIcon = css`
 const submenuList = css`
     list-style-type: none;
     padding-inline-start: unset;
-    color: #000;
+    color: ${token.horizontal.item.color};
     line-height: ${token.horizontal.submenu["line-height"]};
     border-radius: ${token.horizontal.submenu["border-radius"]};
 `

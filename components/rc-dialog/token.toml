@@ -7,19 +7,19 @@ imports = [
 
 [token]
 
-overlay.background.color = "$ref(color.background.overlay)"
-background.color = "$ref(color.background.elevated)"
-top = "100px"
-min.width = "520px"
-confirm.min.width = "22rem"
-padding = "$ref(space.card-padding) $ref(space.dialog-padding)"
-border.radius = "$ref(radius.lg)"
-box.shadow = "$ref(shadow.overlay)"
+overlay.background-color = "$ref(color.background.overlay)"
+root.background-color = "var(--dialog-background-color, $ref(color.background.elevated))"
+root.top = "var(--dialog-top, 100px)"
+root.min-width = "var(--dialog-min-width, 520px)"
+confirm.min-width = "22rem"
+root.padding = "var(--dialog-padding, $ref(space.card-padding) $ref(space.dialog-padding))"
+root.border-radius = "var(--dialog-border-radius, $ref(radius.lg))"
+root.box-shadow = "var(--dialog-box-shadow, $ref(shadow.overlay))"
 
-heading.margin.bottom = "$ref(space.stack-gap)"
-heading.font.weight = "$ref(font.weight.heading)"
-heading.font.size = "$ref(font.size.subhead)"
-heading.line.height = "1.5"
+heading.margin-bottom = "$ref(space.stack-gap)"
+heading.font-weight = "$ref(font.weight.heading)"
+heading.font-size = "$ref(font.size.subhead)"
+heading.line-height = "1.5"
 
-footer.margin.top = "$ref(space.stack-gap)"
-footer.button.spacing = "$ref(space.component-gap)"
+footer.margin-top = "$ref(space.stack-gap)"
+footer.button.margin = "var(--dialog-footer-button-spacing, $ref(space.component-gap))"

@@ -7,19 +7,20 @@ imports = [
 
 [token]
 
-background.color = "$ref(color.background.elevated)"
+root.background-color = "var(--notification-background-color, $ref(color.background.elevated))"
 text.color = "$ref(color.text.primary)"
-padding = "$ref(space.card-padding) $ref(space.dialog-padding)"
-border.radius = "$ref(radius.lg)"
+root.padding = "var(--notification-padding, $ref(space.card-padding) $ref(space.dialog-padding))"
+root.border-radius = "var(--notification-border-radius, $ref(radius.lg))"
+root.box-shadow = "var(--notification-box-shadow, $ref(shadow.overlay))"
 
-title.margin.bottom = "$ref(space.component-gap)"
-title.font.size = "$ref(font.size.subhead)"
-title.line.height = "1.5"
+title.margin-bottom = "$ref(space.component-gap)"
+title.font-size = "$ref(font.size.subhead)"
+title.line-height = "1.5"
 
-content.font.size = "$ref(font.size.body)"
+content.font-size = "$ref(font.size.body)"
 
-progress.start.color = "$ref(color.feedback.success)"
-progress.end.color = "$ref(color.feedback.success)"
+progress.start.color = "$ref(color.brand.primary)"
+progress.end.color = "$ref(color.brand.primary-hover)"
 progress.height = "3px"
 
 close.opacity = "$ref(opacity.tertiary)"

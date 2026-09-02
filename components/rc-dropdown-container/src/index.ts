@@ -5,3 +5,4 @@ export type { DropdownContextValue } from './context.js';
 export type { DropdownState, DropdownAction } from './reducer.js';
 
 export default DropdownContainer;
+export { vars as TokenVars } from './token.js';

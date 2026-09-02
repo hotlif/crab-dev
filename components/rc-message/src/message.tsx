@@ -30,11 +30,12 @@ const baseStyle = css`
     position: relative;
     display: inline-flex;
     align-items: center;
-    padding: ${token.padding};
-    border-radius: ${token.border.radius};
-    background-color: ${token.background.color};
-    font-size: ${token.font.size};
-    line-height: ${token.line.height};
+    padding: ${token.root.padding};
+    border-radius: ${token.root["border-radius"]};
+    background-color: ${token.root["background-color"]};
+    box-shadow: ${token.root["box-shadow"]};
+    font-size: ${token.root["font-size"]};
+    line-height: ${token.root["line-height"]};
     color: ${token.text.color};
     pointer-events: all;
     grid-area: 1 / 1;
@@ -59,31 +60,31 @@ const iconBaseStyle = css`
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: ${token.icon.margin.right};
+    margin-right: ${token.icon["margin-right"]};
     > svg {
-        width: ${token.icon.size};
-        height: ${token.icon.size};
+        width: ${token.icon.width};
+        height: ${token.icon.width};
     }
 `;
 
 const successIconStyle = css`
-    color: ${token.success.color};
+    color: ${token.success.icon.color};
 `;
 
 const warningIconStyle = css`
-    color: ${token.warning.color};
+    color: ${token.warning.icon.color};
 `;
 
 const errorIconStyle = css`
-    color: ${token.error.color};
+    color: ${token.icon['color-error']};
 `;
 
 const infoIconStyle = css`
-    color: ${token.info.color};
+    color: ${token.info.icon.color};
 `;
 
 const loadingIconStyle = css`
-    color: ${token.info.color};
+    color: ${token.info.icon.color};
 `;
 
 // ─── 图标颜色映射 ───────────────────────────────────────────────────────────

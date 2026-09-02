@@ -40,15 +40,15 @@ const containerStyle = css`
 `;
 
 const floatingContainerStyle = css`
-    z-index: ${token['z-index']};
+    z-index: ${token.root['z-index']};
     margin: 0;
     border: unset;
-    border-radius: ${token['border-radius']};
+    border-radius: ${token.root['border-radius']};
 `;
 
 const overlayStyle = css`
-    background-color: ${token['background-color']};
-    box-shadow: ${token['box-shadow']};
+    background-color: ${token.root['background-color']};
+    box-shadow: ${token.root['box-shadow']};
     border-radius: inherit;
     transform-origin: top;
 `;

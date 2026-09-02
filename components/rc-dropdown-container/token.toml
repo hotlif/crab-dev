@@ -4,7 +4,7 @@ prefix = "dropdown-container"
 imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
-box-shadow = "$ref(shadow.overlay)"
-border-radius = "8px"
-background-color = "#fff"
-z-index = "$ref(z-index.float)"
+root.box-shadow = "var(--dropdown-container-box-shadow, $ref(shadow.overlay))"
+root.border-radius = "var(--dropdown-container-border-radius, 8px)"
+root.background-color = "var(--dropdown-container-background-color, $ref(color.background.elevated))"
+root.z-index = "var(--dropdown-container-z-index, $ref(z-index.float))"

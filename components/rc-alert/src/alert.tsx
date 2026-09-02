@@ -10,12 +10,12 @@ const baseStyle = css`
     display: flex;
     align-items: flex-start;
     box-sizing: border-box;
-    padding: ${token.padding};
-    border-radius: ${token.border.radius};
+    padding: ${token.root.padding};
+    border-radius: ${token.root["border-radius"]};
     border: 1px solid transparent;
-    font-size: ${token.font.size};
-    line-height: ${token.line.height};
-    transition: ${token.transition};
+    font-size: ${token.root["font-size"]};
+    line-height: ${token.root["line-height"]};
+    transition: ${token.root.transition};
     word-break: break-word;
 `;
 
@@ -23,25 +23,25 @@ const baseStyle = css`
 
 const successStyle = css`
     color: ${token.success.color};
-    background-color: ${token.success.background.color};
+    background-color: ${token.success["background-color"]};
     border-color: ${token.success['border-color']};
 `;
 
 const warningStyle = css`
     color: ${token.warning.color};
-    background-color: ${token.warning.background.color};
+    background-color: ${token.warning["background-color"]};
     border-color: ${token.warning['border-color']};
 `;
 
 const errorStyle = css`
-    color: ${token.error.color};
-    background-color: ${token.error.background.color};
-    border-color: ${token.error['border-color']};
+    color: ${token.root['color-error']};
+    background-color: ${token.root['background-color-error']};
+    border-color: ${token.root['border-color-error']};
 `;
 
 const infoStyle = css`
     color: ${token.info.color};
-    background-color: ${token.info.background.color};
+    background-color: ${token.info["background-color"]};
     border-color: ${token.info['border-color']};
 `;
 
@@ -52,25 +52,37 @@ const typeStyleMap: Record<AlertType, string> = {
     info: infoStyle,
 };
 
+const successIconStyle = css`color: ${token.success.icon.color};`;
+const warningIconStyle = css`color: ${token.warning.icon.color};`;
+const errorIconStyle = css`color: ${token.icon['color-error']};`;
+const infoIconStyle = css`color: ${token.info.icon.color};`;
+
+const typeIconStyleMap: Record<AlertType, string> = {
+    success: successIconStyle,
+    warning: warningIconStyle,
+    error: errorIconStyle,
+    info: infoIconStyle,
+};
+
 // ─── 图标样式 ────────────────────────────────────────────────────────────────
 
 const iconStyle = css`
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: ${token.icon.margin.right};
-    height: calc(${token.font.size} * ${token.line.height});
+    margin-right: ${token.icon["margin-right"]};
+    height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
     > svg {
-        width: ${token.icon.size};
-        height: ${token.icon.size};
+        width: ${token.icon.width};
+        height: ${token.icon.width};
     }
 `;
 
 const iconWithTitleStyle = css`
-    height: calc(${token.title.font.size} * ${token.line.height});
+    height: calc(${token.title["font-size"]} * ${token.root["line-height"]});
     > svg {
-        width: ${token.icon['size-with-title']};
-        height: ${token.icon['size-with-title']};
+        width: ${token.icon['with-title'].width};
+        height: ${token.icon['with-title'].width};
     }
 `;
 
@@ -82,9 +94,9 @@ const contentStyle = css`
 `;
 
 const titleStyle = css`
-    font-size: ${token.title.font.size};
-    font-weight: ${token.title.font.weight};
-    margin-bottom: ${token.title.margin.bottom};
+    font-size: ${token.title["font-size"]};
+    font-weight: ${token.title["font-weight"]};
+    margin-bottom: ${token.title["margin-bottom"]};
 `;
 
 // ─── 关闭按钮样式 ────────────────────────────────────────────────────────────
@@ -94,8 +106,8 @@ const closeButtonStyle = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-left: ${token.icon.margin.right};
-    height: calc(${token.font.size} * ${token.line.height});
+    margin-left: ${token.icon["margin-right"]};
+    height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
     padding: 0;
     border: none;
     background: transparent;
@@ -107,7 +119,7 @@ const closeButtonStyle = css`
 `;
 
 const closeButtonWithTitleStyle = css`
-    height: calc(${token.title.font.size} * ${token.line.height});
+    height: calc(${token.title["font-size"]} * ${token.root["line-height"]});
 `;
 
 // ─── Alert 组件 ──────────────────────────────────────────────────────────────
@@ -147,7 +159,7 @@ const Alert: FC<AlertProps> = ({
         if (!showIcon) return null;
         const iconNode = icon ?? getDefaultIcon(type);
         return (
-            <span className={cx(iconStyle, title ? iconWithTitleStyle : undefined)}>
+            <span className={cx(iconStyle, typeIconStyleMap[type], title ? iconWithTitleStyle : undefined)}>
                 {iconNode}
             </span>
         );
@@ -156,7 +168,7 @@ const Alert: FC<AlertProps> = ({
     const renderCloseButton = () => {
         if (!closable || closeIcon === false) return null;
 
-        const iconNode = closeIcon ?? <CloseIcon size={token.close.size} />;
+        const iconNode = closeIcon ?? <CloseIcon size={token.close.width} />;
 
         return (
             <button
@@ -193,8 +205,8 @@ const Alert: FC<AlertProps> = ({
                         display: inline-flex;
                         align-items: center;
                         flex-shrink: 0;
-                        margin-left: ${token.icon.margin.right};
-                        height: calc(${token.font.size} * ${token.line.height});
+                        margin-left: ${token.icon["margin-right"]};
+                        height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
                     `}
                 >
                     {action}

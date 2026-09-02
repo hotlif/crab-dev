@@ -8,19 +8,19 @@ import Close from "./icons/close.js";
 import { type Direction } from "./types.js";
 import token from "./token.js";
 
-const colorBackground = token.background.color;
+const colorBackground = token.root["background-color"];
 const colorText = token.text.color;
 const colorProgressStart = token.progress.start.color;
 const colorProgressEnd = token.progress.end.color;
 
-const dimensionPadding = token.padding;
-const dimensionBorderRadius = token.border.radius;
-const dimensionTitleMarginBottom = token.title.margin.bottom;
+const dimensionPadding = token.root.padding;
+const dimensionBorderRadius = token.root["border-radius"];
+const dimensionTitleMarginBottom = token.title["margin-bottom"];
 const dimensionProgressHeight = token.progress.height;
 
-const typographyTitleFontSize = token.title.font.size;
-const typographyTitleLineHeight = token.title.line.height;
-const typographyContentFontSize = token.content.font.size;
+const typographyTitleFontSize = token.title["font-size"];
+const typographyTitleLineHeight = token.title["line-height"];
+const typographyContentFontSize = token.content["font-size"];
 
 const opacityClose = token.close.opacity;
 
@@ -97,6 +97,7 @@ const Notification: FC<NotificationProps> = ({
                 border-radius: ${dimensionBorderRadius};
                 isolation: isolate;
                 background-color: ${colorBackground};
+                box-shadow: ${token.root["box-shadow"]};
                 grid-area: 1 / 1;
                 overflow: hidden;
             `)}

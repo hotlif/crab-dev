@@ -5,8 +5,8 @@ import { type Item } from "../type.js";
 import groupStyle from "./styles/itemGroup.styles.js";
 import token from "../token.js";
 
-const indentBase = token.horizontal["group-item"]["indent-base"];
-const indentScale = token.horizontal["group-item"]["indent-scale"];
+const indentBase = token.horizontal['group-item'].header['indent-base']['padding-left'];
+const indentScale = token.horizontal['group-item'].header['indent-scale']['padding-left'];
 
 interface GroupItemProps {
     item: Item,

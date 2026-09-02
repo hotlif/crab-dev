@@ -9,3 +9,4 @@ export {
 }
 
 export default Dialog;
+export { vars as TokenVars } from './token.js';

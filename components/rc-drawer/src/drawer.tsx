@@ -96,15 +96,15 @@ const dialogResetStyle = css`
 const overlayStyle = css`
     position: fixed;
     inset: 0;
-    background-color: ${token.overlay.background.color};
+    background-color: ${token.overlay['background-color']};
 `;
 
 const panelBaseStyle = css`
     position: fixed;
     display: flex;
     flex-direction: column;
-    background-color: ${token.background.color};
-    box-shadow: ${token.box.shadow};
+    background-color: ${token.root['background-color']};
+    box-shadow: ${token.root['box-shadow']};
     overflow: hidden;
     box-sizing: border-box;
     max-width: 100vw;
@@ -174,17 +174,17 @@ const headerStyle = css`
     align-items: center;
     gap: ${token.footer.gap};
     padding: ${token.header.padding};
-    border-block-end: 1px solid ${token.header.border.color};
+    border-block-end: 1px solid ${token.header['border-color']};
     flex-shrink: 0;
 `;
 
 const titleStyle = css`
     flex: 1;
     min-width: 0;
-    font-weight: ${token.header.title.font.weight};
-    font-size: ${token.header.title.font.size};
-    line-height: ${token.header.title.line.height};
-    letter-spacing: ${token.header.title.letter.spacing};
+    font-weight: ${token.header.title['font-weight']};
+    font-size: ${token.header.title['font-size']};
+    line-height: ${token.header.title['line-height']};
+    letter-spacing: ${token.header.title["letter-spacing"]};
     color: ${token.header.title.color};
     overflow: hidden;
     text-overflow: ellipsis;
@@ -204,7 +204,7 @@ const footerStyle = css`
     justify-content: flex-end;
     gap: ${token.footer.gap};
     padding: ${token.footer.padding};
-    border-block-start: 1px solid ${token.footer.border.color};
+    border-block-start: 1px solid ${token.footer['border-color']};
     flex-shrink: 0;
 `;
 
@@ -212,14 +212,14 @@ const closeButtonStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.close.size};
-    height: ${token.close.size};
+    width: ${token.close.width};
+    height: ${token.close.width};
     padding: 0;
     border: none;
     background: transparent;
     color: ${token.close.color};
     cursor: pointer;
-    border-radius: ${token.close.border.radius};
+    border-radius: ${token.close['border-radius']};
     transition:
         color 120ms cubic-bezier(0.4, 0, 0.2, 1),
         background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -227,13 +227,13 @@ const closeButtonStyle = css`
     flex-shrink: 0;
 
     & > svg {
-        width: ${token.close.icon.size};
-        height: ${token.close.icon.size};
+        width: ${token.close.icon.width};
+        height: ${token.close.icon.width};
     }
 
     &:hover:not(:disabled) {
         color: ${token.close["color-hover"]};
-        background-color: ${token.close.background["color-hover"]};
+        background-color: ${token.close["background-color-hover"]};
     }
 
     &:active:not(:disabled) {
