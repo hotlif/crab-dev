@@ -14,7 +14,7 @@ const spinnerStyle = css`
     align-items: center;
     justify-content: center;
     gap: ${token.tip.gap};
-    animation: rc-spin-appear ${token.motion.appear} both;
+    animation: rc-spin-appear ${token.root.animation} both;
 
     @keyframes rc-spin-appear {
         from {
@@ -45,7 +45,7 @@ const containerStyle = css`
 `;
 
 const contentStyle = css`
-    transition: opacity ${token.motion.appear};
+    transition: opacity ${token.content.transition};
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -54,7 +54,7 @@ const contentStyle = css`
 
 const contentMaskedStyle = css`
     opacity: ${token.content.opacity};
-    filter: blur(${token.content.blur});
+    filter: ${token.content.filter};
     user-select: none;
 `;
 

@@ -12,24 +12,24 @@ const baseStyle = css`
     vertical-align: middle;
     height: ${token.size.middle.height};
     padding: ${token.size.middle.padding};
-    border-radius: ${token.size.middle.border.radius};
+    border-radius: ${token.size.middle['border-radius']};
     gap: ${token.size.middle.gap};
     border: 1px solid ${token.default['border-color']};
-    font-size: ${token.size.middle.font.size};
+    font-size: ${token.size.middle['font-size']};
     cursor: pointer;
     user-select: none;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 `;
 
 const checkedStyle = css`
     color: ${token.primary.color};
-    background-color: ${token.primary.background.color};
+    background-color: ${token.primary['background-color']};
     border-color: ${token.primary['border-color']};
 `;
 
 const uncheckedStyle = css`
     color: ${token.default.color};
-    background-color: ${token.default.background.color};
+    background-color: ${token.default['background-color']};
     border-color: ${token.default['border-color']};
 `;
 

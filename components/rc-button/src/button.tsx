@@ -1,11 +1,11 @@
 import { css, cx } from '@crab-dev/css';
 import { useRef, use, type FC, type MouseEvent } from 'react';
-import { SpinIndicator, vars as spinVars } from '@crab-dev/rc-spin';
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import token from './token.js';
 import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
 
-const opacityLoading = token.opacity.loading;
+const opacityLoading = token.root['opacity-loading'];
 
 const baseStyle = css`
     display: inline-flex;
@@ -13,7 +13,7 @@ const baseStyle = css`
     position: relative;
     align-items: center;
     cursor: pointer;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
     border: unset;
     user-select: none;
     background-color: unset;
@@ -50,60 +50,60 @@ const loadingIndicatorStyle = css`
     align-items: center;
     justify-content: center;
     --rc-spin-size: 1em;
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 
 const primaryStyle = css`
     &:not(:disabled) {
         box-shadow: ${token.primary['box-shadow']};
-        background-color: ${token.primary.background.color};
+        background-color: ${token.primary["background-color"]};
         color: ${token.primary.color};
-        &:hover { background-color: ${token.primary.background['color-hover']}; }
+        &:hover { background-color: ${token.primary['background-color-hover']}; }
         &:active {
-            background-color: ${token.primary.background['color-active']};
+            background-color: ${token.primary['background-color-active']};
             transform: scale(0.97);
         }
     }
     &:disabled {
         cursor: default;
         pointer-events: none;
-        background-color: ${token.primary.background['color-disabled']};
+        background-color: ${token.primary['background-color-disabled']};
     }
 `;
 
 const dangerStyle = css`
     &:not(:disabled) {
         box-shadow: ${token.danger['box-shadow']};
-        background-color: ${token.danger.background.color};
+        background-color: ${token.danger["background-color"]};
         color: ${token.danger.color};
-        &:hover { background-color: ${token.danger.background['color-hover']}; }
+        &:hover { background-color: ${token.danger['background-color-hover']}; }
         &:active {
-            background-color: ${token.danger.background['color-active']};
+            background-color: ${token.danger['background-color-active']};
             transform: scale(0.97);
         }
     }
     &:disabled {
         cursor: default;
         pointer-events: none;
-        background-color: ${token.danger.background['color-disabled']};
+        background-color: ${token.danger['background-color-disabled']};
     }
 `;
 
 const linkStyle = css`
     &:not(:disabled) {
-        background-color: ${token.link.background.color};
+        background-color: ${token.link["background-color"]};
         color: ${token.link.color};
         > span {
             position: relative;
             &::after {
                 content: '';
                 position: absolute;
-                bottom: ${token.link.text['underline-offset']};
+                bottom: ${token.link['text-underline-offset']};
                 left: 0;
                 width: 100%;
-                height: ${token.link.text.decoration.width};
-                background-color: ${token.link.text.decoration.color};
+                height: ${token.link['text-decoration-width']};
+                background-color: ${token.link['text-decoration-color']};
                 transform: scaleX(0);
                 transform-origin: right;
                 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -121,7 +121,7 @@ const linkStyle = css`
     }
     &:disabled {
         cursor: default;
-        background-color: ${token.link.background['color-disabled']};
+        background-color: ${token.link['background-color-disabled']};
         pointer-events: none;
     }
 `;
@@ -132,7 +132,7 @@ const dashedStyle = css`
     box-shadow: ${token.dashed['box-shadow']};
     &:not(:disabled) {
         color: ${token.dashed.color};
-        background-color: ${token.dashed.background.color};
+        background-color: ${token.dashed["background-color"]};
         border-color: ${token.dashed['border-color']};
         &:hover {
             color: ${token.dashed['color-hover']};
@@ -147,7 +147,7 @@ const dashedStyle = css`
     &:disabled {
         cursor: default;
         pointer-events: none;
-        background-color: ${token.dashed.background['color-disabled']};
+        background-color: ${token.dashed['background-color-disabled']};
         border-style: unset;
         border-width: unset;
     }
@@ -155,10 +155,10 @@ const dashedStyle = css`
 
 const textStyle = css`
     &:not(:disabled) {
-        &:hover { background-color: ${token.text.background['color-hover']}; }
+        &:hover { background-color: ${token.text['background-color-hover']}; }
         &:active {
             transform: scale(0.97);
-            background-color: ${token.text.background['color-active']};
+            background-color: ${token.text['background-color-active']};
         }
     }
     &:disabled {
@@ -173,7 +173,7 @@ const subtleStyle = css`
         color: ${token.subtle.color};
         border-style: ${token.subtle['border-style']};
         border-width: ${token.subtle['border-width']};
-        background-color: ${token.subtle.background['color']};
+        background-color: ${token.subtle["background-color"]};
         border-color: ${token.subtle['border-color']};
         box-shadow: ${token.subtle['box-shadow']};
         &:hover {
@@ -189,31 +189,31 @@ const subtleStyle = css`
     &:disabled {
         cursor: default;
         pointer-events: none;
-        background-color: ${token.subtle.background['color-disabled']};
+        background-color: ${token.subtle['background-color-disabled']};
     }
 `;
 
 const sizeLargeStyle = css`
-    font-size: ${token.size.large.font.size};
+    font-size: ${token.size.large["font-size"]};
     padding: ${token.size.large.padding};
     height: ${token.size.large.height};
-    border-radius: ${token.size.large.border.radius};
+    border-radius: ${token.size.large["border-radius"]};
     gap: ${token.size.large.gap};
 `;
 
 const sizeMiddleStyle = css`
-    font-size: ${token.size.middle.font.size};
+    font-size: ${token.size.middle["font-size"]};
     height: ${token.size.middle.height};
     padding: ${token.size.middle.padding};
-    border-radius: ${token.size.middle.border.radius};
+    border-radius: ${token.size.middle["border-radius"]};
     gap: ${token.size.middle.gap};
 `;
 
 const sizeSmallStyle = css`
-    font-size: ${token.size.small.font.size};
+    font-size: ${token.size.small["font-size"]};
     height: ${token.size.small.height};
     padding: ${token.size.small.padding};
-    border-radius: ${token.size.small.border.radius};
+    border-radius: ${token.size.small["border-radius"]};
     gap: ${token.size.small.gap};
 `;
 
@@ -221,9 +221,9 @@ const fitContainerStyle = css`width: 100%;`;
 
 const selectedStyle = css`
     &:not(:disabled) {
-        background-color: ${token.selected.background.color} !important;
-        color: ${token.selected.color} !important;
-        border-color: ${token.selected['border-color']} !important;
+        background-color: ${token.root["background-color-selected"]} !important;
+        color: ${token.root["color-selected"]} !important;
+        border-color: ${token.root['border-color-selected']} !important;
         border-style: solid;
         border-width: 1px;
     }

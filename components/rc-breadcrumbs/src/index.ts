@@ -6,3 +6,4 @@ export type {
 } from './types.js';
 
 export default Breadcrumbs;
+export { vars as TokenVars } from './token.js';

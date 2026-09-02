@@ -18,7 +18,7 @@ const containerStyle = css`
 
 const itemStyle = css`
     position: absolute;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 `;
 
 interface ItemPosition {

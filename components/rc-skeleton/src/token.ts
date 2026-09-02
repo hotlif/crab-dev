@@ -5,41 +5,42 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
-    'color.background': '--skeleton-color-background',
-    'color.highlight': '--skeleton-color-highlight',
-    'radius.default': '--skeleton-radius-default',
-    'radius.text': '--skeleton-radius-text',
-    'radius.pill': '--skeleton-radius-pill',
+    'root.background-color': '--skeleton-root-background-color',
+    'wave.background-color': '--skeleton-wave-background-color',
+    'item.border-radius': '--skeleton-item-border-radius',
+    'text.border-radius': '--skeleton-text-border-radius',
     'text.size.small.height': '--skeleton-text-size-small-height',
     'text.size.medium.height': '--skeleton-text-size-medium-height',
     'text.size.large.height': '--skeleton-text-size-large-height',
     'text.rows.gap': '--skeleton-text-rows-gap',
     'text.last-row.width': '--skeleton-text-last-row-width',
+    'pill.border-radius': '--skeleton-pill-border-radius',
     'rect.default.width': '--skeleton-rect-default-width',
     'rect.default.height': '--skeleton-rect-default-height',
-    'circle.default.size': '--skeleton-circle-default-size',
+    'circle.default.width': '--skeleton-circle-default-width',
     'button.default.width': '--skeleton-button-default-width',
     'button.default.height': '--skeleton-button-default-height',
-    'avatar.default.size': '--skeleton-avatar-default-size',
-    'animation.pulse.duration': '--skeleton-animation-pulse-duration',
-    'animation.pulse.easing': '--skeleton-animation-pulse-easing',
-    'animation.pulse.opacity-min': '--skeleton-animation-pulse-opacity-min',
-    'animation.pulse.opacity-max': '--skeleton-animation-pulse-opacity-max',
-    'animation.wave.duration': '--skeleton-animation-wave-duration',
-    'animation.wave.easing': '--skeleton-animation-wave-easing'
+    'avatar.default.width': '--skeleton-avatar-default-width',
+    'animation.pulse.animation-duration': '--skeleton-animation-pulse-animation-duration',
+    'animation.pulse.animation-timing-function': '--skeleton-animation-pulse-animation-timing-function',
+    'animation.pulse.minimum.opacity': '--skeleton-animation-pulse-minimum-opacity',
+    'animation.pulse.maximum.opacity': '--skeleton-animation-pulse-maximum-opacity',
+    'animation.wave.animation-duration': '--skeleton-animation-wave-animation-duration',
+    'animation.wave.animation-timing-function': '--skeleton-animation-wave-animation-timing-function'
 });
 
 const token = defineTokens({
-    'color': {
-        'background': `var(${vars['color.background']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
-        'highlight': `var(${vars['color.highlight']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
+    'root': {
+        'background-color': `var(${vars['root.background-color']}, var(--skeleton-background-color, var(--skeleton-color-background, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))))`
     },
-    'radius': {
-        'default': `var(${vars['radius.default']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
-        'text': `var(${vars['radius.text']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
-        'pill': `var(${vars['radius.pill']}, var(--token-semantic-radius-pill, var(--token-global-radius-full, 9999px)))`
+    'wave': {
+        'background-color': `var(${vars['wave.background-color']}, var(--skeleton-color-highlight, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
+    },
+    'item': {
+        'border-radius': `var(${vars['item.border-radius']}, var(--skeleton-radius-default, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px))))`
     },
     'text': {
+        'border-radius': `var(${vars['text.border-radius']}, var(--skeleton-radius-text, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px))))`,
         'size': {
             'small': {
                 'height': `var(${vars['text.size.small.height']}, 12px)`
@@ -58,6 +59,9 @@ const token = defineTokens({
             'width': `var(${vars['text.last-row.width']}, 65%)`
         }
     },
+    'pill': {
+        'border-radius': `var(${vars['pill.border-radius']}, var(--skeleton-radius-pill, var(--token-semantic-radius-pill, var(--token-global-radius-full, 9999px))))`
+    },
     'rect': {
         'default': {
             'width': `var(${vars['rect.default.width']}, 100%)`,
@@ -66,7 +70,7 @@ const token = defineTokens({
     },
     'circle': {
         'default': {
-            'size': `var(${vars['circle.default.size']}, 40px)`
+            'width': `var(${vars['circle.default.width']}, var(--skeleton-circle-default-size, 40px))`
         }
     },
     'button': {
@@ -77,19 +81,23 @@ const token = defineTokens({
     },
     'avatar': {
         'default': {
-            'size': `var(${vars['avatar.default.size']}, 40px)`
+            'width': `var(${vars['avatar.default.width']}, var(--skeleton-avatar-default-size, 40px))`
         }
     },
     'animation': {
         'pulse': {
-            'duration': `var(${vars['animation.pulse.duration']}, 1600ms)`,
-            'easing': `var(${vars['animation.pulse.easing']}, cubic-bezier(0.4, 0, 0.6, 1))`,
-            'opacity-min': `var(${vars['animation.pulse.opacity-min']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`,
-            'opacity-max': `var(${vars['animation.pulse.opacity-max']}, 1)`
+            'animation-duration': `var(${vars['animation.pulse.animation-duration']}, var(--skeleton-animation-pulse-duration, 1600ms))`,
+            'animation-timing-function': `var(${vars['animation.pulse.animation-timing-function']}, var(--skeleton-animation-pulse-easing, cubic-bezier(0.4, 0, 0.6, 1)))`,
+            'minimum': {
+                'opacity': `var(${vars['animation.pulse.minimum.opacity']}, var(--skeleton-animation-pulse-opacity-min, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5))))`
+            },
+            'maximum': {
+                'opacity': `var(${vars['animation.pulse.maximum.opacity']}, var(--skeleton-animation-pulse-opacity-max, 1))`
+            }
         },
         'wave': {
-            'duration': `var(${vars['animation.wave.duration']}, 1600ms)`,
-            'easing': `var(${vars['animation.wave.easing']}, cubic-bezier(0.4, 0, 0.2, 1))`
+            'animation-duration': `var(${vars['animation.wave.animation-duration']}, var(--skeleton-animation-wave-duration, 1600ms))`,
+            'animation-timing-function': `var(${vars['animation.wave.animation-timing-function']}, var(--skeleton-animation-wave-easing, cubic-bezier(0.4, 0, 0.2, 1)))`
         }
     }
 });

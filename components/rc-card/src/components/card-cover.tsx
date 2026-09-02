@@ -7,7 +7,7 @@ import type { CardCoverProps } from '../types.js';
 const coverStyle = css`
     position: relative;
     overflow: hidden;
-    background-color: ${token.cover.background};
+    background-color: ${token.cover['background-color']};
 
     & > img,
     & > video {
@@ -15,7 +15,7 @@ const coverStyle = css`
         width: 100%;
         object-fit: cover;
         transform: scale(var(--rc-card-cover-scale, 1));
-        transition: ${token.motion.cover};
+        transition: ${token.cover.transition};
     }
 
     @media (prefers-reduced-motion: reduce) {

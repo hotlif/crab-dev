@@ -34,15 +34,15 @@ const variantDottedStyle = css`
 /* ---- 留白档位 ---- */
 
 const spacingNoneStyle = css`
-    --rc-divider-spacing: ${token.spacing.none};
+    --rc-divider-spacing: ${token.spacing.none.margin};
 `;
 
 const spacingSmallStyle = css`
-    --rc-divider-spacing: ${token.spacing.small};
+    --rc-divider-spacing: ${token.spacing.small.margin};
 `;
 
 const spacingLargeStyle = css`
-    --rc-divider-spacing: ${token.spacing.large};
+    --rc-divider-spacing: ${token.spacing.large.margin};
 `;
 
 /* ---- 横线（无文字） ---- */
@@ -52,9 +52,9 @@ const horizontalStyle = css`
     inline-size: 100%;
     min-inline-size: 100%;
     block-size: 0;
-    margin-block: var(--rc-divider-spacing, ${token.spacing.middle});
-    border-block-start: ${token.line.width} var(--rc-divider-line-style, solid)
-        ${token.line.color};
+    margin-block: var(--rc-divider-spacing, ${token.spacing.middle.margin});
+    border-block-start: ${token.line["border-width"]} var(--rc-divider-line-style, solid)
+        ${token.line["border-color"]};
 `;
 
 /* ---- 竖线 ---- */
@@ -62,11 +62,11 @@ const horizontalStyle = css`
 const verticalStyle = css`
     display: inline-block;
     inline-size: 0;
-    block-size: ${token.vertical.size};
-    margin-inline: var(--rc-divider-spacing, ${token.spacing.middle});
+    block-size: ${token.vertical['block-size']};
+    margin-inline: var(--rc-divider-spacing, ${token.spacing.middle.margin});
     vertical-align: middle;
-    border-inline-start: ${token.line.width} var(--rc-divider-line-style, solid)
-        ${token.line.color};
+    border-inline-start: ${token.line["border-width"]} var(--rc-divider-line-style, solid)
+        ${token.line["border-color"]};
 `;
 
 /* ---- 横线（带文字） ---- */
@@ -76,7 +76,7 @@ const withTextStyle = css`
     align-items: center;
     inline-size: 100%;
     min-inline-size: 100%;
-    margin-block: var(--rc-divider-spacing, ${token.spacing.middle});
+    margin-block: var(--rc-divider-spacing, ${token.spacing.middle.margin});
     color: ${token.text.color};
     font-size: ${token.text['font-size']};
     font-weight: ${token.text['font-weight']};
@@ -86,8 +86,8 @@ const withTextStyle = css`
     &::after {
         content: '';
         flex: 1 1 auto;
-        border-block-start: ${token.line.width} var(--rc-divider-line-style, solid)
-            ${token.line.color};
+        border-block-start: ${token.line["border-width"]} var(--rc-divider-line-style, solid)
+            ${token.line["border-color"]};
     }
 
     &::before {
@@ -101,13 +101,13 @@ const withTextStyle = css`
 
 const textAlignStartStyle = css`
     &::before {
-        flex: 0 0 var(--rc-divider-text-offset, ${token.text.offset});
+        flex: 0 0 var(--rc-divider-text-offset, ${token.text['flex-basis']});
     }
 `;
 
 const textAlignEndStyle = css`
     &::after {
-        flex: 0 0 var(--rc-divider-text-offset, ${token.text.offset});
+        flex: 0 0 var(--rc-divider-text-offset, ${token.text['flex-basis']});
     }
 `;
 

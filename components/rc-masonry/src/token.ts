@@ -5,13 +5,15 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
-    'transition': '--masonry-transition',
-    'gutter': '--masonry-gutter'
+    'root.transition': '--masonry-root-transition',
+    'root.gap': '--masonry-root-gap'
 });
 
 const token = defineTokens({
-    'transition': `var(${vars['transition']}, transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms cubic-bezier(0.4, 0, 0.2, 1))`,
-    'gutter': `var(${vars['gutter']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+    'root': {
+        'transition': `var(${vars['root.transition']}, var(--masonry-transition, transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)))`,
+        'gap': `var(${vars['root.gap']}, var(--masonry-gutter, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px))))`
+    }
 });
 
 export default token;

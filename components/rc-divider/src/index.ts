@@ -27,3 +27,4 @@ export type {
 } from './types.js';
 
 export default Divider;
+export { vars as TokenVars } from './token.js';

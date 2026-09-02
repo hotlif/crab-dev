@@ -5,3 +5,4 @@ export type { CheckableTagProps, PresetTagColor, TagProps } from './types.js';
 export { CheckableTag };
 
 export default Tag;
+export { vars as TokenVars } from './token.js';

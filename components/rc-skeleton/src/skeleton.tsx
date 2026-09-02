@@ -8,16 +8,16 @@ import type { SkeletonAnimation, SkeletonProps, SkeletonSize, SkeletonVariant } 
 
 const baseStyle = css`
     display: block;
-    background-color: ${token.color.background};
+    background-color: ${token.root['background-color']};
     background-image: linear-gradient(
         90deg,
-        ${token.color.background} 0%,
-        ${token.color.highlight} 50%,
-        ${token.color.background} 100%
+        ${token.root['background-color']} 0%,
+        ${token.wave['background-color']} 50%,
+        ${token.root['background-color']} 100%
     );
     background-size: 200% 100%;
     background-position: 0% 0%;
-    border-radius: ${token.radius.default};
+    border-radius: ${token.item['border-radius']};
     width: var(--rc-skeleton-w, 100%);
     height: var(--rc-skeleton-h, auto);
     flex-shrink: 0;
@@ -33,39 +33,39 @@ const groupStyle = css`
 /* ---- variant：形状 ---- */
 
 const variantTextStyle = css`
-    border-radius: ${token.radius.text};
+    border-radius: ${token.text['border-radius']};
 `;
 
 const variantRectStyle = css`
     width: var(--rc-skeleton-w, ${token.rect.default.width});
     height: var(--rc-skeleton-h, ${token.rect.default.height});
-    border-radius: ${token.radius.default};
+    border-radius: ${token.item['border-radius']};
 `;
 
 const variantCircleStyle = css`
-    width: var(--rc-skeleton-w, ${token.circle.default.size});
-    height: var(--rc-skeleton-h, ${token.circle.default.size});
+    width: var(--rc-skeleton-w, ${token.circle.default.width});
+    height: var(--rc-skeleton-h, ${token.circle.default.width});
     aspect-ratio: 1 / 1;
-    border-radius: ${token.radius.pill};
+    border-radius: ${token.pill['border-radius']};
 `;
 
 const variantButtonStyle = css`
     width: var(--rc-skeleton-w, ${token.button.default.width});
     height: var(--rc-skeleton-h, ${token.button.default.height});
-    border-radius: ${token.radius.default};
+    border-radius: ${token.item['border-radius']};
 `;
 
 const variantAvatarStyle = css`
-    width: var(--rc-skeleton-w, ${token.avatar.default.size});
-    height: var(--rc-skeleton-h, ${token.avatar.default.size});
+    width: var(--rc-skeleton-w, ${token.avatar.default.width});
+    height: var(--rc-skeleton-h, ${token.avatar.default.width});
     aspect-ratio: 1 / 1;
-    border-radius: ${token.radius.pill};
+    border-radius: ${token.pill['border-radius']};
 `;
 
 const variantImageStyle = css`
     width: var(--rc-skeleton-w, 100%);
     height: var(--rc-skeleton-h, 200px);
-    border-radius: ${token.radius.default};
+    border-radius: ${token.item['border-radius']};
 `;
 
 /* ---- size：仅 text 变体的行高 ---- */
@@ -91,22 +91,22 @@ const lastTextRowStyle = css`
 /* ---- round：强制 pill 圆角 ---- */
 
 const roundStyle = css`
-    border-radius: ${token.radius.pill};
+    border-radius: ${token.pill['border-radius']};
 `;
 
 /* ---- 动画：pulse ---- */
 
 const pulseStyle = css`
     background-image: none;
-    animation: rc-skeleton-pulse ${token.animation.pulse.duration} ${token.animation.pulse.easing} infinite;
+    animation: rc-skeleton-pulse ${token.animation.pulse['animation-duration']} ${token.animation.pulse['animation-timing-function']} infinite;
 
     @keyframes rc-skeleton-pulse {
         0%,
         100% {
-            opacity: ${token.animation.pulse["opacity-max"]};
+            opacity: ${token.animation.pulse.maximum.opacity};
         }
         50% {
-            opacity: ${token.animation.pulse["opacity-min"]};
+            opacity: ${token.animation.pulse.minimum.opacity};
         }
     }
 
@@ -118,7 +118,7 @@ const pulseStyle = css`
 /* ---- 动画：wave ---- */
 
 const waveStyle = css`
-    animation: rc-skeleton-wave ${token.animation.wave.duration} ${token.animation.wave.easing} infinite;
+    animation: rc-skeleton-wave ${token.animation.wave['animation-duration']} ${token.animation.wave['animation-timing-function']} infinite;
 
     @keyframes rc-skeleton-wave {
         0% {

@@ -12,10 +12,10 @@ imports = [
 # 只画一段弧而非整圈, 是为了让"正在转"这件事在任何角度都可被瞬间辨认。
 # stroke-width / dash 为 SVG viewBox（50×50）内的用户单位, 与像素尺寸解耦。
 
-ring.track-color     = "$ref(color.fill.inactive)"
-ring.indicator-color = "$ref(color.brand.primary)"
+ring.track.stroke     = "var(--spin-ring-track-color, $ref(color.fill.default))"
+ring.indicator.stroke = "var(--spin-ring-indicator-color, $ref(color.brand.primary))"
 ring.stroke-width    = "4"
-ring.dash            = "31.4 125.7"
+ring.stroke-dasharray = "var(--spin-ring-dash, 31.4 125.7)"
 
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
@@ -23,22 +23,23 @@ ring.dash            = "31.4 125.7"
 # reduce 偏好下不能静止——加载指示器是耗时操作的唯一反馈, 静止等同于"死界面"；
 # 改为低频透明度脉动, 去掉前庭刺激但保留"仍在进行"的意符。
 
-motion.duration          = "0.9s"
-motion.easing            = "linear"
-motion.reduced-duration  = "1.6s"
-motion.reduced-opacity   = "$ref(opacity.disabled)"
-motion.appear            = "$ref(motion.fade)"
+indicator.animation-duration = "var(--spin-motion-duration, 0.9s)"
+indicator.animation-timing-function = "var(--spin-motion-easing, linear)"
+indicator.reduced-motion.animation-duration = "var(--spin-motion-reduced-duration, 1.6s)"
+indicator.reduced-motion.opacity = "var(--spin-motion-reduced-opacity, $ref(opacity.disabled))"
+root.animation            = "var(--spin-motion-appear, $ref(motion.fade))"
+content.transition        = "var(--spin-motion-appear, $ref(motion.fade))"
 
 
 # ─── 尺寸 ────────────────────────────────────────────────────────────────────
 
-size.small.size       = "16px"
+size.small.width = "var(--spin-size-small-size, 16px)"
 size.small.font-size  = "$ref(font.size.caption)"
 
-size.middle.size      = "24px"
+size.middle.width = "var(--spin-size-middle-size, 24px)"
 size.middle.font-size = "$ref(font.size.body)"
 
-size.large.size       = "40px"
+size.large.width = "var(--spin-size-large-size, 40px)"
 size.large.font-size  = "$ref(font.size.subhead)"
 
 
@@ -53,6 +54,6 @@ tip.gap   = "$ref(space.component-gap)"
 # 又明确它当前不可读、不可点。不使用整块底色遮罩, 以免在深色主题下反白刺眼。
 
 content.opacity = "$ref(opacity.secondary)"
-content.blur    = "1px"
+content.filter  = "blur(var(--spin-content-blur, 1px))"
 
 overlay.z-index = "$ref(z-index.float)"

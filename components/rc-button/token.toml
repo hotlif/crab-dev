@@ -9,9 +9,9 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-transition       = "transform 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1), background-color 100ms cubic-bezier(0.4, 0, 0.2, 1)"
-opacity.loading  = "0.65"
-opacity.disabled = "0.4"
+root.transition = "var(--button-transition, transform 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1), background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))"
+root.opacity-loading = "var(--button-opacity-loading, 0.65)"
+root.opacity-disabled = "var(--button-opacity-disabled, 0.4)"
 
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
@@ -19,8 +19,8 @@ opacity.disabled = "0.4"
 size.large.gap           = "$ref(space.component-gap)"
 size.large.height        = "40px"
 size.large.padding       = "0 $ref(space.control-padding-x)"
-size.large.border.radius = "$ref(radius.lg)"
-size.large.font.size     = "$ref(font.size.heading)"
+size.large.border-radius = "$ref(radius.lg)"
+size.large.font-size     = "$ref(font.size.heading)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
@@ -28,8 +28,8 @@ size.large.font.size     = "$ref(font.size.heading)"
 size.middle.gap           = "$ref(space.component-gap)"
 size.middle.height        = "32px"
 size.middle.padding       = "0 $ref(space.control-padding-x)"
-size.middle.border.radius = "$ref(radius.md)"
-size.middle.font.size     = "$ref(font.size.body)"
+size.middle.border-radius = "$ref(radius.md)"
+size.middle.font-size     = "$ref(font.size.body)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
@@ -37,17 +37,17 @@ size.middle.font.size     = "$ref(font.size.body)"
 size.small.gap           = "$ref(space.inline-gap)"
 size.small.height        = "24px"
 size.small.padding       = "0 $ref(space.control-padding-y)"
-size.small.border.radius = "$ref(radius.md)"
-size.small.font.size     = "$ref(font.size.body)"
+size.small.border-radius = "$ref(radius.md)"
+size.small.font-size     = "$ref(font.size.body)"
 
 
 # ─── Primary — 主按钮 ────────────────────────────────────────────────────────
 
 primary.color                   = "$ref(color.text.on-brand)"
-primary.background.color          = "$ref(color.brand.primary)"
-primary.background.color-disabled = "$ref(color.background.disabled)"
-primary.background.color-hover    = "$ref(color.brand.primary-hover)"
-primary.background.color-active   = "$ref(color.brand.primary-active)"
+primary.background-color          = "$ref(color.brand.primary)"
+primary.background-color-disabled = "$ref(color.background.disabled)"
+primary.background-color-hover    = "$ref(color.brand.primary-hover)"
+primary.background-color-active   = "$ref(color.brand.primary-active)"
 primary.box-shadow               = "none"
 
 
@@ -56,17 +56,17 @@ primary.box-shadow               = "none"
 link.color                   = "$ref(color.text.link)"
 link.color-hover             = "$ref(color.text.link-hover)"
 link.color-active            = "$ref(color.text.link)"
-link.background.color          = "transparent"
-link.background.color-disabled = "transparent"
-link.text.underline-offset   = "-4px"
-link.text.decoration.color   = "$ref(color.brand.primary)"
-link.text.decoration.width   = "2px"
+link.background-color          = "transparent"
+link.background-color-disabled = "transparent"
+link.text-underline-offset = "-4px"
+link.text-decoration-color   = "$ref(color.brand.primary)"
+link.text-decoration-width   = "2px"
 
 
 # ─── Text — 文本按钮 ─────────────────────────────────────────────────────────
 
-text.background.color-hover  = "$ref(color.background.hover-subtle)"
-text.background.color-active = "oklch(0 0 0 / 0.06)"
+text.background-color-hover  = "$ref(color.background.hover-subtle)"
+text.background-color-active = "$ref(color.background.active-subtle)"
 
 
 # ─── Dashed — 虚线按钮 ───────────────────────────────────────────────────────
@@ -74,8 +74,8 @@ text.background.color-active = "oklch(0 0 0 / 0.06)"
 dashed.color                   = "$ref(color.text.primary)"
 dashed.color-hover             = "$ref(color.text.primary)"
 dashed.color-active            = "$ref(color.text.primary)"
-dashed.background.color          = "$ref(color.background.surface)"
-dashed.background.color-disabled = "$ref(color.background.disabled)"
+dashed.background-color          = "$ref(color.background.surface)"
+dashed.background-color-disabled = "$ref(color.background.disabled)"
 dashed.box-shadow              = "none"
 dashed.border-width            = "1px"
 dashed.border-style            = "dashed"
@@ -89,8 +89,8 @@ dashed.border-color-active     = "$ref(color.text.primary)"
 subtle.color                   = "$ref(color.text.primary)"
 subtle.color-hover             = "$ref(color.text.primary)"
 subtle.color-active            = "$ref(color.text.primary)"
-subtle.background.color          = "$ref(color.background.surface)"
-subtle.background.color-disabled = "$ref(color.background.disabled)"
+subtle.background-color          = "$ref(color.background.surface)"
+subtle.background-color-disabled = "$ref(color.background.disabled)"
 subtle.border-width            = "1px"
 subtle.border-style            = "solid"
 subtle.border-color            = "$ref(color.border.default)"
@@ -101,19 +101,19 @@ subtle.box-shadow              = "none"
 
 # ─── Danger — 危险按钮 ───────────────────────────────────────────────────────
 
-danger.color                      = "$ref(color.text.on-brand)"
-danger.background.color           = "$ref(color.feedback.error)"
-danger.background.color-disabled  = "$ref(color.background.disabled)"
-danger.background.color-hover     = "oklch(0.577 0.245 25)"
-danger.background.color-active    = "oklch(0.505 0.213 26)"
+danger.color                      = "$ref(color.feedback.error.on-solid)"
+danger.background-color           = "$ref(color.feedback.error.solid)"
+danger.background-color-disabled  = "$ref(color.background.disabled)"
+danger.background-color-hover     = "$ref(color.feedback.error.solid-hover)"
+danger.background-color-active    = "$ref(color.feedback.error.solid-active)"
 danger.box-shadow                 = "none"
 
 
 # ─── Selected — 选中状态覆盖 ─────────────────────────────────────────────────
 
-selected.background.color = "$ref(color.brand.primary)"
-selected.color            = "$ref(color.text.on-brand)"
-selected.border-color     = "$ref(color.brand.primary)"
+root.background-color-selected = "var(--button-background-color-selected, var(--button-selected-background-color, $ref(color.brand.primary)))"
+root.color-selected = "var(--button-color-selected, var(--button-selected-color, $ref(color.text.on-brand)))"
+root.border-color-selected = "var(--button-border-color-selected, var(--button-selected-border-color, $ref(color.brand.primary)))"
 
 
 # ─── Shape — 形状变体 ────────────────────────────────────────────────────────

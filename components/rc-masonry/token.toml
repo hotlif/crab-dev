@@ -9,8 +9,8 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-transition = "transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)"
+root.transition = "var(--masonry-transition, transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms cubic-bezier(0.4, 0, 0.2, 1))"
 
 # ─── 间距 ────────────────────────────────────────────────────────────────────
 
-gutter = "$ref(space.component-gap)"
+root.gap = "var(--masonry-gutter, $ref(space.component-gap))"

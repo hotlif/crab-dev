@@ -22,7 +22,7 @@ export interface MasonryPropsSearchIndex {
     "columns"?: number;
 
     /**
-     * 子元素间距（像素），默认使用 token 中的 gutter 值。 传入数值时覆盖 token 默认值。
+     * 子元素间距（像素），默认使用 token 中的 `root.gap` 值。 传入数值时覆盖 token 默认值。
      */
     "gutter"?: number;
 

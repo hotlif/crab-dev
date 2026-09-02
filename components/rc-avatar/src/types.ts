@@ -52,7 +52,7 @@ export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
     shape?: AvatarShape;
     /** 最多显示的头像数量，超出部分折叠为 +N */
     max?: number;
-    /** 相邻头像之间的重叠量，负值表示重叠；传数字时单位为 px。默认使用 token 中定义的 `group.overlap` */
+    /** 相邻头像之间的重叠量，负值表示重叠；传数字时单位为 px。默认使用 token 中定义的 `group.margin` */
     spacing?: number | string;
     /** 自定义折叠计数的渲染内容；入参为隐藏数量与被隐藏的 Avatar 元素列表 */
     renderExtra?: (hiddenCount: number, hiddenAvatars: ReactElement<AvatarProps>[]) => ReactNode;

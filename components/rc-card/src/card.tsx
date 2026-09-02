@@ -21,10 +21,10 @@ const cardBaseStyle = css`
     box-sizing: border-box;
     overflow: hidden;
     border: 1px solid transparent;
-    border-radius: var(--rc-card-radius, ${token.size.middle.radius});
-    background-color: ${token.surface.background};
+    border-radius: var(--rc-card-radius, ${token.size.middle['border-radius']});
+    background-color: ${token.surface['background-color']};
     --rc-card-cover-scale: 1;
-    transition: ${token.motion.lift};
+    transition: ${token.root.transition};
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -33,33 +33,33 @@ const cardBaseStyle = css`
 
 // ─── 变体 ────────────────────────────────────────────────────────────────────
 const variantElevatedStyle = css`
-    box-shadow: ${token.elevation.rest};
+    box-shadow: ${token.root['box-shadow']};
 `;
 const variantOutlinedStyle = css`
-    border-color: ${token.border.color};
+    border-color: ${token.root['border-color']};
 `;
 const variantFilledStyle = css`
-    background-color: ${token.filled.background};
+    background-color: ${token.filled['background-color']};
 `;
 
 // ─── 尺寸（注入 CSS 变量，向所有区块子组件传导）─────────────────────────────
 const sizeLargeStyle = css`
     --rc-card-pad: ${token.size.large.padding};
     --rc-card-gap: ${token.size.large.gap};
-    --rc-card-radius: ${token.size.large.radius};
-    --rc-card-title-size: ${token.size.large['title-size']};
+    --rc-card-radius: ${token.size.large['border-radius']};
+    --rc-card-title-size: ${token.size.large.title['font-size']};
 `;
 const sizeMiddleStyle = css`
     --rc-card-pad: ${token.size.middle.padding};
     --rc-card-gap: ${token.size.middle.gap};
-    --rc-card-radius: ${token.size.middle.radius};
-    --rc-card-title-size: ${token.size.middle['title-size']};
+    --rc-card-radius: ${token.size.middle['border-radius']};
+    --rc-card-title-size: ${token.size.middle.title['font-size']};
 `;
 const sizeSmallStyle = css`
     --rc-card-pad: ${token.size.small.padding};
     --rc-card-gap: ${token.size.small.gap};
-    --rc-card-radius: ${token.size.small.radius};
-    --rc-card-title-size: ${token.size.small['title-size']};
+    --rc-card-radius: ${token.size.small['border-radius']};
+    --rc-card-title-size: ${token.size.small.title['font-size']};
 `;
 
 // ─── 悬浮轻浮起（hoverable / clickable 共用）─────────────────────────────────
@@ -68,8 +68,8 @@ const liftStyle = css`
     will-change: transform;
 
     &:hover {
-        transform: translateY(${token.lift.hover});
-        box-shadow: ${token.elevation.hover};
+        transform: ${token.root['transform-hover']};
+        box-shadow: ${token.root['box-shadow-hover']};
         --rc-card-cover-scale: 1.03;
     }
 
@@ -83,12 +83,12 @@ const liftStyle = css`
 // filled / outlined 在可交互时的悬浮底色与描边微调，补足各自的悬浮意符
 const filledInteractiveStyle = css`
     &:hover {
-        background-color: ${token.filled['background-hover']};
+        background-color: ${token.filled['background-color-hover']};
     }
 `;
 const outlinedInteractiveStyle = css`
     &:hover {
-        border-color: ${token.border['color-hover']};
+        border-color: ${token.root['border-color-hover']};
     }
 `;
 
@@ -99,14 +99,14 @@ const clickableStyle = css`
 
     /* 键盘焦点意符（forced-colors 下 outline 保留） */
     &:focus-visible {
-        outline: 2px solid ${token.focus.ring.color};
+        outline: 2px solid ${token.ring['color-focus']};
         outline-offset: 2px;
     }
 
     /* 按压回落，短促过渡更跟手 */
     &:active {
-        transform: translateY(${token.lift.active});
-        box-shadow: ${token.elevation.active};
+        transform: ${token.root['transform-active']};
+        box-shadow: ${token.root['box-shadow-active']};
         transition-duration: 80ms;
     }
 
@@ -121,7 +121,7 @@ const clickableStyle = css`
 // 根节点保留 not-allowed 光标作意符；内部阻断指针事件，连同卡内按钮一并失活。
 const disabledStyle = css`
     cursor: not-allowed;
-    opacity: ${token.disabled.opacity};
+    opacity: ${token.root['opacity-disabled']};
 
     & > * {
         pointer-events: none;

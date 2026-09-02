@@ -8,9 +8,9 @@ imports = [
 [token]
 
 # ─── 容器 ────────────────────────────────────────────────────────────────────
-font.size = "$ref(font.size.body)"
-line.height = "1.5"
-gap = "$ref(space.inline-gap)"
+root.font-size = "var(--breadcrumbs-font-size, $ref(font.size.body))"
+root.line-height = "var(--breadcrumbs-line-height, 1.5)"
+root.gap = "var(--breadcrumbs-gap, $ref(space.inline-gap))"
 
 # ─── 颜色 ────────────────────────────────────────────────────────────────────
 item.color = "$ref(color.text.secondary)"

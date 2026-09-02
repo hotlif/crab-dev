@@ -17,7 +17,7 @@ const baseStyle = css`
     line-height: 1;
     font-family: inherit;
     user-select: none;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -26,7 +26,7 @@ const baseStyle = css`
 
 const disabledStyle = css`
     &[aria-disabled='true'] {
-        opacity: ${token.disabled.opacity};
+        opacity: ${token.root['opacity-disabled']};
         cursor: not-allowed;
         pointer-events: none;
     }
@@ -36,12 +36,12 @@ const interactiveStyle = css`
     cursor: pointer;
 
     &:hover:not([aria-disabled='true']) {
-        box-shadow: 0 0 0 1px ${token.border.hover};
+        box-shadow: 0 0 0 1px ${token.root['border-color-hover']};
     }
 
     &:focus-visible {
         outline: none;
-        box-shadow: 0 0 0 2px ${token.focus.ring.color};
+        box-shadow: 0 0 0 2px ${token.ring['color-focus']};
     }
 
     &:active:not([aria-disabled='true']) {
@@ -56,7 +56,7 @@ const interactiveStyle = css`
 `;
 
 const borderedStyle = css`
-    border-color: ${token.border.color};
+    border-color: ${token.root['border-color']};
 `;
 
 const noBorderStyle = css`
@@ -68,50 +68,50 @@ const circleStyle = css`
 `;
 
 const squareStyle = css`
-    border-radius: ${token.shape.square.radius};
+    border-radius: ${token.shape.square['border-radius']};
 `;
 
 const sizeSmallStyle = css`
-    width: ${token.size.small.value};
-    height: ${token.size.small.value};
-    font-size: ${token.size.small.font.size};
+    width: ${token.size.small.width};
+    height: ${token.size.small.width};
+    font-size: ${token.size.small['font-size']};
 `;
 
 const sizeMiddleStyle = css`
-    width: ${token.size.middle.value};
-    height: ${token.size.middle.value};
-    font-size: ${token.size.middle.font.size};
+    width: ${token.size.middle.width};
+    height: ${token.size.middle.width};
+    font-size: ${token.size.middle['font-size']};
 `;
 
 const sizeLargeStyle = css`
-    width: ${token.size.large.value};
-    height: ${token.size.large.value};
-    font-size: ${token.size.large.font.size};
+    width: ${token.size.large.width};
+    height: ${token.size.large.width};
+    font-size: ${token.size.large['font-size']};
 `;
 
 const variantDefaultStyle = css`
     color: ${token.default.color};
-    background-color: ${token.default.background.color};
+    background-color: ${token.default['background-color']};
 `;
 
 const variantPrimaryStyle = css`
     color: ${token.primary.color};
-    background-color: ${token.primary.background.color};
+    background-color: ${token.primary['background-color']};
 `;
 
 const variantSuccessStyle = css`
     color: ${token.success.color};
-    background-color: ${token.success.background.color};
+    background-color: ${token.success['background-color']};
 `;
 
 const variantWarningStyle = css`
     color: ${token.warning.color};
-    background-color: ${token.warning.background.color};
+    background-color: ${token.warning['background-color']};
 `;
 
 const variantErrorStyle = css`
-    color: ${token.error.color};
-    background-color: ${token.error.background.color};
+    color: ${token.root['color-error']};
+    background-color: ${token.root['background-color-error']};
 `;
 
 const imageStyle = css`
@@ -149,7 +149,7 @@ const contentStyle = css`
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: uppercase;
-    font-weight: ${token.content.font.weight};
+    font-weight: ${token.content['font-weight']};
 `;
 
 const iconWrapStyle = css`
@@ -165,15 +165,15 @@ const iconWrapStyle = css`
 `;
 
 const iconSmallStyle = css`
-    font-size: ${token.icon.size.small};
+    font-size: ${token.icon.small['font-size']};
 `;
 
 const iconMiddleStyle = css`
-    font-size: ${token.icon.size.middle};
+    font-size: ${token.icon.middle['font-size']};
 `;
 
 const iconLargeStyle = css`
-    font-size: ${token.icon.size.large};
+    font-size: ${token.icon.large['font-size']};
 `;
 
 const shapeStyleMap: Record<AvatarShape, string> = {

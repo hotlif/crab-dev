@@ -15,9 +15,9 @@ const groupStyle = css`
 const itemBaseStyle = css`
     position: relative;
     display: inline-flex;
-    margin-left: var(--avatar-group-overlap, ${token.group.overlap});
+    margin-left: ${token.group.margin};
     transition: ${token.group.transition};
-    box-shadow: 0 0 0 ${token.group.item.ring.width} ${token.group.item.border.color};
+    box-shadow: 0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']};
 
     &:first-child {
         margin-left: 0;
@@ -25,7 +25,7 @@ const itemBaseStyle = css`
 
     &:hover {
         z-index: 10;
-        transform: translateY(${token.group.hover.translate.y});
+        transform: ${token.group['transform-hover']};
     }
 
     &:focus-within {
@@ -46,7 +46,7 @@ const itemCircleStyle = css`
 `;
 
 const itemSquareStyle = css`
-    border-radius: ${token.shape.square.radius};
+    border-radius: ${token.shape.square['border-radius']};
 `;
 
 const itemInteractiveStyle = css`
@@ -55,8 +55,8 @@ const itemInteractiveStyle = css`
     &:focus-visible {
         outline: none;
         box-shadow:
-            0 0 0 ${token.group.item.ring.width} ${token.group.item.border.color},
-            0 0 0 calc(${token.group.item.ring.width} + 2px) ${token.focus.ring.color};
+            0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']},
+            0 0 0 calc(${token.group.item.ring.width} + 2px) ${token.ring['color-focus']};
     }
 `;
 

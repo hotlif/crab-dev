@@ -12,8 +12,8 @@ const footerStyle = css`
     justify-content: flex-end;
     gap: ${token.footer.gap};
     margin-top: auto;
-    padding: ${token.footer['padding-y']} var(--rc-card-pad, ${token.size.middle.padding});
-    border-top: 1px solid ${token.footer['divider-color']};
+    padding: ${token.footer['padding-block']} var(--rc-card-pad, ${token.size.middle.padding});
+    border-top: 1px solid ${token.footer.divider['border-color']};
 `;
 
 const CardFooter = ({ children, className, ref, ...restProps }: CardFooterProps) => {

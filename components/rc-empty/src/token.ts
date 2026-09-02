@@ -7,7 +7,7 @@ import { defineTokens } from '@crab-dev/css';
 export const vars = defineTokens({
     'container.padding': '--empty-container-padding',
     'container.min-height': '--empty-container-min-height',
-    'image.size': '--empty-image-size',
+    'image.width': '--empty-image-width',
     'image.color': '--empty-image-color',
     'image.margin-bottom': '--empty-image-margin-bottom',
     'title.color': '--empty-title-color',
@@ -25,18 +25,18 @@ const token = defineTokens({
         'min-height': `var(${vars['container.min-height']}, 200px)`
     },
     'image': {
-        'size': `var(${vars['image.size']}, 80px)`,
-        'color': `var(${vars['image.color']}, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'width': `var(${vars['image.width']}, var(--empty-image-size, 80px))`,
+        'color': `var(${vars['image.color']}, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286)))))`,
         'margin-bottom': `var(${vars['image.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     },
     'title': {
-        'color': `var(${vars['title.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'color': `var(${vars['title.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
         'font-size': `var(${vars['title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,
         'font-weight': `var(${vars['title.font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
         'margin-bottom': `var(${vars['title.margin-bottom']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'description': {
-        'color': `var(${vars['description.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-400, oklch(0.760 0.012 286))))`,
+        'color': `var(${vars['description.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'font-size': `var(${vars['description.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`,
         'margin-bottom': `var(${vars['description.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     }

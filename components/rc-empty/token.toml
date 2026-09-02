@@ -15,8 +15,8 @@ container.min-height = "200px"
 
 # ─── 图像 ────────────────────────────────────────────────────────────────────
 
-image.size         = "80px"
-image.color        = "$ref(color.fill.inactive)"
+image.width        = "var(--empty-image-size, 80px)"
+image.color        = "$ref(color.fill.default)"
 image.margin-bottom = "$ref(space.stack-gap)"
 
 

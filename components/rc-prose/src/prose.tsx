@@ -1,39 +1,39 @@
 import { css, cx } from '@crab-dev/css';
 import type { Ref } from 'react';
 import type { ProseProps, ProseSize } from './types.js';
-import token from './token.js';
+import token, { vars } from './token.js';
 
 // ── 暗色模式覆写 ──────────────────────────────────────────────────────────────
 
 const invertStyle = css`
-    --prose-body:             oklch(1 0 0 / 0.82);
-    --prose-headings:         oklch(1 0 0 / 0.92);
-    --prose-lead-color:       oklch(1 0 0 / 0.60);
-    --prose-links:            oklch(0.720 0.165 254);
-    --prose-links-hover:      oklch(0.800 0.120 255);
-    --prose-bold:             oklch(1 0 0 / 0.92);
-    --prose-counters:         oklch(1 0 0 / 0.45);
-    --prose-bullets:          oklch(1 0 0 / 0.30);
-    --prose-hr-color:         oklch(0.373 0.016 261);
-    --prose-quotes:           oklch(1 0 0 / 0.85);
-    --prose-quote-borders:    oklch(0.373 0.016 261);
-    --prose-captions:         oklch(1 0 0 / 0.50);
-    --prose-code-color:       oklch(1 0 0 / 0.90);
-    --prose-code-bg:          oklch(1 0 0 / 0.08);
-    --prose-pre-color:        oklch(1 0 0 / 0.75);
-    --prose-pre-bg:           oklch(0 0 0 / 50%);
-    --prose-kbd-color:        oklch(1 0 0 / 0.90);
-    --prose-kbd-shadows:      oklch(0 0 0 / 25%);
-    --prose-th-borders:       oklch(1 0 0 / 0.15);
-    --prose-thead-bg:         oklch(1 0 0 / 0.05);
-    --prose-td-borders:       oklch(1 0 0 / 0.08);
+    ${vars["body.color"]}: ${token.inverse.body.color};
+    ${vars["heading.color"]}: ${token.inverse.heading.color};
+    ${vars["lead.color"]}: ${token.inverse.lead.color};
+    ${vars["link.color"]}: ${token.inverse.link.color};
+    ${vars["link.color-hover"]}: ${token.inverse.link["color-hover"]};
+    ${vars["strong.color"]}: ${token.inverse.strong.color};
+    ${vars["list.counter.color"]}: ${token.inverse.list.counter.color};
+    ${vars["list.bullet.color"]}: ${token.inverse.list.bullet.color};
+    ${vars["hr.border-color"]}: ${token.inverse.hr["border-color"]};
+    ${vars["blockquote.color"]}: ${token.inverse.blockquote.color};
+    ${vars["blockquote.border-color"]}: ${token.inverse.blockquote["border-color"]};
+    ${vars["caption.color"]}: ${token.inverse.caption.color};
+    ${vars["code.color"]}: ${token.inverse.code.color};
+    ${vars["code.background-color"]}: ${token.inverse.code["background-color"]};
+    ${vars["pre.color"]}: ${token.inverse.pre.color};
+    ${vars["pre.background-color"]}: ${token.inverse.pre["background-color"]};
+    ${vars["kbd.color"]}: ${token.inverse.kbd.color};
+    ${vars["kbd.box-shadow"]}: ${token.inverse.kbd["box-shadow"]};
+    ${vars["table.heading.border-color"]}: ${token.inverse.table.heading["border-color"]};
+    ${vars["table.heading.background-color"]}: ${token.inverse.table.heading["background-color"]};
+    ${vars["table.cell.border-color"]}: ${token.inverse.table.cell["border-color"]};
 `;
 
 // ── 基础结构样式（颜色、字重、装饰）─────────────────────────────────────────
 
 const baseStyle = css`
-    color: ${token['body']};
-    max-width: ${token['max-width']};
+    color: ${token.body.color};
+    max-width: ${token.root['max-width']};
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-kerning: normal;
@@ -46,20 +46,20 @@ const baseStyle = css`
 
     /* ── 链接 ── */
     :where(& a) {
-        color: ${token['links']};
+        color: ${token.link.color};
         text-decoration: none;
         font-weight: ${token['a']['font-weight']};
         transition: color 150ms ease;
 
         :where(&:hover) {
-            color: ${token['links-hover']};
+            color: ${token.link['color-hover']};
             text-decoration: underline;
         }
     }
 
     /* ── 粗体 ── */
     :where(& strong) {
-        color: ${token['bold']};
+        color: ${token.strong.color};
         font-weight: ${token['strong']['font-weight']};
     }
 
@@ -116,16 +116,16 @@ const baseStyle = css`
 
     :where(& ol > li::marker) {
         font-weight: ${token['marker']['font-weight']};
-        color: ${token['counters']};
+        color: ${token.list.counter.color};
     }
 
     :where(& ul > li::marker) {
-        color: ${token['bullets']};
+        color: ${token.list.bullet.color};
     }
 
     /* ── 标题 ── */
     :where(& h1) {
-        color: ${token['headings']};
+        color: ${token.heading.color};
         font-weight: ${token['h1']['font-weight']};
     }
 
@@ -135,7 +135,7 @@ const baseStyle = css`
     }
 
     :where(& h2) {
-        color: ${token['headings']};
+        color: ${token.heading.color};
         font-weight: ${token['h2']['font-weight']};
     }
 
@@ -145,7 +145,7 @@ const baseStyle = css`
     }
 
     :where(& h3) {
-        color: ${token['headings']};
+        color: ${token.heading.color};
         font-weight: ${token['h3']['font-weight']};
     }
 
@@ -155,7 +155,7 @@ const baseStyle = css`
     }
 
     :where(& h4) {
-        color: ${token['headings']};
+        color: ${token.heading.color};
         font-weight: ${token['h4']['font-weight']};
     }
 
@@ -166,21 +166,21 @@ const baseStyle = css`
 
     /* ── dt ── */
     :where(& dt) {
-        color: ${token['headings']};
+        color: ${token.heading.color};
         font-weight: ${token['dt']['font-weight']};
     }
 
     /* ── 分隔线 ── */
     :where(& hr) {
-        border-color: ${token['hr']['color']};
+        border-color: ${token.hr["border-color"]};
         border-top-width: 1px;
     }
 
     /* ── 引用 ── */
     :where(& blockquote) {
         font-weight: ${token['blockquote']['font-weight']};
-        color: ${token['quotes']};
-        border-inline-start: 0.25rem solid ${token['quote-borders']};
+        color: ${token.blockquote.color};
+        border-inline-start: 0.25rem solid ${token.blockquote["border-color"]};
         padding-inline-start: 1em;
     }
 
@@ -188,7 +188,7 @@ const baseStyle = css`
     :where(& code) {
         color: ${token['code']['color']};
         font-weight: ${token['code']['font-weight']};
-        background-color: ${token['code']['bg']};
+        background-color: ${token.code["background-color"]};
         border-radius: 0.3rem;
     }
 
@@ -205,7 +205,7 @@ const baseStyle = css`
     /* ── 代码块 ── */
     :where(& pre) {
         color: ${token['pre']['color']};
-        background-color: ${token['pre']['bg']};
+        background-color: ${token.pre["background-color"]};
         overflow-x: auto;
         font-weight: ${token['pre']['font-weight']};
     }
@@ -227,8 +227,7 @@ const baseStyle = css`
         font-weight: ${token['kbd']['font-weight']};
         font-family: inherit;
         color: ${token['kbd']['color']};
-        box-shadow: 0 0 0 1px ${token['kbd']['shadows']},
-                    0 3px 0 ${token['kbd']['shadows']};
+        box-shadow: ${token.kbd["box-shadow"]};
     }
 
     /* ── 表格 ── */
@@ -237,24 +236,24 @@ const baseStyle = css`
         table-layout: auto;
         border-collapse: separate;
         border-spacing: 0;
-        border: 1px solid ${token['td-borders']};
+        border: 1px solid ${token.table.cell["border-color"]};
         border-radius: 0.75rem;
         overflow: hidden;
     }
 
     :where(& thead) {
-        background-color: ${token['thead']['bg']};
+        background-color: ${token.table.heading["background-color"]};
     }
 
     :where(& thead th) {
-        color: ${token['headings']};
+        color: ${token.heading.color};
         font-weight: ${token['th']['font-weight']};
         vertical-align: bottom;
-        border-bottom: 1px solid ${token['th-borders']};
+        border-bottom: 1px solid ${token.table.heading["border-color"]};
     }
 
     :where(& tbody tr) {
-        border-bottom: 1px solid ${token['td-borders']};
+        border-bottom: 1px solid ${token.table.cell["border-color"]};
     }
 
     :where(& tbody tr:last-child) {
@@ -266,7 +265,7 @@ const baseStyle = css`
     }
 
     :where(& tfoot) {
-        border-top: 1px solid ${token['th-borders']};
+        border-top: 1px solid ${token.table.heading["border-color"]};
     }
 
     :where(& tfoot td) {
@@ -294,7 +293,7 @@ const baseStyle = css`
     }
 
     :where(& figcaption) {
-        color: ${token['captions']};
+        color: ${token.caption.color};
     }
 `;
 

@@ -17,8 +17,8 @@ const prismCustomStyle = {
     margin: 0,
     padding: `${token.source['padding-block']} 0`,
     background: 'transparent',
-    fontSize: token.source.font.size,
-    fontFamily: token.source.font.family,
+    fontSize: token.source['font-size'],
+    fontFamily: token.source['font-family'],
     lineHeight: token.source['line-height'],
     tabSize: token.source['tab-size'],
     MozTabSize: token.source['tab-size'],
@@ -27,8 +27,8 @@ const prismCustomStyle = {
 
 const prismCodeTagProps = {
     style: {
-        fontFamily: token.source.font.family,
-        fontSize: token.source.font.size,
+        fontFamily: token.source['font-family'],
+        fontSize: token.source['font-size'],
         lineHeight: token.source['line-height'],
     },
 } as const;

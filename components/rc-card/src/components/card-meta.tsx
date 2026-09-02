@@ -17,7 +17,7 @@ const avatarStyle = css`
 const textStyle = css`
     display: flex;
     flex-direction: column;
-    gap: ${token.meta['text-gap']};
+    gap: ${token.meta.text.gap};
     min-width: 0;
 `;
 
@@ -25,15 +25,15 @@ const titleStyle = css`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: ${token.meta['title-color']};
-    font-size: ${token.meta['title-size']};
-    font-weight: ${token.meta['title-weight']};
+    color: ${token.meta.title.color};
+    font-size: ${token.meta.title['font-size']};
+    font-weight: ${token.meta.title['font-weight']};
     line-height: 1.5;
 `;
 
 const descriptionStyle = css`
-    color: ${token.meta['desc-color']};
-    font-size: ${token.meta['desc-size']};
+    color: ${token.meta.desc.color};
+    font-size: ${token.meta.desc['font-size']};
     line-height: 1.5;
 `;
 

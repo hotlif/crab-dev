@@ -20,9 +20,9 @@ const titleStyle = css`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: ${token.header['title-color']};
-    font-size: var(--rc-card-title-size, ${token.size.middle['title-size']});
-    font-weight: ${token.header['title-weight']};
+    color: ${token.header.title.color};
+    font-size: var(--rc-card-title-size, ${token.size.middle.title['font-size']});
+    font-weight: ${token.header.title['font-weight']};
     line-height: 1.4;
 `;
 

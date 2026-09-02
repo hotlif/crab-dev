@@ -35,20 +35,20 @@ const OPPOSITE_SIDE: Record<string, string> = {
 // ─── 样式 ────────────────────────────────────────────────────────────────────
 
 const containerStyle = css`
-    z-index: ${token['z-index']};
+    z-index: ${token.root['z-index']};
     pointer-events: none;
 `;
 
 const tooltipStyle = css`
     position: relative;
     box-sizing: border-box;
-    max-width: ${token['max-width']};
-    padding: ${token['padding-y']} ${token['padding-x']};
-    background-color: ${token['background-color']};
-    color: ${token.color};
-    font-size: ${token['font-size']};
-    line-height: ${token['line-height']};
-    border-radius: ${token['border-radius']};
+    max-width: ${token.root['max-width']};
+    padding: ${token.root['padding-block']} ${token.root['padding-inline']};
+    background-color: ${token.root['background-color']};
+    color: ${token.root.color};
+    font-size: ${token.root['font-size']};
+    line-height: ${token.root['line-height']};
+    border-radius: ${token.root['border-radius']};
     word-wrap: break-word;
 `;
 
@@ -58,7 +58,7 @@ const arrowBaseStyle = css`
     position: absolute;
     width: ${ARROW_SIZE}px;
     height: ${ARROW_SIZE}px;
-    background: ${token['background-color']};
+    background: ${token.root['background-color']};
     transform: rotate(45deg);
 `;
 

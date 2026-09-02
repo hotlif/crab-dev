@@ -12,3 +12,4 @@ export type {
 } from './types.js';
 
 export default Card;
+export { vars as TokenVars } from './token.js';

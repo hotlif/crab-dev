@@ -12,17 +12,17 @@ import type { SpinSize } from './types.js';
  */
 
 const sizeSmallStyle = css`
-    --rc-spin-size: ${token.size.small.size};
+    --rc-spin-size: ${token.size.small.width};
     --rc-spin-font-size: ${token.size.small['font-size']};
 `;
 
 const sizeMiddleStyle = css`
-    --rc-spin-size: ${token.size.middle.size};
+    --rc-spin-size: ${token.size.middle.width};
     --rc-spin-font-size: ${token.size.middle['font-size']};
 `;
 
 const sizeLargeStyle = css`
-    --rc-spin-size: ${token.size.large.size};
+    --rc-spin-size: ${token.size.large.width};
     --rc-spin-font-size: ${token.size.large['font-size']};
 `;
 
@@ -36,9 +36,9 @@ export const sizeStyleOf = (size: SpinSize): string => {
 
 const ringStyle = css`
     display: block;
-    inline-size: var(--rc-spin-size, ${token.size.middle.size});
-    block-size: var(--rc-spin-size, ${token.size.middle.size});
-    animation: rc-spin-rotate ${token.motion.duration} ${token.motion.easing} infinite;
+    inline-size: var(--rc-spin-size, ${token.size.middle.width});
+    block-size: var(--rc-spin-size, ${token.size.middle.width});
+    animation: rc-spin-rotate ${token.indicator['animation-duration']} ${token.indicator['animation-timing-function']} infinite;
 
     @keyframes rc-spin-rotate {
         to {
@@ -52,7 +52,7 @@ const ringStyle = css`
             opacity: 1;
         }
         50% {
-            opacity: ${token.motion['reduced-opacity']};
+            opacity: ${token.indicator['reduced-motion'].opacity};
         }
     }
 
@@ -61,23 +61,23 @@ const ringStyle = css`
        保留"仍在进行"的意符。 */
     @media (prefers-reduced-motion: reduce) {
         animation-name: rc-spin-breathe;
-        animation-duration: ${token.motion['reduced-duration']};
+        animation-duration: ${token.indicator['reduced-motion']['animation-duration']};
         animation-timing-function: ease-in-out;
     }
 `;
 
 const ringTrackStyle = css`
     fill: none;
-    stroke: ${token.ring['track-color']};
+    stroke: ${token.ring.track.stroke};
     stroke-width: ${token.ring['stroke-width']};
 `;
 
 const ringIndicatorStyle = css`
     fill: none;
-    stroke: ${token.ring['indicator-color']};
+    stroke: ${token.ring.indicator.stroke};
     stroke-width: ${token.ring['stroke-width']};
     stroke-linecap: round;
-    stroke-dasharray: ${token.ring.dash};
+    stroke-dasharray: ${token.ring['stroke-dasharray']};
 
     /* 强制配色下自定义描边被抹除, 用系统高亮色保住"高亮弧"与底环的区分 */
     @media (forced-colors: active) {

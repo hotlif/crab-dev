@@ -9,13 +9,13 @@ imports = [
 
 # ─── 颜色 ───────────────────────────────────────────────────────────────────
 # 底色选用最浅的中性灰，高亮色稍深，形成低饱和、弱对比的占位观感
-color.background = "$ref(color.background.hover-subtle)"
-color.highlight  = "$ref(color.background.active-subtle)"
+root.background-color = "var(--skeleton-background-color, var(--skeleton-color-background, $ref(color.background.hover-subtle)))"
+wave.background-color = "var(--skeleton-color-highlight, $ref(color.background.active-subtle))"
 
 # ─── 圆角 ───────────────────────────────────────────────────────────────────
-radius.default = "$ref(radius.md)"
-radius.text    = "$ref(radius.sm)"
-radius.pill    = "$ref(radius.pill)"
+item.border-radius = "var(--skeleton-radius-default, $ref(radius.md))"
+text.border-radius = "var(--skeleton-radius-text, $ref(radius.sm))"
+pill.border-radius = "var(--skeleton-radius-pill, $ref(radius.pill))"
 
 # ─── 文本行 · 尺寸阶梯 ─────────────────────────────────────────────────────
 text.size.small.height  = "12px"
@@ -28,16 +28,16 @@ text.last-row.width     = "65%"
 # ─── 矩形 / 圆形默认尺寸 ────────────────────────────────────────────────────
 rect.default.width  = "100%"
 rect.default.height = "120px"
-circle.default.size = "40px"
+circle.default.width = "var(--skeleton-circle-default-size, 40px)"
 button.default.width  = "88px"
 button.default.height = "32px"
-avatar.default.size   = "40px"
+avatar.default.width = "var(--skeleton-avatar-default-size, 40px)"
 
 # ─── 动效 ───────────────────────────────────────────────────────────────────
-animation.pulse.duration = "1600ms"
-animation.pulse.easing   = "cubic-bezier(0.4, 0, 0.6, 1)"
-animation.pulse.opacity-min = "$ref(opacity.secondary)"
-animation.pulse.opacity-max = "1"
+animation.pulse.animation-duration = "var(--skeleton-animation-pulse-duration, 1600ms)"
+animation.pulse.animation-timing-function = "var(--skeleton-animation-pulse-easing, cubic-bezier(0.4, 0, 0.6, 1))"
+animation.pulse.minimum.opacity = "var(--skeleton-animation-pulse-opacity-min, $ref(opacity.secondary))"
+animation.pulse.maximum.opacity = "var(--skeleton-animation-pulse-opacity-max, 1)"
 
-animation.wave.duration  = "1600ms"
-animation.wave.easing    = "cubic-bezier(0.4, 0, 0.2, 1)"
+animation.wave.animation-duration = "var(--skeleton-animation-wave-duration, 1600ms)"
+animation.wave.animation-timing-function = "var(--skeleton-animation-wave-easing, cubic-bezier(0.4, 0, 0.2, 1))"

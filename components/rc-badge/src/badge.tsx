@@ -13,7 +13,7 @@ const statusWrapStyle = css`
     align-items: center;
     gap: ${token.status.text.gap};
     color: ${token.status.text.color};
-    font-size: ${token.status.text.font.size};
+    font-size: ${token.status.text['font-size']};
     line-height: 1.5;
     vertical-align: middle;
 `;
@@ -39,7 +39,7 @@ const indicatorPositionedStyle = css`
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(${token.offset.x}, ${token.offset.y});
+    transform: ${token.indicator.transform};
     transform-origin: 100% 0%;
     z-index: 1;
     pointer-events: none;
@@ -55,12 +55,12 @@ const countBaseStyle = css`
     justify-content: center;
     box-sizing: border-box;
     color: ${token.count.color};
-    background-color: ${token.count.background.color};
-    font-weight: ${token.count.font.weight};
+    background-color: ${token.count['background-color']};
+    font-weight: ${token.count['font-weight']};
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
     line-height: 1;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 `;
 
 const countBorderStyle = css`
@@ -72,7 +72,7 @@ const countSizeDefaultStyle = css`
     min-width: ${token.size.default['min-width']};
     padding: ${token.size.default.padding};
     border-radius: calc(${token.size.default.height} / 2);
-    font-size: ${token.size.default.font.size};
+    font-size: ${token.size.default['font-size']};
 `;
 
 const countSizeSmallStyle = css`
@@ -80,7 +80,7 @@ const countSizeSmallStyle = css`
     min-width: ${token.size.small['min-width']};
     padding: ${token.size.small.padding};
     border-radius: calc(${token.size.small.height} / 2);
-    font-size: ${token.size.small.font.size};
+    font-size: ${token.size.small['font-size']};
 `;
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -91,19 +91,19 @@ const dotBaseStyle = css`
     display: inline-block;
     box-sizing: border-box;
     border-radius: 50%;
-    background-color: ${token.count.background.color};
-    transition: ${token.transition};
+    background-color: ${token.count['background-color']};
+    transition: ${token.root.transition};
     flex-shrink: 0;
 `;
 
 const dotSizeDefaultStyle = css`
-    width: ${token.dot.size.default};
-    height: ${token.dot.size.default};
+    width: ${token.dot.default.width};
+    height: ${token.dot.default.width};
 `;
 
 const dotSizeSmallStyle = css`
-    width: ${token.dot.size.small};
-    height: ${token.dot.size.small};
+    width: ${token.dot.small.width};
+    height: ${token.dot.small.width};
 `;
 
 const dotBorderStyle = css`
@@ -131,7 +131,7 @@ const colorWarningStyle = css`
 `;
 
 const colorErrorStyle = css`
-    background-color: ${token.status.error.color};
+    background-color: ${token.status['color-error']};
 `;
 
 const PRESET_COLOR_MAP: Record<BadgePresetColor, string> = {

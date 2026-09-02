@@ -10,7 +10,7 @@ const baseStyle = css`
     white-space: nowrap;
     line-height: 1;
     vertical-align: middle;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
     border: 1px solid transparent;
     font-family: inherit;
 `;
@@ -21,7 +21,7 @@ const noBorderStyle = css`
 
 const primaryColorStyle = css`
     color: ${token.primary.color};
-    background-color: ${token.primary.background.color};
+    background-color: ${token.primary['background-color']};
 `;
 
 const primaryBorderStyle = css`
@@ -30,7 +30,7 @@ const primaryBorderStyle = css`
 
 const successColorStyle = css`
     color: ${token.success.color};
-    background-color: ${token.success.background.color};
+    background-color: ${token.success['background-color']};
 `;
 
 const successBorderStyle = css`
@@ -39,7 +39,7 @@ const successBorderStyle = css`
 
 const warningColorStyle = css`
     color: ${token.warning.color};
-    background-color: ${token.warning.background.color};
+    background-color: ${token.warning['background-color']};
 `;
 
 const warningBorderStyle = css`
@@ -47,17 +47,17 @@ const warningBorderStyle = css`
 `;
 
 const errorColorStyle = css`
-    color: ${token.error.color};
-    background-color: ${token.error.background.color};
+    color: ${token.root['color-error']};
+    background-color: ${token.root['background-color-error']};
 `;
 
 const errorBorderStyle = css`
-    border-color: ${token.error['border-color']};
+    border-color: ${token.root['border-color-error']};
 `;
 
 const defaultColorStyle = css`
     color: ${token.default.color};
-    background-color: ${token.default.background.color};
+    background-color: ${token.default['background-color']};
 `;
 
 const defaultBorderStyle = css`
@@ -110,26 +110,26 @@ const Tag: FC<TagProps> = ({
     const getSizeStyle = () => {
         if (size === 'large') {
             return css`
-                font-size: ${token.size.large.font.size};
+                font-size: ${token.size.large['font-size']};
                 padding: ${token.size.large.padding};
                 height: ${token.size.large.height};
-                border-radius: ${token.size.large.border.radius};
+                border-radius: ${token.size.large['border-radius']};
                 gap: ${token.size.large.gap};
             `;
         } else if (size === 'small') {
             return css`
-                font-size: ${token.size.small.font.size};
+                font-size: ${token.size.small['font-size']};
                 padding: ${token.size.small.padding};
                 height: ${token.size.small.height};
-                border-radius: ${token.size.small.border.radius};
+                border-radius: ${token.size.small['border-radius']};
                 gap: ${token.size.small.gap};
             `;
         } else {
             return css`
-                font-size: ${token.size.middle.font.size};
+                font-size: ${token.size.middle['font-size']};
                 padding: ${token.size.middle.padding};
                 height: ${token.size.middle.height};
-                border-radius: ${token.size.middle.border.radius};
+                border-radius: ${token.size.middle['border-radius']};
                 gap: ${token.size.middle.gap};
             `;
         }
@@ -157,8 +157,8 @@ const Tag: FC<TagProps> = ({
             <svg
                 viewBox="0 0 1024 1024"
                 focusable="false"
-                width={token.close.size}
-                height={token.close.size}
+                width={token.close.width}
+                height={token.close.width}
                 fill="currentColor"
                 aria-hidden="true"
             >

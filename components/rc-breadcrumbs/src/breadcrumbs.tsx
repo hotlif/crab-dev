@@ -4,8 +4,8 @@ import token from './token.js';
 import type { BreadcrumbsItem, BreadcrumbsProps } from './types.js';
 
 const rootStyle = css`
-    font-size: ${token.font.size};
-    line-height: ${token.line.height};
+    font-size: ${token.root['font-size']};
+    line-height: ${token.root['line-height']};
 `;
 
 const listStyle = css`
@@ -15,7 +15,7 @@ const listStyle = css`
     margin: 0;
     padding: 0;
     list-style: none;
-    gap: ${token.gap};
+    gap: ${token.root.gap};
 `;
 
 const itemStyle = css`

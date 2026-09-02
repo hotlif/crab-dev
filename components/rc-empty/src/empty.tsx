@@ -79,7 +79,7 @@ const PRESET_ILLUSTRATIONS: Record<EmptyPreset, FC<{ width?: string | number; he
 const Empty: FC<EmptyProps> = ({
     preset = 'default',
     image,
-    imageSize = token.image.size,
+    imageSize = token.image.width,
     title,
     description,
     action,
