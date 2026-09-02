@@ -32,14 +32,14 @@ const normalize = (presets: ColorPreset[]): PresetGroup[] => {
 };
 
 const swatchStyle = css`
-    width: ${token.swatch.size};
-    height: ${token.swatch.size};
+    width: ${token.swatch.width};
+    height: ${token.swatch.width};
     padding: 0;
-    border: 1px solid ${token.swatch.border.color};
-    border-radius: ${token.swatch.border.radius};
+    border: 1px solid ${token.swatch['border-color']};
+    border-radius: ${token.swatch['border-radius']};
     cursor: pointer;
     &:focus-visible {
-        outline: 2px solid ${token.trigger.focus.color};
+        outline: 2px solid ${token.trigger.ring['color-focus']};
         outline-offset: 1px;
     }
 `;

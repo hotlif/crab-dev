@@ -9,7 +9,7 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+control.transition = "var(--checkbox-root-transition, var(--checkbox-transition, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────
@@ -20,63 +20,63 @@ group.gap           = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.box.size          = "20px"
-size.large.box.border.radius = "$ref(radius.sm)"
-size.large.icon.size         = "14px"
-size.large.label.font.size   = "$ref(font.size.heading)"
+size.large.box.width         = "var(--checkbox-size-large-box-size, 20px)"
+size.large.box.border-radius = "$ref(radius.sm)"
+size.large.icon.width        = "var(--checkbox-size-large-icon-size, 14px)"
+size.large.label.font-size   = "$ref(font.size.heading)"
 size.large.indeterminate.width  = "10px"
 size.large.indeterminate.height = "2px"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.box.size          = "16px"
-size.middle.box.border.radius = "$ref(radius.sm)"
-size.middle.icon.size         = "12px"
-size.middle.label.font.size   = "$ref(font.size.body)"
+size.middle.box.width         = "var(--checkbox-size-middle-box-size, 16px)"
+size.middle.box.border-radius = "$ref(radius.sm)"
+size.middle.icon.width        = "var(--checkbox-size-middle-icon-size, 12px)"
+size.middle.label.font-size   = "$ref(font.size.body)"
 size.middle.indeterminate.width  = "8px"
 size.middle.indeterminate.height = "2px"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.box.size          = "14px"
-size.small.box.border.radius = "$ref(radius.sm)"
-size.small.icon.size         = "10px"
-size.small.label.font.size   = "$ref(font.size.body)"
+size.small.box.width         = "var(--checkbox-size-small-box-size, 14px)"
+size.small.box.border-radius = "$ref(radius.sm)"
+size.small.icon.width        = "var(--checkbox-size-small-icon-size, 10px)"
+size.small.label.font-size   = "$ref(font.size.body)"
 size.small.indeterminate.width  = "6px"
 size.small.indeterminate.height = "2px"
 
 
 # ─── 默认状态 ────────────────────────────────────────────────────────────────
 
-border.width         = "1px"
-border.style         = "solid"
-border.color         = "$ref(color.border.default)"
-border.color-hover   = "$ref(color.border.hover)"
-background.color     = "$ref(color.background.surface)"
+control.border-width = "var(--checkbox-root-border-width, var(--checkbox-border-width, 1px))"
+control.border-style = "var(--checkbox-root-border-style, var(--checkbox-border-style, solid))"
+control.border-color = "var(--checkbox-root-border-color, var(--checkbox-border-color, $ref(color.border.default)))"
+control.border-color-hover = "var(--checkbox-root-border-color-hover, var(--checkbox-border-color-hover, $ref(color.border.hover)))"
+control.background-color = "var(--checkbox-root-background-color, var(--checkbox-background-color, $ref(color.background.surface)))"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
 
-checked.background.color       = "$ref(color.brand.primary)"
-checked.background.color-hover = "$ref(color.brand.primary-hover)"
-checked.border.color           = "$ref(color.brand.primary)"
-checked.icon.color             = "$ref(color.text.on-brand)"
+control.checked.background-color = "var(--checkbox-root-background-color-checked, var(--checkbox-background-color-checked, var(--checkbox-checked-background-color, $ref(color.brand.primary))))"
+control.checked.background-color-hover = "var(--checkbox-root-background-color-hover-checked, var(--checkbox-background-color-hover-checked, var(--checkbox-checked-background-color-hover, $ref(color.brand.primary-hover))))"
+control.checked.border-color = "var(--checkbox-root-border-color-checked, var(--checkbox-border-color-checked, var(--checkbox-checked-border-color, $ref(color.brand.primary))))"
+icon.checked.color = "var(--checkbox-icon-color-checked, var(--checkbox-checked-icon-color, $ref(color.text.on-brand)))"
 
 
 # ─── 半选状态 ────────────────────────────────────────────────────────────────
 
-indeterminate.background.color = "$ref(color.brand.primary)"
-indeterminate.border.color     = "$ref(color.brand.primary)"
-indeterminate.icon.color       = "$ref(color.text.on-brand)"
+control.indeterminate.background-color = "var(--checkbox-root-background-color-indeterminate, var(--checkbox-background-color-indeterminate, var(--checkbox-indeterminate-background-color, $ref(color.brand.primary))))"
+control.indeterminate.border-color = "var(--checkbox-root-border-color-indeterminate, var(--checkbox-border-color-indeterminate, var(--checkbox-indeterminate-border-color, $ref(color.brand.primary))))"
+icon.indeterminate.color = "var(--checkbox-icon-color-indeterminate, var(--checkbox-indeterminate-icon-color, $ref(color.text.on-brand)))"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-disabled.background.color = "$ref(color.background.disabled)"
-disabled.border.color     = "$ref(color.border.default)"
-disabled.icon.color       = "$ref(color.text.disabled)"
+control.background-color-disabled = "var(--checkbox-root-background-color-disabled, var(--checkbox-background-color-disabled, var(--checkbox-disabled-background-color, $ref(color.background.disabled))))"
+control.border-color-disabled = "var(--checkbox-root-border-color-disabled, var(--checkbox-border-color-disabled, var(--checkbox-disabled-border-color, $ref(color.border.default))))"
+icon.color-disabled       = "var(--checkbox-disabled-icon-color, $ref(color.text.disabled))"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────

@@ -39,44 +39,44 @@ const boxStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-width: ${token.border.width};
-    border-style: ${token.border.style};
-    border-color: ${token.border.color};
+    border-width: ${token.control['border-width']};
+    border-style: ${token.control['border-style']};
+    border-color: ${token.control['border-color']};
     border-radius: 50%;
-    background-color: ${token.background.color};
-    transition: ${token.transition};
+    background-color: ${token.control['background-color']};
+    transition: ${token.control.transition};
     flex-shrink: 0;
 
     &:hover {
-        border-color: ${token.border['color-hover']};
+        border-color: ${token.control['border-color-hover']};
     }
 `;
 
 const boxCheckedStyle = css`
-    background-color: ${token.checked.background.color};
-    border-color: ${token.checked.border.color};
+    background-color: ${token.control.checked['background-color']};
+    border-color: ${token.control.checked['border-color']};
 
     &:hover {
-        background-color: ${token.checked.background['color-hover']};
+        background-color: ${token.control.checked['background-color-hover']};
     }
 `;
 
 const boxDisabledStyle = css`
-    background-color: ${token.disabled.background.color};
-    border-color: ${token.disabled.border.color};
+    background-color: ${token.control['background-color-disabled']};
+    border-color: ${token.control['border-color-disabled']};
 
     &:hover {
-        border-color: ${token.disabled.border.color};
+        border-color: ${token.control['border-color-disabled']};
     }
 `;
 
 const dotStyle = css`
     border-radius: 50%;
-    background-color: ${token.checked.dot.color};
+    background-color: ${token.dot.checked.color};
 `;
 
 const dotDisabledStyle = css`
-    background-color: ${token.disabled.dot.color};
+    background-color: ${token.dot['color-disabled']};
 `;
 
 const Radio: FC<RadioProps> = ({
@@ -97,43 +97,43 @@ const Radio: FC<RadioProps> = ({
         if (size === 'large') {
             return {
                 wrapper: css`
-                    font-size: ${token.size.large.label.font.size};
+                    font-size: ${token.size.large.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.large.box.size};
-                    height: ${token.size.large.box.size};
+                    width: ${token.size.large.box.width};
+                    height: ${token.size.large.box.width};
                 `,
                 dot: css`
-                    width: ${token.size.large.dot.size};
-                    height: ${token.size.large.dot.size};
+                    width: ${token.size.large.dot.width};
+                    height: ${token.size.large.dot.width};
                 `,
             };
         } else if (size === 'small') {
             return {
                 wrapper: css`
-                    font-size: ${token.size.small.label.font.size};
+                    font-size: ${token.size.small.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.small.box.size};
-                    height: ${token.size.small.box.size};
+                    width: ${token.size.small.box.width};
+                    height: ${token.size.small.box.width};
                 `,
                 dot: css`
-                    width: ${token.size.small.dot.size};
-                    height: ${token.size.small.dot.size};
+                    width: ${token.size.small.dot.width};
+                    height: ${token.size.small.dot.width};
                 `,
             };
         } else {
             return {
                 wrapper: css`
-                    font-size: ${token.size.middle.label.font.size};
+                    font-size: ${token.size.middle.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.middle.box.size};
-                    height: ${token.size.middle.box.size};
+                    width: ${token.size.middle.box.width};
+                    height: ${token.size.middle.box.width};
                 `,
                 dot: css`
-                    width: ${token.size.middle.dot.size};
-                    height: ${token.size.middle.dot.size};
+                    width: ${token.size.middle.dot.width};
+                    height: ${token.size.middle.dot.width};
                 `,
             };
         }

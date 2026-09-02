@@ -25,7 +25,7 @@ const rootStyle = css`
     flex-direction: column;
     flex-shrink: 0;
     height: 1.6em;
-    border-radius: ${token.stepper.radius};
+    border-radius: ${token.stepper['border-radius']};
     overflow: hidden;
 `;
 
@@ -41,17 +41,17 @@ const halfStyle = css`
     background: transparent;
     color: ${token.stepper.color};
     cursor: pointer;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
     & > svg {
-        width: 0.7em;
-        height: 0.7em;
+        width: ${token.stepper.icon.width};
+        height: ${token.stepper.icon.width};
     }
     &:hover:not(:disabled) {
         color: ${token.stepper['color-hover']};
-        background-color: ${token.stepper['background-hover']};
+        background-color: ${token.stepper['background-color-hover']};
     }
     &:active:not(:disabled) {
-        background-color: ${token.stepper['background-active']};
+        background-color: ${token.stepper['background-color-active']};
     }
     &:disabled {
         cursor: not-allowed;

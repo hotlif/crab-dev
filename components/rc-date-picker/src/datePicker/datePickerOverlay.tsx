@@ -32,7 +32,7 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
             />
             <div
                 className={css`
-                    margin-top: ${token.action.bar.margin.top};
+                    margin-top: ${token.action.bar["margin-top"]};
                     display: flex;
                     justify-content: flex-end;
                     gap: ${token.action.bar.gap};

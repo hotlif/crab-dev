@@ -22,7 +22,7 @@ const hostStyle = css`
 
 /* 远程内容就绪淡入：只是修饰, reduce 下移除；加载中反馈由 rc-spin 承担 */
 const appearStyle = css`
-    animation: rc-realm-appear ${token.motion.appear} both;
+    animation: rc-realm-appear ${token.root.animation} both;
 
     @keyframes rc-realm-appear {
         from {

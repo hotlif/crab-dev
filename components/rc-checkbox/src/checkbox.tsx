@@ -39,52 +39,52 @@ const boxStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-width: ${token.border.width};
-    border-style: ${token.border.style};
-    border-color: ${token.border.color};
-    background-color: ${token.background.color};
-    transition: ${token.transition};
+    border-width: ${token.control['border-width']};
+    border-style: ${token.control['border-style']};
+    border-color: ${token.control['border-color']};
+    background-color: ${token.control['background-color']};
+    transition: ${token.control.transition};
     flex-shrink: 0;
 
     &:hover {
-        border-color: ${token.border['color-hover']};
+        border-color: ${token.control['border-color-hover']};
     }
 `;
 
 const boxCheckedStyle = css`
-    background-color: ${token.checked.background.color};
-    border-color: ${token.checked.border.color};
+    background-color: ${token.control.checked['background-color']};
+    border-color: ${token.control.checked['border-color']};
 
     &:hover {
-        background-color: ${token.checked.background['color-hover']};
+        background-color: ${token.control.checked['background-color-hover']};
     }
 `;
 
 const boxIndeterminateStyle = css`
-    background-color: ${token.indeterminate.background.color};
-    border-color: ${token.indeterminate.border.color};
+    background-color: ${token.control.indeterminate['background-color']};
+    border-color: ${token.control.indeterminate['border-color']};
 `;
 
 const boxDisabledStyle = css`
-    background-color: ${token.disabled.background.color};
-    border-color: ${token.disabled.border.color};
+    background-color: ${token.control['background-color-disabled']};
+    border-color: ${token.control['border-color-disabled']};
 
     &:hover {
-        border-color: ${token.disabled.border.color};
+        border-color: ${token.control['border-color-disabled']};
     }
 `;
 
 const checkIconStyle = css`
-    color: ${token.checked.icon.color};
+    color: ${token.icon.checked.color};
 `;
 
 const indeterminateIconStyle = css`
-    background-color: ${token.indeterminate.icon.color};
+    background-color: ${token.icon.indeterminate.color};
     border-radius: 1px;
 `;
 
 const disabledIconStyle = css`
-    color: ${token.disabled.icon.color};
+    color: ${token.icon['color-disabled']};
 `;
 
 const Checkbox: FC<CheckboxProps> = ({
@@ -107,16 +107,16 @@ const Checkbox: FC<CheckboxProps> = ({
         if (size === 'large') {
             return {
                 wrapper: css`
-                    font-size: ${token.size.large.label.font.size};
+                    font-size: ${token.size.large.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.large.box.size};
-                    height: ${token.size.large.box.size};
-                    border-radius: ${token.size.large.box.border.radius};
+                    width: ${token.size.large.box.width};
+                    height: ${token.size.large.box.width};
+                    border-radius: ${token.size.large.box['border-radius']};
                 `,
                 icon: css`
-                    width: ${token.size.large.icon.size};
-                    height: ${token.size.large.icon.size};
+                    width: ${token.size.large.icon.width};
+                    height: ${token.size.large.icon.width};
                 `,
                 indeterminate: css`
                     width: ${token.size.large.indeterminate.width};
@@ -126,16 +126,16 @@ const Checkbox: FC<CheckboxProps> = ({
         } else if (size === 'small') {
             return {
                 wrapper: css`
-                    font-size: ${token.size.small.label.font.size};
+                    font-size: ${token.size.small.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.small.box.size};
-                    height: ${token.size.small.box.size};
-                    border-radius: ${token.size.small.box.border.radius};
+                    width: ${token.size.small.box.width};
+                    height: ${token.size.small.box.width};
+                    border-radius: ${token.size.small.box['border-radius']};
                 `,
                 icon: css`
-                    width: ${token.size.small.icon.size};
-                    height: ${token.size.small.icon.size};
+                    width: ${token.size.small.icon.width};
+                    height: ${token.size.small.icon.width};
                 `,
                 indeterminate: css`
                     width: ${token.size.small.indeterminate.width};
@@ -145,16 +145,16 @@ const Checkbox: FC<CheckboxProps> = ({
         } else {
             return {
                 wrapper: css`
-                    font-size: ${token.size.middle.label.font.size};
+                    font-size: ${token.size.middle.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.middle.box.size};
-                    height: ${token.size.middle.box.size};
-                    border-radius: ${token.size.middle.box.border.radius};
+                    width: ${token.size.middle.box.width};
+                    height: ${token.size.middle.box.width};
+                    border-radius: ${token.size.middle.box['border-radius']};
                 `,
                 icon: css`
-                    width: ${token.size.middle.icon.size};
-                    height: ${token.size.middle.icon.size};
+                    width: ${token.size.middle.icon.width};
+                    height: ${token.size.middle.icon.width};
                 `,
                 indeterminate: css`
                     width: ${token.size.middle.indeterminate.width};

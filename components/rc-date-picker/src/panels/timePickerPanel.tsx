@@ -25,9 +25,9 @@ const containerStyle = css`
 const mainStyle = css`
     height: 224px;
     display: flex;
-    line-height: ${token.cell.content.size};
-    font-size: ${token.cell.font.size};
-    font-weight: ${token.cell.font.weight};
+    line-height: ${token.cell.content.width};
+    font-size: ${token.cell["font-size"]};
+    font-weight: ${token.cell["font-weight"]};
 `
 
 const ulStyle = css`
@@ -54,7 +54,7 @@ const ulStyle = css`
         cursor: pointer;
         padding-inline-start: 8px;
         padding-inline-end: 8px;
-        border-radius: ${token.cell.border.radius};
+        border-radius: ${token.cell["border-radius"]};
         transition: background-color ${token.cell.transition}, color ${token.cell.transition};
         user-select: none;
     }
@@ -64,8 +64,8 @@ const ulStyle = css`
 // 压过选中样式，导致点击后选中高亮被 hover 色遮住、直到移开鼠标才显现
 const liHoverStyle = css`
     &:hover {
-        background-color: ${token.cell.background['color-hover']};
-        color: ${token.cell.text['color-hover']};
+        background-color: ${token.cell['background-color-hover']};
+        color: ${token.cell['color-hover']};
     }
 `
 

@@ -9,65 +9,65 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-transition = "background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)"
+root.transition = "var(--switch-transition, background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────
 
 label.gap             = "$ref(space.inline-gap)"
-label.font.size       = "$ref(font.size.body)"
+label.font-size       = "$ref(font.size.body)"
 
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
 size.large.track.width         = "52px"
 size.large.track.height        = "28px"
-size.large.track.border.radius = "14px"
-size.large.handle.size         = "24px"
-size.large.handle.offset       = "2px"
+size.large.track.border-radius = "14px"
+size.large.handle.width = "var(--switch-size-large-handle-size, 24px)"
+size.large.handle.left = "var(--switch-size-large-handle-offset, 2px)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
 size.middle.track.width         = "44px"
 size.middle.track.height        = "22px"
-size.middle.track.border.radius = "11px"
-size.middle.handle.size         = "18px"
-size.middle.handle.offset       = "2px"
+size.middle.track.border-radius = "11px"
+size.middle.handle.width = "var(--switch-size-middle-handle-size, 18px)"
+size.middle.handle.left = "var(--switch-size-middle-handle-offset, 2px)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
 size.small.track.width         = "28px"
 size.small.track.height        = "16px"
-size.small.track.border.radius = "8px"
-size.small.handle.size         = "12px"
-size.small.handle.offset       = "2px"
+size.small.track.border-radius = "8px"
+size.small.handle.width = "var(--switch-size-small-handle-size, 12px)"
+size.small.handle.left = "var(--switch-size-small-handle-offset, 2px)"
 
 
 # ─── 默认状态（未选中） ──────────────────────────────────────────────────────
 
-track.background.color       = "$ref(color.background.active-subtle)"
-track.background.color-hover = "$ref(color.border.hover)"
+track.background-color       = "$ref(color.background.active-subtle)"
+track.background-color-hover = "$ref(color.border.hover)"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
 
-checked.track.background.color       = "$ref(color.brand.primary)"
-checked.track.background.color-hover = "$ref(color.brand.primary-hover)"
+track.background-color-checked       = "var(--switch-checked-track-background-color, $ref(color.brand.primary))"
+track.checked.background-color-hover = "var(--switch-checked-track-background-color-hover, $ref(color.brand.primary-hover))"
 
 
 # ─── 手柄 ────────────────────────────────────────────────────────────────────
 
-handle.background.color = "$ref(color.background.surface)"
-handle.box-shadow       = "0 1px 2px oklch(0 0 0 / 0.2)"
+handle.background-color = "$ref(color.background.surface)"
+handle.box-shadow       = "$ref(shadow.float)"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-disabled.track.background.color         = "$ref(color.background.disabled)"
-disabled.checked.track.background.color = "$ref(color.background.disabled)"
-disabled.handle.background.color        = "$ref(color.background.surface)"
+track.background-color-disabled         = "var(--switch-disabled-track-background-color, $ref(color.background.disabled))"
+track.checked.background-color-disabled = "var(--switch-disabled-checked-track-background-color, $ref(color.background.disabled))"
+handle.background-color-disabled        = "var(--switch-disabled-handle-background-color, $ref(color.background.surface))"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────

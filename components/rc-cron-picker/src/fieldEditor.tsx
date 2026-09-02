@@ -24,11 +24,11 @@ const rowStyle = css`
     align-items: center;
     flex-wrap: wrap;
     gap: ${token['mode-row'].gap};
-    font-size: ${token['mode-row'].font.size};
+    font-size: ${token['mode-row']['font-size']};
     color: ${token['mode-row'].text.color};
     cursor: pointer;
     min-block-size: 24px;
-    transition: opacity ${token.transition};
+    transition: opacity ${token.root.transition};
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;

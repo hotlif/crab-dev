@@ -1,5 +1,5 @@
 import Checkbox from "@crab-dev/rc-checkbox";
-import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
 import { css, cx } from "@crab-dev/css";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
@@ -32,14 +32,14 @@ const optionStyle = css`
     box-sizing: border-box;
     font-size: 14px;
     outline: none;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 
     &:hover {
-        background-color: ${token.option["color-hover"]};
+        background-color: ${token.option['background-color-hover']};
     }
 
     &:active {
-        background-color: ${token.option["color-hover"]};
+        background-color: ${token.option['background-color-hover']};
     }
 
     /* 选中背景直接绑定 aria-selected(而非另开一个由 JS 条件应用的 class),
@@ -47,7 +47,7 @@ const optionStyle = css`
        上面的 :hover/:active(同为 (0,2,0) 但声明更早)以及下面 optionHighlightStyle
        这个纯 class 选择器 (0,1,0),确保"选中"背景不会被鼠标悬停或键盘高亮盖掉。 */
     &[aria-selected="true"] {
-        background-color: ${token.option["background-selected"]};
+        background-color: ${token.option["background-color-selected"]};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -56,7 +56,7 @@ const optionStyle = css`
 `;
 
 const optionHighlightStyle = css`
-    background-color: ${token.option["highlight-background"]};
+    background-color: ${token.option.highlight['background-color']};
 `;
 
 const optionSelectedStyle = css`
@@ -139,10 +139,10 @@ const loadingStyle = css`
     align-items: center;
     justify-content: center;
     padding: 24px 8px;
-    color: ${token.loading.color};
+    color: ${token.root["color-loading"]};
     --rc-spin-size: 20px;
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 
 // ─── Constants ───────────────────────────────────────────────────────────────

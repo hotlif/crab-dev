@@ -65,22 +65,22 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
 const containerBaseStyle = css`
     display: inline-flex;
     align-items: center;
-    border-radius: ${token.border.radius};
-    border-width: ${token.border.width};
-    border-style: ${token.border.style};
-    border-color: ${token.border.color};
-    background-color: ${token.background.color};
+    border-radius: ${token.root['border-radius']};
+    border-width: ${token.root['border-width']};
+    border-style: ${token.root['border-style']};
+    border-color: ${token.root['border-color']};
+    background-color: ${token.root['background-color']};
     color: ${token.text.color};
-    box-shadow: ${token['box-shadow'].default};
-    transition: ${token.transition};
+    box-shadow: ${token.root['box-shadow']};
+    transition: ${token.root.transition};
     outline: none;
     box-sizing: border-box;
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
-        border-color: ${token.border['color-hover']};
+        border-color: ${token.root['border-color-hover']};
     }
     &:focus-within {
-        border-color: ${token.border['color-focus']};
-        box-shadow: ${token['box-shadow']['focus-within']};
+        border-color: ${token.root['border-color-focus']};
+        box-shadow: ${token.root['box-shadow-focus-within']};
     }
     &[aria-disabled="true"] {
         pointer-events: none;
@@ -107,39 +107,39 @@ const sizeContainerStyles = {
 // 按尺寸预生成字体样式，共享给 input 和图标
 const sizeTextStyles = {
     large: css`
-        font-size: ${token.size.large.font.size};
+        font-size: ${token.size.large['font-size']};
         line-height: ${token.size.large['line-height']};
     `,
     middle: css`
-        font-size: ${token.size.middle.font.size};
+        font-size: ${token.size.middle['font-size']};
         line-height: ${token.size.middle['line-height']};
     `,
     small: css`
-        font-size: ${token.size.small.font.size};
+        font-size: ${token.size.small['font-size']};
         line-height: ${token.size.small['line-height']};
     `,
 } as const;
 
 // 验证状态样式：覆盖 hover/focus 时的边框颜色和焦点光环颜色，保持视觉一致性
 const errorStyle = css`
-    border-color: ${token.status.error.border.color};
+    border-color: ${token.status['border-color-error']};
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
-        border-color: ${token.status.error.border.color};
+        border-color: ${token.status['border-color-error']};
     }
     &:focus-within {
-        border-color: ${token.status.error.border.color};
-        box-shadow: ${token.status.error['box-shadow']['focus-within']};
+        border-color: ${token.status['border-color-error']};
+        box-shadow: ${token.status['box-shadow-error']};
     }
 `
 
 const warningStyle = css`
-    border-color: ${token.status.warning.border.color};
+    border-color: ${token.status.warning['border-color']};
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
-        border-color: ${token.status.warning.border.color};
+        border-color: ${token.status.warning['border-color']};
     }
     &:focus-within {
-        border-color: ${token.status.warning.border.color};
-        box-shadow: ${token.status.warning['box-shadow']['focus-within']};
+        border-color: ${token.status.warning['border-color']};
+        box-shadow: ${token.status.warning['box-shadow-focus-within']};
     }
 `
 
@@ -226,7 +226,7 @@ const actionButtonStyle = css`
     background: transparent;
     color: ${token.icon.color};
     cursor: pointer;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
     font-size: inherit;
     line-height: inherit;
     & > svg {

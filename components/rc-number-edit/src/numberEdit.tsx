@@ -57,10 +57,10 @@ const overlayStyle = css`
     box-sizing: border-box;
     overflow: hidden;
     cursor: text;
-    background-color: ${token.display.background};
+    background-color: ${token.display['background-color']};
     color: ${token.display.color};
     &[data-disabled="true"] {
-        opacity: ${token.disabled.opacity};
+        opacity: ${token.root['opacity-disabled']};
         cursor: not-allowed;
     }
 `;

@@ -57,7 +57,7 @@ export interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement
 }
 
 const isOutOfRangeStyle = css`
-    opacity: ${token.opacity['out-of-range']};
+    opacity: ${token['out-of-range'].opacity};
 `;
 
 const centerFlexStyle = css`
@@ -87,15 +87,15 @@ const calendarHeaderCellContentStyle = css`
     align-items: center;
     justify-content: center;
     height: ${token.header.cell.height};
-    font-size: ${token.header.font.size};
-    font-weight: ${token.header.font.weight};
+    font-size: ${token.header["font-size"]};
+    font-weight: ${token.header["font-weight"]};
     line-height: ${token.header.cell.height};
     box-sizing: border-box;
 `;
 
 const calendarDateCellStyle = css`
     padding: ${token.cell.padding};
-    border-radius: ${token.cell.border.radius};
+    border-radius: ${token.cell["border-radius"]};
     cursor: pointer;
 `;
 
@@ -104,8 +104,8 @@ const calendarDateCellStyle = css`
 const calendarDateCellHoverStyle = css`
     &:hover {
         > div {
-            background-color: ${token.cell.background['color-hover']};
-            color: ${token.cell.text['color-hover']};
+            background-color: ${token.cell['background-color-hover']};
+            color: ${token.cell['color-hover']};
         }
     }
 `
@@ -114,12 +114,12 @@ const calendarDateCellContentStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: ${token.cell.border.radius};
-    width: ${token.cell.content.size};
-    height: ${token.cell.content.size};
-    line-height: ${token.cell.content.size};
-    font-size: ${token.cell.font.size};
-    font-weight: ${token.cell.font.weight};
+    border-radius: ${token.cell["border-radius"]};
+    width: ${token.cell.content.width};
+    height: ${token.cell.content.width};
+    line-height: ${token.cell.content.width};
+    font-size: ${token.cell["font-size"]};
+    font-weight: ${token.cell["font-weight"]};
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
@@ -134,7 +134,7 @@ const calendarTableStyle = css`
 
 
 const calendarDateCellDisableStyle = css`
-    color: rgba(0, 0, 0, 0.25);
+    color: ${token.cell["color-disabled"]};
     cursor: not-allowed;
     pointer-events: none;
 `
@@ -226,7 +226,7 @@ const DatePickerPanel = ({
             className={css`
                 display: flex;
                 flex-direction: column;
-                font-size: ${token.panel.font.size};
+                font-size: ${token.panel["font-size"]};
                 user-select: none;
             `}
             {...restProps}
@@ -273,10 +273,10 @@ const DatePickerPanel = ({
                     }).format(new Date(viewDate.epochMilliseconds))}
                     <div
                         className={cx(css`
-                            opacity: ${token.opacity.timezone};
+                            opacity: ${token.timezone.opacity};
                             position: absolute;
                             top: calc(50% + 1.8em);
-                            font-size: ${token.timezone.font.size};
+                            font-size: ${token.timezone["font-size"]};
                             left: 50%;
                             transform: translate(-50%, -50%);
                         `)}

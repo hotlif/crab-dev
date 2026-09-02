@@ -9,7 +9,7 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+control.transition = "var(--radio-root-transition, var(--radio-transition, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────
@@ -20,47 +20,47 @@ group.gap            = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.box.size          = "20px"
-size.large.dot.size          = "10px"
-size.large.label.font.size   = "$ref(font.size.heading)"
+size.large.box.width = "var(--radio-size-large-box-size, 20px)"
+size.large.dot.width = "var(--radio-size-large-dot-size, 10px)"
+size.large.label.font-size   = "$ref(font.size.heading)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
-size.middle.box.size          = "16px"
-size.middle.dot.size          = "8px"
-size.middle.label.font.size   = "$ref(font.size.body)"
+size.middle.box.width = "var(--radio-size-middle-box-size, 16px)"
+size.middle.dot.width = "var(--radio-size-middle-dot-size, 8px)"
+size.middle.label.font-size   = "$ref(font.size.body)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.box.size          = "14px"
-size.small.dot.size          = "6px"
-size.small.label.font.size   = "$ref(font.size.body)"
+size.small.box.width = "var(--radio-size-small-box-size, 14px)"
+size.small.dot.width = "var(--radio-size-small-dot-size, 6px)"
+size.small.label.font-size   = "$ref(font.size.body)"
 
 
 # ─── 默认状态 ────────────────────────────────────────────────────────────────
 
-border.width         = "1px"
-border.style         = "solid"
-border.color         = "$ref(color.border.default)"
-border.color-hover   = "$ref(color.border.hover)"
-background.color     = "$ref(color.background.surface)"
+control.border-width = "var(--radio-root-border-width, var(--radio-border-width, 1px))"
+control.border-style = "var(--radio-root-border-style, var(--radio-border-style, solid))"
+control.border-color = "var(--radio-root-border-color, var(--radio-border-color, $ref(color.border.default)))"
+control.border-color-hover = "var(--radio-root-border-color-hover, var(--radio-border-color-hover, $ref(color.border.hover)))"
+control.background-color = "var(--radio-root-background-color, var(--radio-background-color, $ref(color.background.surface)))"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
 
-checked.background.color       = "$ref(color.brand.primary)"
-checked.background.color-hover = "$ref(color.brand.primary-hover)"
-checked.border.color           = "$ref(color.brand.primary)"
-checked.dot.color              = "$ref(color.text.on-brand)"
+control.checked.background-color = "var(--radio-root-background-color-checked, var(--radio-background-color-checked, var(--radio-checked-background-color, $ref(color.brand.primary))))"
+control.checked.background-color-hover = "var(--radio-root-background-color-hover-checked, var(--radio-background-color-hover-checked, var(--radio-checked-background-color-hover, $ref(color.brand.primary-hover))))"
+control.checked.border-color = "var(--radio-root-border-color-checked, var(--radio-border-color-checked, var(--radio-checked-border-color, $ref(color.brand.primary))))"
+dot.checked.color = "var(--radio-dot-color-checked, var(--radio-checked-dot-color, $ref(color.text.on-brand)))"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-disabled.background.color = "$ref(color.background.disabled)"
-disabled.border.color     = "$ref(color.border.default)"
-disabled.dot.color        = "$ref(color.text.disabled)"
+control.background-color-disabled = "var(--radio-root-background-color-disabled, var(--radio-background-color-disabled, var(--radio-disabled-background-color, $ref(color.background.disabled))))"
+control.border-color-disabled = "var(--radio-root-border-color-disabled, var(--radio-border-color-disabled, var(--radio-disabled-border-color, $ref(color.border.default))))"
+dot.color-disabled        = "var(--radio-disabled-dot-color, $ref(color.text.disabled))"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────

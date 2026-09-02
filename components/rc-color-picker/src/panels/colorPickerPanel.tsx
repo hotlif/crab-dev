@@ -1,5 +1,5 @@
 import { css, cx } from "@crab-dev/css";
-import RcSlider, { TokenVars } from "@crab-dev/rc-slider";
+import RcSlider, { CanonicalTokenVars as TokenVars } from '@crab-dev/rc-slider';
 import { type FC, type HTMLAttributes, useState } from "react";
 import token from "../token.js";
 import type { ColorFormat, ColorPickerPanelLocale, ColorPreset, OKLCHValue } from "../types.js";
@@ -37,9 +37,9 @@ const sliderContainerStyle = css`
 
 /** 三个滑块共享:12px 轨道、透明的 active 段、令牌化的 thumb 描边。 */
 const commonSliderStyle = css`
-    ${TokenVars["rail.thickness"]}: 12px;
-    ${TokenVars["thumb.stroke.color"]}: ${token.slider.thumb.stroke.color};
-    ${TokenVars["rail.active.fill"]}: transparent;
+    ${TokenVars["rail.height"]}: 12px;
+    ${TokenVars['thumb.stroke-color']}: ${token.slider.thumb['stroke-color']};
+    ${TokenVars['rail.fill-active']}: transparent;
     ${TokenVars["thumb.fill"]}: transparent;
 `;
 
@@ -60,14 +60,14 @@ const rootStyle = css`
 const previewStyle = css`
     width: ${token.panel.preview.width};
     height: ${token.panel.preview.height};
-    border-radius: ${token.panel.preview.border.radius};
-    border: 1px solid ${token.panel.preview.border.color};
-    margin-top: ${token.panel.preview.margin.top};
+    border-radius: ${token.panel.preview['border-radius']};
+    border: 1px solid ${token.panel.preview['border-color']};
+    margin-top: ${token.panel.preview['margin-top']};
 `;
 
 /** 色相滑轨:固定的全色相环渐变(与当前值无关,可静态求值)。 */
 const hueRailStyle = css`
-    ${TokenVars["rail.inactive.fill"]}: linear-gradient(to right,
+    ${TokenVars['rail.fill-inactive']}: linear-gradient(to right,
         oklch(0.7 0.15 0),
         oklch(0.7 0.15 60),
         oklch(0.7 0.15 120),
@@ -107,7 +107,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                 <RcSlider
                     aria-label={mergedLocale.labelLightness}
                     style={{
-                        [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right,
+                        [TokenVars['rail.fill-inactive']]: `linear-gradient(to right,
                             oklch(0 ${value.chroma} ${value.hue}),
                             oklch(1 ${value.chroma} ${value.hue})
                         )`,
@@ -128,7 +128,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                 <RcSlider
                     aria-label={mergedLocale.labelChroma}
                     style={{
-                        [TokenVars["rail.inactive.fill"]]: `linear-gradient(to right,
+                        [TokenVars['rail.fill-inactive']]: `linear-gradient(to right,
                             oklch(0.6 0 ${value.hue}),
                             oklch(0.6 0.4 ${value.hue})
                         )`,
@@ -167,7 +167,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                     <RcSlider
                         aria-label={mergedLocale.labelAlpha}
                         style={{
-                            [TokenVars["rail.inactive.fill"]]:
+                            [TokenVars['rail.fill-inactive']]:
                                 `linear-gradient(to right, transparent, ${opaque}), ` +
                                 `repeating-conic-gradient(${token.slider.alpha.checker.color} 0% 25%, transparent 0% 50%) top left / 8px 8px`,
                             [TokenVars["thumb.fill"]]: `oklch(${value.lightness} ${value.chroma} ${value.hue} / ${value.alpha ?? 1})`,

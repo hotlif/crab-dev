@@ -34,11 +34,11 @@ interface DatePickerInputProps {
 
 
 const iconStyle = css`
-    opacity: ${token.opacity.icon};
+    opacity: ${token.icon.opacity};
     cursor: pointer;
     transition: opacity .2s;
     &:hover {
-        opacity: ${token.opacity['icon-hover']};
+        opacity: ${token.icon['opacity-hover']};
     }
 
 `

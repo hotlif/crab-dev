@@ -22,15 +22,15 @@ const trackStyle = css`
     display: inline-flex;
     align-items: stretch;
     box-sizing: border-box;
-    background-color: ${token.track.background};
-    border-radius: ${token.track.border.radius};
-    font-weight: ${token.font.weight};
+    background-color: ${token.track['background-color']};
+    border-radius: ${token.track['border-radius']};
+    font-weight: ${token.root['font-weight']};
     line-height: 1;
     user-select: none;
 
     &[data-disabled] {
         cursor: not-allowed;
-        opacity: ${token.disabled.opacity};
+        opacity: ${token.root['opacity-disabled']};
     }
 `;
 
@@ -40,13 +40,13 @@ const trackBlockStyle = css`
 `;
 
 const trackPadSmallStyle = css`
-    padding: ${token.size.small['track-pad']};
+    padding: ${token.size.small.track.padding};
 `;
 const trackPadMiddleStyle = css`
-    padding: ${token.size.middle['track-pad']};
+    padding: ${token.size.middle.track.padding};
 `;
 const trackPadLargeStyle = css`
-    padding: ${token.size.large['track-pad']};
+    padding: ${token.size.large.track.padding};
 `;
 
 // ─── 选项（label 包裹隐藏 radio，语义即原生单选组） ──────────────────────────
@@ -74,7 +74,7 @@ const segmentStyle = css`
     color: ${token.item.color};
     cursor: pointer;
     white-space: nowrap;
-    transition: color ${token.motion.item};
+    transition: color ${token.item.transition};
 
     &:hover {
         color: ${token.item['color-hover']};
@@ -82,8 +82,8 @@ const segmentStyle = css`
 
     /* 键盘焦点意符：焦点落在隐藏 input 上时高亮所属分段（forced-colors 下 outline 保留） */
     &:has(input:focus-visible) {
-        outline: ${token.focus.ring.width} solid ${token.focus.ring.color};
-        outline-offset: ${token.focus.ring.offset};
+        outline: ${token.item['outline-width-focus']} solid ${token.item['outline-color-focus']};
+        outline-offset: ${token.item['outline-offset-focus']};
         z-index: 2;
     }
 
@@ -94,24 +94,24 @@ const segmentStyle = css`
 
 const segmentSmallStyle = css`
     height: ${token.size.small.height};
-    padding: 0 ${token.size.small['padding-x']};
+    padding: 0 ${token.size.small['padding-inline']};
     gap: ${token.size.small.gap};
     font-size: ${token.size.small['font-size']};
-    border-radius: ${token.size.small.radius};
+    border-radius: ${token.size.small['border-radius']};
 `;
 const segmentMiddleStyle = css`
     height: ${token.size.middle.height};
-    padding: 0 ${token.size.middle['padding-x']};
+    padding: 0 ${token.size.middle['padding-inline']};
     gap: ${token.size.middle.gap};
     font-size: ${token.size.middle['font-size']};
-    border-radius: ${token.size.middle.radius};
+    border-radius: ${token.size.middle['border-radius']};
 `;
 const segmentLargeStyle = css`
     height: ${token.size.large.height};
-    padding: 0 ${token.size.large['padding-x']};
+    padding: 0 ${token.size.large['padding-inline']};
     gap: ${token.size.large.gap};
     font-size: ${token.size.large['font-size']};
-    border-radius: ${token.size.large.radius};
+    border-radius: ${token.size.large['border-radius']};
 `;
 
 const segmentBlockStyle = css`
@@ -146,8 +146,8 @@ const thumbStyle = css`
     left: 0;
     width: var(--rc-segmented-thumb-w, 0);
     transform: translateX(var(--rc-segmented-thumb-x, 0));
-    background-color: ${token.thumb.background};
-    box-shadow: ${token.thumb.shadow};
+    background-color: ${token.thumb['background-color']};
+    box-shadow: ${token.thumb['box-shadow']};
     pointer-events: none;
 
     @media (forced-colors: active) {
@@ -157,19 +157,19 @@ const thumbStyle = css`
 `;
 
 const thumbSmallStyle = css`
-    top: ${token.size.small['track-pad']};
-    bottom: ${token.size.small['track-pad']};
-    border-radius: ${token.size.small.radius};
+    top: ${token.size.small.track.padding};
+    bottom: ${token.size.small.track.padding};
+    border-radius: ${token.size.small['border-radius']};
 `;
 const thumbMiddleStyle = css`
-    top: ${token.size.middle['track-pad']};
-    bottom: ${token.size.middle['track-pad']};
-    border-radius: ${token.size.middle.radius};
+    top: ${token.size.middle.track.padding};
+    bottom: ${token.size.middle.track.padding};
+    border-radius: ${token.size.middle['border-radius']};
 `;
 const thumbLargeStyle = css`
-    top: ${token.size.large['track-pad']};
-    bottom: ${token.size.large['track-pad']};
-    border-radius: ${token.size.large.radius};
+    top: ${token.size.large.track.padding};
+    bottom: ${token.size.large.track.padding};
+    border-radius: ${token.size.large['border-radius']};
 `;
 
 const thumbAnimatedStyle = css`

@@ -7,30 +7,31 @@ imports = [
 
 [token]
 
-selected.background.color = "$ref(color.brand.primary)"
-selected.text.color = "$ref(color.text.on-brand)"
-cell.background.color-hover = "$ref(color.background.hover-subtle)"
-cell.text.color-hover = "$ref(color.text.primary)"
+root.background-color-selected = "var(--date-picker-background-color-selected, var(--date-picker-selected-background-color, $ref(color.brand.primary)))"
+root.color-selected = "var(--date-picker-color-selected, var(--date-picker-selected-color, var(--date-picker-selected-text-color, $ref(color.text.on-brand))))"
+cell.background-color-hover = "$ref(color.background.hover-subtle)"
+cell.color-hover = "var(--date-picker-cell-text-color-hover, $ref(color.text.primary))"
+cell.color-disabled = "$ref(color.text.disabled)"
 
 header.padding = "$ref(space.section-gap) $ref(space.component-gap)"
 header.cell.height = "40px"
-header.font.size = "$ref(font.size.caption)"
-header.font.weight = "400"
+header.font-size = "$ref(font.size.caption)"
+header.font-weight = "400"
 
 cell.padding = "3px 4px"
-cell.border.radius = "$ref(radius.sm)"
-cell.content.size = "24px"
-cell.font.size = "$ref(font.size.body)"
-cell.font.weight = "400"
+cell.border-radius = "$ref(radius.sm)"
+cell.content.width = "var(--date-picker-cell-content-size, 24px)"
+cell.font-size = "$ref(font.size.body)"
+cell.font-weight = "400"
 cell.transition = "$ref(motion.interaction)"
 
-action.bar.margin.top = "$ref(space.component-gap)"
+action.bar.margin-top = "$ref(space.component-gap)"
 action.bar.gap = "$ref(space.component-gap)"
 
-panel.font.size = "$ref(font.size.body)"
-timezone.font.size = "10px"
+panel.font-size = "$ref(font.size.body)"
+timezone.font-size = "10px"
 
-opacity.out-of-range = "$ref(opacity.disabled)"
-opacity.icon = "$ref(opacity.secondary)"
-opacity.icon-hover = "$ref(opacity.hover)"
-opacity.timezone = "$ref(opacity.tertiary)"
+out-of-range.opacity = "var(--date-picker-opacity-out-of-range, $ref(opacity.disabled))"
+icon.opacity = "var(--date-picker-opacity-icon, $ref(opacity.secondary))"
+icon.opacity-hover = "var(--date-picker-opacity-icon-hover, $ref(opacity.hover))"
+timezone.opacity = "var(--date-picker-opacity-timezone, $ref(opacity.tertiary))"

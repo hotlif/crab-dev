@@ -8,13 +8,14 @@ imports = [
 [token]
 
 rail.interact.height = "12px"
-rail.thickness = "4px"
-rail.inactive.fill = "$ref(color.fill.inactive)"
-rail.active.fill = "$ref(color.fill.active)"
+rail.height = "var(--slider-rail-thickness, 4px)"
+rail.fill-inactive = "var(--slider-rail-inactive-fill, $ref(color.fill.default))"
+rail.fill-active = "var(--slider-rail-active-fill, $ref(color.brand.primary))"
 
-thumb.radius = "8px"
+thumb.border-radius = "var(--slider-thumb-radius, 8px)"
 thumb.fill = "$ref(color.background.surface)"
-thumb.stroke.color = "$ref(color.fill.active)"
-thumb.stroke.width = "2.5px"
-thumb.halo.scale.factor = 1.8
-thumb.halo.fill = "$ref(color.fill.active)"
+thumb.stroke-color = "$ref(color.brand.primary)"
+thumb.stroke-width = "2.5px"
+thumb.box-shadow = "$ref(shadow.float)"
+thumb.halo.scale.width = "var(--slider-thumb-halo-scale-factor, 1.8)"
+thumb.halo.fill = "$ref(color.brand.primary)"

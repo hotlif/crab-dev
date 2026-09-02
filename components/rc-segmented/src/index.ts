@@ -9,3 +9,4 @@ export type {
 } from './types.js';
 
 export default Segmented;
+export { vars as TokenVars } from './token.js';

@@ -12,8 +12,8 @@ export const vars = defineTokens({
     'label.font-weight': '--form-label-font-weight',
     'required.color': '--form-required-color',
     'required.gap': '--form-required-gap',
-    'status.size': '--form-status-size',
-    'status.error.color': '--form-status-error-color',
+    'status.width': '--form-status-width',
+    'status.color-error': '--form-status-color-error',
     'status.warning.color': '--form-status-warning-color',
     'status.success.color': '--form-status-success-color',
     'status.validating.color': '--form-status-validating-color'
@@ -32,22 +32,20 @@ const token = defineTokens({
         'font-weight': `var(${vars['label.font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`
     },
     'required': {
-        'color': `var(${vars['required.color']}, var(--token-semantic-color-feedback-error, var(--token-global-red-500, oklch(0.637 0.237 24))))`,
+        'color': `var(${vars['required.color']}, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-red-800, oklch(0.444 0.177 26)))))`,
         'gap': `var(${vars['required.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
     },
     'status': {
-        'size': `var(${vars['status.size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,
-        'error': {
-            'color': `var(${vars['status.error.color']}, var(--token-semantic-color-feedback-error, var(--token-global-red-500, oklch(0.637 0.237 24))))`
-        },
+        'width': `var(${vars['status.width']}, var(--form-status-size, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px))))`,
+        'color-error': `var(${vars['status.color-error']}, var(--form-status-error-color, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-red-800, oklch(0.444 0.177 26))))))`,
         'warning': {
-            'color': `var(${vars['status.warning.color']}, var(--token-semantic-color-feedback-warning, var(--token-global-amber-500, oklch(0.769 0.188 75))))`
+            'color': `var(${vars['status.warning.color']}, var(--token-semantic-color-feedback-warning-text, var(--token-semantic-color-feedback-warning, var(--token-global-amber-900, oklch(0.414 0.112 68)))))`
         },
         'success': {
-            'color': `var(${vars['status.success.color']}, var(--token-semantic-color-feedback-success, var(--token-global-green-500, oklch(0.723 0.219 152))))`
+            'color': `var(${vars['status.success.color']}, var(--token-semantic-color-feedback-success-text, var(--token-semantic-color-feedback-success, var(--token-global-green-800, oklch(0.448 0.119 155)))))`
         },
         'validating': {
-            'color': `var(${vars['status.validating.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+            'color': `var(${vars['status.validating.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
         }
     }
 });

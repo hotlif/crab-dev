@@ -20,14 +20,14 @@ label.font-weight = "$ref(font.weight.label)"
 
 # ─── 必填指示符 ──────────────────────────────────────────────────────────────
 # 反馈原理：以醒目色 + 紧邻标签的星号，第一时间告知字段必填
-required.color = "$ref(color.feedback.error)"
+required.color = "$ref(color.feedback.error.text)"
 required.gap = "$ref(space.inline-gap)"
 
 # ─── 校验状态图标 ────────────────────────────────────────────────────────────
 # 内联反馈：字段末尾以固定尺寸的状态图标承载校验结果，避免文案常驻挤占布局；
 # 图标槽尺寸固定，无论有无校验结果都占位，杜绝出现 / 消失引发的布局抖动。
-status.size = "$ref(font.size.subhead)"
-status.error.color = "$ref(color.feedback.error)"
-status.warning.color = "$ref(color.feedback.warning)"
-status.success.color = "$ref(color.feedback.success)"
+status.width = "var(--form-status-size, $ref(font.size.subhead))"
+status.color-error = "var(--form-status-error-color, $ref(color.feedback.error.text))"
+status.warning.color = "$ref(color.feedback.warning.text)"
+status.success.color = "$ref(color.feedback.success.text)"
 status.validating.color = "$ref(color.text.secondary)"

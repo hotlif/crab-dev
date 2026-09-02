@@ -14,3 +14,4 @@ export type {
 
 export { ColorPickerPanel };
 export default ColorPicker;
+export { vars as TokenVars } from './token.js';

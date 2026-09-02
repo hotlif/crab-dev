@@ -10,3 +10,4 @@ export type { FormItem as ItemProps } from "./item.js";
 export type { NamePath, FormInstance, FormItemEditor, Rule } from "./types.js";
 
 export default Form;
+export { vars as TokenVars } from './token.js';

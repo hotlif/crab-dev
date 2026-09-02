@@ -18,30 +18,30 @@ const assignRef = <T,>(ref: Ref<T> | undefined | null, node: T | null): void => 
 };
 
 const SWATCH_SIZE = {
-    small: token.trigger.swatch.size.small,
-    medium: token.trigger.swatch.size.medium,
-    large: token.trigger.swatch.size.large,
+    small: token.trigger.swatch.small.width,
+    medium: token.trigger.swatch.medium.width,
+    large: token.trigger.swatch.large.width,
 };
 
 const triggerStyle = css`
     display: inline-flex;
     cursor: pointer;
-    border: 1px solid ${token.trigger.border.color};
+    border: 1px solid ${token.trigger['border-color']};
     padding: ${token.trigger.padding};
-    border-radius: ${token.trigger.border.radius};
+    border-radius: ${token.trigger['border-radius']};
     gap: ${token.trigger.gap};
     justify-content: center;
     align-items: center;
     &:focus-visible {
-        outline: 2px solid ${token.trigger.focus.color};
+        outline: 2px solid ${token.trigger.ring['color-focus']};
         outline-offset: 1px;
     }
 `;
 
 const disabledStyle = css`
     cursor: not-allowed;
-    border-color: ${token.trigger.disabled.border.color};
-    background: ${token.trigger.disabled.background};
+    border-color: ${token.trigger['border-color-disabled']};
+    background: ${token.trigger['background-color-disabled']};
     opacity: 0.6;
 `;
 

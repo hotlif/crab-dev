@@ -2,7 +2,7 @@ import { cloneElement, useState, useEffect, useId } from "react";
 import type { ReactElement, HTMLAttributes, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
-import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import Tooltip from "@crab-dev/rc-tooltip";
 
 import token from "./token.js";
@@ -91,8 +91,8 @@ const statusSlotStyle = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: ${token.status.size};
-    height: ${token.status.size};
+    width: ${token.status.width};
+    height: ${token.status.width};
 
     & svg {
         display: block;
@@ -123,7 +123,7 @@ const statusTriggerStyle = css`
 `;
 
 const errorColorStyle = css`
-    color: ${token.status.error.color};
+    color: ${token.status['color-error']};
 `;
 
 const warningColorStyle = css`
@@ -138,8 +138,8 @@ const successColorStyle = css`
 // 校验文案已由下方 srOnly 的 role="alert" 播报，故此处只是视觉意符，描边跟随槽位前景色。
 const validatingStyle = css`
     color: ${token.status.validating.color};
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 
 // 视觉隐藏但保留在无障碍树中：承载完整校验文案，供屏幕阅读器播报（role="alert"），

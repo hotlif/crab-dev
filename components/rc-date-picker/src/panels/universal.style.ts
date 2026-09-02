@@ -3,6 +3,6 @@ import { css } from '@crab-dev/css';
 import token from "../token.js";
 
 export const selectStyle = css`
-    background-color: ${token.selected.background.color};
-    color: ${token.selected.text.color};
+    background-color: ${token.root["background-color-selected"]};
+    color: ${token.root["color-selected"]};
 `

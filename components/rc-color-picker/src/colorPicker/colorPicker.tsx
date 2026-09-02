@@ -33,7 +33,7 @@ export interface ColorPickerProps
 const DEFAULT_VALUE: OKLCHValue = { lightness: 0.6, chroma: 0, hue: 0 };
 
 const overlayPaddingStyle = css`
-    padding: ${token.panel.padding.y} ${token.panel.padding.x};
+    padding: ${token.panel['padding-block']} ${token.panel['padding-inline']};
 `;
 
 const ColorPicker = ({

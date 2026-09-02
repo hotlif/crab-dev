@@ -10,39 +10,39 @@ imports = [
 # ─── 容器（track） ──────────────────────────────────────────────────────────
 # 分段控制器的凹槽底：浅色内凹背景，选中项由其上滑动的 thumb 高亮。
 
-track.background    = "$ref(color.background.hover-subtle)"
-track.border.radius = "$ref(radius.md)"
-font.weight         = "$ref(font.weight.label)"
+track.background-color    = "var(--segmented-track-background, $ref(color.background.hover-subtle))"
+track.border-radius = "$ref(radius.md)"
+root.font-weight = "var(--segmented-font-weight, $ref(font.weight.label))"
 
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
 size.large.height       = "40px"
 size.large.font-size    = "$ref(font.size.subhead)"
-size.large.padding-x    = "16px"
+size.large.padding-inline    = "var(--segmented-size-large-padding-x, 16px)"
 size.large.gap          = "$ref(space.inline-gap)"
-size.large.track-pad    = "4px"
-size.large.radius       = "$ref(radius.md)"
+size.large.track.padding = "var(--segmented-size-large-track-pad, 4px)"
+size.large.border-radius       = "var(--segmented-size-large-radius, $ref(radius.md))"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
 size.middle.height      = "32px"
 size.middle.font-size   = "$ref(font.size.body)"
-size.middle.padding-x   = "12px"
+size.middle.padding-inline   = "var(--segmented-size-middle-padding-x, 12px)"
 size.middle.gap         = "$ref(space.inline-gap)"
-size.middle.track-pad   = "3px"
-size.middle.radius      = "$ref(radius.sm)"
+size.middle.track.padding = "var(--segmented-size-middle-track-pad, 3px)"
+size.middle.border-radius      = "var(--segmented-size-middle-radius, $ref(radius.sm))"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
 size.small.height       = "24px"
 size.small.font-size    = "$ref(font.size.caption)"
-size.small.padding-x    = "8px"
+size.small.padding-inline    = "var(--segmented-size-small-padding-x, 8px)"
 size.small.gap          = "$ref(space.inline-gap)"
-size.small.track-pad    = "2px"
-size.small.radius       = "$ref(radius.sm)"
+size.small.track.padding = "var(--segmented-size-small-track-pad, 2px)"
+size.small.border-radius       = "var(--segmented-size-small-radius, $ref(radius.sm))"
 
 
 # ─── 选项文本 ────────────────────────────────────────────────────────────────
@@ -55,24 +55,24 @@ item.color-disabled = "$ref(color.text.disabled)"
 
 # ─── 滑块（thumb） ──────────────────────────────────────────────────────────
 
-thumb.background = "$ref(color.background.surface)"
-thumb.shadow     = "0 1px 2px 0 oklch(0 0 0 / 0.08), 0 1px 3px 0 oklch(0 0 0 / 0.12)"
+thumb.background-color = "var(--segmented-thumb-background, $ref(color.background.surface))"
+thumb.box-shadow     = "var(--segmented-thumb-shadow, $ref(shadow.float))"
 thumb.transition = "transform 240ms cubic-bezier(0.4, 0, 0.2, 1), width 240ms cubic-bezier(0.4, 0, 0.2, 1)"
 
 
 # ─── 焦点环 ──────────────────────────────────────────────────────────────────
 
-focus.ring.color  = "$ref(color.border.focus)"
-focus.ring.width  = "2px"
-focus.ring.offset = "2px"
+item.outline-color-focus  = "var(--segmented-focus-ring-color, $ref(color.focus.ring))"
+item.outline-width-focus  = "var(--segmented-focus-ring-width, 2px)"
+item.outline-offset-focus = "var(--segmented-focus-ring-offset, 2px)"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-disabled.opacity = "$ref(opacity.disabled)"
+root.opacity-disabled = "var(--segmented-opacity-disabled, var(--segmented-disabled-opacity, $ref(opacity.disabled)))"
 
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
 # item：选项文字颜色过渡，走 semantic interaction（快到近乎即时）
 
-motion.item = "$ref(motion.interaction)"
+item.transition = "var(--segmented-motion-item, $ref(motion.interaction))"

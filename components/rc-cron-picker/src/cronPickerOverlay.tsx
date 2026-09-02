@@ -38,8 +38,8 @@ const expressionStyle = css`
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, monospace;
     font-size: ${token.expression['font-size']};
     color: ${token.expression.color};
-    background-color: ${token.expression.background};
-    border-radius: ${token.expression.radius};
+    background-color: ${token.expression['background-color']};
+    border-radius: ${token.expression['border-radius']};
     padding: ${token.expression.padding};
     text-align: center;
     letter-spacing: 0.08em;
@@ -50,12 +50,12 @@ const expressionStyle = css`
 
 const describeStyle = css`
     color: ${token.describe.color};
-    font-size: ${token.describe.font.size};
+    font-size: ${token.describe['font-size']};
 `;
 
 const previewStyle = css`
     color: ${token.preview.color};
-    font-size: ${token.preview.font.size};
+    font-size: ${token.preview['font-size']};
 
     ul {
         margin: 0;

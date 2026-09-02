@@ -6,38 +6,38 @@ imports = [
 ]
 
 [token]
-transition = "background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)"
+root.transition = "var(--select-transition, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1))"
 
-border.width = "1px"
-border.style = "solid"
-border.color = "$ref(color.border.default)"
-border.color-hover = "$ref(color.border.hover)"
-border.color-focus = "$ref(color.border.focus)"
-border.color-error = "$ref(color.border.error)"
-border.color-warning = "$ref(color.feedback.warning)"
-border.radius = "$ref(radius.md)"
+root.border-width = "var(--select-border-width, 1px)"
+root.border-style = "var(--select-border-style, solid)"
+root.border-color = "var(--select-border-color, $ref(color.border.default))"
+root.border-color-hover = "var(--select-border-color-hover, $ref(color.border.hover))"
+root.border-color-focus = "var(--select-border-color-focus, $ref(color.border.focus))"
+root.border-color-error = "var(--select-border-color-error, $ref(color.feedback.error.border))"
+root.border-color-warning = "var(--select-border-color-warning, $ref(color.feedback.warning.border))"
+root.border-radius = "var(--select-border-radius, $ref(radius.md))"
 
-background.color = "$ref(color.background.surface)"
-background.color-disabled = "$ref(color.background.disabled)"
+root.background-color = "var(--select-background-color, $ref(color.background.surface))"
+root.background-color-disabled = "var(--select-background-color-disabled, $ref(color.background.disabled))"
 
 text.color = "$ref(color.text.primary)"
 text.color-placeholder = "$ref(color.text.secondary)"
 text.color-disabled = "$ref(color.text.disabled)"
 
-option.color-hover = "$ref(color.background.hover-subtle)"
+option.background-color-hover = "var(--select-option-color-hover, $ref(color.background.hover-subtle))"
 option.color-selected = "$ref(color.brand.primary)"
-option.background-selected = "$ref(color.background.active-subtle)"
+option.background-color-selected = "var(--select-option-background-selected, $ref(color.background.active-subtle))"
 option.color-disabled = "$ref(color.text.disabled)"
-option.highlight-background = "$ref(color.background.hover-subtle)"
+option.highlight.background-color = "var(--select-option-highlight-background, $ref(color.background.hover-subtle))"
 
-shadow.default = "$ref(shadow.float)"
-shadow.focus = "$ref(shadow.focus-ring)"
-shadow.focus-error = "0 0 0 3px oklch(0.637 0.237 24 / 0.25)"
-shadow.focus-warning = "0 0 0 3px oklch(0.769 0.188 75 / 0.25)"
+root.box-shadow = "var(--select-box-shadow, var(--select-shadow-default, $ref(shadow.float)))"
+root.box-shadow-focus = "var(--select-box-shadow-focus, var(--select-shadow-focus, $ref(shadow.focus-ring)))"
+root.validation.box-shadow-error = "var(--select-root-box-shadow-focus-error, var(--select-box-shadow-focus-error, var(--select-shadow-focus-error, 0 0 0 3px color-mix(in oklch, $ref(color.feedback.error.border) 25%, transparent))))"
+root.validation.box-shadow-warning = "var(--select-root-box-shadow-focus-warning, var(--select-box-shadow-focus-warning, var(--select-shadow-focus-warning, 0 0 0 3px color-mix(in oklch, $ref(color.feedback.warning.border) 25%, transparent))))"
 
-tag.background = "$ref(color.background.hover-subtle)"
+tag.background-color = "var(--select-tag-background, $ref(color.background.hover-subtle))"
 tag.color = "$ref(color.text.primary)"
-tag.close-hover = "$ref(color.text.secondary)"
+tag.close.color-hover = "var(--select-tag-close-hover, $ref(color.text.secondary))"
 
 clear.color = "$ref(color.text.secondary)"
 clear.color-hover = "$ref(color.text.primary)"
@@ -45,26 +45,26 @@ clear.color-hover = "$ref(color.text.primary)"
 group.color = "$ref(color.text.secondary)"
 group.font-size = "$ref(font.size.caption)"
 
-loading.color = "$ref(color.text.secondary)"
+root.color-loading = "var(--select-color-loading, var(--select-loading-color, $ref(color.text.secondary)))"
 
 size.large.height = "40px"
 size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
-size.large.font.size = "$ref(font.size.subhead)"
+size.large.font-size = "$ref(font.size.subhead)"
 size.large.line-height = "1.5rem"
 
 size.middle.height = "32px"
 size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
-size.middle.font.size = "$ref(font.size.body)"
+size.middle.font-size = "$ref(font.size.body)"
 size.middle.line-height = "1.25rem"
 
 # small 与 middle 同用 body 字号(14px),不再降到 caption(12px)——与 RcLineEdit 的
 # size 规格对齐:靠高度(24px vs 32px)区分尺寸感,不靠缩字号,可读性更好。
 size.small.height = "24px"
 size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
-size.small.font.size = "$ref(font.size.body)"
+size.small.font-size = "$ref(font.size.body)"
 size.small.line-height = "1.25rem"
 
-dropdown.offset = "6px"
+dropdown.margin = "var(--select-dropdown-offset, 6px)"
 dropdown.max-height = "240px"
 dropdown.padding = "4px"
 dropdown.option.padding = "8px"

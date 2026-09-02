@@ -1,6 +1,6 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit from "@crab-dev/rc-line-edit";
-import { SpinIndicator, vars as spinVars } from "@crab-dev/rc-spin";
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@crab-dev/css";
 import { useCallback, useEffect, useRef, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
@@ -24,17 +24,17 @@ const controlStyle = css`
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid ${token.border.color};
-    border-radius: ${token.border.radius};
+    border: 1px solid ${token.root['border-color']};
+    border-radius: ${token.root['border-radius']};
     background-color: transparent;
     color: ${token.text.color};
     cursor: pointer;
     user-select: none;
     outline: none;
-    transition: ${token.transition};
+    transition: ${token.root.transition};
 
     &:hover:not([aria-disabled="true"]) {
-        border-color: ${token.border["color-hover"]};
+        border-color: ${token.root["border-color-hover"]};
     }
 
     &:hover:not([aria-disabled="true"]) [data-role="select-clear"] {
@@ -46,8 +46,8 @@ const controlStyle = css`
     }
 
     &:focus-visible {
-        border-color: ${token.border["color-focus"]};
-        box-shadow: ${token.shadow.focus};
+        border-color: ${token.root["border-color-focus"]};
+        box-shadow: ${token.root['box-shadow-focus']};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -56,8 +56,8 @@ const controlStyle = css`
 `;
 
 const controlFocusStyle = css`
-    border-color: ${token.border["color-focus"]};
-    box-shadow: ${token.shadow.focus};
+    border-color: ${token.root["border-color-focus"]};
+    box-shadow: ${token.root['box-shadow-focus']};
 `;
 
 const controlDisabledStyle = css`
@@ -67,39 +67,39 @@ const controlDisabledStyle = css`
 `;
 
 const controlErrorStyle = css`
-    border-color: ${token.border["color-error"]};
+    border-color: ${token.root["border-color-error"]};
 
     &:hover:not([aria-disabled="true"]) {
-        border-color: ${token.border["color-error"]};
+        border-color: ${token.root["border-color-error"]};
     }
 
     &:focus-visible {
-        border-color: ${token.border["color-error"]};
-        box-shadow: ${token.shadow["focus-error"]};
+        border-color: ${token.root["border-color-error"]};
+        box-shadow: ${token.root.validation['box-shadow-error']};
     }
 `;
 
 const controlErrorFocusStyle = css`
-    border-color: ${token.border["color-error"]};
-    box-shadow: ${token.shadow["focus-error"]};
+    border-color: ${token.root["border-color-error"]};
+    box-shadow: ${token.root.validation['box-shadow-error']};
 `;
 
 const controlWarningStyle = css`
-    border-color: ${token.border["color-warning"]};
+    border-color: ${token.root["border-color-warning"]};
 
     &:hover:not([aria-disabled="true"]) {
-        border-color: ${token.border["color-warning"]};
+        border-color: ${token.root["border-color-warning"]};
     }
 
     &:focus-visible {
-        border-color: ${token.border["color-warning"]};
-        box-shadow: ${token.shadow["focus-warning"]};
+        border-color: ${token.root["border-color-warning"]};
+        box-shadow: ${token.root.validation['box-shadow-warning']};
     }
 `;
 
 const controlWarningFocusStyle = css`
-    border-color: ${token.border["color-warning"]};
-    box-shadow: ${token.shadow["focus-warning"]};
+    border-color: ${token.root["border-color-warning"]};
+    box-shadow: ${token.root.validation['box-shadow-warning']};
 `;
 
 const valueWrapStyle = css`
@@ -189,7 +189,7 @@ const clearStyle = css`
     &:focus-visible {
         opacity: 1;
         outline: none;
-        box-shadow: ${token.shadow.focus};
+        box-shadow: ${token.root['box-shadow-focus']};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -203,29 +203,29 @@ const clearStyle = css`
 const loadingIconStyle = css`
     display: inline-flex;
     align-items: center;
-    color: ${token.loading.color};
+    color: ${token.root["color-loading"]};
     flex-shrink: 0;
     margin-left: 8px;
     --rc-spin-size: 14px;
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 
 // 度量(padding/字号/行高)与"高度策略"分开维护——原因见下方 sizeHeight*Map 的注释。
 const sizeMetricsMap = {
     large: css`
         padding: ${token.size.large.padding};
-        font-size: ${token.size.large.font.size};
+        font-size: ${token.size.large['font-size']};
         line-height: ${token.size.large["line-height"]};
     `,
     middle: css`
         padding: ${token.size.middle.padding};
-        font-size: ${token.size.middle.font.size};
+        font-size: ${token.size.middle['font-size']};
         line-height: ${token.size.middle["line-height"]};
     `,
     small: css`
         padding: ${token.size.small.padding};
-        font-size: ${token.size.small.font.size};
+        font-size: ${token.size.small['font-size']};
         line-height: ${token.size.small["line-height"]};
     `,
 };

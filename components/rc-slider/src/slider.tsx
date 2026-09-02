@@ -111,7 +111,7 @@ const Slider: FC<SliderProps> = ({
                 touch-action: none;
                 display: flex;
                 align-items: center;
-                height: ${token.rail.thickness};
+                height: ${token.rail.height};
                 overscroll-behavior: contain;
             `, className)}
             ref={containerRef}
@@ -126,9 +126,9 @@ const Slider: FC<SliderProps> = ({
                 className={css`
                     position: absolute;
                     width: 100%;
-                    height: ${token.rail.thickness};
-                    border-radius: calc(${token.rail.thickness} / 2);
-                    background: ${token.rail.inactive.fill};
+                    height: ${token.rail.height};
+                    border-radius: calc(${token.rail.height} / 2);
+                    background: ${token.rail['fill-inactive']};
                 `}
             />
             
@@ -136,9 +136,9 @@ const Slider: FC<SliderProps> = ({
                 data-slot="slider-track"
                 className={css`
                     position: absolute;
-                    height: ${token.rail.thickness};
-                    border-radius: calc(${token.rail.thickness} / 2);
-                    background: ${token.rail.active.fill};
+                    height: ${token.rail.height};
+                    border-radius: calc(${token.rail.height} / 2);
+                    background: ${token.rail['fill-active']};
                 `}
                 style={{ width: `${percent.toFixed(4)}%` }}
             />
@@ -171,8 +171,8 @@ const Slider: FC<SliderProps> = ({
                         height: 0;
                         [data-slot="slider-handle-container"]:hover &,
                         &[data-is-dragging="true"] {
-                            width: calc(${token.thumb.radius} * 2 * ${token.thumb.halo.scale.factor});
-                            height: calc(${token.thumb.radius} * 2 * ${token.thumb.halo.scale.factor});
+                            width: calc(${token.thumb['border-radius']} * 2 * ${token.thumb.halo.scale.width});
+                            height: calc(${token.thumb['border-radius']} * 2 * ${token.thumb.halo.scale.width});
                         }
                     `}
                 />
@@ -182,13 +182,13 @@ const Slider: FC<SliderProps> = ({
                     className={css`
                         position: relative;
                         border-radius: 50%;
-                        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+                        box-shadow: ${token.thumb["box-shadow"]};
                         transition: transform 200ms;
                         transform: scale(1);
-                        width: calc(${token.thumb.radius} * 2);
-                        height: calc(${token.thumb.radius} * 2);
+                        width: calc(${token.thumb['border-radius']} * 2);
+                        height: calc(${token.thumb['border-radius']} * 2);
                         background: ${token.thumb.fill};
-                        border: ${token.thumb.stroke.width} solid ${token.thumb.stroke.color};
+                        border: ${token.thumb['stroke-width']} solid ${token.thumb['stroke-color']};
                         &[data-is-dragging="true"] {
                             transform: scale(1.1);
                         }

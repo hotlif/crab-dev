@@ -12,4 +12,4 @@ imports = [
 placeholder.min-block-size = "80px"
 
 # 远程内容就绪淡入（fade：normal 时长 + 默认缓动）, prefers-reduced-motion 下移除
-motion.appear = "$ref(motion.fade)"
+root.animation = "var(--realm-motion-appear, $ref(motion.fade))"
