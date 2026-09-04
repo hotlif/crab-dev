@@ -132,6 +132,18 @@ const groupedOptionStyle = css`
     padding-left: 20px;
 `;
 
+const virtualTopSpacerStyle = css`
+    display: block;
+    width: 100%;
+    height: var(--crab-rc-virtual-top-padding-height, 0px);
+`;
+
+const virtualBottomSpacerStyle = css`
+    display: block;
+    width: 100%;
+    height: var(--crab-rc-virtual-bottom-padding-height, 0px);
+`;
+
 // 复用 rc-spin 的纯视觉环：旋转与 reduced-motion 降级由其统一承担。
 // 外层 listbox 已标注 aria-busy="true"，故此处不再嵌套 role="status"（会重复播报且破坏 listbox 结构）。
 const loadingStyle = css`
@@ -242,11 +254,8 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                 const nodes: ReactNode[] = [
                     <div
                         key="__select-top-padding__"
-                        className={css`
-							display: inline-block;
-							height: var(--crab-rc-virtual-top-padding-height, 0px);
-							width: 100%;
-						`}
+                        data-select-virtual-spacer="top"
+                        className={virtualTopSpacerStyle}
                     />
                 ];
 
@@ -328,11 +337,8 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                 nodes.push(
                     <div
                         key="__select-bottom-padding__"
-                        className={css`
-							display: inline-block;
-							height: var(--crab-rc-virtual-bottom-padding-height, 0px);
-							width: 100%;
-						`}
+                        data-select-virtual-spacer="bottom"
+                        className={virtualBottomSpacerStyle}
                     />
                 );
 

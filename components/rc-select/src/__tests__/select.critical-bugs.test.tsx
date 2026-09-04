@@ -188,4 +188,17 @@ describe('rc-select 严重问题回归', () => {
         expect(screen.getByRole('option', { name: 'Option 16' })).toBeTruthy();
         expect(screen.getByRole('option', { name: 'Option 16' }).getAttribute('aria-selected')).toBe('true');
     });
+    // ── #5:零高度虚拟占位不生成行盒 ─────────────────────────────────────────────
+    it('#5: 列表位于顶部时,首项之前不产生额外行盒空白', async () => {
+        await render(<Select aria-label="s5" options={[
+            { label: '北京', value: 'beijing' },
+            { label: '上海', value: 'shanghai' },
+            { label: '广州', value: 'guangzhou' },
+        ]}/>);
+        await fireEvent.click(screen.getByRole('combobox', { name: 's5' }));
+
+        const topSpacer = document.querySelector<HTMLElement>('[data-select-virtual-spacer="top"]');
+        expect(topSpacer).toBeTruthy();
+        expect(globalThis.getComputedStyle(topSpacer as HTMLElement).display).toBe('block');
+    });
 });
