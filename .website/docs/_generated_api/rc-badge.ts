@@ -12,7 +12,7 @@ type BadgeStatus = DocsTypePlaceholder;
 type CSSProperties = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface BadgePropsSearchIndex {
+export interface BadgeProps {
     /**
      * 包裹的子节点，有子节点时以角标形式浮动在右上角
      */

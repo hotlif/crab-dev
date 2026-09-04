@@ -7,6 +7,8 @@ import {
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,
+    densityFor,
+    layoutFor,
     normalizeApiProps,
     parseSourceApiProps,
     removeOrphanGeneratedFiles,
@@ -19,6 +21,16 @@ const tests = [];
 function test(name, run) {
     tests.push({ name, run });
 }
+
+test("Button 文档使用单列宽预览", () => {
+    assert.equal(layoutFor("rc-button"), "wide");
+    assert.equal(layoutFor("rc-alert"), "grid");
+});
+
+test("Select 文档使用单列紧凑预览", () => {
+    assert.equal(layoutFor("rc-select"), "wide");
+    assert.equal(densityFor("rc-select"), "compact");
+});
 
 test("从联合 Props 合并公共字段、变体类型和源码说明", async () => {
     const sourcePath = path.join(temporaryDirectory, "types.ts");
@@ -137,7 +149,6 @@ test("生成的 API 适配接口可解析，并由 Wake 原生 API 建立属性�
     const api = {
         component: "Select",
         symbol: "SelectProps",
-        searchSymbol: "SelectPropsSearchIndex",
         props: [
             {
                 name: "onChange",
@@ -155,10 +166,20 @@ test("生成的 API 适配接口可解析，并由 Wake 原生 API 建立属性�
                 defaultValue: null,
                 deprecated: false,
             },
+            {
+                name: "nested",
+                required: false,
+                description: "递归配置",
+                typeText: "SelectProps[]",
+                defaultValue: null,
+                deprecated: false,
+            },
         ],
     };
     const source = createSearchableApiSource(api);
-    assert.match(source, /interface SelectPropsSearchIndex/);
+    assert.match(source, /interface SelectProps/);
+    assert.doesNotMatch(source, /SelectPropsSearchIndex/);
+    assert.doesNotMatch(source, /type SelectProps/);
     assert.match(source, /"onChange"\?: \(\(value: string\) => void\)/);
     assert.match(source, /declare namespace Temporal/);
     assert.match(source, /"value": Temporal\.ZonedDateTime \| null/);
@@ -185,6 +206,10 @@ status = "experimental"
 
 # Select
 
+## 何时使用
+
+先确认场景，再查看示例。
+
 [打开 Select 工作台](/components/rc-select/workbench/)
 
 ## 代码演示
@@ -197,7 +222,8 @@ status = "experimental"
 `, "rc-select", demos, api);
 
     assert.match(page, /可搜索 — 按 disabled 状态过滤/);
-    assert.match(page, /<API source="\.\.\/_generated_api\/rc-select\.ts" symbol="SelectPropsSearchIndex"/);
+    assert.ok(page.indexOf("## 何时使用") < page.indexOf("## 组件预览"));
+    assert.match(page, /<API source="\.\.\/_generated_api\/rc-select\.ts" symbol="SelectProps"/);
     assert.doesNotMatch(page, /ComponentApi/);
 });
 

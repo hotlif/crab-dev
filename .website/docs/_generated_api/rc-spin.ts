@@ -12,7 +12,7 @@ type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SpinSize = DocsTypePlaceholder;
 
-export interface SpinPropsSearchIndex {
+export interface SpinProps {
     /**
      * 被加载状态笼罩的内容。传入后进入包裹模式：内容变淡并被 inert 阻断交互, 指示器浮于其上；不传则作为独立指示器渲染
      */

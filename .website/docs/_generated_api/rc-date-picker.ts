@@ -17,7 +17,7 @@ declare namespace Temporal {
     type ZonedDateTime = DocsTypePlaceholder;
 }
 
-export interface DatePickerPropsSearchIndex {
+export interface DatePickerProps {
     /**
      * 大小
      */

@@ -23,7 +23,7 @@ type SortColumn = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 type TableCellProps<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface TablePropsSearchIndex {
+export interface TableProps {
     /**
      * 表格的宽度
      */

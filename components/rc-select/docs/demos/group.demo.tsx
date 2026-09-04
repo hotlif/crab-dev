@@ -1,6 +1,9 @@
 export const meta = {
     title: "分组选项",
     description: "使用 { label, options } 结构对选项进行分组",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 60,
 };
 
 import Select from '../../src/index.js';

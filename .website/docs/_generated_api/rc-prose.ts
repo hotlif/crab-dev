@@ -12,7 +12,7 @@ type ProseSize = DocsTypePlaceholder;
 type ProseTag = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface ProsePropsSearchIndex {
+export interface ProseProps {
     /**
      * 根元素的 HTML 标签名
      * @default 'div'

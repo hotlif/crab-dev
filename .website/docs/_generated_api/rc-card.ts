@@ -14,7 +14,7 @@ type MouseEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTy
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface CardPropsSearchIndex {
+export interface CardProps {
     /**
      * 底部操作组, 渲染在分割线下方并靠右排布
      */

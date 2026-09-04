@@ -12,7 +12,27 @@ import { demos } from "../_generated/rc-button.js";
 
 # Button
 
-按钮用于开始一个即时操作。
+## 何时使用
+
+标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
+
+
+我们提供了五种按钮。
+
+- 🔵 主按钮：用于主行动点，一个操作区域只能有一个主按钮。
+- ⚪️ 默认按钮：用于没有主次之分的一组行动点。
+- 😶 虚线按钮：常用于添加操作。
+- 🔤 文本按钮：用于最次级的行动点。
+- 🔗 链接按钮：一般用于链接，即导航至某位置
+
+## 无障碍
+
+- 优先使用清晰的可见文字；只有图标的按钮必须传入描述操作目的的 `aria-label`。
+- 切换按钮应同时传入 `isSelected` 与 `aria-pressed`，让视觉状态和辅助技术状态保持一致。
+- 异步操作使用 `loading` 提供 `aria-busy` 与防重复提交反馈；不要仅用颜色表示危险或选中状态。
+- 保持原生按钮的键盘行为和可见焦点，不要用普通元素模拟按钮。
+
+更多通用要求见[无障碍使用指南](/guides/accessibility)。
 
 ## 组件预览
 
@@ -51,30 +71,8 @@ import { demos } from "../_generated/rc-button.js";
 </div>
 <ComponentDemos demos={demos} />
 
-## 何时使用
-
-标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
-
-
-我们提供了五种按钮。
-
-- 🔵 主按钮：用于主行动点，一个操作区域只能有一个主按钮。
-- ⚪️ 默认按钮：用于没有主次之分的一组行动点。
-- 😶 虚线按钮：常用于添加操作。
-- 🔤 文本按钮：用于最次级的行动点。
-- 🔗 链接按钮：一般用于链接，即导航至某位置
-
-## 无障碍
-
-- 优先使用清晰的可见文字；只有图标的按钮必须传入描述操作目的的 `aria-label`。
-- 切换按钮应同时传入 `isSelected` 与 `aria-pressed`，让视觉状态和辅助技术状态保持一致。
-- 异步操作使用 `loading` 提供 `aria-busy` 与防重复提交反馈；不要仅用颜色表示危险或选中状态。
-- 保持原生按钮的键盘行为和可见焦点，不要用普通元素模拟按钮。
-
-更多通用要求见[无障碍使用指南](/guides/accessibility)。
-
 
 
 ## API
 
-<API source="../_generated_api/rc-button.ts" symbol="ButtonPropsSearchIndex" component="Button" />
+<API source="../_generated_api/rc-button.ts" symbol="ButtonProps" component="Button" />

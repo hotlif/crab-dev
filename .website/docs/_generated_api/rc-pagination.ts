@@ -12,7 +12,7 @@ type PaginationShowTotal = DocsTypePlaceholder;
 type PaginationSize = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface PaginationPropsSearchIndex {
+export interface PaginationProps {
     /**
      * 当前页（受控）
      */

@@ -14,7 +14,7 @@ type Locale = DocsTypePlaceholder;
 type OKLCHValue = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface ColorPickerPropsSearchIndex {
+export interface ColorPickerProps {
     /**
      * 是否显示「重置」按钮,默认 false。
      * @default false

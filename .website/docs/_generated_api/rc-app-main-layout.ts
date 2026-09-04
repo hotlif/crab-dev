@@ -12,7 +12,7 @@ type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgument
 type ReactNode = DocsTypePlaceholder;
 type SidebarProps = DocsTypePlaceholder;
 
-export interface LayoutPropsSearchIndex {
+export interface LayoutProps {
     /**
      * 侧边栏顶部 Logo
      */

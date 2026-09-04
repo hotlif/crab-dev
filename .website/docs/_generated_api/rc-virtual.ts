@@ -11,7 +11,7 @@ type ReactNode = DocsTypePlaceholder;
 type RefObject<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type VirtualHandle = DocsTypePlaceholder;
 
-export interface VirtualPropsSearchIndex {
+export interface VirtualProps {
     /**
      * 每列的宽度数组，单位为 px
      */

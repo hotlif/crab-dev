@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type ReactNode = DocsTypePlaceholder;
 type Size = DocsTypePlaceholder;
 
-export interface AutoSizerPropsSearchIndex {
+export interface AutoSizerProps {
     /**
      * 渲染函数，接收当前容器的 { width, height }，返回需要渲染的内容。 用法与 react-virtualized-auto-sizer 保持一致。
      */

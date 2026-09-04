@@ -12,7 +12,7 @@ type HTMLInputElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface LineEditPropsSearchIndex {
+export interface LineEditProps {
     /**
      * input 元素的 ref
      */

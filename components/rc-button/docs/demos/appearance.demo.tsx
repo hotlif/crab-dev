@@ -12,8 +12,10 @@ const SizeDemo = () => {
         <div
             className={css`
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
-                gap: 1rem;
+                justify-content: center;
+                gap: var(--token-semantic-space-component-gap);
             `}
         >
             <Button

@@ -13,7 +13,7 @@ type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgument
 type ReactNode = DocsTypePlaceholder;
 type SyntheticEvent = DocsTypePlaceholder;
 
-export interface DrawerPropsSearchIndex {
+export interface DrawerProps {
     /**
      * 是否展示关闭图标按钮
      * @default true

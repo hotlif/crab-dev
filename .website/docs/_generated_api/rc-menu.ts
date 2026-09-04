@@ -13,7 +13,7 @@ type Key = DocsTypePlaceholder;
 type MouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type OnSelectItemParam = DocsTypePlaceholder;
 
-export interface MenuPropsSearchIndex {
+export interface MenuProps {
     /**
      * 垂直、水平、和内嵌模式三种, 默认情况下为垂直模式 `vertical`
      * @default "vertical"

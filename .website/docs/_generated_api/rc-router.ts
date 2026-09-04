@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type RouteObject = DocsTypePlaceholder;
 type Window = DocsTypePlaceholder;
 
-export interface RouterPropsSearchIndex {
+export interface RouterProps {
     /**
      * 暂无说明。
      * @default '/'

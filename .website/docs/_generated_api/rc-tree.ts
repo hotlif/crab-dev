@@ -27,9 +27,8 @@ type OverStateEnum = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 type SetStateAction<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type TreeProps = DocsTypePlaceholder;
 
-export interface TreePropsSearchIndex {
+export interface TreeProps {
     /**
      * 树组件的数据信息
      */

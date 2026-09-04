@@ -13,7 +13,7 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 type SelectOption = DocsTypePlaceholder;
 type SelectOptionOrGroup = DocsTypePlaceholder;
 
-export interface SelectPropsSearchIndex {
+export interface SelectProps {
     /**
      * combobox 容器 DOM 节点的 ref
      */

@@ -15,7 +15,7 @@ type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __doc
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SharedEntryConfig = DocsTypePlaceholder;
 
-export interface RealmPropsSearchIndex {
+export interface RealmProps {
     /**
      * remoteEntry.js 完整 URL
      */

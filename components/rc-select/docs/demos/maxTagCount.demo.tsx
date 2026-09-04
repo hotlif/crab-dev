@@ -1,6 +1,9 @@
 export const meta = {
     title: "标签数量限制",
     description: "多选模式下设置 maxTagCount 限制展示的标签数量",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 50,
 };
 
 import Select from '../../src/index.js';

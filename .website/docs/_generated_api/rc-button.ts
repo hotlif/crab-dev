@@ -14,7 +14,7 @@ type Parameters<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgum
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
-export interface ButtonPropsSearchIndex {
+export interface ButtonProps {
     /**
      * 图标（左侧）
      */

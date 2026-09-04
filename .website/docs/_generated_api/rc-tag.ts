@@ -12,7 +12,7 @@ type PresetTagColor = DocsTypePlaceholder;
 type ReactMouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
-export interface TagPropsSearchIndex {
+export interface TagProps {
     /**
      * 标签颜色预设
      * @default 'default'

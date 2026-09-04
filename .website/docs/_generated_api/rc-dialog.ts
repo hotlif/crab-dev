@@ -13,7 +13,7 @@ type HTMLDialogElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface DialogPropsSearchIndex {
+export interface DialogProps {
     /**
      * 对话框根元素（原生 dialog）的 ref
      */

@@ -1,6 +1,9 @@
 export const meta = {
     title: "禁用",
     description: "设置 disabled 禁用整个选择器，或在选项中设置 disabled 禁用单个选项",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 80,
 };
 
 import { css } from '@crab-dev/css';

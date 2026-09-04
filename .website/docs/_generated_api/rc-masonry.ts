@@ -9,7 +9,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type ReactElement = DocsTypePlaceholder;
 
-export interface MasonryPropsSearchIndex {
+export interface MasonryProps {
     /**
      * 瀑布流子项
      */

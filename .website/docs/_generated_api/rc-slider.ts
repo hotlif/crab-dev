@@ -5,7 +5,7 @@
 
 
 
-export interface SliderPropsSearchIndex {
+export interface SliderProps {
     /**
      * 暂无说明。
      * @default 0

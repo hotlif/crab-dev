@@ -1,6 +1,9 @@
 export const meta = {
     title: "可清除",
     description: "设置 allowClear 允许一键清空已选值",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 20,
 };
 
 import Select from '../../src/index.js';

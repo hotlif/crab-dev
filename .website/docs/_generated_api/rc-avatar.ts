@@ -18,7 +18,7 @@ type ImgHTMLAttributes<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTy
 type ReactNode = DocsTypePlaceholder;
 type SyntheticEvent<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 
-export interface AvatarPropsSearchIndex {
+export interface AvatarProps {
     /**
      * 形状
      * @default 'circle'

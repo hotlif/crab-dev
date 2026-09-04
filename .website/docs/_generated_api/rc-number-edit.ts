@@ -9,7 +9,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type ScientificMode = DocsTypePlaceholder;
 
-export interface NumberEditPropsSearchIndex {
+export interface NumberEditProps {
     /**
      * 是否显示步进按钮，默认 `true`
      */

@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type BreadcrumbsItem = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface BreadcrumbsPropsSearchIndex {
+export interface BreadcrumbsProps {
     /**
      * 暂无说明。
      * @default '... '

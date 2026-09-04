@@ -13,18 +13,18 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
         "id": "docs/demos/appearance.demo.tsx",
         "title": "外观设置",
         "description": "通过 `appearance` 属性设置按钮外观",
-        "sourceCode": "\nexport const meta = {\n    title: \"外观设置\",\n    description: \"通过 `appearance` 属性设置按钮外观\",\n};\n\nimport Button from \"../../src/index.js\";\nimport { css } from \"@crab-dev/css\";\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                align-items: center;\n                gap: 1rem;\n            `}\n        >\n            \u003cButton\n                appearance=\"primary\"\n            >\n                primary\n            \u003c/Button>\n            \u003cButton appearance=\"subtle\">\n                subtle\n            \u003c/Button>\n            \u003cButton appearance=\"dashed\">\n                dashed\n            \u003c/Button>\n            \u003cButton appearance=\"text\">\n                text\n            \u003c/Button>\n            \u003cButton appearance=\"link\">\n                link\n            \u003c/Button>\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "\nexport const meta = {\n    title: \"外观设置\",\n    description: \"通过 `appearance` 属性设置按钮外观\",\n};\n\nimport Button from \"../../src/index.js\";\nimport { css } from \"@crab-dev/css\";\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-wrap: wrap;\n                align-items: center;\n                justify-content: center;\n                gap: var(--token-semantic-space-component-gap);\n            `}\n        >\n            \u003cButton\n                appearance=\"primary\"\n            >\n                primary\n            \u003c/Button>\n            \u003cButton appearance=\"subtle\">\n                subtle\n            \u003c/Button>\n            \u003cButton appearance=\"dashed\">\n                dashed\n            \u003c/Button>\n            \u003cButton appearance=\"text\">\n                text\n            \u003c/Button>\n            \u003cButton appearance=\"link\">\n                link\n            \u003c/Button>\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fappearance.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fappearance.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -35,7 +35,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fcircle.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fcircle.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -46,7 +46,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fdanger.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fdanger.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -57,7 +57,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Ficon.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Ficon.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -68,7 +68,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Ficon-after.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Ficon-after.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -79,7 +79,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Flink-button.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Flink-button.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -90,7 +90,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "基础与外观"
     },
     {
@@ -101,7 +101,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fdisabled.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fdisabled.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "状态与反馈"
     },
     {
@@ -112,7 +112,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Floading.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Floading.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "状态与反馈"
     },
     {
@@ -123,7 +123,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fselected.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fselected.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "状态与反馈"
     },
     {
@@ -134,7 +134,7 @@ export const demos = [
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbutton-group.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbutton-group.demo.tsx",
         "density": "compact",
-        "layout": "grid",
+        "layout": "wide",
         "group": "组合"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

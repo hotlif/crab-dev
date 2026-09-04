@@ -1,6 +1,9 @@
 export const meta = {
     title: "尺寸",
     description: "提供 large、middle、small 三种尺寸",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 90,
 };
 
 import { css } from '@crab-dev/css';

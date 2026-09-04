@@ -19,7 +19,7 @@ type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type UseEdgeRoutingOptions = DocsTypePlaceholder;
 
-export interface FlowDiagramPropsSearchIndex {
+export interface FlowDiagramProps {
     /**
      * ELK 布局输入节点（需提供稳定 id 与宽高）
      */

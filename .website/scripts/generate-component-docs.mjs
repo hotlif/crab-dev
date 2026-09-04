@@ -23,6 +23,7 @@ const compactComponents = new Set([
     "rc-button",
     "rc-checkbox",
     "rc-radio",
+    "rc-select",
     "rc-slider",
     "rc-switch",
     "rc-tag",
@@ -33,7 +34,6 @@ const gridLayoutComponents = new Set([
     "rc-alert",
     "rc-avatar",
     "rc-badge",
-    "rc-button",
     "rc-card",
     "rc-checkbox",
     "rc-divider",
@@ -41,7 +41,6 @@ const gridLayoutComponents = new Set([
     "rc-line-edit",
     "rc-number-edit",
     "rc-radio",
-    "rc-select",
     "rc-skeleton",
     "rc-slider",
     "rc-spin",
@@ -681,7 +680,6 @@ async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPa
     return {
         component: componentName,
         symbol,
-        searchSymbol: `${symbol}SearchIndex`,
         props,
     };
 }
@@ -776,7 +774,7 @@ function qualifiedNameParts(name) {
     return [...qualifiedNameParts(name.left), name.right.text];
 }
 
-function createApiTypePlaceholders(props) {
+function createApiTypePlaceholders(props, rootSymbol) {
     const aliases = new Map();
     const namespaces = new Map();
     for (const prop of props) {
@@ -812,6 +810,7 @@ function createApiTypePlaceholders(props) {
         visit(sourceFile);
     }
 
+    aliases.delete(rootSymbol);
     for (const namespace of namespaces.keys()) aliases.delete(namespace.split(".")[0]);
     const aliasDeclarations = [...aliases]
         .sort(([left], [right]) => left.localeCompare(right))
@@ -848,10 +847,10 @@ function createSearchableApiSource(api) {
         const optional = prop.required ? "" : "?";
         return `    ${comments.replace(/\n/g, "\n    ")}\n    ${JSON.stringify(prop.name)}${optional}: ${prop.typeText};`;
     }).join("\n\n");
-    const placeholders = createApiTypePlaceholders(searchableProps);
-    const content = `/**\n * ${GENERATED_MARKER}\n * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。\n */\n\n${placeholders}\n\nexport interface ${api.searchSymbol} {\n${properties}\n}\n`;
+    const placeholders = createApiTypePlaceholders(searchableProps, api.symbol);
+    const content = `/**\n * ${GENERATED_MARKER}\n * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。\n */\n\n${placeholders}\n\nexport interface ${api.symbol} {\n${properties}\n}\n`;
     const sourceFile = ts.createSourceFile(
-        `${api.searchSymbol}.ts`,
+        `${api.symbol}.ts`,
         content,
         ts.ScriptTarget.Latest,
         true,
@@ -921,7 +920,7 @@ function createPage(canonicalSource, slug, demos, api) {
         body = body.replace(/<API\b[^>]*\/>/g, () => {
             if (renderedApi) return "";
             renderedApi = true;
-            return `<API source="../_generated_api/${slug}.ts" symbol="${api.searchSymbol}" component="${api.component}" />`;
+            return `<API source="../_generated_api/${slug}.ts" symbol="${api.symbol}" component="${api.component}" />`;
         });
     }
 
@@ -1081,9 +1080,11 @@ export {
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,
+    densityFor,
     extractApiRecord,
     generateDocs,
     isValidTypeText,
+    layoutFor,
     normalizeApiProps,
     parseSourceApiProps,
     removeOrphanGeneratedFiles,

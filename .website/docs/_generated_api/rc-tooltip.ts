@@ -11,7 +11,7 @@ type Placement = DocsTypePlaceholder;
 type ReactElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface TooltipPropsSearchIndex {
+export interface TooltipProps {
     /**
      * 是否显示箭头
      * @default true

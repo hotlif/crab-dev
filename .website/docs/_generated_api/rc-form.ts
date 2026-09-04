@@ -12,7 +12,7 @@ type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgument
 type ReactNode = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 
-export interface FormPropsSearchIndex {
+export interface FormProps {
     /**
      * 设置 Form 实例, 以便后面调用 Form 的方法
      */

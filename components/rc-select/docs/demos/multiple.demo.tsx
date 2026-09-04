@@ -1,6 +1,9 @@
 export const meta = {
     title: "多选模式",
     description: "设置 multiple 启用多选",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 40,
 };
 
 import Select from '../../src/index.js';

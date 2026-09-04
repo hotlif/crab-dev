@@ -14,7 +14,7 @@ type HTMLDivElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface DividerPropsSearchIndex {
+export interface DividerProps {
     /**
      * 线型, 默认 solid
      */

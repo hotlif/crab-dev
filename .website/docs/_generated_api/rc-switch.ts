@@ -12,7 +12,7 @@ type KeyboardEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeAr
 type MouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
-export interface SwitchPropsSearchIndex {
+export interface SwitchProps {
     /**
      * 是否选中（受控）
      */

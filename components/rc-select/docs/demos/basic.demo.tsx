@@ -1,6 +1,9 @@
 export const meta = {
     title: "基础用法",
     description: "单选模式下的基础选择",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 10,
 };
 
 import Select from '../../src/index.js';

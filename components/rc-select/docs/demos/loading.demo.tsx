@@ -1,6 +1,9 @@
 export const meta = {
     title: "加载中",
     description: "设置 loading 展示加载状态",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 70,
 };
 
 import { useState } from 'react';

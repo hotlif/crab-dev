@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type HTMLInputElement = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface CronPickerPropsSearchIndex {
+export interface CronPickerProps {
     /**
      * 无障碍名称,默认 "Cron 表达式"
      */

@@ -11,7 +11,7 @@ type HTMLAttributes<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 type HTMLDivElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface DropdownContainerPropsSearchIndex {
+export interface DropdownContainerProps {
     /**
      * 浮动面板的属性信息
      * @default {}

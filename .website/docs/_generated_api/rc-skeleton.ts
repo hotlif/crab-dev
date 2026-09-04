@@ -13,7 +13,7 @@ type SkeletonAnimation = DocsTypePlaceholder;
 type SkeletonSize = DocsTypePlaceholder;
 type SkeletonVariant = DocsTypePlaceholder;
 
-export interface SkeletonPropsSearchIndex {
+export interface SkeletonProps {
     /**
      * 是否启用动画。关闭后骨架以静态背景展示。
      * @default true

@@ -16,7 +16,7 @@ type HTMLDivElement = DocsTypePlaceholder;
 type Partial<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface BarChartPropsSearchIndex {
+export interface BarChartProps {
     /**
      * 类目标签（x 轴）
      */

@@ -13,7 +13,7 @@ type SegmentedRawOption = DocsTypePlaceholder;
 type SegmentedSize = DocsTypePlaceholder;
 type SegmentedValue = DocsTypePlaceholder;
 
-export interface SegmentedPropsSearchIndex {
+export interface SegmentedProps {
     /**
      * 是否撑满父容器并等宽分布各选项
      * @default false

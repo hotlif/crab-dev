@@ -16,7 +16,7 @@ type TabsItem = DocsTypePlaceholder;
 type TabsSize = DocsTypePlaceholder;
 type TabsType = DocsTypePlaceholder;
 
-export interface TabsPropsSearchIndex {
+export interface TabsProps {
     /**
      * 暂无说明。
      */

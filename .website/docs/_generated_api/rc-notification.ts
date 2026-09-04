@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type Direction = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface NotificationPropsSearchIndex {
+export interface NotificationProps {
     /**
      * 消息的标题信息
      */

@@ -11,7 +11,7 @@ type ChangeEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgu
 type HTMLInputElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface RadioPropsSearchIndex {
+export interface RadioProps {
     /**
      * 是否选中（受控）
      */

@@ -1,6 +1,9 @@
 export const meta = {
     title: "可搜索",
     description: "设置 searchable 支持关键字过滤",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 30,
 };
 
 import Select from '../../src/index.js';

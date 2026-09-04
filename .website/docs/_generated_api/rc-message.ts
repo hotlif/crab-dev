@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type MessageType = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface MessagePropsSearchIndex {
+export interface MessageProps {
     /**
      * 消息内容
      */

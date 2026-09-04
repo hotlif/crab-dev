@@ -12,7 +12,7 @@ type PreviewDensity = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
-export interface PreviewPropsSearchIndex {
+export interface PreviewProps {
     /**
      * 源码高亮主题，默认 light
      * @default 'light'

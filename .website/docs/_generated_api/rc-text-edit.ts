@@ -11,7 +11,7 @@ type HTMLDivElement = DocsTypePlaceholder;
 type HTMLTextAreaElement = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface TextEditPropsSearchIndex {
+export interface TextEditProps {
     /**
      * textarea 元素的 ref
      */

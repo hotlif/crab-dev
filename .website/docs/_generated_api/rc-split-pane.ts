@@ -12,7 +12,7 @@ type HTMLDivElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface SplitPanePropsSearchIndex {
+export interface SplitPaneProps {
     /**
      * 分隔条的无障碍名称
      * @default '调整面板大小'

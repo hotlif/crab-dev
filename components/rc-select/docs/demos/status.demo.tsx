@@ -1,6 +1,9 @@
 export const meta = {
     title: "校验状态",
     description: "设置 status 以展示 error 或 warning 状态",
+    group: "数据录入",
+    component: "Select 选择器",
+    order: 100,
 };
 
 import { css } from '@crab-dev/css';

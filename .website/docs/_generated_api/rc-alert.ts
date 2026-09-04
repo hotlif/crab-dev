@@ -12,7 +12,7 @@ type HTMLButtonElement = DocsTypePlaceholder;
 type ReactMouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
-export interface AlertPropsSearchIndex {
+export interface AlertProps {
     /**
      * 警告类型
      * @default 'info'

@@ -15,7 +15,7 @@ type Partial<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgument
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
-export interface CanvasPropsSearchIndex {
+export interface CanvasProps {
     /**
      * 暂无说明。
      */

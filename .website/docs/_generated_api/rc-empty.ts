@@ -10,7 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type EmptyPreset = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
-export interface EmptyPropsSearchIndex {
+export interface EmptyProps {
     /**
      * 操作区域（如按钮、链接），位于描述文字下方
      */

@@ -27,7 +27,7 @@ type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 type SortColumn = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 
-export interface ProtocolTablePropsSearchIndex {
+export interface ProtocolTableProps {
     /**
      * 暂无说明。
      */
