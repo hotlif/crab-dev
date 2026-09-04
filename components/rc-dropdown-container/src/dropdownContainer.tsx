@@ -5,6 +5,8 @@ import {
     autoUpdate,
     offset,
     flip,
+    shift,
+    size,
     FloatingPortal,
     useDismiss,
     useInteractions,
@@ -44,6 +46,8 @@ const floatingContainerStyle = css`
     margin: 0;
     border: unset;
     border-radius: ${token.root['border-radius']};
+    overflow-y: auto;
+    overscroll-behavior: contain;
 `;
 
 const overlayStyle = css`
@@ -52,6 +56,8 @@ const overlayStyle = css`
     border-radius: inherit;
     transform-origin: top;
 `;
+
+const VIEWPORT_PADDING = 8;
 
 function DropdownContainer(props: DropdownContainerProps) {
     // 多个 DropdownContainer 嵌套使用时(如 rc-select 用在 rc-color-picker 面板内),
@@ -92,6 +98,15 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
             offset(6),
             flip({
                 fallbackPlacements: ['right-start', 'top-start', 'left-start'],
+            }),
+            shift({ padding: VIEWPORT_PADDING }),
+            size({
+                padding: VIEWPORT_PADDING,
+                apply({ availableHeight, elements }) {
+                    // Floating UI computes this value from the current viewport and placement.
+                    // It is runtime geometry, so it must remain an inline measurement result.
+                    elements.floating.style.maxHeight = `${Math.max(0, Math.floor(availableHeight))}px`;
+                },
             }),
         ],
     });

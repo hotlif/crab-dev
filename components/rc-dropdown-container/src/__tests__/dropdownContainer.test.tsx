@@ -1,5 +1,13 @@
 import { act, beforeAll, describe, expect, it, mock, render, fireEvent, screen } from "@crab-dev/wake/test/react";
 import React from "react";
+
+let sizeMiddlewareOptions: {
+    apply: (state: {
+        availableHeight: number;
+        elements: { floating: HTMLElement };
+    }) => void;
+} | undefined;
+
 mock.module("motion/react", async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");
@@ -35,6 +43,11 @@ mock.module("@floating-ui/react", async () => {
         autoUpdate: mock.fn(),
         offset: mock.fn(),
         flip: mock.fn(),
+        shift: mock.fn(),
+        size: (options: typeof sizeMiddlewareOptions) => {
+            sizeMiddlewareOptions = options;
+            return { name: "size" };
+        },
         useDismiss: () => ({}),
         useInteractions: () => ({
             getReferenceProps: (props?: Record<string, unknown>) => props ?? {},
@@ -181,6 +194,18 @@ describe("DropdownContainer", () => {
             await fireEvent(screen.getByTestId("trigger"), new FocusEvent("focusin", { bubbles: true }));
         });
         expect(screen.getByText("Custom Overlay")).toBeTruthy();
+    });
+    it("limits tall overlays to the available viewport height", async () => {
+        await renderDropdown();
+        expect(sizeMiddlewareOptions).toBeTruthy();
+
+        const floating = document.createElement("div");
+        sizeMiddlewareOptions?.apply({
+            availableHeight: 104.8,
+            elements: { floating },
+        });
+
+        expect(floating.style.maxHeight).toBe("104px");
     });
     it("portals overlay into the enclosing dialog to escape modal inert", async () => {
         // 模拟在原生 modal <dialog> 中使用下拉组件的场景
