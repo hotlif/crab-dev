@@ -1,20 +1,19 @@
 +++
 title = "Tree 树形控件"
-description = "一个多功能且可定制的树形组件, 用于React应用程序, 提供高效的渲染和拖放功能。"
+description = "展示层级数据，支持展开、选择、搜索和拖拽"
 kind = "component"
 status = "experimental"
 +++
 
-# Tree
+# Tree 树形控件
 
-一个多功能且可定制的树形组件，用于 React 应用程序，提供高效的渲染和拖放功能。
+展示层级数据，支持展开、选择、搜索和拖拽。
 
-[打开 Tree 树形控件 工作台](/components/rc-tree/workbench/)
+[打开组件工作台](/components/rc-tree/workbench/)
 
 ## 何时使用
 
-例如文件夹、组织架构、生物分类、国家地区等。使用树控件可以完整展现这些层级关系，并提供展开、收起、选择等交互功能。
-
+用于文件目录、组织架构等层级数据的浏览和管理。通过展开、收起和选择定位节点，并按需启用搜索、复选、行内编辑或拖拽。
 
 ## 无障碍
 
@@ -25,40 +24,23 @@ status = "experimental"
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
 
+## 容器与窄屏
+
+**现有实现：** `width` 和 `height` 接收数值，单位为 CSS px。工作台示例通过 [AutoSizer](/components/rc-auto-sizer) 测量父容器，再传入 `Math.min(width, 示例目标宽度)`；父容器必须允许收缩，不能直接传入 `width="100%"`。多选示例在空间不足时把结果摘要换到下一行。
+
+**设计要求：** 长标题应提供全文获取入口；宽度适配不能替代标题可读性、层级键盘导航及拖拽替代操作的验收。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
-## API
+## 节点数据
 
-### Tree props
+通过 `treeData` 传入节点数组。`Node` 类型包含唯一标识 `id`、标题 `title`、父节点 `parent`、节点类型 `type` 和加载状态 `loadState`。
 
-| 参数      |说明         |类型        |默认值
-|-------    |--------    |--------    |------------
-|height     | 高度        | `number`   | -
-|width      | 宽度        | `number`   | -
-|draggable  | 设置节点可拖拽 | `boolean` | `false`
-|expandedKeys | 展开指定的树节点 | `Key[]` | `[]`
-|showLine     | 是否展示连接线   | `boolean` | `false`
-|defaultNodeHeight | 默认节点高度 | `number` | -
-|loadData          | 加载节点信息 | `(parentNode: Node \| null) => Promise<Node[]>` | -
-|rendererContextMenu | 渲染右键菜单 | `rendererContextMenu?: (node: Node \| null) => ReactNode` | -
-|selectKeys          | 选择节点     | `Key[]` | -
-|onSelect            | 选择节点事件 | `(param: { event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: Key[], node: Node, isSelect: boolean }) => void` | -
-|onExpanded          | 展开节点的事件 | `(param: {node: Node,event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent> }) => void`| -
-|onDragEnd           | 拖拽结束事件  | `(event: DragOverEvent, context: Context) => void;`  | -
-
-### Tree Node
-
-| 参数      |说明         |类型        |默认值
-|-------    |--------    |--------    |------------
-|parent  |父节点信息     | `Node \| null` | -
-|loadState   | 加载状态     | `LoadStateType`       | -
-|type     |当前节点类型   | `NodeType`        | -
-|title   |节点标题  | `ReactNode`       | -
-|id    |节点的唯一标识      | `UniqueIdentifier` | -
-|disabled | 节点是否被禁用   | `boolean` | -
-|height   |  节点高度 | `number` | `24px`
+- 根节点的 `parent` 为 `null`，子节点通过 `parent` 建立层级关系。
+- `type` 使用 `NodeType`，`loadState` 使用 `LoadStateType`；两者均从组件包具名导出。
+- 可通过 `disabled` 禁用节点，通过 `icon` 设置前置图标，通过 `height` 指定节点高度（单位为 px）。
 
 ## API
 

@@ -1,6 +1,6 @@
 +++
 title = "Notification 通知提醒"
-description = "消息通知组件"
+description = "在页面角落展示包含详细内容或操作入口的通知"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-notification.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-notification.js";
 
-# Notification 通知提醒框
+# Notification 通知提醒
 
-全局展示通知提醒信息。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-notification</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+通知承载较完整的信息，标题概括事件，正文解释结果。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**发送通知**
+
+创建通知实例，渲染 holder，并调用 open。 通知承载较完整的信息，标题概括事件，正文解释结果。 发送导出完成通知。 页面角落显示标题和完整说明。
+
+**选择显示方向**
+
+通过 direction 调整通知位置。 通知承载较完整的信息，标题概括事件，正文解释结果。 切换方向后显示通知。 新通知出现在选择的页面角落。
+
+</div>
+
+## 常见问题
+
+### 需要用户必须确认怎么办？
+
+通知不应阻断主任务；必须确认的操作应使用 Dialog。
+
+
+## API
+
+<API source="../_generated_api/rc-notification.ts" symbol="NotificationProps" component="Notification" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（2 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -23,21 +66,21 @@ import { demos } from "../_generated/rc-notification.js";
 ##### 自定义内容 — 一个自定义消息通知的示例
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-notification/workbench/)
 
-在系统四个角显示通知提醒信息。经常用于以下情况：
+## 使用说明
 
-
-我们提供了五种按钮。
-
-- 较为复杂的通知内容。
-- 带有交互的通知，给出用户下一步的行动点。
-- 系统主动推送
+在页面角落展示包含详细内容或操作入口的通知。
 
 
+### 何时使用
 
-## API
+- 展示需要标题和详细说明的系统通知或异步任务结果。
+- 为通知提供查看详情、重试等后续操作。
+- 在页面角落保留通知，同时允许用户继续当前任务。
 
-<API source="../_generated_api/rc-notification.ts" symbol="NotificationProps" component="Notification" />
+仅需简短反馈时可使用 Message；必须获得用户确认时使用 Dialog。

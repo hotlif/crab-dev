@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "NumberEdit 数字输入框"
 description = "数字输入框, 支持步进、范围钳制、千分位与科学计数法自适应显示"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

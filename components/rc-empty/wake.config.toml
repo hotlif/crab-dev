@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Empty 空状态"
 description = "空状态组件，用于展示无数据、搜索无结果、无权限等场景"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

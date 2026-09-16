@@ -1,15 +1,15 @@
 +++
 title = "Tag 标签"
-description = "标签，用于分类与标记"
+description = "标记分类、属性或状态，支持关闭和勾选"
 kind = "component"
 status = "experimental"
 +++
 
-# Tag
+# Tag 标签
 
-标签用于进行标记和分类。
+标记分类、属性或状态，支持关闭和勾选。
 
-[打开 Tag 标签 工作台](/components/rc-tag/workbench/)
+[打开组件工作台](/components/rc-tag/workbench/)
 
 ## 何时使用
 
@@ -17,16 +17,9 @@ status = "experimental"
 - 进行分类和筛选。
 - 展示状态信息（成功、警告、错误等）。
 
+预设颜色包括默认、品牌、成功、警告和错误。状态应同时通过文字或图标表达。
 
-我们提供了五种预设颜色。
-
-- ⚪️ 默认标签：中性标记，适用于一般分类。
-- 🔵 品牌标签：强调突出的重要标记。
-- 🟢 成功标签：表示成功、完成状态。
-- 🟡 警告标签：表示警告、待处理状态。
-- 🔴 错误标签：表示错误、失败状态。
-
-## 功能特性
+## 主要功能
 
 - 支持预设颜色与自定义颜色字符串（如 `#1677ff`）。
 - 支持 `icon` 前缀图标。
@@ -39,7 +32,5 @@ status = "experimental"
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
-
-<API source="../src/types.ts" symbol="TagProps" component="Tag" />
 
 <API source="../src/types.ts" symbol="TagProps" component="Tag" />

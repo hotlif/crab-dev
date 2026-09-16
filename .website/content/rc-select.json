@@ -1,0 +1,38 @@
+{
+    "id": "rc-select",
+    "title": "Select 选择器",
+    "summary": "使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "配置选项",
+            "goal": "传入包含 value 和 label 的 options。",
+            "why": "使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。",
+            "instruction": "打开下拉列表，选择城市。",
+            "expected": "输入区域显示城市名称。",
+            "changes": [
+                "传入包含 value 和 label 的 options。"
+            ],
+            "source": "rc-select/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "搜索并读取值",
+            "goal": "添加 searchable、allowClear，并连接受控 value。",
+            "why": "使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。",
+            "instruction": "搜索杭州并选择，再清除选项。",
+            "expected": "选择后输出 hz，清除后恢复未选择。",
+            "changes": [
+                "添加 searchable、allowClear，并连接受控 value。"
+            ],
+            "source": "rc-select/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "label 与 value 有什么区别？",
+            "answer": "label 是用户看到的文字；value 是程序使用的稳定标识，不应随显示文案改变。"
+        }
+    ]
+}

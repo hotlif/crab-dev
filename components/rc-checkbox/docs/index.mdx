@@ -1,22 +1,21 @@
 +++
 title = "Checkbox 复选框"
-description = "复选框, 用于在一组选项中选择多个值"
+description = "从一组选项中选择多个值，或标记单个选项的选中状态"
 kind = "component"
 status = "experimental"
 +++
 
-# Checkbox
+# Checkbox 复选框
 
-复选框, 用于在一组选项中选择多个值。
+从一组选项中选择多个值，或标记单个选项的选中状态。
 
-[打开 Checkbox 复选框 工作台](/components/rc-checkbox/workbench/)
+[打开组件工作台](/components/rc-checkbox/workbench/)
 
 ## 何时使用
 
-- 在一组可选项中进行多项选择时
-- 单独使用可以表示两种状态之间的切换, 和 Switch 类似
-- 和 Switch 的区别是, 切换 Switch 会直接触发状态改变, 而 Checkbox 一般用于状态标记, 需要和提交操作配合
-
+- 从多个独立选项中选择一项或多项，例如筛选条件、权限或批量操作对象。
+- 标记是否同意条款等布尔值。
+- 选项需要随表单一起提交时使用 Checkbox；设置需要立即生效时通常使用 Switch。
 
 ## 无障碍
 
@@ -26,6 +25,17 @@ status = "experimental"
 - 错误说明使用 `aria-describedby` 与控件关联，禁用原因应在附近以文字说明。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
+## 视觉状态与验证
+
+原生输入负责名称、选中和键盘行为；可见方框通过 `input:focus-visible` 显示焦点。强制颜色下保留边框、勾选与半选形状，禁用仍可与未选中区分。
+
+粗指针环境下，独立操作的命中区至少为 44×44 CSS px。标签容器扩展命中区，方框、圆点或轨道仍保留原有 size 视觉尺寸。长标签采用正文行高；紧密组合需检查目标区域没有相互重叠。此规则不新增 density 属性，也不把全部组件改成同一视觉高度。
+
+键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
+
+规则依据：[状态系统](/design/interaction)、[无障碍与键盘](/design/accessibility)、[布局与密度](/design/layout)。
+
 
 ## 代码演示
 

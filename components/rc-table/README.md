@@ -1,21 +1,19 @@
-展示行列数据的表格组件
+# @crab-dev/rc-table
 
-## ✨ 特性
+按行列展示结构化数据，支持排序、筛选、选择和编辑。
+
+## 主要功能
 
 - 提供表格展示能力，适用于结构化数据阅读与操作
 - 支持与筛选、排序、分页等能力协同使用
 - 可用于后台列表、报表页与管理数据面板
-- 行事件：`onRowClick` / `onRowDoubleClick`，传入后行即具备 pointer 光标与 hover 反馈，并可用键盘 Enter 触发；点在复选框、单选框、展开图标、按钮、链接、输入框等控件上，或单元格拖选之后的抬起，均不会误报为行事件；`editType="cell"` 的双击进编辑、`editType="row"` 的双击进行编辑会各自消费该次双击，不再上报 `onRowDoubleClick`
-- 当前版本：`0.0.1`
-- 示例数量：`6` 个 Demo
-- 主题能力：按组件实现提供样式能力
+- 设置 `onRowClick` 或 `onRowDoubleClick` 后，行会显示可交互反馈。行内控件交互和单元格拖选不会误触发行事件。
+- 键盘定位到行后，按 Enter 可触发 `onRowClick`。
+- `editType="cell"` 或 `editType="row"` 的双击编辑会消费该事件，不再触发 `onRowDoubleClick`。
 
-## 🔨 使用示例
+## 文档
 
-<demos />
+- [使用说明与 API](./docs/index.mdx)
+- [示例源码](./docs/demos/)
 
-## API
-
-<api />
-
-> 其余原生属性按底层实现透传，详见 API。
+在当前包目录运行 `yarn start` 可打开组件工作台，查看交互示例。

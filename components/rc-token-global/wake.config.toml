@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "TokenGlobal 全局令牌"
 description = "一个全局的 token 管理组件"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

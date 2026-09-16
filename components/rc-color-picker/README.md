@@ -1,21 +1,18 @@
-颜色选择组件
+# @crab-dev/rc-color-picker
 
-## ✨ 特性
+选择和编辑颜色，支持格式切换、预设色板与透明度调整。
 
-- OKLCH 四通道:亮度 / 色度 / 色相 / **透明度**,滑块实时可视化
-- **文本输入**并支持 HEX / RGB / HSL / OKLCH **格式切换**(仅影响显示,输出恒为 OKLCH)
-- **预设色板**(扁平或分组)与**吸管取色**(基于原生 EyeDropper,自动特性检测)
-- 受控 / 非受控(`defaultValue`)、`disabled`、`size`、`allowClear` 重置
-- 无障碍:触发器为 `role="button"`,支持 Enter/Space 键盘打开、`aria-*` 与滑块标签
-- 主题能力:全量走三层 Design Token(`token.toml`),无硬编码颜色
-- 当前版本:`0.0.1`;示例数量:`2` 个 Demo
+## 主要功能
 
-## 🔨 使用示例
+- 通过滑块调整亮度、色度、色相和透明度。
+- 支持 HEX、RGB、HSL 与 OKLCh 显示格式，输出统一为 OKLCh。
+- 支持扁平或分组预设色板；浏览器支持 EyeDropper 时可使用吸管取色。
+- 支持受控与非受控模式，以及禁用、尺寸和清除配置。
+- 触发器支持 Enter 和 Space 打开面板，滑块提供无障碍标签。
 
-<demos />
+## 文档
 
-## API
+- [使用说明与 API](./docs/index.mdx)
+- [示例源码](./docs/demos/)
 
-<api />
-
-> 其余原生属性按底层实现透传，详见 API。
+在当前包目录运行 `yarn start` 可打开组件工作台，查看交互示例。

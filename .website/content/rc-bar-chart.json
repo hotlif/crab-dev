@@ -1,0 +1,38 @@
+{
+    "id": "rc-bar-chart",
+    "title": "BarChart 柱状图",
+    "summary": "categories 定义分类，series 中的数据按分类位置一一对应。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "显示一组数据",
+            "goal": "声明三个分类与等长 data 数组。",
+            "why": "categories 定义分类，series 中的数据按分类位置一一对应。",
+            "instruction": "对照文字数据与柱高。",
+            "expected": "周二柱最高，表示完成任务最多。",
+            "changes": [
+                "声明三个分类与等长 data 数组。"
+            ],
+            "source": "rc-bar-chart/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "比较两个系列",
+            "goal": "增加第二组 series，通过 stacked 切换比较方式。",
+            "why": "categories 定义分类，series 中的数据按分类位置一一对应。",
+            "instruction": "切换堆叠与分组。",
+            "expected": "数据不变，图形表达从并列比较变为总量组合。",
+            "changes": [
+                "增加第二组 series，通过 stacked 切换比较方式。"
+            ],
+            "source": "rc-bar-chart/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "为什么数据对不上分类？",
+            "answer": "每个系列的 data 长度和顺序必须对应 categories。图表使用 WebGL，业务仍应保留文字或表格替代。"
+        }
+    ]
+}

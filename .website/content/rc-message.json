@@ -1,0 +1,38 @@
+{
+    "id": "rc-message",
+    "title": "Message 全局消息",
+    "summary": "消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "创建消息实例",
+            "goal": "调用 useMessage，并把 holder 放入渲染树。",
+            "why": "消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。",
+            "instruction": "点击保存资料。",
+            "expected": "页面出现成功反馈。",
+            "changes": [
+                "调用 useMessage，并把 holder 放入渲染树。"
+            ],
+            "source": "rc-message/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "区分结果",
+            "goal": "根据业务结果调用 success 或 error。",
+            "why": "消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。",
+            "instruction": "分别模拟成功与失败。",
+            "expected": "消息文字和状态对应不同结果。",
+            "changes": [
+                "根据业务结果调用 success 或 error。"
+            ],
+            "source": "rc-message/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "消息为什么没有出现？",
+            "answer": "检查是否渲染了 useMessage 返回的 contextHolder，并确认事件实际执行。"
+        }
+    ]
+}

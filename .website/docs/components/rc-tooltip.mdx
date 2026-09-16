@@ -1,6 +1,6 @@
 +++
 title = "Tooltip 文字提示"
-description = "文字提示，鼠标悬浮时展示说明性文字"
+description = "在鼠标悬停或键盘聚焦时展示简短说明"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tooltip.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-tooltip.js";
 
 # Tooltip 文字提示
 
-简单的文字提示气泡框，鼠标悬浮或聚焦时展示说明性文字。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tooltip</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+提示补充短说明，必要信息仍应直接显示在页面上。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**补充说明**
+
+为真实可聚焦的触发器添加 title 说明。 提示补充短说明，必要信息仍应直接显示在页面上。 悬停按钮，或用 Tab 聚焦。 按钮附近显示补充说明。
+
+**调整位置**
+
+通过 placement 比较上方与下方提示。 提示补充短说明，必要信息仍应直接显示在页面上。 切换位置，再聚焦保存按钮。 提示在可用空间内调整到指定方位。
+
+</div>
+
+## 常见问题
+
+### 能把必填说明只放在 Tooltip 中吗？
+
+不应这样做。必填、错误和重要操作说明应直接可见，Tooltip 只作补充。
+
+
+## API
+
+<API source="../_generated_api/rc-tooltip.ts" symbol="TooltipProps" component="Tooltip" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（3 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -25,25 +68,26 @@ import { demos } from "../_generated/rc-tooltip.js";
 ##### 位置 — 支持 12 个方向的弹出位置。
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-tooltip/workbench/)
+
+## 使用说明
+
+在鼠标悬停或键盘聚焦时展示简短说明。
+
+
+### 何时使用
 
 - 当需要对按钮、图标、链接等元素提供额外说明时。
 - 当空间有限无法直接展示文字时，使用 Tooltip 在悬浮时补充信息。
 
-
-## 功能特性
+### 主要功能
 
 - 支持 12 个弹出方位，自动跟随空间翻转。
 - 支持受控与非受控模式。
 - 支持鼠标悬浮与键盘聚焦触发。
 - 可配置出入场延迟与箭头显隐。
 - 内置无障碍支持（`role="tooltip"` + `aria-describedby`）。
-
-
-
-
-## API
-
-<API source="../_generated_api/rc-tooltip.ts" symbol="TooltipProps" component="Tooltip" />

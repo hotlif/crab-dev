@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Form 表单"
 description = "高性能的表单组件"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

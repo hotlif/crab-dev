@@ -1,6 +1,6 @@
 # Router
 
-`@crab-dev/rc-router` 是面向 React 19 浏览器应用的轻量对象式路由。它使用浏览器 History API，支持嵌套布局、索引路由、动态参数、可选参数、通配路由与相对导航，不包含数据加载和服务端路由能力。
+通过对象式路由表管理页面、嵌套布局和浏览器导航。
 
 ## 特性
 
@@ -59,3 +59,10 @@ export default function App() {
 ## 范围
 
 当前版本仅支持浏览器 SPA。loader、action、lazy route、错误边界、Hash/Memory/SSR Router、导航阻断和滚动恢复不在首版范围内。
+
+## 文档
+
+- [使用说明与 API](./docs/index.mdx)
+- [示例源码](./docs/demos/)
+
+在当前包目录运行 `yarn start` 可打开组件工作台，查看交互示例。

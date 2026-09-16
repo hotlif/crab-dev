@@ -1,6 +1,6 @@
 +++
 title = "Badge 徽标数"
-description = "徽标数，用于展示计数、状态与提醒"
+description = "在元素旁展示计数、更新提醒或状态"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-badge.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-badge.js";
 
-# Badge
+# Badge 徽标数
 
-徽标数，在按钮、图标、头像等元素的角落展示提醒计数或状态。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-badge</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+计数表达待处理数量，圆点适用于只需说明有更新的情况。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**展示数量**
+
+将需要附着徽标的元素作为 children。 计数表达待处理数量，圆点适用于只需说明有更新的情况。 观察计数与消息入口的关系。 消息入口旁显示数字 5。
+
+**更新计数**
+
+使用状态驱动 count，并在归零后禁用操作。 计数表达待处理数量，圆点适用于只需说明有更新的情况。 连续读取三条消息。 计数逐次减少，归零后按钮禁用。
+
+</div>
+
+## 常见问题
+
+### 能只用颜色表达状态吗？
+
+不能。使用状态点时应提供 text 或邻近文字，说明状态含义。
+
+
+## API
+
+<API source="../_generated_api/rc-badge.ts" symbol="BadgeProps" component="Badge" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（5 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -29,26 +72,28 @@ import { demos } from "../_generated/rc-badge.js";
 ##### 包裹子节点 — 将 Badge 包裹在按钮、头像等元素外部，角标会自动定位到右上角。
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-badge/workbench/)
+
+## 使用说明
+
+在元素旁展示计数、更新提醒或状态。
+
+
+### 何时使用
 
 - 在导航项、头像或图标上展示未读计数。
 - 用独立的圆点（`dot`）表达"有更新"但不强调具体数字。
 - 以"状态点 + 文字"的形式展示运行、成功、告警等状态。
 
-
-## 功能特性
+### 主要功能
 
 - 支持 `count` 数字与 `overflowCount` 溢出显示（默认 `99+`）。
 - 支持 `dot` 小圆点模式，适合表达"是否有更新"。
-- 支持 `status`（`default` / `processing` / `success` / `warning` / `error`）与 `text` 组合的状态模式；其中 `processing` 带脉冲动画，并自动尊重 `prefers-reduced-motion`。
+- 支持 `status`（`default` / `processing` / `success` / `warning` / `error`）与 `text` 组合的状态模式；其中 `processing` 带脉冲动画，并遵循 `prefers-reduced-motion`。
 - 支持预设语义颜色与任意 CSS 颜色字符串。
 - 包裹子节点时角标自动定位到右上角，支持 `offset` 微调。
 - `showZero` 控制 `count = 0` 时是否显示。
-
-
-
-## API
-
-<API source="../_generated_api/rc-badge.ts" symbol="BadgeProps" component="Badge" />

@@ -1,6 +1,6 @@
 +++
 title = "NumberEdit 数字输入框"
-description = "数字输入框, 支持步进、范围钳制、千分位与科学计数法自适应显示"
+description = "输入数值，支持步进、范围限制、千分位和科学计数法显示"
 kind = "component"
 status = "experimental"
 +++
@@ -9,16 +9,59 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-number-edit.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-number-edit.js";
 
-# NumberEdit
+# NumberEdit 数字输入框
 
-数字输入框，支持步进、范围钳制、千分位与科学计数法自适应显示。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-number-edit</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+数值输入的范围与步长是业务约束，应在输入层明确表达。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**设置范围**
+
+使用 min、max 和 step 约束数量。 数值输入的范围与步长是业务约束，应在输入层明确表达。 点击步进按钮或键入数值。 控件按步长调整，并处理范围边界。
+
+**计算业务结果**
+
+将 number | null 连接到业务计算，处理清空值。 数值输入的范围与步长是业务约束，应在输入层明确表达。 调整数量或清空字段。 总价随数量更新，空值不会产生 NaN。
+
+</div>
+
+## 常见问题
+
+### 清空后为什么是 null？
+
+null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处理空值。
+
+
+## API
+
+<API source="../_generated_api/rc-number-edit.ts" symbol="NumberEditProps" component="NumberEdit" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（5 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 基础用法 — 受控数字输入：右侧步进按钮、键盘 ↑↓ 步进、长按连续加速
+##### 基础用法 — 受控数字输入：编辑保留草稿，失焦或步进时提交；支持键盘 ↑↓ 与长按连续加速。
 
 ##### 千分位与自定义格式化 — thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）
 
@@ -29,18 +72,38 @@ import { demos } from "../_generated/rc-number-edit.js";
 ##### 尺寸与状态 — large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-number-edit/workbench/)
 
-需要用户输入数值时使用。相比原生 `<input type="number">`，它提供受控的步进
-（+/- 按钮、键盘 ↑↓、长按连续加速、Shift/PageUp 大步长）、失焦范围钳制、千分位与
-自定义格式化，并在**数值大到 / 小到不好用十进制显示时，自动切换为上标科学计数法**
-（`1.23×10²¹`）——聚焦编辑时又展开为可直接键入的 `e` 记法。
+## 使用说明
 
-
+输入数值，支持步进、范围限制、千分位和科学计数法显示。
 
 
-## API
+### 何时使用
 
-<API source="../_generated_api/rc-number-edit.ts" symbol="NumberEditProps" component="NumberEdit" />
+用于数量、金额、阈值等数值录入。支持加减按钮、方向键、长按步进和大步长调整；失焦时按范围限制修正数值。
+
+显示时可使用千分位或自定义格式。极大、极小数值可显示为 `1.23×10²¹` 等科学计数法，聚焦后转为便于编辑的 `e` 记法。
+
+### 编辑、步进与范围
+
+**现有实现**：键入文本先保留为编辑草稿；失焦、步进或清除时提交数值。键盘 ↑ / ↓、PageUp / PageDown、Shift + ↑ / ↓、滚轮和步进按钮使用同一数值计算路径。`aria-valuenow` 随当前可解析的编辑文本更新。
+
+| 场景 | 结果与规则 |
+| --- | --- |
+| 原值 3，键入 20 后按 ↑ | 得到 21，不能从旧值 3 得到 4 |
+| 键入 20.5，step 为 1，未指定 precision | 得到 21.5，保留输入的小数精度 |
+| 清空编辑文本后按 ↑ | 从 0 开始步进，再应用 min / max |
+| 文本尚不能解析，例如单独的负号 | 步进从上次已提交值开始；尚无数值时从 0 开始 |
+| 当前编辑值达到 min / max | 对应方向按钮禁用；键盘步进同样不得越界 |
+| 显式指定 precision | 按该精度规范提交值，不能用于无限精度金额运算 |
+
+`parser` 应是无副作用的解析函数，并返回有限数或 `null`；组件会在编辑期间读取它以同步步进和无障碍数值。旧调用方若假定 parser 只在失焦时执行，应移出其中的请求或其他副作用。`stringMode` 当前仍为预留能力，不能据此宣称支持任意精度。
+
+**正例**：通过可见标签说明“预警阈值（万元）”，就近说明范围；编辑 20.5 后步进得到 21.5。**反例**：仅用 placeholder 作为名称，或步进时恢复旧值，导致用户误以为刚才的输入已经保存。
+
+验收：分别用键盘和鼠标测试草稿步进、空值、边界、带小数的 step、只读与禁用。格式化显示不改变真实数值；长数值在聚焦后可完整编辑。当前小步进按钮的触控尺寸、科学计数法覆盖层和文字缩放仍需独立复核。通用规则见[输入与选择](/design/inputs)和[无障碍](/design/accessibility)。

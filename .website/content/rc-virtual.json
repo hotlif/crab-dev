@@ -1,0 +1,38 @@
+{
+    "id": "rc-virtual",
+    "title": "Virtual 虚拟滚动",
+    "summary": "只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "渲染可见行",
+            "goal": "提供行高数组与 renderRows，按包含末项的范围切片。",
+            "why": "只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。",
+            "instruction": "滚动列表，观察行号。",
+            "expected": "能够浏览 1000 行，但只挂载可见范围附近内容。",
+            "changes": [
+                "提供行高数组与 renderRows，按包含末项的范围切片。"
+            ],
+            "source": "rc-virtual/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "调整预渲染范围",
+            "goal": "用 overscanRowCount 平衡预渲染数量与快速滚动体验。",
+            "why": "只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。",
+            "instruction": "切换预渲染行数后继续滚动。",
+            "expected": "内容顺序不变，视口外保留的行数改变。",
+            "changes": [
+                "用 overscanRowCount 平衡预渲染数量与快速滚动体验。"
+            ],
+            "source": "rc-virtual/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "为什么滚动位置不正确？",
+            "answer": "实际行高必须与 gridTemplateRows 一致，并保留顶部和底部占位。生产环境可用 AutoSizer 获取视口尺寸。"
+        }
+    ]
+}

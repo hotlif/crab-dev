@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Segmented 分段控制器"
 description = "分段控制器, 用于在一组互斥选项中展示并选择单个选项"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

@@ -2,6 +2,7 @@ import { css } from "@crab-dev/css";
 import Preview from "@crab-dev/rc-component-preview";
 import token from "@crab-dev/rc-token-semantic";
 import { useState } from "react";
+import { useSiteHref } from "./siteContext.js";
 import ComponentDemoFrame, {
     EmptyComponentDemos,
     type ComponentDemoCodeTheme,
@@ -54,6 +55,7 @@ const wideCardStyle = css`
 `;
 
 function DemoCard({ demo }: { readonly demo: ComponentDemoRecord }) {
+    const href = useSiteHref();
     const [codeTheme, setCodeTheme] = useState<ComponentDemoCodeTheme>("light");
 
     return (
@@ -62,7 +64,7 @@ function DemoCard({ demo }: { readonly demo: ComponentDemoRecord }) {
             title={demo.title}
             description={demo.description}
             sourceCode={demo.sourceCode}
-            path={demo.workbenchPath}
+            path={href(demo.workbenchPath)}
             density={demo.density}
             codeTheme={codeTheme}
             data-component-demo-id={demo.id}

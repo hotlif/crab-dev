@@ -1,0 +1,38 @@
+{
+    "id": "rc-token-semantic",
+    "title": "Semantic Tokens 语义令牌",
+    "summary": "语义令牌用用途命名颜色与间距，让同一份样式适应主题。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "读取令牌",
+            "goal": "从公开包导入令牌，观察返回的 CSS 变量引用。",
+            "why": "语义令牌用用途命名颜色与间距，让同一份样式适应主题。",
+            "instruction": "查看输出，并展开完整代码。",
+            "expected": "令牌不是硬编码颜色，而是可被主题覆盖的 CSS 引用。",
+            "changes": [
+                "从公开包导入令牌，观察返回的 CSS 变量引用。"
+            ],
+            "source": "rc-token-semantic/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "应用静态样式",
+            "goal": "在 css 模板中引用语义令牌构建信息区域。",
+            "why": "语义令牌用用途命名颜色与间距，让同一份样式适应主题。",
+            "instruction": "切换网站浅色和深色主题。",
+            "expected": "同一组件结构随语义变量呈现对应主题。",
+            "changes": [
+                "在 css 模板中引用语义令牌构建信息区域。"
+            ],
+            "source": "rc-token-semantic/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "修改令牌定义后怎么办？",
+            "answer": "修改 token.toml 后运行 generate:token，生成的 token.ts 必须由命令刷新。"
+        }
+    ]
+}

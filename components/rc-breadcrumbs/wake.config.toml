@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Breadcrumbs 面包屑导航"
 description = "面包屑导航，用于展示当前页面在层级结构中的位置"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

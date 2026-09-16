@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Skeleton 骨架屏"
 description = "骨架屏，用于在内容加载时占位，降低用户感知等待时间"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

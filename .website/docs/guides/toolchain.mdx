@@ -7,21 +7,47 @@ status = "experimental"
 
 # Wake 工具链
 
-仓库统一使用 `@crab-dev/wake`，不再维护旧工具链兼容层。
+Wake 统一负责组件构建、令牌生成、API 提取、测试和文档。Turbo 按包依赖关系编排任务。开发时优先使用各包提供的 Yarn 脚本：
 
-| 任务 | 命令 |
-| --- | --- |
-| 构建组件库 | `wake library build .` |
-| 生成设计令牌 | `wake library token .` |
-| 生成 Props 文档 | `wake library docgen .` |
-| 运行组件测试 | `wake test --serial --coverage` |
-| 启动组件工作台 | `wake docs dev . --mode components` |
+| 任务 | 包内命令 | 对应 Wake 命令 |
+| --- | --- | --- |
+| 构建当前包 | `yarn build:library` | `wake library build .` |
+| 生成设计令牌 | `yarn generate:token` | `wake library token .` |
+| 提取 API 文档 | `yarn generate:docgen` | `wake library docgen .` |
+| 运行组件测试 | `yarn test` | `wake test --serial --coverage` |
+| 启动组件工作台 | `yarn start` | `wake docs dev . --mode components` |
 
-Wake 原生输出 ESM、CommonJS、声明与静态 CSS。测试运行在隔离的 Wake DOM 中，模块 mock、时钟和
-React 操作均使用 Wake 的显式异步 API。
+Wake Library 输出 ESM、CommonJS、类型声明和静态 CSS。测试运行在隔离的 Wake DOM 中；模块替身、计时器和 React 操作遵循 Wake 的异步 API。
+
+## 安装与配置
+
+使用 Node.js 22 或更高版本，通过 Corepack 使用根 `package.json` 中 `packageManager` 指定的 Yarn。首次检出后运行 `yarn install --immutable`。仓库采用 PnP，不创建 `node_modules`。
+
+工具版本以 `package.json` 和 `yarn.lock` 为准。TypeScript 配置继承 `standards/` 中的共享预设。`yarn lint` 使用 Wake 原生检查；规则集中在仓库根 `wake.config.toml`，各工作区显式指定源路径和环境。组件的构建、测试与文档配置保留在包内 `wake.config.toml`。
 
 ## 文档站开发
 
 在仓库根目录运行 `yarn docs:dev`。Turbo 会复用未变化组件的 Library 构建产物；站点启动后，
 组件的 `docs/index.mdx`、`docs/demos/*.demo.tsx`、`package.json` 或 `public/docgen.json` 发生变化时，
 聚合文档会自动增量刷新，无需重启开发服务器。生成器只写入内容真正变化的文件。
+
+教学文字 `.website/content/*.json` 与运行示例 `.website/docs/examples/**/*.tsx` 也会自动触发刷新。展示源码直接从运行文件提取；学习地图和搜索中的步骤说明随教学内容一起生成。
+
+文档生成器通过 Babel 静态解析 TypeScript / TSX 中的示例元数据、属性类型和注释，不执行示例代码。类型检查由 TypeScript 独立完成。
+
+## 文档来源与生成文件
+
+| 内容 | 维护位置 |
+| --- | --- |
+| 组件用途、使用说明和 API 入口 | `components/rc-*/docs/index.mdx` |
+| 交互示例与示例说明 | `components/rc-*/docs/demos/*.demo.tsx` |
+| 入门与工程指南 | `.website/docs/guides/` |
+| 分步教学与常见问题 | `.website/content/*.json` |
+| 完整教学示例 | `.website/docs/examples/` |
+| 教学展示与首页 | `.website/docs/site/` |
+| 聚合组件页面与示例、API 数据 | `.website/docs/components/`、`_generated/`、`_generated_api/`，由生成器维护 |
+| 教学数据、实战页面与学习地图 | `_generated_tutorials/`、`learn/practice-*.mdx`、`learn/components.mdx`，由生成器维护 |
+
+修改源文档后，在 `.website` 目录运行 `yarn generate:docs` 同步页面，再运行 `yarn check:docs` 检查生成产物是否一致。修改生成器时还需运行 `yarn test:generator`。
+
+不要手工编辑生成页面、`public/docgen.json` 或 `src/token.ts`。修改 `token.toml` 后运行对应包的 `yarn generate:token`，并保留源定义与生成产物的配套变更。

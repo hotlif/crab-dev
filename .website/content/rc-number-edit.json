@@ -1,0 +1,38 @@
+{
+    "id": "rc-number-edit",
+    "title": "NumberEdit 数字输入",
+    "summary": "数值输入的范围与步长是业务约束，应在输入层明确表达。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "设置范围",
+            "goal": "使用 min、max 和 step 约束数量。",
+            "why": "数值输入的范围与步长是业务约束，应在输入层明确表达。",
+            "instruction": "点击步进按钮或键入数值。",
+            "expected": "控件按步长调整，并处理范围边界。",
+            "changes": [
+                "使用 min、max 和 step 约束数量。"
+            ],
+            "source": "rc-number-edit/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "计算业务结果",
+            "goal": "将 number | null 连接到业务计算，处理清空值。",
+            "why": "数值输入的范围与步长是业务约束，应在输入层明确表达。",
+            "instruction": "调整数量或清空字段。",
+            "expected": "总价随数量更新，空值不会产生 NaN。",
+            "changes": [
+                "将 number | null 连接到业务计算，处理清空值。"
+            ],
+            "source": "rc-number-edit/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "清空后为什么是 null？",
+            "answer": "null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处理空值。"
+        }
+    ]
+}

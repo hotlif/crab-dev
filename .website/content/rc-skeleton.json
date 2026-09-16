@@ -1,0 +1,38 @@
+{
+    "id": "rc-skeleton",
+    "title": "Skeleton 骨架屏",
+    "summary": "内容结构已知时，骨架屏提前保留空间，加载完成后替换为真实内容。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "占位结构",
+            "goal": "使用 rows 表示待加载的段落。",
+            "why": "内容结构已知时，骨架屏提前保留空间，加载完成后替换为真实内容。",
+            "instruction": "观察占位行数与留白。",
+            "expected": "三行占位说明此处将出现文本。",
+            "changes": [
+                "使用 rows 表示待加载的段落。"
+            ],
+            "source": "rc-skeleton/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "切换内容",
+            "goal": "通过 loading 在占位与 children 之间切换。",
+            "why": "内容结构已知时，骨架屏提前保留空间，加载完成后替换为真实内容。",
+            "instruction": "显示内容，再切回骨架。",
+            "expected": "同一区域交替显示骨架与正文。",
+            "changes": [
+                "通过 loading 在占位与 children 之间切换。"
+            ],
+            "source": "rc-skeleton/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "所有加载都用骨架屏吗？",
+            "answer": "内容结构不确定或只是执行操作时，用 Spin 提供加载反馈。"
+        }
+    ]
+}

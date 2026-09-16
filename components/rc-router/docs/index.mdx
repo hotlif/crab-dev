@@ -1,15 +1,15 @@
 +++
 title = "Router 路由"
-description = "面向 React 19 浏览器应用的轻量对象式路由组件"
+description = "通过对象式路由表管理页面、嵌套布局和浏览器导航"
 kind = "component"
 status = "experimental"
 +++
 
-# Router
+# Router 路由
 
-轻量对象式浏览器路由，用一个路由表组织页面、嵌套布局与导航状态。
+通过对象式路由表管理页面、嵌套布局和浏览器导航。
 
-[打开 Router 路由 工作台](/components/rc-router/workbench/)
+[打开组件工作台](/components/rc-router/workbench/)
 
 ## 何时使用
 
@@ -17,7 +17,7 @@ status = "experimental"
 - 页面之间存在共享布局、动态参数或 404 兜底页。
 - 希望保留原生链接语义，同时获得无刷新导航体验。
 
-## 功能特性
+## 主要功能
 
 - 静态、动态、可选和尾部通配路径匹配。
 - 嵌套路由、无路径布局和索引路由。
@@ -27,6 +27,10 @@ status = "experimental"
 - NavLink 激活态和 `aria-current="page"` 无障碍反馈。
 
 ## 代码演示
+
+工作台示例先加载 `public/history-frame.html` 中的同源空白文档，再将其 Window 传入 Router。Wake 会把该静态资源复制到工作台；示例导航写入 iframe，初始条目禁用后退，避免超出示例历史。不要对 `about:blank` 直接改写 HTTP 路径，也不要用 `document.open` 代替真实文档加载：前者会被拒绝，后者在本次浏览器复测中造成后退重新加载与视图失步。业务页面通常直接使用当前 Window。
+
+示例在 URL 未指定 tab 时显示 overview。`useSearchParams` 的 defaultInit 提供初始默认值；主动设置参数后，缺失值仍应由业务明确处理，不能假定每次后退都会重新注入默认参数。
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 

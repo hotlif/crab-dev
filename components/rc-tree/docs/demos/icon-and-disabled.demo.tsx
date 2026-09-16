@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "图标插槽与禁用节点",
     description: "通过 `icon` 字段为节点设置前置图标；`disabled` 字段禁用节点，禁用节点不可点击、不可拖拽、样式置灰。",
@@ -52,22 +54,26 @@ const IconAndDisabledDemo = () => {
     const [treeData, setTreeData] = useTreeData(buildNodes());
 
     return (
-        <RcTree
-            height={320}
-            width={400}
-            treeData={treeData}
-            onTreeNodeChange={setTreeData}
-            expandedKeys={expandedKeys}
-            selectKeys={selectKeys}
-            onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-            onExpanded={({ node }: { node: Node }) => {
-                setExpandedKeys(prev =>
-                    prev.includes(node.id)
-                        ? prev.filter(k => k !== node.id)
-                        : [...prev, node.id]
-                );
-            }}
-        />
+        <AutoSizer disableHeight className={treeMeasureStyle}>
+            {({ width }) => (
+                <RcTree
+                    height={320}
+                    width={Math.min(width, 400)}
+                    treeData={treeData}
+                    onTreeNodeChange={setTreeData}
+                    expandedKeys={expandedKeys}
+                    selectKeys={selectKeys}
+                    onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                    onExpanded={({ node }: { node: Node }) => {
+                        setExpandedKeys(prev =>
+                            prev.includes(node.id)
+                                ? prev.filter(k => k !== node.id)
+                                : [...prev, node.id]
+                        );
+                    }}
+                />
+            )}
+        </AutoSizer>
     );
 };
 

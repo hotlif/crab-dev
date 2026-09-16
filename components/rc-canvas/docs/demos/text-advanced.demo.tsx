@@ -1,18 +1,19 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "文字对齐与多行",
     description: "textAlign（left / center / right）、textBaseline（top / middle / bottom）以及 \\\\n 换行和 maxWidth 自动词换行的综合演示。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { Canvas, Line, Text } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #fafafa;
 `;
 
@@ -24,7 +25,7 @@ const LABEL = "oklch(0.55 0 0)";
 
 export default function TextAdvancedDemo() {
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={480} height={270}>
 
                 {/* ── textAlign ─────────────────────────────────── */}

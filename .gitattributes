@@ -8,6 +8,9 @@
 # do not report content-identical files as modified after docs/library commands.
 /.website/docs/_generated/*.ts text eol=lf
 /.website/docs/_generated_api/*.ts text eol=lf
+/.website/docs/_generated_tutorials/*.ts text eol=lf
+/.website/docs/learn/practice-*.mdx text eol=lf
+/.website/docs/learn/components.mdx text eol=lf
 /.website/docs/components/*.mdx text eol=lf
 /components/*/public/docgen.json text eol=lf
 /components/*/src/token.ts text eol=lf

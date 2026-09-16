@@ -1,3 +1,4 @@
+import { diagramViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "ELK 自动图布局",
     description: "FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。",
@@ -145,52 +146,56 @@ export default function ElkLayoutDemo() {
             </div>
 
             {/* 画布：FlowDiagram 封装了 Canvas + Viewport + 网格 + ELK + 路由，消费方只需声明数据和渲染内容 */}
-            <FlowDiagram
-                nodes={ELK_NODES}
-                edges={ELK_EDGES}
-                elkOptions={elkOptions}
-                nodePositions={nodePositions}
-                routingOptions={{ margin: 12, terminalStub: 26 }}
-                width={820}
-                height={520}
-                style={{ border: '1px solid #e2e6ec', borderRadius: 10, background: '#f7f8fa' }}
-            >
-                {({ nodeRects, routes, crossings, loading, controls }) => (
-                    <>
-                        {/* 布局完成后自动 fitView（必须在 Canvas 上下文内，由此访问 controls） */}
-                        <AutoFitOnLayout loading={loading} controls={controls} />
+            <div className={diagramViewportStyle} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
 
-                        {/* 边（zIndex=1，在节点之下） */}
-                        {ELK_EDGES.map(e => {
-                            const pts = routes[e.id]?.points;
-                            if (!pts || pts.length < 2) return null;
-                            return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} />;
-                        })}
+                <FlowDiagram
+                    nodes={ELK_NODES}
+                    edges={ELK_EDGES}
+                    elkOptions={elkOptions}
+                    nodePositions={nodePositions}
+                    routingOptions={{ margin: 12, terminalStub: 26 }}
+                    width={820}
+                    height={520}
+                    style={{ border: '1px solid #e2e6ec', borderRadius: 10, background: '#f7f8fa' }}
+                >
+                    {({ nodeRects, routes, crossings, loading, controls }) => (
+                        <>
+                            {/* 布局完成后自动 fitView（必须在 Canvas 上下文内，由此访问 controls） */}
+                            <AutoFitOnLayout loading={loading} controls={controls} />
 
-                        {/* 节点（zIndex=2，始终在边之上） */}
-                        {NODE_META.map(meta => {
-                            const rect = nodeRects[meta.id];
-                            if (!rect) return null;
-                            return (
-                                <FlowNode
-                                    key={meta.id}
-                                    x={rect.x} y={rect.y}
-                                    width={NODE_W} height={NODE_H}
-                                    label={meta.label}
-                                    fill={CATEGORY_FILL[meta.category]}
-                                    stroke={CATEGORY_STROKE[meta.category]}
-                                    radius={10}
-                                    draggable
-                                    onDrag={(dx, dy) => setNodePositions(prev => {
-                                        const base = prev[meta.id] ?? rect;
-                                        return { ...prev, [meta.id]: { x: base.x + dx, y: base.y + dy } };
-                                    })}
-                                />
-                            );
-                        })}
-                    </>
-                )}
-            </FlowDiagram>
+                            {/* 边（zIndex=1，在节点之下） */}
+                            {ELK_EDGES.map(e => {
+                                const pts = routes[e.id]?.points;
+                                if (!pts || pts.length < 2) return null;
+                                return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} />;
+                            })}
+
+                            {/* 节点（zIndex=2，始终在边之上） */}
+                            {NODE_META.map(meta => {
+                                const rect = nodeRects[meta.id];
+                                if (!rect) return null;
+                                return (
+                                    <FlowNode
+                                        key={meta.id}
+                                        x={rect.x} y={rect.y}
+                                        width={NODE_W} height={NODE_H}
+                                        label={meta.label}
+                                        fill={CATEGORY_FILL[meta.category]}
+                                        stroke={CATEGORY_STROKE[meta.category]}
+                                        radius={10}
+                                        draggable
+                                        onDrag={(dx, dy) => setNodePositions(prev => {
+                                            const base = prev[meta.id] ?? rect;
+                                            return { ...prev, [meta.id]: { x: base.x + dx, y: base.y + dy } };
+                                        })}
+                                    />
+                                );
+                            })}
+                        </>
+                    )}
+                </FlowDiagram>
+
+            </div>
 
             {/* 图例 */}
             <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>

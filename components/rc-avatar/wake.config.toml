@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Avatar 头像"
 description = "头像组件，用于展示用户或实体的图像与标识"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

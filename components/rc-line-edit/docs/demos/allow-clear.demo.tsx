@@ -23,6 +23,7 @@ const AllowClearDemo = () => {
     return (
         <div className={wrapperStyle}>
             <LineEdit
+                aria-label="搜索关键词"
                 value={keyword}
                 allowClear
                 prefix={<Search />}
@@ -31,6 +32,7 @@ const AllowClearDemo = () => {
                 placeholder="搜索"
             />
             <LineEdit
+                aria-label="备注"
                 value={note}
                 allowClear
                 onClear={() => setNote("")}
@@ -38,6 +40,7 @@ const AllowClearDemo = () => {
                 placeholder="备注（输入后可清除）"
             />
             <LineEdit
+                aria-label="禁用清除示例"
                 value="禁用状态不显示清除按钮"
                 allowClear
                 disabled

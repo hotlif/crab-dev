@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Tree 树形控件"
 description = "一个多功能且可定制的树形组件, 用于React应用程序, 提供高效的渲染和拖放功能。"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

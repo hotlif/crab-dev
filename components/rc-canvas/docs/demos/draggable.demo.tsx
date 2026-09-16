@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { canvasViewportStyle } from "../demo-layout.js";
+import { useRef, useState } from 'react';
 import Canvas from '../../src/canvas.js';
 import Rect from '../../src/shapes/rect.js';
 import Group from '../../src/shapes/group.js';
@@ -73,10 +74,14 @@ export default function DraggableDemo() {
     const getNextZ = () => ++maxZRef.current;
 
     return (
-        <Canvas width={600} height={400} style={{ border: '1px solid #e0e0e0', borderRadius: 8 }}>
-            <DraggableCard label="卡片 A" initX={40} initY={60} fill="oklch(0.55 0.2 260)" getNextZ={getNextZ} />
-            <DraggableCard label="卡片 B" initX={140} initY={120} fill="oklch(0.55 0.2 30)" getNextZ={getNextZ} />
-            <RotatedDraggable getNextZ={getNextZ} />
-        </Canvas>
+        <div className={canvasViewportStyle} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
+
+            <Canvas width={600} height={400} style={{ border: '1px solid #e0e0e0', borderRadius: 8 }}>
+                <DraggableCard label="卡片 A" initX={40} initY={60} fill="oklch(0.55 0.2 260)" getNextZ={getNextZ} />
+                <DraggableCard label="卡片 B" initX={140} initY={120} fill="oklch(0.55 0.2 30)" getNextZ={getNextZ} />
+                <RotatedDraggable getNextZ={getNextZ} />
+            </Canvas>
+
+        </div>
     );
 }

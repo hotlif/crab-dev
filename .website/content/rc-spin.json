@@ -1,0 +1,38 @@
+{
+    "id": "rc-spin",
+    "title": "Spin 加载反馈",
+    "summary": "加载反馈说明操作仍在进行；延迟显示可以避免短请求闪烁。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "显示等待",
+            "goal": "通过 tip 说明正在执行的操作。",
+            "why": "加载反馈说明操作仍在进行；延迟显示可以避免短请求闪烁。",
+            "instruction": "观察指示器与操作说明。",
+            "expected": "用户能理解正在读取项目，而非只看到动画。",
+            "changes": [
+                "通过 tip 说明正在执行的操作。"
+            ],
+            "source": "rc-spin/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "模拟异步任务",
+            "goal": "用 Transition 管理等待状态，设置 delay={200}。",
+            "why": "加载反馈说明操作仍在进行；延迟显示可以避免短请求闪烁。",
+            "instruction": "点击重新读取，等待约 700 ms。",
+            "expected": "区域短暂显示加载反馈，结束后读取次数增加。",
+            "changes": [
+                "用 Transition 管理等待状态，设置 delay={200}。"
+            ],
+            "source": "rc-spin/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "示例会请求后端吗？",
+            "answer": "不会。这里的 700 ms 定时等待模拟请求；接入业务时替换为真实异步函数。"
+        }
+    ]
+}

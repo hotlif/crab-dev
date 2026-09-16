@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Router, {
     NavLink,
     Outlet,
     useNavigate,
+    useLocation,
     useParams,
     useSearchParams,
 } from '../../src/index.js';
@@ -10,6 +11,7 @@ import type { RouteObject } from '../../src/index.js';
 
 function Layout() {
     const navigate = useNavigate();
+    const location = useLocation();
     return (
         <section>
             <nav aria-label="示例导航">
@@ -19,7 +21,7 @@ function Layout() {
                 <NavLink to="/users/42">用户</NavLink>{' '}
                 <NavLink to="/search">搜索参数</NavLink>
             </nav>
-            <button type="button" onClick={() => navigate(-1)}>
+            <button type="button" disabled={location.key === 'default'} onClick={() => navigate(-1)}>
                 后退
             </button>
             <Outlet context="来自布局的上下文" />
@@ -36,7 +38,7 @@ function SearchPage() {
     const [params, setParams] = useSearchParams({ tab: 'overview' });
     return (
         <p>
-            当前标签：{params.get('tab')}{' '}
+            当前标签：{params.get('tab') ?? 'overview'}{' '}
             <button type="button" onClick={() => setParams({ tab: 'activity' })}>
                 切换到活动
             </button>
@@ -58,20 +60,24 @@ const routes: RouteObject[] = [
 ];
 
 function BasicDemo() {
-    const [frame, setFrame] = useState<HTMLIFrameElement | null>(null);
-    const routerWindow = frame?.contentWindow ?? null;
-
-    useEffect(() => {
-        if (routerWindow === null) {
-            return;
-        }
-        routerWindow.history.replaceState(null, '', '/');
-        routerWindow.dispatchEvent(new Event('popstate'));
-    }, [routerWindow]);
+    const [routerWindow, setRouterWindow] = useState<Window | null>(null);
 
     return (
         <>
-            <iframe ref={setFrame} hidden title="Router 示例的独立 History" />
+            <iframe
+                hidden
+                title="Router 示例的独立 History"
+                src="./history-frame.html"
+                onLoad={(event) => {
+                    const target = event.currentTarget.contentWindow;
+                    if (!target) return;
+                    // Wake copies public/history-frame.html into the workbench.
+                    // A loaded same-origin HTTP document preserves same-document
+                    // history traversal; about:blank and document.open do not.
+                    target.history.replaceState(null, '', '/');
+                    setRouterWindow(target);
+                }}
+            />
             {routerWindow === null ? null : (
                 <Router routes={routes} window={routerWindow} />
             )}

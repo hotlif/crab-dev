@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Radio 单选框"
 description = "单选框, 用于在一组选项中选择一个值"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

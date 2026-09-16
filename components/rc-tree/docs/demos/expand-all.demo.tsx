@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "全部展开 / 折叠",
     description: "通过 `TreeDataUtil` 提供的 `expandAll` 与 `collapseAll` 方法，一键展开或折叠所有 FOLDER 节点。",
@@ -47,22 +49,26 @@ const ExpandAllDemo = () => {
                     折叠全部
                 </button>
             </div>
-            <RcTree
-                height={320}
-                width={400}
-                treeData={treeData}
-                onTreeNodeChange={setTreeData}
-                expandedKeys={expandedKeys}
-                selectKeys={selectKeys}
-                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                onExpanded={({ node }: { node: Node }) => {
-                    setExpandedKeys(prev =>
-                        prev.includes(node.id)
-                            ? prev.filter(k => k !== node.id)
-                            : [...prev, node.id]
-                    );
-                }}
-            />
+            <AutoSizer disableHeight className={treeMeasureStyle}>
+                {({ width }) => (
+                    <RcTree
+                        height={320}
+                        width={Math.min(width, 400)}
+                        treeData={treeData}
+                        onTreeNodeChange={setTreeData}
+                        expandedKeys={expandedKeys}
+                        selectKeys={selectKeys}
+                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                        onExpanded={({ node }: { node: Node }) => {
+                            setExpandedKeys(prev =>
+                                prev.includes(node.id)
+                                    ? prev.filter(k => k !== node.id)
+                                    : [...prev, node.id]
+                            );
+                        }}
+                    />
+                )}
+            </AutoSizer>
         </div>
     );
 };

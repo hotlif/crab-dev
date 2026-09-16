@@ -18,6 +18,7 @@ const AllowClearDemo = () => {
     return (
         <div className={wrapperStyle}>
             <TextEdit
+                aria-label="项目备注"
                 value={value}
                 rows={3}
                 allowClear

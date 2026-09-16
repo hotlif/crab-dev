@@ -1,0 +1,38 @@
+{
+    "id": "rc-checkbox",
+    "title": "Checkbox 复选框",
+    "summary": "复选框用于标记独立选项，checked 是业务保存的布尔值。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "设置初始值",
+            "goal": "使用 defaultChecked 设置初始选中状态。",
+            "why": "复选框用于标记独立选项，checked 是业务保存的布尔值。",
+            "instruction": "点击选项，观察选中状态。",
+            "expected": "选项可在选中与未选中之间切换。",
+            "changes": [
+                "使用 defaultChecked 设置初始选中状态。"
+            ],
+            "source": "rc-checkbox/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "改为受控",
+            "goal": "将 checked 与 onChange 连接到同一个 state。",
+            "why": "复选框用于标记独立选项，checked 是业务保存的布尔值。",
+            "instruction": "切换选项，再查看状态文字。",
+            "expected": "控件与文字始终保持一致。",
+            "changes": [
+                "将 checked 与 onChange 连接到同一个 state。"
+            ],
+            "source": "rc-checkbox/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "受控与非受控可以混用吗？",
+            "answer": "同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。"
+        }
+    ]
+}

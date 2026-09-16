@@ -1,0 +1,39 @@
+{
+    "id": "rc-router",
+    "title": "Router 页面路由",
+    "summary": "路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "匹配两个页面",
+            "goal": "用 routes 声明路径，并给示例提供隔离 window。",
+            "why": "路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。",
+            "instruction": "点击成员页链接。",
+            "expected": "内容切到成员页，文档站地址不变。",
+            "changes": [
+                "用 routes 声明两个页面；给 Router 传入示例的独立 window。",
+                "createDemoWindow 是完整展示的本地模拟代码，避免 about:blank 的 History 限制。"
+            ],
+            "source": "rc-router/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "增加返回入口",
+            "goal": "为目标页面提供返回链接，形成完整导航回路。",
+            "why": "路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。",
+            "instruction": "进入成员页，再返回概览。",
+            "expected": "两页可往返切换；真实应用可省略 window 使用主窗口。",
+            "changes": [
+                "为目标页面提供返回链接，形成完整导航回路。"
+            ],
+            "source": "rc-router/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "生产页面也需要这些模拟代码吗？",
+            "answer": "不需要。在应用入口使用 <Router routes={routes} />，移除 iframe、createDemoWindow 与 window 属性即可使用浏览器真实 History。这里的代理只隔离教程导航。"
+        }
+    ]
+}

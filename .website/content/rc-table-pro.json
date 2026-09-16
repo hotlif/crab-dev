@@ -1,0 +1,38 @@
+{
+    "id": "rc-table-pro",
+    "title": "TablePro 协议表格",
+    "summary": "列协议描述数据如何显示，加载函数将业务数据接入表格。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "加载列与数据",
+            "goal": "用独立的异步函数返回列协议和确定性本地数据。",
+            "why": "列协议描述数据如何显示，加载函数将业务数据接入表格。",
+            "instruction": "等待表格完成初始化。",
+            "expected": "两列成员数据加载到表格。",
+            "changes": [
+                "用独立的异步函数返回列协议和确定性本地数据。"
+            ],
+            "source": "rc-table-pro/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "启用分页",
+            "goal": "增加 pagination，用两条一页观察翻页。",
+            "why": "列协议描述数据如何显示，加载函数将业务数据接入表格。",
+            "instruction": "翻到第二页，再返回第一页。",
+            "expected": "第三位成员出现在第二页。",
+            "changes": [
+                "增加 pagination，用两条一页观察翻页。"
+            ],
+            "source": "rc-table-pro/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "如何接真实接口？",
+            "answer": "替换 fetchColumns 和 fetchData 的函数体；保持返回的列协议与行结构一致。教程函数只返回本地数据，不会请求后端。"
+        }
+    ]
+}

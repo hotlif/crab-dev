@@ -1,19 +1,20 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "属性驱动动画",
     description: "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘，演示流畅动画。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { useEffect, useState } from "react";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #0b0b12;
 `;
 
@@ -47,7 +48,7 @@ const AnimationDemo = () => {
     });
 
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={220}>
                 {/* 整体随时间缓慢自转 */}
                 <Group x={CX} y={CY} rotation={t * 0.1}>

@@ -9,6 +9,7 @@ const CATEGORIES = ['Q1', 'Q2', 'Q3', 'Q4'];
 
 const StackedDemo = () => (
     <BarChart
+        width="auto"
         aria-label="季度收支结构"
         categories={CATEGORIES}
         stacked

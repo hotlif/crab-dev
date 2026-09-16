@@ -1,31 +1,21 @@
 +++
 title = "Message 全局提示"
-description = "全局消息，用于轻量级反馈提示"
+description = "在页面顶部展示简短的操作反馈"
 kind = "component"
 status = "experimental"
 +++
 
-# Message
+# Message 全局提示
 
-全局展示操作反馈信息。
+在页面顶部展示简短的操作反馈。
 
-[打开 Message 全局提示 工作台](/components/rc-message/workbench/)
+[打开组件工作台](/components/rc-message/workbench/)
 
 ## 何时使用
 
-- 可提供成功、警告和错误等反馈信息。
-- 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+用于保存成功、复制完成或操作失败等简短反馈。消息在页面顶部居中显示，可按 `duration` 自动关闭。需要详细说明或后续操作时使用 Notification，需要持续展示的页面提示使用 Alert。
 
-
-我们提供了五种类型的全局消息：
-
-- 🔵 信息提示：用于通知性的信息展示。
-- 🟢 成功提示：表示操作已成功完成。
-- 🟡 警告提示：提醒用户注意潜在的问题。
-- 🔴 错误提示：告知用户操作失败或发生了错误。
-- ⏳ 加载提示：表示操作正在执行中。
-
-## 功能特性
+## 主要功能
 
 - 支持五种类型：`success`、`info`、`warning`、`error`、`loading`。
 - 顶部居中弹出，自动消失。

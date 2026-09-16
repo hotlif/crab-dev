@@ -1,15 +1,15 @@
 +++
 title = "Select 选择器"
-description = "下拉选择器，支持单选、多选和搜索"
+description = "在下拉列表中选择一个或多个值，支持搜索选项"
 kind = "component"
 status = "experimental"
 +++
 
-# Select
+# Select 选择器
 
-下拉选择器，支持单选、多选与搜索。
+在下拉列表中选择一个或多个值，支持搜索选项。
 
-[打开 Select 选择器 工作台](/components/rc-select/workbench/)
+[打开组件工作台](/components/rc-select/workbench/)
 
 ## 何时使用
 
@@ -17,7 +17,7 @@ status = "experimental"
 - 选项较多，需要通过关键字快速过滤。
 - 表单场景中需要统一输入尺寸与交互体验。
 
-## 功能特性
+## 主要功能
 
 - 支持单选与多选模式。
 - 支持可搜索过滤。
@@ -28,6 +28,7 @@ status = "experimental"
 
 - Select 不内置业务标签；每个实例都应有可见标签，并通过 `aria-label` 提供一致的可访问名称。
 - 使用方向键移动选项、Enter 选择、Escape 关闭、Backspace 删除多选标签，确保业务包装层不会拦截这些按键。
+- 清除后焦点回到选择器；可继续按方向键选择新值，不能因清除入口消失而把用户留在页面根部。
 - `status="error"` 只表达错误状态；错误原因仍需在控件附近以文字显示，不能只改变边框颜色。
 - 自定义 `optionRender` 或 `tagRender` 时保留可读文本，纯装饰图标应设置 `aria-hidden="true"`。
 

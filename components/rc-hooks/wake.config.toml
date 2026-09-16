@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Hooks"
 description = "A common library of React Hooks for executing some common methods of Hooks"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

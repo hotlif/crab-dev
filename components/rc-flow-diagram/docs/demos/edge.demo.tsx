@@ -1,3 +1,4 @@
+import { diagramViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "FlowEdge 样式",
     description: "FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。",
@@ -70,47 +71,52 @@ export default function EdgeDemo() {
                 e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动
             </div>
 
-            <FlowDiagram
-                nodes={NODES}
-                edges={EDGES}
-                elkOptions={{ 'elk.algorithm': 'layered', 'elk.direction': 'RIGHT' }}
-                nodePositions={nodePositions}
-                routingOptions={{ margin: 10, terminalStub: 22 }}
-                width={680}
-                height={380}
-                style={{ border: '1px solid #e0e4ec', borderRadius: 8, background: '#fafbfc' }}
-            >
-                {({ nodeRects, routes, crossings }) => (
-                    <>
-                        {/* 边：每条样式不同，演示 FlowEdge props */}
-                        {EDGES.map(e => {
-                            const pts = routes[e.id]?.points;
-                            if (!pts || pts.length < 2) return null;
-                            return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} {...EDGE_STYLES[e.id]} />;
-                        })}
+            <div className={diagramViewportStyle} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
 
-                        {/* 节点 */}
-                        {NODES.map(n => {
-                            const rect = nodeRects[n.id];
-                            if (!rect) return null;
-                            return (
-                                <FlowNode
-                                    key={n.id}
-                                    x={rect.x} y={rect.y}
-                                    width={NODE_W} height={NODE_H}
-                                    label={NODE_LABELS[n.id]}
-                                    fill={NODE_FILLS[n.id]}
-                                    draggable
-                                    onDrag={(dx, dy) => setNodePositions(prev => {
-                                        const base = prev[n.id] ?? rect;
-                                        return { ...prev, [n.id]: { x: base.x + dx, y: base.y + dy } };
-                                    })}
-                                />
-                            );
-                        })}
-                    </>
-                )}
-            </FlowDiagram>
+
+                <FlowDiagram
+                    nodes={NODES}
+                    edges={EDGES}
+                    elkOptions={{ 'elk.algorithm': 'layered', 'elk.direction': 'RIGHT' }}
+                    nodePositions={nodePositions}
+                    routingOptions={{ margin: 10, terminalStub: 22 }}
+                    width={680}
+                    height={380}
+                    style={{ border: '1px solid #e0e4ec', borderRadius: 8, background: '#fafbfc' }}
+                >
+                    {({ nodeRects, routes, crossings }) => (
+                        <>
+                            {/* 边：每条样式不同，演示 FlowEdge props */}
+                            {EDGES.map(e => {
+                                const pts = routes[e.id]?.points;
+                                if (!pts || pts.length < 2) return null;
+                                return <FlowEdge key={e.id} points={pts} crossings={crossings[e.id]} {...EDGE_STYLES[e.id]} />;
+                            })}
+
+                            {/* 节点 */}
+                            {NODES.map(n => {
+                                const rect = nodeRects[n.id];
+                                if (!rect) return null;
+                                return (
+                                    <FlowNode
+                                        key={n.id}
+                                        x={rect.x} y={rect.y}
+                                        width={NODE_W} height={NODE_H}
+                                        label={NODE_LABELS[n.id]}
+                                        fill={NODE_FILLS[n.id]}
+                                        draggable
+                                        onDrag={(dx, dy) => setNodePositions(prev => {
+                                            const base = prev[n.id] ?? rect;
+                                            return { ...prev, [n.id]: { x: base.x + dx, y: base.y + dy } };
+                                        })}
+                                    />
+                                );
+                            })}
+                        </>
+                    )}
+                </FlowDiagram>
+
+            </div>
 
             {/* 图例 */}
             <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#94a3b8', flexWrap: 'wrap' }}>

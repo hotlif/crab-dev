@@ -4,13 +4,14 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import DatePicker from "../../src/datePicker/datePicker.js";
 import { formatTemporal } from "../../src/util.js";
 
 
 const SizeDemo = () => {
+    const controlId = useId();
     const [value, setValue] = useState<Temporal.ZonedDateTime | null>(null);
     const [size, setSize] = useState<"large" | "middle" | "small">("middle")
     return (
@@ -29,10 +30,11 @@ const SizeDemo = () => {
                     margin-bottom: 1rem;
                 `}
             >
-                <label>
+                <label htmlFor={controlId}>
                     请选择大小
                 </label>
                 <select
+                    id={controlId}
                     value={size}
                     onChange={e => setSize(e.target.value as "large" | "middle" | "small")}
                 >

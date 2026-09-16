@@ -4,34 +4,35 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import { useId, useState } from "react";
+import token from "@crab-dev/rc-token-semantic";
 import LineEdit from "../../src/index.js";
 
 const wrapperStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    padding: 1rem;
+    gap: ${token.space['group-gap']};
+    padding: ${token.space['card-padding']};
     max-width: 300px;
 `;
 
 const fieldStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: ${token.space['inline-gap']};
 `;
 
 const hintStyle = css`
-    font-size: 12px;
+    font-size: ${token.font.size.caption};
     margin: 0;
 `;
 
 const errorHintStyle = css`
-    color: oklch(0.637 0.237 24);
+    color: ${token.color.feedback.error.text};
 `;
 
 const warningHintStyle = css`
-    color: oklch(0.769 0.188 75);
+    color: ${token.color.feedback.warning.text};
 `;
 
 type FieldStatus = "error" | "warning" | undefined;
@@ -43,6 +44,7 @@ const validate = (value: string): FieldStatus => {
 };
 
 const StatusDemo = () => {
+    const fieldId = useId();
     const [email, setEmail] = useState("");
     const [emailStatus, setEmailStatus] = useState<FieldStatus>();
 
@@ -52,23 +54,26 @@ const StatusDemo = () => {
     return (
         <div className={wrapperStyle}>
             <div className={fieldStyle}>
+                <label htmlFor={`${fieldId}-email`}>邮箱</label>
                 <LineEdit
+                    id={`${fieldId}-email`}
+                    aria-describedby={emailStatus ? `${fieldId}-email-hint` : undefined}
                     value={email}
                     status={emailStatus}
                     placeholder="邮箱（失焦后触发校验）"
                     onChange={(e) => { setEmail(e.target.value); setEmailStatus(undefined); }}
-                    onBlur={() => setEmailStatus(validate(email))}
+                    onBlur={() => setEmailStatus(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ? undefined : "error")}
                 />
                 {emailStatus === "error" && (
-                    <p className={`${hintStyle} ${errorHintStyle}`}>邮箱不能为空</p>
-                )}
-                {emailStatus === "warning" && (
-                    <p className={`${hintStyle} ${warningHintStyle}`}>邮箱过短，请检查是否填写完整</p>
+                    <p id={`${fieldId}-email-hint`} className={`${hintStyle} ${errorHintStyle}`}>请填写完整邮箱，例如 name@example.com</p>
                 )}
             </div>
 
             <div className={fieldStyle}>
+                <label htmlFor={`${fieldId}-name`}>用户名</label>
                 <LineEdit
+                    id={`${fieldId}-name`}
+                    aria-describedby={nameStatus ? `${fieldId}-name-hint` : undefined}
                     value={name}
                     status={nameStatus}
                     placeholder="用户名（至少 6 个字符）"
@@ -76,10 +81,10 @@ const StatusDemo = () => {
                     onBlur={() => setNameStatus(validate(name))}
                 />
                 {nameStatus === "error" && (
-                    <p className={`${hintStyle} ${errorHintStyle}`}>用户名不能为空</p>
+                    <p id={`${fieldId}-name-hint`} className={`${hintStyle} ${errorHintStyle}`}>用户名不能为空</p>
                 )}
                 {nameStatus === "warning" && (
-                    <p className={`${hintStyle} ${warningHintStyle}`}>用户名过短，建议至少 6 个字符</p>
+                    <p id={`${fieldId}-name-hint`} className={`${hintStyle} ${warningHintStyle}`}>用户名过短，建议至少 6 个字符</p>
                 )}
             </div>
         </div>

@@ -7,7 +7,9 @@ import { css } from '@crab-dev/css';
 import Segmented from '../../src/index.js';
 
 const containerStyle = css`
-    width: 360px;
+    width: 100%;
+    max-width: 360px;
+    min-width: 0;
 `;
 
 const BlockDemo = () => {

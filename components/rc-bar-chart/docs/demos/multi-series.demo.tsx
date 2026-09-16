@@ -4,6 +4,8 @@ export const meta = {
 };
 
 import { useState } from 'react';
+import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
 import BarChart from '../../src/index.js';
 import type { BarClickInfo } from '../../src/index.js';
 
@@ -13,8 +15,9 @@ const MultiSeriesDemo = () => {
     const [picked, setPicked] = useState<BarClickInfo | null>(null);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center' }}>
+        <div className={css`display: flex; flex-direction: column; gap: ${token.space['component-gap']}; min-width: 0; inline-size: 100%;`}>
             <BarChart
+                width="auto"
                 aria-label="各区域分渠道销售额"
                 categories={CATEGORIES}
                 series={[
@@ -24,7 +27,7 @@ const MultiSeriesDemo = () => {
                 ]}
                 onBarClick={setPicked}
             />
-            <div style={{ fontSize: 12, color: '#64748b' }}>
+            <div role="status" className={css`font-size: ${token.font.size.caption}; color: ${token.color.text.secondary};`}>
                 {picked
                     ? `已选中：${picked.category} · ${picked.seriesName} = ${picked.value}`
                     : '点击任意柱子查看回调数据'}

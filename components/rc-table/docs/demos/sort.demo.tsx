@@ -1,59 +1,28 @@
 export const meta = {
-    title: "列排序",
-    description: "点击列头切换升序 / 降序 / 无序；按住 Shift 可追加多列排序。`sortable: true` 启用单列，`sorter` 可自定义比较逻辑。",
+    title: "列排序 · 人员薪酬核对",
+    description: "2,000 名员工、22 列；按部门、绩效、入职日期和年度总薪酬排序，Shift 追加多列排序。",
 };
-
 import { useState } from "react";
+import type { SortColumn } from "../../src/types.js";
 import Table from "../../src/index.js";
-import type { ColumnType, Row, SortColumn } from "../../src/index.js";
-import { makeEmployees, type Employee } from "./_mock.js";
-
-interface DemoRow extends Row {
-    dataRef: Employee & { score: number }
-}
-
-const rows: DemoRow[] = makeEmployees(60, 20260625).map((employee, index) => ({
-    id: `${index + 1}`,
-    dataRef: {
-        ...employee,
-        score: 60 + ((index * 7) % 41),
-    },
+import { employeeRows } from "./_mock.js";
+import { DemoFrame, employeeColumns, noteStyle } from "./_shared.js";
+const rows = employeeRows();
+const performanceOrder = ["S", "A", "B", "C", "待评估"];
+const columns = employeeColumns().map(column => ({
+    ...column, sortable: true,
+    ...(column.name === "$.performance" ? {
+        sorter: (a: typeof rows[number], b: typeof rows[number]) =>
+            performanceOrder.indexOf(a.dataRef.performance) - performanceOrder.indexOf(b.dataRef.performance),
+    } : {}),
 }));
-
-const columns: ColumnType<DemoRow>[] = [
-    { name: "name",       title: "姓名",   width: 120 },
-    { name: "age",        title: "年龄",   width: 80,  sortable: true, align: "right" },
-    { name: "department", title: "部门",   width: 120, sortable: true },
-    { name: "jobTitle",   title: "职位",   width: 150, sortable: true },
-    { name: "city",       title: "城市",   width: 100, sortable: true },
-    { name: "salary",     title: "薪资",   width: 110, sortable: true, align: "right",
-        render: ({ row }) => `¥${row.dataRef.salary.toLocaleString()}` },
-    { name: "joinDate",   title: "入职日期", width: 130, sortable: true },
-    { name: "status",     title: "状态",   width: 90,  sortable: true },
-    { name: "score",      title: "绩效分",  width: 100, sortable: true, align: "right",
-        sorter: (a, b) => a.dataRef.score - b.dataRef.score },
-];
-
-const SortDemo = () => {
-    const [sortColumns, setSortColumns] = useState<SortColumn[]>([]);
-
-    const sortLabel = sortColumns.length === 0
-        ? "无排序"
-        : sortColumns.map(sc => `${sc.columnName} ${sc.direction === "asc" ? "↑" : "↓"}`).join("，");
-
-    return (
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <div style={{ fontSize: 13, color: "#666" }}>当前排序：{sortLabel}</div>
-            <Table
-                width={700}
-                height={400}
-                rows={rows}
-                columns={columns}
-                sortColumns={sortColumns}
-                onSortColumnsChange={setSortColumns}
-            />
-        </div>
-    );
-};
-
-export default SortDemo;
+export default function SortDemo() {
+    const [sortColumns, setSortColumns] = useState<SortColumn[]>([{ columnName: "$.totalComp", direction: "desc" }]);
+    return <DemoFrame title="年度人员薪酬核对" rows={rows.length} columns={columns.length}
+        hint="默认按年度总薪酬降序；点击列头切换排序，Shift+点击追加条件。年度总薪酬＝月基本工资×12＋年度奖金＋年度股权折算。"
+        footer={<p className={noteStyle} role="status">当前排序：{sortColumns.map(sort =>
+            columns.find(col => col.name === sort.columnName)?.title + (sort.direction === "asc" ? " 升序" : " 降序")).join(" → ") || "原始顺序"}</p>}>
+        {(width, height) => <Table aria-label="年度人员薪酬核对" width={width} height={height} rows={rows} columns={columns}
+            sortColumns={sortColumns} onSortColumnsChange={setSortColumns} />}
+    </DemoFrame>;
+}

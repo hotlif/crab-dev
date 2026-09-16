@@ -1,24 +1,25 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "基础图元",
     description: "在 Canvas 中声明矩形与圆形，颜色支持 OKLCh / 十六进制，opacity 控制透明度。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { Canvas, Rect, Circle } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #fafafa;
 `;
 
 const BasicDemo = () => {
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={220}>
                 <Rect x={30} y={40} width={140} height={90} fill="oklch(0.62 0.21 28)" />
                 <Rect x={90} y={90} width={140} height={90} fill="oklch(0.7 0.16 160)" opacity={0.75} />

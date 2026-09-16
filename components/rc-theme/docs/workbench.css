@@ -1,0 +1,33 @@
+/* Private Wake workbench adapter. All palette values come from the public theme. */
+@import "../css/index.css";
+
+/* Wake supplies legacy feedback aliases on these hosts. Reset only its defaults:
+   otherwise every text / border / solid role collapses onto one old color.
+   A consumer's own nested theme scope can still set the public legacy aliases. */
+html:root[data-theme] :is(.workbench-shell, .demo-frame-root) {
+    --token-semantic-color-feedback-error: initial;
+    --token-semantic-color-feedback-success: initial;
+    --token-semantic-color-feedback-warning: initial;
+    --token-semantic-color-feedback-info: initial;
+}
+
+html[data-theme], body {
+    color: var(--token-semantic-color-text-primary);
+    background-color: var(--token-semantic-color-background-sunken);
+}
+
+.demo-frame-root[data-theme] {
+    color: var(--token-semantic-color-text-primary);
+    background-color: var(--token-semantic-color-background-surface);
+}
+
+/* A grid's automatic minimum otherwise expands the entire demo to its contents.
+   Let responsive components and their own scroll regions use the available width. */
+.demo-default-preview {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.demo-default-preview > * {
+    min-width: 0;
+    max-width: 100%;
+}

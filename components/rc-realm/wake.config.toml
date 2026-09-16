@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Realm 沙箱容器"
 description = "运行时加载 webpack Module Federation 远程模块并嵌入宿主页面的沙箱容器"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

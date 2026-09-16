@@ -1,0 +1,2 @@
+/* Workbench previews consume the built public theme, without a second palette. */
+@import "./workbench.css";

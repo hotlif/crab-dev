@@ -1,0 +1,38 @@
+{
+    "id": "rc-color-picker",
+    "title": "ColorPicker 颜色选择",
+    "summary": "颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "选择颜色",
+            "goal": "提供 OKLCH 格式的 defaultValue。",
+            "why": "颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。",
+            "instruction": "打开色板，调整色相。",
+            "expected": "触发器显示所选颜色。",
+            "changes": [
+                "提供 OKLCH 格式的 defaultValue。"
+            ],
+            "source": "rc-color-picker/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "读取颜色值",
+            "goal": "通过 value 与 onValueChange 保存颜色对象。",
+            "why": "颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。",
+            "instruction": "修改颜色，再恢复蓝色。",
+            "expected": "数值与色板同步恢复。",
+            "changes": [
+                "通过 value 与 onValueChange 保存颜色对象。"
+            ],
+            "source": "rc-color-picker/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "需要保存十六进制字符串吗？",
+            "answer": "组件的受控值使用 OKLCHValue；需要其他格式时在业务边界显式转换。"
+        }
+    ]
+}

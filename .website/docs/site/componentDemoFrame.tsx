@@ -1,8 +1,17 @@
-import { css, cx } from "@crab-dev/css";
+import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import Alert from "@crab-dev/rc-alert";
+import Empty from "@crab-dev/rc-empty";
+import Spin from "@crab-dev/rc-spin";
+import "@crab-dev/rc-button/css/index.css";
+import "@crab-dev/rc-alert/css/index.css";
+import "@crab-dev/rc-empty/css/index.css";
+import "@crab-dev/rc-spin/css/index.css";
 import token from "@crab-dev/rc-token-semantic";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import type { ComponentDemoRecord } from "./componentDemos.js";
+import { useSiteHref } from "./siteContext.js";
 
 export type ComponentDemoCodeTheme = "light" | "dark";
 
@@ -62,91 +71,15 @@ const loadingStyle = css`
     color: ${token.color.text.secondary};
     font-size: ${token.font.size.caption};
     text-align: center;
-`;
-
-const loadingCompactStyle = css`
-    min-height: 120px;
-`;
-
-const loadingRegularStyle = css`
     min-height: 220px;
-`;
-
-const loadingSpaciousStyle = css`
-    min-height: 300px;
-`;
-
-const loadingOverlayStyle = css`
-    position: absolute;
-    inset: 0;
-    z-index: ${token['z-index'].base};
-    min-height: ${MIN_FRAME_HEIGHT}px;
-`;
-
-const errorStyle = css`
-    display: grid;
-    gap: ${token.space['component-gap']};
-    min-height: ${MIN_FRAME_HEIGHT}px;
-    padding: ${token.space['section-gap']};
-    border: 1px solid ${token.color.border.error};
-    border-radius: ${token.radius.md};
-    place-content: center;
-    background-color: ${token.color.feedback.error.background};
-    color: ${token.color.feedback.error.text};
-    font-size: ${token.font.size.body};
-`;
-
-const errorMessageStyle = css`
-    margin: 0;
-`;
-
-const errorActionsStyle = css`
-    display: flex;
-    flex-wrap: wrap;
-    gap: ${token.space['component-gap']};
-`;
-
-const errorActionStyle = css`
-    display: inline-flex;
-    min-height: calc(${token.space['group-gap']} + ${token.space['card-padding']});
-    align-items: center;
-    justify-content: center;
-    padding: ${token.space['control-padding-y']} ${token.space['control-padding-x']};
-    border: 1px solid currentColor;
-    border-radius: ${token.radius.sm};
-    background-color: ${token.color.background.elevated};
-    color: ${token.color.feedback.error.text};
-    font: inherit;
-    line-height: 1;
-    text-decoration: none;
-    cursor: pointer;
-    transition: ${token.motion.interaction};
-
-    &:hover {
-        text-decoration: underline;
+    &[data-density="compact"] { min-height: 120px; }
+    &[data-density="spacious"] { min-height: 300px; }
+    &[data-overlay="true"] {
+        position: absolute;
+        inset: 0;
+        z-index: ${token['z-index'].base};
+        min-height: ${MIN_FRAME_HEIGHT}px;
     }
-
-    &:focus-visible {
-        outline: none;
-        box-shadow: ${token.shadow['focus-ring']};
-    }
-
-    @media (forced-colors: active) {
-        border-color: ButtonText;
-
-        &:focus-visible {
-            outline: 2px solid Highlight;
-            outline-offset: 2px;
-        }
-    }
-`;
-
-const emptyStyle = css`
-    padding: ${token.space['group-gap']};
-    border: 1px dashed ${token.color.border.default};
-    border-radius: ${token.radius.lg};
-    color: ${token.color.text.secondary};
-    text-align: center;
 `;
 
 type VisibilityCallback = () => void;
@@ -255,7 +188,7 @@ function stopThemeMonitoring() {
     themeMediaQuery = null;
 }
 
-function subscribeTheme(callback: ThemeCallback): () => void {
+export function subscribeTheme(callback: ThemeCallback): () => void {
     themeCallbacks.add(callback);
     if (themeCallbacks.size === 1) startThemeMonitoring();
     callback(readCodeTheme());
@@ -269,12 +202,6 @@ function initialHeight(density: ComponentDemoRecord["density"]): number {
     if (density === "compact") return 120;
     if (density === "spacious") return 300;
     return 220;
-}
-
-function loadingDensityStyle(density: ComponentDemoRecord["density"]): string {
-    if (density === "compact") return loadingCompactStyle;
-    if (density === "spacious") return loadingSpaciousStyle;
-    return loadingRegularStyle;
 }
 
 function messageError(data: WakeMessage): string {
@@ -298,9 +225,7 @@ export function getComponentDemoFrameAttributes(demo: ComponentDemoRecord) {
 
 export function EmptyComponentDemos() {
     return (
-        <p className={emptyStyle} role="status">
-            暂无可用的组件演示。
-        </p>
+        <Empty title="暂无可用的组件演示" />
     );
 }
 
@@ -311,6 +236,7 @@ export default function ComponentDemoFrame({
     renderFrame,
     readyTimeoutMs = DEFAULT_READY_TIMEOUT_MS,
 }: ComponentDemoFrameProps) {
+    const href = useSiteHref();
     const containerRef = useRef<HTMLDivElement>(null);
     const frameRef = useRef<HTMLIFrameElement>(null);
     const [shouldLoad, setShouldLoad] = useState(false);
@@ -318,7 +244,7 @@ export default function ComponentDemoFrame({
     const [ready, setReady] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [attempt, setAttempt] = useState(0);
-    const frameAttributes = getComponentDemoFrameAttributes(demo);
+    const frameAttributes = { ...getComponentDemoFrameAttributes(demo), src: href(demo.previewPath) };
 
     useEffect(() => {
         const container = containerRef.current;
@@ -395,29 +321,17 @@ export default function ComponentDemoFrame({
     return (
         <div ref={containerRef}>
             {error && (
-                <div
-                    className={cx(errorStyle, loadingDensityStyle(demo.density))}
-                    role="alert"
-                >
-                    <p className={errorMessageStyle}>{error}</p>
-                    <div className={errorActionsStyle}>
-                        <button type="button" className={errorActionStyle} onClick={handleRetry}>
-                            重新加载演示
-                        </button>
-                        <a
-                            className={errorActionStyle}
-                            href={demo.workbenchPath}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            在工作台中打开
-                        </a>
-                    </div>
-                </div>
+                <Alert type="error" title="演示加载失败" action={
+                    <>
+                        <Button onClick={handleRetry}>重新加载演示</Button>
+                        <Button href={href(demo.workbenchPath)} target="_blank" rel="noreferrer">在工作台中打开</Button>
+                    </>
+                }>{error}</Alert>
             )}
             {!error && !shouldLoad && (
                 <div
-                    className={cx(loadingStyle, loadingDensityStyle(demo.density))}
+                    className={loadingStyle}
+                    data-density={demo.density}
                     role="status"
                 >
                     演示进入可视区域后加载
@@ -444,11 +358,12 @@ export default function ComponentDemoFrame({
                         )}
                     {!ready && (
                         <div
-                            className={cx(loadingStyle, loadingOverlayStyle)}
+                            className={loadingStyle}
+                            data-overlay="true"
                             role="status"
                             aria-live="polite"
                         >
-                            正在加载交互演示…
+                            <Spin tip="正在加载交互演示…" />
                         </div>
                     )}
                 </div>

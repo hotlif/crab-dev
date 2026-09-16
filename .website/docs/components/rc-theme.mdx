@@ -1,6 +1,6 @@
 +++
 title = "Theme 主题"
-description = "Light、Dark 与强制颜色模式的语义令牌主题"
+description = "通过语义令牌提供浅色、深色和强制颜色模式的主题样式"
 kind = "component"
 status = "experimental"
 +++
@@ -9,19 +9,67 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-theme.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-theme.js";
 
-# Theme
+# Theme 主题
 
-`@crab-dev/rc-theme` 是 CSS-only 主题包。应用入口只需导入一次：
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-theme</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**加载主题入口**
+
+导入主题 CSS，再在区域声明 data-theme。 主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。 观察区域内卡片与页面的主题关系。 卡片使用深色背景与浅色文字。
+
+**切换局部主题**
+
+通过 data-theme 切换局部主题。 主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。 反复切换预览主题。 只有示例区域切换；网站主题设置保持独立。
+
+</div>
+
+## 常见问题
+
+### 主题为什么没有变化？
+
+检查主题 CSS 是否加载、data-theme 是否正确，以及自定义样式是否使用了语义令牌。
+
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（1 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
 ##### Light 与 Dark — 同一套组件语义变量可在嵌套主题边界中并排使用。
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-theme/workbench/)
+
+## 使用说明
+
+`@crab-dev/rc-theme` 是 CSS-only 主题包。应用入口只需导入一次：
+
 
 ```ts
 import "@crab-dev/rc-theme/css/index.css";
@@ -34,8 +82,7 @@ import "@crab-dev/rc-theme/css/index.css";
 ```
 
 
-
-## 避免首屏主题闪烁
+### 避免首屏主题闪烁
 
 主题包不会监听 `prefers-color-scheme`，也不会读写持久化状态。应用应自行决定主题，并在应用脚本执行和
 首屏渲染之前尽早把 `data-theme="light"` 或 `data-theme="dark"` 写到 `document.documentElement`。
@@ -51,3 +98,45 @@ document.documentElement.dataset.theme = savedTheme === "dark" ? "dark" : "light
 
 主题包仅覆写 `--token-semantic-*`，所以组件级变量仍拥有最高优先级。`forced-colors: active`
 会自动切换到 `Canvas`、`CanvasText`、`Highlight` 等系统颜色。
+
+### 公共默认品牌与来源
+
+Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为 White。Dark 对应 Purple 80 / 90 / 100，其上文字为 Purple 20。表面与文本继续使用公共 Zinc 中性色，功能反馈分别使用 Red、Green、Amber、Blue。切换主题只改变 L2 映射，不会把 L1 原始色阶反转。
+
+唯一配对数据位于 `@crab-dev/rc-token-semantic` 的 `themeColorContract`，本包编译为 CSS。文档站与独立工作台使用同一来源；站点的字体和阅读布局仍属于站点自身，不是公共组件默认尺寸。
+
+### 局部主题与浮层
+
+`[data-theme="dark"]` 可以嵌套在浅色页面中，也可以用 `[data-theme="light"]` 建立浅色岛。嵌套边界重新声明自己的 L2 值，因此只在外层祖先定义的业务覆盖不一定穿过内层主题边界。
+
+浮层若通过 Portal 挂载到 body，已经离开局部主题祖先。应在浮层的已有根或挂载容器上同步主题和业务覆盖；不能只观察触发按钮的颜色。当前页面主题切换时，已打开浮层也要更新。主题包只提供选择器和变量，不管理应用状态或 Portal 生命周期。
+
+### 保留业务品牌覆盖
+
+既有 L2 和 L3 CSS 变量继续有效。把业务覆盖放在公共主题样式之后，并使用应用自有类与主题属性共同限定范围。例如下列片段只展示 Light 的旧中性主按钮配对；完整业务主题还要分别评审链接、焦点、选中和 Dark 配对。
+
+```tsx
+import { css } from "@crab-dev/css";
+import global from "@crab-dev/rc-token-global";
+import "@crab-dev/rc-theme/css/index.css";
+
+const existingBrand = css`
+    &[data-theme="light"] {
+        --token-semantic-color-brand-primary: ${global.zinc[900]};
+        --token-semantic-color-brand-primary-hover: ${global.zinc[800]};
+        --token-semantic-color-brand-primary-active: ${global.zinc[950]};
+        --token-semantic-color-text-on-brand: ${global.white};
+    }
+`;
+// 将 existingBrand 与 data-theme="light" 同时放到应用主题根。
+```
+
+### 迁移检查
+
+1. 保留现有 API 与变量覆盖，先比较默认、悬停、按压三种主按钮与前景。
+2. 检查链接、焦点、当前导航与选中数据；新默认不是把所有强调角色替换成同一个紫色。
+3. 打开 Dialog、Drawer、Select 和 Tooltip 后切换主题，再关闭并检查焦点恢复。
+4. 检查局部深色、浅色岛和已有 L3 覆盖。强制颜色下必须保留系统颜色，业务覆盖也须提供该模式的等价处理。
+5. 运行令牌生成、契约测试和受影响包测试；在浏览器记录完整状态。公共映射测试通过不代表整个应用已符合 WCAG。
+
+相关规范：[色彩配对](/design/color)、[无障碍](/design/accessibility)、[令牌实施](/design/tokens)。

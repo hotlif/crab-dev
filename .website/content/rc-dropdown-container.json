@@ -1,0 +1,38 @@
+{
+    "id": "rc-dropdown-container",
+    "title": "DropdownContainer 下拉容器",
+    "summary": "下拉内容需要与触发器建立位置关系，并在视口边缘保持可用。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "关联触发器",
+            "goal": "通过 useDropdownContext 关联触发器，并用 dispatch 控制浮层开关。",
+            "why": "下拉内容需要与触发器建立位置关系，并在视口边缘保持可用。",
+            "instruction": "点击查看说明，再点击外部。",
+            "expected": "说明在按钮附近打开，并可关闭。",
+            "changes": [
+                "触发器通过 refs.setReference 参与定位，点击时 dispatch 更新 open。"
+            ],
+            "source": "rc-dropdown-container/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "添加浮层操作",
+            "goal": "让 overlay 中的业务操作更新页面状态。",
+            "why": "下拉内容需要与触发器建立位置关系，并在视口边缘保持可用。",
+            "instruction": "打开浮层并收藏项目。",
+            "expected": "页面结果更新，浮层仍由容器管理定位。",
+            "changes": [
+                "让 overlay 中的业务操作更新页面状态。"
+            ],
+            "source": "rc-dropdown-container/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "可以用它重新实现 Select 吗？",
+            "answer": "已有等价组件时优先使用 Select。DropdownContainer 用于尚无现成组件的自定义浮层。"
+        }
+    ]
+}

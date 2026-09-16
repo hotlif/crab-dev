@@ -1,6 +1,6 @@
 +++
 title = "AppMainLayout 布局"
-description = "布局组件，适用于管理后台、仪表盘等"
+description = "为管理后台组织侧边导航、顶部操作和标签页内容"
 kind = "component"
 status = "experimental"
 +++
@@ -9,35 +9,76 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-app-main-layout.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-app-main-layout.js";
 
-# AppMainLayout 主布局页面
+# AppMainLayout 布局
 
-后台管理的主页面布局信息
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-app-main-layout</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+布局负责导航与标签容器，Provider 保存已打开的页面。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**放入初始页面**
+
+用 Provider 提供初始标签，再渲染布局。 布局负责导航与标签容器，Provider 保存已打开的页面。 查看侧栏、页头与内容区。 概览页面显示在统一后台框架中。
+
+**连接菜单与标签**
+
+在 Provider 内调用标签 Hook，将菜单事件映射为 openTab。 布局负责导航与标签容器，Provider 保存已打开的页面。 点击成员管理，再切回概览。 新标签显示成员页面，原概览仍可返回。
+
+</div>
+
+## 常见问题
+
+### 页面内容放在哪里？
+
+页面内容放在 TabItem.children 中，由 Provider 管理。AppMainLayout 本身不通过 children 接收页面。
+
+
+## API
+
+<API source="../_generated_api/rc-app-main-layout.ts" symbol="LayoutProps" component="Layout" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（1 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
 ##### 基础用法 — 点击侧边栏菜单打开标签页，顶部展示路径面包屑
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-app-main-layout/workbench/)
 
-当需要清晰展示大量信息、进行数据对比，或在行列维度上进行查看与操作时，使用表格。
+## 使用说明
 
-
-表格常见能力包括：
-
-- 📄 展示多列结构化数据
-- 🔎 支持排序、筛选等数据处理
-- ✅ 支持行选择与批量操作
-- 📌 支持固定表头与固定列
-- 🧩 支持自定义单元格渲染
+为管理后台提供侧边导航、顶部操作区和标签页内容区。
 
 
+### 何时使用
 
-## API
+- 管理后台需要统一的侧边导航、顶部操作区和内容区。
+- 多个业务页面需要通过标签页切换，并共享应用布局。
+- 窄屏下需要将侧边导航收起到抽屉中。
 
-<API source="../_generated_api/rc-app-main-layout.ts" symbol="LayoutProps" component="Layout" />
+使用时需包裹在 `AppMainLayoutProvider` 中，由 Provider 管理标签页状态。

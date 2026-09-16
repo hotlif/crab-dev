@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "键盘导航",
     description: "点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。",
@@ -47,22 +49,26 @@ const KeyboardDemo = () => {
                 <kbd>←</kbd> 折叠 / 跳父节点 &nbsp;
                 <kbd>Enter</kbd> 选中
             </div>
-            <RcTree
-                height={300}
-                width={400}
-                treeData={treeData}
-                onTreeNodeChange={setTreeData}
-                expandedKeys={expandedKeys}
-                selectKeys={selectKeys}
-                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                onExpanded={({ node }: { node: Node }) => {
-                    setExpandedKeys(prev =>
-                        prev.includes(node.id)
-                            ? prev.filter(k => k !== node.id)
-                            : [...prev, node.id]
-                    );
-                }}
-            />
+            <AutoSizer disableHeight className={treeMeasureStyle}>
+                {({ width }) => (
+                    <RcTree
+                        height={300}
+                        width={Math.min(width, 400)}
+                        treeData={treeData}
+                        onTreeNodeChange={setTreeData}
+                        expandedKeys={expandedKeys}
+                        selectKeys={selectKeys}
+                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                        onExpanded={({ node }: { node: Node }) => {
+                            setExpandedKeys(prev =>
+                                prev.includes(node.id)
+                                    ? prev.filter(k => k !== node.id)
+                                    : [...prev, node.id]
+                            );
+                        }}
+                    />
+                )}
+            </AutoSizer>
             {selectKeys.length > 0 && (
                 <p style={{ fontSize: "0.875rem", margin: 0, color: "#666" }}>
                     已选中：{selectKeys.join(", ")}

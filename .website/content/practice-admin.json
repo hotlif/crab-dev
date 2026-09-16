@@ -1,0 +1,73 @@
+{
+    "id": "practice-admin",
+    "title": "实战：后台管理页面",
+    "summary": "将后台布局、菜单、标签页、成员列表和编辑抽屉组合为一个可以操作的管理页面。",
+    "prerequisite": "先完成资料表单和数据列表实战，再学习 AppMainLayout、Menu、Tabs 与 Drawer。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "建立后台框架",
+            "goal": "把页面放进统一的后台布局。",
+            "why": "公共页头、导航与内容边界先确定，业务页面就能专注自己的任务。",
+            "instruction": "识别侧栏、页头、标签与正文区域。",
+            "expected": "工作区先显示概览卡片。",
+            "changes": [
+                "使用 AppMainLayoutProvider 管理页面。",
+                "用 initialTabs 提供概览内容。"
+            ],
+            "source": "practice-admin/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "连接导航与标签",
+            "goal": "从菜单打开成员管理页。",
+            "why": "菜单项与标签使用相同业务 key，重复打开时可以复用现有标签。",
+            "instruction": "打开成员管理，再切回概览，重复点击成员菜单。",
+            "expected": "页面可以切换，同一个成员标签不会无限重复创建。",
+            "changes": [
+                "在 Provider 内使用 useAppMainLayoutTabs。",
+                "将菜单事件连接到 openTab，保留概览入口。",
+                "概览页提供同等功能的按钮入口，支持 Enter 和空格键。"
+            ],
+            "source": "practice-admin/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "组合列表和编辑",
+            "goal": "在列表旁完成资料编辑并回写。",
+            "why": "抽屉保留当前列表上下文，保存回调只更新目标成员。",
+            "instruction": "打开林晓的编辑抽屉，改名后保存。",
+            "expected": "抽屉关闭，对应成员卡片显示新名字。",
+            "changes": [
+                "用 Card 展示本地成员列表。",
+                "通过 Drawer 与受控 LineEdit 编辑姓名。",
+                "保存时 trim 并禁止空白姓名。"
+            ],
+            "source": "practice-admin/step-3.tsx"
+        },
+        {
+            "id": "step-4",
+            "title": "适配窄屏",
+            "goal": "让后台页面在手机宽度下仍能操作。",
+            "why": "侧栏与内容要保留明确入口，卡片单列排列，编辑字段不能溢出容器。",
+            "instruction": "缩窄浏览器窗口，从侧栏或概览页的打开成员管理按钮进入，再编辑并保存。",
+            "expected": "列表变为单列；导航与编辑仍可通过键盘和触控完成。",
+            "changes": [
+                "使用自适应卡片网格与容器最小宽度约束。",
+                "窄屏时保留布局组件的侧栏折叠入口。",
+                "以 320 px 视口检查菜单、标签与抽屉。"
+            ],
+            "source": "practice-admin/step-4.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "列表为何使用 Card 而不是再写一份表格？",
+            "answer": "本教程重点是跨页面组合与编辑回写，卡片便于观察窄屏。需要搜索、分页和请求反馈时，将数据列表实战中的完整列表接入 Members。"
+        },
+        {
+            "question": "真实应用如何保持页面状态？",
+            "answer": "以业务主键区分标签，并按应用要求把数据状态提升到共享层或服务缓存。教程状态只在当前示例内存中保存，重置会恢复初值。"
+        }
+    ]
+}

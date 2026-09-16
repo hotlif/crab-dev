@@ -1,6 +1,6 @@
 +++
 title = "Message 全局提示"
-description = "全局消息，用于轻量级反馈提示"
+description = "在页面顶部展示简短的操作反馈"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-message.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-message.js";
 
-# Message
+# Message 全局提示
 
-全局展示操作反馈信息。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-message</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**创建消息实例**
+
+调用 useMessage，并把 holder 放入渲染树。 消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。 点击保存资料。 页面出现成功反馈。
+
+**区分结果**
+
+根据业务结果调用 success 或 error。 消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。 分别模拟成功与失败。 消息文字和状态对应不同结果。
+
+</div>
+
+## 常见问题
+
+### 消息为什么没有出现？
+
+检查是否渲染了 useMessage 返回的 contextHolder，并确认事件实际执行。
+
+
+## API
+
+<API source="../_generated_api/rc-message.ts" symbol="MessageProps" component="Message" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（3 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -25,23 +68,22 @@ import { demos } from "../_generated/rc-message.js";
 ##### 消息堆叠 — 当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-message/workbench/)
 
-- 可提供成功、警告和错误等反馈信息。
-- 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+## 使用说明
+
+在页面顶部展示简短的操作反馈。
 
 
-我们提供了五种类型的全局消息：
+### 何时使用
 
-- 🔵 信息提示：用于通知性的信息展示。
-- 🟢 成功提示：表示操作已成功完成。
-- 🟡 警告提示：提醒用户注意潜在的问题。
-- 🔴 错误提示：告知用户操作失败或发生了错误。
-- ⏳ 加载提示：表示操作正在执行中。
+用于保存成功、复制完成或操作失败等简短反馈。消息在页面顶部居中显示，可按 `duration` 自动关闭。需要详细说明或后续操作时使用 Notification，需要持续展示的页面提示使用 Alert。
 
-## 功能特性
+### 主要功能
 
 - 支持五种类型：`success`、`info`、`warning`、`error`、`loading`。
 - 顶部居中弹出，自动消失。
@@ -50,9 +92,3 @@ import { demos } from "../_generated/rc-message.js";
 - 支持自定义图标 `icon`。
 - 通过 `useMessage` Hook 创建实例。
 - 多条消息自动堆叠折叠，最多显示 3 条，旧消息依次缩小淡出。
-
-
-
-## API
-
-<API source="../_generated_api/rc-message.ts" symbol="MessageProps" component="Message" />

@@ -1,19 +1,20 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "hover 回调",
     description: "通过 onMouseEnter / onMouseLeave 响应图元悬停事件，驱动颜色高亮与状态提示。三种图元均支持该回调。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { useState } from "react";
 import { Canvas, Rect, Circle, Line, Text } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #fafafa;
 `;
 
@@ -21,7 +22,7 @@ export default function HoverDemo() {
     const [hovered, setHovered] = useState<string | null>(null);
 
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={240}>
                 <Text
                     x={20} y={14}

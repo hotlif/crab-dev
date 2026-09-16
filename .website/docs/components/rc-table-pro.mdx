@@ -1,0 +1,109 @@
++++
+title = "TablePro 高级表格"
+description = "基于 Table 集成数据加载、查询、列管理和导出"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import { demos } from "../_generated/rc-table-pro.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-table-pro.js";
+
+# TablePro 高级表格
+
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-table-pro</div>
+
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+列协议描述数据如何显示，加载函数将业务数据接入表格。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**加载列与数据**
+
+用独立的异步函数返回列协议和确定性本地数据。 列协议描述数据如何显示，加载函数将业务数据接入表格。 等待表格完成初始化。 两列成员数据加载到表格。
+
+**启用分页**
+
+增加 pagination，用两条一页观察翻页。 列协议描述数据如何显示，加载函数将业务数据接入表格。 翻到第二页，再返回第一页。 第三位成员出现在第二页。
+
+</div>
+
+## 常见问题
+
+### 如何接真实接口？
+
+替换 fetchColumns 和 fetchData 的函数体；保持返回的列协议与行结构一致。教程函数只返回本地数据，不会请求后端。
+
+
+## API
+
+<API source="../_generated_api/rc-table-pro.ts" symbol="TableProProps" component="TablePro" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（8 个）</summary>
+
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+#### 基础与数据
+
+##### 基础用法 — 通过 fetchData 与 fetchColumns 异步加载数据和列定义，TablePro 会自动适应容器宽高。
+
+##### 自定义类型渲染 — 通过 typeLoaders 为不同 dataType 注入自定义渲染器，实现状态标签、金额格式化和日期格式化等效果。
+
+##### 自动刷新 — autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。
+
+#### 工作区能力
+
+##### 全局关键字搜索 — showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。
+
+##### 侧边栏（列 / 过滤器） — sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。
+
+##### 服务端分页 — 设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 （ rows, total ），组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。
+
+#### 导出与状态
+
+##### CSV 导出 — 设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。
+
+##### 状态持久化 — initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。
+
+</div>
+
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-table-pro/workbench/)
+
+## 使用说明
+
+基于 `@crab-dev/rc-table` 的业务表格。将 `ProtocolColumnType` 列定义转换为 Table 使用的 `ColumnType`，并通过 `dataType` 配置对应的渲染器、筛选器和编辑器。
+
+
+### 主要功能
+
+- 通过 `fetchColumns` 和 `fetchData` 异步加载列定义与数据。
+- 通过 `typeLoaders` 为不同 `dataType` 配置 `render`、`filterEditor` 和 `editRender`。
+- 复用 AutoSizer 与 Table，提供自适应容器和虚拟滚动。
+- 集成分页、查询、列管理与导出；数据请求和业务筛选逻辑由调用方实现。
+
+### 何时使用
+
+- 后端以列协议（metadata）下发列定义，需要前端根据协议渲染表格；
+- 需要为多种数据类型（金额、日期、富文本、状态）提供可插拔渲染器；
+- 需要将筛选/排序逻辑放到服务端，前端只负责展示与收集条件。

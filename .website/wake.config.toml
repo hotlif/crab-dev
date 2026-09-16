@@ -6,8 +6,9 @@ locale = "zh-CN"
 repository_url = "https://github.com/hotlif/crab-dev"
 base_path = "/"
 theme_css = "docs/theme.css"
+ui = "docs/site/ui.tsx"
 default_theme = "system"
-accent_color = "#2563eb"
+accent_color = "#6750A4"
 
 [[docs.workspace]]
 root = "../components"

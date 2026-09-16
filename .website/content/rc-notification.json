@@ -1,0 +1,38 @@
+{
+    "id": "rc-notification",
+    "title": "Notification 通知",
+    "summary": "通知承载较完整的信息，标题概括事件，正文解释结果。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "发送通知",
+            "goal": "创建通知实例，渲染 holder，并调用 open。",
+            "why": "通知承载较完整的信息，标题概括事件，正文解释结果。",
+            "instruction": "发送导出完成通知。",
+            "expected": "页面角落显示标题和完整说明。",
+            "changes": [
+                "创建通知实例，渲染 holder，并调用 open。"
+            ],
+            "source": "rc-notification/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "选择显示方向",
+            "goal": "通过 direction 调整通知位置。",
+            "why": "通知承载较完整的信息，标题概括事件，正文解释结果。",
+            "instruction": "切换方向后显示通知。",
+            "expected": "新通知出现在选择的页面角落。",
+            "changes": [
+                "通过 direction 调整通知位置。"
+            ],
+            "source": "rc-notification/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "需要用户必须确认怎么办？",
+            "answer": "通知不应阻断主任务；必须确认的操作应使用 Dialog。"
+        }
+    ]
+}

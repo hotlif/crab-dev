@@ -1,6 +1,6 @@
 +++
 title = "Breadcrumbs 面包屑导航"
-description = "面包屑导航，用于展示当前页面在层级结构中的位置"
+description = "展示页面层级，并提供返回上级页面的入口"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-breadcrumbs.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-breadcrumbs.js";
 
-# Breadcrumbs
+# Breadcrumbs 面包屑导航
 
-面包屑导航，用于展示用户当前位置以及返回上级路径。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-breadcrumbs</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+面包屑表示页面层级，点击路径项可回到上一级。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**声明层级**
+
+使用 items 按从上级到当前页的顺序声明路径。 面包屑表示页面层级，点击路径项可回到上一级。 从左向右阅读路径。 成员详情显示在工作区与成员层级之后。
+
+**响应路径点击**
+
+给上级路径添加 onClick，将导航交给业务代码。 面包屑表示页面层级，点击路径项可回到上一级。 点击成员或工作区。 下方位置文字更新；示例不会跳离当前教程。
+
+</div>
+
+## 常见问题
+
+### 真实项目如何跳转？
+
+使用 href 提供真实链接，或在 onClick 中调用应用路由。不要让可点击项没有结果。
+
+
+## API
+
+<API source="../_generated_api/rc-breadcrumbs.ts" symbol="BreadcrumbsProps" component="Breadcrumbs" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（3 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -25,22 +68,25 @@ import { demos } from "../_generated/rc-breadcrumbs.js";
 ##### 路径折叠 — 使用 maxCount 折叠中间层级，保持界面简洁
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-breadcrumbs/workbench/)
+
+## 使用说明
+
+展示页面层级，并提供返回上级页面的入口。
+
+
+### 何时使用
 
 - 页面存在明确层级关系，需要展示当前位置。
 - 需要在深层页面中提供快速返回上层路径的入口。
 
-## 功能特性
+### 主要功能
 
 - 支持通过 `items` 配置导航层级。
 - 支持 `separator` 自定义分隔符。
 - 支持 `maxCount` 折叠中间层级，避免路径过长。
 - 支持每一项配置 `href`、`onClick`、`disabled`。
-
-
-
-## API
-
-<API source="../_generated_api/rc-breadcrumbs.ts" symbol="BreadcrumbsProps" component="Breadcrumbs" />

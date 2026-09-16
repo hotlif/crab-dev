@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Spin 加载中"
 description = "加载中指示器, 用于表达耗时操作正在进行"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

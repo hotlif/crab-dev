@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "SplitPane 分栏面板"
 description = "可拖拽调整尺寸的分栏面板, 支持水平/垂直分栏、键盘调整、双击复位与尺寸记忆"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

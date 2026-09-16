@@ -1,79 +1,39 @@
-
 export const meta = {
-    title: "底部汇总行",
-    description: "通过 showSummary 开启底部固定汇总行，各列由 summaryRender 提供合计 / 平均等聚合内容；汇总行始终贴住底部，固定列横向同步固定。",
+    title: "底部汇总 · 项目预算执行",
+    description: "1,200 条预算、23 列，部门筛选后合计 12 个月预算、全年预算、实支与剩余额度，使用率按汇总金额计算。",
 };
-
+import { useState } from "react";
+import Select from "@crab-dev/rc-select";
 import Table from "../../src/index.js";
-import type { ColumnType, Row, SummaryCellParam } from "../../src/index.js";
-import { makeEmployees, type Employee } from "./_mock.js";
-
-interface DemoRow extends Row {
-    dataRef: Employee
+import { departments, makeBudgets, money } from "./_mock.js";
+import { DemoFrame, budgetColumns, noteStyle } from "./_shared.js";
+const allRows = makeBudgets();
+export default function SummaryDemo() {
+    const [department, setDepartment] = useState("");
+    const rows = allRows.filter(row => !department || row.dataRef.department === department);
+    const sum = (pick: (row: typeof rows[number]) => number) => rows.reduce((total, row) => total + pick(row), 0);
+    const planned = sum(row => row.dataRef.planned);
+    const actual = sum(row => row.dataRef.actual);
+    const columns = budgetColumns().map(col => ({
+        ...col,
+        summaryRender: () => {
+            const month = /^\$\.monthly\[(\d+)\]$/.exec(col.name);
+            if (month) return money(sum(row => row.dataRef.monthly[Number(month[1])]));
+            if (col.name === "$.code") return "当前筛选合计";
+            if (col.name === "$.project") return rows.length + " 条预算";
+            if (col.name === "$.planned") return money(planned);
+            if (col.name === "$.actual") return money(actual);
+            if (col.name === "$.remaining") return money(planned - actual);
+            if (col.name === "$.execution") return planned ? (actual / planned * 100).toFixed(1) + "%" : "—";
+            return null;
+        },
+    }));
+    return <DemoFrame title="项目预算执行汇总" rows={rows.length} columns={columns.length}
+        hint="筛选部门后，底部汇总随当前结果更新。整体使用率＝实支合计÷全年预算合计。"
+        toolbar={<Select aria-label="筛选预算部门" placeholder="全部部门" value={department || undefined} allowClear
+            options={departments.map(item => ({ label: item.name, value: item.name }))}
+            onChange={value => setDepartment(value ?? "")} />}
+        footer={<p className={noteStyle}>全年预算 {money(planned)} · 截至8月实支 {money(actual)}</p>}>
+        {(width, height) => <Table aria-label="项目预算执行与合计" width={width} height={height} rows={rows} columns={columns} showSummary />}
+    </DemoFrame>;
 }
-
-const sum = (rows: DemoRow[], pick: (row: DemoRow) => number) =>
-    rows.reduce((acc, row) => acc + pick(row), 0);
-
-const columns: ColumnType<DemoRow>[] = [
-    {
-        title: "工号",
-        name: "$.employeeNo",
-        width: 140,
-        fixed: "left",
-        summaryRender: () => "合计"
-    },
-    {
-        title: "姓名",
-        name: "$.name",
-        width: 140,
-        summaryRender: ({ rows }: SummaryCellParam<DemoRow>) => `${rows.length} 人`
-    },
-    {
-        title: "年龄",
-        name: "$.age",
-        width: 120,
-        align: "right",
-        summaryRender: ({ rows }: SummaryCellParam<DemoRow>) =>
-            `平均 ${(sum(rows, (row) => row.dataRef.age) / rows.length).toFixed(1)}`
-    },
-    {
-        title: "部门",
-        name: "$.department",
-        width: 180
-    },
-    {
-        title: "城市",
-        name: "$.city",
-        width: 160
-    },
-    {
-        title: "月薪",
-        name: "$.salary",
-        width: 160,
-        fixed: "right",
-        align: "right",
-        render: ({ row }) => `¥${row.dataRef.salary.toLocaleString()}`,
-        summaryRender: ({ rows }: SummaryCellParam<DemoRow>) =>
-            `¥${sum(rows, (row) => row.dataRef.salary).toLocaleString()}`
-    }
-];
-
-const rows: DemoRow[] = makeEmployees(200, 20260625).map((employee, index) => ({
-    id: `${index + 1}`,
-    dataRef: employee,
-}))
-
-const SummaryDemo = () => {
-    return (
-        <Table
-            width={900}
-            height={320}
-            columns={columns}
-            rows={rows}
-            showSummary
-        />
-    )
-}
-
-export default SummaryDemo;

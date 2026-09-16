@@ -29,6 +29,7 @@ const IconDemo = () => {
             <div
                 className={css`
                     display: flex;
+                    flex-wrap: wrap;
                     align-items: center;
                     gap: 1rem;
                     margin-bottom: 2rem;

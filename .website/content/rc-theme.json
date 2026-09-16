@@ -1,0 +1,38 @@
+{
+    "id": "rc-theme",
+    "title": "Theme 主题样式",
+    "summary": "主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "加载主题入口",
+            "goal": "导入主题 CSS，再在区域声明 data-theme。",
+            "why": "主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。",
+            "instruction": "观察区域内卡片与页面的主题关系。",
+            "expected": "卡片使用深色背景与浅色文字。",
+            "changes": [
+                "导入主题 CSS，再在区域声明 data-theme。"
+            ],
+            "source": "rc-theme/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "切换局部主题",
+            "goal": "通过 data-theme 切换局部主题。",
+            "why": "主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。",
+            "instruction": "反复切换预览主题。",
+            "expected": "只有示例区域切换；网站主题设置保持独立。",
+            "changes": [
+                "通过 data-theme 切换局部主题。"
+            ],
+            "source": "rc-theme/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "主题为什么没有变化？",
+            "answer": "检查主题 CSS 是否加载、data-theme 是否正确，以及自定义样式是否使用了语义令牌。"
+        }
+    ]
+}

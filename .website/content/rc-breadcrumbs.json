@@ -1,0 +1,38 @@
+{
+    "id": "rc-breadcrumbs",
+    "title": "Breadcrumbs 面包屑",
+    "summary": "面包屑表示页面层级，点击路径项可回到上一级。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "声明层级",
+            "goal": "使用 items 按从上级到当前页的顺序声明路径。",
+            "why": "面包屑表示页面层级，点击路径项可回到上一级。",
+            "instruction": "从左向右阅读路径。",
+            "expected": "成员详情显示在工作区与成员层级之后。",
+            "changes": [
+                "使用 items 按从上级到当前页的顺序声明路径。"
+            ],
+            "source": "rc-breadcrumbs/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "响应路径点击",
+            "goal": "给上级路径添加 onClick，将导航交给业务代码。",
+            "why": "面包屑表示页面层级，点击路径项可回到上一级。",
+            "instruction": "点击成员或工作区。",
+            "expected": "下方位置文字更新；示例不会跳离当前教程。",
+            "changes": [
+                "给上级路径添加 onClick，将导航交给业务代码。"
+            ],
+            "source": "rc-breadcrumbs/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "真实项目如何跳转？",
+            "answer": "使用 href 提供真实链接，或在 onClick 中调用应用路由。不要让可点击项没有结果。"
+        }
+    ]
+}

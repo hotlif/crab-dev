@@ -1,24 +1,24 @@
 +++
 title = "Skeleton 骨架屏"
-description = "骨架屏，用于在内容加载时占位，降低用户感知等待时间"
+description = "在内容加载期间展示布局占位，减少页面跳动"
 kind = "component"
 status = "experimental"
 +++
 
-# Skeleton
+# Skeleton 骨架屏
 
-骨架屏，用于在内容加载时占位，降低用户感知等待时间。
+在内容加载期间展示布局占位，减少页面跳动。
 
-[打开 Skeleton 骨架屏 工作台](/components/rc-skeleton/workbench/)
+[打开组件工作台](/components/rc-skeleton/workbench/)
 
 ## 何时使用
 
-- 网络请求或计算耗时导致内容尚未就绪时，需要保留版面节奏。
-- 作为 `loading` 状态的视觉预填，避免界面抖动或"空白焦虑"。
-- 列表、卡片、头像与按钮等典型场景的通用占位符。
+- 列表、卡片或详情尚未加载完成，但内容结构已经确定。
+- 需要提前保留内容空间，减少加载完成后的布局变化。
 
+占位形状应接近实际内容。无法预估内容结构时，可使用 Spin 提供加载反馈。
 
-## 功能特性
+## 主要功能
 
 - 支持 `text` / `rect` / `circle` / `button` / `avatar` / `image` 六种常用形状。
 - `rows` 控制多行文本占位，末行自动收窄以模拟段落尾部。
@@ -26,7 +26,6 @@ status = "experimental"
 - `width` / `height` 同时支持数字（自动补 `px`）与字符串（如 `"50%"`）。
 - `loading=false` 时直接渲染 `children`，便于嵌入到数据驱动的分支里。
 - 尊重 `prefers-reduced-motion`，自动禁用非必要动画。
-
 
 ## 代码演示
 

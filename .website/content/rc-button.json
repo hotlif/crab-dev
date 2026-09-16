@@ -1,0 +1,39 @@
+{
+    "id": "rc-button",
+    "title": "Button 按钮",
+    "summary": "用清晰的按钮文字表达操作，用外观区分操作优先级。",
+    "prerequisite": "了解 JSX 和 useState 即可。先完成快速开始中的安装与样式接入。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "渲染主操作",
+            "goal": "让“保存资料”成为主操作",
+            "why": "将 appearance 设为 primary，让用户快速识别当前最重要的操作。",
+            "instruction": "聚焦按钮，观察鼠标悬停与键盘焦点反馈。",
+            "expected": "保存操作以主按钮展示；本步尚未接入保存逻辑。",
+            "changes": [
+                "导入 Button 及其样式，设置 appearance=\"primary\"。"
+            ],
+            "source": "rc-button/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "连接交互状态",
+            "goal": "让按钮响应点击，并切换外观",
+            "why": "用 React 状态分别管理保存次数和按钮外观，让两种变化互不干扰。",
+            "instruction": "点击保存两次，再切换按钮外观。",
+            "expected": "保存次数变为 2；外观变化不会清空计数。",
+            "changes": [
+                "新增 count 状态，在 onClick 中递增。",
+                "新增 primary 状态，通过 appearance 切换主次外观。"
+            ],
+            "source": "rc-button/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "链接外观会自动导航吗？",
+            "answer": "不会。appearance=\"link\" 只改变外观；需要导航时还应传入 href。"
+        }
+    ]
+}

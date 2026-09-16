@@ -1,6 +1,6 @@
 +++
 title = "Menu 菜单"
-description = "为页面和功能提供导航的菜单列表。"
+description = "以水平、垂直或内嵌菜单组织页面与功能导航"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-menu.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-menu.js";
 
-# Menu
+# Menu 菜单
 
-为页面和功能提供导航的菜单列表。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-menu</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**声明导航项**
+
+用稳定 key 和可见 title 定义导航项。 菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。 使用 Tab 和方向键浏览菜单。 菜单提供两个清晰入口。
+
+**同步当前位置**
+
+将 selectedKeys 接入页面状态。 菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。 选择成员管理。 选中意符和内容区域同时变化。
+
+</div>
+
+## 常见问题
+
+### 菜单会自动切换路由吗？
+
+不会。通过选择回调更新路由或业务状态；不要仅改变高亮却保留旧页面内容。
+
+
+## API
+
+<API source="../_generated_api/rc-menu.ts" symbol="MenuProps" component="Menu" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（4 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -27,19 +70,17 @@ import { demos } from "../_generated/rc-menu.js";
 ##### 水平模式 — 通过 `mode` 属性设置为 `horizontal` 来使用水平菜单
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-menu/workbench/)
 
-导航菜单是一个网站的灵魂，用户依赖导航在各个页面中进行跳转。
+## 使用说明
 
-我们提供了两种菜单模式。
-
-- 📋 垂直菜单：侧边栏导航，支持展开/收起子菜单。
-- ➡️ 水平菜单：顶部导航栏，支持下拉子菜单。
+以水平、垂直或内嵌菜单组织页面与功能导航。
 
 
+### 何时使用
 
-## API
-
-<API source="../_generated_api/rc-menu.ts" symbol="MenuProps" component="Menu" />
+用于应用顶部或侧边栏导航，通过层级菜单组织页面入口。`mode` 支持 `horizontal`、`vertical` 和 `inline`；垂直与内嵌模式可通过 `inlineCollapsed` 收起为图标栏。

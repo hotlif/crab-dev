@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Message 全局提示"
 description = "全局消息，用于轻量级反馈提示"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

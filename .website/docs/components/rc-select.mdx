@@ -1,6 +1,6 @@
 +++
 title = "Select 选择器"
-description = "下拉选择器，支持单选、多选和搜索"
+description = "在下拉列表中选择一个或多个值，支持搜索选项"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-select.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-select.js";
 
-# Select
+# Select 选择器
 
-下拉选择器，支持单选、多选与搜索。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-select</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**配置选项**
+
+传入包含 value 和 label 的 options。 使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。 打开下拉列表，选择城市。 输入区域显示城市名称。
+
+**搜索并读取值**
+
+添加 searchable、allowClear，并连接受控 value。 使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。 搜索杭州并选择，再清除选项。 选择后输出 hz，清除后恢复未选择。
+
+</div>
+
+## 常见问题
+
+### label 与 value 有什么区别？
+
+label 是用户看到的文字；value 是程序使用的稳定标识，不应随显示文案改变。
+
+
+## API
+
+<API source="../_generated_api/rc-select.ts" symbol="SelectProps" component="Select" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（10 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -45,32 +88,36 @@ import { demos } from "../_generated/rc-select.js";
 ##### 标签数量限制 — 多选模式下设置 maxTagCount 限制展示的标签数量
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-select/workbench/)
+
+## 使用说明
+
+在下拉列表中选择一个或多个值，支持搜索选项。
+
+
+### 何时使用
 
 - 需要在有限空间中从多个选项中选择一个或多个值。
 - 选项较多，需要通过关键字快速过滤。
 - 表单场景中需要统一输入尺寸与交互体验。
 
-## 功能特性
+### 主要功能
 
 - 支持单选与多选模式。
 - 支持可搜索过滤。
 - 支持受控与非受控用法。
 - 支持禁用状态与禁用选项。
 
-## 无障碍
+### 无障碍
 
 - Select 不内置业务标签；每个实例都应有可见标签，并通过 `aria-label` 提供一致的可访问名称。
 - 使用方向键移动选项、Enter 选择、Escape 关闭、Backspace 删除多选标签，确保业务包装层不会拦截这些按键。
+- 清除后焦点回到选择器；可继续按方向键选择新值，不能因清除入口消失而把用户留在页面根部。
 - `status="error"` 只表达错误状态；错误原因仍需在控件附近以文字显示，不能只改变边框颜色。
 - 自定义 `optionRender` 或 `tagRender` 时保留可读文本，纯装饰图标应设置 `aria-hidden="true"`。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
-
-
-
-## API
-
-<API source="../_generated_api/rc-select.ts" symbol="SelectProps" component="Select" />

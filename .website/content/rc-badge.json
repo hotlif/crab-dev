@@ -1,0 +1,38 @@
+{
+    "id": "rc-badge",
+    "title": "Badge 徽标",
+    "summary": "计数表达待处理数量，圆点适用于只需说明有更新的情况。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "展示数量",
+            "goal": "将需要附着徽标的元素作为 children。",
+            "why": "计数表达待处理数量，圆点适用于只需说明有更新的情况。",
+            "instruction": "观察计数与消息入口的关系。",
+            "expected": "消息入口旁显示数字 5。",
+            "changes": [
+                "将需要附着徽标的元素作为 children。"
+            ],
+            "source": "rc-badge/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "更新计数",
+            "goal": "使用状态驱动 count，并在归零后禁用操作。",
+            "why": "计数表达待处理数量，圆点适用于只需说明有更新的情况。",
+            "instruction": "连续读取三条消息。",
+            "expected": "计数逐次减少，归零后按钮禁用。",
+            "changes": [
+                "使用状态驱动 count，并在归零后禁用操作。"
+            ],
+            "source": "rc-badge/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "能只用颜色表达状态吗？",
+            "answer": "不能。使用状态点时应提供 text 或邻近文字，说明状态含义。"
+        }
+    ]
+}

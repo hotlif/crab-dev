@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Tag 标签"
 description = "标签，用于分类与标记"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

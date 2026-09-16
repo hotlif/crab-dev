@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Virtual 虚拟滚动"
 description = "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

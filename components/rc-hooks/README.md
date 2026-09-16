@@ -1,20 +1,15 @@
-A common library of React Hooks for executing some common methods of Hooks
+# @crab-dev/rc-hooks
 
-## ✨ 特性
+复用键盘事件、受控状态、尺寸测量和定时器等 React 逻辑。
 
-- 提供可复用的 React Hooks 集合，沉淀高频交互逻辑
-- 帮助组件与业务页面复用通用行为能力
-- 适用于键盘交互、状态联动与副作用封装场景
-- 当前版本：`0.0.1`
-- 示例数量：`1` 个 Demo
-- 主题能力：按组件实现提供样式能力
+## 主要功能
 
-## 🔨 使用示例
+- 提供受控状态、键盘事件、尺寸测量、定时器和媒体查询 Hook。
+- 通过 `useDragResize` 实现指针与键盘尺寸调整；所有 Hook 均为具名导出。
 
-<demos />
+## 文档
 
-## API
+- [使用说明与 API](./docs/index.mdx)
+- [示例源码](./docs/demos/)
 
-<api />
-
-> 其余原生属性按底层实现透传，详见 API。
+在当前包目录运行 `yarn start` 可打开组件工作台，查看交互示例。

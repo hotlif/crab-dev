@@ -6,6 +6,7 @@ source_dir = "docs"
 title = "FlowDiagram 流程图"
 description = "基于 rc-canvas 的流程图组件库，提供 Edge 连线、ELK 自动布局和正交边路由能力"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

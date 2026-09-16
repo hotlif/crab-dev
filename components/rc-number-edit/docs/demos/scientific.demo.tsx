@@ -4,23 +4,34 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import token from "@crab-dev/rc-token-semantic";
+import { useId, useState } from "react";
 
 import NumberEdit from "../../src/index.js";
 
 const wrapperStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: ${token.space["section-gap"]};
+    min-width: 0;
     max-width: 320px;
 `;
 
+const fieldStyle = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${token.space["inline-gap"]};
+`;
+
 const ScientificDemo = () => {
+    const fieldId = useId();
     const [value, setValue] = useState<number | null>(1.23e21);
     return (
         <div className={wrapperStyle}>
-            <NumberEdit value={value} onChange={setValue} />
+            <div className={fieldStyle}>
+                <label htmlFor={`${fieldId}-0`}>科学计数法数值</label>
+                <NumberEdit id={`${fieldId}-0`} value={value} onChange={setValue} />
+            </div>
             <span>原始值：{value === null ? "（空）" : String(value)}</span>
         </div>
     );

@@ -1,3 +1,4 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 import { useRef, useState } from 'react';
 import Canvas from '../../src/canvas.js';
 import Rect from '../../src/shapes/rect.js';
@@ -97,22 +98,26 @@ export default function MinimapDemo() {
             <div style={{ fontSize: 13, color: '#666', padding: '4px 0' }}>
                 滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图
             </div>
-            <Canvas
-                width={800}
-                height={520}
-                style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
-            >
-                <Viewport minZoom={0.08} maxZoom={8}>
-                    <InfiniteGrid baseSpacing={50} subdivisions={5} color="#d8d8d8" />
-                    {INITIAL_CARDS.map(card => (
-                        <DraggableCard key={card.id} data={card} getNextZ={getNextZ} />
-                    ))}
-                    {CLUSTERS.map(cl => (
-                        <CircleCluster key={`${cl.cx},${cl.cy}`} {...cl} />
-                    ))}
-                </Viewport>
-                <Minimap position="bottom-right" padding={12} width={180} height={120} />
-            </Canvas>
+            <div className={canvasViewportStyle} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
+
+                <Canvas
+                    width={800}
+                    height={520}
+                    style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
+                >
+                    <Viewport minZoom={0.08} maxZoom={8}>
+                        <InfiniteGrid baseSpacing={50} subdivisions={5} color="#d8d8d8" />
+                        {INITIAL_CARDS.map(card => (
+                            <DraggableCard key={card.id} data={card} getNextZ={getNextZ} />
+                        ))}
+                        {CLUSTERS.map(cl => (
+                            <CircleCluster key={`${cl.cx},${cl.cy}`} {...cl} />
+                        ))}
+                    </Viewport>
+                    <Minimap position="bottom-right" padding={12} width={180} height={120} />
+                </Canvas>
+
+            </div>
         </div>
     );
 }

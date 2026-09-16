@@ -10,6 +10,8 @@ const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const websiteDirectory = path.resolve(scriptDirectory, "..");
 const repositoryRoot = path.resolve(websiteDirectory, "..");
 const componentsDirectory = path.join(repositoryRoot, "components");
+const teachingDirectory = path.join(websiteDirectory, "content");
+const examplesDirectory = path.join(websiteDirectory, "docs/examples");
 const navigationPath = path.join(websiteDirectory, "docs/navigation.toml");
 const require = createRequire(import.meta.url);
 const wakeDirectory = path.dirname(require.resolve("@crab-dev/wake/package.json"));
@@ -33,6 +35,8 @@ let forceKillTimer;
 let wakeProcess;
 let componentWatcher;
 let docsWatcher;
+let teachingWatcher;
+let examplesWatcher;
 
 async function regenerate() {
     if (generationRunning) {
@@ -65,6 +69,8 @@ function closeWatchers() {
     clearTimeout(debounceTimer);
     componentWatcher?.close();
     docsWatcher?.close();
+    teachingWatcher?.close();
+    examplesWatcher?.close();
     componentWatcher = undefined;
     docsWatcher = undefined;
 }
@@ -97,6 +103,10 @@ try {
     docsWatcher = watch(path.dirname(navigationPath), (_, filename) => {
         if (String(filename) === path.basename(navigationPath)) scheduleRegeneration();
     });
+    teachingWatcher = watch(teachingDirectory, { recursive: true }, () => scheduleRegeneration());
+    examplesWatcher = watch(examplesDirectory, { recursive: true }, () => scheduleRegeneration());
+    teachingWatcher.on("error", handleWatcherError);
+    examplesWatcher.on("error", handleWatcherError);
     componentWatcher.on("error", handleWatcherError);
     docsWatcher.on("error", handleWatcherError);
 } catch (error) {

@@ -1,0 +1,38 @@
+{
+    "id": "rc-radio",
+    "title": "Radio 单选框",
+    "summary": "单选组展示少量互斥选项，组值用于业务提交。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "设置选项组",
+            "goal": "用 RadioGroup 包裹 Radio，并设置不同 value。",
+            "why": "单选组展示少量互斥选项，组值用于业务提交。",
+            "instruction": "在每天和每周之间切换。",
+            "expected": "同一时刻只有一个选项被选中。",
+            "changes": [
+                "用 RadioGroup 包裹 Radio，并设置不同 value。"
+            ],
+            "source": "rc-radio/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "读取组值",
+            "goal": "通过组级 value 与 onChange 管理选中值。",
+            "why": "单选组展示少量互斥选项，组值用于业务提交。",
+            "instruction": "选择每天，查看提交值。",
+            "expected": "输出变为 daily，其他选项取消选中。",
+            "changes": [
+                "通过组级 value 与 onChange 管理选中值。"
+            ],
+            "source": "rc-radio/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "选项很多时用什么？",
+            "answer": "选项较多时用 Select；Radio 适合直接比较少量选项。"
+        }
+    ]
+}

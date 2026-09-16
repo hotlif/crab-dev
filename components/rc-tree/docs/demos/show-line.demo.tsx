@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "显示连接线",
     description: "通过 `showLine` 属性展示树节点之间的连接线。",
@@ -44,26 +46,30 @@ const ShowLineDemo = () => {
     };
 
     return (
-        <RcTree
-            height={300}
-            width={400}
-            showLine
-            treeData={treeData}
-            onTreeNodeChange={setTreeData}
-            expandedKeys={expandedKeys}
-            selectKeys={selectKeys}
-            onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
-                setSelectKeys(selectKeys);
-            }}
-            onExpanded={({ node }: { node: Node }) => {
-                if (expandedKeys.includes(node.id)) {
-                    setExpandedKeys(expandedKeys.filter((key) => key !== node.id));
-                } else {
-                    setExpandedKeys([...expandedKeys, node.id]);
-                }
-            }}
-            loadData={loadData}
-        />
+        <AutoSizer disableHeight className={treeMeasureStyle}>
+            {({ width }) => (
+                <RcTree
+                    height={300}
+                    width={Math.min(width, 400)}
+                    showLine
+                    treeData={treeData}
+                    onTreeNodeChange={setTreeData}
+                    expandedKeys={expandedKeys}
+                    selectKeys={selectKeys}
+                    onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
+                        setSelectKeys(selectKeys);
+                    }}
+                    onExpanded={({ node }: { node: Node }) => {
+                        if (expandedKeys.includes(node.id)) {
+                            setExpandedKeys(expandedKeys.filter((key) => key !== node.id));
+                        } else {
+                            setExpandedKeys([...expandedKeys, node.id]);
+                        }
+                    }}
+                    loadData={loadData}
+                />
+            )}
+        </AutoSizer>
     );
 };
 

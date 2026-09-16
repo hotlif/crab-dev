@@ -1,409 +1,68 @@
-
 export const meta = {
-    title: "行编辑",
-    description: "双击任意行进入行编辑模式，整行同时展示编辑器；在右侧工具栏确认或取消，按 Esc 快速退出",
+    title: "整行编辑 · 库存复核",
+    description: "2,000 条库存、24 列，一次复核库存与备注，保存后更新关联数值，取消保持原始记录。",
 };
-
-import { css, cx } from "@crab-dev/css";
-import { type ChangeEvent, type Key, useMemo, useState } from "react";
-
+import { useState, type Key } from "react";
+import Button from "@crab-dev/rc-button";
+import LineEdit from "@crab-dev/rc-line-edit";
+import NumberEdit from "@crab-dev/rc-number-edit";
 import Table from "../../src/index.js";
-import type { ColumnType, Row } from "../../src/index.js";
-import {
-    makeEmployees, type Employee,
-    DEPARTMENTS as departments, POSITIONS as positions, CITIES as cities,
-    PERFORMANCES as performances, STATUSES as statuses,
-} from "./_mock.js";
-
-interface DemoRow extends Row {
-    dataRef: Employee
-}
-
-const initialRows: DemoRow[] = makeEmployees(50, 20260614).map((employee, index) => ({
-    id: String(index + 1),
-    dataRef: employee,
-    state: undefined,
-}));
-
-// ─── 编辑器 ──────────────────────────────────────────────────────────────────
-
-const fieldStyle = css`
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding-inline: 8px;
-    border: none;
-    background-color: transparent;
-    color: oklch(0.220 0.005 286);
-    font-size: inherit;
-    font-family: inherit;
-    outline: none;
-    transition: box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1);
-    &:hover {
-        box-shadow: inset 0 0 0 1px oklch(0.840 0.008 286);
-    }
-    &:focus {
-        box-shadow: inset 0 0 0 2px oklch(0.220 0.005 286);
-    }
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-const numberFieldStyle = css`
-    text-align: right;
-    appearance: textfield;
-    -moz-appearance: textfield;
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-`;
-
-const selectWrapperStyle = css`
-    position: relative;
-    width: 100%;
-    height: 100%;
-`;
-
-const selectFieldStyle = css`
-    padding-right: 26px;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-`;
-
-const selectArrowStyle = css`
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: oklch(0.550 0.014 286);
-`;
-
-interface SelectFieldProps {
-    value: string
-    options: readonly string[]
-    onChange: (value: string) => void
-}
-
-const SelectField = ({ value, options, onChange }: SelectFieldProps) => (
-    <div className={selectWrapperStyle}>
-        <select
-            className={cx(fieldStyle, selectFieldStyle)}
-            value={value}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
-        >
-            {options.map(o => <option key={o} value={o}>{o}</option>)}
-        </select>
-        <svg
-            className={selectArrowStyle}
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden
-        >
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    </div>
-);
-
-// ─── 状态 Tag ────────────────────────────────────────────────────────────────
-
-const tagBaseStyle = css`
-    display: inline-flex;
-    align-items: center;
-    height: 20px;
-    padding: 0 7px;
-    border-radius: 10px;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-`;
-
-const statusActiveStyle = css`
-    background-color: oklch(0.962 0.044 150);
-    color: oklch(0.527 0.154 154);
-`;
-
-const statusTrialStyle = css`
-    background-color: oklch(0.932 0.032 255);
-    color: oklch(0.488 0.230 264);
-`;
-
-const statusInactiveStyle = css`
-    background-color: oklch(0.950 0.003 286);
-    color: oklch(0.550 0.014 286);
-`;
-
-function getStatusClass(status: string) {
-    if (status === "在职") return cx(tagBaseStyle, statusActiveStyle);
-    if (status === "试用") return cx(tagBaseStyle, statusTrialStyle);
-    return cx(tagBaseStyle, statusInactiveStyle);
-}
-
-// ─── 绩效 Tag ────────────────────────────────────────────────────────────────
-
-const perfSStyle = css`
-    background-color: oklch(0.924 0.112 81);
-    color: oklch(0.473 0.137 69);
-`;
-
-const perfAStyle = css`
-    background-color: oklch(0.962 0.044 150);
-    color: oklch(0.527 0.154 154);
-`;
-
-const perfBStyle = css`
-    background-color: oklch(0.932 0.032 255);
-    color: oklch(0.488 0.230 264);
-`;
-
-const perfCStyle = css`
-    background-color: oklch(0.950 0.003 286);
-    color: oklch(0.550 0.014 286);
-`;
-
-function getPerfClass(perf: string) {
-    if (perf === "S") return cx(tagBaseStyle, perfSStyle);
-    if (perf === "A") return cx(tagBaseStyle, perfAStyle);
-    if (perf === "B") return cx(tagBaseStyle, perfBStyle);
-    return cx(tagBaseStyle, perfCStyle);
-}
-
-// ─── 修改标记 Tag ─────────────────────────────────────────────────────────────
-
-const modifiedTagStyle = css`
-    display: inline-flex;
-    align-items: center;
-    height: 20px;
-    padding: 0 8px;
-    border-radius: 10px;
-    font-size: 11px;
-    font-weight: 500;
-    background-color: oklch(0.220 0.005 286);
-    color: oklch(0.980 0.002 286);
-`;
-
-// ─── Demo ─────────────────────────────────────────────────────────────────────
-
-const RowEditDemo = () => {
-    const [rows, setRows] = useState<DemoRow[]>(initialRows);
+import type { ColumnType } from "../../src/types.js";
+import { makeInventory, updateInventory, type InventoryRow } from "./_mock.js";
+import { DemoFrame, inventoryColumns, fieldStyle, noteStyle } from "./_shared.js";
+const initialRows = makeInventory();
+export default function RowEditDemo() {
+    const [rows, setRows] = useState(initialRows);
     const [editingRowId, setEditingRowId] = useState<Key | null>(null);
-
-    const handleRowCommit = (rowId: Key, changes: Record<string, unknown>) => {
-        setRows(prev => prev.map(row => {
-            if (row.id !== rowId) return row;
-            const updatedDataRef = { ...row.dataRef };
-            for (const [colName, value] of Object.entries(changes)) {
-                const key = colName.replace(/^\$\./, "") as keyof DemoRow["dataRef"];
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (updatedDataRef as any)[key] = value;
-            }
-            return { ...row, state: "modified" as const, dataRef: updatedDataRef };
-        }));
-    };
-
-    const columns = useMemo<ColumnType<DemoRow>[]>(() => [
-        {
-            title: "工号",
-            name: "$.employeeNo",
-            width: 120,
-            fixed: "left",
-        },
-        {
-            title: "姓名",
-            name: "$.name",
-            width: 110,
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <input
-                    autoFocus
-                    className={fieldStyle}
-                    value={String(editorValue ?? row.dataRef.name)}
-                    onChange={e => onEditorValueChange(e.target.value)}
-                />
-            ),
-        },
-        {
-            title: "年龄",
-            name: "$.age",
-            width: 70,
-            align: "right",
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <input
-                    className={cx(fieldStyle, numberFieldStyle)}
-                    type="number"
-                    value={String(editorValue ?? row.dataRef.age)}
-                    onChange={e => onEditorValueChange(e.target.value)}
-                />
-            ),
-        },
-        {
-            title: "职位",
-            name: "$.position",
-            width: 130,
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <SelectField
-                    value={String(editorValue ?? row.dataRef.position)}
-                    options={positions}
-                    onChange={onEditorValueChange}
-                />
-            ),
-        },
-        {
-            title: "部门",
-            name: "$.department",
-            width: 90,
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <SelectField
-                    value={String(editorValue ?? row.dataRef.department)}
-                    options={departments}
-                    onChange={onEditorValueChange}
-                />
-            ),
-        },
-        {
-            title: "城市",
-            name: "$.city",
-            width: 80,
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <SelectField
-                    value={String(editorValue ?? row.dataRef.city)}
-                    options={cities}
-                    onChange={onEditorValueChange}
-                />
-            ),
-        },
-        {
-            title: "入职年份",
-            name: "$.joinYear",
-            width: 90,
-            align: "right",
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <input
-                    className={cx(fieldStyle, numberFieldStyle)}
-                    type="number"
-                    value={String(editorValue ?? row.dataRef.joinYear)}
-                    onChange={e => onEditorValueChange(e.target.value)}
-                />
-            ),
-        },
-        {
-            title: "月薪",
-            name: "$.salary",
-            width: 100,
-            align: "right",
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <input
-                    className={cx(fieldStyle, numberFieldStyle)}
-                    type="number"
-                    value={String(editorValue ?? row.dataRef.salary)}
-                    onChange={e => onEditorValueChange(e.target.value)}
-                />
-            ),
-        },
-        {
-            title: "绩效",
-            name: "$.performance",
-            width: 80,
-            render: ({ row }) => (
-                <div className={css`
-                    display: flex;
-                    align-items: center;
-                    height: 100%;
-                    padding-inline: 8px;
-                `}>
-                    <span className={getPerfClass(row.dataRef.performance)}>
-                        {row.dataRef.performance}
-                    </span>
-                </div>
-            ),
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <SelectField
-                    value={String(editorValue ?? row.dataRef.performance)}
-                    options={performances}
-                    onChange={onEditorValueChange}
-                />
-            ),
-        },
-        {
-            title: "状态",
-            name: "$.status",
-            width: 90,
-            render: ({ row }) => (
-                <div className={css`
-                    display: flex;
-                    align-items: center;
-                    height: 100%;
-                    padding-inline: 8px;
-                `}>
-                    <span className={getStatusClass(row.dataRef.status)}>
-                        {row.dataRef.status}
-                    </span>
-                </div>
-            ),
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <SelectField
-                    value={String(editorValue ?? row.dataRef.status)}
-                    options={statuses}
-                    onChange={onEditorValueChange}
-                />
-            ),
-        },
-        {
-            title: "邮箱",
-            name: "$.email",
-            width: 210,
-            editRender: ({ row, editorValue, onEditorValueChange }) => (
-                <input
-                    className={fieldStyle}
-                    type="email"
-                    value={String(editorValue ?? row.dataRef.email)}
-                    onChange={e => onEditorValueChange(e.target.value)}
-                />
-            ),
-        },
-    ], []);
-
-    const modifiedCount = rows.filter(r => r.state === "modified").length;
-
-    return (
-        <div>
-            <Table
-                width={960}
-                height={420}
-                rows={rows}
-                columns={columns}
-                editType="row"
-                editingRowId={editingRowId}
-                onEditingRowIdChange={setEditingRowId}
-                onRowCommit={handleRowCommit}
-                onRowCancel={() => setEditingRowId(null)}
-            />
-            <div
-                className={css`
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    margin-top: 10px;
-                    font-size: 12px;
-                    color: oklch(0.500 0 0);
-                `}
-            >
-                <span>双击任意行进入编辑，按 Esc 或点击取消放弃修改</span>
-                {modifiedCount > 0 && (
-                    <span className={modifiedTagStyle}>已修改 {modifiedCount} 行</span>
-                )}
-            </div>
-        </div>
-    );
-};
-
-export default RowEditDemo;
+    const [previous, setPrevious] = useState<InventoryRow[] | null>(null);
+    const [message, setMessage] = useState("");
+    const columns: ColumnType<InventoryRow>[] = inventoryColumns().map(column => {
+        if (column.name === "$.onHand") return { ...column, title: "复核库存", width: 170,
+            editRender: ({ row, editorValue, onEditorValueChange }) => <NumberEdit className={fieldStyle} size="small"
+                aria-label={row.dataRef.recordNo + " 复核库存，最少 " + row.dataRef.reserved}
+                min={row.dataRef.reserved} max={99999} precision={0} controls={false}
+                value={typeof editorValue === "number" ? editorValue : row.dataRef.onHand} onChange={onEditorValueChange} />,
+        };
+        if (column.name === "$.note") return { ...column, title: "复核备注",
+            editRender: ({ row, editorValue, onEditorValueChange }) => <LineEdit className={fieldStyle} size="small"
+                aria-label={row.dataRef.recordNo + " 复核备注，最多120字"} maxLength={120}
+                value={typeof editorValue === "string" ? editorValue : row.dataRef.note}
+                onChange={event => onEditorValueChange(event.target.value)} />,
+        };
+        return column;
+    });
+    columns.splice(1, 0, { name: "actions", title: "复核操作", width: 120, selectable: false,
+        render: ({ row }) => <Button size="small" disabled={editingRowId !== null} aria-label={"复核 " + row.dataRef.recordNo}
+            onClick={() => setEditingRowId(row.id)}>复核</Button>,
+    });
+    return <DemoFrame title="仓库库存逐行复核" rows={rows.length} columns={columns.length}
+        hint="点击「复核」或双击行，修改库存和备注，再点击「确认」或「取消」。库存空值保留原值，数值限制在已占用量至99,999之间。所有修改仅保存在当前页面。"
+        toolbar={<Button disabled={!previous || editingRowId !== null} onClick={() => {
+            if (previous) setRows(previous);
+            setPrevious(null); setMessage("已撤销最近一次复核。");
+        }}>撤销最近复核</Button>}
+        footer={<p className={noteStyle} role="status">{message} 已修改 {rows.filter(row => row.state === "modified").length} 条。</p>}>
+        {(width, height) => <Table aria-label="支持整行复核的库存清单" width={width} height={height} rows={rows} columns={columns}
+            editType="row" editingRowId={editingRowId} onEditingRowIdChange={setEditingRowId}
+            onRowCancel={() => setMessage("已取消复核，原记录保持不变。")}
+            onRowCommit={(id, changes) => {
+                const original = rows.find(row => row.id === id);
+                if (!original) return;
+                const quantity = changes["$.onHand"];
+                const note = changes["$.note"];
+                const onHand = typeof quantity === "number" && Number.isFinite(quantity)
+                    ? Math.min(99999, Math.max(original.dataRef.reserved, Math.round(quantity))) : original.dataRef.onHand;
+                const nextNote = typeof note === "string" ? note.trim().slice(0, 120) : original.dataRef.note;
+                if (onHand === original.dataRef.onHand && nextNote === original.dataRef.note) {
+                    setMessage("记录没有变化，无需保存。");
+                    return;
+                }
+                setPrevious(rows);
+                setRows(current => current.map(row => {
+                    if (row.id !== id) return row;
+                    return { ...row, state: "modified", dataRef: updateInventory(row.dataRef, onHand, nextNote) };
+                }));
+                setMessage(String(id) + " 已复核，可用库存和货值同步更新。");
+            }} />}
+    </DemoFrame>;
+}

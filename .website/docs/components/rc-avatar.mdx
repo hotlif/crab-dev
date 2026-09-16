@@ -1,6 +1,6 @@
 +++
 title = "Avatar 头像"
-description = "头像组件，用于展示用户或实体的图像与标识"
+description = "使用图片、文字或图标展示用户与实体标识"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-avatar.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-avatar.js";
 
-# Avatar
+# Avatar 头像
 
-头像组件，用于展示用户图像、名称缩写或图标占位。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-avatar</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+头像用图片或文字标识实体，名称与回退内容让身份仍可辨认。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**文字头像**
+
+使用文字作为头像内容，并保留可见姓名。 头像用图片或文字标识实体，名称与回退内容让身份仍可辨认。 查看没有图片时的展示。 姓名文字作为头像占位，旁边仍有完整身份信息。
+
+**调整形状**
+
+用 shape 控制圆形或方形，用 size 控制尺寸。 头像用图片或文字标识实体，名称与回退内容让身份仍可辨认。 点击切换头像形状。 同一头像在圆形和方形间切换。
+
+</div>
+
+## 常见问题
+
+### 图片不可用时怎么办？
+
+提供有意义的文字或图标作为回退，并在附近保留姓名。
+
+
+## API
+
+<API source="../_generated_api/rc-avatar.ts" symbol="AvatarProps" component="Avatar" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（5 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -29,25 +72,27 @@ import { demos } from "../_generated/rc-avatar.js";
 ##### 形态与尺寸 — 支持 `circle` / `square` 形态与三档尺寸。
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-avatar/workbench/)
+
+## 使用说明
+
+使用图片、文字或图标展示用户与实体标识。
+
+
+### 何时使用
 
 - 在评论、消息列表、成员列表中展示用户身份。
 - 图片加载失败时，用名称缩写或图标提供稳定回退。
 - 与 Badge 组合展示在线状态或未读提醒。
 
-
-## 功能特性
+### 主要功能
 
 - 支持 `small` / `middle` / `large` 尺寸阶梯。
 - 支持 `circle` / `square` 两种形态。
 - 支持图片、文本、图标三种内容来源，自动回退。
 - 支持语义颜色变体（`default` / `primary` / `success` / `warning` / `error`）。
 - 支持 `prefers-reduced-motion`，减少不必要动画。
-
-
-
-## API
-
-<API source="../_generated_api/rc-avatar.ts" symbol="AvatarProps" component="Avatar" />

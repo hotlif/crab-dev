@@ -1,6 +1,6 @@
 +++
 title = "Segmented 分段控制器"
-description = "分段控制器, 用于在一组互斥选项中展示并选择单个选项"
+description = "以紧凑的分段选项切换视图、时间粒度或筛选值"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-segmented.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-segmented.js";
 
-# Segmented
+# Segmented 分段控制器
 
-分段控制器, 用于在一组互斥选项中展示并选择单个选项。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-segmented</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+分段控件负责选择值，业务代码根据值决定展示内容。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**平铺选项**
+
+用 options 定义少量简短选项。 分段控件负责选择值，业务代码根据值决定展示内容。 切换日、周和月。 选中项的视觉状态随操作改变。
+
+**驱动视图**
+
+将 value 与 onChange 连接到统计粒度。 分段控件负责选择值，业务代码根据值决定展示内容。 切换到月。 选中项和统计说明同时变为月。
+
+</div>
+
+## 常见问题
+
+### 为什么没有自动切换内容面板？
+
+Segmented 只管理选值；需要面板关联和标签页语义时使用 Tabs。
+
+
+## API
+
+<API source="../_generated_api/rc-segmented.ts" symbol="SegmentedProps" component="Segmented" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（6 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -31,18 +74,20 @@ import { demos } from "../_generated/rc-segmented.js";
 ##### 带图标 — 选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-segmented/workbench/)
 
-- 用于在一组互斥选项间快速切换, 且希望所有选项一屏可见、方便横向比较
-- 与 Radio 的区别是外观更紧凑、连体, 常用于视图 / 时间粒度 / 筛选维度的切换
-- 与 Tabs 的区别是它只负责"选值", 不承载被切换的内容面板
-- 选项数量不宜过多（建议 2–5 个）, 过多时应改用 Select
+## 使用说明
 
-
+以紧凑的分段选项切换视图、时间粒度或筛选值。
 
 
-## API
+### 何时使用
 
-<API source="../_generated_api/rc-segmented.ts" symbol="SegmentedProps" component="Segmented" />
+- 快速切换视图、时间粒度或筛选维度。
+- 选项较少，且需要在同一区域内直接比较。
+
+Segmented 负责选择值，内容展示由业务代码处理；需要同时管理标签与内容面板时使用 Tabs。通常保持 2–5 个简短选项，选项较多时使用 Select。

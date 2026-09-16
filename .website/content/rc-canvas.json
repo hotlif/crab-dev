@@ -1,0 +1,38 @@
+{
+    "id": "rc-canvas",
+    "title": "Canvas 图形场景",
+    "summary": "Canvas 使用声明式图形节点描述场景，状态变化更新节点属性。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "绘制基本图形",
+            "goal": "把 Rect 和 Circle 放入有明确尺寸的 Canvas。",
+            "why": "Canvas 使用声明式图形节点描述场景，状态变化更新节点属性。",
+            "instruction": "对照坐标与图形位置。",
+            "expected": "两种图形绘制在同一画布。",
+            "changes": [
+                "把 Rect 和 Circle 放入有明确尺寸的 Canvas。"
+            ],
+            "source": "rc-canvas/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "用状态控制位置",
+            "goal": "改变图形的 x 属性，并提供可读文字反馈。",
+            "why": "Canvas 使用声明式图形节点描述场景，状态变化更新节点属性。",
+            "instruction": "点击移动矩形。",
+            "expected": "矩形左右移动，文字同步描述位置。",
+            "changes": [
+                "改变图形的 x 属性，并提供可读文字反馈。"
+            ],
+            "source": "rc-canvas/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "图形需要文字替代吗？",
+            "answer": "需要。画布本身不能替代可读内容；重要数据和操作应提供 DOM 文字与键盘入口。"
+        }
+    ]
+}

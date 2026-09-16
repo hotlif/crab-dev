@@ -1,20 +1,25 @@
+import { useId } from "react";
 
 export const meta = {
     title: "基本",
-    description: "一个基础的消息通知组件",
+    description: "输入框获得焦点后显示关联浮层，失焦关闭。",
 };
 
 import RcLineEdit from "@crab-dev/rc-line-edit"
 import DropdownContainer, { useDropdownContext } from "../../src/index.js";
 
 const Input = () => {
+    const inputId = useId();
     const {
         dispatch,
         refs
     } = useDropdownContext<HTMLDivElement>();
 
     return (
+        <>
+            <label htmlFor={inputId}>浮层触发输入框</label>
         <RcLineEdit
+            id={inputId}
             containerRef={refs.setReference}
             onFocus={() => {
                 dispatch({
@@ -29,6 +34,7 @@ const Input = () => {
                 })
             }}
         />
+        </>
     )
 }
 

@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Select 选择器"
 description = "下拉选择器，支持单选、多选和搜索"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

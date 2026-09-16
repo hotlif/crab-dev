@@ -1,23 +1,52 @@
 +++
 title = "TextEdit 多行文本输入框"
-description = "多行文本编辑组件, 支持尺寸/验证状态/一键清除/字符计数与内容自适应高度"
+description = "输入多行文本，支持清除、字数统计和内容自适应高度"
 kind = "component"
 status = "experimental"
 +++
 
-# TextEdit
+# TextEdit 多行文本输入框
 
-多行文本编辑组件。
+输入多行文本，支持清除、字数统计和内容自适应高度。
 
-[打开 TextEdit 多行文本输入框 工作台](/components/rc-text-edit/workbench/)
+[打开组件工作台](/components/rc-text-edit/workbench/)
 
 ## 何时使用
 
 需要用户输入多行文本（备注、描述、评论等）时使用，支持多种尺寸、验证状态、
 一键清除、字符计数与内容自适应高度。单行输入请使用 `@crab-dev/rc-line-edit`。
 
-
 ## 代码演示
+
+### 选型与结构
+
+文本域用于备注、描述、评论等允许换行的内容。标签明确对象，帮助说明用途和长度限制，计数放在内容之后；清除只作用于本字段。单行名称使用 LineEdit，带格式的编辑器不能仅靠 TextEdit 的纯文本 API 模拟。
+
+| 场景 | 配置 | 边界 |
+| --- | --- | --- |
+| 稳定的短备注区 | rows | 用户可按默认 vertical 方式增高；周围内容不能被覆盖 |
+| 随内容增长 | autoSize | 支持 CSS field-sizing 的浏览器生效，否则以 rows 回退；不同时手动 resize |
+| 只可查看和复制 | readOnly | 保留焦点、选择和对比度，隐藏清除 |
+| 暂时不可编辑 | disabled | 禁用文本域并隐藏清除；相邻文字说明原因 |
+| 受控清除 | allowClear + value + onClear | 回调更新值，组件将焦点送回文本域 |
+
+### 当前排版与状态
+
+size 控制排版与内边距，不控制总高度。large 默认 16px / 24px，middle 和 small 默认 14px / 20px；三档上下 4px、左右 12px，来源为本包 `token.toml` 的语义引用。不要把 rows 当成固定像素高度，也不要对包含错误信息的整组字段设置固定高度。
+
+清除动作复用 Button，鼠标下 24×24px、粗指针下 44×44px；文本区常驻预留对应横向空间，按钮出现或消失不改变可用行宽。粗指针下文本域最小高度为 44px。计数与按钮不应遮住末行或滚动条，超长文本保留原生滚动与选择。
+
+`status="error"` 默认带 `aria-invalid=true`；显式 `aria-invalid` 优先，warning 不自动无效。错误边框和键盘焦点轮廓分别表达问题与当前位置；强制颜色下保留实线边界和焦点。调用方负责可见错误原因、修正方式及 `aria-describedby` 关联。计数不代替标签，不在每个字符变化时强制重复播报。
+
+### 正反例与验收
+
+- 正例：备注允许 500 字，先解释用途与上限；服务端失败后保留原文并在附近说明重试方法。
+- 反例：提交失败后清空文本。用户必须重新输入；应保留受控值，仅在确认成功后重置。
+- 正例：清除后继续在同一文本域输入。反例：清除按钮卸载导致焦点落到页面；当前实现已恢复至输入区。
+- `resize="both"` 只在宿主允许二维尺寸变化时使用，不能撑宽整页；普通表单优先保留 vertical。
+- 验收：Tab 到达清除动作，Enter 后值清空且焦点在文本域；只读 / 禁用无清除入口；错误与焦点叠加可辨认；320px 和文字放大时计数、清除、长行均不覆盖正文；autoSize 不支持时仍能通过 rows 和原生滚动完成输入。
+
+关联：[输入与选择](/design/inputs)、[复杂表单](/design/forms)、[状态组合](/design/interaction)、[无障碍](/design/accessibility)、[LineEdit](/components/rc-line-edit)。尺寸是当前实现；异步提交、权限和错误恢复仍由表单业务提供。
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 

@@ -1,6 +1,6 @@
 +++
 title = "Tag 标签"
-description = "标签，用于分类与标记"
+description = "标记分类、属性或状态，支持关闭和勾选"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tag.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-tag.js";
 
-# Tag
+# Tag 标签
 
-标签用于进行标记和分类。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tag</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+标签帮助用户识别分类；可勾选标签还可以作为筛选条件。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**标记分类**
+
+使用文字说明分类与状态。 标签帮助用户识别分类；可勾选标签还可以作为筛选条件。 区分分类标签和状态标签。 即使不看颜色也能理解标签含义。
+
+**勾选筛选项**
+
+通过 CheckableTag 的 checked 与 onChange 管理筛选值。 标签帮助用户识别分类；可勾选标签还可以作为筛选条件。 勾选标签后再次取消。 筛选说明随选中状态变化。
+
+</div>
+
+## 常见问题
+
+### 关闭标签等于删除数据吗？
+
+不一定。onClose 只通知关闭意图，删除业务数据需要另外处理，并提供确认或撤销。
+
+
+## API
+
+<API source="../_generated_api/rc-tag.ts" symbol="TagProps" component="Tag" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（7 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -37,33 +80,29 @@ import { demos } from "../_generated/rc-tag.js";
 ##### 自定义颜色与关闭图标 — 支持自定义颜色字符串与 `closeIcon`
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-tag/workbench/)
+
+## 使用说明
+
+标记分类、属性或状态，支持关闭和勾选。
+
+
+### 何时使用
 
 - 用于标记事物的属性和维度。
 - 进行分类和筛选。
 - 展示状态信息（成功、警告、错误等）。
 
+预设颜色包括默认、品牌、成功、警告和错误。状态应同时通过文字或图标表达。
 
-我们提供了五种预设颜色。
-
-- ⚪️ 默认标签：中性标记，适用于一般分类。
-- 🔵 品牌标签：强调突出的重要标记。
-- 🟢 成功标签：表示成功、完成状态。
-- 🟡 警告标签：表示警告、待处理状态。
-- 🔴 错误标签：表示错误、失败状态。
-
-## 功能特性
+### 主要功能
 
 - 支持预设颜色与自定义颜色字符串（如 `#1677ff`）。
 - 支持 `icon` 前缀图标。
 - 支持 `closable` 与 `onClose` 关闭交互。
 - 支持 `closeIcon` 自定义关闭图标。
 - 支持 `CheckableTag` 可勾选标签（`checked` / `onChange`）。
-
-
-
-## API
-
-<API source="../_generated_api/rc-tag.ts" symbol="TagProps" component="Tag" />

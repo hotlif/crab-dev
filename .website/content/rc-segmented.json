@@ -1,0 +1,38 @@
+{
+    "id": "rc-segmented",
+    "title": "Segmented 分段选择",
+    "summary": "分段控件负责选择值，业务代码根据值决定展示内容。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "平铺选项",
+            "goal": "用 options 定义少量简短选项。",
+            "why": "分段控件负责选择值，业务代码根据值决定展示内容。",
+            "instruction": "切换日、周和月。",
+            "expected": "选中项的视觉状态随操作改变。",
+            "changes": [
+                "用 options 定义少量简短选项。"
+            ],
+            "source": "rc-segmented/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "驱动视图",
+            "goal": "将 value 与 onChange 连接到统计粒度。",
+            "why": "分段控件负责选择值，业务代码根据值决定展示内容。",
+            "instruction": "切换到月。",
+            "expected": "选中项和统计说明同时变为月。",
+            "changes": [
+                "将 value 与 onChange 连接到统计粒度。"
+            ],
+            "source": "rc-segmented/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "为什么没有自动切换内容面板？",
+            "answer": "Segmented 只管理选值；需要面板关联和标签页语义时使用 Tabs。"
+        }
+    ]
+}

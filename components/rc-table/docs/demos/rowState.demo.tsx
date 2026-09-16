@@ -1,169 +1,45 @@
-
 export const meta = {
-    title: "行状态（新增 / 修改 / 删除）",
-    description: "通过 row.state 标记行的变更状态，结合自定义渲染为不同状态的行呈现不同视觉样式。",
+    title: "行变更状态 · 盘点差异暂存",
+    description: "2,000 条库存、25 列，标记新增批次、待复核和移除记录；每条变更均可还原。",
 };
-
-import { css } from "@crab-dev/css";
-import { useMemo, useState } from "react";
-import type { ReactNode } from "react";
-
+import { useState } from "react";
+import Button from "@crab-dev/rc-button";
 import Table from "../../src/index.js";
-import type { ColumnType, Row, RowState } from "../../src/index.js";
-import { makeEmployees } from "./_mock.js";
-
-interface DemoRow extends Row {
-    dataRef: {
-        name: string
-        department: string
-        salary: number
-        joinDate: string
-    }
-}
-
-const STATE_CONFIG: Record<NonNullable<RowState>, { label: string; color: string; bg: string }> = {
-    new:      { label: "新增",   color: "#16a34a", bg: "#dcfce7" },
-    modified: { label: "已修改", color: "#b45309", bg: "#fef3c7" },
-    deleted:  { label: "已删除", color: "#dc2626", bg: "#fee2e2" },
-};
-
-const wrapCell = (child: ReactNode, state?: RowState): ReactNode => (
-    <div
-        style={{
-            width: "100%",
-            height: "100%",
-            opacity: state === "deleted" ? 0.45 : 1,
-            textDecoration: state === "deleted" ? "line-through" : "none",
-        }}
-    >
-        {child}
-    </div>
-);
-
-const btnStyle = css`
-    padding: 2px 8px;
-    border: 1px solid #d1d5db;
-    border-radius: 4px;
-    background: #fff;
-    font-size: 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    &:hover { background: #f3f4f6; }
-`;
-
-const actionBarStyle = css`
-    display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-`;
-
-let nextId = 100;
-
-const INITIAL_STATES: (RowState | undefined)[] = [
-    undefined, "modified", "deleted", "new", undefined, undefined,
-    "modified", undefined, "new", undefined, "deleted", undefined,
-];
-
-const initialRows: DemoRow[] = makeEmployees(12, 20260618).map((employee, index) => ({
-    id: String(index + 1),
-    state: INITIAL_STATES[index],
-    dataRef: {
-        name: employee.name,
-        department: employee.department,
-        salary: employee.salary,
-        joinDate: employee.joinDate,
-    },
-}));
-
-const RowStateDemo = () => {
-    const [rows, setRows] = useState<DemoRow[]>(initialRows);
-
-    const updateState = (id: DemoRow["id"], state: RowState | undefined) => {
-        setRows(prev => prev.map(r => r.id === id ? { ...r, state } : r));
+import type { ColumnType } from "../../src/types.js";
+import { makeInventory, type InventoryRow } from "./_mock.js";
+import { DemoFrame, inventoryColumns, noteStyle } from "./_shared.js";
+const initialRows = makeInventory();
+export default function RowStateDemo() {
+    const [rows, setRows] = useState(initialRows);
+    const [nextId, setNextId] = useState(1);
+    const [message, setMessage] = useState("");
+    const restore = (row: InventoryRow) => {
+        const original = initialRows.find(item => item.id === row.id);
+        setRows(previous => original ? previous.map(item => item.id === row.id ? original : item) : previous.filter(item => item.id !== row.id));
+        setMessage(String(row.id) + " 的暂存变更已撤销。");
     };
-
-    const addRow = () => {
-        const id = String(nextId++);
-        setRows(prev => [...prev, {
-            id,
-            state: "new",
-            dataRef: { name: "新员工", department: "待分配", salary: 12000, joinDate: new Date().toISOString().slice(0, 10) },
-        }]);
-    };
-
-    const columns = useMemo<ColumnType<DemoRow>[]>(() => [
-        {
-            title: "状态",
-            name: "_state",
-            width: 90,
-            render: ({ row }) => {
-                if (!row.state) {
-                    return <div style={{ paddingInline: 8, color: "#9ca3af", fontSize: 12 }}>—</div>;
-                }
-                const { label, color, bg } = STATE_CONFIG[row.state];
-                return (
-                    <div style={{ paddingInline: 8 }}>
-                        <span style={{ padding: "2px 6px", borderRadius: 4, fontSize: 11, color, backgroundColor: bg }}>
-                            {label}
-                        </span>
-                    </div>
-                );
-            },
-        },
-        {
-            title: "姓名",
-            name: "name",
-            width: 110,
-            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
-        },
-        {
-            title: "部门",
-            name: "department",
-            width: 110,
-            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
-        },
-        {
-            title: "月薪",
-            name: "salary",
-            width: 110,
-            align: "right",
-            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
-        },
-        {
-            title: "入职日期",
-            name: "joinDate",
-            width: 120,
-            render: ({ row, originalElement }) => wrapCell(originalElement, row.state),
-        },
-        {
-            title: "操作",
-            name: "_actions",
-            selectable: false,
-            render: ({ row }) => (
-                <div style={{ display: "flex", gap: 4, paddingInline: 6 }}>
-                    <button className={btnStyle} onClick={() => updateState(row.id, "new")}>新增</button>
-                    <button className={btnStyle} onClick={() => updateState(row.id, "modified")}>修改</button>
-                    <button className={btnStyle} onClick={() => updateState(row.id, "deleted")}>删除</button>
-                    <button className={btnStyle} onClick={() => updateState(row.id, undefined)}>重置</button>
-                </div>
-            ),
-        },
-    ], []);
-
-    return (
-        <div>
-            <div className={actionBarStyle}>
-                <button className={btnStyle} onClick={addRow}>+ 新增行</button>
-                <button className={btnStyle} onClick={() => setRows(initialRows)}>重置全部</button>
-            </div>
-            <Table
-                width={780}
-                height={260}
-                columns={columns}
-                rows={rows}
-            />
-        </div>
+    const columns: ColumnType<InventoryRow>[] = [...inventoryColumns()];
+    columns.splice(1, 0,
+        { name: "change", title: "暂存状态", width: 120, render: ({ row }) => row.state === "new" ? "＋ 新增批次"
+            : row.state === "modified" ? "✎ 待复核" : row.state === "deleted" ? "− 待移除" : "未变更" },
+        { name: "actions", title: "差异处理", width: 260, selectable: false, render: ({ row }) => <>
+            <Button size="small" disabled={Boolean(row.state)} onClick={() => setRows(previous => previous.map(item => item.id === row.id
+                ? { ...item, state: "modified", dataRef: { ...item.dataRef, note: "实物盘点存在差异，已登记并等待仓库负责人复核。" } } : item))}>标记复核</Button>
+            <Button size="small" disabled={Boolean(row.state)} onClick={() => setRows(previous => previous.map(item => item.id === row.id
+                ? { ...item, state: "deleted" } : item))}>暂存移除</Button>
+            <Button size="small" disabled={!row.state} onClick={() => restore(row)}>还原</Button>
+        </> },
     );
-};
-
-export default RowStateDemo;
+    return <DemoFrame title="盘点差异暂存清单" rows={rows.length} columns={columns.length}
+        hint="操作只标记待提交变更，移除记录仍保留并可还原；新增一条演示入库批次后，也可用「还原」撤销。"
+        toolbar={<Button onClick={() => {
+            const id = "INV-NEW-" + String(nextId).padStart(4, "0");
+            const sample = initialRows[nextId % initialRows.length].dataRef;
+            setRows(previous => [{ id, state: "new", dataRef: { ...sample, recordNo: id, batch: "LOT-20260912-" + nextId,
+                onHand: 0, reserved: 0, available: 0, value: 0, status: "待入库", note: "到货数量待盘点确认。" } }, ...previous]);
+            setNextId(value => value + 1); setMessage("已新增一个待入库批次。");
+        }}>新增入库批次</Button>}
+        footer={<p className={noteStyle} role="status">{message} 待提交变更 {rows.filter(row => row.state).length} 条。</p>}>
+        {(width, height) => <Table aria-label="带变更标记的盘点差异清单" width={width} height={height} rows={rows} columns={columns} />}
+    </DemoFrame>;
+}

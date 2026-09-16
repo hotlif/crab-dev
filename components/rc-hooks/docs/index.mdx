@@ -1,15 +1,25 @@
 +++
 title = "Hooks"
-description = "A common library of React Hooks for executing some common methods of Hooks"
+description = "复用键盘事件、受控状态、尺寸测量和定时器等 React 逻辑"
 kind = "component"
 status = "experimental"
 +++
 
 # Hooks
 
-通用 Hook 集合，目前提供 `useKeyDown` 用于监听键盘按键事件。
+提供可复用的 React Hook，覆盖键盘事件、受控状态、尺寸测量、定时器和拖拽调整等逻辑。
 
-[打开 Hooks 工作台](/components/rc-hooks/workbench/)
+[打开组件工作台](/components/rc-hooks/workbench/)
+
+## 主要功能
+
+- 键盘与事件：`useKeyDown`、`useEventCallback`。
+- 受控状态：`useControllableValue`、`useControllableOpen`。
+- 尺寸与布局：`useResizeObserver`、`useSize`、`useDragResize`。
+- 定时任务：`useTimeout`、`useInterval`。
+- 环境与历史值：`useMediaQuery`、`usePrevious`、`useIsomorphicLayoutEffect`。
+
+Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
 
 ## 代码演示
 

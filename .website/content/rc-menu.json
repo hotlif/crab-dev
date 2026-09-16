@@ -1,0 +1,38 @@
+{
+    "id": "rc-menu",
+    "title": "Menu 导航菜单",
+    "summary": "菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "声明导航项",
+            "goal": "用稳定 key 和可见 title 定义导航项。",
+            "why": "菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。",
+            "instruction": "使用 Tab 和方向键浏览菜单。",
+            "expected": "菜单提供两个清晰入口。",
+            "changes": [
+                "用稳定 key 和可见 title 定义导航项。"
+            ],
+            "source": "rc-menu/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "同步当前位置",
+            "goal": "将 selectedKeys 接入页面状态。",
+            "why": "菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。",
+            "instruction": "选择成员管理。",
+            "expected": "选中意符和内容区域同时变化。",
+            "changes": [
+                "将 selectedKeys 接入页面状态。"
+            ],
+            "source": "rc-menu/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "菜单会自动切换路由吗？",
+            "answer": "不会。通过选择回调更新路由或业务状态；不要仅改变高亮却保留旧页面内容。"
+        }
+    ]
+}

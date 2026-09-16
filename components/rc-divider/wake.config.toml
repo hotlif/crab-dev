@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Divider 分割线"
 description = "分割线, 用于在内容之间划分区隔并表达从属边界"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

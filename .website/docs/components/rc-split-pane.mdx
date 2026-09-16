@@ -1,6 +1,6 @@
 +++
 title = "SplitPane 分栏面板"
-description = "可拖拽调整尺寸的分栏面板, 支持水平/垂直分栏、键盘调整、双击复位与尺寸记忆"
+description = "通过拖拽或键盘调整两侧面板尺寸，支持复位与尺寸记忆"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-split-pane.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-split-pane.js";
 
-# SplitPane
+# SplitPane 分栏面板
 
-可拖拽调整尺寸的分栏面板。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-split-pane</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+分栏把拖拽位置映射为主面板尺寸，最小和最大值保护内容的可用空间。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**拖动分隔条**
+
+提供两个子区域及 defaultSize、min、max。 分栏把拖拽位置映射为主面板尺寸，最小和最大值保护内容的可用空间。 拖动中间分隔条，或聚焦后使用方向键。 主面板宽度在 70 到 200 之间变化。
+
+**读取分栏尺寸**
+
+使用 size 与 onSizeChange 保存尺寸，并提供恢复入口。 分栏把拖拽位置映射为主面板尺寸，最小和最大值保护内容的可用空间。 调整分栏后恢复尺寸。 输出与分隔条位置同步。
+
+</div>
+
+## 常见问题
+
+### 为什么看不到分栏？
+
+父容器必须有明确尺寸；窄屏可以改为上下方向或单列布局。
+
+
+## API
+
+<API source="../_generated_api/rc-split-pane.ts" symbol="SplitPaneProps" component="SplitPane" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（4 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -27,19 +70,21 @@ import { demos } from "../_generated/rc-split-pane.js";
 ##### 上下分栏 — direction=vertical 时拖动调整上方面板高度，适合主区 + 控制台的布局
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-split-pane/workbench/)
 
-- 编辑器类界面的侧栏（文件树、属性面板、调试面板）需要用户按内容自行调宽时
-- 上下分割的主区 + 控制台 / 日志区需要调整分配比例时
-- 需要记住用户调整结果（`persistKey`）、或要求键盘也能完成调整的场景
+## 使用说明
 
-拖拽机制来自 `@crab-dev/rc-hooks` 的 `useDragResize`；布局不适合两片式分栏时可直接使用该 hook 自装。
-
+通过拖拽或键盘调整两侧面板尺寸，支持复位与尺寸记忆。
 
 
+### 何时使用
 
-## API
+- 调整编辑器侧栏、文件树或属性面板的宽度。
+- 分配主内容区与控制台、日志区的高度。
+- 通过 `persistKey` 记住调整结果，并提供键盘调整路径。
 
-<API source="../_generated_api/rc-split-pane.ts" symbol="SplitPaneProps" component="SplitPane" />
+需要两块面板以外的自定义布局时，可直接使用 `@crab-dev/rc-hooks` 的 `useDragResize`。

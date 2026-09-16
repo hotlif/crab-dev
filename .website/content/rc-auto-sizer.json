@@ -1,0 +1,38 @@
+{
+    "id": "rc-auto-sizer",
+    "title": "AutoSizer 自动测量",
+    "summary": "测量容器而不是猜测窗口尺寸，才能让表格和图形适应侧栏与分栏。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "读取可用尺寸",
+            "goal": "把 AutoSizer 放入有明确高度的容器。",
+            "why": "测量容器而不是猜测窗口尺寸，才能让表格和图形适应侧栏与分栏。",
+            "instruction": "调整浏览器窗口宽度。",
+            "expected": "输出宽度随容器变化。",
+            "changes": [
+                "把 AutoSizer 放入有明确高度的容器。"
+            ],
+            "source": "rc-auto-sizer/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "响应容器变化",
+            "goal": "改变父容器宽度，继续使用测量回调。",
+            "why": "测量容器而不是猜测窗口尺寸，才能让表格和图形适应侧栏与分栏。",
+            "instruction": "点击切换容器宽度。",
+            "expected": "无需监听 window，测量值也会更新。",
+            "changes": [
+                "改变父容器宽度，继续使用测量回调。"
+            ],
+            "source": "rc-auto-sizer/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "为什么高度是 0？",
+            "answer": "父级必须提供可测量高度。只需要宽度时使用 disableHeight。"
+        }
+    ]
+}

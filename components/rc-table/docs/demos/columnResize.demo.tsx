@@ -1,53 +1,25 @@
-
 export const meta = {
-    title: "列宽拖拽调整",
-    description: "在表头右边缘拖拽可调整列宽。设置 Table resizable 全局开启，也可通过 ColumnType.resizable 逐列控制。",
+    title: "列宽调整 · 仓库库存台账",
+    description: "2,000 条库存、23 列，拖宽商品名称、批次和备注列，核对长名称与仓位信息。",
 };
-
 import { useState } from "react";
+import Button from "@crab-dev/rc-button";
 import Table from "../../src/index.js";
-import type { ColumnType, Row } from "../../src/index.js";
-import { makeEmployees, type Employee } from "./_mock.js";
-
-interface DemoRow extends Row {
-    dataRef: Employee
+import { makeInventory } from "./_mock.js";
+import { DemoFrame, inventoryColumns, noteStyle } from "./_shared.js";
+const rows = makeInventory();
+const initialColumns = inventoryColumns().map(col => ({ ...col, resizable: col.name !== "$.recordNo" }));
+export default function ColumnResizeDemo() {
+    const [columns, setColumns] = useState(initialColumns);
+    const [feedback, setFeedback] = useState("");
+    return <DemoFrame title="仓库库存台账" rows={rows.length} columns={columns.length}
+        hint="拖拽列头右边缘调整宽度；记录号保持固定宽度。恢复按钮可还原初始布局。"
+        toolbar={<Button onClick={() => { setColumns(initialColumns); setFeedback("已恢复默认列宽"); }}>恢复默认列宽</Button>}
+        footer={<p className={noteStyle} role="status">{feedback}</p>}>
+        {(width, height) => <Table aria-label="可调整列宽的库存台账" width={width} height={height} rows={rows} columns={columns} resizable
+            onColumnResize={(name, nextWidth) => {
+                setColumns(previous => previous.map(col => col.name === name ? { ...col, width: nextWidth } : col));
+                setFeedback((columns.find(col => col.name === name)?.title ?? name) + "：" + Math.round(nextWidth) + " px");
+            }} />}
+    </DemoFrame>;
 }
-
-const rows: DemoRow[] = makeEmployees(500, 20260601).map((employee, index) => ({
-    id: `${index + 1}`,
-    dataRef: employee,
-}))
-
-const ColumnResizeDemo = () => {
-    const [columns, setColumns] = useState<ColumnType<DemoRow>[]>([
-        { title: "姓名", name: "$.name", width: 140, fixed: "left" },
-        { title: "年龄", name: "$.age", width: 80, align: "right" },
-        { title: "邮箱", name: "$.email", width: 260 },
-        { title: "部门", name: "$.department", width: 160 },
-        { title: "职位", name: "$.jobTitle", width: 200 },
-        { title: "城市", name: "$.city", width: 120 },
-        { title: "月薪", name: "$.salary", width: 120, align: "right", resizable: false },
-    ])
-
-    return (
-        <div>
-            <p style={{ marginBottom: 8, color: "#666", fontSize: 13 }}>
-                拖拽列头右边缘调整列宽；「月薪」列通过 <code>resizable: false</code> 单独禁用了拖拽
-            </p>
-            <Table
-                width={900}
-                height={360}
-                columns={columns}
-                rows={rows}
-                resizable
-                onColumnResize={(columnName, width) => {
-                    setColumns(prev => prev.map(col =>
-                        col.name === columnName ? { ...col, width } : col
-                    ))
-                }}
-            />
-        </div>
-    )
-}
-
-export default ColumnResizeDemo;

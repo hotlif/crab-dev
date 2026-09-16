@@ -1,18 +1,19 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "整体透明度（opacity）",
     description: "opacity 同时作用于 fill 和 stroke，从 1.0 到 0.1 均匀过渡，Line 的 color 同样受影响。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { Canvas, Rect, Circle, Line } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #fafafa;
 `;
 
@@ -21,7 +22,7 @@ const opacities = Array.from({ length: STEPS }, (_, i) => 1 - i * (0.9 / (STEPS 
 
 export default function OpacityDemo() {
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={240}>
                 {/* Rect：fill + stroke 同时透明 */}
                 {opacities.map((op, i) => (

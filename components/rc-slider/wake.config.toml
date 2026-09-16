@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Slider 滑块"
 description = "一个滑块组件"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

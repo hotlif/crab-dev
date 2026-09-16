@@ -1,0 +1,38 @@
+{
+    "id": "rc-realm",
+    "title": "Realm 远程组件",
+    "summary": "Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "挂载模拟模块",
+            "goal": "在 effect 中注册独立 scope 的本地容器，卸载时清理。",
+            "why": "Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。",
+            "instruction": "等待模拟模块显示。",
+            "expected": "Realm 通过 get 返回的模块渲染问候。",
+            "changes": [
+                "在 effect 中注册独立 scope 的本地容器，卸载时清理。"
+            ],
+            "source": "rc-realm/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "传递业务属性",
+            "goal": "通过 remoteProps 更新远程组件的业务输入。",
+            "why": "Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。",
+            "instruction": "切换当前成员。",
+            "expected": "模块显示新的问候，不需要重新定义容器。",
+            "changes": [
+                "通过 remoteProps 更新远程组件的业务输入。"
+            ],
+            "source": "rc-realm/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "如何接真实远程模块？",
+            "answer": "移除本地注册 effect，填写实际 entry、scope 与 module，并在应用中配置错误和加载反馈。不要在渲染过程中修改全局容器。"
+        }
+    ]
+}

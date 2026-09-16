@@ -4,7 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import { useId, useState } from "react";
 import Masonry from "../../src/index.js";
 
 const itemStyle = css`
@@ -27,6 +27,7 @@ const items = [
 ];
 
 const ColumnsDemo = () => {
+    const controlId = useId();
     const [columns, setColumns] = useState(3);
 
     return (
@@ -39,8 +40,9 @@ const ColumnsDemo = () => {
                     margin-bottom: 1.5rem;
                 `}
             >
-                <label>列数</label>
+                <label htmlFor={controlId}>列数</label>
                 <select
+                    id={controlId}
                     value={columns}
                     onChange={(e) => setColumns(Number(e.target.value))}
                 >

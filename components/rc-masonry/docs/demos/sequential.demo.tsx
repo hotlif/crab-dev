@@ -4,7 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import { useId, useState } from "react";
 import Masonry from "../../src/index.js";
 
 const itemStyle = css`
@@ -28,6 +28,7 @@ const items = [
 ];
 
 const SequentialDemo = () => {
+    const controlId = useId();
     const [sequential, setSequential] = useState(false);
 
     return (
@@ -40,8 +41,9 @@ const SequentialDemo = () => {
                     margin-bottom: 1.5rem;
                 `}
             >
-                <label>顺序排列</label>
+                <label htmlFor={controlId}>顺序排列</label>
                 <input
+                    id={controlId}
                     type="checkbox"
                     checked={sequential}
                     onChange={() => setSequential(!sequential)}

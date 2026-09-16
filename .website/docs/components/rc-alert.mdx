@@ -1,6 +1,6 @@
 +++
 title = "Alert 警告提示"
-description = "警告提示，用于页面中展示重要的提示信息"
+description = "在页面内展示信息、成功、警告或错误提示"
 kind = "component"
 status = "experimental"
 +++
@@ -9,14 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-alert.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-alert.js";
 
-# Alert
+# Alert 警告提示
 
-警告提示，用于页面中展示重要的提示信息。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-alert</div>
+
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+页面提示应靠近相关内容，并说明状态和下一步操作。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**说明当前状态**
+
+使用 type、title 和 children 组合提示内容。 页面提示应靠近相关内容，并说明状态和下一步操作。 阅读标题和正文，区分状态与补充说明。 页面持续显示草稿提示，不会自动消失。
+
+**提供关闭反馈**
+
+添加 closable 和 onClose，观察关闭结果。 页面提示应靠近相关内容，并说明状态和下一步操作。 点击提示中的关闭按钮。 提示关闭，下方显示关闭结果；重置可再次练习。
+
+</div>
+
+## 常见问题
+
+### 什么时候用 Message？
+
+需要短暂、简短的操作反馈时用 Message；需要持续阅读的页面提示用 Alert。
 
 
+## API
 
-## 组件预览
+<API source="../_generated_api/rc-alert.ts" symbol="AlertProps" component="Alert" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（3 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -27,22 +68,24 @@ import { demos } from "../_generated/rc-alert.js";
 ##### 带标题 — 通过 `title` 属性设置标题，适合展示更多详情
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-alert/workbench/)
 
-- 当某个页面需要向用户显示警告的信息时。
-- 非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。
+## 使用说明
+
+在页面内展示信息、成功、警告或错误提示。
 
 
-我们提供了四种类型的警告提示。
+### 何时使用
 
-- 🔵 信息提示：用于通知性的信息展示。
-- 🟢 成功提示：表示操作已成功完成。
-- 🟡 警告提示：提醒用户注意潜在的问题。
-- 🔴 错误提示：告知用户操作失败或发生了错误。
+需要在页面内持续展示说明、操作结果或异常信息时使用。Alert 不会自动消失；启用 `closable` 后可由用户关闭。
 
-## 功能特性
+根据内容选择 `info`、`success`、`warning` 或 `error`，并用标题和说明表达具体含义。
+
+### 主要功能
 
 - 支持四种类型：`success`、`info`、`warning`、`error`。
 - 支持 `title` 标题与 `children` 描述内容组合展示。
@@ -51,9 +94,3 @@ import { demos } from "../_generated/rc-alert.js";
 - 支持 `closable` 关闭交互与 `onClose` 回调。
 - 支持 `closeIcon` 自定义关闭按钮。
 - 支持 `action` 操作区域。
-
-
-
-## API
-
-<API source="../_generated_api/rc-alert.ts" symbol="AlertProps" component="Alert" />

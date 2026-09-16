@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "基础用法",
     description: "最基本的树形组件用法，展示节点的展开、收起和选择功能。",
@@ -44,25 +46,29 @@ const BasicDemo = () => {
     };
 
     return (
-        <RcTree
-            height={300}
-            width={400}
-            treeData={treeData}
-            onTreeNodeChange={setTreeData}
-            expandedKeys={expandedKeys}
-            selectKeys={selectKeys}
-            onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
-                setSelectKeys(selectKeys);
-            }}
-            onExpanded={({ node }: { node: Node }) => {
-                if (expandedKeys.includes(node.id)) {
-                    setExpandedKeys(expandedKeys.filter((key) => key !== node.id));
-                } else {
-                    setExpandedKeys([...expandedKeys, node.id]);
-                }
-            }}
-            loadData={loadData}
-        />
+        <AutoSizer disableHeight className={treeMeasureStyle}>
+            {({ width }) => (
+                <RcTree
+                    height={300}
+                    width={Math.min(width, 400)}
+                    treeData={treeData}
+                    onTreeNodeChange={setTreeData}
+                    expandedKeys={expandedKeys}
+                    selectKeys={selectKeys}
+                    onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
+                        setSelectKeys(selectKeys);
+                    }}
+                    onExpanded={({ node }: { node: Node }) => {
+                        if (expandedKeys.includes(node.id)) {
+                            setExpandedKeys(expandedKeys.filter((key) => key !== node.id));
+                        } else {
+                            setExpandedKeys([...expandedKeys, node.id]);
+                        }
+                    }}
+                    loadData={loadData}
+                />
+            )}
+        </AutoSizer>
     );
 };
 

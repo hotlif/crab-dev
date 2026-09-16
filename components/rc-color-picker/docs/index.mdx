@@ -1,20 +1,23 @@
 +++
 title = "ColorPicker 颜色选择器"
-description = "颜色选择组件"
+description = "选择和编辑颜色，支持格式切换、预设色板与透明度调整"
 kind = "component"
 status = "experimental"
 +++
 
 # ColorPicker 颜色选择器
 
-用于选择颜色。
+选择和编辑颜色，支持格式切换、预设色板与透明度调整。
 
-[打开 ColorPicker 颜色选择器 工作台](/components/rc-color-picker/workbench/)
+[打开组件工作台](/components/rc-color-picker/workbench/)
 
 ## 何时使用
 
-当用户需要自定义颜色选择的时候使用
+- 为文字、图形或背景选择颜色。
+- 通过预设色板限制常用颜色，或通过输入框精确编辑色值。
+- 需要切换颜色显示格式或调整透明度。
 
+格式切换只改变显示方式，输出统一为 OKLCh。吸管取色依赖浏览器的 EyeDropper API。
 
 ## 代码演示
 

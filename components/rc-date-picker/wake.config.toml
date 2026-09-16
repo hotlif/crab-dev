@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "DatePicker 日期选择器"
 description = "日期选择组件"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

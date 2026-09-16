@@ -1,0 +1,71 @@
+{
+    "id": "practice-data",
+    "title": "实战：数据管理列表",
+    "summary": "把数据展示、搜索筛选、分页与请求反馈连成一个完整列表。所有请求均为本地模拟。",
+    "prerequisite": "先学习 Table、AutoSizer、LineEdit、Select 和 Pagination；了解数组 filter 与 slice。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "展示数据",
+            "goal": "配置成员列表的行与列。",
+            "why": "数据与列定义分开，后续筛选和分页可以复用同一组列。",
+            "instruction": "滚动查看成员名称、团队和状态。",
+            "expected": "23 条确定性本地记录出现在表格中。",
+            "changes": [
+                "用稳定 id 标识 23 位成员。",
+                "通过 AutoSizer 将容器尺寸传给 Table。"
+            ],
+            "source": "practice-data/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "搜索和筛选",
+            "goal": "按姓名关键字和团队缩小数据范围。",
+            "why": "筛选结果是原始数据的派生值，无需维护两份可变数据。",
+            "instruction": "输入林晓，再将团队切到设计；清除搜索后查看结果。",
+            "expected": "结果数量随条件变化，原始数据保持完整。",
+            "changes": [
+                "用 LineEdit 保存关键字，trim 后匹配姓名。",
+                "用 Select 选择团队，并组合两个条件。"
+            ],
+            "source": "practice-data/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "增加分页",
+            "goal": "把筛选结果按每页五条展示。",
+            "why": "筛选条件变化时回到第一页，避免停留在不存在的页码。",
+            "instruction": "先翻页，再输入周宁。",
+            "expected": "页码返回第一页，总数与当前筛选一致。",
+            "changes": [
+                "在 filtered 上切片得到 pageRows。",
+                "给 Pagination 传入筛选后的 total，并在输入变化时重置 page。"
+            ],
+            "source": "practice-data/step-3.tsx"
+        },
+        {
+            "id": "step-4",
+            "title": "处理请求状态",
+            "goal": "覆盖加载、空结果、失败和重试。",
+            "why": "列表不能把加载失败误认为没有数据；每种状态都需要说明与下一步入口。",
+            "instruction": "依次尝试模拟失败、重试、模拟空数据、重新加载。",
+            "expected": "失败可恢复，空数据有说明，成功后恢复 23 位成员。",
+            "changes": [
+                "新增确定性的 mockLoad 和 useTransition。",
+                "用 Spin、Empty、Alert 分别展示加载、空、失败。",
+                "失败时提供重试，搜索与分页在加载时限制重复操作。"
+            ],
+            "source": "practice-data/step-4.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "服务端分页如何接入？",
+            "answer": "将 query、team、page 和 pageSize 发送给接口，分别保存返回的 records 和 total。服务端已经分页时，不要再次对 records 进行本地 slice。"
+        },
+        {
+            "question": "重试后为什么还可能为空？",
+            "answer": "重新加载会恢复原始本地数据，但保留搜索和团队条件。清除条件可查看所有成员。"
+        }
+    ]
+}

@@ -1,16 +1,64 @@
 +++
 title = "TokenSemantic 语义令牌"
-description = "将全局视觉基元映射为界面语义的第二层设计令牌"
+description = "将全局基础值映射为颜色、布局和交互等第二层语义令牌"
 kind = "component"
 status = "experimental"
 +++
 
-# Token Semantic
+# TokenSemantic 语义令牌
 
-语义设计令牌（Layer 2）把 Token Global 的基础视觉原语映射为品牌色、表面色、文字色、
-间距、焦点环与动效等界面语义。组件令牌应优先引用这一层，以便主题切换时只覆盖语义变量。
+语义设计令牌（L2）将全局基础值映射为品牌色、表面色、文字色、间距、焦点环和动效等界面语义。组件令牌优先引用这一层，主题通过覆盖语义变量改变外观。
 
-[打开 TokenSemantic 语义令牌 工作台](/components/rc-token-semantic/workbench/)
+[打开组件工作台](/components/rc-token-semantic/workbench/)
+
+## 角色与默认主题
+
+业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。L1 的 Purple 是原料，L2 才决定浅色品牌用 Purple 40、深色用 Purple 80。旧 CSS 变量名、默认导出、`TokenVars` 与 `vars` 保留。
+
+| 意图 | 背景或主色 | 配套前景 | 使用边界 |
+| --- | --- | --- | --- |
+| 主要操作 | color.brand.primary | color.text.on-brand | 同时检查 hover / active 背景 |
+| 当前选择 | color.selection.background | color.selection.foreground | 同时提供选择标记或 ARIA |
+| 阅读容器 | color.background.surface | color.text.primary / secondary | 必要边界用 border.default，装饰分隔用 border.subtle |
+| 反馈 | color.feedback 中对应意图的 background / solid | text / on-solid | 不混用容器文字和实心按钮前景 |
+| 键盘位置 | color.focus.ring | 与所在表面比较 | 焦点独立于选中和错误 |
+
+```tsx
+import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
+
+const panel = css`
+    background: ${token.color.background.surface};
+    color: ${token.color.text.primary};
+    padding: ${token.space["card-padding"]};
+`;
+```
+
+## 同一份配对数据与 CSS 主题
+
+`themeColorContract` 是新增的公共只读数据导出，包含 `light`、`dark` 两组配对。它供主题编译、设计参考和契约测试使用，成员是 CSS 引用字符串，读取它不会切换主题或注入样式。
+
+```ts
+import { themeColorContract } from "@crab-dev/rc-token-semantic";
+import type { ThemeColors } from "@crab-dev/rc-token-semantic";
+
+const light: ThemeColors = themeColorContract.light;
+const brand = light.brand.primary; // L1 Purple 40 的 CSS 引用
+const onBrand = light.text.onBrand;
+```
+
+运行时主题仍使用 `@crab-dev/rc-theme/css/index.css` 与 `data-theme`。TOML 维护无主题样式时的 Light 回退值，`src/theme.ts` 维护完整明暗配对；改变共享角色时，两者必须同步并通过回退一致性测试。业务代码通常只需要默认 `token`，不用在每个组件里读取 `light` / `dark` 再分支。
+
+## 覆盖、迁移与验收
+
+公共默认品牌本轮从中性灰切换为紫色，焦点从蓝色切换为紫色；站点从私有紫灰表面切换为公共 Zinc 中性表面。颜色 API 名称保持不变，视觉变化需要复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。
+
+- L1 修改会影响所有上层引用；业务品牌定制优先覆盖 L2。
+- L3 覆盖继续优先于 L2；应检查旧组件覆盖是否遮住新的公共默认。
+- Portal 不会继承另一个 DOM 分支的局部变量。浮层根需置于相同主题边界或显式同步 data-theme 与业务覆盖。
+- 在 Light、Dark、按压背景、选中底色和反馈容器上检查最终前景；数值测试不能替代键盘与真实浏览器验收。
+
+原始值见[全局令牌](/components/rc-token-global)，主题入口见[Theme](/components/rc-theme)，设计规则见[色彩与主题](/design/color)与[令牌与实施](/design/tokens)。
 
 ## 代码演示
 

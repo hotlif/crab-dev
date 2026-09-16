@@ -1,12 +1,13 @@
 export const meta = {
     title: "横向条形与自适应宽度",
-    description: "orientation=\\\"horizontal\\\" 类目沿纵轴、条横向生长，长类目名更耐读；width=\\\"auto\\\" 经 rc-auto-sizer 跟随父容器宽度，拖动窗口观察布局与动画同步跟随。",
+    description: "横向条形让类目沿纵轴排列；设置 width 为 auto，通过 rc-auto-sizer 跟随父容器宽度。调整窗口宽度可查看布局变化。",
 };
 
 import BarChart from '../../src/index.js';
+import { css } from '@crab-dev/css';
 
 const HorizontalDemo = () => (
-    <div style={{ inlineSize: '100%' }}>
+    <div className={css`inline-size: 100%; min-width: 0;`}>
         <BarChart
             aria-label="各区域年度销售额排名"
             categories={['华东大区（含江浙沪）', '华南大区', '华北大区', '西南大区', '东北大区']}

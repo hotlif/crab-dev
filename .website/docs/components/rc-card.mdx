@@ -1,6 +1,6 @@
 +++
 title = "Card 卡片"
-description = "卡片容器, 用于承载标题、封面、内容与操作的通用信息单元"
+description = "将标题、封面、正文和操作组织为独立的信息单元"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-card.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-card.js";
 
-# Card
+# Card 卡片
 
-卡片容器, 用于承载标题、封面、内容与操作的通用信息单元。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-card</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+卡片把标题、内容与操作组织在一起，适合展示一个独立对象。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**组合内容**
+
+使用 title 与 children 构建最小卡片。 卡片把标题、内容与操作组织在一起，适合展示一个独立对象。 确认标题与正文的层级关系。 标题和正文位于同一个有边界的信息单元中。
+
+**加入业务操作**
+
+将操作放入 extra，并显示状态文字。 卡片把标题、内容与操作组织在一起，适合展示一个独立对象。 收藏卡片，再取消收藏。 操作名称与状态文字同步变化。
+
+</div>
+
+## 常见问题
+
+### 什么时候使用结构子组件？
+
+当内容区块顺序需要自定义时，组合 Card.Header、Card.Body 等子组件。
+
+
+## API
+
+<API source="../_generated_api/rc-card.ts" symbol="CardProps" component="Card" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（7 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -37,19 +80,26 @@ import { demos } from "../_generated/rc-card.js";
 ##### 加载骨架 — loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-card/workbench/)
 
-- 需要把一组相关信息（标题 / 媒体 / 正文 / 操作）组织为独立、可扫视的单元时
-- 列表或网格中的条目需要比表格行更丰富的展示形态时
-- 整块内容作为一个导航入口（`clickable`）, 或需要悬浮浮起反馈（`hoverable`）时
-- 与 Dialog 的区别是它平铺在页面流中, 不打断上下文; 与 Collapse 的区别是内容常驻可见
+## 使用说明
+
+将标题、封面、正文和操作组织为独立的信息单元。
 
 
-## 两种使用形态
+### 何时使用
 
-**快捷 props**：`title` / `extra` / `cover` / `actions` 描述常规结构, 裸 children 自动落入内容区。
+- 将标题、媒体、正文和操作组合为独立的信息单元。
+- 在列表或网格中展示产品、文章、项目等内容。
+- 通过 `clickable` 将整张卡片设为操作入口，或通过 `hoverable` 提供悬停反馈。
+
+### 两种使用形态
+
+**属性配置**：使用 `title`、`extra`、`cover` 和 `actions` 描述常规结构，直接传入的 `children` 放入内容区。
 
 ```tsx
 <Card title="标题" extra={<Button appearance="link">更多</Button>} actions={[<Button key="ok">确认</Button>]}>
@@ -57,9 +107,8 @@ import { demos } from "../_generated/rc-card.js";
 </Card>
 ```
 
-**自由拼装**：children 中出现 `Card.Cover` / `Card.Header` / `Card.Body` / `Card.Footer`
-任一结构子组件时, 卡片切换为自由模式, 区块次序完全由使用方掌控; `Card.Meta` 属于内容
-（头像 + 标题 + 描述组合）, 可用于任意模式。
+**组合子组件**：`children` 中包含 `Card.Cover`、`Card.Header`、`Card.Body` 或 `Card.Footer` 时，
+卡片按传入顺序组织区块。`Card.Meta` 组合头像、标题和描述，可用于两种模式。
 
 ```tsx
 <Card hoverable>
@@ -69,10 +118,3 @@ import { demos } from "../_generated/rc-card.js";
     <Card.Footer><Button>确认</Button></Card.Footer>
 </Card>
 ```
-
-
-
-
-## API
-
-<API source="../_generated_api/rc-card.ts" symbol="CardProps" component="Card" />

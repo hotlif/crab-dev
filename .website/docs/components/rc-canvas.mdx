@@ -1,6 +1,6 @@
 +++
 title = "Canvas WebGL 画布"
-description = "基于纯 WebGL 2 的 2D React 绘制组件库，提供 Canvas、Rect、Circle、Line、Image、Text、Group 等组件"
+description = "通过 React 组件声明图形，使用 WebGL 2 绘制二维画面"
 kind = "component"
 status = "experimental"
 +++
@@ -9,13 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-canvas.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-canvas.js";
 
-# Canvas
+# Canvas WebGL 画布
 
-基于纯 **WebGL 2** 的 2D 声明式绘制组件库。用 React 组件描述图形，底层经一套渲染队列 +
-正交投影矩阵 + SDF 着色器在 GPU 上完成抗锯齿绘制，零第三方渲染依赖。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-canvas</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+Canvas 使用声明式图形节点描述场景，状态变化更新节点属性。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**绘制基本图形**
+
+把 Rect 和 Circle 放入有明确尺寸的 Canvas。 Canvas 使用声明式图形节点描述场景，状态变化更新节点属性。 对照坐标与图形位置。 两种图形绘制在同一画布。
+
+**用状态控制位置**
+
+改变图形的 x 属性，并提供可读文字反馈。 Canvas 使用声明式图形节点描述场景，状态变化更新节点属性。 点击移动矩形。 矩形左右移动，文字同步描述位置。
+
+</div>
+
+## 常见问题
+
+### 图形需要文字替代吗？
+
+需要。画布本身不能替代可读内容；重要数据和操作应提供 DOM 文字与键盘入口。
+
+
+## API
+
+<API source="../_generated_api/rc-canvas.ts" symbol="CanvasProps" component="Canvas" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（13 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -52,28 +94,35 @@ import { demos } from "../_generated/rc-canvas.js";
 ##### Minimap — Minimap 示例
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-canvas/workbench/)
+
+## 使用说明
+
+使用 React 组件声明二维图形，由 WebGL 2 在 GPU 上绘制。支持矩形、圆形、线条、文字、图片和分组变换。
+
+
+### 何时使用
 
 - 需要绘制大量 2D 图元（矩形、圆、线、文字、图片）且追求 GPU 加速与流畅动画时。
 - 需要以声明式 React 组件树组织画面，而非命令式操作 Canvas 2D API 时。
 - 需要对图形做分组变换（平移 / 旋转 / 缩放）并保持嵌套坐标系时。
 
+### 主要功能
 
-## 功能特性
-
-- **纯 WebGL2**：无 PixiJS 等第三方渲染库，全部图元自带着色器。
+- **WebGL 2 渲染**：通过内置着色器绘制图元。
 - **声明式 API**：`<Canvas>` 内嵌套 `<Rect>` / `<Circle>` / `<Line>` / `<Image>` / `<Text>` / `<Group>`。
 - **SDF 抗锯齿**：圆角矩形与圆形通过有符号距离场实现亚像素级平滑边缘。
 - **任意角度直线**：顶点着色器端挤出（line extrusion），支持任意斜率与线宽。
 - **分组变换**：`<Group>` 维护 TRS 矩阵栈，子孙坐标随父级叠加，支持任意层级嵌套。
 - **OKLCh 颜色**：颜色解析支持 `oklch()`、十六进制与 `rgb()/rgba()`。
-- **设备像素比自适应**：自动按 `devicePixelRatio` 放大画布，高清屏不糊。
+- **设备像素比自适应**：根据 `devicePixelRatio` 调整画布分辨率。
 
+### 画布与阅读视口
 
+**现有示例：** 固定绘图坐标放在有名称、可聚焦的局部滚动区域内。窄屏可横向查看完整画布，页面正文不会随绘图宽度扩张。画板中的显式配色服务于图元样张，不代表业务界面的语义主题；画板周围的焦点使用公共语义颜色。
 
-
-## API
-
-<API source="../_generated_api/rc-canvas.ts" symbol="CanvasProps" component="Canvas" />
+**选择规则：** 要保持坐标和形状比例时使用局部滚动；要让画布本身随容器变化，可使用已有 `fillParent`，并为父容器提供明确尺寸。滚动区域的键盘可达不等于内部图元已具备名称、选择或拖拽的键盘替代，交互图形仍需单独实现和验收。

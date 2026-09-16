@@ -1,0 +1,38 @@
+{
+    "id": "rc-pagination",
+    "title": "Pagination 分页",
+    "summary": "分页控件提供导航，数据切片或请求仍由业务负责。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "提供总量",
+            "goal": "传入 total 和初始每页条数。",
+            "why": "分页控件提供导航，数据切片或请求仍由业务负责。",
+            "instruction": "点击下一页。",
+            "expected": "页码更新；此时尚未连接具体列表。",
+            "changes": [
+                "传入 total 和初始每页条数。"
+            ],
+            "source": "rc-pagination/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "连接列表切片",
+            "goal": "用 current 计算 slice 范围，并连接 onChange。",
+            "why": "分页控件提供导航，数据切片或请求仍由业务负责。",
+            "instruction": "切换到第 2 页和最后一页。",
+            "expected": "第二页显示项目 6–10，最后一页只有 3 条。",
+            "changes": [
+                "用 current 计算 slice 范围，并连接 onChange。"
+            ],
+            "source": "rc-pagination/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "筛选后应保留原页码吗？",
+            "answer": "通常将页码重置为 1，避免新结果不足以覆盖原来的页数。"
+        }
+    ]
+}

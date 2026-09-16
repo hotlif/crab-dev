@@ -1,10 +1,12 @@
 export const meta = {
     title: "入场与数据更新动画",
-    description: "首次挂载时柱体从零值基线逐类目生长；切换数据集时高度从旧值平滑补间到新值。WebGL 逐帧插值，数百根柱同时过渡仍流畅；系统偏好「减弱动态」时自动降级为直接呈现。",
+    description: "首次挂载时柱体从零值基线逐类目生长；手动切换数据集时从旧值过渡到新值。系统偏好「减弱动态」时直接呈现结果。",
 };
 
 import { useState } from 'react';
-import type { CSSProperties } from 'react';
+import { css } from '@crab-dev/css';
+import Button from '@crab-dev/rc-button';
+import token from '@crab-dev/rc-token-semantic';
 import BarChart from '../../src/index.js';
 
 const DATASETS = [
@@ -15,33 +17,24 @@ const DATASETS = [
 
 const CATEGORIES = ['华东', '华南', '华北', '西南', '东北'];
 
-const buttonStyle: CSSProperties = {
-    padding: '6px 16px',
-    fontSize: 13,
-    borderRadius: 8,
-    border: '1px solid #e2e8f0',
-    background: '#fff',
-    color: '#334155',
-    cursor: 'pointer',
-};
-
 const LiveUpdateDemo = () => {
     const [index, setIndex] = useState(0);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+        <div className={css`display: flex; flex-direction: column; gap: ${token.space['stack-gap']}; min-width: 0; inline-size: 100%;`}>
             <BarChart
+                width="auto"
                 aria-label="各区域季度销售额"
                 categories={CATEGORIES}
                 series={[{ name: '销售额', data: DATASETS[index] }]}
             />
-            <button
+            <Button
                 type="button"
-                style={buttonStyle}
+                className={css`align-self: center;`}
                 onClick={() => setIndex(prev => (prev + 1) % DATASETS.length)}
             >
-                切换数据集（观察柱体补间）
-            </button>
+                切换数据集
+            </Button>
         </div>
     );
 };

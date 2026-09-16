@@ -1,24 +1,23 @@
 +++
 title = "SplitPane 分栏面板"
-description = "可拖拽调整尺寸的分栏面板, 支持水平/垂直分栏、键盘调整、双击复位与尺寸记忆"
+description = "通过拖拽或键盘调整两侧面板尺寸，支持复位与尺寸记忆"
 kind = "component"
 status = "experimental"
 +++
 
-# SplitPane
+# SplitPane 分栏面板
 
-可拖拽调整尺寸的分栏面板。
+通过拖拽或键盘调整两侧面板尺寸，支持复位与尺寸记忆。
 
-[打开 SplitPane 分栏面板 工作台](/components/rc-split-pane/workbench/)
+[打开组件工作台](/components/rc-split-pane/workbench/)
 
 ## 何时使用
 
-- 编辑器类界面的侧栏（文件树、属性面板、调试面板）需要用户按内容自行调宽时
-- 上下分割的主区 + 控制台 / 日志区需要调整分配比例时
-- 需要记住用户调整结果（`persistKey`）、或要求键盘也能完成调整的场景
+- 调整编辑器侧栏、文件树或属性面板的宽度。
+- 分配主内容区与控制台、日志区的高度。
+- 通过 `persistKey` 记住调整结果，并提供键盘调整路径。
 
-拖拽机制来自 `@crab-dev/rc-hooks` 的 `useDragResize`；布局不适合两片式分栏时可直接使用该 hook 自装。
-
+需要两块面板以外的自定义布局时，可直接使用 `@crab-dev/rc-hooks` 的 `useDragResize`。
 
 ## 代码演示
 

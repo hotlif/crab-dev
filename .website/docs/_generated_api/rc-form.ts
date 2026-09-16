@@ -41,5 +41,5 @@ export interface FormProps {
     /**
      * 字段值更新的时候触发的回调事件
      */
-    "onFieldValueChange"?: (changed: { [K in keyof T]: { name: K; value: T[K]; }; }[keyof T], allValues: T) => Promise<void>;
+    "onFieldValueChange"?: (changed: { [K in keyof T]: { name: K; value: T[K]; } }[keyof T], allValues: T) => Promise<void>;
 }

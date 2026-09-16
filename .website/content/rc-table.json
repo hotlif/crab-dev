@@ -1,0 +1,38 @@
+{
+    "id": "rc-table",
+    "title": "Table 数据表格",
+    "summary": "用 2,000 笔、20 列的企业采购订单学习行列配置、固定列和业务筛选。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "配置行与列",
+            "goal": "为行提供稳定 id，在 dataRef 中保存业务字段。",
+            "why": "表格列使用数据路径读取行字段，容器测量决定可见视口。",
+            "instruction": "浏览采购订单，横向滚动核对客户、商品、收款和交付信息。",
+            "expected": "2,000 笔订单、20 列完整展示，订单号固定，金额与收款相互关联。",
+            "changes": [
+                "为行提供稳定 id，在 dataRef 中保存业务字段。"
+            ],
+            "source": "rc-table/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "筛选行数据",
+            "goal": "在业务层派生 visible，再传入 rows。",
+            "why": "表格列使用数据路径读取行字段，容器测量决定可见视口。",
+            "instruction": "点击「只看待审核订单」，再恢复全部订单。",
+            "expected": "订单从 2,000 笔筛选为 300 笔待审核记录，再恢复；20 列结构保持不变。",
+            "changes": [
+                "在业务层派生 visible，再传入 rows。"
+            ],
+            "source": "rc-table/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "为什么表格没有高度？",
+            "answer": "Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父容器。"
+        }
+    ]
+}

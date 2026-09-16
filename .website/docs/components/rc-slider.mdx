@@ -1,6 +1,6 @@
 +++
 title = "Slider 滑块"
-description = "一个滑块组件"
+description = "通过拖动滑块在指定数值范围内选择值"
 kind = "component"
 status = "experimental"
 +++
@@ -9,26 +9,72 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-slider.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-slider.js";
 
-# Slider 滑动输入条
+# Slider 滑块
 
-滑动型输入器，展示当前值和可选范围。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-slider</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**连接数值**
+
+将 value 与 onValueChange 连接到亮度状态。 滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。 拖动滑块。 亮度数字随滑块位置更新。
+
+**限制步长**
+
+增加 step=&#123;10&#125;，并提供明确的恢复操作。 滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。 调整数值，再恢复默认亮度。 数值按 10 递增，恢复操作回到 40%。
+
+</div>
+
+## 常见问题
+
+### 如何精确键入数字？
+
+需要键入时配合 NumberEdit，并让两个控件共享同一数值状态。
+
+
+## API
+
+<API source="../_generated_api/rc-slider.ts" symbol="SliderProps" component="Slider" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（1 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
 ##### 滑块基础用法 — 这是一个滑块的基础示例
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-slider/workbench/)
 
-当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。
+## 使用说明
+
+通过拖动滑块在指定数值范围内选择值。
 
 
+### 何时使用
 
-## API
-
-<API source="../_generated_api/rc-slider.ts" symbol="SliderProps" component="Slider" />
+用于音量、亮度或阈值等有明确范围的数值调整，可选择连续值或按步长选择离散值。需要精确键入数值时可使用 NumberEdit。

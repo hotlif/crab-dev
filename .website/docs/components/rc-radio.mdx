@@ -1,6 +1,6 @@
 +++
 title = "Radio 单选框"
-description = "单选框, 用于在一组选项中选择一个值"
+description = "从一组互斥且可见的选项中选择一个值"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-radio.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-radio.js";
 
-# Radio
+# Radio 单选框
 
-单选框, 用于在一组选项中选择一个值。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-radio</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+单选组展示少量互斥选项，组值用于业务提交。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**设置选项组**
+
+用 RadioGroup 包裹 Radio，并设置不同 value。 单选组展示少量互斥选项，组值用于业务提交。 在每天和每周之间切换。 同一时刻只有一个选项被选中。
+
+**读取组值**
+
+通过组级 value 与 onChange 管理选中值。 单选组展示少量互斥选项，组值用于业务提交。 选择每天，查看提交值。 输出变为 daily，其他选项取消选中。
+
+</div>
+
+## 常见问题
+
+### 选项很多时用什么？
+
+选项较多时用 Select；Radio 适合直接比较少量选项。
+
+
+## API
+
+<API source="../_generated_api/rc-radio.ts" symbol="RadioProps" component="Radio" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（4 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -27,16 +70,32 @@ import { demos } from "../_generated/rc-radio.js";
 ##### 单选框尺寸 — 通过 `size` 属性设置单选框尺寸, 支持 `large`、`middle`、`small` 三种
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-radio/workbench/)
 
-- 用于在一组互斥的选项中选择一个选项
-- 和 Select 的区别是, Radio 所有选项默认可见, 方便用户在比较中选择, 因此选项不宜过多
+## 使用说明
+
+从一组互斥且可见的选项中选择一个值。
 
 
+### 何时使用
 
+- 从少量互斥选项中选择一个值，例如支付方式或配置类型。
+- 需要让用户直接比较全部选项时使用 Radio；选项较多或空间有限时使用 Select。
 
-## API
+### 视觉状态与验证
 
-<API source="../_generated_api/rc-radio.ts" symbol="RadioProps" component="Radio" />
+原生输入负责组内单选和键盘行为；焦点显示在可见圆形控件上。强制颜色下以系统前景、背景和圆点表达选中，不能仅以紫色区分。
+
+RadioGroup 未指定 `name` 或传入空字符串时，会生成稳定的组内名称，让方向键在当前组循环，避免跳入页面中的其他组。显式 `name` 保持原值；不同独立组不应复用同一个名称。组内不要再给单个 Radio 设置不同的 `name`。
+
+**原生表单迁移**：自动名称也属于原生表单字段。使用 FormData 的页面应明确设置例如 `name="notificationFrequency"` 的业务名称，不依赖自动 ID，也不依赖未命名组原先不进入 FormData 的行为。
+
+粗指针环境下，独立操作的命中区至少为 44×44 CSS px。标签容器扩展命中区，方框、圆点或轨道仍保留原有 size 视觉尺寸。长标签采用正文行高；紧密组合需检查目标区域没有相互重叠。此规则不新增 density 属性，也不把全部组件改成同一视觉高度。
+
+键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
+
+规则依据：[状态系统](/design/interaction)、[无障碍与键盘](/design/accessibility)、[布局与密度](/design/layout)。

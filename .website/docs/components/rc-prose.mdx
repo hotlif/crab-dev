@@ -1,6 +1,6 @@
 +++
 title = "Prose 长文本排版"
-description = "Markdown 排版样式组件，提供 prose 容器类与多尺寸变体"
+description = "为 Markdown、MDX 或富文本生成的内容提供统一排版样式"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-prose.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-prose.js";
 
-# Prose
+# Prose 长文本排版
 
-Markdown 排版容器，为富文本内容提供完整的排版样式。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-prose</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**包裹正文**
+
+将语义化标题、段落和列表作为 children。 Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。 比较各层级文字与间距。 正文形成统一的排版结构。
+
+**调整阅读尺寸**
+
+通过 size 控制排版密度。 Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。 切换阅读尺寸。 标题、正文和间距一起变化。
+
+</div>
+
+## 常见问题
+
+### 直接传 Markdown 字符串会解析吗？
+
+不会。先由 Markdown/MDX 工具解析，再将结果放入 Prose。
+
+
+## API
+
+<API source="../_generated_api/rc-prose.ts" symbol="ProseProps" component="Prose" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（4 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -27,16 +70,24 @@ Markdown 排版容器，为富文本内容提供完整的排版样式。
 ##### 表格与定义列表 — 展示表格与定义列表的排版效果
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-prose/workbench/)
+
+## 使用说明
+
+为 Markdown、MDX 或富文本生成的内容提供统一排版样式。
+
+
+### 何时使用
 
 - 渲染 Markdown / MDX 内容时，提供一致的排版体验。
 - 文章页面、文档页面、博客内容的排版。
 - 需要对标题、段落、列表、代码块、表格等元素统一样式。
 
-
-## 功能特性
+### 主要功能
 
 - 零运行时，基于 Crab CSS 编译为静态 CSS。
 - 支持四种尺寸变体：`sm`、`base`、`lg`、`xl`。
@@ -44,9 +95,3 @@ Markdown 排版容器，为富文本内容提供完整的排版样式。
 - 支持 `as` 语义标签：`div`、`article`、`section`、`main`。
 - 完整的排版规则覆盖：标题、段落、链接、列表、引用、代码、表格、媒体、定义列表。
 - 三层设计令牌架构，支持主题覆写。
-
-
-
-## API
-
-<API source="../_generated_api/rc-prose.ts" symbol="ProseProps" component="Prose" />

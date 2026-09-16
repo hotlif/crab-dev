@@ -1,0 +1,38 @@
+{
+    "id": "rc-form",
+    "title": "Form 字段管理",
+    "summary": "Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "绑定字段",
+            "goal": "创建 form 实例，用 Item 的 name 关联字段。",
+            "why": "Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。",
+            "instruction": "修改姓名并读取表单。",
+            "expected": "提交回调拿到当前字段值。",
+            "changes": [
+                "创建 form 实例，用 Item 的 name 关联字段。"
+            ],
+            "source": "rc-form/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "增加字段校验",
+            "goal": "用 validator 拒绝空白值，成功后才处理业务提交。",
+            "why": "Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。",
+            "instruction": "先空值提交，再填写姓名并提交。",
+            "expected": "空值显示字段错误，有效值进入成功回调。",
+            "changes": [
+                "用 validator 拒绝空白值，成功后才处理业务提交。"
+            ],
+            "source": "rc-form/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "为什么不能直接使用 DOM onChange？",
+            "answer": "Form 字段需要值回调；LineEdit 返回输入事件，所以用适配器提取 event.target.value。"
+        }
+    ]
+}

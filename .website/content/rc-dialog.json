@@ -1,0 +1,38 @@
+{
+    "id": "rc-dialog",
+    "title": "Dialog 对话框",
+    "summary": "对话框暂时聚焦一个任务，关闭后用户应能继续原来的操作。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "控制打开关闭",
+            "goal": "使用 open 与 onOpenChange 管理对话框。",
+            "why": "对话框暂时聚焦一个任务，关闭后用户应能继续原来的操作。",
+            "instruction": "打开对话框，然后按 Escape 关闭。",
+            "expected": "对话框展示说明，关闭后回到教程。",
+            "changes": [
+                "使用 open 与 onOpenChange 管理对话框。"
+            ],
+            "source": "rc-dialog/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "处理确认结果",
+            "goal": "使用明确的动作按钮完成任务，再关闭对话框。",
+            "why": "对话框暂时聚焦一个任务，关闭后用户应能继续原来的操作。",
+            "instruction": "打开并点击发布版本。",
+            "expected": "对话框关闭，页面显示发布结果。",
+            "changes": [
+                "使用明确的动作按钮完成任务，再关闭对话框。"
+            ],
+            "source": "rc-dialog/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "标题可以省略吗？",
+            "answer": "优先提供可见 title；没有标题时必须提供 aria-label 说明对话框用途。"
+        }
+    ]
+}

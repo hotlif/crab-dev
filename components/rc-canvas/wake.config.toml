@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Canvas WebGL 画布"
 description = "基于纯 WebGL 2 的 2D React 绘制组件库，提供 Canvas、Rect、Circle、Line、Image、Text、Group 等组件"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

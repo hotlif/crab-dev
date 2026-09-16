@@ -1,6 +1,6 @@
 +++
 title = "Form 表单"
-description = "高性能的表单组件"
+description = "统一管理表单字段、数据校验与提交流程"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-form.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-form.js";
 
 # Form 表单
 
-高性能表单控件，自带数据域管理。包含数据录入、校验以及对应样式。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-form</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**绑定字段**
+
+创建 form 实例，用 Item 的 name 关联字段。 Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。 修改姓名并读取表单。 提交回调拿到当前字段值。
+
+**增加字段校验**
+
+用 validator 拒绝空白值，成功后才处理业务提交。 Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。 先空值提交，再填写姓名并提交。 空值显示字段错误，有效值进入成功回调。
+
+</div>
+
+## 常见问题
+
+### 为什么不能直接使用 DOM onChange？
+
+Form 字段需要值回调；LineEdit 返回输入事件，所以用适配器提取 event.target.value。
+
+
+## API
+
+<API source="../_generated_api/rc-form.ts" symbol="FormProps" component="Form" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（3 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -25,14 +68,23 @@ import { demos } from "../_generated/rc-form.js";
 ##### 字段校验 — 使用 required 与自定义 rules 组合 rc-line-edit / rc-select，演示同步与异步校验。
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-form/workbench/)
 
-- 用于创建一个实体或收集信息。
-- 需要对输入的数据类型进行校验时。
+## 使用说明
 
-## 无障碍
+管理字段值、校验规则和提交流程，并为字段布局与错误反馈提供统一结构。
+
+
+### 何时使用
+
+- 收集用户信息、创建记录或编辑配置。
+- 集中管理字段值、校验规则、错误提示和提交结果。
+
+### 无障碍
 
 - 每个字段都使用可见 `<label>`；关联 ID 由 `useId` 生成，不使用占位符代替标签。
 - 帮助文本和错误信息通过 `aria-describedby` 关联，错误控件同时设置 `aria-invalid`。
@@ -40,9 +92,3 @@ import { demos } from "../_generated/rc-form.js";
 - 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
-
-
-
-## API
-
-<API source="../_generated_api/rc-form.ts" symbol="FormProps" component="Form" />

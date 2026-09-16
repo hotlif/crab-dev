@@ -7,7 +7,7 @@ status = "experimental"
 
 # 无障碍使用指南
 
-组件内置的角色和键盘行为只是基础。业务代码仍需提供与当前上下文匹配的名称、说明和状态文案。
+使用组件时，业务代码仍需补充与操作对象匹配的名称、说明和状态文案，并检查组合后的键盘操作是否完整。
 
 ## 为控件提供名称
 
@@ -16,6 +16,8 @@ status = "experimental"
 
 ```tsx
 import { useId } from "react";
+import LineEdit from "@crab-dev/rc-line-edit";
+import "@crab-dev/rc-line-edit/css/index.css";
 
 export default function SearchField() {
     const inputId = useId();
@@ -23,7 +25,7 @@ export default function SearchField() {
     return (
         <>
             <label htmlFor={inputId}>搜索项目</label>
-            <input id={inputId} type="search" />
+            <LineEdit id={inputId} type="search" />
         </>
     );
 }
@@ -51,6 +53,6 @@ export default function SearchField() {
 ## 验收清单
 
 1. 仅使用键盘完成主流程，并检查焦点始终可见。
-2. 使用辅助技术确认每个控件都有唯一、准确的名称，状态变化会被感知。
+2. 使用辅助技术确认控件名称清楚、准确，能够区分同一区域内不同的操作对象，并感知状态变化。
 3. 在 320 px 宽度、200% 缩放、`forced-colors` 和 `prefers-reduced-motion` 下检查界面。
 4. 为关键名称、角色、状态和键盘行为补充自动化测试。

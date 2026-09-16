@@ -1,0 +1,38 @@
+{
+    "id": "rc-masonry",
+    "title": "Masonry 瀑布流",
+    "summary": "瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "排列不同高度",
+            "goal": "设置两列并使用 sequential 保持顺序。",
+            "why": "瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。",
+            "instruction": "按编号阅读卡片。",
+            "expected": "不同长度的内容分布在两列中。",
+            "changes": [
+                "设置两列并使用 sequential 保持顺序。"
+            ],
+            "source": "rc-masonry/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "调整列数",
+            "goal": "通过状态在单列与双列之间切换。",
+            "why": "瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。",
+            "instruction": "切换到单列，再切回双列。",
+            "expected": "内容不变，布局随 columns 更新。",
+            "changes": [
+                "通过状态在单列与双列之间切换。"
+            ],
+            "source": "rc-masonry/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "窄屏怎么处理？",
+            "answer": "通过容器宽度或媒体查询选择列数；交互元素的 DOM 顺序应与阅读顺序一致。"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "id": "rc-line-edit",
+    "title": "LineEdit 单行输入",
+    "summary": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "提供标签",
+            "goal": "添加可见 label、占位示例和 maxLength。",
+            "why": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
+            "instruction": "输入项目名称。",
+            "expected": "输入显示在字段内，最多允许 30 个字符。",
+            "changes": [
+                "添加可见 label、占位示例和 maxLength。"
+            ],
+            "source": "rc-line-edit/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "清除与计数",
+            "goal": "连接受控值，再启用 showCount 与 allowClear。",
+            "why": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
+            "instruction": "修改名称，然后点击清除按钮。",
+            "expected": "输入、计数与输出同步更新，清除后为空。",
+            "changes": [
+                "连接受控值，再启用 showCount 与 allowClear。"
+            ],
+            "source": "rc-line-edit/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "清除按钮为什么不生效？",
+            "answer": "allowClear 仅在受控模式下生效。确保 value、onChange 与 onClear 更新同一份状态。"
+        }
+    ]
+}

@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "搜索过滤 filterTreeNode",
     description: "通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。",
@@ -120,23 +122,27 @@ const FilterDemo = () => {
                     onChange={e => setKeyword(e.target.value)}
                 />
             </div>
-            <RcTree
-                height={300}
-                width={400}
-                treeData={treeData}
-                onTreeNodeChange={setTreeData}
-                expandedKeys={expandedKeys}
-                selectKeys={selectKeys}
-                filterTreeNode={filterFn}
-                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                onExpanded={({ node }: { node: Node }) => {
-                    setExpandedKeys(prev =>
-                        prev.includes(node.id)
-                            ? prev.filter(k => k !== node.id)
-                            : [...prev, node.id]
-                    );
-                }}
-            />
+            <AutoSizer disableHeight className={treeMeasureStyle}>
+                {({ width }) => (
+                    <RcTree
+                        height={300}
+                        width={Math.min(width, 400)}
+                        treeData={treeData}
+                        onTreeNodeChange={setTreeData}
+                        expandedKeys={expandedKeys}
+                        selectKeys={selectKeys}
+                        filterTreeNode={filterFn}
+                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                        onExpanded={({ node }: { node: Node }) => {
+                            setExpandedKeys(prev =>
+                                prev.includes(node.id)
+                                    ? prev.filter(k => k !== node.id)
+                                    : [...prev, node.id]
+                            );
+                        }}
+                    />
+                )}
+            </AutoSizer>
         </div>
     );
 };

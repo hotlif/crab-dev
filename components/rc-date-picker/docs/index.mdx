@@ -1,27 +1,24 @@
 +++
 title = "DatePicker 日期选择器"
-description = "日期选择组件"
+description = "基于 Temporal 的日期选择器，支持范围限制、时区和本地化显示"
 kind = "component"
 status = "experimental"
 +++
 
-# DatePicker 日期选择框
+# DatePicker 日期选择器
 
-一个基于 Temporal API 的现代 React 日期选择器组件，支持高度自定义与国际化。
+基于 Temporal 的日期选择器，支持日期范围限制、时区和本地化显示。
 
-[打开 DatePicker 日期选择器 工作台](/components/rc-date-picker/workbench/)
+[打开组件工作台](/components/rc-date-picker/workbench/)
 
-## 特性
+## 主要功能
 
-- 📅 日历视图，支持月/年切换
-- ⏳ 日期范围限制
-- 🌏 时区支持
-- 🗓️ 一周起始日可配置
-- 🏷️ 国际化（locale 自动适配）
-- 🎨 设计 Token，轻松主题定制
-- 🖱️ 鼠标与键盘导航（规划中）
-- 🚫 禁用日期与导航按钮
+- 日历面板支持切换月份和年份。
+- 通过 `range` 限制可选日期。
+- 通过 `timeZone`、`locale` 和 `weekStartDay` 配置时区、本地化显示和每周起始日。
+- 使用 `renderDisplayString` 自定义输入框中的日期文本。
 
+`value` 使用 `Temporal.ZonedDateTime | null`，通过 `onValueChange` 接收日期变化。
 
 ## 代码演示
 

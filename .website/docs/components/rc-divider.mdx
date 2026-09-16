@@ -1,6 +1,6 @@
 +++
 title = "Divider 分割线"
-description = "分割线, 用于在内容之间划分区隔并表达从属边界"
+description = "分隔内容或行内操作，明确分组边界"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-divider.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-divider.js";
 
-# Divider
+# Divider 分割线
 
-分割线, 用于在内容之间划分区隔并表达从属边界。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-divider</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+分割线表达内容分组；纯装饰线不需要被辅助技术朗读。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**分隔内容**
+
+在两组内容之间加入 Divider。 分割线表达内容分组；纯装饰线不需要被辅助技术朗读。 观察分隔线与前后内容的归属。 两组内容在视觉上有明确边界。
+
+**添加组名**
+
+给语义分割线提供标题，给纯装饰线设置 decorative。 分割线表达内容分组；纯装饰线不需要被辅助技术朗读。 比较带标题的分割线与下方装饰线。 标题说明分组含义，装饰线不增加阅读内容。
+
+</div>
+
+## 常见问题
+
+### 带标题时能设置 decorative 吗？
+
+不能。标题提供分组名称，不应被移出无障碍树。
+
+
+## API
+
+<API source="../_generated_api/rc-divider.ts" symbol="DividerProps" component="Divider" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（6 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -31,31 +74,27 @@ import { demos } from "../_generated/rc-divider.js";
 ##### 竖向分割线 — direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-divider/workbench/)
 
-- 需要把一段连续内容切成若干可辨认的分组时（表单分节、列表分段、卡片内分区）
-- 需要在行内切分并列的操作或状态时（按钮组、面包屑、状态栏）用 `direction="vertical"`
-- 需要给分组加一个轻量小标题时, 直接把文字作为 `children` 传入
-- 若分组已由留白、标题或卡片边框表达清楚, 则不必再画线——线越少, 每条线越有意义
+## 使用说明
 
-
-## 无障碍
-
-分割线是少数「画不画都不影响功能, 但画错就制造噪声」的组件, 因此它的无障碍取决于一个判断：
-**这条线是否承载了视觉之外的信息？**
-
-- **承载**（默认）：渲染为 `role="separator"`, 读屏会播报「分隔线」, 帮助盲用户建立与视觉一致的分组模型
-- **不承载**：设 `decorative`, 渲染为 `role="none"` + `aria-hidden`, 读屏完全跳过
-
-带文字的分割线始终是语义线：静态 `separator` 的子节点在 ARIA 中按 presentational 处理, 文字不会
-被自动读出, 因此组件用 `aria-labelledby` 回指文字, 使其播报为「分组标题 分隔线」。也正因如此,
-类型层禁止在带文字的线上声明 `decorative`——不得把可读内容藏出无障碍树。
+分隔内容或行内操作，明确分组边界。
 
 
+### 何时使用
 
+- 分隔表单章节、列表分组或卡片内的内容区域。
+- 使用 `direction="vertical"` 分隔行内并列操作。
+- 将分组标题作为 `children` 传入。
 
-## API
+已有留白、标题或边框能够清楚表达分组时，无需额外添加分割线。
 
-<API source="../_generated_api/rc-divider.ts" symbol="DividerProps" component="Divider" />
+### 无障碍
+
+默认使用 `role="separator"` 表达内容分组。纯装饰线可设置 `decorative`，使其通过 `role="none"` 和 `aria-hidden` 从无障碍树中隐藏。
+
+带文字的分割线通过 `aria-labelledby` 关联标题。此时不能设置 `decorative`，以免隐藏分组名称。

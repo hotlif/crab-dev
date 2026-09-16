@@ -4,7 +4,7 @@ export const meta = {
     description: "一个基础的消息通知组件",
 };
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { type Direction, useNotification } from "../../src/index.js";
 import { css } from "@crab-dev/css";
 
@@ -12,6 +12,7 @@ import { css } from "@crab-dev/css";
 let i = 0;
 
 const SizeDemo = () => {
+    const controlId = useId();
     const [direction, setDirection] = useState<Direction>("topRight")
     const [notification, contextHolder] = useNotification();
     return (
@@ -20,10 +21,11 @@ const SizeDemo = () => {
                 margin-bottom: 1rem;
             `}
         >
-            <label>
+            <label htmlFor={controlId}>
                 请选择方向
             </label>
             <select
+                id={controlId}
                 value={direction}
                 onChange={e => setDirection(e.target.value as Direction)}
             >

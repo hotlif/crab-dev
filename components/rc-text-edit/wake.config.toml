@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "TextEdit 多行文本输入框"
 description = "多行文本编辑组件, 支持尺寸/验证状态/一键清除/字符计数与内容自适应高度"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

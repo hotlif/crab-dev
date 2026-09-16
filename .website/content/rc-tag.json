@@ -1,0 +1,38 @@
+{
+    "id": "rc-tag",
+    "title": "Tag 标签",
+    "summary": "标签帮助用户识别分类；可勾选标签还可以作为筛选条件。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "标记分类",
+            "goal": "使用文字说明分类与状态。",
+            "why": "标签帮助用户识别分类；可勾选标签还可以作为筛选条件。",
+            "instruction": "区分分类标签和状态标签。",
+            "expected": "即使不看颜色也能理解标签含义。",
+            "changes": [
+                "使用文字说明分类与状态。"
+            ],
+            "source": "rc-tag/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "勾选筛选项",
+            "goal": "通过 CheckableTag 的 checked 与 onChange 管理筛选值。",
+            "why": "标签帮助用户识别分类；可勾选标签还可以作为筛选条件。",
+            "instruction": "勾选标签后再次取消。",
+            "expected": "筛选说明随选中状态变化。",
+            "changes": [
+                "通过 CheckableTag 的 checked 与 onChange 管理筛选值。"
+            ],
+            "source": "rc-tag/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "关闭标签等于删除数据吗？",
+            "answer": "不一定。onClose 只通知关闭意图，删除业务数据需要另外处理，并提供确认或撤销。"
+        }
+    ]
+}

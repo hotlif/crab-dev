@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Switch 开关"
 description = "开关组件, 用于在两种状态之间切换"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

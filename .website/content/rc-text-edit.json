@@ -1,0 +1,38 @@
+{
+    "id": "rc-text-edit",
+    "title": "TextEdit 多行输入",
+    "summary": "多行输入适合备注与说明，长度和错误提示应靠近字段。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "输入备注",
+            "goal": "使用 TextEdit 录入多行文本并设置长度上限。",
+            "why": "多行输入适合备注与说明，长度和错误提示应靠近字段。",
+            "instruction": "输入两行项目说明。",
+            "expected": "内容保留换行，最多输入 120 字。",
+            "changes": [
+                "使用 TextEdit 录入多行文本并设置长度上限。"
+            ],
+            "source": "rc-text-edit/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "连接文本状态",
+            "goal": "通过 onChange 读取文本并显示字数。",
+            "why": "多行输入适合备注与说明，长度和错误提示应靠近字段。",
+            "instruction": "继续输入一行内容。",
+            "expected": "字符计数与文本变化同步。",
+            "changes": [
+                "通过 onChange 读取文本并显示字数。"
+            ],
+            "source": "rc-text-edit/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "单行输入能替代吗？",
+            "answer": "需要保留换行时使用 TextEdit；名称或搜索词等内容使用 LineEdit。"
+        }
+    ]
+}

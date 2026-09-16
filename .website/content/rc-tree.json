@@ -1,0 +1,43 @@
+{
+    "id": "rc-tree",
+    "title": "Tree 层级列表",
+    "summary": "树节点用 parent 表达层级，展开与选中是两份不同的状态。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "展示已展开目录",
+            "goal": "创建文件夹和子节点，通过 expandedKeys 展开目录。",
+            "why": "树节点用 parent 表达层级，展开与选中是两份不同的状态。",
+            "instruction": "阅读目录与文件的缩进关系，再点击“收起项目”和“展开项目”。",
+            "expected": "收起时只显示项目目录，展开后显示两个文件。",
+            "changes": [
+                "创建文件夹和子节点，通过 expandedKeys 展开目录。"
+            ],
+            "source": "rc-tree/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "读取选中节点",
+            "goal": "通过 selectKeys 和 onSelect 管理选择结果。",
+            "why": "树节点用 parent 表达层级，展开与选中是两份不同的状态。",
+            "instruction": "点击“选择 README.md”，再收起并展开项目。",
+            "expected": "输出稳定节点 ID，展开状态不受影响。",
+            "changes": [
+                "通过 selectKeys 和 onSelect 管理选择结果。",
+                "增加外部选择按钮，演示业务操作如何驱动受控 selectKeys。"
+            ],
+            "source": "rc-tree/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "展开和选中为什么要分开？",
+            "answer": "展开控制可见子节点，选中表示当前操作对象。异步加载时还需要维护节点 loadState。"
+        },
+        {
+            "question": "为什么提供树外的操作按钮？",
+            "answer": "外部按钮展示业务状态驱动展开和选择的方式，并提供明确的键盘入口。当前组件的拖拽节点在未启用拖拽时仍带有 aria-disabled；教程通过按钮完成练习，节点本身的键盘语义仍需组件层后续修复。"
+        }
+    ]
+}

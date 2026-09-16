@@ -7,7 +7,7 @@ status = "experimental"
 
 # 开始使用
 
-Crab UI 面向 React 19 应用，组件按包独立安装。选择左侧组件页查看包名、交互示例和 Props API。
+Crab UI 面向 React 19 应用。按需安装组件包、加载静态样式后即可使用；组件页提供使用场景、交互示例和 API。
 
 ## 安装组件
 
@@ -17,7 +17,7 @@ Crab UI 面向 React 19 应用，组件按包独立安装。选择左侧组件�
 yarn add @crab-dev/rc-button
 ```
 
-项目使用 Yarn Plug'n'Play 时不需要也不应创建 `node_modules`。
+本仓库使用 Yarn Plug'n'Play（PnP）管理依赖，无需创建 `node_modules`。
 
 ## 渲染第一个组件
 
@@ -34,11 +34,13 @@ export default function SaveAction() {
 }
 ```
 
-组件的默认导出是主组件，附属组件和类型从同一包具名导入。例如：
+大多数 UI 包默认导出主组件，附属组件和类型使用具名导入。例如：
 
 ```tsx
 import Button, { ButtonGroup, type ButtonProps } from "@crab-dev/rc-button";
 ```
+
+Hooks、令牌和主题等工具包的入口形式不同，请以对应包文档为准。
 
 ## 加载静态 CSS
 
@@ -48,8 +50,34 @@ Crab CSS 在构建期生成静态样式，不会向浏览器注入 CSS-in-JS 运
 - 使用 Vite、Webpack 等其他构建器时，为每个组件显式导入公开的 `css/index.css`。
 - 不要直接导入包内 `src/`、`esm/`、`cjs/` 或 `declarations/`，这些不是稳定的公共入口。
 
-## 下一步
+## 设置主题
 
-- 在组件页打开 Workbench，切换 Props、视口并查看可复制源码。
+需要浅色或深色主题时，安装 `@crab-dev/rc-theme` 并在应用入口导入一次：
+
+```ts
+import "@crab-dev/rc-theme/css/index.css";
+```
+
+默认使用浅色主题。在页面根节点或局部容器设置 `data-theme="dark"` 可切换为深色。
+主题选择、持久化和首屏设置由应用负责，详见 [Theme 主题](/components/rc-theme)。
+
+## 跟着教程写代码
+
+组件页先提供最小用法，再逐步加入状态和组合能力。按“动手试试”操作预览，对照“你会看到”检查结果，完成后再切到下一步。每一步可以重置，代码可直接复制。
+
+教学示例中的 `css` 模板需要 Crab CSS 的构建期处理，不能直接在没有对应构建集成的浏览器中执行。最便捷的本地练习方式是在本仓库已有的 Wake 文档环境中修改 `.website/docs/examples/`：
+
+```sh
+corepack yarn install --immutable
+corepack yarn docs:dev
+```
+
+打开组件教程，修改对应的 `step-*.tsx`，页面和展示源码会一起刷新。复制到其他应用时，除了安装源码中的组件包与样式入口，也要确认该应用已经接入 Crab CSS 编译；只使用预构建组件本身时则无需编写 `css` 模板。
+
+[先学习 Button](/components/rc-button) · [浏览组件学习地图](/learn/components) · [完成资料编辑表单](/learn/practice-profile)
+
+## 继续学习
+
+- 完成组件页的教学步骤后，展开更多示例，或打开独立工作台查看进阶用法。
 - 阅读[无障碍使用指南](/guides/accessibility)，为控件提供名称、说明和完整键盘路径。
 - 参与组件开发时阅读[Wake 工具链](/guides/toolchain)。

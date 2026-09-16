@@ -1,0 +1,38 @@
+{
+    "id": "rc-prose",
+    "title": "Prose 长文排版",
+    "summary": "Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "包裹正文",
+            "goal": "将语义化标题、段落和列表作为 children。",
+            "why": "Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。",
+            "instruction": "比较各层级文字与间距。",
+            "expected": "正文形成统一的排版结构。",
+            "changes": [
+                "将语义化标题、段落和列表作为 children。"
+            ],
+            "source": "rc-prose/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "调整阅读尺寸",
+            "goal": "通过 size 控制排版密度。",
+            "why": "Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。",
+            "instruction": "切换阅读尺寸。",
+            "expected": "标题、正文和间距一起变化。",
+            "changes": [
+                "通过 size 控制排版密度。"
+            ],
+            "source": "rc-prose/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "直接传 Markdown 字符串会解析吗？",
+            "answer": "不会。先由 Markdown/MDX 工具解析，再将结果放入 Prose。"
+        }
+    ]
+}

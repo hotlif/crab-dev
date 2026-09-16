@@ -10,6 +10,7 @@ const AVERAGE = Math.round(DATA.reduce((a, b) => a + b, 0) / DATA.length);
 
 const AnnotationsDemo = () => (
     <BarChart
+        width="auto"
         aria-label="各月销售额与均值目标"
         categories={['一月', '二月', '三月', '四月', '五月', '六月']}
         series={[{ name: '销售额', data: DATA }]}

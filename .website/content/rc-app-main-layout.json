@@ -1,0 +1,38 @@
+{
+    "id": "rc-app-main-layout",
+    "title": "AppMainLayout 后台布局",
+    "summary": "布局负责导航与标签容器，Provider 保存已打开的页面。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "放入初始页面",
+            "goal": "用 Provider 提供初始标签，再渲染布局。",
+            "why": "布局负责导航与标签容器，Provider 保存已打开的页面。",
+            "instruction": "查看侧栏、页头与内容区。",
+            "expected": "概览页面显示在统一后台框架中。",
+            "changes": [
+                "用 Provider 提供初始标签，再渲染布局。"
+            ],
+            "source": "rc-app-main-layout/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "连接菜单与标签",
+            "goal": "在 Provider 内调用标签 Hook，将菜单事件映射为 openTab。",
+            "why": "布局负责导航与标签容器，Provider 保存已打开的页面。",
+            "instruction": "点击成员管理，再切回概览。",
+            "expected": "新标签显示成员页面，原概览仍可返回。",
+            "changes": [
+                "在 Provider 内调用标签 Hook，将菜单事件映射为 openTab。"
+            ],
+            "source": "rc-app-main-layout/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "页面内容放在哪里？",
+            "answer": "页面内容放在 TabItem.children 中，由 Provider 管理。AppMainLayout 本身不通过 children 接收页面。"
+        }
+    ]
+}

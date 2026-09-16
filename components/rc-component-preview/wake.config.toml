@@ -8,6 +8,7 @@ source_dir = "docs"
 title = "ComponentPreview 组件预览"
 description = "用于预览组件, 提供组件的预览和组件介绍说明"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

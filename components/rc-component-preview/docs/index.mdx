@@ -1,21 +1,23 @@
 +++
 title = "ComponentPreview 组件预览"
-description = "用于预览组件, 提供组件的预览和组件介绍说明"
+description = "在文档中展示组件预览、示例源码和说明"
 kind = "component"
 status = "experimental"
 +++
 
 # ComponentPreview 组件预览
 
-用于在文档中展示组件效果、示例源码和补充说明。
+在文档中展示组件预览、示例源码和说明。
 
-[打开 ComponentPreview 组件预览 工作台](/components/rc-component-preview/workbench/)
+[打开组件工作台](/components/rc-component-preview/workbench/)
 
 ## 何时使用
 
 - 在组件文档中并排展示实时预览与源码。
 - 为示例补充标题、说明和可复制代码。
 - 需要按需加载语法高亮，避免阻塞页面首屏时。
+
+操作栏复用 Crab Button。接入时引入 `@crab-dev/rc-component-preview/css/index.css` 和 `@crab-dev/rc-button/css/index.css`。源码保持整行并在组件内滚动，复制内容保留原始字符串，行号不属于复制内容。
 
 ## 代码演示
 

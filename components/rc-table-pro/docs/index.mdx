@@ -1,0 +1,33 @@
++++
+title = "TablePro 高级表格"
+description = "基于 Table 集成数据加载、查询、列管理和导出"
+kind = "component"
+status = "experimental"
++++
+
+# TablePro 高级表格
+
+基于 `@crab-dev/rc-table` 的业务表格。将 `ProtocolColumnType` 列定义转换为 Table 使用的 `ColumnType`，并通过 `dataType` 配置对应的渲染器、筛选器和编辑器。
+
+[打开组件工作台](/components/rc-table-pro/workbench/)
+
+## 主要功能
+
+- 通过 `fetchColumns` 和 `fetchData` 异步加载列定义与数据。
+- 通过 `typeLoaders` 为不同 `dataType` 配置 `render`、`filterEditor` 和 `editRender`。
+- 复用 AutoSizer 与 Table，提供自适应容器和虚拟滚动。
+- 集成分页、查询、列管理与导出；数据请求和业务筛选逻辑由调用方实现。
+
+## 何时使用
+
+- 后端以列协议（metadata）下发列定义，需要前端根据协议渲染表格；
+- 需要为多种数据类型（金额、日期、富文本、状态）提供可插拔渲染器；
+- 需要将筛选/排序逻辑放到服务端，前端只负责展示与收集条件。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/table.tsx" symbol="TableProProps" component="TablePro" />

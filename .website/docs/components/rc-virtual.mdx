@@ -1,6 +1,6 @@
 +++
 title = "Virtual 虚拟滚动"
-description = "高效的虚拟滚动库，旨在提升大规模列表或内容渲染的性能。"
+description = "按可见范围渲染列表和网格，减少长列表的 DOM 节点数量"
 kind = "component"
 status = "experimental"
 +++
@@ -9,31 +9,74 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-virtual.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-virtual.js";
 
-# Virtual
+# Virtual 虚拟滚动
 
-高效的虚拟滚动组件，用于大规模列表和网格的高性能渲染。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-virtual</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**渲染可见行**
+
+提供行高数组与 renderRows，按包含末项的范围切片。 只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。 滚动列表，观察行号。 能够浏览 1000 行，但只挂载可见范围附近内容。
+
+**调整预渲染范围**
+
+用 overscanRowCount 平衡预渲染数量与快速滚动体验。 只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。 切换预渲染行数后继续滚动。 内容顺序不变，视口外保留的行数改变。
+
+</div>
+
+## 常见问题
+
+### 为什么滚动位置不正确？
+
+实际行高必须与 gridTemplateRows 一致，并保留顶部和底部占位。生产环境可用 AutoSizer 获取视口尺寸。
+
+
+## API
+
+<API source="../_generated_api/rc-virtual.ts" symbol="VirtualProps" component="Virtual" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（1 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
 ##### 基础示例 — 虚拟滚动组件的基础使用示例
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-virtual/workbench/)
 
-当需要渲染大量数据行或列时（如数万行表格、无限滚动列表），直接渲染所有 DOM 节点会导致严重的性能问题。Virtual 组件仅渲染可视区域内的内容，通过二分查找快速定位可见范围，大幅降低内存占用和渲染开销。
+## 使用说明
 
-- 📊 大数据量表格：行列数量达到数千甚至数万时
-- 📜 长列表：聊天记录、日志、时间线等需要滚动浏览大量条目的场景
-- 🎯 精准滚动：支持通过 `scrollToCell` 编程式定位到指定行列
-
+按可见范围渲染列表和网格，减少长列表的 DOM 节点数量。
 
 
+### 何时使用
 
-## API
+用于长列表、日志和大型表格等需要滚动浏览大量条目的场景。组件仅渲染可见范围及预留区域，减少同时挂载的 DOM 节点。
 
-<API source="../_generated_api/rc-virtual.ts" symbol="VirtualProps" component="Virtual" />
+需要跳转到指定行列时，可通过 `scrollToCell` 定位。容器尺寸可配合 AutoSizer 测量。

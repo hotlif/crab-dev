@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "拖拽排序",
     description: "通过 `draggable` 属性启用拖拽功能，支持节点的拖拽排序和层级调整。",
@@ -62,97 +64,101 @@ const DraggableDemo = () => {
     };
 
     return (
-        <RcTree
-            height={400}
-            width={300}
-            treeData={treeData}
-            draggable
-            onTreeNodeChange={setTreeData}
-            expandedKeys={expandedKeys}
-            selectKeys={selectKeys}
-            onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
-                setSelectKeys(selectKeys);
-            }}
-            rendererContextMenu={({ node, hide }: { node: Node | null, hide: () => void }) => {
-                if (node === null) {
-                    return (
-                        <div
-                            style={{
-                                backgroundColor: "red",
-                                padding: "1rem",
-                            }}
-                        >
-                            <button disabled>添加</button>
-                            <br />
-                            <button disabled>删除</button>
-                            <br />
-                            <button
-                                onClick={() => {
-                                    treeDataUtils.reloadChildrenByParent({
-                                        parent: null,
-                                        loadData,
-                                        expandedKeys,
-                                    });
-                                    hide();
+        <AutoSizer disableHeight className={treeMeasureStyle}>
+            {({ width }) => (
+                <RcTree
+                    height={400}
+                    width={Math.min(width, 300)}
+                    treeData={treeData}
+                    draggable
+                    onTreeNodeChange={setTreeData}
+                    expandedKeys={expandedKeys}
+                    selectKeys={selectKeys}
+                    onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
+                        setSelectKeys(selectKeys);
+                    }}
+                    rendererContextMenu={({ node, hide }: { node: Node | null, hide: () => void }) => {
+                        if (node === null) {
+                            return (
+                                <div
+                                    style={{
+                                        backgroundColor: "red",
+                                        padding: "1rem",
+                                    }}
+                                >
+                                    <button disabled>添加</button>
+                                    <br />
+                                    <button disabled>删除</button>
+                                    <br />
+                                    <button
+                                        onClick={() => {
+                                            treeDataUtils.reloadChildrenByParent({
+                                                parent: null,
+                                                loadData,
+                                                expandedKeys,
+                                            });
+                                            hide();
+                                        }}
+                                    >
+                                        刷新所有节点
+                                    </button>
+                                </div>
+                            );
+                        }
+                        return (
+                            <div
+                                style={{
+                                    backgroundColor: "red",
+                                    padding: "1rem",
                                 }}
                             >
-                                刷新所有节点
-                            </button>
-                        </div>
-                    );
-                }
-                return (
-                    <div
-                        style={{
-                            backgroundColor: "red",
-                            padding: "1rem",
-                        }}
-                    >
-                        <button>添加</button>
-                        <br />
-                        <button
-                            onClick={() => {
-                                treeDataUtils.delete(node.id);
-                                hide();
-                            }}
-                        >
-                            删除
-                        </button>
-                        <br />
-                        <button
-                            onClick={() => {
-                                treeDataUtils.reloadChildrenByParent({
-                                    parent: node,
-                                    loadData,
-                                    expandedKeys,
-                                });
-                                hide();
-                            }}
-                        >
-                            刷新子节点数据
-                        </button>
-                    </div>
-                );
-            }}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onDragEnd={(event: any, context: any) => {
-                const over = event.over;
-                const active = event.active;
-                if (context.overState?.state != null) {
-                    treeDataUtils.moveNodeOnDrag(active!.id, over!.id, context.overState.state);
-                }
-            }}
-            onExpanded={({ node }: { node: Node }) => {
-                if (expandedKeys.includes(node.id)) {
-                    const keys = expandedKeys.filter((element) => element !== node.id);
-                    setExpandedKeys(keys);
-                } else {
-                    expandedKeys.push(node.id);
-                    setExpandedKeys([...expandedKeys]);
-                }
-            }}
-            loadData={loadData}
-        />
+                                <button>添加</button>
+                                <br />
+                                <button
+                                    onClick={() => {
+                                        treeDataUtils.delete(node.id);
+                                        hide();
+                                    }}
+                                >
+                                    删除
+                                </button>
+                                <br />
+                                <button
+                                    onClick={() => {
+                                        treeDataUtils.reloadChildrenByParent({
+                                            parent: node,
+                                            loadData,
+                                            expandedKeys,
+                                        });
+                                        hide();
+                                    }}
+                                >
+                                    刷新子节点数据
+                                </button>
+                            </div>
+                        );
+                    }}
+                    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
+                    onDragEnd={(event: any, context: any) => {
+                        const over = event.over;
+                        const active = event.active;
+                        if (context.overState?.state != null) {
+                            treeDataUtils.moveNodeOnDrag(active!.id, over!.id, context.overState.state);
+                        }
+                    }}
+                    onExpanded={({ node }: { node: Node }) => {
+                        if (expandedKeys.includes(node.id)) {
+                            const keys = expandedKeys.filter((element) => element !== node.id);
+                            setExpandedKeys(keys);
+                        } else {
+                            expandedKeys.push(node.id);
+                            setExpandedKeys([...expandedKeys]);
+                        }
+                    }}
+                    loadData={loadData}
+                />
+            )}
+        </AutoSizer>
     );
 };
 

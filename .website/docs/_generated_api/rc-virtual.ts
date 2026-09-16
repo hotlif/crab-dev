@@ -55,7 +55,7 @@ export interface VirtualProps {
     /**
      * 渲染回调，根据当前可见的行列范围返回对应的 ReactNode
      */
-    "renderRows": (rowRange: [ number, number ], columnRange: [ number, number ]) => ReactNode;
+    "renderRows": (rowRange: [number, number], columnRange: [number, number]) => ReactNode;
 
     /**
      * 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动

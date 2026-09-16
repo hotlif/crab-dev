@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Masonry 瀑布流"
 description = "瀑布流布局组件，支持多列自适应排列"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

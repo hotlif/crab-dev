@@ -1,0 +1,39 @@
+{
+  "id": "rc-token-global",
+  "title": "Global Tokens 设计基元",
+  "summary": "全局令牌提供基础色阶和尺度，适合定义语义层映射。业务组件通常使用语义令牌。",
+  "prerequisite": "了解 TypeScript 导入与 CSS 声明，项目已配置 Crab CSS 构建处理。本教程无需 React 状态或组件 Props。",
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "读取令牌",
+      "goal": "区分带回退值的 CSS 引用与变量名称。",
+      "why": "默认导出用于属性值，vars 用于变量名称；二者不能互换。",
+      "instruction": "查看输出，并展开完整代码。",
+      "expected": "第一项包含 var(...) 与原始回退值，第二项仅显示 --token-global-blue-600。",
+      "changes": [
+        "同时导入默认 globalToken 与具名 vars，对照两种输出。"
+      ],
+      "source": "rc-token-global/step-1.tsx"
+    },
+    {
+      "id": "step-2",
+      "title": "应用静态样式",
+      "goal": "在静态 CSS 中同时展示 L1 原色与 L2 阅读表面。",
+      "why": "基元样本可以直接消费 L1；业务内容使用 L2 角色，保持主题关系。",
+      "instruction": "切换网站浅色和深色主题。",
+      "expected": "蓝色色块保持原始颜色，说明文字与表面随站点的语义主题变化。",
+      "changes": [
+        "使用 globalToken.blue[600] 绘制样本。",
+        "使用语义文字、表面和间距构建说明区域。"
+      ],
+      "source": "rc-token-global/step-2.tsx"
+    }
+  ],
+  "faq": [
+    {
+      "question": "修改令牌定义后怎么办？",
+      "answer": "修改 token.toml 后运行 generate:token，生成的 token.ts 必须由命令刷新。"
+    }
+  ]
+}

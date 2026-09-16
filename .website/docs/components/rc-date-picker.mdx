@@ -1,6 +1,6 @@
 +++
 title = "DatePicker 日期选择器"
-description = "日期选择组件"
+description = "基于 Temporal 的日期选择器，支持范围限制、时区和本地化显示"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-date-picker.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-date-picker.js";
 
-# DatePicker 日期选择框
+# DatePicker 日期选择器
 
-一个基于 Temporal API 的现代 React 日期选择器组件，支持高度自定义与国际化。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-date-picker</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**选择日期**
+
+指定业务时区，用 value 与 onValueChange 保存选中日期。 日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。 打开日期面板，选择一天并点击“确定”；也可以用方向键选择，再按 Enter 确认。 输入区域显示选中日期。
+
+**读取业务日期**
+
+保存 ZonedDateTime，展示时只提取日期部分。 日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。 选择日期并确认，再点击“清空日期”。 输出与日期选择同步，不用手动解析显示字符串。
+
+</div>
+
+## 常见问题
+
+### 运行环境需要什么？
+
+运行环境必须支持 Temporal；不支持的浏览器应由应用入口按项目策略加载 Temporal polyfill。
+
+
+## API
+
+<API source="../_generated_api/rc-date-picker.ts" symbol="DatePickerProps" component="DatePicker" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（7 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -39,22 +82,22 @@ import { demos } from "../_generated/rc-date-picker.js";
 ##### 时间面板 — 一个基础的时间选择面板组件
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 特性
+[打开完整组件工作台](/components/rc-date-picker/workbench/)
 
-- 📅 日历视图，支持月/年切换
-- ⏳ 日期范围限制
-- 🌏 时区支持
-- 🗓️ 一周起始日可配置
-- 🏷️ 国际化（locale 自动适配）
-- 🎨 设计 Token，轻松主题定制
-- 🖱️ 鼠标与键盘导航（规划中）
-- 🚫 禁用日期与导航按钮
+## 使用说明
+
+基于 Temporal 的日期选择器，支持日期范围限制、时区和本地化显示。
 
 
+### 主要功能
 
+- 日历面板支持切换月份和年份。
+- 通过 `range` 限制可选日期。
+- 通过 `timeZone`、`locale` 和 `weekStartDay` 配置时区、本地化显示和每周起始日。
+- 使用 `renderDisplayString` 自定义输入框中的日期文本。
 
-## API
-
-<API source="../_generated_api/rc-date-picker.ts" symbol="DatePickerProps" component="DatePicker" />
+`value` 使用 `Temporal.ZonedDateTime | null`，通过 `onValueChange` 接收日期变化。

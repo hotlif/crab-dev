@@ -1,6 +1,6 @@
 +++
 title = "Router 路由"
-description = "面向 React 19 浏览器应用的轻量对象式路由组件"
+description = "通过对象式路由表管理页面、嵌套布局和浏览器导航"
 kind = "component"
 status = "experimental"
 +++
@@ -9,27 +9,79 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-router.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-router.js";
 
-# Router
+# Router 路由
 
-轻量对象式浏览器路由，用一个路由表组织页面、嵌套布局与导航状态。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-router</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**匹配两个页面**
+
+用 routes 声明路径，并给示例提供隔离 window。 路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。 点击成员页链接。 内容切到成员页，文档站地址不变。
+
+**增加返回入口**
+
+为目标页面提供返回链接，形成完整导航回路。 路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。 进入成员页，再返回概览。 两页可往返切换；真实应用可省略 window 使用主窗口。
+
+</div>
+
+## 常见问题
+
+### 生产页面也需要这些模拟代码吗？
+
+不需要。在应用入口使用 &lt;Router routes=&#123;routes&#125; /&gt;，移除 iframe、createDemoWindow 与 window 属性即可使用浏览器真实 History。这里的代理只隔离教程导航。
+
+
+## API
+
+<API source="../_generated_api/rc-router.ts" symbol="RouterProps" component="Router" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（1 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
 ##### 嵌套路由 — 使用独立的 iframe History 演示嵌套页面、动态参数、搜索参数与后退导航
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-router/workbench/)
+
+## 使用说明
+
+通过对象式路由表管理页面、嵌套布局和浏览器导航。
+
+
+### 何时使用
 
 - React 单页应用需要基于 URL 渲染不同页面。
 - 页面之间存在共享布局、动态参数或 404 兜底页。
 - 希望保留原生链接语义，同时获得无刷新导航体验。
 
-## 功能特性
+### 主要功能
 
 - 静态、动态、可选和尾部通配路径匹配。
 - 嵌套路由、无路径布局和索引路由。
@@ -39,7 +91,6 @@ import { demos } from "../_generated/rc-router.js";
 - NavLink 激活态和 `aria-current="page"` 无障碍反馈。
 
 
+工作台示例先加载 `public/history-frame.html` 中的同源空白文档，再将其 Window 传入 Router。Wake 会把该静态资源复制到工作台；示例导航写入 iframe，初始条目禁用后退，避免超出示例历史。不要对 `about:blank` 直接改写 HTTP 路径，也不要用 `document.open` 代替真实文档加载：前者会被拒绝，后者在本次浏览器复测中造成后退重新加载与视图失步。业务页面通常直接使用当前 Window。
 
-## API
-
-<API source="../_generated_api/rc-router.ts" symbol="RouterProps" component="Router" />
+示例在 URL 未指定 tab 时显示 overview。`useSearchParams` 的 defaultInit 提供初始默认值；主动设置参数后，缺失值仍应由业务明确处理，不能假定每次后退都会重新注入默认参数。

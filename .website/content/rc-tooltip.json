@@ -1,0 +1,38 @@
+{
+    "id": "rc-tooltip",
+    "title": "Tooltip 文字提示",
+    "summary": "提示补充短说明，必要信息仍应直接显示在页面上。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "补充说明",
+            "goal": "为真实可聚焦的触发器添加 title 说明。",
+            "why": "提示补充短说明，必要信息仍应直接显示在页面上。",
+            "instruction": "悬停按钮，或用 Tab 聚焦。",
+            "expected": "按钮附近显示补充说明。",
+            "changes": [
+                "为真实可聚焦的触发器添加 title 说明。"
+            ],
+            "source": "rc-tooltip/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "调整位置",
+            "goal": "通过 placement 比较上方与下方提示。",
+            "why": "提示补充短说明，必要信息仍应直接显示在页面上。",
+            "instruction": "切换位置，再聚焦保存按钮。",
+            "expected": "提示在可用空间内调整到指定方位。",
+            "changes": [
+                "通过 placement 比较上方与下方提示。"
+            ],
+            "source": "rc-tooltip/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "能把必填说明只放在 Tooltip 中吗？",
+            "answer": "不应这样做。必填、错误和重要操作说明应直接可见，Tooltip 只作补充。"
+        }
+    ]
+}

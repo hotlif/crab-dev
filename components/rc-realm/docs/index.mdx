@@ -1,22 +1,23 @@
 +++
 title = "Realm 沙箱容器"
-description = "运行时加载 webpack Module Federation 远程模块并嵌入宿主页面的沙箱容器"
+description = "加载 Module Federation 远程模块，支持 React 组件和生命周期两种接入协议"
 kind = "component"
 status = "experimental"
 +++
 
 # Realm 沙箱容器
 
-运行时加载 webpack Module Federation 远程模块并嵌入宿主页面：注入 `remoteEntry.js` →
-`init(shareScope)` → `get(module)` → 渲染。核心承诺是**完美嵌入**——远程 React 组件与宿主
-共享同一 React 实例、同树内联渲染, 宿主 context、合成事件、portal 全部穿透。
+运行时加载 Module Federation 远程模块，完成入口加载、共享依赖初始化、模块获取和渲染。`component` 协议在宿主 React 树中渲染远程组件；`mount` 协议通过生命周期函数挂载远程内容。
 
-[打开 Realm 沙箱容器 工作台](/components/rc-realm/workbench/)
+[打开组件工作台](/components/rc-realm/workbench/)
 
-- 宿主**是否** webpack MF 环境均可工作：优先复用宿主的 `default` share scope, 否则自建
-  scope 并注入宿主的 `react` / `react-dom` / `react-dom/client` / `react/jsx-runtime` 四件套；
-- 同一 remote 多实例只加载一次（Promise 缓存并发去重）, 失败与超时自动失效, 重试重走全链；
-- 加载态复用 `rc-spin`（`delay` 防闪烁）, 错误态复用 `rc-alert` + `rc-button` 就近重试。
+## 主要功能
+
+- 优先复用宿主的 `default` 共享作用域；宿主未使用 Module Federation 时，创建作用域并注册 React 相关模块。
+- 通过 Promise 缓存合并并发加载请求；失败或超时后清除对应缓存，允许重新加载。
+- 提供延迟加载反馈，以及就近显示的错误说明和重试入口。
+
+## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
@@ -24,8 +25,7 @@ status = "experimental"
 
 ### component（默认）：远程导出 React 组件
 
-远程与宿主共享同一 React 实例, 直接在宿主 React 树中内联渲染, 零额外包装。
-`remoteProps` 变化即普通的 props 更新, 不触发重新加载。
+远程与宿主共享同一 React 实例，在宿主 React 树中渲染。`remoteProps` 变化时更新组件属性，不重新加载模块。
 
 ```tsx
 <Realm entry="https://cdn.example.com/remoteEntry.js" scope="orders" module="./OrderTable"
@@ -37,13 +37,13 @@ status = "experimental"
 适配**跨框架**或**与宿主不同 React 版本**的远程。远程导出
 `{ mount(container, props), update?(props), unmount?(container) }`：
 
-- `mount` 必须幂等且与 `unmount` 成对可重入；可返回 cleanup 函数（卸载时 cleanup 先于 unmount 调用）；
-- 提供 `update` 则 `remoteProps` 变化走增量更新, 否则 Realm 换 key 走 unmount → mount 全量重挂。
+- `mount` 应支持重复挂载和清理，并与 `unmount` 配对；可返回清理函数，卸载时先调用该函数，再调用 `unmount`。
+- 提供 `update` 时，`remoteProps` 变化会触发增量更新；未提供时，Realm 卸载后重新挂载内容。
 
-此协议下可开启 `sandbox`（Shadow DOM 样式隔离）。**component 协议在类型层禁用 sandbox**：
-标准 MF React 远程的样式注入 `document.head`, Shadow 隔离必然导致样式丢失。
+`mount` 协议可开启 `sandbox`，通过 Shadow DOM 隔离样式。`component` 协议不支持此选项：
+注入 `document.head` 的普通样式无法直接应用到 Shadow DOM 内部。
 
-## remote 侧的 shared 配置（唯一受支持样板）
+## 远程应用的共享依赖配置
 
 ```js
 // 远程应用的 webpack.config.js → ModuleFederationPlugin
@@ -53,19 +53,14 @@ shared: {
 }
 ```
 
-- **必须** `singleton: true`——Realm 注入的宿主 React 条目带 `loaded: 1`, singleton 消费端
-  优先选取已加载版本, 从根上杜绝"双 React"（invalid hook call 的最大来源）；
-- **禁配** `strictVersion: true` 与 `eager: true`：前者在版本不合时直接抛错而非回退,
-  后者把依赖打进 remoteEntry 主包并绕过 share scope, 二者都会破坏宿主注入机制。
+- React 共享依赖必须设置 `singleton: true`，以复用宿主已加载的实例，避免多个 React 实例引起 Hook 调用错误。
+- 当前接入约定不支持 `strictVersion: true` 或 `eager: true`。请保持上面的共享配置，并验证远程应用与宿主的 React 版本兼容。
 
-## sandbox 边界
+## 样式隔离边界
 
-- 隔离的是**样式**：远程样式须自包含（构建进 JS）或经 `styleSheets` 由宿主注入 shadow root；
-- 主题令牌的 **CSS 自定义属性天然穿透** shadow 边界——远程样式可直接引用
-  `var(--token-semantic-*)`, 这是隔离下唯一"应该穿透"的东西, 行为正确；
-- 远程若用 portal 弹层（tooltip / dropdown）, 弹层会逃逸 shadow root 挂到 `document.body`,
-  不受沙箱样式约束；若宿主处于原生 `<dialog>`（showModal）的 top-layer 中, 远程弹层应挂进
-  `node.closest('dialog')` 子树（参考 `rc-tooltip` / `rc-dropdown-container` 的 portalRoot 先例）。
+- `sandbox` 提供样式隔离，不隔离 JavaScript 执行环境。远程样式需要在 Shadow DOM 内生效，或通过 `styleSheets` 注入。
+- CSS 自定义属性可从宿主继承到 Shadow DOM 内部，因此远程样式可以使用 `var(--token-semantic-*)`。
+- Portal 弹层若挂载到 `document.body`，会离开 Shadow DOM 的样式范围。宿主位于原生模态对话框中时，应将弹层挂载到相应的 `dialog` 子树；可参考 Tooltip 和 DropdownContainer 的挂载处理。
 
 ## RealmError 错误码
 
@@ -80,11 +75,11 @@ shared: {
 | `protocol` | 模块形态与所选协议不符（错误信息会指向另一协议） |
 | `render` | 远程组件渲染期 / `mount()` 执行期抛错 |
 
-失败与超时会自动使缓存失效, 错误态的"重试"按钮即可重走完整加载链路。
+加载失败或超时后，对应缓存会失效。点击错误提示中的“重试”可重新执行加载流程。
 
 ## 工具函数
 
-组件之外具名导出加载原语, 供高级场景直接使用：
+以下具名导出函数可用于预加载或独立加载模块，与组件共享缓存：
 
 ```ts
 import { loadRemoteModule, preloadRemote, clearRemoteCache } from '@crab-dev/rc-realm';

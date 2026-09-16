@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "LineEdit 单行输入框"
 description = "单行文本编辑组件"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

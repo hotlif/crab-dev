@@ -1,7 +1,11 @@
 import { readFile, readdir, mkdir, unlink, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import ts from "typescript";
+import { parse } from "@babel/parser";
+import { generate } from "@babel/generator";
+import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
+import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 
 const EXPECTED_COMPONENT_COUNT = 52;
 const EXPECTED_DEMO_COUNT = 246;
@@ -15,7 +19,6 @@ const generatedApiDirectory = path.join(websiteDocsDirectory, "_generated_api");
 const generatedPagesDirectory = path.join(websiteDocsDirectory, "components");
 const checkOnly = process.argv.includes("--check");
 const MAX_API_TYPE_TEXT_LENGTH = 400;
-const apiTypePrinter = ts.createPrinter({ removeComments: true });
 
 const compactComponents = new Set([
     "rc-avatar",
@@ -153,7 +156,7 @@ const demoGroupDefinitions = new Map([
             "size-changer.demo.tsx",
         ]],
     ]],
-    ["rc-protocol-table", [
+    ["rc-table-pro", [
         ["基础与数据", [
             "basic.demo.tsx",
             "type-loaders.demo.tsx",
@@ -257,13 +260,35 @@ function normalizeNewlines(value) {
     return value.replace(/\r\n?/g, "\n");
 }
 
+// TypeScript 7.0 has no JavaScript compiler API. Docs only need syntax, not type checking.
+function parseTypeScript(sourceCode, filePath) {
+    return parse(sourceCode, {
+        sourceType: "module",
+        sourceFilename: filePath,
+        plugins: filePath.endsWith(".tsx") ? ["typescript", "jsx"] : ["typescript"],
+    });
+}
+
+function printType(node) {
+    return generate(node, { comments: false, concise: true }).code;
+}
+
+function visitSyntax(node, visit) {
+    if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+    visit(node);
+    for (const value of Object.values(node)) {
+        if (Array.isArray(value)) value.forEach((child) => visitSyntax(child, visit));
+        else if (value && typeof value === "object") visitSyntax(value, visit);
+    }
+}
+
 function unwrapExpression(expression) {
     let current = expression;
     while (
-        ts.isAsExpression(current)
-        || ts.isSatisfiesExpression(current)
-        || ts.isParenthesizedExpression(current)
-        || ts.isTypeAssertionExpression(current)
+        current.type === "TSAsExpression"
+        || current.type === "TSSatisfiesExpression"
+        || current.type === "ParenthesizedExpression"
+        || current.type === "TSTypeAssertion"
     ) {
         current = current.expression;
     }
@@ -272,51 +297,42 @@ function unwrapExpression(expression) {
 
 function readStaticString(expression, fieldName, filePath) {
     const value = unwrapExpression(expression);
-    if (ts.isStringLiteralLike(value)) {
-        return value.text;
+    if (value.type === "StringLiteral") return value.value;
+    if (value.type === "TemplateLiteral" && value.expressions.length === 0) {
+        return value.quasis[0].value.cooked;
     }
     throw new Error(`${filePath}: meta.${fieldName} 必须是静态字符串`);
 }
 
 function propertyNameText(name) {
-    if (ts.isIdentifier(name) || ts.isStringLiteralLike(name)) {
-        return name.text;
-    }
+    if (name?.type === "Identifier") return name.name;
+    if (name?.type === "StringLiteral") return name.value;
     return undefined;
 }
 
-function extractDemoMeta(sourceCode, filePath) {
-    const sourceFile = ts.createSourceFile(
-        filePath,
-        sourceCode,
-        ts.ScriptTarget.Latest,
-        true,
-        ts.ScriptKind.TSX,
-    );
+export function extractDemoMeta(sourceCode, filePath) {
+    const sourceFile = parseTypeScript(sourceCode, filePath);
 
-    for (const statement of sourceFile.statements) {
-        if (!ts.isVariableStatement(statement)) continue;
-        const isExported = statement.modifiers?.some((modifier) => (
-            modifier.kind === ts.SyntaxKind.ExportKeyword
-        ));
-        if (!isExported) continue;
+    for (const statement of sourceFile.program.body) {
+        if (statement.type !== "ExportNamedDeclaration"
+            || statement.declaration?.type !== "VariableDeclaration") continue;
 
-        for (const declaration of statement.declarationList.declarations) {
-            if (!ts.isIdentifier(declaration.name) || declaration.name.text !== "meta") continue;
-            if (!declaration.initializer) {
+        for (const declaration of statement.declaration.declarations) {
+            if (declaration.id.type !== "Identifier" || declaration.id.name !== "meta") continue;
+            if (!declaration.init) {
                 throw new Error(`${filePath}: meta 缺少初始化值`);
             }
-            const initializer = unwrapExpression(declaration.initializer);
-            if (!ts.isObjectLiteralExpression(initializer)) {
+            const initializer = unwrapExpression(declaration.init);
+            if (initializer.type !== "ObjectExpression") {
                 throw new Error(`${filePath}: meta 必须是静态对象字面量`);
             }
 
             const values = new Map();
             for (const property of initializer.properties) {
-                if (!ts.isPropertyAssignment(property)) continue;
-                const name = propertyNameText(property.name);
+                if (property.type !== "ObjectProperty" || property.computed) continue;
+                const name = propertyNameText(property.key);
                 if (name === "title" || name === "description") {
-                    values.set(name, readStaticString(property.initializer, name, filePath));
+                    values.set(name, readStaticString(property.value, name, filePath));
                 }
             }
             if (!values.has("title") || !values.has("description")) {
@@ -355,7 +371,7 @@ function normalizeCommentText(value) {
 }
 
 function leadingLineComment(node, sourceFile) {
-    const leadingText = sourceFile.text.slice(node.getFullStart(), node.getStart(sourceFile));
+    const leadingText = sourceFile.slice(0, node.start);
     const lines = leadingText.split(/\r?\n/);
     const comments = [];
     for (let index = lines.length - 1; index >= 0; index -= 1) {
@@ -372,47 +388,56 @@ function leadingLineComment(node, sourceFile) {
 }
 
 function propertyDescription(node, sourceFile) {
-    const jsDoc = ts.getJSDocCommentsAndTags(node).find(ts.isJSDoc);
-    const comment = typeof jsDoc?.comment === "string" ? jsDoc.comment : "";
+    const comment = propertyJsDoc(node).split(/(?:^|\s)@[a-zA-Z]+\b/)[0];
     return normalizeCommentText(comment) || leadingLineComment(node, sourceFile);
 }
 
+function propertyJsDoc(node) {
+    const jsDoc = node.leadingComments?.findLast((comment) => (
+        comment.type === "CommentBlock" && comment.value.startsWith("*")
+    ));
+    return jsDoc?.value.replace(/^\s*\* ?/gm, "").trim() ?? "";
+}
+
 function propertyDeprecated(node) {
-    return ts.getJSDocTags(node).some((tag) => tag.tagName.text === "deprecated");
+    return /(?:^|\s)@deprecated\b/.test(propertyJsDoc(node));
 }
 
 function memberName(member) {
-    if (!member.name) return undefined;
-    return propertyNameText(member.name);
+    if (member.computed) return undefined;
+    return propertyNameText(member.key);
 }
 
-function memberTypeText(member, sourceFile) {
-    if (ts.isPropertySignature(member)) {
-        return member.type
-            ? apiTypePrinter.printNode(ts.EmitHint.Unspecified, member.type, sourceFile)
+function memberTypeText(member) {
+    if (member.type === "TSPropertySignature") {
+        return member.typeAnnotation
+            ? printType(member.typeAnnotation.typeAnnotation)
             : "unknown";
     }
-    if (ts.isMethodSignature(member)) {
-        const typeParameters = member.typeParameters?.length
-            ? `<${member.typeParameters.map((parameter) => parameter.getText(sourceFile)).join(", ")}>`
-            : "";
-        const parameters = member.parameters.map((parameter) => parameter.getText(sourceFile)).join(", ");
-        const returnType = member.type?.getText(sourceFile) ?? "void";
-        return `${typeParameters}(${parameters}) => ${returnType}`;
+    if (member.type === "TSMethodSignature") {
+        return printType({
+            type: "TSFunctionType",
+            typeParameters: member.typeParameters,
+            parameters: member.parameters,
+            typeAnnotation: member.typeAnnotation ?? {
+                type: "TSTypeAnnotation",
+                typeAnnotation: { type: "TSVoidKeyword" },
+            },
+        });
     }
     return "unknown";
 }
 
 function sourceMemberRecord(member, sourceFile) {
     const name = memberName(member);
-    if (!name || (!ts.isPropertySignature(member) && !ts.isMethodSignature(member))) {
+    if (!name || (member.type !== "TSPropertySignature" && member.type !== "TSMethodSignature")) {
         return undefined;
     }
     return {
         name,
-        required: member.questionToken === undefined,
+        required: !member.optional,
         description: propertyDescription(member, sourceFile),
-        typeText: memberTypeText(member, sourceFile).replace(/\s+/g, " ").trim(),
+        typeText: memberTypeText(member).replace(/\s+/g, " ").trim(),
         defaultValue: null,
         deprecated: propertyDeprecated(member),
     };
@@ -463,32 +488,31 @@ function mergeUnionRecords(recordGroups) {
 }
 
 function literalPropertyNames(typeNode) {
-    if (ts.isLiteralTypeNode(typeNode) && ts.isStringLiteralLike(typeNode.literal)) {
-        return [typeNode.literal.text];
+    if (typeNode?.type === "TSLiteralType" && typeNode.literal.type === "StringLiteral") {
+        return [typeNode.literal.value];
     }
-    if (ts.isUnionTypeNode(typeNode)) {
+    if (typeNode?.type === "TSUnionType") {
         return typeNode.types.flatMap(literalPropertyNames);
     }
     return [];
 }
 
 function parseSourceApiProps(sourcePath, symbol) {
-    const sourceCode = ts.sys.readFile(sourcePath);
-    if (sourceCode === undefined) return [];
-    const sourceFile = ts.createSourceFile(
-        sourcePath,
-        sourceCode,
-        ts.ScriptTarget.Latest,
-        true,
-        sourcePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
-    );
+    let sourceCode;
+    try {
+        sourceCode = readFileSync(sourcePath, "utf8");
+    } catch (error) {
+        if (error.code === "ENOENT") return [];
+        throw error;
+    }
+    const sourceFile = parseTypeScript(sourceCode, sourcePath);
     const declarations = new Map();
-    for (const statement of sourceFile.statements) {
+    for (const statement of sourceFile.program.body) {
+        const declaration = statement.type === "ExportNamedDeclaration" ? statement.declaration : statement;
         if (
-            (ts.isInterfaceDeclaration(statement) || ts.isTypeAliasDeclaration(statement))
-            && ts.isIdentifier(statement.name)
+            declaration?.type === "TSInterfaceDeclaration" || declaration?.type === "TSTypeAliasDeclaration"
         ) {
-            declarations.set(statement.name.text, statement);
+            declarations.set(declaration.id.name, declaration);
         }
     }
 
@@ -508,19 +532,19 @@ function parseSourceApiProps(sourcePath, symbol) {
 
     function resolveType(typeNode) {
         if (!typeNode) return [];
-        if (ts.isParenthesizedTypeNode(typeNode)) return resolveType(typeNode.type);
-        if (ts.isTypeLiteralNode(typeNode)) {
-            return typeNode.members.map((member) => sourceMemberRecord(member, sourceFile)).filter(Boolean);
+        if (typeNode.type === "TSParenthesizedType") return resolveType(typeNode.typeAnnotation);
+        if (typeNode.type === "TSTypeLiteral") {
+            return typeNode.members.map((member) => sourceMemberRecord(member, sourceCode)).filter(Boolean);
         }
-        if (ts.isIntersectionTypeNode(typeNode)) {
+        if (typeNode.type === "TSIntersectionType") {
             return mergeIntersectionRecords(typeNode.types.map(resolveType));
         }
-        if (ts.isUnionTypeNode(typeNode)) {
+        if (typeNode.type === "TSUnionType") {
             return mergeUnionRecords(typeNode.types.map(resolveType));
         }
-        if (!ts.isTypeReferenceNode(typeNode)) return [];
+        if (typeNode.type !== "TSTypeReference") return [];
 
-        return resolveNamedType(typeNode.typeName.getText(sourceFile), typeNode.typeArguments);
+        return resolveNamedType(printType(typeNode.typeName), typeNode.typeParameters?.params);
     }
 
     function resolveDeclaration(name) {
@@ -529,16 +553,14 @@ function parseSourceApiProps(sourcePath, symbol) {
         if (!declaration) return [];
         resolving.add(name);
         let records;
-        if (ts.isTypeAliasDeclaration(declaration)) {
-            records = resolveType(declaration.type);
+        if (declaration.type === "TSTypeAliasDeclaration") {
+            records = resolveType(declaration.typeAnnotation);
         } else {
-            const inherited = declaration.heritageClauses?.flatMap((clause) => (
-                clause.types.flatMap((heritage) => (
-                    resolveNamedType(heritage.expression.getText(sourceFile), heritage.typeArguments)
-                ))
+            const inherited = declaration.extends?.flatMap((heritage) => (
+                resolveNamedType(printType(heritage.expression), heritage.typeParameters?.params)
             )) ?? [];
-            const own = declaration.members
-                .map((member) => sourceMemberRecord(member, sourceFile))
+            const own = declaration.body.body
+                .map((member) => sourceMemberRecord(member, sourceCode))
                 .filter(Boolean);
             records = mergeIntersectionRecords([inherited, own]);
         }
@@ -548,9 +570,9 @@ function parseSourceApiProps(sourcePath, symbol) {
 
     const descriptionsByName = new Map();
     for (const declaration of declarations.values()) {
-        if (!ts.isInterfaceDeclaration(declaration)) continue;
-        for (const member of declaration.members) {
-            const record = sourceMemberRecord(member, sourceFile);
+        if (declaration.type !== "TSInterfaceDeclaration") continue;
+        for (const member of declaration.body.body) {
+            const record = sourceMemberRecord(member, sourceCode);
             if (record?.description && !descriptionsByName.has(record.name)) {
                 descriptionsByName.set(record.name, record.description);
             }
@@ -573,14 +595,13 @@ function isValidTypeText(typeText) {
     ) {
         return false;
     }
-    const sourceFile = ts.createSourceFile(
-        "api-type.ts",
-        `type ApiType = ${typeText};`,
-        ts.ScriptTarget.Latest,
-        true,
-        ts.ScriptKind.TS,
-    );
-    return sourceFile.parseDiagnostics.length === 0;
+    try {
+        const sourceFile = parseTypeScript(`type ApiType = ${typeText};`, "api-type.ts");
+        return sourceFile.program.body.length === 1
+            && sourceFile.program.body[0].type === "TSTypeAliasDeclaration";
+    } catch {
+        return false;
+    }
 }
 
 function normalizeApiProps(docgenProps, sourceProps, context) {
@@ -770,31 +791,23 @@ function placeholderType(typeArguments) {
 }
 
 function qualifiedNameParts(name) {
-    if (ts.isIdentifier(name)) return [name.text];
-    return [...qualifiedNameParts(name.left), name.right.text];
+    if (name.type === "Identifier") return [name.name];
+    return [...qualifiedNameParts(name.left), name.right.name];
 }
 
 function createApiTypePlaceholders(props, rootSymbol) {
     const aliases = new Map();
     const namespaces = new Map();
     for (const prop of props) {
-        const sourceFile = ts.createSourceFile(
-            "api-property.ts",
-            `type ApiProperty = ${prop.typeText};`,
-            ts.ScriptTarget.Latest,
-            true,
-            ts.ScriptKind.TS,
-        );
+        const sourceFile = parseTypeScript(`type ApiProperty = ${prop.typeText};`, "api-property.ts");
         const boundNames = new Set();
-        function collectBoundNames(node) {
-            if (ts.isTypeParameterDeclaration(node)) boundNames.add(node.name.text);
-            ts.forEachChild(node, collectBoundNames);
-        }
-        collectBoundNames(sourceFile);
-        function visit(node) {
-            if (ts.isTypeReferenceNode(node)) {
+        visitSyntax(sourceFile, (node) => {
+            if (node.type === "TSTypeParameter") boundNames.add(node.name);
+        });
+        visitSyntax(sourceFile, (node) => {
+            if (node.type === "TSTypeReference") {
                 const parts = qualifiedNameParts(node.typeName);
-                const arity = node.typeArguments?.length ?? 0;
+                const arity = node.typeParameters?.params.length ?? 0;
                 if (parts.length === 1 && !boundNames.has(parts[0])) {
                     aliases.set(parts[0], Math.max(aliases.get(parts[0]) ?? 0, arity));
                 } else if (parts.length > 1 && parts[0] !== "globalThis") {
@@ -805,9 +818,7 @@ function createApiTypePlaceholders(props, rootSymbol) {
                     namespaces.set(namespace, members);
                 }
             }
-            ts.forEachChild(node, visit);
-        }
-        visit(sourceFile);
+        });
     }
 
     aliases.delete(rootSymbol);
@@ -849,18 +860,10 @@ function createSearchableApiSource(api) {
     }).join("\n\n");
     const placeholders = createApiTypePlaceholders(searchableProps, api.symbol);
     const content = `/**\n * ${GENERATED_MARKER}\n * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。\n */\n\n${placeholders}\n\nexport interface ${api.symbol} {\n${properties}\n}\n`;
-    const sourceFile = ts.createSourceFile(
-        `${api.symbol}.ts`,
-        content,
-        ts.ScriptTarget.Latest,
-        true,
-        ts.ScriptKind.TS,
-    );
-    if (sourceFile.parseDiagnostics.length > 0) {
-        const message = sourceFile.parseDiagnostics
-            .map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, " "))
-            .join("; ");
-        throw new Error(`${api.component}: 生成的搜索 API 源码无法解析：${message}`);
+    try {
+        parseTypeScript(content, `${api.symbol}.ts`);
+    } catch (error) {
+        throw new Error(`${api.component}: 生成的搜索 API 源码无法解析：${error.message}`, { cause: error });
     }
     return content;
 }
@@ -892,7 +895,7 @@ function createDemoSearchMetadata(demos) {
     return lines.join("\n");
 }
 
-function createPage(canonicalSource, slug, demos, api) {
+function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = []) {
     const normalized = normalizeNewlines(canonicalSource);
     const frontmatterMatch = normalized.match(/^(\+\+\+\n[\s\S]*?\n\+\+\+)\n+/);
     if (!frontmatterMatch) {
@@ -900,6 +903,15 @@ function createPage(canonicalSource, slug, demos, api) {
     }
 
     let body = normalized.slice(frontmatterMatch[0].length);
+    if (slug === "rc-token-global") {
+        const content = body
+            .replace(/^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m, "")
+            .replace(/<Demos\b[^>]*\/>/g, '<ComponentDemos demos={demos} />')
+            .replace(/\{\/\* token-reference:([\w-]+) \*\/\}/g, '<TokenReference group="$1" />')
+            .replace("{/* token-tutorial */}", "<Tutorial tutorial={tutorial} />");
+        const tokenIndex = referenceTokens.map(entry => `${entry.key} · ${entry.value} · ${entry.expression} · ${entry.variable}`).join("\n\n");
+        return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\nimport TokenReference from "../site/tokenReference.js";\nimport Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\nimport ComponentDemos from "../site/componentDemos.js";\nimport { demos } from "../_generated/${slug}.js";\n\n${content.trim()}\n\n<div hidden aria-hidden="true" data-docs-search-index="tokens">\n\n@crab-dev/rc-token-global\n\n${tokenIndex}\n\n</div>\n\n${createDemoSearchMetadata(demos).trimEnd()}\n`;
+    }
     const previewSection = `## 组件预览\n\n${createDemoSearchMetadata(demos)}<ComponentDemos demos={demos} />\n`;
     const workbenchLink = /^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m;
     if (!workbenchLink.test(body)) {
@@ -929,6 +941,18 @@ function createPage(canonicalSource, slug, demos, api) {
         `import { demos } from "../_generated/${slug}.js";`,
     ].filter(Boolean).join("\n");
 
+    if (lesson) {
+        const heading = body.match(/^# [^\n]+/m)?.[0] ?? `# ${lesson.title}`;
+        const apiMarkup = api === null ? "" : `## API\n\n<API source="../_generated_api/${slug}.ts" symbol="${api.symbol}" component="${api.component}" />\n\n`;
+        const notes = normalized.slice(frontmatterMatch[0].length)
+            .replace(/^# [^\n]+\n+/m, "")
+            .replace(workbenchLink, "")
+            .replace(/<Demos\b[^>]*\/>/g, "")
+            .replace(/<API\b[^>]*\/>/g, "")
+            .replace(/^## (?:API|代码演示|Light \/ Dark 并排示例)\s*$/gm, "")
+            .replace(/^## /gm, "### ");
+        return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport Tutorial from "../site/tutorial.js";\nimport FirstExample from "../site/firstExample.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n## 基础示例\n\n<FirstExample tutorial={tutorial} />\n\n${tutorialMarkup(lesson)}\n\n${apiMarkup}## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n## 使用说明\n\n${notes.trim()}\n`;
+    }
     return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\n\n${body.trim()}\n`;
 }
 
@@ -961,9 +985,10 @@ async function removeOrphanGeneratedFiles(directory, expectedFiles, drift, shoul
         throw error;
     }
     for (const entry of entries) {
-        if (!entry.isFile() || !entry.name.endsWith(".ts")) continue;
+        if (!entry.isFile() || !/\.(ts|mdx)$/.test(entry.name)) continue;
         const filePath = path.join(directory, entry.name);
         if (expectedFiles.has(filePath)) continue;
+        if (entry.name.endsWith(".mdx") && !(await readFile(filePath, "utf8")).includes(GENERATED_MARKER)) continue;
         drift.push(path.relative(repositoryRoot, filePath));
         if (!shouldCheck) await unlink(filePath);
     }
@@ -993,6 +1018,14 @@ async function generateDocs() {
     }
 
     const outputs = [];
+    const referenceSource = await readFile(path.join(componentsDirectory, "rc-token-global/token.toml"), "utf8");
+    const referenceTokens = readGlobalTokens(referenceSource);
+    outputs.push({
+        filePath: path.join(generatedDataDirectory, "globalTokenReference.ts"),
+        content: createTokenReferenceData(referenceSource),
+    });
+    outputs.push(await createHomeExample(repositoryRoot));
+    const lessons = [];
     const globalDemoKeys = new Set();
     let demoCount = 0;
 
@@ -1032,6 +1065,9 @@ async function generateDocs() {
         demoCount += organizedDemos.length;
 
         const api = await extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath);
+        const lesson = await loadTutorial(repositoryRoot, slug, organizedDemos);
+        lessons.push(lesson.record);
+        outputs.push(lesson.output);
         outputs.push({
             filePath: path.join(generatedDataDirectory, `${slug}.ts`),
             content: createDataModule(organizedDemos),
@@ -1044,7 +1080,7 @@ async function generateDocs() {
         }
         outputs.push({
             filePath: path.join(generatedPagesDirectory, `${slug}.mdx`),
-            content: createPage(canonicalMdx, slug, organizedDemos, api),
+            content: createPage(canonicalMdx, slug, organizedDemos, api, lesson.record, slug === "rc-token-global" ? referenceTokens : []),
         });
     }
 
@@ -1054,6 +1090,16 @@ async function generateDocs() {
         );
     }
 
+    const practices = await loadPracticeTutorials(repositoryRoot);
+    const teaching = await validateTeachingInventory(repositoryRoot, [...lessons, ...practices.map(item => item.record)], ["home/profile.tsx"]);
+    outputs.push({ filePath: path.join(websiteDocsDirectory, "learn/components.mdx"), content: createLearningMap(navigation, lessons) });
+    for (const { record, output } of practices) {
+        outputs.push(output);
+        outputs.push({
+            filePath: path.join(websiteDocsDirectory, "learn", `${record.id}.mdx`),
+            content: `+++\ntitle = ${JSON.stringify(record.title)}\ndescription = ${JSON.stringify(record.summary)}\nkind = "guide"\nstatus = "experimental"\n+++\n\n{/* ${GENERATED_MARKER} */}\n\nimport Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${record.id}.js";\n\n# ${record.title}\n\n${tutorialMarkup(record)}\n\n[返回实战教程](/learn)\n`,
+        });
+    }
     const drift = [];
     for (const output of outputs) {
         await emitFile(output.filePath, output.content, drift);
@@ -1064,13 +1110,17 @@ async function generateDocs() {
             .filter((filePath) => path.dirname(filePath) === generatedApiDirectory),
     );
     await removeOrphanGeneratedFiles(generatedApiDirectory, expectedApiFiles, drift);
+    for (const directory of [path.join(websiteDocsDirectory, "_generated_tutorials"), path.join(websiteDocsDirectory, "learn")]) {
+        const expectedFiles = new Set(outputs.map(output => output.filePath).filter(file => path.dirname(file) === directory));
+        await removeOrphanGeneratedFiles(directory, expectedFiles, drift);
+    }
 
     if (checkOnly && drift.length > 0) {
         throw new Error(`组件文档生成产物存在漂移：\n${drift.map((file) => `- ${file}`).join("\n")}`);
     }
 
     const action = checkOnly ? "检查" : "生成";
-    console.log(`${action}完成：${componentSlugs.length} 个组件页，${demoCount} 个唯一 Demo，${drift.length} 个文件变化。`);
+    console.log(`${action}完成：${componentSlugs.length} 个组件页，${teaching.tutorials} 份教程，${teaching.examples} 个教学示例，${demoCount} 个唯一 Demo，${drift.length} 个文件变化。`);
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

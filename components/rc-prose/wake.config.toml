@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Prose 长文本排版"
 description = "Markdown 排版样式组件，提供 prose 容器类与多尺寸变体"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

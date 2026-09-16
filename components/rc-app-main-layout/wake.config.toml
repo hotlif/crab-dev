@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "AppMainLayout 布局"
 description = "布局组件，适用于管理后台、仪表盘等"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

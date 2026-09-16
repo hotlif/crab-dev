@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Button 按钮"
 description = "一个按钮, 用于即时操作"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

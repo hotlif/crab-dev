@@ -1,18 +1,19 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "分组变换与嵌套",
     description: "Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #fafafa;
 `;
 
@@ -26,7 +27,7 @@ const Badge = () => (
 
 const GroupDemo = () => {
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={220}>
                 {/* 原始 */}
                 <Group x={70} y={110}>

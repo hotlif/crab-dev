@@ -1,0 +1,38 @@
+{
+    "id": "rc-slider",
+    "title": "Slider 滑块",
+    "summary": "滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "连接数值",
+            "goal": "将 value 与 onValueChange 连接到亮度状态。",
+            "why": "滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。",
+            "instruction": "拖动滑块。",
+            "expected": "亮度数字随滑块位置更新。",
+            "changes": [
+                "将 value 与 onValueChange 连接到亮度状态。"
+            ],
+            "source": "rc-slider/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "限制步长",
+            "goal": "增加 step={10}，并提供明确的恢复操作。",
+            "why": "滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。",
+            "instruction": "调整数值，再恢复默认亮度。",
+            "expected": "数值按 10 递增，恢复操作回到 40%。",
+            "changes": [
+                "增加 step={10}，并提供明确的恢复操作。"
+            ],
+            "source": "rc-slider/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "如何精确键入数字？",
+            "answer": "需要键入时配合 NumberEdit，并让两个控件共享同一数值状态。"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "id": "rc-alert",
+    "title": "Alert 页面提示",
+    "summary": "页面提示应靠近相关内容，并说明状态和下一步操作。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "说明当前状态",
+            "goal": "使用 type、title 和 children 组合提示内容。",
+            "why": "页面提示应靠近相关内容，并说明状态和下一步操作。",
+            "instruction": "阅读标题和正文，区分状态与补充说明。",
+            "expected": "页面持续显示草稿提示，不会自动消失。",
+            "changes": [
+                "使用 type、title 和 children 组合提示内容。"
+            ],
+            "source": "rc-alert/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "提供关闭反馈",
+            "goal": "添加 closable 和 onClose，观察关闭结果。",
+            "why": "页面提示应靠近相关内容，并说明状态和下一步操作。",
+            "instruction": "点击提示中的关闭按钮。",
+            "expected": "提示关闭，下方显示关闭结果；重置可再次练习。",
+            "changes": [
+                "添加 closable 和 onClose，观察关闭结果。"
+            ],
+            "source": "rc-alert/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "什么时候用 Message？",
+            "answer": "需要短暂、简短的操作反馈时用 Message；需要持续阅读的页面提示用 Alert。"
+        }
+    ]
+}

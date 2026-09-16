@@ -1,0 +1,38 @@
+{
+    "id": "rc-drawer",
+    "title": "Drawer 抽屉",
+    "summary": "抽屉适合在保留页面上下文的同时处理详情或编辑任务。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "打开详情",
+            "goal": "通过 open 和 onOpenChange 控制边缘面板。",
+            "why": "抽屉适合在保留页面上下文的同时处理详情或编辑任务。",
+            "instruction": "打开详情，再关闭抽屉。",
+            "expected": "详情从页面边缘展开，主页面仍保留。",
+            "changes": [
+                "通过 open 和 onOpenChange 控制边缘面板。"
+            ],
+            "source": "rc-drawer/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "完成侧栏任务",
+            "goal": "在抽屉内部完成操作，并更新外部结果。",
+            "why": "抽屉适合在保留页面上下文的同时处理详情或编辑任务。",
+            "instruction": "打开抽屉并标记完成。",
+            "expected": "抽屉关闭，项目状态变为已完成。",
+            "changes": [
+                "在抽屉内部完成操作，并更新外部结果。"
+            ],
+            "source": "rc-drawer/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "何时用 Dialog？",
+            "answer": "短确认通常使用 Dialog；需要更多详情或较长表单时使用 Drawer。"
+        }
+    ]
+}

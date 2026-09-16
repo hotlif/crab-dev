@@ -1,6 +1,6 @@
 +++
 title = "Checkbox 复选框"
-description = "复选框, 用于在一组选项中选择多个值"
+description = "从一组选项中选择多个值，或标记单个选项的选中状态"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-checkbox.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-checkbox.js";
 
-# Checkbox
+# Checkbox 复选框
 
-复选框, 用于在一组选项中选择多个值。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-checkbox</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+复选框用于标记独立选项，checked 是业务保存的布尔值。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**设置初始值**
+
+使用 defaultChecked 设置初始选中状态。 复选框用于标记独立选项，checked 是业务保存的布尔值。 点击选项，观察选中状态。 选项可在选中与未选中之间切换。
+
+**改为受控**
+
+将 checked 与 onChange 连接到同一个 state。 复选框用于标记独立选项，checked 是业务保存的布尔值。 切换选项，再查看状态文字。 控件与文字始终保持一致。
+
+</div>
+
+## 常见问题
+
+### 受控与非受控可以混用吗？
+
+同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。
+
+
+## API
+
+<API source="../_generated_api/rc-checkbox.ts" symbol="CheckboxProps" component="Checkbox" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（5 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -29,16 +72,24 @@ import { demos } from "../_generated/rc-checkbox.js";
 ##### 复选框尺寸 — 通过 `size` 属性设置复选框尺寸, 支持 `large`、`middle`、`small` 三种
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-checkbox/workbench/)
 
-- 在一组可选项中进行多项选择时
-- 单独使用可以表示两种状态之间的切换, 和 Switch 类似
-- 和 Switch 的区别是, 切换 Switch 会直接触发状态改变, 而 Checkbox 一般用于状态标记, 需要和提交操作配合
+## 使用说明
+
+从一组选项中选择多个值，或标记单个选项的选中状态。
 
 
-## 无障碍
+### 何时使用
+
+- 从多个独立选项中选择一项或多项，例如筛选条件、权限或批量操作对象。
+- 标记是否同意条款等布尔值。
+- 选项需要随表单一起提交时使用 Checkbox；设置需要立即生效时通常使用 Switch。
+
+### 无障碍
 
 - 将可见选项文字作为 `children` 传入；没有可见文字时必须提供准确的 `aria-label`。
 - 一组选项应放在带 `<legend>` 的 `<fieldset>` 中，让组名和每个选项的名称都可被感知。
@@ -47,8 +98,12 @@ import { demos } from "../_generated/rc-checkbox.js";
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
 
+### 视觉状态与验证
 
+原生输入负责名称、选中和键盘行为；可见方框通过 `input:focus-visible` 显示焦点。强制颜色下保留边框、勾选与半选形状，禁用仍可与未选中区分。
 
-## API
+粗指针环境下，独立操作的命中区至少为 44×44 CSS px。标签容器扩展命中区，方框、圆点或轨道仍保留原有 size 视觉尺寸。长标签采用正文行高；紧密组合需检查目标区域没有相互重叠。此规则不新增 density 属性，也不把全部组件改成同一视觉高度。
 
-<API source="../_generated_api/rc-checkbox.ts" symbol="CheckboxProps" component="Checkbox" />
+键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
+
+规则依据：[状态系统](/design/interaction)、[无障碍与键盘](/design/accessibility)、[布局与密度](/design/layout)。

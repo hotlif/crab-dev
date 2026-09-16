@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Drawer 抽屉"
 description = "抽屉组件：从屏幕边缘滑出的浮层面板"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

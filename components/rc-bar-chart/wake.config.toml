@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "BarChart 柱状图"
 description = "柱状图, 基于 rc-canvas 的 WebGL 数据可视化组件, 支持分组与堆叠"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

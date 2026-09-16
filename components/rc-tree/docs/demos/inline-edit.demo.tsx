@@ -1,3 +1,5 @@
+import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "Inline 节点编辑",
     description: "双击节点标题进入 inline 编辑模式。默认使用内置 `<input>`；通过 `renderEditInput` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。`onCommit(value)` 提交，`onCancel()` 取消。",
@@ -138,34 +140,38 @@ const InlineEditDemo = () => {
             >
                 + 新建根节点（直接进入编辑）
             </button>
-            <RcTree
-                height={320}
-                width={460}
-                treeData={treeData}
-                onTreeNodeChange={setTreeData}
-                expandedKeys={expandedKeys}
-                selectKeys={selectKeys}
-                onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                onExpanded={({ node }: { node: Node }) => {
-                    setExpandedKeys(prev =>
-                        prev.includes(node.id)
-                            ? prev.filter(k => k !== node.id)
-                            : [...prev, node.id]
-                    );
-                }}
-                onNodeDoubleClick={(node) => {
-                    if (node.disabled) return;
-                    treeDataUtils.update({ ...node, editState: NodeEditStateType.UPDATE });
-                }}
-                onEditEnd={handleEditEnd}
-                renderEditInput={({ defaultValue, onCommit, onCancel }) => (
-                    <CustomInput
-                        defaultValue={defaultValue}
-                        onCommit={onCommit}
-                        onCancel={onCancel}
+            <AutoSizer disableHeight className={treeMeasureStyle}>
+                {({ width }) => (
+                    <RcTree
+                        height={320}
+                        width={Math.min(width, 460)}
+                        treeData={treeData}
+                        onTreeNodeChange={setTreeData}
+                        expandedKeys={expandedKeys}
+                        selectKeys={selectKeys}
+                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
+                        onExpanded={({ node }: { node: Node }) => {
+                            setExpandedKeys(prev =>
+                                prev.includes(node.id)
+                                    ? prev.filter(k => k !== node.id)
+                                    : [...prev, node.id]
+                            );
+                        }}
+                        onNodeDoubleClick={(node) => {
+                            if (node.disabled) return;
+                            treeDataUtils.update({ ...node, editState: NodeEditStateType.UPDATE });
+                        }}
+                        onEditEnd={handleEditEnd}
+                        renderEditInput={({ defaultValue, onCommit, onCancel }) => (
+                            <CustomInput
+                                defaultValue={defaultValue}
+                                onCommit={onCommit}
+                                onCancel={onCancel}
+                            />
+                        )}
                     />
                 )}
-            />
+            </AutoSizer>
         </div>
     );
 };

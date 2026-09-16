@@ -9,6 +9,7 @@ const CATEGORIES = ['一月', '二月', '三月', '四月', '五月', '六月'];
 
 const BasicDemo = () => (
     <BarChart
+        width="auto"
         aria-label="上半年月度销量"
         categories={CATEGORIES}
         series={[{ name: '销量', data: [3200, 4100, 3650, 5200, 4780, 6100] }]}

@@ -1,0 +1,38 @@
+{
+    "id": "rc-date-picker",
+    "title": "DatePicker 日期选择",
+    "summary": "日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "选择日期",
+            "goal": "指定业务时区，用 value 与 onValueChange 保存选中日期。",
+            "why": "日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。",
+            "instruction": "打开日期面板，选择一天并点击“确定”；也可以用方向键选择，再按 Enter 确认。",
+            "expected": "输入区域显示选中日期。",
+            "changes": [
+                "指定业务时区，用 value 与 onValueChange 保存选中日期。"
+            ],
+            "source": "rc-date-picker/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "读取业务日期",
+            "goal": "保存 ZonedDateTime，展示时只提取日期部分。",
+            "why": "日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。",
+            "instruction": "选择日期并确认，再点击“清空日期”。",
+            "expected": "输出与日期选择同步，不用手动解析显示字符串。",
+            "changes": [
+                "保存 ZonedDateTime，展示时只提取日期部分。"
+            ],
+            "source": "rc-date-picker/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "运行环境需要什么？",
+            "answer": "运行环境必须支持 Temporal；不支持的浏览器应由应用入口按项目策略加载 Temporal polyfill。"
+        }
+    ]
+}

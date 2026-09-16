@@ -1,0 +1,26 @@
+import { Box, Chevron, Label, Line, Window } from "./shapes.js";
+
+export const navigationPreviews = {
+    "rc-breadcrumbs": <><Label x={25} y={82} anchor="start">首页</Label><Label x={67} y={82}>/</Label><Label x={86} y={82} anchor="start">项目</Label><Label x={128} y={82}>/</Label><Label x={147} y={82} anchor="start" tone="brand">当前页面</Label></>,
+    "rc-menu": <><Box x={49} y={18} w={142} h={121} /><Box x={55} y={24} w={130} h={31} tone="soft" />{["项目概览", "团队成员", "项目设置"].map((label, i) => <g key={label}><Box x={67} y={35 + i * 37} w={9} h={9} tone={i === 0 ? "brand" : "muted"} r={2} /><Label x={87} y={44 + i * 37} anchor="start" tone={i === 0 ? "brand" : "text"}>{label}</Label></g>)}</>,
+    "rc-pagination": <>{["‹", "1", "2", "3", "›"].map((label, i) => <g key={label}><Box x={29 + i * 38} y={60} w={30} h={32} tone={i === 1 ? "brand" : "surface"} /><Label x={44 + i * 38} y={82} tone={i === 1 ? "on-brand" : "text"}>{label}</Label></g>)}</>,
+    "rc-router": <Window><Box x={38} y={55} w={164} h={25} tone="soft" /><Label y={73} tone="brand">/projects/design</Label><path d="M120 84v13m-4-4 4 4 4-4" className="cc-stroke cc-brand" /><Label y={119}>项目详情页面</Label></Window>,
+    "rc-tabs": <><Box x={29} y={32} w={182} h={97} /><Label x={64} y={56} tone="brand">概览</Label><Label x={120} y={56}>成员</Label><Label x={176} y={56}>设置</Label><path d="M29 66h182" className="cc-stroke cc-border" /><path d="M45 66h38" className="cc-stroke cc-brand cc-thick" /><Line x={48} y={87} w={136} /><Line x={48} y={104} w={98} /></>,
+};
+
+export const layoutPreviews = {
+    "rc-app-main-layout": <Window><Box x={25} y={43} w={45} h={88} tone="soft" r={0} /><Box x={32} y={54} w={31} h={8} tone="brand" r={2} /><Line x={33} y={76} w={27} /><Line x={33} y={92} w={22} /><Box x={82} y={54} w={57} h={23} tone="soft" /><Box x={147} y={54} w={57} h={23} tone="soft" /><Box x={82} y={87} w={122} h={33} /></Window>,
+    "rc-auto-sizer": <><Box x={53} y={42} w={139} h={75} tone="soft" /><path d="M53 25h139m-133-4-6 4 6 4m127-8 6 4-6 4M34 42v75m-4-69 4-6 4 6m-8 63 4 6 4-6" className="cc-stroke cc-brand" /><Label x={124} y={88} tone="brand">宽 × 高</Label></>,
+    "rc-masonry": <>{[{ x: 36, y: 21, h: 66 }, { x: 36, y: 95, h: 37 }, { x: 94, y: 21, h: 38 }, { x: 94, y: 67, h: 65 }, { x: 152, y: 21, h: 80 }, { x: 152, y: 109, h: 23 }].map((b, i) => <Box key={i} x={b.x} y={b.y} w={50} h={b.h} tone={i % 3 === 0 ? "brand" : "soft"} />)}</>,
+    "rc-split-pane": <><Box x={29} y={29} w={72} h={97} tone="soft" /><Box x={113} y={29} w={98} h={97} /><path d="M107 31v92" className="cc-stroke cc-border" /><path d="M94 77h26m-21-4-5 4 5 4m16-8 5 4-5 4" className="cc-stroke cc-brand" /><Line x={131} y={50} w={61} /><Line x={131} y={67} w={46} /></>,
+    "rc-virtual": <><Box x={51} y={30} w={138} h={92} />{[20, 49, 78, 107, 136].map((y, i) => <g key={y}><Line x={65} y={y} w={100} tone={i === 0 || i === 4 ? "border" : "brand"} /></g>)}<path d="M180 48v48" className="cc-stroke cc-muted cc-thick" /><path d="M45 30h150M45 122h150" className="cc-stroke cc-brand" /></>,
+};
+
+export const dataPreviews = {
+    "rc-bar-chart": <><path d="M37 30v94h170" className="cc-stroke cc-border" />{[42, 68, 91, 58].map((h, i) => <Box key={i} x={52 + i * 39} y={124 - h} w={25} h={h} tone={i === 2 ? "brand" : "soft"} r={3} />)}</>,
+    "rc-canvas": <><Box x={28} y={21} w={184} h={113} /><circle cx={166} cy={67} r={23} className="cc-soft" /><Box x={58} y={55} w={73} h={48} tone="brand" /><path d="M53 50h83v58H53z" className="cc-stroke cc-brand" />{[[53, 50], [136, 50], [53, 108], [136, 108]].map(([x, y]) => <Box key={`${x}-${y}`} x={x - 3} y={y - 3} w={6} h={6} r={0} />)}</>,
+    "rc-flow-diagram": <><path d="M120 52v23H60v24m60-24h60v24" className="cc-stroke cc-brand" /><Box x={84} y={22} w={72} h={30} tone="brand" /><Label y={42} tone="on-brand">开始</Label><Box x={25} y={99} w={70} h={31} tone="soft" /><Label x={60} y={120} tone="brand">审核</Label><Box x={145} y={99} w={70} h={31} /><Label x={180} y={120}>结束</Label></>,
+    "rc-table-pro": <><Box x={25} y={19} w={136} h={23} /><Box x={170} y={19} w={45} h={23} tone="brand" /><Label x={192} y={36} tone="on-brand">查询</Label><Box x={25} y={50} w={190} h={65} /><Box x={26} y={51} w={188} h={20} tone="soft" r={4} /><path d="M25 91h190m-125-40v64m65-64v64" className="cc-stroke cc-border" /><Label y={67} tone="brand">业务数据</Label><Label x={179} y={137}>‹ 1 2 ›</Label></>,
+    "rc-table": <><Box x={28} y={26} w={184} h={104} /><Box x={29} y={27} w={182} h={28} tone="soft" r={4} /><path d="M28 55h184M28 80h184M28 105h184M85 26v104M152 26v104" className="cc-stroke cc-border" />{["项目", "负责人", "状态"].map((label, i) => <Label key={label} x={56 + i * 63} y={46} tone="brand">{label}</Label>)}{[67, 92, 117].map(y => <g key={y}><Line x={40} y={y} w={33} /><Line x={99} y={y} w={37} /><Line x={165} y={y} w={32} tone="brand" /></g>)}</>,
+    "rc-tree": <><path d="M53 47v64h23m-23-30h23" className="cc-stroke cc-border" /><Chevron x={39} y={34} /><Box x={51} y={26} w={17} h={15} tone="brand" r={3} /><Label x={80} y={39} anchor="start">项目文件</Label>{[72, 104].map((y, i) => <g key={y}><Box x={78} y={y} w={13} h={17} tone="soft" r={2} /><Label x={101} y={y + 13} anchor="start">{i === 0 ? "设计规范" : "组件文档"}</Label></g>)}</>,
+};

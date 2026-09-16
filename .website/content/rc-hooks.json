@@ -1,0 +1,38 @@
+{
+    "id": "rc-hooks",
+    "title": "Hooks 状态与浏览器能力",
+    "summary": "Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "内部管理状态",
+            "goal": "用 defaultValue 提供内部状态初值。",
+            "why": "Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。",
+            "instruction": "增加两次数量。",
+            "expected": "Hook 内部保存数量 2。",
+            "changes": [
+                "用 defaultValue 提供内部状态初值。"
+            ],
+            "source": "rc-hooks/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "交给业务管理",
+            "goal": "传入 value 与 onChange，让外部成为唯一数据来源。",
+            "why": "Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。",
+            "instruction": "增加数量后点击外部归零。",
+            "expected": "同一套行为可由父级状态控制。",
+            "changes": [
+                "传入 value 与 onChange，让外部成为唯一数据来源。"
+            ],
+            "source": "rc-hooks/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "所有状态都应使用这个 Hook 吗？",
+            "answer": "不需要。简单页面状态直接 useState；需要同时支持受控与非受控的可复用能力再使用它。"
+        }
+    ]
+}

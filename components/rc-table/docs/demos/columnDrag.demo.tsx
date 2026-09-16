@@ -1,110 +1,40 @@
 export const meta = {
-    title: "拖拽调整列顺序（固定列 + 分组表头）",
-    description: "左侧「序号」「姓名」、右侧「邮箱」固定；拖拽分组表头可整体调整分组顺序，拖拽分组内的子列可在分组内部重排。",
+    title: "列顺序调整 · 人员信息工作台",
+    description: "2,000 名员工、22 列；岗位、区域、合同与薪酬分组可整体拖动，组内字段也可重排。",
 };
-
 import { useState } from "react";
+import Button from "@crab-dev/rc-button";
 import Table from "../../src/index.js";
-import type { ColumnType, Row } from "../../src/index.js";
-import { makeEmployees, type Employee } from "./_mock.js";
-
-interface DemoRow extends Row {
-    dataRef: Employee
+import type { ColumnType } from "../../src/types.js";
+import { employeeRows, type EmployeeRow } from "./_mock.js";
+import { DemoFrame, employeeColumns, noteStyle } from "./_shared.js";
+const rows = employeeRows();
+const leaf = employeeColumns();
+const initialColumns: ColumnType<EmployeeRow>[] = [
+    leaf[0], leaf[1],
+    { name: "work", title: "岗位与组织", children: leaf.slice(2, 7) },
+    { name: "location", title: "办公与联系", children: leaf.slice(7, 12) },
+    { name: "contract", title: "合同与项目", children: leaf.slice(12, 17) },
+    { name: "compensation", title: "年度薪酬", children: leaf.slice(17, 21) },
+    leaf[21],
+];
+export default function ColumnDragDemo() {
+    const [columns, setColumns] = useState(initialColumns);
+    return <DemoFrame title="人员信息工作台" rows={rows.length} columns={leaf.length}
+        hint="拖拽分组表头整体移动，组内子列可单独排序；工号固定，恢复按钮可还原布局。"
+        toolbar={<Button onClick={() => setColumns(initialColumns)}>恢复默认列顺序</Button>}
+        footer={<p className={noteStyle} role="status">当前布局：{columns.map(col => col.title).join(" → ")}</p>}>
+        {(width, height) => <Table aria-label="可调整列顺序的人员信息" width={width} height={height} rows={rows} columns={columns} draggableColumns
+            onColumnOrderChange={names => setColumns(previous => {
+                const byName = new Map(previous.map(col => [col.name, col]));
+                const ordered = names.flatMap(name => { const col = byName.get(name); return col ? [col] : []; });
+                let index = 0;
+                return previous.map(col => col.fixed ? col : ordered[index++] ?? col);
+            })}
+            onGroupColumnOrderChange={(name, names) => setColumns(previous => previous.map(col => {
+                if (col.name !== name || !col.children) return col;
+                const children = col.children;
+                return { ...col, children: names.flatMap(childName => children.filter(child => child.name === childName)) };
+            }))} />}
+    </DemoFrame>;
 }
-
-const rows: DemoRow[] = makeEmployees(200, 20260602).map((employee, index) => ({
-    id: `${index + 1}`,
-    dataRef: employee,
-}))
-
-const initialColumns: ColumnType<DemoRow>[] = [
-    {
-        title: "序号",
-        name: "index",
-        width: 60,
-        fixed: "left",
-        align: "right",
-        render: ({ rowIndex }) => rowIndex + 1,
-    },
-    { title: "姓名", name: "$.name", width: 140, fixed: "left" },
-    {
-        title: "基本信息",
-        name: "group-basic",
-        children: [
-            { title: "年龄", name: "$.age", width: 80, align: "right" },
-            { title: "性别", name: "$.gender", width: 80, align: "center" },
-            { title: "城市", name: "$.city", width: 120 },
-        ],
-    },
-    {
-        title: "工作信息",
-        name: "group-work",
-        children: [
-            { title: "部门", name: "$.department", width: 160 },
-            { title: "职位", name: "$.jobTitle", width: 200 },
-            { title: "入职日期", name: "$.joinDate", width: 120, align: "center" },
-        ],
-    },
-    {
-        title: "薪资信息",
-        name: "group-salary",
-        children: [
-            {
-                title: "月薪",
-                name: "$.salary",
-                width: 120,
-                align: "right",
-                render: ({ row }) => `¥${row.dataRef.salary.toLocaleString()}`,
-            },
-            {
-                title: "年终奖",
-                name: "$.bonus",
-                width: 120,
-                align: "right",
-                render: ({ row }) => `¥${row.dataRef.bonus.toLocaleString()}`,
-            },
-        ],
-    },
-    { title: "邮箱", name: "$.email", width: 240, fixed: "right" },
-]
-
-const ColumnDragComplexDemo = () => {
-    const [columns, setColumns] = useState<ColumnType<DemoRow>[]>(initialColumns)
-
-    return (
-        <div>
-            <p style={{ marginBottom: 8, color: "#666", fontSize: 13 }}>
-                拖拽分组列头可整体调整顺序，固定列不参与拖拽。
-                当前顺序：{columns.filter(c => !c.fixed).map(c => c.title).join(" → ")}
-            </p>
-            <Table
-                width={960}
-                height={400}
-                columns={columns}
-                rows={rows}
-                draggableColumns
-                onColumnOrderChange={(orderedNames) => {
-                    const nameIndex = new Map(orderedNames.map((n, i) => [n, i]))
-                    setColumns(prev => [...prev].sort((a, b) => {
-                        if (a.fixed || b.fixed) return 0
-                        return (nameIndex.get(a.name) ?? 0) - (nameIndex.get(b.name) ?? 0)
-                    }))
-                }}
-                onGroupColumnOrderChange={(groupName, orderedChildNames) => {
-                    const nameIndex = new Map(orderedChildNames.map((n, i) => [n, i]))
-                    setColumns(prev => prev.map(col => {
-                        if (col.name !== groupName || !col.children) return col
-                        return {
-                            ...col,
-                            children: [...col.children].sort(
-                                (a, b) => (nameIndex.get(a.name) ?? 0) - (nameIndex.get(b.name) ?? 0)
-                            ),
-                        }
-                    }))
-                }}
-            />
-        </div>
-    )
-}
-
-export default ColumnDragComplexDemo;

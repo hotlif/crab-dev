@@ -1,6 +1,6 @@
 +++
 title = "Drawer 抽屉"
-description = "抽屉组件：从屏幕边缘滑出的浮层面板"
+description = "从屏幕边缘滑出面板，展示详情或处理辅助任务"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-drawer.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-drawer.js";
 
-# Drawer
+# Drawer 抽屉
 
-从屏幕边缘滑出的浮层面板，承载二级任务、表单或详情内容。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-drawer</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+抽屉适合在保留页面上下文的同时处理详情或编辑任务。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**打开详情**
+
+通过 open 和 onOpenChange 控制边缘面板。 抽屉适合在保留页面上下文的同时处理详情或编辑任务。 打开详情，再关闭抽屉。 详情从页面边缘展开，主页面仍保留。
+
+**完成侧栏任务**
+
+在抽屉内部完成操作，并更新外部结果。 抽屉适合在保留页面上下文的同时处理详情或编辑任务。 打开抽屉并标记完成。 抽屉关闭，项目状态变为已完成。
+
+</div>
+
+## 常见问题
+
+### 何时用 Dialog？
+
+短确认通常使用 Dialog；需要更多详情或较长表单时使用 Drawer。
+
+
+## API
+
+<API source="../_generated_api/rc-drawer.ts" symbol="DrawerProps" component="Drawer" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（4 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -27,16 +70,19 @@ import { demos } from "../_generated/rc-drawer.js";
 ##### 底部操作区 — 通过 `footer` 传入操作按钮，适合承载表单提交场景。
 
 </div>
+
 <ComponentDemos demos={demos} />
+</details>
 
-## 何时使用
+[打开完整组件工作台](/components/rc-drawer/workbench/)
 
-- 需要进行较长的表单输入、查看详情，且不希望跳转页面打断主流程时
-- 在当前页面之上临时呈现辅助信息，结束后可快速返回主界面
-- 作为 Dialog 的侧栏版本：承载更多内容，尤其适合宽窄比不对称的场景
+## 使用说明
+
+从屏幕边缘滑出面板，展示详情或处理辅助任务。
 
 
+### 何时使用
 
-## API
-
-<API source="../_generated_api/rc-drawer.ts" symbol="DrawerProps" component="Drawer" />
+- 在保留当前页面上下文的同时查看详情或填写表单。
+- 临时展示筛选条件、辅助信息或其他侧栏任务。
+- 需要从页面边缘展开较大内容区域，关闭后继续原任务。

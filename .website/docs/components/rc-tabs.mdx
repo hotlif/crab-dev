@@ -1,6 +1,6 @@
 +++
 title = "Tabs 标签页"
-description = "标签页组件，用于在不同内容视图之间切换"
+description = "在同一区域切换多个同层级内容面板"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tabs.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-tabs.js";
 
-# Tabs
+# Tabs 标签页
 
-标签页，用于在同一层级切换多个内容面板。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tabs</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**组合面板**
+
+为每个标签设置稳定 key、label 和 children。 标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。 切换概览与活动。 对应内容显示在标签栏下方。
+
+**受控激活项**
+
+通过 activeKey 让外部按钮也能切换面板。 标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。 点击查看活动，再通过标签栏切回概览。 两条操作路径更新同一个激活状态。
+
+</div>
+
+## 常见问题
+
+### 切换后需要清除表单吗？
+
+先决定是否保留未激活面板状态，再选择 destroyInactiveTabPane；不要默认丢弃未保存输入。
+
+
+## API
+
+<API source="../_generated_api/rc-tabs.ts" symbol="TabsProps" component="Tabs" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（5 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -29,14 +72,23 @@ import { demos } from "../_generated/rc-tabs.js";
 ##### 带图标与额外内容 — 通过 icon 为标签添加视觉标识，tabBarExtraContent 在右侧注入操作。
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-tabs/workbench/)
+
+## 使用说明
+
+在同一区域切换多个同层级内容面板。
+
+
+### 何时使用
 
 - 页面需要在同一区域内展示多组相关但可独立查看的内容。
 - 需要减少页面切换与滚动，将内容分组组织。
 
-## 功能特性
+### 主要功能
 
 - 支持 `line` / `card` / `pill` 三种视觉形态。
 - 支持 `small` / `medium` / `large` 三档尺寸。
@@ -46,9 +98,3 @@ import { demos } from "../_generated/rc-tabs.js";
 - 支持 `destroyInactiveTabPane` 按需销毁未激活面板。
 - 键盘可达：`←` / `→` / `Home` / `End` 切换、`Enter` / `Space` 激活、`Delete` 关闭可关闭项。
 - `line` 形态的激活指示条随激活项位置与宽度平滑过渡。
-
-
-
-## API
-
-<API source="../_generated_api/rc-tabs.ts" symbol="TabsProps" component="Tabs" />

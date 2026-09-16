@@ -1,6 +1,6 @@
 +++
 title = "Masonry 瀑布流"
-description = "瀑布流布局组件，支持多列自适应排列"
+description = "将高度不同的内容按多列排列，优先填充最短列"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-masonry.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-masonry.js";
 
-# Masonry
+# Masonry 瀑布流
 
-瀑布流布局组件，将子元素按多列自适应排列，优先填充最短列。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-masonry</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**排列不同高度**
+
+设置两列并使用 sequential 保持顺序。 瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。 按编号阅读卡片。 不同长度的内容分布在两列中。
+
+**调整列数**
+
+通过状态在单列与双列之间切换。 瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。 切换到单列，再切回双列。 内容不变，布局随 columns 更新。
+
+</div>
+
+## 常见问题
+
+### 窄屏怎么处理？
+
+通过容器宽度或媒体查询选择列数；交互元素的 DOM 顺序应与阅读顺序一致。
+
+
+## API
+
+<API source="../_generated_api/rc-masonry.ts" symbol="MasonryProps" component="Masonry" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（3 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -25,16 +68,18 @@ import { demos } from "../_generated/rc-masonry.js";
 ##### 顺序排列 — 设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-masonry/workbench/)
+
+## 使用说明
+
+将高度不同的内容按多列排列，优先填充最短列。
+
+
+### 何时使用
 
 - 图片画廊、卡片列表等高度不等的内容展示
 - 需要紧凑排列、充分利用垂直空间的场景
-
-
-
-
-## API
-
-<API source="../_generated_api/rc-masonry.ts" symbol="MasonryProps" component="Masonry" />

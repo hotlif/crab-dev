@@ -1,18 +1,19 @@
+import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "任意角度直线",
     description: "直线在顶点着色器端挤出为带宽度的四边形，支持任意斜率与线宽。",
 };
 
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { Canvas, Line } from "../../src/index.js";
 
+// Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
     border: 1px solid var(--border-subtle, #e5e5e5);
     border-radius: 8px;
-    overflow: hidden;
     background: #fafafa;
 `;
 
@@ -33,7 +34,7 @@ const LineDemo = () => {
     });
 
     return (
-        <div className={wrapStyle}>
+        <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={220}>
                 {lines.map((l, i) => (
                     <Line

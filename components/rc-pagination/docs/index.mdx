@@ -1,15 +1,15 @@
 +++
 title = "Pagination 分页"
-description = "分页器，用于长列表的页码导航与每页条数控制"
+description = "切换页码、调整每页条数，并展示数据总量"
 kind = "component"
 status = "experimental"
 +++
 
-# Pagination
+# Pagination 分页
 
-Pagination 提供标准的页码导航能力，支持受控 / 非受控、快速跳转、自定义总量显示、紧凑尺寸等配置项。
+切换页码、调整每页条数，并展示数据总量。
 
-[打开 Pagination 分页 工作台](/components/rc-pagination/workbench/)
+[打开组件工作台](/components/rc-pagination/workbench/)
 
 ## 何时使用
 
@@ -19,9 +19,9 @@ Pagination 提供标准的页码导航能力，支持受控 / 非受控、快速
 
 ## 设计要点
 
-- **精准**：尺寸阶梯来自 `rc-token-semantic`，`small` (24px) / `medium` (32px) 等差密度。
-- **理性**：当 `total <= pageSize * 7` 时展示完整页码，否则首尾固定 + 中部区间 + 双端省略号 + 5 页跳转。
-- **稳态**：所有交互元素均覆盖 hover / focus-visible / active / disabled，遵守 `prefers-reduced-motion`。
+- 根据页面密度选择尺寸，分页控件应靠近对应的数据区域。
+- 页数较少时显示完整页码，较多时通过省略号和跳转控件缩短导航。
+- 保留悬停、聚焦、按下和禁用反馈，并遵循减少动态效果的系统偏好。
 
 ## 代码演示
 

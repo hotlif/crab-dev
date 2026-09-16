@@ -1,0 +1,38 @@
+{
+    "id": "rc-card",
+    "title": "Card 卡片",
+    "summary": "卡片把标题、内容与操作组织在一起，适合展示一个独立对象。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "组合内容",
+            "goal": "使用 title 与 children 构建最小卡片。",
+            "why": "卡片把标题、内容与操作组织在一起，适合展示一个独立对象。",
+            "instruction": "确认标题与正文的层级关系。",
+            "expected": "标题和正文位于同一个有边界的信息单元中。",
+            "changes": [
+                "使用 title 与 children 构建最小卡片。"
+            ],
+            "source": "rc-card/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "加入业务操作",
+            "goal": "将操作放入 extra，并显示状态文字。",
+            "why": "卡片把标题、内容与操作组织在一起，适合展示一个独立对象。",
+            "instruction": "收藏卡片，再取消收藏。",
+            "expected": "操作名称与状态文字同步变化。",
+            "changes": [
+                "将操作放入 extra，并显示状态文字。"
+            ],
+            "source": "rc-card/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "什么时候使用结构子组件？",
+            "answer": "当内容区块顺序需要自定义时，组合 Card.Header、Card.Body 等子组件。"
+        }
+    ]
+}

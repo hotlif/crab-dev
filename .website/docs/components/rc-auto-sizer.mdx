@@ -1,6 +1,6 @@
 +++
 title = "AutoSizer 自适应容器"
-description = "自动测量容器宽高并传入子渲染函数，常与虚拟滚动组件配合使用"
+description = "测量容器宽高，并将尺寸传给子组件"
 kind = "component"
 status = "experimental"
 +++
@@ -9,12 +9,55 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-auto-sizer.js";
+import Tutorial from "../site/tutorial.js";
+import FirstExample from "../site/firstExample.js";
+import { tutorial } from "../_generated_tutorials/rc-auto-sizer.js";
 
 # AutoSizer 自适应容器
 
-自动测量容器的宽高，并将 `{ width, height }` 通过渲染函数传递给子组件。常与 `Virtual` 虚拟滚动组件配合使用。
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-auto-sizer</div>
 
-## 组件预览
+## 基础示例
+
+<FirstExample tutorial={tutorial} />
+
+## 开始之前
+
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+
+测量容器而不是猜测窗口尺寸，才能让表格和图形适应侧栏与分栏。
+
+## 跟着做
+
+<Tutorial tutorial={tutorial} />
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**读取可用尺寸**
+
+把 AutoSizer 放入有明确高度的容器。 测量容器而不是猜测窗口尺寸，才能让表格和图形适应侧栏与分栏。 调整浏览器窗口宽度。 输出宽度随容器变化。
+
+**响应容器变化**
+
+改变父容器宽度，继续使用测量回调。 测量容器而不是猜测窗口尺寸，才能让表格和图形适应侧栏与分栏。 点击切换容器宽度。 无需监听 window，测量值也会更新。
+
+</div>
+
+## 常见问题
+
+### 为什么高度是 0？
+
+父级必须提供可测量高度。只需要宽度时使用 disableHeight。
+
+
+## API
+
+<API source="../_generated_api/rc-auto-sizer.ts" symbol="AutoSizerProps" component="AutoSizer" />
+
+## 更多示例
+
+<details>
+<summary>展开进阶示例（2 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -23,18 +66,19 @@ import { demos } from "../_generated/rc-auto-sizer.js";
 ##### 配合虚拟滚动 — AutoSizer 将容器尺寸透传给 Virtual 组件的 viewportWidth / viewportHeight，实现响应式虚拟滚动。
 
 </div>
-<ComponentDemos demos={demos} />
 
-## 何时使用
+<ComponentDemos demos={demos} />
+</details>
+
+[打开完整组件工作台](/components/rc-auto-sizer/workbench/)
+
+## 使用说明
+
+测量容器宽高，并将尺寸传给子组件。
+
+
+### 何时使用
 
 - 需要将外层容器的实际像素尺寸传入子组件（如虚拟列表的 `viewportWidth` / `viewportHeight`）。
 - 需要在容器大小变化时自动重新布局（响应式窗口调整、面板拖拽等场景）。
 - 希望组件与具体容器尺寸解耦，只接收数值而非自行测量 DOM。
-
-
-
-
-
-## API
-
-<API source="../_generated_api/rc-auto-sizer.ts" symbol="AutoSizerProps" component="AutoSizer" />

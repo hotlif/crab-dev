@@ -3,6 +3,7 @@ source_dir = "docs"
 title = "Menu 菜单"
 description = "为页面和功能提供导航的菜单列表。"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]
