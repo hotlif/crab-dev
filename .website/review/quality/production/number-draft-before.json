@@ -1,0 +1,12 @@
+{
+  "capturedAt": "2026-09-16T06:44:27.811Z",
+  "before": {
+    "input": "20",
+    "text": "当前值：3"
+  },
+  "after": {
+    "input": "4",
+    "text": "当前值：4"
+  },
+  "expected": "21"
+}

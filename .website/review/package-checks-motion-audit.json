@@ -1,0 +1,158 @@
+[
+  {
+    "package": "rc-token-semantic",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-token-semantic-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-token-semantic",
+    "check": "test",
+    "exit": 0,
+    "log": ".website/review/rc-token-semantic-test-motion-audit.log"
+  },
+  {
+    "package": "rc-button",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-button-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-button",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-button-test-motion-audit.log"
+  },
+  {
+    "package": "rc-checkbox",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-checkbox-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-checkbox",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-checkbox-test-motion-audit.log"
+  },
+  {
+    "package": "rc-radio",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-radio-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-radio",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-radio-test-motion-audit.log"
+  },
+  {
+    "package": "rc-line-edit",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-line-edit-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-line-edit",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-line-edit-test-motion-audit.log"
+  },
+  {
+    "package": "rc-text-edit",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-text-edit-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-text-edit",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-text-edit-test-motion-audit.log"
+  },
+  {
+    "package": "rc-number-edit",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-number-edit-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-number-edit",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-number-edit-test-motion-audit.log"
+  },
+  {
+    "package": "rc-switch",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-switch-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-switch",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-switch-test-motion-audit.log"
+  },
+  {
+    "package": "rc-segmented",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-segmented-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-segmented",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-segmented-test-motion-audit.log"
+  },
+  {
+    "package": "rc-component-preview",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-component-preview-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-component-preview",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-component-preview-test-motion-audit.log"
+  },
+  {
+    "package": "rc-dialog",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-dialog-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-dialog",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-dialog-test-motion-audit.log"
+  },
+  {
+    "package": "rc-drawer",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/rc-drawer-eslint-motion-audit.log"
+  },
+  {
+    "package": "rc-drawer",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/rc-drawer-test-motion-audit.log"
+  },
+  {
+    "package": "website",
+    "check": "eslint",
+    "exit": 2,
+    "log": ".website/review/website-eslint-motion-audit.log"
+  },
+  {
+    "package": "website",
+    "check": "test",
+    "exit": 2,
+    "log": ".website/review/website-test-motion-audit.log"
+  }
+]

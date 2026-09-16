@@ -1,0 +1,883 @@
+{
+  "capturedAt": "2026-09-16T07:38:09.001Z",
+  "packages": [
+    {
+      "path": "./package.json",
+      "name": "(root)",
+      "scripts": {
+        "start": "yarn docs:dev",
+        "build:library": "turbo run build:library",
+        "docs:dev": "yarn build:library && yarn workspace @crab-dev/website start",
+        "docs:build": "yarn build:library && yarn workspace @crab-dev/website build",
+        "test": "turbo run test",
+        "lint": "yarn lint:tools && turbo run eslint",
+        "lint:tools": "eslint --config standards/eslint-preset/eslint.node.config.mjs scripts/typecheck.mjs scripts/typecheck-fixtures.mjs standards/typescript-preset/src/__tests__/typecheck.test.ts",
+        "typecheck": "node scripts/typecheck.mjs --prepare && turbo run typecheck",
+        "typecheck:prepare": "node scripts/typecheck.mjs --prepare",
+        "generate:token": "turbo run generate:token",
+        "check:tokens": "node ./scripts/check-token-contract.mjs",
+        "changeset:version": "changeset version && yarn install --mode=update-lockfile",
+        "changeset:release": "yarn build:library && yarn workspaces foreach --all --no-private --topological npm publish --tolerate-republish --access public && changeset tag",
+        "prepare": "husky"
+      },
+      "wake": "0.1.38"
+    },
+    {
+      "path": ".website/package.json",
+      "name": "@crab-dev/website",
+      "scripts": {
+        "start": "node scripts/docs-dev.mjs",
+        "build": "yarn generate:docs && wake docs build . --outdir docs-dist && yarn check:build",
+        "check:build": "node scripts/check-built-bindings.mjs",
+        "test:build": "node scripts/check-built-bindings.test.mjs",
+        "generate:docs": "node scripts/generate-component-docs.mjs",
+        "check:docs": "node scripts/generate-component-docs.mjs --check",
+        "test:generator": "node scripts/generate-component-docs.test.mjs",
+        "eslint": "eslint docs scripts",
+        "typecheck": "node ../scripts/typecheck.mjs --noEmit",
+        "test": "yarn test:generator && yarn check:docs && wake test --serial",
+        "preview": "node scripts/preview-docs.mjs"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-alert/package.json",
+      "name": "@crab-dev/rc-alert",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-app-main-layout/package.json",
+      "name": "@crab-dev/rc-app-main-layout",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint --fix",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-auto-sizer/package.json",
+      "name": "@crab-dev/rc-auto-sizer",
+      "scripts": {
+        "start": "yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-avatar/package.json",
+      "name": "@crab-dev/rc-avatar",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-badge/package.json",
+      "name": "@crab-dev/rc-badge",
+      "scripts": {
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . "
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-bar-chart/package.json",
+      "name": "@crab-dev/rc-bar-chart",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-breadcrumbs/package.json",
+      "name": "@crab-dev/rc-breadcrumbs",
+      "scripts": {
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . "
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-button/package.json",
+      "name": "@crab-dev/rc-button",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-canvas/package.json",
+      "name": "@crab-dev/rc-canvas",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "generate:docgen": "wake library docgen .",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint .",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-card/package.json",
+      "name": "@crab-dev/rc-card",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-checkbox/package.json",
+      "name": "@crab-dev/rc-checkbox",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-color-picker/package.json",
+      "name": "@crab-dev/rc-color-picker",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "test": "wake test --serial --coverage",
+        "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-component-preview/package.json",
+      "name": "@crab-dev/rc-component-preview",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-cron-picker/package.json",
+      "name": "@crab-dev/rc-cron-picker",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-date-picker/package.json",
+      "name": "@crab-dev/rc-date-picker",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "test": "wake test --serial --coverage",
+        "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-dialog/package.json",
+      "name": "@crab-dev/rc-dialog",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-divider/package.json",
+      "name": "@crab-dev/rc-divider",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-drawer/package.json",
+      "name": "@crab-dev/rc-drawer",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-dropdown-container/package.json",
+      "name": "@crab-dev/rc-dropdown-container",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-empty/package.json",
+      "name": "@crab-dev/rc-empty",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-flow-diagram/package.json",
+      "name": "@crab-dev/rc-flow-diagram",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:token": "wake library token .",
+        "generate:docgen": "wake library docgen .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint .",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-form/package.json",
+      "name": "@crab-dev/rc-form",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:token": "wake library token .",
+        "generate:docgen": "wake library docgen .",
+        "check": "yarn tsc -p tsconfig.json --noEmit && yarn eslint && yarn test",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-hooks/package.json",
+      "name": "@crab-dev/rc-hooks",
+      "scripts": {
+        "build:library": "wake library build .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "wake docs dev . --mode components"
+      },
+      "wake": "0.1.38"
+    },
+    {
+      "path": "components/rc-line-edit/package.json",
+      "name": "@crab-dev/rc-line-edit",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-masonry/package.json",
+      "name": "@crab-dev/rc-masonry",
+      "scripts": {
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint ."
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-menu/package.json",
+      "name": "@crab-dev/rc-menu",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "test": "wake test --serial --coverage",
+        "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-message/package.json",
+      "name": "@crab-dev/rc-message",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-notification/package.json",
+      "name": "@crab-dev/rc-notification",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-number-edit/package.json",
+      "name": "@crab-dev/rc-number-edit",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint .",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-pagination/package.json",
+      "name": "@crab-dev/rc-pagination",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-prose/package.json",
+      "name": "@crab-dev/rc-prose",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-radio/package.json",
+      "name": "@crab-dev/rc-radio",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-realm/package.json",
+      "name": "@crab-dev/rc-realm",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-router/package.json",
+      "name": "@crab-dev/rc-router",
+      "scripts": {
+        "start": "yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38"
+    },
+    {
+      "path": "components/rc-segmented/package.json",
+      "name": "@crab-dev/rc-segmented",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-select/package.json",
+      "name": "@crab-dev/rc-select",
+      "scripts": {
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . "
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-skeleton/package.json",
+      "name": "@crab-dev/rc-skeleton",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-slider/package.json",
+      "name": "@crab-dev/rc-slider",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-spin/package.json",
+      "name": "@crab-dev/rc-spin",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-split-pane/package.json",
+      "name": "@crab-dev/rc-split-pane",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-switch/package.json",
+      "name": "@crab-dev/rc-switch",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn prettier:check && yarn test",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-table/package.json",
+      "name": "@crab-dev/rc-table",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "test:selection": "yarn test src/__tests__/selectionVisibility.test.tsx --environment browser",
+        "build:library": "yarn generate:token && wake library build .",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-table-pro/package.json",
+      "name": "@crab-dev/rc-table-pro",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint .",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-tabs/package.json",
+      "name": "@crab-dev/rc-tabs",
+      "scripts": {
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . "
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-tag/package.json",
+      "name": "@crab-dev/rc-tag",
+      "scripts": {
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . "
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-text-edit/package.json",
+      "name": "@crab-dev/rc-text-edit",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "eslint": "eslint",
+        "test": "wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-theme/package.json",
+      "name": "@crab-dev/rc-theme",
+      "scripts": {
+        "start": "wake docs dev . --mode components",
+        "build:library": "wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "eslint": "eslint .",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint && yarn prettier:check && yarn test"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-token-global/package.json",
+      "name": "@crab-dev/rc-token-global",
+      "scripts": {
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:token": "wake library token .",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && wake docs dev . --mode components"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-token-semantic/package.json",
+      "name": "@crab-dev/rc-token-semantic",
+      "scripts": {
+        "build:library": "yarn generate:token && wake library build .",
+        "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "generate:token": "wake library token .",
+        "eslint": "eslint .",
+        "test": "wake test --serial --coverage",
+        "check": "yarn eslint . && yarn test",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "start": "yarn generate:token && wake docs dev . --mode components"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-tooltip/package.json",
+      "name": "@crab-dev/rc-tooltip",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint . ",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-tree/package.json",
+      "name": "@crab-dev/rc-tree",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "components/rc-virtual/package.json",
+      "name": "@crab-dev/rc-virtual",
+      "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:token": "wake library token .",
+        "generate:docgen": "wake library docgen .",
+        "test": "wake test --serial --coverage",
+        "eslint": "eslint --fix",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38",
+      "css": "0.1.38"
+    },
+    {
+      "path": "standards/eslint-preset/package.json",
+      "name": "@crab-dev/standards-eslint-preset"
+    },
+    {
+      "path": "standards/typescript-preset/package.json",
+      "name": "@crab-dev/standards-typescript-preset",
+      "scripts": {
+        "test": "node ../../scripts/typecheck.mjs --prepare && node ../../scripts/typecheck-fixtures.mjs && wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+      },
+      "wake": "0.1.38"
+    }
+  ]
+}

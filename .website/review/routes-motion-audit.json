@@ -1,0 +1,210 @@
+[
+  {
+    "route": "/components/rc-virtual",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tree",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tooltip",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-token-semantic",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-token-global",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-theme",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-text-edit",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tag",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tabs",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-table",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-table-pro",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-switch",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-split-pane",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-spin",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-slider",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-skeleton",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-select",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-segmented",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-router",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-realm",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-radio",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-prose",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-pagination",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-number-edit",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-notification",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-message",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-menu",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-masonry",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-line-edit",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-hooks",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-form",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-flow-diagram",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-empty",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-dropdown-container",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-drawer",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-divider",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-dialog",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-date-picker",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-cron-picker",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-component-preview",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-color-picker",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-checkbox",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-card",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-canvas",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-button",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-breadcrumbs",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-bar-chart",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-badge",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-avatar",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-auto-sizer",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-app-main-layout",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-alert",
+    "status": 200
+  }
+]

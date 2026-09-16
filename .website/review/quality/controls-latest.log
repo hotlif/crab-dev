@@ -1,0 +1,51 @@
+PASS checkbox light normal keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"oklch(0.495521 0.130457 293.709)","color":"oklch(0.14 0.004 286)","background":"oklch(0.495521 0.130457 293.709)","forced":false,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS checkbox light normal Space: {"before":true,"after":false}
+PASS checkbox light forced keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"rgb(55, 0, 110)","color":"rgb(255, 255, 255)","background":"rgb(55, 0, 110)","forced":true,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS checkbox light forced Space: {"before":true,"after":false}
+PASS checkbox light system color state distinction: {"before":"rgb(55, 0, 110)","after":"rgb(255, 255, 255)"}
+PASS checkbox dark normal keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"oklch(0.834926 0.0945749 298.018)","color":"oklch(0.98 0.002 286)","background":"oklch(0.834926 0.0945749 298.018)","forced":false,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS checkbox dark normal Space: {"before":true,"after":false}
+PASS checkbox dark forced keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"rgb(26, 235, 255)","color":"rgb(0, 0, 0)","background":"rgb(26, 235, 255)","forced":true,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS checkbox dark forced Space: {"before":true,"after":false}
+PASS checkbox dark system color state distinction: {"before":"rgb(26, 235, 255)","after":"rgb(0, 0, 0)"}
+PASS checkbox coarse target: {"coarse":true,"width":104,"height":44}
+PASS radio light normal keyboard focus: {"index":1,"count":2,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"oklch(0.495521 0.130457 293.709)","color":"oklch(0.14 0.004 286)","background":"oklch(0.495521 0.130457 293.709)","forced":false,"label":"每周","accessibleName":"每周"}
+PASS radio light normal Space: {"before":true,"after":true}
+PASS radio light normal arrow moves within group: {"index":0,"background":"oklch(1 0 0)"}
+PASS radio light normal arrow loop stays in group: {"focusedOriginal":true,"checked":[false,true],"sameGroup":true,"named":true}
+PASS radio light forced keyboard focus: {"index":1,"count":2,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"rgb(55, 0, 110)","color":"rgb(255, 255, 255)","background":"rgb(55, 0, 110)","forced":true,"label":"每周","accessibleName":"每周"}
+PASS radio light forced Space: {"before":true,"after":true}
+PASS radio light forced arrow moves within group: {"index":0,"background":"rgb(255, 255, 255)"}
+PASS radio light system color state distinction: {"checked":"rgb(55, 0, 110)","unchecked":"rgb(255, 255, 255)"}
+PASS radio light forced arrow loop stays in group: {"focusedOriginal":true,"checked":[false,true],"sameGroup":true,"named":true}
+PASS radio dark normal keyboard focus: {"index":1,"count":2,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"oklch(0.834926 0.0945749 298.018)","color":"oklch(0.98 0.002 286)","background":"oklch(0.834926 0.0945749 298.018)","forced":false,"label":"每周","accessibleName":"每周"}
+PASS radio dark normal Space: {"before":true,"after":true}
+PASS radio dark normal arrow moves within group: {"index":0,"background":"oklch(0.14 0.004 286)"}
+PASS radio dark normal arrow loop stays in group: {"focusedOriginal":true,"checked":[false,true],"sameGroup":true,"named":true}
+PASS radio dark forced keyboard focus: {"index":1,"count":2,"focused":true,"visible":true,"state":true,"outline":"solid","outlineWidth":2,"outlineColor":"rgb(26, 235, 255)","color":"rgb(0, 0, 0)","background":"rgb(26, 235, 255)","forced":true,"label":"每周","accessibleName":"每周"}
+PASS radio dark forced Space: {"before":true,"after":true}
+PASS radio dark forced arrow moves within group: {"index":0,"background":"rgb(0, 0, 0)"}
+PASS radio dark system color state distinction: {"checked":"rgb(26, 235, 255)","unchecked":"rgb(0, 0, 0)"}
+PASS radio dark forced arrow loop stays in group: {"focusedOriginal":true,"checked":[false,true],"sameGroup":true,"named":true}
+PASS radio coarse target: {"coarse":true,"width":48,"height":44}
+PASS switch light normal keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":"true","outline":"solid","outlineWidth":2,"outlineColor":"oklch(0.495521 0.130457 293.709)","color":"rgb(0, 0, 0)","background":"oklch(0.495521 0.130457 293.709)","forced":false,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS switch light normal Space: {"before":"true","after":"false"}
+PASS switch light forced keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":"true","outline":"solid","outlineWidth":2,"outlineColor":"rgb(55, 0, 110)","color":"rgb(0, 0, 0)","background":"rgb(55, 0, 110)","forced":true,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS switch light forced Space: {"before":"true","after":"false"}
+PASS switch light system color state distinction: {"before":"rgb(55, 0, 110)","after":"rgb(255, 255, 255)"}
+PASS switch dark normal keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":"true","outline":"solid","outlineWidth":2,"outlineColor":"oklch(0.834926 0.0945749 298.018)","color":"rgb(255, 255, 255)","background":"oklch(0.834926 0.0945749 298.018)","forced":false,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS switch dark normal Space: {"before":"true","after":"false"}
+PASS switch dark forced keyboard focus: {"index":0,"count":1,"focused":true,"visible":true,"state":"true","outline":"solid","outlineWidth":2,"outlineColor":"rgb(26, 235, 255)","color":"rgb(255, 255, 255)","background":"rgb(26, 235, 255)","forced":true,"label":"接收项目通知","accessibleName":"接收项目通知"}
+PASS switch dark forced Space: {"before":"true","after":"false"}
+PASS switch dark system color state distinction: {"before":"rgb(26, 235, 255)","after":"rgb(0, 0, 0)"}
+PASS switch coarse target: {"coarse":true,"width":132,"height":44}
+PASS button light loading activation: {"buttons":[{"name":"primary","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(1 0 0)","background":"oklch(0.495521 0.130457 293.709)"},{"name":"subtle","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.14 0.004 286)","background":"oklch(1 0 0)"},{"name":"dashed","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.14 0.004 286)","background":"oklch(1 0 0)"},{"name":"text","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"rgb(0, 0, 0)","background":"rgba(0, 0, 0, 0)"},{"name":"link","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.495521 0.130457 293.709)","background":"rgba(0, 0, 0, 0)"}]}
+PASS button light standalone public theme: {"expected":{"background":"oklch(0.495521 0.130457 293.709)","foreground":"oklch(1 0 0)"},"actual":{"name":"primary","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(1 0 0)","background":"oklch(0.495521 0.130457 293.709)"}}
+PASS button light loading Enter: {"activation":{"keyGenerated":true,"defaultPrevented":true},"focused":true,"outline":"solid"}
+PASS button light coarse targets: {"targets":[{"width":93.3125,"height":44},{"width":85.5625,"height":44},{"width":92.796875,"height":44},{"width":69.25,"height":44},{"width":67.671875,"height":44}]}
+PASS button light selected state after keyboard activation: {"toggles":[{"name":"左对齐","pressed":"false"},{"name":"居中对齐","pressed":"true"},{"name":"右对齐","pressed":"false"}]}
+PASS button dark loading activation: {"buttons":[{"name":"primary","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.325102 0.135285 291.152)","background":"oklch(0.834926 0.0945749 298.018)"},{"name":"subtle","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.98 0.002 286)","background":"oklch(0.14 0.004 286)"},{"name":"dashed","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.98 0.002 286)","background":"oklch(0.14 0.004 286)"},{"name":"text","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"rgb(255, 255, 255)","background":"rgba(0, 0, 0, 0)"},{"name":"link","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.834926 0.0945749 298.018)","background":"rgba(0, 0, 0, 0)"}]}
+PASS button dark standalone public theme: {"expected":{"background":"oklch(0.834926 0.0945749 298.018)","foreground":"oklch(0.325102 0.135285 291.152)"},"actual":{"name":"primary","busy":"true","disabled":"true","defaultPrevented":true,"opacity":"1","color":"oklch(0.325102 0.135285 291.152)","background":"oklch(0.834926 0.0945749 298.018)"}}
+PASS button dark loading Enter: {"activation":{"keyGenerated":true,"defaultPrevented":true},"focused":true,"outline":"solid"}
+PASS button dark coarse targets: {"targets":[{"width":93.3125,"height":44},{"width":85.5625,"height":44},{"width":92.796875,"height":44},{"width":69.25,"height":44},{"width":67.671875,"height":44}]}
+PASS button dark selected state after keyboard activation: {"toggles":[{"name":"左对齐","pressed":"false"},{"name":"居中对齐","pressed":"true"},{"name":"右对齐","pressed":"false"}]}

@@ -1,0 +1,2161 @@
+{
+  "catalog": {
+    "pipelineVersion": "wake-lint-core-v74",
+    "rules": [
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require text alternatives for image elements and objects",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/alt-text",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "alternative"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require accessible content for anchors",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/anchor-has-content",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "content"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require usable anchor destinations",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/anchor-is-valid",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "href"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require recognized ARIA property names",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/aria-props",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "property"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require valid static ARIA property values",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/aria-proptypes",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "value"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require usable concrete ARIA roles",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/aria-role",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "role"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Provide keyboard handlers for click interactions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/click-events-have-key-events",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "keyboard"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Make interactive ARIA elements focusable",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/interactive-supports-focus",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "focus"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require text and a control association for labels",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "a11y/label-has-associated-control",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "content",
+          "control"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "module-graph",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Detect cycles and incomplete dependency proofs by original module identity",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "import/no-cycle",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "cycle",
+          "incomplete"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "commonjs": {
+              "default": false,
+              "type": "boolean"
+            },
+            "dynamic_imports": {
+              "default": false,
+              "type": "boolean"
+            },
+            "ignore_external": {
+              "default": false,
+              "type": "boolean"
+            },
+            "include_types": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "module-graph",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow repeated imports of the same resolved module and attributes",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "import/no-duplicates",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "duplicate"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "separate_type_imports": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "module-graph",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require dependencies to be declared by the importing package",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "import/no-extraneous-dependencies",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "extraneous"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "dev_dependencies": {
+              "default": false,
+              "type": "boolean"
+            },
+            "include_types": {
+              "default": true,
+              "type": "boolean"
+            },
+            "optional_dependencies": {
+              "default": true,
+              "type": "boolean"
+            },
+            "peer_dependencies": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "module-graph",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Enforce project-relative importer and target path zones",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "import/no-restricted-paths",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "restricted"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "zones": {
+              "default": [],
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "except": {
+                    "items": {
+                      "format": "rust-regex",
+                      "maxLength": 4096,
+                      "type": "string"
+                    },
+                    "maxItems": 64,
+                    "type": "array"
+                  },
+                  "from": {
+                    "format": "rust-regex",
+                    "maxLength": 4096,
+                    "type": "string"
+                  },
+                  "message": {
+                    "maxLength": 4096,
+                    "type": "string"
+                  },
+                  "to": {
+                    "format": "rust-regex",
+                    "maxLength": 4096,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to"
+                ],
+                "type": "object"
+              },
+              "maxItems": 64,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "module-graph",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Resolve original module requests in the project environment",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "import/no-unresolved",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unresolved",
+          "unknown"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "commonjs": {
+              "default": true,
+              "type": "boolean"
+            },
+            "dynamic_imports": {
+              "default": true,
+              "type": "boolean"
+            },
+            "ignore": {
+              "default": [],
+              "items": {
+                "format": "rust-regex",
+                "maxLength": 4096,
+                "type": "string"
+              },
+              "maxItems": 64,
+              "type": "array"
+            },
+            "include_types": {
+              "default": true,
+              "type": "boolean"
+            },
+            "report_unknown": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "module-graph",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Check import groups, alphabetization and separation without reordering execution",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "import/order",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "group",
+          "alphabetical",
+          "newline"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "alphabetize": {
+              "default": "ignore",
+              "enum": [
+                "ignore",
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            },
+            "case_insensitive": {
+              "default": true,
+              "type": "boolean"
+            },
+            "groups": {
+              "default": [
+                "builtin",
+                "external",
+                "internal",
+                "parent",
+                "sibling",
+                "index",
+                "type",
+                "unknown"
+              ],
+              "items": {
+                "enum": [
+                  "builtin",
+                  "external",
+                  "internal",
+                  "parent",
+                  "sibling",
+                  "index",
+                  "type",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "maxItems": 8,
+              "minItems": 8,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "newlines": {
+              "default": "ignore",
+              "enum": [
+                "ignore",
+                "always",
+                "never"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "control-flow",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require consistent value-returning function paths",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/consistent-return",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "flow"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "warn",
+        "description": "Require strict equality comparisons",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/eqeqeq",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "strict"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "allow_null": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow async executors of the global Promise constructor",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-async-promise-executor",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unexpected"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow assignments in condition operands",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-cond-assign",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "assignment"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Disallow global console member access",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-console",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unexpected"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow constant binary comparisons and short-circuit decisions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-constant-binary-expression",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "constant-short-circuit",
+          "constant-nullish",
+          "constant-comparison"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "warn",
+        "description": "Disallow provably constant conditions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-constant-condition",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "constant"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "check_loops": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "error",
+        "description": "Disallow debugger statements",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-debugger",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unexpected"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "error",
+        "description": "Disallow duplicate static object keys",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-dupe-keys",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "duplicate"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "error",
+        "description": "Disallow provably duplicate literal case labels",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-duplicate-case",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "duplicate"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow duplicate static imports of the same module and attributes",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-duplicate-imports",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "duplicate"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "allow_separate_type_imports": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "error",
+        "description": "Disallow empty blocks without comments",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-empty",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "empty"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "allow_catch": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "control-flow",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require an explanation for nonempty switch case fallthrough",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-fallthrough",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "flow"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow returning values from global Promise executors",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-promise-executor-return",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unexpected"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow repeated declarations in the same value scope",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-redeclare",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "duplicate"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow assigning identifiers to themselves",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-self-assign",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "self"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow comparing identical primitive expressions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-self-compare",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "self"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow explicit value declarations shadowing outer source bindings",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-shadow",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "shadow"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "hoist": {
+              "default": true,
+              "type": "boolean"
+            },
+            "ignore_named_expressions": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow holes in array expressions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-sparse-arrays",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "sparse"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow unresolved original runtime value references",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-undef",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "undefined"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "typeof": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "control-flow",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow unreachable statements after abrupt completion",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-unreachable",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "flow"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "control-flow",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow abrupt completions escaping finally blocks",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-unsafe-finally",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "flow"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow unused original value and type bindings",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-unused-vars",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unused",
+          "usedIgnored"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "args": {
+              "default": "after-used",
+              "enum": [
+                "after-used",
+                "all",
+                "none"
+              ],
+              "type": "string"
+            },
+            "args_ignore_pattern": {
+              "default": "",
+              "format": "rust-regex",
+              "maxLength": 4096,
+              "type": "string"
+            },
+            "caught_errors": {
+              "default": "all",
+              "enum": [
+                "all",
+                "none"
+              ],
+              "type": "string"
+            },
+            "caught_errors_ignore_pattern": {
+              "default": "",
+              "format": "rust-regex",
+              "maxLength": 4096,
+              "type": "string"
+            },
+            "ignore_rest_siblings": {
+              "default": false,
+              "type": "boolean"
+            },
+            "report_used_ignore_pattern": {
+              "default": false,
+              "type": "boolean"
+            },
+            "vars": {
+              "default": "all",
+              "enum": [
+                "all",
+                "local"
+              ],
+              "type": "string"
+            },
+            "vars_ignore_pattern": {
+              "default": "",
+              "format": "rust-regex",
+              "maxLength": 4096,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow value references textually preceding their declaration",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-use-before-define",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "before"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "classes": {
+              "default": true,
+              "type": "boolean"
+            },
+            "functions": {
+              "default": true,
+              "type": "boolean"
+            },
+            "variables": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Use lexical declarations instead of var",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/no-var",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "var"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Prefer const for bindings without reassignment",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "js/prefer-const",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "prefer"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "destructuring": {
+              "default": "any",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "type": "string"
+            },
+            "ignore_read_before_assign": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Use a NaN predicate instead of comparing with global NaN",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/use-isnan",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unexpected"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require valid literal typeof result comparisons",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "js/valid-typeof",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "invalid"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Check original reactive captures against Hook dependency arrays",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react-hooks/exhaustive-deps",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "missing",
+          "missing-array",
+          "unknown-callback",
+          "dynamic",
+          "async",
+          "unavailable",
+          "stale-write",
+          "duplicate",
+          "external",
+          "mutable",
+          "unnecessary"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "additional_effect_hooks": {
+              "default": "",
+              "format": "rust-regex",
+              "maxLength": 4096,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope-control-flow",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require Hooks in React functions with consistent native execution paths",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react-hooks/rules-of-hooks",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "context",
+          "async",
+          "generator",
+          "parameters",
+          "exception",
+          "loop",
+          "conditional"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require keys on JSX list items",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/jsx-key",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "key"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow duplicate explicit JSX attributes",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/jsx-no-duplicate-props",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "duplicate"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow unresolved JSX component roots",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/jsx-no-undef",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "undefined"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Count resolved JSX component roots as binding uses",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/jsx-uses-vars",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Avoid array callback indexes in JSX keys",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/no-array-index-key",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "index"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Use JSX children instead of an explicit children attribute",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/no-children-prop",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "children"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow explicit dangerouslySetInnerHTML attributes",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "react/no-danger",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "dangerous"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Use self-closing elements when there is no child source",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "react/self-closing-comp",
+        "languages": [
+          "jsx",
+          "tsx"
+        ],
+        "messageIds": [
+          "empty"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Require or omit optional trailing list commas",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "style/comma-dangle",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "missing",
+          "extra"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "default": "never",
+              "enum": [
+                "never",
+                "always",
+                "always-multiline",
+                "only-multiline"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Require a final line terminator in nonempty source",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "style/eol-last",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "missing"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "linebreak": {
+              "default": "lf",
+              "enum": [
+                "lf",
+                "crlf"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Use structural indentation for code lines",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "style/indent",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "indent"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "style": {
+              "default": "spaces",
+              "enum": [
+                "spaces",
+                "tabs"
+              ],
+              "type": "string"
+            },
+            "width": {
+              "default": 2,
+              "maximum": 8,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Disallow spaces and tabs at line ends",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "style/no-trailing-spaces",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "trailing"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Use the configured quotes in JavaScript and TypeScript strings",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "style/quotes",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "quote"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "quote": {
+              "default": "single",
+              "enum": [
+                "single",
+                "double"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "layout",
+        "defaultLevel": "off",
+        "description": "Require or safely omit statement semicolons",
+        "documentation": "/reference/cli/lint",
+        "fixable": true,
+        "id": "style/semi",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "missing",
+          "extra"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "default": "always",
+              "enum": [
+                "always",
+                "never"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Require consistent array type syntax",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/array-type",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "array",
+          "generic"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "syntax": {
+              "default": "array",
+              "enum": [
+                "array",
+                "generic"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require await operands to be Promise or thenable types",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/await-thenable",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "notThenable"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require explained ts-expect-error and disallow unchecked suppressions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/ban-ts-comment",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "directive"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Mark local type-only exports explicitly",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/consistent-type-exports",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "type"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "scope",
+        "category": "suggestion",
+        "defaultLevel": "off",
+        "description": "Use explicit type imports for bindings used only in types",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/consistent-type-imports",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "type"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow interfaces without members",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-empty-interface",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "empty"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow explicit any types",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-explicit-any",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "any"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require Promise-returning expression statements to be handled",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-floating-promises",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "floating"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow Promise values in synchronous conditions and void callbacks",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-misused-promises",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "promiseCondition",
+          "promiseCallback"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "checks_conditionals": {
+              "default": true,
+              "type": "boolean"
+            },
+            "checks_void_return": {
+              "default": true,
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "arguments": {
+                      "type": "boolean"
+                    },
+                    "attributes": {
+                      "type": "boolean"
+                    },
+                    "properties": {
+                      "type": "boolean"
+                    },
+                    "returns": {
+                      "type": "boolean"
+                    },
+                    "variables": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow named TypeScript namespaces and modules",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-namespace",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "namespace"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "syntax",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow postfix non-null assertions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-non-null-assertion",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "assertion"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow type assertions that do not change the proven type category",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-unnecessary-type-assertion",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unnecessary"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow assigning any or unresolved values",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-unsafe-assignment",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unsafeAssignment",
+          "errorAssignment"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow calls through any or standard Function types without usable signatures",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-unsafe-call",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unsafeCall",
+          "unsafeNew",
+          "unsafeTag",
+          "errorCall",
+          "errorNew",
+          "errorTag"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow any receivers and computed keys in original member accesses",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-unsafe-member-access",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unsafeMember",
+          "errorMember",
+          "unsafeKey",
+          "errorKey"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "allow_optional": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Disallow returning any or unresolved values",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/no-unsafe-return",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "unsafeReturn",
+          "errorReturn"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require explicitly allowed types in untagged template substitutions",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/restrict-template-expressions",
+        "languages": [
+          "js",
+          "jsx",
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "invalid"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "allow_any": {
+              "default": true,
+              "type": "boolean"
+            },
+            "allow_boolean": {
+              "default": true,
+              "type": "boolean"
+            },
+            "allow_never": {
+              "default": false,
+              "type": "boolean"
+            },
+            "allow_nullish": {
+              "default": true,
+              "type": "boolean"
+            },
+            "allow_number": {
+              "default": true,
+              "type": "boolean"
+            },
+            "allow_regexp": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "analysis": "type-information",
+        "category": "problem",
+        "defaultLevel": "off",
+        "description": "Require a default or exhaustive handling for union discriminants",
+        "documentation": "/reference/cli/lint",
+        "fixable": false,
+        "id": "ts/switch-exhaustiveness-check",
+        "languages": [
+          "ts",
+          "tsx"
+        ],
+        "messageIds": [
+          "missingDefault"
+        ],
+        "optionsSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    ],
+    "schema": "wake.lint.rules.v1"
+  },
+  "errorCount": 0,
+  "exitCode": 0,
+  "files": [],
+  "warningCount": 0
+}

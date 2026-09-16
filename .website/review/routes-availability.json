@@ -1,0 +1,418 @@
+[
+  {
+    "route": "/components/rc-alert",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-alert/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-app-main-layout",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-app-main-layout/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-auto-sizer",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-auto-sizer/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-avatar",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-avatar/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-badge",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-badge/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-bar-chart",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-bar-chart/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-breadcrumbs",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-breadcrumbs/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-button",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-button/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-canvas",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-canvas/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-card",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-card/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-checkbox",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-checkbox/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-color-picker",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-color-picker/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-component-preview",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-component-preview/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-cron-picker",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-cron-picker/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-date-picker",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-date-picker/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-dialog",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-dialog/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-divider",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-divider/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-drawer",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-drawer/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-dropdown-container",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-dropdown-container/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-empty",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-empty/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-flow-diagram",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-flow-diagram/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-form",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-form/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-hooks",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-hooks/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-line-edit",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-line-edit/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-masonry",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-masonry/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-menu",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-menu/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-message",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-message/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-notification",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-notification/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-number-edit",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-number-edit/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-pagination",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-pagination/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-prose",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-prose/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-radio",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-radio/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-realm",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-realm/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-router",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-router/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-segmented",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-segmented/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-select",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-select/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-skeleton",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-skeleton/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-slider",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-slider/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-spin",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-spin/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-split-pane",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-split-pane/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-switch",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-switch/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-table",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-table/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-table-pro",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-table-pro/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tabs",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tabs/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tag",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tag/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-text-edit",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-text-edit/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-theme",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-theme/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-token-global",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-token-global/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-token-semantic",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-token-semantic/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tooltip",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tooltip/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tree",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-tree/workbench/",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-virtual",
+    "status": 200
+  },
+  {
+    "route": "/components/rc-virtual/workbench/",
+    "status": 200
+  }
+]

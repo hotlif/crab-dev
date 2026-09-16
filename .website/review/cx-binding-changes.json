@@ -1,0 +1,118 @@
+[
+  {
+    "file": "rc-alert/src/alert.tsx",
+    "calls": 3
+  },
+  {
+    "file": "rc-app-main-layout/src/content.tsx",
+    "calls": 1
+  },
+  {
+    "file": "rc-app-main-layout/src/layout.tsx",
+    "calls": 1
+  },
+  {
+    "file": "rc-app-main-layout/src/sidebar.tsx",
+    "calls": 2
+  },
+  {
+    "file": "rc-app-main-layout/src/tabBar.tsx",
+    "calls": 2
+  },
+  {
+    "file": "rc-app-main-layout/src/tabContextMenu.tsx",
+    "calls": 2
+  },
+  {
+    "file": "rc-bar-chart/src/barChart.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-breadcrumbs/src/breadcrumbs.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-component-preview/src/preview.tsx",
+    "calls": 3
+  },
+  {
+    "file": "rc-cron-picker/src/fieldEditor.tsx",
+    "calls": 5
+  },
+  {
+    "file": "rc-form/src/item.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-select/src/selectInput.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-select/src/selectOverlay.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-spin/src/spin.tsx",
+    "calls": 3
+  },
+  {
+    "file": "rc-split-pane/src/splitPane.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-table/src/headerCell.tsx",
+    "calls": 10
+  },
+  {
+    "file": "rc-table/src/table.tsx",
+    "calls": 6
+  },
+  {
+    "file": "rc-table-pro/src/table.tsx",
+    "calls": 5
+  },
+  {
+    "file": "rc-tabs/src/tabs.tsx",
+    "calls": 7
+  },
+  {
+    "file": "rc-tree/src/nodeItem.tsx",
+    "calls": 2
+  },
+  {
+    "file": "rc-color-picker/src/colorPicker/colorPickerInput.tsx",
+    "calls": 1
+  },
+  {
+    "file": "rc-color-picker/src/panels/colorPickerPanel.tsx",
+    "calls": 1
+  },
+  {
+    "file": "rc-date-picker/src/panels/datePickerPanel.tsx",
+    "calls": 2
+  },
+  {
+    "file": "rc-date-picker/src/panels/timePickerPanel.tsx",
+    "calls": 4
+  },
+  {
+    "file": "rc-menu/src/vertical/collapsed.tsx",
+    "calls": 2
+  },
+  {
+    "file": "rc-menu/src/vertical/normal.tsx",
+    "calls": 7
+  },
+  {
+    "file": "rc-table/docs/demos/edit.demo.tsx",
+    "calls": 1
+  },
+  {
+    "file": "rc-table/docs/demos/rowEdit.demo.tsx",
+    "calls": 11
+  },
+  {
+    "file": "rc-table-pro/src/hooks/useColumnManagement.tsx",
+    "calls": 3
+  }
+]

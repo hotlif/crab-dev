@@ -1,0 +1,14 @@
+{
+  "capturedAt": "2026-09-16T06:45:35.688Z",
+  "before": {
+    "tag": "SPAN",
+    "name": "Clear",
+    "value": "北京"
+  },
+  "after": {
+    "tag": "BODY",
+    "name": null,
+    "value": "请选择城市",
+    "expanded": "false"
+  }
+}

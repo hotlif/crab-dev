@@ -1,0 +1,200 @@
+{
+  "extends": "./motion-audit-typecheck.json",
+  "include": [
+    "../docs/examples/rc-date-picker/*.tsx",
+    "../docs/examples/rc-dropdown-container/*.tsx",
+    "../../components/rc-date-picker/src/type.d.ts",
+    "../../components/rc-date-picker/src/datePicker/datePicker.tsx",
+    "../../components/rc-date-picker/src/panels/datePickerPanel.tsx",
+    "../../components/rc-date-picker/src/__tests__/datePickerPanel.test.tsx",
+    "../../components/rc-date-picker/src/panels/dateTimePickerPanel.tsx",
+    "../../components/rc-date-picker/src/dateTimePicker/dateTimePicker.tsx"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@crab-dev/rc-realm": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-realm\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/css": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\css\\index.d.ts"
+      ],
+      "@crab-dev/rc-date-picker": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-date-picker\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-pagination": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-pagination\\declarations\\index.d.ts"
+      ],
+      "react": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\react\\index.d.ts"
+      ],
+      "@crab-dev/rc-auto-sizer": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-auto-sizer\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-color-picker": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-color-picker\\declarations\\index.d.ts"
+      ],
+      "react-dom/*": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\react-dom\\*"
+      ],
+      "@crab-dev/rc-card": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-card\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-masonry": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-masonry\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-tabs": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-tabs\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-app-main-layout": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-app-main-layout\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-virtual": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-virtual\\declarations\\index.d.ts"
+      ],
+      "react-dom": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\react-dom\\index.d.ts"
+      ],
+      "@crab-dev/rc-form": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-form\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-spin": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-spin\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-breadcrumbs": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-breadcrumbs\\declarations\\index.d.ts"
+      ],
+      "csstype": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\csstype\\index.d.ts"
+      ],
+      "@crab-dev/rc-radio": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-radio\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-segmented": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-segmented\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/wake/*": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\wake\\*"
+      ],
+      "@crab-dev/rc-number-edit": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-number-edit\\declarations\\index.d.ts"
+      ],
+      "react/*": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\react\\*"
+      ],
+      "@crab-dev/rc-message": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-message\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-button": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-button\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-bar-chart": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-bar-chart\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-component-preview": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-component-preview\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-select": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-select\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-dialog": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-tree": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-tree\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-notification": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-notification\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-table": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-table\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-badge": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-badge\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-token-semantic": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-token-semantic\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-empty": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-empty\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-tag": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-tag\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-flow-diagram": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-flow-diagram\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-cron-picker": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-cron-picker\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-router": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-router\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-prose": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-prose\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-menu": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-menu\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-split-pane": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-split-pane\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-text-edit": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-text-edit\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-line-edit": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-line-edit\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-switch": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-switch\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-avatar": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-avatar\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-token-global": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-token-global\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-slider": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-slider\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-checkbox": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-checkbox\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-tooltip": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-tooltip\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-drawer": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-drawer\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-canvas": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-canvas\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-theme": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-theme\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-table-pro": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-table-pro\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-dropdown-container": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dropdown-container\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-hooks": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-hooks\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-alert": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-alert\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-skeleton": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-skeleton\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/rc-divider": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-divider\\declarations\\index.d.ts"
+      ],
+      "@crab-dev/wake/test/react": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\.tmp\\ui-typecheck\\wake\\test-react.d.ts"
+      ],
+      "@js-temporal/polyfill": [
+        "C:\\Users\\zhang\\Desktop\\crab-dev\\.yarn\\unplugged\\@js-temporal-polyfill-npm-0.5.1-f0f877182f\\node_modules\\@js-temporal\\polyfill\\index.d.ts"
+      ]
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "capturedAt": "2026-09-16T06:19:16.249Z",
+  "revision": {
+    "sha256": "3c6f3dceb65ea33dc88774c0e41c1651b040e5790b68fca798f964cbe790b3dd",
+    "files": 2542,
+    "bytes": 189462501
+  },
+  "scope": "Isolated Chrome keyboard, clipboard and reduced-motion checks; clipboard denial explicitly injected.",
+  "results": [
+    {
+      "check": "Purple keyboard selection",
+      "passed": true,
+      "evidence": {
+        "name": "查看 purple.20",
+        "pressed": "true",
+        "reference": "globalToken.purple[\"20\"]",
+        "focus": "solid",
+        "tabStops": 1
+      }
+    },
+    {
+      "check": "Copy public expression and retain focus",
+      "passed": true,
+      "evidence": {
+        "text": "globalToken.purple[\"20\"]",
+        "status": "已复制",
+        "focused": true
+      }
+    },
+    {
+      "check": "Copy denial retains selectable code",
+      "passed": true,
+      "evidence": {
+        "status": "复制失败，请选择上方代码复制",
+        "code": "globalToken.purple[\"20\"]",
+        "selection": "auto"
+      }
+    },
+    {
+      "check": "Reduced motion preserves explicit state change",
+      "passed": true,
+      "evidence": {
+        "before": "false",
+        "after": "true",
+        "reduced": true,
+        "note": "block",
+        "samples": [
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          },
+          {
+            "transition": "0s",
+            "animation": "none"
+          }
+        ]
+      }
+    }
+  ],
+  "exceptions": []
+}

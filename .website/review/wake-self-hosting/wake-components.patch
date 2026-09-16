@@ -1,0 +1,307 @@
+--- a/crates/wake_docs/runtime/app.tsx
++++ b/crates/wake_docs/runtime/app.tsx
+@@ -1,4 +1,5 @@
+ import React, { Suspense, startTransition, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
++import { Alert, Button, Dialog, Drawer, Empty, LineEdit, Tag } from "@crab-dev/wake/internal/components-runtime";
+ import { apiDocs, demos, pages, developmentDemand } from "@@wake/docs/registry.ts";
+ import { Preview, siteConfig } from "@@wake/docs/config.tsx";
+ import { docsRouteHref, findPageForPath, routePathFromLocation } from "./routes.mjs";
+@@ -53,52 +54,6 @@
+   if (!routePath) return null;
+   const page = pageForPath(routePath.encoded);
+   return page ? { page, slug: page.slug + url.hash } : null;
+-}
+-
+-function focusableElements(container: HTMLElement) {
+-  return Array.from(container.querySelectorAll(
+-    'a[href], button:not([disabled]), iframe, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+-  )).filter((element) => element.getAttribute("aria-hidden") !== "true" && element.getClientRects().length > 0) as HTMLElement[];
+-}
+-
+-function trapDialogFocus(event: React.KeyboardEvent<HTMLElement>) {
+-  if (event.key !== "Tab") return;
+-  const focusable = focusableElements(event.currentTarget);
+-  if (!focusable.length) {
+-    event.preventDefault();
+-    event.currentTarget.focus();
+-    return;
+-  }
+-  const first = focusable[0];
+-  const last = focusable[focusable.length - 1];
+-  if (event.shiftKey && document.activeElement === first) {
+-    event.preventDefault();
+-    last.focus();
+-  } else if (!event.shiftKey && document.activeElement === last) {
+-    event.preventDefault();
+-    first.focus();
+-  }
+-}
+-
+-function useDialogFocus(open: boolean, initialFocus: { current: HTMLElement | null }) {
+-  const returnFocus = useRef<HTMLElement | null>(null);
+-  const shouldRestore = useRef(true);
+-  useEffect(() => {
+-    if (!open) return;
+-    shouldRestore.current = true;
+-    returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+-    const previousOverflow = document.body.style.overflow;
+-    document.body.style.overflow = "hidden";
+-    const focusFrame = requestAnimationFrame(() => initialFocus.current?.focus());
+-    return () => {
+-      cancelAnimationFrame(focusFrame);
+-      document.body.style.overflow = previousOverflow;
+-      if (!shouldRestore.current) return;
+-      const target = returnFocus.current;
+-      requestAnimationFrame(() => { if (target?.isConnected) target.focus(); });
+-    };
+-  }, [open, initialFocus]);
+-  return useCallback(() => { shouldRestore.current = false; }, []);
+ }
+ 
+ function statusText(status: string): string {
+@@ -232,7 +187,7 @@
+   return <figure className="code-block" data-language={language} data-line-numbers={lineCount > 1 ? "true" : "false"}>
+     <figcaption className="code-toolbar">
+       <span className="code-identity">{title && <strong>{title}</strong>}<small>{codeLanguageName(language)}</small></span>
+-      <button type="button" className={copyStatus === "copied" ? "is-copied" : copyStatus === "error" ? "is-error" : ""} onClick={copy} aria-label={text("Copy code", "复制代码")} aria-live="polite">{copyLabel}</button>
++      <Button appearance="text" type="button" className={copyStatus === "copied" ? "is-copied" : copyStatus === "error" ? "is-error" : ""} onClick={copy} aria-label={text("Copy code", "复制代码")} aria-live="polite">{copyLabel}</Button>
+     </figcaption>
+     <pre tabIndex={0}><code>{children}</code></pre>
+   </figure>;
+@@ -316,14 +271,11 @@
+   const [fullscreen, setFullscreen] = useState(false);
+   const [copied, setCopied] = useState(false);
+   const frameRef = useRef<HTMLIFrameElement>(null);
+-  const fullscreenClose = useRef<HTMLButtonElement>(null);
+   const domId = "wake-demo-" + useId().replace(/:/g, "");
+   const titleId = domId + "-title";
+   const previewPanelId = domId + "-preview-panel";
+   const codeToggleId = domId + "-code-toggle";
+   const codePanelId = domId + "-code-panel";
+-  const playgroundTitleId = domId + "-playground-title";
+-  useDialogFocus(fullscreen, fullscreenClose);
+   useEffect(() => {
+     if (!fullscreen) return;
+     const closeOnEscape = (event: KeyboardEvent) => {
+@@ -388,21 +340,20 @@
+     </div>
+     <div className="demo-toolbar">
+       <div className="demo-device-tools" role="group" aria-label={text("Preview device", "预览设备")}>
+-        {viewportOptions.map((option) => <button className="demo-icon-button" aria-pressed={viewport === option.id} aria-label={option.label + " · " + option.size} data-tooltip={option.label + " · " + option.size} type="button" key={option.id} onClick={() => setViewport(option.id)}><i className={"viewport-icon viewport-icon-" + option.id} aria-hidden="true" /></button>)}
++        {viewportOptions.map((option) => <Button appearance="text" className="docs-demo-tool" aria-pressed={viewport === option.id} aria-label={option.label + " · " + option.size} data-tooltip={option.label + " · " + option.size} type="button" key={option.id} onClick={() => setViewport(option.id)}><i className={"viewport-icon viewport-icon-" + option.id} aria-hidden="true" /></Button>)}
+       </div>
+       <div className="demo-toolbar-actions">
+-        <button className="demo-icon-button" id={codeToggleId} type="button" aria-label={codeOpen ? text("Collapse source", "收起源码") : text("Expand source", "展开源码")} aria-expanded={codeOpen} aria-controls={codePanelId} data-tooltip={codeOpen ? text("Collapse source", "收起源码") : text("Expand source", "展开源码")} onClick={() => setCodeOpen((open) => !open)}><i className="demo-tool-icon demo-tool-icon-code" aria-hidden="true" /></button>
+-        {codeOpen && <button className="demo-icon-button" type="button" onClick={copy} aria-label={text("Copy demo source", "复制演示源码")} data-tooltip={copied ? text("Copied", "已复制") : text("Copy", "复制")}><i className="demo-tool-icon demo-tool-icon-copy" aria-hidden="true" /></button>}
+-        <button className="demo-icon-button" type="button" aria-label={text("Open playground", "全屏预览")} data-tooltip={text("Open playground", "全屏预览")} aria-haspopup="dialog" onClick={() => setFullscreen(true)}><i className="demo-tool-icon demo-tool-icon-fullscreen" aria-hidden="true" /></button>
++        <Button appearance="text" className="docs-demo-tool" id={codeToggleId} type="button" aria-label={codeOpen ? text("Collapse source", "收起源码") : text("Expand source", "展开源码")} aria-expanded={codeOpen} aria-controls={codePanelId} data-tooltip={codeOpen ? text("Collapse source", "收起源码") : text("Expand source", "展开源码")} onClick={() => setCodeOpen((open) => !open)}><i className="demo-tool-icon demo-tool-icon-code" aria-hidden="true" /></Button>
++        {codeOpen && <Button appearance="text" className="docs-demo-tool" type="button" onClick={copy} aria-label={text("Copy demo source", "复制演示源码")} data-tooltip={copied ? text("Copied", "已复制") : text("Copy", "复制")}><i className="demo-tool-icon demo-tool-icon-copy" aria-hidden="true" /></Button>}
++        <Button appearance="text" className="docs-demo-tool" type="button" aria-label={text("Open playground", "全屏预览")} data-tooltip={text("Open playground", "全屏预览")} aria-haspopup="dialog" onClick={() => setFullscreen(true)}><i className="demo-tool-icon demo-tool-icon-fullscreen" aria-hidden="true" /></Button>
+       </div>
+     </div>
+     {codeOpen && <DemoSource id={codePanelId} labelledBy={codeToggleId} panel source={source} highlighted={highlightedSource} language={sourceLanguage} />}
+-    {fullscreen && <div className="playground-backdrop" onMouseDown={() => setFullscreen(false)}>
+-      <div className="playground" role="dialog" aria-modal="true" aria-labelledby={playgroundTitleId} onKeyDown={trapDialogFocus} onMouseDown={(event) => event.stopPropagation()}>
+-        <div className="playground-bar"><strong id={playgroundTitleId}>{meta.title || demo.title}</strong><span>{text("Device preview and highlighted source", "设备预览与高亮源码")}</span><button ref={fullscreenClose} type="button" onClick={() => setFullscreen(false)}>{text("Close", "关闭")}</button></div>
+-        <div className="playground-body">{preview}<DemoSource source={source} highlighted={highlightedSource} language={sourceLanguage} /></div>
+-      </div>
+-    </div>}
++    <Dialog className="docs-playground-dialog" open={fullscreen} onOpenChange={setFullscreen}
++      title={meta.title || demo.title} maskClosable
++      i18n={{ cancelText: text("Close", "关闭"), confirmText: text("Close", "关闭") }}>
++      {fullscreen && <div className="playground-body">{preview}<DemoSource source={source} highlighted={highlightedSource} language={sourceLanguage} /></div>}
++    </Dialog>
+   </div>;
+ }
+ 
+@@ -431,7 +382,7 @@
+   return <section className="api-section" aria-labelledby={"api-" + symbol}>
+     <div className="api-heading">
+       <div><span className="eyebrow">{text("Props", "属性")}</span><h2 id={"api-" + symbol}>{symbol}</h2></div>
+-      <div className="api-filter"><span aria-hidden="true">⌕</span><input aria-label={text("Filter properties", "筛选属性")} aria-describedby={statusId} placeholder={text("Filter by name or type…", "按名称或类型筛选…")} value={filter} onChange={(event) => setFilter(event.target.value)} /></div>
++      <div className="api-filter"><LineEdit aria-label={text("Filter properties", "筛选属性")} aria-describedby={statusId} placeholder={text("Filter by name or type…", "按名称或类型筛选…")} value={filter} onChange={(event) => setFilter(event.target.value)} /></div>
+     </div>
+     {doc.description && <p>{doc.description}</p>}
+     <p className="api-filter-status" id={statusId} role="status" aria-live="polite">{filter ? text(props.length + " of " + doc.props.length + " properties", "找到 " + props.length + " / " + doc.props.length + " 个属性") : text(doc.props.length + " properties", "共 " + doc.props.length + " 个属性")}</p>
+@@ -442,7 +393,7 @@
+         <td data-label={text("Default", "默认值")}><code>{prop.default_value || "—"}</code></td>
+         <td data-label={text("Description", "说明")}>{prop.description || "—"}{prop.since && <small>{text("Since", "始于")} {prop.since}</small>}</td>
+       </tr>)}
+-    </tbody></table></div> : <div className="api-empty"><strong>{text("No matching properties", "没有匹配的属性")}</strong><span>{text("Try another name or type keyword.", "请尝试其他属性名或类型关键词。")}</span><button type="button" onClick={() => setFilter("")}>{text("Clear filter", "清除筛选")}</button></div>}
++    </tbody></table></div> : <div className="api-empty"><strong>{text("No matching properties", "没有匹配的属性")}</strong><span>{text("Try another name or type keyword.", "请尝试其他属性名或类型关键词。")}</span><Button appearance="text" type="button" onClick={() => setFilter("")}>{text("Clear filter", "清除筛选")}</Button></div>}
+     {doc.inherited.map((group: any) => <details className="inherited" key={group.name + group.source}><summary>{text("Inherited from", "继承自")} <code>{group.name}</code></summary><p>{group.type_text} · {group.source}</p></details>)}
+     {doc.warnings.map((warning: string) => <div className="callout warning" key={warning}>{warning}</div>)}
+   </section>;
+@@ -454,7 +405,6 @@
+   const [searchTextByPage, setSearchTextByPage] = useState<Record<string, string>>({});
+   const corpusRequested = useRef(false);
+   const input = useRef<HTMLInputElement>(null);
+-  const suppressFocusRestore = useDialogFocus(open, input);
+   useEffect(() => { if (open) { setQuery(""); setActive(0); } }, [open]);
+   useEffect(() => {
+     if (!open || corpusRequested.current) return;
+@@ -468,7 +418,7 @@
+   const index = useMemo(() => createSearchIndex(pages, apiDocs, { section: sectionKind, prop: propKind }, searchTextByPage), [sectionKind, propKind, searchTextByPage]);
+   const results = useMemo(() => searchDocs(index, query, query.trim() ? 12 : 8), [index, query]);
+   useEffect(() => { if (open) document.getElementById("wake-search-result-" + active)?.scrollIntoView({ block: "nearest" }); }, [active, query, open]);
+-  const choose = (slug: string) => { suppressFocusRestore(); go(slug); close(); };
++  const choose = (slug: string) => { close(); go(slug); };
+   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+     if (event.key === "ArrowDown") {
+       event.preventDefault();
+@@ -481,16 +431,24 @@
+       choose(results[active].slug);
+     }
+   };
+-  if (!open) return null;
+-  return <div className="search-backdrop" role="presentation" onMouseDown={close}>
+-    <div id="wake-search-dialog" className="search-dialog" role="dialog" aria-modal="true" aria-label={text("Search documentation", "搜索文档")} onKeyDown={trapDialogFocus} onMouseDown={(event) => event.stopPropagation()}>
+-      <div className="search-input"><span aria-hidden="true">⌕</span><input ref={input} value={query} onChange={(event) => { setQuery(event.target.value); setActive(0); }} onKeyDown={onKeyDown} role="combobox" aria-label={text("Search documentation", "搜索文档")} aria-autocomplete="list" aria-expanded={open} aria-controls="wake-search-results" aria-activedescendant={results[active] ? "wake-search-result-" + active : undefined} placeholder={text("Search pages, headings, commands, and props…", "搜索页面、章节、命令和属性…")} /><kbd>Esc</kbd></div>
+-      <div className="search-results" id="wake-search-results" role="listbox" aria-label={text("Search results", "搜索结果")}>
+-        {results.map((item: any, index: number) => <div id={"wake-search-result-" + index} className={"search-result " + (index === active ? "active" : "")} role="option" aria-selected={index === active} key={item.slug + index} onMouseMove={() => setActive(index)} onMouseDown={(event) => event.preventDefault()} onClick={() => choose(item.slug)}><span><strong>{item.title}</strong><small>{item.detail}</small></span><em>{item.kind}</em></div>)}
+-        {!results.length && <p className="empty-search">{text("No results for", "没有找到")} “{query}”</p>}
+-      </div>
++  return <Dialog id="wake-search-dialog" className="docs-search-dialog"
++    open={open} onOpenChange={(next) => { if (!next) close(); }}
++    title={text("Search documentation", "搜索文档")} maskClosable
++    i18n={{ cancelText: text("Close", "关闭"), confirmText: text("Open result", "打开结果") }}
++    onConfirm={() => { if (!results[active]) return false; choose(results[active].slug); }}>
++    <LineEdit autoFocus ref={input} value={query} onChange={(event) => { setQuery(event.target.value); setActive(0); }} onKeyDown={onKeyDown} role="combobox" aria-label={text("Search documentation", "搜索文档")} aria-autocomplete="list" aria-expanded={open} aria-controls="wake-search-results" aria-activedescendant={results[active] ? "wake-search-result-" + active : undefined} placeholder={text("Search pages, headings, commands, and props…", "搜索页面、章节、命令和属性…")} />
++    <div className="search-results" id="wake-search-results" role="listbox" aria-label={text("Search results", "搜索结果")}>
++      {results.map((item: any, index: number) => <Button appearance="text" shouldFitContainer
++        id={"wake-search-result-" + index} className="docs-search-result"
++        role="option" aria-selected={index === active} isSelected={index === active}
++        tabIndex={-1} key={item.slug + index}
++        onMouseMove={() => setActive(index)} onMouseDown={(event) => event.preventDefault()}
++        onClick={() => choose(item.slug)}>
++        <span><strong>{item.title}</strong><small>{item.detail}</small></span><Tag>{item.kind}</Tag>
++      </Button>)}
++      {!results.length && <Empty title={text("No results", "没有匹配结果")} description={query} />}
+     </div>
+-  </div>;
++  </Dialog>;
+ }
+ 
+ function ThemeButton({ theme, setTheme }: { theme: Theme; setTheme: (theme: Theme) => void }) {
+@@ -498,7 +456,7 @@
+   const icon = theme === "light" ? "☀" : theme === "dark" ? "☾" : "◐";
+   const name = ({ system: text("system", "跟随系统"), light: text("light", "浅色"), dark: text("dark", "深色") } as Record<Theme, string>)[theme];
+   const label = text("Theme", "主题") + ": " + name;
+-  return <button type="button" className="icon-button" onClick={() => setTheme(next[theme])} aria-label={label} title={label}>{icon}</button>;
++  return <Button appearance="text" type="button" className="docs-icon-control" onClick={() => setTheme(next[theme])} aria-label={label} title={label}>{icon}</Button>;
+ }
+ 
+ function Logo({ onNavigate }: { onNavigate?: () => void }) {
+@@ -544,15 +502,15 @@
+   }, [current]);
+   const link = (page: PageRecord, nested = false) => {
+     const active = page.slug === current;
+-    return <a
++    return <Button appearance="text" shouldFitContainer isSelected={active}
+       key={page.slug}
+-      className={(active ? "active" : "") + (nested ? " nested" : "")}
++      className={"docs-nav-link" + (nested ? " docs-nav-nested" : "")}
+       aria-current={active ? "page" : undefined}
+       href={docsHref(page.slug)}
+       onClick={() => close?.()}
+     >
+       <span>{page.title}</span>
+-    </a>;
++    </Button>;
+   };
+   return <nav className="sidebar-nav" aria-label={text("Documentation", "文档导航")}>
+     {groups.map((group) => <div className="nav-group" key={group.id}>
+@@ -563,13 +521,13 @@
+         const open = expandedByUser.has(key) || key === activeKey;
+         const controls = "wake-nav-" + group.id + "-" + section.id;
+         return <div className="nav-section" key={key}>
+-          <button type="button" className="nav-section-toggle" aria-expanded={open} aria-controls={controls} onClick={() => setExpandedByUser((current) => {
++          <Button appearance="text" type="button" className="docs-nav-toggle" aria-expanded={open} aria-controls={controls} onClick={() => setExpandedByUser((current) => {
+             const next = new Set(current);
+             if (next.has(key)) next.delete(key); else next.add(key);
+             return next;
+           })}>
+             <span>{section.title}</span><i aria-hidden="true">›</i>
+-          </button>
++          </Button>
+           <div className="nav-section-pages" id={controls} hidden={!open}>
+             {section.pages.map((page) => link(page, true))}
+           </div>
+@@ -656,7 +614,7 @@
+   }, []);
+   return <>
+     <div className="reading-progress" aria-hidden="true"><span ref={progress} /></div>
+-    {showBackToTop && <button type="button" className="back-to-top" aria-label={text("Back to top", "返回顶部")} onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>↑</button>}
++    {showBackToTop && <Button appearance="text" type="button" className="docs-back-to-top" aria-label={text("Back to top", "返回顶部")} onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}>↑</Button>}
+   </>;
+ }
+ 
+@@ -675,7 +633,7 @@
+     return this.state.error ? <div className="frame-error" role="alert">
+       <h1>{text("Page compilation failed", "页面编译失败")}</h1>
+       <pre>{this.state.error}</pre>
+-      <button type="button" onClick={() => location.reload()}>{text("Retry", "重试")}</button>
++      <Button appearance="text" type="button" onClick={() => location.reload()}>{text("Retry", "重试")}</Button>
+     </div> : this.props.children;
+   }
+ }
+@@ -775,14 +733,12 @@
+   const [search, setSearch] = useState(false);
+   const [drawer, setDrawer] = useState(false);
+   const [announcement, setAnnouncement] = useState({ key: 0, message: "" });
+-  const drawerClose = useRef<HTMLButtonElement>(null);
+   const pathRef = useRef(path);
+   const pendingNavigation = useRef<{ route: string; hash: string; focus: boolean } | null>(window.location.hash ? {
+     route: appPath().split("#")[0],
+     hash: window.location.hash.slice(1),
+     focus: false,
+   } : null);
+-  const suppressDrawerFocusRestore = useDialogFocus(drawer, drawerClose);
+   useLayoutEffect(() => { pathRef.current = path; }, [path]);
+ 
+   const finishNavigation = useCallback((slug: string, title: string) => {
+@@ -890,16 +846,20 @@
+     <ReadingProgress />
+     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true" key={announcement.key}>{announcement.message}</p>
+     <header className="topbar">
+-      <button type="button" className="mobile-menu icon-button" aria-haspopup="dialog" aria-expanded={drawer} aria-controls="wake-docs-drawer" onClick={() => setDrawer(true)} aria-label={text("Open navigation", "打开导航")}>☰</button>
++      <Button appearance="text" type="button" className="mobile-menu docs-icon-control" aria-haspopup="dialog" aria-expanded={drawer} aria-controls="wake-docs-drawer" onClick={() => setDrawer(true)} aria-label={text("Open navigation", "打开导航")}>☰</Button>
+       <Logo />
+       <div className="topbar-actions">
+-        <button type="button" className="search-trigger" aria-haspopup="dialog" aria-controls="wake-search-dialog" aria-keyshortcuts="Control+K Meta+K" aria-expanded={search} onClick={() => setSearch(true)}><span>⌕ {text("Search", "搜索")}</span><kbd>{searchShortcut}</kbd></button>
++        <Button appearance="text" type="button" className="docs-search-trigger" aria-haspopup="dialog" aria-controls="wake-search-dialog" aria-keyshortcuts="Control+K Meta+K" aria-expanded={search} onClick={() => setSearch(true)}><span>⌕ {text("Search", "搜索")}</span><kbd>{searchShortcut}</kbd></Button>
+         {siteConfig.repositoryUrl && <a className="icon-link" href={siteConfig.repositoryUrl} target="_blank" rel="noreferrer" aria-label={text("Repository", "代码仓库")}>↗</a>}
+         <ThemeButton theme={theme} setTheme={setTheme} />
+       </div>
+     </header>
+     <aside className="sidebar"><Sidebar current={page?.slug || ""} /></aside>
+-    {drawer && <div className="drawer-backdrop" onMouseDown={() => setDrawer(false)}><aside id="wake-docs-drawer" className="drawer" role="dialog" aria-modal="true" aria-label={text("Documentation navigation", "文档导航")} onKeyDown={trapDialogFocus} onMouseDown={(event) => event.stopPropagation()}><div className="drawer-head"><Logo onNavigate={() => { suppressDrawerFocusRestore(); setDrawer(false); }} /><button ref={drawerClose} type="button" className="icon-button" onClick={() => setDrawer(false)} aria-label={text("Close navigation", "关闭导航")}>×</button></div><Sidebar current={page?.slug || ""} close={() => { suppressDrawerFocusRestore(); setDrawer(false); }} /></aside></div>}
++    <Drawer id="wake-docs-drawer" open={drawer} onOpenChange={setDrawer}
++      placement="left" size="small" title={text("Documentation navigation", "文档导航")}
++      closeLabel={text("Close navigation", "关闭导航")}>
++      <Sidebar current={page?.slug || ""} close={() => setDrawer(false)} />
++    </Drawer>
+     <main className="content" id="wake-docs-content" tabIndex={-1}>
+       {page && <MobileTableOfContents page={page} />}
+       <PageErrorBoundary key={routePath}><Suspense fallback={<div className="page-loading" role="status"><span aria-hidden="true" /><span className="sr-only">{text("Loading page…", "正在加载页面…")}</span></div>}>{LazyPage ? <LazyPage /> : <NotFound />}</Suspense></PageErrorBoundary>
+--- a/crates/wake_docs/runtime/styles.css
++++ b/crates/wake_docs/runtime/styles.css
+@@ -457,3 +457,18 @@
+ @media (prefers-reduced-motion: reduce) {
+   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+ }
++
++/* Crab UI owns control appearance. Docs rules below arrange layout only. */
++.docs-icon-control { flex: none; }
++.docs-search-trigger { min-width: 12rem; }
++.docs-nav-toggle, .docs-nav-link { width: 100%; justify-content: start; text-align: start; white-space: normal; }
++.docs-nav-nested { margin-inline-start: var(--token-semantic-space-component-gap); }
++.docs-nav-toggle i { margin-inline-start: auto; }
++.docs-nav-toggle[aria-expanded="true"] i { transform: rotate(90deg); }
++.docs-search-result { justify-content: start; text-align: start; white-space: normal; }
++.docs-search-result > span { display: grid; gap: var(--token-semantic-space-inline-gap); }
++.docs-search-result small { display: block; white-space: normal; }
++.docs-search-dialog { width: min(40rem, calc(100vw - 2rem)); }
++.docs-playground-dialog { width: min(70rem, calc(100vw - 2rem)); }
++.docs-back-to-top { position: fixed; z-index: 35; right: var(--token-semantic-space-group-gap); bottom: var(--token-semantic-space-group-gap); }
++@media (max-width: 760px) { .docs-search-trigger { min-width: 0; } .docs-search-trigger kbd { display: none; } }

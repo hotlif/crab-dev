@@ -1,0 +1,30 @@
+✓ 静态 Demo 元数据支持 TSX、satisfies 和常量断言，拒绝动态值
+✓ API 提取保留工具类型、方法泛型、说明和弃用标记
+✓ API 类型校验接受复杂类型并拒绝不完整语法或额外声明
+✓ 映射类型的键保留为局部参数，不生成同名占位声明
+✓ Button 文档使用单列宽预览
+✓ Select 文档使用单列紧凑预览
+✓ 从联合 Props 合并公共字段、变体类型和源码说明
+✓ docgen 为空或类型串列时使用源码 API，并为缺失说明提供明确占位
+✓ 逐属性合并源码与 docgen，并保留跨文件继承的合法属性
+✓ 生成的 API 适配接口可解析，并由 Wake 原生 API 建立属性索引
+✓ Demo 标题、描述和分组写入 Wake 可提取的静态标题
+✓ API source 必须存在且位于组件 src 目录
+✓ 检查模式报告孤儿 API，生成模式删除孤儿 API
+✓ 教程要求完整步骤、唯一 ID 与互斥示例来源
+✓ 源码必须独立并默认导出，拒绝隐藏辅助文件与无效语法
+✓ 生成数据保留实际源码，使用动态导入并防止路径越界
+✓ 教学步骤可搜索，隐藏索引不生成无效目录锚点
+✓ 教学文字中的 JSX 与表达式不会成为 MDX 运行代码
+✓ 组件教学页保留旧工作台、API 和进阶示例入口
+✓ 孤儿教学页面只清理生成文件，保留手写实战入口
+✓ 首页关键代码与完整源码来自同一运行文件，缺少标记时拒绝生成
+✓ 站点、教学示例和预览组件不得另写库中已有的基础交互控件
+✓ 组件概览保留分类锚点与入口，为每张卡片提供用途介绍与对应示意图
+✓ 全部组件概览都有用途介绍和唯一的静态示意图，示意图不产生交互或额外焦点
+生成器测试完成：24 项通过。
+检查完成：52 个组件页，55 份教程，117 个教学示例，246 个唯一 Demo，0 个文件变化。
+  ✗  Wake failed [WAKE_TEST_REACT_VERSION]
+     \\?\C:\Users\zhang\Desktop\crab-dev\.website\docs\site\__tests__\ui.test.tsx: Wake Test requires one matching react/react-dom version >=19.2.8 <19.3.0; resolved react "19.3.0" at C:\Users\zhang\Desktop\crab-dev\.yarn\cache\react-npm-19.3.0-81507f077b-dd3099c3c4.zip\node_modules\react\package.json and react-dom "19.3.0" at C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\react-dom-virtual-45582c8783\0\cache\react-dom-npm-19.3.0-b16b0f2b73-c513044b72.zip\node_modules\react-dom\package.json
+     Path  \\?\C:\Users\zhang\Desktop\crab-dev\.website\docs\site\__tests__\ui.test.tsx
+

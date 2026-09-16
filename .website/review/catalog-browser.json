@@ -1,0 +1,12 @@
+{
+  "cards": 52,
+  "descriptionsLinked": true,
+  "duplicateDescriptionIds": 0,
+  "illustrations": 52,
+  "overflow": false,
+  "overflowingCards": 0,
+  "reducedMotion": true,
+  "theme": "dark",
+  "transitionDuration": "0s",
+  "width": 320
+}

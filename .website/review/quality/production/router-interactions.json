@@ -1,0 +1,179 @@
+{
+  "capturedAt": "2026-09-16T06:31:42.243Z",
+  "revision": {
+    "sha256": "3c6f3dceb65ea33dc88774c0e41c1651b040e5790b68fca798f964cbe790b3dd",
+    "files": 2542,
+    "bytes": 189462501
+  },
+  "results": [
+    {
+      "check": "light initial isolated route",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": true,
+        "text": "首页 用户 搜索参数后退请选择一个示例页面。",
+        "current": [
+          "首页"
+        ]
+      }
+    },
+    {
+      "check": "light user navigation",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/users/42",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前用户：42",
+        "current": [
+          "用户"
+        ]
+      }
+    },
+    {
+      "check": "light query update",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/search?tab=activity",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前标签：activity 切换到活动",
+        "current": [
+          "搜索参数"
+        ]
+      }
+    },
+    {
+      "check": "light back within example",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/search",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前标签：overview 切换到活动",
+        "current": [
+          "搜索参数"
+        ]
+      }
+    },
+    {
+      "check": "light back to user",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/users/42",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前用户：42",
+        "current": [
+          "用户"
+        ]
+      }
+    },
+    {
+      "check": "light stop at initial entry",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": true,
+        "text": "首页 用户 搜索参数后退请选择一个示例页面。",
+        "current": [
+          "首页"
+        ]
+      }
+    },
+    {
+      "check": "dark initial isolated route",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": true,
+        "text": "首页 用户 搜索参数后退请选择一个示例页面。",
+        "current": [
+          "首页"
+        ]
+      }
+    },
+    {
+      "check": "dark user navigation",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/users/42",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前用户：42",
+        "current": [
+          "用户"
+        ]
+      }
+    },
+    {
+      "check": "dark query update",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/search?tab=activity",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前标签：activity 切换到活动",
+        "current": [
+          "搜索参数"
+        ]
+      }
+    },
+    {
+      "check": "dark back within example",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/search",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前标签：overview 切换到活动",
+        "current": [
+          "搜索参数"
+        ]
+      }
+    },
+    {
+      "check": "dark back to user",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/users/42",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": false,
+        "text": "首页 用户 搜索参数后退当前用户：42",
+        "current": [
+          "用户"
+        ]
+      }
+    },
+    {
+      "check": "dark stop at initial entry",
+      "passed": true,
+      "evidence": {
+        "outerURL": "http://127.0.0.1:4173/components/rc-router/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        "frameURL": "http://127.0.0.1:4173/",
+        "frameTitle": "Router 示例 History",
+        "backDisabled": true,
+        "text": "首页 用户 搜索参数后退请选择一个示例页面。",
+        "current": [
+          "首页"
+        ]
+      }
+    }
+  ],
+  "exceptions": []
+}

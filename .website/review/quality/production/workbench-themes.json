@@ -1,0 +1,948 @@
+{
+  "capturedAt": "2026-09-16T06:18:30.311Z",
+  "revision": {
+    "sha256": "3c6f3dceb65ea33dc88774c0e41c1651b040e5790b68fca798f964cbe790b3dd",
+    "files": 2542,
+    "bytes": 189462501
+  },
+  "scope": "First standalone demo host of each package; theme parity only, not all component states or nested overlays.",
+  "results": [
+    {
+      "component": "rc-alert",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-alert",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-app-main-layout",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-app-main-layout",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-auto-sizer",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-auto-sizer",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-avatar",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-avatar",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-badge",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-badge",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-bar-chart",
+      "demo": "annotations.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-bar-chart",
+      "demo": "annotations.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-breadcrumbs",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-breadcrumbs",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-button",
+      "demo": "appearance.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-button",
+      "demo": "appearance.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-canvas",
+      "demo": "animation.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-canvas",
+      "demo": "animation.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-card",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-card",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-checkbox",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-checkbox",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-color-picker",
+      "demo": "colorPicker.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-color-picker",
+      "demo": "colorPicker.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-component-preview",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-component-preview",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-cron-picker",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-cron-picker",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-date-picker",
+      "demo": "datePicker.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-date-picker",
+      "demo": "datePicker.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-dialog",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-dialog",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-divider",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-divider",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-drawer",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-drawer",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-dropdown-container",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-dropdown-container",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-empty",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-empty",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-flow-diagram",
+      "demo": "animated-edge.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-flow-diagram",
+      "demo": "animated-edge.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-form",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-form",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-hooks",
+      "demo": "use-drag-resize.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-hooks",
+      "demo": "use-drag-resize.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-line-edit",
+      "demo": "simple.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-line-edit",
+      "demo": "simple.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-masonry",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-masonry",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-menu",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-menu",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-message",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-message",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-notification",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-notification",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-number-edit",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-number-edit",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-pagination",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-pagination",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-prose",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-prose",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-radio",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-radio",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-realm",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-realm",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-router",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-router",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-segmented",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-segmented",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-select",
+      "demo": "allowClear.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-select",
+      "demo": "allowClear.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-skeleton",
+      "demo": "animation.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-skeleton",
+      "demo": "animation.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-slider",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-slider",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-spin",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-spin",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-split-pane",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-split-pane",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-switch",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-switch",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-table",
+      "demo": "basis.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-table",
+      "demo": "basis.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-table-pro",
+      "demo": "auto-refresh.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-table-pro",
+      "demo": "auto-refresh.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tabs",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tabs",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tag",
+      "demo": "basic.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tag",
+      "demo": "basic.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-text-edit",
+      "demo": "simple.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-text-edit",
+      "demo": "simple.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-theme",
+      "demo": "light-dark.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-theme",
+      "demo": "light-dark.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-token-global",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-token-global",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-token-semantic",
+      "demo": "base.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-token-semantic",
+      "demo": "base.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tooltip",
+      "demo": "arrow.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tooltip",
+      "demo": "arrow.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tree",
+      "demo": "allow-drop.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-tree",
+      "demo": "allow-drop.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-virtual",
+      "demo": "simple.demo.tsx",
+      "theme": "light",
+      "passed": true,
+      "actualTheme": "light",
+      "roles": 77,
+      "differences": []
+    },
+    {
+      "component": "rc-virtual",
+      "demo": "simple.demo.tsx",
+      "theme": "dark",
+      "passed": true,
+      "actualTheme": "dark",
+      "roles": 77,
+      "differences": []
+    }
+  ],
+  "exceptions": []
+}

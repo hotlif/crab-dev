@@ -1,0 +1,12 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+[Error: UNKNOWN: unknown error, open 'C:\Users\zhang\Desktop\crab-dev\.website\docs\_generated\rc-number-edit.ts'] {
+  errno: -4094,
+  code: 'UNKNOWN',
+  syscall: 'open',
+  path: 'C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\docs\\_generated\\rc-number-edit.ts'
+}
+
+Node.js v22.15.0

@@ -1,0 +1,40 @@
+PASS line-edit light normal clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS line-edit light normal clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS line-edit light normal editing resumes: {"value":"继续编辑"}
+PASS line-edit light normal error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"oklch(0.577 0.245 25)","ring":"oklch(0.495521 0.130457 293.709)"}
+PASS line-edit light forced clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS line-edit light forced clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS line-edit light forced editing resumes: {"value":"继续编辑"}
+PASS line-edit light forced error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"rgb(0, 0, 0)","ring":"rgb(55, 0, 110)"}
+PASS line-edit dark normal clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS line-edit dark normal clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS line-edit dark normal editing resumes: {"value":"继续编辑"}
+PASS line-edit dark normal error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"oklch(0.704 0.191 22)","ring":"oklch(0.834926 0.0945749 298.018)"}
+PASS line-edit dark forced clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS line-edit dark forced clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS line-edit dark forced editing resumes: {"value":"继续编辑"}
+PASS line-edit dark forced error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"rgb(255, 255, 255)","ring":"rgb(26, 235, 255)"}
+PASS line-edit light 320 coarse targets: {"coarse":true,"inputHeight":44,"actionWidth":44,"actionHeight":44,"containerRight":289.5,"viewport":320,"pageWidth":320,"actionWithin":true}
+PASS line-edit dark 320 coarse targets: {"coarse":true,"inputHeight":44,"actionWidth":44,"actionHeight":44,"containerRight":289.5,"viewport":320,"pageWidth":320,"actionWithin":true}
+PASS text-edit light normal clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS text-edit light normal clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS text-edit light normal editing resumes: {"value":"继续编辑"}
+PASS text-edit light normal error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"oklch(0.577 0.245 25)","ring":"oklch(0.495521 0.130457 293.709)"}
+PASS text-edit light forced clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS text-edit light forced clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS text-edit light forced editing resumes: {"value":"继续编辑"}
+PASS text-edit light forced error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"rgb(0, 0, 0)","ring":"rgb(55, 0, 110)"}
+PASS text-edit dark normal clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS text-edit dark normal clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS text-edit dark normal editing resumes: {"value":"继续编辑"}
+PASS text-edit dark normal error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"oklch(0.704 0.191 22)","ring":"oklch(0.834926 0.0945749 298.018)"}
+PASS text-edit dark forced clear focus: {"label":"清除","visible":true,"outline":"solid","width":2,"controls":true}
+PASS text-edit dark forced clear recovery: {"value":"","focus":true,"clearExists":false}
+PASS text-edit dark forced editing resumes: {"value":"继续编辑"}
+PASS text-edit dark forced error and focus: {"invalid":"true","focus":true,"outline":"solid","width":2,"border":"rgb(255, 255, 255)","ring":"rgb(26, 235, 255)"}
+PASS text-edit light 320 coarse targets: {"coarse":true,"inputHeight":60,"actionWidth":44,"actionHeight":44,"containerRight":271,"viewport":320,"pageWidth":320,"actionWithin":true}
+PASS text-edit dark 320 coarse targets: {"coarse":true,"inputHeight":60,"actionWidth":44,"actionHeight":44,"containerRight":271,"viewport":320,"pageWidth":320,"actionWithin":true}
+PASS password light disabled: {"inputDisabled":true,"actionDisabled":true,"type":"password","notFocused":true}
+PASS password light readOnly visibility: {"readOnly":true,"value":"readonly-example","type":"text","label":"隐藏密码"}
+PASS password dark disabled: {"inputDisabled":true,"actionDisabled":true,"type":"password","notFocused":true}
+PASS password dark readOnly visibility: {"readOnly":true,"value":"readonly-example","type":"text","label":"隐藏密码"}

@@ -1,0 +1,1882 @@
+{
+  "capturedAt": "2026-09-16T03:19:39.790Z",
+  "description": "Source inventory only; entries are not visually verified.",
+  "globalValues": {
+    "zinc.50": "oklch(0.980 0.002 286)",
+    "zinc.100": "oklch(0.950 0.003 286)",
+    "zinc.200": "oklch(0.900 0.004 286)",
+    "zinc.300": "oklch(0.840 0.008 286)",
+    "zinc.400": "oklch(0.760 0.012 286)",
+    "zinc.500": "oklch(0.660 0.014 286)",
+    "zinc.600": "oklch(0.550 0.014 286)",
+    "zinc.700": "oklch(0.430 0.012 286)",
+    "zinc.800": "oklch(0.320 0.008 286)",
+    "zinc.900": "oklch(0.220 0.005 286)",
+    "zinc.950": "oklch(0.140 0.004 286)",
+    "blue.50": "oklch(0.970 0.014 254)",
+    "blue.100": "oklch(0.932 0.032 255)",
+    "blue.200": "oklch(0.882 0.059 256)",
+    "blue.300": "oklch(0.809 0.105 257)",
+    "blue.400": "oklch(0.714 0.165 259)",
+    "blue.500": "oklch(0.623 0.214 261)",
+    "blue.600": "oklch(0.546 0.245 262)",
+    "blue.700": "oklch(0.488 0.230 264)",
+    "blue.800": "oklch(0.424 0.199 265)",
+    "blue.900": "oklch(0.379 0.146 266)",
+    "blue.950": "oklch(0.282 0.091 267)",
+    "red.50": "oklch(0.971 0.013 17)",
+    "red.100": "oklch(0.936 0.032 18)",
+    "red.200": "oklch(0.885 0.062 19)",
+    "red.300": "oklch(0.808 0.114 20)",
+    "red.400": "oklch(0.704 0.191 22)",
+    "red.500": "oklch(0.637 0.237 24)",
+    "red.600": "oklch(0.577 0.245 25)",
+    "red.700": "oklch(0.505 0.213 26)",
+    "red.800": "oklch(0.444 0.177 26)",
+    "red.900": "oklch(0.396 0.141 27)",
+    "red.950": "oklch(0.318 0.100 27)",
+    "green.50": "oklch(0.982 0.018 149)",
+    "green.100": "oklch(0.962 0.044 150)",
+    "green.200": "oklch(0.925 0.084 150)",
+    "green.300": "oklch(0.871 0.138 151)",
+    "green.400": "oklch(0.792 0.177 152)",
+    "green.500": "oklch(0.723 0.219 152)",
+    "green.600": "oklch(0.627 0.194 153)",
+    "green.700": "oklch(0.527 0.154 154)",
+    "green.800": "oklch(0.448 0.119 155)",
+    "green.900": "oklch(0.393 0.095 155)",
+    "green.950": "oklch(0.316 0.068 156)",
+    "amber.50": "oklch(0.987 0.022 85)",
+    "amber.100": "oklch(0.962 0.059 83)",
+    "amber.200": "oklch(0.924 0.112 81)",
+    "amber.300": "oklch(0.879 0.169 79)",
+    "amber.400": "oklch(0.828 0.189 77)",
+    "amber.500": "oklch(0.769 0.188 75)",
+    "amber.600": "oklch(0.666 0.179 73)",
+    "amber.700": "oklch(0.555 0.163 71)",
+    "amber.800": "oklch(0.473 0.137 69)",
+    "amber.900": "oklch(0.414 0.112 68)",
+    "amber.950": "oklch(0.332 0.080 67)",
+    "white": "oklch(1.000 0 0)",
+    "black": "oklch(0.000 0 0)",
+    "space.0": "0px",
+    "space.px": "1px",
+    "space.0-5": "2px",
+    "space.1": "4px",
+    "space.1-5": "6px",
+    "space.2": "8px",
+    "space.2-5": "10px",
+    "space.3": "12px",
+    "space.3-5": "14px",
+    "space.4": "16px",
+    "space.5": "20px",
+    "space.6": "24px",
+    "space.8": "32px",
+    "space.10": "40px",
+    "space.12": "48px",
+    "space.16": "64px",
+    "space.20": "80px",
+    "space.24": "96px",
+    "radius.0": "0px",
+    "radius.0-5": "1px",
+    "radius.1": "2px",
+    "radius.1-5": "3px",
+    "radius.2": "4px",
+    "radius.2-5": "5px",
+    "radius.3": "6px",
+    "radius.4": "8px",
+    "radius.5": "10px",
+    "radius.6": "12px",
+    "radius.8": "16px",
+    "radius.full": "9999px",
+    "font.family.sans": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    "font.family.mono": "'Geist Mono', 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace",
+    "font.size.xs": "12px",
+    "font.size.sm": "14px",
+    "font.size.md": "16px",
+    "font.size.lg": "18px",
+    "font.size.xl": "20px",
+    "font.size.2xl": "24px",
+    "font.weight.regular": "400",
+    "font.weight.medium": "500",
+    "font.weight.semibold": "600",
+    "font.weight.bold": "700",
+    "line.height.none": "1",
+    "line.height.tight": "1.25",
+    "line.height.snug": "1.375",
+    "line.height.normal": "1.5",
+    "line.height.relaxed": "1.625",
+    "line.height.loose": "2",
+    "shadow.none": "none",
+    "shadow.xs": "0 1px 2px oklch(0 0 0 / 0.03)",
+    "shadow.sm": "0 1px 2px 0 oklch(0 0 0 / 0.05)",
+    "shadow.md": "0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)",
+    "shadow.lg": "0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)",
+    "shadow.xl": "0 20px 25px -5px oklch(0 0 0 / 0.08), 0 8px 10px -6px oklch(0 0 0 / 0.04)",
+    "duration.0": "0ms",
+    "duration.fast": "100ms",
+    "duration.normal": "200ms",
+    "duration.slow": "300ms",
+    "easing.default": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "easing.in": "cubic-bezier(0.4, 0, 1, 1)",
+    "easing.out": "cubic-bezier(0, 0, 0.2, 1)",
+    "easing.linear": "linear",
+    "opacity.0": "0",
+    "opacity.5": "0.05",
+    "opacity.10": "0.1",
+    "opacity.20": "0.2",
+    "opacity.30": "0.3",
+    "opacity.50": "0.5",
+    "opacity.70": "0.7",
+    "opacity.80": "0.8",
+    "opacity.100": "1",
+    "z-index.0": "0",
+    "z-index.1": "1",
+    "z-index.10": "1000",
+    "z-index.20": "1100",
+    "z-index.30": "1200",
+    "z-index.40": "1300",
+    "z-index.50": "1400",
+    "z-index.60": "1500",
+    "z-index.70": "1600"
+  },
+  "packages": [
+    {
+      "name": "@crab-dev/rc-alert",
+      "source": [
+        "components/rc-alert/src/alert.tsx",
+        "components/rc-alert/src/icons.tsx",
+        "components/rc-alert/src/index.ts",
+        "components/rc-alert/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-alert/src/__tests__/alert.test.tsx"
+      ],
+      "tokenSource": "components/rc-alert/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-app-main-layout",
+      "source": [
+        "components/rc-app-main-layout/src/content.tsx",
+        "components/rc-app-main-layout/src/context.tsx",
+        "components/rc-app-main-layout/src/header.tsx",
+        "components/rc-app-main-layout/src/icons.tsx",
+        "components/rc-app-main-layout/src/index.ts",
+        "components/rc-app-main-layout/src/layout.tsx",
+        "components/rc-app-main-layout/src/reducer.ts",
+        "components/rc-app-main-layout/src/sidebar.tsx",
+        "components/rc-app-main-layout/src/tabBar.tsx",
+        "components/rc-app-main-layout/src/tabContextMenu.tsx",
+        "components/rc-app-main-layout/src/types.ts",
+        "components/rc-app-main-layout/src/useTabs.ts"
+      ],
+      "tests": [
+        "components/rc-app-main-layout/src/__tests__/layout.test.tsx",
+        "components/rc-app-main-layout/src/__tests__/useTabs.test.tsx"
+      ],
+      "tokenSource": "components/rc-app-main-layout/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-auto-sizer",
+      "source": [
+        "components/rc-auto-sizer/src/auto-sizer.tsx",
+        "components/rc-auto-sizer/src/index.ts",
+        "components/rc-auto-sizer/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-auto-sizer/src/__tests__/auto-sizer.test.tsx"
+      ],
+      "tokenSource": null,
+      "checks": [
+        "build:library",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-avatar",
+      "source": [
+        "components/rc-avatar/src/avatar-group.tsx",
+        "components/rc-avatar/src/avatar.tsx",
+        "components/rc-avatar/src/index.ts",
+        "components/rc-avatar/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-avatar/src/__tests__/avatar-group.test.tsx",
+        "components/rc-avatar/src/__tests__/avatar.test.tsx"
+      ],
+      "tokenSource": "components/rc-avatar/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-badge",
+      "source": [
+        "components/rc-badge/src/badge.tsx",
+        "components/rc-badge/src/index.ts",
+        "components/rc-badge/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-badge/src/__tests__/badge.test.tsx"
+      ],
+      "tokenSource": "components/rc-badge/token.toml",
+      "checks": [
+        "typecheck",
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-bar-chart",
+      "source": [
+        "components/rc-bar-chart/src/barChart.tsx",
+        "components/rc-bar-chart/src/index.ts",
+        "components/rc-bar-chart/src/layout.ts",
+        "components/rc-bar-chart/src/palette.ts",
+        "components/rc-bar-chart/src/types.ts",
+        "components/rc-bar-chart/src/hooks/useBarTransition.ts",
+        "components/rc-bar-chart/src/hooks/useCategoryDim.ts"
+      ],
+      "tests": [
+        "components/rc-bar-chart/src/__tests__/barChart.test.tsx",
+        "components/rc-bar-chart/src/__tests__/layout.test.ts",
+        "components/rc-bar-chart/src/__tests__/palette.test.ts",
+        "components/rc-bar-chart/src/__tests__/transition.test.ts"
+      ],
+      "tokenSource": "components/rc-bar-chart/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-breadcrumbs",
+      "source": [
+        "components/rc-breadcrumbs/src/breadcrumbs.tsx",
+        "components/rc-breadcrumbs/src/index.ts",
+        "components/rc-breadcrumbs/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-breadcrumbs/src/__tests__/breadcrumbs.test.tsx"
+      ],
+      "tokenSource": "components/rc-breadcrumbs/token.toml",
+      "checks": [
+        "typecheck",
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-button",
+      "source": [
+        "components/rc-button/src/button.tsx",
+        "components/rc-button/src/buttonGroup.tsx",
+        "components/rc-button/src/buttonGroupContext.ts",
+        "components/rc-button/src/index.ts",
+        "components/rc-button/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-button/src/__tests__/button.test.tsx",
+        "components/rc-button/src/__tests__/token-vars.test.ts"
+      ],
+      "tokenSource": "components/rc-button/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-canvas",
+      "source": [
+        "components/rc-canvas/src/canvas.tsx",
+        "components/rc-canvas/src/drag-types.ts",
+        "components/rc-canvas/src/index.ts",
+        "components/rc-canvas/src/palette.ts",
+        "components/rc-canvas/src/transform-types.ts",
+        "components/rc-canvas/src/types.ts",
+        "components/rc-canvas/src/viewport.tsx",
+        "components/rc-canvas/src/shapes/circle.tsx",
+        "components/rc-canvas/src/shapes/edge.tsx",
+        "components/rc-canvas/src/shapes/group.tsx",
+        "components/rc-canvas/src/shapes/image.tsx",
+        "components/rc-canvas/src/shapes/infinite-grid.tsx",
+        "components/rc-canvas/src/shapes/line.tsx",
+        "components/rc-canvas/src/shapes/marker.tsx",
+        "components/rc-canvas/src/shapes/minimap.tsx",
+        "components/rc-canvas/src/shapes/rect.tsx",
+        "components/rc-canvas/src/shapes/text.tsx",
+        "components/rc-canvas/src/shapes/transformer.tsx",
+        "components/rc-canvas/src/shaders/flat.frag.ts",
+        "components/rc-canvas/src/shaders/flat.vert.ts",
+        "components/rc-canvas/src/shaders/grid.frag.ts",
+        "components/rc-canvas/src/shaders/grid.vert.ts",
+        "components/rc-canvas/src/shaders/line.frag.ts",
+        "components/rc-canvas/src/shaders/line.vert.ts",
+        "components/rc-canvas/src/shaders/marker.frag.ts",
+        "components/rc-canvas/src/shaders/marker.vert.ts",
+        "components/rc-canvas/src/shaders/sdf.frag.ts",
+        "components/rc-canvas/src/shaders/sdf.vert.ts",
+        "components/rc-canvas/src/shaders/texture.frag.ts",
+        "components/rc-canvas/src/shaders/texture.vert.ts",
+        "components/rc-canvas/src/routing/geometry.ts",
+        "components/rc-canvas/src/routing/index.ts",
+        "components/rc-canvas/src/routing/obstacle-avoidance.ts",
+        "components/rc-canvas/src/routing/orthogonal.ts",
+        "components/rc-canvas/src/routing/ports.ts",
+        "components/rc-canvas/src/renderer/draw-command.ts",
+        "components/rc-canvas/src/renderer/renderer.ts",
+        "components/rc-canvas/src/renderer/text-atlas.ts",
+        "components/rc-canvas/src/math/color.ts",
+        "components/rc-canvas/src/math/matrix.ts",
+        "components/rc-canvas/src/hooks/useCanvasControls.ts",
+        "components/rc-canvas/src/hooks/useEdgeRouting.ts",
+        "components/rc-canvas/src/context/canvas-context.ts",
+        "components/rc-canvas/src/context/palette-context.ts"
+      ],
+      "tests": [
+        "components/rc-canvas/src/__tests__/canvas.test.tsx",
+        "components/rc-canvas/src/__tests__/color.test.ts",
+        "components/rc-canvas/src/__tests__/flow-animation.test.tsx",
+        "components/rc-canvas/src/__tests__/group.test.tsx",
+        "components/rc-canvas/src/__tests__/line.test.tsx",
+        "components/rc-canvas/src/__tests__/matrix.test.ts",
+        "components/rc-canvas/src/__tests__/palette.test.ts",
+        "components/rc-canvas/src/__tests__/rect.test.tsx",
+        "components/rc-canvas/src/__tests__/routing.test.ts",
+        "components/rc-canvas/src/__tests__/text-atlas.test.ts",
+        "components/rc-canvas/src/__tests__/zindex.test.tsx"
+      ],
+      "tokenSource": "components/rc-canvas/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-card",
+      "source": [
+        "components/rc-card/src/card.tsx",
+        "components/rc-card/src/context.ts",
+        "components/rc-card/src/index.ts",
+        "components/rc-card/src/types.ts",
+        "components/rc-card/src/components/card-body.tsx",
+        "components/rc-card/src/components/card-cover.tsx",
+        "components/rc-card/src/components/card-footer.tsx",
+        "components/rc-card/src/components/card-header.tsx",
+        "components/rc-card/src/components/card-meta.tsx"
+      ],
+      "tests": [
+        "components/rc-card/src/__tests__/card.test.tsx"
+      ],
+      "tokenSource": "components/rc-card/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-checkbox",
+      "source": [
+        "components/rc-checkbox/src/checkbox-group.tsx",
+        "components/rc-checkbox/src/checkbox.tsx",
+        "components/rc-checkbox/src/context.ts",
+        "components/rc-checkbox/src/index.ts",
+        "components/rc-checkbox/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-checkbox/src/__tests__/checkbox.test.tsx"
+      ],
+      "tokenSource": "components/rc-checkbox/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-color-picker",
+      "source": [
+        "components/rc-color-picker/src/index.ts",
+        "components/rc-color-picker/src/types.ts",
+        "components/rc-color-picker/src/utils/color.ts",
+        "components/rc-color-picker/src/panels/colorInput.tsx",
+        "components/rc-color-picker/src/panels/colorPickerPanel.tsx",
+        "components/rc-color-picker/src/panels/presetSwatches.tsx",
+        "components/rc-color-picker/src/colorPicker/colorPicker.tsx",
+        "components/rc-color-picker/src/colorPicker/colorPickerInput.tsx",
+        "components/rc-color-picker/src/colorPicker/colorPickerOverlay.tsx",
+        "components/rc-color-picker/src/colorPicker/index.ts"
+      ],
+      "tests": [
+        "components/rc-color-picker/src/__tests__/colorPicker.test.tsx",
+        "components/rc-color-picker/src/__tests__/colorPickerPanel.test.tsx",
+        "components/rc-color-picker/src/__tests__/colorPickerSelectNesting.test.tsx",
+        "components/rc-color-picker/src/utils/__tests__/color.test.ts"
+      ],
+      "tokenSource": "components/rc-color-picker/token.toml",
+      "checks": [
+        "build:library",
+        "test",
+        "generate:token",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-component-preview",
+      "source": [
+        "components/rc-component-preview/src/icons.tsx",
+        "components/rc-component-preview/src/index.ts",
+        "components/rc-component-preview/src/preview.tsx",
+        "components/rc-component-preview/src/sourceCode.tsx"
+      ],
+      "tests": [
+        "components/rc-component-preview/src/__tests__/preview.test.tsx"
+      ],
+      "tokenSource": "components/rc-component-preview/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-cron-picker",
+      "source": [
+        "components/rc-cron-picker/src/cron.ts",
+        "components/rc-cron-picker/src/cronPicker.tsx",
+        "components/rc-cron-picker/src/cronPickerInput.tsx",
+        "components/rc-cron-picker/src/cronPickerOverlay.tsx",
+        "components/rc-cron-picker/src/fieldEditor.tsx",
+        "components/rc-cron-picker/src/index.ts",
+        "components/rc-cron-picker/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-cron-picker/src/__tests__/cron.test.ts",
+        "components/rc-cron-picker/src/__tests__/cronPicker.test.tsx"
+      ],
+      "tokenSource": "components/rc-cron-picker/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-date-picker",
+      "source": [
+        "components/rc-date-picker/src/icons.tsx",
+        "components/rc-date-picker/src/index.ts",
+        "components/rc-date-picker/src/type.d.ts",
+        "components/rc-date-picker/src/util.ts",
+        "components/rc-date-picker/src/timePicker/index.ts",
+        "components/rc-date-picker/src/timePicker/timePicker.tsx",
+        "components/rc-date-picker/src/timePicker/timePickerInput.tsx",
+        "components/rc-date-picker/src/timePicker/timePickerOverlay.tsx",
+        "components/rc-date-picker/src/panels/datePickerPanel.tsx",
+        "components/rc-date-picker/src/panels/dateTimePickerPanel.tsx",
+        "components/rc-date-picker/src/panels/timePickerPanel.tsx",
+        "components/rc-date-picker/src/panels/universal.style.ts",
+        "components/rc-date-picker/src/dateTimePicker/dateTimePicker.tsx",
+        "components/rc-date-picker/src/dateTimePicker/dateTimePickerInput.tsx",
+        "components/rc-date-picker/src/dateTimePicker/dateTimePickerOverlay.tsx",
+        "components/rc-date-picker/src/dateTimePicker/index.ts",
+        "components/rc-date-picker/src/datePicker/datePicker.tsx",
+        "components/rc-date-picker/src/datePicker/datePickerInput.tsx",
+        "components/rc-date-picker/src/datePicker/datePickerOverlay.tsx",
+        "components/rc-date-picker/src/datePicker/index.ts"
+      ],
+      "tests": [
+        "components/rc-date-picker/src/__tests__/datePickerPanel.test.tsx",
+        "components/rc-date-picker/src/__tests__/util.test.ts"
+      ],
+      "tokenSource": "components/rc-date-picker/token.toml",
+      "checks": [
+        "build:library",
+        "test",
+        "generate:token",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-dialog",
+      "source": [
+        "components/rc-dialog/src/dialog.tsx",
+        "components/rc-dialog/src/index.ts",
+        "components/rc-dialog/src/hooks/useConfirm.tsx"
+      ],
+      "tests": [
+        "components/rc-dialog/src/__tests__/dialog.test.tsx"
+      ],
+      "tokenSource": "components/rc-dialog/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-divider",
+      "source": [
+        "components/rc-divider/src/divider.tsx",
+        "components/rc-divider/src/index.ts",
+        "components/rc-divider/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-divider/src/__tests__/divider.test.tsx"
+      ],
+      "tokenSource": "components/rc-divider/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-drawer",
+      "source": [
+        "components/rc-drawer/src/drawer.tsx",
+        "components/rc-drawer/src/index.ts"
+      ],
+      "tests": [
+        "components/rc-drawer/src/__tests__/drawer.test.tsx"
+      ],
+      "tokenSource": "components/rc-drawer/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-dropdown-container",
+      "source": [
+        "components/rc-dropdown-container/src/context.ts",
+        "components/rc-dropdown-container/src/dropdownContainer.tsx",
+        "components/rc-dropdown-container/src/index.ts",
+        "components/rc-dropdown-container/src/reducer.ts"
+      ],
+      "tests": [
+        "components/rc-dropdown-container/src/__tests__/dropdownContainer.nested.test.tsx",
+        "components/rc-dropdown-container/src/__tests__/dropdownContainer.test.tsx"
+      ],
+      "tokenSource": "components/rc-dropdown-container/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-empty",
+      "source": [
+        "components/rc-empty/src/empty.tsx",
+        "components/rc-empty/src/index.ts",
+        "components/rc-empty/src/types.ts",
+        "components/rc-empty/src/illustrations/no-data.tsx",
+        "components/rc-empty/src/illustrations/no-permission.tsx",
+        "components/rc-empty/src/illustrations/search-not-found.tsx"
+      ],
+      "tests": [
+        "components/rc-empty/src/__tests__/empty.test.tsx"
+      ],
+      "tokenSource": "components/rc-empty/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-flow-diagram",
+      "source": [
+        "components/rc-flow-diagram/src/edge.tsx",
+        "components/rc-flow-diagram/src/flow-diagram.tsx",
+        "components/rc-flow-diagram/src/flow-edge.tsx",
+        "components/rc-flow-diagram/src/flow-node.tsx",
+        "components/rc-flow-diagram/src/index.ts",
+        "components/rc-flow-diagram/src/palette-context.ts",
+        "components/rc-flow-diagram/src/palette.ts",
+        "components/rc-flow-diagram/src/hooks/useEdgeCrossings.ts",
+        "components/rc-flow-diagram/src/hooks/useEdgeRouting.ts",
+        "components/rc-flow-diagram/src/hooks/useElkLayout.ts",
+        "components/rc-flow-diagram/src/hooks/useFlowDiagramControls.ts"
+      ],
+      "tests": [
+        "components/rc-flow-diagram/src/__tests__/flow-edge.test.tsx",
+        "components/rc-flow-diagram/src/__tests__/palette.test.tsx"
+      ],
+      "tokenSource": "components/rc-flow-diagram/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-form",
+      "source": [
+        "components/rc-form/src/bus.ts",
+        "components/rc-form/src/context.tsx",
+        "components/rc-form/src/form.tsx",
+        "components/rc-form/src/index.ts",
+        "components/rc-form/src/item.tsx",
+        "components/rc-form/src/types.ts",
+        "components/rc-form/src/util.ts",
+        "components/rc-form/src/hooks/useForm.ts",
+        "components/rc-form/src/hooks/useFormContext.ts"
+      ],
+      "tests": [
+        "components/rc-form/src/__tests__/bus.test.ts",
+        "components/rc-form/src/__tests__/form.integration.test.tsx",
+        "components/rc-form/src/__tests__/item.test.tsx",
+        "components/rc-form/src/__tests__/util.test.ts",
+        "components/rc-form/src/__tests__/hooks/useForm.test.tsx"
+      ],
+      "tokenSource": "components/rc-form/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-hooks",
+      "source": [
+        "components/rc-hooks/src/index.ts",
+        "components/rc-hooks/src/uniqueId.ts",
+        "components/rc-hooks/src/useControllableOpen.ts",
+        "components/rc-hooks/src/useControllableValue.ts",
+        "components/rc-hooks/src/useDragResize.ts",
+        "components/rc-hooks/src/useEventCallback.ts",
+        "components/rc-hooks/src/useInterval.ts",
+        "components/rc-hooks/src/useIsomorphicLayoutEffect.ts",
+        "components/rc-hooks/src/useKeyDown.ts",
+        "components/rc-hooks/src/useMediaQuery.ts",
+        "components/rc-hooks/src/usePrevious.ts",
+        "components/rc-hooks/src/useResizeObserver.ts",
+        "components/rc-hooks/src/useTimeout.ts"
+      ],
+      "tests": [
+        "components/rc-hooks/src/__tests__/uniqueId.test.tsx",
+        "components/rc-hooks/src/__tests__/useControllableValue.test.tsx",
+        "components/rc-hooks/src/__tests__/useDom.test.tsx",
+        "components/rc-hooks/src/__tests__/useDragResize.test.tsx",
+        "components/rc-hooks/src/__tests__/useEventCallback.test.tsx",
+        "components/rc-hooks/src/__tests__/useTimers.test.tsx"
+      ],
+      "tokenSource": null,
+      "checks": [
+        "build:library",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-line-edit",
+      "source": [
+        "components/rc-line-edit/src/index.ts",
+        "components/rc-line-edit/src/lineEdit.tsx"
+      ],
+      "tests": [
+        "components/rc-line-edit/src/__tests__/lineEdit.test.tsx"
+      ],
+      "tokenSource": "components/rc-line-edit/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-masonry",
+      "source": [
+        "components/rc-masonry/src/index.ts",
+        "components/rc-masonry/src/masonry.tsx",
+        "components/rc-masonry/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-masonry/src/__tests__/masonry.test.tsx"
+      ],
+      "tokenSource": "components/rc-masonry/token.toml",
+      "checks": [
+        "typecheck",
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-menu",
+      "source": [
+        "components/rc-menu/src/icon.tsx",
+        "components/rc-menu/src/index.ts",
+        "components/rc-menu/src/menu.tsx",
+        "components/rc-menu/src/type.ts",
+        "components/rc-menu/src/vertical/collapsed.tsx",
+        "components/rc-menu/src/vertical/index.tsx",
+        "components/rc-menu/src/vertical/normal.tsx",
+        "components/rc-menu/src/horizontal/index.tsx",
+        "components/rc-menu/src/horizontal/itemGroup.tsx",
+        "components/rc-menu/src/horizontal/itemNormal.tsx",
+        "components/rc-menu/src/horizontal/styles/itemGroup.styles.ts",
+        "components/rc-menu/src/horizontal/styles/itemNormal.styles.ts"
+      ],
+      "tests": [
+        "components/rc-menu/src/__tests__/menu.test.tsx",
+        "components/rc-menu/src/__tests__/token.test.ts"
+      ],
+      "tokenSource": "components/rc-menu/token.toml",
+      "checks": [
+        "build:library",
+        "test",
+        "generate:token",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-message",
+      "source": [
+        "components/rc-message/src/icons.tsx",
+        "components/rc-message/src/index.ts",
+        "components/rc-message/src/message.tsx",
+        "components/rc-message/src/types.ts",
+        "components/rc-message/src/hooks/useMessage.tsx"
+      ],
+      "tests": [
+        "components/rc-message/src/__tests__/message.test.tsx",
+        "components/rc-message/src/__tests__/token.test.ts"
+      ],
+      "tokenSource": "components/rc-message/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-notification",
+      "source": [
+        "components/rc-notification/src/container.tsx",
+        "components/rc-notification/src/index.ts",
+        "components/rc-notification/src/notification.tsx",
+        "components/rc-notification/src/types.ts",
+        "components/rc-notification/src/icons/close.tsx",
+        "components/rc-notification/src/hooks/useNotification.tsx"
+      ],
+      "tests": [
+        "components/rc-notification/src/__tests__/notification.test.tsx",
+        "components/rc-notification/src/__tests__/token.test.ts"
+      ],
+      "tokenSource": "components/rc-notification/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-number-edit",
+      "source": [
+        "components/rc-number-edit/src/format.ts",
+        "components/rc-number-edit/src/index.ts",
+        "components/rc-number-edit/src/numberEdit.tsx",
+        "components/rc-number-edit/src/stepper.tsx",
+        "components/rc-number-edit/src/superscript.tsx",
+        "components/rc-number-edit/src/types.ts",
+        "components/rc-number-edit/src/hooks/useSpinner.ts"
+      ],
+      "tests": [
+        "components/rc-number-edit/src/__tests__/format.test.ts",
+        "components/rc-number-edit/src/__tests__/numberEdit.test.tsx"
+      ],
+      "tokenSource": "components/rc-number-edit/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-pagination",
+      "source": [
+        "components/rc-pagination/src/index.ts",
+        "components/rc-pagination/src/pagination.tsx",
+        "components/rc-pagination/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-pagination/src/__tests__/pagination.test.tsx"
+      ],
+      "tokenSource": "components/rc-pagination/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-prose",
+      "source": [
+        "components/rc-prose/src/index.ts",
+        "components/rc-prose/src/prose.tsx",
+        "components/rc-prose/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-prose/src/__tests__/prose.test.tsx",
+        "components/rc-prose/src/__tests__/token-contrast.test.ts"
+      ],
+      "tokenSource": "components/rc-prose/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-radio",
+      "source": [
+        "components/rc-radio/src/context.ts",
+        "components/rc-radio/src/index.ts",
+        "components/rc-radio/src/radio-group.tsx",
+        "components/rc-radio/src/radio.tsx",
+        "components/rc-radio/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-radio/src/__tests__/radio.test.tsx"
+      ],
+      "tokenSource": "components/rc-radio/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-realm",
+      "source": [
+        "components/rc-realm/src/errorBoundary.tsx",
+        "components/rc-realm/src/importer.ts",
+        "components/rc-realm/src/index.ts",
+        "components/rc-realm/src/loader.ts",
+        "components/rc-realm/src/realm.tsx",
+        "components/rc-realm/src/sandbox.ts",
+        "components/rc-realm/src/shareScope.ts",
+        "components/rc-realm/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-realm/src/__tests__/loader.test.ts",
+        "components/rc-realm/src/__tests__/realm.test.tsx",
+        "components/rc-realm/src/__tests__/shareScope.test.ts",
+        "components/rc-realm/src/__tests__/token-vars.test.ts"
+      ],
+      "tokenSource": "components/rc-realm/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-router",
+      "source": [
+        "components/rc-router/src/contexts.ts",
+        "components/rc-router/src/history.ts",
+        "components/rc-router/src/hooks.ts",
+        "components/rc-router/src/index.ts",
+        "components/rc-router/src/link.tsx",
+        "components/rc-router/src/matcher.ts",
+        "components/rc-router/src/navigate.tsx",
+        "components/rc-router/src/outlet.tsx",
+        "components/rc-router/src/path.ts",
+        "components/rc-router/src/router.tsx",
+        "components/rc-router/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-router/src/__tests__/matcher.test.tsx",
+        "components/rc-router/src/__tests__/path.test.ts",
+        "components/rc-router/src/__tests__/router.test.tsx"
+      ],
+      "tokenSource": null,
+      "checks": [
+        "build:library",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-segmented",
+      "source": [
+        "components/rc-segmented/src/index.ts",
+        "components/rc-segmented/src/segmented.tsx",
+        "components/rc-segmented/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-segmented/src/__tests__/segmented.test.tsx"
+      ],
+      "tokenSource": "components/rc-segmented/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-select",
+      "source": [
+        "components/rc-select/src/index.ts",
+        "components/rc-select/src/select.tsx",
+        "components/rc-select/src/selectInput.tsx",
+        "components/rc-select/src/selectOverlay.tsx",
+        "components/rc-select/src/types.ts",
+        "components/rc-select/src/hooks/useKeyboardNavigation.ts"
+      ],
+      "tests": [
+        "components/rc-select/src/__tests__/select.critical-bugs.test.tsx",
+        "components/rc-select/src/__tests__/select.test.tsx"
+      ],
+      "tokenSource": "components/rc-select/token.toml",
+      "checks": [
+        "typecheck",
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-skeleton",
+      "source": [
+        "components/rc-skeleton/src/index.ts",
+        "components/rc-skeleton/src/skeleton.tsx",
+        "components/rc-skeleton/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-skeleton/src/__tests__/skeleton.test.tsx"
+      ],
+      "tokenSource": "components/rc-skeleton/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-slider",
+      "source": [
+        "components/rc-slider/src/index.ts",
+        "components/rc-slider/src/slider.tsx"
+      ],
+      "tests": [
+        "components/rc-slider/src/__tests__/slider.test.tsx",
+        "components/rc-slider/src/__tests__/token-vars.test.ts"
+      ],
+      "tokenSource": "components/rc-slider/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-spin",
+      "source": [
+        "components/rc-spin/src/index.ts",
+        "components/rc-spin/src/indicator.tsx",
+        "components/rc-spin/src/spin.tsx",
+        "components/rc-spin/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-spin/src/__tests__/spin.test.tsx",
+        "components/rc-spin/src/__tests__/token-vars.test.ts"
+      ],
+      "tokenSource": "components/rc-spin/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-split-pane",
+      "source": [
+        "components/rc-split-pane/src/index.ts",
+        "components/rc-split-pane/src/splitPane.tsx",
+        "components/rc-split-pane/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-split-pane/src/__tests__/splitPane.test.tsx"
+      ],
+      "tokenSource": "components/rc-split-pane/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-switch",
+      "source": [
+        "components/rc-switch/src/index.ts",
+        "components/rc-switch/src/switch.tsx",
+        "components/rc-switch/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-switch/src/__tests__/switch.test.tsx"
+      ],
+      "tokenSource": "components/rc-switch/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-table",
+      "source": [
+        "components/rc-table/src/bodyCell.tsx",
+        "components/rc-table/src/bodyRow.tsx",
+        "components/rc-table/src/headerCell.tsx",
+        "components/rc-table/src/index.ts",
+        "components/rc-table/src/rowBg.ts",
+        "components/rc-table/src/table.tsx",
+        "components/rc-table/src/types.ts",
+        "components/rc-table/src/util.ts",
+        "components/rc-table/src/valueAccess.ts",
+        "components/rc-table/src/hooks/useCellEdit.ts",
+        "components/rc-table/src/hooks/useCellEditNav.ts",
+        "components/rc-table/src/hooks/useCellSelection.ts",
+        "components/rc-table/src/hooks/useColumnDrag.ts",
+        "components/rc-table/src/hooks/useColumnLayout.ts",
+        "components/rc-table/src/hooks/useColumnResize.ts",
+        "components/rc-table/src/hooks/useColumnSort.ts",
+        "components/rc-table/src/hooks/useKeywordMatch.ts",
+        "components/rc-table/src/hooks/useRowEdit.ts",
+        "components/rc-table/src/hooks/useRowEvents.ts",
+        "components/rc-table/src/hooks/useRowExpansion.ts",
+        "components/rc-table/src/hooks/useRowGroup.ts",
+        "components/rc-table/src/hooks/useRowNumber.tsx",
+        "components/rc-table/src/hooks/useRowSelection.ts",
+        "components/rc-table/src/hooks/useSummary.tsx",
+        "components/rc-table/src/hooks/useTableFilter.ts",
+        "components/rc-table/src/hooks/useTableInteractionScope.ts",
+        "components/rc-table/src/hooks/useTreeData.ts"
+      ],
+      "tests": [
+        "components/rc-table/src/__tests__/demoData.test.ts",
+        "components/rc-table/src/__tests__/performance.test.tsx",
+        "components/rc-table/src/__tests__/selectionVisibility.test.tsx",
+        "components/rc-table/src/__tests__/table.test.tsx",
+        "components/rc-table/src/__tests__/util.test.ts",
+        "components/rc-table/src/__tests__/browser/table.test.tsx"
+      ],
+      "tokenSource": "components/rc-table/token.toml",
+      "checks": [
+        "generate:token",
+        "test",
+        "test:selection",
+        "build:library",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-table-pro",
+      "source": [
+        "components/rc-table-pro/src/columnUtils.ts",
+        "components/rc-table-pro/src/icons.tsx",
+        "components/rc-table-pro/src/index.ts",
+        "components/rc-table-pro/src/table.tsx",
+        "components/rc-table-pro/src/types.ts",
+        "components/rc-table-pro/src/util.ts",
+        "components/rc-table-pro/src/hooks/useColumnManagement.tsx",
+        "components/rc-table-pro/src/hooks/useSearchBar.ts",
+        "components/rc-table-pro/src/hooks/useTableData.ts"
+      ],
+      "tests": [
+        "components/rc-table-pro/src/__tests__/table.test.tsx",
+        "components/rc-table-pro/src/__tests__/token.test.ts"
+      ],
+      "tokenSource": "components/rc-table-pro/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-tabs",
+      "source": [
+        "components/rc-tabs/src/index.ts",
+        "components/rc-tabs/src/tabs.tsx",
+        "components/rc-tabs/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-tabs/src/__tests__/tabs.test.tsx"
+      ],
+      "tokenSource": "components/rc-tabs/token.toml",
+      "checks": [
+        "typecheck",
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-tag",
+      "source": [
+        "components/rc-tag/src/checkable-tag.tsx",
+        "components/rc-tag/src/index.ts",
+        "components/rc-tag/src/tag.tsx",
+        "components/rc-tag/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-tag/src/__tests__/tag.test.tsx"
+      ],
+      "tokenSource": "components/rc-tag/token.toml",
+      "checks": [
+        "typecheck",
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-text-edit",
+      "source": [
+        "components/rc-text-edit/src/index.ts",
+        "components/rc-text-edit/src/textEdit.tsx"
+      ],
+      "tests": [
+        "components/rc-text-edit/src/__tests__/textEdit.test.tsx"
+      ],
+      "tokenSource": "components/rc-text-edit/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-theme",
+      "source": [
+        "components/rc-theme/src/index.ts",
+        "components/rc-theme/src/theme-values.ts",
+        "components/rc-theme/src/theme.ts"
+      ],
+      "tests": [
+        "components/rc-theme/src/__tests__/theme.test.ts"
+      ],
+      "tokenSource": null,
+      "checks": [
+        "build:library",
+        "eslint",
+        "typecheck",
+        "test"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-token-global",
+      "source": [
+        "components/rc-token-global/src/index.ts"
+      ],
+      "tests": [],
+      "tokenSource": "components/rc-token-global/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-token-semantic",
+      "source": [
+        "components/rc-token-semantic/src/index.ts"
+      ],
+      "tests": [
+        "components/rc-token-semantic/src/__tests__/token.test.ts"
+      ],
+      "tokenSource": "components/rc-token-semantic/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "eslint",
+        "test",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-tooltip",
+      "source": [
+        "components/rc-tooltip/src/index.ts",
+        "components/rc-tooltip/src/tooltip.tsx",
+        "components/rc-tooltip/src/types.ts"
+      ],
+      "tests": [
+        "components/rc-tooltip/src/__tests__/tooltip.test.tsx"
+      ],
+      "tokenSource": "components/rc-tooltip/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-tree",
+      "source": [
+        "components/rc-tree/src/icon.tsx",
+        "components/rc-tree/src/index.ts",
+        "components/rc-tree/src/nodeItem.tsx",
+        "components/rc-tree/src/tree.tsx",
+        "components/rc-tree/src/type.ts",
+        "components/rc-tree/src/util.ts",
+        "components/rc-tree/src/hooks/useTreeData.ts"
+      ],
+      "tests": [
+        "components/rc-tree/src/__tests__/icon.test.tsx",
+        "components/rc-tree/src/__tests__/nodeItem.test.tsx",
+        "components/rc-tree/src/__tests__/token.test.ts",
+        "components/rc-tree/src/__tests__/tree.test.tsx",
+        "components/rc-tree/src/__tests__/type.test.ts",
+        "components/rc-tree/src/__tests__/useTreeData.test.tsx",
+        "components/rc-tree/src/__tests__/util.test.ts"
+      ],
+      "tokenSource": "components/rc-tree/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "name": "@crab-dev/rc-virtual",
+      "source": [
+        "components/rc-virtual/src/index.ts",
+        "components/rc-virtual/src/scrollbar.tsx",
+        "components/rc-virtual/src/virtual.tsx",
+        "components/rc-virtual/src/style/grid.style.ts",
+        "components/rc-virtual/src/style/scrollbar.style.ts",
+        "components/rc-virtual/src/hooks/useVirtualItemRange.tsx"
+      ],
+      "tests": [
+        "components/rc-virtual/src/__tests__/scrollbar.test.tsx",
+        "components/rc-virtual/src/__tests__/token.test.ts",
+        "components/rc-virtual/src/__tests__/virtual.test.tsx",
+        "components/rc-virtual/src/__tests__/hooks/useVirtualItemRange.test.tsx"
+      ],
+      "tokenSource": "components/rc-virtual/token.toml",
+      "checks": [
+        "build:library",
+        "generate:token",
+        "test",
+        "eslint",
+        "typecheck"
+      ],
+      "review": "pending",
+      "productionVerification": "pending"
+    }
+  ],
+  "pages": [
+    {
+      "path": ".website/docs/components/rc-alert.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-app-main-layout.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-auto-sizer.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-avatar.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-badge.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-bar-chart.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-breadcrumbs.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-button.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-canvas.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-card.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-checkbox.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-color-picker.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-component-preview.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-cron-picker.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-date-picker.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-dialog.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-divider.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-drawer.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-dropdown-container.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-empty.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-flow-diagram.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-form.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-hooks.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-line-edit.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-masonry.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-menu.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-message.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-notification.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-number-edit.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-pagination.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-prose.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-radio.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-realm.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-router.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-segmented.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-select.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-skeleton.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-slider.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-spin.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-split-pane.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-switch.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-table-pro.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-table.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-tabs.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-tag.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-text-edit.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-theme.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-token-global.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-token-semantic.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-tooltip.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-tree.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/components/rc-virtual.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/accessibility.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/actions.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/color.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/content.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/data-display.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/feedback.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/forms.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/icons.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/inputs.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/interaction.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/language.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/layout.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/motion.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/navigation.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/overlays.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/shape.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/tokens.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/typography.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/design/workbench.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/guides/accessibility.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/guides/getting-started.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/guides/toolchain.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/index.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/learn/components.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/learn/index.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/learn/practice-admin.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/learn/practice-data.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    },
+    {
+      "path": ".website/docs/learn/practice-profile.mdx",
+      "review": "pending",
+      "productionVerification": "pending"
+    }
+  ]
+}

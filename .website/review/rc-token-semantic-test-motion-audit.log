@@ -1,0 +1,12 @@
+PASS src/__tests__/token.test.ts
+  ✓ keeps legacy CSS custom property names stable
+  ✓ exposes role-specific feedback and selection tokens
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       2 passed, 0 failed, 0 pending, 2 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (273/273)	100.00% (0/0)	100.00% (0/0)
+src/token-vars.ts	100.00% (12/12)	100.00% (0/0)	100.00% (0/0)
+src/token.ts	100.00% (261/261)	100.00% (0/0)	100.00% (0/0)
+Seed:        1789139251801964932
+Time:        1795 ms

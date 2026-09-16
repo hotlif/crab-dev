@@ -1,0 +1,124 @@
+➤ YN0000: · Yarn 4.18.0
+➤ YN0000: ┌ Resolution step
+➤ YN0000: └ Completed in 0s 211ms
+➤ YN0000: ┌ Post-resolution validation
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p06b2fd), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p0dfb6a), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p0f78c6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p13da2f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p16060c), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p1a9d01), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p1aaefa), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p1eff04), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p284020), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p303d25), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p31affc), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p39c2be), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p3ed7db), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p3fa412), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p422ec6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p48f064), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p4cd162), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p565f38), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p567c4a), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p56db62), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p57cce6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p5e1061), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p63559e), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p66e385), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p683a0f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p6a1f8f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p6d769f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p71f6c6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p756ab7), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p78acb6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p7ccce4), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p82570f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p8648df), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p865521), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p868572), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p8773a5), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p891202), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p8d9403), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p909022), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p931145), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p939ab3), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pb6ee6a), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pb98b5c), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pb9e3ac), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pbc624e), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pbe8259), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pc06894), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pce732d), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pd7941c), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pd900e6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pdcef3e), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pea41b4), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (ped3cf7), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pf24f67), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pf76f97), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p0a344f), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p1033c8), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p1478fd), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p1743d1), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p17665a), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p186420), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p287258), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p317435), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p3e1e2e), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p3eccdf), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p3f9ca9), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p451b23), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p4a7c53), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p4b8ecb), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p5a3822), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p68542b), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p6fa2fd), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7143f5), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7380a4), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7cabd7), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7d4607), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7e5cfa), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p8099e2), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p87e199), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p8ab59d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p8b632a), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p9b174d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p9e304b), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pa28d9d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pa6ca9b), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pa70bd2), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pada583), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb19f17), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb26313), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb312fc), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb6ccb8), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb8e989), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pbb5581), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pbe4f86), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pc66420), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pcd5897), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pcf75e7), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd16fcf), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd4cc32), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd52175), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd69c9d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pdd060a), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe0b5c2), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe217f7), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe3846d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe7f046), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe8926d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pef1a3c), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pf56f0c), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pf84582), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0086: │ Some peer dependencies are incorrectly met by your project; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code.
+➤ YN0086: │ Some peer dependencies are incorrectly met by dependencies; run yarn explain peer-requirements for details.
+➤ YN0068: │ elkjs ➤ dependencies ➤ web-worker: No matching package in the dependency tree; you may not need this rule anymore.
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Fetch step
+➤ YN0000: └ Completed in 0s 372ms
+➤ YN0000: ┌ Link step
+➤ YN0092: │ ESM support for PnP uses the experimental loader API and is therefore experimental
+➤ YN0000: └ Completed
+➤ YN0000: · Done with warnings in 0s 793ms

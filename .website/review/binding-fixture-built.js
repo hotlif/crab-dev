@@ -1,0 +1,11 @@
+(function(g){var c={};function r(i){var x=c[i];if(x)return x.exports;var m={exports:{}};c[i]=m;var f=t[i];f&&f.call(m.exports,m,m.exports,r);return m.exports}r.objectDefineProperty=g.Object.defineProperty;var t={0:function(module,exports,__wake_require__){const c=__wake_require__(2),a="first_cd281f3874e4",b="second_5b22c7b2f082";function classes(d){return c.cx.call(undefined,a,d&&b);}__wake_require__.objectDefineProperty(exports,"classes",{enumerable:!0,get:function(){return classes;}}),document.body.dataset.classes=classes(!0);
+if (typeof document !== "undefined") {
+  var __wake_cij_owners__ = document.__wake_css_styles__ || (document.__wake_css_styles__ = new WeakMap());
+  var __wake_cij_registry__ = __wake_cij_owners__.get(__wake_require__);
+  if (!__wake_cij_registry__) { __wake_cij_registry__ = {}; __wake_cij_owners__.set(__wake_require__, __wake_cij_registry__); }
+  var __wake_cij_id__ = "crab-css-3fb1aacbc32f4e10";
+  var __wake_cij__ = __wake_cij_registry__[__wake_cij_id__];
+  if (!__wake_cij__) { __wake_cij__ = document.createElement("style"); __wake_cij_registry__[__wake_cij_id__] = __wake_cij__; document.head.appendChild(__wake_cij__); }
+  __wake_cij__.textContent = ".first_cd281f3874e4{color: red;}.second_5b22c7b2f082{color: blue;}";
+}
+},2:function(module,exports,__wake_require__){"use strict";__wake_require__=function(_o){var _m={1:1},_r=function(i){return _m[i]?exports:_o(i)};_r.objectDefineProperty=_o.objectDefineProperty;return _r}(__wake_require__);{Symbol.for("@crab-dev/css.createVar.counter");function cx(...c){const a=[],b=c.slice().reverse();while(b.length>0){const d=b.pop();if(!d)continue;if(typeof d==="string"){const e=d.trim();if(e)a.push(e);continue;}if(Array.isArray(d)){for(let e=d.length-1;e>=0;e-=1){b.push(d[e]);}continue;}if(typeof d==="object"){for(const e of Object.keys(d)){if(d[e])a.push(e);}}}return a.join(" ");}__wake_require__.objectDefineProperty(exports,"cx",{enumerable:!0,get:function(){return cx;}});}},};r.m=t;r.c=c;var e=r(0);if(typeof module!='undefined'&&module.exports)module.exports=e;else g.__wake_entry__=e;return e;})(typeof globalThis!='undefined'?globalThis:this);

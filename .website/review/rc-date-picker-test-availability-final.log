@@ -1,0 +1,4 @@
+  ✗  Wake failed [WAKE_TEST_REACT_VERSION]
+     \\?\C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker\src\__tests__\datePickerPanel.test.tsx: Wake Test requires one matching react/react-dom version >=19.2.8 <19.3.0; resolved react "19.3.0" at C:\Users\zhang\Desktop\crab-dev\.yarn\cache\react-npm-19.3.0-81507f077b-dd3099c3c4.zip\node_modules\react\package.json and react-dom "19.3.0" at C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\react-dom-virtual-36078eb31c\0\cache\react-dom-npm-19.3.0-b16b0f2b73-c513044b72.zip\node_modules\react-dom\package.json
+     Path  \\?\C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker\src\__tests__\datePickerPanel.test.tsx
+

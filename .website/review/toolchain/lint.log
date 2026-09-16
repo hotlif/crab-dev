@@ -1,0 +1,121 @@
+0 errors, 0 warnings
+PASS: native lint detects unresolved values/JSX, any, unused bindings and enforces source scope and local suppressions (7 checks)
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-spin, @crab-dev/rc-button, @crab-dev/rc-component-preview, @crab-dev/rc-masonry, @crab-dev/rc-menu
+
+   • Packages in scope: @crab-dev/rc-alert, @crab-dev/rc-app-main-layout, @crab-dev/rc-auto-sizer, @crab-dev/rc-avatar, @crab-dev/rc-badge, @crab-dev/rc-bar-chart, @crab-dev/rc-breadcrumbs, @crab-dev/rc-button, @crab-dev/rc-canvas, @crab-dev/rc-card, @crab-dev/rc-checkbox, @crab-dev/rc-color-picker, @crab-dev/rc-component-preview, @crab-dev/rc-cron-picker, @crab-dev/rc-date-picker, @crab-dev/rc-dialog, @crab-dev/rc-divider, @crab-dev/rc-drawer, @crab-dev/rc-dropdown-container, @crab-dev/rc-empty, @crab-dev/rc-flow-diagram, @crab-dev/rc-form, @crab-dev/rc-hooks, @crab-dev/rc-line-edit, @crab-dev/rc-masonry, @crab-dev/rc-menu, @crab-dev/rc-message, @crab-dev/rc-notification, @crab-dev/rc-number-edit, @crab-dev/rc-pagination, @crab-dev/rc-prose, @crab-dev/rc-radio, @crab-dev/rc-realm, @crab-dev/rc-router, @crab-dev/rc-segmented, @crab-dev/rc-select, @crab-dev/rc-skeleton, @crab-dev/rc-slider, @crab-dev/rc-spin, @crab-dev/rc-split-pane, @crab-dev/rc-switch, @crab-dev/rc-table, @crab-dev/rc-table-pro, @crab-dev/rc-tabs, @crab-dev/rc-tag, @crab-dev/rc-text-edit, @crab-dev/rc-theme, @crab-dev/rc-token-global, @crab-dev/rc-token-semantic, @crab-dev/rc-tooltip, @crab-dev/rc-tree, @crab-dev/rc-virtual, @crab-dev/standards-eslint-preset, @crab-dev/standards-typescript-preset, @crab-dev/website
+   • Running lint in 55 packages
+   • Remote caching disabled
+
+@crab-dev/rc-color-picker:lint: cache miss, executing 3e330c6ca4222484
+@crab-dev/rc-table-pro:lint: cache miss, executing a4a995f03e985124
+@crab-dev/rc-tabs:lint: cache miss, executing fa7e25f24e1137ae
+@crab-dev/rc-table:lint: cache miss, executing b628a4142dde0562
+@crab-dev/rc-text-edit:lint: cache miss, executing c762f8e581f09417
+@crab-dev/rc-flow-diagram:lint: cache miss, executing 27133ccd5a480c82
+@crab-dev/rc-tooltip:lint: cache miss, executing 9a507585cb850f66
+@crab-dev/rc-select:lint: cache miss, executing 88f8e9a18cda258e
+@crab-dev/rc-empty:lint: cache miss, executing 79098552bbdf5077
+@crab-dev/rc-date-picker:lint: cache miss, executing 55e499c7ee9a81af
+@crab-dev/rc-tabs:lint: 0 errors, 0 warnings
+@crab-dev/rc-table-pro:lint: 0 errors, 0 warnings
+@crab-dev/rc-color-picker:lint: 0 errors, 0 warnings
+@crab-dev/rc-table:lint: 0 errors, 0 warnings
+@crab-dev/rc-text-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-number-edit:lint: cache miss, executing 5d030d34621f360a
+@crab-dev/rc-prose:lint: cache miss, executing 1b4c10ab2d52995b
+@crab-dev/rc-dropdown-container:lint: cache miss, executing 006bff4df35c947b
+@crab-dev/rc-divider:lint: cache miss, executing 6836b42d6cb5872e
+@crab-dev/rc-notification:lint: cache miss, executing a7115770a8fcbf5d
+@crab-dev/rc-select:lint: 0 errors, 0 warnings
+@crab-dev/rc-flow-diagram:lint: 0 errors, 0 warnings
+@crab-dev/rc-tooltip:lint: 0 errors, 0 warnings
+@crab-dev/rc-empty:lint: 0 errors, 0 warnings
+@crab-dev/rc-virtual:lint: cache miss, executing 8a4dd49e5f7e177c
+@crab-dev/rc-avatar:lint: cache miss, executing aa6af5615c732858
+@crab-dev/rc-drawer:lint: cache miss, executing cf59f310caa33a5e
+@crab-dev/rc-message:lint: cache miss, executing ec53aec97b884972
+@crab-dev/rc-date-picker:lint: 0 errors, 0 warnings
+@crab-dev/rc-line-edit:lint: cache miss, executing b02981700d3ede5e
+@crab-dev/rc-prose:lint: 0 errors, 0 warnings
+@crab-dev/rc-menu:lint: cache miss, executing fe26d0d5c3915c62
+@crab-dev/rc-virtual:lint: 0 errors, 0 warnings
+@crab-dev/rc-number-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-dropdown-container:lint: 0 errors, 0 warnings
+@crab-dev/rc-notification:lint: 0 errors, 0 warnings
+@crab-dev/rc-divider:lint: 0 errors, 0 warnings
+@crab-dev/rc-auto-sizer:lint: cache miss, executing e7953b2c4abbb1cc
+@crab-dev/rc-avatar:lint: 0 errors, 0 warnings
+@crab-dev/rc-split-pane:lint: cache miss, executing 5b342c606d73e30c
+@crab-dev/rc-drawer:lint: 0 errors, 0 warnings
+@crab-dev/rc-switch:lint: cache miss, executing 6bdb5b85423de51d
+@crab-dev/rc-skeleton:lint: cache miss, executing 5bb9507b7ab95c7f
+@crab-dev/rc-app-main-layout:lint: cache miss, executing c425081b76f3901c
+@crab-dev/rc-message:lint: 0 errors, 0 warnings
+@crab-dev/rc-checkbox:lint: cache miss, executing f3d11de5044e227a
+@crab-dev/rc-realm:lint: cache miss, executing 9cfeaab1fac0dd09
+@crab-dev/rc-line-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-dialog:lint: cache miss, executing 84b43020b4a9fd68
+@crab-dev/rc-theme:lint: cache miss, executing 14d733e5675f10d3
+@crab-dev/rc-auto-sizer:lint: 0 errors, 0 warnings
+@crab-dev/rc-realm:lint: 0 errors, 0 warnings
+@crab-dev/rc-skeleton:lint: 0 errors, 0 warnings
+@crab-dev/rc-split-pane:lint: 0 errors, 0 warnings
+@crab-dev/rc-menu:lint: 0 errors, 0 warnings
+@crab-dev/rc-switch:lint: 0 errors, 0 warnings
+@crab-dev/rc-app-main-layout:lint: 0 errors, 0 warnings
+@crab-dev/rc-bar-chart:lint: cache miss, executing c1094cc98fcd8006
+@crab-dev/rc-radio:lint: cache miss, executing 2b67bbab7ef8dd6f
+@crab-dev/rc-badge:lint: cache miss, executing 1a5a22362fa6f248
+@crab-dev/rc-canvas:lint: cache miss, executing 1745b7041df44085
+@crab-dev/rc-checkbox:lint: 0 errors, 0 warnings
+@crab-dev/rc-segmented:lint: cache miss, executing 71cbf217e71f3d05
+@crab-dev/website:lint: cache miss, executing 7acfe377d73e27ea
+@crab-dev/rc-theme:lint: 0 errors, 0 warnings
+@crab-dev/rc-tree:lint: cache miss, executing 1e42cfacc2201585
+@crab-dev/rc-dialog:lint: 0 errors, 0 warnings
+@crab-dev/rc-card:lint: cache miss, executing 1de763d9d9b28ba8
+@crab-dev/rc-spin:lint: cache miss, executing 775f9d79a1484f69
+@crab-dev/rc-breadcrumbs:lint: cache miss, executing ea0e7f7f0510b845
+@crab-dev/rc-radio:lint: 0 errors, 0 warnings
+@crab-dev/rc-canvas:lint: 0 errors, 0 warnings
+@crab-dev/rc-hooks:lint: cache miss, executing 01816c1495307266
+@crab-dev/rc-slider:lint: cache miss, executing 6c38bb3c2b0a933d
+@crab-dev/rc-bar-chart:lint: 0 errors, 0 warnings
+@crab-dev/rc-segmented:lint: 0 errors, 0 warnings
+@crab-dev/rc-breadcrumbs:lint: 0 errors, 0 warnings
+@crab-dev/rc-badge:lint: 0 errors, 0 warnings
+@crab-dev/website:lint: 0 errors, 0 warnings
+@crab-dev/rc-pagination:lint: cache miss, executing c4ead46b1f852d96
+@crab-dev/rc-masonry:lint: cache miss, executing f62a11aeb791d7f9
+@crab-dev/rc-token-semantic:lint: cache miss, executing 80bb8346abc4656d
+@crab-dev/rc-component-preview:lint: cache miss, executing 9e2e4f0f6baa234c
+@crab-dev/rc-tree:lint: 0 errors, 0 warnings
+@crab-dev/rc-card:lint: 0 errors, 0 warnings
+@crab-dev/rc-spin:lint: 0 errors, 0 warnings
+@crab-dev/rc-cron-picker:lint: cache miss, executing a3cf3755906e08d6
+@crab-dev/rc-alert:lint: cache miss, executing 8eec9f45c7a21757
+@crab-dev/rc-token-global:lint: cache miss, executing 7a6ad2462bd4230e
+@crab-dev/website:lint: 0 errors, 0 warnings
+@crab-dev/rc-tag:lint: cache miss, executing 40170953959a2070
+@crab-dev/rc-hooks:lint: 0 errors, 0 warnings
+@crab-dev/rc-masonry:lint: 0 errors, 0 warnings
+@crab-dev/rc-pagination:lint: 0 errors, 0 warnings
+@crab-dev/rc-form:lint: cache miss, executing f2c69d48ccf70d50
+@crab-dev/rc-component-preview:lint: 0 errors, 0 warnings
+@crab-dev/rc-token-semantic:lint: 0 errors, 0 warnings
+@crab-dev/rc-slider:lint: 0 errors, 0 warnings
+@crab-dev/rc-button:lint: cache miss, executing b2647b0903b4ecfe
+@crab-dev/rc-cron-picker:lint: 0 errors, 0 warnings
+@crab-dev/rc-router:lint: cache miss, executing 38b5aad33dafde00
+@crab-dev/rc-token-global:lint: 0 errors, 0 warnings
+@crab-dev/rc-alert:lint: 0 errors, 0 warnings
+@crab-dev/rc-tag:lint: 0 errors, 0 warnings
+@crab-dev/rc-button:lint: 0 errors, 0 warnings
+@crab-dev/rc-form:lint: 0 errors, 0 warnings
+@crab-dev/rc-router:lint: 0 errors, 0 warnings
+
+ Tasks:    53 successful, 53 total
+Cached:    0 cached, 53 total
+  Time:    46.226s 
+

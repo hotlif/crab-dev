@@ -1,0 +1,17 @@
+{
+  "capturedAt": "2026-09-16T05:27:34.247Z",
+  "results": [
+    {
+      "component": "line-edit",
+      "focus": "BODY",
+      "value": "",
+      "clearExists": false
+    },
+    {
+      "component": "text-edit",
+      "focus": "BODY",
+      "value": "",
+      "clearExists": false
+    }
+  ]
+}

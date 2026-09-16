@@ -1,0 +1,5092 @@
+{
+  "capturedAt": "2026-09-16T08:14:55.891Z",
+  "revision": {
+    "sha256": "37682c5ac871456626c36cbe1c5a56382b80bbd5805bbce3626529b857f47ac8",
+    "files": 2548,
+    "bytes": 189913617
+  },
+  "status": "Layout and local keyboard scrolling only; graph editing and complete accessibility remain separate reviews.",
+  "results": [
+    {
+      "check": "canvas/animation.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "属性驱动动画画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "属性驱动动画画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "基础图元画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "基础图元画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "regions": [
+          {
+            "name": "Draggable画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 602,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 284,
+        "outline": "2px",
+        "name": "Draggable画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "分组变换与嵌套画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "分组变换与嵌套画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "hover 回调画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "hover 回调画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Infinite Canvas画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 484,
+        "outline": "2px",
+        "name": "Infinite Canvas画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "任意角度直线画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "任意角度直线画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          },
+          {
+            "width": 180,
+            "height": 120
+          }
+        ],
+        "regions": [
+          {
+            "name": "Minimap画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 484,
+        "outline": "2px",
+        "name": "Minimap画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "整体透明度（opacity）画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "整体透明度（opacity）画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 180
+          }
+        ],
+        "regions": [
+          {
+            "name": "圆角矩形（SDF）画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "圆角矩形（SDF）画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 480,
+            "height": 270
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字对齐与多行画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 480,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 164,
+        "outline": "2px",
+        "name": "文字对齐与多行画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 200
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字渲染画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "文字渲染画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Transformer画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 484,
+        "outline": "2px",
+        "name": "Transformer画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 流动动效画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 364,
+        "outline": "2px",
+        "name": "FlowEdge 流动动效画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动A→B 默认箭头A→C 虚线B→D 双向箭",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 样式画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 364,
+        "outline": "2px",
+        "name": "FlowEdge 样式画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "算法Layered（层次化）Mr. Tree（树形）Stress（力导向）方向→ 从左到右↓ 从上到下客户端基础设施业务服务存储层拖拽节点移动 · 边自动绕开节",
+        "canvases": [
+          {
+            "width": 820,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "ELK 自动图布局画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 822,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx light 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 504,
+        "outline": "2px",
+        "name": "ELK 自动图布局画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/allow-drop.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。文件夹 1文件 1-1文件 1-2文件 1-3文件夹 2文件 2-1文件 2-2文件 2-3",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/basic.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    W",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/checkable.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring ",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/draggable.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "节点 1添加删除刷新所有节点\n    To pick up a draggable item, press the space bar.\n    While d",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/expand-all.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "展开全部折叠全部前端后端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/filter.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "搜索树节点前端后端移动端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/icon-and-disabled.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/inline-edit.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "双击节点名称进入编辑，Enter 保存，Esc 取消。 自定义编辑器带字数限制（最多 20 字），超出或为空时失焦自动取消。+ 新建根节点（直接进入编辑）文档使",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/keyboard.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "键盘快捷键： ↑↓ 移动焦点  → 展开  ← 折叠 / 跳父节点  Enter 选中文档图片视频\n    To pick up a draggable ite",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/show-line.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4\n    To pick up a draggable item, press the space bar.\n    While",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/annotations.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "各月销售额与均值目标类目销售额一月820二月932三月901四月934五月690六月1,290",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/basic.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/horizontal.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/live-update.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "各区域季度销售额类目销售额华东820华南932华北901西南934东北690切换数据集",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/multi-series.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "线上线下经销商各区域分渠道销售额类目线上线下经销商华东820620450华南932710380华北901660520西南934540410点击任意柱子查看回调数",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/stacked.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "产品收入服务收入成本支出季度收支结构类目产品收入服务收入成本支出Q11,200680-750Q21,420720-820Q31,380810-790Q41,69",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "button/disabled.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/icon.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "显示加载状态primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/loading.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/size.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "请选择大小LargeMiddleSmallprimarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tabs/closable.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "编辑器 1编辑器 2编辑器 3编辑器 1 的内容",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "menu/horizontal.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 337,
+        "viewport": 320,
+        "previewWidth": 303,
+        "previewHeight": 958,
+        "text": "首页用户管理系统设置",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": false
+    },
+    {
+      "check": "segmented/block.demo.tsx light 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "全部进行中已完成",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "属性驱动动画画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "基础图元画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "regions": [
+          {
+            "name": "Draggable画布，可横向滚动",
+            "width": 602,
+            "scrollWidth": 602,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "分组变换与嵌套画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "hover 回调画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Infinite Canvas画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "任意角度直线画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          },
+          {
+            "width": 180,
+            "height": 120
+          }
+        ],
+        "regions": [
+          {
+            "name": "Minimap画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "整体透明度（opacity）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 180
+          }
+        ],
+        "regions": [
+          {
+            "name": "圆角矩形（SDF）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 480,
+            "height": 270
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字对齐与多行画布，可横向滚动",
+            "width": 480,
+            "scrollWidth": 480,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 200
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字渲染画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Transformer画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 流动动效画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动A→B 默认箭头A→C 虚线B→D 双向箭",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 样式画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "算法Layered（层次化）Mr. Tree（树形）Stress（力导向）方向→ 从左到右↓ 从上到下客户端基础设施业务服务存储层拖拽节点移动 · 边自动绕开节",
+        "canvases": [
+          {
+            "width": 820,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "ELK 自动图布局画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 822,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/allow-drop.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。文件夹 1文件 1-1文件 1-2文件 1-3文件夹 2文件 2-1文件 2-2文件 2-3",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/basic.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    W",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/checkable.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring ",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/draggable.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "节点 1添加删除刷新所有节点\n    To pick up a draggable item, press the space bar.\n    While d",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/expand-all.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "展开全部折叠全部前端后端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/filter.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "搜索树节点前端后端移动端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/icon-and-disabled.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/inline-edit.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "双击节点名称进入编辑，Enter 保存，Esc 取消。 自定义编辑器带字数限制（最多 20 字），超出或为空时失焦自动取消。+ 新建根节点（直接进入编辑）文档使",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/keyboard.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "键盘快捷键： ↑↓ 移动焦点  → 展开  ← 折叠 / 跳父节点  Enter 选中文档图片视频\n    To pick up a draggable ite",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/show-line.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4\n    To pick up a draggable item, press the space bar.\n    While",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/annotations.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "各月销售额与均值目标类目销售额一月820二月932三月901四月934五月690六月1,290",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/basic.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/horizontal.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/live-update.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "各区域季度销售额类目销售额华东820华南932华北901西南934东北690切换数据集",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/multi-series.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "线上线下经销商各区域分渠道销售额类目线上线下经销商华东820620450华南932710380华北901660520西南934540410点击任意柱子查看回调数",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/stacked.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "产品收入服务收入成本支出季度收支结构类目产品收入服务收入成本支出Q11,200680-750Q21,420720-820Q31,380810-790Q41,69",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "button/disabled.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/icon.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "显示加载状态primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/loading.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/size.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "请选择大小LargeMiddleSmallprimarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tabs/closable.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "编辑器 1编辑器 2编辑器 3编辑器 1 的内容",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "menu/horizontal.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "首页用户管理系统设置",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "segmented/block.demo.tsx light 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "全部进行中已完成",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "属性驱动动画画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "基础图元画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "regions": [
+          {
+            "name": "Draggable画布，可横向滚动",
+            "width": 602,
+            "scrollWidth": 602,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "分组变换与嵌套画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "hover 回调画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Infinite Canvas画布，可横向滚动",
+            "width": 802,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "任意角度直线画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          },
+          {
+            "width": 180,
+            "height": 120
+          }
+        ],
+        "regions": [
+          {
+            "name": "Minimap画布，可横向滚动",
+            "width": 802,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "整体透明度（opacity）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 180
+          }
+        ],
+        "regions": [
+          {
+            "name": "圆角矩形（SDF）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 480,
+            "height": 270
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字对齐与多行画布，可横向滚动",
+            "width": 480,
+            "scrollWidth": 480,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 200
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字渲染画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Transformer画布，可横向滚动",
+            "width": 802,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 流动动效画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动A→B 默认箭头A→C 虚线B→D 双向箭",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 样式画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "算法Layered（层次化）Mr. Tree（树形）Stress（力导向）方向→ 从左到右↓ 从上到下客户端基础设施业务服务存储层拖拽节点移动 · 边自动绕开节",
+        "canvases": [
+          {
+            "width": 820,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "ELK 自动图布局画布，可横向滚动",
+            "width": 822,
+            "scrollWidth": 822,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/allow-drop.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。文件夹 1文件 1-1文件 1-2文件 1-3文件夹 2文件 2-1文件 2-2文件 2-3",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/basic.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    W",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/checkable.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring ",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/draggable.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "节点 1添加删除刷新所有节点\n    To pick up a draggable item, press the space bar.\n    While d",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/expand-all.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "展开全部折叠全部前端后端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/filter.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "搜索树节点前端后端移动端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/icon-and-disabled.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/inline-edit.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "双击节点名称进入编辑，Enter 保存，Esc 取消。 自定义编辑器带字数限制（最多 20 字），超出或为空时失焦自动取消。+ 新建根节点（直接进入编辑）文档使",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/keyboard.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "键盘快捷键： ↑↓ 移动焦点  → 展开  ← 折叠 / 跳父节点  Enter 选中文档图片视频\n    To pick up a draggable ite",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/show-line.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4\n    To pick up a draggable item, press the space bar.\n    While",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/annotations.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "各月销售额与均值目标类目销售额一月820二月932三月901四月934五月690六月1,290",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/basic.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/horizontal.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/live-update.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "各区域季度销售额类目销售额华东820华南932华北901西南934东北690切换数据集",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/multi-series.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "线上线下经销商各区域分渠道销售额类目线上线下经销商华东820620450华南932710380华北901660520西南934540410点击任意柱子查看回调数",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/stacked.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "产品收入服务收入成本支出季度收支结构类目产品收入服务收入成本支出Q11,200680-750Q21,420720-820Q31,380810-790Q41,69",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "button/disabled.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/icon.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "显示加载状态primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/loading.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/size.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "请选择大小LargeMiddleSmallprimarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tabs/closable.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "编辑器 1编辑器 2编辑器 3编辑器 1 的内容",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "menu/horizontal.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "首页用户管理系统设置",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "segmented/block.demo.tsx light 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "全部进行中已完成",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "属性驱动动画画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "属性驱动动画画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "基础图元画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "基础图元画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "regions": [
+          {
+            "name": "Draggable画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 602,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 284,
+        "outline": "2px",
+        "name": "Draggable画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "分组变换与嵌套画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "分组变换与嵌套画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "hover 回调画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "hover 回调画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Infinite Canvas画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 484,
+        "outline": "2px",
+        "name": "Infinite Canvas画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "任意角度直线画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "任意角度直线画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          },
+          {
+            "width": 180,
+            "height": 120
+          }
+        ],
+        "regions": [
+          {
+            "name": "Minimap画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 484,
+        "outline": "2px",
+        "name": "Minimap画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "整体透明度（opacity）画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "整体透明度（opacity）画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 180
+          }
+        ],
+        "regions": [
+          {
+            "name": "圆角矩形（SDF）画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "圆角矩形（SDF）画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 480,
+            "height": 270
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字对齐与多行画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 480,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 164,
+        "outline": "2px",
+        "name": "文字对齐与多行画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 200
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字渲染画布，可横向滚动",
+            "width": 316,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 104,
+        "outline": "2px",
+        "name": "文字渲染画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Transformer画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 484,
+        "outline": "2px",
+        "name": "Transformer画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 流动动效画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 364,
+        "outline": "2px",
+        "name": "FlowEdge 流动动效画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动A→B 默认箭头A→C 虚线B→D 双向箭",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 样式画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 364,
+        "outline": "2px",
+        "name": "FlowEdge 样式画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "算法Layered（层次化）Mr. Tree（树形）Stress（力导向）方向→ 从左到右↓ 从上到下客户端基础设施业务服务存储层拖拽节点移动 · 边自动绕开节",
+        "canvases": [
+          {
+            "width": 820,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "ELK 自动图布局画布，可横向滚动",
+            "width": 318,
+            "scrollWidth": 822,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx dark 320 keyboard scroll",
+      "evidence": {
+        "focused": true,
+        "offset": 40,
+        "range": 504,
+        "outline": "2px",
+        "name": "ELK 自动图布局画布，可横向滚动"
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/allow-drop.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。文件夹 1文件 1-1文件 1-2文件 1-3文件夹 2文件 2-1文件 2-2文件 2-3",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/basic.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    W",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/checkable.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring ",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/draggable.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "节点 1添加删除刷新所有节点\n    To pick up a draggable item, press the space bar.\n    While d",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/expand-all.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "展开全部折叠全部前端后端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/filter.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "搜索树节点前端后端移动端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/icon-and-disabled.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/inline-edit.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "双击节点名称进入编辑，Enter 保存，Esc 取消。 自定义编辑器带字数限制（最多 20 字），超出或为空时失焦自动取消。+ 新建根节点（直接进入编辑）文档使",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/keyboard.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "键盘快捷键： ↑↓ 移动焦点  → 展开  ← 折叠 / 跳父节点  Enter 选中文档图片视频\n    To pick up a draggable ite",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/show-line.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4\n    To pick up a draggable item, press the space bar.\n    While",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/annotations.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "各月销售额与均值目标类目销售额一月820二月932三月901四月934五月690六月1,290",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/basic.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/horizontal.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/live-update.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "各区域季度销售额类目销售额华东820华南932华北901西南934东北690切换数据集",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/multi-series.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "线上线下经销商各区域分渠道销售额类目线上线下经销商华东820620450华南932710380华北901660520西南934540410点击任意柱子查看回调数",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/stacked.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "产品收入服务收入成本支出季度收支结构类目产品收入服务收入成本支出Q11,200680-750Q21,420720-820Q31,380810-790Q41,69",
+        "canvases": [
+          {
+            "width": 303,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "button/disabled.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/icon.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "显示加载状态primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/loading.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/size.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "请选择大小LargeMiddleSmallprimarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tabs/closable.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "编辑器 1编辑器 2编辑器 3编辑器 1 的内容",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "menu/horizontal.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 337,
+        "viewport": 320,
+        "previewWidth": 303,
+        "previewHeight": 958,
+        "text": "首页用户管理系统设置",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": false
+    },
+    {
+      "check": "segmented/block.demo.tsx dark 320",
+      "evidence": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "previewWidth": 318,
+        "previewHeight": 958,
+        "text": "全部进行中已完成",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "属性驱动动画画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "基础图元画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "regions": [
+          {
+            "name": "Draggable画布，可横向滚动",
+            "width": 602,
+            "scrollWidth": 602,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "分组变换与嵌套画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "hover 回调画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Infinite Canvas画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "任意角度直线画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          },
+          {
+            "width": 180,
+            "height": 120
+          }
+        ],
+        "regions": [
+          {
+            "name": "Minimap画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "整体透明度（opacity）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 180
+          }
+        ],
+        "regions": [
+          {
+            "name": "圆角矩形（SDF）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 480,
+            "height": 270
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字对齐与多行画布，可横向滚动",
+            "width": 480,
+            "scrollWidth": 480,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 200
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字渲染画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Transformer画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 流动动效画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动A→B 默认箭头A→C 虚线B→D 双向箭",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 样式画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "算法Layered（层次化）Mr. Tree（树形）Stress（力导向）方向→ 从左到右↓ 从上到下客户端基础设施业务服务存储层拖拽节点移动 · 边自动绕开节",
+        "canvases": [
+          {
+            "width": 820,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "ELK 自动图布局画布，可横向滚动",
+            "width": 766,
+            "scrollWidth": 822,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/allow-drop.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。文件夹 1文件 1-1文件 1-2文件 1-3文件夹 2文件 2-1文件 2-2文件 2-3",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/basic.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    W",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/checkable.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring ",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/draggable.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "节点 1添加删除刷新所有节点\n    To pick up a draggable item, press the space bar.\n    While d",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/expand-all.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "展开全部折叠全部前端后端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/filter.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "搜索树节点前端后端移动端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/icon-and-disabled.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/inline-edit.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "双击节点名称进入编辑，Enter 保存，Esc 取消。 自定义编辑器带字数限制（最多 20 字），超出或为空时失焦自动取消。+ 新建根节点（直接进入编辑）文档使",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/keyboard.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "键盘快捷键： ↑↓ 移动焦点  → 展开  ← 折叠 / 跳父节点  Enter 选中文档图片视频\n    To pick up a draggable ite",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/show-line.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4\n    To pick up a draggable item, press the space bar.\n    While",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/annotations.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "各月销售额与均值目标类目销售额一月820二月932三月901四月934五月690六月1,290",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/basic.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/horizontal.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/live-update.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "各区域季度销售额类目销售额华东820华南932华北901西南934东北690切换数据集",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/multi-series.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "线上线下经销商各区域分渠道销售额类目线上线下经销商华东820620450华南932710380华北901660520西南934540410点击任意柱子查看回调数",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/stacked.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "产品收入服务收入成本支出季度收支结构类目产品收入服务收入成本支出Q11,200680-750Q21,420720-820Q31,380810-790Q41,69",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "button/disabled.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/icon.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "显示加载状态primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/loading.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/size.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "请选择大小LargeMiddleSmallprimarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tabs/closable.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "编辑器 1编辑器 2编辑器 3编辑器 1 的内容",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "menu/horizontal.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "首页用户管理系统设置",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "segmented/block.demo.tsx dark 768",
+      "evidence": {
+        "pageWidth": 768,
+        "viewport": 768,
+        "previewWidth": 766,
+        "previewHeight": 958,
+        "text": "全部进行中已完成",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/animation.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "属性驱动动画画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/basic.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "基础图元画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/draggable.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 400
+          }
+        ],
+        "regions": [
+          {
+            "name": "Draggable画布，可横向滚动",
+            "width": 602,
+            "scrollWidth": 602,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/group.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "分组变换与嵌套画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/hover.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "hover 回调画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/infinite-canvas.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Infinite Canvas画布，可横向滚动",
+            "width": 802,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/line.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 220
+          }
+        ],
+        "regions": [
+          {
+            "name": "任意角度直线画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/minimap.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "滚轮缩放 · 拖拽空白区域平移 · 拖拽节点移动 · 右下角 Minimap 显示全局视图",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          },
+          {
+            "width": 180,
+            "height": 120
+          }
+        ],
+        "regions": [
+          {
+            "name": "Minimap画布，可横向滚动",
+            "width": 802,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/opacity.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 240
+          }
+        ],
+        "regions": [
+          {
+            "name": "整体透明度（opacity）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/rounded.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 180
+          }
+        ],
+        "regions": [
+          {
+            "name": "圆角矩形（SDF）画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text-advanced.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 480,
+            "height": 270
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字对齐与多行画布，可横向滚动",
+            "width": 480,
+            "scrollWidth": 480,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/text.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "",
+        "canvases": [
+          {
+            "width": 420,
+            "height": 200
+          }
+        ],
+        "regions": [
+          {
+            "name": "文字渲染画布，可横向滚动",
+            "width": 420,
+            "scrollWidth": 420,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "canvas/transformer.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中",
+        "canvases": [
+          {
+            "width": 800,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "Transformer画布，可横向滚动",
+            "width": 802,
+            "scrollWidth": 802,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/animated-edge.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 流动动效画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/edge.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动A→B 默认箭头A→C 虚线B→D 双向箭",
+        "canvases": [
+          {
+            "width": 680,
+            "height": 380
+          }
+        ],
+        "regions": [
+          {
+            "name": "FlowEdge 样式画布，可横向滚动",
+            "width": 682,
+            "scrollWidth": 682,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "flow-diagram/elk-layout.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "算法Layered（层次化）Mr. Tree（树形）Stress（力导向）方向→ 从左到右↓ 从上到下客户端基础设施业务服务存储层拖拽节点移动 · 边自动绕开节",
+        "canvases": [
+          {
+            "width": 820,
+            "height": 520
+          }
+        ],
+        "regions": [
+          {
+            "name": "ELK 自动图布局画布，可横向滚动",
+            "width": 822,
+            "scrollWidth": 822,
+            "tabIndex": 0,
+            "overflow": "auto"
+          }
+        ],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/allow-drop.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。文件夹 1文件 1-1文件 1-2文件 1-3文件夹 2文件 2-1文件 2-2文件 2-3",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/basic.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    W",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/checkable.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring ",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/draggable.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "节点 1添加删除刷新所有节点\n    To pick up a draggable item, press the space bar.\n    While d",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/expand-all.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "展开全部折叠全部前端后端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/filter.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "搜索树节点前端后端移动端\n    To pick up a draggable item, press the space bar.\n    While dra",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/icon-and-disabled.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/inline-edit.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "双击节点名称进入编辑，Enter 保存，Esc 取消。 自定义编辑器带字数限制（最多 20 字），超出或为空时失焦自动取消。+ 新建根节点（直接进入编辑）文档使",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/keyboard.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "键盘快捷键： ↑↓ 移动焦点  → 展开  ← 折叠 / 跳父节点  Enter 选中文档图片视频\n    To pick up a draggable ite",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tree/show-line.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "节点 1节点 2节点 3节点 4\n    To pick up a draggable item, press the space bar.\n    While",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/annotations.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "各月销售额与均值目标类目销售额一月820二月932三月901四月934五月690六月1,290",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/basic.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/horizontal.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/live-update.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "各区域季度销售额类目销售额华东820华南932华北901西南934东北690切换数据集",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/multi-series.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "线上线下经销商各区域分渠道销售额类目线上线下经销商华东820620450华南932710380华北901660520西南934540410点击任意柱子查看回调数",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "bar-chart/stacked.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "产品收入服务收入成本支出季度收支结构类目产品收入服务收入成本支出Q11,200680-750Q21,420720-820Q31,380810-790Q41,69",
+        "canvases": [
+          {
+            "width": 600,
+            "height": 320
+          }
+        ],
+        "regions": [],
+        "tableRows": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "button/disabled.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/icon.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "显示加载状态primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/loading.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "primarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "button/size.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "请选择大小LargeMiddleSmallprimarysubtledashedtextlink",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "tabs/closable.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "编辑器 1编辑器 2编辑器 3编辑器 1 的内容",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "menu/horizontal.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "首页用户管理系统设置",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    },
+    {
+      "check": "segmented/block.demo.tsx dark 1440",
+      "evidence": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "previewWidth": 1438,
+        "previewHeight": 958,
+        "text": "全部进行中已完成",
+        "canvases": [],
+        "regions": [],
+        "tableRows": 0
+      },
+      "passed": true
+    }
+  ],
+  "exceptions": []
+}

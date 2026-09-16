@@ -1,0 +1,82 @@
+[
+  {
+    "package": "rc-alert",
+    "blocked": true
+  },
+  {
+    "package": "rc-app-main-layout",
+    "blocked": true
+  },
+  {
+    "package": "rc-bar-chart",
+    "blocked": true
+  },
+  {
+    "package": "rc-breadcrumbs",
+    "blocked": true
+  },
+  {
+    "package": "rc-color-picker",
+    "blocked": true
+  },
+  {
+    "package": "rc-component-preview",
+    "blocked": true
+  },
+  {
+    "package": "rc-cron-picker",
+    "blocked": true
+  },
+  {
+    "package": "rc-date-picker",
+    "blocked": true
+  },
+  {
+    "package": "rc-drawer",
+    "blocked": true
+  },
+  {
+    "package": "rc-dropdown-container",
+    "blocked": true
+  },
+  {
+    "package": "rc-form",
+    "blocked": true
+  },
+  {
+    "package": "rc-menu",
+    "blocked": true
+  },
+  {
+    "package": "rc-select",
+    "blocked": true
+  },
+  {
+    "package": "rc-spin",
+    "blocked": true
+  },
+  {
+    "package": "rc-split-pane",
+    "blocked": true
+  },
+  {
+    "package": "rc-table-pro",
+    "blocked": true
+  },
+  {
+    "package": "rc-table",
+    "blocked": true
+  },
+  {
+    "package": "rc-tabs",
+    "blocked": true
+  },
+  {
+    "package": "rc-tree",
+    "blocked": true
+  },
+  {
+    "package": "rc-virtual",
+    "blocked": true
+  }
+]

@@ -1,0 +1,69 @@
+PASS src/__tests__/colorPicker.test.tsx
+  ✓ renders without runtime error
+  ✓ shows a swatch tinted with the current color
+  ✓ exposes the trigger as an accessible button
+  ✓ opens the overlay on click
+  ✓ opens the overlay via keyboard (Enter)
+  ✓ does NOT open on focus (focus must not auto-open)
+  ✓ shows four sliders (incl. alpha) in the overlay by default
+  ✓ shows three sliders when showAlpha is false
+  ✓ commits the value and closes on confirm
+  ✓ does not call onValueChange on cancel
+  ✓ does not open when disabled
+  ✓ shows the reset button only when allowClear is set
+  ✓ renders with a custom locale
+  ✓ works uncontrolled via defaultValue
+  ✓ falls back to default texts when a partial locale is given
+  ✓ merges a user className instead of replacing the trigger style
+PASS src/__tests__/colorPickerPanel.test.tsx
+  ✓ renders lightness / chroma / hue / alpha sliders by default
+  ✓ hides the alpha slider when showAlpha is false
+  ✓ renders locale labels
+  ✓ renders the color preview with the current color (incl. alpha)
+  ✓ lightness slider exposes correct aria attributes
+  ✓ calls onValueChange when the lightness slider is dragged
+  ✓ calls onValueChange when the alpha slider is dragged
+  ✓ renders the color text input and format switcher
+  ✓ commits a typed hex value on Enter
+  ✓ keeps the current alpha when typing a 6-digit hex
+  ✓ renders preset swatches when presets are provided
+  ✓ passes through additional HTML attributes
+PASS src/__tests__/colorPickerSelectNesting.test.tsx
+  ✓ keeps the picker open and applies the change when picking an option in the nested format select
+  ✓ still closes the picker on a genuine outside pointerdown
+PASS src/utils/__tests__/color.test.ts
+  ✓ maps white to #ffffff
+  ✓ maps black to #000000
+  ✓ clamps out-of-gamut without throwing
+  ✓ round-trips an in-gamut sRGB hex exactly
+  ✓ expands 3-digit shorthand
+  ✓ parses 8-digit hex alpha
+  ✓ leaves alpha undefined for 6-digit hex (caller decides the fallback)
+  ✓ rejects invalid input
+  ✓ returns integer channels back
+  ✓ hex is upper-cased
+  ✓ rgb without alpha
+  ✓ rgba with alpha
+  ✓ hsl for pure red
+  ✓ oklch keeps the channels
+  ✓ parses rgb() to the matching hex
+  ✓ parses hsl() back to pure red
+  ✓ parses oklch() with alpha
+  ✓ returns null on garbage
+  ✓ leaves alpha undefined when the input omits it
+  ✓ normalizes hsl hue outside 0-360
+Test Suites: 4 passed, 0 failed, 4 total
+Tests:       50 passed, 0 failed, 0 pending, 50 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	97.68% (589/603)	87.50% (42/48)	45.08% (55/122)
+src/colorPicker/colorPicker.tsx	100.00% (47/47)	100.00% (1/1)	16.67% (1/6)
+src/colorPicker/colorPickerInput.tsx	100.00% (61/61)	100.00% (6/6)	31.82% (7/22)
+src/colorPicker/colorPickerOverlay.tsx	100.00% (59/59)	75.00% (3/4)	42.86% (3/7)
+src/panels/colorInput.tsx	100.00% (49/49)	80.00% (8/10)	20.00% (1/5)
+src/panels/colorPickerPanel.tsx	100.00% (117/117)	60.00% (3/5)	28.57% (6/21)
+src/panels/presetSwatches.tsx	100.00% (45/45)	85.71% (6/7)	8.33% (1/12)
+src/token.ts	100.00% (76/76)	100.00% (0/0)	100.00% (0/0)
+src/utils/color.ts	90.60% (135/149)	100.00% (15/15)	73.47% (36/49)
+Seed:        1789546032621701332
+Time:        28007 ms

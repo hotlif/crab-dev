@@ -1,0 +1,27 @@
+生成完成：52 个组件页，55 份教程，117 个教学示例，246 个唯一 Demo，10 个文件变化。
+
+  ⚡ WAKE / DOCS BUILD  v0.1.38
+
+  ✓  Documentation built in 2m27.0s
+     221526 modules · 2546 files · 181.08 MB  · 80 routes
+     Output  C:\Users\zhang\Desktop\crab-dev\.website\docs-dist
+
+components/rc-canvas/workbench/animation.demo.989944a5.js:11:819 'wrapStyle' is not defined.
+components/rc-canvas/workbench/animation.demo.989944a5.js:11:829 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/basic.demo.d26973fd.js:11:385 'wrapStyle' is not defined.
+components/rc-canvas/workbench/basic.demo.d26973fd.js:11:395 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/group.demo.09c47aa7.js:11:584 'wrapStyle' is not defined.
+components/rc-canvas/workbench/group.demo.09c47aa7.js:11:594 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/hover.demo.21428b06.js:11:462 'wrapStyle' is not defined.
+components/rc-canvas/workbench/hover.demo.21428b06.js:11:472 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/line.demo.243a1397.js:11:521 'wrapStyle' is not defined.
+components/rc-canvas/workbench/line.demo.243a1397.js:11:531 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/opacity.demo.d8fa3ccd.js:11:468 'wrapStyle' is not defined.
+components/rc-canvas/workbench/opacity.demo.d8fa3ccd.js:11:478 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/rounded.demo.39af7000.js:11:383 'wrapStyle' is not defined.
+components/rc-canvas/workbench/rounded.demo.39af7000.js:11:393 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/text-advanced.demo.735d11f9.js:11:571 'wrapStyle' is not defined.
+components/rc-canvas/workbench/text-advanced.demo.735d11f9.js:11:581 'canvasViewportStyle' is not defined.
+components/rc-canvas/workbench/text.demo.720dfb31.js:11:394 'wrapStyle' is not defined.
+components/rc-canvas/workbench/text.demo.720dfb31.js:11:404 'canvasViewportStyle' is not defined.
+Checked 1890 production JavaScript files; 18 unbound references.

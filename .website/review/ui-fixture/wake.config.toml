@@ -1,0 +1,7 @@
+root_dir = "../.."
+
+[docs]
+source_dir = "review/ui-fixture/docs"
+title = "Crab Docs UI 验收"
+locale = "zh-CN"
+ui = "docs/site/ui.tsx"

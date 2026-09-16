@@ -1,0 +1,12 @@
+{
+    "extends": "../.tmp/ui-typecheck/tsconfig.json",
+    "include": [
+        "../docs/examples/practice-data/*.tsx",
+        "../docs/examples/practice-profile/*.tsx",
+        "../docs/examples/practice-admin/step-3.tsx",
+        "../docs/examples/practice-admin/step-4.tsx",
+        "../docs/examples/rc-number-edit/*.tsx",
+        "../docs/examples/rc-text-edit/*.tsx",
+        "../docs/examples/home/profile.tsx"
+    ]
+}

@@ -1,0 +1,361 @@
+{
+  "summary": {
+    "wakeVersions": [
+      "0.1.43"
+    ],
+    "wakeManifests": 55,
+    "lintEntries": 54,
+    "remainingEslintScripts": []
+  },
+  "packages": [
+    {
+      "path": "./package.json",
+      "name": "(root)",
+      "wake": "0.1.43",
+      "lint": "yarn lint:tools && turbo run lint"
+    },
+    {
+      "path": ".website/package.json",
+      "name": "@crab-dev/website",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root .. .website/docs --env browser --max-warnings 0 && wake lint --format human --root .. .website/scripts --env browser --env node --max-warnings 0"
+    },
+    {
+      "path": "components/rc-alert/package.json",
+      "name": "@crab-dev/rc-alert",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-alert/src components/rc-alert/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-app-main-layout/package.json",
+      "name": "@crab-dev/rc-app-main-layout",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-app-main-layout/src components/rc-app-main-layout/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-auto-sizer/package.json",
+      "name": "@crab-dev/rc-auto-sizer",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-auto-sizer/src components/rc-auto-sizer/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-avatar/package.json",
+      "name": "@crab-dev/rc-avatar",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-avatar/src components/rc-avatar/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-badge/package.json",
+      "name": "@crab-dev/rc-badge",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-badge/src components/rc-badge/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-bar-chart/package.json",
+      "name": "@crab-dev/rc-bar-chart",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-bar-chart/src components/rc-bar-chart/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-breadcrumbs/package.json",
+      "name": "@crab-dev/rc-breadcrumbs",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-breadcrumbs/src components/rc-breadcrumbs/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-button/package.json",
+      "name": "@crab-dev/rc-button",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-button/src components/rc-button/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-canvas/package.json",
+      "name": "@crab-dev/rc-canvas",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-canvas/src components/rc-canvas/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-card/package.json",
+      "name": "@crab-dev/rc-card",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-card/src components/rc-card/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-checkbox/package.json",
+      "name": "@crab-dev/rc-checkbox",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-checkbox/src components/rc-checkbox/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-color-picker/package.json",
+      "name": "@crab-dev/rc-color-picker",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-color-picker/src components/rc-color-picker/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-component-preview/package.json",
+      "name": "@crab-dev/rc-component-preview",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-component-preview/src components/rc-component-preview/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-cron-picker/package.json",
+      "name": "@crab-dev/rc-cron-picker",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-cron-picker/src components/rc-cron-picker/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-date-picker/package.json",
+      "name": "@crab-dev/rc-date-picker",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-date-picker/src components/rc-date-picker/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-dialog/package.json",
+      "name": "@crab-dev/rc-dialog",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-dialog/src components/rc-dialog/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-divider/package.json",
+      "name": "@crab-dev/rc-divider",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-divider/src components/rc-divider/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-drawer/package.json",
+      "name": "@crab-dev/rc-drawer",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-drawer/src components/rc-drawer/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-dropdown-container/package.json",
+      "name": "@crab-dev/rc-dropdown-container",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-dropdown-container/src components/rc-dropdown-container/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-empty/package.json",
+      "name": "@crab-dev/rc-empty",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-empty/src components/rc-empty/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-flow-diagram/package.json",
+      "name": "@crab-dev/rc-flow-diagram",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-flow-diagram/src components/rc-flow-diagram/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-form/package.json",
+      "name": "@crab-dev/rc-form",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-form/src components/rc-form/docs --env browser --max-warnings 0",
+      "check": "yarn tsc -p tsconfig.json --noEmit && yarn lint && yarn test"
+    },
+    {
+      "path": "components/rc-hooks/package.json",
+      "name": "@crab-dev/rc-hooks",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-hooks/src components/rc-hooks/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-line-edit/package.json",
+      "name": "@crab-dev/rc-line-edit",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-line-edit/src components/rc-line-edit/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-masonry/package.json",
+      "name": "@crab-dev/rc-masonry",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-masonry/src components/rc-masonry/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-menu/package.json",
+      "name": "@crab-dev/rc-menu",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-menu/src components/rc-menu/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-message/package.json",
+      "name": "@crab-dev/rc-message",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-message/src components/rc-message/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-notification/package.json",
+      "name": "@crab-dev/rc-notification",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-notification/src components/rc-notification/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-number-edit/package.json",
+      "name": "@crab-dev/rc-number-edit",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-number-edit/src components/rc-number-edit/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-pagination/package.json",
+      "name": "@crab-dev/rc-pagination",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-pagination/src components/rc-pagination/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-prose/package.json",
+      "name": "@crab-dev/rc-prose",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-prose/src components/rc-prose/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-radio/package.json",
+      "name": "@crab-dev/rc-radio",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-radio/src components/rc-radio/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-realm/package.json",
+      "name": "@crab-dev/rc-realm",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-realm/src components/rc-realm/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-router/package.json",
+      "name": "@crab-dev/rc-router",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-router/src components/rc-router/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-segmented/package.json",
+      "name": "@crab-dev/rc-segmented",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-segmented/src components/rc-segmented/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-select/package.json",
+      "name": "@crab-dev/rc-select",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-select/src components/rc-select/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-skeleton/package.json",
+      "name": "@crab-dev/rc-skeleton",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-skeleton/src components/rc-skeleton/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-slider/package.json",
+      "name": "@crab-dev/rc-slider",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-slider/src components/rc-slider/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-spin/package.json",
+      "name": "@crab-dev/rc-spin",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-spin/src components/rc-spin/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-split-pane/package.json",
+      "name": "@crab-dev/rc-split-pane",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-split-pane/src components/rc-split-pane/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-switch/package.json",
+      "name": "@crab-dev/rc-switch",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-switch/src components/rc-switch/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-table/package.json",
+      "name": "@crab-dev/rc-table",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-table/src components/rc-table/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-table-pro/package.json",
+      "name": "@crab-dev/rc-table-pro",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-table-pro/src components/rc-table-pro/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-tabs/package.json",
+      "name": "@crab-dev/rc-tabs",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-tabs/src components/rc-tabs/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-tag/package.json",
+      "name": "@crab-dev/rc-tag",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-tag/src components/rc-tag/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-text-edit/package.json",
+      "name": "@crab-dev/rc-text-edit",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-text-edit/src components/rc-text-edit/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-theme/package.json",
+      "name": "@crab-dev/rc-theme",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-theme/src components/rc-theme/docs --env browser --max-warnings 0",
+      "check": "yarn lint && yarn prettier:check && yarn test"
+    },
+    {
+      "path": "components/rc-token-global/package.json",
+      "name": "@crab-dev/rc-token-global",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-token-global/src components/rc-token-global/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-token-semantic/package.json",
+      "name": "@crab-dev/rc-token-semantic",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-token-semantic/src components/rc-token-semantic/docs --env browser --max-warnings 0",
+      "check": "yarn lint . && yarn test"
+    },
+    {
+      "path": "components/rc-tooltip/package.json",
+      "name": "@crab-dev/rc-tooltip",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-tooltip/src components/rc-tooltip/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-tree/package.json",
+      "name": "@crab-dev/rc-tree",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-tree/src components/rc-tree/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "components/rc-virtual/package.json",
+      "name": "@crab-dev/rc-virtual",
+      "wake": "0.1.43",
+      "lint": "wake lint --format human --root ../.. components/rc-virtual/src components/rc-virtual/docs --env browser --max-warnings 0"
+    },
+    {
+      "path": "standards/eslint-preset/package.json",
+      "name": "@crab-dev/standards-eslint-preset"
+    },
+    {
+      "path": "standards/typescript-preset/package.json",
+      "name": "@crab-dev/standards-typescript-preset",
+      "wake": "0.1.43"
+    }
+  ]
+}

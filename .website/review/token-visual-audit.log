@@ -1,0 +1,396 @@
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-menu, @crab-dev/rc-spin, @crab-dev/rc-button, @crab-dev/rc-component-preview, @crab-dev/rc-masonry
+
+   • Packages in scope: @crab-dev/rc-alert, @crab-dev/rc-app-main-layout, @crab-dev/rc-auto-sizer, @crab-dev/rc-avatar, @crab-dev/rc-badge, @crab-dev/rc-bar-chart, @crab-dev/rc-breadcrumbs, @crab-dev/rc-button, @crab-dev/rc-canvas, @crab-dev/rc-card, @crab-dev/rc-checkbox, @crab-dev/rc-color-picker, @crab-dev/rc-component-preview, @crab-dev/rc-cron-picker, @crab-dev/rc-date-picker, @crab-dev/rc-dialog, @crab-dev/rc-divider, @crab-dev/rc-drawer, @crab-dev/rc-dropdown-container, @crab-dev/rc-empty, @crab-dev/rc-flow-diagram, @crab-dev/rc-form, @crab-dev/rc-hooks, @crab-dev/rc-line-edit, @crab-dev/rc-masonry, @crab-dev/rc-menu, @crab-dev/rc-message, @crab-dev/rc-notification, @crab-dev/rc-number-edit, @crab-dev/rc-pagination, @crab-dev/rc-prose, @crab-dev/rc-radio, @crab-dev/rc-realm, @crab-dev/rc-router, @crab-dev/rc-segmented, @crab-dev/rc-select, @crab-dev/rc-skeleton, @crab-dev/rc-slider, @crab-dev/rc-spin, @crab-dev/rc-split-pane, @crab-dev/rc-switch, @crab-dev/rc-table, @crab-dev/rc-table-pro, @crab-dev/rc-tabs, @crab-dev/rc-tag, @crab-dev/rc-text-edit, @crab-dev/rc-theme, @crab-dev/rc-token-global, @crab-dev/rc-token-semantic, @crab-dev/rc-tooltip, @crab-dev/rc-tree, @crab-dev/rc-virtual, @crab-dev/standards-eslint-preset, @crab-dev/standards-typescript-preset, @crab-dev/website
+   • Running generate:token in 55 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:generate:token: cache hit, replaying logs e9bd55f775929152
+@crab-dev/rc-token-global:generate:token: 
+@crab-dev/rc-token-global:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-token-global:generate:token: 
+@crab-dev/rc-token-global:generate:token:   ✓  Tokens generated in 6ms
+@crab-dev/rc-token-global:generate:token:      1 files · 15.0 KB
+@crab-dev/rc-token-global:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:generate:token: 
+@crab-dev/rc-token-semantic:generate:token: cache hit, replaying logs dc4f7f28e757130b
+@crab-dev/rc-token-semantic:generate:token: 
+@crab-dev/rc-token-semantic:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-token-semantic:generate:token: 
+@crab-dev/rc-token-semantic:generate:token:   ✓  Tokens generated in 30ms
+@crab-dev/rc-token-semantic:generate:token:      1 files · 23.9 KB
+@crab-dev/rc-token-semantic:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:generate:token: 
+@crab-dev/rc-button:generate:token: cache hit, replaying logs ec35e3b1928ea1af
+@crab-dev/rc-spin:generate:token: cache hit, replaying logs c0c8919d59b35af7
+@crab-dev/rc-menu:generate:token: cache hit, replaying logs b0beaacb90edae74
+@crab-dev/rc-component-preview:generate:token: cache hit, replaying logs 4cd45bd547d4ff2b
+@crab-dev/rc-button:generate:token: 
+@crab-dev/rc-masonry:generate:token: cache hit, replaying logs bfb4d4653e4cc532
+@crab-dev/rc-menu:generate:token: 
+@crab-dev/rc-menu:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-button:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-button:generate:token: 
+@crab-dev/rc-button:generate:token:   ✓  Tokens generated in 47ms
+@crab-dev/rc-spin:generate:token: 
+@crab-dev/rc-spin:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-spin:generate:token: 
+@crab-dev/rc-spin:generate:token:   ✓  Tokens generated in 44ms
+@crab-dev/rc-spin:generate:token:      1 files · 4.6 KB
+@crab-dev/rc-spin:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:generate:token: 
+@crab-dev/rc-menu:generate:token: 
+@crab-dev/rc-menu:generate:token:   ✓  Tokens generated in 45ms
+@crab-dev/rc-button:generate:token:      1 files · 14.0 KB
+@crab-dev/rc-button:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-menu:generate:token:      1 files · 19.1 KB
+@crab-dev/rc-button:generate:token: 
+@crab-dev/rc-component-preview:generate:token: 
+@crab-dev/rc-component-preview:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-component-preview:generate:token: 
+@crab-dev/rc-menu:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu\src\token.ts
+@crab-dev/rc-menu:generate:token: 
+@crab-dev/rc-component-preview:generate:token:   ✓  Tokens generated in 40ms
+@crab-dev/rc-component-preview:generate:token:      1 files · 14.3 KB
+@crab-dev/rc-masonry:generate:token: 
+@crab-dev/rc-masonry:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-component-preview:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview\src\token.ts
+@crab-dev/rc-component-preview:generate:token: 
+@crab-dev/rc-masonry:generate:token: 
+@crab-dev/rc-masonry:generate:token:   ✓  Tokens generated in 40ms
+@crab-dev/rc-masonry:generate:token:      1 files · 633 B
+@crab-dev/rc-masonry:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry\src\token.ts
+@crab-dev/rc-masonry:generate:token: 
+@crab-dev/rc-notification:generate:token: cache hit, replaying logs 82d2c31d2809d254
+@crab-dev/rc-skeleton:generate:token: cache hit, replaying logs c4b5d8b55bdadccf
+@crab-dev/rc-notification:generate:token: 
+@crab-dev/rc-notification:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-notification:generate:token: 
+@crab-dev/rc-notification:generate:token:   ✓  Tokens generated in 81ms
+@crab-dev/rc-notification:generate:token:      1 files · 3.1 KB
+@crab-dev/rc-notification:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-notification\src\token.ts
+@crab-dev/rc-notification:generate:token: 
+@crab-dev/rc-breadcrumbs:generate:token: cache hit, replaying logs 34a840ac1d1c8869
+@crab-dev/rc-skeleton:generate:token: 
+@crab-dev/rc-skeleton:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-skeleton:generate:token: 
+@crab-dev/rc-drawer:generate:token: cache hit, replaying logs d8eca516646309ae
+@crab-dev/rc-skeleton:generate:token:   ✓  Tokens generated in 49ms
+@crab-dev/rc-skeleton:generate:token:      1 files · 5.1 KB
+@crab-dev/rc-skeleton:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-skeleton\src\token.ts
+@crab-dev/rc-skeleton:generate:token: 
+@crab-dev/rc-virtual:generate:token: cache hit, replaying logs cdb529afbfc2b88b
+@crab-dev/rc-breadcrumbs:generate:token: 
+@crab-dev/rc-divider:generate:token: cache hit, replaying logs 3bc17057a21f18cf
+@crab-dev/rc-badge:generate:token: cache hit, replaying logs 336c6b829ace0501
+@crab-dev/rc-breadcrumbs:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-breadcrumbs:generate:token: 
+@crab-dev/rc-virtual:generate:token: 
+@crab-dev/rc-breadcrumbs:generate:token:   ✓  Tokens generated in 49ms
+@crab-dev/rc-virtual:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-virtual:generate:token: 
+@crab-dev/rc-breadcrumbs:generate:token:      1 files · 2.2 KB
+@crab-dev/rc-breadcrumbs:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-breadcrumbs\src\token.ts
+@crab-dev/rc-breadcrumbs:generate:token: 
+@crab-dev/rc-drawer:generate:token: 
+@crab-dev/rc-drawer:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-virtual:generate:token:   ✓  Tokens generated in 52ms
+@crab-dev/rc-virtual:generate:token:      1 files · 564 B
+@crab-dev/rc-drawer:generate:token: 
+@crab-dev/rc-drawer:generate:token:   ✓  Tokens generated in 63ms
+@crab-dev/rc-canvas:generate:token: cache hit, replaying logs 1d8537e7c581cc08
+@crab-dev/rc-virtual:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual\src\token.ts
+@crab-dev/rc-switch:generate:token: cache hit, replaying logs bca66b6ab7a71ae5
+@crab-dev/rc-alert:generate:token: cache hit, replaying logs d352a8089cb043fa
+@crab-dev/rc-divider:generate:token: 
+@crab-dev/rc-divider:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-drawer:generate:token:      1 files · 5.8 KB
+@crab-dev/rc-virtual:generate:token: 
+@crab-dev/rc-badge:generate:token: 
+@crab-dev/rc-badge:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-divider:generate:token: 
+@crab-dev/rc-divider:generate:token:   ✓  Tokens generated in 46ms
+@crab-dev/rc-drawer:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-drawer\src\token.ts
+@crab-dev/rc-drawer:generate:token: 
+@crab-dev/rc-badge:generate:token: 
+@crab-dev/rc-badge:generate:token:   ✓  Tokens generated in 74ms
+@crab-dev/rc-divider:generate:token:      1 files · 3.0 KB
+@crab-dev/rc-divider:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-divider\src\token.ts
+@crab-dev/rc-badge:generate:token:      1 files · 5.5 KB
+@crab-dev/rc-badge:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-badge\src\token.ts
+@crab-dev/rc-divider:generate:token: 
+@crab-dev/rc-switch:generate:token: 
+@crab-dev/rc-badge:generate:token: 
+@crab-dev/rc-canvas:generate:token: 
+@crab-dev/rc-switch:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-switch:generate:token: 
+@crab-dev/rc-alert:generate:token: 
+@crab-dev/rc-alert:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-alert:generate:token: 
+@crab-dev/rc-canvas:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-canvas:generate:token: 
+@crab-dev/rc-canvas:generate:token:   ✓  Tokens generated in 67ms
+@crab-dev/rc-switch:generate:token:   ✓  Tokens generated in 59ms
+@crab-dev/rc-switch:generate:token:      1 files · 6.5 KB
+@crab-dev/rc-alert:generate:token:   ✓  Tokens generated in 74ms
+@crab-dev/rc-alert:generate:token:      1 files · 7.2 KB
+@crab-dev/rc-canvas:generate:token:      1 files · 4.7 KB
+@crab-dev/rc-canvas:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-canvas\src\token.ts
+@crab-dev/rc-switch:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-switch\src\token.ts
+@crab-dev/rc-switch:generate:token: 
+@crab-dev/rc-alert:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-alert\src\token.ts
+@crab-dev/rc-alert:generate:token: 
+@crab-dev/rc-canvas:generate:token: 
+@crab-dev/rc-line-edit:generate:token: cache hit, replaying logs 4fd03273b52a8b35
+@crab-dev/rc-prose:generate:token: cache hit, replaying logs 48a97df44345e973
+@crab-dev/rc-radio:generate:token: cache hit, replaying logs f65b4d990ac0ea3b
+@crab-dev/rc-line-edit:generate:token: 
+@crab-dev/rc-line-edit:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-line-edit:generate:token: 
+@crab-dev/rc-line-edit:generate:token:   ✓  Tokens generated in 53ms
+@crab-dev/rc-line-edit:generate:token:      1 files · 7.6 KB
+@crab-dev/rc-line-edit:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit\src\token.ts
+@crab-dev/rc-line-edit:generate:token: 
+@crab-dev/rc-prose:generate:token: 
+@crab-dev/rc-prose:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-prose:generate:token: 
+@crab-dev/rc-prose:generate:token:   ✓  Tokens generated in 64ms
+@crab-dev/rc-prose:generate:token:      1 files · 14.1 KB
+@crab-dev/rc-prose:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-prose\src\token.ts
+@crab-dev/rc-prose:generate:token: 
+@crab-dev/rc-radio:generate:token: 
+@crab-dev/rc-radio:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-radio:generate:token: 
+@crab-dev/rc-slider:generate:token: cache hit, replaying logs 851a5a1a2f28dd6f
+@crab-dev/rc-radio:generate:token:   ✓  Tokens generated in 60ms
+@crab-dev/rc-radio:generate:token:      1 files · 7.1 KB
+@crab-dev/rc-tag:generate:token: cache hit, replaying logs 5e58d945d92222af
+@crab-dev/rc-radio:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-radio\src\token.ts
+@crab-dev/rc-radio:generate:token: 
+@crab-dev/rc-segmented:generate:token: cache hit, replaying logs 7c68f16582c4c589
+@crab-dev/rc-slider:generate:token: 
+@crab-dev/rc-slider:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-slider:generate:token: 
+@crab-dev/rc-checkbox:generate:token: cache hit, replaying logs 412aae2a112e8a28
+@crab-dev/rc-tag:generate:token: 
+@crab-dev/rc-text-edit:generate:token: cache hit, replaying logs b71a1a7e62e764e9
+@crab-dev/rc-slider:generate:token:   ✓  Tokens generated in 57ms
+@crab-dev/rc-tag:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-tag:generate:token: 
+@crab-dev/rc-tag:generate:token:   ✓  Tokens generated in 66ms
+@crab-dev/rc-slider:generate:token:      1 files · 2.4 KB
+@crab-dev/rc-segmented:generate:token: 
+@crab-dev/rc-tag:generate:token:      1 files · 7.3 KB
+@crab-dev/rc-tag:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tag\src\token.ts
+@crab-dev/rc-tag:generate:token: 
+@crab-dev/rc-message:generate:token: cache hit, replaying logs 670c8b9d3e2188a5
+@crab-dev/rc-slider:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-slider\src\token.ts
+@crab-dev/rc-slider:generate:token: 
+@crab-dev/rc-segmented:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-segmented:generate:token: 
+@crab-dev/rc-split-pane:generate:token: cache hit, replaying logs fd0d1fcab973db71
+@crab-dev/rc-segmented:generate:token:   ✓  Tokens generated in 45ms
+@crab-dev/rc-checkbox:generate:token: 
+@crab-dev/rc-checkbox:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-segmented:generate:token:      1 files · 7.3 KB
+@crab-dev/rc-checkbox:generate:token: 
+@crab-dev/rc-text-edit:generate:token: 
+@crab-dev/rc-checkbox:generate:token:   ✓  Tokens generated in 51ms
+@crab-dev/rc-segmented:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-segmented\src\token.ts
+@crab-dev/rc-segmented:generate:token: 
+@crab-dev/rc-text-edit:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-checkbox:generate:token:      1 files · 10.3 KB
+@crab-dev/rc-checkbox:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox\src\token.ts
+@crab-dev/rc-text-edit:generate:token: 
+@crab-dev/rc-text-edit:generate:token:   ✓  Tokens generated in 65ms
+@crab-dev/rc-message:generate:token: 
+@crab-dev/rc-message:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-message:generate:token: 
+@crab-dev/rc-message:generate:token:   ✓  Tokens generated in 56ms
+@crab-dev/rc-checkbox:generate:token: 
+@crab-dev/rc-text-edit:generate:token:      1 files · 7.7 KB
+@crab-dev/rc-text-edit:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit\src\token.ts
+@crab-dev/rc-text-edit:generate:token: 
+@crab-dev/rc-message:generate:token:      1 files · 4.1 KB
+@crab-dev/rc-message:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-message\src\token.ts
+@crab-dev/rc-message:generate:token: 
+@crab-dev/rc-split-pane:generate:token: 
+@crab-dev/rc-split-pane:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-split-pane:generate:token: 
+@crab-dev/rc-split-pane:generate:token:   ✓  Tokens generated in 54ms
+@crab-dev/rc-split-pane:generate:token:      1 files · 2.0 KB
+@crab-dev/rc-split-pane:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-split-pane\src\token.ts
+@crab-dev/rc-split-pane:generate:token: 
+@crab-dev/rc-empty:generate:token: cache hit, replaying logs b747053f668beaf6
+@crab-dev/rc-tabs:generate:token: cache hit, replaying logs 988c029c659289f7
+@crab-dev/rc-tooltip:generate:token: cache hit, replaying logs a8fbcab859dacd8f
+@crab-dev/rc-empty:generate:token: 
+@crab-dev/rc-empty:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-tabs:generate:token: 
+@crab-dev/rc-tabs:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-empty:generate:token: 
+@crab-dev/rc-empty:generate:token:   ✓  Tokens generated in 74ms
+@crab-dev/rc-tabs:generate:token: 
+@crab-dev/rc-empty:generate:token:      1 files · 2.5 KB
+@crab-dev/rc-empty:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-empty\src\token.ts
+@crab-dev/rc-empty:generate:token: 
+@crab-dev/rc-tabs:generate:token:   ✓  Tokens generated in 65ms
+@crab-dev/rc-tabs:generate:token:      1 files · 8.9 KB
+@crab-dev/rc-tooltip:generate:token: 
+@crab-dev/rc-tabs:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tabs\src\token.ts
+@crab-dev/rc-tabs:generate:token: 
+@crab-dev/rc-tooltip:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-tooltip:generate:token: 
+@crab-dev/rc-tooltip:generate:token:   ✓  Tokens generated in 58ms
+@crab-dev/rc-tooltip:generate:token:      1 files · 2.1 KB
+@crab-dev/rc-tooltip:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tooltip\src\token.ts
+@crab-dev/rc-tooltip:generate:token: 
+@crab-dev/rc-app-main-layout:generate:token: cache hit, replaying logs 87681aba708d56b9
+@crab-dev/rc-avatar:generate:token: cache hit, replaying logs c626c247852e329f
+@crab-dev/rc-realm:generate:token: cache hit, replaying logs 2899aee74876e49a
+@crab-dev/rc-app-main-layout:generate:token: 
+@crab-dev/rc-app-main-layout:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-app-main-layout:generate:token: 
+@crab-dev/rc-app-main-layout:generate:token:   ✓  Tokens generated in 69ms
+@crab-dev/rc-app-main-layout:generate:token:      1 files · 19.8 KB
+@crab-dev/rc-app-main-layout:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-app-main-layout\src\token.ts
+@crab-dev/rc-app-main-layout:generate:token: 
+@crab-dev/rc-dropdown-container:generate:token: cache hit, replaying logs fea37f47545821b4
+@crab-dev/rc-flow-diagram:generate:token: cache hit, replaying logs 67dc8f7243085677
+@crab-dev/rc-avatar:generate:token: 
+@crab-dev/rc-avatar:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-avatar:generate:token: 
+@crab-dev/rc-avatar:generate:token:   ✓  Tokens generated in 72ms
+@crab-dev/rc-avatar:generate:token:      1 files · 7.5 KB
+@crab-dev/rc-avatar:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-avatar\src\token.ts
+@crab-dev/rc-avatar:generate:token: 
+@crab-dev/rc-realm:generate:token: 
+@crab-dev/rc-dropdown-container:generate:token: 
+@crab-dev/rc-realm:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-realm:generate:token: 
+@crab-dev/rc-tree:generate:token: cache hit, replaying logs df9b09689d78f2cb
+@crab-dev/rc-dropdown-container:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-dropdown-container:generate:token: 
+@crab-dev/rc-dropdown-container:generate:token:   ✓  Tokens generated in 62ms
+@crab-dev/rc-dropdown-container:generate:token:      1 files · 1.2 KB
+@crab-dev/rc-realm:generate:token:   ✓  Tokens generated in 83ms
+@crab-dev/rc-realm:generate:token:      1 files · 678 B
+@crab-dev/rc-flow-diagram:generate:token: 
+@crab-dev/rc-flow-diagram:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-flow-diagram:generate:token: 
+@crab-dev/rc-number-edit:generate:token: cache hit, replaying logs 4c906a1b96f4335f
+@crab-dev/rc-dropdown-container:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container\src\token.ts
+@crab-dev/rc-dropdown-container:generate:token: 
+@crab-dev/rc-realm:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-realm\src\token.ts
+@crab-dev/rc-realm:generate:token: 
+@crab-dev/rc-flow-diagram:generate:token:   ✓  Tokens generated in 59ms
+@crab-dev/rc-flow-diagram:generate:token:      1 files · 1.5 KB
+@crab-dev/rc-flow-diagram:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-flow-diagram\src\token.ts
+@crab-dev/rc-flow-diagram:generate:token: 
+@crab-dev/rc-bar-chart:generate:token: cache hit, replaying logs 6396262e0b8dc068
+@crab-dev/rc-tree:generate:token: 
+@crab-dev/rc-table:generate:token: cache hit, replaying logs b195d3ff94cb797e
+@crab-dev/rc-tree:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-tree:generate:token: 
+@crab-dev/rc-tree:generate:token:   ✓  Tokens generated in 67ms
+@crab-dev/rc-tree:generate:token:      1 files · 6.4 KB
+@crab-dev/rc-tree:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+@crab-dev/rc-tree:generate:token: 
+@crab-dev/rc-number-edit:generate:token: 
+@crab-dev/rc-bar-chart:generate:token: 
+@crab-dev/rc-number-edit:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-bar-chart:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-bar-chart:generate:token: 
+@crab-dev/rc-table:generate:token: 
+@crab-dev/rc-table:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-number-edit:generate:token: 
+@crab-dev/rc-number-edit:generate:token:   ✓  Tokens generated in 74ms
+@crab-dev/rc-number-edit:generate:token:      1 files · 3.7 KB
+@crab-dev/rc-bar-chart:generate:token:   ✓  Tokens generated in 63ms
+@crab-dev/rc-bar-chart:generate:token:      1 files · 8.7 KB
+@crab-dev/rc-table:generate:token: 
+@crab-dev/rc-number-edit:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit\src\token.ts
+@crab-dev/rc-number-edit:generate:token: 
+@crab-dev/rc-bar-chart:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-bar-chart\src\token.ts
+@crab-dev/rc-bar-chart:generate:token: 
+@crab-dev/rc-table:generate:token:   ✓  Tokens generated in 60ms
+@crab-dev/rc-table:generate:token:      1 files · 19.0 KB
+@crab-dev/rc-table:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table\src\token.ts
+@crab-dev/rc-table:generate:token: 
+@crab-dev/rc-card:generate:token: cache hit, replaying logs 6666c455fd058249
+@crab-dev/rc-card:generate:token: 
+@crab-dev/rc-card:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-card:generate:token: 
+@crab-dev/rc-card:generate:token:   ✓  Tokens generated in 40ms
+@crab-dev/rc-card:generate:token:      1 files · 10.3 KB
+@crab-dev/rc-card:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-card\src\token.ts
+@crab-dev/rc-select:generate:token: cache hit, replaying logs 8e4b4570d06dc4ca
+@crab-dev/rc-card:generate:token: 
+@crab-dev/rc-date-picker:generate:token: cache hit, replaying logs 01f94f0a9f808bae
+@crab-dev/rc-select:generate:token: 
+@crab-dev/rc-select:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-select:generate:token: 
+@crab-dev/rc-select:generate:token:   ✓  Tokens generated in 41ms
+@crab-dev/rc-select:generate:token:      1 files · 11.4 KB
+@crab-dev/rc-select:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-select\src\token.ts
+@crab-dev/rc-select:generate:token: 
+@crab-dev/rc-date-picker:generate:token: 
+@crab-dev/rc-date-picker:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-date-picker:generate:token: 
+@crab-dev/rc-date-picker:generate:token:   ✓  Tokens generated in 48ms
+@crab-dev/rc-date-picker:generate:token:      1 files · 5.2 KB
+@crab-dev/rc-date-picker:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker\src\token.ts
+@crab-dev/rc-date-picker:generate:token: 
+@crab-dev/rc-form:generate:token: cache hit, replaying logs 91c0d4416b41a378
+@crab-dev/rc-color-picker:generate:token: cache hit, replaying logs 62187b8702c3ca1c
+@crab-dev/rc-pagination:generate:token: cache hit, replaying logs 54a7ef1e44ba4496
+@crab-dev/rc-cron-picker:generate:token: cache hit, replaying logs c710847b9d314c9a
+@crab-dev/rc-color-picker:generate:token: 
+@crab-dev/rc-color-picker:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-color-picker:generate:token: 
+@crab-dev/rc-color-picker:generate:token:   ✓  Tokens generated in 46ms
+@crab-dev/rc-color-picker:generate:token:      1 files · 6.4 KB
+@crab-dev/rc-form:generate:token: 
+@crab-dev/rc-color-picker:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-color-picker\src\token.ts
+@crab-dev/rc-color-picker:generate:token: 
+@crab-dev/rc-form:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-form:generate:token: 
+@crab-dev/rc-form:generate:token:   ✓  Tokens generated in 46ms
+@crab-dev/rc-form:generate:token:      1 files · 2.9 KB
+@crab-dev/rc-pagination:generate:token: 
+@crab-dev/rc-form:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-form\src\token.ts
+@crab-dev/rc-form:generate:token: 
+@crab-dev/rc-pagination:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-pagination:generate:token: 
+@crab-dev/rc-pagination:generate:token:   ✓  Tokens generated in 35ms
+@crab-dev/rc-pagination:generate:token:      1 files · 7.8 KB
+@crab-dev/rc-pagination:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-pagination\src\token.ts
+@crab-dev/rc-pagination:generate:token: 
+@crab-dev/rc-cron-picker:generate:token: 
+@crab-dev/rc-cron-picker:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-cron-picker:generate:token: 
+@crab-dev/rc-cron-picker:generate:token:   ✓  Tokens generated in 47ms
+@crab-dev/rc-cron-picker:generate:token:      1 files · 4.5 KB
+@crab-dev/rc-cron-picker:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-cron-picker\src\token.ts
+@crab-dev/rc-cron-picker:generate:token: 
+@crab-dev/rc-table-pro:generate:token: cache hit, replaying logs e06dc222f038a3c7
+@crab-dev/rc-dialog:generate:token: cache hit, replaying logs 4610992b80084783
+@crab-dev/rc-table-pro:generate:token: 
+@crab-dev/rc-table-pro:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-table-pro:generate:token: 
+@crab-dev/rc-table-pro:generate:token:   ✓  Tokens generated in 36ms
+@crab-dev/rc-table-pro:generate:token:      1 files · 6.4 KB
+@crab-dev/rc-table-pro:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table-pro\src\token.ts
+@crab-dev/rc-table-pro:generate:token: 
+@crab-dev/rc-dialog:generate:token: 
+@crab-dev/rc-dialog:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.38
+@crab-dev/rc-dialog:generate:token: 
+@crab-dev/rc-dialog:generate:token:   ✓  Tokens generated in 34ms
+@crab-dev/rc-dialog:generate:token:      1 files · 3.1 KB
+@crab-dev/rc-dialog:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dialog\src\token.ts
+@crab-dev/rc-dialog:generate:token: 
+
+ Tasks:    48 successful, 48 total
+Cached:    48 cached, 48 total
+  Time:    114ms >>> FULL TURBO
+

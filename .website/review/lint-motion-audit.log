@@ -1,0 +1,86 @@
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-masonry, @crab-dev/rc-spin, @crab-dev/rc-button, @crab-dev/rc-component-preview, @crab-dev/rc-menu
+
+   • Packages in scope: @crab-dev/rc-alert, @crab-dev/rc-app-main-layout, @crab-dev/rc-auto-sizer, @crab-dev/rc-avatar, @crab-dev/rc-badge, @crab-dev/rc-bar-chart, @crab-dev/rc-breadcrumbs, @crab-dev/rc-button, @crab-dev/rc-canvas, @crab-dev/rc-card, @crab-dev/rc-checkbox, @crab-dev/rc-color-picker, @crab-dev/rc-component-preview, @crab-dev/rc-cron-picker, @crab-dev/rc-date-picker, @crab-dev/rc-dialog, @crab-dev/rc-divider, @crab-dev/rc-drawer, @crab-dev/rc-dropdown-container, @crab-dev/rc-empty, @crab-dev/rc-flow-diagram, @crab-dev/rc-form, @crab-dev/rc-hooks, @crab-dev/rc-line-edit, @crab-dev/rc-masonry, @crab-dev/rc-menu, @crab-dev/rc-message, @crab-dev/rc-notification, @crab-dev/rc-number-edit, @crab-dev/rc-pagination, @crab-dev/rc-prose, @crab-dev/rc-radio, @crab-dev/rc-realm, @crab-dev/rc-router, @crab-dev/rc-segmented, @crab-dev/rc-select, @crab-dev/rc-skeleton, @crab-dev/rc-slider, @crab-dev/rc-spin, @crab-dev/rc-split-pane, @crab-dev/rc-switch, @crab-dev/rc-table, @crab-dev/rc-table-pro, @crab-dev/rc-tabs, @crab-dev/rc-tag, @crab-dev/rc-text-edit, @crab-dev/rc-theme, @crab-dev/rc-token-global, @crab-dev/rc-token-semantic, @crab-dev/rc-tooltip, @crab-dev/rc-tree, @crab-dev/rc-virtual, @crab-dev/standards-eslint-preset, @crab-dev/standards-typescript-preset, @crab-dev/website
+   • Running eslint in 55 packages
+   • Remote caching disabled
+
+@crab-dev/rc-prose:eslint: cache miss, executing 2ecb0a04c903b78e
+@crab-dev/rc-button:eslint: cache miss, executing 8857040b18a449ed
+@crab-dev/rc-select:eslint: cache miss, executing 752fbb6cb39ea53b
+@crab-dev/rc-tree:eslint: cache miss, executing 503a87353d0708d6
+@crab-dev/rc-skeleton:eslint: cache miss, executing 76fdc78d8acee72d
+@crab-dev/rc-spin:eslint: cache miss, executing beb2d60fd099c321
+@crab-dev/rc-token-semantic:eslint: cache miss, executing 74e4b8d951234fba
+@crab-dev/rc-empty:eslint: cache miss, executing d8baeb903bc258bd
+@crab-dev/rc-date-picker:eslint: cache miss, executing e70a54cd5a8af8ee
+@crab-dev/rc-table:eslint: cache miss, executing d7bd7696c2b31998
+@crab-dev/rc-prose:eslint: typescript-eslint does not support TS 7.0.
+@crab-dev/rc-prose:eslint: Please see https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0 to run typescript-eslint using the TS 6 API.
+@crab-dev/rc-prose:eslint: See also https://github.com/typescript-eslint/typescript-eslint/issues/10940 for tracking typescript-eslint's support for TS >=7.1
+@crab-dev/rc-prose:eslint: 
+@crab-dev/rc-prose:eslint: Oops! Something went wrong! :(
+@crab-dev/rc-prose:eslint: 
+@crab-dev/rc-prose:eslint: ESLint: 10.10.0
+@crab-dev/rc-prose:eslint: 
+@crab-dev/rc-prose:eslint: Error: typescript-eslint does not support TS 7.0.
+@crab-dev/rc-prose:eslint:     at Object.<anonymous> (C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\@typescript-eslint-eslint-plugin-virtual-7e34f32844\0\cache\@typescript-eslint-eslint-plugin-npm-8.70.0-2fa0e44725-e69f6f6974.zip\node_modules\@typescript-eslint\eslint-plugin\dist\index.js:50:11)
+@crab-dev/rc-prose:eslint:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+@crab-dev/rc-prose:eslint:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+@crab-dev/rc-prose:eslint:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+@crab-dev/rc-prose:eslint:     at Function.<anonymous> (node:internal/modules/cjs/loader:1282:12)
+@crab-dev/rc-prose:eslint:     at require$$0.Module._load (C:\Users\zhang\Desktop\crab-dev\.pnp.cjs:15383:31)
+@crab-dev/rc-prose:eslint:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+@crab-dev/rc-prose:eslint:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+@crab-dev/rc-prose:eslint:     at cjsLoader (node:internal/modules/esm/translators:266:5)
+@crab-dev/rc-prose:eslint:     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:200:7)
+@crab-dev/rc-theme:eslint: cache miss, executing b668983e5d05ec8a
+@crab-dev/rc-tabs:eslint: cache miss, executing 7a3814d5ec558e20
+@crab-dev/rc-dropdown-container:eslint: cache miss, executing d2623039d5666d14
+@crab-dev/rc-badge:eslint: cache miss, executing e083b6cd28f2cc87
+@crab-dev/rc-avatar:eslint: cache miss, executing d256fa70b69aa012
+@crab-dev/rc-router:eslint: cache miss, executing 706996eed981fa28
+@crab-dev/rc-masonry:eslint: cache miss, executing e11e462a383eb39a
+@crab-dev/rc-app-main-layout:eslint: cache miss, executing ddfecd8d491c1d6e
+@crab-dev/rc-cron-picker:eslint: cache miss, executing 168045a7618bdeba
+@crab-dev/rc-bar-chart:eslint: cache miss, executing 30ca02796dc980ca
+@crab-dev/rc-pagination:eslint: cache miss, executing b6f926395debe91f
+@crab-dev/rc-alert:eslint: cache miss, executing 7bbfd31265d89362
+@crab-dev/rc-message:eslint: cache miss, executing 66a824d72c83a59a
+@crab-dev/rc-table-pro:eslint: cache miss, executing 1f9198b1c231ea31
+@crab-dev/rc-realm:eslint: cache miss, executing 94439ec46ee9ad9a
+@crab-dev/rc-number-edit:eslint: cache miss, executing ec0b71699b83951a
+@crab-dev/rc-tooltip:eslint: cache miss, executing 79f876d3fddf283e
+@crab-dev/rc-breadcrumbs:eslint: cache miss, executing 6c9c322fea0a76e8
+@crab-dev/rc-card:eslint: cache miss, executing a5e5a686ff091739
+@crab-dev/rc-radio:eslint: cache miss, executing fceb9e84ed632b9a
+@crab-dev/rc-menu:eslint: cache miss, executing 757970799efb1702
+@crab-dev/rc-text-edit:eslint: cache miss, executing 6bd6cf9af0f1d576
+@crab-dev/rc-divider:eslint: cache miss, executing 471b66e9689bcf33
+@crab-dev/rc-tag:eslint: cache miss, executing 0eac620d96e0e749
+@crab-dev/rc-auto-sizer:eslint: cache miss, executing 5faefaaa086681eb
+@crab-dev/rc-notification:eslint: cache miss, executing 6b652304838bb12a
+@crab-dev/rc-drawer:eslint: cache miss, executing 2cf7f7f92fec0526
+@crab-dev/rc-checkbox:eslint: cache miss, executing 0ab5eb57a4593a3c
+@crab-dev/rc-slider:eslint: cache miss, executing f64c800230acafb2
+@crab-dev/rc-flow-diagram:eslint: cache miss, executing d8fe697a4881775c
+@crab-dev/website:eslint: cache miss, executing 4e93bc788d00be3b
+@crab-dev/rc-line-edit:eslint: cache miss, executing 2e27cd066a1fb72d
+@crab-dev/rc-segmented:eslint: cache miss, executing a0af53cde28a76d8
+@crab-dev/rc-form:eslint: cache miss, executing f8d4127dc23df082
+@crab-dev/rc-canvas:eslint: cache miss, executing 74e2e9878f172fcf
+@crab-dev/rc-color-picker:eslint: cache miss, executing fb4677dc60e19f75
+@crab-dev/rc-component-preview:eslint: cache miss, executing 47dc71907e87e0c8
+@crab-dev/rc-switch:eslint: cache miss, executing e5fa56e6d8f860c0
+@crab-dev/rc-dialog:eslint: cache miss, executing b84a015b35271cdd
+@crab-dev/rc-virtual:eslint: cache miss, executing c1d8ee05e0fac879
+@crab-dev/rc-hooks:eslint: cache miss, executing 135c007b80cbcdfb
+@crab-dev/rc-split-pane:eslint: cache miss, executing 8ddb41d6b299b032
+@crab-dev/rc-prose#eslint:  ERROR  command (C:\Users\zhang\Desktop\crab-dev\components\rc-prose) C:\Users\zhang\AppData\Local\Temp\xfs-89eaac04\yarn.cmd run eslint exited (2)
+
+ Tasks:    0 successful, 52 total
+Cached:    0 cached, 52 total
+  Time:    16.611s 
+Failed:    @crab-dev/rc-prose#eslint
+
+ ERROR  run failed: command  exited (2)

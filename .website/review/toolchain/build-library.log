@@ -1,0 +1,764 @@
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-masonry, @crab-dev/rc-component-preview, @crab-dev/rc-menu, @crab-dev/rc-spin, @crab-dev/rc-button
+
+   • Packages in scope: @crab-dev/rc-alert, @crab-dev/rc-app-main-layout, @crab-dev/rc-auto-sizer, @crab-dev/rc-avatar, @crab-dev/rc-badge, @crab-dev/rc-bar-chart, @crab-dev/rc-breadcrumbs, @crab-dev/rc-button, @crab-dev/rc-canvas, @crab-dev/rc-card, @crab-dev/rc-checkbox, @crab-dev/rc-color-picker, @crab-dev/rc-component-preview, @crab-dev/rc-cron-picker, @crab-dev/rc-date-picker, @crab-dev/rc-dialog, @crab-dev/rc-divider, @crab-dev/rc-drawer, @crab-dev/rc-dropdown-container, @crab-dev/rc-empty, @crab-dev/rc-flow-diagram, @crab-dev/rc-form, @crab-dev/rc-hooks, @crab-dev/rc-line-edit, @crab-dev/rc-masonry, @crab-dev/rc-menu, @crab-dev/rc-message, @crab-dev/rc-notification, @crab-dev/rc-number-edit, @crab-dev/rc-pagination, @crab-dev/rc-prose, @crab-dev/rc-radio, @crab-dev/rc-realm, @crab-dev/rc-router, @crab-dev/rc-segmented, @crab-dev/rc-select, @crab-dev/rc-skeleton, @crab-dev/rc-slider, @crab-dev/rc-spin, @crab-dev/rc-split-pane, @crab-dev/rc-switch, @crab-dev/rc-table, @crab-dev/rc-table-pro, @crab-dev/rc-tabs, @crab-dev/rc-tag, @crab-dev/rc-text-edit, @crab-dev/rc-theme, @crab-dev/rc-token-global, @crab-dev/rc-token-semantic, @crab-dev/rc-tooltip, @crab-dev/rc-tree, @crab-dev/rc-virtual, @crab-dev/standards-eslint-preset, @crab-dev/standards-typescript-preset, @crab-dev/website
+   • Running build:library in 55 packages
+   • Remote caching disabled
+
+@crab-dev/rc-hooks:build:library: cache miss, executing 0b43d25c8e434523
+@crab-dev/rc-token-global:build:library: cache miss, executing 6c283073a86daae4
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 622ms
+@crab-dev/rc-hooks:build:library:      13 modules · 39 files · 25.0 KB
+@crab-dev/rc-hooks:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 19ms
+@crab-dev/rc-token-global:build:library:      1 files · 15.9 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 128ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 37.1 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache miss, executing ac2f98927e44375e
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 63ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 24.7 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 243ms
+@crab-dev/rc-token-semantic:build:library:      4 modules · 13 files · 89.6 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-menu:build:library: cache miss, executing 111b9bfa9989361d
+@crab-dev/rc-theme:build:library: cache miss, executing 1d343f4521b8f821
+@crab-dev/rc-component-preview:build:library: cache miss, executing d15384577a87654a
+@crab-dev/rc-masonry:build:library: cache miss, executing 29658e5c9d60dfa8
+@crab-dev/rc-spin:build:library: cache miss, executing edd09fe1061df696
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 301ms
+@crab-dev/rc-theme:build:library:      3 modules · 8 files · 22.9 KB
+@crab-dev/rc-theme:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-masonry:build:library:   ✓  Tokens generated in 64ms
+@crab-dev/rc-masonry:build:library:      1 files · 633 B
+@crab-dev/rc-masonry:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry\src\token.ts
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-menu:build:library:   ✓  Tokens generated in 78ms
+@crab-dev/rc-menu:build:library:      1 files · 19.1 KB
+@crab-dev/rc-menu:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu\src\token.ts
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ✓  Tokens generated in 64ms
+@crab-dev/rc-component-preview:build:library:      1 files · 15.2 KB
+@crab-dev/rc-component-preview:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview\src\token.ts
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 60ms
+@crab-dev/rc-spin:build:library:      1 files · 4.6 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-masonry:build:library:   ✓  Built library in 242ms
+@crab-dev/rc-masonry:build:library:      3 modules · 11 files · 10.4 KB
+@crab-dev/rc-masonry:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-menu:build:library:   ✓  Built library in 790ms
+@crab-dev/rc-menu:build:library:      13 modules · 31 files · 106.8 KB
+@crab-dev/rc-menu:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-component-preview:build:library:   ✓  Built library in 655ms
+@crab-dev/rc-component-preview:build:library:      5 modules · 14 files · 67.8 KB
+@crab-dev/rc-component-preview:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-notification:build:library: cache miss, executing 21a3adbe66709c38
+@crab-dev/rc-spin:build:library:   ✓  Built library in 312ms
+@crab-dev/rc-spin:build:library:      5 modules · 17 files · 27.7 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-checkbox:build:library: cache miss, executing b2d916cf2e969ac3
+@crab-dev/rc-skeleton:build:library: cache miss, executing 239d17ec0563378b
+@crab-dev/rc-tag:build:library: cache miss, executing c6c7a3f4bedc42d9
+@crab-dev/rc-auto-sizer:build:library: cache miss, executing 82605fce0daa420b
+@crab-dev/rc-tabs:build:library: cache miss, executing 7335a8a843f7cbd2
+@crab-dev/rc-radio:build:library: cache miss, executing ba54477fdaa87652
+@crab-dev/rc-virtual:build:library: cache miss, executing cabd69238601a55d
+@crab-dev/rc-segmented:build:library: cache miss, executing a069443b4cb15bc3
+@crab-dev/rc-split-pane:build:library: cache miss, executing 7e57e41c1661bac1
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-auto-sizer:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-auto-sizer:build:library:   ✓  Built library in 263ms
+@crab-dev/rc-auto-sizer:build:library:      2 modules · 8 files · 5.1 KB
+@crab-dev/rc-auto-sizer:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-auto-sizer
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-alert:build:library: cache miss, executing 11c2b4520a6aef66
+@crab-dev/rc-notification:build:library: 
+@crab-dev/rc-notification:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-notification:build:library: 
+@crab-dev/rc-notification:build:library:   ✓  Tokens generated in 128ms
+@crab-dev/rc-notification:build:library:      1 files · 3.1 KB
+@crab-dev/rc-notification:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-notification\src\token.ts
+@crab-dev/rc-notification:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 52ms
+@crab-dev/rc-checkbox:build:library:      1 files · 12.1 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox\src\token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-skeleton:build:library:   ✓  Tokens generated in 133ms
+@crab-dev/rc-skeleton:build:library:      1 files · 5.1 KB
+@crab-dev/rc-skeleton:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-skeleton\src\token.ts
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 57ms
+@crab-dev/rc-virtual:build:library:      1 files · 1003 B
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual\src\token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-tabs:build:library: 
+@crab-dev/rc-tabs:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-tabs:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-tabs:build:library:   ✓  Tokens generated in 78ms
+@crab-dev/rc-tabs:build:library:      1 files · 9.0 KB
+@crab-dev/rc-tabs:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tabs\src\token.ts
+@crab-dev/rc-tabs:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Tokens generated in 65ms
+@crab-dev/rc-radio:build:library:      1 files · 8.9 KB
+@crab-dev/rc-radio:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-radio\src\token.ts
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-split-pane:build:library: 
+@crab-dev/rc-split-pane:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-split-pane:build:library: 
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-segmented:build:library: 
+@crab-dev/rc-segmented:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-segmented:build:library: 
+@crab-dev/rc-split-pane:build:library:   ✓  Tokens generated in 56ms
+@crab-dev/rc-split-pane:build:library:      1 files · 2.0 KB
+@crab-dev/rc-split-pane:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-split-pane\src\token.ts
+@crab-dev/rc-split-pane:build:library: 
+@crab-dev/rc-tag:build:library:   ✓  Tokens generated in 78ms
+@crab-dev/rc-tag:build:library:      1 files · 7.3 KB
+@crab-dev/rc-tag:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tag\src\token.ts
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-segmented:build:library:   ✓  Tokens generated in 63ms
+@crab-dev/rc-segmented:build:library:      1 files · 7.6 KB
+@crab-dev/rc-segmented:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-segmented\src\token.ts
+@crab-dev/rc-segmented:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-notification:build:library: 
+@crab-dev/rc-notification:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-notification:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 670ms
+@crab-dev/rc-checkbox:build:library:      5 modules · 16 files · 49.9 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-segmented:build:library: 
+@crab-dev/rc-segmented:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-segmented:build:library: 
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-split-pane:build:library: 
+@crab-dev/rc-split-pane:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-split-pane:build:library: 
+@crab-dev/rc-notification:build:library:   ✓  Built library in 767ms
+@crab-dev/rc-notification:build:library:      6 modules · 18 files · 39.1 KB
+@crab-dev/rc-notification:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-notification
+@crab-dev/rc-notification:build:library: 
+@crab-dev/rc-tabs:build:library: 
+@crab-dev/rc-tabs:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-tabs:build:library: 
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 689ms
+@crab-dev/rc-virtual:build:library:      7 modules · 18 files · 55.6 KB
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-skeleton:build:library:   ✓  Built library in 517ms
+@crab-dev/rc-skeleton:build:library:      3 modules · 11 files · 26.7 KB
+@crab-dev/rc-skeleton:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-skeleton
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-breadcrumbs:build:library: cache miss, executing cdb6d268f028673a
+@crab-dev/rc-segmented:build:library:   ✓  Built library in 655ms
+@crab-dev/rc-segmented:build:library:      3 modules · 11 files · 39.0 KB
+@crab-dev/rc-segmented:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-segmented
+@crab-dev/rc-segmented:build:library: 
+@crab-dev/rc-empty:build:library: cache miss, executing f0f3708ea05b237e
+@crab-dev/rc-tag:build:library:   ✓  Built library in 514ms
+@crab-dev/rc-tag:build:library:      4 modules · 14 files · 36.1 KB
+@crab-dev/rc-tag:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tag
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-split-pane:build:library:   ✓  Built library in 730ms
+@crab-dev/rc-split-pane:build:library:      3 modules · 11 files · 18.3 KB
+@crab-dev/rc-split-pane:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-split-pane
+@crab-dev/rc-split-pane:build:library: 
+@crab-dev/rc-badge:build:library: cache miss, executing 620bfe11c1cacc7b
+@crab-dev/rc-canvas:build:library: cache miss, executing b5e74b2a5e146e7e
+@crab-dev/rc-message:build:library: cache miss, executing fecab2e3b75db149
+@crab-dev/rc-tabs:build:library:   ✓  Built library in 909ms
+@crab-dev/rc-tabs:build:library:      3 modules · 11 files · 50.2 KB
+@crab-dev/rc-tabs:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tabs
+@crab-dev/rc-tabs:build:library: 
+@crab-dev/rc-prose:build:library: cache miss, executing b4e1298fdfe344c4
+@crab-dev/rc-switch:build:library: cache miss, executing d2c5898129df97ba
+@crab-dev/rc-radio:build:library:   ✓  Built library in 1.50s
+@crab-dev/rc-radio:build:library:      5 modules · 16 files · 39.0 KB
+@crab-dev/rc-radio:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-radio
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-slider:build:library: cache miss, executing 3b5d35ca25b2039d
+@crab-dev/rc-alert:build:library: 
+@crab-dev/rc-alert:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-alert:build:library: 
+@crab-dev/rc-router:build:library: cache miss, executing dce81d250d01c50e
+@crab-dev/rc-alert:build:library:   ✓  Tokens generated in 63ms
+@crab-dev/rc-alert:build:library:      1 files · 7.2 KB
+@crab-dev/rc-alert:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-alert\src\token.ts
+@crab-dev/rc-alert:build:library: 
+@crab-dev/rc-alert:build:library: 
+@crab-dev/rc-alert:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-alert:build:library: 
+@crab-dev/rc-alert:build:library:   ✓  Built library in 226ms
+@crab-dev/rc-alert:build:library:      4 modules · 13 files · 36.6 KB
+@crab-dev/rc-alert:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-alert
+@crab-dev/rc-alert:build:library: 
+@crab-dev/rc-tooltip:build:library: cache miss, executing 10527a71e9bc134b
+@crab-dev/rc-router:build:library: 
+@crab-dev/rc-router:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-router:build:library: 
+@crab-dev/rc-router:build:library:   ✓  Built library in 235ms
+@crab-dev/rc-router:build:library:      10 modules · 30 files · 68.6 KB
+@crab-dev/rc-router:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-router
+@crab-dev/rc-router:build:library: 
+@crab-dev/rc-button:build:library: cache miss, executing 05a516489bfcd81b
+@crab-dev/rc-breadcrumbs:build:library: 
+@crab-dev/rc-breadcrumbs:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-breadcrumbs:build:library: 
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-breadcrumbs:build:library:   ✓  Tokens generated in 59ms
+@crab-dev/rc-breadcrumbs:build:library:      1 files · 2.2 KB
+@crab-dev/rc-badge:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-breadcrumbs:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-breadcrumbs\src\token.ts
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-breadcrumbs:build:library: 
+@crab-dev/rc-badge:build:library:   ✓  Tokens generated in 56ms
+@crab-dev/rc-badge:build:library:      1 files · 5.5 KB
+@crab-dev/rc-badge:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-badge\src\token.ts
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Tokens generated in 62ms
+@crab-dev/rc-empty:build:library:      1 files · 2.5 KB
+@crab-dev/rc-empty:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-empty\src\token.ts
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-badge:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-breadcrumbs:build:library: 
+@crab-dev/rc-breadcrumbs:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-breadcrumbs:build:library: 
+@crab-dev/rc-prose:build:library: 
+@crab-dev/rc-prose:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-prose:build:library: 
+@crab-dev/rc-prose:build:library:   ✓  Tokens generated in 307ms
+@crab-dev/rc-prose:build:library:      1 files · 14.1 KB
+@crab-dev/rc-prose:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-prose\src\token.ts
+@crab-dev/rc-prose:build:library: 
+@crab-dev/rc-badge:build:library:   ✓  Built library in 345ms
+@crab-dev/rc-badge:build:library:      3 modules · 11 files · 30.9 KB
+@crab-dev/rc-badge:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-badge
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-message:build:library: 
+@crab-dev/rc-message:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-message:build:library: 
+@crab-dev/rc-breadcrumbs:build:library:   ✓  Built library in 503ms
+@crab-dev/rc-breadcrumbs:build:library:      3 modules · 11 files · 14.8 KB
+@crab-dev/rc-breadcrumbs:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-breadcrumbs
+@crab-dev/rc-breadcrumbs:build:library: 
+@crab-dev/rc-canvas:build:library:   ✓  Tokens generated in 104ms
+@crab-dev/rc-canvas:build:library:      1 files · 4.8 KB
+@crab-dev/rc-canvas:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-canvas\src\token.ts
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-message:build:library:   ✓  Tokens generated in 105ms
+@crab-dev/rc-message:build:library:      1 files · 4.1 KB
+@crab-dev/rc-message:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-message\src\token.ts
+@crab-dev/rc-message:build:library: 
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-switch:build:library:   ✓  Tokens generated in 51ms
+@crab-dev/rc-switch:build:library:      1 files · 8.3 KB
+@crab-dev/rc-switch:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-switch\src\token.ts
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-tree:build:library: cache miss, executing 5904c8899303255e
+@crab-dev/rc-avatar:build:library: cache miss, executing 7cfc5165b0c96c71
+@crab-dev/rc-empty:build:library:   ✓  Built library in 328ms
+@crab-dev/rc-empty:build:library:      6 modules · 17 files · 20.6 KB
+@crab-dev/rc-empty:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-empty
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-prose:build:library: 
+@crab-dev/rc-prose:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-prose:build:library: 
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-prose:build:library:   ✓  Built library in 408ms
+@crab-dev/rc-prose:build:library:      3 modules · 11 files · 63.1 KB
+@crab-dev/rc-prose:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-prose
+@crab-dev/rc-prose:build:library: 
+@crab-dev/rc-slider:build:library:   ✓  Tokens generated in 96ms
+@crab-dev/rc-slider:build:library:      1 files · 2.4 KB
+@crab-dev/rc-slider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-slider\src\token.ts
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-message:build:library: 
+@crab-dev/rc-message:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-message:build:library: 
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-message:build:library:   ✓  Built library in 503ms
+@crab-dev/rc-message:build:library:      5 modules · 16 files · 39.0 KB
+@crab-dev/rc-message:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-message
+@crab-dev/rc-message:build:library: 
+@crab-dev/rc-switch:build:library:   ✓  Built library in 630ms
+@crab-dev/rc-switch:build:library:      3 modules · 11 files · 32.9 KB
+@crab-dev/rc-switch:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-switch
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-tooltip:build:library:   ✓  Tokens generated in 1.16s
+@crab-dev/rc-tooltip:build:library:      1 files · 2.1 KB
+@crab-dev/rc-tooltip:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tooltip\src\token.ts
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-canvas:build:library:   ✓  Built library in 2.67s
+@crab-dev/rc-canvas:build:library:      39 modules · 107 files · 339.4 KB
+@crab-dev/rc-canvas:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-canvas
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-slider:build:library:   ✓  Built library in 996ms
+@crab-dev/rc-slider:build:library:      4 modules · 13 files · 19.5 KB
+@crab-dev/rc-slider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-slider
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-flow-diagram:build:library: cache miss, executing b91cbc11f2525b6a
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library:   ✓  Built library in 309ms
+@crab-dev/rc-tooltip:build:library:      3 modules · 11 files · 15.9 KB
+@crab-dev/rc-tooltip:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tooltip
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 61ms
+@crab-dev/rc-button:build:library:      1 files · 16.5 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-avatar:build:library:   ✓  Tokens generated in 62ms
+@crab-dev/rc-avatar:build:library:      1 files · 7.5 KB
+@crab-dev/rc-avatar:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-avatar\src\token.ts
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Tokens generated in 70ms
+@crab-dev/rc-tree:build:library:      1 files · 6.5 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 337ms
+@crab-dev/rc-button:build:library:      6 modules · 19 files · 75.4 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-text-edit:build:library: cache miss, executing 513897e14a4a7270
+@crab-dev/rc-divider:build:library: cache miss, executing bf8a35786d9dd68a
+@crab-dev/rc-line-edit:build:library: cache miss, executing 4fd585c30dea557e
+@crab-dev/rc-drawer:build:library: cache miss, executing 31bba7ae0a4da598
+@crab-dev/rc-realm:build:library: cache miss, executing ffaae5a5711b752f
+@crab-dev/rc-bar-chart:build:library: cache miss, executing e42a3f6ed3f7882e
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-avatar:build:library:   ✓  Built library in 308ms
+@crab-dev/rc-avatar:build:library:      4 modules · 14 files · 46.5 KB
+@crab-dev/rc-avatar:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-avatar
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-card:build:library: cache miss, executing d23169125fa10cf4
+@crab-dev/rc-tree:build:library:   ✓  Built library in 692ms
+@crab-dev/rc-tree:build:library:      8 modules · 24 files · 101.4 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-flow-diagram:build:library: 
+@crab-dev/rc-flow-diagram:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-flow-diagram:build:library: 
+@crab-dev/rc-flow-diagram:build:library:   ✓  Tokens generated in 70ms
+@crab-dev/rc-flow-diagram:build:library:      1 files · 1.6 KB
+@crab-dev/rc-flow-diagram:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-flow-diagram\src\token.ts
+@crab-dev/rc-flow-diagram:build:library: 
+@crab-dev/rc-flow-diagram:build:library: 
+@crab-dev/rc-flow-diagram:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-flow-diagram:build:library: 
+@crab-dev/rc-flow-diagram:build:library:   ✓  Built library in 707ms
+@crab-dev/rc-flow-diagram:build:library:      11 modules · 32 files · 48.5 KB
+@crab-dev/rc-flow-diagram:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-flow-diagram
+@crab-dev/rc-flow-diagram:build:library: 
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ✓  Tokens generated in 58ms
+@crab-dev/rc-text-edit:build:library:      1 files · 10.1 KB
+@crab-dev/rc-text-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit\src\token.ts
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-divider:build:library: 
+@crab-dev/rc-divider:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-divider:build:library: 
+@crab-dev/rc-divider:build:library:   ✓  Tokens generated in 58ms
+@crab-dev/rc-divider:build:library:      1 files · 3.0 KB
+@crab-dev/rc-divider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-divider\src\token.ts
+@crab-dev/rc-divider:build:library: 
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-realm:build:library: 
+@crab-dev/rc-realm:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-realm:build:library: 
+@crab-dev/rc-drawer:build:library: 
+@crab-dev/rc-drawer:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-drawer:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Tokens generated in 57ms
+@crab-dev/rc-line-edit:build:library:      1 files · 10.1 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit\src\token.ts
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-realm:build:library:   ✓  Tokens generated in 65ms
+@crab-dev/rc-realm:build:library:      1 files · 672 B
+@crab-dev/rc-realm:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-realm\src\token.ts
+@crab-dev/rc-realm:build:library: 
+@crab-dev/rc-drawer:build:library:   ✓  Tokens generated in 63ms
+@crab-dev/rc-drawer:build:library:      1 files · 5.8 KB
+@crab-dev/rc-drawer:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-drawer\src\token.ts
+@crab-dev/rc-drawer:build:library: 
+@crab-dev/rc-card:build:library: 
+@crab-dev/rc-bar-chart:build:library: 
+@crab-dev/rc-card:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-card:build:library: 
+@crab-dev/rc-bar-chart:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-bar-chart:build:library: 
+@crab-dev/rc-bar-chart:build:library:   ✓  Tokens generated in 60ms
+@crab-dev/rc-bar-chart:build:library:      1 files · 8.8 KB
+@crab-dev/rc-bar-chart:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-bar-chart\src\token.ts
+@crab-dev/rc-bar-chart:build:library: 
+@crab-dev/rc-card:build:library:   ✓  Tokens generated in 74ms
+@crab-dev/rc-card:build:library:      1 files · 10.4 KB
+@crab-dev/rc-card:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-card\src\token.ts
+@crab-dev/rc-card:build:library: 
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ✓  Built library in 236ms
+@crab-dev/rc-text-edit:build:library:      3 modules · 10 files · 41.5 KB
+@crab-dev/rc-text-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-divider:build:library: 
+@crab-dev/rc-divider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-divider:build:library: 
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-realm:build:library: 
+@crab-dev/rc-realm:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-realm:build:library: 
+@crab-dev/rc-divider:build:library:   ✓  Built library in 67ms
+@crab-dev/rc-divider:build:library:      3 modules · 10 files · 20.2 KB
+@crab-dev/rc-divider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-divider
+@crab-dev/rc-divider:build:library: 
+@crab-dev/rc-drawer:build:library: 
+@crab-dev/rc-drawer:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-drawer:build:library: 
+@crab-dev/rc-drawer:build:library:   ✓  Built library in 114ms
+@crab-dev/rc-drawer:build:library:      3 modules · 10 files · 33.9 KB
+@crab-dev/rc-drawer:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-drawer
+@crab-dev/rc-drawer:build:library: 
+@crab-dev/rc-bar-chart:build:library: 
+@crab-dev/rc-bar-chart:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-bar-chart:build:library: 
+@crab-dev/rc-card:build:library: 
+@crab-dev/rc-card:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-card:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Built library in 292ms
+@crab-dev/rc-line-edit:build:library:      3 modules · 10 files · 42.7 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-app-main-layout:build:library: cache miss, executing a36fcff30488bf04
+@crab-dev/rc-realm:build:library:   ✓  Built library in 364ms
+@crab-dev/rc-realm:build:library:      10 modules · 27 files · 47.2 KB
+@crab-dev/rc-realm:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-realm
+@crab-dev/rc-realm:build:library: 
+@crab-dev/rc-card:build:library:   ✓  Built library in 198ms
+@crab-dev/rc-card:build:library:      9 modules · 23 files · 55.0 KB
+@crab-dev/rc-card:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-card
+@crab-dev/rc-card:build:library: 
+@crab-dev/rc-dropdown-container:build:library: cache miss, executing ee577a42680066ee
+@crab-dev/rc-number-edit:build:library: cache miss, executing 9f7fa7a22b2ecb8c
+@crab-dev/rc-bar-chart:build:library:   ✓  Built library in 498ms
+@crab-dev/rc-bar-chart:build:library:      7 modules · 20 files · 105.2 KB
+@crab-dev/rc-bar-chart:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-bar-chart
+@crab-dev/rc-bar-chart:build:library: 
+@crab-dev/rc-app-main-layout:build:library: 
+@crab-dev/rc-app-main-layout:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-app-main-layout:build:library: 
+@crab-dev/rc-app-main-layout:build:library:   ✓  Tokens generated in 29ms
+@crab-dev/rc-app-main-layout:build:library:      1 files · 19.8 KB
+@crab-dev/rc-app-main-layout:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-app-main-layout\src\token.ts
+@crab-dev/rc-app-main-layout:build:library: 
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ✓  Tokens generated in 41ms
+@crab-dev/rc-dropdown-container:build:library:      1 files · 1.5 KB
+@crab-dev/rc-dropdown-container:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container\src\token.ts
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ✓  Tokens generated in 34ms
+@crab-dev/rc-number-edit:build:library:      1 files · 4.0 KB
+@crab-dev/rc-number-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit\src\token.ts
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-app-main-layout:build:library: 
+@crab-dev/rc-app-main-layout:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-app-main-layout:build:library: 
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ✓  Built library in 162ms
+@crab-dev/rc-dropdown-container:build:library:      5 modules · 16 files · 17.2 KB
+@crab-dev/rc-dropdown-container:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-app-main-layout:build:library:   ✓  Built library in 337ms
+@crab-dev/rc-app-main-layout:build:library:      12 modules · 35 files · 170.4 KB
+@crab-dev/rc-app-main-layout:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-app-main-layout
+@crab-dev/rc-app-main-layout:build:library: 
+@crab-dev/rc-number-edit:build:library:   ✓  Built library in 209ms
+@crab-dev/rc-number-edit:build:library:      7 modules · 19 files · 48.9 KB
+@crab-dev/rc-number-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-date-picker:build:library: cache miss, executing add16e7351a7b698
+@crab-dev/rc-select:build:library: cache miss, executing 99fe5e9f15837059
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ✓  Tokens generated in 29ms
+@crab-dev/rc-date-picker:build:library:      1 files · 5.9 KB
+@crab-dev/rc-date-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker\src\token.ts
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ✓  Tokens generated in 37ms
+@crab-dev/rc-select:build:library:      1 files · 11.4 KB
+@crab-dev/rc-select:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-select\src\token.ts
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-date-picker:build:library:   ✓  Built library in 628ms
+@crab-dev/rc-date-picker:build:library:      21 modules · 56 files · 104.1 KB
+@crab-dev/rc-date-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-select:build:library:   ✓  Built library in 681ms
+@crab-dev/rc-select:build:library:      6 modules · 17 files · 90.5 KB
+@crab-dev/rc-select:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-select
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-color-picker:build:library: cache miss, executing 030ab82545585461
+@crab-dev/rc-pagination:build:library: cache miss, executing bd8f9b7d44f6434e
+@crab-dev/rc-cron-picker:build:library: cache miss, executing 557e3a373e8cc723
+@crab-dev/rc-table:build:library: cache miss, executing a859bedd15d3a8f5
+@crab-dev/rc-form:build:library: cache miss, executing eb4eb52e83fc7fdc
+@crab-dev/rc-color-picker:build:library: 
+@crab-dev/rc-color-picker:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-color-picker:build:library: 
+@crab-dev/rc-color-picker:build:library:   ✓  Tokens generated in 47ms
+@crab-dev/rc-color-picker:build:library:      1 files · 6.4 KB
+@crab-dev/rc-color-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-color-picker\src\token.ts
+@crab-dev/rc-color-picker:build:library: 
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ✓  Tokens generated in 32ms
+@crab-dev/rc-pagination:build:library:      1 files · 7.8 KB
+@crab-dev/rc-pagination:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-pagination\src\token.ts
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-cron-picker:build:library: 
+@crab-dev/rc-cron-picker:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-cron-picker:build:library: 
+@crab-dev/rc-cron-picker:build:library:   ✓  Tokens generated in 53ms
+@crab-dev/rc-cron-picker:build:library:      1 files · 4.6 KB
+@crab-dev/rc-cron-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-cron-picker\src\token.ts
+@crab-dev/rc-cron-picker:build:library: 
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Tokens generated in 44ms
+@crab-dev/rc-table:build:library:      1 files · 24.3 KB
+@crab-dev/rc-table:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table\src\token.ts
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-form:build:library: 
+@crab-dev/rc-form:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-form:build:library: 
+@crab-dev/rc-form:build:library:   ✓  Tokens generated in 45ms
+@crab-dev/rc-form:build:library:      1 files · 2.9 KB
+@crab-dev/rc-form:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-form\src\token.ts
+@crab-dev/rc-form:build:library: 
+@crab-dev/rc-color-picker:build:library: 
+@crab-dev/rc-color-picker:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-color-picker:build:library: 
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-cron-picker:build:library: 
+@crab-dev/rc-cron-picker:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-cron-picker:build:library: 
+@crab-dev/rc-color-picker:build:library:   ✓  Built library in 264ms
+@crab-dev/rc-color-picker:build:library:      9 modules · 24 files · 65.4 KB
+@crab-dev/rc-color-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-color-picker
+@crab-dev/rc-color-picker:build:library: 
+@crab-dev/rc-pagination:build:library:   ✓  Built library in 197ms
+@crab-dev/rc-pagination:build:library:      3 modules · 11 files · 52.3 KB
+@crab-dev/rc-pagination:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-pagination
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-form:build:library: 
+@crab-dev/rc-form:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-form:build:library: 
+@crab-dev/rc-cron-picker:build:library:   ✓  Built library in 253ms
+@crab-dev/rc-cron-picker:build:library:      7 modules · 20 files · 74.1 KB
+@crab-dev/rc-cron-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-cron-picker
+@crab-dev/rc-cron-picker:build:library: 
+@crab-dev/rc-form:build:library:   ✓  Built library in 221ms
+@crab-dev/rc-form:build:library:      10 modules · 27 files · 50.0 KB
+@crab-dev/rc-form:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-form
+@crab-dev/rc-form:build:library: 
+@crab-dev/rc-dialog:build:library: cache miss, executing 8a63ec63d091053a
+@crab-dev/rc-table:build:library:   ✓  Built library in 668ms
+@crab-dev/rc-table:build:library:      28 modules · 66 files · 410.0 KB
+@crab-dev/rc-table:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table-pro:build:library: cache miss, executing 5ab3908609eb194a
+@crab-dev/rc-dialog:build:library: 
+@crab-dev/rc-dialog:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-dialog:build:library: 
+@crab-dev/rc-dialog:build:library:   ✓  Tokens generated in 29ms
+@crab-dev/rc-dialog:build:library:      1 files · 4.5 KB
+@crab-dev/rc-dialog:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dialog\src\token.ts
+@crab-dev/rc-dialog:build:library: 
+@crab-dev/rc-table-pro:build:library: 
+@crab-dev/rc-table-pro:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.43
+@crab-dev/rc-table-pro:build:library: 
+@crab-dev/rc-table-pro:build:library:   ✓  Tokens generated in 27ms
+@crab-dev/rc-table-pro:build:library:      1 files · 6.5 KB
+@crab-dev/rc-table-pro:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table-pro\src\token.ts
+@crab-dev/rc-table-pro:build:library: 
+@crab-dev/rc-dialog:build:library: 
+@crab-dev/rc-dialog:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-dialog:build:library: 
+@crab-dev/rc-dialog:build:library:   ✓  Built library in 127ms
+@crab-dev/rc-dialog:build:library:      4 modules · 13 files · 37.0 KB
+@crab-dev/rc-dialog:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dialog
+@crab-dev/rc-dialog:build:library: 
+@crab-dev/rc-table-pro:build:library: 
+@crab-dev/rc-table-pro:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.43
+@crab-dev/rc-table-pro:build:library: 
+@crab-dev/rc-table-pro:build:library:   ✓  Built library in 235ms
+@crab-dev/rc-table-pro:build:library:      9 modules · 23 files · 132.1 KB
+@crab-dev/rc-table-pro:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table-pro
+@crab-dev/rc-table-pro:build:library: 
+
+ Tasks:    52 successful, 52 total
+Cached:    0 cached, 52 total
+  Time:    1m15.453s 
+

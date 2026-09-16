@@ -1,0 +1,240 @@
+➤ YN0000: · Yarn 4.18.0
+➤ YN0000: ┌ Resolution step
+➤ YN0000: └ Completed in 0s 216ms
+➤ YN0000: ┌ Post-resolution validation
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p0062e3), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p021280), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p0bae00), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p15985d), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p2aa740), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p2d4aaf), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p30d102), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p38aa70), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p3d15bd), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p4cb9de), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p589dee), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p5c7a28), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p62310c), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p623361), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p62698b), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p661c7b), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p6748b6), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p68708e), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p75c404), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p7801e1), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p7ed152), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p808a7e), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p87e28d), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p896f4a), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p8976fd), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p8df8a6), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p97d9bc), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p9b16c5), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (p9b4d93), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pa17ae8), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pa895d8), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pac7f37), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pb566f6), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pbe6a47), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pc6af7a), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pcc72b7), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pcd0744), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pcf4387), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pd4a8ab), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pd92bc3), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pdad842), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pdbf1bd), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pdf9b34), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pe688fb), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pe7146b), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pe76ec6), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pe892a8), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pe9080d), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pea3304), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pee8411), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pf0952e), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pf1beee), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pf57d00), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pf81a40), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pf979ba), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pfaf137), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pfba45b), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ eslint is listed by your project with version 10.10.0 (pfe33f7), which doesn't satisfy what eslint-plugin-react and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p06b2fd), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p0dfb6a), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p0f78c6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p13da2f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p16060c), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p1a9d01), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p1aaefa), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p1eff04), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p284020), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p303d25), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p31affc), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p39c2be), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p3ed7db), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p3fa412), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p422ec6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p48f064), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p4cd162), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p565f38), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p567c4a), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p56db62), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p57cce6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p5e1061), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p63559e), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p66e385), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p683a0f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p6a1f8f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p6d769f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p71f6c6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p756ab7), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p78acb6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p7ccce4), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p82570f), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p8648df), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p865521), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p868572), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p8773a5), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p8d9403), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p909022), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p931145), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (p939ab3), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pb6ee6a), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pb98b5c), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pb9e3ac), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pbc624e), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pbe8259), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pc06894), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pce732d), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pd7941c), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pd900e6), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pdcef3e), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pea41b4), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (ped3cf7), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pf24f67), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react is listed by your project with version 19.3.0 (pf76f97), which doesn't satisfy what @crab-dev/wake and other dependencies request (but they have non-overlapping ranges!).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p0a344f), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p1033c8), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p1478fd), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p1743d1), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p17665a), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p186420), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p287258), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p317435), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p3e1e2e), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p3eccdf), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p3f9ca9), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p451b23), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p4a7c53), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p4b8ecb), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p5a3822), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p68542b), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p6fa2fd), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7143f5), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7380a4), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7cabd7), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7d4607), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p7e5cfa), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p8099e2), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p87e199), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p8ab59d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p8b632a), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p9b174d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (p9e304b), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pa28d9d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pa6ca9b), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pa70bd2), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pada583), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb19f17), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb26313), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb312fc), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb6ccb8), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pb8e989), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pbb5581), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pbe4f86), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pc66420), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pcf75e7), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd16fcf), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd4cc32), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd52175), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pd69c9d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pdd060a), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe0b5c2), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe217f7), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe3846d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe7f046), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pe8926d), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pef1a3c), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pf56f0c), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ react-dom is listed by your project with version 19.3.0 (pf84582), which doesn't satisfy what @crab-dev/wake and other dependencies request (>=19.2.8 <19.3.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p0b9f5a), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p0fe478), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p10354c), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p157c6a), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p1c98f5), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p20cee2), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p23069e), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p24f3e6), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p26e154), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p28bade), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p2bc9ff), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p2eca54), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p30f7b1), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p314c13), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p42f80a), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p442641), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p468419), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p4b00f4), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p4d0dde), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p573cc4), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p5c22f7), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p5d3938), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p611f06), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p6314a4), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p72bf85), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p79135f), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p7dcf5d), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p86f3da), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p8d4818), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p8fa767), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p97facb), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p98c52d), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p9b6109), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (p9e32e3), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pa2679f), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pae1454), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pb0ea25), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pb12923), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pb86ad0), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pbb523c), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pbceb27), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pc77d36), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pc892ca), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pce04c2), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pce98fa), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pce9f6e), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pcec372), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pcf6c0c), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pd03011), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pd129d8), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pd3ed62), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pd3fabd), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pd4fe80), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pdb89e9), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pde33f2), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pe0c822), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pe1bffb), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0060: │ typescript is listed by your project with version 7.0.2 (pe89baa), which doesn't satisfy what @crab-dev/standards-eslint-preset and other dependencies request (>=6.0.2 <6.1.0).
+➤ YN0002: │ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide eslint (p4a5d75), requested by @eslint/js and other dependencies.
+➤ YN0002: │ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide typescript (p786c27), requested by @typescript-eslint/eslint-plugin and other dependencies.
+➤ YN0086: │ Some peer dependencies are incorrectly met by your project; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code.
+➤ YN0086: │ Some peer dependencies are incorrectly met by dependencies; run yarn explain peer-requirements for details.
+➤ YN0068: │ elkjs ➤ dependencies ➤ web-worker: No matching package in the dependency tree; you may not need this rule anymore.
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Fetch step
+➤ YN0000: └ Completed in 0s 309ms
+➤ YN0000: ┌ Link step
+➤ YN0092: │ ESM support for PnP uses the experimental loader API and is therefore experimental
+➤ YN0000: └ Completed
+➤ YN0000: · Done with warnings in 0s 809ms

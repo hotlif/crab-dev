@@ -1,0 +1,26 @@
+PASS src/__tests__/flow-edge.test.tsx
+  ✓ L 形折线：各段 dashPhase 为前序段绘制长度之和
+  ✓ flowSpeed 透传到每一段 Line
+  ✓ 终点箭头缩进不影响前序段的相位起点
+  ✓ 交叉缺口子段：dashPhase 计入缺口前跳过的弧长，图案穿过缺口连续
+  ✓ 未设置 flowSpeed 时各段不带流动（静态虚线），dashPhase 仍连续
+  ✓ 显式旧 color 优先于 context palette，否则使用 palette.edge
+PASS src/__tests__/palette.test.tsx
+  ✓ palette 提供缺省色，显式旧 props 保持最高优先级
+  ✓ gridColor 优先于 palette.grid，合并后的 context 被节点与边实际消费
+Test Suites: 2 passed, 0 failed, 2 total
+Tests:       8 passed, 0 failed, 0 pending, 8 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	75.42% (316/419)	64.29% (18/28)	44.68% (21/47)
+src/flow-diagram.tsx	96.72% (59/61)	75.00% (3/4)	75.00% (3/4)
+src/flow-edge.tsx	91.60% (109/119)	71.43% (5/7)	60.00% (15/25)
+src/flow-node.tsx	100.00% (54/54)	50.00% (1/2)	60.00% (3/5)
+src/hooks/useEdgeCrossings.ts	31.43% (11/35)	66.67% (2/3)	0.00% (0/2)
+src/hooks/useEdgeRouting.ts	47.37% (18/38)	100.00% (3/3)	0.00% (0/1)
+src/hooks/useElkLayout.ts	35.21% (25/71)	37.50% (3/8)	0.00% (0/4)
+src/palette-context.ts	100.00% (4/4)	100.00% (0/0)	100.00% (0/0)
+src/palette.ts	94.44% (17/18)	100.00% (1/1)	0.00% (0/6)
+src/token.ts	100.00% (19/19)	100.00% (0/0)	100.00% (0/0)
+Seed:        1789546241925024600
+Time:        11506 ms

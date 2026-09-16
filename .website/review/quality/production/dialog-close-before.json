@@ -1,0 +1,22 @@
+{
+  "revision": {
+    "sha256": "3c6f3dceb65ea33dc88774c0e41c1651b040e5790b68fca798f964cbe790b3dd",
+    "files": 2542,
+    "bytes": 189462501
+  },
+  "before": {
+    "closeHTML": "<div aria-hidden=\"true\" class=\"css_f17670144745\"><svg fill-rule=\"evenodd\" viewBox=\"64 64 896 896\" focusable=\"false\" data-icon=\"close\" width=\"1em\" height=\"1em\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z\"></path></svg></div>",
+    "closeButton": false,
+    "active": "<button aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-ee08045eda69 rc-button-b7cb56e02ec1 rc-button-3c96d6bb2dd6\"><span>取消</span></button>",
+    "rect": {
+      "x": 16,
+      "y": 100,
+      "width": 288,
+      "height": 145.5,
+      "top": 100,
+      "right": 304,
+      "bottom": 245.5,
+      "left": 16
+    }
+  }
+}

@@ -1,0 +1,3425 @@
+{
+  "capturedAt": "2026-09-16T07:03:36.858Z",
+  "browser": "Chrome/152.0.7977.83",
+  "buildHash": "725205718143918c869f017839424d5e5519475bff7afcb719287c3a76a3e339",
+  "revision": {
+    "sha256": "63968ce3fabfa7464ed73c39a8c100daeaf51b23bd106a9525d36e41e7aa411d",
+    "files": 2542,
+    "bytes": 189654289
+  },
+  "status": "Measurements only; manual visual and assistive-technology review required.",
+  "results": [
+    {
+      "route": "/components/rc-dialog",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "Dialog 对话框 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 6392,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Dialog 对话框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "dialog-对话框",
+          "text": "Dialog 对话框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-dialog",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "Dialog 对话框 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 5049,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Dialog 对话框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "dialog-对话框",
+          "text": "Dialog 对话框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-dialog",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "Dialog 对话框 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 4382,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Dialog 对话框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "dialog-对话框",
+          "text": "Dialog 对话框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-dialog",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "Dialog 对话框 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 6392,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Dialog 对话框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "dialog-对话框",
+          "text": "Dialog 对话框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-dialog",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "Dialog 对话框 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 5049,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Dialog 对话框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "dialog-对话框",
+          "text": "Dialog 对话框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-dialog",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "Dialog 对话框 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 4382,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Dialog 对话框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "dialog-对话框",
+          "text": "Dialog 对话框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-number-edit",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "NumberEdit 数字输入框 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 7029,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "NumberEdit 数字输入框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "numberedit-数字输入框",
+          "text": "NumberEdit 数字输入框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-number-edit",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "NumberEdit 数字输入框 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 5745,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "NumberEdit 数字输入框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "numberedit-数字输入框",
+          "text": "NumberEdit 数字输入框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-number-edit",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "NumberEdit 数字输入框 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5154,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "NumberEdit 数字输入框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "numberedit-数字输入框",
+          "text": "NumberEdit 数字输入框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-number-edit",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "NumberEdit 数字输入框 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 7029,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "NumberEdit 数字输入框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "numberedit-数字输入框",
+          "text": "NumberEdit 数字输入框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-number-edit",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "NumberEdit 数字输入框 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 5745,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "NumberEdit 数字输入框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "numberedit-数字输入框",
+          "text": "NumberEdit 数字输入框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-number-edit",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "NumberEdit 数字输入框 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5154,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "NumberEdit 数字输入框",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "numberedit-数字输入框",
+          "text": "NumberEdit 数字输入框#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-select",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "Select 选择器 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 7531,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Select 选择器",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "select-选择器",
+          "text": "Select 选择器#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-select",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "Select 选择器 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 6244,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Select 选择器",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "select-选择器",
+          "text": "Select 选择器#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-select",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "Select 选择器 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5839,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Select 选择器",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "select-选择器",
+          "text": "Select 选择器#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-select",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "Select 选择器 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 7531,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Select 选择器",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "select-选择器",
+          "text": "Select 选择器#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-select",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "Select 选择器 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 6244,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Select 选择器",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "select-选择器",
+          "text": "Select 选择器#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-select",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "Select 选择器 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5839,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "Select 选择器",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "select-选择器",
+          "text": "Select 选择器#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "api",
+          "text": "API#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/inputs",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "输入与选择 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 9089,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "输入与选择",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "输入与选择",
+          "text": "输入与选择#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按数据选择控件",
+          "text": "按数据选择控件#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段结构",
+          "text": "字段结构#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "默认-必填与初始值",
+          "text": "默认、必填与初始值#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验与纠错时机",
+          "text": "校验与纠错时机#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择器与搜索",
+          "text": "选择器与搜索#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "禁用-只读与依赖",
+          "text": "禁用、只读与依赖#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-取消与恢复",
+          "text": "清除、取消与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收与禁例",
+          "text": "验收与禁例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择控件的进一步判断",
+          "text": "选择控件的进一步判断#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段解剖与反馈位置",
+          "text": "字段解剖与反馈位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-只读和依赖字段",
+          "text": "清除、只读和依赖字段#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "搜索-输入法与日期边界",
+          "text": "搜索、输入法与日期边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "正反例与可复核验收",
+          "text": "正反例与可复核验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/inputs",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "输入与选择 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 6623,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "输入与选择",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "输入与选择",
+          "text": "输入与选择#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按数据选择控件",
+          "text": "按数据选择控件#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段结构",
+          "text": "字段结构#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "默认-必填与初始值",
+          "text": "默认、必填与初始值#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验与纠错时机",
+          "text": "校验与纠错时机#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择器与搜索",
+          "text": "选择器与搜索#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "禁用-只读与依赖",
+          "text": "禁用、只读与依赖#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-取消与恢复",
+          "text": "清除、取消与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收与禁例",
+          "text": "验收与禁例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择控件的进一步判断",
+          "text": "选择控件的进一步判断#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段解剖与反馈位置",
+          "text": "字段解剖与反馈位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-只读和依赖字段",
+          "text": "清除、只读和依赖字段#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "搜索-输入法与日期边界",
+          "text": "搜索、输入法与日期边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "正反例与可复核验收",
+          "text": "正反例与可复核验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/inputs",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "输入与选择 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5032,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "输入与选择",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "输入与选择",
+          "text": "输入与选择#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按数据选择控件",
+          "text": "按数据选择控件#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段结构",
+          "text": "字段结构#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "默认-必填与初始值",
+          "text": "默认、必填与初始值#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验与纠错时机",
+          "text": "校验与纠错时机#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择器与搜索",
+          "text": "选择器与搜索#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "禁用-只读与依赖",
+          "text": "禁用、只读与依赖#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-取消与恢复",
+          "text": "清除、取消与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收与禁例",
+          "text": "验收与禁例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择控件的进一步判断",
+          "text": "选择控件的进一步判断#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段解剖与反馈位置",
+          "text": "字段解剖与反馈位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-只读和依赖字段",
+          "text": "清除、只读和依赖字段#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "搜索-输入法与日期边界",
+          "text": "搜索、输入法与日期边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "正反例与可复核验收",
+          "text": "正反例与可复核验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/inputs",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "输入与选择 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 9089,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "输入与选择",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "输入与选择",
+          "text": "输入与选择#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按数据选择控件",
+          "text": "按数据选择控件#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段结构",
+          "text": "字段结构#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "默认-必填与初始值",
+          "text": "默认、必填与初始值#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验与纠错时机",
+          "text": "校验与纠错时机#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择器与搜索",
+          "text": "选择器与搜索#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "禁用-只读与依赖",
+          "text": "禁用、只读与依赖#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-取消与恢复",
+          "text": "清除、取消与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收与禁例",
+          "text": "验收与禁例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择控件的进一步判断",
+          "text": "选择控件的进一步判断#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段解剖与反馈位置",
+          "text": "字段解剖与反馈位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-只读和依赖字段",
+          "text": "清除、只读和依赖字段#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "搜索-输入法与日期边界",
+          "text": "搜索、输入法与日期边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "正反例与可复核验收",
+          "text": "正反例与可复核验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/inputs",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "输入与选择 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 6623,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "输入与选择",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "输入与选择",
+          "text": "输入与选择#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按数据选择控件",
+          "text": "按数据选择控件#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段结构",
+          "text": "字段结构#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "默认-必填与初始值",
+          "text": "默认、必填与初始值#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验与纠错时机",
+          "text": "校验与纠错时机#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择器与搜索",
+          "text": "选择器与搜索#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "禁用-只读与依赖",
+          "text": "禁用、只读与依赖#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-取消与恢复",
+          "text": "清除、取消与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收与禁例",
+          "text": "验收与禁例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择控件的进一步判断",
+          "text": "选择控件的进一步判断#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段解剖与反馈位置",
+          "text": "字段解剖与反馈位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-只读和依赖字段",
+          "text": "清除、只读和依赖字段#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "搜索-输入法与日期边界",
+          "text": "搜索、输入法与日期边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "正反例与可复核验收",
+          "text": "正反例与可复核验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/inputs",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "输入与选择 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5032,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "输入与选择",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "输入与选择",
+          "text": "输入与选择#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按数据选择控件",
+          "text": "按数据选择控件#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段结构",
+          "text": "字段结构#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "默认-必填与初始值",
+          "text": "默认、必填与初始值#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验与纠错时机",
+          "text": "校验与纠错时机#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择器与搜索",
+          "text": "选择器与搜索#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "禁用-只读与依赖",
+          "text": "禁用、只读与依赖#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-取消与恢复",
+          "text": "清除、取消与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收与禁例",
+          "text": "验收与禁例#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "选择控件的进一步判断",
+          "text": "选择控件的进一步判断#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段解剖与反馈位置",
+          "text": "字段解剖与反馈位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "清除-只读和依赖字段",
+          "text": "清除、只读和依赖字段#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "搜索-输入法与日期边界",
+          "text": "搜索、输入法与日期边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "正反例与可复核验收",
+          "text": "正反例与可复核验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/overlays",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "浮层与对话 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 8400,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "浮层与对话",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "浮层与对话",
+          "text": "浮层与对话#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按任务选择浮层",
+          "text": "按任务选择浮层#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "结构与文案",
+          "text": "结构与文案#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "打开-焦点与关闭",
+          "text": "打开、焦点与关闭#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-主题与密度",
+          "text": "表面、主题与密度#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "尺寸-滚动与触控",
+          "text": "尺寸、滚动与触控#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "动效与无障碍",
+          "text": "动效与无障碍#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭方式决策矩阵",
+          "text": "关闭方式决策矩阵#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "焦点进入与恢复位置",
+          "text": "焦点进入与恢复位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "下拉-提示和长任务的边界",
+          "text": "下拉、提示和长任务的边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-层级与响应式验收",
+          "text": "表面、层级与响应式验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收清单",
+          "text": "验收清单#",
+          "visible": true
+        }
+      ],
+      "outside": [
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "形式适用内容与背景的关系关闭与替代Tooltip 提示简短补充解释，例如无文字图标的名称不阻断背景，不承载必须操作的表单悬停和键盘聚焦都可获得解释；重要信息常驻"
+        },
+        {
+          "tag": "THEAD",
+          "class": "",
+          "text": "形式适用内容与背景的关系关闭与替代"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "形式适用内容与背景的关系关闭与替代"
+        },
+        {
+          "tag": "TH",
+          "class": "",
+          "text": "关闭与替代"
+        },
+        {
+          "tag": "TBODY",
+          "class": "",
+          "text": "Tooltip 提示简短补充解释，例如无文字图标的名称不阻断背景，不承载必须操作的表单悬停和键盘聚焦都可获得解释；重要信息常驻菜单或下拉面板选择命令、候选值或轻"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "Tooltip 提示简短补充解释，例如无文字图标的名称不阻断背景，不承载必须操作的表单悬停和键盘聚焦都可获得解释；重要信息常驻"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "悬停和键盘聚焦都可获得解释；重要信息常驻"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "菜单或下拉面板选择命令、候选值或轻量条件关联具体触发器，位置靠近触发器选择完成或取消后回到明确位置"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "选择完成或取消后回到明确位置"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "Drawer 抽屉查看详情、编辑对象，同时保留列表上下文较大的补充任务区域；模态行为由具体组件决定关闭回到原对象或触发器；脏数据需要处理"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "关闭回到原对象或触发器；脏数据需要处理"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "Dialog 对话框必须立即作出的决定、不可逆操作确认暂停背景交互，聚焦一个决策明确继续与取消的结果，避免含糊“是／否”"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/overlays",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "浮层与对话 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 6238,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "浮层与对话",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "浮层与对话",
+          "text": "浮层与对话#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按任务选择浮层",
+          "text": "按任务选择浮层#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "结构与文案",
+          "text": "结构与文案#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "打开-焦点与关闭",
+          "text": "打开、焦点与关闭#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-主题与密度",
+          "text": "表面、主题与密度#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "尺寸-滚动与触控",
+          "text": "尺寸、滚动与触控#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "动效与无障碍",
+          "text": "动效与无障碍#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭方式决策矩阵",
+          "text": "关闭方式决策矩阵#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "焦点进入与恢复位置",
+          "text": "焦点进入与恢复位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "下拉-提示和长任务的边界",
+          "text": "下拉、提示和长任务的边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-层级与响应式验收",
+          "text": "表面、层级与响应式验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收清单",
+          "text": "验收清单#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/overlays",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "浮层与对话 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 4777,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "浮层与对话",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "浮层与对话",
+          "text": "浮层与对话#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按任务选择浮层",
+          "text": "按任务选择浮层#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "结构与文案",
+          "text": "结构与文案#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "打开-焦点与关闭",
+          "text": "打开、焦点与关闭#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-主题与密度",
+          "text": "表面、主题与密度#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "尺寸-滚动与触控",
+          "text": "尺寸、滚动与触控#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "动效与无障碍",
+          "text": "动效与无障碍#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭方式决策矩阵",
+          "text": "关闭方式决策矩阵#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "焦点进入与恢复位置",
+          "text": "焦点进入与恢复位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "下拉-提示和长任务的边界",
+          "text": "下拉、提示和长任务的边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-层级与响应式验收",
+          "text": "表面、层级与响应式验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收清单",
+          "text": "验收清单#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/overlays",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "浮层与对话 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 8400,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "浮层与对话",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "浮层与对话",
+          "text": "浮层与对话#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按任务选择浮层",
+          "text": "按任务选择浮层#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "结构与文案",
+          "text": "结构与文案#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "打开-焦点与关闭",
+          "text": "打开、焦点与关闭#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-主题与密度",
+          "text": "表面、主题与密度#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "尺寸-滚动与触控",
+          "text": "尺寸、滚动与触控#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "动效与无障碍",
+          "text": "动效与无障碍#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭方式决策矩阵",
+          "text": "关闭方式决策矩阵#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "焦点进入与恢复位置",
+          "text": "焦点进入与恢复位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "下拉-提示和长任务的边界",
+          "text": "下拉、提示和长任务的边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-层级与响应式验收",
+          "text": "表面、层级与响应式验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收清单",
+          "text": "验收清单#",
+          "visible": true
+        }
+      ],
+      "outside": [
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "形式适用内容与背景的关系关闭与替代Tooltip 提示简短补充解释，例如无文字图标的名称不阻断背景，不承载必须操作的表单悬停和键盘聚焦都可获得解释；重要信息常驻"
+        },
+        {
+          "tag": "THEAD",
+          "class": "",
+          "text": "形式适用内容与背景的关系关闭与替代"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "形式适用内容与背景的关系关闭与替代"
+        },
+        {
+          "tag": "TH",
+          "class": "",
+          "text": "关闭与替代"
+        },
+        {
+          "tag": "TBODY",
+          "class": "",
+          "text": "Tooltip 提示简短补充解释，例如无文字图标的名称不阻断背景，不承载必须操作的表单悬停和键盘聚焦都可获得解释；重要信息常驻菜单或下拉面板选择命令、候选值或轻"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "Tooltip 提示简短补充解释，例如无文字图标的名称不阻断背景，不承载必须操作的表单悬停和键盘聚焦都可获得解释；重要信息常驻"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "悬停和键盘聚焦都可获得解释；重要信息常驻"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "菜单或下拉面板选择命令、候选值或轻量条件关联具体触发器，位置靠近触发器选择完成或取消后回到明确位置"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "选择完成或取消后回到明确位置"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "Drawer 抽屉查看详情、编辑对象，同时保留列表上下文较大的补充任务区域；模态行为由具体组件决定关闭回到原对象或触发器；脏数据需要处理"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "关闭回到原对象或触发器；脏数据需要处理"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "Dialog 对话框必须立即作出的决定、不可逆操作确认暂停背景交互，聚焦一个决策明确继续与取消的结果，避免含糊“是／否”"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/overlays",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "浮层与对话 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 6238,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "浮层与对话",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "浮层与对话",
+          "text": "浮层与对话#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按任务选择浮层",
+          "text": "按任务选择浮层#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "结构与文案",
+          "text": "结构与文案#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "打开-焦点与关闭",
+          "text": "打开、焦点与关闭#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-主题与密度",
+          "text": "表面、主题与密度#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "尺寸-滚动与触控",
+          "text": "尺寸、滚动与触控#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "动效与无障碍",
+          "text": "动效与无障碍#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭方式决策矩阵",
+          "text": "关闭方式决策矩阵#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "焦点进入与恢复位置",
+          "text": "焦点进入与恢复位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "下拉-提示和长任务的边界",
+          "text": "下拉、提示和长任务的边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-层级与响应式验收",
+          "text": "表面、层级与响应式验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收清单",
+          "text": "验收清单#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/overlays",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "浮层与对话 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 4777,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "浮层与对话",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "浮层与对话",
+          "text": "浮层与对话#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "按任务选择浮层",
+          "text": "按任务选择浮层#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "结构与文案",
+          "text": "结构与文案#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "打开-焦点与关闭",
+          "text": "打开、焦点与关闭#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-主题与密度",
+          "text": "表面、主题与密度#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "尺寸-滚动与触控",
+          "text": "尺寸、滚动与触控#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "动效与无障碍",
+          "text": "动效与无障碍#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭方式决策矩阵",
+          "text": "关闭方式决策矩阵#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "焦点进入与恢复位置",
+          "text": "焦点进入与恢复位置#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "下拉-提示和长任务的边界",
+          "text": "下拉、提示和长任务的边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "表面-层级与响应式验收",
+          "text": "表面、层级与响应式验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "验收清单",
+          "text": "验收清单#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/forms",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "复杂表单 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 10618,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "复杂表单",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "复杂表单",
+          "text": "复杂表单#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "模式结构与任务边界",
+          "text": "模式结构与任务边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段分组与约束",
+          "text": "字段分组与约束#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "编辑生命周期",
+          "text": "编辑生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误修正",
+          "text": "校验时机与错误修正#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭与放弃修改",
+          "text": "关闭与放弃修改#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "可交互样板",
+          "text": "可交互样板#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "_r_c_-form",
+          "text": "复杂任务，逐步展开",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "键盘与窄屏",
+          "text": "键盘与窄屏#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "按步骤验收",
+          "text": "按步骤验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "新建-编辑与只读的区别",
+          "text": "新建、编辑与只读的区别#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段组织与条件内容",
+          "text": "字段组织与条件内容#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误生命周期",
+          "text": "校验时机与错误生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "提交中的限制与恢复",
+          "text": "提交中的限制与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "未保存退出的一致性",
+          "text": "未保存退出的一致性#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "场景对照与验收",
+          "text": "场景对照与验收#",
+          "visible": true
+        }
+      ],
+      "outside": [
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "分组字段约束帮助信息与反馈基本信息姓名必填，最多 30 字；纯空白无效展示字数与用途；错误就近说明基本信息工作邮箱必填，最多 80 字；检查基本邮箱格式提供示例"
+        },
+        {
+          "tag": "THEAD",
+          "class": "",
+          "text": "分组字段约束帮助信息与反馈"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "分组字段约束帮助信息与反馈"
+        },
+        {
+          "tag": "TH",
+          "class": "",
+          "text": "帮助信息与反馈"
+        },
+        {
+          "tag": "TBODY",
+          "class": "",
+          "text": "基本信息姓名必填，最多 30 字；纯空白无效展示字数与用途；错误就近说明基本信息工作邮箱必填，最多 80 字；检查基本邮箱格式提供示例，说明保存时会清理空白并规"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "基本信息姓名必填，最多 30 字；纯空白无效展示字数与用途；错误就近说明"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "展示字数与用途；错误就近说明"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "基本信息工作邮箱必填，最多 80 字；检查基本邮箱格式提供示例，说明保存时会清理空白并规范大小写"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "提供示例，说明保存时会清理空白并规范大小写"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "团队归属所属团队产品设计、工程研发、客户运营三选一说明只更新本地资料，不影响访问权限"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "说明只更新本地资料，不影响访问权限"
+        },
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "阶段数据来源允许的行为反馈查看上次保存的资料打开编辑摘要与团队标签开始编辑从已保存资料创建草稿修改姓名、邮箱和团队可见标签与帮助提交校验当前草稿修正错误后再次保"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/forms",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "复杂表单 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 8202,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "复杂表单",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "复杂表单",
+          "text": "复杂表单#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "模式结构与任务边界",
+          "text": "模式结构与任务边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段分组与约束",
+          "text": "字段分组与约束#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "编辑生命周期",
+          "text": "编辑生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误修正",
+          "text": "校验时机与错误修正#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭与放弃修改",
+          "text": "关闭与放弃修改#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "可交互样板",
+          "text": "可交互样板#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "_r_c_-form",
+          "text": "复杂任务，逐步展开",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "键盘与窄屏",
+          "text": "键盘与窄屏#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "按步骤验收",
+          "text": "按步骤验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "新建-编辑与只读的区别",
+          "text": "新建、编辑与只读的区别#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段组织与条件内容",
+          "text": "字段组织与条件内容#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误生命周期",
+          "text": "校验时机与错误生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "提交中的限制与恢复",
+          "text": "提交中的限制与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "未保存退出的一致性",
+          "text": "未保存退出的一致性#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "场景对照与验收",
+          "text": "场景对照与验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/forms",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "复杂表单 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 6388,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "复杂表单",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "复杂表单",
+          "text": "复杂表单#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "模式结构与任务边界",
+          "text": "模式结构与任务边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段分组与约束",
+          "text": "字段分组与约束#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "编辑生命周期",
+          "text": "编辑生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误修正",
+          "text": "校验时机与错误修正#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭与放弃修改",
+          "text": "关闭与放弃修改#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "可交互样板",
+          "text": "可交互样板#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "_r_c_-form",
+          "text": "复杂任务，逐步展开",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "键盘与窄屏",
+          "text": "键盘与窄屏#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "按步骤验收",
+          "text": "按步骤验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "新建-编辑与只读的区别",
+          "text": "新建、编辑与只读的区别#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段组织与条件内容",
+          "text": "字段组织与条件内容#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误生命周期",
+          "text": "校验时机与错误生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "提交中的限制与恢复",
+          "text": "提交中的限制与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "未保存退出的一致性",
+          "text": "未保存退出的一致性#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "场景对照与验收",
+          "text": "场景对照与验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/forms",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "复杂表单 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 10618,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "复杂表单",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "复杂表单",
+          "text": "复杂表单#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "模式结构与任务边界",
+          "text": "模式结构与任务边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段分组与约束",
+          "text": "字段分组与约束#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "编辑生命周期",
+          "text": "编辑生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误修正",
+          "text": "校验时机与错误修正#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭与放弃修改",
+          "text": "关闭与放弃修改#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "可交互样板",
+          "text": "可交互样板#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "_r_c_-form",
+          "text": "复杂任务，逐步展开",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "键盘与窄屏",
+          "text": "键盘与窄屏#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "按步骤验收",
+          "text": "按步骤验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "新建-编辑与只读的区别",
+          "text": "新建、编辑与只读的区别#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段组织与条件内容",
+          "text": "字段组织与条件内容#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误生命周期",
+          "text": "校验时机与错误生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "提交中的限制与恢复",
+          "text": "提交中的限制与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "未保存退出的一致性",
+          "text": "未保存退出的一致性#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "场景对照与验收",
+          "text": "场景对照与验收#",
+          "visible": true
+        }
+      ],
+      "outside": [
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "分组字段约束帮助信息与反馈基本信息姓名必填，最多 30 字；纯空白无效展示字数与用途；错误就近说明基本信息工作邮箱必填，最多 80 字；检查基本邮箱格式提供示例"
+        },
+        {
+          "tag": "THEAD",
+          "class": "",
+          "text": "分组字段约束帮助信息与反馈"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "分组字段约束帮助信息与反馈"
+        },
+        {
+          "tag": "TH",
+          "class": "",
+          "text": "帮助信息与反馈"
+        },
+        {
+          "tag": "TBODY",
+          "class": "",
+          "text": "基本信息姓名必填，最多 30 字；纯空白无效展示字数与用途；错误就近说明基本信息工作邮箱必填，最多 80 字；检查基本邮箱格式提供示例，说明保存时会清理空白并规"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "基本信息姓名必填，最多 30 字；纯空白无效展示字数与用途；错误就近说明"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "展示字数与用途；错误就近说明"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "基本信息工作邮箱必填，最多 80 字；检查基本邮箱格式提供示例，说明保存时会清理空白并规范大小写"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "提供示例，说明保存时会清理空白并规范大小写"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "团队归属所属团队产品设计、工程研发、客户运营三选一说明只更新本地资料，不影响访问权限"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "说明只更新本地资料，不影响访问权限"
+        },
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "阶段数据来源允许的行为反馈查看上次保存的资料打开编辑摘要与团队标签开始编辑从已保存资料创建草稿修改姓名、邮箱和团队可见标签与帮助提交校验当前草稿修正错误后再次保"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/forms",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "复杂表单 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 8202,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "复杂表单",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "复杂表单",
+          "text": "复杂表单#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "模式结构与任务边界",
+          "text": "模式结构与任务边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段分组与约束",
+          "text": "字段分组与约束#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "编辑生命周期",
+          "text": "编辑生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误修正",
+          "text": "校验时机与错误修正#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭与放弃修改",
+          "text": "关闭与放弃修改#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "可交互样板",
+          "text": "可交互样板#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "_r_c_-form",
+          "text": "复杂任务，逐步展开",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "键盘与窄屏",
+          "text": "键盘与窄屏#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "按步骤验收",
+          "text": "按步骤验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "新建-编辑与只读的区别",
+          "text": "新建、编辑与只读的区别#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段组织与条件内容",
+          "text": "字段组织与条件内容#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误生命周期",
+          "text": "校验时机与错误生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "提交中的限制与恢复",
+          "text": "提交中的限制与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "未保存退出的一致性",
+          "text": "未保存退出的一致性#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "场景对照与验收",
+          "text": "场景对照与验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/design/forms",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "复杂表单 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 6388,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "复杂表单",
+          "visible": true
+        },
+        {
+          "tag": "H1",
+          "id": "复杂表单",
+          "text": "复杂表单#",
+          "visible": false
+        },
+        {
+          "tag": "H2",
+          "id": "模式结构与任务边界",
+          "text": "模式结构与任务边界#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段分组与约束",
+          "text": "字段分组与约束#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "编辑生命周期",
+          "text": "编辑生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误修正",
+          "text": "校验时机与错误修正#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "关闭与放弃修改",
+          "text": "关闭与放弃修改#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "可交互样板",
+          "text": "可交互样板#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "_r_c_-form",
+          "text": "复杂任务，逐步展开",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "键盘与窄屏",
+          "text": "键盘与窄屏#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "按步骤验收",
+          "text": "按步骤验收#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "新建-编辑与只读的区别",
+          "text": "新建、编辑与只读的区别#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "字段组织与条件内容",
+          "text": "字段组织与条件内容#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "校验时机与错误生命周期",
+          "text": "校验时机与错误生命周期#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "提交中的限制与恢复",
+          "text": "提交中的限制与恢复#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "未保存退出的一致性",
+          "text": "未保存退出的一致性#",
+          "visible": true
+        },
+        {
+          "tag": "H2",
+          "id": "场景对照与验收",
+          "text": "场景对照与验收#",
+          "visible": true
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    }
+  ]
+}

@@ -1,0 +1,1922 @@
+{
+  "capturedAt": "2026-09-16T04:25:00.852Z",
+  "browser": "Chrome/152.0.7977.83",
+  "buildHash": "8390fe254aa309fc327690de8dbb8c02141e33b0918c609066efcd762fbd1305",
+  "status": "Measurements only; manual visual and assistive-technology review required.",
+  "results": [
+    {
+      "route": "/",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 6173,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "crab-ui",
+          "text": "Crab UI#"
+        },
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "为企业应用，构建清晰的界面。"
+        },
+        {
+          "tag": "H2",
+          "id": "_r_b_",
+          "text": "设计系统迭代"
+        },
+        {
+          "tag": "H2",
+          "id": "learning-path",
+          "text": "设计与实践"
+        },
+        {
+          "tag": "H2",
+          "id": "component-title",
+          "text": "常用组件"
+        },
+        {
+          "tag": "H2",
+          "id": "practice-title",
+          "text": "把组件组合成完整流程。"
+        },
+        {
+          "tag": "H2",
+          "id": "showcase-title",
+          "text": "先试用，再读实现。"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "DIV",
+          "class": "rc-bar-chart-090d64beb355",
+          "text": "本周访问量示例类目访问量一124二186三142四245五198六284日232"
+        },
+        {
+          "tag": "DIV",
+          "class": "rc-bar-chart-9bfd113b9115",
+          "text": ""
+        },
+        {
+          "tag": "DIV",
+          "class": "rc-bar-chart-da48c7934b8b",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 3262,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "crab-ui",
+          "text": "Crab UI#"
+        },
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "为企业应用，构建清晰的界面。"
+        },
+        {
+          "tag": "H2",
+          "id": "_r_b_",
+          "text": "设计系统迭代"
+        },
+        {
+          "tag": "H2",
+          "id": "learning-path",
+          "text": "设计与实践"
+        },
+        {
+          "tag": "H2",
+          "id": "component-title",
+          "text": "常用组件"
+        },
+        {
+          "tag": "H2",
+          "id": "practice-title",
+          "text": "把组件组合成完整流程。"
+        },
+        {
+          "tag": "H2",
+          "id": "showcase-title",
+          "text": "先试用，再读实现。"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 2697,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "crab-ui",
+          "text": "Crab UI#"
+        },
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "为企业应用，构建清晰的界面。"
+        },
+        {
+          "tag": "H2",
+          "id": "_r_b_",
+          "text": "设计系统迭代"
+        },
+        {
+          "tag": "H2",
+          "id": "learning-path",
+          "text": "设计与实践"
+        },
+        {
+          "tag": "H2",
+          "id": "component-title",
+          "text": "常用组件"
+        },
+        {
+          "tag": "H2",
+          "id": "practice-title",
+          "text": "把组件组合成完整流程。"
+        },
+        {
+          "tag": "H2",
+          "id": "showcase-title",
+          "text": "先试用，再读实现。"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 6173,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "crab-ui",
+          "text": "Crab UI#"
+        },
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "为企业应用，构建清晰的界面。"
+        },
+        {
+          "tag": "H2",
+          "id": "_r_b_",
+          "text": "设计系统迭代"
+        },
+        {
+          "tag": "H2",
+          "id": "learning-path",
+          "text": "设计与实践"
+        },
+        {
+          "tag": "H2",
+          "id": "component-title",
+          "text": "常用组件"
+        },
+        {
+          "tag": "H2",
+          "id": "practice-title",
+          "text": "把组件组合成完整流程。"
+        },
+        {
+          "tag": "H2",
+          "id": "showcase-title",
+          "text": "先试用，再读实现。"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "DIV",
+          "class": "rc-bar-chart-090d64beb355",
+          "text": "本周访问量示例类目访问量一124二186三142四245五198六284日232"
+        },
+        {
+          "tag": "DIV",
+          "class": "rc-bar-chart-9bfd113b9115",
+          "text": ""
+        },
+        {
+          "tag": "DIV",
+          "class": "rc-bar-chart-da48c7934b8b",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-bar-chart-f9045344fef2",
+          "text": ""
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 3262,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "crab-ui",
+          "text": "Crab UI#"
+        },
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "为企业应用，构建清晰的界面。"
+        },
+        {
+          "tag": "H2",
+          "id": "_r_b_",
+          "text": "设计系统迭代"
+        },
+        {
+          "tag": "H2",
+          "id": "learning-path",
+          "text": "设计与实践"
+        },
+        {
+          "tag": "H2",
+          "id": "component-title",
+          "text": "常用组件"
+        },
+        {
+          "tag": "H2",
+          "id": "practice-title",
+          "text": "把组件组合成完整流程。"
+        },
+        {
+          "tag": "H2",
+          "id": "showcase-title",
+          "text": "先试用，再读实现。"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 2697,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "crab-ui",
+          "text": "Crab UI#"
+        },
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "为企业应用，构建清晰的界面。"
+        },
+        {
+          "tag": "H2",
+          "id": "_r_b_",
+          "text": "设计系统迭代"
+        },
+        {
+          "tag": "H2",
+          "id": "learning-path",
+          "text": "设计与实践"
+        },
+        {
+          "tag": "H2",
+          "id": "component-title",
+          "text": "常用组件"
+        },
+        {
+          "tag": "H2",
+          "id": "practice-title",
+          "text": "把组件组合成完整流程。"
+        },
+        {
+          "tag": "H2",
+          "id": "showcase-title",
+          "text": "先试用，再读实现。"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/learn/components",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "组件目录 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 13448,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "组件目录"
+        },
+        {
+          "tag": "H2",
+          "id": "输入与操作",
+          "text": "输入与操作#"
+        },
+        {
+          "tag": "H2",
+          "id": "信息展示",
+          "text": "信息展示#"
+        },
+        {
+          "tag": "H2",
+          "id": "反馈与浮层",
+          "text": "反馈与浮层#"
+        },
+        {
+          "tag": "H2",
+          "id": "导航",
+          "text": "导航#"
+        },
+        {
+          "tag": "H2",
+          "id": "布局与性能",
+          "text": "布局与性能#"
+        },
+        {
+          "tag": "H2",
+          "id": "数据与可视化",
+          "text": "数据与可视化#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础能力",
+          "text": "基础能力#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/learn/components",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "组件目录 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 9073,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "组件目录"
+        },
+        {
+          "tag": "H2",
+          "id": "输入与操作",
+          "text": "输入与操作#"
+        },
+        {
+          "tag": "H2",
+          "id": "信息展示",
+          "text": "信息展示#"
+        },
+        {
+          "tag": "H2",
+          "id": "反馈与浮层",
+          "text": "反馈与浮层#"
+        },
+        {
+          "tag": "H2",
+          "id": "导航",
+          "text": "导航#"
+        },
+        {
+          "tag": "H2",
+          "id": "布局与性能",
+          "text": "布局与性能#"
+        },
+        {
+          "tag": "H2",
+          "id": "数据与可视化",
+          "text": "数据与可视化#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础能力",
+          "text": "基础能力#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/learn/components",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "组件目录 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5420,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "组件目录"
+        },
+        {
+          "tag": "H2",
+          "id": "输入与操作",
+          "text": "输入与操作#"
+        },
+        {
+          "tag": "H2",
+          "id": "信息展示",
+          "text": "信息展示#"
+        },
+        {
+          "tag": "H2",
+          "id": "反馈与浮层",
+          "text": "反馈与浮层#"
+        },
+        {
+          "tag": "H2",
+          "id": "导航",
+          "text": "导航#"
+        },
+        {
+          "tag": "H2",
+          "id": "布局与性能",
+          "text": "布局与性能#"
+        },
+        {
+          "tag": "H2",
+          "id": "数据与可视化",
+          "text": "数据与可视化#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础能力",
+          "text": "基础能力#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/learn/components",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "组件目录 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 13448,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "组件目录"
+        },
+        {
+          "tag": "H2",
+          "id": "输入与操作",
+          "text": "输入与操作#"
+        },
+        {
+          "tag": "H2",
+          "id": "信息展示",
+          "text": "信息展示#"
+        },
+        {
+          "tag": "H2",
+          "id": "反馈与浮层",
+          "text": "反馈与浮层#"
+        },
+        {
+          "tag": "H2",
+          "id": "导航",
+          "text": "导航#"
+        },
+        {
+          "tag": "H2",
+          "id": "布局与性能",
+          "text": "布局与性能#"
+        },
+        {
+          "tag": "H2",
+          "id": "数据与可视化",
+          "text": "数据与可视化#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础能力",
+          "text": "基础能力#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/learn/components",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "组件目录 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 9073,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "组件目录"
+        },
+        {
+          "tag": "H2",
+          "id": "输入与操作",
+          "text": "输入与操作#"
+        },
+        {
+          "tag": "H2",
+          "id": "信息展示",
+          "text": "信息展示#"
+        },
+        {
+          "tag": "H2",
+          "id": "反馈与浮层",
+          "text": "反馈与浮层#"
+        },
+        {
+          "tag": "H2",
+          "id": "导航",
+          "text": "导航#"
+        },
+        {
+          "tag": "H2",
+          "id": "布局与性能",
+          "text": "布局与性能#"
+        },
+        {
+          "tag": "H2",
+          "id": "数据与可视化",
+          "text": "数据与可视化#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础能力",
+          "text": "基础能力#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/learn/components",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "组件目录 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 5420,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "组件目录"
+        },
+        {
+          "tag": "H2",
+          "id": "输入与操作",
+          "text": "输入与操作#"
+        },
+        {
+          "tag": "H2",
+          "id": "信息展示",
+          "text": "信息展示#"
+        },
+        {
+          "tag": "H2",
+          "id": "反馈与浮层",
+          "text": "反馈与浮层#"
+        },
+        {
+          "tag": "H2",
+          "id": "导航",
+          "text": "导航#"
+        },
+        {
+          "tag": "H2",
+          "id": "布局与性能",
+          "text": "布局与性能#"
+        },
+        {
+          "tag": "H2",
+          "id": "数据与可视化",
+          "text": "数据与可视化#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础能力",
+          "text": "基础能力#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-global",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "TokenGlobal 全局令牌 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 34779,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenGlobal 全局令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokenglobal-全局令牌",
+          "text": "TokenGlobal 全局令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "定位与使用边界",
+          "text": "定位与使用边界#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "颜色",
+          "text": "颜色#"
+        },
+        {
+          "tag": "H2",
+          "id": "间距",
+          "text": "间距#"
+        },
+        {
+          "tag": "H2",
+          "id": "圆角",
+          "text": "圆角#"
+        },
+        {
+          "tag": "H2",
+          "id": "字体与排版",
+          "text": "字体与排版#"
+        },
+        {
+          "tag": "H2",
+          "id": "阴影",
+          "text": "阴影#"
+        },
+        {
+          "tag": "H2",
+          "id": "动效",
+          "text": "动效#"
+        },
+        {
+          "tag": "H2",
+          "id": "透明度",
+          "text": "透明度#"
+        },
+        {
+          "tag": "H2",
+          "id": "层级",
+          "text": "层级#"
+        },
+        {
+          "tag": "H2",
+          "id": "三层令牌与主题",
+          "text": "三层令牌与主题#"
+        },
+        {
+          "tag": "H2",
+          "id": "维护-误用与验收",
+          "text": "维护、误用与验收#"
+        },
+        {
+          "tag": "H2",
+          "id": "工作台示例",
+          "text": "工作台示例#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "import globalToken, { vars } from \"@crab-dev/rc-token-global\";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-string",
+          "text": "\"@crab-dev/rc-token-global\""
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "// var(--token-global-blue-600, oklch(0.546 0.245 262))"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-comment",
+          "text": "// var(--token-global-blue-600, oklch(0.546 0.245 262))"
+        },
+        {
+          "tag": "DIV",
+          "class": "tgr-item tokenEntries_93adf28ebebd",
+          "text": "100"
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-button-ee08045eda69 rc-button-adb2c8f1dd2f rc-button-3c96d6bb2dd6 tgr-color-choice",
+          "text": "100"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "100"
+        },
+        {
+          "tag": "SPAN",
+          "class": "tgr-tone",
+          "text": "100"
+        },
+        {
+          "tag": "DIV",
+          "class": "tgr-item tokenEntries_f693287a0551",
+          "text": "600"
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-button-ee08045eda69 rc-button-adb2c8f1dd2f rc-button-3c96d6bb2dd6 tgr-color-choice",
+          "text": "600"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "600"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-global",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "TokenGlobal 全局令牌 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 26049,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenGlobal 全局令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokenglobal-全局令牌",
+          "text": "TokenGlobal 全局令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "定位与使用边界",
+          "text": "定位与使用边界#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "颜色",
+          "text": "颜色#"
+        },
+        {
+          "tag": "H2",
+          "id": "间距",
+          "text": "间距#"
+        },
+        {
+          "tag": "H2",
+          "id": "圆角",
+          "text": "圆角#"
+        },
+        {
+          "tag": "H2",
+          "id": "字体与排版",
+          "text": "字体与排版#"
+        },
+        {
+          "tag": "H2",
+          "id": "阴影",
+          "text": "阴影#"
+        },
+        {
+          "tag": "H2",
+          "id": "动效",
+          "text": "动效#"
+        },
+        {
+          "tag": "H2",
+          "id": "透明度",
+          "text": "透明度#"
+        },
+        {
+          "tag": "H2",
+          "id": "层级",
+          "text": "层级#"
+        },
+        {
+          "tag": "H2",
+          "id": "三层令牌与主题",
+          "text": "三层令牌与主题#"
+        },
+        {
+          "tag": "H2",
+          "id": "维护-误用与验收",
+          "text": "维护、误用与验收#"
+        },
+        {
+          "tag": "H2",
+          "id": "工作台示例",
+          "text": "工作台示例#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "const floatingSurface = css`box-shadow: ${token.shadow.float};`;"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "const opacitySample = css`opacity: ${globalToken.opacity[50]};`;"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-global",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "TokenGlobal 全局令牌 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 21727,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenGlobal 全局令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokenglobal-全局令牌",
+          "text": "TokenGlobal 全局令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "定位与使用边界",
+          "text": "定位与使用边界#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "颜色",
+          "text": "颜色#"
+        },
+        {
+          "tag": "H2",
+          "id": "间距",
+          "text": "间距#"
+        },
+        {
+          "tag": "H2",
+          "id": "圆角",
+          "text": "圆角#"
+        },
+        {
+          "tag": "H2",
+          "id": "字体与排版",
+          "text": "字体与排版#"
+        },
+        {
+          "tag": "H2",
+          "id": "阴影",
+          "text": "阴影#"
+        },
+        {
+          "tag": "H2",
+          "id": "动效",
+          "text": "动效#"
+        },
+        {
+          "tag": "H2",
+          "id": "透明度",
+          "text": "透明度#"
+        },
+        {
+          "tag": "H2",
+          "id": "层级",
+          "text": "层级#"
+        },
+        {
+          "tag": "H2",
+          "id": "三层令牌与主题",
+          "text": "三层令牌与主题#"
+        },
+        {
+          "tag": "H2",
+          "id": "维护-误用与验收",
+          "text": "维护、误用与验收#"
+        },
+        {
+          "tag": "H2",
+          "id": "工作台示例",
+          "text": "工作台示例#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-global",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "TokenGlobal 全局令牌 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 34779,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenGlobal 全局令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokenglobal-全局令牌",
+          "text": "TokenGlobal 全局令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "定位与使用边界",
+          "text": "定位与使用边界#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "颜色",
+          "text": "颜色#"
+        },
+        {
+          "tag": "H2",
+          "id": "间距",
+          "text": "间距#"
+        },
+        {
+          "tag": "H2",
+          "id": "圆角",
+          "text": "圆角#"
+        },
+        {
+          "tag": "H2",
+          "id": "字体与排版",
+          "text": "字体与排版#"
+        },
+        {
+          "tag": "H2",
+          "id": "阴影",
+          "text": "阴影#"
+        },
+        {
+          "tag": "H2",
+          "id": "动效",
+          "text": "动效#"
+        },
+        {
+          "tag": "H2",
+          "id": "透明度",
+          "text": "透明度#"
+        },
+        {
+          "tag": "H2",
+          "id": "层级",
+          "text": "层级#"
+        },
+        {
+          "tag": "H2",
+          "id": "三层令牌与主题",
+          "text": "三层令牌与主题#"
+        },
+        {
+          "tag": "H2",
+          "id": "维护-误用与验收",
+          "text": "维护、误用与验收#"
+        },
+        {
+          "tag": "H2",
+          "id": "工作台示例",
+          "text": "工作台示例#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "import globalToken, { vars } from \"@crab-dev/rc-token-global\";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-string",
+          "text": "\"@crab-dev/rc-token-global\""
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "// var(--token-global-blue-600, oklch(0.546 0.245 262))"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-comment",
+          "text": "// var(--token-global-blue-600, oklch(0.546 0.245 262))"
+        },
+        {
+          "tag": "DIV",
+          "class": "tgr-item tokenEntries_93adf28ebebd",
+          "text": "100"
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-button-ee08045eda69 rc-button-adb2c8f1dd2f rc-button-3c96d6bb2dd6 tgr-color-choice",
+          "text": "100"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "100"
+        },
+        {
+          "tag": "SPAN",
+          "class": "tgr-tone",
+          "text": "100"
+        },
+        {
+          "tag": "DIV",
+          "class": "tgr-item tokenEntries_f693287a0551",
+          "text": "600"
+        },
+        {
+          "tag": "BUTTON",
+          "class": "rc-button-ee08045eda69 rc-button-adb2c8f1dd2f rc-button-3c96d6bb2dd6 tgr-color-choice",
+          "text": "600"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "600"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-global",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "TokenGlobal 全局令牌 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 26049,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenGlobal 全局令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokenglobal-全局令牌",
+          "text": "TokenGlobal 全局令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "定位与使用边界",
+          "text": "定位与使用边界#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "颜色",
+          "text": "颜色#"
+        },
+        {
+          "tag": "H2",
+          "id": "间距",
+          "text": "间距#"
+        },
+        {
+          "tag": "H2",
+          "id": "圆角",
+          "text": "圆角#"
+        },
+        {
+          "tag": "H2",
+          "id": "字体与排版",
+          "text": "字体与排版#"
+        },
+        {
+          "tag": "H2",
+          "id": "阴影",
+          "text": "阴影#"
+        },
+        {
+          "tag": "H2",
+          "id": "动效",
+          "text": "动效#"
+        },
+        {
+          "tag": "H2",
+          "id": "透明度",
+          "text": "透明度#"
+        },
+        {
+          "tag": "H2",
+          "id": "层级",
+          "text": "层级#"
+        },
+        {
+          "tag": "H2",
+          "id": "三层令牌与主题",
+          "text": "三层令牌与主题#"
+        },
+        {
+          "tag": "H2",
+          "id": "维护-误用与验收",
+          "text": "维护、误用与验收#"
+        },
+        {
+          "tag": "H2",
+          "id": "工作台示例",
+          "text": "工作台示例#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "const floatingSurface = css`box-shadow: ${token.shadow.float};`;"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "const opacitySample = css`opacity: ${globalToken.opacity[50]};`;"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-global",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "TokenGlobal 全局令牌 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 21727,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenGlobal 全局令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokenglobal-全局令牌",
+          "text": "TokenGlobal 全局令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "定位与使用边界",
+          "text": "定位与使用边界#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "颜色",
+          "text": "颜色#"
+        },
+        {
+          "tag": "H2",
+          "id": "间距",
+          "text": "间距#"
+        },
+        {
+          "tag": "H2",
+          "id": "圆角",
+          "text": "圆角#"
+        },
+        {
+          "tag": "H2",
+          "id": "字体与排版",
+          "text": "字体与排版#"
+        },
+        {
+          "tag": "H2",
+          "id": "阴影",
+          "text": "阴影#"
+        },
+        {
+          "tag": "H2",
+          "id": "动效",
+          "text": "动效#"
+        },
+        {
+          "tag": "H2",
+          "id": "透明度",
+          "text": "透明度#"
+        },
+        {
+          "tag": "H2",
+          "id": "层级",
+          "text": "层级#"
+        },
+        {
+          "tag": "H2",
+          "id": "三层令牌与主题",
+          "text": "三层令牌与主题#"
+        },
+        {
+          "tag": "H2",
+          "id": "维护-误用与验收",
+          "text": "维护、误用与验收#"
+        },
+        {
+          "tag": "H2",
+          "id": "工作台示例",
+          "text": "工作台示例#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-semantic",
+      "expectedTheme": "light",
+      "width": 320,
+      "title": "TokenSemantic 语义令牌 · Crab UI",
+      "theme": "light",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 5506,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenSemantic 语义令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokensemantic-语义令牌",
+          "text": "TokenSemantic 语义令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#"
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#"
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#"
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "意图背景或主色配套前景使用边界主要操作color.brand.primarycolor.text.on-brand同时检查 hover / active 背景当"
+        },
+        {
+          "tag": "THEAD",
+          "class": "",
+          "text": "意图背景或主色配套前景使用边界"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "意图背景或主色配套前景使用边界"
+        },
+        {
+          "tag": "TH",
+          "class": "",
+          "text": "使用边界"
+        },
+        {
+          "tag": "TBODY",
+          "class": "",
+          "text": "主要操作color.brand.primarycolor.text.on-brand同时检查 hover / active 背景当前选择color.select"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "主要操作color.brand.primarycolor.text.on-brand同时检查 hover / active 背景"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "同时检查 hover / active 背景"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "当前选择color.selection.backgroundcolor.selection.foreground同时提供选择标记或 ARIA"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "同时提供选择标记或 ARIA"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "阅读容器color.background.surfacecolor.text.primary / secondary必要边界用 border.default，装"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "必要边界用 border.default，装饰分隔用 border.subtle"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "反馈color.feedback 中对应意图的 background / solidtext / on-solid不混用容器文字和实心按钮前景"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-semantic",
+      "expectedTheme": "light",
+      "width": 768,
+      "title": "TokenSemantic 语义令牌 · Crab UI",
+      "theme": "light",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 4499,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenSemantic 语义令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokensemantic-语义令牌",
+          "text": "TokenSemantic 语义令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#"
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#"
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#"
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "import { themeColorContract } from \"@crab-dev/rc-token-semantic\";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-string",
+          "text": "\"@crab-dev/rc-token-semantic\""
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-semantic",
+      "expectedTheme": "light",
+      "width": 1440,
+      "title": "TokenSemantic 语义令牌 · Crab UI",
+      "theme": "light",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 3769,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenSemantic 语义令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokensemantic-语义令牌",
+          "text": "TokenSemantic 语义令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#"
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#"
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#"
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-semantic",
+      "expectedTheme": "dark",
+      "width": 320,
+      "title": "TokenSemantic 语义令牌 · Crab UI",
+      "theme": "dark",
+      "viewport": 320,
+      "pageWidth": 305,
+      "height": 5506,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenSemantic 语义令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokensemantic-语义令牌",
+          "text": "TokenSemantic 语义令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#"
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#"
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#"
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "TABLE",
+          "class": "",
+          "text": "意图背景或主色配套前景使用边界主要操作color.brand.primarycolor.text.on-brand同时检查 hover / active 背景当"
+        },
+        {
+          "tag": "THEAD",
+          "class": "",
+          "text": "意图背景或主色配套前景使用边界"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "意图背景或主色配套前景使用边界"
+        },
+        {
+          "tag": "TH",
+          "class": "",
+          "text": "使用边界"
+        },
+        {
+          "tag": "TBODY",
+          "class": "",
+          "text": "主要操作color.brand.primarycolor.text.on-brand同时检查 hover / active 背景当前选择color.select"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "主要操作color.brand.primarycolor.text.on-brand同时检查 hover / active 背景"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "同时检查 hover / active 背景"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "当前选择color.selection.backgroundcolor.selection.foreground同时提供选择标记或 ARIA"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "同时提供选择标记或 ARIA"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "阅读容器color.background.surfacecolor.text.primary / secondary必要边界用 border.default，装"
+        },
+        {
+          "tag": "TD",
+          "class": "",
+          "text": "必要边界用 border.default，装饰分隔用 border.subtle"
+        },
+        {
+          "tag": "TR",
+          "class": "",
+          "text": "反馈color.feedback 中对应意图的 background / solidtext / on-solid不混用容器文字和实心按钮前景"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-semantic",
+      "expectedTheme": "dark",
+      "width": 768,
+      "title": "TokenSemantic 语义令牌 · Crab UI",
+      "theme": "dark",
+      "viewport": 768,
+      "pageWidth": 753,
+      "height": 4499,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenSemantic 语义令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokensemantic-语义令牌",
+          "text": "TokenSemantic 语义令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#"
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#"
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#"
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#"
+        }
+      ],
+      "outside": [
+        {
+          "tag": "SPAN",
+          "class": "code-line",
+          "text": "import { themeColorContract } from \"@crab-dev/rc-token-semantic\";"
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-string",
+          "text": "\"@crab-dev/rc-token-semantic\""
+        },
+        {
+          "tag": "SPAN",
+          "class": "syntax-punctuation",
+          "text": ";"
+        }
+      ],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    },
+    {
+      "route": "/components/rc-token-semantic",
+      "expectedTheme": "dark",
+      "width": 1440,
+      "title": "TokenSemantic 语义令牌 · Crab UI",
+      "theme": "dark",
+      "viewport": 1440,
+      "pageWidth": 1425,
+      "height": 3769,
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "TokenSemantic 语义令牌"
+        },
+        {
+          "tag": "H1",
+          "id": "tokensemantic-语义令牌",
+          "text": "TokenSemantic 语义令牌#"
+        },
+        {
+          "tag": "H2",
+          "id": "基础示例",
+          "text": "基础示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "开始之前",
+          "text": "开始之前#"
+        },
+        {
+          "tag": "H2",
+          "id": "跟着做",
+          "text": "跟着做#"
+        },
+        {
+          "tag": "H2",
+          "id": "常见问题",
+          "text": "常见问题#"
+        },
+        {
+          "tag": "H2",
+          "id": "更多示例",
+          "text": "更多示例#"
+        },
+        {
+          "tag": "H2",
+          "id": "使用说明",
+          "text": "使用说明#"
+        }
+      ],
+      "outside": [],
+      "errors": [],
+      "overflow": false,
+      "themeMatches": true
+    }
+  ]
+}

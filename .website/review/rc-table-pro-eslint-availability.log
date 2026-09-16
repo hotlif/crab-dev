@@ -1,0 +1,19 @@
+typescript-eslint does not support TS 7.0.
+Please see https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0 to run typescript-eslint using the TS 6 API.
+See also https://github.com/typescript-eslint/typescript-eslint/issues/10940 for tracking typescript-eslint's support for TS >=7.1
+
+Oops! Something went wrong! :(
+
+ESLint: 10.10.0
+
+Error: typescript-eslint does not support TS 7.0.
+    at Object.<anonymous> (C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\@typescript-eslint-eslint-plugin-virtual-7e34f32844\0\cache\@typescript-eslint-eslint-plugin-npm-8.70.0-2fa0e44725-e69f6f6974.zip\node_modules\@typescript-eslint\eslint-plugin\dist\index.js:50:11)
+    at Module._compile (node:internal/modules/cjs/loader:1730:14)
+    at Object..js (node:internal/modules/cjs/loader:1895:10)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1282:12)
+    at require$$0.Module._load (C:\Users\zhang\Desktop\crab-dev\.pnp.cjs:15383:31)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at cjsLoader (node:internal/modules/esm/translators:266:5)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:200:7)

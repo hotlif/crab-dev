@@ -1,0 +1,275 @@
+{
+  "workbench": [
+    {
+      "brand": "oklch(0.49552086 0.13045663 293.709078)",
+      "density": "standard",
+      "overflow": false,
+      "rows": [
+        44,
+        44,
+        44
+      ],
+      "theme": "light",
+      "inputContentHeight": 20
+    },
+    {
+      "brand": "oklch(0.49552086 0.13045663 293.709078)",
+      "density": "compact",
+      "overflow": false,
+      "rows": [
+        36,
+        36,
+        36
+      ],
+      "theme": "light",
+      "inputContentHeight": 20
+    },
+    {
+      "brand": "oklch(0.83492620 0.09457492 298.017957)",
+      "density": "standard",
+      "overflow": false,
+      "rows": [
+        44,
+        44,
+        44
+      ],
+      "theme": "dark",
+      "inputContentHeight": 20
+    },
+    {
+      "brand": "oklch(0.83492620 0.09457492 298.017957)",
+      "density": "compact",
+      "overflow": false,
+      "rows": [
+        36,
+        36,
+        36
+      ],
+      "theme": "dark",
+      "inputContentHeight": 20
+    }
+  ],
+  "form": [
+    {
+      "border": "oklch(0.566747 0.0162745 308.142)",
+      "control": 36,
+      "density": "standard",
+      "theme": "light"
+    },
+    {
+      "border": "oklch(0.566747 0.0162745 308.142)",
+      "control": 28,
+      "density": "compact",
+      "theme": "light"
+    },
+    {
+      "border": "oklch(0.656643 0.0153077 304.011)",
+      "control": 36,
+      "density": "standard",
+      "theme": "dark"
+    },
+    {
+      "border": "oklch(0.656643 0.0153077 304.011)",
+      "control": 28,
+      "density": "compact",
+      "theme": "dark"
+    }
+  ],
+  "states": [
+    {
+      "buttons": [
+        {
+          "bg": "oklch(0.495521 0.130457 293.709)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(1 4.00000e-8 0)",
+          "height": 36,
+          "pressed": null,
+          "text": "创建项目"
+        },
+        {
+          "bg": "color(srgb 0.451561 0.368656 0.671729)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(1 4.00000e-8 0)",
+          "height": 36,
+          "pressed": "true",
+          "text": "✓ 已关注"
+        },
+        {
+          "bg": "color(srgb 0.865929 0.847889 0.877865)",
+          "busy": "false",
+          "disabled": true,
+          "fg": "rgba(16, 16, 16, 0.3)",
+          "height": 36,
+          "pressed": null,
+          "text": "发布"
+        },
+        {
+          "bg": "color(srgb 0.865929 0.847889 0.877865)",
+          "busy": "true",
+          "disabled": true,
+          "fg": "rgba(16, 16, 16, 0.3)",
+          "height": 36,
+          "pressed": null,
+          "text": "保存中"
+        }
+      ],
+      "density": "standard",
+      "overflow": false,
+      "theme": "light"
+    },
+    {
+      "buttons": [
+        {
+          "bg": "oklch(0.495521 0.130457 293.709)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(1 4.00000e-8 0)",
+          "height": 28,
+          "pressed": null,
+          "text": "创建项目"
+        },
+        {
+          "bg": "oklch(0.967283 0.0118141 313.217)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(0.226524 0.00999107 303.714)",
+          "height": 28,
+          "pressed": "false",
+          "text": "关注项目"
+        },
+        {
+          "bg": "color(srgb 0.865929 0.847889 0.877865)",
+          "busy": "false",
+          "disabled": true,
+          "fg": "rgba(16, 16, 16, 0.3)",
+          "height": 28,
+          "pressed": null,
+          "text": "发布"
+        },
+        {
+          "bg": "color(srgb 0.865929 0.847889 0.877865)",
+          "busy": "true",
+          "disabled": true,
+          "fg": "rgba(16, 16, 16, 0.3)",
+          "height": 28,
+          "pressed": null,
+          "text": "保存中"
+        }
+      ],
+      "density": "compact",
+      "overflow": false,
+      "theme": "light"
+    },
+    {
+      "buttons": [
+        {
+          "bg": "oklch(0.834926 0.0945749 298.018)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(0.325102 0.135285 291.152)",
+          "height": 36,
+          "pressed": null,
+          "text": "创建项目"
+        },
+        {
+          "bg": "color(srgb 0.767914 0.687729 0.955827)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(0.325102 0.135285 291.152)",
+          "height": 36,
+          "pressed": "true",
+          "text": "✓ 已关注"
+        },
+        {
+          "bg": "color(srgb 0.208283 0.198601 0.220096)",
+          "busy": "false",
+          "disabled": true,
+          "fg": "rgba(255, 255, 255, 0.3)",
+          "height": 36,
+          "pressed": null,
+          "text": "发布"
+        },
+        {
+          "bg": "color(srgb 0.208283 0.198601 0.220096)",
+          "busy": "true",
+          "disabled": true,
+          "fg": "rgba(255, 255, 255, 0.3)",
+          "height": 36,
+          "pressed": null,
+          "text": "保存中"
+        }
+      ],
+      "density": "standard",
+      "overflow": false,
+      "theme": "dark"
+    },
+    {
+      "buttons": [
+        {
+          "bg": "oklch(0.834926 0.0945749 298.018)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(0.325102 0.135285 291.152)",
+          "height": 28,
+          "pressed": null,
+          "text": "创建项目"
+        },
+        {
+          "bg": "oklch(0.226524 0.00999107 303.714)",
+          "busy": "false",
+          "disabled": false,
+          "fg": "oklch(0.914011 0.0136639 314.754)",
+          "height": 28,
+          "pressed": "false",
+          "text": "关注项目"
+        },
+        {
+          "bg": "color(srgb 0.208283 0.198601 0.220096)",
+          "busy": "false",
+          "disabled": true,
+          "fg": "rgba(255, 255, 255, 0.3)",
+          "height": 28,
+          "pressed": null,
+          "text": "发布"
+        },
+        {
+          "bg": "color(srgb 0.208283 0.198601 0.220096)",
+          "busy": "true",
+          "disabled": true,
+          "fg": "rgba(255, 255, 255, 0.3)",
+          "height": 28,
+          "pressed": null,
+          "text": "保存中"
+        }
+      ],
+      "density": "compact",
+      "overflow": false,
+      "theme": "dark"
+    }
+  ],
+  "focus": [
+    {
+      "focusVisible": true,
+      "focused": "关注项目",
+      "offset": "2px",
+      "outline": "oklch(0.495521 0.130457 293.709) solid 2px",
+      "theme": "light",
+      "transition": "0s"
+    },
+    {
+      "focusVisible": true,
+      "focused": "关注项目",
+      "offset": "2px",
+      "outline": "oklch(0.834926 0.0945749 298.018) solid 2px",
+      "theme": "dark",
+      "transition": "0s"
+    }
+  ],
+  "notes": [
+    "工作台 inputContentHeight 为输入框内部文本区，外框在独立测量中为标准 36px、紧凑 28px。",
+    "当前系统 prefers-reduced-motion 为 reduce；实测 transitionDuration 为 0s。",
+    "forced-colors 当前未启用，仅检查生产 CSS 中的系统色与焦点规则。"
+  ]
+}

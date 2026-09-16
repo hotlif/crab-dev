@@ -1,0 +1,4 @@
+PASS Purple keyboard selection: {"name":"查看 purple.20","pressed":"true","reference":"globalToken.purple[\"20\"]","focus":"solid","tabStops":1}
+PASS Copy public expression and retain focus: {"text":"globalToken.purple[\"20\"]","status":"已复制","focused":true}
+PASS Copy denial retains selectable code: {"status":"复制失败，请选择上方代码复制","code":"globalToken.purple[\"20\"]","selection":"auto"}
+PASS Reduced motion preserves explicit state change: {"before":"false","after":"true","reduced":true,"note":"block","samples":[{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"},{"transition":"0s","animation":"none"}]}

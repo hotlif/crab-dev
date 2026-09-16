@@ -1,0 +1,14 @@
+[
+  {
+    "package": "rc-realm",
+    "file": "_wake/src/shareScope.mjs",
+    "line": 38,
+    "message": "'__webpack_init_sharing__' is not defined."
+  },
+  {
+    "package": "rc-realm",
+    "file": "_wake/src/shareScope.mjs",
+    "line": 39,
+    "message": "'__webpack_share_scopes__' is not defined."
+  }
+]

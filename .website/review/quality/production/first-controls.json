@@ -1,0 +1,657 @@
+{
+  "capturedAt": "2026-09-16T06:19:13.789Z",
+  "revision": {
+    "sha256": "3c6f3dceb65ea33dc88774c0e41c1651b040e5790b68fca798f964cbe790b3dd",
+    "files": 2542,
+    "bytes": 189462501
+  },
+  "scope": "Rendered first live examples in isolated Chrome; no screen reader or physical device claim; React gate remains separate.",
+  "results": [
+    {
+      "check": "checkbox light normal keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "oklch(0.495521 0.130457 293.709)",
+      "color": "oklch(0.14 0.004 286)",
+      "background": "oklch(0.495521 0.130457 293.709)",
+      "forced": false,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "checkbox light normal Space",
+      "passed": true,
+      "before": true,
+      "after": false
+    },
+    {
+      "check": "checkbox light forced keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "rgb(55, 0, 110)",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(55, 0, 110)",
+      "forced": true,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "checkbox light forced Space",
+      "passed": true,
+      "before": true,
+      "after": false
+    },
+    {
+      "check": "checkbox light system color state distinction",
+      "passed": true,
+      "before": "rgb(55, 0, 110)",
+      "after": "rgb(255, 255, 255)"
+    },
+    {
+      "check": "checkbox dark normal keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "oklch(0.834926 0.0945749 298.018)",
+      "color": "oklch(0.98 0.002 286)",
+      "background": "oklch(0.834926 0.0945749 298.018)",
+      "forced": false,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "checkbox dark normal Space",
+      "passed": true,
+      "before": true,
+      "after": false
+    },
+    {
+      "check": "checkbox dark forced keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "rgb(26, 235, 255)",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(26, 235, 255)",
+      "forced": true,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "checkbox dark forced Space",
+      "passed": true,
+      "before": true,
+      "after": false
+    },
+    {
+      "check": "checkbox dark system color state distinction",
+      "passed": true,
+      "before": "rgb(26, 235, 255)",
+      "after": "rgb(0, 0, 0)"
+    },
+    {
+      "check": "checkbox coarse target",
+      "passed": true,
+      "coarse": true,
+      "width": 104,
+      "height": 44
+    },
+    {
+      "check": "radio light normal keyboard focus",
+      "passed": true,
+      "index": 1,
+      "count": 2,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "oklch(0.495521 0.130457 293.709)",
+      "color": "oklch(0.14 0.004 286)",
+      "background": "oklch(0.495521 0.130457 293.709)",
+      "forced": false,
+      "label": "每周",
+      "accessibleName": "每周"
+    },
+    {
+      "check": "radio light normal Space",
+      "passed": true,
+      "before": true,
+      "after": true
+    },
+    {
+      "check": "radio light normal arrow moves within group",
+      "passed": true,
+      "index": 0,
+      "background": "oklch(1 0 0)"
+    },
+    {
+      "check": "radio light normal arrow loop stays in group",
+      "passed": true,
+      "focusedOriginal": true,
+      "checked": [
+        false,
+        true
+      ],
+      "sameGroup": true,
+      "named": true
+    },
+    {
+      "check": "radio light forced keyboard focus",
+      "passed": true,
+      "index": 1,
+      "count": 2,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "rgb(55, 0, 110)",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(55, 0, 110)",
+      "forced": true,
+      "label": "每周",
+      "accessibleName": "每周"
+    },
+    {
+      "check": "radio light forced Space",
+      "passed": true,
+      "before": true,
+      "after": true
+    },
+    {
+      "check": "radio light forced arrow moves within group",
+      "passed": true,
+      "index": 0,
+      "background": "rgb(255, 255, 255)"
+    },
+    {
+      "check": "radio light system color state distinction",
+      "passed": true,
+      "checked": "rgb(55, 0, 110)",
+      "unchecked": "rgb(255, 255, 255)"
+    },
+    {
+      "check": "radio light forced arrow loop stays in group",
+      "passed": true,
+      "focusedOriginal": true,
+      "checked": [
+        false,
+        true
+      ],
+      "sameGroup": true,
+      "named": true
+    },
+    {
+      "check": "radio dark normal keyboard focus",
+      "passed": true,
+      "index": 1,
+      "count": 2,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "oklch(0.834926 0.0945749 298.018)",
+      "color": "oklch(0.98 0.002 286)",
+      "background": "oklch(0.834926 0.0945749 298.018)",
+      "forced": false,
+      "label": "每周",
+      "accessibleName": "每周"
+    },
+    {
+      "check": "radio dark normal Space",
+      "passed": true,
+      "before": true,
+      "after": true
+    },
+    {
+      "check": "radio dark normal arrow moves within group",
+      "passed": true,
+      "index": 0,
+      "background": "oklch(0.14 0.004 286)"
+    },
+    {
+      "check": "radio dark normal arrow loop stays in group",
+      "passed": true,
+      "focusedOriginal": true,
+      "checked": [
+        false,
+        true
+      ],
+      "sameGroup": true,
+      "named": true
+    },
+    {
+      "check": "radio dark forced keyboard focus",
+      "passed": true,
+      "index": 1,
+      "count": 2,
+      "focused": true,
+      "visible": true,
+      "state": true,
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "rgb(26, 235, 255)",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(26, 235, 255)",
+      "forced": true,
+      "label": "每周",
+      "accessibleName": "每周"
+    },
+    {
+      "check": "radio dark forced Space",
+      "passed": true,
+      "before": true,
+      "after": true
+    },
+    {
+      "check": "radio dark forced arrow moves within group",
+      "passed": true,
+      "index": 0,
+      "background": "rgb(0, 0, 0)"
+    },
+    {
+      "check": "radio dark system color state distinction",
+      "passed": true,
+      "checked": "rgb(26, 235, 255)",
+      "unchecked": "rgb(0, 0, 0)"
+    },
+    {
+      "check": "radio dark forced arrow loop stays in group",
+      "passed": true,
+      "focusedOriginal": true,
+      "checked": [
+        false,
+        true
+      ],
+      "sameGroup": true,
+      "named": true
+    },
+    {
+      "check": "radio coarse target",
+      "passed": true,
+      "coarse": true,
+      "width": 48,
+      "height": 44
+    },
+    {
+      "check": "switch light normal keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": "true",
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "oklch(0.495521 0.130457 293.709)",
+      "color": "rgb(0, 0, 0)",
+      "background": "oklch(0.495521 0.130457 293.709)",
+      "forced": false,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "switch light normal Space",
+      "passed": true,
+      "before": "true",
+      "after": "false"
+    },
+    {
+      "check": "switch light forced keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": "true",
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "rgb(55, 0, 110)",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(55, 0, 110)",
+      "forced": true,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "switch light forced Space",
+      "passed": true,
+      "before": "true",
+      "after": "false"
+    },
+    {
+      "check": "switch light system color state distinction",
+      "passed": true,
+      "before": "rgb(55, 0, 110)",
+      "after": "rgb(255, 255, 255)"
+    },
+    {
+      "check": "switch dark normal keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": "true",
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "oklch(0.834926 0.0945749 298.018)",
+      "color": "rgb(255, 255, 255)",
+      "background": "oklch(0.834926 0.0945749 298.018)",
+      "forced": false,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "switch dark normal Space",
+      "passed": true,
+      "before": "true",
+      "after": "false"
+    },
+    {
+      "check": "switch dark forced keyboard focus",
+      "passed": true,
+      "index": 0,
+      "count": 1,
+      "focused": true,
+      "visible": true,
+      "state": "true",
+      "outline": "solid",
+      "outlineWidth": 2,
+      "outlineColor": "rgb(26, 235, 255)",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(26, 235, 255)",
+      "forced": true,
+      "label": "接收项目通知",
+      "accessibleName": "接收项目通知"
+    },
+    {
+      "check": "switch dark forced Space",
+      "passed": true,
+      "before": "true",
+      "after": "false"
+    },
+    {
+      "check": "switch dark system color state distinction",
+      "passed": true,
+      "before": "rgb(26, 235, 255)",
+      "after": "rgb(0, 0, 0)"
+    },
+    {
+      "check": "switch coarse target",
+      "passed": true,
+      "coarse": true,
+      "width": 132,
+      "height": 44
+    },
+    {
+      "check": "button light loading activation",
+      "passed": true,
+      "buttons": [
+        {
+          "name": "primary",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(1 0 0)",
+          "background": "oklch(0.495521 0.130457 293.709)"
+        },
+        {
+          "name": "subtle",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.14 0.004 286)",
+          "background": "oklch(1 0 0)"
+        },
+        {
+          "name": "dashed",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.14 0.004 286)",
+          "background": "oklch(1 0 0)"
+        },
+        {
+          "name": "text",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "link",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.495521 0.130457 293.709)",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "check": "button light standalone public theme",
+      "passed": true,
+      "expected": {
+        "background": "oklch(0.495521 0.130457 293.709)",
+        "foreground": "oklch(1 0 0)"
+      },
+      "actual": {
+        "name": "primary",
+        "busy": "true",
+        "disabled": "true",
+        "defaultPrevented": true,
+        "opacity": "1",
+        "color": "oklch(1 0 0)",
+        "background": "oklch(0.495521 0.130457 293.709)"
+      }
+    },
+    {
+      "check": "button light loading Enter",
+      "passed": true,
+      "activation": {
+        "keyGenerated": true,
+        "defaultPrevented": true
+      },
+      "focused": true,
+      "outline": "solid"
+    },
+    {
+      "check": "button light coarse targets",
+      "passed": true,
+      "targets": [
+        {
+          "width": 93.3125,
+          "height": 44
+        },
+        {
+          "width": 85.5625,
+          "height": 44
+        },
+        {
+          "width": 92.796875,
+          "height": 44
+        },
+        {
+          "width": 69.25,
+          "height": 44
+        },
+        {
+          "width": 67.671875,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "check": "button light selected state after keyboard activation",
+      "passed": true,
+      "toggles": [
+        {
+          "name": "左对齐",
+          "pressed": "false"
+        },
+        {
+          "name": "居中对齐",
+          "pressed": "true"
+        },
+        {
+          "name": "右对齐",
+          "pressed": "false"
+        }
+      ]
+    },
+    {
+      "check": "button dark loading activation",
+      "passed": true,
+      "buttons": [
+        {
+          "name": "primary",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.325102 0.135285 291.152)",
+          "background": "oklch(0.834926 0.0945749 298.018)"
+        },
+        {
+          "name": "subtle",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.98 0.002 286)",
+          "background": "oklch(0.14 0.004 286)"
+        },
+        {
+          "name": "dashed",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.98 0.002 286)",
+          "background": "oklch(0.14 0.004 286)"
+        },
+        {
+          "name": "text",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "name": "link",
+          "busy": "true",
+          "disabled": "true",
+          "defaultPrevented": true,
+          "opacity": "1",
+          "color": "oklch(0.834926 0.0945749 298.018)",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "check": "button dark standalone public theme",
+      "passed": true,
+      "expected": {
+        "background": "oklch(0.834926 0.0945749 298.018)",
+        "foreground": "oklch(0.325102 0.135285 291.152)"
+      },
+      "actual": {
+        "name": "primary",
+        "busy": "true",
+        "disabled": "true",
+        "defaultPrevented": true,
+        "opacity": "1",
+        "color": "oklch(0.325102 0.135285 291.152)",
+        "background": "oklch(0.834926 0.0945749 298.018)"
+      }
+    },
+    {
+      "check": "button dark loading Enter",
+      "passed": true,
+      "activation": {
+        "keyGenerated": true,
+        "defaultPrevented": true
+      },
+      "focused": true,
+      "outline": "solid"
+    },
+    {
+      "check": "button dark coarse targets",
+      "passed": true,
+      "targets": [
+        {
+          "width": 93.3125,
+          "height": 44
+        },
+        {
+          "width": 85.5625,
+          "height": 44
+        },
+        {
+          "width": 92.796875,
+          "height": 44
+        },
+        {
+          "width": 69.25,
+          "height": 44
+        },
+        {
+          "width": 67.671875,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "check": "button dark selected state after keyboard activation",
+      "passed": true,
+      "toggles": [
+        {
+          "name": "左对齐",
+          "pressed": "false"
+        },
+        {
+          "name": "居中对齐",
+          "pressed": "true"
+        },
+        {
+          "name": "右对齐",
+          "pressed": "false"
+        }
+      ]
+    }
+  ],
+  "exceptions": []
+}

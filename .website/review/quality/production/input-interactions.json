@@ -1,0 +1,420 @@
+{
+  "capturedAt": "2026-09-16T06:19:29.510Z",
+  "revision": {
+    "sha256": "3c6f3dceb65ea33dc88774c0e41c1651b040e5790b68fca798f964cbe790b3dd",
+    "files": 2542,
+    "bytes": 189462501
+  },
+  "scope": "Production workbench keyboard and emulated media checks; no React gate, screen reader or physical touch pass implied.",
+  "results": [
+    {
+      "check": "line-edit light normal clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "line-edit light normal clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "line-edit light normal editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "line-edit light normal error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "oklch(0.577 0.245 25)",
+        "ring": "oklch(0.495521 0.130457 293.709)"
+      }
+    },
+    {
+      "check": "line-edit light forced clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "line-edit light forced clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "line-edit light forced editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "line-edit light forced error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "rgb(0, 0, 0)",
+        "ring": "rgb(55, 0, 110)"
+      }
+    },
+    {
+      "check": "line-edit dark normal clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "line-edit dark normal clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "line-edit dark normal editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "line-edit dark normal error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "oklch(0.704 0.191 22)",
+        "ring": "oklch(0.834926 0.0945749 298.018)"
+      }
+    },
+    {
+      "check": "line-edit dark forced clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "line-edit dark forced clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "line-edit dark forced editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "line-edit dark forced error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "rgb(255, 255, 255)",
+        "ring": "rgb(26, 235, 255)"
+      }
+    },
+    {
+      "check": "line-edit light 320 coarse targets",
+      "passed": true,
+      "evidence": {
+        "coarse": true,
+        "inputHeight": 44,
+        "actionWidth": 44,
+        "actionHeight": 44,
+        "containerRight": 289.5,
+        "viewport": 320,
+        "pageWidth": 320,
+        "actionWithin": true
+      }
+    },
+    {
+      "check": "line-edit dark 320 coarse targets",
+      "passed": true,
+      "evidence": {
+        "coarse": true,
+        "inputHeight": 44,
+        "actionWidth": 44,
+        "actionHeight": 44,
+        "containerRight": 289.5,
+        "viewport": 320,
+        "pageWidth": 320,
+        "actionWithin": true
+      }
+    },
+    {
+      "check": "text-edit light normal clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "text-edit light normal clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "text-edit light normal editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "text-edit light normal error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "oklch(0.577 0.245 25)",
+        "ring": "oklch(0.495521 0.130457 293.709)"
+      }
+    },
+    {
+      "check": "text-edit light forced clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "text-edit light forced clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "text-edit light forced editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "text-edit light forced error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "rgb(0, 0, 0)",
+        "ring": "rgb(55, 0, 110)"
+      }
+    },
+    {
+      "check": "text-edit dark normal clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "text-edit dark normal clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "text-edit dark normal editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "text-edit dark normal error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "oklch(0.704 0.191 22)",
+        "ring": "oklch(0.834926 0.0945749 298.018)"
+      }
+    },
+    {
+      "check": "text-edit dark forced clear focus",
+      "passed": true,
+      "evidence": {
+        "label": "清除",
+        "visible": true,
+        "outline": "solid",
+        "width": 2,
+        "controls": true
+      }
+    },
+    {
+      "check": "text-edit dark forced clear recovery",
+      "passed": true,
+      "evidence": {
+        "value": "",
+        "focus": true,
+        "clearExists": false
+      }
+    },
+    {
+      "check": "text-edit dark forced editing resumes",
+      "passed": true,
+      "evidence": {
+        "value": "继续编辑"
+      }
+    },
+    {
+      "check": "text-edit dark forced error and focus",
+      "passed": true,
+      "evidence": {
+        "invalid": "true",
+        "focus": true,
+        "outline": "solid",
+        "width": 2,
+        "border": "rgb(255, 255, 255)",
+        "ring": "rgb(26, 235, 255)"
+      }
+    },
+    {
+      "check": "text-edit light 320 coarse targets",
+      "passed": true,
+      "evidence": {
+        "coarse": true,
+        "inputHeight": 60,
+        "actionWidth": 44,
+        "actionHeight": 44,
+        "containerRight": 271,
+        "viewport": 320,
+        "pageWidth": 320,
+        "actionWithin": true
+      }
+    },
+    {
+      "check": "text-edit dark 320 coarse targets",
+      "passed": true,
+      "evidence": {
+        "coarse": true,
+        "inputHeight": 60,
+        "actionWidth": 44,
+        "actionHeight": 44,
+        "containerRight": 271,
+        "viewport": 320,
+        "pageWidth": 320,
+        "actionWithin": true
+      }
+    },
+    {
+      "check": "password light disabled",
+      "passed": true,
+      "evidence": {
+        "inputDisabled": true,
+        "actionDisabled": true,
+        "type": "password",
+        "notFocused": true
+      }
+    },
+    {
+      "check": "password light readOnly visibility",
+      "passed": true,
+      "evidence": {
+        "readOnly": true,
+        "value": "readonly-example",
+        "type": "text",
+        "label": "隐藏密码"
+      }
+    },
+    {
+      "check": "password dark disabled",
+      "passed": true,
+      "evidence": {
+        "inputDisabled": true,
+        "actionDisabled": true,
+        "type": "password",
+        "notFocused": true
+      }
+    },
+    {
+      "check": "password dark readOnly visibility",
+      "passed": true,
+      "evidence": {
+        "readOnly": true,
+        "value": "readonly-example",
+        "type": "text",
+        "label": "隐藏密码"
+      }
+    }
+  ],
+  "exceptions": []
+}

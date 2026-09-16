@@ -1,0 +1,726 @@
+{
+  "config": {
+    "environments": [],
+    "globals": {
+      "AggregateError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "ArrayBuffer": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Atomics": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "BigInt": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "BigInt64Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "BigUint64Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Boolean": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "DataView": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Date": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Error": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "EvalError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "FinalizationRegistry": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Float32Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Float64Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Function": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Infinity": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Int16Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Int32Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Int8Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Intl": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "JSON": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Map": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Math": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "NaN": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Number": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Object": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Promise": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Proxy": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "RangeError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "ReferenceError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Reflect": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "RegExp": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Set": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "SharedArrayBuffer": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "String": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Symbol": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "SyntaxError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "TypeError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "URIError": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Uint16Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Uint32Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Uint8Array": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "Uint8ClampedArray": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "WeakMap": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "WeakRef": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "WeakSet": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "decodeURI": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "decodeURIComponent": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "encodeURI": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "encodeURIComponent": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "eval": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "globalThis": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "isFinite": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "isNaN": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "parseFloat": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "parseInt": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      },
+      "undefined": {
+        "mode": "readonly",
+        "source": "standard:es2024@1"
+      }
+    },
+    "ignored": false,
+    "language": "tsx",
+    "path": "components/rc-button/src/button.tsx",
+    "pipelineVersion": "wake-lint-core-v74",
+    "reportUnusedDisable": "warn",
+    "rules": {
+      "a11y/alt-text": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/anchor-has-content": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/anchor-is-valid": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/aria-props": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/aria-proptypes": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/aria-role": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/click-events-have-key-events": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/interactive-supports-focus": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "a11y/label-has-associated-control": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "import/no-cycle": {
+        "level": "off",
+        "options": {
+          "commonjs": false,
+          "dynamic_imports": false,
+          "ignore_external": false,
+          "include_types": false
+        },
+        "source": "default"
+      },
+      "import/no-duplicates": {
+        "level": "off",
+        "options": {
+          "separate_type_imports": true
+        },
+        "source": "default"
+      },
+      "import/no-extraneous-dependencies": {
+        "level": "off",
+        "options": {
+          "dev_dependencies": false,
+          "include_types": true,
+          "optional_dependencies": true,
+          "peer_dependencies": true
+        },
+        "source": "default"
+      },
+      "import/no-restricted-paths": {
+        "level": "off",
+        "options": {
+          "zones": []
+        },
+        "source": "default"
+      },
+      "import/no-unresolved": {
+        "level": "off",
+        "options": {
+          "commonjs": true,
+          "dynamic_imports": true,
+          "ignore": [],
+          "include_types": true,
+          "report_unknown": true
+        },
+        "source": "default"
+      },
+      "import/order": {
+        "level": "off",
+        "options": {
+          "alphabetize": "ignore",
+          "case_insensitive": true,
+          "groups": [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "type",
+            "unknown"
+          ],
+          "newlines": "ignore"
+        },
+        "source": "default"
+      },
+      "js/consistent-return": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/eqeqeq": {
+        "level": "warn",
+        "options": {
+          "allow_null": false
+        },
+        "source": "preset:recommended@1"
+      },
+      "js/no-async-promise-executor": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-cond-assign": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-console": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-constant-binary-expression": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-constant-condition": {
+        "level": "warn",
+        "options": {
+          "check_loops": true
+        },
+        "source": "preset:recommended@1"
+      },
+      "js/no-debugger": {
+        "level": "error",
+        "options": {},
+        "source": "preset:recommended@1"
+      },
+      "js/no-dupe-keys": {
+        "level": "error",
+        "options": {},
+        "source": "preset:recommended@1"
+      },
+      "js/no-duplicate-case": {
+        "level": "error",
+        "options": {},
+        "source": "preset:recommended@1"
+      },
+      "js/no-duplicate-imports": {
+        "level": "off",
+        "options": {
+          "allow_separate_type_imports": false
+        },
+        "source": "default"
+      },
+      "js/no-empty": {
+        "level": "error",
+        "options": {
+          "allow_catch": false
+        },
+        "source": "preset:recommended@1"
+      },
+      "js/no-fallthrough": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-promise-executor-return": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-redeclare": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-self-assign": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-self-compare": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-shadow": {
+        "level": "off",
+        "options": {
+          "hoist": true,
+          "ignore_named_expressions": true
+        },
+        "source": "default"
+      },
+      "js/no-sparse-arrays": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-undef": {
+        "level": "off",
+        "options": {
+          "typeof": false
+        },
+        "source": "default"
+      },
+      "js/no-unreachable": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-unsafe-finally": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/no-unused-vars": {
+        "level": "off",
+        "options": {
+          "args": "after-used",
+          "args_ignore_pattern": "",
+          "caught_errors": "all",
+          "caught_errors_ignore_pattern": "",
+          "ignore_rest_siblings": false,
+          "report_used_ignore_pattern": false,
+          "vars": "all",
+          "vars_ignore_pattern": ""
+        },
+        "source": "default"
+      },
+      "js/no-use-before-define": {
+        "level": "off",
+        "options": {
+          "classes": true,
+          "functions": true,
+          "variables": true
+        },
+        "source": "default"
+      },
+      "js/no-var": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/prefer-const": {
+        "level": "off",
+        "options": {
+          "destructuring": "any",
+          "ignore_read_before_assign": false
+        },
+        "source": "default"
+      },
+      "js/use-isnan": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "js/valid-typeof": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react-hooks/exhaustive-deps": {
+        "level": "off",
+        "options": {
+          "additional_effect_hooks": ""
+        },
+        "source": "default"
+      },
+      "react-hooks/rules-of-hooks": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/jsx-key": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/jsx-no-duplicate-props": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/jsx-no-undef": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/jsx-uses-vars": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/no-array-index-key": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/no-children-prop": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/no-danger": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "react/self-closing-comp": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "style/comma-dangle": {
+        "level": "off",
+        "options": {
+          "mode": "never"
+        },
+        "source": "default"
+      },
+      "style/eol-last": {
+        "level": "off",
+        "options": {
+          "linebreak": "lf"
+        },
+        "source": "default"
+      },
+      "style/indent": {
+        "level": "off",
+        "options": {
+          "style": "spaces",
+          "width": 2
+        },
+        "source": "default"
+      },
+      "style/no-trailing-spaces": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "style/quotes": {
+        "level": "off",
+        "options": {
+          "quote": "single"
+        },
+        "source": "default"
+      },
+      "style/semi": {
+        "level": "off",
+        "options": {
+          "mode": "always"
+        },
+        "source": "default"
+      },
+      "ts/array-type": {
+        "level": "off",
+        "options": {
+          "syntax": "array"
+        },
+        "source": "default"
+      },
+      "ts/await-thenable": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/ban-ts-comment": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/consistent-type-exports": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/consistent-type-imports": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-empty-interface": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-explicit-any": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-floating-promises": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-misused-promises": {
+        "level": "off",
+        "options": {
+          "checks_conditionals": true,
+          "checks_void_return": true
+        },
+        "source": "default"
+      },
+      "ts/no-namespace": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-non-null-assertion": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-unnecessary-type-assertion": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-unsafe-assignment": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-unsafe-call": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/no-unsafe-member-access": {
+        "level": "off",
+        "options": {
+          "allow_optional": false
+        },
+        "source": "default"
+      },
+      "ts/no-unsafe-return": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      },
+      "ts/restrict-template-expressions": {
+        "level": "off",
+        "options": {
+          "allow_any": true,
+          "allow_boolean": true,
+          "allow_never": false,
+          "allow_nullish": true,
+          "allow_number": true,
+          "allow_regexp": false
+        },
+        "source": "default"
+      },
+      "ts/switch-exhaustiveness-check": {
+        "level": "off",
+        "options": {},
+        "source": "default"
+      }
+    },
+    "schema": "wake.lint.config.v1"
+  },
+  "errorCount": 0,
+  "exitCode": 0,
+  "files": [],
+  "warningCount": 0
+}

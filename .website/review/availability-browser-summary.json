@@ -1,0 +1,25 @@
+{
+  "componentSteps": 104,
+  "practiceSteps": 12,
+  "date": "2026-09-12",
+  "observedBrowserErrors": 0,
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "limitations": [
+    "Not all 246 advanced demo interactions tested",
+    "React tests blocked by retained 19.3.0",
+    "Formal ESLint and typecheck compatibility blockers remain"
+  ],
+  "unboundReferences": 0,
+  "productionJsFiles": 1867,
+  "componentViewports": [
+    320,
+    768,
+    1440
+  ],
+  "httpPassed": 104,
+  "httpRoutes": 104,
+  "componentPages": 52
+}
