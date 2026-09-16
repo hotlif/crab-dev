@@ -15,13 +15,13 @@
 | 工作区 | 职责 | 包命名 |
 | --- | --- | --- |
 | `components/` | React 19 UI 组件与全局、语义令牌包 | `@crab-dev/rc-{name}` |
-| `standards/` | ESLint、TypeScript 共享预设 | `@crab-dev/standards-{name}` |
+| `standards/` | TypeScript 共享预设与历史 ESLint 兼容包 | `@crab-dev/standards-{name}` |
 | `.website/` | 私有文档站 | 不发布 |
 
 核心工具职责：
 
-- `@crab-dev/wake`：统一负责 Library 构建、令牌生成、docgen、Test、组件工作台与 Docs；版本必须精确锁定为 `0.1.23`。
-- `@crab-dev/css`：提供零运行时静态样式与令牌定义；版本必须精确锁定为 `0.1.23`。
+- `@crab-dev/wake`：统一负责 Lint、Library 构建、令牌生成、docgen、Test、组件工作台与 Docs；版本必须精确锁定为 `0.1.43`。
+- `@crab-dev/css`：提供零运行时静态样式与令牌定义；版本必须精确锁定为 `0.1.38`。
 - Turbo：只负责包拓扑和跨包并行，不得增加旧工具兼容任务。
 
 ## 终端与平台
@@ -90,7 +90,7 @@ public/docgen.json
 token.toml                  # 可选
 ```
 
-- 复杂组件可以拆分多个 `.tsx`；包配置包括继承共享预设的 `eslint.config.js`、`tsconfig.json` 和 Wake 的 `wake.config.toml`。
+- 复杂组件可以拆分多个 `.tsx`；包配置包括继承共享预设的 `tsconfig.json` 和 Wake 的 `wake.config.toml`；lint 通过显式 `--root` 使用根目录 Wake 规则。
 - `src/index.ts` 必须默认导出主组件；类型、Hook 与工具函数必须具名导出。对外值导出和类型导出必须保持一致。
 - `.tmp/`、`.cache/`、`.turbo/`、`coverage/`、`esm/`、`cjs/`、`declarations/`、`css/` 不得当作源码阅读或修改。
 
@@ -162,7 +162,7 @@ token.toml                  # 可选
 
 每个包必须继承共享预设，不得覆盖预设已有选项；仅可按构建需要增补未涉及字段：
 
-- ESLint：`import { Browser } from "@crab-dev/standards-eslint-preset"; export default [...Browser.react];`
+- Lint：使用 `wake lint`；共享规则在根 `wake.config.toml`，包内 `yarn lint` 显式指定根目录、源路径与运行环境。不得重新引入 ESLint 执行入口；原预设包仅保留对外兼容。规则覆盖差异见 `.website/review/toolchain/README.md`。
 - TypeScript：`"extends": "@crab-dev/standards-typescript-preset/tsconfig.browser.react.json"`
 - Wake：在 `wake.config.toml` 中声明 Library、Test、Docs 所需的最小配置，不得增加旧工具回退。
 
@@ -171,20 +171,20 @@ token.toml                  # 可选
 根目录命令：
 
 - `yarn build:library`：按 Turbo 拓扑运行全部 Wake Library 构建。
-- `yarn test`、`yarn lint`、`yarn typecheck`：全仓测试、ESLint、类型检查。
+- `yarn test`、`yarn lint`、`yarn typecheck`：全仓测试、Wake Lint、类型检查。
 - `yarn generate:token`：刷新全部令牌产物。
 - `yarn docs:dev`、`yarn docs:build`：文档站开发和生产构建。
 
-组件包命令：`yarn start`、`build:library`、`eslint`、`typecheck`、`generate:token`、`generate:docgen`、`test`、`check`。
+组件包命令：`yarn start`、`build:library`、`lint`、`typecheck`、`generate:token`、`generate:docgen`、`test`、`check`。
 
 按影响面执行最小必跑集合：
 
 | 影响面 | 必跑命令 |
 | --- | --- |
-| `components/rc-*/src/**` | 包内 `eslint` + `test` |
-| `token.toml` 或令牌消费 | `generate:token` + `eslint` + `test` |
+| `components/rc-*/src/**` | 包内 `lint` + `test` |
+| `token.toml` 或令牌消费 | `generate:token` + `lint` + `test` |
 | Wake 配置、构建配置、导出边界 | `build:library` + `test` |
-| `standards/*` | 至少选择一个受影响下游包运行 `eslint` / `test` |
+| `standards/*` | 至少选择一个受影响下游包运行 `lint` / `test` |
 
 ## 提交、版本与发布
 
