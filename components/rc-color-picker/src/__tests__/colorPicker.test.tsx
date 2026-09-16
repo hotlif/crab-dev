@@ -8,7 +8,7 @@ import type { ReactNode } from "react";
 mock.module('@crab-dev/rc-dropdown-container', async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     const DropdownContext = mockReact.createContext(null as any);
 
     function MockDropdownContainer({ children, overlay }: {
@@ -18,7 +18,7 @@ mock.module('@crab-dev/rc-dropdown-container', async () => {
         const [open, setOpen] = mockReact.useState(false);
         const ctx = {
             state: { open },
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
             dispatch: (action: any) => {
                 if (action.type === 'setOpen')
                     setOpen(action.payload);
@@ -60,13 +60,13 @@ import type { ColorPickerProps } from "../colorPicker/colorPicker.js";
 };
 const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
 beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.setPointerCapture = mock.fn() as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.releasePointerCapture = mock.fn() as any;
     Element.prototype.getBoundingClientRect = (() => ({
         left: 0, width: 200, top: 0, height: 20, right: 200, bottom: 20, x: 0, y: 0, toJSON() { },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     })) as any;
 });
 afterEach(() => {

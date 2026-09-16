@@ -1,6 +1,7 @@
 import { css, cx } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
 import { Eye, EyeOff, X } from "lucide-react";
-import { useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
+import { useId, useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
 
 import token from "./token.js";
 
@@ -64,6 +65,8 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
 
 const containerBaseStyle = css`
     display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
     align-items: center;
     border-radius: ${token.root['border-radius']};
     border-width: ${token.root['border-width']};
@@ -73,6 +76,7 @@ const containerBaseStyle = css`
     color: ${token.text.color};
     box-shadow: ${token.root['box-shadow']};
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     outline: none;
     box-sizing: border-box;
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
@@ -82,24 +86,36 @@ const containerBaseStyle = css`
         border-color: ${token.root['border-color-focus']};
         box-shadow: ${token.root['box-shadow-focus-within']};
     }
+    &:has(input:focus-visible) {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
+    }
     &[aria-disabled="true"] {
-        pointer-events: none;
-        opacity: 0.5;
+        cursor: not-allowed;
+        opacity: ${token.root['opacity-disabled']};
+    }
+    @media (pointer: coarse) {
+        && { padding-block: 0; }
+    }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; box-shadow: none; }
+        &:has(input:focus-visible) { outline-color: Highlight; }
+        &[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
     }
 `
 
 // 按尺寸预生成容器高度/内边距，避免在渲染中创建动态类
 const sizeContainerStyles = {
     large: css`
-        height: ${token.size.large.height};
+        min-height: ${token.size.large.height};
         padding: ${token.size.large.padding};
     `,
     middle: css`
-        height: ${token.size.middle.height};
+        min-height: ${token.size.middle.height};
         padding: ${token.size.middle.padding};
     `,
     small: css`
-        height: ${token.size.small.height};
+        min-height: ${token.size.small.height};
         padding: ${token.size.small.padding};
     `,
 } as const;
@@ -183,6 +199,7 @@ const inputBaseStyle = css`
     &:disabled {
         cursor: not-allowed;
     }
+    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
 `
 
 // bordered=false：字号/行高交由宿主容器继承，而非固定为某个 size 预设。
@@ -214,27 +231,19 @@ const suffixStyle = css`
     margin-left: ${token.icon.gap};
 `
 
-// 清除按钮、密码切换按钮：reset button 样式，图标跟随字体大小
+// 复用 Button 的键盘、禁用、焦点与媒体偏好行为；L3 仅负责输入框内部布局。
 const actionButtonStyle = css`
-    display: inline-flex;
-    align-items: center;
     flex-shrink: 0;
     margin-left: ${token.icon.gap};
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: ${token.icon.color};
-    cursor: pointer;
-    transition: ${token.root.transition};
-    font-size: inherit;
-    line-height: inherit;
-    & > svg {
-        width: 1em;
-        height: 1em;
+    && {
+        padding: 0;
+        min-width: ${token.action['min-width']};
+        height: ${token.action.height};
+        color: ${token.icon.color};
     }
-    &:hover {
-        opacity: 0.7;
+    &&[aria-disabled="true"] { opacity: ${token.action['opacity-disabled']}; }
+    @media (pointer: coarse) {
+        && { min-width: ${token.action.touch['min-width']}; height: ${token.action.touch.height}; }
     }
 `
 
@@ -251,6 +260,7 @@ const countStyle = css`
 
 function LineEdit({
     ref,
+    id,
     size = "middle",
     prefix,
     suffix,
@@ -271,6 +281,8 @@ function LineEdit({
 }: LineEditProps) {
     // 密码可见性：内部 UI 状态，与业务无关
     const [showPassword, setShowPassword] = useState(false);
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
 
     const isPassword = type === "password";
     const inputType = isPassword ? (showPassword ? "text" : "password") : type;
@@ -297,6 +309,7 @@ function LineEdit({
             )}
             <input
                 ref={ref}
+                id={inputId}
                 type={inputType}
                 value={value}
                 maxLength={maxLength}
@@ -304,19 +317,24 @@ function LineEdit({
                 readOnly={readOnly}
                 className={cx(inputBaseStyle, bordered ? sizeTextStyles[size] : borderlessInputStyle)}
                 {...rest}
+                aria-invalid={rest['aria-invalid'] ?? (status === "error" || undefined)}
             />
             {showClearButton && (
-                <button
+                <Button
                     type="button"
+                    appearance="text"
+                    size="small"
                     aria-label="清除"
-                    className={cx(actionButtonStyle, sizeTextStyles[size])}
+                    aria-controls={inputId}
+                    icon={<X aria-hidden="true" />}
+                    className={actionButtonStyle}
                     onClick={(e) => {
                         e.stopPropagation();
+                        // 清除可能立即卸载按钮，先把焦点送回被操作的输入框。
+                        e.currentTarget.parentElement?.querySelector('input')?.focus();
                         onClear?.();
                     }}
-                >
-                    <X />
-                </button>
+                />
             )}
             {suffix && (
                 <div className={cx(iconBaseStyle, suffixStyle, sizeTextStyles[size])}>
@@ -324,14 +342,17 @@ function LineEdit({
                 </div>
             )}
             {isPassword && (
-                <button
+                <Button
                     type="button"
+                    appearance="text"
+                    size="small"
+                    disabled={disabled}
                     aria-label={showPassword ? "隐藏密码" : "显示密码"}
-                    className={cx(actionButtonStyle, sizeTextStyles[size])}
+                    aria-controls={inputId}
+                    icon={showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
+                    className={actionButtonStyle}
                     onClick={() => setShowPassword(prev => !prev)}
-                >
-                    {showPassword ? <EyeOff /> : <Eye />}
-                </button>
+                />
             )}
             {showCount && typeof value === "string" && (
                 <span className={countStyle}>

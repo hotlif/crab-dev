@@ -7,7 +7,17 @@ imports = [
 
 [token]
 
-root.transition = "var(--text-edit-transition, $ref(motion.fade))"
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-width-focus = "2px"
+root.outline-offset-focus = "2px"
+root.opacity-disabled = "$ref(opacity.disabled)"
+root.touch.min-height = "44px"
+clear.width = "24px"
+clear.height = "24px"
+clear.touch.width = "44px"
+clear.touch.height = "44px"
+
+root.transition = "var(--text-edit-transition, border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), background-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction))"
 root.border-radius = "var(--text-edit-border-radius, $ref(radius.md))"
 root.border-width = "var(--text-edit-border-width, 1px)"
 root.border-style = "var(--text-edit-border-style, solid)"

@@ -86,7 +86,7 @@ const ColorPickerInput = ({
             aria-label={ariaLabel ?? "选择颜色"}
             tabIndex={disabled ? -1 : 0}
             {...restProps}
-            className={cx(triggerStyle, disabled && disabledStyle, className)}
+            className={cx.call(undefined, triggerStyle, disabled && disabledStyle, className)}
             ref={(node) => {
                 assignRef(refs.setReference, node);
                 assignRef(ref, node);

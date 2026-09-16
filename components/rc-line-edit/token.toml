@@ -7,7 +7,19 @@ imports = [
 
 [token]
 
-root.transition = "var(--line-edit-transition, $ref(motion.fade))"
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-width-focus = "2px"
+root.outline-offset-focus = "2px"
+root.opacity-disabled = "$ref(opacity.disabled)"
+root.touch.min-height = "44px"
+action.min-width = "24px"
+action.height = "24px"
+# The container already applies disabled opacity; avoid multiplying it again.
+action.opacity-disabled = "1"
+action.touch.min-width = "44px"
+action.touch.height = "44px"
+
+root.transition = "var(--line-edit-transition, border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), background-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction))"
 root.border-radius = "var(--line-edit-border-radius, $ref(radius.md))"
 root.border-width = "var(--line-edit-border-width, 1px)"
 root.border-style = "var(--line-edit-border-style, solid)"
@@ -43,6 +55,6 @@ size.middle.font-size = "$ref(font.size.body)"
 size.middle.line-height = "1.25rem"
 
 size.small.height = "24px"
-size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.small.padding = "0 $ref(space.control-padding-x)"
 size.small.font-size = "$ref(font.size.body)"
 size.small.line-height = "1.25rem"

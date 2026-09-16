@@ -1,6 +1,28 @@
-import { describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import TextEdit from "../textEdit.js";
+import { useState } from "react";
 describe("TextEdit", () => {
+    it("受控清除后仍可在文本域继续输入", async () => {
+        function Editor() {
+            const [value, setValue] = useState("第一行\n第二行");
+            return <TextEdit aria-label="备注" value={value} allowClear onChange={e => setValue(e.target.value)} onClear={() => setValue("")} />;
+        }
+        await render(<Editor />);
+        const clear = screen.getByLabelText("清除");
+        clear.focus();
+        await fireEvent.click(clear);
+        const textarea = screen.getByLabelText("备注") as HTMLTextAreaElement;
+        expect(textarea.value).toBe("");
+        expect(document.activeElement).toBe(textarea);
+        expect(screen.queryByLabelText("清除")).toBeNull();
+    });
+    it("错误默认具有无效语义，显式语义优先", async () => {
+        await render(<><TextEdit status="error" aria-label="错误" /><TextEdit status="warning" aria-label="提醒" /><TextEdit status="error" aria-invalid={false} aria-label="显式" /></>);
+        expect(screen.getByLabelText("错误").getAttribute("aria-invalid")).toBe("true");
+        expect(screen.getByLabelText("提醒").hasAttribute("aria-invalid")).toBe(false);
+        expect(screen.getByLabelText("显式").getAttribute("aria-invalid")).toBe("false");
+    });
     describe("基础渲染", () => {
         it("应渲染 textarea 元素", async () => {
             await act(async () => { await render(<TextEdit />); });

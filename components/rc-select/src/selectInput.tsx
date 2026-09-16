@@ -474,6 +474,9 @@ const SelectInput: FC<SelectInputProps> = ({
     };
 
     const triggerClear = () => {
+        // The clear control unmounts when the value disappears. Restore its owner
+        // before notifying the caller so keyboard users can choose a new value.
+        controlRef.current?.focus();
         onClear();
 
         if (open) {
@@ -573,10 +576,10 @@ const SelectInput: FC<SelectInputProps> = ({
         }
 
         if (status === "error") {
-            return cx(controlErrorStyle, open && controlErrorFocusStyle);
+            return cx.call(undefined, controlErrorStyle, open && controlErrorFocusStyle);
         }
 
-        return cx(controlWarningStyle, open && controlWarningFocusStyle);
+        return cx.call(undefined, controlWarningStyle, open && controlWarningFocusStyle);
     };
 
     // 仅在展开时暴露 aria-controls/aria-activedescendant:浮层关闭时 SelectOverlay 未挂载,
@@ -599,8 +602,7 @@ const SelectInput: FC<SelectInputProps> = ({
             aria-invalid={status === "error" ? true : undefined}
             tabIndex={disabled ? -1 : 0}
             ref={mergeRef}
-            className={cx(
-                controlStyle,
+            className={cx.call(undefined, controlStyle,
                 sizeMetricsMap[size],
                 multiple ? sizeHeightFlexibleMap[size] : sizeHeightFixedMap[size],
                 !status && open && controlFocusStyle,
@@ -619,7 +621,7 @@ const SelectInput: FC<SelectInputProps> = ({
                 </span>
             ) : null}
             <span className={suffixWrapStyle}>
-                <span data-role={canClear ? "select-caret" : undefined} className={cx(caretStyle, open && caretOpenStyle)}>
+                <span data-role={canClear ? "select-caret" : undefined} className={cx.call(undefined, caretStyle, open && caretOpenStyle)}>
                     <CaretIcon />
                 </span>
                 {canClear ? (

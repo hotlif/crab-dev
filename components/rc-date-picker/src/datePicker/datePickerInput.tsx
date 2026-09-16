@@ -29,6 +29,8 @@ export interface DatePickerInputProps {
      * 面板实例
      */
     instance?: RefObject<DatePickerPanelInstance | null> ;
+    onConfirm?: () => void;
+    onOpen?: () => void;
 }
 
 
@@ -46,6 +48,8 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
     value = "",
     onValueChange,
     instance,
+    onConfirm,
+    onOpen,
     ...restProps
 }) => {
     const {
@@ -57,6 +61,13 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
     const inputRef = useRef<HTMLInputElement>(null)
 
     const [hover, setHover] = useState(false);
+
+    const openPanel = () => {
+        if (!state.open) {
+            onOpen?.();
+            dispatch({ type: 'setOpen', payload: true });
+        }
+    };
 
 
     useEffect(() => {
@@ -70,12 +81,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
             return (
                 <Calendar
                     className={iconStyle}
-                    onClick={() => {
-                        dispatch({
-                            type: "setOpen",
-                            payload: true
-                        })
-                    }}
+                    onClick={openPanel}
                 />
             )
         } else {
@@ -94,18 +100,8 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
         <RcLineEdit
             containerRef={refs.setReference}
             ref={inputRef}
-            onClick={() => {
-                dispatch({
-                    type: "setOpen",
-                    payload: true
-                })
-            }}
-            onFocus={() => {
-                dispatch({
-                    type: "setOpen",
-                    payload: true
-                })
-            }}
+            onClick={openPanel}
+            onFocus={openPanel}
             onBlur={() => {
                 dispatch({
                     type: "setOpen",
@@ -119,14 +115,23 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
                 setHover(false)
             }}
             value={value}
+            placeholder="选择日期"
+            aria-expanded={state.open}
             readOnly
             suffix={renderSuffixIcon()}
             onKeyDown={(e) => {
                 if (e.key === "Escape") {
+                    e.preventDefault();
+                    e.stopPropagation();
                     dispatch({
                         type: "setOpen",
                         payload: false
                     });
+                    return;
+                }
+                if (!state.open && ['Enter', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                    e.preventDefault();
+                    openPanel();
                     return;
                 }
                 if (instance && typeof instance.current?.keyboardNavigate === 'function') {
@@ -144,6 +149,9 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
                             instance.current?.keyboardNavigate("right");
                             break;
                         case "Enter":
+                            e.preventDefault();
+                            onConfirm?.();
+                            dispatch({ type: "setOpen", payload: false });
                             break;
                     }
                 }

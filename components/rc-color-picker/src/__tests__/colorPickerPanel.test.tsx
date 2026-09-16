@@ -5,6 +5,7 @@ mock.module('motion/react', async () => {
     const mockReact = await mock.actual<typeof import('react')>('react');
     const MockDiv = ({ ref, ...props }: ComponentPropsWithRef<'div'>) => mockReact.createElement('div', { ...props, ref });
     return {
+        useReducedMotion: () => false,
         motion: { div: MockDiv },
         AnimatePresence: ({ children }: { children: unknown }) => children,
     };
@@ -27,13 +28,13 @@ beforeAll(async () => {
 };
 const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
 beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.setPointerCapture = mock.fn() as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.releasePointerCapture = mock.fn() as any;
     Element.prototype.getBoundingClientRect = (() => ({
         left: 0, width: 200, top: 0, height: 20, right: 200, bottom: 20, x: 0, y: 0, toJSON() { },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     })) as any;
 });
 afterEach(() => {

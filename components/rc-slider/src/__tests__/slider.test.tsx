@@ -7,13 +7,13 @@ import type { SliderProps } from '../slider.js';
 const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
 // jsdom does not implement pointer capture APIs or layout
 beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.setPointerCapture = mock.fn() as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.releasePointerCapture = mock.fn() as any;
     Element.prototype.getBoundingClientRect = (() => ({
         left: 0, width: 200, top: 0, height: 20, right: 200, bottom: 20, x: 0, y: 0, toJSON() { },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     })) as any;
 });
 afterEach(() => {
@@ -82,7 +82,7 @@ describe('Slider', () => {
         const { slider, unmount } = await renderSlider({
             className: 'custom-slider',
             'data-test-id': 'my-slider',
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
         } as any);
         expect(slider.className).toContain('custom-slider');
         expect(slider.getAttribute('data-test-id')).toBe('my-slider');
@@ -157,7 +157,7 @@ describe('Slider', () => {
         const onValueChange = mock.fn();
         Element.prototype.getBoundingClientRect = (() => ({
             left: 100, width: 200, top: 0, height: 20, right: 300, bottom: 20, x: 100, y: 0, toJSON() { },
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
         })) as any;
         const { slider, unmount } = await renderSlider({ value: 50, min: 0, max: 100, onValueChange });
         await pointerDown(slider, 0);

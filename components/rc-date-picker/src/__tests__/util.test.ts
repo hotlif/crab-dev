@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@crab-dev/wake/test";
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* wake-lint-disable ts/no-explicit-any -- Existing test mock boundary. */
 import { Temporal } from '@js-temporal/polyfill';
 import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util.js';
 import { formatTemporal } from '../util.js';

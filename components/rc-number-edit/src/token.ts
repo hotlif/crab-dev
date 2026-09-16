@@ -24,7 +24,7 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'transition': `var(${vars['root.transition']}, var(--number-edit-transition, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`,
+        'transition': `var(${vars['root.transition']}, var(--number-edit-transition, color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), background-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`,
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--number-edit-opacity-disabled, var(--number-edit-disabled-opacity, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3)))))`
     },
     'stepper': {
@@ -34,7 +34,7 @@ const token = defineTokens({
         'background-color-hover': `var(${vars['stepper.background-color-hover']}, var(--number-edit-stepper-background-hover, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
         'background-color-active': `var(${vars['stepper.background-color-active']}, var(--number-edit-stepper-background-active, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
         'divider': {
-            'color': `var(${vars['stepper.divider.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+            'color': `var(${vars['stepper.divider.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
         },
         'border-radius': `var(${vars['stepper.border-radius']}, var(--number-edit-stepper-radius, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px))))`,
         'width': `var(${vars['stepper.width']}, 24px)`,

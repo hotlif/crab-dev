@@ -5,6 +5,7 @@ mock.module('motion/react', async () => {
     const mockReact = await mock.actual<typeof import('react')>('react');
     const MockDiv = ({ ref, ...props }: ComponentPropsWithRef<'div'>) => mockReact.createElement('div', { ...props, ref });
     return {
+        useReducedMotion: () => false,
         motion: { div: MockDiv },
         AnimatePresence: ({ children }: { children: unknown }) => children,
     };
@@ -21,8 +22,8 @@ beforeAll(async () => {
  * ColorPicker 的 outside-click 判定误以为"点击到了外部"而把整个弹层关闭。
  * 根因与修复见 @crab-dev/rc-dropdown-container(FloatingTree 化的 useDismiss)。
  * colorPicker.test.tsx 为隔离而 mock 掉了 rc-dropdown-container,无法覆盖这一场景。
- * motion 是 rc-dropdown-container 的依赖而非本包依赖,Yarn PnP 下不能在本包 mock 它;
- * 关闭动画为真实 AnimatePresence 驱动,故下方"关闭"断言用 waitFor 等待退出动画结束。
+ * motion 使用上方最小替身移除布局与动画依赖；保留真实浮层的事件与异步关闭流程，
+ * 下方"关闭"断言用 waitFor 等待浮层状态更新。
  */
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
@@ -49,17 +50,17 @@ beforeAll(async () => {
         addEventListener() { },
         removeEventListener() { },
         dispatchEvent: () => false,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     })) as any;
 const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
 beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.setPointerCapture = mock.fn() as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     Element.prototype.releasePointerCapture = mock.fn() as any;
     Element.prototype.getBoundingClientRect = (() => ({
         left: 0, width: 200, top: 0, height: 20, right: 200, bottom: 20, x: 0, y: 0, toJSON() { },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
     })) as any;
 });
 afterEach(() => {

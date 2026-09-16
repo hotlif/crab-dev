@@ -6,5 +6,5 @@ export type { TimePickerPanelProps } from "./panels/timePickerPanel.js";
 
 export { default as DateTimePicker, type DateTimePickerProps } from "./dateTimePicker/index.js";
 export type { DateTimePickerPanelProps } from "./panels/dateTimePickerPanel.js";
-export { vars as TokenVars } from './token.js';
+export { TokenVars } from './token-vars.js';
 

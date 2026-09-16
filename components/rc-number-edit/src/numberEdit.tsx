@@ -116,6 +116,12 @@ function NumberEdit(props: NumberEditProps) {
     const sepNorm: string | false = thousandSeparator === true ? "," : thousandSeparator;
     // 步进精度：优先用户 precision，否则取 step / largeStep 的小数位以消除浮点噪声
     const stepPrecision = precision ?? Math.max(countDecimalPlaces(step), countDecimalPlaces(effLargeStep));
+    const currentNumeric = focused
+        ? parseNumber(inputText, { decimalSeparator, thousandSeparator: sepNorm, parser })
+        : numeric;
+    // Valid editing text is the user's current value, even before blur commits it.
+    // An empty field starts at zero; incomplete text falls back to the committed value.
+    const stepBase = focused && inputText.trim() === "" ? 0 : (currentNumeric ?? numeric ?? 0);
 
     const useSci = numeric != null && shouldUseScientific(numeric, scientific, scientificThreshold);
     const showOverlay = !focused && !formatter && numeric != null && useSci;
@@ -150,7 +156,8 @@ function NumberEdit(props: NumberEditProps) {
             return;
         }
         const delta = (large ? effLargeStep : step) * direction;
-        const next = clamp(applyPrecision((numeric ?? 0) + delta, stepPrecision), min, max);
+        const effectivePrecision = precision ?? Math.max(stepPrecision, countDecimalPlaces(stepBase));
+        const next = clamp(applyPrecision(stepBase + delta, effectivePrecision), min, max);
         commit(next);
         if (focused) {
             const nextSci = shouldUseScientific(next, scientific, scientificThreshold);
@@ -276,8 +283,8 @@ function NumberEdit(props: NumberEditProps) {
         return () => observer.disconnect();
     }, [showOverlay, displayValue, size, controls]);
 
-    const upDisabled = Number.isFinite(max) && numeric != null && numeric >= max;
-    const downDisabled = Number.isFinite(min) && numeric != null && numeric <= min;
+    const upDisabled = Number.isFinite(max) && stepBase >= max;
+    const downDisabled = Number.isFinite(min) && stepBase <= min;
 
     // 步进器待在输入框内右侧（rc-line-edit 的 suffix 槽），随输入框走
     const composedSuffix = controls ? (
@@ -316,7 +323,7 @@ function NumberEdit(props: NumberEditProps) {
                 role="spinbutton"
                 inputMode="decimal"
                 autoComplete="off"
-                aria-valuenow={numeric ?? undefined}
+                aria-valuenow={currentNumeric ?? undefined}
                 aria-valuemin={Number.isFinite(min) ? min : undefined}
                 aria-valuemax={Number.isFinite(max) ? max : undefined}
                 aria-valuetext={ariaValueText}

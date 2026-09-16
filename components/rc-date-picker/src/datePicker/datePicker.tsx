@@ -7,6 +7,7 @@ import type { DatePickerInputProps } from "./datePickerInput.js";
 import DatePickerOverlay from "./datePickerOverlay.js";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
 import { css } from '@crab-dev/css';
+import token from '../token.js';
 
 export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
 
@@ -59,7 +60,7 @@ const DatePicker: FC<DatePickerProps> = ({
     weekStartDay,
     locale,
     range,
-    renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd HH:mm:ss"),
+    renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd"),
     ...restProps
 }) => {
 
@@ -69,7 +70,7 @@ const DatePicker: FC<DatePickerProps> = ({
     return (
         <RcDropdownContainer
             overlayClassName={css`
-                padding: 0.2rem 1rem 1rem 1rem;
+                padding: ${token.panel.padding};
             `}
             overlay={(
                 <DatePickerOverlay
@@ -89,6 +90,10 @@ const DatePicker: FC<DatePickerProps> = ({
                 value={renderDisplayString(value!)}
                 onValueChange={onValueChange}
                 instance={datePickerPanelInstance}
+                onConfirm={() => {
+                    if (selectValues[0]) onValueChange?.(selectValues[0]);
+                }}
+                onOpen={() => setSelectValues([value ?? Temporal.Now.zonedDateTimeISO(timeZone)])}
                 {...restProps}
             />
         </RcDropdownContainer>

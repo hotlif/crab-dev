@@ -20,6 +20,8 @@ export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement
 const containerStyle = css`
     display: flex;
     flex-direction: column;
+    width: calc(${token.cell.content.width} * 7);
+    max-width: 100%;
 `
 
 const mainStyle = css`
@@ -32,7 +34,7 @@ const mainStyle = css`
 
 const ulStyle = css`
     flex: 1;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     list-style: none; 
     padding: 0; 
@@ -40,6 +42,7 @@ const ulStyle = css`
     scrollbar-gutter: stable;
     scrollbar-width: thin;
     scroll-behavior: smooth;
+    @media (prefers-reduced-motion: reduce) { scroll-behavior: auto; }
     padding: 4px;
     &:hover {
         overflow-y: auto;
@@ -47,7 +50,7 @@ const ulStyle = css`
 
     &::after {
         display: block;
-        height: calc(100% - 24px);
+        height: calc(100% - ${token.cell.content.width});
         content: "";
     }
     > li {
@@ -86,14 +89,14 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
     useEffect(() => {
         hourRef.current?.scrollTo({
             top: (value?.hour ?? 0) * (hourRef.current?.children[0] as HTMLElement)?.offsetHeight || 0,
-            behavior: "smooth"
+            behavior: "auto"
         });
     }, [value?.hour])
 
     useEffect(() => {
         minuteRef.current?.scrollTo({
             top: (value?.minute ?? 0) * (minuteRef.current?.children[0] as HTMLElement)?.offsetHeight || 0,
-            behavior: "smooth"
+            behavior: "auto"
         });
     }, [value?.minute])
 
@@ -101,13 +104,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
     useEffect(() => {
         secondRef.current?.scrollTo({
             top: (value?.second ?? 0) * (secondRef.current?.children[0] as HTMLElement)?.offsetHeight || 0,
-            behavior: "smooth"
+            behavior: "auto"
         });
     }, [value?.second])
 
     return (
         <div
-            className={cx(containerStyle, className)}
+            className={cx.call(undefined, containerStyle, className)}
             {...restProps}
         >
             <div
@@ -132,12 +135,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                 <ul
                     className={ulStyle}
                     ref={hourRef}
+                    aria-label="小时"
                 >
                     {
                         Array.from({ length: 24 }).map((_, index) => (
                             <li
                                 key={index}
-                                className={cx(index === value?.hour ? selectStyle : liHoverStyle)}
+                                className={cx.call(undefined, index === value?.hour ? selectStyle : liHoverStyle)}
                                 onClick={() => {
                                     onValueChange?.({
                                         hour: index,
@@ -155,12 +159,13 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                 <ul
                     className={ulStyle}
                     ref={minuteRef}
+                    aria-label="分钟"
                 >
                     {
                         Array.from({ length: 60 }).map((_, index) => (
                             <li
                                 key={index}
-                                className={cx(index === value?.minute ? selectStyle : liHoverStyle)}
+                                className={cx.call(undefined, index === value?.minute ? selectStyle : liHoverStyle)}
                                 onClick={() => {
                                     onValueChange?.({
                                         hour: value?.hour ?? 0,
@@ -177,11 +182,12 @@ const TimePickerPanel: FC<TimePickerPanelProps> = ({
                 <ul
                     className={ulStyle}
                     ref={secondRef}
+                    aria-label="秒"
                 >
                     {
                         Array.from({ length: 60 }).map((_, index) => (
                             <li
-                                className={cx(index === value?.second ? selectStyle : liHoverStyle)}
+                                className={cx.call(undefined, index === value?.second ? selectStyle : liHoverStyle)}
                                 key={index}
                                 onClick={() => {
                                     onValueChange?.({

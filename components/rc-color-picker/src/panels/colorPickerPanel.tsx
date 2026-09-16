@@ -152,7 +152,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                         [TokenVars["thumb.fill"]]: `oklch(0.7 0.25 ${value.hue})`,
                         [TokenVars["thumb.halo.fill"]]: `var(${TokenVars["thumb.fill"]})`,
                     }}
-                    className={cx(commonSliderStyle, hueRailStyle)}
+                    className={cx.call(undefined, commonSliderStyle, hueRailStyle)}
                     value={value.hue}
                     min={0}
                     max={360}

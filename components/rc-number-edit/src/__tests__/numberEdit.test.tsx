@@ -1,19 +1,22 @@
-import { beforeAll, describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import type { LineEditProps } from "@crab-dev/rc-line-edit";
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 // jsdom 无 ResizeObserver：覆盖层测量依赖它，提供空实现
-(globalThis as any).ResizeObserver = class {
-    observe() { }
-    unobserve() { }
-    disconnect() { }
-};
+beforeAll(() => {
+    globalThis.ResizeObserver = class {
+        observe() { }
+        unobserve() { }
+        disconnect() { }
+    };
+});
 // 轻量替身：忠实反映 rc-line-edit 对 numberEdit 的契约（透传 input 事件 / value / ref、
 // 渲染 suffix 内的 Stepper、allowClear 清除按钮回调 onClear），隔离外壳打包细节。
 mock.module("@crab-dev/rc-line-edit", () => ({
     __esModule: true,
-    default: ({ ref, containerRef, prefix, suffix, value, onChange, onFocus, onBlur, onKeyDown, allowClear, onClear, disabled, readOnly, size: _size, status: _status, bordered: _bordered, ...rest }: any) => (<div ref={containerRef} data-testid="line-edit">
+    default: ({ ref, containerRef, prefix, suffix, value, onChange, onFocus, onBlur, onKeyDown, allowClear, onClear, disabled, readOnly, size: _size, status: _status, bordered: _bordered, ...rest }: LineEditProps) => (<div ref={containerRef} data-testid="line-edit">
         {prefix}
         <input ref={ref} value={value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} onKeyDown={onKeyDown} disabled={disabled} readOnly={readOnly} {...rest}/>
         {allowClear && typeof value === "string" && value.length > 0 && !disabled && !readOnly && (<button type="button" aria-label="清除" onClick={onClear}>x</button>)}
@@ -102,6 +105,28 @@ describe("NumberEdit", () => {
         });
     });
     describe("步进", () => {
+        it("steps from the current draft and preserves its fractional precision", async () => {
+            await render(<NumberEdit defaultValue={3} min={0} max={100} />);
+            const input = getInput();
+            await act(() => input.focus());
+            await changeInputValue(input, "20.5");
+            expect(input.getAttribute("aria-valuenow")).toBe("20.5");
+            await fireEvent.keyDown(input, { key: "ArrowUp" });
+            expect(input.value).toBe("21.5");
+            await changeInputValue(input, "");
+            await fireEvent.keyDown(input, { key: "ArrowUp" });
+            expect(input.value).toBe("1");
+        });
+        it("updates step limits from the draft before committing on blur", async () => {
+            await render(<NumberEdit defaultValue={100} min={0} max={100} />);
+            const input = getInput();
+            await act(() => input.focus());
+            await changeInputValue(input, "20");
+            expect(stepUp().disabled).toBe(false);
+            await fireEvent(stepUp(), new PointerEvent("pointerdown", { bubbles: true }));
+            await fireEvent(stepUp(), new PointerEvent("pointerup", { bubbles: true }));
+            expect(input.value).toBe("21");
+        });
         it("点击增加按钮触发 onChange(+step)", async () => {
             const onChange = mock.fn();
             await act(async () => { await render(<NumberEdit value={5} onChange={onChange}/>); });

@@ -1,6 +1,7 @@
 import { css, cx } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
 import { X } from "lucide-react";
-import type { Ref, TextareaHTMLAttributes } from "react";
+import { useId, type Ref, type TextareaHTMLAttributes } from "react";
 
 import token from "./token.js";
 
@@ -68,6 +69,8 @@ const containerBaseStyle = css`
     display: inline-flex;
     flex-direction: column;
     position: relative;
+    min-width: 0;
+    max-width: 100%;
     width: 100%;
     border-radius: ${token.root['border-radius']};
     border-width: ${token.root['border-width']};
@@ -77,6 +80,7 @@ const containerBaseStyle = css`
     color: ${token.text.color};
     box-shadow: ${token.root['box-shadow']};
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     outline: none;
     box-sizing: border-box;
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
@@ -86,9 +90,18 @@ const containerBaseStyle = css`
         border-color: ${token.root['border-color-focus']};
         box-shadow: ${token.root['box-shadow-focus-within']};
     }
+    &:has(textarea:focus-visible) {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
+    }
     &[aria-disabled="true"] {
-        pointer-events: none;
-        opacity: 0.5;
+        cursor: not-allowed;
+        opacity: ${token.root['opacity-disabled']};
+    }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; box-shadow: none; }
+        &:has(textarea:focus-visible) { outline-color: Highlight; }
+        &[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
     }
 `
 
@@ -184,6 +197,7 @@ const textareaBaseStyle = css`
     &:disabled {
         cursor: not-allowed;
     }
+    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
 `
 
 // bordered=false：字号/行高交由宿主容器继承，而非固定为某个 size 预设。
@@ -215,7 +229,11 @@ const autoSizeStyle = css`
 
 // allowClear 开启时常驻预留清除按钮空间：按钮随值出现/消失不得引起文本回流（反馈原则：稳态布局）
 const clearSpaceStyle = css`
-    padding-inline-end: calc(1em + ${token.icon.gap});
+    box-sizing: border-box;
+    padding-inline-end: calc(${token.clear.width} + ${token.icon.gap});
+    @media (pointer: coarse) {
+        padding-inline-end: calc(${token.clear.touch.width} + ${token.icon.gap});
+    }
 `
 
 
@@ -223,24 +241,17 @@ const clearSpaceStyle = css`
 
 // 清除按钮绝对定位于容器右上角，与首行文本对齐
 const clearButtonStyle = css`
-    position: absolute;
+    && {
+        position: absolute;
+        width: ${token.clear.width};
+        height: ${token.clear.height};
+        padding: 0;
+        color: ${token.icon.color};
+    }
     inset-block-start: ${token.clear['inset-block-start']};
     inset-inline-end: ${token.clear['inset-inline-end']};
-    display: inline-flex;
-    align-items: center;
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: ${token.icon.color};
-    cursor: pointer;
-    transition: ${token.root.transition};
-    & > svg {
-        width: 1em;
-        height: 1em;
-    }
-    &:hover {
-        opacity: 0.7;
+    @media (pointer: coarse) {
+        && { width: ${token.clear.touch.width}; height: ${token.clear.touch.height}; }
     }
 `
 
@@ -258,6 +269,7 @@ const countStyle = css`
 
 function TextEdit({
     ref,
+    id,
     size = "middle",
     value,
     containerRef,
@@ -275,6 +287,8 @@ function TextEdit({
     bordered = true,
     ...rest
 }: TextEditProps) {
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
     const hasValue = typeof value === "string" && value.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
 
@@ -293,6 +307,7 @@ function TextEdit({
         >
             <textarea
                 ref={ref}
+                id={inputId}
                 value={value}
                 maxLength={maxLength}
                 disabled={disabled}
@@ -304,19 +319,24 @@ function TextEdit({
                     allowClear && clearSpaceStyle
                 )}
                 {...rest}
+                aria-invalid={rest['aria-invalid'] ?? (status === "error" || undefined)}
             />
             {showClearButton && (
-                <button
+                <Button
                     type="button"
+                    appearance="text"
+                    size="small"
                     aria-label="清除"
-                    className={cx(clearButtonStyle, sizeTextStyles[size])}
+                    aria-controls={inputId}
+                    icon={<X aria-hidden="true" />}
+                    className={clearButtonStyle}
                     onClick={(e) => {
                         e.stopPropagation();
+                        // 清除后按钮可能消失，焦点留在可继续输入的文本域。
+                        e.currentTarget.parentElement?.querySelector('textarea')?.focus();
                         onClear?.();
                     }}
-                >
-                    <X />
-                </button>
+                />
             )}
             {showCount && typeof value === "string" && (
                 <span className={countStyle}>

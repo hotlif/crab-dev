@@ -8,7 +8,7 @@ imports = [
 [token]
 
 # 交互反馈动效：hover/active 颜色切换要求"快到近乎即时"，走 interaction 语义档
-root.transition = "var(--number-edit-transition, $ref(motion.interaction))"
+root.transition = "var(--number-edit-transition, color $ref(motion.interaction), background-color $ref(motion.interaction))"
 
 # ─── 步进器（Stepper）─────────────────────────────────────────────
 # 右侧竖排 +/- 微调按钮的示能与反馈：默认 / hover / 激活 / 禁用，及与输入区的分隔线

@@ -192,7 +192,7 @@ const FieldEditor: FC<FieldEditorProps> = ({ kind, value, onChange }) => {
         >
             <div className={editorStyle}>
                 <div
-                    className={cx(rowStyle, mode !== 'every' && rowInactiveStyle)}
+                    className={cx.call(undefined, rowStyle, mode !== 'every' && rowInactiveStyle)}
                     onClick={() => changeMode('every')}
                 >
                     <Radio value="every">{ui.everyLabel}</Radio>
@@ -200,7 +200,7 @@ const FieldEditor: FC<FieldEditorProps> = ({ kind, value, onChange }) => {
 
                 {ui.stepUnit !== null ? (
                     <div
-                        className={cx(rowStyle, mode !== 'step' && rowInactiveStyle)}
+                        className={cx.call(undefined, rowStyle, mode !== 'step' && rowInactiveStyle)}
                         onClick={() => changeMode('step')}
                     >
                         <Radio value="step" aria-label={`按步进指定${ui.name}`}>
@@ -240,7 +240,7 @@ const FieldEditor: FC<FieldEditorProps> = ({ kind, value, onChange }) => {
                 ) : null}
 
                 <div
-                    className={cx(rowStyle, mode !== 'range' && rowInactiveStyle)}
+                    className={cx.call(undefined, rowStyle, mode !== 'range' && rowInactiveStyle)}
                     onClick={() => changeMode('range')}
                 >
                     <Radio value="range" aria-label={`按区间指定${ui.name}`}>
@@ -318,7 +318,7 @@ const FieldEditor: FC<FieldEditorProps> = ({ kind, value, onChange }) => {
                 </div>
 
                 <div
-                    className={cx(rowStyle, mode !== 'list' && rowInactiveStyle)}
+                    className={cx.call(undefined, rowStyle, mode !== 'list' && rowInactiveStyle)}
                     onClick={() => changeMode('list')}
                 >
                     <Radio value="list">指定{ui.name}</Radio>
@@ -326,7 +326,7 @@ const FieldEditor: FC<FieldEditorProps> = ({ kind, value, onChange }) => {
                 <div
                     role="group"
                     aria-label={`指定${ui.name}的值`}
-                    className={cx(gridStyle, gridColumnsMap[ui.gridColumns], mode !== 'list' && rowInactiveStyle)}
+                    className={cx.call(undefined, gridStyle, gridColumnsMap[ui.gridColumns], mode !== 'list' && rowInactiveStyle)}
                 >
                     {allValues.map((n) => (
                         <CheckableTag

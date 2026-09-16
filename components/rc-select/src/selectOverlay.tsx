@@ -224,7 +224,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (loading) {
         return (
-            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx(overlayStyle, popupClassName)}>
+            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx.call(undefined, overlayStyle, popupClassName)}>
                 <div className={loadingStyle}>
                     <SpinIndicator />
                 </div>
@@ -234,7 +234,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (filteredOptions.length === 0) {
         return (
-            <div id={listboxId} role="listbox" data-select-overlay className={cx(overlayStyle, popupClassName)}>
+            <div id={listboxId} role="listbox" data-select-overlay className={cx.call(undefined, overlayStyle, popupClassName)}>
                 <div className={emptyStyle}>{notFoundContent ?? "无匹配选项"}</div>
             </div>
         );
@@ -312,8 +312,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                             role="option"
                             aria-selected={selected}
                             aria-label={optionAriaLabel}
-                            className={cx(
-                                optionStyle,
+                            className={cx.call(undefined, optionStyle,
                                 isGrouped && groupedOptionStyle,
                                 selected && (multiple ? optionSelectedStyle : optionSelectedSingleStyle),
                                 highlighted && optionHighlightStyle,
@@ -351,7 +350,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
         <div
             id={listboxId}
             data-select-overlay
-            className={cx(overlayStyle, popupClassName)}
+            className={cx.call(undefined, overlayStyle, popupClassName)}
             role="listbox"
             aria-multiselectable={multiple || undefined}
         >

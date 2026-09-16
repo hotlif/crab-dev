@@ -40,7 +40,7 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
             >
                 <RcButton
                     appearance="text"
-                    size="small"
+                    size="middle"
                     onClick={() => {
                         dispatch({
                             type: "setOpen",
@@ -51,7 +51,7 @@ const DatePickerOverlay: FC<DatePickerOverlayProps> = ({
                     取消
                 </RcButton>
                 <RcButton
-                    size="small"
+                    size="middle"
                     appearance="primary"
                     onClick={(e) => {
                         e.preventDefault();

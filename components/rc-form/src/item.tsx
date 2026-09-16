@@ -224,14 +224,14 @@ function FormItemComponent({
     const renderStatusElement = () => {
         if (validateState === ValidateState.VALIDATING) {
             return (
-                <span className={cx(statusSlotStyle, validatingStyle)} aria-hidden>
+                <span className={cx.call(undefined, statusSlotStyle, validatingStyle)} aria-hidden>
                     <SpinIndicator />
                 </span>
             );
         }
         if (validateState === ValidateState.SUCCESS) {
             return (
-                <span className={cx(statusSlotStyle, successColorStyle)} aria-hidden>
+                <span className={cx.call(undefined, statusSlotStyle, successColorStyle)} aria-hidden>
                     <CircleCheck />
                 </span>
             );
@@ -240,7 +240,7 @@ function FormItemComponent({
             const Icon = validateState === ValidateState.ERROR ? CircleAlert : TriangleAlert;
             const colorStyle = validateState === ValidateState.ERROR ? errorColorStyle : warningColorStyle;
             return (
-                <span className={cx(statusSlotStyle, colorStyle)}>
+                <span className={cx.call(undefined, statusSlotStyle, colorStyle)}>
                     <Tooltip
                         title={validateMessage}
                         placement="top"
@@ -396,7 +396,7 @@ function FormItemComponent({
     return (
         <div
             data-form-item
-            className={cx(rowStyle, className)}
+            className={cx.call(undefined, rowStyle, className)}
             {...restProps}
         >
             {renderLabelElement()}

@@ -1,4 +1,5 @@
-import { beforeAll, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import type { ReactNode } from 'react';
 beforeAll(() => {
     (globalThis as Record<string, unknown>).ResizeObserver = class {
@@ -214,6 +215,19 @@ describe('Select', () => {
         await fireEvent.click(clearBtn);
         expect(onChange).toHaveBeenCalledWith(undefined, undefined);
         expect(combobox.textContent).toContain('请选择');
+    });
+    it('returns focus to the combobox after keyboard clearing', async () => {
+        await render(<Select aria-label="城市" allowClear defaultValue="beijing" options={[
+            { label: '北京', value: 'beijing' },
+        ]} />);
+        const combobox = screen.getByRole('combobox', { name: '城市' });
+        const clearButton = screen.getByRole('button', { name: 'Clear' });
+        await act(() => clearButton.focus());
+        await fireEvent.keyDown(clearButton, { key: 'Enter' });
+        expect(screen.queryByRole('button', { name: 'Clear' })).toBeNull();
+        expect(document.activeElement).toBe(combobox);
+        await fireEvent.keyDown(combobox, { key: 'ArrowDown' });
+        expect(screen.getByRole('listbox')).toBeTruthy();
     });
     // ─── Tag Remove ──────────────────────────────────────────────────────
     it('removes tag via close button in multi mode', async () => {

@@ -42,6 +42,7 @@ const halfStyle = css`
     color: ${token.stepper.color};
     cursor: pointer;
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     & > svg {
         width: ${token.stepper.icon.width};
         height: ${token.stepper.icon.width};

@@ -1,5 +1,6 @@
-import { beforeAll, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
-import type { SVGProps } from "react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { useState, type SVGProps } from "react";
 
 mock.module("lucide-react", async () => {
     const mockReact = await mock.actual<typeof import("react")>("react");
@@ -29,6 +30,35 @@ const getActionButton = (label: string) => {
 };
 const handleInputChange = () => undefined;
 describe("LineEdit", () => {
+    it("禁用密码框不能通过按钮显示内容，只读框仍可查看", async () => {
+        await render(<><LineEdit type="password" disabled aria-label="禁用密码" /><LineEdit type="password" readOnly aria-label="只读密码" /></>);
+        const buttons = document.querySelectorAll<HTMLButtonElement>('button[aria-label="显示密码"]');
+        expect(buttons[0].disabled).toBe(true);
+        await fireEvent.click(buttons[0]);
+        expect(screen.getByLabelText("禁用密码").getAttribute("type")).toBe("password");
+        await fireEvent.click(buttons[1]);
+        expect(screen.getByLabelText("只读密码").getAttribute("type")).toBe("text");
+    });
+    it("受控清除后焦点回到输入框，允许立即继续编辑", async () => {
+        function Editor() {
+            const [value, setValue] = useState("项目名称");
+            return <LineEdit aria-label="项目" value={value} allowClear onChange={e => setValue(e.target.value)} onClear={() => setValue("")} />;
+        }
+        await render(<Editor />);
+        const clear = getActionButton("清除");
+        clear.focus();
+        await fireEvent.click(clear);
+        const input = screen.getByLabelText("项目") as HTMLInputElement;
+        expect(input.value).toBe("");
+        expect(document.activeElement).toBe(input);
+        expect(queryActionButton("清除")).toBeNull();
+    });
+    it("错误状态提供无效语义，并尊重显式校验语义", async () => {
+        await render(<><LineEdit status="error" aria-label="错误" /><LineEdit status="warning" aria-label="提醒" /><LineEdit status="error" aria-invalid="grammar" aria-label="显式" /></>);
+        expect(screen.getByLabelText("错误").getAttribute("aria-invalid")).toBe("true");
+        expect(screen.getByLabelText("提醒").hasAttribute("aria-invalid")).toBe(false);
+        expect(screen.getByLabelText("显式").getAttribute("aria-invalid")).toBe("grammar");
+    });
     describe("基础渲染", () => {
         it("应渲染 input 元素", async () => {
             await render(<LineEdit />);

@@ -1,5 +1,7 @@
 import { type FC } from "react";
 import { css } from "@crab-dev/css";
+import semantic from '@crab-dev/rc-token-semantic';
+import token from '../token.js';
 
 import DatePickerPanel, { type DatePickerPanelProps } from "./datePickerPanel.js";
 import TimePickerPanel, { type TimePickerPanelProps } from "./timePickerPanel.js";
@@ -21,7 +23,11 @@ const DateTimePickerPanel: FC<DateTimePickerPanelProps> = ({
         <div
             className={css`
                 display: flex;
-                gap: 1rem;
+                flex-wrap: wrap;
+                gap: ${semantic.space['section-gap']};
+                width: max-content;
+                max-width: calc(100vw - ${token.panel.padding} * 4);
+                > * { flex-shrink: 0; }
             `}
         >
             <DatePickerPanel
