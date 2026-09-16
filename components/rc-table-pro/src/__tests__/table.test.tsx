@@ -10,10 +10,10 @@ mock.module("motion/react", async () => {
         AnimatePresence: ({ children }: { children: unknown }) => children,
     };
 });
-let ProtocolTable: (typeof import("../table.js"))["default"];
+let TablePro: (typeof import("../table.js"))["default"];
 beforeAll(async () => {
     const tableModule = await mock.import<typeof import("../table.js")>("../table.js");
-    ProtocolTable = tableModule.default;
+    TablePro = tableModule.default;
 });
 (globalThis as unknown as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 // jsdom 中未实现 ResizeObserver，AutoSizer 依赖它，补一个最小 stub
@@ -48,11 +48,11 @@ type PaginatedFetchFn = (page: number, pageSize: number, filters: Record<string,
     rows: PersonRow[];
     total: number;
 }>;
-describe("ProtocolTable", () => {
+describe("TablePro", () => {
     it("calls fetchColumns and fetchData on mount", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
-        await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(fetchColumns).toHaveBeenCalledTimes(1);
             expect(fetchData).toHaveBeenCalledTimes(1);
@@ -62,16 +62,16 @@ describe("ProtocolTable", () => {
         const fetchColumns1 = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchColumns2 = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
-        const { rerender } = await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns1} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        const { rerender } = await render(<TablePro<PersonRow> fetchColumns={fetchColumns1} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => expect(fetchColumns1).toHaveBeenCalledTimes(1));
-        await rerender(<ProtocolTable<PersonRow> fetchColumns={fetchColumns2} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        await rerender(<TablePro<PersonRow> fetchColumns={fetchColumns2} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => expect(fetchColumns2).toHaveBeenCalledTimes(1));
     });
     it("calls fetchData with page / pageSize / filters in pagination mode", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<PaginatedFetchFn>()
             .resolve({ rows: ROWS, total: ROWS.length });
-        await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} pagination={{ defaultPageSize: 20 }} style={{ width: 400, height: 300 }}/>);
+        await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} pagination={{ defaultPageSize: 20 }} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(fetchData).toHaveBeenCalledWith(1, 20, {});
         });
@@ -81,7 +81,7 @@ describe("ProtocolTable", () => {
         const dataPromise = new Promise<PersonRow[]>((res) => { resolveData = res; });
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().return(dataPromise);
-        const { container } = await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        const { container } = await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         // spinner 应在初始渲染后出现
         expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeTruthy();
         await act(async () => {
@@ -95,7 +95,7 @@ describe("ProtocolTable", () => {
     it("shows columns error overlay when fetchColumns rejects", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().reject(new Error("网络错误"));
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
-        const { container } = await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        const { container } = await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(container.querySelector('[data-testid="protocol-table-columns-error"]')).toBeTruthy();
         });
@@ -104,7 +104,7 @@ describe("ProtocolTable", () => {
     it("shows data error overlay when fetchData rejects", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().reject(new Error("服务器错误"));
-        const { container } = await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        const { container } = await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeTruthy();
         });
@@ -115,7 +115,7 @@ describe("ProtocolTable", () => {
         const onError = mock.fn<OnErrorFn>();
         const fetchColumns = mock.fn<FetchColumnsFn>().reject(new Error("列加载失败"));
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
-        await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} onError={onError} style={{ width: 400, height: 300 }}/>);
+        await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} onError={onError} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(onError).toHaveBeenCalledWith(expect.any(Error), "columns");
         });
@@ -125,7 +125,7 @@ describe("ProtocolTable", () => {
         const onError = mock.fn<OnErrorFn>();
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().reject(new Error("数据加载失败"));
-        await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} onError={onError} style={{ width: 400, height: 300 }}/>);
+        await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} onError={onError} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(onError).toHaveBeenCalledWith(expect.any(Error), "data");
         });
@@ -135,7 +135,7 @@ describe("ProtocolTable", () => {
             .rejectOnce(new Error("首次失败"))
             .resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
-        const { container } = await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        const { container } = await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(container.querySelector('[data-testid="protocol-table-columns-error"]')).toBeTruthy();
         });
@@ -150,7 +150,7 @@ describe("ProtocolTable", () => {
         const fetchData = mock.fn<FetchDataFn>()
             .rejectOnce(new Error("首次失败"))
             .resolve(ROWS);
-        const { container } = await render(<ProtocolTable<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
+        const { container } = await render(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} style={{ width: 400, height: 300 }}/>);
         await waitFor(() => {
             expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeTruthy();
         });

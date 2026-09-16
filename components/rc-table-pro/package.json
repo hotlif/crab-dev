@@ -1,16 +1,16 @@
 {
-    "name": "@crab-dev/rc-protocol-table",
+    "name": "@crab-dev/rc-table-pro",
     "websiteConfig": {
-        "title": "高阶 Table 表格",
+        "title": "TablePro 高级表格",
         "category": "data-display"
     },
-    "description": "高效的协议表格库，旨在提升大规模列表或内容渲染的性能。",
+    "description": "基于 Table，集成数据加载、查询、列管理和导出的业务表格。",
     "packageManager": "yarn@4.18.0",
     "version": "0.1.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",
-        "directory": "components/rc-protocol-table"
+        "directory": "components/rc-table-pro"
     },
     "type": "module",
     "scripts": {
@@ -19,8 +19,8 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "eslint": "eslint .",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "lint": "wake lint --format human --root ../.. components/rc-table-pro/src components/rc-table-pro/docs --env browser --max-warnings 0"
     },
     "files": [
         "esm",
@@ -45,23 +45,18 @@
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
-        "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.23",
-        "@types/node": "^26.1.0",
-        "@types/react": "^19.2.17",
-        "@types/react-dom": "^19.2.3",
-        "eslint": "^10.6.0",
-        "eslint-plugin-react": "^7.37.5",
-        "globals": "^17.7.0",
-        "react": "19.2.8",
-        "react-dom": "19.2.8",
-        "react-router": "^8.1.0",
-        "typescript": "^6.0.3",
-        "typescript-eslint": "^8.63.0"
+        "@crab-dev/wake": "0.1.43",
+        "@types/node": "^22.20.2",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "react-router": "^8.3.1",
+        "typescript": "^7.0.2"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.23",
+        "@crab-dev/css": "0.1.38",
         "@crab-dev/rc-auto-sizer": "workspace:^",
         "@crab-dev/rc-checkbox": "workspace:^",
         "@crab-dev/rc-date-picker": "workspace:^",

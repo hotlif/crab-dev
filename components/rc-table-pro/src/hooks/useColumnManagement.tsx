@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, type MutableRefObject, type Dispatch, type SetStateAction, type Key, type ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 import { NodeType, LoadStateType } from "@crab-dev/rc-tree";
-import type { Node as TreeNode, OverState } from "@crab-dev/rc-tree";
+import type { Node as TreeNode, TreeProps } from "@crab-dev/rc-tree";
 import type { ColumnType, Row } from "@crab-dev/rc-table";
 import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState } from "../types.js";
 import { transformColumns } from "../util.js";
@@ -149,8 +149,7 @@ export interface UseColumnManagementReturn<T extends Row> {
     handlePinChange: PinChangeHandler;
     handleSortableChange: SortableChangeHandler;
     handleColumnResize: (columnName: string, width: number) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    handleColumnDragEnd: (event: any, meta: { overState: OverState | null }) => void;
+    handleColumnDragEnd: NonNullable<TreeProps["onDragEnd"]>;
     handleExpandAll: () => void;
     handleCollapseAll: () => void;
     handleResetColumnWidths: () => void;
@@ -189,7 +188,7 @@ function columnsToTreeNodes(
                         {onSortableChange && (
                             <button
                                 type="button"
-                                className={cx(sortableBtnStyle, sortable && sortableBtnActiveStyle)}
+                                className={cx.call(undefined, sortableBtnStyle, sortable && sortableBtnActiveStyle)}
                                 title={sortable ? "禁用排序" : "启用排序"}
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -203,7 +202,7 @@ function columnsToTreeNodes(
                             <>
                                 <button
                                     type="button"
-                                    className={cx(colPinBtnStyle, fixed === "left" && colPinBtnActiveStyle)}
+                                    className={cx.call(undefined, colPinBtnStyle, fixed === "left" && colPinBtnActiveStyle)}
                                     title={fixed === "left" ? "取消左固定" : "固定到左侧"}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -214,7 +213,7 @@ function columnsToTreeNodes(
                                 </button>
                                 <button
                                     type="button"
-                                    className={cx(colPinBtnStyle, fixed === "right" && colPinBtnActiveStyle)}
+                                    className={cx.call(undefined, colPinBtnStyle, fixed === "right" && colPinBtnActiveStyle)}
                                     title={fixed === "right" ? "取消右固定" : "固定到右侧"}
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -334,8 +333,7 @@ export function useColumnManagement<T extends Row>(
         notify();
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleColumnDragEnd = (event: any, { overState }: { overState: OverState | null }) => {
+    const handleColumnDragEnd: NonNullable<TreeProps["onDragEnd"]> = (event, { overState }) => {
         if (!overState) return;
         const dragId = event.active.id as string | number;
         const targetId = overState.id as string | number;

@@ -5,29 +5,29 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
-    'surface.background-color': '--protocol-table-surface-background-color',
-    'chrome.background-color': '--protocol-table-chrome-background-color',
-    'root.border-color': '--protocol-table-root-border-color',
-    'overlay.background-color-loading': '--protocol-table-overlay-background-color-loading',
-    'overlay.background-color-error': '--protocol-table-overlay-background-color-error',
-    'icon.color': '--protocol-table-icon-color',
-    'icon.color-hover': '--protocol-table-icon-color-hover',
-    'icon.background-color-hover': '--protocol-table-icon-background-color-hover',
-    'icon.background-color-selected': '--protocol-table-icon-background-color-selected',
-    'icon.color-selected': '--protocol-table-icon-color-selected',
-    'icon.selection.background-color-hover': '--protocol-table-icon-selection-background-color-hover',
-    'icon.selection.color-hover': '--protocol-table-icon-selection-color-hover',
-    'sort.color-selected': '--protocol-table-sort-color-selected',
-    'sort.selection.color-hover': '--protocol-table-sort-selection-color-hover',
-    'sort.selection.background-color-hover': '--protocol-table-sort-selection-background-color-hover',
-    'text.secondary.color': '--protocol-table-text-secondary-color',
-    'text.tertiary.color': '--protocol-table-text-tertiary-color',
-    'control.background-color-hover': '--protocol-table-control-background-color-hover',
-    'control.opacity-disabled': '--protocol-table-control-opacity-disabled',
-    'failure.icon.color': '--protocol-table-failure-icon-color',
-    'failure.text.color': '--protocol-table-failure-text-color',
-    'failure.border-color': '--protocol-table-failure-border-color',
-    'failure.background-color-hover': '--protocol-table-failure-background-color-hover'
+    'surface.background-color': '--table-pro-surface-background-color',
+    'chrome.background-color': '--table-pro-chrome-background-color',
+    'root.border-color': '--table-pro-root-border-color',
+    'overlay.background-color-loading': '--table-pro-overlay-background-color-loading',
+    'overlay.background-color-error': '--table-pro-overlay-background-color-error',
+    'icon.color': '--table-pro-icon-color',
+    'icon.color-hover': '--table-pro-icon-color-hover',
+    'icon.background-color-hover': '--table-pro-icon-background-color-hover',
+    'icon.background-color-selected': '--table-pro-icon-background-color-selected',
+    'icon.color-selected': '--table-pro-icon-color-selected',
+    'icon.selection.background-color-hover': '--table-pro-icon-selection-background-color-hover',
+    'icon.selection.color-hover': '--table-pro-icon-selection-color-hover',
+    'sort.color-selected': '--table-pro-sort-color-selected',
+    'sort.selection.color-hover': '--table-pro-sort-selection-color-hover',
+    'sort.selection.background-color-hover': '--table-pro-sort-selection-background-color-hover',
+    'text.secondary.color': '--table-pro-text-secondary-color',
+    'text.tertiary.color': '--table-pro-text-tertiary-color',
+    'control.background-color-hover': '--table-pro-control-background-color-hover',
+    'control.opacity-disabled': '--table-pro-control-opacity-disabled',
+    'failure.icon.color': '--table-pro-failure-icon-color',
+    'failure.text.color': '--table-pro-failure-text-color',
+    'failure.border-color': '--table-pro-failure-border-color',
+    'failure.background-color-hover': '--table-pro-failure-background-color-hover'
 });
 
 const token = defineTokens({
@@ -48,18 +48,18 @@ const token = defineTokens({
         'color': `var(${vars['icon.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'color-hover': `var(${vars['icon.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'background-color-hover': `var(${vars['icon.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
-        'background-color-selected': `var(${vars['icon.background-color-selected']}, var(--token-semantic-color-selection-background, var(--token-global-blue-50, oklch(0.970 0.014 254))))`,
-        'color-selected': `var(${vars['icon.color-selected']}, var(--token-semantic-color-selection-foreground, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'background-color-selected': `var(${vars['icon.background-color-selected']}, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))`,
+        'color-selected': `var(${vars['icon.color-selected']}, var(--token-semantic-color-selection-foreground, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811))))`,
         'selection': {
             'background-color-hover': `var(${vars['icon.selection.background-color-hover']}, var(--token-semantic-color-highlight-background-active, var(--token-global-amber-300, oklch(0.879 0.169 79))))`,
             'color-hover': `var(${vars['icon.selection.color-hover']}, var(--token-semantic-color-highlight-foreground, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
         }
     },
     'sort': {
-        'color-selected': `var(${vars['sort.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'color-selected': `var(${vars['sort.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'selection': {
-            'color-hover': `var(${vars['sort.selection.color-hover']}, var(--token-semantic-color-selection-foreground, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-            'background-color-hover': `var(${vars['sort.selection.background-color-hover']}, var(--token-semantic-color-selection-background, var(--token-global-blue-50, oklch(0.970 0.014 254))))`
+            'color-hover': `var(${vars['sort.selection.color-hover']}, var(--token-semantic-color-selection-foreground, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811))))`,
+            'background-color-hover': `var(${vars['sort.selection.background-color-hover']}, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))`
         }
     },
     'text': {

@@ -1,13 +1,13 @@
 [build]
 output = "./src/token.ts"
-prefix = "protocol-table"
+prefix = "table-pro"
 imports = [
     "@crab-dev/rc-token-semantic"
 ]
 
 [token]
 
-# ProtocolTable previously consumed rc-table-looking custom properties directly.
+# TablePro previously consumed rc-table-looking custom properties directly.
 # Keep those variables in the fallback chain while giving this component its own
 # stable namespace.
 surface.background-color = "var(--crab-rc-table-bg-color, $ref(color.background.surface))"

@@ -406,11 +406,11 @@ interface WithPaginationProps<T extends Row> extends BaseProps<T> {
     pagination: PaginationConfig;
 }
 
-type ProtocolTableProps<T extends Row> = NoPaginationProps<T> | WithPaginationProps<T>;
+type TableProProps<T extends Row> = NoPaginationProps<T> | WithPaginationProps<T>;
 
 /* ───────────────────────────── 组件 ───────────────────────────── */
 
-function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
+function TablePro<T extends Row>(props: TableProProps<T>) {
     const {
         fetchColumns,
         typeLoaders,
@@ -788,7 +788,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
                         </button>
                     )}
                 </div>
-                <div className={cx(sideBarBodyStyle, filterPanelScrollStyle)}>
+                <div className={cx.call(undefined, sideBarBodyStyle, filterPanelScrollStyle)}>
                     {filterableCols.length === 0 ? (
                         <div className={filterPanelEmptyStyle}>
                             {allFilterable.length === 0 ? "暂无可过滤列" : "无匹配列"}
@@ -873,7 +873,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
             {colMgmt.panelOpen && (colMgmt.sideBarTab === "columns" ? columnsPanelContent : filtersPanelContent)}
             <div className={sideToolbarStyle}>
                 <button
-                    className={cx(sideToolbarBtnStyle, colMgmt.panelOpen && colMgmt.sideBarTab === "columns" && sideToolbarBtnActiveStyle)}
+                    className={cx.call(undefined, sideToolbarBtnStyle, colMgmt.panelOpen && colMgmt.sideBarTab === "columns" && sideToolbarBtnActiveStyle)}
                     type="button"
                     title="列"
                     onClick={() => handleTabClick("columns")}
@@ -881,7 +881,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
                     <ColumnsIcon />
                 </button>
                 <button
-                    className={cx(sideToolbarBtnStyle, colMgmt.panelOpen && colMgmt.sideBarTab === "filters" && sideToolbarBtnActiveStyle)}
+                    className={cx.call(undefined, sideToolbarBtnStyle, colMgmt.panelOpen && colMgmt.sideBarTab === "filters" && sideToolbarBtnActiveStyle)}
                     type="button"
                     title="过滤器"
                     onClick={() => handleTabClick("filters")}
@@ -908,7 +908,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
 
     if (!pagination) {
         return (
-            <div {...cleanRest} className={cx(needsFlexCol && flexColumnStyle, className)}>
+            <div {...cleanRest} className={cx.call(undefined, needsFlexCol && flexColumnStyle, className)}>
                 {searchBarEl}
                 {needsFlexCol ? <div className={tableFlexStyle}>{tableAreaContent}</div> : tableAreaContent}
             </div>
@@ -942,7 +942,7 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
     );
 
     return (
-        <div {...cleanRest} className={cx(flexColumnStyle, className)}>
+        <div {...cleanRest} className={cx.call(undefined, flexColumnStyle, className)}>
             {position !== "bottom" && paginationBar}
             <div className={tableFlexStyle}>
                 {tableAreaContent}
@@ -952,4 +952,4 @@ function ProtocolTable<T extends Row>(props: ProtocolTableProps<T>) {
     );
 }
 
-export default ProtocolTable;
+export default TablePro;

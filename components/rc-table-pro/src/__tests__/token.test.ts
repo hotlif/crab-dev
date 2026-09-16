@@ -1,22 +1,22 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import token, { vars } from '../token.js';
 
-describe('ProtocolTable token contract', () => {
+describe('TablePro token contract', () => {
     it('uses its own public CSS variable namespace', () => {
         for (const variable of Object.values(vars)) {
-            expect(variable).toMatch(/^--protocol-table-/);
+            expect(variable).toMatch(/^--table-pro-/);
         }
     });
 
     it('keeps the legacy rc-table-looking variables as fallbacks', () => {
         expect(token.surface['background-color']).toContain(
-            'var(--protocol-table-surface-background-color, var(--crab-rc-table-bg-color,',
+            'var(--table-pro-surface-background-color, var(--crab-rc-table-bg-color,',
         );
         expect(token.chrome['background-color']).toContain(
-            'var(--protocol-table-chrome-background-color, var(--crab-rc-table-header-bg-color,',
+            'var(--table-pro-chrome-background-color, var(--crab-rc-table-header-bg-color,',
         );
         expect(token.root['border-color']).toContain(
-            'var(--protocol-table-root-border-color, var(--crab-rc-table-border-color,',
+            'var(--table-pro-root-border-color, var(--crab-rc-table-border-color,',
         );
     });
 

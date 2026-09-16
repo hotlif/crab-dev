@@ -1,8 +1,9 @@
 [docs]
 source_dir = "docs"
-title = "高阶 Table 表格"
-description = "高效的协议表格库，旨在提升大规模列表或内容渲染的性能。"
+title = "TablePro 高级表格"
+description = "基于 Table，集成数据加载、查询、列管理和导出的业务表格。"
 locale = "zh-CN"
+theme_css = "docs/theme.css"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]
