@@ -6,10 +6,19 @@ imports = [
 ]
 
 [token]
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-width-focus = "2px"
+root.outline-offset-focus = "2px"
+# Crab independent touch targets; visual size props remain unchanged.
+root.touch.min-width = "44px"
+root.touch.min-height = "44px"
+root.line-height = "$ref(font.line-height.body)"
+root.opacity-disabled = "$ref(opacity.disabled)"
+track.border-width = "1px"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--switch-transition, background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1))"
+root.transition = "var(--switch-transition, transform $ref(motion.fade), background-color $ref(motion.fade), box-shadow $ref(motion.fade))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────

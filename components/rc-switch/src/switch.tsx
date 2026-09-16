@@ -11,13 +11,18 @@ const wrapperStyle = css`
     cursor: pointer;
     font-size: ${token.label['font-size']};
     color: ${token.label.color};
-    line-height: 1;
+    line-height: ${token.root['line-height']};
     user-select: none;
+    @media (pointer: coarse) {
+        min-width: ${token.root.touch['min-width']};
+        min-height: ${token.root.touch['min-height']};
+    }
 
     &[data-disabled] {
-        cursor: default;
+        cursor: not-allowed;
         pointer-events: none;
         color: ${token.label['color-disabled']};
+        opacity: ${token.root['opacity-disabled']};
     }
 `;
 
@@ -27,6 +32,7 @@ const trackStyle = css`
     align-items: center;
     background-color: ${token.track['background-color']};
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     border: none;
     padding: 0;
     cursor: inherit;
@@ -38,7 +44,30 @@ const trackStyle = css`
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 2px ${token.track['background-color-checked']};
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
+    }
+    @media (forced-colors: active) {
+        && {
+        forced-color-adjust: none;
+        background: Canvas;
+        outline: ${token.track['border-width']} solid CanvasText;
+        outline-offset: -1px;
+        > span { background: CanvasText; box-shadow: none; }
+        &[aria-checked='true'] {
+            background: Highlight;
+            > span { background: HighlightText; }
+        }
+        &:disabled {
+            background: Canvas;
+            outline-color: GrayText;
+            > span { background: GrayText; }
+        }
+        &:focus-visible {
+            outline: ${token.root['outline-width-focus']} solid Highlight;
+            outline-offset: ${token.root['outline-offset-focus']};
+        }
+        }
     }
 `;
 
@@ -65,7 +94,8 @@ const handleStyle = css`
     border-radius: 50%;
     background-color: ${token.handle['background-color']};
     box-shadow: ${token.handle['box-shadow']};
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     transform: translateX(0);
 `;
 

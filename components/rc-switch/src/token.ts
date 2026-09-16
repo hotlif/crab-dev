@@ -5,7 +5,21 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'root.outline-color-focus': '--switch-root-outline-color-focus',
+    'root.outline-width-focus': '--switch-root-outline-width-focus',
+    'root.outline-offset-focus': '--switch-root-outline-offset-focus',
+    'root.touch.min-width': '--switch-root-touch-min-width',
+    'root.touch.min-height': '--switch-root-touch-min-height',
+    'root.line-height': '--switch-root-line-height',
+    'root.opacity-disabled': '--switch-root-opacity-disabled',
     'root.transition': '--switch-root-transition',
+    'track.border-width': '--switch-track-border-width',
+    'track.background-color': '--switch-track-background-color',
+    'track.background-color-hover': '--switch-track-background-color-hover',
+    'track.background-color-checked': '--switch-track-background-color-checked',
+    'track.checked.background-color-hover': '--switch-track-checked-background-color-hover',
+    'track.checked.background-color-disabled': '--switch-track-checked-background-color-disabled',
+    'track.background-color-disabled': '--switch-track-background-color-disabled',
     'label.gap': '--switch-label-gap',
     'label.font-size': '--switch-label-font-size',
     'label.color': '--switch-label-color',
@@ -25,12 +39,6 @@ export const vars = defineTokens({
     'size.small.track.border-radius': '--switch-size-small-track-border-radius',
     'size.small.handle.width': '--switch-size-small-handle-width',
     'size.small.handle.left': '--switch-size-small-handle-left',
-    'track.background-color': '--switch-track-background-color',
-    'track.background-color-hover': '--switch-track-background-color-hover',
-    'track.background-color-checked': '--switch-track-background-color-checked',
-    'track.checked.background-color-hover': '--switch-track-checked-background-color-hover',
-    'track.checked.background-color-disabled': '--switch-track-checked-background-color-disabled',
-    'track.background-color-disabled': '--switch-track-background-color-disabled',
     'handle.background-color': '--switch-handle-background-color',
     'handle.box-shadow': '--switch-handle-box-shadow',
     'handle.background-color-disabled': '--switch-handle-background-color-disabled'
@@ -38,7 +46,27 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'transition': `var(${vars['root.transition']}, var(--switch-transition, background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)))`
+        'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+        'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`,
+        'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, 2px)`,
+        'touch': {
+            'min-width': `var(${vars['root.touch.min-width']}, 44px)`,
+            'min-height': `var(${vars['root.touch.min-height']}, 44px)`
+        },
+        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`,
+        'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3)))`,
+        'transition': `var(${vars['root.transition']}, var(--switch-transition, transform var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), background-color var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), box-shadow var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+    },
+    'track': {
+        'border-width': `var(${vars['track.border-width']}, 1px)`,
+        'background-color': `var(${vars['track.background-color']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'background-color-hover': `var(${vars['track.background-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
+        'background-color-checked': `var(${vars['track.background-color-checked']}, var(--switch-checked-track-background-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+        'checked': {
+            'background-color-hover': `var(${vars['track.checked.background-color-hover']}, var(--switch-checked-track-background-color-hover, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))))`,
+            'background-color-disabled': `var(${vars['track.checked.background-color-disabled']}, var(--switch-disabled-checked-track-background-color, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
+        },
+        'background-color-disabled': `var(${vars['track.background-color-disabled']}, var(--switch-disabled-track-background-color, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
     },
     'label': {
         'gap': `var(${vars['label.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
@@ -80,16 +108,6 @@ const token = defineTokens({
                 'left': `var(${vars['size.small.handle.left']}, var(--switch-size-small-handle-offset, 2px))`
             }
         }
-    },
-    'track': {
-        'background-color': `var(${vars['track.background-color']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
-        'background-color-hover': `var(${vars['track.background-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
-        'background-color-checked': `var(${vars['track.background-color-checked']}, var(--switch-checked-track-background-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`,
-        'checked': {
-            'background-color-hover': `var(${vars['track.checked.background-color-hover']}, var(--switch-checked-track-background-color-hover, var(--token-semantic-color-brand-primary-hover, var(--token-global-zinc-800, oklch(0.320 0.008 286)))))`,
-            'background-color-disabled': `var(${vars['track.checked.background-color-disabled']}, var(--switch-disabled-checked-track-background-color, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
-        },
-        'background-color-disabled': `var(${vars['track.background-color-disabled']}, var(--switch-disabled-track-background-color, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
     },
     'handle': {
         'background-color': `var(${vars['handle.background-color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,

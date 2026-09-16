@@ -14,16 +14,42 @@ const baseStyle = css`
     align-items: center;
     cursor: pointer;
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     border: unset;
     user-select: none;
     background-color: unset;
     font-family: inherit;
-    line-height: 1;
+    line-height: ${token.root['line-height']};
     vertical-align: middle;
     text-decoration: none;
+    &:focus-visible {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
+    }
+    &[aria-disabled='true']:not([data-is-loading]) {
+        cursor: not-allowed;
+        opacity: ${token.root['opacity-disabled']};
+    }
+    @media (pointer: coarse) {
+        min-width: ${token.root.touch['min-width']};
+        min-height: ${token.root.touch['min-height']};
+    }
+    @media (prefers-reduced-motion: reduce) {
+        /* Keep every appearance still, including selectors with state specificity. */
+        &:active:not([aria-disabled="true"]) { transform: none !important; }
+    }
+    @media (forced-colors: active) {
+        outline: ${token.root['border-width']} solid ButtonText;
+        outline-offset: -1px;
+        &:focus-visible {
+            outline: ${token.root['outline-width-focus']} solid Highlight;
+            outline-offset: ${token.root['outline-offset-focus']};
+        }
+        &[aria-disabled='true'] { outline-color: GrayText; }
+    }
     &[data-is-loading] {
         opacity: ${opacityLoading};
-        cursor: default;
+        cursor: not-allowed;
         pointer-events: none;
     }
 `;
@@ -55,43 +81,43 @@ const loadingIndicatorStyle = css`
 `;
 
 const primaryStyle = css`
-    &:not(:disabled) {
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         box-shadow: ${token.primary['box-shadow']};
         background-color: ${token.primary["background-color"]};
         color: ${token.primary.color};
-        &:hover { background-color: ${token.primary['background-color-hover']}; }
-        &:active {
+        &:hover:not([aria-disabled="true"]) { background-color: ${token.primary['background-color-hover']}; }
+        &:active:not([aria-disabled="true"]) {
             background-color: ${token.primary['background-color-active']};
-            transform: scale(0.97);
+            transform: scale(0.98);
         }
     }
-    &:disabled {
-        cursor: default;
+    &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        cursor: not-allowed;
         pointer-events: none;
         background-color: ${token.primary['background-color-disabled']};
     }
 `;
 
 const dangerStyle = css`
-    &:not(:disabled) {
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         box-shadow: ${token.danger['box-shadow']};
         background-color: ${token.danger["background-color"]};
         color: ${token.danger.color};
-        &:hover { background-color: ${token.danger['background-color-hover']}; }
-        &:active {
+        &:hover:not([aria-disabled="true"]) { background-color: ${token.danger['background-color-hover']}; }
+        &:active:not([aria-disabled="true"]) {
             background-color: ${token.danger['background-color-active']};
-            transform: scale(0.97);
+            transform: scale(0.98);
         }
     }
-    &:disabled {
-        cursor: default;
+    &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        cursor: not-allowed;
         pointer-events: none;
         background-color: ${token.danger['background-color-disabled']};
     }
 `;
 
 const linkStyle = css`
-    &:not(:disabled) {
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         background-color: ${token.link["background-color"]};
         color: ${token.link.color};
         > span {
@@ -106,21 +132,22 @@ const linkStyle = css`
                 background-color: ${token.link['text-decoration-color']};
                 transform: scaleX(0);
                 transform-origin: right;
-                transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; } transition-property: transform;
             }
             &:hover::after {
                 transform: scaleX(1);
                 transform-origin: left;
             }
         }
-        &:hover { color: ${token.link['color-hover']}; }
-        &:active {
-            transform: scale(0.97);
+        &:hover:not([aria-disabled="true"]) { color: ${token.link['color-hover']}; }
+        &:active:not([aria-disabled="true"]) {
+            transform: scale(0.98);
             color: ${token.link['color-active']};
         }
     }
-    &:disabled {
-        cursor: default;
+    &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        cursor: not-allowed;
         background-color: ${token.link['background-color-disabled']};
         pointer-events: none;
     }
@@ -130,64 +157,63 @@ const dashedStyle = css`
     border-width: ${token.dashed['border-width']};
     border-style: ${token.dashed['border-style']};
     box-shadow: ${token.dashed['box-shadow']};
-    &:not(:disabled) {
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         color: ${token.dashed.color};
         background-color: ${token.dashed["background-color"]};
         border-color: ${token.dashed['border-color']};
-        &:hover {
+        &:hover:not([aria-disabled="true"]) {
             color: ${token.dashed['color-hover']};
             border-color: ${token.dashed['border-color-hover']};
         }
-        &:active {
-            transform: scale(0.97);
+        &:active:not([aria-disabled="true"]) {
+            transform: scale(0.98);
             color: ${token.dashed['color-active']};
             border-color: ${token.dashed['border-color-active']};
         }
     }
-    &:disabled {
-        cursor: default;
+    &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        cursor: not-allowed;
         pointer-events: none;
         background-color: ${token.dashed['background-color-disabled']};
-        border-style: unset;
-        border-width: unset;
+        border-color: transparent;
     }
 `;
 
 const textStyle = css`
-    &:not(:disabled) {
-        &:hover { background-color: ${token.text['background-color-hover']}; }
-        &:active {
-            transform: scale(0.97);
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
+        &:hover:not([aria-disabled="true"]) { background-color: ${token.text['background-color-hover']}; }
+        &:active:not([aria-disabled="true"]) {
+            transform: scale(0.98);
             background-color: ${token.text['background-color-active']};
         }
     }
-    &:disabled {
-        cursor: default;
+    &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        cursor: not-allowed;
         background-color: transparent;
         pointer-events: none;
     }
 `;
 
 const subtleStyle = css`
-    &:not(:disabled) {
+    border-style: ${token.subtle['border-style']};
+    border-width: ${token.subtle['border-width']};
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         color: ${token.subtle.color};
-        border-style: ${token.subtle['border-style']};
-        border-width: ${token.subtle['border-width']};
         background-color: ${token.subtle["background-color"]};
         border-color: ${token.subtle['border-color']};
         box-shadow: ${token.subtle['box-shadow']};
-        &:hover {
+        &:hover:not([aria-disabled="true"]) {
             border-color: ${token.subtle['border-color-hover']};
             color: ${token.subtle['color-hover']};
         }
-        &:active {
-            transform: scale(0.97);
+        &:active:not([aria-disabled="true"]) {
+            transform: scale(0.98);
             color: ${token.subtle['color-active']};
             border-color: ${token.subtle['border-color-active']};
         }
     }
-    &:disabled {
-        cursor: default;
+    &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        cursor: not-allowed;
         pointer-events: none;
         background-color: ${token.subtle['background-color-disabled']};
     }
@@ -220,12 +246,10 @@ const sizeSmallStyle = css`
 const fitContainerStyle = css`width: 100%;`;
 
 const selectedStyle = css`
-    &:not(:disabled) {
+    &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         background-color: ${token.root["background-color-selected"]} !important;
         color: ${token.root["color-selected"]} !important;
         border-color: ${token.root['border-color-selected']} !important;
-        border-style: solid;
-        border-width: 1px;
     }
 `;
 
@@ -261,7 +285,7 @@ const Button: FC<ButtonProps> = ({
     children,
     size,
     shape,
-    isSelected = false,
+    isSelected,
     disabled,
     href,
     target,
@@ -271,6 +295,7 @@ const Button: FC<ButtonProps> = ({
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledby,
     'aria-describedby': ariaDescribedby,
+    'aria-current': ariaCurrent,
     onClick,
     onClickCapture,
     ...restProps
@@ -327,6 +352,11 @@ const Button: FC<ButtonProps> = ({
     const makeClickHandler = (handler: ButtonProps['onClick']) => (
         e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
+        if (disabled || loading) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
         if (clickState.current === false) {
             clickState.current = true;
             try {
@@ -354,6 +384,7 @@ const Button: FC<ButtonProps> = ({
         'aria-label': ariaLabel,
         'aria-labelledby': ariaLabelledby,
         'aria-describedby': ariaDescribedby,
+        'aria-current': ariaCurrent,
         'aria-busy': loading,
         'aria-disabled': disabled || loading,
         'data-is-loading': loading ? `${loading}` : null,
@@ -381,6 +412,9 @@ const Button: FC<ButtonProps> = ({
         <button
             {...restProps}
             {...commonProps}
+            aria-pressed={restProps['aria-pressed'] ?? (
+                !restProps.role || restProps.role === 'button' ? isSelected : undefined
+            )}
             disabled={disabled}
             onClick={makeClickHandler(onClick)}
             onClickCapture={makeClickHandler(onClickCapture)}

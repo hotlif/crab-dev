@@ -5,6 +5,13 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'root.outline-color-focus': '--radio-root-outline-color-focus',
+    'root.outline-width-focus': '--radio-root-outline-width-focus',
+    'root.outline-offset-focus': '--radio-root-outline-offset-focus',
+    'root.touch.min-width': '--radio-root-touch-min-width',
+    'root.touch.min-height': '--radio-root-touch-min-height',
+    'root.line-height': '--radio-root-line-height',
+    'root.opacity-disabled': '--radio-root-opacity-disabled',
     'control.transition': '--radio-control-transition',
     'control.border-width': '--radio-control-border-width',
     'control.border-style': '--radio-control-border-style',
@@ -34,20 +41,31 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'root': {
+        'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+        'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`,
+        'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, 2px)`,
+        'touch': {
+            'min-width': `var(${vars['root.touch.min-width']}, 44px)`,
+            'min-height': `var(${vars['root.touch.min-height']}, 44px)`
+        },
+        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`,
+        'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3)))`
+    },
     'control': {
-        'transition': `var(${vars['control.transition']}, var(--radio-root-transition, var(--radio-transition, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1))))`,
+        'transition': `var(${vars['control.transition']}, var(--radio-root-transition, var(--radio-transition, background-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), border-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), box-shadow var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))))`,
         'border-width': `var(${vars['control.border-width']}, var(--radio-root-border-width, var(--radio-border-width, 1px)))`,
         'border-style': `var(${vars['control.border-style']}, var(--radio-root-border-style, var(--radio-border-style, solid)))`,
-        'border-color': `var(${vars['control.border-color']}, var(--radio-root-border-color, var(--radio-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))))`,
-        'border-color-hover': `var(${vars['control.border-color-hover']}, var(--radio-root-border-color-hover, var(--radio-border-color-hover, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286))))))`,
+        'border-color': `var(${vars['control.border-color']}, var(--radio-root-border-color, var(--radio-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))))`,
+        'border-color-hover': `var(${vars['control.border-color-hover']}, var(--radio-root-border-color-hover, var(--radio-border-color-hover, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))))`,
         'background-color': `var(${vars['control.background-color']}, var(--radio-root-background-color, var(--radio-background-color, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))))`,
         'checked': {
-            'background-color': `var(${vars['control.checked.background-color']}, var(--radio-root-background-color-checked, var(--radio-background-color-checked, var(--radio-checked-background-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))))`,
-            'background-color-hover': `var(${vars['control.checked.background-color-hover']}, var(--radio-root-background-color-hover-checked, var(--radio-background-color-hover-checked, var(--radio-checked-background-color-hover, var(--token-semantic-color-brand-primary-hover, var(--token-global-zinc-800, oklch(0.320 0.008 286)))))))`,
-            'border-color': `var(${vars['control.checked.border-color']}, var(--radio-root-border-color-checked, var(--radio-border-color-checked, var(--radio-checked-border-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))))`
+            'background-color': `var(${vars['control.checked.background-color']}, var(--radio-root-background-color-checked, var(--radio-background-color-checked, var(--radio-checked-background-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`,
+            'background-color-hover': `var(${vars['control.checked.background-color-hover']}, var(--radio-root-background-color-hover-checked, var(--radio-background-color-hover-checked, var(--radio-checked-background-color-hover, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))))))`,
+            'border-color': `var(${vars['control.checked.border-color']}, var(--radio-root-border-color-checked, var(--radio-border-color-checked, var(--radio-checked-border-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
         },
         'background-color-disabled': `var(${vars['control.background-color-disabled']}, var(--radio-root-background-color-disabled, var(--radio-background-color-disabled, var(--radio-disabled-background-color, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))))`,
-        'border-color-disabled': `var(${vars['control.border-color-disabled']}, var(--radio-root-border-color-disabled, var(--radio-border-color-disabled, var(--radio-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))))`
+        'border-color-disabled': `var(${vars['control.border-color-disabled']}, var(--radio-root-border-color-disabled, var(--radio-border-color-disabled, var(--radio-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))))`
     },
     'label': {
         'gap': `var(${vars['label.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
@@ -94,7 +112,7 @@ const token = defineTokens({
     },
     'dot': {
         'checked': {
-            'color': `var(${vars['dot.checked.color']}, var(--radio-dot-color-checked, var(--radio-checked-dot-color, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))))`
+            'color': `var(${vars['dot.checked.color']}, var(--radio-dot-color-checked, var(--radio-checked-dot-color, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))))`
         },
         'color-disabled': `var(${vars['dot.color-disabled']}, var(--radio-disabled-dot-color, var(--token-semantic-color-text-disabled, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`
     }

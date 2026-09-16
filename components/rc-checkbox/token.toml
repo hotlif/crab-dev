@@ -6,10 +6,18 @@ imports = [
 ]
 
 [token]
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-width-focus = "2px"
+root.outline-offset-focus = "2px"
+# Crab independent touch targets; visual size props remain unchanged.
+root.touch.min-width = "44px"
+root.touch.min-height = "44px"
+root.line-height = "$ref(font.line-height.body)"
+root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-control.transition = "var(--checkbox-root-transition, var(--checkbox-transition, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)))"
+control.transition = "var(--checkbox-root-transition, var(--checkbox-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────

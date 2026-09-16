@@ -60,7 +60,8 @@ export interface RadioGroupProps {
     size?: 'large' | 'middle' | 'small';
 
     /**
-     * Radio name 属性, 用于原生表单分组
+     * Radio name 属性，用于原生分组与表单字段；未指定或为空时自动生成组内唯一名称。
+     * 通过 FormData 提交时应显式指定稳定的业务字段名。
      */
     name?: string;
 

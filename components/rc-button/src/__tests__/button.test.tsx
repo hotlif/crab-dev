@@ -1,4 +1,6 @@
-import { describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
+import { useState, type FormEvent } from "react";
+import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import Button from '../button.js';
 import type { ButtonProps } from '../types.js';
 (globalThis as typeof globalThis & {
@@ -18,6 +20,52 @@ const clickButton = async (button: HTMLButtonElement) => {
     });
 };
 describe('Button', () => {
+    it('exposes toggle state after activation without turning ordinary actions into toggles', async () => {
+        function ToggleExample() {
+            const [selected, setSelected] = useState(false);
+            return <>
+                <Button isSelected={selected} onClick={() => setSelected(value => !value)}>Filter</Button>
+                <Button>Save</Button>
+                <Button role="tab" isSelected aria-selected>Details</Button>
+                <Button isSelected aria-pressed="mixed">Mixed</Button>
+            </>;
+        }
+        await render(<ToggleExample />);
+        await fireEvent.click(screen.getByRole('button', { name: 'Filter', pressed: false }));
+        expect(screen.getByRole('button', { name: 'Filter', pressed: true })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Save' }).hasAttribute('aria-pressed')).toBe(false);
+        expect(screen.getByRole('tab', { name: 'Details' }).hasAttribute('aria-pressed')).toBe(false);
+        expect(screen.getByRole('button', { name: 'Mixed' }).getAttribute('aria-pressed')).toBe('mixed');
+    });
+    it('blocks activation and form submission while loading, then recovers', async () => {
+        const onClick = mock.fn();
+        const onClickCapture = mock.fn();
+        const onSubmit = mock.fn((event: FormEvent) => event.preventDefault());
+        const { rerender } = await render(
+            <form onSubmit={onSubmit}>
+                <Button type="submit" loading onClick={onClick} onClickCapture={onClickCapture}>Save</Button>
+            </form>,
+        );
+        const button = screen.getByRole('button', { name: 'Save' });
+        // Dispatch bypasses CSS pointer-events, as keyboard activation can do.
+        await fireEvent.click(button);
+        expect(onClick).not.toHaveBeenCalled();
+        expect(onClickCapture).not.toHaveBeenCalled();
+        expect(onSubmit).not.toHaveBeenCalled();
+        await rerender(<form onSubmit={onSubmit}><Button type="submit" onClick={onClick}>Save</Button></form>);
+        await fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(onSubmit).toHaveBeenCalledTimes(1);
+    });
+    it('keeps the current-page state on navigation links and clears it when inactive', async () => {
+        const { rerender, unmount } = await render(
+            <Button href="/components/rc-button" aria-current="page">Button documentation</Button>,
+        );
+        expect(screen.getByRole('link', { name: 'Button documentation' }).getAttribute('aria-current')).toBe('page');
+        await rerender(<Button href="/components/rc-button">Button documentation</Button>);
+        expect(screen.getByRole('link', { name: 'Button documentation' }).getAttribute('aria-current')).toBeNull();
+        await unmount();
+    });
     it('renders all appearance variants without runtime error', async () => {
         const appearanceList: NonNullable<ButtonProps['appearance']>[] = [
             'primary',

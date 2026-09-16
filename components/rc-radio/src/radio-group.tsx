@@ -1,5 +1,5 @@
 import { css, cx } from '@crab-dev/css';
-import { type FC } from 'react';
+import { useId, type FC } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type { RadioGroupProps } from './types.js';
@@ -21,6 +21,9 @@ const RadioGroup: FC<RadioGroupProps> = ({
     children,
     className,
 }) => {
+    // Native arrow navigation must stay within this group, including unnamed groups.
+    const generatedName = useId();
+    const groupName = name || generatedName;
     const [value, setValue] = useControllableValue<string | number>({
         value: valueProp,
         defaultValue,
@@ -30,7 +33,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
     const selectValue = (val: string | number) => setValue(val);
 
     return (
-        <RadioGroupContext value={{ value, disabled, size, name, selectValue }}>
+        <RadioGroupContext value={{ value, disabled, size, name: groupName, selectValue }}>
             <div className={cx(groupStyle, className)} role="radiogroup">
                 {children}
             </div>

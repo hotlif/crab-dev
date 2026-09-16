@@ -12,13 +12,44 @@ const wrapperStyle = css`
     gap: ${token.label.gap};
     cursor: pointer;
     color: ${token.label.color};
-    line-height: 1;
+    line-height: ${token.root['line-height']};
     user-select: none;
 
+    > input:focus-visible + span {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
+    }
+    @media (pointer: coarse) {
+        min-width: ${token.root.touch['min-width']};
+        min-height: ${token.root.touch['min-height']};
+    }
+    @media (forced-colors: active) {
+        > input + span {
+            forced-color-adjust: none;
+            background: Canvas;
+            border-color: CanvasText;
+            color: CanvasText;
+            > svg { color: inherit; }
+            > span { background: currentColor; }
+        }
+        > input:checked + span, > input:indeterminate + span {
+            background: Highlight;
+            border-color: Highlight;
+            color: HighlightText;
+        }
+        > input:disabled + span {
+            background: Canvas;
+            border-color: GrayText;
+            color: GrayText;
+        }
+        > input:focus-visible + span { outline-color: Highlight; }
+    }
+
     &[data-disabled] {
-        cursor: default;
+        cursor: not-allowed;
         pointer-events: none;
         color: ${token.label['color-disabled']};
+        opacity: ${token.root['opacity-disabled']};
     }
 `;
 
@@ -44,6 +75,7 @@ const boxStyle = css`
     border-color: ${token.control['border-color']};
     background-color: ${token.control['background-color']};
     transition: ${token.control.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     flex-shrink: 0;
 
     &:hover {
