@@ -7,8 +7,8 @@ imports = ["@crab-dev/rc-token-semantic"]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--component-preview-transition, color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), border-color 120ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.32, 0.72, 0, 1))"
-source.transition = "var(--component-preview-root-transition-expand, var(--component-preview-transition-expand, max-height 280ms cubic-bezier(0.32, 0.72, 0, 1)))"
+root.transition = "var(--component-preview-transition, color $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), transform $ref(motion.fade))"
+source.transition = "var(--component-preview-root-transition-expand, var(--component-preview-transition-expand, grid-template-rows $ref(motion.expand)))"
 
 
 # ─── 卡片容器 ────────────────────────────────────────────────────────────────

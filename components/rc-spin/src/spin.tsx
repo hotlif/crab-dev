@@ -111,7 +111,7 @@ const Spin = ({
 
     const spinnerNode = (
         <div
-            className={cx(spinnerStyle, sizeStyleOf(size))}
+            className={cx.call(undefined, spinnerStyle, sizeStyleOf(size))}
             role="status"
             aria-live="polite"
             // tip 是可见文案, 已能作为可访问名；此时再加 aria-label 反而会把它覆盖掉
@@ -138,12 +138,12 @@ const Spin = ({
         <div
             {...restProps}
             ref={ref}
-            className={cx(containerStyle, className)}
+            className={cx.call(undefined, containerStyle, className)}
             aria-busy={visible}
         >
             {/* inert 同时阻断鼠标点击、键盘 Tab 与读屏进入——加载中的内容不可用,
                 就该真的不可用, 而不是"看起来禁用、Tab 一按还是能选中"。 */}
-            <div className={cx(contentStyle, visible && contentMaskedStyle)} inert={visible}>
+            <div className={cx.call(undefined, contentStyle, visible && contentMaskedStyle)} inert={visible}>
                 {children}
             </div>
             {visible && <div className={overlayStyle}>{spinnerNode}</div>}

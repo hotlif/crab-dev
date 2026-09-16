@@ -1,5 +1,5 @@
-import { createContext, type Dispatch, type Ref, use } from 'react';
-import type { DropdownAction, DropdownState } from './reducer';
+import { createContext, type Context, type Dispatch, type Ref, use } from 'react';
+import type { DropdownAction, DropdownState } from './reducer.js';
 
 export interface DropdownContextValue<T extends HTMLElement = HTMLElement> {
     state: DropdownState;
@@ -9,7 +9,7 @@ export interface DropdownContextValue<T extends HTMLElement = HTMLElement> {
     };
 }
 
-export const DropdownContext = createContext<DropdownContextValue | null>(null);
+export const DropdownContext: Context<DropdownContextValue | null> = createContext<DropdownContextValue | null>(null);
 
 export function useDropdownContext<T extends HTMLElement = HTMLElement>(): DropdownContextValue<T> {
     const context = use(DropdownContext);

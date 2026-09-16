@@ -47,7 +47,7 @@ export function SourceCode({ sourceCode, language, codeTheme }: SourceCodeProps)
     const prismProps = {
         language,
         style: codeTheme === 'dark' ? oneDark : oneLight,
-        wrapLongLines: true,
+        wrapLongLines: false,
         showLineNumbers: true,
         lineNumberStyle: prismLineNumberStyle,
         customStyle: prismCustomStyle,

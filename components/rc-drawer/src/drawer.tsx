@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
 import { css, cx } from "@crab-dev/css";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import token from "./token.js";
 
@@ -322,21 +322,31 @@ const Drawer: FC<DrawerProps> = ({
     ...restProps
 }) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const titleId = useId();
+    // Mutable instance state: retain the background lock until the panel has left.
+    const restoreScroll = useRef<(() => void) | null>(null);
+    const reducedMotion = useReducedMotion();
     const [contentReset, setContentReset] = useState(false);
 
     useEffect(() => {
         const node = dialogRef.current;
-        if (!node) return;
+        if (!node || !open) return;
         if (open && !node.open) {
             node.showModal();
         }
+        if (!restoreScroll.current) {
+            const previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = "hidden";
+            restoreScroll.current = () => {
+                document.body.style.overflow = previousOverflow;
+                restoreScroll.current = null;
+            };
+        }
     }, [open]);
 
+    useEffect(() => () => restoreScroll.current?.(), []);
+
     useEffect(() => {
-        if (!open && shouldResetContent) {
-            setContentReset(true);
-            return;
-        }
         if (open) {
             setContentReset(false);
         }
@@ -369,7 +379,7 @@ const Drawer: FC<DrawerProps> = ({
     const sizeStyle = getSizeStyle(placement, size);
     const { axis, from } = getMotionOffset(placement);
 
-    const motionInitial = axis === "x" ? { x: from } : { y: from };
+    const motionInitial = axis === "x" ? { x: reducedMotion ? 0 : from } : { y: reducedMotion ? 0 : from };
     const motionAnimate = axis === "x" ? { x: 0 } : { y: 0 };
     const motionExit = motionInitial;
 
@@ -380,11 +390,15 @@ const Drawer: FC<DrawerProps> = ({
             onClick={onClick}
             onCancel={handleDialogCancel}
             aria-modal="true"
+            aria-labelledby={title && !restProps['aria-label'] ? titleId : undefined}
             {...restProps}
         >
             <AnimatePresence
                 onExitComplete={() => {
+                    if (open) return;
                     dialogRef.current?.close();
+                    restoreScroll.current?.();
+                    if (shouldResetContent) setContentReset(true);
                 }}
             >
                 {open && (
@@ -394,8 +408,8 @@ const Drawer: FC<DrawerProps> = ({
                             className={overlayStyle}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.24, ease: [0.32, 0.72, 0, 1] }}
+                            exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.2, ease: [0.4, 0, 1, 1] } }}
+                            transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0, 0, 0.2, 1] }}
                             onClick={handleMaskClick}
                             role="presentation"
                             data-testid="drawer-overlay"
@@ -405,15 +419,15 @@ const Drawer: FC<DrawerProps> = ({
                             className={cx(panelBaseStyle, placementStyle, sizeStyle)}
                             initial={motionInitial}
                             animate={motionAnimate}
-                            exit={motionExit}
-                            transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+                            exit={{ ...motionExit, transition: { duration: reducedMotion ? 0 : 0.2, ease: [0.4, 0, 1, 1] } }}
+                            transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0, 0, 0.2, 1] }}
                             role="document"
                             data-placement={placement}
                             data-size={size}
                         >
                             {(title || closable) && (
                                 <div className={headerStyle}>
-                                    <div className={titleStyle} title={typeof title === "string" ? title : undefined}>
+                                    <div id={titleId} className={titleStyle} title={typeof title === "string" ? title : undefined}>
                                         {title}
                                     </div>
                                     {closable && (

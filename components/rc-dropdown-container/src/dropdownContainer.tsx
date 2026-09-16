@@ -15,7 +15,7 @@ import {
     FloatingTree,
     FloatingNode,
 } from '@floating-ui/react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { dropdownReducer, initialDropdownState } from './reducer.js';
 import { DropdownContext } from './context.js';
 import token from './token.js';
@@ -44,7 +44,9 @@ const containerStyle = css`
 const floatingContainerStyle = css`
     z-index: ${token.root['z-index']};
     margin: 0;
-    border: unset;
+    border: 1px solid ${token.root['border-color']};
+    box-sizing: border-box;
+    box-shadow: ${token.root['box-shadow']};
     border-radius: ${token.root['border-radius']};
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -52,7 +54,6 @@ const floatingContainerStyle = css`
 
 const overlayStyle = css`
     background-color: ${token.root['background-color']};
-    box-shadow: ${token.root['box-shadow']};
     border-radius: inherit;
     transform-origin: top;
 `;
@@ -72,6 +73,7 @@ function DropdownContainer(props: DropdownContainerProps) {
 
 function DropdownContainerContent({ className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
+    const reducedMotion = useReducedMotion();
     // 触发元素位于原生 <dialog>（showModal）内时，浮层必须挂载进该 dialog 子树：
     // modal dialog 会使 dialog 之外的整个文档 inert，挂在 body 下的浮层不可交互
     // （点击穿透、无法聚焦），挂进 dialog 子树即可恢复交互。
@@ -97,7 +99,7 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
         middleware: [
             offset(6),
             flip({
-                fallbackPlacements: ['right-start', 'top-start', 'left-start'],
+                fallbackPlacements: ['top-start', 'right-start', 'left-start'],
             }),
             shift({ padding: VIEWPORT_PADDING }),
             size({
@@ -130,8 +132,10 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
                 className={cx(containerStyle, className)}
                 ref={(node) => {
                     if (node) {
-                        // 不在 dialog 内时落到 undefined（而非 null），让 FloatingPortal 挂默认 body
-                        const dialog = node.closest('dialog') ?? undefined;
+                        // Preserve the nearest public theme boundary (tokens and font), while
+                        // keeping modal descendants inside the browser's interactive top layer.
+                        const dialog = node.closest<HTMLElement>('dialog')
+                            ?? node.closest<HTMLElement>('[data-theme]') ?? undefined;
                         // 函数式更新 + 同值复用，避免 ref 回调重复挂载时触发多余渲染
                         setPortalRoot((prev) => (prev === dialog ? prev : dialog));
                     }
@@ -172,11 +176,12 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
                                 >
                                     <motion.div
                                         className={cx(overlayStyle, overlayClassName)}
-                                        initial={{ opacity: 0, scaleY: 0.8, y: -8 }}
-                                        animate={{ opacity: 1, scaleY: 1, y: 0 }}
-                                        exit={{ opacity: 0, scaleY: 0.8, y: -8 }}
+                                        initial={{ opacity: reducedMotion ? 1 : 0, y: reducedMotion ? 0 : -4 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: reducedMotion ? 1 : 0, y: reducedMotion ? 0 : -4 }}
                                         transition={{
-                                            duration: 0.2,
+                                            // Mirrors the 150 ms semantic motion.interaction timing.
+                                            duration: reducedMotion ? 0 : 0.15,
                                             ease: [0.215, 0.61, 0.355, 1],
                                         }}
                                     >

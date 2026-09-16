@@ -77,17 +77,17 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'transition': `var(${vars['root.transition']}, var(--component-preview-transition, color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), border-color 120ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.32, 0.72, 0, 1)))`
+        'transition': `var(${vars['root.transition']}, var(--component-preview-transition, color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), background-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), border-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), box-shadow var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), transform var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
     },
     'source': {
-        'transition': `var(${vars['source.transition']}, var(--component-preview-root-transition-expand, var(--component-preview-transition-expand, max-height 280ms cubic-bezier(0.32, 0.72, 0, 1))))`,
+        'transition': `var(${vars['source.transition']}, var(--component-preview-root-transition-expand, var(--component-preview-transition-expand, grid-template-rows var(--token-semantic-motion-expand, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))))`,
         'background-color': `var(${vars['source.background-color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
         'padding-block': `var(${vars['source.padding-block']}, 16px)`,
         'font-size': `var(${vars['source.font-size']}, 13px)`,
         'font-family': `var(${vars['source.font-family']}, ui-monospace, 'SFMono-Regular', 'Menlo', 'Cascadia Code', 'Fira Code', monospace)`,
         'line-height': `var(${vars['source.line-height']}, 1.7)`,
         'tab-size': `var(${vars['source.tab-size']}, 4)`,
-        'border-color': `var(${vars['source.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'border-color': `var(${vars['source.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'collapsed': {
             'max-height': `var(${vars['source.collapsed.max-height']}, var(--component-preview-source-collapsed-height, 0px))`
         },
@@ -95,7 +95,7 @@ const token = defineTokens({
             'max-height': `var(${vars['source.expanded.max-height']}, var(--component-preview-source-expanded-height, 520px))`
         },
         'scrollbar': {
-            'color': `var(${vars['source.scrollbar.color']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+            'color': `var(${vars['source.scrollbar.color']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
             'color-hover': `var(${vars['source.scrollbar.color-hover']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
         },
         'gutter': {
@@ -107,8 +107,8 @@ const token = defineTokens({
     },
     'card': {
         'background-color': `var(${vars['card.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
-        'border-color': `var(${vars['card.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
-        'border-color-hover': `var(${vars['card.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+        'border-color': `var(${vars['card.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+        'border-color-hover': `var(${vars['card.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
         'border-radius': `var(${vars['card.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
         'box-shadow': `var(${vars['card.box-shadow']}, var(--component-preview-card-shadow, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))))`,
         'box-shadow-hover': `var(${vars['card.box-shadow-hover']}, var(--component-preview-card-shadow-hover, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))))`
@@ -119,7 +119,7 @@ const token = defineTokens({
         'background-color': `var(${vars['stage.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`
     },
     'meta': {
-        'border-color': `var(${vars['meta.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'border-color': `var(${vars['meta.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'info': {
             'padding': `var(${vars['meta.info.padding']}, 0 20px 16px)`,
             'background-color': `var(${vars['meta.info.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
@@ -173,8 +173,8 @@ const token = defineTokens({
         'background-color-active': `var(${vars['action.background-color-active']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
         'border-color': `var(${vars['action.border-color']}, transparent)`,
         'border-color-hover': `var(${vars['action.border-color-hover']}, transparent)`,
-        'border-color-active': `var(${vars['action.border-color-active']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
-        'border-color-focus': `var(${vars['action.border-color-focus']}, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262))))`,
+        'border-color-active': `var(${vars['action.border-color-active']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+        'border-color-focus': `var(${vars['action.border-color-focus']}, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'box-shadow-active': `var(${vars['action.box-shadow-active']}, var(--component-preview-action-shadow-active, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))))`
     },
     'feedback': {

@@ -1,11 +1,14 @@
-import { act, beforeAll, beforeEach, describe, expect, it, mock, render } from "@crab-dev/wake/test/react";
-import React, { useEffect } from "react";
+import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, render } from "@crab-dev/wake/test/react";
+import { useEffect } from "react";
+const motionTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 mock.module("motion/react", async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");
     // React 19 下 ref 是普通 prop，直接透传即可，无需 forwardRef
     const MockDiv = (props: Record<string, unknown>) => mockReact.createElement("div", props);
     return {
+        useReducedMotion: () => false,
         motion: {
             div: MockDiv,
         },
@@ -16,7 +19,8 @@ mock.module("motion/react", async () => {
             const prevChildrenRef = mockReact.useRef(children);
             mockReact.useEffect(() => {
                 if (prevChildrenRef.current && !children) {
-                    onExitComplete?.();
+                    if (motionTestState.deferExit) motionTestState.finishExit = onExitComplete;
+                    else onExitComplete?.();
                 }
                 prevChildrenRef.current = children;
             });
@@ -84,6 +88,8 @@ const renderDialog = async (props: PartialDialogProps = {}): Promise<RenderDialo
     };
 };
 beforeEach(() => {
+    motionTestState.deferExit = false;
+    motionTestState.finishExit = undefined;
     if (!HTMLDialogElement.prototype.showModal) {
         HTMLDialogElement.prototype.showModal = () => { };
     }
@@ -122,18 +128,18 @@ describe("Dialog", () => {
         expect(container.textContent).toContain("OK");
         expect(container.textContent).toContain("取消");
     });
-    it("labels the dialog with the title and hides the close icon from a11y tree", async () => {
+    it("labels the dialog and exposes a named keyboard close action", async () => {
         const { container, getDialog } = await renderDialog({ open: true });
         const dialog = getDialog();
         const labelledBy = dialog.getAttribute("aria-labelledby");
         expect(labelledBy).toBeTruthy();
         const titleElement = container.querySelector(`[id="${labelledBy}"]`);
         expect(titleElement?.textContent).toBe("Dialog Title");
-        // 关闭图标不可聚焦且对读屏隐藏，等效关闭路径为 ESC / 取消按钮
         const closeIcon = container.querySelector('svg[data-icon="close"]') as SVGElement;
-        const closeTrigger = closeIcon.parentElement as HTMLElement;
-        expect(closeTrigger.tagName).not.toBe("BUTTON");
-        expect(closeTrigger.getAttribute("aria-hidden")).toBe("true");
+        const closeTrigger = closeIcon.closest("button") as HTMLButtonElement;
+        expect(closeTrigger.getAttribute("aria-label")).toBe("取消");
+        expect(closeTrigger.tabIndex).toBe(0);
+        expect(closeTrigger.closest('[aria-hidden="true"]')).toBe(null);
     });
     it("exposes the dialog element through the ref prop", async () => {
         const refCallback = mock.fn();
@@ -157,11 +163,26 @@ describe("Dialog", () => {
         await rerender({ open: false });
         expect(document.body.style.overflow).toBe("");
     });
+    it("keeps scroll locked until the exit finishes and restores it on unmount", async () => {
+        motionTestState.deferExit = true;
+        const { rerender, unmount } = await renderDialog({ open: true });
+        await rerender({ open: false });
+        expect(document.body.style.overflow).toBe("hidden");
+        expect(HTMLDialogElement.prototype.close).not.toHaveBeenCalled();
+        expect(motionTestState.finishExit).toBeDefined();
+        await act(async () => motionTestState.finishExit?.());
+        expect(document.body.style.overflow).toBe("");
+        expect(HTMLDialogElement.prototype.close).toHaveBeenCalled();
+        await rerender({ open: true });
+        expect(document.body.style.overflow).toBe("hidden");
+        await unmount();
+        expect(document.body.style.overflow).toBe("");
+    });
     it("clicking close icon without onCancel closes dialog", async () => {
         const onOpenChange = mock.fn();
         const { container } = await renderDialog({ open: true, onOpenChange });
         const closeIcon = container.querySelector('svg[data-icon="close"]') as SVGElement;
-        const closeTrigger = closeIcon.parentElement as HTMLElement;
+        const closeTrigger = closeIcon.closest("button") as HTMLButtonElement;
         await act(() => {
             closeTrigger.click();
         });
@@ -215,7 +236,7 @@ describe("Dialog", () => {
         await flush();
         expect(onOpenChange).toHaveBeenCalledWith(false);
     });
-    it("disables footer buttons and ignores re-entry while onConfirm is pending", async () => {
+    it("retains confirm focus and ignores re-entry while onConfirm is pending", async () => {
         let resolveConfirm: (value: boolean) => void = () => { };
         const onOpenChange = mock.fn();
         const onConfirm = mock.fn<() => Promise<boolean>>().implement(() => new Promise<boolean>((resolve) => {
@@ -223,11 +244,15 @@ describe("Dialog", () => {
         }));
         const { container, getDialog } = await renderDialog({ open: true, onOpenChange, onConfirm });
         await act(() => {
+            findButton(container, "确定").focus();
             findButton(container, "确定").click();
         });
         await flush();
         expect(onConfirm).toHaveBeenCalledTimes(1);
-        expect(findButton(container, "确定").disabled).toBe(true);
+        expect(findButton(container, "确定").disabled).toBe(false);
+        expect(findButton(container, "确定").getAttribute("aria-disabled")).toBe("true");
+        expect(document.activeElement).toBe(findButton(container, "确定"));
+        await act(() => { findButton(container, "确定").click(); });
         expect(findButton(container, "取消").disabled).toBe(true);
         // pending 期间 ESC（原生 cancel）也应被忽略
         await act(() => {
@@ -241,6 +266,41 @@ describe("Dialog", () => {
         await flush();
         expect(onOpenChange).toHaveBeenCalledWith(false);
         expect(onConfirm).toHaveBeenCalledTimes(1);
+    });
+    it("retains the initiating cancel action while an async cancellation is pending", async () => {
+        let resolveCancel: (value: boolean) => void = () => { };
+        const onCancel = mock.fn<() => Promise<boolean>>().implement(() => new Promise(resolve => {
+            resolveCancel = resolve;
+        }));
+        const onOpenChange = mock.fn();
+        const { container, getDialog } = await renderDialog({ open: true, onCancel, onOpenChange });
+        const cancelButton = findButton(container, "取消");
+        await act(() => {
+            cancelButton.focus();
+            cancelButton.click();
+            // A second event in the same React batch must not start a second request.
+            cancelButton.click();
+        });
+        await flush();
+        expect(onCancel).toHaveBeenCalledTimes(1);
+        expect(document.activeElement).toBe(cancelButton);
+        expect(cancelButton.disabled).toBe(false);
+        expect(cancelButton.getAttribute("aria-busy")).toBe("true");
+        expect(findButton(container, "确定").disabled).toBe(true);
+        await act(() => resolveCancel(false));
+        await flush();
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(cancelButton.getAttribute("aria-busy")).toBe("false");
+        expect(document.activeElement).toBe(cancelButton);
+        await act(() => {
+            findButton(container, "确定").focus();
+            getDialog().dispatchEvent(new Event("cancel", { cancelable: true }));
+        });
+        await flush();
+        expect(document.activeElement).toBe(cancelButton);
+        expect(cancelButton.getAttribute("aria-busy")).toBe("true");
+        await act(() => resolveCancel(false));
+        await flush();
     });
     it("pressing ESC (native cancel) is intercepted and routed through onOpenChange", async () => {
         const onOpenChange = mock.fn();

@@ -1,11 +1,14 @@
-import { act, beforeAll, beforeEach, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import React from "react";
+const motionTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 mock.module("motion/react", async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = mockReact.forwardRef((props: Record<string, unknown>, ref: unknown) => mockReact.createElement("div", { ...props, ref }));
+    const MockDiv = (props: Record<string, unknown>) => mockReact.createElement("div", props);
     MockDiv.displayName = "MockMotionDiv";
     return {
+        useReducedMotion: () => false,
         motion: new Proxy({}, {
             get: () => MockDiv,
         }),
@@ -16,7 +19,8 @@ mock.module("motion/react", async () => {
             const prevChildrenRef = mockReact.useRef(children);
             mockReact.useEffect(() => {
                 if (prevChildrenRef.current && !children) {
-                    onExitComplete?.();
+                    if (motionTestState.deferExit) motionTestState.finishExit = onExitComplete;
+                    else onExitComplete?.();
                 }
                 prevChildrenRef.current = children;
             });
@@ -24,9 +28,9 @@ mock.module("motion/react", async () => {
         },
     };
 });
-let Drawer: (typeof import("../drawer.tsx"))["default"];
+let Drawer: (typeof import("../drawer.js"))["default"];
 beforeAll(async () => {
-    const drawerModule = await mock.import<typeof import("../drawer.tsx")>("../drawer.tsx");
+    const drawerModule = await mock.import<typeof import("../drawer.js")>("../drawer.js");
     Drawer = drawerModule.default;
 });
 (globalThis as typeof globalThis & {
@@ -39,6 +43,8 @@ let closeSpy = mock.fn(function (this: HTMLDialogElement) {
     this.removeAttribute("open");
 });
 beforeEach(() => {
+    motionTestState.deferExit = false;
+    motionTestState.finishExit = undefined;
     showModalSpy = mock.fn(function (this: HTMLDialogElement) {
         this.setAttribute("open", "");
     });
@@ -57,6 +63,27 @@ beforeEach(() => {
     });
 });
 describe("Drawer", () => {
+    it("names the dialog from its title and preserves an explicit accessible name", async () => {
+        const view = await render(<Drawer title="项目详情" open onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByRole('dialog', { name: '项目详情' })).toBeTruthy();
+        await view.rerender(<Drawer title="项目详情" aria-label="编辑项目" open onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByRole('dialog', { name: '编辑项目' })).toBeTruthy();
+    });
+    it("keeps background scroll locked through exit and releases it on unmount", async () => {
+        motionTestState.deferExit = true;
+        const view = await render(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
+        expect(document.body.style.overflow).toBe("hidden");
+        await view.rerender(<Drawer open={false} onOpenChange={() => {}}>Content</Drawer>);
+        expect(document.body.style.overflow).toBe("hidden");
+        expect(closeSpy).not.toHaveBeenCalled();
+        expect(motionTestState.finishExit).toBeDefined();
+        await act(async () => motionTestState.finishExit?.());
+        expect(document.body.style.overflow).toBe("");
+        expect(closeSpy).toHaveBeenCalled();
+        await view.rerender(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
+        await view.unmount();
+        expect(document.body.style.overflow).toBe("");
+    });
     it("renders title and content when open", async () => {
         await render(<Drawer open onOpenChange={() => { }} title="详情">
             <p>Hello world</p>

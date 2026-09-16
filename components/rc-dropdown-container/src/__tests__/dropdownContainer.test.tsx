@@ -11,9 +11,11 @@ let sizeMiddlewareOptions: {
 mock.module("motion/react", async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = mockReact.forwardRef((props: Record<string, unknown>, ref: unknown) => mockReact.createElement("div", { ...props, ref }));
-    MockDiv.displayName = "MockMotionDiv";
+    function MockDiv({ initial: _initial, animate: _animate, exit: _exit, transition: _transition, ...props }: React.ComponentProps<'div'> & { initial?: unknown; animate?: unknown; exit?: unknown; transition?: unknown }) {
+        return mockReact.createElement('div', props);
+    }
     return {
+        useReducedMotion: () => false,
         motion: {
             div: MockDiv,
         },
@@ -229,6 +231,15 @@ describe("DropdownContainer", () => {
         });
         const overlay = screen.getByTestId("overlay");
         expect(overlay.closest("dialog")).toBeNull();
+    });
+    it("keeps the overlay inside the nearest public theme boundary", async () => {
+        const { container } = await render(<div data-theme="dark">
+            <DropdownContainer overlay={<div data-testid="overlay">Dropdown Content</div>}>
+                <Trigger />
+            </DropdownContainer>
+        </div>);
+        await fireEvent(screen.getByTestId("trigger"), new FocusEvent("focusin", { bubbles: true }));
+        expect(screen.getByTestId("overlay").closest('[data-theme]')).toBe(container.querySelector('[data-theme]'));
     });
 });
 describe("useDropdownContext", () => {

@@ -9,7 +9,7 @@ import {
 } from "react";
 import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
 import RcButton from "@crab-dev/rc-button";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 import token from "./token.js";
 
@@ -102,8 +102,9 @@ const elevationBoxShadow = token.root['box-shadow'];
 
 const top = token.root.top;
 
-// 进出场动画的位移距离（动效参数，与 spring 配置同级，不属于设计令牌）
-const contentMotionOffset = -12;
+// Motion uses seconds rather than CSS token values: 200 ms enter / 150 ms exit.
+// A short tween settles without the previous spring's residual movement.
+const contentMotionOffset = -8;
 
 
 const dialogReset = css`
@@ -127,8 +128,14 @@ function Dialog({
 }: DialogProps) {
 
     const dialogRef = useRef<HTMLDialogElement>(null);
+    // Mutable instance state: hold the scroll restoration through the entire exit.
+    const restoreScroll = useRef<(() => void) | null>(null);
+    const reducedMotion = useReducedMotion();
     const [contentHidden, setContentHidden] = useState(false);
     const [isPending, startTransition] = useTransition();
+    const [pendingAction, setPendingAction] = useState<"confirm" | "cancel" | "close" | null>(null);
+    // Mutable instance guard: re-entry can happen before React renders pending.
+    const inFlight = useRef(false);
     const titleId = useId();
     const {
         cancelText = "取消",
@@ -139,14 +146,19 @@ function Dialog({
         if (!open) {
             return;
         }
-        dialogRef.current?.showModal();
+        if (!dialogRef.current?.open) dialogRef.current?.showModal();
         // 原生 modal dialog 不会锁定背景滚动，这里手动锁定并在关闭时恢复
-        const previousOverflow = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = previousOverflow;
-        };
+        if (!restoreScroll.current) {
+            const previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = "hidden";
+            restoreScroll.current = () => {
+                document.body.style.overflow = previousOverflow;
+                restoreScroll.current = null;
+            };
+        }
     }, [open])
+
+    useEffect(() => () => restoreScroll.current?.(), []);
 
     // 打开时恢复内容渲染；关闭时的重置延后到退场动画结束（见 AnimatePresence 的 onExitComplete），
     // 避免关闭动画播放期间内容提前消失。
@@ -158,24 +170,40 @@ function Dialog({
 
 
     const settle = (
+        action: "confirm" | "cancel" | "close",
         handler: DialogResultHandler | undefined,
         event?: MouseEvent<HTMLElement, globalThis.MouseEvent>,
     ) => {
         // 回调在途时忽略再次触发（ESC / 遮罩点击不受按钮 disabled 保护）
-        if (isPending) {
+        if (inFlight.current) {
             return;
         }
+        inFlight.current = true;
+        setPendingAction(action);
         startTransition(async () => {
-            const result = await handler?.(event);
-            if (result !== false) {
-                onOpenChange(false);
+            try {
+                const result = await handler?.(event);
+                if (result !== false) {
+                    onOpenChange(false);
+                }
+            } finally {
+                inFlight.current = false;
+                setPendingAction(null);
             }
         });
     }
 
-    const cancel = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>) => settle(onCancel, event);
+    const cancel = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
+        if (inFlight.current) return;
+        // Escape / backdrop have no button initiator. Move to the matching action
+        // before its siblings become disabled, so an async cancellation keeps focus.
+        if (event?.currentTarget.tagName !== "BUTTON") {
+            dialogRef.current?.querySelector<HTMLButtonElement>('[data-dialog-action="cancel"]')?.focus();
+        }
+        settle("cancel", onCancel, event);
+    };
 
-    const confirm = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>) => settle(onConfirm, event);
+    const confirm = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>) => settle("confirm", onConfirm, event);
 
     return (
         <dialog
@@ -199,12 +227,15 @@ function Dialog({
                 };
             }}
             aria-labelledby={title ? titleId : undefined}
+            aria-busy={isPending || undefined}
             className={cx(css`
                 position: fixed;
-                top: ${top};
+                top: min(${top}, ${token.root['max-height']} / 4);
                 bottom: auto;
                 margin: 0 auto;
-                min-width: ${dimensionMinWidth};
+                width: ${dimensionMinWidth};
+                min-width: min(${dimensionMinWidth}, ${token.root['max-width']});
+                max-width: ${token.root['max-width']};
                 padding: 0;
                 overflow: visible;
                 background: transparent;
@@ -230,7 +261,9 @@ function Dialog({
         >
             <AnimatePresence
                 onExitComplete={() => {
+                    if (open) return;
                     dialogRef.current?.close();
+                    restoreScroll.current?.();
                     // 退场动画结束后再重置内容，保证关闭过程中内容仍可见。
                     if (shouldResetContent) {
                         setContentHidden(true);
@@ -243,7 +276,8 @@ function Dialog({
                             key="overlay"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                            exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.15, ease: [0.4, 0, 1, 1] } }}
+                            transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0, 0, 0.2, 1] }}
                             onClick={(event) => {
                                 // 遮罩点击属于「外部点击」，阻止冒泡以免触发透传给 <dialog> 的 onClick。
                                 event.stopPropagation();
@@ -261,26 +295,34 @@ function Dialog({
                         />
                         <motion.div
                             key="content"
-                            initial={{ opacity: 0, y: contentMotionOffset }}
+                            initial={{ opacity: 0, y: reducedMotion ? 0 : contentMotionOffset }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: contentMotionOffset }}
+                            exit={{ opacity: 0, y: reducedMotion ? 0 : contentMotionOffset, transition: { duration: reducedMotion ? 0 : 0.15, ease: [0.4, 0, 1, 1] } }}
                             transition={{
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 24,
-                                mass: 1,
+                                duration: reducedMotion ? 0 : 0.2,
+                                ease: [0, 0, 0.2, 1],
                             }}
                             className={css`
                                 position: relative;
+                                box-sizing: border-box;
+                                max-height: calc(100dvh - min(${top}, ${token.root['max-height']} / 4) - (100vw - ${token.root['max-width']}) / 2);
+                                overflow: auto;
+                                overflow-wrap: anywhere;
                                 padding: ${dimensionPadding};
                                 border-radius: ${dimensionBorderRadius};
                                 box-shadow: ${elevationBoxShadow};
                                 background:${colorDialogBackgroundColor};
+                                @media (forced-colors: active) {
+                                    outline: 1px solid CanvasText;
+                                    box-shadow: none;
+                                }
                             `}
                         >
                             <div
                                 className={css`
                                     display: flex;
+                                    align-items: flex-start;
+                                    gap: ${token.heading.gap};
                                     margin-bottom: ${dimensionHeadingMarginBottom};
                                 `}
                             >
@@ -291,60 +333,82 @@ function Dialog({
                                         font-size: ${typographyHeadingFontSize};
                                         line-height: ${typographyHeadingLineHeight};
                                         flex: 1;
+                                        min-width: 0;
                                     `}
                                 >
                                     {title}
                                 </div>
-                                {/* 有意不用可聚焦的 button：showModal 会把初始焦点落到第一个可聚焦元素，
-                                    关闭图标获得焦点环观感突兀。这里从无障碍树整体移除（aria-hidden），
-                                    键盘 / 读屏用户通过 ESC（原生 cancel）或「取消」按钮这两条等效路径关闭。 */}
-                                <div
-                                    aria-hidden="true"
+                                <RcButton
+                                    type="button"
+                                    appearance="text"
+                                    aria-label={cancelText}
+                                    disabled={isPending && pendingAction !== "close"}
+                                    loading={isPending && pendingAction === "close"}
                                     className={css`
-                                        cursor: pointer;
-                                        display: flex;
-                                        align-items: center;
+                                        flex-shrink: 0;
+                                        width: ${token.close.width};
+                                        height: ${token.close.height};
+                                        padding: 0;
+                                        @media (pointer: coarse) {
+                                            width: ${token.close.touch['min-width']};
+                                            height: ${token.close.touch['min-height']};
+                                        }
                                     `}
-                                    onClick={cancel}
-                                >
-                                    <svg
-                                        fillRule="evenodd"
-                                        viewBox="64 64 896 896"
-                                        focusable="false"
-                                        data-icon="close"
-                                        width="1em"
-                                        height="1em"
-                                        fill="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
-                                        />
-                                    </svg>
-                                </div>
+                                    onClick={(event) => settle("close", onCancel, event)}
+                                    icon={(
+                                        <svg
+                                            fillRule="evenodd"
+                                            viewBox="64 64 896 896"
+                                            focusable="false"
+                                            data-icon="close"
+                                            width="1em"
+                                            height="1em"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                        >
+                                            <path
+                                                d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
+                                            />
+                                        </svg>
+                                    )}
+                                />
                             </div>
                             <div>
                                 {!contentHidden && children}
                             </div>
                             <div
                                 className={css`
-                                    text-align: end;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    justify-content: flex-end;
+                                    gap: ${dimensionFooterButtonSpacing};
                                     margin-top: ${dimensionFooterMarginTop};
+                                    & > button {
+                                        min-width: 0;
+                                        max-width: 100%;
+                                        height: auto;
+                                        min-height: ${token.footer.button['min-height']};
+                                        padding-block: ${token.footer.button['padding-block']};
+                                        white-space: normal;
+                                    }
+                                    & > button > span { min-width: 0; }
+                                    @media (pointer: coarse) {
+                                        & > button { min-height: ${token.close.touch['min-height']}; }
+                                    }
                                 `}
                             >
                                 <RcButton
-                                    disabled={isPending}
+                                    data-dialog-action="cancel"
+                                    disabled={isPending && pendingAction !== "cancel"}
+                                    loading={isPending && pendingAction === "cancel"}
                                     onClick={cancel}
                                 >
                                     {cancelText}
                                 </RcButton>
                                 <RcButton
-                                    className={css`
-                                        margin-inline-start: ${dimensionFooterButtonSpacing};
-                                    `}
                                     appearance="primary"
-                                    loading={isPending}
-                                    disabled={isPending}
+                                    disabled={isPending && pendingAction !== "confirm"}
+                                    loading={isPending && pendingAction === "confirm"}
                                     onClick={confirm}
                                 >
                                     {confirmText}

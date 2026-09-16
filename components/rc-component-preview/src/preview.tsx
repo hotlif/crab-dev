@@ -1,5 +1,6 @@
 import { css, cx } from '@crab-dev/css';
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useId, useRef, useState } from 'react';
+import Button from '@crab-dev/rc-button';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import token from './token.js';
@@ -43,12 +44,15 @@ export interface PreviewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'titl
 
 const cardStyle = css`
     position: relative;
+    min-width: 0;
+    max-width: 100%;
     border: 1px solid ${token.card['border-color']};
     border-radius: ${token.card['border-radius']};
     background-color: ${token.card['background-color']};
     box-shadow: ${token.card['box-shadow']};
     overflow: hidden;
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 
     &:hover {
         border-color: ${token.card['border-color-hover']};
@@ -71,6 +75,7 @@ const stageStyle = css`
 
 const stageContentStyle = css`
     width: 100%;
+    min-width: 0;
 `;
 
 const stageCompactStyle = css`
@@ -112,7 +117,8 @@ const metaTitleRowStyle = css`
 `;
 
 const metaTitleStyle = css`
-    flex-shrink: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
     color: ${token.meta.title.color};
     font-size: ${token.meta.title['font-size']};
     font-weight: ${token.meta.title['font-weight']};
@@ -145,6 +151,7 @@ const metaDescStyle = css`
         text-decoration-color: ${token.meta['border-color']};
         text-underline-offset: 3px;
         transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     }
     a:hover {
         text-decoration-color: currentColor;
@@ -168,79 +175,33 @@ const metaActionsStyle = css`
     }
 `;
 
-const actionButtonStyle = css`
-    display: inline-flex;
-    align-items: center;
-    gap: ${token.action.gap};
-    height: ${token.action.height};
-    padding: ${token.action.padding};
-    border: 1px solid ${token.action['border-color']};
-    border-radius: ${token.action['border-radius']};
-    background-color: ${token.action['background-color']};
-    color: ${token.action.color};
-    font-size: ${token.action['font-size']};
-    font-weight: ${token.action['font-weight']};
-    line-height: 1;
-    cursor: pointer;
-    user-select: none;
-    transition: ${token.root.transition};
-
-    & svg {
-        flex-shrink: 0;
-    }
-
-    &:hover {
-        color: ${token.action['color-hover']};
-        background-color: ${token.action['background-color-hover']};
-        border-color: ${token.action['border-color-hover']};
-    }
-    &:focus-visible {
-        outline: none;
-        border-color: ${token.action['border-color-focus']};
-    }
-    &:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-    }
-`;
-
-const actionButtonActiveStyle = css`
-    color: ${token.action['color-active']};
-    background-color: ${token.action['background-color-active']};
-    border-color: ${token.action['border-color-active']};
-    box-shadow: ${token.action['box-shadow-active']};
-
-    &:hover {
-        color: ${token.action['color-active']};
-        background-color: ${token.action['background-color-active']};
-        border-color: ${token.action['border-color-active']};
-    }
-`;
-
-const actionButtonSuccessStyle = css`
-    color: ${token.feedback.success.color};
-
-    &:hover {
-        color: ${token.feedback.success.color};
-    }
-`;
-
 /* ────────────────────────── 代码区（展开/折叠） ────────────────────────── */
 
 const sourceFrameStyle = css`
     position: relative;
+    display: grid;
+    grid-template-rows: 0fr;
     background-color: ${token.source['background-color']};
-    border-top: 1px solid ${token.source['border-color']};
     overflow: hidden;
     transition: ${token.source.transition};
-    padding: 1rem;
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 const sourceFrameExpandedStyle = css`
-    max-height: ${token.source.expanded['max-height']};
+    grid-template-rows: 1fr;
+`;
+
+const sourceClipStyle = css`
+    min-height: 0;
+    overflow: hidden;
 `;
 
 const sourceScrollStyle = css`
+    box-sizing: border-box;
+    padding: 1rem;
+    border-top: 1px solid ${token.source['border-color']};
+    min-width: 0;
+    max-width: 100%;
     max-height: ${token.source.expanded['max-height']};
     overflow: auto;
     scrollbar-gutter: stable;
@@ -325,6 +286,9 @@ const Preview: FC<PreviewProps> = ({
     const hasInfo = title != null || hasDescription;
 
     const [expanded, setExpanded] = useState(defaultExpanded && hasSource);
+    // Load the highlighter on first expansion; retain it through the closing transition.
+    const [sourceMounted, setSourceMounted] = useState(defaultExpanded && hasSource);
+    const sourceId = useId();
     const [copied, setCopied] = useState(false);
     const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -363,6 +327,7 @@ const Preview: FC<PreviewProps> = ({
 
     const handleToggle = () => {
         if (!hasSource) return;
+        setSourceMounted(true);
         setExpanded((v) => !v);
     };
 
@@ -378,7 +343,7 @@ const Preview: FC<PreviewProps> = ({
     };
 
     return (
-        <article className={cx(cardStyle, className)} {...restProps}>
+        <article className={cx.call(undefined, cardStyle, className)} {...restProps}>
             {hasInfo && (
                 <div className={metaInfoStyle}>
                     {title != null && (
@@ -397,8 +362,7 @@ const Preview: FC<PreviewProps> = ({
             )}
 
             <div
-                className={cx(
-                    stageStyle,
+                className={cx.call(undefined, stageStyle,
                     density === 'compact' && stageCompactStyle,
                     density === 'spacious' && stageSpaciousStyle,
                 )}
@@ -409,71 +373,75 @@ const Preview: FC<PreviewProps> = ({
             {(hasSource || hasPath) && (
                 <div className={metaActionsStyle} role="group" aria-label="预览操作">
                     {hasSource && (
-                        <button
+                        <Button
+                            appearance="text"
+                            size="small"
                             type="button"
-                            className={cx(
-                                actionButtonStyle,
-                                copied && actionButtonSuccessStyle,
-                            )}
+                            icon={copied ? <CheckIcon /> : <CopyIcon />}
                             onClick={handleCopy}
                             aria-label="复制代码"
                             aria-live="polite"
                         >
-                            {copied ? <CheckIcon /> : <CopyIcon />}
                             {copied ? '已复制' : '复制'}
-                        </button>
+                        </Button>
                     )}
                     {hasSource && (
-                        <button
+                        <Button
+                            appearance="text"
+                            size="small"
+                            isSelected={expanded}
                             type="button"
-                            className={cx(
-                                actionButtonStyle,
-                                expanded && actionButtonActiveStyle,
-                            )}
+                            icon={expanded ? <EyeIcon /> : <CodeIcon />}
                             onClick={handleToggle}
                             aria-expanded={expanded}
+                            aria-controls={sourceId}
                             aria-label={expanded ? '收起源码' : '查看源码'}
                         >
-                            {expanded ? <EyeIcon /> : <CodeIcon />}
                             {expanded ? '收起' : '源码'}
-                        </button>
+                        </Button>
                     )}
                     {hasPath && (
-                        <button
+                        <Button
+                            appearance="text"
+                            size="small"
                             type="button"
-                            className={actionButtonStyle}
+                            icon={<ExternalLinkIcon />}
                             onClick={handleOpen}
                             aria-label="在新窗口打开"
                         >
-                            <ExternalLinkIcon />
                             新窗口
-                        </button>
+                        </Button>
                     )}
                 </div>
             )}
 
-            {expanded && (
+            {hasSource && (
                 <div
-                    className={cx(
-                        sourceFrameStyle,
-                        sourceFrameExpandedStyle,
+                    id={sourceId}
+                    className={cx.call(undefined, sourceFrameStyle,
+                        expanded && sourceFrameExpandedStyle,
                     )}
                     aria-hidden={!expanded}
+                    inert={!expanded}
                 >
-                    <div className={sourceScrollStyle}>
-                        <Suspense
-                            fallback={(
-                                <div className={sourceLoadingStyle} role="status">
-                                    正在加载源码高亮…
-                                </div>
-                            )}
-                        >
-                            <SourceCode
-                                sourceCode={sourceCode ?? ''}
-                                language={language}
-                                codeTheme={codeTheme}
-                            />
-                        </Suspense>
+                    <div className={sourceClipStyle}>
+                        {sourceMounted && (
+                            <div className={sourceScrollStyle}>
+                                <Suspense
+                                    fallback={(
+                                        <div className={sourceLoadingStyle} role="status">
+                                            正在加载源码高亮…
+                                        </div>
+                                    )}
+                                >
+                                    <SourceCode
+                                        sourceCode={sourceCode ?? ''}
+                                        language={language}
+                                        codeTheme={codeTheme}
+                                    />
+                                </Suspense>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

@@ -7,4 +7,5 @@ imports = ["@crab-dev/rc-token-semantic"]
 root.box-shadow = "var(--dropdown-container-box-shadow, $ref(shadow.overlay))"
 root.border-radius = "var(--dropdown-container-border-radius, 8px)"
 root.background-color = "var(--dropdown-container-background-color, $ref(color.background.elevated))"
+root.border-color = "$ref(color.border.subtle)"
 root.z-index = "var(--dropdown-container-z-index, $ref(z-index.float))"

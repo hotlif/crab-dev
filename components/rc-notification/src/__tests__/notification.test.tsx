@@ -1,5 +1,5 @@
 import { act, beforeAll, beforeEach, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
-import React, { useRef } from "react";
+import { useRef } from "react";
 mock.module("motion/react", async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");

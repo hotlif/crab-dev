@@ -159,7 +159,7 @@ const Alert: FC<AlertProps> = ({
         if (!showIcon) return null;
         const iconNode = icon ?? getDefaultIcon(type);
         return (
-            <span className={cx(iconStyle, typeIconStyleMap[type], title ? iconWithTitleStyle : undefined)}>
+            <span className={cx.call(undefined, iconStyle, typeIconStyleMap[type], title ? iconWithTitleStyle : undefined)}>
                 {iconNode}
             </span>
         );
@@ -174,7 +174,7 @@ const Alert: FC<AlertProps> = ({
             <button
                 type="button"
                 aria-label="close"
-                className={cx(closeButtonStyle, title ? closeButtonWithTitleStyle : undefined)}
+                className={cx.call(undefined, closeButtonStyle, title ? closeButtonWithTitleStyle : undefined)}
                 onClick={handleClose}
                 onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -191,7 +191,7 @@ const Alert: FC<AlertProps> = ({
     return (
         <div
             role="alert"
-            className={cx(baseStyle, typeStyleMap[type], className)}
+            className={cx.call(undefined, baseStyle, typeStyleMap[type], className)}
             {...restProps}
         >
             {renderIcon()}
