@@ -162,6 +162,7 @@
         "transition": "--cron-picker-transition"
     },
     "components/rc-date-picker/token.toml": {
+        "navigation.size": "--date-picker-navigation-size",
         "selected.background.color": "--date-picker-selected-background-color",
         "selected.text.color": "--date-picker-selected-text-color",
         "cell.text.color-hover": "--date-picker-cell-text-color-hover",
@@ -422,6 +423,12 @@
         "size.small.handle.offset": "--switch-size-small-handle-offset"
     },
     "components/rc-table/token.toml": {
+        "root.focus.color": "--table-root-focus-color",
+        "root.focus.width": "--table-root-focus-width",
+        "root.focus.offset": "--table-root-focus-offset",
+        "cell.border-color-vertical": "--table-cell-border-color-vertical",
+        "cell.vertical.border-color": "--table-cell-vertical-border-color",
+        "tree.button.size": "--table-tree-button-size",
         "border.color": "--table-border-color",
         "cell.bg-color": "--table-cell-bg-color",
         "header.bg-color": "--table-header-bg-color",

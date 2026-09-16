@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import token from '../token.js';
 import { TokenVars, vars } from '../token-vars.js';
+import { themeColorContract } from '../theme.js';
 
 describe('semantic token contract', () => {
     it('keeps legacy CSS custom property names stable', () => {
@@ -35,8 +36,22 @@ describe('semantic token contract', () => {
         }
         expect(token.color.feedback.error.text).toContain('--token-global-red-800');
         expect(token.color.feedback.success['on-solid']).toContain('--token-global-white');
-        expect(token.color.focus.ring).toContain('--token-global-blue-600');
-        expect(token.color.selection.foreground).toContain('--token-global-zinc-950');
+        expect(token.color.focus.ring).toContain('--token-global-purple-40');
+        expect(token.color.selection.foreground).toContain('--token-global-purple-10');
         expect(token.color.highlight.foreground).toContain('--token-global-zinc-950');
+    });
+
+    it('keeps standalone L2 brand fallbacks equal to the default Light theme', () => {
+        const light = themeColorContract.light;
+        for (const [fallback, themed] of [
+            [token.color.brand.primary, light.brand.primary],
+            [token.color.brand['primary-hover'], light.brand.hover],
+            [token.color.brand['primary-active'], light.brand.active],
+            [token.color.text['on-brand'], light.text.onBrand],
+            [token.color.text.link, light.text.link],
+            [token.color.selection.background, light.selection.background],
+            [token.color.selection.foreground, light.selection.foreground],
+            [token.color.fill.active, light.fill.active],
+        ]) expect(fallback).toContain(themed);
     });
 });

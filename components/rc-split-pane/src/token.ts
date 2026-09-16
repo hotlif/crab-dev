@@ -24,11 +24,11 @@ const token = defineTokens({
         },
         'line': {
             'width': `var(${vars['separator.line.width']}, 1px)`,
-            'background-color': `var(${vars['separator.line.background-color']}, var(--split-pane-separator-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`,
-            'background-color-active': `var(${vars['separator.line.background-color-active']}, var(--split-pane-separator-line-color-active, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`
+            'background-color': `var(${vars['separator.line.background-color']}, var(--split-pane-separator-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
+            'background-color-active': `var(${vars['separator.line.background-color-active']}, var(--split-pane-separator-line-color-active, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'transition': `var(${vars['separator.transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
-        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262))))))))`
+        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))))))`
     }
 });
 

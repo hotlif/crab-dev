@@ -23,12 +23,12 @@ imports = ["@crab-dev/rc-token-global"]
 
 
 # ─── 颜色 · 品牌 / 主色 ─────────────────────────────────────────────────────
-# shadcn 风格：Zinc 中性色做主色，Light 下极暗，Dark 下极亮
+# Crab 默认紫色品牌；中性表面继续使用 Zinc。明暗配对见 theme.ts。
 
-color.brand.primary        = "$ref(zinc.900)"
-color.brand.primary-hover  = "$ref(zinc.800)"
-color.brand.primary-active = "$ref(zinc.950)"
-color.brand.primary-subtle = "$ref(zinc.600)"
+color.brand.primary        = "$ref(purple.40)"
+color.brand.primary-hover  = "$ref(purple.30)"
+color.brand.primary-active = "$ref(purple.20)"
+color.brand.primary-subtle = "$ref(purple.40)"
 
 
 # ─── 颜色 · 背景 ────────────────────────────────────────────────────────────
@@ -41,7 +41,7 @@ color.background.overlay       = "color-mix(in oklch, $ref(black) 45%, transpare
 color.background.disabled      = "$ref(zinc.100)"
 color.background.hover-subtle  = "$ref(zinc.100)"
 color.background.active-subtle = "$ref(zinc.200)"
-color.background.selected      = "$ref(blue.50)"
+color.background.selected      = "$ref(purple.90)"
 
 
 # ─── 颜色 · 文本 ────────────────────────────────────────────────────────────
@@ -49,29 +49,29 @@ color.background.selected      = "$ref(blue.50)"
 color.text.primary     = "$ref(zinc.950)"
 color.text.secondary   = "$ref(zinc.700)"
 color.text.tertiary    = "$ref(zinc.600)"
-color.text.on-brand    = "$ref(zinc.50)"
+color.text.on-brand    = "$ref(white)"
 color.text.inverse     = "$ref(zinc.50)"
 color.text.disabled    = "$ref(zinc.500)"
-color.text.link        = "$ref(zinc.900)"
-color.text.link-hover  = "$ref(zinc.700)"
+color.text.link        = "$ref(purple.40)"
+color.text.link-hover  = "$ref(purple.30)"
 
 
 # ─── 颜色 · 边框 ────────────────────────────────────────────────────────────
 
 color.border.subtle   = "var(--token-semantic-color-border-default, $ref(zinc.200))"
-color.border.default  = "$ref(zinc.500)"
-color.border.hover    = "$ref(zinc.600)"
+color.border.default  = "$ref(zinc.600)"
+color.border.hover    = "$ref(zinc.700)"
 color.border.strong   = "var(--token-semantic-color-border-hover, $ref(zinc.700))"
-color.border.focus    = "$ref(blue.600)"
+color.border.focus    = "$ref(purple.40)"
 color.border.error    = "$ref(red.600)"
 
 
 # ─── 颜色 · 焦点 / 选区 / 高亮 ───────────────────────────────────────────────
 
-color.focus.ring                  = "var(--token-semantic-color-border-focus, $ref(blue.600))"
-color.selection.background        = "$ref(blue.50)"
-color.selection.border            = "$ref(blue.700)"
-color.selection.foreground        = "$ref(zinc.950)"
+color.focus.ring                  = "var(--token-semantic-color-border-focus, $ref(purple.40))"
+color.selection.background        = "$ref(purple.90)"
+color.selection.border            = "$ref(purple.40)"
+color.selection.foreground        = "$ref(purple.10)"
 color.highlight.background        = "$ref(amber.100)"
 color.highlight.background-active = "$ref(amber.300)"
 color.highlight.foreground        = "$ref(zinc.950)"
@@ -127,7 +127,7 @@ color.fill.default     = "var(--token-semantic-color-fill-inactive, $ref(zinc.30
 color.fill.strong      = "var(--token-semantic-color-fill-active, $ref(zinc.700))"
 color.fill.translucent = "color-mix(in oklch, var(--token-semantic-color-fill-active, $ref(black)) 8%, transparent)"
 color.fill.inactive    = "$ref(zinc.300)"
-color.fill.active      = "$ref(zinc.900)"
+color.fill.active      = "$ref(purple.40)"
 
 
 # ─── 间距 · 语义 ────────────────────────────────────────────────────────────
@@ -148,6 +148,8 @@ space.dialog-padding    = "$ref(space.6)"
 # ─── 排版 · 语义 ─────────────────────────────────────────────────────────
 # 将 Layer 1 字号 / 字重映射到 UI 排版语义
 
+font.family.body    = "$ref(font.family.sans)"
+font.line-height.body = "$ref(line.height.normal)"
 font.size.body      = "$ref(font.size.sm)"
 font.size.heading   = "$ref(font.size.lg)"
 font.size.subhead   = "$ref(font.size.md)"
@@ -171,7 +173,7 @@ radius.pill    = "$ref(radius.full)"
 
 shadow.float      = "$ref(shadow.md)"
 shadow.overlay    = "$ref(shadow.lg)"
-shadow.focus-ring = "0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, $ref(blue.600)))"
+shadow.focus-ring = "0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, $ref(purple.40)))"
 
 
 # ─── 层级 · 语义 ────────────────────────────────────────────────────────────
@@ -195,8 +197,9 @@ z-index.top      = "$ref(z-index.70)"
 # interaction：即时状态反馈（hover / selected / active 的颜色切换），要求"快到近乎即时"
 # fade：内容淡入淡出；expand：容器展开收起
 
-motion.interaction = "$ref(duration.fast) $ref(easing.default)"
-motion.fade        = "$ref(duration.normal) $ref(easing.default)"
+# 150 ms for immediate feedback; start promptly and settle without overshoot.
+motion.interaction = "calc(($ref(duration.fast) + $ref(duration.normal)) / 2) $ref(easing.out)"
+motion.fade        = "$ref(duration.normal) $ref(easing.out)"
 motion.expand      = "$ref(duration.slow) $ref(easing.out)"
 
 

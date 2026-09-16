@@ -75,7 +75,7 @@ const token = defineTokens({
             'color': `var(${vars['palette.gridline.color']}, var(--token-semantic-color-border-subtle, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
         },
         'baseline': {
-            'color': `var(${vars['palette.baseline.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+            'color': `var(${vars['palette.baseline.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
         },
         'axis-label': {
             'color': `var(${vars['palette.axis-label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
@@ -92,7 +92,7 @@ const token = defineTokens({
             'gap': `var(${vars['legend.item.gap']}, var(--bar-chart-legend-swatch-gap, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`,
             'border-radius': `var(${vars['legend.item.border-radius']}, var(--bar-chart-legend-item-radius, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px))))`,
             'background-color-hover': `var(${vars['legend.item.background-color-hover']}, var(--bar-chart-legend-item-color-hover, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
-            'transition': `var(${vars['legend.item.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
+            'transition': `var(${vars['legend.item.transition']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
             'opacity-hidden': `var(${vars['legend.item.opacity-hidden']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`
         },
         'swatch': {
@@ -105,7 +105,7 @@ const token = defineTokens({
         }
     },
     'root': {
-        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--bar-chart-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262)))))))`
+        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--bar-chart-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
     },
     'tooltip': {
         'background-color': `var(${vars['tooltip.background-color']}, var(--bar-chart-tooltip-background, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0)))))`,

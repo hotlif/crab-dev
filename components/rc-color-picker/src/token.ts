@@ -43,7 +43,7 @@ const token = defineTokens({
             'height': `var(${vars['panel.preview.height']}, 5rem)`,
             'width': `var(${vars['panel.preview.width']}, 100%)`,
             'border-radius': `var(${vars['panel.preview.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
-            'border-color': `var(${vars['panel.preview.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+            'border-color': `var(${vars['panel.preview.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
             'margin-top': `var(${vars['panel.preview.margin-top']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
         },
         'slider': {
@@ -58,20 +58,20 @@ const token = defineTokens({
         },
         'alpha': {
             'checker': {
-                'color': `var(${vars['slider.alpha.checker.color']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
+                'color': `var(${vars['slider.alpha.checker.color']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
             }
         }
     },
     'trigger': {
-        'border-color': `var(${vars['trigger.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'border-color': `var(${vars['trigger.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'border-radius': `var(${vars['trigger.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
         'padding': `var(${vars['trigger.padding']}, 0.25rem)`,
         'gap': `var(${vars['trigger.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'ring': {
-            'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--color-picker-trigger-focus-ring-color, var(--color-picker-trigger-focus-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262)))))))`
+            'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--color-picker-trigger-focus-ring-color, var(--color-picker-trigger-focus-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
         },
         'background-color-disabled': `var(${vars['trigger.background-color-disabled']}, var(--color-picker-trigger-disabled-background, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
-        'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--color-picker-trigger-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`,
+        'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--color-picker-trigger-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
         'swatch': {
             'small': {
                 'width': `var(${vars['trigger.swatch.small.width']}, var(--color-picker-trigger-swatch-size-small, 16px))`
@@ -90,7 +90,7 @@ const token = defineTokens({
     'swatch': {
         'width': `var(${vars['swatch.width']}, var(--color-picker-swatch-size, 20px))`,
         'gap': `var(${vars['swatch.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'border-color': `var(${vars['swatch.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'border-color': `var(${vars['swatch.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'border-radius': `var(${vars['swatch.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
         'group': {
             'label': {

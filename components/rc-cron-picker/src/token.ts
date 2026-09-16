@@ -65,10 +65,10 @@ const token = defineTokens({
         }
     },
     'divider': {
-        'color': `var(${vars['divider.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+        'color': `var(${vars['divider.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
     },
     'root': {
-        'transition': `var(${vars['root.transition']}, var(--cron-picker-transition, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`
+        'transition': `var(${vars['root.transition']}, var(--cron-picker-transition, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
     }
 });
 

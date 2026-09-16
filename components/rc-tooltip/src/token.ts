@@ -18,8 +18,8 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--tooltip-background-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`,
-        'color': `var(${vars['root.color']}, var(--tooltip-color, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286)))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--tooltip-background-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+        'color': `var(${vars['root.color']}, var(--tooltip-color, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0)))))`,
         'padding-inline': `var(${vars['root.padding-inline']}, var(--tooltip-padding-inline, var(--tooltip-padding-x, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))))`,
         'padding-block': `var(${vars['root.padding-block']}, var(--tooltip-padding-block, var(--tooltip-padding-y, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))))`,
         'font-size': `var(${vars['root.font-size']}, var(--tooltip-font-size, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px))))`,

@@ -34,7 +34,7 @@ const token = defineTokens({
             'stroke': `var(${vars['ring.track.stroke']}, var(--spin-ring-track-color, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286))))))`
         },
         'indicator': {
-            'stroke': `var(${vars['ring.indicator.stroke']}, var(--spin-ring-indicator-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`
+            'stroke': `var(${vars['ring.indicator.stroke']}, var(--spin-ring-indicator-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'stroke-width': `var(${vars['ring.stroke-width']}, 4)`,
         'stroke-dasharray': `var(${vars['ring.stroke-dasharray']}, var(--spin-ring-dash, 31.4 125.7))`
@@ -48,10 +48,10 @@ const token = defineTokens({
         }
     },
     'root': {
-        'animation': `var(${vars['root.animation']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`
+        'animation': `var(${vars['root.animation']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
     },
     'content': {
-        'transition': `var(${vars['content.transition']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`,
+        'transition': `var(${vars['content.transition']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`,
         'opacity': `var(${vars['content.opacity']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`,
         'filter': `var(${vars['content.filter']}, blur(var(--spin-content-blur, 1px)))`
     },

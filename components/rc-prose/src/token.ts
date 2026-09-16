@@ -77,8 +77,8 @@ const token = defineTokens({
         'color': `var(${vars['lead.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
     },
     'link': {
-        'color': `var(${vars['link.color']}, var(--prose-links, var(--token-semantic-color-text-link, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`,
-        'color-hover': `var(${vars['link.color-hover']}, var(--prose-links-hover, var(--token-semantic-color-text-link-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286)))))`
+        'color': `var(${vars['link.color']}, var(--prose-links, var(--token-semantic-color-text-link, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+        'color-hover': `var(${vars['link.color-hover']}, var(--prose-links-hover, var(--token-semantic-color-text-link-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))))`
     },
     'strong': {
         'color': `var(${vars['strong.color']}, var(--prose-bold, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))`,
@@ -89,15 +89,15 @@ const token = defineTokens({
             'color': `var(${vars['list.counter.color']}, var(--prose-counters, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286)))))`
         },
         'bullet': {
-            'color': `var(${vars['list.bullet.color']}, var(--prose-bullets, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`
+            'color': `var(${vars['list.bullet.color']}, var(--prose-bullets, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286)))))`
         }
     },
     'hr': {
-        'border-color': `var(${vars['hr.border-color']}, var(--prose-hr-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`
+        'border-color': `var(${vars['hr.border-color']}, var(--prose-hr-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`
     },
     'blockquote': {
         'color': `var(${vars['blockquote.color']}, var(--prose-quotes, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))`,
-        'border-color': `var(${vars['blockquote.border-color']}, var(--prose-quote-borders, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`,
+        'border-color': `var(${vars['blockquote.border-color']}, var(--prose-quote-borders, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
         'font-weight': `var(${vars['blockquote.font-weight']}, var(--token-semantic-font-weight-body, var(--token-global-font-weight-regular, 400)))`
     },
     'caption': {
@@ -120,11 +120,11 @@ const token = defineTokens({
     },
     'table': {
         'heading': {
-            'border-color': `var(${vars['table.heading.border-color']}, var(--prose-th-borders, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
+            'border-color': `var(${vars['table.heading.border-color']}, var(--prose-th-borders, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286)))))`,
             'background-color': `var(${vars['table.heading.background-color']}, var(--prose-thead-bg, var(--token-semantic-color-fill-subtle, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-100, oklch(0.950 0.003 286))))))`
         },
         'cell': {
-            'border-color': `var(${vars['table.cell.border-color']}, var(--prose-td-borders, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`
+            'border-color': `var(${vars['table.cell.border-color']}, var(--prose-td-borders, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`
         }
     },
     'inverse': {

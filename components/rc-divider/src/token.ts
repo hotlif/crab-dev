@@ -23,7 +23,7 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'line': {
-        'border-color': `var(${vars['line.border-color']}, var(--divider-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`,
+        'border-color': `var(${vars['line.border-color']}, var(--divider-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
         'border-width': `var(${vars['line.border-width']}, var(--divider-line-width, 1px))`
     },
     'spacing': {

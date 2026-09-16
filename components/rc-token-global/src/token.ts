@@ -5,6 +5,13 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'purple.10': '--token-global-purple-10',
+    'purple.20': '--token-global-purple-20',
+    'purple.30': '--token-global-purple-30',
+    'purple.40': '--token-global-purple-40',
+    'purple.80': '--token-global-purple-80',
+    'purple.90': '--token-global-purple-90',
+    'purple.100': '--token-global-purple-100',
     'zinc.50': '--token-global-zinc-50',
     'zinc.100': '--token-global-zinc-100',
     'zinc.200': '--token-global-zinc-200',
@@ -145,6 +152,15 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'purple': {
+        '10': `var(${vars['purple.10']}, oklch(0.24199786 0.14038488 286.089811))`,
+        '20': `var(${vars['purple.20']}, oklch(0.32510160 0.13528526 291.151996))`,
+        '30': `var(${vars['purple.30']}, oklch(0.41029262 0.13369038 292.705951))`,
+        '40': `var(${vars['purple.40']}, oklch(0.49552086 0.13045663 293.709078))`,
+        '80': `var(${vars['purple.80']}, oklch(0.83492620 0.09457492 298.017957))`,
+        '90': `var(${vars['purple.90']}, oklch(0.91829316 0.04770250 302.827510))`,
+        '100': `var(${vars['purple.100']}, oklch(0.99999999 0.00000004 0.000000))`
+    },
     'zinc': {
         '50': `var(${vars['zinc.50']}, oklch(0.980 0.002 286))`,
         '100': `var(${vars['zinc.100']}, oklch(0.950 0.003 286))`,

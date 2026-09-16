@@ -39,9 +39,9 @@ const token = defineTokens({
     },
     'node': {
         'background-color-hover': `var(${vars['node.background-color-hover']}, var(--tree-node-hover-background-color, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
-        'background-color-selected': `var(${vars['node.background-color-selected']}, var(--tree-node-select-background-color, var(--token-semantic-color-selection-background, var(--token-global-blue-50, oklch(0.970 0.014 254)))))`,
+        'background-color-selected': `var(${vars['node.background-color-selected']}, var(--tree-node-select-background-color, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510)))))`,
         'selection': {
-            'border-color': `var(${vars['node.selection.border-color']}, var(--tree-node-select-indicator-color, var(--token-semantic-color-selection-border, var(--token-global-blue-700, oklch(0.488 0.230 264)))))`,
+            'border-color': `var(${vars['node.selection.border-color']}, var(--tree-node-select-indicator-color, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
             'border-width': `var(${vars['node.selection.border-width']}, var(--tree-node-select-indicator-width, 3px))`
         },
         'expand': {
@@ -51,15 +51,15 @@ const token = defineTokens({
         },
         'icon': {
             'background-color-hover': `var(${vars['node.icon.background-color-hover']}, var(--tree-node-icon-hover-background-color, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
-            'color-loading': `var(${vars['node.icon.color-loading']}, var(--tree-node-icon-loading-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`
+            'color-loading': `var(${vars['node.icon.color-loading']}, var(--tree-node-icon-loading-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'indent-line': {
-            'border-color': `var(${vars['node.indent-line.border-color']}, var(--tree-node-indent-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`
+            'border-color': `var(${vars['node.indent-line.border-color']}, var(--tree-node-indent-line-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`
         },
         'draggable': {
             'border-width': `var(${vars['node.draggable.border-width']}, 1px)`,
             'border-style': `var(${vars['node.draggable.border-style']}, solid)`,
-            'border-color': `var(${vars['node.draggable.border-color']}, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262))))`
+            'border-color': `var(${vars['node.draggable.border-color']}, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
         },
         'drag': {
             'indicator': {

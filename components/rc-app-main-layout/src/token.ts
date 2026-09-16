@@ -105,7 +105,7 @@ const token = defineTokens({
         'background-color': `var(${vars['header.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
         'z-index': `var(${vars['header.z-index']}, var(--token-semantic-z-index-base, var(--token-global-z-index-1, 1)))`,
         'divider': {
-            'background-color': `var(${vars['header.divider.background-color']}, var(--app-main-layout-header-divider-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`
+            'background-color': `var(${vars['header.divider.background-color']}, var(--app-main-layout-header-divider-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`
         },
         'toolbar': {
             'height': `var(${vars['header.toolbar.height']}, 52px)`,
@@ -139,8 +139,8 @@ const token = defineTokens({
             'avatar': {
                 'width': `var(${vars['header.user.avatar.width']}, var(--app-main-layout-header-user-avatar-size, 30px))`,
                 'font-size': `var(${vars['header.user.avatar.font-size']}, 14px)`,
-                'background-color': `var(${vars['header.user.avatar.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
-                'color': `var(${vars['header.user.avatar.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`
+                'background-color': `var(${vars['header.user.avatar.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+                'color': `var(${vars['header.user.avatar.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`
             }
         }
     },
@@ -153,14 +153,14 @@ const token = defineTokens({
         'padding': `var(${vars['sidebar.padding']}, 12px 8px)`,
         'gap': `var(${vars['sidebar.gap']}, 4px)`,
         'background-color': `var(${vars['sidebar.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
-        'border-color': `var(${vars['sidebar.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'border-color': `var(${vars['sidebar.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'logo': {
             'width': `var(${vars['sidebar.logo.width']}, var(--app-main-layout-sidebar-logo-size, 40px))`,
             'gap': `var(${vars['sidebar.logo.gap']}, 12px)`,
             'padding': `var(${vars['sidebar.logo.padding']}, 4px 8px 16px)`,
             'border-radius': `var(${vars['sidebar.logo.border-radius']}, 10px)`,
-            'background-color': `var(${vars['sidebar.logo.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
-            'color': `var(${vars['sidebar.logo.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-zinc-50, oklch(0.980 0.002 286))))`,
+            'background-color': `var(${vars['sidebar.logo.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'color': `var(${vars['sidebar.logo.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
             'title': {
                 'font-size': `var(${vars['sidebar.logo.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-lg, 18px)))`,
                 'color': `var(${vars['sidebar.logo.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
@@ -173,7 +173,7 @@ const token = defineTokens({
     'breadcrumbs': {
         'padding': `var(${vars['breadcrumbs.padding']}, 10px 16px)`,
         'background-color': `var(${vars['breadcrumbs.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
-        'border-color': `var(${vars['breadcrumbs.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
+        'border-color': `var(${vars['breadcrumbs.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
     },
     'tab': {
         'strip': {
@@ -197,10 +197,10 @@ const token = defineTokens({
             },
             'gap': `var(${vars['tab.item.gap']}, 8px)`,
             'separator': {
-                'background-color': `var(${vars['tab.item.separator.background-color']}, var(--app-main-layout-tab-item-separator-color, var(--token-semantic-color-border-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`
+                'background-color': `var(${vars['tab.item.separator.background-color']}, var(--app-main-layout-tab-item-separator-color, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286)))))`
             },
             'indicator': {
-                'background-color': `var(${vars['tab.item.indicator.background-color']}, var(--app-main-layout-tab-item-indicator-color, var(--token-semantic-color-brand-primary, var(--token-global-zinc-900, oklch(0.220 0.005 286)))))`
+                'background-color': `var(${vars['tab.item.indicator.background-color']}, var(--app-main-layout-tab-item-indicator-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
             },
             'icon': {
                 'width': `var(${vars['tab.item.icon.width']}, var(--app-main-layout-tab-item-icon-size, 16px))`
@@ -218,7 +218,7 @@ const token = defineTokens({
             'min-width': `var(${vars['tab.context-menu.min-width']}, 176px)`,
             'padding': `var(${vars['tab.context-menu.padding']}, 4px)`,
             'background-color': `var(${vars['tab.context-menu.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
-            'border-color': `var(${vars['tab.context-menu.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+            'border-color': `var(${vars['tab.context-menu.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
             'border-radius': `var(${vars['tab.context-menu.border-radius']}, 10px)`,
             'box-shadow': `var(${vars['tab.context-menu.box-shadow']}, var(--app-main-layout-tab-context-menu-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))))`,
             'z-index': `var(${vars['tab.context-menu.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`,
@@ -237,7 +237,7 @@ const token = defineTokens({
                 }
             },
             'separator': {
-                'background-color': `var(${vars['tab.context-menu.separator.background-color']}, var(--app-main-layout-tab-context-menu-separator-color, var(--token-semantic-color-border-default, var(--token-global-zinc-500, oklch(0.660 0.014 286)))))`,
+                'background-color': `var(${vars['tab.context-menu.separator.background-color']}, var(--app-main-layout-tab-context-menu-separator-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
                 'margin': `var(${vars['tab.context-menu.separator.margin']}, 4px 0)`
             }
         }

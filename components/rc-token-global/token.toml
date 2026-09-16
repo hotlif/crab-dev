@@ -11,11 +11,9 @@ prefix = "token-global"
 #  │  设计哲学：极简克制 · 中性锋利                                            │
 #  │                                                                         │
 #  │  • Zinc 中性灰为绝对主角，承担 90% UI 职责                                │
-#  │  • 功能色仅四组：Blue · Red · Green · Amber                              │
-#  │  • 主色无独立色板——通过 Zinc 明暗极值反转实现                              │
-#  │       Light → zinc.900 / zinc.950                                       │
-#  │       Dark  → zinc.50  / zinc.100                                       │
-#  │  • 色彩空间强制 OKLCh，暗色主题翻转 Lightness 即可                         │
+#  │  • 原有五组色阶保持稳定；Purple 提供新增紫色基元                           │
+#  │  • 品牌、反馈与焦点职责由 L2 指定，L1 不自动承担语义                        │
+#  │  • 色彩空间使用 OKLCh；明暗主题在 L2 显式配对                             │
 #  │  • 依赖 1px 边框分隔层级，阴影极度克制                                     │
 #  │  • 150ms 默认过渡，交互快速无感                                           │
 #  │  • 16px 基准排版，Inter + Geist Mono 紧凑体系                             │
@@ -24,6 +22,18 @@ prefix = "token-global"
 
 
 # ─── 色板 · Colors ──────────────────────────────────────────────────────────
+
+# ── Purple — 紫色调阶，数字越大越亮（不同于原有 50–950 色阶） ─────────────────
+# Source: Material Web v0.192 primary palette, converted to OKLCh.
+# https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-ref-palette.scss
+# 保留当前站点已经使用的七档；没有定义的调阶不得插值后冒充公共值。
+purple.10  = "oklch(0.24199786 0.14038488 286.089811)"
+purple.20  = "oklch(0.32510160 0.13528526 291.151996)"
+purple.30  = "oklch(0.41029262 0.13369038 292.705951)"
+purple.40  = "oklch(0.49552086 0.13045663 293.709078)"
+purple.80  = "oklch(0.83492620 0.09457492 298.017957)"
+purple.90  = "oklch(0.91829316 0.04770250 302.827510)"
+purple.100 = "oklch(0.99999999 0.00000004 0.000000)"
 
 
 # ── Zinc — 核心中性色 ───────────────────────────────────────────────────────
