@@ -1,5 +1,4 @@
 import { describe, it, expect, afterEach, beforeAll, mock, render } from "@crab-dev/wake/test/react";
-import React from 'react';
 import { FlowDiagramPaletteContext } from '../palette-context.js';
 import type { FlowDiagramPalette } from '../palette.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;

@@ -7,6 +7,10 @@ import { makeSelectKey } from "../util.js";
 import { getDataValueAccessor } from "../valueAccess.js";
 import { buildHeaderCellOrigins } from "../hooks/useColumnLayout.js";
 
+interface ValueRow extends Row {
+    dataRef: { value: number };
+}
+
 const fireMouseEvent = (
     type: "mousedown" | "mouseup" | "mouseover",
     target: EventTarget,
@@ -46,13 +50,13 @@ describe("Table performance regressions", () => {
             headerRenderCount += 1;
             return <>编号</>;
         };
-        const renderCell = mock.fn(({ row }: { row: Row }) => String(row.dataRef.value));
+        const renderCell = mock.fn(({ row }: { row: ValueRow }) => String(row.dataRef.value));
         const renderSummary = mock.fn(({ rows }: { rows: Row[] }) => rows.length);
-        const rows: Row[] = Array.from({ length: 100 }, (_, index) => ({
+        const rows: ValueRow[] = Array.from({ length: 100 }, (_, index) => ({
             id: index,
             dataRef: { value: index },
         }));
-        const columns: ColumnType<Row>[] = [{
+        const columns: ColumnType<ValueRow>[] = [{
             name: "value",
             title: <HeaderProbe /> as unknown as string,
             width: 120,
@@ -83,10 +87,10 @@ describe("Table performance regressions", () => {
     });
 
     it("keeps column layout and ordinary cells stable across controlled row-selection changes", async () => {
-        const renderCell = mock.fn(({ row }: { row: Row }) => String(row.dataRef.value));
+        const renderCell = mock.fn(({ row }: { row: ValueRow }) => String(row.dataRef.value));
         const renderSummary = mock.fn(() => "total");
-        const rows: Row[] = Array.from({ length: 20 }, (_, index) => ({ id: index, dataRef: { value: index } }));
-        const columns: ColumnType<Row>[] = [{
+        const rows: ValueRow[] = Array.from({ length: 20 }, (_, index) => ({ id: index, dataRef: { value: index } }));
+        const columns: ColumnType<ValueRow>[] = [{
             name: "value",
             title: "值",
             width: 100,

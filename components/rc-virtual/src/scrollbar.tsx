@@ -245,7 +245,7 @@ const ScrollBar = ({
 
         return (
             <div
-                className={cx(containerStyle, xContainerStyle)}
+                className={cx.call(undefined, containerStyle, xContainerStyle)}
                 ref={divRef}
             >
                 <div
@@ -258,7 +258,7 @@ const ScrollBar = ({
                     onPointerMove={onPointerMove}
                     onPointerUp={stopDragging}
                     onPointerCancel={stopDragging}
-                    className={cx(thumbStyle, xThumbStyle)}
+                    className={cx.call(undefined, thumbStyle, xThumbStyle)}
                 />
             </div>
         );
@@ -275,11 +275,11 @@ const ScrollBar = ({
 
         return (
             <div
-                className={cx(containerStyle, yContainerStyle)}
+                className={cx.call(undefined, containerStyle, yContainerStyle)}
                 ref={divRef}
             >
                 <div
-                    className={cx(thumbStyle, yThumbStyle)}
+                    className={cx.call(undefined, thumbStyle, yThumbStyle)}
                     style={{
                         height: thumbHeight,
                         top: thumbTop,

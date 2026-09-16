@@ -1,4 +1,4 @@
-import RcVirtual from "@crab-dev/rc-virtual";
+import RcVirtual, { TokenVars as VirtualTokenVars } from "@crab-dev/rc-virtual";
 import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 import { css, cx } from "@crab-dev/css";
 import Checkbox from "@crab-dev/rc-checkbox";
@@ -34,6 +34,55 @@ import { useTableInteractionScope } from "./hooks/useTableInteractionScope.js";
 import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
 import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
+
+const tableRootStyle = css`
+    position: relative;
+    width: fit-content;
+    font-family: ${token.root['font-family']};
+    font-size: ${token.root['font-size']};
+    line-height: ${token.root['line-height']};
+    font-variant-numeric: tabular-nums;
+    color: ${token.root.color};
+    background-color: ${token.cell['background-color']};
+    ${VirtualTokenVars['scrollbar.opacity']}: ${token.scrollbar.opacity};
+
+    &:focus-visible {
+        outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
+        outline-offset: ${token.root["outline-offset-focus"]};
+    }
+
+    &::before, &::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: ${token['fixed-edge'].width};
+        pointer-events: none;
+        z-index: 30;
+    }
+    &[data-fixed-left]::before {
+        content: '';
+        left: clamp(0px, var(--rc-table-fixed-left-width), calc(100% - ${token['fixed-edge'].width}));
+        background: linear-gradient(to right, ${token['fixed-edge'].color}, transparent);
+    }
+    &[data-fixed-right]::after {
+        content: '';
+        right: clamp(0px, var(--rc-table-fixed-right-width), calc(100% - ${token['fixed-edge'].width}));
+        background: linear-gradient(to left, ${token['fixed-edge'].color}, transparent);
+    }
+
+    @media (forced-colors: active) {
+        &[data-fixed-left]::before {
+            border-left: 1px solid CanvasText;
+        }
+        &[data-fixed-right]::after {
+            border-right: 1px solid CanvasText;
+        }
+        & [role='columnheader'], & [role='gridcell'] {
+            outline: 1px solid CanvasText;
+            outline-offset: -1px;
+        }
+    }
+`;
 
 interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
     // 表格的宽度
@@ -545,77 +594,78 @@ const filterCellBottomOnlyShadow = css`
 `;
 
 
-function Table<T extends Row>({
-    width,
-    height,
-    rows,
-    columns,
-    mergeCells = EMPTY_MERGE_CELLS,
-    getRowHeight,
-    headerRowHeight = 35,
-    filterBar = false,
-    filterRowHeight = 35,
-    filterCellClassName,
-    filters,
-    editType,
-    selectCells,
-    onSelectCellsChange,
-    renderDefaultFilterEditor,
-    onFilterChange,
-    groupBy: groupByProp,
-    groupRowHeight = 35,
-    expandedGroupIds,
-    defaultExpandedGroupIds,
-    defaultExpandAll = true,
-    onExpandedGroupIdsChange,
-    renderGroupCell,
-    cellEditRecords,
-    onCellEditRecordsChange,
-    onUndo,
-    editingRowId,
-    defaultEditingRowId,
-    onEditingRowIdChange,
-    onRowCommit,
-    onRowCancel,
-    highlightKeyword,
-    activeMatchIndex,
-    onMatchCountChange,
-    resizable = false,
-    onColumnResize,
-    draggableColumns = false,
-    onColumnOrderChange,
-    onGroupColumnOrderChange,
-    onCopy,
-    treeData,
-    getChildRows,
-    treeColumn: treeColumnProp,
-    expandedRowIds,
-    defaultExpandedRowIds,
-    defaultTreeExpandAll,
-    onExpandedRowIdsChange,
-    sortColumns: sortColumnsProp,
-    defaultSortColumns,
-    onSortColumnsChange,
-    rowSelection,
-    showSummary = false,
-    summaryRowHeight = 35,
-    expandedRowRender,
-    isRowExpandable,
-    expandedRowKeys,
-    defaultExpandedRowKeys,
-    onExpandedRowKeysChange,
-    expandedRowHeight = 200,
-    getExpandedRowHeight,
-    expandColumnWidth,
-    expandColumnFixed,
-    empty,
-    showRowNumber = false,
-    rowNumberColumnWidth,
-    rowNumberColumnFixed,
-    onRowClick,
-    onRowDoubleClick,
-    ...restProps
-}: TableProps<T>): ReactNode {
+function Table<T extends Row>(props: TableProps<T>): ReactNode {
+    const {
+        width,
+        height,
+        rows,
+        columns,
+        mergeCells = EMPTY_MERGE_CELLS,
+        getRowHeight,
+        headerRowHeight = 35,
+        filterBar = false,
+        filterRowHeight = 35,
+        filterCellClassName,
+        filters,
+        editType,
+        selectCells,
+        onSelectCellsChange,
+        renderDefaultFilterEditor,
+        onFilterChange,
+        groupBy: groupByProp,
+        groupRowHeight = 35,
+        expandedGroupIds,
+        defaultExpandedGroupIds,
+        defaultExpandAll = true,
+        onExpandedGroupIdsChange,
+        renderGroupCell,
+        cellEditRecords,
+        onCellEditRecordsChange,
+        onUndo,
+        editingRowId,
+        defaultEditingRowId,
+        onEditingRowIdChange,
+        onRowCommit,
+        onRowCancel,
+        highlightKeyword,
+        activeMatchIndex,
+        onMatchCountChange,
+        resizable = false,
+        onColumnResize,
+        draggableColumns = false,
+        onColumnOrderChange,
+        onGroupColumnOrderChange,
+        onCopy,
+        treeData,
+        getChildRows,
+        treeColumn: treeColumnProp,
+        expandedRowIds,
+        defaultExpandedRowIds,
+        defaultTreeExpandAll,
+        onExpandedRowIdsChange,
+        sortColumns: sortColumnsProp,
+        defaultSortColumns,
+        onSortColumnsChange,
+        rowSelection,
+        showSummary = false,
+        summaryRowHeight = 35,
+        expandedRowRender,
+        isRowExpandable,
+        expandedRowKeys,
+        defaultExpandedRowKeys,
+        onExpandedRowKeysChange,
+        expandedRowHeight = 200,
+        getExpandedRowHeight,
+        expandColumnWidth,
+        expandColumnFixed,
+        empty,
+        showRowNumber = false,
+        rowNumberColumnWidth,
+        rowNumberColumnFixed,
+        onRowClick,
+        onRowDoubleClick,
+        ...restProps
+    } = props;
 
     const { rootRef: interactionRootRef, activateInteraction, isInteractionActive } = useTableInteractionScope();
 
@@ -1013,7 +1063,7 @@ function Table<T extends Row>({
             return (
                 <div
                     key={`table-group-cell-${rowIndex}-${columnIndex}`}
-                    className={cx(css`
+                    className={cx.call(undefined, css`
                         display: inline-flex;
                         align-items: center;
                         box-sizing: border-box;
@@ -1185,7 +1235,7 @@ function Table<T extends Row>({
                 const mergeCell = mergeCellMap.get(currentCellKey);
                 return (
                     <TableBodyCell
-                        className={cx(css`position: sticky;`, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : fixedCellBgWithRowVar))}
+                        className={cx.call(undefined, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : fixedCellBgWithRowVar))}
                         key={makeColumnReactKey(column.name)}
                         row={currentRow as T}
                         rowIndex={rowIndex}
@@ -1225,8 +1275,7 @@ function Table<T extends Row>({
                     // 数据行在 DOM 中的定位锚点（供测试与使用方的自动化脚本使用）
                     data-row-index={rowIndex}
                     role="row"
-                    className={cx(
-                        isEditingThisRow ? rowEditingRowStyle : undefined,
+                    className={cx.call(undefined, isEditingThisRow ? rowEditingRowStyle : undefined,
                         // 可点击示能只给真正可点的数据行：编辑态的行此时不响应行点击
                         hasRowEvents && !isEditingThisRow ? clickableRowStyle : undefined,
                         isRowSelected ? selectedRowStyle : undefined,
@@ -1235,8 +1284,7 @@ function Table<T extends Row>({
                         height: gridTemplateRows[rowIndex],
                         width: actualHeight,
                         ...(isRowSelected ? { [ROW_BG_VAR]: token['row-selection']['background-color-selected'] } : null)
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    } as CSSProperties & Record<string, any>}
+                    } as CSSProperties & Record<`--${string}`, string | number>}
                     {...getRowEventProps(currentRow as T, rowIndex, isEditingThisRow)}
                     renderVersion={virtualRenderVersion}
                     virtualWindowKey={`${columnRenderStart}:${columnRange[0]}:${columnRange[1]}`}
@@ -1295,7 +1343,7 @@ function Table<T extends Row>({
         return (
             <div
                 key={`table-filter-cell-${columnIndex}`}
-                className={cx(css`
+                className={cx.call(undefined, css`
                     display: inline-flex;
                     align-items: center;
                     box-sizing: border-box;
@@ -1335,7 +1383,7 @@ function Table<T extends Row>({
 
     // ====== 渲染：表头 ======
     const generateHeaderElement = ({ columnRange }: { columnRange: [number, number] }) => {
-        const getMergeCell = (cell?: HeaderCellType | null) => cell
+        const getMergeCell = (cell?: HeaderCellType<T> | null) => cell
             ? { rowIndex: cell.rowIndex, columnIndex: cell.columnIndex, rowSpan: cell.rowSpan, colSpan: cell.colSpan }
             : undefined;
 
@@ -1488,7 +1536,7 @@ function Table<T extends Row>({
                 <BodyRow
                     key={`table-header-row-${r}`}
                     role="row"
-                    className={cx(css`
+                    className={cx.call(undefined, css`
                         position: sticky;
                     `, getBottomBorderStyle(r, maxDepth - 1))}
                     style={{ height: headerRowHeight, width: actualHeight, top: r * headerRowHeight, zIndex: 10 + maxDepth - r }}
@@ -1497,7 +1545,7 @@ function Table<T extends Row>({
                 >
                     {fixedLeftColumnsIdx.map((columnIndex) => makeHeaderCell(
                         columnIndex,
-                        css`position: sticky; z-index: 11;`,
+                        css`z-index: 11;`,
                         { left: stickyLeftOffsets[columnIndex] }
                     ))}
                     <div
@@ -1509,7 +1557,7 @@ function Table<T extends Row>({
                     {paddingRight}
                     {fixedRightColumnsIdx.map((columnIndex) => makeHeaderCell(
                         columnIndex,
-                        css`position: sticky; z-index: 11;`,
+                        css`z-index: 11;`,
                         { right: stickyRightOffsets[columnIndex] }
                     ))}
                 </BodyRow>
@@ -1575,12 +1623,15 @@ function Table<T extends Row>({
                 activateInteraction();
                 restProps.onFocusCapture?.(event);
             }}
-            className={cx(emptyNode !== null && emptyContainerStyle, restProps.className)}
+            className={cx.call(undefined, tableRootStyle, emptyNode !== null && emptyContainerStyle, restProps.className)}
+            data-fixed-left={actualHeight > width && fixedLeftColumnsIdx.length > 0 || undefined}
+            data-fixed-right={actualHeight > width && fixedRightColumnsIdx.length > 0 || undefined}
             style={{
                 ...restProps.style,
+                "--rc-table-fixed-left-width": `${fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`,
+                "--rc-table-fixed-right-width": `${fixedRightColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`,
                 "--crab-rc-virtual-left-padding-width-offset": `${fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as CSSProperties & Record<string, any>}
+            } as CSSProperties & Record<`--${string}`, string | number>}
         >
             <RcVirtual
                 gridRef={virtualRef}

@@ -414,7 +414,7 @@ const NodeItem: FC<NodeItemProps> = ({
                 setNodeRef(ref);
                 divRef.current = ref;
             }}
-            className={cx(nodeItemBase, getDragStyle(), className)}
+            className={cx.call(undefined, nodeItemBase, getDragStyle(), className)}
             {...restProps}
             {...attributes}
             data-selected={selectKeys?.includes(node.id)}
@@ -470,7 +470,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         ? `↑ ${dragBadgeLabels?.above ?? '放在上方'}`
                         : `↓ ${dragBadgeLabels?.below ?? '放在下方'}`;
                 return (
-                    <span className={cx(dragBadgeBaseStyle, isInside ? dragBadgeInsideStyle : dragBadgeIndicatorStyle)}>
+                    <span className={cx.call(undefined, dragBadgeBaseStyle, isInside ? dragBadgeInsideStyle : dragBadgeIndicatorStyle)}>
                         {label}
                     </span>
                 );

@@ -4,19 +4,19 @@ import { buildMergeCellLookup, getBottomColumns, getHeaderCellsTwoDimensionalArr
 import type { HeaderCellType } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 
-export const buildHeaderCellOrigins = (
-    headerCells: (HeaderCellType | null)[][],
+export const buildHeaderCellOrigins = <T extends Row>(
+    headerCells: (HeaderCellType<T> | null)[][],
     columnCount: number,
 ): number[][] => headerCells.map((row) => {
-    const origins = Array.from({ length: columnCount }, () => -1);
-    row.forEach((cell) => {
-        if (!cell) return;
-        for (let columnIndex = cell.columnIndex; columnIndex <= cell.columnIndex + cell.colSpan; columnIndex += 1) {
-            origins[columnIndex] = cell.columnIndex;
-        }
+        const origins = Array.from({ length: columnCount }, () => -1);
+        row.forEach((cell) => {
+            if (!cell) return;
+            for (let columnIndex = cell.columnIndex; columnIndex <= cell.columnIndex + cell.colSpan; columnIndex += 1) {
+                origins[columnIndex] = cell.columnIndex;
+            }
+        });
+        return origins;
     });
-    return origins;
-});
 
 export function useColumnLayout<T extends Row>(params: {
     columns: ColumnType<T>[]
@@ -36,7 +36,7 @@ export function useColumnLayout<T extends Row>(params: {
     sColumns: ColumnType<T>[];
     bottomColumns: ColumnType<T>[];
     maxDepth: number;
-    headerCells: (import("../util.js").HeaderCellType | null)[][];
+    headerCells: (HeaderCellType<T> | null)[][];
     headerCellOriginByRow: number[][];
     topLevelHeaderCellOriginByColumn: number[];
     headerGridTemplateRows: number[];
@@ -119,10 +119,8 @@ export function useColumnLayout<T extends Row>(params: {
     }, [bottomColumns, width, resizedWidths]);
 
     const { fixedLeftColumns, fixedRightColumns, fixedLeftColumnsIdx, fixedRightColumnsIdx } = useMemo(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const leftColumns: ColumnType<any>[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const rightColumns: ColumnType<any>[] = [];
+        const leftColumns: ColumnType<T>[] = [];
+        const rightColumns: ColumnType<T>[] = [];
         const leftColumnsIdx: number[] = [];
         const rightColumnsIdx: number[] = [];
         bottomColumns.forEach((column, index) => {

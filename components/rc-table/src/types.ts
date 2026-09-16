@@ -14,8 +14,12 @@ export type RowState = "new" | "modified" | "deleted";
 
 export interface Row {
     id: Key,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dataRef: any,
+    /**
+     * 原始业务数据，可保存任意值。访问字段前应先收窄类型，或由具体行类型覆盖：
+     * `interface EmployeeRow extends Row { dataRef: { name: string; salary: number } }`。
+     * 列定义使用 `ColumnType<EmployeeRow>`，使 render、sorter 等回调保留业务类型。
+     */
+    dataRef: unknown,
     height?: number,
     state?: RowState
 }

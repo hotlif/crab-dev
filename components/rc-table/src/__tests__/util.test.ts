@@ -1,7 +1,46 @@
 import { describe, expect, it } from "@crab-dev/wake/test";
 import type { ColumnType, Row } from "../types.js";
 
-import { sortColumns, buildMergeCellLookup, getMergedCellSize, getMaxDepth, calculateColumnDepth, getBottomColumns, getHeaderCells } from "../util.js";
+import { sortColumns, buildMergeCellLookup, getMergedCellSize, getMaxDepth, calculateColumnDepth, getBottomColumns, getHeaderCells, setValueByJsonPath } from "../util.js";
+
+describe("setValueByJsonPath", () => {
+    it("updates nested objects and array elements without creating missing parents", () => {
+        const data = { employee: { name: "Ada" }, values: [1, 2], missing: null };
+        setValueByJsonPath(data, "$.employee.name", "Grace");
+        setValueByJsonPath(data, "$.values.1", 3);
+        setValueByJsonPath(data, "$.missing.name", "ignored");
+        setValueByJsonPath(data, "$.unknown.name", "ignored");
+        expect(data).toEqual({ employee: { name: "Grace" }, values: [1, 3], missing: null });
+    });
+});
+
+describe("typed column metadata", () => {
+    it("preserves business row callbacks through sorting and nested header traversal", () => {
+        interface EmployeeRow extends Row {
+            dataRef: { salary: number };
+        }
+        const salaryColumn: ColumnType<EmployeeRow> = {
+            name: "salary",
+            title: "Salary",
+            sorter: (a, b) => a.dataRef.salary - b.dataRef.salary,
+        };
+        const columns: ColumnType<EmployeeRow>[] = [{
+            name: "employee",
+            title: "Employee",
+            fixed: "left",
+            children: [salaryColumn],
+        }];
+        const sorted = sortColumns(columns);
+        const leaf = getBottomColumns(sorted)[0];
+        const header = getHeaderCells(sorted).find(cell => cell.column?.name === "salary");
+        const a: EmployeeRow = { id: 1, dataRef: { salary: 200 } };
+        const b: EmployeeRow = { id: 2, dataRef: { salary: 100 } };
+        expect(leaf.fixed).toBe("left");
+        expect(leaf.sorter).toBe(salaryColumn.sorter);
+        expect(leaf.sorter?.(a, b)).toBe(100);
+        expect(header?.column?.sorter?.(a, b)).toBe(100);
+    });
+});
 
 describe("sortColumns", () => {
     it("should not change order if all columns are unfixed", () => {

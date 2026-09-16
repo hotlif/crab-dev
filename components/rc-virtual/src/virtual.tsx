@@ -340,7 +340,7 @@ const Virtual: FC<VirtualProps> = ({
 
     return (
         <div
-            className={cx(
+            className={cx.call(undefined,
                 className,
                 containerStyle
             )}
@@ -357,7 +357,7 @@ const Virtual: FC<VirtualProps> = ({
             } as CSSProperties}
         >
             <div
-                className={cx(gridStyle)}
+                className={cx.call(undefined, gridStyle)}
                 style={{
                     width: viewportWidth,
                     height: viewportHeight,

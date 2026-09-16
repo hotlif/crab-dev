@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Key } from "react";
-import type { ColumnType, GroupRowMeta, MergeCell, Row, TreeRowMeta } from "./types";
+import type { ColumnType, GroupRowMeta, MergeCell, Row, TreeRowMeta } from "./types.js";
 import { getDataValueAccessor } from "./valueAccess.js";
 
 /**
@@ -11,18 +10,18 @@ export const setValueByJsonPath = (obj: unknown, path: string, value: unknown): 
     if (obj == null || typeof obj !== 'object') return;
     const parts = path.replace(/^\$\.?/, '').split('.').filter(Boolean);
     if (parts.length === 0) return;
-    let cur: any = obj;
+    let cur: unknown = obj;
     for (let i = 0; i < parts.length - 1; i++) {
         if (cur == null || typeof cur !== 'object') return;
-        cur = cur[parts[i]];
+        cur = (cur as Record<string, unknown>)[parts[i]];
     }
     if (cur != null && typeof cur === 'object') {
-        cur[parts[parts.length - 1]] = value;
+        (cur as Record<string, unknown>)[parts[parts.length - 1]] = value;
     }
 };
 
-export interface HeaderCellType {
-    column?: ColumnType<any>;
+export interface HeaderCellType<T extends Row = Row> {
+    column?: ColumnType<T>;
     rowSpan: number
     colSpan: number
     rowIndex: number
@@ -37,7 +36,7 @@ export interface HeaderCellType {
  * @param depth - 当前递归的深度，通常从 1 开始。
  * @returns 列树结构中的最大深度。
  */
-export const calculateColumnDepth = (columns: ColumnType<any>, depth: number): number => {
+export const calculateColumnDepth = <T extends Row>(columns: ColumnType<T>, depth: number): number => {
     let maxNumber = depth;
     columns?.children?.forEach(element => {
         const nextDepthNumber = calculateColumnDepth(element, depth + 1);
@@ -55,7 +54,7 @@ export const calculateColumnDepth = (columns: ColumnType<any>, depth: number): n
  * @param columns - 需要评估的列定义数组。
  * @returns 拥有最大深度的列对象。
  */
-export const getMaxDepth = (columns: ColumnType<any>[]): number => {
+export const getMaxDepth = <T extends Row>(columns: ColumnType<T>[]): number => {
     if (columns.length === 0) return 0;
     let maxColumnDepth = calculateColumnDepth(columns[0], 1);
     columns.forEach(element => {
@@ -73,8 +72,8 @@ export const getMaxDepth = (columns: ColumnType<any>[]): number => {
  * @param columns - 列定义数组，可能包含嵌套的子列。
  * @returns 不包含任何子列（即底层列）的列数组。
  */
-export const getBottomColumns = (columns: ColumnType<any>[], fixed?: "left" | "right" ): ColumnType<any>[] => {
-    const result: ColumnType<any>[] = []
+export const getBottomColumns = <T extends Row>(columns: ColumnType<T>[], fixed?: "left" | "right" ): ColumnType<T>[] => {
+    const result: ColumnType<T>[] = []
     columns.forEach(element => {
         if (element.children && element.children.length > 0) {
             result.push(...getBottomColumns(element.children, element.fixed ?? fixed));
@@ -97,10 +96,10 @@ export const getBottomColumns = (columns: ColumnType<any>[], fixed?: "left" | "r
  * @param columns - 用于生成表头单元格的列定义数组。
  * @returns 一个 `HeaderCellType` 对象数组，每个对象表示一个带有计算后跨度和索引属性的表头单元格。
  */
-export const getHeaderCells = (columns: ColumnType<any>[]): HeaderCellType[] => {
+export const getHeaderCells = <T extends Row>(columns: ColumnType<T>[]): HeaderCellType<T>[] => {
     const maxDepth = getMaxDepth(columns);
-    const traverse = (cols: ColumnType<any>[], depth: number, startColumnIndex: number, parent: HeaderCellType | null) => {
-        const headerCells: HeaderCellType[] = [];
+    const traverse = (cols: ColumnType<T>[], depth: number, startColumnIndex: number, parent: HeaderCellType<T> | null): HeaderCellType<T>[] => {
+        const headerCells: HeaderCellType<T>[] = [];
         let currentColumnIndex = startColumnIndex;
         cols.forEach((element) => {
             const bottomColumn = getBottomColumns([element]);
@@ -128,12 +127,12 @@ export const getHeaderCells = (columns: ColumnType<any>[]): HeaderCellType[] => 
     return traverse(columns, 0, 0, null);
 }
 
-export const getHeaderCellsTwoDimensionalArray = (columns: ColumnType<any>[]): (HeaderCellType | null)[][] => {
+export const getHeaderCellsTwoDimensionalArray = <T extends Row>(columns: ColumnType<T>[]): (HeaderCellType<T> | null)[][] => {
     const headerCells = getHeaderCells(columns);
     const maxRowIndex = Math.max(...headerCells.map(cell => cell.rowIndex));
     const maxColIndex = Math.max(...headerCells.map(cell => cell.columnIndex + (cell.colSpan || 0)));
 
-    const result: (HeaderCellType | null)[][] = Array.from({ length: maxRowIndex + 1 }, () =>
+    const result: (HeaderCellType<T> | null)[][] = Array.from({ length: maxRowIndex + 1 }, () =>
         Array.from({ length: maxColIndex + 1 }, () => null)
     );
     headerCells.forEach(cell => {
@@ -152,8 +151,8 @@ export const getHeaderCellsTwoDimensionalArray = (columns: ColumnType<any>[]): (
     return result;
 }
 
-export function sortColumns(columns: ColumnType<any>[]): ColumnType<any>[] {
-    const getOrder = (col: ColumnType<any>) => {
+export function sortColumns<T extends Row>(columns: ColumnType<T>[]): ColumnType<T>[] {
+    const getOrder = (col: ColumnType<T>) => {
         if (col.fixed === "left") return -1;
         if (col.fixed === "right") return 1;
         return 0;
@@ -312,6 +311,12 @@ export interface GroupedDisplayRows<T extends Row> {
     allPossibleGroupIds: Key[]
 }
 
+interface BuildContext<T extends Row> {
+    level: number
+    parentGroupId: string
+    rowsSlice: T[]
+}
+
 /**
  * 根据 groupBy 与 rows 构造扁平化的展示行序列（分组 banner 行 + 叶子数据行）。
  *
@@ -337,18 +342,12 @@ export function buildGroupedDisplayRows<T extends Row>(params: {
     const allPossibleGroupIds: Key[] = [];
     const displayRows: Array<T | InternalGroupRow<T>> = [];
 
-    interface BuildContext {
-        level: number
-        parentGroupId: string
-        rowsSlice: T[]
-    }
-
     const isExpanded = (groupId: string) => {
         if (expandedSet == null) return defaultExpanded;
         return expandedSet.has(groupId);
     };
 
-    const walk = (ctx: BuildContext) => {
+    const walk = (ctx: BuildContext<T>) => {
         const columnName = groupBy[ctx.level];
         if (columnName == null) {
             // 已到最深层，回归普通数据行

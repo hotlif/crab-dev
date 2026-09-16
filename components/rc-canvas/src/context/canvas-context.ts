@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import type { Context } from 'react';
 import type { DrawCommand } from '../renderer/draw-command.js';
 import type { PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from '../drag-types.js';
 import { identityMat3 } from '../math/matrix.js';
@@ -169,7 +170,7 @@ export interface CanvasContextValue {
 
 const DEFAULT_VIEW_MATRIX_REF = { current: identityMat3() };
 
-export const CanvasContext = createContext<CanvasContextValue>({
+export const CanvasContext: Context<CanvasContextValue> = createContext<CanvasContextValue>({
     resolveColor: css => css,
     register: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     update: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },

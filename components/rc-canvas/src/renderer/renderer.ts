@@ -125,10 +125,10 @@ export class WebGLRenderer {
     private dpr: number;
 
     // projection / view 变更版本号：只有版本变化时才向各 program 重传这两个 uniform
-    private projVersion = 0;
-    private viewVersion = 0;
-    private lastUploadedProjVersion = -1;
-    private lastUploadedViewVersion = -1;
+    private projVersion: number = 0;
+    private viewVersion: number = 0;
+    private lastUploadedProjVersion: number = -1;
+    private lastUploadedViewVersion: number = -1;
 
     private readonly flatProg: WebGLProgram;
     private readonly sdfProg: WebGLProgram;
@@ -155,18 +155,18 @@ export class WebGLRenderer {
     private readonly gridVBO: WebGLBuffer;
     private readonly markerVAO: WebGLVertexArrayObject;
 
-    private readonly textures = new Map<string, WebGLTexture>();
+    private readonly textures: Map<string, WebGLTexture> = new Map<string, WebGLTexture>();
 
     // 排序缓存：commands 不变时（仅 viewMatrix 变化）复用，避免每帧 O(n log n) 重排
     private sortedCache: DrawCommand[] = [];
-    private lastCommandsVersion = -1;
+    private lastCommandsVersion: number = -1;
 
     // 流动虚线动画的时间基准：elapsed = frameTime - timeOrigin（秒）
-    private readonly timeOrigin = performance.now();
+    private readonly timeOrigin: number = performance.now();
     // 每帧在 render() 开头采样一次，帧内所有线共享同一时间点，保证相位一致
-    private frameTime = 0;
+    private frameTime: number = 0;
     /** prefers-reduced-motion: reduce 时由宿主置 true，流动虚线降级为静态虚线 */
-    reducedMotion = false;
+    reducedMotion: boolean = false;
 
     constructor(
         gl: WebGL2RenderingContext,

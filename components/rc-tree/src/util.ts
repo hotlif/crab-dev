@@ -30,7 +30,7 @@ export class TreeDataUtil {
      * 删除数据
      * @param param  id 或者 ids 数组
      */
-    delete(param: Node["id"] | Node["id"][]) {
+    delete(param: Node["id"] | Node["id"][]): void {
         if (Array.isArray(param)) {
             this.deleteByFilter(element => param.includes(element.id));
         } else {
@@ -43,8 +43,7 @@ export class TreeDataUtil {
      * @param predicate 过滤方法
      * @param thisArg 传入的 this
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    deleteByFilter(predicate: (value: Node, index: number, array: Node[]) => unknown, thisArg?: any) {
+    deleteByFilter(predicate: (value: Node, index: number, array: Node[]) => unknown, thisArg?: unknown): void {
         this.onTreeNodeChange((newTreeData) => {
             return newTreeData.filter((element, elementIndex, elementArray) => !predicate(element, elementIndex, elementArray), thisArg);
         })
@@ -55,14 +54,14 @@ export class TreeDataUtil {
      * @param parent 父节点
      * @param nodes  要插入的数据
      */
-    insert(parent: Node, nodes: Node[]) {
+    insert(parent: Node, nodes: Node[]): void {
         this.onTreeNodeChange((newTreeData) => [...newTreeData, ...nodes.map(elemenet => ({ ...elemenet, parent }))]);
     }
 
     /**
      * 修改节点数据
      */
-    update(update: Node) {
+    update(update: Node): void {
         const {
             id: uid,
             ...restUpdateInfo
@@ -103,7 +102,7 @@ export class TreeDataUtil {
         parent: Node | null,
         loadData: TreeProps["loadData"]
         expandedKeys: TreeProps["expandedKeys"]
-    }) {
+    }): Promise<void> {
         this.onTreeNodeChange(newTreeData => {
             for (let i = 0; i < newTreeData.length; i += 1) {
                 if (newTreeData[i].id === parent?.id) {
@@ -181,7 +180,7 @@ export class TreeDataUtil {
         onExpandedKeysChange([]);
     }
 
-    moveNodeOnDrag(dragNodeId: Node["id"], targetNodeId: Node["id"], position: OverStateEnum) {
+    moveNodeOnDrag(dragNodeId: Node["id"], targetNodeId: Node["id"], position: OverStateEnum): void {
         this.onTreeNodeChange(newTreeData => {
             const dragNode = newTreeData.find(element => element.id === dragNodeId);
             const targetNode = newTreeData.find(element => element.id === targetNodeId);

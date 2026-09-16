@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, describe, expect, it, mock, render } from '@crab-dev/wake/test/react';
-import React, { type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { FlowDiagramPaletteContext } from '../palette-context.js';
 import type { FlowDiagramPalette } from '../palette.js';
 

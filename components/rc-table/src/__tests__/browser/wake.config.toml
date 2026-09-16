@@ -1,0 +1,15 @@
+# 固定列需要真实布局和 Crab CSS；不能使用包内 DOM 测试的 CSS mock。
+# 在 rc-table 中运行：yarn test --root src/__tests__/browser
+[test]
+environment = "browser"
+include = ["table.test.tsx"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.react]
+cleanup = true
+act_warnings = "error"
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

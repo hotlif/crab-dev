@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, mock, render } from "@crab-dev/wake/test/react";
 import type { MockFunction } from "@crab-dev/wake/test";
-import React from 'react';
 import { createWebGL2Mock } from './__mocks__/webgl-mock.js';
 import Canvas from '../canvas.js';
 import Line from '../shapes/line.js';

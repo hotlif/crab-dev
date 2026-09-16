@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach, afterEach, mock, render, screen, fireEvent, act } from "@crab-dev/wake/test/react";
-import React from 'react';
 import BarChart from '../barChart.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 beforeEach(() => {

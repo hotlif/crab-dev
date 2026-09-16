@@ -7,4 +7,6 @@ imports = [
 
 [token]
 
+scrollbar.opacity = "0"
+scrollbar.transition = "$ref(motion.interaction)"
 scrollbar.thumb.background-color = "color-mix(in oklch, $ref(color.text.primary) 50%, transparent)"

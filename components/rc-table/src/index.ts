@@ -4,4 +4,4 @@ export type { Row, RowState, ColumnType, FilterEditorParam, SummaryCellParam, Gr
 export type { RowEventHandler } from "./hooks/useRowEvents.js";
 export { highlightText } from "./bodyCell.js";
 export default RcTable;
-export { vars as TokenVars } from './token.js';
+export { TokenVars } from './token-vars.js';

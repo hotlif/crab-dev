@@ -1,6 +1,6 @@
 import { describe, it, expect, mock, render } from "@crab-dev/wake/test/react";
 import type { MockFunction } from "@crab-dev/wake/test";
-import React, { type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import Group from '../shapes/group.js';
 import Rect from '../shapes/rect.js';
 import { CanvasContext, type CanvasContextValue } from '../context/canvas-context.js';

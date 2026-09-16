@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import type { Context } from 'react';
 import { DEFAULT_CANVAS_PALETTE, type CanvasPalette } from '../palette.js';
 
 export interface CanvasPaletteContextValue {
@@ -7,7 +8,7 @@ export interface CanvasPaletteContextValue {
     revision: number;
 }
 
-export const CanvasPaletteContext = createContext<CanvasPaletteContextValue>({
+export const CanvasPaletteContext: Context<CanvasPaletteContextValue> = createContext<CanvasPaletteContextValue>({
     palette: DEFAULT_CANVAS_PALETTE,
     revision: 0,
 });

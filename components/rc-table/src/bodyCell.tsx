@@ -1,5 +1,5 @@
 import { css, cx } from "@crab-dev/css";
-import token from "./token.js";
+import token, { vars } from "./token.js";
 
 const rowEditingCellStyle = css`
     background-color: ${token['row-edit'].row["background-color"]};
@@ -14,6 +14,18 @@ import { Fragment, memo, type HTMLAttributes, type Key, type KeyboardEvent as Re
 import { getMergedCellSize } from "./util.js";
 import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
 import { getDataValueAccessor } from "./valueAccess.js";
+
+// 选区底色画在内容下方，并由固定列和合并单元格共同读取。
+// 前景覆盖层只描边，避免不透明填充遮住文字、图标和自定义渲染内容。
+const selectedCellStyle = css`
+    ${ROW_BG_VAR}: ${token.selection['background-color']};
+    background-color: var(${ROW_BG_VAR});
+
+    @media (forced-colors: active) {
+        ${ROW_BG_VAR}: Canvas;
+        background-color: Canvas;
+    }
+`;
 
 const highlightMarkStyle = css`
     background-color: ${token.highlight["background-color"]};
@@ -205,32 +217,32 @@ function TableCell<T extends Row>({
         if (fixed === "right") {
             // 固定右列的右边框被该列自身的 sticky 背景覆盖不可见，改用左边框分隔
             return css`
-                box-shadow: inset 1px 0 0 ${token.root["border-color"]},
-                            inset 0 -1px 0 ${token.root["border-color"]};
+                box-shadow: inset 1px 0 0 ${token.cell.separator["border-color"]},
+                            inset 0 -1px 0 ${token.cell["border-color"]};
             `;
         }
         if (isLastColumn) {
             return css`
-                box-shadow: inset 0 -1px 0 ${token.root["border-color"]};
+                box-shadow: inset 0 -1px 0 ${token.cell["border-color"]};
             `;
         }
         return css`
-            box-shadow: inset -1px 0 0 ${token.root["border-color"]},
-                        inset 0 -1px 0 ${token.root["border-color"]};
+            box-shadow: inset -1px 0 0 ${token.cell.separator["border-color"]},
+                        inset 0 -1px 0 ${token.cell["border-color"]};
         `;
     };
 
     const getMergedContentBorderStyle = () => {
         if (isLastColumn) {
             return css`
-                box-shadow: inset 0 1px 0 ${token.root["border-color"]},
-                            inset 0 -1px 0 ${token.root["border-color"]};
+                box-shadow: inset 0 1px 0 ${token.cell["border-color"]},
+                            inset 0 -1px 0 ${token.cell["border-color"]};
             `;
         }
         return css`
-            box-shadow: inset 0 1px 0 ${token.root["border-color"]},
-                        inset -1px 0 0 ${token.root["border-color"]},
-                        inset 0 -1px 0 ${token.root["border-color"]};
+            box-shadow: inset 0 1px 0 ${token.cell["border-color"]},
+                        inset -1px 0 0 ${token.cell.separator["border-color"]},
+                        inset 0 -1px 0 ${token.cell["border-color"]};
         `;
     };
 
@@ -285,6 +297,7 @@ function TableCell<T extends Row>({
                     display: inline-flex;
                     height: 100%;
                     width: 100%;
+                    min-width: 0;
                     padding-inline: ${token.cell['padding-inline']};
                     align-items: center;
                     box-sizing: border-box;
@@ -312,13 +325,25 @@ function TableCell<T extends Row>({
                                     display: inline-flex;
                                     align-items: center;
                                     justify-content: center;
-                                    width: ${token.tree.chevron.width};
-                                    height: ${token.tree.chevron.width};
+                                    width: ${token.tree.button.width};
+                                    height: ${token.tree.button.width};
                                     flex-shrink: 0;
                                     cursor: pointer;
                                     border-radius: ${token.tree.button["border-radius"]};
                                     margin-right: ${token.tree.button.gap};
                                     color: ${token.tree.chevron.color};
+                                    transition: background-color ${token.tree.button.transition};
+                                    &:hover {
+                                        background-color: ${token.tree.button['background-color-hover']};
+                                    }
+                                    &:focus-visible {
+                                        outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
+                                        outline-offset: calc(-1 * ${token.root["outline-width-focus"]});
+                                    }
+                                    @media (prefers-reduced-motion: reduce) {
+                                        transition: none;
+                                        & svg { transition: none; }
+                                    }
                                 `}
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -350,7 +375,7 @@ function TableCell<T extends Row>({
                             <div
                                 aria-hidden
                                 className={css`flex-shrink: 0;`}
-                                style={{ width: token.tree.chevron.width }}
+                                style={{ width: `calc(${token.tree.button.width} + ${token.tree.button.gap})` }}
                             />
                         )}
                     </>
@@ -359,6 +384,8 @@ function TableCell<T extends Row>({
                     className={css`
                         overflow: hidden;
                         text-overflow: ellipsis;
+                        white-space: nowrap;
+                        min-width: 0;
                     `}
                 >
                     {displayContent as ReactNode}
@@ -553,11 +580,6 @@ function TableCell<T extends Row>({
         if (selection.edgeBottom) shadows.push(`inset 0 calc(-1 * ${bw}) 0 0 ${color}`);
         if (selection.edgeLeft) shadows.push(`inset ${bw} 0 0 0 ${color}`);
         if (selection.edgeRight) shadows.push(`inset calc(-1 * ${bw}) 0 0 0 ${color}`);
-        // 锚点（活动单元格）保留单元格原色，其余选区填充淡蓝以体现范围
-        const background = selection.isAnchor
-            ? "transparent"
-            : token.selection['background-color'];
-
         // 合并单元格主格的视觉尺寸跨多格，overlay 必须按合并后的宽高铺开，
         // 否则只会覆盖单格大小、出现裸露的"漏色"区域
         const overlaySize = mergeCell
@@ -567,12 +589,20 @@ function TableCell<T extends Row>({
         return (
             <div
                 aria-hidden
+                data-table-selection-outline=""
                 className={css`
                     position: absolute;
                     pointer-events: none;
                     z-index: 2;
                     top: 0;
                     left: 0;
+                    /* 前景只描边：显式清空背景，任何选区填充都必须留在内容下方。 */
+                    background: transparent;
+                    @media (forced-colors: active) {
+                        /* 系统高对比模式默认移除 box-shadow；保留使用系统色的选区外框。 */
+                        forced-color-adjust: none;
+                        ${vars['selection.border-color']}: Highlight;
+                    }
                 `}
                 style={{
                     // 合并单元格用显式 width/height；普通单元格用 right/bottom 让浏览器自动撑满，
@@ -581,7 +611,6 @@ function TableCell<T extends Row>({
                     bottom: overlaySize ? undefined : 0,
                     width: overlaySize ? overlaySize.width : undefined,
                     height: overlaySize ? overlaySize.height : undefined,
-                    backgroundColor: background,
                     boxShadow: shadows.length > 0 ? shadows.join(", "): undefined
                 }}
             />
@@ -596,9 +625,10 @@ function TableCell<T extends Row>({
                 box-sizing: border-box;
                 vertical-align: top;
                 height: 100%;
-                position: relative;
                 font-size: inherit;
-            `, getBorderStyle(), isRowEditing && rowEditingCellStyle, isRowEditActive && rowEditActiveCellStyle, className)}
+            `, fixed ? css`position: sticky;` : css`position: relative;`,
+            getBorderStyle(), !isSkipCell && selection?.selected && !selection.isAnchor && selectedCellStyle,
+            isRowEditing && rowEditingCellStyle, isRowEditActive && rowEditActiveCellStyle, className)}
             style={style}
             onDoubleClick={(e) => {
                 if (canEdit) {
@@ -628,6 +658,7 @@ function TableCell<T extends Row>({
             {...restProps}
             role="gridcell"
             aria-colindex={columnIndex + 1}
+            aria-selected={isSkipCell ? undefined : selection?.selected ?? false}
         >
             {renderChildrenElement()}
             {renderEditedIndicator()}
@@ -674,4 +705,7 @@ const areTableCellPropsEqual = <T extends Row>(
         && shallowEqualObject(prev.treeNode, next.treeNode);
 };
 
-export default memo(TableCell, areTableCellPropsEqual) as typeof TableCell;
+// Consumer stability: preserve the existing cell comparator for consumers without React Compiler.
+const MemoizedTableCell: typeof TableCell = memo(TableCell, areTableCellPropsEqual) as typeof TableCell;
+
+export default MemoizedTableCell;

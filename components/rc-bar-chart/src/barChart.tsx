@@ -259,7 +259,7 @@ function BarChartInner({
 
     if (categories.length === 0 || visibleSeries.length === 0) {
         return (
-            <div ref={ref} className={cx(rootStyle, className)} style={style}>
+            <div ref={ref} className={cx.call(undefined, rootStyle, className)} style={style}>
                 <div className={emptyStyle} style={{ inlineSize: width, blockSize: height }}>
                     <Empty />
                 </div>
@@ -315,7 +315,7 @@ function BarChartInner({
     };
 
     return (
-        <div ref={ref} className={cx(rootStyle, className)} style={style}>
+        <div ref={ref} className={cx.call(undefined, rootStyle, className)} style={style}>
             {visibleSeries.length >= 2 && (
                 <div className={legendStyle} role="group" aria-label="图例">
                     {visibleSeries.map((s, i) => {
@@ -324,7 +324,7 @@ function BarChartInner({
                             <button
                                 key={s.name}
                                 type="button"
-                                className={cx(legendItemStyle, hidden && legendItemHiddenStyle)}
+                                className={cx.call(undefined, legendItemStyle, hidden && legendItemHiddenStyle)}
                                 aria-pressed={!hidden}
                                 onClick={() => setHiddenSeries(prev => {
                                     const next = new Set(prev);
@@ -335,7 +335,7 @@ function BarChartInner({
                             >
                                 {/* 系列色为数据驱动值，无法静态成 css 块，走内联传递 */}
                                 <span
-                                    className={cx(legendSwatchStyle, hidden && legendSwatchHiddenStyle)}
+                                    className={cx.call(undefined, legendSwatchStyle, hidden && legendSwatchHiddenStyle)}
                                     style={{ backgroundColor: colors[i] }}
                                 />
                                 {s.name}

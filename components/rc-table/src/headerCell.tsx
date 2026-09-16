@@ -37,13 +37,10 @@ const draggableStyle = css`
     }
 `;
 
-// 可排序列头：hover 时显示淡灰图标
+// 未排序时也显示双向箭头，让鼠标、触控和键盘用户都能发现排序入口。
 const sortableRootStyle = css`
     cursor: ${token.sort.header.cursor};
     user-select: none;
-    &:hover .rc-table-sort-icon-idle {
-        opacity: 1;
-    }
 `;
 
 // sortable / 非 sortable 公共基础样式：确保两种状态盒模型一致，切换时不产生高度偏移
@@ -51,6 +48,8 @@ const titleInnerBaseStyle = css`
     display: inline-flex;
     align-items: center;
     width: 100%;
+    height: 100%;
+    gap: ${token.header.gap};
     padding-inline: ${token.cell['padding-inline']};
     box-sizing: border-box;
     overflow: hidden;
@@ -59,13 +58,9 @@ const titleInnerBaseStyle = css`
 // 标题 + 排序图标的行内容器（sortable 额外需要 gap 和交互样式）
 const sortTitleInnerStyle = css`
     cursor: pointer;
-    &:focus {
-        outline: none;
-    }
     &:focus-visible {
-        outline: 2px solid ${token.sort.icon['color-active']};
-        outline-offset: -2px;
-        border-radius: 2px;
+        outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
+        outline-offset: calc(-1 * ${token.root["outline-width-focus"]});
     }
 `;
 
@@ -77,16 +72,14 @@ const sortIconWrapStyle = css`
     gap: 2px;
 `;
 
-// 非 sortable 时：占位但不可见（visibility:hidden 不触发 reflow，切换时无布局抖动）
+// 不可排序的标题不占用图标空间。
 const sortIconPlaceholderStyle = css`
-    visibility: hidden;
-    pointer-events: none;
+    display: none;
 `;
 
-// 未激活时不可见（父 hover 时通过 .rc-table-sort-icon-idle 选择器恢复）
+// 未排序图标使用次级颜色，排序状态同时通过箭头方向与 aria-sort 表达。
 const sortIconIdleStyle = css`
-    opacity: 0;
-    transition: opacity 100ms;
+    color: ${token.sort.icon.color};
 `;
 
 // 激活态（stroke 色）
@@ -107,21 +100,20 @@ const sortBadgeStyle = css`
 function SortIcon({ direction }: { direction: SortDirection | null }): ReactNode {
     const isAsc = direction === "asc";
     const isDesc = direction === "desc";
-    if (direction == null) {
-        return null;
-    }
     return (
         <svg
             width="16" height="16"
             viewBox="0 0 24 24"
             fill="none"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="1.5"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden
-            className={sortIconActiveStyle}
+            className={direction == null ? undefined : sortIconActiveStyle}
         >
+            {direction == null && (<><path d="m8 9 4-4 4 4"/><path d="m8 15 4 4 4-4"/></>)}
             {isAsc && (<><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></>)}
             {isDesc && (<><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></>)}
         </svg>
@@ -231,25 +223,24 @@ function TableHeaderCell<T extends Row>({
             if (fixed === 'right') {
                 // 固定右列需要左分隔线（inset 1px 0 0），不能用 getMergedHeaderCellBorderStyle
                 // 因为两个 box-shadow 类无法通过 cx() 叠加（后者覆盖前者）
-                return cx(
-                    fixedHeaderBgStyle,
+                return cx.call(undefined, fixedHeaderBgStyle,
                     rowIndex === maxRowIndex ? fixedRightSpanWithBottomStyle : fixedRightSpanStyle
                 );
             }
             // 固定左列：背景色 + 上边框 + 右分隔线（无底部）
-            return cx(fixedHeaderBgStyle, getMergedHeaderCellBorderStyle());
+            return cx.call(undefined, fixedHeaderBgStyle, getMergedHeaderCellBorderStyle());
         }
 
         if (isSkipCell) {
             if (fixed === 'right') {
                 // 固定右列 skip 格：左分隔线 + 底部边框
-                return cx(fixedHeaderBgStyle, fixedRightSkipStyle);
+                return cx.call(undefined, fixedHeaderBgStyle, fixedRightSkipStyle);
             }
             // 固定左列 skip 格：右分隔线 + 底部边框（不加上边框，避免在两行间画多余横线）
             const skipBorderStyle = isLastColumn
                 ? css`box-shadow: inset 0 -1px 0 ${token.root["border-color"]};`
                 : css`box-shadow: inset -1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};`;
-            return cx(fixedHeaderBgStyle, skipBorderStyle);
+            return cx.call(undefined, fixedHeaderBgStyle, skipBorderStyle);
         }
 
         return '';
@@ -263,8 +254,7 @@ function TableHeaderCell<T extends Row>({
         if (customContent !== undefined) {
             return (
                 <div
-                    className={cx(
-                        css`
+                    className={cx.call(undefined, css`
                             position: relative;
                             display: inline-flex;
                             align-items: center;
@@ -273,7 +263,7 @@ function TableHeaderCell<T extends Row>({
                             width: 100%;
                             background-color: ${token.header['background-color']};
                         `,
-                        getMergedHeaderCellBorderStyle()
+                    getMergedHeaderCellBorderStyle()
                     )}
                 >
                     {customContent}
@@ -298,15 +288,12 @@ function TableHeaderCell<T extends Row>({
             min-width: 0;
         `;
 
-        // 始终渲染图标 span（保持 DOM 结构稳定），非 sortable 时 visibility:hidden 占位，
-        // 避免 isSortable 切换时因 DOM 插入/删除触发 flex 重算导致视觉抖动。
+        // 使用同一图标槽呈现未排序、升序和降序状态。
         const stableIconEl = (
             <span
-                className={cx(
-                    sortIconWrapStyle,
+                className={cx.call(undefined, sortIconWrapStyle,
                     !isSortable && sortIconPlaceholderStyle,
-                    isSortable && !sortState && sortIconIdleStyle,
-                    isSortable && !sortState && "rc-table-sort-icon-idle"
+                    isSortable && !sortState && sortIconIdleStyle
                 )}
             >
                 <SortIcon direction={sortState?.direction ?? null} />
@@ -318,14 +305,14 @@ function TableHeaderCell<T extends Row>({
 
         const titleElement = (
             <div
-                className={cx(titleInnerBaseStyle, isSortable && sortTitleInnerStyle)}
+                className={cx.call(undefined, titleInnerBaseStyle, isSortable && sortTitleInnerStyle)}
                 role={isSortable ? "button" : undefined}
                 tabIndex={isSortable ? 0 : undefined}
                 onClick={isSortable ? (e) => onSortClick?.(e.shiftKey): undefined}
                 onKeyDown={isSortable ? handleSortKeyDown : undefined}
             >
                 {headerAlign === "right" && stableIconEl}
-                <span className={titleSpanStyle} style={{ textAlign: headerAlign }}>{column?.title}</span>
+                <span className={titleSpanStyle} title={typeof column?.title === 'string' ? column.title : undefined} style={{ textAlign: headerAlign }}>{column?.title}</span>
                 {headerAlign !== "right" && stableIconEl}
             </div>
         );
@@ -370,7 +357,7 @@ function TableHeaderCell<T extends Row>({
             // e.currentTarget 为此 div 时 resolveDropSide 可用完整合并宽度正确计算 side。
             return (
                 <div
-                    className={cx(css`
+                    className={cx.call(undefined, css`
                         position: absolute;
                         top: 0;
                         box-sizing: border-box;
@@ -391,8 +378,7 @@ function TableHeaderCell<T extends Row>({
                     {dropIndicatorSide && (
                         <div
                             aria-hidden
-                            className={cx(
-                                dropLineBaseStyle,
+                            className={cx.call(undefined, dropLineBaseStyle,
                                 dropIndicatorSide === 'left' ? dropLineLeftStyle : dropLineRightStyle
                             )}
                         />
@@ -408,14 +394,16 @@ function TableHeaderCell<T extends Row>({
 
     return (
         <div
-            className={cx(css`
-                position: relative;
+            className={cx.call(undefined, css`
                 display: inline-flex;
                 align-items: center;
                 box-sizing: border-box;
                 vertical-align: top;
                 height: 100%;
+                color: ${token.header.color};
+                font-weight: ${token.header['font-weight']};
             `,
+            fixed ? css`position: sticky;` : css`position: relative;`,
             isDraggable && draggableStyle,
             isSortable && sortableRootStyle,
             isDragging && draggingStyle,
@@ -440,6 +428,21 @@ function TableHeaderCell<T extends Row>({
                         width: ${token['resize-handle'].width};
                         cursor: col-resize;
                         z-index: 1;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            right: 0;
+                            width: ${token['resize-handle'].indicator.width};
+                        }
+                        &:hover::after, &:focus-visible::after {
+                            background-color: ${token['resize-handle'].color};
+                        }
+                        &:focus-visible {
+                            outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
+                            outline-offset: calc(-1 * ${token.root["outline-width-focus"]});
+                        }
                     `}
                     onMouseDown={onResizeMouseDown}
                     role="separator"
@@ -495,4 +498,7 @@ const areHeaderCellPropsEqual = <T extends Row>(
         && shallowEqualObject(prev.sortState, next.sortState);
 };
 
-export default memo(TableHeaderCell, areHeaderCellPropsEqual) as typeof TableHeaderCell;
+// Consumer stability: preserve the existing header comparator for consumers without React Compiler.
+const MemoizedTableHeaderCell: typeof TableHeaderCell = memo(TableHeaderCell, areHeaderCellPropsEqual) as typeof TableHeaderCell;
+
+export default MemoizedTableHeaderCell;

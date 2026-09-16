@@ -1,5 +1,5 @@
 import { type DragEvent as ReactDragEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ColumnType } from "../types.js";
+import type { ColumnType, Row } from "../types.js";
 
 export type DropSide = 'left' | 'right';
 
@@ -14,9 +14,8 @@ interface DragState {
     groupName: string | null;
 }
 
-export function useColumnDrag(params: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    sColumns: ColumnType<any>[]
+export function useColumnDrag<T extends Row>(params: {
+    sColumns: ColumnType<T>[]
     onColumnOrderChange?: (orderedColumnNames: string[]) => void
     onGroupColumnOrderChange?: (groupName: string, orderedChildNames: string[]) => void
 }): {

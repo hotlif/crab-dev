@@ -15,8 +15,7 @@ function defaultCompare(a: unknown, b: unknown): number {
 
 export function useColumnSort<T extends Row>(params: {
     rows: T[]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    columns: ColumnType<any>[]
+    columns: ColumnType<T>[]
     sortColumns?: SortColumn[]
     defaultSortColumns?: SortColumn[]
     onSortColumnsChange?: (columns: SortColumn[]) => void
@@ -42,8 +41,7 @@ export function useColumnSort<T extends Row>(params: {
     // 构建 columnName → { sortable, sorter } 查找表（递归含子列）
     const columnInfoMap = useMemo(() => {
         const map = new Map<string, { sortable?: boolean; sorter?: (a: T, b: T) => number }>();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const visit = (cols: ColumnType<any>[]) => {
+        const visit = (cols: ColumnType<T>[]) => {
             for (const col of cols) {
                 map.set(col.name, { sortable: col.sortable, sorter: col.sorter as ((a: T, b: T) => number) | undefined });
                 if (col.children?.length) visit(col.children);
