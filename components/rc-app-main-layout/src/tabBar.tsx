@@ -482,8 +482,7 @@ const TabBar: FC<TabBarProps> = ({
                         ref={setTabRef(item.key)}
                         role="tab"
                         aria-selected={isActive}
-                        className={cx(
-                            tabItemStyle,
+                        className={cx.call(undefined, tabItemStyle,
                             isActive && tabItemActiveStyle,
                             isActive && tabItemActiveRightCurveStyle,
                             draggable && tabItemShiftableStyle,
@@ -510,7 +509,7 @@ const TabBar: FC<TabBarProps> = ({
                         <span className={tabLabelStyle}>{item.title}</span>
                         {closable ? (
                             <span
-                                className={cx(closeBtnStyle, 'tab-close-btn')}
+                                className={cx.call(undefined, closeBtnStyle, 'tab-close-btn')}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     onClose?.(item.key);

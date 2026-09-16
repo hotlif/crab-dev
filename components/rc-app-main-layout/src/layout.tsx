@@ -197,7 +197,7 @@ const Layout: FC<LayoutProps> = ({
     }, []);
 
     return (
-        <div ref={layoutRef} className={cx(layoutStyle, className)} {...restProps}>
+        <div ref={layoutRef} className={cx.call(undefined, layoutStyle, className)} {...restProps}>
             {isMobile ? (
                 <Drawer
                     className={mobileNavDrawerStyle}

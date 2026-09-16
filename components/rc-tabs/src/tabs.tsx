@@ -408,10 +408,10 @@ const Tabs = ({
 
     const getTypeItemStyles = (item: TabsItem, isActive: boolean): string => {
         if (type === 'card') {
-            return cx(itemCardStyle, isActive ? itemCardActiveStyle : '');
+            return cx.call(undefined, itemCardStyle, isActive ? itemCardActiveStyle : '');
         }
         if (type === 'pill') {
-            return cx(itemPillStyle, isActive ? itemPillActiveStyle : '');
+            return cx.call(undefined, itemPillStyle, isActive ? itemPillActiveStyle : '');
         }
         return '';
     };
@@ -425,18 +425,18 @@ const Tabs = ({
     const activeItem = activeItemIndex >= 0 ? items[activeItemIndex] : null;
 
     return (
-        <div {...restProps} className={cx(rootStyle, className)}>
+        <div {...restProps} className={cx.call(undefined, rootStyle, className)}>
             <div className={barWrapperStyle}>
                 {extraContent.left != null ? (
                     <div className={extraStyle}>{extraContent.left}</div>
                 ) : null}
                 <div
                     ref={barRef}
-                    className={cx(barStyle, type === 'line' ? barLineStyle : '')}
+                    className={cx.call(undefined, barStyle, type === 'line' ? barLineStyle : '')}
                     role="tablist"
                     aria-orientation="horizontal"
                 >
-                    <div className={cx(barListStyle, centered ? barCenteredStyle : '')}>
+                    <div className={cx.call(undefined, barListStyle, centered ? barCenteredStyle : '')}>
                         {items.map((item, index) => {
                             const isActive = item.key === activeKey;
 
@@ -452,8 +452,7 @@ const Tabs = ({
                                     aria-disabled={item.disabled || undefined}
                                     tabIndex={isActive ? 0 : -1}
                                     disabled={item.disabled}
-                                    className={cx(
-                                        itemBaseStyle,
+                                    className={cx.call(undefined, itemBaseStyle,
                                         itemSizeStyle,
                                         isActive ? itemActiveStyle : '',
                                         item.disabled ? itemDisabledStyle : '',
@@ -490,8 +489,7 @@ const Tabs = ({
                     </div>
                     {type === 'line' ? (
                         <div
-                            className={cx(
-                                indicatorStyle,
+                            className={cx.call(undefined, indicatorStyle,
                                 indicatorPosition.width === 0 ? indicatorHiddenStyle : '',
                             )}
                             style={indicatorInlineStyle}

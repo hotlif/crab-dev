@@ -16,7 +16,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({
 }) => {
     return (
         <main
-            className={cx(contentStyle, className)}
+            className={cx.call(undefined, contentStyle, className)}
             {...restProps}
         >
             {children}

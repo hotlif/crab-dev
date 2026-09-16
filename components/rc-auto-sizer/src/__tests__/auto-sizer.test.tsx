@@ -15,7 +15,7 @@ beforeEach(() => {
     (globalThis as typeof globalThis & {
         ResizeObserver: unknown;
     }).ResizeObserver =
-        class MockResizeObserver {
+        class {
             constructor(callback: ResizeObserverCb) {
                 resizeCallback = callback;
             }

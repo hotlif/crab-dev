@@ -64,12 +64,12 @@ const ItemNormal: FC<ItemProps> = ({
         <>
             <li
                 key={item.key}
-                className={cx(itemStyle.item.base, isRootMenu ? itemStyle.item.withDivider : null)}
+                className={cx.call(undefined, itemStyle.item.base, isRootMenu ? itemStyle.item.withDivider : null)}
                 ref={refs.setReference}
                 {...getReferenceProps()}
             >
                 <div
-                    className={cx(itemStyle.item.content, isRootMenu ? null : itemStyle.item.floatTrigger)}
+                    className={cx.call(undefined, itemStyle.item.content, isRootMenu ? null : itemStyle.item.floatTrigger)}
                     onClick={(e) => {
                         tree?.events.emit("close");
                         onClick?.({
@@ -96,7 +96,7 @@ const ItemNormal: FC<ItemProps> = ({
                     <span className={itemStyle.item.leftIcon}>
                         {
                             children.length > 0 && !isRootMenu ? (
-                                <i className={cx(iconArrayBase, iconArrayRight)}/>
+                                <i className={cx.call(undefined, iconArrayBase, iconArrayRight)}/>
                             ) : null
                         }
                     </span>
@@ -105,7 +105,7 @@ const ItemNormal: FC<ItemProps> = ({
                     {
                         isOpenFloatChildren ? (
                             <ul
-                                className={cx(itemStyle.submenu.container, itemStyle.submenu.float)}
+                                className={cx.call(undefined, itemStyle.submenu.container, itemStyle.submenu.float)}
                                 ref={refs.setFloating}
                                 style={floatingStyles}
                                 {...getFloatingProps()}

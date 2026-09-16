@@ -216,8 +216,7 @@ const CollapsedItem: FC<CollapsedItemProps> = ({ item, selected, onSelect, baseP
                 aria-expanded={hasChildren ? isOpen : undefined}
                 aria-current={selected ? "true" : undefined}
                 title={hasChildren ? undefined : item.title}
-                className={cx(
-                    collapsedItemButtonStyle,
+                className={cx.call(undefined, collapsedItemButtonStyle,
                     selected ? collapsedItemSelectStyle : null,
                     hasChildren && isOpen ? collapsedItemOpenStyle : null,
                 )}
@@ -323,7 +322,7 @@ const VerticalCollapsedMenu: FC<CollapsedMenuProps> = ({
     return (
         <FloatingTree>
             <ul
-                className={cx(className, collapsedRootStyle)}
+                className={cx.call(undefined, className, collapsedRootStyle)}
                 style={style}
                 role="menu"
                 {...props}

@@ -212,9 +212,9 @@ const SplitPane: FC<SplitPaneProps> = ({
         : { height: currentSize };
 
     return (
-        <div ref={ref} className={cx(rootStyle, !horizontal && rootVerticalStyle, className)} style={style}>
+        <div ref={ref} className={cx.call(undefined, rootStyle, !horizontal && rootVerticalStyle, className)} style={style}>
             <div
-                className={cx(paneStyle, primary === 'first' ? primaryPaneStyle : flexPaneStyle)}
+                className={cx.call(undefined, paneStyle, primary === 'first' ? primaryPaneStyle : flexPaneStyle)}
                 style={primary === 'first' ? primarySizeStyle : undefined}
             >
                 {children[0]}
@@ -229,8 +229,7 @@ const SplitPane: FC<SplitPaneProps> = ({
                 aria-disabled={disabled || undefined}
                 tabIndex={disabled ? undefined : 0}
                 data-dragging={dragging ? '' : undefined}
-                className={cx(
-                    separatorStyle,
+                className={cx.call(undefined, separatorStyle,
                     horizontal ? separatorHorizontalStyle : separatorVerticalStyle,
                     disabled && separatorDisabledStyle,
                 )}
@@ -239,7 +238,7 @@ const SplitPane: FC<SplitPaneProps> = ({
                 onKeyDown={onKeyDown}
             />
             <div
-                className={cx(paneStyle, primary === 'second' ? primaryPaneStyle : flexPaneStyle)}
+                className={cx.call(undefined, paneStyle, primary === 'second' ? primaryPaneStyle : flexPaneStyle)}
                 style={primary === 'second' ? primarySizeStyle : undefined}
             >
                 {children[1]}

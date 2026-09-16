@@ -86,15 +86,15 @@ const token = defineTokens({
         'color-hover': `var(${vars['item.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'color-selected': `var(${vars['item.color-selected']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'color-disabled': `var(${vars['item.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
-        'outline-color-focus': `var(${vars['item.outline-color-focus']}, var(--segmented-focus-ring-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-blue-600, oklch(0.546 0.245 262))))))`,
+        'outline-color-focus': `var(${vars['item.outline-color-focus']}, var(--segmented-focus-ring-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))))`,
         'outline-width-focus': `var(${vars['item.outline-width-focus']}, var(--segmented-focus-ring-width, 2px))`,
         'outline-offset-focus': `var(${vars['item.outline-offset-focus']}, var(--segmented-focus-ring-offset, 2px))`,
-        'transition': `var(${vars['item.transition']}, var(--segmented-motion-item, var(--token-semantic-motion-interaction, var(--token-global-duration-fast, 100ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`
+        'transition': `var(${vars['item.transition']}, var(--segmented-motion-item, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
     },
     'thumb': {
         'background-color': `var(${vars['thumb.background-color']}, var(--segmented-thumb-background, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`,
         'box-shadow': `var(${vars['thumb.box-shadow']}, var(--segmented-thumb-shadow, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))))`,
-        'transition': `var(${vars['thumb.transition']}, transform 240ms cubic-bezier(0.4, 0, 0.2, 1), width 240ms cubic-bezier(0.4, 0, 0.2, 1))`
+        'transition': `var(${vars['thumb.transition']}, transform var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), width var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
     }
 });
 

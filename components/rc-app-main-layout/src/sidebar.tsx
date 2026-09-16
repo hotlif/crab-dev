@@ -156,7 +156,7 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
         <>
             {logo || title ? (
                 <div
-                    className={cx(logoRowStyle, collapsed && logoRowCollapsedStyle)}
+                    className={cx.call(undefined, logoRowStyle, collapsed && logoRowCollapsedStyle)}
                     onClick={onLogoClick}
                     role="button"
                     aria-label="Logo"
@@ -204,7 +204,7 @@ const Sidebar: FC<SidebarProps> = ({
 }) => {
     return (
         <aside
-            className={cx(sidebarStyle, className)}
+            className={cx.call(undefined, sidebarStyle, className)}
             data-collapsed={collapsed ? "true" : "false"}
             {...restProps}
         >

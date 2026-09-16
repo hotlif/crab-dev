@@ -200,7 +200,7 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose }) => {
                             role="menuitem"
                             disabled={item.disabled}
                             aria-disabled={item.disabled || undefined}
-                            className={cx(itemBaseStyle, item.disabled && itemDisabledStyle)}
+                            className={cx.call(undefined, itemBaseStyle, item.disabled && itemDisabledStyle)}
                             onClick={() => {
                                 if (item.disabled) return;
                                 onClose();
@@ -210,7 +210,7 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose }) => {
                             {hasAnyIcon ? (
                                 <span
                                     aria-hidden
-                                    className={cx(itemIconStyle, item.disabled && itemIconDisabledStyle)}
+                                    className={cx.call(undefined, itemIconStyle, item.disabled && itemIconDisabledStyle)}
                                 >
                                     {item.icon}
                                 </span>

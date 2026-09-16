@@ -182,14 +182,14 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
         if (children.length > 0 && openKeys?.includes(item.key) !== true) {
             return (
                 <i
-                    className={cx(stateIconStyle, iconArrayBase, iconArrayDown)}
+                    className={cx.call(undefined, stateIconStyle, iconArrayBase, iconArrayDown)}
                 >
                 </i>
             )
         } else if (children.length > 0 && openKeys?.includes(item.key) === true) {
             return (
                 <i
-                    className={cx(stateIconStyle, iconArrayBase, iconArrayUp)}
+                    className={cx.call(undefined, stateIconStyle, iconArrayBase, iconArrayUp)}
                 >
                 </i>
             )
@@ -205,8 +205,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                 key={item.key}
             >
                 <div
-                    className={cx(
-                        itemTitleStyle,
+                    className={cx.call(undefined, itemTitleStyle,
                         itemTitleBaseStyle,
                         children.length > 0 && openKeys?.includes(item.key) ? itemOpenStyle : null,
                         children.length === 0 && selectedKeys.includes(item.key) ? itemSelectStyle : null)
@@ -253,7 +252,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                         openKeys?.includes(item.key) ?
                             (
                                 <motion.ul
-                                    className={cx(ulStyle, ulChildrenStyle)}
+                                    className={cx.call(undefined, ulStyle, ulChildrenStyle)}
                                     animate="open"
                                     initial="collapsed"
                                     exit="collapsed"
@@ -279,7 +278,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                 key={item.key}
             >
                 <div
-                    className={cx(itemTitleStyle, itemGroupTitleStyle)}
+                    className={cx.call(undefined, itemTitleStyle, itemGroupTitleStyle)}
                     style={{
                         paddingLeft: `calc(${depth} * ${verticalItemInlineIndent} * 0.7)`
                     }}
@@ -299,7 +298,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                     {item.title}
                 </div>
                 <ul
-                    className={cx(ulStyle, ulChildrenItemGroupStyle)}
+                    className={cx.call(undefined, ulStyle, ulChildrenItemGroupStyle)}
                 >
                     {children}
                 </ul>
@@ -321,7 +320,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
     
     return (
         <ul
-            className={cx(className, ulStyle)}
+            className={cx.call(undefined, className, ulStyle)}
             {...props}
         >
             {renderMenu(items, 1)}

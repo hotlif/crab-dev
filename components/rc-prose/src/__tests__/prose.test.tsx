@@ -1,5 +1,4 @@
 import { act, describe, expect, it, render } from "@crab-dev/wake/test/react";
-import React from 'react';
 import Prose from '../prose.js';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;

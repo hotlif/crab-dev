@@ -110,8 +110,7 @@ const renderItemNode = (item: BreadcrumbsItem, isLast: boolean): ReactNode => {
 
     return (
         <span
-            className={cx(
-                linkStyle,
+            className={cx.call(undefined, linkStyle,
                 isLast ? currentStyle : '',
                 item.disabled ? disabledStyle : '',
             )}
@@ -137,7 +136,7 @@ const Breadcrumbs = ({
     return (
         <nav
             {...restProps}
-            className={cx(rootStyle, className)}
+            className={cx.call(undefined, rootStyle, className)}
             aria-label={ariaLabel}
         >
             <ol className={listStyle}>
@@ -146,7 +145,7 @@ const Breadcrumbs = ({
 
                     if (entry.type === 'ellipsis') {
                         return (
-                            <li key={entry.key} className={cx(itemStyle, ellipsisStyle)} aria-hidden="true">
+                            <li key={entry.key} className={cx.call(undefined, itemStyle, ellipsisStyle)} aria-hidden="true">
                                 {ellipsis}
                                 {!isLast ? (
                                     <span className={separatorStyle} aria-hidden="true">
@@ -162,7 +161,7 @@ const Breadcrumbs = ({
                     return (
                         <li
                             key={key}
-                            className={cx(itemStyle, entry.item.className)}
+                            className={cx.call(undefined, itemStyle, entry.item.className)}
                             style={entry.item.style}
                         >
                             {renderItemNode(entry.item, isLast)}
