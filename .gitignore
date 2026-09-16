@@ -18,6 +18,7 @@ cjs
 css
 coverage
 .tmp
+/.tmp-*.log
 dist
 .cache
 trivy.report.txt

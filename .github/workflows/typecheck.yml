@@ -6,13 +6,11 @@ on:
     paths-ignore:
       - "**/*.md"
       - "rfc/**"
-      - "components/**/docs/**"
   pull_request:
     branches: [ "canary" ]
     paths-ignore:
       - "**/*.md"
       - "rfc/**"
-      - "components/**/docs/**"
 
 concurrency:
   group: typecheck-${{ github.workflow }}-${{ github.ref }}
@@ -42,3 +40,5 @@ jobs:
       run: yarn build:library
     - name: Run TypeCheck
       run: yarn typecheck
+    - name: Verify native TypeScript 7 PnP regression cases
+      run: yarn workspace @crab-dev/standards-typescript-preset test

@@ -18,8 +18,8 @@
         "build:library": "wake library build .",
         "generate:docgen": "wake library docgen .",
         "test": "wake test --serial --coverage",
-        "eslint": "eslint . ",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "lint": "wake lint --format human --root ../.. components/rc-auto-sizer/src components/rc-auto-sizer/docs --env browser --max-warnings 0"
     },
     "files": [
         "esm",
@@ -40,27 +40,22 @@
         "./package.json": "./package.json"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.23",
+        "@crab-dev/css": "0.1.38",
         "@crab-dev/rc-hooks": "workspace:^"
     },
     "devDependencies": {
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/standards-eslint-preset": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.23",
-        "@types/node": "^26.1.0",
-        "@types/react": "^19.2.17",
-        "@types/react-dom": "^19.2.3",
-        "eslint": "^10.6.0",
-        "eslint-plugin-react": "^7.37.5",
-        "globals": "^17.7.0",
-        "react": "19.2.8",
-        "react-dom": "19.2.8",
-        "react-router": "^8.1.0",
-        "typescript": "^6.0.3",
-        "typescript-eslint": "^8.63.0"
+        "@crab-dev/wake": "0.1.43",
+        "@types/node": "^22.20.2",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "react-router": "^8.3.1",
+        "typescript": "^7.0.2"
     },
     "engines": {
         "node": ">=22"

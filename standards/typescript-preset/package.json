@@ -9,12 +9,21 @@
     "description": "用于 TypeScript 项目的 tsconfig 预设",
     "packageManager": "yarn@4.18.0",
     "type": "module",
+    "scripts": {
+        "test": "node ../../scripts/typecheck.mjs --prepare && node ../../scripts/typecheck-fixtures.mjs && wake test --serial --coverage",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+    },
     "files": [
         "tsconfig.browser.react.json",
         "tsconfig.node.json"
     ],
     "devDependencies": {
-        "typescript": "^6.0.3"
+        "@crab-dev/wake": "0.1.43",
+        "@types/node": "^22.20.2",
+        "@types/react": "^19.3.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "typescript": "^7.0.2"
     },
     "engines": {
         "node": ">=22"

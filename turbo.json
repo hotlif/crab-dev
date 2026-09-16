@@ -2,7 +2,9 @@
     "$schema": "https://turbo.build/schema.json",
     "tasks": {
         "build:library": {
-            "dependsOn": ["^build:library"],
+            "dependsOn": [
+                "^build:library"
+            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "!**/*.test.tsx",
@@ -10,42 +12,74 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*",
-                "!eslint.config.js"
+                "!coverage/**/*"
             ],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts"
+            ]
         },
         "test": {
-            "dependsOn": ["^build:library"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["coverage/**"]
+            "dependsOn": [
+                "^build:library"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ]
         },
-        "eslint": {
+        "@crab-dev/standards-typescript-preset#test": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "../../standards/eslint-preset/**/*"
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typecheck-fixtures.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
             ],
-            "outputs": []
+            "outputs": [
+                "coverage/**"
+            ]
         },
         "typecheck": {
-            "dependsOn": ["^build:library"],
+            "dependsOn": [
+                "^build:library"
+            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "../../standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
             ],
             "outputs": []
         },
         "generate:token": {
-            "dependsOn": ["^generate:token"],
-            "inputs": ["token.toml"],
-            "outputs": ["src/token.ts"]
+            "dependsOn": [
+                "^generate:token"
+            ],
+            "inputs": [
+                "token.toml"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ]
         },
         "generate:docgen": {
-            "inputs": ["src/**/*", "tsconfig.json"],
-            "outputs": ["public/docgen.json"]
+            "inputs": [
+                "src/**/*",
+                "tsconfig.json"
+            ],
+            "outputs": [
+                "public/docgen.json"
+            ]
         },
         "@crab-dev/rc-token-semantic#build:library": {
-            "dependsOn": ["@crab-dev/rc-token-global#build:library"],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library"
+            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "!**/*.test.tsx",
@@ -53,38 +87,75 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*",
-                "!eslint.config.js"
+                "!coverage/**/*"
             ],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-component-preview#generate:token": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
-            "inputs": ["token.toml"],
-            "outputs": ["src/token.ts"]
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ],
+            "inputs": [
+                "token.toml"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-menu#generate:token": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
-            "inputs": ["token.toml"],
-            "outputs": ["src/token.ts"]
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ],
+            "inputs": [
+                "token.toml"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-masonry#generate:token": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
-            "inputs": ["token.toml"],
-            "outputs": ["src/token.ts"]
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ],
+            "inputs": [
+                "token.toml"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-spin#generate:token": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
-            "inputs": ["token.toml"],
-            "outputs": ["src/token.ts"]
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ],
+            "inputs": [
+                "token.toml"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-button#generate:token": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#generate:token"],
-            "inputs": ["token.toml"],
-            "outputs": ["src/token.ts"]
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ],
+            "inputs": [
+                "token.toml"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-component-preview#build:library": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#build:library"],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "!**/*.test.tsx",
@@ -92,13 +163,20 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*",
-                "!eslint.config.js"
+                "!coverage/**/*"
             ],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-menu#build:library": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#build:library"],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "!**/*.test.tsx",
@@ -106,13 +184,20 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*",
-                "!eslint.config.js"
+                "!coverage/**/*"
             ],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-masonry#build:library": {
-            "dependsOn": ["@crab-dev/rc-token-semantic#build:library"],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "!**/*.test.tsx",
@@ -120,10 +205,15 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*",
-                "!eslint.config.js"
+                "!coverage/**/*"
             ],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts"
+            ]
         },
         "@crab-dev/rc-spin#build:library": {
             "dependsOn": [
@@ -137,10 +227,22 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*",
-                "!eslint.config.js"
+                "!coverage/**/*"
             ],
-            "outputs": ["esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts"]
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts"
+            ]
+        },
+        "lint": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/wake.config.toml"
+            ],
+            "outputs": []
         }
     }
 }

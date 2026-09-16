@@ -1,0 +1,9 @@
+[test]
+environment = "auto"
+include = ["src/**/*.test.ts"]
+timeout_ms = 30000
+leaks = "error"
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

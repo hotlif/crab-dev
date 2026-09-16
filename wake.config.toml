@@ -1,0 +1,82 @@
+# Shared lint policy. Workspace scripts pass --root and their source paths explicitly.
+# Wake 0.1.43 does not inherit this file through a child's wake.config.toml.
+[lint]
+recommended = false
+files = ["**/*.js", "**/*.mjs", "**/*.cjs", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+ignore = [
+    "**/src/token.ts", "**/public/**", "**/esm/**", "**/cjs/**", "**/css/**",
+    "**/declarations/**", "**/coverage/**", "**/docs-dist/**", "**/.wake/**",
+    "**/.tmp/**", "**/.cache/**", "**/.turbo/**", ".yarn/**", ".pnp.*",
+    ".website/review/**", ".website/docs/_generated_api/**"
+]
+report_unused_disable = "error"
+
+[lint.rules]
+"js/no-async-promise-executor" = "error"
+"js/no-cond-assign" = "error"
+"js/no-constant-binary-expression" = "error"
+"js/no-constant-condition" = { level = "error", options = { check_loops = false } }
+"js/no-debugger" = "error"
+"js/no-dupe-keys" = "error"
+"js/no-duplicate-case" = "error"
+"js/no-empty" = "error"
+"js/no-fallthrough" = "error"
+"js/no-redeclare" = "error"
+"js/no-self-assign" = "error"
+"js/no-sparse-arrays" = "error"
+"js/no-undef" = "error"
+"js/no-unreachable" = "error"
+"js/no-unsafe-finally" = "error"
+"js/use-isnan" = "error"
+"js/valid-typeof" = "error"
+"react/jsx-key" = "error"
+"react/jsx-no-duplicate-props" = "error"
+"react/jsx-no-undef" = "error"
+"react/jsx-uses-vars" = "error"
+"react/no-children-prop" = "error"
+"ts/ban-ts-comment" = "error"
+"ts/no-explicit-any" = "error"
+"ts/no-namespace" = "error"
+
+[[lint.overrides]]
+files = ["**/*.ts", "**/*.tsx"]
+[lint.overrides.rules]
+# Native indent counts TS/JSX continuation levels differently from the repository's
+# four-space convention. Keep source formatting until the native rule is compatible.
+# Native unused-vars treats type-signature parameter names as executable bindings.
+"js/no-unused-vars" = { level = "warn", options = { args = "none", args_ignore_pattern = "^_", vars_ignore_pattern = "^_", caught_errors_ignore_pattern = "^_" } }
+
+[[lint.overrides]]
+files = ["components/**/*.ts", "components/**/*.tsx", "components/**/*.js", ".website/docs/**/*.ts", ".website/docs/**/*.tsx"]
+# Browser globals used by this repository and missing from Wake's browser@1 set.
+[lint.overrides.globals]
+CSSStyleSheet = "readonly"
+EventTarget = "readonly"
+FocusEvent = "readonly"
+HTMLCanvasElement = "readonly"
+HTMLDialogElement = "readonly"
+HTMLDivElement = "readonly"
+HTMLInputElement = "readonly"
+HTMLScriptElement = "readonly"
+HTMLTextAreaElement = "readonly"
+KeyboardEvent = "readonly"
+MouseEvent = "readonly"
+OffscreenCanvas = "readonly"
+PointerEvent = "readonly"
+PopStateEvent = "readonly"
+ShadowRoot = "readonly"
+Temporal = "readonly"
+WheelEvent = "readonly"
+matchMedia = "readonly"
+
+[[lint.overrides]]
+files = ["components/rc-realm/src/shareScope.ts"]
+[lint.overrides.globals]
+__webpack_init_sharing__ = "readonly"
+__webpack_share_scopes__ = "readonly"
+
+[[lint.overrides]]
+files = ["components/**/src/__tests__/**/*.ts", "components/**/src/__tests__/**/*.tsx"]
+# Existing module factories run in Wake's CommonJS-compatible test host.
+[lint.overrides.globals]
+require = "readonly"
