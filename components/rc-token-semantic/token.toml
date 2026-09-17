@@ -58,7 +58,7 @@ color.text.link-hover  = "$ref(purple.30)"
 
 # ─── 颜色 · 边框 ────────────────────────────────────────────────────────────
 
-color.border.subtle   = "var(--token-semantic-color-border-default, $ref(zinc.200))"
+color.border.subtle   = "$ref(zinc.200)"
 color.border.default  = "$ref(zinc.600)"
 color.border.hover    = "$ref(zinc.700)"
 color.border.strong   = "var(--token-semantic-color-border-hover, $ref(zinc.700))"
@@ -129,6 +129,11 @@ color.fill.translucent = "color-mix(in oklch, var(--token-semantic-color-fill-ac
 color.fill.inactive    = "$ref(zinc.300)"
 color.fill.active      = "$ref(purple.40)"
 
+# Independent control roles keep the unselected switch visible in both themes.
+color.control.thumb = "$ref(white)"
+color.control.track = "$ref(zinc.500)"
+color.control.track-hover = "$ref(zinc.600)"
+
 
 # ─── 间距 · 语义 ────────────────────────────────────────────────────────────
 # 将 Layer 1 原始刻度映射到 UI 布局语义
@@ -140,6 +145,7 @@ space.section-gap       = "$ref(space.4)"
 space.group-gap         = "$ref(space.6)"
 space.page-padding      = "$ref(space.6)"
 space.control-padding-x = "$ref(space.3)"
+space.control-padding-x-small = "$ref(space.2)"
 space.control-padding-y = "$ref(space.1-5)"
 space.card-padding      = "$ref(space.5)"
 space.dialog-padding    = "$ref(space.6)"
@@ -173,7 +179,7 @@ radius.pill    = "$ref(radius.full)"
 
 shadow.float      = "$ref(shadow.md)"
 shadow.overlay    = "$ref(shadow.lg)"
-shadow.focus-ring = "0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, $ref(purple.40)))"
+shadow.focus-ring = "0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, $ref(purple.40))) 20%, transparent)"
 
 
 # ─── 层级 · 语义 ────────────────────────────────────────────────────────────

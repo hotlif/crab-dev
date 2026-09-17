@@ -7,6 +7,9 @@ globalStyle`
     :root,
     [data-theme="light"] {
         color-scheme: light;
+        --token-semantic-color-control-thumb: ${color.light.control.thumb};
+        --token-semantic-color-control-track: ${color.light.control.track};
+        --token-semantic-color-control-track-hover: ${color.light.control.trackHover};
         --token-semantic-color-brand-primary: ${color.light.brand.primary};
         --token-semantic-color-brand-primary-hover: ${color.light.brand.hover};
         --token-semantic-color-brand-primary-active: ${color.light.brand.active};
@@ -97,6 +100,9 @@ globalStyle`
 
     [data-theme="dark"] {
         color-scheme: dark;
+        --token-semantic-color-control-thumb: ${color.dark.control.thumb};
+        --token-semantic-color-control-track: ${color.dark.control.track};
+        --token-semantic-color-control-track-hover: ${color.dark.control.trackHover};
         --token-semantic-color-brand-primary: ${color.dark.brand.primary};
         --token-semantic-color-brand-primary-hover: ${color.dark.brand.hover};
         --token-semantic-color-brand-primary-active: ${color.dark.brand.active};
@@ -189,6 +195,9 @@ globalStyle`
         :root,
         [data-theme="light"],
         [data-theme="dark"] {
+            --token-semantic-color-control-thumb: CanvasText;
+            --token-semantic-color-control-track: Canvas;
+            --token-semantic-color-control-track-hover: Canvas;
             --token-semantic-color-brand-primary: Highlight;
             --token-semantic-color-brand-primary-hover: Highlight;
             --token-semantic-color-brand-primary-active: Highlight;

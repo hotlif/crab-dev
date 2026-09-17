@@ -13,6 +13,11 @@ type ConfigTheme = DocsTypePlaceholder;
 
 export interface ConfigProviderProps {
     /**
+     * 品牌种子色（#RGB / #RRGGBB）；省略继承父级，null 恢复默认紫色。
+     */
+    "brandColor"?: string | null;
+
+    /**
      * 语言；省略时继承父级，根级默认 zh-CN。
      */
     "locale"?: ConfigLocale;

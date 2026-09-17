@@ -3,6 +3,7 @@ import type { ConfigValue } from './types.js';
 
 const ConfigContext: Context<ConfigValue> = createContext<ConfigValue>({
     theme: 'light',
+    brandColor: null,
     locale: 'zh-CN',
     size: 'middle',
 });

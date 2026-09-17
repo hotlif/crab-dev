@@ -1,10 +1,10 @@
 {
     "name": "@crab-dev/rc-token-semantic",
     "websiteConfig": {
-        "title": "TokenSemantic 语义令牌",
+        "title": "Semantic Tokens 语义令牌",
         "category": "primitive"
     },
-    "description": "一个全局的 token 管理组件",
+    "description": "将全局设计基元映射为界面角色的 L2 语义令牌",
     "packageManager": "yarn@4.18.0",
     "type": "module",
     "version": "0.0.3",

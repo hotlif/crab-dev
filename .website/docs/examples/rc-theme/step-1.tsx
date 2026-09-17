@@ -1,6 +1,4 @@
-import "@crab-dev/rc-theme/css/index.css";
 import Card from "@crab-dev/rc-card";
-import "@crab-dev/rc-card/css/index.css";
 export default function Example() {
     return (
         <div data-theme="dark">

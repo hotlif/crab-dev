@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import "@crab-dev/rc-theme/css/index.css";
 import Card from "@crab-dev/rc-card";
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

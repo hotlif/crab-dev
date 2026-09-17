@@ -10,7 +10,62 @@ function Probe({ name }: { name: string }) {
     return <output aria-label={name}>{`${theme}/${locale}/${size}`}</output>;
 }
 
+function BrandProbe({ name }: { name: string }) {
+    return <output aria-label={name}>{useConfig().brandColor ?? 'default'}</output>;
+}
+
 describe('ConfigProvider', () => {
+    it('inherits a normalized brand across theme boundaries and permits an explicit reset', async () => {
+        await render(
+            <ConfigProvider brandColor="#AbC" theme="light">
+                <ConfigProvider theme="dark"><BrandProbe name="inherited" /></ConfigProvider>
+                <ConfigProvider brandColor="#1677ff"><BrandProbe name="overridden" /></ConfigProvider>
+                <ConfigProvider brandColor={null}><BrandProbe name="reset" /></ConfigProvider>
+                {createPortal(<ConfigProvider><BrandProbe name="brand portal" /></ConfigProvider>, document.body)}
+            </ConfigProvider>,
+        );
+        expect(screen.getByLabelText('inherited').textContent).toBe('#aabbcc');
+        expect(screen.getByLabelText('overridden').textContent).toBe('#1677ff');
+        expect(screen.getByLabelText('reset').textContent).toBe('default');
+        expect(screen.getByLabelText('reset').parentElement?.querySelector('style')).toBeNull();
+        expect(screen.getByLabelText('brand portal').textContent).toBe('#aabbcc');
+        const scopes = ['inherited', 'overridden', 'brand portal'].map(name => screen.getByLabelText(name).parentElement!);
+        expect(new Set(scopes.map(scope => scope.dataset.crabBrand)).size).toBe(3);
+        for (const scope of scopes) {
+            const sheet = scope.querySelector('style')?.textContent;
+            expect(sheet).toContain(`[data-crab-brand="${scope.dataset.crabBrand}"][data-theme="light"]`);
+            expect(sheet).toContain(`[data-crab-brand="${scope.dataset.crabBrand}"][data-theme="dark"]`);
+            expect(sheet).toContain('@media (forced-colors: none)');
+            expect(sheet).not.toContain('color-feedback');
+            expect(scope.getAttribute('style')).toBeNull();
+        }
+    });
+
+    it('updates scoped variables, forwards a CSP nonce and removes the sheet on reset/unmount', async () => {
+        const head = document.head.innerHTML;
+        const { rerender, unmount } = await render(
+            <StrictMode><ConfigProvider brandColor="#1677ff" nonce="theme-nonce" aria-label="brand scope" /></StrictMode>,
+        );
+        const scope = screen.getByLabelText('brand scope');
+        const sheet = scope.querySelector('style')!;
+        const firstCss = sheet.textContent;
+        expect(sheet.getAttribute('nonce')).toBe('theme-nonce');
+        await rerender(<StrictMode><ConfigProvider brandColor="#e76f00" aria-label="brand scope" /></StrictMode>);
+        expect(scope.querySelector('style')).toBe(sheet);
+        expect(sheet.textContent).not.toBe(firstCss);
+        expect(scope.querySelectorAll('style')).toHaveLength(1);
+        await rerender(<StrictMode><ConfigProvider brandColor={null} aria-label="brand scope" /></StrictMode>);
+        expect(scope.querySelector('style')).toBeNull();
+        expect(scope.hasAttribute('data-crab-brand')).toBe(false);
+        await rerender(<StrictMode><ConfigProvider brandColor="#1677ff" aria-label="brand scope" /></StrictMode>);
+        const mountedSheet = scope.querySelector('style')!;
+        expect(mountedSheet.isConnected).toBe(true);
+        await unmount();
+        expect(document.head.innerHTML).toBe(head);
+        expect(sheet.isConnected).toBe(false);
+        expect(mountedSheet.isConnected).toBe(false);
+    });
+
     it('provides defaults without a provider', async () => {
         await render(<Probe name="defaults" />);
         expect(screen.getByLabelText('defaults').textContent).toBe('light/zh-CN/middle');

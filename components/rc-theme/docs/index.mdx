@@ -1,19 +1,35 @@
 +++
-title = "Theme 主题"
+title = "Theme 主题样式"
 description = "通过语义令牌提供浅色、深色和强制颜色模式的主题样式"
 kind = "component"
 status = "experimental"
 +++
 
-# Theme 主题
+# Theme 主题样式
 
-`@crab-dev/rc-theme` 是 CSS-only 主题包。应用入口只需导入一次：
+`@crab-dev/rc-theme` 是 CSS-only 主题包，提供 L2 主题变量：
 
 [打开组件工作台](/components/rc-theme/workbench/)
 
-```ts
-import "@crab-dev/rc-theme/css/index.css";
+```sh
+yarn add @crab-dev/rc-theme
 ```
+
+普通组件随模块引用自动加载 CSS；仅声明本包依赖不会触发加载。本仓库在 Wake Docs 中配置主题入口，由 Wake 加载，无需手写 CSS 副作用导入：
+
+```toml
+# .website/wake.config.toml；路径相对于文档项目根目录。
+[docs]
+theme_css = "docs/theme.css"
+```
+
+`theme_css` 文件必须位于文档项目内。本仓库的 `.website/docs/theme.css` 通过 CSS 引用公共主题：
+
+```css
+@import "../../components/rc-theme/css/index.css";
+```
+
+其他构建器需要自行加载本包公开的 `css/index.css`；自动加载是 Wake 的构建能力。
 
 默认主题为 Light。Dark 主题由 `data-theme` 驱动，并允许在页面局部建立主题边界：
 
@@ -44,7 +60,9 @@ document.documentElement.dataset.theme = savedTheme === "dark" ? "dark" : "light
 
 ## 公共默认品牌与来源
 
-Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为 White。Dark 对应 Purple 80 / 90 / 100，其上文字为 Purple 20。表面与文本继续使用公共 Zinc 中性色，功能反馈分别使用 Red、Green、Amber、Blue。切换主题只改变 L2 映射，不会把 L1 原始色阶反转。
+Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为 White。Dark 从 Purple 80 经 80 与 90 的等量 OKLCh 混合过渡到 Purple 90，其上文字为 Purple 20；按压时仍保留品牌色相。表面与文本继续使用公共 Zinc 中性色，功能反馈分别使用 Red、Green、Amber、Blue。切换主题只改变 L2 映射，不会把 L1 原始色阶反转。
+
+需要从一个颜色快速换肤时，使用 [ConfigProvider 的 brandColor](/components/rc-config-provider)。它会成对生成明暗模式的品牌角色并覆盖当前边界的 L2 变量，支持嵌套继承与局部重置。该可选能力由 ConfigProvider 提供，本包保持 CSS-only。
 
 唯一配对数据位于 `@crab-dev/rc-token-semantic` 的 `themeColorContract`，本包编译为 CSS。文档站与独立工作台使用同一来源；站点的字体和阅读布局仍属于站点自身，不是公共组件默认尺寸。
 
@@ -61,7 +79,6 @@ Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为
 ```tsx
 import { css } from "@crab-dev/css";
 import global from "@crab-dev/rc-token-global";
-import "@crab-dev/rc-theme/css/index.css";
 
 const existingBrand = css`
     &[data-theme="light"] {

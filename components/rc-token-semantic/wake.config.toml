@@ -1,7 +1,7 @@
 [docs]
 source_dir = "docs"
-title = "TokenSemantic 语义令牌"
-description = "一个全局的 token 管理组件"
+title = "Semantic Tokens 语义令牌"
+description = "将全局设计基元映射为界面角色的 L2 语义令牌"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
 

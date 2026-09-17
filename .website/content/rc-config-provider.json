@@ -1,7 +1,7 @@
 {
     "id": "rc-config-provider",
     "title": "ConfigProvider 全局配置",
-    "summary": "通过 L2 CSS 变量切换主题，并为后代注入语言和尺寸；嵌套区域可以单独覆盖配置。",
+    "summary": "通过 L2 CSS 变量切换主题，以一个品牌色生成浅色与暗黑配色，并为后代注入语言和尺寸。",
     "prerequisite": "了解 React 属性与 useState，并安装示例使用的 Crab UI 组件。应用入口需加载 rc-theme CSS。",
     "steps": [
         {
@@ -23,6 +23,16 @@
             "expected": "预览实时更新，局部 Light 区域始终浅色，固定小尺寸按钮保持不变。",
             "changes": ["用 useState 驱动配置，并以 useConfig 显示有效值。", "嵌套 Provider 只覆盖 theme，Button 显式覆盖 size。"],
             "source": "rc-config-provider/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "一个品牌色，对照明暗主题",
+            "goal": "输入一个颜色，同时比较常用组件的浅色与暗黑效果。",
+            "why": "品牌色应同时覆盖默认、悬停、按下、链接、焦点和选中角色，并保留中性与反馈层次。",
+            "instruction": "选择预设或输入十六进制颜色，再切换尺寸；悬停按钮、聚焦输入框、展开下拉并切换开关。",
+            "expected": "两侧品牌色同步变化，间距、圆角与过渡保持统一；反馈仍为绿色，局部重置按钮保持默认紫色。",
+            "changes": ["给外层 Provider 设置 brandColor，内层分别选择 light / dark。", "brandColor=null 恢复默认品牌；未提供时继承父级。"],
+            "source": "rc-config-provider/step-3.tsx"
         }
     ],
     "faq": [

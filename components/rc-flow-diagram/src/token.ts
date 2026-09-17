@@ -15,7 +15,7 @@ export const vars = defineTokens({
 const token = defineTokens({
     'palette': {
         'grid': {
-            'color': `var(${vars['palette.grid.color']}, var(--token-semantic-color-border-subtle, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
+            'color': `var(${vars['palette.grid.color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
         },
         'node': {
             'background-color': `var(${vars['palette.node.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,

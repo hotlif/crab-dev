@@ -28,7 +28,7 @@ const token = defineTokens({
             'background-color-active': `var(${vars['separator.line.background-color-active']}, var(--split-pane-separator-line-color-active, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'transition': `var(${vars['separator.transition']}, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1))`,
-        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))))))`
+        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent)))))`
     }
 });
 

@@ -1,11 +1,11 @@
 +++
-title = "TokenSemantic 语义令牌"
+title = "Semantic Tokens 语义令牌"
 description = "将全局基础值映射为颜色、布局和交互等第二层语义令牌"
 kind = "component"
 status = "experimental"
 +++
 
-# TokenSemantic 语义令牌
+# Semantic Tokens 语义令牌
 
 语义设计令牌（L2）将全局基础值映射为品牌色、表面色、文字色、间距、焦点环和动效等界面语义。组件令牌优先引用这一层，主题通过覆盖语义变量改变外观。
 
@@ -50,6 +50,21 @@ const onBrand = light.text.onBrand;
 运行时主题仍使用 `@crab-dev/rc-theme/css/index.css` 与 `data-theme`。TOML 维护无主题样式时的 Light 回退值，`src/theme.ts` 维护完整明暗配对；改变共享角色时，两者必须同步并通过回退一致性测试。业务代码通常只需要默认 `token`，不用在每个组件里读取 `light` / `dark` 再分支。
 
 ## 覆盖、迁移与验收
+
+### 从一个颜色生成配对
+
+`createBrandTheme('#1677ff')` 返回 `{ seed, light, dark }`，其中 seed 为标准化六位颜色，light / dark 为品牌相关的 L2 变量映射。颜色统一输出为经过 sRGB 色域收敛的 OKLCh，并检查主色上的文字可读性；中性、反馈与控件轨道色不参与染色。
+
+输入仅支持不透明 `#RGB` / `#RRGGBB`，非法值抛出 RangeError。`normalizeBrandColor(value)` 可独立校验并标准化输入。该函数本身不访问 DOM，也不会插入样式；React 应用通常直接使用 [ConfigProvider 的 brandColor](/components/rc-config-provider)，由 Provider 管理继承和作用域。
+
+### 统一视觉尺度
+
+- small 控件横向内边距为 `space.control-padding-x-small`（8px），middle / large 为 `space.control-padding-x`（12px）。
+- 常用大尺寸表单控件使用 16px 字号与 6px 圆角；容器按自身层级保留更大的圆角。
+- 卡片和内容分隔使用 `color.border.subtle`；可输入控件保留 `color.border.default` 的辨识度。
+- 即时颜色、边框和阴影反馈使用 `motion.interaction`；大范围展开使用独立的 `motion.expand`。
+
+### 验收范围
 
 公共默认品牌本轮从中性灰切换为紫色，焦点从蓝色切换为紫色；站点从私有紫灰表面切换为公共 Zinc 中性表面。颜色 API 名称保持不变，视觉变化需要复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。
 

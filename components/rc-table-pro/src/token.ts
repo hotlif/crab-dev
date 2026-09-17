@@ -38,7 +38,7 @@ const token = defineTokens({
         'background-color': `var(${vars['chrome.background-color']}, var(--crab-rc-table-header-bg-color, var(--token-semantic-color-background-sunken, var(--token-global-zinc-50, oklch(0.980 0.002 286)))))`
     },
     'root': {
-        'border-color': `var(${vars['root.border-color']}, var(--crab-rc-table-border-color, var(--token-semantic-color-border-subtle, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))))`
+        'border-color': `var(${vars['root.border-color']}, var(--crab-rc-table-border-color, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
     },
     'overlay': {
         'background-color-loading': `var(${vars['overlay.background-color-loading']}, color-mix(in oklch, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))) 65%, transparent))`,

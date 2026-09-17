@@ -4,6 +4,7 @@ import type { ThemeColorContract } from "./types.js";
 
 export const themeColorContract: ThemeColorContract = defineTokens({
     light: {
+        control: { thumb: palette.white, track: palette.zinc["500"], trackHover: palette.zinc["600"] },
         brand: {
             primary: palette.purple["40"],
             hover: palette.purple["30"],
@@ -104,13 +105,14 @@ export const themeColorContract: ThemeColorContract = defineTokens({
             inactive: palette.zinc["300"],
             active: palette.purple["40"],
         },
-        focusShadow: `0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, ${palette.purple["40"]}))`,
+        focusShadow: `0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, ${palette.purple["40"]})) 20%, transparent)`,
     },
     dark: {
+        control: { thumb: palette.zinc["50"], track: palette.zinc["700"], trackHover: palette.zinc["600"] },
         brand: {
             primary: palette.purple["80"],
-            hover: palette.purple["90"],
-            active: palette.purple["100"],
+            hover: `color-mix(in oklch, ${palette.purple["80"]} 50%, ${palette.purple["90"]})`,
+            active: palette.purple["90"],
             subtle: palette.purple["80"],
         },
         background: {
@@ -207,6 +209,6 @@ export const themeColorContract: ThemeColorContract = defineTokens({
             inactive: palette.zinc["700"],
             active: palette.purple["80"],
         },
-        focusShadow: `0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, ${palette.purple["80"]}))`,
+        focusShadow: `0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, ${palette.purple["80"]})) 20%, transparent)`,
     },
 });

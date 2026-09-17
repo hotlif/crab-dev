@@ -27,6 +27,18 @@ export function rgb(value: string): number[] {
         const weighted = /^(.*)\s+([\d.]+)%$/.exec(first);
         if (!weighted) throw new Error(`Missing state layer weight: ${first}`);
         const weight = Number(weighted[2]) / 100;
+        if (space === "in oklch") {
+            const polar = (value: string) => {
+                const [l, a, b] = oklab(value);
+                return [l, Math.hypot(a, b), (Math.atan2(b, a) * 180 / Math.PI + 360) % 360];
+            };
+            const [l1, c1, h1] = polar(weighted[1]);
+            const [l2, c2, h2] = polar(second);
+            // CSS defaults to the shorter hue arc for polar color interpolation.
+            const hue = (h2 + ((h1 - h2 + 540) % 360 - 180) * weight) * Math.PI / 180;
+            const chroma = c1 * weight + c2 * (1 - weight);
+            return oklabToRgb(l1 * weight + l2 * (1 - weight), chroma * Math.cos(hue), chroma * Math.sin(hue));
+        }
         if (space === "in oklab") {
             const foreground = oklab(weighted[1]);
             const background = oklab(second);

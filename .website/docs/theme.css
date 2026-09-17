@@ -1,1 +1,2 @@
-/* The site owns its styles in site/siteStyles.ts, using Crab token values at build time. */
+/* CSS-only themes enter through Wake's theme_css, never through JavaScript imports. */
+@import "../../components/rc-theme/css/index.css";

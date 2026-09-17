@@ -12,6 +12,7 @@ export interface FeedbackColors {
 }
 
 export interface ThemeColors {
+    readonly control: Readonly<Record<"thumb" | "track" | "trackHover", string>>;
     readonly brand: Readonly<Record<"primary" | "hover" | "active" | "subtle", string>>;
     readonly background: Readonly<Record<"surface" | "elevated" | "sunken" | "inverse" | "overlay" | "disabled" | "hoverSubtle" | "activeSubtle" | "selected", string>>;
     readonly text: Readonly<Record<"primary" | "secondary" | "tertiary" | "onBrand" | "inverse" | "disabled" | "link" | "linkHover", string>>;

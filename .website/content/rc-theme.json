@@ -2,7 +2,7 @@
     "id": "rc-theme",
     "title": "Theme 主题样式",
     "summary": "主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "先安装主题包与示例使用的组件包。组件样式由 Wake 自动加载；CSS-only 主题通过 Wake Docs 的 theme_css 配置加载，仅声明依赖不会生效。",
     "steps": [
         {
             "id": "step-1",

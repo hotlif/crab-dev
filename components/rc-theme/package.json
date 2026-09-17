@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-theme",
     "websiteConfig": {
-        "title": "Theme 主题",
+        "title": "Theme 主题样式",
         "category": "primitive"
     },
     "description": "Crab Design System 的 Light、Dark 与强制颜色主题",

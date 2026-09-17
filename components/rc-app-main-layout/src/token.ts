@@ -101,7 +101,7 @@ const token = defineTokens({
         'background-color': `var(${vars['root.background-color']}, var(--app-main-layout-background-color, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`
     },
     'header': {
-        'box-shadow': `var(${vars['header.box-shadow']}, var(--app-main-layout-header-shadow, 0 1px 0 var(--token-semantic-color-border-subtle, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286))))))`,
+        'box-shadow': `var(${vars['header.box-shadow']}, var(--app-main-layout-header-shadow, 0 1px 0 var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
         'background-color': `var(${vars['header.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
         'z-index': `var(${vars['header.z-index']}, var(--token-semantic-z-index-base, var(--token-global-z-index-1, 1)))`,
         'divider': {

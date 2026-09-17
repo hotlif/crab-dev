@@ -9,6 +9,7 @@ html:root[data-theme] :is(.workbench-shell, .demo-frame-root) {
     --token-semantic-color-feedback-success: initial;
     --token-semantic-color-feedback-warning: initial;
     --token-semantic-color-feedback-info: initial;
+    --switch-handle-background-color: initial;
 }
 
 html[data-theme], body {

@@ -66,7 +66,7 @@ const token = defineTokens({
         'border-color-hover': `var(${vars['root.border-color-hover']}, var(--line-edit-border-color-hover, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286)))))`,
         'border-color-focus': `var(${vars['root.border-color-focus']}, var(--line-edit-border-color-focus, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--line-edit-box-shadow, var(--line-edit-box-shadow-default, none)))`,
-        'box-shadow-focus-within': `var(${vars['root.box-shadow-focus-within']}, var(--line-edit-box-shadow-focus-within, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`,
+        'box-shadow-focus-within': `var(${vars['root.box-shadow-focus-within']}, var(--line-edit-box-shadow-focus-within, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent))))`,
         'background-color': `var(${vars['root.background-color']}, var(--line-edit-background-color, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`
     },
     'action': {

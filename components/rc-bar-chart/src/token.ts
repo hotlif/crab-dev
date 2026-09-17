@@ -72,7 +72,7 @@ const token = defineTokens({
             }
         },
         'gridline': {
-            'color': `var(${vars['palette.gridline.color']}, var(--token-semantic-color-border-subtle, var(--token-semantic-color-border-default, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
+            'color': `var(${vars['palette.gridline.color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
         },
         'baseline': {
             'color': `var(${vars['palette.baseline.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
@@ -105,7 +105,7 @@ const token = defineTokens({
         }
     },
     'root': {
-        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--bar-chart-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
+        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--bar-chart-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent))))`
     },
     'tooltip': {
         'background-color': `var(${vars['tooltip.background-color']}, var(--bar-chart-tooltip-background, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0)))))`,

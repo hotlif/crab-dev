@@ -185,6 +185,18 @@ describe("theme color contract", () => {
         }
     });
 
+    it('keeps switch thumbs distinct and dark pressed colors chromatic', () => {
+        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+            expectContrast(theme.control.thumb, theme.control.track, 3);
+            expectContrast(theme.control.thumb, theme.control.trackHover, 3);
+        }
+        const dark = themeColorContract.dark;
+        const colors = [dark.brand.primary, dark.brand.hover, dark.brand.active].map(resolveColor);
+        expect(colors.every(color => color.chroma > 0.01)).toBe(true);
+        expect(colors[1].lightness - colors[0].lightness).toBeLessThan(0.06);
+        expect(colors[2].lightness - colors[1].lightness).toBeLessThan(0.06);
+    });
+
     it("keeps every feedback role readable in Light and Dark", () => {
         for (const theme of [themeColorContract.light, themeColorContract.dark]) {
             for (const feedback of Object.values(theme.feedback)) {

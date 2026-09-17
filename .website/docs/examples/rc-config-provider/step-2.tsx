@@ -5,9 +5,6 @@ import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
 import type { ConfigTheme, ConfigLocale, ConfigSize } from '@crab-dev/rc-config-provider';
 import Button from '@crab-dev/rc-button';
 import Empty from '@crab-dev/rc-empty';
-import '@crab-dev/rc-theme/css/index.css';
-import '@crab-dev/rc-button/css/index.css';
-import '@crab-dev/rc-empty/css/index.css';
 
 const panelStyle = css`
     display: grid;

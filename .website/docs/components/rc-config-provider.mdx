@@ -1,6 +1,6 @@
 +++
 title = "ConfigProvider 全局配置"
-description = "通过 React Context 注入主题、语言和尺寸，复用 L2 CSS 变量切换主题"
+description = "通过 React Context 注入主题、品牌色、语言和尺寸，以 L2 CSS 变量实现明暗主题与单色换肤"
 kind = "component"
 status = "experimental"
 +++
@@ -25,7 +25,7 @@ import { tutorial } from "../_generated_tutorials/rc-config-provider.js";
 
 了解 React 属性与 useState，并安装示例使用的 Crab UI 组件。应用入口需加载 rc-theme CSS。
 
-通过 L2 CSS 变量切换主题，并为后代注入语言和尺寸；嵌套区域可以单独覆盖配置。
+通过 L2 CSS 变量切换主题，以一个品牌色生成浅色与暗黑配色，并为后代注入语言和尺寸。
 
 ## 跟着做
 
@@ -40,6 +40,10 @@ import { tutorial } from "../_generated_tutorials/rc-config-provider.js";
 **交互切换与局部覆盖**
 
 分别切换主题、语言和尺寸，比较全局继承和局部覆盖。 嵌套 Provider 按字段合并配置，组件显式属性优先。 选择 dark、en-US 和 large，再切回 light；也可使用 Tab 与空格操作。 预览实时更新，局部 Light 区域始终浅色，固定小尺寸按钮保持不变。
+
+**一个品牌色，对照明暗主题**
+
+输入一个颜色，同时比较常用组件的浅色与暗黑效果。 品牌色应同时覆盖默认、悬停、按下、链接、焦点和选中角色，并保留中性与反馈层次。 选择预设或输入十六进制颜色，再切换尺寸；悬停按钮、聚焦输入框、展开下拉并切换开关。 两侧品牌色同步变化，间距、圆角与过渡保持统一；反馈仍为绿色，局部重置按钮保持默认紫色。
 
 </div>
 
@@ -85,15 +89,14 @@ import { tutorial } from "../_generated_tutorials/rc-config-provider.js";
 
 ```tsx
 import ConfigProvider from '@crab-dev/rc-config-provider';
-import '@crab-dev/rc-theme/css/index.css';
 
 <ConfigProvider theme="dark" locale="en-US" size="large">
     <App />
 </ConfigProvider>
 ```
 
-主题样式入口需在应用中加载一次。Provider 输出一个普通 div，设置 `data-theme` 和 `lang`，
-由 rc-theme 覆盖 L2 `--token-semantic-*` 变量；没有内联样式、运行时样式插入或组件层颜色分支。
+组件样式由 Wake 随模块引用自动加载。CSS-only 的 `@crab-dev/rc-theme` 需在 Wake Docs 的 `theme_css` 中配置入口，仅声明包依赖不会触发加载；参见 [Theme 主题样式](/components/rc-theme)。无需在 JavaScript 中导入 CSS。其他构建器需自行加载该包的公开样式入口。Provider 输出一个普通 div，设置 `data-theme` 和 `lang`，
+由 rc-theme 覆盖 L2 `--token-semantic-*` 变量。组件样式由 Crab CSS 静态生成，没有内联 style 或组件层颜色分支。
 Provider 本身不绘制背景；后代通过自己的语义令牌消费主题。
 应用应把 Provider 放在需要统一配置的内容根部；额外 div 会参与布局。
 
@@ -102,6 +105,7 @@ Provider 本身不绘制背景；后代通过自己的语义令牌消费主题�
 | 属性 | 值 | 根级默认值 |
 | --- | --- | --- |
 | theme | light / dark | light |
+| brandColor | #RGB / #RRGGBB / null | null（默认紫色） |
 | locale | zh-CN / en-US | zh-CN |
 | size | small / middle / large | middle |
 
@@ -109,6 +113,27 @@ Provider 本身不绘制背景；后代通过自己的语义令牌消费主题�
 原生 div 属性和 React 19 ref 可直接传入；语言由 locale 统一设置。
 使用具名导出的 `useConfig()` 读取当前有效配置，自定义组件可由此接入。
 无 Provider 时 Hook 返回上述默认值。
+
+### 一个颜色生成品牌主题
+
+```tsx
+<ConfigProvider brandColor="#1677ff" theme="dark">
+    <App />
+</ConfigProvider>
+```
+
+`brandColor` 接受不透明十六进制颜色（忽略首尾空格、大小写），自动生成浅色与暗黑的 OKLCh 配对。
+默认、悬停、按下、链接、焦点和选中背景一起联动；中性背景及成功、警告、错误色保持独立。
+算法保留色相并调整亮度和色度，以维持文字对比度和 sRGB 色域，因此按钮背景不一定与输入值完全相同。
+不支持带透明度的颜色、CSS 变量或任意 CSS 表达式；无效值会抛出 RangeError，颜色编辑器应先校验再传入。
+
+不传 `brandColor` 继承父级；传入 `null` 恢复默认紫色。`useConfig().brandColor` 返回标准化的六位颜色或 null。
+嵌套 Provider 切换 light / dark 时会保留品牌色，并使用对应模式的配色。
+
+设置品牌色时，Provider 在自己的边界内渲染一张仅声明 L2 变量的 style 标签；更新或卸载时由 React 同步处理。
+没有品牌色时仅使用预编译主题 CSS。若应用使用 CSP，可通过原生 `nonce` 属性为该标签提供 nonce。
+品牌规则只在 `forced-colors: none` 下生效，强制颜色模式继续使用系统颜色。
+非 React 场景可从 `@crab-dev/rc-token-semantic` 导入纯函数 `createBrandTheme(color)`，读取 `light` / `dark` 变量映射。
 
 主题适用于所有消费 L2 变量的后代。当前尺寸自动接入 Button / ButtonGroup，
 优先级为 Button.size > ButtonGroup.size > ConfigProvider.size；语言自动接入 Empty 三种预置文案。
