@@ -20,7 +20,11 @@ export const vars = defineTokens({
     'text.color': '--message-text-color',
     'progress.start.color': '--message-progress-start-color',
     'progress.end.color': '--message-progress-end-color',
-    'progress.height': '--message-progress-height'
+    'progress.height': '--message-progress-height',
+    'progress.duration': '--message-progress-duration',
+    'progress.delay': '--message-progress-delay',
+    'motion.interaction': '--message-motion-interaction',
+    'stack.offset': '--message-stack-offset'
 });
 
 const token = defineTokens({
@@ -62,7 +66,15 @@ const token = defineTokens({
         'end': {
             'color': `var(${vars['progress.end.color']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`
         },
-        'height': `var(${vars['progress.height']}, 3px)`
+        'height': `var(${vars['progress.height']}, 3px)`,
+        'duration': `var(${vars['progress.duration']}, var(--message-countdown-duration, 0ms))`,
+        'delay': `var(${vars['progress.delay']}, var(--message-countdown-delay, 0ms))`
+    },
+    'motion': {
+        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
+    },
+    'stack': {
+        'offset': `var(${vars['stack.offset']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`
     }
 });
 

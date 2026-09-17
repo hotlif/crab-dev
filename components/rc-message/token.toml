@@ -32,3 +32,8 @@ text.color = "$ref(color.text.primary)"
 progress.start.color = "$ref(color.brand.primary)"
 progress.end.color = "$ref(color.brand.primary-hover)"
 progress.height = "3px"
+progress.duration = "var(--message-countdown-duration, 0ms)"
+progress.delay = "var(--message-countdown-delay, 0ms)"
+
+motion.interaction = "$ref(motion.interaction)"
+stack.offset = "$ref(space.group-gap)"

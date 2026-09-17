@@ -1,12 +1,5 @@
 import { beforeAll, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
 
-mock.module("motion/react", async () => {
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = (props: Record<string, unknown>) => mockReact.createElement("div", props);
-    return {
-        motion: { div: MockDiv },
-    };
-});
 
 let Message: (typeof import('../message.js'))['default'];
 beforeAll(async () => {

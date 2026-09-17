@@ -28,6 +28,17 @@ export interface MessageProps {
     "icon"?: ReactNode;
 
     /**
+     * 暂无说明。
+     */
+    "onExitComplete"?: () => void;
+
+    /**
+     * 暂无说明。
+     * @default true
+     */
+    "open"?: boolean;
+
+    /**
      * 是否暂停进度动画
      * @default false
      */
@@ -43,6 +54,11 @@ export interface MessageProps {
      * @default true
      */
     "showProgress"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "stack"?: number;
 
     /**
      * 消息类型
