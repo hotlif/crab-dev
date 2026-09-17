@@ -10,12 +10,6 @@ import Card from "@crab-dev/rc-card";
 import Button from "@crab-dev/rc-button";
 import Drawer from "@crab-dev/rc-drawer";
 import LineEdit from "@crab-dev/rc-line-edit";
-import "@crab-dev/rc-app-main-layout/css/index.css";
-import "@crab-dev/rc-menu/css/index.css";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-drawer/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

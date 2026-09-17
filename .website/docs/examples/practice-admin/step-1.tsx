@@ -2,9 +2,6 @@ import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import AppMainLayout, { AppMainLayoutProvider } from "@crab-dev/rc-app-main-layout";
 import Card from "@crab-dev/rc-card";
-import "@crab-dev/rc-app-main-layout/css/index.css";
-import "@crab-dev/rc-menu/css/index.css";
-import "@crab-dev/rc-card/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

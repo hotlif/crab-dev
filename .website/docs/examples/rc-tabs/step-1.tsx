@@ -1,5 +1,4 @@
 import Tabs from "@crab-dev/rc-tabs";
-import "@crab-dev/rc-tabs/css/index.css";
 const items = [
     {
         key: "overview",

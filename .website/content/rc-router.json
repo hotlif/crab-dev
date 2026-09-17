@@ -2,7 +2,7 @@
     "id": "rc-router",
     "title": "Router 页面路由",
     "summary": "路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",

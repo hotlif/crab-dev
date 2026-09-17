@@ -3,7 +3,6 @@ import type { RefObject } from "react";
 import type { HeaderProps } from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
 import DropdownContainer, { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import "@crab-dev/rc-dropdown-container/css/index.css";
 
 const modes = ["light", "dark", "system"] as const;
 type Mode = (typeof modes)[number];

@@ -1,5 +1,4 @@
 import Select from "@crab-dev/rc-select";
-import "@crab-dev/rc-select/css/index.css";
 const options = [
     {
         value: "hz",

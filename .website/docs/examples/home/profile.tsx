@@ -12,16 +12,6 @@ import Tag from "@crab-dev/rc-tag";
 import BarChart from "@crab-dev/rc-bar-chart";
 import Form from "@crab-dev/rc-form";
 import LineEdit from "@crab-dev/rc-line-edit";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-avatar/css/index.css";
-import "@crab-dev/rc-checkbox/css/index.css";
-import "@crab-dev/rc-switch/css/index.css";
-import "@crab-dev/rc-segmented/css/index.css";
-import "@crab-dev/rc-tag/css/index.css";
-import "@crab-dev/rc-bar-chart/css/index.css";
-import "@crab-dev/rc-form/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
 
 const gallery = css`
     display: grid;

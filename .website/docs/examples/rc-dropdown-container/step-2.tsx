@@ -3,8 +3,6 @@ import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import DropdownContainer, { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-dropdown-container/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

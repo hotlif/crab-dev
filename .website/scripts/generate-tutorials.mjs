@@ -28,6 +28,7 @@ export function assertExampleImports(source, file) {
     for (const statement of ast.program.body) {
         if (statement.type !== "ImportDeclaration") continue;
         const specifier = statement.source.value;
+        if (statement.specifiers.length === 0 && /\.css(?:[?#]|$)/i.test(specifier)) throw new Error(`${file}: 示例样式由 Wake 自动加载，不得手写 CSS 副作用导入：${specifier}`);
         if (specifier.startsWith(".") || specifier.startsWith("@/") || specifier.startsWith("@@/") || /\/(src|esm|cjs|declarations)\//.test(specifier)) throw new Error(`${file}: 教学示例必须使用公开包入口，不能依赖隐藏辅助文件：${specifier}`);
     }
     if (!ast.program.body.some(statement => statement.type === "ExportDefaultDeclaration")) throw new Error(`${file}: 教学示例必须默认导出运行组件`);

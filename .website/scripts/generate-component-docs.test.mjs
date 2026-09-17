@@ -353,8 +353,11 @@ test("教程要求完整步骤、唯一 ID 与互斥示例来源", () => {
 });
 
 test("源码必须独立并默认导出，拒绝隐藏辅助文件与无效语法", () => {
-    const valid = 'import Button from "@crab-dev/rc-button"; import "@crab-dev/rc-button/css/index.css"; export default function Example() { return <Button>保存</Button>; }';
+    const valid = 'import Button from "@crab-dev/rc-button"; export default function Example() { return <Button>保存</Button>; }';
     assertExampleImports(valid, "valid.tsx");
+    for (const specifier of ["@crab-dev/rc-button/css/index.css", "@crab-dev/rc-theme/css/index.css", "./theme.css?inline"]) {
+        assert.throws(() => assertExampleImports(`import "${specifier}"; ${valid}`, "styles.tsx"), /Wake 自动加载/);
+    }
     for (const specifier of ["./helper.js", "@/helpers", "@@/helpers", "@crab-dev/rc-button/src/button.js", "@crab-dev/rc-button/esm/index.mjs"]) {
         assert.throws(() => assertExampleImports(`import X from "${specifier}"; export default X;`, "invalid.tsx"), /公开包入口/);
     }

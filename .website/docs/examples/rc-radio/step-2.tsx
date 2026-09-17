@@ -2,7 +2,6 @@ import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Radio, { RadioGroup } from "@crab-dev/rc-radio";
-import "@crab-dev/rc-radio/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

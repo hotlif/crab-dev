@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Tag from "@crab-dev/rc-tag";
-import "@crab-dev/rc-tag/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

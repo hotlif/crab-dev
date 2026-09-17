@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Card from "@crab-dev/rc-card";
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
 export default function Example() {
     const [saved, setSaved] = useState(false);
     return (

@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import TablePro, { type ProtocolColumnType } from "@crab-dev/rc-table-pro";
-import "@crab-dev/rc-table-pro/css/index.css";
 const columns: ProtocolColumnType[] = [
     {
         name: "$.name",

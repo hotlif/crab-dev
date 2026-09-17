@@ -1,12 +1,9 @@
 import { useState } from "react";
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-button/css/index.css";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Table, { type Row, type ColumnType } from "@crab-dev/rc-table";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import "@crab-dev/rc-table/css/index.css";
-import "@crab-dev/rc-auto-sizer/css/index.css";
 
 interface OrderRow extends Row {
     dataRef: {

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Empty from "@crab-dev/rc-empty";
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-empty/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
 export default function Example() {
     const [created, setCreated] = useState(false);
     return created ? (

@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import "@crab-dev/rc-auto-sizer/css/index.css";
 const frame = css`
     height: calc(${token.space["section-gap"]} * 8);
 `;

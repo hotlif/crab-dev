@@ -1,6 +1,5 @@
 import Button from "@crab-dev/rc-button";
 import Card from "@crab-dev/rc-card";
-import "@crab-dev/rc-card/css/index.css";
 import LiveExample from "./liveExample.js";
 import HomeProjectPreview from "./homeProjectPreview.js";
 import { sourceCode } from "../_generated_tutorials/home.js";

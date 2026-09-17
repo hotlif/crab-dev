@@ -2,7 +2,6 @@ import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Breadcrumbs from "@crab-dev/rc-breadcrumbs";
-import "@crab-dev/rc-breadcrumbs/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

@@ -2,7 +2,7 @@
     "id": "rc-color-picker",
     "title": "ColorPicker 颜色选择",
     "summary": "颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",

@@ -3,8 +3,6 @@ import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import ColorPicker, { type OKLCHValue } from "@crab-dev/rc-color-picker";
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-color-picker/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

@@ -1,7 +1,5 @@
 import Masonry from "@crab-dev/rc-masonry";
 import Card from "@crab-dev/rc-card";
-import "@crab-dev/rc-masonry/css/index.css";
-import "@crab-dev/rc-card/css/index.css";
 const cards = [
     "建立项目",
     "编写一个最小示例，确认样式和事件都能工作。",

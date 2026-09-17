@@ -9,7 +9,6 @@ import { tutorial as data } from "../_generated_tutorials/practice-data.js";
 import { tutorial as admin } from "../_generated_tutorials/practice-admin.js";
 import LiveExample from "./liveExample.js";
 import { useSiteHref } from "./siteContext.js";
-import "@crab-dev/rc-tabs/css/index.css";
 
 const layout = css`
     display: grid;

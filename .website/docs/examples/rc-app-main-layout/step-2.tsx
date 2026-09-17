@@ -5,8 +5,6 @@ import AppMainLayout, {
     useAppMainLayoutTabs,
 } from "@crab-dev/rc-app-main-layout";
 import { MenuItemType } from "@crab-dev/rc-menu";
-import "@crab-dev/rc-app-main-layout/css/index.css";
-import "@crab-dev/rc-menu/css/index.css";
 const frame = css`
     height: calc(${token.space["section-gap"]} * 30);
     min-width: 0;

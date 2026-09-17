@@ -10,15 +10,6 @@ import Button from "@crab-dev/rc-button";
 import Empty from "@crab-dev/rc-empty";
 import Alert from "@crab-dev/rc-alert";
 import Spin from "@crab-dev/rc-spin";
-import "@crab-dev/rc-table/css/index.css";
-import "@crab-dev/rc-auto-sizer/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
-import "@crab-dev/rc-select/css/index.css";
-import "@crab-dev/rc-pagination/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-empty/css/index.css";
-import "@crab-dev/rc-alert/css/index.css";
-import "@crab-dev/rc-spin/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["section-gap"]};

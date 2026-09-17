@@ -3,10 +3,6 @@ import Avatar from "@crab-dev/rc-avatar";
 import Button from "@crab-dev/rc-button";
 import Card from "@crab-dev/rc-card";
 import Tag from "@crab-dev/rc-tag";
-import "@crab-dev/rc-avatar/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-tag/css/index.css";
 import { useSiteHref } from "./siteContext.js";
 
 /** A read-only project summary assembled from the same public components as the live gallery. */

@@ -2,7 +2,6 @@ import { useId, useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import { DatePicker } from "@crab-dev/rc-date-picker";
-import "@crab-dev/rc-date-picker/css/index.css";
 const fieldStyle = css`
     display: grid;
     gap: ${token.space["component-gap"]};

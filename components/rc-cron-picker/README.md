@@ -2,9 +2,10 @@
 
 可视化编辑五段式 Cron 表达式，并预览后续执行时间。
 
+以下示例使用 Wake，组件样式由 Wake 自动加载。
+
 ```tsx
 import CronPicker from '@crab-dev/rc-cron-picker';
-import '@crab-dev/rc-cron-picker/css/index.css';
 
 <CronPicker defaultValue="30 9 * * 1-5" onChange={(expr) => console.log(expr)} />
 ```

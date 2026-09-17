@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import LineEdit from "@crab-dev/rc-line-edit";
-import "@crab-dev/rc-line-edit/css/index.css";
 
 const field = css`
     display: grid;

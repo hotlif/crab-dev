@@ -9,10 +9,6 @@ import { PreviewBoundary, InlineExample } from "./liveExample.js";
 import Preview from "@crab-dev/rc-component-preview";
 import token from "@crab-dev/rc-token-semantic";
 import ComponentDemoFrame, { subscribeTheme } from "./componentDemoFrame.js";
-import "@crab-dev/rc-theme/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-alert/css/index.css";
-import "@crab-dev/rc-spin/css/index.css";
 import type { ComponentDemoRecord } from "./componentDemos.js";
 
 export interface TutorialStep {

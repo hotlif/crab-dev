@@ -2,7 +2,7 @@
     "id": "rc-masonry",
     "title": "Masonry 瀑布流",
     "summary": "瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",

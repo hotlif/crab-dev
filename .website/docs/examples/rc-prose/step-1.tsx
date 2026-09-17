@@ -1,5 +1,4 @@
 import Prose from "@crab-dev/rc-prose";
-import "@crab-dev/rc-prose/css/index.css";
 export default function Example() {
     return (
         <Prose>

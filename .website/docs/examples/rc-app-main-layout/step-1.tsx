@@ -1,8 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import AppMainLayout, { AppMainLayoutProvider } from "@crab-dev/rc-app-main-layout";
-import "@crab-dev/rc-app-main-layout/css/index.css";
-import "@crab-dev/rc-menu/css/index.css";
 const frame = css`
     height: calc(${token.space["section-gap"]} * 30);
     min-width: 0;

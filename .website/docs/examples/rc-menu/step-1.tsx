@@ -1,5 +1,4 @@
 import Menu, { MenuItemType } from "@crab-dev/rc-menu";
-import "@crab-dev/rc-menu/css/index.css";
 const items = [
     {
         key: "overview",

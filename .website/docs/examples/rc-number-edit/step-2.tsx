@@ -2,7 +2,6 @@ import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import NumberEdit from "@crab-dev/rc-number-edit";
-import "@crab-dev/rc-number-edit/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

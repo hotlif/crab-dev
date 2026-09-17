@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import SplitPane from "@crab-dev/rc-split-pane";
-import "@crab-dev/rc-split-pane/css/index.css";
 const frame = css`
     height: calc(${token.space["section-gap"]} * 10);
     min-width: 0;

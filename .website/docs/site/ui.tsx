@@ -13,15 +13,6 @@ import Empty from "@crab-dev/rc-empty";
 import Spin from "@crab-dev/rc-spin";
 import { resolveSiteHref, SiteContext, TutorialDirectoryContext } from "./siteContext.js";
 import "./siteStyles.js";
-import "@crab-dev/rc-theme/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-dialog/css/index.css";
-import "@crab-dev/rc-drawer/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
-import "@crab-dev/rc-segmented/css/index.css";
-import "@crab-dev/rc-alert/css/index.css";
-import "@crab-dev/rc-empty/css/index.css";
-import "@crab-dev/rc-spin/css/index.css";
 
 function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: string) => void) {
     if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)

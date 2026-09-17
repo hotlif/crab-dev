@@ -4,9 +4,6 @@ import token from "@crab-dev/rc-token-semantic";
 import Tree, { LoadStateType, NodeType, type Node } from "@crab-dev/rc-tree";
 import Button from "@crab-dev/rc-button";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import "@crab-dev/rc-tree/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-auto-sizer/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

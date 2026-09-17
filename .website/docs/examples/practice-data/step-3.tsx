@@ -6,11 +6,6 @@ import AutoSizer from "@crab-dev/rc-auto-sizer";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Select from "@crab-dev/rc-select";
 import Pagination from "@crab-dev/rc-pagination";
-import "@crab-dev/rc-table/css/index.css";
-import "@crab-dev/rc-auto-sizer/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
-import "@crab-dev/rc-select/css/index.css";
-import "@crab-dev/rc-pagination/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["section-gap"]};

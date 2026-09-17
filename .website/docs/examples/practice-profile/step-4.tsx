@@ -7,12 +7,6 @@ import LineEdit from "@crab-dev/rc-line-edit";
 import Button from "@crab-dev/rc-button";
 import Alert from "@crab-dev/rc-alert";
 import Switch from "@crab-dev/rc-switch";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-form/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-alert/css/index.css";
-import "@crab-dev/rc-switch/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

@@ -1,5 +1,4 @@
 import Breadcrumbs from "@crab-dev/rc-breadcrumbs";
-import "@crab-dev/rc-breadcrumbs/css/index.css";
 export default function Example() {
     return (
         <Breadcrumbs

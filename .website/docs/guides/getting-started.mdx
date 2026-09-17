@@ -7,7 +7,7 @@ status = "experimental"
 
 # 开始使用
 
-Crab UI 面向 React 19 应用。按需安装组件包、加载静态样式后即可使用；组件页提供使用场景、交互示例和 API。
+Crab UI 面向 React 19 应用。在 Wake 项目中，按需安装并导入组件即可使用，样式由 Wake 自动加载；组件页提供使用场景、交互示例和 API。
 
 ## 安装组件
 
@@ -23,7 +23,6 @@ yarn add @crab-dev/rc-button
 
 ```tsx
 import Button from "@crab-dev/rc-button";
-import "@crab-dev/rc-button/css/index.css";
 
 export default function SaveAction() {
     return (
@@ -46,16 +45,30 @@ Hooks、令牌和主题等工具包的入口形式不同，请以对应包文档
 
 Crab CSS 在构建期生成静态样式，不会向浏览器注入 CSS-in-JS 运行时。
 
-- 使用 Wake 构建时，Wake 会自动发现组件样式。
-- 使用 Vite、Webpack 等其他构建器时，为每个组件显式导入公开的 `css/index.css`。
+- 使用 Wake 构建时，Wake 会自动发现并加载组件样式，示例无需手写 CSS 副作用导入。
+- 使用其他构建器时，需要自行接入静态样式加载；公开样式入口为包内的 `css/index.css`，不能假定其他构建器也具有 Wake 的自动加载能力。
 - 不要直接导入包内 `src/`、`esm/`、`cjs/` 或 `declarations/`，这些不是稳定的公共入口。
 
 ## 设置主题
 
-需要浅色或深色主题时，安装 `@crab-dev/rc-theme` 并在应用入口导入一次：
+需要浅色或深色主题时，安装 CSS-only 的 `@crab-dev/rc-theme`：
 
-```ts
-import "@crab-dev/rc-theme/css/index.css";
+```sh
+yarn add @crab-dev/rc-theme
+```
+
+普通组件随模块引用自动加载样式，但仅声明 CSS-only 主题包依赖不会触发加载。本仓库由 Wake Docs 的 `theme_css` 配置加载公共主题入口，无需在 JavaScript 中导入 CSS：
+
+```toml
+# .website/wake.config.toml；路径相对于文档项目根目录。
+[docs]
+theme_css = "docs/theme.css"
+```
+
+`theme_css` 文件必须位于文档项目内。本仓库的 `.website/docs/theme.css` 通过 CSS 引用公共主题：
+
+```css
+@import "../../components/rc-theme/css/index.css";
 ```
 
 默认使用浅色主题。在页面根节点或局部容器设置 `data-theme="dark"` 可切换为深色。
@@ -72,7 +85,7 @@ corepack yarn install --immutable
 corepack yarn docs:dev
 ```
 
-打开组件教程，修改对应的 `step-*.tsx`，页面和展示源码会一起刷新。复制到其他应用时，除了安装源码中的组件包与样式入口，也要确认该应用已经接入 Crab CSS 编译；只使用预构建组件本身时则无需编写 `css` 模板。
+打开组件教程，修改对应的 `step-*.tsx`，页面和展示源码会一起刷新。复制到其他应用时，除了安装源码中的组件包，也要确认该应用已经接入 Crab CSS 编译与静态样式加载；只使用预构建组件本身时则无需编写 `css` 模板。
 
 [先学习 Button](/components/rc-button) · [浏览组件学习地图](/learn/components) · [完成资料编辑表单](/learn/practice-profile)
 

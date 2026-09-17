@@ -4,10 +4,6 @@ import token from "@crab-dev/rc-token-semantic";
 import Card from "@crab-dev/rc-card";
 import Form from "@crab-dev/rc-form";
 import LineEdit from "@crab-dev/rc-line-edit";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-form/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

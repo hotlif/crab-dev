@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Virtual from "@crab-dev/rc-virtual";
-import "@crab-dev/rc-virtual/css/index.css";
 const items = Array.from(
     {
         length: 1000,

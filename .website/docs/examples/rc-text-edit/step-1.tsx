@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import TextEdit from "@crab-dev/rc-text-edit";
-import "@crab-dev/rc-text-edit/css/index.css";
 const fieldStyle = css`
     display: grid;
     gap: ${token.space["component-gap"]};

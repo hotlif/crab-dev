@@ -8,9 +8,10 @@
 - 双击分隔条复位到 `defaultSize`；`persistKey` 记住用户调整的尺寸；
 - 拖拽机制来自 `@crab-dev/rc-hooks` 的 `useDragResize`，需要更自由的布局时可直接使用该 hook。
 
+以下示例使用 Wake，组件样式由 Wake 自动加载。
+
 ```tsx
 import SplitPane from '@crab-dev/rc-split-pane';
-import '@crab-dev/rc-split-pane/css/index.css';
 
 <SplitPane defaultSize={280} min={200} max={520} persistKey="editor-sidebar">
     <FileTree />

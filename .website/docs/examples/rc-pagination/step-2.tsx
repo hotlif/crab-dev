@@ -2,7 +2,6 @@ import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Pagination from "@crab-dev/rc-pagination";
-import "@crab-dev/rc-pagination/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

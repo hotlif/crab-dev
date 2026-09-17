@@ -3,21 +3,6 @@ import type { PropsWithChildren } from "react";
 import Segmented from "@crab-dev/rc-segmented";
 import { SiteContext } from "../siteContext.js";
 import type { Density, Theme } from "./tokens.js";
-import "@crab-dev/rc-theme/css/index.css";
-import "@crab-dev/rc-button/css/index.css";
-import "@crab-dev/rc-line-edit/css/index.css";
-import "@crab-dev/rc-select/css/index.css";
-import "@crab-dev/rc-segmented/css/index.css";
-import "@crab-dev/rc-card/css/index.css";
-import "@crab-dev/rc-table/css/index.css";
-import "@crab-dev/rc-pagination/css/index.css";
-import "@crab-dev/rc-tag/css/index.css";
-import "@crab-dev/rc-form/css/index.css";
-import "@crab-dev/rc-drawer/css/index.css";
-import "@crab-dev/rc-dialog/css/index.css";
-import "@crab-dev/rc-alert/css/index.css";
-import "@crab-dev/rc-spin/css/index.css";
-import "@crab-dev/rc-empty/css/index.css";
 import "./styles.js";
 
 const PreviewContext = createContext<{ theme: Theme; density: Density; touch: boolean }>({

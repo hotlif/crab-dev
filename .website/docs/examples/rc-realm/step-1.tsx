@@ -1,6 +1,5 @@
 import { useState, useId, useEffect } from "react";
 import Realm, { type RemoteContainer } from "@crab-dev/rc-realm";
-import "@crab-dev/rc-realm/css/index.css";
 function Welcome({ message }: { message: string }) {
     return <p>{message}</p>;
 }

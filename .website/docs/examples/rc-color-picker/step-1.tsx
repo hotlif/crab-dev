@@ -1,5 +1,4 @@
 import ColorPicker from "@crab-dev/rc-color-picker";
-import "@crab-dev/rc-color-picker/css/index.css";
 export default function Example() {
     return (
         <ColorPicker

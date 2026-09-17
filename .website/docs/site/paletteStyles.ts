@@ -1,6 +1,5 @@
 import { globalStyle } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import "@crab-dev/rc-theme/css/index.css";
 
 // Public rc-theme owns all L2 colors, including portals and forced-colors.
 // Site aliases describe reading surfaces without overriding the theme contract.
