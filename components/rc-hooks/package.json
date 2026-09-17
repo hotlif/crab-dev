@@ -1,10 +1,10 @@
 {
     "name": "@crab-dev/rc-hooks",
     "websiteConfig": {
-        "title": "Hooks",
+        "title": "Hooks 通用钩子",
         "category": "primitive"
     },
-    "description": "A common library of React Hooks for executing some common methods of Hooks",
+    "description": "复用状态、事件、尺寸测量和定时器等通用 React 逻辑",
     "version": "0.0.3",
     "repository": {
         "type": "git",

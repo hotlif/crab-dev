@@ -1,7 +1,7 @@
 [docs]
 source_dir = "docs"
-title = "TokenGlobal 全局令牌"
-description = "一个全局的 token 管理组件"
+title = "Global Tokens 全局令牌"
+description = "提供颜色、间距、排版和动效等 L1 全局设计令牌"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
 

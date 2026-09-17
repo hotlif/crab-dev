@@ -1,6 +1,6 @@
 {
   "id": "rc-token-global",
-  "title": "Global Tokens 设计基元",
+  "title": "Global Tokens 全局令牌",
   "summary": "全局令牌提供基础色阶和尺度，适合定义语义层映射。业务组件通常使用语义令牌。",
   "prerequisite": "了解 TypeScript 导入与 CSS 声明，项目已配置 Crab CSS 构建处理。本教程无需 React 状态或组件 Props。",
   "steps": [

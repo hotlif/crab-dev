@@ -102,6 +102,7 @@ body { margin: 0; }
 .crab-docs-navigation h2 { margin: 0 0 ${token.space["stack-gap"]}; padding-inline: ${token.space["stack-gap"]}; font-size: ${token.font.size.caption}; font-weight: ${token.font.weight.strong}; letter-spacing: .04em; color: ${token.color.text.secondary}; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle) { display: flex; width: 100%; justify-content: flex-start; text-align: left; white-space: normal; height: auto; min-height: 2.5rem; padding: ${token.space["component-gap"]} ${token.space["stack-gap"]}; font-size: ${token.font.size.body}; line-height: 1.5; border-radius: ${token.radius.md}; color: ${token.color.text.secondary}; background: transparent; box-shadow: none; gap: ${token.space["stack-gap"]}; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle):hover { color: ${token.color.text.primary}; background: var(--crab-docs-nav-hover); box-shadow: none; }
+.crab-docs-navigation .crab-docs-nav-page { word-break: keep-all; overflow-wrap: anywhere; }
 .crab-docs-navigation .crab-docs-section-toggle { justify-content: space-between; color: ${token.color.text.primary}; font-weight: ${token.font.weight.label}; }
 .crab-docs-nav-section + .crab-docs-nav-section { margin-top: ${token.space["inline-gap"]}; }
 .crab-docs-section-chevron { display: block; width: 1rem; height: 1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: ${token.color.text.secondary}; transition: transform ${token.motion.interaction}; }

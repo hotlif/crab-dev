@@ -1,5 +1,5 @@
 +++
-title = "Realm 沙箱容器"
+title = "Realm 远程模块"
 description = "加载 Module Federation 远程模块，支持 React 组件和生命周期两种接入协议"
 kind = "component"
 status = "experimental"
@@ -13,7 +13,7 @@ import Tutorial from "../site/tutorial.js";
 import FirstExample from "../site/firstExample.js";
 import { tutorial } from "../_generated_tutorials/rc-realm.js";
 
-# Realm 沙箱容器
+# Realm 远程模块
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-realm</div>
 
@@ -23,7 +23,7 @@ import { tutorial } from "../_generated_tutorials/rc-realm.js";
 
 ## 开始之前
 
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。
+已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
 
 Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。
 

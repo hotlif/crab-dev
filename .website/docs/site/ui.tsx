@@ -185,9 +185,7 @@ export function Navigation({ groups, current, toggleSection, onNavigate, route }
             aria-current={current === page.slug ? "page" : undefined}
             onClick={(event) => follow(event, page.slug, onNavigate)}
         >
-            {page.slug.replace(/^\//, "") === "components/rc-cron-picker"
-                ? "定时规则"
-                : page.title}
+            {page.title}
         </Button>
     );
     return (

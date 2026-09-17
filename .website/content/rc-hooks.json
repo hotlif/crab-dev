@@ -1,8 +1,8 @@
 {
     "id": "rc-hooks",
-    "title": "Hooks 状态与浏览器能力",
+    "title": "Hooks 通用钩子",
     "summary": "Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",

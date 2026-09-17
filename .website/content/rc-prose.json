@@ -1,8 +1,8 @@
 {
     "id": "rc-prose",
-    "title": "Prose 长文排版",
+    "title": "Prose 长文本排版",
     "summary": "Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",

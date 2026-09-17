@@ -1,7 +1,7 @@
 [docs]
 source_dir = "docs"
-title = "Hooks"
-description = "A common library of React Hooks for executing some common methods of Hooks"
+title = "Hooks 通用钩子"
+description = "复用状态、事件、尺寸测量和定时器等通用 React 逻辑"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
 
