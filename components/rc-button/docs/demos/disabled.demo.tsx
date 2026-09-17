@@ -1,7 +1,7 @@
 
 export const meta = {
     title: "禁用状态",
-    description: "添加 `disabled` 属性即可让按钮处于禁用状态",
+    description: "展示全部六种外观的 disabled 状态；禁用按钮不会触发操作。",
 };
 
 import { css } from "@crab-dev/css";
@@ -47,6 +47,7 @@ const SizeDemo = () => {
             >
                 link
             </Button>
+            <Button disabled appearance="danger">danger</Button>
         </div>
     )
 }

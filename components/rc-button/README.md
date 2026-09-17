@@ -10,9 +10,10 @@ yarn add @crab-dev/rc-button
 
 ## 使用
 
+以下示例使用 Wake，组件样式由 Wake 自动加载。
+
 ```tsx
 import Button, { ButtonGroup } from '@crab-dev/rc-button';
-import '@crab-dev/rc-button/css/index.css';
 
 export default function Actions() {
     return (

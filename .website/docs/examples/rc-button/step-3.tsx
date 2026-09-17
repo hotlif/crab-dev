@@ -1,12 +1,7 @@
-export const meta = {
-    title: "按钮尺寸",
-    description: "三档尺寸与六种外观共 18 种组合，同时展示默认高度与适用场景。",
-};
 import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import Button, { type ButtonProps } from "../../src/index.js";
-
+import Button, { type ButtonProps } from "@crab-dev/rc-button";
 
 const stackStyle = css`display: grid; gap: ${token.space["group-gap"]}; min-width: 0;`;
 const sectionStyle = css`

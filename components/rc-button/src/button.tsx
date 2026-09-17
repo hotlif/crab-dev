@@ -40,6 +40,7 @@ const baseStyle = css`
         &:active:not([aria-disabled="true"]) { transform: none !important; }
     }
     @media (forced-colors: active) {
+        box-shadow: none !important;
         outline: ${token.root['border-width']} solid ButtonText;
         outline-offset: -1px;
         &:focus-visible {
@@ -204,11 +205,14 @@ const subtleStyle = css`
         border-color: ${token.subtle['border-color']};
         box-shadow: ${token.subtle['box-shadow']};
         &:hover:not([aria-disabled="true"]) {
+            background-color: ${token.subtle['background-color-hover']};
+            box-shadow: ${token.subtle['box-shadow-hover']};
             border-color: ${token.subtle['border-color-hover']};
             color: ${token.subtle['color-hover']};
         }
         &:active:not([aria-disabled="true"]) {
-            transform: scale(0.98);
+            background-color: ${token.subtle['background-color-active']};
+            box-shadow: ${token.subtle['box-shadow-active']};
             color: ${token.subtle['color-active']};
             border-color: ${token.subtle['border-color-active']};
         }
@@ -217,6 +221,9 @@ const subtleStyle = css`
         cursor: not-allowed;
         pointer-events: none;
         background-color: ${token.subtle['background-color-disabled']};
+        color: ${token.subtle['color-disabled']};
+        border-color: ${token.subtle['border-color-disabled']};
+        box-shadow: ${token.subtle['box-shadow-disabled']};
     }
 `;
 
@@ -252,6 +259,10 @@ const selectedStyle = css`
         color: ${token.root["color-selected"]} !important;
         border-color: ${token.root['border-color-selected']} !important;
     }
+`;
+
+const subtleSelectedStyle = css`
+    box-shadow: ${token.subtle['box-shadow-selected']} !important;
 `;
 
 const circleStyle = css`
@@ -316,6 +327,7 @@ const Button: FC<ButtonProps> = ({
         shape === 'circle' ? circleStyle : null,
         shouldFitContainer ? fitContainerStyle : null,
         isSelected ? selectedStyle : null,
+        isSelected && resolvedAppearance === 'subtle' && !disabled ? subtleSelectedStyle : null,
         className,
     );
 

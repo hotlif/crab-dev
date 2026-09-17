@@ -1,18 +1,19 @@
 {
     "id": "rc-button",
     "title": "Button 按钮",
-    "summary": "用清晰的按钮文字表达操作，用外观区分操作优先级。",
+    "summary": "对照六种按钮外观、三档尺寸、图标与组合，以及明暗主题下的状态与主次操作搭配。",
     "prerequisite": "了解 JSX 和 useState 即可。先完成快速开始中的安装与样式接入。",
     "steps": [
         {
             "id": "step-1",
-            "title": "渲染主操作",
-            "goal": "让“保存资料”成为主操作",
-            "why": "将 appearance 设为 primary，让用户快速识别当前最重要的操作。",
-            "instruction": "聚焦按钮，观察鼠标悬停与键盘焦点反馈。",
-            "expected": "保存操作以主按钮展示；本步尚未接入保存逻辑。",
+            "title": "六种外观",
+            "goal": "直接比较六种按钮外观及各自适用的操作层级。",
+            "why": "填充、浅阴影、虚线与文字强调表达不同优先级；危险操作使用独立的语义颜色。",
+            "instruction": "对比六个示例，悬停和点击按钮，再用 Tab 查看键盘焦点。",
+            "expected": "六种外观同时可见，点击后显示对应的 appearance；示例只更新本地提示。",
             "changes": [
-                "导入 Button 及其样式，设置 appearance=\"primary\"。"
+                "同时展示 primary、subtle、dashed、text、link 和 danger。",
+                "每种外观配有中文名称、属性值和用途说明。"
             ],
             "source": "rc-button/step-1.tsx"
         },
@@ -28,12 +29,50 @@
                 "新增 primary 状态，通过 appearance 切换主次外观。"
             ],
             "source": "rc-button/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "尺寸对照",
+            "goal": "同时查看三种尺寸在六种外观下的效果。",
+            "why": "直接并排展示 small、middle 和 large，便于比较高度、内边距与字号。",
+            "instruction": "纵向比较三行尺寸，横向比较同一尺寸的六种外观，并点击按钮查看属性。",
+            "expected": "默认鼠标环境下，三档高度分别为 24px、32px、40px；窄屏时按钮自动换行。",
+            "changes": ["通过 size 设置小、中、大三档尺寸。", "保留相同的外观顺序，方便直观比较。"],
+            "source": "rc-button/step-3.tsx"
+        },
+        {
+            "id": "step-4",
+            "title": "图标与组合",
+            "goal": "查看前后置图标、纯图标、圆形、选中按钮组和通栏按钮。",
+            "why": "图标位置、按钮形状与容器宽度决定按钮如何融入表单和工具栏。",
+            "instruction": "点击图标按钮，切换粗体、斜体和下划线；比较三个圆形尺寸，体验通栏按钮和 API 链接。",
+            "expected": "每个可用按钮都有反馈；按钮组独立保留多个选中项，通栏按钮撑满当前容器。",
+            "changes": ["使用 icon、iconAfter、shape 与 aria-label。", "使用 ButtonGroup、isSelected、shouldFitContainer 和 href。"],
+            "source": "rc-button/step-4.tsx"
+        },
+        {
+            "id": "step-5",
+            "title": "状态与明暗主题",
+            "goal": "在明暗背景上对照默认、禁用、加载和选中，并比较常规按钮与主按钮的搭配。",
+            "why": "主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。",
+            "instruction": "切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。",
+            "expected": "常规按钮默认使用浅阴影；悬停时阴影增强、按压时收回，交互显现品牌色，选中使用无阴影的强填充；主操作保持醒目，禁用和加载不触发操作。",
+            "changes": ["用 ConfigProvider 同时展示 light 和 dark，保持按钮本身的 appearance 一致。", "并列展示 disabled、loading、isSelected，以及保存 + 取消和主要操作 + 工具栏操作。"],
+            "source": "rc-button/step-5.tsx"
         }
     ],
     "faq": [
         {
             "question": "链接外观会自动导航吗？",
             "answer": "不会。appearance=\"link\" 只改变外观；需要导航时还应传入 href。"
+        },
+        {
+            "question": "如何比较禁用、加载和选中状态？",
+            "answer": "第 5 步展示明暗主题下六种外观的默认、禁用和加载效果，以及常规按钮的可切换选中状态；第 4 步还提供 isSelected 按钮组。加载示例持续显示，方便观察，不发起网络请求。"
+        },
+        {
+            "question": "在哪里查看暗黑主题和不同品牌色？",
+            "answer": "第 5 步同时展示明暗面板，点击紫色、蓝色或绿色即可比较；页面右上角的文档主题也会影响其他示例。"
         }
     ]
 }

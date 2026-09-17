@@ -27,8 +27,8 @@ root.opacity-disabled = "var(--button-opacity-disabled, 0.4)"
 size.large.gap           = "$ref(space.component-gap)"
 size.large.height        = "40px"
 size.large.padding       = "0 $ref(space.control-padding-x)"
-size.large.border-radius = "$ref(radius.lg)"
-size.large.font-size     = "$ref(font.size.heading)"
+size.large.border-radius = "$ref(radius.md)"
+size.large.font-size     = "$ref(font.size.subhead)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
@@ -44,7 +44,7 @@ size.middle.font-size     = "$ref(font.size.body)"
 
 size.small.gap           = "$ref(space.inline-gap)"
 size.small.height        = "24px"
-size.small.padding       = "0 $ref(space.control-padding-y)"
+size.small.padding       = "0 $ref(space.control-padding-x-small)"
 size.small.border-radius = "$ref(radius.md)"
 size.small.font-size     = "$ref(font.size.body)"
 
@@ -92,19 +92,32 @@ dashed.border-color-hover      = "$ref(color.text.primary)"
 dashed.border-color-active     = "$ref(color.text.primary)"
 
 
-# ─── Subtle — 次级按钮 ───────────────────────────────────────────────────────
+# ─── Subtle — 浅阴影常规按钮，交互时显品牌色 ────────────────────────────────
 
+# Neutral roles contribute lightness/chroma; a missing hue borrows the brand hue.
+# Otherwise explicit neutral hues rotate blue/green tonal surfaces toward pink.
 subtle.color                   = "$ref(color.text.primary)"
-subtle.color-hover             = "$ref(color.text.primary)"
-subtle.color-active            = "$ref(color.text.primary)"
-subtle.background-color          = "$ref(color.background.surface)"
+subtle.color-hover             = "color-mix(in oklch, $ref(color.brand.primary) 85%, oklch(from $ref(color.text.primary) l c none))"
+subtle.color-active            = "color-mix(in oklch, $ref(color.brand.primary) 85%, oklch(from $ref(color.text.primary) l c none))"
+subtle.color-disabled          = "$ref(color.text.primary)"
+subtle.background-color          = "$ref(color.background.elevated)"
+subtle.background-color-hover    = "color-mix(in oklch, $ref(color.brand.primary) 4%, oklch(from $ref(color.background.elevated) l c none))"
+subtle.background-color-active   = "color-mix(in oklch, $ref(color.brand.primary) 8%, oklch(from $ref(color.background.elevated) l c none))"
 subtle.background-color-disabled = "$ref(color.background.disabled)"
 subtle.border-width            = "1px"
 subtle.border-style            = "solid"
-subtle.border-color            = "$ref(color.border.default)"
-subtle.border-color-hover      = "$ref(color.border.hover)"
-subtle.border-color-active     = "$ref(color.border.hover)"
-subtle.box-shadow              = "none"
+# Keep the border footprint and public overrides without drawing an outline.
+subtle.border-color            = "transparent"
+subtle.border-color-hover      = "transparent"
+subtle.border-color-active     = "transparent"
+subtle.border-color-disabled   = "transparent"
+# One short drop shadow avoids the inset ring and doubled edges of a raised frame.
+# Dark themes rely on the elevated surface, not a light outline or glow.
+subtle.box-shadow              = "0 1px 2px color-mix(in oklch, $ref(color.background.overlay) 20%, transparent)"
+subtle.box-shadow-hover        = "0 2px 3px -1px color-mix(in oklch, $ref(color.background.overlay) 24%, transparent)"
+subtle.box-shadow-active       = "0 0 0 0 transparent"
+subtle.box-shadow-disabled     = "none"
+subtle.box-shadow-selected     = "none"
 
 
 # ─── Danger — 危险按钮 ───────────────────────────────────────────────────────

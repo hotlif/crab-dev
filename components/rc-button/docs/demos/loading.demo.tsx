@@ -1,7 +1,7 @@
 
 export const meta = {
     title: "加载中",
-    description: "添加 `loading` 属性即可让按钮处于加载状态",
+    description: "展示全部六种外观的 loading 状态；加载指示持续显示，方便比较。",
 };
 
 import { css } from "@crab-dev/css";
@@ -47,6 +47,7 @@ const SizeDemo = () => {
             >
                 link
             </Button>
+            <Button loading appearance="danger">danger</Button>
         </div>
     )
 }
