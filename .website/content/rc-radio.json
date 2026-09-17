@@ -27,6 +27,19 @@
                 "通过组级 value 与 onChange 管理选中值。"
             ],
             "source": "rc-radio/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "视觉状态与明暗主题",
+            "goal": "对照圆环、圆点、交互状态层和三种视觉尺寸。",
+            "why": "参考 Material Design 3，以品牌色圆环和同色圆点表达选中，交互反馈不改变布局。",
+            "instruction": "切换紫、蓝、绿品牌色；在两种主题下悬停、按压，并用 Tab 和方向键操作。",
+            "expected": "圆点与圆环跟随主题，焦点可见，禁用选项不响应，切换前后位置和尺寸稳定。",
+            "changes": [
+                "通过 ConfigProvider 同时展示浅色与深色主题。",
+                "覆盖可用、禁用、校验提示及 small / middle / large。"
+            ],
+            "source": "rc-radio/step-3.tsx"
         }
     ],
     "faq": [

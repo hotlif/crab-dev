@@ -20,6 +20,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
     name,
     children,
     className,
+    ...restProps
 }) => {
     // Native arrow navigation must stay within this group, including unnamed groups.
     const generatedName = useId();
@@ -34,7 +35,7 @@ const RadioGroup: FC<RadioGroupProps> = ({
 
     return (
         <RadioGroupContext value={{ value, disabled, size, name: groupName, selectValue }}>
-            <div className={cx(groupStyle, className)} role="radiogroup">
+            <div {...restProps} className={cx(groupStyle, className)} role="radiogroup">
                 {children}
             </div>
         </RadioGroupContext>

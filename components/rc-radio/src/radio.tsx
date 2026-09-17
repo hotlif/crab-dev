@@ -8,48 +8,98 @@ import { useRadioGroup } from './context.js';
 const wrapperStyle = css`
     position: relative;
     display: inline-flex;
+    vertical-align: middle;
     align-items: center;
+    max-width: 100%;
     gap: ${token.label.gap};
     cursor: pointer;
     color: ${token.label.color};
     line-height: ${token.root['line-height']};
     user-select: none;
 
+    &:not([data-disabled]):hover > input + span::before {
+        opacity: ${token['state-layer']['opacity-hover']};
+    }
+    &:not([data-disabled]):is(:hover, :active, :has(> input:focus-visible)) [data-radio-part='box'] {
+        border-color: ${token.control['border-color-hover']};
+    }
+
     > input:focus-visible + span {
         outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
         outline-offset: ${token.root['outline-offset-focus']};
     }
-    @media (pointer: coarse) {
-        min-width: ${token.root.touch['min-width']};
-        min-height: ${token.root.touch['min-height']};
+    > input:focus-visible + span::before {
+        opacity: ${token['state-layer']['opacity-focus']};
     }
-    @media (forced-colors: active) {
-        > input + span {
-            forced-color-adjust: none;
-            background: Canvas;
-            border-color: CanvasText;
-            color: CanvasText;
-            > svg { color: inherit; }
-            > span { background: currentColor; }
+    &:not([data-disabled]):active > input + span::before,
+    > input:not(:disabled):active + span::before {
+        opacity: ${token['state-layer']['opacity-pressed']};
+    }
+
+    &[data-state='checked'] {
+        > input + span::before {
+            background-color: ${token['state-layer']['color-selected']};
         }
-        > input:checked + span {
-            background: Highlight;
-            border-color: Highlight;
-            color: HighlightText;
+        [data-radio-part='box'] {
+            background-color: ${token.control.checked['background-color']};
+            border-color: ${token.control.checked['border-color']};
         }
-        > input:disabled + span {
-            background: Canvas;
-            border-color: GrayText;
-            color: GrayText;
+        &:not([data-disabled]):is(:hover, :active, :has(> input:focus-visible)) [data-radio-part='box'] {
+            background-color: ${token.control.checked['background-color-hover']};
+            border-color: ${token.control.checked['border-color']};
         }
-        > input:focus-visible + span { outline-color: Highlight; }
+        [data-radio-part='dot'] {
+            opacity: 1;
+            scale: ${token.dot['scale-visible']};
+        }
+    }
+
+    &:not([data-disabled])[data-state]:has(> input[aria-invalid='true']) {
+        > input + span::before { background-color: ${token['state-layer']['color-error']}; }
+        [data-radio-part='box'] { border-color: ${token.control['border-color-error']}; }
+        [data-radio-part='dot'] { background-color: ${token.dot['color-error']}; }
+        > input:focus-visible + span { outline-color: ${token.control['border-color-error']}; }
     }
 
     &[data-disabled] {
         cursor: not-allowed;
-        pointer-events: none;
         color: ${token.label['color-disabled']};
         opacity: ${token.root['opacity-disabled']};
+        > input + span::before { opacity: 0; }
+        [data-radio-part='box'] {
+            background-color: ${token.control['background-color-disabled']};
+            border-color: ${token.control['border-color-disabled']};
+            transition: none;
+        }
+        [data-radio-part='dot'] {
+            background-color: ${token.dot['color-disabled']};
+            transition: none;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        [data-radio-part], > input + span::before { transition: none; }
+    }
+    @media (forced-colors: active) {
+        color: CanvasText !important;
+        > input + span::before { display: none; }
+        > input:focus-visible + span { outline-color: Highlight !important; }
+        &[data-state] [data-radio-part='box'] {
+            forced-color-adjust: none;
+            background-color: Canvas !important;
+            border-color: CanvasText !important;
+        }
+        &[data-state='checked'] [data-radio-part='box'] { border-color: Highlight !important; }
+        &[data-state] [data-radio-part='dot'] {
+            forced-color-adjust: none;
+            background-color: Highlight !important;
+        }
+        &[data-disabled] {
+            opacity: 1;
+            color: GrayText !important;
+            &[data-state] [data-radio-part='box'] { border-color: GrayText !important; }
+            [data-radio-part='dot'] { background-color: GrayText !important; }
+        }
     }
 `;
 
@@ -65,50 +115,62 @@ const hiddenInputStyle = css`
     border: 0;
 `;
 
-const boxStyle = css`
+const controlStyle = css`
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: none;
+    width: ${token.control['target-size']};
+    height: ${token.control['target-size']};
+    border-radius: ${token['state-layer'].radius};
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: ${token['state-layer'].size};
+        height: ${token['state-layer'].size};
+        border-radius: inherit;
+        background-color: ${token['state-layer'].color};
+        opacity: 0;
+        pointer-events: none;
+        transition: ${token['state-layer'].transition};
+    }
+    @media (pointer: coarse) {
+        min-width: ${token.root.touch['min-width']};
+        min-height: ${token.root.touch['min-height']};
+    }
+`;
+
+const boxStyle = css`
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
     border-width: ${token.control['border-width']};
     border-style: ${token.control['border-style']};
     border-color: ${token.control['border-color']};
-    border-radius: 50%;
+    border-radius: ${token['state-layer'].radius};
     background-color: ${token.control['background-color']};
     transition: ${token.control.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    flex-shrink: 0;
-
-    &:hover {
-        border-color: ${token.control['border-color-hover']};
-    }
-`;
-
-const boxCheckedStyle = css`
-    background-color: ${token.control.checked['background-color']};
-    border-color: ${token.control.checked['border-color']};
-
-    &:hover {
-        background-color: ${token.control.checked['background-color-hover']};
-    }
-`;
-
-const boxDisabledStyle = css`
-    background-color: ${token.control['background-color-disabled']};
-    border-color: ${token.control['border-color-disabled']};
-
-    &:hover {
-        border-color: ${token.control['border-color-disabled']};
-    }
 `;
 
 const dotStyle = css`
-    border-radius: 50%;
+    /* The selection indicator must never contribute an inline-flex baseline. */
+    position: absolute;
+    border-radius: ${token['state-layer'].radius};
     background-color: ${token.dot.checked.color};
+    opacity: 0;
+    scale: ${token.dot['scale-hidden']};
+    pointer-events: none;
+    transition: ${token.dot.transition};
 `;
 
-const dotDisabledStyle = css`
-    background-color: ${token.dot['color-disabled']};
+const labelStyle = css`
+    min-width: 0;
+    overflow-wrap: anywhere;
 `;
 
 const Radio: FC<RadioProps> = ({
@@ -198,25 +260,11 @@ const Radio: FC<RadioProps> = ({
         }
     };
 
-    const renderDot = () => {
-        if (checked) {
-            return (
-                <span
-                    className={cx(
-                        dotStyle,
-                        sizeStyle.dot,
-                        disabled && dotDisabledStyle,
-                    )}
-                />
-            );
-        }
-        return null;
-    };
-
     return (
         <label
             className={cx(wrapperStyle, sizeStyle.wrapper, className)}
             data-disabled={disabled ? '' : undefined}
+            data-state={checked ? 'checked' : 'unchecked'}
         >
             <input
                 {...restProps}
@@ -229,16 +277,15 @@ const Radio: FC<RadioProps> = ({
                 value={value}
             />
             <span
-                className={cx(
-                    boxStyle,
-                    sizeStyle.box,
-                    checked && boxCheckedStyle,
-                    disabled && boxDisabledStyle,
-                )}
+                aria-hidden="true"
+                data-radio-part="control"
+                className={controlStyle}
             >
-                {renderDot()}
+                <span data-radio-part="box" className={cx(boxStyle, sizeStyle.box)}>
+                    <span data-radio-part="dot" className={cx(dotStyle, sizeStyle.dot)} />
+                </span>
             </span>
-            {children !== undefined && <span>{children}</span>}
+            {children !== undefined && <span className={labelStyle}>{children}</span>}
         </label>
     );
 };

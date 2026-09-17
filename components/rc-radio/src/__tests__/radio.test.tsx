@@ -1,4 +1,5 @@
-import { describe, expect, it, mock, fireEvent, render, act } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, act, userEvent } from "@crab-dev/wake/test/react";
 import Radio from '../radio.js';
 import RadioGroup from '../radio-group.js';
 import type { RadioProps } from '../types.js';
@@ -69,18 +70,62 @@ describe('Radio', () => {
     });
     it('renders dot indicator when checked', async () => {
         const { container } = await renderRadio({ checked: true, onChange: () => { } });
-        const box = container.querySelector('label > input + span');
-        const dot = box?.querySelector('span');
+        const dot = container.querySelector('[data-radio-part="dot"]');
         expect(dot).toBeTruthy();
     });
-    it('does not render dot when unchecked', async () => {
-        const { container } = await renderRadio({ checked: false, onChange: () => { } });
-        const box = container.querySelector('label > input + span');
-        const dot = box?.querySelector('span');
-        expect(dot).toBeNull();
+    it.each<NonNullable<RadioProps['size']>>(['small', 'middle', 'large'])(
+        'keeps the same indicator across selection changes at size %s', async (size) => {
+            const view = await render(<Radio size={size} checked={false} onChange={() => {}}>Choice</Radio>);
+            const label = view.container.querySelector('label')!;
+            const control = view.container.querySelector('[data-radio-part="control"]')!;
+            const box = view.container.querySelector('[data-radio-part="box"]')!;
+            const dot = view.container.querySelector('[data-radio-part="dot"]')!;
+            expect(dot).toBeTruthy();
+            expect(control.getAttribute('aria-hidden')).toBe('true');
+            expect(label.getAttribute('data-state')).toBe('unchecked');
+            for (const checked of [true, false, true]) {
+                await view.rerender(<Radio size={size} checked={checked} onChange={() => {}}>Choice</Radio>);
+                expect(view.container.querySelector('[data-radio-part="control"]')).toBe(control);
+                expect(view.container.querySelector('[data-radio-part="box"]')).toBe(box);
+                expect(view.container.querySelector('[data-radio-part="dot"]')).toBe(dot);
+                expect(label.getAttribute('data-state')).toBe(checked ? 'checked' : 'unchecked');
+                expect(view.container.querySelector('input')!.checked).toBe(checked);
+            }
+        },
+    );
+    it('selects from the label and keeps disabled choices unchanged', async () => {
+        const user = userEvent.setup();
+        const onChange = mock.fn();
+        const view = await render(
+            <RadioGroup defaultValue="a" onChange={onChange}>
+                <Radio value="a">First</Radio>
+                <Radio value="b">Second</Radio>
+                <Radio value="c" disabled>Unavailable</Radio>
+            </RadioGroup>,
+        );
+        const labels = view.container.querySelectorAll('label');
+        const inputs = view.container.querySelectorAll('input');
+        await user.click(labels[1]);
+        expect(inputs[0].checked).toBe(false);
+        expect(inputs[1].checked).toBe(true);
+        expect(onChange).toHaveBeenCalledTimes(1);
+        await user.click(labels[2]);
+        expect(inputs[1].checked).toBe(true);
+        expect(inputs[2].checked).toBe(false);
+        expect(onChange).toHaveBeenCalledTimes(1);
     });
 });
 describe('RadioGroup', () => {
+    it('forwards the group name and description for assistive technology', async () => {
+        const { container } = await render(
+            <RadioGroup aria-label="Frequency" aria-describedby="frequency-help">
+                <Radio value="weekly">Weekly</Radio>
+            </RadioGroup>,
+        );
+        const group = container.querySelector('[role="radiogroup"]');
+        expect(group?.getAttribute('aria-label')).toBe('Frequency');
+        expect(group?.getAttribute('aria-describedby')).toBe('frequency-help');
+    });
     it('renders with role="radiogroup"', async () => {
         const { container } = await render(<RadioGroup>
             <Radio value="a">A</Radio>

@@ -1,4 +1,4 @@
-import { type ReactNode, type InputHTMLAttributes, type ChangeEvent } from 'react';
+import { type ReactNode, type InputHTMLAttributes, type ChangeEvent, type AriaAttributes } from 'react';
 
 interface BaseRadioProps extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
@@ -33,7 +33,7 @@ interface BaseRadioProps extends Omit<
 export type RadioProps = BaseRadioProps &
     ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });
 
-export interface RadioGroupProps {
+export interface RadioGroupProps extends Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-describedby'> {
     /**
      * 当前选中的值（受控）
      */
