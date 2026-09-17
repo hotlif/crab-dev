@@ -9,15 +9,33 @@ imports = [
 root.outline-color-focus = "$ref(color.focus.ring)"
 root.outline-width-focus = "2px"
 root.outline-offset-focus = "2px"
-# Crab independent touch targets; visual size props remain unchanged.
-root.touch.min-width = "44px"
-root.touch.min-height = "44px"
+# MD3 separates the visual box, state layer and touch target.
+root.touch.min-width = "48px"
+root.touch.min-height = "48px"
 root.line-height = "$ref(font.line-height.body)"
-root.opacity-disabled = "$ref(opacity.disabled)"
+# MD3 disabled container / label opacity; scoped to Checkbox.
+root.opacity-disabled = "0.38"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 control.transition = "var(--checkbox-root-transition, var(--checkbox-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)))"
+control.target-size = "40px"
+control.background-color-error = "$ref(color.feedback.error.solid)"
+control.border-color-error = "$ref(color.border.error)"
+icon.color-error = "$ref(color.feedback.error.on-solid)"
+icon.stroke-width = "2px"
+icon.transition = "opacity $ref(motion.interaction), scale $ref(motion.interaction)"
+icon.scale-hidden = "0.6"
+icon.scale-visible = "1"
+state-layer.size = "40px"
+state-layer.radius = "$ref(radius.pill)"
+state-layer.color = "$ref(color.text.primary)"
+state-layer.color-selected = "$ref(color.brand.primary)"
+state-layer.color-error = "$ref(color.feedback.error.solid)"
+state-layer.opacity-hover = "0.08"
+state-layer.opacity-focus = "0.12"
+state-layer.opacity-pressed = "0.12"
+state-layer.transition = "opacity $ref(motion.interaction)"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────
@@ -30,45 +48,45 @@ group.gap           = "$ref(space.component-gap)"
 
 size.large.box.width         = "var(--checkbox-size-large-box-size, 20px)"
 size.large.box.border-radius = "$ref(radius.sm)"
-size.large.icon.width        = "var(--checkbox-size-large-icon-size, 14px)"
-size.large.label.font-size   = "$ref(font.size.heading)"
+size.large.icon.width        = "var(--checkbox-size-large-icon-size, 20px)"
+size.large.label.font-size   = "$ref(font.size.subhead)"
 size.large.indeterminate.width  = "10px"
 size.large.indeterminate.height = "2px"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.box.width         = "var(--checkbox-size-middle-box-size, 16px)"
+size.middle.box.width         = "var(--checkbox-size-middle-box-size, 18px)"
 size.middle.box.border-radius = "$ref(radius.sm)"
-size.middle.icon.width        = "var(--checkbox-size-middle-icon-size, 12px)"
+size.middle.icon.width        = "var(--checkbox-size-middle-icon-size, 18px)"
 size.middle.label.font-size   = "$ref(font.size.body)"
-size.middle.indeterminate.width  = "8px"
+size.middle.indeterminate.width  = "10px"
 size.middle.indeterminate.height = "2px"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.box.width         = "var(--checkbox-size-small-box-size, 14px)"
+size.small.box.width         = "var(--checkbox-size-small-box-size, 16px)"
 size.small.box.border-radius = "$ref(radius.sm)"
-size.small.icon.width        = "var(--checkbox-size-small-icon-size, 10px)"
+size.small.icon.width        = "var(--checkbox-size-small-icon-size, 16px)"
 size.small.label.font-size   = "$ref(font.size.body)"
-size.small.indeterminate.width  = "6px"
+size.small.indeterminate.width  = "8px"
 size.small.indeterminate.height = "2px"
 
 
 # ─── 默认状态 ────────────────────────────────────────────────────────────────
 
-control.border-width = "var(--checkbox-root-border-width, var(--checkbox-border-width, 1px))"
+control.border-width = "var(--checkbox-root-border-width, var(--checkbox-border-width, 2px))"
 control.border-style = "var(--checkbox-root-border-style, var(--checkbox-border-style, solid))"
-control.border-color = "var(--checkbox-root-border-color, var(--checkbox-border-color, $ref(color.border.default)))"
-control.border-color-hover = "var(--checkbox-root-border-color-hover, var(--checkbox-border-color-hover, $ref(color.border.hover)))"
-control.background-color = "var(--checkbox-root-background-color, var(--checkbox-background-color, $ref(color.background.surface)))"
+control.border-color = "var(--checkbox-root-border-color, var(--checkbox-border-color, $ref(color.text.secondary)))"
+control.border-color-hover = "var(--checkbox-root-border-color-hover, var(--checkbox-border-color-hover, $ref(color.text.primary)))"
+control.background-color = "var(--checkbox-root-background-color, var(--checkbox-background-color, transparent))"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
 
 control.checked.background-color = "var(--checkbox-root-background-color-checked, var(--checkbox-background-color-checked, var(--checkbox-checked-background-color, $ref(color.brand.primary))))"
-control.checked.background-color-hover = "var(--checkbox-root-background-color-hover-checked, var(--checkbox-background-color-hover-checked, var(--checkbox-checked-background-color-hover, $ref(color.brand.primary-hover))))"
+control.checked.background-color-hover = "var(--checkbox-root-background-color-hover-checked, var(--checkbox-background-color-hover-checked, var(--checkbox-checked-background-color-hover, $ref(color.brand.primary))))"
 control.checked.border-color = "var(--checkbox-root-border-color-checked, var(--checkbox-border-color-checked, var(--checkbox-checked-border-color, $ref(color.brand.primary))))"
 icon.checked.color = "var(--checkbox-icon-color-checked, var(--checkbox-checked-icon-color, $ref(color.text.on-brand)))"
 
@@ -82,12 +100,13 @@ icon.indeterminate.color = "var(--checkbox-icon-color-indeterminate, var(--check
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-control.background-color-disabled = "var(--checkbox-root-background-color-disabled, var(--checkbox-background-color-disabled, var(--checkbox-disabled-background-color, $ref(color.background.disabled))))"
-control.border-color-disabled = "var(--checkbox-root-border-color-disabled, var(--checkbox-border-color-disabled, var(--checkbox-disabled-border-color, $ref(color.border.default))))"
-icon.color-disabled       = "var(--checkbox-disabled-icon-color, $ref(color.text.disabled))"
+control.background-color-disabled = "var(--checkbox-root-background-color-disabled, var(--checkbox-background-color-disabled, var(--checkbox-disabled-background-color, transparent)))"
+control.background-color-disabled-selected = "$ref(color.text.primary)"
+control.border-color-disabled = "var(--checkbox-root-border-color-disabled, var(--checkbox-border-color-disabled, var(--checkbox-disabled-border-color, $ref(color.text.primary))))"
+icon.color-disabled       = "var(--checkbox-disabled-icon-color, $ref(color.background.surface))"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────
 
 label.color          = "$ref(color.text.primary)"
-label.color-disabled = "$ref(color.text.disabled)"
+label.color-disabled = "$ref(color.text.primary)"

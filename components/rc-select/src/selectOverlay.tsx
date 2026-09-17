@@ -1,4 +1,4 @@
-import Checkbox from "@crab-dev/rc-checkbox";
+import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
 import { css, cx } from "@crab-dev/css";
@@ -98,6 +98,10 @@ const checkIconStyle = css`
 // 复选框仅作选中态的视觉指示，实际选中/取消由整行 onClick 统一触发（见下方 onClick），
 // 这里用 pointer-events: none 阻止其抢占点击，避免与整行点击重复触发切换。
 const checkboxIndicatorStyle = css`
+    /* The option row owns the hit area; its checkbox is a decorative indicator. */
+    ${checkboxVars['control.target-size']}: ${token.option.checkbox.size};
+    ${checkboxVars['root.touch.min-width']}: ${token.option.checkbox.size};
+    ${checkboxVars['root.touch.min-height']}: ${token.option.checkbox.size};
     display: inline-flex;
     flex-shrink: 0;
     margin-right: 8px;

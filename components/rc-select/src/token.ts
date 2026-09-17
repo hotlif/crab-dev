@@ -5,6 +5,12 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'option.checkbox.size': '--select-option-checkbox-size',
+    'option.background-color-hover': '--select-option-background-color-hover',
+    'option.color-selected': '--select-option-color-selected',
+    'option.background-color-selected': '--select-option-background-color-selected',
+    'option.color-disabled': '--select-option-color-disabled',
+    'option.highlight.background-color': '--select-option-highlight-background-color',
     'root.transition': '--select-root-transition',
     'root.border-width': '--select-root-border-width',
     'root.border-style': '--select-root-border-style',
@@ -24,11 +30,6 @@ export const vars = defineTokens({
     'text.color': '--select-text-color',
     'text.color-placeholder': '--select-text-color-placeholder',
     'text.color-disabled': '--select-text-color-disabled',
-    'option.background-color-hover': '--select-option-background-color-hover',
-    'option.color-selected': '--select-option-color-selected',
-    'option.background-color-selected': '--select-option-background-color-selected',
-    'option.color-disabled': '--select-option-color-disabled',
-    'option.highlight.background-color': '--select-option-highlight-background-color',
     'tag.background-color': '--select-tag-background-color',
     'tag.color': '--select-tag-color',
     'tag.close.color-hover': '--select-tag-close-color-hover',
@@ -55,8 +56,20 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'option': {
+        'checkbox': {
+            'size': `var(${vars['option.checkbox.size']}, 18px)`
+        },
+        'background-color-hover': `var(${vars['option.background-color-hover']}, var(--select-option-color-hover, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
+        'color-selected': `var(${vars['option.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+        'background-color-selected': `var(${vars['option.background-color-selected']}, var(--select-option-background-selected, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
+        'color-disabled': `var(${vars['option.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'highlight': {
+            'background-color': `var(${vars['option.highlight.background-color']}, var(--select-option-highlight-background, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
+        }
+    },
     'root': {
-        'transition': `var(${vars['root.transition']}, var(--select-transition, background-color 100ms cubic-bezier(0.4, 0, 0.2, 1), border-color 100ms cubic-bezier(0.4, 0, 0.2, 1), color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1)))`,
+        'transition': `var(${vars['root.transition']}, var(--select-transition, background-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), border-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), box-shadow var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`,
         'border-width': `var(${vars['root.border-width']}, var(--select-border-width, 1px))`,
         'border-style': `var(${vars['root.border-style']}, var(--select-border-style, solid))`,
         'border-color': `var(${vars['root.border-color']}, var(--select-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
@@ -79,15 +92,6 @@ const token = defineTokens({
         'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'color-placeholder': `var(${vars['text.color-placeholder']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
         'color-disabled': `var(${vars['text.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`
-    },
-    'option': {
-        'background-color-hover': `var(${vars['option.background-color-hover']}, var(--select-option-color-hover, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
-        'color-selected': `var(${vars['option.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-        'background-color-selected': `var(${vars['option.background-color-selected']}, var(--select-option-background-selected, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
-        'color-disabled': `var(${vars['option.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
-        'highlight': {
-            'background-color': `var(${vars['option.highlight.background-color']}, var(--select-option-highlight-background, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
-        }
     },
     'tag': {
         'background-color': `var(${vars['tag.background-color']}, var(--select-tag-background, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
@@ -119,7 +123,7 @@ const token = defineTokens({
         },
         'small': {
             'height': `var(${vars['size.small.height']}, 24px)`,
-            'padding': `var(${vars['size.small.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-control-padding-x-small, var(--token-global-space-2, 8px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
             'line-height': `var(${vars['size.small.line-height']}, 1.25rem)`
         }
@@ -127,9 +131,9 @@ const token = defineTokens({
     'dropdown': {
         'margin': `var(${vars['dropdown.margin']}, var(--select-dropdown-offset, 6px))`,
         'max-height': `var(${vars['dropdown.max-height']}, 240px)`,
-        'padding': `var(${vars['dropdown.padding']}, 4px)`,
+        'padding': `var(${vars['dropdown.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'option': {
-            'padding': `var(${vars['dropdown.option.padding']}, 8px)`
+            'padding': `var(${vars['dropdown.option.padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         }
     }
 });

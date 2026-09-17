@@ -2,7 +2,6 @@ import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Checkbox from "@crab-dev/rc-checkbox";
-import "@crab-dev/rc-checkbox/css/index.css";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};

@@ -1,7 +1,7 @@
 import RcVirtual, { TokenVars as VirtualTokenVars } from "@crab-dev/rc-virtual";
 import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 import { css, cx } from "@crab-dev/css";
-import Checkbox from "@crab-dev/rc-checkbox";
+import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import Radio from "@crab-dev/rc-radio";
 import Empty from "@crab-dev/rc-empty";
 
@@ -250,6 +250,11 @@ const makeColumnReactKey = (columnName: string): string =>
 
 // 选择列 body cell 居中容器
 const selectionCellStyle = css`
+    /* Dense rows own their spacing; checkbox targets must not overlap adjacent rows. */
+    ${checkboxVars['control.target-size']}: ${token['row-selection']['control-size']};
+    ${checkboxVars['state-layer.size']}: ${token['row-selection']['control-size']};
+    ${checkboxVars['root.touch.min-width']}: ${token['row-selection']['control-size']};
+    ${checkboxVars['root.touch.min-height']}: ${token['row-selection']['control-size']};
     display: flex;
     align-items: center;
     justify-content: center;

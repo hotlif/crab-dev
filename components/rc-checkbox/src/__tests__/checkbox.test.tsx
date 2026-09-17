@@ -1,4 +1,5 @@
-import { describe, expect, it, mock, fireEvent, render, act } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, act, userEvent } from "@crab-dev/wake/test/react";
 import Checkbox from '../checkbox.js';
 import CheckboxGroup from '../checkbox-group.js';
 import type { CheckboxProps } from '../types.js';
@@ -56,6 +57,14 @@ describe('Checkbox', () => {
         const label = container.querySelector('label');
         expect(label?.hasAttribute('data-disabled')).toBe(true);
     });
+    it('does not toggle a disabled control when its label is clicked', async () => {
+        const onChange = mock.fn();
+        const { container, input } = await renderCheckbox({ disabled: true, defaultChecked: true, onChange });
+        const user = userEvent.setup();
+        await user.click(container.querySelector('label') as HTMLLabelElement);
+        expect(input.checked).toBe(true);
+        expect(onChange).not.toHaveBeenCalled();
+    });
     it('forwards className to the wrapper label', async () => {
         const { container } = await render(<Checkbox className="extra-class">Test</Checkbox>);
         const label = container.querySelector('label');
@@ -65,19 +74,29 @@ describe('Checkbox', () => {
         const { input } = await renderCheckbox({ indeterminate: true });
         expect(input.indeterminate).toBe(true);
     });
-    it('renders check icon when checked', async () => {
+    it('keeps selected decoration out of the accessibility tree', async () => {
         const { container } = await render(<Checkbox checked={true}>Checked</Checkbox>);
-        expect(container.querySelector('svg')).toBeTruthy();
+        expect(container.querySelector('input')?.getAttribute('aria-checked')).toBe('true');
+        expect(container.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
+        expect(container.querySelector('svg')?.getAttribute('focusable')).toBe('false');
     });
-    it('renders indeterminate icon when indeterminate', async () => {
-        const { container } = await render(<Checkbox checked={true} indeterminate={true}>
-                Indeterminate
-        </Checkbox>);
-        expect(container.querySelector('svg')).toBeFalsy();
+    it('gives mixed state precedence and clears it when the controlled state changes', async () => {
+        const { container, input, rerender } = await renderCheckbox({ checked: true, indeterminate: true });
+        expect(input.indeterminate).toBe(true);
+        expect(input.getAttribute('aria-checked')).toBe('mixed');
+        expect(container.querySelector('label')?.getAttribute('data-state')).toBe('indeterminate');
+        await rerender(<Checkbox checked={true} indeterminate={false}>Checkbox Text</Checkbox>);
+        expect(input.indeterminate).toBe(false);
+        expect(input.getAttribute('aria-checked')).toBe('true');
+        expect(container.querySelector('label')?.getAttribute('data-state')).toBe('checked');
+        await rerender(<Checkbox checked={false}>Checkbox Text</Checkbox>);
+        expect(input.getAttribute('aria-checked')).toBe('false');
+        expect(container.querySelector('label')?.getAttribute('data-state')).toBe('unchecked');
     });
-    it('does not render icon when unchecked', async () => {
-        const { container } = await render(<Checkbox checked={false}>Unchecked</Checkbox>);
-        expect(container.querySelector('svg')).toBeFalsy();
+    it('forwards the invalid state and its associated explanation to the native input', async () => {
+        const { input } = await renderCheckbox({ 'aria-invalid': true, 'aria-describedby': 'consent-error' });
+        expect(input.getAttribute('aria-invalid')).toBe('true');
+        expect(input.getAttribute('aria-describedby')).toBe('consent-error');
     });
 });
 describe('CheckboxGroup', () => {

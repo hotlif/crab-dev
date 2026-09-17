@@ -2,7 +2,7 @@
     "id": "rc-checkbox",
     "title": "Checkbox 复选框",
     "summary": "复选框用于标记独立选项，checked 是业务保存的布尔值。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。完整代码包含公开导入和样式入口。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",
@@ -27,6 +27,19 @@
                 "将 checked 与 onChange 连接到同一个 state。"
             ],
             "source": "rc-checkbox/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "MD3 状态与明暗主题",
+            "goal": "对照 Material Design 3 的空心、选中、半选、禁用与错误外观。",
+            "why": "固定的方框和圆形状态层分别表达选择结果与交互反馈，颜色通过语义令牌适应主题。",
+            "instruction": "悬停标签、按 Tab 聚焦，切换全选与单项，再选择品牌色；勾选服务条款解除错误。",
+            "expected": "两侧同步换色，三态形状明确，禁用保持中性，交互时方框和文字位置不变。",
+            "changes": [
+                "默认使用 18px 方框、2px 描边与圆角，以及 40px 圆形状态层。",
+                "通过 ConfigProvider 对照浅色和深色；用 aria-invalid 与关联说明表达错误。"
+            ],
+            "source": "rc-checkbox/step-3.tsx"
         }
     ],
     "faq": [
