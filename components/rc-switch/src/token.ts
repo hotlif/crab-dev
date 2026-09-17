@@ -40,6 +40,7 @@ export const vars = defineTokens({
     'size.small.handle.width': '--switch-size-small-handle-width',
     'size.small.handle.left': '--switch-size-small-handle-left',
     'handle.background-color': '--switch-handle-background-color',
+    'handle.checked.background-color': '--switch-handle-checked-background-color',
     'handle.box-shadow': '--switch-handle-box-shadow',
     'handle.background-color-disabled': '--switch-handle-background-color-disabled'
 });
@@ -59,8 +60,8 @@ const token = defineTokens({
     },
     'track': {
         'border-width': `var(${vars['track.border-width']}, 1px)`,
-        'background-color': `var(${vars['track.background-color']}, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
-        'background-color-hover': `var(${vars['track.background-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
+        'background-color': `var(${vars['track.background-color']}, var(--token-semantic-color-control-track, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
+        'background-color-hover': `var(${vars['track.background-color-hover']}, var(--token-semantic-color-control-track-hover, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
         'background-color-checked': `var(${vars['track.background-color-checked']}, var(--switch-checked-track-background-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'checked': {
             'background-color-hover': `var(${vars['track.checked.background-color-hover']}, var(--switch-checked-track-background-color-hover, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))))`,
@@ -110,9 +111,12 @@ const token = defineTokens({
         }
     },
     'handle': {
-        'background-color': `var(${vars['handle.background-color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`,
+        'background-color': `var(${vars['handle.background-color']}, var(--token-semantic-color-control-thumb, var(--token-global-white, oklch(1.000 0 0))))`,
+        'checked': {
+            'background-color': `var(${vars['handle.checked.background-color']}, var(--switch-handle-background-color, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0)))))`
+        },
         'box-shadow': `var(${vars['handle.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`,
-        'background-color-disabled': `var(${vars['handle.background-color-disabled']}, var(--switch-disabled-handle-background-color, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`
+        'background-color-disabled': `var(${vars['handle.background-color-disabled']}, var(--switch-disabled-handle-background-color, var(--token-semantic-color-control-thumb, var(--token-global-white, oklch(1.000 0 0)))))`
     }
 });
 

@@ -30,7 +30,7 @@ group.gap            = "$ref(space.component-gap)"
 
 size.large.box.width = "var(--radio-size-large-box-size, 20px)"
 size.large.dot.width = "var(--radio-size-large-dot-size, 10px)"
-size.large.label.font-size   = "$ref(font.size.heading)"
+size.large.label.font-size   = "$ref(font.size.subhead)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────

@@ -19,6 +19,10 @@ panel.preview.border-color = "$ref(color.border.default)"
 panel.preview.margin-top = "$ref(space.section-gap)"
 
 panel.slider.container.gap = "$ref(space.section-gap)"
+panel.slider.label.width = "4em"
+panel.slider.label.font-size = "$ref(font.size.body)"
+panel.slider.label.font-weight = "$ref(font.weight.label)"
+panel.slider.label.line-height = "$ref(font.line-height.body)"
 
 # ===== 滑块 Slider(覆盖 rc-slider 令牌变量所需的语义色)=====
 slider.thumb.stroke-color = "$ref(color.background.surface)"

@@ -84,7 +84,7 @@ const token = defineTokens({
                 'width': `var(${vars['size.large.dot.width']}, var(--radio-size-large-dot-size, 10px))`
             },
             'label': {
-                'font-size': `var(${vars['size.large.label.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-lg, 18px)))`
+                'font-size': `var(${vars['size.large.label.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
             }
         },
         'middle': {

@@ -8,10 +8,9 @@ imports = [
 [token]
 
 # ─── 线 ──────────────────────────────────────────────────────────────────────
-# 分割线是"限制"的可视化：它把内容切成组，因此线本身必须克制——用 border.default
-# 而非更重的色阶，避免线比内容更抢眼。
+# 分割线通过 border.subtle 表达内容分组，避免与可交互控件争夺视觉权重。
 
-line.border-color = "var(--divider-line-color, $ref(color.border.default))"
+line.border-color = "var(--divider-line-color, $ref(color.border.subtle))"
 line.border-width = "var(--divider-line-width, 1px)"
 
 

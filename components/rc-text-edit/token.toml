@@ -55,6 +55,6 @@ size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
 size.middle.font-size = "$ref(font.size.body)"
 size.middle.line-height = "1.25rem"
 
-size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
+size.small.padding = "$ref(space.inline-gap) $ref(space.control-padding-x-small)"
 size.small.font-size = "$ref(font.size.body)"
 size.small.line-height = "1.25rem"

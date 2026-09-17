@@ -99,6 +99,10 @@ const handleStyle = css`
     transform: translateX(0);
 `;
 
+const handleCheckedStyle = css`
+    background-color: ${token.handle.checked['background-color']};
+`;
+
 const handleDisabledStyle = css`
     background-color: ${token.handle['background-color-disabled']};
 `;
@@ -206,6 +210,7 @@ const Switch: FC<SwitchProps> = ({
                         handleStyle,
                         sizeStyles.handle,
                         checked && sizeStyles.handleChecked,
+                        checked && handleCheckedStyle,
                         disabled && handleDisabledStyle,
                     )}
                 />

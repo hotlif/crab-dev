@@ -59,7 +59,7 @@ const token = defineTokens({
     },
     'header': {
         'padding': `var(${vars['header.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
-        'border-color': `var(${vars['header.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+        'border-color': `var(${vars['header.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'title': {
             'font-weight': `var(${vars['header.title.font-weight']}, var(--token-semantic-font-weight-heading, var(--token-global-font-weight-semibold, 600)))`,
             'font-size': `var(${vars['header.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-lg, 18px)))`,
@@ -73,7 +73,7 @@ const token = defineTokens({
     },
     'footer': {
         'padding': `var(${vars['footer.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
-        'border-color': `var(${vars['footer.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+        'border-color': `var(${vars['footer.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'gap': `var(${vars['footer.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'close': {

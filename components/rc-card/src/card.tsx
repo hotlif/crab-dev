@@ -33,6 +33,8 @@ const cardBaseStyle = css`
 
 // ─── 变体 ────────────────────────────────────────────────────────────────────
 const variantElevatedStyle = css`
+    background-color: ${token.elevated['background-color']};
+    border-color: ${token.root['border-color']};
     box-shadow: ${token.root['box-shadow']};
 `;
 const variantOutlinedStyle = css`
@@ -107,7 +109,6 @@ const clickableStyle = css`
     &:active {
         transform: ${token.root['transform-active']};
         box-shadow: ${token.root['box-shadow-active']};
-        transition-duration: 80ms;
     }
 
     @media (prefers-reduced-motion: reduce) {

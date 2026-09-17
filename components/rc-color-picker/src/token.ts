@@ -14,6 +14,10 @@ export const vars = defineTokens({
     'panel.preview.border-color': '--color-picker-panel-preview-border-color',
     'panel.preview.margin-top': '--color-picker-panel-preview-margin-top',
     'panel.slider.container.gap': '--color-picker-panel-slider-container-gap',
+    'panel.slider.label.width': '--color-picker-panel-slider-label-width',
+    'panel.slider.label.font-size': '--color-picker-panel-slider-label-font-size',
+    'panel.slider.label.font-weight': '--color-picker-panel-slider-label-font-weight',
+    'panel.slider.label.line-height': '--color-picker-panel-slider-label-line-height',
     'slider.thumb.stroke-color': '--color-picker-slider-thumb-stroke-color',
     'slider.alpha.checker.color': '--color-picker-slider-alpha-checker-color',
     'trigger.border-color': '--color-picker-trigger-border-color',
@@ -49,6 +53,12 @@ const token = defineTokens({
         'slider': {
             'container': {
                 'gap': `var(${vars['panel.slider.container.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
+            },
+            'label': {
+                'width': `var(${vars['panel.slider.label.width']}, 4em)`,
+                'font-size': `var(${vars['panel.slider.label.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
+                'font-weight': `var(${vars['panel.slider.label.font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
+                'line-height': `var(${vars['panel.slider.label.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`
             }
         }
     },

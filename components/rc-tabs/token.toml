@@ -10,7 +10,7 @@ imports = [
 # ─── 容器 ────────────────────────────────────────────────────────────────────
 root.font-weight = "var(--tabs-font-weight, $ref(font.weight.label))"
 bar.gap = "$ref(space.inline-gap)"
-bar.border-color = "$ref(color.border.default)"
+bar.border-color = "$ref(color.border.subtle)"
 content.padding-top = "$ref(space.stack-gap)"
 
 # ─── 尺寸 · 高度 / 字号 / 内边距 ─────────────────────────────────────────────
@@ -37,13 +37,13 @@ item.icon.gap = "$ref(space.inline-gap)"
 # ─── Line 类型 ───────────────────────────────────────────────────────────────
 indicator.height = "2px"
 indicator.color = "$ref(color.brand.primary)"
-indicator.transition = "transform 240ms cubic-bezier(0.4, 0, 0.2, 1), width 240ms cubic-bezier(0.4, 0, 0.2, 1)"
+indicator.transition = "transform $ref(motion.interaction), width $ref(motion.interaction)"
 
 # ─── Card 类型 ───────────────────────────────────────────────────────────────
 card.background-color = "var(--tabs-card-background, transparent)"
 card.background-color-hover = "var(--tabs-card-background-hover, $ref(color.background.hover-subtle))"
 card.background-color-active = "var(--tabs-card-background-active, $ref(color.background.surface))"
-card.border-color = "$ref(color.border.default)"
+card.border-color = "$ref(color.border.subtle)"
 card.border-radius = "$ref(radius.md)"
 
 # ─── Pill 类型 ───────────────────────────────────────────────────────────────
@@ -69,4 +69,4 @@ close.outline-width-focus = "var(--tabs-focus-ring-width, 2px)"
 close.outline-offset-focus = "1px"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
-motion.color = "color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1)"
+motion.color = "color $ref(motion.interaction), background-color $ref(motion.interaction)"

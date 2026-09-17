@@ -8,13 +8,14 @@ imports = [
 [token]
 
 # ─── 表面 ────────────────────────────────────────────────────────────────────
-# 卡片底面：elevated / outlined 共用 surface 白底，filled 用弱灰底。
+# elevated 使用浮层表面，outlined 使用普通表面，filled 使用弱填充。
 
 surface.background-color = "var(--card-surface-background, $ref(color.background.surface))"
+elevated.background-color = "var(--card-surface-background-color, var(--card-surface-background, $ref(color.background.elevated)))"
 
 # ─── 变体 — outlined / filled ────────────────────────────────────────────────
 
-root.border-color = "var(--card-border-color, $ref(color.border.default))"
+root.border-color = "var(--card-border-color, $ref(color.border.subtle))"
 root.border-color-hover = "var(--card-border-color-hover, $ref(color.border.hover))"
 
 filled.background-color       = "var(--card-filled-background, $ref(color.background.hover-subtle))"
@@ -72,9 +73,9 @@ body.line-height = "1.6"
 cover.background-color = "var(--card-cover-background, $ref(color.background.hover-subtle))"
 
 # ─── 操作区（footer）─────────────────────────────────────────────────────────
-# L2 无 divider 令牌，分割线复用 border.default（库内既定 workaround）。
+# 内容分组使用弱边框，避免与可交互控件争夺视觉权重。
 
-footer.divider.border-color = "var(--card-footer-divider-color, $ref(color.border.default))"
+footer.divider.border-color = "var(--card-footer-divider-color, $ref(color.border.subtle))"
 footer.padding-block     = "var(--card-footer-padding-y, $ref(space.component-gap))"
 footer.gap           = "$ref(space.component-gap)"
 
@@ -89,11 +90,10 @@ meta.desc.color = "$ref(color.text.secondary)"
 meta.desc.font-size = "var(--card-meta-desc-size, $ref(font.size.caption))"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
-# 浮起 / 封面缩放走 easeOutExpo（快出缓收，丝滑收尾）；时长略长于 L2 interaction，
-# 让阴影展开有可感知的过渡但不拖沓。
+# 状态反馈统一 interaction，封面缩放使用 expand。
 
-root.transition  = "var(--card-motion-lift, transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms cubic-bezier(0.16, 1, 0.3, 1))"
-cover.transition = "var(--card-motion-cover, transform 320ms cubic-bezier(0.16, 1, 0.3, 1))"
+root.transition  = "var(--card-motion-lift, transform $ref(motion.interaction), box-shadow $ref(motion.interaction), border-color $ref(motion.interaction), background-color $ref(motion.interaction))"
+cover.transition = "var(--card-motion-cover, transform $ref(motion.expand))"
 
 # ─── 焦点环 ──────────────────────────────────────────────────────────────────
 

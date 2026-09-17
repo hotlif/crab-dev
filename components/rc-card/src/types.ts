@@ -2,8 +2,8 @@ import type { HTMLAttributes, MouseEventHandler, ReactNode, Ref } from 'react';
 
 /**
  * 卡片视觉变体。
- * - `elevated`：白底 + 静态微投影（默认）
- * - `outlined`：白底 + 1px 描边, 无投影
+ * - `elevated`：浮层表面 + 弱描边 + 静态微投影（默认）
+ * - `outlined`：普通表面 + 1px 弱描边, 无投影
  * - `filled`：弱灰底, 无描边无投影
  */
 export type CardVariant = 'elevated' | 'outlined' | 'filled';

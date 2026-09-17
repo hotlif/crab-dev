@@ -20,7 +20,7 @@ size.medium.height = "360px"
 size.large.height  = "480px"
 
 header.padding              = "$ref(space.card-padding) $ref(space.dialog-padding)"
-header.border-color         = "$ref(color.border.default)"
+header.border-color         = "$ref(color.border.subtle)"
 header.title.font-weight    = "$ref(font.weight.heading)"
 header.title.font-size      = "$ref(font.size.heading)"
 header.title.color          = "$ref(color.text.primary)"
@@ -30,7 +30,7 @@ header.title.letter-spacing = "-0.01em"
 body.padding              = "$ref(space.card-padding) $ref(space.dialog-padding)"
 
 footer.padding            = "$ref(space.stack-gap) $ref(space.dialog-padding)"
-footer.border-color       = "$ref(color.border.default)"
+footer.border-color       = "$ref(color.border.subtle)"
 footer.gap                = "$ref(space.component-gap)"
 
 close.width               = "var(--drawer-close-size, 32px)"

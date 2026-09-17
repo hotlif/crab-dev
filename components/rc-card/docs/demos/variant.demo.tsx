@@ -16,13 +16,13 @@ const VariantDemo = () => {
     return (
         <div className={rowStyle}>
             <Card variant="elevated" title="Elevated">
-                白底 + 静态微投影, 适合置于灰底页面之上。
+                浮层表面 + 弱边框 + 微投影，暗黑模式仍能区分层次。
             </Card>
             <Card variant="outlined" title="Outlined">
-                白底 + 1px 描边, 适合信息密集的平铺列表。
+                普通表面 + 1px 弱描边，适合信息密集的平铺列表。
             </Card>
             <Card variant="filled" title="Filled">
-                弱灰底无描边, 适合嵌在白底容器内部做轻分组。
+                弱填充、无描边，适合在内容容器内部做轻分组。
             </Card>
         </div>
     );

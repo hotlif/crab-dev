@@ -7,6 +7,7 @@ const menuItem = css`
     position: relative;
     user-select: none;
     transition: ${token.horizontal.item.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `
 
 const menuItemWithDivider = css`

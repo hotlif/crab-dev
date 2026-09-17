@@ -21,17 +21,18 @@ export interface ColorPickerPanelProps extends Omit<HTMLAttributes<HTMLDivElemen
 }
 
 const sliderContainerStyle = css`
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: ${token.panel.slider.label.width} minmax(0, 1fr);
     align-items: center;
     gap: ${token.panel.slider.container.gap};
     > label {
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.2;
+        font-size: ${token.panel.slider.label['font-size']};
+        font-weight: ${token.panel.slider.label['font-weight']};
+        line-height: ${token.panel.slider.label['line-height']};
+        overflow-wrap: anywhere;
     }
     > div {
-        flex: 1;
+        min-width: 0;
     }
 `;
 

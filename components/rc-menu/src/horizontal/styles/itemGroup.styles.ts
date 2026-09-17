@@ -7,6 +7,7 @@ const groupItemContainer = css`
     user-select: none;
     margin: ${token.horizontal["group-item"].margin};
     transition: ${token.horizontal["group-item"].transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `
 
 const groupChildrenList = css`

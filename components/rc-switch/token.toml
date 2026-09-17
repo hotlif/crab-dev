@@ -56,8 +56,8 @@ size.small.handle.left = "var(--switch-size-small-handle-offset, 2px)"
 
 # ─── 默认状态（未选中） ──────────────────────────────────────────────────────
 
-track.background-color       = "$ref(color.background.active-subtle)"
-track.background-color-hover = "$ref(color.border.hover)"
+track.background-color       = "$ref(color.control.track)"
+track.background-color-hover = "$ref(color.control.track-hover)"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
@@ -68,7 +68,8 @@ track.checked.background-color-hover = "var(--switch-checked-track-background-co
 
 # ─── 手柄 ────────────────────────────────────────────────────────────────────
 
-handle.background-color = "$ref(color.background.surface)"
+handle.background-color = "$ref(color.control.thumb)"
+handle.checked.background-color = "var(--switch-handle-background-color, $ref(color.text.on-brand))"
 handle.box-shadow       = "$ref(shadow.float)"
 
 
@@ -76,7 +77,7 @@ handle.box-shadow       = "$ref(shadow.float)"
 
 track.background-color-disabled         = "var(--switch-disabled-track-background-color, $ref(color.background.disabled))"
 track.checked.background-color-disabled = "var(--switch-disabled-checked-track-background-color, $ref(color.background.disabled))"
-handle.background-color-disabled        = "var(--switch-disabled-handle-background-color, $ref(color.background.surface))"
+handle.background-color-disabled        = "var(--switch-disabled-handle-background-color, $ref(color.control.thumb))"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────

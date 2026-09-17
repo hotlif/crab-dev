@@ -69,6 +69,8 @@ const itemBaseStyle = css`
     font-weight: inherit;
     transition: ${token.motion.color};
 
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+
     &:hover {
         color: ${token.item['color-hover']};
     }
@@ -165,6 +167,7 @@ const indicatorStyle = css`
     transform: translateX(var(--rc-tabs-indicator-x, 0));
     width: var(--rc-tabs-indicator-w, 0);
     transition: ${token.indicator.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 const indicatorHiddenStyle = css`
@@ -185,6 +188,7 @@ const closeButtonStyle = css`
     cursor: pointer;
     border-radius: ${token.close['border-radius']};
     transition: ${token.motion.color};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 
     &:hover {
         color: ${token.close['color-hover']};

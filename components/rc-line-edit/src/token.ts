@@ -115,7 +115,7 @@ const token = defineTokens({
         },
         'small': {
             'height': `var(${vars['size.small.height']}, 24px)`,
-            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-control-padding-x-small, var(--token-global-space-2, 8px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
             'line-height': `var(${vars['size.small.line-height']}, 1.25rem)`
         }

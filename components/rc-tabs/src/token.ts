@@ -56,7 +56,7 @@ const token = defineTokens({
     },
     'bar': {
         'gap': `var(${vars['bar.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'border-color': `var(${vars['bar.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
+        'border-color': `var(${vars['bar.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
     },
     'content': {
         'padding-top': `var(${vars['content.padding-top']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
@@ -90,13 +90,13 @@ const token = defineTokens({
     'indicator': {
         'height': `var(${vars['indicator.height']}, 2px)`,
         'color': `var(${vars['indicator.color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-        'transition': `var(${vars['indicator.transition']}, transform 240ms cubic-bezier(0.4, 0, 0.2, 1), width 240ms cubic-bezier(0.4, 0, 0.2, 1))`
+        'transition': `var(${vars['indicator.transition']}, transform var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), width var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
     },
     'card': {
         'background-color': `var(${vars['card.background-color']}, var(--tabs-card-background, transparent))`,
         'background-color-hover': `var(${vars['card.background-color-hover']}, var(--tabs-card-background-hover, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
         'background-color-active': `var(${vars['card.background-color-active']}, var(--tabs-card-background-active, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`,
-        'border-color': `var(${vars['card.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+        'border-color': `var(${vars['card.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'border-radius': `var(${vars['card.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`
     },
     'pill': {
@@ -122,7 +122,7 @@ const token = defineTokens({
         'outline-offset-focus': `var(${vars['tab.outline-offset-focus']}, var(--tabs-focus-ring-offset, 2px))`
     },
     'motion': {
-        'color': `var(${vars['motion.color']}, color 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1))`
+        'color': `var(${vars['motion.color']}, color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), background-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
     }
 });
 
