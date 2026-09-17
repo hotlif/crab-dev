@@ -16,10 +16,15 @@ status = "experimental"
 - 键盘与事件：`useKeyDown`、`useEventCallback`。
 - 受控状态：`useControllableValue`、`useControllableOpen`。
 - 尺寸与布局：`useResizeObserver`、`useSize`、`useDragResize`。
-- 定时任务：`useTimeout`、`useInterval`。
+- 定时任务：`useTimeout`、`useInterval`、支持暂停后继续剩余时间的 `useCountdown`。
+- CSS 退场：`usePresence` 保留节点直到自身过渡结束，重新打开会取消旧的卸载流程。
 - 环境与历史值：`useMediaQuery`、`usePrevious`、`useIsomorphicLayoutEffect`。
 
 Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
+
+`usePresence(open, onExitComplete?)` 返回 `present`、`ref` 和 `state`。用 `present` 控制挂载，将 `ref` 绑定到执行退场动画的元素，用 `data-state={state}` 区分 `open` / `closed`，并通过 CSS `@starting-style` 定义入场。它只观察动画完成，不计算动画帧；减少动态效果偏好下没有过渡时立即完成卸载。不要将它绑定到无限动画的 spinner 上。
+
+`useCountdown(duration, paused, onFinish?)` 使用毫秒计时，返回最近一次暂停或恢复时的剩余时间快照，不逐帧刷新。`duration <= 0` 时不自动结束；修改时长会重新计时，卸载时清理计时器。
 
 ## 代码演示
 
