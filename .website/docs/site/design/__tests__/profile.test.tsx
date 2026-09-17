@@ -4,10 +4,12 @@ import type { Profile } from "../data.js";
 
 // Keep controlled visibility and confirmation semantics; layout/animation require a browser.
 mock.module("@crab-dev/rc-drawer", () => ({
+    __esModule: true,
     default: ({ open, title, children, className }: import("@crab-dev/rc-drawer").DrawerProps) => open
         ? <section className={className} aria-label={String(title)}>{children}</section> : null,
 }));
 mock.module("@crab-dev/rc-dialog", () => ({
+    __esModule: true,
     default: ({ open, title, children, onConfirm, onOpenChange, i18n }: import("@crab-dev/rc-dialog").DialogProps) => open
         ? <section aria-label={String(title)}>{children}<button onClick={() => { void onConfirm?.(); }}>{i18n?.confirmText}</button><button onClick={() => onOpenChange(false)}>{i18n?.cancelText}</button></section> : null,
 }));

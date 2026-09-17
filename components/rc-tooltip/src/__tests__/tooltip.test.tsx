@@ -1,22 +1,5 @@
 import { beforeAll, describe, expect, it, mock, act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 
-mock.module("motion/react", async () => {
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = (props: Record<string, unknown>) => {
-        const elementProps = { ...props };
-        delete elementProps.initial;
-        delete elementProps.animate;
-        delete elementProps.exit;
-        delete elementProps.transition;
-        return mockReact.createElement("div", elementProps);
-    };
-    return {
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: { children?: import("react").ReactNode }) => (
-            mockReact.createElement(mockReact.Fragment, null, children)
-        ),
-    };
-});
 
 mock.module("@floating-ui/react", async () => {
     const mockReact = await mock.actual<typeof import("react")>("react");

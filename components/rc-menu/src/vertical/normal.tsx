@@ -1,7 +1,7 @@
 import { type FC, type ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 
-import { motion, AnimatePresence } from "motion/react"
+import { usePresence } from "@crab-dev/rc-hooks";
 
 import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon.js";
 import { type MenuProps } from "../menu.js";
@@ -112,6 +112,26 @@ const ulChildrenStyle = css`
     height: auto;
     background-color: ${verticalItemChildrenBackgroundColor};
 `
+
+const collapseStyle = css`
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows ${token.motion.expand};
+    &[data-state="closed"] { grid-template-rows: 0fr; }
+
+    @starting-style { grid-template-rows: 0fr; }
+    & > div { min-height: 0; overflow: hidden; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+`;
+
+function Submenu({ open, children }: { open: boolean; children: ReactNode }) {
+    const presence = usePresence<HTMLDivElement>(open);
+    if (!presence.present) return null;
+    return <div ref={presence.ref} className={collapseStyle} data-state={presence.state} inert={!open}>
+        <div><ul className={cx(ulStyle, ulChildrenStyle)}>{children}</ul></div>
+    </div>;
+}
 
 const ulChildrenItemGroupStyle = css`
     overflow: hidden;
@@ -243,30 +263,9 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                     >
                         {item.title}
                     </span>
-                    <AnimatePresence initial={false}>
-                        {renderChildrenStateIcon(item, children)}
-                    </AnimatePresence>
+                    {renderChildrenStateIcon(item, children)}
                 </div>
-                <AnimatePresence initial={false}>
-                    {
-                        openKeys?.includes(item.key) ?
-                            (
-                                <motion.ul
-                                    className={cx.call(undefined, ulStyle, ulChildrenStyle)}
-                                    animate="open"
-                                    initial="collapsed"
-                                    exit="collapsed"
-                                    variants={{
-                                        open: { height: "auto" },
-                                        collapsed: { height: 0 }
-                                    }}
-                                    transition={{ duration: 0.4, ease: "anticipate"}}
-                                >
-                                    {children}
-                                </motion.ul>
-                            ) : null
-                    }
-                </AnimatePresence>
+                <Submenu open={openKeys?.includes(item.key) === true}>{children}</Submenu>
             </li>
         );
     }

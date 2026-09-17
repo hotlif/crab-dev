@@ -93,7 +93,9 @@ export const vars = defineTokens({
     'tab.context-menu.item.icon.width': '--app-main-layout-tab-context-menu-item-icon-width',
     'tab.context-menu.item.icon.color': '--app-main-layout-tab-context-menu-item-icon-color',
     'tab.context-menu.separator.background-color': '--app-main-layout-tab-context-menu-separator-background-color',
-    'tab.context-menu.separator.margin': '--app-main-layout-tab-context-menu-separator-margin'
+    'tab.context-menu.separator.margin': '--app-main-layout-tab-context-menu-separator-margin',
+    'motion.interaction': '--app-main-layout-motion-interaction',
+    'motion.offset': '--app-main-layout-motion-offset'
 });
 
 const token = defineTokens({
@@ -241,6 +243,10 @@ const token = defineTokens({
                 'margin': `var(${vars['tab.context-menu.separator.margin']}, 4px 0)`
             }
         }
+    },
+    'motion': {
+        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+        'offset': `var(${vars['motion.offset']}, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1))`
     }
 });
 

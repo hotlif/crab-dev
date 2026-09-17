@@ -2,7 +2,7 @@ import { css, cx } from "@crab-dev/css";
 import { useEffect, useRef, useState } from "react";
 import type { FC, Key, HTMLAttributes } from "react";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/react";
-import { AnimatePresence, motion } from "motion/react";
+import { usePresence } from "@crab-dev/rc-hooks";
 import Breadcrumbs, { type BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 import Skeleton from "@crab-dev/rc-skeleton";
 
@@ -235,7 +235,13 @@ const userMenuStyle = css`
     z-index: ${token.tab['context-menu']['z-index']};
     box-sizing: border-box;
     transform-origin: top center;
-    will-change: transform, opacity;
+    opacity: 1;
+    translate: 0 0;
+    transition: opacity ${token.motion.interaction}, translate ${token.motion.interaction};
+    @starting-style { opacity: 0; translate: 0 ${token.motion.offset}; }
+    &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset}; }
+
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 const userMenuItemStyle = css`
@@ -371,6 +377,7 @@ const Header: FC<HeaderProps> = ({
     const userMenuWrapRef = useRef<HTMLDivElement>(null);
     const userMenuCloseTimerRef = useRef<number | null>(null);
     const canShowUserMenu = !userLoading && userMenuOpen;
+    const presence = usePresence<HTMLDivElement>(canShowUserMenu);
     const { refs, floatingStyles } = useFloating({
         placement: "bottom",
         strategy: "absolute",
@@ -542,50 +549,46 @@ const Header: FC<HeaderProps> = ({
                             <span className={avatarStyle}>{resolvedUser.avatar}</span>
                         )}
                     </button>
-                    <AnimatePresence>
-                        {canShowUserMenu ? (
-                            <motion.div
-                                ref={refs.setFloating}
-                                className={userMenuStyle}
-                                style={floatingStyles}
-                                role="menu"
-                                aria-label="User actions"
-                                initial={{ opacity: 0, y: -8, scale: 0.95 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: -6, scale: 0.95 }}
-                                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    {presence.present ? (
+                        <div
+                            ref={(node) => { refs.setFloating(node); presence.ref(node); }}
+                            data-state={presence.state}
+                            inert={!canShowUserMenu}
+                            className={userMenuStyle}
+                            style={floatingStyles}
+                            role="menu"
+                            aria-label="User actions"
+                        >
+                            <button
+                                type="button"
+                                role="menuitem"
+                                className={userMenuItemStyle}
+                                onClick={() => {
+                                    setUserMenuOpen(false);
+                                    onSwitchRole?.();
+                                }}
                             >
-                                <button
-                                    type="button"
-                                    role="menuitem"
-                                    className={userMenuItemStyle}
-                                    onClick={() => {
-                                        setUserMenuOpen(false);
-                                        onSwitchRole?.();
-                                    }}
-                                >
-                                    <span className={userMenuItemIconStyle} aria-hidden>
-                                        <SwitchRoleIcon />
-                                    </span>
-                                    切换角色
-                                </button>
-                                <button
-                                    type="button"
-                                    role="menuitem"
-                                    className={userMenuItemStyle}
-                                    onClick={() => {
-                                        setUserMenuOpen(false);
-                                        onLogout?.();
-                                    }}
-                                >
-                                    <span className={userMenuItemIconStyle} aria-hidden>
-                                        <LogoutIcon />
-                                    </span>
-                                    退出登录
-                                </button>
-                            </motion.div>
-                        ) : null}
-                    </AnimatePresence>
+                                <span className={userMenuItemIconStyle} aria-hidden>
+                                    <SwitchRoleIcon />
+                                </span>
+                                切换角色
+                            </button>
+                            <button
+                                type="button"
+                                role="menuitem"
+                                className={userMenuItemStyle}
+                                onClick={() => {
+                                    setUserMenuOpen(false);
+                                    onLogout?.();
+                                }}
+                            >
+                                <span className={userMenuItemIconStyle} aria-hidden>
+                                    <LogoutIcon />
+                                </span>
+                                退出登录
+                            </button>
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </header>

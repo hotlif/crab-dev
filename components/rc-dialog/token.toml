@@ -32,3 +32,7 @@ footer.margin-top = "$ref(space.stack-gap)"
 footer.button.margin = "var(--dialog-footer-button-spacing, $ref(space.component-gap))"
 footer.button.min-height = "32px"
 footer.button.padding-block = "$ref(space.inline-gap)"
+
+motion.fade = "$ref(motion.fade)"
+motion.interaction = "$ref(motion.interaction)"
+motion.offset = "calc($ref(space.component-gap) * -1)"

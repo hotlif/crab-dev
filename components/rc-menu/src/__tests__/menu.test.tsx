@@ -1,16 +1,8 @@
 import { act, afterEach, beforeAll, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
-import { type ReactNode, type HTMLAttributes, type Key } from "react";
+import { type ReactNode, type Key } from "react";
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
-mock.module("motion/react", () => ({
-    AnimatePresence: ({ children }: {
-        children?: ReactNode;
-    }) => <>{children}</>,
-    motion: {
-        ul: ({ children, ...props }: HTMLAttributes<HTMLUListElement>) => <ul {...props}>{children}</ul>,
-    },
-}));
 let mockFloatingCloseHandler: (() => void) | undefined;
 let mockFloatingEmit = mock.fn();
 let mockFloatingParentId: string | null = null;

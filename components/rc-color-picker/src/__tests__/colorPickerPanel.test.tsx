@@ -1,15 +1,6 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
-import type { ComponentPropsWithRef } from 'react';
+
 import type { ColorPickerPanelLocale, OKLCHValue } from '../types.js';
-mock.module('motion/react', async () => {
-    const mockReact = await mock.actual<typeof import('react')>('react');
-    const MockDiv = ({ ref, ...props }: ComponentPropsWithRef<'div'>) => mockReact.createElement('div', { ...props, ref });
-    return {
-        useReducedMotion: () => false,
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: { children: unknown }) => children,
-    };
-});
 let ColorPickerPanel: (typeof import('../panels/colorPickerPanel.js'))['default'];
 beforeAll(async () => {
     const panelModule = await mock.import<typeof import('../panels/colorPickerPanel.js')>('../panels/colorPickerPanel.js');

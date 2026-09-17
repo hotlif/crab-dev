@@ -5,6 +5,7 @@ import type { CommonProps, DemoProps, PageProps, SearchState } from "@crab-dev/w
 
 // Keep delayed content mounting after open, plus controlled close semantics.
 mock.module("@crab-dev/rc-dialog", () => ({
+    __esModule: true,
     default: function DialogFixture({ ref, title, children, open }: import("@crab-dev/rc-dialog").DialogProps) {
         const [mounted, setMounted] = useState(false);
         useEffect(() => { setMounted(open); }, [open]);
@@ -16,6 +17,7 @@ mock.module("@crab-dev/rc-dialog", () => ({
 
 // 仅替换动画与布局；保留 Drawer 的取消回调和退出完成 close 事件。
 mock.module("@crab-dev/rc-drawer", () => ({
+    __esModule: true,
     default: ({ open, onOpenChange, children }: import("@crab-dev/rc-drawer").DrawerProps) => (
         <dialog open={open} aria-label="文档导航" onCancel={() => onOpenChange(false)}>
             {children}

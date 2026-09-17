@@ -9,7 +9,7 @@ import {
 } from "react";
 import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
 import RcButton from "@crab-dev/rc-button";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { usePresence } from "@crab-dev/rc-hooks";
 
 import token from "./token.js";
 
@@ -102,9 +102,31 @@ const elevationBoxShadow = token.root['box-shadow'];
 
 const top = token.root.top;
 
-// Motion uses seconds rather than CSS token values: 200 ms enter / 150 ms exit.
-// A short tween settles without the previous spring's residual movement.
-const contentMotionOffset = -8;
+const fadeStyle = css`
+    opacity: 1;
+    transition: opacity ${token.motion.fade};
+    @starting-style { opacity: 0; }
+    &[data-state="closed"] { opacity: 0; transition: opacity ${token.motion.interaction}; }
+
+    @media (prefers-reduced-motion: reduce) {
+        &, &[data-state="closed"] { transition: none; }
+    }
+`;
+
+const contentMotionStyle = css`
+    opacity: 1;
+    translate: 0 0;
+    transition: opacity ${token.motion.fade}, translate ${token.motion.fade};
+    @starting-style { opacity: 0; translate: 0 ${token.motion.offset}; }
+    &[data-state="closed"] {
+        opacity: 0; translate: 0 ${token.motion.offset};
+        transition: opacity ${token.motion.interaction}, translate ${token.motion.interaction};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &, &[data-state="closed"] { transition: none; }
+    }
+`;
 
 
 const dialogReset = css`
@@ -130,13 +152,17 @@ function Dialog({
     const dialogRef = useRef<HTMLDialogElement>(null);
     // Mutable instance state: hold the scroll restoration through the entire exit.
     const restoreScroll = useRef<(() => void) | null>(null);
-    const reducedMotion = useReducedMotion();
     const [contentHidden, setContentHidden] = useState(false);
     const [isPending, startTransition] = useTransition();
     const [pendingAction, setPendingAction] = useState<"confirm" | "cancel" | "close" | null>(null);
     // Mutable instance guard: re-entry can happen before React renders pending.
     const inFlight = useRef(false);
     const titleId = useId();
+    const presence = usePresence<HTMLDivElement>(open, () => {
+        dialogRef.current?.close();
+        restoreScroll.current?.();
+        if (shouldResetContent) setContentHidden(true);
+    });
     const {
         cancelText = "取消",
         confirmText = "确定"
@@ -160,7 +186,7 @@ function Dialog({
 
     useEffect(() => () => restoreScroll.current?.(), []);
 
-    // 打开时恢复内容渲染；关闭时的重置延后到退场动画结束（见 AnimatePresence 的 onExitComplete），
+    // 打开时恢复内容渲染；关闭时的重置延后到 CSS 退场结束，
     // 避免关闭动画播放期间内容提前消失。
     useEffect(() => {
         if (open) {
@@ -259,165 +285,144 @@ function Dialog({
             }}
             {...restProps}
         >
-            <AnimatePresence
-                onExitComplete={() => {
-                    if (open) return;
-                    dialogRef.current?.close();
-                    restoreScroll.current?.();
-                    // 退场动画结束后再重置内容，保证关闭过程中内容仍可见。
-                    if (shouldResetContent) {
-                        setContentHidden(true);
-                    }
-                }}
-            >
-                {open && (
-                    <>
-                        <motion.div
-                            key="overlay"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.15, ease: [0.4, 0, 1, 1] } }}
-                            transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0, 0, 0.2, 1] }}
-                            onClick={(event) => {
-                                // 遮罩点击属于「外部点击」，阻止冒泡以免触发透传给 <dialog> 的 onClick。
-                                event.stopPropagation();
-                                // 与 antd Modal 的 maskClosable 对齐：默认点击遮罩不关闭，
-                                // 避免表单场景误触丢失内容；需要时显式开启。
-                                if (maskClosable) {
-                                    cancel(event);
-                                }
-                            }}
+            {(presence.present || !shouldResetContent) && (
+                <>
+                    <div
+                        key="overlay"
+                        data-state={presence.state}
+                        inert={!open}
+                        onClick={(event) => {
+                            // 遮罩点击属于「外部点击」，阻止冒泡以免触发透传给 <dialog> 的 onClick。
+                            event.stopPropagation();
+                            // 与 antd Modal 的 maskClosable 对齐：默认点击遮罩不关闭，
+                            // 避免表单场景误触丢失内容；需要时显式开启。
+                            if (maskClosable) {
+                                cancel(event);
+                            }
+                        }}
+                        className={cx(fadeStyle, css`
+                            position: fixed;
+                            inset: 0;
+                            background-color: ${colorOverlayBackgroundColor};
+                        `)}
+                    />
+                    <div
+                        key="content"
+                        ref={presence.ref}
+                        data-state={presence.state}
+                        inert={!open}
+                        className={cx(contentMotionStyle, css`
+                            position: relative;
+                            box-sizing: border-box;
+                            max-height: calc(100dvh - min(${top}, ${token.root['max-height']} / 4) - (100vw - ${token.root['max-width']}) / 2);
+                            overflow: auto;
+                            overflow-wrap: anywhere;
+                            padding: ${dimensionPadding};
+                            border-radius: ${dimensionBorderRadius};
+                            box-shadow: ${elevationBoxShadow};
+                            background: ${colorDialogBackgroundColor};
+                            @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
+                        `)}
+                    >
+                        <div
                             className={css`
-                                position: fixed;
-                                inset: 0;
-                                background-color: ${colorOverlayBackgroundColor};
-                            `}
-                        />
-                        <motion.div
-                            key="content"
-                            initial={{ opacity: 0, y: reducedMotion ? 0 : contentMotionOffset }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: reducedMotion ? 0 : contentMotionOffset, transition: { duration: reducedMotion ? 0 : 0.15, ease: [0.4, 0, 1, 1] } }}
-                            transition={{
-                                duration: reducedMotion ? 0 : 0.2,
-                                ease: [0, 0, 0.2, 1],
-                            }}
-                            className={css`
-                                position: relative;
-                                box-sizing: border-box;
-                                max-height: calc(100dvh - min(${top}, ${token.root['max-height']} / 4) - (100vw - ${token.root['max-width']}) / 2);
-                                overflow: auto;
-                                overflow-wrap: anywhere;
-                                padding: ${dimensionPadding};
-                                border-radius: ${dimensionBorderRadius};
-                                box-shadow: ${elevationBoxShadow};
-                                background:${colorDialogBackgroundColor};
-                                @media (forced-colors: active) {
-                                    outline: 1px solid CanvasText;
-                                    box-shadow: none;
-                                }
+                                display: flex;
+                                align-items: flex-start;
+                                gap: ${token.heading.gap};
+                                margin-bottom: ${dimensionHeadingMarginBottom};
                             `}
                         >
                             <div
+                                id={titleId}
                                 className={css`
-                                    display: flex;
-                                    align-items: flex-start;
-                                    gap: ${token.heading.gap};
-                                    margin-bottom: ${dimensionHeadingMarginBottom};
+                                    font-weight: ${typographyHeadingFontWeight};
+                                    font-size: ${typographyHeadingFontSize};
+                                    line-height: ${typographyHeadingLineHeight};
+                                    flex: 1;
+                                    min-width: 0;
                                 `}
                             >
-                                <div
-                                    id={titleId}
-                                    className={css`
-                                        font-weight: ${typographyHeadingFontWeight};
-                                        font-size: ${typographyHeadingFontSize};
-                                        line-height: ${typographyHeadingLineHeight};
-                                        flex: 1;
-                                        min-width: 0;
-                                    `}
-                                >
-                                    {title}
-                                </div>
-                                <RcButton
-                                    type="button"
-                                    appearance="text"
-                                    aria-label={cancelText}
-                                    disabled={isPending && pendingAction !== "close"}
-                                    loading={isPending && pendingAction === "close"}
-                                    className={css`
-                                        flex-shrink: 0;
-                                        width: ${token.close.width};
-                                        height: ${token.close.height};
-                                        padding: 0;
-                                        @media (pointer: coarse) {
-                                            width: ${token.close.touch['min-width']};
-                                            height: ${token.close.touch['min-height']};
-                                        }
-                                    `}
-                                    onClick={(event) => settle("close", onCancel, event)}
-                                    icon={(
-                                        <svg
-                                            fillRule="evenodd"
-                                            viewBox="64 64 896 896"
-                                            focusable="false"
-                                            data-icon="close"
-                                            width="1em"
-                                            height="1em"
-                                            fill="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
-                                            />
-                                        </svg>
-                                    )}
-                                />
+                                {title}
                             </div>
-                            <div>
-                                {!contentHidden && children}
-                            </div>
-                            <div
+                            <RcButton
+                                type="button"
+                                appearance="text"
+                                aria-label={cancelText}
+                                disabled={isPending && pendingAction !== "close"}
+                                loading={isPending && pendingAction === "close"}
                                 className={css`
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    justify-content: flex-end;
-                                    gap: ${dimensionFooterButtonSpacing};
-                                    margin-top: ${dimensionFooterMarginTop};
-                                    & > button {
-                                        min-width: 0;
-                                        max-width: 100%;
-                                        height: auto;
-                                        min-height: ${token.footer.button['min-height']};
-                                        padding-block: ${token.footer.button['padding-block']};
-                                        white-space: normal;
-                                    }
-                                    & > button > span { min-width: 0; }
+                                    flex-shrink: 0;
+                                    width: ${token.close.width};
+                                    height: ${token.close.height};
+                                    padding: 0;
                                     @media (pointer: coarse) {
-                                        & > button { min-height: ${token.close.touch['min-height']}; }
+                                        width: ${token.close.touch['min-width']};
+                                        height: ${token.close.touch['min-height']};
                                     }
                                 `}
+                                onClick={(event) => settle("close", onCancel, event)}
+                                icon={(
+                                    <svg
+                                        fillRule="evenodd"
+                                        viewBox="64 64 896 896"
+                                        focusable="false"
+                                        data-icon="close"
+                                        width="1em"
+                                        height="1em"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"
+                                        />
+                                    </svg>
+                                )}
+                            />
+                        </div>
+                        <div>
+                            {!contentHidden && children}
+                        </div>
+                        <div
+                            className={css`
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: flex-end;
+                                gap: ${dimensionFooterButtonSpacing};
+                                margin-top: ${dimensionFooterMarginTop};
+                                & > button {
+                                    min-width: 0;
+                                    max-width: 100%;
+                                    height: auto;
+                                    min-height: ${token.footer.button['min-height']};
+                                    padding-block: ${token.footer.button['padding-block']};
+                                    white-space: normal;
+                                }
+                                & > button > span { min-width: 0; }
+                                @media (pointer: coarse) {
+                                    & > button { min-height: ${token.close.touch['min-height']}; }
+                                }
+                            `}
+                        >
+                            <RcButton
+                                data-dialog-action="cancel"
+                                disabled={isPending && pendingAction !== "cancel"}
+                                loading={isPending && pendingAction === "cancel"}
+                                onClick={cancel}
                             >
-                                <RcButton
-                                    data-dialog-action="cancel"
-                                    disabled={isPending && pendingAction !== "cancel"}
-                                    loading={isPending && pendingAction === "cancel"}
-                                    onClick={cancel}
-                                >
-                                    {cancelText}
-                                </RcButton>
-                                <RcButton
-                                    appearance="primary"
-                                    disabled={isPending && pendingAction !== "confirm"}
-                                    loading={isPending && pendingAction === "confirm"}
-                                    onClick={confirm}
-                                >
-                                    {confirmText}
-                                </RcButton>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                                {cancelText}
+                            </RcButton>
+                            <RcButton
+                                appearance="primary"
+                                disabled={isPending && pendingAction !== "confirm"}
+                                loading={isPending && pendingAction === "confirm"}
+                                onClick={confirm}
+                            >
+                                {confirmText}
+                            </RcButton>
+                        </div>
+                    </div>
+                </>
+            )}
         </dialog>
     )
 }

@@ -1,15 +1,7 @@
 import { beforeAll, describe, expect, it, mock, render, act } from "@crab-dev/wake/test/react";
-import type { ComponentPropsWithRef } from "react";
+
 import useForm from "../hooks/useForm.js";
 import { RuleType, type FormItemEditor } from "../types.js";
-mock.module("motion/react", async () => {
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = ({ ref, ...props }: ComponentPropsWithRef<"div">) => mockReact.createElement("div", { ...props, ref });
-    return {
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: { children: unknown }) => children,
-    };
-});
 let Form: (typeof import("../form.js"))["default"];
 let Item: (typeof import("../item.js"))["default"];
 beforeAll(async () => {

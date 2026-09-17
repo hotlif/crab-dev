@@ -13,3 +13,5 @@ root.line-height = "var(--tooltip-line-height, 1.5)"
 root.border-radius = "var(--tooltip-border-radius, $ref(radius.md))"
 root.max-width = "var(--tooltip-max-width, 250px)"
 root.z-index = "var(--tooltip-z-index, $ref(z-index.elevated))"
+
+motion.interaction = "$ref(motion.interaction)"

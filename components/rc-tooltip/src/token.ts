@@ -13,7 +13,8 @@ export const vars = defineTokens({
     'root.line-height': '--tooltip-root-line-height',
     'root.border-radius': '--tooltip-root-border-radius',
     'root.max-width': '--tooltip-root-max-width',
-    'root.z-index': '--tooltip-root-z-index'
+    'root.z-index': '--tooltip-root-z-index',
+    'motion.interaction': '--tooltip-motion-interaction'
 });
 
 const token = defineTokens({
@@ -27,6 +28,9 @@ const token = defineTokens({
         'border-radius': `var(${vars['root.border-radius']}, var(--tooltip-border-radius, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px))))`,
         'max-width': `var(${vars['root.max-width']}, var(--tooltip-max-width, 250px))`,
         'z-index': `var(${vars['root.z-index']}, var(--tooltip-z-index, var(--token-semantic-z-index-elevated, var(--token-global-z-index-50, 1400))))`
+    },
+    'motion': {
+        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
     }
 });
 

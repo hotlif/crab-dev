@@ -109,3 +109,6 @@ tab.context-menu.item.icon.color = "$ref(color.text.secondary)"
 
 tab.context-menu.separator.background-color = "var(--app-main-layout-tab-context-menu-separator-color, $ref(color.border.default))"
 tab.context-menu.separator.margin = "4px 0"
+
+motion.interaction = "$ref(motion.interaction)"
+motion.offset = "calc($ref(space.component-gap) * -1)"

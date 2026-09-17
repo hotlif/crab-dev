@@ -4,23 +4,6 @@ import useAppMainLayoutTabs, { type UseAppMainLayoutTabsResult } from "../useTab
 import type { HeaderUserEntity, TabItem } from "../types.js";
 import type { MenuItem } from "@crab-dev/rc-menu";
 
-mock.module("motion/react", async () => {
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = (props: Record<string, unknown>) => {
-        const elementProps = { ...props };
-        delete elementProps.initial;
-        delete elementProps.animate;
-        delete elementProps.exit;
-        delete elementProps.transition;
-        return mockReact.createElement("div", elementProps);
-    };
-    return {
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: { children?: import("react").ReactNode }) => (
-            mockReact.createElement(mockReact.Fragment, null, children)
-        ),
-    };
-});
 
 let Layout: (typeof import("../layout.js"))["default"];
 let MenuItemType: (typeof import("@crab-dev/rc-menu"))["MenuItemType"];

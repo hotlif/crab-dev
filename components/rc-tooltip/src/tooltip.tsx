@@ -1,5 +1,5 @@
 import { type ReactElement, type Ref, cloneElement, useRef, useState } from 'react';
-import { useControllableOpen } from '@crab-dev/rc-hooks';
+import { useControllableOpen, usePresence } from '@crab-dev/rc-hooks';
 import { css, cx } from '@crab-dev/css';
 import {
     useFloating,
@@ -16,7 +16,6 @@ import {
     FloatingPortal,
     useMergeRefs,
 } from '@floating-ui/react';
-import { motion, AnimatePresence } from 'motion/react';
 import token from './token.js';
 import type { TooltipProps } from './types.js';
 
@@ -37,6 +36,12 @@ const OPPOSITE_SIDE: Record<string, string> = {
 const containerStyle = css`
     z-index: ${token.root['z-index']};
     pointer-events: none;
+    opacity: 1;
+    transition: opacity ${token.motion.interaction};
+    &[data-state="closed"] { opacity: 0; }
+    @starting-style { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 const tooltipStyle = css`
@@ -86,6 +91,7 @@ function Tooltip({
     });
 
     const arrowRef = useRef<HTMLDivElement>(null);
+    const presence = usePresence<HTMLDivElement>(isOpen && title != null && title !== '');
 
     const { refs, floatingStyles, context, middlewareData, placement: resolvedPlacement } = useFloating({
         open: isOpen,
@@ -146,33 +152,29 @@ function Tooltip({
                 getReferenceProps({ ref: mergedRef, ...(children.props as Record<string, unknown>) }),
             )}
             <FloatingPortal root={portalRoot}>
-                <AnimatePresence>
-                    {isOpen && title != null && title !== '' && (
+                {presence.present && (
+                    <div
+                        ref={(node) => { refs.setFloating(node); presence.ref(node); }}
+                        data-state={presence.state}
+                        aria-hidden={!isOpen || undefined}
+                        style={floatingStyles}
+                        className={containerStyle}
+                        {...getFloatingProps()}
+                    >
                         <div
-                            ref={refs.setFloating}
-                            style={floatingStyles}
-                            className={containerStyle}
-                            {...getFloatingProps()}
+                            className={cx(tooltipStyle, className)}
                         >
-                            <motion.div
-                                className={cx(tooltipStyle, className)}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.15, ease: [0.215, 0.61, 0.355, 1] }}
-                            >
-                                {title}
-                                {showArrow && (
-                                    <div
-                                        ref={arrowRef}
-                                        className={arrowBaseStyle}
-                                        style={arrowPositionStyle}
-                                    />
-                                )}
-                            </motion.div>
+                            {title}
+                            {showArrow && (
+                                <div
+                                    ref={arrowRef}
+                                    className={arrowBaseStyle}
+                                    style={arrowPositionStyle}
+                                />
+                            )}
                         </div>
-                    )}
-                </AnimatePresence>
+                    </div>
+                )}
             </FloatingPortal>
         </>
     );

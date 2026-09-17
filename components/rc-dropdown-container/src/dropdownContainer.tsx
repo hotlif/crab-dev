@@ -15,7 +15,7 @@ import {
     FloatingTree,
     FloatingNode,
 } from '@floating-ui/react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { usePresence } from '@crab-dev/rc-hooks';
 import { dropdownReducer, initialDropdownState } from './reducer.js';
 import { DropdownContext } from './context.js';
 import token from './token.js';
@@ -50,6 +50,13 @@ const floatingContainerStyle = css`
     border-radius: ${token.root['border-radius']};
     overflow-y: auto;
     overscroll-behavior: contain;
+    opacity: 1;
+    translate: 0 0;
+    transition: opacity ${token.motion.interaction}, translate ${token.motion.interaction};
+    @starting-style { opacity: 0; translate: 0 ${token.motion.offset}; }
+    &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset}; pointer-events: none; }
+
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 const overlayStyle = css`
@@ -73,7 +80,7 @@ function DropdownContainer(props: DropdownContainerProps) {
 
 function DropdownContainerContent({ className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
-    const reducedMotion = useReducedMotion();
+    const presence = usePresence<HTMLDivElement>(state.open);
     // 触发元素位于原生 <dialog>（showModal）内时，浮层必须挂载进该 dialog 子树：
     // modal dialog 会使 dialog 之外的整个文档 inert，挂在 body 下的浮层不可交互
     // （点击穿透、无法聚焦），挂进 dialog 子树即可恢复交互。
@@ -151,45 +158,35 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
                 >
                     {children}
                     <FloatingPortal root={portalRoot}>
-                        <AnimatePresence>
-                            {state.open && (
+                        {presence.present && (
+                            <div
+                                ref={(node) => { refs.setFloating(node); presence.ref(node); }}
+                                className={cx(floatingContainerStyle, floatingClassName)}
+                                data-state={presence.state}
+                                inert={!state.open}
+                                style={{ ...floatingStyles, ...floatingUserStyle }}
+                                {...getFloatingProps({
+                                    onMouseDown: (e: ReactMouseEvent<HTMLDivElement>) => {
+                                        onMouseDown?.(e);
+                                        // 阻止 mousedown 默认行为,是为了点击选项 / 空白时不抢走
+                                        // 触发器的焦点;但落点是浮层内的表单控件时(如 rc-cron-picker
+                                        // 面板里的数字输入框),preventDefault 会连"点击聚焦"一起吞掉,
+                                        // 使控件永远无法进入编辑态——这类目标必须放行默认聚焦。
+                                        const target = e.target as HTMLElement;
+                                        if (!target.closest('input, textarea, select, [contenteditable="true"]')) {
+                                            e.preventDefault();
+                                        }
+                                    },
+                                    ...restFloatingContainerProps,
+                                })}
+                            >
                                 <div
-                                    ref={refs.setFloating}
-                                    className={cx(floatingContainerStyle, floatingClassName)}
-                                    style={{ ...floatingStyles, ...floatingUserStyle }}
-                                    {...getFloatingProps({
-                                        onMouseDown: (e: ReactMouseEvent<HTMLDivElement>) => {
-                                            onMouseDown?.(e);
-
-                                            // 阻止 mousedown 默认行为,是为了点击选项 / 空白时不抢走
-                                            // 触发器的焦点;但落点是浮层内的表单控件时(如 rc-cron-picker
-                                            // 面板里的数字输入框),preventDefault 会连"点击聚焦"一起吞掉,
-                                            // 使控件永远无法进入编辑态——这类目标必须放行默认聚焦。
-                                            const target = e.target as HTMLElement;
-
-                                            if (!target.closest('input, textarea, select, [contenteditable="true"]')) {
-                                                e.preventDefault();
-                                            }
-                                        },
-                                        ...restFloatingContainerProps,
-                                    })}
+                                    className={cx(overlayStyle, overlayClassName)}
                                 >
-                                    <motion.div
-                                        className={cx(overlayStyle, overlayClassName)}
-                                        initial={{ opacity: reducedMotion ? 1 : 0, y: reducedMotion ? 0 : -4 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: reducedMotion ? 1 : 0, y: reducedMotion ? 0 : -4 }}
-                                        transition={{
-                                            // Mirrors the 150 ms semantic motion.interaction timing.
-                                            duration: reducedMotion ? 0 : 0.15,
-                                            ease: [0.215, 0.61, 0.355, 1],
-                                        }}
-                                    >
-                                        {overlay}
-                                    </motion.div>
+                                    {overlay}
                                 </div>
-                            )}
-                        </AnimatePresence>
+                            </div>
+                        )}
                     </FloatingPortal>
                 </DropdownContext>
             </div>

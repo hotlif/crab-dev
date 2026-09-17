@@ -1,36 +1,18 @@
 import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
 import { useEffect } from "react";
-const motionTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
-mock.module("motion/react", async () => {
-
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    // React 19 下 ref 是普通 prop，直接透传即可，无需 forwardRef
-    const MockDiv = (props: Record<string, unknown>) => mockReact.createElement("div", props);
-    return {
-        useReducedMotion: () => false,
-        motion: {
-            div: MockDiv,
-        },
-        AnimatePresence: ({ children, onExitComplete }: {
-            children: unknown;
-            onExitComplete?: () => void;
-        }) => {
-            const prevChildrenRef = mockReact.useRef(children);
-            mockReact.useEffect(() => {
-                if (prevChildrenRef.current && !children) {
-                    if (motionTestState.deferExit) motionTestState.finishExit = onExitComplete;
-                    else onExitComplete?.();
-                }
-                prevChildrenRef.current = children;
-            });
-            return children;
-        },
-    };
-});
+const cssExitTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 import type { DialogProps } from "../dialog.js";
 let Dialog: (typeof import("../dialog.js"))["default"];
 beforeAll(async () => {
+    // The DOM runner has no CSS engine: model only native animation completion.
+    Object.defineProperty(HTMLElement.prototype, "getAnimations", {
+        configurable: true,
+        value: () => cssExitTestState.deferExit ? [{
+            playState: "running",
+            finished: new Promise<void>(resolve => { cssExitTestState.finishExit = resolve; }),
+        }] : [],
+    });
     const dialogModule = await mock.import<typeof import("../dialog.js")>("../dialog.js");
     Dialog = dialogModule.default;
 });
@@ -88,8 +70,8 @@ const renderDialog = async (props: PartialDialogProps = {}): Promise<RenderDialo
     };
 };
 beforeEach(() => {
-    motionTestState.deferExit = false;
-    motionTestState.finishExit = undefined;
+    cssExitTestState.deferExit = false;
+    cssExitTestState.finishExit = undefined;
     if (!HTMLDialogElement.prototype.showModal) {
         HTMLDialogElement.prototype.showModal = () => { };
     }
@@ -164,13 +146,13 @@ describe("Dialog", () => {
         expect(document.body.style.overflow).toBe("");
     });
     it("keeps scroll locked until the exit finishes and restores it on unmount", async () => {
-        motionTestState.deferExit = true;
+        cssExitTestState.deferExit = true;
         const { rerender, unmount } = await renderDialog({ open: true });
         await rerender({ open: false });
         expect(document.body.style.overflow).toBe("hidden");
         expect(HTMLDialogElement.prototype.close).not.toHaveBeenCalled();
-        expect(motionTestState.finishExit).toBeDefined();
-        await act(async () => motionTestState.finishExit?.());
+        expect(cssExitTestState.finishExit).toBeDefined();
+        await act(async () => cssExitTestState.finishExit?.());
         expect(document.body.style.overflow).toBe("");
         expect(HTMLDialogElement.prototype.close).toHaveBeenCalled();
         await rerender({ open: true });
@@ -408,7 +390,7 @@ describe("Dialog", () => {
         expect(mountCounter.value).toBe(3);
         await withoutReset.rerender({ open: false });
         await withoutReset.rerender({ open: true });
-        expect(mountCounter.value).toBe(4);
+        expect(mountCounter.value).toBe(3);
         await withoutReset.unmount();
     });
 });

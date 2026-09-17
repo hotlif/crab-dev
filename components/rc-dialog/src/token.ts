@@ -27,7 +27,10 @@ export const vars = defineTokens({
     'footer.margin-top': '--dialog-footer-margin-top',
     'footer.button.margin': '--dialog-footer-button-margin',
     'footer.button.min-height': '--dialog-footer-button-min-height',
-    'footer.button.padding-block': '--dialog-footer-button-padding-block'
+    'footer.button.padding-block': '--dialog-footer-button-padding-block',
+    'motion.fade': '--dialog-motion-fade',
+    'motion.interaction': '--dialog-motion-interaction',
+    'motion.offset': '--dialog-motion-offset'
 });
 
 const token = defineTokens({
@@ -69,6 +72,11 @@ const token = defineTokens({
             'min-height': `var(${vars['footer.button.min-height']}, 32px)`,
             'padding-block': `var(${vars['footer.button.padding-block']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
+    },
+    'motion': {
+        'fade': `var(${vars['motion.fade']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+        'offset': `var(${vars['motion.offset']}, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1))`
     }
 });
 

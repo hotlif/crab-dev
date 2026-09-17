@@ -1,23 +1,8 @@
 import { act, describe, expect, it, beforeAll, mock, render, fireEvent, screen } from "@crab-dev/wake/test/react";
-import React from "react";
 // 本文件刻意不 mock @floating-ui/react —— 要验证的正是它的真实 FloatingTree/useDismiss
 // 机制:嵌套的 DropdownContainer(如 rc-select 用在 rc-color-picker 面板内)各自的浮层
 // 因独立 FloatingPortal 而在 DOM 上只是兄弟节点,点击内层浮层不应被外层误判为"点击外部"
 // 而整体关闭。dropdownContainer.test.tsx 用简化 mock 无法覆盖这一场景。
-mock.module("motion/react", async () => {
-
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    function MockDiv({ initial: _initial, animate: _animate, exit: _exit, transition: _transition, ...props }: React.ComponentProps<'div'> & { initial?: unknown; animate?: unknown; exit?: unknown; transition?: unknown }) {
-        return mockReact.createElement('div', props);
-    }
-    return {
-        useReducedMotion: () => false,
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: {
-            children: unknown;
-        }) => children,
-    };
-});
 let DropdownContainer: (typeof import("../index.js"))["default"];
 let useDropdownContext: (typeof import("../index.js"))["useDropdownContext"];
 beforeAll(async () => {

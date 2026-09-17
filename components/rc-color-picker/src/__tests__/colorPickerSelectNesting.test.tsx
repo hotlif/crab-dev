@@ -1,15 +1,6 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, mock, fireEvent, render, screen, waitFor, act } from "@crab-dev/wake/test/react";
-import type { ComponentPropsWithRef } from 'react';
+
 import type { OKLCHValue } from '../types.js';
-mock.module('motion/react', async () => {
-    const mockReact = await mock.actual<typeof import('react')>('react');
-    const MockDiv = ({ ref, ...props }: ComponentPropsWithRef<'div'>) => mockReact.createElement('div', { ...props, ref });
-    return {
-        useReducedMotion: () => false,
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: { children: unknown }) => children,
-    };
-});
 let ColorPicker: (typeof import('../colorPicker/colorPicker.js'))['default'];
 beforeAll(async () => {
     const colorPickerModule = await mock.import<typeof import('../colorPicker/colorPicker.js')>('../colorPicker/colorPicker.js');
@@ -22,7 +13,7 @@ beforeAll(async () => {
  * ColorPicker 的 outside-click 判定误以为"点击到了外部"而把整个弹层关闭。
  * 根因与修复见 @crab-dev/rc-dropdown-container(FloatingTree 化的 useDismiss)。
  * colorPicker.test.tsx 为隔离而 mock 掉了 rc-dropdown-container,无法覆盖这一场景。
- * motion 使用上方最小替身移除布局与动画依赖；保留真实浮层的事件与异步关闭流程，
+ * 保留真实浮层的事件与 CSS 退场生命周期，
  * 下方"关闭"断言用 waitFor 等待浮层状态更新。
  */
 (globalThis as typeof globalThis & {
@@ -36,8 +27,7 @@ beforeAll(async () => {
     unobserve() { }
     disconnect() { }
 };
-// matchMedia 是浮层依赖的浏览器能力；Motion 已由上方确定性替身接管，测试不再
-// 注册基于 setTimeout 的 requestAnimationFrame，避免并发整仓测试留下活动句柄。
+// matchMedia 是浮层依赖的浏览器能力。
 (globalThis as typeof globalThis & {
     matchMedia?: (query: string) => MediaQueryList;
 }).matchMedia ??=
@@ -108,7 +98,7 @@ describe('ColorPicker + RcSelect nesting (real rc-dropdown-container / rc-select
         });
         expect(screen.getByRole('dialog', { name: '颜色选择' })).toBeTruthy();
         await pointerDownOn(document.body);
-        // 真实 AnimatePresence 驱动退出动画,弹层需等动画结束才从 DOM 移除
+        // 真实 CSS 退场生命周期：弹层需等过渡结束才从 DOM 移除。
         await waitFor(() => {
             expect(screen.queryByRole('dialog', { name: '颜色选择' })).toBeNull();
         });

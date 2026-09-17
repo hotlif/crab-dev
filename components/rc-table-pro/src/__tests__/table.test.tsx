@@ -1,15 +1,7 @@
 import { act, beforeAll, describe, it, expect, mock, render, waitFor, fireEvent, screen } from "@crab-dev/wake/test/react";
-import type { ComponentPropsWithRef } from "react";
+
 import type { ProtocolColumnType } from "../types.js";
 import type { Row } from "@crab-dev/rc-table";
-mock.module("motion/react", async () => {
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = ({ ref, ...props }: ComponentPropsWithRef<"div">) => mockReact.createElement("div", { ...props, ref });
-    return {
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: { children: unknown }) => children,
-    };
-});
 let TablePro: (typeof import("../table.js"))["default"];
 beforeAll(async () => {
     const tableModule = await mock.import<typeof import("../table.js")>("../table.js");

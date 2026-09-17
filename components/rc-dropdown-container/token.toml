@@ -9,3 +9,6 @@ root.border-radius = "var(--dropdown-container-border-radius, 8px)"
 root.background-color = "var(--dropdown-container-background-color, $ref(color.background.elevated))"
 root.border-color = "$ref(color.border.subtle)"
 root.z-index = "var(--dropdown-container-z-index, $ref(z-index.float))"
+
+motion.interaction = "$ref(motion.interaction)"
+motion.offset = "calc($ref(space.component-gap) * -1)"

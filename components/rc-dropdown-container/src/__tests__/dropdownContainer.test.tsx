@@ -8,22 +8,6 @@ let sizeMiddlewareOptions: {
     }) => void;
 } | undefined;
 
-mock.module("motion/react", async () => {
-
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    function MockDiv({ initial: _initial, animate: _animate, exit: _exit, transition: _transition, ...props }: React.ComponentProps<'div'> & { initial?: unknown; animate?: unknown; exit?: unknown; transition?: unknown }) {
-        return mockReact.createElement('div', props);
-    }
-    return {
-        useReducedMotion: () => false,
-        motion: {
-            div: MockDiv,
-        },
-        AnimatePresence: ({ children }: {
-            children: unknown;
-        }) => children,
-    };
-});
 mock.module("@floating-ui/react", async () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
     const { createPortal } = require("react-dom");

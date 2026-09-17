@@ -7,6 +7,7 @@ import type { TutorialRecord } from "../tutorial.js";
 
 // 源码高亮与复制由 Preview 自身负责；这里保留源码和预览的关联，避免高亮库干扰懒加载边界测试。
 mock.module("@crab-dev/rc-component-preview", () => ({
+    __esModule: true,
     default: ({
         children,
         sourceCode,
