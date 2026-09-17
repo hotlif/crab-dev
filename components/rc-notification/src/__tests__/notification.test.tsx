@@ -1,19 +1,5 @@
 import { act, beforeAll, beforeEach, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
 import { useRef } from "react";
-mock.module("motion/react", async () => {
-
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = mockReact.forwardRef((props: Record<string, unknown>, ref: unknown) => mockReact.createElement("div", { ...props, ref }));
-    MockDiv.displayName = "MockMotionDiv";
-    return {
-        motion: { div: MockDiv },
-        AnimatePresence: ({ children }: {
-            children: unknown;
-        }) => children,
-        useTime: () => ({ get: () => 0 }),
-        useMotionValueEvent: () => { },
-    };
-});
 let Notification: (typeof import("../notification.js"))["default"];
 let useNotification: (typeof import("../hooks/useNotification.js"))["default"];
 beforeAll(async () => {
@@ -82,9 +68,7 @@ describe("Notification", () => {
         const { container, unmount } = await render(<Notification open={true} onOpenChange={() => { }} title="T" showProgress={false}>
                 C
         </Notification>);
-        // Without progress: root + title-row + title-text + close-icon + children = 5 divs
-        // (no progress bar div)
-        expect(container.querySelectorAll("div").length).toBe(5);
+        expect(container.querySelector('[data-paused]')).toBeNull();
         await unmount();
     });
     it("forwards extra props to the root element", async () => {

@@ -5,7 +5,7 @@ import {
 } from "react";
 import type { FC, HTMLAttributes } from "react";
 
-import { AnimatePresence } from "motion/react"
+import token from "./token.js";
 import { type Direction } from "./types.js";
 
 export interface ContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -76,13 +76,15 @@ const Container: FC<ContainerProps> = ({
                 css`
                     display: grid;
                     grid-template-columns: 1fr;
-                    align-items: end;
+                    align-items: stretch;
                     justify-items: end;
                     border: unset;
                     padding: unset;
                     margin: unset;
                     overflow: visible;
                     background: unset;
+                    padding-inline: ${token.stack.offset};
+                    pointer-events: none;
                 `,
                 getDirectionStyle(direction),
                 className
@@ -91,9 +93,7 @@ const Container: FC<ContainerProps> = ({
             ref={divRef}
             {...restProps}
         >
-            <AnimatePresence>
-                {children}
-            </AnimatePresence>
+            {children}
         </div>
     )
 }

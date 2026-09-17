@@ -12,6 +12,17 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface NotificationProps {
     /**
+     * 暂无说明。
+     */
+    "onExitComplete"?: () => void;
+
+    /**
+     * 叠层序号：1 为最前层，2、3 为后方卡片。
+     * @default 1
+     */
+    "stack"?: number;
+
+    /**
      * 消息的标题信息
      */
     "title"?: ReactNode;

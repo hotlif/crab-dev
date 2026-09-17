@@ -22,6 +22,17 @@ export default function Example() {
             >
                 模拟导出完成
             </Button>
+            <Button onClick={() => {
+                for (const title of ["数据同步完成", "报表生成完成", "导出完成"]) {
+                    notification.open({
+                        title,
+                        description: "关闭当前通知，查看后面的任务结果。",
+                        duration: 0,
+                    });
+                }
+            }}>
+                查看 3 条通知层叠
+            </Button>
         </div>
     );
 }
