@@ -47,7 +47,7 @@
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.43",
+        "@crab-dev/wake": "0.1.45",
         "@js-temporal/polyfill": "^0.5.1",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
@@ -65,8 +65,9 @@
         "node": ">=22"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.38",
+        "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@floating-ui/react": "^0.27.20",

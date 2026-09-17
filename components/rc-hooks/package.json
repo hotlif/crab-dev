@@ -39,7 +39,7 @@
     },
     "devDependencies": {
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.43",
+        "@crab-dev/wake": "0.1.45",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
