@@ -70,7 +70,6 @@
         "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
-        "@floating-ui/react": "^0.27.20",
-        "motion": "^13.2.0"
+        "@floating-ui/react": "^0.27.20"
     }
 }

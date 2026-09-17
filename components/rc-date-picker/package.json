@@ -73,7 +73,6 @@
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-dropdown-container": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
-        "@floating-ui/react": "^0.27.20",
-        "motion": "^13.2.0"
+        "@floating-ui/react": "^0.27.20"
     }
 }

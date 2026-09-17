@@ -62,7 +62,6 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-hooks": "workspace:^",
-        "motion": "^13.2.0"
+        "@crab-dev/rc-hooks": "workspace:^"
     }
 }

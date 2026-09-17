@@ -59,8 +59,7 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-hooks": "workspace:^",
-        "@floating-ui/react": "^0.27.20",
-        "motion": "^13.2.0"
+        "@floating-ui/react": "^0.27.20"
     },
     "peerDependencies": {
         "react": "^19.0.0",
