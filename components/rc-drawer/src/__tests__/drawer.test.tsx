@@ -1,35 +1,17 @@
 import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import React from "react";
-const motionTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
-mock.module("motion/react", async () => {
-
-    const mockReact = await mock.actual<typeof import("react")>("react");
-    const MockDiv = (props: Record<string, unknown>) => mockReact.createElement("div", props);
-    MockDiv.displayName = "MockMotionDiv";
-    return {
-        useReducedMotion: () => false,
-        motion: new Proxy({}, {
-            get: () => MockDiv,
-        }),
-        AnimatePresence: ({ children, onExitComplete, }: {
-            children: unknown;
-            onExitComplete?: () => void;
-        }) => {
-            const prevChildrenRef = mockReact.useRef(children);
-            mockReact.useEffect(() => {
-                if (prevChildrenRef.current && !children) {
-                    if (motionTestState.deferExit) motionTestState.finishExit = onExitComplete;
-                    else onExitComplete?.();
-                }
-                prevChildrenRef.current = children;
-            });
-            return children;
-        },
-    };
-});
+const cssExitTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 let Drawer: (typeof import("../drawer.js"))["default"];
 beforeAll(async () => {
+    // The DOM runner has no CSS engine: model only native animation completion.
+    Object.defineProperty(HTMLElement.prototype, "getAnimations", {
+        configurable: true,
+        value: () => cssExitTestState.deferExit ? [{
+            playState: "running",
+            finished: new Promise<void>(resolve => { cssExitTestState.finishExit = resolve; }),
+        }] : [],
+    });
     const drawerModule = await mock.import<typeof import("../drawer.js")>("../drawer.js");
     Drawer = drawerModule.default;
 });
@@ -43,8 +25,8 @@ let closeSpy = mock.fn(function (this: HTMLDialogElement) {
     this.removeAttribute("open");
 });
 beforeEach(() => {
-    motionTestState.deferExit = false;
-    motionTestState.finishExit = undefined;
+    cssExitTestState.deferExit = false;
+    cssExitTestState.finishExit = undefined;
     showModalSpy = mock.fn(function (this: HTMLDialogElement) {
         this.setAttribute("open", "");
     });
@@ -65,19 +47,25 @@ beforeEach(() => {
 describe("Drawer", () => {
     it("names the dialog from its title and preserves an explicit accessible name", async () => {
         const view = await render(<Drawer title="项目详情" open onOpenChange={() => {}}>Content</Drawer>);
-        expect(screen.getByRole('dialog', { name: '项目详情' })).toBeTruthy();
+        // Wake's DOM role matcher does not infer native dialog names; verify
+        // the actual labelling relationship (browser coverage checks its AX name).
+        const dialog = view.container.querySelector('dialog')!;
+        const titleId = dialog.getAttribute('aria-labelledby');
+        expect(dialog.hasAttribute('open')).toBe(true);
+        expect(view.container.querySelector(`[id="${titleId}"]`)?.textContent).toBe('项目详情');
         await view.rerender(<Drawer title="项目详情" aria-label="编辑项目" open onOpenChange={() => {}}>Content</Drawer>);
-        expect(screen.getByRole('dialog', { name: '编辑项目' })).toBeTruthy();
+        expect(dialog.getAttribute('aria-label')).toBe('编辑项目');
+        expect(dialog.hasAttribute('aria-labelledby')).toBe(false);
     });
     it("keeps background scroll locked through exit and releases it on unmount", async () => {
-        motionTestState.deferExit = true;
+        cssExitTestState.deferExit = true;
         const view = await render(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
         expect(document.body.style.overflow).toBe("hidden");
         await view.rerender(<Drawer open={false} onOpenChange={() => {}}>Content</Drawer>);
         expect(document.body.style.overflow).toBe("hidden");
         expect(closeSpy).not.toHaveBeenCalled();
-        expect(motionTestState.finishExit).toBeDefined();
-        await act(async () => motionTestState.finishExit?.());
+        expect(cssExitTestState.finishExit).toBeDefined();
+        await act(async () => cssExitTestState.finishExit?.());
         expect(document.body.style.overflow).toBe("");
         expect(closeSpy).toHaveBeenCalled();
         await view.rerender(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
@@ -90,6 +78,43 @@ describe("Drawer", () => {
         </Drawer>);
         expect(screen.getByText("详情")).toBeTruthy();
         expect(screen.getByText("Hello world")).toBeTruthy();
+    });
+    it("keeps content through exit and ignores a stale exit after reopening", async () => {
+        cssExitTestState.deferExit = true;
+        const view = await render(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
+        const panel = screen.getByRole("document");
+        await view.rerender(<Drawer open={false} onOpenChange={() => {}}>Content</Drawer>);
+        const finishExit = cssExitTestState.finishExit;
+        expect(panel.getAttribute("data-state")).toBe("closed");
+        expect(screen.getByText("Content")).toBeTruthy();
+        await view.rerender(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByRole("document")).toBe(panel);
+        await act(async () => finishExit?.());
+        expect(panel.getAttribute("data-state")).toBe("open");
+        expect(closeSpy).not.toHaveBeenCalled();
+        expect(document.body.style.overflow).toBe("hidden");
+        await view.unmount();
+    });
+    it("resets content only after exiting and mounts it on the next open", async () => {
+        cssExitTestState.deferExit = true;
+        const view = await render(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
+        const previousContent = screen.getByText("Content");
+        await view.rerender(<Drawer open={false} onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByText("Content")).toBe(previousContent);
+        await act(async () => cssExitTestState.finishExit?.());
+        expect(screen.queryByText("Content")).toBeNull();
+        await view.rerender(<Drawer open onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByText("Content")).not.toBe(previousContent);
+        await view.unmount();
+    });
+    it("retains content across closing and reopening when reset is disabled", async () => {
+        const view = await render(<Drawer open shouldResetContent={false} onOpenChange={() => {}}>Content</Drawer>);
+        const content = screen.getByText("Content");
+        await view.rerender(<Drawer open={false} shouldResetContent={false} onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByText("Content")).toBe(content);
+        await view.rerender(<Drawer open shouldResetContent={false} onOpenChange={() => {}}>Content</Drawer>);
+        expect(screen.getByText("Content")).toBe(content);
+        await view.unmount();
     });
     it("calls showModal when open becomes true", async () => {
         const { rerender } = await render(<Drawer open={false} onOpenChange={() => { }}>

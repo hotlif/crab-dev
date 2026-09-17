@@ -124,6 +124,8 @@ export const vars = defineTokens({
     'motion.interaction': '--token-semantic-motion-interaction',
     'motion.fade': '--token-semantic-motion-fade',
     'motion.expand': '--token-semantic-motion-expand',
+    'motion.slide-enter': '--token-semantic-motion-slide-enter',
+    'motion.slide-exit': '--token-semantic-motion-slide-exit',
     'opacity.disabled': '--token-semantic-opacity-disabled',
     'opacity.secondary': '--token-semantic-opacity-secondary',
     'opacity.tertiary': '--token-semantic-opacity-tertiary',
@@ -298,7 +300,9 @@ const token = defineTokens({
     'motion': {
         'interaction': `var(${vars['motion.interaction']}, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`,
         'fade': `var(${vars['motion.fade']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`,
-        'expand': `var(${vars['motion.expand']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`
+        'expand': `var(${vars['motion.expand']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`,
+        'slide-enter': `var(${vars['motion.slide-enter']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))`,
+        'slide-exit': `var(${vars['motion.slide-exit']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-in, cubic-bezier(0.4, 0, 1, 1)))`
     },
     'opacity': {
         'disabled': `var(${vars['opacity.disabled']}, var(--token-global-opacity-30, 0.3))`,

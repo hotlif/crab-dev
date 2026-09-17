@@ -32,7 +32,10 @@ export const vars = defineTokens({
     'close.background-color-hover': '--drawer-close-background-color-hover',
     'close.border-radius': '--drawer-close-border-radius',
     'panel.animation-duration': '--drawer-panel-animation-duration',
-    'panel.animation-timing-function': '--drawer-panel-animation-timing-function'
+    'panel.animation-timing-function': '--drawer-panel-animation-timing-function',
+    'motion.fade': '--drawer-motion-fade',
+    'motion.expand': '--drawer-motion-expand',
+    'motion.exit': '--drawer-motion-exit'
 });
 
 const token = defineTokens({
@@ -89,6 +92,11 @@ const token = defineTokens({
     'panel': {
         'animation-duration': `var(${vars['panel.animation-duration']}, var(--drawer-transition-duration, 280ms))`,
         'animation-timing-function': `var(${vars['panel.animation-timing-function']}, var(--drawer-transition-easing, cubic-bezier(0.32, 0.72, 0, 1)))`
+    },
+    'motion': {
+        'fade': `var(${vars['motion.fade']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+        'expand': `var(${vars['motion.expand']}, var(--token-semantic-motion-slide-enter, var(--token-global-duration-slow, 300ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
+        'exit': `var(${vars['motion.exit']}, var(--token-semantic-motion-slide-exit, var(--token-global-duration-normal, 200ms) var(--token-global-easing-in, cubic-bezier(0.4, 0, 1, 1))))`
     }
 });
 

@@ -42,3 +42,7 @@ close.border-radius       = "$ref(radius.md)"
 
 panel.animation-duration       = "var(--drawer-transition-duration, 280ms)"
 panel.animation-timing-function = "var(--drawer-transition-easing, cubic-bezier(0.32, 0.72, 0, 1))"
+
+motion.fade = "$ref(motion.fade)"
+motion.expand = "$ref(motion.slide-enter)"
+motion.exit = "$ref(motion.slide-exit)"

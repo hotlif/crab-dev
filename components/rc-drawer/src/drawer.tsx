@@ -1,7 +1,7 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
 import { css, cx } from "@crab-dev/css";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { usePresence } from "@crab-dev/rc-hooks";
 
 import token from "./token.js";
 
@@ -97,6 +97,17 @@ const overlayStyle = css`
     position: fixed;
     inset: 0;
     background-color: ${token.overlay['background-color']};
+    opacity: 1;
+    transition: opacity ${token.motion.fade};
+    @starting-style { opacity: 0; }
+    &[data-state="closed"] {
+        opacity: 0;
+        transition: opacity ${token.motion.exit};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &, &[data-state="closed"] { transition: none; }
+    }
 `;
 
 const panelBaseStyle = css`
@@ -109,9 +120,22 @@ const panelBaseStyle = css`
     box-sizing: border-box;
     max-width: 100vw;
     max-height: 100dvh;
-
+    translate: 0 0;
+    transition: translate ${token.motion.expand};
+    @starting-style {
+        &[data-placement="left"] { translate: -100% 0; }
+        &[data-placement="right"] { translate: 100% 0; }
+        &[data-placement="top"] { translate: 0 -100%; }
+        &[data-placement="bottom"] { translate: 0 100%; }
+    }
+    &[data-state="closed"] { transition: translate ${token.motion.exit}; }
+    &[data-placement="left"][data-state="closed"] { translate: -100% 0; }
+    &[data-placement="right"][data-state="closed"] { translate: 100% 0; }
+    &[data-placement="top"][data-state="closed"] { translate: 0 -100%; }
+    &[data-placement="bottom"][data-state="closed"] { translate: 0 100%; }
+    @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
     @media (prefers-reduced-motion: reduce) {
-        transition: none;
+        &, &[data-state="closed"] { transition: none; }
     }
 `;
 
@@ -290,12 +314,6 @@ const getSizeStyle = (placement: DrawerPlacement, size: DrawerSize): string => {
     return panelSizeMediumVerticalStyle;
 };
 
-const getMotionOffset = (placement: DrawerPlacement): { axis: "x" | "y"; from: string } => {
-    if (placement === "left") return { axis: "x", from: "-100%" };
-    if (placement === "top") return { axis: "y", from: "-100%" };
-    if (placement === "bottom") return { axis: "y", from: "100%" };
-    return { axis: "x", from: "100%" };
-};
 
 /* ──────────────────────────────────── 组件 ──────────────────────────────────── */
 
@@ -325,10 +343,13 @@ const Drawer: FC<DrawerProps> = ({
     const titleId = useId();
     // Mutable instance state: retain the background lock until the panel has left.
     const restoreScroll = useRef<(() => void) | null>(null);
-    const reducedMotion = useReducedMotion();
-    const [contentReset, setContentReset] = useState(false);
+    const presence = usePresence<HTMLDivElement>(open, () => {
+        dialogRef.current?.close();
+        restoreScroll.current?.();
+    });
 
-    useEffect(() => {
+    // Enter the top layer before painting so the panel and mask start together.
+    useLayoutEffect(() => {
         const node = dialogRef.current;
         if (!node || !open) return;
         if (open && !node.open) {
@@ -345,12 +366,6 @@ const Drawer: FC<DrawerProps> = ({
     }, [open]);
 
     useEffect(() => () => restoreScroll.current?.(), []);
-
-    useEffect(() => {
-        if (open) {
-            setContentReset(false);
-        }
-    }, [open, shouldResetContent]);
 
     const requestClose = (event: SyntheticEvent) => {
         const result = onClose?.(event);
@@ -377,11 +392,6 @@ const Drawer: FC<DrawerProps> = ({
 
     const placementStyle = getPlacementStyle(placement);
     const sizeStyle = getSizeStyle(placement, size);
-    const { axis, from } = getMotionOffset(placement);
-
-    const motionInitial = axis === "x" ? { x: reducedMotion ? 0 : from } : { y: reducedMotion ? 0 : from };
-    const motionAnimate = axis === "x" ? { x: 0 } : { y: 0 };
-    const motionExit = motionInitial;
 
     return (
         <dialog
@@ -393,63 +403,51 @@ const Drawer: FC<DrawerProps> = ({
             aria-labelledby={title && !restProps['aria-label'] ? titleId : undefined}
             {...restProps}
         >
-            <AnimatePresence
-                onExitComplete={() => {
-                    if (open) return;
-                    dialogRef.current?.close();
-                    restoreScroll.current?.();
-                    if (shouldResetContent) setContentReset(true);
-                }}
-            >
-                {open && (
-                    <>
-                        <motion.div
-                            key="overlay"
-                            className={overlayStyle}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.2, ease: [0.4, 0, 1, 1] } }}
-                            transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0, 0, 0.2, 1] }}
-                            onClick={handleMaskClick}
-                            role="presentation"
-                            data-testid="drawer-overlay"
-                        />
-                        <motion.div
-                            key="panel"
-                            className={cx(panelBaseStyle, placementStyle, sizeStyle)}
-                            initial={motionInitial}
-                            animate={motionAnimate}
-                            exit={{ ...motionExit, transition: { duration: reducedMotion ? 0 : 0.2, ease: [0.4, 0, 1, 1] } }}
-                            transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0, 0, 0.2, 1] }}
-                            role="document"
-                            data-placement={placement}
-                            data-size={size}
-                        >
-                            {(title || closable) && (
-                                <div className={headerStyle}>
-                                    <div id={titleId} className={titleStyle} title={typeof title === "string" ? title : undefined}>
-                                        {title}
-                                    </div>
-                                    {closable && (
-                                        <button
-                                            type="button"
-                                            className={closeButtonStyle}
-                                            onClick={handleCloseButtonClick}
-                                            aria-label={closeLabel}
-                                        >
-                                            <CloseIcon />
-                                        </button>
-                                    )}
+            {(presence.present || !shouldResetContent) && (
+                <>
+                    <div
+                        key="overlay"
+                        data-state={presence.state}
+                        inert={!open}
+                        className={overlayStyle}
+                        onClick={handleMaskClick}
+                        role="presentation"
+                        data-testid="drawer-overlay"
+                    />
+                    <div
+                        key="panel"
+                        ref={presence.ref}
+                        data-state={presence.state}
+                        inert={!open}
+                        className={cx(panelBaseStyle, placementStyle, sizeStyle)}
+                        role="document"
+                        data-placement={placement}
+                        data-size={size}
+                    >
+                        {(title || closable) && (
+                            <div className={headerStyle}>
+                                <div id={titleId} className={titleStyle} title={typeof title === "string" ? title : undefined}>
+                                    {title}
                                 </div>
-                            )}
-                            <div className={bodyStyle}>
-                                {!contentReset && children}
+                                {closable && (
+                                    <button
+                                        type="button"
+                                        className={closeButtonStyle}
+                                        onClick={handleCloseButtonClick}
+                                        aria-label={closeLabel}
+                                    >
+                                        <CloseIcon />
+                                    </button>
+                                )}
                             </div>
-                            {footer ? <div className={footerStyle}>{footer}</div> : null}
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                        )}
+                        <div className={bodyStyle}>
+                            {children}
+                        </div>
+                        {footer ? <div className={footerStyle}>{footer}</div> : null}
+                    </div>
+                </>
+            )}
         </dialog>
     );
 };

@@ -1,6 +1,6 @@
 export const meta = {
     title: "四个方向",
-    description: "通过 `placement` 控制抽屉从哪个方向滑出。",
+    description: "通过 `placement` 控制滑出方向；关闭时沿原方向退出，进入平缓、退出利落。",
 };
 
 import { useState } from "react";
@@ -16,20 +16,25 @@ const buttonRowStyle = css`
 `;
 
 const PlacementDemo = () => {
-    const [placement, setPlacement] = useState<DrawerPlacement | null>(null);
+    const [placement, setPlacement] = useState<DrawerPlacement>("right");
+    const [open, setOpen] = useState(false);
+    const openAt = (nextPlacement: DrawerPlacement) => {
+        setPlacement(nextPlacement);
+        setOpen(true);
+    };
     return (
         <>
             <div className={buttonRowStyle}>
-                <Button onClick={() => setPlacement("left")}>从左侧</Button>
-                <Button onClick={() => setPlacement("right")}>从右侧</Button>
-                <Button onClick={() => setPlacement("top")}>从顶部</Button>
-                <Button onClick={() => setPlacement("bottom")}>从底部</Button>
+                <Button onClick={() => openAt("left")}>从左侧</Button>
+                <Button onClick={() => openAt("right")}>从右侧</Button>
+                <Button onClick={() => openAt("top")}>从顶部</Button>
+                <Button onClick={() => openAt("bottom")}>从底部</Button>
             </div>
             <Drawer
-                open={placement !== null}
-                onOpenChange={(next) => !next && setPlacement(null)}
-                placement={placement ?? "right"}
-                title={`Placement: ${placement ?? ""}`}
+                open={open}
+                onOpenChange={setOpen}
+                placement={placement}
+                title={`Placement: ${placement}`}
             >
                 <p>当前位置：{placement}</p>
             </Drawer>

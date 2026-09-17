@@ -207,6 +207,9 @@ z-index.top      = "$ref(z-index.70)"
 motion.interaction = "calc(($ref(duration.fast) + $ref(duration.normal)) / 2) $ref(easing.out)"
 motion.fade        = "$ref(duration.normal) $ref(easing.out)"
 motion.expand      = "$ref(duration.slow) $ref(easing.out)"
+# Large edge panels ease into motion, then settle; exiting panels accelerate away.
+motion.slide-enter = "$ref(duration.slow) $ref(easing.default)"
+motion.slide-exit  = "$ref(duration.normal) $ref(easing.in)"
 
 
 # ─── 透明度 · 语义 ─────────────────────────────────────────────────────────
