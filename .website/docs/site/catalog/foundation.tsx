@@ -1,6 +1,7 @@
 import { Box, Label, Line, Window } from "./shapes.js";
 
 export const foundationPreviews = {
+    "rc-config-provider": <><Box x={30} y={28} w={180} h={100} /><Label y={54}>全局配置</Label><Box x={44} y={68} w={68} h={43} tone="brand" /><Label x={78} y={94} tone="on-brand">Light</Label><Box x={126} y={68} w={68} h={43} tone="text" /><Label x={160} y={94} tone="on-brand">Dark</Label></>,
     "rc-token-global": <>{["text", "brand", "muted", "soft"].map((tone, i) => <Box key={tone} x={36 + i * 45} y={31} w={37} h={42} tone={tone} />)}<Label x={38} y={103} anchor="start">Aa</Label><Line x={83} y={100} w={35} tone="brand" /><Line x={136} y={100} w={70} tone="brand" /><Label y={132}>颜色 · 字体 · 间距</Label></>,
     "rc-token-semantic": <><Box x={24} y={51} w={60} h={48} tone="brand" /><Label x={54} y={80} tone="on-brand">原始值</Label><path d="M92 75h28m-5-4 5 4-5 4" className="cc-stroke cc-brand" /><Box x={131} y={28} w={85} h={26} tone="soft" /><Label x={173} y={46} tone="brand">主要操作</Label><Box x={131} y={65} w={85} h={26} /><Label x={173} y={83}>正文文本</Label><Box x={131} y={102} w={85} h={26} /><Label x={173} y={120}>控件边界</Label></>,
     "rc-theme": <><Box x={30} y={28} w={83} h={100} /><Box x={126} y={28} w={83} h={100} tone="text" /><circle cx={70} cy={57} r={11} className="cc-brand" /><path d="M173 45a13 13 0 1 0 9 20 14 14 0 0 1-9-20" className="cc-soft" /><Line x={44} y={90} w={53} /><Line x={140} y={90} w={53} tone="soft" /><Box x={44} y={105} w={53} h={12} tone="brand" r={3} /><Box x={140} y={105} w={53} h={12} tone="soft" r={3} /></>,

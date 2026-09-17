@@ -1,4 +1,5 @@
 import { css, cx } from '@crab-dev/css';
+import { useConfig } from '@crab-dev/rc-config-provider';
 import token from './token.js';
 import ButtonGroupContext from './buttonGroupContext.js';
 import type { ButtonGroupProps } from './types.js';
@@ -19,7 +20,8 @@ const sizeGapMap = {
 } as const;
 
 function ButtonGroup({ children, size, appearance, className }: ButtonGroupProps) {
-    const resolvedSize = size ?? 'middle';
+    const config = useConfig();
+    const resolvedSize = size ?? config.size;
     return (
         <ButtonGroupContext value={{ size, appearance }}>
             <div className={cx(groupBaseStyle, sizeGapMap[resolvedSize], className)}>

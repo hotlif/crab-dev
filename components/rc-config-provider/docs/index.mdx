@@ -1,0 +1,65 @@
++++
+title = "ConfigProvider 全局配置"
+description = "通过 React Context 注入主题、语言和尺寸，复用 L2 CSS 变量切换主题"
+kind = "component"
+status = "experimental"
++++
+
+# ConfigProvider 全局配置
+
+为应用或局部区域提供可嵌套的默认配置。
+
+[打开组件工作台](/components/rc-config-provider/workbench/)
+
+<Demos />
+
+## 使用
+
+```tsx
+import ConfigProvider from '@crab-dev/rc-config-provider';
+import '@crab-dev/rc-theme/css/index.css';
+
+<ConfigProvider theme="dark" locale="en-US" size="large">
+    <App />
+</ConfigProvider>
+```
+
+主题样式入口需在应用中加载一次。Provider 输出一个普通 div，设置 `data-theme` 和 `lang`，
+由 rc-theme 覆盖 L2 `--token-semantic-*` 变量；没有内联样式、运行时样式插入或组件层颜色分支。
+Provider 本身不绘制背景；后代通过自己的语义令牌消费主题。
+应用应把 Provider 放在需要统一配置的内容根部；额外 div 会参与布局。
+
+## 配置与继承
+
+| 属性 | 值 | 根级默认值 |
+| --- | --- | --- |
+| theme | light / dark | light |
+| locale | zh-CN / en-US | zh-CN |
+| size | small / middle / large | middle |
+
+嵌套 Provider 按字段继承父级，显式属性覆盖父级，重新传入 undefined 恢复继承。
+原生 div 属性和 React 19 ref 可直接传入；语言由 locale 统一设置。
+使用具名导出的 `useConfig()` 读取当前有效配置，自定义组件可由此接入。
+无 Provider 时 Hook 返回上述默认值。
+
+主题适用于所有消费 L2 变量的后代。当前尺寸自动接入 Button / ButtonGroup，
+优先级为 Button.size > ButtonGroup.size > ConfigProvider.size；语言自动接入 Empty 三种预置文案。
+Empty 显式 title / description（包括 null）优先于语言默认值。
+其余组件的尺寸与文案仍遵循原有 API，可通过 useConfig 逐步接入。
+
+## 嵌套与浮层
+
+允许 dark 内嵌 light，或并列多个独立主题。CSS 同时保留强制颜色支持；主题切换不添加动画。
+Provider 不访问 document、存储或系统主题，也不修改 html / body；如需持久化或跟随系统，请由应用传入结果。
+
+React Portal 保留 Context，但不会继承原 DOM 祖先的 CSS 变量。
+将浮层挂载在主题容器内，或在 Portal 内容外再包一层不带配置属性的 ConfigProvider，
+即可从 Context 继承配置并重新建立 CSS 边界。不会自动修改其他浮层或全局挂载点。
+
+```tsx
+createPortal(<ConfigProvider><Overlay /></ConfigProvider>, container)
+```
+
+局部主题边界会重新声明 L2 变量；业务变量覆盖应施加到目标边界或其后代。
+
+<API source="../src/types.ts" symbol="ConfigProviderProps" component="ConfigProvider" />

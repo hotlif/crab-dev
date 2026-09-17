@@ -1,5 +1,6 @@
 import { css, cx } from '@crab-dev/css';
 import type { FC } from 'react';
+import { useConfig } from '@crab-dev/rc-config-provider';
 import NoDataIllustration from './illustrations/no-data.js';
 import NoPermissionIllustration from './illustrations/no-permission.js';
 import SearchNotFoundIllustration from './illustrations/search-not-found.js';
@@ -18,6 +19,18 @@ const DEFAULT_DESCRIPTIONS: Record<EmptyPreset, string> = {
     'default': '当前还没有内容，快去添加吧',
     'search': '尝试修改关键词或调整筛选条件',
     'no-permission': '请联系管理员获取相应权限',
+};
+
+const ENGLISH_TITLES: Record<EmptyPreset, string> = {
+    'default': 'No data',
+    'search': 'No results found',
+    'no-permission': 'Access denied',
+};
+
+const ENGLISH_DESCRIPTIONS: Record<EmptyPreset, string> = {
+    'default': 'There is no content yet. Add some to get started.',
+    'search': 'Try different keywords or filters.',
+    'no-permission': 'Contact your administrator to request access.',
 };
 
 // ─── 样式 ─────────────────────────────────────────────────────────────────────
@@ -86,8 +99,11 @@ const Empty: FC<EmptyProps> = ({
     className,
     ...restProps
 }) => {
-    const resolvedTitle = title !== undefined ? title : DEFAULT_TITLES[preset];
-    const resolvedDescription = description !== undefined ? description : DEFAULT_DESCRIPTIONS[preset];
+    const { locale } = useConfig();
+    const titles = locale === 'en-US' ? ENGLISH_TITLES : DEFAULT_TITLES;
+    const descriptions = locale === 'en-US' ? ENGLISH_DESCRIPTIONS : DEFAULT_DESCRIPTIONS;
+    const resolvedTitle = title !== undefined ? title : titles[preset];
+    const resolvedDescription = description !== undefined ? description : descriptions[preset];
 
     const renderImage = () => {
         if (image !== undefined) {

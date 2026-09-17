@@ -1,6 +1,7 @@
 import { css, cx } from '@crab-dev/css';
 import { useRef, use, type FC, type MouseEvent } from 'react';
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
+import { useConfig } from '@crab-dev/rc-config-provider';
 import token from './token.js';
 import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
@@ -304,8 +305,9 @@ const Button: FC<ButtonProps> = ({
     const clickState = useRef<boolean>(false);
 
     const groupCtx = use(ButtonGroupContext);
+    const config = useConfig();
     const resolvedAppearance = appearance ?? groupCtx.appearance ?? 'subtle';
-    const resolvedSize = size ?? groupCtx.size ?? 'middle';
+    const resolvedSize = size ?? groupCtx.size ?? config.size;
 
     const buttonClassName = cx(
         baseStyle,

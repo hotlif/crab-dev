@@ -35,6 +35,7 @@
         "@crab-dev/rc-checkbox": "workspace:^",
         "@crab-dev/rc-color-picker": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-cron-picker": "workspace:^",
         "@crab-dev/rc-date-picker": "workspace:^",
         "@crab-dev/rc-dialog": "workspace:^",

@@ -688,6 +688,7 @@ __metadata:
   dependencies:
     "@crab-dev/css": "npm:0.1.38"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-spin": "workspace:^"
@@ -825,6 +826,25 @@ __metadata:
     react-markdown: "npm:^10.1.0"
     react-router: "npm:^8.3.1"
     react-syntax-highlighter: "npm:^16.1.1"
+    typescript: "npm:^7.0.2"
+  languageName: unknown
+  linkType: soft
+
+"@crab-dev/rc-config-provider@workspace:^, @crab-dev/rc-config-provider@workspace:components/rc-config-provider":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-config-provider@workspace:components/rc-config-provider"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.38"
+    "@crab-dev/rc-theme": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.43"
+    "@types/node": "npm:^22.20.2"
+    "@types/react": "npm:^19.3.0"
+    "@types/react-dom": "npm:^19.3.0"
+    prettier: "npm:^3.9.6"
+    react: "npm:19.3.0"
+    react-dom: "npm:19.3.0"
     typescript: "npm:^7.0.2"
   languageName: unknown
   linkType: soft
@@ -1004,6 +1024,7 @@ __metadata:
   dependencies:
     "@crab-dev/css": "npm:0.1.38"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
@@ -1911,6 +1932,7 @@ __metadata:
     "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-color-picker": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-cron-picker": "workspace:^"
     "@crab-dev/rc-date-picker": "workspace:^"
     "@crab-dev/rc-dialog": "workspace:^"

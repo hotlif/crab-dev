@@ -7,8 +7,8 @@ import { generate } from "@babel/generator";
 import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 
-const EXPECTED_COMPONENT_COUNT = 52;
-const EXPECTED_DEMO_COUNT = 246;
+const EXPECTED_COMPONENT_COUNT = 53;
+const EXPECTED_DEMO_COUNT = 247;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");

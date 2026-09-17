@@ -93,6 +93,7 @@ pages = [
     "components/rc-token-global",
     "components/rc-token-semantic",
     "components/rc-theme",
+    "components/rc-config-provider",
     "components/rc-hooks",
     "components/rc-prose",
     "components/rc-component-preview",

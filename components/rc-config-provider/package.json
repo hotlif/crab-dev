@@ -1,29 +1,28 @@
 {
-    "name": "@crab-dev/rc-button",
+    "name": "@crab-dev/rc-config-provider",
     "websiteConfig": {
-        "title": "Button 按钮",
-        "category": "general"
+        "category": "primitive",
+        "title": "ConfigProvider 全局配置"
     },
-    "description": "一个按钮, 用于即时操作",
+    "description": "提供可嵌套的主题、语言和尺寸配置",
     "packageManager": "yarn@4.18.0",
     "type": "module",
-    "version": "0.0.2",
+    "version": "0.0.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",
-        "directory": "components/rc-button"
+        "directory": "components/rc-config-provider"
     },
     "scripts": {
-        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
-        "build:library": "yarn generate:token && wake library build .",
+        "start": "wake docs dev . --mode components",
+        "build:library": "wake library build .",
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-        "generate:docgen": "wake library docgen .",
-        "generate:token": "wake library token .",
-        "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-button/src components/rc-button/docs --env browser --max-warnings 0"
+        "test": "wake test --serial --coverage",
+        "check": "yarn lint && yarn typecheck && yarn test",
+        "lint": "wake lint --format human --root ../.. components/rc-config-provider/src components/rc-config-provider/docs --env browser --max-warnings 0",
+        "generate:docgen": "wake library docgen ."
     },
     "files": [
         "esm",
@@ -37,32 +36,25 @@
     "exports": {
         ".": {
             "types": "./declarations/index.d.ts",
-            "import": "./esm/index.mjs",
-            "require": "./cjs/index.cjs"
+            "require": "./cjs/index.cjs",
+            "import": "./esm/index.mjs"
         },
-        "./css/index.css": "./css/index.css",
         "./package.json": "./package.json"
     },
     "dependencies": {
         "@crab-dev/css": "0.1.38",
-        "@crab-dev/rc-config-provider": "workspace:^",
-        "@crab-dev/rc-spin": "workspace:^"
+        "@crab-dev/rc-theme": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.43",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
-        "lucide-react": "^1.43.0",
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "react-router": "^8.3.1",
         "typescript": "^7.0.2"
     },
     "engines": {
