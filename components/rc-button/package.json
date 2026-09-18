@@ -7,7 +7,7 @@
     "description": "一个按钮, 用于即时操作",
     "packageManager": "yarn@4.18.0",
     "type": "module",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",
