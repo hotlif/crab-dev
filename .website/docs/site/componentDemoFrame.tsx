@@ -2,7 +2,7 @@ import { css } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
-import Spin from "@crab-dev/rc-spin";
+import { SpinIndicator } from "@crab-dev/rc-spin";
 import token from "@crab-dev/rc-token-semantic";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -359,7 +359,8 @@ export default function ComponentDemoFrame({
                             role="status"
                             aria-live="polite"
                         >
-                            <Spin tip="正在加载交互演示…" />
+                            <SpinIndicator size="middle" />
+                            <span>正在加载交互演示…</span>
                         </div>
                     )}
                 </div>

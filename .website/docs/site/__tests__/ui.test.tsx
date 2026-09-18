@@ -1,15 +1,18 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
-import { useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import type { CommonProps, DemoProps, PageProps, SearchState } from "@crab-dev/wake/docs";
 
 // Keep delayed content mounting after open, plus controlled close semantics.
 mock.module("@crab-dev/rc-dialog", () => ({
     __esModule: true,
     default: function DialogFixture({ ref, title, children, open }: import("@crab-dev/rc-dialog").DialogProps) {
-        const [mounted, setMounted] = useState(false);
-        useEffect(() => { setMounted(open); }, [open]);
-        return <dialog ref={ref} open={open} aria-label={typeof title === "string" ? title : "对话框"}>
+        const [mounted, setMounted] = useState(open);
+        useEffect(() => { if (open) setMounted(true); }, [open]);
+        return <dialog ref={ref} role="dialog" open={open}
+            onClose={() => setMounted(false)}
+            aria-label={typeof title === "string" ? title : "对话框"}>
             {mounted && children}
         </dialog>;
     },
@@ -19,10 +22,32 @@ mock.module("@crab-dev/rc-dialog", () => ({
 mock.module("@crab-dev/rc-drawer", () => ({
     __esModule: true,
     default: ({ open, onOpenChange, children }: import("@crab-dev/rc-drawer").DrawerProps) => (
-        <dialog open={open} aria-label="文档导航" onCancel={() => onOpenChange(false)}>
+        <dialog role="dialog" open={open} aria-label="文档导航" onCancel={() => onOpenChange(false)}>
             {children}
         </dialog>
     ),
+}));
+
+type DropdownFixtureValue = import("@crab-dev/rc-dropdown-container").DropdownContextValue;
+const DropdownFixtureContext = createContext<DropdownFixtureValue | null>(null);
+
+// ThemeSwitch tests its own keyboard and selection behavior; floating geometry is covered by rc-dropdown-container.
+mock.module("@crab-dev/rc-dropdown-container", () => ({
+    __esModule: true,
+    default: ({ children, overlay }: { children: ReactNode; overlay: ReactNode }) => {
+        const [open, setOpen] = useState(false);
+        const value: DropdownFixtureValue = {
+            state: { open },
+            dispatch: (action) => setOpen(action.payload),
+            refs: { setReference: () => {} },
+        };
+        return <DropdownFixtureContext value={value}>{children}{open && overlay}</DropdownFixtureContext>;
+    },
+    useDropdownContext: () => {
+        const value = use(DropdownFixtureContext);
+        if (!value) throw new Error("Dropdown fixture is missing its provider");
+        return value;
+    },
 }));
 
 let UI: typeof import("../ui.js");
@@ -99,7 +124,7 @@ describe("Wake 文档展示适配器", () => {
     it("跳过导航入口聚焦当前正文并具有对应锚点", async () => {
         const state = common();
         await render(<UI.Layout {...state} header={null} navigation={null} tableOfContents={null}
-            mobileNavigation={null} searchDialog={null}><main tabIndex={-1}>正文</main></UI.Layout>);
+            mobileNavigation={null} searchDialog={null}><main role="main" tabIndex={-1}>正文</main></UI.Layout>);
         const skip = screen.getByRole("link", { name: "跳到主要内容" });
         expect(document.getElementById(skip.getAttribute("href")!.slice(1))).toBeTruthy();
         await fireEvent.click(skip);
@@ -233,15 +258,13 @@ describe("Wake 文档展示适配器", () => {
         const themeControl = screen.getByRole("button", { name: "文档主题：跟随系统" });
         expect(themeControl.getAttribute("aria-expanded")).toBe("false");
         await fireEvent.click(themeControl);
-        await fireEvent.click(screen.getByRole("menuitemradio", { name: "深色" }));
+        const currentTheme = screen.getByRole("menuitemradio", { name: /跟随系统/ });
+        await fireEvent.keyDown(currentTheme, { key: "ArrowUp" });
+        const darkTheme = screen.getByRole("menuitemradio", { name: "深色" });
+        expect(document.activeElement).toBe(darkTheme);
+        await fireEvent.click(darkTheme);
         expect(state.theme.setTheme).toHaveBeenCalledWith("dark");
         expect(themeControl.getAttribute("aria-expanded")).toBe("false");
-        expect(document.activeElement).toBe(themeControl);
-        await fireEvent.click(themeControl);
-        const currentTheme = screen.getByRole("menuitemradio", { name: "跟随系统" });
-        await fireEvent.keyDown(currentTheme, { key: "ArrowUp" });
-        expect(document.activeElement).toBe(screen.getByRole("menuitemradio", { name: "深色" }));
-        await fireEvent.keyDown(document.activeElement!, { key: "Escape" });
         expect(document.activeElement).toBe(themeControl);
     });
 

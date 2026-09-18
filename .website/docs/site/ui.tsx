@@ -75,7 +75,7 @@ export function Layout(props: UI.LayoutProps) {
 
 export function Header({ site, route, search, mobileNavigation, theme }: UI.HeaderProps) {
     return (
-        <header className="crab-docs-header">
+        <header className="crab-docs-header" role="banner">
             <Button
                 appearance="text"
                 className="crab-docs-brand"
@@ -90,7 +90,7 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
             >
                 Crab UI
             </Button>
-            <nav className="crab-docs-header-links" aria-label="主导航">
+            <nav className="crab-docs-header-links" role="navigation" aria-label="主导航">
                 <Button
                     appearance="text"
                     className="crab-docs-design-link"
@@ -180,7 +180,7 @@ export function Navigation({ groups, current, toggleSection, onNavigate, route }
         </Button>
     );
     return (
-        <nav className="crab-docs-navigation" aria-label={design ? "设计语言目录" : "文档分类"}>
+        <nav className="crab-docs-navigation" role="navigation" aria-label={design ? "设计语言目录" : "文档分类"}>
             {visibleGroups.map((group) => (
                 <section key={group.id}>
                     <h2>{group.title}</h2>
@@ -256,7 +256,7 @@ export function MobileNavigation({
                     setOpen(value);
                 }}
             >
-                <nav className="crab-docs-mobile-primary" aria-label="主导航">
+                <nav className="crab-docs-mobile-primary" role="navigation" aria-label="主导航">
                     {[["首页", "/"], ["设计语言", "design/language"], ["组件", "learn/components"]].map(([label, slug]) => (
                         <Button key={slug} appearance="text" href={route.href(slug)} onClick={event => {
                             follow(event, slug, route.navigate);
@@ -510,7 +510,7 @@ export function TableOfContents({
         : activeId;
     if (!visible.length) return null;
     return (
-        <nav className="crab-docs-toc" data-variant={variant} aria-label="本页目录">
+        <nav className="crab-docs-toc" role="navigation" data-variant={variant} aria-label="本页目录">
             <strong>本页内容</strong>
             {visible.map((heading) => (
                 <Button
@@ -562,7 +562,7 @@ export function Page({ page, breadcrumbs, previous, next, route, site, children 
                     {component && (
                         <>
                             <code>@crab-dev/{page.slug.split("/").at(-1)}</code>
-                            <nav className="crab-docs-actions" aria-label="组件快捷入口">
+                            <nav className="crab-docs-actions" role="navigation" aria-label="组件快捷入口">
                                 <Button
                                     appearance="subtle"
                                     href={`${page.href}#${encodeURIComponent("基础示例")}`}
@@ -591,7 +591,7 @@ export function Page({ page, breadcrumbs, previous, next, route, site, children 
                         本页目录
                         <NavigationChevron />
                     </summary>
-                    <nav aria-label="移动端本页目录">
+                    <nav role="navigation" aria-label="移动端本页目录">
                         {page.headings
                             .filter((item) => item.depth === 2)
                             .map((item) => (
@@ -604,7 +604,7 @@ export function Page({ page, breadcrumbs, previous, next, route, site, children 
             )}
             <div className="crab-docs-prose">{children}</div>
             {!home && !design && (
-                <nav className="crab-docs-pager" aria-label="文档翻页">
+                <nav className="crab-docs-pager" role="navigation" aria-label="文档翻页">
                     {previous && (
                         <Button
                             appearance="text"

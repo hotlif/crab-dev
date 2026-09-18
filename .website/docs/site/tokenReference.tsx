@@ -107,7 +107,7 @@ export default function TokenReference({ group }: { group: string }) {
     const [moving, setMoving] = useState(false);
     const entries = tokenEntries.filter(entry => entry.group === group);
     const names = [...new Set(entries.map(family))];
-    return <section className={referenceStyle} data-group={group} data-moving={moving} aria-label={`${groups[group]}令牌参考`}>
+    return <section className={referenceStyle} data-group={group} data-moving={moving} role="region" aria-label={`${groups[group]}令牌参考`}>
         <div className="tgr-caption"><span>{entries.length} 项 · 源码原始值</span>
             {group === "motion" && <Button size="small" appearance="subtle" onClick={() => setMoving(value => !value)}>播放 / 反向对照</Button>}
         </div>
