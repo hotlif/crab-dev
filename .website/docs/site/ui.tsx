@@ -62,8 +62,10 @@ export function Layout(props: UI.LayoutProps) {
                     <aside className="crab-docs-sidebar">{props.navigation}</aside>
                     <div className="crab-docs-content" id={contentId} ref={content}>{props.children}</div>
                     <aside className="crab-docs-directory">
-                        <div ref={setDirectory} />
-                        {props.tableOfContents}
+                        <div className="crab-docs-directory-panel">
+                            <div ref={setDirectory} />
+                            {props.tableOfContents}
+                        </div>
                     </aside>
                 </div>
                 {props.mobileNavigation}
@@ -520,7 +522,7 @@ export function TableOfContents({
                     aria-current={currentId === heading.id ? "location" : undefined}
                     onClick={(event) => follow(event, heading.id, navigate)}
                 >
-                    {heading.title}
+                    <span title={heading.title}>{heading.title}</span>
                 </Button>
             ))}
         </nav>

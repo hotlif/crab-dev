@@ -168,7 +168,6 @@ const canvasStyle = css`
 const directoryStyle = css`
     display: grid;
     gap: ${token.space["component-gap"]};
-    margin-block-end: ${token.space["section-gap"]};
     font-size: ${token.font.size.body};
     & > strong {
         font-size: ${token.font.size.caption};
@@ -177,9 +176,18 @@ const directoryStyle = css`
     }
     & button {
         justify-content: start;
-        white-space: normal;
+        width: 100%;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         text-align: start;
         min-height: calc(${token.space["control-padding-y"]} * 6);
+    }
+    & button > span {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `;
 
@@ -212,7 +220,9 @@ function StepDirectory({
                             document.getElementById(panelId)?.scrollIntoView({ block: "start" });
                         }}
                     >
-                        {position + 1}. {step.title}
+                        <span title={`${position + 1}. ${step.title}`}>
+                            {position + 1}. {step.title}
+                        </span>
                     </Button>
                 ))}
             </nav>,

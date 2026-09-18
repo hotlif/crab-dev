@@ -73,9 +73,13 @@ body { margin: 0; }
 .crab-docs-search-short { display: none; }
 .crab-docs-prose > :is(h2,h3,h4) > a { margin-left: ${token.space["component-gap"]}; font-size: ${token.font.size.caption}; opacity: 0; transition: opacity ${token.motion.interaction}; }
 .crab-docs-prose > :is(h2,h3,h4):hover > a, .crab-docs-prose > :is(h2,h3,h4) > a:focus-visible { opacity: 1; }
-.crab-docs-grid { display: grid; grid-template-columns: 16rem minmax(0, 1fr) 13rem; max-width: 96rem; margin: auto; }
+.crab-docs-grid { display: grid; grid-template-columns: 16rem minmax(0, 1fr) 15rem; max-width: 96rem; margin: auto; }
 .crab-docs-sidebar, .crab-docs-directory { position: sticky; top: 5rem; max-height: calc(100dvh - 5rem); overflow-y: auto; scrollbar-width: thin; scrollbar-color: ${token.color.border.subtle} transparent; align-self: start; padding: ${token["space"]["page-padding"]} ${token["space"]["section-gap"]}; }
 .crab-docs-sidebar { font-size: ${token.font.size.body}; }
+.crab-docs-directory { padding-inline: ${token.space["stack-gap"]}; }
+.crab-docs-directory-panel { display: grid; gap: 0; min-width: 0; overflow: hidden; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.radius.lg}; background: ${token.color.background.surface}; }
+.crab-docs-directory-panel > :not(:empty) { min-width: 0; padding: ${token.space["section-gap"]} ${token.space["stack-gap"]}; }
+.crab-docs-directory-panel > :not(:empty) + :not(:empty) { border-top: 1px solid ${token.color.border.subtle}; }
 .crab-docs-content, .crab-docs-content main, .crab-docs-page { min-width: 0; max-width: 100%; }
 .crab-docs-layout[data-catalog="true"] .crab-docs-grid { grid-template-columns: 16rem minmax(0, 1fr); }
 .crab-docs-layout[data-catalog="true"] .crab-docs-directory { display: none; }
@@ -114,11 +118,12 @@ body { margin: 0; }
 .crab-docs-section-clip .crab-docs-section-pages { margin-right: ${token.space["inline-gap"]}; }
 .crab-docs-navigation .crab-docs-nav-page[aria-current="page"], .crab-docs-navigation .crab-docs-nav-page[aria-current="page"]:hover { font-weight: ${token.font.weight.heading}; color: ${token.color.selection.foreground}; background: var(--crab-docs-nav-selected); box-shadow: none; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle):focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 2px; }
-.crab-docs-toc a { display: flex; width: 100%; justify-content: flex-start; text-align: left; white-space: normal; height: auto; min-height: 2.5rem; line-height: 1.5; padding: ${token.space["component-gap"]} ${token.space["stack-gap"]}; color: ${token.color.text.secondary}; }
+.crab-docs-toc a { display: flex; width: 100%; min-width: 0; justify-content: flex-start; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 2.5rem; min-height: 2.5rem; line-height: 1.5; padding: ${token.space["component-gap"]} ${token.space["stack-gap"]}; color: ${token.color.text.secondary}; }
+.crab-docs-toc a > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .crab-docs-toc a:hover { background: var(--crab-docs-nav-hover); color: ${token.color.text.primary}; }
 .crab-docs-toc a[aria-current="location"], [aria-label="本课步骤目录"] [aria-current="step"] { font-weight: ${token.font.weight.heading}; color: ${token.color.selection.foreground}; background: var(--crab-docs-nav-selected); box-shadow: none; }
-.crab-docs-toc { display: grid; gap: ${token.space["component-gap"]}; font-size: ${token.font.size.body}; }
-.crab-docs-toc strong { margin-bottom: ${token.space["component-gap"]}; font-size: ${token.font.size.caption}; font-weight: ${token.font.weight.label}; color: ${token.color.text.secondary}; }
+.crab-docs-toc { display: grid; min-width: 0; gap: ${token.space["component-gap"]}; font-size: ${token.font.size.body}; }
+.crab-docs-toc strong, [aria-label="本课步骤目录"] > strong { margin-bottom: ${token.space["component-gap"]}; font-size: ${token.font.size.caption}; font-weight: ${token.font.weight.label}; letter-spacing: .04em; color: ${token.color.text.secondary}; }
 .crab-docs-toc[data-variant="mobile"] { display: none; }
 .crab-docs-page-heading { display: grid; gap: ${token["space"]["stack-gap"]}; margin-bottom: calc(${token["space"]["group-gap"]} * 1.5); }
 .crab-docs-page-heading h1 { font-size: calc(${token["font"]["size"]["heading"]} * 2); font-weight: ${token.font.weight.heading}; line-height: 1.25; letter-spacing: -.03em; }

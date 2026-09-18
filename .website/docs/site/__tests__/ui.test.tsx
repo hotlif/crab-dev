@@ -500,15 +500,16 @@ describe("Wake 文档展示适配器", () => {
         expect(search.select).not.toHaveBeenCalled();
     });
 
-    it("章节目录保留章节链接并调用 Wake 目录导航", async () => {
+    it("章节目录保留完整名称和长标题提示，并调用 Wake 目录导航", async () => {
         const navigate = mock.fn();
+        const title = "容器会执行 sourceCode 吗？";
         await render(
             <UI.TableOfContents
                 {...common()}
                 headings={[
                     {
                         id: "api",
-                        title: "API",
+                        title,
                         depth: 2,
                         href: "/handbook/components/rc-button#api",
                     },
@@ -518,7 +519,8 @@ describe("Wake 文档展示适配器", () => {
                 navigate={navigate}
             />,
         );
-        const link = screen.getByRole("link", { name: "API" });
+        const link = screen.getByRole("link", { name: title });
+        expect(link.querySelector("[title]")?.getAttribute("title")).toBe(title);
         expect(link.getAttribute("aria-current")).toBe("location");
         await fireEvent.click(link);
         expect(navigate).toHaveBeenCalledWith("api");
