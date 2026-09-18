@@ -104,9 +104,9 @@ const top = token.root.top;
 
 const fadeStyle = css`
     opacity: 1;
-    transition: opacity ${token.motion.fade};
+    transition: opacity ${token.motion.fade.transition};
     @starting-style { opacity: 0; }
-    &[data-state="closed"] { opacity: 0; transition: opacity ${token.motion.interaction}; }
+    &[data-state="closed"] { opacity: 0; transition: opacity ${token.motion.interaction.transition}; }
 
     @media (prefers-reduced-motion: reduce) {
         &, &[data-state="closed"] { transition: none; }
@@ -116,11 +116,11 @@ const fadeStyle = css`
 const contentMotionStyle = css`
     opacity: 1;
     translate: 0 0;
-    transition: opacity ${token.motion.fade}, translate ${token.motion.fade};
-    @starting-style { opacity: 0; translate: 0 ${token.motion.offset}; }
+    transition: opacity ${token.motion.fade.transition}, translate ${token.motion.fade.transition};
+    @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
     &[data-state="closed"] {
-        opacity: 0; translate: 0 ${token.motion.offset};
-        transition: opacity ${token.motion.interaction}, translate ${token.motion.interaction};
+        opacity: 0; translate: 0 ${token.motion.offset.translate};
+        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
     }
 
     @media (prefers-reduced-motion: reduce) {

@@ -5,7 +5,7 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
-    'option.checkbox.size': '--select-option-checkbox-size',
+    'option.checkbox.width': '--select-option-checkbox-width',
     'option.background-color-hover': '--select-option-background-color-hover',
     'option.color-selected': '--select-option-color-selected',
     'option.background-color-selected': '--select-option-background-color-selected',
@@ -58,7 +58,7 @@ export const vars = defineTokens({
 const token = defineTokens({
     'option': {
         'checkbox': {
-            'size': `var(${vars['option.checkbox.size']}, 18px)`
+            'width': `var(${vars['option.checkbox.width']}, var(--select-option-checkbox-size, 18px))`
         },
         'background-color-hover': `var(${vars['option.background-color-hover']}, var(--select-option-color-hover, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
         'color-selected': `var(${vars['option.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,

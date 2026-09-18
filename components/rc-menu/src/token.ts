@@ -80,7 +80,7 @@ export const vars = defineTokens({
     'horizontal.group-item.title.font-weight': '--menu-horizontal-group-item-title-font-weight',
     'horizontal.group-item.icon.color': '--menu-horizontal-group-item-icon-color',
     'horizontal.group-item.icon.margin-right': '--menu-horizontal-group-item-icon-margin-right',
-    'motion.expand': '--menu-motion-expand'
+    'motion.expand.transition': '--menu-motion-expand-transition'
 });
 
 const token = defineTokens({
@@ -210,7 +210,9 @@ const token = defineTokens({
         }
     },
     'motion': {
-        'expand': `var(${vars['motion.expand']}, var(--token-semantic-motion-expand, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
+        'expand': {
+            'transition': `var(${vars['motion.expand.transition']}, var(--menu-motion-expand, var(--token-semantic-motion-expand, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        }
     }
 });
 

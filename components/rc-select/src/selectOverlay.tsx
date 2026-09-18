@@ -99,9 +99,9 @@ const checkIconStyle = css`
 // 这里用 pointer-events: none 阻止其抢占点击，避免与整行点击重复触发切换。
 const checkboxIndicatorStyle = css`
     /* The option row owns the hit area; its checkbox is a decorative indicator. */
-    ${checkboxVars['control.target-size']}: ${token.option.checkbox.size};
-    ${checkboxVars['root.touch.min-width']}: ${token.option.checkbox.size};
-    ${checkboxVars['root.touch.min-height']}: ${token.option.checkbox.size};
+    ${checkboxVars['control.target.width']}: ${token.option.checkbox.width};
+    ${checkboxVars['root.touch.min-width']}: ${token.option.checkbox.width};
+    ${checkboxVars['root.touch.min-height']}: ${token.option.checkbox.width};
     display: inline-flex;
     flex-shrink: 0;
     margin-right: 8px;

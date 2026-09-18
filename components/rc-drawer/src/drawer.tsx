@@ -98,11 +98,11 @@ const overlayStyle = css`
     inset: 0;
     background-color: ${token.overlay['background-color']};
     opacity: 1;
-    transition: opacity ${token.motion.fade};
+    transition: opacity ${token.motion.fade.transition};
     @starting-style { opacity: 0; }
     &[data-state="closed"] {
         opacity: 0;
-        transition: opacity ${token.motion.exit};
+        transition: opacity ${token.motion.exit.transition};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -121,14 +121,14 @@ const panelBaseStyle = css`
     max-width: 100vw;
     max-height: 100dvh;
     translate: 0 0;
-    transition: translate ${token.motion.expand};
+    transition: translate ${token.motion.expand.transition};
     @starting-style {
         &[data-placement="left"] { translate: -100% 0; }
         &[data-placement="right"] { translate: 100% 0; }
         &[data-placement="top"] { translate: 0 -100%; }
         &[data-placement="bottom"] { translate: 0 100%; }
     }
-    &[data-state="closed"] { transition: translate ${token.motion.exit}; }
+    &[data-state="closed"] { transition: translate ${token.motion.exit.transition}; }
     &[data-placement="left"][data-state="closed"] { translate: -100% 0; }
     &[data-placement="right"][data-state="closed"] { translate: 100% 0; }
     &[data-placement="top"][data-state="closed"] { translate: 0 -100%; }

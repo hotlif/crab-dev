@@ -42,14 +42,14 @@ const baseStyle = css`
     pointer-events: all;
     grid-area: 1 / 1;
     overflow: hidden;
-    max-width: calc(100vw - ${token.stack.offset} * 2);
+    max-width: calc(100vw - ${token.stack.translate} * 2);
     box-sizing: border-box;
     opacity: 1;
     translate: 0 0;
-    &[data-stack="1"] { translate: 0 ${token.stack.offset}; }
-    &[data-stack="2"] { translate: 0 calc(${token.stack.offset} * 2); }
-    &[data-stack="3"] { translate: 0 calc(${token.stack.offset} * 3); }
-    transition: opacity ${token.motion.interaction}, translate ${token.motion.interaction};
+    &[data-stack="1"] { translate: 0 ${token.stack.translate}; }
+    &[data-stack="2"] { translate: 0 calc(${token.stack.translate} * 2); }
+    &[data-stack="3"] { translate: 0 calc(${token.stack.translate} * 3); }
+    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
     @starting-style {
         &[data-state="open"] { opacity: 0; translate: 0 -100%; }
     }
@@ -69,7 +69,7 @@ const progressStyle = css`
     background: linear-gradient(90deg, ${token.progress.start.color} 0%, ${token.progress.end.color} 100%);
     border-top-right-radius: 0;
     border-bottom-left-radius: inherit;
-    animation: message-countdown ${token.progress.duration} linear ${token.progress.delay} forwards;
+    animation: message-countdown ${token.progress['animation-duration']} linear ${token.progress['animation-delay']} forwards;
     &[data-paused="true"] { animation-play-state: paused; }
     @keyframes message-countdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }
     @media (prefers-reduced-motion: reduce) { animation: none; }

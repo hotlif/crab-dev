@@ -52,9 +52,9 @@ const floatingContainerStyle = css`
     overscroll-behavior: contain;
     opacity: 1;
     translate: 0 0;
-    transition: opacity ${token.motion.interaction}, translate ${token.motion.interaction};
-    @starting-style { opacity: 0; translate: 0 ${token.motion.offset}; }
-    &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset}; pointer-events: none; }
+    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
+    @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
+    &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset.translate}; pointer-events: none; }
 
     @media (prefers-reduced-motion: reduce) { transition: none; }
 `;

@@ -37,7 +37,7 @@ const containerStyle = css`
     z-index: ${token.root['z-index']};
     pointer-events: none;
     opacity: 1;
-    transition: opacity ${token.motion.interaction};
+    transition: opacity ${token.motion.interaction.transition};
     &[data-state="closed"] { opacity: 0; }
     @starting-style { opacity: 0; }
 

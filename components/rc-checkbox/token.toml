@@ -19,22 +19,22 @@ root.opacity-disabled = "0.38"
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 control.transition = "var(--checkbox-root-transition, var(--checkbox-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)))"
-control.target-size = "40px"
+control.target.width = "var(--checkbox-control-target-size, 40px)"
 control.background-color-error = "$ref(color.feedback.error.solid)"
 control.border-color-error = "$ref(color.border.error)"
 icon.color-error = "$ref(color.feedback.error.on-solid)"
 icon.stroke-width = "2px"
 icon.transition = "opacity $ref(motion.interaction), scale $ref(motion.interaction)"
 icon.scale-hidden = "0.6"
-icon.scale-visible = "1"
-state-layer.size = "40px"
-state-layer.radius = "$ref(radius.pill)"
+icon.scale = "var(--checkbox-icon-scale-visible, 1)"
+state-layer.width = "var(--checkbox-state-layer-size, 40px)"
+state-layer.border-radius = "var(--checkbox-state-layer-radius, $ref(radius.pill))"
 state-layer.color = "$ref(color.text.primary)"
 state-layer.color-selected = "$ref(color.brand.primary)"
 state-layer.color-error = "$ref(color.feedback.error.solid)"
 state-layer.opacity-hover = "0.08"
 state-layer.opacity-focus = "0.12"
-state-layer.opacity-pressed = "0.12"
+state-layer.opacity-active = "var(--checkbox-state-layer-opacity-pressed, 0.12)"
 state-layer.transition = "opacity $ref(motion.interaction)"
 
 
@@ -101,7 +101,7 @@ icon.indeterminate.color = "var(--checkbox-icon-color-indeterminate, var(--check
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
 control.background-color-disabled = "var(--checkbox-root-background-color-disabled, var(--checkbox-background-color-disabled, var(--checkbox-disabled-background-color, transparent)))"
-control.background-color-disabled-selected = "$ref(color.text.primary)"
+control.selection.background-color-disabled = "var(--checkbox-control-background-color-disabled-selected, $ref(color.text.primary))"
 control.border-color-disabled = "var(--checkbox-root-border-color-disabled, var(--checkbox-border-color-disabled, var(--checkbox-disabled-border-color, $ref(color.text.primary))))"
 icon.color-disabled       = "var(--checkbox-disabled-icon-color, $ref(color.background.surface))"
 

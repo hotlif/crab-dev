@@ -28,9 +28,9 @@ export const vars = defineTokens({
     'footer.button.margin': '--dialog-footer-button-margin',
     'footer.button.min-height': '--dialog-footer-button-min-height',
     'footer.button.padding-block': '--dialog-footer-button-padding-block',
-    'motion.fade': '--dialog-motion-fade',
-    'motion.interaction': '--dialog-motion-interaction',
-    'motion.offset': '--dialog-motion-offset'
+    'motion.fade.transition': '--dialog-motion-fade-transition',
+    'motion.interaction.transition': '--dialog-motion-interaction-transition',
+    'motion.offset.translate': '--dialog-motion-offset-translate'
 });
 
 const token = defineTokens({
@@ -74,9 +74,15 @@ const token = defineTokens({
         }
     },
     'motion': {
-        'fade': `var(${vars['motion.fade']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
-        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
-        'offset': `var(${vars['motion.offset']}, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1))`
+        'fade': {
+            'transition': `var(${vars['motion.fade.transition']}, var(--dialog-motion-fade, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        },
+        'interaction': {
+            'transition': `var(${vars['motion.interaction.transition']}, var(--dialog-motion-interaction, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        },
+        'offset': {
+            'translate': `var(${vars['motion.offset.translate']}, var(--dialog-motion-offset, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1)))`
+        }
     }
 });
 

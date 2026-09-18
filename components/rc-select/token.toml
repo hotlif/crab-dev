@@ -6,7 +6,7 @@ imports = [
 ]
 
 [token]
-option.checkbox.size = "18px"
+option.checkbox.width = "var(--select-option-checkbox-size, 18px)"
 root.transition = "var(--select-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), box-shadow $ref(motion.interaction))"
 
 root.border-width = "var(--select-border-width, 1px)"

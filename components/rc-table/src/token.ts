@@ -93,7 +93,7 @@ export const vars = defineTokens({
     'sort.header.cursor': '--table-sort-header-cursor',
     'sort.badge.color': '--table-sort-badge-color',
     'sort.badge.font-size': '--table-sort-badge-font-size',
-    'row-selection.control-size': '--table-row-selection-control-size',
+    'row-selection.control.width': '--table-row-selection-control-width',
     'row-selection.background-color-selected': '--table-row-selection-background-color-selected',
     'row-click.cursor': '--table-row-click-cursor',
     'row-click.background-color-hover': '--table-row-click-background-color-hover',
@@ -267,7 +267,9 @@ const token = defineTokens({
         }
     },
     'row-selection': {
-        'control-size': `var(${vars['row-selection.control-size']}, 32px)`,
+        'control': {
+            'width': `var(${vars['row-selection.control.width']}, var(--table-row-selection-control-size, 32px))`
+        },
         'background-color-selected': `var(${vars['row-selection.background-color-selected']}, var(--table-row-selection-selected-bg, color-mix(in oklch, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 10%, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))))`
     },
     'row-click': {

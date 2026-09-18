@@ -101,4 +101,4 @@ horizontal.group-item.icon.margin-right = "$ref(space.component-gap)"
 
 horizontal.item.icon.margin-right = "$ref(space.component-gap)"
 
-motion.expand = "$ref(motion.expand)"
+motion.expand.transition = "var(--menu-motion-expand, $ref(motion.expand))"

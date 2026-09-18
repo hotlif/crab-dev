@@ -13,7 +13,7 @@ export const vars = defineTokens({
     'root.line-height': '--checkbox-root-line-height',
     'root.opacity-disabled': '--checkbox-root-opacity-disabled',
     'control.transition': '--checkbox-control-transition',
-    'control.target-size': '--checkbox-control-target-size',
+    'control.target.width': '--checkbox-control-target-width',
     'control.background-color-error': '--checkbox-control-background-color-error',
     'control.border-color-error': '--checkbox-control-border-color-error',
     'control.border-width': '--checkbox-control-border-width',
@@ -27,24 +27,24 @@ export const vars = defineTokens({
     'control.indeterminate.background-color': '--checkbox-control-indeterminate-background-color',
     'control.indeterminate.border-color': '--checkbox-control-indeterminate-border-color',
     'control.background-color-disabled': '--checkbox-control-background-color-disabled',
-    'control.background-color-disabled-selected': '--checkbox-control-background-color-disabled-selected',
+    'control.selection.background-color-disabled': '--checkbox-control-selection-background-color-disabled',
     'control.border-color-disabled': '--checkbox-control-border-color-disabled',
     'icon.color-error': '--checkbox-icon-color-error',
     'icon.stroke-width': '--checkbox-icon-stroke-width',
     'icon.transition': '--checkbox-icon-transition',
     'icon.scale-hidden': '--checkbox-icon-scale-hidden',
-    'icon.scale-visible': '--checkbox-icon-scale-visible',
+    'icon.scale': '--checkbox-icon-scale',
     'icon.checked.color': '--checkbox-icon-checked-color',
     'icon.indeterminate.color': '--checkbox-icon-indeterminate-color',
     'icon.color-disabled': '--checkbox-icon-color-disabled',
-    'state-layer.size': '--checkbox-state-layer-size',
-    'state-layer.radius': '--checkbox-state-layer-radius',
+    'state-layer.width': '--checkbox-state-layer-width',
+    'state-layer.border-radius': '--checkbox-state-layer-border-radius',
     'state-layer.color': '--checkbox-state-layer-color',
     'state-layer.color-selected': '--checkbox-state-layer-color-selected',
     'state-layer.color-error': '--checkbox-state-layer-color-error',
     'state-layer.opacity-hover': '--checkbox-state-layer-opacity-hover',
     'state-layer.opacity-focus': '--checkbox-state-layer-opacity-focus',
-    'state-layer.opacity-pressed': '--checkbox-state-layer-opacity-pressed',
+    'state-layer.opacity-active': '--checkbox-state-layer-opacity-active',
     'state-layer.transition': '--checkbox-state-layer-transition',
     'label.gap': '--checkbox-label-gap',
     'label.color': '--checkbox-label-color',
@@ -84,7 +84,9 @@ const token = defineTokens({
     },
     'control': {
         'transition': `var(${vars['control.transition']}, var(--checkbox-root-transition, var(--checkbox-transition, background-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), border-color var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), box-shadow var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))))`,
-        'target-size': `var(${vars['control.target-size']}, 40px)`,
+        'target': {
+            'width': `var(${vars['control.target.width']}, var(--checkbox-control-target-size, 40px))`
+        },
         'background-color-error': `var(${vars['control.background-color-error']}, var(--token-semantic-color-feedback-error-solid, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25)))))`,
         'border-color-error': `var(${vars['control.border-color-error']}, var(--token-semantic-color-border-error, var(--token-global-red-600, oklch(0.577 0.245 25))))`,
         'border-width': `var(${vars['control.border-width']}, var(--checkbox-root-border-width, var(--checkbox-border-width, 2px)))`,
@@ -102,7 +104,9 @@ const token = defineTokens({
             'border-color': `var(${vars['control.indeterminate.border-color']}, var(--checkbox-root-border-color-indeterminate, var(--checkbox-border-color-indeterminate, var(--checkbox-indeterminate-border-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
         },
         'background-color-disabled': `var(${vars['control.background-color-disabled']}, var(--checkbox-root-background-color-disabled, var(--checkbox-background-color-disabled, var(--checkbox-disabled-background-color, transparent))))`,
-        'background-color-disabled-selected': `var(${vars['control.background-color-disabled-selected']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
+        'selection': {
+            'background-color-disabled': `var(${vars['control.selection.background-color-disabled']}, var(--checkbox-control-background-color-disabled-selected, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))`
+        },
         'border-color-disabled': `var(${vars['control.border-color-disabled']}, var(--checkbox-root-border-color-disabled, var(--checkbox-border-color-disabled, var(--checkbox-disabled-border-color, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))))`
     },
     'icon': {
@@ -110,7 +114,7 @@ const token = defineTokens({
         'stroke-width': `var(${vars['icon.stroke-width']}, 2px)`,
         'transition': `var(${vars['icon.transition']}, opacity var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), scale var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
         'scale-hidden': `var(${vars['icon.scale-hidden']}, 0.6)`,
-        'scale-visible': `var(${vars['icon.scale-visible']}, 1)`,
+        'scale': `var(${vars['icon.scale']}, var(--checkbox-icon-scale-visible, 1))`,
         'checked': {
             'color': `var(${vars['icon.checked.color']}, var(--checkbox-icon-color-checked, var(--checkbox-checked-icon-color, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))))`
         },
@@ -120,14 +124,14 @@ const token = defineTokens({
         'color-disabled': `var(${vars['icon.color-disabled']}, var(--checkbox-disabled-icon-color, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`
     },
     'state-layer': {
-        'size': `var(${vars['state-layer.size']}, 40px)`,
-        'radius': `var(${vars['state-layer.radius']}, var(--token-semantic-radius-pill, var(--token-global-radius-full, 9999px)))`,
+        'width': `var(${vars['state-layer.width']}, var(--checkbox-state-layer-size, 40px))`,
+        'border-radius': `var(${vars['state-layer.border-radius']}, var(--checkbox-state-layer-radius, var(--token-semantic-radius-pill, var(--token-global-radius-full, 9999px))))`,
         'color': `var(${vars['state-layer.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
         'color-selected': `var(${vars['state-layer.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'color-error': `var(${vars['state-layer.color-error']}, var(--token-semantic-color-feedback-error-solid, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25)))))`,
         'opacity-hover': `var(${vars['state-layer.opacity-hover']}, 0.08)`,
         'opacity-focus': `var(${vars['state-layer.opacity-focus']}, 0.12)`,
-        'opacity-pressed': `var(${vars['state-layer.opacity-pressed']}, 0.12)`,
+        'opacity-active': `var(${vars['state-layer.opacity-active']}, var(--checkbox-state-layer-opacity-pressed, 0.12))`,
         'transition': `var(${vars['state-layer.transition']}, opacity var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
     },
     'label': {

@@ -10,5 +10,5 @@ root.background-color = "var(--dropdown-container-background-color, $ref(color.b
 root.border-color = "$ref(color.border.subtle)"
 root.z-index = "var(--dropdown-container-z-index, $ref(z-index.float))"
 
-motion.interaction = "$ref(motion.interaction)"
-motion.offset = "calc($ref(space.component-gap) * -1)"
+motion.interaction.transition = "var(--dropdown-container-motion-interaction, $ref(motion.interaction))"
+motion.offset.translate = "var(--dropdown-container-motion-offset, calc($ref(space.component-gap) * -1))"

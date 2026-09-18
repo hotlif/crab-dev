@@ -33,7 +33,7 @@ const wrapperStyle = css`
     }
     &:not([data-disabled]):active > input + span::before,
     > input:not(:disabled):active + span::before {
-        opacity: ${token['state-layer']['opacity-pressed']};
+        opacity: ${token['state-layer']['opacity-active']};
     }
 
     &:is([data-state='checked'], [data-state='indeterminate']) {
@@ -52,7 +52,7 @@ const wrapperStyle = css`
     &[data-state='checked'] [data-checkbox-part='checkmark'],
     &[data-state='indeterminate'] [data-checkbox-part='indeterminate'] {
         opacity: 1;
-        scale: ${token.icon['scale-visible']};
+        scale: ${token.icon.scale};
     }
     &[data-state='indeterminate'] [data-checkbox-part='box'] {
         background-color: ${token.control.indeterminate['background-color']};
@@ -82,7 +82,7 @@ const wrapperStyle = css`
             transition: none;
         }
         &:is([data-state='checked'], [data-state='indeterminate']) [data-checkbox-part='box'] {
-            background-color: ${token.control['background-color-disabled-selected']};
+            background-color: ${token.control.selection['background-color-disabled']};
         }
         [data-checkbox-part='checkmark'] { color: ${token.icon['color-disabled']}; transition: none; }
         [data-checkbox-part='indeterminate'] { background-color: ${token.icon['color-disabled']}; transition: none; }
@@ -135,15 +135,15 @@ const controlStyle = css`
     align-items: center;
     justify-content: center;
     flex: none;
-    width: ${token.control['target-size']};
-    height: ${token.control['target-size']};
-    border-radius: ${token['state-layer'].radius};
+    width: ${token.control.target.width};
+    height: ${token.control.target.width};
+    border-radius: ${token['state-layer']['border-radius']};
 
     &::before {
         content: '';
         position: absolute;
-        width: ${token['state-layer'].size};
-        height: ${token['state-layer'].size};
+        width: ${token['state-layer'].width};
+        height: ${token['state-layer'].width};
         border-radius: inherit;
         background-color: ${token['state-layer'].color};
         opacity: 0;

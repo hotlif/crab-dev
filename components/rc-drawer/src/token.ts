@@ -33,9 +33,9 @@ export const vars = defineTokens({
     'close.border-radius': '--drawer-close-border-radius',
     'panel.animation-duration': '--drawer-panel-animation-duration',
     'panel.animation-timing-function': '--drawer-panel-animation-timing-function',
-    'motion.fade': '--drawer-motion-fade',
-    'motion.expand': '--drawer-motion-expand',
-    'motion.exit': '--drawer-motion-exit'
+    'motion.fade.transition': '--drawer-motion-fade-transition',
+    'motion.expand.transition': '--drawer-motion-expand-transition',
+    'motion.exit.transition': '--drawer-motion-exit-transition'
 });
 
 const token = defineTokens({
@@ -94,9 +94,15 @@ const token = defineTokens({
         'animation-timing-function': `var(${vars['panel.animation-timing-function']}, var(--drawer-transition-easing, cubic-bezier(0.32, 0.72, 0, 1)))`
     },
     'motion': {
-        'fade': `var(${vars['motion.fade']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
-        'expand': `var(${vars['motion.expand']}, var(--token-semantic-motion-slide-enter, var(--token-global-duration-slow, 300ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1))))`,
-        'exit': `var(${vars['motion.exit']}, var(--token-semantic-motion-slide-exit, var(--token-global-duration-normal, 200ms) var(--token-global-easing-in, cubic-bezier(0.4, 0, 1, 1))))`
+        'fade': {
+            'transition': `var(${vars['motion.fade.transition']}, var(--drawer-motion-fade, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        },
+        'expand': {
+            'transition': `var(${vars['motion.expand.transition']}, var(--drawer-motion-expand, var(--token-semantic-motion-slide-enter, var(--token-global-duration-slow, 300ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`
+        },
+        'exit': {
+            'transition': `var(${vars['motion.exit.transition']}, var(--drawer-motion-exit, var(--token-semantic-motion-slide-exit, var(--token-global-duration-normal, 200ms) var(--token-global-easing-in, cubic-bezier(0.4, 0, 1, 1)))))`
+        }
     }
 });
 

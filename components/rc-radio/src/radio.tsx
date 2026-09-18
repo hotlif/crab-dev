@@ -33,7 +33,7 @@ const wrapperStyle = css`
     }
     &:not([data-disabled]):active > input + span::before,
     > input:not(:disabled):active + span::before {
-        opacity: ${token['state-layer']['opacity-pressed']};
+        opacity: ${token['state-layer']['opacity-active']};
     }
 
     &[data-state='checked'] {
@@ -50,7 +50,7 @@ const wrapperStyle = css`
         }
         [data-radio-part='dot'] {
             opacity: 1;
-            scale: ${token.dot['scale-visible']};
+            scale: ${token.dot.scale};
         }
     }
 
@@ -121,15 +121,15 @@ const controlStyle = css`
     align-items: center;
     justify-content: center;
     flex: none;
-    width: ${token.control['target-size']};
-    height: ${token.control['target-size']};
-    border-radius: ${token['state-layer'].radius};
+    width: ${token.control.target.width};
+    height: ${token.control.target.width};
+    border-radius: ${token['state-layer']['border-radius']};
 
     &::before {
         content: '';
         position: absolute;
-        width: ${token['state-layer'].size};
-        height: ${token['state-layer'].size};
+        width: ${token['state-layer'].width};
+        height: ${token['state-layer'].width};
         border-radius: inherit;
         background-color: ${token['state-layer'].color};
         opacity: 0;
@@ -152,7 +152,7 @@ const boxStyle = css`
     border-width: ${token.control['border-width']};
     border-style: ${token.control['border-style']};
     border-color: ${token.control['border-color']};
-    border-radius: ${token['state-layer'].radius};
+    border-radius: ${token['state-layer']['border-radius']};
     background-color: ${token.control['background-color']};
     transition: ${token.control.transition};
 `;
@@ -160,7 +160,7 @@ const boxStyle = css`
 const dotStyle = css`
     /* The selection indicator must never contribute an inline-flex baseline. */
     position: absolute;
-    border-radius: ${token['state-layer'].radius};
+    border-radius: ${token['state-layer']['border-radius']};
     background-color: ${token.dot.checked.color};
     opacity: 0;
     scale: ${token.dot['scale-hidden']};

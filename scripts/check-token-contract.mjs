@@ -223,11 +223,22 @@ const uiRawColorAllowlist = new Map([
             ],
         ),
     ],
+    [
+        "components/rc-token-semantic/src/brand-theme.ts",
+        allowExactLines(
+            "validated user brand seed serialized as gamut-mapped L2 theme colors",
+            [
+                "return `oklch(${value.lightness.toFixed(6)} ${value.chroma.toFixed(6)} ${value.hue.toFixed(4)})`;",
+                "const onBrand = dark ? shade(0.2, Math.min(chroma * 0.15, 0.02)) : 'oklch(1 0 0)';",
+            ],
+        ),
+    ],
 ]);
 
 const cssProperties = new Set([
     "accent-color",
     "animation",
+    "animation-delay",
     "animation-duration",
     "animation-timing-function",
     "appearance",
@@ -283,6 +294,7 @@ const cssProperties = new Set([
     "padding-top",
     "right",
     "row-gap",
+    "scale",
     "stroke",
     "stroke-color",
     "stroke-dasharray",
@@ -295,6 +307,7 @@ const cssProperties = new Set([
     "top",
     "transform",
     "transition",
+    "translate",
     "width",
     "z-index",
 ]);

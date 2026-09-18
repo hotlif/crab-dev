@@ -83,7 +83,7 @@ const Container: FC<ContainerProps> = ({
                     margin: unset;
                     overflow: visible;
                     background: unset;
-                    padding-inline: ${token.stack.offset};
+                    padding-inline: ${token.stack.translate};
                     pointer-events: none;
                 `,
                 getDirectionStyle(direction),

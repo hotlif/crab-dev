@@ -251,14 +251,14 @@ const makeColumnReactKey = (columnName: string): string =>
 // 选择列 body cell 居中容器
 const selectionCellStyle = css`
     /* Dense rows own their spacing; selection targets must not overlap adjacent rows. */
-    ${checkboxVars['control.target-size']}: ${token['row-selection']['control-size']};
-    ${checkboxVars['state-layer.size']}: ${token['row-selection']['control-size']};
-    ${checkboxVars['root.touch.min-width']}: ${token['row-selection']['control-size']};
-    ${checkboxVars['root.touch.min-height']}: ${token['row-selection']['control-size']};
-    ${radioVars['control.target-size']}: ${token['row-selection']['control-size']};
-    ${radioVars['state-layer.size']}: ${token['row-selection']['control-size']};
-    ${radioVars['root.touch.min-width']}: ${token['row-selection']['control-size']};
-    ${radioVars['root.touch.min-height']}: ${token['row-selection']['control-size']};
+    ${checkboxVars['control.target.width']}: ${token['row-selection'].control.width};
+    ${checkboxVars['state-layer.width']}: ${token['row-selection'].control.width};
+    ${checkboxVars['root.touch.min-width']}: ${token['row-selection'].control.width};
+    ${checkboxVars['root.touch.min-height']}: ${token['row-selection'].control.width};
+    ${radioVars['control.target.width']}: ${token['row-selection'].control.width};
+    ${radioVars['state-layer.width']}: ${token['row-selection'].control.width};
+    ${radioVars['root.touch.min-width']}: ${token['row-selection'].control.width};
+    ${radioVars['root.touch.min-height']}: ${token['row-selection'].control.width};
     display: flex;
     align-items: center;
     justify-content: center;

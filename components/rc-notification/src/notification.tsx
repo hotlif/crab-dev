@@ -120,21 +120,21 @@ const Notification: FC<NotificationProps> = ({
                 overflow: hidden;
                 pointer-events: auto;
                 box-sizing: border-box;
-                max-width: calc(100vw - ${token.stack.offset} * 2);
-                max-height: calc(100dvh - ${token.stack.offset} * 2 - ${token.stack.gap} * 2);
+                max-width: calc(100vw - ${token.stack.translate} * 2);
+                max-height: calc(100dvh - ${token.stack.translate} * 2 - ${token.stack.gap} * 2);
                 opacity: 1;
                 scale: 1;
                 transform-origin: center bottom;
-                translate: 0 ${token.stack.offset};
+                translate: 0 ${token.stack.translate};
                 &[data-stack="2"] {
-                    translate: 0 calc(${token.stack.offset} + ${token.stack.gap});
+                    translate: 0 calc(${token.stack.translate} + ${token.stack.gap});
                     scale: ${token.stack.second.scale};
                     z-index: ${token.stack.second["z-index"]};
                     background-color: ${token.stack.second["background-color"]};
                     box-shadow: inset 0 0 0 1px ${token.root["border-color"]}, ${token.stack["box-shadow"]};
                 }
                 &[data-stack="3"] {
-                    translate: 0 calc(${token.stack.offset} + ${token.stack.gap} * 2);
+                    translate: 0 calc(${token.stack.translate} + ${token.stack.gap} * 2);
                     scale: ${token.stack.third.scale};
                     z-index: ${token.stack.third["z-index"]};
                     background-color: ${token.stack.third["background-color"]};
@@ -146,14 +146,14 @@ const Notification: FC<NotificationProps> = ({
                 }
                 &[data-direction^="bottom"] {
                     transform-origin: center top;
-                    translate: 0 calc(${token.stack.offset} * -1);
-                    &[data-stack="2"] { translate: 0 calc((${token.stack.offset} + ${token.stack.gap}) * -1); }
-                    &[data-stack="3"] { translate: 0 calc((${token.stack.offset} + ${token.stack.gap} * 2) * -1); }
+                    translate: 0 calc(${token.stack.translate} * -1);
+                    &[data-stack="2"] { translate: 0 calc((${token.stack.translate} + ${token.stack.gap}) * -1); }
+                    &[data-stack="3"] { translate: 0 calc((${token.stack.translate} + ${token.stack.gap} * 2) * -1); }
                 }
                 transition:
-                    opacity ${token.motion.interaction}, translate ${token.motion.interaction},
-                    scale ${token.motion.interaction}, background-color ${token.motion.interaction},
-                    box-shadow ${token.motion.interaction};
+                    opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition},
+                    scale ${token.motion.interaction.transition}, background-color ${token.motion.interaction.transition},
+                    box-shadow ${token.motion.interaction.transition};
                 @starting-style {
                     &[data-state="open"] { opacity: 0; translate: 0 -100%; }
                     &[data-direction^="bottom"] { translate: 0 100%; }
@@ -242,7 +242,7 @@ const Notification: FC<NotificationProps> = ({
                         background: linear-gradient(90deg, ${colorProgressStart} 0%, ${colorProgressEnd} 100%);
                         border-top-right-radius: 0;
                         border-bottom-left-radius: inherit;
-                        animation: notification-countdown ${token.progress.duration} linear ${token.progress.delay} forwards;
+                        animation: notification-countdown ${token.progress['animation-duration']} linear ${token.progress['animation-delay']} forwards;
                         &[data-paused="true"] { animation-play-state: paused; }
                         @keyframes notification-countdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }
                         @media (prefers-reduced-motion: reduce) { animation: none; }

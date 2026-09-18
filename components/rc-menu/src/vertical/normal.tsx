@@ -117,7 +117,7 @@ const collapseStyle = css`
     display: grid;
     width: 100%;
     grid-template-rows: 1fr;
-    transition: grid-template-rows ${token.motion.expand};
+    transition: grid-template-rows ${token.motion.expand.transition};
     &[data-state="closed"] { grid-template-rows: 0fr; }
 
     @starting-style { grid-template-rows: 0fr; }

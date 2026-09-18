@@ -20,11 +20,11 @@ export const vars = defineTokens({
     'progress.start.color': '--notification-progress-start-color',
     'progress.end.color': '--notification-progress-end-color',
     'progress.height': '--notification-progress-height',
-    'progress.duration': '--notification-progress-duration',
-    'progress.delay': '--notification-progress-delay',
+    'progress.animation-duration': '--notification-progress-animation-duration',
+    'progress.animation-delay': '--notification-progress-animation-delay',
     'close.opacity': '--notification-close-opacity',
-    'motion.interaction': '--notification-motion-interaction',
-    'stack.offset': '--notification-stack-offset',
+    'motion.interaction.transition': '--notification-motion-interaction-transition',
+    'stack.translate': '--notification-stack-translate',
     'stack.gap': '--notification-stack-gap',
     'stack.front.z-index': '--notification-stack-front-z-index',
     'stack.second.z-index': '--notification-stack-second-z-index',
@@ -65,17 +65,19 @@ const token = defineTokens({
             'color': `var(${vars['progress.end.color']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`
         },
         'height': `var(${vars['progress.height']}, 3px)`,
-        'duration': `var(${vars['progress.duration']}, var(--notification-countdown-duration, 0ms))`,
-        'delay': `var(${vars['progress.delay']}, var(--notification-countdown-delay, 0ms))`
+        'animation-duration': `var(${vars['progress.animation-duration']}, var(--notification-progress-duration, var(--notification-countdown-duration, 0ms)))`,
+        'animation-delay': `var(${vars['progress.animation-delay']}, var(--notification-progress-delay, var(--notification-countdown-delay, 0ms)))`
     },
     'close': {
         'opacity': `var(${vars['close.opacity']}, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7)))`
     },
     'motion': {
-        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
+        'interaction': {
+            'transition': `var(${vars['motion.interaction.transition']}, var(--notification-motion-interaction, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        }
     },
     'stack': {
-        'offset': `var(${vars['stack.offset']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`,
+        'translate': `var(${vars['stack.translate']}, var(--notification-stack-offset, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px))))`,
         'gap': `var(${vars['stack.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'front': {
             'z-index': `var(${vars['stack.front.z-index']}, 3)`

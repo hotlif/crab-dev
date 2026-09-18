@@ -122,7 +122,7 @@ sort.badge.color = "$ref(color.brand.primary)"
 sort.badge.font-size = "11px"
 
 # ─── 行选中 ───────────────────────────────────────────────────────────────────
-row-selection.control-size = "32px"
+row-selection.control.width = "var(--table-row-selection-control-size, 32px)"
 row-selection.background-color-selected = "var(--table-row-selection-selected-bg, color-mix(in oklch, $ref(color.selection.border) 10%, $ref(color.background.surface)))"
 
 # ─── 行点击（提供 onRowClick / onRowDoubleClick 时生效） ───────────────────────

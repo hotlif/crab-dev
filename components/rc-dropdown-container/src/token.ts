@@ -10,8 +10,8 @@ export const vars = defineTokens({
     'root.background-color': '--dropdown-container-root-background-color',
     'root.border-color': '--dropdown-container-root-border-color',
     'root.z-index': '--dropdown-container-root-z-index',
-    'motion.interaction': '--dropdown-container-motion-interaction',
-    'motion.offset': '--dropdown-container-motion-offset'
+    'motion.interaction.transition': '--dropdown-container-motion-interaction-transition',
+    'motion.offset.translate': '--dropdown-container-motion-offset-translate'
 });
 
 const token = defineTokens({
@@ -23,8 +23,12 @@ const token = defineTokens({
         'z-index': `var(${vars['root.z-index']}, var(--dropdown-container-z-index, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100))))`
     },
     'motion': {
-        'interaction': `var(${vars['motion.interaction']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
-        'offset': `var(${vars['motion.offset']}, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1))`
+        'interaction': {
+            'transition': `var(${vars['motion.interaction.transition']}, var(--dropdown-container-motion-interaction, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        },
+        'offset': {
+            'translate': `var(${vars['motion.offset.translate']}, var(--dropdown-container-motion-offset, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1)))`
+        }
     }
 });
 
