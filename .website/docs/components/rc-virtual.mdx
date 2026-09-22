@@ -57,9 +57,11 @@ import { tutorial } from "../_generated_tutorials/rc-virtual.js";
 ## 更多示例
 
 <details>
-<summary>展开进阶示例（1 个）</summary>
+<summary>展开进阶示例（2 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 百万条数据 — 1,000,000 条等高记录，仅生成可见内容；可快速定位首条、中间与末条，并继续滚动。
 
 ##### 基础示例 — 虚拟滚动组件的基础使用示例
 
@@ -80,3 +82,29 @@ import { tutorial } from "../_generated_tutorials/rc-virtual.js";
 用于长列表、日志和大型表格等需要滚动浏览大量条目的场景。组件仅渲染可见范围及预留区域，减少同时挂载的 DOM 节点。
 
 需要跳转到指定行列时，可通过 `scrollToCell` 定位。容器尺寸可配合 AutoSizer 测量。
+
+需要按像素定位时，通过 `gridRef.current.scrollTo({ top, left })` 设置逻辑滚动位置；省略的方向保持不变，超出范围的值会限制在可滚动区域内。`onScrollPositionChange` 返回完整文档的逻辑像素坐标，可用于画布与虚拟列表同步；它也会通知首次位置及尺寸改变后的边界调整。
+
+### 百万行与等高数据
+
+「百万条数据」示例提供 1,000,000 条记录，可直接跳转到第 500,000 条或最后一条，再用滚轮、滚动条和键盘继续浏览。
+
+等高行、等宽列可以直接传入 `{ count, itemSize }`，无需生成尺寸数组：
+
+```tsx
+<Virtual
+    gridTemplateRows={{ count: 1_000_000, itemSize: 40 }}
+    gridTemplateColumns={{ count: 6, itemSize: 120 }}
+    viewportWidth={600}
+    viewportHeight={400}
+    renderRows={renderVisibleRows}
+/>
+```
+
+`renderVisibleRows` 只创建传入范围内的内容，并在四个方向使用示例中的占位 CSS 变量。固定尺寸轴的索引初始化和额外存储均为 O(1)，配置对象可内联传入；可变尺寸仍使用原有 `number[]`，数组引用变化时会重建前缀和。修改数组内容时应传入新数组。
+
+组件维护完整的逻辑滚动位置，并将 DOM 占位限制在局部窗口，避免百万行总高度触及浏览器布局上限。占位变量和 DOM `scrollTop` / `scrollLeft` 表示局部坐标；定位数据请使用 `scrollToCell` 和 `getScrollCellPosition`，不要根据占位值反算数据索引。单行／单列及同时渲染的内容仍需能放入浏览器布局范围。
+
+可见行列范围不变时会复用渲染结果。`renderRows` 应保持纯净，业务数据更新时应提供读取新数据的回调。组件只虚拟化渲染，不负责业务数据的分页、加载和存储。
+
+在包目录运行 `yarn test:browser` 可验证真实浏览器中的百万行末端定位、滚轮连续性和固定内容占位。

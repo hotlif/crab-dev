@@ -2488,6 +2488,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./components/rc-virtual/",\
         "packageDependencies": [\
           ["@crab-dev/css", "npm:0.1.45"],\
+          ["@crab-dev/rc-auto-sizer", "workspace:components/rc-auto-sizer"],\
+          ["@crab-dev/rc-button", "workspace:components/rc-button"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
           ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
           ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\

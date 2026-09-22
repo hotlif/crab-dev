@@ -9,18 +9,19 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type ReactNode = DocsTypePlaceholder;
 type RefObject<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type VirtualAxis = DocsTypePlaceholder;
 type VirtualHandle = DocsTypePlaceholder;
 
 export interface VirtualProps {
     /**
-     * 每列的宽度数组，单位为 px
+     * 每列宽度数组，或等宽列的 { count, itemSize } 配置，单位为 px
      */
-    "gridTemplateColumns": number[];
+    "gridTemplateColumns": VirtualAxis;
 
     /**
-     * 每行的高度数组，单位为 px
+     * 每行高度数组，或等高行的 { count, itemSize } 配置，单位为 px
      */
-    "gridTemplateRows": number[];
+    "gridTemplateRows": VirtualAxis;
 
     /**
      * 可视区域宽度，单位为 px
@@ -61,4 +62,9 @@ export interface VirtualProps {
      * 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动
      */
     "gridRef"?: RefObject<VirtualHandle | null>;
+
+    /**
+     * 实际逻辑滚动位置变化，包含滚轮、滚动条、命令式定位及尺寸收缩。
+     */
+    "onScrollPositionChange"?: (position: { left: number; top: number; }) => void;
 }

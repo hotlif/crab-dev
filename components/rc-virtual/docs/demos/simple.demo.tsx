@@ -77,7 +77,7 @@ const SimpleDemo = () => {
             viewportHeight={400}
             viewportWidth={300}
             gridTemplateColumns={gridTemplateColumns}
-            gridTemplateRows={mockData.map(() => ROW_HEIGHT)}
+            gridTemplateRows={{ count: mockData.length, itemSize: ROW_HEIGHT }}
             renderRows={(rowRange, columnRange) => {
                 const rows: ReactNode[] = [
                     <div

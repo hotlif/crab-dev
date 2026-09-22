@@ -1837,6 +1837,8 @@ __metadata:
   resolution: "@crab-dev/rc-virtual@workspace:components/rc-virtual"
   dependencies:
     "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"

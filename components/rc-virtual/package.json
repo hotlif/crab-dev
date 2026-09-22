@@ -19,6 +19,7 @@
         "generate:token": "wake library token .",
         "generate:docgen": "wake library docgen .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn test --root src/__tests__/browser",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-virtual/src components/rc-virtual/docs --env browser --max-warnings 0"
     },
@@ -41,6 +42,8 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
+        "@crab-dev/rc-auto-sizer": "workspace:^",
+        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",

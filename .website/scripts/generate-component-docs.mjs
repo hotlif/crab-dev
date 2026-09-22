@@ -8,7 +8,7 @@ import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingIn
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 
 const EXPECTED_COMPONENT_COUNT = 53;
-const EXPECTED_DEMO_COUNT = 252;
+const EXPECTED_DEMO_COUNT = 253;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");

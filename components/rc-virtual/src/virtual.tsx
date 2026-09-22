@@ -1,61 +1,67 @@
-import { useEffect, useRef, useState, useLayoutEffect, useImperativeHandle, } from "react";
-import type { CSSProperties, HTMLAttributes, FC, ReactNode, RefObject } from "react";
+import { useEffect, useEffectEvent, useRef, useState, useLayoutEffect, useImperativeHandle, useMemo } from "react";
+import type { HTMLAttributes, ReactNode, RefObject } from "react";
 import { cx } from "@crab-dev/css";
 
 import { containerStyle, gridStyle } from "./style/grid.style.js";
 
-import useVirtualItemRange, { getVirtualItemEnd, getVirtualItemIndex, getVirtualItemStart } from "./hooks/useVirtualItemRange.js";
-import ScrollBar, { useScrollbar } from "./scrollbar.js";
+import useVirtualItemRange, { getVirtualItemEnd, getVirtualItemIndex, getVirtualItemSize, getVirtualItemStart } from "./hooks/useVirtualItemRange.js";
+import ScrollBar from "./scrollbar.js";
+import { getScrollWindow } from "./scrollWindow.js";
+import type { VirtualAxis } from "./types.js";
 
 
 export interface VirtualHandle {
-	scrollToCell: (position: {
-		rowIndex?: number,
-		columnIndex?: number,
-		/** 从顶部留出的偏移量（px），用于避免行被固定表头遮挡 */
-		topOffset?: number,
-		/** 从左侧留出的偏移量（px），用于避免列被固定左列遮挡 */
-		leftOffset?: number,
-	}) => void;
+    /** 按逻辑像素定位；未提供的轴保持原位置，自动限制在滚动范围内。 */
+    scrollTo: (position: { left?: number; top?: number }) => void;
+    scrollToCell: (position: {
+        rowIndex?: number,
+        columnIndex?: number,
+        /** 从顶部留出的偏移量（px），用于避免行被固定表头遮挡 */
+        topOffset?: number,
+        /** 从左侧留出的偏移量（px），用于避免列被固定左列遮挡 */
+        leftOffset?: number,
+    }) => void;
 
-	getScrollCellPosition: () => {
-		rowIndex: number,
-		columnIndex: number
-	};
+    getScrollCellPosition: () => {
+        rowIndex: number,
+        columnIndex: number
+    };
 }
 
 export interface VirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
-	/** 每列的宽度数组，单位为 px */
-	gridTemplateColumns: number[]
-	/** 每行的高度数组，单位为 px */
-	gridTemplateRows: number[]
-	/** 可视区域宽度，单位为 px */
-	viewportWidth: number,
-	/** 可视区域高度，单位为 px */
-	viewportHeight: number,
-	/**
-	 * 可视区顶部被常驻（sticky）内容占据的高度，单位为 px。
-	 * 例如表格在滚动容器内渲染的固定表头 / 过滤栏：它们占用可视区却不在 gridTemplateRows 中，
-	 * 因此需要计入纵向滚动总高度，否则末尾内容会被裁切且无法滚动到底。
-	 */
-	reservedTopHeight?: number,
-	/**
-	 * 可视区底部被常驻（sticky）内容占据的高度，单位为 px。
-	 * 例如表格底部固定的汇总 / 合计行：它贴在可视区底部却不在 gridTemplateRows 中，
-	 * 因此需要计入纵向滚动总高度，否则末尾数据行会被汇总行遮挡且无法滚动出来。
-	 */
-	reservedBottomHeight?: number,
-	/** 可视范围上下额外渲染的行数，默认 0 */
-	overscanRowCount?: number,
-	/** 可视范围左右额外渲染的列数，默认 0 */
-	overscanColumnCount?: number,
-	/** 渲染回调，根据当前可见的行列范围返回对应的 ReactNode */
-	renderRows: (rowRange: [number, number], columnRange: [number, number]) => ReactNode,
-	/** 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动 */
-	gridRef?: RefObject<VirtualHandle | null>
+    /** 每列宽度数组，或等宽列的 { count, itemSize } 配置，单位为 px */
+    gridTemplateColumns: VirtualAxis
+    /** 每行高度数组，或等高行的 { count, itemSize } 配置，单位为 px */
+    gridTemplateRows: VirtualAxis
+    /** 可视区域宽度，单位为 px */
+    viewportWidth: number,
+    /** 可视区域高度，单位为 px */
+    viewportHeight: number,
+    /**
+     * 可视区顶部被常驻（sticky）内容占据的高度，单位为 px。
+     * 例如表格在滚动容器内渲染的固定表头 / 过滤栏：它们占用可视区却不在 gridTemplateRows 中，
+     * 因此需要计入纵向滚动总高度，否则末尾内容会被裁切且无法滚动到底。
+     */
+    reservedTopHeight?: number,
+    /**
+     * 可视区底部被常驻（sticky）内容占据的高度，单位为 px。
+     * 例如表格底部固定的汇总 / 合计行：它贴在可视区底部却不在 gridTemplateRows 中，
+     * 因此需要计入纵向滚动总高度，否则末尾数据行会被汇总行遮挡且无法滚动出来。
+     */
+    reservedBottomHeight?: number,
+    /** 可视范围上下额外渲染的行数，默认 0 */
+    overscanRowCount?: number,
+    /** 可视范围左右额外渲染的列数，默认 0 */
+    overscanColumnCount?: number,
+    /** 渲染回调，根据当前可见的行列范围返回对应的 ReactNode */
+    renderRows: (rowRange: [number, number], columnRange: [number, number]) => ReactNode,
+    /** 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动 */
+    gridRef?: RefObject<VirtualHandle | null>
+    /** 实际逻辑滚动位置变化，包含滚轮、滚动条、命令式定位及尺寸收缩。 */
+    onScrollPositionChange?: (position: { left: number; top: number }) => void;
 }
 
-const Virtual: FC<VirtualProps> = ({
+const Virtual = ({
     className,
     style,
     gridTemplateColumns,
@@ -68,18 +74,20 @@ const Virtual: FC<VirtualProps> = ({
     overscanRowCount = 0,
     overscanColumnCount = 0,
     gridRef,
+    onScrollPositionChange,
     ...restProps
-}) => {
+}: VirtualProps) => {
     const [currentScrollPositionTop, setCurrentScrollPositionTop] = useState<number>(0);
     const [currentScrollPositionLeft, setCurrentScrollPositionLeft] = useState<number>(0);
-    const [leftScrollbar] = useScrollbar();
-    const [topScrollbar] = useScrollbar();
 
     const divGridRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     // 可变实例状态 ref（滚动事件帧合并）：在同一动画帧累积高频 wheel 增量，避免每个事件都触发 React 渲染。
     const pendingScrollPositionRef = useRef<{ left: number, top: number } | null>(null);
     // 可变实例状态 ref（动画帧句柄）：用于保证最多只排队一个提交，并在卸载时取消。
     const scrollAnimationFrameRef = useRef<number | null>(null);
+    // 可变实例状态（滚动目标）：在 React 提交前累积增量，避免从受浏览器限制的 DOM 坐标反推逻辑位置。
+    const logicalScrollRef = useRef({ left: 0, top: 0, maxLeft: 0, maxTop: 0, domLeft: 0, domTop: 0 });
 
     let {
         columnRange,
@@ -102,12 +110,50 @@ const Virtual: FC<VirtualProps> = ({
     });
 
     const totalWidth = columnMetrics.totalSize;
+    const notifyPosition = useEffectEvent(() => onScrollPositionChange?.({ left: effectiveScrollPositionLeft, top: effectiveScrollPositionTop }));
+    useLayoutEffect(() => { notifyPosition(); }, [effectiveScrollPositionLeft, effectiveScrollPositionTop]);
     // 计入顶部 / 底部常驻内容（如固定表头、固定汇总行）高度：它们在滚动容器内占位但不属于行，
     // 否则当行总高略小于可视高度、却被表头挤出可视区时，末尾内容无法滚动到底；
     // 或底部固定汇总行遮挡最后一行数据时，该行无法滚动出来。
     const totalHeight = rowMetrics.totalSize + reservedTopHeight + reservedBottomHeight;
 
+    const rowWindow = getScrollWindow(
+        getVirtualItemStart(rowMetrics, rowRange[0]),
+        getVirtualItemEnd(rowMetrics, rowRange[1]),
+        rowMetrics.totalSize,
+        effectiveScrollPositionTop,
+    );
+    const columnWindow = getScrollWindow(
+        getVirtualItemStart(columnMetrics, columnRange[0]),
+        getVirtualItemEnd(columnMetrics, columnRange[1]),
+        columnMetrics.totalSize,
+        effectiveScrollPositionLeft,
+    );
+
     useLayoutEffect(() => {
+        const container = containerRef.current;
+        const grid = divGridRef.current;
+        if (!container || !grid) return;
+        // 运行时几何通过 DOM 写入；Crab CSS 仍只处理静态样式。
+        container.style.width = `${viewportWidth}px`;
+        container.style.height = `${viewportHeight}px`;
+        grid.style.width = `${viewportWidth}px`;
+        grid.style.height = `${viewportHeight}px`;
+        container.style.setProperty("--crab-rc-virtual-top-padding-height", `${rowWindow.paddingStart}px`);
+        container.style.setProperty("--crab-rc-virtual-bottom-padding-height", `${rowWindow.paddingEnd}px`);
+        container.style.setProperty("--crab-rc-virtual-left-padding-width", `${columnWindow.paddingStart}px`);
+        container.style.setProperty("--crab-rc-virtual-right-padding-width", `${columnWindow.paddingEnd}px`);
+    }, [viewportWidth, viewportHeight, rowWindow.paddingStart, rowWindow.paddingEnd, columnWindow.paddingStart, columnWindow.paddingEnd, style]);
+
+    useLayoutEffect(() => {
+        logicalScrollRef.current = {
+            left: effectiveScrollPositionLeft,
+            top: effectiveScrollPositionTop,
+            maxLeft: Math.max(0, totalWidth - viewportWidth),
+            maxTop: Math.max(0, totalHeight - viewportHeight),
+            domLeft: 0,
+            domTop: 0,
+        };
         if (currentScrollPositionTop !== effectiveScrollPositionTop) {
             setCurrentScrollPositionTop(effectiveScrollPositionTop);
         }
@@ -117,12 +163,14 @@ const Virtual: FC<VirtualProps> = ({
 
         /* istanbul ignore else -- ref is always populated after mount */
         if (divGridRef.current) {
-            if (divGridRef.current.scrollTop !== effectiveScrollPositionTop) {
-                divGridRef.current.scrollTop = effectiveScrollPositionTop;
+            if (divGridRef.current.scrollTop !== rowWindow.position) {
+                divGridRef.current.scrollTop = rowWindow.position;
             }
-            if (divGridRef.current.scrollLeft !== effectiveScrollPositionLeft) {
-                divGridRef.current.scrollLeft = effectiveScrollPositionLeft;
+            if (divGridRef.current.scrollLeft !== columnWindow.position) {
+                divGridRef.current.scrollLeft = columnWindow.position;
             }
+            logicalScrollRef.current.domLeft = divGridRef.current.scrollLeft;
+            logicalScrollRef.current.domTop = divGridRef.current.scrollTop;
         }
     }, [
         currentScrollPositionTop,
@@ -133,35 +181,53 @@ const Virtual: FC<VirtualProps> = ({
         viewportWidth,
         totalHeight,
         totalWidth,
+        rowWindow.position,
+        columnWindow.position,
     ]);
 
     const isShowScrollBarsY = totalHeight > viewportHeight;
     const isShowScrollBarsX = totalWidth > viewportWidth;
 
     if (!isShowScrollBarsY) {
-        rowRange = [0, gridTemplateRows.length - 1];
+        rowRange = [0, rowMetrics.count - 1];
     }
 
     if (!isShowScrollBarsX) {
-        columnRange = [0, gridTemplateColumns.length - 1];
+        columnRange = [0, columnMetrics.count - 1];
     }
 
+    const [rowStart, rowEnd] = rowRange;
+    const [columnStart, columnEnd] = columnRange;
+    // 例外 3：调用方渲染回调可能很昂贵，且编译器无法推断纯度；按范围值缓存，保留尺寸和回调更新。
+    const content = useMemo(
+        () => renderRows([rowStart, rowEnd], [columnStart, columnEnd]),
+        [renderRows, rowStart, rowEnd, columnStart, columnEnd, rowMetrics, columnMetrics, viewportWidth, viewportHeight, reservedTopHeight, reservedBottomHeight],
+    );
+
     const scrollToLeft = (left: number) => {
+        pendingScrollPositionRef.current = null;
+        logicalScrollRef.current.left = Math.max(0, Math.min(left, logicalScrollRef.current.maxLeft));
         setCurrentScrollPositionLeft(left);
     };
 
     const scrollToTop = (top: number) => {
+        pendingScrollPositionRef.current = null;
+        logicalScrollRef.current.top = Math.max(0, Math.min(top, logicalScrollRef.current.maxTop));
         setCurrentScrollPositionTop(top);
     };
 
     useImperativeHandle(gridRef, () => ({
+        scrollTo: ({ left, top }) => {
+            if (left !== undefined && Number.isFinite(left)) scrollToLeft(left);
+            if (top !== undefined && Number.isFinite(top)) scrollToTop(top);
+        },
         scrollToCell: (position) => {
             if (position.rowIndex != null) {
                 const topOffset = position.topOffset ?? 0;
                 // toTop：目标行在数据行坐标系中的偏移（不含 sticky header）
                 // 实际内容坐标 = topOffset + toTop
                 const toTop = getVirtualItemStart(rowMetrics, position.rowIndex);
-                const rowH = rowMetrics.sizes[position.rowIndex] ?? 0;
+                const rowH = getVirtualItemSize(rowMetrics, position.rowIndex);
 
                 // 仅当行完全不在可视区时才滚动（部分可见则不滚动）：
                 //   内容坐标 = topOffset + toTop（行顶）~ topOffset + toTop + rowH（行底）
@@ -169,9 +235,9 @@ const Virtual: FC<VirtualProps> = ({
                 if (toTop + rowH <= effectiveScrollPositionTop) {
                     // 行完全在可视区上方：向上滚，使行顶贴着 header 底部
                     scrollToTop(Math.max(0, toTop));
-                } else if (toTop >= effectiveScrollPositionTop + viewportHeight - topOffset) {
+                } else if (toTop >= effectiveScrollPositionTop + viewportHeight - topOffset - reservedBottomHeight) {
                     // 行完全在可视区下方：向下滚最小距离，使行底刚好贴视口底部
-                    scrollToTop(Math.max(0, Math.min(topOffset + toTop + rowH - viewportHeight, totalHeight - viewportHeight)));
+                    scrollToTop(Math.max(0, Math.min(topOffset + toTop + rowH + reservedBottomHeight - viewportHeight, totalHeight - viewportHeight)));
                 }
                 // 否则行（部分或完全）在可视区内，不滚动
             }
@@ -179,7 +245,7 @@ const Virtual: FC<VirtualProps> = ({
                 const leftOffset = position.leftOffset ?? 0;
                 // 计算目标列的像素起止位置
                 const toLeft = getVirtualItemStart(columnMetrics, position.columnIndex);
-                const colW = columnMetrics.sizes[position.columnIndex] ?? 0;
+                const colW = getVirtualItemSize(columnMetrics, position.columnIndex);
 
                 // 当前可视内容区（扣除固定左列）
                 const visibleLeft = effectiveScrollPositionLeft + leftOffset;
@@ -204,8 +270,9 @@ const Virtual: FC<VirtualProps> = ({
     }));
 
     useEffect(() => {
+        const grid = divGridRef.current;
         /* istanbul ignore else -- ref is always populated after mount */
-        if (divGridRef.current) {
+        if (grid) {
             const requestScrollFrame = (callback: (timestamp: number) => void) => {
                 if (typeof globalThis.requestAnimationFrame === "function") {
                     return globalThis.requestAnimationFrame(callback);
@@ -228,12 +295,12 @@ const Virtual: FC<VirtualProps> = ({
                     return;
                 }
 
-                if (pendingPosition.left !== grid.scrollLeft) {
-                    setCurrentScrollPositionLeft(pendingPosition.left);
-                }
-                if (pendingPosition.top !== grid.scrollTop) {
-                    setCurrentScrollPositionTop(pendingPosition.top);
-                }
+                logicalScrollRef.current.left = pendingPosition.left;
+                logicalScrollRef.current.top = pendingPosition.top;
+                logicalScrollRef.current.domLeft = grid.scrollLeft;
+                logicalScrollRef.current.domTop = grid.scrollTop;
+                setCurrentScrollPositionLeft(pendingPosition.left);
+                setCurrentScrollPositionTop(pendingPosition.top);
             };
             const schedulePendingScrollPosition = () => {
                 if (scrollAnimationFrameRef.current != null) {
@@ -262,8 +329,12 @@ const Virtual: FC<VirtualProps> = ({
                 e.preventDefault();
                 const currentTarget = e.currentTarget as HTMLDivElement;
                 const pendingPosition = pendingScrollPositionRef.current;
-                let newScrollLeft = pendingPosition?.left ?? currentTarget.scrollLeft;
-                let newScrollTop = pendingPosition?.top ?? currentTarget.scrollTop;
+                const logicalPosition = logicalScrollRef.current;
+                // 聚焦等原生行为可能移动局部滚动容器；只合并相对位移，不将 DOM 坐标当作全量逻辑位置。
+                const baseLeft = pendingPosition?.left ?? logicalPosition.left + currentTarget.scrollLeft - logicalPosition.domLeft;
+                const baseTop = pendingPosition?.top ?? logicalPosition.top + currentTarget.scrollTop - logicalPosition.domTop;
+                let newScrollLeft = baseLeft;
+                let newScrollTop = baseTop;
                 const normalizedDeltaX = normalizeWheelDelta(e.deltaX, e.deltaMode, currentTarget.clientWidth);
                 const normalizedDeltaY = normalizeWheelDelta(e.deltaY, e.deltaMode, currentTarget.clientHeight);
                 const horizontalDelta = e.shiftKey && normalizedDeltaX === 0
@@ -274,29 +345,11 @@ const Virtual: FC<VirtualProps> = ({
                 newScrollLeft += horizontalDelta;
                 newScrollTop += verticalDelta;
 
-                const topOutOfBounds = topScrollbar.current?.isOutOfBounds(newScrollLeft, newScrollTop);
-                const top = topOutOfBounds?.[0];
-                const bottom = topOutOfBounds?.[1];
-
-                const leftOutOfBounds = leftScrollbar.current?.isOutOfBounds(newScrollLeft, newScrollTop);
-                const left = leftOutOfBounds?.[0];
-                const right = leftOutOfBounds?.[1];
-
-                if (e.shiftKey && left) {
-                    newScrollLeft = 0;
-                }
-                if (!e.shiftKey && top) {
-                    newScrollTop = 0;
-                }
-                if (bottom) {
-                    newScrollTop = topScrollbar.current!.getEndCoordinate();
-                }
-                if (right) {
-                    newScrollLeft = leftScrollbar.current!.getEndCoordinate();
-                }
+                newScrollLeft = Math.max(0, Math.min(newScrollLeft, logicalPosition.maxLeft));
+                newScrollTop = Math.max(0, Math.min(newScrollTop, logicalPosition.maxTop));
                 if (
-                    newScrollLeft === (pendingPosition?.left ?? currentTarget.scrollLeft)
-                    && newScrollTop === (pendingPosition?.top ?? currentTarget.scrollTop)
+                    newScrollLeft === baseLeft
+                    && newScrollTop === baseTop
                 ) {
                     return;
                 }
@@ -307,11 +360,12 @@ const Virtual: FC<VirtualProps> = ({
                 };
                 schedulePendingScrollPosition();
             };
-            divGridRef.current.addEventListener("wheel", onWheel, {
+            grid.addEventListener("wheel", onWheel, {
                 passive: false
             });
             return () => {
-                divGridRef.current?.removeEventListener("wheel", onWheel);
+                // StrictMode 清理 effect 前可能已清空 ref，必须从绑定时的节点移除监听。
+                grid.removeEventListener("wheel", onWheel);
                 if (scrollAnimationFrameRef.current != null && scrollAnimationFrameRef.current !== -1) {
                     cancelScrollFrame(scrollAnimationFrameRef.current);
                 }
@@ -322,50 +376,21 @@ const Virtual: FC<VirtualProps> = ({
     }, []);
 
 
-    const calculateTopPaddingHeight = () => {
-        return getVirtualItemStart(rowMetrics, rowRange[0]);
-    }
-
-    const calculateBottomPaddingHeight = () => {
-        return rowMetrics.totalSize - getVirtualItemEnd(rowMetrics, rowRange[1]);
-    }
-
-    const calculateLeftPaddingWidth = () => {
-        return getVirtualItemStart(columnMetrics, columnRange[0]);
-    }
-
-    const calculateRightPaddingWidth = () => {
-        return columnMetrics.totalSize - getVirtualItemEnd(columnMetrics, columnRange[1]);
-    }
-
     return (
         <div
             className={cx.call(undefined,
                 className,
                 containerStyle
             )}
-            style={{
-                ...style,
-                ...{
-                    width: viewportWidth,
-                    height: viewportHeight,
-                    "--crab-rc-virtual-top-padding-height": `${calculateTopPaddingHeight()}px`,
-                    "--crab-rc-virtual-bottom-padding-height": `${calculateBottomPaddingHeight()}px`,
-                    "--crab-rc-virtual-left-padding-width": `${calculateLeftPaddingWidth()}px`,
-                    "--crab-rc-virtual-right-padding-width": `${calculateRightPaddingWidth()}px`,
-                }
-            } as CSSProperties}
+            ref={containerRef}
+            style={style}
         >
             <div
                 className={cx.call(undefined, gridStyle)}
-                style={{
-                    width: viewportWidth,
-                    height: viewportHeight,
-                }}
                 ref={divGridRef}
                 {...restProps}
             >
-                {renderRows(rowRange, columnRange)}
+                {content}
             </div>
             {
                 isShowScrollBarsX ? (
@@ -377,7 +402,6 @@ const Virtual: FC<VirtualProps> = ({
                         viewportWidth={viewportWidth}
                         viewportHeight={viewportHeight}
                         direction="x"
-                        scrollbar={leftScrollbar}
                         onScroll={(move) => {
                             scrollToLeft(move);
                         }}
@@ -395,7 +419,6 @@ const Virtual: FC<VirtualProps> = ({
                         viewportWidth={viewportWidth}
                         viewportHeight={viewportHeight}
                         direction="y"
-                        scrollbar={topScrollbar}
                         onScroll={(move) => {
                             scrollToTop(move);
                         }}

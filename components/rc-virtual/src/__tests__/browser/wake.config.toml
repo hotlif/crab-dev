@@ -1,0 +1,16 @@
+# Wake Test does not extract Crab CSS. The fixture supplies the structural
+# scroll-container rules; spacer dimensions and scrolling use real browser layout.
+[test]
+setup = ["../../../../../test/wake-css.setup.ts"]
+environment = "browser"
+include = ["virtual.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+cleanup = true
+act_warnings = "error"
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

@@ -1,5 +1,5 @@
 import { css } from "@crab-dev/css";
-import { containerStyle as scrollbarContainerStyle } from "./scrollbar.style";
+import { containerStyle as scrollbarContainerStyle } from "./scrollbar.style.js";
 import token from "../token.js";
 
 export const containerStyle = css`
@@ -18,8 +18,10 @@ export const containerStyle = css`
 	}
 `;
 
+// 局部占位和滚动位置由 Virtual 同步，禁止浏览器锚定在布局后再次补偿位移。
 export const gridStyle = css`
 	overflow: hidden;
+	overflow-anchor: none;
 	position: relative;
 `;
 

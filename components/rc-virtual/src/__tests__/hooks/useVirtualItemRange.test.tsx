@@ -1,5 +1,6 @@
-import { describe, expect, it, renderHook } from "@crab-dev/wake/test/react";
-import useVirtualItemRange from "../../hooks/useVirtualItemRange.js";
+import { describe, expect, it } from "@crab-dev/wake/test";
+import { renderHook } from "@crab-dev/wake/test/react";
+import useVirtualItemRange, { createVirtualAxisMetrics, getVirtualItemEnd, getVirtualItemSize, getVirtualItemStart } from "../../hooks/useVirtualItemRange.js";
 
 const renderVirtualItemRange = async (params: Parameters<typeof useVirtualItemRange>[0]) => {
     const { result } = await renderHook(() => useVirtualItemRange(params));
@@ -7,6 +8,44 @@ const renderVirtualItemRange = async (params: Parameters<typeof useVirtualItemRa
 };
 
 describe('useVirtualItemRange', () => {
+    it('handles billion-item uniform axes without allocating per-item metrics', async () => {
+        const { result, rerender } = await renderHook(
+            ({ count, itemSize }: { count: number; itemSize: number }) => useVirtualItemRange({
+                viewportHeight: 400,
+                viewportWidth: 300,
+                currentScrollPositionTop: 39_999_999_600,
+                currentScrollPositionLeft: 0,
+                gridTemplateRows: { count, itemSize },
+                gridTemplateColumns: { count: 1, itemSize: 300 },
+            }),
+            { initialProps: { count: 1_000_000_000, itemSize: 40 } },
+        );
+        const firstMetrics = result.current.rowMetrics;
+        expect(result.current.rowRange).toEqual([999_999_990, 999_999_999]);
+        expect(firstMetrics.cumulativeEnds).toHaveLength(0);
+        expect(getVirtualItemStart(firstMetrics, 999_999_999)).toBe(39_999_999_960);
+        expect(getVirtualItemEnd(firstMetrics, 999_999_999)).toBe(40_000_000_000);
+        expect(getVirtualItemSize(firstMetrics, 999_999_999)).toBe(40);
+        expect(getVirtualItemSize(firstMetrics, 1_000_000_000)).toBe(0);
+
+        await rerender({ count: 1_000_000_000, itemSize: 40 });
+        expect(result.current.rowMetrics).toBe(firstMetrics);
+        await rerender({ count: 100, itemSize: 50 });
+        expect(result.current.rowMetrics.totalSize).toBe(5000);
+        expect(result.current.rowRange).toEqual([92, 99]);
+    });
+
+    it('normalizes invalid uniform dimensions and preserves variable-size lookup', () => {
+        expect(createVirtualAxisMetrics({ count: -1, itemSize: 40 }).count).toBe(0);
+        expect(createVirtualAxisMetrics({ count: Infinity, itemSize: 40 }).count).toBe(0);
+        expect(createVirtualAxisMetrics({ count: 2.8, itemSize: NaN }).totalSize).toBe(0);
+        const metrics = createVirtualAxisMetrics([20, -1, 30, 0, 50]);
+        expect(metrics.count).toBe(5);
+        expect(getVirtualItemStart(metrics, 4)).toBe(50);
+        expect(getVirtualItemSize(metrics, 1)).toBe(0);
+        expect(getVirtualItemSize(metrics, 2)).toBe(30);
+        expect(getVirtualItemEnd(metrics, 4)).toBe(100);
+    });
     it('should return correct range for simple grid and no scroll', async () => {
         const params = {
             viewportHeight: 100,

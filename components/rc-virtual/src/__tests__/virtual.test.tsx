@@ -1,6 +1,6 @@
-import { createRef } from "react";
-import { act, afterEach, beforeEach, describe, expect, fireEvent, it, mock, render, screen } from "@crab-dev/wake/test/react";
-import type { MockFunction } from "@crab-dev/wake/test";
+import { createRef, StrictMode } from "react";
+import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { afterEach, beforeEach, describe, expect, it, mock, type MockFunction } from "@crab-dev/wake/test";
 
 import Virtual, { type VirtualHandle } from "../virtual.js";
 
@@ -78,6 +78,76 @@ describe("Virtual", () => {
         await render(<Virtual {...props} />);
         expect(props.renderRows).toHaveBeenCalled();
         expect(screen.getByTestId("content")).toBeTruthy();
+    });
+
+    it("applies each wheel delta once after StrictMode remounts effects", async () => {
+        const gridRef = createRef<VirtualHandle>();
+        const { container } = await render(
+            <StrictMode><Virtual {...createProps()} gridRef={gridRef} /></StrictMode>,
+        );
+        const grid = container.firstElementChild?.firstElementChild;
+        if (!grid) throw new Error("Missing grid");
+        await fireEvent(grid, new WheelEvent("wheel", { deltaY: 50, cancelable: true }));
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(1);
+    });
+
+    it("reports logical pixel positions for scrolling, clamping and resizing", async () => {
+        const gridRef = createRef<VirtualHandle>(), onScrollPositionChange = mock.fn();
+        const props = createProps();
+        const view = await render(<Virtual {...props} gridRef={gridRef} onScrollPositionChange={onScrollPositionChange} />);
+        expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 0, top: 0 });
+        await act(async () => gridRef.current?.scrollTo({ left: 30, top: 75 }));
+        expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 30, top: 75 });
+        await act(async () => gridRef.current?.scrollTo({ top: 1000 }));
+        expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 30, top: 100 });
+        await view.rerender(<Virtual {...props} gridRef={gridRef} onScrollPositionChange={onScrollPositionChange} viewportHeight={400} />);
+        expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 30, top: 0 });
+        const grid = view.container.firstElementChild!.firstElementChild!;
+        await fireEvent(grid, new WheelEvent("wheel", { deltaX: 10, cancelable: true }));
+        expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 40, top: 0 });
+    });
+
+    it("reuses content within the same range and refreshes changed ranges, sizes and callbacks", async () => {
+        const props = createProps({ viewportHeight: 60, viewportWidth: 160 });
+        const { container, rerender } = await render(<Virtual {...props} />);
+        const grid = container.firstElementChild?.firstElementChild;
+        if (!grid) throw new Error("Missing grid");
+        const initialCalls = props.renderRows.calls.calls.length;
+        await fireEvent(grid, new WheelEvent("wheel", { deltaY: 10, deltaX: 10, cancelable: true }));
+        expect(props.renderRows.calls.calls.length).toBe(initialCalls);
+        expect((grid as HTMLElement).scrollTop).toBe(10);
+        expect((grid as HTMLElement).scrollLeft).toBe(10);
+
+        await fireEvent(grid, new WheelEvent("wheel", { deltaY: 45, cancelable: true }));
+        expect(props.renderRows.calls.calls.length).toBe(initialCalls + 1);
+        await rerender(<Virtual {...props} gridTemplateRows={[50, 51, 50, 50, 50, 50]} />);
+        expect(props.renderRows.calls.calls.length).toBe(initialCalls + 2);
+
+        const nextRender = mock.fn(() => <div data-testid="updated">updated data</div>);
+        await rerender(<Virtual {...props} renderRows={nextRender} />);
+        expect(nextRender).toHaveBeenCalledTimes(1);
+        expect(screen.getByTestId("updated").textContent).toBe("updated data");
+    });
+
+    it("keeps uniform-axis scrolling logical and clamps after the count shrinks", async () => {
+        const gridRef = createRef<VirtualHandle>();
+        const props = createProps({ viewportHeight: 400, viewportWidth: 300 });
+        const { container, rerender } = await render(
+            <Virtual {...props} gridRef={gridRef} gridTemplateRows={{ count: 1_000_000, itemSize: 40 }} />,
+        );
+        await act(async () => gridRef.current?.scrollToCell({ rowIndex: 999_999 }));
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(999_990);
+        const grid = container.firstElementChild?.firstElementChild;
+        if (!grid) throw new Error("Missing grid");
+        expect((grid as HTMLElement).scrollTop).toBeLessThan(2_000_000);
+        await fireEvent(grid, new WheelEvent("wheel", { deltaY: -40, cancelable: true }));
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(999_989);
+        (grid as HTMLElement).scrollTop -= 40;
+        await fireEvent(grid, new WheelEvent("wheel", { deltaY: -40, cancelable: true }));
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(999_987);
+        await rerender(<Virtual {...props} gridRef={gridRef} gridTemplateRows={{ count: 20, itemSize: 40 }} />);
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(10);
+        expect((grid as HTMLElement).scrollTop).toBe(400);
     });
 
     it("should render with correct viewport dimensions on outer container", async () => {
