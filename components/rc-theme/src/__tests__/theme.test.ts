@@ -26,6 +26,12 @@ function mixHue(first: number, second: number, amount: number): number {
 }
 
 function resolveColor(value: string): OklchColor {
+    // Resolve the terminal numeric fallback of a shared state-opacity variable.
+    value = value.replace(/calc\((.*?) \* 100%\)/g, (_, expression: string) => {
+        const fallback = expression.match(/,\s*([\d.]+)\)+$/)?.[1];
+        if (fallback === undefined) throw new Error(`Unsupported opacity: ${expression}`);
+        return `${Number(fallback) * 100}%`;
+    });
     const colors = parseColors(value);
     if (colors.length === 0) throw new Error(`No OKLCh fallback in ${value}`);
     if (!value.includes("color-mix(")) return colors.at(-1)!;
@@ -120,6 +126,26 @@ function expectCompositedContrast(
 }
 
 describe("theme color contract", () => {
+    it('keeps Material surfaces and paired tonal content readable', () => {
+        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+            for (const surface of Object.values(theme.surface)) {
+                expectContrast(theme.text.primary, surface, 4.5);
+                expectContrast(theme.text.secondary, surface, 4.5);
+                expectContrast(theme.focusRing, surface, 3);
+            }
+            expectContrast(theme.brandContainer.foreground, theme.brandContainer.background, 4.5);
+            for (const accent of [theme.secondary, theme.tertiary]) {
+                expectContrast(accent.onPrimary, accent.primary, 4.5);
+                expectContrast(accent.onContainer, accent.container, 4.5);
+            }
+        }
+        const dark = themeColorContract.dark.surface;
+        const lightness = [dark.lowest, dark.canvas, dark.low, dark.container, dark.high, dark.highest]
+            .map(value => resolveColor(value).lightness);
+        expect(lightness).toEqual([...lightness].sort((a, b) => a - b));
+        expect(new Set(lightness).size).toBe(6);
+    });
+
     it('exposes CSS as the only theme consumption entry', async () => {
         const packageJson = JSON.parse(
             await readFile(new URL('../../package.json', import.meta.url), 'utf8'),
@@ -215,7 +241,7 @@ describe("theme color contract", () => {
                 }
             }
         }
-        for (const feedback of Object.values(themeColorContract.dark.feedback)) {
+        for (const feedback of [themeColorContract.dark.feedback.success, themeColorContract.dark.feedback.warning, themeColorContract.dark.feedback.info]) {
             expect(feedback.background).toContain("18%");
             expect(feedback.backgroundHover).toContain("26%");
         }

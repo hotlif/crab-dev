@@ -30,6 +30,15 @@ const feedbackRoles = [
 ];
 
 const requiredSemanticKeys = [
+    'color.brand.container',
+    'color.brand.on-container',
+    ...['canvas', 'content', 'container', 'raised', 'overlay'].map(role => `color.surface.${role}`),
+    ...['hover', 'focus', 'pressed', 'dragged'].map(state => `state.opacity.${state}`),
+    ...['control', 'card', 'overlay'].map(role => `shape.${role}`),
+    ...['display', 'headline', 'title', 'body', 'label', 'caption'].flatMap(role =>
+        ['font-family', 'font-size', 'font-weight', 'line-height'].map(property => `typography.${role}.${property}`)),
+    'size.touch-target',
+    'size.selection-target',
     "color.brand.primary",
     "color.brand.primary-hover",
     "color.brand.primary-active",

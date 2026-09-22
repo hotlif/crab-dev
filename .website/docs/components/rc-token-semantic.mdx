@@ -113,24 +113,28 @@ const onBrand = light.text.onBrand;
 
 ### 从一个颜色生成配对
 
-`createBrandTheme('#1677ff')` 返回 `{ seed, light, dark }`，其中 seed 为标准化六位颜色，light / dark 为品牌相关的 L2 变量映射。颜色统一输出为经过 sRGB 色域收敛的 OKLCh，并检查主色上的文字可读性；中性、反馈与控件轨道色不参与染色。
+`createBrandTheme('#1677ff')` 返回 `{ seed, light, dark }`，其中 seed 为标准化六位颜色，light / dark 为品牌相关的 L2 变量映射。颜色统一输出为经过 sRGB 色域收敛的 OKLCh，并检查主色上的文字可读性；secondary / tertiary 与品牌种子联动；中性表面和业务反馈保持独立。
 
 输入仅支持不透明 `#RGB` / `#RRGGBB`，非法值抛出 RangeError。`normalizeBrandColor(value)` 可独立校验并标准化输入。该函数本身不访问 DOM，也不会插入样式；React 应用通常直接使用 [ConfigProvider 的 brandColor](/components/rc-config-provider)，由 Provider 管理继承和作用域。
 
 ### 统一视觉尺度
 
 - small 控件横向内边距为 `space.control-padding-x-small`（8px），middle / large 为 `space.control-padding-x`（12px）。
-- 常用大尺寸表单控件使用 16px 字号与 6px 圆角；容器按自身层级保留更大的圆角。
+- 默认输入框使用 56px 高度、16/24px 正文和 4px 圆角；按钮为 40px 胶囊形，卡片为 12px，弹窗为 28px。
 - 卡片和内容分隔使用 `color.border.subtle`；可输入控件保留 `color.border.default` 的辨识度。
 - 即时颜色、边框和阴影反馈使用 `motion.interaction`；大范围展开使用独立的 `motion.expand`。
 
+### 排版与字体
+
+`typography.display / headline / title / body / label` 各有 large、medium、small，共 15 组字体、字号、行高和字重角色。默认使用 Roboto，中文回退到 Noto Sans SC、苹方或微软雅黑。文档和工作台随产物加载 Roboto；消费方应自行加载 Roboto 或覆盖公共字体角色。
+
 ### 验收范围
 
-公共默认品牌本轮从中性灰切换为紫色，焦点从蓝色切换为紫色；站点从私有紫灰表面切换为公共 Zinc 中性表面。颜色 API 名称保持不变，视觉变化需要复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。
+公共默认品牌为 Material Purple，表面采用 Material Neutral / Neutral Variant，提供 lowest、low、container、high、highest、dim 和 bright 角色。颜色 API 名称保持不变，视觉变化需要复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。
 
 - L1 修改会影响所有上层引用；业务品牌定制优先覆盖 L2。
 - L3 覆盖继续优先于 L2；应检查旧组件覆盖是否遮住新的公共默认。
 - Portal 不会继承另一个 DOM 分支的局部变量。浮层根需置于相同主题边界或显式同步 data-theme 与业务覆盖。
 - 在 Light、Dark、按压背景、选中底色和反馈容器上检查最终前景；数值测试不能替代键盘与真实浏览器验收。
 
-原始值见[全局令牌](/components/rc-token-global)，主题入口见[Theme](/components/rc-theme)，设计规则见[色彩与主题](/design/color)与[令牌与实施](/design/tokens)。
+原始值见[全局令牌](/components/rc-token-global)，主题入口见[Theme](/components/rc-theme)，设计规则见[色彩与主题](https://material-web.dev/theming/color/)与[令牌与实施](/components/rc-token-semantic)。

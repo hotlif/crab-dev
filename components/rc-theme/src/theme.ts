@@ -1,12 +1,30 @@
 import { globalStyle } from "@crab-dev/css";
 import { themeColorContract as color } from "./theme-values.js";
 
+// Derived surface and tonal aliases resolve at each consumer, so a descendant
+// overriding a legacy L2 variable is not frozen to the root computed value.
 // globalStyle is intentionally a compile-time side-effect expression.
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 globalStyle`
     :root,
     [data-theme="light"] {
         color-scheme: light;
+        --token-semantic-color-surface-container: ${color.light.surface.container};
+        --token-semantic-color-surface-overlay: ${color.light.surface.overlay};
+        --token-semantic-color-surface-lowest: ${color.light.surface.lowest};
+        --token-semantic-color-surface-low: ${color.light.surface.low};
+        --token-semantic-color-surface-high: ${color.light.surface.high};
+        --token-semantic-color-surface-highest: ${color.light.surface.highest};
+        --token-semantic-color-surface-dim: ${color.light.surface.dim};
+        --token-semantic-color-surface-bright: ${color.light.surface.bright};
+        --token-semantic-color-secondary-primary: ${color.light.secondary.primary};
+        --token-semantic-color-secondary-on-primary: ${color.light.secondary.onPrimary};
+        --token-semantic-color-secondary-container: ${color.light.secondary.container};
+        --token-semantic-color-secondary-on-container: ${color.light.secondary.onContainer};
+        --token-semantic-color-tertiary-primary: ${color.light.tertiary.primary};
+        --token-semantic-color-tertiary-on-primary: ${color.light.tertiary.onPrimary};
+        --token-semantic-color-tertiary-container: ${color.light.tertiary.container};
+        --token-semantic-color-tertiary-on-container: ${color.light.tertiary.onContainer};
         --token-semantic-color-control-thumb: ${color.light.control.thumb};
         --token-semantic-color-control-track: ${color.light.control.track};
         --token-semantic-color-control-track-hover: ${color.light.control.trackHover};
@@ -100,6 +118,22 @@ globalStyle`
 
     [data-theme="dark"] {
         color-scheme: dark;
+        --token-semantic-color-surface-container: ${color.dark.surface.container};
+        --token-semantic-color-surface-overlay: ${color.dark.surface.overlay};
+        --token-semantic-color-surface-lowest: ${color.dark.surface.lowest};
+        --token-semantic-color-surface-low: ${color.dark.surface.low};
+        --token-semantic-color-surface-high: ${color.dark.surface.high};
+        --token-semantic-color-surface-highest: ${color.dark.surface.highest};
+        --token-semantic-color-surface-dim: ${color.dark.surface.dim};
+        --token-semantic-color-surface-bright: ${color.dark.surface.bright};
+        --token-semantic-color-secondary-primary: ${color.dark.secondary.primary};
+        --token-semantic-color-secondary-on-primary: ${color.dark.secondary.onPrimary};
+        --token-semantic-color-secondary-container: ${color.dark.secondary.container};
+        --token-semantic-color-secondary-on-container: ${color.dark.secondary.onContainer};
+        --token-semantic-color-tertiary-primary: ${color.dark.tertiary.primary};
+        --token-semantic-color-tertiary-on-primary: ${color.dark.tertiary.onPrimary};
+        --token-semantic-color-tertiary-container: ${color.dark.tertiary.container};
+        --token-semantic-color-tertiary-on-container: ${color.dark.tertiary.onContainer};
         --token-semantic-color-control-thumb: ${color.dark.control.thumb};
         --token-semantic-color-control-track: ${color.dark.control.track};
         --token-semantic-color-control-track-hover: ${color.dark.control.trackHover};
@@ -195,6 +229,27 @@ globalStyle`
         :root,
         [data-theme="light"],
         [data-theme="dark"] {
+            --token-semantic-color-surface-canvas: Canvas;
+            --token-semantic-color-surface-content: Canvas;
+            --token-semantic-color-surface-container: Canvas;
+            --token-semantic-color-surface-raised: Canvas;
+            --token-semantic-color-surface-overlay: Canvas;
+            --token-semantic-color-surface-lowest: Canvas;
+            --token-semantic-color-surface-low: Canvas;
+            --token-semantic-color-surface-high: Canvas;
+            --token-semantic-color-surface-highest: Canvas;
+            --token-semantic-color-surface-dim: Canvas;
+            --token-semantic-color-surface-bright: Canvas;
+            --token-semantic-color-secondary-primary: Highlight;
+            --token-semantic-color-secondary-on-primary: HighlightText;
+            --token-semantic-color-secondary-container: Highlight;
+            --token-semantic-color-secondary-on-container: HighlightText;
+            --token-semantic-color-tertiary-primary: Highlight;
+            --token-semantic-color-tertiary-on-primary: HighlightText;
+            --token-semantic-color-tertiary-container: Highlight;
+            --token-semantic-color-tertiary-on-container: HighlightText;
+            --token-semantic-color-brand-container: Highlight;
+            --token-semantic-color-brand-on-container: HighlightText;
             --token-semantic-color-control-thumb: CanvasText;
             --token-semantic-color-control-track: Canvas;
             --token-semantic-color-control-track-hover: Canvas;

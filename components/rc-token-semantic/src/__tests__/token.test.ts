@@ -34,7 +34,7 @@ describe('semantic token contract', () => {
                 );
             }
         }
-        expect(token.color.feedback.error.text).toContain('--token-global-red-800');
+        expect(token.color.feedback.error.text).toContain('--token-global-material-error-10');
         expect(token.color.feedback.success['on-solid']).toContain('--token-global-white');
         expect(token.color.focus.ring).toContain('--token-global-purple-40');
         expect(token.color.selection.foreground).toContain('--token-global-purple-10');
@@ -52,6 +52,12 @@ describe('semantic token contract', () => {
             [token.color.selection.background, light.selection.background],
             [token.color.selection.foreground, light.selection.foreground],
             [token.color.fill.active, light.fill.active],
+            [token.color.brand.container, light.brandContainer.background],
+            [token.color.brand['on-container'], light.brandContainer.foreground],
+            ...Object.keys(light.surface).map(key => {
+                const role = key as keyof typeof light.surface;
+                return [token.color.surface[role], light.surface[role]];
+            }),
         ]) expect(fallback).toContain(themed);
     });
 });

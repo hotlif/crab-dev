@@ -84,9 +84,9 @@ function cssColor(color: Color): string {
 function variables(seed: Color, dark: boolean): BrandThemeVariables {
     const chroma = Math.min(seed.chroma, dark ? 0.12 : 0.18);
     let lightness = dark ? clamp(seed.lightness + 0.2, 0.72, 0.82) : clamp(seed.lightness, 0.46, 0.6);
-    // Leave rounding headroom above the 4.5:1 target for the white label.
+    // Reserve contrast for tinted containers and the white 12% pressed state layer.
     if (!dark) {
-        while (1.05 / (luminance(inGamut({ ...seed, lightness, chroma })) + 0.05) < 4.6) lightness -= 0.005;
+        while (1.05 / (luminance(inGamut({ ...seed, lightness, chroma })) + 0.05) < 6.2) lightness -= 0.005;
     }
     const shade = (lightness: number, chroma: number) => cssColor({ lightness, chroma, hue: seed.hue });
     const primary = shade(lightness, chroma);
@@ -94,7 +94,18 @@ function variables(seed: Color, dark: boolean): BrandThemeVariables {
     const active = shade(lightness + (dark ? 0.08 : -0.08), chroma);
     const onBrand = dark ? shade(0.2, Math.min(chroma * 0.15, 0.02)) : 'oklch(1 0 0)';
     const selected = shade(dark ? 0.26 : 0.95, Math.min(chroma * 0.2, 0.025));
+    const accent = (offset: number, role: 'secondary' | 'tertiary'): BrandThemeVariables => {
+        const accentShade = (lightness: number, chroma: number) => cssColor({ lightness, chroma, hue: (seed.hue + offset) % 360 });
+        return {
+            [TokenVars[`color.${role}.primary`]]: accentShade(dark ? 0.82 : 0.48, 0.06),
+            [TokenVars[`color.${role}.on-primary`]]: dark ? accentShade(0.25, 0.04) : onBrand,
+            [TokenVars[`color.${role}.container`]]: accentShade(dark ? 0.32 : 0.92, 0.035),
+            [TokenVars[`color.${role}.on-container`]]: accentShade(dark ? 0.92 : 0.2, 0.035),
+        };
+    };
     return {
+        ...accent(0, 'secondary'),
+        ...accent(60, 'tertiary'),
         [TokenVars['color.brand.primary']]: primary,
         [TokenVars['color.brand.primary-hover']]: hover,
         [TokenVars['color.brand.primary-active']]: active,

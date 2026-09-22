@@ -40,7 +40,7 @@ describe('brand theme', () => {
         expect(createBrandTheme('#e76f00')).not.toEqual(theme);
         const keys = Object.keys(theme.light);
         expect(Object.keys(theme.dark)).toEqual(keys);
-        expect(keys).toHaveLength(15);
+        expect(keys).toHaveLength(23);
         expect(keys.every(key => key.startsWith('--token-semantic-'))).toBe(true);
         expect(keys.some(key => /feedback|control|surface|sunken|elevated/.test(key))).toBe(false);
     });
@@ -61,6 +61,10 @@ describe('brand theme', () => {
                 expect(contrast(get('color-text-link'), surface)).toBeGreaterThanOrEqual(4.5);
                 expect(contrast(get('color-focus-ring'), surface)).toBeGreaterThanOrEqual(3);
                 expect(contrast(get('color-selection-foreground'), get('color-selection-background'))).toBeGreaterThanOrEqual(4.5);
+                for (const role of ['secondary', 'tertiary']) {
+                    expect(contrast(get(`color-${role}-on-primary`), get(`color-${role}-primary`))).toBeGreaterThanOrEqual(4.5);
+                    expect(contrast(get(`color-${role}-on-container`), get(`color-${role}-container`))).toBeGreaterThanOrEqual(4.5);
+                }
                 for (const value of Object.values(vars).filter(value => value.startsWith('oklch('))) {
                     for (const channel of channels(value)) {
                         // Six-digit CSS rounding is allowed to move a boundary by 0.00001.

@@ -9,6 +9,22 @@ export const vars = defineTokens({
     'color.brand.primary-hover': '--token-semantic-color-brand-primary-hover',
     'color.brand.primary-active': '--token-semantic-color-brand-primary-active',
     'color.brand.primary-subtle': '--token-semantic-color-brand-primary-subtle',
+    'color.brand.container': '--token-semantic-color-brand-container',
+    'color.brand.on-container': '--token-semantic-color-brand-on-container',
+    'color.surface.canvas': '--token-semantic-color-surface-canvas',
+    'color.surface.content': '--token-semantic-color-surface-content',
+    'color.surface.container': '--token-semantic-color-surface-container',
+    'color.surface.raised': '--token-semantic-color-surface-raised',
+    'color.surface.overlay': '--token-semantic-color-surface-overlay',
+    'color.surface.lowest': '--token-semantic-color-surface-lowest',
+    'color.surface.low': '--token-semantic-color-surface-low',
+    'color.surface.high': '--token-semantic-color-surface-high',
+    'color.surface.highest': '--token-semantic-color-surface-highest',
+    'color.surface.dim': '--token-semantic-color-surface-dim',
+    'color.surface.bright': '--token-semantic-color-surface-bright',
+    'color.state.hover': '--token-semantic-color-state-hover',
+    'color.state.pressed': '--token-semantic-color-state-pressed',
+    'color.state.dragged': '--token-semantic-color-state-dragged',
     'color.background.surface': '--token-semantic-color-background-surface',
     'color.background.elevated': '--token-semantic-color-background-elevated',
     'color.background.sunken': '--token-semantic-color-background-sunken',
@@ -84,6 +100,18 @@ export const vars = defineTokens({
     'color.control.thumb': '--token-semantic-color-control-thumb',
     'color.control.track': '--token-semantic-color-control-track',
     'color.control.track-hover': '--token-semantic-color-control-track-hover',
+    'color.secondary.primary': '--token-semantic-color-secondary-primary',
+    'color.secondary.on-primary': '--token-semantic-color-secondary-on-primary',
+    'color.secondary.container': '--token-semantic-color-secondary-container',
+    'color.secondary.on-container': '--token-semantic-color-secondary-on-container',
+    'color.tertiary.primary': '--token-semantic-color-tertiary-primary',
+    'color.tertiary.on-primary': '--token-semantic-color-tertiary-on-primary',
+    'color.tertiary.container': '--token-semantic-color-tertiary-container',
+    'color.tertiary.on-container': '--token-semantic-color-tertiary-on-container',
+    'state.opacity.hover': '--token-semantic-state-opacity-hover',
+    'state.opacity.focus': '--token-semantic-state-opacity-focus',
+    'state.opacity.pressed': '--token-semantic-state-opacity-pressed',
+    'state.opacity.dragged': '--token-semantic-state-opacity-dragged',
     'space.inline-gap': '--token-semantic-space-inline-gap',
     'space.component-gap': '--token-semantic-space-component-gap',
     'space.stack-gap': '--token-semantic-space-stack-gap',
@@ -110,7 +138,176 @@ export const vars = defineTokens({
     'radius.lg': '--token-semantic-radius-lg',
     'radius.xl': '--token-semantic-radius-xl',
     'radius.pill': '--token-semantic-radius-pill',
+    'shape.control': '--token-semantic-shape-control',
+    'shape.card': '--token-semantic-shape-card',
+    'shape.overlay': '--token-semantic-shape-overlay',
+    'shape.none': '--token-semantic-shape-none',
+    'shape.extra-small': '--token-semantic-shape-extra-small',
+    'shape.small': '--token-semantic-shape-small',
+    'shape.medium': '--token-semantic-shape-medium',
+    'shape.large': '--token-semantic-shape-large',
+    'shape.extra-large': '--token-semantic-shape-extra-large',
+    'shape.full': '--token-semantic-shape-full',
+    'shape.extra-extra-large': '--token-semantic-shape-extra-extra-large',
+    'size.touch-target': '--token-semantic-size-touch-target',
+    'size.selection-target': '--token-semantic-size-selection-target',
+    'size.36': '--token-semantic-size-36',
+    'size.control': '--token-semantic-size-control',
+    'size.field': '--token-semantic-size-field',
+    'size.navigation': '--token-semantic-size-navigation',
+    'size.32': '--token-semantic-size-32',
+    'size.40': '--token-semantic-size-40',
+    'size.48': '--token-semantic-size-48',
+    'size.56': '--token-semantic-size-56',
+    'size.64': '--token-semantic-size-64',
+    'size.96': '--token-semantic-size-96',
+    'size.136': '--token-semantic-size-136',
+    'typography.display.font-family': '--token-semantic-typography-display-font-family',
+    'typography.display.font-size': '--token-semantic-typography-display-font-size',
+    'typography.display.font-weight': '--token-semantic-typography-display-font-weight',
+    'typography.display.line-height': '--token-semantic-typography-display-line-height',
+    'typography.display.large.font-family': '--token-semantic-typography-display-large-font-family',
+    'typography.display.large.font-size': '--token-semantic-typography-display-large-font-size',
+    'typography.display.large.font-weight': '--token-semantic-typography-display-large-font-weight',
+    'typography.display.large.line-height': '--token-semantic-typography-display-large-line-height',
+    'typography.display.large.emphasized.font-family': '--token-semantic-typography-display-large-emphasized-font-family',
+    'typography.display.large.emphasized.font-size': '--token-semantic-typography-display-large-emphasized-font-size',
+    'typography.display.large.emphasized.font-weight': '--token-semantic-typography-display-large-emphasized-font-weight',
+    'typography.display.large.emphasized.line-height': '--token-semantic-typography-display-large-emphasized-line-height',
+    'typography.display.medium.font-family': '--token-semantic-typography-display-medium-font-family',
+    'typography.display.medium.font-size': '--token-semantic-typography-display-medium-font-size',
+    'typography.display.medium.font-weight': '--token-semantic-typography-display-medium-font-weight',
+    'typography.display.medium.line-height': '--token-semantic-typography-display-medium-line-height',
+    'typography.display.medium.emphasized.font-family': '--token-semantic-typography-display-medium-emphasized-font-family',
+    'typography.display.medium.emphasized.font-size': '--token-semantic-typography-display-medium-emphasized-font-size',
+    'typography.display.medium.emphasized.font-weight': '--token-semantic-typography-display-medium-emphasized-font-weight',
+    'typography.display.medium.emphasized.line-height': '--token-semantic-typography-display-medium-emphasized-line-height',
+    'typography.display.small.font-family': '--token-semantic-typography-display-small-font-family',
+    'typography.display.small.font-size': '--token-semantic-typography-display-small-font-size',
+    'typography.display.small.font-weight': '--token-semantic-typography-display-small-font-weight',
+    'typography.display.small.line-height': '--token-semantic-typography-display-small-line-height',
+    'typography.display.small.emphasized.font-family': '--token-semantic-typography-display-small-emphasized-font-family',
+    'typography.display.small.emphasized.font-size': '--token-semantic-typography-display-small-emphasized-font-size',
+    'typography.display.small.emphasized.font-weight': '--token-semantic-typography-display-small-emphasized-font-weight',
+    'typography.display.small.emphasized.line-height': '--token-semantic-typography-display-small-emphasized-line-height',
+    'typography.headline.font-family': '--token-semantic-typography-headline-font-family',
+    'typography.headline.font-size': '--token-semantic-typography-headline-font-size',
+    'typography.headline.font-weight': '--token-semantic-typography-headline-font-weight',
+    'typography.headline.line-height': '--token-semantic-typography-headline-line-height',
+    'typography.headline.large.font-family': '--token-semantic-typography-headline-large-font-family',
+    'typography.headline.large.font-size': '--token-semantic-typography-headline-large-font-size',
+    'typography.headline.large.font-weight': '--token-semantic-typography-headline-large-font-weight',
+    'typography.headline.large.line-height': '--token-semantic-typography-headline-large-line-height',
+    'typography.headline.large.emphasized.font-family': '--token-semantic-typography-headline-large-emphasized-font-family',
+    'typography.headline.large.emphasized.font-size': '--token-semantic-typography-headline-large-emphasized-font-size',
+    'typography.headline.large.emphasized.font-weight': '--token-semantic-typography-headline-large-emphasized-font-weight',
+    'typography.headline.large.emphasized.line-height': '--token-semantic-typography-headline-large-emphasized-line-height',
+    'typography.headline.medium.font-family': '--token-semantic-typography-headline-medium-font-family',
+    'typography.headline.medium.font-size': '--token-semantic-typography-headline-medium-font-size',
+    'typography.headline.medium.font-weight': '--token-semantic-typography-headline-medium-font-weight',
+    'typography.headline.medium.line-height': '--token-semantic-typography-headline-medium-line-height',
+    'typography.headline.medium.emphasized.font-family': '--token-semantic-typography-headline-medium-emphasized-font-family',
+    'typography.headline.medium.emphasized.font-size': '--token-semantic-typography-headline-medium-emphasized-font-size',
+    'typography.headline.medium.emphasized.font-weight': '--token-semantic-typography-headline-medium-emphasized-font-weight',
+    'typography.headline.medium.emphasized.line-height': '--token-semantic-typography-headline-medium-emphasized-line-height',
+    'typography.headline.small.font-family': '--token-semantic-typography-headline-small-font-family',
+    'typography.headline.small.font-size': '--token-semantic-typography-headline-small-font-size',
+    'typography.headline.small.font-weight': '--token-semantic-typography-headline-small-font-weight',
+    'typography.headline.small.line-height': '--token-semantic-typography-headline-small-line-height',
+    'typography.headline.small.emphasized.font-family': '--token-semantic-typography-headline-small-emphasized-font-family',
+    'typography.headline.small.emphasized.font-size': '--token-semantic-typography-headline-small-emphasized-font-size',
+    'typography.headline.small.emphasized.font-weight': '--token-semantic-typography-headline-small-emphasized-font-weight',
+    'typography.headline.small.emphasized.line-height': '--token-semantic-typography-headline-small-emphasized-line-height',
+    'typography.title.font-family': '--token-semantic-typography-title-font-family',
+    'typography.title.font-size': '--token-semantic-typography-title-font-size',
+    'typography.title.font-weight': '--token-semantic-typography-title-font-weight',
+    'typography.title.line-height': '--token-semantic-typography-title-line-height',
+    'typography.title.large.font-family': '--token-semantic-typography-title-large-font-family',
+    'typography.title.large.font-size': '--token-semantic-typography-title-large-font-size',
+    'typography.title.large.font-weight': '--token-semantic-typography-title-large-font-weight',
+    'typography.title.large.line-height': '--token-semantic-typography-title-large-line-height',
+    'typography.title.large.emphasized.font-family': '--token-semantic-typography-title-large-emphasized-font-family',
+    'typography.title.large.emphasized.font-size': '--token-semantic-typography-title-large-emphasized-font-size',
+    'typography.title.large.emphasized.font-weight': '--token-semantic-typography-title-large-emphasized-font-weight',
+    'typography.title.large.emphasized.line-height': '--token-semantic-typography-title-large-emphasized-line-height',
+    'typography.title.medium.font-family': '--token-semantic-typography-title-medium-font-family',
+    'typography.title.medium.font-size': '--token-semantic-typography-title-medium-font-size',
+    'typography.title.medium.font-weight': '--token-semantic-typography-title-medium-font-weight',
+    'typography.title.medium.line-height': '--token-semantic-typography-title-medium-line-height',
+    'typography.title.medium.emphasized.font-family': '--token-semantic-typography-title-medium-emphasized-font-family',
+    'typography.title.medium.emphasized.font-size': '--token-semantic-typography-title-medium-emphasized-font-size',
+    'typography.title.medium.emphasized.font-weight': '--token-semantic-typography-title-medium-emphasized-font-weight',
+    'typography.title.medium.emphasized.line-height': '--token-semantic-typography-title-medium-emphasized-line-height',
+    'typography.title.small.font-family': '--token-semantic-typography-title-small-font-family',
+    'typography.title.small.font-size': '--token-semantic-typography-title-small-font-size',
+    'typography.title.small.font-weight': '--token-semantic-typography-title-small-font-weight',
+    'typography.title.small.line-height': '--token-semantic-typography-title-small-line-height',
+    'typography.title.small.emphasized.font-family': '--token-semantic-typography-title-small-emphasized-font-family',
+    'typography.title.small.emphasized.font-size': '--token-semantic-typography-title-small-emphasized-font-size',
+    'typography.title.small.emphasized.font-weight': '--token-semantic-typography-title-small-emphasized-font-weight',
+    'typography.title.small.emphasized.line-height': '--token-semantic-typography-title-small-emphasized-line-height',
+    'typography.body.font-family': '--token-semantic-typography-body-font-family',
+    'typography.body.font-size': '--token-semantic-typography-body-font-size',
+    'typography.body.font-weight': '--token-semantic-typography-body-font-weight',
+    'typography.body.line-height': '--token-semantic-typography-body-line-height',
+    'typography.body.large.font-family': '--token-semantic-typography-body-large-font-family',
+    'typography.body.large.font-size': '--token-semantic-typography-body-large-font-size',
+    'typography.body.large.font-weight': '--token-semantic-typography-body-large-font-weight',
+    'typography.body.large.line-height': '--token-semantic-typography-body-large-line-height',
+    'typography.body.large.emphasized.font-family': '--token-semantic-typography-body-large-emphasized-font-family',
+    'typography.body.large.emphasized.font-size': '--token-semantic-typography-body-large-emphasized-font-size',
+    'typography.body.large.emphasized.font-weight': '--token-semantic-typography-body-large-emphasized-font-weight',
+    'typography.body.large.emphasized.line-height': '--token-semantic-typography-body-large-emphasized-line-height',
+    'typography.body.medium.font-family': '--token-semantic-typography-body-medium-font-family',
+    'typography.body.medium.font-size': '--token-semantic-typography-body-medium-font-size',
+    'typography.body.medium.font-weight': '--token-semantic-typography-body-medium-font-weight',
+    'typography.body.medium.line-height': '--token-semantic-typography-body-medium-line-height',
+    'typography.body.medium.emphasized.font-family': '--token-semantic-typography-body-medium-emphasized-font-family',
+    'typography.body.medium.emphasized.font-size': '--token-semantic-typography-body-medium-emphasized-font-size',
+    'typography.body.medium.emphasized.font-weight': '--token-semantic-typography-body-medium-emphasized-font-weight',
+    'typography.body.medium.emphasized.line-height': '--token-semantic-typography-body-medium-emphasized-line-height',
+    'typography.body.small.font-family': '--token-semantic-typography-body-small-font-family',
+    'typography.body.small.font-size': '--token-semantic-typography-body-small-font-size',
+    'typography.body.small.font-weight': '--token-semantic-typography-body-small-font-weight',
+    'typography.body.small.line-height': '--token-semantic-typography-body-small-line-height',
+    'typography.body.small.emphasized.font-family': '--token-semantic-typography-body-small-emphasized-font-family',
+    'typography.body.small.emphasized.font-size': '--token-semantic-typography-body-small-emphasized-font-size',
+    'typography.body.small.emphasized.font-weight': '--token-semantic-typography-body-small-emphasized-font-weight',
+    'typography.body.small.emphasized.line-height': '--token-semantic-typography-body-small-emphasized-line-height',
+    'typography.label.font-family': '--token-semantic-typography-label-font-family',
+    'typography.label.font-size': '--token-semantic-typography-label-font-size',
+    'typography.label.font-weight': '--token-semantic-typography-label-font-weight',
+    'typography.label.line-height': '--token-semantic-typography-label-line-height',
+    'typography.label.large.font-family': '--token-semantic-typography-label-large-font-family',
+    'typography.label.large.font-size': '--token-semantic-typography-label-large-font-size',
+    'typography.label.large.font-weight': '--token-semantic-typography-label-large-font-weight',
+    'typography.label.large.line-height': '--token-semantic-typography-label-large-line-height',
+    'typography.label.large.emphasized.font-family': '--token-semantic-typography-label-large-emphasized-font-family',
+    'typography.label.large.emphasized.font-size': '--token-semantic-typography-label-large-emphasized-font-size',
+    'typography.label.large.emphasized.font-weight': '--token-semantic-typography-label-large-emphasized-font-weight',
+    'typography.label.large.emphasized.line-height': '--token-semantic-typography-label-large-emphasized-line-height',
+    'typography.label.medium.font-family': '--token-semantic-typography-label-medium-font-family',
+    'typography.label.medium.font-size': '--token-semantic-typography-label-medium-font-size',
+    'typography.label.medium.font-weight': '--token-semantic-typography-label-medium-font-weight',
+    'typography.label.medium.line-height': '--token-semantic-typography-label-medium-line-height',
+    'typography.label.medium.emphasized.font-family': '--token-semantic-typography-label-medium-emphasized-font-family',
+    'typography.label.medium.emphasized.font-size': '--token-semantic-typography-label-medium-emphasized-font-size',
+    'typography.label.medium.emphasized.font-weight': '--token-semantic-typography-label-medium-emphasized-font-weight',
+    'typography.label.medium.emphasized.line-height': '--token-semantic-typography-label-medium-emphasized-line-height',
+    'typography.label.small.font-family': '--token-semantic-typography-label-small-font-family',
+    'typography.label.small.font-size': '--token-semantic-typography-label-small-font-size',
+    'typography.label.small.font-weight': '--token-semantic-typography-label-small-font-weight',
+    'typography.label.small.line-height': '--token-semantic-typography-label-small-line-height',
+    'typography.label.small.emphasized.font-family': '--token-semantic-typography-label-small-emphasized-font-family',
+    'typography.label.small.emphasized.font-size': '--token-semantic-typography-label-small-emphasized-font-size',
+    'typography.label.small.emphasized.font-weight': '--token-semantic-typography-label-small-emphasized-font-weight',
+    'typography.label.small.emphasized.line-height': '--token-semantic-typography-label-small-emphasized-line-height',
+    'typography.caption.font-family': '--token-semantic-typography-caption-font-family',
+    'typography.caption.font-size': '--token-semantic-typography-caption-font-size',
+    'typography.caption.font-weight': '--token-semantic-typography-caption-font-weight',
+    'typography.caption.line-height': '--token-semantic-typography-caption-line-height',
     'shadow.float': '--token-semantic-shadow-float',
+    'shadow.control': '--token-semantic-shadow-control',
     'shadow.overlay': '--token-semantic-shadow-overlay',
     'shadow.focus-ring': '--token-semantic-shadow-focus-ring',
     'z-index.base': '--token-semantic-z-index-base',
@@ -126,6 +323,13 @@ export const vars = defineTokens({
     'motion.expand': '--token-semantic-motion-expand',
     'motion.slide-enter': '--token-semantic-motion-slide-enter',
     'motion.slide-exit': '--token-semantic-motion-slide-exit',
+    'motion.easing.spatial.default': '--token-semantic-motion-easing-spatial-default',
+    'motion.spatial.fast': '--token-semantic-motion-spatial-fast',
+    'motion.spatial.default': '--token-semantic-motion-spatial-default',
+    'motion.spatial.slow': '--token-semantic-motion-spatial-slow',
+    'motion.effects.fast': '--token-semantic-motion-effects-fast',
+    'motion.effects.default': '--token-semantic-motion-effects-default',
+    'motion.effects.slow': '--token-semantic-motion-effects-slow',
     'opacity.disabled': '--token-semantic-opacity-disabled',
     'opacity.secondary': '--token-semantic-opacity-secondary',
     'opacity.tertiary': '--token-semantic-opacity-tertiary',
@@ -138,36 +342,56 @@ const token = defineTokens({
             'primary': `var(${vars['color.brand.primary']}, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))`,
             'primary-hover': `var(${vars['color.brand.primary-hover']}, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))`,
             'primary-active': `var(${vars['color.brand.primary-active']}, var(--token-global-purple-20, oklch(0.32510160 0.13528526 291.151996)))`,
-            'primary-subtle': `var(${vars['color.brand.primary-subtle']}, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))`
+            'primary-subtle': `var(${vars['color.brand.primary-subtle']}, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))`,
+            'container': `var(${vars['color.brand.container']}, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))`,
+            'on-container': `var(${vars['color.brand.on-container']}, var(--token-semantic-color-selection-foreground, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811))))`
+        },
+        'surface': {
+            'canvas': `var(${vars['color.surface.canvas']}, var(--token-semantic-color-background-sunken, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))`,
+            'content': `var(${vars['color.surface.content']}, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))`,
+            'container': `var(${vars['color.surface.container']}, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))`,
+            'raised': `var(${vars['color.surface.raised']}, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))`,
+            'overlay': `var(${vars['color.surface.overlay']}, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074)))`,
+            'lowest': `var(${vars['color.surface.lowest']}, var(--token-global-material-neutral-100, oklch(0.99999999 0.00000004 0)))`,
+            'low': `var(${vars['color.surface.low']}, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))`,
+            'high': `var(${vars['color.surface.high']}, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074)))`,
+            'highest': `var(${vars['color.surface.highest']}, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144)))`,
+            'dim': `var(${vars['color.surface.dim']}, var(--token-global-material-neutral-87, oklch(0.88960175 0.01375675 314.751639)))`,
+            'bright': `var(${vars['color.surface.bright']}, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))`
+        },
+        'state': {
+            'hover': `var(${vars['color.state.hover']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'pressed': `var(${vars['color.state.pressed']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'dragged': `var(${vars['color.state.dragged']}, color-mix(in oklch, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) calc(var(--token-semantic-state-opacity-dragged, var(--token-global-opacity-16, 0.16)) * 100%), transparent))`
         },
         'background': {
-            'surface': `var(${vars['color.background.surface']}, var(--token-global-white, oklch(1.000 0 0)))`,
-            'elevated': `var(${vars['color.background.elevated']}, var(--token-global-white, oklch(1.000 0 0)))`,
-            'sunken': `var(${vars['color.background.sunken']}, var(--token-global-zinc-50, oklch(0.980 0.002 286)))`,
-            'inverse': `var(${vars['color.background.inverse']}, var(--token-global-zinc-950, oklch(0.140 0.004 286)))`,
-            'overlay': `var(${vars['color.background.overlay']}, color-mix(in oklch, var(--token-global-black, oklch(0.000 0 0)) 45%, transparent))`,
-            'disabled': `var(${vars['color.background.disabled']}, var(--token-global-zinc-100, oklch(0.950 0.003 286)))`,
-            'hover-subtle': `var(${vars['color.background.hover-subtle']}, var(--token-global-zinc-100, oklch(0.950 0.003 286)))`,
-            'active-subtle': `var(${vars['color.background.active-subtle']}, var(--token-global-zinc-200, oklch(0.900 0.004 286)))`,
+            'surface': `var(${vars['color.background.surface']}, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))`,
+            'elevated': `var(${vars['color.background.elevated']}, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))`,
+            'sunken': `var(${vars['color.background.sunken']}, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))`,
+            'inverse': `var(${vars['color.background.inverse']}, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889)))`,
+            'overlay': `var(${vars['color.background.overlay']}, color-mix(in oklch, var(--token-global-black, oklch(0.000 0 0)) 32%, transparent))`,
+            'disabled': `var(${vars['color.background.disabled']}, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144)))`,
+            'hover-subtle': `var(${vars['color.background.hover-subtle']}, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))`,
+            'active-subtle': `var(${vars['color.background.active-subtle']}, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))`,
             'selected': `var(${vars['color.background.selected']}, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510)))`
         },
         'text': {
-            'primary': `var(${vars['color.text.primary']}, var(--token-global-zinc-950, oklch(0.140 0.004 286)))`,
-            'secondary': `var(${vars['color.text.secondary']}, var(--token-global-zinc-700, oklch(0.430 0.012 286)))`,
-            'tertiary': `var(${vars['color.text.tertiary']}, var(--token-global-zinc-600, oklch(0.550 0.014 286)))`,
+            'primary': `var(${vars['color.text.primary']}, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))`,
+            'secondary': `var(${vars['color.text.secondary']}, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936)))`,
+            'tertiary': `var(${vars['color.text.tertiary']}, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936)))`,
             'on-brand': `var(${vars['color.text.on-brand']}, var(--token-global-white, oklch(1.000 0 0)))`,
-            'inverse': `var(${vars['color.text.inverse']}, var(--token-global-zinc-50, oklch(0.980 0.002 286)))`,
-            'disabled': `var(${vars['color.text.disabled']}, var(--token-global-zinc-500, oklch(0.660 0.014 286)))`,
+            'inverse': `var(${vars['color.text.inverse']}, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))`,
+            'disabled': `var(${vars['color.text.disabled']}, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))`,
             'link': `var(${vars['color.text.link']}, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))`,
             'link-hover': `var(${vars['color.text.link-hover']}, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))`
         },
         'border': {
-            'subtle': `var(${vars['color.border.subtle']}, var(--token-global-zinc-200, oklch(0.900 0.004 286)))`,
-            'default': `var(${vars['color.border.default']}, var(--token-global-zinc-600, oklch(0.550 0.014 286)))`,
-            'hover': `var(${vars['color.border.hover']}, var(--token-global-zinc-700, oklch(0.430 0.012 286)))`,
-            'strong': `var(${vars['color.border.strong']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
+            'subtle': `var(${vars['color.border.subtle']}, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))`,
+            'default': `var(${vars['color.border.default']}, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))`,
+            'hover': `var(${vars['color.border.hover']}, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))`,
+            'strong': `var(${vars['color.border.strong']}, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))`,
             'focus': `var(${vars['color.border.focus']}, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))`,
-            'error': `var(${vars['color.border.error']}, var(--token-global-red-600, oklch(0.577 0.245 25)))`
+            'error': `var(${vars['color.border.error']}, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))`
         },
         'focus': {
             'ring': `var(${vars['color.focus.ring']}, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
@@ -184,15 +408,15 @@ const token = defineTokens({
         },
         'feedback': {
             'error': {
-                'text': `var(${vars['color.feedback.error.text']}, var(--token-semantic-color-feedback-error, var(--token-global-red-800, oklch(0.444 0.177 26))))`,
-                'icon': `var(${vars['color.feedback.error.icon']}, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25))))`,
-                'border': `var(${vars['color.feedback.error.border']}, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25))))`,
-                'background': `var(${vars['color.feedback.error.background']}, var(--token-global-red-50, oklch(0.971 0.013 17)))`,
-                'background-hover': `var(${vars['color.feedback.error.background-hover']}, var(--token-semantic-color-feedback-error-background, var(--token-global-red-100, oklch(0.936 0.032 18))))`,
-                'solid': `var(${vars['color.feedback.error.solid']}, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25))))`,
-                'solid-hover': `var(${vars['color.feedback.error.solid-hover']}, var(--token-global-red-700, oklch(0.505 0.213 26)))`,
-                'solid-active': `var(${vars['color.feedback.error.solid-active']}, var(--token-global-red-800, oklch(0.444 0.177 26)))`,
-                'on-solid': `var(${vars['color.feedback.error.on-solid']}, var(--token-global-white, oklch(1.000 0 0)))`
+                'text': `var(${vars['color.feedback.error.text']}, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
+                'icon': `var(${vars['color.feedback.error.icon']}, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
+                'border': `var(${vars['color.feedback.error.border']}, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
+                'background': `var(${vars['color.feedback.error.background']}, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053)))`,
+                'background-hover': `var(${vars['color.feedback.error.background-hover']}, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053)))`,
+                'solid': `var(${vars['color.feedback.error.solid']}, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
+                'solid-hover': `var(${vars['color.feedback.error.solid-hover']}, var(--token-global-material-error-30, oklch(0.42004860 0.14731394 28.135269)))`,
+                'solid-active': `var(${vars['color.feedback.error.solid-active']}, var(--token-global-material-error-20, oklch(0.32453655 0.10920306 28.011391)))`,
+                'on-solid': `var(${vars['color.feedback.error.on-solid']}, var(--token-global-material-error-100, oklch(0.99999999 0.00000004 0)))`
             },
             'success': {
                 'text': `var(${vars['color.feedback.success.text']}, var(--token-semantic-color-feedback-success, var(--token-global-green-800, oklch(0.448 0.119 155))))`,
@@ -240,6 +464,26 @@ const token = defineTokens({
             'thumb': `var(${vars['color.control.thumb']}, var(--token-global-white, oklch(1.000 0 0)))`,
             'track': `var(${vars['color.control.track']}, var(--token-global-zinc-500, oklch(0.660 0.014 286)))`,
             'track-hover': `var(${vars['color.control.track-hover']}, var(--token-global-zinc-600, oklch(0.550 0.014 286)))`
+        },
+        'secondary': {
+            'primary': `var(${vars['color.secondary.primary']}, var(--token-global-material-secondary-40, oklch(0.48593316 0.03575478 299.614802)))`,
+            'on-primary': `var(${vars['color.secondary.on-primary']}, var(--token-global-material-secondary-100, oklch(0.99999999 0.00000004 0)))`,
+            'container': `var(${vars['color.secondary.container']}, var(--token-global-material-secondary-90, oklch(0.91633372 0.03651492 303.106047)))`,
+            'on-container': `var(${vars['color.secondary.on-container']}, var(--token-global-material-secondary-10, oklch(0.22720107 0.03472821 293.650491)))`
+        },
+        'tertiary': {
+            'primary': `var(${vars['color.tertiary.primary']}, var(--token-global-material-tertiary-40, oklch(0.49038805 0.06053149 358.445477)))`,
+            'on-primary': `var(${vars['color.tertiary.on-primary']}, var(--token-global-material-tertiary-100, oklch(0.99999999 0.00000004 0)))`,
+            'container': `var(${vars['color.tertiary.container']}, var(--token-global-material-tertiary-90, oklch(0.91836530 0.04597837 357.575729)))`,
+            'on-container': `var(${vars['color.tertiary.on-container']}, var(--token-global-material-tertiary-10, oklch(0.23230182 0.05433227 358.610728)))`
+        }
+    },
+    'state': {
+        'opacity': {
+            'hover': `var(${vars['state.opacity.hover']}, var(--token-global-opacity-8, 0.08))`,
+            'focus': `var(${vars['state.opacity.focus']}, var(--token-global-opacity-12, 0.12))`,
+            'pressed': `var(${vars['state.opacity.pressed']}, var(--token-global-opacity-12, 0.12))`,
+            'dragged': `var(${vars['state.opacity.dragged']}, var(--token-global-opacity-16, 0.16))`
         }
     },
     'space': {
@@ -257,34 +501,281 @@ const token = defineTokens({
     },
     'font': {
         'family': {
-            'body': `var(${vars['font.family.body']}, var(--token-global-font-family-sans, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif))`
+            'body': `var(${vars['font.family.body']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`
         },
         'line-height': {
             'body': `var(${vars['font.line-height.body']}, var(--token-global-line-height-normal, 1.5))`
         },
         'size': {
-            'body': `var(${vars['font.size.body']}, var(--token-global-font-size-sm, 14px))`,
-            'heading': `var(${vars['font.size.heading']}, var(--token-global-font-size-lg, 18px))`,
+            'body': `var(${vars['font.size.body']}, var(--token-global-font-size-md, 16px))`,
+            'heading': `var(${vars['font.size.heading']}, var(--token-global-font-size-22, 22px))`,
             'subhead': `var(${vars['font.size.subhead']}, var(--token-global-font-size-md, 16px))`,
             'caption': `var(${vars['font.size.caption']}, var(--token-global-font-size-xs, 12px))`
         },
         'weight': {
             'body': `var(${vars['font.weight.body']}, var(--token-global-font-weight-regular, 400))`,
             'label': `var(${vars['font.weight.label']}, var(--token-global-font-weight-medium, 500))`,
-            'heading': `var(${vars['font.weight.heading']}, var(--token-global-font-weight-semibold, 600))`,
+            'heading': `var(${vars['font.weight.heading']}, var(--token-global-font-weight-regular, 400))`,
             'strong': `var(${vars['font.weight.strong']}, var(--token-global-font-weight-bold, 700))`
         }
     },
     'radius': {
-        'sm': `var(${vars['radius.sm']}, var(--token-global-radius-1, 2px))`,
-        'md': `var(${vars['radius.md']}, var(--token-global-radius-3, 6px))`,
-        'lg': `var(${vars['radius.lg']}, var(--token-global-radius-4, 8px))`,
-        'xl': `var(${vars['radius.xl']}, var(--token-global-radius-6, 12px))`,
+        'sm': `var(${vars['radius.sm']}, var(--token-global-radius-2, 4px))`,
+        'md': `var(${vars['radius.md']}, var(--token-global-radius-2, 4px))`,
+        'lg': `var(${vars['radius.lg']}, var(--token-global-radius-6, 12px))`,
+        'xl': `var(${vars['radius.xl']}, var(--token-global-radius-14, 28px))`,
         'pill': `var(${vars['radius.pill']}, var(--token-global-radius-full, 9999px))`
     },
+    'shape': {
+        'control': `var(${vars['shape.control']}, var(--token-global-radius-2, 4px))`,
+        'card': `var(${vars['shape.card']}, var(--token-global-radius-6, 12px))`,
+        'overlay': `var(${vars['shape.overlay']}, var(--token-global-radius-14, 28px))`,
+        'none': `var(${vars['shape.none']}, 0px)`,
+        'extra-small': `var(${vars['shape.extra-small']}, var(--token-global-radius-2, 4px))`,
+        'small': `var(${vars['shape.small']}, var(--token-global-radius-4, 8px))`,
+        'medium': `var(${vars['shape.medium']}, var(--token-global-radius-6, 12px))`,
+        'large': `var(${vars['shape.large']}, var(--token-global-radius-8, 16px))`,
+        'extra-large': `var(${vars['shape.extra-large']}, var(--token-global-radius-14, 28px))`,
+        'full': `var(${vars['shape.full']}, var(--token-global-radius-full, 9999px))`,
+        'extra-extra-large': `var(${vars['shape.extra-extra-large']}, var(--token-global-radius-24, 48px))`
+    },
+    'size': {
+        'touch-target': `var(${vars['size.touch-target']}, var(--token-global-size-48, 48px))`,
+        'selection-target': `var(${vars['size.selection-target']}, var(--token-global-size-48, 48px))`,
+        '36': `var(${vars['size.36']}, var(--token-global-size-36, 36px))`,
+        'control': `var(${vars['size.control']}, var(--token-global-size-40, 40px))`,
+        'field': `var(${vars['size.field']}, var(--token-global-size-56, 56px))`,
+        'navigation': `var(${vars['size.navigation']}, var(--token-global-size-56, 56px))`,
+        '32': `var(${vars['size.32']}, var(--token-global-size-32, 32px))`,
+        '40': `var(${vars['size.40']}, var(--token-global-size-40, 40px))`,
+        '48': `var(${vars['size.48']}, var(--token-global-size-48, 48px))`,
+        '56': `var(${vars['size.56']}, var(--token-global-size-56, 56px))`,
+        '64': `var(${vars['size.64']}, var(--token-global-size-64, 64px))`,
+        '96': `var(${vars['size.96']}, var(--token-global-size-96, 96px))`,
+        '136': `var(${vars['size.136']}, var(--token-global-size-136, 136px))`
+    },
+    'typography': {
+        'display': {
+            'font-family': `var(${vars['typography.display.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+            'font-size': `var(${vars['typography.display.font-size']}, var(--token-global-font-size-36, 36px))`,
+            'font-weight': `var(${vars['typography.display.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+            'line-height': `var(${vars['typography.display.line-height']}, var(--token-global-line-height-36-44, 1.2222222222222223))`,
+            'large': {
+                'font-family': `var(${vars['typography.display.large.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.display.large.font-size']}, var(--token-global-font-size-57, 57px))`,
+                'font-weight': `var(${vars['typography.display.large.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.display.large.line-height']}, var(--token-global-line-height-57-64, 1.1228070175438596))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.display.large.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.display.large.emphasized.font-size']}, var(--token-global-font-size-57, 57px))`,
+                    'font-weight': `var(${vars['typography.display.large.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.display.large.emphasized.line-height']}, var(--token-global-line-height-57-64, 1.1228070175438596))`
+                }
+            },
+            'medium': {
+                'font-family': `var(${vars['typography.display.medium.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.display.medium.font-size']}, var(--token-global-font-size-45, 45px))`,
+                'font-weight': `var(${vars['typography.display.medium.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.display.medium.line-height']}, var(--token-global-line-height-45-52, 1.1555555555555554))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.display.medium.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.display.medium.emphasized.font-size']}, var(--token-global-font-size-45, 45px))`,
+                    'font-weight': `var(${vars['typography.display.medium.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.display.medium.emphasized.line-height']}, var(--token-global-line-height-45-52, 1.1555555555555554))`
+                }
+            },
+            'small': {
+                'font-family': `var(${vars['typography.display.small.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.display.small.font-size']}, var(--token-global-font-size-36, 36px))`,
+                'font-weight': `var(${vars['typography.display.small.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.display.small.line-height']}, var(--token-global-line-height-36-44, 1.2222222222222223))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.display.small.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.display.small.emphasized.font-size']}, var(--token-global-font-size-36, 36px))`,
+                    'font-weight': `var(${vars['typography.display.small.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.display.small.emphasized.line-height']}, var(--token-global-line-height-36-44, 1.2222222222222223))`
+                }
+            }
+        },
+        'headline': {
+            'font-family': `var(${vars['typography.headline.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+            'font-size': `var(${vars['typography.headline.font-size']}, var(--token-global-font-size-3xl, 28px))`,
+            'font-weight': `var(${vars['typography.headline.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+            'line-height': `var(${vars['typography.headline.line-height']}, var(--token-global-line-height-28-36, 1.2857142857142858))`,
+            'large': {
+                'font-family': `var(${vars['typography.headline.large.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.headline.large.font-size']}, var(--token-global-font-size-4xl, 32px))`,
+                'font-weight': `var(${vars['typography.headline.large.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.headline.large.line-height']}, var(--token-global-line-height-32-40, 1.25))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.headline.large.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.headline.large.emphasized.font-size']}, var(--token-global-font-size-4xl, 32px))`,
+                    'font-weight': `var(${vars['typography.headline.large.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.headline.large.emphasized.line-height']}, var(--token-global-line-height-32-40, 1.25))`
+                }
+            },
+            'medium': {
+                'font-family': `var(${vars['typography.headline.medium.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.headline.medium.font-size']}, var(--token-global-font-size-3xl, 28px))`,
+                'font-weight': `var(${vars['typography.headline.medium.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.headline.medium.line-height']}, var(--token-global-line-height-28-36, 1.2857142857142858))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.headline.medium.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.headline.medium.emphasized.font-size']}, var(--token-global-font-size-3xl, 28px))`,
+                    'font-weight': `var(${vars['typography.headline.medium.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.headline.medium.emphasized.line-height']}, var(--token-global-line-height-28-36, 1.2857142857142858))`
+                }
+            },
+            'small': {
+                'font-family': `var(${vars['typography.headline.small.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.headline.small.font-size']}, var(--token-global-font-size-2xl, 24px))`,
+                'font-weight': `var(${vars['typography.headline.small.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.headline.small.line-height']}, var(--token-global-line-height-24-32, 1.3333333333333333))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.headline.small.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.headline.small.emphasized.font-size']}, var(--token-global-font-size-2xl, 24px))`,
+                    'font-weight': `var(${vars['typography.headline.small.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.headline.small.emphasized.line-height']}, var(--token-global-line-height-24-32, 1.3333333333333333))`
+                }
+            }
+        },
+        'title': {
+            'font-family': `var(${vars['typography.title.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+            'font-size': `var(${vars['typography.title.font-size']}, var(--token-global-font-size-22, 22px))`,
+            'font-weight': `var(${vars['typography.title.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+            'line-height': `var(${vars['typography.title.line-height']}, var(--token-global-line-height-22-28, 1.2727272727272727))`,
+            'large': {
+                'font-family': `var(${vars['typography.title.large.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.title.large.font-size']}, var(--token-global-font-size-22, 22px))`,
+                'font-weight': `var(${vars['typography.title.large.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.title.large.line-height']}, var(--token-global-line-height-22-28, 1.2727272727272727))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.title.large.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.title.large.emphasized.font-size']}, var(--token-global-font-size-22, 22px))`,
+                    'font-weight': `var(${vars['typography.title.large.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.title.large.emphasized.line-height']}, var(--token-global-line-height-22-28, 1.2727272727272727))`
+                }
+            },
+            'medium': {
+                'font-family': `var(${vars['typography.title.medium.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.title.medium.font-size']}, var(--token-global-font-size-md, 16px))`,
+                'font-weight': `var(${vars['typography.title.medium.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                'line-height': `var(${vars['typography.title.medium.line-height']}, var(--token-global-line-height-16-24, 1.5))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.title.medium.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.title.medium.emphasized.font-size']}, var(--token-global-font-size-md, 16px))`,
+                    'font-weight': `var(${vars['typography.title.medium.emphasized.font-weight']}, var(--token-global-font-weight-bold, 700))`,
+                    'line-height': `var(${vars['typography.title.medium.emphasized.line-height']}, var(--token-global-line-height-16-24, 1.5))`
+                }
+            },
+            'small': {
+                'font-family': `var(${vars['typography.title.small.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.title.small.font-size']}, var(--token-global-font-size-sm, 14px))`,
+                'font-weight': `var(${vars['typography.title.small.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                'line-height': `var(${vars['typography.title.small.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.title.small.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.title.small.emphasized.font-size']}, var(--token-global-font-size-sm, 14px))`,
+                    'font-weight': `var(${vars['typography.title.small.emphasized.font-weight']}, var(--token-global-font-weight-bold, 700))`,
+                    'line-height': `var(${vars['typography.title.small.emphasized.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`
+                }
+            }
+        },
+        'body': {
+            'font-family': `var(${vars['typography.body.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+            'font-size': `var(${vars['typography.body.font-size']}, var(--token-global-font-size-md, 16px))`,
+            'font-weight': `var(${vars['typography.body.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+            'line-height': `var(${vars['typography.body.line-height']}, var(--token-global-line-height-16-24, 1.5))`,
+            'large': {
+                'font-family': `var(${vars['typography.body.large.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.body.large.font-size']}, var(--token-global-font-size-md, 16px))`,
+                'font-weight': `var(${vars['typography.body.large.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.body.large.line-height']}, var(--token-global-line-height-16-24, 1.5))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.body.large.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.body.large.emphasized.font-size']}, var(--token-global-font-size-md, 16px))`,
+                    'font-weight': `var(${vars['typography.body.large.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.body.large.emphasized.line-height']}, var(--token-global-line-height-16-24, 1.5))`
+                }
+            },
+            'medium': {
+                'font-family': `var(${vars['typography.body.medium.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.body.medium.font-size']}, var(--token-global-font-size-sm, 14px))`,
+                'font-weight': `var(${vars['typography.body.medium.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.body.medium.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.body.medium.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.body.medium.emphasized.font-size']}, var(--token-global-font-size-sm, 14px))`,
+                    'font-weight': `var(${vars['typography.body.medium.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.body.medium.emphasized.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`
+                }
+            },
+            'small': {
+                'font-family': `var(${vars['typography.body.small.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.body.small.font-size']}, var(--token-global-font-size-xs, 12px))`,
+                'font-weight': `var(${vars['typography.body.small.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+                'line-height': `var(${vars['typography.body.small.line-height']}, var(--token-global-line-height-12-16, 1.3333333333333333))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.body.small.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.body.small.emphasized.font-size']}, var(--token-global-font-size-xs, 12px))`,
+                    'font-weight': `var(${vars['typography.body.small.emphasized.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                    'line-height': `var(${vars['typography.body.small.emphasized.line-height']}, var(--token-global-line-height-12-16, 1.3333333333333333))`
+                }
+            }
+        },
+        'label': {
+            'font-family': `var(${vars['typography.label.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+            'font-size': `var(${vars['typography.label.font-size']}, var(--token-global-font-size-sm, 14px))`,
+            'font-weight': `var(${vars['typography.label.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+            'line-height': `var(${vars['typography.label.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`,
+            'large': {
+                'font-family': `var(${vars['typography.label.large.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.label.large.font-size']}, var(--token-global-font-size-sm, 14px))`,
+                'font-weight': `var(${vars['typography.label.large.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                'line-height': `var(${vars['typography.label.large.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.label.large.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.label.large.emphasized.font-size']}, var(--token-global-font-size-sm, 14px))`,
+                    'font-weight': `var(${vars['typography.label.large.emphasized.font-weight']}, var(--token-global-font-weight-bold, 700))`,
+                    'line-height': `var(${vars['typography.label.large.emphasized.line-height']}, var(--token-global-line-height-14-20, 1.4285714285714286))`
+                }
+            },
+            'medium': {
+                'font-family': `var(${vars['typography.label.medium.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.label.medium.font-size']}, var(--token-global-font-size-xs, 12px))`,
+                'font-weight': `var(${vars['typography.label.medium.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                'line-height': `var(${vars['typography.label.medium.line-height']}, var(--token-global-line-height-12-16, 1.3333333333333333))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.label.medium.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.label.medium.emphasized.font-size']}, var(--token-global-font-size-xs, 12px))`,
+                    'font-weight': `var(${vars['typography.label.medium.emphasized.font-weight']}, var(--token-global-font-weight-bold, 700))`,
+                    'line-height': `var(${vars['typography.label.medium.emphasized.line-height']}, var(--token-global-line-height-12-16, 1.3333333333333333))`
+                }
+            },
+            'small': {
+                'font-family': `var(${vars['typography.label.small.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                'font-size': `var(${vars['typography.label.small.font-size']}, var(--token-global-font-size-11, 11px))`,
+                'font-weight': `var(${vars['typography.label.small.font-weight']}, var(--token-global-font-weight-medium, 500))`,
+                'line-height': `var(${vars['typography.label.small.line-height']}, var(--token-global-line-height-11-16, 1.4545454545454546))`,
+                'emphasized': {
+                    'font-family': `var(${vars['typography.label.small.emphasized.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+                    'font-size': `var(${vars['typography.label.small.emphasized.font-size']}, var(--token-global-font-size-11, 11px))`,
+                    'font-weight': `var(${vars['typography.label.small.emphasized.font-weight']}, var(--token-global-font-weight-bold, 700))`,
+                    'line-height': `var(${vars['typography.label.small.emphasized.line-height']}, var(--token-global-line-height-11-16, 1.4545454545454546))`
+                }
+            }
+        },
+        'caption': {
+            'font-family': `var(${vars['typography.caption.font-family']}, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif))`,
+            'font-size': `var(${vars['typography.caption.font-size']}, var(--token-global-font-size-xs, 12px))`,
+            'font-weight': `var(${vars['typography.caption.font-weight']}, var(--token-global-font-weight-regular, 400))`,
+            'line-height': `var(${vars['typography.caption.line-height']}, var(--token-global-line-height-12-16, 1.3333333333333333))`
+        }
+    },
     'shadow': {
-        'float': `var(${vars['shadow.float']}, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))`,
-        'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))`,
+        'float': `var(${vars['shadow.float']}, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15)))`,
+        'control': `var(${vars['shadow.control']}, var(--token-global-shadow-material-1, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 1px 3px 1px oklch(0 0 0 / 0.15)))`,
+        'overlay': `var(${vars['shadow.overlay']}, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15)))`,
         'focus-ring': `var(${vars['shadow.focus-ring']}, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent))`
     },
     'z-index': {
@@ -298,14 +789,29 @@ const token = defineTokens({
         'top': `var(${vars['z-index.top']}, var(--token-global-z-index-70, 1600))`
     },
     'motion': {
-        'interaction': `var(${vars['motion.interaction']}, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`,
-        'fade': `var(${vars['motion.fade']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`,
-        'expand': `var(${vars['motion.expand']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))`,
-        'slide-enter': `var(${vars['motion.slide-enter']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))`,
-        'slide-exit': `var(${vars['motion.slide-exit']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-in, cubic-bezier(0.4, 0, 1, 1)))`
+        'interaction': `var(${vars['motion.interaction']}, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))`,
+        'fade': `var(${vars['motion.fade']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))`,
+        'expand': `var(${vars['motion.expand']}, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))`,
+        'slide-enter': `var(${vars['motion.slide-enter']}, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))`,
+        'slide-exit': `var(${vars['motion.slide-exit']}, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90)))`,
+        'easing': {
+            'spatial': {
+                'default': `var(${vars['motion.easing.spatial.default']}, var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))`
+            }
+        },
+        'spatial': {
+            'fast': `var(${vars['motion.spatial.fast']}, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90)))`,
+            'default': `var(${vars['motion.spatial.default']}, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))`,
+            'slow': `var(${vars['motion.spatial.slow']}, var(--token-global-duration-650, 650ms) var(--token-global-easing-expressive-spatial-slow, cubic-bezier(0.39, 1.29, 0.35, 0.98)))`
+        },
+        'effects': {
+            'fast': `var(${vars['motion.effects.fast']}, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))`,
+            'default': `var(${vars['motion.effects.default']}, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))`,
+            'slow': `var(${vars['motion.effects.slow']}, var(--token-global-duration-slow, 300ms) var(--token-global-easing-expressive-effects-slow, cubic-bezier(0.34, 0.88, 0.34, 1.00)))`
+        }
     },
     'opacity': {
-        'disabled': `var(${vars['opacity.disabled']}, var(--token-global-opacity-30, 0.3))`,
+        'disabled': `var(${vars['opacity.disabled']}, var(--token-global-opacity-38, 0.38))`,
         'secondary': `var(${vars['opacity.secondary']}, var(--token-global-opacity-50, 0.5))`,
         'tertiary': `var(${vars['opacity.tertiary']}, var(--token-global-opacity-70, 0.7))`,
         'hover': `var(${vars['opacity.hover']}, var(--token-global-opacity-80, 0.8))`

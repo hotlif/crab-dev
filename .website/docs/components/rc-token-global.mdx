@@ -103,7 +103,7 @@ const label = css`color: ${token.color.text.primary};`;
 
 **正例**：项目失败状态使用反馈角色，并显示“同步失败”和重试入口。**反例**：把整行文字设为 `red[400]`，仅用红色表示失败；应补齐状态名称，并按实际前景背景验证对比度。
 
-色块存在不等于文字可用。透明、悬停、选中和禁用会改变最终组合；配对与验收方法统一见[色彩与主题](/design/color)，图表职责见[数据展示](/design/data-display)。
+色块存在不等于文字可用。透明、悬停、选中和禁用会改变最终组合；配对与验收方法统一见[色彩与主题](https://material-web.dev/theming/color/)，图表职责见[数据展示](/components/rc-table)。
 
 ## 间距
 
@@ -132,7 +132,7 @@ const group = css`
 
 **正例**：成员表单字段组内统一间隔，组标题与下一组使用更大间隔。**反例**：以连续空格或空白 div 排版；应改用 `gap` 与容器留白。
 
-原始尺度不是密度 API；`space.8` 也不代表全库控件高度。36/28px 控件与 44/36px 数据行属于设计语言样板范围，见[布局与密度](/design/layout)。
+原始尺度不是密度 API。默认组件使用 MD3 角色：按钮 40px、输入框 56px、导航项 56px；独立触控目标为 48px。大小属性仍可覆盖具体组件，数据行由表格或树的布局模型统一计算。
 
 ## 圆角
 
@@ -141,7 +141,7 @@ const group = css`
 | 当前 L2 名称 | 对应 L1 | 适用判断 |
 | --- | --- | --- |
 | `radius.sm` | `radius.1`，2px | 轻微修饰的小边缘 |
-| `radius.md` | `radius.3`，6px | 常规控件候选尺度，仍核对组件 L3 |
+| `radius.md` | `radius.3`，6px | 兼容尺度；默认组件改用 shape.* 用途角色 |
 | `radius.lg` | `radius.4`，8px | 容器形状参考 |
 | `radius.xl` | `radius.6`，12px | 较大容器与浮层形状参考 |
 | `radius.pill` | `radius.full`，9999px | 胶囊；圆形还要求等宽等高 |
@@ -154,11 +154,11 @@ const panel = css`border-radius: ${token.radius.lg};`;
 
 **正例**：卡片使用一个连续外轮廓，内部列表用分隔表达关系。**反例**：每层嵌套容器都增加圆角、边框、阴影；应去掉没有职责的包围层。焦点与错误状态不得通过改变圆角或边框宽度引发布局跳动。
 
-圆角不会自动裁切溢出的子元素。是否裁切需要结合内容、焦点环和阴影决定，不能为了圆角统一设置 `overflow: hidden`。详见[形状与层次](/design/shape)。
+圆角不会自动裁切溢出的子元素。是否裁切需要结合内容、焦点环和阴影决定，不能为了圆角统一设置 `overflow: hidden`。详见[形状与层次](https://material-web.dev/theming/shape/)。
 
 ## 字体与排版
 
-字体族、字号、字重与行高是独立基元。先选内容角色，再组合这些参数；不能把 `font.size.md` 的 16px 解读为全部业务界面的正文字号。当前 L2 的 `font.size.body` 引用 `font.size.sm`，即 14px。
+字体族、字号、字重与行高是独立基元。先选内容角色，再组合这些参数；不能把 `font.size.md` 的 16px 解读为全部业务界面的正文字号。当前 L2 的 `font.size.body` 引用 `font.size.md`，即 16px；较小正文由 body.medium 的 14px 角色提供。
 
 每个样本仅改变该项属性，其他属性继承展示区。中文、英文与数字可能由不同回退字体绘制；样张用于发现组合差异，不保证所有设备字形完全一致。
 
@@ -189,7 +189,7 @@ const paragraph = css`
 
 **正例**：长项目名允许换行，编号可选择复制；摘要截断时保留全文入口。**反例**：为压缩表格把所有正文改为 xs 并设置一倍行高，导致中文多行难读；应先减少低价值列或采用适当密度。
 
-`line.height.none` 适合需要精确盒模型的短内容试验，不应直接用于多行正文。检验中文标点、上下标、两行错误提示和 200% 缩放，避免固定高度裁切。正文与业务界面排版的完整规则见[字体与排版](/design/typography)。
+`line.height.none` 适合需要精确盒模型的短内容试验，不应直接用于多行正文。检验中文标点、上下标、两行错误提示和 200% 缩放，避免固定高度裁切。正文与业务界面排版的完整规则见[字体与排版](https://material-web.dev/theming/typography/)。
 
 ## 阴影
 
@@ -210,7 +210,7 @@ const floatingSurface = css`box-shadow: ${token.shadow.float};`;
 
 每个阴影可能由多层逗号分隔的声明构成，应整体引用。选择样本可查看完整声明及引用代码。
 
-**正例**：下拉浮层具有足够空间展示阴影，并保留与背景的边界。**反例**：通过增大阴影修复被上层元素挡住的菜单；应检查 portal、堆叠上下文和层级，而非加深投影。关联[浮层规范](/design/overlays)。
+**正例**：下拉浮层具有足够空间展示阴影，并保留与背景的边界。**反例**：通过增大阴影修复被上层元素挡住的菜单；应检查 portal、堆叠上下文和层级，而非加深投影。关联[浮层规范](/components/rc-dialog)。
 
 ## 动效
 
@@ -237,7 +237,7 @@ const feedback = css`
 
 **正例**：点击后立即反馈状态，动画只帮助理解变化。**反例**：等待动画结束才允许继续操作或才移动焦点；应把交互结果与装饰动画分离。删除内容、恢复焦点和退出卸载由组件行为控制，不能仅靠一个 duration 值完成。
 
-缓动 in/out 表示速度变化趋势，不是进入、退出操作的自动绑定。加载反馈还需说明任务状态；本页动效参数不是接口超时时间。见[动效](/design/motion)与[状态系统](/design/interaction)。
+缓动 in/out 表示速度变化趋势，不是进入、退出操作的自动绑定。加载反馈还需说明任务状态；本页动效参数不是接口超时时间。见[动效](/components/rc-token-semantic)与[状态系统](/guides/accessibility)。
 
 ## 透明度
 
@@ -259,7 +259,7 @@ const opacitySample = css`opacity: ${globalToken.opacity[50]};`;
 
 **正例**：成员保存中由组件显示忙碌状态、限制重复提交，同时给出进度反馈。**反例**：将表单整体设为 0.3，却让提交按钮继续可用；应补齐真实行为限制，而不是把视觉减弱等同禁用。
 
-只读与禁用也不能靠同一个透明度区分：只读内容通常仍需可读、可选和可复制。具体状态组合归[状态系统](/design/interaction)。
+只读与禁用也不能靠同一个透明度区分：只读内容通常仍需可读、可选和可复制。具体状态组合归[状态系统](/guides/accessibility)。
 
 ## 层级
 
@@ -291,7 +291,7 @@ const stickyToolbar = css`
 
 **正例**：先检查遮挡元素与浮层的挂载位置，再选语义层级。**反例**：遇到遮挡就写 999999，导致菜单盖住确认窗口；应修复上下文和挂载关系。
 
-原生 top layer 与普通 z-index 是不同机制。当前语义源码特别说明 Dialog、Drawer、Message、Notification 使用原生顶层机制，不消费此刻度；本表不是这些组件的实现层级表。详见[浮层](/design/overlays)、[Dialog](/components/rc-dialog)与[Drawer](/components/rc-drawer)。
+原生 top layer 与普通 z-index 是不同机制。当前语义源码特别说明 Dialog、Drawer、Message、Notification 使用原生顶层机制，不消费此刻度；本表不是这些组件的实现层级表。详见[浮层](/components/rc-dialog)、[Dialog](/components/rc-dialog)与[Drawer](/components/rc-drawer)。
 
 ## 三层令牌与主题
 
@@ -325,7 +325,7 @@ L2 的构建 imports 指向全局令牌包，L3 指向语义令牌包，`$ref()`
 
 站点参考样本通过 L1 引用绘制。当前站点导入公共主题的 L2 覆盖，还额外覆盖了 L1 sans 字体以补充中文回退。为准确展示公共基元，每个样本仅将被展示的那一个 L1 变量局部设为 `initial`，让 `var()` 使用公共回退值；周围阅读表面仍继承站点主题。本目录展示源码原始值，不是应用覆盖后的运行时值检视器。
 
-详见[语义令牌](/components/rc-token-semantic)、[Theme](/components/rc-theme)和[令牌与实施](/design/tokens)。
+详见[语义令牌](/components/rc-token-semantic)、[Theme](/components/rc-theme)和[令牌与实施](/components/rc-token-semantic)。
 
 ## 维护、误用与验收
 
@@ -371,7 +371,7 @@ yarn build
 
 ### 当前差异与后续工作
 
-公共 Purple 基元与明暗品牌映射已经落入源码，所有组件的最终组合仍需逐批验收。统一密度角色以及设计语言中的部分业务参数仍处于候选或待迁移阶段。本页准确记录现有值，不以文档重写宣称这些能力已经实现。无障碍共性基线见[无障碍](/design/accessibility)，样板与公共契约差异见[令牌与实施](/design/tokens)。
+公共 Material 色阶、明暗角色、15 档排版与形状尺度由三层令牌统一提供。默认视觉遵循 Material Design 3；兼容尺寸、业务反馈色、图表和数据组件在相同角色上扩展。无障碍使用方式见[无障碍](/guides/accessibility)，公共角色见[语义令牌](/components/rc-token-semantic)。
 
 ## 工作台示例
 
@@ -589,6 +589,24 @@ font.size.xl · 20px · globalToken.font.size.xl · --token-global-font-size-xl
 
 font.size.2xl · 24px · globalToken.font.size["2xl"] · --token-global-font-size-2xl
 
+font.size.3xl · 28px · globalToken.font.size["3xl"] · --token-global-font-size-3xl
+
+font.size.4xl · 32px · globalToken.font.size["4xl"] · --token-global-font-size-4xl
+
+line.height.14-22 · 1.5714285714 · globalToken.line.height["14-22"] · --token-global-line-height-14-22
+
+line.height.14-20 · 1.4285714285714286 · globalToken.line.height["14-20"] · --token-global-line-height-14-20
+
+line.height.20-28 · 1.4 · globalToken.line.height["20-28"] · --token-global-line-height-20-28
+
+line.height.28-36 · 1.2857142857142858 · globalToken.line.height["28-36"] · --token-global-line-height-28-36
+
+font.family.cjk · 'Inter', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif · globalToken.font.family.cjk · --token-global-font-family-cjk
+
+size.44 · 44px · globalToken.size["44"] · --token-global-size-44
+
+size.48 · 48px · globalToken.size["48"] · --token-global-size-48
+
 font.weight.regular · 400 · globalToken.font.weight.regular · --token-global-font-weight-regular
 
 font.weight.medium · 500 · globalToken.font.weight.medium · --token-global-font-weight-medium
@@ -641,6 +659,14 @@ opacity.0 · 0 · globalToken.opacity["0"] · --token-global-opacity-0
 
 opacity.5 · 0.05 · globalToken.opacity["5"] · --token-global-opacity-5
 
+opacity.8 · 0.08 · globalToken.opacity["8"] · --token-global-opacity-8
+
+opacity.12 · 0.12 · globalToken.opacity["12"] · --token-global-opacity-12
+
+opacity.16 · 0.16 · globalToken.opacity["16"] · --token-global-opacity-16
+
+opacity.38 · 0.38 · globalToken.opacity["38"] · --token-global-opacity-38
+
 opacity.10 · 0.1 · globalToken.opacity["10"] · --token-global-opacity-10
 
 opacity.20 · 0.2 · globalToken.opacity["20"] · --token-global-opacity-20
@@ -672,6 +698,198 @@ z-index.50 · 1400 · globalToken["z-index"]["50"] · --token-global-z-index-50
 z-index.60 · 1500 · globalToken["z-index"]["60"] · --token-global-z-index-60
 
 z-index.70 · 1600 · globalToken["z-index"]["70"] · --token-global-z-index-70
+
+material.neutral.0 · oklch(0.00000000 0.00000000 0) · globalToken.material.neutral["0"] · --token-global-material-neutral-0
+
+material.neutral.4 · oklch(0.16447214 0.01281370 300.229634) · globalToken.material.neutral["4"] · --token-global-material-neutral-4
+
+material.neutral.6 · oklch(0.18737531 0.01240815 300.422032) · globalToken.material.neutral["6"] · --token-global-material-neutral-6
+
+material.neutral.10 · oklch(0.22652446 0.00999107 303.713695) · globalToken.material.neutral["10"] · --token-global-material-neutral-10
+
+material.neutral.12 · oklch(0.24450569 0.01344412 298.462846) · globalToken.material.neutral["12"] · --token-global-material-neutral-12
+
+material.neutral.17 · oklch(0.28590291 0.01292568 298.632643) · globalToken.material.neutral["17"] · --token-global-material-neutral-17
+
+material.neutral.20 · oklch(0.31065597 0.01134802 308.055889) · globalToken.material.neutral["20"] · --token-global-material-neutral-20
+
+material.neutral.22 · oklch(0.32978866 0.01246855 298.760622) · globalToken.material.neutral["22"] · --token-global-material-neutral-22
+
+material.neutral.24 · oklch(0.34599322 0.01104685 308.106701) · globalToken.material.neutral["24"] · --token-global-material-neutral-24
+
+material.neutral.30 · oklch(0.39829064 0.01026975 301.077968) · globalToken.material.neutral["30"] · --token-global-material-neutral-30
+
+material.neutral.40 · oklch(0.48353660 0.01164279 305.217760) · globalToken.material.neutral["40"] · --token-global-material-neutral-40
+
+material.neutral.50 · oklch(0.57078175 0.01116801 305.278352) · globalToken.material.neutral["50"] · --token-global-material-neutral-50
+
+material.neutral.60 · oklch(0.65566079 0.01120719 311.122276) · globalToken.material.neutral["60"] · --token-global-material-neutral-60
+
+material.neutral.70 · oklch(0.74139219 0.01262688 313.185878) · globalToken.material.neutral["70"] · --token-global-material-neutral-70
+
+material.neutral.80 · oklch(0.82982891 0.01227594 313.200360) · globalToken.material.neutral["80"] · --token-global-material-neutral-80
+
+material.neutral.87 · oklch(0.88960175 0.01375675 314.751639) · globalToken.material.neutral["87"] · --token-global-material-neutral-87
+
+material.neutral.90 · oklch(0.91401081 0.01366394 314.754144) · globalToken.material.neutral["90"] · --token-global-material-neutral-90
+
+material.neutral.92 · oklch(0.93250577 0.01478797 312.240074) · globalToken.material.neutral["92"] · --token-global-material-neutral-92
+
+material.neutral.94 · oklch(0.95362610 0.01470533 312.243326) · globalToken.material.neutral["94"] · --token-global-material-neutral-94
+
+material.neutral.95 · oklch(0.95905613 0.01234763 317.742090) · globalToken.material.neutral["95"] · --token-global-material-neutral-95
+
+material.neutral.96 · oklch(0.96728288 0.01181410 313.217082) · globalToken.material.neutral["96"] · --token-global-material-neutral-96
+
+material.neutral.98 · oklch(0.98379491 0.01284496 321.893957) · globalToken.material.neutral["98"] · --token-global-material-neutral-98
+
+material.neutral.99 · oklch(0.99226575 0.00672532 325.627381) · globalToken.material.neutral["99"] · --token-global-material-neutral-99
+
+material.neutral.100 · oklch(0.99999999 0.00000004 0) · globalToken.material.neutral["100"] · --token-global-material-neutral-100
+
+material.neutral-variant.10 · oklch(0.22478794 0.01592511 302.216721) · globalToken.material["neutral-variant"]["10"] · --token-global-material-neutral-variant-10
+
+material.neutral-variant.20 · oklch(0.31149623 0.01468617 302.576262) · globalToken.material["neutral-variant"]["20"] · --token-global-material-neutral-variant-20
+
+material.neutral-variant.30 · oklch(0.39805288 0.01735545 303.720936) · globalToken.material["neutral-variant"]["30"] · --token-global-material-neutral-variant-30
+
+material.neutral-variant.40 · oklch(0.48426043 0.01467364 301.005197) · globalToken.material["neutral-variant"]["40"] · --token-global-material-neutral-variant-40
+
+material.neutral-variant.50 · oklch(0.56674707 0.01627446 308.142182) · globalToken.material["neutral-variant"]["50"] · --token-global-material-neutral-variant-50
+
+material.neutral-variant.60 · oklch(0.65664348 0.01530769 304.011222) · globalToken.material["neutral-variant"]["60"] · --token-global-material-neutral-variant-60
+
+material.neutral-variant.80 · oklch(0.82874810 0.01775809 308.222736) · globalToken.material["neutral-variant"]["80"] · --token-global-material-neutral-variant-80
+
+material.neutral-variant.90 · oklch(0.91569447 0.01773656 311.568168) · globalToken.material["neutral-variant"]["90"] · --token-global-material-neutral-variant-90
+
+material.secondary.10 · oklch(0.22720107 0.03472821 293.650491) · globalToken.material.secondary["10"] · --token-global-material-secondary-10
+
+material.secondary.20 · oklch(0.31238325 0.03609580 298.046335) · globalToken.material.secondary["20"] · --token-global-material-secondary-20
+
+material.secondary.30 · oklch(0.40051726 0.03400329 298.591155) · globalToken.material.secondary["30"] · --token-global-material-secondary-30
+
+material.secondary.40 · oklch(0.48593316 0.03575478 299.614802) · globalToken.material.secondary["40"] · --token-global-material-secondary-40
+
+material.secondary.80 · oklch(0.83027212 0.03742766 303.028719) · globalToken.material.secondary["80"] · --token-global-material-secondary-80
+
+material.secondary.90 · oklch(0.91633372 0.03651492 303.106047) · globalToken.material.secondary["90"] · --token-global-material-secondary-90
+
+material.secondary.100 · oklch(0.99999999 0.00000004 0) · globalToken.material.secondary["100"] · --token-global-material-secondary-100
+
+material.tertiary.10 · oklch(0.23230182 0.05433227 358.610728) · globalToken.material.tertiary["10"] · --token-global-material-tertiary-10
+
+material.tertiary.20 · oklch(0.31707471 0.05705134 357.820836) · globalToken.material.tertiary["20"] · --token-global-material-tertiary-20
+
+material.tertiary.30 · oklch(0.40444401 0.05911983 359.110294) · globalToken.material.tertiary["30"] · --token-global-material-tertiary-30
+
+material.tertiary.40 · oklch(0.49038805 0.06053149 358.445477) · globalToken.material.tertiary["40"] · --token-global-material-tertiary-40
+
+material.tertiary.80 · oklch(0.83670391 0.06656148 359.427110) · globalToken.material.tertiary["80"] · --token-global-material-tertiary-80
+
+material.tertiary.90 · oklch(0.91836530 0.04597837 357.575729) · globalToken.material.tertiary["90"] · --token-global-material-tertiary-90
+
+material.tertiary.100 · oklch(0.99999999 0.00000004 0) · globalToken.material.tertiary["100"] · --token-global-material-tertiary-100
+
+material.error.10 · oklch(0.25390329 0.07937181 27.605486) · globalToken.material.error["10"] · --token-global-material-error-10
+
+material.error.20 · oklch(0.32453655 0.10920306 28.011391) · globalToken.material.error["20"] · --token-global-material-error-20
+
+material.error.30 · oklch(0.42004860 0.14731394 28.135269) · globalToken.material.error["30"] · --token-global-material-error-30
+
+material.error.40 · oklch(0.50128208 0.17831791 28.704727) · globalToken.material.error["40"] · --token-global-material-error-40
+
+material.error.80 · oklch(0.83448797 0.06771254 22.011824) · globalToken.material.error["80"] · --token-global-material-error-80
+
+material.error.90 · oklch(0.92214553 0.03006356 22.785053) · globalToken.material.error["90"] · --token-global-material-error-90
+
+material.error.100 · oklch(0.99999999 0.00000004 0) · globalToken.material.error["100"] · --token-global-material-error-100
+
+size.11 · 11px · globalToken.size["11"] · --token-global-size-11
+
+size.22 · 22px · globalToken.size["22"] · --token-global-size-22
+
+size.32 · 32px · globalToken.size["32"] · --token-global-size-32
+
+size.36 · 36px · globalToken.size["36"] · --token-global-size-36
+
+size.40 · 40px · globalToken.size["40"] · --token-global-size-40
+
+size.45 · 45px · globalToken.size["45"] · --token-global-size-45
+
+size.52 · 52px · globalToken.size["52"] · --token-global-size-52
+
+size.56 · 56px · globalToken.size["56"] · --token-global-size-56
+
+size.57 · 57px · globalToken.size["57"] · --token-global-size-57
+
+size.64 · 64px · globalToken.size["64"] · --token-global-size-64
+
+font.size.11 · 11px · globalToken.font.size["11"] · --token-global-font-size-11
+
+font.size.22 · 22px · globalToken.font.size["22"] · --token-global-font-size-22
+
+font.size.36 · 36px · globalToken.font.size["36"] · --token-global-font-size-36
+
+font.size.45 · 45px · globalToken.font.size["45"] · --token-global-font-size-45
+
+font.size.57 · 57px · globalToken.font.size["57"] · --token-global-font-size-57
+
+line.height.57-64 · 1.1228070175438596 · globalToken.line.height["57-64"] · --token-global-line-height-57-64
+
+line.height.45-52 · 1.1555555555555554 · globalToken.line.height["45-52"] · --token-global-line-height-45-52
+
+line.height.36-44 · 1.2222222222222223 · globalToken.line.height["36-44"] · --token-global-line-height-36-44
+
+line.height.32-40 · 1.25 · globalToken.line.height["32-40"] · --token-global-line-height-32-40
+
+line.height.24-32 · 1.3333333333333333 · globalToken.line.height["24-32"] · --token-global-line-height-24-32
+
+line.height.22-28 · 1.2727272727272727 · globalToken.line.height["22-28"] · --token-global-line-height-22-28
+
+line.height.16-24 · 1.5 · globalToken.line.height["16-24"] · --token-global-line-height-16-24
+
+line.height.12-16 · 1.3333333333333333 · globalToken.line.height["12-16"] · --token-global-line-height-12-16
+
+line.height.11-16 · 1.4545454545454546 · globalToken.line.height["11-16"] · --token-global-line-height-11-16
+
+font.family.material · 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif · globalToken.font.family.material · --token-global-font-family-material
+
+radius.14 · 28px · globalToken.radius["14"] · --token-global-radius-14
+
+shadow.material-1 · 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 1px 3px 1px oklch(0 0 0 / 0.15) · globalToken.shadow["material-1"] · --token-global-shadow-material-1
+
+shadow.material-2 · 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15) · globalToken.shadow["material-2"] · --token-global-shadow-material-2
+
+shadow.material-3 · 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15) · globalToken.shadow["material-3"] · --token-global-shadow-material-3
+
+easing.material · cubic-bezier(0.2, 0, 0, 1) · globalToken.easing.material · --token-global-easing-material
+
+duration.150 · 150ms · globalToken.duration["150"] · --token-global-duration-150
+
+duration.350 · 350ms · globalToken.duration["350"] · --token-global-duration-350
+
+duration.500 · 500ms · globalToken.duration["500"] · --token-global-duration-500
+
+duration.650 · 650ms · globalToken.duration["650"] · --token-global-duration-650
+
+easing.expressive-spatial-fast · cubic-bezier(0.42, 1.67, 0.21, 0.90) · globalToken.easing["expressive-spatial-fast"] · --token-global-easing-expressive-spatial-fast
+
+easing.expressive-spatial-default · cubic-bezier(0.38, 1.21, 0.22, 1.00) · globalToken.easing["expressive-spatial-default"] · --token-global-easing-expressive-spatial-default
+
+easing.expressive-spatial-slow · cubic-bezier(0.39, 1.29, 0.35, 0.98) · globalToken.easing["expressive-spatial-slow"] · --token-global-easing-expressive-spatial-slow
+
+easing.expressive-effects-fast · cubic-bezier(0.31, 0.94, 0.34, 1.00) · globalToken.easing["expressive-effects-fast"] · --token-global-easing-expressive-effects-fast
+
+easing.expressive-effects-default · cubic-bezier(0.34, 0.80, 0.34, 1.00) · globalToken.easing["expressive-effects-default"] · --token-global-easing-expressive-effects-default
+
+easing.expressive-effects-slow · cubic-bezier(0.34, 0.88, 0.34, 1.00) · globalToken.easing["expressive-effects-slow"] · --token-global-easing-expressive-effects-slow
+
+size.96 · 96px · globalToken.size["96"] · --token-global-size-96
+
+size.136 · 136px · globalToken.size["136"] · --token-global-size-136
+
+radius.24 · 48px · globalToken.radius["24"] · --token-global-radius-24
 
 </div>
 

@@ -1,5 +1,6 @@
 /* Private Wake workbench adapter. All palette values come from the public theme. */
 @import "../css/index.css";
+@import "./fonts.css";
 
 /* Wake supplies legacy feedback aliases on these hosts. Reset only its defaults:
    otherwise every text / border / solid role collapses onto one old color.
@@ -13,6 +14,7 @@ html:root[data-theme] :is(.workbench-shell, .demo-frame-root) {
 }
 
 html[data-theme], body {
+    font-family: var(--token-semantic-typography-body-font-family, Roboto, "Microsoft YaHei UI", sans-serif);
     color: var(--token-semantic-color-text-primary);
     background-color: var(--token-semantic-color-background-sunken);
 }

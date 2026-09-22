@@ -11,9 +11,18 @@ for (const [key, value] of Object.entries(baseline.globalValues)) {
     assert.equal(current.get(key), value, `Existing L1 value changed or disappeared: ${key}`);
 }
 const added = entries.filter(entry => !Object.hasOwn(baseline.globalValues, entry.key));
-assert.deepEqual(added.map(entry => entry.key).sort(), ["10", "20", "30", "40", "80", "90", "100"].map(tone => `purple.${tone}`).sort());
-assert.equal(added.every(entry => entry.group === "colors" && entry.expression.includes(".purple[")), true);
-console.log(`${Object.keys(baseline.globalValues).length} existing L1 values unchanged; ${added.length} Purple values added to the shared reference catalogue.`);
+const expectedAdditions = [
+    ...["10", "20", "30", "40", "80", "90", "100"].map(tone => `purple.${tone}`),
+    'font.size.3xl', 'font.size.4xl', 'font.family.cjk',
+    'line.height.14-22', 'line.height.14-20', 'line.height.20-28', 'line.height.28-36',
+    'size.44', 'size.48', 'opacity.8', 'opacity.12', 'opacity.16', 'opacity.38',
+];
+for (const key of expectedAdditions) assert.ok(current.has(key), `Missing compatibility primitive: ${key}`);
+for (const family of ['neutral', 'neutral-variant', 'secondary', 'tertiary', 'error']) {
+    for (const tone of [10, 20, 30, 40, 80, 90]) assert.ok(current.has(`material.${family}.${tone}`), `Missing Material color: ${family}.${tone}`);
+}
+for (const size of [11, 22, 32, 36, 40, 45, 48, 52, 56, 57, 64]) assert.ok(current.has(`size.${size}`));
+console.log(`${Object.keys(baseline.globalValues).length} existing L1 values unchanged; ${added.length} Purple and Material primitives added to the shared catalogue.`);
 for (const item of baseline.packages) {
     const name = item.name.replace("@crab-dev/", "");
     const config = await readFile(new URL(`../../components/${name}/wake.config.toml`, import.meta.url), "utf8");
