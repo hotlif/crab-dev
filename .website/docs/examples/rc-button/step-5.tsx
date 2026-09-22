@@ -32,10 +32,10 @@ const statesStyle = css`
 `;
 const sampleStyle = css`display: grid; justify-items: start; align-content: start; gap: ${token.space["component-gap"]};`;
 const noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.font.size.caption};`;
-const appearances = ["primary", "subtle", "dashed", "text", "link", "danger"] satisfies Array<NonNullable<ButtonProps["appearance"]>>;
+const appearances = ["elevated", "primary", "tonal", "outlined", "text"] satisfies Array<NonNullable<ButtonProps["appearance"]>>;
 
 function ThemePanel({ theme, brandColor }: { theme: "light" | "dark"; brandColor: string }) {
-    const [message, setMessage] = useState("悬停或用 Tab 聚焦可用按钮，观察颜色、阴影与焦点环。");
+    const [message, setMessage] = useState("悬停或用 Tab 聚焦可用按钮，观察填充反馈与焦点环。");
     const [selected, setSelected] = useState(true);
     const title = theme === "light" ? "浅色" : "深色";
     return (
@@ -58,7 +58,7 @@ function ThemePanel({ theme, brandColor }: { theme: "light" | "dark"; brandColor
                                 <span className={noteStyle}>加载中</span>
                                 <Button appearance={appearance} loading>按钮</Button>
                             </div>
-                            {appearance === "subtle" && (
+                            {appearance === "outlined" && (
                                 <div className={sampleStyle}>
                                     <span className={noteStyle}>可切换选中</span>
                                     <Button isSelected={selected} onClick={() => setSelected(value => !value)}>{selected ? "已选中" : "未选中"}</Button>
@@ -69,7 +69,7 @@ function ThemePanel({ theme, brandColor }: { theme: "light" | "dark"; brandColor
                 ))}
                 <section className={variantStyle} aria-label={`${title} 表单操作`}>
                     <strong>保存 + 取消</strong>
-                    <p className={noteStyle}>保存用实色强调；取消使用中性表面与浅阴影，悬停时显现品牌色。</p>
+                    <p className={noteStyle}>保存使用实色；取消使用中性文字和细描边，不使用阴影。</p>
                     <div className={rowStyle}>
                         <Button appearance="primary" onClick={() => setMessage(`${title}：已保存本地示例。`)}>保存修改</Button>
                         <Button onClick={() => setMessage(`${title}：已取消本地编辑。`)}>取消</Button>
@@ -100,7 +100,7 @@ export default function Example() {
                     <Button key={color} size="small" isSelected={brandColor === color} onClick={() => setBrandColor(color)}>{name}</Button>
                 ))}
             </div>
-            <p className={noteStyle}>六种外观对照默认、禁用和加载；常规按钮另含可切换的选中状态。常规按钮使用中性表面与浅阴影，悬停时阴影略微增强，按压时收回；交互时显现品牌色，选中使用无阴影的强填充。加载项持续显示；危险色保持独立语义。</p>
+            <p className={noteStyle}>普通按钮采用 Outlined 描边外观。悬停与聚焦使用 8% / 10% 填充反馈，按压时收紧圆角；选中使用反色填充。Elevated 使用浅阴影，与其余四种外观区分。</p>
             <div className={panelsStyle}>
                 <ThemePanel theme="light" brandColor={brandColor} />
                 <ThemePanel theme="dark" brandColor={brandColor} />

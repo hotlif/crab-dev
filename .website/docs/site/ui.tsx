@@ -1,4 +1,4 @@
-import { Children, useEffect, useId, useRef, useState } from "react";
+import { Children, use, useEffect, useId, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import { defineDocsUI } from "@crab-dev/wake/docs";
 import type * as UI from "@crab-dev/wake/docs";
@@ -13,16 +13,18 @@ import Empty from "@crab-dev/rc-empty";
 import Spin from "@crab-dev/rc-spin";
 import { resolveSiteHref, SiteContext, TutorialDirectoryContext } from "./siteContext.js";
 import "./siteStyles.js";
+import { categoryForPath, DocumentNavigationContext, groupsForCategory, navigationCategories, PageSections } from "./documentNavigation.js";
+import type { NavigationCategory } from "./documentNavigation.js";
+import "./documentStyles.js";
+import SiteIcon from "./siteIcon.js";
+import CatalogPreview, { hasCatalogPreview } from "./catalog/preview.js";
+import "./catalogStyles.js";
 
 function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: string) => void) {
     if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
         return;
     event.preventDefault();
     navigate(slug);
-}
-
-function isDesignPage(route: UI.CommonProps["route"]) {
-    return /(?:^|\/)design\//.test(route.page?.slug ?? route.path);
 }
 
 export function Root({ children, ...state }: UI.RootProps) {
@@ -37,100 +39,96 @@ export function Root({ children, ...state }: UI.RootProps) {
 
 export function Layout(props: UI.LayoutProps) {
     const contentId = useId();
+    const sidebarId = useId();
+    const path = props.route.page?.slug ?? props.route.path;
+    const home = props.route.page?.href === props.site.homeHref;
+    const catalog = props.route.page?.slug.replace(/^\//, "") === "learn/components";
+    const [selection, setSelection] = useState<{ path: string; category: NavigationCategory | null } | null>(null);
+    const routeCategory = categoryForPath(path) ?? "start";
+    const category = selection?.path === path ? selection.category : routeCategory;
+    // Desktop navigation stays visible; only the mobile accordion can have no expanded category.
+    const navigation = { category: category ?? routeCategory, sidebarId,
+        select: (value: NavigationCategory | null) => setSelection({ path, category: value }) };
     // DOM reference for the in-page keyboard shortcut; it does not trigger routing.
     const content = useRef<HTMLDivElement>(null);
     const [directory, setDirectory] = useState<HTMLDivElement | null>(null);
-    const home = props.route.page?.href === props.site.homeHref;
-    const catalog = props.route.page?.slug.replace(/^\//, "") === "learn/components";
-    const design = isDesignPage(props.route);
+    const component = /(^|\/)components\//.test(path);
     return (
-        <TutorialDirectoryContext value={directory}>
-            <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-design={design}>
-                <Button className="crab-docs-skip-link" appearance="primary" href={`#${contentId}`}
-                    onClick={event => {
-                        event.preventDefault();
-                        const main = content.current?.querySelector("main");
-                        if (main) {
-                            main.focus({ preventScroll: true });
-                            main.scrollIntoView?.({ block: "start" });
-                        } else props.route.focusContent();
-                    }}>
-                    跳到主要内容
-                </Button>
-                <div className="crab-docs-topbar">{props.header}</div>
-                <div className="crab-docs-grid">
-                    <aside className="crab-docs-sidebar">{props.navigation}</aside>
-                    <div className="crab-docs-content" id={contentId} ref={content}>{props.children}</div>
-                    <aside className="crab-docs-directory">
-                        <div className="crab-docs-directory-panel">
-                            <div ref={setDirectory} />
-                            {props.tableOfContents}
-                        </div>
-                    </aside>
+        <TutorialDirectoryContext value={component ? null : directory}>
+            <DocumentNavigationContext value={navigation}>
+                <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-navigation-open="true">
+                    <Button className="crab-docs-skip-link" appearance="primary" href={`#${contentId}`}
+                        onClick={event => {
+                            event.preventDefault();
+                            const main = content.current?.querySelector("main");
+                            if (main) {
+                                main.focus({ preventScroll: true });
+                                main.scrollIntoView?.({ block: "start" });
+                            } else props.route.focusContent();
+                        }}>
+                        跳到主要内容
+                    </Button>
+                    <div className="crab-docs-topbar">{props.header}</div>
+                    <div className="crab-docs-grid">
+                        <aside className="crab-docs-sidebar" id={sidebarId} aria-labelledby={`${sidebarId}-title`}>
+                            <div className="crab-docs-sidebar-heading">
+                                <h2 id={`${sidebarId}-title`}>{navigationCategories.find(item => item.id === navigation.category)?.heading}</h2>
+                            </div>
+                            <div className="crab-docs-sidebar-scroll" key={navigation.category}>{props.navigation}</div>
+                        </aside>
+                        <div className="crab-docs-content" id={contentId} ref={content}>{props.children}</div>
+                        <aside className="crab-docs-directory">
+                            <div className="crab-docs-directory-panel">
+                                <div ref={setDirectory} />
+                                {props.tableOfContents}
+                            </div>
+                        </aside>
+                    </div>
+                    <DocumentNavigationContext value={{ ...navigation, category }}>
+                        {props.mobileNavigation}
+                    </DocumentNavigationContext>
+                    {props.searchDialog}
                 </div>
-                {props.mobileNavigation}
-                {props.searchDialog}
-            </div>
+            </DocumentNavigationContext>
         </TutorialDirectoryContext>
     );
 }
 
 export function Header({ site, route, search, mobileNavigation, theme }: UI.HeaderProps) {
+    const navigation = use(DocumentNavigationContext);
+    const activeCategory = categoryForPath(route.page?.slug ?? route.path);
     return (
-        <header className="crab-docs-header" role="banner">
+        <header className="crab-docs-header crab-docs-rail" role="banner">
+            <Button appearance="text" className="crab-docs-rail-search" icon={<SearchIcon />}
+                aria-label="搜索文档" aria-haspopup="dialog" title={`搜索文档 (${search.shortcut})`}
+                onClick={() => search.setOpen(true)} />
             <Button
                 appearance="text"
                 className="crab-docs-brand"
                 aria-label="Crab UI"
                 icon={
-                    <span className="crab-docs-brand-mark" aria-hidden="true">
-                        C
-                    </span>
+                    <span className="crab-docs-rail-indicator"><SiteIcon name="home" /></span>
                 }
                 href={site.homeHref}
                 onClick={(event) => follow(event, "/", route.navigate)}
             >
-                Crab UI
+                <span className="crab-docs-brand-desktop">首页</span><span className="crab-docs-brand-mobile">Crab UI</span>
             </Button>
             <nav className="crab-docs-header-links" role="navigation" aria-label="主导航">
-                <Button
-                    appearance="text"
-                    className="crab-docs-design-link"
-                    href={route.href("design/language")}
-                    aria-current={route.path.includes("/design/") ? "page" : undefined}
-                    onClick={(event) => follow(event, "design/language", route.navigate)}
-                >
-                    设计语言
-                </Button>
-                <Button
-                    appearance="text"
-                    href={route.href("learn/components")}
-                    aria-current={route.path.includes("components") ? "page" : undefined}
-                    onClick={(event) => follow(event, "learn/components", route.navigate)}
-                >
-                    组件
-                </Button>
+                {navigationCategories.map(item => <Button key={item.id} appearance="text" className="crab-docs-rail-item"
+                    data-active={activeCategory === item.id} aria-expanded={navigation?.category === item.id}
+                    aria-current={activeCategory === item.id ? "true" : undefined}
+                    aria-controls={navigation?.sidebarId}
+                    onClick={() => navigation?.select(item.id)}
+                    icon={<span className="crab-docs-rail-indicator"><SiteIcon name={item.id} /></span>}>{item.title}</Button>)}
                 {site.repositoryUrl && (
-                    <Button appearance="text" className="crab-docs-repository-link" href={site.repositoryUrl}>
-                        GitHub ↗
+                    <Button appearance="text" className="crab-docs-rail-item crab-docs-repository-link" href={site.repositoryUrl}
+                        icon={<span className="crab-docs-rail-indicator"><SiteIcon name="code" /></span>}>
+                        GitHub
                     </Button>
                 )}
             </nav>
             <div className="crab-docs-header-tools">
-                <Button
-                    appearance="text"
-                    className="crab-docs-search-trigger"
-                    icon={<SearchIcon />}
-                    onClick={() => search.setOpen(true)}
-                    aria-label="搜索文档"
-                    aria-haspopup="dialog"
-                >
-                    <span className="crab-docs-search-label">搜索文档</span>
-                    <span className="crab-docs-search-short" aria-hidden="true">
-                        搜索
-                    </span>
-                    <kbd aria-hidden="true">{search.shortcut}</kbd>
-                </Button>
                 <ThemeSwitch theme={theme} />
                 <Button
                     className="crab-docs-menu-trigger"
@@ -138,7 +136,7 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
                     aria-label="导航"
                     aria-haspopup="dialog"
                     aria-expanded={mobileNavigation.open}
-                    onClick={() => mobileNavigation.setOpen(true)}
+                    onClick={() => { navigation?.select(activeCategory); mobileNavigation.setOpen(true); }}
                     icon={<svg className="crab-docs-tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" /></svg>}
                 >
                     <span className="crab-docs-menu-label">导航</span>
@@ -165,57 +163,85 @@ function NavigationChevron() {
     );
 }
 
-export function Navigation({ groups, current, toggleSection, onNavigate, route }: UI.NavigationProps) {
+function NavigationLabel({ page }: { page: UI.PageLink }) {
+    // Keep bilingual names in the accessible label and tooltip, with a concise
+    // local-language destination in the M3 single-line navigation list.
+    const label = page.title.replace(/^[A-Za-z][A-Za-z0-9]*(?: [A-Za-z][A-Za-z0-9]*)* (?=[\u3400-\u9fff])/u, "");
+    return <span className="crab-docs-nav-label">{label}</span>;
+}
+
+export function Navigation({ groups, current, toggleSection, onNavigate, site }: UI.NavigationProps) {
     const id = useId();
-    const design = isDesignPage(route);
-    const visibleGroups = groups.filter((group) => design ? group.id === "design" : group.id !== "design");
+    const navigation = use(DocumentNavigationContext);
     const link = (page: UI.PageLink) => (
         <Button
             key={page.slug}
             appearance="text"
             className="crab-docs-nav-page"
             href={page.href}
+            title={page.title}
+            aria-label={page.title}
             aria-current={current === page.slug ? "page" : undefined}
-            onClick={(event) => follow(event, page.slug, onNavigate)}
+            onClick={event => follow(event, page.slug, onNavigate)}
         >
-            {page.title}
+            <NavigationLabel page={page} />
         </Button>
     );
-    return (
-        <nav className="crab-docs-navigation" role="navigation" aria-label={design ? "设计语言目录" : "文档分类"}>
-            {visibleGroups.map((group) => (
-                <section key={group.id}>
-                    <h2>{group.title}</h2>
-                    {group.pages.map(link)}
-                    {group.sections.map((section) => (
-                        <div className="crab-docs-nav-section" key={section.id}>
-                            <Button
-                                appearance="text"
-                                className="crab-docs-section-toggle"
-                                aria-expanded={section.expanded}
-                                aria-controls={`${id}-${section.id}`}
-                                onClick={() => toggleSection(section.id)}
-                                iconAfter={<NavigationChevron />}
-                            >
-                                {section.title}
-                            </Button>
-                            <div
-                                id={`${id}-${section.id}`}
-                                inert={!section.expanded}
-                                aria-hidden={!section.expanded}
-                                data-expanded={section.expanded}
-                                className="crab-docs-section-collapse"
-                            >
-                                <div className="crab-docs-section-clip">
-                                    <div className="crab-docs-section-pages">
-                                        {section.pages.map(link)}
-                                    </div>
-                                </div>
+    const renderGroups = (visibleGroups: UI.NavigationProps["groups"]) => visibleGroups.map((group) => (
+        <section key={group.id}>
+            {!navigation && <h2>{group.title}</h2>}
+            {group.pages.map(link)}
+            {group.sections.map((section) => (
+                <div className="crab-docs-nav-section" key={section.id}>
+                    <h3 className="crab-docs-section-heading">
+                    <Button
+                        appearance="text"
+                        className="crab-docs-section-toggle"
+                        aria-expanded={section.expanded}
+                        aria-controls={`${id}-${section.id}`}
+                        onClick={() => toggleSection(section.id)}
+                        iconAfter={<NavigationChevron />}
+                    >
+                        {section.title}
+                    </Button>
+                    </h3>
+                    <div
+                        id={`${id}-${section.id}`}
+                        inert={!section.expanded}
+                        aria-hidden={!section.expanded}
+                        data-expanded={section.expanded}
+                        className="crab-docs-section-collapse"
+                    >
+                        <div className="crab-docs-section-clip">
+                            <div className="crab-docs-section-pages">
+                                {section.pages.map(link)}
                             </div>
                         </div>
-                    ))}
-                </section>
+                    </div>
+                </div>
             ))}
+        </section>
+    ));
+    return (
+        <nav className="crab-docs-navigation" aria-label={navigation ? "站点导航" : "文档分类"}>
+            {navigation && navigation.presentation !== "mobile" ? (
+                navigation.category && renderGroups(groupsForCategory(groups, navigation.category))
+            ) : navigation ? <>
+                <Button appearance="text" className="crab-docs-nav-page" href={site.homeHref}
+                    aria-current={current === "/" ? "page" : undefined}
+                    onClick={event => follow(event, "/", onNavigate)}>首页</Button>
+                {navigationCategories.map(item => <section className="crab-docs-category" key={item.id} data-expanded={navigation.category === item.id}>
+                    <h2 className="crab-docs-category-heading">
+                        <Button appearance="text" className="crab-docs-section-toggle"
+                            aria-expanded={navigation.category === item.id} aria-controls={`${id}-${item.id}`}
+                            onClick={() => navigation.select(navigation.category === item.id ? null : item.id)}
+                            iconAfter={<NavigationChevron />}>{item.title}</Button>
+                    </h2>
+                    <div id={`${id}-${item.id}`} hidden={navigation.category !== item.id}>
+                        {navigation.category === item.id && renderGroups(groupsForCategory(groups, item.id))}
+                    </div>
+                </section>)}
+            </> : renderGroups(groups.filter(group => group.id !== "design"))}
         </nav>
     );
 }
@@ -227,15 +253,29 @@ export function MobileNavigation({
     route,
     theme,
 }: UI.MobileNavigationProps) {
-    const title = isDesignPage(route) ? "设计语言目录" : "文档导航";
+    const title = "文档导航";
+    const navigationState = use(DocumentNavigationContext);
     // 例外：记录弹层关闭原因，直到原生 close 事件完成焦点恢复。
-    const cancelled = useRef(false);
+    const closeReason = useRef<"navigation" | "cancel" | "desktop">("navigation");
     const closed = () => {
-        if (!cancelled.current) route.focusContent();
+        if (closeReason.current === "desktop") {
+            const trigger = document.querySelector<HTMLButtonElement>(".crab-docs-rail-item[aria-expanded=true]");
+            if (trigger) trigger.focus({ preventScroll: true });
+            else route.focusContent();
+        } else if (closeReason.current === "navigation") route.focusContent();
     };
     useEffect(() => {
-        if (open) cancelled.current = false;
-    }, [open]);
+        if (!open) return;
+        closeReason.current = "navigation";
+        const desktop = window.matchMedia("(min-width: 1024px)");
+        const update = () => {
+            if (!desktop.matches) return;
+            closeReason.current = "desktop";
+            setOpen(false);
+        };
+        desktop.addEventListener("change", update);
+        return () => desktop.removeEventListener("change", update);
+    }, [open, setOpen]);
     return (
         <div
             ref={(node) => {
@@ -254,19 +294,22 @@ export function MobileNavigation({
                 closeLabel="关闭导航"
                 open={open}
                 onOpenChange={(value) => {
-                    cancelled.current = !value;
+                    closeReason.current = value ? "navigation" : "cancel";
+                    navigationState?.select(value ? categoryForPath(route.page?.slug ?? route.path) : null);
                     setOpen(value);
                 }}
             >
-                <nav className="crab-docs-mobile-primary" role="navigation" aria-label="主导航">
-                    {[["首页", "/"], ["设计语言", "design/language"], ["组件", "learn/components"]].map(([label, slug]) => (
+                {!navigationState && <nav className="crab-docs-mobile-primary" role="navigation" aria-label="主导航">
+                    {[["首页", "/"]].map(([label, slug]) => (
                         <Button key={slug} appearance="text" href={route.href(slug)} onClick={event => {
                             follow(event, slug, route.navigate);
                             if (event.defaultPrevented) setOpen(false);
                         }}>{label}</Button>
                     ))}
-                </nav>
-                <div className="crab-docs-mobile-navigation">{navigation}</div>
+                </nav>}
+                <DocumentNavigationContext value={navigationState ? { ...navigationState, presentation: "mobile" } : null}>
+                    <div className="crab-docs-mobile-navigation">{navigation}</div>
+                </DocumentNavigationContext>
             </Drawer>
         </div>
     );
@@ -504,11 +547,12 @@ export function TableOfContents({
     variant,
     route,
 }: UI.TableOfContentsProps) {
-    const design = isDesignPage(route);
-    const visible = headings.filter((heading) => design ? heading.depth === 2 : heading.depth <= 3);
-    const activeIndex = headings.findIndex((heading) => heading.id === activeId);
-    const currentId = design && activeIndex >= 0
-        ? headings.slice(0, activeIndex + 1).findLast((heading) => heading.depth === 2)?.id
+    const component = /(^|\/)components\//.test(route.page?.slug ?? route.path);
+    const visible = headings.filter((heading) => component ? heading.depth === 2 : heading.depth <= 3);
+    // Component pages show chapters only; a nested heading keeps its parent chapter active.
+    const currentId = component
+        ? headings.slice(0, headings.findIndex(heading => heading.id === activeId) + 1)
+            .findLast(heading => heading.depth === 2)?.id
         : activeId;
     if (!visible.length) return null;
     return (
@@ -529,7 +573,7 @@ export function TableOfContents({
     );
 }
 
-export function Page({ page, breadcrumbs, previous, next, route, site, children }: UI.PageProps) {
+export function Page({ page, previous, next, route, site, children }: UI.PageProps) {
     // 例外：持有本站正文 DOM，将历史 Markdown 根路径链接适配到公开部署前缀。
     const article = useRef<HTMLElement>(null);
     useEffect(() => {
@@ -553,80 +597,69 @@ export function Page({ page, breadcrumbs, previous, next, route, site, children 
     const home = page.href === site.homeHref;
     const catalog = page.slug.replace(/^\//, "") === "learn/components";
     const component = page.slug.replace(/^\//, "").startsWith("components/");
-    const design = isDesignPage(route);
+    const packageName = page.slug.split("/").at(-1) ?? "";
     return (
-        <article ref={article} className="crab-docs-page" data-home={home}>
-            {!home && (
-                <header className="crab-docs-page-heading">
-                    {!design && <p className="crab-docs-muted">{breadcrumbs.join(" / ")}</p>}
-                    <h1>{page.title}</h1>
-                    <p>{page.description}</p>
-                    {component && (
-                        <>
-                            <code>@crab-dev/{page.slug.split("/").at(-1)}</code>
-                            <nav className="crab-docs-actions" role="navigation" aria-label="组件快捷入口">
-                                <Button
-                                    appearance="subtle"
-                                    href={`${page.href}#${encodeURIComponent("基础示例")}`}
-                                >
-                                    查看示例
-                                </Button>
-                                {page.headings.some((item) => item.id === "api") && (
-                                    <Button appearance="text" href={`${page.href}#api`}>
-                                        API
-                                    </Button>
-                                )}
-                                <Button
-                                    appearance="text"
-                                    href={`${route.href(`${page.slug}/workbench`)}/`}
-                                >
-                                    组件工作台 ↗
-                                </Button>
-                            </nav>
-                        </>
-                    )}
-                </header>
-            )}
-            {!home && !catalog && page.headings.some((item) => item.depth === 2) && (
-                <details className="crab-docs-inline-toc">
-                    <summary>
-                        本页目录
-                        <NavigationChevron />
-                    </summary>
-                    <nav role="navigation" aria-label="移动端本页目录">
-                        {page.headings
-                            .filter((item) => item.depth === 2)
-                            .map((item) => (
-                                <Button key={item.id} appearance="text" href={item.href}>
-                                    {item.title}
-                                </Button>
-                            ))}
+        <article ref={article} className="crab-docs-page" data-home={home} data-component={component} data-reading={!home && !catalog}>
+            <div className="crab-docs-page-main">
+                {!home && (
+                    <div className="crab-docs-page-hero">
+                        <header className="crab-docs-page-heading">
+                            <h1 tabIndex={-1}>{page.title}</h1>
+                            <p>{page.description}</p>
+                            {component && (
+                                <>
+                                    <nav className="crab-docs-actions" role="navigation" aria-label="组件快捷入口">
+                                        <Button
+                                            appearance="tonal"
+                                            href={`${route.href(`${page.slug}/workbench`)}/`}
+                                        >
+                                            组件工作台 ↗
+                                        </Button>
+                                        <code className="crab-docs-package">@crab-dev/{packageName}</code>
+                                    </nav>
+                                </>
+                            )}
+                        </header>
+                        {component && hasCatalogPreview(packageName) && <div className="crab-docs-component-artwork" aria-hidden="true">
+                            <CatalogPreview name={packageName} />
+                        </div>}
+                    </div>
+                )}
+                {!home && !catalog ? <PageSections key={page.slug} page={page}>{children}</PageSections>
+                    : <div className="crab-docs-prose">{children}</div>}
+                {!home && (
+                    <nav className="crab-docs-pager" role="navigation" aria-label="文档翻页">
+                        {previous && (
+                            <Button
+                                appearance="text"
+                                href={previous.href}
+                                onClick={(event) => follow(event, previous.slug, route.navigate)}
+                            >
+                                <span className="crab-docs-pager-label">← 上一篇</span><strong>{previous.title}</strong>
+                            </Button>
+                        )}
+                        {next && (
+                            <Button
+                                appearance="text"
+                                href={next.href}
+                                onClick={(event) => follow(event, next.slug, route.navigate)}
+                            >
+                                <span className="crab-docs-pager-label">下一篇 →</span><strong>{next.title}</strong>
+                            </Button>
+                        )}
                     </nav>
-                </details>
-            )}
-            <div className="crab-docs-prose">{children}</div>
-            {!home && !design && (
-                <nav className="crab-docs-pager" role="navigation" aria-label="文档翻页">
-                    {previous && (
-                        <Button
-                            appearance="text"
-                            href={previous.href}
-                            onClick={(event) => follow(event, previous.slug, route.navigate)}
-                        >
-                            ← {previous.title}
-                        </Button>
-                    )}
-                    {next && (
-                        <Button
-                            appearance="text"
-                            href={next.href}
-                            onClick={(event) => follow(event, next.slug, route.navigate)}
-                        >
-                            {next.title} →
-                        </Button>
-                    )}
-                </nav>
-            )}
+                )}
+                {!home && <footer className="crab-docs-footer">
+                    <div><strong>Crab UI</strong><p>遵循 Material Design 3 的 React 组件库。通过组件、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
+                    <nav aria-label="页脚导航">
+                        <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
+                        <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>
+                        {site.repositoryUrl && <Button appearance="text" href={site.repositoryUrl}>GitHub ↗</Button>}
+                    </nav>
+                    <Button appearance="outlined" className="crab-docs-back-top" aria-label="返回顶部" icon={<SiteIcon name="up" />}
+                        onClick={() => { article.current?.querySelector("h1")?.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }} />
+                </footer>}
+            </div>
         </article>
     );
 }

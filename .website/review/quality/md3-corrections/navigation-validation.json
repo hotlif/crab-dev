@@ -1,0 +1,16 @@
+{
+  "capturedAt": "2026-09-21T00:55:58.490Z",
+  "lint": "0 errors, 0 warnings",
+  "typecheck": "passed",
+  "tests": {
+    "website": 59,
+    "generator": 28
+  },
+  "productionBuild": "passed",
+  "binding": {
+    "files": 1899,
+    "failures": []
+  },
+  "sourceChangesSinceBrowserReview": [],
+  "browserReport": "navigation-checks.json"
+}

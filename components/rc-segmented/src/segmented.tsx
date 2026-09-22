@@ -27,6 +27,8 @@ const trackStyle = css`
     font-weight: ${token.root['font-weight']};
     line-height: 1;
     user-select: none;
+    outline: 1px solid ${token.track['border-color']};
+    overflow: clip;
 
     &[data-disabled] {
         cursor: not-allowed;
@@ -64,6 +66,11 @@ const hiddenInputStyle = css`
 `;
 
 const segmentStyle = css`
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    &:has(input:focus-visible) { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (forced-colors: active) { &:has(input:focus-visible) { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+
     position: relative;
     z-index: 1;
     display: inline-flex;
@@ -71,10 +78,24 @@ const segmentStyle = css`
     justify-content: center;
     box-sizing: border-box;
     margin: 0;
+    &:not(:last-child) { border-right: 1px solid ${token.track['border-color']}; }
     color: ${token.item.color};
     cursor: pointer;
     white-space: nowrap;
     transition: color ${token.item.transition};
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: currentColor;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity ${token.item.transition};
+    }
+    &:hover:not(:has(input:disabled))::before { opacity: ${token.item['state-layer']['opacity-hover']}; }
+    &:has(input:focus-visible)::before { opacity: ${token.item['state-layer']['opacity-focus']}; }
+    &:active:not(:has(input:disabled))::before { opacity: ${token.item['state-layer']['opacity-active']}; }
 
     &:hover {
         color: ${token.item['color-hover']};
@@ -117,6 +138,14 @@ const segmentLargeStyle = css`
 const segmentBlockStyle = css`
     flex: 1 1 0;
     min-width: 0;
+`;
+
+const selectionIconStyle = css`
+    display: inline-flex;
+    flex: none;
+    width: ${token.item.icon.width};
+    height: ${token.item.icon.width};
+    > svg { width: 100%; height: 100%; }
 `;
 
 const segmentSelectedStyle = css`
@@ -340,9 +369,9 @@ const Segmented = ({
                                 setSelectedValue(option.value);
                             }}
                         />
-                        {option.icon !== undefined && (
-                            <span aria-hidden="true">{option.icon}</span>
-                        )}
+                        <span aria-hidden="true" className={selectionIconStyle}>
+                            {selected ? <svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" /></svg> : option.icon}
+                        </span>
                         {option.label !== undefined && <span>{option.label}</span>}
                     </label>
                 );

@@ -8,6 +8,7 @@ export const vars = defineTokens({
     'overlay.background-color': '--drawer-overlay-background-color',
     'root.background-color': '--drawer-root-background-color',
     'root.box-shadow': '--drawer-root-box-shadow',
+    'root.border-radius': '--drawer-root-border-radius',
     'size.small.width': '--drawer-size-small-width',
     'size.small.height': '--drawer-size-small-height',
     'size.medium.width': '--drawer-size-medium-width',
@@ -40,11 +41,12 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'overlay': {
-        'background-color': `var(${vars['overlay.background-color']}, var(--token-semantic-color-background-overlay, color-mix(in oklch, var(--token-global-black, oklch(0.000 0 0)) 45%, transparent)))`
+        'background-color': `var(${vars['overlay.background-color']}, var(--token-semantic-color-background-overlay, color-mix(in oklch, var(--token-global-black, oklch(0.000 0 0)) 32%, transparent)))`
     },
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--drawer-background-color, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0)))))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, var(--drawer-box-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))))`
+        'background-color': `var(${vars['root.background-color']}, var(--drawer-background-color, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--drawer-box-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15)))))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-large, var(--token-global-radius-8, 16px)))`
     },
     'size': {
         'small': {
@@ -62,12 +64,12 @@ const token = defineTokens({
     },
     'header': {
         'padding': `var(${vars['header.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
-        'border-color': `var(${vars['header.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'border-color': `var(${vars['header.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'title': {
-            'font-weight': `var(${vars['header.title.font-weight']}, var(--token-semantic-font-weight-heading, var(--token-global-font-weight-semibold, 600)))`,
-            'font-size': `var(${vars['header.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-lg, 18px)))`,
-            'color': `var(${vars['header.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-            'line-height': `var(${vars['header.title.line-height']}, 1.35)`,
+            'font-weight': `var(${vars['header.title.font-weight']}, var(--token-semantic-typography-title-large-emphasized-font-weight, var(--token-global-font-weight-medium, 500)))`,
+            'font-size': `var(${vars['header.title.font-size']}, var(--token-semantic-typography-title-font-size, var(--token-global-font-size-22, 22px)))`,
+            'color': `var(${vars['header.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'line-height': `var(${vars['header.title.line-height']}, var(--token-semantic-typography-title-line-height, var(--token-global-line-height-22-28, 1.2727272727272727)))`,
             'letter-spacing': `var(${vars['header.title.letter-spacing']}, -0.01em)`
         }
     },
@@ -76,7 +78,7 @@ const token = defineTokens({
     },
     'footer': {
         'padding': `var(${vars['footer.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
-        'border-color': `var(${vars['footer.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'border-color': `var(${vars['footer.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'gap': `var(${vars['footer.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'close': {
@@ -84,10 +86,10 @@ const token = defineTokens({
         'icon': {
             'width': `var(${vars['close.icon.width']}, var(--drawer-close-icon-size, 16px))`
         },
-        'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
-        'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-        'background-color-hover': `var(${vars['close.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
-        'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`
+        'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+        'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'background-color-hover': `var(${vars['close.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
     },
     'panel': {
         'animation-duration': `var(${vars['panel.animation-duration']}, var(--drawer-transition-duration, 280ms))`,
@@ -95,13 +97,13 @@ const token = defineTokens({
     },
     'motion': {
         'fade': {
-            'transition': `var(${vars['motion.fade.transition']}, var(--drawer-motion-fade, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+            'transition': `var(${vars['motion.fade.transition']}, var(--drawer-motion-fade, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))))`
         },
         'expand': {
-            'transition': `var(${vars['motion.expand.transition']}, var(--drawer-motion-expand, var(--token-semantic-motion-slide-enter, var(--token-global-duration-slow, 300ms) var(--token-global-easing-default, cubic-bezier(0.4, 0, 0.2, 1)))))`
+            'transition': `var(${vars['motion.expand.transition']}, var(--drawer-motion-expand, var(--token-semantic-motion-slide-enter, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))))`
         },
         'exit': {
-            'transition': `var(${vars['motion.exit.transition']}, var(--drawer-motion-exit, var(--token-semantic-motion-slide-exit, var(--token-global-duration-normal, 200ms) var(--token-global-easing-in, cubic-bezier(0.4, 0, 1, 1)))))`
+            'transition': `var(${vars['motion.exit.transition']}, var(--drawer-motion-exit, var(--token-semantic-motion-slide-exit, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90)))))`
         }
     }
 });

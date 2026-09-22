@@ -19,9 +19,9 @@ describe("文档站与公共主题的色彩契约", () => {
             const site = colors[mode];
             const shared = themeColorContract[mode];
             for (const [actual, expected] of [
-                [site.canvas, shared.background.sunken],
-                [site.surface, shared.background.surface],
-                [site.elevated, shared.background.elevated],
+                [site.canvas, shared.surface.canvas],
+                [site.surface, shared.surface.content],
+                [site.elevated, shared.surface.raised],
                 [site.selected, shared.selection.background],
                 [site.onSelected, shared.selection.foreground],
                 [site.text, shared.text.primary],

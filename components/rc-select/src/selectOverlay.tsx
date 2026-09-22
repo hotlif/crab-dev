@@ -1,9 +1,10 @@
 import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
+import { useMediaQuery } from '@crab-dev/rc-hooks';
 import { css, cx } from "@crab-dev/css";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { useEffect, useRef, type Dispatch, type FC, type ReactNode, type SetStateAction } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type Dispatch, type FC, type ReactNode, type SetStateAction } from "react";
 
 import token from "./token.js";
 import type { FlatOption, SelectOption } from "./types.js";
@@ -24,22 +25,24 @@ const optionStyle = css`
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 6px 8px;
+    padding: ${token.option['padding-block']} 8px;
     border-radius: 3px;
     cursor: pointer;
     user-select: none;
-    height: 32px;
+    height: max(${token.option.height}, calc(1lh + 2 * ${token.option['padding-block']}));
+    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: ${token.option['font-size']};
+    line-height: ${token.option['line-height']};
     outline: none;
     transition: ${token.root.transition};
 
-    &:hover {
+    &:hover:not([aria-disabled='true']) {
         background-color: ${token.option['background-color-hover']};
     }
 
-    &:active {
-        background-color: ${token.option['background-color-hover']};
+    &:active:not([aria-disabled='true']) {
+        background-color: ${token.option['background-color-active']};
     }
 
     /* 选中背景直接绑定 aria-selected(而非另开一个由 JS 条件应用的 class),
@@ -48,15 +51,33 @@ const optionStyle = css`
        这个纯 class 选择器 (0,1,0),确保"选中"背景不会被鼠标悬停或键盘高亮盖掉。 */
     &[aria-selected="true"] {
         background-color: ${token.option["background-color-selected"]};
+        color: ${token.option['color-selected']};
     }
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
+    @media (forced-colors: active) {
+        forced-color-adjust: none;
+        background: Canvas;
+        color: CanvasText;
+        &[aria-selected='true'] { background: Highlight; color: HighlightText; }
+        &[aria-disabled='true'] { color: GrayText; }
+    }
 `;
 
 const optionHighlightStyle = css`
     background-color: ${token.option.highlight['background-color']};
+`;
+
+// A persistent measurement row survives virtualization and has no hit target or
+// accessibility-tree presence. It shares the visible option's typography.
+const measureStyle = css`
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    width: 1px;
+    overflow: hidden;
 `;
 
 const optionSelectedStyle = css`
@@ -72,8 +93,10 @@ const optionSelectedSingleStyle = css`
 `;
 
 const optionDisabledStyle = css`
-    opacity: 0.5;
+    opacity: ${token.root['opacity-disabled']};
+    cursor: not-allowed;
     pointer-events: none;
+    @media (forced-colors: active) { opacity: 1; }
 `;
 
 const optionLabelStyle = css`
@@ -112,24 +135,20 @@ const emptyStyle = css`
     padding: 24px 8px;
     color: ${token.text["color-placeholder"]};
     text-align: center;
-    font-size: 14px;
+    font-size: ${token.option['font-size']};
 `;
 
 const groupLabelStyle = css`
     display: flex;
     align-items: center;
     padding: 4px 8px;
-    height: 32px;
+    height: var(--select-option-measured-height, ${token.option.height});
+    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
     box-sizing: border-box;
     font-size: ${token.group["font-size"]};
     color: ${token.group.color};
     font-weight: 500;
     user-select: none;
-    margin-top: 4px;
-
-    &:first-child {
-        margin-top: 0;
-    }
 `;
 
 const groupedOptionStyle = css`
@@ -164,7 +183,7 @@ const loadingStyle = css`
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const DROPDOWN_PADDING = 4;
-const ROW_HEIGHT = 32;
+const ROW_HEIGHT = 48;
 const MAX_VIEWPORT_HEIGHT = 256;
 
 // ─── Props ───────────────────────────────────────────────────────────────────
@@ -205,6 +224,28 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     onHighlightChange,
 }) => {
     const { dispatch } = useDropdownContext<HTMLDivElement>();
+    const coarsePointer = useMediaQuery('(pointer: coarse)');
+    // Mutable DOM instance: observe rendered text / token overrides without using
+    // render-time layout reads. Virtual offsets must match the actual row height.
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const [measuredRowHeight, setMeasuredRowHeight] = useState(ROW_HEIGHT);
+    const rowHeight = Math.max(coarsePointer ? 48 : ROW_HEIGHT, measuredRowHeight);
+    useLayoutEffect(() => {
+        const option = overlayRef.current?.querySelector<HTMLElement>('[data-select-option-measure]');
+        if (!option) return;
+        const measure = () => {
+            const height = option.getBoundingClientRect().height;
+            if (height > 0) {
+                overlayRef.current?.style.setProperty('--select-option-measured-height', `${height}px`);
+                setMeasuredRowHeight(height);
+            }
+        };
+        measure();
+        if (typeof ResizeObserver === 'undefined') return;
+        const observer = new ResizeObserver(measure);
+        observer.observe(option);
+        return () => observer.disconnect();
+    }, [coarsePointer, filteredOptions.length, loading]);
     // 例外 1(可变实例状态 ref):持有 RcVirtual 的命令式句柄,用于把高亮行滚入视口。
     const gridRef = useRef<VirtualHandle | null>(null);
 
@@ -221,9 +262,9 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     const rowCount = filteredOptions.length;
     const contentWidth = Math.max(triggerWidth - DROPDOWN_PADDING * 2, 160);
-    const viewportHeight = Math.min(MAX_VIEWPORT_HEIGHT, rowCount * ROW_HEIGHT);
+    const viewportHeight = Math.min(MAX_VIEWPORT_HEIGHT, rowCount * rowHeight);
     // React Compiler 会按 rowCount / contentWidth 缓存这两个派生数组，保持 Virtual 前缀和缓存有效。
-    const rows = Array<number>(rowCount).fill(ROW_HEIGHT);
+    const rows = Array<number>(rowCount).fill(rowHeight);
     const columns = [contentWidth];
 
     if (loading) {
@@ -315,6 +356,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                             id={`${listboxId}-option-${i}`}
                             role="option"
                             aria-selected={selected}
+                            aria-disabled={option.disabled || undefined}
                             aria-label={optionAriaLabel}
                             className={cx.call(undefined, optionStyle,
                                 isGrouped && groupedOptionStyle,
@@ -353,11 +395,13 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     return (
         <div
             id={listboxId}
+            ref={overlayRef}
             data-select-overlay
             className={cx.call(undefined, overlayStyle, popupClassName)}
             role="listbox"
             aria-multiselectable={multiple || undefined}
         >
+            <div aria-hidden="true" data-select-option-measure="" className={cx(optionStyle, measureStyle)}>M</div>
             {dropdownRender ? dropdownRender(menu) : menu}
         </div>
     );

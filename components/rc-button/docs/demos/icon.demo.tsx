@@ -46,16 +46,9 @@ const IconDemo = () => {
                 <Button
                     loading={isLoading}
                     icon={<Lollipop />}
-                    appearance="subtle"
+                    appearance="outlined"
                 >
                     subtle
-                </Button>
-                <Button
-                    loading={isLoading}
-                    icon={<Lollipop />}
-                    appearance="dashed"
-                >
-                    dashed
                 </Button>
                 <Button
                     loading={isLoading}
@@ -63,13 +56,6 @@ const IconDemo = () => {
                     appearance="text"
                 >
                     text
-                </Button>
-                <Button
-                    loading={isLoading}
-                    icon={<Lollipop />}
-                    appearance="link"
-                >
-                    link
                 </Button>
             </div>
         </div>

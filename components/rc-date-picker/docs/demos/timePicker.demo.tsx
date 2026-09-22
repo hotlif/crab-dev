@@ -44,6 +44,9 @@ const SizeDemo = () => {
                 </select>
             </div>
             <TimePicker
+                label="开始时间"
+                supportingText="使用 24 小时制输入。"
+                appearance="filled"
                 value={value}
                 size={size}
                 onValueChange={setValue}

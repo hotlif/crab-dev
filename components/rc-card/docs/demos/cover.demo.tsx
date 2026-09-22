@@ -1,6 +1,6 @@
 export const meta = {
-    title: "封面与悬浮浮起",
-    description: "cover 出血铺满顶部; hoverable 悬浮时卡片浮起、封面同步微缩放。",
+    title: "封面与悬停反馈",
+    description: "cover 出血铺满顶部；hoverable 显示状态层并提升一级阴影，封面保持原尺寸。",
 };
 
 import { css } from '@crab-dev/css';

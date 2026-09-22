@@ -31,21 +31,21 @@ const SelectedDemo = () => {
                 `}
             >
                 <Button
-                    appearance="subtle"
+                    appearance="outlined"
                     icon={<AlignLeft />}
                     aria-label="左对齐"
                     isSelected={align === 'left'}
                     onClick={() => setAlign('left')}
                 />
                 <Button
-                    appearance="subtle"
+                    appearance="outlined"
                     icon={<AlignCenter />}
                     aria-label="居中对齐"
                     isSelected={align === 'center'}
                     onClick={() => setAlign('center')}
                 />
                 <Button
-                    appearance="subtle"
+                    appearance="outlined"
                     icon={<AlignRight />}
                     aria-label="右对齐"
                     isSelected={align === 'right'}
@@ -61,14 +61,14 @@ const SelectedDemo = () => {
                 `}
             >
                 <Button
-                    appearance="text"
+                    appearance="outlined"
                     isSelected={view === 'table'}
                     onClick={() => setView('table')}
                 >
                     列表视图
                 </Button>
                 <Button
-                    appearance="text"
+                    appearance="outlined"
                     isSelected={view === 'card'}
                     onClick={() => setView('card')}
                 >

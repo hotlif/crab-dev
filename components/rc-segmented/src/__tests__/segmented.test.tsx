@@ -133,13 +133,19 @@ describe('Segmented', () => {
             await unmount();
         }
     });
-    it('renders an option icon', async () => {
-        const { container } = await renderSegmented({
+    it('replaces the leading icon with a check when selected', async () => {
+        const { container, inputs } = await renderSegmented({
+            defaultValue: 'grid',
             options: [
                 { label: '列表', value: 'list', icon: <svg data-testid="icon"/> },
+                { label: '网格', value: 'grid' },
             ],
         });
         expect(container.querySelector('[data-testid="icon"]')).toBeTruthy();
+        await fireEvent.click(inputs[0]);
+        expect(inputs[0].checked).toBe(true);
+        expect(container.querySelector('[data-testid="icon"]')).toBeNull();
+        expect(inputs[0].closest('label')?.querySelector('svg path')).toBeTruthy();
     });
     it('applies the aria-label of an icon-only option', async () => {
         const { container } = await renderSegmented({

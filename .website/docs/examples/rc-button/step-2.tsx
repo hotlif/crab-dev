@@ -7,7 +7,7 @@ export default function Example() {
     return (
         <>
             <Button
-                appearance={primary ? "primary" : "subtle"}
+                appearance={primary ? "primary" : "outlined"}
                 onClick={() => setCount((value) => value + 1)}
             >
                 保存资料

@@ -31,7 +31,7 @@ const ButtonGroupDemo = () => {
             <ButtonGroup>
                 <Button appearance="primary">创建</Button>
                 <Button>编辑</Button>
-                <Button appearance="danger">删除</Button>
+                <Button appearance="primary" danger>删除</Button>
             </ButtonGroup>
 
             <ButtonGroup size="small">
@@ -42,7 +42,7 @@ const ButtonGroupDemo = () => {
                 <Button>下一页</Button>
             </ButtonGroup>
 
-            <ButtonGroup appearance="subtle">
+            <ButtonGroup appearance="outlined">
                 <Button
                     icon={<Bold />}
                     aria-label="粗体"

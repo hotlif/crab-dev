@@ -35,6 +35,8 @@ interface ActiveCategory {
 }
 
 const rootStyle = css`
+    font-family: ${token.root['font-family']};
+    line-height: ${token.root['line-height']};
     display: inline-flex;
     flex-direction: column;
     gap: ${token.legend.gap};
@@ -51,6 +53,8 @@ const legendStyle = css`
 
 /* 图例项是切换系列显隐的按钮：光标 / hover 背景 / 焦点环齐备 */
 const legendItemStyle = css`
+    @media (pointer: coarse) { min-width: ${token.legend.item.touch['min-width']}; min-height: ${token.legend.item.touch['min-height']}; }
+    @media (forced-colors: active) { &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; } }
     display: inline-flex;
     align-items: center;
     gap: ${token.legend.item.gap};
@@ -77,6 +81,7 @@ const legendItemStyle = css`
 /* 隐藏中的系列：整体减淡，保留位置与可点性（禁用而非消失） */
 const legendItemHiddenStyle = css`
     opacity: ${token.legend.item['opacity-hidden']};
+    text-decoration: line-through;
 `;
 
 const legendSwatchStyle = css`
@@ -103,6 +108,7 @@ const keyboardLayerStyle = css`
 `;
 
 const barButtonStyle = css`
+    @media (forced-colors: active) { &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; } }
     position: absolute;
     padding: 0;
     border: 0;

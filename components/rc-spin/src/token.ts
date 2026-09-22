@@ -13,6 +13,14 @@ export const vars = defineTokens({
     'indicator.animation-timing-function': '--spin-indicator-animation-timing-function',
     'indicator.reduced-motion.animation-duration': '--spin-indicator-reduced-motion-animation-duration',
     'indicator.reduced-motion.opacity': '--spin-indicator-reduced-motion-opacity',
+    'expressive.color': '--spin-expressive-color',
+    'expressive.orbit.animation-duration': '--spin-expressive-orbit-animation-duration',
+    'expressive.shape.animation-duration': '--spin-expressive-shape-animation-duration',
+    'expressive.shape.animation-timing-function': '--spin-expressive-shape-animation-timing-function',
+    'expressive.shape.top': '--spin-expressive-shape-top',
+    'expressive.shape.left': '--spin-expressive-shape-left',
+    'expressive.shape.width': '--spin-expressive-shape-width',
+    'expressive.shape.height': '--spin-expressive-shape-height',
     'root.animation': '--spin-root-animation',
     'content.transition': '--spin-content-transition',
     'content.opacity': '--spin-content-opacity',
@@ -44,25 +52,39 @@ const token = defineTokens({
         'animation-timing-function': `var(${vars['indicator.animation-timing-function']}, var(--spin-motion-easing, linear))`,
         'reduced-motion': {
             'animation-duration': `var(${vars['indicator.reduced-motion.animation-duration']}, var(--spin-motion-reduced-duration, 1.6s))`,
-            'opacity': `var(${vars['indicator.reduced-motion.opacity']}, var(--spin-motion-reduced-opacity, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3))))`
+            'opacity': `var(${vars['indicator.reduced-motion.opacity']}, var(--spin-motion-reduced-opacity, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38))))`
+        }
+    },
+    'expressive': {
+        'color': `var(${vars['expressive.color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+        'orbit': {
+            'animation-duration': `var(${vars['expressive.orbit.animation-duration']}, var(--spin-expressive-orbit-duration, 1.6s))`
+        },
+        'shape': {
+            'animation-duration': `var(${vars['expressive.shape.animation-duration']}, var(--spin-expressive-shape-duration, 1.2s))`,
+            'animation-timing-function': `var(${vars['expressive.shape.animation-timing-function']}, var(--spin-expressive-shape-easing, var(--token-semantic-motion-easing-spatial-default, var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))))`,
+            'top': `var(${vars['expressive.shape.top']}, 12.5%)`,
+            'left': `var(${vars['expressive.shape.left']}, 12.5%)`,
+            'width': `var(${vars['expressive.shape.width']}, 75%)`,
+            'height': `var(${vars['expressive.shape.height']}, 75%)`
         }
     },
     'root': {
-        'animation': `var(${vars['root.animation']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+        'animation': `var(${vars['root.animation']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))))`
     },
     'content': {
-        'transition': `var(${vars['content.transition']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`,
+        'transition': `var(${vars['content.transition']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))))`,
         'opacity': `var(${vars['content.opacity']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`,
         'filter': `var(${vars['content.filter']}, blur(var(--spin-content-blur, 1px)))`
     },
     'size': {
         'small': {
             'width': `var(${vars['size.small.width']}, var(--spin-size-small-size, 16px))`,
-            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`
+            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
         'middle': {
             'width': `var(${vars['size.middle.width']}, var(--spin-size-middle-size, 24px))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`
+            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
         },
         'large': {
             'width': `var(${vars['size.large.width']}, var(--spin-size-large-size, 40px))`,
@@ -70,7 +92,7 @@ const token = defineTokens({
         }
     },
     'tip': {
-        'color': `var(${vars['tip.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
+        'color': `var(${vars['tip.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
         'gap': `var(${vars['tip.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'overlay': {

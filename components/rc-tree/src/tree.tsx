@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useId } from "react";
 import type { Key, FC, ReactNode, HTMLAttributes, MouseEvent, SetStateAction, Dispatch } from "react";
 import { createPortal } from "react-dom";
 import { css } from "@crab-dev/css";
@@ -14,8 +14,8 @@ import type {
     UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import RcVirtual from "@crab-dev/rc-virtual";
-import { useKeyDown } from "@crab-dev/rc-hooks";
+import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
+import { useKeyDown, useMediaQuery } from "@crab-dev/rc-hooks";
 import token from "./token.js";
 import { LoadStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import NodeItem, { type NodeItemProps } from "./nodeItem.js";
@@ -227,7 +227,7 @@ const Tree: FC<TreeProps> = ({
     selectKeys = [],
     draggable = false,
     showLine,
-    defaultNodeHeight = 28,
+    defaultNodeHeight = 56,
     loadData,
     onTreeNodeChange,
     onExpanded: _onExpanded,
@@ -250,8 +250,16 @@ const Tree: FC<TreeProps> = ({
     renderEditInput,
     dragBadgeLabels,
     onNodeDoubleClick,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+    'aria-describedby': ariaDescribedby,
+    role = 'tree',
     ...restProps
 }) => {
+    const nodeId = useId();
+    // 可变实例状态：选择变化时定位虚拟列表，不参与节点渲染。
+    const gridRef = useRef<VirtualHandle>(null);
+    const coarsePointer = useMediaQuery('(pointer: coarse)');
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const [keyboardEvent] = useKeyDown();
     const [mouseContextMenuNodeTitlePosition, setContextMenuNodeTitlePosition] = useState<number[]>([0, 0]);
@@ -300,6 +308,7 @@ const Tree: FC<TreeProps> = ({
     }
 
     let activeNode: Node | null = null;
+    // 昂贵计算：大型树的筛选会重复遍历祖先关系，保留缓存避免无关拖拽状态触发重算。
     const displayedNodes = useMemo(() => {
         const visibleData = filterTreeNode
             ? treeData.filter(node =>
@@ -319,6 +328,12 @@ const Tree: FC<TreeProps> = ({
         });
         return getDisplayedNodes(_displayedNodes);
     }, [treeData, expandedKeys, filterTreeNode]);
+
+    const selectedId = selectKeys[selectKeys.length - 1];
+    const selectedIndex = displayedNodes.findIndex(node => node.id === selectedId);
+    useEffect(() => {
+        if (height > 0 && selectedIndex >= 0) gridRef.current?.scrollToCell({ rowIndex: selectedIndex });
+    }, [height, selectedIndex]);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
@@ -406,9 +421,9 @@ const Tree: FC<TreeProps> = ({
     }
 
 
-    const gridTemplateRows = useMemo(() => {
-        return displayedNodes.map(({ height = defaultNodeHeight }) => height)
-    }, [displayedNodes]);
+    // Keep the virtual offsets and rendered rows in agreement when input mode changes.
+    const gridTemplateRows = displayedNodes.map(({ height = defaultNodeHeight }) =>
+        coarsePointer ? Math.max(height, 48) : height);
 
     return (
         <DndContext
@@ -515,10 +530,18 @@ const Tree: FC<TreeProps> = ({
                 <div
                     ref={divRef}
                     tabIndex={0}
+                    role={role}
+                    aria-label={ariaLabel}
+                    aria-labelledby={ariaLabelledby}
+                    aria-describedby={ariaDescribedby}
+                    aria-activedescendant={selectedId != null && selectedIndex >= 0 ? `${nodeId}-${encodeURIComponent(String(selectedId))}` : undefined}
                     className={css`
                         display: inline-block;
                         position: relative;
-                        outline: none;
+                        color: ${token.root.color};
+                        font-family: ${token.root['font-family']};
+                        &:focus-visible { outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']}; outline-offset: ${token.root['outline-offset-focus']}; }
+                        @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
                     `}
                     onKeyDown={(e) => {
                         const focusedId = selectKeys[selectKeys.length - 1];
@@ -590,6 +613,7 @@ const Tree: FC<TreeProps> = ({
                 >
                     <RcVirtual
                         {...restProps}
+                        gridRef={gridRef}
                         gridTemplateColumns={[width]}
                         gridTemplateRows={gridTemplateRows}
                         viewportWidth={width}
@@ -618,6 +642,7 @@ const Tree: FC<TreeProps> = ({
                                 return (
                                     <NodeItem
                                         key={node.id}
+                                        id={`${nodeId}-${encodeURIComponent(String(node.id))}`}
                                         node={node}
                                         overState={overState}
                                         selectKeys={selectKeys}

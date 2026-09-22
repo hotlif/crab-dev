@@ -1,0 +1,850 @@
+{
+  "revision": {
+    "sha256": "a088fc9b98247e70880bd0c53c92fdfc354c6b23206c4429f17a75a510e427a2",
+    "files": 2577,
+    "bytes": 177960939
+  },
+  "packages": [
+    {
+      "name": "rc-alert",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-alert/token.toml",
+      "roles": [
+        "typography.body.font-size",
+        "typography.body.line-height",
+        "typography.label.font-weight"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-app-main-layout",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-app-main-layout/token.toml",
+      "roles": [
+        "color.surface.content",
+        "color.surface.raised",
+        "color.state.hover",
+        "color.state.pressed",
+        "shape.control",
+        "typography.body.font-size",
+        "shape.card",
+        "color.surface.canvas",
+        "color.surface.overlay",
+        "shape.overlay"
+      ],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-auto-sizer",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": null,
+      "roles": [],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-avatar",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-avatar/token.toml",
+      "roles": [
+        "typography.caption.font-size",
+        "typography.body.font-size",
+        "typography.label.font-weight",
+        "color.surface.content"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-badge",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-badge/token.toml",
+      "roles": [
+        "typography.caption.font-size",
+        "color.surface.content",
+        "typography.label.font-weight",
+        "typography.body.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "status.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-bar-chart",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-bar-chart/token.toml",
+      "roles": [
+        "color.surface.content",
+        "typography.caption.font-size",
+        "color.state.hover",
+        "typography.body.font-family",
+        "typography.body.line-height",
+        "color.surface.overlay",
+        "shape.overlay",
+        "typography.label.font-weight"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "horizontal.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-breadcrumbs",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-breadcrumbs/token.toml",
+      "roles": [
+        "typography.body.font-size",
+        "typography.label.line-height"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-button",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-button/token.toml",
+      "roles": [
+        "typography.label.line-height",
+        "typography.label.font-family",
+        "typography.label.font-weight",
+        "color.surface.content",
+        "state.opacity.hover",
+        "state.opacity.focus",
+        "state.opacity.pressed",
+        "shape.control",
+        "typography.label.font-size",
+        "color.state.hover",
+        "color.state.pressed",
+        "color.surface.raised"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx",
+        "loading.demo.tsx",
+        "selected.demo.tsx"
+      ],
+      "browserChecks": 8,
+      "passed": true
+    },
+    {
+      "name": "rc-canvas",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-canvas/token.toml",
+      "roles": [
+        "color.surface.raised"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-card",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-card/token.toml",
+      "roles": [
+        "color.surface.content",
+        "color.surface.raised",
+        "color.surface.container",
+        "color.state.pressed",
+        "shape.card",
+        "typography.body.font-size",
+        "typography.title.font-weight",
+        "typography.body.font-family",
+        "typography.body.line-height",
+        "typography.label.font-weight",
+        "typography.caption.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "loading.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-checkbox",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-checkbox/token.toml",
+      "roles": [
+        "typography.label.line-height",
+        "state.opacity.hover",
+        "state.opacity.focus",
+        "state.opacity.pressed",
+        "typography.label.font-size",
+        "color.surface.content"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-color-picker",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-color-picker/token.toml",
+      "roles": [
+        "typography.label.font-size",
+        "typography.label.font-weight",
+        "typography.label.line-height",
+        "color.surface.content",
+        "shape.control"
+      ],
+      "demos": [
+        "colorPicker.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-component-preview",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-component-preview/token.toml",
+      "roles": [
+        "color.surface.raised",
+        "color.surface.content",
+        "typography.title.font-weight",
+        "typography.caption.font-size",
+        "shape.control",
+        "typography.label.font-weight",
+        "color.state.hover"
+      ],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-config-provider",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": null,
+      "roles": [],
+      "demos": [
+        "nested.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-cron-picker",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-cron-picker/token.toml",
+      "roles": [
+        "typography.label.font-size",
+        "typography.caption.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-date-picker",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-date-picker/token.toml",
+      "roles": [
+        "color.state.hover",
+        "typography.caption.font-size",
+        "shape.control",
+        "typography.label.font-size"
+      ],
+      "demos": [
+        "datePicker.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-dialog",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-dialog/token.toml",
+      "roles": [
+        "color.surface.overlay",
+        "shape.overlay",
+        "typography.title.font-weight",
+        "typography.title.font-size",
+        "typography.title.line-height"
+      ],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-divider",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-divider/token.toml",
+      "roles": [
+        "typography.body.font-size",
+        "typography.label.font-weight"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-drawer",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-drawer/token.toml",
+      "roles": [
+        "color.surface.overlay",
+        "typography.title.font-weight",
+        "typography.title.font-size",
+        "typography.title.line-height",
+        "color.state.hover",
+        "shape.control"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "nested.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-dropdown-container",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-dropdown-container/token.toml",
+      "roles": [
+        "shape.overlay",
+        "color.surface.overlay"
+      ],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-empty",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-empty/token.toml",
+      "roles": [
+        "typography.label.font-weight",
+        "typography.caption.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-flow-diagram",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-flow-diagram/token.toml",
+      "roles": [],
+      "demos": [
+        "animated-edge.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-form",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-form/token.toml",
+      "roles": [
+        "typography.label.font-size",
+        "typography.label.font-weight"
+      ],
+      "demos": [
+        "base.demo.tsx",
+        "validation.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-hooks",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": null,
+      "roles": [],
+      "demos": [
+        "use-drag-resize.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-line-edit",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-line-edit/token.toml",
+      "roles": [
+        "shape.control",
+        "color.surface.content",
+        "typography.caption.font-size",
+        "typography.label.font-size",
+        "typography.label.line-height"
+      ],
+      "demos": [
+        "simple.demo.tsx",
+        "status.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-masonry",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-masonry/token.toml",
+      "roles": [],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-menu",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-menu/token.toml",
+      "roles": [
+        "typography.body.font-size",
+        "color.state.hover",
+        "color.state.pressed",
+        "typography.label.font-weight",
+        "typography.caption.font-size",
+        "color.surface.overlay",
+        "shape.overlay"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "horizontal.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-message",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-message/token.toml",
+      "roles": [
+        "shape.overlay",
+        "typography.body.font-size",
+        "color.surface.overlay"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-notification",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-notification/token.toml",
+      "roles": [
+        "color.surface.overlay",
+        "shape.overlay",
+        "typography.title.font-size",
+        "typography.title.line-height",
+        "typography.body.font-size",
+        "typography.body.line-height"
+      ],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-number-edit",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-number-edit/token.toml",
+      "roles": [
+        "color.state.hover",
+        "color.state.pressed",
+        "shape.control",
+        "color.surface.content"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "states.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-pagination",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-pagination/token.toml",
+      "roles": [
+        "typography.body.font-size",
+        "typography.caption.font-size",
+        "color.state.hover",
+        "shape.control",
+        "color.surface.content"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx"
+      ],
+      "browserChecks": 6,
+      "passed": true
+    },
+    {
+      "name": "rc-prose",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-prose/token.toml",
+      "roles": [
+        "typography.title.font-weight",
+        "typography.label.font-weight"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-radio",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-radio/token.toml",
+      "roles": [
+        "typography.label.line-height",
+        "state.opacity.hover",
+        "state.opacity.focus",
+        "state.opacity.pressed",
+        "typography.label.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-realm",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-realm/token.toml",
+      "roles": [],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-router",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": null,
+      "roles": [],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-segmented",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-segmented/token.toml",
+      "roles": [
+        "shape.control",
+        "typography.label.font-weight",
+        "typography.body.font-size",
+        "typography.caption.font-size",
+        "color.surface.content"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-select",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-select/token.toml",
+      "roles": [
+        "shape.control",
+        "color.surface.content",
+        "color.state.hover",
+        "color.state.pressed",
+        "typography.label.font-size",
+        "typography.label.line-height",
+        "typography.caption.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx",
+        "loading.demo.tsx",
+        "status.demo.tsx"
+      ],
+      "browserChecks": 8,
+      "passed": true
+    },
+    {
+      "name": "rc-skeleton",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-skeleton/token.toml",
+      "roles": [
+        "shape.control"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-slider",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-slider/token.toml",
+      "roles": [
+        "color.surface.content",
+        "state.opacity.hover",
+        "state.opacity.focus",
+        "state.opacity.dragged"
+      ],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-spin",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-spin/token.toml",
+      "roles": [
+        "typography.caption.font-size",
+        "typography.body.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-split-pane",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-split-pane/token.toml",
+      "roles": [],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-switch",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-switch/token.toml",
+      "roles": [
+        "typography.label.line-height",
+        "typography.label.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "disabled.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-table",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-table/token.toml",
+      "roles": [
+        "color.surface.content",
+        "typography.body.font-family",
+        "typography.body.font-size",
+        "typography.body.line-height",
+        "color.surface.container",
+        "typography.title.font-weight",
+        "typography.label.font-weight",
+        "typography.caption.font-size",
+        "color.state.hover",
+        "shape.card",
+        "color.surface.raised",
+        "shape.control"
+      ],
+      "demos": [
+        "basis.demo.tsx",
+        "empty.demo.tsx",
+        "rowSelection.demo.tsx"
+      ],
+      "browserChecks": 6,
+      "passed": true
+    },
+    {
+      "name": "rc-table-pro",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-table-pro/token.toml",
+      "roles": [
+        "color.surface.content",
+        "color.surface.canvas",
+        "color.state.hover"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-tabs",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-tabs/token.toml",
+      "roles": [
+        "typography.label.font-weight",
+        "typography.caption.font-size",
+        "typography.body.font-size",
+        "color.state.hover",
+        "color.surface.content",
+        "shape.control",
+        "color.state.pressed"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-tag",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-tag/token.toml",
+      "roles": [
+        "shape.control",
+        "typography.body.font-size",
+        "typography.caption.font-size"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "checkable.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-text-edit",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-text-edit/token.toml",
+      "roles": [
+        "shape.control",
+        "color.surface.content",
+        "typography.caption.font-size",
+        "typography.label.font-size",
+        "typography.body.line-height"
+      ],
+      "demos": [
+        "simple.demo.tsx",
+        "status.demo.tsx"
+      ],
+      "browserChecks": 4,
+      "passed": true
+    },
+    {
+      "name": "rc-theme",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": null,
+      "roles": [],
+      "demos": [
+        "light-dark.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-token-global",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": "components/rc-token-global/token.toml",
+      "roles": [],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-token-semantic",
+      "visual": "无独立控件外观；通过消费者与示例检查",
+      "tokenSource": "components/rc-token-semantic/token.toml",
+      "roles": [],
+      "demos": [
+        "base.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-tooltip",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-tooltip/token.toml",
+      "roles": [
+        "typography.caption.font-size",
+        "shape.overlay"
+      ],
+      "demos": [
+        "basic.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    },
+    {
+      "name": "rc-tree",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-tree/token.toml",
+      "roles": [
+        "color.state.hover",
+        "typography.label.font-family",
+        "typography.label.font-size",
+        "typography.label.line-height"
+      ],
+      "demos": [
+        "basic.demo.tsx",
+        "checkable.demo.tsx",
+        "icon-and-disabled.demo.tsx"
+      ],
+      "browserChecks": 6,
+      "passed": true
+    },
+    {
+      "name": "rc-virtual",
+      "visual": "组件视觉与组合示例",
+      "tokenSource": "components/rc-virtual/token.toml",
+      "roles": [],
+      "demos": [
+        "simple.demo.tsx"
+      ],
+      "browserChecks": 2,
+      "passed": true
+    }
+  ]
+}

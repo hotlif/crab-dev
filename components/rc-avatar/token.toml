@@ -8,14 +8,14 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.transition = "var(--avatar-transition, box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1), transform 120ms cubic-bezier(0.4, 0, 0.2, 1), background-color 120ms cubic-bezier(0.4, 0, 0.2, 1), color 120ms cubic-bezier(0.4, 0, 0.2, 1))"
+root.transition = "var(--avatar-transition, box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast), background-color $ref(motion.interaction), color $ref(motion.interaction))"
 
 # ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
 size.small.width     = "var(--avatar-size-small-value, 28px)"
-size.small.font-size = "$ref(font.size.caption)"
+size.small.font-size = "$ref(typography.caption.font-size)"
 
 size.middle.width     = "var(--avatar-size-middle-value, 40px)"
-size.middle.font-size = "$ref(font.size.body)"
+size.middle.font-size = "$ref(typography.body.font-size)"
 
 size.large.width     = "var(--avatar-size-large-value, 48px)"
 size.large.font-size = "$ref(font.size.subhead)"
@@ -25,7 +25,7 @@ icon.middle.font-size = "var(--avatar-icon-size-middle, 18px)"
 icon.large.font-size  = "var(--avatar-icon-size-large, 22px)"
 
 content.max-width   = "70%"
-content.font-weight = "$ref(font.weight.label)"
+content.font-weight = "$ref(typography.label.font-weight)"
 
 # ─── 形态 ────────────────────────────────────────────────────────────────────
 shape.square.border-radius = "var(--avatar-shape-square-radius, $ref(radius.lg))"
@@ -54,8 +54,14 @@ root.background-color-error = "var(--avatar-error-background-color, $ref(color.f
 
 # ─── AvatarGroup ─────────────────────────────────────────────────────────────
 group.margin                 = "var(--avatar-group-overlap, -8px)"
-group.transition             = "transform 180ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1)"
+group.transition             = "transform $ref(motion.spatial.fast), box-shadow $ref(motion.effects.fast)"
 group.transform-hover = "var(--avatar-group-translate-y-hover, translateY(var(--avatar-group-hover-translate-y, -2px)))"
 
 group.item.ring.width = "2px"
-group.item.border-color      = "$ref(color.background.surface)"
+group.item.border-color      = "$ref(color.surface.content)"
+
+interaction.touch.min-width = "$ref(size.touch-target)"
+interaction.touch.min-height = "$ref(size.touch-target)"
+interaction.outline-color-focus = "$ref(color.focus.ring)"
+interaction.outline-width-focus = "2px"
+interaction.outline-offset-focus = "2px"

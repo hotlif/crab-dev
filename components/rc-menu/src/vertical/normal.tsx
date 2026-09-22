@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from "react";
+import { useId, type FC, type ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 
 import { usePresence } from "@crab-dev/rc-hooks";
@@ -7,6 +7,7 @@ import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon.js";
 import { type MenuProps } from "../menu.js";
 import { ItemType, type Item } from "../type.js";
 import token from "../token.js";
+import { navigateMenu } from '../keyboard.js';
 
 const verticalItemTitleWidth = token.vertical.item.title.width;
 const verticalItemTitleMarginBottom = token.vertical.item.title["margin-bottom"];
@@ -48,6 +49,11 @@ const itemTitleStyle = css`
 
 
 const itemTitleBaseStyle = css`
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
+
     height: ${verticalItemTitleHeight};
     font-size: ${verticalItemFontSize};
     color: ${token.vertical.item.title.color};
@@ -125,10 +131,10 @@ const collapseStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
-function Submenu({ open, children }: { open: boolean; children: ReactNode }) {
+function Submenu({ open, children, id }: { open: boolean; children: ReactNode; id: string }) {
     const presence = usePresence<HTMLDivElement>(open);
     if (!presence.present) return null;
-    return <div ref={presence.ref} className={collapseStyle} data-state={presence.state} inert={!open}>
+    return <div id={id} ref={presence.ref} className={collapseStyle} data-state={presence.state} inert={!open}>
         <div><ul className={cx(ulStyle, ulChildrenStyle)}>{children}</ul></div>
     </div>;
 }
@@ -173,8 +179,10 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
     onClick,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     inlineCollapsed,
+    onKeyDown,
     ...props
 }) => {
+    const menuId = useId();
 
     const selectItemFunction = (item: Item) => {
         const keys = []
@@ -219,12 +227,19 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
     }
 
     const renderItem = (item: Item, children: ReactNode[], depth: number) => {
+        const submenuId = `${menuId}-${encodeURIComponent(String(item.key))}`;
         return (
             <li
                 className={itemStyle}
                 key={item.key}
             >
                 <div
+                    role="button"
+                    tabIndex={0}
+                    data-menu-item=""
+                    aria-expanded={children.length > 0 ? openKeys?.includes(item.key) === true : undefined}
+                    aria-controls={children.length > 0 ? submenuId : undefined}
+                    aria-current={selectedKeys.includes(item.key) ? 'page' : undefined}
                     className={cx.call(undefined, itemTitleStyle,
                         itemTitleBaseStyle,
                         children.length > 0 && openKeys?.includes(item.key) ? itemOpenStyle : null,
@@ -265,7 +280,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                     </span>
                     {renderChildrenStateIcon(item, children)}
                 </div>
-                <Submenu open={openKeys?.includes(item.key) === true}>{children}</Submenu>
+                <Submenu id={submenuId} open={openKeys?.includes(item.key) === true}>{children}</Submenu>
             </li>
         );
     }
@@ -321,6 +336,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
         <ul
             className={cx.call(undefined, className, ulStyle)}
             {...props}
+            onKeyDown={event => { onKeyDown?.(event); navigateMenu(event); }}
         >
             {renderMenu(items, 1)}
         </ul>

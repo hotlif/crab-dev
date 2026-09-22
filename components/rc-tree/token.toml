@@ -8,15 +8,15 @@ imports = [
 [token]
 
 indent.width = "var(--tree-indent-size, $ref(space.section-gap))"
-root.border-radius = "var(--tree-border-radius, $ref(radius.sm))"
+root.border-radius = "var(--tree-border-radius, $ref(shape.extra-small))"
 
-node.background-color-hover = "var(--tree-node-hover-background-color, $ref(color.background.hover-subtle))"
-node.background-color-selected = "var(--tree-node-select-background-color, $ref(color.selection.background))"
+node.background-color-hover = "var(--tree-node-hover-background-color, $ref(color.state.hover))"
+node.background-color-selected = "var(--tree-node-select-background-color, $ref(color.secondary.container))"
 node.selection.border-color = "var(--tree-node-select-indicator-color, $ref(color.selection.border))"
 node.selection.border-width = "var(--tree-node-select-indicator-width, 3px)"
 
 node.expand.icon.color = "$ref(color.text.secondary)"
-node.icon.background-color-hover = "var(--tree-node-icon-hover-background-color, $ref(color.background.hover-subtle))"
+node.icon.background-color-hover = "var(--tree-node-icon-hover-background-color, $ref(color.state.hover))"
 node.icon.color-loading = "var(--tree-node-icon-loading-color, $ref(color.brand.primary))"
 
 node.indent-line.border-color = "var(--tree-node-indent-line-color, $ref(color.border.default))"
@@ -36,3 +36,18 @@ node.background-color-disabled = "var(--tree-node-disabled-background-color, tra
 
 context-menu.z-index = "$ref(z-index.float)"
 context-menu.box-shadow = "$ref(shadow.float)"
+
+root.font-family = "$ref(typography.label.font-family)"
+root.font-size = "$ref(typography.body.large.font-size)"
+root.line-height = "$ref(typography.body.large.line-height)"
+root.color = "$ref(color.text.primary)"
+root.transition = "$ref(motion.interaction)"
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-width-focus = "2px"
+root.outline-offset-focus = "2px"
+node.color-selected = "$ref(color.secondary.on-container)"
+node.opacity-disabled = "$ref(opacity.disabled)"
+node.touch.min-width = "$ref(size.touch-target)"
+node.touch.min-height = "$ref(size.touch-target)"
+node.selection.width = "$ref(size.selection-target)"
+node.selection.touch.width = "$ref(size.selection-target)"

@@ -13,9 +13,9 @@ export const vars = defineTokens({
 const token = defineTokens({
     'scrollbar': {
         'opacity': `var(${vars['scrollbar.opacity']}, 0)`,
-        'transition': `var(${vars['scrollbar.transition']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+        'transition': `var(${vars['scrollbar.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'thumb': {
-            'background-color': `var(${vars['scrollbar.thumb.background-color']}, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))) 50%, transparent))`
+            'background-color': `var(${vars['scrollbar.thumb.background-color']}, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 50%, transparent))`
         }
     }
 });

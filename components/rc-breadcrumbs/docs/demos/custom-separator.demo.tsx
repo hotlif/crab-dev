@@ -10,8 +10,8 @@ const CustomSeparatorDemo = () => {
         <Breadcrumbs
             separator="→"
             items={[
-                { title: 'Design', href: '/design' },
-                { title: 'Navigation', href: '/design/navigation' },
+                { title: '组件', href: '/learn/components' },
+                { title: '导航', href: '/components/rc-menu' },
                 { title: 'Breadcrumbs' },
             ]}
         />

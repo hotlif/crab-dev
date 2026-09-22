@@ -14,7 +14,7 @@ const options = Array.from({ length: 1000 }, (_, i) => ({
 }));
 
 const BasicDemo = () => {
-    return <Select aria-label="city" options={options} placeholder="请选择城市" />;
+    return <Select label="工作城市" supportingText="用于安排线下办公地点。" appearance="filled" options={options} />;
 };
 
 export default BasicDemo;

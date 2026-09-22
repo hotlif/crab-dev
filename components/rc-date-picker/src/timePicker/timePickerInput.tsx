@@ -1,14 +1,17 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from "@crab-dev/css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { FC } from "react";
 
 import token from '../token.js';
-import { Clock, XCircleFill } from '../icons.js';
+import { Clock } from '../icons.js';
 import type { TimePickerPanelProps } from "../panels/timePickerPanel.js";
 
-interface TimePickerInputProps {
+interface TimePickerInputProps extends Omit<
+    LineEditProps,
+    "value" | "onChange" | "readOnly" | "suffix" | "allowClear" | "onClear"
+> {
     
     /**
      * 改变值值触发的事件
@@ -20,26 +23,17 @@ interface TimePickerInputProps {
      */
     value: string
 
-    /**
-     * 大小
-     */
-    size?: LineEditProps["size"]
-
 }
 
 const iconStyle = css`
     opacity: ${token.icon.opacity};
-    cursor: pointer;
-    transition: opacity .2s;
-    &:hover {
-        opacity: ${token.icon['opacity-hover']};
-    }
-
+    pointer-events: none;
 `
 
 const TimePickerInput: FC<TimePickerInputProps> = ({
     value = "",
     onValueChange,
+    onKeyDown,
     ...restProps
 }) => {
     const {
@@ -50,39 +44,12 @@ const TimePickerInput: FC<TimePickerInputProps> = ({
 
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const [hover, setHover] = useState(false);
-
     useEffect(() => {
         if (state.open) {
             inputRef.current?.focus();
         }
     }, [state.open]);
 
-    const renderSuffixIcon = () => {
-        if (value == null || value === '' || !hover) {
-            return (
-                <Clock
-                    className={iconStyle}
-                    onClick={() => {
-                        dispatch({
-                            type: "setOpen",
-                            payload: true
-                        })
-                    }}
-                />
-            )
-        } else {
-            return (
-                <XCircleFill
-                    className={iconStyle}
-                    onMouseDown={(e) => {
-                        e.preventDefault();
-                        onValueChange?.(null);
-                    }}
-                />
-            )
-        }
-    }
     return (
         <RcLineEdit
             containerRef={refs.setReference}
@@ -105,24 +72,20 @@ const TimePickerInput: FC<TimePickerInputProps> = ({
                     payload: false
                 })
             }}
-            onPointerEnter={() => {
-                setHover(true);
-            }}
-            onPointerLeave={() => {
-                setHover(false)
-            }}
             onKeyDown={(e) => {
                 if (e.key === "Escape") {
                     dispatch({
                         type: "setOpen",
                         payload: false
                     });
-                    return;
                 }
+                onKeyDown?.(e);
             }}
             value={value}
             readOnly
-            suffix={renderSuffixIcon()}
+            allowClear={value !== ""}
+            onClear={() => onValueChange?.(null)}
+            suffix={<Clock aria-hidden="true" className={iconStyle} />}
             {...restProps}
         />
     )

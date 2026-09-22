@@ -4,6 +4,7 @@ import type { HTMLAttributes, ReactNode, Ref } from 'react';
  * 尺寸档位, 与 rc-button / rc-segmented 对齐。
  */
 export type SpinSize = 'large' | 'middle' | 'small';
+export type SpinVariant = 'circular' | 'expressive';
 
 export interface SpinProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
     /**
@@ -15,6 +16,9 @@ export interface SpinProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childre
      * 尺寸, 默认 middle
      */
     size?: SpinSize;
+
+    /** 指示器视觉；expressive 使用 M3 Expressive 形变反馈。 */
+    variant?: SpinVariant;
 
     /**
      * 指示器下方的提示文案。给出后即作为无障碍名, 读屏播报该文案而非默认的 label

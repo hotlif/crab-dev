@@ -28,6 +28,17 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/expressive.demo.tsx",
+        "title": "M3 Expressive 加载指示器",
+        "description": "需要更醒目的品牌反馈时使用 expressive 形变；紧凑控件内继续使用默认 circular 指示环。",
+        "sourceCode": "export const meta = {\n    title: 'M3 Expressive 加载指示器',\n    description: '需要更醒目的品牌反馈时使用 expressive 形变；紧凑控件内继续使用默认 circular 指示环。',\n};\n\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Spin from '../../src/index.js';\n\nconst comparisonStyle = css`\n    display: flex;\n    flex-wrap: wrap;\n    align-items: center;\n    gap: ${token.space['section-gap']};\n`;\n\nconst itemStyle = css`\n    display: grid;\n    justify-items: center;\n    gap: ${token.space['component-gap']};\n    color: ${token.color.text.secondary};\n    font-family: ${token.typography.label['font-family']};\n    font-size: ${token.typography.label['font-size']};\n    font-weight: ${token.typography.label['font-weight']};\n    line-height: ${token.typography.label['line-height']};\n`;\n\nconst ExpressiveDemo = () => (\n    \u003cdiv className={comparisonStyle}>\n        \u003cdiv className={itemStyle}>\n            \u003cSpin size=\"large\" variant=\"expressive\" label=\"正在生成内容\" />\n            \u003cspan>Expressive\u003c/span>\n        \u003c/div>\n        \u003cdiv className={itemStyle}>\n            \u003cSpin size=\"large\" label=\"正在加载\" />\n            \u003cspan>Circular\u003c/span>\n        \u003c/div>\n    \u003c/div>\n);\n\nexport default ExpressiveDemo;\n",
+        "previewPath": "/components/rc-spin/workbench/?__wake_demo=docs%2Fdemos%2Fexpressive.demo.tsx",
+        "workbenchPath": "/components/rc-spin/workbench/#/components/docs%2Fdemos%2Fexpressive.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/indicator.demo.tsx",
         "title": "自定义指示器",
         "description": "indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。",

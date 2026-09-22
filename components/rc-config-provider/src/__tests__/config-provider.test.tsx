@@ -37,6 +37,9 @@ describe('ConfigProvider', () => {
             expect(sheet).toContain(`[data-crab-brand="${scope.dataset.crabBrand}"][data-theme="dark"]`);
             expect(sheet).toContain('@media (forced-colors: none)');
             expect(sheet).not.toContain('color-feedback');
+            expect(sheet).toContain('--token-semantic-color-selection-background:');
+            expect(sheet).toContain('--token-semantic-color-selection-foreground:');
+            expect(sheet).not.toContain('--token-semantic-color-surface-');
             expect(scope.getAttribute('style')).toBeNull();
         }
     });

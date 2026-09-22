@@ -40,6 +40,19 @@ describe('Spin', () => {
             const { container } = await render(<Spin />);
             expect(container.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
         });
+        it('offers an M3 expressive shape-morphing indicator', async () => {
+            const { container } = await render(<Spin variant="expressive" />);
+            const indicator = container.querySelector('[data-indicator="expressive"]');
+            expect(indicator?.getAttribute('aria-hidden')).toBe('true');
+            expect(container.querySelector('svg')).toBeNull();
+        });
+        it('lets a custom indicator override the selected variant', async () => {
+            const { container } = await render(
+                <Spin variant="expressive" indicator={<i data-testid="custom" />} />,
+            );
+            expect(container.querySelector('[data-testid="custom"]')).toBeTruthy();
+            expect(container.querySelector('[data-indicator="expressive"]')).toBeNull();
+        });
         it('forwards ref and native props', async () => {
             const ref = createRef<HTMLDivElement>();
             const { container } = await render(<Spin ref={ref} className="custom" data-testid="spin"/>);

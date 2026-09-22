@@ -1,0 +1,1915 @@
+{
+  "capturedAt": "2026-09-20T23:18:36.214Z",
+  "scope": "Document shells and initial viewport only; not every demo or interaction.",
+  "results": [
+    {
+      "name": "rc-alert",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Alert 警告提示",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-app-main-layout",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "AppMainLayout 布局",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-auto-sizer",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "AutoSizer 自适应容器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-avatar",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Avatar 头像",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-badge",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Badge 徽标数",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-bar-chart",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "BarChart 柱状图",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-breadcrumbs",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Breadcrumbs 面包屑导航",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-button",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Button 按钮",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-canvas",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Canvas WebGL 画布",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-card",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Card 卡片",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-checkbox",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Checkbox 复选框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-color-picker",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "ColorPicker 颜色选择器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-component-preview",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "ComponentPreview 组件预览",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-config-provider",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "ConfigProvider 全局配置",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-cron-picker",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "CronPicker 定时规则",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-date-picker",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "DatePicker 日期选择器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-dialog",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Dialog 对话框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-divider",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Divider 分割线",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-drawer",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Drawer 抽屉",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-dropdown-container",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "DropdownContainer 下拉容器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-empty",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Empty 空状态",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-flow-diagram",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "FlowDiagram 流程图",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-form",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Form 表单",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-hooks",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Hooks 通用钩子",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-line-edit",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "LineEdit 单行输入框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-masonry",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Masonry 瀑布流",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-menu",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Menu 菜单",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-message",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Message 全局提示",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-notification",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Notification 通知提醒",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-number-edit",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "NumberEdit 数字输入框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-pagination",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Pagination 分页",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-prose",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Prose 长文本排版",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-radio",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Radio 单选框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-realm",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Realm 远程模块",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-router",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Router 路由",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-segmented",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Segmented 分段控制器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-select",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Select 选择器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-skeleton",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Skeleton 骨架屏",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-slider",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Slider 滑块",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-spin",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Spin 加载中",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-split-pane",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "SplitPane 分栏面板",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-switch",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Switch 开关",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-table",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Table 表格",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-table-pro",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "TablePro 高级表格",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tabs",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tabs 标签页",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tag",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tag 标签",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-text-edit",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "TextEdit 多行文本输入框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-theme",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Theme 主题样式",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-token-global",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Global Tokens 全局令牌",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-token-semantic",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Semantic Tokens 语义令牌",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tooltip",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tooltip 文字提示",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tree",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tree 树形控件",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-virtual",
+      "theme": "light",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Virtual 虚拟滚动",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-alert",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Alert 警告提示",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-app-main-layout",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "AppMainLayout 布局",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-auto-sizer",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "AutoSizer 自适应容器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-avatar",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Avatar 头像",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-badge",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Badge 徽标数",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-bar-chart",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "BarChart 柱状图",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-breadcrumbs",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Breadcrumbs 面包屑导航",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-button",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Button 按钮",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-canvas",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Canvas WebGL 画布",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-card",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Card 卡片",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-checkbox",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Checkbox 复选框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-color-picker",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "ColorPicker 颜色选择器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-component-preview",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "ComponentPreview 组件预览",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-config-provider",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "ConfigProvider 全局配置",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-cron-picker",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "CronPicker 定时规则",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-date-picker",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "DatePicker 日期选择器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-dialog",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Dialog 对话框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-divider",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Divider 分割线",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-drawer",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Drawer 抽屉",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-dropdown-container",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "DropdownContainer 下拉容器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-empty",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Empty 空状态",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-flow-diagram",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "FlowDiagram 流程图",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-form",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Form 表单",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-hooks",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Hooks 通用钩子",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-line-edit",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "LineEdit 单行输入框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-masonry",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Masonry 瀑布流",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-menu",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Menu 菜单",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-message",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Message 全局提示",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-notification",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Notification 通知提醒",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-number-edit",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "NumberEdit 数字输入框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-pagination",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Pagination 分页",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-prose",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Prose 长文本排版",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-radio",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Radio 单选框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-realm",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Realm 远程模块",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-router",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Router 路由",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-segmented",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Segmented 分段控制器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-select",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Select 选择器",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-skeleton",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Skeleton 骨架屏",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-slider",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Slider 滑块",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-spin",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Spin 加载中",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-split-pane",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "SplitPane 分栏面板",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-switch",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Switch 开关",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-table",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Table 表格",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-table-pro",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "TablePro 高级表格",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tabs",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tabs 标签页",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tag",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tag 标签",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-text-edit",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "TextEdit 多行文本输入框",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-theme",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Theme 主题样式",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-token-global",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Global Tokens 全局令牌",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-token-semantic",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Semantic Tokens 语义令牌",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tooltip",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tooltip 文字提示",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tree",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Tree 树形控件",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-virtual",
+      "theme": "dark",
+      "width": 1440,
+      "passed": true,
+      "evidence": {
+        "title": "Virtual 虚拟滚动",
+        "scrollWidth": 1425,
+        "viewport": 1440,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-alert",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Alert 警告提示",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-app-main-layout",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "AppMainLayout 布局",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-auto-sizer",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "AutoSizer 自适应容器",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-avatar",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Avatar 头像",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-badge",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Badge 徽标数",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-bar-chart",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "BarChart 柱状图",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-breadcrumbs",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Breadcrumbs 面包屑导航",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-button",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Button 按钮",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-canvas",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Canvas WebGL 画布",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-card",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Card 卡片",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-checkbox",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Checkbox 复选框",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-color-picker",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "ColorPicker 颜色选择器",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-component-preview",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "ComponentPreview 组件预览",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-config-provider",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "ConfigProvider 全局配置",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-cron-picker",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "CronPicker 定时规则",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-date-picker",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "DatePicker 日期选择器",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-dialog",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Dialog 对话框",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-divider",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Divider 分割线",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-drawer",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Drawer 抽屉",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-dropdown-container",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "DropdownContainer 下拉容器",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-empty",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Empty 空状态",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-flow-diagram",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "FlowDiagram 流程图",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-form",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Form 表单",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-hooks",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Hooks 通用钩子",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-line-edit",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "LineEdit 单行输入框",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-masonry",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Masonry 瀑布流",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-menu",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Menu 菜单",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-message",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Message 全局提示",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-notification",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Notification 通知提醒",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-number-edit",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "NumberEdit 数字输入框",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-pagination",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Pagination 分页",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-prose",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Prose 长文本排版",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-radio",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Radio 单选框",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-realm",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Realm 远程模块",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-router",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Router 路由",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-segmented",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Segmented 分段控制器",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-select",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Select 选择器",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-skeleton",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Skeleton 骨架屏",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-slider",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Slider 滑块",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-spin",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Spin 加载中",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-split-pane",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "SplitPane 分栏面板",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-switch",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Switch 开关",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-table",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Table 表格",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-table-pro",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "TablePro 高级表格",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tabs",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Tabs 标签页",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tag",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Tag 标签",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-text-edit",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "TextEdit 多行文本输入框",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-theme",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Theme 主题样式",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-token-global",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Global Tokens 全局令牌",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-token-semantic",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Semantic Tokens 语义令牌",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tooltip",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Tooltip 文字提示",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-tree",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Tree 树形控件",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    },
+    {
+      "name": "rc-virtual",
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "title": "Virtual 虚拟滚动",
+        "scrollWidth": 305,
+        "viewport": 320,
+        "error": false
+      }
+    }
+  ],
+  "exceptions": []
+}

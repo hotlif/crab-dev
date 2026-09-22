@@ -51,6 +51,16 @@ export interface FlatOption {
  * `onChange` 和 `defaultValue`，因为它们在单选/多选中有不同签名。
  */
 interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+    // 字段外观，默认 outlined
+    appearance?: "outlined" | "filled";
+    // 可见的浮动字段标签
+    label?: string;
+    // 字段下方的辅助说明
+    supportingText?: string;
+    // 错误说明；提供时自动启用 error 状态并替换辅助说明
+    errorText?: string;
+    // 表单必填语义与标签星号
+    required?: boolean;
     // combobox 容器 DOM 节点的 ref
     ref?: Ref<HTMLDivElement>;
     // 数据源：支持扁平选项数组或分组数组

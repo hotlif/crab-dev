@@ -24,12 +24,12 @@ image.margin-bottom = "$ref(space.stack-gap)"
 
 title.color         = "$ref(color.text.secondary)"
 title.font-size     = "$ref(font.size.subhead)"
-title.font-weight   = "$ref(font.weight.label)"
+title.font-weight   = "$ref(typography.label.font-weight)"
 title.margin-bottom = "$ref(space.component-gap)"
 
 
 # ─── 描述 ────────────────────────────────────────────────────────────────────
 
 description.color         = "$ref(color.text.tertiary)"
-description.font-size     = "$ref(font.size.caption)"
+description.font-size     = "$ref(typography.caption.font-size)"
 description.margin-bottom = "$ref(space.stack-gap)"

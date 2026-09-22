@@ -7,6 +7,7 @@ import ItemGroup from "./itemGroup.js";
 import ItemNormal from "./itemNormal.js";
 import { FloatingTree } from "@floating-ui/react";
 import token from "../token.js";
+import { navigateMenu } from '../keyboard.js';
 
 const horizontalMenuRoot = css`
     display: flex;
@@ -24,11 +25,12 @@ interface HorizontalMenuProps extends Omit<MenuProps, "mode"> {
 const HorizontalMenu: FC<HorizontalMenuProps> = ({
     className,
     openKeys: _openKeys,
-    selectedKeys: _selectedKeys = [],
+    selectedKeys = [],
     items = [],
-    onSelectItem: _onSelectItem,
+    onSelectItem,
     onOpenChange: _onOpenChange,
-    onClick: _onClick,
+    onClick,
+    onKeyDown,
     ...props
 }) => {
 
@@ -38,6 +40,11 @@ const HorizontalMenu: FC<HorizontalMenuProps> = ({
                 key={item.key}
                 item={item}
                 depth={depth}
+                selected={selectedKeys.includes(item.key)}
+                onClick={param => {
+                    onClick?.(param);
+                    onSelectItem?.({ item, selectedKeys: selectedKeys.includes(item.key) ? [] : [item.key] });
+                }}
             >
                 {children}
             </ItemNormal>
@@ -73,6 +80,7 @@ const HorizontalMenu: FC<HorizontalMenuProps> = ({
             <ul
                 className={cx(className, horizontalMenuRoot)}
                 {...props}
+                onKeyDown={event => { onKeyDown?.(event); navigateMenu(event, true); }}
             >
                 {renderMenu(items, 1)}
             </ul>

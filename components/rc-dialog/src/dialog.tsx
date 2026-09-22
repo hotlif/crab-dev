@@ -116,11 +116,11 @@ const fadeStyle = css`
 const contentMotionStyle = css`
     opacity: 1;
     translate: 0 0;
-    transition: opacity ${token.motion.fade.transition}, translate ${token.motion.fade.transition};
+    transition: opacity ${token.motion.fade.transition}, translate ${token.motion.spatial.transition};
     @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
     &[data-state="closed"] {
         opacity: 0; translate: 0 ${token.motion.offset.translate};
-        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
+        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -256,7 +256,7 @@ function Dialog({
             aria-busy={isPending || undefined}
             className={cx(css`
                 position: fixed;
-                top: min(${top}, ${token.root['max-height']} / 4);
+                top: ${top};
                 bottom: auto;
                 margin: 0 auto;
                 width: ${dimensionMinWidth};
@@ -313,8 +313,9 @@ function Dialog({
                         inert={!open}
                         className={cx(contentMotionStyle, css`
                             position: relative;
+                            transform: ${token.root.transform};
                             box-sizing: border-box;
-                            max-height: calc(100dvh - min(${top}, ${token.root['max-height']} / 4) - (100vw - ${token.root['max-width']}) / 2);
+                            max-height: min(${token.root['max-height']}, calc(100dvh - var(--dialog-top, 0px) - (100vw - ${token.root['max-width']}) / 2));
                             overflow: auto;
                             overflow-wrap: anywhere;
                             padding: ${dimensionPadding};
@@ -405,6 +406,7 @@ function Dialog({
                         >
                             <RcButton
                                 data-dialog-action="cancel"
+                                appearance="text"
                                 disabled={isPending && pendingAction !== "cancel"}
                                 loading={isPending && pendingAction === "cancel"}
                                 onClick={cancel}
@@ -412,7 +414,7 @@ function Dialog({
                                 {cancelText}
                             </RcButton>
                             <RcButton
-                                appearance="primary"
+                                appearance="text"
                                 disabled={isPending && pendingAction !== "confirm"}
                                 loading={isPending && pendingAction === "confirm"}
                                 onClick={confirm}

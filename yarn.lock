@@ -883,6 +883,7 @@ __metadata:
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
+    "@crab-dev/rc-number-edit": "workspace:^"
     "@crab-dev/rc-token-global": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
@@ -1245,6 +1246,7 @@ __metadata:
   resolution: "@crab-dev/rc-number-edit@workspace:components/rc-number-edit"
   dependencies:
     "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"

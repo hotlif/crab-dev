@@ -15,6 +15,31 @@ type SelectOptionOrGroup = DocsTypePlaceholder;
 
 export interface SelectProps {
     /**
+     * 字段外观，默认 outlined
+     */
+    "appearance"?: "outlined" | "filled";
+
+    /**
+     * 可见的浮动字段标签
+     */
+    "label"?: string;
+
+    /**
+     * 字段下方的辅助说明
+     */
+    "supportingText"?: string;
+
+    /**
+     * 错误说明；提供时自动启用 error 状态并替换辅助说明
+     */
+    "errorText"?: string;
+
+    /**
+     * 表单必填语义与标签星号
+     */
+    "required"?: boolean;
+
+    /**
      * combobox 容器 DOM 节点的 ref
      */
     "ref"?: Ref<HTMLDivElement>;

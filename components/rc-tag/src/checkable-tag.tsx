@@ -4,7 +4,15 @@ import token from './token.js';
 import type { CheckableTagProps } from './types.js';
 
 const baseStyle = css`
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
+
     display: inline-flex;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     align-items: center;
     box-sizing: border-box;
     white-space: nowrap;
@@ -19,12 +27,30 @@ const baseStyle = css`
     cursor: pointer;
     user-select: none;
     transition: ${token.root.transition};
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        border-radius: inherit;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity ${token.checkable.state.transition};
+    }
+    &:hover:not([aria-disabled="true"])::after { opacity: ${token.checkable.state['opacity-hover']}; }
+    &:focus-visible:not([aria-disabled="true"])::after { opacity: ${token.checkable.state['opacity-focus']}; }
+    &:active:not([aria-disabled="true"])::after { opacity: ${token.checkable.state['opacity-active']}; }
+    &[aria-disabled="true"] {
+        cursor: not-allowed;
+        opacity: ${token.checkable['opacity-disabled']};
+    }
 `;
 
 const checkedStyle = css`
-    color: ${token.primary.color};
-    background-color: ${token.primary['background-color']};
-    border-color: ${token.primary['border-color']};
+    color: ${token.checkable['color-selected']};
+    background-color: ${token.checkable['background-color-selected']};
+    border-color: ${token.checkable['border-color-selected']};
 `;
 
 const uncheckedStyle = css`
@@ -36,19 +62,29 @@ const uncheckedStyle = css`
 const iconStyle = css`
     display: inline-flex;
     align-items: center;
-    > svg { width: 1em; height: 1em; }
+    > svg { width: ${token.checkable.icon.width}; height: ${token.checkable.icon.width}; }
 `;
+
+const SelectedIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" data-role="selected-icon">
+        <path d="m5 12 4 4L19 6" />
+    </svg>
+);
 
 const CheckableTag: FC<CheckableTagProps> = ({
     checked,
     onChange,
     icon,
+    disabled = false,
     className,
     children,
     onClick,
     ...restProps
 }) => {
     const handleToggle = () => {
+        if (disabled) {
+            return;
+        }
         onChange?.(!checked);
     };
 
@@ -64,7 +100,8 @@ const CheckableTag: FC<CheckableTagProps> = ({
             {...restProps}
             role="checkbox"
             aria-checked={checked}
-            tabIndex={0}
+            aria-disabled={disabled || undefined}
+            tabIndex={disabled ? -1 : 0}
             className={cx(baseStyle, checked ? checkedStyle : uncheckedStyle, className)}
             onClick={(e) => {
                 onClick?.(e);
@@ -72,7 +109,7 @@ const CheckableTag: FC<CheckableTagProps> = ({
             }}
             onKeyDown={handleKeyDown}
         >
-            {icon ? <span className={iconStyle}>{icon}</span> : null}
+            {checked || icon ? <span className={iconStyle}>{checked ? <SelectedIcon /> : icon}</span> : null}
             <span>{children}</span>
         </span>
     );

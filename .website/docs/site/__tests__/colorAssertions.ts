@@ -21,6 +21,11 @@ const encode = (value: number) => value <= 0.0031308 ? value * 12.92 : 1.055 * v
 const decode = (value: number) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
 
 export function rgb(value: string): number[] {
+    value = value.replace(/calc\((.*?) \* 100%\)/g, (_, expression: string) => {
+        const fallback = expression.match(/,\s*([\d.]+)\)+$/)?.[1];
+        if (fallback === undefined) throw new Error(`Unsupported opacity: ${expression}`);
+        return `${Number(fallback) * 100}%`;
+    });
     if (value.startsWith("var(")) return rgb(argumentsOf(value)[1]);
     if (value.startsWith("color-mix(")) {
         const [space, first, second] = argumentsOf(value);

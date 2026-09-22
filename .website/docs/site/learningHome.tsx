@@ -4,6 +4,8 @@ import { sourceCode } from "../_generated_tutorials/home.js";
 import HomeComponentShowcase from "./homeComponentShowcase.js";
 import LiveExample from "./liveExample.js";
 import "./homeStyles.js";
+import CatalogPreview from "./catalog/preview.js";
+import "./catalogStyles.js";
 import { useSiteHref } from "./siteContext.js";
 
 const loadProfile = () => import("../examples/home/profile.js");
@@ -20,7 +22,7 @@ const categories = [
 const capabilities = [
     { mark: "R19", title: "面向 React 19", detail: "遵循现代 React API 与 Compiler 约束，让组件模型更直接。", slug: "guides/getting-started", link: "开始使用" },
     { mark: "0 KB", title: "零运行时样式", detail: "Crab CSS 在构建期生成样式，保持可预测的加载和主题表现。", slug: "guides/toolchain", link: "了解工具链" },
-    { mark: "L1–L3", title: "三层设计令牌", detail: "从全局基元到语义和组件令牌，统一亮暗主题与品牌表达。", slug: "design/tokens", link: "查看令牌" },
+    { mark: "L1–L3", title: "三层设计令牌", detail: "从全局基元到语义和组件令牌，统一亮暗主题与品牌表达。", slug: "components/rc-token-semantic", link: "查看令牌" },
     { mark: "A11Y", title: "可访问的交互", detail: "键盘、焦点、强制颜色和减少动效从组件底层开始覆盖。", slug: "guides/accessibility", link: "阅读指南" },
 ] as const;
 
@@ -37,28 +39,36 @@ interface HomeSectionProps {
 export function HomeHero({ href }: HomeSectionProps) {
     return (
         <section className="crab-home-hero" aria-label="Crab UI 组件文档">
-            <div className="crab-home-hero-glow" aria-hidden="true" />
             <div className="crab-home-intro">
-                <span className="crab-home-eyebrow">CRAB UI · REACT 19 DESIGN SYSTEM</span>
-                <h1>为企业应用，<br /><span>构建清晰的界面。</span></h1>
-                <p className="crab-home-lead">一套由真实业务需求打磨的 React 组件库。用统一的设计令牌、交互规则和开发工具，把想法稳定地交付为产品。</p>
+                <h1>Crab UI</h1>
+                <p className="crab-home-lead">遵循 Material Design 3 的 React 组件库，为企业应用构建清晰、一致的界面。</p>
                 <div className="crab-home-actions">
                     <Button size="large" appearance="primary" href={href("guides/getting-started")} iconAfter={<span aria-hidden="true">→</span>}>开始使用</Button>
-                    <Button size="large" href={href("learn/components")} iconAfter={<span aria-hidden="true">→</span>}>组件目录</Button>
+                    <Button size="large" appearance="outlined" href={href("learn/components")} iconAfter={<span aria-hidden="true">→</span>}>组件目录</Button>
                 </div>
-                <nav className="crab-home-quick-links" aria-label="首页快速入口">
-                    <Button appearance="text" size="small" href={href("design/language")}>设计语言</Button><span aria-hidden="true">·</span>
-                    <Button appearance="text" size="small" href={href("guides/accessibility")}>无障碍</Button><span aria-hidden="true">·</span>
-                    <Button appearance="text" size="small" href={href("#practice")}>业务实战</Button>
-                </nav>
             </div>
-            <div className="crab-home-hero-orbit" aria-hidden="true">
-                <span className="crab-home-orbit-ring" />
-                <span className="crab-home-orbit-core">C</span>
-                <span className="crab-home-orbit-node crab-home-orbit-node-a">UI</span>
-                <span className="crab-home-orbit-node crab-home-orbit-node-b">19</span>
-                <span className="crab-home-orbit-node crab-home-orbit-node-c">A11Y</span>
-            </div>
+            <nav className="crab-home-feature-grid" aria-label="精选组件">
+                <Button appearance="text" className="crab-home-feature crab-home-feature-action" href={href("components/rc-button")}>
+                    <span className="crab-home-feature-label">行动，从这里开始 <span aria-hidden="true">↗</span></span>
+                    <CatalogPreview name="rc-button" />
+                    <strong>Button <span>按钮</span></strong>
+                </Button>
+                <Button appearance="text" className="crab-home-feature crab-home-feature-choice" href={href("components/rc-radio")}>
+                    <span className="crab-home-feature-label">清晰地做出选择 <span aria-hidden="true">↗</span></span>
+                    <CatalogPreview name="rc-radio" />
+                    <strong>Radio <span>单选框</span></strong>
+                </Button>
+                <Button appearance="text" className="crab-home-feature crab-home-feature-data" href={href("components/rc-slider")}>
+                    <span className="crab-home-feature-label">恰到好处的控制 <span aria-hidden="true">↗</span></span>
+                    <CatalogPreview name="rc-slider" />
+                    <strong>Slider <span>滑块</span></strong>
+                </Button>
+            </nav>
+            <nav className="crab-home-quick-links" aria-label="首页快速入口">
+                <Button appearance="text" size="small" href={href("components/rc-token-semantic")}>设计令牌</Button><span aria-hidden="true">·</span>
+                <Button appearance="text" size="small" href={href("guides/accessibility")}>无障碍</Button><span aria-hidden="true">·</span>
+                <Button appearance="text" size="small" href={href("#practice")}>业务实战</Button>
+            </nav>
         </section>
     );
 }
@@ -107,7 +117,7 @@ export default function LearningHome() {
                 </header>
                 <div className="crab-home-capability-grid">
                     {capabilities.map((capability) => (
-                        <Card key={capability.title} variant="outlined" hoverable className="crab-home-capability-card">
+                        <Card key={capability.title} variant="outlined" className="crab-home-capability-card">
                             <span className="crab-home-capability-mark">{capability.mark}</span><h3>{capability.title}</h3><p>{capability.detail}</p>
                             <Button appearance="text" href={href(capability.slug)}>{capability.link} <span aria-hidden="true">→</span></Button>
                         </Card>

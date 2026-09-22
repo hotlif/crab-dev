@@ -142,7 +142,7 @@ describe("Table performance regressions", () => {
         const { container, unmount } = await render(
             <Table
                 width={900}
-                height={760}
+                height={1100}
                 rows={rows}
                 columns={columns}
                 onSelectCellsChange={onSelectCellsChange}

@@ -1,8 +1,20 @@
 import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import Preview from '../preview.js';
+import Button from '@crab-dev/rc-button';
 
 describe('ComponentPreview actions', () => {
+    it('renders custom actions without source and keeps them before built-in actions', async () => {
+        const reset = mock.fn();
+        const action = <Button onClick={reset}>重置示例</Button>;
+        const view = await render(<Preview actions={action}>内容</Preview>);
+        const group = screen.getByRole('group', { name: '预览操作' });
+        await fireEvent.click(screen.getByRole('button', { name: '重置示例' }));
+        expect(reset).toHaveBeenCalledTimes(1);
+        expect(group.querySelectorAll('button')).toHaveLength(1);
+        await view.rerender(<Preview actions={action} sourceCode="export default 1;">内容</Preview>);
+        expect([...group.querySelectorAll('button')].map(button => button.textContent)).toEqual(['重置示例', '复制', '源码']);
+    });
     it('retains one live preview while the source closes and removes collapsed source from interaction', async () => {
         const { container } = await render(
             <Preview sourceCode="export default 1;"><input aria-label="Live value" defaultValue="initial" /></Preview>,

@@ -123,6 +123,7 @@ describe('CheckableTag', () => {
     it('renders with checked state', async () => {
         const { tag } = await renderCheckableTag({ checked: true });
         expect(tag.getAttribute('aria-checked')).toBe('true');
+        expect(tag.querySelector('[data-role="selected-icon"]')).toBeTruthy();
     });
     it('calls onChange when clicked', async () => {
         const { tag, onChange } = await renderCheckableTag({ checked: false });
@@ -140,5 +141,20 @@ describe('CheckableTag', () => {
                 Checkable Tag
         </CheckableTag>);
         expect(screen.getByTestId('checkable-icon')).toBeTruthy();
+    });
+    it('uses the selected checkmark instead of the optional leading icon', async () => {
+        const { container } = await render(<CheckableTag checked icon={<svg data-testid="checkable-icon"/>}>
+                Checkable Tag
+        </CheckableTag>);
+        expect(container.querySelector('[data-role="selected-icon"]')).toBeTruthy();
+        expect(screen.queryByTestId('checkable-icon')).toBeNull();
+    });
+    it('prevents interaction when disabled', async () => {
+        const { tag, onChange } = await renderCheckableTag({ disabled: true });
+        expect(tag.getAttribute('aria-disabled')).toBe('true');
+        expect(tag.getAttribute('tabindex')).toBe('-1');
+        await fireEvent.click(tag);
+        await fireEvent.keyDown(tag, { key: 'Enter' });
+        expect(onChange).not.toHaveBeenCalled();
     });
 });

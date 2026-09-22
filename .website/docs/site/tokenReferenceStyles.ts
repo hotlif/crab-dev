@@ -66,7 +66,7 @@ export const referenceStyle = css`
     &[data-group="typography"] .tgr-sample { width: 100%; height: auto; background: none; overflow-wrap: anywhere; color: ${token.color.text.primary}; }
     &[data-group="typography"] [data-token-key^="font.family."] .tgr-sample { font-size: ${token.font.size.heading}; }
     &[data-group="shadow"] .tgr-sample { background: ${token.color.background.surface}; border-radius: ${token.radius.md}; }
-    &[data-group="shadow"] .tgr-color-detail { min-height: calc(${stage.detail} + ${globalToken.space[8]}); }
+    &[data-group="shadow"] .tgr-color-detail { min-height: 0; }
     &[data-group="opacity"] .tgr-sample { display: grid; place-items: center; background: ${token.color.fill.active}; color: ${token.color.background.surface}; font-size: ${token.font.size.heading}; }
     & .tgr-layer-layout { margin-top: ${token.space["group-gap"]}; }
     & .tgr-layer-scene { position: relative; isolation: isolate; min-height: ${stage.scene}; margin-bottom: ${token.space["group-gap"]}; }
@@ -84,7 +84,7 @@ export const referenceStyle = css`
         & .tgr-list .tgr-stage { grid-column: 1 / -1; grid-row: 2; padding-bottom: ${token.space["stack-gap"]}; }
         & .tgr-list .tgr-code-toggle { grid-row: 1; grid-column: 2; }
         & .tgr-color-detail { min-height: calc(${stage.detail} + ${globalToken.space[8]}); }
-        &[data-group="shadow"] .tgr-color-detail { min-height: calc(${stage.detail} + ${globalToken.space[20]}); }
+        &[data-group="shadow"] .tgr-color-detail { min-height: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
         &[data-group="motion"] .tgr-sample { transition: none !important; }

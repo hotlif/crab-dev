@@ -1,19 +1,19 @@
 {
     "id": "rc-button",
     "title": "Button 按钮",
-    "summary": "对照六种按钮外观、三档尺寸、图标与组合，以及明暗主题下的状态与主次操作搭配。",
+    "summary": "完整对照 Material 的五种按钮：Elevated、Filled、Tonal、Outlined、Text，并体验尺寸、状态和明暗主题。",
     "prerequisite": "了解 JSX 和 useState 即可。先完成快速开始中的安装与样式接入。",
     "steps": [
         {
             "id": "step-1",
-            "title": "六种外观",
-            "goal": "直接比较六种按钮外观及各自适用的操作层级。",
-            "why": "填充、浅阴影、虚线与文字强调表达不同优先级；危险操作使用独立的语义颜色。",
-            "instruction": "对比六个示例，悬停和点击按钮，再用 Tab 查看键盘焦点。",
-            "expected": "六种外观同时可见，点击后显示对应的 appearance；示例只更新本地提示。",
+            "title": "五种按钮外观",
+            "goal": "并排比较 Elevated、Filled、Tonal、Outlined、Text 五种官方外观。",
+            "why": "通过阴影、实色、浅色、描边与文字表达不同的操作层级。",
+            "instruction": "依次点击五种按钮查看用途，再用 Tab 检查键盘焦点。",
+            "expected": "五种按钮默认均为 40px 高；Elevated 使用浅阴影，其余四种无阴影。",
             "changes": [
-                "同时展示 primary、subtle、dashed、text、link 和 danger。",
-                "每种外观配有中文名称、属性值和用途说明。"
+                "appearance 提供 elevated、primary（Filled）、tonal、outlined、text。",
+                "默认普通按钮为 outlined；danger 与 href 分别表达危险语义和导航行为。"
             ],
             "source": "rc-button/step-1.tsx"
         },
@@ -33,11 +33,14 @@
         {
             "id": "step-3",
             "title": "尺寸对照",
-            "goal": "同时查看三种尺寸在六种外观下的效果。",
-            "why": "直接并排展示 small、middle 和 large，便于比较高度、内边距与字号。",
-            "instruction": "纵向比较三行尺寸，横向比较同一尺寸的六种外观，并点击按钮查看属性。",
-            "expected": "默认鼠标环境下，三档高度分别为 24px、32px、40px；窄屏时按钮自动换行。",
-            "changes": ["通过 size 设置小、中、大三档尺寸。", "保留相同的外观顺序，方便直观比较。"],
+            "goal": "对照五种按钮外观与 Expressive 五档尺寸。",
+            "why": "并排比较 XS、S、M、L、XL 的高度、内边距与字号。",
+            "instruction": "比较五行尺寸，点击按钮查看当前属性。",
+            "expected": "XS、S、M、L、XL 分别为 32、40、56、96、136px；默认 S，触控目标至少 48px。",
+            "changes": [
+                "size 提供 xs/s/m/l/xl，兼容 small/middle/large。",
+                "保留相同的外观顺序，方便直观比较。"
+            ],
             "source": "rc-button/step-3.tsx"
         },
         {
@@ -47,32 +50,42 @@
             "why": "图标位置、按钮形状与容器宽度决定按钮如何融入表单和工具栏。",
             "instruction": "点击图标按钮，切换粗体、斜体和下划线；比较三个圆形尺寸，体验通栏按钮和 API 链接。",
             "expected": "每个可用按钮都有反馈；按钮组独立保留多个选中项，通栏按钮撑满当前容器。",
-            "changes": ["使用 icon、iconAfter、shape 与 aria-label。", "使用 ButtonGroup、isSelected、shouldFitContainer 和 href。"],
+            "changes": [
+                "使用 icon、iconAfter、shape 与 aria-label。",
+                "使用 ButtonGroup、isSelected、shouldFitContainer 和 href。"
+            ],
             "source": "rc-button/step-4.tsx"
         },
         {
             "id": "step-5",
             "title": "状态与明暗主题",
-            "goal": "在明暗背景上对照默认、禁用、加载和选中，并比较常规按钮与主按钮的搭配。",
+            "goal": "在明暗背景上对照五种外观的默认、禁用和加载状态，并体验普通按钮的选中状态。",
             "why": "主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。",
             "instruction": "切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。",
-            "expected": "常规按钮默认使用浅阴影；悬停时阴影增强、按压时收回，交互显现品牌色，选中使用无阴影的强填充；主操作保持醒目，禁用和加载不触发操作。",
-            "changes": ["用 ConfigProvider 同时展示 light 和 dark，保持按钮本身的 appearance 一致。", "并列展示 disabled、loading、isSelected，以及保存 + 取消和主要操作 + 工具栏操作。"],
+            "expected": "普通按钮始终无阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。",
+            "changes": [
+                "用 ConfigProvider 同时展示 light 和 dark，保持按钮本身的 appearance 一致。",
+                "并列展示 disabled、loading、isSelected，以及保存 + 取消和主要操作 + 工具栏操作。"
+            ],
             "source": "rc-button/step-5.tsx"
         }
     ],
     "faq": [
         {
-            "question": "链接外观会自动导航吗？",
-            "answer": "不会。appearance=\"link\" 只改变外观；需要导航时还应传入 href。"
+            "question": "危险操作和链接如何设置？",
+            "answer": "危险操作设置 danger，并使用“删除项目”等明确文案；导航设置 href，可配合 appearance=\"text\"。它们不再作为独立的常用外观类型。"
         },
         {
             "question": "如何比较禁用、加载和选中状态？",
-            "answer": "第 5 步展示明暗主题下六种外观的默认、禁用和加载效果，以及常规按钮的可切换选中状态；第 4 步还提供 isSelected 按钮组。加载示例持续显示，方便观察，不发起网络请求。"
+            "answer": "第 5 步展示明暗主题下五种外观的默认、禁用和加载效果，以及常规按钮的可切换选中状态；第 4 步还提供 isSelected 按钮组。加载示例持续显示，方便观察，不发起网络请求。"
         },
         {
             "question": "在哪里查看暗黑主题和不同品牌色？",
             "answer": "第 5 步同时展示明暗面板，点击紫色、蓝色或绿色即可比较；页面右上角的文档主题也会影响其他示例。"
+        },
+        {
+            "question": "旧的按钮外观还能用吗？",
+            "answer": "subtle 继续可用，并映射为 outlined 描边外观。新代码使用 elevated、primary、tonal、outlined、text 五种公开外观；dashed、link 和 danger 保留旧接口兼容。"
         }
     ]
 }

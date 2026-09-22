@@ -1,5 +1,11 @@
 import { type ReactNode, type ButtonHTMLAttributes } from 'react';
 
+/** Material 五种按钮外观；primary 对应 Filled。 */
+export type ButtonAppearance = 'elevated' | 'primary' | 'tonal' | 'outlined' | 'text';
+
+/** @deprecated 旧外观仅用于兼容。新代码使用 ButtonAppearance，危险操作使用 danger。 */
+export type LegacyButtonAppearance = 'subtle' | 'dashed' | 'link' | 'danger';
+
 interface BaseButtonProps extends Omit<
     ButtonHTMLAttributes<HTMLButtonElement>,
     'onClick' | 'onClickCapture'
@@ -25,19 +31,22 @@ interface BaseButtonProps extends Omit<
     loadingIcon?: ReactNode;
 
     /**
-     * 按钮外观
+     * 外观：elevated（浮起）、primary（实色）、tonal（浅色）、outlined（描边，默认）、text（文字）。subtle 兼容映射为 outlined。
      */
-    appearance?: 'primary' | 'subtle' | 'dashed' | 'text' | 'link' | 'danger';
+    appearance?: ButtonAppearance | LegacyButtonAppearance;
+
+    /** 危险操作语义，可与公开外观组合；应同时提供明确的动作文案。 */
+    danger?: boolean;
 
     /**
-     * 按钮大小，默认 middle
+     * Expressive 五档尺寸 xs/s/m/l/xl；small/middle/large 兼容映射为 xs/s/m，默认 middle
      */
-    size?: 'large' | 'middle' | 'small';
+    size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'large' | 'middle' | 'small';
 
     /**
-     * 按钮形状，circle 时宽高相等、边框全圆
+     * round（默认）或 square；circle 保留为纯图标按钮兼容形状
      */
-    shape?: 'circle';
+    shape?: 'round' | 'square' | 'circle';
 
     /**
      * 选中状态（toggle / 工具栏过滤器场景）
@@ -89,4 +98,7 @@ export interface ButtonGroupProps {
     className?: string;
     size?: ButtonProps['size'];
     appearance?: ButtonProps['appearance'];
+    danger?: boolean;
+    /** Expressive 连接式按钮组；默认 standard 保留独立按钮间距。 */
+    variant?: 'standard' | 'connected';
 }

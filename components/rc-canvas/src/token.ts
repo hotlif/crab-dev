@@ -25,22 +25,22 @@ export const vars = defineTokens({
 const token = defineTokens({
     'palette': {
         'foreground': {
-            'color': `var(${vars['palette.foreground.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
+            'color': `var(${vars['palette.foreground.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
         },
         'grid': {
-            'color': `var(${vars['palette.grid.color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
+            'color': `var(${vars['palette.grid.color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`
         },
         'selection': {
             'border-color': `var(${vars['palette.selection.border-color']}, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
             'background-color': `var(${vars['palette.selection.background-color']}, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))`
         },
         'editor': {
-            'background-color': `var(${vars['palette.editor.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
+            'background-color': `var(${vars['palette.editor.background-color']}, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`,
             'border-color': `var(${vars['palette.editor.border-color']}, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
         },
         'transformer': {
             'handle': {
-                'background-color': `var(${vars['palette.transformer.handle.background-color']}, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))))`,
+                'background-color': `var(${vars['palette.transformer.handle.background-color']}, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`,
                 'border-color': `var(${vars['palette.transformer.handle.border-color']}, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
             },
             'selection': {
@@ -48,15 +48,15 @@ const token = defineTokens({
             }
         },
         'minimap': {
-            'background-color': `var(${vars['palette.minimap.background-color']}, color-mix(in oklch, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))) 92%, transparent))`,
+            'background-color': `var(${vars['palette.minimap.background-color']}, color-mix(in oklch, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))) 92%, transparent))`,
             'viewport': {
                 'border-color': `var(${vars['palette.minimap.viewport.border-color']}, color-mix(in oklch, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 80%, transparent))`,
                 'background-color': `var(${vars['palette.minimap.viewport.background-color']}, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))`
             },
-            'border-color': `var(${vars['palette.minimap.border-color']}, color-mix(in oklch, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))) 8%, transparent))`,
-            'box-shadow': `var(${vars['palette.minimap.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`,
+            'border-color': `var(${vars['palette.minimap.border-color']}, color-mix(in oklch, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))) 8%, transparent))`,
+            'box-shadow': `var(${vars['palette.minimap.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`,
             'image-fallback': {
-                'background-color': `var(${vars['palette.minimap.image-fallback.background-color']}, color-mix(in oklch, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))) 70%, transparent))`
+                'background-color': `var(${vars['palette.minimap.image-fallback.background-color']}, color-mix(in oklch, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) 70%, transparent))`
             }
         }
     }

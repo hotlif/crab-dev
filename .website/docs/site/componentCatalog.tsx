@@ -66,11 +66,11 @@ export function CatalogItem({ item }: { item: CatalogEntry }) {
             aria-label={`${name} ${label}`.trim()}
             aria-describedby={descriptionId}
         >
+            <span className="crab-catalog-artwork"><CatalogPreview name={preview} /></span>
             <span className="crab-catalog-item-heading">
                 <span className="crab-catalog-item-title"><strong>{name}</strong><span className="crab-catalog-item-label">{label}</span></span>
                 <Arrow />
             </span>
-            <span className="crab-catalog-artwork"><CatalogPreview name={preview} /></span>
             <span className="crab-catalog-item-description" id={descriptionId}>{description}</span>
         </Button>
     );

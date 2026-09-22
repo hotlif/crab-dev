@@ -1,0 +1,107 @@
+{
+  "capturedAt": "2026-09-19T16:34:05.124Z",
+  "baselineCommit": "8af3caf1c3a0b909665d51462f452121f6d46b0c",
+  "environment": {
+    "platform": "win32",
+    "node": "v22.15.0",
+    "packageManager": "yarn@4.18.0",
+    "wake": "0.1.45",
+    "crabCss": "0.1.45",
+    "browser": "Chrome/153.0.8010.47",
+    "corepack": "使用已授权的缓存访问权限执行；未改变依赖或锁文件"
+  },
+  "commands": [
+    {
+      "command": "corepack yarn generate:token",
+      "successful": 48,
+      "total": 48
+    },
+    {
+      "command": "corepack yarn check:tokens",
+      "passed": true,
+      "tokenPackages": 48
+    },
+    {
+      "command": "corepack yarn build:library",
+      "successful": 53,
+      "total": 53
+    },
+    {
+      "command": "corepack yarn lint",
+      "successful": 54,
+      "total": 54,
+      "errors": 0,
+      "lintWarnings": 0,
+      "lintContractChecks": 7
+    },
+    {
+      "command": "corepack yarn typecheck",
+      "successful": 108,
+      "total": 108
+    },
+    {
+      "command": "corepack yarn test",
+      "successful": 107,
+      "total": 107,
+      "wakePackages": 54,
+      "wakeTests": 1462,
+      "failed": 0,
+      "pending": 0,
+      "generatorTests": 26,
+      "generatedFileChanges": 0
+    },
+    {
+      "command": "corepack yarn docs:build",
+      "successful": 53,
+      "total": 53,
+      "routes": 81,
+      "checkedJavaScriptFiles": 1902,
+      "unboundReferences": 0,
+      "generatedFileChanges": 0
+    },
+    {
+      "command": "node .website/scripts/check-visual-foundation.mjs",
+      "passed": true,
+      "existingL1ValuesUnchanged": 137,
+      "baselineWorkbenchBridges": 52,
+      "fullWorkspaceInventory": 53
+    },
+    {
+      "command": "corepack yarn turbo run lint test typecheck build:library --filter=@crab-dev/rc-pagination --filter=@crab-dev/website --concurrency=4",
+      "successful": 59,
+      "total": 59,
+      "reason": "320px 分页换行及粗指针 44px 目标回归；随后再次执行全仓检查与生产构建"
+    }
+  ],
+  "productionRevision": {
+    "sha256": "a088fc9b98247e70880bd0c53c92fdfc354c6b23206c4429f17a75a510e427a2",
+    "files": 2577,
+    "bytes": 177960939
+  },
+  "browser": {
+    "inventory": {
+      "command": "node .website/scripts/verify-md3-enterprise.mjs --inventory",
+      "workspaces": 53,
+      "passed": 159,
+      "failed": 0,
+      "evidence": "browser-inventory.json"
+    },
+    "states": {
+      "command": "node .website/scripts/verify-md3-enterprise.mjs",
+      "passed": 287,
+      "failed": 0,
+      "evidence": "browser-states.json"
+    },
+    "screenshots": [
+      "themes-desktop.png",
+      "themes-touch-320.png",
+      "themes-forced-320.png",
+      "themes-text-200.png"
+    ],
+    "screenshotReview": "四张最终截图已查看；明暗与品牌配对、320px 布局、系统颜色文字背板、200% 文字控件裁切均已复核。",
+    "scope": "逐包明暗示例渲染与页面宽度；公共样例状态对比度、几何、品牌与旧变量、无主题 CSS、嵌套 Portal、键盘、触控、forced-colors、reduced-motion 和真实字号行高加倍。详细断言见证据文件。",
+    "limitations": "媒体模拟不代替实体触屏、系统读屏或用户研究；未宣称完整 MD3 或 WCAG 认证。"
+  },
+  "knownToolingNotice": "Turbo 仍提示既有工作区循环依赖；本轮未修改依赖图，lint 为零告警。",
+  "publication": "未发布版本。"
+}

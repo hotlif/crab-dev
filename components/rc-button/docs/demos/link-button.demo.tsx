@@ -21,11 +21,11 @@ const LinkButtonDemo = () => {
             <Button appearance="primary" href="https://example.com" target="_blank" rel="noopener noreferrer">
                 主要链接
             </Button>
-            <Button appearance="subtle" href="https://example.com" target="_blank" rel="noopener noreferrer">
+            <Button appearance="outlined" href="https://example.com" target="_blank" rel="noopener noreferrer">
                 次级链接
             </Button>
             <Button
-                appearance="link"
+                appearance="text"
                 href="https://example.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -34,7 +34,7 @@ const LinkButtonDemo = () => {
                 外部链接
             </Button>
             <Button
-                appearance="subtle"
+                appearance="outlined"
                 href="https://example.com"
                 disabled
             >

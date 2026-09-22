@@ -17,6 +17,8 @@ const baseStyle = css`
     line-height: ${token.root["line-height"]};
     transition: ${token.root.transition};
     word-break: break-word;
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { border-color: CanvasText; }
 `;
 
 // ─── 类型颜色样式 ────────────────────────────────────────────────────────────
@@ -102,6 +104,11 @@ const titleStyle = css`
 // ─── 关闭按钮样式 ────────────────────────────────────────────────────────────
 
 const closeButtonStyle = css`
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+
     display: inline-flex;
     align-items: center;
     justify-content: center;

@@ -6,57 +6,84 @@ imports = [
 ]
 
 [token]
-root.outline-color-focus = "$ref(color.focus.ring)"
-root.outline-width-focus = "2px"
+root.outline-color-focus = "$ref(color.secondary.primary)"
+root.outline-width-focus = "3px"
 root.outline-offset-focus = "2px"
 # Crab independent touch targets; visual size props remain unchanged.
-root.touch.min-width = "44px"
-root.touch.min-height = "44px"
-root.line-height = "$ref(font.line-height.body)"
+root.touch.min-width = "$ref(size.touch-target)"
+root.touch.min-height = "$ref(size.touch-target)"
+root.line-height = "$ref(typography.label.line-height)"
+root.font-family = "$ref(typography.label.font-family)"
+root.font-weight = "$ref(typography.label.font-weight)"
+
+tonal.color = "$ref(color.secondary.on-container)"
+tonal.background-color = "$ref(color.secondary.container)"
+outlined.color = "var(--button-subtle-color, $ref(color.text.secondary))"
+outlined.background-color = "var(--button-subtle-background-color, transparent)"
+outlined.border-color = "var(--button-subtle-border-color, $ref(color.border.subtle))"
+state-layer.opacity-hover = "$ref(state.opacity.hover)"
+# Current M3 Expressive button tokens use 10%, unlike the baseline 12% state roles.
+state-layer.opacity-focus = "0.1"
+state-layer.opacity-active = "0.1"
+state-layer.transition = "opacity $ref(motion.interaction)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--button-transition, transform $ref(motion.interaction), box-shadow $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction))"
+root.transition = "var(--button-transition, border-radius $ref(motion.spatial.fast), background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction), box-shadow $ref(motion.interaction))"
 root.opacity-loading = "var(--button-opacity-loading, 1)"
 root.border-width = "1px"
-root.opacity-disabled = "var(--button-opacity-disabled, 0.4)"
+root.opacity-disabled = "var(--button-opacity-disabled, $ref(opacity.disabled))"
+root.color-disabled = "$ref(color.text.primary)"
+root.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 10%, transparent)"
 
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
 size.large.gap           = "$ref(space.component-gap)"
-size.large.height        = "40px"
-size.large.padding       = "0 $ref(space.control-padding-x)"
-size.large.border-radius = "$ref(radius.md)"
-size.large.font-size     = "$ref(font.size.subhead)"
+size.large.height = "$ref(size.56)"
+size.large.padding = "0 $ref(space.group-gap)"
+size.large.border-radius = "calc($ref(size.56) / 2)"
+size.large.font-size = "$ref(typography.title.medium.font-size)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
 
 size.middle.gap           = "$ref(space.component-gap)"
-size.middle.height        = "32px"
-size.middle.padding       = "0 $ref(space.control-padding-x)"
-size.middle.border-radius = "$ref(radius.md)"
-size.middle.font-size     = "$ref(font.size.body)"
+size.middle.height = "$ref(size.40)"
+size.middle.padding = "0 $ref(space.section-gap)"
+size.middle.border-radius = "calc($ref(size.40) / 2)"
+size.middle.font-size = "$ref(typography.label.large.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.gap           = "$ref(space.inline-gap)"
-size.small.height        = "24px"
-size.small.padding       = "0 $ref(space.control-padding-x-small)"
-size.small.border-radius = "$ref(radius.md)"
-size.small.font-size     = "$ref(font.size.body)"
+size.small.gap = "$ref(space.inline-gap)"
+size.small.height = "$ref(size.32)"
+size.small.padding = "0 $ref(space.control-padding-x)"
+size.small.border-radius = "calc($ref(size.32) / 2)"
+size.small.font-size = "$ref(typography.label.large.font-size)"
 
 
 # ─── Primary — 主按钮 ────────────────────────────────────────────────────────
 
 primary.color                   = "$ref(color.text.on-brand)"
 primary.background-color          = "$ref(color.brand.primary)"
-primary.background-color-disabled = "$ref(color.background.disabled)"
-primary.background-color-hover    = "$ref(color.brand.primary-hover)"
-primary.background-color-active   = "$ref(color.brand.primary-active)"
-primary.box-shadow               = "none"
+primary.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 10%, transparent)"
+primary.background-color-hover = "color-mix(in srgb, $ref(color.text.on-brand) calc($ref(state.opacity.hover) * 100%), $ref(color.brand.primary))"
+primary.background-color-active = "color-mix(in srgb, $ref(color.text.on-brand) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), $ref(color.brand.primary))"
+primary.background-color-focus = "color-mix(in srgb, $ref(color.text.on-brand) calc(var(--button-state-layer-opacity-focus, 0.1) * 100%), $ref(color.brand.primary))"
+primary.box-shadow = "none"
+
+# Elevated — surface-container-low, primary label, level 1 / hover level 2.
+elevated.color = "$ref(color.brand.primary)"
+elevated.background-color = "$ref(color.surface.low)"
+elevated.background-color-hover = "color-mix(in srgb, $ref(color.brand.primary) calc($ref(state.opacity.hover) * 100%), $ref(color.surface.low))"
+elevated.background-color-focus = "color-mix(in srgb, $ref(color.brand.primary) calc(var(--button-state-layer-opacity-focus, 0.1) * 100%), $ref(color.surface.low))"
+elevated.background-color-active = "color-mix(in srgb, $ref(color.brand.primary) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), $ref(color.surface.low))"
+elevated.box-shadow = "$ref(shadow.control)"
+elevated.box-shadow-hover = "$ref(shadow.float)"
+elevated.color-disabled = "$ref(color.text.primary)"
+elevated.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 10%, transparent)"
 
 
 # ─── Link — 链接按钮 ─────────────────────────────────────────────────────────
@@ -73,8 +100,9 @@ link.text-decoration-width   = "2px"
 
 # ─── Text — 文本按钮 ─────────────────────────────────────────────────────────
 
-text.background-color-hover  = "$ref(color.background.hover-subtle)"
-text.background-color-active = "$ref(color.background.active-subtle)"
+text.color = "$ref(color.brand.primary)"
+text.background-color-hover = "color-mix(in srgb, $ref(color.brand.primary) calc($ref(state.opacity.hover) * 100%), transparent)"
+text.background-color-active = "color-mix(in srgb, $ref(color.brand.primary) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), transparent)"
 
 
 # ─── Dashed — 虚线按钮 ───────────────────────────────────────────────────────
@@ -82,7 +110,7 @@ text.background-color-active = "$ref(color.background.active-subtle)"
 dashed.color                   = "$ref(color.text.primary)"
 dashed.color-hover             = "$ref(color.text.primary)"
 dashed.color-active            = "$ref(color.text.primary)"
-dashed.background-color          = "$ref(color.background.surface)"
+dashed.background-color          = "$ref(color.surface.content)"
 dashed.background-color-disabled = "$ref(color.background.disabled)"
 dashed.box-shadow              = "none"
 dashed.border-width            = "1px"
@@ -92,42 +120,44 @@ dashed.border-color-hover      = "$ref(color.text.primary)"
 dashed.border-color-active     = "$ref(color.text.primary)"
 
 
-# ─── Subtle — 浅阴影常规按钮，交互时显品牌色 ────────────────────────────────
+# ─── Subtle — legacy outlined token overrides ───────────────────────────────
 
-# Neutral roles contribute lightness/chroma; a missing hue borrows the brand hue.
-# Otherwise explicit neutral hues rotate blue/green tonal surfaces toward pink.
-subtle.color                   = "$ref(color.text.primary)"
-subtle.color-hover             = "color-mix(in oklch, $ref(color.brand.primary) 85%, oklch(from $ref(color.text.primary) l c none))"
-subtle.color-active            = "color-mix(in oklch, $ref(color.brand.primary) 85%, oklch(from $ref(color.text.primary) l c none))"
+subtle.color = "$ref(color.text.secondary)"
+subtle.color-hover = "$ref(color.text.secondary)"
+subtle.color-active = "$ref(color.text.secondary)"
 subtle.color-disabled          = "$ref(color.text.primary)"
-subtle.background-color          = "$ref(color.background.elevated)"
-subtle.background-color-hover    = "color-mix(in oklch, $ref(color.brand.primary) 4%, oklch(from $ref(color.background.elevated) l c none))"
-subtle.background-color-active   = "color-mix(in oklch, $ref(color.brand.primary) 8%, oklch(from $ref(color.background.elevated) l c none))"
-subtle.background-color-disabled = "$ref(color.background.disabled)"
+subtle.background-color = "transparent"
+subtle.background-color-hover = "color-mix(in srgb, $ref(color.text.secondary) calc($ref(state.opacity.hover) * 100%), transparent)"
+subtle.background-color-active = "color-mix(in srgb, $ref(color.text.secondary) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), transparent)"
+subtle.background-color-disabled = "transparent"
 subtle.border-width            = "1px"
 subtle.border-style            = "solid"
-# Keep the border footprint and public overrides without drawing an outline.
-subtle.border-color            = "transparent"
-subtle.border-color-hover      = "transparent"
-subtle.border-color-active     = "transparent"
-subtle.border-color-disabled   = "transparent"
-# One short drop shadow avoids the inset ring and doubled edges of a raised frame.
-# Dark themes rely on the elevated surface, not a light outline or glow.
-subtle.box-shadow              = "0 1px 2px color-mix(in oklch, $ref(color.background.overlay) 20%, transparent)"
-subtle.box-shadow-hover        = "0 2px 3px -1px color-mix(in oklch, $ref(color.background.overlay) 24%, transparent)"
-subtle.box-shadow-active       = "0 0 0 0 transparent"
-subtle.box-shadow-disabled     = "none"
-subtle.box-shadow-selected     = "none"
+subtle.border-color = "$ref(color.border.subtle)"
+subtle.border-color-hover = "$ref(color.border.subtle)"
+subtle.border-color-active = "$ref(color.border.subtle)"
+subtle.border-color-disabled = "$ref(color.border.subtle)"
+subtle.box-shadow = "none"
+subtle.box-shadow-hover = "none"
+subtle.box-shadow-active = "none"
+subtle.box-shadow-disabled = "none"
+subtle.box-shadow-selected = "none"
 
 
 # ─── Danger — 危险按钮 ───────────────────────────────────────────────────────
 
 danger.color                      = "$ref(color.feedback.error.on-solid)"
 danger.background-color           = "$ref(color.feedback.error.solid)"
-danger.background-color-disabled  = "$ref(color.background.disabled)"
-danger.background-color-hover     = "$ref(color.feedback.error.solid-hover)"
-danger.background-color-active    = "$ref(color.feedback.error.solid-active)"
+danger.background-color-disabled  = "color-mix(in srgb, $ref(color.text.primary) 10%, transparent)"
+danger.background-color-hover = "color-mix(in srgb, $ref(color.feedback.error.on-solid) calc($ref(state.opacity.hover) * 100%), $ref(color.feedback.error.solid))"
+danger.background-color-focus = "color-mix(in srgb, $ref(color.feedback.error.on-solid) 10%, $ref(color.feedback.error.solid))"
+danger.background-color-active = "color-mix(in srgb, $ref(color.feedback.error.on-solid) 10%, $ref(color.feedback.error.solid))"
 danger.box-shadow                 = "none"
+danger.content.color = "$ref(color.feedback.error.border)"
+danger.content.background-color-hover = "color-mix(in srgb, $ref(color.feedback.error.border) calc($ref(state.opacity.hover) * 100%), transparent)"
+danger.content.background-color-active = "color-mix(in srgb, $ref(color.feedback.error.border) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), transparent)"
+danger.subtle.background-color = "transparent"
+danger.subtle.background-color-hover = "color-mix(in srgb, $ref(color.feedback.error.border) calc($ref(state.opacity.hover) * 100%), transparent)"
+danger.subtle.background-color-active = "color-mix(in srgb, $ref(color.feedback.error.border) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), transparent)"
 
 
 # ─── Selected — 选中状态覆盖 ─────────────────────────────────────────────────
@@ -141,3 +171,65 @@ root.border-color-selected = "var(--button-border-color-selected, var(--button-s
 
 shape.circle.border-radius = "9999px"
 shape.circle.padding       = "0"
+
+icon.width = "$ref(space.card-padding)"
+
+root.border-radius-active = "$ref(shape.small)"
+
+root.border-radius-selected = "$ref(shape.medium)"
+
+outlined.background-color-hover = "var(--button-subtle-background-color-hover, color-mix(in srgb, $ref(color.text.secondary) calc($ref(state.opacity.hover) * 100%), transparent))"
+
+outlined.background-color-active = "var(--button-subtle-background-color-active, color-mix(in srgb, $ref(color.text.secondary) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), transparent))"
+
+subtle.background-color-focus = "color-mix(in srgb, $ref(color.text.secondary) calc(var(--button-state-layer-opacity-focus, 0.1) * 100%), transparent)"
+
+outlined.background-color-focus = "var(--button-subtle-background-color-focus, color-mix(in srgb, $ref(color.text.secondary) calc(var(--button-state-layer-opacity-focus, 0.1) * 100%), transparent))"
+
+outlined.color-selected = "$ref(color.text.inverse)"
+
+outlined.background-color-selected = "$ref(color.background.inverse)"
+
+# M3 Expressive size/shape configuration.
+root.height = "$ref(size.40)"
+root.border-radius = "$ref(shape.medium)"
+tonal.color-selected = "$ref(color.secondary.on-primary)"
+tonal.background-color-selected = "$ref(color.secondary.primary)"
+primary.unselected.color = "$ref(color.text.secondary)"
+primary.unselected.background-color = "$ref(color.surface.container)"
+group.gap = "$ref(space.inline-gap)"
+text.background-color-focus = "color-mix(in srgb, $ref(color.brand.primary) calc(var(--button-state-layer-opacity-focus, 0.1) * 100%), transparent)"
+size.small.line-height = "$ref(typography.label.large.line-height)"
+size.small.square.border-radius = "$ref(shape.medium)"
+size.small.border-radius-active = "$ref(shape.small)"
+size.small.icon.width = "$ref(space.card-padding)"
+size.middle.line-height = "$ref(typography.label.large.line-height)"
+size.middle.square.border-radius = "$ref(shape.medium)"
+size.middle.border-radius-active = "$ref(shape.small)"
+size.middle.icon.width = "$ref(space.card-padding)"
+size.large.line-height = "$ref(typography.title.medium.line-height)"
+size.large.square.border-radius = "$ref(shape.large)"
+size.large.border-radius-active = "$ref(shape.medium)"
+size.large.icon.width = "$ref(space.group-gap)"
+size.extra-large.height = "$ref(size.96)"
+size.extra-large.padding = "0 $ref(size.selection-target)"
+size.extra-large.font-size = "$ref(typography.headline.small.font-size)"
+size.extra-large.gap = "$ref(space.stack-gap)"
+size.extra-large.line-height = "$ref(typography.headline.small.line-height)"
+size.extra-large.square.border-radius = "$ref(shape.extra-large)"
+size.extra-large.border-radius-active = "$ref(shape.large)"
+size.extra-large.icon.width = "$ref(size.32)"
+size.extra-large.border-width = "2px"
+size.extra-extra-large.height = "$ref(size.136)"
+size.extra-extra-large.padding = "0 $ref(size.64)"
+size.extra-extra-large.font-size = "$ref(typography.headline.large.font-size)"
+size.extra-extra-large.gap = "$ref(space.section-gap)"
+size.extra-extra-large.line-height = "$ref(typography.headline.large.line-height)"
+size.extra-extra-large.square.border-radius = "$ref(shape.extra-large)"
+size.extra-extra-large.border-radius-active = "$ref(shape.large)"
+size.extra-extra-large.icon.width = "$ref(size.40)"
+size.extra-extra-large.border-width = "3px"
+
+# Error colors replace the color pair while preserving the tonal/elevated surface.
+danger.tonal.color = "$ref(color.feedback.error.text)"
+danger.tonal.background-color = "$ref(color.feedback.error.background)"

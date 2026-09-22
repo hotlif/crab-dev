@@ -16,7 +16,7 @@ const VariantDemo = () => {
     return (
         <div className={rowStyle}>
             <Card variant="elevated" title="Elevated">
-                浮层表面 + 弱边框 + 微投影，暗黑模式仍能区分层次。
+                低层级表面 + 一级阴影，无描边；暗色模式仍能区分层次。
             </Card>
             <Card variant="outlined" title="Outlined">
                 普通表面 + 1px 弱描边，适合信息密集的平铺列表。

@@ -7,20 +7,20 @@ imports = [
 
 [token]
 
-root.background-color = "var(--notification-background-color, $ref(color.background.elevated))"
+root.background-color = "var(--notification-background-color, $ref(color.surface.overlay))"
 text.color = "$ref(color.text.primary)"
 root.padding = "var(--notification-padding, $ref(space.card-padding) $ref(space.dialog-padding))"
-root.border-radius = "var(--notification-border-radius, $ref(radius.lg))"
+root.border-radius = "var(--notification-border-radius, $ref(shape.medium))"
 root.box-shadow = "var(--notification-box-shadow, $ref(shadow.overlay))"
 root.width = "360px"
 root.border-color = "$ref(color.border.subtle)"
 
 title.margin-bottom = "$ref(space.component-gap)"
-title.font-size = "$ref(font.size.subhead)"
-title.line-height = "1.5"
+title.font-size = "$ref(typography.title.medium.font-size)"
+title.line-height = "$ref(typography.title.medium.line-height)"
 
-content.font-size = "$ref(font.size.body)"
-content.line-height = "$ref(font.line-height.body)"
+content.font-size = "$ref(typography.body.font-size)"
+content.line-height = "$ref(typography.body.line-height)"
 
 progress.start.color = "$ref(color.brand.primary)"
 progress.end.color = "$ref(color.brand.primary-hover)"
@@ -36,8 +36,10 @@ stack.gap = "$ref(space.component-gap)"
 stack.front.z-index = "3"
 stack.second.z-index = "2"
 stack.second.scale = "0.96"
-stack.second.background-color = "color-mix(in oklch, $ref(color.background.elevated) 94%, $ref(color.text.primary))"
+stack.second.background-color = "color-mix(in oklch, $ref(color.surface.overlay) 94%, $ref(color.text.primary))"
 stack.third.z-index = "1"
 stack.third.scale = "0.92"
-stack.third.background-color = "color-mix(in oklch, $ref(color.background.elevated) 88%, $ref(color.text.primary))"
+stack.third.background-color = "color-mix(in oklch, $ref(color.surface.overlay) 88%, $ref(color.text.primary))"
 stack.box-shadow = "$ref(shadow.float)"
+
+motion.spatial.transition = "$ref(motion.spatial.fast)"

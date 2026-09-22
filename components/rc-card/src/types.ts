@@ -2,7 +2,7 @@ import type { HTMLAttributes, MouseEventHandler, ReactNode, Ref } from 'react';
 
 /**
  * 卡片视觉变体。
- * - `elevated`：浮层表面 + 弱描边 + 静态微投影（默认）
+ * - `elevated`：surface-container-low + 一级阴影，无描边（默认）
  * - `outlined`：普通表面 + 1px 弱描边, 无投影
  * - `filled`：弱灰底, 无描边无投影
  */
@@ -47,13 +47,13 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>
     actions?: ReactNode[];
 
     /**
-     * 悬浮时是否浮起（大投影 + 上移 + 封面微缩放）
+     * 悬停时显示状态层并提升一级阴影，封面保持原尺寸
      * @default false
      */
     hoverable?: boolean;
 
     /**
-     * 整卡是否可点击：自带浮起反馈 / 键盘激活（Enter / Space）/ 焦点环,
+     * 整卡是否可点击：自带状态层 / 键盘激活（Enter / Space）/ 焦点环,
      * 卡内 extra 与 actions 的点击自动与整卡点击隔离
      * @default false
      */

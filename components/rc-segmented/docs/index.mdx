@@ -18,6 +18,8 @@ status = "experimental"
 
 Segmented 负责选择值，内容展示由业务代码处理；需要同时管理标签与内容面板时使用 Tabs。通常保持 2–5 个简短选项，选项较多时使用 Select。
 
+默认采用 40px 高度、胶囊描边与分隔线。选中项使用次要色容器和勾选图形；若提供前置图标，选中时由勾选图形替换，保留图标槽位以避免文字跳动。hover / focus / pressed 通过公共状态层反馈；粗指针下命中区扩展到 48px。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

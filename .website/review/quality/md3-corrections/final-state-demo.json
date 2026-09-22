@@ -1,0 +1,169 @@
+{
+  "capturedAt": "2026-09-20T23:22:10.268Z",
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "page": 320,
+        "viewport": 320,
+        "cards": [
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          }
+        ]
+      }
+    },
+    {
+      "theme": "light",
+      "width": 1000,
+      "passed": true,
+      "evidence": {
+        "page": 1000,
+        "viewport": 1000,
+        "cards": [
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "passed": true,
+      "evidence": {
+        "page": 320,
+        "viewport": 320,
+        "cards": [
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 1000,
+      "passed": true,
+      "evidence": {
+        "page": 1000,
+        "viewport": 1000,
+        "cards": [
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": null
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          },
+          {
+            "width": 297.59375,
+            "padding": "16px",
+            "disabled": "true"
+          }
+        ]
+      }
+    }
+  ]
+}

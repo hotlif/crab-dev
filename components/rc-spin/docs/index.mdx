@@ -23,11 +23,17 @@ status = "experimental"
 
 延迟只影响出现时机。`spinning` 变为 `false` 时，指示器立即隐藏。
 
+## Material 3 指示器
+
+默认的 `variant="circular"` 适合按钮、表格和紧凑区域。需要更醒目的品牌化等待反馈时，可使用 `variant="expressive"`；它通过形状变化表达持续活动，并遵循 Material 3 Expressive 的形状与动态设计语言。
+
+两种指示器都只表达“正在进行”，不表示可计算的进度。能够确定完成比例时，应使用进度条或进度环。
+
 ## 复用 SpinIndicator
 
 `Spin` 提供 `role="status"` 和 `aria-live`。宿主已提供加载语义时，例如按钮已设置 `aria-busy`，可改用具名导出的 `SpinIndicator`，避免重复播报。
 
-`SpinIndicator` 使用 `aria-hidden` 隐藏视觉指示环，加载语义由宿主负责。尺寸与配色可通过 CSS 变量调整：
+`SpinIndicator` 和 `ExpressiveSpinIndicator` 都使用 `aria-hidden` 隐藏纯视觉图形，加载语义由宿主负责。尺寸与配色可通过 CSS 变量调整：
 
 ```tsx
 import { css } from '@crab-dev/css';

@@ -46,8 +46,8 @@ const token = defineTokens({
         'preview': {
             'height': `var(${vars['panel.preview.height']}, 5rem)`,
             'width': `var(${vars['panel.preview.width']}, 100%)`,
-            'border-radius': `var(${vars['panel.preview.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px)))`,
-            'border-color': `var(${vars['panel.preview.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
+            'border-radius': `var(${vars['panel.preview.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-6, 12px)))`,
+            'border-color': `var(${vars['panel.preview.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
             'margin-top': `var(${vars['panel.preview.margin-top']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
         },
         'slider': {
@@ -56,32 +56,32 @@ const token = defineTokens({
             },
             'label': {
                 'width': `var(${vars['panel.slider.label.width']}, 4em)`,
-                'font-size': `var(${vars['panel.slider.label.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
-                'font-weight': `var(${vars['panel.slider.label.font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
-                'line-height': `var(${vars['panel.slider.label.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`
+                'font-size': `var(${vars['panel.slider.label.font-size']}, var(--token-semantic-typography-label-font-size, var(--token-global-font-size-sm, 14px)))`,
+                'font-weight': `var(${vars['panel.slider.label.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
+                'line-height': `var(${vars['panel.slider.label.line-height']}, var(--token-semantic-typography-label-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`
             }
         }
     },
     'slider': {
         'thumb': {
-            'stroke-color': `var(${vars['slider.thumb.stroke-color']}, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))))`
+            'stroke-color': `var(${vars['slider.thumb.stroke-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
         },
         'alpha': {
             'checker': {
-                'color': `var(${vars['slider.alpha.checker.color']}, var(--token-semantic-color-border-hover, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
+                'color': `var(${vars['slider.alpha.checker.color']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
             }
         }
     },
     'trigger': {
-        'border-color': `var(${vars['trigger.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
-        'border-radius': `var(${vars['trigger.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
+        'border-color': `var(${vars['trigger.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
+        'border-radius': `var(${vars['trigger.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`,
         'padding': `var(${vars['trigger.padding']}, 0.25rem)`,
         'gap': `var(${vars['trigger.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'ring': {
             'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--color-picker-trigger-focus-ring-color, var(--color-picker-trigger-focus-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
         },
-        'background-color-disabled': `var(${vars['trigger.background-color-disabled']}, var(--color-picker-trigger-disabled-background, var(--token-semantic-color-background-disabled, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
-        'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--color-picker-trigger-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286)))))`,
+        'background-color-disabled': `var(${vars['trigger.background-color-disabled']}, var(--color-picker-trigger-disabled-background, var(--token-semantic-color-background-disabled, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144)))))`,
+        'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--color-picker-trigger-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))))`,
         'swatch': {
             'small': {
                 'width': `var(${vars['trigger.swatch.small.width']}, var(--color-picker-trigger-swatch-size-small, 16px))`
@@ -100,11 +100,11 @@ const token = defineTokens({
     'swatch': {
         'width': `var(${vars['swatch.width']}, var(--color-picker-swatch-size, 20px))`,
         'gap': `var(${vars['swatch.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'border-color': `var(${vars['swatch.border-color']}, var(--token-semantic-color-border-default, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
-        'border-radius': `var(${vars['swatch.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px)))`,
+        'border-color': `var(${vars['swatch.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
+        'border-radius': `var(${vars['swatch.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
         'group': {
             'label': {
-                'color': `var(${vars['swatch.group.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
+                'color': `var(${vars['swatch.group.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
             }
         }
     }

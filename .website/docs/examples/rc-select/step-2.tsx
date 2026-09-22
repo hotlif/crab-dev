@@ -25,7 +25,8 @@ export default function Example() {
     return (
         <div className={layout}>
             <Select
-                aria-label="工作城市"
+                label="工作城市"
+                supportingText="可以输入关键词筛选。"
                 options={options}
                 value={value}
                 onChange={setValue}

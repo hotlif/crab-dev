@@ -13,10 +13,7 @@ const wrapperStyle = css`
     color: ${token.label.color};
     line-height: ${token.root['line-height']};
     user-select: none;
-    @media (pointer: coarse) {
-        min-width: ${token.root.touch['min-width']};
-        min-height: ${token.root.touch['min-height']};
-    }
+    min-height: ${token.root.touch['min-height']};
 
     &[data-disabled] {
         cursor: not-allowed;
@@ -34,10 +31,25 @@ const trackStyle = css`
     transition: ${token.root.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
     border: none;
+    box-shadow: inset 0 0 0 ${token.track['border-width']} ${token.track['border-color']};
+    &::before { content: ""; position: absolute; inset: calc((100% - ${token.root.touch['min-height']}) / 2) 0; }
     padding: 0;
     cursor: inherit;
     outline: none;
     flex-shrink: 0;
+    &::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        width: ${token.track.halo.width};
+        height: ${token.track.halo.width};
+        left: ${token.track.halo.left};
+        border-radius: inherit;
+        transition: ${token.root.transition};
+    }
+    &[aria-checked='true']::after { translate: ${token.track.halo['translate-checked']} 0; }
+    &:hover:not(:disabled)::after { background: ${token.track['state-layer']['background-color-hover']}; }
+    &:active:not(:disabled)::after, &:focus-visible::after { background: ${token.track['state-layer']['background-color-active']}; }
 
     &:hover {
         background-color: ${token.track['background-color-hover']};
@@ -73,6 +85,7 @@ const trackStyle = css`
 
 const trackCheckedStyle = css`
     background-color: ${token.track['background-color-checked']};
+    box-shadow: none;
 
     &:hover {
         background-color: ${token.track.checked['background-color-hover']};
@@ -81,7 +94,7 @@ const trackCheckedStyle = css`
 
 const trackDisabledStyle = css`
     background-color: ${token.track['background-color-disabled']};
-    cursor: default;
+    cursor: not-allowed;
     pointer-events: none;
 `;
 
@@ -96,7 +109,7 @@ const handleStyle = css`
     box-shadow: ${token.handle['box-shadow']};
     transition: ${token.root.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
-    transform: translateX(0);
+    transform: translateX(0) scale(${token.handle.unchecked.scale});
 `;
 
 const handleCheckedStyle = css`

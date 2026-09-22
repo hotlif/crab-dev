@@ -17,15 +17,7 @@ const SizeDemo = () => {
         second: now.second
     });
 
-    return (
-        <div
-            style={{
-                width: 150
-            }}
-        >
-            <TimePickerPanel value={value} onValueChange={setValue} />
-        </div>
-    )
+    return <TimePickerPanel value={value} onValueChange={setValue} />;
 }
 
 export default SizeDemo;

@@ -1,0 +1,101 @@
+{
+  "date": "2026-09-20T02:12:52.467Z",
+  "scope": "Documentation and all 53 component workspaces",
+  "toolchain": {
+    "node": "22.15.0",
+    "yarn": "4.18.0",
+    "wake": "0.1.45",
+    "css": "0.1.45"
+  },
+  "production": {
+    "sha256": "087bfc9801b4a708f95bb32d66f77473f66a627d061cb87b76b58c934add7613",
+    "files": 2537,
+    "bytes": 183295411,
+    "routes": 62,
+    "javascriptFilesChecked": 1882,
+    "unboundReferences": 0
+  },
+  "commands": [
+    {
+      "command": "corepack yarn generate:token",
+      "result": "48 token packages generated; contract passed"
+    },
+    {
+      "command": "corepack yarn lint:tools",
+      "result": "0 errors/warnings; 7 lint contract checks passed"
+    },
+    {
+      "command": "corepack yarn typecheck:prepare",
+      "result": "passed"
+    },
+    {
+      "command": "corepack yarn turbo run lint test typecheck build:library --concurrency=3",
+      "result": "216/216 tasks passed",
+      "tests": 1453,
+      "testPackages": 54
+    },
+    {
+      "command": "corepack yarn workspace @crab-dev/rc-date-picker generate:token; affected lint/test/typecheck/library",
+      "result": "passed after responsive calendar and floating frame correction"
+    },
+    {
+      "command": "affected Segmented and Dialog generate:token / lint / test / typecheck / build:library",
+      "result": "passed after narrow segment spacing and centered dialog correction"
+    },
+    {
+      "command": "corepack yarn workspace @crab-dev/website build",
+      "result": "production build and JavaScript binding checks passed"
+    },
+    {
+      "command": "node .website/scripts/check-visual-foundation.mjs",
+      "result": "137 original L1 primitives preserved; 103 additions; 52 workbenches share public theme"
+    }
+  ],
+  "browser": {
+    "pages": 159,
+    "checks": [
+      {
+        "component": "rc-date-picker",
+        "stage": "pre-final visual review",
+        "check": "Popup frame and dark 320px calendar",
+        "result": "28px frame, desktop width 336px; seven columns fit at 320px without horizontal scrolling; click/confirm and ArrowRight/Enter update the field."
+      },
+      {
+        "component": "rc-switch",
+        "stage": "pre-final visual review",
+        "check": "Click and Space toggle",
+        "result": "52x32px track; unchecked 16px thumb; checked 24px thumb; label target height 48px; keyboard outline 2px."
+      },
+      {
+        "component": "rc-button",
+        "stage": "pre-final visual review",
+        "check": "Nested light/dark, custom blue, disabled/loading, selection",
+        "result": "Primary hue changed from 293.709 to 259.039 in both nested themes; 8 disabled and 8 aria-busy buttons per theme; selection toggles; Roboto loaded."
+      },
+      {
+        "component": "rc-dialog",
+        "stage": "final production",
+        "check": "Centered modal, dark mode and Escape",
+        "result": "Content 280x224px at y344 in 912px viewport (center456); radius28/padding24; full viewport backdrop; dark surface and readable foreground; Escape restores trigger focus."
+      },
+      {
+        "component": "rc-segmented",
+        "stage": "final production",
+        "check": "320px click/ArrowLeft and focus",
+        "result": "194x40px group inside 223px container without horizontal overflow; selection check and -2px inset focus outline; ArrowLeft selects week."
+      },
+      {
+        "component": "rc-date-picker",
+        "stage": "final production",
+        "check": "Narrow confirmation",
+        "result": "Seven columns; table/client/scroll width 256px; 28px frame; select 2026-09-21 and confirm commits field value and closes popup."
+      }
+    ]
+  },
+  "limitations": [
+    "Material Web does not specify Crab business data components; these retain their behavior while using MD3 roles.",
+    "Brand generation uses the existing OKLCh algorithm, not HCT.",
+    "Real hardware touch, screen reader, forced-colors, reduced-motion and 200% text zoom were not verified in this browser session; source branches and applicable package tests are covered.",
+    "Browser page inventory covers initial rendered examples and layout; it is not exhaustive verification of every demo state."
+  ]
+}

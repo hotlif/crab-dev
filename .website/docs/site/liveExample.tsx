@@ -20,16 +20,15 @@ const externalHeading = css`
     gap: ${token.space["component-gap"]};
     margin-bottom: ${token.space["stack-gap"]};
     font-size: ${token.font.size.body};
-    font-weight: ${token.font.weight.strong};
+    font-weight: ${token.typography.title.medium["font-weight"]};
+    & > button { flex-shrink: 0; }
 `;
-const previewHeading = css`
-    display: inline-flex;
-    align-items: center;
-    gap: ${token.space["stack-gap"]};
-    & button {
-        font-weight: ${token.font.weight.body};
-        color: ${token.color.text.secondary};
-    }
+const exampleDescription = css`
+    color: ${token.color.text.secondary};
+    font-weight: ${token.font.weight.body};
+    line-height: ${token.typography.body.large["line-height"]};
+    min-width: 0;
+    margin: 0 0 ${token.space["stack-gap"]};
 `;
 
 export class PreviewBoundary extends Component<
@@ -85,13 +84,13 @@ export default function LiveExample({
     sourceCode,
     load,
     heading = "inside",
-    density = "compact",
+    density = "regular",
 }: {
     readonly title: string;
     readonly description?: ReactNode;
     readonly sourceCode: string;
     readonly load: ExampleLoader;
-    readonly heading?: "inside" | "outside";
+    readonly heading?: "inside" | "outside" | "none";
     readonly density?: "compact" | "regular";
 }) {
     const [attempt, setAttempt] = useState(0);
@@ -108,37 +107,14 @@ export default function LiveExample({
         >
             {heading === "outside" && (
                 <header className={externalHeading}>
-                    <span>
-                        {title}
-                        <span aria-hidden="true"> / </span>交互示例
-                    </span>
-                    <Button
-                        appearance="text"
-                        size="small"
-                        aria-label={`重置${title}`}
-                        onClick={reset}
-                    >
-                        重置示例
-                    </Button>
+                    <span>{title}</span>
                 </header>
             )}
+            {heading === "none" && description && <p className={exampleDescription}>{description}</p>}
             <Preview
-                title={
-                    heading === "inside" ? (
-                        <span className={previewHeading}>
-                            {title}
-                            <Button
-                                size="small"
-                                appearance="text"
-                                aria-label={`重置${title}`}
-                                onClick={reset}
-                            >
-                                重置
-                            </Button>
-                        </span>
-                    ) : undefined
-                }
-                description={description}
+                title={heading === "inside" ? title : undefined}
+                actions={<Button size="small" appearance="text" aria-label={`重置${title}`} onClick={reset}>重置</Button>}
+                description={heading === "none" ? undefined : description}
                 sourceCode={sourceCode}
                 codeTheme={codeTheme}
                 density={density}

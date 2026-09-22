@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import type { MouseEvent, FC, HTMLAttributes, ReactNode, Key } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx } from "@crab-dev/css";
-import Checkbox from "@crab-dev/rc-checkbox";
+import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import { NodeEditStateType, NodeType, OverStateEnum } from "./type.js";
 import type { Node, OverState } from "./type.js";
 import { getTreeNodeDepth } from "./util.js";
@@ -69,11 +69,13 @@ const expandIconStyle = css`
     cursor: pointer;
     flex-shrink: 0;
     margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
-    transition: background-color 0.1s ease;
+    transition: background-color ${token.root.transition};
+    @media (pointer: coarse) { min-width: ${token.node.touch['min-width']}; min-height: ${token.node.touch['min-height']}; }
+    @media (prefers-reduced-motion: reduce) { &, > svg { transition: none; } }
 
     > svg {
         display: block;
-        transition: transform 0.15s ease;
+        transition: transform ${token.root.transition};
     }
 
     &[data-expanded="true"] > svg {
@@ -108,9 +110,19 @@ const fileIconPlaceholderStyle = css`
 `;
 
 const nodeItemBase = css`
+    ${checkboxVars['control.target.width']}: ${token.node.selection.width};
+    ${checkboxVars['state-layer.width']}: ${token.node.selection.width};
+    ${checkboxVars['root.touch.min-width']}: ${token.node.selection.width};
+    ${checkboxVars['root.touch.min-height']}: ${token.node.selection.width};
+    @media (pointer: coarse) {
+        ${checkboxVars['control.target.width']}: ${token.node.selection.touch.width};
+        ${checkboxVars['state-layer.width']}: ${token.node.selection.touch.width};
+        ${checkboxVars['root.touch.min-width']}: ${token.node.selection.touch.width};
+        ${checkboxVars['root.touch.min-height']}: ${token.node.selection.touch.width};
+    }
     position: relative;
-    font-size: var(--styleify-font-size-sm, 0.875rem);
-    line-height: var(--styleify-line-height-base, 1.5);
+    font-size: ${token.root['font-size']};
+    line-height: ${token.root['line-height']};
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -120,7 +132,12 @@ const nodeItemBase = css`
     user-select: none;
     padding-inline-end: 0.5rem;
     height: 100%;
-    transition: background-color 0.1s ease, color 0.1s ease, opacity 0.1s ease;
+    transition: background-color ${token.root.transition}, color ${token.root.transition}, opacity ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { &, [data-grip] { transition: none; } }
+    @media (forced-colors: active) {
+        &[data-selected="true"] { outline: ${token.root['outline-width-focus']} solid Highlight; outline-offset: -2px; }
+        &[data-disabled="true"] { color: GrayText; opacity: 1; }
+    }
 
     &:hover:not([data-disabled="true"]) {
         background-color: ${token.node["background-color-hover"]};
@@ -128,6 +145,7 @@ const nodeItemBase = css`
 
     &[data-selected="true"]:not([data-disabled="true"]) {
         background-color: ${token.node["background-color-selected"]};
+        color: ${token.node['color-selected']};
         box-shadow: inset ${token.node.selection['border-width']} 0 0 0 ${token.node.selection['border-color']};
     }
 
@@ -135,7 +153,7 @@ const nodeItemBase = css`
         color: ${token.node["color-disabled"]};
         background-color: ${token.node["background-color-disabled"]};
         cursor: not-allowed;
-        opacity: 0.6;
+        opacity: ${token.node['opacity-disabled']};
     }
 
     &[data-disabled="true"] span {
@@ -260,7 +278,8 @@ const dragHandleStyle = css`
     cursor: grab;
     color: ${token.node.expand.icon.color};
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity ${token.root.transition};
+    @media (pointer: coarse) { min-width: ${token.node.touch['min-width']}; opacity: 1; }
 
     &:active {
         cursor: grabbing;
@@ -417,6 +436,13 @@ const NodeItem: FC<NodeItemProps> = ({
             className={cx.call(undefined, nodeItemBase, getDragStyle(), className)}
             {...restProps}
             {...attributes}
+            role="treeitem"
+            tabIndex={-1}
+            aria-disabled={node.disabled === true}
+            aria-selected={selectKeys?.includes(node.id) ?? false}
+            aria-expanded={node.type === NodeType.FOLDER ? expanded : undefined}
+            aria-level={depth + 1}
+            aria-describedby={draggable ? attributes['aria-describedby'] : undefined}
             data-selected={selectKeys?.includes(node.id)}
             data-disabled={node.disabled === true}
             data-dragging={isDragging}

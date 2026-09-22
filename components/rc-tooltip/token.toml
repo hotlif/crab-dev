@@ -4,14 +4,21 @@ prefix = "tooltip"
 imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
-root.background-color = "var(--tooltip-background-color, $ref(color.brand.primary))"
-root.color = "var(--tooltip-color, $ref(color.text.on-brand))"
+root.background-color = "var(--tooltip-background-color, $ref(color.background.inverse))"
+root.color = "var(--tooltip-color, $ref(color.text.inverse))"
 root.padding-inline = "var(--tooltip-padding-inline, var(--tooltip-padding-x, $ref(space.component-gap)))"
 root.padding-block = "var(--tooltip-padding-block, var(--tooltip-padding-y, $ref(space.inline-gap)))"
-root.font-size = "var(--tooltip-font-size, $ref(font.size.caption))"
-root.line-height = "var(--tooltip-line-height, 1.5)"
-root.border-radius = "var(--tooltip-border-radius, $ref(radius.md))"
+root.font-size = "var(--tooltip-font-size, $ref(typography.body.small.font-size))"
+root.line-height = "var(--tooltip-line-height, $ref(typography.body.small.line-height))"
+root.border-radius = "var(--tooltip-border-radius, $ref(shape.extra-small))"
 root.max-width = "var(--tooltip-max-width, 250px)"
 root.z-index = "var(--tooltip-z-index, $ref(z-index.elevated))"
 
 motion.interaction.transition = "var(--tooltip-motion-interaction, $ref(motion.interaction))"
+
+interaction.touch.min-width = "$ref(size.touch-target)"
+interaction.touch.min-height = "$ref(size.touch-target)"
+interaction.outline-color-focus = "$ref(color.focus.ring)"
+interaction.outline-width-focus = "2px"
+interaction.outline-offset-focus = "2px"
+root.box-shadow = "none"

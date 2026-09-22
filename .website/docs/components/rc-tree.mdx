@@ -112,6 +112,7 @@ import { tutorial } from "../_generated_tutorials/rc-tree.js";
 - 为树所在区域提供可见标题，搜索框必须使用 `<label>` 建立可访问名称。
 - 保留方向键浏览、Enter 选择和清晰的 `:focus-visible` 焦点环；不要在业务层拦截这些按键。
 - 节点标题中的图标只作装饰时应从无障碍树隐藏，加载、禁用、展开和选中状态不能只靠颜色表示。
+- `aria-label` / `aria-labelledby` 标记实际的键盘焦点容器；节点暴露 `treeitem`、选中、展开和禁用状态。关闭拖拽不会禁用节点选择，键盘选中项会自动滚动到可见区域。
 - 拖拽和右键菜单必须提供键盘可操作的等价入口，并在操作后说明结果。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。

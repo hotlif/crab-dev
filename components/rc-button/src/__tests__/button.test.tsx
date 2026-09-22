@@ -20,6 +20,96 @@ const clickButton = async (button: HTMLButtonElement) => {
     });
 };
 describe('Button', () => {
+    it('keeps disabled links out of the tab order and blocks capture, bubbling, and navigation', async () => {
+        const onClick = mock.fn();
+        const onClickCapture = mock.fn();
+        const onParentClick = mock.fn();
+        const { rerender } = await render(
+            <div onClick={onParentClick}>
+                <Button href="#destination" disabled tabIndex={0} onClick={onClick} onClickCapture={onClickCapture}>Open</Button>
+            </div>,
+        );
+        const link = screen.getByRole('link', { name: 'Open' });
+        expect(link.getAttribute('tabindex')).toBe('-1');
+        const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+        await act(async () => { link.dispatchEvent(event); });
+        expect(event.defaultPrevented).toBe(true);
+        expect(onClick).not.toHaveBeenCalled();
+        expect(onClickCapture).not.toHaveBeenCalled();
+        expect(onParentClick).not.toHaveBeenCalled();
+        await rerender(<div onClick={onParentClick}><Button href="#destination" tabIndex={0} onClick={onClick} onClickCapture={onClickCapture}>Open</Button></div>);
+        expect(link.getAttribute('tabindex')).toBe('0');
+        await fireEvent.click(link);
+        expect(onClickCapture).toHaveBeenCalledTimes(1);
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+    it('keeps loading links focusable while preventing activation', async () => {
+        const onClick = mock.fn();
+        const { rerender } = await render(<Button href="#destination" loading onClick={onClick}>Open</Button>);
+        const link = screen.getByRole('link', { name: 'Open' });
+        expect(link.getAttribute('tabindex')).toBeNull();
+        await fireEvent.click(link);
+        expect(onClick).not.toHaveBeenCalled();
+        await rerender(<Button href="#destination" loading disabled onClick={onClick}>Open</Button>);
+        expect(link.getAttribute('tabindex')).toBe('-1');
+        expect(link.getAttribute('data-is-loading')).toBeNull();
+    });
+    it('keeps decorative icons and loading graphics out of the accessible name', async () => {
+        const graphic = <svg role="img" aria-label="Decorative graphic" />;
+        const { rerender } = await render(<Button icon={graphic} iconAfter={graphic}>Save</Button>);
+        expect(screen.getByRole('button', { name: /^Save$/ })).toBeTruthy();
+        for (const image of screen.getByRole('button', { name: 'Save' }).querySelectorAll('svg')) {
+            expect(image.closest('[aria-hidden="true"]')).toBeTruthy();
+        }
+        await rerender(<Button loading loadingIcon={graphic}>Save</Button>);
+        expect(screen.getByRole('button', { name: /^Save$/ })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Save' }).querySelector('svg')?.closest('[aria-hidden="true"]')).toBeTruthy();
+    });
+    it('lets disabled presentation take precedence over loading while keeping busy semantics', async () => {
+        const { button } = await renderButton({ loading: true, disabled: true });
+        expect(button.disabled).toBe(true);
+        expect(button.getAttribute('aria-busy')).toBe('true');
+        expect(button.getAttribute('data-is-loading')).toBeNull();
+    });
+    it('preserves legacy size aliases and renders all Expressive sizes', async () => {
+        const { button, rerender, unmount } = await renderButton();
+        for (const [legacy, current] of [['small', 'xs'], ['middle', 's'], ['large', 'm']] as const) {
+            await rerender(<Button size={legacy}>Button Text</Button>);
+            const legacyClasses = button.className;
+            await rerender(<Button size={current}>Button Text</Button>);
+            expect(button.className).toBe(legacyClasses);
+        }
+        for (const size of ['l', 'xl'] as const) {
+            await rerender(<Button size={size}>Button Text</Button>);
+            expect(button.textContent).toBe('Button Text');
+        }
+        await unmount();
+    });
+    it('defaults to outlined and preserves subtle as a compatibility alias', async () => {
+        const { button, rerender, unmount } = await renderButton();
+        const defaultClasses = button.className;
+        await rerender(<Button appearance="outlined">Button Text</Button>);
+        expect(button.className).toBe(defaultClasses);
+        await rerender(<Button appearance="subtle">Button Text</Button>);
+        expect(button.className).toBe(defaultClasses);
+        await unmount();
+    });
+    it('supports danger with common appearances and preserves the legacy danger appearance', async () => {
+        const { button, rerender, unmount } = await renderButton({ danger: true, appearance: 'primary' });
+        const dangerClasses = button.className;
+        expect(button.getAttribute('data-tone')).toBe('danger');
+        expect(button.hasAttribute('danger')).toBe(false);
+        await rerender(<Button appearance="danger">Button Text</Button>);
+        expect(button.className).toBe(dangerClasses);
+        for (const appearance of ['subtle', 'text'] as const) {
+            await rerender(<Button appearance={appearance} danger>Button Text</Button>);
+            expect(button.getAttribute('data-tone')).toBe('danger');
+            expect(button.className).not.toBe(dangerClasses);
+        }
+        await rerender(<Button danger={false}>Button Text</Button>);
+        expect(button.hasAttribute('data-tone')).toBe(false);
+        await unmount();
+    });
     it('exposes toggle state after activation without turning ordinary actions into toggles', async () => {
         function ToggleExample() {
             const [selected, setSelected] = useState(false);
@@ -68,8 +158,11 @@ describe('Button', () => {
     });
     it('renders all appearance variants without runtime error', async () => {
         const appearanceList: NonNullable<ButtonProps['appearance']>[] = [
+            'elevated',
             'primary',
             'subtle',
+            'tonal',
+            'outlined',
             'dashed',
             'text',
             'link',

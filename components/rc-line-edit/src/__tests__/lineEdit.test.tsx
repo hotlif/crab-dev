@@ -29,7 +29,36 @@ const getActionButton = (label: string) => {
     return button;
 };
 const handleInputChange = () => undefined;
+function inputByLabel(text: string): HTMLInputElement {
+    const label = [...document.querySelectorAll('label')].find(node => node.textContent === text);
+    const input = label ? document.getElementById(label.htmlFor) : null;
+    if (!(input instanceof HTMLInputElement)) throw new Error(`Missing input label: ${text}`);
+    return input;
+}
 describe("LineEdit", () => {
+    it("浮动标签和说明使用唯一 ID，错误替换辅助说明并保留外部关联", async () => {
+        const { rerender } = await render(<><p id="external">外部说明</p><LineEdit label="项目名称" supportingText="最多十字" aria-describedby="external" value="Crab" onChange={handleInputChange} maxLength={10} showCount /><LineEdit label="团队名称" /></>);
+        const input = inputByLabel("项目名称") as HTMLInputElement;
+        const other = inputByLabel("团队名称") as HTMLInputElement;
+        expect(input.id === other.id).toBe(false);
+        const descriptions = input.getAttribute("aria-describedby")!.split(" ").map(id => document.getElementById(id)?.textContent);
+        expect(descriptions).toEqual(["外部说明", "最多十字", "4/10"]);
+        await rerender(<LineEdit label="项目名称" supportingText="最多十字" errorText="名称已被使用，请换一个" />);
+        const invalid = inputByLabel("项目名称");
+        expect(invalid.getAttribute("aria-invalid")).toBe("true");
+        expect(document.getElementById(invalid.getAttribute("aria-describedby")!)?.textContent).toBe("名称已被使用，请换一个");
+        expect(screen.queryByText("最多十字")).toBeNull();
+    });
+    it("外观切换保留原生输入值，borderless 仍提供关联标签", async () => {
+        const { rerender } = await render(<LineEdit appearance="filled" label="名称" defaultValue="Crab" />);
+        const input = inputByLabel("名称") as HTMLInputElement;
+        await fireEvent.change(input, { target: { value: "新项目" } });
+        await rerender(<LineEdit appearance="outlined" label="名称" defaultValue="Crab" />);
+        expect((inputByLabel("名称") as HTMLInputElement).value).toBe("新项目");
+        expect(inputByLabel("名称")).toBe(input);
+        await rerender(<LineEdit bordered={false} appearance="filled" label="名称" defaultValue="Crab" />);
+        expect(inputByLabel("名称").parentElement?.getAttribute("data-appearance")).toBeNull();
+    });
     it("禁用密码框不能通过按钮显示内容，只读框仍可查看", async () => {
         await render(<><LineEdit type="password" disabled aria-label="禁用密码" /><LineEdit type="password" readOnly aria-label="只读密码" /></>);
         const buttons = document.querySelectorAll<HTMLButtonElement>('button[aria-label="显示密码"]');

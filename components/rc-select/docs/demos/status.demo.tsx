@@ -25,8 +25,8 @@ const options = [
 const StatusDemo = () => {
     return (
         <div className={containerStyle}>
-            <Select aria-label="error" status="error" options={options} placeholder="Error 状态" />
-            <Select aria-label="warning" status="warning" options={options} placeholder="Warning 状态" />
+            <Select label="工作城市" errorText="请选择一个工作城市。" options={options} />
+            <Select label="备用城市" supportingText="建议选择交通便利的城市。" status="warning" options={options} />
         </div>
     );
 };

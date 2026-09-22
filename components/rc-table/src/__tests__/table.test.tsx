@@ -1,4 +1,5 @@
-import { describe, expect, fireEvent, it, mock, render, screen } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { type Key, type ReactElement } from "react";
 
 import Table from "../table.js";
@@ -905,6 +906,11 @@ describe("Table", () => {
 
         // 复选框消费了这次点击：行选中生效，行点击不触发
         expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onRowClick).not.toHaveBeenCalled();
+
+        // Compact selection owns the complete cell without overlapping adjacent rows.
+        await fireEvent.click(getRow(container, 0).querySelector('[data-table-selection-cell]')!);
+        expect(onChange).toHaveBeenCalledTimes(2);
         expect(onRowClick).not.toHaveBeenCalled();
 
         await unmount();

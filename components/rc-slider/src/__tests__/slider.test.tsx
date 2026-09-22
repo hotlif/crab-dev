@@ -49,6 +49,40 @@ const renderSlider = async (props: Partial<SliderProps> = {}) => {
     };
 };
 describe('Slider', () => {
+    it('keeps the endpoint marker separate from the current value across size changes', async () => {
+        const { container, slider, rerender } = await renderSlider({ value: 40 });
+        expect(container.querySelector('[data-slot="slider-stop"]')).toBeTruthy();
+        for (const size of ['xs', 's', 'm', 'l', 'xl'] as const) {
+            await rerender(<Slider size={size} value={40} />);
+            expect(slider.getAttribute('aria-valuenow')).toBe('40');
+        }
+        await rerender(<Slider size="xl" value={100} />);
+        expect(container.querySelector('[data-slot="slider-stop"]')).toBeNull();
+        expect(slider.getAttribute('aria-valuenow')).toBe('100');
+    });
+    it('supports keyboard steps and endpoints without exceeding the range', async () => {
+        const onValueChange = mock.fn();
+        const { slider } = await renderSlider({ min: 0.1, max: 1.1, step: 0.2, value: 0.5, onValueChange });
+        expect(slider.tabIndex).toBe(0);
+        for (const [key, expected] of [['ArrowRight', 0.7], ['ArrowDown', 0.3], ['Home', 0.1], ['End', 1.1]] as const) {
+            await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true })); });
+            expect(onValueChange).toHaveBeenLastCalledWith(expected);
+        }
+    });
+    it('blocks pointer, wheel and keyboard changes when disabled or the range is empty', async () => {
+        const onValueChange = mock.fn();
+        const { slider, rerender } = await renderSlider({ value: 50, disabled: true, onValueChange });
+        expect(slider.tabIndex).toBe(-1);
+        expect(slider.getAttribute('aria-disabled')).toBe('true');
+        await pointerDown(slider, 180);
+        await act(() => { slider.dispatchEvent(new WheelEvent('wheel', { deltaY: -1, bubbles: true })); });
+        await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true })); });
+        expect(onValueChange).not.toHaveBeenCalled();
+        await rerender(<Slider min={5} max={5} value={5} onValueChange={onValueChange} />);
+        expect(slider.style.getPropertyValue('--slider-position')).toBe('0.0000%');
+        await pointerDown(slider, 180);
+        expect(onValueChange).not.toHaveBeenCalled();
+    });
     it('renders without runtime error', async () => {
         const { slider, unmount } = await renderSlider();
         expect(slider).toBeTruthy();
@@ -90,26 +124,22 @@ describe('Slider', () => {
     });
     it('computes track width based on value percent', async () => {
         const { slider, unmount } = await renderSlider({ value: 25, min: 0, max: 100 });
-        const track = slider.querySelector('[data-slot="slider-track"]') as HTMLDivElement;
-        expect(parseFloat(track.style.width)).toBeCloseTo(25, 2);
+        expect(parseFloat(slider.style.getPropertyValue('--slider-position'))).toBeCloseTo(25, 2);
         await unmount();
     });
     it('clamps track width to 0% when value is below min', async () => {
         const { slider, unmount } = await renderSlider({ value: -10, min: 0, max: 100 });
-        const track = slider.querySelector('[data-slot="slider-track"]') as HTMLDivElement;
-        expect(parseFloat(track.style.width)).toBeCloseTo(0, 2);
+        expect(parseFloat(slider.style.getPropertyValue('--slider-position'))).toBeCloseTo(0, 2);
         await unmount();
     });
     it('clamps track width to 100% when value exceeds max', async () => {
         const { slider, unmount } = await renderSlider({ value: 200, min: 0, max: 100 });
-        const track = slider.querySelector('[data-slot="slider-track"]') as HTMLDivElement;
-        expect(parseFloat(track.style.width)).toBeCloseTo(100, 2);
+        expect(parseFloat(slider.style.getPropertyValue('--slider-position'))).toBeCloseTo(100, 2);
         await unmount();
     });
     it('positions handle at correct percent', async () => {
         const { slider, unmount } = await renderSlider({ value: 75, min: 0, max: 100 });
-        const handleContainer = slider.querySelector('[data-slot="slider-handle-container"]') as HTMLDivElement;
-        expect(parseFloat(handleContainer.style.left)).toBeCloseTo(75, 2);
+        expect(parseFloat(slider.style.getPropertyValue('--slider-position'))).toBeCloseTo(75, 2);
         await unmount();
     });
     it('calls onValueChange on pointerdown', async () => {

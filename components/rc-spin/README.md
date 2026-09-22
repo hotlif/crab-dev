@@ -10,6 +10,7 @@
 - `tip` 提供操作说明，`label` 提供默认加载名称。
 - 减少动态效果偏好下，将旋转改为低频透明度变化。
 - 宿主已提供加载语义时，可复用仅供视觉展示的 `SpinIndicator`。
+- `variant="expressive"` 提供符合 Material 3 Expressive 形状与动态语言的加载反馈。
 
 ## 文档
 

@@ -1,2 +1,4 @@
 /* CSS-only themes enter through Wake's theme_css, never through JavaScript imports. */
 @import "../../components/rc-theme/css/index.css";
+
+@import "../../components/rc-theme/docs/fonts.css";

@@ -8,8 +8,8 @@ imports = [
 [token]
 
 # ─── 容器 ────────────────────────────────────────────────────────────────────
-root.font-size = "var(--breadcrumbs-font-size, $ref(font.size.body))"
-root.line-height = "var(--breadcrumbs-line-height, 1.5)"
+root.font-size = "var(--breadcrumbs-font-size, $ref(typography.body.font-size))"
+root.line-height = "var(--breadcrumbs-line-height, $ref(typography.label.line-height))"
 root.gap = "var(--breadcrumbs-gap, $ref(space.inline-gap))"
 
 # ─── 颜色 ────────────────────────────────────────────────────────────────────
@@ -24,3 +24,10 @@ separator.padding = "0 4px"
 
 # ─── 椭圆折叠项 ──────────────────────────────────────────────────────────────
 ellipsis.color = "$ref(color.text.tertiary)"
+
+interaction.touch.min-width = "$ref(size.touch-target)"
+interaction.touch.min-height = "$ref(size.touch-target)"
+interaction.outline-color-focus = "$ref(color.focus.ring)"
+interaction.outline-width-focus = "2px"
+interaction.outline-offset-focus = "2px"
+interaction.transition = "$ref(motion.interaction)"

@@ -11,6 +11,15 @@ const baseStyle = css`
     line-height: 1;
     vertical-align: middle;
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { border-color: CanvasText; }
+    [role="button"] {
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
+
+    }
     border: 1px solid transparent;
     font-family: inherit;
 `;

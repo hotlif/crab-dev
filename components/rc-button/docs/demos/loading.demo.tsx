@@ -1,55 +1,22 @@
-
 export const meta = {
-    title: "加载中",
-    description: "展示全部六种外观的 loading 状态；加载指示持续显示，方便比较。",
+    title: '加载中',
+    description: '对照五种按钮外观的加载状态。',
 };
 
-import { css } from "@crab-dev/css";
-import Button from "../../src/index.js";
+import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
+import Button from '../../src/index.js';
 
-const SizeDemo = () => {
+const rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['section-gap']};`;
+
+export default function Example() {
     return (
-        <div
-            className={css`
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                gap: 1rem;
-            `}
-        >
-            <Button
-                loading
-                appearance="primary"
-            >
-                primary
-            </Button>
-            <Button
-                loading
-                appearance="subtle"
-            >
-                subtle
-            </Button>
-            <Button
-                loading
-                appearance="dashed"
-            >
-                dashed
-            </Button>
-            <Button
-                loading
-                appearance="text"
-            >
-                text
-            </Button>
-            <Button
-                loading
-                appearance="link"
-            >
-                link
-            </Button>
-            <Button loading appearance="danger">danger</Button>
+        <div className={rowStyle}>
+            <Button loading appearance="elevated">Elevated</Button>
+            <Button loading appearance="primary">Filled</Button>
+            <Button loading appearance="tonal">Tonal</Button>
+            <Button loading appearance="outlined">Outlined</Button>
+            <Button loading appearance="text">Text</Button>
         </div>
-    )
+    );
 }
-
-export default SizeDemo;

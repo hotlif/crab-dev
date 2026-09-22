@@ -237,7 +237,7 @@ const userMenuStyle = css`
     transform-origin: top center;
     opacity: 1;
     translate: 0 0;
-    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
+    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
     @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
     &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
 

@@ -30,14 +30,14 @@ const token = defineTokens({
         'margin-bottom': `var(${vars['image.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     },
     'title': {
-        'color': `var(${vars['title.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
+        'color': `var(${vars['title.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
         'font-size': `var(${vars['title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,
-        'font-weight': `var(${vars['title.font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
+        'font-weight': `var(${vars['title.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
         'margin-bottom': `var(${vars['title.margin-bottom']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'description': {
-        'color': `var(${vars['description.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
-        'font-size': `var(${vars['description.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`,
+        'color': `var(${vars['description.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+        'font-size': `var(${vars['description.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
         'margin-bottom': `var(${vars['description.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     }
 });

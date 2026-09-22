@@ -1,6 +1,6 @@
 import { css, cx } from '@crab-dev/css';
-import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
+import { useId, useRef } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 
 import token from './token.js';
@@ -54,6 +54,11 @@ const barCenteredStyle = css`
 `;
 
 const itemBaseStyle = css`
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -67,13 +72,28 @@ const itemBaseStyle = css`
     white-space: nowrap;
     font: inherit;
     font-weight: inherit;
+    line-height: ${token.root['line-height']};
     transition: ${token.motion.color};
 
     @media (prefers-reduced-motion: reduce) { transition: none; }
 
-    &:hover {
-        color: ${token.item['color-hover']};
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        background: currentColor;
+        opacity: 0;
+        transition: ${token['state-layer'].transition};
     }
+    &:not(:disabled):hover::before { opacity: ${token['state-layer']['opacity-hover']}; }
+    &:not(:disabled):focus-visible::before { opacity: ${token['state-layer']['opacity-focus']}; }
+    &:not(:disabled):active::before { opacity: ${token['state-layer']['opacity-pressed']}; }
+    &:not(:disabled):not([aria-selected='true']):hover { color: ${token.item['color-hover']}; }
+    @media (prefers-reduced-motion: reduce) { &::before { transition: none; } }
+    @media (forced-colors: active) { &::before { display: none; } }
+
 
     &:focus {
         outline: none;
@@ -108,12 +128,9 @@ const itemActiveStyle = css`
 `;
 
 const itemDisabledStyle = css`
-    color: ${token.item['color-disabled']};
+    color: ${token.item.color};
+    opacity: ${token.item['opacity-disabled']};
     cursor: not-allowed;
-
-    &:hover {
-        color: ${token.item['color-disabled']};
-    }
 `;
 
 const itemCardStyle = css`
@@ -124,54 +141,48 @@ const itemCardStyle = css`
     border-top-right-radius: ${token.card['border-radius']};
     margin-bottom: -1px;
 
-    &:hover {
-        background: ${token.card['background-color-hover']};
-    }
 `;
 
 const itemCardActiveStyle = css`
     background: ${token.card['background-color-active']};
     border-color: ${token.card['border-color']};
 
-    &:hover {
-        background: ${token.card['background-color-active']};
-    }
 `;
 
 const itemPillStyle = css`
     border-radius: ${token.pill['border-radius']};
 
-    &:hover {
-        background: ${token.pill['background-color-hover']};
-    }
 `;
 
 const itemPillActiveStyle = css`
     background: ${token.pill['background-color-active']};
     color: ${token.pill['color-active']};
 
-    &:hover {
-        background: ${token.pill['background-color-active']};
-        color: ${token.pill['color-active']};
+`;
+
+// The primary indicator follows label width, including font loading and text zoom.
+const indicatorLabelStyle = css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: ${token.indicator['min-width']};
+    align-self: stretch;
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        bottom: 0;
+        height: ${token.indicator.height};
+        border-radius: ${token.indicator['border-radius']} ${token.indicator['border-radius']} 0 0;
+        background: ${token.indicator.color};
+        pointer-events: none;
+        transform: scaleX(0);
+        transition: ${token.indicator.transition};
     }
-`;
-
-const indicatorStyle = css`
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: ${token.indicator.height};
-    background: ${token.indicator.color};
-    border-radius: 1px;
-    pointer-events: none;
-    transform: translateX(var(--rc-tabs-indicator-x, 0));
-    width: var(--rc-tabs-indicator-w, 0);
-    transition: ${token.indicator.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-`;
-
-const indicatorHiddenStyle = css`
-    opacity: 0;
+    [aria-selected='true'] > &::after { transform: scaleX(1); }
+    @media (prefers-reduced-motion: reduce) { &::after { transition: none; } }
+    @media (forced-colors: active) { &::after { background: Highlight; } }
 `;
 
 const closeButtonStyle = css`
@@ -179,8 +190,10 @@ const closeButtonStyle = css`
     align-items: center;
     justify-content: center;
     margin-left: ${token.close.gap};
-    width: ${token.close.width};
-    height: ${token.close.width};
+    min-width: ${token.close['touch-size']};
+    min-height: ${token.close['touch-size']};
+    & > svg { width: ${token.close.width}; height: ${token.close.width}; }
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
     padding: 0;
     border: 0;
     background: transparent;
@@ -277,25 +290,10 @@ const Tabs = ({
     ...restProps
 }: TabsProps) => {
     const reactId = useId();
-    const tabsIdPrefix = useMemo(
-        () => `rc-tabs-${reactId.replace(/:/g, '')}`,
-        [reactId],
-    );
-
-    const getTabId = useCallback(
-        (index: number) => `${tabsIdPrefix}-tab-${index}`,
-        [tabsIdPrefix],
-    );
-
-    const getPanelId = useCallback(
-        (index: number) => `${tabsIdPrefix}-panel-${index}`,
-        [tabsIdPrefix],
-    );
-
-    const firstEnabledItem = useMemo(
-        () => items.find(item => !item.disabled),
-        [items],
-    );
+    const tabsIdPrefix = `rc-tabs-${reactId.replace(/:/g, '')}`;
+    const getTabId = (index: number) => `${tabsIdPrefix}-tab-${index}`;
+    const getPanelId = (index: number) => `${tabsIdPrefix}-panel-${index}`;
+    const firstEnabledItem = items.find(item => !item.disabled);
 
     const resolvedDefault = defaultActiveKey
         ?? firstEnabledItem?.key
@@ -308,36 +306,8 @@ const Tabs = ({
         onChange,
     });
 
+    // Mutable DOM registry for keyboard focus; it never participates in rendering.
     const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
-    const barRef = useRef<HTMLDivElement | null>(null);
-    const [indicatorPosition, setIndicatorPosition] = useState<{ left: number; width: number }>({
-        left: 0,
-        width: 0,
-    });
-
-    const updateIndicator = useCallback(() => {
-        if (type !== 'line') return;
-        const activeTab = tabRefs.current.get(activeKey);
-        if (!activeTab || !barRef.current) return;
-        setIndicatorPosition({
-            left: activeTab.offsetLeft,
-            width: activeTab.offsetWidth,
-        });
-    }, [activeKey, type]);
-
-    useLayoutEffect(() => {
-        updateIndicator();
-    }, [updateIndicator, items]);
-
-    useEffect(() => {
-        if (type !== 'line') return undefined;
-        if (typeof ResizeObserver === 'undefined') return undefined;
-        const node = barRef.current;
-        if (!node) return undefined;
-        const observer = new ResizeObserver(() => updateIndicator());
-        observer.observe(node);
-        return () => observer.disconnect();
-    }, [type, updateIndicator]);
 
     const activateKey = (nextKey: string) => setActiveKey(nextKey);
 
@@ -403,8 +373,7 @@ const Tabs = ({
     const registerTabRef = (key: string) => (node: HTMLButtonElement | null) => {
         if (node) {
             tabRefs.current.set(key, node);
-        } else {
-            tabRefs.current.delete(key);
+            return () => { tabRefs.current.delete(key); };
         }
     };
 
@@ -420,11 +389,6 @@ const Tabs = ({
         return '';
     };
 
-    const indicatorInlineStyle = useMemo<CSSProperties>(() => ({
-        ['--rc-tabs-indicator-x' as never]: `${indicatorPosition.left}px`,
-        ['--rc-tabs-indicator-w' as never]: `${indicatorPosition.width}px`,
-    }), [indicatorPosition.left, indicatorPosition.width]);
-
     const activeItemIndex = items.findIndex(item => item.key === activeKey);
     const activeItem = activeItemIndex >= 0 ? items[activeItemIndex] : null;
 
@@ -435,7 +399,6 @@ const Tabs = ({
                     <div className={extraStyle}>{extraContent.left}</div>
                 ) : null}
                 <div
-                    ref={barRef}
                     className={cx.call(undefined, barStyle, type === 'line' ? barLineStyle : '')}
                     role="tablist"
                     aria-orientation="horizontal"
@@ -468,7 +431,7 @@ const Tabs = ({
                                     onKeyDown={(event) => handleTabKeyDown(event, item, index)}
                                 >
                                     {item.icon != null ? <span aria-hidden="true">{item.icon}</span> : null}
-                                    <span>{item.label}</span>
+                                    <span className={type === 'line' ? indicatorLabelStyle : undefined}>{item.label}</span>
                                     {item.closable && !item.disabled ? (
                                         <span
                                             role="button"
@@ -491,15 +454,6 @@ const Tabs = ({
                             );
                         })}
                     </div>
-                    {type === 'line' ? (
-                        <div
-                            className={cx.call(undefined, indicatorStyle,
-                                indicatorPosition.width === 0 ? indicatorHiddenStyle : '',
-                            )}
-                            style={indicatorInlineStyle}
-                            aria-hidden="true"
-                        />
-                    ) : null}
                 </div>
                 {extraContent.right != null ? (
                     <div className={extraStyle}>{extraContent.right}</div>

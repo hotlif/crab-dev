@@ -19,7 +19,7 @@ palette.series.red.color        = "oklch(0.6226 0.1909 24.91)"
 palette.gridline.color          = "$ref(color.border.subtle)"
 palette.baseline.color          = "$ref(color.border.default)"
 palette.axis-label.color        = "$ref(color.text.secondary)"
-palette.canvas.background-color = "$ref(color.background.surface)"
+palette.canvas.background-color = "$ref(color.surface.content)"
 
 # ─── 图例 ───────────────────────────────────
 legend.gap                 = "$ref(space.component-gap)"
@@ -29,26 +29,31 @@ legend.item.gap            = "var(--bar-chart-legend-swatch-gap, $ref(space.inli
 legend.swatch.inline-size  = "var(--bar-chart-legend-swatch-size, 10px)"
 legend.swatch.block-size   = "var(--bar-chart-legend-swatch-size, 10px)"
 legend.label.color         = "$ref(color.text.secondary)"
-legend.label.font-size     = "$ref(font.size.caption)"
+legend.label.font-size     = "$ref(typography.caption.font-size)"
 
 # 图例项为切换系列显隐的按钮
 legend.item.border-radius  = "var(--bar-chart-legend-item-radius, $ref(radius.sm))"
-legend.item.background-color-hover = "var(--bar-chart-legend-item-color-hover, $ref(color.background.hover-subtle))"
+legend.item.background-color-hover = "var(--bar-chart-legend-item-color-hover, $ref(color.state.hover))"
 legend.item.transition     = "$ref(motion.interaction)"
 legend.item.opacity-hidden = "$ref(opacity.secondary)"
 
 # ─── 键盘焦点 ───────────────────────────────
 root.box-shadow-focus = "var(--bar-chart-focus-ring, $ref(shadow.focus-ring))"
+root.font-family = "$ref(typography.body.font-family)"
+root.line-height = "$ref(typography.body.line-height)"
+root.outline-width-focus = "2px"
+legend.item.touch.min-width = "$ref(size.touch-target)"
+legend.item.touch.min-height = "$ref(size.touch-target)"
 
 # ─── 悬浮提示 ───────────────────────────────
-tooltip.background-color = "var(--bar-chart-tooltip-background, $ref(color.background.elevated))"
-tooltip.border-radius    = "var(--bar-chart-tooltip-radius, $ref(radius.md))"
+tooltip.background-color = "var(--bar-chart-tooltip-background, $ref(color.surface.overlay))"
+tooltip.border-radius    = "var(--bar-chart-tooltip-radius, $ref(shape.overlay))"
 tooltip.box-shadow       = "var(--bar-chart-tooltip-shadow, $ref(shadow.float))"
 tooltip.padding          = "8px 12px"
 tooltip.rows.row-gap     = "var(--bar-chart-tooltip-row-gap, $ref(space.inline-gap))"
 tooltip.row.column-gap   = "var(--bar-chart-tooltip-key-gap, $ref(space.inline-gap))"
-tooltip.font-size        = "$ref(font.size.caption)"
+tooltip.font-size        = "$ref(typography.caption.font-size)"
 tooltip.category.color   = "$ref(color.text.secondary)"
 tooltip.name.color       = "$ref(color.text.secondary)"
 tooltip.value.color      = "$ref(color.text.primary)"
-tooltip.value.font-weight = "$ref(font.weight.label)"
+tooltip.value.font-weight = "$ref(typography.label.font-weight)"

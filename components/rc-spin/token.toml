@@ -27,6 +27,14 @@ indicator.animation-duration = "var(--spin-motion-duration, 0.9s)"
 indicator.animation-timing-function = "var(--spin-motion-easing, linear)"
 indicator.reduced-motion.animation-duration = "var(--spin-motion-reduced-duration, 1.6s)"
 indicator.reduced-motion.opacity = "var(--spin-motion-reduced-opacity, $ref(opacity.disabled))"
+expressive.color = "$ref(color.brand.primary)"
+expressive.orbit.animation-duration = "var(--spin-expressive-orbit-duration, 1.6s)"
+expressive.shape.animation-duration = "var(--spin-expressive-shape-duration, 1.2s)"
+expressive.shape.animation-timing-function = "var(--spin-expressive-shape-easing, $ref(motion.easing.spatial.default))"
+expressive.shape.top = "12.5%"
+expressive.shape.left = "12.5%"
+expressive.shape.width = "75%"
+expressive.shape.height = "75%"
 root.animation            = "var(--spin-motion-appear, $ref(motion.fade))"
 content.transition        = "var(--spin-motion-appear, $ref(motion.fade))"
 
@@ -34,10 +42,10 @@ content.transition        = "var(--spin-motion-appear, $ref(motion.fade))"
 # ─── 尺寸 ────────────────────────────────────────────────────────────────────
 
 size.small.width = "var(--spin-size-small-size, 16px)"
-size.small.font-size  = "$ref(font.size.caption)"
+size.small.font-size  = "$ref(typography.caption.font-size)"
 
 size.middle.width = "var(--spin-size-middle-size, 24px)"
-size.middle.font-size = "$ref(font.size.body)"
+size.middle.font-size = "$ref(typography.body.font-size)"
 
 size.large.width = "var(--spin-size-large-size, 40px)"
 size.large.font-size  = "$ref(font.size.subhead)"

@@ -14,6 +14,11 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface PreviewProps {
     /**
+     * 附加预览操作，显示在复制和源码按钮之前。
+     */
+    "actions"?: ReactNode;
+
+    /**
      * 源码高亮主题，默认 light
      * @default 'light'
      */

@@ -1,0 +1,69 @@
+{
+    "date": "2026-09-20T02:44:55.035Z",
+    "production": {
+        "sha256": "50ef970b6737d4934bd6b42fd7ac98a560d24d4ba11101026b1cb079bcae98ea",
+        "files": 2538,
+        "routes": 62,
+        "javascriptBindingsChecked": 1882,
+        "unboundReferences": 0
+    },
+    "validation": {
+        "tasks": 216,
+        "successfulTasks": 216,
+        "wakeTestWorkspaces": 54,
+        "wakeTestsPassed": 1456,
+        "finalButtonTests": 34,
+        "tokenPackages": 48,
+        "generatorTests": 27,
+        "lintContractChecks": 7,
+        "generatedFileDrift": 0,
+        "diffCheckPassed": true
+    },
+    "browser": {
+        "desktopViewport": [
+            1134,
+            912
+        ],
+        "defaultButtonHeight": 36,
+        "heights": [
+            32,
+            36,
+            40
+        ],
+        "horizontalPadding": [
+            12,
+            16,
+            20
+        ],
+        "navHeight": 48,
+        "searchHeight": 48,
+        "keyboardFocusOutline": 2,
+        "keyboardActivationPassed": true,
+        "lightAndDarkChecked": true,
+        "nestedBlueBrandChecked": true,
+        "darkDangerChecked": true,
+        "loadingDemoButtons": [
+            "保存中",
+            "刷新中",
+            "加载详情"
+        ],
+        "workbenchButtons": [
+            "主要按钮",
+            "普通按钮",
+            "文字按钮"
+        ],
+        "mobileViewport": [
+            320,
+            800
+        ],
+        "mobileDocumentWidth": 305,
+        "consoleErrors": []
+    },
+    "limitations": [
+        "Real touch devices, screen readers, 200% text zoom, forced-colors and reduced-motion media modes were not browser-tested in this increment."
+    ],
+    "baselineWarnings": [
+        "Turbo circular package dependency warning predates this increment.",
+        "Git reports existing LF to CRLF normalization notices."
+    ]
+}

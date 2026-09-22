@@ -1,6 +1,6 @@
 +++
 title = "Button 按钮"
-description = "用于提交、确认或触发即时操作的按钮"
+description = "Material 的 Elevated、Filled、Tonal、Outlined、Text 五种按钮"
 kind = "component"
 status = "experimental"
 +++
@@ -25,7 +25,7 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 了解 JSX 和 useState 即可。先完成快速开始中的安装与样式接入。
 
-对照六种按钮外观、三档尺寸、图标与组合，以及明暗主题下的状态与主次操作搭配。
+完整对照 Material 的五种按钮：Elevated、Filled、Tonal、Outlined、Text，并体验尺寸、状态和明暗主题。
 
 ## 跟着做
 
@@ -33,9 +33,9 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="tutorial">
 
-**六种外观**
+**五种按钮外观**
 
-直接比较六种按钮外观及各自适用的操作层级。 填充、浅阴影、虚线与文字强调表达不同优先级；危险操作使用独立的语义颜色。 对比六个示例，悬停和点击按钮，再用 Tab 查看键盘焦点。 六种外观同时可见，点击后显示对应的 appearance；示例只更新本地提示。
+并排比较 Elevated、Filled、Tonal、Outlined、Text 五种官方外观。 通过阴影、实色、浅色、描边与文字表达不同的操作层级。 依次点击五种按钮查看用途，再用 Tab 检查键盘焦点。 五种按钮默认均为 40px 高；Elevated 使用浅阴影，其余四种无阴影。
 
 **连接交互状态**
 
@@ -43,7 +43,7 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 **尺寸对照**
 
-同时查看三种尺寸在六种外观下的效果。 直接并排展示 small、middle 和 large，便于比较高度、内边距与字号。 纵向比较三行尺寸，横向比较同一尺寸的六种外观，并点击按钮查看属性。 默认鼠标环境下，三档高度分别为 24px、32px、40px；窄屏时按钮自动换行。
+对照五种按钮外观与 Expressive 五档尺寸。 并排比较 XS、S、M、L、XL 的高度、内边距与字号。 比较五行尺寸，点击按钮查看当前属性。 XS、S、M、L、XL 分别为 32、40、56、96、136px；默认 S，触控目标至少 48px。
 
 **图标与组合**
 
@@ -51,23 +51,27 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 **状态与明暗主题**
 
-在明暗背景上对照默认、禁用、加载和选中，并比较常规按钮与主按钮的搭配。 主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。 切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。 常规按钮默认使用浅阴影；悬停时阴影增强、按压时收回，交互显现品牌色，选中使用无阴影的强填充；主操作保持醒目，禁用和加载不触发操作。
+在明暗背景上对照五种外观的默认、禁用和加载状态，并体验普通按钮的选中状态。 主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。 切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。 普通按钮始终无阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。
 
 </div>
 
 ## 常见问题
 
-### 链接外观会自动导航吗？
+### 危险操作和链接如何设置？
 
-不会。appearance="link" 只改变外观；需要导航时还应传入 href。
+危险操作设置 danger，并使用“删除项目”等明确文案；导航设置 href，可配合 appearance="text"。它们不再作为独立的常用外观类型。
 
 ### 如何比较禁用、加载和选中状态？
 
-第 5 步展示明暗主题下六种外观的默认、禁用和加载效果，以及常规按钮的可切换选中状态；第 4 步还提供 isSelected 按钮组。加载示例持续显示，方便观察，不发起网络请求。
+第 5 步展示明暗主题下五种外观的默认、禁用和加载效果，以及常规按钮的可切换选中状态；第 4 步还提供 isSelected 按钮组。加载示例持续显示，方便观察，不发起网络请求。
 
 ### 在哪里查看暗黑主题和不同品牌色？
 
 第 5 步同时展示明暗面板，点击紫色、蓝色或绿色即可比较；页面右上角的文档主题也会影响其他示例。
+
+### 旧的按钮外观还能用吗？
+
+subtle 继续可用，并映射为 outlined 描边外观。新代码使用 elevated、primary、tonal、outlined、text 五种公开外观；dashed、link 和 danger 保留旧接口兼容。
 
 
 ## API
@@ -77,7 +81,7 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 ## 更多示例
 
 <details>
-<summary>展开进阶示例（12 个）</summary>
+<summary>展开进阶示例（13 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -85,31 +89,33 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 ##### 基础配置 — 在属性控件中组合文字、外观、尺寸与常用状态
 
-##### 外观设置 — 并排展示六种外观、属性值和适用场景；点击按钮查看反馈。
+##### 五种按钮外观 — Elevated、Filled、Tonal、Outlined 与 Text。
 
 ##### 圆形按钮 — `shape=\"circle\"` 搭配纯图标（无 children）适用于工具栏操作图标
 
-##### 危险操作 — 使用 `appearance=\"danger\"` 标识删除、清空等破坏性操作
+##### 危险操作 — 用 danger 定制错误色角色，保留五种按钮各自的视觉层级。
 
 ##### 图标按钮 — 通过 `icon` 属性设置按钮图标
 
-##### 图标位置 — `icon` 在文字左侧，`iconAfter` 在文字右侧，可同时使用
+##### 图标位置 — M3 推荐单个前置图标；iconAfter 保留为 Material Web 支持的后置图标扩展。
 
 ##### 链接按钮 — 传入 `href` 时渲染为 ` a ` 元素，保留所有 Button 样式与交互
 
-##### 按钮尺寸 — 三档尺寸与六种外观共 18 种组合，同时展示默认高度与适用场景。
+##### 按钮尺寸 — 五档尺寸与五种外观共 25 种组合，同时展示默认高度与适用场景。
 
 #### 状态与反馈
 
-##### 禁用状态 — 展示全部六种外观的 disabled 状态；禁用按钮不会触发操作。
+##### 禁用状态 — 对照五种按钮外观的禁用状态。
 
-##### 加载中 — 展示全部六种外观的 loading 状态；加载指示持续显示，方便比较。
+##### 加载中 — 对照五种按钮外观的加载状态。
 
 ##### 选中状态 — `isSelected` 用于工具栏过滤器、视图切换等 toggle 场景
 
 #### 组合
 
 ##### 按钮组 — `ButtonGroup` 统一管理子按钮的 `size` 和 `appearance`，适用于工具栏场景
+
+##### 形状与连接式按钮组 — 按压时收紧圆角，选中时在 round 与 square 之间切换。
 
 </div>
 
@@ -120,58 +126,69 @@ import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 ## 使用说明
 
-### 何时使用
+### 普通按钮
 
-用于保存、提交、取消等操作。一个操作区域应突出一个主要操作，其余按钮按重要程度选择外观。
+普通按钮使用 Material Outlined：中性文字、细描边、透明背景和胶囊圆角，适合取消、返回、刷新等次要操作。默认与悬停状态均不使用阴影。
 
-`appearance` 提供六种外观：
+基础示例完整展示五种官方外观。实际表单中，可将实色“保存修改”与描边“取消”放在同一操作区，文字“查看说明”作为辅助入口。
 
-| 值 | 用途 |
+```tsx
+<Button appearance="primary">保存修改</Button>
+<Button>取消</Button>
+<Button appearance="text">查看说明</Button>
+```
+
+### 外观选择
+
+| appearance | 用途 |
 | --- | --- |
-| `primary` | 强调主要操作 |
-| `subtle`（默认） | 浅阴影表面的常规或次要操作，如取消、返回、刷新 |
-| `dashed` | 添加等辅助操作 |
-| `text` | 低强调度的文字操作 |
-| `link` | 链接样式的操作 |
-| `danger` | 删除、清空等危险操作 |
+| `elevated` | Elevated，浅色表面与阴影，需要从背景中浮起的操作 |
+| `primary` | Filled，保存、提交等主要操作 |
+| `outlined`（默认） | Outlined，取消、返回等普通操作 |
+| `tonal` | Tonal，需要适度强调的次级操作 |
+| `text` | Text，说明、展开等轻量入口 |
 
-传入 `href` 才会渲染为链接元素；`appearance="link"` 只设置外观。
+五种外观对应 [Material 按钮概览](https://m3.material.io/components/buttons/overview)。Elevated 单独提供，使用 Surface container low、Primary 文字和 Level 1 阴影，悬停提升至 Level 2。普通按钮采用当前 [Material 按钮 Specs](https://m3.material.io/components/buttons/specs) 的 On surface variant 文字和 Outline variant 描边；基础尺寸采用 40px 高度、16px 水平内边距、14px 标签文字。
 
-未设置 `appearance` 与显式设置 `appearance="subtle"` 是同一层级。常规按钮使用中性表面、正文色与浅阴影；悬停时文字和淡底色显现品牌色，阴影略微增强；按压时底色加深、阴影收回。保留紧凑尺寸、6px 圆角和间距，用克制的表面层次区分操作，主按钮继续使用醒目的实色填充。
+### 尺寸
 
-### 示例导览
+| size | 高度 | 水平内边距 | 对应 Material 尺寸 |
+| --- | --- | --- | --- |
+| `xs` / `small` | 32px | 12px | XS |
+| `s` / `middle`（默认） | 40px | 16px | S |
+| `m` / `large` | 56px | 24px | M |
+| `l` | 96px | 48px | L |
+| `xl` | 136px | 64px | XL |
 
-页面顶部直接展示全部六种外观，每种都附有用途和可点击的反馈。分步示例还包括：
+提供 M3 Expressive 五档尺寸，并保留现有尺寸属性名作为别名。XS/S/M/L/XL 的图标间距分别为 4/8/8/12/16px，描边宽度为 1/1/1/2/3px。粗指针下通过独立命中区域保证至少 48×48px，不改变可见按钮高度；文字放大可使按钮自然增高。使用 `shape="round"`（默认）或 `shape="square"`。按压时两者变为同一圆角；选中时在圆与方之间切换。
 
-| 示例 | 展示内容 |
-| --- | --- |
-| 尺寸对照 | small / middle / large 与六种 appearance 的 18 种组合 |
-| 图标与组合 | 前置图标、后置图标、纯图标、三档圆形、可选按钮组、通栏与真实链接 |
-| 状态与明暗主题 | 六种外观的默认 / 禁用 / 加载，以及常规按钮的可切换选中状态；支持紫、蓝、绿品牌色切换 |
-| 主次操作组合 | 明暗两侧的“保存 + 取消”与“新建项目 + 刷新 + 导出”，可实际点击查看反馈 |
+### 状态与无障碍
 
-`small`、`middle`、`large` 在默认鼠标环境下分别为 24px、32px、40px 高。触控环境扩展命中区域。悬停、按压和键盘焦点通过真实操作查看，`isSelected` 是独立的切换状态。
+- 悬停提供 8% 状态层；焦点与按压提供 10% 状态层，颜色跟随对应外观的前景角色；键盘焦点环使用 Secondary、3px 宽度和 2px 外偏移。
+- 禁用内容使用 On surface 的 38% 不透明度，填充容器独立使用 10%；描边与文字外观保持各自的容器规则。
+- 普通按钮按压时收紧圆角，不移动文字或改变边框宽度。
+- `isSelected` 用于可切换操作并同步 `aria-pressed`；描边按钮选中后使用反色填充和更方的圆角。Text 用于普通动作。
+- `loading` 显示进度并阻止重复激活，保留焦点；同时设置 `disabled` 时退出键盘顺序。
+- 禁用链接也退出 Tab 顺序并阻止激活和导航；图标与加载图形不重复参与按钮的无障碍名称。
+- `ButtonGroup` 可统一设置 `appearance`、`size` 和 `danger`，子按钮显式值优先。
+- 纯图标按钮需要 `aria-label`；不可逆操作应提供确认或撤销，危险语义同时使用明确文案。
 
-### 无障碍
+`danger` 表达危险操作，`href` 表达链接行为。它们独立于普通按钮的外观选择。
 
-- 优先使用清晰的可见文字；只有图标的按钮必须传入描述操作目的的 `aria-label`。
-- 普通按钮传入 `isSelected` 时会同步默认 `aria-pressed`；未传入时仍是普通动作。显式 `aria-pressed` 优先，适合混合状态等情形。链接和显式 tab 等其他角色应使用对应的 current / selected 语义。
-- 异步操作使用 `loading` 提供 `aria-busy` 与防重复提交反馈；不要仅用颜色表示危险或选中状态。
-- 保持原生按钮的键盘行为和可见焦点，不要用普通元素模拟按钮。
+本组件采用当前 M3 Expressive 的尺寸、颜色与形状令牌。Material Web 的实现仍采用 baseline 按钮（如 24px 水平内边距、18px 图标和 12% 按压状态层），这些差异以当前 M3 Specs 为准。危险操作是 M3 允许的颜色角色定制：Filled 使用 Error / On error，Tonal 使用 Error container / On error container，Elevated 保留 Surface container low。前置单图标为推荐配置；`iconAfter` 为后置图标兼容能力，不应同时设置前后两个图标。
 
-更多通用要求见[无障碍使用指南](/guides/accessibility)。
+参考：[M3 Specs](https://m3.material.io/components/buttons/specs)、[使用指南](https://m3.material.io/components/buttons/guidelines)、[无障碍](https://m3.material.io/components/buttons/accessibility)、[Material Web 文档与示例](https://material-web.dev/components/button/)、[交互实现](https://github.com/material-components/material-web/blob/main/button/internal/button.ts)、[共享样式](https://github.com/material-components/material-web/blob/main/button/internal/_shared.scss)、[Tonal 令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-tonal-button.scss)。
 
+```tsx
+<Button appearance="primary" danger>删除项目</Button>
+<Button appearance="text" href="/settings">查看设置</Button>
+```
 
-### 视觉状态与验证
+### 兼容说明
 
-常规按钮的默认底色来自抬升表面色，文字来自主文字色。悬停、按压分别加入 4%、8% 品牌色底色；交互文字使用 85% 品牌色与 15% 主文字色，保证明暗下的可读性。默认只使用一层短距离底部投影，不叠加内侧环线；暗黑主题主要通过抬升表面的明度区分按钮。OKLCh 混色保留品牌色相，由 L3 消费 L2 变量。设置 `brandColor` 后，常态保持中性，交互反馈、焦点及选中同步换色。
+<details>
+<summary>已有代码如何继续使用</summary>
 
-三态保留透明的 1px 边框占位和稳定尺寸，可见边界由浅阴影表达；原有边框变量仍可覆盖。悬停时投影略微增强，按压时收回，不缩放、不移动文字，使用 `motion.interaction` 过渡。禁用使用中性底色、主文字色与禁用透明度，移除阴影且不响应悬停和按压；加载保留正常配色、默认阴影与 spinner；`isSelected` 使用无阴影的强品牌填充。键盘焦点环独立显示；强制颜色模式移除阴影并使用系统轮廓，减少动态效果时关闭过渡。
+`appearance="subtle"` 继续可用，统一映射为无阴影的描边普通按钮。旧的 subtle 颜色、背景和边框变量作为 outlined 的回退入口保留。`dashed`、`link`、`danger` 保留接口兼容；新代码优先使用五种公开外观，并通过 `danger` 与 `href` 表达业务语义。虚线、下划线链接外观，以及 Text 与 `isSelected` 的旧组合不属于 M3 按钮变体；切换动作应使用 Elevated、Filled、Tonal 或 Outlined。`shape="circle"` 是既有纯图标兼容入口，不等同于完整的 M3 Icon button 组件。
 
-加载时保留可读的背景与前景，默认 opacity 为 1；已有 `--button-opacity-loading` 覆盖继续有效。点击和捕获处理函数在 loading 时阻止激活及表单提交；仅使用 loading 时按钮保留焦点，同时设置 disabled 则遵循原生禁用行为并退出键盘顺序。业务仍需用 pending 状态管理整个请求周期，Promise 点击锁不能代替提交状态。禁用链接不应用悬停或按压外观，虚线和普通按钮保留边框占位以避免宽度跳动。
-
-粗指针环境下，独立操作的命中区至少为 44×44 CSS px。按钮通过最小尺寸扩展操作区域。长标签采用正文行高；紧密组合需检查目标区域没有相互重叠。此规则不新增 density 属性，也不把全部组件改成同一视觉高度。
-
-键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
-
-规则依据：[状态系统](/design/interaction)、[无障碍与键盘](/design/accessibility)、[布局与密度](/design/layout)。
+</details>

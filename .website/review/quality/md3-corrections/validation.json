@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-09-20T23:22:32.130881Z",
+  "lint": "website, rc-card, rc-tabs, rc-component-preview: 0 errors, 0 warnings",
+  "tests": {
+    "website": 61,
+    "generator": 28,
+    "card": 16,
+    "tabs": 14,
+    "componentPreview": 4
+  },
+  "typecheck": [
+    "website",
+    "rc-card",
+    "rc-tabs",
+    "rc-component-preview"
+  ],
+  "libraryBuild": [
+    "rc-card",
+    "rc-tabs",
+    "rc-component-preview"
+  ],
+  "browserChecks": 54,
+  "documentLayoutChecks": 159,
+  "finalStateDemoViews": 4,
+  "productionBindingCheck": "passed: 1896 JavaScript files; 0 unbound references"
+}

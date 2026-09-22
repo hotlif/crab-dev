@@ -10,67 +10,67 @@ root.outline-color-focus = "$ref(color.focus.ring)"
 root.outline-width-focus = "2px"
 root.outline-offset-focus = "2px"
 # Crab independent touch targets; visual size props remain unchanged.
-root.touch.min-width = "44px"
-root.touch.min-height = "44px"
-root.line-height = "$ref(font.line-height.body)"
+root.touch.min-width = "$ref(size.touch-target)"
+root.touch.min-height = "$ref(size.touch-target)"
+root.line-height = "$ref(typography.label.line-height)"
 root.opacity-disabled = "$ref(opacity.disabled)"
-track.border-width = "1px"
+track.border-width = "2px"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--switch-transition, transform $ref(motion.fade), background-color $ref(motion.fade), box-shadow $ref(motion.fade))"
+root.transition = "var(--switch-transition, transform $ref(motion.spatial.fast), background-color $ref(motion.interaction), box-shadow $ref(motion.interaction))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────
 
 label.gap             = "$ref(space.inline-gap)"
-label.font-size       = "$ref(font.size.body)"
+label.font-size = "$ref(typography.body.large.font-size)"
 
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.track.width         = "52px"
-size.large.track.height        = "28px"
-size.large.track.border-radius = "14px"
+size.large.track.width = "52px"
+size.large.track.height = "32px"
+size.large.track.border-radius = "$ref(shape.full)"
 size.large.handle.width = "var(--switch-size-large-handle-size, 24px)"
-size.large.handle.left = "var(--switch-size-large-handle-offset, 2px)"
+size.large.handle.left = "var(--switch-size-large-handle-offset, 4px)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.track.width         = "44px"
-size.middle.track.height        = "22px"
-size.middle.track.border-radius = "11px"
-size.middle.handle.width = "var(--switch-size-middle-handle-size, 18px)"
-size.middle.handle.left = "var(--switch-size-middle-handle-offset, 2px)"
+size.middle.track.width = "52px"
+size.middle.track.height = "32px"
+size.middle.track.border-radius = "$ref(shape.full)"
+size.middle.handle.width = "var(--switch-size-middle-handle-size, 24px)"
+size.middle.handle.left = "var(--switch-size-middle-handle-offset, 4px)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.track.width         = "28px"
-size.small.track.height        = "16px"
-size.small.track.border-radius = "8px"
-size.small.handle.width = "var(--switch-size-small-handle-size, 12px)"
-size.small.handle.left = "var(--switch-size-small-handle-offset, 2px)"
+size.small.track.width = "52px"
+size.small.track.height = "32px"
+size.small.track.border-radius = "$ref(shape.full)"
+size.small.handle.width = "var(--switch-size-small-handle-size, 24px)"
+size.small.handle.left = "var(--switch-size-small-handle-offset, 4px)"
 
 
 # ─── 默认状态（未选中） ──────────────────────────────────────────────────────
 
-track.background-color       = "$ref(color.control.track)"
-track.background-color-hover = "$ref(color.control.track-hover)"
+track.background-color = "$ref(color.surface.highest)"
+track.background-color-hover = "$ref(color.surface.highest)"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
 
 track.background-color-checked       = "var(--switch-checked-track-background-color, $ref(color.brand.primary))"
-track.checked.background-color-hover = "var(--switch-checked-track-background-color-hover, $ref(color.brand.primary-hover))"
+track.checked.background-color-hover = "var(--switch-checked-track-background-color-hover, $ref(color.brand.primary))"
 
 
 # ─── 手柄 ────────────────────────────────────────────────────────────────────
 
-handle.background-color = "$ref(color.control.thumb)"
+handle.background-color = "$ref(color.border.default)"
 handle.checked.background-color = "var(--switch-handle-background-color, $ref(color.text.on-brand))"
-handle.box-shadow       = "$ref(shadow.float)"
+handle.box-shadow = "none"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
@@ -84,3 +84,10 @@ handle.background-color-disabled        = "var(--switch-disabled-handle-backgrou
 
 label.color          = "$ref(color.text.primary)"
 label.color-disabled = "$ref(color.text.disabled)"
+track.border-color = "$ref(color.border.default)"
+handle.unchecked.scale = "0.666667"
+track.state-layer.background-color-hover = "color-mix(in oklch, $ref(color.text.primary) calc($ref(state.opacity.hover) * 100%), transparent)"
+track.state-layer.background-color-active = "color-mix(in oklch, $ref(color.text.primary) calc($ref(state.opacity.pressed) * 100%), transparent)"
+track.halo.width = "40px"
+track.halo.left = "-4px"
+track.halo.translate-checked = "20px"

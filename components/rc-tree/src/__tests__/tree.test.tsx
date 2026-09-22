@@ -1,5 +1,8 @@
-import { beforeAll, describe, expect, it, mock, render, fireEvent, screen, act } from "@crab-dev/wake/test/react";
+import { beforeAll, afterEach, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { render, fireEvent, screen, act } from "@crab-dev/wake/test/react";
 import type { HTMLAttributes, ReactNode } from "react";
+import type { VirtualHandle } from '@crab-dev/rc-virtual';
+import type { Ref } from 'react';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -22,23 +25,30 @@ mock.module("@dnd-kit/sortable", () => ({
 }));
 // Mock @crab-dev/rc-virtual
 interface MockVirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+    gridRef?: Ref<VirtualHandle>;
     renderRows?: (range: [number, number]) => ReactNode;
     viewportHeight?: number;
     viewportWidth?: number;
     gridTemplateRows?: number[];
     gridTemplateColumns?: number[];
 }
+let coarsePointer = false;
+let virtualRows: number[] = [];
+afterEach(() => { coarsePointer = false; virtualRows = []; });
 
 mock.module("@crab-dev/rc-virtual", () => ({
     __esModule: true,
-    default: ({ renderRows, viewportHeight, viewportWidth, gridTemplateRows, gridTemplateColumns: _gridTemplateColumns, onWheel: _onWheel, ...rest }: MockVirtualProps) => {
+    default: ({ renderRows, viewportHeight, viewportWidth, gridTemplateRows, gridTemplateColumns: _gridTemplateColumns, onWheel: _onWheel, gridRef: _gridRef, ...rest }: MockVirtualProps) => {
+        virtualRows = gridTemplateRows ?? [];
         const rows = renderRows?.([0, (gridTemplateRows?.length ?? 1) - 1]) ?? [];
         return <div data-testid="rc-virtual" style={{ height: viewportHeight, width: viewportWidth }} {...rest}>{rows}</div>;
     },
 }));
 // Mock @crab-dev/rc-hooks
-mock.module("@crab-dev/rc-hooks", () => ({
+mock.module("@crab-dev/rc-hooks", async () => ({
+    ...await mock.actual<typeof import('@crab-dev/rc-hooks')>('@crab-dev/rc-hooks'),
     useKeyDown: () => [{ current: {} }],
+    useMediaQuery: () => coarsePointer,
 }));
 import type { Node } from "../type.js";
 import type { TreeProps } from "../tree.js";
@@ -61,6 +71,27 @@ const createNode = (id: string | number, overrides: Partial<Node> = {}): Node =>
     ...overrides,
 });
 describe("Tree component", () => {
+    it('labels the keyboard focus target and identifies its selected tree item', async () => {
+        const node = createNode('selected');
+        const view = await render(<Tree aria-label="Objects" treeData={[node]} selectKeys={[node.id]} width={400} height={300} onTreeNodeChange={mock.fn()} />);
+        const tree = view.container.querySelector('[role="tree"]')!;
+        expect(tree.getAttribute('aria-label')).toBe('Objects');
+        expect(tree.getAttribute('tabindex')).toBe('0');
+        expect(tree.getAttribute('aria-activedescendant')).toBe(view.container.querySelector('[role="treeitem"]')?.id);
+    });
+    it("updates virtual row offsets when density or pointer mode changes", async () => {
+        const treeData = [createNode('one', { priority: 1 }), createNode('two', { priority: 2, height: 60 })];
+        const onTreeNodeChange = mock.fn();
+        const view = await render(<Tree treeData={treeData} width={400} height={300} onTreeNodeChange={onTreeNodeChange}/>);
+        expect(virtualRows).toEqual([56, 60]);
+        await view.rerender(<Tree treeData={treeData} width={400} height={300} defaultNodeHeight={36} onTreeNodeChange={onTreeNodeChange}/>);
+        expect(virtualRows).toEqual([36, 60]);
+        coarsePointer = true;
+        await view.rerender(<Tree treeData={treeData} width={400} height={300} defaultNodeHeight={36} onTreeNodeChange={onTreeNodeChange}/>);
+        expect(virtualRows).toEqual([48, 60]);
+        await view.rerender(<Tree treeData={treeData} width={400} height={300} defaultNodeHeight={36} checkable onTreeNodeChange={onTreeNodeChange}/>);
+        expect(virtualRows).toEqual([48, 60]);
+    });
     it("renders with no data", async () => {
         const onTreeNodeChange = mock.fn();
         const loadData = mock.fn(() => Promise.resolve([]));

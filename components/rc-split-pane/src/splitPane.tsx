@@ -55,6 +55,10 @@ const separatorStyle = css`
         outline: none; /* 仅因下一行立即给出替代焦点意符，方才允许 */
         box-shadow: ${token.separator['box-shadow-focus']};
     }
+    @media (forced-colors: active) {
+        &::before { background: CanvasText; }
+        &:focus-visible { outline: ${token.separator['outline-width-focus']} solid Highlight; }
+    }
 
     @media (prefers-reduced-motion: reduce) {
         &::before {
@@ -66,6 +70,7 @@ const separatorStyle = css`
 /* 左右分栏：分隔条是竖线 */
 const separatorHorizontalStyle = css`
     width: ${token.separator.vertical.width};
+    @media (pointer: coarse) { width: ${token.separator.touch.width}; }
     cursor: col-resize;
 
     &::before {
@@ -80,6 +85,7 @@ const separatorHorizontalStyle = css`
 /* 上下分栏：分隔条是横线 */
 const separatorVerticalStyle = css`
     height: ${token.separator.horizontal.height};
+    @media (pointer: coarse) { height: ${token.separator.touch.width}; }
     cursor: row-resize;
 
     &::before {
@@ -92,7 +98,9 @@ const separatorVerticalStyle = css`
 `;
 
 const separatorDisabledStyle = css`
-    cursor: default;
+    cursor: not-allowed;
+    opacity: ${token.separator['opacity-disabled']};
+    pointer-events: none;
 `;
 
 /** 读取记住的尺寸；无记录 / 脏数据 / 存储不可用（隐私模式等）一律返回 null */

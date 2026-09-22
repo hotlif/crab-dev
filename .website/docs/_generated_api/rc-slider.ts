@@ -13,6 +13,12 @@ export interface SliderProps {
     "value": number;
 
     /**
+     * Expressive 轨道尺寸，默认 xs。
+     * @default 'xs'
+     */
+    "size"?: 'xs' | 's' | 'm' | 'l' | 'xl';
+
+    /**
      * 暂无说明。
      * @default 0
      */
@@ -27,6 +33,11 @@ export interface SliderProps {
      * 暂无说明。
      */
     "step"?: number;
+
+    /**
+     * 暂无说明。
+     */
+    "disabled"?: boolean;
 
     /**
      * 暂无说明。

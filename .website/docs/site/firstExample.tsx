@@ -7,6 +7,8 @@ export default function FirstExample({ tutorial }: { readonly tutorial: Tutorial
     return (
         <LiveExample
             title="基础示例"
+            heading="none"
+            density="compact"
             description={first.goal}
             sourceCode={first.sourceCode}
             load={first.preview.load}

@@ -151,8 +151,8 @@ const Notification: FC<NotificationProps> = ({
                     &[data-stack="3"] { translate: 0 calc((${token.stack.translate} + ${token.stack.gap} * 2) * -1); }
                 }
                 transition:
-                    opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition},
-                    scale ${token.motion.interaction.transition}, background-color ${token.motion.interaction.transition},
+                    opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition},
+                    scale ${token.motion.spatial.transition}, background-color ${token.motion.interaction.transition},
                     box-shadow ${token.motion.interaction.transition};
                 @starting-style {
                     &[data-state="open"] { opacity: 0; translate: 0 -100%; }

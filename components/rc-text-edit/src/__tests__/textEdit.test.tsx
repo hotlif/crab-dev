@@ -23,6 +23,35 @@ describe("TextEdit", () => {
         expect(screen.getByLabelText("提醒").hasAttribute("aria-invalid")).toBe(false);
         expect(screen.getByLabelText("显式").getAttribute("aria-invalid")).toBe("false");
     });
+    it("提供标签、辅助文本和计数时建立完整字段关联", async () => {
+        const { container } = await render(
+            <TextEdit
+                label="项目说明"
+                supportingText="请说明目标和范围"
+                appearance="filled"
+                value="背景"
+                showCount
+                maxLength={100}
+                onChange={mock.fn()}
+            />
+        );
+        const textarea = container.querySelector("textarea") as HTMLTextAreaElement;
+        expect(container.querySelector(`label[for="${textarea.id}"]`)?.textContent).toBe("项目说明");
+        const describedBy = textarea.getAttribute("aria-describedby")?.split(" ") ?? [];
+        expect(describedBy).toHaveLength(2);
+        expect(describedBy.map(id => document.getElementById(id)?.textContent)).toEqual([
+            "请说明目标和范围",
+            "2/100",
+        ]);
+        expect(textarea.parentElement?.getAttribute("data-appearance")).toBe("filled");
+    });
+    it("errorText 替换辅助文本并启用错误语义", async () => {
+        const { container } = await render(<TextEdit label="备注" supportingText="最多 20 字" errorText="内容不能为空" />);
+        const textarea = container.querySelector("textarea") as HTMLTextAreaElement;
+        expect(textarea.getAttribute("aria-invalid")).toBe("true");
+        expect(screen.getByText("内容不能为空")).toBeTruthy();
+        expect(screen.queryByText("最多 20 字")).toBeNull();
+    });
     describe("基础渲染", () => {
         it("应渲染 textarea 元素", async () => {
             await act(async () => { await render(<TextEdit />); });

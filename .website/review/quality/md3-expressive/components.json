@@ -1,0 +1,2056 @@
+[
+  {
+    "workspace": "rc-alert",
+    "tokenSource": "components/rc-alert/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "space.card-padding",
+      "shape.medium",
+      "typography.body.font-size",
+      "typography.body.line-height",
+      "font.size.subhead",
+      "typography.label.font-weight",
+      "space.component-gap",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.feedback.success.text",
+      "color.feedback.success.icon",
+      "color.feedback.success.background",
+      "color.feedback.success.border",
+      "color.feedback.warning.text",
+      "color.feedback.warning.icon",
+      "color.feedback.warning.background",
+      "color.feedback.warning.border",
+      "color.feedback.error.text",
+      "color.feedback.error.icon",
+      "color.feedback.error.background",
+      "color.feedback.error.border",
+      "color.feedback.info.text",
+      "color.feedback.info.icon",
+      "color.feedback.info.background",
+      "color.feedback.info.border",
+      "size.touch-target",
+      "color.focus.ring"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 20,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-app-main-layout",
+    "tokenSource": "components/rc-app-main-layout/token.toml",
+    "semanticRoles": [
+      "color.surface.content",
+      "color.surface.canvas",
+      "z-index.base",
+      "color.border.default",
+      "size.64",
+      "size.48",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.state.hover",
+      "color.state.pressed",
+      "shape.full",
+      "color.feedback.error.solid",
+      "typography.body.font-size",
+      "color.brand.primary",
+      "color.text.on-brand",
+      "color.surface.raised",
+      "shape.card",
+      "font.size.heading",
+      "typography.label.large.font-size",
+      "shape.none",
+      "color.border.hover",
+      "color.text.tertiary",
+      "color.background.active-subtle",
+      "shadow.overlay",
+      "color.surface.overlay",
+      "shape.extra-small",
+      "z-index.float",
+      "typography.body.large.font-size",
+      "motion.interaction",
+      "space.component-gap",
+      "motion.spatial.fast"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 17,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-auto-sizer",
+    "tokenSource": null,
+    "semanticRoles": [],
+    "visual": false,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 11,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ],
+    "visualAcceptance": "not-applicable: logic or configuration package"
+  },
+  {
+    "workspace": "rc-avatar",
+    "tokenSource": "components/rc-avatar/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "motion.spatial.fast",
+      "typography.caption.font-size",
+      "typography.body.font-size",
+      "font.size.subhead",
+      "typography.label.font-weight",
+      "radius.lg",
+      "color.border.default",
+      "color.border.hover",
+      "color.focus.ring",
+      "opacity.disabled",
+      "color.text.primary",
+      "color.background.hover-subtle",
+      "color.text.on-brand",
+      "color.brand.primary",
+      "color.feedback.success.text",
+      "color.feedback.success.background",
+      "color.feedback.warning.text",
+      "color.feedback.warning.background",
+      "color.feedback.error.text",
+      "color.feedback.error.background",
+      "motion.effects.fast",
+      "color.surface.content",
+      "size.touch-target"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 28,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-badge",
+    "tokenSource": "components/rc-badge/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "motion.spatial.fast",
+      "typography.caption.font-size",
+      "color.feedback.error.on-solid",
+      "color.feedback.error.solid",
+      "color.surface.content",
+      "typography.label.font-weight",
+      "color.fill.default",
+      "color.feedback.info.icon",
+      "color.feedback.success.icon",
+      "color.feedback.warning.icon",
+      "color.feedback.error.icon",
+      "color.text.primary",
+      "space.component-gap",
+      "typography.body.font-size"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-bar-chart",
+    "tokenSource": "components/rc-bar-chart/token.toml",
+    "semanticRoles": [
+      "color.border.subtle",
+      "color.border.default",
+      "color.text.secondary",
+      "color.surface.content",
+      "space.component-gap",
+      "space.inline-gap",
+      "typography.caption.font-size",
+      "radius.sm",
+      "color.state.hover",
+      "motion.interaction",
+      "opacity.secondary",
+      "shadow.focus-ring",
+      "typography.body.font-family",
+      "typography.body.line-height",
+      "size.touch-target",
+      "color.surface.overlay",
+      "shape.overlay",
+      "shadow.float",
+      "color.text.primary",
+      "typography.label.font-weight"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 74,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-breadcrumbs",
+    "tokenSource": "components/rc-breadcrumbs/token.toml",
+    "semanticRoles": [
+      "typography.body.font-size",
+      "typography.label.line-height",
+      "space.inline-gap",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.text.disabled",
+      "color.text.tertiary",
+      "size.touch-target",
+      "color.focus.ring",
+      "motion.interaction"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 7,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-button",
+    "tokenSource": "components/rc-button/token.toml",
+    "semanticRoles": [
+      "color.focus.ring",
+      "size.touch-target",
+      "typography.label.line-height",
+      "typography.label.font-family",
+      "typography.label.font-weight",
+      "color.secondary.on-container",
+      "color.secondary.container",
+      "color.text.secondary",
+      "color.border.subtle",
+      "state.opacity.hover",
+      "state.opacity.focus",
+      "state.opacity.pressed",
+      "motion.interaction",
+      "motion.spatial.fast",
+      "opacity.disabled",
+      "space.component-gap",
+      "size.56",
+      "space.group-gap",
+      "typography.title.medium.font-size",
+      "size.40",
+      "space.section-gap",
+      "typography.label.large.font-size",
+      "size.32",
+      "space.control-padding-x",
+      "color.text.on-brand",
+      "color.brand.primary",
+      "color.background.disabled",
+      "color.surface.low",
+      "shadow.control",
+      "shadow.float",
+      "color.text.primary",
+      "color.text.link",
+      "color.text.link-hover",
+      "color.surface.content",
+      "color.border.default",
+      "color.feedback.error.on-solid",
+      "color.feedback.error.solid",
+      "color.feedback.error.solid-hover",
+      "color.feedback.error.solid-active",
+      "color.feedback.error.border",
+      "space.card-padding",
+      "shape.small",
+      "shape.medium",
+      "color.text.inverse",
+      "color.background.inverse",
+      "color.secondary.on-primary",
+      "color.secondary.primary",
+      "color.surface.container",
+      "space.inline-gap",
+      "typography.label.large.line-height",
+      "typography.title.medium.line-height",
+      "shape.large",
+      "size.96",
+      "size.selection-target",
+      "typography.headline.small.font-size",
+      "space.stack-gap",
+      "typography.headline.small.line-height",
+      "shape.extra-large",
+      "size.136",
+      "size.64",
+      "typography.headline.large.font-size",
+      "typography.headline.large.line-height"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 36,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow",
+      "five appearances and all 25 size/appearance combinations",
+      "Tab focus-visible and Enter activation",
+      "round/square selected shape morph",
+      "connected group selected shape",
+      "nested light/dark blue brand, disabled/loading semantics"
+    ]
+  },
+  {
+    "workspace": "rc-canvas",
+    "tokenSource": "components/rc-canvas/token.toml",
+    "semanticRoles": [
+      "color.text.primary",
+      "color.border.default",
+      "color.selection.border",
+      "color.selection.background",
+      "color.surface.raised",
+      "color.border.focus",
+      "shadow.float",
+      "color.text.secondary"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 116,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-card",
+    "tokenSource": "components/rc-card/token.toml",
+    "semanticRoles": [
+      "color.surface.content",
+      "color.surface.raised",
+      "color.border.subtle",
+      "color.border.hover",
+      "color.surface.highest",
+      "color.state.pressed",
+      "shadow.control",
+      "shadow.float",
+      "space.dialog-padding",
+      "space.stack-gap",
+      "shape.card",
+      "font.size.heading",
+      "space.card-padding",
+      "font.size.subhead",
+      "space.section-gap",
+      "space.component-gap",
+      "typography.body.font-size",
+      "color.text.primary",
+      "typography.title.large.emphasized.font-weight",
+      "typography.body.font-family",
+      "typography.body.line-height",
+      "color.background.hover-subtle",
+      "space.inline-gap",
+      "typography.label.font-weight",
+      "color.text.secondary",
+      "typography.caption.font-size",
+      "motion.spatial.fast",
+      "motion.interaction",
+      "motion.expand",
+      "color.focus.ring",
+      "opacity.disabled",
+      "size.touch-target"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 16,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-checkbox",
+    "tokenSource": "components/rc-checkbox/token.toml",
+    "semanticRoles": [
+      "color.focus.ring",
+      "size.selection-target",
+      "typography.body.large.line-height",
+      "opacity.disabled",
+      "motion.interaction",
+      "color.feedback.error.solid",
+      "color.border.error",
+      "color.feedback.error.on-solid",
+      "motion.spatial.fast",
+      "radius.pill",
+      "color.text.primary",
+      "color.brand.primary",
+      "state.opacity.hover",
+      "state.opacity.focus",
+      "state.opacity.pressed",
+      "space.inline-gap",
+      "space.component-gap",
+      "radius.sm",
+      "font.size.subhead",
+      "typography.body.large.font-size",
+      "typography.label.font-size",
+      "color.text.secondary",
+      "color.text.on-brand",
+      "color.surface.content"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 21,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-color-picker",
+    "tokenSource": "components/rc-color-picker/token.toml",
+    "semanticRoles": [
+      "space.stack-gap",
+      "space.section-gap",
+      "radius.lg",
+      "color.border.default",
+      "typography.label.font-size",
+      "typography.label.font-weight",
+      "typography.label.line-height",
+      "color.surface.content",
+      "color.border.hover",
+      "shape.control",
+      "space.inline-gap",
+      "color.focus.ring",
+      "color.background.disabled",
+      "radius.sm",
+      "color.text.secondary"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 50,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-component-preview",
+    "tokenSource": "components/rc-component-preview/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "motion.spatial.fast",
+      "motion.expand",
+      "color.surface.low",
+      "color.border.default",
+      "color.border.hover",
+      "shape.medium",
+      "shadow.float",
+      "shadow.overlay",
+      "color.surface.raised",
+      "color.surface.content",
+      "color.text.primary",
+      "typography.title.large.emphasized.font-weight",
+      "color.text.secondary",
+      "typography.caption.font-size",
+      "color.background.hover-subtle",
+      "radius.sm",
+      "shape.control",
+      "typography.label.font-weight",
+      "color.state.hover",
+      "color.border.focus",
+      "color.text.tertiary",
+      "color.feedback.success.text"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 3,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-config-provider",
+    "tokenSource": null,
+    "semanticRoles": [],
+    "visual": false,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 7,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ],
+    "visualAcceptance": "not-applicable: logic or configuration package"
+  },
+  {
+    "workspace": "rc-cron-picker",
+    "tokenSource": "components/rc-cron-picker/token.toml",
+    "semanticRoles": [
+      "space.section-gap",
+      "space.component-gap",
+      "space.inline-gap",
+      "color.text.primary",
+      "typography.label.font-size",
+      "opacity.tertiary",
+      "color.background.hover-subtle",
+      "radius.sm",
+      "space.control-padding-x",
+      "color.text.secondary",
+      "typography.caption.font-size",
+      "color.border.default",
+      "motion.interaction"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 35,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-date-picker",
+    "tokenSource": "components/rc-date-picker/token.toml",
+    "semanticRoles": [
+      "color.brand.primary",
+      "color.text.on-brand",
+      "color.state.hover",
+      "color.text.primary",
+      "color.text.disabled",
+      "space.section-gap",
+      "space.component-gap",
+      "typography.body.large.font-size",
+      "shape.full",
+      "size.40",
+      "typography.label.font-size",
+      "motion.interaction",
+      "size.48",
+      "typography.label.medium.font-size",
+      "opacity.disabled",
+      "opacity.secondary",
+      "opacity.hover",
+      "opacity.tertiary",
+      "color.surface.high",
+      "shape.extra-large"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 31,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow",
+      "portal opens, selects 2026-09-21, confirms value and closes"
+    ]
+  },
+  {
+    "workspace": "rc-dialog",
+    "tokenSource": "components/rc-dialog/token.toml",
+    "semanticRoles": [
+      "color.background.overlay",
+      "color.surface.high",
+      "space.section-gap",
+      "space.dialog-padding",
+      "shape.overlay",
+      "shadow.overlay",
+      "typography.headline.small.emphasized.font-weight",
+      "typography.headline.small.font-size",
+      "typography.headline.small.line-height",
+      "space.component-gap",
+      "size.48",
+      "size.control",
+      "space.inline-gap",
+      "motion.fade",
+      "motion.interaction",
+      "motion.spatial.fast"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 21,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow",
+      "modal opens, Escape closes after exit animation, focus returns to trigger"
+    ]
+  },
+  {
+    "workspace": "rc-divider",
+    "tokenSource": "components/rc-divider/token.toml",
+    "semanticRoles": [
+      "color.border.subtle",
+      "space.component-gap",
+      "space.section-gap",
+      "space.group-gap",
+      "color.text.primary",
+      "color.text.secondary",
+      "typography.body.font-size",
+      "typography.label.font-weight",
+      "font.weight.body"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 12,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-drawer",
+    "tokenSource": "components/rc-drawer/token.toml",
+    "semanticRoles": [
+      "color.background.overlay",
+      "color.surface.low",
+      "shadow.overlay",
+      "space.card-padding",
+      "space.dialog-padding",
+      "color.border.subtle",
+      "typography.title.large.emphasized.font-weight",
+      "typography.title.font-size",
+      "color.text.primary",
+      "typography.title.line-height",
+      "space.stack-gap",
+      "space.component-gap",
+      "color.text.secondary",
+      "color.state.hover",
+      "shape.control",
+      "motion.fade",
+      "motion.slide-enter",
+      "motion.slide-exit",
+      "shape.large"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 15,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-dropdown-container",
+    "tokenSource": "components/rc-dropdown-container/token.toml",
+    "semanticRoles": [
+      "shadow.float",
+      "shape.extra-small",
+      "color.surface.container",
+      "z-index.float",
+      "motion.interaction",
+      "space.component-gap",
+      "size.touch-target",
+      "color.focus.ring",
+      "space.section-gap",
+      "motion.spatial.fast"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 18,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-empty",
+    "tokenSource": "components/rc-empty/token.toml",
+    "semanticRoles": [
+      "space.dialog-padding",
+      "color.fill.default",
+      "space.stack-gap",
+      "color.text.secondary",
+      "font.size.subhead",
+      "typography.label.font-weight",
+      "space.component-gap",
+      "color.text.tertiary",
+      "typography.caption.font-size"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-flow-diagram",
+    "tokenSource": "components/rc-flow-diagram/token.toml",
+    "semanticRoles": [
+      "color.border.subtle",
+      "color.brand.primary",
+      "color.border.default",
+      "color.text.on-brand",
+      "color.text.secondary"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 8,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-form",
+    "tokenSource": "components/rc-form/token.toml",
+    "semanticRoles": [
+      "space.component-gap",
+      "space.stack-gap",
+      "color.text.primary",
+      "typography.label.font-size",
+      "typography.label.font-weight",
+      "color.feedback.error.text",
+      "space.inline-gap",
+      "font.size.subhead",
+      "color.feedback.warning.text",
+      "color.feedback.success.text",
+      "color.text.secondary"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 22,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-hooks",
+    "tokenSource": null,
+    "semanticRoles": [],
+    "visual": false,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 40,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ],
+    "visualAcceptance": "not-applicable: logic or configuration package"
+  },
+  {
+    "workspace": "rc-line-edit",
+    "tokenSource": "components/rc-line-edit/token.toml",
+    "semanticRoles": [
+      "color.focus.ring",
+      "opacity.disabled",
+      "size.touch-target",
+      "size.40",
+      "motion.interaction",
+      "shape.extra-small",
+      "color.border.default",
+      "color.border.hover",
+      "color.border.focus",
+      "color.surface.content",
+      "color.text.primary",
+      "color.text.secondary",
+      "space.component-gap",
+      "color.feedback.error.border",
+      "color.feedback.warning.border",
+      "color.text.tertiary",
+      "typography.caption.font-size",
+      "size.64",
+      "space.inline-gap",
+      "space.control-padding-x",
+      "typography.body.large.font-size",
+      "typography.body.large.line-height",
+      "size.56",
+      "size.48",
+      "space.control-padding-x-small"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 25,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-masonry",
+    "tokenSource": "components/rc-masonry/token.toml",
+    "semanticRoles": [
+      "motion.spatial.fast",
+      "motion.interaction",
+      "space.component-gap"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 9,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-menu",
+    "tokenSource": "components/rc-menu/token.toml",
+    "semanticRoles": [
+      "space.dialog-padding",
+      "size.navigation",
+      "color.text.primary",
+      "typography.body.font-size",
+      "space.section-gap",
+      "shape.full",
+      "motion.interaction",
+      "color.state.hover",
+      "color.secondary.container",
+      "color.secondary.on-container",
+      "typography.label.large.emphasized.font-weight",
+      "color.text.tertiary",
+      "typography.title.small.font-size",
+      "typography.label.font-weight",
+      "space.component-gap",
+      "space.inline-gap",
+      "motion.expand",
+      "motion.fade",
+      "color.surface.container",
+      "shadow.float",
+      "shape.extra-small",
+      "z-index.float",
+      "color.background.inverse",
+      "color.text.inverse",
+      "typography.caption.font-size",
+      "color.border.subtle",
+      "color.text.secondary",
+      "size.touch-target",
+      "color.focus.ring"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-message",
+    "tokenSource": "components/rc-message/token.toml",
+    "semanticRoles": [
+      "space.section-gap",
+      "shape.extra-small",
+      "typography.body.medium.font-size",
+      "typography.body.medium.line-height",
+      "color.background.inverse",
+      "shadow.overlay",
+      "space.component-gap",
+      "color.text.inverse",
+      "color.brand.primary",
+      "color.brand.primary-hover",
+      "motion.interaction",
+      "space.group-gap",
+      "motion.spatial.fast"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 11,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-notification",
+    "tokenSource": "components/rc-notification/token.toml",
+    "semanticRoles": [
+      "color.surface.overlay",
+      "color.text.primary",
+      "space.card-padding",
+      "space.dialog-padding",
+      "shape.medium",
+      "shadow.overlay",
+      "color.border.subtle",
+      "space.component-gap",
+      "typography.title.medium.font-size",
+      "typography.title.medium.line-height",
+      "typography.body.font-size",
+      "typography.body.line-height",
+      "color.brand.primary",
+      "color.brand.primary-hover",
+      "opacity.tertiary",
+      "motion.interaction",
+      "space.group-gap",
+      "shadow.float",
+      "motion.spatial.fast"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 22,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-number-edit",
+    "tokenSource": "components/rc-number-edit/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.text.disabled",
+      "color.state.hover",
+      "color.state.pressed",
+      "color.border.default",
+      "shape.control",
+      "color.surface.content",
+      "opacity.disabled",
+      "space.component-gap"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 46,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-pagination",
+    "tokenSource": "components/rc-pagination/token.toml",
+    "semanticRoles": [
+      "space.inline-gap",
+      "space.stack-gap",
+      "typography.body.font-size",
+      "font.weight.body",
+      "size.40",
+      "space.component-gap",
+      "typography.caption.font-size",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.secondary.on-container",
+      "color.text.disabled",
+      "color.state.hover",
+      "color.secondary.container",
+      "shape.full",
+      "color.text.tertiary",
+      "color.surface.content",
+      "color.border.default",
+      "color.border.hover",
+      "color.border.focus",
+      "shape.control",
+      "color.focus.ring",
+      "motion.interaction",
+      "size.touch-target"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-prose",
+    "tokenSource": "components/rc-prose/token.toml",
+    "semanticRoles": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.link",
+      "color.text.link-hover",
+      "color.border.hover",
+      "color.border.default",
+      "color.fill.subtle",
+      "color.border.strong",
+      "color.text.inverse",
+      "font.weight.body",
+      "font.weight.strong",
+      "typography.headline.large.emphasized.font-weight",
+      "typography.title.font-weight",
+      "typography.label.font-weight",
+      "typography.body.font-family",
+      "typography.body.large.font-size",
+      "typography.body.large.line-height",
+      "typography.headline.large.font-size",
+      "typography.headline.large.line-height",
+      "typography.headline.small.font-size",
+      "typography.headline.small.line-height",
+      "typography.title.large.font-size",
+      "typography.title.large.line-height",
+      "typography.title.medium.font-size",
+      "typography.title.medium.line-height"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-radio",
+    "tokenSource": "components/rc-radio/token.toml",
+    "semanticRoles": [
+      "color.focus.ring",
+      "size.selection-target",
+      "typography.body.large.line-height",
+      "opacity.disabled",
+      "motion.interaction",
+      "color.border.error",
+      "color.feedback.error.solid",
+      "radius.pill",
+      "color.text.primary",
+      "color.brand.primary",
+      "state.opacity.hover",
+      "state.opacity.focus",
+      "state.opacity.pressed",
+      "space.inline-gap",
+      "space.component-gap",
+      "font.size.subhead",
+      "typography.body.large.font-size",
+      "typography.label.font-size",
+      "color.text.secondary",
+      "motion.spatial.fast"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 24,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-realm",
+    "tokenSource": "components/rc-realm/token.toml",
+    "semanticRoles": [
+      "motion.fade"
+    ],
+    "visual": false,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 42,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ],
+    "visualAcceptance": "not-applicable: logic or configuration package"
+  },
+  {
+    "workspace": "rc-router",
+    "tokenSource": null,
+    "semanticRoles": [],
+    "visual": false,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 18,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ],
+    "visualAcceptance": "not-applicable: logic or configuration package"
+  },
+  {
+    "workspace": "rc-segmented",
+    "tokenSource": "components/rc-segmented/token.toml",
+    "semanticRoles": [
+      "shape.full",
+      "typography.label.font-weight",
+      "size.control",
+      "typography.label.large.font-size",
+      "space.control-padding-x",
+      "space.component-gap",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.secondary.on-container",
+      "color.text.disabled",
+      "color.secondary.container",
+      "motion.spatial.fast",
+      "color.focus.ring",
+      "opacity.disabled",
+      "motion.interaction",
+      "size.touch-target",
+      "color.border.default",
+      "state.opacity.hover",
+      "state.opacity.focus",
+      "state.opacity.pressed"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 21,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-select",
+    "tokenSource": "components/rc-select/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "opacity.disabled",
+      "size.touch-target",
+      "color.border.default",
+      "color.border.hover",
+      "color.border.focus",
+      "color.feedback.error.border",
+      "color.feedback.warning.border",
+      "shape.extra-small",
+      "color.surface.content",
+      "color.background.disabled",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.disabled",
+      "color.state.hover",
+      "color.brand.on-container",
+      "color.brand.container",
+      "color.state.pressed",
+      "size.48",
+      "space.component-gap",
+      "typography.body.large.font-size",
+      "typography.body.large.line-height",
+      "color.focus.ring",
+      "color.background.hover-subtle",
+      "typography.caption.font-size",
+      "size.64",
+      "space.inline-gap",
+      "space.control-padding-x",
+      "size.56",
+      "space.control-padding-x-small"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 25,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-skeleton",
+    "tokenSource": "components/rc-skeleton/token.toml",
+    "semanticRoles": [
+      "color.background.hover-subtle",
+      "color.background.active-subtle",
+      "shape.control",
+      "radius.sm",
+      "radius.pill",
+      "space.stack-gap",
+      "opacity.secondary"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 8,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-slider",
+    "tokenSource": "components/rc-slider/token.toml",
+    "semanticRoles": [
+      "size.48",
+      "color.secondary.container",
+      "color.brand.primary",
+      "shape.full",
+      "state.opacity.hover",
+      "state.opacity.focus",
+      "state.opacity.dragged",
+      "motion.interaction",
+      "size.touch-target",
+      "color.focus.ring",
+      "opacity.disabled",
+      "shape.small",
+      "color.secondary.on-container",
+      "motion.spatial.fast",
+      "motion.effects.fast",
+      "shape.medium",
+      "shape.large",
+      "shape.extra-large"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 30,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow",
+      "five track/handle dimensions",
+      "ArrowRight updates basic value from 40 to 41",
+      "End sets all shared-value demos to 100 and hides end stops",
+      "five-size demo width 297px in embedded workbench"
+    ]
+  },
+  {
+    "workspace": "rc-spin",
+    "tokenSource": "components/rc-spin/token.toml",
+    "semanticRoles": [
+      "color.fill.default",
+      "color.brand.primary",
+      "opacity.disabled",
+      "motion.fade",
+      "typography.caption.font-size",
+      "typography.body.font-size",
+      "font.size.subhead",
+      "color.text.secondary",
+      "space.component-gap",
+      "opacity.secondary",
+      "z-index.float"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 18,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-split-pane",
+    "tokenSource": "components/rc-split-pane/token.toml",
+    "semanticRoles": [
+      "color.border.default",
+      "color.brand.primary",
+      "motion.interaction",
+      "shadow.focus-ring",
+      "size.touch-target",
+      "opacity.disabled"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 9,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-switch",
+    "tokenSource": "components/rc-switch/token.toml",
+    "semanticRoles": [
+      "color.focus.ring",
+      "size.touch-target",
+      "typography.label.line-height",
+      "opacity.disabled",
+      "motion.spatial.fast",
+      "motion.interaction",
+      "space.inline-gap",
+      "typography.body.large.font-size",
+      "shape.full",
+      "color.surface.highest",
+      "color.brand.primary",
+      "color.border.default",
+      "color.text.on-brand",
+      "color.background.disabled",
+      "color.control.thumb",
+      "color.text.primary",
+      "color.text.disabled",
+      "state.opacity.hover",
+      "state.opacity.pressed"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 17,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-table",
+    "tokenSource": "components/rc-table/token.toml",
+    "semanticRoles": [
+      "color.border.default",
+      "color.surface.content",
+      "typography.body.font-family",
+      "typography.body.medium.font-size",
+      "typography.body.medium.line-height",
+      "color.text.primary",
+      "color.focus.ring",
+      "space.component-gap",
+      "color.surface.container",
+      "color.text.secondary",
+      "typography.title.font-weight",
+      "space.inline-gap",
+      "color.background.hover-subtle",
+      "typography.label.font-weight",
+      "typography.caption.font-size",
+      "motion.spatial.fast",
+      "color.selection.border",
+      "color.highlight.background",
+      "color.highlight.foreground",
+      "color.highlight.background-active",
+      "radius.sm",
+      "color.feedback.warning.icon",
+      "color.state.hover",
+      "motion.interaction",
+      "color.brand.primary",
+      "shadow.overlay",
+      "shape.card",
+      "color.surface.raised",
+      "color.text.on-brand",
+      "color.brand.primary-hover",
+      "color.brand.primary-active",
+      "size.control",
+      "space.control-padding-x",
+      "shape.full",
+      "typography.body.font-size",
+      "color.text.tertiary",
+      "size.selection-target",
+      "font.weight.strong"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 104,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-table-pro",
+    "tokenSource": "components/rc-table-pro/token.toml",
+    "semanticRoles": [
+      "color.surface.content",
+      "color.surface.canvas",
+      "color.border.subtle",
+      "color.text.tertiary",
+      "color.text.primary",
+      "color.state.hover",
+      "color.selection.background",
+      "color.selection.foreground",
+      "color.highlight.background-active",
+      "color.highlight.foreground",
+      "color.brand.primary",
+      "color.text.secondary",
+      "opacity.disabled",
+      "color.feedback.error.icon",
+      "color.feedback.error.text",
+      "color.feedback.error.border",
+      "color.feedback.error.background"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-tabs",
+    "tokenSource": "components/rc-tabs/token.toml",
+    "semanticRoles": [
+      "typography.label.font-weight",
+      "space.inline-gap",
+      "color.border.subtle",
+      "space.stack-gap",
+      "size.48",
+      "typography.label.large.font-size",
+      "size.64",
+      "color.text.secondary",
+      "color.text.primary",
+      "color.brand.primary",
+      "color.text.disabled",
+      "motion.spatial.fast",
+      "color.state.hover",
+      "color.surface.content",
+      "shape.control",
+      "color.secondary.container",
+      "color.secondary.on-container",
+      "radius.pill",
+      "color.text.tertiary",
+      "radius.sm",
+      "color.state.pressed",
+      "color.focus.ring",
+      "motion.interaction",
+      "size.touch-target",
+      "shape.full"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 14,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-tag",
+    "tokenSource": "components/rc-tag/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "size.40",
+      "shape.small",
+      "typography.label.large.font-size",
+      "space.component-gap",
+      "size.32",
+      "space.inline-gap",
+      "color.text.primary",
+      "color.background.hover-subtle",
+      "color.border.default",
+      "color.text.on-brand",
+      "color.brand.primary",
+      "color.feedback.success.text",
+      "color.feedback.success.background",
+      "color.feedback.success.border",
+      "color.feedback.warning.text",
+      "color.feedback.warning.background",
+      "color.feedback.warning.border",
+      "color.feedback.error.text",
+      "color.feedback.error.background",
+      "color.feedback.error.border",
+      "color.text.secondary",
+      "size.touch-target",
+      "color.focus.ring"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 16,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-text-edit",
+    "tokenSource": "components/rc-text-edit/token.toml",
+    "semanticRoles": [
+      "color.focus.ring",
+      "opacity.disabled",
+      "size.touch-target",
+      "motion.interaction",
+      "shape.extra-small",
+      "color.border.default",
+      "color.border.hover",
+      "color.border.focus",
+      "shadow.focus-ring",
+      "color.surface.content",
+      "color.text.primary",
+      "color.text.secondary",
+      "space.component-gap",
+      "space.inline-gap",
+      "space.control-padding-x",
+      "color.feedback.error.border",
+      "color.feedback.warning.border",
+      "color.text.tertiary",
+      "typography.caption.font-size",
+      "typography.body.large.font-size",
+      "typography.body.large.line-height",
+      "space.control-padding-x-small"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 23,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-theme",
+    "tokenSource": null,
+    "semanticRoles": [],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 9,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-token-global",
+    "tokenSource": "components/rc-token-global/token.toml",
+    "semanticRoles": [],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": null,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-token-semantic",
+    "tokenSource": "components/rc-token-semantic/token.toml",
+    "semanticRoles": [
+      "purple.40",
+      "purple.30",
+      "purple.20",
+      "purple.90",
+      "purple.10",
+      "material.neutral.98",
+      "material.neutral.94",
+      "material.neutral.96",
+      "material.neutral.92",
+      "opacity.8",
+      "opacity.12",
+      "opacity.16",
+      "material.neutral.10",
+      "material.neutral.20",
+      "black",
+      "material.neutral.90",
+      "material.neutral-variant.30",
+      "white",
+      "material.neutral.95",
+      "material.neutral-variant.80",
+      "material.neutral-variant.50",
+      "material.error.40",
+      "amber.100",
+      "amber.300",
+      "zinc.950",
+      "material.error.10",
+      "material.error.90",
+      "material.error.30",
+      "material.error.20",
+      "material.error.100",
+      "green.800",
+      "green.700",
+      "green.50",
+      "green.100",
+      "green.900",
+      "amber.900",
+      "amber.700",
+      "amber.50",
+      "amber.800",
+      "blue.800",
+      "blue.600",
+      "blue.50",
+      "blue.100",
+      "blue.700",
+      "zinc.100",
+      "zinc.300",
+      "zinc.700",
+      "zinc.500",
+      "zinc.600",
+      "space.1",
+      "space.2",
+      "space.3",
+      "space.4",
+      "space.6",
+      "space.1-5",
+      "space.5",
+      "font.family.material",
+      "line.height.normal",
+      "font.size.md",
+      "font.size.22",
+      "font.size.xs",
+      "font.weight.regular",
+      "font.weight.medium",
+      "font.weight.bold",
+      "radius.2",
+      "radius.6",
+      "radius.14",
+      "radius.full",
+      "size.48",
+      "font.size.36",
+      "line.height.36-44",
+      "font.size.3xl",
+      "line.height.28-36",
+      "line.height.22-28",
+      "line.height.16-24",
+      "font.size.sm",
+      "line.height.14-20",
+      "line.height.12-16",
+      "shadow.material-2",
+      "shadow.material-1",
+      "shadow.material-3",
+      "z-index.1",
+      "z-index.10",
+      "z-index.20",
+      "z-index.30",
+      "z-index.40",
+      "z-index.50",
+      "z-index.60",
+      "z-index.70",
+      "duration.150",
+      "easing.expressive-effects-fast",
+      "duration.normal",
+      "easing.expressive-effects-default",
+      "duration.500",
+      "easing.expressive-spatial-default",
+      "duration.350",
+      "easing.expressive-spatial-fast",
+      "opacity.38",
+      "opacity.50",
+      "opacity.70",
+      "opacity.80",
+      "radius.4",
+      "radius.8",
+      "size.36",
+      "size.40",
+      "size.56",
+      "material.neutral.100",
+      "material.neutral.87",
+      "material.secondary.40",
+      "material.secondary.100",
+      "material.secondary.90",
+      "material.secondary.10",
+      "material.tertiary.40",
+      "material.tertiary.100",
+      "material.tertiary.90",
+      "material.tertiary.10",
+      "font.size.57",
+      "line.height.57-64",
+      "font.size.45",
+      "line.height.45-52",
+      "font.size.4xl",
+      "line.height.32-40",
+      "font.size.2xl",
+      "line.height.24-32",
+      "font.size.11",
+      "line.height.11-16",
+      "size.32",
+      "size.64",
+      "duration.650",
+      "easing.expressive-spatial-slow",
+      "duration.slow",
+      "easing.expressive-effects-slow",
+      "size.96",
+      "size.136",
+      "radius.24"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 7,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-tooltip",
+    "tokenSource": "components/rc-tooltip/token.toml",
+    "semanticRoles": [
+      "color.background.inverse",
+      "color.text.inverse",
+      "space.component-gap",
+      "space.inline-gap",
+      "typography.body.small.font-size",
+      "typography.body.small.line-height",
+      "shape.extra-small",
+      "z-index.elevated",
+      "motion.interaction",
+      "size.touch-target",
+      "color.focus.ring"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 18,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-tree",
+    "tokenSource": "components/rc-tree/token.toml",
+    "semanticRoles": [
+      "space.section-gap",
+      "shape.extra-small",
+      "color.state.hover",
+      "color.secondary.container",
+      "color.selection.border",
+      "color.text.secondary",
+      "color.brand.primary",
+      "color.border.default",
+      "color.border.focus",
+      "color.feedback.info.border",
+      "color.feedback.info.background",
+      "color.feedback.info.solid",
+      "color.feedback.info.on-solid",
+      "shadow.overlay",
+      "color.text.disabled",
+      "z-index.float",
+      "shadow.float",
+      "typography.label.font-family",
+      "typography.body.large.font-size",
+      "typography.body.large.line-height",
+      "color.text.primary",
+      "motion.interaction",
+      "color.focus.ring",
+      "color.secondary.on-container",
+      "opacity.disabled",
+      "size.touch-target",
+      "size.selection-target"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 97,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  },
+  {
+    "workspace": "rc-virtual",
+    "tokenSource": "components/rc-virtual/token.toml",
+    "semanticRoles": [
+      "motion.interaction",
+      "color.text.primary"
+    ],
+    "visual": true,
+    "validation": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "library": "passed",
+      "browser": "passed-docs-render-light-dark"
+    },
+    "testsPassed": 96,
+    "testsFailed": 0,
+    "browserCoverage": [
+      "desktop docs page loads",
+      "light theme: no page horizontal overflow",
+      "dark theme: no page horizontal overflow"
+    ]
+  }
+]

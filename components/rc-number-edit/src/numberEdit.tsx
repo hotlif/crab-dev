@@ -1,6 +1,6 @@
 import { css } from "@crab-dev/css";
 import LineEdit from "@crab-dev/rc-line-edit";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, Ref } from "react";
 
 import token from "./token.js";
@@ -96,8 +96,12 @@ function NumberEdit(props: NumberEditProps) {
         onKeyDown,
         ref,
         containerRef,
+        id,
         ...rest
     } = props;
+
+    const generatedInputId = useId();
+    const inputId = id ?? generatedInputId;
 
     const isControlled = value !== undefined;
     const [internalValue, setInternalValue] = useState<number | null>(defaultValue ?? null);
@@ -291,6 +295,7 @@ function NumberEdit(props: NumberEditProps) {
         <>
             {suffix}
             <Stepper
+                inputId={inputId}
                 onStart={spinner.start}
                 onStop={spinner.stop}
                 upDisabled={upDisabled}
@@ -306,6 +311,7 @@ function NumberEdit(props: NumberEditProps) {
         <div ref={rootRef} className={rootStyle}>
             <LineEdit
                 {...rest}
+                id={inputId}
                 ref={setRefs<HTMLInputElement>(ref, inputRef)}
                 containerRef={setRefs<HTMLDivElement>(containerRef, containerElRef)}
                 size={size}

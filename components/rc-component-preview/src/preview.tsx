@@ -22,6 +22,8 @@ export interface PreviewProps extends Omit<HTMLAttributes<HTMLDivElement>, 'titl
      * - 传入 ReactNode 时原样渲染。
      */
     description?: ReactNode;
+    /** 附加预览操作，显示在复制和源码按钮之前。 */
+    actions?: ReactNode;
     /** 在新窗口打开的 URL；为空时隐藏外链按钮 */
     path?: string;
     /** 展示在源码区的代码字符串；为空时隐藏「源码」按钮 */
@@ -54,9 +56,9 @@ const cardStyle = css`
     transition: ${token.root.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
 
-    &:hover {
-        border-color: ${token.card['border-color-hover']};
-        box-shadow: ${token.card['box-shadow-hover']};
+    /* The container is passive; its toolbar owns interactive state feedback. */
+    @media (forced-colors: active) {
+        border-color: CanvasText;
     }
 `;
 
@@ -169,6 +171,11 @@ const metaActionsStyle = css`
     background-color: ${token.meta.actions['background-color']};
     border-top: 1px ${token.meta.actions['border-style']} ${token.meta['border-color']};
 
+    & > :is(button, a) {
+        min-width: ${token.meta.actions['min-width']};
+        min-height: ${token.meta.actions['min-height']};
+    }
+
     @media (max-width: 520px) {
         justify-content: stretch;
         flex-wrap: wrap;
@@ -265,6 +272,7 @@ const writeToClipboard = async (code: string): Promise<boolean> => {
 };
 
 const Preview: FC<PreviewProps> = ({
+    actions,
     title,
     description,
     children,
@@ -370,8 +378,9 @@ const Preview: FC<PreviewProps> = ({
                 <div className={stageContentStyle}>{children}</div>
             </div>
 
-            {(hasSource || hasPath) && (
+            {(actions != null || hasSource || hasPath) && (
                 <div className={metaActionsStyle} role="group" aria-label="预览操作">
+                    {actions}
                     {hasSource && (
                         <Button
                             appearance="text"

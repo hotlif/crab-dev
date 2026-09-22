@@ -4,6 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 import { useState } from "react";
 import Tag, { CheckableTag } from "../../src/index.js";
 
@@ -21,11 +22,13 @@ const CheckableDemo = () => {
     return (
         <div>
             <div
+                role="toolbar"
+                aria-label="内容类型筛选"
                 className={css`
                     display: flex;
-                    gap: 0.5rem;
+                    gap: ${token.space['component-gap']};
                     flex-wrap: wrap;
-                    margin-bottom: 1rem;
+                    margin-bottom: ${token.space['section-gap']};
                 `}
             >
                 {options.map(item => (

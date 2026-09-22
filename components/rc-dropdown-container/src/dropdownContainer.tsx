@@ -42,17 +42,19 @@ const containerStyle = css`
 `;
 
 const floatingContainerStyle = css`
+    @media (forced-colors: active) { border-color: CanvasText; box-shadow: none; }
     z-index: ${token.root['z-index']};
     margin: 0;
     border: 1px solid ${token.root['border-color']};
     box-sizing: border-box;
+    max-width: ${token.root['max-width']};
     box-shadow: ${token.root['box-shadow']};
     border-radius: ${token.root['border-radius']};
     overflow-y: auto;
     overscroll-behavior: contain;
     opacity: 1;
     translate: 0 0;
-    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
+    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
     @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
     &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset.translate}; pointer-events: none; }
 

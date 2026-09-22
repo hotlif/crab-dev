@@ -15,6 +15,10 @@ const previews = {
 
 export type CatalogPreviewName = keyof typeof previews;
 
+export function hasCatalogPreview(name: string): name is CatalogPreviewName {
+    return Object.hasOwn(previews, name);
+}
+
 export default function CatalogPreview({ name }: { name: CatalogPreviewName }) {
     return (
         <svg viewBox="0 0 240 156" aria-hidden="true" focusable="false" className="crab-catalog-preview">

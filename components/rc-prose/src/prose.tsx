@@ -33,6 +33,7 @@ const invertStyle = css`
 
 const baseStyle = css`
     color: ${token.body.color};
+    font-family: ${token.body['font-family']};
     max-width: ${token.root['max-width']};
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -529,8 +530,8 @@ const sizeStyles: Record<ProseSize, string> = {
     `,
 
     base: css`
-        font-size: 1rem;
-        line-height: 1.65;
+        font-size: ${token.body['font-size']};
+        line-height: ${token.body['line-height']};
 
         :where(& p) {
             margin-top: 0.8em;
@@ -550,30 +551,31 @@ const sizeStyles: Record<ProseSize, string> = {
         }
 
         :where(& h1) {
-            font-size: 1.625em;
+            font-size: ${token.h1['font-size']};
             margin-top: 0;
             margin-bottom: 0.5em;
-            line-height: 1.2;
+            line-height: ${token.h1['line-height']};
         }
 
         :where(& h2) {
-            font-size: 1.25em;
+            font-size: ${token.h2['font-size']};
             margin-top: 1.4em;
             margin-bottom: 0.4em;
-            line-height: 1.3;
+            line-height: ${token.h2['line-height']};
         }
 
         :where(& h3) {
-            font-size: 1.0625em;
+            font-size: ${token.h3['font-size']};
             margin-top: 1.2em;
             margin-bottom: 0.35em;
-            line-height: 1.4;
+            line-height: ${token.h3['line-height']};
         }
 
         :where(& h4) {
             margin-top: 1em;
             margin-bottom: 0.3em;
-            line-height: 1.5;
+            line-height: ${token.h4['line-height']};
+            font-size: ${token.h4['font-size']};
         }
 
         :where(& img) {

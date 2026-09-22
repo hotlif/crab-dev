@@ -28,6 +28,7 @@ interface BaseCheckableTagProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'o
     checked: boolean;
     onChange?: (checked: boolean) => void;
     icon?: ReactNode;
+    disabled?: boolean;
 }
 
 export type CheckableTagProps = BaseCheckableTagProps &

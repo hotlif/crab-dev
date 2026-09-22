@@ -182,7 +182,7 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     // ====== 底部汇总 / 合计行 ======
     /** 是否显示底部固定汇总行；各列内容由 ColumnType.summaryRender 提供，未设置的列为空 */
     showSummary?: boolean
-    /** 汇总行高度（默认 35） */
+    /** 汇总行高度（默认 52） */
     summaryRowHeight?: number
     // ====== 行展开（详情面板，独立于 treeData） ======
     /** 提供即启用行展开：返回某行展开后在其下方插入的详情内容 */
@@ -611,9 +611,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         columns,
         mergeCells = EMPTY_MERGE_CELLS,
         getRowHeight,
-        headerRowHeight = 35,
+        headerRowHeight = 56,
         filterBar = false,
-        filterRowHeight = 35,
+        filterRowHeight = 56,
         filterCellClassName,
         filters,
         editType,
@@ -622,7 +622,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         renderDefaultFilterEditor,
         onFilterChange,
         groupBy: groupByProp,
-        groupRowHeight = 35,
+        groupRowHeight = 52,
         expandedGroupIds,
         defaultExpandedGroupIds,
         defaultExpandAll = true,
@@ -657,7 +657,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         onSortColumnsChange,
         rowSelection,
         showSummary = false,
-        summaryRowHeight = 35,
+        summaryRowHeight = 52,
         expandedRowRender,
         isRowExpandable,
         expandedRowKeys,
@@ -720,7 +720,11 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 const disabled = currentSelection?.getDisabled?.(row) ?? false;
                 if (currentSelection?.type === 'checkbox') {
                     return (
-                        <div className={selectionCellStyle}>
+                        <div data-table-selection-cell="" className={selectionCellStyle} onClick={event => {
+                            if (event.target !== event.currentTarget) return;
+                            event.stopPropagation();
+                            if (!disabled) toggle(row.id);
+                        }}>
                             <Checkbox
                                 checked={isSelected}
                                 disabled={disabled}
@@ -731,7 +735,11 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     );
                 }
                 return (
-                    <div className={selectionCellStyle}>
+                    <div data-table-selection-cell="" className={selectionCellStyle} onClick={event => {
+                        if (event.target !== event.currentTarget) return;
+                        event.stopPropagation();
+                        if (!disabled) toggle(row.id);
+                    }}>
                         <Radio
                             checked={isSelected}
                             disabled={disabled}

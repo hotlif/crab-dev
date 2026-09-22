@@ -114,10 +114,10 @@ label 是用户看到的文字；value 是程序使用的稳定标识，不应�
 
 ### 无障碍
 
-- Select 不内置业务标签；每个实例都应有可见标签，并通过 `aria-label` 提供一致的可访问名称。
+- 使用 `label` 提供可见的浮动字段标签；`supportingText` 与 `errorText` 会自动关联到选择器。没有可见标签的特殊场景仍必须提供 `aria-label`。
 - 使用方向键移动选项、Enter 选择、Escape 关闭、Backspace 删除多选标签，确保业务包装层不会拦截这些按键。
 - 清除后焦点回到选择器；可继续按方向键选择新值，不能因清除入口消失而把用户留在页面根部。
-- `status="error"` 只表达错误状态；错误原因仍需在控件附近以文字显示，不能只改变边框颜色。
+- `errorText` 会替换辅助说明并启用错误状态；不要只设置 `status="error"` 而省略可见的错误原因。
 - 自定义 `optionRender` 或 `tagRender` 时保留可读文本，纯装饰图标应设置 `aria-hidden="true"`。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。

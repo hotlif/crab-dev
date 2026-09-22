@@ -128,7 +128,11 @@ function Tooltip({
         childRef,
         (node: Element | null) => {
             if (node) {
-                const dialog = node.closest('dialog') ?? undefined;
+                // Shadow DOM 内的提示必须保留在同一主题边界，否则会丢失隔离样式。
+                // 普通页面仍沿用 body Portal；原生模态 dialog 始终优先。
+                const shadowTheme = node.getRootNode() instanceof globalThis.ShadowRoot
+                    ? node.closest<HTMLElement>('[data-theme]') : null;
+                const dialog = node.closest('dialog') ?? shadowTheme ?? undefined;
                 // 同值复用，避免 ref 回调重复触发时产生多余渲染
                 setPortalRoot((prev) => (prev === dialog ? prev : dialog));
             }

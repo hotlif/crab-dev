@@ -1,11 +1,12 @@
-import { beforeAll, describe, expect, it, mock, render, fireEvent, screen, act } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { render, fireEvent, screen, act } from "@crab-dev/wake/test/react";
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 // Mock @dnd-kit/sortable
 mock.module("@dnd-kit/sortable", () => ({
-    useSortable: () => ({
-        attributes: { role: "treeitem" },
+    useSortable: ({ disabled }: { disabled: boolean }) => ({
+        attributes: { role: "button", 'aria-disabled': disabled },
         listeners: {},
         setNodeRef: mock.fn(),
         transform: null,
@@ -34,6 +35,17 @@ const createNode = (id: string | number, overrides: Partial<Node> = {}): Node =>
     ...overrides,
 });
 describe("NodeItem", () => {
+    it("keeps non-draggable nodes selectable and exposes tree state", async () => {
+        const node = createNode('accessible');
+        const view = await render(<NodeItem node={node} overState={null} expanded loading={false} selectKeys={[node.id]} />);
+        const item = view.container.querySelector('[role="treeitem"]')!;
+        expect(item.getAttribute('aria-disabled')).toBe('false');
+        expect(item.getAttribute('aria-selected')).toBe('true');
+        expect(item.getAttribute('aria-expanded')).toBe('true');
+        expect(item.getAttribute('aria-level')).toBe('1');
+        await view.rerender(<NodeItem node={{ ...node, disabled: true }} overState={null} expanded={false} loading={false} />);
+        expect(item.getAttribute('aria-disabled')).toBe('true');
+    });
     it("renders a folder node with title", async () => {
         const node = createNode("1");
         await act(async () => {

@@ -68,8 +68,8 @@ const centerFlexStyle = css`
 `;
 
 const panelStyle = css`
-    width: calc(${token.cell.content.width} * 7);
-    max-width: 100%;
+    width: calc(${token.cell.touch.width} * 7);
+    max-width: min(100%, ${token.panel['max-width']});
     font-size: ${token.panel['font-size']};
     color: ${semantic.color.text.primary};
     user-select: none;
@@ -84,6 +84,7 @@ const monthStyle = css`
     display: grid;
     gap: ${semantic.space['inline-gap']};
     text-align: center;
+    white-space: nowrap;
     font-weight: ${semantic.font.weight.heading};
     line-height: ${token.header['line-height']};
 `;
@@ -120,7 +121,8 @@ const calendarDateCellContentStyle = css`
     align-items: center;
     justify-content: center;
     border-radius: ${token.cell["border-radius"]};
-    width: ${token.cell.content.width};
+    width: min(${token.cell.content.width}, 100%);
+    min-width: 0;
     height: ${token.cell.content.width};
     line-height: ${token.cell.content.width};
     font-size: ${token.cell["font-size"]};

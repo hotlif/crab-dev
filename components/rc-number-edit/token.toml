@@ -11,23 +11,28 @@ imports = [
 root.transition = "var(--number-edit-transition, color $ref(motion.interaction), background-color $ref(motion.interaction))"
 
 # ─── 步进器（Stepper）─────────────────────────────────────────────
-# 右侧竖排 +/- 微调按钮的示能与反馈：默认 / hover / 激活 / 禁用，及与输入区的分隔线
+# 字段尾部使用 MD3 Text icon button 的状态层；本层只规定组合布局和 48px 操作目标。
 stepper.color            = "$ref(color.text.secondary)"
 stepper.color-hover      = "$ref(color.text.primary)"
 stepper.color-disabled   = "$ref(color.text.disabled)"
-stepper.background-color-hover  = "var(--number-edit-stepper-background-hover, $ref(color.background.hover-subtle))"
-stepper.background-color-active = "var(--number-edit-stepper-background-active, $ref(color.background.active-subtle))"
-# 极浅的区域分隔线（划分步进区与输入区、上下半区），非装饰性粗线
+stepper.background-color-hover  = "var(--number-edit-stepper-background-hover, $ref(color.state.hover))"
+stepper.background-color-active = "var(--number-edit-stepper-background-active, $ref(color.state.pressed))"
 stepper.divider.color    = "$ref(color.border.default)"
-# 右缘圆角对齐 rc-line-edit 的边框圆角（radius.md）
-stepper.border-radius           = "var(--number-edit-stepper-radius, $ref(radius.md))"
+stepper.border-radius    = "var(--number-edit-stepper-radius, $ref(shape.control))"
 stepper.width            = "24px"
-stepper.icon.width = "var(--number-edit-stepper-icon-size, 12px)"
+stepper.gap              = "$ref(space.inline-gap)"
+stepper.action.min-width = "$ref(size.48)"
+stepper.action.width     = "$ref(size.48)"
+stepper.action.height    = "$ref(size.48)"
+stepper.action.touch.min-width = "$ref(size.touch-target)"
+stepper.action.touch.width = "$ref(size.touch-target)"
+stepper.action.touch.height = "$ref(size.touch-target)"
+stepper.icon.width       = "var(--number-edit-stepper-icon-size, 24px)"
 
 # ─── 上标科学计数法覆盖层（Display overlay）───────────────────────
 # 失焦时覆盖在 input 文本区之上、用真 <sup> 呈现 1.23×10²¹。
 # 背景须与输入框表面同色，以完全遮盖底层 input 的原始文本。
-display.background-color       = "var(--number-edit-display-background, $ref(color.background.surface))"
+display.background-color       = "var(--number-edit-display-background, $ref(color.surface.content))"
 display.color           = "$ref(color.text.primary)"
 # <sup> 相对基线的字号比例（视觉打磨）
 display.superscript.font-size = "0.75em"

@@ -1,7 +1,7 @@
 
 export const meta = {
     title: "图标位置",
-    description: "`icon` 在文字左侧，`iconAfter` 在文字右侧，可同时使用",
+    description: "M3 推荐单个前置图标；iconAfter 保留为 Material Web 支持的后置图标扩展。",
 };
 
 import Button from '../../src/index.js';
@@ -22,7 +22,6 @@ const IconAfterDemo = () => {
             <Button iconAfter={<ArrowRight />}>下一步</Button>
             <Button iconAfter={<ChevronDown />}>更多选项</Button>
             <Button appearance="primary" iconAfter={<Download />}>下载</Button>
-            <Button icon={<Search />} iconAfter={<ChevronDown />}>搜索并展开</Button>
         </div>
     );
 };

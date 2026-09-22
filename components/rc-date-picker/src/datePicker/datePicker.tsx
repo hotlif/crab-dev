@@ -6,8 +6,7 @@ import DatePickerInput from "./datePickerInput.js";
 import type { DatePickerInputProps } from "./datePickerInput.js";
 import DatePickerOverlay from "./datePickerOverlay.js";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
-import { css } from '@crab-dev/css';
-import token from '../token.js';
+import { popupContentStyle, popupFrameStyle } from '../panels/popup.style.js';
 
 export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
 
@@ -69,9 +68,8 @@ const DatePicker: FC<DatePickerProps> = ({
 
     return (
         <RcDropdownContainer
-            overlayClassName={css`
-                padding: ${token.panel.padding};
-            `}
+            floatingContainerProps={{ className: popupFrameStyle }}
+            overlayClassName={popupContentStyle}
             overlay={(
                 <DatePickerOverlay
                     value={value ?? selectValues?.[0]}

@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import type { ButtonProps } from "@crab-dev/rc-button";
 import type { LineEditProps } from "@crab-dev/rc-line-edit";
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
@@ -22,6 +23,12 @@ mock.module("@crab-dev/rc-line-edit", () => ({
         {allowClear && typeof value === "string" && value.length > 0 && !disabled && !readOnly && (<button type="button" aria-label="清除" onClick={onClear}>x</button>)}
         {suffix}
     </div>),
+}));
+mock.module("@crab-dev/rc-button", () => ({
+    __esModule: true,
+    default: ({ icon, appearance: _appearance, size: _size, shape: _shape, children, ...props }: ButtonProps) => (
+        <button {...props}>{icon}{children}</button>
+    ),
 }));
 let NumberEdit: (typeof import("../numberEdit.js"))["default"];
 beforeAll(async () => {
@@ -57,6 +64,13 @@ describe("NumberEdit", () => {
             expect(stepDown()).toBeTruthy();
             await act(async () => { await rerender(<NumberEdit value={1} controls={false}/>); });
             expect(stepUp()).toBeNull();
+        });
+        it("步进按钮可聚焦并与数字字段建立关联", async () => {
+            await render(<NumberEdit id="quantity" value={1}/>);
+            expect(stepUp().tabIndex).toBe(0);
+            expect(stepDown().tabIndex).toBe(0);
+            expect(stepUp().getAttribute("aria-controls")).toBe("quantity");
+            expect(stepDown().getAttribute("aria-controls")).toBe("quantity");
         });
     });
     describe("失焦态显示", () => {

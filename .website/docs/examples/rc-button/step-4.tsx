@@ -45,7 +45,7 @@ export default function Example() {
             <section className={sectionStyle} aria-label="按钮组选中状态">
                 <strong>按钮组与选中</strong>
                 <p className={noteStyle}>ButtonGroup 统一尺寸和外观，isSelected 显示可切换状态。</p>
-                <ButtonGroup size="middle" appearance="subtle">
+                <ButtonGroup size="middle" appearance="outlined">
                     <Button isSelected={bold} onClick={() => setBold(value => !value)}>粗体</Button>
                     <Button isSelected={italic} onClick={() => setItalic(value => !value)}>斜体</Button>
                     <Button isSelected={underline} onClick={() => setUnderline(value => !value)}>下划线</Button>
@@ -56,7 +56,7 @@ export default function Example() {
                 <strong>通栏与链接</strong>
                 <p className={noteStyle}>shouldFitContainer 撑满容器；href 让按钮承担实际导航。</p>
                 <Button appearance="primary" shouldFitContainer onClick={() => setMessage("已点击通栏按钮。")}>继续下一步</Button>
-                <div className={rowStyle}><Button appearance="link" href="#api">查看 Button API</Button></div>
+                <div className={rowStyle}><Button appearance="text" href="#api">查看 Button API</Button></div>
             </section>
             <output className={noteStyle} aria-live="polite">{message}</output>
         </div>

@@ -3,11 +3,11 @@ import { Box, Check, Label, Line, Window } from "./shapes.js";
 export const displayPreviews = {
     "rc-avatar": <><circle cx={66} cy={73} r={24} className="cc-brand" /><Label x={66} y={79} tone="on-brand">林</Label><circle cx={123} cy={73} r={20} className="cc-soft" /><circle cx={123} cy={67} r={6} className="cc-brand" /><path d="M112 84a11 11 0 0 1 22 0" className="cc-brand" /><Box x={160} y={57} w={32} h={32} tone="muted" /><Label x={176} y={78} tone="on-brand">陈</Label></>,
     "rc-badge": <><Box x={49} y={53} w={48} h={48} tone="soft" /><Box x={81} y={42} w={30} h={22} tone="brand" r={11} /><Label x={96} y={58} tone="on-brand">12</Label><Box x={148} y={53} w={48} h={48} tone="soft" /><circle cx={194} cy={53} r={6} className="cc-brand" /></>,
-    "rc-card": <><Box x={47} y={21} w={146} h={112} /><Box x={57} y={31} w={126} h={40} tone="soft" /><Label x={61} y={93} anchor="start">项目概览</Label><Line x={61} y={112} w={105} /></>,
+    "rc-card": <><Box x={47} y={21} w={146} h={112} r={12} /><Box x={57} y={31} w={126} h={40} tone="soft" /><Label x={61} y={93} anchor="start">项目概览</Label><Line x={61} y={112} w={105} /></>,
     "rc-divider": <><Line x={48} y={38} w={144} /><Line x={48} y={54} w={95} /><path d="M35 77h170" className="cc-stroke cc-border" /><Line x={48} y={101} w={144} /><Line x={48} y={117} w={95} /></>,
     "rc-empty": <><path d="m90 46 12-17h36l12 17v35H90z" className="cc-surface" /><path d="M90 48h18l5 10h14l5-10h18" className="cc-stroke cc-border" /><Label y={106}>暂无数据</Label><Label y={131} tone="brand">＋ 创建项目</Label></>,
     "rc-skeleton": <><circle cx={64} cy={48} r={17} className="cc-soft" /><Line x={96} y={42} w={79} tone="border" /><Line x={96} y={57} w={47} tone="border" /><Line x={48} y={85} w={144} tone="border" /><Line x={48} y={103} w={144} tone="border" /><Line x={48} y={121} w={102} tone="border" /></>,
-    "rc-tag": <><Box x={32} y={38} w={82} h={30} tone="soft" r={15} /><Label x={73} y={58} tone="brand">设计系统</Label><Box x={124} y={38} w={82} h={30} /><Label x={165} y={58}>产品设计</Label><Box x={76} y={87} w={88} h={30} tone="brand" r={15} /><Check x={86} y={102} /><Label x={130} y={107} tone="on-brand">已完成</Label></>,
+    "rc-tag": <><Box x={32} y={38} w={82} h={32} tone="soft" r={8} /><Label x={73} y={58} tone="brand">设计系统</Label><Box x={124} y={38} w={82} h={32} r={8} /><Label x={165} y={58}>产品设计</Label><Box x={76} y={87} w={88} h={32} tone="soft" r={8} /><Check x={86} y={102} tone="text" /><Label x={130} y={107}>已完成</Label></>,
 };
 
 export const feedbackPreviews = {

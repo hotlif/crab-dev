@@ -13,7 +13,7 @@ root.background-color = "var(--skeleton-background-color, var(--skeleton-color-b
 wave.background-color = "var(--skeleton-color-highlight, $ref(color.background.active-subtle))"
 
 # ─── 圆角 ───────────────────────────────────────────────────────────────────
-item.border-radius = "var(--skeleton-radius-default, $ref(radius.md))"
+item.border-radius = "var(--skeleton-radius-default, $ref(shape.control))"
 text.border-radius = "var(--skeleton-radius-text, $ref(radius.sm))"
 pill.border-radius = "var(--skeleton-radius-pill, $ref(radius.pill))"
 

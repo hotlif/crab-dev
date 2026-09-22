@@ -1,0 +1,1015 @@
+{
+  "capturedAt": "2026-09-20T23:16:39.170Z",
+  "base": "http://127.0.0.1:4175",
+  "results": [
+    {
+      "name": "home light 320",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "scrollWidth": 305,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "catalog light 320",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "scrollWidth": 305,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "tabs-doc light 320",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "scrollWidth": 305,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "home light 768",
+      "passed": true,
+      "evidence": {
+        "viewport": 768,
+        "scrollWidth": 753,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "catalog light 768",
+      "passed": true,
+      "evidence": {
+        "viewport": 768,
+        "scrollWidth": 753,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "tabs-doc light 768",
+      "passed": true,
+      "evidence": {
+        "viewport": 768,
+        "scrollWidth": 753,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "home light 1440",
+      "passed": true,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "search light",
+      "passed": true,
+      "evidence": {
+        "width": 256,
+        "height": 56,
+        "cssWidth": "256px",
+        "cssHeight": "56px",
+        "content": "normal",
+        "color": "oklch(0.398053 0.0173554 303.721)",
+        "background": "oklch(0.932506 0.014788 312.24)",
+        "shadow": "none",
+        "opacity": "1",
+        "radius": "9999px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "rail hover light",
+      "passed": true,
+      "evidence": {
+        "width": 56,
+        "height": 32,
+        "cssWidth": "56px",
+        "cssHeight": "32px",
+        "content": "\"\"",
+        "color": "oklch(0.227201 0.0347282 293.65)",
+        "background": "oklch(0.227201 0.0347282 293.65)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "9999px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "feature hover light",
+      "passed": true,
+      "evidence": {
+        "width": 611.90625,
+        "height": 255.421875,
+        "cssWidth": "611.906px",
+        "cssHeight": "255.422px",
+        "content": "\"\"",
+        "color": "oklch(0.241998 0.140385 286.09)",
+        "background": "oklch(0.241998 0.140385 286.09)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "28px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "catalog light 1440",
+      "passed": true,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "tabs-doc light 1440",
+      "passed": true,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "header": 64,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "tab indicator light",
+      "passed": true,
+      "evidence": {
+        "width": 28,
+        "height": 48,
+        "cssWidth": "28px",
+        "cssHeight": "3px",
+        "content": "\"\"",
+        "color": "oklch(0.495521 0.130457 293.709)",
+        "background": "oklch(0.495521 0.130457 293.709)",
+        "shadow": "none",
+        "opacity": "1",
+        "radius": "9999px",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "tab hover light",
+      "passed": true,
+      "evidence": {
+        "width": 60,
+        "height": 48,
+        "cssWidth": "60px",
+        "cssHeight": "48px",
+        "content": "\"\"",
+        "color": "oklch(0.495521 0.130457 293.709)",
+        "background": "oklch(0.495521 0.130457 293.709)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "0px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "tab keyboard light",
+      "passed": true,
+      "evidence": {
+        "selected": "日志",
+        "focused": "日志",
+        "outline": "2px",
+        "offset": "-2px"
+      }
+    },
+    {
+      "name": "card hover light",
+      "passed": true,
+      "evidence": {
+        "width": 324.453125,
+        "height": 167,
+        "cssWidth": "322.453px",
+        "cssHeight": "165px",
+        "content": "\"\"",
+        "color": "oklch(0.226524 0.00999107 303.714)",
+        "background": "oklch(0.226524 0.00999107 303.714)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "12px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "card press light",
+      "passed": true,
+      "evidence": {
+        "width": 324.453125,
+        "height": 167,
+        "cssWidth": "322.453px",
+        "cssHeight": "165px",
+        "content": "\"\"",
+        "color": "oklch(0.226524 0.00999107 303.714)",
+        "background": "oklch(0.226524 0.00999107 303.714)",
+        "shadow": "none",
+        "opacity": "0.12",
+        "radius": "12px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "card variant 0 hover light",
+      "passed": true,
+      "evidence": {
+        "rest": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.967283 0.0118141 313.217)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "hover": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.967283 0.0118141 313.217)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 2px 6px 2px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 0 pressed light",
+      "passed": true,
+      "evidence": {
+        "rest": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+        "pressed": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px"
+      }
+    },
+    {
+      "name": "card variant 0 disabled light",
+      "passed": true,
+      "evidence": {
+        "disabledStyle": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.967283 0.0118141 313.217)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "0.38",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "disabledLayer": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "auto",
+          "cssHeight": "auto",
+          "content": "none",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "0px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 1 hover light",
+      "passed": true,
+      "evidence": {
+        "rest": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.983795 0.012845 321.894)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "hover": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.983795 0.012845 321.894)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 1 pressed light",
+      "passed": true,
+      "evidence": {
+        "rest": "none",
+        "pressed": "none"
+      }
+    },
+    {
+      "name": "card variant 1 disabled light",
+      "passed": true,
+      "evidence": {
+        "disabledStyle": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.983795 0.012845 321.894)",
+          "shadow": "none",
+          "opacity": "0.38",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "disabledLayer": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "auto",
+          "cssHeight": "auto",
+          "content": "none",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "0px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 2 hover light",
+      "passed": true,
+      "evidence": {
+        "rest": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.914011 0.0136639 314.754)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "hover": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.914011 0.0136639 314.754)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 2 pressed light",
+      "passed": true,
+      "evidence": {
+        "rest": "none",
+        "pressed": "none"
+      }
+    },
+    {
+      "name": "card variant 2 disabled light",
+      "passed": true,
+      "evidence": {
+        "disabledStyle": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "oklch(0.914011 0.0136639 314.754)",
+          "shadow": "none",
+          "opacity": "0.38",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "disabledLayer": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "auto",
+          "cssHeight": "auto",
+          "content": "none",
+          "color": "oklch(0.226524 0.00999107 303.714)",
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "0px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "home dark 320",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "scrollWidth": 305,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "catalog dark 320",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "scrollWidth": 305,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "tabs-doc dark 320",
+      "passed": true,
+      "evidence": {
+        "viewport": 320,
+        "scrollWidth": 305,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "home dark 768",
+      "passed": true,
+      "evidence": {
+        "viewport": 768,
+        "scrollWidth": 753,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "catalog dark 768",
+      "passed": true,
+      "evidence": {
+        "viewport": 768,
+        "scrollWidth": 753,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "tabs-doc dark 768",
+      "passed": true,
+      "evidence": {
+        "viewport": 768,
+        "scrollWidth": 753,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "home dark 1440",
+      "passed": true,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "search dark",
+      "passed": true,
+      "evidence": {
+        "width": 256,
+        "height": 56,
+        "cssWidth": "256px",
+        "cssHeight": "56px",
+        "content": "normal",
+        "color": "oklch(0.828748 0.0177581 308.223)",
+        "background": "oklch(0.285903 0.0129257 298.633)",
+        "shadow": "none",
+        "opacity": "1",
+        "radius": "9999px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "rail hover dark",
+      "passed": true,
+      "evidence": {
+        "width": 56,
+        "height": 32,
+        "cssWidth": "56px",
+        "cssHeight": "32px",
+        "content": "\"\"",
+        "color": "oklch(0.916334 0.0365149 303.106)",
+        "background": "oklch(0.916334 0.0365149 303.106)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "9999px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "feature hover dark",
+      "passed": true,
+      "evidence": {
+        "width": 611.90625,
+        "height": 255.421875,
+        "cssWidth": "611.906px",
+        "cssHeight": "255.422px",
+        "content": "\"\"",
+        "color": "oklch(0.918293 0.0477025 302.828)",
+        "background": "oklch(0.918293 0.0477025 302.828)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "28px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "0s"
+      }
+    },
+    {
+      "name": "catalog dark 1440",
+      "passed": true,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "tabs-doc dark 1440",
+      "passed": true,
+      "evidence": {
+        "viewport": 1440,
+        "scrollWidth": 1425,
+        "header": 64,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "tab indicator dark",
+      "passed": true,
+      "evidence": {
+        "width": 28,
+        "height": 48,
+        "cssWidth": "28px",
+        "cssHeight": "3px",
+        "content": "\"\"",
+        "color": "oklch(0.834926 0.0945749 298.018)",
+        "background": "oklch(0.834926 0.0945749 298.018)",
+        "shadow": "none",
+        "opacity": "1",
+        "radius": "9999px",
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "tab hover dark",
+      "passed": true,
+      "evidence": {
+        "width": 60,
+        "height": 48,
+        "cssWidth": "60px",
+        "cssHeight": "48px",
+        "content": "\"\"",
+        "color": "oklch(0.834926 0.0945749 298.018)",
+        "background": "oklch(0.834926 0.0945749 298.018)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "0px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "tab keyboard dark",
+      "passed": true,
+      "evidence": {
+        "selected": "日志",
+        "focused": "日志",
+        "outline": "2px",
+        "offset": "-2px"
+      }
+    },
+    {
+      "name": "card hover dark",
+      "passed": true,
+      "evidence": {
+        "width": 324.453125,
+        "height": 167,
+        "cssWidth": "322.453px",
+        "cssHeight": "165px",
+        "content": "\"\"",
+        "color": "oklch(0.914011 0.0136639 314.754)",
+        "background": "oklch(0.914011 0.0136639 314.754)",
+        "shadow": "none",
+        "opacity": "0.08",
+        "radius": "12px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "card press dark",
+      "passed": true,
+      "evidence": {
+        "width": 324.453125,
+        "height": 167,
+        "cssWidth": "322.453px",
+        "cssHeight": "165px",
+        "content": "\"\"",
+        "color": "oklch(0.914011 0.0136639 314.754)",
+        "background": "oklch(0.914011 0.0136639 314.754)",
+        "shadow": "none",
+        "opacity": "0.12",
+        "radius": "12px",
+        "transform": "none",
+        "outline": "3px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "card variant 0 hover dark",
+      "passed": true,
+      "evidence": {
+        "rest": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.226524 0.00999107 303.714)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "hover": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.226524 0.00999107 303.714)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 2px 6px 2px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 0 pressed dark",
+      "passed": true,
+      "evidence": {
+        "rest": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+        "pressed": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px"
+      }
+    },
+    {
+      "name": "card variant 0 disabled dark",
+      "passed": true,
+      "evidence": {
+        "disabledStyle": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.226524 0.00999107 303.714)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "0.38",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "disabledLayer": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "auto",
+          "cssHeight": "auto",
+          "content": "none",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "0px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 1 hover dark",
+      "passed": true,
+      "evidence": {
+        "rest": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.187375 0.0124082 300.422)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "hover": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.187375 0.0124082 300.422)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 1 pressed dark",
+      "passed": true,
+      "evidence": {
+        "rest": "none",
+        "pressed": "none"
+      }
+    },
+    {
+      "name": "card variant 1 disabled dark",
+      "passed": true,
+      "evidence": {
+        "disabledStyle": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.187375 0.0124082 300.422)",
+          "shadow": "none",
+          "opacity": "0.38",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "disabledLayer": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "auto",
+          "cssHeight": "auto",
+          "content": "none",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "0px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 2 hover dark",
+      "passed": true,
+      "evidence": {
+        "rest": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.329789 0.0124686 298.761)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "hover": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.329789 0.0124686 298.761)",
+          "shadow": "oklch(0 0 0 / 0.3) 0px 1px 2px 0px, oklch(0 0 0 / 0.15) 0px 1px 3px 1px",
+          "opacity": "1",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "card variant 2 pressed dark",
+      "passed": true,
+      "evidence": {
+        "rest": "none",
+        "pressed": "none"
+      }
+    },
+    {
+      "name": "card variant 2 disabled dark",
+      "passed": true,
+      "evidence": {
+        "disabledStyle": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "297.594px",
+          "cssHeight": "92.3906px",
+          "content": "normal",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "oklch(0.329789 0.0124686 298.761)",
+          "shadow": "none",
+          "opacity": "0.38",
+          "radius": "12px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        },
+        "disabledLayer": {
+          "width": 297.59375,
+          "height": 92.390625,
+          "cssWidth": "auto",
+          "cssHeight": "auto",
+          "content": "none",
+          "color": "oklch(0.914011 0.0136639 314.754)",
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "opacity": "1",
+          "radius": "0px",
+          "transform": "none",
+          "outline": "3px",
+          "offset": "0px",
+          "transition": "1e-05s"
+        }
+      }
+    },
+    {
+      "name": "tabs forced colors",
+      "passed": true,
+      "evidence": {
+        "width": 60,
+        "height": 48,
+        "cssWidth": "60px",
+        "cssHeight": "48px",
+        "content": "normal",
+        "color": "rgb(26, 235, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "shadow": "none",
+        "opacity": "1",
+        "radius": "0px",
+        "transform": "none",
+        "outline": "2px",
+        "offset": "0px",
+        "transition": "1e-05s"
+      }
+    },
+    {
+      "name": "runtime exceptions",
+      "passed": true,
+      "evidence": []
+    }
+  ]
+}

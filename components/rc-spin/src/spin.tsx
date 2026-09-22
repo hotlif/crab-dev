@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useTimeout } from '@crab-dev/rc-hooks';
 
 import SpinIndicator, { sizeStyleOf } from './indicator.js';
+import ExpressiveSpinIndicator from './expressiveIndicator.js';
 import token from './token.js';
 import type { SpinProps } from './types.js';
 
@@ -84,6 +85,7 @@ const overlayStyle = css`
 const Spin = ({
     spinning = true,
     size = 'middle',
+    variant = 'circular',
     tip,
     delay = 0,
     indicator,
@@ -118,7 +120,7 @@ const Spin = ({
             aria-label={tip === undefined ? label : undefined}
         >
             {/* 尺寸由根节点的 --rc-spin-size 下发, 故此处不重复传 size */}
-            {indicator ?? <SpinIndicator />}
+            {indicator ?? (variant === 'expressive' ? <ExpressiveSpinIndicator /> : <SpinIndicator />)}
             {tip !== undefined && <span className={tipStyle}>{tip}</span>}
         </div>
     );

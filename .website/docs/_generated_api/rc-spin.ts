@@ -11,6 +11,7 @@ type HTMLDivElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SpinSize = DocsTypePlaceholder;
+type SpinVariant = DocsTypePlaceholder;
 
 export interface SpinProps {
     /**
@@ -56,4 +57,10 @@ export interface SpinProps {
      * 指示器下方的提示文案。给出后即作为无障碍名, 读屏播报该文案而非默认的 label
      */
     "tip"?: ReactNode;
+
+    /**
+     * 指示器视觉；expressive 使用 M3 Expressive 形变反馈。
+     * @default 'circular'
+     */
+    "variant"?: SpinVariant;
 }

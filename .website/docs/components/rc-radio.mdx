@@ -9,54 +9,39 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-radio.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
+import { RadioExample, RadioGuidance } from "../site/radioPage.js";
 import { tutorial } from "../_generated_tutorials/rc-radio.js";
 
 # Radio 单选框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-radio</div>
 
+<div className="crab-radio-page">
+
 ## 基础示例
 
-<FirstExample tutorial={tutorial} />
+<RadioExample tutorial={tutorial} index={0} />
 
-## 开始之前
+<RadioGuidance />
 
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
+## 用法示例
 
-单选组展示少量互斥选项，组值用于业务提交。
+用 RadioGroup 管理组值，为组提供清晰的名称。每个 Radio 的 value 必须不同。
 
-## 跟着做
+<RadioExample tutorial={tutorial} index={1} />
 
-<Tutorial tutorial={tutorial} />
+## 状态与主题
 
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+切换主题、品牌色和可用状态，直接体验焦点、禁用与错误恢复。
 
-**设置选项组**
-
-用 RadioGroup 包裹 Radio，并设置不同 value。 单选组展示少量互斥选项，组值用于业务提交。 在每天和每周之间切换。 同一时刻只有一个选项被选中。
-
-**读取组值**
-
-通过组级 value 与 onChange 管理选中值。 单选组展示少量互斥选项，组值用于业务提交。 选择每天，查看提交值。 输出变为 daily，其他选项取消选中。
-
-**视觉状态与明暗主题**
-
-对照圆环、圆点、交互状态层和三种视觉尺寸。 参考 Material Design 3，以品牌色圆环和同色圆点表达选中，交互反馈不改变布局。 切换紫、蓝、绿品牌色；在两种主题下悬停、按压，并用 Tab 和方向键操作。 圆点与圆环跟随主题，焦点可见，禁用选项不响应，切换前后位置和尺寸稳定。
-
-</div>
-
-## 常见问题
-
-### 选项很多时用什么？
-
-选项较多时用 Select；Radio 适合直接比较少量选项。
-
+<RadioExample tutorial={tutorial} index={2} />
 
 ## API
 
 <API source="../_generated_api/rc-radio.ts" symbol="RadioProps" component="Radio" />
+
+
+<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />
 
 ## 更多示例
 
@@ -80,7 +65,8 @@ import { tutorial } from "../_generated_tutorials/rc-radio.js";
 
 [打开完整组件工作台](/components/rc-radio/workbench/)
 
-## 使用说明
+<details>
+<summary>设计依据、键盘与兼容说明</summary>
 
 从一组互斥且可见的选项中选择一个值。
 
@@ -90,11 +76,11 @@ import { tutorial } from "../_generated_tutorials/rc-radio.js";
 - 从少量互斥选项中选择一个值，例如支付方式或配置类型。
 - 需要让用户直接比较全部选项时使用 Radio；选项较多或空间有限时使用 Select。
 
-### 视觉状态与验证
+### 设计依据与视觉状态
 
-参考 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
+页面依据 [M3 Expressive](https://m3.material.io/blog/building-with-m3-expressive) 的排版、用途色和内容分组呈现关键选择。通知场景中的选项容器属于应用组合，不新增 Radio 外观类型。Radio 保留 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
 
-40px 圆形交互区承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时沿用 Crab 的禁用透明度，圆环、圆点和文字使用中性色，不响应交互反馈。
+48px 点击目标内的 40px 圆形状态层承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时沿用 Crab 的禁用透明度，圆环、圆点和文字使用中性色，不响应交互反馈。
 
 原生输入负责组内单选和键盘行为。使用 `aria-label` 或 `aria-labelledby` 为 RadioGroup 命名；校验提示通过 Radio 的 `aria-invalid` 与 `aria-describedby` 关联。强制颜色下以系统圆环和圆点表达选中。
 
@@ -104,8 +90,28 @@ RadioGroup 未指定 `name` 或传入空字符串时，会生成稳定的组内�
 
 **原生表单迁移**：自动名称也属于原生表单字段。使用 FormData 的页面应明确设置例如 `name="notificationFrequency"` 的业务名称，不依赖自动 ID，也不依赖未命名组原先不进入 FormData 的行为。
 
-粗指针环境下，圆形控件的命中区扩展为 48×48 CSS px，圆环和圆点仍保持指定的视觉尺寸。长标签采用正文行高并允许换行；紧密组合需检查目标区域没有相互重叠。
+默认圆形控件的命中区为 48×48 CSS px，圆环和圆点仍保持指定的视觉尺寸。长标签采用正文行高并允许换行；紧密组合需检查目标区域没有相互重叠。
 
 键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
 
-规则依据：[状态系统](/design/interaction)、[无障碍与键盘](/design/accessibility)、[布局与密度](/design/layout)。
+规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
+
+</details>
+
+<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+
+**通知偏好**
+
+选择一种通知节奏，同时查看对应的通知预览。 将互斥选项与结果放在同一上下文，让选择的影响一目了然。 选择每天、每周或仅重要通知。 预览时间和说明同步更新，同组只保留一个选中项。
+
+**受控单选组**
+
+用 value 与 onChange 连接选项和组值。 单选组展示少量互斥选项，组值用于业务提交。 选择每天，查看提交值。 当前组值变为 daily，其他选项取消选中。
+
+**交互试验区**
+
+直接切换主题、品牌色和状态，检查真实交互。 Radio 保留 Material 的圆环和圆点；页面按 Expressive 的用途色、排版和分组表达重点。 切换浅色或深色、品牌色，再体验禁用和校验状态；选择一项解除错误。 禁用选项不响应；校验提示与输入关联，选择后立即恢复正常。
+
+</div>
+
+</div>

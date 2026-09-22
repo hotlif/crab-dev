@@ -1,210 +1,122 @@
 import { css, cx } from "@crab-dev/css";
-import { useEffect, useRef, type FC, type HTMLAttributes } from "react";
+import NumberEdit from "@crab-dev/rc-number-edit";
+import type { FC, HTMLAttributes } from "react";
 
 import token from "../token.js";
-import { selectStyle } from "./universal.style.js";
-
 
 export interface TimePickerValue {
-    hour: number
-    minute: number
-    second: number
+    hour: number;
+    minute: number;
+    second: number;
 }
 
-export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, ''> {
-    value?: TimePickerValue | null,
-    onValueChange?: (value: TimePickerValue | null) => void
+export interface TimePickerPanelProps extends HTMLAttributes<HTMLDivElement> {
+    value?: TimePickerValue | null;
+    onValueChange?: (value: TimePickerValue | null) => void;
 }
-
 
 const containerStyle = css`
-    display: flex;
-    flex-direction: column;
-    width: calc(${token.cell.content.width} * 7);
+    display: grid;
+    width: calc(${token.time.input.width} * 3 + ${token.time.input.gap} * 2);
     max-width: 100%;
-`
+    gap: ${token.time.section.gap};
+`;
 
-const mainStyle = css`
-    height: 224px;
-    display: flex;
-    line-height: ${token.cell.content.width};
-    font-size: ${token.cell["font-size"]};
-    font-weight: ${token.cell["font-weight"]};
-`
-
-const ulStyle = css`
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    list-style: none; 
-    padding: 0; 
+const titleStyle = css`
     margin: 0;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scroll-behavior: smooth;
-    @media (prefers-reduced-motion: reduce) { scroll-behavior: auto; }
-    padding: 4px;
-    &:hover {
-        overflow-y: auto;
-    }
+    color: ${token.time.title.color};
+    font-size: ${token.time.title['font-size']};
+    font-weight: ${token.time.title['font-weight']};
+    line-height: ${token.time.title['line-height']};
+`;
 
-    &::after {
-        display: block;
-        height: calc(100% - ${token.cell.content.width});
-        content: "";
-    }
-    > li {
-        cursor: pointer;
-        padding-inline-start: 8px;
-        padding-inline-end: 8px;
-        border-radius: ${token.cell["border-radius"]};
-        transition: background-color ${token.cell.transition}, color ${token.cell.transition};
-        user-select: none;
-    }
-`
+const fieldsStyle = css`
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, ${token.time.input.width}));
+    gap: ${token.time.input.gap};
+    align-items: start;
+`;
 
-// hover 反馈只挂在未选中的项上（JSX 分支），避免 :hover 规则以更高特异性
-// 压过选中样式，导致点击后选中高亮被 hover 色遮住、直到移开鼠标才显现
-const liHoverStyle = css`
-    &:hover {
-        background-color: ${token.cell['background-color-hover']};
-        color: ${token.cell['color-hover']};
-    }
-`
+const inputStyle = css`
+    width: ${token.time.input.width};
+`;
+
+const extensionStyle = css`
+    margin: 0;
+    color: ${token.time.support.color};
+    font-size: ${token.time.support['font-size']};
+    line-height: ${token.time.support['line-height']};
+`;
 
 const TimePickerPanel: FC<TimePickerPanelProps> = ({
     className,
-    value = {
-        hour: Temporal.Now.zonedDateTimeISO().hour,
-        minute: Temporal.Now.zonedDateTimeISO().minute,
-        second: Temporal.Now.zonedDateTimeISO().second
-    },
+    value,
     onValueChange,
     ...restProps
 }) => {
-    const hourRef = useRef<HTMLUListElement>(null);
-    const minuteRef = useRef<HTMLUListElement>(null);
-    const secondRef = useRef<HTMLUListElement>(null);
+    const now = Temporal.Now.zonedDateTimeISO();
+    const resolvedValue = value ?? {
+        hour: now.hour,
+        minute: now.minute,
+        second: now.second,
+    };
 
-    useEffect(() => {
-        hourRef.current?.scrollTo({
-            top: (value?.hour ?? 0) * (hourRef.current?.children[0] as HTMLElement)?.offsetHeight || 0,
-            behavior: "auto"
-        });
-    }, [value?.hour])
-
-    useEffect(() => {
-        minuteRef.current?.scrollTo({
-            top: (value?.minute ?? 0) * (minuteRef.current?.children[0] as HTMLElement)?.offsetHeight || 0,
-            behavior: "auto"
-        });
-    }, [value?.minute])
-
-    
-    useEffect(() => {
-        secondRef.current?.scrollTo({
-            top: (value?.second ?? 0) * (secondRef.current?.children[0] as HTMLElement)?.offsetHeight || 0,
-            behavior: "auto"
-        });
-    }, [value?.second])
+    const update = (part: keyof TimePickerValue, next: number | null) => {
+        if (next == null) {
+            return;
+        }
+        onValueChange?.({ ...resolvedValue, [part]: next });
+    };
 
     return (
         <div
-            className={cx.call(undefined, containerStyle, className)}
+            role="group"
+            aria-label="输入时间"
+            className={cx(containerStyle, className)}
             {...restProps}
         >
-            <div
-                className={css`
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: ${token.header.padding};
-                `}
-            >
-                <div
-                    className={css`
-                        font-weight: bold;
-                    `}
-                >
-                    {value?.hour.toString().padStart(2, '0')}:{value?.minute.toString().padStart(2, '0')}:{value?.second.toString().padStart(2, '0')}
-                </div>
-            </div>
-            <div
-                className={mainStyle}
-            >
-                <ul
-                    className={ulStyle}
-                    ref={hourRef}
+            <h2 className={titleStyle}>输入时间</h2>
+            <div className={fieldsStyle}>
+                <NumberEdit
                     aria-label="小时"
-                >
-                    {
-                        Array.from({ length: 24 }).map((_, index) => (
-                            <li
-                                key={index}
-                                className={cx.call(undefined, index === value?.hour ? selectStyle : liHoverStyle)}
-                                onClick={() => {
-                                    onValueChange?.({
-                                        hour: index,
-                                        minute: value?.minute ?? 0,
-                                        second: value?.second ?? 0
-                                    });
-
-                                }}
-                            >
-                                {index.toString().padStart(2, '0')}
-                            </li>
-                        ))
-                    }
-                </ul>
-                <ul
-                    className={ulStyle}
-                    ref={minuteRef}
+                    label="小时"
+                    appearance="filled"
+                    value={resolvedValue.hour}
+                    min={0}
+                    max={23}
+                    precision={0}
+                    controls={false}
+                    className={inputStyle}
+                    onChange={(next) => update("hour", next)}
+                />
+                <NumberEdit
                     aria-label="分钟"
-                >
-                    {
-                        Array.from({ length: 60 }).map((_, index) => (
-                            <li
-                                key={index}
-                                className={cx.call(undefined, index === value?.minute ? selectStyle : liHoverStyle)}
-                                onClick={() => {
-                                    onValueChange?.({
-                                        hour: value?.hour ?? 0,
-                                        minute: index,
-                                        second: value?.second ?? 0
-                                    });
-                                }}
-                            >
-                                {index.toString().padStart(2, '0')}
-                            </li>
-                        ))
-                    }
-                </ul>
-                <ul
-                    className={ulStyle}
-                    ref={secondRef}
+                    label="分钟"
+                    appearance="filled"
+                    value={resolvedValue.minute}
+                    min={0}
+                    max={59}
+                    precision={0}
+                    controls={false}
+                    className={inputStyle}
+                    onChange={(next) => update("minute", next)}
+                />
+                <NumberEdit
                     aria-label="秒"
-                >
-                    {
-                        Array.from({ length: 60 }).map((_, index) => (
-                            <li
-                                className={cx.call(undefined, index === value?.second ? selectStyle : liHoverStyle)}
-                                key={index}
-                                onClick={() => {
-                                    onValueChange?.({
-                                        hour: value?.hour ?? 0,
-                                        minute: value?.minute ?? 0,
-                                        second: index
-                                    });
-                                }}
-                            >
-                                {index.toString().padStart(2, '0')}
-                            </li>
-                        ))
-                    }
-                </ul>
+                    label="秒"
+                    appearance="filled"
+                    value={resolvedValue.second}
+                    min={0}
+                    max={59}
+                    precision={0}
+                    controls={false}
+                    className={inputStyle}
+                    onChange={(next) => update("second", next)}
+                />
             </div>
+            <p className={extensionStyle}>24 小时制；秒是企业场景扩展。</p>
         </div>
-    )
-}
+    );
+};
 
 export default TimePickerPanel;

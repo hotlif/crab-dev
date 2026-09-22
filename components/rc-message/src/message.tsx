@@ -49,7 +49,7 @@ const baseStyle = css`
     &[data-stack="1"] { translate: 0 ${token.stack.translate}; }
     &[data-stack="2"] { translate: 0 calc(${token.stack.translate} * 2); }
     &[data-stack="3"] { translate: 0 calc(${token.stack.translate} * 3); }
-    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.interaction.transition};
+    transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
     @starting-style {
         &[data-state="open"] { opacity: 0; translate: 0 -100%; }
     }

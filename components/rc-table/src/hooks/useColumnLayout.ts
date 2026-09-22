@@ -176,10 +176,10 @@ export function useColumnLayout<T extends Row>(params: {
         return displayRows.map((row, rowIndex) => {
             if (isGroupRow(row)) return row.height ?? groupRowHeight;
             // 展开内容行的高度在构造时已写入 row.height（expandedRowHeight 或逐行覆盖值）
-            if (isExpandedContentRow(row)) return row.height ?? 35;
+            if (isExpandedContentRow(row)) return row.height ?? 52;
             // 上方两个守卫已排除分组 / 展开内容行，此处必为数据行（泛型守卫无法自动收窄联合）
             const dataRow = row as T;
-            return getRowHeight?.(dataRow, rowIndex) ?? dataRow.height ?? 35;
+            return getRowHeight?.(dataRow, rowIndex) ?? dataRow.height ?? 52;
         });
     }, [displayRows, getRowHeight, groupRowHeight]);
 

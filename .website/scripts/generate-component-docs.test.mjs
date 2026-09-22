@@ -476,6 +476,17 @@ test("站点、教学示例和预览组件不得另写库中已有的基础交�
     }
 });
 
+test("Radio 页面分离场景、最小用法与状态试验，保留两个 API 和搜索索引", () => {
+    const source = '+++\ntitle = "Radio 单选框"\n+++\n\n# Radio 单选框\n\n[打开工作台](/components/rc-radio/workbench/)\n\n<Demos />\n';
+    const page = createPage(source, "rc-radio", [], { symbol: "RadioProps", component: "Radio" }, lesson);
+    assert.equal((page.match(/<RadioExample /g) ?? []).length, 3);
+    assert.doesNotMatch(page, /<Tutorial |<FirstExample /);
+    assert.match(page, /symbol="RadioProps"/);
+    assert.match(page, /symbol="RadioGroupProps"/);
+    assert.match(page, /data-docs-search-index="tutorial"/);
+    assert.match(page, /\/components\/rc-radio\/workbench\//);
+});
+
 test("组件概览保留分类锚点与入口，为每张卡片提供用途介绍与对应示意图", () => {
     const navigation = '[[group.section]]\ntitle = "基础能力"\npages = ["components/rc-tools"]\n[[group.section]]\ntitle = "输入与操作"\npages = ["components/rc-example"]';
     const records = [{ ...lesson, id: "rc-tools", title: "Global Tokens 设计基元" }, { ...lesson, title: "Example 示例" }];
@@ -525,12 +536,30 @@ test("全部组件概览都有用途介绍和唯一的静态示意图，示意�
     assert.match(preview, /focusable="false"/);
 });
 
+test("站点样式模板的 CSS 规则保持完整，不让无效闭括号吞掉后续选择器", async () => {
+    const source = await readFile(new URL("../docs/site/siteStyles.ts", import.meta.url), "utf8");
+    const ast = parse(source, { sourceType: "module", plugins: ["typescript"] });
+    const stylesheet = ast.program.body.find(node => node.type === "ExpressionStatement"
+        && node.expression.type === "TaggedTemplateExpression"
+        && node.expression.tag.name === "globalStyle");
+    assert.ok(stylesheet, "Missing global stylesheet");
+    const css = stylesheet.expression.quasi.quasis.map(part => part.value.cooked).join("0");
+    let depth = 0;
+    for (const character of css) {
+        if (character === "{") depth += 1;
+        if (character === "}") depth -= 1;
+        assert.ok(depth >= 0, "Unexpected closing CSS brace");
+    }
+    assert.equal(depth, 0, "Unclosed CSS rule");
+});
+
 test("全局令牌目录完整覆盖原始定义并保留非标准键和零值", async () => {
     const source = await readFile(new URL("../../components/rc-token-global/token.toml", import.meta.url), "utf8");
     const entries = readGlobalTokens(source);
     const declared = [...source.slice(source.indexOf("[token]")).matchAll(/^([\w.-]+)\s*=/gm)].map(match => match[1]);
     assert.deepEqual(entries.map(entry => entry.key), declared);
-    assert.equal(entries.filter(entry => entry.group === "colors").length, 64);
+    assert.equal(entries.filter(entry => entry.group === "colors").length, 117);
+    assert.ok(entries.filter(entry => entry.key.startsWith("material.")).every(entry => entry.group === "colors"));
     const purple = entries.filter(entry => entry.key.startsWith("purple."));
     assert.deepEqual(purple.map(entry => entry.key), ["10", "20", "30", "40", "80", "90", "100"].map(tone => `purple.${tone}`));
     assert.ok(purple.every(entry => entry.group === "colors" && entry.expression === `globalToken.purple["${entry.key.split(".")[1]}"]`));

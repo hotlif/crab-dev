@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-09-20T04:02:44.3479110Z",
+  "tasks": 216,
+  "successfulTasks": 216,
+  "wakeTestsPassed": 1459,
+  "wakeTestWorkspaces": 54,
+  "buttonTests": 36,
+  "sliderTests": 30,
+  "tokenPackages": 48,
+  "toolLintChecks": 7,
+  "docsBuild": "passed",
+  "docs": {
+    "componentPages": 53,
+    "tutorials": 56,
+    "teachingExamples": 125,
+    "uniqueDemos": 250,
+    "generatedDrift": 0,
+    "routes": 62,
+    "outputFiles": 2544
+  },
+  "browser": {
+    "componentPagesLight": 53,
+    "componentPagesDark": 53,
+    "desktopHorizontalOverflow": 0,
+    "homeLightDarkOverflow": 0,
+    "runtimeWarningsOrErrors": 0,
+    "buttonAppearances": [
+      "Elevated",
+      "Filled",
+      "Tonal",
+      "Outlined",
+      "Text"
+    ],
+    "buttonHeights": [
+      32,
+      40,
+      56,
+      96,
+      136
+    ],
+    "buttonDefaultHeight": 40,
+    "buttonSizeAppearanceCombinations": 25,
+    "buttonKeyboard": "Tab focus-visible: 2px outline; Enter activates Text",
+    "buttonShape": "round selected: 20px to 12px; square selected: 12px to 20px; connected selected: round",
+    "buttonBrand": "blue seed; nested light/dark; disabled and aria-busy loading semantics",
+    "sliderTracks": [
+      16,
+      24,
+      40,
+      56,
+      96
+    ],
+    "sliderHandleHeights": [
+      44,
+      44,
+      52,
+      68,
+      108
+    ],
+    "sliderHandleWidth": 4,
+    "sliderDemoContentWidth": 297,
+    "sliderKeyboard": "ArrowRight: 40 to 41; End: 100; endpoint marker hidden at max",
+    "datePicker": "portal selection confirmed: 2026-09-21; popup closed",
+    "dialog": "opens; Escape closes; focus returns to trigger after exit animation",
+    "viewport320": "not verified: viewport override accepted but actual widths remained 1134px / 1280px"
+  },
+  "remainingManualChecks": [
+    "320px full-page viewport",
+    "200% text zoom",
+    "forced-colors OS mode",
+    "reduced-motion OS mode",
+    "physical coarse pointer",
+    "screen reader",
+    "complete per-component interaction-state browser matrix"
+  ],
+  "compatibility": [
+    "Wake and Crab CSS remain 0.1.45",
+    "no dependency/version/publication changes",
+    "existing CSS variable fallbacks and appearance/size aliases retained"
+  ],
+  "productionBindingCheck": {
+    "files": 1887,
+    "unboundReferences": 0
+  },
+  "productionIndexSha256": "282A250B5BB612F6BBE69CF088274E8A127E81FC5178063DC34E56A46EADBA7C"
+}

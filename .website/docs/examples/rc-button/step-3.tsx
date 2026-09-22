@@ -13,11 +13,13 @@ const sectionStyle = css`
 const rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space["component-gap"]};`;
 const noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.font.size.body};`;
 const sizes = [
-    { value: "small", label: "小号", height: "24px", description: "紧凑工具栏、表格内操作。" },
-    { value: "middle", label: "中号（默认）", height: "32px", description: "普通表单和页面操作。" },
-    { value: "large", label: "大号", height: "40px", description: "需要更醒目的独立操作。" },
+    { value: "xs", label: "XS", height: "32px", description: "紧凑工具栏、表格内操作。" },
+    { value: "s", label: "S（默认）", height: "40px", description: "普通表单和页面操作。" },
+    { value: "m", label: "M", height: "56px", description: "需要更醒目的独立操作。" },
+    { value: "l", label: "L", height: "96px", description: "页面主要操作与强调区域。" },
+    { value: "xl", label: "XL", height: "136px", description: "少量关键操作与大屏突出内容。" },
 ] satisfies Array<{ value: NonNullable<ButtonProps["size"]>; label: string; height: string; description: string }>;
-const appearances = ["primary", "subtle", "dashed", "text", "link", "danger"] satisfies Array<NonNullable<ButtonProps["appearance"]>>;
+const appearances = ["elevated", "primary", "tonal", "outlined", "text"] satisfies Array<NonNullable<ButtonProps["appearance"]>>;
 
 export default function Example() {
     const [message, setMessage] = useState("同一列外观一致，横向对比不同外观，纵向对比尺寸。");

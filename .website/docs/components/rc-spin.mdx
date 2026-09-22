@@ -57,13 +57,15 @@ import { tutorial } from "../_generated_tutorials/rc-spin.js";
 ## 更多示例
 
 <details>
-<summary>展开进阶示例（6 个）</summary>
+<summary>展开进阶示例（7 个）</summary>
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
 ##### 基础用法 — 默认即处于加载中, 渲染一枚匀速旋转的指示环, 并以 role=status 向读屏播报。
 
 ##### 延迟显示 — 秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。
+
+##### M3 Expressive 加载指示器 — 需要更醒目的品牌反馈时使用 expressive 形变；紧凑控件内继续使用默认 circular 指示环。
 
 ##### 自定义指示器 — indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。
 
@@ -97,11 +99,17 @@ import { tutorial } from "../_generated_tutorials/rc-spin.js";
 
 延迟只影响出现时机。`spinning` 变为 `false` 时，指示器立即隐藏。
 
+### Material 3 指示器
+
+默认的 `variant="circular"` 适合按钮、表格和紧凑区域。需要更醒目的品牌化等待反馈时，可使用 `variant="expressive"`；它通过形状变化表达持续活动，并遵循 Material 3 Expressive 的形状与动态设计语言。
+
+两种指示器都只表达“正在进行”，不表示可计算的进度。能够确定完成比例时，应使用进度条或进度环。
+
 ### 复用 SpinIndicator
 
 `Spin` 提供 `role="status"` 和 `aria-live`。宿主已提供加载语义时，例如按钮已设置 `aria-busy`，可改用具名导出的 `SpinIndicator`，避免重复播报。
 
-`SpinIndicator` 使用 `aria-hidden` 隐藏视觉指示环，加载语义由宿主负责。尺寸与配色可通过 CSS 变量调整：
+`SpinIndicator` 和 `ExpressiveSpinIndicator` 都使用 `aria-hidden` 隐藏纯视觉图形，加载语义由宿主负责。尺寸与配色可通过 CSS 变量调整：
 
 ```tsx
 import { css } from '@crab-dev/css';

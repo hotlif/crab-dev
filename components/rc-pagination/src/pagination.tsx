@@ -11,16 +11,28 @@ import type { PaginationProps, PaginationShowTotal } from "./types.js";
 
 const rootStyle = css`
     display: inline-flex;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
     align-items: center;
     gap: ${token.group.gap};
     font-size: ${token.root['font-size']};
     font-weight: ${token.root['font-weight']};
     color: ${token.item.color};
     line-height: 1;
+    @media (pointer: coarse) {
+        & > ul button, & > span > input {
+            min-width: ${token.interaction.touch['min-width']};
+            min-height: ${token.interaction.touch['min-height']};
+        }
+    }
 `;
 
 const listStyle = css`
     display: inline-flex;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
     align-items: center;
     gap: ${token.root.gap};
     list-style-type: none;
@@ -29,6 +41,10 @@ const listStyle = css`
 `;
 
 const itemBaseStyle = css`
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+
     display: inline-flex;
     align-items: center;
     justify-content: center;

@@ -1,10 +1,12 @@
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
+import { css } from "@crab-dev/css";
 import { useId, useRef, useState, type FC } from "react";
 import { useControllableValue } from "@crab-dev/rc-hooks";
 
 import useKeyboardNavigation from "./hooks/useKeyboardNavigation.js";
 import SelectInput from "./selectInput.js";
 import SelectOverlay from "./selectOverlay.js";
+import token from "./token.js";
 import type { FlatOption, SelectOption, SelectOptionGroup, SelectOptionOrGroup, SelectProps } from "./types.js";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -79,10 +81,30 @@ const filterOptions = (flatOptions: FlatOption[], searchable: boolean, searchTex
 const firstEnabledIndex = (flatOptions: FlatOption[]): number =>
     flatOptions.findIndex((opt) => !opt.disabled && !opt.isGroupLabel);
 
+const fieldStyle = css`
+    display: inline-grid;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    gap: ${token.field.gap};
+`;
+
+const supportingStyle = css`
+    padding-inline: ${token.field['padding-inline']};
+    color: ${token.field.label.color};
+    font-size: ${token.field.label['font-size']};
+    line-height: ${token.field.support['line-height']};
+    overflow-wrap: anywhere;
+    &[data-status="error"] { color: ${token.field['color-error']}; }
+    &[data-status="warning"] { color: ${token.field['color-warning']}; }
+    @media (forced-colors: active) { color: CanvasText; }
+`;
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const Select: FC<SelectProps> = ({
     ref,
+    id,
     options,
     placeholder = "请选择",
     disabled = false,
@@ -90,6 +112,11 @@ const Select: FC<SelectProps> = ({
     multiple = false,
     size = "middle",
     status,
+    appearance = "outlined",
+    label,
+    supportingText,
+    errorText,
+    required,
     allowClear = false,
     loading = false,
     maxTagCount,
@@ -108,11 +135,18 @@ const Select: FC<SelectProps> = ({
     onBlur,
     className,
     "aria-label": ariaLabel,
+    "aria-describedby": ariaDescribedBy,
     ...restProps
 }) => {
     // combobox 的 aria-controls / aria-activedescendant 与 listbox 及各 option 的 id
     // 共享同一前缀(§3 触发器与目标显式关联),故在两个子组件的共同父级生成一次。
     const listboxId = useId();
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
+    const labelId = `${generatedId}-label`;
+    const descriptionId = `${generatedId}-description`;
+    const fieldStatus = errorText ? "error" : status;
+    const description = errorText || supportingText;
     const [searchText, setSearchText] = useState("");
     // 内部统一以 string[] 表示选中值（单选也用长度 ≤1 的数组）；受控 / 非受控由 hook 统一
     const [selectedValues, setSelectedValues] = useControllableValue<string[]>({
@@ -238,35 +272,49 @@ const Select: FC<SelectProps> = ({
             }
             floatingContainerProps={{ style: floatingStyle }}
         >
-            <SelectInput
-                ref={ref}
-                ariaLabel={ariaLabel}
-                disabled={disabled}
-                searchable={searchable}
-                multiple={multiple}
-                size={size}
-                status={status}
-                allowClear={allowClear}
-                loading={loading}
-                maxTagCount={maxTagCount}
-                autoFocus={autoFocus}
-                placeholder={placeholder}
-                selectedOptions={selectedOptions}
-                searchText={searchText}
-                highlightIndex={highlightIndex}
-                highlightedOption={highlightedOption}
-                listboxId={listboxId}
-                tagRender={tagRender}
-                onSearchTextChange={handleSearchTextChange}
-                onOpenChange={emitOpenChange}
-                onWidthChange={handleTriggerWidthChange}
-                onMoveHighlight={moveHighlight}
-                onSelectHighlighted={handleOptionSelect}
-                onClear={handleClear}
-                onRemoveTag={handleRemoveTag}
-                onFocus={onFocus}
-                onBlur={onBlur}
-            />
+            <div className={fieldStyle}>
+                <SelectInput
+                    ref={ref}
+                    id={inputId}
+                    ariaLabel={ariaLabel}
+                    ariaLabelledBy={label ? labelId : undefined}
+                    ariaDescribedBy={[ariaDescribedBy, description ? descriptionId : undefined].filter(Boolean).join(" ") || undefined}
+                    disabled={disabled}
+                    searchable={searchable}
+                    multiple={multiple}
+                    size={size}
+                    status={fieldStatus}
+                    appearance={appearance}
+                    label={label}
+                    labelId={labelId}
+                    required={required}
+                    allowClear={allowClear}
+                    loading={loading}
+                    maxTagCount={maxTagCount}
+                    autoFocus={autoFocus}
+                    placeholder={placeholder}
+                    selectedOptions={selectedOptions}
+                    searchText={searchText}
+                    highlightIndex={highlightIndex}
+                    highlightedOption={highlightedOption}
+                    listboxId={listboxId}
+                    tagRender={tagRender}
+                    onSearchTextChange={handleSearchTextChange}
+                    onOpenChange={emitOpenChange}
+                    onWidthChange={handleTriggerWidthChange}
+                    onMoveHighlight={moveHighlight}
+                    onSelectHighlighted={handleOptionSelect}
+                    onClear={handleClear}
+                    onRemoveTag={handleRemoveTag}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                />
+                {description && (
+                    <div id={descriptionId} className={supportingStyle} data-status={fieldStatus}>
+                        {description}
+                    </div>
+                )}
+            </div>
         </RcDropdownContainer>
     );
 };

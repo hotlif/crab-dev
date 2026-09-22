@@ -31,16 +31,16 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--skeleton-background-color, var(--skeleton-color-background, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))))`
+        'background-color': `var(${vars['root.background-color']}, var(--skeleton-background-color, var(--skeleton-color-background, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))))`
     },
     'wave': {
-        'background-color': `var(${vars['wave.background-color']}, var(--skeleton-color-highlight, var(--token-semantic-color-background-active-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
+        'background-color': `var(${vars['wave.background-color']}, var(--skeleton-color-highlight, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
     },
     'item': {
-        'border-radius': `var(${vars['item.border-radius']}, var(--skeleton-radius-default, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px))))`
+        'border-radius': `var(${vars['item.border-radius']}, var(--skeleton-radius-default, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px))))`
     },
     'text': {
-        'border-radius': `var(${vars['text.border-radius']}, var(--skeleton-radius-text, var(--token-semantic-radius-sm, var(--token-global-radius-1, 2px))))`,
+        'border-radius': `var(${vars['text.border-radius']}, var(--skeleton-radius-text, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px))))`,
         'size': {
             'small': {
                 'height': `var(${vars['text.size.small.height']}, 12px)`

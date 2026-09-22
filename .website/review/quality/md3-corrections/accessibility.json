@@ -1,0 +1,70 @@
+{
+  "capturedAt": "2026-09-20T23:20:33.085Z",
+  "results": [
+    {
+      "name": "mobile toolbar targets",
+      "passed": true,
+      "evidence": [
+        {
+          "label": "搜索文档",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "label": "文档主题：跟随系统",
+          "width": 48,
+          "height": 48
+        },
+        {
+          "label": "导航",
+          "width": 48,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "touch close targets",
+      "passed": true,
+      "evidence": [
+        {
+          "width": 48,
+          "height": 48
+        },
+        {
+          "width": 48,
+          "height": 48
+        },
+        {
+          "width": 48,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "card native disabled excludes state layer",
+      "passed": true,
+      "evidence": {
+        "opacity": "1",
+        "cursor": "pointer",
+        "layer": "0"
+      }
+    },
+    {
+      "name": "pill native disabled excludes state layer",
+      "passed": true,
+      "evidence": {
+        "opacity": "1",
+        "cursor": "pointer",
+        "layer": "0"
+      }
+    },
+    {
+      "name": "indicator follows changed label width",
+      "passed": true,
+      "evidence": {
+        "labelWidth": 98,
+        "indicatorWidth": 98
+      }
+    }
+  ]
+}

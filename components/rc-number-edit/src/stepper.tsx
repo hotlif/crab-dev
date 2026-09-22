@@ -1,6 +1,7 @@
 import { css } from "@crab-dev/css";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import type { PointerEvent } from "react";
+import Button from "@crab-dev/rc-button";
+import { Minus, Plus } from "lucide-react";
+import type { MouseEvent, PointerEvent } from "react";
 
 import token from "./token.js";
 import type { StepDirection } from "./hooks/useSpinner.js";
@@ -16,84 +17,85 @@ export interface StepperProps {
     downDisabled: boolean;
     /** 整体禁用（disabled / readOnly） */
     disabled: boolean;
+    /** 与步进操作关联的 spinbutton ID */
+    inputId: string;
 }
 
-// 朴素竖排步进器：待在输入框内右侧（rc-line-edit 的 suffix 槽），紧凑居中、随字体缩放。
-// 不脱离输入框自行定位——随输入框宽度走，永不跑出框外。
+// MD3 数字字段没有规定竖排微型步进器。这里将可选操作表达为两个独立的 48px
+// 文本图标按钮：保持字段层级轻量，同时满足触控目标、键盘焦点和状态层反馈。
 const rootStyle = css`
     display: inline-flex;
-    flex-direction: column;
+    align-items: center;
     flex-shrink: 0;
-    height: 1.6em;
-    border-radius: ${token.stepper['border-radius']};
-    overflow: hidden;
+    gap: ${token.stepper.gap};
 `;
 
-// 上 / 下小按钮：hover 背景反馈，箭头随字体缩放，到边界禁用移除示能。
-const halfStyle = css`
-    flex: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 0;
-    padding: 0 0.25em;
-    border: none;
-    background: transparent;
-    color: ${token.stepper.color};
-    cursor: pointer;
-    transition: ${token.root.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    & > svg {
+const actionStyle = css`
+    && {
+        flex-shrink: 0;
+        min-width: ${token.stepper.action['min-width']};
+        width: ${token.stepper.action.width};
+        height: ${token.stepper.action.height};
+        padding: 0;
+        color: ${token.stepper.color};
+    }
+    && svg {
         width: ${token.stepper.icon.width};
         height: ${token.stepper.icon.width};
     }
-    &:hover:not(:disabled) {
-        color: ${token.stepper['color-hover']};
-        background-color: ${token.stepper['background-color-hover']};
-    }
-    &:active:not(:disabled) {
-        background-color: ${token.stepper['background-color-active']};
-    }
-    &:disabled {
-        cursor: not-allowed;
-        color: ${token.stepper['color-disabled']};
+    @media (pointer: coarse) {
+        && {
+            min-width: ${token.stepper.action.touch['min-width']};
+            width: ${token.stepper.action.touch.width};
+            height: ${token.stepper.action.touch.height};
+        }
     }
 `;
 
-function Stepper({ onStart, onStop, upDisabled, downDisabled, disabled }: StepperProps) {
-    // onPointerDown 阻止默认以保持 input 焦点不被步进按钮夺走
+function Stepper({ onStart, onStop, upDisabled, downDisabled, disabled, inputId }: StepperProps) {
+    // 指针按下立即步进并启动长按；后续 click 只处理键盘与辅助技术的合成激活，
+    // 避免真实指针在 pointerdown 和 click 各步进一次。
     const bind = (direction: StepDirection) => ({
-        onPointerDown: (e: PointerEvent) => {
-            e.preventDefault();
+        onPointerDown: (_event: PointerEvent<HTMLButtonElement>) => {
             onStart(direction);
         },
         onPointerUp: onStop,
         onPointerLeave: onStop,
         onPointerCancel: onStop,
+        onClick: (event: MouseEvent<HTMLButtonElement>) => {
+            if (event.detail === 0) {
+                onStart(direction);
+                onStop();
+            }
+        },
     });
 
     return (
-        <span className={rootStyle} aria-hidden>
-            <button
+        <span className={rootStyle}>
+            <Button
                 type="button"
-                tabIndex={-1}
                 aria-label="增加"
+                aria-controls={inputId}
                 disabled={disabled || upDisabled}
-                className={halfStyle}
+                appearance="text"
+                size="small"
+                shape="circle"
+                icon={<Plus aria-hidden="true" />}
+                className={actionStyle}
                 {...bind(1)}
-            >
-                <ChevronUp />
-            </button>
-            <button
+            />
+            <Button
                 type="button"
-                tabIndex={-1}
                 aria-label="减少"
+                aria-controls={inputId}
                 disabled={disabled || downDisabled}
-                className={halfStyle}
+                appearance="text"
+                size="small"
+                shape="circle"
+                icon={<Minus aria-hidden="true" />}
+                className={actionStyle}
                 {...bind(-1)}
-            >
-                <ChevronDown />
-            </button>
+            />
         </span>
     );
 }

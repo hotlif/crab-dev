@@ -18,9 +18,11 @@ const SimpleDemo = () => {
     return (
         <div className={wrapperStyle}>
             <TextEdit
+                label="项目备注"
+                supportingText="说明背景、目标和需要关注的限制。"
+                appearance="filled"
                 value={value}
                 rows={3}
-                placeholder="请输入备注"
                 onChange={(e) => setValue(e.target.value)}
             />
         </div>

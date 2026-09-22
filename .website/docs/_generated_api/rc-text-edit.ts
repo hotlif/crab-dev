@@ -13,6 +13,27 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface TextEditProps {
     /**
+     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
+     * @default "outlined"
+     */
+    "appearance"?: "outlined" | "filled";
+
+    /**
+     * 可见的浮动标签，与文本域自动关联。
+     */
+    "label"?: string;
+
+    /**
+     * 文本域下方的辅助说明，自动加入 aria-describedby。
+     */
+    "supportingText"?: string;
+
+    /**
+     * 错误说明；提供时自动启用 error 状态并替换辅助说明。
+     */
+    "errorText"?: string;
+
+    /**
      * textarea 元素的 ref
      */
     "ref"?: Ref<HTMLTextAreaElement>;

@@ -7,8 +7,7 @@ import DateTimePickerInput from "./dateTimePickerInput.js";
 import DateTimePickerOverlay from "./dateTimePickerOverlay.js";
 import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel.js"
 import type { DatePickerPanelInstance } from '../panels/datePickerPanel.js';
-import { css } from '@crab-dev/css';
-import token from '../token.js';
+import { popupContentStyle, popupFrameStyle } from '../panels/popup.style.js';
 
 export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange' | 'value'> {
 
@@ -71,9 +70,8 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
 
     return (
         <RcDropdownContainer
-            overlayClassName={css`
-                padding: ${token.panel.padding};
-            `}
+            floatingContainerProps={{ className: popupFrameStyle }}
+            overlayClassName={popupContentStyle}
             overlay={(
                 <DateTimePickerOverlay
                     value={value ?? selectValues?.[0]}

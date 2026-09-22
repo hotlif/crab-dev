@@ -97,4 +97,5 @@ import { tutorial } from "../_generated_tutorials/rc-tabs.js";
 - 支持 `tabBarExtraContent` 在左右两侧注入自定义内容。
 - 支持 `destroyInactiveTabPane` 按需销毁未激活面板。
 - 键盘可达：`←` / `→` / `Home` / `End` 切换、`Enter` / `Space` 激活、`Delete` 关闭可关闭项。
-- `line` 形态的激活指示条随激活项位置与宽度平滑过渡。
+- `line` 使用 Material 3 主标签页样式：48px 默认高度、随标签文字宽度变化的 3px 指示条，以及独立的悬停、聚焦与按压状态层。
+- `card` / `pill` 为业务扩展，保留原有 API，并沿用相同的语义色、状态层与键盘行为。

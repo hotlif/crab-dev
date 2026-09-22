@@ -1,0 +1,184 @@
+{
+  "base": "http://127.0.0.1:4175",
+  "results": [
+    {
+      "theme": "dark",
+      "width": 1440,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": false
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "overflow": false,
+      "navs": 1,
+      "rail": false,
+      "height": 56,
+      "labelSize": "14px",
+      "wrap": "nowrap",
+      "marker": "none",
+      "treeLine": "0px",
+      "focused": true,
+      "focusOutline": "solid",
+      "sidebarVisible": false
+    }
+  ],
+  "states": [
+    {
+      "selector": ".crab-docs-sidebar [aria-current=page]",
+      "normal": {
+        "background": "oklch(0.400517 0.0340033 298.591)",
+        "radius": "9999px",
+        "width": 326,
+        "height": 56,
+        "x": 175,
+        "y": 396
+      },
+      "hover": {
+        "background": "color(srgb 0.815594 0.7373 1.00006 / 0.08)",
+        "radius": "9999px",
+        "width": 326,
+        "height": 56,
+        "x": 175,
+        "y": 396
+      },
+      "pressed": {
+        "background": "color(srgb 0.815594 0.7373 1.00006 / 0.12)",
+        "radius": "9999px",
+        "width": 326,
+        "height": 56,
+        "x": 175,
+        "y": 396
+      }
+    },
+    {
+      "selector": ".crab-docs-sidebar .crab-docs-category-heading button",
+      "normal": {
+        "background": "rgba(0, 0, 0, 0)",
+        "radius": "9999px",
+        "width": 326,
+        "height": 56,
+        "x": 175,
+        "y": 172
+      },
+      "hover": {
+        "background": "color(srgb 0.815594 0.7373 1.00006 / 0.08)",
+        "radius": "9999px",
+        "width": 326,
+        "height": 56,
+        "x": 175,
+        "y": 172
+      },
+      "pressed": {
+        "background": "color(srgb 0.815594 0.7373 1.00006 / 0.12)",
+        "radius": "9999px",
+        "width": 326,
+        "height": 56,
+        "x": 175,
+        "y": 172
+      }
+    }
+  ],
+  "modalNavigation": true,
+  "forcedColors": true,
+  "exceptions": []
+}

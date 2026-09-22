@@ -32,22 +32,22 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'surface': {
-        'background-color': `var(${vars['surface.background-color']}, var(--crab-rc-table-bg-color, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0)))))`
+        'background-color': `var(${vars['surface.background-color']}, var(--crab-rc-table-bg-color, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
     },
     'chrome': {
-        'background-color': `var(${vars['chrome.background-color']}, var(--crab-rc-table-header-bg-color, var(--token-semantic-color-background-sunken, var(--token-global-zinc-50, oklch(0.980 0.002 286)))))`
+        'background-color': `var(${vars['chrome.background-color']}, var(--crab-rc-table-header-bg-color, var(--token-semantic-color-surface-canvas, var(--token-semantic-color-background-sunken, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
     },
     'root': {
-        'border-color': `var(${vars['root.border-color']}, var(--crab-rc-table-border-color, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`
+        'border-color': `var(${vars['root.border-color']}, var(--crab-rc-table-border-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
     },
     'overlay': {
-        'background-color-loading': `var(${vars['overlay.background-color-loading']}, color-mix(in oklch, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))) 65%, transparent))`,
-        'background-color-error': `var(${vars['overlay.background-color-error']}, color-mix(in oklch, var(--token-semantic-color-background-surface, var(--token-global-white, oklch(1.000 0 0))) 92%, transparent))`
+        'background-color-loading': `var(${vars['overlay.background-color-loading']}, color-mix(in oklch, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))) 65%, transparent))`,
+        'background-color-error': `var(${vars['overlay.background-color-error']}, color-mix(in oklch, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))) 92%, transparent))`
     },
     'icon': {
-        'color': `var(${vars['icon.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`,
-        'color-hover': `var(${vars['icon.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-        'background-color-hover': `var(${vars['icon.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'color': `var(${vars['icon.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+        'color-hover': `var(${vars['icon.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'background-color-hover': `var(${vars['icon.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
         'background-color-selected': `var(${vars['icon.background-color-selected']}, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))`,
         'color-selected': `var(${vars['icon.color-selected']}, var(--token-semantic-color-selection-foreground, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811))))`,
         'selection': {
@@ -64,25 +64,25 @@ const token = defineTokens({
     },
     'text': {
         'secondary': {
-            'color': `var(${vars['text.secondary.color']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`
+            'color': `var(${vars['text.secondary.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
         },
         'tertiary': {
-            'color': `var(${vars['text.tertiary.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
+            'color': `var(${vars['text.tertiary.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
         }
     },
     'control': {
-        'background-color-hover': `var(${vars['control.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
-        'opacity-disabled': `var(${vars['control.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3)))`
+        'background-color-hover': `var(${vars['control.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'opacity-disabled': `var(${vars['control.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
     },
     'failure': {
         'icon': {
-            'color': `var(${vars['failure.icon.color']}, var(--token-semantic-color-feedback-error-icon, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25)))))`
+            'color': `var(${vars['failure.icon.color']}, var(--token-semantic-color-feedback-error-icon, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`
         },
         'text': {
-            'color': `var(${vars['failure.text.color']}, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-red-800, oklch(0.444 0.177 26)))))`
+            'color': `var(${vars['failure.text.color']}, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486)))))`
         },
-        'border-color': `var(${vars['failure.border-color']}, var(--token-semantic-color-feedback-error-border, var(--token-semantic-color-feedback-error, var(--token-global-red-600, oklch(0.577 0.245 25)))))`,
-        'background-color-hover': `var(${vars['failure.background-color-hover']}, var(--token-semantic-color-feedback-error-background, var(--token-global-red-50, oklch(0.971 0.013 17))))`
+        'border-color': `var(${vars['failure.border-color']}, var(--token-semantic-color-feedback-error-border, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`,
+        'background-color-hover': `var(${vars['failure.background-color-hover']}, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053))))`
     }
 });
 

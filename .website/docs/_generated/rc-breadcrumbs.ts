@@ -20,7 +20,7 @@ export const demos = [
         "id": "docs/demos/custom-separator.demo.tsx",
         "title": "自定义分隔符",
         "description": "通过 separator 属性替换默认斜杠分隔",
-        "sourceCode": "export const meta = {\n    title: \"自定义分隔符\",\n    description: \"通过 separator 属性替换默认斜杠分隔\",\n};\n\nimport Breadcrumbs from '../../src/index.js';\n\nconst CustomSeparatorDemo = () => {\n    return (\n        \u003cBreadcrumbs\n            separator=\"→\"\n            items={[\n                { title: 'Design', href: '/design' },\n                { title: 'Navigation', href: '/design/navigation' },\n                { title: 'Breadcrumbs' },\n            ]}\n        />\n    );\n};\n\nexport default CustomSeparatorDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"自定义分隔符\",\n    description: \"通过 separator 属性替换默认斜杠分隔\",\n};\n\nimport Breadcrumbs from '../../src/index.js';\n\nconst CustomSeparatorDemo = () => {\n    return (\n        \u003cBreadcrumbs\n            separator=\"→\"\n            items={[\n                { title: '组件', href: '/learn/components' },\n                { title: '导航', href: '/components/rc-menu' },\n                { title: 'Breadcrumbs' },\n            ]}\n        />\n    );\n};\n\nexport default CustomSeparatorDemo;\n",
         "previewPath": "/components/rc-breadcrumbs/workbench/?__wake_demo=docs%2Fdemos%2Fcustom-separator.demo.tsx",
         "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fcustom-separator.demo.tsx",
         "density": "regular",

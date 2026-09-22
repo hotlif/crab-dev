@@ -39,7 +39,7 @@ const CircleDemo = () => {
                 <Button shape="circle" aria-label="搜索" icon={<Search />} />
                 <Button shape="circle" aria-label="编辑" icon={<Pencil />} />
                 <Button shape="circle" aria-label="设置" icon={<Settings />} />
-                <Button appearance="danger" shape="circle" aria-label="删除" icon={<Trash2 />} />
+                <Button appearance="primary" danger shape="circle" aria-label="删除" icon={<Trash2 />} />
                 <Button shape="circle" aria-label="删除" icon={<Trash2 />} disabled />
             </div>
         </div>

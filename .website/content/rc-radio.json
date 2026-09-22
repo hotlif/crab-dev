@@ -1,51 +1,52 @@
 {
-    "id": "rc-radio",
-    "title": "Radio 单选框",
-    "summary": "单选组展示少量互斥选项，组值用于业务提交。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
-    "steps": [
-        {
-            "id": "step-1",
-            "title": "设置选项组",
-            "goal": "用 RadioGroup 包裹 Radio，并设置不同 value。",
-            "why": "单选组展示少量互斥选项，组值用于业务提交。",
-            "instruction": "在每天和每周之间切换。",
-            "expected": "同一时刻只有一个选项被选中。",
-            "changes": [
-                "用 RadioGroup 包裹 Radio，并设置不同 value。"
-            ],
-            "source": "rc-radio/step-1.tsx"
-        },
-        {
-            "id": "step-2",
-            "title": "读取组值",
-            "goal": "通过组级 value 与 onChange 管理选中值。",
-            "why": "单选组展示少量互斥选项，组值用于业务提交。",
-            "instruction": "选择每天，查看提交值。",
-            "expected": "输出变为 daily，其他选项取消选中。",
-            "changes": [
-                "通过组级 value 与 onChange 管理选中值。"
-            ],
-            "source": "rc-radio/step-2.tsx"
-        },
-        {
-            "id": "step-3",
-            "title": "视觉状态与明暗主题",
-            "goal": "对照圆环、圆点、交互状态层和三种视觉尺寸。",
-            "why": "参考 Material Design 3，以品牌色圆环和同色圆点表达选中，交互反馈不改变布局。",
-            "instruction": "切换紫、蓝、绿品牌色；在两种主题下悬停、按压，并用 Tab 和方向键操作。",
-            "expected": "圆点与圆环跟随主题，焦点可见，禁用选项不响应，切换前后位置和尺寸稳定。",
-            "changes": [
-                "通过 ConfigProvider 同时展示浅色与深色主题。",
-                "覆盖可用、禁用、校验提示及 small / middle / large。"
-            ],
-            "source": "rc-radio/step-3.tsx"
-        }
-    ],
-    "faq": [
-        {
-            "question": "选项很多时用什么？",
-            "answer": "选项较多时用 Select；Radio 适合直接比较少量选项。"
-        }
-    ]
+  "id": "rc-radio",
+  "title": "Radio 单选框",
+  "summary": "从少量可见选项中选择一项，用清晰的分组和及时反馈帮助用户做决定。",
+  "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "通知偏好",
+      "goal": "选择一种通知节奏，同时查看对应的通知预览。",
+      "why": "将互斥选项与结果放在同一上下文，让选择的影响一目了然。",
+      "instruction": "选择每天、每周或仅重要通知。",
+      "expected": "预览时间和说明同步更新，同组只保留一个选中项。",
+      "changes": [
+        "使用原生 Radio 与 RadioGroup，整行标签可点击。",
+        "将当前组值用于通知预览和状态反馈。"
+      ],
+      "source": "rc-radio/step-1.tsx"
+    },
+    {
+      "id": "step-2",
+      "title": "受控单选组",
+      "goal": "用 value 与 onChange 连接选项和组值。",
+      "why": "单选组展示少量互斥选项，组值用于业务提交。",
+      "instruction": "选择每天，查看提交值。",
+      "expected": "当前组值变为 daily，其他选项取消选中。",
+      "changes": [
+        "通过组级 value 与 onChange 管理选中值。"
+      ],
+      "source": "rc-radio/step-2.tsx"
+    },
+    {
+      "id": "step-3",
+      "title": "交互试验区",
+      "goal": "直接切换主题、品牌色和状态，检查真实交互。",
+      "why": "Radio 保留 Material 的圆环和圆点；页面按 Expressive 的用途色、排版和分组表达重点。",
+      "instruction": "切换浅色或深色、品牌色，再体验禁用和校验状态；选择一项解除错误。",
+      "expected": "禁用选项不响应；校验提示与输入关联，选择后立即恢复正常。",
+      "changes": [
+        "使用 ConfigProvider 切换局部主题。",
+        "用实际状态驱动 disabled、aria-invalid 和关联说明。"
+      ],
+      "source": "rc-radio/step-3.tsx"
+    }
+  ],
+  "faq": [
+    {
+      "question": "选项很多时用什么？",
+      "answer": "选项较多时用 Select；Radio 适合直接比较少量选项。"
+    }
+  ]
 }

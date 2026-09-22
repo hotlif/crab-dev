@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import type { ReactNode } from 'react';
+let virtualRowHeights: number[] = [];
 beforeAll(() => {
     (globalThis as Record<string, unknown>).ResizeObserver = class {
         observe() { }
@@ -20,6 +21,7 @@ mock.module('@crab-dev/rc-virtual', () => ({
         ]) => ReactNode;
         gridTemplateRows: number[];
     }) => {
+        virtualRowHeights = gridTemplateRows;
         const lastRowIndex = Math.max(gridTemplateRows.length - 1, 0);
         return <div>{renderRows([0, lastRowIndex], [0, 0])}</div>;
     },
@@ -93,6 +95,24 @@ const changeInputValue = async (input: HTMLInputElement, value: string) => {
     await fireEvent.input(input);
 };
 describe('Select', () => {
+    it('keeps grouped virtual offsets aligned with resized option text', async () => {
+        const original = Element.prototype.getBoundingClientRect;
+        const measurement = mock.spyOn(Element.prototype, 'getBoundingClientRect').implement(function (this: Element) {
+            if (!this.hasAttribute('data-select-option-measure')) return original.call(this);
+            return { x: 0, y: 0, top: 0, left: 0, right: 200, bottom: 52, width: 200, height: 52, toJSON: () => ({}) };
+        });
+        try {
+            await render(<Select aria-label="scaled-options" options={[{ label: 'Cities', options: [
+                { label: 'Beijing', value: 'beijing' }, { label: 'Shanghai', value: 'shanghai' },
+            ] }]}/>);
+            await fireEvent.click(screen.getByRole('combobox', { name: 'scaled-options' }));
+            expect(virtualRowHeights).toEqual([52, 52, 52]);
+            expect(screen.getByRole('listbox').style.getPropertyValue('--select-option-measured-height')).toBe('52px');
+            expect(screen.getAllByRole('option')).toHaveLength(2);
+        } finally {
+            measurement.restore();
+        }
+    });
     // ─── Basic Rendering ─────────────────────────────────────────────────
     it('renders placeholder and opens dropdown', async () => {
         await render(<Select aria-label='city-select' placeholder='请选择城市' options={[
@@ -215,6 +235,32 @@ describe('Select', () => {
         await fireEvent.click(clearBtn);
         expect(onChange).toHaveBeenCalledWith(undefined, undefined);
         expect(combobox.textContent).toContain('请选择');
+    });
+    it('renders a Material field label, supporting text, and required semantics', async () => {
+        const { container } = await render(<Select
+            label='工作城市'
+            supportingText='用于安排线下办公地点'
+            appearance='filled'
+            required
+            options={[{ label: '杭州', value: 'hz' }]}
+        />);
+        const combobox = container.querySelector('[role="combobox"]') as HTMLElement;
+        expect(combobox.getAttribute('aria-required')).toBe('true');
+        expect(combobox.getAttribute('data-appearance')).toBe('filled');
+        expect(document.getElementById(combobox.getAttribute('aria-labelledby') ?? '')?.textContent).toBe('工作城市 *');
+        expect(document.getElementById(combobox.getAttribute('aria-describedby') ?? '')?.textContent).toBe('用于安排线下办公地点');
+    });
+    it('uses errorText as the field error and invalid state', async () => {
+        const { container } = await render(<Select
+            label='工作城市'
+            supportingText='选择常驻地点'
+            errorText='请选择一个城市'
+            options={[]}
+        />);
+        const combobox = container.querySelector('[role="combobox"]') as HTMLElement;
+        expect(combobox.getAttribute('aria-invalid')).toBe('true');
+        expect(document.getElementById(combobox.getAttribute('aria-describedby') ?? '')?.textContent).toBe('请选择一个城市');
+        expect(screen.queryByText('选择常驻地点')).toBeNull();
     });
     it('returns focus to the combobox after keyboard clearing', async () => {
         await render(<Select aria-label="城市" allowClear defaultValue="beijing" options={[

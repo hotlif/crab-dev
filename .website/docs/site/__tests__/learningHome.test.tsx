@@ -14,7 +14,7 @@ describe("LearningHome", () => {
     it("提供核心标题、CTA、分类导航和实战入口", async () => {
         const href = (slug: string) => `/${slug}`;
         await render(<><HomeHero href={href} /><HomeCategories href={href} /></>);
-        expect(screen.getByRole("heading", { name: /为企业应用，.*构建清晰的界面。/, level: 1 })).toBeTruthy();
+        expect(screen.getByRole("heading", { name: "Crab UI", level: 1 })).toBeTruthy();
         expect(screen.getByRole("link", { name: /开始使用/ }).getAttribute("href")).toBe("/guides/getting-started");
         expect(screen.getByRole("link", { name: /组件目录/ }).getAttribute("href")).toBe("/learn/components");
         expect(screen.getByRole("navigation", { name: "组件分类跳转" }).querySelectorAll("a").length).toBe(6);

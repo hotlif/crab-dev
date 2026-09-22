@@ -26,7 +26,7 @@ export interface CardProps {
     "children"?: ReactNode;
 
     /**
-     * 整卡是否可点击：自带浮起反馈 / 键盘激活（Enter / Space）/ 焦点环, 卡内 extra 与 actions 的点击自动与整卡点击隔离
+     * 整卡是否可点击：自带状态层 / 键盘激活（Enter / Space）/ 焦点环, 卡内 extra 与 actions 的点击自动与整卡点击隔离
      * @default false
      */
     "clickable"?: boolean;
@@ -48,7 +48,7 @@ export interface CardProps {
     "extra"?: ReactNode;
 
     /**
-     * 悬浮时是否浮起（大投影 + 上移 + 封面微缩放）
+     * 悬停时显示状态层并提升一级阴影，封面保持原尺寸
      * @default false
      */
     "hoverable"?: boolean;

@@ -1,6 +1,6 @@
 /** Connect only to the isolated local review browser started for this task. */
-export async function connectReviewBrowser() {
-    const targets = await (await fetch("http://127.0.0.1:9334/json/list")).json();
+export async function connectReviewBrowser(port = 9334) {
+    const targets = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json();
     const target = targets.find(item => item.type === "page");
     if (!target) throw new Error("Isolated review Chrome has no page");
     const socket = new WebSocket(target.webSocketDebuggerUrl);

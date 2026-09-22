@@ -20,18 +20,18 @@ panel.preview.margin-top = "$ref(space.section-gap)"
 
 panel.slider.container.gap = "$ref(space.section-gap)"
 panel.slider.label.width = "4em"
-panel.slider.label.font-size = "$ref(font.size.body)"
-panel.slider.label.font-weight = "$ref(font.weight.label)"
-panel.slider.label.line-height = "$ref(font.line-height.body)"
+panel.slider.label.font-size = "$ref(typography.label.font-size)"
+panel.slider.label.font-weight = "$ref(typography.label.font-weight)"
+panel.slider.label.line-height = "$ref(typography.label.line-height)"
 
 # ===== 滑块 Slider(覆盖 rc-slider 令牌变量所需的语义色)=====
-slider.thumb.stroke-color = "$ref(color.background.surface)"
+slider.thumb.stroke-color = "$ref(color.surface.content)"
 # alpha 滑块的棋盘格底色(表示透明)
 slider.alpha.checker.color = "$ref(color.border.hover)"
 
 # ===== 触发器 Trigger =====
 trigger.border-color = "$ref(color.border.default)"
-trigger.border-radius = "$ref(radius.md)"
+trigger.border-radius = "$ref(shape.control)"
 trigger.padding = "0.25rem"
 trigger.gap = "$ref(space.inline-gap)"
 trigger.ring.color-focus = "var(--color-picker-trigger-focus-ring-color, var(--color-picker-trigger-focus-color, $ref(color.focus.ring)))"

@@ -10,15 +10,15 @@ root.outline-color-focus = "$ref(color.focus.ring)"
 root.outline-width-focus = "2px"
 root.outline-offset-focus = "2px"
 # Keep the icon, circular state layer and touch target independent.
-root.touch.min-width = "48px"
-root.touch.min-height = "48px"
-root.line-height = "$ref(font.line-height.body)"
+root.touch.min-width = "$ref(size.selection-target)"
+root.touch.min-height = "$ref(size.selection-target)"
+root.line-height = "$ref(typography.body.large.line-height)"
 root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 control.transition = "var(--radio-root-transition, var(--radio-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)))"
-control.target.width = "var(--radio-control-target-size, 40px)"
+control.target.width = "var(--radio-control-target-size, $ref(size.selection-target))"
 control.border-color-error = "$ref(color.border.error)"
 dot.color-error = "$ref(color.feedback.error.solid)"
 state-layer.width = "var(--radio-state-layer-size, 40px)"
@@ -26,9 +26,9 @@ state-layer.border-radius = "var(--radio-state-layer-radius, $ref(radius.pill))"
 state-layer.color = "$ref(color.text.primary)"
 state-layer.color-selected = "$ref(color.brand.primary)"
 state-layer.color-error = "$ref(color.feedback.error.solid)"
-state-layer.opacity-hover = "0.08"
-state-layer.opacity-focus = "0.12"
-state-layer.opacity-active = "var(--radio-state-layer-opacity-pressed, 0.12)"
+state-layer.opacity-hover = "$ref(state.opacity.hover)"
+state-layer.opacity-focus = "$ref(state.opacity.focus)"
+state-layer.opacity-active = "var(--radio-state-layer-opacity-pressed, $ref(state.opacity.pressed))"
 state-layer.transition = "opacity $ref(motion.interaction), background-color $ref(motion.interaction)"
 
 
@@ -49,14 +49,14 @@ size.large.label.font-size   = "$ref(font.size.subhead)"
 
 size.middle.box.width = "var(--radio-size-middle-box-size, 20px)"
 size.middle.dot.width = "var(--radio-size-middle-dot-size, 10px)"
-size.middle.label.font-size   = "$ref(font.size.body)"
+size.middle.label.font-size = "$ref(typography.body.large.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
 size.small.box.width = "var(--radio-size-small-box-size, 16px)"
 size.small.dot.width = "var(--radio-size-small-dot-size, 8px)"
-size.small.label.font-size   = "$ref(font.size.body)"
+size.small.label.font-size   = "$ref(typography.label.font-size)"
 
 
 # ─── 默认状态 ────────────────────────────────────────────────────────────────
@@ -76,7 +76,7 @@ control.checked.border-color = "var(--radio-root-border-color-checked, var(--rad
 dot.checked.color = "var(--radio-dot-color-checked, var(--radio-checked-dot-color, $ref(color.brand.primary)))"
 dot.scale-hidden = "0.6"
 dot.scale = "var(--radio-dot-scale-visible, 1)"
-dot.transition = "opacity $ref(motion.interaction), scale $ref(motion.interaction)"
+dot.transition = "opacity $ref(motion.interaction), scale $ref(motion.spatial.fast)"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────

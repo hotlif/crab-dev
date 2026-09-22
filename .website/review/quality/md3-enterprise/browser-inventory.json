@@ -1,0 +1,4974 @@
+{
+  "capturedAt": "2026-09-19T16:33:48.029Z",
+  "revision": {
+    "sha256": "a088fc9b98247e70880bd0c53c92fdfc354c6b23206c4429f17a75a510e427a2",
+    "files": 2577,
+    "bytes": 177960939
+  },
+  "scope": "每包默认示例及已有状态示例，明暗主题；默认示例额外使用 320px 粗指针。渲染与几何测量不等同于全部交互验收。",
+  "results": [
+    {
+      "check": "rc-alert/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Success — 操作成功完成Info — 这是一条信息提示Warning — 请注意潜在的问题Error — 发生了错误，请检查"
+      }
+    },
+    {
+      "check": "rc-alert/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Success — 操作成功完成Info — 这是一条信息提示Warning — 请注意潜在的问题Error — 发生了错误，请检查"
+      }
+    },
+    {
+      "check": "rc-app-main-layout/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 6,
+        "targets": [
+          {
+            "width": 0,
+            "height": 0
+          },
+          {
+            "width": 0,
+            "height": 0
+          },
+          {
+            "width": 36,
+            "height": 36
+          },
+          {
+            "width": 36,
+            "height": 36
+          },
+          {
+            "width": 36,
+            "height": 36
+          },
+          {
+            "width": 38,
+            "height": 38
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 8,
+        "selected": 2,
+        "text": "Crab Frame控制台控制台控制台控制台当前激活 key：dashboard当前标签重载次数：0点击左侧菜单可打开对应页面，顶部将展示路径。"
+      }
+    },
+    {
+      "check": "rc-app-main-layout/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 6,
+        "targets": [
+          {
+            "width": 0,
+            "height": 0
+          },
+          {
+            "width": 0,
+            "height": 0
+          },
+          {
+            "width": 36,
+            "height": 36
+          },
+          {
+            "width": 36,
+            "height": 36
+          },
+          {
+            "width": 36,
+            "height": 36
+          },
+          {
+            "width": 38,
+            "height": 38
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 8,
+        "selected": 2,
+        "text": "Crab Frame控制台控制台控制台控制台当前激活 key：dashboard当前标签重载次数：0点击左侧菜单可打开对应页面，顶部将展示路径。"
+      }
+    },
+    {
+      "check": "rc-auto-sizer/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "容器尺寸：0 × 298 px"
+      }
+    },
+    {
+      "check": "rc-auto-sizer/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "容器尺寸：0 × 298 px"
+      }
+    },
+    {
+      "check": "rc-avatar/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "cdopokwrer"
+      }
+    },
+    {
+      "check": "rc-avatar/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "cdopokwrer"
+      }
+    },
+    {
+      "check": "rc-badge/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "5099+"
+      }
+    },
+    {
+      "check": "rc-badge/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "5099+"
+      }
+    },
+    {
+      "check": "rc-badge/status.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "未启动处理中运行中告警故障"
+      }
+    },
+    {
+      "check": "rc-badge/status.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "未启动处理中运行中告警故障"
+      }
+    },
+    {
+      "check": "rc-bar-chart/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 6,
+        "targets": [
+          {
+            "width": 24,
+            "height": 115
+          },
+          {
+            "width": 24,
+            "height": 148
+          },
+          {
+            "width": 24,
+            "height": 131
+          },
+          {
+            "width": 24,
+            "height": 187
+          },
+          {
+            "width": 24,
+            "height": 172
+          },
+          {
+            "width": 24,
+            "height": 220
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100"
+      }
+    },
+    {
+      "check": "rc-bar-chart/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 6,
+        "targets": [
+          {
+            "width": 24,
+            "height": 115
+          },
+          {
+            "width": 24,
+            "height": 148
+          },
+          {
+            "width": 24,
+            "height": 131
+          },
+          {
+            "width": 24,
+            "height": 187
+          },
+          {
+            "width": 24,
+            "height": 172
+          },
+          {
+            "width": 24,
+            "height": 220
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "上半年月度销量类目销量一月3,200二月4,100三月3,650四月5,200五月4,780六月6,100"
+      }
+    },
+    {
+      "check": "rc-bar-chart/horizontal.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 399,
+            "height": 24
+          },
+          {
+            "width": 289,
+            "height": 24
+          },
+          {
+            "width": 279,
+            "height": 24
+          },
+          {
+            "width": 213,
+            "height": 24
+          },
+          {
+            "width": 167,
+            "height": 24
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540"
+      }
+    },
+    {
+      "check": "rc-bar-chart/horizontal.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 399,
+            "height": 24
+          },
+          {
+            "width": 289,
+            "height": 24
+          },
+          {
+            "width": 279,
+            "height": 24
+          },
+          {
+            "width": 213,
+            "height": 24
+          },
+          {
+            "width": 167,
+            "height": 24
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "各区域年度销售额排名类目销售额华东大区（含江浙沪）1,290华南大区934华北大区901西南大区690东北大区540"
+      }
+    },
+    {
+      "check": "rc-breadcrumbs/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "首页/组件/面包屑"
+      }
+    },
+    {
+      "check": "rc-breadcrumbs/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "首页/组件/面包屑"
+      }
+    },
+    {
+      "check": "rc-button/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 80,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "保存更改"
+      }
+    },
+    {
+      "check": "rc-button/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 80,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "保存更改"
+      }
+    },
+    {
+      "check": "rc-button/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 8,
+        "targets": [
+          {
+            "width": 76.234375,
+            "height": 32
+          },
+          {
+            "width": 66.9375,
+            "height": 32
+          },
+          {
+            "width": 74.703125,
+            "height": 32
+          },
+          {
+            "width": 49.359375,
+            "height": 32
+          },
+          {
+            "width": 47.703125,
+            "height": 32
+          },
+          {
+            "width": 71.578125,
+            "height": 32
+          },
+          {
+            "width": 60.09375,
+            "height": 32
+          },
+          {
+            "width": 81.734375,
+            "height": 32
+          }
+        ],
+        "disabled": 8,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "primarysubtledashedtextlinkdangertonaloutlined"
+      }
+    },
+    {
+      "check": "rc-button/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 8,
+        "targets": [
+          {
+            "width": 76.234375,
+            "height": 32
+          },
+          {
+            "width": 66.9375,
+            "height": 32
+          },
+          {
+            "width": 74.703125,
+            "height": 32
+          },
+          {
+            "width": 49.359375,
+            "height": 32
+          },
+          {
+            "width": 47.703125,
+            "height": 32
+          },
+          {
+            "width": 71.578125,
+            "height": 32
+          },
+          {
+            "width": 60.09375,
+            "height": 32
+          },
+          {
+            "width": 81.734375,
+            "height": 32
+          }
+        ],
+        "disabled": 8,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "primarysubtledashedtextlinkdangertonaloutlined"
+      }
+    },
+    {
+      "check": "rc-button/loading.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 8,
+        "targets": [
+          {
+            "width": 98.234375,
+            "height": 32
+          },
+          {
+            "width": 88.9375,
+            "height": 32
+          },
+          {
+            "width": 96.703125,
+            "height": 32
+          },
+          {
+            "width": 71.359375,
+            "height": 32
+          },
+          {
+            "width": 69.703125,
+            "height": 32
+          },
+          {
+            "width": 93.578125,
+            "height": 32
+          },
+          {
+            "width": 82.09375,
+            "height": 32
+          },
+          {
+            "width": 103.734375,
+            "height": 32
+          }
+        ],
+        "disabled": 8,
+        "invalid": 0,
+        "busy": 8,
+        "selected": 0,
+        "text": "primarysubtledashedtextlinkdangertonaloutlined"
+      }
+    },
+    {
+      "check": "rc-button/loading.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 8,
+        "targets": [
+          {
+            "width": 98.234375,
+            "height": 32
+          },
+          {
+            "width": 88.9375,
+            "height": 32
+          },
+          {
+            "width": 96.703125,
+            "height": 32
+          },
+          {
+            "width": 71.359375,
+            "height": 32
+          },
+          {
+            "width": 69.703125,
+            "height": 32
+          },
+          {
+            "width": 93.578125,
+            "height": 32
+          },
+          {
+            "width": 82.09375,
+            "height": 32
+          },
+          {
+            "width": 103.734375,
+            "height": 32
+          }
+        ],
+        "disabled": 8,
+        "invalid": 0,
+        "busy": 8,
+        "selected": 0,
+        "text": "primarysubtledashedtextlinkdangertonaloutlined"
+      }
+    },
+    {
+      "check": "rc-button/selected.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 42,
+            "height": 32
+          },
+          {
+            "width": 42,
+            "height": 32
+          },
+          {
+            "width": 42,
+            "height": 32
+          },
+          {
+            "width": 80,
+            "height": 32
+          },
+          {
+            "width": 80,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 2,
+        "text": "列表视图卡片视图"
+      }
+    },
+    {
+      "check": "rc-button/selected.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 42,
+            "height": 32
+          },
+          {
+            "width": 42,
+            "height": 32
+          },
+          {
+            "width": 42,
+            "height": 32
+          },
+          {
+            "width": 80,
+            "height": 32
+          },
+          {
+            "width": 80,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 2,
+        "text": "列表视图卡片视图"
+      }
+    },
+    {
+      "check": "rc-canvas/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-canvas/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-card/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 52,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "项目周报更多本周完成卡片组件的令牌设计与交互实现, 覆盖三种视觉变体与整卡点击语义, 下周进入文档与回归测试阶段。"
+      }
+    },
+    {
+      "check": "rc-card/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 52,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "项目周报更多本周完成卡片组件的令牌设计与交互实现, 覆盖三种视觉变体与整卡点击语义, 下周进入文档与回归测试阶段。"
+      }
+    },
+    {
+      "check": "rc-card/loading.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 82,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 4,
+        "selected": 0,
+        "text": "完成加载"
+      }
+    },
+    {
+      "check": "rc-card/loading.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 82,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 4,
+        "selected": 0,
+        "text": "完成加载"
+      }
+    },
+    {
+      "check": "rc-checkbox/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Checkbox"
+      }
+    },
+    {
+      "check": "rc-checkbox/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Checkbox"
+      }
+    },
+    {
+      "check": "rc-checkbox/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 2,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "未选中禁用选中禁用"
+      }
+    },
+    {
+      "check": "rc-checkbox/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 2,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "未选中禁用选中禁用"
+      }
+    },
+    {
+      "check": "rc-color-picker/colorPicker.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 34,
+            "height": 34
+          },
+          {
+            "width": 26,
+            "height": 26
+          },
+          {
+            "width": 42,
+            "height": 42
+          },
+          {
+            "width": 34,
+            "height": 34
+          },
+          {
+            "width": 34,
+            "height": 34
+          }
+        ],
+        "disabled": 1,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "基础(透明度 / 输入 / 格式 / 吸管 / 预设 / 重置)非受控 + 尺寸(small / large)无透明度 + RGB 格式禁用"
+      }
+    },
+    {
+      "check": "rc-color-picker/colorPicker.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 34,
+            "height": 34
+          },
+          {
+            "width": 26,
+            "height": 26
+          },
+          {
+            "width": 42,
+            "height": 42
+          },
+          {
+            "width": 34,
+            "height": 34
+          },
+          {
+            "width": 34,
+            "height": 34
+          }
+        ],
+        "disabled": 1,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "基础(透明度 / 输入 / 格式 / 吸管 / 预设 / 重置)非受控 + 尺寸(small / large)无透明度 + RGB 格式禁用"
+      }
+    },
+    {
+      "check": "rc-component-preview/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 4,
+        "targets": [
+          {
+            "width": 113.203125,
+            "height": 36
+          },
+          {
+            "width": 64,
+            "height": 44
+          },
+          {
+            "width": 64,
+            "height": 44
+          },
+          {
+            "width": 78,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "ShortcutsA simple button that toggles a menu, used as a quick action shortcut.Open Menu复制源码新窗口"
+      }
+    },
+    {
+      "check": "rc-component-preview/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 4,
+        "targets": [
+          {
+            "width": 113.203125,
+            "height": 36
+          },
+          {
+            "width": 64,
+            "height": 44
+          },
+          {
+            "width": 64,
+            "height": 44
+          },
+          {
+            "width": 78,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "ShortcutsA simple button that toggles a menu, used as a quick action shortcut.Open Menu复制源码新窗口"
+      }
+    },
+    {
+      "check": "rc-config-provider/nested.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "dark / en-US / largelight / en-US / largedark / en-US / large"
+      }
+    },
+    {
+      "check": "rc-config-provider/nested.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "dark / en-US / largelight / en-US / largedark / en-US / large"
+      }
+    },
+    {
+      "check": "rc-cron-picker/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "当前值:30 9 * * 1-5 —— 周一至周五 09:30"
+      }
+    },
+    {
+      "check": "rc-cron-picker/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "当前值:30 9 * * 1-5 —— 周一至周五 09:30"
+      }
+    },
+    {
+      "check": "rc-date-picker/datePicker.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "请选择大小LargeMiddleSmall"
+      }
+    },
+    {
+      "check": "rc-date-picker/datePicker.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "请选择大小LargeMiddleSmall"
+      }
+    },
+    {
+      "check": "rc-dialog/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 96,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "打开对话框"
+      }
+    },
+    {
+      "check": "rc-dialog/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 96,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "打开对话框"
+      }
+    },
+    {
+      "check": "rc-divider/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 318,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "分割线把连续的内容切成可辨认的段落, 让「哪些属于一组」无需说明即可看出。它是一种视觉限制：用一条线收窄用户对内容边界的猜测范围。"
+      }
+    },
+    {
+      "check": "rc-divider/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 318,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "分割线把连续的内容切成可辨认的段落, 让「哪些属于一组」无需说明即可看出。它是一种视觉限制：用一条线收窄用户对内容边界的猜测范围。"
+      }
+    },
+    {
+      "check": "rc-drawer/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 82,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "打开抽屉"
+      }
+    },
+    {
+      "check": "rc-drawer/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 82,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "打开抽屉"
+      }
+    },
+    {
+      "check": "rc-drawer/nested.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 98.5,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "打开第 1 层"
+      }
+    },
+    {
+      "check": "rc-drawer/nested.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 98.5,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "打开第 1 层"
+      }
+    },
+    {
+      "check": "rc-dropdown-container/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "浮层触发输入框"
+      }
+    },
+    {
+      "check": "rc-dropdown-container/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "浮层触发输入框"
+      }
+    },
+    {
+      "check": "rc-empty/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "暂无数据当前还没有内容，快去添加吧"
+      }
+    },
+    {
+      "check": "rc-empty/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "暂无数据当前还没有内容，快去添加吧"
+      }
+    },
+    {
+      "check": "rc-flow-diagram/animated-edge.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C 逆流 -24 px/sB→D 快速 6"
+      }
+    },
+    {
+      "check": "rc-flow-diagram/animated-edge.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "e1: 顺流 · e2: 逆流（A→C）· e3: 快速（B→D）· e4: 静态对比（C→D）· 拖拽节点验证流动跨拐角连续A→B 顺流 24 px/sA→C 逆流 -24 px/sB→D 快速 6"
+      }
+    },
+    {
+      "check": "rc-form/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 9,
+        "targets": [
+          {
+            "width": 207,
+            "height": 44
+          },
+          {
+            "width": 155,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 52,
+            "height": 44
+          },
+          {
+            "width": 54,
+            "height": 44
+          },
+          {
+            "width": 122.796875,
+            "height": 44
+          },
+          {
+            "width": 116.328125,
+            "height": 44
+          },
+          {
+            "width": 120.328125,
+            "height": 44
+          },
+          {
+            "width": 113.84375,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "*用户名*密码提交重置getFieldsValuegetFieldValuesetFieldsValuesetFieldValue"
+      }
+    },
+    {
+      "check": "rc-form/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 9,
+        "targets": [
+          {
+            "width": 207,
+            "height": 44
+          },
+          {
+            "width": 155,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 52,
+            "height": 44
+          },
+          {
+            "width": 54,
+            "height": 44
+          },
+          {
+            "width": 122.796875,
+            "height": 44
+          },
+          {
+            "width": 116.328125,
+            "height": 44
+          },
+          {
+            "width": 120.328125,
+            "height": 44
+          },
+          {
+            "width": 113.84375,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "*用户名*密码提交重置getFieldsValuegetFieldValuesetFieldsValuesetFieldValue"
+      }
+    },
+    {
+      "check": "rc-form/validation.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 8,
+        "targets": [
+          {
+            "width": 191,
+            "height": 20
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 24,
+            "height": 24
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 24,
+            "height": 24
+          },
+          {
+            "width": 52,
+            "height": 32
+          },
+          {
+            "width": 54,
+            "height": 32
+          },
+          {
+            "width": 94,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "*账号*密码*确认密码*区域中国大陆注册重置仅校验账号"
+      }
+    },
+    {
+      "check": "rc-form/validation.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 8,
+        "targets": [
+          {
+            "width": 191,
+            "height": 20
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 24,
+            "height": 24
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 24,
+            "height": 24
+          },
+          {
+            "width": 52,
+            "height": 32
+          },
+          {
+            "width": 54,
+            "height": 32
+          },
+          {
+            "width": 94,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "*账号*密码*确认密码*区域中国大陆注册重置仅校验账号"
+      }
+    },
+    {
+      "check": "rc-hooks/use-drag-resize.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "180pxflex 填充"
+      }
+    },
+    {
+      "check": "rc-hooks/use-drag-resize.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "180pxflex 填充"
+      }
+    },
+    {
+      "check": "rc-line-edit/simple.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 181,
+            "height": 44
+          },
+          {
+            "width": 159,
+            "height": 44
+          },
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "大尺寸输入中尺寸输入小尺寸输入"
+      }
+    },
+    {
+      "check": "rc-line-edit/simple.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 181,
+            "height": 44
+          },
+          {
+            "width": 159,
+            "height": 44
+          },
+          {
+            "width": 159,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "大尺寸输入中尺寸输入小尺寸输入"
+      }
+    },
+    {
+      "check": "rc-line-edit/status.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 159,
+            "height": 20
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "邮箱用户名"
+      }
+    },
+    {
+      "check": "rc-line-edit/status.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 159,
+            "height": 20
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "邮箱用户名"
+      }
+    },
+    {
+      "check": "rc-masonry/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Item 1 — 120pxItem 2 — 180pxItem 3 — 100pxItem 4 — 200pxItem 5 — 140pxItem 6 — 160px"
+      }
+    },
+    {
+      "check": "rc-masonry/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Item 1 — 120pxItem 2 — 180pxItem 3 — 100pxItem 4 — 200pxItem 5 — 140pxItem 6 — 160px"
+      }
+    },
+    {
+      "check": "rc-menu/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 4,
+        "targets": [
+          {
+            "width": 250,
+            "height": 44
+          },
+          {
+            "width": 250,
+            "height": 44
+          },
+          {
+            "width": 250,
+            "height": 44
+          },
+          {
+            "width": 250,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "人员信息用户调整用户删除系统管理"
+      }
+    },
+    {
+      "check": "rc-menu/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 4,
+        "targets": [
+          {
+            "width": 250,
+            "height": 44
+          },
+          {
+            "width": 250,
+            "height": 44
+          },
+          {
+            "width": 250,
+            "height": 44
+          },
+          {
+            "width": 250,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "人员信息用户调整用户删除系统管理"
+      }
+    },
+    {
+      "check": "rc-menu/horizontal.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 80,
+            "height": 40
+          },
+          {
+            "width": 108,
+            "height": 40
+          },
+          {
+            "width": 108,
+            "height": 40
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "首页用户管理系统设置"
+      }
+    },
+    {
+      "check": "rc-menu/horizontal.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 80,
+            "height": 40
+          },
+          {
+            "width": 108,
+            "height": 40
+          },
+          {
+            "width": 108,
+            "height": 40
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "首页用户管理系统设置"
+      }
+    },
+    {
+      "check": "rc-message/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 66.890625,
+            "height": 31.5
+          },
+          {
+            "width": 48.03125,
+            "height": 31.5
+          },
+          {
+            "width": 71.71875,
+            "height": 31.5
+          },
+          {
+            "width": 41.96875,
+            "height": 31.5
+          },
+          {
+            "width": 69.28125,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "SuccessErrorWarningInfoLoading"
+      }
+    },
+    {
+      "check": "rc-message/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 66.890625,
+            "height": 31.5
+          },
+          {
+            "width": 48.03125,
+            "height": 31.5
+          },
+          {
+            "width": 71.71875,
+            "height": 31.5
+          },
+          {
+            "width": 41.96875,
+            "height": 31.5
+          },
+          {
+            "width": 69.28125,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "SuccessErrorWarningInfoLoading"
+      }
+    },
+    {
+      "check": "rc-notification/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 76,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "请选择方向TopTop LeftTop RightBottomBottom LeftBottom Right发送通知"
+      }
+    },
+    {
+      "check": "rc-notification/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 76,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "请选择方向TopTop LeftTop RightBottomBottom LeftBottom Right发送通知"
+      }
+    },
+    {
+      "check": "rc-number-edit/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "项目数量范围 0–100；失焦或步进时提交数值。已提交值：3"
+      }
+    },
+    {
+      "check": "rc-number-edit/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 159,
+            "height": 44
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "项目数量范围 0–100；失焦或步进时提交数值。已提交值：3"
+      }
+    },
+    {
+      "check": "rc-number-edit/states.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 21,
+        "targets": [
+          {
+            "width": 181,
+            "height": 24
+          },
+          {
+            "width": 20,
+            "height": 12.796875
+          },
+          {
+            "width": 20,
+            "height": 12.796875
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          }
+        ],
+        "disabled": 5,
+        "invalid": 1,
+        "busy": 0,
+        "selected": 0,
+        "text": "大尺寸中尺寸小尺寸错误状态警告状态禁用状态只读状态"
+      }
+    },
+    {
+      "check": "rc-number-edit/states.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 21,
+        "targets": [
+          {
+            "width": 181,
+            "height": 24
+          },
+          {
+            "width": 20,
+            "height": 12.796875
+          },
+          {
+            "width": 20,
+            "height": 12.796875
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          },
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 19,
+            "height": 11.1875
+          },
+          {
+            "width": 19,
+            "height": 11.203125
+          }
+        ],
+        "disabled": 5,
+        "invalid": 1,
+        "busy": 0,
+        "selected": 0,
+        "text": "大尺寸中尺寸小尺寸错误状态警告状态禁用状态只读状态"
+      }
+    },
+    {
+      "check": "rc-pagination/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 9,
+        "targets": [
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          }
+        ],
+        "disabled": 1,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "12345…9"
+      }
+    },
+    {
+      "check": "rc-pagination/light/44px 触控目标",
+      "passed": true,
+      "evidence": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "check": "rc-pagination/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 9,
+        "targets": [
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          }
+        ],
+        "disabled": 1,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "12345…9"
+      }
+    },
+    {
+      "check": "rc-pagination/dark/44px 触控目标",
+      "passed": true,
+      "evidence": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 44,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "check": "rc-pagination/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 10,
+        "targets": [
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 48,
+            "height": 32
+          }
+        ],
+        "disabled": 10,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "第 21-30 条 / 共 100 条12345…10跳至页"
+      }
+    },
+    {
+      "check": "rc-pagination/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 10,
+        "targets": [
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 32,
+            "height": 32
+          },
+          {
+            "width": 48,
+            "height": 32
+          }
+        ],
+        "disabled": 10,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "第 21-30 条 / 共 100 条12345…10跳至页"
+      }
+    },
+    {
+      "check": "rc-prose/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Prose 排版组件零运行时 Markdown 排版容器，基于 Crab CSS 编译为静态 CSS，不引入额外 JS 开销。基本元素正文段落。支持 粗体、斜体，以及链接，悬停时颜色自动切换。引用好的"
+      }
+    },
+    {
+      "check": "rc-prose/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Prose 排版组件零运行时 Markdown 排版容器，基于 Crab CSS 编译为静态 CSS，不引入额外 JS 开销。基本元素正文段落。支持 粗体、斜体，以及链接，悬停时颜色自动切换。引用好的"
+      }
+    },
+    {
+      "check": "rc-radio/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Radio"
+      }
+    },
+    {
+      "check": "rc-radio/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Radio"
+      }
+    },
+    {
+      "check": "rc-radio/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 2,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "未选中禁用选中禁用"
+      }
+    },
+    {
+      "check": "rc-radio/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 2,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "未选中禁用选中禁用"
+      }
+    },
+    {
+      "check": "rc-realm/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 203.078125,
+            "height": 44
+          },
+          {
+            "width": 122.375,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "切换宿主消息（当前 hello）我是「远程」组件：宿主消息 = hello远程内部状态 0"
+      }
+    },
+    {
+      "check": "rc-realm/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 203.078125,
+            "height": 44
+          },
+          {
+            "width": 122.375,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "切换宿主消息（当前 hello）我是「远程」组件：宿主消息 = hello远程内部状态 0"
+      }
+    },
+    {
+      "check": "rc-router/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 46,
+            "height": 31.5
+          }
+        ],
+        "disabled": 1,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "首页 用户 搜索参数后退请选择一个示例页面。"
+      }
+    },
+    {
+      "check": "rc-router/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 46,
+            "height": 31.5
+          }
+        ],
+        "disabled": 1,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "首页 用户 搜索参数后退请选择一个示例页面。"
+      }
+    },
+    {
+      "check": "rc-segmented/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "日周月"
+      }
+    },
+    {
+      "check": "rc-segmented/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "日周月"
+      }
+    },
+    {
+      "check": "rc-segmented/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 6,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 4,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 2,
+        "text": "日周月日周月"
+      }
+    },
+    {
+      "check": "rc-segmented/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 6,
+        "targets": [
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 4,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 2,
+        "text": "日周月日周月"
+      }
+    },
+    {
+      "check": "rc-select/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "请选择城市"
+      }
+    },
+    {
+      "check": "rc-select/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 305,
+        "frameWidth": 305,
+        "contentWidth": 305,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "请选择城市"
+      }
+    },
+    {
+      "check": "rc-select/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "选项一部分选项禁用"
+      }
+    },
+    {
+      "check": "rc-select/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "选项一部分选项禁用"
+      }
+    },
+    {
+      "check": "rc-select/loading.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 1,
+        "selected": 0,
+        "text": "点击加载选项"
+      }
+    },
+    {
+      "check": "rc-select/loading.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 1,
+        "selected": 0,
+        "text": "点击加载选项"
+      }
+    },
+    {
+      "check": "rc-select/status.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 1,
+        "busy": 0,
+        "selected": 0,
+        "text": "Error 状态Warning 状态"
+      }
+    },
+    {
+      "check": "rc-select/status.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 1,
+        "busy": 0,
+        "selected": 0,
+        "text": "Error 状态Warning 状态"
+      }
+    },
+    {
+      "check": "rc-skeleton/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 1,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-skeleton/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 1,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-slider/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 150,
+            "height": 44
+          },
+          {
+            "width": 180,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Value:"
+      }
+    },
+    {
+      "check": "rc-slider/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 150,
+            "height": 44
+          },
+          {
+            "width": 180,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Value:"
+      }
+    },
+    {
+      "check": "rc-spin/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-spin/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-split-pane/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 44,
+            "height": 158
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "左侧（200px 起，120~360）右侧 flex 填充"
+      }
+    },
+    {
+      "check": "rc-split-pane/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 44,
+            "height": 158
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "左侧（200px 起，120~360）右侧 flex 填充"
+      }
+    },
+    {
+      "check": "rc-switch/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 44,
+            "height": 22
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "开关"
+      }
+    },
+    {
+      "check": "rc-switch/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 44,
+            "height": 22
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "开关"
+      }
+    },
+    {
+      "check": "rc-switch/disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 44,
+            "height": 22
+          },
+          {
+            "width": 44,
+            "height": 22
+          }
+        ],
+        "disabled": 2,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "未选中禁用选中禁用"
+      }
+    },
+    {
+      "check": "rc-switch/disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 44,
+            "height": 22
+          },
+          {
+            "width": 44,
+            "height": 22
+          }
+        ],
+        "disabled": 2,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "未选中禁用选中禁用"
+      }
+    },
+    {
+      "check": "rc-table/basis.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "企业采购订单台账3,000 行 · 24 列 · 虚构数据快照：2026-09-12左右滚动查看收款、物流和配送备注；订单号固定，便于核对同一笔订单。空白物流单号表示尚未发货。订单号客户名称行业SO-"
+      }
+    },
+    {
+      "check": "rc-table/basis.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "企业采购订单台账3,000 行 · 24 列 · 虚构数据快照：2026-09-12左右滚动查看收款、物流和配送备注；订单号固定，便于核对同一笔订单。空白物流单号表示尚未发货。订单号客户名称行业SO-"
+      }
+    },
+    {
+      "check": "rc-table/empty.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 82,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "订单检索0 行 · 24 列 · 虚构数据快照：2026-09-12初始关键字没有匹配结果；清空后恢复 3,000 笔订单，列结构保持稳定。清空查询订单号客户名称行业大区收货城市客户经理销售渠道商品编"
+      }
+    },
+    {
+      "check": "rc-table/empty.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 159,
+            "height": 20
+          },
+          {
+            "width": 82,
+            "height": 32
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "订单检索0 行 · 24 列 · 虚构数据快照：2026-09-12初始关键字没有匹配结果；清空后恢复 3,000 笔订单，列结构保持稳定。清空查询订单号客户名称行业大区收货城市客户经理销售渠道商品编"
+      }
+    },
+    {
+      "check": "rc-table/rowSelection.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 22,
+        "targets": [
+          {
+            "width": 116.21875,
+            "height": 32
+          },
+          {
+            "width": 110,
+            "height": 32
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 18,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "采购订单审核工作台3,000 行 · 24 列 · 虚构数据快照：2026-09-12仅「待审核」订单可选，审核通过后进入「待发货」。本示例操作仅保存在当前页面，可撤销最近一批。批量审核（多选）审核通"
+      }
+    },
+    {
+      "check": "rc-table/rowSelection.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1425,
+        "frameWidth": 1425,
+        "contentWidth": 1425,
+        "coarse": false,
+        "controls": 22,
+        "targets": [
+          {
+            "width": 116.21875,
+            "height": 32
+          },
+          {
+            "width": 110,
+            "height": 32
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 18,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "采购订单审核工作台3,000 行 · 24 列 · 虚构数据快照：2026-09-12仅「待审核」订单可选，审核通过后进入「待发货」。本示例操作仅保存在当前页面，可撤销最近一批。批量审核（多选）审核通"
+      }
+    },
+    {
+      "check": "rc-table-pro/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "工号暂无数据当前还没有内容，快去添加吧加载中"
+      }
+    },
+    {
+      "check": "rc-table-pro/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "暂无数据当前还没有内容，快去添加吧加载中"
+      }
+    },
+    {
+      "check": "rc-tabs/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "概览日志设置概览内容：展示关键指标与最新动态。"
+      }
+    },
+    {
+      "check": "rc-tabs/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 3,
+        "targets": [
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "概览日志设置概览内容：展示关键指标与最新动态。"
+      }
+    },
+    {
+      "check": "rc-tag/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "DefaultPrimarySuccessWarningError"
+      }
+    },
+    {
+      "check": "rc-tag/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "DefaultPrimarySuccessWarningError"
+      }
+    },
+    {
+      "check": "rc-tag/checkable.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "MoviesBooksMusicSports已选择：Movies"
+      }
+    },
+    {
+      "check": "rc-tag/checkable.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 1,
+        "text": "MoviesBooksMusicSports已选择：Movies"
+      }
+    },
+    {
+      "check": "rc-text-edit/simple.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 144,
+            "height": 66
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-text-edit/simple.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 144,
+            "height": 66
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-text-edit/status.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 202,
+            "height": 44
+          },
+          {
+            "width": 202,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 1,
+        "busy": 0,
+        "selected": 0,
+        "text": "备注 · 错误状态示例内容包含敏感词请移除不允许的内容，再重新提交。备注 · 警告状态示例建议补充更多细节建议补充背景和预期结果，便于团队理解。"
+      }
+    },
+    {
+      "check": "rc-text-edit/status.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 2,
+        "targets": [
+          {
+            "width": 202,
+            "height": 44
+          },
+          {
+            "width": 202,
+            "height": 44
+          }
+        ],
+        "disabled": 0,
+        "invalid": 1,
+        "busy": 0,
+        "selected": 0,
+        "text": "备注 · 错误状态示例内容包含敏感词请移除不允许的内容，再重新提交。备注 · 警告状态示例建议补充更多细节建议补充背景和预期结果，便于团队理解。"
+      }
+    },
+    {
+      "check": "rc-theme/light-dark.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Light背景、文本、边框与操作色均来自 Layer 2。Brand colorDark背景、文本、边框与操作色均来自 Layer 2。Brand color"
+      }
+    },
+    {
+      "check": "rc-theme/light-dark.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Light背景、文本、边框与操作色均来自 Layer 2。Brand colorDark背景、文本、边框与操作色均来自 Layer 2。Brand color"
+      }
+    },
+    {
+      "check": "rc-token-global/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Blue 600 · 原始色块颜色、尺寸与圆角来自全局基元；文字继承工作台的阅读样式。"
+      }
+    },
+    {
+      "check": "rc-token-global/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "Blue 600 · 原始色块颜色、尺寸与圆角来自全局基元；文字继承工作台的阅读样式。"
+      }
+    },
+    {
+      "check": "rc-token-semantic/base.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-token-semantic/base.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": ""
+      }
+    },
+    {
+      "check": "rc-tooltip/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 76,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "鼠标悬浮"
+      }
+    },
+    {
+      "check": "rc-tooltip/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 1,
+        "targets": [
+          {
+            "width": 76,
+            "height": 31.5
+          }
+        ],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "鼠标悬浮"
+      }
+    },
+    {
+      "check": "rc-tree/basic.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          }
+        ],
+        "disabled": 5,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    While dragging, use t"
+      }
+    },
+    {
+      "check": "rc-tree/basic.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 5,
+        "targets": [
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          },
+          {
+            "width": 8,
+            "height": 44
+          }
+        ],
+        "disabled": 5,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "节点 1节点 2节点 3节点 4节点 5\n    To pick up a draggable item, press the space bar.\n    While dragging, use t"
+      }
+    },
+    {
+      "check": "rc-tree/checkable.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 22,
+        "targets": [
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 11,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring 生态Node.js\n    To pic"
+      }
+    },
+    {
+      "check": "rc-tree/checkable.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 22,
+        "targets": [
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          },
+          {
+            "width": 320,
+            "height": 28
+          },
+          {
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "disabled": 11,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "前端技术React 生态ReactReact RouterTanStack QueryCSS 方案Crab CSSTailwind CSS后端技术Spring 生态Node.js\n    To pic"
+      }
+    },
+    {
+      "check": "rc-tree/icon-and-disabled.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 9,
+        "targets": [
+          {
+            "width": 8,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 40,
+            "height": 28
+          },
+          {
+            "width": 40,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 8,
+            "height": 28
+          }
+        ],
+        "disabled": 9,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n    To pick up a dra"
+      }
+    },
+    {
+      "check": "rc-tree/icon-and-disabled.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 1440,
+        "pageWidth": 1440,
+        "frameWidth": 1440,
+        "contentWidth": 1440,
+        "coarse": false,
+        "controls": 9,
+        "targets": [
+          {
+            "width": 8,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 40,
+            "height": 28
+          },
+          {
+            "width": 40,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 24,
+            "height": 28
+          },
+          {
+            "width": 8,
+            "height": 28
+          }
+        ],
+        "disabled": 9,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "srccomponentsButton.tsxInput.tsxutils（禁用）App.tsxindex.tssecret.ts（禁用）public（禁用）\n    To pick up a dra"
+      }
+    },
+    {
+      "check": "rc-virtual/simple.demo.tsx/light",
+      "passed": true,
+      "evidence": {
+        "theme": "light",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "a-0b-0c-0a-1b-1c-1a-2b-2c-2a-3b-3c-3a-4b-4c-4a-5b-5c-5a-6b-6c-6a-7b-7c-7a-8b-8c-8a-9b-9c-9a-10b-10c-"
+      }
+    },
+    {
+      "check": "rc-virtual/simple.demo.tsx/dark",
+      "passed": true,
+      "evidence": {
+        "theme": "dark",
+        "width": 320,
+        "pageWidth": 320,
+        "frameWidth": 320,
+        "contentWidth": 320,
+        "coarse": true,
+        "controls": 0,
+        "targets": [],
+        "disabled": 0,
+        "invalid": 0,
+        "busy": 0,
+        "selected": 0,
+        "text": "a-0b-0c-0a-1b-1c-1a-2b-2c-2a-3b-3c-3a-4b-4c-4a-5b-5c-5a-6b-6c-6a-7b-7c-7a-8b-8c-8a-9b-9c-9a-10b-10c-"
+      }
+    },
+    {
+      "check": "浏览器运行时异常",
+      "passed": true,
+      "evidence": []
+    }
+  ]
+}

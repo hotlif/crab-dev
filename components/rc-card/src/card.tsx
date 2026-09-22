@@ -12,9 +12,16 @@ import type { CardProps, CardSize, CardVariant } from './types.js';
 
 // ─── 容器基座 ────────────────────────────────────────────────────────────────
 // overflow:hidden 让封面出血并随圆角裁切；border 常驻 1px transparent 以便描边
-// 平滑过渡且切换变体不引起布局跳动；--rc-card-cover-scale 默认 1，悬浮时由
-// liftStyle 提升，驱动封面同步缩放。
+// 平滑过渡且切换变体不引起布局跳动。状态层保留每个变体的表面色。
 const cardBaseStyle = css`
+    font-family: ${token.body['font-family']};
+    color: ${token.body.color};
+    &[role="button"], &[role="link"] {
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
+ }
     position: relative;
     display: flex;
     flex-direction: column;
@@ -29,19 +36,27 @@ const cardBaseStyle = css`
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
+    @media (forced-colors: active) {
+        border-color: CanvasText;
+    }
 `;
 
 // ─── 变体 ────────────────────────────────────────────────────────────────────
 const variantElevatedStyle = css`
     background-color: ${token.elevated['background-color']};
-    border-color: ${token.root['border-color']};
     box-shadow: ${token.root['box-shadow']};
+    --rc-card-shadow-hover: ${token.root['box-shadow-hover']};
+    --rc-card-shadow-active: ${token.root['box-shadow-active']};
 `;
 const variantOutlinedStyle = css`
     border-color: ${token.root['border-color']};
+    --rc-card-shadow-hover: ${token.outlined['box-shadow-hover']};
+    --rc-card-shadow-active: ${token.outlined['box-shadow-active']};
 `;
 const variantFilledStyle = css`
     background-color: ${token.filled['background-color']};
+    --rc-card-shadow-hover: ${token.filled['box-shadow-hover']};
+    --rc-card-shadow-active: ${token.filled['box-shadow-active']};
 `;
 
 // ─── 尺寸（注入 CSS 变量，向所有区块子组件传导）─────────────────────────────
@@ -64,33 +79,41 @@ const sizeSmallStyle = css`
     --rc-card-title-size: ${token.size.small.title['font-size']};
 `;
 
-// ─── 悬浮轻浮起（hoverable / clickable 共用）─────────────────────────────────
-// 位移用 transform 模拟、不改盒模型（反馈原则：不引起布局跳动）；封面同步微缩放。
+// M3 状态层叠在原表面上，阴影由变体决定；封面不随 hover 缩放。
 const liftStyle = css`
-    will-change: transform;
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        background: ${token['state-layer'].color};
+        opacity: 0;
+        transition: ${token['state-layer'].transition};
+    }
+    &:hover::after { opacity: ${token['state-layer']['opacity-hover']}; }
+    &:focus-visible::after { opacity: ${token['state-layer']['opacity-focus']}; }
+    &:active::after { opacity: ${token['state-layer']['opacity-pressed']}; }
 
     &:hover {
         transform: ${token.root['transform-hover']};
-        box-shadow: ${token.root['box-shadow-hover']};
-        --rc-card-cover-scale: 1.03;
+        box-shadow: var(--rc-card-shadow-hover);
     }
 
     @media (prefers-reduced-motion: reduce) {
+        &::after { transition: none; }
         &:hover {
             transform: none;
         }
     }
-`;
-
-// filled / outlined 在可交互时的悬浮底色与描边微调，补足各自的悬浮意符
-const filledInteractiveStyle = css`
-    &:hover {
-        background-color: ${token.filled['background-color-hover']};
+    @media (forced-colors: active) {
+        &::after { display: none; }
     }
 `;
+
 const outlinedInteractiveStyle = css`
-    &:hover {
-        border-color: ${token.root['border-color-hover']};
+    &:focus-visible {
+        border-color: ${token.outlined['border-color-focus']};
     }
 `;
 
@@ -108,7 +131,7 @@ const clickableStyle = css`
     /* 按压回落，短促过渡更跟手 */
     &:active {
         transform: ${token.root['transform-active']};
-        box-shadow: ${token.root['box-shadow-active']};
+        box-shadow: var(--rc-card-shadow-active);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -233,7 +256,6 @@ const CardBase = ({
                 sizeStyleOf(size),
                 interactive && liftStyle,
                 actionable && clickableStyle,
-                variant === 'filled' && interactive && filledInteractiveStyle,
                 variant === 'outlined' && interactive && outlinedInteractiveStyle,
                 disabled && disabledStyle,
                 className,

@@ -7,7 +7,7 @@ import {
     useFloatingTree,
     useFloatingParentNodeId
 } from "@floating-ui/react";
-import { type FC, useState, type ReactNode, useEffect } from "react";
+import { type FC, useState, type ReactNode, useEffect, useId } from "react";
 import { cx } from "@crab-dev/css";
 import { type Item } from "../type.js";
 import itemStyle from "./styles/itemNormal.styles.js";
@@ -20,15 +20,19 @@ interface ItemProps {
     children: ReactNode[],
     depth: number
     onClick?: MenuProps["onClick"]
+    selected?: boolean
 }
 
 const ItemNormal: FC<ItemProps> = ({
     item,
     children,
     depth: _depth,
-    onClick
+    onClick,
+    selected
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const submenuId = useId();
+    const triggerId = useId();
     const nodeId = useFloatingNodeId();
 
     const tree = useFloatingTree();
@@ -69,9 +73,17 @@ const ItemNormal: FC<ItemProps> = ({
                 {...getReferenceProps()}
             >
                 <div
+                    id={triggerId}
+                    role="button"
+                    tabIndex={0}
+                    data-menu-item=""
+                    aria-current={selected ? 'page' : undefined}
+                    aria-expanded={children.length > 0 ? isOpen : undefined}
+                    aria-controls={children.length > 0 ? submenuId : undefined}
                     className={cx.call(undefined, itemStyle.item.content, isRootMenu ? null : itemStyle.item.floatTrigger)}
                     onClick={(e) => {
-                        tree?.events.emit("close");
+                        if (children.length > 0) setIsOpen(value => !value);
+                        else tree?.events.emit("close");
                         onClick?.({
                             event: e,
                             item
@@ -105,10 +117,19 @@ const ItemNormal: FC<ItemProps> = ({
                     {
                         isOpenFloatChildren ? (
                             <ul
+                                id={submenuId}
+                                {...getFloatingProps()}
+                                onKeyDown={event => {
+                                    if (event.key === 'Escape') {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        setIsOpen(false);
+                                        document.getElementById(triggerId)?.focus();
+                                    }
+                                }}
                                 className={cx.call(undefined, itemStyle.submenu.container, itemStyle.submenu.float)}
                                 ref={refs.setFloating}
                                 style={floatingStyles}
-                                {...getFloatingProps()}
                             >
                                 {children}
                             </ul>

@@ -17,6 +17,11 @@ const menuItemWithDivider = css`
 `
 
 const menuItemContent = css`
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
+
     border-radius: 4px;
     padding-left: ${token.horizontal.item.content["padding-left"]};
     font-size: ${token.horizontal.item.content["font-size"]};
@@ -24,6 +29,12 @@ const menuItemContent = css`
     display: flex;
     align-items: center;
     box-sizing: border-box;
+    &[aria-current='page'] {
+        background-color: ${token.vertical.item.title['background-color-selected']};
+        font-weight: ${token.vertical.item.title['font-weight-selected']};
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+    }
 `
 
 const menuItemFloatTrigger = css`

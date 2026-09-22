@@ -25,9 +25,15 @@ const itemStyle = css`
 `;
 
 const linkStyle = css`
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+
     color: ${token.item.color};
     text-decoration: none;
-    transition: color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color ${token.interaction.transition};
+    display: inline-flex; align-items: center;
 
     &:hover {
         color: ${token.item['color-hover']};

@@ -285,7 +285,7 @@ export interface TableProps {
     "showSummary"?: boolean;
 
     /**
-     * 汇总行高度（默认 35）
+     * 汇总行高度（默认 52）
      */
     "summaryRowHeight"?: number;
 

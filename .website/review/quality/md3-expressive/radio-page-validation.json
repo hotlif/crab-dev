@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-09-20T05:14:09.8540189Z",
+  "scope": "Radio documentation page and Radio default target size",
+  "officialSource": "https://m3.material.io/blog/building-with-m3-expressive",
+  "tasksPassed": 59,
+  "radioTests": 24,
+  "websiteTests": 54,
+  "generatorTests": 28,
+  "tokenContracts": 48,
+  "generatedDrift": 0,
+  "build": "passed",
+  "productionJavaScriptFilesChecked": 1887,
+  "unboundReferences": 0,
+  "browser": {
+    "productionUrl": "http://127.0.0.1:4177/components/rc-radio",
+    "viewportWidth": 320,
+    "viewportHeight": 800,
+    "lightOverflow": 0,
+    "darkOverflow": 0,
+    "pointerTarget": 48,
+    "keyboardArrowNavigation": "passed",
+    "selectionAndPreview": "passed",
+    "disabled": "passed",
+    "validationRecovery": "passed",
+    "customBrandAndNestedTheme": "passed",
+    "sourcePanelAt320": "passed",
+    "radioAndGroupApi": "passed",
+    "layoutStableAcrossSelection": "passed",
+    "cronPickerTargetSpacing": 8,
+    "consoleErrorsOrWarnings": 0
+  },
+  "unverified": [
+    "forced-colors OS setting",
+    "reduced-motion OS setting",
+    "200% text zoom",
+    "physical touch device",
+    "screen reader"
+  ]
+}

@@ -7,6 +7,14 @@ import token from "./token.js";
 
 
 export interface TextEditProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+    /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
+    appearance?: "outlined" | "filled";
+    /** 可见的浮动标签，与文本域自动关联。 */
+    label?: string;
+    /** 文本域下方的辅助说明，自动加入 aria-describedby。 */
+    supportingText?: string;
+    /** 错误说明；提供时自动启用 error 状态并替换辅助说明。 */
+    errorText?: string;
     /**
      * textarea 元素的 ref
      */
@@ -257,14 +265,108 @@ const clearButtonStyle = css`
 
 // 字符计数：容器 flex column 下常驻底部右对齐；计数变化不改变行高，不引起布局跳动
 const countStyle = css`
-    align-self: flex-end;
     flex-shrink: 0;
-    margin-top: ${token.icon.gap};
     font-size: ${token.count['font-size']};
     color: ${token.count.color};
     white-space: nowrap;
     user-select: none;
 `
+
+const fieldStyle = css`
+    display: inline-grid;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    gap: ${token.field.gap};
+`;
+
+const materialStyle = css`
+    position: relative;
+    cursor: text;
+    &[data-labeled="true"] { padding-top: ${token.field.input['padding-top']}; }
+    & > label {
+        position: absolute;
+        z-index: 1;
+        inset-inline-start: ${token.field['padding-inline']};
+        top: ${token.field.label.top};
+        max-width: calc(100% - 2 * ${token.field['padding-inline']});
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: text;
+        color: ${token.field.label.color};
+        font-size: ${token.size.middle['font-size']};
+        line-height: ${token.field.label['line-height']};
+        transition: ${token.field.transition};
+    }
+    &[data-labeled="true"]:not(:focus-within) textarea:placeholder-shown::placeholder { color: transparent; }
+    &:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
+        top: 0;
+        transform: translateY(-50%);
+        padding-inline: ${token.field.label['padding-inline']};
+        background: ${token.root['background-color']};
+        font-size: ${token.field.label['font-size']};
+    }
+    &:focus-within > label { color: ${token.field.label['color-focus']}; }
+    &[data-appearance="filled"] {
+        border-radius: ${token.root['border-radius']} ${token.root['border-radius']} 0 0;
+        border-color: transparent;
+        border-bottom-color: ${token.field.indicator['border-color']};
+        background: ${token.field.filled['background-color']};
+        box-shadow: none;
+    }
+    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within) {
+        background: ${token.field.filled['background-color-hover']};
+        border-color: transparent;
+        border-bottom-color: ${token.text.color};
+    }
+    &[data-appearance="filled"]:focus-within {
+        border-color: transparent;
+        border-bottom-color: ${token.root['border-color-focus']};
+        box-shadow: inset 0 -1px 0 ${token.root['border-color-focus']};
+    }
+    &[data-appearance="filled"]:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
+        top: ${token.field.filled.label.top};
+        transform: none;
+        padding: 0;
+        background: transparent;
+    }
+    &[data-status="error"] > label { color: ${token.field['color-error']}; }
+    &[data-status="warning"] > label { color: ${token.field['color-warning']}; }
+    &&[data-appearance="filled"][data-status="error"] {
+        border-color: transparent;
+        border-bottom-color: ${token.status['border-color-error']};
+        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status['border-color-error']}; }
+    }
+    &&[data-appearance="filled"][data-status="warning"] {
+        border-color: transparent;
+        border-bottom-color: ${token.status['border-color-warning']};
+        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status['border-color-warning']}; }
+    }
+    @media (prefers-reduced-motion: reduce) { & > label { transition: none; } }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; background: Canvas; }
+        & > label { color: CanvasText; }
+        &:focus-within > label { color: Highlight; }
+        &[aria-disabled="true"] > label { color: GrayText; }
+    }
+`;
+
+const supportingStyle = css`
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: ${token.icon.gap};
+    padding-inline: ${token.field['padding-inline']};
+    color: ${token.field.label.color};
+    font-size: ${token.field.label['font-size']};
+    line-height: ${token.field.support['line-height']};
+    overflow-wrap: anywhere;
+    & > span:first-child { min-width: 0; }
+    &[data-status="error"] { color: ${token.field['color-error']}; }
+    &[data-status="warning"] { color: ${token.field['color-warning']}; }
+    @media (forced-colors: active) { color: CanvasText; }
+`;
 
 
 function TextEdit({
@@ -285,23 +387,42 @@ function TextEdit({
     autoSize,
     resize = "vertical",
     bordered = true,
+    appearance = "outlined",
+    label,
+    supportingText,
+    errorText,
+    placeholder,
     ...rest
 }: TextEditProps) {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const hasValue = typeof value === "string" && value.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
+    const fieldStatus = errorText ? "error" : status;
+    const enhancedField = Boolean(label || supportingText || errorText || showCount);
+    const description = errorText || supportingText;
+    const descriptionId = `${generatedId}-description`;
+    const countId = `${generatedId}-count`;
+    const count = showCount && typeof value === "string" ? (
+        <span id={countId} className={countStyle}>
+            {value.length}{maxLength != null ? `/${maxLength}` : ""}
+        </span>
+    ) : null;
 
-    return (
+    const control = (
         <div
             ref={containerRef}
             aria-disabled={disabled || undefined}
+            data-appearance={bordered ? appearance : undefined}
+            data-labeled={Boolean(label && bordered)}
+            data-status={fieldStatus}
             style={style}
             className={cx(
                 containerBaseStyle,
                 bordered ? sizeContainerStyles[size] : borderlessStyle,
-                bordered && status === "error" && errorStyle,
-                bordered && status === "warning" && warningStyle,
+                bordered && fieldStatus === "error" && errorStyle,
+                bordered && fieldStatus === "warning" && warningStyle,
+                bordered && materialStyle,
                 className
             )}
         >
@@ -310,6 +431,7 @@ function TextEdit({
                 id={inputId}
                 value={value}
                 maxLength={maxLength}
+                placeholder={placeholder ?? (label ? " " : undefined)}
                 disabled={disabled}
                 readOnly={readOnly}
                 className={cx(
@@ -319,8 +441,10 @@ function TextEdit({
                     allowClear && clearSpaceStyle
                 )}
                 {...rest}
-                aria-invalid={rest['aria-invalid'] ?? (status === "error" || undefined)}
+                aria-invalid={rest['aria-invalid'] ?? (fieldStatus === "error" || undefined)}
+                aria-describedby={[rest['aria-describedby'], description ? descriptionId : undefined, count ? countId : undefined].filter(Boolean).join(" ") || undefined}
             />
+            {label && bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
             {showClearButton && (
                 <Button
                     type="button"
@@ -338,13 +462,22 @@ function TextEdit({
                     }}
                 />
             )}
-            {showCount && typeof value === "string" && (
-                <span className={countStyle}>
-                    {value.length}{maxLength != null ? `/${maxLength}` : ""}
-                </span>
+            {!enhancedField && count}
+        </div>
+    );
+
+    return enhancedField ? (
+        <div className={fieldStyle}>
+            {label && !bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
+            {control}
+            {(description || count) && (
+                <div className={supportingStyle} data-status={fieldStatus}>
+                    <span id={description ? descriptionId : undefined}>{description}</span>
+                    {count}
+                </div>
             )}
         </div>
-    )
+    ) : control;
 }
 
 export default TextEdit;

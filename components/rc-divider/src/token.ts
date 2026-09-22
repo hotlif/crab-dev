@@ -23,7 +23,7 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'line': {
-        'border-color': `var(${vars['line.border-color']}, var(--divider-line-color, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
+        'border-color': `var(${vars['line.border-color']}, var(--divider-line-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`,
         'border-width': `var(${vars['line.border-width']}, var(--divider-line-width, 1px))`
     },
     'spacing': {
@@ -41,10 +41,10 @@ const token = defineTokens({
         }
     },
     'text': {
-        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`,
-        'color-plain': `var(${vars['text.color-plain']}, var(--token-semantic-color-text-secondary, var(--token-global-zinc-700, oklch(0.430 0.012 286))))`,
-        'font-size': `var(${vars['text.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
-        'font-weight': `var(${vars['text.font-weight']}, var(--token-semantic-font-weight-label, var(--token-global-font-weight-medium, 500)))`,
+        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'color-plain': `var(${vars['text.color-plain']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+        'font-size': `var(${vars['text.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+        'font-weight': `var(${vars['text.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
         'font-weight-plain': `var(${vars['text.font-weight-plain']}, var(--token-semantic-font-weight-body, var(--token-global-font-weight-regular, 400)))`,
         'gap': `var(${vars['text.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'flex-basis': `var(${vars['text.flex-basis']}, var(--divider-text-offset, 5%))`

@@ -15,5 +15,16 @@ export const demos = [
         "density": "compact",
         "layout": "grid",
         "group": null
+    },
+    {
+        "id": "docs/demos/expressive.demo.tsx",
+        "title": "Expressive 五档尺寸",
+        "description": "新版竖向手柄、轨道间隙、终点与五档轨道高度。",
+        "sourceCode": "export const meta = { title: 'Expressive 五档尺寸', description: '新版竖向手柄、轨道间隙、终点与五档轨道高度。' };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Slider from '../../src/slider.js';\nconst stack = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    width: min(calc(${token.size['64']} * 5), calc(100vw - 2 * ${token.space['section-gap']}));\n    max-width: 100%;\n`;\nexport default function Example() {\n    const [value, setValue] = useState(40);\n    return \u003cdiv className={stack}>{(['xs','s','m','l','xl'] as const).map(size => \u003cdiv key={size}>\n        \u003cspan>{size.toUpperCase()} · {value}\u003c/span>\n        \u003cSlider size={size} value={value} onValueChange={setValue} aria-label={`${size} 滑块`} />\n    \u003c/div>)}\u003c/div>;\n}\n",
+        "previewPath": "/components/rc-slider/workbench/?__wake_demo=docs%2Fdemos%2Fexpressive.demo.tsx",
+        "workbenchPath": "/components/rc-slider/workbench/#/components/docs%2Fdemos%2Fexpressive.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

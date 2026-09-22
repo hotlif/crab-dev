@@ -14,5 +14,5 @@ const options = [
     },
 ];
 export default function Example() {
-    return <Select aria-label="工作城市" options={options} placeholder="请选择城市" />;
+    return <Select label="工作城市" supportingText="用于安排线下办公地点。" appearance="filled" options={options} />;
 }

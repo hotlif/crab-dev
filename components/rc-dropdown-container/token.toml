@@ -4,11 +4,20 @@ prefix = "dropdown-container"
 imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
-root.box-shadow = "var(--dropdown-container-box-shadow, $ref(shadow.overlay))"
-root.border-radius = "var(--dropdown-container-border-radius, 8px)"
-root.background-color = "var(--dropdown-container-background-color, $ref(color.background.elevated))"
-root.border-color = "$ref(color.border.subtle)"
+root.box-shadow = "var(--dropdown-container-box-shadow, $ref(shadow.float))"
+root.border-radius = "var(--dropdown-container-border-radius, $ref(shape.extra-small))"
+root.background-color = "var(--dropdown-container-background-color, $ref(color.surface.container))"
+root.border-color = "transparent"
 root.z-index = "var(--dropdown-container-z-index, $ref(z-index.float))"
 
 motion.interaction.transition = "var(--dropdown-container-motion-interaction, $ref(motion.interaction))"
 motion.offset.translate = "var(--dropdown-container-motion-offset, calc($ref(space.component-gap) * -1))"
+
+interaction.touch.min-width = "$ref(size.touch-target)"
+interaction.touch.min-height = "$ref(size.touch-target)"
+interaction.outline-color-focus = "$ref(color.focus.ring)"
+interaction.outline-width-focus = "2px"
+interaction.outline-offset-focus = "2px"
+root.max-width = "calc(100vw - $ref(space.section-gap))"
+
+motion.spatial.transition = "$ref(motion.spatial.fast)"

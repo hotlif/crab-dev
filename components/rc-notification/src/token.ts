@@ -24,6 +24,7 @@ export const vars = defineTokens({
     'progress.animation-delay': '--notification-progress-animation-delay',
     'close.opacity': '--notification-close-opacity',
     'motion.interaction.transition': '--notification-motion-interaction-transition',
+    'motion.spatial.transition': '--notification-motion-spatial-transition',
     'stack.translate': '--notification-stack-translate',
     'stack.gap': '--notification-stack-gap',
     'stack.front.z-index': '--notification-stack-front-z-index',
@@ -38,24 +39,24 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--notification-background-color, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0)))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--notification-background-color, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074)))))`,
         'padding': `var(${vars['root.padding']}, var(--notification-padding, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px))))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--notification-border-radius, var(--token-semantic-radius-lg, var(--token-global-radius-4, 8px))))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, var(--notification-box-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-lg, 0 0 0 1px oklch(0 0 0 / 0.03), 0 4px 8px -2px oklch(0 0 0 / 0.06), 0 12px 20px -4px oklch(0 0 0 / 0.08)))))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--notification-border-radius, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px))))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--notification-box-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15)))))`,
         'width': `var(${vars['root.width']}, 360px)`,
-        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`
     },
     'text': {
-        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286))))`
+        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
     },
     'title': {
         'margin-bottom': `var(${vars['title.margin-bottom']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-        'font-size': `var(${vars['title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,
-        'line-height': `var(${vars['title.line-height']}, 1.5)`
+        'font-size': `var(${vars['title.font-size']}, var(--token-semantic-typography-title-medium-font-size, var(--token-global-font-size-md, 16px)))`,
+        'line-height': `var(${vars['title.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`
     },
     'content': {
-        'font-size': `var(${vars['content.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
-        'line-height': `var(${vars['content.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`
+        'font-size': `var(${vars['content.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+        'line-height': `var(${vars['content.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-16-24, 1.5)))`
     },
     'progress': {
         'start': {
@@ -73,7 +74,10 @@ const token = defineTokens({
     },
     'motion': {
         'interaction': {
-            'transition': `var(${vars['motion.interaction.transition']}, var(--notification-motion-interaction, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1)))))`
+            'transition': `var(${vars['motion.interaction.transition']}, var(--notification-motion-interaction, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))))`
+        },
+        'spatial': {
+            'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
         }
     },
     'stack': {
@@ -85,14 +89,14 @@ const token = defineTokens({
         'second': {
             'z-index': `var(${vars['stack.second.z-index']}, 2)`,
             'scale': `var(${vars['stack.second.scale']}, 0.96)`,
-            'background-color': `var(${vars['stack.second.background-color']}, color-mix(in oklch, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))) 94%, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))`
+            'background-color': `var(${vars['stack.second.background-color']}, color-mix(in oklch, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))) 94%, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`
         },
         'third': {
             'z-index': `var(${vars['stack.third.z-index']}, 1)`,
             'scale': `var(${vars['stack.third.scale']}, 0.92)`,
-            'background-color': `var(${vars['stack.third.background-color']}, color-mix(in oklch, var(--token-semantic-color-background-elevated, var(--token-global-white, oklch(1.000 0 0))) 88%, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))`
+            'background-color': `var(${vars['stack.third.background-color']}, color-mix(in oklch, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))) 88%, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`
         },
-        'box-shadow': `var(${vars['stack.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`
+        'box-shadow': `var(${vars['stack.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`
     }
 });
 

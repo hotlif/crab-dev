@@ -18,11 +18,12 @@ const ShowCountDemo = () => {
     return (
         <div className={wrapperStyle}>
             <TextEdit
+                label="简介"
+                supportingText="概括项目用途。"
                 value={value}
                 rows={3}
                 showCount
                 maxLength={100}
-                placeholder="简介（100 字以内）"
                 onChange={(e) => setValue(e.target.value)}
             />
         </div>

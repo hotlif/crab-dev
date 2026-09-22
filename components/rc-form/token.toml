@@ -15,8 +15,8 @@ row.gap = "$ref(space.stack-gap)"
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────
 label.color = "$ref(color.text.primary)"
-label.font-size = "$ref(font.size.body)"
-label.font-weight = "$ref(font.weight.label)"
+label.font-size = "$ref(typography.label.font-size)"
+label.font-weight = "$ref(typography.label.font-weight)"
 
 # ─── 必填指示符 ──────────────────────────────────────────────────────────────
 # 反馈原理：以醒目色 + 紧邻标签的星号，第一时间告知字段必填

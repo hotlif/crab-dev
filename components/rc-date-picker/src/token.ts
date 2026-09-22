@@ -16,6 +16,7 @@ export const vars = defineTokens({
     'cell.font-size': '--date-picker-cell-font-size',
     'cell.font-weight': '--date-picker-cell-font-weight',
     'cell.transition': '--date-picker-cell-transition',
+    'cell.touch.width': '--date-picker-cell-touch-width',
     'header.padding': '--date-picker-header-padding',
     'header.cell.height': '--date-picker-header-cell-height',
     'header.font-size': '--date-picker-header-font-size',
@@ -25,12 +26,26 @@ export const vars = defineTokens({
     'action.bar.gap': '--date-picker-action-bar-gap',
     'panel.font-size': '--date-picker-panel-font-size',
     'panel.padding': '--date-picker-panel-padding',
+    'panel.narrow.padding': '--date-picker-panel-narrow-padding',
+    'panel.max-width': '--date-picker-panel-max-width',
+    'panel.background-color': '--date-picker-panel-background-color',
+    'panel.border-radius': '--date-picker-panel-border-radius',
     'navigation.width': '--date-picker-navigation-width',
     'timezone.font-size': '--date-picker-timezone-font-size',
     'timezone.opacity': '--date-picker-timezone-opacity',
     'out-of-range.opacity': '--date-picker-out-of-range-opacity',
     'icon.opacity': '--date-picker-icon-opacity',
-    'icon.opacity-hover': '--date-picker-icon-opacity-hover'
+    'icon.opacity-hover': '--date-picker-icon-opacity-hover',
+    'time.input.width': '--date-picker-time-input-width',
+    'time.input.gap': '--date-picker-time-input-gap',
+    'time.section.gap': '--date-picker-time-section-gap',
+    'time.title.color': '--date-picker-time-title-color',
+    'time.title.font-size': '--date-picker-time-title-font-size',
+    'time.title.font-weight': '--date-picker-time-title-font-weight',
+    'time.title.line-height': '--date-picker-time-title-line-height',
+    'time.support.color': '--date-picker-time-support-color',
+    'time.support.font-size': '--date-picker-time-support-font-size',
+    'time.support.line-height': '--date-picker-time-support-line-height'
 });
 
 const token = defineTokens({
@@ -39,24 +54,27 @@ const token = defineTokens({
         'color-selected': `var(${vars['root.color-selected']}, var(--date-picker-color-selected, var(--date-picker-selected-color, var(--date-picker-selected-text-color, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0)))))))`
     },
     'cell': {
-        'background-color-hover': `var(${vars['cell.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
-        'color-hover': `var(${vars['cell.color-hover']}, var(--date-picker-cell-text-color-hover, var(--token-semantic-color-text-primary, var(--token-global-zinc-950, oklch(0.140 0.004 286)))))`,
-        'color-disabled': `var(${vars['cell.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-zinc-500, oklch(0.660 0.014 286))))`,
-        'padding': `var(${vars['cell.padding']}, 3px 4px)`,
-        'border-radius': `var(${vars['cell.border-radius']}, var(--token-semantic-radius-md, var(--token-global-radius-3, 6px)))`,
+        'background-color-hover': `var(${vars['cell.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'color-hover': `var(${vars['cell.color-hover']}, var(--date-picker-cell-text-color-hover, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`,
+        'color-disabled': `var(${vars['cell.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'padding': `var(${vars['cell.padding']}, 0px)`,
+        'border-radius': `var(${vars['cell.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`,
         'content': {
-            'width': `var(${vars['cell.content.width']}, var(--date-picker-cell-content-size, calc(var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)) + var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))))`
+            'width': `var(${vars['cell.content.width']}, var(--date-picker-cell-content-size, var(--token-semantic-size-40, var(--token-global-size-40, 40px))))`
         },
-        'font-size': `var(${vars['cell.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
+        'font-size': `var(${vars['cell.font-size']}, var(--token-semantic-typography-label-font-size, var(--token-global-font-size-sm, 14px)))`,
         'font-weight': `var(${vars['cell.font-weight']}, 400)`,
-        'transition': `var(${vars['cell.transition']}, var(--token-semantic-motion-interaction, calc((var(--token-global-duration-fast, 100ms) + var(--token-global-duration-normal, 200ms)) / 2) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
+        'transition': `var(${vars['cell.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
+        'touch': {
+            'width': `var(${vars['cell.touch.width']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`
+        }
     },
     'header': {
         'padding': `var(${vars['header.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)) var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'cell': {
             'height': `var(${vars['header.cell.height']}, 40px)`
         },
-        'font-size': `var(${vars['header.font-size']}, var(--token-semantic-font-size-caption, var(--token-global-font-size-xs, 12px)))`,
+        'font-size': `var(${vars['header.font-size']}, var(--token-semantic-typography-body-large-font-size, var(--token-global-font-size-md, 16px)))`,
         'line-height': `var(${vars['header.line-height']}, 1.4)`,
         'font-weight': `var(${vars['header.font-weight']}, 400)`
     },
@@ -67,22 +85,48 @@ const token = defineTokens({
         }
     },
     'panel': {
-        'font-size': `var(${vars['panel.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
-        'padding': `var(${vars['panel.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
+        'font-size': `var(${vars['panel.font-size']}, var(--token-semantic-typography-label-font-size, var(--token-global-font-size-sm, 14px)))`,
+        'padding': `var(${vars['panel.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'narrow': {
+            'padding': `var(${vars['panel.narrow.padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+        },
+        'max-width': `var(${vars['panel.max-width']}, calc(100vw - var(--token-semantic-size-48, var(--token-global-size-48, 48px))))`,
+        'background-color': `var(${vars['panel.background-color']}, var(--token-semantic-color-surface-high, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
+        'border-radius': `var(${vars['panel.border-radius']}, var(--token-semantic-shape-extra-large, var(--token-global-radius-14, 28px)))`
     },
     'navigation': {
-        'width': `var(${vars['navigation.width']}, var(--date-picker-navigation-size, calc(var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)) * 2)))`
+        'width': `var(${vars['navigation.width']}, var(--date-picker-navigation-size, var(--token-semantic-size-48, var(--token-global-size-48, 48px))))`
     },
     'timezone': {
-        'font-size': `var(${vars['timezone.font-size']}, 10px)`,
+        'font-size': `var(${vars['timezone.font-size']}, var(--token-semantic-typography-label-medium-font-size, var(--token-global-font-size-xs, 12px)))`,
         'opacity': `var(${vars['timezone.opacity']}, var(--date-picker-opacity-timezone, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7))))`
     },
     'out-of-range': {
-        'opacity': `var(${vars['out-of-range.opacity']}, var(--date-picker-opacity-out-of-range, var(--token-semantic-opacity-disabled, var(--token-global-opacity-30, 0.3))))`
+        'opacity': `var(${vars['out-of-range.opacity']}, var(--date-picker-opacity-out-of-range, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38))))`
     },
     'icon': {
         'opacity': `var(${vars['icon.opacity']}, var(--date-picker-opacity-icon, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5))))`,
         'opacity-hover': `var(${vars['icon.opacity-hover']}, var(--date-picker-opacity-icon-hover, var(--token-semantic-opacity-hover, var(--token-global-opacity-80, 0.8))))`
+    },
+    'time': {
+        'input': {
+            'width': `var(${vars['time.input.width']}, 80px)`,
+            'gap': `var(${vars['time.input.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+        },
+        'section': {
+            'gap': `var(${vars['time.section.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
+        },
+        'title': {
+            'color': `var(${vars['time.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'font-size': `var(${vars['time.title.font-size']}, var(--token-semantic-typography-title-large-font-size, var(--token-global-font-size-22, 22px)))`,
+            'font-weight': `var(${vars['time.title.font-weight']}, var(--token-semantic-typography-title-large-font-weight, var(--token-global-font-weight-regular, 400)))`,
+            'line-height': `var(${vars['time.title.line-height']}, var(--token-semantic-typography-title-large-line-height, var(--token-global-line-height-22-28, 1.2727272727272727)))`
+        },
+        'support': {
+            'color': `var(${vars['time.support.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+            'font-size': `var(${vars['time.support.font-size']}, var(--token-semantic-typography-body-small-font-size, var(--token-global-font-size-xs, 12px)))`,
+            'line-height': `var(${vars['time.support.line-height']}, var(--token-semantic-typography-body-small-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`
+        }
     }
 });
 

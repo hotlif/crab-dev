@@ -20,6 +20,7 @@ const setRef = (ref: Ref<HTMLDivElement> | undefined, node: HTMLDivElement | nul
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const controlStyle = css`
+    position: relative;
     display: inline-flex;
     align-items: center;
     width: 100%;
@@ -46,6 +47,8 @@ const controlStyle = css`
     }
 
     &:focus-visible {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['border-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
         border-color: ${token.root["border-color-focus"]};
         box-shadow: ${token.root['box-shadow-focus']};
     }
@@ -53,15 +56,97 @@ const controlStyle = css`
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
+    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
+    @media (forced-colors: active) {
+        border-color: ButtonText;
+        &:focus-within { outline: ${token.root['outline-width-focus']} solid Highlight; outline-offset: ${token.root['outline-offset-focus']}; }
+        &[aria-disabled='true'] { border-color: GrayText; color: GrayText; }
+    }
+`;
+
+const materialFieldStyle = css`
+    &[data-labeled="true"] { padding-top: ${token.field.input['padding-top']}; }
+    &[data-labeled="true"][data-floating="false"]:not(:focus-visible) > [data-role="select-value"] {
+        visibility: hidden;
+    }
+    &[data-appearance="filled"] {
+        border-radius: ${token.root['border-radius']} ${token.root['border-radius']} 0 0;
+        border-color: transparent;
+        border-bottom-color: ${token.field.indicator['border-color']};
+        background: ${token.field.filled['background-color']};
+        box-shadow: none;
+    }
+    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-visible) {
+        background: ${token.field.filled['background-color-hover']};
+        border-color: transparent;
+        border-bottom-color: ${token.text.color};
+    }
+    &[data-appearance="filled"]:focus-visible,
+    &[data-appearance="filled"][aria-expanded="true"] {
+        border-color: transparent;
+        border-bottom-color: ${token.root['border-color-focus']};
+        box-shadow: inset 0 -1px 0 ${token.root['border-color-focus']};
+    }
+    &[data-status="error"] > [data-role="select-label"] { color: ${token.field['color-error']}; }
+    &[data-status="warning"] > [data-role="select-label"] { color: ${token.field['color-warning']}; }
+    &&[data-appearance="filled"][data-status="error"] {
+        border-color: transparent;
+        border-bottom-color: ${token.root['border-color-error']};
+    }
+    &&[data-appearance="filled"][data-status="warning"] {
+        border-color: transparent;
+        border-bottom-color: ${token.root['border-color-warning']};
+    }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; background: Canvas; }
+        &[aria-disabled="true"] { border-color: GrayText; }
+    }
+`;
+
+const fieldLabelStyle = css`
+    position: absolute;
+    z-index: 1;
+    inset-inline-start: ${token.field['padding-inline']};
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: calc(100% - 2 * ${token.field['padding-inline']});
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    color: ${token.field.label.color};
+    font-size: ${token.size.middle['font-size']};
+    line-height: ${token.field.label['line-height']};
+    transition: ${token.field.transition};
+    [data-appearance="outlined"]:is(:focus-visible, [data-floating="true"]) > & {
+        top: 0;
+        transform: translateY(-50%);
+        padding-inline: ${token.field.label['padding-inline']};
+        background: ${token.root['background-color']};
+        font-size: ${token.field.label['font-size']};
+    }
+    [data-appearance="filled"]:is(:focus-visible, [data-floating="true"]) > & {
+        top: ${token.field.label.top};
+        transform: none;
+        padding: 0;
+        background: transparent;
+        font-size: ${token.field.label['font-size']};
+    }
+    [data-appearance]:focus-visible > &,
+    [data-appearance][aria-expanded="true"] > & { color: ${token.field.label['color-focus']}; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { color: CanvasText; }
 `;
 
 const controlFocusStyle = css`
+    outline: ${token.root['outline-width-focus']} solid ${token.root['border-color-focus']};
+    outline-offset: ${token.root['outline-offset-focus']};
     border-color: ${token.root["border-color-focus"]};
     box-shadow: ${token.root['box-shadow-focus']};
 `;
 
 const controlDisabledStyle = css`
-    opacity: 0.5;
+    opacity: ${token.root['opacity-disabled']};
     cursor: not-allowed;
     pointer-events: none;
 `;
@@ -176,7 +261,11 @@ const clearStyle = css`
     color: ${token.clear.color};
     cursor: pointer;
     position: absolute;
-    inset: -6px;
+    width: ${token.clear.width};
+    height: ${token.clear.height};
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
     justify-content: center;
     opacity: 0;
     transition: opacity 100ms ease;
@@ -234,9 +323,9 @@ const sizeMetricsMap = {
 // 之和本就会超过 24/32/40px 这几个设计值(例如 small: 20+8+2=30px),RcLineEdit 靠固定
 // height(而非 min-height)把它按设计尺寸截住,这里跟随同样的处理方式。
 const sizeHeightFixedMap = {
-    large: css`height: ${token.size.large.height};`,
-    middle: css`height: ${token.size.middle.height};`,
-    small: css`height: ${token.size.small.height};`,
+    large: css`height: max(${token.size.large.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    middle: css`height: max(${token.size.middle.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    small: css`height: max(${token.size.small.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
 };
 
 // 多选:必须用 min-height——tag 多到换行时若也用固定 height,换行的 tag 会直接
@@ -266,12 +355,19 @@ const ClearIcon = () => (
 
 interface SelectInputProps {
     ref?: Ref<HTMLDivElement>;
+    id: string;
     ariaLabel?: string;
+    ariaLabelledBy?: string;
+    ariaDescribedBy?: string;
     disabled: boolean;
     searchable: boolean;
     multiple: boolean;
     size: "large" | "middle" | "small";
     status?: "error" | "warning";
+    appearance: "outlined" | "filled";
+    label?: string;
+    labelId: string;
+    required?: boolean;
     allowClear: boolean;
     loading: boolean;
     maxTagCount?: number;
@@ -298,12 +394,19 @@ interface SelectInputProps {
 
 const SelectInput: FC<SelectInputProps> = ({
     ref,
+    id,
     ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
     disabled,
     searchable,
     multiple,
     size,
     status,
+    appearance,
+    label,
+    labelId,
+    required,
     allowClear,
     loading,
     maxTagCount,
@@ -589,8 +692,12 @@ const SelectInput: FC<SelectInputProps> = ({
 
     return (
         <div
+            id={id}
             role="combobox"
             aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
+            aria-required={required || undefined}
             aria-expanded={open}
             aria-disabled={disabled}
             // 未展开时并无 listbox 可承载加载语义，故由 combobox 自身标注：
@@ -600,6 +707,10 @@ const SelectInput: FC<SelectInputProps> = ({
             aria-controls={open ? listboxId : undefined}
             aria-activedescendant={activeDescendantId}
             aria-invalid={status === "error" ? true : undefined}
+            data-appearance={appearance}
+            data-labeled={Boolean(label)}
+            data-floating={Boolean(open || selectedOptions.length > 0 || searchText)}
+            data-status={status}
             tabIndex={disabled ? -1 : 0}
             ref={mergeRef}
             className={cx.call(undefined, controlStyle,
@@ -608,13 +719,15 @@ const SelectInput: FC<SelectInputProps> = ({
                 !status && open && controlFocusStyle,
                 disabled && controlDisabledStyle,
                 getStatusStyles(),
+                materialFieldStyle,
             )}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             onFocus={onFocus}
             onBlur={onBlur}
         >
-            <div className={valueWrapStyle}>{renderContent()}</div>
+            {label && <span id={labelId} data-role="select-label" className={fieldLabelStyle}>{label}{required ? " *" : ""}</span>}
+            <div data-role="select-value" className={valueWrapStyle}>{renderContent()}</div>
             {loading ? (
                 <span className={loadingIconStyle}>
                     <SpinIndicator />

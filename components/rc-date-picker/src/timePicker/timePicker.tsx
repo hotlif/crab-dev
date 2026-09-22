@@ -6,10 +6,20 @@ import { type LineEditProps } from "@crab-dev/rc-line-edit";
 import TimePickerOverlay from "./timePickerOverlay.js";
 import { type TimePickerPanelProps } from '../panels/timePickerPanel.js';
 import TimePickerInput from './timePickerInput.js';
-import { css } from '@crab-dev/css';
+import { popupContentStyle, popupFrameStyle } from '../panels/popup.style.js';
 
 
 export interface TimePickerProps extends TimePickerPanelProps {
+    /** Material 文本字段外观。 */
+    appearance?: LineEditProps["appearance"];
+    /** 可见的浮动字段标签。 */
+    label?: LineEditProps["label"];
+    /** 字段下方的辅助说明。 */
+    supportingText?: LineEditProps["supportingText"];
+    /** 字段错误说明。 */
+    errorText?: LineEditProps["errorText"];
+    /** 验证状态。 */
+    status?: LineEditProps["status"];
     /**
      * 大小
      */
@@ -32,9 +42,8 @@ const TimePicker: FC<TimePickerProps> = ({
     const [selectValues, setSelectValues] = useState<TimePickerPanelProps["value"]>(value);
     return (
         <RcDropdownContainer
-            overlayClassName={css`
-                padding: 0.2rem 1rem 1rem 1rem;
-            `}
+            floatingContainerProps={{ className: popupFrameStyle }}
+            overlayClassName={popupContentStyle}
             overlay={(
                 <TimePickerOverlay
                     value={selectValues}

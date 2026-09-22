@@ -16,11 +16,11 @@ status = "experimental"
 - 从少量互斥选项中选择一个值，例如支付方式或配置类型。
 - 需要让用户直接比较全部选项时使用 Radio；选项较多或空间有限时使用 Select。
 
-## 视觉状态与验证
+## 设计依据与视觉状态
 
-参考 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
+页面依据 [M3 Expressive](https://m3.material.io/blog/building-with-m3-expressive) 的排版、用途色和内容分组呈现关键选择。通知场景中的选项容器属于应用组合，不新增 Radio 外观类型。Radio 保留 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
 
-40px 圆形交互区承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时沿用 Crab 的禁用透明度，圆环、圆点和文字使用中性色，不响应交互反馈。
+48px 点击目标内的 40px 圆形状态层承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时沿用 Crab 的禁用透明度，圆环、圆点和文字使用中性色，不响应交互反馈。
 
 原生输入负责组内单选和键盘行为。使用 `aria-label` 或 `aria-labelledby` 为 RadioGroup 命名；校验提示通过 Radio 的 `aria-invalid` 与 `aria-describedby` 关联。强制颜色下以系统圆环和圆点表达选中。
 
@@ -30,11 +30,11 @@ RadioGroup 未指定 `name` 或传入空字符串时，会生成稳定的组内�
 
 **原生表单迁移**：自动名称也属于原生表单字段。使用 FormData 的页面应明确设置例如 `name="notificationFrequency"` 的业务名称，不依赖自动 ID，也不依赖未命名组原先不进入 FormData 的行为。
 
-粗指针环境下，圆形控件的命中区扩展为 48×48 CSS px，圆环和圆点仍保持指定的视觉尺寸。长标签采用正文行高并允许换行；紧密组合需检查目标区域没有相互重叠。
+默认圆形控件的命中区为 48×48 CSS px，圆环和圆点仍保持指定的视觉尺寸。长标签采用正文行高并允许换行；紧密组合需检查目标区域没有相互重叠。
 
 键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
 
-规则依据：[状态系统](/design/interaction)、[无障碍与键盘](/design/accessibility)、[布局与密度](/design/layout)。
+规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
 
 
 ## 代码演示

@@ -7,17 +7,17 @@ imports = ["@crab-dev/rc-token-semantic"]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--component-preview-transition, color $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), transform $ref(motion.fade))"
+root.transition = "var(--component-preview-transition, color $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast))"
 source.transition = "var(--component-preview-root-transition-expand, var(--component-preview-transition-expand, grid-template-rows $ref(motion.expand)))"
 
 
 # ─── 卡片容器 ────────────────────────────────────────────────────────────────
 
-card.background-color   = "$ref(color.background.elevated)"
-card.border-color       = "$ref(color.border.default)"
+card.background-color = "$ref(color.surface.low)"
+card.border-color       = "$ref(color.border.subtle)"
 card.border-color-hover = "$ref(color.border.hover)"
-card.border-radius      = "$ref(radius.lg)"
-card.box-shadow             = "var(--component-preview-card-shadow, $ref(shadow.float))"
+card.border-radius = "$ref(shape.medium)"
+card.box-shadow             = "var(--component-preview-card-shadow, none)"
 card.box-shadow-hover       = "var(--component-preview-card-shadow-hover, $ref(shadow.overlay))"
 
 
@@ -25,7 +25,7 @@ card.box-shadow-hover       = "var(--component-preview-card-shadow-hover, $ref(s
 
 stage.padding              = "56px 24px"
 stage.min-height           = "220px"
-stage.background-color     = "$ref(color.background.elevated)"
+stage.background-color     = "$ref(color.surface.raised)"
 
 
 # ─── 中间信息栏（title + description + 按钮，上下两行） ──────────────────────
@@ -34,7 +34,7 @@ meta.border-color           = "$ref(color.border.default)"
 
 # 上行：信息区（白底，标题横跨虚线居中）
 meta.info.padding           = "0 20px 16px"
-meta.info.background-color  = "$ref(color.background.elevated)"
+meta.info.background-color  = "$ref(color.surface.raised)"
 meta.info.divider.border-style = "var(--component-preview-meta-info-divider-style, solid)"
 meta.title.padding          = "0 12px"
 # 标题 chip 距顶部虚线的垂直位置修正
@@ -42,17 +42,17 @@ meta.title.top              = "var(--component-preview-meta-title-offset, 24px)"
 
 # 下行：操作区（右对齐 + 图标加文字）
 meta.actions.padding        = "10px 14px"
-meta.actions.background-color = "$ref(color.background.surface)"
+meta.actions.background-color = "$ref(color.surface.content)"
 meta.actions.border-style   = "solid"
 
 meta.title.color          = "$ref(color.text.primary)"
 meta.title.font-size      = "15px"
-meta.title.font-weight    = "$ref(font.weight.heading)"
+meta.title.font-weight    = "$ref(typography.title.large.emphasized.font-weight)"
 meta.title.letter-spacing = "-0.01em"
 meta.title.line-height    = "1.4"
 
 meta.desc.color           = "$ref(color.text.secondary)"
-meta.desc.font-size       = "$ref(font.size.caption)"
+meta.desc.font-size       = "$ref(typography.caption.font-size)"
 meta.desc.line-height     = "1.6"
 meta.desc.code.color            = "$ref(color.text.primary)"
 meta.desc.code.background-color = "$ref(color.background.hover-subtle)"
@@ -61,6 +61,8 @@ meta.desc.code.border-radius    = "$ref(radius.sm)"
 
 meta.info.gap             = "6px"
 meta.actions.gap          = "4px"
+meta.actions.min-width  = "$ref(size.touch-target)"
+meta.actions.min-height = "$ref(size.touch-target)"
 meta.actions.icon.width     = "var(--component-preview-meta-actions-icon-size, 18px)"
 
 
@@ -69,15 +71,15 @@ meta.actions.icon.width     = "var(--component-preview-meta-actions-icon-size, 1
 action.height           = "30px"
 action.padding          = "0 12px"
 action.gap              = "6px"
-action.border-radius    = "$ref(radius.md)"
-action.font-size        = "$ref(font.size.caption)"
-action.font-weight      = "$ref(font.weight.label)"
+action.border-radius    = "$ref(shape.control)"
+action.font-size        = "$ref(typography.caption.font-size)"
+action.font-weight      = "$ref(typography.label.font-weight)"
 action.color            = "$ref(color.text.secondary)"
 action.color-hover      = "$ref(color.text.primary)"
 action.color-active     = "$ref(color.text.primary)"
 action.background-color       = "transparent"
-action.background-color-hover = "$ref(color.background.hover-subtle)"
-action.background-color-active = "$ref(color.background.elevated)"
+action.background-color-hover = "$ref(color.state.hover)"
+action.background-color-active = "$ref(color.surface.raised)"
 action.border-color           = "transparent"
 action.border-color-hover     = "transparent"
 action.border-color-active    = "$ref(color.border.default)"
@@ -87,7 +89,7 @@ action.box-shadow-active          = "var(--component-preview-action-shadow-activ
 
 # ─── 代码预览区 ──────────────────────────────────────────────────────────────
 
-source.background-color      = "$ref(color.background.surface)"
+source.background-color      = "$ref(color.surface.content)"
 source.padding-block         = "16px"
 source.font-size             = "13px"
 source.font-family           = "ui-monospace, 'SFMono-Regular', 'Menlo', 'Cascadia Code', 'Fira Code', monospace"

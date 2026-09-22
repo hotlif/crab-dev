@@ -8,7 +8,7 @@ import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingIn
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 
 const EXPECTED_COMPONENT_COUNT = 53;
-const EXPECTED_DEMO_COUNT = 248;
+const EXPECTED_DEMO_COUNT = 252;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");
@@ -78,7 +78,7 @@ const demoGroupDefinitions = new Map([
             "loading.demo.tsx",
             "selected.demo.tsx",
         ]],
-        ["组合", ["button-group.demo.tsx"]],
+        ["组合", ["button-group.demo.tsx", "expressive.demo.tsx"]],
     ]],
     ["rc-canvas", [
         ["基础图形", [
@@ -111,6 +111,7 @@ const demoGroupDefinitions = new Map([
         ]],
         ["交互与状态", [
             "clickable.demo.tsx",
+            "states.demo.tsx",
             "loading.demo.tsx",
         ]],
     ]],
@@ -951,6 +952,14 @@ function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens =
             .replace(/<API\b[^>]*\/>/g, "")
             .replace(/^## (?:API|代码演示|Light \/ Dark 并排示例)\s*$/gm, "")
             .replace(/^## /gm, "### ");
+        if (slug === "rc-line-edit") {
+            const searchIndex = tutorialMarkup(lesson).match(/<div hidden aria-hidden="true" data-docs-search-index="tutorial">[\s\S]*?<\/div>/)?.[0] ?? "";
+            return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport { LineEditExample } from "../site/lineEditPage.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n<div className="crab-line-edit-page">\n\n## 基础示例\n\n<LineEditExample tutorial={tutorial} index={0} />\n\n## 两种外观\n\n用填充或描边建立清晰的输入边界。两种外观共享标签、辅助文字与交互行为。\n\n<LineEditExample tutorial={tutorial} index={1} />\n\n## 状态与反馈\n\n错误就近说明原因；只读仍可复制，禁用提供原因。试着补全邮箱、切换密码可见性。\n\n<LineEditExample tutorial={tutorial} index={2} />\n\n${apiMarkup}\n## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n<details>\n<summary>使用指南、设计依据与兼容说明</summary>\n\n${notes.trim()}\n\n</details>\n\n${searchIndex}\n\n</div>\n`;
+        }
+        if (slug === "rc-radio") {
+            const searchIndex = tutorialMarkup(lesson).match(/<div hidden aria-hidden="true" data-docs-search-index="tutorial">[\s\S]*?<\/div>/)?.[0] ?? "";
+            return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport { RadioExample, RadioGuidance } from "../site/radioPage.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n<div className="crab-radio-page">\n\n## 基础示例\n\n<RadioExample tutorial={tutorial} index={0} />\n\n<RadioGuidance />\n\n## 用法示例\n\n用 RadioGroup 管理组值，为组提供清晰的名称。每个 Radio 的 value 必须不同。\n\n<RadioExample tutorial={tutorial} index={1} />\n\n## 状态与主题\n\n切换主题、品牌色和可用状态，直接体验焦点、禁用与错误恢复。\n\n<RadioExample tutorial={tutorial} index={2} />\n\n${apiMarkup}\n<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />\n\n## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n<details>\n<summary>设计依据、键盘与兼容说明</summary>\n\n${notes.trim()}\n\n</details>\n\n${searchIndex}\n\n</div>\n`;
+        }
         return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport Tutorial from "../site/tutorial.js";\nimport FirstExample from "../site/firstExample.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n## 基础示例\n\n<FirstExample tutorial={tutorial} />\n\n${tutorialMarkup(lesson)}\n\n${apiMarkup}## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n## 使用说明\n\n${notes.trim()}\n`;
     }
     return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\n\n${body.trim()}\n`;

@@ -7,6 +7,14 @@ import token from "./token.js";
 
 
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
+    /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
+    appearance?: "outlined" | "filled";
+    /** 可见的浮动标签，与输入框自动关联。 */
+    label?: string;
+    /** 输入框下方的辅助说明，自动加入 aria-describedby。 */
+    supportingText?: string;
+    /** 错误说明；提供时自动启用 error 状态并替换辅助说明。 */
+    errorText?: string;
     /**
      * input 元素的 ref
      */
@@ -182,6 +190,7 @@ const borderlessStyle = css`
 // --- 输入框样式 ---
 
 const inputBaseStyle = css`
+    box-sizing: border-box;
     flex: 1;
     width: 100%;
     min-width: 0;
@@ -257,6 +266,104 @@ const countStyle = css`
     user-select: none;
 `
 
+const fieldStyle = css`
+    display: inline-grid;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    gap: ${token.field.gap};
+`;
+
+const materialStyle = css`
+    position: relative;
+    cursor: text;
+    &:has(button) { padding-block: 0; }
+    &[data-labeled="true"] { padding-inline: ${token.field['padding-inline']}; }
+    & > label {
+        position: absolute;
+        inset-inline-start: ${token.field['padding-inline']};
+        top: 50%;
+        transform: translateY(-50%);
+        max-width: calc(100% - ${token.field.prefix.left});
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: text;
+        color: ${token.field.label['color']};
+        font-size: ${token.size.middle['font-size']};
+        line-height: ${token.field.label['line-height']};
+        transition: ${token.field.transition};
+    }
+    &[data-prefix="true"] > label { inset-inline-start: ${token.field.prefix.left}; }
+    &[data-labeled="true"]:not(:focus-within) input:placeholder-shown::placeholder { color: transparent; }
+    &:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
+        top: 0;
+        font-size: ${token.field.label['font-size']};
+        padding-inline: ${token.field.label['padding-inline']};
+        background: ${token.root['background-color']};
+    }
+    &:focus-within > label { color: ${token.field.label['color-focus']}; }
+    &[data-appearance="filled"] {
+        border-radius: ${token.root['border-radius']} ${token.root['border-radius']} 0 0;
+        border-color: transparent;
+        border-bottom-color: ${token.field.indicator['border-color']};
+        background: ${token.field.filled['background-color']};
+        box-shadow: none;
+    }
+    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within) {
+        background: ${token.field.filled['background-color-hover']};
+        border-color: transparent;
+        border-bottom-color: ${token.text.color};
+    }
+    &[data-appearance="filled"]:focus-within {
+        border-color: transparent;
+        border-bottom-color: ${token.root['border-color-focus']};
+        box-shadow: inset 0 -1px 0 ${token.root['border-color-focus']};
+    }
+    &[data-appearance="filled"][data-labeled="true"] input { padding-top: ${token.field.input['padding-top']}; }
+    &[data-appearance="filled"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
+        top: ${token.field.label['top']};
+        transform: none;
+        padding: 0;
+        background: transparent;
+    }
+    &[data-status="error"] > label { color: ${token.field['color-error']}; }
+    &[data-status="warning"] > label { color: ${token.field['color-warning']}; }
+    &&[data-appearance="filled"][data-status="error"] {
+        border-color: transparent;
+        border-bottom-color: ${token.status['border-color-error']};
+        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status['border-color-error']}; }
+    }
+    &&[data-appearance="filled"][data-status="warning"] {
+        border-color: transparent;
+        border-bottom-color: ${token.status.warning['border-color']};
+        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status.warning['border-color']}; }
+    }
+    @media (prefers-reduced-motion: reduce) { & > label { transition: none; } }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; background: Canvas; }
+        & > label { color: CanvasText; }
+        &:focus-within > label { color: Highlight; }
+        &[aria-disabled="true"] > label { color: GrayText; }
+    }
+`;
+
+const supportingStyle = css`
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: ${token.icon.gap};
+    padding-inline: ${token.field['padding-inline']};
+    color: ${token.field.label['color']};
+    font-size: ${token.field.label['font-size']};
+    line-height: ${token.field.support['line-height']};
+    overflow-wrap: anywhere;
+    & > span:first-child { min-width: 0; }
+    &[data-status="error"] { color: ${token.field['color-error']}; }
+    &[data-status="warning"] { color: ${token.field['color-warning']}; }
+    @media (forced-colors: active) { color: CanvasText; }
+`;
+
 
 function LineEdit({
     ref,
@@ -277,6 +384,11 @@ function LineEdit({
     onClear,
     showCount,
     bordered = true,
+    appearance = "outlined",
+    label,
+    supportingText,
+    errorText,
+    placeholder,
     ...rest
 }: LineEditProps) {
     // 密码可见性：内部 UI 状态，与业务无关
@@ -288,17 +400,30 @@ function LineEdit({
     const inputType = isPassword ? (showPassword ? "text" : "password") : type;
     const hasValue = typeof value === "string" && value.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
+    const fieldStatus = errorText ? "error" : status;
+    const enhancedField = Boolean(label || supportingText || errorText);
+    const description = errorText || supportingText;
+    const descriptionId = `${generatedId}-description`;
+    const countId = `${generatedId}-count`;
+    const count = showCount && typeof value === "string" ? (
+        <span id={countId} className={countStyle}>{value.length}{maxLength != null ? `/${maxLength}` : ""}</span>
+    ) : null;
 
-    return (
+    const control = (
         <div
             ref={containerRef}
             aria-disabled={disabled || undefined}
+            data-appearance={bordered ? appearance : undefined}
+            data-labeled={Boolean(label && bordered)}
+            data-prefix={Boolean(prefix)}
+            data-status={fieldStatus}
             style={style}
             className={cx(
                 containerBaseStyle,
                 bordered ? sizeContainerStyles[size] : borderlessStyle,
-                bordered && status === "error" && errorStyle,
-                bordered && status === "warning" && warningStyle,
+                bordered && fieldStatus === "error" && errorStyle,
+                bordered && fieldStatus === "warning" && warningStyle,
+                bordered && materialStyle,
                 className
             )}
         >
@@ -313,12 +438,15 @@ function LineEdit({
                 type={inputType}
                 value={value}
                 maxLength={maxLength}
+                placeholder={placeholder ?? (label ? " " : undefined)}
                 disabled={disabled}
                 readOnly={readOnly}
                 className={cx(inputBaseStyle, bordered ? sizeTextStyles[size] : borderlessInputStyle)}
                 {...rest}
-                aria-invalid={rest['aria-invalid'] ?? (status === "error" || undefined)}
+                aria-invalid={rest['aria-invalid'] ?? (fieldStatus === "error" || undefined)}
+                aria-describedby={[rest['aria-describedby'], description ? descriptionId : undefined, count ? countId : undefined].filter(Boolean).join(" ") || undefined}
             />
+            {label && bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
             {showClearButton && (
                 <Button
                     type="button"
@@ -354,13 +482,17 @@ function LineEdit({
                     onClick={() => setShowPassword(prev => !prev)}
                 />
             )}
-            {showCount && typeof value === "string" && (
-                <span className={countStyle}>
-                    {value.length}{maxLength != null ? `/${maxLength}` : ""}
-                </span>
-            )}
+            {!enhancedField && count}
         </div>
-    )
+    );
+    return enhancedField ? <div className={fieldStyle}>
+        {label && !bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
+        {control}
+        {(description || count) && <div className={supportingStyle} data-status={fieldStatus}>
+            <span id={descriptionId} aria-live="polite">{description}</span>
+            {count}
+        </div>}
+    </div> : control;
 }
 
 export default LineEdit;

@@ -8,11 +8,11 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.padding = "var(--message-padding, $ref(space.component-gap) $ref(space.card-padding))"
-root.border-radius = "var(--message-border-radius, $ref(radius.lg))"
-root.font-size = "var(--message-font-size, $ref(font.size.body))"
-root.line-height = "var(--message-line-height, 1.625)"
-root.background-color = "var(--message-background-color, $ref(color.background.elevated))"
+root.padding = "var(--message-padding, $ref(space.section-gap))"
+root.border-radius = "var(--message-border-radius, $ref(shape.extra-small))"
+root.font-size = "var(--message-font-size, $ref(typography.body.medium.font-size))"
+root.line-height = "var(--message-line-height, $ref(typography.body.medium.line-height))"
+root.background-color = "var(--message-background-color, $ref(color.background.inverse))"
 root.box-shadow = "var(--message-box-shadow, $ref(shadow.overlay))"
 
 # ─── 图标 ────────────────────────────────────────────────────────────────────
@@ -20,13 +20,13 @@ icon.width = "var(--message-icon-size, 18px)"
 icon.margin-right = "$ref(space.component-gap)"
 
 # ─── 类型颜色 ────────────────────────────────────────────────────────────────
-success.icon.color = "var(--message-success-color, $ref(color.feedback.success.icon))"
-warning.icon.color = "var(--message-warning-color, $ref(color.feedback.warning.icon))"
-icon.color-error = "var(--message-error-icon-color, var(--message-error-color, $ref(color.feedback.error.icon)))"
-info.icon.color = "var(--message-info-color, $ref(color.feedback.info.icon))"
+success.icon.color = "var(--message-success-color, $ref(color.text.inverse))"
+warning.icon.color = "var(--message-warning-color, $ref(color.text.inverse))"
+icon.color-error = "var(--message-error-icon-color, var(--message-error-color, $ref(color.text.inverse)))"
+info.icon.color = "var(--message-info-color, $ref(color.text.inverse))"
 
 # ─── 文本 ────────────────────────────────────────────────────────────────────
-text.color = "$ref(color.text.primary)"
+text.color = "$ref(color.text.inverse)"
 
 # ─── 进度条 ──────────────────────────────────────────────────────────────────
 progress.start.color = "$ref(color.brand.primary)"
@@ -37,3 +37,5 @@ progress.animation-delay = "var(--message-progress-delay, var(--message-countdow
 
 motion.interaction.transition = "var(--message-motion-interaction, $ref(motion.interaction))"
 stack.translate = "var(--message-stack-offset, $ref(space.group-gap))"
+
+motion.spatial.transition = "$ref(motion.spatial.fast)"

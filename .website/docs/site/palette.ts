@@ -1,58 +1,21 @@
 import { defineTokens } from "@crab-dev/css";
 import global from "@crab-dev/rc-token-global";
-import { themeColorContract as theme } from "@crab-dev/rc-token-semantic";
+import token, { themeColorContract as theme } from "@crab-dev/rc-token-semantic";
 
-/**
- * Documentation-only L1 candidates: Material Web v0.192 baseline, converted to OKLCh.
- * Source: https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-ref-palette.scss
- * Purple is public L1; other Material values below are reference samples, not theme overrides.
- */
+/** Public Material primitives shared with component themes. */
 export const material = defineTokens({
+    ...global.material,
     primary: global.purple,
-    secondary: {
-        10: "oklch(0.22720107 0.03472821 293.650491)", // #1D192B
-        30: "oklch(0.40051726 0.03400329 298.591155)", // #4A4458
-        90: "oklch(0.91633372 0.03651492 303.106047)", // #E8DEF8
-    },
-    tertiary: {
-        20: "oklch(0.31707471 0.05705134 357.820836)", // #492532
-        40: "oklch(0.49038805 0.06053149 358.445477)", // #7D5260
-        80: "oklch(0.83670391 0.06656148 359.427110)", // #EFB8C8
-        100: "oklch(0.99999999 0.00000004 0.000000)", // #FFFFFF
-    },
-    neutral: {
-        6: "oklch(0.18737531 0.01240815 300.422032)", // #141218
-        10: "oklch(0.22652446 0.00999107 303.713695)", // #1D1B20
-        17: "oklch(0.28590291 0.01292568 298.632643)", // #2B2930
-        90: "oklch(0.91401081 0.01366394 314.754144)", // #E6E0E9
-        92: "oklch(0.93250577 0.01478797 312.240074)", // #ECE6F0
-        96: "oklch(0.96728288 0.01181410 313.217082)", // #F7F2FA
-        98: "oklch(0.98379491 0.01284496 321.893957)", // #FEF7FF
-    },
-    variant: {
-        30: "oklch(0.39805288 0.01735545 303.720936)", // #49454F
-        50: "oklch(0.56674707 0.01627446 308.142182)", // #79747E
-        60: "oklch(0.65664348 0.01530769 304.011222)", // #938F99
-        80: "oklch(0.82874810 0.01775809 308.222736)", // #CAC4D0
-    },
-    error: {
-        10: "oklch(0.25390329 0.07937181 27.605486)", // #410E0B
-        20: "oklch(0.32453655 0.10920306 28.011391)", // #601410
-        30: "oklch(0.42004860 0.14731394 28.135269)", // #8C1D18
-        40: "oklch(0.50128208 0.17831791 28.704727)", // #B3261E
-        80: "oklch(0.83448797 0.06771254 22.011824)", // #F2B8B5
-        90: "oklch(0.92214553 0.03006356 22.785053)", // #F9DEDC
-        100: "oklch(0.99999999 0.00000004 0.000000)", // #FFFFFF
-    },
+    variant: global.material['neutral-variant'],
 });
 
-export const stateLayers = defineTokens({ hover: "8%", pressed: "12%" });
+export const stateLayers = defineTokens({ hover: `calc(${token.state.opacity.hover} * 100%)`, pressed: `calc(${token.state.opacity.pressed} * 100%)` });
 
 /** View-model aliases only: actual theme roles are owned by public L2 and rc-theme. */
 export const colors = defineTokens({
     light: {
         brand: theme.light.brand.primary, hover: theme.light.brand.hover, active: theme.light.brand.active, onBrand: theme.light.text.onBrand,
-        canvas: theme.light.background.sunken, surface: theme.light.background.surface, elevated: theme.light.background.elevated,
+        canvas: theme.light.surface.canvas, surface: theme.light.surface.content, elevated: theme.light.surface.raised,
         text: theme.light.text.primary, secondary: theme.light.text.secondary, muted: theme.light.text.tertiary,
         border: theme.light.border.default, divider: theme.light.border.subtle,
         selected: theme.light.selection.background, onSelected: theme.light.selection.foreground, focus: theme.light.focusRing,
@@ -89,7 +52,7 @@ export const colors = defineTokens({
     },
     dark: {
         brand: theme.dark.brand.primary, hover: theme.dark.brand.hover, active: theme.dark.brand.active, onBrand: theme.dark.text.onBrand,
-        canvas: theme.dark.background.sunken, surface: theme.dark.background.surface, elevated: theme.dark.background.elevated,
+        canvas: theme.dark.surface.canvas, surface: theme.dark.surface.content, elevated: theme.dark.surface.raised,
         text: theme.dark.text.primary, secondary: theme.dark.text.secondary, muted: theme.dark.text.tertiary,
         border: theme.dark.border.default, divider: theme.dark.border.subtle,
         selected: theme.dark.selection.background, onSelected: theme.dark.selection.foreground, focus: theme.dark.focusRing,

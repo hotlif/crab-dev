@@ -1,4 +1,5 @@
-import { act, afterEach, beforeAll, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { afterEach, beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { type ReactNode, type Key } from "react";
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
@@ -259,15 +260,12 @@ describe("Menu", () => {
         }} depth={1} onClick={onClick}>
             {[<li key="child">Direct Child</li>]}
         </ItemNormal>);
-        await act(() => {
-            mockFloatingOnOpenChange?.(true);
-        });
         await act(async () => {
             await fireEvent.click(screen.getByText("Direct Item"));
         });
         expect(screen.getByTestId("direct-item-icon")).toBeTruthy();
         expect(screen.getByText("Direct Child")).toBeTruthy();
-        expect(mockFloatingEmit).toHaveBeenCalledWith("close");
+        expect(mockFloatingEmit).not.toHaveBeenCalled();
         expect(onClick).toHaveBeenCalledWith(expect.objectContaining({
             item: expect.objectContaining({ key: "direct-item" }),
         }));
@@ -275,6 +273,36 @@ describe("Menu", () => {
             mockFloatingCloseHandler?.();
         });
         consoleErrorSpy.restore();
+    });
+    it("supports layout-matched keyboard navigation and activation", async () => {
+        const onClick = mock.fn();
+        const items = ['One', 'Two', 'Three'].map(title => ({ type: ItemType.Item, key: title, title }));
+        const view = await render(<Menu items={items} onClick={onClick} selectedKeys={['Two']}/>);
+        const one = screen.getByRole('button', { name: 'One' });
+        const two = screen.getByRole('button', { name: 'Two' });
+        await fireEvent.keyDown(one, { key: 'ArrowDown' });
+        expect(document.activeElement).toBe(two);
+        expect(two.getAttribute('aria-current')).toBe('page');
+        await fireEvent.keyDown(two, { key: ' ' });
+        expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ item: expect.objectContaining({ key: 'Two' }) }));
+        await view.rerender(<Menu mode="horizontal" items={items} onClick={onClick}/>);
+        await fireEvent.keyDown(screen.getByRole('button', { name: 'One' }), { key: 'ArrowRight' });
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Two' }));
+        await fireEvent.keyDown(document.activeElement!, { key: 'End' });
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Three' }));
+        await fireEvent.keyDown(document.activeElement!, { key: 'Enter' });
+        expect(onClick).toHaveBeenCalledTimes(2);
+    });
+    it("opens a horizontal disclosure with the keyboard and restores focus on Escape", async () => {
+        await render(<Menu mode="horizontal" items={[{ type: ItemType.Item, key: 'parent', title: 'Parent', children: [{ type: ItemType.Item, key: 'child', title: 'Child' }] }]}/>);
+        const parent = screen.getByRole('button', { name: 'Parent' });
+        await fireEvent.keyDown(parent, { key: 'Enter' });
+        expect(parent.getAttribute('aria-expanded')).toBe('true');
+        const child = screen.getByRole('button', { name: 'Child' });
+        expect(document.getElementById(parent.getAttribute('aria-controls')!)).toBeTruthy();
+        await fireEvent.keyDown(child, { key: 'Escape' });
+        expect(parent.getAttribute('aria-expanded')).toBe('false');
+        expect(document.activeElement).toBe(parent);
     });
     it("renders inline-collapsed vertical menu with icons only and opens floating submenu on hover", async () => {
         mockFloatingForceOpen = true;

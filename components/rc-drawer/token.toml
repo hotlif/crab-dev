@@ -8,7 +8,7 @@ imports = [
 [token]
 
 overlay.background-color = "$ref(color.background.overlay)"
-root.background-color = "var(--drawer-background-color, $ref(color.background.elevated))"
+root.background-color = "var(--drawer-background-color, $ref(color.surface.low))"
 root.box-shadow = "var(--drawer-box-shadow, $ref(shadow.overlay))"
 
 size.small.width   = "280px"
@@ -21,10 +21,10 @@ size.large.height  = "480px"
 
 header.padding              = "$ref(space.card-padding) $ref(space.dialog-padding)"
 header.border-color         = "$ref(color.border.subtle)"
-header.title.font-weight    = "$ref(font.weight.heading)"
-header.title.font-size      = "$ref(font.size.heading)"
+header.title.font-weight    = "$ref(typography.title.large.emphasized.font-weight)"
+header.title.font-size      = "$ref(typography.title.font-size)"
 header.title.color          = "$ref(color.text.primary)"
-header.title.line-height    = "1.35"
+header.title.line-height    = "$ref(typography.title.line-height)"
 header.title.letter-spacing = "-0.01em"
 
 body.padding              = "$ref(space.card-padding) $ref(space.dialog-padding)"
@@ -37,8 +37,8 @@ close.width               = "var(--drawer-close-size, 32px)"
 close.icon.width          = "var(--drawer-close-icon-size, 16px)"
 close.color               = "$ref(color.text.secondary)"
 close.color-hover         = "$ref(color.text.primary)"
-close.background-color-hover = "$ref(color.background.hover-subtle)"
-close.border-radius       = "$ref(radius.md)"
+close.background-color-hover = "$ref(color.state.hover)"
+close.border-radius       = "$ref(shape.control)"
 
 panel.animation-duration       = "var(--drawer-transition-duration, 280ms)"
 panel.animation-timing-function = "var(--drawer-transition-easing, cubic-bezier(0.32, 0.72, 0, 1))"
@@ -46,3 +46,4 @@ panel.animation-timing-function = "var(--drawer-transition-easing, cubic-bezier(
 motion.fade.transition = "var(--drawer-motion-fade, $ref(motion.fade))"
 motion.expand.transition = "var(--drawer-motion-expand, $ref(motion.slide-enter))"
 motion.exit.transition = "var(--drawer-motion-exit, $ref(motion.slide-exit))"
+root.border-radius = "$ref(shape.large)"
