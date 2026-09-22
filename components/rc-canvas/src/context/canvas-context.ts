@@ -79,6 +79,9 @@ export interface CanvasContextValue {
 
     uploadGlyph(key: string, data: Uint8Array, width: number, height: number): void;
 
+    /** 与 uploadTexture/uploadGlyph 配对；最后一个消费者释放时删除 GPU 与 CPU 缓存。 */
+    releaseTexture(key: string): void;
+
     /**
      * 注册 hit-test 条目（与 register DrawCommand 共用 id 空间）。
      * draggable 形状/Group 在 mount 后调用。
@@ -177,6 +180,7 @@ export const CanvasContext: Context<CanvasContextValue> = createContext<CanvasCo
     unregister: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     uploadTexture: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     uploadGlyph: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
+    releaseTexture: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     registerHit: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     unregisterHit: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },
     updateHit: () => { throw new Error('[rc-canvas] CanvasContext not provided'); },

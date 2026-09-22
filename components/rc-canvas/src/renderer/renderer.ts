@@ -394,6 +394,12 @@ export class WebGLRenderer {
         this.textures.set(key, tex);
     }
 
+    releaseTexture(key: string): void {
+        const texture = this.textures.get(key);
+        if (texture) this.gl.deleteTexture(texture);
+        this.textures.delete(key);
+    }
+
     dispose(): void {
         const { gl } = this;
         gl.deleteVertexArray(this.quadVAO);

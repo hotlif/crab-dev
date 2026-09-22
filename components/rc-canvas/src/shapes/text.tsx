@@ -156,6 +156,7 @@ function Text({
         glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight };
         ctx.update(cmdIdRef.current, buildCmd(glyph.key, glyph.worldWidth, glyph.worldHeight));
         if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        return () => { ctx.releaseTexture(glyph.key); };
     }, [children, fontSize, fontFamily, lineHeight, maxWidth, mode]);
 
     // 颜色/位置/透明度变化时更新（使用缓存的字形尺寸，不重新上传）

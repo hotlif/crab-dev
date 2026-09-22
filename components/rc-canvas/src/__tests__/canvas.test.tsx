@@ -1,10 +1,13 @@
-import { describe, it, expect, beforeEach, afterEach, act, mock, render, screen } from "@crab-dev/wake/test/react";
-import React, { use } from 'react';
+import { describe, it, expect, beforeEach, afterEach, mock } from '@crab-dev/wake/test';
+import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
+import React, { use, useEffect } from 'react';
 import { createWebGL2Mock } from './__mocks__/webgl-mock.js';
 import Canvas from '../canvas.js';
 import { CanvasPaletteContext } from '../context/palette-context.js';
 import { parseColor } from '../math/color.js';
 import InfiniteGrid from '../shapes/infinite-grid.js';
+import CanvasImage from '../shapes/image.js';
+import { CanvasContext } from '../context/canvas-context.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 let glMock: WebGL2RenderingContext;
 let animationFrameCallbacks: Array<(time: number) => void>;
@@ -23,6 +26,131 @@ afterEach(() => {
     mock.restoreAll();
 });
 describe('Canvas', () => {
+    it('尺寸与 DPR 更新在重绘前保留旧缓冲区，连续测量只提交最终尺寸', async () => {
+        const onRender = mock.fn();
+        const view = await render(<Canvas width={200} height={100} dpr={1} onRender={onRender} />);
+        const canvas = view.container.querySelector('canvas')!;
+        await act(async () => { animationFrameCallbacks.shift()?.(0); });
+        expect(onRender).toHaveBeenCalledTimes(1);
+        await view.rerender(<Canvas width={201} height={110} dpr={1} onRender={onRender} />);
+        await view.rerender(<Canvas width={210} height={120} dpr={2} onRender={onRender} />);
+        expect(canvas.width).toBe(200);
+        expect(canvas.height).toBe(100);
+        expect(onRender).toHaveBeenCalledTimes(1);
+        await act(async () => { animationFrameCallbacks.shift()?.(1); });
+        expect(canvas.width).toBe(420);
+        expect(canvas.height).toBe(240);
+        expect(glMock.viewport).toHaveBeenLastCalledWith(0, 0, 420, 240);
+        expect(onRender).toHaveBeenCalledTimes(2);
+        await view.unmount();
+    });
+    it('真实卸载释放 WebGL 配额，StrictMode 挂载检查不释放仍在使用的上下文', async () => {
+        const loseContext = mock.fn();
+        mock.spyOn(glMock, 'getExtension').implement(((name: string) => name === 'WEBGL_lose_context' ? { loseContext, restoreContext: mock.fn() } : null) as typeof glMock.getExtension);
+        const view = await render(<React.StrictMode><Canvas width={100} height={100} /></React.StrictMode>);
+        expect(loseContext).not.toHaveBeenCalled();
+        await view.unmount();
+        expect(loseContext).toHaveBeenCalledTimes(1);
+    });
+    it('上下文丢失时不通知已绘制，恢复后重建仍被消费的图片和字形', async () => {
+        const onRender = mock.fn();
+        let lost = false;
+        mock.spyOn(glMock, 'isContextLost').implement(() => lost);
+        const first: ImageBitmap = { width: 1, height: 1, close: mock.fn() };
+        const second: ImageBitmap = { width: 2, height: 2, close: mock.fn() };
+        function Glyph() {
+            const context = use(CanvasContext);
+            useEffect(() => {
+                context.uploadGlyph('context-recovery', new Uint8Array([255]), 1, 1);
+                return () => context.releaseTexture('context-recovery');
+            }, []);
+            return null;
+        }
+        const view = await render(<Canvas width={100} height={100} onRender={onRender}>
+            <CanvasImage src={first} x={0} y={0} width={10} height={10} /><Glyph />
+        </Canvas>);
+        const canvas = view.container.querySelector('canvas')!;
+        await act(async () => { animationFrameCallbacks.shift()?.(0); });
+        expect(onRender).toHaveBeenCalledTimes(1);
+        lost = true;
+        const event = new Event('webglcontextlost', { cancelable: true });
+        await fireEvent(canvas, event);
+        expect(event.defaultPrevented).toBe(true);
+        await view.rerender(<Canvas width={100} height={100} onRender={onRender}>
+            <CanvasImage src={second} x={0} y={0} width={20} height={20} /><Glyph />
+        </Canvas>);
+        await act(async () => { animationFrameCallbacks.shift()?.(1); });
+        expect(onRender).toHaveBeenCalledTimes(1);
+        const upload = mock.spyOn(glMock, 'texImage2D');
+        lost = false;
+        await fireEvent(canvas, new Event('webglcontextrestored'));
+        await act(async () => { animationFrameCallbacks.shift()?.(2); });
+        expect(upload).toHaveBeenCalledTimes(2);
+        expect(upload).toHaveBeenCalledWith(glMock.TEXTURE_2D, 0, glMock.RGBA, glMock.RGBA, glMock.UNSIGNED_BYTE, second);
+        expect(onRender).toHaveBeenCalledTimes(2);
+        expect(first.close).not.toHaveBeenCalled(); expect(second.close).not.toHaveBeenCalled();
+        await view.unmount();
+    });
+    it('onRender 仅在真实绘制完成后通知，上传失败时保留旧图片命令', async () => {
+        const onRender = mock.fn(), onError = mock.fn();
+        let textureKey: string | undefined;
+        function Probe() {
+            const context = use(CanvasContext);
+            useEffect(() => {
+                const command = [...context.commandMapRef.current.values()].find(value => value.kind === 'texture-image');
+                textureKey = command?.kind === 'texture-image' ? command.textureKey : undefined;
+            });
+            return null;
+        }
+        const valid: ImageBitmap = { width: 1, height: 1, close: mock.fn() };
+        const closed: ImageBitmap = { width: 0, height: 0, close: mock.fn() };
+        const view = await render(<Canvas width={100} height={100} onRender={onRender}>
+            <CanvasImage src={valid} x={0} y={0} width={10} height={10} onError={onError} /><Probe />
+        </Canvas>);
+        expect(onRender).not.toHaveBeenCalled();
+        await act(async () => { animationFrameCallbacks.shift()?.(0); });
+        expect(glMock.clear).toHaveBeenCalled(); expect(onRender).toHaveBeenCalledTimes(1);
+        const original = textureKey;
+        expect(original).toBeTruthy();
+        await view.rerender(<Canvas width={100} height={100} onRender={onRender}>
+            <CanvasImage src={closed} x={0} y={0} width={10} height={10} onError={onError} /><Probe />
+        </Canvas>);
+        expect(onError).toHaveBeenCalledTimes(1); expect(textureKey).toBe(original);
+        expect(glMock.deleteTexture).not.toHaveBeenCalled();
+        await view.unmount();
+    });
+    it('共享字形纹理在最后一个消费者卸载后释放，重新挂载可再次上传', async () => {
+        function Consumer() {
+            const context = use(CanvasContext);
+            useEffect(() => {
+                context.uploadGlyph('shared-test', new Uint8Array([255]), 1, 1);
+                return () => context.releaseTexture('shared-test');
+            }, []);
+            return null;
+        }
+        const { rerender } = await render(<Canvas width={100} height={100}><Consumer key="a" /><Consumer key="b" /></Canvas>);
+        mock.clearAll();
+        await rerender(<Canvas width={100} height={100}>{[<Consumer key="b" />]}</Canvas>);
+        expect(glMock.deleteTexture).not.toHaveBeenCalled();
+        await rerender(<Canvas width={100} height={100} />);
+        expect(glMock.deleteTexture).toHaveBeenCalledTimes(1);
+        mock.clearAll();
+        await rerender(<Canvas width={100} height={100}>{[<Consumer key="c" />]}</Canvas>);
+        expect(glMock.texImage2D).toHaveBeenCalledTimes(1);
+    });
+    it('ImageBitmap 更换和卸载释放纹理，位图仍由调用者拥有', async () => {
+        const first: ImageBitmap = { width: 1, height: 1, close: mock.fn() };
+        const second: ImageBitmap = { width: 2, height: 2, close: mock.fn() };
+        const { rerender } = await render(<Canvas width={100} height={100}><CanvasImage src={first} x={0} y={0} width={10} height={10} /></Canvas>);
+        mock.clearAll();
+        await rerender(<Canvas width={100} height={100}><CanvasImage src={second} x={0} y={0} width={20} height={20} /></Canvas>);
+        expect(glMock.deleteTexture).toHaveBeenCalledTimes(1);
+        expect(glMock.texImage2D).toHaveBeenCalled();
+        await rerender(<Canvas width={100} height={100} />);
+        expect(glMock.deleteTexture).toHaveBeenCalledTimes(2);
+        expect(first.close).not.toHaveBeenCalled();
+        expect(second.close).not.toHaveBeenCalled();
+    });
     it('渲染 <canvas> 元素', async () => {
         const { container } = await render(<Canvas width={400} height={300}/>);
         const canvas = container.querySelector('canvas');

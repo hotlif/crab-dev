@@ -46,6 +46,8 @@ export function createWebGL2Mock(): WebGL2RenderingContext {
         clearColor: mockFn(),
         clear: mockFn(),
         pixelStorei: mockFn(),
+        isContextLost: mock.fn(() => false),
+        getExtension: mock.fn(() => null),
 
         createVertexArray: mockObj(),
         createBuffer: mockObj(),

@@ -39,4 +39,10 @@ status = "experimental"
 
 ## API
 
+`CanvasImage.src` 支持字符串 URL 和 `ImageBitmap`。位图由调用者持有，替换或卸载后应调用 `close()`；Canvas 在最后一个消费者释放时删除图片和字形的 GPU 纹理及 CPU 缓存，不关闭调用者提供的位图。
+
+更换图片时保留上一张已上传纹理，新图片上传成功后再替换；加载或上传失败调用 `onError`，保留原图。`Canvas.onRender` 在每次实际绘制完成后通知，可用于交接双缓冲画面；图片的 `onLoad` 仅表示上传完成，不表示画面已经绘制。使用双缓冲时应在旧场景移除后关闭其位图。
+
+Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂载画布耗尽浏览器配额；StrictMode 的挂载检查保留正在使用的上下文。上下文意外丢失期间暂停绘制通知，浏览器恢复后重建绘图资源，重新上传仍在使用的图片和字形并重绘，无需重新加载业务数据。资源释放与恢复依据 [WebGL 最佳实践](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices)及 [Khronos 上下文丢失处理说明](https://wikis.khronos.org/webgl/HandlingContextLost)。
+
 <API source="../src/canvas.tsx" symbol="CanvasProps" component="Canvas" />

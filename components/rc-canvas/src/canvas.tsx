@@ -47,6 +47,8 @@ export interface CanvasProps {
      * @default 0
      */
     tabIndex?: number;
+    /** 当前命令已完成一次 WebGL 绘制后通知，可用于准备新画面后再切换显示。 */
+    onRender?: () => void;
 }
 
 /** 是否为需要逐帧重绘的动画命令（当前仅流动虚线 Line：flowSpeed ≠ 0）。 */
@@ -130,13 +132,22 @@ function Canvas({
     onKeyDown,
     onKeyUp,
     tabIndex = 0,
+    onRender,
 }: CanvasProps) {
+    const notifyRender = useEffectEvent(() => onRender?.());
     // fillParent 模式下由 ResizeObserver 驱动容器尺寸
     const [containerSize, setContainerSize] = useState({ width: propWidth ?? 0, height: propHeight ?? 0 });
     const effectiveWidth = fillParent ? containerSize.width : (propWidth ?? 0);
     const effectiveHeight = fillParent ? containerSize.height : (propHeight ?? 0);
 
     const devicePixelRatio = dpr ?? (typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1);
+    // 首次挂载提供画布尺寸；后续位图尺寸只在绘制任务中更新，避免 DOM 提交先清空可见像素。
+    const [initialBitmapSize] = useState(() => ({
+        width: Math.round(effectiveWidth * devicePixelRatio),
+        height: Math.round(effectiveHeight * devicePixelRatio),
+    }));
+    // 可变实例状态：将连续测量结果合并到下一次绘制，与重绘一起提交。
+    const resizePendingRef = useRef(true);
 
     // 可变实例状态 ref：持有 <canvas> DOM 节点
     const internalCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -166,6 +177,8 @@ function Canvas({
     // 可变实例状态 ref：待上传纹理 / 字形缓存
     const pendingGlyphsRef = useRef<Map<string, { data: Uint8Array; w: number; h: number }>>(new Map());
     const pendingTexturesRef = useRef<Map<string, HTMLImageElement | ImageBitmap>>(new Map());
+    // 可变实例状态：按消费者计数，图片或文字更新后及时释放不再使用的纹理。
+    const textureReferencesRef = useRef(new Map<string, number>());
     // 可变实例状态 ref：hit-test 注册表
     const hitRegistryRef = useRef<Map<number, HitEntry>>(new Map());
     // 可变实例状态 ref：viewMatrix（world → canvas），由 Viewport 写入，tick 时注入 GPU
@@ -286,17 +299,25 @@ function Canvas({
             console.error('[rc-canvas] WebGL2 is not supported in this environment.');
             return;
         }
-        const { width: w, height: h } = canvasSizeRef.current;
-        const renderer = new WebGLRenderer(gl, w, h, dprRef.current);
-        rendererRef.current = renderer;
-
-        // 重放在 renderer 就绪前由子组件缓存的上传请求
-        for (const [key, g] of pendingGlyphsRef.current) {
-            renderer.uploadGlyph(key, g.data, g.w, g.h);
-        }
-        for (const [key, source] of pendingTexturesRef.current) {
-            renderer.uploadTexture(key, source);
-        }
+        const initializeRenderer = () => {
+            if (gl.isContextLost()) return;
+            const { width: w, height: h } = canvasSizeRef.current;
+            const renderer = new WebGLRenderer(gl, w, h, dprRef.current);
+            renderer.reducedMotion = reducedMotionRef.current;
+            rendererRef.current = renderer;
+            // 上下文恢复后 GPU 资源全部失效，重建当前仍被消费的纹理和字形。
+            for (const [key, g] of pendingGlyphsRef.current) renderer.uploadGlyph(key, g.data, g.w, g.h);
+            for (const [key, source] of pendingTexturesRef.current) renderer.uploadTexture(key, source);
+            dirtyRef.current = true;
+        };
+        const onContextLost = (event: Event) => {
+            event.preventDefault();
+            rendererRef.current = null;
+            dirtyRef.current = true;
+        };
+        node.addEventListener('webglcontextlost', onContextLost);
+        node.addEventListener('webglcontextrestored', initializeRenderer);
+        initializeRenderer();
 
         // wheel 事件分发给 eventBus 订阅者（Viewport 通过 subscribeCanvasEvent 注册）
         const onWheel = (e: WheelEvent) => {
@@ -311,7 +332,7 @@ function Canvas({
         const onMotionChange = () => {
             const reduce = motionQuery?.matches ?? false;
             reducedMotionRef.current = reduce;
-            renderer.reducedMotion = reduce;
+            if (rendererRef.current) rendererRef.current.reducedMotion = reduce;
             dirtyRef.current = true;
         };
         if (typeof window.matchMedia === 'function') {
@@ -321,11 +342,23 @@ function Canvas({
         }
 
         const tick = () => {
+            const renderer = rendererRef.current;
             // 存在动画命令且未开启"减弱动态"偏好时持续重绘；否则按脏标记按需渲染
-            if (dirtyRef.current || (animatedCountRef.current > 0 && !reducedMotionRef.current)) {
+            if (renderer && !gl.isContextLost() && (dirtyRef.current || (animatedCountRef.current > 0 && !reducedMotionRef.current))) {
+                if (resizePendingRef.current) {
+                    const { width, height } = canvasSizeRef.current;
+                    const ratio = dprRef.current;
+                    const bitmapWidth = Math.round(width * ratio), bitmapHeight = Math.round(height * ratio);
+                    // 写 width/height 会清空 WebGL 绘图缓冲区，即使写入相同值也会清空。
+                    // 仅在同一任务即将重绘时调整，保留此前完整画面直到此刻。
+                    if (node.width !== bitmapWidth) node.width = bitmapWidth;
+                    if (node.height !== bitmapHeight) node.height = bitmapHeight;
+                    renderer.resize(width, height, ratio);
+                    resizePendingRef.current = false;
+                }
                 renderer.setViewMatrix(viewMatrixRef.current);
                 renderer.render(commandMapRef.current, commandsVersionRef.current);
-                dirtyRef.current = false;
+                if (!gl.isContextLost()) { dirtyRef.current = false; notifyRender(); }
             }
             rafHandleRef.current = requestAnimationFrame(tick);
         };
@@ -478,8 +511,14 @@ function Canvas({
         return () => {
             cancelAnimationFrame(rafHandleRef.current);
             motionQuery?.removeEventListener('change', onMotionChange);
-            renderer.dispose();
+            rendererRef.current?.dispose();
             rendererRef.current = null;
+            node.removeEventListener('webglcontextlost', onContextLost);
+            node.removeEventListener('webglcontextrestored', initializeRenderer);
+            // 删除纹理不会释放浏览器的上下文配额。DOM 已移除时同步释放，
+            // 避免同次提交的新缩略图先创建上下文、挤掉仍在使用的主画布。
+            // StrictMode 的挂载检查保留 DOM，因此不会关闭其上下文。
+            if (!node.isConnected) gl.getExtension('WEBGL_lose_context')?.loseContext();
             node.removeEventListener('wheel', onWheel);
             node.removeEventListener('pointerdown', onPointerDown);
             node.removeEventListener('pointermove', onPointerMove);
@@ -492,11 +531,10 @@ function Canvas({
     // 有效尺寸变化时更新 renderer 和 canvasSizeRef / dprRef
     useEffect(() => {
         canvasSizeRef.current = { width: effectiveWidth, height: effectiveHeight };
-        const nextDpr = dpr ?? window.devicePixelRatio ?? 1;
-        dprRef.current = nextDpr;
-        rendererRef.current?.resize(effectiveWidth, effectiveHeight, nextDpr);
+        dprRef.current = devicePixelRatio;
+        resizePendingRef.current = true;
         dirtyRef.current = true;
-    }, [effectiveWidth, effectiveHeight, dpr]);
+    }, [effectiveWidth, effectiveHeight, devicePixelRatio]);
 
     // fillParent 模式：ResizeObserver 监听容器 div
     useEffect(() => {
@@ -574,13 +612,27 @@ function Canvas({
                 if (prev && isAnimatedCommand(prev)) animatedCountRef.current--;
             },
             uploadTexture(key, source) {
-                pendingTexturesRef.current.set(key, source);
                 rendererRef.current?.uploadTexture(key, source);
+                textureReferencesRef.current.set(key, (textureReferencesRef.current.get(key) ?? 0) + 1);
+                pendingTexturesRef.current.set(key, source);
                 dirtyRef.current = true;
             },
             uploadGlyph(key, data, w, h) {
+                textureReferencesRef.current.set(key, (textureReferencesRef.current.get(key) ?? 0) + 1);
                 pendingGlyphsRef.current.set(key, { data, w, h });
                 rendererRef.current?.uploadGlyph(key, data, w, h);
+                dirtyRef.current = true;
+            },
+            releaseTexture(key) {
+                const remaining = (textureReferencesRef.current.get(key) ?? 0) - 1;
+                if (remaining > 0) {
+                    textureReferencesRef.current.set(key, remaining);
+                    return;
+                }
+                textureReferencesRef.current.delete(key);
+                pendingTexturesRef.current.delete(key);
+                pendingGlyphsRef.current.delete(key);
+                rendererRef.current?.releaseTexture(key);
                 dirtyRef.current = true;
             },
             registerHit(id, entry) {
@@ -663,8 +715,8 @@ function Canvas({
                     <canvas
                         ref={mergedRefCallback}
                         style={{ display: 'block', width: effectiveWidth, height: effectiveHeight, touchAction: 'none' }}
-                        width={Math.round(effectiveWidth * devicePixelRatio)}
-                        height={Math.round(effectiveHeight * devicePixelRatio)}
+                        width={initialBitmapSize.width}
+                        height={initialBitmapSize.height}
                     />
                     {children}
                 </div>

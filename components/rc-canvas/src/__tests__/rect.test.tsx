@@ -17,6 +17,7 @@ function makeCtxMock() {
         unregister: mock.fn(),
         uploadTexture: mock.fn(),
         uploadGlyph: mock.fn(),
+        releaseTexture: mock.fn(),
         registerHit: mock.fn(),
         unregisterHit: mock.fn(),
         updateHit: mock.fn(),
