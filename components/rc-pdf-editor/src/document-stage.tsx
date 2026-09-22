@@ -40,7 +40,7 @@ function PagePreview({ client, item, revision, zoom, paint, onError }: {
     const afterPaint = useEffectEvent(() => { if (buffer.back && uploaded.current === buffer.back.id) buffer.present(buffer.back); });
     useEffect(() => { const notify = () => afterPaint(); paint.add(notify); return () => { paint.delete(notify); }; }, [paint]);
     return <Group x={item.x} y={item.y} scaleX={zoom} scaleY={zoom}>
-        <Rect x={0} y={0} width={page.width} height={page.height} fill={token.canvas.paper} />
+        <Rect x={0} y={0} width={page.width} height={page.height} fill={token.canvas.paper['background-color']} />
         {buffer.slots.map(frame => frame && <PreviewImage key={frame.id} frame={frame} page={page} visible={frame === buffer.front}
             onLoad={() => { uploaded.current = frame.id; }} onError={error => buffer.reject(frame, error)} />)}
     </Group>;

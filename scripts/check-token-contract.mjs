@@ -85,6 +85,8 @@ const requiredSemanticKeys = [
 ];
 
 const approvedDataColorTokens = new Map([
+    // PDF page content keeps a white paper background in every UI theme.
+    ["rc-pdf-editor:canvas.paper.background-color", "oklch(1 0 0)"],
     ["rc-bar-chart:palette.series.blue.color", "oklch(0.5753 0.1626 255.53)"],
     ["rc-bar-chart:palette.series.orange.color", "oklch(0.6708 0.175 40.64)"],
     ["rc-bar-chart:palette.series.aqua.color", "oklch(0.669 0.1408 162.11)"],
@@ -98,7 +100,11 @@ const approvedDataColorTokens = new Map([
     ["rc-bar-chart:palette.series.red.color", "oklch(0.6226 0.1909 24.91)"],
 ]);
 
-const approvedDataColorValues = new Set(approvedDataColorTokens.values());
+const approvedDataColorValues = new Set(
+    [...approvedDataColorTokens]
+        .filter(([key]) => key.startsWith("rc-bar-chart:"))
+        .map(([, value]) => value),
+);
 
 const allowExactLines = (reason, lines) => {
     const allowedLines = new Set(lines);
@@ -117,6 +123,19 @@ const allowExactLines = (reason, lines) => {
 };
 
 const uiRawColorAllowlist = new Map([
+    [
+        "components/rc-pdf-editor/src/capture-region.ts",
+        allowExactLines("white paper background in exported OCR image data", [
+            "context.fillStyle = '#ffffff'; context.fillRect(0, 0, width, height);",
+        ]),
+    ],
+    [
+        "components/rc-pdf-editor/src/color.ts",
+        allowExactLines("conversion of user-selected PDF object color data", [
+            "export function colorCss(color: Rgba): string { return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3] / 255})`; }",
+            "return parseColor(`oklch(${value.lightness} ${value.chroma} ${value.hue} / ${value.alpha ?? 1})`).map(channel => Math.round(channel * 255)) as Rgba;",
+        ]),
+    ],
     [
         "components/rc-bar-chart/src/palette.ts",
         allowExactLines(
@@ -304,6 +323,7 @@ const cssProperties = new Set([
     "right",
     "row-gap",
     "scale",
+    "scrollbar-color",
     "stroke",
     "stroke-color",
     "stroke-dasharray",
@@ -334,6 +354,7 @@ const terminalStates = [
     "checked",
     "inactive",
     "loading",
+    "pressed",
     "active",
     "error",
     "hidden",

@@ -17,8 +17,8 @@ const sectionStyle = css`display: flex; flex-direction: column; gap: ${token.pan
 const rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.toolbar.gap};`;
 const gridStyle = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, ${token.panel.width}), 1fr)); gap: ${token.panel.gap};`;
 const fieldStyle = css`border: 0; padding: 0; margin: 0; min-width: 0; & legend { margin-bottom: ${token.toolbar.gap}; }`;
-const noteStyle = css`margin: 0; color: ${token.status.color}; font-size: ${token.status.size};`;
-const codeStyle = css`margin: 0; padding: ${token.panel.padding}; overflow: auto; background: ${token.canvas.background}; border-radius: ${token.root.radius};`;
+const noteStyle = css`margin: 0; color: ${token.status.color}; font-size: ${token.status['font-size']};`;
+const codeStyle = css`margin: 0; padding: ${token.panel.padding}; overflow: auto; background: ${token.canvas.background}; border-radius: ${token.root['border-radius']};`;
 
 export default function ToolbarDemo() {
     const [visibility, setVisibility] = useState<PdfEditorActionVisibility>({});

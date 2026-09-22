@@ -190,8 +190,8 @@ const closeButtonStyle = css`
     align-items: center;
     justify-content: center;
     margin-left: ${token.close.gap};
-    min-width: ${token.close['touch-size']};
-    min-height: ${token.close['touch-size']};
+    min-width: ${token.close.touch.width};
+    min-height: ${token.close.touch.width};
     & > svg { width: ${token.close.width}; height: ${token.close.width}; }
     @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
     padding: 0;

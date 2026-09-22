@@ -21,7 +21,7 @@ function ThumbnailCanvas({ frame, visible, onPresent, onError }: {
     return <span className={frameStyle} data-visible={visible}><Canvas width={160} height={152} tabIndex={-1}
         onRender={() => { if (loaded.current && !presented.current) { presented.current = true; onPresent(); } }}>
         {frame && <Group key={frame.id}>
-            <Rect x={(160 - frame.data.width) / 2} y={0} width={frame.data.width} height={frame.data.height} fill={token.canvas.paper} />
+            <Rect x={(160 - frame.data.width) / 2} y={0} width={frame.data.width} height={frame.data.height} fill={token.canvas.paper['background-color']} />
             <CanvasImage src={frame.data.images[0]} x={(160 - frame.data.width) / 2} y={0} width={frame.data.width} height={frame.data.height} onLoad={() => { loaded.current = true; }} onError={onError} />
         </Group>}
     </Canvas></span>;

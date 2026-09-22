@@ -9,9 +9,9 @@ export const meta = { title: '跨页区域与 OCR 插件', description: '框选�
 const runtime = { workerUrl: './runtime/pdf-editor.worker.js', wasmUrl: './runtime/pdfium.wasm' };
 const sectionStyle = css`display: flex; flex-direction: column; gap: ${token.panel.gap}; min-width: 0;`;
 const rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.toolbar.gap}; align-items: center;`;
-const hintStyle = css`margin: 0; color: ${token.status.color}; font-size: ${token.status.size};`;
+const hintStyle = css`margin: 0; color: ${token.status.color}; font-size: ${token.status['font-size']};`;
 const imageStyle = css`display: block; max-width: 100%; height: auto; border: ${token.root['border-width']} solid ${token.root['border-color']};`;
-const codeStyle = css`overflow: auto; padding: ${token.panel.padding}; background: ${token.canvas.background}; border-radius: ${token.root.radius};`;
+const codeStyle = css`overflow: auto; padding: ${token.panel.padding}; background: ${token.canvas.background}; border-radius: ${token.root['border-radius']};`;
 
 export default function RegionOcrDemo() {
     const [installed, setInstalled] = useState(true);

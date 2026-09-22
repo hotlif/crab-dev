@@ -62,7 +62,7 @@ function FrameCanvas({ frame, visible, live, stage, drawing, submittedTransform,
             onRender={() => { if (loaded.current >= images.length && !presented.current) { presented.current = true; onPresent(); } }}
             onEmptyClick={() => { if (interactive && selecting) stage.onSelect(); }}>
             <Viewport key={frame.id} {...shown.viewport} onViewportChange={stage.onViewport} minZoom={0.1} maxZoom={8} pannable={interactive && (stage.tool === 'pan' || selecting)} zoomable={interactive && !drawing && (stage.wheelZoom ?? true)}>
-                <Rect x={0} y={0} width={page.width} height={page.height} fill={token.canvas.paper} />
+                <Rect x={0} y={0} width={page.width} height={page.height} fill={token.canvas.paper['background-color']} />
                 {!editing && <CanvasImage src={images[0]} x={0} y={0} width={page.width} height={page.height} zIndex={1} onLoad={upload} onError={onError} />}
                 {editing && <>
                     <CanvasImage src={images[0]} x={0} y={0} width={page.width} height={page.height} zIndex={1} onLoad={upload} onError={onError} />

@@ -46,7 +46,7 @@ export const vars = defineTokens({
     'close.color': '--tabs-close-color',
     'close.color-hover': '--tabs-close-color-hover',
     'close.width': '--tabs-close-width',
-    'close.touch-size': '--tabs-close-touch-size',
+    'close.touch.width': '--tabs-close-touch-width',
     'close.gap': '--tabs-close-gap',
     'close.border-radius': '--tabs-close-border-radius',
     'close.background-color-hover': '--tabs-close-background-color-hover',
@@ -134,7 +134,9 @@ const token = defineTokens({
         'color': `var(${vars['close.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
         'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'width': `var(${vars['close.width']}, var(--tabs-close-size, 16px))`,
-        'touch-size': `var(${vars['close.touch-size']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+        'touch': {
+            'width': `var(${vars['close.touch.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
+        },
         'gap': `var(${vars['close.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
         'background-color-hover': `var(${vars['close.background-color-hover']}, var(--tabs-close-background-hover, var(--token-semantic-color-state-pressed, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))))`,

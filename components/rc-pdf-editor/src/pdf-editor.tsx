@@ -13,6 +13,7 @@ import Tooltip from '@crab-dev/rc-tooltip';
 import type { ViewportState } from '@crab-dev/rc-canvas';
 import { PdfClient, asError, decodeImage, downloadPdf, sourceBytes } from './client.js';
 import { validateFont } from './font.js';
+import { colorCss } from './color.js';
 import { PdfEditorError, type PdfEditorProps, type PdfEditorRef, type PdfEditorToolbarAction, type PdfDocumentInput, type PdfOperationOptions, type PdfSource } from './types.js';
 import type { PdfEditorActionId } from './actions.js';
 import ActionButton, { ActionVisibilityContext } from './action-button.js';
@@ -384,7 +385,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     const previewFont = loadedFonts.find(font => font.id === draft?.fontId);
     const preview = draft && selected?.kind === 'text' && previewFont ? {
         text: draft.text, fontSize: draft.fontSize, family: previewFont.family,
-        color: `rgba(${draft.color[0]}, ${draft.color[1]}, ${draft.color[2]}, ${draft.color[3] / 255})`,
+        color: colorCss(draft.color),
     } : undefined;
 
     return <ActionVisibilityContext value={visibility}><div {...rest} className={cx(rootStyle, className)} onKeyDown={keyDown} aria-busy={processing}>
