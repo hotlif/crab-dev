@@ -1,0 +1,54 @@
+{
+    "id": "rc-pdf-editor",
+    "title": "PdfEditor PDF 编辑器",
+    "summary": "本地打开 PDF，按对象编辑文字、图片，整理页面并保存真实 PDF。",
+    "prerequisite": "接入项目需要部署 Worker 与 WASM 静态资源。初始业务文档通过 initialDocument 提供，后续通过 ref.open 切换。修改文字需提供覆盖目标字符的 TTF 字体。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "打开并编辑文档",
+            "goal": "连接本地运行时，打开 PDF 并编辑对象。",
+            "why": "独立 Worker 处理 PDF，Canvas 显示文字和图片，自有属性控件提交修改。",
+            "instruction": "打开工作台，选择 PDF；配置 TTF 字体后从对象列表选择文字，编辑内容并应用修改。页面操作位于顶部工具栏。",
+            "expected": "修改显示在当前页；可以撤销、重做并保存 PDF。",
+            "changes": ["通过 runtime 提供 Worker 与 WASM 地址", "使用 fonts 配置项目自己的字体"],
+            "workbench": "basic.demo.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "启用只读浏览",
+            "goal": "在审核场景中保留查看和导出。",
+            "why": "同一组件支持只读入口，无需维护另一套 PDF 预览界面。",
+            "instruction": "设置 readOnly，打开 PDF 后翻页、缩放或查看对象属性。",
+            "expected": "编辑按钮不可用，页面导航、缩放、提取和保存仍可使用。",
+            "changes": ["设置 readOnly 禁止对象和页面变更"],
+            "workbench": "readonly.demo.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "配置图标与业务动作",
+            "goal": "按业务需要组合编辑器入口，并追加自己的按钮。",
+            "why": "稳定的动作 ID 将展示配置与文档命令分开，新增业务动作不需要修改组件内部。",
+            "instruction": "在工作台逐项或分组勾选图标，切换只读模式，再点击工具栏末尾的文档摘要。",
+            "expected": "图标立即显示或消失，文档不会重载；扩展按钮输出当前文档摘要。",
+            "changes": ["用 toolbar.visibility 配置内置动作", "用 toolbar.extraActions 追加业务按钮", "用 PDF_EDITOR_ACTIONS 生成配置面板"],
+            "workbench": "toolbar.demo.tsx"
+        },
+        {
+            "id": "step-4",
+            "title": "接入跨页区域 OCR 插件",
+            "goal": "采集相邻两页交界区域并交给自有识别引擎。",
+            "why": "选区与原始图像采集由编辑器负责，业务插件独立管理识别和结果处理。",
+            "instruction": "打开跨页 Demo，点击采集两页交界样例或手动框选，查看拼接 PNG 和页坐标；切换安装开关验证插件卸载。",
+            "expected": "两页区域去掉页间留白后拼接，返回坐标映射；默认适配器只展示图像，不执行文字识别。",
+            "changes": ["通过 plugins 安装扩展", "用 selectRegion / captureRegion 采集图像", "用 recognize 回调对接自有 OCR 引擎"],
+            "workbench": "region-ocr.demo.tsx"
+        }
+    ],
+    "faq": [
+        { "question": "为什么有些文字不能修改？", "answer": "转曲文字、复杂嵌套、裁剪或无法识别 Unicode 的对象保留原样。对象属性会给出原因。" },
+        { "question": "没有配置字体可以使用吗？", "answer": "可以浏览、整理页面、编辑图片，以及变换原文字。修改文字内容和新增文字需要覆盖相应字符的 TTF 字体。" },
+        { "question": "文件会上传到服务器吗？", "answer": "默认不会。PDF 编辑和导出在浏览器的 Worker 中执行；提供 onSave 或 OCR recognize 适配器后，是否上传由宿主实现决定。" },
+        { "question": "插件是否内置 OCR 模型？", "answer": "没有。组件提供跨页选区、PNG 采集、坐标映射与取消信号；使用方通过 recognize 注入浏览器模型或服务端识别接口。" }
+    ]
+}

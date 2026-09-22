@@ -1,6 +1,7 @@
 import { Box, Check, Label, Line, Window } from "./shapes.js";
 
 export const displayPreviews = {
+    "rc-pdf-editor": <Window><Box x={29} y={46} w={34} h={80} tone="soft" /><Box x={36} y={54} w={20} h={25} /><Box x={36} y={87} w={20} h={25} /><Box x={77} y={48} w={88} h={76} /><Line x={90} y={66} w={60} /><Line x={90} y={81} w={44} /><Box x={89} y={96} w={39} h={17} tone="soft" /><Line x={177} y={61} w={27} /><Line x={177} y={78} w={27} /><Label x={190} y={104} tone="brand">PDF</Label></Window>,
     "rc-avatar": <><circle cx={66} cy={73} r={24} className="cc-brand" /><Label x={66} y={79} tone="on-brand">林</Label><circle cx={123} cy={73} r={20} className="cc-soft" /><circle cx={123} cy={67} r={6} className="cc-brand" /><path d="M112 84a11 11 0 0 1 22 0" className="cc-brand" /><Box x={160} y={57} w={32} h={32} tone="muted" /><Label x={176} y={78} tone="on-brand">陈</Label></>,
     "rc-badge": <><Box x={49} y={53} w={48} h={48} tone="soft" /><Box x={81} y={42} w={30} h={22} tone="brand" r={11} /><Label x={96} y={58} tone="on-brand">12</Label><Box x={148} y={53} w={48} h={48} tone="soft" /><circle cx={194} cy={53} r={6} className="cc-brand" /></>,
     "rc-card": <><Box x={47} y={21} w={146} h={112} r={12} /><Box x={57} y={31} w={126} h={40} tone="soft" /><Label x={61} y={93} anchor="start">项目概览</Label><Line x={61} y={112} w={105} /></>,

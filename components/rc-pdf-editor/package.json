@@ -1,0 +1,86 @@
+{
+    "name": "@crab-dev/rc-pdf-editor",
+    "version": "0.0.1",
+    "description": "基于 PDFium 与 Crab Canvas 的浏览器 PDF 对象编辑器",
+    "websiteConfig": {
+        "title": "PdfEditor PDF 编辑器",
+        "category": "data-display"
+    },
+    "packageManager": "yarn@4.18.0",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-pdf-editor"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "scripts": {
+        "start": "yarn build:runtime && yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:runtime": "wake bundle src/worker.ts --outfile dist/pdf-editor.worker.js --platform browser --format iife && node scripts/copy-runtime.mjs",
+        "build:library": "yarn generate:token && wake library build . && yarn build:runtime && yarn build:web-component",
+        "build:web-component": "node scripts/build-web-component.mjs",
+        "preview:web-component": "node scripts/serve-web-component.mjs",
+        "test:web-component": "yarn build:library && wake test --root browser-tests --serial --coverage",
+        "generate:token": "wake library token .",
+        "generate:docgen": "wake library docgen .",
+        "lint": "wake lint --format human --root ../.. components/rc-pdf-editor/src components/rc-pdf-editor/docs components/rc-pdf-editor/scripts components/rc-pdf-editor/browser-tests --env browser --env node --max-warnings 0",
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "test": "yarn build:runtime && wake test --serial --coverage",
+        "check": "yarn lint && yarn typecheck && yarn test && yarn test:web-component"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "declarations",
+        "dist"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./worker": "./dist/pdf-editor.worker.js",
+        "./wasm": "./dist/pdfium.wasm",
+        "./web-component": "./dist/pdf-editor.js",
+        "./licenses/*": "./dist/licenses/*",
+        "./package.json": "./package.json"
+    },
+    "dependencies": {
+        "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-auto-sizer": "workspace:^",
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-canvas": "workspace:^",
+        "@crab-dev/rc-checkbox": "workspace:^",
+        "@crab-dev/rc-color-picker": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
+        "@crab-dev/rc-dialog": "workspace:^",
+        "@crab-dev/rc-line-edit": "workspace:^",
+        "@crab-dev/rc-number-edit": "workspace:^",
+        "@crab-dev/rc-select": "workspace:^",
+        "@crab-dev/rc-spin": "workspace:^",
+        "@crab-dev/rc-text-edit": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/rc-tooltip": "workspace:^",
+        "@crab-dev/rc-tree": "workspace:^",
+        "@crab-dev/rc-virtual": "workspace:^",
+        "@embedpdf/pdfium": "2.15.1"
+    },
+    "devDependencies": {
+        "@crab-dev/rc-component-preview": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@crab-dev/wake": "0.1.45",
+        "@types/node": "^22.20.2",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "typescript": "^7.0.2"
+    }
+}

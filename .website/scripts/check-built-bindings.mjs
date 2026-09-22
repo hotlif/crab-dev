@@ -24,13 +24,13 @@ const bindingRules = lint({ listRules: true }).then(result => ({
     "js/no-undef": "error",
 }));
 
-export async function findUnboundNames(source) {
+export async function findUnboundNames(source, additionalGlobals = {}) {
     const result = await lint({
         // A virtual filename avoids generated-output ignore patterns; every supplied
         // production source is still parsed and checked for unresolved bindings.
         stdin: { filename: "binding-check/input.js", text: source },
         rules: await bindingRules,
-        globals: Object.fromEntries(Object.entries(hostGlobals).map(([name, writable]) => [name, writable === true ? "writable" : "readonly"])),
+        globals: Object.fromEntries(Object.entries({ ...hostGlobals, ...additionalGlobals }).map(([name, writable]) => [name, writable === true ? "writable" : "readonly"])),
         maxWarnings: 0,
     });
     return result.files.flatMap(file => file.diagnostics).map(({ location, message }) => ({
@@ -44,7 +44,12 @@ export async function checkBuiltBindings(root) {
     const files = (await readdir(root, { recursive: true })).filter((file) => /\.m?js$/.test(file));
     const failures = [];
     for (const file of files) {
-        for (const finding of await findUnboundNames(await readFile(path.join(root, file), "utf8"))) {
+        // PDFium 2.15.1 的 Emscripten 包保留受环境分支保护的 shell/旧浏览器入口。
+        // 仅对该第三方 Worker 产物声明这些宿主，业务包仍检查同名未绑定变量。
+        const pdfiumGlobals = file.replaceAll("\\", "/").endsWith("rc-pdf-editor/workbench/runtime/pdf-editor.worker.js")
+            ? { readbuffer: "readonly", read: "readonly", readline: "readonly", Browser: "readonly" }
+            : {};
+        for (const finding of await findUnboundNames(await readFile(path.join(root, file), "utf8"), pdfiumGlobals)) {
             failures.push({ file, ...finding });
         }
     }

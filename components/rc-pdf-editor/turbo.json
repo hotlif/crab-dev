@@ -1,0 +1,11 @@
+{
+    "extends": ["//"],
+    "tasks": {
+        "build:library": {
+            "outputs": [
+                "esm/**", "cjs/**", "declarations/**", "css/**", "src/token.ts",
+                "dist/**", "public/runtime/**", ".fixtures/**"
+            ]
+        }
+    }
+}

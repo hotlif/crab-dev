@@ -1289,6 +1289,41 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-pdf-editor@workspace:^, @crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-canvas": "workspace:^"
+    "@crab-dev/rc-checkbox": "workspace:^"
+    "@crab-dev/rc-color-picker": "workspace:^"
+    "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
+    "@crab-dev/rc-dialog": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
+    "@crab-dev/rc-number-edit": "workspace:^"
+    "@crab-dev/rc-select": "workspace:^"
+    "@crab-dev/rc-spin": "workspace:^"
+    "@crab-dev/rc-text-edit": "workspace:^"
+    "@crab-dev/rc-theme": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/rc-tooltip": "workspace:^"
+    "@crab-dev/rc-tree": "workspace:^"
+    "@crab-dev/rc-virtual": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.45"
+    "@embedpdf/pdfium": "npm:2.15.1"
+    "@types/node": "npm:^22.20.2"
+    "@types/react": "npm:^19.3.0"
+    "@types/react-dom": "npm:^19.3.0"
+    react: "npm:19.3.0"
+    react-dom: "npm:19.3.0"
+    typescript: "npm:^7.0.2"
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-prose@workspace:^, @crab-dev/rc-prose@workspace:components/rc-prose":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-prose@workspace:components/rc-prose"
@@ -2008,6 +2043,7 @@ __metadata:
     "@crab-dev/rc-notification": "workspace:^"
     "@crab-dev/rc-number-edit": "workspace:^"
     "@crab-dev/rc-pagination": "workspace:^"
+    "@crab-dev/rc-pdf-editor": "workspace:^"
     "@crab-dev/rc-prose": "workspace:^"
     "@crab-dev/rc-radio": "workspace:^"
     "@crab-dev/rc-realm": "workspace:^"
@@ -2088,6 +2124,13 @@ __metadata:
   peerDependencies:
     react: ">=16.8.0"
   checksum: 10c0/9aa90526f3e3fd567b5acc1b625a63177b9e8d00e7e50b2bd0e08fa2bf4dba7e19529777e001fdb8f89a7ce69f30b190c8364d390212634e0afdfa8c395e85a0
+  languageName: node
+  linkType: hard
+
+"@embedpdf/pdfium@npm:2.15.1":
+  version: 2.15.1
+  resolution: "@embedpdf/pdfium@npm:2.15.1"
+  checksum: 10c0/c62de8784a9b065e920e83da337d74cc7373200c6c94aa7d7c0248a98484b8c7cee844a9a4198e3b35d652c78f3e5d9315540faa7ceb72c2547b2c7ab94099f5
   languageName: node
   linkType: hard
 

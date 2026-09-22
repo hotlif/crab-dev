@@ -1,0 +1,26 @@
+[docs]
+source_dir = "docs"
+title = "PdfEditor PDF 编辑器"
+description = "本地 PDF 文字、图片和页面编辑"
+locale = "zh-CN"
+theme_css = "docs/theme.css"
+
+[test]
+setup = ["../../test/wake-css.setup.ts"]
+environment = "browser"
+include = ["src/**/*.{test,spec}.{ts,tsx}"]
+timeout_ms = 30000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

@@ -1,0 +1,4 @@
+@import "../../rc-theme/docs/workbench.css";
+
+/* 文档编辑器需要使用工作台提供的完整宽度。 */
+.demo-default-preview > div { width: 100%; }

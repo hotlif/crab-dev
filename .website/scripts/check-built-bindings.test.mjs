@@ -10,4 +10,6 @@ assert.equal((await findUnboundNames('const cx=(...args)=>args.filter(Boolean).j
 assert.equal((await findUnboundNames('function outer(value) { return () => value; }')).length, 0);
 assert.equal((await findUnboundNames('if (typeof module !== "undefined") module.exports = {};')).length, 0);
 assert.ok((await findUnboundNames('function broken( {')).length > 0);
+assert.equal((await findUnboundNames('if (typeof read === "function") read("data");', { read: "readonly" })).length, 0);
+assert.ok((await findUnboundNames('read("data");')).length > 0);
 console.log("PASS: production binding regression, scoped closures, guarded hosts and malformed output (5 checks)");

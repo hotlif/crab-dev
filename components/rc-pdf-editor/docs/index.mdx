@@ -1,0 +1,54 @@
++++
+title = "PdfEditor PDF 编辑器"
+description = "在浏览器本地修改 PDF 文字对象、图片与页面"
+kind = "component"
+status = "experimental"
++++
+
+# PdfEditor PDF 编辑器
+
+基于自有 Canvas 与表单控件，使用独立 Worker 中的 PDFium 编辑和保存真实 PDF 对象。
+
+[打开组件工作台](/components/rc-pdf-editor/workbench/)
+
+## 何时使用
+
+需要在桌面浏览器中修改既有文字对象、调整图片，或整理文档页面时使用。默认在浏览器本地处理文件；接入保存或 OCR 服务时，是否上传由宿主实现决定。
+
+## 资源与字体
+
+部署包内 `@crab-dev/rc-pdf-editor/worker` 与 `@crab-dev/rc-pdf-editor/wasm` 导出的文件，通过必填 `runtime` 指定地址；也可以提供 `wasmBinary`。没有默认 CDN。修改文字内容和新增文字需提供覆盖相应字符的 TTF 字体，示例允许从本地选择字体。
+
+## 编辑范围
+
+文字按对象处理，不进行段落重排；图片支持 PNG、JPEG、WebP。页面支持插入、删除、旋转、前后移动、合并与提取。转曲文字、嵌套组合、裁剪及描边文字保留原样，并在对象属性中显示原因。
+
+中央预览将各页纵向连续排列，使用滚轮或滚动条浏览，不显示分页控件。点击左侧缩略图定位页面，滚动时同步当前页和对象树；底部保留缩放与适应页面。预览区支持 PageUp/PageDown、Home/End，普通滚轮不改变缩放倍率。
+
+按住 Ctrl（macOS 也可使用 Command）加滚轮，以鼠标位置为中心缩放，也可在底部直接输入百分比。选择对象、切换侧栏和调整窗口大小保留倍率；首次打开文档或主动点击“适应页面”时才重新适应。
+
+底栏使用紧凑百分比输入框，右侧四角框图标用于适应页面；悬停或键盘聚焦时显示中文提示。
+
+Ctrl/Cmd+Z 撤销，Ctrl/Cmd+Shift+Z 或 Ctrl/Cmd+Y 重做，Delete 删除，方向键移动，Shift+方向键移动 10 pt，Escape 取消选择。文字输入和中文输入法组合期间不接管这些快捷键。对象列表提供画布之外的键盘入口。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={1} />
+
+## API
+
+通过 `toolbar.visibility` 按动作 ID 实时显示或隐藏图标，例如 `{ addText: false, deletePage: false }`。未配置的动作默认显示；显隐不会重载文档，也不会改变快捷键或编辑权限。
+
+`toolbar.extraActions` 可向 `main`、`tools`、`status` 追加业务图标，接收公开命令接口，并共用忙碌状态及 `onError`。`PDF_EDITOR_ACTIONS` 导出完整只读目录；配置语义与扩展示例见包内 `docs/TOOLBAR.md`。
+
+`plugins` 接入带安装、卸载、取消生命周期的业务插件；`createRegionOcrPlugin({ id, recognize, onResult })` 将框选、图像采集与自有 OCR 引擎组合。`selectRegion()` 支持同一 PDF 相邻两页的交界区域，`captureRegion()` 从 PDF 内容渲染 PNG 并去掉页间界面空隙，返回逐页坐标映射。只读模式同样可用。工作台 Demo 展示真实采集图像，默认不执行识别；完整接口见包内 `docs/PLUGINS.md`。
+
+初始文件通过 `initialDocument={{ id, source, fileName? }}` 提供，后续文件切换调用 `ref.open()`，清空调用 `ref.close()`。`runtime` 与初始文档只在挂载时读取。
+
+宿主保存按钮调用 `ref.save()`，与工具栏共用 `onSave` 持久化流程。`exportPdf()` 和 `extractPages()` 返回包含 Blob、文档身份、会话和版本的快照，不自动下载或清除未保存状态。完整迁移说明见包内 `docs/API-REDESIGN.md`。
+
+<API source="../src/pdf-editor.tsx" symbol="PdfEditorProps" component="PdfEditor" />
+
+## 设计参考
+
+标准配色、顶部停靠工具栏依据 M3 的桌面布局说明扩展为文档工作区。Material Web 未提供 Toolbar，实现复用本库 Button 等控件。详细资源部署、接口、限制及设计来源见包内 `docs/README.md`。

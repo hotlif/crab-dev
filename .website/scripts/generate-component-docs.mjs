@@ -7,8 +7,8 @@ import { generate } from "@babel/generator";
 import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 
-const EXPECTED_COMPONENT_COUNT = 53;
-const EXPECTED_DEMO_COUNT = 253;
+const EXPECTED_COMPONENT_COUNT = 54;
+const EXPECTED_DEMO_COUNT = 257;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");
@@ -54,6 +54,7 @@ const gridLayoutComponents = new Set([
 ]);
 
 const spaciousComponents = new Set([
+    "rc-pdf-editor",
     "rc-app-main-layout",
     "rc-masonry",
     "rc-prose",

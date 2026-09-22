@@ -1,0 +1,13 @@
+[test]
+environment = "browser"
+include = ["*.test.ts"]
+timeout_ms = 30000
+leaks = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

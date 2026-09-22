@@ -6,8 +6,8 @@
     "packageManager": "yarn@4.18.0",
     "type": "module",
     "scripts": {
-        "start": "node scripts/docs-dev.mjs",
-        "build": "yarn generate:docs && wake docs build . --outdir docs-dist && yarn check:build",
+        "start": "yarn workspace @crab-dev/rc-pdf-editor build:runtime && node scripts/docs-dev.mjs",
+        "build": "yarn workspace @crab-dev/rc-pdf-editor build:runtime && yarn generate:docs && wake docs build . --outdir docs-dist && yarn check:build",
         "check:build": "node scripts/check-built-bindings.mjs",
         "test:build": "node scripts/check-built-bindings.test.mjs",
         "generate:docs": "node scripts/generate-component-docs.mjs",
@@ -53,6 +53,7 @@
         "@crab-dev/rc-notification": "workspace:^",
         "@crab-dev/rc-number-edit": "workspace:^",
         "@crab-dev/rc-pagination": "workspace:^",
+        "@crab-dev/rc-pdf-editor": "workspace:^",
         "@crab-dev/rc-prose": "workspace:^",
         "@crab-dev/rc-radio": "workspace:^",
         "@crab-dev/rc-realm": "workspace:^",

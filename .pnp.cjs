@@ -143,6 +143,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:components/rc-pagination"\
     },\
     {\
+      "name": "@crab-dev/rc-pdf-editor",\
+      "reference": "workspace:components/rc-pdf-editor"\
+    },\
+    {\
       "name": "@crab-dev/rc-prose",\
       "reference": "workspace:components/rc-prose"\
     },\
@@ -274,6 +278,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-notification", ["workspace:components/rc-notification"]],\
     ["@crab-dev/rc-number-edit", ["workspace:components/rc-number-edit"]],\
     ["@crab-dev/rc-pagination", ["workspace:components/rc-pagination"]],\
+    ["@crab-dev/rc-pdf-editor", ["workspace:components/rc-pdf-editor"]],\
     ["@crab-dev/rc-prose", ["workspace:components/rc-prose"]],\
     ["@crab-dev/rc-radio", ["workspace:components/rc-radio"]],\
     ["@crab-dev/rc-realm", ["workspace:components/rc-realm"]],\
@@ -1819,6 +1824,43 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
+    ["@crab-dev/rc-pdf-editor", [\
+      ["workspace:components/rc-pdf-editor", {\
+        "packageLocation": "./components/rc-pdf-editor/",\
+        "packageDependencies": [\
+          ["@crab-dev/css", "npm:0.1.45"],\
+          ["@crab-dev/rc-auto-sizer", "workspace:components/rc-auto-sizer"],\
+          ["@crab-dev/rc-button", "workspace:components/rc-button"],\
+          ["@crab-dev/rc-canvas", "workspace:components/rc-canvas"],\
+          ["@crab-dev/rc-checkbox", "workspace:components/rc-checkbox"],\
+          ["@crab-dev/rc-color-picker", "workspace:components/rc-color-picker"],\
+          ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
+          ["@crab-dev/rc-dialog", "workspace:components/rc-dialog"],\
+          ["@crab-dev/rc-line-edit", "workspace:components/rc-line-edit"],\
+          ["@crab-dev/rc-number-edit", "workspace:components/rc-number-edit"],\
+          ["@crab-dev/rc-pdf-editor", "workspace:components/rc-pdf-editor"],\
+          ["@crab-dev/rc-select", "workspace:components/rc-select"],\
+          ["@crab-dev/rc-spin", "workspace:components/rc-spin"],\
+          ["@crab-dev/rc-text-edit", "workspace:components/rc-text-edit"],\
+          ["@crab-dev/rc-theme", "workspace:components/rc-theme"],\
+          ["@crab-dev/rc-token-semantic", "workspace:components/rc-token-semantic"],\
+          ["@crab-dev/rc-tooltip", "workspace:components/rc-tooltip"],\
+          ["@crab-dev/rc-tree", "virtual:d89e755687660e7404394ad248b0b210a3b0ea90381cb3215110699be04ba6b58b59fa35fca848706de19a61da0743040689037c237cfa1d1d51a0e7a013d477#workspace:components/rc-tree"],\
+          ["@crab-dev/rc-virtual", "workspace:components/rc-virtual"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.45"],\
+          ["@embedpdf/pdfium", "npm:2.15.1"],\
+          ["@types/node", "npm:22.20.2"],\
+          ["@types/react", "npm:19.3.0"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.3.0"],\
+          ["react", "npm:19.3.0"],\
+          ["react-dom", "virtual:3f0f767a8b612425719206950d899926cb3d5104f45605249983d62d8c49ecd6ac0384f4e743c9d7d689ecc38d559ce4f4a0ca9be0545e40b4339321b79f9a1e#npm:19.3.0"],\
+          ["typescript", "patch:typescript@npm%3A7.0.2#optional!builtin<compat/typescript>::version=7.0.2&hash=3bafbf"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@crab-dev/rc-prose", [\
       ["workspace:components/rc-prose", {\
         "packageLocation": "./components/rc-prose/",\
@@ -2837,6 +2879,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-notification", "workspace:components/rc-notification"],\
           ["@crab-dev/rc-number-edit", "workspace:components/rc-number-edit"],\
           ["@crab-dev/rc-pagination", "workspace:components/rc-pagination"],\
+          ["@crab-dev/rc-pdf-editor", "workspace:components/rc-pdf-editor"],\
           ["@crab-dev/rc-prose", "workspace:components/rc-prose"],\
           ["@crab-dev/rc-radio", "workspace:components/rc-radio"],\
           ["@crab-dev/rc-realm", "workspace:components/rc-realm"],\
@@ -3011,6 +3054,15 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/react",\
           "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@embedpdf/pdfium", [\
+      ["npm:2.15.1", {\
+        "packageLocation": "./.yarn/cache/@embedpdf-pdfium-npm-2.15.1-989753b65c-c62de8784a.zip/node_modules/@embedpdf/pdfium/",\
+        "packageDependencies": [\
+          ["@embedpdf/pdfium", "npm:2.15.1"]\
         ],\
         "linkType": "HARD"\
       }]\

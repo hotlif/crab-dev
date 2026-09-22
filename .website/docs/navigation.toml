@@ -116,6 +116,7 @@ title = "数据与可视化"
 pages = [
     "components/rc-bar-chart",
     "components/rc-canvas",
+    "components/rc-pdf-editor",
     "components/rc-flow-diagram",
     "components/rc-table-pro",
     "components/rc-table",
