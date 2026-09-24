@@ -1,3 +1,4 @@
+import { useComponentSize, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useReducer, useState } from 'react';
 import { css, cx } from '@crab-dev/css';
 import {
@@ -21,6 +22,8 @@ import { DropdownContext } from './context.js';
 import token from './token.js';
 
 export interface DropdownContainerProps extends HTMLAttributes<HTMLElement> {
+    /** 浮层尺寸档；省略时继承最近的 ConfigProvider。 */
+    size?: ConfigSize;
     /**
      * 下拉组件内容
      */
@@ -80,7 +83,8 @@ function DropdownContainer(props: DropdownContainerProps) {
     return parentId == null ? <FloatingTree>{content}</FloatingTree> : content;
 }
 
-function DropdownContainerContent({ className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
+function DropdownContainerContent({ size: sizeProp, className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
+    const componentSize = useComponentSize(sizeProp);
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
     const presence = usePresence<HTMLDivElement>(state.open);
     // 触发元素位于原生 <dialog>（showModal）内时，浮层必须挂载进该 dialog 子树：
@@ -163,7 +167,8 @@ function DropdownContainerContent({ className, children, overlay, overlayClassNa
                         {presence.present && (
                             <div
                                 ref={(node) => { refs.setFloating(node); presence.ref(node); }}
-                                className={cx(floatingContainerStyle, floatingClassName)}
+                                className={cx(floatingContainerStyle, componentSizeStyles[componentSize], floatingClassName)}
+                                data-crab-size={componentSize}
                                 data-state={presence.state}
                                 inert={!state.open}
                                 style={{ ...floatingStyles, ...floatingUserStyle }}

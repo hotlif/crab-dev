@@ -1,6 +1,7 @@
-import { afterEach, beforeAll, beforeEach, clock, describe, expect, it } from "@crab-dev/wake/test";
+import { afterEach, beforeAll, beforeEach, clock, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import useNotification from "../hooks/useNotification.js";
+import type { NotificationHandle } from '../types.js';
 
 beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, "showPopover", { configurable: true, value: () => {} });
@@ -10,6 +11,25 @@ afterEach(async () => { await clock.restore(); });
 const advance = (time: number) => act(async () => { await clock.advanceBy(time); });
 
 describe("notification deadlines", () => {
+    it('updates a persistent notification and closes its handle exactly once', async () => {
+        let api!: ReturnType<typeof useNotification>[0];
+        let handle!: NotificationHandle;
+        const onClose = mock.fn();
+        function Host() { const [instance, content] = useNotification(); api = instance; return <>{content}</>; }
+        const view = await render(<Host />);
+        await act(() => { handle = api.open({ title: 'Working', description: 'Pending', duration: 0, onClose }); });
+        await advance(5000);
+        await act(() => handle.update({ title: 'Done', description: 'Saved', duration: 1000 }));
+        expect(screen.getByText('Done')).toBeTruthy();
+        expect(screen.queryByText('Working')).toBeNull();
+        await advance(500);
+        await act(() => { api.close(handle.id); handle.close(); handle.update({ title: 'Too late' }); });
+        await advance(1000);
+        expect(onClose).toHaveBeenCalledTimes(1);
+        expect(screen.queryByText('Done')).toBeNull();
+        expect(screen.queryByText('Too late')).toBeNull();
+        await view.unmount();
+    });
     it("keeps covered notifications inert and promotes the queue when the front closes", async () => {
         let api!: ReturnType<typeof useNotification>[0];
         function Host() {

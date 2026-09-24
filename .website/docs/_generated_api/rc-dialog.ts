@@ -31,6 +31,16 @@ export interface DialogProps {
     "title"?: ReactNode;
 
     /**
+     * 自定义标题区；undefined 使用默认标题和关闭按钮，null 隐藏。自定义时需提供可访问名称。
+     */
+    "header"?: ReactNode;
+
+    /**
+     * 自定义操作区；undefined 使用默认取消和确定按钮，null 隐藏。
+     */
+    "footer"?: ReactNode;
+
+    /**
      * 是否开启
      */
     "open": boolean;

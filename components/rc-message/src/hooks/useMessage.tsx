@@ -2,7 +2,7 @@ import { css } from '@crab-dev/css';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { uniqueId, useCountdown, useEventCallback } from '@crab-dev/rc-hooks';
 import Message from '../message.js';
-import type { MessageInstance, MessageOpenParam } from '../types.js';
+import type { MessageInstance, MessageOpenParam, MessageHandle } from '../types.js';
 
 const containerStyle = css`
     display: grid;
@@ -19,7 +19,7 @@ const containerStyle = css`
     pointer-events: none;
 `;
 
-interface Item extends MessageOpenParam { id: string; open: boolean }
+interface Item extends MessageOpenParam { id: string; open: boolean; revision: number }
 
 function MessageItem({ item, stack, active, close, remove }: {
     item: Item; stack: number; active: boolean;
@@ -28,7 +28,7 @@ function MessageItem({ item, stack, active, close, remove }: {
     const [hovered, setHovered] = useState(false);
     const [focused, setFocused] = useState(false);
     const paused = !active || !item.open || hovered || focused;
-    const remaining = useCountdown(item.duration ?? 3000, paused, () => close(item.id));
+    const remaining = useCountdown(item.duration ?? 3000, paused, () => close(item.id), item.revision);
     useEffect(() => {
         if (!active) { setHovered(false); setFocused(false); }
     }, [active]);
@@ -36,7 +36,7 @@ function MessageItem({ item, stack, active, close, remove }: {
     if (stack > 3) return null;
     return <Message
         type={item.type} content={item.content} icon={item.icon} duration={item.duration}
-        open={item.open} stack={Math.max(1, stack)} paused={paused} remaining={remaining}
+        open={item.open} stack={Math.max(1, stack)} paused={paused} remaining={remaining} progressKey={item.revision}
         onExitComplete={() => remove(item.id)}
         onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
         onFocusCapture={() => setFocused(true)}
@@ -50,26 +50,36 @@ const useMessage = (): [MessageInstance, ReactNode] => {
     const [items, setItems] = useState<Item[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
     // Mutable instance state: callbacks are consumed once even if close is repeated.
-    const callbacks = useRef(new Map<string, () => void>());
+    const callbacks = useRef(new Map<string, (() => void) | undefined>());
     useEffect(() => {
         containerRef.current?.showPopover();
         const registered = callbacks.current;
         return () => registered.clear();
     }, []);
     const close = useEventCallback((id: string) => {
+        if (!callbacks.current.has(id)) return;
         setItems(previous => previous.map(item => item.id === id ? { ...item, open: false } : item));
         const callback = callbacks.current.get(id);
         callbacks.current.delete(id);
         callback?.();
     });
+    const update = useEventCallback((id: string, patch: Partial<MessageOpenParam>) => {
+        if (!callbacks.current.has(id)) return;
+        if ('onClose' in patch) callbacks.current.set(id, patch.onClose);
+        setItems(previous => previous.map(item => item.id === id && item.open
+            ? { ...item, ...patch, revision: item.revision + 1 } : item));
+    });
     const remove = (id: string) => setItems(previous => previous.filter(item => item.id !== id));
-    const open = useEventCallback((param: MessageOpenParam) => {
+    const open = useEventCallback((param: MessageOpenParam): MessageHandle => {
         const id = uniqueId('message-');
-        if (param.onClose) callbacks.current.set(id, param.onClose);
-        setItems(previous => [...previous, { ...param, id, open: true }]);
+        callbacks.current.set(id, param.onClose);
+        setItems(previous => [...previous, { ...param, id, open: true, revision: 0 }]);
+        return { id, close: () => close(id), update: patch => update(id, patch) };
     });
     const instance: MessageInstance = {
         open,
+        close,
+        update,
         success: (content, duration) => open({ type: 'success', content, duration }),
         error: (content, duration) => open({ type: 'error', content, duration }),
         warning: (content, duration) => open({ type: 'warning', content, duration }),

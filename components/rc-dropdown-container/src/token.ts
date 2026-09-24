@@ -23,19 +23,19 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'box-shadow': `var(${vars['root.box-shadow']}, var(--dropdown-container-box-shadow, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15)))))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--dropdown-container-border-radius, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px))))`,
-        'background-color': `var(${vars['root.background-color']}, var(--dropdown-container-background-color, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px)))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`,
         'border-color': `var(${vars['root.border-color']}, transparent)`,
-        'z-index': `var(${vars['root.z-index']}, var(--dropdown-container-z-index, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100))))`,
+        'z-index': `var(${vars['root.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`,
         'max-width': `var(${vars['root.max-width']}, calc(100vw - var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px))))`
     },
     'motion': {
         'interaction': {
-            'transition': `var(${vars['motion.interaction.transition']}, var(--dropdown-container-motion-interaction, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))))`
+            'transition': `var(${vars['motion.interaction.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
         },
         'offset': {
-            'translate': `var(${vars['motion.offset.translate']}, var(--dropdown-container-motion-offset, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1)))`
+            'translate': `var(${vars['motion.offset.translate']}, calc(var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) * -1))`
         },
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`

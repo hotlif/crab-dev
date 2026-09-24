@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, clock, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render, screen } from "@crab-dev/wake/test/react";
 import useMessage from "../hooks/useMessage.js";
-import type { MessageInstance } from "../types.js";
+import type { MessageInstance, MessageHandle } from "../types.js";
 
 beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, "showPopover", { configurable: true, value: () => {} });
@@ -22,6 +22,27 @@ async function host() {
 }
 
 describe("useMessage CSS lifecycle", () => {
+    it('updates loading in place, restarts the same deadline and ignores expired handles', async () => {
+        const { api, view } = await host();
+        let handle!: MessageHandle;
+        const onClose = mock.fn();
+        await act(() => { handle = api.loading('Working', 0); });
+        await advance(5000);
+        await act(() => handle.update({ type: 'success', content: 'Saved', duration: 1000, onClose }));
+        expect(screen.queryByText('Working')).toBeNull();
+        expect(screen.getAllByRole('alert').length).toBe(1);
+        await advance(600);
+        await act(() => api.update(handle.id, { content: 'Done', duration: 1000 }));
+        await advance(999);
+        expect(screen.getByText('Done')).toBeTruthy();
+        expect(onClose).not.toHaveBeenCalled();
+        await advance(1);
+        expect(onClose).toHaveBeenCalledTimes(1);
+        await act(() => { handle.close(); api.close(handle.id); handle.update({ content: 'Too late' }); });
+        expect(onClose).toHaveBeenCalledTimes(1);
+        expect(screen.queryByText('Too late')).toBeNull();
+        await view.unmount();
+    });
     it("pauses on hover and resumes the remaining deadline once", async () => {
         const { api, view } = await host();
         const onClose = mock.fn();

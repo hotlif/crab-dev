@@ -1,30 +1,13 @@
 import { css, cx } from '@crab-dev/css';
-import { type FC, type HTMLAttributes, type ReactNode } from 'react';
+import { type FC } from 'react';
 import { usePresence } from '@crab-dev/rc-hooks';
 
 import { ErrorIcon, InfoIcon, LoadingIcon, SuccessIcon, WarningIcon } from './icons.js';
-import token from './token.js';
-import type { MessageType } from './types.js';
+import token, { vars } from './token.js';
+import type { MessageType, MessageProps } from './types.js';
 
-export interface MessageInternalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'content'> {
-    open?: boolean;
-    onExitComplete?: () => void;
-    stack?: number;
-    /** 消息类型 */
-    type?: MessageType;
-    /** 消息内容 */
-    content: ReactNode;
-    /** 自定义图标 */
-    icon?: ReactNode;
-    /** 是否显示进度条 */
-    showProgress?: boolean;
-    /** 消息通知的持续时间，单位为毫秒 */
-    duration?: number;
-    /** 剩余时间，单位为毫秒 */
-    remaining?: number;
-    /** 是否暂停进度动画 */
-    paused?: boolean;
-}
+/** @deprecated 使用公开的 MessageProps。 */
+export type MessageInternalProps = MessageProps;
 
 // ─── 基础样式 ────────────────────────────────────────────────────────────────
 
@@ -138,6 +121,7 @@ const Message: FC<MessageInternalProps> = ({
     className,
     duration = 3000,
     remaining,
+    progressKey,
     paused = false,
     showProgress = true,
     open = true,
@@ -167,13 +151,13 @@ const Message: FC<MessageInternalProps> = ({
             <span>{content}</span>
             {showProgress && duration > 0 && (
                 <div
-                    key={`${duration}-${safeRemaining}`}
+                    key={`${progressKey ?? ''}-${duration}-${safeRemaining}`}
                     aria-hidden="true"
                     data-paused={paused}
                     ref={(node) => {
                         // User-supplied time is runtime data; CSS performs every frame.
-                        node?.style.setProperty('--message-countdown-duration', `${safeDuration}ms`);
-                        node?.style.setProperty('--message-countdown-delay', `${Math.min(0, safeRemaining - safeDuration)}ms`);
+                        node?.style.setProperty(vars['progress.animation-duration'], `${safeDuration}ms`);
+                        node?.style.setProperty(vars['progress.animation-delay'], `${Math.min(0, safeRemaining - safeDuration)}ms`);
                     }}
                     className={progressStyle}
                 />

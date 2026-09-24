@@ -39,10 +39,10 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--notification-background-color, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074)))))`,
-        'padding': `var(${vars['root.padding']}, var(--notification-padding, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px))))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--notification-border-radius, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px))))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, var(--notification-box-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15)))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
+        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
         'width': `var(${vars['root.width']}, 360px)`,
         'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`
     },
@@ -66,22 +66,22 @@ const token = defineTokens({
             'color': `var(${vars['progress.end.color']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`
         },
         'height': `var(${vars['progress.height']}, 3px)`,
-        'animation-duration': `var(${vars['progress.animation-duration']}, var(--notification-progress-duration, var(--notification-countdown-duration, 0ms)))`,
-        'animation-delay': `var(${vars['progress.animation-delay']}, var(--notification-progress-delay, var(--notification-countdown-delay, 0ms)))`
+        'animation-duration': `var(${vars['progress.animation-duration']}, 0ms)`,
+        'animation-delay': `var(${vars['progress.animation-delay']}, 0ms)`
     },
     'close': {
         'opacity': `var(${vars['close.opacity']}, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7)))`
     },
     'motion': {
         'interaction': {
-            'transition': `var(${vars['motion.interaction.transition']}, var(--notification-motion-interaction, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))))`
+            'transition': `var(${vars['motion.interaction.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
         },
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
         }
     },
     'stack': {
-        'translate': `var(${vars['stack.translate']}, var(--notification-stack-offset, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px))))`,
+        'translate': `var(${vars['stack.translate']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`,
         'gap': `var(${vars['stack.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'front': {
             'z-index': `var(${vars['stack.front.z-index']}, 3)`

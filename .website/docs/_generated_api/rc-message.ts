@@ -17,7 +17,7 @@ export interface MessageProps {
     "content": ReactNode;
 
     /**
-     * 自动关闭延时，单位毫秒，设为 0 时不自动关闭
+     * 倒计时动画长度；自动关闭由 useMessage 管理，独立组件通过 open 控制。
      * @default 3000
      */
     "duration"?: number;
@@ -39,18 +39,23 @@ export interface MessageProps {
     "open"?: boolean;
 
     /**
-     * 是否暂停进度动画
+     * 暂无说明。
      * @default false
      */
     "paused"?: boolean;
 
     /**
-     * 剩余时间，单位为毫秒
+     * 改变此值时重新启动倒计时进度动画。
+     */
+    "progressKey"?: string | number;
+
+    /**
+     * 暂无说明。
      */
     "remaining"?: number;
 
     /**
-     * 是否显示进度条
+     * 暂无说明。
      * @default true
      */
     "showProgress"?: boolean;
@@ -65,9 +70,4 @@ export interface MessageProps {
      * @default 'info'
      */
     "type"?: MessageType;
-
-    /**
-     * 关闭时的回调
-     */
-    "onClose"?: () => void;
 }

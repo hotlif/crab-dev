@@ -8,22 +8,22 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.padding = "var(--message-padding, $ref(space.section-gap))"
-root.border-radius = "var(--message-border-radius, $ref(shape.extra-small))"
-root.font-size = "var(--message-font-size, $ref(typography.body.medium.font-size))"
-root.line-height = "var(--message-line-height, $ref(typography.body.medium.line-height))"
-root.background-color = "var(--message-background-color, $ref(color.background.inverse))"
-root.box-shadow = "var(--message-box-shadow, $ref(shadow.overlay))"
+root.padding = "$ref(space.section-gap)"
+root.border-radius = "$ref(shape.extra-small)"
+root.font-size = "$ref(typography.body.medium.font-size)"
+root.line-height = "$ref(typography.body.medium.line-height)"
+root.background-color = "$ref(color.background.inverse)"
+root.box-shadow = "$ref(shadow.overlay)"
 
 # ─── 图标 ────────────────────────────────────────────────────────────────────
-icon.width = "var(--message-icon-size, 18px)"
+icon.width = "18px"
 icon.margin-right = "$ref(space.component-gap)"
 
 # ─── 类型颜色 ────────────────────────────────────────────────────────────────
-success.icon.color = "var(--message-success-color, $ref(color.text.inverse))"
-warning.icon.color = "var(--message-warning-color, $ref(color.text.inverse))"
-icon.color-error = "var(--message-error-icon-color, var(--message-error-color, $ref(color.text.inverse)))"
-info.icon.color = "var(--message-info-color, $ref(color.text.inverse))"
+success.icon.color = "$ref(color.text.inverse)"
+warning.icon.color = "$ref(color.text.inverse)"
+icon.color-error = "$ref(color.text.inverse)"
+info.icon.color = "$ref(color.text.inverse)"
 
 # ─── 文本 ────────────────────────────────────────────────────────────────────
 text.color = "$ref(color.text.inverse)"
@@ -32,10 +32,10 @@ text.color = "$ref(color.text.inverse)"
 progress.start.color = "$ref(color.brand.primary)"
 progress.end.color = "$ref(color.brand.primary-hover)"
 progress.height = "3px"
-progress.animation-duration = "var(--message-progress-duration, var(--message-countdown-duration, 0ms))"
-progress.animation-delay = "var(--message-progress-delay, var(--message-countdown-delay, 0ms))"
+progress.animation-duration = "0ms"
+progress.animation-delay = "0ms"
 
-motion.interaction.transition = "var(--message-motion-interaction, $ref(motion.interaction))"
-stack.translate = "var(--message-stack-offset, $ref(space.group-gap))"
+motion.interaction.transition = "$ref(motion.interaction)"
+stack.translate = "$ref(space.group-gap)"
 
 motion.spatial.transition = "$ref(motion.spatial.fast)"

@@ -21,6 +21,19 @@ beforeEach(() => {
 });
 // ─── Notification component ───────────────────────────────────────────────────
 describe("Notification", () => {
+    it('updates countdown timing through canonical progress variables', async () => {
+        const { container, rerender } = await render(<Notification open onOpenChange={() => {}} duration={5000} remaining={2000} paused>Timing</Notification>);
+        const progress = container.querySelector<HTMLElement>('[data-paused]');
+        expect(progress?.style.getPropertyValue('--notification-progress-animation-duration')).toBe('5000ms');
+        expect(progress?.style.getPropertyValue('--notification-progress-animation-delay')).toBe('-3000ms');
+        expect(progress?.getAttribute('data-paused')).toBe('true');
+        await rerender(<Notification open onOpenChange={() => {}} duration={6000} remaining={6000}>Timing</Notification>);
+        const resumed = container.querySelector<HTMLElement>('[data-paused]');
+        expect(resumed?.style.getPropertyValue('--notification-progress-animation-duration')).toBe('6000ms');
+        expect(resumed?.style.getPropertyValue('--notification-progress-animation-delay')).toBe('0ms');
+        expect(resumed?.getAttribute('data-paused')).toBe('false');
+    });
+
     it("renders title and children content", async () => {
         const { container, unmount } = await render(<Notification open={true} onOpenChange={() => { }} title="Alert Title">
                 Alert body

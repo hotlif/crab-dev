@@ -8,11 +8,11 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.transition = "var(--alert-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction))"
-root.padding = "var(--alert-padding, $ref(space.card-padding))"
-root.border-radius = "var(--alert-border-radius, $ref(shape.medium))"
-root.font-size = "var(--alert-font-size, $ref(typography.body.font-size))"
-root.line-height = "var(--alert-line-height, $ref(typography.body.line-height))"
+root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction)"
+root.padding = "$ref(space.card-padding)"
+root.border-radius = "$ref(shape.medium)"
+root.font-size = "$ref(typography.body.font-size)"
+root.line-height = "$ref(typography.body.line-height)"
 
 # ─── 标题 ────────────────────────────────────────────────────────────────────
 title.font-size = "$ref(font.size.subhead)"
@@ -20,12 +20,12 @@ title.font-weight = "$ref(typography.label.font-weight)"
 title.margin-bottom = "$ref(space.component-gap)"
 
 # ─── 图标 ────────────────────────────────────────────────────────────────────
-icon.width = "var(--alert-icon-size, 16px)"
-icon.with-title.width = "var(--alert-icon-size-with-title, 20px)"
+icon.width = "16px"
+icon.with-title.width = "20px"
 icon.margin-right = "$ref(space.component-gap)"
 
 # ─── 关闭按钮 ────────────────────────────────────────────────────────────────
-close.width = "var(--alert-close-size, 16px)"
+close.width = "16px"
 close.color = "$ref(color.text.secondary)"
 close.color-hover = "$ref(color.text.primary)"
 
@@ -42,10 +42,10 @@ warning.background-color = "$ref(color.feedback.warning.background)"
 warning.border-color = "$ref(color.feedback.warning.border)"
 
 # ─── Error ───────────────────────────────────────────────────────────────────
-root.color-error = "var(--alert-error-color, $ref(color.feedback.error.text))"
-icon.color-error = "var(--alert-error-icon-color, $ref(color.feedback.error.icon))"
-root.background-color-error = "var(--alert-error-background-color, $ref(color.feedback.error.background))"
-root.border-color-error = "var(--alert-error-border-color, $ref(color.feedback.error.border))"
+root.color-error = "$ref(color.feedback.error.text)"
+icon.color-error = "$ref(color.feedback.error.icon)"
+root.background-color-error = "$ref(color.feedback.error.background)"
+root.border-color-error = "$ref(color.feedback.error.border)"
 
 # ─── Info ────────────────────────────────────────────────────────────────────
 info.color = "$ref(color.feedback.info.text)"
@@ -59,3 +59,4 @@ interaction.outline-color-focus = "$ref(color.focus.ring)"
 interaction.outline-width-focus = "2px"
 interaction.outline-offset-focus = "2px"
 interaction.transition = "$ref(motion.interaction)"
+motion.collapse.transition = "$ref(motion.layout)"

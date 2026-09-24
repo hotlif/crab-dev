@@ -41,14 +41,14 @@ export interface TooltipProps {
     mouseEnterDelay?: number;
 
     /**
-     * 鼠标移出后延迟隐藏的毫秒数
-     * @default 100
+     * 鼠标离开触发元素和提示区域后延迟隐藏的毫秒数
+     * @default 1500
      */
     mouseLeaveDelay?: number;
 
     /**
-     * 是否显示箭头
-     * @default true
+     * 是否显示箭头；M3 plain tooltip 默认不显示，保留为扩展选项
+     * @default false
      */
     arrow?: boolean;
 

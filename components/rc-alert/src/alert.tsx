@@ -1,4 +1,5 @@
 import { css, cx } from '@crab-dev/css';
+import { usePresence } from '@crab-dev/rc-hooks';
 import { type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, useState } from 'react';
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from './icons.js';
 import token from './token.js';
@@ -15,7 +16,20 @@ const baseStyle = css`
     border: 1px solid transparent;
     font-size: ${token.root["font-size"]};
     line-height: ${token.root["line-height"]};
-    transition: ${token.root.transition};
+    height: auto;
+    min-height: 0;
+    interpolate-size: allow-keywords;
+    transition: ${token.root.transition}, height ${token.motion.collapse.transition},
+        padding-block ${token.motion.collapse.transition}, border-block-width ${token.motion.collapse.transition},
+        opacity ${token.interaction.transition};
+    &[data-state="closed"] {
+        height: 0;
+        padding-block: 0;
+        border-block-width: 0;
+        opacity: 0;
+        overflow: clip;
+        pointer-events: none;
+    }
     word-break: break-word;
     @media (prefers-reduced-motion: reduce) { transition: none; }
     @media (forced-colors: active) { border-color: CanvasText; }
@@ -152,8 +166,9 @@ const Alert: FC<AlertProps> = ({
     ...restProps
 }) => {
     const [closed, setClosed] = useState(false);
+    const presence = usePresence<HTMLDivElement>(!closed);
 
-    if (closed) return null;
+    if (!presence.present) return null;
 
     const handleClose = (e: ReactMouseEvent<HTMLButtonElement>) => {
         setClosed(true);
@@ -200,6 +215,10 @@ const Alert: FC<AlertProps> = ({
             role="alert"
             className={cx.call(undefined, baseStyle, typeStyleMap[type], className)}
             {...restProps}
+            ref={presence.ref}
+            data-state={presence.state}
+            inert={closed}
+            aria-hidden={closed || undefined}
         >
             {renderIcon()}
             <div className={contentStyle}>

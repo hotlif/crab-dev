@@ -1,4 +1,5 @@
-import { beforeAll, describe, expect, it, mock, act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
+import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 
 
 mock.module("@floating-ui/react", async () => {
@@ -189,8 +190,8 @@ describe('Tooltip', () => {
         expect(screen.queryByRole('tooltip')).toBeNull();
     });
     // ─── 箭头 ──────────────────────────────────────────────────────────────
-    it('renders arrow by default', async () => {
-        await render(<Tooltip title="提示" open>
+    it('renders an arrow when explicitly requested', async () => {
+        await render(<Tooltip title="提示" open arrow>
             <button>触发</button>
         </Tooltip>);
         const tooltip = screen.getByRole('tooltip');
@@ -204,6 +205,10 @@ describe('Tooltip', () => {
         const tooltip = screen.getByRole('tooltip');
         const content = tooltip.firstElementChild!;
         expect(content.childElementCount).toBe(0);
+    });
+    it('uses a plain tooltip without an arrow by default', async () => {
+        await render(<Tooltip title="提示" open><button>触发</button></Tooltip>);
+        expect(screen.getByRole('tooltip').firstElementChild?.childElementCount).toBe(0);
     });
     // ─── 样式与属性 ────────────────────────────────────────────────────────
     it('applies custom className', async () => {

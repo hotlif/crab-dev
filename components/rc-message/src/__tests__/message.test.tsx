@@ -11,6 +11,19 @@ import type { MessageType } from '../types.js';
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 describe('Message', () => {
+    it('updates countdown timing through canonical progress variables', async () => {
+        const { container, rerender } = await render(<Message content="Timing" duration={5000} remaining={2000} paused />);
+        const progress = container.querySelector<HTMLElement>('[data-paused]');
+        expect(progress?.style.getPropertyValue('--message-progress-animation-duration')).toBe('5000ms');
+        expect(progress?.style.getPropertyValue('--message-progress-animation-delay')).toBe('-3000ms');
+        expect(progress?.getAttribute('data-paused')).toBe('true');
+        await rerender(<Message content="Timing" duration={6000} remaining={6000} />);
+        const resumed = container.querySelector<HTMLElement>('[data-paused]');
+        expect(resumed?.style.getPropertyValue('--message-progress-animation-duration')).toBe('6000ms');
+        expect(resumed?.style.getPropertyValue('--message-progress-animation-delay')).toBe('0ms');
+        expect(resumed?.getAttribute('data-paused')).toBe('false');
+    });
+
     it('renders content correctly', async () => {
         const { container } = await render(<Message content="Hello World"/>);
         expect(container.firstChild).toBeTruthy();

@@ -1,6 +1,22 @@
-import { describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import Alert from '../alert.js';
 import type { AlertProps } from '../types.js';
+
+it('closes semantically at once but retains its space until its exit finishes', async () => {
+    const onClose = mock.fn();
+    const view = await render(<Alert closable onClose={onClose}>Closing alert</Alert>);
+    const root = view.container.firstElementChild!;
+    const exit = Promise.withResolvers<void>();
+    Object.defineProperty(root, 'getAnimations', { value: () => [{ playState: 'running', finished: exit.promise }] });
+    await fireEvent.click(screen.getByRole('button', { name: 'close' }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(root.getAttribute('data-state')).toBe('closed');
+    expect(root.hasAttribute('inert')).toBe(true);
+    expect(root.getAttribute('aria-hidden')).toBe('true');
+    expect(view.container.firstElementChild).toBe(root);
+    await act(async () => exit.resolve());
+    expect(view.container.firstElementChild).toBeNull();
+});
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;

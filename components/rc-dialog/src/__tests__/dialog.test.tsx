@@ -82,6 +82,16 @@ beforeEach(() => {
     mock.spyOn(HTMLDialogElement.prototype, "close").implement(() => { });
 });
 describe("Dialog", () => {
+    it("supports composed header and actions without leaking default controls", async () => {
+        const { container, getDialog, rerender } = await renderDialog({ open: true, header: null, footer: null, 'aria-label': '选择时间' });
+        expect(container.querySelector('button')).toBeNull();
+        expect(getDialog().getAttribute('aria-labelledby')).toBeNull();
+        expect(getDialog().getAttribute('aria-label')).toBe('选择时间');
+        expect(container.textContent).toContain('Dialog Content');
+        await rerender({ header: <h2>Custom heading</h2>, footer: <button type="button">Custom action</button> });
+        expect(container.textContent).toContain('Custom heading');
+        expect(container.querySelectorAll('button').length).toBe(1);
+    });
     it("renders title, content and default i18n texts", async () => {
         const { container } = await renderDialog({ open: true });
         expect(container.textContent).toContain("Dialog Title");

@@ -8,8 +8,8 @@ imports = [
 [token]
 
 overlay.background-color = "$ref(color.background.overlay)"
-root.background-color = "var(--drawer-background-color, $ref(color.surface.low))"
-root.box-shadow = "var(--drawer-box-shadow, $ref(shadow.overlay))"
+root.background-color = "$ref(color.surface.low)"
+root.box-shadow = "$ref(shadow.overlay)"
 
 size.small.width   = "280px"
 size.medium.width  = "420px"
@@ -33,17 +33,19 @@ footer.padding            = "$ref(space.stack-gap) $ref(space.dialog-padding)"
 footer.border-color       = "$ref(color.border.subtle)"
 footer.gap                = "$ref(space.component-gap)"
 
-close.width               = "var(--drawer-close-size, 32px)"
-close.icon.width          = "var(--drawer-close-icon-size, 16px)"
+close.width               = "32px"
+close.icon.width          = "16px"
 close.color               = "$ref(color.text.secondary)"
 close.color-hover         = "$ref(color.text.primary)"
 close.background-color-hover = "$ref(color.state.hover)"
 close.border-radius       = "$ref(shape.control)"
 
-panel.animation-duration       = "var(--drawer-transition-duration, 280ms)"
-panel.animation-timing-function = "var(--drawer-transition-easing, cubic-bezier(0.32, 0.72, 0, 1))"
+panel.animation-duration       = "$ref(motion.sheet.enter-duration)"
+panel.animation-timing-function = "$ref(motion.sheet.easing)"
 
-motion.fade.transition = "var(--drawer-motion-fade, $ref(motion.fade))"
-motion.expand.transition = "var(--drawer-motion-expand, $ref(motion.slide-enter))"
-motion.exit.transition = "var(--drawer-motion-exit, $ref(motion.slide-exit))"
+motion.fade.transition = "$ref(motion.fade)"
+motion.expand.transition = "var(--drawer-panel-animation-duration, $ref(motion.sheet.enter-duration)) var(--drawer-panel-animation-timing-function, $ref(motion.sheet.easing))"
+motion.exit.transition = "var(--drawer-panel-animation-duration, $ref(motion.sheet.exit-duration)) var(--drawer-panel-animation-timing-function, $ref(motion.sheet.easing))"
+motion.interaction.transition = "$ref(motion.interaction)"
+motion.spatial.transition = "$ref(motion.spatial.fast)"
 root.border-radius = "$ref(shape.large)"

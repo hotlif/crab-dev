@@ -64,6 +64,11 @@ export interface NotificationProps {
     "remaining"?: number;
 
     /**
+     * 改变此值时重新启动倒计时进度动画。
+     */
+    "progressKey"?: string | number;
+
+    /**
      * 是否暂停进度动画
      */
     "paused"?: boolean;

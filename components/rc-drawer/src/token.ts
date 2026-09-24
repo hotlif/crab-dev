@@ -36,7 +36,9 @@ export const vars = defineTokens({
     'panel.animation-timing-function': '--drawer-panel-animation-timing-function',
     'motion.fade.transition': '--drawer-motion-fade-transition',
     'motion.expand.transition': '--drawer-motion-expand-transition',
-    'motion.exit.transition': '--drawer-motion-exit-transition'
+    'motion.exit.transition': '--drawer-motion-exit-transition',
+    'motion.interaction.transition': '--drawer-motion-interaction-transition',
+    'motion.spatial.transition': '--drawer-motion-spatial-transition'
 });
 
 const token = defineTokens({
@@ -44,8 +46,8 @@ const token = defineTokens({
         'background-color': `var(${vars['overlay.background-color']}, var(--token-semantic-color-background-overlay, color-mix(in oklch, var(--token-global-black, oklch(0.000 0 0)) 32%, transparent)))`
     },
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--drawer-background-color, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, var(--drawer-box-shadow, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15)))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-large, var(--token-global-radius-8, 16px)))`
     },
     'size': {
@@ -82,9 +84,9 @@ const token = defineTokens({
         'gap': `var(${vars['footer.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'close': {
-        'width': `var(${vars['close.width']}, var(--drawer-close-size, 32px))`,
+        'width': `var(${vars['close.width']}, 32px)`,
         'icon': {
-            'width': `var(${vars['close.icon.width']}, var(--drawer-close-icon-size, 16px))`
+            'width': `var(${vars['close.icon.width']}, 16px)`
         },
         'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
         'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
@@ -92,18 +94,24 @@ const token = defineTokens({
         'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
     },
     'panel': {
-        'animation-duration': `var(${vars['panel.animation-duration']}, var(--drawer-transition-duration, 280ms))`,
-        'animation-timing-function': `var(${vars['panel.animation-timing-function']}, var(--drawer-transition-easing, cubic-bezier(0.32, 0.72, 0, 1)))`
+        'animation-duration': `var(${vars['panel.animation-duration']}, var(--token-semantic-motion-sheet-enter-duration, var(--token-global-duration-slow, 300ms)))`,
+        'animation-timing-function': `var(${vars['panel.animation-timing-function']}, var(--token-semantic-motion-sheet-easing, var(--token-global-easing-material, cubic-bezier(0.2, 0, 0, 1))))`
     },
     'motion': {
         'fade': {
-            'transition': `var(${vars['motion.fade.transition']}, var(--drawer-motion-fade, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))))`
+            'transition': `var(${vars['motion.fade.transition']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00))))`
         },
         'expand': {
-            'transition': `var(${vars['motion.expand.transition']}, var(--drawer-motion-expand, var(--token-semantic-motion-slide-enter, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))))`
+            'transition': `var(${vars['motion.expand.transition']}, var(--drawer-panel-animation-duration, var(--token-semantic-motion-sheet-enter-duration, var(--token-global-duration-slow, 300ms))) var(--drawer-panel-animation-timing-function, var(--token-semantic-motion-sheet-easing, var(--token-global-easing-material, cubic-bezier(0.2, 0, 0, 1)))))`
         },
         'exit': {
-            'transition': `var(${vars['motion.exit.transition']}, var(--drawer-motion-exit, var(--token-semantic-motion-slide-exit, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90)))))`
+            'transition': `var(${vars['motion.exit.transition']}, var(--drawer-panel-animation-duration, var(--token-semantic-motion-sheet-exit-duration, var(--token-global-duration-normal, 200ms))) var(--drawer-panel-animation-timing-function, var(--token-semantic-motion-sheet-easing, var(--token-global-easing-material, cubic-bezier(0.2, 0, 0, 1)))))`
+        },
+        'interaction': {
+            'transition': `var(${vars['motion.interaction.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
+        },
+        'spatial': {
+            'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
         }
     }
 });

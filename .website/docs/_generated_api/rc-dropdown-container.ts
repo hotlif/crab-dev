@@ -7,16 +7,16 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type ConfigSize = DocsTypePlaceholder;
 type HTMLAttributes<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type HTMLDivElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
 export interface DropdownContainerProps {
     /**
-     * 浮动面板的属性信息
-     * @default {}
+     * 浮层尺寸档；省略时继承最近的 ConfigProvider。
      */
-    "floatingContainerProps"?: HTMLAttributes<HTMLDivElement>;
+    "size"?: ConfigSize;
 
     /**
      * 下拉组件内容
@@ -27,4 +27,10 @@ export interface DropdownContainerProps {
      * 浮层弹出面板的自定义类名
      */
     "overlayClassName"?: string;
+
+    /**
+     * 浮动面板的属性信息
+     * @default {}
+     */
+    "floatingContainerProps"?: HTMLAttributes<HTMLDivElement>;
 }

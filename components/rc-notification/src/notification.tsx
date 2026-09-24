@@ -6,7 +6,7 @@ import Button from "@crab-dev/rc-button";
 
 import Close from "./icons/close.js";
 import { type Direction } from "./types.js";
-import token from "./token.js";
+import token, { vars } from "./token.js";
 
 const colorBackground = token.root["background-color"];
 const colorText = token.text.color;
@@ -68,6 +68,8 @@ export interface NotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, 
      * 剩余时间，单位为毫秒
      */
     remaining?: number
+    /** 改变此值时重新启动倒计时进度动画。 */
+    progressKey?: string | number
 
     /**
      * 是否暂停进度动画
@@ -86,6 +88,7 @@ const Notification: FC<NotificationProps> = ({
     className,
     duration = 3000,
     remaining,
+    progressKey,
     paused = false,
     showProgress = true,
     ...restProps
@@ -224,13 +227,13 @@ const Notification: FC<NotificationProps> = ({
             </div>
             {showProgress && duration > 0 && (
                 <div
-                    key={`${duration}-${safeRemaining}`}
+                    key={`${progressKey ?? ''}-${duration}-${safeRemaining}`}
                     aria-hidden="true"
                     data-paused={paused}
                     ref={(node) => {
                         // User-supplied time is runtime data; CSS performs every frame.
-                        node?.style.setProperty('--notification-countdown-duration', `${safeDuration}ms`);
-                        node?.style.setProperty('--notification-countdown-delay', `${Math.min(0, safeRemaining - safeDuration)}ms`);
+                        node?.style.setProperty(vars['progress.animation-duration'], `${safeDuration}ms`);
+                        node?.style.setProperty(vars['progress.animation-delay'], `${Math.min(0, safeRemaining - safeDuration)}ms`);
                     }}
                     className={css`
                         position: absolute;

@@ -52,6 +52,12 @@ export interface DialogProps extends Omit<
      */
     title?: ReactNode;
 
+    /** 自定义标题区；undefined 使用默认标题和关闭按钮，null 隐藏。自定义时需提供可访问名称。 */
+    header?: ReactNode;
+
+    /** 自定义操作区；undefined 使用默认取消和确定按钮，null 隐藏。 */
+    footer?: ReactNode;
+
     /**
      * 是否开启
      */
@@ -140,6 +146,8 @@ function Dialog({
     open,
     onOpenChange,
     title,
+    header,
+    footer,
     children,
     shouldResetContent = true,
     maskClosable = false,
@@ -252,7 +260,7 @@ function Dialog({
                     }
                 };
             }}
-            aria-labelledby={title ? titleId : undefined}
+            aria-labelledby={header === undefined && title ? titleId : undefined}
             aria-busy={isPending || undefined}
             className={cx(css`
                 position: fixed;
@@ -315,7 +323,7 @@ function Dialog({
                             position: relative;
                             transform: ${token.root.transform};
                             box-sizing: border-box;
-                            max-height: min(${token.root['max-height']}, calc(100dvh - var(--dialog-top, 0px) - (100vw - ${token.root['max-width']}) / 2));
+                            max-height: min(${token.root['max-height']}, calc(100dvh - var(--dialog-root-top, 0px) - (100vw - ${token.root['max-width']}) / 2));
                             overflow: auto;
                             overflow-wrap: anywhere;
                             padding: ${dimensionPadding};
@@ -325,7 +333,7 @@ function Dialog({
                             @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
                         `)}
                     >
-                        <div
+                        {header !== undefined ? header : <div
                             className={css`
                                 display: flex;
                                 align-items: flex-start;
@@ -379,11 +387,11 @@ function Dialog({
                                     </svg>
                                 )}
                             />
-                        </div>
+                        </div>}
                         <div>
                             {!contentHidden && children}
                         </div>
-                        <div
+                        {footer !== undefined ? footer : <div
                             className={css`
                                 display: flex;
                                 flex-wrap: wrap;
@@ -421,7 +429,7 @@ function Dialog({
                             >
                                 {confirmText}
                             </RcButton>
-                        </div>
+                        </div>}
                     </div>
                 </>
             )}

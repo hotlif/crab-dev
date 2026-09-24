@@ -1,5 +1,7 @@
-import { act, beforeAll, describe, expect, it, mock, render, fireEvent, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, render, fireEvent, screen } from "@crab-dev/wake/test/react";
 import React from "react";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 
 let sizeMiddlewareOptions: {
     apply: (state: {
@@ -90,6 +92,16 @@ const renderDropdown = async (props: Partial<DropdownContainerProps> = {}) => {
     </DropdownContainer>);
 };
 describe("DropdownContainer", () => {
+    it('restores inherited density in a portalled panel and honors a local override', async () => {
+        const overlay = <div data-testid="size-overlay">Options</div>;
+        const view = await render(<ConfigProvider size="small"><DropdownContainer overlay={overlay}><Trigger /></DropdownContainer></ConfigProvider>);
+        await fireEvent(screen.getByTestId('trigger'), new FocusEvent('focusin', { bubbles: true }));
+        const panel = () => screen.getByTestId('size-overlay').closest<HTMLElement>('[data-crab-size]');
+        expect(panel()?.dataset.crabSize).toBe('small');
+        expect(screen.getByTestId('trigger').parentElement?.contains(panel())).toBe(false);
+        await view.rerender(<ConfigProvider size="small"><DropdownContainer size="large" overlay={overlay}><Trigger /></DropdownContainer></ConfigProvider>);
+        expect(panel()?.dataset.crabSize).toBe('large');
+    });
     it("renders children", async () => {
         await renderDropdown();
         expect(screen.getByTestId("trigger")).toBeTruthy();

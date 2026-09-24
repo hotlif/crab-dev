@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
 import { css, cx } from "@crab-dev/css";
@@ -7,7 +8,7 @@ import token from "./token.js";
 
 export type DrawerPlacement = "left" | "right" | "top" | "bottom";
 
-export type DrawerSize = "small" | "medium" | "large";
+export type DrawerSize = "small" | "middle" | "medium" | "large";
 
 export interface DrawerProps extends Omit<HTMLAttributes<HTMLDialogElement>, "title"> {
     /**
@@ -125,12 +126,16 @@ const panelBaseStyle = css`
     @starting-style {
         &[data-placement="left"] { translate: -100% 0; }
         &[data-placement="right"] { translate: 100% 0; }
+        &:dir(rtl)[data-placement="left"] { translate: 100% 0; }
+        &:dir(rtl)[data-placement="right"] { translate: -100% 0; }
         &[data-placement="top"] { translate: 0 -100%; }
         &[data-placement="bottom"] { translate: 0 100%; }
     }
     &[data-state="closed"] { transition: translate ${token.motion.exit.transition}; }
     &[data-placement="left"][data-state="closed"] { translate: -100% 0; }
     &[data-placement="right"][data-state="closed"] { translate: 100% 0; }
+    &:dir(rtl)[data-placement="left"][data-state="closed"] { translate: 100% 0; }
+    &:dir(rtl)[data-placement="right"][data-state="closed"] { translate: -100% 0; }
     &[data-placement="top"][data-state="closed"] { translate: 0 -100%; }
     &[data-placement="bottom"][data-state="closed"] { translate: 0 100%; }
     @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
@@ -245,9 +250,9 @@ const closeButtonStyle = css`
     cursor: pointer;
     border-radius: ${token.close['border-radius']};
     transition:
-        color 120ms cubic-bezier(0.4, 0, 0.2, 1),
-        background-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
-        transform 120ms cubic-bezier(0.4, 0, 0.2, 1);
+        color ${token.motion.interaction.transition},
+        background-color ${token.motion.interaction.transition},
+        transform ${token.motion.spatial.transition};
     flex-shrink: 0;
 
     & > svg {
@@ -331,7 +336,7 @@ const Drawer: FC<DrawerProps> = ({
     footer,
     children,
     placement = "right",
-    size = "medium",
+    size: sizeProp,
     closable = true,
     maskClosable = true,
     shouldResetContent = true,
@@ -339,6 +344,8 @@ const Drawer: FC<DrawerProps> = ({
     onClick,
     ...restProps
 }) => {
+    const configuredSize = useComponentSize(sizeProp);
+    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     const dialogRef = useRef<HTMLDialogElement>(null);
     const titleId = useId();
     // Mutable instance state: retain the background lock until the panel has left.

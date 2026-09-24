@@ -35,10 +35,10 @@ const OPPOSITE_SIDE: Record<string, string> = {
 
 const containerStyle = css`
     z-index: ${token.root['z-index']};
-    pointer-events: none;
+    pointer-events: auto;
     opacity: 1;
     transition: opacity ${token.motion.interaction.transition};
-    &[data-state="closed"] { opacity: 0; }
+    &[data-state="closed"] { opacity: 0; pointer-events: none; }
     @starting-style { opacity: 0; }
 
     @media (prefers-reduced-motion: reduce) { transition: none; }
@@ -55,6 +55,11 @@ const tooltipStyle = css`
     line-height: ${token.root['line-height']};
     border-radius: ${token.root['border-radius']};
     word-wrap: break-word;
+    @media (forced-colors: active) {
+        background-color: Canvas;
+        color: CanvasText;
+        outline: ${token.root['outline-width']} solid CanvasText;
+    }
 `;
 
 // ─── 箭头样式 ────────────────────────────────────────────────────────────────
@@ -80,8 +85,8 @@ function Tooltip({
     defaultOpen = false,
     onOpenChange,
     mouseEnterDelay = 100,
-    mouseLeaveDelay = 100,
-    arrow: showArrow = true,
+    mouseLeaveDelay = 1500,
+    arrow: showArrow = false,
     className,
 }: TooltipProps) {
     const [isOpen, setOpen] = useControllableOpen({
@@ -100,7 +105,7 @@ function Tooltip({
         strategy: 'fixed',
         whileElementsMounted: autoUpdate,
         middleware: [
-            offset(ARROW_SIZE / 2 + GAP),
+            offset((showArrow ? ARROW_SIZE / 2 : 0) + GAP),
             flip(),
             shift({ padding: 8 }),
             ...(showArrow ? [arrowMiddleware({ element: arrowRef, padding: 10 })] : []),
@@ -153,7 +158,7 @@ function Tooltip({
         <>
             {cloneElement(
                 children,
-                getReferenceProps({ ref: mergedRef, ...(children.props as Record<string, unknown>) }),
+                getReferenceProps({ ...(children.props as Record<string, unknown>), ref: mergedRef }),
             )}
             <FloatingPortal root={portalRoot}>
                 {presence.present && (
