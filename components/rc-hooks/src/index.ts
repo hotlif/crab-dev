@@ -15,4 +15,6 @@ export { useDragResize } from "./useDragResize.js";
 export type { DragResizeOptions, DragResizeResult } from "./useDragResize.js";
 export { uniqueId } from "./uniqueId.js";
 export { usePresence } from "./usePresence.js";
+export { useAnimatedRows } from "./useAnimatedRows.js";
+export type { AnimatedRow, AnimatedRowsOptions } from "./useAnimatedRows.js";
 export { useCountdown } from "./useCountdown.js";

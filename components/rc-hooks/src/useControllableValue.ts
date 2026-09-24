@@ -20,16 +20,20 @@ export interface ControllableValueOptions<T, A extends unknown[]> {
  * `onChange`，以适配 `onChange(next, event)`、`onChange(current, pageSize)` 等签名。
  */
 export function useControllableValue<T, A extends unknown[] = []>(
+    options: ControllableValueOptions<T, A> & ({ value: T } | { defaultValue: T }),
+): readonly [T, (next: T, ...args: A) => void];
+export function useControllableValue<T, A extends unknown[] = []>(
     options: ControllableValueOptions<T, A>,
-): readonly [T, (next: T, ...args: A) => void] {
+): readonly [T | undefined, (next: T, ...args: A) => void];
+export function useControllableValue<T, A extends unknown[] = []>(
+    options: ControllableValueOptions<T, A>,
+): readonly [T | undefined, (next: T, ...args: A) => void] {
     const { value, defaultValue, onChange } = options;
     const isControlled = value !== undefined;
 
     const [innerValue, setInnerValue] = useState<T | undefined>(defaultValue);
 
-    // 受控取 props.value，非受控取内部 state。受控时 value 必非空，故断言为 T；
-    // 非受控且未给 defaultValue 时确为 undefined，属真实语义，由调用方泛型承担。
-    const mergedValue = (isControlled ? value : innerValue) as T;
+    const mergedValue = isControlled ? value : innerValue;
 
     const setValue = useEventCallback((next: T, ...args: A) => {
         if (!isControlled) {
