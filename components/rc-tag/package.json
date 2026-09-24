@@ -7,7 +7,7 @@
     "description": "标签，用于分类与标记",
     "packageManager": "yarn@4.18.0",
     "type": "module",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",
