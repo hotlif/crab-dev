@@ -1,14 +1,13 @@
+import type { PickerFieldProps } from '../types.js';
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
-import { css } from "@crab-dev/css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { FC, RefObject } from "react";
 
-import { Calendar, XCircleFill } from '../icons.js';
-import token from '../token.js';
+import PickerInputActions, { usePickerFieldHover } from '../pickerInputActions.js';
 import type { DatePickerPanelInstance } from "../panels/datePickerPanel.js";
 
-export interface DatePickerInputProps {
+export interface DatePickerInputProps extends PickerFieldProps {
     
     /**
      * 改变值值触发的事件
@@ -34,36 +33,29 @@ export interface DatePickerInputProps {
 }
 
 
-const iconStyle = css`
-    opacity: ${token.icon.opacity};
-    cursor: pointer;
-    transition: opacity .2s;
-    &:hover {
-        opacity: ${token.icon['opacity-hover']};
-    }
-
-`
-
 const DatePickerInput: FC<DatePickerInputProps> = ({
     value = "",
     onValueChange,
     instance,
     onConfirm,
     onOpen,
+    ref, disabled, onClick, onFocus, onKeyDown,
     ...restProps
 }) => {
     const {
         refs,
         state,
         dispatch
-    } = useDropdownContext<HTMLInputElement>();
+    } = useDropdownContext<HTMLDivElement>();
 
     const inputRef = useRef<HTMLInputElement>(null)
+    const { hovered, containerRef } = usePickerFieldHover(refs.setReference);
 
-    const [hover, setHover] = useState(false);
+    // 跨事件的焦点恢复标记：清除后聚焦输入框，不重新打开日历。
+    const restoringFocus = useRef(false);
 
     const openPanel = () => {
-        if (!state.open) {
+        if (!disabled && !state.open) {
             onOpen?.();
             dispatch({ type: 'setOpen', payload: true });
         }
@@ -76,50 +68,45 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
         }
     }, [state.open]);
 
-    const renderSuffixIcon = () => {
-        if (value == null || value === '' || !hover) {
-            return (
-                <Calendar
-                    className={iconStyle}
-                    onClick={openPanel}
-                />
-            )
-        } else {
-            return (
-                <XCircleFill
-                    className={iconStyle}
-                    onMouseDown={(e) => {
-                        e.preventDefault();
-                        onValueChange?.(null);
-                    }}
-                />
-            )
-        }
-    }
     return (
         <RcLineEdit
-            containerRef={refs.setReference}
-            ref={inputRef}
-            onClick={openPanel}
-            onFocus={openPanel}
-            onBlur={() => {
-                dispatch({
-                    type: "setOpen",
-                    payload: false
-                })
+            {...restProps}
+            disabled={disabled}
+            containerRef={containerRef}
+            ref={(node) => {
+                inputRef.current = node;
+                const cleanup = typeof ref === 'function' ? ref(node) : undefined;
+                if (ref && typeof ref !== 'function') ref.current = node;
+                return () => {
+                    inputRef.current = null;
+                    if (cleanup) cleanup();
+                    else if (typeof ref === 'function') ref(null);
+                    else if (ref) ref.current = null;
+                };
             }}
-            onPointerEnter={() => {
-                setHover(true);
-            }}
-            onPointerLeave={() => {
-                setHover(false)
-            }}
+            onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) openPanel(); }}
+            onFocus={(e) => { onFocus?.(e); if (!e.defaultPrevented && !restoringFocus.current) openPanel(); }}
             value={value}
-            placeholder="选择日期"
+            placeholder={restProps.placeholder ?? '选择日期'}
             aria-expanded={state.open}
             readOnly
-            suffix={renderSuffixIcon()}
+            suffix={<PickerInputActions
+                hasValue={Boolean(value)}
+                hovered={hovered}
+                disabled={disabled}
+                open={state.open}
+                onOpen={openPanel}
+                onClear={() => {
+                    restoringFocus.current = true;
+                    inputRef.current?.focus();
+                    restoringFocus.current = false;
+                    dispatch({ type: 'setOpen', payload: false });
+                    onValueChange?.(null);
+                }}
+            />}
             onKeyDown={(e) => {
+                onKeyDown?.(e);
+                if (e.defaultPrevented || disabled) return;
                 if (e.key === "Escape") {
                     e.preventDefault();
                     e.stopPropagation();
@@ -160,7 +147,6 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
                     e.preventDefault();
                 }
             }}
-            {...restProps}
         />
     )
 }

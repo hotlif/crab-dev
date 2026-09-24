@@ -8,8 +8,11 @@ import DateTimePickerOverlay from "./dateTimePickerOverlay.js";
 import type { DateTimePickerPanelProps } from "../panels/dateTimePickerPanel.js"
 import type { DatePickerPanelInstance } from '../panels/datePickerPanel.js';
 import { popupContentStyle, popupFrameStyle } from '../panels/popup.style.js';
+import type { PickerFieldProps } from '../types.js';
 
-export interface DateTimePickerProps extends Omit<DateTimePickerPanelProps, 'selectTimeValue' | 'onSelectTimeValueChange' | 'value'> {
+export interface DateTimePickerProps extends PickerFieldProps {
+    /** 只传给面板，内部选择草稿和实例不对外暴露。 */
+    panelProps?: Omit<DateTimePickerPanelProps, 'value' | 'selectValues' | 'onSelect' | 'instance' | 'selectTimeValue' | 'onSelectTimeValueChange' | 'range' | 'timeZone' | 'weekStartDay' | 'locale'>;
 
     /**
      * 大小
@@ -60,6 +63,7 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
     weekStartDay,
     locale,
     range,
+    panelProps,
     renderDisplayString = (value) => value ? formatTemporal(value, "yyyy-MM-dd HH:mm:ss") : "",
     ...restProps
 }) => {
@@ -74,6 +78,7 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
             overlayClassName={popupContentStyle}
             overlay={(
                 <DateTimePickerOverlay
+                    {...panelProps}
                     value={value ?? selectValues?.[0]}
                     timeZone={timeZone}
                     weekStartDay={weekStartDay}

@@ -29,18 +29,20 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
         minute: value?.minute ?? 0,
         second: value?.second ?? 0
     });
+    const [timeValid, setTimeValid] = useState(true);
 
     return (
         <>
             <DateTimePickerPanel
+                {...restProps}
                 value={value}
                 selectValues={selectValues}
                 selectTimeValue={selectTimeValue}
                 onSelectTimeValueChange={setSelectTimeValue}
+                onTimeValidityChange={setTimeValid}
                 onSelect={(elements) => {
                     onSelectValuesChange?.(elements);
                 }}
-                {...restProps}
             />
             <div
                 className={css`
@@ -65,10 +67,11 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
                 <RcButton
                     size="small"
                     appearance="primary"
+                    disabled={!timeValid}
                     onClick={(e) => {
                         e.preventDefault();
 
-                        if (selectValues?.[0]) {
+                        if (timeValid && selectValues?.[0]) {
                             const newData = selectValues?.[0].with({ 
                                 hour: selectTimeValue?.hour, 
                                 minute: selectTimeValue?.minute,

@@ -7,8 +7,11 @@ import type { DatePickerInputProps } from "./datePickerInput.js";
 import DatePickerOverlay from "./datePickerOverlay.js";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
 import { popupContentStyle, popupFrameStyle } from '../panels/popup.style.js';
+import type { PickerFieldProps } from '../types.js';
 
-export interface DatePickerProps extends Omit<DatePickerPanelProps, "value"> {
+export interface DatePickerProps extends PickerFieldProps {
+    /** 只传给日期面板；选择草稿和面板实例由选择器管理。 */
+    panelProps?: Omit<DatePickerPanelProps, 'value' | 'selectValues' | 'onSelect' | 'instance' | 'range' | 'timeZone' | 'weekStartDay' | 'locale'>;
 
     /**
      * 大小
@@ -59,6 +62,7 @@ const DatePicker: FC<DatePickerProps> = ({
     weekStartDay,
     locale,
     range,
+    panelProps,
     renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd"),
     ...restProps
 }) => {
@@ -72,6 +76,7 @@ const DatePicker: FC<DatePickerProps> = ({
             overlayClassName={popupContentStyle}
             overlay={(
                 <DatePickerOverlay
+                    {...panelProps}
                     value={value ?? selectValues?.[0]}
                     timeZone={timeZone}
                     weekStartDay={weekStartDay}
@@ -85,7 +90,7 @@ const DatePicker: FC<DatePickerProps> = ({
             )}
         >
             <DatePickerInput
-                value={renderDisplayString(value!)}
+                value={renderDisplayString(value)}
                 onValueChange={onValueChange}
                 instance={datePickerPanelInstance}
                 onConfirm={() => {

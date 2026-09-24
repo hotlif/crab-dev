@@ -10,6 +10,9 @@ import TimePickerPanel, { type TimePickerPanelProps } from "./timePickerPanel.js
 export interface DateTimePickerPanelProps extends DatePickerPanelProps {
     selectTimeValue?: TimePickerPanelProps["value"]
     onSelectTimeValueChange?: (value: TimePickerPanelProps["value"]) => void
+    /** 日期时间组合保留秒精度，可显式关闭；面板布局复用 M3 时间输入。 */
+    timePanelProps?: Pick<TimePickerPanelProps, 'hourCycle' | 'showSeconds'>;
+    onTimeValidityChange?: (valid: boolean) => void;
 }
 
 const DateTimePickerPanel: FC<DateTimePickerPanelProps> = ({
@@ -17,6 +20,8 @@ const DateTimePickerPanel: FC<DateTimePickerPanelProps> = ({
     selectValues,
     selectTimeValue,
     onSelectTimeValueChange,
+    timePanelProps,
+    onTimeValidityChange,
     ...restProps
 }) => {
     return (
@@ -36,8 +41,12 @@ const DateTimePickerPanel: FC<DateTimePickerPanelProps> = ({
                 {...restProps}
             />
             <TimePickerPanel
+                defaultMode="input"
+                showSeconds
+                {...timePanelProps}
                 value={selectTimeValue}
                 onValueChange={onSelectTimeValueChange}
+                onValidityChange={onTimeValidityChange}
             />
         </div>
     )

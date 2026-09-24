@@ -1,11 +1,19 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import token from '../token.js';
-import { TokenVars } from '../token-vars.js';
+import token, { vars } from '../token.js';
 
-describe('DatePicker navigation override compatibility', () => {
-    it('preserves the public size key and its fallback after canonical naming', () => {
-        expect(TokenVars['navigation.size']).toBe('--date-picker-navigation-size');
-        expect(TokenVars['navigation.width']).toBe('--date-picker-navigation-width');
-        expect(token.navigation.width).toContain('var(--date-picker-navigation-width, var(--date-picker-navigation-size,');
+describe('date-picker canonical token contract', () => {
+    it('exposes canonical overrides with their semantic or static defaults', () => {
+        expect(vars['navigation.width']).toBe('--date-picker-navigation-width');
+        expect(token.navigation.width).toContain('--token-semantic-size-48');
+    });
+
+    it('does not expose or consume removed aliases', () => {
+        for (const key of ["navigation.size"]) {
+            expect(key in vars).toBe(false);
+        }
+        const values = JSON.stringify(token);
+        for (const alias of ["--date-picker-navigation-size,"]) {
+            expect(values).not.toContain(alias);
+        }
     });
 });
