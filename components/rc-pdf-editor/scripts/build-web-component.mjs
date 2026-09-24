@@ -2,10 +2,12 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { bundle } from '@crab-dev/wake';
+import { serverSamplePdf } from './web-component/sample-pdf.mjs';
 
 const root = new URL('../', import.meta.url);
 const seen = new Set();
 const styles = [];
+const documentStyles = [];
 
 // 消费 Wake Library 生成的 CSS，依赖在前；不复制或手工维护组件样式。
 async function collectStyles(directory) {
@@ -20,6 +22,7 @@ async function collectStyles(directory) {
     try {
         const css = await readFile(new URL('css/index.css', directory), 'utf8');
         if (/@import\s/i.test(css)) throw new Error(`Unresolved CSS import in ${manifest.name}`);
+        documentStyles.push(css);
         styles.push(css.replaceAll(':root', ':host'));
     } catch (error) {
         if (error.code !== 'ENOENT') throw error;
@@ -63,4 +66,19 @@ if (result.code.includes('Download the React DevTools') || result.code.includes(
 await mkdir(new URL('.fixtures/', root), { recursive: true });
 await writeFile(new URL('.fixtures/test-web-component.json', root), JSON.stringify(result.code));
 await writeFile(new URL('dist/index.html', root), await readFile(new URL('scripts/web-component/index.html', root)));
+await writeFile(new URL('dist/minimal.html', root), await readFile(new URL('scripts/web-component/minimal.html', root)));
+const demo = await bundle({
+    cwd: fileURLToPath(root), entry: 'scripts/web-component/demo.tsx', configPath: 'scripts/web-component/wake.config.toml',
+    outfile: 'dist/demo.js', platform: 'browser', format: 'iife', minify: true,
+});
+for (const diagnostic of demo.diagnostics) {
+    if (diagnostic.severity === 'warning' || diagnostic.severity === 'error') throw new Error(diagnostic.message);
+}
+await writeFile(new URL('dist/demo.css', root), `/* Generated from Wake Library CSS. */\nbody { margin: 0; }\n${documentStyles.join('\n')}`);
+await writeFile(new URL('.fixtures/test-web-component-demo.json', root), JSON.stringify({
+    code: demo.code, css: await readFile(new URL('dist/demo.css', root), 'utf8'),
+    pdfBase64: Buffer.from(serverSamplePdf()).toString('base64'),
+}));
+await mkdir(new URL('dist/samples/', root), { recursive: true });
+await writeFile(new URL('dist/samples/server-demo.pdf', root), serverSamplePdf());
 console.log(`Web Component: ${Buffer.byteLength(result.code)} bytes (${gzipSync(result.code).byteLength} bytes gzip), ${styles.length} stylesheets; React, CSS, Worker and WASM included.`);

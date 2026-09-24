@@ -60,7 +60,11 @@ export const vars = defineTokens({
     'thumbnail.drop.background-color': '--pdf-editor-thumbnail-drop-background-color',
     'thumbnail.background-color-dragging': '--pdf-editor-thumbnail-background-color-dragging',
     'thumbnail.image.width': '--pdf-editor-thumbnail-image-width',
-    'thumbnail.image.height': '--pdf-editor-thumbnail-image-height'
+    'thumbnail.image.height': '--pdf-editor-thumbnail-image-height',
+    'demo.panel.width': '--pdf-editor-demo-panel-width',
+    'demo.editor.height': '--pdf-editor-demo-editor-height',
+    'demo.preview.height': '--pdf-editor-demo-preview-height',
+    'demo.title.font-size': '--pdf-editor-demo-title-font-size'
 });
 
 const token = defineTokens({
@@ -75,7 +79,7 @@ const token = defineTokens({
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-6, 12px)))`,
         'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
         'border-width': `var(${vars['root.border-width']}, 1px)`,
-        'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486)))))`,
+        'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
         'background-color-error': `var(${vars['root.background-color-error']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`
     },
     'toolbar': {
@@ -156,6 +160,20 @@ const token = defineTokens({
         'image': {
             'width': `var(${vars['thumbnail.image.width']}, 160px)`,
             'height': `var(${vars['thumbnail.image.height']}, 152px)`
+        }
+    },
+    'demo': {
+        'panel': {
+            'width': `var(${vars['demo.panel.width']}, 320px)`
+        },
+        'editor': {
+            'height': `var(${vars['demo.editor.height']}, 640px)`
+        },
+        'preview': {
+            'height': `var(${vars['demo.preview.height']}, 320px)`
+        },
+        'title': {
+            'font-size': `var(${vars['demo.title.font-size']}, var(--token-semantic-typography-headline-small-font-size, var(--token-global-font-size-2xl, 24px)))`
         }
     }
 });

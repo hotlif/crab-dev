@@ -63,11 +63,15 @@
 | `fonts` | 可实时更新的 `PdfFont[]`，修改 PDF 文字时按原组件要求提供完整 TTF 字体 |
 | `readOnly` | 与 `readonly` 属性双向对应 |
 | `theme` | `light` / `dark`，与同名属性双向对应 |
-| `toolbar` | `{ visibility: { actionId: boolean } }`，支持实时配置内置动作显隐 |
+| `toolbar` | `PdfEditorElementToolbar`，支持内置动作显隐及普通 JS `extraActions` 工具栏动作 |
 | `beforeDocumentChange` | 原组件的异步文档切换守卫 |
 | `onSave` | 原组件的异步持久化处理器；未设置时由原组件发起下载 |
 
-本试点不将 React 专用的 `toolbar.extraActions`、`plugins` 或 ReactNode 转成 HTML API。它们继续通过 React 入口使用；原生宿主可通过上述命令、状态订阅、区域截图和 DOM 事件组合自己的功能。普通属性更新不重建文档；更换运行时或初始文档应先真正移除元素，等待卸载后再设置并重新插入。
+`toolbar.extraActions` 接受普通 JS 配置。每个动作使用 `{ id, label, placement, icon: { path, viewBox? }, disabled?, visible?, onSelect }`；`placement` 为 `main`、`tools` 或 `status`，SVG `viewBox` 默认 `0 0 24 24`。`onSelect(editor)` 接收 `PdfEditorRef`，可返回 Promise，共用原工具栏的忙碌和错误处理；`disabled` 可传布尔值或读取当前状态的纯函数。图标只接受路径数据，不接受 HTML、ReactNode。React 插件继续通过 React 入口使用。
+
+设置 `toolbar.visibility = { open: false, merge: false }` 可移除本地 PDF 打开、空状态选择按钮、合并入口及对应文件选择器。服务器加载演示始终保留这两项限制，URL 表单只接受 HTTP(S) 地址。此配置控制 UI；宿主的 `open()` 仍支持既有输入类型，方便认证请求取回字节后交给编辑器。
+
+普通属性更新不重建文档；更换运行时或初始文档应先真正移除元素，等待卸载后再设置并重新插入。
 
 脚本定义前设置的这些 properties 会在元素升级时接管。多实例具有独立会话；同一任务内的 DOM 移动保留会话，真正移除时销毁 React root、终止 Worker、取消任务并撤销 Worker Blob URL。再次插入会创建新会话，未导出的修改不会在真正卸载后恢复。
 
@@ -100,8 +104,24 @@ corepack yarn test:web-component
 corepack yarn preview:web-component
 ```
 
-预览地址是 `http://127.0.0.1:4174`。`dist/index.html` 只引入一个 JS，可直接用来检查无框架接入。npm 子路径 `@crab-dev/rc-pdf-editor/web-component` 指向自动注册的浏览器脚本，不适用于 SSR 执行。需要自行提供 CSS/运行时的构建工具用户可从主包具名导入 `definePdfEditor`，类型为 `PdfEditorElement`；仅导入主包不会自动注册元素或访问 `HTMLElement`。
+预览地址是 `http://127.0.0.1:4174`，默认打开控制演示。`http://127.0.0.1:4174/minimal.html` 保留只引入 `pdf-editor.js` 的无框架接入示例。npm 子路径 `@crab-dev/rc-pdf-editor/web-component` 指向自动注册的浏览器脚本，不适用于 SSR 执行。需要自行提供 CSS/运行时的构建工具用户可从主包具名导入 `definePdfEditor`，类型为 `PdfEditorElement`；仅导入主包不会自动注册元素或访问 `HTMLElement`。
 
 不需要修改 Wake 源码，也没有引入其他构建器。`scripts/web-component/wake.config.toml` 通过 Wake 的 `define` 配置显式选择生产 React；不影响现有 Docs 和组件测试。打包脚本会拒绝开发 React、未展开的 CSS import 和缺失的已声明 CSS，最终产物测试在独立 iframe 中运行真实脚本、内嵌 Worker 和 WASM。
 
 `test:web-component` 检查生产产物的初始化、PDF 绘制和导出、重复加载、双实例主题隔离及 Tooltip 边界。产物在独立页面运行，其 coverage 不计入源码覆盖率；源码行为覆盖由 `src/__tests__/web-component.test.tsx` 提供。
+
+## 控制演示
+
+入口源码为 `scripts/web-component/demo.tsx`，使用本库 Button、Checkbox、LineEdit 和 ConfigProvider 组成宿主控制面板。编辑器始终通过 `<crab-pdf-editor>` 标签实例化；面板只使用公开 properties、订阅、DOM 事件和命令，不导入 React PdfEditor。
+
+1. **组件与显示**：默认保留保存、抓手、页面面板、适应页面及框选 OCR。取消“仅显示固定工具”恢复其他编辑工具，但不恢复本地 PDF 打开与合并。主题、只读切换不重建文档。编辑器通过组件 CSS 变量固定为 640px 高。
+2. **服务器 PDF**：默认 `./samples/server-demo.pdf` 是构建时生成的两页自有样例，点击加载时通过 HTTP 从预览服务器读取。可替换为自己的 URL；失败显示字段错误并保留原文档，可以取消在途请求。需要认证时，在业务代码中向 `open()` 的 `source` 传 `{ url, headers, credentials }`。
+3. **模拟 OCR**：绘图工具栏中的“框选并模拟 OCR”图标使用 `toolbar.extraActions` 配置，点击后调用 `selectRegion()`；面板另保留当前页模式，用 `createRegionSelection()`。两者均调用 `captureRegion()` 得到真实 PNG，再交给 `scripts/web-component/simulate-ocr.ts`。模拟器延迟 900ms，返回明确标注的固定文本，文本与输入图像内容无关。无 OCR 服务、无上传。只读模式也可采集；Esc、取消按钮、文档会话或版本变化会取消任务，旧结果清空，图片 Blob URL 随结果替换释放。
+
+接入真实 OCR 时替换 `simulateOcr(image, signal)`，将 `image.blob` 交给服务，并传递 `signal`；保留结果的会话与版本检查。部署演示时保留 `index.html`、`demo.js`、`demo.css`、`samples/` 和 `pdf-editor.js` 的目录关系。业务接入仅需要 `pdf-editor.js`，其内容不包含演示控制面板或模拟器。构建和预览继续使用 Wake 0.1.45，无新增依赖。
+
+演示新增的浏览器测试覆盖固定工具切换、主题/只读保持会话、URL 请求、真实 PNG、键盘框选、取消及过期结果清理、HTTP 失败与恢复。测试页面中 HTTP 返回可控样例，人工预览使用真实本地服务器。
+
+框选入口复用现有 ToolbarButton 的标准图标按钮、Tooltip 和键盘导航，提供“框选并模拟 OCR”无障碍名称；未加载文档或任务进行中禁用。参考 [M3 Icon Button 指南](https://m3.material.io/components/icon-buttons/guidelines)、[规格](https://m3.material.io/components/icon-buttons/specs)、[无障碍](https://m3.material.io/components/icon-buttons/accessibility)、[Material Web 示例](https://material-web.dev/components/icon-button/)、[图标按钮实现](https://github.com/material-components/material-web/blob/main/iconbutton/internal/icon-button.ts)、[样式](https://github.com/material-components/material-web/blob/main/iconbutton/internal/_icon-button.scss)及[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-icon-button.scss)。
+
+控制面板采用 M3 Filled/Tonal/Outlined/Text Button、Outlined Text Field 与 Checkbox，对应控件复用仓库已有实现；布局依据文档工作区扩展，不定义新的 M3 控件。参考 [M3 Buttons 使用指南](https://m3.material.io/components/buttons/guidelines)、[视觉规格](https://m3.material.io/components/buttons/specs)、[无障碍](https://m3.material.io/components/buttons/accessibility)、[M3 Text Field 无障碍](https://m3.material.io/components/text-fields/accessibility)，以及 [Material Web Button 示例](https://material-web.dev/components/button/)、[Text Field 示例](https://material-web.dev/components/text-field/)、[Checkbox 示例](https://material-web.dev/components/checkbox/)。源码对照：[Filled Button 样式](https://github.com/material-components/material-web/blob/main/button/internal/_filled-button.scss)、[Text Field 实现](https://github.com/material-components/material-web/blob/main/textfield/internal/text-field.ts)、[Outlined Text Field 令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-outlined-text-field.scss)。核对范围为本次演示的布局、明暗主题、标签、键盘入口、禁用/错误状态及结果反馈，不代表重新审计底层组件全部 M3 状态。

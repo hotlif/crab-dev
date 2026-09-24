@@ -148,13 +148,17 @@ describe('独立 Worker 与编辑器交互', () => {
             await view.rerender(<PdfEditor {...props} toolbar={{ visibility }} />);
             for (const action of PDF_EDITOR_ACTIONS) expect(view.container.querySelector(`button[aria-label="${action.label}"]`)).toBe(null);
             expect(view.container.querySelector('[data-action-divider]')).toBe(null);
+            expect(view.container.querySelector('input[type="file"][accept*="pdf"]')).toBe(null);
             expect(view.container.querySelector('[aria-label="绘图工具栏"]')).toBe(null);
             expect(ref.current!.getState().document!.sessionId).toBe(sessionId);
             await act(async () => { expect((await ref.current!.exportPdf()).blob.size).toBeGreaterThan(0); await ref.current!.close(); });
             expect(view.container.querySelector('main button')).toBe(null);
+            expect(view.container.textContent).toContain('等待加载 PDF');
+            expect(view.container.textContent).not.toContain('请选择 PDF 文件');
             await act(async () => { await ref.current!.open({ id: 'external', source: fixture(1) }); });
             await view.rerender(<PdfEditor {...props} toolbar={{ visibility: {} }} />);
             for (const action of PDF_EDITOR_ACTIONS) expect(button(view.container, action.label)).toBeDefined();
+            expect(view.container.querySelectorAll('input[type="file"][accept*="pdf"]')).toHaveLength(2);
             expect(ref.current!.getState().document?.id).toBe('external');
         } finally { await view.unmount(); }
     });

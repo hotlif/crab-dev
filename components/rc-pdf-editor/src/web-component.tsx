@@ -3,11 +3,11 @@ import ConfigProvider from '@crab-dev/rc-config-provider';
 import PdfEditor from './pdf-editor.js';
 import { PdfEditorError } from './types.js';
 import type {
-    PdfDocumentInput, PdfEditorRef, PdfEditorRuntime, PdfEditorState, PdfEditorToolbar,
+    PdfDocumentInput, PdfEditorRef, PdfEditorRuntime, PdfEditorState,
     PdfFont, PdfDocumentChangeGuard, PdfSaveHandler, PdfOperationOptions,
     PdfPageRegion, PdfRegionSelection, PdfRegionCaptureOptions,
 } from './types.js';
-import type { PdfEditorElementConstructor, PdfEditorElementEventMap, PdfEditorElementOptions } from './web-component-types.js';
+import type { PdfEditorElementConstructor, PdfEditorElementEventMap, PdfEditorElementOptions, PdfEditorElementToolbar } from './web-component-types.js';
 
 function deferredEditor() {
     let resolve!: (editor: PdfEditorRef) => void;
@@ -36,7 +36,7 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
         private documentInput?: PdfDocumentInput;
         private activeDocument?: PdfDocumentInput;
         private configuredFonts?: readonly PdfFont[];
-        private configuredToolbar?: Pick<PdfEditorToolbar, 'visibility'>;
+        private configuredToolbar?: PdfEditorElementToolbar;
         private changeGuard?: PdfDocumentChangeGuard;
         private saveHandler?: PdfSaveHandler;
         private queued = false;
@@ -64,7 +64,7 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
         get fonts() { return this.configuredFonts; }
         set fonts(value: readonly PdfFont[] | undefined) { this.configuredFonts = value; this.scheduleRender(); }
         get toolbar() { return this.configuredToolbar; }
-        set toolbar(value: Pick<PdfEditorToolbar, 'visibility'> | undefined) { this.configuredToolbar = value; this.scheduleRender(); }
+        set toolbar(value: PdfEditorElementToolbar | undefined) { this.configuredToolbar = value; this.scheduleRender(); }
         get beforeDocumentChange() { return this.changeGuard; }
         set beforeDocumentChange(value: PdfDocumentChangeGuard | undefined) { this.changeGuard = value; this.scheduleRender(); }
         get onSave() { return this.saveHandler; }
@@ -153,7 +153,13 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
             }
             this.root.render(<ConfigProvider theme={this.theme}>
                 <PdfEditor ref={this.receiveRef} runtime={this.activeRuntime!} initialDocument={this.activeDocument}
-                    fonts={this.configuredFonts} readOnly={this.readOnly} toolbar={this.configuredToolbar}
+                    fonts={this.configuredFonts} readOnly={this.readOnly} toolbar={this.configuredToolbar && {
+                        ...this.configuredToolbar,
+                        extraActions: this.configuredToolbar.extraActions?.map(action => ({
+                            ...action,
+                            icon: <svg viewBox={action.icon.viewBox ?? '0 0 24 24'} fill="currentColor" focusable="false" aria-hidden="true"><path d={action.icon.path} /></svg>,
+                        })),
+                    }}
                     beforeDocumentChange={this.changeGuard} onSave={this.saveHandler}
                     onDocumentLoad={document => this.emit('crab-document-load', document)}
                     onStateChange={state => {

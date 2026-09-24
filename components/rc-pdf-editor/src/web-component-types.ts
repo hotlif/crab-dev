@@ -1,14 +1,23 @@
 import type {
     PdfDocumentInput, PdfDocumentState, PdfEditorError, PdfEditorRef, PdfEditorRuntime,
-    PdfEditorState, PdfEditorToolbar, PdfExportResult, PdfFont, PdfDocumentChangeGuard, PdfSaveHandler,
+    PdfEditorState, PdfEditorToolbar, PdfEditorToolbarAction, PdfExportResult, PdfFont, PdfDocumentChangeGuard, PdfSaveHandler,
 } from './types.js';
 
-/** Web 接口只接受数据配置；React 图标和 React 插件仍使用原 React 入口。 */
+/** 普通 JS 工具栏动作；图标只接受 SVG 路径数据，不接受 HTML 或 ReactNode。 */
+export interface PdfEditorElementToolbarAction extends Omit<PdfEditorToolbarAction, 'icon'> {
+    readonly icon: { readonly path: string; readonly viewBox?: string };
+}
+
+export interface PdfEditorElementToolbar extends Omit<PdfEditorToolbar, 'extraActions'> {
+    readonly extraActions?: readonly PdfEditorElementToolbarAction[];
+}
+
+/** Web 接口接受数据配置和命令回调；React 插件仍使用原 React 入口。 */
 export interface PdfEditorElement extends HTMLElement, PdfEditorRef {
     runtime: PdfEditorRuntime | undefined;
     initialDocument: PdfDocumentInput | undefined;
     fonts: readonly PdfFont[] | undefined;
-    toolbar: Pick<PdfEditorToolbar, 'visibility'> | undefined;
+    toolbar: PdfEditorElementToolbar | undefined;
     readOnly: boolean;
     theme: 'light' | 'dark';
     beforeDocumentChange: PdfDocumentChangeGuard | undefined;

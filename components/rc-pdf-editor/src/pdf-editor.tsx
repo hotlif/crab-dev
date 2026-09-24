@@ -389,8 +389,8 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     } : undefined;
 
     return <ActionVisibilityContext value={visibility}><div {...rest} className={cx(rootStyle, className)} onKeyDown={keyDown} aria-busy={processing}>
-        <input ref={fileRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(async () => { await open({ id: crypto.randomUUID(), source: file }, undefined, true); }); }} />
-        <input ref={mergeRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => merge(file)); }} />
+        {visible('open') && <input ref={fileRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(async () => { await open({ id: crypto.randomUUID(), source: file }, undefined, true); }); }} />}
+        {visible('merge') && <input ref={mergeRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => merge(file)); }} />}
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => insertImage(file)); }} />
         <div className={toolbarStyle} role="toolbar" aria-label="PDF 编辑工具栏" aria-busy={pending} onClickCapture={guardToolbarAction}>
             <ActionButton action="open" disabled={!client} onClick={() => fileRef.current?.click()} />
@@ -459,8 +459,8 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
                     onTransform={(transform: Transform) => setDraft(previous => previous ? { ...previous, transform } : undefined)}
                     onCommit={commitTransform}
                 />}</AutoSizer> : <div className={centerStyle}>
-                    <h2 className={headingStyle}>在本地编辑 PDF</h2>
-                    <p className={hintStyle}>修改文字、调整图片，或整理文档页面。</p>
+                    <h2 className={headingStyle}>{visible('open') ? '在本地编辑 PDF' : '等待加载 PDF'}</h2>
+                    <p className={hintStyle}>{visible('open') ? '修改文字、调整图片，或整理文档页面。' : '文档加载完成后，可在此浏览和处理。'}</p>
                     {visible('open') && <Button appearance="primary" disabled={pending || !client} onClick={() => fileRef.current?.click()}>选择 PDF 文件</Button>}
                 </div>}
             </main>
@@ -480,7 +480,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
             </aside>}
         </div>
         <div className={statusStyle}>
-            <span role="status" className={nameStyle}>{info ? `第 ${page + 1} / ${info.pages.length} 页${selectedPages.length > 1 ? ` · 已选择 ${selectedPages.length} 页` : selectedPages.length === 0 ? ' · 未选择页面' : ''}${locked ? ' · 只读' : ''}` : pending ? '正在处理…' : '请选择 PDF 文件'}</span>
+            <span role="status" className={nameStyle}>{info ? `第 ${page + 1} / ${info.pages.length} 页${selectedPages.length > 1 ? ` · 已选择 ${selectedPages.length} 页` : selectedPages.length === 0 ? ' · 未选择页面' : ''}${locked ? ' · 只读' : ''}` : pending ? '正在处理…' : visible('open') ? '请选择 PDF 文件' : '等待加载 PDF'}</span>
             <span className={progressSlotStyle}><Spin spinning={processing} delay={150} size="small" label="正在处理 PDF" /></span>
             <Tooltip title="Ctrl / ⌘ + 滚轮缩放；普通滚轮滚动页面" placement="top" arrow={false}>
                 <NumberEdit className={zoomStyle} size="small" aria-label="缩放百分比" controls={false} suffix="%" value={Math.round(viewport.zoom * 75)} min={8} max={600} disabled={!info || !!selectionRequest} onChange={value => { if (value !== null) setViewport(previous => ({ ...previous, zoom: value / 75 })); }} />

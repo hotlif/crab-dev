@@ -2,7 +2,7 @@ import PdfEditor from './pdf-editor.js';
 export { PdfEditor };
 export default PdfEditor;
 export { definePdfEditor } from './web-component.js';
-export type { PdfEditorElement, PdfEditorElementOptions, PdfEditorElementConstructor, PdfEditorElementEventMap } from './web-component-types.js';
+export type { PdfEditorElement, PdfEditorElementOptions, PdfEditorElementConstructor, PdfEditorElementEventMap, PdfEditorElementToolbar, PdfEditorElementToolbarAction } from './web-component-types.js';
 export { PdfEditorError } from './types.js';
 export { PDF_EDITOR_ACTIONS } from './actions.js';
 export { createRegionOcrPlugin } from './plugins/region-ocr.js';

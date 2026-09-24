@@ -2,6 +2,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, mock } from '@cra
 import { act } from '@crab-dev/wake/test/react';
 import { definePdfEditor } from '../web-component.js';
 import type { PdfEditorElement } from '../web-component-types.js';
+import type { PdfEditorRef } from '../types.js';
 import wasmBase64 from '../../.fixtures/test-wasm.json';
 import workerCode from '../../.fixtures/test-worker.json';
 import { fixture } from './fixture.js';
@@ -111,6 +112,32 @@ describe('PDF 编辑器 Web Component', () => {
         expect(element.getState().document?.sessionId).not.toBe(session);
     });
 
+    it('普通 JS 动作在编辑器工具栏渲染 SVG、调用命令接口，并支持动态禁用和移除', async () => {
+        const element = await mount();
+        const onSelect = mock.fn((api: PdfEditorRef) => { expect(api.getState().document?.id).toBe('toolbar'); });
+        const action = { id: 'web-region', label: '框选区域', placement: 'tools' as const, icon: { path: 'M3 3h6v2H5v4H3z' }, onSelect };
+        await act(async () => {
+            element.toolbar = { visibility: { open: false, merge: false }, extraActions: [{ ...action, disabled: state => !state.document }] };
+        });
+        const button = () => element.shadowRoot!.querySelector<HTMLButtonElement>('[role="toolbar"] button[aria-label="框选区域"]')!;
+        expect(button().disabled).toBe(true);
+        expect(button().querySelector('svg')?.getAttribute('viewBox')).toBe('0 0 24 24');
+        expect(button().querySelector('path')?.getAttribute('d')).toBe(action.icon.path);
+        expect(element.shadowRoot!.querySelector('input[type="file"][accept*="pdf"]')).toBe(null);
+        await act(async () => { await element.open({ id: 'toolbar', source: fixture(1) }); });
+        const session = element.getState().document!.sessionId;
+        expect(button().disabled).toBe(false);
+        await act(async () => { button().click(); });
+        expect(onSelect).toHaveBeenCalledTimes(1);
+        await act(async () => { element.toolbar = { extraActions: [{ ...action, disabled: true }] }; });
+        expect(button().disabled).toBe(true);
+        await act(async () => { button().click(); });
+        expect(onSelect).toHaveBeenCalledTimes(1);
+        await act(async () => { element.toolbar = undefined; });
+        expect(button()).toBe(null);
+        expect(element.getState().document!.sessionId).toBe(session);
+    });
+
     it('不同实例隔离文档，命令错误只拒绝 Promise，不重复派发 UI 错误', async () => {
         const first = await mount(), second = await mount(), error = mock.fn();
         first.addEventListener('crab-error', error);
@@ -130,13 +157,18 @@ describe('PDF 编辑器 Web Component', () => {
         Object.defineProperty(element, 'initialDocument', { value: { id: 'before-define', source: fixture(1) }, configurable: true });
         Object.defineProperty(element, 'readOnly', { value: true, configurable: true });
         Object.defineProperty(element, 'theme', { value: 'dark', configurable: true });
+        // ready 只等待引擎；先确认初始文档已提交，再测试 close，避免与自动打开竞争。
+        const loaded = new Promise<void>(resolve => {
+            element.addEventListener('crab-document-load', () => resolve(), { once: true });
+        });
         elements.add(element); document.body.append(element);
         await act(async () => {
             definePdfEditor({ tagName: 'crab-pdf-preupgrade', styleText: '', createRuntime: () => ({ runtime: { workerUrl, wasmBinary } }) });
         });
-        await act(async () => { await element.ready(); });
+        await act(async () => { await element.ready(); await loaded; });
         expect(element.readOnly).toBe(true); expect(element.theme).toBe('dark');
         expect(Object.hasOwn(element, 'initialDocument')).toBe(false);
+        expect(element.getState().document?.id).toBe('before-define');
         await act(async () => { await element.close(); });
 
         const pending = document.createElement('crab-pdf-editor'); elements.add(pending);

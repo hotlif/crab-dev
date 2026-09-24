@@ -1,11 +1,11 @@
-import Button, { type ButtonProps } from '@crab-dev/rc-button';
+import Button, { type ButtonNativeProps } from '@crab-dev/rc-button';
 import Tooltip from '@crab-dev/rc-tooltip';
 import { cx } from '@crab-dev/css';
 import type { ReactElement } from 'react';
 import PdfIcon, { type PdfIconName } from './icon.js';
 import { iconStyle, toolbarButtonStyle } from './styles.js';
 
-interface ToolbarButtonProps extends Pick<ButtonProps, 'id' | 'aria-controls' | 'aria-expanded'> {
+interface ToolbarButtonProps extends Pick<ButtonNativeProps, 'id' | 'aria-controls' | 'aria-expanded'> {
     label: string;
     icon: PdfIconName | ReactElement;
     disabled?: boolean;
@@ -16,7 +16,7 @@ interface ToolbarButtonProps extends Pick<ButtonProps, 'id' | 'aria-controls' | 
     selectedIcon?: PdfIconName;
     tooltip?: string;
     tooltipPlacement?: 'top' | 'bottom';
-    onClick: ButtonProps['onClick'];
+    onClick: ButtonNativeProps['onClick'];
 }
 
 export default function ToolbarButton({ label, icon, disabled, danger, className, appearance = 'text', selected, selectedIcon, tooltip, tooltipPlacement = 'bottom', onClick, ...attributes }: ToolbarButtonProps) {
