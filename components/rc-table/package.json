@@ -71,7 +71,9 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-checkbox": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-empty": "workspace:^",
+        "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-radio": "workspace:^",
         "@crab-dev/rc-virtual": "workspace:^",
         "jsonpath-plus": "^10.4.0"

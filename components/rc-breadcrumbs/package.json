@@ -59,6 +59,7 @@
         "node": ">=22"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45"
+        "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-button": "workspace:^"
     }
 }

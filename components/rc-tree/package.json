@@ -59,6 +59,7 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-checkbox": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-spin": "workspace:^",
         "@crab-dev/rc-virtual": "workspace:^",

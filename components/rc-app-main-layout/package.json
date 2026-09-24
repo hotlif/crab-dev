@@ -60,7 +60,9 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-avatar": "workspace:^",
         "@crab-dev/rc-breadcrumbs": "workspace:^",
+        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-drawer": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
