@@ -1,4 +1,5 @@
-import { beforeAll, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import type { ReactNode } from 'react';
 beforeAll(() => {
     (globalThis as Record<string, unknown>).ResizeObserver = class {
@@ -118,20 +119,76 @@ describe('CronPicker', () => {
         expect(dialog.textContent).toContain('30 9 * * 1-5');
         expect(dialog.textContent).toContain('周一至周五 09:30');
     });
-    it('弹层内点击网格值,一步切入指定模式并上抛新表达式', async () => {
+    it('指定模式支持多选并上抛新表达式', async () => {
         const onChange = mock.fn();
-        await render(<CronPicker onChange={onChange}/>);
+        await render(<CronPicker defaultValue="0 * * * *" onChange={onChange}/>);
         await fireEvent.click(getInput());
         await fireEvent.click(screen.getByRole('checkbox', { name: '30分' }));
-        expect(onChange).toHaveBeenCalledWith('30 * * * *');
-        expect(getInput().value).toBe('30 * * * *');
+        expect(onChange).toHaveBeenCalledWith('0,30 * * * *');
+        expect(getInput().value).toBe('0,30 * * * *');
     });
     it('弹层内选中步进模式,以默认步长产出表达式', async () => {
         const onChange = mock.fn();
         await render(<CronPicker onChange={onChange}/>);
         await fireEvent.click(getInput());
-        await fireEvent.click(screen.getByRole('radio', { name: '按步进指定分钟' }));
+        expect(screen.queryByRole('spinbutton')).toBeNull();
+        expect(screen.queryByRole('group', { name: '选择分钟' })).toBeNull();
+        await fireEvent.click(screen.getByRole('combobox', { name: '分钟设置方式' }));
+        await fireEvent.click(screen.getByRole('option', { name: '固定间隔' }));
         expect(onChange).toHaveBeenCalledWith('*/5 * * * *');
+        expect(screen.getAllByRole('spinbutton').length).toBe(2);
+        expect((screen.getByRole('spinbutton', { name: '起始分钟' }) as HTMLInputElement).value).toBe('0');
+        expect((screen.getByRole('spinbutton', { name: '间隔（分钟）' }) as HTMLInputElement).value).toBe('5');
+        expect(screen.queryByRole('group', { name: '选择分钟' })).toBeNull();
+    });
+    it('切入指定模式有默认值，取消最后一项不会意外变成每分钟', async () => {
+        await render(<CronPicker />);
+        await fireEvent.click(getInput());
+        await fireEvent.click(screen.getByRole('combobox', { name: '分钟设置方式' }));
+        await fireEvent.click(screen.getByRole('option', { name: '指定分钟' }));
+        expect(getInput().value).toBe('0 * * * *');
+        await fireEvent.click(screen.getByRole('checkbox', { name: '0分' }));
+        expect(getInput().value).toBe('0 * * * *');
+        await fireEvent.keyDown(screen.getByRole('checkbox', { name: '30分' }), { key: ' ' });
+        await fireEvent.click(screen.getByRole('checkbox', { name: '0分' }));
+        expect(getInput().value).toBe('30 * * * *');
+    });
+    it('连续范围只显示对应输入项，修改起点保留终点及其他字段', async () => {
+        await render(<CronPicker defaultValue="0 9 * * *" />);
+        await fireEvent.click(getInput());
+        await fireEvent.click(screen.getByRole('combobox', { name: '分钟设置方式' }));
+        await fireEvent.click(screen.getByRole('option', { name: '连续范围' }));
+        const start = screen.getByRole('spinbutton', { name: '开始分钟' });
+        await fireEvent.keyDown(start, { key: 'ArrowUp' });
+        expect(getInput().value).toBe('1-30 9 * * *');
+        expect(screen.getAllByRole('spinbutton').length).toBe(2);
+        expect(screen.queryByRole('checkbox', { name: '0分' })).toBeNull();
+    });
+    it('星期仅提供适用模式，区间端点保持合法', async () => {
+        await render(<CronPicker defaultValue="0 9 * * *" />);
+        await fireEvent.click(getInput());
+        await fireEvent.click(screen.getByRole('tab', { name: '星期' }));
+        await fireEvent.click(screen.getByRole('combobox', { name: '星期设置方式' }));
+        expect(screen.queryByRole('option', { name: '固定间隔' })).toBeNull();
+        await fireEvent.click(screen.getByRole('option', { name: '连续范围' }));
+        expect(getInput().value).toBe('0 9 * * 1-5');
+        await fireEvent.click(screen.getByRole('combobox', { name: '开始星期' }));
+        await fireEvent.click(screen.getByRole('option', { name: '周六' }));
+        expect(getInput().value).toBe('0 9 * * 6-6');
+    });
+    it('Escape 先关闭模式菜单，再关闭面板并把焦点还给表达式', async () => {
+        const onOpenChange = mock.fn();
+        await render(<CronPicker onOpenChange={onOpenChange} />);
+        await fireEvent.click(getInput());
+        const mode = screen.getByRole('combobox', { name: '分钟设置方式' });
+        await fireEvent.click(mode);
+        await fireEvent.keyDown(mode, { key: 'Escape' });
+        expect(screen.queryByRole('listbox')).toBeNull();
+        expect(screen.queryByRole('dialog')).not.toBeNull();
+        await fireEvent.keyDown(mode, { key: 'Escape' });
+        expect(screen.queryByRole('dialog')).toBeNull();
+        expect(document.activeElement).toBe(getInput());
+        expect(onOpenChange).toHaveBeenCalledWith(false);
     });
     it('previewCount 控制下次执行时间预览', async () => {
         await render(<CronPicker defaultValue="0 0 * * *" previewCount={3}/>);

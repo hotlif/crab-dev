@@ -71,11 +71,11 @@ interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange
     disabled?: boolean;
     // 是否可搜索（显示输入框以过滤选项）
     searchable?: boolean;
-    // 组件尺寸：large / middle / small
+    // 组件尺寸；省略时继承 ConfigProvider，未配置时为 middle
     size?: "large" | "middle" | "small";
     // 状态：用于显示错误或警告的边框样式
     status?: "error" | "warning";
-    // 是否显示清除按钮（可通过鼠标悬停显示）
+    // 是否允许清除；有已选项且未禁用时，悬停字段或聚焦尾部按钮会将箭头切换为清除
     allowClear?: boolean;
     // 是否处于加载状态（显示加载指示器）
     loading?: boolean;
@@ -105,13 +105,13 @@ interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange
 /**
  * 单选模式 Props
  * - `multiple` 可选或 false
- * - `value` / `defaultValue` 为单个字符串或 undefined
+ * - `null` 表示受控空值；`undefined` 表示非受控
  */
 export interface SingleSelectProps extends BaseSelectProps {
     multiple?: false;
-    value?: string;
-    defaultValue?: string;
-    onChange?: (value: string | undefined, option: SelectOption | undefined) => void;
+    value?: string | null;
+    defaultValue?: string | null;
+    onChange?: (value: string | null, option: SelectOption | undefined) => void;
 }
 
 /**

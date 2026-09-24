@@ -24,6 +24,9 @@ export const vars = defineTokens({
     'trigger.border-radius': '--color-picker-trigger-border-radius',
     'trigger.padding': '--color-picker-trigger-padding',
     'trigger.gap': '--color-picker-trigger-gap',
+    'trigger.touch.min-width': '--color-picker-trigger-touch-min-width',
+    'trigger.touch.min-height': '--color-picker-trigger-touch-min-height',
+    'trigger.opacity-disabled': '--color-picker-trigger-opacity-disabled',
     'trigger.ring.color-focus': '--color-picker-trigger-ring-color-focus',
     'trigger.background-color-disabled': '--color-picker-trigger-background-color-disabled',
     'trigger.border-color-disabled': '--color-picker-trigger-border-color-disabled',
@@ -32,16 +35,19 @@ export const vars = defineTokens({
     'trigger.swatch.large.width': '--color-picker-trigger-swatch-large-width',
     'input.gap': '--color-picker-input-gap',
     'swatch.width': '--color-picker-swatch-width',
+    'swatch.touch.width': '--color-picker-swatch-touch-width',
+    'swatch.border-width': '--color-picker-swatch-border-width',
     'swatch.gap': '--color-picker-swatch-gap',
     'swatch.border-color': '--color-picker-swatch-border-color',
     'swatch.border-radius': '--color-picker-swatch-border-radius',
-    'swatch.group.label.color': '--color-picker-swatch-group-label-color'
+    'swatch.group.label.color': '--color-picker-swatch-group-label-color',
+    'swatch.group.label.font-size': '--color-picker-swatch-group-label-font-size'
 });
 
 const token = defineTokens({
     'panel': {
-        'padding-block': `var(${vars['panel.padding-block']}, var(--color-picker-panel-padding-y, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px))))`,
-        'padding-inline': `var(${vars['panel.padding-inline']}, var(--color-picker-panel-padding-x, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px))))`,
+        'padding-block': `var(${vars['panel.padding-block']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+        'padding-inline': `var(${vars['panel.padding-inline']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
         'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
         'preview': {
             'height': `var(${vars['panel.preview.height']}, 5rem)`,
@@ -77,20 +83,25 @@ const token = defineTokens({
         'border-radius': `var(${vars['trigger.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`,
         'padding': `var(${vars['trigger.padding']}, 0.25rem)`,
         'gap': `var(${vars['trigger.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'ring': {
-            'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--color-picker-trigger-focus-ring-color, var(--color-picker-trigger-focus-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))))`
+        'touch': {
+            'min-width': `var(${vars['trigger.touch.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
+            'min-height': `var(${vars['trigger.touch.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
         },
-        'background-color-disabled': `var(${vars['trigger.background-color-disabled']}, var(--color-picker-trigger-disabled-background, var(--token-semantic-color-background-disabled, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144)))))`,
-        'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--color-picker-trigger-disabled-border-color, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))))`,
+        'opacity-disabled': `var(${vars['trigger.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
+        'ring': {
+            'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
+        },
+        'background-color-disabled': `var(${vars['trigger.background-color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144))))`,
+        'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
         'swatch': {
             'small': {
-                'width': `var(${vars['trigger.swatch.small.width']}, var(--color-picker-trigger-swatch-size-small, 16px))`
+                'width': `var(${vars['trigger.swatch.small.width']}, 16px)`
             },
             'medium': {
-                'width': `var(${vars['trigger.swatch.medium.width']}, var(--color-picker-trigger-swatch-size-medium, 24px))`
+                'width': `var(${vars['trigger.swatch.medium.width']}, 24px)`
             },
             'large': {
-                'width': `var(${vars['trigger.swatch.large.width']}, var(--color-picker-trigger-swatch-size-large, 32px))`
+                'width': `var(${vars['trigger.swatch.large.width']}, 32px)`
             }
         }
     },
@@ -98,13 +109,18 @@ const token = defineTokens({
         'gap': `var(${vars['input.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
     },
     'swatch': {
-        'width': `var(${vars['swatch.width']}, var(--color-picker-swatch-size, 20px))`,
+        'width': `var(${vars['swatch.width']}, 20px)`,
+        'touch': {
+            'width': `var(${vars['swatch.touch.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
+        },
+        'border-width': `var(${vars['swatch.border-width']}, 1px)`,
         'gap': `var(${vars['swatch.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'border-color': `var(${vars['swatch.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
         'border-radius': `var(${vars['swatch.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
         'group': {
             'label': {
-                'color': `var(${vars['swatch.group.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
+                'color': `var(${vars['swatch.group.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+                'font-size': `var(${vars['swatch.group.label.font-size']}, var(--token-semantic-typography-body-small-font-size, var(--token-global-font-size-xs, 12px)))`
             }
         }
     }

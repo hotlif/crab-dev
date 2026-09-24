@@ -1,4 +1,5 @@
 import RcMasonry from "@crab-dev/rc-masonry";
+import Button from "@crab-dev/rc-button";
 import { css } from "@crab-dev/css";
 import type { FC } from "react";
 import token from "../token.js";
@@ -34,24 +35,29 @@ const normalize = (presets: ColorPreset[]): PresetGroup[] => {
 const swatchStyle = css`
     width: ${token.swatch.width};
     height: ${token.swatch.width};
-    padding: 0;
-    border: 1px solid ${token.swatch['border-color']};
     border-radius: ${token.swatch['border-radius']};
-    cursor: pointer;
-    &:focus-visible {
-        outline: 2px solid ${token.trigger.ring['color-focus']};
-        outline-offset: 1px;
+    stroke: ${token.swatch['border-color']};
+    stroke-width: ${token.swatch['border-width']};
+    /* Color samples are data: retain their hues in forced-color mode. */
+    forced-color-adjust: none;
+`;
+
+const swatchActionStyle = css`
+    && {
+        width: ${token.swatch.touch.width};
+        height: ${token.swatch.touch.width};
+        padding: 0;
     }
 `;
 
 const groupStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: ${token.swatch.gap};
 `;
 
 const groupLabelStyle = css`
-    font-size: 12px;
+    font-size: ${token.swatch.group.label['font-size']};
     color: ${token.swatch.group.label.color};
 `;
 
@@ -62,18 +68,21 @@ const groupListStyle = css`
 `;
 
 const Swatch: FC<{ color: OKLCHValue; onSelect: (v: OKLCHValue) => void }> = ({ color, onSelect }) => (
-    <button
+    <Button
         type="button"
+        appearance="text"
+        shape="circle"
         aria-label={oklchToHex(color)}
-        className={swatchStyle}
-        style={{
-            backgroundColor: `oklch(${color.lightness} ${color.chroma} ${color.hue} / ${color.alpha ?? 1})`,
-        }}
+        className={swatchActionStyle}
         onClick={() => onSelect(color)}
-    />
+    >
+        <svg className={swatchStyle} viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <rect x="0.5" y="0.5" width="19" height="19" rx="4" fill={`oklch(${color.lightness} ${color.chroma} ${color.hue} / ${color.alpha ?? 1})`} />
+        </svg>
+    </Button>
 );
 
-const PresetSwatches: FC<PresetSwatchesProps> = ({ presets, columns = 8, onSelect }) => {
+const PresetSwatches: FC<PresetSwatchesProps> = ({ presets, columns = 4, onSelect }) => {
     const groups = normalize(presets);
     if (!groups.length) return null;
 
@@ -82,7 +91,7 @@ const PresetSwatches: FC<PresetSwatchesProps> = ({ presets, columns = 8, onSelec
             {groups.map((group, gi) => (
                 <div key={group.label ?? `loose-${gi}`} className={groupStyle}>
                     {group.label && <span className={groupLabelStyle}>{group.label}</span>}
-                    <RcMasonry columns={columns} gutter={6}>
+                    <RcMasonry columns={columns} sequential>
                         {group.colors.map((color, ci) => (
                             <Swatch key={ci} color={color} onSelect={onSelect} />
                         ))}

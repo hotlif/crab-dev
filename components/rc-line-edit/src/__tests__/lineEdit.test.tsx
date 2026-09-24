@@ -36,6 +36,22 @@ function inputByLabel(text: string): HTMLInputElement {
     return input;
 }
 describe("LineEdit", () => {
+    it('clears an uncontrolled value through onChange and updates its count', async () => {
+        const changes: string[] = [];
+        await render(<LineEdit aria-label='field' defaultValue='hello' showCount allowClear onChange={e => changes.push(e.target.value)} />);
+        await fireEvent.click(getActionButton('清除'));
+        expect((screen.getByLabelText('field') as HTMLInputElement).value).toBe('');
+        expect(changes).toEqual(['']);
+        expect(screen.getByText('0')).toBeTruthy();
+        expect(queryActionButton('清除')).toBeNull();
+    });
+    it('restores the controlled value when a parent rejects clear', async () => {
+        const changes: string[] = [];
+        await render(<LineEdit aria-label='field' value='keep' allowClear onChange={e => changes.push(e.target.value)} />);
+        await fireEvent.click(getActionButton('清除'));
+        expect(changes).toEqual(['']);
+        expect((screen.getByLabelText('field') as HTMLInputElement).value).toBe('keep');
+    });
     it("浮动标签和说明使用唯一 ID，错误替换辅助说明并保留外部关联", async () => {
         const { rerender } = await render(<><p id="external">外部说明</p><LineEdit label="项目名称" supportingText="最多十字" aria-describedby="external" value="Crab" onChange={handleInputChange} maxLength={10} showCount /><LineEdit label="团队名称" /></>);
         const input = inputByLabel("项目名称") as HTMLInputElement;
@@ -71,7 +87,7 @@ describe("LineEdit", () => {
     it("受控清除后焦点回到输入框，允许立即继续编辑", async () => {
         function Editor() {
             const [value, setValue] = useState("项目名称");
-            return <LineEdit aria-label="项目" value={value} allowClear onChange={e => setValue(e.target.value)} onClear={() => setValue("")} />;
+            return <LineEdit aria-label="项目" value={value} allowClear onChange={e => setValue(e.target.value)} />;
         }
         await render(<Editor />);
         const clear = getActionButton("清除");
@@ -191,10 +207,10 @@ describe("LineEdit", () => {
             const input = document.querySelector("input") as HTMLInputElement;
             expect(input.maxLength).toBe(20);
         });
-        it("value 为 undefined 时不应显示字符计数", async () => {
+        it("非受控空输入显示零字符计数", async () => {
             await render(<LineEdit showCount/>);
-            // 非受控模式下不显示计数
-            expect(document.querySelector("span")).toBeNull();
+            // 受控与非受控使用一致的计数语义
+            expect(screen.getByText("0")).toBeTruthy();
         });
     });
     describe("maxLength 传递", () => {

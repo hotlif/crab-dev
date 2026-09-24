@@ -8,8 +8,8 @@ imports = [
 [token]
 
 # ===== 面板 Panel =====
-panel.padding-block = "var(--color-picker-panel-padding-y, $ref(space.stack-gap))"
-panel.padding-inline = "var(--color-picker-panel-padding-x, $ref(space.section-gap))"
+panel.padding-block = "$ref(space.stack-gap)"
+panel.padding-inline = "$ref(space.section-gap)"
 panel.gap = "$ref(space.section-gap)"
 
 panel.preview.height = "5rem"
@@ -34,20 +34,26 @@ trigger.border-color = "$ref(color.border.default)"
 trigger.border-radius = "$ref(shape.control)"
 trigger.padding = "0.25rem"
 trigger.gap = "$ref(space.inline-gap)"
-trigger.ring.color-focus = "var(--color-picker-trigger-focus-ring-color, var(--color-picker-trigger-focus-color, $ref(color.focus.ring)))"
-trigger.background-color-disabled = "var(--color-picker-trigger-disabled-background, $ref(color.background.disabled))"
-trigger.border-color-disabled = "var(--color-picker-trigger-disabled-border-color, $ref(color.border.default))"
+trigger.touch.min-width = "$ref(size.touch-target)"
+trigger.touch.min-height = "$ref(size.touch-target)"
+trigger.opacity-disabled = "$ref(opacity.disabled)"
+trigger.ring.color-focus = "$ref(color.focus.ring)"
+trigger.background-color-disabled = "$ref(color.background.disabled)"
+trigger.border-color-disabled = "$ref(color.border.default)"
 
-trigger.swatch.small.width = "var(--color-picker-trigger-swatch-size-small, 16px)"
-trigger.swatch.medium.width = "var(--color-picker-trigger-swatch-size-medium, 24px)"
-trigger.swatch.large.width = "var(--color-picker-trigger-swatch-size-large, 32px)"
+trigger.swatch.small.width = "16px"
+trigger.swatch.medium.width = "24px"
+trigger.swatch.large.width = "32px"
 
 # ===== 文本输入 Input =====
 input.gap = "$ref(space.inline-gap)"
 
 # ===== 预设色板 Swatches =====
-swatch.width = "var(--color-picker-swatch-size, 20px)"
+swatch.width = "20px"
+swatch.touch.width = "$ref(size.touch-target)"
+swatch.border-width = "1px"
 swatch.gap = "$ref(space.inline-gap)"
 swatch.border-color = "$ref(color.border.default)"
 swatch.border-radius = "$ref(radius.sm)"
 swatch.group.label.color = "$ref(color.text.secondary)"
+swatch.group.label.font-size = "$ref(typography.body.small.font-size)"

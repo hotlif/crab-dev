@@ -65,7 +65,7 @@ export interface SelectProps {
     "searchable"?: boolean;
 
     /**
-     * 组件尺寸：large / middle / small
+     * 组件尺寸；省略时继承 ConfigProvider，未配置时为 middle
      */
     "size"?: "large" | "middle" | "small";
 
@@ -75,7 +75,7 @@ export interface SelectProps {
     "status"?: "error" | "warning";
 
     /**
-     * 是否显示清除按钮（可通过鼠标悬停显示）
+     * 是否允许清除；有已选项且未禁用时，悬停字段或聚焦尾部按钮会将箭头切换为清除
      */
     "allowClear"?: boolean;
 
@@ -147,15 +147,15 @@ export interface SelectProps {
     /**
      * 暂无说明。
      */
-    "value"?: string | string[];
+    "value"?: string | null | string[];
 
     /**
      * 暂无说明。
      */
-    "defaultValue"?: string | string[];
+    "defaultValue"?: string | null | string[];
 
     /**
      * 暂无说明。
      */
-    "onChange"?: ((value: string | undefined, option: SelectOption | undefined) => void) | ((value: string[], options: SelectOption[]) => void);
+    "onChange"?: ((value: string | null, option: SelectOption | undefined) => void) | ((value: string[], options: SelectOption[]) => void);
 }

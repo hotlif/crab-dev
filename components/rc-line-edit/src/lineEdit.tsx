@@ -1,9 +1,10 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import { Eye, EyeOff, X } from "lucide-react";
 import { useId, useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
 
-import token from "./token.js";
+import token, { vars } from "./token.js";
 
 
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
@@ -53,7 +54,7 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
     bordered?: boolean
 
     /**
-     * 是否允许一键清除内容（仅受控模式生效）
+     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
      */
     allowClear?: boolean
 
@@ -94,10 +95,6 @@ const containerBaseStyle = css`
         border-color: ${token.root['border-color-focus']};
         box-shadow: ${token.root['box-shadow-focus-within']};
     }
-    &:has(input:focus-visible) {
-        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
-        outline-offset: ${token.root['outline-offset-focus']};
-    }
     &[aria-disabled="true"] {
         cursor: not-allowed;
         opacity: ${token.root['opacity-disabled']};
@@ -107,7 +104,10 @@ const containerBaseStyle = css`
     }
     @media (forced-colors: active) {
         && { border-color: CanvasText; box-shadow: none; }
-        &:has(input:focus-visible) { outline-color: Highlight; }
+        &:has(input:focus-visible) {
+            outline: ${token.root['outline-width-focus']} solid Highlight;
+            outline-offset: ${token.root['outline-offset-focus']};
+        }
         &[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
     }
 `
@@ -116,14 +116,20 @@ const containerBaseStyle = css`
 const sizeContainerStyles = {
     large: css`
         min-height: ${token.size.large.height};
+        ${vars['action.min-width']}: ${token.size.large.action.width};
+        ${vars['action.height']}: ${token.size.large.action.width};
         padding: ${token.size.large.padding};
     `,
     middle: css`
         min-height: ${token.size.middle.height};
+        ${vars['action.min-width']}: ${token.size.middle.action.width};
+        ${vars['action.height']}: ${token.size.middle.action.width};
         padding: ${token.size.middle.padding};
     `,
     small: css`
         min-height: ${token.size.small.height};
+        ${vars['action.min-width']}: ${token.size.small.action.width};
+        ${vars['action.height']}: ${token.size.small.action.width};
         padding: ${token.size.small.padding};
     `,
 } as const;
@@ -144,7 +150,7 @@ const sizeTextStyles = {
     `,
 } as const;
 
-// 验证状态样式：覆盖 hover/focus 时的边框颜色和焦点光环颜色，保持视觉一致性
+// M3 用同一条轮廓的颜色与粗细表达焦点，验证状态不额外叠加外发光。
 const errorStyle = css`
     border-color: ${token.status['border-color-error']};
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
@@ -183,6 +189,11 @@ const borderlessStyle = css`
     &:focus-within {
         border-color: transparent;
         box-shadow: none;
+    }
+    // 无边框模式没有自身的轮廓或底线，保留独立的键盘焦点提示。
+    &:has(input:focus-visible) {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
     }
 `
 
@@ -318,7 +329,7 @@ const materialStyle = css`
     &[data-appearance="filled"]:focus-within {
         border-color: transparent;
         border-bottom-color: ${token.root['border-color-focus']};
-        box-shadow: inset 0 -1px 0 ${token.root['border-color-focus']};
+        box-shadow: ${token.field.indicator['box-shadow-focus']};
     }
     &[data-appearance="filled"][data-labeled="true"] input { padding-top: ${token.field.input['padding-top']}; }
     &[data-appearance="filled"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
@@ -332,12 +343,12 @@ const materialStyle = css`
     &&[data-appearance="filled"][data-status="error"] {
         border-color: transparent;
         border-bottom-color: ${token.status['border-color-error']};
-        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status['border-color-error']}; }
+        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-error']}; }
     }
     &&[data-appearance="filled"][data-status="warning"] {
         border-color: transparent;
         border-bottom-color: ${token.status.warning['border-color']};
-        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status.warning['border-color']}; }
+        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-warning']}; }
     }
     @media (prefers-reduced-motion: reduce) { & > label { transition: none; } }
     @media (forced-colors: active) {
@@ -368,11 +379,13 @@ const supportingStyle = css`
 function LineEdit({
     ref,
     id,
-    size = "middle",
+    size: sizeProp,
     prefix,
     suffix,
     type,
     value,
+    defaultValue,
+    onChange,
     containerRef,
     className,
     style,
@@ -391,22 +404,25 @@ function LineEdit({
     placeholder,
     ...rest
 }: LineEditProps) {
+    const size = useComponentSize(sizeProp);
     // 密码可见性：内部 UI 状态，与业务无关
     const [showPassword, setShowPassword] = useState(false);
+    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue ?? '');
+    const displayValue = value ?? uncontrolledValue;
     const generatedId = useId();
     const inputId = id ?? generatedId;
 
     const isPassword = type === "password";
     const inputType = isPassword ? (showPassword ? "text" : "password") : type;
-    const hasValue = typeof value === "string" && value.length > 0;
+    const hasValue = typeof displayValue === "string" && displayValue.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
     const fieldStatus = errorText ? "error" : status;
     const enhancedField = Boolean(label || supportingText || errorText);
     const description = errorText || supportingText;
     const descriptionId = `${generatedId}-description`;
     const countId = `${generatedId}-count`;
-    const count = showCount && typeof value === "string" ? (
-        <span id={countId} className={countStyle}>{value.length}{maxLength != null ? `/${maxLength}` : ""}</span>
+    const count = showCount && typeof displayValue === "string" ? (
+        <span id={countId} className={countStyle}>{displayValue.length}{maxLength != null ? `/${maxLength}` : ""}</span>
     ) : null;
 
     const control = (
@@ -437,6 +453,11 @@ function LineEdit({
                 id={inputId}
                 type={inputType}
                 value={value}
+                defaultValue={defaultValue}
+                onChange={(event) => {
+                    setUncontrolledValue(event.currentTarget.value);
+                    onChange?.(event);
+                }}
                 maxLength={maxLength}
                 placeholder={placeholder ?? (label ? " " : undefined)}
                 disabled={disabled}
@@ -459,7 +480,13 @@ function LineEdit({
                     onClick={(e) => {
                         e.stopPropagation();
                         // 清除可能立即卸载按钮，先把焦点送回被操作的输入框。
-                        e.currentTarget.parentElement?.querySelector('input')?.focus();
+                        const input = e.currentTarget.parentElement?.querySelector('input');
+                        if (input) {
+                            input.focus();
+                            // 原生 setter 触发 React 的 change 流程，保留受控值恢复语义。
+                            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set?.call(input, '');
+                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
                         onClear?.();
                     }}
                 />

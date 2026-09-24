@@ -60,7 +60,7 @@ export interface TextEditProps {
     "bordered"?: boolean;
 
     /**
-     * 是否允许一键清除内容（仅受控模式生效）
+     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
      */
     "allowClear"?: boolean;
 

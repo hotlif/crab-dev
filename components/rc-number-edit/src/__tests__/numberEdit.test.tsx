@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
-import type { ButtonProps } from "@crab-dev/rc-button";
+import type { ButtonNativeProps } from "@crab-dev/rc-button";
 import type { LineEditProps } from "@crab-dev/rc-line-edit";
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
@@ -26,7 +26,7 @@ mock.module("@crab-dev/rc-line-edit", () => ({
 }));
 mock.module("@crab-dev/rc-button", () => ({
     __esModule: true,
-    default: ({ icon, appearance: _appearance, size: _size, shape: _shape, children, ...props }: ButtonProps) => (
+    default: ({ icon, appearance: _appearance, size: _size, shape: _shape, children, ...props }: ButtonNativeProps) => (
         <button {...props}>{icon}{children}</button>
     ),
 }));

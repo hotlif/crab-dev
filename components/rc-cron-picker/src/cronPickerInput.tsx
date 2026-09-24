@@ -101,8 +101,9 @@ const CronPickerInput: FC<CronPickerInputProps> = ({
                 setDraft(null);
             }
         } else if (e.key === 'Escape') {
-            // 放弃草稿回退旧值;面板关闭由 RcDropdownContainer 的 useDismiss 统一处理
+            // 通用浮层只处理外部点击，键盘退出由选择器自行负责。
             setDraft(null);
+            dispatch({ type: 'setOpen', payload: false });
         } else if (e.key === 'ArrowDown' && !open) {
             e.preventDefault();
             openPanel();
@@ -121,6 +122,7 @@ const CronPickerInput: FC<CronPickerInputProps> = ({
 
     return (
         <LineEdit
+            id={`${overlayId}-trigger`}
             ref={ref}
             containerRef={refs.setReference}
             size={size}

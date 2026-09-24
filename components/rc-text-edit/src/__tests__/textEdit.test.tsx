@@ -3,10 +3,26 @@ import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import TextEdit from "../textEdit.js";
 import { useState } from "react";
 describe("TextEdit", () => {
+    it('clears an uncontrolled value through onChange and updates its count', async () => {
+        const changes: string[] = [];
+        await render(<TextEdit aria-label='field' defaultValue='hello' showCount allowClear onChange={e => changes.push(e.target.value)} />);
+        await fireEvent.click(screen.getByLabelText('清除'));
+        expect((screen.getByLabelText('field') as HTMLTextAreaElement).value).toBe('');
+        expect(changes).toEqual(['']);
+        expect(screen.getByText('0')).toBeTruthy();
+        expect(screen.queryByLabelText('清除')).toBeNull();
+    });
+    it('restores the controlled value when a parent rejects clear', async () => {
+        const changes: string[] = [];
+        await render(<TextEdit aria-label='field' value='keep' allowClear onChange={e => changes.push(e.target.value)} />);
+        await fireEvent.click(screen.getByLabelText('清除'));
+        expect(changes).toEqual(['']);
+        expect((screen.getByLabelText('field') as HTMLTextAreaElement).value).toBe('keep');
+    });
     it("受控清除后仍可在文本域继续输入", async () => {
         function Editor() {
             const [value, setValue] = useState("第一行\n第二行");
-            return <TextEdit aria-label="备注" value={value} allowClear onChange={e => setValue(e.target.value)} onClear={() => setValue("")} />;
+            return <TextEdit aria-label="备注" value={value} allowClear onChange={e => setValue(e.target.value)} />;
         }
         await render(<Editor />);
         const clear = screen.getByLabelText("清除");
@@ -166,12 +182,12 @@ describe("TextEdit", () => {
             const textarea = document.querySelector("textarea") as HTMLTextAreaElement;
             expect(textarea.maxLength).toBe(200);
         });
-        it("value 为 undefined 时不应显示字符计数", async () => {
+        it("非受控空输入显示零字符计数", async () => {
             await act(async () => {
                 await render(<TextEdit showCount/>);
             });
-            // 非受控模式下不显示计数
-            expect(document.querySelector("span")).toBeNull();
+            // 受控与非受控使用一致的计数语义
+            expect(screen.getByText("0")).toBeTruthy();
         });
     });
     describe("autoSize 与 resize", () => {

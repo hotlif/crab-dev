@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css, cx } from "@crab-dev/css";
 import { type CSSProperties, type HTMLAttributes, type Ref } from "react";
@@ -6,7 +7,7 @@ import type { OKLCHValue } from "../types.js";
 
 export interface ColorPickerInputProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
     value: OKLCHValue;
-    size?: "small" | "medium" | "large";
+    size?: 'small' | 'middle' | 'medium' | 'large';
     disabled?: boolean;
     ref?: Ref<HTMLDivElement>;
 }
@@ -25,6 +26,9 @@ const SWATCH_SIZE = {
 
 const triggerStyle = css`
     display: inline-flex;
+    box-sizing: border-box;
+    min-width: ${token.trigger.touch['min-width']};
+    min-height: ${token.trigger.touch['min-height']};
     cursor: pointer;
     border: 1px solid ${token.trigger['border-color']};
     padding: ${token.trigger.padding};
@@ -42,7 +46,7 @@ const disabledStyle = css`
     cursor: not-allowed;
     border-color: ${token.trigger['border-color-disabled']};
     background: ${token.trigger['background-color-disabled']};
-    opacity: 0.6;
+    opacity: ${token.trigger['opacity-disabled']};
 `;
 
 const swatchStyle = css`
@@ -53,7 +57,7 @@ const swatchStyle = css`
 
 const ColorPickerInput = ({
     value,
-    size = "medium",
+    size: sizeProp,
     disabled = false,
     ref,
     "aria-label": ariaLabel,
@@ -62,6 +66,8 @@ const ColorPickerInput = ({
     onKeyDown,
     ...restProps
 }: ColorPickerInputProps) => {
+    const configuredSize = useComponentSize(sizeProp);
+    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     const { refs, dispatch, state } = useDropdownContext<HTMLDivElement>();
 
     // 点击外部关闭已由 RcDropdownContainer 统一收口(基于 FloatingTree 的 useDismiss),
@@ -93,11 +99,11 @@ const ColorPickerInput = ({
             }}
             onClick={(e) => {
                 onClick?.(e);
-                toggle();
+                if (!e.defaultPrevented) toggle();
             }}
             onKeyDown={(e) => {
                 onKeyDown?.(e);
-                if (disabled) return;
+                if (disabled || e.defaultPrevented) return;
                 if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     dispatch({ type: "setOpen", payload: !state.open });

@@ -1,9 +1,10 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import { X } from "lucide-react";
-import { useId, type Ref, type TextareaHTMLAttributes } from "react";
+import { useId, useState, type Ref, type TextareaHTMLAttributes } from "react";
 
-import token from "./token.js";
+import token, { vars } from "./token.js";
 
 
 export interface TextEditProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -44,7 +45,7 @@ export interface TextEditProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
     bordered?: boolean
 
     /**
-     * 是否允许一键清除内容（仅受控模式生效）
+     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
      */
     allowClear?: boolean
 
@@ -91,6 +92,10 @@ const containerBaseStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     outline: none;
     box-sizing: border-box;
+    &:has(> button) { min-height: calc(${token.clear.height} + 2 * ${token.clear['inset-block-start']}); }
+    @media (pointer: coarse) {
+        &:has(> button) { min-height: calc(${token.clear.touch.height} + 2 * ${token.clear['inset-block-start']}); }
+    }
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
         border-color: ${token.root['border-color-hover']};
     }
@@ -98,17 +103,16 @@ const containerBaseStyle = css`
         border-color: ${token.root['border-color-focus']};
         box-shadow: ${token.root['box-shadow-focus-within']};
     }
-    &:has(textarea:focus-visible) {
-        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
-        outline-offset: ${token.root['outline-offset-focus']};
-    }
     &[aria-disabled="true"] {
         cursor: not-allowed;
         opacity: ${token.root['opacity-disabled']};
     }
     @media (forced-colors: active) {
         && { border-color: CanvasText; box-shadow: none; }
-        &:has(textarea:focus-visible) { outline-color: Highlight; }
+        &:has(textarea:focus-visible) {
+            outline: ${token.root['outline-width-focus']} solid Highlight;
+            outline-offset: ${token.root['outline-offset-focus']};
+        }
         &[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
     }
 `
@@ -117,12 +121,18 @@ const containerBaseStyle = css`
 const sizeContainerStyles = {
     large: css`
         padding: ${token.size.large.padding};
+        ${vars['clear.width']}: ${token.size.large.action.width};
+        ${vars['clear.height']}: ${token.size.large.action.width};
     `,
     middle: css`
         padding: ${token.size.middle.padding};
+        ${vars['clear.width']}: ${token.size.middle.action.width};
+        ${vars['clear.height']}: ${token.size.middle.action.width};
     `,
     small: css`
         padding: ${token.size.small.padding};
+        ${vars['clear.width']}: ${token.size.small.action.width};
+        ${vars['clear.height']}: ${token.size.small.action.width};
     `,
 } as const;
 
@@ -142,7 +152,7 @@ const sizeTextStyles = {
     `,
 } as const;
 
-// 验证状态样式：覆盖 hover/focus 时的边框颜色和焦点光环颜色，保持视觉一致性
+// 验证状态沿用同一条边界，聚焦时向内加粗。
 const errorStyle = css`
     border-color: ${token.status['border-color-error']};
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
@@ -180,6 +190,13 @@ const borderlessStyle = css`
     &:focus-within {
         border-color: transparent;
         box-shadow: none;
+    }
+    &:has(textarea:focus-visible) {
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        outline-offset: ${token.root['outline-offset-focus']};
+    }
+    @media (forced-colors: active) {
+        &:has(textarea:focus-visible) { outline-color: Highlight; }
     }
 `
 
@@ -315,6 +332,9 @@ const materialStyle = css`
         background: ${token.field.filled['background-color']};
         box-shadow: none;
     }
+    &[data-appearance="filled"][data-labeled="true"] {
+        padding-top: ${token.field.filled.input['padding-top']};
+    }
     &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within) {
         background: ${token.field.filled['background-color-hover']};
         border-color: transparent;
@@ -323,7 +343,7 @@ const materialStyle = css`
     &[data-appearance="filled"]:focus-within {
         border-color: transparent;
         border-bottom-color: ${token.root['border-color-focus']};
-        box-shadow: inset 0 -1px 0 ${token.root['border-color-focus']};
+        box-shadow: ${token.field.indicator['box-shadow-focus']};
     }
     &[data-appearance="filled"]:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
         top: ${token.field.filled.label.top};
@@ -336,12 +356,12 @@ const materialStyle = css`
     &&[data-appearance="filled"][data-status="error"] {
         border-color: transparent;
         border-bottom-color: ${token.status['border-color-error']};
-        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status['border-color-error']}; }
+        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-error']}; }
     }
     &&[data-appearance="filled"][data-status="warning"] {
         border-color: transparent;
         border-bottom-color: ${token.status['border-color-warning']};
-        &:focus-within { box-shadow: inset 0 -1px 0 ${token.status['border-color-warning']}; }
+        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-warning']}; }
     }
     @media (prefers-reduced-motion: reduce) { & > label { transition: none; } }
     @media (forced-colors: active) {
@@ -372,8 +392,10 @@ const supportingStyle = css`
 function TextEdit({
     ref,
     id,
-    size = "middle",
+    size: sizeProp,
     value,
+    defaultValue,
+    onChange,
     containerRef,
     className,
     style,
@@ -394,18 +416,21 @@ function TextEdit({
     placeholder,
     ...rest
 }: TextEditProps) {
+    const size = useComponentSize(sizeProp);
+    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue ?? '');
+    const displayValue = value ?? uncontrolledValue;
     const generatedId = useId();
     const inputId = id ?? generatedId;
-    const hasValue = typeof value === "string" && value.length > 0;
+    const hasValue = typeof displayValue === "string" && displayValue.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
     const fieldStatus = errorText ? "error" : status;
     const enhancedField = Boolean(label || supportingText || errorText || showCount);
     const description = errorText || supportingText;
     const descriptionId = `${generatedId}-description`;
     const countId = `${generatedId}-count`;
-    const count = showCount && typeof value === "string" ? (
+    const count = showCount && typeof displayValue === "string" ? (
         <span id={countId} className={countStyle}>
-            {value.length}{maxLength != null ? `/${maxLength}` : ""}
+            {displayValue.length}{maxLength != null ? `/${maxLength}` : ""}
         </span>
     ) : null;
 
@@ -430,6 +455,11 @@ function TextEdit({
                 ref={ref}
                 id={inputId}
                 value={value}
+                defaultValue={defaultValue}
+                onChange={(event) => {
+                    setUncontrolledValue(event.currentTarget.value);
+                    onChange?.(event);
+                }}
                 maxLength={maxLength}
                 placeholder={placeholder ?? (label ? " " : undefined)}
                 disabled={disabled}
@@ -457,7 +487,13 @@ function TextEdit({
                     onClick={(e) => {
                         e.stopPropagation();
                         // 清除后按钮可能消失，焦点留在可继续输入的文本域。
-                        e.currentTarget.parentElement?.querySelector('textarea')?.focus();
+                        const input = e.currentTarget.parentElement?.querySelector('textarea');
+                        if (input) {
+                            input.focus();
+                            // 原生 setter 触发 React 的 change 流程，保留受控值恢复语义。
+                            Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set?.call(input, '');
+                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
                         onClear?.();
                     }}
                 />

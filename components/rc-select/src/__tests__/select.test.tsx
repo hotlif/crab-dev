@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
-import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { act, fireEvent, render, screen, userEvent } from "@crab-dev/wake/test/react";
 import type { ReactNode } from 'react';
 let virtualRowHeights: number[] = [];
 beforeAll(() => {
@@ -46,7 +46,7 @@ mock.module('@crab-dev/rc-dropdown-container', async () => {
         overlay: ReactNode;
     }) {
         const [open, setOpen] = mockReact.useState(false);
-        const ctx = mockReact.useMemo(() => ({
+        const ctx = {
             state: { open },
             dispatch: (action: {
                 type: 'setOpen';
@@ -57,16 +57,16 @@ mock.module('@crab-dev/rc-dropdown-container', async () => {
                 }
             },
             refs: { setReference: () => { } },
-        }), [open]);
+        };
         return (<div>
-            <DropdownContext.Provider value={ctx}>
+            <DropdownContext value={ctx}>
                 {children}
                 {open ? overlay : null}
-            </DropdownContext.Provider>
+            </DropdownContext>
         </div>);
     }
     function useDropdownContext() {
-        const context = mockReact.useContext(DropdownContext);
+        const context = mockReact.use(DropdownContext);
         if (!context) {
             throw new Error('useDropdownContext must be used within a DropdownContainer');
         }
@@ -78,9 +78,9 @@ mock.module('@crab-dev/rc-dropdown-container', async () => {
         useDropdownContext,
     };
 });
-let Select: (typeof import("../index.js"))["default"];
+let Select: (typeof import("../select.js"))["default"];
 beforeAll(async () => {
-    const selectModule = await mock.import<typeof import("../index.js")>("../index.js");
+    const selectModule = await mock.import<typeof import("../select.js")>("../select.js");
     Select = selectModule.default;
 });
 (globalThis as typeof globalThis & {
@@ -95,6 +95,18 @@ const changeInputValue = async (input: HTMLInputElement, value: string) => {
     await fireEvent.input(input);
 };
 describe('Select', () => {
+    it('forwards an external label to the combobox in both search modes', async () => {
+        const labelId = 'external-select-label';
+        const view = await render(<><span id={labelId}>应用类型</span>
+            <Select aria-labelledby={labelId} options={[{ label: '设计系统', value: 'design' }]} />
+        </>);
+        expect(screen.getByRole('combobox', { name: '应用类型' }).getAttribute('aria-labelledby')).toBe(labelId);
+        await view.rerender(<><span id={labelId}>应用类型</span>
+            <Select searchable aria-labelledby={labelId} label="内部标签" options={[{ label: '设计系统', value: 'design' }]} />
+        </>);
+        expect(screen.getByRole('combobox', { name: '应用类型' }).getAttribute('aria-labelledby')).toBe(labelId);
+    });
+
     it('keeps grouped virtual offsets aligned with resized option text', async () => {
         const original = Element.prototype.getBoundingClientRect;
         const measurement = mock.spyOn(Element.prototype, 'getBoundingClientRect').implement(function (this: Element) {
@@ -223,6 +235,23 @@ describe('Select', () => {
         expect(screen.queryByRole('listbox')).toBeNull();
     });
     // ─── Clear ───────────────────────────────────────────────────────────
+    it('keeps null controlled and lets the parent accept or reject selection and clear', async () => {
+        const onChange = mock.fn();
+        const options = [{ label: 'Alpha', value: 'a' }];
+        const view = await render(<Select aria-label='controlled' value={null} allowClear onChange={onChange} options={options} />);
+        const combobox = screen.getByRole('combobox');
+        await fireEvent.click(combobox);
+        await fireEvent.click(screen.getByRole('option', { name: 'Alpha' }));
+        expect(onChange).toHaveBeenCalledWith('a', options[0]);
+        expect(combobox.textContent).toContain('请选择');
+        await view.rerender(<Select aria-label='controlled' value='a' allowClear onChange={onChange} options={options} />);
+        await act(() => combobox.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
+        await fireEvent.click(screen.getByRole('button', { name: 'Clear' }));
+        expect(onChange).toHaveBeenCalledWith(null, undefined);
+        expect(combobox.textContent).toContain('Alpha');
+        await view.rerender(<Select aria-label='controlled' value={null} allowClear onChange={onChange} options={options} />);
+        expect(combobox.textContent).toContain('请选择');
+    });
     it('clears value when clear button is clicked', async () => {
         const onChange = mock.fn();
         await render(<Select aria-label='clear-select' allowClear defaultValue='beijing' onChange={onChange} options={[
@@ -231,9 +260,10 @@ describe('Select', () => {
         ]}/>);
         const combobox = screen.getByRole('combobox', { name: 'clear-select' });
         expect(combobox.textContent).toContain('Beijing');
+        await act(() => combobox.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
         const clearBtn = screen.getByRole('button', { name: 'Clear' });
         await fireEvent.click(clearBtn);
-        expect(onChange).toHaveBeenCalledWith(undefined, undefined);
+        expect(onChange).toHaveBeenCalledWith(null, undefined);
         expect(combobox.textContent).toContain('请选择');
     });
     it('renders a Material field label, supporting text, and required semantics', async () => {
@@ -262,19 +292,125 @@ describe('Select', () => {
         expect(document.getElementById(combobox.getAttribute('aria-describedby') ?? '')?.textContent).toBe('请选择一个城市');
         expect(screen.queryByText('选择常驻地点')).toBeNull();
     });
-    it('returns focus to the combobox after keyboard clearing', async () => {
-        await render(<Select aria-label="城市" allowClear defaultValue="beijing" options={[
+    it('switches the same slot on hover, preserves clear across descendants and restores the caret on exit', async () => {
+        const onChange = mock.fn();
+        await render(<Select aria-label="城市" allowClear defaultValue="beijing" onChange={onChange} options={[
             { label: '北京', value: 'beijing' },
         ]} />);
         const combobox = screen.getByRole('combobox', { name: '城市' });
-        const clearButton = screen.getByRole('button', { name: 'Clear' });
-        await act(() => clearButton.focus());
-        await fireEvent.keyDown(clearButton, { key: 'Enter' });
+        const caret = combobox.querySelector('[data-role="select-caret"]')!;
         expect(screen.queryByRole('button', { name: 'Clear' })).toBeNull();
-        expect(document.activeElement).toBe(combobox);
-        await fireEvent.keyDown(combobox, { key: 'ArrowDown' });
-        expect(screen.getByRole('listbox')).toBeTruthy();
+        const value = combobox.querySelector('[data-role="select-value"]')!;
+        await act(() => value.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
+        expect(screen.getByRole('button', { name: 'Clear' })).toBe(caret);
+        expect(combobox.querySelector('[data-role="select-caret"]')).toBeNull();
+        await act(() => value.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: caret })));
+        await act(() => caret.dispatchEvent(new MouseEvent('pointerover', { bubbles: true, relatedTarget: value })));
+        const icon = caret.querySelector('svg')!;
+        await act(() => caret.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: icon })));
+        expect(screen.getByRole('button', { name: 'Clear' })).toBe(caret);
+        await act(() => icon.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: document.body })));
+        expect(combobox.querySelector('[data-role="select-caret"]')).toBe(caret);
+        await fireEvent.click(combobox);
+        expect(combobox.getAttribute('aria-expanded')).toBe('true');
+        expect(onChange).not.toHaveBeenCalled();
+        await act(() => combobox.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
+        await fireEvent.click(screen.getByRole('button', { name: 'Clear' }));
+        expect(onChange).toHaveBeenCalledWith(null, undefined);
+        expect(combobox.getAttribute('aria-expanded')).toBe('false');
+        expect(combobox.contains(caret)).toBe(true);
+        await fireEvent.click(caret);
+        expect(combobox.getAttribute('aria-expanded')).toBe('true');
     });
+
+    for (const key of ['Enter', ' ']) {
+        it(`preserves native ${key === ' ' ? 'Space' : 'Enter'} activation without submitting or reopening and restores focus`, async () => {
+            const user = userEvent.setup();
+            const onChange = mock.fn();
+            const onSubmit = mock.fn();
+            await render(<form onSubmit={event => { event.preventDefault(); onSubmit(); }}>
+                <Select aria-label="城市" allowClear defaultValue="beijing" onChange={onChange} options={[
+                    { label: '北京', value: 'beijing' },
+                ]} />
+            </form>);
+            const combobox = screen.getByRole('combobox', { name: '城市' });
+            await act(() => combobox.focus());
+            await act(async () => { await user.tab(); });
+            const clearButton = screen.getByRole('button', { name: 'Clear' });
+            expect(document.activeElement).toBe(clearButton);
+            expect(clearButton.tagName).toBe('BUTTON');
+            expect(clearButton.getAttribute('type')).toBe('button');
+            const activation = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+            await act(() => clearButton.dispatchEvent(activation));
+            expect(activation.defaultPrevented).toBe(false);
+            expect(combobox.getAttribute('aria-expanded')).toBe('false');
+            // Wake DOM 不合成原生按钮的键盘 click；浏览器另行验证 Enter / Space。
+            await fireEvent.click(clearButton);
+            expect(onChange).toHaveBeenCalledTimes(1);
+            expect(onChange).toHaveBeenCalledWith(null, undefined);
+            expect(onSubmit).not.toHaveBeenCalled();
+            expect(screen.queryByRole('button', { name: 'Clear' })).toBeNull();
+            expect(document.activeElement).toBe(combobox);
+            expect(combobox.getAttribute('aria-expanded')).toBe('false');
+            await fireEvent.keyDown(combobox, { key: 'ArrowDown' });
+            expect(screen.getByRole('listbox')).toBeTruthy();
+        });
+    }
+    it('keeps clear reachable from a searchable multi-select while loading', async () => {
+        const onChange = mock.fn();
+        await render(<Select aria-label="多选" multiple searchable loading allowClear defaultValue={['a', 'b']} onChange={onChange}
+            options={[{ label: 'Alpha', value: 'a' }, { label: 'Beta', value: 'b' }]} />);
+        const control = screen.getByRole('combobox', { name: '多选' });
+        await fireEvent.click(control);
+        const input = screen.getByRole('textbox');
+        await act(() => input.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
+        const clear = screen.getByRole('button', { name: 'Clear' });
+        await act(() => input.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: clear })));
+        expect(screen.getByRole('button', { name: 'Clear' })).toBe(clear);
+        expect(control.querySelector('[data-role="select-suffix"]')?.querySelectorAll('button')).toHaveLength(1);
+        expect(control.getAttribute('aria-busy')).toBe('true');
+        await act(async () => { await userEvent.setup().click(clear); });
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith([], []);
+        expect(document.activeElement).toBe(control);
+        expect(control.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    for (const mode of ['empty', 'disabled', 'no-clear'] as const) {
+        it(`keeps only the caret for ${mode} fields on hover`, async () => {
+            const onChange = mock.fn();
+            await render(<Select aria-label="不可清除" allowClear={mode !== 'no-clear'} disabled={mode === 'disabled'}
+                defaultValue={mode === 'empty' ? undefined : 'a'} onChange={onChange} options={[{ label: 'Alpha', value: 'a' }]} />);
+            const control = screen.getByRole('combobox', { name: '不可清除' });
+            await act(() => control.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
+            expect(screen.queryByRole('button', { name: 'Clear' })).toBeNull();
+            const action = screen.getByRole('button', { name: 'Open options' });
+            await act(async () => { await userEvent.setup().click(action); });
+            expect(control.getAttribute('aria-expanded')).toBe(mode === 'disabled' ? 'false' : 'true');
+            expect(onChange).not.toHaveBeenCalled();
+        });
+    }
+
+    it('shows clear without hover on touch devices and releases the media listener', async () => {
+        const original = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+        const removeEventListener = mock.fn();
+        Object.defineProperty(window, 'matchMedia', { configurable: true, value: () => ({
+            matches: true, addEventListener: () => {}, removeEventListener,
+        }) });
+        try {
+            const onChange = mock.fn();
+            const view = await render(<Select aria-label="触屏" allowClear defaultValue="a" onChange={onChange} options={[{ label: 'Alpha', value: 'a' }]} />);
+            await fireEvent.click(screen.getByRole('button', { name: 'Clear' }));
+            expect(onChange).toHaveBeenCalledWith(null, undefined);
+            expect(screen.getByRole('button', { name: 'Open options' })).toBeTruthy();
+            await view.unmount();
+            expect(removeEventListener).toHaveBeenCalled();
+        } finally {
+            if (original) Object.defineProperty(window, 'matchMedia', original);
+            else Reflect.deleteProperty(window, 'matchMedia');
+        }
+    });
+
     // ─── Tag Remove ──────────────────────────────────────────────────────
     it('removes tag via close button in multi mode', async () => {
         const onChange = mock.fn();

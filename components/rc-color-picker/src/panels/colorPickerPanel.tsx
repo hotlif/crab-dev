@@ -36,12 +36,16 @@ const sliderContainerStyle = css`
     }
 `;
 
-/** 三个滑块共享:12px 轨道、透明的 active 段、令牌化的 thumb 描边。 */
+/** 颜色渐变覆盖完整值域，不随 Expressive Slider 的 active / inactive 分段缩短。 */
 const commonSliderStyle = css`
     ${TokenVars["rail.height"]}: 12px;
     ${TokenVars['thumb.stroke-color']}: ${token.slider.thumb['stroke-color']};
     ${TokenVars['rail.fill-active']}: transparent;
     ${TokenVars["thumb.fill"]}: transparent;
+    > [data-slot="slider-rail"] {
+        left: 0;
+        border-radius: var(${TokenVars["rail.border-radius"]});
+    }
 `;
 
 const DEFAULT_LOCALE: Required<ColorPickerPanelLocale> = {

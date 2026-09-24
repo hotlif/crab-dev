@@ -1,11 +1,12 @@
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit from "@crab-dev/rc-line-edit";
+import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@crab-dev/css";
-import { useCallback, useEffect, useRef, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
+import { useCallback, useEffect, useRef, useState, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
 
-import token from "./token.js";
+import token, { vars } from "./token.js";
 import type { FlatOption, SelectOption } from "./types.js";
 
 // ref 可能是回调形式或 RefObject 形式，统一赋值以便与内部 ref 合并
@@ -25,7 +26,7 @@ const controlStyle = css`
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid ${token.root['border-color']};
+    border: ${token.root['border-width']} ${token.root['border-style']} ${token.root['border-color']};
     border-radius: ${token.root['border-radius']};
     background-color: transparent;
     color: ${token.text.color};
@@ -34,21 +35,11 @@ const controlStyle = css`
     outline: none;
     transition: ${token.root.transition};
 
-    &:hover:not([aria-disabled="true"]) {
+    &:hover:not([aria-disabled="true"]):not(:focus-within):not([aria-expanded="true"]):not([data-status]) {
         border-color: ${token.root["border-color-hover"]};
     }
 
-    &:hover:not([aria-disabled="true"]) [data-role="select-clear"] {
-        opacity: 1;
-    }
-
-    &:hover:not([aria-disabled="true"]) [data-role="select-caret"] {
-        opacity: 0;
-    }
-
-    &:focus-visible {
-        outline: ${token.root['outline-width-focus']} solid ${token.root['border-color-focus']};
-        outline-offset: ${token.root['outline-offset-focus']};
+    &:is(:focus-within, [aria-expanded="true"]) {
         border-color: ${token.root["border-color-focus"]};
         box-shadow: ${token.root['box-shadow-focus']};
     }
@@ -56,17 +47,28 @@ const controlStyle = css`
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
-    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
+    @media (pointer: coarse) {
+        && {
+            min-height: calc(${token.root.touch['min-height']} + 2 * ${token.root['border-width']});
+            padding-block: 0;
+            ${vars['clear.width']}: ${token.clear.touch.width};
+        }
+    }
     @media (forced-colors: active) {
         border-color: ButtonText;
-        &:focus-within { outline: ${token.root['outline-width-focus']} solid Highlight; outline-offset: ${token.root['outline-offset-focus']}; }
+        &:is(:focus-within, [aria-expanded="true"]) {
+            outline: ${token.root['outline-width-focus']} solid Highlight;
+            outline-offset: ${token.root['outline-offset-focus']};
+        }
         &[aria-disabled='true'] { border-color: GrayText; color: GrayText; }
     }
 `;
 
 const materialFieldStyle = css`
-    &[data-labeled="true"] { padding-top: ${token.field.input['padding-top']}; }
-    &[data-labeled="true"][data-floating="false"]:not(:focus-visible) > [data-role="select-value"] {
+    &[data-appearance="filled"][data-labeled="true"] > [data-role="select-value"] {
+        padding-top: ${token.field.input['padding-top']};
+    }
+    &[data-labeled="true"][data-floating="false"]:not(:focus-within) > [data-role="select-value"] {
         visibility: hidden;
     }
     &[data-appearance="filled"] {
@@ -76,26 +78,29 @@ const materialFieldStyle = css`
         background: ${token.field.filled['background-color']};
         box-shadow: none;
     }
-    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-visible) {
+    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within):not([aria-expanded="true"]) {
         background: ${token.field.filled['background-color-hover']};
-        border-color: transparent;
-        border-bottom-color: ${token.text.color};
+        &:not([data-status]) {
+            border-color: transparent;
+            border-bottom-color: ${token.text.color};
+        }
     }
-    &[data-appearance="filled"]:focus-visible,
-    &[data-appearance="filled"][aria-expanded="true"] {
+    &[data-appearance="filled"]:is(:focus-within, [aria-expanded="true"]) {
         border-color: transparent;
         border-bottom-color: ${token.root['border-color-focus']};
-        box-shadow: inset 0 -1px 0 ${token.root['border-color-focus']};
+        box-shadow: ${token.field.indicator['box-shadow-focus']};
     }
-    &[data-status="error"] > [data-role="select-label"] { color: ${token.field['color-error']}; }
-    &[data-status="warning"] > [data-role="select-label"] { color: ${token.field['color-warning']}; }
+    &&[data-status="error"] > [data-role="select-label"] { color: ${token.field['color-error']}; }
+    &&[data-status="warning"] > [data-role="select-label"] { color: ${token.field['color-warning']}; }
     &&[data-appearance="filled"][data-status="error"] {
         border-color: transparent;
         border-bottom-color: ${token.root['border-color-error']};
+        &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${token.field.indicator['box-shadow-error']}; }
     }
     &&[data-appearance="filled"][data-status="warning"] {
         border-color: transparent;
         border-bottom-color: ${token.root['border-color-warning']};
+        &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${token.field.indicator['box-shadow-warning']}; }
     }
     @media (forced-colors: active) {
         && { border-color: CanvasText; background: Canvas; }
@@ -109,7 +114,7 @@ const fieldLabelStyle = css`
     inset-inline-start: ${token.field['padding-inline']};
     top: 50%;
     transform: translateY(-50%);
-    max-width: calc(100% - 2 * ${token.field['padding-inline']});
+    max-width: calc(100% - 2 * ${token.field['padding-inline']} - ${token.clear.width} - ${token.field.gap});
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -118,31 +123,28 @@ const fieldLabelStyle = css`
     font-size: ${token.size.middle['font-size']};
     line-height: ${token.field.label['line-height']};
     transition: ${token.field.transition};
-    [data-appearance="outlined"]:is(:focus-visible, [data-floating="true"]) > & {
+    [aria-busy="true"] > & {
+        max-width: calc(100% - 2 * ${token.field['padding-inline']} - ${token.icon.width} - ${token.clear.width} - 2 * ${token.field.gap});
+    }
+    [data-appearance="outlined"]:is(:focus-within, [data-floating="true"]) > & {
         top: 0;
         transform: translateY(-50%);
         padding-inline: ${token.field.label['padding-inline']};
         background: ${token.root['background-color']};
         font-size: ${token.field.label['font-size']};
+        max-width: calc(100% - 2 * ${token.field['padding-inline']});
     }
-    [data-appearance="filled"]:is(:focus-visible, [data-floating="true"]) > & {
-        top: ${token.field.label.top};
+    [data-appearance="filled"]:is(:focus-within, [data-floating="true"]) > & {
+        top: calc(50% - (${token.size.middle['line-height']} + ${token.field.input['padding-top']}) / 2);
         transform: none;
         padding: 0;
         background: transparent;
         font-size: ${token.field.label['font-size']};
     }
-    [data-appearance]:focus-visible > &,
+    [data-appearance]:focus-within > &,
     [data-appearance][aria-expanded="true"] > & { color: ${token.field.label['color-focus']}; }
     @media (prefers-reduced-motion: reduce) { transition: none; }
     @media (forced-colors: active) { color: CanvasText; }
-`;
-
-const controlFocusStyle = css`
-    outline: ${token.root['outline-width-focus']} solid ${token.root['border-color-focus']};
-    outline-offset: ${token.root['outline-offset-focus']};
-    border-color: ${token.root["border-color-focus"]};
-    box-shadow: ${token.root['box-shadow-focus']};
 `;
 
 const controlDisabledStyle = css`
@@ -158,15 +160,10 @@ const controlErrorStyle = css`
         border-color: ${token.root["border-color-error"]};
     }
 
-    &:focus-visible {
+    &:is(:focus-within, [aria-expanded="true"]) {
         border-color: ${token.root["border-color-error"]};
         box-shadow: ${token.root.validation['box-shadow-error']};
     }
-`;
-
-const controlErrorFocusStyle = css`
-    border-color: ${token.root["border-color-error"]};
-    box-shadow: ${token.root.validation['box-shadow-error']};
 `;
 
 const controlWarningStyle = css`
@@ -176,15 +173,10 @@ const controlWarningStyle = css`
         border-color: ${token.root["border-color-warning"]};
     }
 
-    &:focus-visible {
+    &:is(:focus-within, [aria-expanded="true"]) {
         border-color: ${token.root["border-color-warning"]};
         box-shadow: ${token.root.validation['box-shadow-warning']};
     }
-`;
-
-const controlWarningFocusStyle = css`
-    border-color: ${token.root["border-color-warning"]};
-    box-shadow: ${token.root.validation['box-shadow-warning']};
 `;
 
 const valueWrapStyle = css`
@@ -213,15 +205,20 @@ const placeholderStyle = css`
 const searchInputStyle = css`
     flex: 1;
     min-width: 0;
+    /* The Select field owns focus, including forced colors; avoid a second ring. */
+    &&:focus-within { outline: none; }
 `;
 
 const caretStyle = css`
-    margin-left: 0;
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    color: ${token.text["color-placeholder"]};
-    transition: transform 200ms ease, opacity 100ms ease;
+    justify-content: center;
+    width: ${token.icon.width};
+    height: ${token.icon.width};
+    color: ${token.icon.color};
+    & > svg { width: 100%; height: 100%; }
+    transition: transform ${token.motion.spatial.transition};
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -239,50 +236,36 @@ const tagLabelStyle = css`
     max-width: 120px;
 `;
 
-// 容器本身跟随图标自然尺寸(12px),不设最小尺寸——之前在这里用 min-block-size:24px
-// 撑命中区域,结果把它当成 flex 子项撑高了整个 controlStyle 的实际高度:small(24px)/
-// middle(32px)两档的可视高度都被拖到接近 34px,small 完全没矮下去。
-// 命中区域下限改由 clearStyle 自己用 inset 负值向外扩展(见下方),
-// absolute 定位不占文档流,不会影响这里的 flex 布局高度。
+// 清除与箭头共用固定按钮位；加载提示保留独立位置。
 const suffixWrapStyle = css`
-    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-left: 8px;
+    gap: ${token.field.gap};
+    margin-inline-start: ${token.field.gap};
 `;
 
-// inset:-6px 让 12px 图标的可点击范围向四周各扩 6px,凑够 24px 命中区域下限(§1),
-// 靠 absolute 定位脱离文档流实现,不像撑大父容器 min-size 那样连带撑高整行控件。
-const clearStyle = css`
-    display: inline-flex;
-    align-items: center;
-    color: ${token.clear.color};
-    cursor: pointer;
-    position: absolute;
-    width: ${token.clear.width};
-    height: ${token.clear.height};
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 100ms ease;
-
-    &:hover {
-        color: ${token.clear["color-hover"]};
+// Button 提供焦点、状态层和原生键盘行为；Select 只负责字段内部尺寸。
+const actionStyle = css`
+    flex-shrink: 0;
+    && {
+        ${buttonVars['icon.width']}: ${token.icon.width};
+        padding: 0;
+        width: ${token.clear.width};
+        min-width: ${token.clear.width};
+        height: ${token.clear.height};
+        color: ${token.clear.color};
     }
-
-    /* 键盘聚焦时的持久替代路径(§2):hover 之外唯一能让清除按钮可见的意符 */
-    &:focus-visible {
-        opacity: 1;
-        outline: none;
-        box-shadow: ${token.root['box-shadow-focus']};
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
+    &&:hover { color: ${token.clear['color-hover']}; }
+    // 字段容器已经应用禁用透明度。
+    &&:disabled > span { opacity: 1; }
+    @media (pointer: coarse) {
+        && {
+            width: ${token.clear.touch.width};
+            min-width: ${token.clear.touch.width};
+            height: ${token.clear.touch.width};
+        }
     }
 `;
 
@@ -294,8 +277,7 @@ const loadingIconStyle = css`
     align-items: center;
     color: ${token.root["color-loading"]};
     flex-shrink: 0;
-    margin-left: 8px;
-    --rc-spin-size: 14px;
+    --rc-spin-size: ${token.icon.width};
     ${spinVars['ring.indicator.stroke']}: currentColor;
     ${spinVars['ring.track.stroke']}: transparent;
 `;
@@ -304,24 +286,28 @@ const loadingIconStyle = css`
 const sizeMetricsMap = {
     large: css`
         padding: ${token.size.large.padding};
+        ${vars['clear.width']}: ${token.size.large.action.width};
+        ${vars['clear.height']}: ${token.size.large.action.width};
         font-size: ${token.size.large['font-size']};
         line-height: ${token.size.large["line-height"]};
     `,
     middle: css`
         padding: ${token.size.middle.padding};
+        ${vars['clear.width']}: ${token.size.middle.action.width};
+        ${vars['clear.height']}: ${token.size.middle.action.width};
         font-size: ${token.size.middle['font-size']};
         line-height: ${token.size.middle["line-height"]};
     `,
     small: css`
         padding: ${token.size.small.padding};
+        ${vars['clear.width']}: ${token.size.small.action.width};
+        ${vars['clear.height']}: ${token.size.small.action.width};
         font-size: ${token.size.small['font-size']};
         line-height: ${token.size.small["line-height"]};
     `,
 };
 
-// 单选:固定 height,精确对齐 RcLineEdit 的三档尺寸——line-height+padding-y+border
-// 之和本就会超过 24/32/40px 这几个设计值(例如 small: 20+8+2=30px),RcLineEdit 靠固定
-// height(而非 min-height)把它按设计尺寸截住,这里跟随同样的处理方式。
+// 单选按字段档位对齐；文本行高增大时允许高度随内容增长。
 const sizeHeightFixedMap = {
     large: css`height: max(${token.size.large.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
     middle: css`height: max(${token.size.middle.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
@@ -339,15 +325,14 @@ const sizeHeightFlexibleMap = {
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
 const CaretIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 1024 1024" fill="currentColor">
-        <path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3 0.1-12.7-6.4-12.7z" />
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor">
+        <path d="m7 10 5 5 5-5z" />
     </svg>
 );
 
 const ClearIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="m15 9-6 6M9 9l6 6" />
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m18 6-12 12M6 6l12 12" />
     </svg>
 );
 
@@ -432,6 +417,18 @@ const SelectInput: FC<SelectInputProps> = ({
     const controlRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const open = state.open;
+    const [hovered, setHovered] = useState(false);
+    const [actionFocused, setActionFocused] = useState(false);
+    const [withoutHover, setWithoutHover] = useState(false);
+
+    useEffect(() => {
+        const media = window.matchMedia?.('(hover: none)');
+        if (!media) return;
+        const update = () => setWithoutHover(media.matches);
+        update();
+        media.addEventListener('change', update);
+        return () => media.removeEventListener('change', update);
+    }, []);
 
     const onOpenChangeRef = useRef(onOpenChange);
     onOpenChangeRef.current = onOpenChange;
@@ -592,17 +589,15 @@ const SelectInput: FC<SelectInputProps> = ({
         triggerClear();
     };
 
-    // 清除按钮的键盘等价路径(§1/§2):没有它,role="button" 但无法用 Enter/Space 触发的
-    // 元素形同虚设——键盘用户能 Tab 到它,却按不动它。
-    const handleClearKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
+    // 交给原生按钮激活，阻止父级 combobox 把同一按键解释成展开或选择。
+    const handleClearKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
         if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
             e.stopPropagation();
-            triggerClear();
         }
     };
 
     const canClear = allowClear && !disabled && selectedOptions.length > 0;
+    const showClear = canClear && (hovered || actionFocused || withoutHover);
 
     const renderTag = (opt: SelectOption) => {
         const handleClose = () => onRemoveTag(opt.value);
@@ -673,18 +668,6 @@ const SelectInput: FC<SelectInputProps> = ({
         return <span className={singleValueStyle}>{selectedOptions[0]?.label}</span>;
     };
 
-    const getStatusStyles = () => {
-        if (!status) {
-            return open ? controlFocusStyle : undefined;
-        }
-
-        if (status === "error") {
-            return cx.call(undefined, controlErrorStyle, open && controlErrorFocusStyle);
-        }
-
-        return cx.call(undefined, controlWarningStyle, open && controlWarningFocusStyle);
-    };
-
     // 仅在展开时暴露 aria-controls/aria-activedescendant:浮层关闭时 SelectOverlay 未挂载,
     // 引用一个不存在的 id 对屏幕阅读器没有意义(§3 触发器与目标显式关联)。
     const activeDescendantId =
@@ -708,6 +691,7 @@ const SelectInput: FC<SelectInputProps> = ({
             aria-activedescendant={activeDescendantId}
             aria-invalid={status === "error" ? true : undefined}
             data-appearance={appearance}
+            data-clearable={canClear}
             data-labeled={Boolean(label)}
             data-floating={Boolean(open || selectedOptions.length > 0 || searchText)}
             data-status={status}
@@ -716,40 +700,52 @@ const SelectInput: FC<SelectInputProps> = ({
             className={cx.call(undefined, controlStyle,
                 sizeMetricsMap[size],
                 multiple ? sizeHeightFlexibleMap[size] : sizeHeightFixedMap[size],
-                !status && open && controlFocusStyle,
                 disabled && controlDisabledStyle,
-                getStatusStyles(),
+                status === "error" && controlErrorStyle,
+                status === "warning" && controlWarningStyle,
                 materialFieldStyle,
             )}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             onFocus={onFocus}
             onBlur={onBlur}
+            onPointerOver={(event) => {
+                if (event.pointerType !== 'touch') setHovered(true);
+            }}
+            onPointerOut={(event) => {
+                if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) {
+                    setHovered(false);
+                }
+            }}
         >
             {label && <span id={labelId} data-role="select-label" className={fieldLabelStyle}>{label}{required ? " *" : ""}</span>}
             <div data-role="select-value" className={valueWrapStyle}>{renderContent()}</div>
-            {loading ? (
-                <span className={loadingIconStyle}>
-                    <SpinIndicator />
-                </span>
-            ) : null}
-            <span className={suffixWrapStyle}>
-                <span data-role={canClear ? "select-caret" : undefined} className={cx.call(undefined, caretStyle, open && caretOpenStyle)}>
-                    <CaretIcon />
-                </span>
-                {canClear ? (
-                    <span
-                        data-role="select-clear"
-                        className={clearStyle}
-                        role="button"
-                        tabIndex={0}
-                        aria-label="Clear"
-                        onClick={handleClearClick}
-                        onKeyDown={handleClearKeyDown}
-                    >
-                        <ClearIcon />
-                    </span>
+            <span data-role="select-suffix" className={suffixWrapStyle}>
+                {loading ? (
+                    <span aria-hidden="true" className={loadingIconStyle}><SpinIndicator /></span>
                 ) : null}
+                <Button
+                    data-role={showClear ? 'select-clear' : 'select-caret'}
+                    className={actionStyle}
+                    type="button"
+                    appearance="text"
+                    shape="circle"
+                    size={size}
+                    disabled={disabled}
+                    aria-label={showClear ? 'Clear' : open ? 'Close options' : 'Open options'}
+                    aria-expanded={showClear ? undefined : open}
+                    icon={showClear ? <ClearIcon /> : <span aria-hidden="true" className={cx.call(undefined, caretStyle, open && caretOpenStyle)}><CaretIcon /></span>}
+                    onFocus={() => setActionFocused(true)}
+                    onBlur={() => setActionFocused(false)}
+                    onClick={(event) => {
+                        if (showClear) handleClearClick(event);
+                        else {
+                            event.stopPropagation();
+                            handleClick();
+                        }
+                    }}
+                    onKeyDown={handleClearKeyDown}
+                />
             </span>
         </div>
     );

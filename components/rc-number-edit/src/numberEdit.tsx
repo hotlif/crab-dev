@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css } from "@crab-dev/css";
 import LineEdit from "@crab-dev/rc-line-edit";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
@@ -82,9 +83,9 @@ function NumberEdit(props: NumberEditProps) {
         formatter,
         parser,
         controls = true,
-        // stringMode 为预留 API，第一版按 number 处理，此处解构以免透传到 DOM
+        // 不将兼容的 stringMode=false 透传给 DOM。
         stringMode: _stringMode,
-        size = "middle",
+        size: sizeProp,
         disabled,
         readOnly,
         prefix,
@@ -99,6 +100,7 @@ function NumberEdit(props: NumberEditProps) {
         id,
         ...rest
     } = props;
+    const size = useComponentSize(sizeProp);
 
     const generatedInputId = useId();
     const inputId = id ?? generatedInputId;
@@ -295,6 +297,7 @@ function NumberEdit(props: NumberEditProps) {
         <>
             {suffix}
             <Stepper
+                size={size}
                 inputId={inputId}
                 onStart={spinner.start}
                 onStop={spinner.stop}

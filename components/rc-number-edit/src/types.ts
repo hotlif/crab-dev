@@ -81,9 +81,7 @@ export interface NumberEditProps extends InheritedShellProps {
     controls?: boolean;
 
     /**
-     * 【预留 API — 第一版仅类型签名，尚未实现运算】高精度字符串模式。
-     * 未来开启后 value / onChange 将以 string 承载任意精度（BigInt / decimal）。
-     * 当前版本传入 `true` 不生效，仍按 number 处理。
+     * 当前仅支持 number 模式；高精度字符串运算尚未提供，禁止开启。
      */
-    stringMode?: boolean;
+    stringMode?: false;
 }

@@ -6,30 +6,44 @@ imports = [
 ]
 
 [token]
-overlay.width = "420px"
+overlay.width = "480px"
 overlay.padding = "$ref(space.section-gap)"
+overlay.viewport.gap = "$ref(space.component-gap)"
 
-field.gap = "$ref(space.component-gap)"
+field.gap = "$ref(space.section-gap)"
+field.parameter.gap = "$ref(space.stack-gap)"
+field.parameter.min-width = "120px"
+field.hint.color = "$ref(color.text.secondary)"
+field.hint.font-size = "$ref(typography.body.small.font-size)"
+field.hint.line-height = "$ref(typography.body.small.line-height)"
 mode-row.gap = "$ref(space.inline-gap)"
 mode-row.text.color = "$ref(color.text.primary)"
 mode-row.font-size = "$ref(typography.label.font-size)"
 mode-row.opacity-inactive = "$ref(opacity.tertiary)"
 
-value-grid.gap = "4px"
+value-grid.gap = "$ref(space.component-gap)"
+value-grid.min-width = "64px"
+value-grid.named.min-width = "80px"
+value-grid.max-height = "256px"
+value-grid.padding-focus = "$ref(space.inline-gap)"
+value-grid.target.padding = "$ref(space.component-gap)"
 
 expression.font-size = "$ref(typography.label.font-size)"
 expression.color = "$ref(color.text.primary)"
-expression.background-color = "var(--cron-picker-expression-background, $ref(color.background.hover-subtle))"
-expression.border-radius = "var(--cron-picker-expression-radius, $ref(radius.sm))"
+expression.background-color = "$ref(color.background.hover-subtle)"
+expression.border-radius = "$ref(radius.sm)"
 expression.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
 
-describe.color = "$ref(color.text.secondary)"
-describe.font-size = "$ref(typography.caption.font-size)"
+describe.color = "$ref(color.text.primary)"
+describe.font-size = "$ref(typography.title.medium.font-size)"
+describe.font-weight = "$ref(typography.title.medium.font-weight)"
+describe.line-height = "$ref(typography.title.medium.line-height)"
 
 preview.color = "$ref(color.text.secondary)"
 preview.font-size = "$ref(typography.caption.font-size)"
 preview.time.color = "$ref(color.text.primary)"
+preview.line-height = "$ref(typography.body.medium.line-height)"
 
 divider.color = "$ref(color.border.default)"
 
-root.transition = "var(--cron-picker-transition, $ref(motion.interaction))"
+root.transition = "$ref(motion.interaction)"

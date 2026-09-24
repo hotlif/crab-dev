@@ -1,4 +1,5 @@
 import RcDropdownContainer from '@crab-dev/rc-dropdown-container';
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import { useId } from 'react';
 import type { FC } from 'react';
@@ -19,7 +20,7 @@ const CronPicker: FC<CronPickerProps> = ({
     value,
     defaultValue,
     onChange,
-    size = 'middle',
+    size: sizeProp,
     disabled = false,
     status,
     placeholder = DEFAULT_CRON_EXPRESSION,
@@ -28,6 +29,7 @@ const CronPicker: FC<CronPickerProps> = ({
     className,
     'aria-label': ariaLabel = 'Cron 表达式',
 }) => {
+    const size = useComponentSize(sizeProp);
     const overlayId = useId();
     const [expression, setExpression] = useControllableValue<string>({
         value,
@@ -58,6 +60,7 @@ const CronPicker: FC<CronPickerProps> = ({
 
     return (
         <RcDropdownContainer
+            size={size}
             className={className}
             overlay={
                 <CronPickerOverlay

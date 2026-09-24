@@ -8,17 +8,17 @@ imports = [
 [token]
 
 # 交互反馈动效：hover/active 颜色切换要求"快到近乎即时"，走 interaction 语义档
-root.transition = "var(--number-edit-transition, color $ref(motion.interaction), background-color $ref(motion.interaction))"
+root.transition = "color $ref(motion.interaction), background-color $ref(motion.interaction)"
 
 # ─── 步进器（Stepper）─────────────────────────────────────────────
 # 字段尾部使用 MD3 Text icon button 的状态层；本层只规定组合布局和 48px 操作目标。
 stepper.color            = "$ref(color.text.secondary)"
 stepper.color-hover      = "$ref(color.text.primary)"
 stepper.color-disabled   = "$ref(color.text.disabled)"
-stepper.background-color-hover  = "var(--number-edit-stepper-background-hover, $ref(color.state.hover))"
-stepper.background-color-active = "var(--number-edit-stepper-background-active, $ref(color.state.pressed))"
+stepper.background-color-hover  = "$ref(color.state.hover)"
+stepper.background-color-active = "$ref(color.state.pressed)"
 stepper.divider.color    = "$ref(color.border.default)"
-stepper.border-radius    = "var(--number-edit-stepper-radius, $ref(shape.control))"
+stepper.border-radius    = "$ref(shape.control)"
 stepper.width            = "24px"
 stepper.gap              = "$ref(space.inline-gap)"
 stepper.action.min-width = "$ref(size.48)"
@@ -27,19 +27,23 @@ stepper.action.height    = "$ref(size.48)"
 stepper.action.touch.min-width = "$ref(size.touch-target)"
 stepper.action.touch.width = "$ref(size.touch-target)"
 stepper.action.touch.height = "$ref(size.touch-target)"
-stepper.icon.width       = "var(--number-edit-stepper-icon-size, 24px)"
+stepper.icon.width       = "24px"
 
 # ─── 上标科学计数法覆盖层（Display overlay）───────────────────────
 # 失焦时覆盖在 input 文本区之上、用真 <sup> 呈现 1.23×10²¹。
 # 背景须与输入框表面同色，以完全遮盖底层 input 的原始文本。
-display.background-color       = "var(--number-edit-display-background, $ref(color.surface.content))"
+display.background-color       = "$ref(color.surface.content)"
 display.color           = "$ref(color.text.primary)"
 # <sup> 相对基线的字号比例（视觉打磨）
 display.superscript.font-size = "0.75em"
 
 # ─── 禁用 ─────────────────────────────────────────────────────────
 # 覆盖层在禁用态跟随降低不透明度（外壳整体禁用由 rc-line-edit 容器负责）
-root.opacity-disabled = "var(--number-edit-opacity-disabled, var(--number-edit-disabled-opacity, $ref(opacity.disabled)))"
+root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 右侧操作区图标间隙（清除按钮与步进器共处）────────────────────
 icon.gap = "$ref(space.component-gap)"
+
+size.small.action.width = "$ref(sizing.small.action)"
+size.middle.action.width = "$ref(sizing.middle.action)"
+size.large.action.width = "$ref(sizing.large.action)"

@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@crab-dev/css";
 import { type HTMLAttributes, type Ref } from "react";
@@ -16,7 +17,7 @@ export interface ColorPickerProps
     defaultValue?: OKLCHValue;
     onValueChange?: (value: OKLCHValue) => void;
     disabled?: boolean;
-    size?: "small" | "medium" | "large";
+    size?: 'small' | 'middle' | 'medium' | 'large';
     /** 文本输入框初始展示格式,默认 "hex"。仅影响显示,输出恒为 OKLCHValue。 */
     format?: ColorFormat;
     /** 预设色板:扁平色或带标题的分组色。 */
@@ -42,7 +43,7 @@ const ColorPicker = ({
     defaultValue,
     onValueChange,
     disabled = false,
-    size = "medium",
+    size: sizeProp,
     format = "hex",
     presets,
     showAlpha = true,
@@ -51,6 +52,8 @@ const ColorPicker = ({
     ref,
     ...restProps
 }: ColorPickerProps) => {
+    const configuredSize = useComponentSize(sizeProp);
+    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     const [current, setCurrent] = useControllableValue<OKLCHValue>({
         value,
         defaultValue: defaultValue ?? DEFAULT_VALUE,
@@ -59,6 +62,7 @@ const ColorPicker = ({
 
     return (
         <RcDropdownContainer
+            size={size === 'medium' ? 'middle' : size}
             overlay={
                 <ColorPickerOverlay
                     locale={locale}

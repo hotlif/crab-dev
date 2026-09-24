@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@crab-dev/css";
 import { useId, useRef, useState, type FC } from "react";
@@ -14,8 +15,8 @@ import type { FlatOption, SelectOption, SelectOptionGroup, SelectOptionOrGroup, 
 const isGroup = (item: SelectOptionOrGroup): item is SelectOptionGroup =>
     "options" in item && Array.isArray((item as SelectOptionGroup).options);
 
-const asArray = (value: string | string[] | undefined): string[] => {
-    if (value === undefined) {
+const asArray = (value: string | string[] | null | undefined): string[] => {
+    if (value == null) {
         return [];
     }
 
@@ -110,7 +111,7 @@ const Select: FC<SelectProps> = ({
     disabled = false,
     searchable = false,
     multiple = false,
-    size = "middle",
+    size: sizeProp,
     status,
     appearance = "outlined",
     label,
@@ -135,9 +136,11 @@ const Select: FC<SelectProps> = ({
     onBlur,
     className,
     "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
     "aria-describedby": ariaDescribedBy,
     ...restProps
 }) => {
+    const size = useComponentSize(sizeProp);
     // combobox 的 aria-controls / aria-activedescendant 与 listbox 及各 option 的 id
     // 共享同一前缀(§3 触发器与目标显式关联),故在两个子组件的共同父级生成一次。
     const listboxId = useId();
@@ -195,9 +198,9 @@ const Select: FC<SelectProps> = ({
             return;
         }
 
-        const nextValue = nextValues[0];
+        const nextValue = nextValues[0] ?? null;
         const nextOption = allPlainOptions.find((opt) => opt.value === nextValue);
-        (onChange as ((v: string | undefined, o: SelectOption | undefined) => void) | undefined)?.(
+        (onChange as ((v: string | null, o: SelectOption | undefined) => void) | undefined)?.(
             nextValue,
             nextOption,
         );
@@ -250,6 +253,7 @@ const Select: FC<SelectProps> = ({
 
     return (
         <RcDropdownContainer
+            size={size}
             {...restProps}
             className={className}
             overlay={
@@ -277,7 +281,7 @@ const Select: FC<SelectProps> = ({
                     ref={ref}
                     id={inputId}
                     ariaLabel={ariaLabel}
-                    ariaLabelledBy={label ? labelId : undefined}
+                    ariaLabelledBy={ariaLabelledBy ?? (label ? labelId : undefined)}
                     ariaDescribedBy={[ariaDescribedBy, description ? descriptionId : undefined].filter(Boolean).join(" ") || undefined}
                     disabled={disabled}
                     searchable={searchable}
