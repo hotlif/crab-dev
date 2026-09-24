@@ -1,6 +1,6 @@
 {
     "name": "@crab-dev/rc-pdf-editor",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "基于 PDFium 与 Crab Canvas 的浏览器 PDF 对象编辑器",
     "websiteConfig": {
         "title": "PdfEditor PDF 编辑器",
