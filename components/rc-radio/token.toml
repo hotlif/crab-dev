@@ -17,18 +17,18 @@ root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-control.transition = "var(--radio-root-transition, var(--radio-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)))"
-control.target.width = "var(--radio-control-target-size, $ref(size.selection-target))"
+control.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)"
+control.target.width = "$ref(size.selection-target)"
 control.border-color-error = "$ref(color.border.error)"
 dot.color-error = "$ref(color.feedback.error.solid)"
-state-layer.width = "var(--radio-state-layer-size, 40px)"
-state-layer.border-radius = "var(--radio-state-layer-radius, $ref(radius.pill))"
+state-layer.width = "40px"
+state-layer.border-radius = "$ref(radius.pill)"
 state-layer.color = "$ref(color.text.primary)"
 state-layer.color-selected = "$ref(color.brand.primary)"
 state-layer.color-error = "$ref(color.feedback.error.solid)"
 state-layer.opacity-hover = "$ref(state.opacity.hover)"
 state-layer.opacity-focus = "$ref(state.opacity.focus)"
-state-layer.opacity-active = "var(--radio-state-layer-opacity-pressed, $ref(state.opacity.pressed))"
+state-layer.opacity-active = "$ref(state.opacity.pressed)"
 state-layer.transition = "opacity $ref(motion.interaction), background-color $ref(motion.interaction)"
 
 
@@ -40,50 +40,50 @@ group.gap            = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.box.width = "var(--radio-size-large-box-size, 24px)"
-size.large.dot.width = "var(--radio-size-large-dot-size, 12px)"
+size.large.box.width = "24px"
+size.large.dot.width = "12px"
 size.large.label.font-size   = "$ref(font.size.subhead)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
-size.middle.box.width = "var(--radio-size-middle-box-size, 20px)"
-size.middle.dot.width = "var(--radio-size-middle-dot-size, 10px)"
+size.middle.box.width = "20px"
+size.middle.dot.width = "10px"
 size.middle.label.font-size = "$ref(typography.body.large.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.box.width = "var(--radio-size-small-box-size, 16px)"
-size.small.dot.width = "var(--radio-size-small-dot-size, 8px)"
+size.small.box.width = "16px"
+size.small.dot.width = "8px"
 size.small.label.font-size   = "$ref(typography.label.font-size)"
 
 
 # ─── 默认状态 ────────────────────────────────────────────────────────────────
 
-control.border-width = "var(--radio-root-border-width, var(--radio-border-width, 2px))"
-control.border-style = "var(--radio-root-border-style, var(--radio-border-style, solid))"
-control.border-color = "var(--radio-root-border-color, var(--radio-border-color, $ref(color.text.secondary)))"
-control.border-color-hover = "var(--radio-root-border-color-hover, var(--radio-border-color-hover, $ref(color.text.primary)))"
-control.background-color = "var(--radio-root-background-color, var(--radio-background-color, transparent))"
+control.border-width = "2px"
+control.border-style = "solid"
+control.border-color = "$ref(color.text.secondary)"
+control.border-color-hover = "$ref(color.text.primary)"
+control.background-color = "transparent"
 
 
 # ─── 选中状态 ────────────────────────────────────────────────────────────────
 
-control.checked.background-color = "var(--radio-root-background-color-checked, var(--radio-background-color-checked, var(--radio-checked-background-color, transparent)))"
-control.checked.background-color-hover = "var(--radio-root-background-color-hover-checked, var(--radio-background-color-hover-checked, var(--radio-checked-background-color-hover, transparent)))"
-control.checked.border-color = "var(--radio-root-border-color-checked, var(--radio-border-color-checked, var(--radio-checked-border-color, $ref(color.brand.primary))))"
-dot.checked.color = "var(--radio-dot-color-checked, var(--radio-checked-dot-color, $ref(color.brand.primary)))"
+control.checked.background-color = "transparent"
+control.checked.background-color-hover = "transparent"
+control.checked.border-color = "$ref(color.brand.primary)"
+dot.checked.color = "$ref(color.brand.primary)"
 dot.scale-hidden = "0.6"
-dot.scale = "var(--radio-dot-scale-visible, 1)"
+dot.scale = "1"
 dot.transition = "opacity $ref(motion.interaction), scale $ref(motion.spatial.fast)"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-control.background-color-disabled = "var(--radio-root-background-color-disabled, var(--radio-background-color-disabled, var(--radio-disabled-background-color, transparent)))"
-control.border-color-disabled = "var(--radio-root-border-color-disabled, var(--radio-border-color-disabled, var(--radio-disabled-border-color, $ref(color.text.primary))))"
-dot.color-disabled        = "var(--radio-disabled-dot-color, $ref(color.text.primary))"
+control.background-color-disabled = "transparent"
+control.border-color-disabled = "$ref(color.text.primary)"
+dot.color-disabled        = "$ref(color.text.primary)"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────

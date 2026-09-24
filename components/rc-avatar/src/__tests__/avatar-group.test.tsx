@@ -1,4 +1,5 @@
-import { describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
+import { fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import Avatar from '../avatar.js';
 import AvatarGroup from '../avatar-group.js';
 (globalThis as typeof globalThis & {
@@ -91,12 +92,16 @@ describe('AvatarGroup', () => {
         expect(items[2].style.zIndex).toBe('1');
     });
     it('applies spacing prop as CSS custom property', async () => {
-        const { container } = await render(<AvatarGroup spacing={-12}>
+        const { container, rerender } = await render(<AvatarGroup spacing={-12}>
             <Avatar>A</Avatar>
             <Avatar>B</Avatar>
         </AvatarGroup>);
         const group = container.firstElementChild as HTMLElement;
-        expect(group.style.getPropertyValue('--avatar-group-overlap')).toBe('-12px');
+        expect(group.style.getPropertyValue('--avatar-group-margin')).toBe('-12px');
+        await rerender(<AvatarGroup spacing="-0.5rem"><Avatar>A</Avatar><Avatar>B</Avatar></AvatarGroup>);
+        expect(group.style.getPropertyValue('--avatar-group-margin')).toBe('-0.5rem');
+        await rerender(<AvatarGroup><Avatar>A</Avatar><Avatar>B</Avatar></AvatarGroup>);
+        expect(group.style.getPropertyValue('--avatar-group-margin')).toBe('');
     });
     it('badge indicator carries title "+N more"', async () => {
         await render(<AvatarGroup max={1}>
@@ -107,22 +112,22 @@ describe('AvatarGroup', () => {
         const indicator = screen.getByLabelText('+2 more');
         expect(indicator.getAttribute('title')).toBe('+2 more');
     });
-    it('makes the last item interactive when onExtraClick is provided', async () => {
+    it('keeps overflow and avatar actions independent without nested buttons', async () => {
         const handleClick = mock.fn();
-        await render(<AvatarGroup max={1} onExtraClick={handleClick}>
-            <Avatar>A</Avatar>
+        const avatarClick = mock.fn();
+        const { container } = await render(<AvatarGroup max={1} onExtraClick={handleClick}>
+            <Avatar onClick={avatarClick}>A</Avatar>
             <Avatar>B</Avatar>
             <Avatar>C</Avatar>
         </AvatarGroup>);
-        // The outer span (not the Badge indicator) gets role="button"
         const button = screen.getByRole('button', { name: '+2 more' });
-        expect(button.getAttribute('tabindex')).toBe('0');
+        expect(button.tagName).toBe('BUTTON');
+        expect(container.querySelector('button button')).toBeNull();
+        await fireEvent.click(screen.getByRole('button', { name: 'A' }));
+        expect(avatarClick).toHaveBeenCalledTimes(1);
+        expect(handleClick).not.toHaveBeenCalled();
         await fireEvent.click(button);
         expect(handleClick).toHaveBeenCalledTimes(1);
-        await fireEvent.keyDown(button, { key: 'Enter' });
-        expect(handleClick).toHaveBeenCalledTimes(2);
-        await fireEvent.keyDown(button, { key: ' ' });
-        expect(handleClick).toHaveBeenCalledTimes(3);
     });
     it('supports custom renderExtra as Badge count content', async () => {
         await render(<AvatarGroup max={1} renderExtra={(hidden) => `and ${hidden} more`}>

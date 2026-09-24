@@ -10,17 +10,17 @@ imports = [
 # ─── 线 ──────────────────────────────────────────────────────────────────────
 # 分割线通过 border.subtle 表达内容分组，避免与可交互控件争夺视觉权重。
 
-line.border-color = "var(--divider-line-color, $ref(color.border.subtle))"
-line.border-width = "var(--divider-line-width, 1px)"
+line.border-color = "$ref(color.border.subtle)"
+line.border-width = "1px"
 
 
 # ─── 间距 ────────────────────────────────────────────────────────────────────
 # 格式塔接近性：线两侧的留白决定"谁属于谁"。四档对应不同的分组强度。
 
-spacing.none.margin   = "var(--divider-spacing-none, 0px)"
-spacing.small.margin  = "var(--divider-spacing-small, $ref(space.component-gap))"
-spacing.middle.margin = "var(--divider-spacing-middle, $ref(space.section-gap))"
-spacing.large.margin  = "var(--divider-spacing-large, $ref(space.group-gap))"
+spacing.none.margin   = "0px"
+spacing.small.margin  = "$ref(space.component-gap)"
+spacing.middle.margin = "$ref(space.section-gap)"
+spacing.large.margin  = "$ref(space.group-gap)"
 
 
 # ─── 文字 ────────────────────────────────────────────────────────────────────
@@ -33,10 +33,10 @@ text.font-size          = "$ref(typography.body.font-size)"
 text.font-weight        = "$ref(typography.label.font-weight)"
 text.font-weight-plain  = "$ref(font.weight.body)"
 text.gap                = "$ref(space.component-gap)"
-text.flex-basis         = "var(--divider-text-offset, 5%)"
+text.flex-basis         = "5%"
 
 
 # ─── 垂直分割线 ──────────────────────────────────────────────────────────────
 # 高度跟随当前字号（1em），使其在按钮组 / 面包屑等行内场景中天然与文字等高。
 
-vertical.block-size = "var(--divider-vertical-size, 1em)"
+vertical.block-size = "1em"

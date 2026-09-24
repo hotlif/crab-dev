@@ -29,10 +29,10 @@ state-layer.transition = "opacity $ref(motion.interaction)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--button-transition, border-radius $ref(motion.spatial.fast), background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction), box-shadow $ref(motion.interaction))"
-root.opacity-loading = "var(--button-opacity-loading, 1)"
+root.transition = "border-radius $ref(motion.spatial.fast), background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction), box-shadow $ref(motion.interaction)"
+root.opacity-loading = "1"
 root.border-width = "1px"
-root.opacity-disabled = "var(--button-opacity-disabled, $ref(opacity.disabled))"
+root.opacity-disabled = "$ref(opacity.disabled)"
 root.color-disabled = "$ref(color.text.primary)"
 root.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 10%, transparent)"
 
@@ -40,27 +40,27 @@ root.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 10
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
 size.large.gap           = "$ref(space.component-gap)"
-size.large.height = "$ref(size.56)"
+size.large.height = "$ref(sizing.large.control)"
 size.large.padding = "0 $ref(space.group-gap)"
-size.large.border-radius = "calc($ref(size.56) / 2)"
+size.large.border-radius = "calc($ref(sizing.large.control) / 2)"
 size.large.font-size = "$ref(typography.title.medium.font-size)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
 
 size.middle.gap           = "$ref(space.component-gap)"
-size.middle.height = "$ref(size.40)"
+size.middle.height = "$ref(sizing.middle.control)"
 size.middle.padding = "0 $ref(space.section-gap)"
-size.middle.border-radius = "calc($ref(size.40) / 2)"
+size.middle.border-radius = "calc($ref(sizing.middle.control) / 2)"
 size.middle.font-size = "$ref(typography.label.large.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
 size.small.gap = "$ref(space.inline-gap)"
-size.small.height = "$ref(size.32)"
+size.small.height = "$ref(sizing.small.control)"
 size.small.padding = "0 $ref(space.control-padding-x)"
-size.small.border-radius = "calc($ref(size.32) / 2)"
+size.small.border-radius = "calc($ref(sizing.small.control) / 2)"
 size.small.font-size = "$ref(typography.label.large.font-size)"
 
 
@@ -162,9 +162,9 @@ danger.subtle.background-color-active = "color-mix(in srgb, $ref(color.feedback.
 
 # ─── Selected — 选中状态覆盖 ─────────────────────────────────────────────────
 
-root.background-color-selected = "var(--button-background-color-selected, var(--button-selected-background-color, $ref(color.brand.primary)))"
-root.color-selected = "var(--button-color-selected, var(--button-selected-color, $ref(color.text.on-brand)))"
-root.border-color-selected = "var(--button-border-color-selected, var(--button-selected-border-color, $ref(color.brand.primary)))"
+root.background-color-selected = "$ref(color.brand.primary)"
+root.color-selected = "$ref(color.text.on-brand)"
+root.border-color-selected = "$ref(color.brand.primary)"
 
 
 # ─── Shape — 形状变体 ────────────────────────────────────────────────────────

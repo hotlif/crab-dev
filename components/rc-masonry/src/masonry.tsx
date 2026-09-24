@@ -19,6 +19,7 @@ const containerStyle = css`
 const itemStyle = css`
     position: absolute;
     transition: ${token.root.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 interface ItemPosition {

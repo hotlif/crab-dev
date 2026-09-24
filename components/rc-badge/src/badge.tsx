@@ -1,3 +1,4 @@
+import { useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import type { CSSProperties, FC, ReactNode } from 'react';
 import token from './token.js';
@@ -205,7 +206,7 @@ const Badge: FC<BadgeProps> = ({
     status,
     text,
     color,
-    size = 'default',
+    size: sizeProp,
     offset,
     title,
     className,
@@ -215,6 +216,8 @@ const Badge: FC<BadgeProps> = ({
     indicatorStyle,
     ...restProps
 }) => {
+    const config = useConfig();
+    const size = sizeProp ?? (config.size === 'small' ? 'small' : 'default');
     const hasChildren = children !== undefined && children !== null && children !== false;
 
     // ── 状态模式：无 children + status，渲染 "dot + text" ────────────────────

@@ -536,17 +536,6 @@ const Button: FC<ButtonProps> = ({
     shape,
     isSelected,
     disabled,
-    href,
-    target,
-    rel,
-    id,
-    tabIndex,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledby,
-    'aria-describedby': ariaDescribedby,
-    'aria-current': ariaCurrent,
-    onClick,
-    onClickCapture,
     ...restProps
 }) => {
     // 可变实例状态 ref：跨事件持有点击锁，不触发渲染
@@ -616,8 +605,8 @@ const Button: FC<ButtonProps> = ({
         </>
     );
 
-    const makeClickHandler = (handler: ButtonProps['onClick']) => (
-        e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+    const makeClickHandler = <Element extends HTMLElement,>(handler?: (event: MouseEvent<Element>) => void | Promise<void>) => (
+        e: MouseEvent<Element>,
     ) => {
         if (disabled || loading) {
             e.preventDefault();
@@ -627,9 +616,7 @@ const Button: FC<ButtonProps> = ({
         if (clickState.current === false) {
             clickState.current = true;
             try {
-                const result = handler?.(
-                    e as Parameters<NonNullable<ButtonProps['onClick']>>[0],
-                );
+                const result = handler?.(e);
                 if (result?.then) {
                     result
                         .then(() => { clickState.current = false; })
@@ -646,12 +633,6 @@ const Button: FC<ButtonProps> = ({
     };
 
     const commonProps = {
-        id,
-        tabIndex,
-        'aria-label': ariaLabel,
-        'aria-labelledby': ariaLabelledby,
-        'aria-describedby': ariaDescribedby,
-        'aria-current': ariaCurrent,
         'aria-busy': loading,
         'aria-disabled': disabled || loading,
         'data-is-loading': loading && !disabled ? `${loading}` : null,
@@ -659,16 +640,14 @@ const Button: FC<ButtonProps> = ({
         className: buttonClassName,
     };
 
-    if (href) {
+    if (restProps.href !== undefined) {
         return (
             <a
+                {...restProps}
                 {...commonProps}
-                tabIndex={disabled ? -1 : tabIndex}
-                href={href}
-                target={target}
-                rel={rel}
-                onClick={makeClickHandler(onClick)}
-                onClickCapture={makeClickHandler(onClickCapture)}
+                tabIndex={disabled ? -1 : restProps.tabIndex}
+                onClick={makeClickHandler(restProps.onClick)}
+                onClickCapture={makeClickHandler(restProps.onClickCapture)}
             >
                 {content}
             </a>
@@ -683,8 +662,8 @@ const Button: FC<ButtonProps> = ({
                 !restProps.role || restProps.role === 'button' ? isSelected : undefined
             )}
             disabled={disabled}
-            onClick={makeClickHandler(onClick)}
-            onClickCapture={makeClickHandler(onClickCapture)}
+            onClick={makeClickHandler(restProps.onClick)}
+            onClickCapture={makeClickHandler(restProps.onClickCapture)}
         >
             {content}
         </button>

@@ -1,11 +1,7 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
-import { type CSSProperties, useEffect, useId, useRef, useState } from 'react';
-import {
-    useControllableValue,
-    useEventCallback,
-    useIsomorphicLayoutEffect,
-    useResizeObserver,
-} from '@crab-dev/rc-hooks';
+import { useId } from 'react';
+import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
 import type {
     SegmentedOption,
@@ -15,29 +11,36 @@ import type {
     SegmentedValue,
 } from './types.js';
 
-// ─── 容器（凹槽） ───────────────────────────────────────────────────────────
+// M3 baseline single-select segmented buttons; each segment owns its surface.
 
 const trackStyle = css`
     position: relative;
-    display: inline-flex;
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    max-inline-size: 100%;
     align-items: stretch;
     box-sizing: border-box;
     background-color: ${token.track['background-color']};
     border-radius: ${token.track['border-radius']};
     font-weight: ${token.root['font-weight']};
-    line-height: 1;
+    font-family: ${token.root['font-family']};
+    line-height: ${token.root['line-height']};
     user-select: none;
     outline: 1px solid ${token.track['border-color']};
-    overflow: clip;
 
     &[data-disabled] {
         cursor: not-allowed;
-        opacity: ${token.root['opacity-disabled']};
+        outline-color: ${token.track['border-color-disabled']};
+    }
+    @media (forced-colors: active) {
+        outline-color: ButtonText;
+        &[data-disabled] { outline-color: GrayText; }
     }
 `;
 
 const trackBlockStyle = css`
-    display: flex;
+    display: grid;
     width: 100%;
 `;
 
@@ -66,11 +69,6 @@ const hiddenInputStyle = css`
 `;
 
 const segmentStyle = css`
-    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
-    &:has(input:focus-visible) { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
-    @media (forced-colors: active) { &:has(input:focus-visible) { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-
     position: relative;
     z-index: 1;
     display: inline-flex;
@@ -78,16 +76,31 @@ const segmentStyle = css`
     justify-content: center;
     box-sizing: border-box;
     margin: 0;
-    &:not(:last-child) { border-right: 1px solid ${token.track['border-color']}; }
+    min-inline-size: 0;
+    &:not(:last-child) { border-inline-end: 1px solid ${token.track['border-color']}; }
+    &:first-child { border-start-start-radius: ${token.track['border-radius']}; border-end-start-radius: ${token.track['border-radius']}; }
+    &:last-child { border-start-end-radius: ${token.track['border-radius']}; border-end-end-radius: ${token.track['border-radius']}; }
     color: ${token.item.color};
     cursor: pointer;
     white-space: nowrap;
-    transition: color ${token.item.transition};
+    transition: color ${token.item.transition}, background-color ${token.item.transition};
+
+    /* Keep a 48px target without clipping it to the 40px visual container. */
+    &::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        top: 50%;
+        min-height: ${token.interaction.touch['min-height']};
+        height: 100%;
+        transform: translateY(-50%);
+    }
 
     &::before {
         content: '';
         position: absolute;
         inset: 0;
+        border-radius: inherit;
         background: currentColor;
         opacity: 0;
         pointer-events: none;
@@ -97,7 +110,7 @@ const segmentStyle = css`
     &:has(input:focus-visible)::before { opacity: ${token.item['state-layer']['opacity-focus']}; }
     &:active:not(:has(input:disabled))::before { opacity: ${token.item['state-layer']['opacity-active']}; }
 
-    &:hover {
+    &:hover:not(:has(input:disabled)):not([data-selected]) {
         color: ${token.item['color-hover']};
     }
 
@@ -109,7 +122,20 @@ const segmentStyle = css`
     }
 
     @media (prefers-reduced-motion: reduce) {
-        transition: none;
+        &, &::before { transition: none; }
+    }
+    @media (forced-colors: active) {
+        && {
+        forced-color-adjust: none;
+        color: ButtonText;
+        background: ButtonFace;
+        &:not(:last-child) { border-color: ButtonText; }
+        &[data-selected] { color: HighlightText; background: Highlight; }
+        &:has(input:disabled) { color: GrayText; border-color: GrayText; }
+        &:has(input:focus-visible) { outline-color: Highlight; }
+        &[data-selected]:has(input:focus-visible) { outline-color: HighlightText; }
+        &::before { display: none; }
+        }
     }
 `;
 
@@ -136,8 +162,13 @@ const segmentLargeStyle = css`
 `;
 
 const segmentBlockStyle = css`
-    flex: 1 1 0;
     min-width: 0;
+`;
+
+const labelStyle = css`
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const selectionIconStyle = css`
@@ -150,6 +181,7 @@ const selectionIconStyle = css`
 
 const segmentSelectedStyle = css`
     color: ${token.item['color-selected']};
+    background-color: ${token.thumb['background-color']};
 
     &:hover {
         color: ${token.item['color-selected']};
@@ -161,56 +193,12 @@ const segmentSelectedStyle = css`
 const segmentDisabledStyle = css`
     color: ${token.item['color-disabled']};
     cursor: not-allowed;
+    &:not(:last-child) { border-color: ${token.track['border-color-disabled']}; }
+    &[data-selected] { background-color: ${token.item['background-color-disabled']}; }
 
     &:hover {
         color: ${token.item['color-disabled']};
     }
-`;
-
-// ─── 滑块（thumb） ──────────────────────────────────────────────────────────
-
-const thumbStyle = css`
-    position: absolute;
-    z-index: 0;
-    left: 0;
-    width: var(--rc-segmented-thumb-w, 0);
-    transform: translateX(var(--rc-segmented-thumb-x, 0));
-    background-color: ${token.thumb['background-color']};
-    box-shadow: ${token.thumb['box-shadow']};
-    pointer-events: none;
-
-    @media (forced-colors: active) {
-        /* 强制配色下阴影/背景被抹除，用系统高亮描边显性化选中项 */
-        border: 2px solid Highlight;
-    }
-`;
-
-const thumbSmallStyle = css`
-    top: ${token.size.small.track.padding};
-    bottom: ${token.size.small.track.padding};
-    border-radius: ${token.size.small['border-radius']};
-`;
-const thumbMiddleStyle = css`
-    top: ${token.size.middle.track.padding};
-    bottom: ${token.size.middle.track.padding};
-    border-radius: ${token.size.middle['border-radius']};
-`;
-const thumbLargeStyle = css`
-    top: ${token.size.large.track.padding};
-    bottom: ${token.size.large.track.padding};
-    border-radius: ${token.size.large['border-radius']};
-`;
-
-const thumbAnimatedStyle = css`
-    transition: ${token.thumb.transition};
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-const thumbHiddenStyle = css`
-    opacity: 0;
 `;
 
 // ─── 辅助 ────────────────────────────────────────────────────────────────────
@@ -230,25 +218,20 @@ const segmentSizeStyleOf = (size: SegmentedSize) => {
     return segmentMiddleStyle;
 };
 
-const thumbSizeStyleOf = (size: SegmentedSize) => {
-    if (size === 'small') return thumbSmallStyle;
-    if (size === 'large') return thumbLargeStyle;
-    return thumbMiddleStyle;
-};
-
 const Segmented = ({
     options,
     value: valueProp,
     defaultValue,
     onChange,
     disabled = false,
-    size = 'middle',
+    size: sizeProp,
     block = false,
     name,
     className,
     ref,
     ...restProps
 }: SegmentedProps) => {
+    const size = useComponentSize(sizeProp);
     const reactId = useId();
     const groupName = name ?? `rc-segmented-${reactId.replace(/:/g, '')}`;
 
@@ -262,89 +245,23 @@ const Segmented = ({
         onChange,
     });
 
-    // 可变实例状态 ref（§4.1 例外 1）：跨渲染持有 DOM 引用用于测量，不触发渲染。
-    const trackRef = useRef<HTMLDivElement | null>(null);
-    const labelRefs = useRef<Map<SegmentedValue, HTMLLabelElement>>(new Map());
-
-    const [thumb, setThumb] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
-    const [ready, setReady] = useState(false);
-
-    // latest-ref 稳定回调（§4.1 例外 4，经 useEventCallback）：供 layout effect 与
-    // ResizeObserver 共用，引用稳定又始终读取最新选中值/refs。
-    const measureThumb = useEventCallback(() => {
-        const selectedEl =
-            selectedValue === undefined ? undefined : labelRefs.current.get(selectedValue);
-        if (!trackRef.current || !selectedEl) {
-            setThumb((prev) => (prev.width === 0 ? prev : { left: 0, width: 0 }));
-            return;
-        }
-        const left = selectedEl.offsetLeft;
-        const width = selectedEl.offsetWidth;
-        setThumb((prev) => (prev.left === left && prev.width === width ? prev : { left, width }));
-    });
-
-    // 选中值 / 选项集合 / 尺寸 / block 变化时重新测量滑块位置
-    const optionsKey = normalizedOptions.map((option) => String(option.value)).join(' ');
-    useIsomorphicLayoutEffect(() => {
-        measureThumb();
-    }, [measureThumb, selectedValue, optionsKey, size, block]);
-
-    useResizeObserver(trackRef, measureThumb);
-
-    // 首帧定位不参与过渡（避免从左侧滑入），首帧后再启用滑动动画
-    useEffect(() => {
-        setReady(true);
-    }, []);
-
-    const setTrackRef = (node: HTMLDivElement | null) => {
-        trackRef.current = node;
-        if (typeof ref === 'function') {
-            ref(node);
-        } else if (ref) {
-            ref.current = node;
-        }
-    };
-
-    const registerLabelRef = (optionValue: SegmentedValue) => (node: HTMLLabelElement | null) => {
-        if (node) {
-            labelRefs.current.set(optionValue, node);
-        } else {
-            labelRefs.current.delete(optionValue);
-        }
-    };
-
-    const thumbVars = {
-        ['--rc-segmented-thumb-x' as never]: `${thumb.left}px`,
-        ['--rc-segmented-thumb-w' as never]: `${thumb.width}px`,
-    } as CSSProperties;
-
     return (
         <div
             {...restProps}
-            ref={setTrackRef}
+            ref={ref}
             role="radiogroup"
             aria-disabled={disabled || undefined}
             data-disabled={disabled ? '' : undefined}
             className={cx(trackStyle, trackPadStyleOf(size), block && trackBlockStyle, className)}
         >
-            <span
-                aria-hidden="true"
-                className={cx(
-                    thumbStyle,
-                    thumbSizeStyleOf(size),
-                    ready && thumbAnimatedStyle,
-                    thumb.width === 0 && thumbHiddenStyle,
-                )}
-                style={thumbVars}
-            />
             {normalizedOptions.map((option) => {
                 const optionDisabled = disabled || option.disabled || false;
                 const selected = option.value === selectedValue;
+                const hasLabel = option.label !== undefined && option.label !== null && option.label !== '' && option.label !== false;
 
                 return (
                     <label
                         key={String(option.value)}
-                        ref={registerLabelRef(option.value)}
                         data-selected={selected ? '' : undefined}
                         className={cx(
                             segmentStyle,
@@ -363,6 +280,12 @@ const Segmented = ({
                             checked={selected}
                             disabled={optionDisabled}
                             aria-label={option['aria-label']}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter' && !optionDisabled) {
+                                    event.preventDefault();
+                                    if (!selected) setSelectedValue(option.value);
+                                }
+                            }}
                             onChange={() => {
                                 // 防错优于报错：禁用项不可选中，除原生 disabled 外再显式守卫
                                 if (optionDisabled) return;
@@ -372,7 +295,8 @@ const Segmented = ({
                         <span aria-hidden="true" className={selectionIconStyle}>
                             {selected ? <svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" /></svg> : option.icon}
                         </span>
-                        {option.label !== undefined && <span>{option.label}</span>}
+                        {selected && !hasLabel && option.icon && <span aria-hidden="true" className={selectionIconStyle}>{option.icon}</span>}
+                        {hasLabel && <span className={labelStyle}>{option.label}</span>}
                     </label>
                 );
             })}

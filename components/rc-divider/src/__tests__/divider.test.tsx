@@ -1,15 +1,21 @@
-import { describe, expect, it, render } from "@crab-dev/wake/test/react";
+import { describe, expect, it } from '@crab-dev/wake/test';
+import { render } from '@crab-dev/wake/test/react';
 import { createRef } from 'react';
 import Divider from '../divider.js';
-(globalThis as typeof globalThis & {
-    IS_REACT_ACT_ENVIRONMENT?: boolean;
-}).IS_REACT_ACT_ENVIRONMENT = true;
 describe('Divider', () => {
     it('renders a semantic separator by default', async () => {
         const { container } = await render(<Divider />);
         const separator = container.querySelector('[role="separator"]');
         expect(separator).toBeTruthy();
         expect(separator?.getAttribute('aria-hidden')).toBeNull();
+        const svg = separator?.querySelector('svg');
+        expect(svg?.getAttribute('aria-hidden')).toBe('true');
+        expect(svg?.getAttribute('focusable')).toBe('false');
+        const line = svg?.querySelector('line');
+        expect(line?.getAttribute('x1')).toBe('0');
+        expect(line?.getAttribute('x2')).toBe('100%');
+        expect(line?.getAttribute('y1')).toBe('50%');
+        expect(line?.getAttribute('y2')).toBe('50%');
     });
     it('omits aria-orientation for horizontal dividers (separator defaults to horizontal)', async () => {
         const { container } = await render(<Divider />);
@@ -20,6 +26,11 @@ describe('Divider', () => {
         const { container } = await render(<Divider direction="vertical"/>);
         const separator = container.querySelector('[role="separator"]');
         expect(separator?.getAttribute('aria-orientation')).toBe('vertical');
+        const line = separator?.querySelector('svg > line');
+        expect(line?.getAttribute('x1')).toBe('50%');
+        expect(line?.getAttribute('x2')).toBe('50%');
+        expect(line?.getAttribute('y1')).toBe('0');
+        expect(line?.getAttribute('y2')).toBe('100%');
     });
     it('drops decorative dividers out of the accessibility tree', async () => {
         const { container } = await render(<Divider decorative/>);
@@ -30,6 +41,10 @@ describe('Divider', () => {
     it('renders inline text', async () => {
         const { container } = await render(<Divider>分组标题</Divider>);
         expect(container.textContent).toContain('分组标题');
+        const separator = container.querySelector('[role="separator"]');
+        expect(separator?.firstElementChild?.tagName).toBe('svg');
+        expect(separator?.lastElementChild?.tagName).toBe('svg');
+        expect(separator?.querySelectorAll('svg[aria-hidden="true"][focusable="false"]')).toHaveLength(2);
     });
     it('names the separator after its text (children of a static separator are presentational)', async () => {
         const { container } = await render(<Divider>分组标题</Divider>);

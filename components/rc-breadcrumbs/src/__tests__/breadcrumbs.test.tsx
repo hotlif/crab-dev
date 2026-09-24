@@ -1,9 +1,28 @@
-import { describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
+import { fireEvent, render, screen, userEvent } from '@crab-dev/wake/test/react';
 import Breadcrumbs from '../breadcrumbs.js';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 describe('Breadcrumbs', () => {
+    it('makes actions focusable native buttons and blocks disabled items', async () => {
+        const user = userEvent.setup();
+        const onClick = mock.fn();
+        const disabledClick = mock.fn();
+        await render(<Breadcrumbs items={[
+            { title: 'Home', onClick },
+            { title: 'Unavailable', disabled: true, onClick: disabledClick },
+            { title: 'Current' },
+        ]} />);
+        await user.tab();
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Home' }));
+        const button = screen.getByRole('button', { name: 'Home' });
+        expect(button.tagName).toBe('BUTTON');
+        await user.click(button);
+        expect(onClick).toHaveBeenCalledTimes(1);
+        await fireEvent.click(screen.getByRole('button', { name: 'Unavailable' }));
+        expect(disabledClick).not.toHaveBeenCalled();
+    });
     const items = [
         { title: 'Home', href: '/home' },
         { title: 'Components', href: '/components' },

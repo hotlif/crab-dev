@@ -37,6 +37,7 @@ export const vars = defineTokens({
     'group.transform-hover': '--avatar-group-transform-hover',
     'group.item.ring.width': '--avatar-group-item-ring-width',
     'group.item.border-color': '--avatar-group-item-border-color',
+    'group.action.gap': '--avatar-group-action-gap',
     'interaction.touch.min-width': '--avatar-interaction-touch-min-width',
     'interaction.touch.min-height': '--avatar-interaction-touch-min-height',
     'interaction.outline-color-focus': '--avatar-interaction-outline-color-focus',
@@ -46,36 +47,36 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'transition': `var(${vars['root.transition']}, var(--avatar-transition, box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))))`,
-        'border-color': `var(${vars['root.border-color']}, var(--avatar-border-color, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))))`,
-        'border-color-hover': `var(${vars['root.border-color-hover']}, var(--avatar-border-color-hover, var(--avatar-border-hover, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))))`,
-        'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--avatar-opacity-disabled, var(--avatar-disabled-opacity, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))))`,
-        'color-error': `var(${vars['root.color-error']}, var(--avatar-error-color, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))))`,
-        'background-color-error': `var(${vars['root.background-color-error']}, var(--avatar-error-background-color, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053)))))`
+        'transition': `var(${vars['root.transition']}, box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
+        'border-color-hover': `var(${vars['root.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
+        'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
+        'background-color-error': `var(${vars['root.background-color-error']}, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053))))`
     },
     'size': {
         'small': {
-            'width': `var(${vars['size.small.width']}, var(--avatar-size-small-value, 28px))`,
+            'width': `var(${vars['size.small.width']}, 28px)`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
         'middle': {
-            'width': `var(${vars['size.middle.width']}, var(--avatar-size-middle-value, 40px))`,
+            'width': `var(${vars['size.middle.width']}, 40px)`,
             'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
         },
         'large': {
-            'width': `var(${vars['size.large.width']}, var(--avatar-size-large-value, 48px))`,
+            'width': `var(${vars['size.large.width']}, 48px)`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
         }
     },
     'icon': {
         'small': {
-            'font-size': `var(${vars['icon.small.font-size']}, var(--avatar-icon-size-small, 14px))`
+            'font-size': `var(${vars['icon.small.font-size']}, 14px)`
         },
         'middle': {
-            'font-size': `var(${vars['icon.middle.font-size']}, var(--avatar-icon-size-middle, 18px))`
+            'font-size': `var(${vars['icon.middle.font-size']}, 18px)`
         },
         'large': {
-            'font-size': `var(${vars['icon.large.font-size']}, var(--avatar-icon-size-large, 22px))`
+            'font-size': `var(${vars['icon.large.font-size']}, 22px)`
         }
     },
     'content': {
@@ -84,11 +85,11 @@ const token = defineTokens({
     },
     'shape': {
         'square': {
-            'border-radius': `var(${vars['shape.square.border-radius']}, var(--avatar-shape-square-radius, var(--token-semantic-radius-lg, var(--token-global-radius-6, 12px))))`
+            'border-radius': `var(${vars['shape.square.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-6, 12px)))`
         }
     },
     'ring': {
-        'color-focus': `var(${vars['ring.color-focus']}, var(--avatar-focus-ring-color, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))))`
+        'color-focus': `var(${vars['ring.color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
     },
     'default': {
         'color': `var(${vars['default.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
@@ -99,22 +100,25 @@ const token = defineTokens({
         'background-color': `var(${vars['primary.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
     },
     'success': {
-        'color': `var(${vars['success.color']}, var(--token-semantic-color-feedback-success-text, var(--token-semantic-color-feedback-success, var(--token-global-green-800, oklch(0.448 0.119 155)))))`,
+        'color': `var(${vars['success.color']}, var(--token-semantic-color-feedback-success-text, var(--token-global-green-800, oklch(0.448 0.119 155))))`,
         'background-color': `var(${vars['success.background-color']}, var(--token-semantic-color-feedback-success-background, var(--token-global-green-50, oklch(0.982 0.018 149))))`
     },
     'warning': {
-        'color': `var(${vars['warning.color']}, var(--token-semantic-color-feedback-warning-text, var(--token-semantic-color-feedback-warning, var(--token-global-amber-900, oklch(0.414 0.112 68)))))`,
+        'color': `var(${vars['warning.color']}, var(--token-semantic-color-feedback-warning-text, var(--token-global-amber-900, oklch(0.414 0.112 68))))`,
         'background-color': `var(${vars['warning.background-color']}, var(--token-semantic-color-feedback-warning-background, var(--token-global-amber-50, oklch(0.987 0.022 85))))`
     },
     'group': {
-        'margin': `var(${vars['group.margin']}, var(--avatar-group-overlap, -8px))`,
+        'margin': `var(${vars['group.margin']}, -8px)`,
         'transition': `var(${vars['group.transition']}, transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), box-shadow var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
-        'transform-hover': `var(${vars['group.transform-hover']}, var(--avatar-group-translate-y-hover, translateY(var(--avatar-group-hover-translate-y, -2px))))`,
+        'transform-hover': `var(${vars['group.transform-hover']}, translateY(-2px))`,
         'item': {
             'ring': {
                 'width': `var(${vars['group.item.ring.width']}, 2px)`
             },
             'border-color': `var(${vars['group.item.border-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
+        },
+        'action': {
+            'gap': `var(${vars['group.action.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
     },
     'interaction': {

@@ -1,4 +1,5 @@
-import { act, describe, expect, it, mock, fireEvent, render } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
+import { act, fireEvent, render } from '@crab-dev/wake/test/react';
 import { createRef } from 'react';
 import Segmented from '../segmented.js';
 import type { SegmentedProps } from '../types.js';
@@ -163,5 +164,29 @@ describe('Segmented', () => {
         await render(<Segmented options={OPTIONS} ref={ref}/>);
         expect(ref.current).toBeInstanceOf(HTMLElement);
         expect(ref.current?.getAttribute('role')).toBe('radiogroup');
+    });
+    it('selects an enabled segment with Enter without repeating the current selection', async () => {
+        const onChange = mock.fn();
+        const { inputs } = await renderSegmented({ onChange });
+        await fireEvent.keyDown(inputs[1], { key: 'Enter' });
+        expect(inputs[1].checked).toBe(true);
+        expect(onChange).toHaveBeenCalledWith('week');
+        await fireEvent.keyDown(inputs[1], { key: 'Enter' });
+        expect(onChange).toHaveBeenCalledTimes(1);
+    });
+    it('keeps an icon-only option recognizable after selection', async () => {
+        const { container } = await renderSegmented({
+            options: [{ value: 'grid', label: '', icon: <svg data-testid="grid-icon" />, 'aria-label': '网格视图' }],
+        });
+        expect(container.querySelector('[data-testid="grid-icon"]')).toBeTruthy();
+        expect(container.querySelector('label svg path')).toBeTruthy();
+    });
+    it('preserves React ref cleanup', async () => {
+        const cleanup = mock.fn();
+        const ref = () => cleanup;
+        const { unmount } = await render(<Segmented options={OPTIONS} ref={ref} />);
+        expect(cleanup).not.toHaveBeenCalled();
+        await unmount();
+        expect(cleanup).toHaveBeenCalledTimes(1);
     });
 });

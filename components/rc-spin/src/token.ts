@@ -39,30 +39,30 @@ export const vars = defineTokens({
 const token = defineTokens({
     'ring': {
         'track': {
-            'stroke': `var(${vars['ring.track.stroke']}, var(--spin-ring-track-color, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286))))))`
+            'stroke': `var(${vars['ring.track.stroke']}, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286)))))`
         },
         'indicator': {
-            'stroke': `var(${vars['ring.indicator.stroke']}, var(--spin-ring-indicator-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
+            'stroke': `var(${vars['ring.indicator.stroke']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
         },
         'stroke-width': `var(${vars['ring.stroke-width']}, 4)`,
-        'stroke-dasharray': `var(${vars['ring.stroke-dasharray']}, var(--spin-ring-dash, 31.4 125.7))`
+        'stroke-dasharray': `var(${vars['ring.stroke-dasharray']}, 31.4 125.7)`
     },
     'indicator': {
-        'animation-duration': `var(${vars['indicator.animation-duration']}, var(--spin-motion-duration, 0.9s))`,
-        'animation-timing-function': `var(${vars['indicator.animation-timing-function']}, var(--spin-motion-easing, linear))`,
+        'animation-duration': `var(${vars['indicator.animation-duration']}, 0.9s)`,
+        'animation-timing-function': `var(${vars['indicator.animation-timing-function']}, linear)`,
         'reduced-motion': {
-            'animation-duration': `var(${vars['indicator.reduced-motion.animation-duration']}, var(--spin-motion-reduced-duration, 1.6s))`,
-            'opacity': `var(${vars['indicator.reduced-motion.opacity']}, var(--spin-motion-reduced-opacity, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38))))`
+            'animation-duration': `var(${vars['indicator.reduced-motion.animation-duration']}, 1.6s)`,
+            'opacity': `var(${vars['indicator.reduced-motion.opacity']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
         }
     },
     'expressive': {
         'color': `var(${vars['expressive.color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'orbit': {
-            'animation-duration': `var(${vars['expressive.orbit.animation-duration']}, var(--spin-expressive-orbit-duration, 1.6s))`
+            'animation-duration': `var(${vars['expressive.orbit.animation-duration']}, 1.6s)`
         },
         'shape': {
-            'animation-duration': `var(${vars['expressive.shape.animation-duration']}, var(--spin-expressive-shape-duration, 1.2s))`,
-            'animation-timing-function': `var(${vars['expressive.shape.animation-timing-function']}, var(--spin-expressive-shape-easing, var(--token-semantic-motion-easing-spatial-default, var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00)))))`,
+            'animation-duration': `var(${vars['expressive.shape.animation-duration']}, 1.2s)`,
+            'animation-timing-function': `var(${vars['expressive.shape.animation-timing-function']}, var(--token-semantic-motion-easing-spatial-default, var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00))))`,
             'top': `var(${vars['expressive.shape.top']}, 12.5%)`,
             'left': `var(${vars['expressive.shape.left']}, 12.5%)`,
             'width': `var(${vars['expressive.shape.width']}, 75%)`,
@@ -70,24 +70,24 @@ const token = defineTokens({
         }
     },
     'root': {
-        'animation': `var(${vars['root.animation']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))))`
+        'animation': `var(${vars['root.animation']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00))))`
     },
     'content': {
-        'transition': `var(${vars['content.transition']}, var(--spin-motion-appear, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00)))))`,
+        'transition': `var(${vars['content.transition']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00))))`,
         'opacity': `var(${vars['content.opacity']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`,
-        'filter': `var(${vars['content.filter']}, blur(var(--spin-content-blur, 1px)))`
+        'filter': `var(${vars['content.filter']}, blur(1px))`
     },
     'size': {
         'small': {
-            'width': `var(${vars['size.small.width']}, var(--spin-size-small-size, 16px))`,
+            'width': `var(${vars['size.small.width']}, 16px)`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
         'middle': {
-            'width': `var(${vars['size.middle.width']}, var(--spin-size-middle-size, 24px))`,
+            'width': `var(${vars['size.middle.width']}, 24px)`,
             'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
         },
         'large': {
-            'width': `var(${vars['size.large.width']}, var(--spin-size-large-size, 40px))`,
+            'width': `var(${vars['size.large.width']}, 40px)`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
         }
     },

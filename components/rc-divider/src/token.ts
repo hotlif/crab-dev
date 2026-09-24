@@ -23,21 +23,21 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'line': {
-        'border-color': `var(${vars['line.border-color']}, var(--divider-line-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`,
-        'border-width': `var(${vars['line.border-width']}, var(--divider-line-width, 1px))`
+        'border-color': `var(${vars['line.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
+        'border-width': `var(${vars['line.border-width']}, 1px)`
     },
     'spacing': {
         'none': {
-            'margin': `var(${vars['spacing.none.margin']}, var(--divider-spacing-none, 0px))`
+            'margin': `var(${vars['spacing.none.margin']}, 0px)`
         },
         'small': {
-            'margin': `var(${vars['spacing.small.margin']}, var(--divider-spacing-small, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px))))`
+            'margin': `var(${vars['spacing.small.margin']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         },
         'middle': {
-            'margin': `var(${vars['spacing.middle.margin']}, var(--divider-spacing-middle, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px))))`
+            'margin': `var(${vars['spacing.middle.margin']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
         },
         'large': {
-            'margin': `var(${vars['spacing.large.margin']}, var(--divider-spacing-large, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px))))`
+            'margin': `var(${vars['spacing.large.margin']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`
         }
     },
     'text': {
@@ -47,10 +47,10 @@ const token = defineTokens({
         'font-weight': `var(${vars['text.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
         'font-weight-plain': `var(${vars['text.font-weight-plain']}, var(--token-semantic-font-weight-body, var(--token-global-font-weight-regular, 400)))`,
         'gap': `var(${vars['text.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-        'flex-basis': `var(${vars['text.flex-basis']}, var(--divider-text-offset, 5%))`
+        'flex-basis': `var(${vars['text.flex-basis']}, 5%)`
     },
     'vertical': {
-        'block-size': `var(${vars['vertical.block-size']}, var(--divider-vertical-size, 1em))`
+        'block-size': `var(${vars['vertical.block-size']}, 1em)`
     }
 });
 

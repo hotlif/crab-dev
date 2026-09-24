@@ -105,7 +105,7 @@ export interface SpinIndicatorProps extends Omit<SVGAttributes<SVGSVGElement>, '
  * 需要状态语义时请直接用 `Spin`, 而非本组件。
  *
  * 颜色与尺寸均可由消费方经 CSS 变量覆写：
- * `--rc-spin-size`、`--spin-ring-indicator-color`、`--spin-ring-track-color`。
+ * `--rc-spin-size`、`--spin-ring-indicator-stroke`、`--spin-ring-track-stroke`。
  */
 const SpinIndicator = ({ size, className, ref, ...restProps }: SpinIndicatorProps) => (
     <svg

@@ -25,7 +25,7 @@ const token = defineTokens({
         'min-height': `var(${vars['container.min-height']}, 200px)`
     },
     'image': {
-        'width': `var(${vars['image.width']}, var(--empty-image-size, 80px))`,
+        'width': `var(${vars['image.width']}, 80px)`,
         'color': `var(${vars['image.color']}, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286)))))`,
         'margin-bottom': `var(${vars['image.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     },

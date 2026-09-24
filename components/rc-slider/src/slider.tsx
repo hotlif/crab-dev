@@ -1,3 +1,4 @@
+import { useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import { type HTMLAttributes, type FC, type PointerEvent, useRef, useState, useEffect, useEffectEvent, useLayoutEffect } from "react";
 import token, { vars } from "./token.js";
@@ -54,13 +55,15 @@ const Slider: FC<SliderProps> = ({
     max = 100,
     step = 1,
     value = 0,
-    size = 'xs',
+    size: sizeProp,
     onValueChange,
     disabled = false,
     onKeyDown,
     tabIndex,
     ...restProps
 }) => {
+    const config = useConfig();
+    const size = sizeProp ?? (config.size === 'large' ? 's' : 'xs');
     // Mutable instance state: DOM geometry and CSS variables are updated after commit.
     const containerRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);

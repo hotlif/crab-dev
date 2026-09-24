@@ -9,8 +9,8 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--masonry-transition, transform $ref(motion.spatial.fast), opacity $ref(motion.interaction))"
+root.transition = "transform $ref(motion.spatial.fast), opacity $ref(motion.interaction)"
 
 # ─── 间距 ────────────────────────────────────────────────────────────────────
 
-root.gap = "var(--masonry-gutter, $ref(space.component-gap))"
+root.gap = "$ref(space.component-gap)"

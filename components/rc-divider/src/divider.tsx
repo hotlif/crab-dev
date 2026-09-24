@@ -6,14 +6,8 @@ import type { DividerOwnProps, DividerSpacing, DividerVariant } from './types.js
 
 /* ────────────────────────────────── 静态样式 ──────────────────────────────────
  *
- * 线型与留白经两个 CSS 自定义属性传递, 而非拆成"方向 × 线型 × 档位"的组合类：
- *
- *   --rc-divider-line-style —— 无文字时作用于自身 border, 带文字时作用于 ::before /
- *                              ::after 两段线, 一处切换、三处生效
- *   --rc-divider-spacing    —— 横线走 margin-block, 竖线走 margin-inline, 同一档位
- *                              在两个方向上语义一致
- *
- * 变量的默认值写在 var() 的 fallback 里, 因此不依赖静态 CSS 的类名输出顺序。
+ * 线条统一由 SVG 绘制；线型通过继承的 CSS 自定义属性作用于每一段线。
+ * SVG 不设置 viewBox，以 CSS 像素绘制，容器伸缩时线宽及虚线间距保持不变。
  */
 
 const baseStyle = css`
@@ -24,11 +18,29 @@ const baseStyle = css`
 /* ---- 线型 ---- */
 
 const variantDashedStyle = css`
-    --rc-divider-line-style: dashed;
+    --rc-divider-stroke-dasharray: calc(${token.line['border-width']} * 3)
+        calc(${token.line['border-width']} * 3);
 `;
 
 const variantDottedStyle = css`
-    --rc-divider-line-style: dotted;
+    --rc-divider-stroke-dasharray: 0 calc(${token.line['border-width']} * 2);
+    --rc-divider-stroke-linecap: round;
+`;
+
+const lineStyle = css`
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+    fill: none;
+    stroke: ${token.line['border-color']};
+    stroke-width: ${token.line['border-width']};
+    stroke-dasharray: var(--rc-divider-stroke-dasharray, none);
+    stroke-linecap: var(--rc-divider-stroke-linecap, butt);
+
+    @media (forced-colors: active) {
+        stroke: CanvasText;
+    }
 `;
 
 /* ---- 留白档位 ---- */
@@ -51,22 +63,19 @@ const horizontalStyle = css`
     display: block;
     inline-size: 100%;
     min-inline-size: 100%;
-    block-size: 0;
+    block-size: ${token.line['border-width']};
     margin-block: var(--rc-divider-spacing, ${token.spacing.middle.margin});
-    border-block-start: ${token.line["border-width"]} var(--rc-divider-line-style, solid)
-        ${token.line["border-color"]};
 `;
 
 /* ---- 竖线 ---- */
 
 const verticalStyle = css`
     display: inline-block;
-    inline-size: 0;
+    flex-shrink: 0;
+    inline-size: ${token.line['border-width']};
     block-size: ${token.vertical['block-size']};
     margin-inline: var(--rc-divider-spacing, ${token.spacing.middle.margin});
     vertical-align: middle;
-    border-inline-start: ${token.line["border-width"]} var(--rc-divider-line-style, solid)
-        ${token.line["border-color"]};
 `;
 
 /* ---- 横线（带文字） ---- */
@@ -82,31 +91,30 @@ const withTextStyle = css`
     font-weight: ${token.text['font-weight']};
     white-space: nowrap;
 
-    &::before,
-    &::after {
-        content: '';
-        flex: 1 1 auto;
-        border-block-start: ${token.line["border-width"]} var(--rc-divider-line-style, solid)
-            ${token.line["border-color"]};
+    & > svg {
+        flex: 1 1 0;
+        inline-size: 0;
+        min-inline-size: 0;
+        block-size: ${token.line['border-width']};
     }
 
-    &::before {
+    & > svg:first-child {
         margin-inline-end: ${token.text.gap};
     }
 
-    &::after {
+    & > svg:last-child {
         margin-inline-start: ${token.text.gap};
     }
 `;
 
 const textAlignStartStyle = css`
-    &::before {
+    & > svg:first-child {
         flex: 0 0 var(--rc-divider-text-offset, ${token.text['flex-basis']});
     }
 `;
 
 const textAlignEndStyle = css`
-    &::after {
+    & > svg:last-child {
         flex: 0 0 var(--rc-divider-text-offset, ${token.text['flex-basis']});
     }
 `;
@@ -117,11 +125,25 @@ const textPlainStyle = css`
 `;
 
 const textStyle = css`
+    min-inline-size: 0;
     overflow: hidden;
     text-overflow: ellipsis;
 `;
 
 /* ────────────────────────────────── 辅助 ────────────────────────────────── */
+
+function DividerLine({ vertical = false }: { vertical?: boolean }) {
+    return (
+        <svg className={lineStyle} aria-hidden="true" focusable="false">
+            <line
+                x1={vertical ? '50%' : '0'}
+                y1={vertical ? '0' : '50%'}
+                x2={vertical ? '50%' : '100%'}
+                y2={vertical ? '100%' : '50%'}
+            />
+        </svg>
+    );
+}
 
 const variantStyleOf = (variant: DividerVariant): string | false => {
     if (variant === 'dashed') return variantDashedStyle;
@@ -203,9 +225,11 @@ const Divider = ({
                 )}
                 style={offsetVars}
             >
+                <DividerLine />
                 <span id={textId} className={textStyle}>
                     {children}
                 </span>
+                <DividerLine />
             </div>
         );
     }
@@ -223,7 +247,9 @@ const Divider = ({
             aria-orientation={!decorative && isVertical ? 'vertical' : undefined}
             className={cx(sharedClassNames, isVertical ? verticalStyle : horizontalStyle, className)}
             style={style}
-        />
+        >
+            <DividerLine vertical={isVertical} />
+        </div>
     );
 };
 

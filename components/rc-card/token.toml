@@ -10,22 +10,22 @@ imports = [
 # ─── 表面 ────────────────────────────────────────────────────────────────────
 # Material Web：elevated 使用 surface-container-low，outlined 使用 surface。
 
-surface.background-color = "var(--card-surface-background, $ref(color.surface.content))"
-elevated.background-color = "var(--card-surface-background-color, var(--card-surface-background, $ref(color.surface.low)))"
+surface.background-color = "$ref(color.surface.content)"
+elevated.background-color = "var(--card-surface-background-color, $ref(color.surface.low))"
 
 # ─── 变体 — outlined / filled ────────────────────────────────────────────────
 
-root.border-color = "var(--card-border-color, $ref(color.border.subtle))"
-root.border-color-hover = "var(--card-border-color-hover, $ref(color.border.hover))"
+root.border-color = "$ref(color.border.subtle)"
+root.border-color-hover = "$ref(color.border.hover)"
 
-filled.background-color = "var(--card-filled-background, $ref(color.surface.highest))"
-filled.background-color-hover = "var(--card-filled-background-hover, $ref(color.state.pressed))"
+filled.background-color = "$ref(color.surface.highest)"
+filled.background-color-hover = "$ref(color.state.pressed)"
 
 # M3 elevation：elevated 1→2→1；filled / outlined 0→1→0。
 
-root.box-shadow = "var(--card-box-shadow, var(--card-elevation-rest, $ref(shadow.control)))"
-root.box-shadow-hover = "var(--card-box-shadow-hover, var(--card-elevation-hover, $ref(shadow.float)))"
-root.box-shadow-active = "var(--card-box-shadow-active, var(--card-elevation-active, $ref(shadow.control)))"
+root.box-shadow = "$ref(shadow.control)"
+root.box-shadow-hover = "$ref(shadow.float)"
+root.box-shadow-active = "$ref(shadow.control)"
 filled.box-shadow-hover = "$ref(shadow.control)"
 filled.box-shadow-active = "none"
 outlined.box-shadow-hover = "$ref(shadow.control)"
@@ -39,34 +39,34 @@ state-layer.transition = "opacity $ref(motion.interaction)"
 
 # ─── 浮起位移 ────────────────────────────────────────────────────────────────
 
-root.transform-hover = "translateY(var(--card-root-translate-y-hover, var(--card-lift-hover, 0px)))"
-root.transform-active = "translateY(var(--card-root-translate-y-active, var(--card-lift-active, 0px)))"
+root.transform-hover = "translateY(0px)"
+root.transform-active = "translateY(0px)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.padding    = "$ref(space.dialog-padding)"
-size.large.gap        = "$ref(space.stack-gap)"
-size.large.border-radius     = "var(--card-size-large-radius, $ref(shape.card))"
-size.large.title.font-size = "var(--card-size-large-title-size, $ref(font.size.heading))"
+size.large.padding = "$ref(sizing.large.padding)"
+size.large.gap = "$ref(sizing.large.gap)"
+size.large.border-radius     = "$ref(shape.card)"
+size.large.title.font-size = "$ref(font.size.heading)"
 
 # ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
 
-size.middle.padding    = "$ref(space.section-gap)"
-size.middle.gap        = "$ref(space.stack-gap)"
-size.middle.border-radius     = "var(--card-size-middle-radius, $ref(shape.card))"
-size.middle.title.font-size = "var(--card-size-middle-title-size, $ref(font.size.subhead))"
+size.middle.padding = "$ref(sizing.middle.padding)"
+size.middle.gap = "$ref(sizing.middle.gap)"
+size.middle.border-radius     = "$ref(shape.card)"
+size.middle.title.font-size = "$ref(font.size.subhead)"
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.padding    = "$ref(space.section-gap)"
-size.small.gap        = "$ref(space.component-gap)"
-size.small.border-radius     = "var(--card-size-small-radius, $ref(shape.card))"
-size.small.title.font-size = "var(--card-size-small-title-size, $ref(typography.body.font-size))"
+size.small.padding = "$ref(sizing.small.padding)"
+size.small.gap = "$ref(sizing.small.gap)"
+size.small.border-radius     = "$ref(shape.card)"
+size.small.title.font-size = "$ref(typography.body.font-size)"
 
 # ─── 标题区 ──────────────────────────────────────────────────────────────────
 
 header.title.color = "$ref(color.text.primary)"
-header.title.font-weight = "var(--card-header-title-weight, $ref(typography.title.large.emphasized.font-weight))"
+header.title.font-weight = "$ref(typography.title.large.emphasized.font-weight)"
 
 # ─── 正文区 ──────────────────────────────────────────────────────────────────
 # L2 未定义 line-height 语义令牌，正文行高取静态 1.6。
@@ -79,13 +79,13 @@ body.line-height = "$ref(typography.body.line-height)"
 # ─── 封面 ────────────────────────────────────────────────────────────────────
 # background 作图片加载前的占位底色。
 
-cover.background-color = "var(--card-cover-background, $ref(color.background.hover-subtle))"
+cover.background-color = "$ref(color.background.hover-subtle)"
 
 # ─── 操作区（footer）─────────────────────────────────────────────────────────
 # 内容分组使用弱边框，避免与可交互控件争夺视觉权重。
 
-footer.divider.border-color = "var(--card-footer-divider-color, $ref(color.border.subtle))"
-footer.padding-block     = "var(--card-footer-padding-y, $ref(space.component-gap))"
+footer.divider.border-color = "$ref(color.border.subtle)"
+footer.padding-block     = "$ref(space.component-gap)"
 footer.gap           = "$ref(space.component-gap)"
 
 # ─── Meta（头像 + 标题 + 描述）───────────────────────────────────────────────
@@ -93,24 +93,24 @@ footer.gap           = "$ref(space.component-gap)"
 meta.gap          = "$ref(space.stack-gap)"
 meta.text.gap = "$ref(space.inline-gap)"
 meta.title.color = "$ref(color.text.primary)"
-meta.title.font-weight = "var(--card-meta-title-weight, $ref(typography.label.font-weight))"
-meta.title.font-size = "var(--card-meta-title-size, $ref(typography.body.font-size))"
+meta.title.font-weight = "$ref(typography.label.font-weight)"
+meta.title.font-size = "$ref(typography.body.font-size)"
 meta.desc.color = "$ref(color.text.secondary)"
-meta.desc.font-size = "var(--card-meta-desc-size, $ref(typography.caption.font-size))"
+meta.desc.font-size = "$ref(typography.caption.font-size)"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
 # 状态反馈统一 interaction，封面缩放使用 expand。
 
-root.transition  = "var(--card-motion-lift, transform $ref(motion.spatial.fast), box-shadow $ref(motion.interaction), border-color $ref(motion.interaction), background-color $ref(motion.interaction))"
-cover.transition = "var(--card-motion-cover, transform $ref(motion.expand))"
+root.transition  = "transform $ref(motion.spatial.fast), box-shadow $ref(motion.interaction), border-color $ref(motion.interaction), background-color $ref(motion.interaction)"
+cover.transition = "transform $ref(motion.expand)"
 
 # ─── 焦点环 ──────────────────────────────────────────────────────────────────
 
-ring.color-focus = "var(--card-focus-ring-color, $ref(color.focus.ring))"
+ring.color-focus = "$ref(color.focus.ring)"
 
 # ─── 禁用 ────────────────────────────────────────────────────────────────────
 
-root.opacity-disabled = "var(--card-opacity-disabled, var(--card-disabled-opacity, $ref(opacity.disabled)))"
+root.opacity-disabled = "$ref(opacity.disabled)"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"

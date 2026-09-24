@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import type { CSSProperties, FC, KeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
 import token from './token.js';
@@ -87,7 +88,7 @@ const isPresetTagColor = (value: string): value is PresetTagColor => {
 
 const Tag: FC<TagProps> = ({
     color = 'default',
-    size = 'middle',
+    size: sizeProp,
     bordered = true,
     closable = false,
     closeIcon,
@@ -99,6 +100,7 @@ const Tag: FC<TagProps> = ({
     style,
     ...restProps
 }) => {
+    const size = useComponentSize(sizeProp);
     const getColorStyle = () => {
         const styles = isPresetTagColor(color) ? colorStyleMap[color] : colorStyleMap.default;
         return cx(styles.base, bordered ? styles.border : noBorderStyle);

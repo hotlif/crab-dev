@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
@@ -185,7 +186,7 @@ const Radio: FC<RadioProps> = ({
     ...restProps
 }) => {
     const group = useRadioGroup();
-    const size = sizeProp ?? group?.size ?? 'middle';
+    const size = useComponentSize(sizeProp ?? group?.size);
 
     const getSizeStyle = () => {
         if (size === 'large') {

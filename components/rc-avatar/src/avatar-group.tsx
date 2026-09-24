@@ -1,8 +1,10 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { Children, cloneElement, isValidElement } from 'react';
-import type { CSSProperties, FC, KeyboardEvent, MouseEvent, ReactElement, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactElement, ReactNode } from 'react';
 import Badge from '@crab-dev/rc-badge';
-import token from './token.js';
+import Button from '@crab-dev/rc-button';
+import token, { vars } from './token.js';
 import type { AvatarGroupProps, AvatarProps, AvatarShape, AvatarSize } from './types.js';
 
 const groupStyle = css`
@@ -49,14 +51,11 @@ const itemSquareStyle = css`
     border-radius: ${token.shape.square['border-radius']};
 `;
 
-const itemInteractiveStyle = css`
-    cursor: pointer;
-
-    &:focus-visible {
-        outline: none;
-        box-shadow:
-            0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']},
-            0 0 0 calc(${token.group.item.ring.width} + 2px) ${token.ring['color-focus']};
+const extraActionStyle = css`
+    && {
+        min-width: ${token.interaction.touch['min-width']};
+        min-height: ${token.interaction.touch['min-height']};
+        margin-inline-start: ${token.group.action.gap};
     }
 `;
 
@@ -82,7 +81,7 @@ const resolveBadgeSize = (size: AvatarSize | number): 'default' | 'small' => {
 };
 
 const AvatarGroup: FC<AvatarGroupProps> = ({
-    size = 'middle',
+    size: sizeProp,
     shape = 'circle',
     max,
     spacing,
@@ -93,6 +92,7 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
     children,
     ...restProps
 }) => {
+    const size = useComponentSize(sizeProp);
     const childArray = Children.toArray(children).filter(
         (child): child is ReactElement<AvatarProps> => isValidElement(child),
     );
@@ -108,30 +108,16 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
     const resolvedSpacing = resolveSpacing(spacing);
     const mergedStyle: CSSProperties = {
         ...(resolvedSpacing !== undefined
-            ? ({ '--avatar-group-overlap': resolvedSpacing } as CSSProperties)
+            ? { [vars['group.margin']]: resolvedSpacing }
             : {}),
         ...style,
-    };
-
-    const handleExtraClick = (event: MouseEvent<HTMLSpanElement>) => {
-        onExtraClick?.(event);
-    };
-
-    const handleExtraKeyDown = (event: KeyboardEvent<HTMLSpanElement>) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            onExtraClick?.(event as unknown as MouseEvent<HTMLSpanElement>);
-        }
     };
 
     const badgeCount: ReactNode = renderExtra
         ? renderExtra(hiddenCount, hiddenChildren)
         : `+${hiddenCount}`;
 
-    // Non-interactive: Badge indicator carries aria-label via title.
-    // Interactive:     outer button span carries aria-label; Badge gets no title
-    //                  so its indicator doesn't duplicate the label.
-    const badgeTitle = extraInteractive ? undefined : `+${hiddenCount} more`;
+    const badgeTitle = `+${hiddenCount} more`;
 
     const shouldShowBadge = hiddenCount > 0;
 
@@ -149,7 +135,7 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
                     shape: child.props.shape ?? shape,
                 } as Partial<AvatarProps>);
 
-                const showBadgeOnThis = isLast && shouldShowBadge;
+                const showBadgeOnThis = isLast && shouldShowBadge && !extraInteractive;
 
                 return (
                     <span
@@ -157,14 +143,8 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
                         className={cx(
                             itemBaseStyle,
                             itemShapeStyleMap[shape],
-                            showBadgeOnThis && extraInteractive && itemInteractiveStyle,
                         )}
                         style={{ zIndex }}
-                        aria-label={showBadgeOnThis && extraInteractive ? `+${hiddenCount} more` : undefined}
-                        role={showBadgeOnThis && extraInteractive ? 'button' : undefined}
-                        tabIndex={showBadgeOnThis && extraInteractive ? 0 : undefined}
-                        onClick={showBadgeOnThis && extraInteractive ? handleExtraClick : undefined}
-                        onKeyDown={showBadgeOnThis && extraInteractive ? handleExtraKeyDown : undefined}
                     >
                         {showBadgeOnThis ? (
                             <Badge
@@ -181,6 +161,12 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
                     </span>
                 );
             })}
+            {shouldShowBadge && extraInteractive && (
+                <Button type="button" appearance="tonal" shape="circle" className={extraActionStyle}
+                    aria-label={badgeTitle} onClick={onExtraClick}>
+                    {badgeCount}
+                </Button>
+            )}
         </div>
     );
 };

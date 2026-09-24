@@ -1,9 +1,29 @@
-import { describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
+import { fireEvent, render, screen, userEvent } from '@crab-dev/wake/test/react';
 import Avatar from '../avatar.js';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 describe('Avatar', () => {
+    it('provides a focusable native button for clickable avatars', async () => {
+        const user = userEvent.setup();
+        const onClick = mock.fn();
+        await render(<Avatar aria-label="打开个人资料" onClick={onClick}>AB</Avatar>);
+        const button = screen.getByRole('button', { name: '打开个人资料' });
+        await user.tab();
+        expect(document.activeElement).toBe(button);
+        expect(button.tagName).toBe('BUTTON');
+        await user.click(button);
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
+    it('prevents disabled avatar actions', async () => {
+        const onClick = mock.fn();
+        await render(<Avatar aria-label="打开个人资料" disabled onClick={onClick}>AB</Avatar>);
+        const button = screen.getByRole('button', { name: '打开个人资料' }) as HTMLButtonElement;
+        expect(button.disabled).toBe(true);
+        await fireEvent.click(button);
+        expect(onClick).not.toHaveBeenCalled();
+    });
     it('renders children as fallback content', async () => {
         await render(<Avatar>cd</Avatar>);
         expect(screen.getByText('cd')).toBeTruthy();

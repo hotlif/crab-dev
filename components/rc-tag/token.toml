@@ -8,7 +8,7 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.transition = "var(--tag-transition, background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction))"
+root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 size.large.height = "$ref(size.40)"
@@ -52,12 +52,12 @@ warning.background-color   = "$ref(color.feedback.warning.background)"
 warning.border-color       = "$ref(color.feedback.warning.border)"
 
 # ─── Error — 错误标签 ────────────────────────────────────────────────────────
-root.color-error            = "var(--tag-error-color, $ref(color.feedback.error.text))"
-root.background-color-error = "var(--tag-error-background-color, $ref(color.feedback.error.background))"
-root.border-color-error     = "var(--tag-error-border-color, $ref(color.feedback.error.border))"
+root.color-error            = "$ref(color.feedback.error.text)"
+root.background-color-error = "$ref(color.feedback.error.background)"
+root.border-color-error     = "$ref(color.feedback.error.border)"
 
 # ─── 关闭按钮 ────────────────────────────────────────────────────────────────
-close.width = "var(--tag-close-size, 14px)"
+close.width = "14px"
 close.color        = "$ref(color.text.secondary)"
 close.color-hover  = "$ref(color.text.primary)"
 

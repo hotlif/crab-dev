@@ -8,12 +8,10 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: number]: DocsTypePlaceholder;
 };
 type ButtonAppearance = DocsTypePlaceholder;
-type ButtonHTMLAttributes<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ClickHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type HTMLAnchorElement = DocsTypePlaceholder;
 type HTMLButtonElement = DocsTypePlaceholder;
 type LegacyButtonAppearance = DocsTypePlaceholder;
-type NonNullable<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type Parameters<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
 export interface ButtonProps {
@@ -29,7 +27,6 @@ export interface ButtonProps {
 
     /**
      * 加载中
-     * @default false
      */
     "loading"?: boolean;
 
@@ -65,34 +62,8 @@ export interface ButtonProps {
 
     /**
      * 宽度撑满父容器
-     * @default false
      */
     "shouldFitContainer"?: boolean;
-
-    /**
-     * 存在时渲染为 <a> 元素
-     */
-    "href"?: string;
-
-    /**
-     * 链接打开方式（_blank / _self / _parent / _top）
-     */
-    "target"?: string;
-
-    /**
-     * 链接 rel 属性，href 为外部地址时建议传 "noopener noreferrer"
-     */
-    "rel"?: string;
-
-    /**
-     * see ButtonHTMLAttributes<HTMLButtonElement>["onClick"]
-     */
-    "onClick"?: ( param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0], ) => Promise<void> | void;
-
-    /**
-     * see ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]
-     */
-    "onClickCapture"?: ( param: Parameters< NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']> >[0], ) => Promise<void> | void;
 
     /**
      * 暂无说明。
@@ -103,4 +74,24 @@ export interface ButtonProps {
      * 暂无说明。
      */
     "aria-label"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "href"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "onClick"?: ClickHandler<HTMLButtonElement> | ClickHandler<HTMLAnchorElement>;
+
+    /**
+     * 暂无说明。
+     */
+    "onClickCapture"?: ClickHandler<HTMLButtonElement> | ClickHandler<HTMLAnchorElement>;
+
+    /**
+     * 暂无说明。
+     */
+    "disabled"?: boolean;
 }

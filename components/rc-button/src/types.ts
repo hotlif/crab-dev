@@ -1,4 +1,4 @@
-import { type ReactNode, type ButtonHTMLAttributes } from 'react';
+import { type ReactNode, type ComponentPropsWithRef, type MouseEvent } from 'react';
 
 /** Material 五种按钮外观；primary 对应 Filled。 */
 export type ButtonAppearance = 'elevated' | 'primary' | 'tonal' | 'outlined' | 'text';
@@ -6,10 +6,7 @@ export type ButtonAppearance = 'elevated' | 'primary' | 'tonal' | 'outlined' | '
 /** @deprecated 旧外观仅用于兼容。新代码使用 ButtonAppearance，危险操作使用 danger。 */
 export type LegacyButtonAppearance = 'subtle' | 'dashed' | 'link' | 'danger';
 
-interface BaseButtonProps extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'onClick' | 'onClickCapture'
-> {
+interface BaseButtonProps {
     /**
      * 图标（左侧）
      */
@@ -58,40 +55,38 @@ interface BaseButtonProps extends Omit<
      */
     shouldFitContainer?: boolean;
 
-    /**
-     * 存在时渲染为 <a> 元素
-     */
-    href?: string;
-
-    /**
-     * 链接打开方式（_blank / _self / _parent / _top）
-     */
-    target?: string;
-
-    /**
-     * 链接 rel 属性，href 为外部地址时建议传 "noopener noreferrer"
-     */
-    rel?: string;
-
-    /**
-     * see ButtonHTMLAttributes<HTMLButtonElement>["onClick"]
-     */
-    onClick?: (
-        param: Parameters<NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClick']>>[0],
-    ) => Promise<void> | void;
-
-    /**
-     * see ButtonHTMLAttributes<HTMLButtonElement>["onClickCapture"]
-     */
-    onClickCapture?: (
-        param: Parameters<
-            NonNullable<ButtonHTMLAttributes<HTMLButtonElement>['onClickCapture']>
-        >[0],
-    ) => Promise<void> | void;
 }
 
-export type ButtonProps = BaseButtonProps &
-    ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });
+type ClickHandler<Element extends HTMLElement> = (event: MouseEvent<Element>) => void | Promise<void>;
+type ContentProps =
+    | { children: ReactNode; 'aria-label'?: string }
+    | { children?: never; 'aria-label': string };
+type NativeAttributes = ComponentPropsWithRef<'button'>;
+type LinkAttributes = ComponentPropsWithRef<'a'>;
+type ExcludeOtherAttributes<Own, Other> = {
+    [Key in Exclude<keyof Other, keyof Own | 'disabled'>]?: never;
+};
+
+/** 原生按钮，ref 和事件对应 HTMLButtonElement。 */
+export type ButtonNativeProps = BaseButtonProps & ContentProps & ExcludeOtherAttributes<NativeAttributes, LinkAttributes> & Omit<
+    ComponentPropsWithRef<'button'>, keyof BaseButtonProps | 'children' | 'onClick' | 'onClickCapture'
+> & {
+    href?: never;
+    onClick?: ClickHandler<HTMLButtonElement>;
+    onClickCapture?: ClickHandler<HTMLButtonElement>;
+};
+
+/** 链接按钮，支持原生链接属性，ref 和事件对应 HTMLAnchorElement。 */
+export type ButtonLinkProps = BaseButtonProps & ContentProps & ExcludeOtherAttributes<LinkAttributes, NativeAttributes> & Omit<
+    ComponentPropsWithRef<'a'>, keyof BaseButtonProps | 'children' | 'onClick' | 'onClickCapture' | 'href'
+> & {
+    href: string;
+    disabled?: boolean;
+    onClick?: ClickHandler<HTMLAnchorElement>;
+    onClickCapture?: ClickHandler<HTMLAnchorElement>;
+};
+
+export type ButtonProps = ButtonNativeProps | ButtonLinkProps;
 
 export interface ButtonGroupProps {
     children: ReactNode;

@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useEffect, useState } from 'react';
 import { useTimeout } from '@crab-dev/rc-hooks';
@@ -84,7 +85,7 @@ const overlayStyle = css`
  */
 const Spin = ({
     spinning = true,
-    size = 'middle',
+    size: sizeProp,
     variant = 'circular',
     tip,
     delay = 0,
@@ -95,6 +96,7 @@ const Spin = ({
     ref,
     ...restProps
 }: SpinProps) => {
+    const size = useComponentSize(sizeProp);
     // 延迟显示：spinning 为真只是"开始加载", visible 才是"该让用户看见指示器"。
     // 二者分离, 才能让 delay 内完成的操作全程无 spinner。
     const [visible, setVisible] = useState(() => spinning && delay <= 0);

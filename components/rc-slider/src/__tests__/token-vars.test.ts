@@ -1,28 +1,20 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import token from '../token.js';
-import { TokenVars } from '../token-vars.js';
+import token, { vars } from '../token.js';
 
-describe('Slider TokenVars compatibility', () => {
-    it('retains the original public keys and values', () => {
-        expect(TokenVars['rail.thickness']).toBe('--slider-rail-thickness');
-        expect(TokenVars['rail.inactive.fill']).toBe('--slider-rail-inactive-fill');
-        expect(TokenVars['rail.active.fill']).toBe('--slider-rail-active-fill');
-        expect(TokenVars['thumb.radius']).toBe('--slider-thumb-radius');
-        expect(TokenVars['thumb.stroke.color']).toBe('--slider-thumb-stroke-color');
-        expect(TokenVars['thumb.stroke.width']).toBe('--slider-thumb-stroke-width');
-        expect(TokenVars['thumb.halo.scale.factor']).toBe('--slider-thumb-halo-scale-factor');
+describe('slider canonical token contract', () => {
+    it('exposes canonical overrides with their semantic or static defaults', () => {
+        expect(vars['rail.height']).toBe('--slider-rail-height');
+        expect(token.rail.height).toBe('var(--slider-rail-height, 16px)');
+        expect(token.rail['fill-inactive']).toContain('--token-semantic-color-secondary-container');
     });
 
-    it('also exposes canonical keys with new-variable precedence', () => {
-        expect(TokenVars['rail.fill-inactive']).toBe('--slider-rail-fill-inactive');
-        expect(TokenVars['rail.height']).toBe('--slider-rail-height');
-        expect(TokenVars['thumb.border-radius']).toBe('--slider-thumb-border-radius');
-        expect(TokenVars['thumb.halo.scale.width']).toBe('--slider-thumb-halo-scale-width');
-        expect(token.rail['fill-inactive']).toContain(
-            'var(--slider-rail-fill-inactive, var(--slider-rail-inactive-fill,',
-        );
-        expect(token.rail.height).toContain(
-            'var(--slider-rail-height, var(--slider-rail-thickness,',
-        );
+    it('does not expose or consume removed aliases', () => {
+        for (const key of ["rail.thickness","rail.inactive.fill","thumb.halo.scale.factor"]) {
+            expect(key in vars).toBe(false);
+        }
+        const values = JSON.stringify(token);
+        for (const alias of ["--slider-rail-thickness,","--slider-rail-inactive-fill,","--slider-thumb-halo-scale-factor,"]) {
+            expect(values).not.toContain(alias);
+        }
     });
 });

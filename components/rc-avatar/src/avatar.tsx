@@ -1,4 +1,6 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
+import Button from '@crab-dev/rc-button';
 import { useEffect, useState } from 'react';
 import type { CSSProperties, FC, ReactNode, SyntheticEvent } from 'react';
 import token from './token.js';
@@ -25,7 +27,7 @@ const baseStyle = css`
 `;
 
 const disabledStyle = css`
-    &[aria-disabled='true'] {
+    &[aria-disabled='true'], &[data-disabled] {
         opacity: ${token.root['opacity-disabled']};
         cursor: not-allowed;
         pointer-events: none;
@@ -40,9 +42,10 @@ const interactiveStyle = css`
     }
 
     &:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 2px ${token.ring['color-focus']};
+        outline: ${token.interaction['outline-width-focus']} solid ${token.ring['color-focus']};
+        outline-offset: ${token.interaction['outline-offset-focus']};
     }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
 
     &:active:not([aria-disabled='true']) {
         transform: scale(0.96);
@@ -52,6 +55,19 @@ const interactiveStyle = css`
         &:active:not([aria-disabled='true']) {
             transform: none;
         }
+    }
+`;
+
+const actionStyle = css`
+    && {
+        min-width: ${token.interaction.touch['min-width']};
+        min-height: ${token.interaction.touch['min-height']};
+        width: auto;
+        height: auto;
+        padding: 0;
+        border: 0;
+        vertical-align: middle;
+        > span:last-child { display: inline-flex; }
     }
 `;
 
@@ -223,7 +239,7 @@ const DefaultAvatarIcon = () => {
 
 const Avatar: FC<AvatarProps> = ({
     shape = 'circle',
-    size = 'middle',
+    size: sizeProp,
     variant = 'default',
     src,
     srcSet,
@@ -245,6 +261,7 @@ const Avatar: FC<AvatarProps> = ({
     'aria-label': ariaLabel,
     ...restProps
 }) => {
+    const size = useComponentSize(sizeProp);
     const [isImageError, setIsImageError] = useState(false);
 
     useEffect(() => {
@@ -264,7 +281,8 @@ const Avatar: FC<AvatarProps> = ({
         }
     };
 
-    const isInteractive = onClick !== undefined || role === 'button' || tabIndex !== undefined;
+    const isAction = onClick !== undefined || role === 'button';
+    const isInteractive = isAction || tabIndex !== undefined;
     const isVisualOnlyFallback = !showImage && !hasChildren;
     const resolvedRole = isVisualOnlyFallback ? (role ?? 'img') : role;
     const resolvedAriaLabel =
@@ -299,14 +317,14 @@ const Avatar: FC<AvatarProps> = ({
         );
     };
 
-    return (
+    const avatar = (
         <span
-            {...restProps}
-            onClick={onClick}
-            role={resolvedRole}
-            tabIndex={tabIndex}
-            aria-label={resolvedAriaLabel}
-            aria-disabled={disabled ? 'true' : undefined}
+            {...(isAction ? {} : restProps)}
+            role={isAction ? undefined : resolvedRole}
+            tabIndex={isAction ? undefined : tabIndex}
+            aria-label={isAction ? undefined : resolvedAriaLabel}
+            aria-disabled={!isAction && disabled ? 'true' : undefined}
+            data-disabled={!isAction && disabled ? '' : undefined}
             className={cx(
                 baseStyle,
                 disabledStyle,
@@ -314,7 +332,7 @@ const Avatar: FC<AvatarProps> = ({
                 isNumberSize ? undefined : sizeStyleMap[size as AvatarSize],
                 variantStyleMap[variant],
                 bordered ? borderedStyle : noBorderStyle,
-                isInteractive && interactiveStyle,
+                isInteractive && !isAction && interactiveStyle,
                 className,
             )}
             style={mergedStyle}
@@ -335,6 +353,25 @@ const Avatar: FC<AvatarProps> = ({
                 renderFallbackContent()
             )}
         </span>
+    );
+
+    if (!isAction) return avatar;
+
+    return (
+        <Button
+            {...restProps}
+            type="button"
+            appearance="text"
+            shape="circle"
+            role={role}
+            tabIndex={disabled ? -1 : tabIndex}
+            aria-label={resolvedAriaLabel ?? alt}
+            disabled={disabled}
+            onClick={onClick}
+            className={actionStyle}
+        >
+            {avatar}
+        </Button>
     );
 };
 

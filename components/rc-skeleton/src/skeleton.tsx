@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import type { CSSProperties, FC } from "react";
 import { css, cx } from "@crab-dev/css";
 
@@ -180,7 +181,7 @@ const getAnimationStyle = (active: boolean, animation: SkeletonAnimation): strin
  */
 const Skeleton: FC<SkeletonProps> = ({
     variant = "text",
-    size = "medium",
+    size: sizeProp,
     width,
     height,
     rows = 1,
@@ -193,6 +194,8 @@ const Skeleton: FC<SkeletonProps> = ({
     children,
     ...restProps
 }) => {
+    const configuredSize = useComponentSize(sizeProp);
+    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     if (!loading) {
         return <>{children}</>;
     }

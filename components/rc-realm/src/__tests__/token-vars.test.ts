@@ -1,16 +1,19 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import token, { vars as TokenVars } from '../token.js';
-import { vars } from '../token-vars.js';
+import token, { vars } from '../token.js';
 
-describe('Realm token variable compatibility', () => {
-    it('keeps the legacy vars key and CSS variable name', () => {
-        expect(vars['motion.appear']).toBe('--realm-motion-appear');
+describe('realm canonical token contract', () => {
+    it('exposes canonical overrides with their semantic or static defaults', () => {
+        expect(vars['root.animation']).toBe('--realm-root-animation');
+        expect(token.root.animation).toContain('--token-semantic-motion-fade');
     });
 
-    it('exposes the canonical animation key before the legacy fallback', () => {
-        expect(TokenVars['root.animation']).toBe('--realm-root-animation');
-        expect(token.root.animation).toContain(
-            'var(--realm-root-animation, var(--realm-motion-appear,',
-        );
+    it('does not expose or consume removed aliases', () => {
+        for (const key of ["motion.appear"]) {
+            expect(key in vars).toBe(false);
+        }
+        const values = JSON.stringify(token);
+        for (const alias of ["--realm-motion-appear,"]) {
+            expect(values).not.toContain(alias);
+        }
     });
 });

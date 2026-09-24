@@ -7,8 +7,8 @@ imports = ["@crab-dev/rc-token-semantic"]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
-root.transition = "var(--component-preview-transition, color $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast))"
-source.transition = "var(--component-preview-root-transition-expand, var(--component-preview-transition-expand, grid-template-rows $ref(motion.expand)))"
+root.transition = "color $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast)"
+source.transition = "grid-template-rows $ref(motion.expand)"
 
 
 # ─── 卡片容器 ────────────────────────────────────────────────────────────────
@@ -17,8 +17,8 @@ card.background-color = "$ref(color.surface.low)"
 card.border-color       = "$ref(color.border.subtle)"
 card.border-color-hover = "$ref(color.border.hover)"
 card.border-radius = "$ref(shape.medium)"
-card.box-shadow             = "var(--component-preview-card-shadow, none)"
-card.box-shadow-hover       = "var(--component-preview-card-shadow-hover, $ref(shadow.overlay))"
+card.box-shadow             = "none"
+card.box-shadow-hover       = "$ref(shadow.overlay)"
 
 
 # ─── 舞台（预览区） ──────────────────────────────────────────────────────────
@@ -35,10 +35,10 @@ meta.border-color           = "$ref(color.border.default)"
 # 上行：信息区（白底，标题横跨虚线居中）
 meta.info.padding           = "0 20px 16px"
 meta.info.background-color  = "$ref(color.surface.raised)"
-meta.info.divider.border-style = "var(--component-preview-meta-info-divider-style, solid)"
+meta.info.divider.border-style = "solid"
 meta.title.padding          = "0 12px"
 # 标题 chip 距顶部虚线的垂直位置修正
-meta.title.top              = "var(--component-preview-meta-title-offset, 24px)"
+meta.title.top              = "24px"
 
 # 下行：操作区（右对齐 + 图标加文字）
 meta.actions.padding        = "10px 14px"
@@ -63,7 +63,7 @@ meta.info.gap             = "6px"
 meta.actions.gap          = "4px"
 meta.actions.min-width  = "$ref(size.touch-target)"
 meta.actions.min-height = "$ref(size.touch-target)"
-meta.actions.icon.width     = "var(--component-preview-meta-actions-icon-size, 18px)"
+meta.actions.icon.width     = "18px"
 
 
 # ─── 操作按钮（图标 + 文字） ─────────────────────────────────────────────────
@@ -84,7 +84,7 @@ action.border-color           = "transparent"
 action.border-color-hover     = "transparent"
 action.border-color-active    = "$ref(color.border.default)"
 action.border-color-focus     = "$ref(color.border.focus)"
-action.box-shadow-active          = "var(--component-preview-action-shadow-active, $ref(shadow.float))"
+action.box-shadow-active          = "$ref(shadow.float)"
 
 
 # ─── 代码预览区 ──────────────────────────────────────────────────────────────
@@ -97,8 +97,8 @@ source.line-height           = "1.7"
 source.tab-size              = "4"
 source.border-color          = "$ref(color.border.default)"
 
-source.collapsed.max-height  = "var(--component-preview-source-collapsed-height, 0px)"
-source.expanded.max-height   = "var(--component-preview-source-expanded-height, 520px)"
+source.collapsed.max-height  = "0px"
+source.expanded.max-height   = "520px"
 
 source.scrollbar.color       = "$ref(color.border.hover)"
 source.scrollbar.color-hover = "$ref(color.text.tertiary)"

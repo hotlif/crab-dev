@@ -15,7 +15,7 @@ export type SkeletonVariant = "text" | "rect" | "circle" | "button" | "avatar" |
  * 尺寸阶梯，仅作用于 `text` 变体的行高。
  * 其它变体的尺寸通过 `width` / `height` 控制。
  */
-export type SkeletonSize = "small" | "medium" | "large";
+export type SkeletonSize = 'small' | 'middle' | 'medium' | 'large';
 
 /**
  * 占位动画形态。

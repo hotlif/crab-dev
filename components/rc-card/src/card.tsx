@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { Children, Fragment, isValidElement, type KeyboardEvent, type ReactElement } from 'react';
 import Skeleton from '@crab-dev/rc-skeleton';
@@ -178,7 +179,7 @@ const sizeStyleOf = (size: CardSize) => {
 
 const CardBase = ({
     variant = 'elevated',
-    size = 'middle',
+    size: sizeProp,
     title,
     extra,
     cover,
@@ -193,6 +194,7 @@ const CardBase = ({
     ref,
     ...restProps
 }: CardProps) => {
+    const size = useComponentSize(sizeProp);
     // 防错优于报错：加载 / 禁用态一并撤销悬浮与点击示能
     const actionable = clickable && !disabled && !loading;
     const interactive = (hoverable || clickable) && !disabled && !loading;

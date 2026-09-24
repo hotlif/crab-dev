@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import { createBrandTheme, themeColorContract, TokenVars } from '@crab-dev/rc-token-semantic';
 import token from '../token.js';
-import { vars } from '../token-vars.js';
+import { vars } from '../token.js';
 import { contrast, resolveColor, type Variables } from './colorContrast.js';
 
 function themeVariables(mode: 'light' | 'dark', seed?: string): Variables {
@@ -108,13 +108,12 @@ describe('Material button themes', () => {
         }
     });
 
-    it('preserves legacy overrides with canonical outlined variables taking precedence', () => {
-        const variables = { [vars['subtle.background.color']]: 'oklch(0.8 0.1 280)' };
+    it('gives outlined overrides precedence over shared subtle tokens', () => {
+        const variables = { [vars['subtle.background-color']]: 'oklch(0.8 0.1 280)' };
         expect(resolveColor(token.outlined['background-color'], variables)).toEqual([0.8, 0.1, 280]);
         expect(resolveColor(token.outlined['background-color'], {
             ...variables,
             [vars['outlined.background-color']]: 'oklch(0.7 0.1 260)',
         })).toEqual([0.7, 0.1, 260]);
-        expect(vars['subtle.background.color-disabled']).toBe(vars['subtle.background-color-disabled']);
     });
 });

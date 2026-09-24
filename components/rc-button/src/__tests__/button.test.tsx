@@ -1,12 +1,12 @@
 import { describe, expect, it, mock } from "@crab-dev/wake/test";
-import { useState, type FormEvent } from "react";
+import { createRef, useState, type FormEvent } from "react";
 import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import Button from '../button.js';
-import type { ButtonProps } from '../types.js';
+import type { ButtonNativeProps } from '../types.js';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
-const renderButton = async (props: Partial<ButtonProps> = {}) => {
+const renderButton = async (props: Partial<ButtonNativeProps> = {}) => {
     const renderResult = await render(<Button {...props}>Button Text</Button>);
     const button = screen.getByRole('button', { name: 'Button Text' }) as HTMLButtonElement;
     return {
@@ -20,6 +20,21 @@ const clickButton = async (button: HTMLButtonElement) => {
     });
 };
 describe('Button', () => {
+    it('forwards anchor attributes, focus events and ref with an anchor currentTarget', async () => {
+        const ref = createRef<HTMLAnchorElement>();
+        const onFocus = mock.fn();
+        let target: HTMLAnchorElement | undefined;
+        await render(<Button href='#file' download='report.csv' hrefLang='zh' ref={ref} onFocus={onFocus}
+            onClick={event => { event.preventDefault(); target = event.currentTarget; }}>Download</Button>);
+        const link = screen.getByRole('link', { name: 'Download' });
+        expect(ref.current).toBe(link);
+        expect(link.getAttribute('download')).toBe('report.csv');
+        expect(link.getAttribute('hreflang')).toBe('zh');
+        await act(() => { link.focus(); });
+        await fireEvent.click(link);
+        expect(onFocus).toHaveBeenCalledTimes(1);
+        expect(target).toBe(link);
+    });
     it('keeps disabled links out of the tab order and blocks capture, bubbling, and navigation', async () => {
         const onClick = mock.fn();
         const onClickCapture = mock.fn();
@@ -157,7 +172,7 @@ describe('Button', () => {
         await unmount();
     });
     it('renders all appearance variants without runtime error', async () => {
-        const appearanceList: NonNullable<ButtonProps['appearance']>[] = [
+        const appearanceList: NonNullable<ButtonNativeProps['appearance']>[] = [
             'elevated',
             'primary',
             'subtle',
@@ -193,7 +208,7 @@ describe('Button', () => {
         await unmount();
     });
     it('does not trigger onClick when disabled', async () => {
-        const onClick = mock.fn() as ButtonProps['onClick'];
+        const onClick = mock.fn() as ButtonNativeProps['onClick'];
         const { button, unmount } = await renderButton({ disabled: true, onClick });
         await clickButton(button);
         expect(onClick).not.toHaveBeenCalled();
@@ -218,7 +233,7 @@ describe('Button', () => {
         await unmount();
     });
     it('renders all size variants and fit-container option', async () => {
-        const sizeList: NonNullable<ButtonProps['size']>[] = ['large', 'middle', 'small'];
+        const sizeList: NonNullable<ButtonNativeProps['size']>[] = ['large', 'middle', 'small'];
         for (const size of sizeList) {
             const { button, unmount } = await renderButton({ size, shouldFitContainer: true });
             expect(button.className.length).toBeGreaterThan(0);
@@ -242,7 +257,7 @@ describe('Button', () => {
         const onClick = mock.fn(() => new Promise<void>((resolve) => {
             resolveClick = resolve;
         }));
-        const { button, unmount } = await renderButton({ onClick: onClick as ButtonProps['onClick'] });
+        const { button, unmount } = await renderButton({ onClick: onClick as ButtonNativeProps['onClick'] });
         await clickButton(button);
         await clickButton(button);
         expect(onClick).toHaveBeenCalledTimes(1);
@@ -255,7 +270,7 @@ describe('Button', () => {
         await unmount();
     });
     it('does not lock sync onClick between clicks', async () => {
-        const onClick = mock.fn() as ButtonProps['onClick'];
+        const onClick = mock.fn() as ButtonNativeProps['onClick'];
         const { button, unmount } = await renderButton({ onClick });
         await clickButton(button);
         await clickButton(button);
@@ -305,8 +320,8 @@ describe('Button', () => {
         const onClickCapture = mock.fn();
         const onClick = mock.fn();
         const { button, unmount } = await renderButton({
-            onClickCapture: onClickCapture as ButtonProps['onClickCapture'],
-            onClick: onClick as ButtonProps['onClick'],
+            onClickCapture: onClickCapture as ButtonNativeProps['onClickCapture'],
+            onClick: onClick as ButtonNativeProps['onClick'],
         });
         await clickButton(button);
         expect(onClickCapture).toHaveBeenCalledTimes(1);
@@ -333,8 +348,8 @@ describe('Button', () => {
         }));
         const onClick = mock.fn();
         const { button, unmount } = await renderButton({
-            onClickCapture: onClickCapture as ButtonProps['onClickCapture'],
-            onClick: onClick as ButtonProps['onClick'],
+            onClickCapture: onClickCapture as ButtonNativeProps['onClickCapture'],
+            onClick: onClick as ButtonNativeProps['onClick'],
         });
         await clickButton(button);
         expect(onClickCapture).toHaveBeenCalledTimes(1);
@@ -356,7 +371,7 @@ describe('Button', () => {
         const onClick = mock.fn(() => {
             throw new Error('sync click error');
         });
-        const { button, unmount } = await renderButton({ onClick: onClick as ButtonProps['onClick'] });
+        const { button, unmount } = await renderButton({ onClick: onClick as ButtonNativeProps['onClick'] });
         await clickButton(button);
         await clickButton(button);
         expect(onClick).toHaveBeenCalledTimes(2);
@@ -372,7 +387,7 @@ describe('Button', () => {
             throw new Error('sync capture error');
         });
         const { button, unmount } = await renderButton({
-            onClickCapture: onClickCapture as ButtonProps['onClickCapture'],
+            onClickCapture: onClickCapture as ButtonNativeProps['onClickCapture'],
         });
         await clickButton(button);
         await clickButton(button);

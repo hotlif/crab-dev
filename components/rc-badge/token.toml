@@ -8,7 +8,7 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.transition = "var(--badge-transition, background-color $ref(motion.interaction), color $ref(motion.interaction), transform $ref(motion.spatial.fast))"
+root.transition = "background-color $ref(motion.interaction), color $ref(motion.interaction), transform $ref(motion.spatial.fast)"
 
 # ─── 计数徽标 — Default 尺寸 ─────────────────────────────────────────────────
 size.default.height = "16px"
@@ -25,8 +25,8 @@ size.small.font-size    = "$ref(typography.caption.font-size)"
 size.small.border-width = "1px"
 
 # ─── 圆点 ────────────────────────────────────────────────────────────────────
-dot.default.width = "var(--badge-dot-size-default, 6px)"
-dot.small.width   = "var(--badge-dot-size-small, 6px)"
+dot.default.width = "6px"
+dot.small.width   = "6px"
 
 # ─── 计数色（默认语义：红色提醒）─────────────────────────────────────────────
 count.color              = "$ref(color.feedback.error.on-solid)"
@@ -39,7 +39,7 @@ status.default.color    = "$ref(color.fill.default)"
 status.processing.color = "$ref(color.feedback.info.icon)"
 status.success.color    = "$ref(color.feedback.success.icon)"
 status.warning.color    = "$ref(color.feedback.warning.icon)"
-status.color-error = "var(--badge-status-error-color, $ref(color.feedback.error.icon))"
+status.color-error = "$ref(color.feedback.error.icon)"
 
 # ─── 状态文字 ────────────────────────────────────────────────────────────────
 status.text.color     = "$ref(color.text.primary)"
@@ -47,4 +47,4 @@ status.text.gap       = "$ref(space.component-gap)"
 status.text.font-size = "$ref(typography.body.font-size)"
 
 # ─── 定位（作为子节点角标时）─────────────────────────────────────────────────
-indicator.transform = "translate(var(--badge-offset-x, 50%), var(--badge-offset-y, -50%))"
+indicator.transform = "translate(50%, -50%)"

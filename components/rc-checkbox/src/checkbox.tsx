@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useRef, useEffect, type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
@@ -235,7 +236,7 @@ const Checkbox: FC<CheckboxProps> = ({
     // DOM instance used to synchronize the native mixed state after commits.
     const inputRef = useRef<HTMLInputElement>(null);
     const group = useCheckboxGroup();
-    const size = sizeProp ?? group?.size ?? 'middle';
+    const size = useComponentSize(sizeProp ?? group?.size);
     const sizeStyle = sizeStyles[size];
     const isInGroup = group !== null && value !== undefined;
 

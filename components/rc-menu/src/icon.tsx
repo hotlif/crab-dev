@@ -1,4 +1,5 @@
 import { css } from "@crab-dev/css"
+import token from "./token.js";
 
 export const iconArrayBase = css`
     position: relative;
@@ -8,9 +9,12 @@ export const iconArrayBase = css`
         position: absolute;
         height: 1.5px;
         width: 6px;
-        transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: transform ${token.motion.arrow.transition};
         background-color: currentColor;
         border-radius: 6px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        &::before, &::after { transition: none; }
     }
 `
 

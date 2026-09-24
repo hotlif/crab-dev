@@ -15,5 +15,5 @@ export { RealmError } from './types.js';
 export { loadRemoteModule, preloadRemote, clearRemoteCache } from './loader.js';
 export type { LoadRemoteOptions } from './loader.js';
 export { vars as TokenVars } from './token.js';
-export { vars } from './token-vars.js';
+export { vars } from './token.js';
 export default Realm;

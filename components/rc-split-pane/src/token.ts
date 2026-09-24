@@ -20,18 +20,18 @@ export const vars = defineTokens({
 const token = defineTokens({
     'separator': {
         'vertical': {
-            'width': `var(${vars['separator.vertical.width']}, var(--split-pane-separator-size, 7px))`
+            'width': `var(${vars['separator.vertical.width']}, 7px)`
         },
         'horizontal': {
-            'height': `var(${vars['separator.horizontal.height']}, var(--split-pane-separator-size, 7px))`
+            'height': `var(${vars['separator.horizontal.height']}, 7px)`
         },
         'line': {
             'width': `var(${vars['separator.line.width']}, 1px)`,
-            'background-color': `var(${vars['separator.line.background-color']}, var(--split-pane-separator-line-color, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))))`,
-            'background-color-active': `var(${vars['separator.line.background-color-active']}, var(--split-pane-separator-line-color-active, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
+            'background-color': `var(${vars['separator.line.background-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
+            'background-color-active': `var(${vars['separator.line.background-color-active']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
         },
         'transition': `var(${vars['separator.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
-        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent)))))`,
+        'box-shadow-focus': `var(${vars['separator.box-shadow-focus']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent)))`,
         'touch': {
             'width': `var(${vars['separator.touch.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
         },

@@ -1,4 +1,5 @@
 import { css, cx } from '@crab-dev/css';
+import Button from '@crab-dev/rc-button';
 import type { ReactNode } from 'react';
 import token from './token.js';
 import type { BreadcrumbsItem, BreadcrumbsProps } from './types.js';
@@ -43,6 +44,14 @@ const linkStyle = css`
 const currentStyle = css`
     color: ${token.item['color-active']};
     font-weight: 500;
+`;
+
+const actionStyle = css`
+    && {
+        font: inherit;
+        color: ${token.item.color};
+        min-height: ${token.interaction.touch['min-height']};
+    }
 `;
 
 const disabledStyle = css`
@@ -114,13 +123,21 @@ const renderItemNode = (item: BreadcrumbsItem, isLast: boolean): ReactNode => {
         );
     }
 
+    if (item.onClick && !isLast) {
+        return (
+            <Button type="button" appearance="text" disabled={item.disabled} onClick={item.onClick} className={actionStyle}>
+                {item.title}
+            </Button>
+        );
+    }
+
     return (
         <span
             className={cx.call(undefined, linkStyle,
                 isLast ? currentStyle : '',
                 item.disabled ? disabledStyle : '',
             )}
-            onClick={(event) => item.onClick?.(event)}
+            aria-disabled={item.disabled || undefined}
             aria-current={isLast ? 'page' : undefined}
         >
             {item.title}

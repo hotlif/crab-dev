@@ -8,33 +8,33 @@ imports = [
 [token]
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
-root.transition = "var(--avatar-transition, box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast), background-color $ref(motion.interaction), color $ref(motion.interaction))"
+root.transition = "box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast), background-color $ref(motion.interaction), color $ref(motion.interaction)"
 
 # ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
-size.small.width     = "var(--avatar-size-small-value, 28px)"
+size.small.width     = "28px"
 size.small.font-size = "$ref(typography.caption.font-size)"
 
-size.middle.width     = "var(--avatar-size-middle-value, 40px)"
+size.middle.width     = "40px"
 size.middle.font-size = "$ref(typography.body.font-size)"
 
-size.large.width     = "var(--avatar-size-large-value, 48px)"
+size.large.width     = "48px"
 size.large.font-size = "$ref(font.size.subhead)"
 
-icon.small.font-size  = "var(--avatar-icon-size-small, 14px)"
-icon.middle.font-size = "var(--avatar-icon-size-middle, 18px)"
-icon.large.font-size  = "var(--avatar-icon-size-large, 22px)"
+icon.small.font-size  = "14px"
+icon.middle.font-size = "18px"
+icon.large.font-size  = "22px"
 
 content.max-width   = "70%"
 content.font-weight = "$ref(typography.label.font-weight)"
 
 # ─── 形态 ────────────────────────────────────────────────────────────────────
-shape.square.border-radius = "var(--avatar-shape-square-radius, $ref(radius.lg))"
+shape.square.border-radius = "$ref(radius.lg)"
 
 # ─── 交互语义 ────────────────────────────────────────────────────────────────
-root.border-color = "var(--avatar-border-color, $ref(color.border.default))"
-root.border-color-hover = "var(--avatar-border-color-hover, var(--avatar-border-hover, $ref(color.border.hover)))"
-ring.color-focus = "var(--avatar-focus-ring-color, $ref(color.focus.ring))"
-root.opacity-disabled = "var(--avatar-opacity-disabled, var(--avatar-disabled-opacity, $ref(opacity.disabled)))"
+root.border-color = "$ref(color.border.default)"
+root.border-color-hover = "$ref(color.border.hover)"
+ring.color-focus = "$ref(color.focus.ring)"
+root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 颜色语义 ────────────────────────────────────────────────────────────────
 default.color            = "$ref(color.text.primary)"
@@ -49,16 +49,17 @@ success.background-color = "$ref(color.feedback.success.background)"
 warning.color            = "$ref(color.feedback.warning.text)"
 warning.background-color = "$ref(color.feedback.warning.background)"
 
-root.color-error = "var(--avatar-error-color, $ref(color.feedback.error.text))"
-root.background-color-error = "var(--avatar-error-background-color, $ref(color.feedback.error.background))"
+root.color-error = "$ref(color.feedback.error.text)"
+root.background-color-error = "$ref(color.feedback.error.background)"
 
 # ─── AvatarGroup ─────────────────────────────────────────────────────────────
-group.margin                 = "var(--avatar-group-overlap, -8px)"
+group.margin                 = "-8px"
 group.transition             = "transform $ref(motion.spatial.fast), box-shadow $ref(motion.effects.fast)"
-group.transform-hover = "var(--avatar-group-translate-y-hover, translateY(var(--avatar-group-hover-translate-y, -2px)))"
+group.transform-hover = "translateY(-2px)"
 
 group.item.ring.width = "2px"
 group.item.border-color      = "$ref(color.surface.content)"
+group.action.gap = "$ref(space.inline-gap)"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"

@@ -8,14 +8,14 @@ imports = [
 [token]
 
 # 分隔条命中区厚度：可见线只有 1px，命中区必须更宽才抓得住
-separator.vertical.width = "var(--split-pane-separator-size, 7px)"
-separator.horizontal.height = "var(--split-pane-separator-size, 7px)"
+separator.vertical.width = "7px"
+separator.horizontal.height = "7px"
 separator.line.width = "1px"
-separator.line.background-color = "var(--split-pane-separator-line-color, $ref(color.border.default))"
-separator.line.background-color-active = "var(--split-pane-separator-line-color-active, $ref(color.brand.primary))"
+separator.line.background-color = "$ref(color.border.default)"
+separator.line.background-color-active = "$ref(color.brand.primary)"
 separator.transition = "background-color $ref(motion.interaction)"
 
-separator.box-shadow-focus = "var(--split-pane-focus-box-shadow, var(--split-pane-focus-ring, $ref(shadow.focus-ring)))"
+separator.box-shadow-focus = "$ref(shadow.focus-ring)"
 separator.touch.width = "$ref(size.touch-target)"
 separator.opacity-disabled = "$ref(opacity.disabled)"
 separator.outline-width-focus = "2px"
