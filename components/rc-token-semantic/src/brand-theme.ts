@@ -1,4 +1,4 @@
-import { TokenVars } from './token-vars.js';
+import { vars as TokenVars } from './token.js';
 
 /** L2 overrides only: neutral surfaces and feedback colors keep their own meaning. */
 export type BrandThemeVariables = Readonly<Record<`--token-semantic-${string}`, string>>;

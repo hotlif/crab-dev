@@ -9,6 +9,10 @@ globalStyle`
     :root,
     [data-theme="light"] {
         color-scheme: light;
+        --token-semantic-color-workspace-frame: ${color.light.workspace.frame};
+        --token-semantic-color-workspace-toolbar: ${color.light.workspace.toolbar};
+        --token-semantic-color-workspace-sidebar: ${color.light.workspace.sidebar};
+        --token-semantic-color-workspace-content: ${color.light.workspace.content};
         --token-semantic-color-surface-container: ${color.light.surface.container};
         --token-semantic-color-surface-overlay: ${color.light.surface.overlay};
         --token-semantic-color-surface-lowest: ${color.light.surface.lowest};
@@ -118,6 +122,10 @@ globalStyle`
 
     [data-theme="dark"] {
         color-scheme: dark;
+        --token-semantic-color-workspace-frame: ${color.dark.workspace.frame};
+        --token-semantic-color-workspace-toolbar: ${color.dark.workspace.toolbar};
+        --token-semantic-color-workspace-sidebar: ${color.dark.workspace.sidebar};
+        --token-semantic-color-workspace-content: ${color.dark.workspace.content};
         --token-semantic-color-surface-container: ${color.dark.surface.container};
         --token-semantic-color-surface-overlay: ${color.dark.surface.overlay};
         --token-semantic-color-surface-lowest: ${color.dark.surface.lowest};
@@ -237,6 +245,10 @@ globalStyle`
             --token-semantic-color-surface-lowest: Canvas;
             --token-semantic-color-surface-low: Canvas;
             --token-semantic-color-surface-high: Canvas;
+            --token-semantic-color-workspace-frame: Canvas;
+            --token-semantic-color-workspace-toolbar: Canvas;
+            --token-semantic-color-workspace-sidebar: Canvas;
+            --token-semantic-color-workspace-content: Canvas;
             --token-semantic-color-surface-highest: Canvas;
             --token-semantic-color-surface-dim: Canvas;
             --token-semantic-color-surface-bright: Canvas;

@@ -18,6 +18,6 @@ export interface ConfigProviderProps extends Omit<ComponentPropsWithRef<'div'>, 
     brandColor?: string | null;
     /** 语言；省略时继承父级，根级默认 zh-CN。 */
     locale?: ConfigLocale;
-    /** 组件默认尺寸；省略时继承父级，根级默认 middle。 */
+    /** 控件、数据行和布局间距的默认档位；small 紧凑、middle 标准、large 宽松。省略时继承父级。 */
     size?: ConfigSize;
 }

@@ -16,6 +16,7 @@ export interface ThemeColors {
     readonly tertiary?: AccentColors;
     /** Optional for existing custom themes; built-in themes always resolve these roles. */
     readonly surface?: SurfaceColors;
+    readonly workspace?: Readonly<Record<'frame' | 'toolbar' | 'sidebar' | 'content', string>>;
     readonly brandContainer?: BrandContainerColors;
     readonly control: Readonly<Record<"thumb" | "track" | "trackHover", string>>;
     readonly brand: Readonly<Record<"primary" | "hover" | "active" | "subtle", string>>;
@@ -41,6 +42,7 @@ export type BrandContainerColors = Readonly<Record<'background' | 'foreground', 
 
 export interface ResolvedThemeColors extends ThemeColors {
     readonly surface: Required<SurfaceColors>;
+    readonly workspace: NonNullable<ThemeColors['workspace']>;
     readonly secondary: AccentColors;
     readonly tertiary: AccentColors;
     readonly brandContainer: BrandContainerColors;

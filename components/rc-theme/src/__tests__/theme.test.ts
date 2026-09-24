@@ -128,7 +128,7 @@ function expectCompositedContrast(
 describe("theme color contract", () => {
     it('keeps Material surfaces and paired tonal content readable', () => {
         for (const theme of [themeColorContract.light, themeColorContract.dark]) {
-            for (const surface of Object.values(theme.surface)) {
+            for (const surface of [...Object.values(theme.surface), ...Object.values(theme.workspace)]) {
                 expectContrast(theme.text.primary, surface, 4.5);
                 expectContrast(theme.text.secondary, surface, 4.5);
                 expectContrast(theme.focusRing, surface, 3);

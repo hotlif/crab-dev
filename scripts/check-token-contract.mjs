@@ -9,12 +9,6 @@ const repositoryRoot = path.resolve(
 const componentsRoot = path.join(repositoryRoot, "components");
 const globalPackageName = "@crab-dev/rc-token-global";
 const semanticPackageName = "@crab-dev/rc-token-semantic";
-const compatibilityManifest = JSON.parse(
-    await readFile(
-        path.join(repositoryRoot, "scripts/token-compatibility.json"),
-        "utf8",
-    ),
-);
 
 const feedbackIntents = ["error", "success", "warning", "info"];
 const feedbackRoles = [
@@ -237,7 +231,7 @@ const uiRawColorAllowlist = new Map([
     [
         "components/rc-color-picker/src/panels/presetSwatches.tsx",
         allowExactLines("rendering user-provided preset color data", [
-            "backgroundColor: `oklch(${color.lightness} ${color.chroma} ${color.hue} / ${color.alpha ?? 1})`,",
+            '<rect x="0.5" y="0.5" width="19" height="19" rx="4" fill={`oklch(${color.lightness} ${color.chroma} ${color.hue} / ${color.alpha ?? 1})`} />',
         ]),
     ],
     [
@@ -329,6 +323,7 @@ const cssProperties = new Set([
     "stroke-dasharray",
     "stroke-width",
     "tab-size",
+    "text-decoration",
     "text-decoration-color",
     "text-decoration-width",
     "text-transform",
@@ -822,81 +817,12 @@ const packagesByPublishedName = new Map(
         tokenPackage,
     ]),
 );
-const packagesByTokenPath = new Map(
-    tokenPackages.map((tokenPackage) => [
-        tokenPackage.relativePath,
-        tokenPackage,
-    ]),
-);
 const globalPackage = packagesByPublishedName.get(globalPackageName);
 const semanticPackage = packagesByPublishedName.get(semanticPackageName);
 if (!globalPackage || !semanticPackage) {
     throw new Error(
         "rc-token-global and rc-token-semantic must both define token.toml",
     );
-}
-
-for (const [tokenPath, legacyEntries] of Object.entries(
-    compatibilityManifest,
-)) {
-    const tokenPackage = packagesByTokenPath.get(tokenPath);
-    if (!tokenPackage) {
-        recordError(
-            `${tokenPath}: legacy CSS variable manifest references a missing token package`,
-        );
-        continue;
-    }
-    const generatedSource = await readFile(
-        path.resolve(tokenPackage.root, tokenPackage.output ?? "./src/token.ts"),
-        "utf8",
-    );
-    const currentVariables = new Set(
-        [...tokenPackage.tokens].map(([key]) =>
-            flattenedVariable(tokenPackage.prefix, key),
-        ),
-    );
-    for (const [legacyKey, legacyVariable] of Object.entries(legacyEntries)) {
-        const expectedVariable = flattenedVariable(
-            tokenPackage.prefix,
-            legacyKey,
-        );
-        if (legacyVariable !== expectedVariable) {
-            recordError(
-                `${tokenPath}: compatibility entry ${legacyKey} must use ${expectedVariable}`,
-            );
-            continue;
-        }
-        if (currentVariables.has(legacyVariable)) {
-            recordError(
-                `${tokenPath}: compatibility entry ${legacyKey} is stale because ${legacyVariable} is canonical again`,
-            );
-            continue;
-        }
-        const fallbackKeys = [...tokenPackage.tokens]
-            .filter(([, value]) => String(value).includes(legacyVariable))
-            .map(([key]) => key);
-        if (fallbackKeys.length === 0) {
-            recordError(
-                `${tokenPath}: legacy ${legacyKey} (${legacyVariable}) is no longer a fallback`,
-            );
-            continue;
-        }
-        const generatedFallback = fallbackKeys.some((key) => {
-            const expressionPrefix = `var(\${vars['${key}']},`;
-            return generatedSource
-                .split(/\r?\n/)
-                .some(
-                    (line) =>
-                        line.includes(expressionPrefix) &&
-                        line.includes(legacyVariable),
-                );
-        });
-        if (!generatedFallback) {
-            recordError(
-                `${tokenPath}: generated token.ts is stale for legacy ${legacyKey} (${legacyVariable})`,
-            );
-        }
-    }
 }
 
 const flattenedVariables = new Map();
@@ -1145,7 +1071,13 @@ for (const tokenPackage of tokenPackages) {
             /var\(\s*(--[a-z0-9-]+)/gi,
         )) {
             const definitions = flattenedVariables.get(match[1]);
-            if (definitions?.length === 1) edges.push(definitions[0].id);
+            if (!definitions) {
+                recordError(
+                    `${tokenPackage.relativePath}:${tokenPackage.lines.get(key)}: ${key} references undefined CSS variable ${match[1]}; use a canonical token instead of an alias`,
+                );
+            } else if (definitions.length === 1) {
+                edges.push(definitions[0].id);
+            }
         }
     }
 }

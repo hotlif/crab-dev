@@ -1,19 +1,16 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import token from '../token.js';
-import { TokenVars, vars } from '../token-vars.js';
+import token, { vars as TokenVars } from '../token.js';
 import { themeColorContract } from '../theme.js';
 
 describe('semantic token contract', () => {
-    it('keeps legacy CSS custom property names stable', () => {
+    it('keeps feedback roles independent of removed catch-all aliases', () => {
         for (const intent of ['error', 'success', 'warning', 'info'] as const) {
-            expect(vars[`color.feedback.${intent}`]).toBe(
-                `--token-semantic-color-feedback-${intent}`,
-            );
-            expect(vars[`color.feedback.${intent}-background`]).toBe(
-                `--token-semantic-color-feedback-${intent}-background`,
-            );
+            expect(`color.feedback.${intent}` in TokenVars).toBe(false);
+            const legacyReference = `var(--token-semantic-color-feedback-${intent},`;
+            expect(JSON.stringify(token.color.feedback[intent])).not.toContain(legacyReference);
+            expect(JSON.stringify(themeColorContract.light.feedback[intent])).not.toContain(legacyReference);
+            expect(JSON.stringify(themeColorContract.dark.feedback[intent])).not.toContain(legacyReference);
         }
-        expect(TokenVars['color.text.secondary']).toBe('--token-semantic-color-text-secondary');
     });
 
     it('exposes role-specific feedback and selection tokens', () => {
@@ -57,6 +54,10 @@ describe('semantic token contract', () => {
             ...Object.keys(light.surface).map(key => {
                 const role = key as keyof typeof light.surface;
                 return [token.color.surface[role], light.surface[role]];
+            }),
+            ...Object.keys(light.workspace).map(key => {
+                const role = key as keyof typeof light.workspace;
+                return [token.color.workspace[role], light.workspace[role]];
             }),
         ]) expect(fallback).toContain(themed);
     });

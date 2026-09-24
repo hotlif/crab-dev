@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import { createPortal } from 'react-dom';
 import ConfigProvider from '../config-provider.js';
 import { useConfig } from '../context.js';
+import { useComponentSize } from '../size.js';
 
 function Probe({ name }: { name: string }) {
     const { theme, locale, size } = useConfig();
@@ -14,7 +15,21 @@ function BrandProbe({ name }: { name: string }) {
     return <output aria-label={name}>{useConfig().brandColor ?? 'default'}</output>;
 }
 
+function SizeProbe({ size }: { size?: 'small' | 'middle' | 'large' }) {
+    return <output aria-label="component size">{useComponentSize(size)}</output>;
+}
+
 describe('ConfigProvider', () => {
+    it('updates inherited component sizes, preserves explicit overrides and restores a nested boundary', async () => {
+        const view = await render(<ConfigProvider size="small"><SizeProbe /><ConfigProvider size="middle" aria-label="standard" /></ConfigProvider>);
+        expect(screen.getByLabelText('component size').textContent).toBe('small');
+        expect(screen.getByLabelText('standard').dataset.crabSize).toBe('middle');
+        await view.rerender(<ConfigProvider size="large"><SizeProbe size="small" /></ConfigProvider>);
+        expect(screen.getByLabelText('component size').textContent).toBe('small');
+        await view.rerender(<ConfigProvider size="large"><SizeProbe /></ConfigProvider>);
+        expect(screen.getByLabelText('component size').textContent).toBe('large');
+        expect(screen.getByLabelText('component size').parentElement?.dataset.crabSize).toBe('large');
+    });
     it('inherits a normalized brand across theme boundaries and permits an explicit reset', async () => {
         await render(
             <ConfigProvider brandColor="#AbC" theme="light">
@@ -122,7 +137,7 @@ describe('ConfigProvider', () => {
         );
         const scope = screen.getByLabelText('scope');
         expect(scope.id).toBe('scope');
-        expect(scope.className).toBe('custom');
+        expect(scope.classList.contains('custom')).toBe(true);
         expect(scope.getAttribute('style')).toBeNull();
         expect(ref).toHaveBeenCalledWith(scope);
         await unmount();

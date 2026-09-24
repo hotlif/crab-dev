@@ -2,6 +2,8 @@ import ConfigContext, { useConfig } from './context.js';
 import { useId, type ReactElement } from 'react';
 import { createBrandTheme } from '@crab-dev/rc-token-semantic';
 import type { ConfigProviderProps } from './types.js';
+import { cx } from '@crab-dev/css';
+import { componentSizeStyles } from './size.js';
 
 /** 为后代提供配置，并通过现有 L2 主题选择器建立独立的 CSS 边界。 */
 export default function ConfigProvider({
@@ -12,6 +14,7 @@ export default function ConfigProvider({
     children,
     ref,
     nonce,
+    className,
     ...restProps
 }: ConfigProviderProps): ReactElement {
     const parent = useConfig();
@@ -32,7 +35,7 @@ export default function ConfigProvider({
 
     return (
         <ConfigContext value={config}>
-            <div {...restProps} ref={ref} nonce={nonce} data-theme={config.theme} data-crab-brand={brand === null ? undefined : scopeId} lang={config.locale}>
+            <div {...restProps} className={cx(componentSizeStyles[config.size], className)} ref={ref} nonce={nonce} data-theme={config.theme} data-crab-size={config.size} data-crab-brand={brand === null ? undefined : scopeId} lang={config.locale}>
                 {brandCss !== null && <style nonce={nonce} data-crab-brand-style={scopeId}>{brandCss}</style>}
                 {children}
             </div>
