@@ -1,0 +1,14 @@
+/* Wake 0.1.45 sets transition-duration: 0.01ms on every element in reduced
+   motion mode. The default transition-property is all, so this creates new
+   transitions on virtual spacers and scrollbar coordinates. Repeated updates
+   can restart them before layout catches up with the scroll position.
+   Use zero duration and delay in the docs host; keep component keyframes and
+   JavaScript motion policies intact. Specificity also handles host CSS order. */
+@media (prefers-reduced-motion: reduce) {
+    html *,
+    html ::before,
+    html ::after {
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+}

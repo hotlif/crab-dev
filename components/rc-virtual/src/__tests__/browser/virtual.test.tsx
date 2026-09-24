@@ -3,6 +3,7 @@ import { describe, expect, it } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
 import Virtual, { type VirtualHandle } from "../../virtual.js";
 import type { VirtualAxis } from "../../types.js";
+import docsMotionCss from "../../../.fixtures/docs-motion.json";
 
 const COUNT = 1_000_000;
 const HEIGHT = 400;
@@ -57,6 +58,44 @@ async function wheel(grid: HTMLElement, deltaY: number, deltaX = 0) {
 }
 
 describe("Million-row browser layout", () => {
+    it("keeps rows and the thumb aligned during consecutive drag frames in the docs reduced-motion host", async () => {
+        const motionView = await render(<style>{docsMotionCss}</style>);
+        const motionRule = motionView.container.querySelector("style")?.sheet?.cssRules[0] as CSSMediaRule;
+        expect(motionRule.conditionText).toBe("(prefers-reduced-motion: reduce)");
+        // Activate the real reduced-motion rule independently of the test
+        // machine's preference. Load the Wake reset later to check specificity.
+        motionRule.media.mediaText = "all";
+        await render(<style>{`* { transition-duration: 0.01ms !important; }`}</style>);
+        const { grid } = await mountGrid(24, 0, 0, { count: 20_000, itemSize: 24 });
+        const track = grid.nextElementSibling;
+        const thumb = track?.firstElementChild;
+        if (!(track instanceof HTMLElement) || !(thumb instanceof HTMLElement)) throw new Error("Missing scrollbar");
+        thumb.setPointerCapture = () => {};
+        thumb.releasePointerCapture = () => {};
+        const trackTop = track.getBoundingClientRect().top;
+        await act(async () => {
+            thumb.dispatchEvent(new PointerEvent("pointerdown", { pointerId: 1, button: 0, clientY: thumb.getBoundingClientRect().top + 2, bubbles: true }));
+        });
+
+        for (const position of [126, 190, 260, 330, 280, 190, 80, 0]) {
+            await act(async () => {
+                thumb.dispatchEvent(new PointerEvent("pointermove", { pointerId: 1, clientY: trackTop + 2 + position, bubbles: true }));
+                await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+            });
+            // Assert immediately after each commit, while still dragging. An
+            // extra animation frame or pointerup would hide the blank viewport.
+            const rows = grid.querySelectorAll("[data-row]");
+            const bounds = grid.getBoundingClientRect();
+            expect(rows[0].getBoundingClientRect().top).toBeLessThanOrEqual(bounds.top);
+            expect(rows[rows.length - 1].getBoundingClientRect().bottom).toBeGreaterThanOrEqual(bounds.bottom);
+            expect(grid.querySelector(".virtual-test-top")?.getAnimations().length).toBe(0);
+            expect(thumb.getAnimations().length).toBe(0);
+        }
+        await act(async () => {
+            thumb.dispatchEvent(new PointerEvent("pointerup", { pointerId: 1, bubbles: true }));
+        });
+    });
+
     it("keeps middle-row geometry stable after browser layout and subsequent wheel frames", async () => {
         const { grid, gridRef } = await mountGrid(56, 0, 0, { count: COUNT, itemSize: 56 });
         await act(async () => gridRef.current?.scrollToCell({ rowIndex: 499_999 }));

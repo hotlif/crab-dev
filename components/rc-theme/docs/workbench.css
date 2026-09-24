@@ -1,15 +1,10 @@
 /* Private Wake workbench adapter. All palette values come from the public theme. */
 @import "../css/index.css";
 @import "./fonts.css";
+@import "./reduced-motion.css";
 
-/* Wake supplies legacy feedback aliases on these hosts. Reset only its defaults:
-   otherwise every text / border / solid role collapses onto one old color.
-   A consumer's own nested theme scope can still set the public legacy aliases. */
+/* Reset the Wake host default so the switch uses its semantic handle color. */
 html:root[data-theme] :is(.workbench-shell, .demo-frame-root) {
-    --token-semantic-color-feedback-error: initial;
-    --token-semantic-color-feedback-success: initial;
-    --token-semantic-color-feedback-warning: initial;
-    --token-semantic-color-feedback-info: initial;
     --switch-handle-background-color: initial;
 }
 
@@ -22,6 +17,20 @@ html[data-theme], body {
 .demo-frame-root[data-theme] {
     color: var(--token-semantic-color-text-primary);
     background-color: var(--token-semantic-color-background-surface);
+    min-height: 0;
+}
+
+/* Wake gives every direct child the frame's viewport-based minimum height.
+   The preview and the empty portal host then stack two viewport heights, so
+   resize messages keep enlarging the iframe. Let each child fit its contents. */
+.demo-frame-root > * {
+    min-height: 0;
+}
+
+/* Fixed overlays cannot contribute to the measured document height. Give an
+   active overlay a usable viewport, then return to content height on close. */
+.demo-frame-root:has([data-floating-ui-portal] > [data-state="open"], dialog[open]) {
+    min-height: calc(10 * var(--token-global-size-64, 64px));
 }
 
 /* A grid's automatic minimum otherwise expands the entire demo to its contents.
