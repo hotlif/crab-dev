@@ -1,0 +1,71 @@
+FAIL src/__tests__/layout.test.tsx
+  ✓ connects named panels to unique tabs and restores focus when all tabs close
+  ✓ keeps the default main and uses a named region when embedded
+  ✓ renders active tab content and keeps inactive panes mounted but hidden
+  ✓ destroys tab content when the tab is closed
+  ✓ defaults to the first tab when no active key is provided
+  ✓ reloads tab content from context menu
+  ✓ toggles fullscreen mode from header button
+  ✓ shows skeleton while loading remote header user and renders loaded entity
+  ✓ shows user menu on hover and triggers switch role/logout actions
+  ✓ loads header user before sidebar menus and passes resolved user to sidebarLoadMenus
+  ✓ does not call sidebarLoadMenus when headerLoadUser fails
+  WAKE_TEST_ACT: An update to Header inside a test was not wrapped in act(...).
+  
+  When testing, code that causes React state updates should be wrapped into act(...):
+  
+  act(() => {
+    /* fire events that update state */
+  });
+  /* assert on the output */
+  
+  This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+    at C:/Users/zhang/Desktop/crab-dev/.yarn/__virtual__/react-dom-virtual-45582c8783/0/cache/react-dom-npm-19.3.0-b16b0f2b73-c513044b72.zip/node_modules/react-dom/cjs/react-dom-client.development.js:20466:19
+  Error: An update to Header inside a test was not wrapped in act(...).
+  
+  When testing, code that causes React state updates should be wrapped into act(...):
+  
+  act(() => {
+    /* fire events that update state */
+  });
+  /* assert on the output */
+  
+  This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+      at recordReactActWarning (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:1238:77)
+      at CoreConsole.target.<computed> [as error] (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:1257:11)
+      at //?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:16598:15
+      at runWithFiberInDEV (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:8254:68)
+      at warnIfUpdatesNotWrappedWithActDEV (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:16597:79)
+      at scheduleUpdateOnFiber (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:15572:72)
+      at dispatchSetStateInternal (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:12392:35)
+      at dispatchSetState (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:12373:5)
+      at //?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:3701:11
+      at Object.exports.flushSync (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-app-main-layout/src/__tests__/.wake-test-entry-suite-3d9d468e74359017.ts:30834:70)
+Test Suites: 0 passed, 1 failed, 1 total
+Tests:       11 passed, 0 failed, 0 pending, 11 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	83.26% (1408/1691)	64.20% (104/162)	20.48% (77/376)
+src/content.tsx	100.00% (18/18)	100.00% (1/1)	66.67% (2/3)
+src/context.tsx	82.76% (24/29)	66.67% (4/6)	50.00% (1/2)
+src/header.tsx	93.94% (279/297)	82.35% (14/17)	18.64% (22/118)
+src/icons.tsx	100.00% (75/75)	100.00% (12/12)	100.00% (0/0)
+src/layout.tsx	85.06% (148/174)	70.37% (19/27)	48.39% (15/31)
+src/reducer.ts	47.46% (56/118)	55.56% (10/18)	17.39% (4/23)
+src/sidebar.tsx	78.86% (97/123)	62.50% (5/8)	13.79% (4/29)
+src/tabBar.tsx	69.49% (287/413)	56.00% (28/50)	18.98% (26/137)
+src/tabContextMenu.tsx	92.38% (97/105)	66.67% (8/12)	9.09% (3/33)
+src/token.ts	100.00% (289/289)	100.00% (0/0)	100.00% (0/0)
+src/useTabs.ts	76.00% (38/50)	27.27% (3/11)	100.00% (0/0)
+Seed:        1790134385649487044
+Time:        3869 ms
+WAKE_TEST_ACT: An update to Header inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act

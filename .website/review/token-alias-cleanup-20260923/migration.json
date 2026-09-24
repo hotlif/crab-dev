@@ -1,0 +1,1817 @@
+{
+  "renames": {
+    "rc-app-main-layout": {
+      "header.user.menu.offset": "header.user.menu.gap",
+      "tab.item.focus.color": "tab.item.outline-color-focus",
+      "tab.item.focus.width": "tab.item.outline-width-focus",
+      "tab.item.focus.offset": "tab.item.outline-offset-focus",
+      "tab.item.close.icon-width": "tab.item.close.icon.width",
+      "tab.item.close.radius": "tab.item.close.border-radius",
+      "tab.item.motion.reorder": "tab.item.motion.reorder.transition"
+    },
+    "rc-select": {
+      "motion.interaction": "motion.interaction.transition",
+      "motion.spatial": "motion.spatial.transition"
+    },
+    "rc-table": {
+      "motion.rows": "motion.rows.transition"
+    },
+    "rc-table-pro": {
+      "motion.interaction": "motion.interaction.transition"
+    },
+    "rc-tree": {
+      "motion.arrow": "motion.arrow.transition",
+      "motion.rows": "motion.rows.transition"
+    }
+  },
+  "aliases": {
+    "--alert-transition": [
+      "--alert-root-transition"
+    ],
+    "--alert-padding": [
+      "--alert-root-padding"
+    ],
+    "--alert-border-radius": [
+      "--alert-root-border-radius"
+    ],
+    "--alert-font-size": [
+      "--alert-root-font-size"
+    ],
+    "--alert-line-height": [
+      "--alert-root-line-height"
+    ],
+    "--alert-icon-size": [
+      "--alert-icon-width"
+    ],
+    "--alert-icon-size-with-title": [
+      "--alert-icon-with-title-width"
+    ],
+    "--alert-close-size": [
+      "--alert-close-width"
+    ],
+    "--alert-error-color": [
+      "--alert-root-color-error"
+    ],
+    "--alert-error-icon-color": [
+      "--alert-icon-color-error"
+    ],
+    "--alert-error-background-color": [
+      "--alert-root-background-color-error"
+    ],
+    "--alert-error-border-color": [
+      "--alert-root-border-color-error"
+    ],
+    "--app-main-layout-background-color": [
+      "--app-main-layout-root-background-color"
+    ],
+    "--app-main-layout-header-shadow": [
+      "--app-main-layout-header-box-shadow"
+    ],
+    "--app-main-layout-header-divider-color": [
+      "--app-main-layout-header-divider-background-color"
+    ],
+    "--app-main-layout-header-nav-btn-size": [
+      "--app-main-layout-header-nav-btn-width"
+    ],
+    "--app-main-layout-header-nav-btn-dot-color": [
+      "--app-main-layout-header-nav-btn-dot-background-color"
+    ],
+    "--app-main-layout-header-user-avatar-size": [
+      "--app-main-layout-header-user-avatar-width"
+    ],
+    "--app-main-layout-sidebar-logo-size": [
+      "--app-main-layout-sidebar-logo-width"
+    ],
+    "--app-main-layout-tab-item-curve-size": [
+      "--app-main-layout-tab-item-curve-width"
+    ],
+    "--app-main-layout-tab-item-separator-color": [
+      "--app-main-layout-tab-item-separator-background-color"
+    ],
+    "--app-main-layout-tab-item-icon-size": [
+      "--app-main-layout-tab-item-icon-width"
+    ],
+    "--app-main-layout-tab-item-close-size": [
+      "--app-main-layout-tab-item-close-width"
+    ],
+    "--app-main-layout-tab-reorder-motion": [
+      "--app-main-layout-tab-item-motion-reorder-transition"
+    ],
+    "--app-main-layout-tab-context-menu-shadow": [
+      "--app-main-layout-tab-context-menu-box-shadow"
+    ],
+    "--app-main-layout-tab-context-menu-item-icon-size": [
+      "--app-main-layout-tab-context-menu-item-icon-width"
+    ],
+    "--app-main-layout-tab-context-menu-separator-color": [
+      "--app-main-layout-tab-context-menu-separator-background-color"
+    ],
+    "--app-main-layout-motion-interaction": [
+      "--app-main-layout-motion-interaction-transition"
+    ],
+    "--app-main-layout-motion-offset": [
+      "--app-main-layout-motion-offset-translate"
+    ],
+    "--avatar-transition": [
+      "--avatar-root-transition"
+    ],
+    "--avatar-size-small-value": [
+      "--avatar-size-small-width"
+    ],
+    "--avatar-size-middle-value": [
+      "--avatar-size-middle-width"
+    ],
+    "--avatar-size-large-value": [
+      "--avatar-size-large-width"
+    ],
+    "--avatar-icon-size-small": [
+      "--avatar-icon-small-font-size"
+    ],
+    "--avatar-icon-size-middle": [
+      "--avatar-icon-middle-font-size"
+    ],
+    "--avatar-icon-size-large": [
+      "--avatar-icon-large-font-size"
+    ],
+    "--avatar-shape-square-radius": [
+      "--avatar-shape-square-border-radius"
+    ],
+    "--avatar-border-color": [
+      "--avatar-root-border-color"
+    ],
+    "--avatar-border-color-hover": [
+      "--avatar-root-border-color-hover"
+    ],
+    "--avatar-border-hover": [
+      "--avatar-root-border-color-hover"
+    ],
+    "--avatar-focus-ring-color": [
+      "--avatar-ring-color-focus"
+    ],
+    "--avatar-opacity-disabled": [
+      "--avatar-root-opacity-disabled"
+    ],
+    "--avatar-disabled-opacity": [
+      "--avatar-root-opacity-disabled"
+    ],
+    "--avatar-error-color": [
+      "--avatar-root-color-error"
+    ],
+    "--avatar-error-background-color": [
+      "--avatar-root-background-color-error"
+    ],
+    "--avatar-group-overlap": [
+      "--avatar-group-margin"
+    ],
+    "--avatar-group-translate-y-hover": [
+      "--avatar-group-transform-hover"
+    ],
+    "--avatar-group-hover-translate-y": [
+      "--avatar-group-transform-hover"
+    ],
+    "--badge-transition": [
+      "--badge-root-transition"
+    ],
+    "--badge-dot-size-default": [
+      "--badge-dot-default-width"
+    ],
+    "--badge-dot-size-small": [
+      "--badge-dot-small-width"
+    ],
+    "--badge-status-error-color": [
+      "--badge-status-color-error"
+    ],
+    "--badge-offset-x": [
+      "--badge-indicator-transform"
+    ],
+    "--badge-offset-y": [
+      "--badge-indicator-transform"
+    ],
+    "--bar-chart-legend-swatch-gap": [
+      "--bar-chart-legend-row-gap",
+      "--bar-chart-legend-item-gap"
+    ],
+    "--bar-chart-legend-swatch-size": [
+      "--bar-chart-legend-swatch-inline-size",
+      "--bar-chart-legend-swatch-block-size"
+    ],
+    "--bar-chart-legend-item-radius": [
+      "--bar-chart-legend-item-border-radius"
+    ],
+    "--bar-chart-legend-item-color-hover": [
+      "--bar-chart-legend-item-background-color-hover"
+    ],
+    "--bar-chart-focus-ring": [
+      "--bar-chart-root-box-shadow-focus"
+    ],
+    "--bar-chart-tooltip-background": [
+      "--bar-chart-tooltip-background-color"
+    ],
+    "--bar-chart-tooltip-radius": [
+      "--bar-chart-tooltip-border-radius"
+    ],
+    "--bar-chart-tooltip-shadow": [
+      "--bar-chart-tooltip-box-shadow"
+    ],
+    "--bar-chart-tooltip-row-gap": [
+      "--bar-chart-tooltip-rows-row-gap"
+    ],
+    "--bar-chart-tooltip-key-gap": [
+      "--bar-chart-tooltip-row-column-gap"
+    ],
+    "--breadcrumbs-font-size": [
+      "--breadcrumbs-root-font-size"
+    ],
+    "--breadcrumbs-line-height": [
+      "--breadcrumbs-root-line-height"
+    ],
+    "--breadcrumbs-gap": [
+      "--breadcrumbs-root-gap"
+    ],
+    "--button-transition": [
+      "--button-root-transition"
+    ],
+    "--button-opacity-loading": [
+      "--button-root-opacity-loading"
+    ],
+    "--button-opacity-disabled": [
+      "--button-root-opacity-disabled"
+    ],
+    "--button-background-color-selected": [
+      "--button-root-background-color-selected"
+    ],
+    "--button-selected-background-color": [
+      "--button-root-background-color-selected"
+    ],
+    "--button-color-selected": [
+      "--button-root-color-selected"
+    ],
+    "--button-selected-color": [
+      "--button-root-color-selected"
+    ],
+    "--button-border-color-selected": [
+      "--button-root-border-color-selected"
+    ],
+    "--button-selected-border-color": [
+      "--button-root-border-color-selected"
+    ],
+    "--card-surface-background": [
+      "--card-surface-background-color",
+      "--card-elevated-background-color"
+    ],
+    "--card-border-color": [
+      "--card-root-border-color"
+    ],
+    "--card-border-color-hover": [
+      "--card-root-border-color-hover"
+    ],
+    "--card-filled-background": [
+      "--card-filled-background-color"
+    ],
+    "--card-filled-background-hover": [
+      "--card-filled-background-color-hover"
+    ],
+    "--card-box-shadow": [
+      "--card-root-box-shadow"
+    ],
+    "--card-elevation-rest": [
+      "--card-root-box-shadow"
+    ],
+    "--card-box-shadow-hover": [
+      "--card-root-box-shadow-hover"
+    ],
+    "--card-elevation-hover": [
+      "--card-root-box-shadow-hover"
+    ],
+    "--card-box-shadow-active": [
+      "--card-root-box-shadow-active"
+    ],
+    "--card-elevation-active": [
+      "--card-root-box-shadow-active"
+    ],
+    "--card-root-translate-y-hover": [
+      "--card-root-transform-hover"
+    ],
+    "--card-lift-hover": [
+      "--card-root-transform-hover"
+    ],
+    "--card-root-translate-y-active": [
+      "--card-root-transform-active"
+    ],
+    "--card-lift-active": [
+      "--card-root-transform-active"
+    ],
+    "--card-size-large-radius": [
+      "--card-size-large-border-radius"
+    ],
+    "--card-size-large-title-size": [
+      "--card-size-large-title-font-size"
+    ],
+    "--card-size-middle-radius": [
+      "--card-size-middle-border-radius"
+    ],
+    "--card-size-middle-title-size": [
+      "--card-size-middle-title-font-size"
+    ],
+    "--card-size-small-radius": [
+      "--card-size-small-border-radius"
+    ],
+    "--card-size-small-title-size": [
+      "--card-size-small-title-font-size"
+    ],
+    "--card-header-title-weight": [
+      "--card-header-title-font-weight"
+    ],
+    "--card-cover-background": [
+      "--card-cover-background-color"
+    ],
+    "--card-footer-divider-color": [
+      "--card-footer-divider-border-color"
+    ],
+    "--card-footer-padding-y": [
+      "--card-footer-padding-block"
+    ],
+    "--card-meta-title-weight": [
+      "--card-meta-title-font-weight"
+    ],
+    "--card-meta-title-size": [
+      "--card-meta-title-font-size"
+    ],
+    "--card-meta-desc-size": [
+      "--card-meta-desc-font-size"
+    ],
+    "--card-motion-lift": [
+      "--card-root-transition"
+    ],
+    "--card-motion-cover": [
+      "--card-cover-transition"
+    ],
+    "--card-focus-ring-color": [
+      "--card-ring-color-focus"
+    ],
+    "--card-opacity-disabled": [
+      "--card-root-opacity-disabled"
+    ],
+    "--card-disabled-opacity": [
+      "--card-root-opacity-disabled"
+    ],
+    "--checkbox-root-transition": [
+      "--checkbox-control-transition"
+    ],
+    "--checkbox-transition": [
+      "--checkbox-control-transition"
+    ],
+    "--checkbox-control-target-size": [
+      "--checkbox-control-target-width"
+    ],
+    "--checkbox-icon-scale-visible": [
+      "--checkbox-icon-scale"
+    ],
+    "--checkbox-state-layer-size": [
+      "--checkbox-state-layer-width"
+    ],
+    "--checkbox-state-layer-radius": [
+      "--checkbox-state-layer-border-radius"
+    ],
+    "--checkbox-state-layer-opacity-pressed": [
+      "--checkbox-state-layer-opacity-active"
+    ],
+    "--checkbox-size-large-box-size": [
+      "--checkbox-size-large-box-width"
+    ],
+    "--checkbox-size-large-icon-size": [
+      "--checkbox-size-large-icon-width"
+    ],
+    "--checkbox-size-middle-box-size": [
+      "--checkbox-size-middle-box-width"
+    ],
+    "--checkbox-size-middle-icon-size": [
+      "--checkbox-size-middle-icon-width"
+    ],
+    "--checkbox-size-small-box-size": [
+      "--checkbox-size-small-box-width"
+    ],
+    "--checkbox-size-small-icon-size": [
+      "--checkbox-size-small-icon-width"
+    ],
+    "--checkbox-root-border-width": [
+      "--checkbox-control-border-width"
+    ],
+    "--checkbox-border-width": [
+      "--checkbox-control-border-width"
+    ],
+    "--checkbox-root-border-style": [
+      "--checkbox-control-border-style"
+    ],
+    "--checkbox-border-style": [
+      "--checkbox-control-border-style"
+    ],
+    "--checkbox-root-border-color": [
+      "--checkbox-control-border-color"
+    ],
+    "--checkbox-border-color": [
+      "--checkbox-control-border-color"
+    ],
+    "--checkbox-root-border-color-hover": [
+      "--checkbox-control-border-color-hover"
+    ],
+    "--checkbox-border-color-hover": [
+      "--checkbox-control-border-color-hover"
+    ],
+    "--checkbox-root-background-color": [
+      "--checkbox-control-background-color"
+    ],
+    "--checkbox-background-color": [
+      "--checkbox-control-background-color"
+    ],
+    "--checkbox-root-background-color-checked": [
+      "--checkbox-control-checked-background-color"
+    ],
+    "--checkbox-background-color-checked": [
+      "--checkbox-control-checked-background-color"
+    ],
+    "--checkbox-checked-background-color": [
+      "--checkbox-control-checked-background-color"
+    ],
+    "--checkbox-root-background-color-hover-checked": [
+      "--checkbox-control-checked-background-color-hover"
+    ],
+    "--checkbox-background-color-hover-checked": [
+      "--checkbox-control-checked-background-color-hover"
+    ],
+    "--checkbox-checked-background-color-hover": [
+      "--checkbox-control-checked-background-color-hover"
+    ],
+    "--checkbox-root-border-color-checked": [
+      "--checkbox-control-checked-border-color"
+    ],
+    "--checkbox-border-color-checked": [
+      "--checkbox-control-checked-border-color"
+    ],
+    "--checkbox-checked-border-color": [
+      "--checkbox-control-checked-border-color"
+    ],
+    "--checkbox-icon-color-checked": [
+      "--checkbox-icon-checked-color"
+    ],
+    "--checkbox-checked-icon-color": [
+      "--checkbox-icon-checked-color"
+    ],
+    "--checkbox-root-background-color-indeterminate": [
+      "--checkbox-control-indeterminate-background-color"
+    ],
+    "--checkbox-background-color-indeterminate": [
+      "--checkbox-control-indeterminate-background-color"
+    ],
+    "--checkbox-indeterminate-background-color": [
+      "--checkbox-control-indeterminate-background-color"
+    ],
+    "--checkbox-root-border-color-indeterminate": [
+      "--checkbox-control-indeterminate-border-color"
+    ],
+    "--checkbox-border-color-indeterminate": [
+      "--checkbox-control-indeterminate-border-color"
+    ],
+    "--checkbox-indeterminate-border-color": [
+      "--checkbox-control-indeterminate-border-color"
+    ],
+    "--checkbox-icon-color-indeterminate": [
+      "--checkbox-icon-indeterminate-color"
+    ],
+    "--checkbox-indeterminate-icon-color": [
+      "--checkbox-icon-indeterminate-color"
+    ],
+    "--checkbox-root-background-color-disabled": [
+      "--checkbox-control-background-color-disabled"
+    ],
+    "--checkbox-background-color-disabled": [
+      "--checkbox-control-background-color-disabled"
+    ],
+    "--checkbox-disabled-background-color": [
+      "--checkbox-control-background-color-disabled"
+    ],
+    "--checkbox-control-background-color-disabled-selected": [
+      "--checkbox-control-selection-background-color-disabled"
+    ],
+    "--checkbox-root-border-color-disabled": [
+      "--checkbox-control-border-color-disabled"
+    ],
+    "--checkbox-border-color-disabled": [
+      "--checkbox-control-border-color-disabled"
+    ],
+    "--checkbox-disabled-border-color": [
+      "--checkbox-control-border-color-disabled"
+    ],
+    "--checkbox-disabled-icon-color": [
+      "--checkbox-icon-color-disabled"
+    ],
+    "--color-picker-panel-padding-y": [
+      "--color-picker-panel-padding-block"
+    ],
+    "--color-picker-panel-padding-x": [
+      "--color-picker-panel-padding-inline"
+    ],
+    "--color-picker-trigger-focus-ring-color": [
+      "--color-picker-trigger-ring-color-focus"
+    ],
+    "--color-picker-trigger-focus-color": [
+      "--color-picker-trigger-ring-color-focus"
+    ],
+    "--color-picker-trigger-disabled-background": [
+      "--color-picker-trigger-background-color-disabled"
+    ],
+    "--color-picker-trigger-disabled-border-color": [
+      "--color-picker-trigger-border-color-disabled"
+    ],
+    "--color-picker-trigger-swatch-size-small": [
+      "--color-picker-trigger-swatch-small-width"
+    ],
+    "--color-picker-trigger-swatch-size-medium": [
+      "--color-picker-trigger-swatch-medium-width"
+    ],
+    "--color-picker-trigger-swatch-size-large": [
+      "--color-picker-trigger-swatch-large-width"
+    ],
+    "--color-picker-swatch-size": [
+      "--color-picker-swatch-width"
+    ],
+    "--component-preview-transition": [
+      "--component-preview-root-transition"
+    ],
+    "--component-preview-root-transition-expand": [
+      "--component-preview-source-transition"
+    ],
+    "--component-preview-transition-expand": [
+      "--component-preview-source-transition"
+    ],
+    "--component-preview-card-shadow": [
+      "--component-preview-card-box-shadow"
+    ],
+    "--component-preview-card-shadow-hover": [
+      "--component-preview-card-box-shadow-hover"
+    ],
+    "--component-preview-meta-info-divider-style": [
+      "--component-preview-meta-info-divider-border-style"
+    ],
+    "--component-preview-meta-title-offset": [
+      "--component-preview-meta-title-top"
+    ],
+    "--component-preview-meta-actions-icon-size": [
+      "--component-preview-meta-actions-icon-width"
+    ],
+    "--component-preview-action-shadow-active": [
+      "--component-preview-action-box-shadow-active"
+    ],
+    "--component-preview-source-collapsed-height": [
+      "--component-preview-source-collapsed-max-height"
+    ],
+    "--component-preview-source-expanded-height": [
+      "--component-preview-source-expanded-max-height"
+    ],
+    "--cron-picker-expression-background": [
+      "--cron-picker-expression-background-color"
+    ],
+    "--cron-picker-expression-radius": [
+      "--cron-picker-expression-border-radius"
+    ],
+    "--cron-picker-transition": [
+      "--cron-picker-root-transition"
+    ],
+    "--date-picker-background-color-selected": [
+      "--date-picker-root-background-color-selected"
+    ],
+    "--date-picker-selected-background-color": [
+      "--date-picker-root-background-color-selected"
+    ],
+    "--date-picker-color-selected": [
+      "--date-picker-root-color-selected"
+    ],
+    "--date-picker-selected-color": [
+      "--date-picker-root-color-selected"
+    ],
+    "--date-picker-selected-text-color": [
+      "--date-picker-root-color-selected"
+    ],
+    "--date-picker-cell-text-color-hover": [
+      "--date-picker-cell-color-hover"
+    ],
+    "--date-picker-cell-content-size": [
+      "--date-picker-cell-content-width"
+    ],
+    "--date-picker-navigation-size": [
+      "--date-picker-navigation-width"
+    ],
+    "--date-picker-opacity-out-of-range": [
+      "--date-picker-out-of-range-opacity"
+    ],
+    "--date-picker-opacity-icon": [
+      "--date-picker-icon-opacity"
+    ],
+    "--date-picker-opacity-icon-hover": [
+      "--date-picker-icon-opacity-hover"
+    ],
+    "--date-picker-opacity-timezone": [
+      "--date-picker-timezone-opacity"
+    ],
+    "--dialog-background-color": [
+      "--dialog-root-background-color"
+    ],
+    "--dialog-top": [
+      "--dialog-root-top",
+      "--dialog-root-transform"
+    ],
+    "--dialog-min-width": [
+      "--dialog-root-min-width"
+    ],
+    "--dialog-padding": [
+      "--dialog-root-padding"
+    ],
+    "--dialog-border-radius": [
+      "--dialog-root-border-radius"
+    ],
+    "--dialog-box-shadow": [
+      "--dialog-root-box-shadow"
+    ],
+    "--dialog-footer-button-spacing": [
+      "--dialog-footer-button-margin"
+    ],
+    "--dialog-motion-fade": [
+      "--dialog-motion-fade-transition"
+    ],
+    "--dialog-motion-interaction": [
+      "--dialog-motion-interaction-transition"
+    ],
+    "--dialog-motion-offset": [
+      "--dialog-motion-offset-translate"
+    ],
+    "--divider-line-color": [
+      "--divider-line-border-color"
+    ],
+    "--divider-line-width": [
+      "--divider-line-border-width"
+    ],
+    "--divider-spacing-none": [
+      "--divider-spacing-none-margin"
+    ],
+    "--divider-spacing-small": [
+      "--divider-spacing-small-margin"
+    ],
+    "--divider-spacing-middle": [
+      "--divider-spacing-middle-margin"
+    ],
+    "--divider-spacing-large": [
+      "--divider-spacing-large-margin"
+    ],
+    "--divider-text-offset": [
+      "--divider-text-flex-basis"
+    ],
+    "--divider-vertical-size": [
+      "--divider-vertical-block-size"
+    ],
+    "--drawer-background-color": [
+      "--drawer-root-background-color"
+    ],
+    "--drawer-box-shadow": [
+      "--drawer-root-box-shadow"
+    ],
+    "--drawer-close-size": [
+      "--drawer-close-width"
+    ],
+    "--drawer-close-icon-size": [
+      "--drawer-close-icon-width"
+    ],
+    "--drawer-transition-duration": [
+      "--drawer-panel-animation-duration",
+      "--drawer-motion-expand-transition",
+      "--drawer-motion-exit-transition"
+    ],
+    "--drawer-transition-easing": [
+      "--drawer-panel-animation-timing-function",
+      "--drawer-motion-expand-transition",
+      "--drawer-motion-exit-transition"
+    ],
+    "--drawer-motion-fade": [
+      "--drawer-motion-fade-transition"
+    ],
+    "--drawer-motion-expand": [
+      "--drawer-motion-expand-transition"
+    ],
+    "--drawer-motion-exit": [
+      "--drawer-motion-exit-transition"
+    ],
+    "--dropdown-container-box-shadow": [
+      "--dropdown-container-root-box-shadow"
+    ],
+    "--dropdown-container-border-radius": [
+      "--dropdown-container-root-border-radius"
+    ],
+    "--dropdown-container-background-color": [
+      "--dropdown-container-root-background-color"
+    ],
+    "--dropdown-container-z-index": [
+      "--dropdown-container-root-z-index"
+    ],
+    "--dropdown-container-motion-interaction": [
+      "--dropdown-container-motion-interaction-transition"
+    ],
+    "--dropdown-container-motion-offset": [
+      "--dropdown-container-motion-offset-translate"
+    ],
+    "--empty-image-size": [
+      "--empty-image-width"
+    ],
+    "--form-status-size": [
+      "--form-status-width"
+    ],
+    "--form-status-error-color": [
+      "--form-status-color-error"
+    ],
+    "--line-edit-transition": [
+      "--line-edit-root-transition"
+    ],
+    "--line-edit-border-radius": [
+      "--line-edit-root-border-radius"
+    ],
+    "--line-edit-border-width": [
+      "--line-edit-root-border-width"
+    ],
+    "--line-edit-border-style": [
+      "--line-edit-root-border-style"
+    ],
+    "--line-edit-border-color": [
+      "--line-edit-root-border-color"
+    ],
+    "--line-edit-border-color-hover": [
+      "--line-edit-root-border-color-hover"
+    ],
+    "--line-edit-border-color-focus": [
+      "--line-edit-root-border-color-focus"
+    ],
+    "--line-edit-box-shadow": [
+      "--line-edit-root-box-shadow"
+    ],
+    "--line-edit-box-shadow-default": [
+      "--line-edit-root-box-shadow"
+    ],
+    "--line-edit-box-shadow-focus-within": [
+      "--line-edit-root-box-shadow-focus-within"
+    ],
+    "--line-edit-background-color": [
+      "--line-edit-root-background-color"
+    ],
+    "--line-edit-status-error-border-color": [
+      "--line-edit-status-border-color-error"
+    ],
+    "--line-edit-status-error-box-shadow-focus-within": [
+      "--line-edit-status-box-shadow-error"
+    ],
+    "--masonry-transition": [
+      "--masonry-root-transition"
+    ],
+    "--masonry-gutter": [
+      "--masonry-root-gap"
+    ],
+    "--menu-vertical-item-inline-indent": [
+      "--menu-vertical-item-depth-padding-left"
+    ],
+    "--menu-vertical-item-title-background-color-select": [
+      "--menu-vertical-item-title-background-color-selected"
+    ],
+    "--menu-vertical-item-title-color-select": [
+      "--menu-vertical-item-title-color-selected"
+    ],
+    "--menu-vertical-item-title-font-weight-select": [
+      "--menu-vertical-item-title-font-weight-selected"
+    ],
+    "--menu-vertical-item-icon-size": [
+      "--menu-vertical-item-icon-width"
+    ],
+    "--menu-vertical-collapsed-item-icon-size": [
+      "--menu-vertical-collapsed-item-icon-width"
+    ],
+    "--menu-vertical-submenu-offset": [
+      "--menu-vertical-submenu-margin"
+    ],
+    "--menu-horizontal-group-item-indent-base": [
+      "--menu-horizontal-group-item-header-indent-base-padding-left"
+    ],
+    "--menu-horizontal-group-item-indent-scale": [
+      "--menu-horizontal-group-item-header-indent-scale-padding-left"
+    ],
+    "--menu-motion-expand": [
+      "--menu-motion-expand-transition"
+    ],
+    "--message-padding": [
+      "--message-root-padding"
+    ],
+    "--message-border-radius": [
+      "--message-root-border-radius"
+    ],
+    "--message-font-size": [
+      "--message-root-font-size"
+    ],
+    "--message-line-height": [
+      "--message-root-line-height"
+    ],
+    "--message-background-color": [
+      "--message-root-background-color"
+    ],
+    "--message-box-shadow": [
+      "--message-root-box-shadow"
+    ],
+    "--message-icon-size": [
+      "--message-icon-width"
+    ],
+    "--message-success-color": [
+      "--message-success-icon-color"
+    ],
+    "--message-warning-color": [
+      "--message-warning-icon-color"
+    ],
+    "--message-error-icon-color": [
+      "--message-icon-color-error"
+    ],
+    "--message-error-color": [
+      "--message-icon-color-error"
+    ],
+    "--message-info-color": [
+      "--message-info-icon-color"
+    ],
+    "--message-progress-duration": [
+      "--message-progress-animation-duration"
+    ],
+    "--message-countdown-duration": [
+      "--message-progress-animation-duration"
+    ],
+    "--message-progress-delay": [
+      "--message-progress-animation-delay"
+    ],
+    "--message-countdown-delay": [
+      "--message-progress-animation-delay"
+    ],
+    "--message-motion-interaction": [
+      "--message-motion-interaction-transition"
+    ],
+    "--message-stack-offset": [
+      "--message-stack-translate"
+    ],
+    "--notification-background-color": [
+      "--notification-root-background-color"
+    ],
+    "--notification-padding": [
+      "--notification-root-padding"
+    ],
+    "--notification-border-radius": [
+      "--notification-root-border-radius"
+    ],
+    "--notification-box-shadow": [
+      "--notification-root-box-shadow"
+    ],
+    "--notification-progress-duration": [
+      "--notification-progress-animation-duration"
+    ],
+    "--notification-countdown-duration": [
+      "--notification-progress-animation-duration"
+    ],
+    "--notification-progress-delay": [
+      "--notification-progress-animation-delay"
+    ],
+    "--notification-countdown-delay": [
+      "--notification-progress-animation-delay"
+    ],
+    "--notification-motion-interaction": [
+      "--notification-motion-interaction-transition"
+    ],
+    "--notification-stack-offset": [
+      "--notification-stack-translate"
+    ],
+    "--number-edit-transition": [
+      "--number-edit-root-transition"
+    ],
+    "--number-edit-stepper-background-hover": [
+      "--number-edit-stepper-background-color-hover"
+    ],
+    "--number-edit-stepper-background-active": [
+      "--number-edit-stepper-background-color-active"
+    ],
+    "--number-edit-stepper-radius": [
+      "--number-edit-stepper-border-radius"
+    ],
+    "--number-edit-stepper-icon-size": [
+      "--number-edit-stepper-icon-width"
+    ],
+    "--number-edit-display-background": [
+      "--number-edit-display-background-color"
+    ],
+    "--number-edit-opacity-disabled": [
+      "--number-edit-root-opacity-disabled"
+    ],
+    "--number-edit-disabled-opacity": [
+      "--number-edit-root-opacity-disabled"
+    ],
+    "--pagination-gap": [
+      "--pagination-root-gap"
+    ],
+    "--pagination-font-size": [
+      "--pagination-root-font-size"
+    ],
+    "--pagination-font-weight": [
+      "--pagination-root-font-weight"
+    ],
+    "--pagination-item-radius": [
+      "--pagination-item-border-radius"
+    ],
+    "--pagination-focus-outline-color": [
+      "--pagination-root-outline-color-focus"
+    ],
+    "--pagination-focus-outline-offset": [
+      "--pagination-root-outline-offset-focus"
+    ],
+    "--pagination-focus-outline-width": [
+      "--pagination-root-outline-width-focus"
+    ],
+    "--pagination-transition": [
+      "--pagination-root-transition"
+    ],
+    "--prose-max-width": [
+      "--prose-root-max-width"
+    ],
+    "--prose-body": [
+      "--prose-body-color"
+    ],
+    "--prose-headings": [
+      "--prose-heading-color"
+    ],
+    "--prose-links": [
+      "--prose-link-color"
+    ],
+    "--prose-links-hover": [
+      "--prose-link-color-hover"
+    ],
+    "--prose-bold": [
+      "--prose-strong-color"
+    ],
+    "--prose-counters": [
+      "--prose-list-counter-color"
+    ],
+    "--prose-bullets": [
+      "--prose-list-bullet-color"
+    ],
+    "--prose-hr-color": [
+      "--prose-hr-border-color"
+    ],
+    "--prose-quotes": [
+      "--prose-blockquote-color"
+    ],
+    "--prose-quote-borders": [
+      "--prose-blockquote-border-color"
+    ],
+    "--prose-captions": [
+      "--prose-caption-color"
+    ],
+    "--prose-code-bg": [
+      "--prose-code-background-color"
+    ],
+    "--prose-pre-bg": [
+      "--prose-pre-background-color"
+    ],
+    "--prose-kbd-shadows": [
+      "--prose-kbd-box-shadow"
+    ],
+    "--prose-th-borders": [
+      "--prose-table-heading-border-color"
+    ],
+    "--prose-thead-bg": [
+      "--prose-table-heading-background-color"
+    ],
+    "--prose-td-borders": [
+      "--prose-table-cell-border-color"
+    ],
+    "--radio-root-transition": [
+      "--radio-control-transition"
+    ],
+    "--radio-transition": [
+      "--radio-control-transition"
+    ],
+    "--radio-control-target-size": [
+      "--radio-control-target-width"
+    ],
+    "--radio-state-layer-size": [
+      "--radio-state-layer-width"
+    ],
+    "--radio-state-layer-radius": [
+      "--radio-state-layer-border-radius"
+    ],
+    "--radio-state-layer-opacity-pressed": [
+      "--radio-state-layer-opacity-active"
+    ],
+    "--radio-size-large-box-size": [
+      "--radio-size-large-box-width"
+    ],
+    "--radio-size-large-dot-size": [
+      "--radio-size-large-dot-width"
+    ],
+    "--radio-size-middle-box-size": [
+      "--radio-size-middle-box-width"
+    ],
+    "--radio-size-middle-dot-size": [
+      "--radio-size-middle-dot-width"
+    ],
+    "--radio-size-small-box-size": [
+      "--radio-size-small-box-width"
+    ],
+    "--radio-size-small-dot-size": [
+      "--radio-size-small-dot-width"
+    ],
+    "--radio-root-border-width": [
+      "--radio-control-border-width"
+    ],
+    "--radio-border-width": [
+      "--radio-control-border-width"
+    ],
+    "--radio-root-border-style": [
+      "--radio-control-border-style"
+    ],
+    "--radio-border-style": [
+      "--radio-control-border-style"
+    ],
+    "--radio-root-border-color": [
+      "--radio-control-border-color"
+    ],
+    "--radio-border-color": [
+      "--radio-control-border-color"
+    ],
+    "--radio-root-border-color-hover": [
+      "--radio-control-border-color-hover"
+    ],
+    "--radio-border-color-hover": [
+      "--radio-control-border-color-hover"
+    ],
+    "--radio-root-background-color": [
+      "--radio-control-background-color"
+    ],
+    "--radio-background-color": [
+      "--radio-control-background-color"
+    ],
+    "--radio-root-background-color-checked": [
+      "--radio-control-checked-background-color"
+    ],
+    "--radio-background-color-checked": [
+      "--radio-control-checked-background-color"
+    ],
+    "--radio-checked-background-color": [
+      "--radio-control-checked-background-color"
+    ],
+    "--radio-root-background-color-hover-checked": [
+      "--radio-control-checked-background-color-hover"
+    ],
+    "--radio-background-color-hover-checked": [
+      "--radio-control-checked-background-color-hover"
+    ],
+    "--radio-checked-background-color-hover": [
+      "--radio-control-checked-background-color-hover"
+    ],
+    "--radio-root-border-color-checked": [
+      "--radio-control-checked-border-color"
+    ],
+    "--radio-border-color-checked": [
+      "--radio-control-checked-border-color"
+    ],
+    "--radio-checked-border-color": [
+      "--radio-control-checked-border-color"
+    ],
+    "--radio-dot-color-checked": [
+      "--radio-dot-checked-color"
+    ],
+    "--radio-checked-dot-color": [
+      "--radio-dot-checked-color"
+    ],
+    "--radio-dot-scale-visible": [
+      "--radio-dot-scale"
+    ],
+    "--radio-root-background-color-disabled": [
+      "--radio-control-background-color-disabled"
+    ],
+    "--radio-background-color-disabled": [
+      "--radio-control-background-color-disabled"
+    ],
+    "--radio-disabled-background-color": [
+      "--radio-control-background-color-disabled"
+    ],
+    "--radio-root-border-color-disabled": [
+      "--radio-control-border-color-disabled"
+    ],
+    "--radio-border-color-disabled": [
+      "--radio-control-border-color-disabled"
+    ],
+    "--radio-disabled-border-color": [
+      "--radio-control-border-color-disabled"
+    ],
+    "--radio-disabled-dot-color": [
+      "--radio-dot-color-disabled"
+    ],
+    "--realm-motion-appear": [
+      "--realm-root-animation"
+    ],
+    "--segmented-track-background": [
+      "--segmented-track-background-color"
+    ],
+    "--segmented-font-weight": [
+      "--segmented-root-font-weight"
+    ],
+    "--segmented-size-large-padding-x": [
+      "--segmented-size-large-padding-inline"
+    ],
+    "--segmented-size-large-track-pad": [
+      "--segmented-size-large-track-padding"
+    ],
+    "--segmented-size-large-radius": [
+      "--segmented-size-large-border-radius"
+    ],
+    "--segmented-size-middle-padding-x": [
+      "--segmented-size-middle-padding-inline"
+    ],
+    "--segmented-size-middle-track-pad": [
+      "--segmented-size-middle-track-padding"
+    ],
+    "--segmented-size-middle-radius": [
+      "--segmented-size-middle-border-radius"
+    ],
+    "--segmented-size-small-padding-x": [
+      "--segmented-size-small-padding-inline"
+    ],
+    "--segmented-size-small-track-pad": [
+      "--segmented-size-small-track-padding"
+    ],
+    "--segmented-size-small-radius": [
+      "--segmented-size-small-border-radius"
+    ],
+    "--segmented-thumb-background": [
+      "--segmented-thumb-background-color"
+    ],
+    "--segmented-thumb-shadow": [
+      "--segmented-thumb-box-shadow"
+    ],
+    "--segmented-focus-ring-color": [
+      "--segmented-item-outline-color-focus"
+    ],
+    "--segmented-focus-ring-width": [
+      "--segmented-item-outline-width-focus"
+    ],
+    "--segmented-focus-ring-offset": [
+      "--segmented-item-outline-offset-focus"
+    ],
+    "--segmented-opacity-disabled": [
+      "--segmented-root-opacity-disabled"
+    ],
+    "--segmented-disabled-opacity": [
+      "--segmented-root-opacity-disabled"
+    ],
+    "--segmented-motion-item": [
+      "--segmented-item-transition"
+    ],
+    "--select-option-checkbox-size": [
+      "--select-option-checkbox-width"
+    ],
+    "--select-transition": [
+      "--select-root-transition"
+    ],
+    "--select-border-width": [
+      "--select-root-border-width"
+    ],
+    "--select-border-style": [
+      "--select-root-border-style"
+    ],
+    "--select-border-color": [
+      "--select-root-border-color"
+    ],
+    "--select-border-color-hover": [
+      "--select-root-border-color-hover"
+    ],
+    "--select-border-color-focus": [
+      "--select-root-border-color-focus"
+    ],
+    "--select-border-color-error": [
+      "--select-root-border-color-error"
+    ],
+    "--select-border-color-warning": [
+      "--select-root-border-color-warning"
+    ],
+    "--select-border-radius": [
+      "--select-root-border-radius"
+    ],
+    "--select-background-color": [
+      "--select-root-background-color"
+    ],
+    "--select-background-color-disabled": [
+      "--select-root-background-color-disabled"
+    ],
+    "--select-option-color-hover": [
+      "--select-option-background-color-hover"
+    ],
+    "--select-option-background-selected": [
+      "--select-option-background-color-selected"
+    ],
+    "--select-option-highlight-background": [
+      "--select-option-highlight-background-color"
+    ],
+    "--select-box-shadow": [
+      "--select-root-box-shadow"
+    ],
+    "--select-shadow-default": [
+      "--select-root-box-shadow"
+    ],
+    "--select-box-shadow-focus": [
+      "--select-root-box-shadow-focus"
+    ],
+    "--select-shadow-focus": [
+      "--select-root-box-shadow-focus"
+    ],
+    "--select-root-box-shadow-focus-error": [
+      "--select-root-validation-box-shadow-error"
+    ],
+    "--select-box-shadow-focus-error": [
+      "--select-root-validation-box-shadow-error"
+    ],
+    "--select-shadow-focus-error": [
+      "--select-root-validation-box-shadow-error"
+    ],
+    "--select-root-box-shadow-focus-warning": [
+      "--select-root-validation-box-shadow-warning"
+    ],
+    "--select-box-shadow-focus-warning": [
+      "--select-root-validation-box-shadow-warning"
+    ],
+    "--select-shadow-focus-warning": [
+      "--select-root-validation-box-shadow-warning"
+    ],
+    "--select-tag-background": [
+      "--select-tag-background-color"
+    ],
+    "--select-tag-close-hover": [
+      "--select-tag-close-color-hover"
+    ],
+    "--select-color-loading": [
+      "--select-root-color-loading"
+    ],
+    "--select-loading-color": [
+      "--select-root-color-loading"
+    ],
+    "--select-dropdown-offset": [
+      "--select-dropdown-margin"
+    ],
+    "--skeleton-background-color": [
+      "--skeleton-root-background-color"
+    ],
+    "--skeleton-color-background": [
+      "--skeleton-root-background-color"
+    ],
+    "--skeleton-color-highlight": [
+      "--skeleton-wave-background-color"
+    ],
+    "--skeleton-radius-default": [
+      "--skeleton-item-border-radius"
+    ],
+    "--skeleton-radius-text": [
+      "--skeleton-text-border-radius"
+    ],
+    "--skeleton-radius-pill": [
+      "--skeleton-pill-border-radius"
+    ],
+    "--skeleton-circle-default-size": [
+      "--skeleton-circle-default-width"
+    ],
+    "--skeleton-avatar-default-size": [
+      "--skeleton-avatar-default-width"
+    ],
+    "--skeleton-animation-pulse-duration": [
+      "--skeleton-animation-pulse-animation-duration"
+    ],
+    "--skeleton-animation-pulse-easing": [
+      "--skeleton-animation-pulse-animation-timing-function"
+    ],
+    "--skeleton-animation-pulse-opacity-min": [
+      "--skeleton-animation-pulse-minimum-opacity"
+    ],
+    "--skeleton-animation-pulse-opacity-max": [
+      "--skeleton-animation-pulse-maximum-opacity"
+    ],
+    "--skeleton-animation-wave-duration": [
+      "--skeleton-animation-wave-animation-duration"
+    ],
+    "--skeleton-animation-wave-easing": [
+      "--skeleton-animation-wave-animation-timing-function"
+    ],
+    "--slider-rail-thickness": [
+      "--slider-rail-height"
+    ],
+    "--slider-rail-inactive-fill": [
+      "--slider-rail-fill-inactive"
+    ],
+    "--slider-rail-active-fill": [
+      "--slider-rail-fill-active"
+    ],
+    "--slider-thumb-radius": [
+      "--slider-thumb-border-radius"
+    ],
+    "--slider-thumb-halo-scale-factor": [
+      "--slider-thumb-halo-scale-width"
+    ],
+    "--spin-ring-track-color": [
+      "--spin-ring-track-stroke"
+    ],
+    "--spin-ring-indicator-color": [
+      "--spin-ring-indicator-stroke"
+    ],
+    "--spin-ring-dash": [
+      "--spin-ring-stroke-dasharray"
+    ],
+    "--spin-motion-duration": [
+      "--spin-indicator-animation-duration"
+    ],
+    "--spin-motion-easing": [
+      "--spin-indicator-animation-timing-function"
+    ],
+    "--spin-motion-reduced-duration": [
+      "--spin-indicator-reduced-motion-animation-duration"
+    ],
+    "--spin-motion-reduced-opacity": [
+      "--spin-indicator-reduced-motion-opacity"
+    ],
+    "--spin-expressive-orbit-duration": [
+      "--spin-expressive-orbit-animation-duration"
+    ],
+    "--spin-expressive-shape-duration": [
+      "--spin-expressive-shape-animation-duration"
+    ],
+    "--spin-expressive-shape-easing": [
+      "--spin-expressive-shape-animation-timing-function"
+    ],
+    "--spin-motion-appear": [
+      "--spin-root-animation",
+      "--spin-content-transition"
+    ],
+    "--spin-size-small-size": [
+      "--spin-size-small-width"
+    ],
+    "--spin-size-middle-size": [
+      "--spin-size-middle-width"
+    ],
+    "--spin-size-large-size": [
+      "--spin-size-large-width"
+    ],
+    "--spin-content-blur": [
+      "--spin-content-filter"
+    ],
+    "--split-pane-separator-size": [
+      "--split-pane-separator-vertical-width",
+      "--split-pane-separator-horizontal-height"
+    ],
+    "--split-pane-separator-line-color": [
+      "--split-pane-separator-line-background-color"
+    ],
+    "--split-pane-separator-line-color-active": [
+      "--split-pane-separator-line-background-color-active"
+    ],
+    "--split-pane-focus-box-shadow": [
+      "--split-pane-separator-box-shadow-focus"
+    ],
+    "--split-pane-focus-ring": [
+      "--split-pane-separator-box-shadow-focus"
+    ],
+    "--switch-transition": [
+      "--switch-root-transition"
+    ],
+    "--switch-size-large-handle-size": [
+      "--switch-size-large-handle-width"
+    ],
+    "--switch-size-large-handle-offset": [
+      "--switch-size-large-handle-left"
+    ],
+    "--switch-size-middle-handle-size": [
+      "--switch-size-middle-handle-width"
+    ],
+    "--switch-size-middle-handle-offset": [
+      "--switch-size-middle-handle-left"
+    ],
+    "--switch-size-small-handle-size": [
+      "--switch-size-small-handle-width"
+    ],
+    "--switch-size-small-handle-offset": [
+      "--switch-size-small-handle-left"
+    ],
+    "--switch-checked-track-background-color": [
+      "--switch-track-background-color-checked"
+    ],
+    "--switch-checked-track-background-color-hover": [
+      "--switch-track-checked-background-color-hover"
+    ],
+    "--switch-disabled-track-background-color": [
+      "--switch-track-background-color-disabled"
+    ],
+    "--switch-disabled-checked-track-background-color": [
+      "--switch-track-checked-background-color-disabled"
+    ],
+    "--switch-disabled-handle-background-color": [
+      "--switch-handle-background-color-disabled",
+      "--switch-handle-checked-background-color-disabled"
+    ],
+    "--table-border-color": [
+      "--table-root-border-color",
+      "--table-cell-border-color",
+      "--table-cell-separator-border-color"
+    ],
+    "--table-root-focus-color": [
+      "--table-root-outline-color-focus"
+    ],
+    "--table-root-focus-width": [
+      "--table-root-outline-width-focus"
+    ],
+    "--table-root-focus-offset": [
+      "--table-root-outline-offset-focus"
+    ],
+    "--table-cell-bg-color": [
+      "--table-cell-background-color"
+    ],
+    "--table-cell-border-color-vertical": [
+      "--table-cell-separator-border-color"
+    ],
+    "--table-cell-vertical-border-color": [
+      "--table-cell-separator-border-color"
+    ],
+    "--table-header-bg-color": [
+      "--table-header-background-color"
+    ],
+    "--table-group-bg-color": [
+      "--table-group-background-color"
+    ],
+    "--table-group-chevron-size": [
+      "--table-group-chevron-width"
+    ],
+    "--table-selection-bg-color": [
+      "--table-selection-background-color"
+    ],
+    "--table-highlight-bg": [
+      "--table-highlight-background-color"
+    ],
+    "--table-highlight-active-bg": [
+      "--table-highlight-background-color-active"
+    ],
+    "--table-highlight-active-color": [
+      "--table-highlight-color-active"
+    ],
+    "--table-edited-indicator-size": [
+      "--table-edited-indicator-border-width"
+    ],
+    "--table-tree-indent": [
+      "--table-tree-indent-width"
+    ],
+    "--table-tree-chevron-size": [
+      "--table-tree-chevron-width"
+    ],
+    "--table-tree-button-radius": [
+      "--table-tree-button-border-radius"
+    ],
+    "--table-tree-button-size": [
+      "--table-tree-button-width"
+    ],
+    "--table-row-edit-row-bg": [
+      "--table-row-edit-row-background-color"
+    ],
+    "--table-row-edit-cell-bg": [
+      "--table-row-edit-cell-background-color"
+    ],
+    "--table-row-edit-ring-color": [
+      "--table-row-edit-border-color",
+      "--table-row-edit-outline-color"
+    ],
+    "--table-row-edit-card-shadow": [
+      "--table-row-edit-card-box-shadow"
+    ],
+    "--table-row-edit-card-radius": [
+      "--table-row-edit-card-border-radius"
+    ],
+    "--table-row-edit-actions-bg": [
+      "--table-row-edit-actions-background-color"
+    ],
+    "--table-row-edit-actions-border": [
+      "--table-row-edit-actions-border-color"
+    ],
+    "--table-row-edit-actions-radius": [
+      "--table-row-edit-actions-border-radius"
+    ],
+    "--table-row-edit-actions-shadow": [
+      "--table-row-edit-actions-box-shadow"
+    ],
+    "--table-row-edit-confirm-bg": [
+      "--table-row-edit-confirm-background-color"
+    ],
+    "--table-row-edit-confirm-hover-bg": [
+      "--table-row-edit-confirm-background-color-hover"
+    ],
+    "--table-row-edit-confirm-active-bg": [
+      "--table-row-edit-confirm-background-color-active"
+    ],
+    "--table-row-edit-cancel-hover-bg": [
+      "--table-row-edit-cancel-background-color-hover"
+    ],
+    "--table-row-edit-cancel-border": [
+      "--table-row-edit-cancel-border-color"
+    ],
+    "--table-row-edit-button-padding-x": [
+      "--table-row-edit-button-padding-inline"
+    ],
+    "--table-row-edit-button-radius": [
+      "--table-row-edit-button-border-radius"
+    ],
+    "--table-column-drag-indicator-color": [
+      "--table-column-drag-indicator-background-color"
+    ],
+    "--table-column-drag-dragging-opacity": [
+      "--table-column-drag-opacity-dragging"
+    ],
+    "--table-sort-icon-active-color": [
+      "--table-sort-icon-color-active"
+    ],
+    "--table-row-selection-control-size": [
+      "--table-row-selection-control-width"
+    ],
+    "--table-row-selection-selected-bg": [
+      "--table-row-selection-background-color-selected"
+    ],
+    "--table-row-click-hover-bg": [
+      "--table-row-click-background-color-hover"
+    ],
+    "--table-row-click-background-color-transition": [
+      "--table-row-click-transition"
+    ],
+    "--table-row-click-row-bg-transition": [
+      "--table-row-click-transition"
+    ],
+    "--table-expand-chevron-size": [
+      "--table-expand-chevron-width"
+    ],
+    "--table-expand-button-radius": [
+      "--table-expand-button-border-radius"
+    ],
+    "--table-expand-content-bg": [
+      "--table-expand-content-background-color"
+    ],
+    "--crab-rc-table-bg-color": [
+      "--table-pro-surface-background-color"
+    ],
+    "--crab-rc-table-header-bg-color": [
+      "--table-pro-chrome-background-color"
+    ],
+    "--crab-rc-table-border-color": [
+      "--table-pro-root-border-color"
+    ],
+    "--tabs-font-weight": [
+      "--tabs-root-font-weight"
+    ],
+    "--tabs-size-small-padding-x": [
+      "--tabs-size-small-padding-inline"
+    ],
+    "--tabs-size-medium-padding-x": [
+      "--tabs-size-medium-padding-inline"
+    ],
+    "--tabs-size-large-padding-x": [
+      "--tabs-size-large-padding-inline"
+    ],
+    "--tabs-card-background": [
+      "--tabs-card-background-color"
+    ],
+    "--tabs-card-background-hover": [
+      "--tabs-card-background-color-hover"
+    ],
+    "--tabs-card-background-active": [
+      "--tabs-card-background-color-active"
+    ],
+    "--tabs-pill-background-hover": [
+      "--tabs-pill-background-color-hover"
+    ],
+    "--tabs-pill-background-active": [
+      "--tabs-pill-background-color-active"
+    ],
+    "--tabs-close-size": [
+      "--tabs-close-width"
+    ],
+    "--tabs-close-background-hover": [
+      "--tabs-close-background-color-hover"
+    ],
+    "--tabs-focus-ring-color": [
+      "--tabs-tab-outline-color-focus",
+      "--tabs-close-outline-color-focus"
+    ],
+    "--tabs-focus-ring-width": [
+      "--tabs-tab-outline-width-focus",
+      "--tabs-close-outline-width-focus"
+    ],
+    "--tabs-focus-ring-offset": [
+      "--tabs-tab-outline-offset-focus"
+    ],
+    "--tag-transition": [
+      "--tag-root-transition"
+    ],
+    "--tag-error-color": [
+      "--tag-root-color-error"
+    ],
+    "--tag-error-background-color": [
+      "--tag-root-background-color-error"
+    ],
+    "--tag-error-border-color": [
+      "--tag-root-border-color-error"
+    ],
+    "--tag-close-size": [
+      "--tag-close-width"
+    ],
+    "--text-edit-transition": [
+      "--text-edit-root-transition"
+    ],
+    "--text-edit-border-radius": [
+      "--text-edit-root-border-radius"
+    ],
+    "--text-edit-border-width": [
+      "--text-edit-root-border-width"
+    ],
+    "--text-edit-border-style": [
+      "--text-edit-root-border-style"
+    ],
+    "--text-edit-border-color": [
+      "--text-edit-root-border-color"
+    ],
+    "--text-edit-border-color-hover": [
+      "--text-edit-root-border-color-hover"
+    ],
+    "--text-edit-border-color-focus": [
+      "--text-edit-root-border-color-focus"
+    ],
+    "--text-edit-box-shadow": [
+      "--text-edit-root-box-shadow"
+    ],
+    "--text-edit-box-shadow-default": [
+      "--text-edit-root-box-shadow"
+    ],
+    "--text-edit-box-shadow-focus-within": [
+      "--text-edit-root-box-shadow-focus-within"
+    ],
+    "--text-edit-background-color": [
+      "--text-edit-root-background-color"
+    ],
+    "--text-edit-status-error-border-color": [
+      "--text-edit-status-border-color-error"
+    ],
+    "--text-edit-status-error-box-shadow-focus-within": [
+      "--text-edit-status-box-shadow-error"
+    ],
+    "--text-edit-status-warning-border-color": [
+      "--text-edit-status-border-color-warning"
+    ],
+    "--text-edit-status-warning-box-shadow-focus-within": [
+      "--text-edit-status-box-shadow-warning"
+    ],
+    "--token-semantic-color-feedback-error": [
+      "--token-semantic-color-feedback-error-text",
+      "--token-semantic-color-feedback-error-icon",
+      "--token-semantic-color-feedback-error-border",
+      "--token-semantic-color-feedback-error-solid"
+    ],
+    "--token-semantic-color-feedback-success": [
+      "--token-semantic-color-feedback-success-text",
+      "--token-semantic-color-feedback-success-icon",
+      "--token-semantic-color-feedback-success-border",
+      "--token-semantic-color-feedback-success-solid"
+    ],
+    "--token-semantic-color-feedback-warning": [
+      "--token-semantic-color-feedback-warning-text",
+      "--token-semantic-color-feedback-warning-icon",
+      "--token-semantic-color-feedback-warning-border",
+      "--token-semantic-color-feedback-warning-solid"
+    ],
+    "--token-semantic-color-feedback-info": [
+      "--token-semantic-color-feedback-info-text",
+      "--token-semantic-color-feedback-info-icon",
+      "--token-semantic-color-feedback-info-border",
+      "--token-semantic-color-feedback-info-solid"
+    ],
+    "--tooltip-background-color": [
+      "--tooltip-root-background-color"
+    ],
+    "--tooltip-color": [
+      "--tooltip-root-color"
+    ],
+    "--tooltip-padding-inline": [
+      "--tooltip-root-padding-inline"
+    ],
+    "--tooltip-padding-x": [
+      "--tooltip-root-padding-inline"
+    ],
+    "--tooltip-padding-block": [
+      "--tooltip-root-padding-block"
+    ],
+    "--tooltip-padding-y": [
+      "--tooltip-root-padding-block"
+    ],
+    "--tooltip-font-size": [
+      "--tooltip-root-font-size"
+    ],
+    "--tooltip-line-height": [
+      "--tooltip-root-line-height"
+    ],
+    "--tooltip-border-radius": [
+      "--tooltip-root-border-radius"
+    ],
+    "--tooltip-max-width": [
+      "--tooltip-root-max-width"
+    ],
+    "--tooltip-z-index": [
+      "--tooltip-root-z-index"
+    ],
+    "--tooltip-motion-interaction": [
+      "--tooltip-motion-interaction-transition"
+    ],
+    "--tree-indent-size": [
+      "--tree-indent-width"
+    ],
+    "--tree-border-radius": [
+      "--tree-root-border-radius"
+    ],
+    "--tree-node-hover-background-color": [
+      "--tree-node-background-color-hover"
+    ],
+    "--tree-node-select-background-color": [
+      "--tree-node-background-color-selected"
+    ],
+    "--tree-node-select-indicator-color": [
+      "--tree-node-selection-border-color"
+    ],
+    "--tree-node-select-indicator-width": [
+      "--tree-node-selection-border-width"
+    ],
+    "--tree-node-icon-hover-background-color": [
+      "--tree-node-icon-background-color-hover"
+    ],
+    "--tree-node-icon-loading-color": [
+      "--tree-node-icon-color-loading"
+    ],
+    "--tree-node-indent-line-color": [
+      "--tree-node-indent-line-border-color"
+    ],
+    "--tree-node-drag-indicator-color": [
+      "--tree-node-drag-indicator-background-color"
+    ],
+    "--tree-node-disabled-color": [
+      "--tree-node-color-disabled"
+    ],
+    "--tree-node-disabled-background-color": [
+      "--tree-node-background-color-disabled"
+    ]
+  },
+  "changedTokenFiles": [
+    "components/rc-alert/token.toml",
+    "components/rc-app-main-layout/token.toml",
+    "components/rc-avatar/token.toml",
+    "components/rc-badge/token.toml",
+    "components/rc-bar-chart/token.toml",
+    "components/rc-breadcrumbs/token.toml",
+    "components/rc-button/token.toml",
+    "components/rc-card/token.toml",
+    "components/rc-checkbox/token.toml",
+    "components/rc-color-picker/token.toml",
+    "components/rc-component-preview/token.toml",
+    "components/rc-cron-picker/token.toml",
+    "components/rc-date-picker/token.toml",
+    "components/rc-dialog/token.toml",
+    "components/rc-divider/token.toml",
+    "components/rc-drawer/token.toml",
+    "components/rc-dropdown-container/token.toml",
+    "components/rc-empty/token.toml",
+    "components/rc-form/token.toml",
+    "components/rc-line-edit/token.toml",
+    "components/rc-masonry/token.toml",
+    "components/rc-menu/token.toml",
+    "components/rc-message/token.toml",
+    "components/rc-notification/token.toml",
+    "components/rc-number-edit/token.toml",
+    "components/rc-pagination/token.toml",
+    "components/rc-prose/token.toml",
+    "components/rc-radio/token.toml",
+    "components/rc-realm/token.toml",
+    "components/rc-segmented/token.toml",
+    "components/rc-select/token.toml",
+    "components/rc-skeleton/token.toml",
+    "components/rc-slider/token.toml",
+    "components/rc-spin/token.toml",
+    "components/rc-split-pane/token.toml",
+    "components/rc-switch/token.toml",
+    "components/rc-table/token.toml",
+    "components/rc-table-pro/token.toml",
+    "components/rc-tabs/token.toml",
+    "components/rc-tag/token.toml",
+    "components/rc-text-edit/token.toml",
+    "components/rc-token-semantic/token.toml",
+    "components/rc-tooltip/token.toml",
+    "components/rc-tree/token.toml",
+    "components/rc-token-semantic/src/theme.ts"
+  ]
+}

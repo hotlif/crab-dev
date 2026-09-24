@@ -1,0 +1,461 @@
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-spin, @crab-dev/rc-button, @crab-dev/rc-component-preview, @crab-dev/rc-masonry, @crab-dev/rc-menu
+
+   • Packages in scope: @crab-dev/rc-text-edit, @crab-dev/rc-tree
+   • Running generate:token, build:library, lint, test in 2 packages
+   • Remote caching disabled
+
+@crab-dev/rc-text-edit:lint: cache miss, executing c5fdae713ce10fc2
+@crab-dev/rc-tree:lint: cache miss, executing 318ed772d050da0a
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 92ddcf2ed13c3f61
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 15ms
+@crab-dev/rc-token-global:build:library:      1 files · 31.7 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 114ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 72.2 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:generate:token: cache hit, replaying logs 6f6a961b40876aa9
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs d07bb55f5885c561
+@crab-dev/rc-token-global:generate:token: 
+@crab-dev/rc-token-global:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:generate:token: 
+@crab-dev/rc-token-global:generate:token:   ✓  Tokens generated in 14ms
+@crab-dev/rc-token-global:generate:token:      1 files · 31.7 KB
+@crab-dev/rc-token-global:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:generate:token: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 44ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 82.8 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 275ms
+@crab-dev/rc-token-semantic:build:library:      4 modules · 13 files · 237.9 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 5eb476667a01f181
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 783ms
+@crab-dev/rc-hooks:build:library:      16 modules · 48 files · 41.3 KB
+@crab-dev/rc-hooks:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-masonry:build:library: cache hit, replaying logs bd099a5b8b57e179
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ✓  Tokens generated in 49ms
+@crab-dev/rc-masonry:build:library:      1 files · 856 B
+@crab-dev/rc-masonry:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry\src\token.ts
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ✓  Built library in 118ms
+@crab-dev/rc-masonry:build:library:      3 modules · 11 files · 11.2 KB
+@crab-dev/rc-masonry:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-component-preview:build:library: cache hit, replaying logs 4d075dc2c003fab7
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ✓  Tokens generated in 29ms
+@crab-dev/rc-component-preview:build:library:      1 files · 16.3 KB
+@crab-dev/rc-component-preview:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview\src\token.ts
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ✓  Built library in 179ms
+@crab-dev/rc-component-preview:build:library:      5 modules · 14 files · 70.8 KB
+@crab-dev/rc-component-preview:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview
+@crab-dev/rc-theme:build:library: cache hit, replaying logs 0ae8812ee1a2bd6b
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 264ms
+@crab-dev/rc-theme:build:library:      3 modules · 8 files · 30.9 KB
+@crab-dev/rc-theme:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-spin:build:library: cache hit, replaying logs 2cd3a522e339b9f4
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 46ms
+@crab-dev/rc-spin:build:library:      1 files · 5.9 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Built library in 356ms
+@crab-dev/rc-spin:build:library:      5 modules · 17 files · 33.8 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-menu:build:library: cache hit, replaying logs 8ff16a1352ef93e1
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ✓  Tokens generated in 36ms
+@crab-dev/rc-menu:build:library:      1 files · 22.9 KB
+@crab-dev/rc-menu:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu\src\token.ts
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ✓  Built library in 147ms
+@crab-dev/rc-menu:build:library:      14 modules · 33 files · 126.1 KB
+@crab-dev/rc-menu:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-token-semantic:generate:token: cache hit, replaying logs dbe52a38e817b260
+@crab-dev/rc-token-semantic:generate:token: 
+@crab-dev/rc-token-semantic:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:generate:token: 
+@crab-dev/rc-token-semantic:generate:token:   ✓  Tokens generated in 33ms
+@crab-dev/rc-token-semantic:generate:token:      1 files · 82.8 KB
+@crab-dev/rc-token-semantic:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:generate:token: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs bbd87755dfd6280d
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 247ms
+@crab-dev/rc-config-provider:build:library:      4 modules · 14 files · 10.9 KB
+@crab-dev/rc-config-provider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-menu:generate:token: cache hit, replaying logs 3ea5029a9c6c7720
+@crab-dev/rc-auto-sizer:build:library: cache hit, replaying logs 47fb3a80d23788c2
+@crab-dev/rc-menu:generate:token: 
+@crab-dev/rc-menu:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-menu:generate:token: 
+@crab-dev/rc-menu:generate:token:   ✓  Tokens generated in 31ms
+@crab-dev/rc-menu:generate:token:      1 files · 22.9 KB
+@crab-dev/rc-menu:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu\src\token.ts
+@crab-dev/rc-menu:generate:token: 
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-auto-sizer:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-auto-sizer:build:library:   ✓  Built library in 354ms
+@crab-dev/rc-auto-sizer:build:library:      2 modules · 8 files · 5.1 KB
+@crab-dev/rc-auto-sizer:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-auto-sizer
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-checkbox:build:library: cache hit, replaying logs 916eac6774b2d362
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 47ms
+@crab-dev/rc-checkbox:build:library:      1 files · 14.7 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox\src\token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 660ms
+@crab-dev/rc-checkbox:build:library:      5 modules · 16 files · 60.8 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-masonry:generate:token: cache hit, replaying logs 53821cb934ba4a31
+@crab-dev/rc-masonry:generate:token: 
+@crab-dev/rc-masonry:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-masonry:generate:token: 
+@crab-dev/rc-masonry:generate:token:   ✓  Tokens generated in 33ms
+@crab-dev/rc-masonry:generate:token:      1 files · 856 B
+@crab-dev/rc-masonry:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry\src\token.ts
+@crab-dev/rc-masonry:generate:token: 
+@crab-dev/rc-button:generate:token: cache hit, replaying logs 6162e45366370a1e
+@crab-dev/rc-spin:generate:token: cache hit, replaying logs 329d530a568c05d9
+@crab-dev/rc-spin:generate:token: 
+@crab-dev/rc-spin:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:generate:token: 
+@crab-dev/rc-spin:generate:token:   ✓  Tokens generated in 33ms
+@crab-dev/rc-spin:generate:token:      1 files · 5.9 KB
+@crab-dev/rc-spin:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:generate:token: 
+@crab-dev/rc-component-preview:generate:token: cache hit, replaying logs 49e0d935e1556c07
+@crab-dev/rc-component-preview:generate:token: 
+@crab-dev/rc-component-preview:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-component-preview:generate:token: 
+@crab-dev/rc-component-preview:generate:token:   ✓  Tokens generated in 29ms
+@crab-dev/rc-component-preview:generate:token:      1 files · 16.3 KB
+@crab-dev/rc-component-preview:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview\src\token.ts
+@crab-dev/rc-component-preview:generate:token: 
+@crab-dev/rc-button:generate:token: 
+@crab-dev/rc-button:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:generate:token: 
+@crab-dev/rc-button:generate:token:   ✓  Tokens generated in 32ms
+@crab-dev/rc-button:generate:token:      1 files · 42.0 KB
+@crab-dev/rc-button:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-button:generate:token: 
+@crab-dev/rc-text-edit:generate:token: cache miss, executing 4174627d13827373
+@crab-dev/rc-checkbox:generate:token: cache hit, replaying logs 88d1f37154d99b72
+@crab-dev/rc-virtual:generate:token: cache hit, replaying logs 0fd2745838d981cd
+@crab-dev/rc-checkbox:generate:token: 
+@crab-dev/rc-virtual:generate:token: 
+@crab-dev/rc-virtual:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:generate:token: 
+@crab-dev/rc-virtual:generate:token: 
+@crab-dev/rc-checkbox:generate:token:   ✓  Tokens generated in 37ms
+@crab-dev/rc-virtual:generate:token:   ✓  Tokens generated in 53ms
+@crab-dev/rc-virtual:generate:token:      1 files · 1003 B
+@crab-dev/rc-checkbox:generate:token:      1 files · 14.7 KB
+@crab-dev/rc-virtual:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual\src\token.ts
+@crab-dev/rc-checkbox:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox\src\token.ts
+@crab-dev/rc-virtual:generate:token: 
+@crab-dev/rc-checkbox:generate:token: 
+@crab-dev/rc-button:build:library: cache hit, replaying logs b6fb14db61e6142b
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 45ms
+@crab-dev/rc-button:build:library:      1 files · 42.0 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 402ms
+@crab-dev/rc-button:build:library:      5 modules · 16 files · 157.1 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-tree:generate:token: cache miss, executing 758d2eb05814645e
+@crab-dev/rc-text-edit:test: cache miss, executing 90602932c06183f6
+@crab-dev/rc-text-edit:build:library: cache miss, executing 55818cf33ecb968b
+@crab-dev/rc-virtual:build:library: cache hit, replaying logs c5659e88c7331f67
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 46ms
+@crab-dev/rc-virtual:build:library:      1 files · 1003 B
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual\src\token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 116ms
+@crab-dev/rc-virtual:build:library:      8 modules · 21 files · 63.2 KB
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-tree:test: cache miss, executing 32b51702af19b1a3
+@crab-dev/rc-tree:build:library: cache miss, executing ba0e1066cc41bd81
+@crab-dev/rc-text-edit:generate:token: 
+@crab-dev/rc-text-edit:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-text-edit:generate:token: 
+@crab-dev/rc-text-edit:generate:token:   ✓  Tokens generated in 53ms
+@crab-dev/rc-text-edit:generate:token:      1 files · 17.3 KB
+@crab-dev/rc-text-edit:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit\src\token.ts
+@crab-dev/rc-text-edit:generate:token: 
+@crab-dev/rc-tree:generate:token: 
+@crab-dev/rc-tree:generate:token:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-tree:generate:token: 
+@crab-dev/rc-tree:generate:token:   ✓  Tokens generated in 41ms
+@crab-dev/rc-tree:generate:token:      1 files · 10.4 KB
+@crab-dev/rc-tree:generate:token:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+@crab-dev/rc-tree:generate:token: 
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ✓  Tokens generated in 46ms
+@crab-dev/rc-text-edit:build:library:      1 files · 17.3 KB
+@crab-dev/rc-text-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit\src\token.ts
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Tokens generated in 43ms
+@crab-dev/rc-tree:build:library:      1 files · 10.4 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-text-edit:build:library:   ✓  Built library in 382ms
+@crab-dev/rc-text-edit:build:library:      3 modules · 10 files · 72.5 KB
+@crab-dev/rc-text-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Built library in 386ms
+@crab-dev/rc-tree:build:library:      8 modules · 24 files · 118.7 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-text-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-tree:lint: 0 errors, 0 warnings
+@crab-dev/rc-text-edit:test: PASS src/__tests__/textEdit.test.tsx
+@crab-dev/rc-text-edit:test:   ✓ clears an uncontrolled value through onChange and updates its count
+@crab-dev/rc-text-edit:test:   ✓ restores the controlled value when a parent rejects clear
+@crab-dev/rc-text-edit:test:   ✓ 受控清除后仍可在文本域继续输入
+@crab-dev/rc-text-edit:test:   ✓ 错误默认具有无效语义，显式语义优先
+@crab-dev/rc-text-edit:test:   ✓ 提供标签、辅助文本和计数时建立完整字段关联
+@crab-dev/rc-text-edit:test:   ✓ errorText 替换辅助文本并启用错误语义
+@crab-dev/rc-text-edit:test:   ✓ 应渲染 textarea 元素
+@crab-dev/rc-text-edit:test:   ✓ rows 应透传给 textarea
+@crab-dev/rc-text-edit:test:   ✓ placeholder 应透传给 textarea
+@crab-dev/rc-text-edit:test:   ✓ 受控多行 value 应完整显示在 textarea 中
+@crab-dev/rc-text-edit:test:   ✓ 输入应触发 onChange
+@crab-dev/rc-text-edit:test:   ✓ bordered={false} 时应仍渲染 textarea 且不报错
+@crab-dev/rc-text-edit:test:   ✓ disabled 时 textarea 应被禁用
+@crab-dev/rc-text-edit:test:   ✓ disabled 时容器应有 aria-disabled 属性
+@crab-dev/rc-text-edit:test:   ✓ 非 disabled 时容器不应有 aria-disabled 属性
+@crab-dev/rc-text-edit:test:   ✓ 有值且 allowClear 时应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ 值为空时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ 未传 allowClear 时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ disabled 时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ readOnly 时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ 点击清除按钮应触发 onClear 回调
+@crab-dev/rc-text-edit:test:   ✓ showCount 有值时应显示字符数
+@crab-dev/rc-text-edit:test:   ✓ showCount + maxLength 应显示 count/max 格式
+@crab-dev/rc-text-edit:test:   ✓ showCount 时 maxLength 应传给 textarea
+@crab-dev/rc-text-edit:test:   ✓ 非受控空输入显示零字符计数
+@crab-dev/rc-text-edit:test:   ✓ autoSize 与默认 resize 应产生不同的 textarea 类名
+@crab-dev/rc-text-edit:test:   ✓ ref 应指向 textarea 元素
+@crab-dev/rc-text-edit:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-text-edit:test: Tests:       27 passed, 0 failed, 0 pending, 27 total
+@crab-dev/rc-text-edit:test: Wake coverage
+@crab-dev/rc-text-edit:test: File	Lines	Functions	Blocks
+@crab-dev/rc-text-edit:test: All files	100.00% (378/378)	100.00% (3/3)	34.67% (52/150)
+@crab-dev/rc-text-edit:test: src/textEdit.tsx	100.00% (225/225)	100.00% (3/3)	34.67% (52/150)
+@crab-dev/rc-text-edit:test: src/token.ts	100.00% (153/153)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-text-edit:test: Seed:        1790217185454383452
+@crab-dev/rc-text-edit:test: Time:        13437 ms
+@crab-dev/rc-tree:test: PASS src/__tests__/icon.test.tsx
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon with extra props
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight as a line-style icon (fill=none)
+@crab-dev/rc-tree:test: PASS src/__tests__/nodeItem.test.tsx
+@crab-dev/rc-tree:test:   ✓ keeps non-draggable nodes selectable and exposes tree state
+@crab-dev/rc-tree:test:   ✓ renders a folder node with title
+@crab-dev/rc-tree:test:   ✓ renders loading spinner when loading=true
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon for collapsed folder
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon for expanded folder
+@crab-dev/rc-tree:test:   ✓ renders no icon for FILE type node
+@crab-dev/rc-tree:test:   ✓ calls onExpanded when pointer-up on collapsed folder icon
+@crab-dev/rc-tree:test:   ✓ calls onExpanded when pointer-up on expanded folder icon
+@crab-dev/rc-tree:test:   ✓ calls onExpanded when pointer-up on row title (expandOnTitleClick=true, FOLDER)
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded on right-click (button=2)
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded when expandOnTitleClick=false and clicking row
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded when row click on FILE node
+@crab-dev/rc-tree:test:   ✓ disabled node: does NOT call onExpanded or onTitleClick on row click
+@crab-dev/rc-tree:test:   ✓ disabled node: has data-disabled=true attribute
+@crab-dev/rc-tree:test:   ✓ calls onExpanded on mouseEnter when overState is set and folder is collapsed
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded on mouseEnter when overState is null
+@crab-dev/rc-tree:test:   ✓ calls onTitleClick on pointer up
+@crab-dev/rc-tree:test:   ✓ calls onTitleContextMenu on context menu
+@crab-dev/rc-tree:test:   ✓ sets data-selected attribute when node is in selectKeys
+@crab-dev/rc-tree:test:   ✓ sets data-selected to false when node not in selectKeys
+@crab-dev/rc-tree:test:   ✓ applies UPWARD over state style
+@crab-dev/rc-tree:test:   ✓ applies DOWN over state style
+@crab-dev/rc-tree:test:   ✓ applies INSIDE over state style
+@crab-dev/rc-tree:test:   ✓ does not apply over state style when overState id does not match node id
+@crab-dev/rc-tree:test:   ✓ renders indent lines when showLine is true
+@crab-dev/rc-tree:test:   ✓ does not render indent lines when showLine is false
+@crab-dev/rc-tree:test:   ✓ applies node.height to style
+@crab-dev/rc-tree:test:   ✓ renders with custom className
+@crab-dev/rc-tree:test:   ✓ renders deeply nested node with showLine
+@crab-dev/rc-tree:test: PASS src/__tests__/token.test.ts
+@crab-dev/rc-tree:test:   ✓ separates structural borders from the solid drag badge
+@crab-dev/rc-tree:test: PASS src/__tests__/tree.test.tsx
+@crab-dev/rc-tree:test:   ✓ inherits global size without overriding explicit node geometry and protects coarse targets
+@crab-dev/rc-tree:test:   ✓ labels the keyboard focus target and identifies its selected tree item
+@crab-dev/rc-tree:test:   ✓ updates virtual row offsets when density or pointer mode changes
+@crab-dev/rc-tree:test:   ✓ renders with no data
+@crab-dev/rc-tree:test:   ✓ renders tree nodes
+@crab-dev/rc-tree:test:   ✓ renders with draggable enabled
+@crab-dev/rc-tree:test:   ✓ renders with showLine
+@crab-dev/rc-tree:test:   ✓ renders context menu when rendererContextMenu is provided
+@crab-dev/rc-tree:test:   ✓ handles onContextMenu on the tree container
+@crab-dev/rc-tree:test:   ✓ passes extra props through
+@crab-dev/rc-tree:test:   ✓ handles loading state on expand
+@crab-dev/rc-tree:test:   ✓ renders with select keys
+@crab-dev/rc-tree:test:   ✓ handles expanded keys for child nodes
+@crab-dev/rc-tree:test:   ✓ renders with default node height
+@crab-dev/rc-tree:test: PASS src/__tests__/type.test.ts
+@crab-dev/rc-tree:test:   ✓ has UPWARD
+@crab-dev/rc-tree:test:   ✓ has DOWN
+@crab-dev/rc-tree:test:   ✓ has INSIDE
+@crab-dev/rc-tree:test:   ✓ has FOLDER
+@crab-dev/rc-tree:test:   ✓ has FILE
+@crab-dev/rc-tree:test:   ✓ has CREATE
+@crab-dev/rc-tree:test:   ✓ has DELETE
+@crab-dev/rc-tree:test:   ✓ has UPDATE
+@crab-dev/rc-tree:test:   ✓ has UNLOADED
+@crab-dev/rc-tree:test:   ✓ has LOADING
+@crab-dev/rc-tree:test:   ✓ has LOADING_COMPLETED
+@crab-dev/rc-tree:test: PASS src/__tests__/useTreeData.test.tsx
+@crab-dev/rc-tree:test:   ✓ returns initial empty array
+@crab-dev/rc-tree:test:   ✓ returns a stable TreeDataUtil instance across renders
+@crab-dev/rc-tree:test:   ✓ allows updating tree data via setter
+@crab-dev/rc-tree:test: PASS src/__tests__/util.test.ts
+@crab-dev/rc-tree:test:   ✓ sorts by priority ascending
+@crab-dev/rc-tree:test:   ✓ deletes a single node by id
+@crab-dev/rc-tree:test:   ✓ deletes multiple nodes by id array
+@crab-dev/rc-tree:test:   ✓ deletes nodes matching predicate
+@crab-dev/rc-tree:test:   ✓ inserts nodes under a parent
+@crab-dev/rc-tree:test:   ✓ updates a node by id
+@crab-dev/rc-tree:test:   ✓ does nothing when node id not found
+@crab-dev/rc-tree:test:   ✓ reloads root children when parent is null
+@crab-dev/rc-tree:test:   ✓ reloads children for specific parent
+@crab-dev/rc-tree:test:   ✓ handles loadDataFunc returning null-ish
+@crab-dev/rc-tree:test:   ✓ returns unchanged when drag node not found
+@crab-dev/rc-tree:test:   ✓ returns unchanged when target node not found
+@crab-dev/rc-tree:test:   ✓ returns unchanged when dragging node onto its descendant
+@crab-dev/rc-tree:test:   ✓ moves node UPWARD with previous node
+@crab-dev/rc-tree:test:   ✓ moves node UPWARD without previous node (first position)
+@crab-dev/rc-tree:test:   ✓ moves node UPWARD with empty target nodes leads to priority 1
+@crab-dev/rc-tree:test:   ✓ moves node DOWN with next node
+@crab-dev/rc-tree:test:   ✓ moves node DOWN without next node (last position)
+@crab-dev/rc-tree:test:   ✓ moves node INSIDE target
+@crab-dev/rc-tree:test:   ✓ throws when target node not in filtered target nodes
+@crab-dev/rc-tree:test:   ✓ handles nodes with undefined priority (defaults to 0)
+@crab-dev/rc-tree:test:   ✓ handles move DOWN when target has no priority
+@crab-dev/rc-tree:test:   ✓ returns nodes sorted by priority for root
+@crab-dev/rc-tree:test:   ✓ returns nodes with children recursively
+@crab-dev/rc-tree:test:   ✓ returns empty array for no matching nodes
+@crab-dev/rc-tree:test:   ✓ handles equal priority nodes
+@crab-dev/rc-tree:test:   ✓ returns 0 for root node
+@crab-dev/rc-tree:test:   ✓ returns 1 for first-level child
+@crab-dev/rc-tree:test:   ✓ returns correct depth for deeply nested nodes
+@crab-dev/rc-tree:test:   ✓ returns false when target has no parent
+@crab-dev/rc-tree:test:   ✓ returns true when target is direct child of parent
+@crab-dev/rc-tree:test:   ✓ returns true when target is grandchild of parent
+@crab-dev/rc-tree:test:   ✓ returns false when target is not descendant
+@crab-dev/rc-tree:test:   ✓ loads root data and assigns priority
+@crab-dev/rc-tree:test:   ✓ recursively loads expanded children
+@crab-dev/rc-tree:test:   ✓ returns empty array when loadData returns undefined
+@crab-dev/rc-tree:test:   ✓ returns empty array when loadData is undefined
+@crab-dev/rc-tree:test:   ✓ preserves existing priority if already set
+@crab-dev/rc-tree:test:   ✓ sets parent on loaded child nodes
+@crab-dev/rc-tree:test: Test Suites: 7 passed, 0 failed, 7 total
+@crab-dev/rc-tree:test: Tests:       100 passed, 0 failed, 0 pending, 100 total
+@crab-dev/rc-tree:test: Wake coverage
+@crab-dev/rc-tree:test: File	Lines	Functions	Blocks
+@crab-dev/rc-tree:test: All files	74.47% (738/991)	68.32% (69/101)	57.85% (129/223)
+@crab-dev/rc-tree:test: src/hooks/useTreeData.ts	100.00% (9/9)	100.00% (1/1)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/icon.tsx	100.00% (31/31)	100.00% (2/2)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/nodeItem.tsx	87.23% (205/235)	52.63% (10/19)	44.86% (48/107)
+@crab-dev/rc-tree:test: src/token.ts	100.00% (104/104)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/tree.tsx	51.72% (225/435)	47.22% (17/36)	56.41% (22/39)
+@crab-dev/rc-tree:test: src/type.ts	100.00% (4/4)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/util.ts	92.49% (160/173)	90.70% (39/43)	76.62% (59/77)
+@crab-dev/rc-tree:test: Seed:        1790217185589738828
+@crab-dev/rc-tree:test: Time:        29172 ms
+
+ Tasks:    30 successful, 30 total
+Cached:    22 cached, 30 total
+  Time:    33.462s 
+

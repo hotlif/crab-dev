@@ -1,0 +1,12 @@
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-menu, @crab-dev/rc-spin, @crab-dev/rc-button, @crab-dev/rc-component-preview, @crab-dev/rc-masonry
+
+   • Packages in scope: @crab-dev/rc-app-main-layout, @crab-dev/rc-avatar, @crab-dev/rc-breadcrumbs, @crab-dev/rc-color-picker, @crab-dev/rc-segmented, @crab-dev/rc-tree
+   • Running lint, test, typecheck, build:library in 6 packages
+   • Remote caching disabled
+
+
+ Tasks:    45 successful, 45 total
+Cached:    26 cached, 45 total
+  Time:    53.533s 
+

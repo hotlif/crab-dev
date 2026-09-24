@@ -1,0 +1,74 @@
+PASS src/__tests__/table.test.tsx
+  ✓ recalculates virtual row geometry when the inherited size changes and keeps explicit heights
+  ✓ renders grouped headers and basic cell content
+  ✓ uses block virtual spacers with inherited line-height 1
+  ✓ uses block virtual spacers with inherited line-height 1.7
+  ✓ uses block virtual spacers with inherited line-height 2
+  ✓ preserves native styles and exposes grid semantics
+  ✓ supports keyboard column resize and restores document styles on unmount
+  ✓ recursively removes hidden child columns before deriving leaf indexes and widths
+  ✓ renders summary row with fixed columns when showSummary enabled
+  ✓ renders merged text when mergeCells and fixed columns are used together
+  ✓ keeps the merged origin mounted when horizontal virtualization starts inside its colSpan
+  ✓ supports getRowHeight and headerRowHeight props
+  ✓ keeps merged-row compensation and the last row correct while scrolling
+  ✓ does not filter rows by itself and only emits filter conditions
+  ✓ supports controlled filters from outside
+  ✓ supports custom filter editor
+  ✓ supports external renderDefaultFilterEditor
+  ✓ renders empty filter cell when no filter editor is provided
+  ✓ supports custom filter cell className
+  ✓ supports column-level filter cell className
+  ✓ renders expanded content only for rows in expandedRowKeys
+  ✓ toggles expansion via icon click and emits onExpandedRowKeysChange
+  ✓ uncontrolled expansion shows content after clicking the expand icon
+  ✓ hides the expand icon for rows disabled by isRowExpandable
+  ✓ recomputes expansion when isRowExpandable changes without changing rows
+  ✓ recomputes tree rows when getChildRows changes
+  ✓ counts repeated keyword matches without materializing one entry per occurrence
+  ✓ emits onRowClick with the row and its index
+  ✓ emits onRowDoubleClick with the row and its index
+  ✓ does not emit onRowClick when clicking the row-selection checkbox
+  ✓ does not emit onRowClick when clicking the expand icon
+  ✓ does not emit onRowClick when clicking a button rendered inside a cell
+  ✓ does not emit onRowClick after a cell drag-selection
+  ✓ does not emit onRowDoubleClick when a cell enters edit mode (editType=cell)
+  ✓ keeps cell editor state attached to row id and column name after row and column reorder
+  ✓ lets row-edit consume the double click instead of emitting onRowDoubleClick (editType=row)
+  ✓ clears the previous draft when controlled row editing switches to another row
+  ✓ emits onRowClick via keyboard Enter on the anchored row
+  ✓ routes global keyboard actions only to the last active table
+  ✓ adds the clickable affordance class only when a row event is provided
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       40 passed, 0 failed, 0 pending, 40 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	80.72% (2881/3569)	76.30% (293/384)	56.05% (547/976)
+src/bodyCell.tsx	84.50% (327/387)	70.00% (21/30)	61.33% (92/150)
+src/bodyRow.tsx	100.00% (19/19)	100.00% (2/2)	50.00% (1/2)
+src/headerCell.tsx	80.97% (200/247)	43.75% (7/16)	37.07% (43/116)
+src/hooks/useCellEdit.ts	45.95% (17/37)	40.00% (2/5)	100.00% (0/0)
+src/hooks/useCellEditNav.ts	40.00% (34/85)	60.00% (6/10)	44.44% (4/9)
+src/hooks/useCellSelection.ts	75.31% (180/239)	85.19% (23/27)	58.06% (36/62)
+src/hooks/useColumnDrag.ts	38.54% (37/96)	60.00% (9/15)	40.00% (2/5)
+src/hooks/useColumnLayout.ts	99.24% (131/132)	97.14% (34/35)	72.50% (29/40)
+src/hooks/useColumnResize.ts	78.21% (61/78)	80.00% (8/10)	28.57% (2/7)
+src/hooks/useColumnSort.ts	44.44% (32/72)	54.55% (6/11)	42.86% (3/7)
+src/hooks/useKeywordMatch.ts	83.09% (113/136)	85.71% (12/14)	75.00% (36/48)
+src/hooks/useRowEdit.ts	83.64% (46/55)	76.92% (10/13)	90.91% (10/11)
+src/hooks/useRowEvents.ts	100.00% (78/78)	100.00% (9/9)	70.45% (31/44)
+src/hooks/useRowExpansion.ts	97.22% (35/36)	100.00% (4/4)	66.67% (4/6)
+src/hooks/useRowGroup.ts	71.88% (23/32)	80.00% (4/5)	66.67% (2/3)
+src/hooks/useRowNumber.tsx	68.89% (31/45)	60.00% (3/5)	0.00% (0/10)
+src/hooks/useRowSelection.ts	84.48% (49/58)	82.35% (14/17)	55.56% (5/9)
+src/hooks/useSummary.tsx	97.70% (85/87)	88.89% (8/9)	56.41% (22/39)
+src/hooks/useTableFilter.ts	95.00% (19/20)	100.00% (3/3)	50.00% (2/4)
+src/hooks/useTableInteractionScope.ts	100.00% (25/25)	77.78% (7/9)	100.00% (4/4)
+src/hooks/useTreeData.ts	78.05% (32/41)	75.00% (3/4)	80.00% (4/5)
+src/rowBg.ts	100.00% (3/3)	100.00% (0/0)	0.00% (0/1)
+src/table.tsx	85.79% (839/978)	70.24% (59/84)	49.55% (164/331)
+src/token.ts	100.00% (254/254)	100.00% (0/0)	100.00% (0/0)
+src/util.ts	61.82% (183/296)	84.62% (33/39)	86.79% (46/53)
+src/valueAccess.ts	84.85% (28/33)	75.00% (6/8)	50.00% (5/10)
+Seed:        1790216406197466612
+Time:        5120 ms

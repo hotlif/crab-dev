@@ -1,0 +1,30 @@
+PASS src/__tests__/dropdownContainer.test.tsx
+  ✓ restores inherited density in a portalled panel and honors a local override
+  ✓ renders children
+  ✓ does not render overlay when closed
+  ✓ renders overlay when opened via dispatch
+  ✓ hides overlay when closed via dispatch
+  ✓ applies className to container
+  ✓ passes restProps to container div
+  ✓ calls floatingContainerProps.onMouseDown and prevents default
+  ✓ prevents default mousedown on non-control area but allows focusing form controls
+  ✓ works without floatingContainerProps.onMouseDown
+  ✓ renders custom overlay content
+  ✓ limits tall overlays to the available viewport height
+  ✓ portals overlay into the enclosing dialog to escape modal inert
+  ✓ does not portal into a dialog when trigger is outside of one
+  ✓ keeps the overlay inside the nearest public theme boundary
+  ✓ throws when used outside DropdownContainer
+  ✓ returns current state for unknown action type
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       17 passed, 0 failed, 0 pending, 17 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (153/153)	90.00% (9/10)	50.00% (12/24)
+src/context.ts	100.00% (7/7)	100.00% (1/1)	100.00% (2/2)
+src/dropdownContainer.tsx	100.00% (96/96)	87.50% (7/8)	42.11% (8/19)
+src/index.ts	100.00% (4/4)	100.00% (0/0)	0.00% (0/1)
+src/reducer.ts	100.00% (7/7)	100.00% (1/1)	100.00% (2/2)
+src/token.ts	100.00% (39/39)	100.00% (0/0)	100.00% (0/0)
+Seed:        1790216941215325632
+Time:        4013 ms

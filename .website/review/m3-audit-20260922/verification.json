@@ -1,0 +1,86 @@
+{
+    "date": "2026-09-22",
+    "scope": {
+        "componentPackages": 54,
+        "workspaces": 57,
+        "materialWebReferenceCommit": "9200eb8a0eef99c6bd439ce3968952d76e9ec1b4"
+    },
+    "checks": [
+        {
+            "command": "corepack yarn install --immutable",
+            "status": "passed",
+            "log": "install-immutable.log",
+            "existingWarnings": ["YN0086 peer requirements", "YN0092 PnP ESM loader"]
+        },
+        {
+            "command": "corepack yarn turbo run lint test typecheck build:library --concurrency=4 --output-logs=errors-only",
+            "status": "passed",
+            "tasks": 220,
+            "cachedTasks": 214,
+            "log": "full-check.log",
+            "existingWarnings": ["Circular dependency: rc-masonry, rc-menu, rc-spin, rc-button, rc-component-preview"]
+        },
+        {
+            "command": "corepack yarn lint:tools",
+            "status": "passed",
+            "errors": 0,
+            "warnings": 0,
+            "lintContractChecks": 7,
+            "log": "lint-tools.log"
+        },
+        {
+            "command": "corepack yarn check:tokens",
+            "status": "passed",
+            "tokenPackages": 49,
+            "log": "token-contract.log"
+        },
+        {
+            "command": "corepack yarn docs:build",
+            "status": "passed",
+            "routes": 63,
+            "componentPages": 54,
+            "tutorials": 57,
+            "teachingExamples": 126,
+            "uniqueDemos": 260,
+            "generatedFilesDrift": 0,
+            "productionJavaScriptFilesChecked": 1918,
+            "unboundReferences": 0,
+            "log": "docs-build.log"
+        },
+        {
+            "command": "git diff --check",
+            "status": "passed",
+            "note": "Git emitted line-ending normalization notices; no whitespace errors."
+        }
+    ],
+    "browser": {
+        "method": "CUA Chromium against the local production build",
+        "desktopLight": { "pages": 54, "viewport": [1440, 1000], "documentWidth": 1425 },
+        "mobileDark": { "pages": 54, "viewport": [390, 844], "documentWidth": 375 },
+        "additionalDesktopDarkPages": 18,
+        "pageHorizontalOverflowFailures": 0,
+        "observedPageRenderFailures": 0,
+        "targetedChecks": [
+            "Switch: track and handle dimensions, RTL, Space/Enter, final disabled theme colors",
+            "Segmented: equal columns, 40px visuals, 48px targets, Enter and arrow selection",
+            "Avatar: 48px buttons, Enter/Space, native disabled, final single 0.38 content opacity",
+            "Breadcrumbs: 48px action height, Enter/Space, native disabled",
+            "Tooltip: 24px plain tooltip without arrow, focus, hover persistence, Escape",
+            "ColorPicker: 48px targets and 20px swatches, four columns, keyboard selection",
+            "Tree: aria-selected, selected title underline, no selected inset stripe"
+        ],
+        "notVerified": [
+            "All 260 advanced demo interactions and every prop combination",
+            "Real screen readers",
+            "OS forced-colors and reduced-motion simulation",
+            "All custom brands, 200% zoom, and all long-label combinations",
+            "Targeted browser interaction for the Sidebar logo action; covered by unit tests"
+        ]
+    },
+    "resolvedValidationFailure": {
+        "test": "rc-pdf-editor/src/__tests__/web-component.test.tsx: pre-upgrade properties",
+        "cause": "The test called close after engine ready while initialDocument could still be opening.",
+        "resolution": "Wait for crab-document-load and assert the initial document identity before close.",
+        "runtimeBehaviorChanged": false
+    }
+}

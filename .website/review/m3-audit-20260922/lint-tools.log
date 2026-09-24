@@ -1,0 +1,2 @@
+0 errors, 0 warnings
+PASS: native lint detects unresolved values/JSX, any, unused bindings and enforces source scope and local suppressions (7 checks)

@@ -1,0 +1,1685 @@
+• turbo 2.10.12
+ WARNING  Circular package dependency detected: @crab-dev/rc-spin, @crab-dev/rc-button, @crab-dev/rc-component-preview, @crab-dev/rc-menu, @crab-dev/rc-masonry
+
+   • Packages in scope: @crab-dev/rc-avatar, @crab-dev/rc-badge, @crab-dev/rc-card, @crab-dev/rc-checkbox, @crab-dev/rc-color-picker, @crab-dev/rc-config-provider, @crab-dev/rc-drawer, @crab-dev/rc-dropdown-container, @crab-dev/rc-form, @crab-dev/rc-line-edit, @crab-dev/rc-menu, @crab-dev/rc-number-edit, @crab-dev/rc-pagination, @crab-dev/rc-radio, @crab-dev/rc-segmented, @crab-dev/rc-select, @crab-dev/rc-skeleton, @crab-dev/rc-slider, @crab-dev/rc-spin, @crab-dev/rc-switch, @crab-dev/rc-table, @crab-dev/rc-table-pro, @crab-dev/rc-tabs, @crab-dev/rc-tag, @crab-dev/rc-text-edit, @crab-dev/rc-token-semantic, @crab-dev/rc-tree
+   • Running lint, test in 27 packages
+   • Remote caching disabled
+
+@crab-dev/rc-select:lint: cache miss, executing 9708904d15e68d4e
+@crab-dev/rc-skeleton:lint: cache miss, executing b4a432d79900fd72
+@crab-dev/rc-config-provider:lint: cache miss, executing 7cf54d0a94544279
+@crab-dev/rc-color-picker:lint: cache miss, executing 3271d5fda23d7e20
+@crab-dev/rc-form:lint: cache miss, executing dea26b067785dfba
+@crab-dev/rc-token-semantic:lint: cache miss, executing cc16d55fc08f9711
+@crab-dev/rc-text-edit:lint: cache miss, executing 024aeb15b61bb690
+@crab-dev/rc-drawer:lint: cache miss, executing 026ec294b658153e
+@crab-dev/rc-table:lint: cache miss, executing 6caab2027467a668
+@crab-dev/rc-slider:lint: cache miss, executing ba4aaaadd85251d8
+@crab-dev/rc-config-provider:lint: 0 errors, 0 warnings
+@crab-dev/rc-slider:lint: 0 errors, 0 warnings
+@crab-dev/rc-select:lint: 0 errors, 0 warnings
+@crab-dev/rc-text-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-skeleton:lint: 0 errors, 0 warnings
+@crab-dev/rc-color-picker:lint: 0 errors, 0 warnings
+@crab-dev/rc-form:lint: 0 errors, 0 warnings
+@crab-dev/rc-drawer:lint: 0 errors, 0 warnings
+@crab-dev/rc-token-semantic:lint: 0 errors, 0 warnings
+@crab-dev/rc-table:lint: 0 errors, 0 warnings
+@crab-dev/rc-table-pro:lint: cache miss, executing b45ffc4770d83d24
+@crab-dev/rc-pagination:lint: cache miss, executing ff50b6acba093477
+@crab-dev/rc-segmented:lint: cache miss, executing 45d94563bfdbd5b8
+@crab-dev/rc-checkbox:lint: cache miss, executing facd6493a1f36a34
+@crab-dev/rc-number-edit:lint: cache miss, executing 6f850ada314ffeeb
+@crab-dev/rc-tag:lint: cache miss, executing 2d8f0b1b318babdf
+@crab-dev/rc-spin:lint: cache miss, executing a012f7ce975d9ce4
+@crab-dev/rc-switch:lint: cache miss, executing 3aff651d332947b4
+@crab-dev/rc-line-edit:lint: cache miss, executing c983d51a9e787f1c
+@crab-dev/rc-tabs:lint: cache miss, executing 7b6c41f060adfcaa
+@crab-dev/rc-spin:lint: 0 errors, 0 warnings
+@crab-dev/rc-line-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-switch:lint: 0 errors, 0 warnings
+@crab-dev/rc-segmented:lint: 0 errors, 0 warnings
+@crab-dev/rc-table-pro:lint: 0 errors, 0 warnings
+@crab-dev/rc-pagination:lint: 0 errors, 0 warnings
+@crab-dev/rc-tag:lint: 0 errors, 0 warnings
+@crab-dev/rc-tabs:lint: 0 errors, 0 warnings
+@crab-dev/rc-number-edit:lint: 0 errors, 0 warnings
+@crab-dev/rc-checkbox:lint: 0 errors, 0 warnings
+@crab-dev/rc-card:lint: cache miss, executing 702202f66b27bee5
+@crab-dev/rc-tree:lint: cache miss, executing dcd54b774a70ff7f
+@crab-dev/rc-avatar:lint: cache miss, executing b367e229b683bf82
+@crab-dev/rc-dropdown-container:lint: cache miss, executing 1c662f0b18dd18b7
+@crab-dev/rc-badge:lint: cache miss, executing c2dcf76fd58cb61c
+@crab-dev/rc-radio:lint: cache miss, executing 7609dc72a884a5b3
+@crab-dev/rc-menu:lint: cache miss, executing 7cdb788dc633e54d
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 5eb476667a01f181
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 92ddcf2ed13c3f61
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 15ms
+@crab-dev/rc-token-global:build:library:      1 files · 31.7 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 114ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 72.2 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 783ms
+@crab-dev/rc-hooks:build:library:      16 modules · 48 files · 41.3 KB
+@crab-dev/rc-hooks:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-token-semantic:test: cache miss, executing 1afe7f00cad7c6ba
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs d07bb55f5885c561
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 28ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 82.8 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 264ms
+@crab-dev/rc-token-semantic:build:library:      4 modules · 13 files · 237.9 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-component-preview:build:library: cache hit, replaying logs 4d075dc2c003fab7
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ✓  Tokens generated in 29ms
+@crab-dev/rc-component-preview:build:library:      1 files · 16.3 KB
+@crab-dev/rc-component-preview:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview\src\token.ts
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-component-preview:build:library:   ✓  Built library in 179ms
+@crab-dev/rc-component-preview:build:library:      5 modules · 14 files · 70.8 KB
+@crab-dev/rc-component-preview:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-component-preview
+@crab-dev/rc-component-preview:build:library: 
+@crab-dev/rc-theme:build:library: cache hit, replaying logs 0ae8812ee1a2bd6b
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 264ms
+@crab-dev/rc-theme:build:library:      3 modules · 8 files · 30.9 KB
+@crab-dev/rc-theme:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-spin:build:library: cache hit, replaying logs 2cd3a522e339b9f4
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 46ms
+@crab-dev/rc-spin:build:library:      1 files · 5.9 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Built library in 356ms
+@crab-dev/rc-spin:build:library:      5 modules · 17 files · 33.8 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-masonry:build:library: cache hit, replaying logs bd099a5b8b57e179
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ✓  Tokens generated in 49ms
+@crab-dev/rc-masonry:build:library:      1 files · 856 B
+@crab-dev/rc-masonry:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry\src\token.ts
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-masonry:build:library:   ✓  Built library in 118ms
+@crab-dev/rc-masonry:build:library:      3 modules · 11 files · 11.2 KB
+@crab-dev/rc-masonry:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-masonry
+@crab-dev/rc-masonry:build:library: 
+@crab-dev/rc-config-provider:test: cache miss, executing 2b27edafe3704cc7
+@crab-dev/rc-menu:build:library: cache hit, replaying logs 8ff16a1352ef93e1
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ✓  Tokens generated in 36ms
+@crab-dev/rc-menu:build:library:      1 files · 22.9 KB
+@crab-dev/rc-menu:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu\src\token.ts
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-menu:build:library:   ✓  Built library in 147ms
+@crab-dev/rc-menu:build:library:      14 modules · 33 files · 126.1 KB
+@crab-dev/rc-menu:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-menu
+@crab-dev/rc-menu:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs bbd87755dfd6280d
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 247ms
+@crab-dev/rc-config-provider:build:library:      4 modules · 14 files · 10.9 KB
+@crab-dev/rc-config-provider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-menu:test: cache miss, executing d493d3ac9aac7f64
+@crab-dev/rc-dropdown-container:lint: 0 errors, 0 warnings
+@crab-dev/rc-menu:lint: 0 errors, 0 warnings
+@crab-dev/rc-radio:lint: 0 errors, 0 warnings
+@crab-dev/rc-card:lint: 0 errors, 0 warnings
+@crab-dev/rc-badge:lint: 0 errors, 0 warnings
+@crab-dev/rc-avatar:lint: 0 errors, 0 warnings
+@crab-dev/rc-tree:lint: 0 errors, 0 warnings
+@crab-dev/rc-tooltip:build:library: cache hit, replaying logs cb187744c4ecec17
+@crab-dev/rc-auto-sizer:build:library: cache hit, replaying logs 47fb3a80d23788c2
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-auto-sizer:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library:   ✓  Tokens generated in 51ms
+@crab-dev/rc-tooltip:build:library:      1 files · 3.7 KB
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-auto-sizer:build:library:   ✓  Built library in 354ms
+@crab-dev/rc-tooltip:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tooltip\src\token.ts
+@crab-dev/rc-auto-sizer:build:library:      2 modules · 8 files · 5.1 KB
+@crab-dev/rc-auto-sizer:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-auto-sizer
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-auto-sizer:build:library: 
+@crab-dev/rc-tooltip:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-tooltip:build:library:   ✓  Built library in 363ms
+@crab-dev/rc-tooltip:build:library:      3 modules · 11 files · 20.3 KB
+@crab-dev/rc-tooltip:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tooltip
+@crab-dev/rc-tooltip:build:library: 
+@crab-dev/rc-skeleton:build:library: cache hit, replaying logs 6f6b46906f13aef7
+@crab-dev/rc-tag:build:library: cache hit, replaying logs ced29869f5aca449
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library:   ✓  Tokens generated in 47ms
+@crab-dev/rc-skeleton:build:library:      1 files · 5.0 KB
+@crab-dev/rc-skeleton:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-skeleton\src\token.ts
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-skeleton:build:library:   ✓  Built library in 351ms
+@crab-dev/rc-skeleton:build:library:      3 modules · 11 files · 27.0 KB
+@crab-dev/rc-skeleton:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-skeleton
+@crab-dev/rc-skeleton:build:library: 
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library:   ✓  Tokens generated in 53ms
+@crab-dev/rc-tag:build:library:      1 files · 11.4 KB
+@crab-dev/rc-tag:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tag\src\token.ts
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-tag:build:library:   ✓  Built library in 620ms
+@crab-dev/rc-tag:build:library:      4 modules · 14 files · 50.9 KB
+@crab-dev/rc-tag:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tag
+@crab-dev/rc-tag:build:library: 
+@crab-dev/rc-button:build:library: cache hit, replaying logs 0d0370844473b383
+@crab-dev/rc-empty:build:library: cache hit, replaying logs 8e01b28f4d1a161f
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 72ms
+@crab-dev/rc-button:build:library:      1 files · 41.9 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 579ms
+@crab-dev/rc-button:build:library:      5 modules · 16 files · 156.8 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Tokens generated in 48ms
+@crab-dev/rc-empty:build:library:      1 files · 2.6 KB
+@crab-dev/rc-empty:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-empty\src\token.ts
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Built library in 788ms
+@crab-dev/rc-empty:build:library:      6 modules · 17 files · 22.0 KB
+@crab-dev/rc-empty:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-empty
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-skeleton:test: cache miss, executing c3aa5a9ca3e816f7
+@crab-dev/rc-tag:test: cache miss, executing 3a5be744da31216a
+@crab-dev/rc-radio:build:library: cache hit, replaying logs ecff4067a20b3e9f
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Tokens generated in 49ms
+@crab-dev/rc-radio:build:library:      1 files · 11.2 KB
+@crab-dev/rc-radio:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-radio\src\token.ts
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Built library in 1.41s
+@crab-dev/rc-radio:build:library:      5 modules · 16 files · 48.0 KB
+@crab-dev/rc-radio:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-radio
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-segmented:test: cache miss, executing 6bdcad2eb585c667
+@crab-dev/rc-checkbox:test: cache miss, executing dd570cae79c32ca6
+@crab-dev/rc-tabs:test: cache miss, executing 5adbe14a18ef244c
+@crab-dev/rc-badge:build:library: cache hit, replaying logs ab17642c4617c867
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-badge:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-badge:build:library:   ✓  Tokens generated in 52ms
+@crab-dev/rc-badge:build:library:      1 files · 5.8 KB
+@crab-dev/rc-badge:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-badge\src\token.ts
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-badge:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-badge:build:library:   ✓  Built library in 1.39s
+@crab-dev/rc-badge:build:library:      3 modules · 11 files · 32.4 KB
+@crab-dev/rc-badge:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-badge
+@crab-dev/rc-badge:build:library: 
+@crab-dev/rc-radio:test: cache miss, executing ed83302b39339074
+@crab-dev/rc-slider:build:library: cache hit, replaying logs 534adacc3b3367fb
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library:   ✓  Tokens generated in 40ms
+@crab-dev/rc-slider:build:library:      1 files · 8.9 KB
+@crab-dev/rc-slider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-slider\src\token.ts
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-slider:build:library:   ✓  Built library in 1.45s
+@crab-dev/rc-slider:build:library:      3 modules · 10 files · 40.6 KB
+@crab-dev/rc-slider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-slider
+@crab-dev/rc-slider:build:library: 
+@crab-dev/rc-switch:build:library: cache hit, replaying logs 1b068b8b1a278df0
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library:   ✓  Tokens generated in 55ms
+@crab-dev/rc-switch:build:library:      1 files · 13.5 KB
+@crab-dev/rc-switch:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-switch\src\token.ts
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-switch:build:library:   ✓  Built library in 516ms
+@crab-dev/rc-switch:build:library:      3 modules · 11 files · 51.2 KB
+@crab-dev/rc-switch:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-switch
+@crab-dev/rc-switch:build:library: 
+@crab-dev/rc-checkbox:build:library: cache hit, replaying logs 916eac6774b2d362
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 47ms
+@crab-dev/rc-checkbox:build:library:      1 files · 14.7 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox\src\token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 660ms
+@crab-dev/rc-checkbox:build:library:      5 modules · 16 files · 60.8 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-switch:test: cache miss, executing 79eceaea428f7fcc
+@crab-dev/rc-config-provider:test: PASS src/__tests__/config-provider.test.tsx
+@crab-dev/rc-config-provider:test:   ✓ updates inherited component sizes, preserves explicit overrides and restores a nested boundary
+@crab-dev/rc-config-provider:test:   ✓ inherits a normalized brand across theme boundaries and permits an explicit reset
+@crab-dev/rc-config-provider:test:   ✓ updates scoped variables, forwards a CSP nonce and removes the sheet on reset/unmount
+@crab-dev/rc-config-provider:test:   ✓ provides defaults without a provider
+@crab-dev/rc-config-provider:test:   ✓ inherits each omitted field and isolates nested and sibling overrides
+@crab-dev/rc-config-provider:test:   ✓ updates inherited fields and restores inheritance when an override is removed
+@crab-dev/rc-config-provider:test:   ✓ forwards native attributes and React 19 refs without mutating the document
+@crab-dev/rc-config-provider:test:   ✓ can re-establish the CSS boundary inside a portal while inheriting context
+@crab-dev/rc-config-provider:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-config-provider:test: Tests:       8 passed, 0 failed, 0 pending, 8 total
+@crab-dev/rc-config-provider:test: Wake coverage
+@crab-dev/rc-config-provider:test: File	Lines	Functions	Blocks
+@crab-dev/rc-config-provider:test: All files	100.00% (70/70)	100.00% (5/5)	48.39% (15/31)
+@crab-dev/rc-config-provider:test: src/config-provider.tsx	100.00% (32/32)	100.00% (3/3)	93.33% (14/15)
+@crab-dev/rc-config-provider:test: src/context.ts	100.00% (9/9)	100.00% (1/1)	100.00% (0/0)
+@crab-dev/rc-config-provider:test: src/size.ts	100.00% (29/29)	100.00% (1/1)	6.25% (1/16)
+@crab-dev/rc-config-provider:test: Seed:        1790216233950391336
+@crab-dev/rc-config-provider:test: Time:        5748 ms
+@crab-dev/rc-badge:test: cache miss, executing b617ff1fe86e92aa
+@crab-dev/rc-token-semantic:test: PASS src/__tests__/brand-theme.test.ts
+@crab-dev/rc-token-semantic:test:   ✓ normalizes opaque hex and rejects arbitrary CSS and alpha
+@crab-dev/rc-token-semantic:test:   ✓ is deterministic and limits overrides to brand roles
+@crab-dev/rc-token-semantic:test:   ✓ keeps extreme and saturated seeds readable and in sRGB across all states
+@crab-dev/rc-token-semantic:test:   ✓ keeps a continuous hue and ordered brightness through hover and press
+@crab-dev/rc-token-semantic:test: PASS src/__tests__/token.test.ts
+@crab-dev/rc-token-semantic:test:   ✓ keeps feedback roles independent of removed catch-all aliases
+@crab-dev/rc-token-semantic:test:   ✓ exposes role-specific feedback and selection tokens
+@crab-dev/rc-token-semantic:test:   ✓ keeps standalone L2 brand fallbacks equal to the default Light theme
+@crab-dev/rc-token-semantic:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-token-semantic:test: Tests:       7 passed, 0 failed, 0 pending, 7 total
+@crab-dev/rc-token-semantic:test: Wake coverage
+@crab-dev/rc-token-semantic:test: File	Lines	Functions	Blocks
+@crab-dev/rc-token-semantic:test: All files	100.00% (1133/1133)	100.00% (16/16)	15.41% (41/266)
+@crab-dev/rc-token-semantic:test: src/brand-theme.ts	100.00% (86/86)	100.00% (16/16)	100.00% (41/41)
+@crab-dev/rc-token-semantic:test: src/theme.ts	100.00% (229/229)	100.00% (0/0)	0.00% (0/225)
+@crab-dev/rc-token-semantic:test: src/token.ts	100.00% (818/818)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-token-semantic:test: Seed:        1790216233950395460
+@crab-dev/rc-token-semantic:test: Time:        6240 ms
+@crab-dev/rc-slider:test: cache miss, executing a2dc0b450675361f
+@crab-dev/rc-menu:test: PASS src/__tests__/menu.test.tsx
+@crab-dev/rc-menu:test:   ✓ renders vertical menu and triggers callbacks on item click
+@crab-dev/rc-menu:test:   ✓ renders horizontal menu items
+@crab-dev/rc-menu:test:   ✓ renders horizontal menu with default props
+@crab-dev/rc-menu:test:   ✓ uses vertical mode by default when mode is omitted
+@crab-dev/rc-menu:test:   ✓ renders vertical menu with default empty items
+@crab-dev/rc-menu:test:   ✓ throws when mode is unsupported
+@crab-dev/rc-menu:test:   ✓ throws when item type is invalid
+@crab-dev/rc-menu:test:   ✓ throws in horizontal mode when item type is invalid
+@crab-dev/rc-menu:test:   ✓ covers vertical item group branch and open icon state
+@crab-dev/rc-menu:test:   ✓ covers itemNormal click callback, icon path and open floating branch
+@crab-dev/rc-menu:test:   ✓ supports layout-matched keyboard navigation and activation
+@crab-dev/rc-menu:test:   ✓ opens a horizontal disclosure with the keyboard and restores focus on Escape
+@crab-dev/rc-menu:test:   ✓ renders inline-collapsed vertical menu with icons only and opens floating submenu on hover
+@crab-dev/rc-menu:test: PASS src/__tests__/token.test.ts
+@crab-dev/rc-menu:test:   ✓ pairs collapsed tooltips with inverse background and text roles
+@crab-dev/rc-menu:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-menu:test: Tests:       14 passed, 0 failed, 0 pending, 14 total
+@crab-dev/rc-menu:test: Wake coverage
+@crab-dev/rc-menu:test: File	Lines	Functions	Blocks
+@crab-dev/rc-menu:test: All files	96.56% (843/873)	93.33% (42/45)	43.14% (110/255)
+@crab-dev/rc-menu:test: src/horizontal/index.tsx	100.00% (52/52)	100.00% (7/7)	58.33% (7/12)
+@crab-dev/rc-menu:test: src/horizontal/itemGroup.tsx	100.00% (29/29)	100.00% (1/1)	22.22% (2/9)
+@crab-dev/rc-menu:test: src/horizontal/itemNormal.tsx	100.00% (84/84)	100.00% (7/7)	66.67% (20/30)
+@crab-dev/rc-menu:test: src/horizontal/styles/itemGroup.styles.ts	100.00% (27/27)	100.00% (0/0)	0.00% (0/11)
+@crab-dev/rc-menu:test: src/horizontal/styles/itemNormal.styles.ts	100.00% (43/43)	100.00% (0/0)	0.00% (0/22)
+@crab-dev/rc-menu:test: src/icon.tsx	100.00% (7/7)	100.00% (0/0)	0.00% (0/1)
+@crab-dev/rc-menu:test: src/keyboard.ts	91.30% (21/23)	100.00% (2/2)	70.00% (14/20)
+@crab-dev/rc-menu:test: src/menu.tsx	100.00% (23/23)	100.00% (1/1)	71.43% (5/7)
+@crab-dev/rc-menu:test: src/token.ts	100.00% (198/198)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-menu:test: src/type.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-menu:test: src/vertical/collapsed.tsx	86.74% (157/181)	83.33% (10/12)	31.15% (19/61)
+@crab-dev/rc-menu:test: src/vertical/index.tsx	84.62% (22/26)	75.00% (3/4)	75.00% (6/8)
+@crab-dev/rc-menu:test: src/vertical/normal.tsx	100.00% (179/179)	100.00% (11/11)	50.00% (37/74)
+@crab-dev/rc-menu:test: Seed:        1790216233970604732
+@crab-dev/rc-menu:test: Time:        10436 ms
+@crab-dev/rc-virtual:build:library: cache hit, replaying logs 0fedec955d34b14d
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 51ms
+@crab-dev/rc-virtual:build:library:      1 files · 1003 B
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual\src\token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 1.35s
+@crab-dev/rc-virtual:build:library:      8 modules · 21 files · 63.2 KB
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-line-edit:build:library: cache hit, replaying logs 9204ae6c320df34c
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Tokens generated in 106ms
+@crab-dev/rc-line-edit:build:library:      1 files · 17.3 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit\src\token.ts
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Built library in 545ms
+@crab-dev/rc-line-edit:build:library:      3 modules · 10 files · 73.8 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-text-edit:build:library: cache hit, replaying logs 5505bc36bf032f0b
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ✓  Tokens generated in 43ms
+@crab-dev/rc-text-edit:build:library:      1 files · 16.7 KB
+@crab-dev/rc-text-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit\src\token.ts
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-text-edit:build:library:   ✓  Built library in 513ms
+@crab-dev/rc-text-edit:build:library:      3 modules · 10 files · 69.9 KB
+@crab-dev/rc-text-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-text-edit
+@crab-dev/rc-text-edit:build:library: 
+@crab-dev/rc-spin:test: cache miss, executing 406ba43d87b599f2
+@crab-dev/rc-skeleton:test: PASS src/__tests__/skeleton.test.tsx
+@crab-dev/rc-skeleton:test:   ✓ renders a single row by default
+@crab-dev/rc-skeleton:test:   ✓ renders multiple text rows when rows prop is provided
+@crab-dev/rc-skeleton:test:   ✓ renders a rect block for variant=rect
+@crab-dev/rc-skeleton:test:   ✓ renders children when loading is false
+@crab-dev/rc-skeleton:test:   ✓ passes through width as a string value
+@crab-dev/rc-skeleton:test:   ✓ applies circle variant with aspect ratio enforcement
+@crab-dev/rc-skeleton:test:   ✓ forwards custom className to the root element
+@crab-dev/rc-skeleton:test:   ✓ clamps rows to at least 1
+@crab-dev/rc-skeleton:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-skeleton:test: Tests:       8 passed, 0 failed, 0 pending, 8 total
+@crab-dev/rc-skeleton:test: Wake coverage
+@crab-dev/rc-skeleton:test: File	Lines	Functions	Blocks
+@crab-dev/rc-skeleton:test: All files	100.00% (200/200)	100.00% (7/7)	34.92% (22/63)
+@crab-dev/rc-skeleton:test: src/skeleton.tsx	100.00% (128/128)	100.00% (7/7)	34.92% (22/63)
+@crab-dev/rc-skeleton:test: src/token.ts	100.00% (72/72)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-skeleton:test: Seed:        1790216241389865020
+@crab-dev/rc-skeleton:test: Time:        8362 ms
+@crab-dev/rc-line-edit:test: cache miss, executing 0a14af7ff35ef9c4
+@crab-dev/rc-tag:test: PASS src/__tests__/tag.test.tsx
+@crab-dev/rc-tag:test:   ✓ renders children correctly
+@crab-dev/rc-tag:test:   ✓ renders with only aria-label and no children
+@crab-dev/rc-tag:test:   ✓ renders icon when provided
+@crab-dev/rc-tag:test:   ✓ renders close icon only when closable is true
+@crab-dev/rc-tag:test:   ✓ calls onClose when close icon is clicked
+@crab-dev/rc-tag:test:   ✓ renders custom closeIcon when provided
+@crab-dev/rc-tag:test:   ✓ hides close icon when closeIcon is false
+@crab-dev/rc-tag:test:   ✓ calls onClose when pressing Enter or Space on close icon
+@crab-dev/rc-tag:test:   ✓ does not bubble click from close icon to root onClick
+@crab-dev/rc-tag:test:   ✓ forwards className, style, and data attributes
+@crab-dev/rc-tag:test:   ✓ renders all color and size variants without runtime error
+@crab-dev/rc-tag:test:   ✓ supports custom color string
+@crab-dev/rc-tag:test:   ✓ renders with checked state
+@crab-dev/rc-tag:test:   ✓ calls onChange when clicked
+@crab-dev/rc-tag:test:   ✓ calls onChange when pressing Enter and Space
+@crab-dev/rc-tag:test:   ✓ renders icon when provided
+@crab-dev/rc-tag:test:   ✓ uses the selected checkmark instead of the optional leading icon
+@crab-dev/rc-tag:test:   ✓ prevents interaction when disabled
+@crab-dev/rc-tag:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-tag:test: Tests:       18 passed, 0 failed, 0 pending, 18 total
+@crab-dev/rc-tag:test: Wake coverage
+@crab-dev/rc-tag:test: File	Lines	Functions	Blocks
+@crab-dev/rc-tag:test: All files	100.00% (311/311)	100.00% (14/14)	35.64% (36/101)
+@crab-dev/rc-tag:test: src/checkable-tag.tsx	100.00% (62/62)	100.00% (5/5)	33.33% (13/39)
+@crab-dev/rc-tag:test: src/tag.tsx	100.00% (134/134)	100.00% (9/9)	37.10% (23/62)
+@crab-dev/rc-tag:test: src/token.ts	100.00% (115/115)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-tag:test: Seed:        1790216241591887024
+@crab-dev/rc-tag:test: Time:        9111 ms
+@crab-dev/rc-drawer:test: cache miss, executing c8d6e8dd44b89bf0
+@crab-dev/rc-segmented:test: PASS src/__tests__/segmented.test.tsx
+@crab-dev/rc-segmented:test:   ✓ renders one radio per option
+@crab-dev/rc-segmented:test:   ✓ exposes a radiogroup role
+@crab-dev/rc-segmented:test:   ✓ supports primitive option shorthand
+@crab-dev/rc-segmented:test:   ✓ selects the first enabled option by default
+@crab-dev/rc-segmented:test:   ✓ skips leading disabled options when picking the default
+@crab-dev/rc-segmented:test:   ✓ honours defaultValue (uncontrolled)
+@crab-dev/rc-segmented:test:   ✓ reflects a controlled value
+@crab-dev/rc-segmented:test:   ✓ calls onChange with the option value on selection
+@crab-dev/rc-segmented:test:   ✓ updates selection in uncontrolled mode
+@crab-dev/rc-segmented:test:   ✓ does not switch a controlled value without a matching prop update
+@crab-dev/rc-segmented:test:   ✓ disables every radio when the control is disabled
+@crab-dev/rc-segmented:test:   ✓ marks the root with data-disabled and aria-disabled when disabled
+@crab-dev/rc-segmented:test:   ✓ disables only the option flagged as disabled
+@crab-dev/rc-segmented:test:   ✓ does not fire onChange when a disabled option is clicked
+@crab-dev/rc-segmented:test:   ✓ groups all radios under the same name
+@crab-dev/rc-segmented:test:   ✓ honours a custom name prop
+@crab-dev/rc-segmented:test:   ✓ renders every size variant
+@crab-dev/rc-segmented:test:   ✓ replaces the leading icon with a check when selected
+@crab-dev/rc-segmented:test:   ✓ applies the aria-label of an icon-only option
+@crab-dev/rc-segmented:test:   ✓ forwards className to the root
+@crab-dev/rc-segmented:test:   ✓ forwards a ref to the root element
+@crab-dev/rc-segmented:test:   ✓ selects an enabled segment with Enter without repeating the current selection
+@crab-dev/rc-segmented:test:   ✓ keeps an icon-only option recognizable after selection
+@crab-dev/rc-segmented:test:   ✓ preserves React ref cleanup
+@crab-dev/rc-segmented:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-segmented:test: Tests:       24 passed, 0 failed, 0 pending, 24 total
+@crab-dev/rc-segmented:test: Wake coverage
+@crab-dev/rc-segmented:test: File	Lines	Functions	Blocks
+@crab-dev/rc-segmented:test: All files	100.00% (257/257)	100.00% (8/8)	35.29% (30/85)
+@crab-dev/rc-segmented:test: src/segmented.tsx	100.00% (142/142)	100.00% (8/8)	35.29% (30/85)
+@crab-dev/rc-segmented:test: src/token.ts	100.00% (115/115)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-segmented:test: Seed:        1790216241823133588
+@crab-dev/rc-segmented:test: Time:        9408 ms
+@crab-dev/rc-checkbox:test: PASS src/__tests__/checkbox.test.tsx
+@crab-dev/rc-checkbox:test:   ✓ renders correctly
+@crab-dev/rc-checkbox:test:   ✓ renders with only aria-label and no children
+@crab-dev/rc-checkbox:test:   ✓ handles controlled checked state
+@crab-dev/rc-checkbox:test:   ✓ handles uncontrolled defaultChecked
+@crab-dev/rc-checkbox:test:   ✓ calls onChange when clicked
+@crab-dev/rc-checkbox:test:   ✓ sets disabled attribute on the input
+@crab-dev/rc-checkbox:test:   ✓ sets data-disabled on the label when disabled
+@crab-dev/rc-checkbox:test:   ✓ does not toggle a disabled control when its label is clicked
+@crab-dev/rc-checkbox:test:   ✓ forwards className to the wrapper label
+@crab-dev/rc-checkbox:test:   ✓ sets indeterminate state on the input element
+@crab-dev/rc-checkbox:test:   ✓ keeps selected decoration out of the accessibility tree
+@crab-dev/rc-checkbox:test:   ✓ gives mixed state precedence and clears it when the controlled state changes
+@crab-dev/rc-checkbox:test:   ✓ forwards the invalid state and its associated explanation to the native input
+@crab-dev/rc-checkbox:test:   ✓ renders children
+@crab-dev/rc-checkbox:test:   ✓ controls checked state via value prop
+@crab-dev/rc-checkbox:test:   ✓ calls onChange when a checkbox is toggled
+@crab-dev/rc-checkbox:test:   ✓ removes value from selection when unchecking
+@crab-dev/rc-checkbox:test:   ✓ disables all checkboxes when group is disabled
+@crab-dev/rc-checkbox:test:   ✓ supports defaultValue for uncontrolled mode
+@crab-dev/rc-checkbox:test:   ✓ forwards className to the group wrapper
+@crab-dev/rc-checkbox:test:   ✓ has role="group" on the container
+@crab-dev/rc-checkbox:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-checkbox:test: Tests:       21 passed, 0 failed, 0 pending, 21 total
+@crab-dev/rc-checkbox:test: Wake coverage
+@crab-dev/rc-checkbox:test: File	Lines	Functions	Blocks
+@crab-dev/rc-checkbox:test: All files	100.00% (338/338)	100.00% (7/7)	20.83% (20/96)
+@crab-dev/rc-checkbox:test: src/checkbox-group.tsx	100.00% (28/28)	100.00% (3/3)	66.67% (2/3)
+@crab-dev/rc-checkbox:test: src/checkbox.tsx	100.00% (148/148)	100.00% (3/3)	19.35% (18/93)
+@crab-dev/rc-checkbox:test: src/context.ts	100.00% (3/3)	100.00% (1/1)	100.00% (0/0)
+@crab-dev/rc-checkbox:test: src/token.ts	100.00% (159/159)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-checkbox:test: Seed:        1790216241822977784
+@crab-dev/rc-checkbox:test: Time:        9418 ms
+@crab-dev/rc-switch:test: PASS src/__tests__/switch.test.tsx
+@crab-dev/rc-switch:test:   ✓ renders correctly
+@crab-dev/rc-switch:test:   ✓ renders with children label
+@crab-dev/rc-switch:test:   ✓ has aria-checked false by default
+@crab-dev/rc-switch:test:   ✓ handles controlled checked state
+@crab-dev/rc-switch:test:   ✓ handles uncontrolled defaultChecked
+@crab-dev/rc-switch:test:   ✓ calls onChange when clicked
+@crab-dev/rc-switch:test:   ✓ calls onChange with false when toggling off
+@crab-dev/rc-switch:test:   ✓ sets disabled attribute on the button
+@crab-dev/rc-switch:test:   ✓ sets data-disabled on the wrapper when disabled
+@crab-dev/rc-switch:test:   ✓ does not set data-disabled when not disabled
+@crab-dev/rc-switch:test:   ✓ forwards className to the wrapper label
+@crab-dev/rc-switch:test:   ✓ has role="switch" on the button element
+@crab-dev/rc-switch:test:   ✓ has type="button" to prevent form submission
+@crab-dev/rc-switch:test:   ✓ renders with large size
+@crab-dev/rc-switch:test:   ✓ renders with middle size
+@crab-dev/rc-switch:test:   ✓ renders with small size
+@crab-dev/rc-switch:test:   ✓ toggles in uncontrolled mode on click
+@crab-dev/rc-switch:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-switch:test: Tests:       17 passed, 0 failed, 0 pending, 17 total
+@crab-dev/rc-switch:test: Wake coverage
+@crab-dev/rc-switch:test: File	Lines	Functions	Blocks
+@crab-dev/rc-switch:test: All files	100.00% (270/270)	100.00% (3/3)	15.24% (16/105)
+@crab-dev/rc-switch:test: src/switch.tsx	100.00% (138/138)	100.00% (3/3)	15.24% (16/105)
+@crab-dev/rc-switch:test: src/token.ts	100.00% (132/132)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-switch:test: Seed:        1790216242431693772
+@crab-dev/rc-switch:test: Time:        8912 ms
+@crab-dev/rc-badge:test: PASS src/__tests__/badge.test.tsx
+@crab-dev/rc-badge:test:   ✓ renders numeric count
+@crab-dev/rc-badge:test:   ✓ shows overflow text when count exceeds overflowCount
+@crab-dev/rc-badge:test:   ✓ hides zero count by default
+@crab-dev/rc-badge:test:   ✓ shows zero when showZero is true
+@crab-dev/rc-badge:test:   ✓ renders dot when dot prop is true
+@crab-dev/rc-badge:test:   ✓ renders status mode with text
+@crab-dev/rc-badge:test:   ✓ wraps children and shows floating indicator
+@crab-dev/rc-badge:test:   ✓ renders children only when count is 0 and showZero is false
+@crab-dev/rc-badge:test:   ✓ accepts preset color
+@crab-dev/rc-badge:test:   ✓ accepts custom color string via inline background
+@crab-dev/rc-badge:test:   ✓ applies title attribute on count indicator
+@crab-dev/rc-badge:test:   ✓ supports small size
+@crab-dev/rc-badge:test:   ✓ renders processing status with pulse element
+@crab-dev/rc-badge:test:   ✓ forwards offset to transform
+@crab-dev/rc-badge:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-badge:test: Tests:       14 passed, 0 failed, 0 pending, 14 total
+@crab-dev/rc-badge:test: Wake coverage
+@crab-dev/rc-badge:test: File	Lines	Functions	Blocks
+@crab-dev/rc-badge:test: All files	99.16% (235/237)	100.00% (3/3)	50.00% (47/94)
+@crab-dev/rc-badge:test: src/badge.tsx	98.80% (164/166)	100.00% (3/3)	50.00% (47/94)
+@crab-dev/rc-badge:test: src/token.ts	100.00% (71/71)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-badge:test: Seed:        1790216242661451804
+@crab-dev/rc-badge:test: Time:        8765 ms
+@crab-dev/rc-text-edit:test: cache miss, executing dcadfaaec87a43b6
+@crab-dev/rc-avatar:test: cache miss, executing 8eff2893f40dd0b7
+@crab-dev/rc-radio:test: PASS src/__tests__/radio.test.tsx
+@crab-dev/rc-radio:test:   ✓ renders correctly with children
+@crab-dev/rc-radio:test:   ✓ renders with only aria-label and no children
+@crab-dev/rc-radio:test:   ✓ renders unchecked by default
+@crab-dev/rc-radio:test:   ✓ supports defaultChecked
+@crab-dev/rc-radio:test:   ✓ supports controlled checked prop
+@crab-dev/rc-radio:test:   ✓ calls onChange when clicked
+@crab-dev/rc-radio:test:   ✓ marks input as disabled when disabled prop is set
+@crab-dev/rc-radio:test:   ✓ sets data-disabled on wrapper when disabled
+@crab-dev/rc-radio:test:   ✓ renders all size variants
+@crab-dev/rc-radio:test:   ✓ forwards className to wrapper
+@crab-dev/rc-radio:test:   ✓ renders dot indicator when checked
+@crab-dev/rc-radio:test:   ✓ keeps the same indicator across selection changes at size small
+@crab-dev/rc-radio:test:   ✓ keeps the same indicator across selection changes at size middle
+@crab-dev/rc-radio:test:   ✓ keeps the same indicator across selection changes at size large
+@crab-dev/rc-radio:test:   ✓ selects from the label and keeps disabled choices unchanged
+@crab-dev/rc-radio:test:   ✓ forwards the group name and description for assistive technology
+@crab-dev/rc-radio:test:   ✓ renders with role="radiogroup"
+@crab-dev/rc-radio:test:   ✓ selects radio matching controlled value
+@crab-dev/rc-radio:test:   ✓ calls onChange when a radio is clicked
+@crab-dev/rc-radio:test:   ✓ supports defaultValue (uncontrolled)
+@crab-dev/rc-radio:test:   ✓ disables all radios when group is disabled
+@crab-dev/rc-radio:test:   ✓ passes name to all radios
+@crab-dev/rc-radio:test:   ✓ passes size to all radios
+@crab-dev/rc-radio:test:   ✓ forwards className to group wrapper
+@crab-dev/rc-radio:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-radio:test: Tests:       24 passed, 0 failed, 0 pending, 24 total
+@crab-dev/rc-radio:test: Wake coverage
+@crab-dev/rc-radio:test: File	Lines	Functions	Blocks
+@crab-dev/rc-radio:test: All files	100.00% (287/287)	100.00% (6/6)	25.61% (21/82)
+@crab-dev/rc-radio:test: src/context.ts	100.00% (3/3)	100.00% (1/1)	100.00% (0/0)
+@crab-dev/rc-radio:test: src/radio-group.tsx	100.00% (29/29)	100.00% (2/2)	50.00% (1/2)
+@crab-dev/rc-radio:test: src/radio.tsx	100.00% (132/132)	100.00% (3/3)	25.00% (20/80)
+@crab-dev/rc-radio:test: src/token.ts	100.00% (123/123)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-radio:test: Seed:        1790216242168840776
+@crab-dev/rc-radio:test: Time:        9407 ms
+@crab-dev/rc-avatar:build:library: cache hit, replaying logs ebed00660360baf8
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library:   ✓  Tokens generated in 36ms
+@crab-dev/rc-avatar:build:library:      1 files · 9.4 KB
+@crab-dev/rc-avatar:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-avatar\src\token.ts
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-avatar:build:library:   ✓  Built library in 421ms
+@crab-dev/rc-avatar:build:library:      4 modules · 14 files · 52.6 KB
+@crab-dev/rc-avatar:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-avatar
+@crab-dev/rc-avatar:build:library: 
+@crab-dev/rc-tree:build:library: cache hit, replaying logs 67e390405b3b9b4f
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Tokens generated in 29ms
+@crab-dev/rc-tree:build:library:      1 files · 10.4 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Built library in 438ms
+@crab-dev/rc-tree:build:library:      8 modules · 24 files · 118.5 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:test: cache miss, executing bebf6437f5d152a6
+@crab-dev/rc-dropdown-container:build:library: cache hit, replaying logs 006564abe0d2c282
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ✓  Tokens generated in 40ms
+@crab-dev/rc-dropdown-container:build:library:      1 files · 3.7 KB
+@crab-dev/rc-dropdown-container:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container\src\token.ts
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ✓  Built library in 558ms
+@crab-dev/rc-dropdown-container:build:library:      5 modules · 16 files · 23.1 KB
+@crab-dev/rc-dropdown-container:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:test: cache miss, executing 1cd1c9318b9fc741
+@crab-dev/rc-number-edit:build:library: cache hit, replaying logs dcf134a70d1dee43
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ✓  Tokens generated in 42ms
+@crab-dev/rc-number-edit:build:library:      1 files · 6.6 KB
+@crab-dev/rc-number-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit\src\token.ts
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ✓  Built library in 472ms
+@crab-dev/rc-number-edit:build:library:      7 modules · 19 files · 56.5 KB
+@crab-dev/rc-number-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:test: cache miss, executing 333a9438ddee5f9c
+@crab-dev/rc-slider:test: PASS src/__tests__/slider.test.tsx
+@crab-dev/rc-slider:test:   ✓ keeps the endpoint marker separate from the current value across size changes
+@crab-dev/rc-slider:test:   ✓ supports keyboard steps and endpoints without exceeding the range
+@crab-dev/rc-slider:test:   ✓ blocks pointer, wheel and keyboard changes when disabled or the range is empty
+@crab-dev/rc-slider:test:   ✓ renders without runtime error
+@crab-dev/rc-slider:test:   ✓ renders correct aria attributes with default min/max
+@crab-dev/rc-slider:test:   ✓ renders correct aria attributes with custom min/max
+@crab-dev/rc-slider:test:   ✓ renders all data-slot elements
+@crab-dev/rc-slider:test:   ✓ forwards className and data-* attributes
+@crab-dev/rc-slider:test:   ✓ computes track width based on value percent
+@crab-dev/rc-slider:test:   ✓ clamps track width to 0% when value is below min
+@crab-dev/rc-slider:test:   ✓ clamps track width to 100% when value exceeds max
+@crab-dev/rc-slider:test:   ✓ positions handle at correct percent
+@crab-dev/rc-slider:test:   ✓ calls onValueChange on pointerdown
+@crab-dev/rc-slider:test:   ✓ calls onValueChange during pointer drag
+@crab-dev/rc-slider:test:   ✓ stops dragging on pointerup
+@crab-dev/rc-slider:test:   ✓ snaps value to step
+@crab-dev/rc-slider:test:   ✓ handles decimal step precision correctly
+@crab-dev/rc-slider:test:   ✓ clamps value to min on pointer at left edge
+@crab-dev/rc-slider:test:   ✓ clamps value to max on pointer past right edge
+@crab-dev/rc-slider:test:   ✓ does not call onValueChange when value does not change
+@crab-dev/rc-slider:test:   ✓ sets data-is-dragging on handle during drag
+@crab-dev/rc-slider:test:   ✓ stops dragging on pointercancel
+@crab-dev/rc-slider:test:   ✓ handles wheel event to increment value
+@crab-dev/rc-slider:test:   ✓ handles wheel event to decrement value
+@crab-dev/rc-slider:test:   ✓ clamps wheel increment at max boundary
+@crab-dev/rc-slider:test:   ✓ clamps wheel decrement at min boundary
+@crab-dev/rc-slider:test:   ✓ handles wheel with decimal step
+@crab-dev/rc-slider:test:   ✓ works with negative min
+@crab-dev/rc-slider:test: PASS src/__tests__/token-vars.test.ts
+@crab-dev/rc-slider:test:   ✓ exposes canonical overrides with their semantic or static defaults
+@crab-dev/rc-slider:test:   ✓ does not expose or consume removed aliases
+@crab-dev/rc-slider:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-slider:test: Tests:       30 passed, 0 failed, 0 pending, 30 total
+@crab-dev/rc-slider:test: Wake coverage
+@crab-dev/rc-slider:test: File	Lines	Functions	Blocks
+@crab-dev/rc-slider:test: All files	100.00% (304/304)	100.00% (11/11)	26.80% (26/97)
+@crab-dev/rc-slider:test: src/slider.tsx	100.00% (185/185)	100.00% (11/11)	26.80% (26/97)
+@crab-dev/rc-slider:test: src/token.ts	100.00% (119/119)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-slider:test: Seed:        1790216242990558344
+@crab-dev/rc-slider:test: Time:        14254 ms
+@crab-dev/rc-card:test: cache miss, executing 3d9cd2f22fa967c7
+@crab-dev/rc-tabs:test: PASS src/__tests__/indicator.test.tsx
+@crab-dev/rc-tabs:test:   ✓ moves from the previous label and retargets from the interrupted position
+@crab-dev/rc-tabs:test:   ✓ supports reversed physical positions, controlled selection and variant changes
+@crab-dev/rc-tabs:test:   ✓ cancels an in-flight move when reduced motion changes and keeps selection responsive
+@crab-dev/rc-tabs:test:   ✓ skips spatial motion when the resolved CSS duration is zero
+@crab-dev/rc-tabs:test: PASS src/__tests__/tabs.test.tsx
+@crab-dev/rc-tabs:test:   ✓ renders all tabs and activates the first enabled item by default
+@crab-dev/rc-tabs:test:   ✓ uses instance-scoped aria ids to avoid collisions
+@crab-dev/rc-tabs:test:   ✓ respects defaultActiveKey
+@crab-dev/rc-tabs:test:   ✓ switches panels on click and fires onChange
+@crab-dev/rc-tabs:test:   ✓ does not switch when clicking a disabled tab
+@crab-dev/rc-tabs:test:   ✓ supports controlled activeKey
+@crab-dev/rc-tabs:test:   ✓ navigates with ArrowRight / ArrowLeft / Home / End skipping disabled
+@crab-dev/rc-tabs:test:   ✓ activates on Enter and Space
+@crab-dev/rc-tabs:test:   ✓ fires onTabClose when close button clicked
+@crab-dev/rc-tabs:test:   ✓ fires onTabClose on Delete when closable
+@crab-dev/rc-tabs:test:   ✓ hides inactive panels by default and destroys them when destroyInactiveTabPane=true
+@crab-dev/rc-tabs:test:   ✓ renders tabBarExtraContent as right shorthand and as object
+@crab-dev/rc-tabs:test:   ✓ renders card and pill type tabs
+@crab-dev/rc-tabs:test:   ✓ applies centered layout
+@crab-dev/rc-tabs:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-tabs:test: Tests:       18 passed, 0 failed, 0 pending, 18 total
+@crab-dev/rc-tabs:test: Wake coverage
+@crab-dev/rc-tabs:test: File	Lines	Functions	Blocks
+@crab-dev/rc-tabs:test: All files	98.20% (437/445)	96.77% (30/31)	50.00% (80/160)
+@crab-dev/rc-tabs:test: src/tabs.tsx	97.05% (263/271)	95.83% (23/24)	43.38% (59/136)
+@crab-dev/rc-tabs:test: src/token.ts	100.00% (139/139)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-tabs:test: src/useTabIndicator.ts	100.00% (35/35)	100.00% (7/7)	87.50% (21/24)
+@crab-dev/rc-tabs:test: Seed:        1790216242067211728
+@crab-dev/rc-tabs:test: Time:        19310 ms
+@crab-dev/rc-select:test: cache miss, executing 4e234d98558ffdb0
+@crab-dev/rc-spin:test: PASS src/__tests__/spin.test.tsx
+@crab-dev/rc-spin:test:   ✓ renders a live status region while spinning
+@crab-dev/rc-spin:test:   ✓ names the indicator so screen readers announce more than a bare spinner
+@crab-dev/rc-spin:test:   ✓ accepts a custom accessible name
+@crab-dev/rc-spin:test:   ✓ lets a visible tip serve as the accessible name instead of aria-label
+@crab-dev/rc-spin:test:   ✓ renders nothing when not spinning
+@crab-dev/rc-spin:test:   ✓ renders a custom indicator in place of the default ring
+@crab-dev/rc-spin:test:   ✓ hides the default ring from assistive tech
+@crab-dev/rc-spin:test:   ✓ offers an M3 expressive shape-morphing indicator
+@crab-dev/rc-spin:test:   ✓ lets a custom indicator override the selected variant
+@crab-dev/rc-spin:test:   ✓ forwards ref and native props
+@crab-dev/rc-spin:test:   ✓ stays hidden until the delay elapses
+@crab-dev/rc-spin:test:   ✓ never shows a spinner for work that finishes inside the delay window
+@crab-dev/rc-spin:test:   ✓ hides immediately once spinning stops, without waiting out the delay
+@crab-dev/rc-spin:test:   ✓ restarts the delay when spinning resumes
+@crab-dev/rc-spin:test:   ✓ keeps children mounted and marks the region busy
+@crab-dev/rc-spin:test:   ✓ blocks pointer and keyboard access to the masked content via inert
+@crab-dev/rc-spin:test:   ✓ restores interactivity when spinning stops
+@crab-dev/rc-spin:test:   ✓ shows the tip above the masked content
+@crab-dev/rc-spin:test: PASS src/__tests__/token-vars.test.ts
+@crab-dev/rc-spin:test:   ✓ exposes canonical overrides with their semantic or static defaults
+@crab-dev/rc-spin:test:   ✓ does not expose or consume removed aliases
+@crab-dev/rc-spin:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-spin:test: Tests:       20 passed, 0 failed, 0 pending, 20 total
+@crab-dev/rc-spin:test: Wake coverage
+@crab-dev/rc-spin:test: File	Lines	Functions	Blocks
+@crab-dev/rc-spin:test: All files	100.00% (205/205)	100.00% (7/7)	30.65% (19/62)
+@crab-dev/rc-spin:test: src/expressiveIndicator.tsx	100.00% (23/23)	100.00% (1/1)	0.00% (0/13)
+@crab-dev/rc-spin:test: src/indicator.tsx	100.00% (39/39)	100.00% (2/2)	0.00% (0/20)
+@crab-dev/rc-spin:test: src/spin.tsx	100.00% (65/65)	100.00% (4/4)	65.52% (19/29)
+@crab-dev/rc-spin:test: src/token.ts	100.00% (78/78)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-spin:test: Seed:        1790216247139079244
+@crab-dev/rc-spin:test: Time:        15105 ms
+@crab-dev/rc-select:build:library: cache hit, replaying logs b21268a8f75eddf3
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ✓  Tokens generated in 24ms
+@crab-dev/rc-select:build:library:      1 files · 22.7 KB
+@crab-dev/rc-select:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-select\src\token.ts
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-select:build:library:   ✓  Built library in 304ms
+@crab-dev/rc-select:build:library:      6 modules · 17 files · 134.6 KB
+@crab-dev/rc-select:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-select
+@crab-dev/rc-select:build:library: 
+@crab-dev/rc-date-picker:build:library: cache hit, replaying logs e5b96b6a1fa35045
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ✓  Tokens generated in 25ms
+@crab-dev/rc-date-picker:build:library:      1 files · 9.2 KB
+@crab-dev/rc-date-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker\src\token.ts
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ✓  Built library in 511ms
+@crab-dev/rc-date-picker:build:library:      20 modules · 54 files · 112.9 KB
+@crab-dev/rc-date-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-table:test: cache miss, executing e508fb3c70ab4830
+@crab-dev/rc-drawer:test: PASS src/__tests__/drawer.test.tsx
+@crab-dev/rc-drawer:test:   ✓ names the dialog from its title and preserves an explicit accessible name
+@crab-dev/rc-drawer:test:   ✓ keeps background scroll locked through exit and releases it on unmount
+@crab-dev/rc-drawer:test:   ✓ renders title and content when open
+@crab-dev/rc-drawer:test:   ✓ keeps content through exit and ignores a stale exit after reopening
+@crab-dev/rc-drawer:test:   ✓ resets content only after exiting and mounts it on the next open
+@crab-dev/rc-drawer:test:   ✓ retains content across closing and reopening when reset is disabled
+@crab-dev/rc-drawer:test:   ✓ calls showModal when open becomes true
+@crab-dev/rc-drawer:test:   ✓ calls close after exit animation when open becomes false
+@crab-dev/rc-drawer:test:   ✓ invokes onOpenChange(false) when close button is clicked
+@crab-dev/rc-drawer:test:   ✓ closes when overlay is clicked and maskClosable is true
+@crab-dev/rc-drawer:test:   ✓ does not close when maskClosable is false
+@crab-dev/rc-drawer:test:   ✓ does not render close button when closable is false
+@crab-dev/rc-drawer:test:   ✓ renders footer slot when provided
+@crab-dev/rc-drawer:test:   ✓ applies placement data attribute
+@crab-dev/rc-drawer:test:   ✓ blocks close when onClose resolves false
+@crab-dev/rc-drawer:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-drawer:test: Tests:       15 passed, 0 failed, 0 pending, 15 total
+@crab-dev/rc-drawer:test: Wake coverage
+@crab-dev/rc-drawer:test: File	Lines	Functions	Blocks
+@crab-dev/rc-drawer:test: All files	98.15% (265/270)	93.33% (14/15)	38.81% (26/67)
+@crab-dev/rc-drawer:test: src/drawer.tsx	97.21% (174/179)	93.33% (14/15)	38.81% (26/67)
+@crab-dev/rc-drawer:test: src/token.ts	100.00% (91/91)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-drawer:test: Seed:        1790216253742709832
+@crab-dev/rc-drawer:test: Time:        11181 ms
+@crab-dev/rc-pagination:test: cache miss, executing 2f19c24f26a8d9a3
+@crab-dev/rc-card:test: PASS src/__tests__/card.test.tsx
+@crab-dev/rc-card:test:   ✓ renders title, extra and children
+@crab-dev/rc-card:test:   ✓ renders cover before header in DOM order
+@crab-dev/rc-card:test:   ✓ renders actions inside a footer region
+@crab-dev/rc-card:test:   ✓ supports free composition via structural sub-components
+@crab-dev/rc-card:test:   ✓ renders Meta with avatar, title and description
+@crab-dev/rc-card:test:   ✓ exposes button semantics when clickable
+@crab-dev/rc-card:test:   ✓ has no interactive semantics by default
+@crab-dev/rc-card:test:   ✓ fires onClick on click and keyboard activation
+@crab-dev/rc-card:test:   ✓ isolates extra clicks from the card onClick
+@crab-dev/rc-card:test:   ✓ isolates action clicks from the card onClick
+@crab-dev/rc-card:test:   ✓ does not fire onClick when disabled
+@crab-dev/rc-card:test:   ✓ does not fire onClick while loading
+@crab-dev/rc-card:test:   ✓ replaces content with skeleton and sets aria-busy while loading
+@crab-dev/rc-card:test:   ✓ renders real content when loading is false
+@crab-dev/rc-card:test:   ✓ forwards ref to the root element
+@crab-dev/rc-card:test:   ✓ merges rest props and className onto the root
+@crab-dev/rc-card:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-card:test: Tests:       16 passed, 0 failed, 0 pending, 16 total
+@crab-dev/rc-card:test: Wake coverage
+@crab-dev/rc-card:test: File	Lines	Functions	Blocks
+@crab-dev/rc-card:test: All files	100.00% (383/383)	100.00% (14/14)	27.64% (34/123)
+@crab-dev/rc-card:test: src/card.tsx	100.00% (148/148)	100.00% (7/7)	30.53% (29/95)
+@crab-dev/rc-card:test: src/components/card-body.tsx	100.00% (12/12)	100.00% (1/1)	0.00% (0/5)
+@crab-dev/rc-card:test: src/components/card-cover.tsx	100.00% (9/9)	100.00% (1/1)	0.00% (0/2)
+@crab-dev/rc-card:test: src/components/card-footer.tsx	100.00% (17/17)	100.00% (2/2)	33.33% (2/6)
+@crab-dev/rc-card:test: src/components/card-header.tsx	100.00% (24/24)	100.00% (2/2)	37.50% (3/8)
+@crab-dev/rc-card:test: src/components/card-meta.tsx	100.00% (21/21)	100.00% (1/1)	0.00% (0/7)
+@crab-dev/rc-card:test: src/context.ts	100.00% (4/4)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-card:test: src/token.ts	100.00% (148/148)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-card:test: Seed:        1790216260787030820
+@crab-dev/rc-card:test: Time:        12360 ms
+@crab-dev/rc-pagination:build:library: cache hit, replaying logs 113907d4d8e11898
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ✓  Tokens generated in 43ms
+@crab-dev/rc-pagination:build:library:      1 files · 11.2 KB
+@crab-dev/rc-pagination:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-pagination\src\token.ts
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-pagination:build:library:   ✓  Built library in 503ms
+@crab-dev/rc-pagination:build:library:      3 modules · 11 files · 64.8 KB
+@crab-dev/rc-pagination:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-pagination
+@crab-dev/rc-pagination:build:library: 
+@crab-dev/rc-form:test: cache miss, executing f1b028f093c7f167
+@crab-dev/rc-line-edit:test: PASS src/__tests__/lineEdit.test.tsx
+@crab-dev/rc-line-edit:test:   ✓ clears an uncontrolled value through onChange and updates its count
+@crab-dev/rc-line-edit:test:   ✓ restores the controlled value when a parent rejects clear
+@crab-dev/rc-line-edit:test:   ✓ 浮动标签和说明使用唯一 ID，错误替换辅助说明并保留外部关联
+@crab-dev/rc-line-edit:test:   ✓ 外观切换保留原生输入值，borderless 仍提供关联标签
+@crab-dev/rc-line-edit:test:   ✓ 禁用密码框不能通过按钮显示内容，只读框仍可查看
+@crab-dev/rc-line-edit:test:   ✓ 受控清除后焦点回到输入框，允许立即继续编辑
+@crab-dev/rc-line-edit:test:   ✓ 错误状态提供无效语义，并尊重显式校验语义
+@crab-dev/rc-line-edit:test:   ✓ 应渲染 input 元素
+@crab-dev/rc-line-edit:test:   ✓ prefix 应渲染到 input 左侧
+@crab-dev/rc-line-edit:test:   ✓ suffix 应渲染到 input 右侧
+@crab-dev/rc-line-edit:test:   ✓ bordered={false} 时应仍渲染 input 且不报错
+@crab-dev/rc-line-edit:test:   ✓ disabled 时 input 应被禁用
+@crab-dev/rc-line-edit:test:   ✓ disabled 时容器应有 aria-disabled 属性
+@crab-dev/rc-line-edit:test:   ✓ 非 disabled 时容器不应有 aria-disabled 属性
+@crab-dev/rc-line-edit:test:   ✓ 有值且 allowClear 时应显示清除按钮
+@crab-dev/rc-line-edit:test:   ✓ 值为空时不应显示清除按钮
+@crab-dev/rc-line-edit:test:   ✓ 未传 allowClear 时不应显示清除按钮
+@crab-dev/rc-line-edit:test:   ✓ disabled 时不应显示清除按钮
+@crab-dev/rc-line-edit:test:   ✓ readOnly 时不应显示清除按钮
+@crab-dev/rc-line-edit:test:   ✓ 点击清除按钮应触发 onClear 回调
+@crab-dev/rc-line-edit:test:   ✓ type=password 时应显示密码切换按钮
+@crab-dev/rc-line-edit:test:   ✓ 非 password 类型时不应显示切换按钮
+@crab-dev/rc-line-edit:test:   ✓ 点击切换按钮后 input type 应变为 text
+@crab-dev/rc-line-edit:test:   ✓ 再次点击应切换回 password
+@crab-dev/rc-line-edit:test:   ✓ showCount 有值时应显示字符数
+@crab-dev/rc-line-edit:test:   ✓ showCount + maxLength 应显示 count/max 格式
+@crab-dev/rc-line-edit:test:   ✓ showCount 时 maxLength 应传给 input
+@crab-dev/rc-line-edit:test:   ✓ 非受控空输入显示零字符计数
+@crab-dev/rc-line-edit:test:   ✓ maxLength 应正确传递给 input 元素
+@crab-dev/rc-line-edit:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-line-edit:test: Tests:       29 passed, 0 failed, 0 pending, 29 total
+@crab-dev/rc-line-edit:test: Wake coverage
+@crab-dev/rc-line-edit:test: File	Lines	Functions	Blocks
+@crab-dev/rc-line-edit:test: All files	100.00% (396/396)	100.00% (5/5)	36.77% (57/155)
+@crab-dev/rc-line-edit:test: src/lineEdit.tsx	100.00% (241/241)	100.00% (5/5)	36.77% (57/155)
+@crab-dev/rc-line-edit:test: src/token.ts	100.00% (155/155)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-line-edit:test: Seed:        1790216252809869908
+@crab-dev/rc-line-edit:test: Time:        21582 ms
+@crab-dev/rc-color-picker:test: cache miss, executing 5e8482f1317e7d44
+@crab-dev/rc-text-edit:test: PASS src/__tests__/textEdit.test.tsx
+@crab-dev/rc-text-edit:test:   ✓ clears an uncontrolled value through onChange and updates its count
+@crab-dev/rc-text-edit:test:   ✓ restores the controlled value when a parent rejects clear
+@crab-dev/rc-text-edit:test:   ✓ 受控清除后仍可在文本域继续输入
+@crab-dev/rc-text-edit:test:   ✓ 错误默认具有无效语义，显式语义优先
+@crab-dev/rc-text-edit:test:   ✓ 提供标签、辅助文本和计数时建立完整字段关联
+@crab-dev/rc-text-edit:test:   ✓ errorText 替换辅助文本并启用错误语义
+@crab-dev/rc-text-edit:test:   ✓ 应渲染 textarea 元素
+@crab-dev/rc-text-edit:test:   ✓ rows 应透传给 textarea
+@crab-dev/rc-text-edit:test:   ✓ placeholder 应透传给 textarea
+@crab-dev/rc-text-edit:test:   ✓ 受控多行 value 应完整显示在 textarea 中
+@crab-dev/rc-text-edit:test:   ✓ 输入应触发 onChange
+@crab-dev/rc-text-edit:test:   ✓ bordered={false} 时应仍渲染 textarea 且不报错
+@crab-dev/rc-text-edit:test:   ✓ disabled 时 textarea 应被禁用
+@crab-dev/rc-text-edit:test:   ✓ disabled 时容器应有 aria-disabled 属性
+@crab-dev/rc-text-edit:test:   ✓ 非 disabled 时容器不应有 aria-disabled 属性
+@crab-dev/rc-text-edit:test:   ✓ 有值且 allowClear 时应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ 值为空时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ 未传 allowClear 时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ disabled 时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ readOnly 时不应显示清除按钮
+@crab-dev/rc-text-edit:test:   ✓ 点击清除按钮应触发 onClear 回调
+@crab-dev/rc-text-edit:test:   ✓ showCount 有值时应显示字符数
+@crab-dev/rc-text-edit:test:   ✓ showCount + maxLength 应显示 count/max 格式
+@crab-dev/rc-text-edit:test:   ✓ showCount 时 maxLength 应传给 textarea
+@crab-dev/rc-text-edit:test:   ✓ 非受控空输入显示零字符计数
+@crab-dev/rc-text-edit:test:   ✓ autoSize 与默认 resize 应产生不同的 textarea 类名
+@crab-dev/rc-text-edit:test:   ✓ ref 应指向 textarea 元素
+@crab-dev/rc-text-edit:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-text-edit:test: Tests:       27 passed, 0 failed, 0 pending, 27 total
+@crab-dev/rc-text-edit:test: Wake coverage
+@crab-dev/rc-text-edit:test: File	Lines	Functions	Blocks
+@crab-dev/rc-text-edit:test: All files	100.00% (364/364)	100.00% (3/3)	37.14% (52/140)
+@crab-dev/rc-text-edit:test: src/textEdit.tsx	100.00% (217/217)	100.00% (3/3)	37.14% (52/140)
+@crab-dev/rc-text-edit:test: src/token.ts	100.00% (147/147)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-text-edit:test: Seed:        1790216254234507112
+@crab-dev/rc-text-edit:test: Time:        22076 ms
+@crab-dev/rc-table:build:library: cache hit, replaying logs 429b3be3a2ee6512
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Tokens generated in 43ms
+@crab-dev/rc-table:build:library:      1 files · 26.3 KB
+@crab-dev/rc-table:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table\src\token.ts
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Built library in 1.31s
+@crab-dev/rc-table:build:library:      27 modules · 63 files · 423.4 KB
+@crab-dev/rc-table:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-table
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table-pro:test: cache miss, executing 1d3b2e807bf29626
+@crab-dev/rc-avatar:test: PASS src/__tests__/avatar-group.test.tsx
+@crab-dev/rc-avatar:test:   ✓ renders all avatars when count is within max
+@crab-dev/rc-avatar:test:   ✓ renders +N badge on last visible avatar when children exceed max
+@crab-dev/rc-avatar:test:   ✓ passes down size to children
+@crab-dev/rc-avatar:test:   ✓ does not override child size when explicitly set
+@crab-dev/rc-avatar:test:   ✓ renders no badge when max equals child count
+@crab-dev/rc-avatar:test:   ✓ renders no badge when max is undefined
+@crab-dev/rc-avatar:test:   ✓ renders overflow badge on last avatar for number size
+@crab-dev/rc-avatar:test:   ✓ renders overflow badge with shape="square"
+@crab-dev/rc-avatar:test:   ✓ stacks visible avatars with descending z-index so the first sits on top
+@crab-dev/rc-avatar:test:   ✓ applies spacing prop as CSS custom property
+@crab-dev/rc-avatar:test:   ✓ badge indicator carries title "+N more"
+@crab-dev/rc-avatar:test:   ✓ keeps overflow and avatar actions independent without nested buttons
+@crab-dev/rc-avatar:test:   ✓ supports custom renderExtra as Badge count content
+@crab-dev/rc-avatar:test: PASS src/__tests__/avatar.test.tsx
+@crab-dev/rc-avatar:test:   ✓ provides a focusable native button for clickable avatars
+@crab-dev/rc-avatar:test:   ✓ prevents disabled avatar actions
+@crab-dev/rc-avatar:test:   ✓ renders children as fallback content
+@crab-dev/rc-avatar:test:   ✓ renders image when src is provided
+@crab-dev/rc-avatar:test:   ✓ falls back to children when image load fails
+@crab-dev/rc-avatar:test:   ✓ keeps image when onError returns false
+@crab-dev/rc-avatar:test:   ✓ renders custom icon when icon prop is provided
+@crab-dev/rc-avatar:test:   ✓ renders default icon when no image, icon, or children are provided
+@crab-dev/rc-avatar:test:   ✓ supports square shape and large size
+@crab-dev/rc-avatar:test:   ✓ applies bordered class when bordered prop is true
+@crab-dev/rc-avatar:test:   ✓ applies different className for each variant
+@crab-dev/rc-avatar:test:   ✓ sets aria-disabled when disabled is true
+@crab-dev/rc-avatar:test:   ✓ does not set aria-disabled when disabled is false
+@crab-dev/rc-avatar:test:   ✓ resets image error state when src changes
+@crab-dev/rc-avatar:test:   ✓ uses alt as aria-label when image fails and no aria-label given
+@crab-dev/rc-avatar:test:   ✓ applies number size as inline style
+@crab-dev/rc-avatar:test:   ✓ passes crossOrigin to img element
+@crab-dev/rc-avatar:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-avatar:test: Tests:       30 passed, 0 failed, 0 pending, 30 total
+@crab-dev/rc-avatar:test: Wake coverage
+@crab-dev/rc-avatar:test: File	Lines	Functions	Blocks
+@crab-dev/rc-avatar:test: All files	100.00% (395/395)	100.00% (11/11)	58.20% (71/122)
+@crab-dev/rc-avatar:test: src/avatar-group.tsx	100.00% (92/92)	100.00% (5/5)	58.82% (20/34)
+@crab-dev/rc-avatar:test: src/avatar.tsx	100.00% (200/200)	100.00% (6/6)	57.95% (51/88)
+@crab-dev/rc-avatar:test: src/token.ts	100.00% (103/103)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-avatar:test: Seed:        1790216254475861600
+@crab-dev/rc-avatar:test: Time:        22611 ms
+@crab-dev/rc-dropdown-container:test: PASS src/__tests__/dropdownContainer.nested.test.tsx
+@crab-dev/rc-dropdown-container:test:   ✓ does not close the outer dropdown when interacting inside a nested dropdown's own floating panel
+@crab-dev/rc-dropdown-container:test:   ✓ still closes on a genuine outside pointerdown
+@crab-dev/rc-dropdown-container:test: PASS src/__tests__/dropdownContainer.test.tsx
+@crab-dev/rc-dropdown-container:test:   ✓ renders children
+@crab-dev/rc-dropdown-container:test:   ✓ does not render overlay when closed
+@crab-dev/rc-dropdown-container:test:   ✓ renders overlay when opened via dispatch
+@crab-dev/rc-dropdown-container:test:   ✓ hides overlay when closed via dispatch
+@crab-dev/rc-dropdown-container:test:   ✓ applies className to container
+@crab-dev/rc-dropdown-container:test:   ✓ passes restProps to container div
+@crab-dev/rc-dropdown-container:test:   ✓ calls floatingContainerProps.onMouseDown and prevents default
+@crab-dev/rc-dropdown-container:test:   ✓ prevents default mousedown on non-control area but allows focusing form controls
+@crab-dev/rc-dropdown-container:test:   ✓ works without floatingContainerProps.onMouseDown
+@crab-dev/rc-dropdown-container:test:   ✓ renders custom overlay content
+@crab-dev/rc-dropdown-container:test:   ✓ limits tall overlays to the available viewport height
+@crab-dev/rc-dropdown-container:test:   ✓ portals overlay into the enclosing dialog to escape modal inert
+@crab-dev/rc-dropdown-container:test:   ✓ does not portal into a dialog when trigger is outside of one
+@crab-dev/rc-dropdown-container:test:   ✓ keeps the overlay inside the nearest public theme boundary
+@crab-dev/rc-dropdown-container:test:   ✓ throws when used outside DropdownContainer
+@crab-dev/rc-dropdown-container:test:   ✓ returns current state for unknown action type
+@crab-dev/rc-dropdown-container:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-dropdown-container:test: Tests:       18 passed, 0 failed, 0 pending, 18 total
+@crab-dev/rc-dropdown-container:test: Wake coverage
+@crab-dev/rc-dropdown-container:test: File	Lines	Functions	Blocks
+@crab-dev/rc-dropdown-container:test: All files	100.00% (153/153)	100.00% (10/10)	56.00% (14/25)
+@crab-dev/rc-dropdown-container:test: src/context.ts	100.00% (7/7)	100.00% (1/1)	100.00% (2/2)
+@crab-dev/rc-dropdown-container:test: src/dropdownContainer.tsx	100.00% (96/96)	100.00% (8/8)	50.00% (10/20)
+@crab-dev/rc-dropdown-container:test: src/index.ts	100.00% (4/4)	100.00% (0/0)	0.00% (0/1)
+@crab-dev/rc-dropdown-container:test: src/reducer.ts	100.00% (7/7)	100.00% (1/1)	100.00% (2/2)
+@crab-dev/rc-dropdown-container:test: src/token.ts	100.00% (39/39)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-dropdown-container:test: Seed:        1790216254858768760
+@crab-dev/rc-dropdown-container:test: Time:        22861 ms
+@crab-dev/rc-number-edit:test: PASS src/__tests__/format.test.ts
+@crab-dev/rc-number-edit:test:   ✓ 解析普通数字
+@crab-dev/rc-number-edit:test:   ✓ 解析指数写法
+@crab-dev/rc-number-edit:test:   ✓ 空串与中间态返回 null
+@crab-dev/rc-number-edit:test:   ✓ 剥离千分位分隔符
+@crab-dev/rc-number-edit:test:   ✓ 归一化自定义小数点符号
+@crab-dev/rc-number-edit:test:   ✓ 优先使用自定义 parser
+@crab-dev/rc-number-edit:test:   ✓ 钳制到区间
+@crab-dev/rc-number-edit:test:   ✓ 按精度四舍五入
+@crab-dev/rc-number-edit:test:   ✓ precision 为 undefined 时原样返回
+@crab-dev/rc-number-edit:test:   ✓ 常规小数位
+@crab-dev/rc-number-edit:test:   ✓ 指数记法小数位
+@crab-dev/rc-number-edit:test:   ✓ 常规数取十进制长度
+@crab-dev/rc-number-edit:test:   ✓ 占位零多的数取完整十进制长度
+@crab-dev/rc-number-edit:test:   ✓ 精确处于阈值边界
+@crab-dev/rc-number-edit:test:   ✓ auto：超阈值才转
+@crab-dev/rc-number-edit:test:   ✓ never / always
+@crab-dev/rc-number-edit:test:   ✓ 拆分尾数与指数并去尾零
+@crab-dev/rc-number-edit:test:   ✓ 序列化为可编辑 e 记法
+@crab-dev/rc-number-edit:test:   ✓ 大数展开
+@crab-dev/rc-number-edit:test:   ✓ 小数展开
+@crab-dev/rc-number-edit:test:   ✓ 普通数原样
+@crab-dev/rc-number-edit:test:   ✓ 每三位插入分隔符
+@crab-dev/rc-number-edit:test:   ✓ 千分位 + 小数
+@crab-dev/rc-number-edit:test:   ✓ 负数千分位
+@crab-dev/rc-number-edit:test:   ✓ 固定精度补零
+@crab-dev/rc-number-edit:test:   ✓ 自定义小数点符号
+@crab-dev/rc-number-edit:test:   ✓ 无千分位
+@crab-dev/rc-number-edit:test:   ✓ 普通态去千分位
+@crab-dev/rc-number-edit:test:   ✓ 科学态回显 e 记法
+@crab-dev/rc-number-edit:test: PASS src/__tests__/numberEdit.test.tsx
+@crab-dev/rc-number-edit:test:   ✓ 以 spinbutton 语义渲染并带 aria 范围
+@crab-dev/rc-number-edit:test:   ✓ 默认显示步进按钮，controls={false} 时隐藏
+@crab-dev/rc-number-edit:test:   ✓ 步进按钮可聚焦并与数字字段建立关联
+@crab-dev/rc-number-edit:test:   ✓ 普通十进制原样显示
+@crab-dev/rc-number-edit:test:   ✓ 开启千分位后分组显示
+@crab-dev/rc-number-edit:test:   ✓ 超阈值数值以上标科学计数法覆盖显示
+@crab-dev/rc-number-edit:test:   ✓ 聚焦后去千分位便于编辑
+@crab-dev/rc-number-edit:test:   ✓ 科学计数法态聚焦后展开为可编辑 e 记法并撤下覆盖层
+@crab-dev/rc-number-edit:test:   ✓ 失焦时将超界值钳制到范围（非受控）
+@crab-dev/rc-number-edit:test:   ✓ steps from the current draft and preserves its fractional precision
+@crab-dev/rc-number-edit:test:   ✓ updates step limits from the draft before committing on blur
+@crab-dev/rc-number-edit:test:   ✓ 点击增加按钮触发 onChange(+step)
+@crab-dev/rc-number-edit:test:   ✓ 键盘 ArrowUp 步进一个 step
+@crab-dev/rc-number-edit:test:   ✓ Shift+ArrowUp 走大步长（默认 step*10）
+@crab-dev/rc-number-edit:test:   ✓ 到达上界时禁用增加按钮
+@crab-dev/rc-number-edit:test:   ✓ 步进消除浮点噪声
+@crab-dev/rc-number-edit:test:   ✓ allowClear 清除后 onChange(null)
+@crab-dev/rc-number-edit:test:   ✓ disabled 时 input 与步进按钮均禁用
+@crab-dev/rc-number-edit:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-number-edit:test: Tests:       47 passed, 0 failed, 0 pending, 47 total
+@crab-dev/rc-number-edit:test: Wake coverage
+@crab-dev/rc-number-edit:test: File	Lines	Functions	Blocks
+@crab-dev/rc-number-edit:test: All files	90.91% (490/539)	88.37% (38/43)	66.06% (109/165)
+@crab-dev/rc-number-edit:test: src/format.ts	93.97% (109/116)	100.00% (12/12)	88.06% (59/67)
+@crab-dev/rc-number-edit:test: src/hooks/useSpinner.ts	77.14% (27/35)	87.50% (7/8)	33.33% (1/3)
+@crab-dev/rc-number-edit:test: src/numberEdit.tsx	87.24% (212/243)	83.33% (15/18)	67.14% (47/70)
+@crab-dev/rc-number-edit:test: src/stepper.tsx	95.38% (62/65)	75.00% (3/4)	8.70% (2/23)
+@crab-dev/rc-number-edit:test: src/superscript.tsx	100.00% (13/13)	100.00% (1/1)	0.00% (0/2)
+@crab-dev/rc-number-edit:test: src/token.ts	100.00% (67/67)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-number-edit:test: Seed:        1790216254874917836
+@crab-dev/rc-number-edit:test: Time:        26948 ms
+@crab-dev/rc-pagination:test: PASS src/__tests__/pagination.test.tsx
+@crab-dev/rc-pagination:test:   ✓ renders the navigation landmark with sequential pages when total is small
+@crab-dev/rc-pagination:test:   ✓ marks the current page with aria-current
+@crab-dev/rc-pagination:test:   ✓ disables prev at the first page and next at the last page
+@crab-dev/rc-pagination:test:   ✓ fires onChange with new page and pageSize when a page is clicked (uncontrolled)
+@crab-dev/rc-pagination:test:   ✓ does not advance internal state when controlled
+@crab-dev/rc-pagination:test:   ✓ renders ellipsis jumpers when there are many pages
+@crab-dev/rc-pagination:test:   ✓ supports quick jumper via Enter
+@crab-dev/rc-pagination:test:   ✓ renders default total summary when showTotal is true
+@crab-dev/rc-pagination:test:   ✓ supports a custom showTotal renderer
+@crab-dev/rc-pagination:test:   ✓ disables every control when disabled is true
+@crab-dev/rc-pagination:test:   ✓ applies the small size data attribute
+@crab-dev/rc-pagination:test:   ✓ handles zero total gracefully (shows a single page)
+@crab-dev/rc-pagination:test:   ✓ renders the page-size changer when showSizeChanger is true
+@crab-dev/rc-pagination:test:   ✓ keeps the leading item visible when page size changes
+@crab-dev/rc-pagination:test: Test Suites: 1 passed, 0 failed, 1 total
+@crab-dev/rc-pagination:test: Tests:       14 passed, 0 failed, 0 pending, 14 total
+@crab-dev/rc-pagination:test: Wake coverage
+@crab-dev/rc-pagination:test: File	Lines	Functions	Blocks
+@crab-dev/rc-pagination:test: All files	99.23% (389/392)	100.00% (23/23)	28.35% (36/127)
+@crab-dev/rc-pagination:test: src/pagination.tsx	98.93% (277/280)	100.00% (23/23)	28.35% (36/127)
+@crab-dev/rc-pagination:test: src/token.ts	100.00% (112/112)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-pagination:test: Seed:        1790216268858243452
+@crab-dev/rc-pagination:test: Time:        18425 ms
+@crab-dev/rc-select:test: PASS src/__tests__/select.critical-bugs.test.tsx
+@crab-dev/rc-select:test:   ✓ #1: 键盘高亮到视口外的选项时,该项被滚入视口、出现在 DOM
+@crab-dev/rc-select:test:   ✓ #2: 搜索过滤出唯一项后,直接按 Enter 即可选中该项
+@crab-dev/rc-select:test:   ✓ #3: 分组标题为 ReactNode 时不产生重复 key 警告
+@crab-dev/rc-select:test:   ✓ #4: 单选已有值时,打开下拉应把选中项滚入视口
+@crab-dev/rc-select:test:   ✓ #5: 列表位于顶部时,首项之前不产生额外行盒空白
+@crab-dev/rc-select:test: PASS src/__tests__/select.test.tsx
+@crab-dev/rc-select:test:   ✓ forwards an external label to the combobox in both search modes
+@crab-dev/rc-select:test:   ✓ keeps grouped virtual offsets aligned with resized option text
+@crab-dev/rc-select:test:   ✓ renders placeholder and opens dropdown
+@crab-dev/rc-select:test:   ✓ selects one value in single mode
+@crab-dev/rc-select:test:   ✓ supports multiple mode and filtering
+@crab-dev/rc-select:test:   ✓ renders a checkbox indicator reflecting selected state in multiple mode
+@crab-dev/rc-select:test:   ✓ does not open when disabled
+@crab-dev/rc-select:test:   ✓ skips disabled options on click
+@crab-dev/rc-select:test:   ✓ navigates options with ArrowDown/ArrowUp and selects with Enter
+@crab-dev/rc-select:test:   ✓ closes dropdown on Escape
+@crab-dev/rc-select:test:   ✓ keeps null controlled and lets the parent accept or reject selection and clear
+@crab-dev/rc-select:test:   ✓ clears value when clear button is clicked
+@crab-dev/rc-select:test:   ✓ renders a Material field label, supporting text, and required semantics
+@crab-dev/rc-select:test:   ✓ uses errorText as the field error and invalid state
+@crab-dev/rc-select:test:   ✓ returns focus to the combobox after keyboard clearing
+@crab-dev/rc-select:test:   ✓ removes tag via close button in multi mode
+@crab-dev/rc-select:test:   ✓ removes last tag on Backspace in searchable multi mode
+@crab-dev/rc-select:test:   ✓ renders grouped options
+@crab-dev/rc-select:test:   ✓ collapses tags with +N when maxTagCount is set
+@crab-dev/rc-select:test:   ✓ shows custom notFoundContent
+@crab-dev/rc-select:test:   ✓ works in controlled mode
+@crab-dev/rc-select:test:   ✓ renders empty state with no options
+@crab-dev/rc-select:test:   ✓ renders with error status
+@crab-dev/rc-select:test:   ✓ calls onOpenChange when opening/closing
+@crab-dev/rc-select:test: Test Suites: 2 passed, 0 failed, 2 total
+@crab-dev/rc-select:test: Tests:       29 passed, 0 failed, 0 pending, 29 total
+@crab-dev/rc-select:test: Wake coverage
+@crab-dev/rc-select:test: File	Lines	Functions	Blocks
+@crab-dev/rc-select:test: All files	95.96% (949/989)	91.80% (56/61)	46.21% (134/290)
+@crab-dev/rc-select:test: src/hooks/useKeyboardNavigation.ts	91.18% (31/34)	100.00% (5/5)	55.56% (5/9)
+@crab-dev/rc-select:test: src/select.tsx	97.67% (210/215)	91.30% (21/23)	72.73% (40/55)
+@crab-dev/rc-select:test: src/selectInput.tsx	92.29% (323/350)	91.30% (21/23)	33.97% (53/156)
+@crab-dev/rc-select:test: src/selectOverlay.tsx	97.37% (185/190)	90.00% (9/10)	51.43% (36/70)
+@crab-dev/rc-select:test: src/token.ts	100.00% (200/200)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-select:test: Seed:        1790216264700290960
+@crab-dev/rc-select:test: Time:        34293 ms
+@crab-dev/rc-tree:test: PASS src/__tests__/icon.test.tsx
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon with extra props
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight as a line-style icon (fill=none)
+@crab-dev/rc-tree:test: PASS src/__tests__/nodeItem.test.tsx
+@crab-dev/rc-tree:test:   ✓ keeps non-draggable nodes selectable and exposes tree state
+@crab-dev/rc-tree:test:   ✓ renders a folder node with title
+@crab-dev/rc-tree:test:   ✓ renders loading spinner when loading=true
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon for collapsed folder
+@crab-dev/rc-tree:test:   ✓ renders ChevronRight icon for expanded folder
+@crab-dev/rc-tree:test:   ✓ renders no icon for FILE type node
+@crab-dev/rc-tree:test:   ✓ calls onExpanded when pointer-up on collapsed folder icon
+@crab-dev/rc-tree:test:   ✓ calls onExpanded when pointer-up on expanded folder icon
+@crab-dev/rc-tree:test:   ✓ calls onExpanded when pointer-up on row title (expandOnTitleClick=true, FOLDER)
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded on right-click (button=2)
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded when expandOnTitleClick=false and clicking row
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded when row click on FILE node
+@crab-dev/rc-tree:test:   ✓ disabled node: does NOT call onExpanded or onTitleClick on row click
+@crab-dev/rc-tree:test:   ✓ disabled node: has data-disabled=true attribute
+@crab-dev/rc-tree:test:   ✓ calls onExpanded on mouseEnter when overState is set and folder is collapsed
+@crab-dev/rc-tree:test:   ✓ does NOT call onExpanded on mouseEnter when overState is null
+@crab-dev/rc-tree:test:   ✓ calls onTitleClick on pointer up
+@crab-dev/rc-tree:test:   ✓ calls onTitleContextMenu on context menu
+@crab-dev/rc-tree:test:   ✓ sets data-selected attribute when node is in selectKeys
+@crab-dev/rc-tree:test:   ✓ sets data-selected to false when node not in selectKeys
+@crab-dev/rc-tree:test:   ✓ applies UPWARD over state style
+@crab-dev/rc-tree:test:   ✓ applies DOWN over state style
+@crab-dev/rc-tree:test:   ✓ applies INSIDE over state style
+@crab-dev/rc-tree:test:   ✓ does not apply over state style when overState id does not match node id
+@crab-dev/rc-tree:test:   ✓ renders indent lines when showLine is true
+@crab-dev/rc-tree:test:   ✓ does not render indent lines when showLine is false
+@crab-dev/rc-tree:test:   ✓ applies node.height to style
+@crab-dev/rc-tree:test:   ✓ renders with custom className
+@crab-dev/rc-tree:test:   ✓ renders deeply nested node with showLine
+@crab-dev/rc-tree:test: PASS src/__tests__/token.test.ts
+@crab-dev/rc-tree:test:   ✓ separates structural borders from the solid drag badge
+@crab-dev/rc-tree:test: PASS src/__tests__/tree.test.tsx
+@crab-dev/rc-tree:test:   ✓ inherits global size without overriding explicit node geometry and protects coarse targets
+@crab-dev/rc-tree:test:   ✓ labels the keyboard focus target and identifies its selected tree item
+@crab-dev/rc-tree:test:   ✓ updates virtual row offsets when density or pointer mode changes
+@crab-dev/rc-tree:test:   ✓ renders with no data
+@crab-dev/rc-tree:test:   ✓ renders tree nodes
+@crab-dev/rc-tree:test:   ✓ renders with draggable enabled
+@crab-dev/rc-tree:test:   ✓ renders with showLine
+@crab-dev/rc-tree:test:   ✓ renders context menu when rendererContextMenu is provided
+@crab-dev/rc-tree:test:   ✓ handles onContextMenu on the tree container
+@crab-dev/rc-tree:test:   ✓ passes extra props through
+@crab-dev/rc-tree:test:   ✓ handles loading state on expand
+@crab-dev/rc-tree:test:   ✓ renders with select keys
+@crab-dev/rc-tree:test:   ✓ handles expanded keys for child nodes
+@crab-dev/rc-tree:test:   ✓ renders with default node height
+@crab-dev/rc-tree:test: PASS src/__tests__/type.test.ts
+@crab-dev/rc-tree:test:   ✓ has UPWARD
+@crab-dev/rc-tree:test:   ✓ has DOWN
+@crab-dev/rc-tree:test:   ✓ has INSIDE
+@crab-dev/rc-tree:test:   ✓ has FOLDER
+@crab-dev/rc-tree:test:   ✓ has FILE
+@crab-dev/rc-tree:test:   ✓ has CREATE
+@crab-dev/rc-tree:test:   ✓ has DELETE
+@crab-dev/rc-tree:test:   ✓ has UPDATE
+@crab-dev/rc-tree:test:   ✓ has UNLOADED
+@crab-dev/rc-tree:test:   ✓ has LOADING
+@crab-dev/rc-tree:test:   ✓ has LOADING_COMPLETED
+@crab-dev/rc-tree:test: PASS src/__tests__/useTreeData.test.tsx
+@crab-dev/rc-tree:test:   ✓ returns initial empty array
+@crab-dev/rc-tree:test:   ✓ returns a stable TreeDataUtil instance across renders
+@crab-dev/rc-tree:test:   ✓ allows updating tree data via setter
+@crab-dev/rc-tree:test: PASS src/__tests__/util.test.ts
+@crab-dev/rc-tree:test:   ✓ sorts by priority ascending
+@crab-dev/rc-tree:test:   ✓ deletes a single node by id
+@crab-dev/rc-tree:test:   ✓ deletes multiple nodes by id array
+@crab-dev/rc-tree:test:   ✓ deletes nodes matching predicate
+@crab-dev/rc-tree:test:   ✓ inserts nodes under a parent
+@crab-dev/rc-tree:test:   ✓ updates a node by id
+@crab-dev/rc-tree:test:   ✓ does nothing when node id not found
+@crab-dev/rc-tree:test:   ✓ reloads root children when parent is null
+@crab-dev/rc-tree:test:   ✓ reloads children for specific parent
+@crab-dev/rc-tree:test:   ✓ handles loadDataFunc returning null-ish
+@crab-dev/rc-tree:test:   ✓ returns unchanged when drag node not found
+@crab-dev/rc-tree:test:   ✓ returns unchanged when target node not found
+@crab-dev/rc-tree:test:   ✓ returns unchanged when dragging node onto its descendant
+@crab-dev/rc-tree:test:   ✓ moves node UPWARD with previous node
+@crab-dev/rc-tree:test:   ✓ moves node UPWARD without previous node (first position)
+@crab-dev/rc-tree:test:   ✓ moves node UPWARD with empty target nodes leads to priority 1
+@crab-dev/rc-tree:test:   ✓ moves node DOWN with next node
+@crab-dev/rc-tree:test:   ✓ moves node DOWN without next node (last position)
+@crab-dev/rc-tree:test:   ✓ moves node INSIDE target
+@crab-dev/rc-tree:test:   ✓ throws when target node not in filtered target nodes
+@crab-dev/rc-tree:test:   ✓ handles nodes with undefined priority (defaults to 0)
+@crab-dev/rc-tree:test:   ✓ handles move DOWN when target has no priority
+@crab-dev/rc-tree:test:   ✓ returns nodes sorted by priority for root
+@crab-dev/rc-tree:test:   ✓ returns nodes with children recursively
+@crab-dev/rc-tree:test:   ✓ returns empty array for no matching nodes
+@crab-dev/rc-tree:test:   ✓ handles equal priority nodes
+@crab-dev/rc-tree:test:   ✓ returns 0 for root node
+@crab-dev/rc-tree:test:   ✓ returns 1 for first-level child
+@crab-dev/rc-tree:test:   ✓ returns correct depth for deeply nested nodes
+@crab-dev/rc-tree:test:   ✓ returns false when target has no parent
+@crab-dev/rc-tree:test:   ✓ returns true when target is direct child of parent
+@crab-dev/rc-tree:test:   ✓ returns true when target is grandchild of parent
+@crab-dev/rc-tree:test:   ✓ returns false when target is not descendant
+@crab-dev/rc-tree:test:   ✓ loads root data and assigns priority
+@crab-dev/rc-tree:test:   ✓ recursively loads expanded children
+@crab-dev/rc-tree:test:   ✓ returns empty array when loadData returns undefined
+@crab-dev/rc-tree:test:   ✓ returns empty array when loadData is undefined
+@crab-dev/rc-tree:test:   ✓ preserves existing priority if already set
+@crab-dev/rc-tree:test:   ✓ sets parent on loaded child nodes
+@crab-dev/rc-tree:test: Test Suites: 7 passed, 0 failed, 7 total
+@crab-dev/rc-tree:test: Tests:       100 passed, 0 failed, 0 pending, 100 total
+@crab-dev/rc-tree:test: Wake coverage
+@crab-dev/rc-tree:test: File	Lines	Functions	Blocks
+@crab-dev/rc-tree:test: All files	74.47% (738/991)	68.32% (69/101)	57.85% (129/223)
+@crab-dev/rc-tree:test: src/hooks/useTreeData.ts	100.00% (9/9)	100.00% (1/1)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/icon.tsx	100.00% (31/31)	100.00% (2/2)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/nodeItem.tsx	87.23% (205/235)	52.63% (10/19)	44.86% (48/107)
+@crab-dev/rc-tree:test: src/token.ts	100.00% (104/104)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/tree.tsx	51.72% (225/435)	47.22% (17/36)	56.41% (22/39)
+@crab-dev/rc-tree:test: src/type.ts	100.00% (4/4)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-tree:test: src/util.ts	92.49% (160/173)	90.70% (39/43)	76.62% (59/77)
+@crab-dev/rc-tree:test: Seed:        1790216254608010384
+@crab-dev/rc-tree:test: Time:        44638 ms
+@crab-dev/rc-table-pro:test: PASS src/__tests__/table.test.tsx
+@crab-dev/rc-table-pro:test:   ✓ calls fetchColumns and fetchData on mount
+@crab-dev/rc-table-pro:test:   ✓ re-fetches columns when fetchColumns prop changes
+@crab-dev/rc-table-pro:test:   ✓ calls fetchData with page / pageSize / filters in pagination mode
+@crab-dev/rc-table-pro:test:   ✓ shows loading overlay then removes it after data loads
+@crab-dev/rc-table-pro:test:   ✓ shows columns error overlay when fetchColumns rejects
+@crab-dev/rc-table-pro:test:   ✓ shows data error overlay when fetchData rejects
+@crab-dev/rc-table-pro:test:   ✓ calls onError with source='columns' when fetchColumns rejects
+@crab-dev/rc-table-pro:test:   ✓ calls onError with source='data' when fetchData rejects
+@crab-dev/rc-table-pro:test:   ✓ retries fetchColumns when retry button is clicked after columns error
+@crab-dev/rc-table-pro:test:   ✓ clears data error overlay and retries when retry button is clicked
+@crab-dev/rc-table-pro:test: PASS src/__tests__/token.test.ts
+@crab-dev/rc-table-pro:test:   ✓ uses its own public CSS variable namespace
+@crab-dev/rc-table-pro:test:   ✓ uses semantic fallbacks without the old table namespace
+@crab-dev/rc-table-pro:test:   ✓ pairs the selection hover colors through highlight roles
+@crab-dev/rc-table-pro:test:   ✓ uses neutral selection roles for selected sorting controls
+@crab-dev/rc-table-pro:test: PASS src/__tests__/useTableData.test.tsx
+@crab-dev/rc-table-pro:test:   ✓ aborts superseded requests and ignores late success and failure
+@crab-dev/rc-table-pro:test:   ✓ captures synchronous request failures and recovers on the next query
+@crab-dev/rc-table-pro:test:   ✓ sends server sort, resets pagination and compares controlled sort by value
+@crab-dev/rc-table-pro:test:   ✓ keeps legacy loaders compatible and does not reload for client sorting
+@crab-dev/rc-table-pro:test: Test Suites: 3 passed, 0 failed, 3 total
+@crab-dev/rc-table-pro:test: Tests:       18 passed, 0 failed, 0 pending, 18 total
+@crab-dev/rc-table-pro:test: Wake coverage
+@crab-dev/rc-table-pro:test: File	Lines	Functions	Blocks
+@crab-dev/rc-table-pro:test: All files	63.41% (707/1115)	42.99% (46/107)	26.17% (39/149)
+@crab-dev/rc-table-pro:test: src/columnUtils.ts	11.20% (14/125)	43.75% (7/16)	0.00% (0/6)
+@crab-dev/rc-table-pro:test: src/hooks/useColumnManagement.tsx	47.64% (121/254)	32.00% (8/25)	4.55% (1/22)
+@crab-dev/rc-table-pro:test: src/hooks/useSearchBar.ts	100.00% (12/12)	100.00% (1/1)	100.00% (0/0)
+@crab-dev/rc-table-pro:test: src/hooks/useTableData.ts	93.90% (77/82)	88.89% (16/18)	76.00% (19/25)
+@crab-dev/rc-table-pro:test: src/icons.tsx	21.95% (9/41)	20.00% (2/10)	100.00% (0/0)
+@crab-dev/rc-table-pro:test: src/table.tsx	74.90% (379/506)	29.41% (10/34)	21.35% (19/89)
+@crab-dev/rc-table-pro:test: src/token.ts	100.00% (69/69)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-table-pro:test: src/util.ts	100.00% (26/26)	66.67% (2/3)	0.00% (0/7)
+@crab-dev/rc-table-pro:test: Seed:        1790216279727738716
+@crab-dev/rc-table-pro:test: Time:        23150 ms
+@crab-dev/rc-table:test: PASS src/__tests__/demoData.test.ts
+@crab-dev/rc-table:test:   ✓ keeps employee roles, geography, tenure and annual compensation consistent at scale
+@crab-dev/rc-table:test:   ✓ keeps order totals, payments and fulfillment dates coherent across 3000 rows
+@crab-dev/rc-table:test:   ✓ reconciles monthly budgets and keeps meaningful overspend examples
+@crab-dev/rc-table:test:   ✓ recalculates inventory after a count correction and leaves the original record intact
+@crab-dev/rc-table:test:   ✓ rolls organization headcount and cost up from current employees without duplicating leaves
+@crab-dev/rc-table:test:   ✓ creates after-sales tickets after delivery and never resolves them in the future
+@crab-dev/rc-table:test:   ✓ provides one million business cells with consistent store metrics
+@crab-dev/rc-table:test:   ✓ combines exact status selection with tolerant text and numeric filters
+@crab-dev/rc-table:test:   ✓ approves only eligible orders and preserves the snapshot used for undo
+@crab-dev/rc-table:test:   ✓ preserves sparse rectangles and escapes multiline values when copying TSV
+@crab-dev/rc-table:test: PASS src/__tests__/performance.test.tsx
+@crab-dev/rc-table:test:   ✓ does not rerender retained cells, headers, or summary values during vertical scroll
+@crab-dev/rc-table:test:   ✓ keeps column layout and ordinary cells stable across controlled row-selection changes
+@crab-dev/rc-table:test:   ✓ materializes a drag rectangle only when the pointer is released
+@crab-dev/rc-table:test:   ✓ copies selected cells with indexed row lookup
+@crab-dev/rc-table:test:   ✓ cancels an obsolete chunked keyword scan
+@crab-dev/rc-table:test:   ✓ reuses compiled accessors and precomputes header span origins
+@crab-dev/rc-table:test: PASS src/__tests__/selectionVisibility.test.tsx
+@crab-dev/rc-table:test:   ✓ keeps the foreground transparent for fixed=undefined
+@crab-dev/rc-table:test:   ✓ keeps the foreground transparent for fixed=left
+@crab-dev/rc-table:test:   ✓ keeps the foreground transparent for fixed=right
+@crab-dev/rc-table:test:   ✓ does not cover text with an opaque legacy selection color in light mode
+@crab-dev/rc-table:test:   ✓ does not cover text with an opaque legacy selection color in dark mode
+@crab-dev/rc-table:test:   ✓ preserves the active cell while showing the rest of a selected range
+@crab-dev/rc-table:test:   ✓ outlines the full merged area without painting over its content
+@crab-dev/rc-table:test:   ✓ does not create duplicate foreground layers for covered merged cells
+@crab-dev/rc-table:test:   ✓ preserves custom text, highlights and controls inside a selected cell
+@crab-dev/rc-table:test:   ✓ keeps every cell readable across fixed and scrolling columns and removes the outline when cleared
+@crab-dev/rc-table:test: PASS src/__tests__/sort-mode.test.tsx
+@crab-dev/rc-table:test:   ✓ sorts loaded rows in client mode and preserves server ordering in server mode
+@crab-dev/rc-table:test: FAIL src/__tests__/table.test.tsx
+@crab-dev/rc-table:test:   ✕ recalculates virtual row geometry when the inherited size changes and keeps explicit heights
+@crab-dev/rc-table:test:     WAKE_TEST_ASSERTION: Expected ["52px", "70px", "52px"] to equal ["40px", "70px", "40px"]
+@crab-dev/rc-table:test:       at src/__tests__/table.test.tsx:177:16
+@crab-dev/rc-table:test:     --- Expected
+@crab-dev/rc-table:test:     +++ Received
+@crab-dev/rc-table:test:     - ["40px", "70px", "40px"]
+@crab-dev/rc-table:test:     + ["52px", "70px", "52px"]
+@crab-dev/rc-table:test:     AssertionError: Expected ["52px", "70px", "52px"] to equal ["40px", "70px", "40px"]
+@crab-dev/rc-table:test:         at evaluate (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-table/src/__tests__/.wake-test-entry-suite-d4b5824581cb2259.ts:459:37)
+@crab-dev/rc-table:test:         at applyMatcher (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-table/src/__tests__/.wake-test-entry-suite-d4b5824581cb2259.ts:477:85)
+@crab-dev/rc-table:test:         at Object.object.<computed> [as toEqual] (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-table/src/__tests__/.wake-test-entry-suite-d4b5824581cb2259.ts:487:34)
+@crab-dev/rc-table:test:         at Object.fn (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-table/src/__tests__/.wake-test-entry-suite-d4b5824581cb2259.ts:30693:53)
+@crab-dev/rc-table:test:         at async //?/C:/Users/zhang/Desktop/crab-dev/components/rc-table/src/__tests__/.wake-test-entry-suite-d4b5824581cb2259.ts:2822:9
+@crab-dev/rc-table:test:         at async schedulerRunStep (//?/C:/Users/zhang/Desktop/crab-dev/components/rc-table/src/__tests__/.wake-test-entry-suite-d4b5824581cb2259.ts:2839:7)
+@crab-dev/rc-table:test:   ✓ renders grouped headers and basic cell content
+@crab-dev/rc-table:test:   ✓ uses block virtual spacers with inherited line-height 1
+@crab-dev/rc-table:test:   ✓ uses block virtual spacers with inherited line-height 1.7
+@crab-dev/rc-table:test:   ✓ uses block virtual spacers with inherited line-height 2
+@crab-dev/rc-table:test:   ✓ preserves native styles and exposes grid semantics
+@crab-dev/rc-table:test:   ✓ supports keyboard column resize and restores document styles on unmount
+@crab-dev/rc-table:test:   ✓ recursively removes hidden child columns before deriving leaf indexes and widths
+@crab-dev/rc-table:test:   ✓ renders summary row with fixed columns when showSummary enabled
+@crab-dev/rc-table:test:   ✓ renders merged text when mergeCells and fixed columns are used together
+@crab-dev/rc-table:test:   ✓ keeps the merged origin mounted when horizontal virtualization starts inside its colSpan
+@crab-dev/rc-table:test:   ✓ supports getRowHeight and headerRowHeight props
+@crab-dev/rc-table:test:   ✓ keeps merged-row compensation and the last row correct while scrolling
+@crab-dev/rc-table:test:   ✓ does not filter rows by itself and only emits filter conditions
+@crab-dev/rc-table:test:   ✓ supports controlled filters from outside
+@crab-dev/rc-table:test:   ✓ supports custom filter editor
+@crab-dev/rc-table:test:   ✓ supports external renderDefaultFilterEditor
+@crab-dev/rc-table:test:   ✓ renders empty filter cell when no filter editor is provided
+@crab-dev/rc-table:test:   ✓ supports custom filter cell className
+@crab-dev/rc-table:test:   ✓ supports column-level filter cell className
+@crab-dev/rc-table:test:   ✓ renders expanded content only for rows in expandedRowKeys
+@crab-dev/rc-table:test:   ✓ toggles expansion via icon click and emits onExpandedRowKeysChange
+@crab-dev/rc-table:test:   ✓ uncontrolled expansion shows content after clicking the expand icon
+@crab-dev/rc-table:test:   ✓ hides the expand icon for rows disabled by isRowExpandable
+@crab-dev/rc-table:test:   ✓ recomputes expansion when isRowExpandable changes without changing rows
+@crab-dev/rc-table:test:   ✓ recomputes tree rows when getChildRows changes
+@crab-dev/rc-table:test:   ✓ counts repeated keyword matches without materializing one entry per occurrence
+@crab-dev/rc-table:test:   ✓ emits onRowClick with the row and its index
+@crab-dev/rc-table:test:   ✓ emits onRowDoubleClick with the row and its index
+@crab-dev/rc-table:test:   ✓ does not emit onRowClick when clicking the row-selection checkbox
+@crab-dev/rc-table:test:   ✓ does not emit onRowClick when clicking the expand icon
+@crab-dev/rc-table:test:   ✓ does not emit onRowClick when clicking a button rendered inside a cell
+@crab-dev/rc-table:test:   ✓ does not emit onRowClick after a cell drag-selection
+@crab-dev/rc-table:test:   ✓ does not emit onRowDoubleClick when a cell enters edit mode (editType=cell)
+@crab-dev/rc-table:test:   ✓ keeps cell editor state attached to row id and column name after row and column reorder
+@crab-dev/rc-table:test:   ✓ lets row-edit consume the double click instead of emitting onRowDoubleClick (editType=row)
+@crab-dev/rc-table:test:   ✓ clears the previous draft when controlled row editing switches to another row
+@crab-dev/rc-table:test:   ✓ emits onRowClick via keyboard Enter on the anchored row
+@crab-dev/rc-table:test:   ✓ routes global keyboard actions only to the last active table
+@crab-dev/rc-table:test:   ✓ adds the clickable affordance class only when a row event is provided
+@crab-dev/rc-table:test: PASS src/__tests__/token-vars.test.ts
+@crab-dev/rc-table:test:   ✓ exposes canonical overrides with their semantic or static defaults
+@crab-dev/rc-table:test:   ✓ does not expose or consume removed aliases
+@crab-dev/rc-table:test: PASS src/__tests__/util.test.ts
+@crab-dev/rc-table:test:   ✓ updates nested objects and array elements without creating missing parents
+@crab-dev/rc-table:test:   ✓ preserves business row callbacks through sorting and nested header traversal
+@crab-dev/rc-table:test:   ✓ should not change order if all columns are unfixed
+@crab-dev/rc-table:test:   ✓ should move left fixed columns to the front
+@crab-dev/rc-table:test:   ✓ should move right fixed columns to the end
+@crab-dev/rc-table:test:   ✓ should order left, normal, right columns correctly
+@crab-dev/rc-table:test:   ✓ should handle multiple left and right fixed columns
+@crab-dev/rc-table:test:   ✓ should not mutate the original array
+@crab-dev/rc-table:test:   ✓ should build mergeCellMap and skipCellSet for a single merged area
+@crab-dev/rc-table:test:   ✓ should support multiple merge areas without key collision
+@crab-dev/rc-table:test:   ✓ should keep map entry and skip set empty area for zero span cell
+@crab-dev/rc-table:test:   ✓ should calculate merged cell size for single cell (rowSpan=0, colSpan=0)
+@crab-dev/rc-table:test:   ✓ should calculate merged cell size for rowSpan only
+@crab-dev/rc-table:test:   ✓ should calculate merged cell size for colSpan only
+@crab-dev/rc-table:test:   ✓ should calculate merged cell size for both rowSpan and colSpan
+@crab-dev/rc-table:test:   ✓ should return 1 for a column with no children
+@crab-dev/rc-table:test:   ✓ should return correct depth for a column with one level of children
+@crab-dev/rc-table:test:   ✓ should return correct depth for a column with nested children
+@crab-dev/rc-table:test:   ✓ should return the maximum depth among all children
+@crab-dev/rc-table:test:   ✓ should handle empty children array
+@crab-dev/rc-table:test:   ✓ should return 0 for empty columns array
+@crab-dev/rc-table:test:   ✓ should return 1 for columns with no children
+@crab-dev/rc-table:test:   ✓ should return correct max depth for columns with one level of children
+@crab-dev/rc-table:test:   ✓ should return correct max depth for columns with nested children
+@crab-dev/rc-table:test:   ✓ should return the maximum depth among all columns
+@crab-dev/rc-table:test:   ✓ should handle columns with empty children arrays
+@crab-dev/rc-table:test:   ✓ should handle deeply nested columns
+@crab-dev/rc-table:test:   ✓ should return the same columns if there are no children
+@crab-dev/rc-table:test:   ✓ should return only leaf columns for one level of children
+@crab-dev/rc-table:test:   ✓ should return only leaf columns for nested children
+@crab-dev/rc-table:test:   ✓ should handle columns with empty children arrays
+@crab-dev/rc-table:test:   ✓ should handle deeply nested columns
+@crab-dev/rc-table:test:   ✓ should return correct header cells for flat columns
+@crab-dev/rc-table:test:   ✓ should return correct header cells for columns with one level of children
+@crab-dev/rc-table:test:   ✓ should return correct header cells for deeply nested columns
+@crab-dev/rc-table:test:   ✓ should handle columns with empty children arrays
+@crab-dev/rc-table:test:   ✓ should align child columns correctly when top-level leaf and grouped headers are mixed
+@crab-dev/rc-table:test: Test Suites: 6 passed, 1 failed, 7 total
+@crab-dev/rc-table:test: Tests:       105 passed, 1 failed, 0 pending, 106 total
+@crab-dev/rc-table:test: Wake coverage
+@crab-dev/rc-table:test: File	Lines	Functions	Blocks
+@crab-dev/rc-table:test: All files	84.10% (3226/3836)	82.07% (357/435)	63.45% (755/1190)
+@crab-dev/rc-table:test: docs/demos/_mock.ts	100.00% (158/158)	94.74% (18/19)	97.26% (71/73)
+@crab-dev/rc-table:test: docs/demos/_operations.ts	92.31% (36/39)	100.00% (10/10)	70.83% (17/24)
+@crab-dev/rc-table:test: docs/demos/_scenarios.ts	100.00% (70/70)	100.00% (20/20)	88.89% (24/27)
+@crab-dev/rc-table:test: src/bodyCell.tsx	86.30% (334/387)	73.33% (22/30)	69.23% (117/169)
+@crab-dev/rc-table:test: src/bodyRow.tsx	100.00% (19/19)	100.00% (2/2)	50.00% (1/2)
+@crab-dev/rc-table:test: src/headerCell.tsx	80.97% (200/247)	43.75% (7/16)	38.46% (45/117)
+@crab-dev/rc-table:test: src/hooks/useCellEdit.ts	45.95% (17/37)	40.00% (2/5)	100.00% (0/0)
+@crab-dev/rc-table:test: src/hooks/useCellEditNav.ts	40.00% (34/85)	60.00% (6/10)	50.00% (5/10)
+@crab-dev/rc-table:test: src/hooks/useCellSelection.ts	83.68% (200/239)	93.10% (27/29)	56.41% (44/78)
+@crab-dev/rc-table:test: src/hooks/useColumnDrag.ts	38.54% (37/96)	60.00% (9/15)	40.00% (2/5)
+@crab-dev/rc-table:test: src/hooks/useColumnLayout.ts	99.24% (131/132)	97.14% (34/35)	75.00% (30/40)
+@crab-dev/rc-table:test: src/hooks/useColumnResize.ts	78.21% (61/78)	80.00% (8/10)	28.57% (2/7)
+@crab-dev/rc-table:test: src/hooks/useColumnSort.ts	73.61% (53/72)	90.91% (10/11)	52.38% (11/21)
+@crab-dev/rc-table:test: src/hooks/useKeywordMatch.ts	94.85% (129/136)	100.00% (14/14)	80.00% (48/60)
+@crab-dev/rc-table:test: src/hooks/useRowEdit.ts	83.64% (46/55)	76.92% (10/13)	90.91% (10/11)
+@crab-dev/rc-table:test: src/hooks/useRowEvents.ts	100.00% (78/78)	100.00% (9/9)	72.92% (35/48)
+@crab-dev/rc-table:test: src/hooks/useRowExpansion.ts	97.22% (35/36)	100.00% (4/4)	66.67% (4/6)
+@crab-dev/rc-table:test: src/hooks/useRowGroup.ts	71.88% (23/32)	80.00% (4/5)	66.67% (2/3)
+@crab-dev/rc-table:test: src/hooks/useRowNumber.tsx	68.89% (31/45)	60.00% (3/5)	0.00% (0/10)
+@crab-dev/rc-table:test: src/hooks/useRowSelection.ts	86.21% (50/58)	82.35% (14/17)	81.82% (9/11)
+@crab-dev/rc-table:test: src/hooks/useSummary.tsx	98.85% (86/87)	88.89% (8/9)	63.41% (26/41)
+@crab-dev/rc-table:test: src/hooks/useTableFilter.ts	95.00% (19/20)	100.00% (3/3)	50.00% (2/4)
+@crab-dev/rc-table:test: src/hooks/useTableInteractionScope.ts	100.00% (25/25)	77.78% (7/9)	100.00% (4/4)
+@crab-dev/rc-table:test: src/hooks/useTreeData.ts	78.05% (32/41)	75.00% (3/4)	80.00% (4/5)
+@crab-dev/rc-table:test: src/rowBg.ts	100.00% (3/3)	100.00% (0/0)	0.00% (0/1)
+@crab-dev/rc-table:test: src/table.tsx	86.20% (843/978)	73.81% (62/84)	52.80% (179/339)
+@crab-dev/rc-table:test: src/token.ts	100.00% (254/254)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-table:test: src/util.ts	64.86% (192/296)	87.18% (34/39)	86.67% (52/60)
+@crab-dev/rc-table:test: src/valueAccess.ts	90.91% (30/33)	87.50% (7/8)	78.57% (11/14)
+@crab-dev/rc-table:test: Seed:        1790216265595283812
+@crab-dev/rc-table:test: Time:        43625 ms
+@crab-dev/rc-table#test:  WARNING  command finished with error, but continuing...
+@crab-dev/rc-color-picker:test: PASS src/__tests__/colorPicker.test.tsx
+@crab-dev/rc-color-picker:test:   ✓ renders without runtime error
+@crab-dev/rc-color-picker:test:   ✓ shows a swatch tinted with the current color
+@crab-dev/rc-color-picker:test:   ✓ exposes the trigger as an accessible button
+@crab-dev/rc-color-picker:test:   ✓ opens the overlay on click
+@crab-dev/rc-color-picker:test:   ✓ opens the overlay via keyboard (Enter)
+@crab-dev/rc-color-picker:test:   ✓ does NOT open on focus (focus must not auto-open)
+@crab-dev/rc-color-picker:test:   ✓ shows four sliders (incl. alpha) in the overlay by default
+@crab-dev/rc-color-picker:test:   ✓ shows three sliders when showAlpha is false
+@crab-dev/rc-color-picker:test:   ✓ commits the value and closes on confirm
+@crab-dev/rc-color-picker:test:   ✓ does not call onValueChange on cancel
+@crab-dev/rc-color-picker:test:   ✓ does not open when disabled
+@crab-dev/rc-color-picker:test:   ✓ shows the reset button only when allowClear is set
+@crab-dev/rc-color-picker:test:   ✓ renders with a custom locale
+@crab-dev/rc-color-picker:test:   ✓ works uncontrolled via defaultValue
+@crab-dev/rc-color-picker:test:   ✓ falls back to default texts when a partial locale is given
+@crab-dev/rc-color-picker:test:   ✓ merges a user className instead of replacing the trigger style
+@crab-dev/rc-color-picker:test: PASS src/__tests__/colorPickerPanel.test.tsx
+@crab-dev/rc-color-picker:test:   ✓ renders lightness / chroma / hue / alpha sliders by default
+@crab-dev/rc-color-picker:test:   ✓ hides the alpha slider when showAlpha is false
+@crab-dev/rc-color-picker:test:   ✓ renders locale labels
+@crab-dev/rc-color-picker:test:   ✓ renders the color preview with the current color (incl. alpha)
+@crab-dev/rc-color-picker:test:   ✓ lightness slider exposes correct aria attributes
+@crab-dev/rc-color-picker:test:   ✓ calls onValueChange when the lightness slider is dragged
+@crab-dev/rc-color-picker:test:   ✓ calls onValueChange when the alpha slider is dragged
+@crab-dev/rc-color-picker:test:   ✓ renders the color text input and format switcher
+@crab-dev/rc-color-picker:test:   ✓ commits a typed hex value on Enter
+@crab-dev/rc-color-picker:test:   ✓ keeps the current alpha when typing a 6-digit hex
+@crab-dev/rc-color-picker:test:   ✓ renders preset swatches when presets are provided
+@crab-dev/rc-color-picker:test:   ✓ passes through additional HTML attributes
+@crab-dev/rc-color-picker:test: PASS src/__tests__/colorPickerSelectNesting.test.tsx
+@crab-dev/rc-color-picker:test:   ✓ keeps the picker open and applies the change when picking an option in the nested format select
+@crab-dev/rc-color-picker:test:   ✓ still closes the picker on a genuine outside pointerdown
+@crab-dev/rc-color-picker:test: PASS src/utils/__tests__/color.test.ts
+@crab-dev/rc-color-picker:test:   ✓ maps white to #ffffff
+@crab-dev/rc-color-picker:test:   ✓ maps black to #000000
+@crab-dev/rc-color-picker:test:   ✓ clamps out-of-gamut without throwing
+@crab-dev/rc-color-picker:test:   ✓ round-trips an in-gamut sRGB hex exactly
+@crab-dev/rc-color-picker:test:   ✓ expands 3-digit shorthand
+@crab-dev/rc-color-picker:test:   ✓ parses 8-digit hex alpha
+@crab-dev/rc-color-picker:test:   ✓ leaves alpha undefined for 6-digit hex (caller decides the fallback)
+@crab-dev/rc-color-picker:test:   ✓ rejects invalid input
+@crab-dev/rc-color-picker:test:   ✓ returns integer channels back
+@crab-dev/rc-color-picker:test:   ✓ hex is upper-cased
+@crab-dev/rc-color-picker:test:   ✓ rgb without alpha
+@crab-dev/rc-color-picker:test:   ✓ rgba with alpha
+@crab-dev/rc-color-picker:test:   ✓ hsl for pure red
+@crab-dev/rc-color-picker:test:   ✓ oklch keeps the channels
+@crab-dev/rc-color-picker:test:   ✓ parses rgb() to the matching hex
+@crab-dev/rc-color-picker:test:   ✓ parses hsl() back to pure red
+@crab-dev/rc-color-picker:test:   ✓ parses oklch() with alpha
+@crab-dev/rc-color-picker:test:   ✓ returns null on garbage
+@crab-dev/rc-color-picker:test:   ✓ leaves alpha undefined when the input omits it
+@crab-dev/rc-color-picker:test:   ✓ normalizes hsl hue outside 0-360
+@crab-dev/rc-color-picker:test: Test Suites: 4 passed, 0 failed, 4 total
+@crab-dev/rc-color-picker:test: Tests:       50 passed, 0 failed, 0 pending, 50 total
+@crab-dev/rc-color-picker:test: Wake coverage
+@crab-dev/rc-color-picker:test: File	Lines	Functions	Blocks
+@crab-dev/rc-color-picker:test: All files	97.84% (634/648)	87.50% (42/48)	40.44% (55/136)
+@crab-dev/rc-color-picker:test: src/colorPicker/colorPicker.tsx	100.00% (50/50)	100.00% (1/1)	14.29% (1/7)
+@crab-dev/rc-color-picker:test: src/colorPicker/colorPickerInput.tsx	100.00% (67/67)	100.00% (6/6)	26.92% (7/26)
+@crab-dev/rc-color-picker:test: src/colorPicker/colorPickerOverlay.tsx	100.00% (59/59)	75.00% (3/4)	42.86% (3/7)
+@crab-dev/rc-color-picker:test: src/panels/colorInput.tsx	100.00% (49/49)	80.00% (8/10)	20.00% (1/5)
+@crab-dev/rc-color-picker:test: src/panels/colorPickerPanel.tsx	100.00% (122/122)	60.00% (3/5)	24.00% (6/25)
+@crab-dev/rc-color-picker:test: src/panels/presetSwatches.tsx	100.00% (53/53)	85.71% (6/7)	5.88% (1/17)
+@crab-dev/rc-color-picker:test: src/token.ts	100.00% (99/99)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-color-picker:test: src/utils/color.ts	90.60% (135/149)	100.00% (15/15)	73.47% (36/49)
+@crab-dev/rc-color-picker:test: Seed:        1790216277889856528
+@crab-dev/rc-color-picker:test: Time:        39316 ms
+@crab-dev/rc-form:test: PASS src/__tests__/api.test.tsx
+@crab-dev/rc-form:test:   ✓ propagates a business failure and releases the submission lock for retry
+@crab-dev/rc-form:test:   ✓ isolates plain snapshots and preserves opaque immutable field values
+@crab-dev/rc-form:test:   ✓ keeps the form instance and edited data across inline defaultValue changes
+@crab-dev/rc-form:test:   ✓ binds native events, checked and valueChange without losing child handlers
+@crab-dev/rc-form:test:   ✓ waits for submission, coalesces repeats, and lets warnings pass
+@crab-dev/rc-form:test:   ✓ returns field errors and validates a programmatic change in the same event
+@crab-dev/rc-form:test: PASS src/__tests__/bus.test.ts
+@crab-dev/rc-form:test:   ✓ dispatches only subscribers with matching type
+@crab-dev/rc-form:test:   ✓ unSubscribe removes subscriber
+@crab-dev/rc-form:test: PASS src/__tests__/form.integration.test.tsx
+@crab-dev/rc-form:test:   ✓ supports form instance operations and name-path validation filtering
+@crab-dev/rc-form:test:   ✓ supports hidden item and item without label/editor
+@crab-dev/rc-form:test:   ✓ covers warning/error rule branches and editor onChange path
+@crab-dev/rc-form:test:   ✓ skips rule validator when rule type is neither ERROR nor WARNING
+@crab-dev/rc-form:test:   ✓ triggers submit success/failed and requiredIndicatorRenderer
+@crab-dev/rc-form:test:   ✓ covers editor onChange path and ERROR rule state
+@crab-dev/rc-form:test:   ✓ passes accurate changed/allValues to onFieldValueChange
+@crab-dev/rc-form:test:   ✓ clones input object in setFieldsValue to avoid external mutation leaking
+@crab-dev/rc-form:test: PASS src/__tests__/hooks/useForm.test.tsx
+@crab-dev/rc-form:test:   ✓ delegates to injected internal form instance
+@crab-dev/rc-form:test: PASS src/__tests__/item.test.tsx
+@crab-dev/rc-form:test:   ✓ required 失败：展示可点击的错误图标、role=alert 消息，并向编辑器透传 status=error
+@crab-dev/rc-form:test:   ✓ warning 规则：向编辑器透传 status=warning，并以 role=alert 承载警告文案
+@crab-dev/rc-form:test:   ✓ 校验通过：不展示错误触发器，无 alert，编辑器 status 为空
+@crab-dev/rc-form:test:   ✓ 重新编辑时清除上一轮校验结果：错误触发器消失、status 归零
+@crab-dev/rc-form:test: PASS src/__tests__/util.test.ts
+@crab-dev/rc-form:test:   ✓ setRecordValue and getRecordValue support string path
+@crab-dev/rc-form:test:   ✓ setRecordValue and getRecordValue support array path
+@crab-dev/rc-form:test:   ✓ setRecordValue does nothing for empty path array
+@crab-dev/rc-form:test:   ✓ getRecordValue returns undefined for nullish record or missing path
+@crab-dev/rc-form:test:   ✓ equalsNamePath compares string and array paths correctly
+@crab-dev/rc-form:test: Test Suites: 6 passed, 0 failed, 6 total
+@crab-dev/rc-form:test: Tests:       26 passed, 0 failed, 0 pending, 26 total
+@crab-dev/rc-form:test: Wake coverage
+@crab-dev/rc-form:test: File	Lines	Functions	Blocks
+@crab-dev/rc-form:test: All files	97.99% (488/498)	95.95% (71/74)	83.93% (141/168)
+@crab-dev/rc-form:test: src/bus.ts	100.00% (16/16)	100.00% (6/6)	100.00% (1/1)
+@crab-dev/rc-form:test: src/context.tsx	100.00% (3/3)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-form:test: src/form.tsx	96.64% (115/119)	96.55% (28/29)	87.18% (34/39)
+@crab-dev/rc-form:test: src/hooks/useForm.ts	100.00% (20/20)	100.00% (12/12)	0.00% (0/1)
+@crab-dev/rc-form:test: src/hooks/useFormContext.ts	100.00% (5/5)	100.00% (1/1)	0.00% (0/1)
+@crab-dev/rc-form:test: src/item.tsx	97.67% (252/258)	90.00% (18/20)	80.00% (80/100)
+@crab-dev/rc-form:test: src/token.ts	100.00% (36/36)	100.00% (0/0)	100.00% (0/0)
+@crab-dev/rc-form:test: src/types.ts	100.00% (10/10)	100.00% (2/2)	100.00% (0/0)
+@crab-dev/rc-form:test: src/util.ts	100.00% (31/31)	100.00% (4/4)	100.00% (26/26)
+@crab-dev/rc-form:test: Seed:        1790216276839293620
+@crab-dev/rc-form:test: Time:        42887 ms
+@crab-dev/rc-table#test:  ERROR  command (C:\Users\zhang\Desktop\crab-dev\components\rc-table) C:\Users\zhang\AppData\Local\Temp\xfs-9db605b8\yarn.cmd run test exited (1)
+
+ Tasks:    84 successful, 85 total
+Cached:    31 cached, 85 total
+  Time:    1m55.541s 
+Failed:    @crab-dev/rc-table#test
+
+ ERROR  run failed: command  exited (1)

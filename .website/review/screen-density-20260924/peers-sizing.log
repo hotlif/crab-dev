@@ -1,0 +1,317 @@
+pc33565 → ✓ @commitlint/load@npm:21.2.2 doesn't provide @types/cosmiconfig to cosmiconfig-typescript-loader@npm:6.3.0 [27b18]
+p0dbf3f → ✘ @commitlint/load@npm:21.2.2 doesn't provide @types/node to cosmiconfig-typescript-loader@npm:6.3.0 [27b18]
+p235f42 → ✓ @commitlint/load@npm:21.2.2 doesn't provide @types/typescript to cosmiconfig-typescript-loader@npm:6.3.0 [27b18] and 1 other dependency
+pa030b0 → ✓ @commitlint/load@npm:21.2.2 provides cosmiconfig@npm:9.0.2 [27b18] to cosmiconfig-typescript-loader@npm:6.3.0 [27b18]
+p68f7df → ✘ @commitlint/load@npm:21.2.2 doesn't provide typescript to cosmiconfig-typescript-loader@npm:6.3.0 [27b18] and 1 other dependency
+p6b1bbf → ✓ @commitlint/read@npm:21.2.1 doesn't provide @types/conventional-commits-filter to @conventional-changelog/git-client@npm:3.1.2 [2e012]
+p928e95 → ✓ @commitlint/read@npm:21.2.1 doesn't provide @types/conventional-commits-parser to @conventional-changelog/git-client@npm:3.1.2 [2e012]
+p9e9003 → ✓ @commitlint/read@npm:21.2.1 doesn't provide conventional-commits-filter to @conventional-changelog/git-client@npm:3.1.2 [2e012]
+pdad11b → ✓ @commitlint/read@npm:21.2.1 doesn't provide conventional-commits-parser to @conventional-changelog/git-client@npm:3.1.2 [2e012]
+pd251c0 → ✓ @crab-dev/rc-alert@workspace:components/rc-alert provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p8c9a15 → ✓ @crab-dev/rc-alert@workspace:components/rc-alert provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p683a0f → ✓ @crab-dev/rc-alert@workspace:components/rc-alert provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pd69c9d → ✓ @crab-dev/rc-alert@workspace:components/rc-alert provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p5c9796 → ✓ @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout [1b1f9] provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+ped11a2 → ✓ @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout [1b1f9] provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p5c312a → ✓ @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 7 other dependencies
+pe4c983 → ✓ @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p66e385 → ✓ @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+p3f9ca9 → ✓ @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pe0aaa0 → ✓ @crab-dev/rc-auto-sizer@workspace:components/rc-auto-sizer provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p34c238 → ✓ @crab-dev/rc-auto-sizer@workspace:components/rc-auto-sizer provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p7ccce4 → ✓ @crab-dev/rc-auto-sizer@workspace:components/rc-auto-sizer provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p8ab59d → ✓ @crab-dev/rc-auto-sizer@workspace:components/rc-auto-sizer provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p5936aa → ✓ @crab-dev/rc-avatar@workspace:components/rc-avatar provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p7f1db0 → ✓ @crab-dev/rc-avatar@workspace:components/rc-avatar provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p1aaefa → ✓ @crab-dev/rc-avatar@workspace:components/rc-avatar provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pe8926d → ✓ @crab-dev/rc-avatar@workspace:components/rc-avatar provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p1d37f0 → ✓ @crab-dev/rc-badge@workspace:components/rc-badge provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pf70c10 → ✓ @crab-dev/rc-badge@workspace:components/rc-badge provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p0f78c6 → ✓ @crab-dev/rc-badge@workspace:components/rc-badge provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p7e5cfa → ✓ @crab-dev/rc-badge@workspace:components/rc-badge provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p3cc00d → ✓ @crab-dev/rc-bar-chart@workspace:components/rc-bar-chart provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pa86c6e → ✓ @crab-dev/rc-bar-chart@workspace:components/rc-bar-chart provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p756ab7 → ✓ @crab-dev/rc-bar-chart@workspace:components/rc-bar-chart provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pd16fcf → ✓ @crab-dev/rc-bar-chart@workspace:components/rc-bar-chart provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p895486 → ✓ @crab-dev/rc-breadcrumbs@workspace:components/rc-breadcrumbs provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p32e297 → ✓ @crab-dev/rc-breadcrumbs@workspace:components/rc-breadcrumbs provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p939ab3 → ✓ @crab-dev/rc-breadcrumbs@workspace:components/rc-breadcrumbs provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p1478fd → ✓ @crab-dev/rc-breadcrumbs@workspace:components/rc-breadcrumbs provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pc93634 → ✓ @crab-dev/rc-button@workspace:components/rc-button provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p4f80ab → ✓ @crab-dev/rc-button@workspace:components/rc-button provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pf24f67 → ✓ @crab-dev/rc-button@workspace:components/rc-button provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 12 other dependencies
+p17665a → ✓ @crab-dev/rc-button@workspace:components/rc-button provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p6b1bf0 → ✓ @crab-dev/rc-canvas@workspace:components/rc-canvas provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p0b32e8 → ✓ @crab-dev/rc-canvas@workspace:components/rc-canvas provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p909022 → ✓ @crab-dev/rc-canvas@workspace:components/rc-canvas provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pf84582 → ✓ @crab-dev/rc-canvas@workspace:components/rc-canvas provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p1bf77e → ✓ @crab-dev/rc-card@workspace:components/rc-card provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pdeccdd → ✓ @crab-dev/rc-card@workspace:components/rc-card provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pc06894 → ✓ @crab-dev/rc-card@workspace:components/rc-card provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p9e304b → ✓ @crab-dev/rc-card@workspace:components/rc-card provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p038d8d → ✓ @crab-dev/rc-checkbox@workspace:components/rc-checkbox provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p0ade94 → ✓ @crab-dev/rc-checkbox@workspace:components/rc-checkbox provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p8648df → ✓ @crab-dev/rc-checkbox@workspace:components/rc-checkbox provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p186420 → ✓ @crab-dev/rc-checkbox@workspace:components/rc-checkbox provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p398c25 → ✓ @crab-dev/rc-color-picker@workspace:components/rc-color-picker provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p8291a1 → ✓ @crab-dev/rc-color-picker@workspace:components/rc-color-picker provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p1eff04 → ✓ @crab-dev/rc-color-picker@workspace:components/rc-color-picker provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pe0b5c2 → ✓ @crab-dev/rc-color-picker@workspace:components/rc-color-picker provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pf5a5b9 → ✓ @crab-dev/rc-component-preview@workspace:components/rc-component-preview provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p49749f → ✓ @crab-dev/rc-component-preview@workspace:components/rc-component-preview provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p39c2be → ✓ @crab-dev/rc-component-preview@workspace:components/rc-component-preview provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+pada583 → ✓ @crab-dev/rc-component-preview@workspace:components/rc-component-preview provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p42381c → ✓ @crab-dev/rc-config-provider@workspace:components/rc-config-provider provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+pa5f8e0 → ✓ @crab-dev/rc-config-provider@workspace:components/rc-config-provider provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1]
+p70c192 → ✓ @crab-dev/rc-config-provider@workspace:components/rc-config-provider provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 11 other dependencies
+p7cca7d → ✓ @crab-dev/rc-config-provider@workspace:components/rc-config-provider provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+pdefbf7 → ✓ @crab-dev/rc-cron-picker@workspace:components/rc-cron-picker provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p25c5b2 → ✓ @crab-dev/rc-cron-picker@workspace:components/rc-cron-picker provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p565f38 → ✓ @crab-dev/rc-cron-picker@workspace:components/rc-cron-picker provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pb6ccb8 → ✓ @crab-dev/rc-cron-picker@workspace:components/rc-cron-picker provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p163a14 → ✓ @crab-dev/rc-date-picker@workspace:components/rc-date-picker provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 7 other dependencies
+p2905bd → ✓ @crab-dev/rc-date-picker@workspace:components/rc-date-picker provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p13da2f → ✓ @crab-dev/rc-date-picker@workspace:components/rc-date-picker provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 13 other dependencies
+p317435 → ✓ @crab-dev/rc-date-picker@workspace:components/rc-date-picker provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p752df7 → ✓ @crab-dev/rc-dialog@workspace:components/rc-dialog provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p8162ca → ✓ @crab-dev/rc-dialog@workspace:components/rc-dialog provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p4cd162 → ✓ @crab-dev/rc-dialog@workspace:components/rc-dialog provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+p1033c8 → ✓ @crab-dev/rc-dialog@workspace:components/rc-dialog provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p0dcf12 → ✓ @crab-dev/rc-divider@workspace:components/rc-divider provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p2a0ed4 → ✓ @crab-dev/rc-divider@workspace:components/rc-divider provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p8773a5 → ✓ @crab-dev/rc-divider@workspace:components/rc-divider provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pe217f7 → ✓ @crab-dev/rc-divider@workspace:components/rc-divider provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p62eb15 → ✓ @crab-dev/rc-drawer@workspace:components/rc-drawer provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p11f103 → ✓ @crab-dev/rc-drawer@workspace:components/rc-drawer provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pbe8259 → ✓ @crab-dev/rc-drawer@workspace:components/rc-drawer provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+p5a3822 → ✓ @crab-dev/rc-drawer@workspace:components/rc-drawer provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+paf251c → ✓ @crab-dev/rc-dropdown-container@npm:0.0.3 doesn't provide @emotion/is-prop-valid to motion@npm:12.43.0 [f32c4] and 1 other dependency
+p671506 → ✓ @crab-dev/rc-dropdown-container@npm:0.0.3 doesn't provide @types/emotion__is-prop-valid to motion@npm:12.43.0 [f32c4] and 1 other dependency
+pb55eb2 → ✓ @crab-dev/rc-dropdown-container@npm:0.0.3 provides @types/react@npm:19.3.0 to @floating-ui/react@npm:0.27.20 [f32c4] and 4 other dependencies
+pf802f3 → ✓ @crab-dev/rc-dropdown-container@npm:0.0.3 doesn't provide @types/react-dom to @floating-ui/react@npm:0.27.20 [f32c4] and 3 other dependencies
+pcd9ba5 → ✓ @crab-dev/rc-dropdown-container@npm:0.0.3 provides react@npm:19.3.0 to @floating-ui/react@npm:0.27.20 [f32c4] and 5 other dependencies
+pf4f9a6 → ✓ @crab-dev/rc-dropdown-container@npm:0.0.3 provides react-dom@npm:19.3.0 [3f0f7] to @floating-ui/react@npm:0.27.20 [f32c4] and 3 other dependencies
+pdefcae → ✓ @crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 7 other dependencies
+pe4ad02 → ✓ @crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p931145 → ✓ @crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+p3eccdf → ✓ @crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pb72b34 → ✓ @crab-dev/rc-empty@workspace:components/rc-empty provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p32d2f8 → ✓ @crab-dev/rc-empty@workspace:components/rc-empty provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p868572 → ✓ @crab-dev/rc-empty@workspace:components/rc-empty provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pe7f046 → ✓ @crab-dev/rc-empty@workspace:components/rc-empty provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pb92bce → ✓ @crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+peefda5 → ✓ @crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p865521 → ✓ @crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pe3846d → ✓ @crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pb3a657 → ✓ @crab-dev/rc-form@workspace:components/rc-form provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p40a173 → ✓ @crab-dev/rc-form@workspace:components/rc-form provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p82570f → ✓ @crab-dev/rc-form@workspace:components/rc-form provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+p287258 → ✓ @crab-dev/rc-form@workspace:components/rc-form provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p5c2637 → ✓ @crab-dev/rc-hooks@npm:0.0.2 provides @types/react@npm:19.3.0 to react-dom@npm:19.3.0 [3f0f7]
+pdda0aa → ✓ @crab-dev/rc-hooks@npm:0.0.2 provides react@npm:19.3.0 to lucide-react@npm:1.23.0 [b814b] and 1 other dependency
+p27a68e → ✓ @crab-dev/rc-hooks@workspace:components/rc-hooks provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+p530959 → ✓ @crab-dev/rc-hooks@workspace:components/rc-hooks provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1]
+p31affc → ✓ @crab-dev/rc-hooks@workspace:components/rc-hooks provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 11 other dependencies
+pa28d9d → ✓ @crab-dev/rc-hooks@workspace:components/rc-hooks provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+pc54324 → ✓ @crab-dev/rc-line-edit@workspace:components/rc-line-edit provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p51eccb → ✓ @crab-dev/rc-line-edit@workspace:components/rc-line-edit provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pf76f97 → ✓ @crab-dev/rc-line-edit@workspace:components/rc-line-edit provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 12 other dependencies
+pdd060a → ✓ @crab-dev/rc-line-edit@workspace:components/rc-line-edit provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pd7857f → ✓ @crab-dev/rc-masonry@workspace:components/rc-masonry provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p300d4f → ✓ @crab-dev/rc-masonry@workspace:components/rc-masonry provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p1a9d01 → ✓ @crab-dev/rc-masonry@workspace:components/rc-masonry provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p6fa2fd → ✓ @crab-dev/rc-masonry@workspace:components/rc-masonry provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p8a1110 → ✓ @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 4 other dependencies
+p999eab → ✓ @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pef4cfa → ✓ @crab-dev/rc-menu@workspace:components/rc-menu [1ed1b] provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [1ed1b] and 4 other dependencies
+p94313e → ✓ @crab-dev/rc-menu@workspace:components/rc-menu [1ed1b] provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [1ed1b] and 3 other dependencies
+pca8531 → ✓ @crab-dev/rc-menu@workspace:components/rc-menu provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p350260 → ✓ @crab-dev/rc-menu@workspace:components/rc-menu provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+ped3cf7 → ✓ @crab-dev/rc-menu@workspace:components/rc-menu provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 11 other dependencies
+pa6ca9b → ✓ @crab-dev/rc-menu@workspace:components/rc-menu provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+p0229bc → ✓ @crab-dev/rc-message@workspace:components/rc-message provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pc8a034 → ✓ @crab-dev/rc-message@workspace:components/rc-message provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p0dfb6a → ✓ @crab-dev/rc-message@workspace:components/rc-message provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p0a344f → ✓ @crab-dev/rc-message@workspace:components/rc-message provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pf84104 → ✓ @crab-dev/rc-notification@workspace:components/rc-notification provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p8ff372 → ✓ @crab-dev/rc-notification@workspace:components/rc-notification provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pea41b4 → ✓ @crab-dev/rc-notification@workspace:components/rc-notification provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+pd52175 → ✓ @crab-dev/rc-notification@workspace:components/rc-notification provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+peb706f → ✓ @crab-dev/rc-number-edit@workspace:components/rc-number-edit provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p463742 → ✓ @crab-dev/rc-number-edit@workspace:components/rc-number-edit provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p6d769f → ✓ @crab-dev/rc-number-edit@workspace:components/rc-number-edit provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 12 other dependencies
+p7d4607 → ✓ @crab-dev/rc-number-edit@workspace:components/rc-number-edit provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p1e3e2c → ✓ @crab-dev/rc-pagination@workspace:components/rc-pagination provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p954c01 → ✓ @crab-dev/rc-pagination@workspace:components/rc-pagination provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pd900e6 → ✓ @crab-dev/rc-pagination@workspace:components/rc-pagination provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pa70bd2 → ✓ @crab-dev/rc-pagination@workspace:components/rc-pagination provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p04e1d1 → ✓ @crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+p1b10ef → ✓ @crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1]
+p797a13 → ✓ @crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor provides react@npm:19.3.0 to @crab-dev/rc-tree@workspace:components/rc-tree [d89e7] and 11 other dependencies
+p903288 → ✓ @crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-tree@workspace:components/rc-tree [d89e7] and 6 other dependencies
+p3155fb → ✓ @crab-dev/rc-prose@workspace:components/rc-prose provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p2fdeac → ✓ @crab-dev/rc-prose@workspace:components/rc-prose provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p71f6c6 → ✓ @crab-dev/rc-prose@workspace:components/rc-prose provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p87e199 → ✓ @crab-dev/rc-prose@workspace:components/rc-prose provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p99955d → ✓ @crab-dev/rc-radio@workspace:components/rc-radio provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p0c9bbf → ✓ @crab-dev/rc-radio@workspace:components/rc-radio provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pce732d → ✓ @crab-dev/rc-radio@workspace:components/rc-radio provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p1743d1 → ✓ @crab-dev/rc-radio@workspace:components/rc-radio provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pb6d1e5 → ✓ @crab-dev/rc-realm@workspace:components/rc-realm provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p3ab290 → ✓ @crab-dev/rc-realm@workspace:components/rc-realm provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p284020 → ✓ @crab-dev/rc-realm@workspace:components/rc-realm provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p7143f5 → ✓ @crab-dev/rc-realm@workspace:components/rc-realm provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p5c4185 → ✓ @crab-dev/rc-router@workspace:components/rc-router provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+pfc959f → ✓ @crab-dev/rc-router@workspace:components/rc-router provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1]
+p48f064 → ✓ @crab-dev/rc-router@workspace:components/rc-router provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p7380a4 → ✓ @crab-dev/rc-router@workspace:components/rc-router provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pb44887 → ✓ @crab-dev/rc-segmented@workspace:components/rc-segmented provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p6bf4e2 → ✓ @crab-dev/rc-segmented@workspace:components/rc-segmented provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p8d9403 → ✓ @crab-dev/rc-segmented@workspace:components/rc-segmented provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pf56f0c → ✓ @crab-dev/rc-segmented@workspace:components/rc-segmented provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p9c8a68 → ✓ @crab-dev/rc-select@npm:0.0.3 provides @types/react@npm:19.3.0 to react-dom@npm:19.3.0 [3f0f7]
+p3e17ae → ✓ @crab-dev/rc-select@npm:0.0.3 provides react@npm:19.3.0 to lucide-react@npm:1.23.0 [b814b] and 1 other dependency
+p83780d → ✓ @crab-dev/rc-select@workspace:components/rc-select provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p9e9966 → ✓ @crab-dev/rc-select@workspace:components/rc-select provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p3fa412 → ✓ @crab-dev/rc-select@workspace:components/rc-select provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pc66420 → ✓ @crab-dev/rc-select@workspace:components/rc-select provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pc6851c → ✓ @crab-dev/rc-skeleton@workspace:components/rc-skeleton provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p77d5f4 → ✓ @crab-dev/rc-skeleton@workspace:components/rc-skeleton provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pb98b5c → ✓ @crab-dev/rc-skeleton@workspace:components/rc-skeleton provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pbe4f86 → ✓ @crab-dev/rc-skeleton@workspace:components/rc-skeleton provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p91c216 → ✓ @crab-dev/rc-slider@workspace:components/rc-slider provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p56e334 → ✓ @crab-dev/rc-slider@workspace:components/rc-slider provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p3ed7db → ✓ @crab-dev/rc-slider@workspace:components/rc-slider provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 12 other dependencies
+pd4cc32 → ✓ @crab-dev/rc-slider@workspace:components/rc-slider provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p1c5e0e → ✓ @crab-dev/rc-spin@npm:0.0.2 provides @types/react@npm:19.3.0 to react-dom@npm:19.3.0 [3f0f7]
+p2ae71a → ✓ @crab-dev/rc-spin@npm:0.0.2 provides react@npm:19.3.0 to lucide-react@npm:1.23.0 [b814b] and 1 other dependency
+p1a50b6 → ✓ @crab-dev/rc-spin@workspace:components/rc-spin provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pdd0156 → ✓ @crab-dev/rc-spin@workspace:components/rc-spin provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p6a1f8f → ✓ @crab-dev/rc-spin@workspace:components/rc-spin provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p8099e2 → ✓ @crab-dev/rc-spin@workspace:components/rc-spin provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pe57cdf → ✓ @crab-dev/rc-split-pane@workspace:components/rc-split-pane provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pb1d84f → ✓ @crab-dev/rc-split-pane@workspace:components/rc-split-pane provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p56db62 → ✓ @crab-dev/rc-split-pane@workspace:components/rc-split-pane provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pb8e989 → ✓ @crab-dev/rc-split-pane@workspace:components/rc-split-pane provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p5a63c4 → ✓ @crab-dev/rc-switch@workspace:components/rc-switch provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pf7d4e7 → ✓ @crab-dev/rc-switch@workspace:components/rc-switch provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p06b2fd → ✓ @crab-dev/rc-switch@workspace:components/rc-switch provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p451b23 → ✓ @crab-dev/rc-switch@workspace:components/rc-switch provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pf91d48 → ✓ @crab-dev/rc-table-pro@workspace:components/rc-table-pro provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p021a19 → ✓ @crab-dev/rc-table-pro@workspace:components/rc-table-pro provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p16060c → ✓ @crab-dev/rc-table-pro@workspace:components/rc-table-pro provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p7cabd7 → ✓ @crab-dev/rc-table-pro@workspace:components/rc-table-pro provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p359b83 → ✓ @crab-dev/rc-table@workspace:components/rc-table provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+peff51d → ✓ @crab-dev/rc-table@workspace:components/rc-table provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pdcef3e → ✓ @crab-dev/rc-table@workspace:components/rc-table provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 14 other dependencies
+pef1a3c → ✓ @crab-dev/rc-table@workspace:components/rc-table provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p09b8bd → ✓ @crab-dev/rc-tabs@workspace:components/rc-tabs provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p18909d → ✓ @crab-dev/rc-tabs@workspace:components/rc-tabs provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p303d25 → ✓ @crab-dev/rc-tabs@workspace:components/rc-tabs provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pbb5581 → ✓ @crab-dev/rc-tabs@workspace:components/rc-tabs provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p53ffcc → ✓ @crab-dev/rc-tag@workspace:components/rc-tag provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p0a0582 → ✓ @crab-dev/rc-tag@workspace:components/rc-tag provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pb9e3ac → ✓ @crab-dev/rc-tag@workspace:components/rc-tag provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pb19f17 → ✓ @crab-dev/rc-tag@workspace:components/rc-tag provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p006b53 → ✓ @crab-dev/rc-text-edit@workspace:components/rc-text-edit provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pecccea → ✓ @crab-dev/rc-text-edit@workspace:components/rc-text-edit provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p78acb6 → ✓ @crab-dev/rc-text-edit@workspace:components/rc-text-edit provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 12 other dependencies
+pb312fc → ✓ @crab-dev/rc-text-edit@workspace:components/rc-text-edit provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p6063a5 → ✓ @crab-dev/rc-theme@workspace:components/rc-theme provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+pb0f143 → ✓ @crab-dev/rc-theme@workspace:components/rc-theme provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1]
+p57cce6 → ✓ @crab-dev/rc-theme@workspace:components/rc-theme provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 11 other dependencies
+p4b8ecb → ✓ @crab-dev/rc-theme@workspace:components/rc-theme provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+p98e360 → ✓ @crab-dev/rc-token-global@workspace:components/rc-token-global provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pd7c45b → ✓ @crab-dev/rc-token-global@workspace:components/rc-token-global provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pb6ee6a → ✓ @crab-dev/rc-token-global@workspace:components/rc-token-global provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 12 other dependencies
+p8b632a → ✓ @crab-dev/rc-token-global@workspace:components/rc-token-global provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+pbde8b2 → ✓ @crab-dev/rc-token-semantic@npm:0.0.2 provides @types/react@npm:19.3.0 to react-dom@npm:19.3.0 [3f0f7]
+pd8ef90 → ✓ @crab-dev/rc-token-semantic@npm:0.0.2 provides react@npm:19.3.0 to lucide-react@npm:1.23.0 [b814b] and 1 other dependency
+pa001a9 → ✓ @crab-dev/rc-token-semantic@workspace:components/rc-token-semantic provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+pe7b259 → ✓ @crab-dev/rc-token-semantic@workspace:components/rc-token-semantic provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+pd7941c → ✓ @crab-dev/rc-token-semantic@workspace:components/rc-token-semantic provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 12 other dependencies
+pcf75e7 → ✓ @crab-dev/rc-token-semantic@workspace:components/rc-token-semantic provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+p61a413 → ✓ @crab-dev/rc-tooltip@npm:0.0.2 doesn't provide @emotion/is-prop-valid to motion@npm:12.43.0 [f32c4] and 1 other dependency
+pe77d19 → ✓ @crab-dev/rc-tooltip@npm:0.0.2 doesn't provide @types/emotion__is-prop-valid to motion@npm:12.43.0 [f32c4] and 1 other dependency
+pa85f3a → ✓ @crab-dev/rc-tooltip@npm:0.0.2 provides @types/react@npm:19.3.0 to @floating-ui/react@npm:0.27.20 [f32c4] and 4 other dependencies
+pc39b32 → ✓ @crab-dev/rc-tooltip@npm:0.0.2 doesn't provide @types/react-dom to @floating-ui/react@npm:0.27.20 [f32c4] and 3 other dependencies
+p8eccbd → ✓ @crab-dev/rc-tooltip@npm:0.0.2 provides react@npm:19.3.0 to @floating-ui/react@npm:0.27.20 [f32c4] and 5 other dependencies
+p51b404 → ✓ @crab-dev/rc-tooltip@npm:0.0.2 provides react-dom@npm:19.3.0 [3f0f7] to @floating-ui/react@npm:0.27.20 [f32c4] and 3 other dependencies
+pdedd2a → ✓ @crab-dev/rc-tooltip@workspace:components/rc-tooltip provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 5 other dependencies
+p959b72 → ✓ @crab-dev/rc-tooltip@workspace:components/rc-tooltip provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p567c4a → ✓ @crab-dev/rc-tooltip@workspace:components/rc-tooltip provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+p9b174d → ✓ @crab-dev/rc-tooltip@workspace:components/rc-tooltip provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+pbde637 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [36cf9] provides @dnd-kit/core@npm:6.3.1 [1ed1b] to @dnd-kit/sortable@npm:10.0.0 [1ed1b]
+pe1cdfc → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [36cf9] doesn't provide @types/dnd-kit__core to @dnd-kit/sortable@npm:10.0.0 [1ed1b]
+p724fce → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [36cf9] provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [1ed1b] and 6 other dependencies
+pa0af05 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [36cf9] provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [1ed1b] and 2 other dependencies
+p61b8cf → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [d89e7] provides @dnd-kit/core@npm:6.3.1 [b73aa] to @dnd-kit/sortable@npm:10.0.0 [b73aa]
+paf7b55 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [d89e7] doesn't provide @types/dnd-kit__core to @dnd-kit/sortable@npm:10.0.0 [b73aa]
+p82eff7 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [d89e7] provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 6 other dependencies
+pfbf86a → ✓ @crab-dev/rc-tree@workspace:components/rc-tree [d89e7] provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+p9f5442 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree provides @dnd-kit/core@npm:6.3.1 [b73aa] to @dnd-kit/sortable@npm:10.0.0 [b73aa]
+p1041d6 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree doesn't provide @types/dnd-kit__core to @dnd-kit/sortable@npm:10.0.0 [b73aa]
+pb20bf4 → ✓ @crab-dev/rc-tree@workspace:components/rc-tree provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [7e2f0] and 7 other dependencies
+p206e8e → ✓ @crab-dev/rc-tree@workspace:components/rc-tree provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [7e2f0] and 2 other dependencies
+pbc624e → ✓ @crab-dev/rc-tree@workspace:components/rc-tree provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 12 other dependencies
+p68542b → ✓ @crab-dev/rc-tree@workspace:components/rc-tree provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 7 other dependencies
+pd3ba60 → ✓ @crab-dev/rc-virtual@workspace:components/rc-virtual provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 3 other dependencies
+p39a233 → ✓ @crab-dev/rc-virtual@workspace:components/rc-virtual provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1] and 1 other dependency
+p422ec6 → ✓ @crab-dev/rc-virtual@workspace:components/rc-virtual provides react@npm:19.3.0 to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 11 other dependencies
+pb26313 → ✓ @crab-dev/rc-virtual@workspace:components/rc-virtual provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-menu@workspace:components/rc-menu [06fa0] and 6 other dependencies
+p1fd4a5 → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide @types/eslint to @typescript-eslint/eslint-plugin@npm:8.70.0 [066d7] and 7 other dependencies
+pb71fab → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide @types/jiti to eslint@npm:9.39.5 [066d7]
+p8b0f37 → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide @types/typescript to @typescript-eslint/eslint-plugin@npm:8.70.0 [066d7] and 7 other dependencies
+pb52a87 → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide @types/typescript-eslint__parser to @typescript-eslint/eslint-plugin@npm:8.70.0 [066d7] and 2 other dependencies
+p94dfba → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset provides @typescript-eslint/parser@npm:8.70.0 [066d7] to @typescript-eslint/eslint-plugin@npm:8.70.0 [066d7] and 2 other dependencies
+p4a5d75 → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset provides eslint@npm:9.39.5 [066d7] to @typescript-eslint/eslint-plugin@npm:8.70.0 [066d7] and 7 other dependencies
+p7519f9 → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset doesn't provide jiti to eslint@npm:9.39.5 [066d7]
+p786c27 → ✓ @crab-dev/standards-eslint-preset@workspace:standards/eslint-preset provides typescript@patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>::version=6.0.2&hash=5786d5 to @typescript-eslint/eslint-plugin@npm:8.70.0 [066d7] and 7 other dependencies
+p6db6e9 → ✓ @crab-dev/standards-typescript-preset@workspace:standards/typescript-preset provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [3f0f7] and 1 other dependency
+p9ffcf1 → ✓ @crab-dev/standards-typescript-preset@workspace:standards/typescript-preset doesn't provide @types/react-dom to @crab-dev/wake@npm:0.1.45 [3f0f7]
+p891202 → ✓ @crab-dev/standards-typescript-preset@workspace:standards/typescript-preset provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [3f0f7] and 12 other dependencies
+pcd5897 → ✓ @crab-dev/standards-typescript-preset@workspace:standards/typescript-preset provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/wake@npm:0.1.45 [3f0f7] and 7 other dependencies
+pe6e82d → ✓ @crab-dev/website@workspace:.website provides @types/react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [63bc1] and 2 other dependencies
+pc76960 → ✓ @crab-dev/website@workspace:.website provides @types/react-dom@npm:19.3.0 [63bc1] to @crab-dev/wake@npm:0.1.45 [63bc1]
+p5e1061 → ✓ @crab-dev/website@workspace:.website provides react@npm:19.3.0 to @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout [1b1f9] and 15 other dependencies
+p4a7c53 → ✓ @crab-dev/website@workspace:.website provides react-dom@npm:19.3.0 [3f0f7] to @crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout [1b1f9] and 7 other dependencies
+p4c6edb → ✓ @eslint/config-array@npm:0.21.2 doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+p993f89 → ✓ @eslint/config-array@npm:0.21.2 doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+pae33e7 → ✓ @eslint/eslintrc@npm:3.3.7 doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+p6f7cc6 → ✓ @eslint/eslintrc@npm:3.3.7 doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+p79b178 → ✓ @typescript-eslint/parser@npm:8.70.0 [066d7] doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+p35ce60 → ✓ @typescript-eslint/parser@npm:8.70.0 [066d7] doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+p5757bd → ✓ @typescript-eslint/project-service@npm:8.70.0 [a2bc5] doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+p143741 → ✓ @typescript-eslint/project-service@npm:8.70.0 [a2bc5] doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+p164482 → ✓ @typescript-eslint/type-utils@npm:8.70.0 [2538e] doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+pc864e4 → ✓ @typescript-eslint/type-utils@npm:8.70.0 [2538e] doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+pcf34a1 → ✓ @typescript-eslint/typescript-estree@npm:8.70.0 [61e4d] doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+p8b01e9 → ✓ @typescript-eslint/typescript-estree@npm:8.70.0 [61e4d] doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+p459c37 → ✓ eslint-import-resolver-node@npm:0.3.10 doesn't provide @types/supports-color to debug@npm:3.2.7 [6222a]
+p251572 → ✓ eslint-import-resolver-node@npm:0.3.10 doesn't provide supports-color to debug@npm:3.2.7 [6222a]
+p232069 → ✓ eslint-module-utils@npm:2.13.0 [65eda] doesn't provide @types/supports-color to debug@npm:3.2.7 [6222a]
+p9bc6b8 → ✓ eslint-module-utils@npm:2.13.0 [65eda] doesn't provide supports-color to debug@npm:3.2.7 [6222a]
+pe6bc8c → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide @types/eslint-import-resolver-node to eslint-module-utils@npm:2.13.0 [65eda]
+p463cb7 → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide @types/eslint-import-resolver-typescript to eslint-module-utils@npm:2.13.0 [65eda]
+pbb6a5f → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide @types/eslint-import-resolver-webpack to eslint-module-utils@npm:2.13.0 [65eda]
+p9b8db4 → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide @types/supports-color to debug@npm:3.2.7 [6222a]
+p43c497 → ✓ eslint-plugin-import@npm:2.32.0 [066d7] provides eslint-import-resolver-node@npm:0.3.10 to eslint-module-utils@npm:2.13.0 [65eda]
+pff03db → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide eslint-import-resolver-typescript to eslint-module-utils@npm:2.13.0 [65eda]
+p0af094 → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide eslint-import-resolver-webpack to eslint-module-utils@npm:2.13.0 [65eda]
+p99505d → ✓ eslint-plugin-import@npm:2.32.0 [066d7] doesn't provide supports-color to debug@npm:3.2.7 [6222a]
+p3d335c → ✓ eslint@npm:9.39.5 [066d7] doesn't provide @types/eslint to @eslint-community/eslint-utils@npm:4.9.1 [d5f5e]
+p01ddf8 → ✓ eslint@npm:9.39.5 [066d7] doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+pa27911 → ✓ eslint@npm:9.39.5 [066d7] provides eslint@npm:9.39.5 [066d7] to @eslint-community/eslint-utils@npm:4.9.1 [d5f5e]
+p4da486 → ✓ eslint@npm:9.39.5 [066d7] doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+p788014 → ✓ espree@npm:10.4.0 doesn't provide @types/acorn to acorn-jsx@npm:5.3.2 [9633b]
+pf4a532 → ✓ espree@npm:10.4.0 provides acorn@npm:8.18.0 to acorn-jsx@npm:5.3.2 [9633b]
+pa6b529 → ✓ jsonpath-plus@npm:10.4.0 doesn't provide @types/jsep to @jsep-plugin/assignment@npm:1.3.0 [4ec7d] and 1 other dependency
+p21c404 → ✓ jsonpath-plus@npm:10.4.0 provides jsep@npm:1.4.0 to @jsep-plugin/assignment@npm:1.3.0 [4ec7d] and 1 other dependency
+p2eacaf → ✓ micromark@npm:4.0.2 doesn't provide @types/supports-color to debug@npm:4.4.3 [99b2e]
+pcef775 → ✓ micromark@npm:4.0.2 doesn't provide supports-color to debug@npm:4.4.3 [99b2e]
+pca9d5d → ✓ root-workspace-0b6124@workspace:. doesn't provide @types/react to @crab-dev/wake@npm:0.1.45 [dc3fc] and 1 other dependency
+p022b29 → ✓ root-workspace-0b6124@workspace:. doesn't provide @types/react-dom to @crab-dev/wake@npm:0.1.45 [dc3fc]
+p63559e → ✓ root-workspace-0b6124@workspace:. provides react@npm:19.3.0 to @crab-dev/wake@npm:0.1.45 [dc3fc] and 12 other dependencies
+p3e1e2e → ✓ root-workspace-0b6124@workspace:. provides react-dom@npm:19.3.0 [dc3fc] to @crab-dev/wake@npm:0.1.45 [dc3fc] and 7 other dependencies
+p04fc06 → ✓ tinyglobby@npm:0.2.17 doesn't provide @types/picomatch to fdir@npm:6.5.0 [f2c3d]
+pf3daec → ✓ tinyglobby@npm:0.2.17 provides picomatch@npm:4.0.4 to fdir@npm:6.5.0 [f2c3d]

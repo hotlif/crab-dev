@@ -1,0 +1,4240 @@
+[
+  {
+    "package": "rc-alert",
+    "files": [
+      {
+        "path": "components\\rc-alert\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-alert\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-alert\\src\\icons.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-alert\\src\\alert.tsx",
+        "transitions": 3,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-app-main-layout",
+    "files": [
+      {
+        "path": "components\\rc-app-main-layout\\src\\useTabs.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-breadcrumbs"
+        ]
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\tabContextMenu.tsx",
+        "transitions": 1,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\tabBar.tsx",
+        "transitions": 9,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 5,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\sidebar.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-menu",
+          "@crab-dev/rc-skeleton"
+        ]
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\reducer.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\layout.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-drawer"
+        ]
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\icons.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\header.tsx",
+        "transitions": 4,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-avatar",
+          "@crab-dev/rc-breadcrumbs",
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-hooks",
+          "@crab-dev/rc-skeleton"
+        ]
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\context.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-app-main-layout\\src\\content.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-auto-sizer",
+    "files": [
+      {
+        "path": "components\\rc-auto-sizer\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-auto-sizer\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-auto-sizer\\src\\auto-sizer.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-avatar",
+    "files": [
+      {
+        "path": "components\\rc-avatar\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-avatar\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-avatar\\src\\avatar.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button"
+        ]
+      },
+      {
+        "path": "components\\rc-avatar\\src\\avatar-group.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-badge",
+          "@crab-dev/rc-button"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-badge",
+    "files": [
+      {
+        "path": "components\\rc-badge\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-badge\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-badge\\src\\badge.tsx",
+        "transitions": 2,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-bar-chart",
+    "files": [
+      {
+        "path": "components\\rc-bar-chart\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-auto-sizer"
+        ]
+      },
+      {
+        "path": "components\\rc-bar-chart\\src\\palette.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-bar-chart\\src\\layout.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-bar-chart\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-bar-chart\\src\\hooks\\useCategoryDim.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 2,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-bar-chart\\src\\hooks\\useBarTransition.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 3,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-bar-chart\\src\\barChart.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-auto-sizer",
+          "@crab-dev/rc-canvas",
+          "@crab-dev/rc-empty"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-breadcrumbs",
+    "files": [
+      {
+        "path": "components\\rc-breadcrumbs\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-breadcrumbs\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-breadcrumbs\\src\\breadcrumbs.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-button",
+    "files": [
+      {
+        "path": "components\\rc-button\\src\\buttonGroupContext.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-button\\src\\buttonGroup.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-config-provider"
+        ]
+      },
+      {
+        "path": "components\\rc-button\\src\\button.tsx",
+        "transitions": 9,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 5,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-config-provider",
+          "@crab-dev/rc-spin"
+        ]
+      },
+      {
+        "path": "components\\rc-button\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-button\\src\\token-vars.ts",
+        "transitions": 1,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-button\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-canvas",
+    "files": [
+      {
+        "path": "components\\rc-canvas\\src\\viewport.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\transform-types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\transformer.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\text.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\rect.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\minimap.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 5,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\marker.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\line.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\infinite-grid.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\image.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\group.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\edge.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shapes\\circle.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\texture.vert.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\texture.frag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\sdf.vert.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\sdf.frag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\marker.vert.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\marker.frag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\line.vert.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\line.frag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\grid.vert.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\grid.frag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\flat.vert.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\shaders\\flat.frag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\routing\\ports.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\routing\\orthogonal.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\routing\\obstacle-avoidance.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\routing\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\routing\\geometry.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\renderer\\text-atlas.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\renderer\\renderer.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\renderer\\draw-command.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\palette.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\math\\matrix.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\math\\color.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\context\\palette-context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\context\\canvas-context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\canvas.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 2,
+        "reduced": 3,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\hooks\\useEdgeRouting.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\hooks\\useCanvasControls.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-canvas\\src\\drag-types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-card",
+    "files": [
+      {
+        "path": "components\\rc-card\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\components\\card-meta.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\components\\card-header.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\components\\card-footer.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\components\\card-cover.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\components\\card-body.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-card\\src\\card.tsx",
+        "transitions": 5,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 4,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-skeleton"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-checkbox",
+    "files": [
+      {
+        "path": "components\\rc-checkbox\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-checkbox\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-checkbox\\src\\context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-checkbox\\src\\checkbox.tsx",
+        "transitions": 7,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-checkbox\\src\\checkbox-group.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-color-picker",
+    "files": [
+      {
+        "path": "components\\rc-color-picker\\src\\panels\\presetSwatches.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-masonry"
+        ]
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\panels\\colorPickerPanel.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-slider"
+        ]
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\panels\\colorInput.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-line-edit",
+          "@crab-dev/rc-select"
+        ]
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\colorPicker\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\colorPicker\\colorPickerOverlay.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-dropdown-container"
+        ]
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\colorPicker\\colorPickerInput.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container"
+        ]
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\colorPicker\\colorPicker.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-color-picker\\src\\utils\\color.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-component-preview",
+    "files": [
+      {
+        "path": "components\\rc-component-preview\\src\\sourceCode.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-component-preview\\src\\preview.tsx",
+        "transitions": 6,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 3,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button"
+        ]
+      },
+      {
+        "path": "components\\rc-component-preview\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-component-preview\\src\\icons.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-config-provider",
+    "files": [
+      {
+        "path": "components\\rc-config-provider\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-config-provider\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-config-provider\\src\\context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-config-provider\\src\\config-provider.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-token-semantic"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-cron-picker",
+    "files": [
+      {
+        "path": "components\\rc-cron-picker\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-cron-picker\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-cron-picker\\src\\fieldEditor.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-number-edit",
+          "@crab-dev/rc-radio",
+          "@crab-dev/rc-select",
+          "@crab-dev/rc-tag"
+        ]
+      },
+      {
+        "path": "components\\rc-cron-picker\\src\\cronPickerOverlay.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks",
+          "@crab-dev/rc-tabs"
+        ]
+      },
+      {
+        "path": "components\\rc-cron-picker\\src\\cronPickerInput.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-cron-picker\\src\\cronPicker.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-cron-picker\\src\\cron.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-date-picker",
+    "files": [
+      {
+        "path": "components\\rc-date-picker\\src\\util.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\type.d.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\token-vars.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\timePicker\\timePickerOverlay.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-dropdown-container"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\timePicker\\timePickerInput.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\timePicker\\timePicker.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\timePicker\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\panels\\universal.style.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\panels\\timePickerPanel.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-number-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\panels\\popup.style.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\panels\\dateTimePickerPanel.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-token-semantic"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\panels\\datePickerPanel.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-token-semantic"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\icons.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\datePicker\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\datePicker\\datePickerOverlay.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-dropdown-container"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\datePicker\\datePickerInput.tsx",
+        "transitions": 1,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\datePicker\\datePicker.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\dateTimePicker\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\dateTimePicker\\dateTimePickerOverlay.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-dropdown-container"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\dateTimePicker\\dateTimePickerInput.tsx",
+        "transitions": 1,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-date-picker\\src\\dateTimePicker\\dateTimePicker.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-dialog",
+    "files": [
+      {
+        "path": "components\\rc-dialog\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-dialog\\src\\hooks\\useConfirm.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-dialog\\src\\dialog.tsx",
+        "transitions": 6,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-divider",
+    "files": [
+      {
+        "path": "components\\rc-divider\\src\\divider.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-divider\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-divider\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-drawer",
+    "files": [
+      {
+        "path": "components\\rc-drawer\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-drawer\\src\\drawer.tsx",
+        "transitions": 8,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 3,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-dropdown-container",
+    "files": [
+      {
+        "path": "components\\rc-dropdown-container\\src\\reducer.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-dropdown-container\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-dropdown-container\\src\\dropdownContainer.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-dropdown-container\\src\\context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-empty",
+    "files": [
+      {
+        "path": "components\\rc-empty\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-empty\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-empty\\src\\illustrations\\search-not-found.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-empty\\src\\illustrations\\no-permission.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-empty\\src\\illustrations\\no-data.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-empty\\src\\empty.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-config-provider"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-flow-diagram",
+    "files": [
+      {
+        "path": "components\\rc-flow-diagram\\src\\flow-node.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\flow-edge.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\flow-diagram.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\edge.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\palette.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\palette-context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\hooks\\useFlowDiagramControls.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\hooks\\useElkLayout.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\hooks\\useEdgeRouting.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-flow-diagram\\src\\hooks\\useEdgeCrossings.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-form",
+    "files": [
+      {
+        "path": "components\\rc-form\\src\\util.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\item.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-spin",
+          "@crab-dev/rc-tooltip"
+        ]
+      },
+      {
+        "path": "components\\rc-form\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\hooks\\useFormContext.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\hooks\\useForm.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\form.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\context.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-form\\src\\bus.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-hooks",
+    "files": [
+      {
+        "path": "components\\rc-hooks\\src\\useTimeout.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useResizeObserver.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\usePrevious.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\usePresence.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 1,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useMediaQuery.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useKeyDown.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useIsomorphicLayoutEffect.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useInterval.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useEventCallback.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useDragResize.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useCountdown.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useControllableValue.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\useControllableOpen.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\uniqueId.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-hooks\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 2,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-line-edit",
+    "files": [
+      {
+        "path": "components\\rc-line-edit\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-line-edit\\src\\lineEdit.tsx",
+        "transitions": 4,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-masonry",
+    "files": [
+      {
+        "path": "components\\rc-masonry\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-masonry\\src\\masonry.tsx",
+        "transitions": 1,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-masonry\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-menu",
+    "files": [
+      {
+        "path": "components\\rc-menu\\src\\vertical\\normal.tsx",
+        "transitions": 5,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 3,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-menu\\src\\vertical\\index.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\vertical\\collapsed.tsx",
+        "transitions": 4,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\type.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\menu.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\keyboard.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\icon.tsx",
+        "transitions": 1,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\horizontal\\styles\\itemNormal.styles.ts",
+        "transitions": 3,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\horizontal\\styles\\itemGroup.styles.ts",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\horizontal\\itemNormal.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\horizontal\\itemGroup.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-menu\\src\\horizontal\\index.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-message",
+    "files": [
+      {
+        "path": "components\\rc-message\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-message\\src\\message.tsx",
+        "transitions": 2,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-message\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-message\\src\\icons.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-message\\src\\hooks\\useMessage.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-notification",
+    "files": [
+      {
+        "path": "components\\rc-notification\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-notification\\src\\notification.tsx",
+        "transitions": 2,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-notification\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-notification\\src\\icons\\close.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-notification\\src\\hooks\\useNotification.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-notification\\src\\container.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-number-edit",
+    "files": [
+      {
+        "path": "components\\rc-number-edit\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-number-edit\\src\\superscript.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-number-edit\\src\\stepper.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button"
+        ]
+      },
+      {
+        "path": "components\\rc-number-edit\\src\\numberEdit.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-line-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-number-edit\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-number-edit\\src\\hooks\\useSpinner.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-number-edit\\src\\format.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-pagination",
+    "files": [
+      {
+        "path": "components\\rc-pagination\\src\\pagination.tsx",
+        "transitions": 9,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 4,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks",
+          "@crab-dev/rc-select"
+        ]
+      },
+      {
+        "path": "components\\rc-pagination\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pagination\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-pdf-editor",
+    "files": [
+      {
+        "path": "components\\rc-pdf-editor\\src\\frame-buffer.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\font.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\engine.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\drawing.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\drawing-surface.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\drawing-preview.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\document-stage.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 1,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas",
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\document-layout.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\color.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-canvas",
+          "@crab-dev/rc-color-picker"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\client.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\capture-region.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\busy-region.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\actions.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\action-button.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\protocol.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\properties-panel.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-color-picker",
+          "@crab-dev/rc-number-edit",
+          "@crab-dev/rc-select",
+          "@crab-dev/rc-text-edit"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\styles.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-line-edit",
+          "@crab-dev/rc-tree"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\shape-style-fields.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-checkbox",
+          "@crab-dev/rc-color-picker",
+          "@crab-dev/rc-number-edit",
+          "@crab-dev/rc-select"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\session.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\regions.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\region-selector.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\region-selection.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\use-page-drag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\toolbar-button.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-tooltip"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\web-component.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-config-provider"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\web-component-types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\worker.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\page-selection.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\object-tree.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-auto-sizer",
+          "@crab-dev/rc-tree"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\icon.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\geometry.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\panel-header.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\pages-panel.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-auto-sizer",
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-canvas",
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\page-stage.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-canvas"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\pdf-editor.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-auto-sizer",
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-canvas",
+          "@crab-dev/rc-dialog",
+          "@crab-dev/rc-line-edit",
+          "@crab-dev/rc-number-edit",
+          "@crab-dev/rc-select",
+          "@crab-dev/rc-spin",
+          "@crab-dev/rc-text-edit",
+          "@crab-dev/rc-tooltip"
+        ]
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\plugin-host.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-pdf-editor\\src\\plugins\\region-ocr.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-prose",
+    "files": [
+      {
+        "path": "components\\rc-prose\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-prose\\src\\prose.tsx",
+        "transitions": 1,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-prose\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-radio",
+    "files": [
+      {
+        "path": "components\\rc-radio\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-radio\\src\\radio.tsx",
+        "transitions": 6,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-radio\\src\\radio-group.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-radio\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-radio\\src\\context.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-realm",
+    "files": [
+      {
+        "path": "components\\rc-realm\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-realm\\src\\token-vars.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-realm\\src\\shareScope.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-realm"
+        ]
+      },
+      {
+        "path": "components\\rc-realm\\src\\sandbox.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-realm\\src\\realm.tsx",
+        "transitions": 0,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-alert",
+          "@crab-dev/rc-button",
+          "@crab-dev/rc-hooks",
+          "@crab-dev/rc-spin"
+        ]
+      },
+      {
+        "path": "components\\rc-realm\\src\\loader.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-realm\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-realm\\src\\importer.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-realm\\src\\errorBoundary.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-router",
+    "files": [
+      {
+        "path": "components\\rc-router\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\router.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\path.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\outlet.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\navigate.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\matcher.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\link.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\hooks.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\history.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-router\\src\\contexts.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-segmented",
+    "files": [
+      {
+        "path": "components\\rc-segmented\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-segmented\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-segmented\\src\\segmented.tsx",
+        "transitions": 3,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-select",
+    "files": [
+      {
+        "path": "components\\rc-select\\src\\select.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-select\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-select\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-select\\src\\selectOverlay.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-checkbox",
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-hooks",
+          "@crab-dev/rc-spin",
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-select\\src\\selectInput.tsx",
+        "transitions": 8,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 4,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-dropdown-container",
+          "@crab-dev/rc-line-edit",
+          "@crab-dev/rc-spin",
+          "@crab-dev/rc-tag"
+        ]
+      },
+      {
+        "path": "components\\rc-select\\src\\hooks\\useKeyboardNavigation.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-skeleton",
+    "files": [
+      {
+        "path": "components\\rc-skeleton\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-skeleton\\src\\skeleton.tsx",
+        "transitions": 0,
+        "animations": 5,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-skeleton\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-slider",
+    "files": [
+      {
+        "path": "components\\rc-slider\\src\\token-vars.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-slider\\src\\slider.tsx",
+        "transitions": 4,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-slider\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-spin",
+    "files": [
+      {
+        "path": "components\\rc-spin\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-spin\\src\\token-vars.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-spin\\src\\spin.tsx",
+        "transitions": 2,
+        "animations": 2,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-spin\\src\\indicator.tsx",
+        "transitions": 0,
+        "animations": 4,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-spin\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-spin\\src\\expressiveIndicator.tsx",
+        "transitions": 0,
+        "animations": 5,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-split-pane",
+    "files": [
+      {
+        "path": "components\\rc-split-pane\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-split-pane\\src\\splitPane.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-split-pane\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-switch",
+    "files": [
+      {
+        "path": "components\\rc-switch\\src\\switch.tsx",
+        "transitions": 7,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 3,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-switch\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-switch\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-table",
+    "files": [
+      {
+        "path": "components\\rc-table\\src\\bodyCell.tsx",
+        "transitions": 6,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\bodyRow.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\headerCell.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\rowBg.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\token-vars.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\table.tsx",
+        "transitions": 13,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 6,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-checkbox",
+          "@crab-dev/rc-empty",
+          "@crab-dev/rc-radio",
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-table\\src\\util.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\valueAccess.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useTreeData.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useTableInteractionScope.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useTableFilter.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useSummary.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useRowSelection.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useRowNumber.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useRowGroup.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useRowExpansion.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useRowEvents.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useRowEdit.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useKeywordMatch.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useColumnSort.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useColumnResize.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 1,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useColumnLayout.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useColumnDrag.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useCellSelection.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 3,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useCellEditNav.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table\\src\\hooks\\useCellEdit.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-table-pro",
+    "files": [
+      {
+        "path": "components\\rc-table-pro\\src\\util.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-table"
+        ]
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-pagination",
+          "@crab-dev/rc-table"
+        ]
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\table.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-auto-sizer",
+          "@crab-dev/rc-checkbox",
+          "@crab-dev/rc-line-edit",
+          "@crab-dev/rc-pagination",
+          "@crab-dev/rc-spin",
+          "@crab-dev/rc-table",
+          "@crab-dev/rc-tree"
+        ]
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\icons.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\columnUtils.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-table",
+          "@crab-dev/rc-tree"
+        ]
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\hooks\\useTableData.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-table"
+        ]
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\hooks\\useSearchBar.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-table-pro\\src\\hooks\\useColumnManagement.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-table",
+          "@crab-dev/rc-tree"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-tabs",
+    "files": [
+      {
+        "path": "components\\rc-tabs\\src\\tabs.tsx",
+        "transitions": 9,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 5,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-tabs\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tabs\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tabs\\src\\useTabIndicator.ts",
+        "transitions": 0,
+        "animations": 1,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      }
+    ]
+  },
+  {
+    "package": "rc-tag",
+    "files": [
+      {
+        "path": "components\\rc-tag\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tag\\src\\tag.tsx",
+        "transitions": 3,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tag\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tag\\src\\checkable-tag.tsx",
+        "transitions": 3,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-text-edit",
+    "files": [
+      {
+        "path": "components\\rc-text-edit\\src\\textEdit.tsx",
+        "transitions": 4,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-button"
+        ]
+      },
+      {
+        "path": "components\\rc-text-edit\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-theme",
+    "files": [
+      {
+        "path": "components\\rc-theme\\src\\theme.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-theme\\src\\theme-values.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-token-semantic"
+        ]
+      },
+      {
+        "path": "components\\rc-theme\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-token-global",
+    "files": [
+      {
+        "path": "components\\rc-token-global\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-token-semantic",
+    "files": [
+      {
+        "path": "components\\rc-token-semantic\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-token-semantic\\src\\token-vars.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-token-semantic\\src\\theme.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-token-global"
+        ]
+      },
+      {
+        "path": "components\\rc-token-semantic\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-token-semantic\\src\\brand-theme.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-tooltip",
+    "files": [
+      {
+        "path": "components\\rc-tooltip\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tooltip\\src\\tooltip.tsx",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 2,
+        "dependencies": [
+          "@crab-dev/rc-hooks"
+        ]
+      },
+      {
+        "path": "components\\rc-tooltip\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-tree",
+    "files": [
+      {
+        "path": "components\\rc-tree\\src\\util.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tree\\src\\type.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tree\\src\\tree.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-hooks",
+          "@crab-dev/rc-virtual"
+        ]
+      },
+      {
+        "path": "components\\rc-tree\\src\\nodeItem.tsx",
+        "transitions": 6,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 2,
+        "presence": 0,
+        "dependencies": [
+          "@crab-dev/rc-checkbox",
+          "@crab-dev/rc-spin"
+        ]
+      },
+      {
+        "path": "components\\rc-tree\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tree\\src\\icon.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-tree\\src\\hooks\\useTreeData.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  },
+  {
+    "package": "rc-virtual",
+    "files": [
+      {
+        "path": "components\\rc-virtual\\src\\index.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\virtual.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 3,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\types.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\hooks\\useVirtualItemRange.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\style\\scrollbar.style.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\style\\grid.style.ts",
+        "transitions": 2,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 1,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\scrollWindow.ts",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 0,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      },
+      {
+        "path": "components\\rc-virtual\\src\\scrollbar.tsx",
+        "transitions": 0,
+        "animations": 0,
+        "frames": 2,
+        "reduced": 0,
+        "presence": 0,
+        "dependencies": []
+      }
+    ]
+  }
+]

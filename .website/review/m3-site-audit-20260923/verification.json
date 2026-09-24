@@ -1,0 +1,65 @@
+{
+    "date": "2026-09-23",
+    "report": "README.md",
+    "fixes": "FIXES.md",
+    "resolvedFindings": [1, 2, 3, 4, 5],
+    "materialWebReferenceCommit": "9200eb8a0eef99c6bd439ce3968952d76e9ec1b4",
+    "checks": [
+        {
+            "command": "corepack yarn workspace @crab-dev/rc-app-main-layout generate:docgen",
+            "status": "passed"
+        },
+        {
+            "command": "corepack yarn workspace @crab-dev/website generate:docs",
+            "status": "passed"
+        },
+        {
+            "command": "corepack yarn turbo run lint test typecheck build:library --filter=@crab-dev/rc-select --filter=@crab-dev/rc-app-main-layout --filter=@crab-dev/website --concurrency=4 --output-logs=errors-only",
+            "status": "passed",
+            "tasks": 63,
+            "cachedTasks": 48,
+            "log": "checks.log"
+        },
+        {
+            "command": "corepack yarn docs:build",
+            "status": "passed",
+            "routes": 63,
+            "generatedFilesDrift": 0,
+            "productionJavaScriptFilesChecked": 1918,
+            "unboundReferences": 0,
+            "log": "docs-build.log"
+        },
+        {
+            "command": "git -c core.safecrlf=false diff --check",
+            "status": "passed"
+        }
+    ],
+    "existingWarnings": ["Turbo circular dependency: rc-masonry, rc-menu, rc-spin, rc-button, rc-component-preview"],
+    "browser": {
+        "pagesChecked": 11,
+        "themes": ["light", "dark"],
+        "viewportHeight": 1000,
+        "buttonFirstExampleY": [
+            {"width": 1440, "before": 1411, "after": 272, "outline": "side", "overflow": false},
+            {"width": 1024, "before": 1227, "after": 456, "outline": "collapsed", "overflow": false},
+            {"width": 768, "before": 1280, "after": 520, "outline": "collapsed", "overflow": false},
+            {"width": 390, "before": 987, "after": 499, "outline": "collapsed", "overflow": false},
+            {"width": 320, "before": 986, "after": 533, "outline": "collapsed", "overflow": false}
+        ],
+        "homeAccessibleNames": "verified in the browser accessibility tree, including the actual Select combobox",
+        "searchVisibleFocusOutlines": 1,
+        "adminMainLandmarks": 1,
+        "adminNestedMainLandmarks": 0,
+        "consoleErrors": 0,
+        "checks": [
+            "Select Enter/Escape; radio ArrowRight changes the local theme",
+            "Search auto-focus, results, Escape and trigger focus restoration",
+            "Outline Enter/Space, visible focus, API anchor below the topbar",
+            "Live example state preserved through viewport changes",
+            "Admin step 1 and step 4 named regions; narrow-screen member editing and saving",
+            "Tree ArrowDown selection agrees with regenerated FAQ",
+            "Final SVG height stays inside its artwork container"
+        ],
+        "notRun": ["Real screen readers", "OS forced-colors", "Reduced motion", "Soft keyboard", "Browser 200% zoom"]
+    }
+}

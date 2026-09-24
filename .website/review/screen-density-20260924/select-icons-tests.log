@@ -1,0 +1,45 @@
+PASS src/__tests__/select.critical-bugs.test.tsx
+  ✓ #1: 键盘高亮到视口外的选项时,该项被滚入视口、出现在 DOM
+  ✓ #2: 搜索过滤出唯一项后,直接按 Enter 即可选中该项
+  ✓ #3: 分组标题为 ReactNode 时不产生重复 key 警告
+  ✓ #4: 单选已有值时,打开下拉应把选中项滚入视口
+  ✓ #5: 列表位于顶部时,首项之前不产生额外行盒空白
+PASS src/__tests__/select.test.tsx
+  ✓ forwards an external label to the combobox in both search modes
+  ✓ keeps grouped virtual offsets aligned with resized option text
+  ✓ renders placeholder and opens dropdown
+  ✓ selects one value in single mode
+  ✓ supports multiple mode and filtering
+  ✓ renders a checkbox indicator reflecting selected state in multiple mode
+  ✓ does not open when disabled
+  ✓ skips disabled options on click
+  ✓ navigates options with ArrowDown/ArrowUp and selects with Enter
+  ✓ closes dropdown on Escape
+  ✓ keeps null controlled and lets the parent accept or reject selection and clear
+  ✓ clears value when clear button is clicked
+  ✓ renders a Material field label, supporting text, and required semantics
+  ✓ uses errorText as the field error and invalid state
+  ✓ keeps the caret available alongside clearing and only opens when the caret is clicked
+  ✓ preserves native Enter activation without submitting or reopening and restores focus
+  ✓ preserves native Space activation without submitting or reopening and restores focus
+  ✓ removes tag via close button in multi mode
+  ✓ removes last tag on Backspace in searchable multi mode
+  ✓ renders grouped options
+  ✓ collapses tags with +N when maxTagCount is set
+  ✓ shows custom notFoundContent
+  ✓ works in controlled mode
+  ✓ renders empty state with no options
+  ✓ renders with error status
+  ✓ calls onOpenChange when opening/closing
+Test Suites: 2 passed, 0 failed, 2 total
+Tests:       31 passed, 0 failed, 0 pending, 31 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	96.24% (972/1010)	91.80% (56/61)	43.13% (135/313)
+src/hooks/useKeyboardNavigation.ts	91.18% (31/34)	100.00% (5/5)	55.56% (5/9)
+src/select.tsx	97.69% (211/216)	91.30% (21/23)	72.73% (40/55)
+src/selectInput.tsx	93.09% (337/362)	91.30% (21/23)	30.17% (54/179)
+src/selectOverlay.tsx	97.37% (185/190)	90.00% (9/10)	51.43% (36/70)
+src/token.ts	100.00% (208/208)	100.00% (0/0)	100.00% (0/0)
+Seed:        1790219833449865400
+Time:        15900 ms

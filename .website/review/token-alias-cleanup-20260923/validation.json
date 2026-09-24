@@ -1,0 +1,15 @@
+{
+  "tokenPackages": 49,
+  "canonicalTokens": 2526,
+  "remainingRawReferencesToCanonicalVariables": 51,
+  "unknownGeneratedVariableReferences": 0,
+  "testsPassed": 1649,
+  "checks": {
+    "generateToken": "passed",
+    "tokenContract": "passed",
+    "buildLibrary": "passed: 54 tasks",
+    "lint": "passed: 55 tasks, zero warnings",
+    "test": "passed: 109 tasks",
+    "typecheck": "passed: 110 tasks"
+  }
+}
