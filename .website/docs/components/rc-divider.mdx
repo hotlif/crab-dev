@@ -1,6 +1,6 @@
 +++
 title = "Divider 分割线"
-description = "分隔内容或行内操作，明确分组边界"
+description = "分隔相邻内容与区块，帮助识别信息结构和阅读顺序。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-divider.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-divider.js";
 
 # Divider 分割线
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-divider</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-分割线表达内容分组；纯装饰线不需要被辅助技术朗读。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**分隔内容**
-
-在两组内容之间加入 Divider。 分割线表达内容分组；纯装饰线不需要被辅助技术朗读。 观察分隔线与前后内容的归属。 两组内容在视觉上有明确边界。
-
-**添加组名**
-
-给语义分割线提供标题，给纯装饰线设置 decorative。 分割线表达内容分组；纯装饰线不需要被辅助技术朗读。 比较带标题的分割线与下方装饰线。 标题说明分组含义，装饰线不增加阅读内容。
-
-</div>
-
-## 常见问题
-
-### 带标题时能设置 decorative 吗？
-
-不能。标题提供分组名称，不应被移出无障碍树。
-
-
-## API
-
-<API source="../_generated_api/rc-divider.ts" symbol="DividerProps" component="Divider" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（6 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -76,7 +35,6 @@ import { tutorial } from "../_generated_tutorials/rc-divider.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-divider/workbench/)
 
@@ -98,3 +56,30 @@ import { tutorial } from "../_generated_tutorials/rc-divider.js";
 默认使用 `role="separator"` 表达内容分组。纯装饰线可设置 `decorative`，使其通过 `role="none"` 和 `aria-hidden` 从无障碍树中隐藏。
 
 带文字的分割线通过 `aria-labelledby` 关联标题。此时不能设置 `decorative`，以免隐藏分组名称。
+
+### 适用场景
+
+列表、菜单或内容区中相邻组需要轻量边界。 水平或垂直布局需要清楚但不过度强调的结构分隔。
+
+仅靠间距已经能表达分组时无需增加线条；不要让每个元素四周都出现 Divider。
+
+### 使用要点
+
+- orientation 要与布局方向匹配，垂直分隔必须有可计算高度。
+- variant 与 inset 用来对齐内容边缘，而不是随意装饰。
+- 带文字的分隔要确保文字确实是分组标题而非普通句子。
+
+### 无障碍
+
+- 纯装饰分隔隐藏语义；确实表示主题断点时保留 separator 角色和正确方向。
+- 不要只用 Divider 表达不可见的关系，标题与 DOM 结构仍要正确。
+
+## 常见问题
+
+### 带标题时能设置 decorative 吗？
+
+不能。标题提供分组名称，不应被移出无障碍树。
+
+## API
+
+<API source="../_generated_api/rc-divider.ts" symbol="DividerProps" component="Divider" />

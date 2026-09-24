@@ -36,6 +36,23 @@ const StatusDemo = () => {
                 value={warningValue}
                 onChange={(e) => setWarningValue(e.target.value)}
             />
+            <TextEdit
+                appearance="filled"
+                label="填充备注 · 错误状态示例"
+                errorText="请移除不允许的内容，再重新提交。"
+                rows={2}
+                value={errorValue}
+                onChange={(e) => setErrorValue(e.target.value)}
+            />
+            <TextEdit
+                appearance="filled"
+                label="填充备注 · 警告状态示例"
+                supportingText="建议补充背景和预期结果，便于团队理解。"
+                status="warning"
+                rows={2}
+                value={warningValue}
+                onChange={(e) => setWarningValue(e.target.value)}
+            />
         </div>
     );
 };

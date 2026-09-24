@@ -1,15 +1,16 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
-import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { act, fireEvent, render, screen, within } from "@crab-dev/wake/test/react";
 import type { ComponentType, ReactNode } from "react";
 
 mock.module("@crab-dev/rc-segmented", () => ({
     __esModule: true,
-    default: ({ options, value, onChange }: {
+    default: ({ options, value, onChange, "aria-labelledby": labelledBy }: {
         options: Array<string | number | { label: ReactNode; value: string | number }>;
         value?: string | number;
         onChange?: (value: string | number) => void;
+        "aria-labelledby"?: string;
     }) => (
-        <div role="radiogroup">
+        <div role="radiogroup" aria-labelledby={labelledBy}>
             {options.map((option) => {
                 const item = typeof option === "object" ? option : { label: option, value: option };
                 return <button key={String(item.value)} type="button" role="radio" aria-checked={value === item.value} onClick={() => onChange?.(item.value)}>{item.label}</button>;
@@ -25,7 +26,7 @@ mock.module("@crab-dev/rc-date-picker", () => ({
 
 mock.module("@crab-dev/rc-select", () => ({
     __esModule: true,
-    default: () => <button type="button">设计系统，数据应用</button>,
+    default: ({ "aria-labelledby": labelledBy }: { "aria-labelledby"?: string }) => <div role="combobox" aria-labelledby={labelledBy} tabIndex={0} aria-expanded="false">设计系统，数据应用</div>,
 }));
 
 mock.module("@crab-dev/rc-color-picker", () => ({
@@ -45,6 +46,18 @@ beforeAll(async () => {
 });
 
 describe("HomeComponentShowcase", () => {
+    it("可见标签命名复合控件，组名不混入选项名称", async () => {
+        const { container } = await render(<HomeComponentShowcase />);
+        for (const [name, option] of [["主题", "亮色"], ["尺寸", "小"], ["品牌色", "紫罗兰"], ["视图设置", "概览"]]) {
+            const group = screen.getByRole("radiogroup", { name });
+            expect(within(group).getByRole("radio", { name: option })).toBeTruthy();
+            expect(group.closest("label")).toBeNull();
+        }
+        expect(screen.getByRole("combobox", { name: "应用类型" })).toBeTruthy();
+        expect(screen.getByRole("textbox", { name: "工作区名称" })).toBeTruthy();
+        expect(container.querySelector("label label")).toBeNull();
+    });
+
     it("支持输入、开关、局部主题和品牌色反馈", async () => {
         await render(<HomeComponentShowcase />);
         const name = screen.getByDisplayValue("Crab Design");

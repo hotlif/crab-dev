@@ -1,6 +1,6 @@
 +++
 title = "Menu 菜单"
-description = "以水平、垂直或内嵌菜单组织页面与功能导航"
+description = "组织页面与功能入口，通过分组和选中状态帮助用户定位。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-menu.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-menu.js";
 
 # Menu 菜单
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-menu</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**声明导航项**
-
-用稳定 key 和可见 title 定义导航项。 菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。 使用 Tab 和方向键浏览菜单。 菜单提供两个清晰入口。
-
-**同步当前位置**
-
-将 selectedKeys 接入页面状态。 菜单描述可进入的区域，受控 selectedKeys 把页面内容与当前位置连接起来。 选择成员管理。 选中意符和内容区域同时变化。
-
-</div>
-
-## 常见问题
-
-### 菜单会自动切换路由吗？
-
-不会。通过选择回调更新路由或业务状态；不要仅改变高亮却保留旧页面内容。
-
-
-## API
-
-<API source="../_generated_api/rc-menu.ts" symbol="MenuProps" component="Menu" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -72,7 +31,6 @@ import { tutorial } from "../_generated_tutorials/rc-menu.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-menu/workbench/)
 
@@ -84,3 +42,30 @@ import { tutorial } from "../_generated_tutorials/rc-menu.js";
 ### 何时使用
 
 用于应用顶部或侧边栏导航，通过层级菜单组织页面入口。`mode` 支持 `horizontal`、`vertical` 和 `inline`；垂直与内嵌模式可通过 `inlineCollapsed` 收起为图标栏。
+
+### 适用场景
+
+应用侧栏或顶部需要组织多个目的地。 入口存在稳定分组或层级，并需要展开、收起和当前项反馈。
+
+临时动作列表使用弹出菜单；同一区域切换少量同级内容使用 Tabs。
+
+### 使用要点
+
+- 每个 item 使用稳定 key，title 是用户可读名称。
+- selectedKeys 表示当前位置，openKeys 表示展开层级，两者不是同一状态。
+- inlineCollapsed 只改变展示密度，收起后仍要让用户知道图标代表什么。
+
+### 无障碍
+
+- 导航容器提供名称，当前目的地与展开状态都要有语义。
+- 支持 Tab 进入、方向键移动和可见焦点；收起图标需要 Tooltip 或等价名称。
+
+## 常见问题
+
+### 菜单会自动切换路由吗？
+
+不会。通过选择回调更新路由或业务状态；不要仅改变高亮却保留旧页面内容。
+
+## API
+
+<API source="../_generated_api/rc-menu.ts" symbol="MenuProps" component="Menu" />

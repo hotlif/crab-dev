@@ -32,7 +32,7 @@
     "faq": [
         {
             "question": "如何接真实接口？",
-            "answer": "替换 fetchColumns 和 fetchData 的函数体；保持返回的列协议与行结构一致。教程函数只返回本地数据，不会请求后端。"
+            "answer": "使用 fetchColumns 加载列协议，通过 request({ page, pageSize, filters, sort, signal }) 调用后端并返回 { rows, total }。total 是筛选后的总条数，signal 传给 fetch 以取消过期请求。页面中的示例使用本地模拟数据。"
         }
     ]
 }

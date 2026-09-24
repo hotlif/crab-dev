@@ -12,6 +12,7 @@ import { useSiteHref } from "./siteContext.js";
 export type ComponentDemoCodeTheme = "light" | "dark";
 
 export interface ComponentDemoFrameWindow {
+    readonly document?: Document;
     postMessage(message: unknown, targetOrigin: string): void;
 }
 
@@ -235,6 +236,8 @@ export default function ComponentDemoFrame({
     const href = useSiteHref();
     const containerRef = useRef<HTMLDivElement>(null);
     const frameRef = useRef<HTMLIFrameElement>(null);
+    // Mutable observer ownership is read by messages without triggering rendering.
+    const measuresContentRef = useRef(false);
     const [shouldLoad, setShouldLoad] = useState(false);
     const [height, setHeight] = useState(() => initialHeight(demo.density));
     const [ready, setReady] = useState(false);
@@ -256,6 +259,7 @@ export default function ComponentDemoFrame({
             const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
             if (!frameWindow || event.source !== frameWindow || !isWakeMessage(event.data)) return;
             if (event.data.type === "wake:resize" && typeof event.data.height === "number") {
+                if (measuresContentRef.current) return;
                 if (Number.isFinite(event.data.height)) {
                     const nextHeight = Math.min(
                         MAX_FRAME_HEIGHT,
@@ -281,6 +285,36 @@ export default function ComponentDemoFrame({
             }
         });
     }, [getFrameWindow, onThemeChange]);
+
+    useEffect(() => {
+        if (!ready || typeof ResizeObserver === "undefined") return;
+        const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
+        let contentRoot: HTMLElement | null;
+        try {
+            contentRoot = frameWindow?.document?.querySelector<HTMLElement>(".demo-frame-root") ?? null;
+        } catch {
+            // Keep Wake's message protocol for frames without same-origin access.
+            return;
+        }
+        if (!contentRoot) return;
+        const updateHeight = () => {
+            // document.scrollHeight includes the iframe viewport, so it cannot
+            // shrink after a fixed overlay closes. Measure the content root instead.
+            const nextHeight = Math.min(
+                MAX_FRAME_HEIGHT,
+                Math.max(MIN_FRAME_HEIGHT, Math.ceil(contentRoot.getBoundingClientRect().height)),
+            );
+            setHeight(currentHeight => currentHeight === nextHeight ? currentHeight : nextHeight);
+        };
+        const observer = new ResizeObserver(updateHeight);
+        measuresContentRef.current = true;
+        observer.observe(contentRoot);
+        updateHeight();
+        return () => {
+            observer.disconnect();
+            measuresContentRef.current = false;
+        };
+    }, [attempt, getFrameWindow, ready]);
 
     useEffect(() => {
         if (!shouldLoad || error) return;

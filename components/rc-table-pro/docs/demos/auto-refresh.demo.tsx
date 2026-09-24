@@ -70,7 +70,7 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.updatedAt",title: "更新时间",     dataType: "text",    width: 120 },
 ];
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<MetricRow>[] = [
     {
         name: "text",
         render: undefined,

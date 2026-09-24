@@ -17,48 +17,6 @@ import Switch from "@crab-dev/rc-switch";
 import Form, { Item, useForm } from "../../src/index.js";
 import type { FormItemEditor } from "../../src/types.js";
 
-// ---------- 适配器：把 crab-dev 组件包装成 FormItemEditor ----------
-
-const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: string }> = ({
-    value,
-    onChange,
-    placeholder,
-    type,
-}) => (
-    <LineEdit
-        value={value ?? ""}
-        type={type}
-        className={css`width: 100%;`}
-        placeholder={placeholder}
-        onChange={(e) => onChange?.(e.target.value)}
-    />
-);
-
-const SwitchField: FC<FormItemEditor<boolean> & { label: string }> = ({
-    value,
-    onChange,
-    label,
-}) => (
-    <Switch
-        checked={value ?? false}
-        onChange={(checked: boolean) => onChange?.(checked)}
-        aria-label={label}
-    />
-);
-
-const SingleCheckboxField: FC<FormItemEditor<boolean> & { children: string }> = ({
-    value,
-    onChange,
-    children,
-}) => (
-    <Checkbox
-        checked={value ?? false}
-        onChange={(checked: boolean) => onChange?.(checked)}
-    >
-        {children}
-    </Checkbox>
-);
-
 const SliderField: FC<FormItemEditor<number>> = ({ value, onChange }) => (
     <Slider
         value={value ?? 0}
@@ -71,7 +29,7 @@ const SliderField: FC<FormItemEditor<number>> = ({ value, onChange }) => (
 
 // ---------- 表单数据形态 ----------
 
-interface ProfileForm extends Record<string, unknown> {
+interface ProfileForm {
     username: string;
     email: string;
     role: string;
@@ -127,12 +85,12 @@ const EditorsDemo: FC = () => {
                 console.warn("[submit:failed]", err);
             }}
         >
-            <Item label="用户名" name="username" required>
-                <LineEditField placeholder="请输入用户名" />
+            <Item label="用户名" name="username" binding="event" required>
+                <LineEdit placeholder="请输入用户名" />
             </Item>
 
-            <Item label="邮箱" name="email" required>
-                <LineEditField placeholder="name@example.com" type="email" />
+            <Item label="邮箱" name="email" binding="event" required>
+                <LineEdit placeholder="name@example.com" type="email" />
             </Item>
 
             <Item label="角色" name="role" required>
@@ -155,20 +113,20 @@ const EditorsDemo: FC = () => {
                 </RadioGroup>
             </Item>
 
-            <Item label="接收邮件" name="receiveEmail">
-                <SwitchField label="接收邮件" />
+            <Item label="接收邮件" name="receiveEmail" binding="checked">
+                <Switch aria-label="接收邮件" />
             </Item>
 
             <Item label="额度" name="quota">
                 <SliderField />
             </Item>
 
-            <Item label="协议" name="agree" required>
-                <SingleCheckboxField>我已阅读并同意服务条款</SingleCheckboxField>
+            <Item label="协议" name="agree" binding="checked" required>
+                <Checkbox>我已阅读并同意服务条款</Checkbox>
             </Item>
 
             <div className={actionRowStyle}>
-                <Button appearance="primary" onClick={() => form.submit()}>
+                <Button appearance="primary" onClick={async () => { await form.submit(); }}>
                     提交
                 </Button>
                 <Button onClick={() => form.resetFields()}>

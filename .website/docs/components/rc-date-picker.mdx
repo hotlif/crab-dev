@@ -1,6 +1,6 @@
 +++
 title = "DatePicker 日期选择器"
-description = "基于 Temporal 的日期选择器，支持范围限制、时区和本地化显示"
+description = "选择日期、时间或完整日期时间，支持时区与可选日期范围约束。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-date-picker.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-date-picker.js";
 
 # DatePicker 日期选择器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-date-picker</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**选择日期**
-
-指定业务时区，用 value 与 onValueChange 保存选中日期。 日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。 打开日期面板，选择一天并点击“确定”；也可以用方向键选择，再按 Enter 确认。 输入区域显示选中日期。
-
-**读取业务日期**
-
-保存 ZonedDateTime，展示时只提取日期部分。 日期与时区一起构成业务时间，使用回调返回的 Temporal 值保留这些信息。 选择日期并确认，再点击“清空日期”。 输出与日期选择同步，不用手动解析显示字符串。
-
-</div>
-
-## 常见问题
-
-### 运行环境需要什么？
-
-运行环境必须支持 Temporal；不支持的浏览器应由应用入口按项目策略加载 Temporal polyfill。
-
-
-## API
-
-<API source="../_generated_api/rc-date-picker.ts" symbol="DatePickerProps" component="DatePicker" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（7 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -77,14 +36,15 @@ import { tutorial } from "../_generated_tutorials/rc-date-picker.js";
 
 #### 时间选择
 
-##### 时间选择器 — 三种不同规格的时间选择器示例
+##### 时间选择与字段尺寸 — 从字段下方展开时间面板，可切换键盘输入；字段支持三档密度。
+
+##### 表盘与 12 小时制 — 先选小时，再选分钟；可切换 AM / PM，或用键盘图标切换到输入模式。
 
 ##### 时间面板 — 一个基础的时间选择面板组件
 
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-date-picker/workbench/)
 
@@ -101,3 +61,68 @@ import { tutorial } from "../_generated_tutorials/rc-date-picker.js";
 - 使用 `renderDisplayString` 自定义输入框中的日期文本。
 
 `value` 使用 `Temporal.ZonedDateTime | null`，通过 `onValueChange` 接收日期变化。
+
+`DatePicker` 和 `DateTimePicker` 的尾部图标共用一个位置。有值且未禁用时，鼠标移入字段会将日历图标切换为清除图标；移到图标上仍可清除，离开字段后恢复日历图标。也可以用 Tab 聚焦尾部按钮，再按 Enter / Space 清除。清除会触发 `onValueChange(null)`、关闭面板并将焦点返回输入框；受控用法需要同步更新 `value`。要修改已有日期，请点击输入区域打开日历。
+
+`TimePicker` 采用相同交互，在时钟与清除图标之间切换。无悬停能力的触屏设备在字段有值时直接显示清除按钮，点击输入区域仍可打开选择面板。
+
+顶层原生属性、事件及 ref 属于输入框。`panelProps` 只传给弹层中的面板，用于设置面板 id、className 和无障碍属性；选择草稿 selectValues、面板 onSelect 回调和 instance 由选择器内部管理。
+
+### 时间选择
+
+`TimePicker` 从输入框下方展开时间面板，空间不足时自动调整位置。面板没有遮罩，页面其他内容仍可操作。默认显示 24 小时制表盘，选择小时后自动进入分钟；底部键盘／时钟按钮可切换输入和表盘模式。
+
+点击字段，或聚焦后按 Enter / Space / ↓ 打开；仅 Tab 聚焦不会展开。确定后才触发 `onValueChange`。取消或 Escape 放弃草稿并返回字段；点击外部或用 Tab 移出面板也会放弃草稿，焦点继续移向目标控件。
+
+`value` 为 `{ hour, minute, second } | null`，其中 `hour` 始终为 0–23。默认展示 `HH:mm`；隐藏的 `second` 保留传入值，空值初次确认时为 0。非法或空的时间段会标记错误并阻止确认。受控用法需要把回调值更新到 `value`。
+
+| `panelProps` 属性 | 默认值 | 用途 |
+| --- | --- | --- |
+| `hourCycle` | `24` | 设为 `12` 显示 AM／PM；值仍使用 24 小时制 |
+| `defaultMode` | `dial` | 初始打开表盘；设为 `input` 优先使用键盘输入 |
+| `showSeconds` | `false` | 显式启用秒输入扩展，同时仅使用输入模式 |
+
+表盘数字支持 Tab 聚焦、Enter / Space 选择；方向键移动到相邻时间刻度并同步焦点（小时步长 1、分钟步长 5）。需要任意分钟时可拖动表针或切换键盘输入，输入框的 ↑ / ↓ 每次调整 1。输入法候选确认不会提交时间。
+
+`size="small / middle / large"` 调整外部字段密度。下拉面板使用时间选择器专用的数字区和点击区域，不跟随字段缩小。窄于 360px 或低于 560px 的视口使用输入模式，保留可编辑的数字区。窗口恢复后保留当前输入，可手动切回表盘；关闭后再次打开则按 `defaultMode` 初始化。
+
+需要秒精度时传入 `panelProps={{ showSeconds: true }}`。`DateTimePicker` 是日期与时间的组合扩展，默认保留秒输入；可通过 `panelProps.timePanelProps.showSeconds` 关闭。
+
+
+
+### TimePicker
+
+| 属性 | 类型 | 说明 |
+| --- | --- | --- |
+| `value` | `{ hour: number; minute: number; second: number } \| null` | 当前时间；小时 0–23，分钟和秒 0–59 |
+| `onValueChange` | `(value: TimePickerValue \| null) => void` | 确认或清除时触发 |
+| `panelProps` | `TimePickerPanelProps` 的配置子集 | 时间格式、初始模式与面板属性；草稿、操作区和有效性由选择器管理 |
+| `renderDisplayString` | `(value) => string` | 自定义外部字段展示文本 |
+| 字段属性 | `PickerFieldProps` | `label`、`appearance`、`size`、`disabled`、原生输入事件与 `ref` |
+
+### 适用场景
+
+用户从日历或时间面板选择一个明确值或范围。 需要通过最小/最大值、禁用日期或时区限制合法输入。
+
+生日等容易直接输入的已知日期可优先文本字段；复杂重复日程使用专门规则编辑器。
+
+### 使用要点
+
+- Date、Time 与 DateTime 是不同数据模型，先选对组件。TimePicker 从字段下方展开，可在表盘和键盘输入之间切换；确认后才更新值。
+- 受控 value、onValueChange 和显示时区要来自同一业务约定；独立时间默认选择小时与分钟，秒输入需显式启用。
+- Panel 不自带弹层触发器，嵌入时由外层负责打开、关闭、校验与焦点恢复；DateTimePicker 是日期和时间的组合扩展。
+
+### 无障碍
+
+- 输入框要有 label 和格式说明，日历网格支持方向键、确认和退出。
+- 当前日期、选中日期、不可选日期与错误必须同时有非颜色状态。
+
+## 常见问题
+
+### 运行环境需要什么？
+
+运行环境必须支持 Temporal；不支持的浏览器应由应用入口按项目策略加载 Temporal polyfill。
+
+## API
+
+<API source="../_generated_api/rc-date-picker.ts" symbol="DatePickerProps" component="DatePicker" />

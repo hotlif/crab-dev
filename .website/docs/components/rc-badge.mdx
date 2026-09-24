@@ -1,6 +1,6 @@
 +++
 title = "Badge 徽标数"
-description = "在元素旁展示计数、更新提醒或状态"
+description = "在对象附近展示数量或状态，提示未读消息与待处理事项。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-badge.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-badge.js";
 
 # Badge 徽标数
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-badge</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-计数表达待处理数量，圆点适用于只需说明有更新的情况。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**展示数量**
-
-将需要附着徽标的元素作为 children。 计数表达待处理数量，圆点适用于只需说明有更新的情况。 观察计数与消息入口的关系。 消息入口旁显示数字 5。
-
-**更新计数**
-
-使用状态驱动 count，并在归零后禁用操作。 计数表达待处理数量，圆点适用于只需说明有更新的情况。 连续读取三条消息。 计数逐次减少，归零后按钮禁用。
-
-</div>
-
-## 常见问题
-
-### 能只用颜色表达状态吗？
-
-不能。使用状态点时应提供 text 或邻近文字，说明状态含义。
-
-
-## API
-
-<API source="../_generated_api/rc-badge.ts" symbol="BadgeProps" component="Badge" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（5 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -74,7 +33,6 @@ import { tutorial } from "../_generated_tutorials/rc-badge.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-badge/workbench/)
 
@@ -97,3 +55,30 @@ import { tutorial } from "../_generated_tutorials/rc-badge.js";
 - 支持预设语义颜色与任意 CSS 颜色字符串。
 - 包裹子节点时角标自动定位到右上角，支持 `offset` 微调。
 - `showZero` 控制 `count = 0` 时是否显示。
+
+### 适用场景
+
+图标、头像或导航入口需要显示未读数量。 需要用一个很短的状态标记吸引注意，但不应打断当前任务。
+
+较长状态文字使用 Tag 或正文；需要用户立即处理的错误使用 Alert、Notification 或 Dialog。
+
+### 使用要点
+
+- 数字要设置合理上限，避免大数撑坏目标元素。
+- dot 适合只表达有无，count 适合数量本身有意义。
+- Badge 应依附清楚的宿主，单独出现通常缺少上下文。
+
+### 无障碍
+
+- 为宿主提供包含数量含义的可访问名称，不能只让读屏读出一个孤立数字。
+- 状态变化不要只用颜色表达；频繁更新时避免把每次计数都作为强制通告。
+
+## 常见问题
+
+### 能只用颜色表达状态吗？
+
+不能。使用状态点时应提供 text 或邻近文字，说明状态含义。
+
+## API
+
+<API source="../_generated_api/rc-badge.ts" symbol="BadgeProps" component="Badge" />

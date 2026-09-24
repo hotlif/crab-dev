@@ -1,2 +1,9 @@
 /* Workbench previews consume the built public theme, without a second palette. */
 @import "../../rc-theme/docs/workbench.css";
+
+/* Table demos need a definite available width before AutoSizer can measure.
+   Wake centers the demo wrapper by default, which shrinks percentage-width
+   tables to the sidebar width and leaves their measured viewport at zero. */
+.demo-default-preview > [data-wake-demo] {
+    justify-self: stretch;
+}

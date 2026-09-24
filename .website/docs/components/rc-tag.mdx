@@ -1,6 +1,6 @@
 +++
 title = "Tag 标签"
-description = "标记分类、属性或状态，支持关闭和勾选"
+description = "用简短标签标记分类、属性或状态，便于识别与浏览。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tag.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-tag.js";
 
 # Tag 标签
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tag</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-标签帮助用户识别分类；可勾选标签还可以作为筛选条件。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**标记分类**
-
-使用文字说明分类与状态。 标签帮助用户识别分类；可勾选标签还可以作为筛选条件。 区分分类标签和状态标签。 即使不看颜色也能理解标签含义。
-
-**勾选筛选项**
-
-通过 CheckableTag 的 checked 与 onChange 管理筛选值。 标签帮助用户识别分类；可勾选标签还可以作为筛选条件。 勾选标签后再次取消。 筛选说明随选中状态变化。
-
-</div>
-
-## 常见问题
-
-### 关闭标签等于删除数据吗？
-
-不一定。onClose 只通知关闭意图，删除业务数据需要另外处理，并提供确认或撤销。
-
-
-## API
-
-<API source="../_generated_api/rc-tag.ts" symbol="TagProps" component="Tag" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（7 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -82,7 +41,6 @@ import { tutorial } from "../_generated_tutorials/rc-tag.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-tag/workbench/)
 
@@ -106,3 +64,30 @@ import { tutorial } from "../_generated_tutorials/rc-tag.js";
 - 支持 `closable` 与 `onClose` 关闭交互。
 - 支持 `closeIcon` 自定义关闭图标。
 - `CheckableTag` 对应 Material Filter chip，选中后显示勾选标记并使用 secondary container；多个筛选标签应放在有名称的 toolbar 中。
+
+### 适用场景
+
+记录需要显示类别、属性或简短状态。 用户要移除一个已输入条件，或在一组标签中切换筛选。
+
+主要动作使用 Button；长说明使用正文；大量筛选需要更完整的筛选器。
+
+### 使用要点
+
+- 先决定标签是只读、closable 还是 checkable。
+- 自定义颜色要保持文字对比，并避免与反馈色混淆。
+- 关闭只移除这一项，业务数据更新和撤销由外层处理。
+
+### 无障碍
+
+- 关闭按钮有“移除 + 标签名”的可访问名称，不能只朗读“关闭”。
+- 可选择标签表达 pressed/selected 状态，静态 Tag 不应进入 Tab 顺序。
+
+## 常见问题
+
+### 关闭标签等于删除数据吗？
+
+不一定。onClose 只通知关闭意图，删除业务数据需要另外处理，并提供确认或撤销。
+
+## API
+
+<API source="../_generated_api/rc-tag.ts" symbol="TagProps" component="Tag" />

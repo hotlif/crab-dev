@@ -19,7 +19,8 @@ export default function Example() {
                 ]}
                 initialActiveTabKey="home"
             >
-                <AppMainLayout sidebarTitle="项目工作区" fullscreenable={false} />
+                <AppMainLayout sidebarTitle="项目工作区" fullscreenable={false}
+                    contentLandmark={{ role: "region", "aria-label": "项目工作区示例" }} />
             </AppMainLayoutProvider>
         </div>
     );

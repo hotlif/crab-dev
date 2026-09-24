@@ -1,6 +1,6 @@
 +++
 title = "Breadcrumbs 面包屑导航"
-description = "展示页面层级，并提供返回上级页面的入口"
+description = "展示当前页面在层级结构中的位置，并提供上级页面入口。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,57 +9,18 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-breadcrumbs.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-breadcrumbs.js";
 
 # Breadcrumbs 面包屑导航
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-breadcrumbs</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-面包屑表示页面层级，点击路径项可回到上一级。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**声明层级**
-
-使用 items 按从上级到当前页的顺序声明路径。 面包屑表示页面层级，点击路径项可回到上一级。 从左向右阅读路径。 成员详情显示在工作区与成员层级之后。
-
-**响应路径点击**
-
-给上级路径添加 onClick，将导航交给业务代码。 面包屑表示页面层级，点击路径项可回到上一级。 点击成员或工作区。 下方位置文字更新；示例不会跳离当前教程。
-
-</div>
-
-## 常见问题
-
-### 真实项目如何跳转？
-
-使用 href 提供真实链接，或在 onClick 中调用应用路由。不要让可点击项没有结果。
-
-
-## API
-
-<API source="../_generated_api/rc-breadcrumbs.ts" symbol="BreadcrumbsProps" component="Breadcrumbs" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 按钮式路径操作 — 不提供 href 时，上级路径使用原生按钮语义，支持键盘激活。
 
 ##### 基础用法 — 通过 items 快速配置基础面包屑
 
@@ -70,7 +31,6 @@ import { tutorial } from "../_generated_tutorials/rc-breadcrumbs.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-breadcrumbs/workbench/)
 
@@ -90,3 +50,31 @@ import { tutorial } from "../_generated_tutorials/rc-breadcrumbs.js";
 - 支持 `separator` 自定义分隔符。
 - 支持 `maxCount` 折叠中间层级，避免路径过长。
 - 支持每一项配置 `href`、`onClick`、`disabled`。
+- `href` 使用链接；仅有 `onClick` 的上级项使用按钮，可通过 Enter / Space 激活。当前位置使用 `aria-current="page"`，禁用项不响应操作。
+
+### 适用场景
+
+信息结构有两级以上，用户可能从搜索或深链接直接进入内页。 同一内容有稳定的父子层级，并且返回任一上级都合理。
+
+层级很浅或路径只是用户刚才点击过的历史时不必使用；页内步骤流程应使用 Stepper 类模式。
+
+### 使用要点
+
+- 每一项代表信息架构中的真实层级，不要把按钮操作塞进路径。
+- 当前页通常不可点击，并通过语义声明为当前位置。
+- 空间不足时折叠中间层级，但保留根节点、最近上级和当前页。
+
+### 无障碍
+
+- 整个路径使用有名称的导航区域，当前项标记 aria-current。
+- 分隔符应作为装饰隐藏，链接文字要能脱离视觉位置单独理解。
+
+## 常见问题
+
+### 真实项目如何跳转？
+
+使用 href 提供真实链接，或在 onClick 中调用应用路由。不要让可点击项没有结果。
+
+## API
+
+<API source="../_generated_api/rc-breadcrumbs.ts" symbol="BreadcrumbsProps" component="Breadcrumbs" />

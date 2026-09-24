@@ -29,7 +29,7 @@ globalStyle`
 .crab-home-quick-links { display: flex; align-items: center; gap: ${token.space["inline-gap"]}; color: ${token.color.text.tertiary}; }
 .crab-home-quick-links a { min-height: ${home.touch}; flex: none; white-space: nowrap; color: ${token.color.text.secondary}; }
 .crab-home-feature-grid { display: grid; min-width: 0; grid-template-columns: repeat(3,minmax(0,1fr)); gap: ${globalToken.space[2]}; }
-.crab-home-feature-grid .crab-home-feature { display: block; width: 100%; height: auto; min-width: 0; padding: ${token.space["group-gap"]}; border-radius: ${token.shape["extra-large"]}; white-space: normal; text-align: left; transition: border-radius ${token.motion.interaction}, background ${token.motion.interaction}; }
+.crab-home-feature-grid .crab-home-feature { display: block; width: 100%; height: auto; min-width: 0; padding: ${token.space["group-gap"]}; border-radius: ${token.shape["extra-large"]}; white-space: normal; text-align: left; transition: border-radius ${token.motion.spatial.fast}, background ${token.motion.interaction}; }
 .crab-home-feature > span { display: grid; gap: ${token.space["section-gap"]}; }
 .crab-home-feature-grid .crab-home-feature-action { background: ${token.color.brand.container}; color: ${token.color.brand["on-container"]}; }
 .crab-home-feature-grid .crab-home-feature-choice { background: ${token.color.secondary.container}; color: ${token.color.secondary["on-container"]}; }
@@ -59,7 +59,7 @@ globalStyle`
 .crab-home-demo::before { content: ""; position: absolute; z-index: -1; inset: ${globalToken.space[8]} 0; border-radius: ${home.demoRadius}; background: ${token.color.surface.low}; }
 .crab-home-demo-heading { align-items: start; }
 .crab-home-theme-controls { display: flex; flex-wrap: wrap; justify-content: end; gap: ${token.space["stack-gap"]}; }
-.crab-home-theme-controls > label { display: grid; gap: ${token.space["inline-gap"]}; color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; }
+.crab-home-theme-controls > div { display: grid; gap: ${token.space["inline-gap"]}; color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; }
 .crab-home-demo-surface { min-width: 0; padding: ${globalToken.space[6]}; border: 1px solid ${token.color.border.subtle}; border-radius: ${home.demoRadius}; background: ${token.color.surface.container}; color: ${token.color.text.primary}; box-shadow: none; }
 .crab-home-component-wall { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; gap: ${token.space["section-gap"]}; }
 .crab-home-component-column { display: grid; min-width: 0; gap: ${token.space["section-gap"]}; }
@@ -168,7 +168,7 @@ globalStyle`
     .crab-home-practices article > a { grid-column: 2; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .crab-home :where(*, *::before, *::after) { scroll-behavior: auto; animation: none; transition: none; }
+    .crab-home-feature-grid .crab-home-feature { transition: background ${token.motion.interaction}; }
     .crab-home-account-mark { transform: none; }
 }
 @media (forced-colors: active) {

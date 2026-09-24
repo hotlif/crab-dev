@@ -1,6 +1,6 @@
 +++
 title = "Pagination 分页"
-description = "切换页码、调整每页条数，并展示数据总量"
+description = "将较多结果分为多页，支持切换页码和调整每页数量。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-pagination.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-pagination.js";
 
 # Pagination 分页
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-pagination</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-分页控件提供导航，数据切片或请求仍由业务负责。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**提供总量**
-
-传入 total 和初始每页条数。 分页控件提供导航，数据切片或请求仍由业务负责。 点击下一页。 页码更新；此时尚未连接具体列表。
-
-**连接列表切片**
-
-用 current 计算 slice 范围，并连接 onChange。 分页控件提供导航，数据切片或请求仍由业务负责。 切换到第 2 页和最后一页。 第二页显示项目 6–10，最后一页只有 3 条。
-
-</div>
-
-## 常见问题
-
-### 筛选后应保留原页码吗？
-
-通常将页码重置为 1，避免新结果不足以覆盖原来的页数。
-
-
-## API
-
-<API source="../_generated_api/rc-pagination.ts" symbol="PaginationProps" component="Pagination" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（8 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -84,7 +43,6 @@ import { tutorial } from "../_generated_tutorials/rc-pagination.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-pagination/workbench/)
 
@@ -104,3 +62,30 @@ import { tutorial } from "../_generated_tutorials/rc-pagination.js";
 - 根据页面密度选择尺寸，分页控件应靠近对应的数据区域。
 - 页数较少时显示完整页码，较多时通过省略号和跳转控件缩短导航。
 - 保留悬停、聚焦、按下和禁用反馈，并遵循减少动态效果的系统偏好。
+
+### 适用场景
+
+用户需要在较大的结果集中稳定定位页码。 服务器分页或业务要求明确的页数和每页条数。
+
+连续浏览内容可使用加载更多或虚拟滚动；结果很少时不要增加分页控制。
+
+### 使用要点
+
+- current、pageSize 与 total 共同决定合法页码。
+- 改变 pageSize 后要重新计算 current，避免落到不存在的页。
+- 请求中的页码状态、加载和错误由业务层管理。
+
+### 无障碍
+
+- 分页区域使用有名称的导航语义，当前页标记 aria-current。
+- 上一页、下一页、页码和跳转输入都有明确名称，禁用状态不能只变淡。
+
+## 常见问题
+
+### 筛选后应保留原页码吗？
+
+通常将页码重置为 1，避免新结果不足以覆盖原来的页数。
+
+## API
+
+<API source="../_generated_api/rc-pagination.ts" symbol="PaginationProps" component="Pagination" />

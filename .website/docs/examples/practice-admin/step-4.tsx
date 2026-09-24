@@ -18,7 +18,7 @@ const layout = css`
 `;
 const drawerStyle = css`
     --drawer-header-border-color: ${token.color.border.subtle};
-    --drawer-close-size: calc(${token.space["card-padding"]} * 2 + ${token.space["inline-gap"]});
+    --drawer-close-width: calc(${token.space["card-padding"]} * 2 + ${token.space["inline-gap"]});
 `;
 const frame = css`
     height: calc(${token.space["section-gap"]} * 36);
@@ -71,6 +71,7 @@ function Workspace() {
     const { openTab } = useAppMainLayoutTabs();
     return (
         <AppMainLayout
+            contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }}
             sidebarTitle="Crab 工作区"
             onLogoClick={() =>
                 openTab({

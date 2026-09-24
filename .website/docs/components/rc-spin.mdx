@@ -1,6 +1,6 @@
 +++
 title = "Spin 加载中"
-description = "显示耗时操作的加载状态，支持延迟显示和区域加载遮罩"
+description = "标识正在加载或处理的区域，让用户了解当前等待状态。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-spin.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-spin.js";
 
 # Spin 加载中
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-spin</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-加载反馈说明操作仍在进行；延迟显示可以避免短请求闪烁。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**显示等待**
-
-通过 tip 说明正在执行的操作。 加载反馈说明操作仍在进行；延迟显示可以避免短请求闪烁。 观察指示器与操作说明。 用户能理解正在读取项目，而非只看到动画。
-
-**模拟异步任务**
-
-用 Transition 管理等待状态，设置 delay=&#123;200&#125;。 加载反馈说明操作仍在进行；延迟显示可以避免短请求闪烁。 点击重新读取，等待约 700 ms。 区域短暂显示加载反馈，结束后读取次数增加。
-
-</div>
-
-## 常见问题
-
-### 示例会请求后端吗？
-
-不会。这里的 700 ms 定时等待模拟请求；接入业务时替换为真实异步函数。
-
-
-## API
-
-<API source="../_generated_api/rc-spin.ts" symbol="SpinProps" component="Spin" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（7 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -78,7 +37,6 @@ import { tutorial } from "../_generated_tutorials/rc-spin.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-spin/workbench/)
 
@@ -113,13 +71,13 @@ import { tutorial } from "../_generated_tutorials/rc-spin.js";
 
 ```tsx
 import { css } from '@crab-dev/css';
-import { SpinIndicator, vars as spinVars } from '@crab-dev/rc-spin';
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 
 // 指示环随宿主字号缩放，并使用宿主前景色。
 const style = css`
     --rc-spin-size: 1em;
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 ```
 
@@ -131,3 +89,30 @@ const style = css`
 - `tip` 提供具体的操作说明；未设置时使用 `label`，默认值为“加载中”。
 - 包裹模式为容器设置 `aria-busy`，并通过 `inert` 阻止内容区的指针交互和键盘聚焦。
 - 在 `prefers-reduced-motion` 下，将旋转改为低频透明度变化，保留加载反馈。
+
+### 适用场景
+
+局部请求或计算没有可靠完成比例。 内容需要暂时阻止重复操作，并用 tip 解释正在做什么。
+
+页面结构可预测时 Skeleton 更稳定；有真实进度值时使用 determinate Progress。
+
+### 使用要点
+
+- spinning 控制状态，delay 避免极短任务闪一下。
+- wrapper 模式只覆盖相关区域，不应冻结整个应用。
+- tip 使用具体动词，如“正在保存报表”，不要只写“加载中”。
+
+### 无障碍
+
+- 容器设置 busy 状态并提供简短 status 文本，完成后及时移除。
+- 减少动态效果时保留静态进度提示；不要让装饰指示器进入 Tab 顺序。
+
+## 常见问题
+
+### 示例会请求后端吗？
+
+不会。这里的 700 ms 定时等待模拟请求；接入业务时替换为真实异步函数。
+
+## API
+
+<API source="../_generated_api/rc-spin.ts" symbol="SpinProps" component="Spin" />

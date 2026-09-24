@@ -82,4 +82,6 @@ status = "experimental"
 
 ## API
 
+`href` 存在时渲染链接，原生属性、事件 currentTarget 和 ref 对应 HTMLAnchorElement；未提供 href 时对应 HTMLButtonElement。链接支持 download、hrefLang、焦点事件等原生属性。需要包装按钮时分别使用 `ButtonNativeProps` 或 `ButtonLinkProps`，不要把两种元素的事件类型混用。
+
 <API source="../src/types.ts" symbol="ButtonProps" component="Button" />

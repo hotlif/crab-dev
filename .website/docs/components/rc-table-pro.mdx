@@ -1,6 +1,6 @@
 +++
 title = "TablePro 高级表格"
-description = "基于 Table 集成数据加载、查询、列管理和导出"
+description = "围绕数据协议组织查询、分页和表格展示，搭建业务数据工作台。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,57 +9,24 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-table-pro.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-table-pro.js";
 
 # TablePro 高级表格
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-table-pro</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-列协议描述数据如何显示，加载函数将业务数据接入表格。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**加载列与数据**
-
-用独立的异步函数返回列协议和确定性本地数据。 列协议描述数据如何显示，加载函数将业务数据接入表格。 等待表格完成初始化。 两列成员数据加载到表格。
-
-**启用分页**
-
-增加 pagination，用两条一页观察翻页。 列协议描述数据如何显示，加载函数将业务数据接入表格。 翻到第二页，再返回第一页。 第三位成员出现在第二页。
-
-</div>
-
-## 常见问题
-
-### 如何接真实接口？
-
-替换 fetchColumns 和 fetchData 的函数体；保持返回的列协议与行结构一致。教程函数只返回本地数据，不会请求后端。
-
-
-## API
-
-<API source="../_generated_api/rc-table-pro.ts" symbol="TableProProps" component="TablePro" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（8 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
+
+#### 业务实战
+
+##### 订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；金额汇总与 CSV 只针对当前页。request 真正处理分页、筛选、排序及 AbortSignal。
+
+##### 库存补货决策：仓库分组与汇总 — 模拟 720 条真实库存组合。按仓库分组，查看可用库存、7 日需求及补货建议；展开行看供应商和采购提前期，筛选缺货风险后勾选并生成模拟采购建议。底部汇总随筛选结果变化。
+
+##### 应收账款复核：持久化视图与催收清单 — 模拟 840 张企业发票（固定快照日 2026-09-24）。筛选客户、负责人或风险等级；拖拽和固定列会写入 localStorage，刷新页面仍保留视图。底部汇总和 CSV 涵盖全部筛选结果，选择逾期发票生成模拟催收计划。
 
 #### 基础与数据
 
@@ -86,7 +53,6 @@ import { tutorial } from "../_generated_tutorials/rc-table-pro.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-table-pro/workbench/)
 
@@ -97,7 +63,7 @@ import { tutorial } from "../_generated_tutorials/rc-table-pro.js";
 
 ### 主要功能
 
-- 通过 `fetchColumns` 和 `fetchData` 异步加载列定义与数据。
+- 通过 `fetchColumns` 和 `request` 异步加载列定义与数据，兼容旧 `fetchData`。
 - 通过 `typeLoaders` 为不同 `dataType` 配置 `render`、`filterEditor` 和 `editRender`。
 - 复用 AutoSizer 与 Table，提供自适应容器和虚拟滚动。
 - 集成分页、查询、列管理与导出；数据请求和业务筛选逻辑由调用方实现。
@@ -107,3 +73,54 @@ import { tutorial } from "../_generated_tutorials/rc-table-pro.js";
 - 后端以列协议（metadata）下发列定义，需要前端根据协议渲染表格；
 - 需要为多种数据类型（金额、日期、富文本、状态）提供可插拔渲染器；
 - 需要将筛选/排序逻辑放到服务端，前端只负责展示与收集条件。
+
+
+先看「业务实战」中的三个组合场景，再按需回到基础示例理解单项 API。所有数据都在浏览器内生成，操作不会写入真实后端。
+
+| 场景 | 建议亲手完成的任务 | 主要能力 |
+| --- | --- | --- |
+| 订单履约 | 在右侧过滤器输入「待发货」并回车；按承诺送达日排序；跨页选择订单后生成拣货单 | 服务端分页、复合筛选和排序、请求取消、跨页勾选、当前页汇总与导出 |
+| 库存补货 | 查看不同仓库的商品分组；筛选「需补货」；展开一行了解供应商；选择几条记录生成采购建议 | 多级表头、仓库分组、虚拟滚动、行展开、全量筛选汇总 |
+| 应收复核 | 筛选「高风险」；调整列顺序与固定方式；刷新页面确认视图保留；选择逾期发票生成催收清单 | 客户端排序、列状态持久化、全量汇总、筛选结果导出 |
+
+三个场景分别处理 960 笔订单、720 条库存组合和 840 张发票。订单场景的 `request` 只返回当前页，因此底部汇总和 CSV 只覆盖**当前页**；另外两个场景一次返回全部筛选结果，汇总和 CSV 覆盖**全部筛选结果**。内置搜索栏用于定位已加载的行，不能代替跨页服务端搜索。示例中的「生成」按钮只在页面内展示操作反馈，不会创建真实单据。
+
+这三个示例共用的演示框架、筛选输入、状态标签和可取消模拟请求位于包内 `docs/demos/scenario-shared.tsx`；复制场景源码到自己的项目时，也要将这些辅助函数替换为项目组件和真实接口。
+
+
+
+
+推荐使用 `request({ page, pageSize, filters, sort, signal })`，返回 `{ rows, total }`。新查询和卸载会取消旧请求；将 signal 传给 fetch 可中止底层网络请求。过期结果与过期错误均不会覆盖当前状态。
+
+从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，要在 `onChange` 中保存新集合，并根据业务状态设置 `getDisabled`。仅在已加载数据范围内使用 `showSummary` 与导出；需要全库聚合或全库导出时应另接后端接口。
+
+`sortMode` 默认为 client，仅对已加载数据排序。服务端分页配合 `sortMode="server"` 和 request 使用，组件通过 query.sort 传递排序条件，保留返回顺序，排序变化时回到第一页。旧 fetchData 仅支持 client 模式。
+
+为类型加载器标注 `DataTypeLoader<MyRow>[]`，渲染、编辑、搜索、汇总和导出回调便可保留业务行类型。`TableProProps`、`ProtocolTableState`、`TableQuery` 等类型均从包入口导出。
+
+### 适用场景
+
+页面需要围绕一个数据源提供完整查询和管理工具。 多个项目要复用一致的分页、列配置、导出和刷新流程。
+
+只展示本地小数据集时直接使用 Table；页面交互特殊到无法共享协议时先拆分需求。
+
+### 使用要点
+
+- loader 的输入、返回总数和取消/竞态行为必须明确。
+- 搜索、分页和列状态使用单一来源，持久化只保存可恢复的用户偏好。
+- 导出、自动刷新和侧栏都要展示独立的进行中、成功和失败结果。
+
+### 无障碍
+
+- 工具栏有名称和逻辑顺序，刷新后不重置用户焦点或朗读整个表格。
+- 查询错误、空结果和导出状态提供文字反馈，列管理可完全使用键盘。
+
+## 常见问题
+
+### 如何接真实接口？
+
+使用 fetchColumns 加载列协议，通过 request(&#123; page, pageSize, filters, sort, signal &#125;) 调用后端并返回 &#123; rows, total &#125;。total 是筛选后的总条数，signal 传给 fetch 以取消过期请求。页面中的示例使用本地模拟数据。
+
+## API
+
+<API source="../_generated_api/rc-table-pro.ts" symbol="TableProProps" component="TablePro" />

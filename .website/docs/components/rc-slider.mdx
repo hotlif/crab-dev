@@ -1,6 +1,6 @@
 +++
 title = "Slider 滑块"
-description = "通过拖动滑块在指定数值范围内选择值"
+description = "拖动滑块调整连续数值，适用于音量、比例与范围设置。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-slider.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-slider.js";
 
 # Slider 滑块
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-slider</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**连接数值**
-
-将 value 与 onValueChange 连接到亮度状态。 滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。 拖动滑块。 亮度数字随滑块位置更新。
-
-**限制步长**
-
-增加 step=&#123;10&#125;，并提供明确的恢复操作。 滑块让用户在明确范围内调整参数，旁边的数字提供精确反馈。 调整数值，再恢复默认亮度。 数值按 10 递增，恢复操作回到 40%。
-
-</div>
-
-## 常见问题
-
-### 如何精确键入数字？
-
-需要键入时配合 NumberEdit，并让两个控件共享同一数值状态。
-
-
-## API
-
-<API source="../_generated_api/rc-slider.ts" symbol="SliderProps" component="Slider" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（2 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -68,7 +27,6 @@ import { tutorial } from "../_generated_tutorials/rc-slider.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-slider/workbench/)
 
@@ -84,3 +42,30 @@ import { tutorial } from "../_generated_tutorials/rc-slider.js";
 ### Expressive 外观
 
 使用新版竖向手柄、轨道间隙与终点标记。`size` 提供 `xs`（默认）、`s`、`m`、`l`、`xl`，轨道高度分别为 16、24、40、56、96px。按压时手柄变细；数值更新立即跟随拖动，不对拖动位置添加延迟。
+
+### 适用场景
+
+音量、亮度、比例等范围值需要快速调整。 min、max 和 step 明确，用户可以根据相对位置做决定。
+
+精确数值输入使用 NumberEdit；少量离散选择使用 Segmented 或 Radio。
+
+### 使用要点
+
+- min、max、step 和 value 必须使用同一单位。
+- 受控 onChange 处理拖动过程，必要时区分提交完成事件。
+- 标签或值显示帮助用户理解手柄位置代表什么。
+
+### 无障碍
+
+- 提供可访问名称、当前值文字、上下限和键盘增减操作。
+- 轨道颜色之外要有可定位手柄与焦点，触控目标大于可见手柄。
+
+## 常见问题
+
+### 如何精确键入数字？
+
+需要键入时配合 NumberEdit，并让两个控件共享同一数值状态。
+
+## API
+
+<API source="../_generated_api/rc-slider.ts" symbol="SliderProps" component="Slider" />

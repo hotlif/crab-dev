@@ -7,17 +7,20 @@ import path from "node:path";
 import { validateTutorial, assertExampleImports, loadTutorial, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 
 import {
+    componentGuideMarkup,
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,
     densityFor,
     extractDemoMeta,
+    extractDemoLearning,
     isValidTypeText,
     layoutFor,
     normalizeApiProps,
     parseSourceApiProps,
     removeOrphanGeneratedFiles,
     resolveApiSourcePath,
+    validateComponentGuide,
 } from "./generate-component-docs.mjs";
 
 const temporaryDirectory = await mkdtemp(path.join(tmpdir(), "crab-docs-generator-"));
@@ -281,7 +284,8 @@ status = "experimental"
 `, "rc-select", demos, api);
 
     assert.match(page, /可搜索 — 按 disabled 状态过滤/);
-    assert.ok(page.indexOf("## 何时使用") < page.indexOf("## 组件预览"));
+    assert.ok(page.indexOf("## 示例") < page.indexOf("### 何时使用"));
+    assert.ok(page.indexOf("### 何时使用") < page.indexOf("## API"));
     assert.match(page, /<API source="\.\.\/_generated_api\/rc-select\.ts" symbol="SelectProps"/);
     assert.doesNotMatch(page, /ComponentApi/);
 });
@@ -344,6 +348,29 @@ const lesson = {
     faq: [{ question: "如何重置？", answer: "点击重置当前示例。" }],
 };
 
+const guide = {
+    definition: "示例组件帮助初学者理解一项完整能力，并通过运行结果、源码和接口说明建立从概念到实现的联系。",
+    useWhen: ["需要完成一项明确的界面任务并复用组件行为。", "需要通过受控状态把组件与业务数据连接起来。"],
+    avoidWhen: ["已有更符合任务语义的组件时，不要只因为外观相似而替换。"],
+    essentials: ["先理解组件负责什么，再选择属性。", "受控状态与变更事件保持单一数据来源。", "默认、错误、禁用和窄屏状态都要检查。"],
+    accessibility: ["组件必须有可访问名称和清楚的键盘路径。", "状态不能只靠颜色表达，焦点必须始终可见。"],
+    material: {
+        basis: "示例以 Material Design 3 的组件职责和状态规则为设计依据。",
+        m3: "https://m3.material.io/components",
+        web: "https://material-web.dev/components/",
+        source: "https://github.com/material-components/material-web",
+    },
+};
+
+test("组件新手指南要求完整场景、概念、无障碍和官方依据", () => {
+    validateComponentGuide(guide, "rc-example");
+    assert.throws(() => validateComponentGuide({ ...guide, useWhen: ["太短"] }, "rc-example"), /useWhen/);
+    const markup = componentGuideMarkup(guide);
+    assert.match(markup, /### 适用场景/);
+    assert.match(markup, /### 使用要点/);
+    assert.doesNotMatch(markup, /设计参考|Material Web|https:\/\//);
+});
+
 test("教程要求完整步骤、唯一 ID 与互斥示例来源", () => {
     validateTutorial(lesson, "fixture");
     assert.throws(() => validateTutorial({ ...lesson, steps: [lesson.steps[0]] }, "fixture"), /2–6/);
@@ -402,16 +429,41 @@ test("教学文字中的 JSX 与表达式不会成为 MDX 运行代码", () => {
     assert.ok(markup.includes("A &amp; B"));
 });
 
-test("组件教学页保留旧工作台、API 和进阶示例入口", () => {
+test("没有工作台演示时只展示一次教程，并保留原有说明和工作台入口", () => {
     const source = '+++\ntitle = "组件"\n+++\n\n# 组件\n\n[打开工作台](/components/rc-example/workbench/)\n\n## 何时使用\n\n原有说明。\n\n<Demos />\n';
     const page = createPage(source, "rc-example", [], null, lesson);
     assert.match(page, /<Tutorial tutorial=\{tutorial\} \/>/);
     assert.match(page, /\/components\/rc-example\/workbench\//);
-    assert.match(page, /<details>/);
     assert.match(page, /原有说明/);
-    assert.ok(page.indexOf("跟着做") < page.indexOf("更多示例"));
-    assert.match(page, /<FirstExample tutorial=\{tutorial\} \/>/);
-    assert.ok(page.indexOf("## 基础示例") < page.indexOf("## 跟着做"));
+    assert.equal((page.match(/<Tutorial /g) ?? []).length, 1);
+    assert.doesNotMatch(page, /<FirstExample |<ComponentDemos |## 基础示例|## 全部示例/);
+    assert.ok(page.indexOf("## 示例") < page.indexOf("## 使用说明"));
+});
+
+test("组件页连续展示唯一示例集，随后提供说明和 API，保留旧示例锚点", () => {
+    const source = '+++\ntitle = "组件"\n+++\n\n# 组件\n\n[打开工作台](/components/rc-example/workbench/)\n\n## 何时使用\n\n原有说明。\n\n<Demos />\n';
+    const demos = [{
+        id: "docs/demos/basic.demo.tsx",
+        title: "基础",
+        description: "展示基础能力",
+        learning: { components: ["Example"], props: [], events: [], hasState: false },
+        sourceCode: "export default () => null;",
+        previewPath: "/preview",
+        workbenchPath: "/workbench",
+        density: "regular",
+        layout: "wide",
+        group: null,
+    }];
+    const page = createPage(source, "rc-example", demos, { symbol: "ExampleProps", component: "Example" }, lesson, [], guide);
+    assert.equal((page.match(/<ComponentDemos /g) ?? []).length, 1);
+    assert.doesNotMatch(page, /<FirstExample |<Tutorial |## 基础示例|## 全部示例|## 组件入门|<details>/);
+    assert.match(page, /id="基础示例"/);
+    assert.match(page, /id="全部示例"/);
+    assert.match(page, /基础 — 展示基础能力/);
+    assert.match(page, /原有说明/);
+    assert.match(page, /### 无障碍/);
+    assert.ok(page.indexOf("## 示例") < page.indexOf("## 使用说明"));
+    assert.ok(page.indexOf("## 使用说明") < page.indexOf("## API"));
 });
 
 test("孤儿教学页面只清理生成文件，保留手写实战入口", async () => {
@@ -476,14 +528,28 @@ test("站点、教学示例和预览组件不得另写库中已有的基础交�
     }
 });
 
-test("Radio 页面分离场景、最小用法与状态试验，保留两个 API 和搜索索引", () => {
+test("Demo 学习说明从实际组件、属性、事件和状态中提取", () => {
+    const source = `
+import Button from "../../src/index.js";
+import { useState } from "react";
+export default function Demo() {
+    const [selected, setSelected] = useState(false);
+    return <Button appearance="primary" isSelected={selected} onClick={() => setSelected(true)}>保存</Button>;
+}`;
+    assert.deepEqual(extractDemoLearning(source, "button.demo.tsx"), {
+        components: ["Button"],
+        props: ["appearance", "isSelected", "onClick"],
+        events: ["onClick"],
+        hasState: true,
+    });
+});
+
+test("Radio 页面保留 Radio 和 RadioGroup 两个 API", () => {
     const source = '+++\ntitle = "Radio 单选框"\n+++\n\n# Radio 单选框\n\n[打开工作台](/components/rc-radio/workbench/)\n\n<Demos />\n';
     const page = createPage(source, "rc-radio", [], { symbol: "RadioProps", component: "Radio" }, lesson);
-    assert.equal((page.match(/<RadioExample /g) ?? []).length, 3);
-    assert.doesNotMatch(page, /<Tutorial |<FirstExample /);
+    assert.doesNotMatch(page, /<FirstExample /);
     assert.match(page, /symbol="RadioProps"/);
     assert.match(page, /symbol="RadioGroupProps"/);
-    assert.match(page, /data-docs-search-index="tutorial"/);
     assert.match(page, /\/components\/rc-radio\/workbench\//);
 });
 

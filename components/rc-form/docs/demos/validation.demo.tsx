@@ -30,7 +30,7 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
     />
 );
 
-interface SignupForm extends Record<string, unknown> {
+interface SignupForm {
     account: string;
     password: string;
     confirm: string;
@@ -148,7 +148,7 @@ const ValidationDemo: FC = () => {
             </Item>
 
             <div className={actionRowStyle}>
-                <Button appearance="primary" onClick={() => form.submit()}>
+                <Button appearance="primary" onClick={async () => { await form.submit(); }}>
                     注册
                 </Button>
                 <Button onClick={() => form.resetFields()}>

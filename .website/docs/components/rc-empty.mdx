@@ -1,6 +1,6 @@
 +++
 title = "Empty 空状态"
-description = "为无数据、搜索无结果或无权限的区域提供说明与操作入口"
+description = "说明当前没有数据或结果，并引导用户执行合适的下一步。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-empty.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-empty.js";
 
 # Empty 空状态
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-empty</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-空状态说明为什么没有内容，并在适用时提供下一步操作。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**解释无数据**
-
-同时提供原因说明和结果预期。 空状态说明为什么没有内容，并在适用时提供下一步操作。 阅读空状态，确认用户能理解为什么为空。 页面明确说明尚未创建项目。
-
-**提供下一步**
-
-通过 action 提供创建入口，并让结果替换空状态。 空状态说明为什么没有内容，并在适用时提供下一步操作。 点击创建项目。 空状态被已创建的项目说明替换。
-
-</div>
-
-## 常见问题
-
-### 搜索无结果应该提示创建吗？
-
-优先解释筛选条件，并提供清除或调整筛选的操作。
-
-
-## API
-
-<API source="../_generated_api/rc-empty.ts" symbol="EmptyProps" component="Empty" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -72,7 +31,6 @@ import { tutorial } from "../_generated_tutorials/rc-empty.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-empty/workbench/)
 
@@ -94,3 +52,30 @@ import { tutorial } from "../_generated_tutorials/rc-empty.js";
 - 列表、表格、搜索结果为空时
 - 用户没有相应权限时
 - 页面或模块首次使用，尚无内容时
+
+### 适用场景
+
+列表第一次为空，需要引导创建内容。 筛选或搜索后没有结果，需要说明如何恢复或调整条件。
+
+仍在加载时使用 Skeleton 或 Spin；请求失败时显示错误原因和重试，而不是伪装成空数据。
+
+### 使用要点
+
+- 标题明确说明“没有什么”，描述解释为什么以及下一步。
+- action 只放最可能的恢复动作，例如新建或清除筛选。
+- preset 负责常见视觉，custom 用于确有业务意义的插图。
+
+### 无障碍
+
+- 空状态必须包含真实文本，插图应是装饰或有恰当替代文本。
+- 从有数据变为空时，焦点不要落在已卸载项目上，并按任务重要程度提供状态通告。
+
+## 常见问题
+
+### 搜索无结果应该提示创建吗？
+
+优先解释筛选条件，并提供清除或调整筛选的操作。
+
+## API
+
+<API source="../_generated_api/rc-empty.ts" symbol="EmptyProps" component="Empty" />

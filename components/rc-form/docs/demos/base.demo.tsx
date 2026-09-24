@@ -27,7 +27,7 @@ const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: 
     />
 );
 
-interface UserInfo extends Record<string, unknown> {
+interface UserInfo {
     user: {
         username: string;
         password: string;
@@ -77,7 +77,7 @@ const SimpleFrame = () => {
             </Item>
 
             <div className={actionRowStyle}>
-                <Button appearance="primary" onClick={() => form.submit()}>
+                <Button appearance="primary" onClick={async () => { await form.submit(); }}>
                     提交
                 </Button>
                 <Button onClick={() => form.resetFields()}>

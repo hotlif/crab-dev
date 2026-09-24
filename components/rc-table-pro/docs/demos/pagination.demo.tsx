@@ -75,7 +75,7 @@ const NumberFilterEditor = ({ value, onValueChange }: { value: string; onValueCh
     );
 };
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<EmployeeRow>[] = [
     {
         name: "text",
         render: undefined,

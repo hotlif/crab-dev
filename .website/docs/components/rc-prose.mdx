@@ -1,6 +1,6 @@
 +++
 title = "Prose 长文本排版"
-description = "为 Markdown、MDX 或富文本生成的内容提供统一排版样式"
+description = "统一标题、段落、列表与代码等长文样式，改善文档阅读体验。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-prose.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-prose.js";
 
 # Prose 长文本排版
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-prose</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**包裹正文**
-
-将语义化标题、段落和列表作为 children。 Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。 比较各层级文字与间距。 正文形成统一的排版结构。
-
-**调整阅读尺寸**
-
-通过 size 控制排版密度。 Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Markdown。 切换阅读尺寸。 标题、正文和间距一起变化。
-
-</div>
-
-## 常见问题
-
-### 直接传 Markdown 字符串会解析吗？
-
-不会。先由 Markdown/MDX 工具解析，再将结果放入 Prose。
-
-
-## API
-
-<API source="../_generated_api/rc-prose.ts" symbol="ProseProps" component="Prose" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -72,7 +31,6 @@ Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Mar
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-prose/workbench/)
 
@@ -95,3 +53,30 @@ Prose 为已经生成的 HTML 或 React 内容提供样式，不负责解析 Mar
 - 支持 `as` 语义标签：`div`、`article`、`section`、`main`。
 - 完整的排版规则覆盖：标题、段落、链接、列表、引用、代码、表格、媒体、定义列表。
 - 三层设计令牌架构，支持主题覆写。
+
+### 适用场景
+
+帮助文档、发布说明或富文本内容需要稳定阅读样式。 Markdown 或 CMS 输出需要一层可控的语义排版容器。
+
+表单、仪表盘和紧凑数据界面使用各自组件布局，不要套用文章行高。
+
+### 使用要点
+
+- 使用正确 HTML 语义，让样式跟随 h1、p、ul、code 等结构。
+- size 调整整体阅读尺度，但标题层级仍由文档结构决定。
+- 表格和代码块要处理窄屏溢出，而不是压缩到不可读。
+
+### 无障碍
+
+- 标题不能跳级，链接文字要描述目标，图片和代码有必要说明。
+- 在 200% 缩放、长中文和高对比模式下检查行长、换行和焦点。
+
+## 常见问题
+
+### 直接传 Markdown 字符串会解析吗？
+
+不会。先由 Markdown/MDX 工具解析，再将结果放入 Prose。
+
+## API
+
+<API source="../_generated_api/rc-prose.ts" symbol="ProseProps" component="Prose" />

@@ -62,7 +62,7 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.inStock",   title: "库存",      dataType: "stock",    width: 80  },
 ];
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<BookRow>[] = [
     { name: "text",   render: undefined, editRender: undefined, filterEditor: undefined },
     { name: "number", render: undefined, editRender: undefined, filterEditor: undefined },
     {

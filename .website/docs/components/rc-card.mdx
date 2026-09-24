@@ -1,6 +1,6 @@
 +++
 title = "Card 卡片"
-description = "将标题、封面、正文和操作组织为独立的信息单元"
+description = "将相关内容和操作组织为独立容器，建立清晰的信息分组。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-card.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-card.js";
 
 # Card 卡片
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-card</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-卡片把标题、内容与操作组织在一起，适合展示一个独立对象。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**组合内容**
-
-使用 title 与 children 构建最小卡片。 卡片把标题、内容与操作组织在一起，适合展示一个独立对象。 确认标题与正文的层级关系。 标题和正文位于同一个有边界的信息单元中。
-
-**加入业务操作**
-
-将操作放入 extra，并显示状态文字。 卡片把标题、内容与操作组织在一起，适合展示一个独立对象。 收藏卡片，再取消收藏。 操作名称与状态文字同步变化。
-
-</div>
-
-## 常见问题
-
-### 什么时候使用结构子组件？
-
-当内容区块顺序需要自定义时，组合 Card.Header、Card.Body 等子组件。
-
-
-## API
-
-<API source="../_generated_api/rc-card.ts" symbol="CardProps" component="Card" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（8 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -84,7 +43,6 @@ import { tutorial } from "../_generated_tutorials/rc-card.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-card/workbench/)
 
@@ -120,3 +78,30 @@ import { tutorial } from "../_generated_tutorials/rc-card.js";
     <Card.Footer><Button>确认</Button></Card.Footer>
 </Card>
 ```
+
+### 适用场景
+
+多个同级内容单元需要重复排列，例如项目、文章或商品摘要。 一组内容需要自己的标题、媒体、正文和少量就近动作。
+
+内容天然属于同一连续页面时优先用标题、留白和 Divider；不要层层嵌套卡片。
+
+### 使用要点
+
+- 先确定 elevated、filled 或 outlined 变体，再保持同一列表中的层级一致。
+- 可点击卡片需要一个清楚主动作，次要按钮不能与整卡点击冲突。
+- loading 骨架要尽量保持最终内容结构，避免加载完成后大幅跳动。
+
+### 无障碍
+
+- 整卡可点击时使用真实链接或按钮语义，并给内部独立操作清楚的焦点顺序。
+- 标题层级、图片替代文本和状态信息不能因为放进 Card 就省略。
+
+## 常见问题
+
+### 什么时候使用结构子组件？
+
+当内容区块顺序需要自定义时，组合 Card.Header、Card.Body 等子组件。
+
+## API
+
+<API source="../_generated_api/rc-card.ts" symbol="CardProps" component="Card" />

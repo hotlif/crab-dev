@@ -1,6 +1,6 @@
 +++
 title = "BarChart 柱状图"
-description = "基于 WebGL 2 的柱状图，支持分组、堆叠和横向展示"
+description = "以柱形比较分类数值，便于观察差异、排名与数据分布。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-bar-chart.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-bar-chart.js";
 
 # BarChart 柱状图
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-bar-chart</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-categories 定义分类，series 中的数据按分类位置一一对应。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**显示一组数据**
-
-声明三个分类与等长 data 数组。 categories 定义分类，series 中的数据按分类位置一一对应。 对照文字数据与柱高。 周二柱最高，表示完成任务最多。
-
-**比较两个系列**
-
-增加第二组 series，通过 stacked 切换比较方式。 categories 定义分类，series 中的数据按分类位置一一对应。 切换堆叠与分组。 数据不变，图形表达从并列比较变为总量组合。
-
-</div>
-
-## 常见问题
-
-### 为什么数据对不上分类？
-
-每个系列的 data 长度和顺序必须对应 categories。图表使用 WebGL，业务仍应保留文字或表格替代。
-
-
-## API
-
-<API source="../_generated_api/rc-bar-chart.ts" symbol="BarChartProps" component="BarChart" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（6 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -76,7 +35,6 @@ categories 定义分类，series 中的数据按分类位置一一对应。
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-bar-chart/workbench/)
 
@@ -107,3 +65,30 @@ categories 定义分类，series 中的数据按分类位置一一对应。
 **现有实现：** `width="auto"` 使用现有 AutoSizer 跟随父容器，工作台的六个示例采用这一方式；公共默认宽度仍为 600px。父容器需要明确可用宽度，并允许子项收缩。
 
 **选择规则：** 对比数据通常优先随容器适配；类别较多时应同时评估标签密度、横向条形和数据表入口，不能把缩小后的图形作为全文获取方式。显式数值宽度用于有固定绘图区的场景，应由业务提供局部查看区域。
+
+### 适用场景
+
+比较不同类别的数量、金额、排名或完成率。 用堆叠柱展示总量及其组成，并为每个系列提供图例。
+
+类别过多、标签很长或必须查看精确明细时，表格通常更清楚；时间连续趋势可考虑折线图。
+
+### 使用要点
+
+- 数据轴必须从合理基线开始，避免用截断尺度夸大差异。
+- series、category 与 value 是三种不同概念，先整理数据再配置视觉。
+- 实时更新要保持对象身份和过渡可理解，不能让柱形不断闪烁重排。
+
+### 无障碍
+
+- 颜色之外还要提供图例、标签或可读数据摘要，并确保键盘能取得关键数据。
+- 动画应响应减少动态效果偏好；悬停提示也必须能通过键盘焦点获得。
+
+## 常见问题
+
+### 为什么数据对不上分类？
+
+每个系列的 data 长度和顺序必须对应 categories。图表使用 WebGL，业务仍应保留文字或表格替代。
+
+## API
+
+<API source="../_generated_api/rc-bar-chart.ts" symbol="BarChartProps" component="BarChart" />

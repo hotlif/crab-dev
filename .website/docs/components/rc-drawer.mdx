@@ -1,6 +1,6 @@
 +++
 title = "Drawer 抽屉"
-description = "从屏幕边缘滑出面板，展示详情或处理辅助任务"
+description = "从页面边缘展开详情或编辑区，保留原页面的工作上下文。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-drawer.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-drawer.js";
 
 # Drawer 抽屉
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-drawer</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-抽屉适合在保留页面上下文的同时处理详情或编辑任务。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**打开详情**
-
-通过 open 和 onOpenChange 控制边缘面板。 抽屉适合在保留页面上下文的同时处理详情或编辑任务。 打开详情，再关闭抽屉。 详情从页面边缘展开，主页面仍保留。
-
-**完成侧栏任务**
-
-在抽屉内部完成操作，并更新外部结果。 抽屉适合在保留页面上下文的同时处理详情或编辑任务。 打开抽屉并标记完成。 抽屉关闭，项目状态变为已完成。
-
-</div>
-
-## 常见问题
-
-### 何时用 Dialog？
-
-短确认通常使用 Dialog；需要更多详情或较长表单时使用 Drawer。
-
-
-## API
-
-<API source="../_generated_api/rc-drawer.ts" symbol="DrawerProps" component="Drawer" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -65,14 +24,13 @@ import { tutorial } from "../_generated_tutorials/rc-drawer.js";
 
 ##### 嵌套打开 — 支持层层嵌套打开（示例共 10 层）；每层独立维护开关状态，关闭后不影响下层。
 
-##### 四个方向 — 通过 `placement` 控制滑出方向；关闭时沿原方向退出，进入平缓、退出利落。
+##### 四个方向 — 通过 `placement` 控制滑出方向；关闭时沿原方向退出。RTL 示例将逻辑起点映射到右侧，并演示旧时长变量的兼容。
 
 ##### 底部操作区 — 通过 `footer` 传入操作按钮，适合承载表单提交场景。
 
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-drawer/workbench/)
 
@@ -86,3 +44,30 @@ import { tutorial } from "../_generated_tutorials/rc-drawer.js";
 - 在保留当前页面上下文的同时查看详情或填写表单。
 - 临时展示筛选条件、辅助信息或其他侧栏任务。
 - 需要从页面边缘展开较大内容区域，关闭后继续原任务。
+
+### 适用场景
+
+用户需要边看列表边处理一条记录的详情。 辅助任务比 Dialog 更长，但还不值得跳转到独立页面。
+
+关键确认使用 Dialog；复杂多步骤流程或需要大量宽度的编辑使用完整页面。
+
+### 使用要点
+
+- placement 由内容关系和阅读方向决定，不要只按视觉喜好选择。
+- open 与 onClose 形成受控开合，footer 放稳定的主要和次要动作。
+- 嵌套 Drawer 要减少层级并清楚说明返回关系。
+
+### 无障碍
+
+- 打开时移动焦点、限制背景交互并在关闭后恢复焦点。
+- 标题、关闭按钮和 Escape 行为都必须可用；窄屏下内容仍应完整滚动。
+
+## 常见问题
+
+### 何时用 Dialog？
+
+短确认通常使用 Dialog；需要更多详情或较长表单时使用 Drawer。
+
+## API
+
+<API source="../_generated_api/rc-drawer.ts" symbol="DrawerProps" component="Drawer" />

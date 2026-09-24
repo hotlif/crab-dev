@@ -58,7 +58,7 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.orderDate", title: "下单日期",  dataType: "text",   width: 140 },
 ];
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<OrderRow>[] = [
     {
         name: "text",
         render: undefined,

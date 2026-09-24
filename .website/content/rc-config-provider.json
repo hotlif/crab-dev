@@ -11,7 +11,7 @@
             "why": "配置集中在内容根部，后代组件按各自支持的能力消费。",
             "instruction": "观察卡片背景、Empty 英文文案和按钮尺寸。",
             "expected": "深色卡片显示 No data，按钮使用 large 尺寸。",
-            "changes": ["导入 ConfigProvider 与主题 CSS，设置 theme、locale、size。"],
+            "changes": ["导入 ConfigProvider，设置 theme、locale、size；主题样式由文档环境加载。"],
             "source": "rc-config-provider/step-1.tsx"
         },
         {
@@ -36,7 +36,7 @@
         }
     ],
     "faq": [
-        {"question": "哪些组件已自动接入？", "answer": "主题作用于所有消费 L2 变量的 DOM 后代；尺寸首批接入 Button / ButtonGroup，语言首批接入 Empty。其他组件可通过 useConfig 接入。"},
+        {"question": "哪些组件会跟随配置？", "answer": "主题作用于消费语义颜色的后代；按钮、输入框、选择器、表格和树等已接入尺寸配置，详细范围见“统一尺寸与密度”指南。locale 自动切换 Empty 的预置文案，业务文案仍由应用提供。"},
         {"question": "Portal 浮层如何继承主题？", "answer": "将浮层放在主题容器内，或在 Portal 内再包一层无配置属性的 ConfigProvider，从 React Context 继承配置并重建 CSS 边界。"}
     ]
 }

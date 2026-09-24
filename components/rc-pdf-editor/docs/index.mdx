@@ -48,7 +48,3 @@ Ctrl/Cmd+Z 撤销，Ctrl/Cmd+Shift+Z 或 Ctrl/Cmd+Y 重做，Delete 删除，方
 宿主保存按钮调用 `ref.save()`，与工具栏共用 `onSave` 持久化流程。`exportPdf()` 和 `extractPages()` 返回包含 Blob、文档身份、会话和版本的快照，不自动下载或清除未保存状态。完整迁移说明见包内 `docs/API-REDESIGN.md`。
 
 <API source="../src/pdf-editor.tsx" symbol="PdfEditorProps" component="PdfEditor" />
-
-## 设计参考
-
-标准配色、顶部停靠工具栏依据 M3 的桌面布局说明扩展为文档工作区。Material Web 未提供 Toolbar，实现复用本库 Button 等控件。详细资源部署、接口、限制及设计来源见包内 `docs/README.md`。

@@ -1,6 +1,6 @@
 +++
 title = "ComponentPreview 组件预览"
-description = "在文档中展示组件预览、示例源码和说明"
+description = "组合运行示例与源代码展示，为组件文档提供可阅读的演示容器。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-component-preview.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-component-preview.js";
 
 # ComponentPreview 组件预览
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-component-preview</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-预览容器将运行结果与源码放在同一处，便于读者验证和复制。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**关联源码与预览**
-
-传入 title、sourceCode，并渲染对应 children。 预览容器将运行结果与源码放在同一处，便于读者验证和复制。 展开代码并尝试复制。 代码与欢迎信息对应。
-
-**说明运行结果**
-
-用 description 说明操作和反馈，children 承载真实交互。 预览容器将运行结果与源码放在同一处，便于读者验证和复制。 点击按钮，再比较外层完整代码。 计数更新；外层源码包含完整导入与 state。
-
-</div>
-
-## 常见问题
-
-### 容器会执行 sourceCode 吗？
-
-不会。sourceCode 只用于阅读和复制，运行效果来自 children。网站生成器从真实示例文件读取源码。
-
-
-## API
-
-<API source="../_generated_api/rc-component-preview.ts" symbol="PreviewProps" component="Preview" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（1 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -66,7 +25,6 @@ import { tutorial } from "../_generated_tutorials/rc-component-preview.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-component-preview/workbench/)
 
@@ -82,3 +40,30 @@ import { tutorial } from "../_generated_tutorials/rc-component-preview.js";
 - 需要按需加载语法高亮，避免阻塞页面首屏时。
 
 操作栏复用 Crab Button。接入时引入 `@crab-dev/rc-component-preview/css/index.css` 和 `@crab-dev/rc-button/css/index.css`。源码保持整行并在组件内滚动，复制内容保留原始字符串，行号不属于复制内容。
+
+### 适用场景
+
+组件文档需要同时展示效果、解释和可复制源码。 示例要在隔离工作台中打开，同时保留站内阅读上下文。
+
+业务内容展示请使用 Card；纯代码文档不需要启动交互预览。
+
+### 使用要点
+
+- title 说明示例主题，description 解释学习目标，不能只重复组件名。
+- sourceCode 必须与实际运行示例来自同一文件，避免效果与代码漂移。
+- density 调整舞台留白，不能掩盖示例自身的尺寸问题。
+
+### 无障碍
+
+- 预览操作要形成命名清楚的操作组，展开源码时同步 aria-expanded。
+- iframe 或隔离预览需要可访问标题、合理 Tab 顺序和可恢复的失败状态。
+
+## 常见问题
+
+### 容器会执行 sourceCode 吗？
+
+不会。sourceCode 只用于阅读和复制，运行效果来自 children。网站生成器从真实示例文件读取源码。
+
+## API
+
+<API source="../_generated_api/rc-component-preview.ts" symbol="PreviewProps" component="Preview" />

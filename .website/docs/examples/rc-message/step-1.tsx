@@ -11,7 +11,7 @@ export default function Example() {
     return (
         <div className={layout}>
             {holder}
-            <Button onClick={() => message.success("资料已保存")}>保存资料</Button>
+            <Button onClick={() => { message.success("资料已保存"); }}>保存资料</Button>
         </div>
     );
 }

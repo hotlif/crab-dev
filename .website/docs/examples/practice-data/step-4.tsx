@@ -67,7 +67,9 @@ const frame = css`
     overflow: hidden;
     font-size: ${token.font.size.body};
     line-height: 1.5;
-    --table-border-color: ${token.color.border.subtle};
+    --table-root-border-color: ${token.color.border.subtle};
+    --table-cell-border-color: ${token.color.border.subtle};
+    --table-cell-separator-border-color: ${token.color.border.subtle};
 `;
 // 业务接入位置：替换此函数，保留返回的 Member[] 结构。
 async function mockLoad(mode: "success" | "empty" | "failure"): Promise<Member[]> {

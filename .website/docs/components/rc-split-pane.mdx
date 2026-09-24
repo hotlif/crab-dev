@@ -1,6 +1,6 @@
 +++
 title = "SplitPane 分栏面板"
-description = "通过拖拽或键盘调整两侧面板尺寸，支持复位与尺寸记忆"
+description = "划分可调整尺寸的相邻面板，适用于编辑器与多区工作台。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-split-pane.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-split-pane.js";
 
 # SplitPane 分栏面板
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-split-pane</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-分栏把拖拽位置映射为主面板尺寸，最小和最大值保护内容的可用空间。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**拖动分隔条**
-
-提供两个子区域及 defaultSize、min、max。 分栏把拖拽位置映射为主面板尺寸，最小和最大值保护内容的可用空间。 拖动中间分隔条，或聚焦后使用方向键。 主面板宽度在 70 到 200 之间变化。
-
-**读取分栏尺寸**
-
-使用 size 与 onSizeChange 保存尺寸，并提供恢复入口。 分栏把拖拽位置映射为主面板尺寸，最小和最大值保护内容的可用空间。 调整分栏后恢复尺寸。 输出与分隔条位置同步。
-
-</div>
-
-## 常见问题
-
-### 为什么看不到分栏？
-
-父容器必须有明确尺寸；窄屏可以改为上下方向或单列布局。
-
-
-## API
-
-<API source="../_generated_api/rc-split-pane.ts" symbol="SplitPaneProps" component="SplitPane" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -72,7 +31,6 @@ import { tutorial } from "../_generated_tutorials/rc-split-pane.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-split-pane/workbench/)
 
@@ -88,3 +46,30 @@ import { tutorial } from "../_generated_tutorials/rc-split-pane.js";
 - 通过 `persistKey` 记住调整结果，并提供键盘调整路径。
 
 需要两块面板以外的自定义布局时，可直接使用 `@crab-dev/rc-hooks` 的 `useDragResize`。
+
+### 适用场景
+
+用户需要在两个相关区域之间分配空间。 两个面板需要同时可见，并可能记住用户上次尺寸。
+
+窄屏无法同时容纳内容时改为分步、Tabs 或 Drawer；纯装饰分栏使用 CSS Grid。
+
+### 使用要点
+
+- orientation、primary、min/max 共同决定尺寸计算。
+- 拖动过程中限制合法范围，结束后再持久化最终尺寸。
+- 内容溢出由各面板处理，不能让分隔条被滚动内容遮住。
+
+### 无障碍
+
+- 分隔条使用 separator 语义并提供当前值、方向键调整和可见焦点。
+- 触控命中区可以大于可见线；缩放和窄屏时两个面板仍要可达。
+
+## 常见问题
+
+### 为什么看不到分栏？
+
+父容器必须有明确尺寸；窄屏可以改为上下方向或单列布局。
+
+## API
+
+<API source="../_generated_api/rc-split-pane.ts" symbol="SplitPaneProps" component="SplitPane" />

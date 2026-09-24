@@ -1,6 +1,6 @@
 +++
 title = "Hooks 通用钩子"
-description = "复用键盘事件、受控状态、尺寸测量和定时器等 React 逻辑"
+description = "复用状态管理与浏览器相关逻辑，为组件和业务交互提供基础能力。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,51 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-hooks.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-hooks.js";
 
 # Hooks 通用钩子
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-hooks</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**内部管理状态**
-
-用 defaultValue 提供内部状态初值。 Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。 增加两次数量。 Hook 内部保存数量 2。
-
-**交给业务管理**
-
-传入 value 与 onChange，让外部成为唯一数据来源。 Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。 增加数量后点击外部归零。 同一套行为可由父级状态控制。
-
-</div>
-
-## 常见问题
-
-### 所有状态都应使用这个 Hook 吗？
-
-不需要。简单页面状态直接 useState；需要同时支持受控与非受控的可复用能力再使用它。
-
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（2 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -64,7 +27,6 @@ Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-hooks/workbench/)
 
@@ -87,3 +49,26 @@ Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
 `usePresence(open, onExitComplete?)` 返回 `present`、`ref` 和 `state`。用 `present` 控制挂载，将 `ref` 绑定到执行退场动画的元素，用 `data-state={state}` 区分 `open` / `closed`，并通过 CSS `@starting-style` 定义入场。它只观察动画完成，不计算动画帧；减少动态效果偏好下没有过渡时立即完成卸载。不要将它绑定到无限动画的 spinner 上。
 
 `useCountdown(duration, paused, onFinish?)` 使用毫秒计时，返回最近一次暂停或恢复时的剩余时间快照，不逐帧刷新。`duration <= 0` 时不自动结束；修改时长会重新计时，卸载时清理计时器。
+
+### 适用场景
+
+多个组件需要共享同一套交互状态机。 浏览器事件、订阅或测量逻辑需要安全地处理挂载和卸载。
+
+只在一个组件中使用的简单状态保留在组件内部；不要用 Hook 隐藏不可见的全局副作用。
+
+### 使用要点
+
+- 先读清输入、返回值和生命周期，再把 Hook 接到组件。
+- 受控/非受控逻辑要明确默认值、外部值和变更回调的优先级。
+- 事件监听、计时器和观察器必须在卸载时清理。
+
+### 无障碍
+
+- 键盘 Hook 只是能力，最终元素仍需正确角色、名称和焦点管理。
+- 拖拽或动画 Hook 必须提供键盘替代操作并尊重减少动态效果。
+
+## 常见问题
+
+### 所有状态都应使用这个 Hook 吗？
+
+不需要。简单页面状态直接 useState；需要同时支持受控与非受控的可复用能力再使用它。

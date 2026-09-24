@@ -1,6 +1,6 @@
 +++
 title = "NumberEdit 数字输入框"
-description = "输入数值，支持步进、范围限制、千分位和科学计数法显示"
+description = "输入数值并按步长增减，通过上下限约束有效范围。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-number-edit.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-number-edit.js";
 
 # NumberEdit 数字输入框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-number-edit</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-数值输入的范围与步长是业务约束，应在输入层明确表达。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**设置范围**
-
-使用 min、max 和 step 约束数量。 数值输入的范围与步长是业务约束，应在输入层明确表达。 点击步进按钮或键入数值。 控件按步长调整，并处理范围边界。
-
-**计算业务结果**
-
-将 number | null 连接到业务计算，处理清空值。 数值输入的范围与步长是业务约束，应在输入层明确表达。 调整数量或清空字段。 总价随数量更新，空值不会产生 NaN。
-
-</div>
-
-## 常见问题
-
-### 清空后为什么是 null？
-
-null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处理空值。
-
-
-## API
-
-<API source="../_generated_api/rc-number-edit.ts" symbol="NumberEditProps" component="NumberEdit" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（5 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -74,7 +33,6 @@ null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-number-edit/workbench/)
 
@@ -102,8 +60,35 @@ null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处
 | 当前编辑值达到 min / max | 对应方向按钮禁用；键盘步进同样不得越界 |
 | 显式指定 precision | 按该精度规范提交值，不能用于无限精度金额运算 |
 
-`parser` 应是无副作用的解析函数，并返回有限数或 `null`；组件会在编辑期间读取它以同步步进和无障碍数值。旧调用方若假定 parser 只在失焦时执行，应移出其中的请求或其他副作用。`stringMode` 当前仍为预留能力，不能据此宣称支持任意精度。
+`parser` 应是无副作用的解析函数，并返回有限数或 `null`；组件会在编辑期间读取它以同步步进和无障碍数值。旧调用方若假定 parser 只在失焦时执行，应移出其中的请求或其他副作用。`stringMode` 仅接受 `false`，类型检查拒绝尚未实现的 `true`。组件使用 number，不支持任意精度字符串计算。
 
 **正例**：通过可见标签说明“预警阈值（万元）”，就近说明范围；编辑 20.5 后步进得到 21.5。**反例**：仅用 placeholder 作为名称，或步进时恢复旧值，导致用户误以为刚才的输入已经保存。
 
 验收：分别用键盘和鼠标测试草稿步进、空值、边界、带小数的 step、只读与禁用。格式化显示不改变真实数值；长数值在聚焦后可完整编辑。加减操作提供 48px 目标并保持键盘可达；科学计数法覆盖层和文字缩放仍需独立复核。通用规则见[输入与选择](https://material-web.dev/components/text-field/)和[无障碍](/guides/accessibility)。
+
+### 适用场景
+
+数量、比例、金额或阈值需要精确输入。 用户既需要直接键入，也需要按固定 step 微调。
+
+大致连续范围使用 Slider；有限固定数字使用 Select；电话号码等数字字符串仍用文本输入。
+
+### 使用要点
+
+- value 是数值状态，formatter/parser 只负责显示与解析。
+- min、max 和 step 要与业务单位一致，并处理小数精度。
+- 空值、无效中间输入和最终提交值要分开考虑。
+
+### 无障碍
+
+- 提供 label、单位和允许范围，步进按钮要有增加/减少的可访问名称。
+- 超出范围的错误用文字说明，键盘方向键行为不得阻止正常页面导航。
+
+## 常见问题
+
+### 清空后为什么是 null？
+
+null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处理空值。
+
+## API
+
+<API source="../_generated_api/rc-number-edit.ts" symbol="NumberEditProps" component="NumberEdit" />

@@ -1,6 +1,6 @@
 +++
 title = "Segmented 分段控制器"
-description = "以紧凑的分段选项切换视图、时间粒度或筛选值"
+description = "将少量选项并排呈现，便于切换视图、范围或展示方式。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-segmented.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-segmented.js";
 
 # Segmented 分段控制器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-segmented</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-分段控件负责选择值，业务代码根据值决定展示内容。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**平铺选项**
-
-用 options 定义少量简短选项。 分段控件负责选择值，业务代码根据值决定展示内容。 切换日、周和月。 选中项的视觉状态随操作改变。
-
-**驱动视图**
-
-将 value 与 onChange 连接到统计粒度。 分段控件负责选择值，业务代码根据值决定展示内容。 切换到月。 选中项和统计说明同时变为月。
-
-</div>
-
-## 常见问题
-
-### 为什么没有自动切换内容面板？
-
-Segmented 只管理选值；需要面板关联和标签页语义时使用 Tabs。
-
-
-## API
-
-<API source="../_generated_api/rc-segmented.ts" symbol="SegmentedProps" component="Segmented" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（6 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -76,7 +35,6 @@ Segmented 只管理选值；需要面板关联和标签页语义时使用 Tabs�
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-segmented/workbench/)
 
@@ -92,4 +50,33 @@ Segmented 只管理选值；需要面板关联和标签页语义时使用 Tabs�
 
 Segmented 负责选择值，内容展示由业务代码处理；需要同时管理标签与内容面板时使用 Tabs。通常保持 2–5 个简短选项，选项较多时使用 Select。
 
-默认采用 40px 高度、胶囊描边与分隔线。选中项使用次要色容器和勾选图形；若提供前置图标，选中时由勾选图形替换，保留图标槽位以避免文字跳动。hover / focus / pressed 通过公共状态层反馈；粗指针下命中区扩展到 48px。
+采用 M3 基线的单选分段按钮：等宽选项、40px 视觉高度、48px 命中高度、胶囊描边与分隔线。选中项使用次要色容器和勾选图形；文字选项的前置图标由勾选图形替换，仅图标选项则同时保留图标和勾选标记。每个仅图标选项必须提供 `aria-label`。
+
+Tab 进入原生单选组，方向键切换选项，Space 或 Enter 选中当前聚焦项。这是 Web 单选组的键盘模型。此组件保留 M3 基线，不等同于 Expressive 的 connected button group。
+
+### 适用场景
+
+二到五个选项需要快速比较和切换。 选中结果立即改变当前视图或设置，并且选项标签很短。
+
+长标签或大量选项使用 Select；页面级导航使用 Tabs；普通动作不要伪装成选项。
+
+### 使用要点
+
+- options 的 value 稳定唯一，label 描述同一维度下的不同值。
+- 受控 value 与 onChange 同步，block 只改变占用宽度。
+- 图标是标签的辅助，不能用难懂图标完全替代文字。
+
+### 无障碍
+
+- 根据选择模型提供 radio group 或 toolbar 中 toggle button 的正确语义。
+- 方向键、Tab 和选中状态要可预测，焦点不能只靠背景色表现。
+
+## 常见问题
+
+### 为什么没有自动切换内容面板？
+
+Segmented 只管理选值；需要面板关联和标签页语义时使用 Tabs。
+
+## API
+
+<API source="../_generated_api/rc-segmented.ts" symbol="SegmentedProps" component="Segmented" />

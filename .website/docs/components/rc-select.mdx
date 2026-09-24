@@ -1,6 +1,6 @@
 +++
 title = "Select 选择器"
-description = "在下拉列表中选择一个或多个值，支持搜索选项"
+description = "从下拉列表中选择值，通过搜索快速定位较多选项。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-select.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-select.js";
 
 # Select 选择器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-select</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**配置选项**
-
-传入包含 value 和 label 的 options。 使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。 打开下拉列表，选择城市。 输入区域显示城市名称。
-
-**搜索并读取值**
-
-添加 searchable、allowClear，并连接受控 value。 使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。 搜索杭州并选择，再清除选项。 选择后输出 hz，清除后恢复未选择。
-
-</div>
-
-## 常见问题
-
-### label 与 value 有什么区别？
-
-label 是用户看到的文字；value 是程序使用的稳定标识，不应随显示文案改变。
-
-
-## API
-
-<API source="../_generated_api/rc-select.ts" symbol="SelectProps" component="Select" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（10 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -73,7 +32,7 @@ label 是用户看到的文字；value 是程序使用的稳定标识，不应�
 
 ##### 加载中 — 设置 loading 展示加载状态
 
-##### 可清除 — 设置 allowClear 允许一键清空已选值
+##### 可清除 — 设置 allowClear 可清空已选值；可切换主题，对比三种尺寸和两种外观
 
 #### 数据与搜索
 
@@ -90,7 +49,6 @@ label 是用户看到的文字；value 是程序使用的稳定标识，不应�
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-select/workbench/)
 
@@ -99,25 +57,85 @@ label 是用户看到的文字；value 是程序使用的稳定标识，不应�
 在下拉列表中选择一个或多个值，支持搜索选项。
 
 
-### 何时使用
+### 尺寸与外观
 
-- 需要在有限空间中从多个选项中选择一个或多个值。
-- 选项较多，需要通过关键字快速过滤。
-- 表单场景中需要统一输入尺寸与交互体验。
+`size` 支持 `small`、`middle`、`large`。省略时继承最近的 ConfigProvider；没有配置时使用 `middle`。统一设置和局部覆盖见[尺寸指南](/guides/component-sizing)。
 
-### 主要功能
+`appearance="outlined"` 是默认的描边外观，`appearance="filled"` 使用填充背景和底线；两者共享值、搜索和键盘操作。“可清除”示例可对比三种尺寸、两种外观及浅深色主题。
 
-- 支持单选与多选模式。
-- 支持可搜索过滤。
-- 支持受控与非受控用法。
-- 支持禁用状态与禁用选项。
+### 选中值与清除
+
+`options` 中的 `value` 必须是唯一字符串，`label` 用于显示。用 `multiple` 开启多选：
+
+| 模式 | 受控 `value` | 清除后的 `onChange` 参数 |
+| --- | --- | --- |
+| 单选 | `string` 或 `null` | `(null, undefined)` |
+| 多选 | `string[]` | `([], [])` |
+
+传入 `value` 时，在 `onChange` 中更新状态；单选空值应使用 `null`。不传 `value`（或传入 `undefined`）时，由组件维护选中值，可用 `defaultValue` 设置初始值。
+
+设置 `allowClear` 后，有已选项且组件未禁用时，鼠标移入字段会将尾部箭头切换为清除图标；移到图标上仍可清除，离开字段后恢复箭头。两种图标共用一个位置，切换不会挤动文字。Tab 聚焦尾部按钮时也会显示清除；无悬停能力的触屏设备直接显示清除。
+
+点击清除会清空选中值、关闭列表，并把焦点移回选择器。要修改已有值，请点击字段的内容区域打开列表；空值或未启用 `allowClear` 时，也可点击尾部箭头。禁用时这些操作不可用。
+
+### 搜索与加载
+
+`searchable` 在展开的列表中提供本地过滤：文本 `label` 按内容匹配，非文本 `label` 则按 `value` 匹配，忽略大小写。
+
+组件没有搜索词回调，不能直接把 `searchable` 当作远程搜索接口。异步加载选项时，由应用获取数据并更新 `options`，请求期间可设置 `loading`；`loading` 只显示加载状态，不会发起请求。
+
+### 标签与校验
+
+- 用 `label` 提供可见字段名称，用 `supportingText` 补充选择要求。不能展示标签时，提供 `aria-label` 或指向外部标签的 `aria-labelledby`。
+- `errorText` 会启用错误状态并替换辅助说明。`status="warning"` 只改变视觉状态，警告原因应通过 `supportingText` 等可见文字说明。
+- `required` 提供必填语义和标签星号，不会自动校验或提交表单。
+- 自定义选项和标签时保留可读名称；纯装饰图标使用 `aria-hidden="true"`。
+
+### 键盘操作
+
+| 操作 | 效果 |
+| --- | --- |
+| Tab | 在选择器、尾部按钮及页面其他控件之间移动焦点；有可清除值时，尾部按钮切换为清除 |
+| 上 / 下方向键 | 展开列表并移动高亮选项 |
+| Enter | 展开列表，或选择当前高亮项 |
+| Space | 选择器收起时展开列表；搜索输入中可正常输入空格 |
+| Escape | 关闭列表 |
+| Backspace | 多选且搜索词为空时，删除最后一个已选标签 |
+| 清除按钮上的 Enter / Space | 清空选中值，焦点回到选择器 |
+
+更多要求见[无障碍使用指南](/guides/accessibility)。
+
+### 适用场景
+
+选项多到不适合全部并列展示。 用户必须从合法集合中选择，并可能需要搜索或多选。
+
+少量互斥选项使用 Radio；用户应自由输入新值时使用 LineEdit 或组合输入。
+
+### 使用要点
+
+- options 中的 value 是唯一且稳定的标识，label 是显示内容。
+- multiple 开启多选：单选值为 string 或 null，多选值为 string[]。
+- searchable 过滤已传入的 options；组件没有向外提供搜索词回调。
 
 ### 无障碍
 
-- 使用 `label` 提供可见的浮动字段标签；`supportingText` 与 `errorText` 会自动关联到选择器。没有可见标签的特殊场景仍必须提供 `aria-label`。
-- 使用方向键移动选项、Enter 选择、Escape 关闭、Backspace 删除多选标签，确保业务包装层不会拦截这些按键。
-- 清除后焦点回到选择器；可继续按方向键选择新值，不能因清除入口消失而把用户留在页面根部。
-- `errorText` 会替换辅助说明并启用错误状态；不要只设置 `status="error"` 而省略可见的错误原因。
-- 自定义 `optionRender` 或 `tagRender` 时保留可读文本，纯装饰图标应设置 `aria-hidden="true"`。
+- 触发器与列表框使用正确 combobox/listbox 语义，并支持方向键、Enter 和 Escape。
+- 多选标签、错误、必填和清除按钮都要有可读名称与稳定焦点。
 
-更多通用要求见[无障碍使用指南](/guides/accessibility)。
+## 常见问题
+
+### label 与 value 有什么区别？
+
+label 是用户看到的内容；value 是唯一且稳定的字符串标识，不应随显示文案改变。
+
+### 为什么清除后应保存 null？
+
+单选的 null 表示受控空值，undefined 表示由组件维护状态。多选使用空数组。接入受控状态时应保存 onChange 返回的值。
+
+### searchable 会请求远程数据吗？
+
+不会。它只过滤传入的 options，当前没有搜索词回调。异步选项由应用加载后传入，loading 仅负责显示加载状态。
+
+## API
+
+<API source="../_generated_api/rc-select.ts" symbol="SelectProps" component="Select" />

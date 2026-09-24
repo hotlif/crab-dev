@@ -1,6 +1,6 @@
 +++
 title = "Button 按钮"
-description = "Material 的 Elevated、Filled、Tonal、Outlined、Text 五种按钮"
+description = "触发保存、提交等操作，用不同外观表达操作优先级。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,79 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-button.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-button.js";
 
 # Button 按钮
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-button</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-了解 JSX 和 useState 即可。先完成快速开始中的安装与样式接入。
-
-完整对照 Material 的五种按钮：Elevated、Filled、Tonal、Outlined、Text，并体验尺寸、状态和明暗主题。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**五种按钮外观**
-
-并排比较 Elevated、Filled、Tonal、Outlined、Text 五种官方外观。 通过阴影、实色、浅色、描边与文字表达不同的操作层级。 依次点击五种按钮查看用途，再用 Tab 检查键盘焦点。 五种按钮默认均为 40px 高；Elevated 使用浅阴影，其余四种无阴影。
-
-**连接交互状态**
-
-让按钮响应点击，并切换外观 用 React 状态分别管理保存次数和按钮外观，让两种变化互不干扰。 点击保存两次，再切换按钮外观。 保存次数变为 2；外观变化不会清空计数。
-
-**尺寸对照**
-
-对照五种按钮外观与 Expressive 五档尺寸。 并排比较 XS、S、M、L、XL 的高度、内边距与字号。 比较五行尺寸，点击按钮查看当前属性。 XS、S、M、L、XL 分别为 32、40、56、96、136px；默认 S，触控目标至少 48px。
-
-**图标与组合**
-
-查看前后置图标、纯图标、圆形、选中按钮组和通栏按钮。 图标位置、按钮形状与容器宽度决定按钮如何融入表单和工具栏。 点击图标按钮，切换粗体、斜体和下划线；比较三个圆形尺寸，体验通栏按钮和 API 链接。 每个可用按钮都有反馈；按钮组独立保留多个选中项，通栏按钮撑满当前容器。
-
-**状态与明暗主题**
-
-在明暗背景上对照五种外观的默认、禁用和加载状态，并体验普通按钮的选中状态。 主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。 切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。 普通按钮始终无阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。
-
-</div>
-
-## 常见问题
-
-### 危险操作和链接如何设置？
-
-危险操作设置 danger，并使用“删除项目”等明确文案；导航设置 href，可配合 appearance="text"。它们不再作为独立的常用外观类型。
-
-### 如何比较禁用、加载和选中状态？
-
-第 5 步展示明暗主题下五种外观的默认、禁用和加载效果，以及常规按钮的可切换选中状态；第 4 步还提供 isSelected 按钮组。加载示例持续显示，方便观察，不发起网络请求。
-
-### 在哪里查看暗黑主题和不同品牌色？
-
-第 5 步同时展示明暗面板，点击紫色、蓝色或绿色即可比较；页面右上角的文档主题也会影响其他示例。
-
-### 旧的按钮外观还能用吗？
-
-subtle 继续可用，并映射为 outlined 描边外观。新代码使用 elevated、primary、tonal、outlined、text 五种公开外观；dashed、link 和 danger 保留旧接口兼容。
-
-
-## API
-
-<API source="../_generated_api/rc-button.ts" symbol="ButtonProps" component="Button" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（13 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -120,7 +55,6 @@ subtle 继续可用，并映射为 outlined 描边外观。新代码使用 eleva
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-button/workbench/)
 
@@ -192,3 +126,47 @@ subtle 继续可用，并映射为 outlined 描边外观。新代码使用 eleva
 `appearance="subtle"` 继续可用，统一映射为无阴影的描边普通按钮。旧的 subtle 颜色、背景和边框变量作为 outlined 的回退入口保留。`dashed`、`link`、`danger` 保留接口兼容；新代码优先使用五种公开外观，并通过 `danger` 与 `href` 表达业务语义。虚线、下划线链接外观，以及 Text 与 `isSelected` 的旧组合不属于 M3 按钮变体；切换动作应使用 Elevated、Filled、Tonal 或 Outlined。`shape="circle"` 是既有纯图标兼容入口，不等同于完整的 M3 Icon button 组件。
 
 </details>
+
+
+
+
+`href` 存在时渲染链接，原生属性、事件 currentTarget 和 ref 对应 HTMLAnchorElement；未提供 href 时对应 HTMLButtonElement。链接支持 download、hrefLang、焦点事件等原生属性。需要包装按钮时分别使用 `ButtonNativeProps` 或 `ButtonLinkProps`，不要把两种元素的事件类型混用。
+
+### 适用场景
+
+提交、保存、创建、取消或打开下一步等明确动作。 需要用 Filled、Tonal、Outlined、Elevated 或 Text 区分一组操作的主次。
+
+页面跳转优先使用链接语义；二态设置使用 Switch，可多选条件使用 Checkbox。
+
+### 使用要点
+
+- 一个区域通常只有一个最高强调操作，避免所有按钮都用 primary。
+- loading 防止重复提交但仍要说明处理结果；disabled 应有可理解的原因。
+- isSelected 只用于真正的可切换动作，普通提交按钮不应伪装成选中状态。
+
+### 无障碍
+
+- 纯图标按钮必须有 aria-label；可见文字应直接描述动作而不是写“确定”。
+- 危险操作同时使用明确文案、错误色和必要的确认或撤销机制。
+
+## 常见问题
+
+### 危险操作和链接如何设置？
+
+危险操作设置 danger，并使用“删除项目”等明确文案；导航设置 href，可配合 appearance="text"。它们不再作为独立的常用外观类型。
+
+### 如何比较禁用、加载和选中状态？
+
+查看“禁用状态”“加载中”“选中状态”和“按钮组”示例。加载示例持续显示，方便观察，不发起网络请求。
+
+### 在哪里查看暗黑主题和不同品牌色？
+
+通过文档的主题菜单切换浅色、深色或跟随系统。自定义品牌色的接入方式见 ConfigProvider 与主题文档。
+
+### 旧的按钮外观还能用吗？
+
+subtle 继续可用，并映射为 outlined 描边外观。新代码使用 elevated、primary、tonal、outlined、text 五种公开外观；dashed、link 和 danger 保留旧接口兼容。
+
+## API
+
+<API source="../_generated_api/rc-button.ts" symbol="ButtonProps" component="Button" />

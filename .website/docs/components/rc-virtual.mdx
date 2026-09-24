@@ -1,6 +1,6 @@
 +++
 title = "Virtual 虚拟滚动"
-description = "按可见范围渲染列表和网格，减少长列表的 DOM 节点数量"
+description = "只渲染可见区域附近的列表或网格内容，降低长列表渲染开销。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-virtual.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-virtual.js";
 
 # Virtual 虚拟滚动
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-virtual</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**渲染可见行**
-
-提供行高数组与 renderRows，按包含末项的范围切片。 只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。 滚动列表，观察行号。 能够浏览 1000 行，但只挂载可见范围附近内容。
-
-**调整预渲染范围**
-
-用 overscanRowCount 平衡预渲染数量与快速滚动体验。 只渲染当前视口附近的行，并使用组件提供的 CSS 变量保留滚动空间。 切换预渲染行数后继续滚动。 内容顺序不变，视口外保留的行数改变。
-
-</div>
-
-## 常见问题
-
-### 为什么滚动位置不正确？
-
-实际行高必须与 gridTemplateRows 一致，并保留顶部和底部占位。生产环境可用 AutoSizer 获取视口尺寸。
-
-
-## API
-
-<API source="../_generated_api/rc-virtual.ts" symbol="VirtualProps" component="Virtual" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（2 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -68,7 +27,6 @@ import { tutorial } from "../_generated_tutorials/rc-virtual.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-virtual/workbench/)
 
@@ -108,3 +66,30 @@ import { tutorial } from "../_generated_tutorials/rc-virtual.js";
 可见行列范围不变时会复用渲染结果。`renderRows` 应保持纯净，业务数据更新时应提供读取新数据的回调。组件只虚拟化渲染，不负责业务数据的分页、加载和存储。
 
 在包目录运行 `yarn test:browser` 可验证真实浏览器中的百万行末端定位、滚轮连续性和固定内容占位。
+
+### 适用场景
+
+长列表或网格的 DOM 数量已经造成明显性能问题。 项目尺寸固定或可测量，并能用稳定 key 表示。
+
+数据量很小不需要虚拟化；内容高度完全不可预测且无法测量时先简化布局。
+
+### 使用要点
+
+- 容器必须有明确尺寸，itemCount 和 itemSize/测量结果要准确。
+- 滚动位置依赖稳定 key，不要在每次渲染重建对象身份。
+- 虚拟化不等于分页，数据获取、总数和缓存仍由业务层管理。
+
+### 无障碍
+
+- 提供集合总数、项目位置和可理解的键盘导航，不能让读屏误以为只有当前 DOM 数量。
+- 焦点项目滚出渲染窗口时要有保留策略，缩放后重新测量避免内容重叠。
+
+## 常见问题
+
+### 为什么滚动位置不正确？
+
+实际行高必须与 gridTemplateRows 一致，并保留顶部和底部占位。生产环境可用 AutoSizer 获取视口尺寸。
+
+## API
+
+<API source="../_generated_api/rc-virtual.ts" symbol="VirtualProps" component="Virtual" />

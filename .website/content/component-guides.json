@@ -1,0 +1,434 @@
+{
+    "rc-alert": {
+        "definition": "Alert 是放在页面内容中的持续提示，用标题说明发生了什么，用正文解释原因、影响和下一步。它不会像短暂消息那样自动消失，因此适合需要用户读完再继续的状态信息。",
+        "useWhen": ["保存结果、权限限制或风险说明需要一直留在当前上下文中。", "一段内容需要 success、info、warning 或 error 语义，并可能允许用户关闭。"],
+        "avoidWhen": ["只需短暂确认一次操作结果时使用 Message；必须打断流程并要求决策时使用 Dialog。"],
+        "essentials": ["先选 type，再写能独立成立的 title，children 只补充原因和行动。", "closable 只表示可以移除提示，业务状态仍应由外部状态管理。", "提示离相关内容越近，用户越容易理解它影响的是哪一部分。"],
+        "accessibility": ["不要只靠颜色区分状态，标题或正文应直接写出成功、警告或错误含义。", "动态出现的重要错误需要合适的状态通告；可关闭提示必须提供可访问名称清楚的关闭按钮。"],
+        "material": {"basis": "M3 没有与页面内持久 Alert 完全一一对应的组件；本组件借用 Snackbar 的反馈原则、错误色角色和可访问设计规则，保留持久阅读这一项目扩展。", "m3": "https://m3.material.io/components/snackbar/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-app-main-layout": {
+        "definition": "AppMainLayout 把应用标题区、主导航、页签和内容区组合成稳定的后台框架。它负责页面骨架和区域关系，不替业务页面决定具体数据、表单或路由。",
+        "useWhen": ["企业后台需要长期存在的主导航、顶栏和可切换工作页。", "不同页面必须共享一致的响应式框架、焦点顺序和内容边界。"],
+        "avoidWhen": ["单页落地页或只有一条简单流程时，不要为了形式套入复杂后台骨架。"],
+        "essentials": ["先确定导航目的地，再把路由状态映射到选中项和当前页签。", "Header、Sidebar、TabBar 与 Content 各有职责，业务内容只放进内容区。", "窄屏不是把桌面布局等比缩小，而是按可用空间收起或转换导航。"],
+        "accessibility": ["为导航、页签和主内容提供清楚的 landmark 与名称，并保留唯一主内容入口。", "打开、关闭侧栏或页签后要把焦点放到可预测位置，键盘顺序应与视觉顺序一致。"],
+        "material": {"basis": "组合 M3 Navigation rail、Navigation drawer、Tabs 与 Top app bar 的职责；组件库当前用项目布局规则把它们接成企业后台外壳。", "m3": "https://m3.material.io/components/navigation-rail/overview", "web": "https://material-web.dev/components/tabs/", "source": "https://github.com/material-components/material-web/tree/main/tabs"}
+    },
+    "rc-auto-sizer": {
+        "definition": "AutoSizer 读取父容器实际可用的宽度和高度，再把尺寸交给表格、图表或虚拟列表。它解决的是测量和同步问题，本身不会为父容器创造高度。",
+        "useWhen": ["子组件必须拿到数字宽高才能布局或虚拟化。", "容器会随窗口、侧栏或分栏变化而改变尺寸。"],
+        "avoidWhen": ["普通 CSS 自适应已经足够时直接使用布局规则，不要为了读取尺寸增加测量链路。"],
+        "essentials": ["父容器必须先有可计算的尺寸，尤其要明确高度来自哪里。", "render 函数收到的是测量结果，业务组件应直接消费而不是再次测量。", "尺寸变化可能很频繁，避免在回调中执行与布局无关的昂贵工作。"],
+        "accessibility": ["测量容器不应改变内容的语义顺序或制造额外可聚焦元素。", "缩放到 200% 和窄屏时仍要确保内容可达，不能因为宽高为零而永久隐藏状态说明。"],
+        "material": {"basis": "这是 Web 布局基础能力，没有对应的 M3 视觉组件；最终被测量的界面仍需遵循 M3 响应式、排版和可访问规则。", "m3": "https://m3.material.io/foundations/layout/understanding-layout/overview", "web": "https://material-web.dev/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-avatar": {
+        "definition": "Avatar 用图片、图标或文字缩写代表一个人、团队或对象；AvatarGroup 用重叠或汇总方式表示一组对象。它提供识别线索，不应单独承担姓名、状态或权限说明。",
+        "useWhen": ["成员列表、评论、审批记录等场景需要快速识别人或组织。", "空间有限时需要用缩写或图像作为文字名称的辅助线索。"],
+        "avoidWhen": ["对象身份必须精确确认时同时显示名称；不要把难以识别的随机图案当成唯一信息。"],
+        "essentials": ["优先提供稳定图片，加载失败时回退到可预测的文字缩写。", "size 控制视觉尺寸，shape 只改变轮廓，不改变对象语义。", "组内数量多时显示汇总，不要无限压缩到无法辨认。"],
+        "accessibility": ["装饰性头像使用空替代文本；头像本身承担识别任务时提供与可见名称一致的替代文本。", "可点击头像必须有明确操作名称和键盘焦点，不能只靠圆形外观看起来像按钮。"],
+        "material": {"basis": "M3 将头像作为多种组件中的识别元素；本组件依据 M3 形状、颜色角色和列表/卡片中的 leading media 用法实现独立封装。", "m3": "https://m3.material.io/components/lists/overview", "web": "https://material-web.dev/components/list/", "source": "https://github.com/material-components/material-web/tree/main/list"}
+    },
+    "rc-badge": {
+        "definition": "Badge 把简短数量或状态贴近相关对象展示，例如未读数或新内容标记。它只负责提醒“这里有变化”，详细含义仍由附近文字或目标页面解释。",
+        "useWhen": ["图标、头像或导航入口需要显示未读数量。", "需要用一个很短的状态标记吸引注意，但不应打断当前任务。"],
+        "avoidWhen": ["较长状态文字使用 Tag 或正文；需要用户立即处理的错误使用 Alert、Notification 或 Dialog。"],
+        "essentials": ["数字要设置合理上限，避免大数撑坏目标元素。", "dot 适合只表达有无，count 适合数量本身有意义。", "Badge 应依附清楚的宿主，单独出现通常缺少上下文。"],
+        "accessibility": ["为宿主提供包含数量含义的可访问名称，不能只让读屏读出一个孤立数字。", "状态变化不要只用颜色表达；频繁更新时避免把每次计数都作为强制通告。"],
+        "material": {"basis": "直接参考 M3 Badges 的 small 与 large 变体、颜色角色和宿主关系。", "m3": "https://m3.material.io/components/badges/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-bar-chart": {
+        "definition": "BarChart 用柱形长度比较分类数据，可以横向、纵向、分组或堆叠展示。它帮助回答谁更高、差距多大和组成如何，不适合表达需要精确连续阅读的复杂关系。",
+        "useWhen": ["比较不同类别的数量、金额、排名或完成率。", "用堆叠柱展示总量及其组成，并为每个系列提供图例。"],
+        "avoidWhen": ["类别过多、标签很长或必须查看精确明细时，表格通常更清楚；时间连续趋势可考虑折线图。"],
+        "essentials": ["数据轴必须从合理基线开始，避免用截断尺度夸大差异。", "series、category 与 value 是三种不同概念，先整理数据再配置视觉。", "实时更新要保持对象身份和过渡可理解，不能让柱形不断闪烁重排。"],
+        "accessibility": ["颜色之外还要提供图例、标签或可读数据摘要，并确保键盘能取得关键数据。", "动画应响应减少动态效果偏好；悬停提示也必须能通过键盘焦点获得。"],
+        "material": {"basis": "M3 核心组件目录未定义完整 Web 图表组件；本组件使用 M3 颜色、排版、状态和动效原则扩展数据可视化。", "m3": "https://m3.material.io/styles/color/overview", "web": "https://material-web.dev/theming/color/", "source": "https://github.com/material-components/material-web/tree/main/tokens"}
+    },
+    "rc-breadcrumbs": {
+        "definition": "Breadcrumbs 用一串上级入口说明当前页面位于哪一层。它回答“我在哪里、怎样回到上一级”，不是浏览器历史记录，也不替代应用的主导航。",
+        "useWhen": ["信息结构有两级以上，用户可能从搜索或深链接直接进入内页。", "同一内容有稳定的父子层级，并且返回任一上级都合理。"],
+        "avoidWhen": ["层级很浅或路径只是用户刚才点击过的历史时不必使用；页内步骤流程应使用 Stepper 类模式。"],
+        "essentials": ["每一项代表信息架构中的真实层级，不要把按钮操作塞进路径。", "当前页通常不可点击，并通过语义声明为当前位置。", "空间不足时折叠中间层级，但保留根节点、最近上级和当前页。"],
+        "accessibility": ["整个路径使用有名称的导航区域，当前项标记 aria-current。", "分隔符应作为装饰隐藏，链接文字要能脱离视觉位置单独理解。"],
+        "material": {"basis": "M3 没有独立 Breadcrumbs 组件；本组件以导航语义为主，并借用 M3 文本、图标、状态层和触控目标规则。", "m3": "https://m3.material.io/foundations/accessible-design/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-button": {
+        "definition": "Button 触发一个清楚、立即的动作。不同 appearance 表达操作优先级，尺寸和形状只改变视觉呈现，不能替代正确的动作名称与业务语义。",
+        "useWhen": ["提交、保存、创建、取消或打开下一步等明确动作。", "需要用 Filled、Tonal、Outlined、Elevated 或 Text 区分一组操作的主次。"],
+        "avoidWhen": ["页面跳转优先使用链接语义；二态设置使用 Switch，可多选条件使用 Checkbox。"],
+        "essentials": ["一个区域通常只有一个最高强调操作，避免所有按钮都用 primary。", "loading 防止重复提交但仍要说明处理结果；disabled 应有可理解的原因。", "isSelected 只用于真正的可切换动作，普通提交按钮不应伪装成选中状态。"],
+        "accessibility": ["纯图标按钮必须有 aria-label；可见文字应直接描述动作而不是写“确定”。", "危险操作同时使用明确文案、错误色和必要的确认或撤销机制。"],
+        "material": {"basis": "直接参考当前 M3 Buttons 五种外观、Expressive 尺寸与形状，并对照 Material Web 2.5.0 的基线实现记录版本差异。", "m3": "https://m3.material.io/components/buttons/overview", "web": "https://material-web.dev/components/button/", "source": "https://github.com/material-components/material-web/tree/main/button"}
+    },
+    "rc-canvas": {
+        "definition": "Canvas 提供可组合的图形、文字、分组、拖拽和变换能力，用于自由画布或可视化编辑。它是绘制与交互基础设施，不会自动赋予图形可访问语义或业务规则。",
+        "useWhen": ["需要自由摆放、缩放、旋转或拖拽二维对象。", "流程编辑、标注、海报或无限画布等布局无法用普通文档流表达。"],
+        "avoidWhen": ["普通表单、列表和数据页面优先使用语义 HTML 与现有组件；只为装饰图形不必引入完整交互画布。"],
+        "essentials": ["场景坐标、视口变换和对象本地坐标要分清。", "选择、拖拽、缩放和撤销应由稳定对象 ID 驱动。", "大场景使用可见区域、分组和最小重绘策略控制性能。"],
+        "accessibility": ["为关键对象提供等价的 DOM 名称、列表或属性面板，不能让信息只存在像素中。", "所有核心操作都要有键盘替代路径，并在变换后通告可理解的结果。"],
+        "material": {"basis": "M3 没有通用 Canvas 组件；编辑器外壳、控件、颜色、形状与动效仍遵循 M3，画布语义属于项目扩展。", "m3": "https://m3.material.io/foundations/accessible-design/overview", "web": "https://material-web.dev/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-card": {
+        "definition": "Card 把一组相关内容与动作放在同一个表面上，建立可扫读的信息单元。卡片边界表达归属，不意味着卡片的每个位置都应该可点击。",
+        "useWhen": ["多个同级内容单元需要重复排列，例如项目、文章或商品摘要。", "一组内容需要自己的标题、媒体、正文和少量就近动作。"],
+        "avoidWhen": ["内容天然属于同一连续页面时优先用标题、留白和 Divider；不要层层嵌套卡片。"],
+        "essentials": ["先确定 elevated、filled 或 outlined 变体，再保持同一列表中的层级一致。", "可点击卡片需要一个清楚主动作，次要按钮不能与整卡点击冲突。", "loading 骨架要尽量保持最终内容结构，避免加载完成后大幅跳动。"],
+        "accessibility": ["整卡可点击时使用真实链接或按钮语义，并给内部独立操作清楚的焦点顺序。", "标题层级、图片替代文本和状态信息不能因为放进 Card 就省略。"],
+        "material": {"basis": "直接参考 M3 Cards 的 elevated、filled 与 outlined 变体、容器颜色、形状和交互状态。", "m3": "https://m3.material.io/components/cards/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-checkbox": {
+        "definition": "Checkbox 表示一个可以独立开关的选择；CheckboxGroup 管理多个可同时选择的值。indeterminate 表示一组子项只选中了一部分，不是第三个可提交值。",
+        "useWhen": ["用户可以从多个选项中选择任意数量。", "需要全选/部分选择父子关系，或接受一项非即时生效的确认。"],
+        "avoidWhen": ["只能选一个时使用 Radio；设置切换后立即生效时优先使用 Switch。"],
+        "essentials": ["受控模式由 checked 与 onChange 共同组成，不能只传 checked。", "组内每项 value 必须稳定且唯一，显示标签应能单独理解。", "父级 indeterminate 要从子项计算，并在点击后明确转为全选或全不选。"],
+        "accessibility": ["每个框都要与可点击标签关联，整组使用 fieldset/legend 或等价的组名称。", "错误、必填和禁用原因应通过文字传达，焦点指示不能被容器裁掉。"],
+        "material": {"basis": "直接参考 M3 Checkboxes 的选中、未选、indeterminate、disabled 与状态层规则，并对照 Material Web 实现。", "m3": "https://m3.material.io/components/checkbox/overview", "web": "https://material-web.dev/components/checkbox/", "source": "https://github.com/material-components/material-web/tree/main/checkbox"}
+    },
+    "rc-color-picker": {
+        "definition": "ColorPicker 让用户从色板、预设或文本值中选择颜色；ColorPickerPanel 提供可嵌入的完整编辑面板。它负责颜色输入，不自动保证选出的颜色满足品牌或对比度要求。",
+        "useWhen": ["主题、标注、图表或内容编辑允许用户自定义颜色。", "既需要快速预设，也需要输入精确颜色值。"],
+        "avoidWhen": ["业务状态色应由设计令牌决定，不应让用户随意选择；只需少量固定主题时使用 Radio 或 Select 更清楚。"],
+        "essentials": ["明确 value 的颜色格式、透明度和受控更新方式。", "预设色用于快速选择，文本输入用于精确校正，两者必须保持同步。", "选择结果要在真实背景上预览，单个色块不能证明可读性。"],
+        "accessibility": ["色块要有可读名称或数值，并提供键盘选择和可见焦点。", "任何颜色含义都必须有文字、图标或图案补充，同时验证前景背景对比度。"],
+        "material": {"basis": "M3 未提供通用 Color picker 组件；本组件沿用 M3 色彩角色、文本字段、菜单和可访问设计原则。", "m3": "https://m3.material.io/styles/color/overview", "web": "https://material-web.dev/theming/color/", "source": "https://github.com/material-components/material-web/tree/main/color"}
+    },
+    "rc-component-preview": {
+        "definition": "ComponentPreview 把运行中的示例、标题说明、源码、复制和工作台入口组合成文档卡片。它服务于学习和验证，不是业务页面中的普通 Card。",
+        "useWhen": ["组件文档需要同时展示效果、解释和可复制源码。", "示例要在隔离工作台中打开，同时保留站内阅读上下文。"],
+        "avoidWhen": ["业务内容展示请使用 Card；纯代码文档不需要启动交互预览。"],
+        "essentials": ["title 说明示例主题，description 解释学习目标，不能只重复组件名。", "sourceCode 必须与实际运行示例来自同一文件，避免效果与代码漂移。", "density 调整舞台留白，不能掩盖示例自身的尺寸问题。"],
+        "accessibility": ["预览操作要形成命名清楚的操作组，展开源码时同步 aria-expanded。", "iframe 或隔离预览需要可访问标题、合理 Tab 顺序和可恢复的失败状态。"],
+        "material": {"basis": "这是文档站专用组合组件，以 M3 Cards、Buttons、surface 层级和代码阅读需求扩展。", "m3": "https://m3.material.io/components/cards/overview", "web": "https://material-web.dev/components/button/", "source": "https://github.com/material-components/material-web/tree/main/button"}
+    },
+    "rc-config-provider": {
+        "definition": "ConfigProvider 在 React 子树中统一提供主题、语言、尺寸等配置。内层 Provider 可以覆盖外层的一部分值，其余配置继续继承。",
+        "useWhen": ["整个应用需要统一默认配置。", "某个局部区域要临时切换语言、密度或主题，而不影响页面其他部分。"],
+        "avoidWhen": ["只影响一个组件的一次性属性直接传 prop；不要用全局配置隐藏业务状态。"],
+        "essentials": ["最外层放应用默认值，局部覆盖只写确实不同的字段。", "Provider 边界决定配置作用域，弹层挂载到边界外时要检查是否仍能继承。", "配置是默认策略，不应覆盖组件显式传入的值。"],
+        "accessibility": ["语言切换要同步文档语言、读屏文本与格式化规则。", "主题和尺寸覆盖后仍需检查对比度、焦点可见性和 200% 缩放。"],
+        "material": {"basis": "ConfigProvider 是实现基础设施，通过 M3 system tokens、排版和本地化规则把统一配置传给组件。", "m3": "https://m3.material.io/styles/color/system/overview", "web": "https://material-web.dev/theming/", "source": "https://github.com/material-components/material-web/tree/main/tokens"}
+    },
+    "rc-cron-picker": {
+        "definition": "CronPicker 用分段表单帮助用户配置周期、日期和时间，再生成 Cron 表达式。它把难懂的机器语法转为可检查的人类语言，但最终调度能力仍取决于服务端所采用的 Cron 方言。",
+        "useWhen": ["定时任务需要由非专业用户配置常见周期。", "既要提供可视化编辑，也要让高级用户核对表达式。"],
+        "avoidWhen": ["只有几个固定计划时用 Radio 或 Select；涉及复杂日历例外时应使用专门的日程规则界面。"],
+        "essentials": ["先确认后端支持的字段数、时区和特殊字符。", "受控 value 与可读摘要必须同步，不能只显示一串表达式。", "无效组合要在具体字段附近解释原因，并阻止提交错误规则。"],
+        "accessibility": ["每个分段字段都要有 label、说明和错误关联，分组名称说明当前配置哪一部分。", "时间与星期不能只用缩写，需提供可读文本并明确时区。"],
+        "material": {"basis": "M3 没有 Cron picker；本组件组合 Text fields、Select/Menu、Checkbox 等输入规则形成项目扩展。", "m3": "https://m3.material.io/components/text-fields/overview", "web": "https://material-web.dev/components/select/", "source": "https://github.com/material-components/material-web/tree/main/select"}
+    },
+    "rc-date-picker": {
+        "definition": "DatePicker、TimePicker 和 DateTimePicker 分别选择日期、时间或两者组合；Panel 变体适合嵌入现有容器。组件负责选择过程，业务仍要定义时区、允许范围和提交格式。",
+        "useWhen": ["用户从日历或时间面板选择一个明确值或范围。", "需要通过最小/最大值、禁用日期或时区限制合法输入。"],
+        "avoidWhen": ["生日等容易直接输入的已知日期可优先文本字段；复杂重复日程使用专门规则编辑器。"],
+        "essentials": ["Date、Time 与 DateTime 是不同数据模型，先选对组件。TimePicker 从字段下方展开，可在表盘和键盘输入之间切换；确认后才更新值。", "受控 value、onValueChange 和显示时区要来自同一业务约定；独立时间默认选择小时与分钟，秒输入需显式启用。", "Panel 不自带弹层触发器，嵌入时由外层负责打开、关闭、校验与焦点恢复；DateTimePicker 是日期和时间的组合扩展。"],
+        "accessibility": ["输入框要有 label 和格式说明，日历网格支持方向键、确认和退出。", "当前日期、选中日期、不可选日期与错误必须同时有非颜色状态。"],
+        "material": {"basis": "日期和时间面板参考 M3 Date pickers 与 Time pickers；独立时间使用非模态下拉层，这是项目对标准模态时间选择器的交互扩展。", "m3": "https://m3.material.io/components/date-pickers/overview", "web": "https://material-web.dev/components/text-field/", "source": "https://github.com/material-components/material-web/tree/main/textfield"}
+    },
+    "rc-dialog": {
+        "definition": "Dialog 在顶层表面中聚焦一项需要确认、输入或决定的任务，并暂时限制用户与背景内容交互。它不是普通信息卡片，打开和关闭都必须管理焦点。",
+        "useWhen": ["删除、授权、离开未保存内容等关键决定需要明确确认。", "一项短小任务必须先完成或取消，才能回到原页面。"],
+        "avoidWhen": ["长表单和复杂工作流使用独立页面或 Drawer；非阻塞说明使用 Alert、Notification 或 Tooltip。"],
+        "essentials": ["标题说明决定对象，正文解释影响，按钮使用具体动作名称。", "受控 open 决定是否显示，onClose 统一处理取消、Escape 和遮罩等关闭来源。", "内容过长时保持标题与操作可理解，不要把完整页面塞进小对话框。"],
+        "accessibility": ["打开时把焦点放到合理元素，Tab 留在对话框内，关闭后恢复到触发器。", "对话框必须有可访问名称；危险确认的默认焦点要经过审慎选择。"],
+        "material": {"basis": "直接参考 M3 Dialogs 的 basic、full-screen 等行为、容器规格与无障碍要求，并对照 Material Web dialog 实现。", "m3": "https://m3.material.io/components/dialogs/overview", "web": "https://material-web.dev/components/dialog/", "source": "https://github.com/material-components/material-web/tree/main/dialog"}
+    },
+    "rc-divider": {
+        "definition": "Divider 是低强调度的分隔线，用来说明相邻内容属于不同组。它只帮助识别结构，不应该代替足够的留白、标题或容器层级。",
+        "useWhen": ["列表、菜单或内容区中相邻组需要轻量边界。", "水平或垂直布局需要清楚但不过度强调的结构分隔。"],
+        "avoidWhen": ["仅靠间距已经能表达分组时无需增加线条；不要让每个元素四周都出现 Divider。"],
+        "essentials": ["orientation 要与布局方向匹配，垂直分隔必须有可计算高度。", "variant 与 inset 用来对齐内容边缘，而不是随意装饰。", "带文字的分隔要确保文字确实是分组标题而非普通句子。"],
+        "accessibility": ["纯装饰分隔隐藏语义；确实表示主题断点时保留 separator 角色和正确方向。", "不要只用 Divider 表达不可见的关系，标题与 DOM 结构仍要正确。"],
+        "material": {"basis": "直接参考 M3 Dividers 的 full-width、inset、颜色和厚度，并对照 Material Web divider。", "m3": "https://m3.material.io/components/divider/overview", "web": "https://material-web.dev/components/divider/", "source": "https://github.com/material-components/material-web/tree/main/divider"}
+    },
+    "rc-drawer": {
+        "definition": "Drawer 从屏幕边缘展开一块临时或补充表面，常用于查看详情、编辑少量字段或承载辅助导航。它保留原页面上下文，但打开时仍需明确层级和焦点范围。",
+        "useWhen": ["用户需要边看列表边处理一条记录的详情。", "辅助任务比 Dialog 更长，但还不值得跳转到独立页面。"],
+        "avoidWhen": ["关键确认使用 Dialog；复杂多步骤流程或需要大量宽度的编辑使用完整页面。"],
+        "essentials": ["placement 由内容关系和阅读方向决定，不要只按视觉喜好选择。", "open 与 onClose 形成受控开合，footer 放稳定的主要和次要动作。", "嵌套 Drawer 要减少层级并清楚说明返回关系。"],
+        "accessibility": ["打开时移动焦点、限制背景交互并在关闭后恢复焦点。", "标题、关闭按钮和 Escape 行为都必须可用；窄屏下内容仍应完整滚动。"],
+        "material": {"basis": "详情型 Drawer 接近 M3 Side sheets，导航型用法接近 Navigation drawer；本组件按具体内容选择相应焦点和布局规则。", "m3": "https://m3.material.io/components/navigation-drawer/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-dropdown-container": {
+        "definition": "DropdownContainer 连接一个触发器和一个定位浮层，并通过上下文管理引用元素、开合状态与定位。它是组合基础设施，不自动决定浮层是菜单、列表还是自定义面板。",
+        "useWhen": ["现有输入或按钮需要挂载自定义下拉内容。", "需要统一处理锚点定位、容器尺寸和开合事件。"],
+        "avoidWhen": ["标准选项选择直接使用 Select，命令列表使用 Menu，说明文字使用 Tooltip。"],
+        "essentials": ["触发器必须把 reference ref 交给容器，否则浮层无法可靠定位。", "打开原因、关闭原因和焦点行为取决于承载内容的真实语义。", "不要只依赖 blur 关闭复杂浮层，否则点击浮层内部也可能意外消失。"],
+        "accessibility": ["触发器使用 aria-expanded，并按浮层类型补充 aria-controls 或 aria-haspopup。", "菜单、列表框和对话框拥有不同键盘模型，容器不能把它们统一成同一种行为。"],
+        "material": {"basis": "这是 M3 Menu、Select、Tooltip 等锚定表面的底层扩展；视觉与键盘模型由实际承载组件决定。", "m3": "https://m3.material.io/components/menus/overview", "web": "https://material-web.dev/components/menu/", "source": "https://github.com/material-components/material-web/tree/main/menu"}
+    },
+    "rc-empty": {
+        "definition": "Empty 在没有数据、搜索无结果或尚未创建内容时解释当前状态，并给出合适的下一步。它不是错误页，也不应只展示一张插图。",
+        "useWhen": ["列表第一次为空，需要引导创建内容。", "筛选或搜索后没有结果，需要说明如何恢复或调整条件。"],
+        "avoidWhen": ["仍在加载时使用 Skeleton 或 Spin；请求失败时显示错误原因和重试，而不是伪装成空数据。"],
+        "essentials": ["标题明确说明“没有什么”，描述解释为什么以及下一步。", "action 只放最可能的恢复动作，例如新建或清除筛选。", "preset 负责常见视觉，custom 用于确有业务意义的插图。"],
+        "accessibility": ["空状态必须包含真实文本，插图应是装饰或有恰当替代文本。", "从有数据变为空时，焦点不要落在已卸载项目上，并按任务重要程度提供状态通告。"],
+        "material": {"basis": "M3 没有独立 Empty state 组件；本组件使用 M3 排版、图标、Button 和 surface 规则构成项目模式。", "m3": "https://m3.material.io/foundations/layout/understanding-layout/overview", "web": "https://material-web.dev/components/button/", "source": "https://github.com/material-components/material-web/tree/main/button"}
+    },
+    "rc-flow-diagram": {
+        "definition": "FlowDiagram 用节点和连线表达步骤、依赖或系统关系，可结合自动布局与边动画。它负责关系图的渲染与交互，业务仍要定义节点类型、连接规则和保存格式。",
+        "useWhen": ["流程编排、审批路径或系统拓扑需要可视化关系。", "节点数量和关系使普通列表难以理解，但仍需要选择或编辑。"],
+        "avoidWhen": ["简单线性步骤用有序列表更清楚；大量精确数据比较使用表格或图表。"],
+        "essentials": ["节点和边都要有稳定 ID，数据模型与屏幕坐标分开保存。", "自动布局负责初始位置，用户调整后要定义是否覆盖或保留。", "动画只提示方向或变化，不能成为关系含义的唯一载体。"],
+        "accessibility": ["提供节点列表、连接说明或其他等价文本视图，确保非视觉用户也能理解关系。", "选择、连接和移动都要有键盘路径，减少动态效果时关闭非必要边动画。"],
+        "material": {"basis": "M3 未定义通用流程图组件；工具栏、节点表面、颜色、焦点和动效使用 M3 规则，图关系语义是项目扩展。", "m3": "https://m3.material.io/foundations/interaction/overview", "web": "https://material-web.dev/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-form": {
+        "definition": "Form 组织字段值、校验、错误和提交；FormItem 把 label、控件、帮助文字与错误关联起来；useForm 提供编程式读写。它的核心是单一数据来源和可预测的校验时机。",
+        "useWhen": ["多个字段需要一起校验和提交。", "字段之间存在依赖、动态显隐或统一错误处理。"],
+        "avoidWhen": ["只有一个独立开关或搜索框时不必引入完整表单状态；服务器数据缓存也不应塞进表单。"],
+        "essentials": ["为每个字段使用稳定 name，initialValues 只负责初始值。", "rules 描述验证规则，提交失败时把用户带到第一个可修复问题。", "编辑器组件通过 value/onChange 与 Form 连接，避免同时维护第二份本地值。"],
+        "accessibility": ["label、帮助文字和错误必须通过 ID 关联到实际输入控件。", "错误不能只显示红色；提交后保留用户输入，并提供错误摘要或准确焦点。"],
+        "material": {"basis": "M3 没有单一 Form 容器规范；本组件组合 Text fields、Select、Checkbox、Button 等组件的标签、错误和状态规则。", "m3": "https://m3.material.io/components/text-fields/overview", "web": "https://material-web.dev/components/text-field/", "source": "https://github.com/material-components/material-web/tree/main/textfield"}
+    },
+    "rc-hooks": {
+        "definition": "rc-hooks 收集可复用的 React 状态与浏览器交互逻辑，例如键盘、拖拽、尺寸和受控值。Hook 不渲染界面，使用者必须把返回状态和事件正确连接到有语义的组件。",
+        "useWhen": ["多个组件需要共享同一套交互状态机。", "浏览器事件、订阅或测量逻辑需要安全地处理挂载和卸载。"],
+        "avoidWhen": ["只在一个组件中使用的简单状态保留在组件内部；不要用 Hook 隐藏不可见的全局副作用。"],
+        "essentials": ["先读清输入、返回值和生命周期，再把 Hook 接到组件。", "受控/非受控逻辑要明确默认值、外部值和变更回调的优先级。", "事件监听、计时器和观察器必须在卸载时清理。"],
+        "accessibility": ["键盘 Hook 只是能力，最终元素仍需正确角色、名称和焦点管理。", "拖拽或动画 Hook 必须提供键盘替代操作并尊重减少动态效果。"],
+        "material": {"basis": "这是 React 实现基础设施，没有 M3 视觉对应；其输出应帮助上层组件落实 M3 交互、焦点和动效规则。", "m3": "https://m3.material.io/foundations/interaction/overview", "web": "https://material-web.dev/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-line-edit": {
+        "definition": "LineEdit 是带标签、辅助文字和状态反馈的单行文本输入，适合名称、邮箱、搜索词等短内容。它支持填充与描边外观，但两者共享相同的输入语义。",
+        "useWhen": ["用户输入一行可编辑文本。", "需要前后缀、清除、密码可见性、字符计数或错误提示。"],
+        "avoidWhen": ["长段落使用 TextEdit，数值使用 NumberEdit，有限选项使用 Select。"],
+        "essentials": ["label 描述字段含义，placeholder 只提供格式示例，不能代替标签。", "受控 value 与 onChange 配对；defaultValue 只在初始非受控场景使用。", "status、supportingText 和计数要共同说明当前输入是否有效。"],
+        "accessibility": ["使用 useId 关联 label、说明和错误，必填不能只靠星号表达。", "清除与密码可见按钮要有可访问名称，错误出现后不能让输入焦点丢失。"],
+        "material": {"basis": "直接参考 M3 Text fields 的 filled、outlined、label、supporting text、error 与状态规则，并对照 Material Web text field。", "m3": "https://m3.material.io/components/text-fields/overview", "web": "https://material-web.dev/components/text-field/", "source": "https://github.com/material-components/material-web/tree/main/textfield"}
+    },
+    "rc-masonry": {
+        "definition": "Masonry 把高度不同的内容按列紧密排列，减少瀑布流中的空白。视觉顺序可能与普通行优先阅读不同，因此只适合彼此相对独立的内容卡片。",
+        "useWhen": ["图片、灵感卡片或作品集高度差异明显。", "内容可以独立阅读，不依赖严格的从左到右行顺序。"],
+        "avoidWhen": ["新闻、表单或步骤有明确阅读顺序时使用普通 Grid/List；需要对齐字段时使用 Table。"],
+        "essentials": ["选择 columns 或响应式列宽，并预留媒体尺寸减少重排。", "sequential 模式优先 DOM 阅读顺序，其他布局策略要评估视觉与语义顺序差异。", "增量加载时保持项目 key 稳定，避免整个瀑布流跳动。"],
+        "accessibility": ["DOM 顺序必须仍然形成可理解的阅读和 Tab 顺序。", "图片提供替代文本，加载更多后把状态通告与焦点留在可预测位置。"],
+        "material": {"basis": "M3 没有独立 Masonry 组件；内容单元可使用 M3 Cards，整体按 M3 响应式布局和间距规则扩展。", "m3": "https://m3.material.io/foundations/layout/understanding-layout/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-menu": {
+        "definition": "Menu 在本项目中组织页面和功能入口，支持水平、垂直、内嵌、分组和收起模式。它的选中状态必须与当前内容或路由一致，不能只是视觉高亮。",
+        "useWhen": ["应用侧栏或顶部需要组织多个目的地。", "入口存在稳定分组或层级，并需要展开、收起和当前项反馈。"],
+        "avoidWhen": ["临时动作列表使用弹出菜单；同一区域切换少量同级内容使用 Tabs。"],
+        "essentials": ["每个 item 使用稳定 key，title 是用户可读名称。", "selectedKeys 表示当前位置，openKeys 表示展开层级，两者不是同一状态。", "inlineCollapsed 只改变展示密度，收起后仍要让用户知道图标代表什么。"],
+        "accessibility": ["导航容器提供名称，当前目的地与展开状态都要有语义。", "支持 Tab 进入、方向键移动和可见焦点；收起图标需要 Tooltip 或等价名称。"],
+        "material": {"basis": "本组件是持久导航，不等同于 M3 临时 Menu；设计主要参考 Navigation drawer/rail 与列表的选中、层级和触控目标。", "m3": "https://m3.material.io/components/navigation-drawer/overview", "web": "https://material-web.dev/components/list/", "source": "https://github.com/material-components/material-web/tree/main/list"}
+    },
+    "rc-message": {
+        "definition": "Message 显示短暂、轻量的全局操作反馈，例如保存成功或复制失败。它通常自动消失，只应承载一条能快速读完的信息。",
+        "useWhen": ["操作结果无需保留在页面中，用户读到后可以继续。", "需要通过 useMessage 在当前应用上下文中触发短消息。"],
+        "avoidWhen": ["必须阅读或处理的错误使用 Alert、Notification 或 Dialog；表单字段错误放在字段附近。"],
+        "essentials": ["一句话说明结果，避免把原因、详情和多个动作都塞进去。", "duration 要给用户足够阅读时间，重要消息不要自动过快消失。", "通过上下文 holder 保持主题和挂载位置，不要在任意模块创建孤立实例。"],
+        "accessibility": ["根据重要程度选择礼貌或紧急通告，避免连续消息让读屏队列失控。", "消息关闭后不移动当前焦点；仅靠颜色不能表达成功或失败。"],
+        "material": {"basis": "直接参考 M3 Snackbar 的短暂反馈、单行信息、动作数量和通告原则；视觉按项目 Message 变体扩展。", "m3": "https://m3.material.io/components/snackbar/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-notification": {
+        "definition": "Notification 是带标题和较完整说明的非模态通知，可同时展示多条并在角落堆叠。它比 Message 信息更丰富，但仍不应阻塞当前任务。",
+        "useWhen": ["后台任务、系统事件或跨页面结果需要较长说明。", "用户可以稍后处理，通知中可能包含一个清楚的后续动作。"],
+        "avoidWhen": ["字段级错误就近显示；必须立即决策使用 Dialog；只有一句确认使用 Message。"],
+        "essentials": ["title 概括事件，description 解释影响和下一步。", "控制堆叠数量与位置，避免新通知遮住主要任务。", "使用 hook/holder 让通知继承主题并便于统一销毁。"],
+        "accessibility": ["通知出现时使用合适的 live region，但不要自动抢走键盘焦点。", "关闭按钮和通知动作要有清楚名称，自动关闭时间应与内容长度匹配。"],
+        "material": {"basis": "M3 没有与桌面角落通知完全对应的核心组件；本组件结合 Snackbar 的反馈原则、Card 表面和项目级堆叠规则。", "m3": "https://m3.material.io/components/snackbar/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-number-edit": {
+        "definition": "NumberEdit 输入一个数值，并可通过步进按钮、键盘、上下限和格式化辅助编辑。显示字符串和提交数值是两个层次，格式化不能改变真实数值含义。",
+        "useWhen": ["数量、比例、金额或阈值需要精确输入。", "用户既需要直接键入，也需要按固定 step 微调。"],
+        "avoidWhen": ["大致连续范围使用 Slider；有限固定数字使用 Select；电话号码等数字字符串仍用文本输入。"],
+        "essentials": ["value 是数值状态，formatter/parser 只负责显示与解析。", "min、max 和 step 要与业务单位一致，并处理小数精度。", "空值、无效中间输入和最终提交值要分开考虑。"],
+        "accessibility": ["提供 label、单位和允许范围，步进按钮要有增加/减少的可访问名称。", "超出范围的错误用文字说明，键盘方向键行为不得阻止正常页面导航。"],
+        "material": {"basis": "M3 没有独立 Number input；本组件以 Text field 为基础并扩展 spinbutton 语义、步进按钮和数值校验。", "m3": "https://m3.material.io/components/text-fields/overview", "web": "https://material-web.dev/components/text-field/", "source": "https://github.com/material-components/material-web/tree/main/textfield"}
+    },
+    "rc-pagination": {
+        "definition": "Pagination 把大量结果分成可导航的页面，并可显示总数、快速跳转和每页数量。它控制当前页信息，不负责请求数据本身。",
+        "useWhen": ["用户需要在较大的结果集中稳定定位页码。", "服务器分页或业务要求明确的页数和每页条数。"],
+        "avoidWhen": ["连续浏览内容可使用加载更多或虚拟滚动；结果很少时不要增加分页控制。"],
+        "essentials": ["current、pageSize 与 total 共同决定合法页码。", "改变 pageSize 后要重新计算 current，避免落到不存在的页。", "请求中的页码状态、加载和错误由业务层管理。"],
+        "accessibility": ["分页区域使用有名称的导航语义，当前页标记 aria-current。", "上一页、下一页、页码和跳转输入都有明确名称，禁用状态不能只变淡。"],
+        "material": {"basis": "M3 核心组件目录未提供独立 Pagination；本组件使用 M3 Button、Text field、Select 和触控目标规则组合。", "m3": "https://m3.material.io/components/buttons/overview", "web": "https://material-web.dev/components/button/", "source": "https://github.com/material-components/material-web/tree/main/button"}
+    },
+    "rc-pdf-editor": {
+        "definition": "PdfEditor 在浏览器中加载 PDF，允许选择、编辑、标注、OCR 区域或只读浏览，并导出处理后的文档。它是复杂编辑器，需要同时处理文件生命周期、工具状态和页面坐标。",
+        "useWhen": ["业务需要在网页内查看并修改 PDF 对象。", "需要用工具栏、区域选择或 OCR 流程处理文档，而不是仅提供下载。"],
+        "avoidWhen": ["只需阅读时使用轻量 PDF 查看器；敏感文件不能在当前环境处理时不要加载到浏览器。"],
+        "essentials": ["先区分只读、编辑和区域工具模式，避免同一手势有多个含义。", "文档坐标、缩放比例和屏幕坐标必须正确换算。", "导出前明确未保存状态、文件名、处理进度和失败恢复。"],
+        "accessibility": ["工具栏按钮有文字名称和选中状态，常用操作提供键盘路径。", "PDF 画面不能成为唯一内容来源；应保留页码、文本或结构化替代信息并管理长任务通告。"],
+        "material": {"basis": "M3 没有 PDF editor；工具栏、按钮、菜单、对话框、进度和表面使用对应 M3 组件规则，文档编辑行为为项目扩展。", "m3": "https://m3.material.io/components/buttons/overview", "web": "https://material-web.dev/components/button/", "source": "https://github.com/material-components/material-web/tree/main/button"}
+    },
+    "rc-prose": {
+        "definition": "Prose 为长文章统一标题、段落、列表、引用、代码和表格的排版节奏。它只作用于内容阅读，不应覆盖业务控件自身的组件样式。",
+        "useWhen": ["帮助文档、发布说明或富文本内容需要稳定阅读样式。", "Markdown 或 CMS 输出需要一层可控的语义排版容器。"],
+        "avoidWhen": ["表单、仪表盘和紧凑数据界面使用各自组件布局，不要套用文章行高。"],
+        "essentials": ["使用正确 HTML 语义，让样式跟随 h1、p、ul、code 等结构。", "size 调整整体阅读尺度，但标题层级仍由文档结构决定。", "表格和代码块要处理窄屏溢出，而不是压缩到不可读。"],
+        "accessibility": ["标题不能跳级，链接文字要描述目标，图片和代码有必要说明。", "在 200% 缩放、长中文和高对比模式下检查行长、换行和焦点。"],
+        "material": {"basis": "直接使用 M3 Typography 角色、颜色与间距建立长文排版；Prose 是项目级内容模式。", "m3": "https://m3.material.io/styles/typography/overview", "web": "https://material-web.dev/theming/typography/", "source": "https://github.com/material-components/material-web/tree/main/typography"}
+    },
+    "rc-radio": {
+        "definition": "Radio 表示一组互斥选项中的一个，RadioGroup 管理组值和变更。用户应能同时看到所有主要选项，并且只能选择一项。",
+        "useWhen": ["选项数量少且需要并列比较。", "选择是必需或有合理默认值，并且每项含义稳定。"],
+        "avoidWhen": ["可多选使用 Checkbox；选项很多或需要搜索使用 Select；即时二态设置使用 Switch。"],
+        "essentials": ["把 Radio 放进 RadioGroup，由 group value 维护唯一选中项。", "每个 value 稳定且唯一，label 使用用户语言而不是内部代码。", "默认值必须是安全、可解释的选择；不应为了省一步替用户同意重要条款。"],
+        "accessibility": ["组需要可访问名称，方向键在组内移动，Tab 只进入当前组一次。", "错误和禁用原因用文字说明，选中圆点之外保留清楚的状态语义。"],
+        "material": {"basis": "直接参考 M3 Radio buttons 的组模型、尺寸、颜色、状态层和无障碍行为，并对照 Material Web radio。", "m3": "https://m3.material.io/components/radio-button/overview", "web": "https://material-web.dev/components/radio/", "source": "https://github.com/material-components/material-web/tree/main/radio"}
+    },
+    "rc-realm": {
+        "definition": "Realm 加载并挂载远程 React 组件或脚本入口，把外部模块接入当前页面，同时提供加载、失败、重试和隔离边界。它涉及代码信任与版本兼容，不只是普通懒加载。",
+        "useWhen": ["受信任的微前端或插件需要按运行时地址加载。", "宿主必须统一处理远程模块的挂载、卸载和错误恢复。"],
+        "avoidWhen": ["同仓库代码优先静态导入；来源不可信或无法验证完整性的脚本不得直接执行。"],
+        "essentials": ["明确入口协议、React 版本、依赖共享和卸载契约。", "加载、执行、渲染是不同失败阶段，错误信息和重试策略要分别处理。", "远程组件不能假设宿主全局状态，必要配置通过显式接口传入。"],
+        "accessibility": ["加载中提供状态，失败时给出可操作的重试并保留焦点。", "远程内容仍必须遵守宿主的语言、主题、键盘和无障碍标准。"],
+        "material": {"basis": "这是运行时基础设施，没有 M3 视觉对应；其加载、错误和重试界面使用 M3 Progress、Alert/Button 与 surface 规则。", "m3": "https://m3.material.io/components/progress-indicators/overview", "web": "https://material-web.dev/components/progress/", "source": "https://github.com/material-components/material-web/tree/main/progress"}
+    },
+    "rc-router": {
+        "definition": "Router 把 URL、路由配置和页面组件连接起来，处理匹配、参数、嵌套页面与导航。它让地址成为可分享、可返回的应用状态，而不是只在内存中切换视图。",
+        "useWhen": ["应用有多个可直接访问的页面或嵌套路由。", "浏览器前进后退、深链接和当前导航状态必须一致。"],
+        "avoidWhen": ["组件内部的局部视图切换使用状态或 Tabs；不要为一个弹层创建难以理解的伪页面。"],
+        "essentials": ["路由表从具体到通用组织，并为未知地址提供明确兜底。", "导航使用链接语义，编程式跳转只用于提交后等业务结果。", "页面参数来自 URL 时需要解析、校验并处理缺失值。"],
+        "accessibility": ["路由切换后更新页面标题，并把焦点或阅读起点移到新内容的合理位置。", "链接能用浏览器标准方式打开和复制，当前导航项使用 aria-current。"],
+        "material": {"basis": "Router 是 Web 导航基础设施，没有 M3 视觉组件；它为 Navigation rail/drawer、Tabs 和页面层级提供真实状态。", "m3": "https://m3.material.io/components/navigation-drawer/overview", "web": "https://material-web.dev/components/tabs/", "source": "https://github.com/material-components/material-web/tree/main/tabs"}
+    },
+    "rc-segmented": {
+        "definition": "Segmented 把少量相关选项并排放在一个整体中，用于切换视图、筛选范围或选择一个模式。所有选项应属于同一维度，并能在有限宽度内清楚展示。",
+        "useWhen": ["二到五个选项需要快速比较和切换。", "选中结果立即改变当前视图或设置，并且选项标签很短。"],
+        "avoidWhen": ["长标签或大量选项使用 Select；页面级导航使用 Tabs；普通动作不要伪装成选项。"],
+        "essentials": ["options 的 value 稳定唯一，label 描述同一维度下的不同值。", "受控 value 与 onChange 同步，block 只改变占用宽度。", "图标是标签的辅助，不能用难懂图标完全替代文字。"],
+        "accessibility": ["根据选择模型提供 radio group 或 toolbar 中 toggle button 的正确语义。", "方向键、Tab 和选中状态要可预测，焦点不能只靠背景色表现。"],
+        "material": {"basis": "直接参考 M3 Segmented buttons 的 single-select/multi-select、轮廓、选中图标和键盘模型。", "m3": "https://m3.material.io/components/segmented-buttons/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-select": {
+        "definition": "Select 将一组选项收起在下拉列表中，用户展开后选择一个或多个值。支持本地搜索、选项分组、清除和多选标签折叠。",
+        "useWhen": ["选项多到不适合全部并列展示。", "用户必须从合法集合中选择，并可能需要搜索或多选。"],
+        "avoidWhen": ["少量互斥选项使用 Radio；用户应自由输入新值时使用 LineEdit 或组合输入。"],
+        "essentials": ["options 中的 value 是唯一且稳定的标识，label 是显示内容。", "multiple 开启多选：单选值为 string 或 null，多选值为 string[]。", "searchable 过滤已传入的 options；组件没有向外提供搜索词回调。"],
+        "accessibility": ["触发器与列表框使用正确 combobox/listbox 语义，并支持方向键、Enter 和 Escape。", "多选标签、错误、必填和清除按钮都要有可读名称与稳定焦点。"],
+        "material": {"basis": "直接参考 M3 Exposed dropdown menu 与 Text field 的选择模型，并对照 Material Web select/menu 实现。", "m3": "https://m3.material.io/components/menus/overview", "web": "https://material-web.dev/components/select/", "source": "https://github.com/material-components/material-web/tree/main/select"}
+    },
+    "rc-skeleton": {
+        "definition": "Skeleton 在真实内容到达前显示结构占位，帮助用户预期页面布局并减少跳动。它表示“正在加载内容”，不是无数据、错误或装饰背景。",
+        "useWhen": ["首屏内容需要等待，且最终结构大致可预测。", "卡片、列表或详情加载时希望保持页面几何稳定。"],
+        "avoidWhen": ["短小、不可预测的任务使用 Spin/Progress；请求失败或空数据必须显示真实状态。"],
+        "essentials": ["占位数量和形状接近最终内容，但不要伪造不存在的信息。", "loaded 后替换真实内容，容器尺寸尽量保持稳定。", "动画用于提示进行中，持续时间不确定时不要显示伪造百分比。"],
+        "accessibility": ["Skeleton 通常是装饰，应隐藏重复形状并在容器提供简洁加载状态。", "减少动态效果时关闭闪烁/波纹；完成后清除 busy 状态并避免焦点跳动。"],
+        "material": {"basis": "M3 核心目录未单列 Skeleton；本组件使用 M3 surface、shape、motion 与 Progress 的状态原则形成项目模式。", "m3": "https://m3.material.io/components/progress-indicators/overview", "web": "https://material-web.dev/components/progress/", "source": "https://github.com/material-components/material-web/tree/main/progress"}
+    },
+    "rc-slider": {
+        "definition": "Slider 通过拖动轨道上的手柄选择连续或分段数值，适合快速调整并即时看到效果。它强调相对位置，不如数字输入适合精确键入。",
+        "useWhen": ["音量、亮度、比例等范围值需要快速调整。", "min、max 和 step 明确，用户可以根据相对位置做决定。"],
+        "avoidWhen": ["精确数值输入使用 NumberEdit；少量离散选择使用 Segmented 或 Radio。"],
+        "essentials": ["min、max、step 和 value 必须使用同一单位。", "受控 onChange 处理拖动过程，必要时区分提交完成事件。", "标签或值显示帮助用户理解手柄位置代表什么。"],
+        "accessibility": ["提供可访问名称、当前值文字、上下限和键盘增减操作。", "轨道颜色之外要有可定位手柄与焦点，触控目标大于可见手柄。"],
+        "material": {"basis": "直接参考 M3 Sliders 的 continuous/discrete、尺寸、值指示、状态与触控目标，并对照 Material Web slider。", "m3": "https://m3.material.io/components/sliders/overview", "web": "https://material-web.dev/components/slider/", "source": "https://github.com/material-components/material-web/tree/main/slider"}
+    },
+    "rc-spin": {
+        "definition": "Spin 显示不确定时长的处理状态，可以单独出现或覆盖某个内容区域。它告诉用户任务仍在进行，但不代表具体百分比。",
+        "useWhen": ["局部请求或计算没有可靠完成比例。", "内容需要暂时阻止重复操作，并用 tip 解释正在做什么。"],
+        "avoidWhen": ["页面结构可预测时 Skeleton 更稳定；有真实进度值时使用 determinate Progress。"],
+        "essentials": ["spinning 控制状态，delay 避免极短任务闪一下。", "wrapper 模式只覆盖相关区域，不应冻结整个应用。", "tip 使用具体动词，如“正在保存报表”，不要只写“加载中”。"],
+        "accessibility": ["容器设置 busy 状态并提供简短 status 文本，完成后及时移除。", "减少动态效果时保留静态进度提示；不要让装饰指示器进入 Tab 顺序。"],
+        "material": {"basis": "直接参考 M3 Circular progress indicators 的不确定状态、尺寸、颜色和动效，并对照 Material Web progress。", "m3": "https://m3.material.io/components/progress-indicators/overview", "web": "https://material-web.dev/components/progress/", "source": "https://github.com/material-components/material-web/tree/main/progress"}
+    },
+    "rc-split-pane": {
+        "definition": "SplitPane 把相邻区域分成可拖动调整大小的面板，常见于编辑器、预览器和数据工作台。分隔条既是视觉边界，也是一个可操作控件。",
+        "useWhen": ["用户需要在两个相关区域之间分配空间。", "两个面板需要同时可见，并可能记住用户上次尺寸。"],
+        "avoidWhen": ["窄屏无法同时容纳内容时改为分步、Tabs 或 Drawer；纯装饰分栏使用 CSS Grid。"],
+        "essentials": ["orientation、primary、min/max 共同决定尺寸计算。", "拖动过程中限制合法范围，结束后再持久化最终尺寸。", "内容溢出由各面板处理，不能让分隔条被滚动内容遮住。"],
+        "accessibility": ["分隔条使用 separator 语义并提供当前值、方向键调整和可见焦点。", "触控命中区可以大于可见线；缩放和窄屏时两个面板仍要可达。"],
+        "material": {"basis": "M3 没有独立 Split pane；面板 surface、divider、focus 与触控目标使用 M3 规则，调整行为参考 Web separator 模式。", "m3": "https://m3.material.io/components/divider/overview", "web": "https://material-web.dev/components/divider/", "source": "https://github.com/material-components/material-web/tree/main/divider"}
+    },
+    "rc-switch": {
+        "definition": "Switch 表示一个立即生效的开/关设置。它只适合清楚的二态值，标签描述设置本身，选中状态表示当前是否开启。",
+        "useWhen": ["切换后可以立即保存或应用，例如通知、同步、显示选项。", "当前值比一次性动作更重要，用户需要随时看到开关状态。"],
+        "avoidWhen": ["提交表单时才生效的多个选择使用 Checkbox；普通动作使用 Button。"],
+        "essentials": ["checked 与 onChange 构成受控状态，label 不要写“开启/关闭”两套文案。", "切换失败时恢复真实值并说明原因，不能保持虚假视觉状态。", "disabled 只在确实不可操作时使用，并就近解释限制。"],
+        "accessibility": ["提供与设置含义一致的可访问名称，状态通过 checked 语义表达。", "标签与开关都可点击，焦点环清楚，RTL 下视觉方向与逻辑含义保持一致。"],
+        "material": {"basis": "直接参考 M3 Switches 的 selected/unselected、icon、disabled、RTL 和状态层，并对照 Material Web switch。", "m3": "https://m3.material.io/components/switch/overview", "web": "https://material-web.dev/components/switch/", "source": "https://github.com/material-components/material-web/tree/main/switch"}
+    },
+    "rc-table": {
+        "definition": "Table 按行列展示结构化数据，并提供排序、筛选、选择、编辑、固定区域和虚拟化等能力。列定义解释字段怎样显示，rows 提供每条记录，稳定行 ID 连接两者。",
+        "useWhen": ["需要比较多条记录在相同字段上的值。", "用户要排序、筛选、选择、编辑或批量处理结构化数据。"],
+        "avoidWhen": ["内容主要是叙述或卡片媒体时使用 List/Card；字段很少且只读时简单语义表格可能更合适。"],
+        "essentials": ["每行提供稳定唯一 ID，列 key 和数据路径不能随渲染变化。", "容器必须有明确宽高，虚拟化只渲染视口附近内容。", "排序和筛选要明确由本地还是服务端负责，不能同时重复处理。"],
+        "accessibility": ["表格提供描述用途的 aria-label，列标题简短可读，排序状态用 aria-sort。", "单元格内控件拥有带行上下文的名称；键盘选择、编辑和滚动后保持可见焦点。"],
+        "material": {"basis": "M3 当前 Web 核心实现未覆盖完整 Data table；本组件沿用 Material 数据表层级、M3 颜色/排版/状态，并扩展企业级虚拟化交互。", "m3": "https://m3.material.io/components", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-table-pro": {
+        "definition": "TablePro 在 Table 之上组合数据加载、搜索、分页、列管理、自动刷新、导出和状态持久化，面向完整的数据工作台。它协调协议与界面，不替服务端定义查询语义。",
+        "useWhen": ["页面需要围绕一个数据源提供完整查询和管理工具。", "多个项目要复用一致的分页、列配置、导出和刷新流程。"],
+        "avoidWhen": ["只展示本地小数据集时直接使用 Table；页面交互特殊到无法共享协议时先拆分需求。"],
+        "essentials": ["loader 的输入、返回总数和取消/竞态行为必须明确。", "搜索、分页和列状态使用单一来源，持久化只保存可恢复的用户偏好。", "导出、自动刷新和侧栏都要展示独立的进行中、成功和失败结果。"],
+        "accessibility": ["工具栏有名称和逻辑顺序，刷新后不重置用户焦点或朗读整个表格。", "查询错误、空结果和导出状态提供文字反馈，列管理可完全使用键盘。"],
+        "material": {"basis": "这是企业数据工作台模式，组合 Table、Search/Text field、Pagination、Drawer 与 Button；M3 负责组成控件和视觉角色。", "m3": "https://m3.material.io/components", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-tabs": {
+        "definition": "Tabs 在同一层级的一组相关内容之间切换，tab 是标签，tabpanel 是对应内容。当前激活项必须与可见面板同步，不能只移动指示器。",
+        "useWhen": ["少量同级视图共享同一个页面上下文。", "用户经常在这些内容之间来回比较，并希望保留当前位置。"],
+        "avoidWhen": ["不同页面目的地使用主导航；步骤流程使用逐步导航；大量标签考虑 Select 或其他信息架构。"],
+        "essentials": ["每个 tab key 稳定并对应唯一面板。", "受控 activeKey 与 onChange 同步路由或业务状态。", "closable/card/pill 是不同视觉或管理能力，先确认是否符合内容层级。"],
+        "accessibility": ["使用 tablist、tab、tabpanel 关系和方向键模型，并管理 roving tabindex。", "选中指示器、aria-selected 和可见内容同时变化；关闭标签后把焦点放到相邻合理项。"],
+        "material": {"basis": "直接参考 M3 Tabs 的 primary/secondary 层级、指示器、滚动和无障碍模型，并对照 Material Web tabs。", "m3": "https://m3.material.io/components/tabs/overview", "web": "https://material-web.dev/components/tabs/", "source": "https://github.com/material-components/material-web/tree/main/tabs"}
+    },
+    "rc-tag": {
+        "definition": "Tag 用简短文字标记分类、属性或状态，也可以作为可关闭输入片段或可切换筛选。静态标签、可关闭标签和可选择标签是不同交互语义。",
+        "useWhen": ["记录需要显示类别、属性或简短状态。", "用户要移除一个已输入条件，或在一组标签中切换筛选。"],
+        "avoidWhen": ["主要动作使用 Button；长说明使用正文；大量筛选需要更完整的筛选器。"],
+        "essentials": ["先决定标签是只读、closable 还是 checkable。", "自定义颜色要保持文字对比，并避免与反馈色混淆。", "关闭只移除这一项，业务数据更新和撤销由外层处理。"],
+        "accessibility": ["关闭按钮有“移除 + 标签名”的可访问名称，不能只朗读“关闭”。", "可选择标签表达 pressed/selected 状态，静态 Tag 不应进入 Tab 顺序。"],
+        "material": {"basis": "交互型 Tag 对应 M3 Chips 的 input/filter/assist 语义；静态状态标签是项目扩展，复用其形状、颜色和状态规则。", "m3": "https://m3.material.io/components/chips/overview", "web": "https://material-web.dev/components/chip/", "source": "https://github.com/material-components/material-web/tree/main/chips"}
+    },
+    "rc-text-edit": {
+        "definition": "TextEdit 是多行文本输入，适合备注、描述和正文草稿。它共享 Text field 的标签与状态规则，并通过 autoSize 或固定行数管理高度。",
+        "useWhen": ["用户需要输入可换行的较长文字。", "需要字符计数、自动增高、清除或错误说明。"],
+        "avoidWhen": ["单行名称使用 LineEdit；富文本格式编辑使用专门编辑器。"],
+        "essentials": ["label 说明内容目的，placeholder 给出简短格式提示。", "autoSize 设置合理最小/最大行数，避免输入后无限撑高页面。", "showCount 是反馈，不应替代真实 maxLength 和服务端校验。"],
+        "accessibility": ["label、帮助文字、计数和错误都要与 textarea 关联。", "错误出现和自动增高时保留光标与滚动位置，禁用与只读语义分开。"],
+        "material": {"basis": "直接参考 M3 multiline Text fields 的 label、supporting text、error、filled/outlined 与状态规则。", "m3": "https://m3.material.io/components/text-fields/overview", "web": "https://material-web.dev/components/text-field/", "source": "https://github.com/material-components/material-web/tree/main/textfield"}
+    },
+    "rc-theme": {
+        "definition": "Theme 提供组件所需的全局样式入口和主题边界，让同一组语义令牌在浅色、深色或品牌覆盖下产生一致外观。它不应该让业务组件直接判断当前主题。",
+        "useWhen": ["应用根节点需要加载 Crab UI 的基础主题。", "某个局部区域需要在明确边界内覆盖浅色、深色或品牌语义变量。"],
+        "avoidWhen": ["单个组件微调优先修改其 props 或 L3 token；不要在业务节点随意重写原始色阶。"],
+        "essentials": ["主题覆盖发生在 L2 语义角色，组件继续消费相同 token 名称。", "Theme 边界决定 CSS 变量继承，Portal 到边界外的浮层要单独检查。", "浅色和深色是两套角色映射，不是把颜色机械反相。"],
+        "accessibility": ["每个主题分别验证文字、图标、边框、焦点与状态层对比度。", "遵循系统偏好时仍提供可理解的用户选择，并避免切换造成闪烁或焦点丢失。"],
+        "material": {"basis": "直接参考 M3 Color system、light/dark schemes 与 Material Web theming 的 CSS custom properties 方式。", "m3": "https://m3.material.io/styles/color/system/overview", "web": "https://material-web.dev/theming/color/", "source": "https://github.com/material-components/material-web/tree/main/tokens"}
+    },
+    "rc-token-global": {
+        "definition": "Global Tokens 是三层令牌体系的 L1 原始基元，包含颜色、间距、圆角、字体、阴影、动效、透明度和层级。它们描述可复用数值，不直接表达业务用途。",
+        "useWhen": ["建设或维护设计系统的基础尺度和色板。", "L2 语义令牌需要引用统一的原始值。"],
+        "avoidWhen": ["业务组件不要直接挑选原始颜色或间距；应先使用 L2/L3 的语义角色。"],
+        "essentials": ["键名是刻度标识，不一定等于像素或明度数值。", "修改一个 L1 值会影响所有上层引用，必须先追踪消费者。", "token.toml 是源文件，src/token.ts 只能通过生成命令刷新。"],
+        "accessibility": ["原始色存在不代表任意前景背景组合都达标，必须在最终语义配对上验证。", "字体、间距和动效基元要在缩放、中文、减少动态效果等真实环境中检查。"],
+        "material": {"basis": "对应 Material 的 reference tokens，并结合项目 OKLCh 存储；不能把 OKLCh 色阶自动等同于 Material HCT tonal palette。", "m3": "https://m3.material.io/styles/color/system/overview", "web": "https://material-web.dev/theming/", "source": "https://github.com/material-components/material-web/tree/main/tokens"}
+    },
+    "rc-token-semantic": {
+        "definition": "Semantic Tokens 是 L2 语义角色，把 L1 原始值命名为背景、文字、边框、品牌、反馈、尺寸和动效用途。组件只认用途，因此主题可以替换值而不改组件代码。",
+        "useWhen": ["应用需要统一浅色、深色和品牌主题。", "多个组件共享同一种内容、表面、焦点或反馈含义。"],
+        "avoidWhen": ["组件独有视觉进入 L3；不要在 L2 中加入某一个页面或业务对象的名字。"],
+        "essentials": ["颜色角色按 container/on-container 等前景背景成对使用。", "主题只覆盖角色值，不在组件里根据主题名称写分支。", "新增角色前先确认现有语义是否已经覆盖，避免同义 token 分裂。"],
+        "accessibility": ["所有主题分别验证角色配对、状态叠加和焦点环，不只检查静态色值。", "错误、禁用和选中含义不能只由透明度或颜色承担。"],
+        "material": {"basis": "对应 Material system tokens，映射到项目 L2；参考 M3 Color、Typography、Shape、Motion 与 Material Web theming。", "m3": "https://m3.material.io/styles/color/system/overview", "web": "https://material-web.dev/theming/", "source": "https://github.com/material-components/material-web/tree/main/tokens"}
+    },
+    "rc-tooltip": {
+        "definition": "Tooltip 在悬停或键盘聚焦时提供一小段补充说明，常用于只有图标的控件或被截断的术语。它不能承载完成任务所必需的信息或交互控件。",
+        "useWhen": ["图标按钮需要解释动作名称。", "简短术语或截断内容需要非阻塞补充。"],
+        "avoidWhen": ["错误、帮助步骤和长说明应直接显示；包含按钮或表单的内容使用 Popover/Dialog 类组件。"],
+        "essentials": ["title 简短直接，用户不看 Tooltip 也能完成主要任务。", "placement 是偏好，碰撞时允许浮层自动调整。", "arrow 只加强锚点关系，不应遮住触发器或内容。"],
+        "accessibility": ["键盘聚焦与指针悬停都能打开，Escape 可关闭，移出后有合理延迟。", "触发器通过 aria-describedby 关联说明；Tooltip 本身不接收焦点。"],
+        "material": {"basis": "直接参考 M3 Tooltips 的 plain/rich 边界、显示时机、位置与无障碍要求；当前组件用于简短 plain tooltip。", "m3": "https://m3.material.io/components/tooltips/overview", "web": "https://material-web.dev/components/", "source": "https://github.com/material-components/material-web"}
+    },
+    "rc-tree": {
+        "definition": "Tree 用可展开节点展示父子层级，支持选择、勾选、拖拽、筛选和内联编辑。它适合真实层级数据，展开状态、选择状态和勾选状态彼此独立。",
+        "useWhen": ["目录、组织架构或资源拥有清楚的父子关系。", "用户需要逐层展开，并可能移动、重命名或批量勾选节点。"],
+        "avoidWhen": ["平面选项使用 List/Select；层级很深且需要精确比较字段时考虑 Tree table。"],
+        "essentials": ["每个节点使用稳定 key，children 表示真实父子关系。", "expandedKeys、selectedKeys 与 checkedKeys 分别管理不同状态。", "拖拽 allowDrop 只声明合法位置，数据更新仍由外层完成。"],
+        "accessibility": ["实现 tree/treeitem 层级、展开、选中和集合位置信息，并支持方向键模型。", "拖拽、内联编辑和筛选都有键盘替代路径，焦点节点在数据更新后仍可定位。"],
+        "material": {"basis": "M3 没有独立 Tree 组件；视觉参考 Lists、Checkbox、状态层和形状，键盘模型依据 Web tree pattern 扩展。", "m3": "https://m3.material.io/components/lists/overview", "web": "https://material-web.dev/components/list/", "source": "https://github.com/material-components/material-web/tree/main/list"}
+    },
+    "rc-virtual": {
+        "definition": "Virtual 只挂载视口附近的列表或网格项目，使数万到百万条数据仍能滚动。用户看到的是一个连续集合，内部渲染窗口只是性能实现。",
+        "useWhen": ["长列表或网格的 DOM 数量已经造成明显性能问题。", "项目尺寸固定或可测量，并能用稳定 key 表示。"],
+        "avoidWhen": ["数据量很小不需要虚拟化；内容高度完全不可预测且无法测量时先简化布局。"],
+        "essentials": ["容器必须有明确尺寸，itemCount 和 itemSize/测量结果要准确。", "滚动位置依赖稳定 key，不要在每次渲染重建对象身份。", "虚拟化不等于分页，数据获取、总数和缓存仍由业务层管理。"],
+        "accessibility": ["提供集合总数、项目位置和可理解的键盘导航，不能让读屏误以为只有当前 DOM 数量。", "焦点项目滚出渲染窗口时要有保留策略，缩放后重新测量避免内容重叠。"],
+        "material": {"basis": "这是性能基础设施，没有 M3 视觉组件；上层 List、Table 或 Grid 仍按各自 M3/项目规则呈现。", "m3": "https://m3.material.io/foundations/layout/understanding-layout/overview", "web": "https://material-web.dev/", "source": "https://github.com/material-components/material-web"}
+    }
+}

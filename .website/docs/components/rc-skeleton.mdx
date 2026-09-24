@@ -1,6 +1,6 @@
 +++
 title = "Skeleton 骨架屏"
-description = "在内容加载期间展示布局占位，减少页面跳动"
+description = "在内容加载时预示页面结构，减轻等待过程中的布局变化。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-skeleton.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-skeleton.js";
 
 # Skeleton 骨架屏
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-skeleton</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-内容结构已知时，骨架屏提前保留空间，加载完成后替换为真实内容。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**占位结构**
-
-使用 rows 表示待加载的段落。 内容结构已知时，骨架屏提前保留空间，加载完成后替换为真实内容。 观察占位行数与留白。 三行占位说明此处将出现文本。
-
-**切换内容**
-
-通过 loading 在占位与 children 之间切换。 内容结构已知时，骨架屏提前保留空间，加载完成后替换为真实内容。 显示内容，再切回骨架。 同一区域交替显示骨架与正文。
-
-</div>
-
-## 常见问题
-
-### 所有加载都用骨架屏吗？
-
-内容结构不确定或只是执行操作时，用 Spin 提供加载反馈。
-
-
-## API
-
-<API source="../_generated_api/rc-skeleton.ts" symbol="SkeletonProps" component="Skeleton" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（5 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -74,7 +33,6 @@ import { tutorial } from "../_generated_tutorials/rc-skeleton.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-skeleton/workbench/)
 
@@ -98,3 +56,30 @@ import { tutorial } from "../_generated_tutorials/rc-skeleton.js";
 - `width` / `height` 同时支持数字（自动补 `px`）与字符串（如 `"50%"`）。
 - `loading=false` 时直接渲染 `children`，便于嵌入到数据驱动的分支里。
 - 尊重 `prefers-reduced-motion`，自动禁用非必要动画。
+
+### 适用场景
+
+首屏内容需要等待，且最终结构大致可预测。 卡片、列表或详情加载时希望保持页面几何稳定。
+
+短小、不可预测的任务使用 Spin/Progress；请求失败或空数据必须显示真实状态。
+
+### 使用要点
+
+- 占位数量和形状接近最终内容，但不要伪造不存在的信息。
+- loaded 后替换真实内容，容器尺寸尽量保持稳定。
+- 动画用于提示进行中，持续时间不确定时不要显示伪造百分比。
+
+### 无障碍
+
+- Skeleton 通常是装饰，应隐藏重复形状并在容器提供简洁加载状态。
+- 减少动态效果时关闭闪烁/波纹；完成后清除 busy 状态并避免焦点跳动。
+
+## 常见问题
+
+### 所有加载都用骨架屏吗？
+
+内容结构不确定或只是执行操作时，用 Spin 提供加载反馈。
+
+## API
+
+<API source="../_generated_api/rc-skeleton.ts" symbol="SkeletonProps" component="Skeleton" />

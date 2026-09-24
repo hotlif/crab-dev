@@ -11,8 +11,8 @@ export default function Example() {
     return (
         <div className={layout}>
             {holder}
-            <Button onClick={() => message.success("资料已保存")}>模拟成功</Button>
-            <Button onClick={() => message.error("保存失败，请重试")}>模拟失败</Button>
+            <Button onClick={() => { message.success("资料已保存"); }}>模拟成功</Button>
+            <Button onClick={() => { message.error("保存失败，请重试"); }}>模拟失败</Button>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 +++
 title = "ColorPicker 颜色选择器"
-description = "选择和编辑颜色，支持格式切换、预设色板与透明度调整"
+description = "通过色板和颜色值选择颜色，适用于主题与样式配置。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-color-picker.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-color-picker.js";
 
 # ColorPicker 颜色选择器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-color-picker</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**选择颜色**
-
-提供 OKLCH 格式的 defaultValue。 颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。 打开色板，调整色相。 触发器显示所选颜色。
-
-**读取颜色值**
-
-通过 value 与 onValueChange 保存颜色对象。 颜色值使用 OKLCH 对象；格式切换属于展示，业务仍保存同一种数据结构。 修改颜色，再恢复蓝色。 数值与色板同步恢复。
-
-</div>
-
-## 常见问题
-
-### 需要保存十六进制字符串吗？
-
-组件的受控值使用 OKLCHValue；需要其他格式时在业务边界显式转换。
-
-
-## API
-
-<API source="../_generated_api/rc-color-picker.ts" symbol="ColorPickerProps" component="ColorPicker" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（2 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -68,7 +27,6 @@ import { tutorial } from "../_generated_tutorials/rc-color-picker.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-color-picker/workbench/)
 
@@ -84,3 +42,30 @@ import { tutorial } from "../_generated_tutorials/rc-color-picker.js";
 - 需要切换颜色显示格式或调整透明度。
 
 格式切换只改变显示方式，输出统一为 OKLCh。吸管取色依赖浏览器的 EyeDropper API。
+
+### 适用场景
+
+主题、标注、图表或内容编辑允许用户自定义颜色。 既需要快速预设，也需要输入精确颜色值。
+
+业务状态色应由设计令牌决定，不应让用户随意选择；只需少量固定主题时使用 Radio 或 Select 更清楚。
+
+### 使用要点
+
+- 明确 value 的颜色格式、透明度和受控更新方式。
+- 预设色用于快速选择，文本输入用于精确校正，两者必须保持同步。
+- 选择结果要在真实背景上预览，单个色块不能证明可读性。
+
+### 无障碍
+
+- 色块要有可读名称或数值，并提供键盘选择和可见焦点。
+- 任何颜色含义都必须有文字、图标或图案补充，同时验证前景背景对比度。
+
+## 常见问题
+
+### 需要保存十六进制字符串吗？
+
+组件的受控值使用 OKLCHValue；需要其他格式时在业务边界显式转换。
+
+## API
+
+<API source="../_generated_api/rc-color-picker.ts" symbol="ColorPickerProps" component="ColorPicker" />

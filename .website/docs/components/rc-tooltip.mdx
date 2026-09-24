@@ -1,6 +1,6 @@
 +++
 title = "Tooltip 文字提示"
-description = "在鼠标悬停或键盘聚焦时展示简短说明"
+description = "在悬停或聚焦时补充简短说明，帮助理解图标和精简文案。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tooltip.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-tooltip.js";
 
 # Tooltip 文字提示
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tooltip</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-提示补充短说明，必要信息仍应直接显示在页面上。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**补充说明**
-
-为真实可聚焦的触发器添加 title 说明。 提示补充短说明，必要信息仍应直接显示在页面上。 悬停按钮，或用 Tab 聚焦。 按钮附近显示补充说明。
-
-**调整位置**
-
-通过 placement 比较上方与下方提示。 提示补充短说明，必要信息仍应直接显示在页面上。 切换位置，再聚焦保存按钮。 提示在可用空间内调整到指定方位。
-
-</div>
-
-## 常见问题
-
-### 能把必填说明只放在 Tooltip 中吗？
-
-不应这样做。必填、错误和重要操作说明应直接可见，Tooltip 只作补充。
-
-
-## API
-
-<API source="../_generated_api/rc-tooltip.ts" symbol="TooltipProps" component="Tooltip" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ import { tutorial } from "../_generated_tutorials/rc-tooltip.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-tooltip/workbench/)
 
@@ -91,3 +49,36 @@ import { tutorial } from "../_generated_tutorials/rc-tooltip.js";
 - 支持鼠标悬浮与键盘聚焦触发。
 - 可配置出入场延迟与箭头显隐。
 - 内置无障碍支持（`role="tooltip"` + `aria-describedby`）。
+
+### 设计与交互
+
+默认采用 M3 **plain tooltip**：无箭头、反色表面、与触发元素相隔 4px。鼠标可以移入提示区域继续阅读；离开触发元素和提示区域 1.5 秒后关闭，也可按 Escape 关闭。`arrow` 是兼容扩展，需要时显式开启。
+
+提示用于补充简短说明。重要信息应直接呈现；含操作按钮的内容应使用相应弹层，不要把 plain tooltip 当作富交互容器。
+
+### 适用场景
+
+图标按钮需要解释动作名称。 简短术语或截断内容需要非阻塞补充。
+
+错误、帮助步骤和长说明应直接显示；包含按钮或表单的内容使用 Popover/Dialog 类组件。
+
+### 使用要点
+
+- title 简短直接，用户不看 Tooltip 也能完成主要任务。
+- placement 是偏好，碰撞时允许浮层自动调整。
+- arrow 只加强锚点关系，不应遮住触发器或内容。
+
+### 无障碍
+
+- 键盘聚焦与指针悬停都能打开，Escape 可关闭，移出后有合理延迟。
+- 触发器通过 aria-describedby 关联说明；Tooltip 本身不接收焦点。
+
+## 常见问题
+
+### 能把必填说明只放在 Tooltip 中吗？
+
+不应这样做。必填、错误和重要操作说明应直接可见，Tooltip 只作补充。
+
+## API
+
+<API source="../_generated_api/rc-tooltip.ts" symbol="TooltipProps" component="Tooltip" />

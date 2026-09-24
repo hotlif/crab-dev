@@ -1,6 +1,6 @@
 +++
 title = "Checkbox 复选框"
-description = "从一组选项中选择多个值，或标记单个选项的选中状态"
+description = "从多个选项中选择一项或多项，也可表达全选与部分选中。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,59 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-checkbox.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-checkbox.js";
 
 # Checkbox 复选框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-checkbox</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-复选框用于标记独立选项，checked 是业务保存的布尔值。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**设置初始值**
-
-使用 defaultChecked 设置初始选中状态。 复选框用于标记独立选项，checked 是业务保存的布尔值。 点击选项，观察选中状态。 选项可在选中与未选中之间切换。
-
-**改为受控**
-
-将 checked 与 onChange 连接到同一个 state。 复选框用于标记独立选项，checked 是业务保存的布尔值。 切换选项，再查看状态文字。 控件与文字始终保持一致。
-
-**MD3 状态与明暗主题**
-
-对照 Material Design 3 的空心、选中、半选、禁用与错误外观。 固定的方框和圆形状态层分别表达选择结果与交互反馈，颜色通过语义令牌适应主题。 悬停标签、按 Tab 聚焦，切换全选与单项，再选择品牌色；勾选服务条款解除错误。 两侧同步换色，三态形状明确，禁用保持中性，交互时方框和文字位置不变。
-
-</div>
-
-## 常见问题
-
-### 受控与非受控可以混用吗？
-
-同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。
-
-
-## API
-
-<API source="../_generated_api/rc-checkbox.ts" symbol="CheckboxProps" component="Checkbox" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（5 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -78,7 +33,6 @@ import { tutorial } from "../_generated_tutorials/rc-checkbox.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-checkbox/workbench/)
 
@@ -113,3 +67,30 @@ import { tutorial } from "../_generated_tutorials/rc-checkbox.js";
 原生输入负责名称、选中和键盘行为；半选通过 `aria-checked="mixed"` 表达。`aria-invalid="true"` 显示错误色，应同时通过 `aria-describedby` 关联说明。键盘焦点提供独立轮廓，强制颜色使用系统颜色，减少动态效果时移除过渡。图标为常驻的无障碍隐藏装饰，不增加 Tab 停靠点。
 
 规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
+
+### 适用场景
+
+用户可以从多个选项中选择任意数量。 需要全选/部分选择父子关系，或接受一项非即时生效的确认。
+
+只能选一个时使用 Radio；设置切换后立即生效时优先使用 Switch。
+
+### 使用要点
+
+- 受控模式由 checked 与 onChange 共同组成，不能只传 checked。
+- 组内每项 value 必须稳定且唯一，显示标签应能单独理解。
+- 父级 indeterminate 要从子项计算，并在点击后明确转为全选或全不选。
+
+### 无障碍
+
+- 每个框都要与可点击标签关联，整组使用 fieldset/legend 或等价的组名称。
+- 错误、必填和禁用原因应通过文字传达，焦点指示不能被容器裁掉。
+
+## 常见问题
+
+### 受控与非受控可以混用吗？
+
+同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。
+
+## API
+
+<API source="../_generated_api/rc-checkbox.ts" symbol="CheckboxProps" component="Checkbox" />

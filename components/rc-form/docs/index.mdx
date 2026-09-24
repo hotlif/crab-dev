@@ -31,4 +31,10 @@ status = "experimental"
 
 ## API
 
+`defaultValue` 只在挂载时读取；加载另一条记录时调用 `form.reinitialize(record)`，该记录也成为 `resetFields()` 的新基准。`useForm()` 的实例引用保持稳定。
+
+`Item` 默认绑定 value/onChange。原生输入与 LineEdit 使用 `binding="event"`，Switch / Checkbox 使用 `binding="checked"`，日期选择器使用 `binding="valueChange"`；原有子组件事件会继续执行。特殊协议可配置 valuePropName、trigger、getValueFromEvent，或使用函数 children 接收字段状态和 onChange。
+
+`await form.submit()` 等待校验及业务回调，返回 success / invalid 两种结果。`validateFields()` 失败时抛出 `FormValidationError`，通过 values 获取数据快照、fields 获取字段 errors / warnings。WARNING 不阻止提交。嵌套字段使用元组路径，setter 会检查对应的值类型。
+
 <API source="../src/form.tsx" symbol="FormProps" component="Form" />

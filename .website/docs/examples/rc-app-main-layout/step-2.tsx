@@ -21,6 +21,7 @@ function Workspace() {
     const { openTab } = useAppMainLayoutTabs();
     return (
         <AppMainLayout
+            contentLandmark={{ role: "region", "aria-label": "项目工作区示例" }}
             sidebarTitle="项目工作区"
             sidebarLoadMenus={loadMenus}
             fullscreenable={false}

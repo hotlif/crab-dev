@@ -1,6 +1,6 @@
 +++
 title = "DropdownContainer 下拉容器"
-description = "将浮层定位到触发器附近，管理开关状态与视口边界"
+description = "为触发器提供浮层定位与开合能力，承载自定义下拉内容。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-dropdown-container.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-dropdown-container.js";
 
 # DropdownContainer 下拉容器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-dropdown-container</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-下拉内容需要与触发器建立位置关系，并在视口边缘保持可用。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**关联触发器**
-
-通过 useDropdownContext 关联触发器，并用 dispatch 控制浮层开关。 下拉内容需要与触发器建立位置关系，并在视口边缘保持可用。 点击查看说明，再点击外部。 说明在按钮附近打开，并可关闭。
-
-**添加浮层操作**
-
-让 overlay 中的业务操作更新页面状态。 下拉内容需要与触发器建立位置关系，并在视口边缘保持可用。 打开浮层并收藏项目。 页面结果更新，浮层仍由容器管理定位。
-
-</div>
-
-## 常见问题
-
-### 可以用它重新实现 Select 吗？
-
-已有等价组件时优先使用 Select。DropdownContainer 用于尚无现成组件的自定义浮层。
-
-
-## API
-
-<API source="../_generated_api/rc-dropdown-container.ts" symbol="DropdownContainerProps" component="DropdownContainer" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（1 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -66,7 +25,6 @@ import { tutorial } from "../_generated_tutorials/rc-dropdown-container.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-dropdown-container/workbench/)
 
@@ -80,3 +38,30 @@ import { tutorial } from "../_generated_tutorials/rc-dropdown-container.js";
 - Select、Menu 等需要相对触发器定位的下拉浮层。
 - 下拉内容需要在窗口边缘自动调整位置；可用高度不足时，浮层会限制在视口内并提供内部滚动。
 - 需要统一处理点击外部区域关闭、滚动和窗口尺寸变化的场景。
+
+### 适用场景
+
+现有输入或按钮需要挂载自定义下拉内容。 需要统一处理锚点定位、容器尺寸和开合事件。
+
+标准选项选择直接使用 Select，命令列表使用 Menu，说明文字使用 Tooltip。
+
+### 使用要点
+
+- 触发器必须把 reference ref 交给容器，否则浮层无法可靠定位。
+- 打开原因、关闭原因和焦点行为取决于承载内容的真实语义。
+- 不要只依赖 blur 关闭复杂浮层，否则点击浮层内部也可能意外消失。
+
+### 无障碍
+
+- 触发器使用 aria-expanded，并按浮层类型补充 aria-controls 或 aria-haspopup。
+- 菜单、列表框和对话框拥有不同键盘模型，容器不能把它们统一成同一种行为。
+
+## 常见问题
+
+### 可以用它重新实现 Select 吗？
+
+已有等价组件时优先使用 Select。DropdownContainer 用于尚无现成组件的自定义浮层。
+
+## API
+
+<API source="../_generated_api/rc-dropdown-container.ts" symbol="DropdownContainerProps" component="DropdownContainer" />

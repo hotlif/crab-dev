@@ -1,7 +1,9 @@
 import { css } from "@crab-dev/css";
 import Preview from "@crab-dev/rc-component-preview";
+import Masonry from "@crab-dev/rc-masonry";
+import { useResizeObserver } from "@crab-dev/rc-hooks";
 import token from "@crab-dev/rc-token-semantic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSiteHref } from "./siteContext.js";
 import ComponentDemoFrame, {
     EmptyComponentDemos,
@@ -12,6 +14,12 @@ export interface ComponentDemoRecord {
     readonly id: string;
     readonly title: string;
     readonly description: string;
+    readonly learning: {
+        readonly components: readonly string[];
+        readonly props: readonly string[];
+        readonly events: readonly string[];
+        readonly hasState: boolean;
+    };
     readonly sourceCode: string;
     readonly previewPath: string;
     readonly workbenchPath: string;
@@ -44,14 +52,15 @@ const groupTitleStyle = css`
     font-weight: ${token.font.weight.heading};
 `;
 
-const gridStyle = css`
+const layoutStyle = css`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    min-width: 0;
     gap: ${token.space['group-gap']};
 `;
 
-const wideCardStyle = css`
-    grid-column: 1 / -1;
+const masonryStyle = css`
+    min-width: 0;
+    column-gap: ${token.space['group-gap']};
 `;
 
 function DemoCard({ demo }: { readonly demo: ComponentDemoRecord }) {
@@ -60,7 +69,6 @@ function DemoCard({ demo }: { readonly demo: ComponentDemoRecord }) {
 
     return (
         <Preview
-            className={demo.layout === "wide" ? wideCardStyle : undefined}
             title={demo.title}
             description={demo.description}
             sourceCode={demo.sourceCode}
@@ -93,10 +101,46 @@ function collectDemoGroups(demos: readonly ComponentDemoRecord[]): readonly Demo
     return [...groups].map(([title, groupedDemos]) => ({ title, demos: groupedDemos }));
 }
 
-function DemoGrid({ demos }: { readonly demos: readonly ComponentDemoRecord[] }) {
+function DemoMasonry({ demos }: { readonly demos: readonly ComponentDemoRecord[] }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [layout, setLayout] = useState({ columns: 1, gutter: 0 });
+
+    useResizeObserver(containerRef, ({ target, contentRect }) => {
+        const gutter = Number.parseFloat(getComputedStyle(target).columnGap) || 0;
+        // Preserve the existing 19rem minimum, using the content width rather
+        // than viewport breakpoints so navigation and wide demos remain usable.
+        const minColumnWidth = 19 * (Number.parseFloat(getComputedStyle(document.documentElement).fontSize) || 16);
+        const columns = Math.max(1, Math.min(demos.length,
+            Math.floor((contentRect.width + gutter) / (minColumnWidth + gutter))));
+        setLayout(previous => previous.columns === columns && previous.gutter === gutter
+            ? previous : { columns, gutter });
+    });
+
     return (
-        <div className={gridStyle}>
-            {demos.map((demo) => <DemoCard key={demo.id} demo={demo} />)}
+        <div ref={containerRef} className={masonryStyle} data-demo-masonry>
+            <Masonry columns={layout.columns} gutter={layout.gutter}>
+                {demos.map(demo => <DemoCard key={demo.id} demo={demo} />)}
+            </Masonry>
+        </div>
+    );
+}
+
+function DemoLayout({ demos }: { readonly demos: readonly ComponentDemoRecord[] }) {
+    const runs: { wide: boolean; demos: ComponentDemoRecord[] }[] = [];
+    for (const demo of demos) {
+        const previous = runs.at(-1);
+        if (demo.layout !== "wide" && previous && !previous.wide) {
+            previous.demos.push(demo);
+        } else {
+            runs.push({ wide: demo.layout === "wide", demos: [demo] });
+        }
+    }
+
+    return (
+        <div className={layoutStyle}>
+            {runs.map(run => run.wide
+                ? <DemoCard key={run.demos[0].id} demo={run.demos[0]} />
+                : <DemoMasonry key={run.demos[0].id} demos={run.demos} />)}
         </div>
     );
 }
@@ -110,7 +154,7 @@ export default function ComponentDemos({ demos }: ComponentDemosProps) {
         <div className={collectionStyle}>
             {groups.map((group) => (
                 group.title === null
-                    ? <DemoGrid key="ungrouped" demos={group.demos} />
+                    ? <DemoLayout key="ungrouped" demos={group.demos} />
                     : (
                         <section
                             key={group.title}
@@ -118,7 +162,7 @@ export default function ComponentDemos({ demos }: ComponentDemosProps) {
                             data-demo-group={group.title}
                         >
                             <h3 className={groupTitleStyle}>{group.title}</h3>
-                            <DemoGrid demos={group.demos} />
+                            <DemoLayout demos={group.demos} />
                         </section>
                     )
             ))}

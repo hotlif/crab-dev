@@ -24,6 +24,12 @@ const demo: ComponentDemoRecord = {
     id: "docs/demos/basic.demo.tsx",
     title: "基础用法",
     description: "基础组件演示",
+    learning: {
+        components: ["Button"],
+        props: ["appearance", "onClick"],
+        events: ["onClick"],
+        hasState: true,
+    },
     sourceCode: "export default function Demo() { return <button>演示</button>; }",
     previewPath: "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
     workbenchPath: "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
@@ -245,6 +251,65 @@ describe("ComponentDemoFrame", () => {
         delete document.documentElement.dataset.theme;
     });
 
+    it("弹层关闭后按内容收起预览，不被旧视口高度撑开，并释放尺寸监听", async () => {
+        const frameDocument = document.implementation.createHTMLDocument();
+        const contentRoot = frameDocument.createElement("div");
+        contentRoot.className = "demo-frame-root";
+        frameDocument.body.append(contentRoot);
+        let contentHeight = 132;
+        Object.defineProperty(contentRoot, "getBoundingClientRect", {
+            value: () => new globalThis.DOMRect(0, 0, 320, contentHeight),
+        });
+        const frameWindow: ComponentDemoFrameWindow = {
+            document: frameDocument,
+            postMessage: mock.fn(),
+        };
+        const getFrameWindow = () => frameWindow;
+        let notifyResize: (() => void) | undefined;
+        const observed = new Set<Element>();
+        class ContentResizeObserver implements ResizeObserver {
+            constructor(callback: ResizeObserverCallback) {
+                notifyResize = () => callback([], this);
+            }
+            observe(target: Element) { observed.add(target); }
+            unobserve(target: Element) { observed.delete(target); }
+            disconnect() { observed.clear(); }
+        }
+        const descriptor = Object.getOwnPropertyDescriptor(globalThis, "ResizeObserver");
+        Object.defineProperty(globalThis, "ResizeObserver", {
+            configurable: true,
+            writable: true,
+            value: ContentResizeObserver,
+        });
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            const rendered = await renderImmediately(
+                <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow} renderFrame={renderTestFrame} />,
+            );
+            unmount = rendered.unmount;
+            await dispatchWakeMessage(frameWindow, { type: "wake:ready" });
+            const frame = screen.getByTitle("基础用法 交互演示");
+            expect(frame.getAttribute("data-height")).toBe("132");
+            expect(observed.has(contentRoot)).toBe(true);
+            await act(async () => {
+                contentHeight = 640;
+                notifyResize?.();
+            });
+            expect(frame.getAttribute("data-height")).toBe("640");
+            await act(async () => {
+                contentHeight = 132;
+                notifyResize?.();
+            });
+            await dispatchWakeMessage(frameWindow, { type: "wake:resize", height: 640 });
+            expect(frame.getAttribute("data-height")).toBe("132");
+        } finally {
+            await unmount?.();
+            if (descriptor) Object.defineProperty(globalThis, "ResizeObserver", descriptor);
+            else Reflect.deleteProperty(globalThis, "ResizeObserver");
+        }
+        expect(observed.size).toBe(0);
+    });
+
     it("在 iframe layout 阶段发送的 ready 消息不会丢失", async () => {
         await renderImmediately(
             <ComponentDemoFrame
@@ -395,5 +460,28 @@ describe("ComponentDemoFrame", () => {
         expect(cards).toHaveLength(2);
         expect(cards[0]?.getAttribute("data-demo-layout")).toBe("grid");
         expect(cards[1]?.getAttribute("data-demo-layout")).toBe("wide");
+    });
+
+    it("瀑布流保留示例顺序，宽幅示例在相邻瀑布流之间独占整行", async () => {
+        const layouts = ["grid", "grid", "wide", "grid", "wide", "grid"] as const;
+        const demos = layouts.map((layout, index) => ({
+            ...demo,
+            id: `demo-${index}`,
+            title: `演示 ${index}`,
+            layout,
+        }));
+        const { container } = await render(<ComponentDemos demos={demos} />);
+        const cards = [...container.querySelectorAll("[data-component-demo-id]")];
+
+        expect(cards.map(card => card.getAttribute("data-component-demo-id")))
+            .toEqual(demos.map(item => item.id));
+        for (const [index, card] of cards.entries()) {
+            expect(card.closest("[data-demo-masonry]") !== null).toBe(layouts[index] === "grid");
+        }
+        const masonryRuns = [...container.querySelectorAll("[data-demo-masonry]")];
+        expect(masonryRuns.map(run => run.querySelectorAll("[data-component-demo-id]").length))
+            .toEqual([2, 1, 1]);
+        expect(cards[2]?.parentElement).toBe(masonryRuns[0]?.parentElement);
+        expect(cards[4]?.parentElement).toBe(masonryRuns[1]?.parentElement);
     });
 });

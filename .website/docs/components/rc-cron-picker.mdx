@@ -1,6 +1,6 @@
 +++
 title = "CronPicker 定时规则"
-description = "通过可视化配置生成 Cron 表达式，设置任务的执行时间。"
+description = "配置周期和执行时间，将定时任务规则转换为 Cron 表达式。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-cron-picker.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-cron-picker.js";
 
 # CronPicker 定时规则
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-cron-picker</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-通过可视化配置生成 Cron 表达式，设置任务的执行时间。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**认识规则**
-
-以每天上午 9 点的五段表达式开始。 Cron 表达式描述重复规则，预览帮助检查它是否符合业务时间约定。 查看分钟、小时与日期字段。 规则和后续执行时间一起显示。
-
-**保存表达式**
-
-连接 value 和 onChange，再用业务按钮设置工作日规则。 Cron 表达式描述重复规则，预览帮助检查它是否符合业务时间约定。 点击仅工作日，再修改小时。 表达式随编辑更新；真正执行仍需业务调度器。
-
-</div>
-
-## 常见问题
-
-### 选择规则后任务会执行吗？
-
-不会。组件只编辑表达式；服务端应负责时区、持久化与调度。
-
-
-## API
-
-<API source="../_generated_api/rc-cron-picker.ts" symbol="CronPickerProps" component="CronPicker" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ import { tutorial } from "../_generated_tutorials/rc-cron-picker.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-cron-picker/workbench/)
 
@@ -86,3 +44,30 @@ import { tutorial } from "../_generated_tutorials/rc-cron-picker.js";
 - 直接输入表达式；支持月份和星期英文缩写、以 `7` 表示周日，以及 `1,2-5` 等组合写法，提交时规范化输出。
 
 表达式采用五段式，依次表示分、时、日、月、周。`parseCron`、`formatCron`、`describeCron` 和 `nextOccurrences` 均为具名导出的纯函数，可用于独立校验与预览。
+
+### 适用场景
+
+定时任务需要由非专业用户配置常见周期。 既要提供可视化编辑，也要让高级用户核对表达式。
+
+只有几个固定计划时用 Radio 或 Select；涉及复杂日历例外时应使用专门的日程规则界面。
+
+### 使用要点
+
+- 先确认后端支持的字段数、时区和特殊字符。
+- 受控 value 与可读摘要必须同步，不能只显示一串表达式。
+- 无效组合要在具体字段附近解释原因，并阻止提交错误规则。
+
+### 无障碍
+
+- 每个分段字段都要有 label、说明和错误关联，分组名称说明当前配置哪一部分。
+- 时间与星期不能只用缩写，需提供可读文本并明确时区。
+
+## 常见问题
+
+### 选择规则后任务会执行吗？
+
+不会。组件只编辑表达式；服务端应负责时区、持久化与调度。
+
+## API
+
+<API source="../_generated_api/rc-cron-picker.ts" symbol="CronPickerProps" component="CronPicker" />

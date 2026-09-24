@@ -1,6 +1,6 @@
 +++
 title = "Message 全局提示"
-description = "在页面顶部展示简短的操作反馈"
+description = "以短暂的全局消息反馈操作结果，适用于轻量成功或失败提示。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-message.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-message.js";
 
 # Message 全局提示
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-message</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**创建消息实例**
-
-调用 useMessage，并把 holder 放入渲染树。 消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。 点击保存资料。 页面出现成功反馈。
-
-**区分结果**
-
-根据业务结果调用 success 或 error。 消息实例需要同时挂载 contextHolder，反馈应明确说明操作结果。 分别模拟成功与失败。 消息文字和状态对应不同结果。
-
-</div>
-
-## 常见问题
-
-### 消息为什么没有出现？
-
-检查是否渲染了 useMessage 返回的 contextHolder，并确认事件实际执行。
-
-
-## API
-
-<API source="../_generated_api/rc-message.ts" symbol="MessageProps" component="Message" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ import { tutorial } from "../_generated_tutorials/rc-message.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-message/workbench/)
 
@@ -93,3 +51,36 @@ import { tutorial } from "../_generated_tutorials/rc-message.js";
 - 通过 `useMessage` Hook 创建实例。
 - 多条消息堆叠，最多显示 3 条，仅最上层消息计时；旧消息恢复到最上层后继续剩余时间。
 - 入场、退场和进度条均使用 CSS，自动适配减少动态效果偏好。`duration={0}` 的常驻消息不展示倒计时条。
+
+
+
+`useMessage()` 的 open/success/error/warning/info/loading 均返回 `{ id, close, update }`。例如 `const handle = message.loading('正在保存', 0)`，保存完成后 `handle.update({ type: 'success', content: '已保存', duration: 2000 })`。update 保留 ID 并重新计时；close 重复调用只通知一次。实例也支持 `message.close(id)` 和 `message.update(id, patch)`。
+
+默认 Message 组件通过 open/onExitComplete 控制显隐，duration 只控制进度动画；自动关闭与 onClose 回调由 useMessage 管理。
+
+### 适用场景
+
+操作结果无需保留在页面中，用户读到后可以继续。 需要通过 useMessage 在当前应用上下文中触发短消息。
+
+必须阅读或处理的错误使用 Alert、Notification 或 Dialog；表单字段错误放在字段附近。
+
+### 使用要点
+
+- 一句话说明结果，避免把原因、详情和多个动作都塞进去。
+- duration 要给用户足够阅读时间，重要消息不要自动过快消失。
+- 通过上下文 holder 保持主题和挂载位置，不要在任意模块创建孤立实例。
+
+### 无障碍
+
+- 根据重要程度选择礼貌或紧急通告，避免连续消息让读屏队列失控。
+- 消息关闭后不移动当前焦点；仅靠颜色不能表达成功或失败。
+
+## 常见问题
+
+### 消息为什么没有出现？
+
+检查是否渲染了 useMessage 返回的 contextHolder，并确认事件实际执行。
+
+## API
+
+<API source="../_generated_api/rc-message.ts" symbol="MessageProps" component="Message" />

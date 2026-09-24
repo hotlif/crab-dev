@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 主要功能
 
-- 通过 `fetchColumns` 和 `fetchData` 异步加载列定义与数据。
+- 通过 `fetchColumns` 和 `request` 异步加载列定义与数据，兼容旧 `fetchData`。
 - 通过 `typeLoaders` 为不同 `dataType` 配置 `render`、`filterEditor` 和 `editRender`。
 - 复用 AutoSizer 与 Table，提供自适应容器和虚拟滚动。
 - 集成分页、查询、列管理与导出；数据请求和业务筛选逻辑由调用方实现。
@@ -26,8 +26,28 @@ status = "experimental"
 
 ## 代码演示
 
+先看「业务实战」中的三个组合场景，再按需回到基础示例理解单项 API。所有数据都在浏览器内生成，操作不会写入真实后端。
+
+| 场景 | 建议亲手完成的任务 | 主要能力 |
+| --- | --- | --- |
+| 订单履约 | 在右侧过滤器输入「待发货」并回车；按承诺送达日排序；跨页选择订单后生成拣货单 | 服务端分页、复合筛选和排序、请求取消、跨页勾选、当前页汇总与导出 |
+| 库存补货 | 查看不同仓库的商品分组；筛选「需补货」；展开一行了解供应商；选择几条记录生成采购建议 | 多级表头、仓库分组、虚拟滚动、行展开、全量筛选汇总 |
+| 应收复核 | 筛选「高风险」；调整列顺序与固定方式；刷新页面确认视图保留；选择逾期发票生成催收清单 | 客户端排序、列状态持久化、全量汇总、筛选结果导出 |
+
+三个场景分别处理 960 笔订单、720 条库存组合和 840 张发票。订单场景的 `request` 只返回当前页，因此底部汇总和 CSV 只覆盖**当前页**；另外两个场景一次返回全部筛选结果，汇总和 CSV 覆盖**全部筛选结果**。内置搜索栏用于定位已加载的行，不能代替跨页服务端搜索。示例中的「生成」按钮只在页面内展示操作反馈，不会创建真实单据。
+
+这三个示例共用的演示框架、筛选输入、状态标签和可取消模拟请求位于包内 `docs/demos/scenario-shared.tsx`；复制场景源码到自己的项目时，也要将这些辅助函数替换为项目组件和真实接口。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
+
+推荐使用 `request({ page, pageSize, filters, sort, signal })`，返回 `{ rows, total }`。新查询和卸载会取消旧请求；将 signal 传给 fetch 可中止底层网络请求。过期结果与过期错误均不会覆盖当前状态。
+
+从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，要在 `onChange` 中保存新集合，并根据业务状态设置 `getDisabled`。仅在已加载数据范围内使用 `showSummary` 与导出；需要全库聚合或全库导出时应另接后端接口。
+
+`sortMode` 默认为 client，仅对已加载数据排序。服务端分页配合 `sortMode="server"` 和 request 使用，组件通过 query.sort 传递排序条件，保留返回顺序，排序变化时回到第一页。旧 fetchData 仅支持 client 模式。
+
+为类型加载器标注 `DataTypeLoader<MyRow>[]`，渲染、编辑、搜索、汇总和导出回调便可保留业务行类型。`TableProProps`、`ProtocolTableState`、`TableQuery` 等类型均从包入口导出。
 
 <API source="../src/table.tsx" symbol="TableProProps" component="TablePro" />

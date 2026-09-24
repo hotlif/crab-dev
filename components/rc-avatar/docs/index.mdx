@@ -24,6 +24,8 @@ status = "experimental"
 - 支持图片、文本、图标三种内容来源，自动回退。
 - 支持语义颜色变体（`default` / `primary` / `success` / `warning` / `error`）。
 - 支持 `prefers-reduced-motion`，减少不必要动画。
+- 设置 `onClick` 时复用 Button，支持 Enter / Space 激活与可见键盘焦点。头像视觉尺寸不变，交互容器至少为 48px；仅图标头像应提供动作名称 `aria-label`。
+- AvatarGroup 的 `onExtraClick` 使用独立的“+N”按钮，避免与成员头像的点击操作嵌套；纯展示时仍在最后一个头像上叠加计数徽标。
 
 ## 代码演示
 

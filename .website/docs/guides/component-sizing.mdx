@@ -1,0 +1,111 @@
++++
+title = "统一尺寸与密度"
+description = "选择紧凑、标准或宽松档位，统一调整控件高度、数据行高和间距"
+kind = "guide"
+status = "experimental"
++++
+
+import SizeShowcase from "../site/sizeShowcase.js";
+
+# 统一尺寸与密度
+
+通过 `ConfigProvider` 的 `size` 设置一组组件的默认尺寸。三个档位调整控件高度、数据行高和部分间距，容器宽度和页面排版仍由应用布局决定。
+
+## 选择档位
+
+| 档位 | 使用场景 |
+| --- | --- |
+| `small`（紧凑） | 信息较多的桌面表单、列表和后台工作区 |
+| `middle`（标准） | 常规页面；没有配置时的默认值 |
+| `large`（宽松） | 需要更宽松的阅读和操作空间 |
+
+按浏览器内的可用空间和操作需求选择。同一块 2K 或 4K 屏幕，在不同系统缩放、浏览器缩放和窗口大小下，可用空间也不同，因此组件不会按物理分辨率自动选择档位。应用可以提供尺寸设置，让用户选择。
+
+切换档位不会等比缩放整个页面。文字和图标仍使用各组件的设计尺寸；窄屏下的换行、分栏和横向滚动需要由布局处理。
+
+## 试用三个档位
+
+<SizeShowcase />
+
+上方选项只改变这组演示。标有“固定 large”和“始终使用标准尺寸”的区域用于展示局部覆盖，不随外层档位变化。
+
+## 设置默认尺寸
+
+将需要统一尺寸的内容放进 `ConfigProvider`：
+
+```tsx
+import ConfigProvider from '@crab-dev/rc-config-provider';
+import Button from '@crab-dev/rc-button';
+import Select from '@crab-dev/rc-select';
+
+export default function Example() {
+    return (
+        <ConfigProvider size="small">
+            <Button>查询</Button>
+            <Select
+                label="任务状态"
+                options={[
+                    { value: 'pending', label: '待处理' },
+                    { value: 'active', label: '处理中' },
+                ]}
+            />
+        </ConfigProvider>
+    );
+}
+```
+
+需要运行时切换时，把所选档位保存在 React state 中，再传给 `ConfigProvider size={size}`。Provider 会渲染一个 `div`，可用 `className` 为这层容器设置布局。样式接入见[开始使用](/guides/getting-started)。
+
+如果应用已经用 ConfigProvider 管理主题，把 `size` 加在同一个根级 Provider 上即可；新增的局部 Provider 会继承它的主题。配置继承规则见[ConfigProvider](/components/rc-config-provider)。
+
+## 覆盖局部尺寸
+
+在同一页面里，可以单独放大一个组件，也可以给一组组件设置另一个档位：
+
+```tsx
+<ConfigProvider size="small">
+    <Button>继承紧凑尺寸</Button>
+    <Button size="large">使用宽松尺寸</Button>
+    <ConfigProvider size="middle">
+        <Button>使用标准尺寸</Button>
+    </ConfigProvider>
+</ConfigProvider>
+```
+
+优先级从高到低为：组件显式的 `size`、ButtonGroup 等分组的尺寸、最近的 `ConfigProvider`、默认 `middle`。嵌套 Provider 只覆盖传入的配置，其余配置继续继承。
+
+## 基础尺寸
+
+下表是当前默认主题下的桌面尺寸，单位为 CSS px。除最后一行外，数值均指高度，不表示宽度。多选标签换行、辅助说明或自定义内容可能增加组件的总高度。
+
+| 项目 | small | middle | large |
+| --- | --- | --- | --- |
+| 按钮 / 分段按钮视觉高度 | 32 | 40 | 56 |
+| 单行输入 / 选择字段高度 | 48 | 56 | 64 |
+| 输入框内操作按钮 | 32 | 40 | 48 |
+| 表格数据 / 分组 / 汇总行 | 40 | 52 | 60 |
+| 表格表头 / 筛选行 | 48 | 56 | 64 |
+| 树节点 / Menu 导航项 | 44 | 56 | 64 |
+| 分页按钮 | 32 | 40 | 48 |
+| Form 相邻字段行间距 | 8 | 12 | 16 |
+
+表格的 `getRowHeight`、行 `height`、表头高度，以及 Tree 的 `defaultNodeHeight` 等显式设置会覆盖对应默认值。表中的视觉尺寸也不等于触控目标：例如紧凑按钮和 Select 清除按钮，在粗指针设备上会保留至少 48px 的操作区。
+
+## 适用范围
+
+| 类别 | 跟随配置的方式 |
+| --- | --- |
+| Button、输入框、Select、日期时间与 Cron 选择器、分段按钮、分页等控件 | 使用对应的组件尺寸档位 |
+| Card、Avatar、Checkbox、Radio、Tabs、Tag、Spin、Skeleton、ColorPicker、Drawer | 按各组件的尺寸定义调整；不同组件的同名档位不代表相同宽高 |
+| Table、TablePro、Tree | 调整默认行高；自定义行高仍优先 |
+| Menu、Form | 继承导航项高度或字段间距等密度设置 |
+| Switch、Badge、Slider | 使用下文说明的特殊映射 |
+| Alert、Dialog、通知、提示，以及画布、图表、虚拟列表、分栏和测量容器 | 容器不进行统一比例缩放；内部复用的控件可继承尺寸 |
+
+Switch 保留标准轨道形态；Badge 的 `large` 对应 `default`；Slider 的 `small` / `middle` 默认对应 `xs`，`large` 对应 `s`。显式设置的 Expressive 按钮、滑块档位继续生效。
+
+Tabs、Pagination、Skeleton、ColorPicker、Drawer 兼容原有的 `medium`，其含义与 `middle` 相同。统一配置时使用 `small`、`middle`、`large`。
+
+## 设计依据
+
+三档配置及上表数值是 Crab UI 的尺寸约定。字段、按钮和操作区分别参考 [M3 文本字段](https://m3.material.io/components/text-fields/specs)、[M3 密度](https://m3.material.io/foundations/layout/grids-spacing/density)、[Material Web 文本字段](https://material-web.dev/components/text-field/)和[按钮](https://material-web.dev/components/button/)；M3 并未为所有组件定义一套通用的 small / middle / large 映射。

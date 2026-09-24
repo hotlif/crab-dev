@@ -1,6 +1,6 @@
 +++
 title = "Avatar 头像"
-description = "使用图片、文字或图标展示用户与实体标识"
+description = "以图片或文字标识用户、团队等对象，便于快速识别。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,57 +9,18 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-avatar.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-avatar.js";
 
 # Avatar 头像
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-avatar</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-头像用图片或文字标识实体，名称与回退内容让身份仍可辨认。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**文字头像**
-
-使用文字作为头像内容，并保留可见姓名。 头像用图片或文字标识实体，名称与回退内容让身份仍可辨认。 查看没有图片时的展示。 姓名文字作为头像占位，旁边仍有完整身份信息。
-
-**调整形状**
-
-用 shape 控制圆形或方形，用 size 控制尺寸。 头像用图片或文字标识实体，名称与回退内容让身份仍可辨认。 点击切换头像形状。 同一头像在圆形和方形间切换。
-
-</div>
-
-## 常见问题
-
-### 图片不可用时怎么办？
-
-提供有意义的文字或图标作为回退，并在附近保留姓名。
-
-
-## API
-
-<API source="../_generated_api/rc-avatar.ts" symbol="AvatarProps" component="Avatar" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（5 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 可操作头像 — Tab 聚焦头像，Enter 或 Space 激活；禁用入口跳过键盘焦点。
 
 ##### 基础用法 — 通过文本缩写与语义变体展示头像。
 
@@ -74,7 +35,6 @@ import { tutorial } from "../_generated_tutorials/rc-avatar.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-avatar/workbench/)
 
@@ -96,3 +56,32 @@ import { tutorial } from "../_generated_tutorials/rc-avatar.js";
 - 支持图片、文本、图标三种内容来源，自动回退。
 - 支持语义颜色变体（`default` / `primary` / `success` / `warning` / `error`）。
 - 支持 `prefers-reduced-motion`，减少不必要动画。
+- 设置 `onClick` 时复用 Button，支持 Enter / Space 激活与可见键盘焦点。头像视觉尺寸不变，交互容器至少为 48px；仅图标头像应提供动作名称 `aria-label`。
+- AvatarGroup 的 `onExtraClick` 使用独立的“+N”按钮，避免与成员头像的点击操作嵌套；纯展示时仍在最后一个头像上叠加计数徽标。
+
+### 适用场景
+
+成员列表、评论、审批记录等场景需要快速识别人或组织。 空间有限时需要用缩写或图像作为文字名称的辅助线索。
+
+对象身份必须精确确认时同时显示名称；不要把难以识别的随机图案当成唯一信息。
+
+### 使用要点
+
+- 优先提供稳定图片，加载失败时回退到可预测的文字缩写。
+- size 控制视觉尺寸，shape 只改变轮廓，不改变对象语义。
+- 组内数量多时显示汇总，不要无限压缩到无法辨认。
+
+### 无障碍
+
+- 装饰性头像使用空替代文本；头像本身承担识别任务时提供与可见名称一致的替代文本。
+- 可点击头像必须有明确操作名称和键盘焦点，不能只靠圆形外观看起来像按钮。
+
+## 常见问题
+
+### 图片不可用时怎么办？
+
+提供有意义的文字或图标作为回退，并在附近保留姓名。
+
+## API
+
+<API source="../_generated_api/rc-avatar.ts" symbol="AvatarProps" component="Avatar" />

@@ -16,7 +16,7 @@ import Select from "@crab-dev/rc-select";
 import Slider from "@crab-dev/rc-slider";
 import Switch from "@crab-dev/rc-switch";
 import Tag from "@crab-dev/rc-tag";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 const brandColors = {
     紫罗兰: "#6750a4",
@@ -45,6 +45,7 @@ function toSize(value: SegmentedValue): ConfigSize {
 }
 
 export default function HomeComponentShowcase() {
+    const id = useId();
     const [theme, setTheme] = useState<ConfigTheme>("light");
     const [brandName, setBrandName] = useState<BrandName>("紫罗兰");
     const [size, setSize] = useState<ConfigSize>("middle");
@@ -65,41 +66,44 @@ export default function HomeComponentShowcase() {
     const [message, setMessage] = useState("所有组件均使用当前局部主题。切换设置即可实时预览。");
 
     return (
-        <section className="crab-home-demo" aria-labelledby="component-wall-title">
+        <section className="crab-home-demo" aria-labelledby={`${id}-title`}>
             <header className="crab-home-section-heading crab-home-demo-heading">
                 <div>
                     <span className="crab-home-eyebrow">组件能力墙</span>
-                    <h2 id="component-wall-title">真实组件，组合出完整体验。</h2>
+                    <h2 id={`${id}-title`}>真实组件，组合出完整体验。</h2>
                     <p className="crab-home-section-note">输入、选择、状态和反馈都可以直接操作，局部设置不会改变文档站主题。</p>
                 </div>
                 <div className="crab-home-theme-controls" aria-label="组件能力墙主题设置">
-                    <label>
-                        <span>主题</span>
+                    <div>
+                        <span id={`${id}-theme`}>主题</span>
                         <Segmented
+                            aria-labelledby={`${id}-theme`}
                             size="small"
                             options={[{ label: "亮色", value: "light" }, { label: "暗色", value: "dark" }]}
                             value={theme}
                             onChange={(value) => setTheme(toTheme(value))}
                         />
-                    </label>
-                    <label>
-                        <span>尺寸</span>
+                    </div>
+                    <div>
+                        <span id={`${id}-size`}>尺寸</span>
                         <Segmented
+                            aria-labelledby={`${id}-size`}
                             size="small"
                             options={[{ label: "小", value: "small" }, { label: "中", value: "middle" }, { label: "大", value: "large" }]}
                             value={size}
                             onChange={(value) => setSize(toSize(value))}
                         />
-                    </label>
-                    <label>
-                        <span>品牌色</span>
+                    </div>
+                    <div>
+                        <span id={`${id}-brand`}>品牌色</span>
                         <Segmented
+                            aria-labelledby={`${id}-brand`}
                             size="small"
                             options={Object.keys(brandColors)}
                             value={brandName}
                             onChange={(value) => setBrandName(toBrandName(value))}
                         />
-                    </label>
+                    </div>
                 </div>
             </header>
             <ConfigProvider
@@ -112,19 +116,21 @@ export default function HomeComponentShowcase() {
                     <div className="crab-home-component-column">
                         <Card variant="elevated" title="创建工作区" extra={<Tag color="primary" bordered={false}>表单</Tag>}>
                             <div className="crab-home-control-stack">
-                                <label className="crab-home-field">
-                                    <span>工作区名称</span>
+                                <div className="crab-home-field">
+                                    <span id={`${id}-name`}>工作区名称</span>
                                     <LineEdit
+                                        aria-labelledby={`${id}-name`}
                                         value={name}
                                         allowClear
                                         maxLength={24}
                                         onClear={() => setName("")}
                                         onChange={(event) => setName(event.target.value)}
                                     />
-                                </label>
-                                <label className="crab-home-field">
-                                    <span>应用类型</span>
+                                </div>
+                                <div className="crab-home-field">
+                                    <span id={`${id}-projects`}>应用类型</span>
                                     <Select
+                                        aria-labelledby={`${id}-projects`}
                                         multiple
                                         allowClear
                                         maxTagCount={2}
@@ -132,25 +138,27 @@ export default function HomeComponentShowcase() {
                                         value={projects}
                                         onChange={setProjects}
                                     />
-                                </label>
+                                </div>
                                 <div className="crab-home-inline-fields">
-                                    <label className="crab-home-field">
-                                        <span>计划日期</span>
+                                    <div className="crab-home-field">
+                                        <span id={`${id}-date`}>计划日期</span>
                                         <DatePicker
+                                            aria-labelledby={`${id}-date`}
                                             value={date}
                                             onValueChange={setDate}
                                             renderDisplayString={(value) => value?.toPlainDate().toString() ?? ""}
                                         />
-                                    </label>
-                                    <label className="crab-home-field crab-home-color-field">
-                                        <span>强调色</span>
+                                    </div>
+                                    <div className="crab-home-field crab-home-color-field">
+                                        <span id={`${id}-color`}>强调色</span>
                                         <ColorPicker
+                                            aria-labelledby={`${id}-color`}
                                             value={color}
                                             format="hex"
                                             showAlpha={false}
                                             onValueChange={(value) => value && setColor(value)}
                                         />
-                                    </label>
+                                    </div>
                                 </div>
                                 <Button
                                     appearance="primary"
@@ -233,9 +241,9 @@ export default function HomeComponentShowcase() {
                             <div className="crab-home-divider"><span>或者</span></div>
                             <Button shouldFitContainer onClick={() => setMessage("已切换到团队工作区示例。")}>进入团队工作区</Button>
                         </Card>
-                        <Card variant="filled" title="视图设置">
+                        <Card variant="filled" title={<span id={`${id}-view`}>视图设置</span>}>
                             <div className="crab-home-control-stack">
-                                <Segmented block options={["概览", "任务", "成员"]} value={view} onChange={setView} />
+                                <Segmented aria-labelledby={`${id}-view`} block options={["概览", "任务", "成员"]} value={view} onChange={setView} />
                                 <div className="crab-home-tag-row" aria-label="当前状态">
                                     <Tag color="success">运行正常</Tag>
                                     <Tag color="primary">{String(view)}</Tag>

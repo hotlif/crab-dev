@@ -12,13 +12,13 @@ export default function Example() {
         <div className={layout}>
             {holder}
             <Button
-                onClick={() =>
+                onClick={() => {
                     notification.open({
                         title: "导出完成",
                         description: "本月报表已准备好。",
                         duration: 3000,
-                    })
-                }
+                    });
+                }}
             >
                 模拟导出完成
             </Button>

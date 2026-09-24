@@ -29,32 +29,47 @@ describe("文档导航", () => {
             ],
         };
         await render(<><PageSections page={page} /><h2 id="基础示例">基础示例</h2><h2 id="api">API</h2></>);
+        await fireEvent.click(screen.getByRole("button", { name: "本页内容" }));
         expect(screen.getByRole("link", { name: "基础示例" }).getAttribute("href")).toContain("#%E5%9F%BA");
         expect(screen.getByRole("link", { name: "API" }).getAttribute("href")).toBe("/docs/components/rc-radio#api");
         expect(screen.queryByRole("link", { name: "使用提示" })).toBeNull();
         expect(screen.getAllByRole("heading").length).toBe(2);
     });
 
-    it("分区只保留主要入口，章节保持展开，跳转保留正文和部署前缀", async () => {
+    it("窄屏仅保留一份可折叠目录，跳转保留正文和部署前缀", async () => {
         const titles = ["基础示例", "开始之前", "跟着做", "常见问题", "API", "更多示例"];
         const page: PageProps["page"] = {
             slug: "/components/rc-button", href: "/docs/components/rc-button", title: "Button", description: "", status: "stable", draft: false,
             headings: titles.map((title, index) => ({ title, id: `section-${index}`, depth: 2, href: `/docs/components/rc-button#section-${index}` })),
         };
         await render(<><PageSections page={page} />{page.headings.map(heading => <h2 key={heading.id} id={heading.id}>{heading.title}</h2>)}</>);
-        const destinations = within(screen.getByRole("navigation", { name: "文档分区" }));
+        const toggle = screen.getByRole("button", { name: "本页内容" });
+        expect(toggle.getAttribute("aria-expanded")).toBe("false");
+        expect(screen.queryByRole("navigation", { name: "章节导航" })).toBeNull();
+        expect(screen.queryByRole("navigation", { name: "文档分区" })).toBeNull();
+        await fireEvent.click(toggle);
+        expect(toggle.getAttribute("aria-expanded")).toBe("true");
+        expect(screen.getByRole("navigation", { name: "章节导航" }).id).toBe(toggle.getAttribute("aria-controls"));
         const chapters = within(screen.getByRole("navigation", { name: "章节导航" }));
-        expect(destinations.getAllByRole("link").length).toBe(4);
+        const navigation = screen.getByRole("navigation", { name: "章节导航" });
         expect(chapters.getAllByRole("link").length).toBe(6);
-        const api = destinations.getByRole("link", { name: "API" });
+        const api = chapters.getByRole("link", { name: "API" });
         expect(api.getAttribute("href")).toBe("/docs/components/rc-button#section-4");
-        const initial = destinations.getAllByRole("link").find(link => link.getAttribute("aria-current") === "location");
+        const initial = chapters.getAllByRole("link").find(link => link.getAttribute("aria-current") === "location");
         await fireEvent.click(api, { ctrlKey: true });
         expect(initial?.getAttribute("aria-current")).toBe("location");
         await fireEvent.click(api);
         expect(api.getAttribute("aria-current")).toBe("location");
         expect(screen.getAllByRole("heading").length).toBe(6);
         expect(chapters.getAllByRole("link").length).toBe(6);
+        await fireEvent.click(toggle);
+        expect(screen.queryByRole("navigation", { name: "章节导航" })).toBeNull();
+        expect(screen.getAllByRole("heading").length).toBe(6);
+        expect(navigation.isConnected).toBe(true);
+        expect(navigation.closest('[inert]')?.getAttribute('aria-hidden')).toBe('true');
+        await fireEvent.click(toggle);
+        expect(screen.getByRole("navigation", { name: "章节导航" })).toBe(navigation);
+        expect(navigation.closest('[inert]')).toBeNull();
     });
 
     it("宽窄布局切换移动目录但保留正文中的输入与实例", async () => {
@@ -69,12 +84,18 @@ describe("文档导航", () => {
         if (!(draft instanceof HTMLInputElement)) throw new Error("草稿应当是输入框");
         await fireEvent.change(draft, { target: { value: "保留内容" } });
         const content = view.container.querySelector(".crab-docs-content")!;
-        for (const width of [1300, 700]) {
+        for (const width of [1000, 999, 700, 1200]) {
             Object.defineProperty(content, "clientWidth", { configurable: true, value: width });
             await act(() => { window.dispatchEvent(new Event("resize")); });
             expect(screen.getByRole("textbox", { name: "未提交的草稿" })).toBe(draft);
             expect(draft.value).toBe("保留内容");
-            expect(screen.getByRole("navigation", { name: "章节导航" })).toBeTruthy();
+            if (width >= 1000) {
+                expect(screen.getByRole("navigation", { name: "章节导航" })).toBeTruthy();
+                expect(screen.queryByRole("button", { name: "本页内容" })).toBeNull();
+            } else {
+                expect(screen.getByRole("button", { name: "本页内容" }).getAttribute("aria-expanded")).toBe("false");
+                expect(screen.queryByRole("navigation", { name: "章节导航" })).toBeNull();
+            }
         }
     });
 });

@@ -11,6 +11,7 @@ import Segmented from "@crab-dev/rc-segmented";
 import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
 import Spin from "@crab-dev/rc-spin";
+import { useMediaQuery } from "@crab-dev/rc-hooks";
 import { resolveSiteHref, SiteContext, TutorialDirectoryContext } from "./siteContext.js";
 import "./siteStyles.js";
 import { categoryForPath, DocumentNavigationContext, groupsForCategory, navigationCategories, PageSections } from "./documentNavigation.js";
@@ -56,7 +57,7 @@ export function Layout(props: UI.LayoutProps) {
     return (
         <TutorialDirectoryContext value={component ? null : directory}>
             <DocumentNavigationContext value={navigation}>
-                <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-navigation-open="true">
+                <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-reading={!!props.route.page && !home && !catalog} data-navigation-open="true">
                     <Button className="crab-docs-skip-link" appearance="primary" href={`#${contentId}`}
                         onClick={event => {
                             event.preventDefault();
@@ -164,10 +165,15 @@ function NavigationChevron() {
 }
 
 function NavigationLabel({ page }: { page: UI.PageLink }) {
-    // Keep bilingual names in the accessible label and tooltip, with a concise
-    // local-language destination in the M3 single-line navigation list.
-    const label = page.title.replace(/^[A-Za-z][A-Za-z0-9]*(?: [A-Za-z][A-Za-z0-9]*)* (?=[\u3400-\u9fff])/u, "");
-    return <span className="crab-docs-nav-label">{label}</span>;
+    // Token packages use two-word names; qualifiers such as PDF and WebGL
+    // belong with the translation, leaving the component's API name intact.
+    const bilingual = page.slug.startsWith("/components/")
+        ? /^([A-Za-z][A-Za-z0-9]*(?: Tokens)?)\s+(?=.*[\u3400-\u9fff])(.+)$/u.exec(page.title)
+        : null;
+    return <span className="crab-docs-nav-label">
+        <span className="crab-docs-nav-name">{bilingual?.[1] ?? page.title}</span>
+        {bilingual && <span className="crab-docs-nav-translation">{bilingual[2]}</span>}
+    </span>;
 }
 
 export function Navigation({ groups, current, toggleSection, onNavigate, site }: UI.NavigationProps) {
@@ -237,8 +243,12 @@ export function Navigation({ groups, current, toggleSection, onNavigate, site }:
                             onClick={() => navigation.select(navigation.category === item.id ? null : item.id)}
                             iconAfter={<NavigationChevron />}>{item.title}</Button>
                     </h2>
-                    <div id={`${id}-${item.id}`} hidden={navigation.category !== item.id}>
-                        {navigation.category === item.id && renderGroups(groupsForCategory(groups, item.id))}
+                    <div id={`${id}-${item.id}`} className="crab-docs-section-collapse"
+                        data-expanded={navigation.category === item.id}
+                        inert={navigation.category !== item.id} aria-hidden={navigation.category !== item.id}>
+                        <div className="crab-docs-section-clip">
+                            <div className="crab-docs-category-content">{renderGroups(groupsForCategory(groups, item.id))}</div>
+                        </div>
                     </div>
                 </section>)}
             </> : renderGroups(groups.filter(group => group.id !== "design"))}
@@ -267,7 +277,7 @@ export function MobileNavigation({
     useEffect(() => {
         if (!open) return;
         closeReason.current = "navigation";
-        const desktop = window.matchMedia("(min-width: 1024px)");
+        const desktop = window.matchMedia("(min-width: 1280px)");
         const update = () => {
             if (!desktop.matches) return;
             closeReason.current = "desktop";
@@ -301,7 +311,7 @@ export function MobileNavigation({
             >
                 {!navigationState && <nav className="crab-docs-mobile-primary" role="navigation" aria-label="主导航">
                     {[["首页", "/"]].map(([label, slug]) => (
-                        <Button key={slug} appearance="text" href={route.href(slug)} onClick={event => {
+                        <Button key={slug} appearance="text" href={route.href(slug)} onClick={(event: MouseEvent<HTMLAnchorElement>) => {
                             follow(event, slug, route.navigate);
                             if (event.defaultPrevented) setOpen(false);
                         }}>{label}</Button>
@@ -368,7 +378,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
             i18n={{ confirmText: activeResult ? "打开文档" : "编辑关键词", cancelText: "关闭" }}
         >
             <div className="crab-docs-search" aria-busy={search.loading}>
-                <label className="crab-docs-search-field" htmlFor={`${id}-query`}>
+                <div className="crab-docs-search-field">
                     <LineEdit
                         id={`${id}-query`}
                         className="crab-docs-search-input"
@@ -426,7 +436,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                             }
                         }}
                     />
-                </label>
+                </div>
                 <div className="crab-docs-search-meta" role="status">
                     <span>{search.query.trim() ? "搜索结果" : "文档索引"}</span>
                     <span>
@@ -574,6 +584,7 @@ export function TableOfContents({
 }
 
 export function Page({ page, previous, next, route, site, children }: UI.PageProps) {
+    const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     // 例外：持有本站正文 DOM，将历史 Markdown 根路径链接适配到公开部署前缀。
     const article = useRef<HTMLElement>(null);
     useEffect(() => {
@@ -598,6 +609,48 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     const catalog = page.slug.replace(/^\//, "") === "learn/components";
     const component = page.slug.replace(/^\//, "").startsWith("components/");
     const packageName = page.slug.split("/").at(-1) ?? "";
+    // The hero changes height with content and viewport width; share its measured height with sticky offsets.
+    useEffect(() => {
+        if (home || catalog) return;
+        const pageRoot = article.current;
+        const hero = pageRoot?.querySelector<HTMLElement>(".crab-docs-page-hero");
+        if (!pageRoot || !hero) return;
+        const update = () => pageRoot.style.setProperty("--crab-docs-hero-height", `${hero.offsetHeight}px`);
+        const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(update);
+        observer?.observe(hero);
+        update();
+        window.addEventListener("resize", update);
+        return () => {
+            observer?.disconnect();
+            window.removeEventListener("resize", update);
+            pageRoot.style.removeProperty("--crab-docs-hero-height");
+        };
+    }, [catalog, home, page.slug]);
+    const pageTail = !home && <>
+        <nav className="crab-docs-pager" role="navigation" aria-label="文档翻页">
+            {previous && <Button appearance="text" href={previous.href}
+                onClick={(event) => follow(event, previous.slug, route.navigate)}>
+                <span className="crab-docs-pager-label">← 上一篇</span><strong>{previous.title}</strong>
+            </Button>}
+            {next && <Button appearance="text" href={next.href}
+                onClick={(event) => follow(event, next.slug, route.navigate)}>
+                <span className="crab-docs-pager-label">下一篇 →</span><strong>{next.title}</strong>
+            </Button>}
+        </nav>
+        <footer className="crab-docs-footer">
+            <div><strong>Crab UI</strong><p>遵循 Material Design 3 的 React 组件库。通过组件、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
+            <nav aria-label="页脚导航">
+                <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
+                <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>
+                {site.repositoryUrl && <Button appearance="text" href={site.repositoryUrl}>GitHub ↗</Button>}
+            </nav>
+            <Button appearance="outlined" className="crab-docs-back-top" aria-label="返回顶部" icon={<SiteIcon name="up" />}
+                onClick={() => {
+                    article.current?.querySelector("h1")?.focus({ preventScroll: true });
+                    window.scrollTo({ top: 0 });
+                }} />
+        </footer>
+    </>;
     return (
         <article ref={article} className="crab-docs-page" data-home={home} data-component={component} data-reading={!home && !catalog}>
             <div className="crab-docs-page-main">
@@ -617,6 +670,9 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                                         </Button>
                                         <code className="crab-docs-package">@crab-dev/{packageName}</code>
                                     </nav>
+                                    {reducedMotion && <p className="crab-docs-motion-note" role="status">
+                            已启用减少动态效果，示例中的位移与展开动画已减弱。
+                                    </p>}
                                 </>
                             )}
                         </header>
@@ -627,38 +683,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                 )}
                 {!home && !catalog ? <PageSections key={page.slug} page={page}>{children}</PageSections>
                     : <div className="crab-docs-prose">{children}</div>}
-                {!home && (
-                    <nav className="crab-docs-pager" role="navigation" aria-label="文档翻页">
-                        {previous && (
-                            <Button
-                                appearance="text"
-                                href={previous.href}
-                                onClick={(event) => follow(event, previous.slug, route.navigate)}
-                            >
-                                <span className="crab-docs-pager-label">← 上一篇</span><strong>{previous.title}</strong>
-                            </Button>
-                        )}
-                        {next && (
-                            <Button
-                                appearance="text"
-                                href={next.href}
-                                onClick={(event) => follow(event, next.slug, route.navigate)}
-                            >
-                                <span className="crab-docs-pager-label">下一篇 →</span><strong>{next.title}</strong>
-                            </Button>
-                        )}
-                    </nav>
-                )}
-                {!home && <footer className="crab-docs-footer">
-                    <div><strong>Crab UI</strong><p>遵循 Material Design 3 的 React 组件库。通过组件、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
-                    <nav aria-label="页脚导航">
-                        <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
-                        <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>
-                        {site.repositoryUrl && <Button appearance="text" href={site.repositoryUrl}>GitHub ↗</Button>}
-                    </nav>
-                    <Button appearance="outlined" className="crab-docs-back-top" aria-label="返回顶部" icon={<SiteIcon name="up" />}
-                        onClick={() => { article.current?.querySelector("h1")?.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }} />
-                </footer>}
+                {pageTail}
             </div>
         </article>
     );

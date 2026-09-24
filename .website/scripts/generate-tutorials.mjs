@@ -37,7 +37,9 @@ export function assertExampleImports(source, file) {
 export async function validateTeachingInventory(repositoryRoot, records, additionalExamples = []) {
     const website = path.join(repositoryRoot, ".website");
     const expected = new Set(records.map(record => `${record.id}.json`));
-    const files = (await readdir(path.join(website, "content"))).filter(file => file.endsWith(".json"));
+    const files = (await readdir(path.join(website, "content"))).filter(file => (
+        file.endsWith(".json") && file !== "component-guides.json"
+    ));
     const extras = files.filter(file => !expected.has(file));
     if (extras.length) throw new Error(`存在未关联页面的教程：${extras.join(", ")}`);
     const referenced = new Set(records.flatMap(record => record.steps.flatMap(step => step.source ? [step.source] : [])));
@@ -130,7 +132,7 @@ export function tutorialMarkup(record) {
     const text = value => value.replace(/[&<>{}]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "{": "&#123;", "}": "&#125;" })[character]);
     const faq = record.faq.map(item => `### ${text(item.question)}\n\n${text(item.answer)}`).join("\n\n");
     const searchable = record.steps.map(step => `**${text(step.title)}**\n\n${[step.goal, step.why, step.instruction, step.expected].map(text).join(" ")}`).join("\n\n");
-    return `## 开始之前\n\n${text(record.prerequisite)}\n\n${text(record.summary)}\n\n## 跟着做\n\n<Tutorial tutorial={tutorial} />\n\n<div hidden aria-hidden="true" data-docs-search-index="tutorial">\n\n${searchable}\n\n</div>\n\n## 常见问题\n\n${faq}\n`;
+    return `## 开始之前\n\n${text(record.prerequisite)}\n\n## 跟着做\n\n${text(record.summary)}\n\n<Tutorial tutorial={tutorial} />\n\n<div hidden aria-hidden="true" data-docs-search-index="tutorial">\n\n${searchable}\n\n</div>\n\n## 常见问题\n\n${faq}\n`;
 }
 
 export async function loadPracticeTutorials(repositoryRoot) {

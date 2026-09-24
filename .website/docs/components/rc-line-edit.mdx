@@ -1,6 +1,6 @@
 +++
 title = "LineEdit 单行输入框"
-description = "清晰的标签，自然的输入。用填充与描边两种外观，让每一次录入都有明确反馈。"
+description = "输入或编辑单行文本，适用于名称、关键词等简短内容。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,40 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-line-edit.js";
-import { LineEditExample } from "../site/lineEditPage.js";
-import { tutorial } from "../_generated_tutorials/rc-line-edit.js";
 
 # LineEdit 单行输入框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-line-edit</div>
 
-<div className="crab-line-edit-page">
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-## 基础示例
-
-<LineEditExample tutorial={tutorial} index={0} />
-
-## 两种外观
-
-用填充或描边建立清晰的输入边界。两种外观共享标签、辅助文字与交互行为。
-
-<LineEditExample tutorial={tutorial} index={1} />
-
-## 状态与反馈
-
-错误就近说明原因；只读仍可复制，禁用提供原因。试着补全邮箱、切换密码可见性。
-
-<LineEditExample tutorial={tutorial} index={2} />
-
-## API
-
-<API source="../_generated_api/rc-line-edit.ts" symbol="LineEditProps" component="LineEdit" />
-
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（7 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -56,7 +30,7 @@ import { tutorial } from "../_generated_tutorials/rc-line-edit.js";
 
 #### 输入能力
 
-##### 可清除 — 设置 `allowClear` 后，输入框有内容时右侧显示清除按钮；配合受控 `value` 和 `onClear` 回调使用，`disabled` 或 `readOnly` 时清除按钮自动隐藏
+##### 可清除 — 设置 `allowClear` 后，输入框有内容时右侧显示清除按钮；配合受控 `value` 和 `onChange` 回调使用，`disabled` 或 `readOnly` 时清除按钮自动隐藏
 
 ##### 密码输入 — 设置 `type=\"password\"` 时右侧自动出现可见性切换按钮（眼睛图标），用户可随时核查已输入的密码内容，降低因误输入导致的挫败感
 
@@ -67,12 +41,10 @@ import { tutorial } from "../_generated_tutorials/rc-line-edit.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-line-edit/workbench/)
 
-<details>
-<summary>使用指南、设计依据与兼容说明</summary>
+## 使用说明
 
 用于单行文本录入，支持前后缀、清除按钮、字数统计和密码可见性切换。
 
@@ -89,7 +61,7 @@ import { tutorial } from "../_generated_tutorials/rc-line-edit.js";
 
 用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
 
-`allowClear` 仅在受控模式下生效；使用 `showCount` 时可配合 `maxLength` 显示长度限制。
+`allowClear` 支持受控和非受控模式，清除会触发标准 `onChange`，`onClear` 仅用于额外通知；使用 `showCount` 时可配合 `maxLength` 显示长度限制。
 
 
 ### 结构与输入边界
@@ -116,7 +88,9 @@ import { tutorial } from "../_generated_tutorials/rc-line-edit.js";
 
 高度可随内容和字体设置增长。粗指针下输入区最小高度为 48px，内部动作最小目标为 48×48px，边框仍计入外层尺寸；容器可能高于 48px。鼠标下的内部动作至少 48×48px，小尺寸带动作时也允许容器自然增高，不能裁掉动作焦点。
 
-键盘输入焦点以品牌实线轮廓标示；错误保留反馈边框，焦点轮廓负责当前位置，两种职责叠加。`status="error"` 默认设置 `aria-invalid=true`，显式 `aria-invalid` 优先；warning 不自动宣告无效。错误原因和恢复方法仍需调用方以可见文字提供，并通过 `aria-describedby` 关联。
+输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，填充型将底线加粗为 3px，不额外叠加外侧焦点框或光晕；错误与 warning 沿用各自的反馈色。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。`status="error"` 默认设置 `aria-invalid=true`，显式 `aria-invalid` 优先；warning 不自动宣告无效。错误原因和恢复方法仍需调用方以可见文字提供，并通过 `aria-describedby` 关联。
+
+边框依据：2026-09-23 核对的 [M3 文本框规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility) 与 [Material Web 示例](https://material-web.dev/components/text-field/)。实现参照 Material Web 提交 `849b4dce` 的 [outlined 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_filled-field.scss)、[描边焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-outlined-text-field.scss) 和 [底线焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-filled-text-field.scss)。M3 规格表同时保留旧的 filled focus height 2dp 和新的 thickness 3dp；本实现采用新厚度，与 Material Web 的 3px 覆盖值一致。warning 为本库扩展，沿用相同的边界加粗规则。
 
 内部清除和密码动作复用 Button，具有独立焦点、系统颜色和减少动态效果支持。清除先把焦点还给输入框，再调用 `onClear`；由调用方更新受控值。提供 `id` 时动作关联该 ID，否则组件通过 `useId` 建立关联。
 
@@ -130,22 +104,29 @@ import { tutorial } from "../_generated_tutorials/rc-line-edit.js";
 
 关联：[输入与选择](https://material-web.dev/components/text-field/)、[状态组合](/guides/accessibility)、[无障碍](/guides/accessibility)、[Button](/components/rc-button)、[TextEdit](/components/rc-text-edit)。浏览器专项检查与包内 React 测试分开验收，工具链门禁受阻不表示后者通过。
 
-</details>
+### 适用场景
 
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+用户输入一行可编辑文本。 需要前后缀、清除、密码可见性、字符计数或错误提示。
 
-**试一试输入**
+长段落使用 TextEdit，数值使用 NumberEdit，有限选项使用 Select。
 
-切换填充与描边，输入或清除项目名称。 业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。 输入名称，再切换外观和清除内容。 外观切换保留输入，清除后焦点返回字段，计数与预览同步。
+### 使用要点
 
-**两种外观**
+- label 描述字段含义，placeholder 只提供格式示例，不能代替标签。
+- 受控 value 与 onChange 配对；defaultValue 只在初始非受控场景使用。
+- status、supportingText 和计数要共同说明当前输入是否有效。
 
-并排体验 Filled 与 Outlined。 业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。 聚焦空字段，输入内容后移开焦点。 标签浮起，输入后保持可见，边界提供焦点反馈。
+### 无障碍
 
-**状态与反馈**
+- 使用 useId 关联 label、说明和错误，必填不能只靠星号表达。
+- 清除与密码可见按钮要有可访问名称，错误出现后不能让输入焦点丢失。
 
-体验错误恢复、密码核对、只读和禁用。 输入状态需要可见文字与辅助技术同时感知。 补全联系邮箱并移开焦点，切换密码可见性。 有效邮箱恢复辅助说明，密码值保持不变。
+## 常见问题
 
-</div>
+### 清除按钮为什么不生效？
 
-</div>
+allowClear 仅在受控模式下生效。确保 value、onChange 与 onClear 更新同一份状态。
+
+## API
+
+<API source="../_generated_api/rc-line-edit.ts" symbol="LineEditProps" component="LineEdit" />

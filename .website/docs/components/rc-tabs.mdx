@@ -1,6 +1,6 @@
 +++
 title = "Tabs 标签页"
-description = "在同一区域切换多个同层级内容面板"
+description = "在同一区域切换关联内容，通过标签表达当前视图。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tabs.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-tabs.js";
 
 # Tabs 标签页
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tabs</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**组合面板**
-
-为每个标签设置稳定 key、label 和 children。 标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。 切换概览与活动。 对应内容显示在标签栏下方。
-
-**受控激活项**
-
-通过 activeKey 让外部按钮也能切换面板。 标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。 点击查看活动，再通过标签栏切回概览。 两条操作路径更新同一个激活状态。
-
-</div>
-
-## 常见问题
-
-### 切换后需要清除表单吗？
-
-先决定是否保留未激活面板状态，再选择 destroyInactiveTabPane；不要默认丢弃未保存输入。
-
-
-## API
-
-<API source="../_generated_api/rc-tabs.ts" symbol="TabsProps" component="Tabs" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（5 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -74,7 +33,6 @@ import { tutorial } from "../_generated_tutorials/rc-tabs.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-tabs/workbench/)
 
@@ -99,3 +57,30 @@ import { tutorial } from "../_generated_tutorials/rc-tabs.js";
 - 键盘可达：`←` / `→` / `Home` / `End` 切换、`Enter` / `Space` 激活、`Delete` 关闭可关闭项。
 - `line` 使用 Material 3 主标签页样式：48px 默认高度、随标签文字宽度变化的 3px 指示条，以及独立的悬停、聚焦与按压状态层。
 - `card` / `pill` 为业务扩展，保留原有 API，并沿用相同的语义色、状态层与键盘行为。
+
+### 适用场景
+
+少量同级视图共享同一个页面上下文。 用户经常在这些内容之间来回比较，并希望保留当前位置。
+
+不同页面目的地使用主导航；步骤流程使用逐步导航；大量标签考虑 Select 或其他信息架构。
+
+### 使用要点
+
+- 每个 tab key 稳定并对应唯一面板。
+- 受控 activeKey 与 onChange 同步路由或业务状态。
+- closable/card/pill 是不同视觉或管理能力，先确认是否符合内容层级。
+
+### 无障碍
+
+- 使用 tablist、tab、tabpanel 关系和方向键模型，并管理 roving tabindex。
+- 选中指示器、aria-selected 和可见内容同时变化；关闭标签后把焦点放到相邻合理项。
+
+## 常见问题
+
+### 切换后需要清除表单吗？
+
+先决定是否保留未激活面板状态，再选择 destroyInactiveTabPane；不要默认丢弃未保存输入。
+
+## API
+
+<API source="../_generated_api/rc-tabs.ts" symbol="TabsProps" component="Tabs" />

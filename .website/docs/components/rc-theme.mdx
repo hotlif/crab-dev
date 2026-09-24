@@ -1,6 +1,6 @@
 +++
 title = "Theme 主题样式"
-description = "通过语义令牌提供浅色、深色和强制颜色模式的主题样式"
+description = "提供主题样式入口，通过语义变量让组件采用一致的明暗外观。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,51 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-theme.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-theme.js";
 
 # Theme 主题样式
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-theme</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-先安装主题包与示例使用的组件包。组件样式由 Wake 自动加载；CSS-only 主题通过 Wake Docs 的 theme_css 配置加载，仅声明依赖不会生效。
-
-主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**加载主题入口**
-
-导入主题 CSS，再在区域声明 data-theme。 主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。 观察区域内卡片与页面的主题关系。 卡片使用深色背景与浅色文字。
-
-**切换局部主题**
-
-通过 data-theme 切换局部主题。 主题通过覆盖语义层 CSS 变量生效，组件无需分支判断每一种颜色。 反复切换预览主题。 只有示例区域切换；网站主题设置保持独立。
-
-</div>
-
-## 常见问题
-
-### 主题为什么没有变化？
-
-检查主题 CSS 是否加载、data-theme 是否正确，以及自定义样式是否使用了语义令牌。
-
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（1 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -62,7 +25,6 @@ import { tutorial } from "../_generated_tutorials/rc-theme.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-theme/workbench/)
 
@@ -131,7 +93,7 @@ Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为
 
 ### 保留业务品牌覆盖
 
-既有 L2 和 L3 CSS 变量继续有效。把业务覆盖放在公共主题样式之后，并使用应用自有类与主题属性共同限定范围。例如下列片段只展示 Light 的旧中性主按钮配对；完整业务主题还要分别评审链接、焦点、选中和 Dark 配对。
+通过 `TokenVars` 中的正式 L2 和 L3 变量覆盖品牌色；历史别名需要先迁移，参见[正式变量迁移](/components/rc-token-semantic)。把业务覆盖放在公共主题样式之后，并使用应用自有类与主题属性共同限定范围。例如下列片段只展示 Light 的中性主按钮配对；完整业务主题还要分别评审链接、焦点、选中和 Dark 配对。
 
 ```tsx
 import { css } from "@crab-dev/css";
@@ -150,10 +112,33 @@ const existingBrand = css`
 
 ### 迁移检查
 
-1. 保留现有 API 与变量覆盖，先比较默认、悬停、按压三种主按钮与前景。
+1. 将旧变量名和旧 `vars` 键迁移到 `TokenVars` 中的正式名称，再比较默认、悬停、按压三种主按钮与前景。
 2. 检查链接、焦点、当前导航与选中数据；新默认不是把所有强调角色替换成同一个紫色。
 3. 打开 Dialog、Drawer、Select 和 Tooltip 后切换主题，再关闭并检查焦点恢复。
 4. 检查局部深色、浅色岛和已有 L3 覆盖。强制颜色下必须保留系统颜色，业务覆盖也须提供该模式的等价处理。
 5. 运行令牌生成、契约测试和受影响包测试；在浏览器记录完整状态。公共映射测试通过不代表整个应用已符合 WCAG。
 
 相关规范：[色彩配对](https://material-web.dev/theming/color/)、[无障碍](/guides/accessibility)、[令牌实施](/components/rc-token-semantic)。
+
+### 适用场景
+
+应用根节点需要加载 Crab UI 的基础主题。 某个局部区域需要在明确边界内覆盖浅色、深色或品牌语义变量。
+
+单个组件微调优先修改其 props 或 L3 token；不要在业务节点随意重写原始色阶。
+
+### 使用要点
+
+- 主题覆盖发生在 L2 语义角色，组件继续消费相同 token 名称。
+- Theme 边界决定 CSS 变量继承，Portal 到边界外的浮层要单独检查。
+- 浅色和深色是两套角色映射，不是把颜色机械反相。
+
+### 无障碍
+
+- 每个主题分别验证文字、图标、边框、焦点与状态层对比度。
+- 遵循系统偏好时仍提供可理解的用户选择，并避免切换造成闪烁或焦点丢失。
+
+## 常见问题
+
+### 主题为什么没有变化？
+
+检查主题 CSS 是否加载、data-theme 是否正确，以及自定义样式是否使用了语义令牌。

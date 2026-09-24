@@ -1,6 +1,6 @@
 +++
 title = "Radio 单选框"
-description = "从一组互斥且可见的选项中选择一个值"
+description = "从一组互斥选项中选择一个，适用于需要同时展示的少量选项。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,44 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-radio.js";
-import { RadioExample, RadioGuidance } from "../site/radioPage.js";
-import { tutorial } from "../_generated_tutorials/rc-radio.js";
 
 # Radio 单选框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-radio</div>
 
-<div className="crab-radio-page">
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-## 基础示例
-
-<RadioExample tutorial={tutorial} index={0} />
-
-<RadioGuidance />
-
-## 用法示例
-
-用 RadioGroup 管理组值，为组提供清晰的名称。每个 Radio 的 value 必须不同。
-
-<RadioExample tutorial={tutorial} index={1} />
-
-## 状态与主题
-
-切换主题、品牌色和可用状态，直接体验焦点、禁用与错误恢复。
-
-<RadioExample tutorial={tutorial} index={2} />
-
-## API
-
-<API source="../_generated_api/rc-radio.ts" symbol="RadioProps" component="Radio" />
-
-
-<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -61,12 +31,10 @@ import { tutorial } from "../_generated_tutorials/rc-radio.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-radio/workbench/)
 
-<details>
-<summary>设计依据、键盘与兼容说明</summary>
+## 使用说明
 
 从一组互斥且可见的选项中选择一个值。
 
@@ -96,22 +64,31 @@ RadioGroup 未指定 `name` 或传入空字符串时，会生成稳定的组内�
 
 规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
 
-</details>
+### 适用场景
 
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
+选项数量少且需要并列比较。 选择是必需或有合理默认值，并且每项含义稳定。
 
-**通知偏好**
+可多选使用 Checkbox；选项很多或需要搜索使用 Select；即时二态设置使用 Switch。
 
-选择一种通知节奏，同时查看对应的通知预览。 将互斥选项与结果放在同一上下文，让选择的影响一目了然。 选择每天、每周或仅重要通知。 预览时间和说明同步更新，同组只保留一个选中项。
+### 使用要点
 
-**受控单选组**
+- 把 Radio 放进 RadioGroup，由 group value 维护唯一选中项。
+- 每个 value 稳定且唯一，label 使用用户语言而不是内部代码。
+- 默认值必须是安全、可解释的选择；不应为了省一步替用户同意重要条款。
 
-用 value 与 onChange 连接选项和组值。 单选组展示少量互斥选项，组值用于业务提交。 选择每天，查看提交值。 当前组值变为 daily，其他选项取消选中。
+### 无障碍
 
-**交互试验区**
+- 组需要可访问名称，方向键在组内移动，Tab 只进入当前组一次。
+- 错误和禁用原因用文字说明，选中圆点之外保留清楚的状态语义。
 
-直接切换主题、品牌色和状态，检查真实交互。 Radio 保留 Material 的圆环和圆点；页面按 Expressive 的用途色、排版和分组表达重点。 切换浅色或深色、品牌色，再体验禁用和校验状态；选择一项解除错误。 禁用选项不响应；校验提示与输入关联，选择后立即恢复正常。
+## 常见问题
 
-</div>
+### 选项很多时用什么？
 
-</div>
+选项较多时用 Select；Radio 适合直接比较少量选项。
+
+## API
+
+<API source="../_generated_api/rc-radio.ts" symbol="RadioProps" component="Radio" />
+
+<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />

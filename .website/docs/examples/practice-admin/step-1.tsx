@@ -35,7 +35,8 @@ export default function Example() {
                     ]}
                     initialActiveTabKey="overview"
                 >
-                    <AppMainLayout sidebarTitle="Crab 工作区" fullscreenable={false} />
+                    <AppMainLayout sidebarTitle="Crab 工作区" fullscreenable={false}
+                        contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }} />
                 </AppMainLayoutProvider>
             </div>
         </div>

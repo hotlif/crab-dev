@@ -1,2 +1,7 @@
 /* Workbench previews consume the built public theme, without a second palette. */
 @import "../../rc-theme/docs/workbench.css";
+
+/* Dividers need a section width; the workbench otherwise sizes them to their labels. */
+.demo-frame-root .demo-default-preview {
+    justify-items: stretch;
+}

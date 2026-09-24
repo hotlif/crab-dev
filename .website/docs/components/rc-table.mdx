@@ -1,6 +1,6 @@
 +++
 title = "Table 表格"
-description = "按行列展示结构化数据，支持排序、筛选、选择和编辑"
+description = "按行列展示结构化数据，支持列配置、行选择与固定区域。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-table.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-table.js";
 
 # Table 表格
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-table</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-用 2,000 笔、20 列的企业采购订单学习行列配置、固定列和业务筛选。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**配置行与列**
-
-为行提供稳定 id，在 dataRef 中保存业务字段。 表格列使用数据路径读取行字段，容器测量决定可见视口。 浏览采购订单，横向滚动核对客户、商品、收款和交付信息。 2,000 笔订单、20 列完整展示，订单号固定，金额与收款相互关联。
-
-**筛选行数据**
-
-在业务层派生 visible，再传入 rows。 表格列使用数据路径读取行字段，容器测量决定可见视口。 点击「只看待审核订单」，再恢复全部订单。 订单从 2,000 笔筛选为 300 笔待审核记录，再恢复；20 列结构保持不变。
-
-</div>
-
-## 常见问题
-
-### 为什么表格没有高度？
-
-Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父容器。
-
-
-## API
-
-<API source="../_generated_api/rc-table.ts" symbol="TableProps" component="Table" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（23 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -91,7 +50,7 @@ Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父�
 
 ##### 合并单元格 · 区域销售台账 — 3,000 笔订单、24 列，按大区、城市和客户经理排序后合并连续归属信息。
 
-##### 行展开 · 订单履约详情 — 3,000 笔订单、24 列，展开核对收货地址、商品计算、付款和物流详情。
+##### 行展开 · 订单履约详情 — 3,000 笔订单、24 列。切换到 20 行小批次可观察详情展开过渡；完整台账直接更新布局。
 
 ##### 行分组 · 区域人员配置 — 2,000 名员工、22 列，按大区和部门逐级分组，展开查看岗位、项目和薪酬构成。
 
@@ -118,7 +77,6 @@ Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父�
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-table/workbench/)
 
@@ -148,3 +106,30 @@ Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父�
 示例采用固定日期的虚构业务数据：采购订单 3,000 行、24 列；员工资料 2,000 行、22 列；库存台账 2,000 行、23 列；项目预算 1,200 行、23 列。编辑和审核操作保存在当前页面，刷新后恢复初始数据。
 
 各表格根据容器宽度调整视口，横向滚动查看完整字段；大规模示例为 1,000 家门店、1,000 列，共 100 万单元格。
+
+### 适用场景
+
+需要比较多条记录在相同字段上的值。 用户要排序、筛选、选择、编辑或批量处理结构化数据。
+
+内容主要是叙述或卡片媒体时使用 List/Card；字段很少且只读时简单语义表格可能更合适。
+
+### 使用要点
+
+- 每行提供稳定唯一 ID，列 key 和数据路径不能随渲染变化。
+- 容器必须有明确宽高，虚拟化只渲染视口附近内容。
+- 排序和筛选要明确由本地还是服务端负责，不能同时重复处理。
+
+### 无障碍
+
+- 表格提供描述用途的 aria-label，列标题简短可读，排序状态用 aria-sort。
+- 单元格内控件拥有带行上下文的名称；键盘选择、编辑和滚动后保持可见焦点。
+
+## 常见问题
+
+### 为什么表格没有高度？
+
+Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父容器。
+
+## API
+
+<API source="../_generated_api/rc-table.ts" symbol="TableProps" component="Table" />

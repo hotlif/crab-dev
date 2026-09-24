@@ -19,6 +19,8 @@ status = "experimental"
 
 使用时需包裹在 `AppMainLayoutProvider` 中，由 Provider 管理标签页状态。
 
+独立应用的内容区默认使用 `main`。嵌入文档或已有主内容区的页面时，设置 `contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }}`，将示例内容标记为有名称的区域，避免嵌套主内容地标。`region` 的名称在类型上必填。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

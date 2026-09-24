@@ -31,6 +31,10 @@
     ],
     "faq": [
         {
+            "question": "旧 CSS 变量如何迁移？",
+            "answer": "历史别名已移除。请使用组件 TokenVars 中的正式名称，例如 --switch-transition 改为 --switch-root-transition；TokenVars 和 vars 均只包含正式键。旧反馈总色变量应拆为 text、icon、border、solid 等角色分别覆盖。"
+        },
+        {
             "question": "修改令牌定义后怎么办？",
             "answer": "修改 token.toml 后运行 generate:token，生成的 token.ts 必须由命令刷新。"
         }

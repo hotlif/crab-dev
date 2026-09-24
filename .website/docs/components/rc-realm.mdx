@@ -1,6 +1,6 @@
 +++
 title = "Realm 远程模块"
-description = "加载 Module Federation 远程模块，支持 React 组件和生命周期两种接入协议"
+description = "加载并呈现远程组件，将远程模块接入当前 React 页面。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-realm.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-realm.js";
 
 # Realm 远程模块
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-realm</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**挂载模拟模块**
-
-在 effect 中注册独立 scope 的本地容器，卸载时清理。 Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。 等待模拟模块显示。 Realm 通过 get 返回的模块渲染问候。
-
-**传递业务属性**
-
-通过 remoteProps 更新远程组件的业务输入。 Realm 按容器协议加载组件。这里注册本地容器模拟远程模块，不发送网络请求。 切换当前成员。 模块显示新的问候，不需要重新定义容器。
-
-</div>
-
-## 常见问题
-
-### 如何接真实远程模块？
-
-移除本地注册 effect，填写实际 entry、scope 与 module，并在应用中配置错误和加载反馈。不要在渲染过程中修改全局容器。
-
-
-## API
-
-<API source="../_generated_api/rc-realm.ts" symbol="RealmProps" component="Realm" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（4 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -72,7 +31,6 @@ Realm 按容器协议加载组件。这里注册本地容器模拟远程模块�
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-realm/workbench/)
 
@@ -158,3 +116,30 @@ preloadRemote({ entry, scope, module: './OrderTable' });
 // 清缓存（测试隔离 / 热更新用, 生产慎用；不删除 globalThis[scope]）
 clearRemoteCache(entry, scope);
 ```
+
+### 适用场景
+
+受信任的微前端或插件需要按运行时地址加载。 宿主必须统一处理远程模块的挂载、卸载和错误恢复。
+
+同仓库代码优先静态导入；来源不可信或无法验证完整性的脚本不得直接执行。
+
+### 使用要点
+
+- 明确入口协议、React 版本、依赖共享和卸载契约。
+- 加载、执行、渲染是不同失败阶段，错误信息和重试策略要分别处理。
+- 远程组件不能假设宿主全局状态，必要配置通过显式接口传入。
+
+### 无障碍
+
+- 加载中提供状态，失败时给出可操作的重试并保留焦点。
+- 远程内容仍必须遵守宿主的语言、主题、键盘和无障碍标准。
+
+## 常见问题
+
+### 如何接真实远程模块？
+
+移除本地注册 effect，填写实际 entry、scope 与 module，并在应用中配置错误和加载反馈。不要在渲染过程中修改全局容器。
+
+## API
+
+<API source="../_generated_api/rc-realm.ts" symbol="RealmProps" component="Realm" />

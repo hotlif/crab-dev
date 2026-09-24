@@ -6,6 +6,7 @@ export const meta = {
 import { useRef, useState } from "react";
 import { css } from "@crab-dev/css";
 import TablePro from "../../src/table.js";
+import token from "../../src/token.js";
 import type { DataTypeLoader, ProtocolColumnType, ProtocolTableState } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";
 
@@ -50,7 +51,7 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140 },
 ];
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<EmployeeRow>[] = [
     { name: "text",   render: undefined, editRender: undefined, filterEditor: undefined },
     { name: "number", render: undefined, editRender: undefined, filterEditor: undefined },
 ];
@@ -98,7 +99,7 @@ const resetBtnStyle = css`
     padding: 0 10px;
     height: 24px;
     font-size: 12px;
-    border: 1px solid var(--crab-rc-table-border-color, #ddd);
+    border: 1px solid ${token.root['border-color']};
     border-radius: 4px;
     background: transparent;
     cursor: pointer;

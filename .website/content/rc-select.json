@@ -1,16 +1,16 @@
 {
     "id": "rc-select",
     "title": "Select 选择器",
-    "summary": "使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。",
-    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
+    "summary": "先用 options 显示城市列表，再通过 value 和 onChange 读取选择结果，并加入本地搜索和清除。",
+    "prerequisite": "安装 @crab-dev/rc-select 并接入组件样式。第二个示例使用 React useState 保存选中值；本页预览已配置 Wake 样式加载。",
     "steps": [
         {
             "id": "step-1",
             "title": "配置选项",
             "goal": "传入包含 value 和 label 的 options。",
-            "why": "使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。",
+            "why": "label 显示城市名称，value 使用稳定标识，显示文案调整时仍能保留同一个选项。",
             "instruction": "打开下拉列表，选择城市。",
-            "expected": "输入区域显示城市名称。",
+            "expected": "字段显示所选城市的名称，单选后列表关闭。",
             "changes": [
                 "传入包含 value 和 label 的 options。"
             ],
@@ -20,11 +20,12 @@
             "id": "step-2",
             "title": "搜索并读取值",
             "goal": "添加 searchable、allowClear，并连接受控 value。",
-            "why": "使用稳定的 value 标识选项，label 负责显示；搜索帮助用户缩小范围。",
+            "why": "把选中值保存在 state 中，后续筛选或提交可以读取同一个值；清除时将它恢复为 null。",
             "instruction": "搜索杭州并选择，再清除选项。",
             "expected": "选择后输出 hz，清除后恢复未选择。",
             "changes": [
-                "添加 searchable、allowClear，并连接受控 value。"
+                "用 string | null 状态连接 value 和 onChange。",
+                "添加 searchable 过滤现有选项，allowClear 清空选择。"
             ],
             "source": "rc-select/step-2.tsx"
         }
@@ -32,7 +33,15 @@
     "faq": [
         {
             "question": "label 与 value 有什么区别？",
-            "answer": "label 是用户看到的文字；value 是程序使用的稳定标识，不应随显示文案改变。"
+            "answer": "label 是用户看到的内容；value 是唯一且稳定的字符串标识，不应随显示文案改变。"
+        },
+        {
+            "question": "为什么清除后应保存 null？",
+            "answer": "单选的 null 表示受控空值，undefined 表示由组件维护状态。多选使用空数组。接入受控状态时应保存 onChange 返回的值。"
+        },
+        {
+            "question": "searchable 会请求远程数据吗？",
+            "answer": "不会。它只过滤传入的 options，当前没有搜索词回调。异步选项由应用加载后传入，loading 仅负责显示加载状态。"
         }
     ]
 }

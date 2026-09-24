@@ -17,14 +17,14 @@ export default function Example() {
                 方向：{left ? "左上" : "右上"}
             </Button>
             <Button
-                onClick={() =>
+                onClick={() => {
                     notification.open({
                         title: "后台任务完成",
                         description: "现在可以继续处理列表。",
                         direction: left ? "topLeft" : "topRight",
                         duration: 3000,
-                    })
-                }
+                    });
+                }}
             >
                 显示通知
             </Button>

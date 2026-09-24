@@ -37,13 +37,13 @@ status = "experimental"
 
 ```tsx
 import { css } from '@crab-dev/css';
-import { SpinIndicator, vars as spinVars } from '@crab-dev/rc-spin';
+import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 
 // 指示环随宿主字号缩放，并使用宿主前景色。
 const style = css`
     --rc-spin-size: 1em;
-    ${spinVars['ring.indicator-color']}: currentColor;
-    ${spinVars['ring.track-color']}: transparent;
+    ${spinVars['ring.indicator.stroke']}: currentColor;
+    ${spinVars['ring.track.stroke']}: transparent;
 `;
 ```
 

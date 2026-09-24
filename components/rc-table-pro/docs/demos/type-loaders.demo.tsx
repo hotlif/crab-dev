@@ -66,7 +66,7 @@ const STATUS_COLOR_MAP: Record<string, { background: string; color: string }> = 
     "已取消": { background: "#fff1f0", color: "#cf1322" },
 };
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<OrderRow>[] = [
     {
         name: "status",
         render: ({ row }) => {

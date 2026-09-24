@@ -1,6 +1,6 @@
 +++
 title = "Switch 开关"
-description = "切换立即生效的开启或关闭状态"
+description = "即时开启或关闭一项设置，清晰表达两种互斥状态。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-switch.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-switch.js";
 
 # Switch 开关
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-switch</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-开关用于立即生效的布尔设置，状态说明让用户知道当前是否开启。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**设置初始值**
-
-使用 defaultChecked 设置初始选中状态。 开关用于立即生效的布尔设置，状态说明让用户知道当前是否开启。 点击选项，观察选中状态。 选项可在选中与未选中之间切换。
-
-**改为受控**
-
-将 checked 与 onChange 连接到同一个 state。 开关用于立即生效的布尔设置，状态说明让用户知道当前是否开启。 切换选项，再查看状态文字。 控件与文字始终保持一致。
-
-</div>
-
-## 常见问题
-
-### 受控与非受控可以混用吗？
-
-同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。
-
-
-## API
-
-<API source="../_generated_api/rc-switch.ts" symbol="SwitchProps" component="Switch" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -65,12 +24,13 @@ import { tutorial } from "../_generated_tutorials/rc-switch.js";
 
 ##### 禁用状态 — 添加 `disabled` 属性即可让开关处于禁用状态
 
+##### 从右向左布局 — 手柄与状态层跟随文档方向；按下时手柄放大但中心保持不变。
+
 ##### 开关尺寸 — 通过 `size` 属性设置开关尺寸, 支持 `large`、`middle`、`small` 三种
 
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-switch/workbench/)
 
@@ -92,3 +52,30 @@ import { tutorial } from "../_generated_tutorials/rc-switch.js";
 键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
 
 规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
+
+### 适用场景
+
+切换后可以立即保存或应用，例如通知、同步、显示选项。 当前值比一次性动作更重要，用户需要随时看到开关状态。
+
+提交表单时才生效的多个选择使用 Checkbox；普通动作使用 Button。
+
+### 使用要点
+
+- checked 与 onChange 构成受控状态，label 不要写“开启/关闭”两套文案。
+- 切换失败时恢复真实值并说明原因，不能保持虚假视觉状态。
+- disabled 只在确实不可操作时使用，并就近解释限制。
+
+### 无障碍
+
+- 提供与设置含义一致的可访问名称，状态通过 checked 语义表达。
+- 标签与开关都可点击，焦点环清楚，RTL 下视觉方向与逻辑含义保持一致。
+
+## 常见问题
+
+### 受控与非受控可以混用吗？
+
+同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。
+
+## API
+
+<API source="../_generated_api/rc-switch.ts" symbol="SwitchProps" component="Switch" />

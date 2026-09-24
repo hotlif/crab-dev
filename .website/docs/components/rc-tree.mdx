@@ -1,6 +1,6 @@
 +++
 title = "Tree 树形控件"
-description = "展示层级数据，支持展开、选择、搜索和拖拽"
+description = "以可展开的层级结构展示数据，适用于目录、组织与资源列表。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,59 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-tree.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-tree.js";
 
 # Tree 树形控件
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tree</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-树节点用 parent 表达层级，展开与选中是两份不同的状态。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**展示已展开目录**
-
-创建文件夹和子节点，通过 expandedKeys 展开目录。 树节点用 parent 表达层级，展开与选中是两份不同的状态。 阅读目录与文件的缩进关系，再点击“收起项目”和“展开项目”。 收起时只显示项目目录，展开后显示两个文件。
-
-**读取选中节点**
-
-通过 selectKeys 和 onSelect 管理选择结果。 树节点用 parent 表达层级，展开与选中是两份不同的状态。 点击“选择 README.md”，再收起并展开项目。 输出稳定节点 ID，展开状态不受影响。
-
-</div>
-
-## 常见问题
-
-### 展开和选中为什么要分开？
-
-展开控制可见子节点，选中表示当前操作对象。异步加载时还需要维护节点 loadState。
-
-### 为什么提供树外的操作按钮？
-
-外部按钮展示业务状态驱动展开和选择的方式，并提供明确的键盘入口。当前组件的拖拽节点在未启用拖拽时仍带有 aria-disabled；教程通过按钮完成练习，节点本身的键盘语义仍需组件层后续修复。
-
-
-## API
-
-<API source="../_generated_api/rc-tree.ts" symbol="TreeProps" component="Tree" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（10 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -94,7 +49,6 @@ import { tutorial } from "../_generated_tutorials/rc-tree.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-tree/workbench/)
 
@@ -131,3 +85,34 @@ import { tutorial } from "../_generated_tutorials/rc-tree.js";
 - 根节点的 `parent` 为 `null`，子节点通过 `parent` 建立层级关系。
 - `type` 使用 `NodeType`，`loadState` 使用 `LoadStateType`；两者均从组件包具名导出。
 - 可通过 `disabled` 禁用节点，通过 `icon` 设置前置图标，通过 `height` 指定节点高度（单位为 px）。
+
+### 适用场景
+
+目录、组织架构或资源拥有清楚的父子关系。 用户需要逐层展开，并可能移动、重命名或批量勾选节点。
+
+平面选项使用 List/Select；层级很深且需要精确比较字段时考虑 Tree table。
+
+### 使用要点
+
+- 每个节点使用稳定 key，children 表示真实父子关系。
+- expandedKeys、selectedKeys 与 checkedKeys 分别管理不同状态。
+- 拖拽 allowDrop 只声明合法位置，数据更新仍由外层完成。
+
+### 无障碍
+
+- 实现 tree/treeitem 层级、展开、选中和集合位置信息，并支持方向键模型。
+- 拖拽、内联编辑和筛选都有键盘替代路径，焦点节点在数据更新后仍可定位。
+
+## 常见问题
+
+### 展开和选中为什么要分开？
+
+展开控制可见子节点，选中表示当前操作对象。异步加载时还需要维护节点 loadState。
+
+### 为什么提供树外的操作按钮？
+
+外部按钮演示业务操作如何更新受控的 expandedKeys 和 selectKeys，不是节点交互的替代入口。关闭拖拽不会禁用节点；Tab 可聚焦树，上下方向键选择节点，左右方向键展开、收起或返回父节点，Enter 切换当前节点的选择状态。只有 node.disabled 为 true 时节点才会被禁用。
+
+## API
+
+<API source="../_generated_api/rc-tree.ts" symbol="TreeProps" component="Tree" />

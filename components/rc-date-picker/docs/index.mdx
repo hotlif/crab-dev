@@ -20,6 +20,32 @@ status = "experimental"
 
 `value` 使用 `Temporal.ZonedDateTime | null`，通过 `onValueChange` 接收日期变化。
 
+`DatePicker` 和 `DateTimePicker` 的尾部图标共用一个位置。有值且未禁用时，鼠标移入字段会将日历图标切换为清除图标；移到图标上仍可清除，离开字段后恢复日历图标。也可以用 Tab 聚焦尾部按钮，再按 Enter / Space 清除。清除会触发 `onValueChange(null)`、关闭面板并将焦点返回输入框；受控用法需要同步更新 `value`。要修改已有日期，请点击输入区域打开日历。
+
+`TimePicker` 采用相同交互，在时钟与清除图标之间切换。无悬停能力的触屏设备在字段有值时直接显示清除按钮，点击输入区域仍可打开选择面板。
+
+顶层原生属性、事件及 ref 属于输入框。`panelProps` 只传给弹层中的面板，用于设置面板 id、className 和无障碍属性；选择草稿 selectValues、面板 onSelect 回调和 instance 由选择器内部管理。
+
+## 时间选择
+
+`TimePicker` 从输入框下方展开时间面板，空间不足时自动调整位置。面板没有遮罩，页面其他内容仍可操作。默认显示 24 小时制表盘，选择小时后自动进入分钟；底部键盘／时钟按钮可切换输入和表盘模式。
+
+点击字段，或聚焦后按 Enter / Space / ↓ 打开；仅 Tab 聚焦不会展开。确定后才触发 `onValueChange`。取消或 Escape 放弃草稿并返回字段；点击外部或用 Tab 移出面板也会放弃草稿，焦点继续移向目标控件。
+
+`value` 为 `{ hour, minute, second } | null`，其中 `hour` 始终为 0–23。默认展示 `HH:mm`；隐藏的 `second` 保留传入值，空值初次确认时为 0。非法或空的时间段会标记错误并阻止确认。受控用法需要把回调值更新到 `value`。
+
+| `panelProps` 属性 | 默认值 | 用途 |
+| --- | --- | --- |
+| `hourCycle` | `24` | 设为 `12` 显示 AM／PM；值仍使用 24 小时制 |
+| `defaultMode` | `dial` | 初始打开表盘；设为 `input` 优先使用键盘输入 |
+| `showSeconds` | `false` | 显式启用秒输入扩展，同时仅使用输入模式 |
+
+表盘数字支持 Tab 聚焦、Enter / Space 选择；方向键移动到相邻时间刻度并同步焦点（小时步长 1、分钟步长 5）。需要任意分钟时可拖动表针或切换键盘输入，输入框的 ↑ / ↓ 每次调整 1。输入法候选确认不会提交时间。
+
+`size="small / middle / large"` 调整外部字段密度。下拉面板使用时间选择器专用的数字区和点击区域，不跟随字段缩小。窄于 360px 或低于 560px 的视口使用输入模式，保留可编辑的数字区。窗口恢复后保留当前输入，可手动切回表盘；关闭后再次打开则按 `defaultMode` 初始化。
+
+需要秒精度时传入 `panelProps={{ showSeconds: true }}`。`DateTimePicker` 是日期与时间的组合扩展，默认保留秒输入；可通过 `panelProps.timePanelProps.showSeconds` 关闭。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
@@ -27,3 +53,13 @@ status = "experimental"
 ## API
 
 <API source="../src/datePicker/datePicker.tsx" symbol="DatePickerProps" component="DatePicker" />
+
+### TimePicker
+
+| 属性 | 类型 | 说明 |
+| --- | --- | --- |
+| `value` | `{ hour: number; minute: number; second: number } \| null` | 当前时间；小时 0–23，分钟和秒 0–59 |
+| `onValueChange` | `(value: TimePickerValue \| null) => void` | 确认或清除时触发 |
+| `panelProps` | `TimePickerPanelProps` 的配置子集 | 时间格式、初始模式与面板属性；草稿、操作区和有效性由选择器管理 |
+| `renderDisplayString` | `(value) => string` | 自定义外部字段展示文本 |
+| 字段属性 | `PickerFieldProps` | `label`、`appearance`、`size`、`disabled`、原生输入事件与 `ref` |

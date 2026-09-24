@@ -1,6 +1,6 @@
 +++
 title = "ConfigProvider 全局配置"
-description = "通过 React Context 注入主题、品牌色、语言和尺寸，以 L2 CSS 变量实现明暗主题与单色换肤"
+description = "为应用统一设置主题、品牌色、语言和尺寸，并按区域覆盖默认配置"
 kind = "component"
 status = "experimental"
 +++
@@ -23,10 +23,9 @@ import ConfigProvider from '@crab-dev/rc-config-provider';
 </ConfigProvider>
 ```
 
-组件样式由 Wake 随模块引用自动加载。CSS-only 的 `@crab-dev/rc-theme` 需在 Wake Docs 的 `theme_css` 中配置入口，仅声明包依赖不会触发加载；参见 [Theme 主题样式](/components/rc-theme)。无需在 JavaScript 中导入 CSS。其他构建器需自行加载该包的公开样式入口。Provider 输出一个普通 div，设置 `data-theme` 和 `lang`，
-由 rc-theme 覆盖 L2 `--token-semantic-*` 变量。组件样式由 Crab CSS 静态生成，没有内联 style 或组件层颜色分支。
-Provider 本身不绘制背景；后代通过自己的语义令牌消费主题。
-应用应把 Provider 放在需要统一配置的内容根部；额外 div 会参与布局。
+主题切换需要加载 `@crab-dev/rc-theme` 的样式，仅安装包还不够。Wake Docs 中通过 `theme_css` 配置入口；其他构建器需接入公开样式入口，详见 [Theme 主题样式](/components/rc-theme)。
+
+Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器的布局。它本身不绘制背景，Card 等子组件使用对应主题的颜色。
 
 ## 配置与继承
 
@@ -37,10 +36,11 @@ Provider 本身不绘制背景；后代通过自己的语义令牌消费主题�
 | locale | zh-CN / en-US | zh-CN |
 | size | small / middle / large | middle |
 
-嵌套 Provider 按字段继承父级，显式属性覆盖父级，重新传入 undefined 恢复继承。
-原生 div 属性和 React 19 ref 可直接传入；语言由 locale 统一设置。
-使用具名导出的 `useConfig()` 读取当前有效配置，自定义组件可由此接入。
-无 Provider 时 Hook 返回上述默认值。
+嵌套 Provider 按字段继承父级，只覆盖显式传入的属性；传入 `undefined` 恢复继承。没有 Provider 时，`useConfig()` 返回表中的默认值。
+
+配置继承发生在 ConfigProvider 之间。仅给 `html` 设置 `data-theme="dark"` 不会改变 React 配置：如果应用已有主题状态，应把该状态传给根级 Provider，避免只设置 `size` 的根级 Provider 使用默认浅色。
+
+`locale` 会设置容器的 `lang` 并切换 Empty 的预置文案，不会自动翻译业务文字。原生 div 属性与 React 19 `ref` 可直接传入；自定义组件可用 `useConfig()` 读取当前配置。
 
 ## 一个颜色生成品牌主题
 
@@ -63,10 +63,13 @@ Provider 本身不绘制背景；后代通过自己的语义令牌消费主题�
 品牌规则只在 `forced-colors: none` 下生效，强制颜色模式继续使用系统颜色。
 非 React 场景可从 `@crab-dev/rc-token-semantic` 导入纯函数 `createBrandTheme(color)`，读取 `light` / `dark` 变量映射。
 
-主题适用于所有消费 L2 变量的后代。当前尺寸自动接入 Button / ButtonGroup，
-优先级为 Button.size > ButtonGroup.size > ConfigProvider.size；语言自动接入 Empty 三种预置文案。
-Empty 显式 title / description（包括 null）优先于语言默认值。
-其余组件的尺寸与文案仍遵循原有 API，可通过 useConfig 逐步接入。
+## 统一尺寸
+
+`small` 适合紧凑工作区，`middle` 是默认档位，`large` 提供更宽松的操作空间。组件显式的 `size` 优先于分组配置，分组优先于最近 Provider。
+
+尺寸配置不会按屏幕分辨率自动切换，也不会等比缩放页面。适用组件、具体数值和局部覆盖示例统一维护在[尺寸指南](/guides/component-sizing)。
+
+自定义组件可通过 `useComponentSize(size)` 解析显式尺寸与继承值。虚拟列表可用 `componentSizeMetrics` 获取对应的默认行高；需要在已有 DOM 上建立密度范围时，可使用 `componentSizeStyles` 提供的静态类名。
 
 ## 嵌套与浮层
 
@@ -75,7 +78,7 @@ Provider 不访问 document、存储或系统主题，也不修改 html / body�
 
 React Portal 保留 Context，但不会继承原 DOM 祖先的 CSS 变量。
 将浮层挂载在主题容器内，或在 Portal 内容外再包一层不带配置属性的 ConfigProvider，
-即可从 Context 继承配置并重新建立 CSS 边界。不会自动修改其他浮层或全局挂载点。
+即可从 Context 继承配置并重新建立 CSS 边界。DropdownContainer 已在自己的浮层节点重建尺寸边界；其他自定义 Portal 应按此方式处理。
 
 ```tsx
 createPortal(<ConfigProvider><Overlay /></ConfigProvider>, container)

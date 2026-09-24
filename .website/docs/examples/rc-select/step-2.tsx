@@ -21,7 +21,7 @@ const options = [
     },
 ];
 export default function Example() {
-    const [value, setValue] = useState<string>();
+    const [value, setValue] = useState<string | null>(null);
     return (
         <div className={layout}>
             <Select

@@ -1,6 +1,6 @@
 +++
 title = "Notification 通知提醒"
-description = "在页面角落展示包含详细内容或操作入口的通知"
+description = "展示包含标题和详细说明的通知，适用于需要关注的事件。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-notification.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-notification.js";
 
 # Notification 通知提醒
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-notification</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-通知承载较完整的信息，标题概括事件，正文解释结果。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**发送通知**
-
-创建通知实例，渲染 holder，并调用 open。 通知承载较完整的信息，标题概括事件，正文解释结果。 发送导出完成通知，或点击「查看 3 条通知层叠」后逐条关闭。 最新通知完整显示，后两层露出卡片边缘；关闭前层后，后层平滑补位。
-
-**选择显示方向**
-
-通过 direction 调整通知位置。 通知承载较完整的信息，标题概括事件，正文解释结果。 切换方向后显示通知。 新通知出现在选择的页面角落。
-
-</div>
-
-## 常见问题
-
-### 需要用户必须确认怎么办？
-
-通知不应阻断主任务；必须确认的操作应使用 Dialog。
-
-
-## API
-
-<API source="../_generated_api/rc-notification.ts" symbol="NotificationProps" component="Notification" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ import { tutorial } from "../_generated_tutorials/rc-notification.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-notification/workbench/)
 
@@ -96,3 +54,34 @@ import { tutorial } from "../_generated_tutorials/rc-notification.js";
 多条通知以卡片层叠展示：最新一条完整显示，后两层按 96%、92% 缩小，每层露出 8px 边缘，并使用较浅的阴影和区分明暗的表面色。后层暂时隐藏文字和操作，关闭前层后平滑补位，避免多个关闭按钮或正文相互重叠。顶部通知向下叠放，底部通知向上叠放。
 
 通知根节点接受原生 `div` 属性和 `className`。自定义动画通过 CSS 类实现，不再接收 Motion 的 `initial`、`animate`、`exit` 或 `transition` 属性。
+
+
+
+`notification.open({ title, description, duration })` 返回 `{ id, close, update }`。可调用 `handle.close()` 或 `notification.close(handle.id)` 关闭指定通知；调用 update 修改内容或时长会保留 ID 并重新计时。duration=0 时持续展示。onClose 只执行一次，已经关闭的句柄不能重新打开通知。
+
+### 适用场景
+
+后台任务、系统事件或跨页面结果需要较长说明。 用户可以稍后处理，通知中可能包含一个清楚的后续动作。
+
+字段级错误就近显示；必须立即决策使用 Dialog；只有一句确认使用 Message。
+
+### 使用要点
+
+- title 概括事件，description 解释影响和下一步。
+- 控制堆叠数量与位置，避免新通知遮住主要任务。
+- 使用 hook/holder 让通知继承主题并便于统一销毁。
+
+### 无障碍
+
+- 通知出现时使用合适的 live region，但不要自动抢走键盘焦点。
+- 关闭按钮和通知动作要有清楚名称，自动关闭时间应与内容长度匹配。
+
+## 常见问题
+
+### 需要用户必须确认怎么办？
+
+通知不应阻断主任务；必须确认的操作应使用 Dialog。
+
+## API
+
+<API source="../_generated_api/rc-notification.ts" symbol="NotificationProps" component="Notification" />

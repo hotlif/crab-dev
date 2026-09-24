@@ -28,7 +28,7 @@ status = "experimental"
 | 随内容增长 | autoSize | 支持 CSS field-sizing 的浏览器生效，否则以 rows 回退；不同时手动 resize |
 | 只可查看和复制 | readOnly | 保留焦点、选择和对比度，隐藏清除 |
 | 暂时不可编辑 | disabled | 禁用文本域并隐藏清除；相邻文字说明原因 |
-| 受控清除 | allowClear + value + onClear | 回调更新值，组件将焦点送回文本域 |
+| 清除 | allowClear + onChange | 支持受控和非受控；触发标准值变更并将焦点送回文本域，onClear 仅用于额外通知 |
 
 ### 当前排版与状态
 
@@ -37,6 +37,10 @@ size 控制排版与内边距，不控制总高度。三档默认 16px / 24px，
 清除动作复用 Button，鼠标下 24×24px、粗指针下 48×48px；文本区常驻预留对应横向空间，按钮出现或消失不改变可用行宽。粗指针下文本域最小高度为 48px。计数与按钮不应遮住末行或滚动条，超长文本保留原生滚动与选择。
 
 `appearance="outlined"` 与 `appearance="filled"` 对应 Material 的两种文本字段；`label`、`supportingText`、`errorText` 会自动建立可见标签和 `aria-describedby` 关联。`errorText` 替换辅助说明并启用错误语义；显式 `aria-invalid` 仍优先，warning 不自动无效。计数位于字段下方的信息区，不占用正文空间，也不会在每个字符变化时强制重复播报。
+
+聚焦时，outlined 将原有 1px 轮廓向内加粗为 3px，filled 将底线加粗为 3px，不额外叠加外框或光晕；错误与 warning 沿用各自的反馈色。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。
+
+边框依据：2026-09-23 核对的 [M3 文本字段规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility) 与 [Material Web 多行字段示例](https://material-web.dev/components/text-field/#textarea)。实现参照 Material Web 提交 `849b4dce` 的 [outlined 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_filled-field.scss) 与 [焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-filled-text-field.scss)。采用与 LineEdit 相同的新 3px 焦点厚度；M3 规格表另保留旧的 filled focus height 2dp。warning 为本库扩展，沿用相同的边界加粗规则。
 
 ### 正反例与验收
 

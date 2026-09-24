@@ -1,6 +1,6 @@
 +++
 title = "FlowDiagram 流程图"
-description = "基于 Canvas 绘制流程图，支持自动布局、连线路由和视口控制"
+description = "用节点和连线表达流程与关系，适用于流程编排和结构展示。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-flow-diagram.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-flow-diagram.js";
 
 # FlowDiagram 流程图
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-flow-diagram</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-节点与边是数据，布局结果给出节点矩形和连线路径，再交给图形组件绘制。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**连接两个节点**
-
-声明 nodes 与 edges，再把布局结果传给 FlowNode 和 FlowEdge。 节点与边是数据，布局结果给出节点矩形和连线路径，再交给图形组件绘制。 对照节点与连接方向。 两个节点从上到下连接。
-
-**调整流程方向**
-
-通过 elk.direction 切换布局方向，业务节点保持不变。 节点与边是数据，布局结果给出节点矩形和连线路径，再交给图形组件绘制。 切换布局方向。 节点重排，连接关系仍保持。
-
-</div>
-
-## 常见问题
-
-### 为什么需要文字流程？
-
-流程图不应只靠画布传达业务关系。保留文字步骤，让辅助技术也能读取流程。
-
-
-## API
-
-<API source="../_generated_api/rc-flow-diagram.ts" symbol="FlowDiagramProps" component="FlowDiagram" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ import { tutorial } from "../_generated_tutorials/rc-flow-diagram.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-flow-diagram/workbench/)
 
@@ -101,3 +59,30 @@ import { tutorial } from "../_generated_tutorials/rc-flow-diagram.js";
 **现有示例：** 节点和连线保留二维布局，外层提供有名称、可聚焦的局部横向滚动区域。视口变窄时，可查看完整画布，不把整个文档页面撑宽。
 
 **设计要求：** 局部滚动与图内平移是不同操作。滚动区域获得焦点后可用方向键查看；图内拖拽、缩放和节点编辑仍需各自的键盘替代及状态反馈，不能仅凭外层可聚焦就认定流程图满足全部无障碍要求。
+
+### 适用场景
+
+流程编排、审批路径或系统拓扑需要可视化关系。 节点数量和关系使普通列表难以理解，但仍需要选择或编辑。
+
+简单线性步骤用有序列表更清楚；大量精确数据比较使用表格或图表。
+
+### 使用要点
+
+- 节点和边都要有稳定 ID，数据模型与屏幕坐标分开保存。
+- 自动布局负责初始位置，用户调整后要定义是否覆盖或保留。
+- 动画只提示方向或变化，不能成为关系含义的唯一载体。
+
+### 无障碍
+
+- 提供节点列表、连接说明或其他等价文本视图，确保非视觉用户也能理解关系。
+- 选择、连接和移动都要有键盘路径，减少动态效果时关闭非必要边动画。
+
+## 常见问题
+
+### 为什么需要文字流程？
+
+流程图不应只靠画布传达业务关系。保留文字步骤，让辅助技术也能读取流程。
+
+## API
+
+<API source="../_generated_api/rc-flow-diagram.ts" symbol="FlowDiagramProps" component="FlowDiagram" />

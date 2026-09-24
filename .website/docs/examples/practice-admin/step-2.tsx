@@ -52,6 +52,7 @@ function Workspace() {
     const { openTab } = useAppMainLayoutTabs();
     return (
         <AppMainLayout
+            contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }}
             sidebarTitle="Crab 工作区"
             onLogoClick={() =>
                 openTab({

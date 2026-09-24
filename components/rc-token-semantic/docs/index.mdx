@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 角色与默认主题
 
-业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。L1 的 Purple 是原料，L2 才决定浅色品牌用 Purple 40、深色用 Purple 80。旧 CSS 变量名、默认导出、`TokenVars` 与 `vars` 保留。
+业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。L1 的 Purple 是原料，L2 才决定浅色品牌用 Purple 40、深色用 Purple 80。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射，不再包含历史别名。
 
 | 意图 | 背景或主色 | 配套前景 | 使用边界 |
 | --- | --- | --- | --- |
@@ -50,6 +50,12 @@ const onBrand = light.text.onBrand;
 运行时主题仍使用 `@crab-dev/rc-theme/css/index.css` 与 `data-theme`。TOML 维护无主题样式时的 Light 回退值，`src/theme.ts` 维护完整明暗配对；改变共享角色时，两者必须同步并通过回退一致性测试。业务代码通常只需要默认 `token`，不用在每个组件里读取 `light` / `dark` 再分支。
 
 ## 覆盖、迁移与验收
+
+### 使用正式变量
+
+每个令牌只有一个正式 CSS 变量入口。组件默认值通过 `$ref()` 引用 L2；历史名称不再进入回退链，例如 `--switch-transition` 应迁移为 `--switch-root-transition`。代码中优先通过组件的 `TokenVars['root.transition']` 获取名称。
+
+旧反馈总色变量（例如 `--token-semantic-color-feedback-error`）已移除。请按用途分别覆盖 `color.feedback.error.text`、`icon`、`border` 和 `solid` 对应的变量，并保留背景与前景配对。旧 `vars` 键也应更新为正式路径，例如 `size.large.border.radius` 改为 `size.large.border-radius`。
 
 ### 从一个颜色生成配对
 

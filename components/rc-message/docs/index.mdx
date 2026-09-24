@@ -32,4 +32,8 @@ status = "experimental"
 
 ## API
 
+`useMessage()` 的 open/success/error/warning/info/loading 均返回 `{ id, close, update }`。例如 `const handle = message.loading('正在保存', 0)`，保存完成后 `handle.update({ type: 'success', content: '已保存', duration: 2000 })`。update 保留 ID 并重新计时；close 重复调用只通知一次。实例也支持 `message.close(id)` 和 `message.update(id, patch)`。
+
+默认 Message 组件通过 open/onExitComplete 控制显隐，duration 只控制进度动画；自动关闭与 onClose 回调由 useMessage 管理。
+
 <API source="../src/types.ts" symbol="MessageProps" component="Message" />

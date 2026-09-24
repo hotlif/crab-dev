@@ -63,7 +63,9 @@ const frame = css`
     overflow: hidden;
     font-size: ${token.font.size.body};
     line-height: 1.5;
-    --table-border-color: ${token.color.border.subtle};
+    --table-root-border-color: ${token.color.border.subtle};
+    --table-cell-border-color: ${token.color.border.subtle};
+    --table-cell-separator-border-color: ${token.color.border.subtle};
 `;
 const toolbarStyle = css`
     display: grid;

@@ -62,7 +62,7 @@ const NumberFilter = ({ value, onValueChange }: { value: string; onValueChange: 
     );
 };
 
-const TYPE_LOADERS: DataTypeLoader[] = [
+const TYPE_LOADERS: DataTypeLoader<EmployeeRow>[] = [
     {
         name: "text",
         render: undefined,

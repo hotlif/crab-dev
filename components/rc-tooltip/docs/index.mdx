@@ -24,6 +24,12 @@ status = "experimental"
 - 可配置出入场延迟与箭头显隐。
 - 内置无障碍支持（`role="tooltip"` + `aria-describedby`）。
 
+## 设计与交互
+
+默认采用 M3 **plain tooltip**：无箭头、反色表面、与触发元素相隔 4px。鼠标可以移入提示区域继续阅读；离开触发元素和提示区域 1.5 秒后关闭，也可按 Escape 关闭。`arrow` 是兼容扩展，需要时显式开启。
+
+提示用于补充简短说明。重要信息应直接呈现；含操作按钮的内容应使用相应弹层，不要把 plain tooltip 当作富交互容器。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

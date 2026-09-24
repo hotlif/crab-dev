@@ -1,6 +1,6 @@
 +++
 title = "Form 表单"
-description = "统一管理表单字段、数据校验与提交流程"
+description = "组织字段、收集表单值并执行校验，集中管理提交反馈。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-form.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-form.js";
 
 # Form 表单
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-form</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**绑定字段**
-
-创建 form 实例，用 Item 的 name 关联字段。 Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。 修改姓名并读取表单。 提交回调拿到当前字段值。
-
-**增加字段校验**
-
-用 validator 拒绝空白值，成功后才处理业务提交。 Form 管理字段值与校验；输入适配器将 DOM 事件转换成字段值。 先空值提交，再填写姓名并提交。 空值显示字段错误，有效值进入成功回调。
-
-</div>
-
-## 常见问题
-
-### 为什么不能直接使用 DOM onChange？
-
-Form 字段需要值回调；LineEdit 返回输入事件，所以用适配器提取 event.target.value。
-
-
-## API
-
-<API source="../_generated_api/rc-form.ts" symbol="FormProps" component="Form" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ Form 字段需要值回调；LineEdit 返回输入事件，所以用适配器提
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-form/workbench/)
 
@@ -92,3 +50,38 @@ Form 字段需要值回调；LineEdit 返回输入事件，所以用适配器提
 - 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
+
+
+`defaultValue` 只在挂载时读取；加载另一条记录时调用 `form.reinitialize(record)`，该记录也成为 `resetFields()` 的新基准。`useForm()` 的实例引用保持稳定。
+
+`Item` 默认绑定 value/onChange。原生输入与 LineEdit 使用 `binding="event"`，Switch / Checkbox 使用 `binding="checked"`，日期选择器使用 `binding="valueChange"`；原有子组件事件会继续执行。特殊协议可配置 valuePropName、trigger、getValueFromEvent，或使用函数 children 接收字段状态和 onChange。
+
+`await form.submit()` 等待校验及业务回调，返回 success / invalid 两种结果。`validateFields()` 失败时抛出 `FormValidationError`，通过 values 获取数据快照、fields 获取字段 errors / warnings。WARNING 不阻止提交。嵌套字段使用元组路径，setter 会检查对应的值类型。
+
+### 适用场景
+
+多个字段需要一起校验和提交。 字段之间存在依赖、动态显隐或统一错误处理。
+
+只有一个独立开关或搜索框时不必引入完整表单状态；服务器数据缓存也不应塞进表单。
+
+### 使用要点
+
+- 为每个字段使用稳定 name，initialValues 只负责初始值。
+- rules 描述验证规则，提交失败时把用户带到第一个可修复问题。
+- 编辑器组件通过 value/onChange 与 Form 连接，避免同时维护第二份本地值。
+
+### 无障碍
+
+- label、帮助文字和错误必须通过 ID 关联到实际输入控件。
+- 错误不能只显示红色；提交后保留用户输入，并提供错误摘要或准确焦点。
+
+## 常见问题
+
+### 为什么不能直接使用 DOM onChange？
+
+Form 字段需要值回调；LineEdit 返回输入事件，所以用适配器提取 event.target.value。
+
+## API
+
+<API source="../_generated_api/rc-form.ts" symbol="FormProps" component="Form" />

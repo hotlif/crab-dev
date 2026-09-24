@@ -22,7 +22,6 @@ const AllowClearDemo = () => {
                 value={value}
                 rows={3}
                 allowClear
-                onClear={() => setValue("")}
                 onChange={(e) => setValue(e.target.value)}
             />
         </div>

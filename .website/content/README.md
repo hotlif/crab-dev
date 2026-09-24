@@ -1,6 +1,6 @@
 # 教学内容维护
 
-每个组件包对应一份 `rc-*.json`，三个实战对应 `practice-profile.json`、`practice-data.json` 和 `practice-admin.json`。这里是教学文字的源文件，不要修改生成的组件页。
+每个组件包对应一份 `rc-*.json`，三个实战对应 `practice-profile.json`、`practice-data.json` 和 `practice-admin.json`。这里保存教学文字和组件 FAQ，不要修改生成的组件页。组件页的简短用途来自 `catalog/overview.json`，示例来自 `components/rc-*/docs/demos/`；组件页不再重复展示教程第一步和分步教程。`component-guides.json` 的场景、使用要点与无障碍建议放在示例之后，详细说明继续维护于各组件的 `docs/index.mdx`。
 
 一份教程包括 `id`、`title`、`summary`、`prerequisite`、`steps` 和 `faq`。每个步骤填写：
 
@@ -28,7 +28,7 @@ yarn test:generator
 yarn check:docs
 yarn test
 yarn typecheck
-yarn eslint
+yarn lint
 yarn build
 yarn preview
 ```
@@ -39,7 +39,7 @@ yarn preview
 
 ## 全局令牌参考手册
 
-`rc-token-global` 使用独立参考布局，其他组件仍使用普通教学模板。主正文维护于 `components/rc-token-global/docs/index.mdx`；其中 `token-tutorial` 注释插入一次两步教程，`token-reference:分类` 注释插入对应完整参数展示，原有 Demos 标记连接工作台。使用二级标题建立目录，不再把正文降级到“使用说明”下。
+`rc-token-global` 使用独立参考布局，其他组件使用统一的示例与 API 参考模板。主正文维护于 `components/rc-token-global/docs/index.mdx`；其中 `token-tutorial` 注释插入一次两步教程，`token-reference:分类` 注释插入对应完整参数展示，原有 Demos 标记连接工作台。使用二级标题建立目录，不再把正文降级到“使用说明”下。
 
 `scripts/generate-token-reference.mjs` 读取公共 `token.toml` 中当前使用的点分键、双引号字符串语法；遇到重复键、未支持语法或未知类别应失败，不能静默漏项。扩展 TOML 写法时同步扩展读取器与测试。生成器输出 `docs/_generated/globalTokenReference.ts`，其中原始值、公共表达式、变量名与静态样式共同生成；完整目录也写入页面搜索索引。生成产物不得手改。
 

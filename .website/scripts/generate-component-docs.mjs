@@ -6,9 +6,11 @@ import { parse } from "@babel/parser";
 import { generate } from "@babel/generator";
 import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
+import componentGuides from "../content/component-guides.json" with { type: "json" };
+import componentDescriptions from "../content/catalog/overview.json" with { type: "json" };
 
 const EXPECTED_COMPONENT_COUNT = 54;
-const EXPECTED_DEMO_COUNT = 257;
+const EXPECTED_DEMO_COUNT = 264;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");
@@ -128,6 +130,7 @@ const demoGroupDefinitions = new Map([
         ]],
         ["时间选择", [
             "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
             "timePickerPanel.demo.tsx",
         ]],
     ]],
@@ -159,6 +162,11 @@ const demoGroupDefinitions = new Map([
         ]],
     ]],
     ["rc-table-pro", [
+        ["业务实战", [
+            "order-operations.demo.tsx",
+            "inventory-planning.demo.tsx",
+            "receivables-review.demo.tsx",
+        ]],
         ["基础与数据", [
             "basic.demo.tsx",
             "type-loaders.demo.tsx",
@@ -348,6 +356,64 @@ export function extractDemoMeta(sourceCode, filePath) {
     }
 
     throw new Error(`${filePath}: 未找到导出的静态 meta`);
+}
+
+function jsxRootName(name) {
+    if (name.type === "JSXIdentifier") return name.name;
+    if (name.type === "JSXMemberExpression") return jsxRootName(name.object);
+    return undefined;
+}
+
+export function extractDemoLearning(sourceCode, filePath) {
+    const sourceFile = parseTypeScript(sourceCode, filePath);
+    const importedComponents = new Set();
+    for (const statement of sourceFile.program.body) {
+        if (statement.type !== "ImportDeclaration") continue;
+        const source = statement.source.value;
+        const isComponentSource = source.startsWith("@crab-dev/rc-")
+            || /(?:^|\/)src(?:\/|$)/.test(source);
+        if (!isComponentSource) continue;
+        for (const specifier of statement.specifiers) {
+            if (/^[A-Z]/.test(specifier.local.name)) importedComponents.add(specifier.local.name);
+        }
+    }
+
+    const renderedComponents = new Set();
+    const fallbackComponents = new Set();
+    const props = new Set();
+    const events = new Set();
+    let hasState = false;
+
+    visitSyntax(sourceFile, (node) => {
+        if (
+            node.type === "CallExpression"
+            && node.callee.type === "Identifier"
+            && ["useState", "useReducer", "useActionState", "useTransition"].includes(node.callee.name)
+        ) {
+            hasState = true;
+        }
+        if (node.type !== "JSXOpeningElement") return;
+        const rootName = jsxRootName(node.name);
+        if (!rootName || !/^[A-Z]/.test(rootName)) return;
+        fallbackComponents.add(rootName);
+        if (!importedComponents.has(rootName)) return;
+        renderedComponents.add(rootName);
+        for (const attribute of node.attributes) {
+            if (attribute.type !== "JSXAttribute" || attribute.name.type !== "JSXIdentifier") continue;
+            const name = attribute.name.name;
+            if (["className", "style", "key", "id"].includes(name)) continue;
+            props.add(name);
+            if (/^on[A-Z]/.test(name)) events.add(name);
+        }
+    });
+
+    const components = renderedComponents.size > 0 ? renderedComponents : fallbackComponents;
+    return {
+        components: [...components].slice(0, 6),
+        props: [...props].slice(0, 12),
+        events: [...events].slice(0, 6),
+        hasState,
+    };
 }
 
 function parseAttributes(tag) {
@@ -879,6 +945,57 @@ function searchHeadingText(value) {
         .trim();
 }
 
+function assertDetailedItems(items, minimum, field, slug) {
+    if (
+        !Array.isArray(items)
+        || items.length < minimum
+        || items.some((item) => typeof item !== "string" || item.trim().length < 12)
+    ) {
+        throw new Error(`${slug}: 新手指南 ${field} 至少需要 ${minimum} 条完整说明`);
+    }
+}
+
+export function validateComponentGuide(guide, slug) {
+    if (!guide || typeof guide !== "object") throw new Error(`${slug}: 缺少组件新手指南`);
+    if (typeof guide.definition !== "string" || guide.definition.trim().length < 30) {
+        throw new Error(`${slug}: 新手指南 definition 过短`);
+    }
+    assertDetailedItems(guide.useWhen, 2, "useWhen", slug);
+    assertDetailedItems(guide.avoidWhen, 1, "avoidWhen", slug);
+    assertDetailedItems(guide.essentials, 3, "essentials", slug);
+    assertDetailedItems(guide.accessibility, 2, "accessibility", slug);
+    if (typeof guide.material?.basis !== "string" || guide.material.basis.trim().length < 20) {
+        throw new Error(`${slug}: 新手指南 material.basis 过短`);
+    }
+    for (const field of ["m3", "web", "source"]) {
+        if (typeof guide.material[field] !== "string" || !guide.material[field].startsWith("https://")) {
+            throw new Error(`${slug}: 新手指南 material.${field} 必须是 HTTPS 链接`);
+        }
+    }
+}
+
+function markdownList(items) {
+    return items.map((item) => `- ${item}`).join("\n");
+}
+
+export function componentGuideMarkup(guide) {
+    if (!guide) return "";
+    return `### 适用场景
+
+${guide.useWhen.join(" ")}
+
+${guide.avoidWhen.join(" ")}
+
+### 使用要点
+
+${markdownList(guide.essentials)}
+
+### 无障碍
+
+${markdownList(guide.accessibility)}
+`;
+}
+
 function createDemoSearchMetadata(demos) {
     if (demos.length === 0) return "";
     const lines = [
@@ -897,75 +1014,80 @@ function createDemoSearchMetadata(demos) {
     return lines.join("\n");
 }
 
-function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = []) {
+function componentFaqMarkup(lesson) {
+    if (!lesson?.faq.length) return "";
+    const text = value => value.replace(/[&<>{}]/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "{": "&#123;", "}": "&#125;" })[character]);
+    return `## 常见问题\n\n${lesson.faq.map(item => `### ${text(item.question)}\n\n${text(item.answer)}`).join("\n\n")}`;
+}
+
+function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = [], guide) {
     const normalized = normalizeNewlines(canonicalSource);
     const frontmatterMatch = normalized.match(/^(\+\+\+\n[\s\S]*?\n\+\+\+)\n+/);
     if (!frontmatterMatch) {
         throw new Error(`${slug}: index.mdx 缺少 TOML frontmatter`);
     }
-
-    let body = normalized.slice(frontmatterMatch[0].length);
+    const body = normalized.slice(frontmatterMatch[0].length);
+    const workbenchLink = /^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m;
     if (slug === "rc-token-global") {
         const content = body
-            .replace(/^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m, "")
+            .replace(workbenchLink, "")
             .replace(/<Demos\b[^>]*\/>/g, '<ComponentDemos demos={demos} />')
             .replace(/\{\/\* token-reference:([\w-]+) \*\/\}/g, '<TokenReference group="$1" />')
             .replace("{/* token-tutorial */}", "<Tutorial tutorial={tutorial} />");
         const tokenIndex = referenceTokens.map(entry => `${entry.key} · ${entry.value} · ${entry.expression} · ${entry.variable}`).join("\n\n");
         return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\nimport TokenReference from "../site/tokenReference.js";\nimport Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\nimport ComponentDemos from "../site/componentDemos.js";\nimport { demos } from "../_generated/${slug}.js";\n\n${content.trim()}\n\n<div hidden aria-hidden="true" data-docs-search-index="tokens">\n\n@crab-dev/rc-token-global\n\n${tokenIndex}\n\n</div>\n\n${createDemoSearchMetadata(demos).trimEnd()}\n`;
     }
-    const previewSection = `## 组件预览\n\n${createDemoSearchMetadata(demos)}<ComponentDemos demos={demos} />\n`;
-    const workbenchLink = /^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m;
     if (!workbenchLink.test(body)) {
         throw new Error(`${slug}: index.mdx 缺少工作台入口，无法确定预览插入位置`);
     }
-    body = body.replace(workbenchLink, previewSection);
-
-    const demosTag = body.match(/<Demos\b[^>]*\/>/)?.[0];
-    if (!demosTag) {
+    if (!/<Demos\b[^>]*\/>/.test(body)) {
         throw new Error(`${slug}: index.mdx 缺少 Demos 标签`);
     }
-    const demoIndex = body.indexOf(demosTag);
-    const beforeDemos = body.slice(0, demoIndex).replace(/\n##[^\n]+\n+$/, "\n");
-    body = `${beforeDemos}${body.slice(demoIndex + demosTag.length)}`;
 
-    if (api !== null) {
-        let renderedApi = false;
-        body = body.replace(/<API\b[^>]*\/>/g, () => {
-            if (renderedApi) return "";
-            renderedApi = true;
-            return `<API source="../_generated_api/${slug}.ts" symbol="${api.symbol}" component="${api.component}" />`;
-        });
-    }
-
-    const imports = [
-        'import ComponentDemos from "../site/componentDemos.js";',
-        `import { demos } from "../_generated/${slug}.js";`,
-    ].filter(Boolean).join("\n");
-
-    if (lesson) {
-        const heading = body.match(/^# [^\n]+/m)?.[0] ?? `# ${lesson.title}`;
-        const apiMarkup = api === null ? "" : `## API\n\n<API source="../_generated_api/${slug}.ts" symbol="${api.symbol}" component="${api.component}" />\n\n`;
-        const notes = normalized.slice(frontmatterMatch[0].length)
-            .replace(/^# [^\n]+\n+/m, "")
-            .replace(workbenchLink, "")
-            .replace(/<Demos\b[^>]*\/>/g, "")
-            .replace(/<API\b[^>]*\/>/g, "")
-            .replace(/^## (?:API|代码演示|Light \/ Dark 并排示例)\s*$/gm, "")
-            .replace(/^## /gm, "### ");
-        if (slug === "rc-line-edit") {
-            const searchIndex = tutorialMarkup(lesson).match(/<div hidden aria-hidden="true" data-docs-search-index="tutorial">[\s\S]*?<\/div>/)?.[0] ?? "";
-            return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport { LineEditExample } from "../site/lineEditPage.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n<div className="crab-line-edit-page">\n\n## 基础示例\n\n<LineEditExample tutorial={tutorial} index={0} />\n\n## 两种外观\n\n用填充或描边建立清晰的输入边界。两种外观共享标签、辅助文字与交互行为。\n\n<LineEditExample tutorial={tutorial} index={1} />\n\n## 状态与反馈\n\n错误就近说明原因；只读仍可复制，禁用提供原因。试着补全邮箱、切换密码可见性。\n\n<LineEditExample tutorial={tutorial} index={2} />\n\n${apiMarkup}\n## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n<details>\n<summary>使用指南、设计依据与兼容说明</summary>\n\n${notes.trim()}\n\n</details>\n\n${searchIndex}\n\n</div>\n`;
-        }
-        if (slug === "rc-radio") {
-            const searchIndex = tutorialMarkup(lesson).match(/<div hidden aria-hidden="true" data-docs-search-index="tutorial">[\s\S]*?<\/div>/)?.[0] ?? "";
-            return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport { RadioExample, RadioGuidance } from "../site/radioPage.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n<div className="crab-radio-page">\n\n## 基础示例\n\n<RadioExample tutorial={tutorial} index={0} />\n\n<RadioGuidance />\n\n## 用法示例\n\n用 RadioGroup 管理组值，为组提供清晰的名称。每个 Radio 的 value 必须不同。\n\n<RadioExample tutorial={tutorial} index={1} />\n\n## 状态与主题\n\n切换主题、品牌色和可用状态，直接体验焦点、禁用与错误恢复。\n\n<RadioExample tutorial={tutorial} index={2} />\n\n${apiMarkup}\n<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />\n\n## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n<details>\n<summary>设计依据、键盘与兼容说明</summary>\n\n${notes.trim()}\n\n</details>\n\n${searchIndex}\n\n</div>\n`;
-        }
-        return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\nimport Tutorial from "../site/tutorial.js";\nimport FirstExample from "../site/firstExample.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\n\n${heading}\n\n<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>\n\n## 基础示例\n\n<FirstExample tutorial={tutorial} />\n\n${tutorialMarkup(lesson)}\n\n${apiMarkup}## 更多示例\n\n<details>\n<summary>展开进阶示例（${demos.length} 个）</summary>\n\n${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />\n</details>\n\n[打开完整组件工作台](/components/${slug}/workbench/)\n\n## 使用说明\n\n${notes.trim()}\n`;
-    }
-    return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\n${imports}\n\n${body.trim()}\n`;
+    // Component reference pages show one collection. Teaching steps remain in the
+    // practice tutorials; repeating their first step here separated related demos.
+    const hasDemos = demos.length > 0;
+    const heading = body.match(/^# [^\n]+/m)?.[0] ?? `# ${lesson?.title ?? slug}`;
+    const description = componentDescriptions[slug];
+    const frontmatter = description
+        ? frontmatterMatch[1].replace(/^description = .+$/m, `description = ${JSON.stringify(description)}`)
+        : frontmatterMatch[1];
+    const imports = hasDemos || !lesson
+        ? `import ComponentDemos from "../site/componentDemos.js";\nimport { demos } from "../_generated/${slug}.js";`
+        : `import Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";`;
+    const examples = hasDemos || !lesson
+        ? `${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />`
+        : '<Tutorial tutorial={tutorial} />';
+    const notes = body
+        .replace(/^# [^\n]+\n+/m, "")
+        .replace(workbenchLink, "")
+        .replace(/<Demos\b[^>]*\/>/g, "")
+        .replace(/<API\b[^>]*\/>/g, "")
+        .replace(/^## (?:API|代码演示|Light \/ Dark 并排示例)\s*$/gm, "")
+        .replace(/^## /gm, "### ")
+        .trim();
+    const guidance = [notes, componentGuideMarkup(guide).trim()].filter(Boolean).join("\n\n");
+    const apiMarkup = api === null ? "" : `## API\n\n<API source="../_generated_api/${slug}.ts" symbol="${api.symbol}" component="${api.component}" />`;
+    const radioGroupApi = slug === "rc-radio"
+        ? '<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />'
+        : "";
+    return [
+        frontmatter,
+        `{/* ${GENERATED_MARKER} */}`,
+        imports,
+        heading,
+        `<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>`,
+        // Keep existing deep links without reintroducing duplicate headings or previews.
+        '<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />',
+        "## 示例",
+        examples,
+        `[打开完整组件工作台](/components/${slug}/workbench/)`,
+        guidance && `## 使用说明\n\n${guidance}`,
+        componentFaqMarkup(lesson),
+        apiMarkup,
+        radioGroupApi,
+    ].filter(Boolean).join("\n\n") + "\n";
 }
-
 async function readIfPresent(filePath) {
     try {
         return await readFile(filePath, "utf8");
@@ -1015,6 +1137,16 @@ async function generateDocs() {
         throw new Error(`组件数量应为 ${EXPECTED_COMPONENT_COUNT}，实际为 ${componentSlugs.length}`);
     }
 
+    const guideSlugs = Object.keys(componentGuides).sort();
+    const missingGuides = componentSlugs.filter((slug) => !guideSlugs.includes(slug));
+    const orphanGuides = guideSlugs.filter((slug) => !componentSlugs.includes(slug));
+    if (missingGuides.length > 0 || orphanGuides.length > 0) {
+        throw new Error(
+            `新手指南与组件不一致；缺少：${missingGuides.join(", ") || "无"}；多余：${orphanGuides.join(", ") || "无"}`,
+        );
+    }
+    for (const slug of componentSlugs) validateComponentGuide(componentGuides[slug], slug);
+
     const navigation = await readFile(path.join(websiteDocsDirectory, "navigation.toml"), "utf8");
     const navigationSlugs = new Set(
         [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map((match) => match[1]),
@@ -1054,6 +1186,7 @@ async function generateDocs() {
             const sourcePath = path.join(demoDirectory, demoFile);
             const sourceCode = normalizeNewlines(await readFile(sourcePath, "utf8"));
             const meta = extractDemoMeta(sourceCode, sourcePath);
+            const learning = extractDemoLearning(sourceCode, sourcePath);
             const id = `docs/demos/${demoFile}`;
             const uniqueKey = `${slug}:${id}`;
             if (globalDemoKeys.has(uniqueKey)) {
@@ -1064,6 +1197,7 @@ async function generateDocs() {
                 id,
                 title: meta.title,
                 description: meta.description,
+                learning,
                 sourceCode,
                 previewPath: `/components/${slug}/workbench/?__wake_demo=${encodeURIComponent(id)}`,
                 workbenchPath: `/components/${slug}/workbench/#/components/${encodeURIComponent(id)}`,
@@ -1090,7 +1224,15 @@ async function generateDocs() {
         }
         outputs.push({
             filePath: path.join(generatedPagesDirectory, `${slug}.mdx`),
-            content: createPage(canonicalMdx, slug, organizedDemos, api, lesson.record, slug === "rc-token-global" ? referenceTokens : []),
+            content: createPage(
+                canonicalMdx,
+                slug,
+                organizedDemos,
+                api,
+                lesson.record,
+                slug === "rc-token-global" ? referenceTokens : [],
+                componentGuides[slug],
+            ),
         });
     }
 

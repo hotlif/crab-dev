@@ -1,6 +1,6 @@
 +++
 title = "AppMainLayout 布局"
-description = "为管理后台组织侧边导航、顶部操作和标签页内容"
+description = "组合顶部、侧栏和主内容区，搭建企业后台的页面框架。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-app-main-layout.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-app-main-layout.js";
 
 # AppMainLayout 布局
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-app-main-layout</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-布局负责导航与标签容器，Provider 保存已打开的页面。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**放入初始页面**
-
-用 Provider 提供初始标签，再渲染布局。 布局负责导航与标签容器，Provider 保存已打开的页面。 查看侧栏、页头与内容区。 概览页面显示在统一后台框架中。
-
-**连接菜单与标签**
-
-在 Provider 内调用标签 Hook，将菜单事件映射为 openTab。 布局负责导航与标签容器，Provider 保存已打开的页面。 点击成员管理，再切回概览。 新标签显示成员页面，原概览仍可返回。
-
-</div>
-
-## 常见问题
-
-### 页面内容放在哪里？
-
-页面内容放在 TabItem.children 中，由 Provider 管理。AppMainLayout 本身不通过 children 接收页面。
-
-
-## API
-
-<API source="../_generated_api/rc-app-main-layout.ts" symbol="LayoutProps" component="Layout" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（1 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -66,7 +25,6 @@ import { tutorial } from "../_generated_tutorials/rc-app-main-layout.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-app-main-layout/workbench/)
 
@@ -82,3 +40,32 @@ import { tutorial } from "../_generated_tutorials/rc-app-main-layout.js";
 - 窄屏下需要将侧边导航收起到抽屉中。
 
 使用时需包裹在 `AppMainLayoutProvider` 中，由 Provider 管理标签页状态。
+
+独立应用的内容区默认使用 `main`。嵌入文档或已有主内容区的页面时，设置 `contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }}`，将示例内容标记为有名称的区域，避免嵌套主内容地标。`region` 的名称在类型上必填。
+
+### 适用场景
+
+企业后台需要长期存在的主导航、顶栏和可切换工作页。 不同页面必须共享一致的响应式框架、焦点顺序和内容边界。
+
+单页落地页或只有一条简单流程时，不要为了形式套入复杂后台骨架。
+
+### 使用要点
+
+- 先确定导航目的地，再把路由状态映射到选中项和当前页签。
+- Header、Sidebar、TabBar 与 Content 各有职责，业务内容只放进内容区。
+- 窄屏不是把桌面布局等比缩小，而是按可用空间收起或转换导航。
+
+### 无障碍
+
+- 为导航、页签和主内容提供清楚的 landmark 与名称，并保留唯一主内容入口。
+- 打开、关闭侧栏或页签后要把焦点放到可预测位置，键盘顺序应与视觉顺序一致。
+
+## 常见问题
+
+### 页面内容放在哪里？
+
+页面内容放在 TabItem.children 中，由 Provider 管理。AppMainLayout 本身不通过 children 接收页面。
+
+## API
+
+<API source="../_generated_api/rc-app-main-layout.ts" symbol="LayoutProps" component="Layout" />

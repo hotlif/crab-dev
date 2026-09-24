@@ -1,6 +1,6 @@
 +++
 title = "Masonry 瀑布流"
-description = "将高度不同的内容按多列排列，优先填充最短列"
+description = "将高度不同的内容分列排布，适用于图片与卡片信息流。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-masonry.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-masonry.js";
 
 # Masonry 瀑布流
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-masonry</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**排列不同高度**
-
-设置两列并使用 sequential 保持顺序。 瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。 按编号阅读卡片。 不同长度的内容分布在两列中。
-
-**调整列数**
-
-通过状态在单列与双列之间切换。 瀑布流适合高度不同的卡片；顺序敏感的内容需要保留可预测的阅读顺序。 切换到单列，再切回双列。 内容不变，布局随 columns 更新。
-
-</div>
-
-## 常见问题
-
-### 窄屏怎么处理？
-
-通过容器宽度或媒体查询选择列数；交互元素的 DOM 顺序应与阅读顺序一致。
-
-
-## API
-
-<API source="../_generated_api/rc-masonry.ts" symbol="MasonryProps" component="Masonry" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（3 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -70,7 +29,6 @@ import { tutorial } from "../_generated_tutorials/rc-masonry.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-masonry/workbench/)
 
@@ -83,3 +41,30 @@ import { tutorial } from "../_generated_tutorials/rc-masonry.js";
 
 - 图片画廊、卡片列表等高度不等的内容展示
 - 需要紧凑排列、充分利用垂直空间的场景
+
+### 适用场景
+
+图片、灵感卡片或作品集高度差异明显。 内容可以独立阅读，不依赖严格的从左到右行顺序。
+
+新闻、表单或步骤有明确阅读顺序时使用普通 Grid/List；需要对齐字段时使用 Table。
+
+### 使用要点
+
+- 选择 columns 或响应式列宽，并预留媒体尺寸减少重排。
+- sequential 模式优先 DOM 阅读顺序，其他布局策略要评估视觉与语义顺序差异。
+- 增量加载时保持项目 key 稳定，避免整个瀑布流跳动。
+
+### 无障碍
+
+- DOM 顺序必须仍然形成可理解的阅读和 Tab 顺序。
+- 图片提供替代文本，加载更多后把状态通告与焦点留在可预测位置。
+
+## 常见问题
+
+### 窄屏怎么处理？
+
+通过容器宽度或媒体查询选择列数；交互元素的 DOM 顺序应与阅读顺序一致。
+
+## API
+
+<API source="../_generated_api/rc-masonry.ts" symbol="MasonryProps" component="Masonry" />

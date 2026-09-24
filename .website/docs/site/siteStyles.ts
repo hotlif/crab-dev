@@ -25,11 +25,11 @@ body { margin: 0; }
     --component-preview-meta-actions-background-color: ${token.color.surface.low};
     --component-preview-card-border-color-hover: transparent;
     --component-preview-meta-border-color: ${token.color.border.subtle};
-    --component-preview-card-shadow: none;
+    --component-preview-card-box-shadow: none;
     --component-preview-stage-padding: ${token.space["group-gap"]};
     --component-preview-stage-min-height: calc(${token.size[40]} * 4);
-    --component-preview-card-shadow-hover: none;
-    --component-preview-meta-info-divider-style: none;
+    --component-preview-card-box-shadow-hover: none;
+    --component-preview-meta-info-divider-border-style: none;
     --component-preview-meta-info-background-color: ${token.color.surface.low};
     --component-preview-meta-title-font-size: ${token.font.size.body};
     --component-preview-meta-title-font-weight: ${token.typography.title.large.emphasized['font-weight']};
@@ -96,31 +96,35 @@ body { margin: 0; }
 .crab-docs-prose > .table-scroll > table th { background: var(--crab-docs-code-background); font-weight: ${token.typography.title.large.emphasized['font-weight']}; }
 .crab-docs-prose > .table-scroll > table a { color: ${token.color.text.link}; text-decoration: underline; }
 .crab-docs-prose > .table-scroll > table code { white-space: normal; overflow-wrap: anywhere; }
-/* M3 drawer destinations: one label, one active indicator, no tree decoration. */
+/* M3 drawer destinations with non-interactive bilingual trailing text. */
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle) { --button-root-border-radius-active: ${token.shape.full}; }
 .crab-docs-navigation section { margin-bottom: ${token.space["section-gap"]}; }
 .crab-docs-navigation h2 { margin: 0; min-height: ${token.size[48]}; display: flex; align-items: center; padding-inline: ${token.space["section-gap"]}; font-size: ${token.typography.title.small["font-size"]}; font-weight: ${token.typography.title.small["font-weight"]}; line-height: ${token.typography.title.small["line-height"]}; color: ${token.color.text.secondary}; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle) { display: flex; width: 100%; min-width: 0; justify-content: flex-start; text-align: left; white-space: nowrap; height: ${token.size.navigation}; min-height: ${token.size.navigation}; padding: 0 ${token.space["section-gap"]}; font-size: ${token.typography.label.large["font-size"]}; font-weight: ${token.typography.label.large["font-weight"]}; line-height: ${token.typography.label.large["line-height"]}; border: 0; border-radius: ${token.shape.full}; color: ${token.color.text.secondary}; background: transparent; box-shadow: none; gap: ${token.space["stack-gap"]}; transition: background ${token.motion.interaction}, color ${token.motion.interaction}; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle) > span { min-width: 0; }
-.crab-docs-nav-label { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.crab-docs-navigation .crab-docs-nav-page > span:not([aria-hidden="true"]) { flex: 1; }
+.crab-docs-nav-label { display: flex; align-items: center; justify-content: flex-start; min-width: 0; gap: ${token.space["stack-gap"]}; white-space: nowrap; }
+.crab-docs-nav-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.crab-docs-nav-translation { flex: none; max-width: 50%; overflow: hidden; text-overflow: ellipsis; color: ${token.color.text.secondary}; font-size: ${token.typography.label.medium["font-size"]}; line-height: ${token.typography.label.medium["line-height"]}; font-weight: ${token.typography.body.small["font-weight"]}; }
+.crab-docs-nav-page[aria-current="page"] .crab-docs-nav-translation { color: inherit; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle):hover { color: ${token.color.text.primary}; background: color-mix(in srgb, ${token.color.text.primary} calc(${token.state.opacity.hover} * 100%), transparent); box-shadow: none; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle):is(:focus-visible,:active) { color: ${token.color.text.primary}; background: color-mix(in srgb, ${token.color.text.primary} calc(${token.state.opacity.pressed} * 100%), transparent); }
 .crab-docs-section-heading { margin: 0; }
 .crab-docs-navigation .crab-docs-category { margin: 0; }
 .crab-docs-navigation .crab-docs-category-heading { padding: 0; }
 .crab-docs-navigation .crab-docs-category-heading > button { height: ${token.size.navigation}; min-height: ${token.size.navigation}; color: ${token.color.text.primary}; }
-.crab-docs-category > div > section { margin-bottom: ${token.space["component-gap"]}; }
+.crab-docs-category-content > section { margin-bottom: ${token.space["component-gap"]}; }
 .crab-docs-category .crab-docs-nav-section { margin-top: 0; }
-.crab-docs-category > div { padding-bottom: ${token.space["component-gap"]}; }
-.crab-docs-category > div > section > .crab-docs-nav-page { margin-bottom: ${token.space["component-gap"]}; }
+.crab-docs-category-content { padding-bottom: ${token.space["component-gap"]}; }
+.crab-docs-category-content > section > .crab-docs-nav-page { margin-bottom: ${token.space["component-gap"]}; }
 
 .crab-docs-navigation .crab-docs-section-toggle { justify-content: space-between; height: ${token.size[48]}; min-height: ${token.size[48]}; color: ${token.color.text.secondary}; }
 .crab-docs-nav-section { margin-top: ${token.space["component-gap"]}; }
 .crab-docs-nav-section + .crab-docs-nav-section { padding-top: ${token.space["component-gap"]}; border-top: 1px solid ${token.color.border.subtle}; }
-.crab-docs-section-chevron { display: block; width: ${globalToken.space[6]}; height: ${globalToken.space[6]}; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: inherit; transition: transform ${token.motion.interaction}; }
+.crab-docs-section-chevron { display: block; width: ${globalToken.space[6]}; height: ${globalToken.space[6]}; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: inherit; transition: transform ${token.motion.spatial.fast}; }
 .crab-docs-section-toggle[aria-expanded="true"] .crab-docs-section-chevron, .crab-docs-inline-toc[open] .crab-docs-section-chevron { transform: rotate(90deg); }
 .crab-docs-section-pages { display: grid; gap: 0; margin: 0; padding: 0; }
-.crab-docs-section-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows ${token.motion.fade}; }
+.crab-docs-section-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows ${token.motion.spatial.default}; }
 .crab-docs-section-collapse[data-expanded="true"] { grid-template-rows: 1fr; }
 .crab-docs-section-clip { min-height: 0; overflow: hidden; }
 .crab-docs-navigation .crab-docs-nav-page[aria-current="page"] { font-weight: ${token.font.weight.strong}; color: ${token.color.secondary["on-container"]}; background: ${token.color.secondary.container}; box-shadow: none; }
@@ -184,14 +188,16 @@ body { margin: 0; }
 .crab-docs-properties dd p { margin: ${token["space"]["component-gap"]} 0; }
 .crab-docs-dialog { min-width: 0 !important; width: min(40rem, calc(100vw - 2rem)); max-width: calc(100vw - 2rem); }
 .crab-docs-dialog > div { min-width: 0; max-width: 100%; }
-.crab-docs-search-dialog { --dialog-top: clamp(${globalToken.space[4]}, 8dvh, ${globalToken.space[20]}); --dialog-padding: ${token.space["dialog-padding"]}; --dialog-heading-margin-bottom: ${token.space["section-gap"]}; --dialog-footer-margin-top: ${token.space["section-gap"]}; width: min(42rem, calc(100vw - 2rem)); }
+.crab-docs-search-dialog { --dialog-root-top: clamp(${globalToken.space[4]}, 8dvh, ${globalToken.space[20]}); --dialog-root-padding: ${token.space["dialog-padding"]}; --dialog-heading-margin-bottom: ${token.space["section-gap"]}; --dialog-footer-margin-top: ${token.space["section-gap"]}; width: min(42rem, calc(100vw - 2rem)); }
 .crab-docs-search-dialog button { min-height: 2.75rem; }
 .crab-docs-search { display: flex; flex-direction: column; min-height: 0; height: min(30rem, calc(100dvh - 15rem)); }
-.crab-docs-mobile-drawer { width: 100vw; max-width: none; background: transparent; --drawer-background-color: ${token.color.background.elevated}; --drawer-close-size: ${token.size[48]}; --drawer-close-icon-size: ${globalToken.space[6]}; --token-semantic-color-border-default: ${token.color.border.subtle}; }
+.crab-docs-mobile-drawer { width: 100vw; max-width: none; background: transparent; --drawer-root-background-color: ${token.color.background.elevated}; --drawer-close-width: ${token.size[48]}; --drawer-close-icon-width: ${globalToken.space[6]}; --token-semantic-color-border-default: ${token.color.border.subtle}; }
 .crab-docs-search-field { flex: none; padding-inline: ${token.space["control-padding-x"]}; border: 1px solid ${token.color.border.default}; border-radius: ${token.radius.md}; background: var(--crab-docs-nav-hover); }
 .crab-docs-search-field:focus-within { border-color: transparent; outline: 2px solid ${token.color.focus.ring}; outline-offset: 1px; }
-/* The host provides the single focus ring for the borderless public LineEdit. */
+/* The host owns the single outline; LineEdit paints its ring on the root, not the input. */
+.crab-docs-search-field .crab-docs-search-input:has(input:focus-visible),
 .crab-docs-search-field input:focus-visible { outline: none; }
+@media (forced-colors: active) { .crab-docs-search-field:focus-within { outline-color: Highlight; } }
 .crab-docs-search-input { width: 100%; min-height: ${globalToken.space[12]}; font-size: ${token.font.size.subhead}; line-height: 1.5; }
 .crab-docs-search-icon { display: block; width: ${globalToken.space[5]}; height: ${globalToken.space[5]}; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; color: ${token.color.text.secondary}; }
 .crab-docs-search-field .crab-docs-search-clear { width: 2.75rem; height: 2.75rem; padding: 0; }
@@ -215,7 +221,7 @@ body { margin: 0; }
 .crab-docs-search-help { display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space["section-gap"]}; padding-top: ${token.space["stack-gap"]}; margin-top: ${token.space["component-gap"]}; border-top: 1px solid ${token.color.border.subtle}; color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; flex: none; }
 .crab-docs-search-help kbd { display: inline-flex; justify-content: center; min-width: ${globalToken.space[5]}; padding-inline: ${token.space["inline-gap"]}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.radius.sm}; font: inherit; line-height: 1.5; }
 @media (max-width: 1023px) {
-    .crab-docs-search-dialog { --dialog-padding: ${globalToken.space[4]}; }
+    .crab-docs-search-dialog { --dialog-root-padding: ${globalToken.space[4]}; }
     .crab-docs-search-help { gap: ${token.space["component-gap"]}; }
     .crab-docs-result-heading { flex-wrap: wrap; }
 }
@@ -269,7 +275,9 @@ body { margin: 0; }
     .crab-docs-theme-switch { width: ${token.size[48]}; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .crab-docs *, .crab-docs-dialog *, .crab-docs *::before, .crab-docs *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .crab-docs *, .crab-docs-dialog * { scroll-behavior: auto; }
+    .crab-docs-section-collapse, .crab-docs-section-chevron,
+    .crab-docs-outline-toggle svg { transition: none; }
 }
 @media (forced-colors: active) {
     /* System colors suppress box shadows; retain an explicit keyboard outline in previews too. */

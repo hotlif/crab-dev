@@ -20,6 +20,7 @@ title = "开发指南"
 pages = [
     "guides/getting-started",
     "guides/accessibility",
+    "guides/component-sizing",
     "guides/toolchain",
 ]
 

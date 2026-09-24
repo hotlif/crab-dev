@@ -35,4 +35,6 @@ status = "experimental"
 
 ## API
 
+`notification.open({ title, description, duration })` 返回 `{ id, close, update }`。可调用 `handle.close()` 或 `notification.close(handle.id)` 关闭指定通知；调用 update 修改内容或时长会保留 ID 并重新计时。duration=0 时持续展示。onClose 只执行一次，已经关闭的句柄不能重新打开通知。
+
 <API source="../src/notification.tsx" symbol="NotificationProps" component="Notification" />

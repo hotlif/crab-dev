@@ -1,6 +1,6 @@
 +++
 title = "Router 路由"
-description = "通过对象式路由表管理页面、嵌套布局和浏览器导航"
+description = "将地址与页面关联，管理页面跳转、嵌套路由与导航状态。"
 kind = "component"
 status = "experimental"
 +++
@@ -9,55 +9,14 @@ status = "experimental"
 
 import ComponentDemos from "../site/componentDemos.js";
 import { demos } from "../_generated/rc-router.js";
-import Tutorial from "../site/tutorial.js";
-import FirstExample from "../site/firstExample.js";
-import { tutorial } from "../_generated_tutorials/rc-router.js";
 
 # Router 路由
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-router</div>
 
-## 基础示例
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
-<FirstExample tutorial={tutorial} />
-
-## 开始之前
-
-已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。
-
-路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。
-
-## 跟着做
-
-<Tutorial tutorial={tutorial} />
-
-<div hidden aria-hidden="true" data-docs-search-index="tutorial">
-
-**匹配两个页面**
-
-用 routes 声明路径，并给示例提供隔离 window。 路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。 点击成员页链接。 内容切到成员页，文档站地址不变。
-
-**增加返回入口**
-
-为目标页面提供返回链接，形成完整导航回路。 路由匹配 URL 并渲染页面。本页用独立 iframe Window 与内存 History 代理隔离文档导航，不会修改文档地址或发送网络请求。 进入成员页，再返回概览。 两页可往返切换；真实应用可省略 window 使用主窗口。
-
-</div>
-
-## 常见问题
-
-### 生产页面也需要这些模拟代码吗？
-
-不需要。在应用入口使用 &lt;Router routes=&#123;routes&#125; /&gt;，移除 iframe、createDemoWindow 与 window 属性即可使用浏览器真实 History。这里的代理只隔离教程导航。
-
-
-## API
-
-<API source="../_generated_api/rc-router.ts" symbol="RouterProps" component="Router" />
-
-## 更多示例
-
-<details>
-<summary>展开进阶示例（1 个）</summary>
+## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
@@ -66,7 +25,6 @@ import { tutorial } from "../_generated_tutorials/rc-router.js";
 </div>
 
 <ComponentDemos demos={demos} />
-</details>
 
 [打开完整组件工作台](/components/rc-router/workbench/)
 
@@ -94,3 +52,30 @@ import { tutorial } from "../_generated_tutorials/rc-router.js";
 工作台示例先加载 `public/history-frame.html` 中的同源空白文档，再将其 Window 传入 Router。Wake 会把该静态资源复制到工作台；示例导航写入 iframe，初始条目禁用后退，避免超出示例历史。不要对 `about:blank` 直接改写 HTTP 路径，也不要用 `document.open` 代替真实文档加载：前者会被拒绝，后者在本次浏览器复测中造成后退重新加载与视图失步。业务页面通常直接使用当前 Window。
 
 示例在 URL 未指定 tab 时显示 overview。`useSearchParams` 的 defaultInit 提供初始默认值；主动设置参数后，缺失值仍应由业务明确处理，不能假定每次后退都会重新注入默认参数。
+
+### 适用场景
+
+应用有多个可直接访问的页面或嵌套路由。 浏览器前进后退、深链接和当前导航状态必须一致。
+
+组件内部的局部视图切换使用状态或 Tabs；不要为一个弹层创建难以理解的伪页面。
+
+### 使用要点
+
+- 路由表从具体到通用组织，并为未知地址提供明确兜底。
+- 导航使用链接语义，编程式跳转只用于提交后等业务结果。
+- 页面参数来自 URL 时需要解析、校验并处理缺失值。
+
+### 无障碍
+
+- 路由切换后更新页面标题，并把焦点或阅读起点移到新内容的合理位置。
+- 链接能用浏览器标准方式打开和复制，当前导航项使用 aria-current。
+
+## 常见问题
+
+### 生产页面也需要这些模拟代码吗？
+
+不需要。在应用入口使用 &lt;Router routes=&#123;routes&#125; /&gt;，移除 iframe、createDemoWindow 与 window 属性即可使用浏览器真实 History。这里的代理只隔离教程导航。
+
+## API
+
+<API source="../_generated_api/rc-router.ts" symbol="RouterProps" component="Router" />
