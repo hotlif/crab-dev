@@ -19,7 +19,7 @@ export interface TabsItem {
 
 export type TabsType = 'line' | 'card' | 'pill';
 
-export type TabsSize = 'small' | 'medium' | 'large';
+export type TabsSize = 'small' | 'middle' | 'medium' | 'large';
 
 export interface TabsBarExtraContent {
     left?: ReactNode;

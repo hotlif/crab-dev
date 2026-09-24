@@ -1,9 +1,11 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useId, useRef } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 
 import token from './token.js';
+import { useTabIndicator } from './useTabIndicator.js';
 import type {
     TabsBarExtraContent,
     TabsItem,
@@ -168,21 +170,22 @@ const indicatorLabelStyle = css`
     min-width: ${token.indicator['min-width']};
     align-self: stretch;
     position: relative;
-    &::after {
-        content: '';
-        position: absolute;
-        inset-inline: 0;
-        bottom: 0;
-        height: ${token.indicator.height};
-        border-radius: ${token.indicator['border-radius']} ${token.indicator['border-radius']} 0 0;
-        background: ${token.indicator.color};
-        pointer-events: none;
-        transform: scaleX(0);
-        transition: ${token.indicator.transition};
-    }
-    [aria-selected='true'] > &::after { transform: scaleX(1); }
-    @media (prefers-reduced-motion: reduce) { &::after { transition: none; } }
-    @media (forced-colors: active) { &::after { background: Highlight; } }
+`;
+
+const indicatorStyle = css`
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: ${token.indicator.height};
+    border-radius: ${token.indicator['border-radius']} ${token.indicator['border-radius']} 0 0;
+    background: ${token.indicator.color};
+    pointer-events: none;
+    transform-origin: left bottom;
+    opacity: 0;
+    transition: ${token.indicator.transition};
+    [aria-selected='true'] > span > & { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (forced-colors: active) { background: Highlight; }
 `;
 
 const closeButtonStyle = css`
@@ -280,7 +283,7 @@ const Tabs = ({
     activeKey: activeKeyProp,
     defaultActiveKey,
     type = 'line',
-    size = 'medium',
+    size: sizeProp,
     centered = false,
     destroyInactiveTabPane = false,
     tabBarExtraContent,
@@ -289,6 +292,8 @@ const Tabs = ({
     className,
     ...restProps
 }: TabsProps) => {
+    const configuredSize = useComponentSize(sizeProp);
+    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     const reactId = useId();
     const tabsIdPrefix = `rc-tabs-${reactId.replace(/:/g, '')}`;
     const getTabId = (index: number) => `${tabsIdPrefix}-tab-${index}`;
@@ -305,6 +310,7 @@ const Tabs = ({
         defaultValue: resolvedDefault,
         onChange,
     });
+    const registerIndicator = useTabIndicator(activeKey, type === 'line');
 
     // Mutable DOM registry for keyboard focus; it never participates in rendering.
     const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
@@ -431,7 +437,10 @@ const Tabs = ({
                                     onKeyDown={(event) => handleTabKeyDown(event, item, index)}
                                 >
                                     {item.icon != null ? <span aria-hidden="true">{item.icon}</span> : null}
-                                    <span className={type === 'line' ? indicatorLabelStyle : undefined}>{item.label}</span>
+                                    <span className={type === 'line' ? indicatorLabelStyle : undefined}>
+                                        {item.label}
+                                        {type === 'line' && <span ref={registerIndicator(item.key)} className={indicatorStyle} aria-hidden="true" />}
+                                    </span>
                                     {item.closable && !item.disabled ? (
                                         <span
                                             role="button"

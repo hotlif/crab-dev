@@ -1,6 +1,11 @@
 import type { Key, ReactNode } from "react";
 import type { BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 
+/** 独立应用使用 main；嵌入其他页面时使用有名称的 region。 */
+export type ContentLandmark =
+    | { role: "main"; "aria-label"?: string }
+    | { role: "region"; "aria-label": string };
+
 export interface HeaderUserEntity {
     /** 用户名 */
     name?: ReactNode

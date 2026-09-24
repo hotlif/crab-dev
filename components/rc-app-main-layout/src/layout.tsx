@@ -1,5 +1,5 @@
 import type { FC, HTMLAttributes, Key, ReactNode } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { cx, css } from "@crab-dev/css";
 import Drawer from "@crab-dev/rc-drawer";
 import token from "./token.js";
@@ -7,35 +7,37 @@ import Header from "./header.js";
 import Sidebar, { SidebarBody, type SidebarProps } from "./sidebar.js";
 import Content from "./content.js";
 import { useAppMainLayoutContext } from "./context.js";
-import type { HeaderUserEntity } from "./types.js";
+import type { ContentLandmark, HeaderUserEntity } from "./types.js";
 
 interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+    /** 内容区地标。默认 main；嵌入文档时用 region 并提供 aria-label。 */
+    contentLandmark?: ContentLandmark;
     /** 侧边栏顶部 Logo */
-    sidebarLogo?: ReactNode
+    sidebarLogo?: ReactNode;
     /** 侧边栏顶部标题 */
-    sidebarTitle?: ReactNode
+    sidebarTitle?: ReactNode;
     /** 点击 Logo */
-    onLogoClick?: () => void
+    onLogoClick?: () => void;
     /** 侧边栏菜单加载函数 */
-    sidebarLoadMenus?: SidebarProps["loadMenus"]
+    sidebarLoadMenus?: SidebarProps["loadMenus"];
     /** 点击侧边栏菜单项 */
-    onSidebarMenuItemClick?: SidebarProps["onMenuItemClick"]
+    onSidebarMenuItemClick?: SidebarProps["onMenuItemClick"];
     /** 远程加载顶部用户实体 */
-    headerLoadUser?: () => Promise<HeaderUserEntity>
+    headerLoadUser?: () => Promise<HeaderUserEntity>;
     /** 点击铃铛 */
-    onBell?: () => void
+    onBell?: () => void;
     /** 是否有未读通知 */
-    hasNotification?: boolean
+    hasNotification?: boolean;
     /** 点击用户区域 */
-    onUserClick?: () => void
+    onUserClick?: () => void;
     /** 点击切换角色 */
-    onSwitchRole?: () => void
+    onSwitchRole?: () => void;
     /** 点击退出登录 */
-    onLogout?: () => void
+    onLogout?: () => void;
     /** 是否显示全屏按钮，默认 true */
-    fullscreenable?: boolean
+    fullscreenable?: boolean;
     /** 全屏状态变化回调 */
-    onFullscreenChange?: (fullscreen: boolean) => void
+    onFullscreenChange?: (fullscreen: boolean) => void;
 }
 
 const layoutStyle = css`
@@ -74,6 +76,7 @@ const mobileNavDrawerStyle = css`
  */
 const Layout: FC<LayoutProps> = ({
     className,
+    contentLandmark,
     sidebarLogo,
     sidebarTitle,
     onLogoClick,
@@ -90,6 +93,7 @@ const Layout: FC<LayoutProps> = ({
     ...restProps
 }) => {
     const { state, dispatch } = useAppMainLayoutContext();
+    const tabIdPrefix = useId();
     const { tabs, activeKey, reloadVersions } = state;
     const resolvedActiveKey = activeKey ?? tabs[0]?.key;
     const activeTab = tabs.find((t) => t.key === resolvedActiveKey);
@@ -237,6 +241,7 @@ const Layout: FC<LayoutProps> = ({
                     onSwitchRole={onSwitchRole}
                     onLogout={onLogout}
                     tabs={tabs}
+                    tabIdPrefix={tabIdPrefix}
                     activeTabKey={resolvedActiveKey}
                     onTabChange={(key: Key) => dispatch({ type: "activate", key })}
                     onTabClose={(key: Key) => dispatch({ type: "close", key })}
@@ -249,8 +254,8 @@ const Layout: FC<LayoutProps> = ({
                     fullscreenActive={isFullscreen}
                     onFullscreenToggle={fullscreenable ? handleFullscreenToggle : undefined}
                 />
-                <Content>
-                    {tabs.map((tab) => {
+                <Content landmark={contentLandmark}>
+                    {tabs.map((tab, index) => {
                         const isActive = tab.key === resolvedActiveKey;
                         const version = reloadVersions.get(tab.key) ?? 0;
                         return (
@@ -258,6 +263,9 @@ const Layout: FC<LayoutProps> = ({
                                 key={`${String(tab.key)}::${version}`}
                                 className={paneStyle}
                                 role="tabpanel"
+                                id={`${tabIdPrefix}-panel-${index}`}
+                                aria-labelledby={`${tabIdPrefix}-tab-${index}`}
+                                tabIndex={0}
                                 aria-hidden={!isActive}
                                 hidden={!isActive}
                             >

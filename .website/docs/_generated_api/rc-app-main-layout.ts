@@ -7,6 +7,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type ContentLandmark = DocsTypePlaceholder;
 type HeaderUserEntity = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
@@ -14,29 +15,20 @@ type SidebarProps = DocsTypePlaceholder;
 
 export interface LayoutProps {
     /**
-     * 侧边栏顶部 Logo
+     * 内容区地标。默认 main；嵌入文档时用 region 并提供 aria-label。
      */
-    "sidebarLogo"?: ReactNode;
+    "contentLandmark"?: ContentLandmark;
 
     /**
-     * 侧边栏顶部标题
+     * 是否显示全屏按钮，默认 true
+     * @default true
      */
-    "sidebarTitle"?: ReactNode;
+    "fullscreenable"?: boolean;
 
     /**
-     * 点击 Logo
+     * 是否有未读通知
      */
-    "onLogoClick"?: () => void;
-
-    /**
-     * 侧边栏菜单加载函数
-     */
-    "sidebarLoadMenus"?: SidebarProps["loadMenus"];
-
-    /**
-     * 点击侧边栏菜单项
-     */
-    "onSidebarMenuItemClick"?: SidebarProps["onMenuItemClick"];
+    "hasNotification"?: boolean;
 
     /**
      * 远程加载顶部用户实体
@@ -49,19 +41,14 @@ export interface LayoutProps {
     "onBell"?: () => void;
 
     /**
-     * 是否有未读通知
+     * 全屏状态变化回调
      */
-    "hasNotification"?: boolean;
+    "onFullscreenChange"?: (fullscreen: boolean) => void;
 
     /**
-     * 点击用户区域
+     * 点击 Logo
      */
-    "onUserClick"?: () => void;
-
-    /**
-     * 点击切换角色
-     */
-    "onSwitchRole"?: () => void;
+    "onLogoClick"?: () => void;
 
     /**
      * 点击退出登录
@@ -69,12 +56,32 @@ export interface LayoutProps {
     "onLogout"?: () => void;
 
     /**
-     * 是否显示全屏按钮，默认 true
+     * 点击侧边栏菜单项
      */
-    "fullscreenable"?: boolean;
+    "onSidebarMenuItemClick"?: SidebarProps["onMenuItemClick"];
 
     /**
-     * 全屏状态变化回调
+     * 点击切换角色
      */
-    "onFullscreenChange"?: (fullscreen: boolean) => void;
+    "onSwitchRole"?: () => void;
+
+    /**
+     * 点击用户区域
+     */
+    "onUserClick"?: () => void;
+
+    /**
+     * 侧边栏菜单加载函数
+     */
+    "sidebarLoadMenus"?: SidebarProps["loadMenus"];
+
+    /**
+     * 侧边栏顶部 Logo
+     */
+    "sidebarLogo"?: ReactNode;
+
+    /**
+     * 侧边栏顶部标题
+     */
+    "sidebarTitle"?: ReactNode;
 }

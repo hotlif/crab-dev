@@ -1,6 +1,8 @@
-import type { FC, Key, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
-import { useCallback, useRef, useState } from "react";
+import type { FC, Key, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
+import { useEffectEvent, useId, useLayoutEffect, useRef, useState } from "react";
 import { css, cx } from "@crab-dev/css";
+import { useMediaQuery } from "@crab-dev/rc-hooks";
+import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import token from "./token.js";
 import {
     CloseAllIcon,
@@ -15,6 +17,10 @@ import TabContextMenu, { type TabContextMenuItem } from "./tabContextMenu.js";
 export type { TabItem };
 
 export interface TabBarProps {
+    /** 与布局内容面板共享的 useId 前缀 */
+    idPrefix?: string
+    /** 最后一个标签关闭后的焦点目标 */
+    onEmpty?: () => void
     /** 标签列表 */
     items: TabItem[]
     /** 当前激活的标签 key */
@@ -40,121 +46,127 @@ const barStyle = css`
     align-items: flex-end;
     flex: 1;
     min-width: 0;
-    overflow: hidden;
-    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    padding-inline: ${token.tab.item.curve.width};
+    isolation: isolate;
+    &::-webkit-scrollbar { display: none; }
 `;
 
-/**
- * Chrome 风格标签项 —— 关键技巧：
- *  1. 标签之间紧贴，使用 ::before / ::after 伪元素绘制位于"标签外侧底部"的两个小方块；
- *  2. 这两个小方块用 radial-gradient 把朝向标签中心的圆形区域抠成透明，剩下的 L 形看起来就是
- *     "标签底角向外凹陷"的曲面，与 Chrome 经典的双弯标签视觉一致；
- *  3. 仅 active 状态显示这两个伪曲面，让选中标签像浮起并融入下方内容区。
- */
+// Preserve the original browser-tab silhouette; the active surface joins the toolbar below.
 const tabItemStyle = css`
     display: inline-flex;
     align-items: center;
     height: ${token.tab.item.height};
     min-width: ${token.tab.item['min-width']};
     max-width: ${token.tab.item['max-width']};
+    flex: 0 1 ${token.tab.item['max-width']};
     padding: ${token.tab.item.padding};
     gap: ${token.tab.item.gap};
-    font-size: ${token.tab["font-size"]};
-    color: ${token.tab.item.color};
-    border-radius: ${token.tab.item["border-radius"]} ${token.tab.item["border-radius"]} 0 0;
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-    flex-shrink: 1;
-    flex-basis: ${token.tab.item['max-width']};
-    transition: color 120ms ease, background-color 120ms ease;
     position: relative;
     box-sizing: border-box;
-    margin: 0;
-
-    &:hover {
-        background-color: ${token.tab.item['background-color-hover']};
-    }
-
-    &:hover > .tab-close-btn {
-        opacity: 1;
-    }
-
-    /* 标签之间的细竖分隔线（Chrome 经典样式） */
-    &:not(:last-child)::after {
+    border-radius: ${token.tab.item['border-radius']} ${token.tab.item['border-radius']} 0 0;
+    background: transparent;
+    transition: background-color ${token.motion.interaction.transition};
+    &:hover { background-color: ${token.tab.item['background-color-hover']}; }
+    &::after {
         content: '';
         position: absolute;
-        right: -0.5px;
+        inset-inline-end: 0;
         top: 25%;
         height: 50%;
-        width: 1px;
-        background-color: ${token.tab.item.separator["background-color"]};
+        width: ${token.tab.item.separator.width};
+        background: ${token.tab.item.separator['background-color']};
         pointer-events: none;
     }
+    &:last-child::after, &:hover::after, &:has(+ [data-active])::after { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (pointer: coarse) { height: ${token.tab.item.touch.height}; }
 `;
 
 const tabItemActiveStyle = css`
-    color: ${token.tab.item['color-active']};
-    background-color: ${token.tab.item["background-color"]};
-    font-weight: 500;
+    &, &:hover { background-color: ${token.tab.item['background-color']}; }
     z-index: 2;
-
-    &:hover {
-        background-color: ${token.tab.item["background-color"]};
-    }
-
-    & > .tab-close-btn {
-        opacity: 1;
-    }
-
-    /* active 标签自身右侧不显示分隔线 */
-    &::after {
-        display: none;
-    }
-
-    /* 左下角向外凹陷的曲面 */
-    &::before {
+    &::after { opacity: 0; }
+    &::before, & > .tab-active-right-curve {
         content: '';
         position: absolute;
         bottom: 0;
-        left: calc(-1 * ${token.tab.item.curve.width});
         width: ${token.tab.item.curve.width};
         height: ${token.tab.item.curve.width};
-        background: radial-gradient(
-            circle at 0 0,
-            transparent ${token.tab.item.curve.width},
-            ${token.tab.item["background-color"]} calc(${token.tab.item.curve.width} + 0.5px)
-        );
         pointer-events: none;
     }
+    &::before {
+        left: calc(-1 * ${token.tab.item.curve.width});
+        background: radial-gradient(circle at 0 0,
+            transparent ${token.tab.item.curve.width},
+            ${token.tab.item['background-color']} calc(${token.tab.item.curve.width} + 0.5px));
+    }
+    & > .tab-active-right-curve {
+        right: calc(-1 * ${token.tab.item.curve.width});
+        background: radial-gradient(circle at 100% 0,
+            transparent ${token.tab.item.curve.width},
+            ${token.tab.item['background-color']} calc(${token.tab.item.curve.width} + 0.5px));
+    }
+    @media (forced-colors: active) { outline: ${token.tab.item['outline-width-focus']} solid Highlight; outline-offset: ${token.tab.item['outline-offset-focus']}; }
 `;
 
-/* 右下角向外凹陷曲面（独立类，附加到 active 标签上以避免与 ::after 分隔线冲突） */
-const tabItemActiveRightCurveStyle = css`
-    position: relative;
-
-    & > .tab-active-right-curve {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: calc(-1 * ${token.tab.item.curve.width});
-        width: ${token.tab.item.curve.width};
-        height: ${token.tab.item.curve.width};
-        background: radial-gradient(
-            circle at 100% 0,
-            transparent ${token.tab.item.curve.width},
-            ${token.tab.item["background-color"]} calc(${token.tab.item.curve.width} + 0.5px)
-        );
-        pointer-events: none;
+const tabButtonStyle = css`
+    && {
+        ${buttonVars['root.border-radius-active']}: 0;
+        ${buttonVars['text.background-color-hover']}: transparent;
+        ${buttonVars['text.background-color-focus']}: transparent;
+        ${buttonVars['text.background-color-active']}: transparent;
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 100%;
+        padding: 0;
+        gap: ${token.tab.item.gap};
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: ${token.tab.item.color};
+        font-family: ${token.tab['font-family']};
+        font-size: ${token.tab['font-size']};
+        font-weight: ${token.tab['font-weight']};
+        line-height: ${token.tab['line-height']};
+        text-align: start;
+        transition: color ${token.motion.interaction.transition};
+        touch-action: pan-x pan-y;
+        justify-content: flex-start;
+        &[aria-selected='true'] {
+            color: ${token.tab.item['color-active']};
+            font-weight: ${token.tab['font-weight-active']};
+        }
+        &:focus-visible {
+            outline: ${token.tab.item['outline-width-focus']} solid ${token.tab.item['outline-color-focus']};
+            outline-offset: ${token.tab.item['outline-offset-focus']};
+        }
+        & > span:not([aria-hidden]) {
+            display: flex;
+            align-self: stretch;
+            min-width: 0;
+            width: 100%;
+        }
+        @media (prefers-reduced-motion: reduce) { transition: none; }
     }
 `;
 
 const tabLabelStyle = css`
+    display: flex;
+    align-items: center;
+    gap: ${token.tab.item.gap};
+    min-width: 0;
+    width: 100%;
+`;
+
+const titleStyle = css`
     flex: 1;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    mask-image: linear-gradient(to right, currentColor 0, currentColor calc(100% - 12px), transparent 100%);
+    white-space: nowrap;
 `;
 
 const tabItemDraggingStyle = css`
@@ -162,26 +174,20 @@ const tabItemDraggingStyle = css`
     transition: none !important;
     cursor: grabbing;
     box-shadow: ${token.tab.item["box-shadow-dragging"]};
-
-    &::after {
-        display: none !important;
-    }
 `;
 
 /** 释放后被拖标签的平滑回位：从当前光标位置丝滑到已让出的槽位中心 */
 const tabItemSnappingStyle = css`
     z-index: 10;
-    transition: transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 220ms ease;
+    transition: transform ${token.tab.item.motion.reorder.transition}, box-shadow ${token.motion.interaction.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     box-shadow: ${token.tab.item["box-shadow-snapping"]};
-
-    &::after {
-        display: none !important;
-    }
 `;
 
 /** 其他标签让位时的过渡：足够快以跟手，但保持平滑 */
 const tabItemShiftableStyle = css`
-    transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
+    transition: transform ${token.tab.item.motion.reorder.transition}, background-color ${token.motion.interaction.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     will-change: transform;
 `;
 
@@ -200,30 +206,41 @@ const iconStyle = css`
 `;
 
 const closeBtnStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: ${token.tab.item.close.width};
-    height: ${token.tab.item.close.width};
-    border-radius: 50%;
-    color: ${token.tab.item.close.color};
-    flex-shrink: 0;
-    opacity: 0;
-    margin-right: -4px;
-    transition: opacity 120ms ease, color 120ms ease, background-color 120ms ease;
-
-    &:hover {
-        color: ${token.tab.item.close['color-hover']};
-        background-color: ${token.tab.item.close['background-color-hover']};
-    }
-
-    & > svg {
-        width: 10px;
-        height: 10px;
+    && {
+        ${buttonVars['root.border-radius-active']}: ${token.tab.item.close['border-radius']};
+        ${buttonVars['text.background-color-hover']}: ${token.tab.item.close['background-color-hover']};
+        ${buttonVars['text.background-color-focus']}: ${token.tab.item.close['background-color-hover']};
+        ${buttonVars['text.background-color-active']}: ${token.tab.item.close['background-color-hover']};
+        flex: 0 0 auto;
+        width: ${token.tab.item.close.width};
+        height: ${token.tab.item.close.width};
+        color: ${token.tab.item.close.color};
+        border-radius: ${token.tab.item.close['border-radius']};
+        padding: 0;
+        &:hover { color: ${token.tab.item.close['color-hover']}; }
+        &:focus-visible { outline-offset: ${token.tab.item['outline-offset-focus']}; }
+        & > span:first-child {
+            inset: auto;
+            top: 50%;
+            left: 50%;
+            width: ${token.tab.item.close.touch.width};
+            height: ${token.tab.item.close.touch.width};
+            transform: translate(-50%, -50%);
+        }
+        @media (pointer: coarse) {
+            width: ${token.tab.item.close.touch.width};
+            height: ${token.tab.item.close.touch.width};
+        }
+        & svg {
+            width: ${token.tab.item.close.icon.width};
+            height: ${token.tab.item.close.icon.width};
+        }
     }
 `;
 
 const TabBar: FC<TabBarProps> = ({
+    idPrefix,
+    onEmpty,
     items,
     activeKey,
     onChange,
@@ -234,9 +251,75 @@ const TabBar: FC<TabBarProps> = ({
     onReload,
     onReorder,
 }) => {
+    const fallbackId = useId();
+    const prefix = idPrefix ?? fallbackId;
+    const selectedKey = activeKey ?? items[0]?.key;
     const draggable = !!onReorder;
+    const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+    // Mutable DOM measurements, pointer sessions and animation handles never drive rendering directly.
     const tabRefMap = useRef(new Map<Key, HTMLDivElement>());
-    /** Drag 过程全部状态存在 ref 以避免重染染被 pointermove 频繁触发 */
+    const barRef = useRef<HTMLDivElement>(null);
+    // A close request can complete in a later controlled render; retain its focus intent.
+    const closing = useRef<{ key: Key; index: number } | null>(null);
+    const revealSelected = useEffectEvent(() => {
+        const bar = barRef.current;
+        const element = selectedKey === undefined ? undefined : tabRefMap.current.get(selectedKey);
+        if (!bar || !element || typeof bar.scrollBy !== 'function') return;
+        const bounds = bar.getBoundingClientRect();
+        const tab = element.getBoundingClientRect();
+        const delta = tab.left < bounds.left ? tab.left - bounds.left : tab.right > bounds.right ? tab.right - bounds.right : 0;
+        if (delta) bar.scrollBy({ left: delta, behavior: 'instant' });
+    });
+    useLayoutEffect(() => {
+        revealSelected();
+        const pending = closing.current;
+        if (!pending || items.some(item => item.key === pending.key)) return;
+        closing.current = null;
+        const next = items.find(item => item.key === selectedKey) ?? items[Math.min(pending.index, items.length - 1)];
+        if (next) tabRefMap.current.get(next.key)?.querySelector<HTMLButtonElement>('[role="tab"]')?.focus({ preventScroll: true });
+        else onEmpty?.();
+    }, [items, selectedKey, onEmpty]);
+    useLayoutEffect(() => {
+        if (!barRef.current || typeof ResizeObserver === 'undefined') return;
+        const observer = new ResizeObserver(() => revealSelected());
+        observer.observe(barRef.current);
+        return () => observer.disconnect();
+    }, []);
+    const requestClose = (key: Key) => {
+        const index = items.findIndex(item => item.key === key);
+        if (!onClose || index < 0 || items[index].closable === false) return;
+        closing.current = { key, index };
+        onClose(key);
+    };
+    const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>, index: number) => {
+        const item = items[index];
+        if (event.key === 'Delete') {
+            event.preventDefault();
+            requestClose(item.key);
+            return;
+        }
+        if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
+            if (!contextMenuEnabled) return;
+            event.preventDefault();
+            const rect = event.currentTarget.getBoundingClientRect();
+            setMenuState({ key: item.key, x: rect.left, y: rect.bottom, open: true });
+            return;
+        }
+        const direction = getComputedStyle(event.currentTarget).direction === 'rtl' ? -1 : 1;
+        let nextIndex: number;
+        switch (event.key) {
+            case 'ArrowRight': nextIndex = index + direction; break;
+            case 'ArrowLeft': nextIndex = index - direction; break;
+            case 'Home': nextIndex = 0; break;
+            case 'End': nextIndex = items.length - 1; break;
+            default: return;
+        }
+        event.preventDefault();
+        const next = items[Math.max(0, Math.min(items.length - 1, nextIndex))];
+        onChange?.(next.key);
+        tabRefMap.current.get(next.key)?.querySelector<HTMLButtonElement>('[role="tab"]')?.focus({ preventScroll: true });
+    };
+    /** Pointer session measurements persist between events without render-time ref reads. */
     const dragRef = useRef<{
         key: Key
         originIndex: number
@@ -245,27 +328,92 @@ const TabBar: FC<TabBarProps> = ({
         movedDistance: number
         currentIndex: number
         pointerId: number
+        direction: number
     } | null>(null);
     /** 被拖动的 tab key 与其平移量；snapping 为 true 表示处于释放后的回位动画阶段 */
-    const [dragView, setDragView] = useState<{ key: Key, offsetX: number, originIndex: number, currentIndex: number, snapping: boolean } | null>(null);
+    const [dragView, setDragView] = useState<{ key: Key, offsetX: number, originIndex: number, currentIndex: number, width: number, direction: number, snapping: boolean } | null>(null);
     /** 拖动后需抑制后续 click（避免拖动结束时误触 onChange）*/
     const justDraggedRef = useRef(false);
-    /** 提交 reorder 后的一帧内禁用所有过渡，避免数组重排导致的布局跳跳位动画 */
-    const [suppressTransition, setSuppressTransition] = useState(false);
-    /** 回位动画定时器句柄 */
-    const snapTimerRef = useRef<number | null>(null);
+    const motions = useRef(new Map<Key, { offset: number; duration: number; animation: Animation }>());
 
-    const setTabRef = useCallback((key: Key) => (el: HTMLDivElement | null) => {
-        if (el) tabRefMap.current.set(key, el);
-        else tabRefMap.current.delete(key);
+    const completeReorder = useEffectEvent(() => {
+        if (!dragView?.snapping) return;
+        const { key, originIndex, currentIndex } = dragView;
+        setDragView(null);
+        if (currentIndex !== originIndex && items[originIndex]?.key === key && currentIndex < items.length) {
+            const next = items.slice();
+            const [moved] = next.splice(originIndex, 1);
+            next.splice(currentIndex, 0, moved);
+            onReorder?.(next.map(item => item.key));
+        }
+    });
+
+    useLayoutEffect(() => {
+        if (!dragView) {
+            motions.current.forEach(motion => motion.animation.cancel());
+            motions.current.clear();
+            return;
+        }
+        if (items[dragView.originIndex]?.key !== dragView.key) {
+            dragRef.current = null;
+            setDragView(null);
+            return;
+        }
+        for (const [key, motion] of motions.current) {
+            if (!tabRefMap.current.has(key)) {
+                motion.animation.cancel();
+                motions.current.delete(key);
+            }
+        }
+        let cancelled = false;
+        for (const [key, element] of tabRefMap.current) {
+            const offset = Number(element.dataset.dragOffset ?? 0);
+            const previous = motions.current.get(key);
+            if (previous?.offset === offset && (!reducedMotion || previous.duration === 0)) continue;
+            if (!previous && offset === 0) continue;
+            if (typeof element.animate !== 'function') continue;
+            const style = getComputedStyle(element);
+            const from = style.transform || 'none';
+            const time = style.transitionDuration.split(',')[0].trim();
+            const resolvedDuration = Number.parseFloat(time) * (time.endsWith('ms') ? 1 : 1000);
+            // The dragged tab follows the pointer directly; only reflow and release use spatial motion.
+            const duration = reducedMotion || (key === dragView.key && !dragView.snapping)
+                ? 0 : (Number.isFinite(resolvedDuration) ? resolvedDuration : 0);
+            const easing = style.transitionTimingFunction.match(/^[^(,]+(?:\([^)]*\))?/)?.[0] ?? 'linear';
+            previous?.animation.cancel();
+            const animation = element.animate([{ transform: from }, { transform: `translateX(${offset}px)` }], {
+                duration, easing, fill: 'both',
+            });
+            motions.current.set(key, { offset, duration, animation });
+        }
+        if (dragView.snapping) {
+            const pending = [...motions.current.values()].filter(motion => motion.duration > 0 && motion.animation.playState !== 'finished');
+            if (pending.length === 0) completeReorder();
+            else void Promise.allSettled(pending.map(motion => motion.animation.finished)).then(() => {
+                if (!cancelled) completeReorder();
+            });
+        }
+        return () => { cancelled = true; };
+    }, [dragView, items, reducedMotion]);
+
+    useLayoutEffect(() => () => {
+        motions.current.forEach(motion => motion.animation.cancel());
+        motions.current.clear();
     }, []);
 
-    const handlePointerDown = useCallback((e: ReactPointerEvent<HTMLDivElement>, key: Key, index: number) => {
-        if (!draggable) return;
-        if (e.button !== 0) return;
+    const setTabRef = (key: Key) => (element: HTMLDivElement | null) => {
+        if (!element) return;
+        tabRefMap.current.set(key, element);
+        return () => { tabRefMap.current.delete(key); };
+    };
+
+    const handlePointerDown = (e: ReactPointerEvent<HTMLDivElement>, key: Key, index: number) => {
+        if (!draggable || dragView?.snapping) return;
+        if (e.button !== 0 || e.pointerType === 'touch') return;
         // 不拦截关闭按钮上的点击
         if ((e.target as HTMLElement).closest('.tab-close-btn')) return;
 
+        justDraggedRef.current = false;
         const widths = items.map(it => tabRefMap.current.get(it.key)?.offsetWidth ?? 0);
         dragRef.current = {
             key,
@@ -275,14 +423,16 @@ const TabBar: FC<TabBarProps> = ({
             movedDistance: 0,
             currentIndex: index,
             pointerId: e.pointerId,
+            direction: getComputedStyle(e.currentTarget).direction === 'rtl' ? -1 : 1,
         };
         try { e.currentTarget.setPointerCapture(e.pointerId); } catch { /* noop */ }
-    }, [draggable, items]);
+    };
 
-    const handlePointerMove = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
+    const handlePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
         const drag = dragRef.current;
         if (!drag) return;
-        const delta = e.clientX - drag.startX;
+        const physicalDelta = e.clientX - drag.startX;
+        const delta = physicalDelta * drag.direction;
         drag.movedDistance = Math.max(drag.movedDistance, Math.abs(delta));
 
         // 低于阈值不进入拖动状态，保留点击语义
@@ -315,16 +465,13 @@ const TabBar: FC<TabBarProps> = ({
             }
         }
         drag.currentIndex = target;
-        setDragView({ key: drag.key, offsetX: delta, originIndex, currentIndex: target, snapping: false });
-    }, []);
+        setDragView({ key: drag.key, offsetX: physicalDelta, originIndex, currentIndex: target, width: widths[originIndex], direction: drag.direction, snapping: false });
+    };
 
-    const finishDrag = useCallback(() => {
+    const finishDrag = () => {
         const drag = dragRef.current;
         dragRef.current = null;
-        if (!drag) {
-            setDragView(null);
-            return;
-        }
+        if (!drag) return;
         if (drag.movedDistance < 4) {
             setDragView(null);
             return;
@@ -340,45 +487,30 @@ const TabBar: FC<TabBarProps> = ({
             for (let i = currentIndex; i < originIndex; i++) snapOffset -= widths[i];
         }
 
-        // 进入 snapping 阶段：被拖标签启用 transition 平滑走到 snapOffset，其他标签位置不变
-        setDragView({ key, offsetX: snapOffset, originIndex, currentIndex, snapping: true });
+        // Release into the final slot; the layout effect waits for the actual animations.
+        setDragView({ key, offsetX: snapOffset * drag.direction, originIndex, currentIndex, width: widths[originIndex], direction: drag.direction, snapping: true });
+    };
 
-        if (snapTimerRef.current !== null) window.clearTimeout(snapTimerRef.current);
-        snapTimerRef.current = window.setTimeout(() => {
-            snapTimerRef.current = null;
-            justDraggedRef.current = false;
-            // 动画结束后提交重排：DOM 布局会跳变，临时关闭过渡以避免闪烁
-            setSuppressTransition(true);
-            setDragView(null);
-            if (currentIndex !== originIndex) {
-                const next = items.slice();
-                const [moved] = next.splice(originIndex, 1);
-                next.splice(currentIndex, 0, moved);
-                onReorder?.(next.map(it => it.key));
-            }
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => setSuppressTransition(false));
-            });
-        }, 220);
-    }, [items, onReorder]);
-
-    const handlePointerUp = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
+    const handlePointerUp = (e: ReactPointerEvent<HTMLDivElement>) => {
+        if (dragRef.current?.pointerId !== e.pointerId) return;
         try { e.currentTarget.releasePointerCapture(e.pointerId); } catch { /* noop */ }
         finishDrag();
-    }, [finishDrag]);
+    };
 
-    const handlePointerCancel = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
+    const handlePointerCancel = (e: ReactPointerEvent<HTMLDivElement>) => {
+        if (dragRef.current?.pointerId !== e.pointerId) return;
         try { e.currentTarget.releasePointerCapture(e.pointerId); } catch { /* noop */ }
-        finishDrag();
-    }, [finishDrag]);
+        dragRef.current = null;
+        justDraggedRef.current = false;
+        setDragView(null);
+    };
 
     /** 计算任意 tab 在拖动中应该应用的水平偏移（让出位置）*/
     const getShiftX = (index: number): number => {
         if (!dragView) return 0;
         const { originIndex, currentIndex } = dragView;
         if (index === originIndex) return 0;
-        // snapping 阶段不从 dragRef 读（已被清），改用实时宽度
-        const draggedWidth = tabRefMap.current.get(dragView.key)?.offsetWidth ?? 0;
+        const draggedWidth = dragView.width * dragView.direction;
         if (currentIndex > originIndex && index > originIndex && index <= currentIndex) {
             return -draggedWidth;
         }
@@ -390,16 +522,17 @@ const TabBar: FC<TabBarProps> = ({
 
     /** 右键菜单状态：仅当任一回调被传入时才启用 */
     const contextMenuEnabled = !!(onReload || onClose || onCloseOthers || onCloseRight || onCloseAll);
-    const [menuState, setMenuState] = useState<{ x: number, y: number, key: Key } | null>(null);
-    const closeMenu = useCallback(() => setMenuState(null), []);
+    const [menuState, setMenuState] = useState<{ x: number, y: number, key: Key, open: boolean } | null>(null);
+    const closeMenu = () => setMenuState(current => current ? { ...current, open: false } : null);
+    const finishMenuExit = () => setMenuState(current => current?.open ? current : null);
 
-    const handleContextMenu = useCallback((e: ReactMouseEvent<HTMLDivElement>, key: Key) => {
+    const handleContextMenu = (e: ReactMouseEvent<HTMLDivElement>, key: Key) => {
         if (!contextMenuEnabled) return;
         e.preventDefault();
         // 拖动结束的瞬间忽略右键菜单
         if (justDraggedRef.current) return;
-        setMenuState({ x: e.clientX, y: e.clientY, key });
-    }, [contextMenuEnabled]);
+        setMenuState({ x: e.clientX, y: e.clientY, key, open: true });
+    };
 
     const buildMenuItems = (key: Key): TabContextMenuItem[] => {
         const target = items.find((it) => it.key === key);
@@ -431,7 +564,7 @@ const TabBar: FC<TabBarProps> = ({
                 label: "关闭",
                 icon: <CloseIcon />,
                 disabled: !targetClosable,
-                onSelect: () => onClose(key),
+                onSelect: () => requestClose(key),
             });
         }
         if (onCloseOthers) {
@@ -458,43 +591,40 @@ const TabBar: FC<TabBarProps> = ({
                 label: "关闭所有",
                 icon: <CloseAllIcon />,
                 disabled: !anyClosable,
-                onSelect: () => onCloseAll(),
+                onSelect: () => {
+                    closing.current = { key, index: targetIndex };
+                    onCloseAll();
+                },
             });
         }
         return result;
     };
 
     return (
-        <div className={barStyle} role="tablist">
+        <div ref={barRef} className={barStyle} role="tablist" aria-label="已打开的页面" aria-orientation="horizontal">
             {items.map((item, index) => {
-                const isActive = item.key === activeKey;
-                const closable = item.closable !== false;
+                const isActive = item.key === selectedKey;
+                const closable = item.closable !== false && !!onClose;
                 const isDragging = dragView?.key === item.key;
                 const isSnapping = isDragging && dragView!.snapping;
                 const isLifted = isDragging && !dragView!.snapping;
                 const shiftX = getShiftX(index);
-                const transform = isDragging
-                    ? `translateX(${dragView!.offsetX}px)`
-                    : (shiftX !== 0 ? `translateX(${shiftX}px)` : undefined);
+                const offset = isDragging ? dragView!.offsetX : shiftX;
                 return (
                     <div
                         key={item.key}
                         ref={setTabRef(item.key)}
-                        role="tab"
-                        aria-selected={isActive}
+                        role="presentation"
+                        data-active={isActive ? '' : undefined}
                         className={cx.call(undefined, tabItemStyle,
                             isActive && tabItemActiveStyle,
-                            isActive && tabItemActiveRightCurveStyle,
-                            draggable && tabItemShiftableStyle,
+                            draggable && !isLifted && !isSnapping && tabItemShiftableStyle,
                             isLifted && tabItemDraggingStyle,
                             isSnapping && tabItemSnappingStyle
                         )}
-                        style={{
-                            ...(transform ? { transform } : null),
-                            ...(suppressTransition ? { transition: "none" } : null),
-                        }}
+                        data-drag-offset={offset}
                         onClick={() => {
-                            if (justDraggedRef.current) return;
+                            if (justDraggedRef.current) { justDraggedRef.current = false; return; }
                             onChange?.(item.key);
                         }}
                         onPointerDown={(e) => handlePointerDown(e, item.key, index)}
@@ -503,30 +633,47 @@ const TabBar: FC<TabBarProps> = ({
                         onPointerCancel={handlePointerCancel}
                         onContextMenu={(e) => handleContextMenu(e, item.key)}
                     >
-                        {item.icon ? (
-                            <span className={iconStyle}>{item.icon}</span>
-                        ) : null}
-                        <span className={tabLabelStyle}>{item.title}</span>
+                        <Button
+                            type="button"
+                            appearance="text"
+                            className={tabButtonStyle}
+                            id={`${prefix}-tab-${index}`}
+                            role="tab"
+                            aria-selected={isActive}
+                            aria-controls={idPrefix ? `${prefix}-panel-${index}` : undefined}
+                            tabIndex={isActive ? 0 : -1}
+                            onKeyDown={(event) => handleKeyDown(event, index)}
+                        >
+                            <span className={tabLabelStyle}>
+                                {item.icon ? <span className={iconStyle} aria-hidden="true">{item.icon}</span> : null}
+                                <span id={`${prefix}-label-${index}`} className={titleStyle}>{item.title}</span>
+                            </span>
+                        </Button>
                         {closable ? (
-                            <span
+                            <Button
+                                type="button"
+                                appearance="text"
+                                shape="circle"
+                                icon={<CloseIcon />}
                                 className={cx.call(undefined, closeBtnStyle, 'tab-close-btn')}
+                                tabIndex={isActive ? 0 : -1}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    onClose?.(item.key);
+                                    requestClose(item.key);
                                 }}
                                 onPointerDown={(e) => e.stopPropagation()}
-                                role="button"
-                                aria-label="Close tab"
-                            >
-                                <CloseIcon />
-                            </span>
+                                aria-label="关闭标签页"
+                                aria-describedby={`${prefix}-label-${index}`}
+                            />
                         ) : null}
-                        {isActive ? <span className="tab-active-right-curve" aria-hidden /> : null}
+                        {isActive ? <span className="tab-active-right-curve" aria-hidden="true" /> : null}
                     </div>
                 );
             })}
             {menuState ? (
                 <TabContextMenu
+                    open={menuState.open}
+                    onExitComplete={finishMenuExit}
                     x={menuState.x}
                     y={menuState.y}
                     items={buildMenuItems(menuState.key)}

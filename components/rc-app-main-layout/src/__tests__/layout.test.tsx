@@ -1,9 +1,22 @@
-import { beforeAll, describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import AppMainLayoutProvider from "../context.js";
 import useAppMainLayoutTabs, { type UseAppMainLayoutTabsResult } from "../useTabs.js";
 import type { HeaderUserEntity, TabItem } from "../types.js";
 import type { MenuItem } from "@crab-dev/rc-menu";
 
+mock.module('@floating-ui/react', async () => {
+    const floating = await mock.actual<typeof import('@floating-ui/react')>('@floating-ui/react');
+    return {
+        ...floating,
+        // The DOM runner has no layout engine. Preserve the real menu events and
+        // replace only positioning; alignment and viewport edges are checked in-browser.
+        useFloating: () => ({
+            refs: { setReference: mock.fn(), setFloating: mock.fn() },
+            floatingStyles: {},
+        }),
+    };
+});
 
 let Layout: (typeof import("../layout.js"))["default"];
 let MenuItemType: (typeof import("@crab-dev/rc-menu"))["MenuItemType"];
@@ -30,6 +43,40 @@ function restoreDescriptor(target: object, key: string, descriptor?: PropertyDes
     delete (target as Record<string, unknown>)[key];
 }
 describe("Layout", () => {
+    it("connects named panels to unique tabs and restores focus when all tabs close", async () => {
+        const tabs: TabItem[] = [{ key: "home", title: "概览", children: <p>内容</p> }];
+        await render(<>
+            <AppMainLayoutProvider initialTabs={tabs}><Layout /></AppMainLayoutProvider>
+            <AppMainLayoutProvider initialTabs={tabs}><Layout /></AppMainLayoutProvider>
+        </>);
+        const buttons = screen.getAllByRole('tab', { name: '概览' });
+        const panels = screen.getAllByRole('tabpanel', { name: '概览' });
+        expect(buttons[0].id).not.toBe(buttons[1].id);
+        buttons.forEach((button, index) => {
+            expect(button.getAttribute('aria-controls')).toBe(panels[index].id);
+            expect(panels[index].getAttribute('aria-labelledby')).toBe(button.id);
+        });
+        const menu = screen.getAllByRole('button', { name: 'Toggle sidebar' })[0];
+        await fireEvent.click(screen.getAllByRole('button', { name: '关闭标签页' })[0]);
+        expect(document.activeElement).toBe(menu);
+        expect(screen.getAllByRole('tab').length).toBe(1);
+        const remainingMenu = screen.getAllByRole('button', { name: 'Toggle sidebar' })[1];
+        await fireEvent.keyDown(screen.getByRole('tab'), { key: 'F10', shiftKey: true });
+        await fireEvent.click(screen.getByRole('menuitem', { name: '关闭所有' }));
+        expect(screen.queryByRole('tab')).toBeNull();
+        expect(document.activeElement).toBe(remainingMenu);
+    });
+    it("keeps the default main and uses a named region when embedded", async () => {
+        const tabs: TabItem[] = [{ key: "dashboard", title: "控制台", children: <p>示例内容</p> }];
+        const view = await render(<AppMainLayoutProvider initialTabs={tabs}><Layout /></AppMainLayoutProvider>);
+        expect(screen.getByRole("main").tagName).toBe("MAIN");
+        await view.rerender(<AppMainLayoutProvider initialTabs={tabs}>
+            <Layout contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }} />
+        </AppMainLayoutProvider>);
+        expect(screen.queryByRole("main")).toBeNull();
+        expect(screen.getByRole("region", { name: "后台工作区示例" }).tagName).toBe("SECTION");
+        expect(screen.getByText("示例内容")).toBeTruthy();
+    });
     it("renders active tab content and keeps inactive panes mounted but hidden", async () => {
         const tabs: TabItem[] = [
             { key: "dashboard", title: "控制台", closable: false, children: <div>dashboard-content</div> },

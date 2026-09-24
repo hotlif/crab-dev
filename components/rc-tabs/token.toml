@@ -8,24 +8,24 @@ imports = [
 [token]
 
 # ─── 容器 ────────────────────────────────────────────────────────────────────
-root.font-weight = "var(--tabs-font-weight, $ref(typography.label.font-weight))"
+root.font-weight = "$ref(typography.label.font-weight)"
 root.line-height = "$ref(typography.title.small.line-height)"
 bar.gap = "$ref(space.inline-gap)"
 bar.border-color = "$ref(color.border.subtle)"
 content.padding-top = "$ref(space.stack-gap)"
 
 # ─── 尺寸 · 高度 / 字号 / 内边距 ─────────────────────────────────────────────
-size.small.height = "$ref(size.48)"
+size.small.height = "$ref(sizing.small.item)"
 size.small.font-size = "$ref(typography.label.large.font-size)"
-size.small.padding-inline = "var(--tabs-size-small-padding-x, 12px)"
+size.small.padding-inline = "12px"
 
 size.medium.height = "$ref(size.48)"
 size.medium.font-size = "$ref(typography.label.large.font-size)"
-size.medium.padding-inline = "var(--tabs-size-medium-padding-x, 16px)"
+size.medium.padding-inline = "16px"
 
 size.large.height = "$ref(size.64)"
 size.large.font-size = "$ref(typography.label.large.font-size)"
-size.large.padding-inline = "var(--tabs-size-large-padding-x, 20px)"
+size.large.padding-inline = "20px"
 
 # ─── 标签 · 颜色 ────────────────────────────────────────────────────────────
 item.color = "$ref(color.text.secondary)"
@@ -44,36 +44,36 @@ item.icon.gap = "$ref(space.inline-gap)"
 indicator.height = "3px"
 indicator.min-width = "$ref(space.group-gap)"
 indicator.color = "$ref(color.brand.primary)"
-indicator.transition = "transform $ref(motion.spatial.fast), width $ref(motion.spatial.fast)"
+indicator.transition = "transform $ref(motion.spatial.fast)"
 
 # ─── Card 类型 ───────────────────────────────────────────────────────────────
-card.background-color = "var(--tabs-card-background, transparent)"
-card.background-color-hover = "var(--tabs-card-background-hover, $ref(color.state.hover))"
-card.background-color-active = "var(--tabs-card-background-active, $ref(color.surface.content))"
+card.background-color = "transparent"
+card.background-color-hover = "$ref(color.state.hover)"
+card.background-color-active = "$ref(color.surface.content)"
 card.border-color = "$ref(color.border.subtle)"
 card.border-radius = "$ref(shape.control)"
 
 # ─── Pill 类型 ───────────────────────────────────────────────────────────────
-pill.background-color-hover = "var(--tabs-pill-background-hover, $ref(color.state.hover))"
-pill.background-color-active = "var(--tabs-pill-background-active, $ref(color.secondary.container))"
+pill.background-color-hover = "$ref(color.state.hover)"
+pill.background-color-active = "$ref(color.secondary.container)"
 pill.color-active = "$ref(color.secondary.on-container)"
 pill.border-radius = "$ref(radius.pill)"
 
 # ─── 关闭按钮 ────────────────────────────────────────────────────────────────
 close.color = "$ref(color.text.tertiary)"
 close.color-hover = "$ref(color.text.primary)"
-close.width = "var(--tabs-close-size, 16px)"
+close.width = "16px"
 close.touch.width = "$ref(size.32)"
 close.gap = "$ref(space.inline-gap)"
 close.border-radius = "$ref(radius.sm)"
-close.background-color-hover = "var(--tabs-close-background-hover, $ref(color.state.pressed))"
+close.background-color-hover = "$ref(color.state.pressed)"
 
 # ─── 焦点环 ──────────────────────────────────────────────────────────────────
-tab.outline-color-focus = "var(--tabs-focus-ring-color, $ref(color.focus.ring))"
-tab.outline-width-focus = "var(--tabs-focus-ring-width, 2px)"
-tab.outline-offset-focus = "var(--tabs-focus-ring-offset, -2px)"
-close.outline-color-focus = "var(--tabs-focus-ring-color, $ref(color.focus.ring))"
-close.outline-width-focus = "var(--tabs-focus-ring-width, 2px)"
+tab.outline-color-focus = "$ref(color.focus.ring)"
+tab.outline-width-focus = "2px"
+tab.outline-offset-focus = "-2px"
+close.outline-color-focus = "$ref(color.focus.ring)"
+close.outline-width-focus = "2px"
 close.outline-offset-focus = "1px"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────

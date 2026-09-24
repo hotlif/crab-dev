@@ -2,6 +2,7 @@ import type { FC, ReactNode } from "react";
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { css, cx } from "@crab-dev/css";
+import { usePresence } from "@crab-dev/rc-hooks";
 import token from "./token.js";
 
 export interface TabContextMenuItem {
@@ -20,6 +21,8 @@ export interface TabContextMenuItem {
 }
 
 export interface TabContextMenuProps {
+    open?: boolean
+    onExitComplete?: () => void
     /** 触发位置（视口坐标） */
     x: number
     /** 触发位置（视口坐标） */
@@ -43,17 +46,12 @@ const menuStyle = css`
     margin: 0;
     user-select: none;
     box-sizing: border-box;
-    /* 入场过渡：轻微放大 + 透明度，遵循 prefers-reduced-motion */
-    animation: tab-context-menu-in 120ms cubic-bezier(0.2, 0, 0, 1);
-    transform-origin: top left;
-
-    @keyframes tab-context-menu-in {
-        from { opacity: 0; transform: scale(0.96); }
-        to   { opacity: 1; transform: scale(1); }
-    }
-
+    opacity: 1;
+    transition: opacity ${token.motion.interaction.transition};
+    @starting-style { opacity: 0; }
+    &[data-state="closed"] { opacity: 0; pointer-events: none; }
     @media (prefers-reduced-motion: reduce) {
-        animation: none;
+        transition: none;
     }
 `;
 
@@ -73,7 +71,8 @@ const itemBaseStyle = css`
     width: 100%;
     text-align: left;
     box-sizing: border-box;
-    transition: background-color 100ms ease;
+    transition: background-color ${token.motion.interaction.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 
     &:hover {
         background-color: ${token.tab['context-menu'].item['background-color-hover']};
@@ -140,8 +139,9 @@ function clampToViewport(x: number, y: number, w: number, h: number): ViewportPo
     return { left, top };
 }
 
-const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose }) => {
+const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, open = true, onExitComplete }) => {
     const ref = useRef<HTMLUListElement>(null);
+    const presence = usePresence<HTMLUListElement>(open, onExitComplete);
     const [pos, setPos] = useState<{ left: number, top: number }>({ left: x, top: y });
 
     useLayoutEffect(() => {
@@ -152,6 +152,7 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose }) => {
     }, [x, y]);
 
     useEffect(() => {
+        if (!open) return;
         const handlePointerDown = (e: PointerEvent) => {
             if (!ref.current) return;
             if (e.target instanceof Node && ref.current.contains(e.target)) return;
@@ -178,15 +179,21 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose }) => {
             window.removeEventListener("blur", handleDismiss);
             window.removeEventListener("scroll", handleDismiss, true);
         };
-    }, [onClose]);
+    }, [onClose, open]);
 
-    if (typeof document === "undefined") return null;
+    if (typeof document === "undefined" || !presence.present) return null;
 
     const hasAnyIcon = items.some((item) => item.icon !== undefined);
 
     const node = (
         <ul
-            ref={ref}
+            ref={element => {
+                ref.current = element;
+                presence.ref(element);
+            }}
+            data-state={presence.state}
+            inert={!open}
+            aria-hidden={!open || undefined}
             className={menuStyle}
             style={{ left: pos.left, top: pos.top }}
             role="menu"

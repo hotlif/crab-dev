@@ -1,6 +1,7 @@
 import { type HTMLAttributes, type FC, useState, useEffect, type Key, type ReactNode } from "react";
 import { cx, css } from "@crab-dev/css";
 import RcMenu from "@crab-dev/rc-menu";
+import Button from "@crab-dev/rc-button";
 import type { MenuItem } from "@crab-dev/rc-menu";
 import Skeleton from "@crab-dev/rc-skeleton";
 import token from "./token.js";
@@ -48,9 +49,20 @@ const logoRowStyle = css`
     align-items: center;
     gap: ${token.sidebar.logo.gap};
     padding: ${token.sidebar.logo.padding};
-    cursor: pointer;
     user-select: none;
     min-width: 0;
+`;
+
+const logoActionStyle = css`
+    && {
+        justify-content: flex-start;
+        min-height: ${token.sidebar.logo.touch['min-height']};
+        height: auto;
+        padding: 0;
+        border: 0;
+        min-width: 0;
+        width: 100%;
+    }
 `;
 
 const logoRowCollapsedStyle = css`
@@ -155,11 +167,19 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
     return (
         <>
             {logo || title ? (
-                <div
-                    className={cx.call(undefined, logoRowStyle, collapsed && logoRowCollapsedStyle)}
+                onLogoClick ? <Button
+                    type="button"
+                    appearance="text"
+                    className={logoActionStyle}
                     onClick={onLogoClick}
-                    role="button"
-                    aria-label="Logo"
+                    aria-label={typeof title === 'string' ? title : 'Logo'}
+                >
+                    <span className={cx(logoRowStyle, collapsed && logoRowCollapsedStyle)}>
+                        {logo ? <span className={logoStyle}>{logo}</span> : null}
+                        {title && !collapsed ? <span className={logoTitleStyle}>{title}</span> : null}
+                    </span>
+                </Button> : <div
+                    className={cx.call(undefined, logoRowStyle, collapsed && logoRowCollapsedStyle)}
                 >
                     {logo ? <span className={logoStyle}>{logo}</span> : null}
                     {title && !collapsed ? <span className={logoTitleStyle}>{title}</span> : null}

@@ -5,6 +5,8 @@ import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/react
 import { usePresence } from "@crab-dev/rc-hooks";
 import Breadcrumbs, { type BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 import Skeleton from "@crab-dev/rc-skeleton";
+import Avatar, { TokenVars as avatarVars } from "@crab-dev/rc-avatar";
+import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 
 import token from "./token.js";
 import TabBar from "./tabBar.js";
@@ -37,6 +39,8 @@ interface HeaderProps extends Omit<HTMLAttributes<HTMLElement>, ""> {
     onLogout?: () => void
     /** 标签页列表 */
     tabs?: TabItem[]
+    /** 布局生成的标签 / 面板 ID 前缀 */
+    tabIdPrefix?: string
     /** 当前激活的标签 key */
     activeTabKey?: Key
     /** 切换标签时的回调 */
@@ -77,10 +81,8 @@ const tabStripStyle = css`
     padding: ${token.tab.strip.padding};
     min-height: ${token.tab.strip.height};
     box-sizing: border-box;
-
-    @media (max-width: 767px) {
-        display: none;
-    }
+    min-width: 0;
+    &[hidden] { display: none; }
 `;
 
 const toolbarStyle = css`
@@ -128,18 +130,6 @@ const mobileTitleStyle = css`
     }
 `;
 
-const dividerStyle = css`
-    width: 1px;
-    height: 20px;
-    background-color: ${token.header.divider["background-color"]};
-    margin: 0 6px;
-    flex-shrink: 0;
-
-    @media (max-width: 767px) {
-        display: none;
-    }
-`;
-
 const navBtnStyle = css`
     display: inline-flex;
     align-items: center;
@@ -154,7 +144,8 @@ const navBtnStyle = css`
     background: transparent;
     border: none;
     padding: 0;
-    transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+    transition: color ${token.motion.interaction.transition}, background-color ${token.motion.interaction.transition}, transform ${token.motion.spatial.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 
     &:hover {
         color: ${token.header['nav-btn']['color-hover']};
@@ -177,8 +168,8 @@ const navBtnStyle = css`
     }
 
     & > svg {
-        width: 18px;
-        height: 18px;
+        width: ${token.header['nav-btn'].icon.width};
+        height: ${token.header['nav-btn'].icon.width};
     }
 `;
 
@@ -195,29 +186,25 @@ const notificationDotStyle = css`
 `;
 
 const userPillStyle = css`
+    && {
+        ${buttonVars['root.border-radius-active']}: ${token.header.user.pill['border-radius']};
+        ${buttonVars['text.color']}: ${token.header.user.name.color};
+        ${buttonVars['text.background-color-hover']}: ${token.header.user.pill['background-color-hover']};
+        ${buttonVars['text.background-color-focus']}: ${token.header.user.pill['background-color-hover']};
+        ${buttonVars['text.background-color-active']}: ${token.header['nav-btn']['background-color-active']};
+        min-width: ${token.header.user.pill.height};
+        height: ${token.header.user.pill.height};
+        padding: ${token.header.user.pill.padding};
+        border-radius: ${token.header.user.pill['border-radius']};
+        flex-shrink: 0;
+        > span:last-child { display: inline-flex; }
+    }
+`;
+
+const userPillContentStyle = css`
     display: inline-flex;
     align-items: center;
     gap: ${token.header.user.pill.gap};
-    padding: ${token.header.user.pill.padding};
-    border-radius: ${token.header.user.pill["border-radius"]};
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 160ms ease;
-
-    &:hover {
-        background-color: ${token.header.user.pill['background-color-hover']};
-    }
-
-    &:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: 2px;
-    }
-
-    @media (max-width: 767px) {
-        padding: 4px;
-    }
 `;
 
 const userMenuWrapStyle = css`
@@ -226,47 +213,54 @@ const userMenuWrapStyle = css`
 `;
 
 const userMenuStyle = css`
-    min-width: ${token.tab['context-menu']['min-width']};
-    padding: ${token.tab['context-menu'].padding};
-    background-color: ${token.tab['context-menu']["background-color"]};
-    border: 1px solid ${token.tab['context-menu']["border-color"]};
-    border-radius: ${token.tab['context-menu']["border-radius"]};
-    box-shadow: ${token.tab['context-menu']["box-shadow"]};
+    width: ${token.header.user.menu['min-width']};
+    min-width: ${token.header.user.menu['min-width']};
+    padding: ${token.header.user.menu.padding};
+    background-color: ${token.header.user.menu['background-color']};
+    border: 0;
+    border-radius: ${token.header.user.menu['border-radius']};
+    box-shadow: ${token.header.user.menu['box-shadow']};
     z-index: ${token.tab['context-menu']['z-index']};
     box-sizing: border-box;
-    transform-origin: top center;
+    transform-origin: top right;
     opacity: 1;
     translate: 0 0;
     transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
     @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
     &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
 
+    /* Keep the hover path continuous across the visual gap below the trigger. */
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        inset-inline: 0;
+        height: ${token.header.user.menu.gap};
+    }
+    @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
+
     @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 const userMenuItemStyle = css`
-    display: flex;
-    align-items: center;
-    gap: ${token.tab['context-menu'].item.gap};
-    width: 100%;
-    height: ${token.tab['context-menu'].item.height};
-    padding: ${token.tab['context-menu'].item.padding};
-    border: none;
-    border-radius: ${token.tab['context-menu'].item["border-radius"]};
-    background: transparent;
-    color: ${token.tab['context-menu'].item.color};
-    font-size: ${token.tab['context-menu'].item["font-size"]};
-    text-align: left;
-    white-space: nowrap;
-    cursor: pointer;
-
-    &:hover {
-        background-color: ${token.tab['context-menu'].item['background-color-hover']};
-    }
-
-    &:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: -2px;
+    && {
+        ${buttonVars['root.border-radius-active']}: ${token.header.user.menu.item['border-radius']};
+        ${buttonVars['text.color']}: ${token.tab['context-menu'].item.color};
+        ${buttonVars['text.background-color-hover']}: ${token.header['nav-btn']['background-color-hover']};
+        ${buttonVars['text.background-color-focus']}: ${token.header['nav-btn']['background-color-hover']};
+        ${buttonVars['text.background-color-active']}: ${token.header['nav-btn']['background-color-active']};
+        justify-content: flex-start;
+        gap: ${token.header.user.menu.item.gap};
+        width: 100%;
+        height: ${token.header.user.menu.item.height};
+        padding: ${token.header.user.menu.item.padding};
+        border-radius: ${token.header.user.menu.item['border-radius']};
+        font-size: ${token.header.user.menu.item['font-size']};
+        font-weight: ${token.header.user.menu.item['font-weight']};
+        line-height: ${token.header.user.menu.item['line-height']};
+        text-align: start;
+        &:focus-visible { outline-offset: ${token.tab.item['outline-offset-focus']}; }
+        @media (pointer: coarse) { height: ${token.header.user.pill.height}; }
     }
 `;
 
@@ -274,8 +268,8 @@ const userMenuItemIconStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: ${token.tab['context-menu'].item.icon.width};
-    height: ${token.tab['context-menu'].item.icon.width};
+    width: ${token.header.user.menu.item.icon.width};
+    height: ${token.header.user.menu.item.icon.width};
     color: ${token.tab['context-menu'].item.icon.color};
 
     & > svg {
@@ -326,20 +320,12 @@ const userInfoSkeletonStyle = css`
 `;
 
 const avatarStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: ${token.header.user.avatar.width};
-    height: ${token.header.user.avatar.width};
-    font-size: ${token.header.user.avatar["font-size"]};
-    font-weight: 600;
-    border-radius: 50%;
-    background-color: ${token.header.user.avatar["background-color"]};
-    color: ${token.header.user.avatar.color};
-    overflow: hidden;
-    flex-shrink: 0;
-
-    & > img {
+    ${avatarVars['size.small.width']}: ${token.header.user.avatar.width};
+    ${avatarVars['size.small.font-size']}: ${token.header.user.avatar['font-size']};
+    ${avatarVars['icon.small.font-size']}: ${token.header.user.avatar.icon.width};
+    ${avatarVars['default.background-color']}: ${token.header.user.avatar['background-color']};
+    ${avatarVars['default.color']}: ${token.header.user.avatar.color};
+    & > span:has(> img), & img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -357,6 +343,7 @@ const Header: FC<HeaderProps> = ({
     onSwitchRole,
     onLogout,
     tabs,
+    tabIdPrefix,
     activeTabKey,
     onTabChange,
     onTabClose,
@@ -375,17 +362,18 @@ const Header: FC<HeaderProps> = ({
     const [resolvedUser, setResolvedUser] = useState<HeaderUserEntity>({});
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const userMenuWrapRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
     const userMenuCloseTimerRef = useRef<number | null>(null);
     const canShowUserMenu = !userLoading && userMenuOpen;
     const presence = usePresence<HTMLDivElement>(canShowUserMenu);
     const { refs, floatingStyles } = useFloating({
-        placement: "bottom",
+        placement: "bottom-end",
         strategy: "absolute",
         transform: false,
         open: canShowUserMenu,
         onOpenChange: setUserMenuOpen,
         middleware: [
-            offset(0),
+            offset(8),
             flip(),
             shift({ padding: 8 }),
         ],
@@ -458,8 +446,10 @@ const Header: FC<HeaderProps> = ({
     return (
         <header className={cx(headerStyle, className)} {...restProps}>
             {tabs ? (
-                <div className={tabStripStyle}>
+                <div className={tabStripStyle} hidden={tabs.length === 0}>
                     <TabBar
+                        idPrefix={tabIdPrefix}
+                        onEmpty={() => menuButtonRef.current?.focus()}
                         items={tabs}
                         activeKey={activeTabKey}
                         onChange={onTabChange}
@@ -474,6 +464,7 @@ const Header: FC<HeaderProps> = ({
             ) : null}
             <div className={toolbarStyle}>
                 <button
+                    ref={menuButtonRef}
                     type="button"
                     className={navBtnStyle}
                     onClick={onMenuToggle}
@@ -503,7 +494,6 @@ const Header: FC<HeaderProps> = ({
                     <BellIcon />
                     {hasNotification ? <span className={notificationDotStyle} aria-hidden /> : null}
                 </button>
-                <div className={dividerStyle} aria-hidden />
                 <div
                     ref={userMenuWrapRef}
                     className={userMenuWrapStyle}
@@ -518,9 +508,10 @@ const Header: FC<HeaderProps> = ({
                         setUserMenuOpen(false);
                     }}
                 >
-                    <button
+                    <Button
                         ref={refs.setReference}
                         type="button"
+                        appearance="text"
                         className={userPillStyle}
                         onClick={onUserClick}
                         aria-label={userLoading ? "Loading user" : (typeof resolvedUser.name === "string" ? resolvedUser.name : "User menu")}
@@ -532,23 +523,27 @@ const Header: FC<HeaderProps> = ({
                             }
                         }}
                     >
-                        {userLoading ? (
-                            <span className={userInfoSkeletonStyle} aria-hidden>
-                                <Skeleton variant="text" width="72px" size="small" />
-                                <Skeleton variant="text" width="56px" size="small" />
-                            </span>
-                        ) : (resolvedUser.name || resolvedUser.roleName) ? (
-                            <span className={userInfoStyle}>
-                                {resolvedUser.name ? <span className={usernameStyle}>{resolvedUser.name}</span> : null}
-                                {resolvedUser.roleName ? <span className={userRoleStyle}>{resolvedUser.roleName}</span> : null}
-                            </span>
-                        ) : null}
-                        {userLoading ? (
-                            <Skeleton variant="avatar" width={token.header.user.avatar.width} height={token.header.user.avatar.width} aria-hidden />
-                        ) : (
-                            <span className={avatarStyle}>{resolvedUser.avatar}</span>
-                        )}
-                    </button>
+                        <span className={userPillContentStyle}>
+                            {userLoading ? (
+                                <span className={userInfoSkeletonStyle} aria-hidden>
+                                    <Skeleton variant="text" width="72px" size="small" />
+                                    <Skeleton variant="text" width="56px" size="small" />
+                                </span>
+                            ) : (resolvedUser.name || resolvedUser.roleName) ? (
+                                <span className={userInfoStyle}>
+                                    {resolvedUser.name ? <span className={usernameStyle}>{resolvedUser.name}</span> : null}
+                                    {resolvedUser.roleName ? <span className={userRoleStyle}>{resolvedUser.roleName}</span> : null}
+                                </span>
+                            ) : null}
+                            {userLoading ? (
+                                <Skeleton variant="avatar" width={token.header.user.avatar.width} height={token.header.user.avatar.width} aria-hidden />
+                            ) : (
+                                <Avatar size="small" className={avatarStyle} aria-label="用户头像" aria-hidden>
+                                    {resolvedUser.avatar ?? (typeof resolvedUser.name === 'string' ? resolvedUser.name.trim().slice(0, 1) || undefined : undefined)}
+                                </Avatar>
+                            )}
+                        </span>
+                    </Button>
                     {presence.present ? (
                         <div
                             ref={(node) => { refs.setFloating(node); presence.ref(node); }}
@@ -559,34 +554,32 @@ const Header: FC<HeaderProps> = ({
                             role="menu"
                             aria-label="User actions"
                         >
-                            <button
+                            <Button
                                 type="button"
+                                appearance="text"
                                 role="menuitem"
                                 className={userMenuItemStyle}
+                                icon={<span className={userMenuItemIconStyle} aria-hidden><SwitchRoleIcon /></span>}
                                 onClick={() => {
                                     setUserMenuOpen(false);
                                     onSwitchRole?.();
                                 }}
                             >
-                                <span className={userMenuItemIconStyle} aria-hidden>
-                                    <SwitchRoleIcon />
-                                </span>
                                 切换角色
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                                 type="button"
+                                appearance="text"
                                 role="menuitem"
                                 className={userMenuItemStyle}
+                                icon={<span className={userMenuItemIconStyle} aria-hidden><LogoutIcon /></span>}
                                 onClick={() => {
                                     setUserMenuOpen(false);
                                     onLogout?.();
                                 }}
                             >
-                                <span className={userMenuItemIconStyle} aria-hidden>
-                                    <LogoutIcon />
-                                </span>
                                 退出登录
-                            </button>
+                            </Button>
                         </div>
                     ) : null}
                 </div>
