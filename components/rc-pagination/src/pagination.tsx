@@ -1,3 +1,4 @@
+import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { useMemo, useState } from "react";
 import type { ChangeEvent, FC, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
@@ -107,6 +108,13 @@ const itemBaseStyle = css`
             outline-offset: -2px;
         }
     }
+`;
+
+const largeSizeStyle = css`
+    height: ${token.size.large.height};
+    min-width: ${token.size.large["min-width"]};
+    padding: ${token.size.large.padding};
+    font-size: ${token.size.large["font-size"]};
 `;
 
 const itemSmallStyle = css`
@@ -354,7 +362,7 @@ const Pagination: FC<PaginationProps> = ({
     pageSize: controlledPageSize,
     defaultPageSize = 10,
     onChange,
-    size = "medium",
+    size: sizeProp,
     disabled = false,
     showQuickJumper = false,
     showSizeChanger = false,
@@ -368,6 +376,8 @@ const Pagination: FC<PaginationProps> = ({
     className,
     ...restProps
 }) => {
+    const configuredSize = useComponentSize(sizeProp);
+    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     // 仅用 useControllableValue 统一"受控优先 / 非受控兜底"取值；current 与 pageSize
     // 的 onChange 相互耦合（onChange(current, pageSize)），故不交给它触发，仍在下方手动派发。
     const [currentValue, setCurrentValue] = useControllableValue<number>({
@@ -388,9 +398,9 @@ const Pagination: FC<PaginationProps> = ({
     const pageSequence = useMemo(() => buildPageSequence(activeCurrent, totalPages), [activeCurrent, totalPages]);
 
     const isSmall = size === "small";
-    const itemSizeClass = isSmall ? itemSmallStyle : "";
-    const ellipsisSizeClass = isSmall ? ellipsisSmallStyle : "";
-    const inputSizeClass = isSmall ? quickJumperInputSmallStyle : "";
+    const itemSizeClass = isSmall ? itemSmallStyle : size === "large" ? largeSizeStyle : "";
+    const ellipsisSizeClass = isSmall ? ellipsisSmallStyle : size === "large" ? largeSizeStyle : "";
+    const inputSizeClass = isSmall ? quickJumperInputSmallStyle : size === "large" ? largeSizeStyle : "";
 
     const sizeChangerOptions = useMemo(
         () => pageSizeOptions.map((value) => ({ value: String(value), label: pageSizeLabel(value) })),
@@ -404,8 +414,8 @@ const Pagination: FC<PaginationProps> = ({
         onChange?.(clamped, activePageSize);
     };
 
-    const handlePageSizeChange = (nextValue: string | undefined) => {
-        if (nextValue === undefined) return;
+    const handlePageSizeChange = (nextValue: string | null) => {
+        if (nextValue == null) return;
         const nextSize = Number.parseInt(nextValue, 10);
         if (!Number.isFinite(nextSize) || nextSize <= 0 || nextSize === activePageSize) return;
 
@@ -560,7 +570,7 @@ const Pagination: FC<PaginationProps> = ({
                         options={sizeChangerOptions}
                         value={String(activePageSize)}
                         onChange={handlePageSizeChange}
-                        size={isSmall ? "small" : "middle"}
+                        size={isSmall ? "small" : size === "large" ? "large" : "middle"}
                         disabled={disabled}
                         aria-label="Rows per page"
                         popupMatchSelectWidth={false}

@@ -4,25 +4,26 @@ prefix  = "table"
 imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
+motion.rows.transition = "$ref(motion.layout)"
 
 # ─── 边框 ────────────────────────────────────────────────────────────────────
-root.border-color = "var(--table-border-color, color-mix(in oklch, $ref(color.border.default) 30%, $ref(color.surface.content)))"
+root.border-color = "color-mix(in oklch, $ref(color.border.default) 30%, $ref(color.surface.content))"
 root.font-family = "$ref(typography.body.font-family)"
 root.font-size = "$ref(typography.body.medium.font-size)"
 root.line-height = "$ref(typography.body.medium.line-height)"
 root.color = "$ref(color.text.primary)"
-root.outline-color-focus = "var(--table-root-focus-color, $ref(color.focus.ring))"
-root.outline-width-focus = "var(--table-root-focus-width, 2px)"
-root.outline-offset-focus = "var(--table-root-focus-offset, 2px)"
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-width-focus = "2px"
+root.outline-offset-focus = "2px"
 
 # ─── 单元格 ──────────────────────────────────────────────────────────────────
-cell.background-color = "var(--table-cell-bg-color, $ref(color.surface.content))"
-cell.padding-inline = "$ref(space.component-gap)"
-cell.border-color = "var(--table-border-color, color-mix(in oklch, $ref(color.border.default) 22%, $ref(color.surface.content)))"
-cell.separator.border-color = "var(--table-cell-border-color-vertical, var(--table-cell-vertical-border-color, var(--table-border-color, color-mix(in oklch, $ref(color.border.default) 12%, $ref(color.surface.content)))))"
+cell.background-color = "$ref(color.surface.content)"
+cell.padding-inline = "$ref(density.cell-padding)"
+cell.border-color = "color-mix(in oklch, $ref(color.border.default) 22%, $ref(color.surface.content))"
+cell.separator.border-color = "color-mix(in oklch, $ref(color.border.default) 12%, $ref(color.surface.content))"
 
 # ─── 表头 / 过滤栏 ───────────────────────────────────────────────────────────
-header.background-color = "var(--table-header-bg-color, $ref(color.surface.container))"
+header.background-color = "$ref(color.surface.container)"
 header.color = "$ref(color.text.secondary)"
 header.font-weight = "$ref(typography.title.font-weight)"
 header.gap = "$ref(space.inline-gap)"
@@ -39,91 +40,91 @@ fixed-edge.color = "color-mix(in oklch, $ref(color.text.primary) 10%, transparen
 scrollbar.opacity = "1"
 
 # ─── 分组行 ──────────────────────────────────────────────────────────────────
-group.background-color   = "var(--table-group-bg-color, $ref(color.background.hover-subtle))"
+group.background-color   = "$ref(color.background.hover-subtle)"
 group.color              = "$ref(color.text.primary)"
 group.count.color        = "$ref(color.text.secondary)"
 group.chevron.color      = "$ref(color.text.secondary)"
 group.gap                = "$ref(space.component-gap)"
-group.padding-inline     = "$ref(space.component-gap)"
+group.padding-inline = "$ref(density.cell-padding)"
 group.text.gap           = "6px"
 group.font-weight        = "$ref(typography.label.font-weight)"
 group.count.font-size    = "$ref(typography.caption.font-size)"
-group.chevron.width = "var(--table-group-chevron-size, 14px)"
+group.chevron.width = "14px"
 group.chevron.transition = "transform $ref(motion.spatial.fast)"
 
 # ─── 选区 ────────────────────────────────────────────────────────────────────
 selection.border-color   = "$ref(color.selection.border)"
-selection.background-color = "var(--table-selection-bg-color, color-mix(in oklch, $ref(color.selection.border) 10%, $ref(color.surface.content)))"
+selection.background-color = "color-mix(in oklch, $ref(color.selection.border) 10%, $ref(color.surface.content))"
 selection.border-width   = "2px"
 selection.outline-offset = "-2px"
 
 # ─── 关键字高亮 ──────────────────────────────────────────────────────────────
-highlight.background-color = "var(--table-highlight-bg, $ref(color.highlight.background))"
+highlight.background-color = "$ref(color.highlight.background)"
 highlight.color = "$ref(color.highlight.foreground)"
-highlight.background-color-active = "var(--table-highlight-active-bg, $ref(color.highlight.background-active))"
-highlight.color-active = "var(--table-highlight-active-color, $ref(color.highlight.foreground))"
+highlight.background-color-active = "$ref(color.highlight.background-active)"
+highlight.color-active = "$ref(color.highlight.foreground)"
 highlight.border-radius = "$ref(radius.sm)"
 
 # ─── 编辑标记 ────────────────────────────────────────────────────────────────
 edited-indicator.color = "$ref(color.feedback.warning.icon)"
-edited-indicator.border-width = "var(--table-edited-indicator-size, 6px)"
+edited-indicator.border-width = "6px"
 
 # ─── 树形数据 ─────────────────────────────────────────────────────────────────
-tree.indent.width = "var(--table-tree-indent, 20px)"
-tree.chevron.width = "var(--table-tree-chevron-size, 16px)"
+tree.indent.width = "20px"
+tree.chevron.width = "16px"
 tree.chevron.color      = "$ref(color.text.secondary)"
 tree.chevron.transition = "transform $ref(motion.spatial.fast)"
-tree.button.border-radius = "var(--table-tree-button-radius, $ref(radius.sm))"
+tree.button.border-radius = "$ref(radius.sm)"
 tree.button.gap         = "4px"
-tree.button.width = "var(--table-tree-button-size, 24px)"
+tree.button.width = "24px"
 tree.button.background-color-hover = "$ref(color.state.hover)"
 tree.button.transition = "$ref(motion.interaction)"
 
 # ─── 行编辑（editType="row"） ─────────────────────────────────────────────────
 # 编辑行呈现为浮起卡片：中性提亮底 + 焦点蓝描边 + 柔和投影；
 # 确认 / 取消以独立浮条贴行尾下方，避免遮挡相邻行内容
-row-edit.row.background-color = "var(--table-row-edit-row-bg, $ref(color.background.hover-subtle))"
-row-edit.cell.background-color = "var(--table-row-edit-cell-bg, $ref(color.surface.content))"
-row-edit.border-color       = "var(--table-row-edit-ring-color, $ref(color.brand.primary))"
-row-edit.outline-color      = "var(--table-row-edit-ring-color, $ref(color.brand.primary))"
-row-edit.card.box-shadow    = "var(--table-row-edit-card-shadow, $ref(shadow.overlay))"
-row-edit.card.border-radius = "var(--table-row-edit-card-radius, $ref(shape.card))"
+row-edit.row.background-color = "$ref(color.background.hover-subtle)"
+row-edit.cell.background-color = "$ref(color.surface.content)"
+row-edit.border-color       = "$ref(color.brand.primary)"
+row-edit.outline-color      = "$ref(color.brand.primary)"
+row-edit.card.box-shadow    = "$ref(shadow.overlay)"
+row-edit.card.border-radius = "$ref(shape.card)"
 row-edit.transition         = "$ref(motion.interaction)"
-row-edit.actions.background-color = "var(--table-row-edit-actions-bg, $ref(color.surface.raised))"
-row-edit.actions.border-color = "var(--table-row-edit-actions-border, $ref(color.brand.primary))"
-row-edit.actions.border-radius = "var(--table-row-edit-actions-radius, $ref(shape.card))"
-row-edit.actions.box-shadow = "var(--table-row-edit-actions-shadow, $ref(shadow.overlay))"
+row-edit.actions.background-color = "$ref(color.surface.raised)"
+row-edit.actions.border-color = "$ref(color.brand.primary)"
+row-edit.actions.border-radius = "$ref(shape.card)"
+row-edit.actions.box-shadow = "$ref(shadow.overlay)"
 row-edit.actions.padding = "$ref(space.inline-gap)"
 row-edit.actions.gap = "$ref(space.inline-gap)"
-row-edit.confirm.background-color = "var(--table-row-edit-confirm-bg, $ref(color.brand.primary))"
+row-edit.confirm.background-color = "$ref(color.brand.primary)"
 row-edit.confirm.color = "$ref(color.text.on-brand)"
-row-edit.confirm.background-color-hover = "var(--table-row-edit-confirm-hover-bg, $ref(color.brand.primary-hover))"
-row-edit.confirm.background-color-active = "var(--table-row-edit-confirm-active-bg, $ref(color.brand.primary-active))"
+row-edit.confirm.background-color-hover = "$ref(color.brand.primary-hover)"
+row-edit.confirm.background-color-active = "$ref(color.brand.primary-active)"
 row-edit.cancel.color = "$ref(color.text.secondary)"
-row-edit.cancel.background-color-hover = "var(--table-row-edit-cancel-hover-bg, $ref(color.state.hover))"
-row-edit.cancel.border-color = "var(--table-row-edit-cancel-border, $ref(color.border.default))"
+row-edit.cancel.background-color-hover = "$ref(color.state.hover)"
+row-edit.cancel.border-color = "$ref(color.border.default)"
 row-edit.button.height = "$ref(size.control)"
-row-edit.button.padding-inline = "var(--table-row-edit-button-padding-x, $ref(space.control-padding-x))"
-row-edit.button.border-radius = "var(--table-row-edit-button-radius, $ref(shape.full))"
+row-edit.button.padding-inline = "$ref(space.control-padding-x)"
+row-edit.button.border-radius = "$ref(shape.full)"
 row-edit.button.font-size = "$ref(typography.body.font-size)"
 row-edit.button.font-weight = "$ref(typography.label.font-weight)"
 row-edit.button.gap = "$ref(space.inline-gap)"
 
 # ─── 列拖拽排序 ───────────────────────────────────────────────────────────────
-column-drag.indicator.background-color = "var(--table-column-drag-indicator-color, $ref(color.brand.primary))"
+column-drag.indicator.background-color = "$ref(color.brand.primary)"
 column-drag.indicator.width = "2px"
-column-drag.opacity-dragging = "var(--table-column-drag-dragging-opacity, 0.45)"
+column-drag.opacity-dragging = "0.45"
 
 # ─── 列排序 ───────────────────────────────────────────────────────────────────
 sort.icon.color = "$ref(color.text.tertiary)"
-sort.icon.color-active = "var(--table-sort-icon-active-color, $ref(color.brand.primary))"
+sort.icon.color-active = "$ref(color.brand.primary)"
 sort.header.cursor = "pointer"
 sort.badge.color = "$ref(color.brand.primary)"
 sort.badge.font-size = "11px"
 
 # ─── 行选中 ───────────────────────────────────────────────────────────────────
-row-selection.control.width = "var(--table-row-selection-control-size, $ref(size.selection-target))"
-row-selection.background-color-selected = "var(--table-row-selection-selected-bg, color-mix(in oklch, $ref(color.selection.border) 10%, $ref(color.surface.content)))"
+row-selection.control.width = "$ref(size.selection-target)"
+row-selection.background-color-selected = "color-mix(in oklch, $ref(color.selection.border) 10%, $ref(color.surface.content))"
 
 # ─── 行点击（提供 onRowClick / onRowDoubleClick 时生效） ───────────────────────
 # 行成为可点击目标后必须具备可感知的示能：pointer 光标 + hover 反馈；
@@ -134,20 +135,20 @@ row-selection.background-color-selected = "var(--table-row-selection-selected-bg
 # 少给任何一处，那一处就会瞬时换色而其余仍在渐变，交界处撕裂、拖尾。
 # 用 ease-out（快起慢收）让底色淡入，而非匀速；采用公共 150ms 反馈时长，掠过多行时不留拖影。
 row-click.cursor            = "pointer"
-row-click.background-color-hover = "var(--table-row-click-hover-bg, $ref(color.state.hover))"
-row-click.transition = "var(--table-row-click-background-color-transition, var(--table-row-click-row-bg-transition, $ref(motion.interaction)))"
+row-click.background-color-hover = "$ref(color.state.hover)"
+row-click.transition = "$ref(motion.interaction)"
 
 # ─── 底部汇总 / 合计行 ────────────────────────────────────────────────────────
 # 背景沿用表头底色（token.header.bg-color），加粗主文本以区别于普通数据行
 summary.color          = "$ref(color.text.primary)"
 summary.font-weight    = "$ref(font.weight.strong)"
-summary.padding-inline = "$ref(space.component-gap)"
+summary.padding-inline = "$ref(density.cell-padding)"
 
 # ─── 行展开（详情面板） ───────────────────────────────────────────────────────
 # 展开图标沿用树形 chevron 的尺寸与缓动；展开内容区用微提亮底 + 顶边分隔，区别于普通数据行
-expand.chevron.width = "var(--table-expand-chevron-size, 16px)"
+expand.chevron.width = "16px"
 expand.chevron.color      = "$ref(color.text.secondary)"
 expand.chevron.transition = "transform $ref(motion.spatial.fast)"
-expand.button.border-radius = "var(--table-expand-button-radius, $ref(radius.sm))"
-expand.content.background-color = "var(--table-expand-content-bg, $ref(color.surface.content))"
+expand.button.border-radius = "$ref(radius.sm)"
+expand.content.background-color = "$ref(color.surface.content)"
 expand.content.padding    = "$ref(space.component-gap)"

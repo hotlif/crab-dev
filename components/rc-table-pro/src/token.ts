@@ -5,6 +5,7 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'motion.interaction.transition': '--table-pro-motion-interaction-transition',
     'surface.background-color': '--table-pro-surface-background-color',
     'chrome.background-color': '--table-pro-chrome-background-color',
     'root.border-color': '--table-pro-root-border-color',
@@ -31,14 +32,19 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'motion': {
+        'interaction': {
+            'transition': `var(${vars['motion.interaction.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
+        }
+    },
     'surface': {
-        'background-color': `var(${vars['surface.background-color']}, var(--crab-rc-table-bg-color, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
+        'background-color': `var(${vars['surface.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },
     'chrome': {
-        'background-color': `var(${vars['chrome.background-color']}, var(--crab-rc-table-header-bg-color, var(--token-semantic-color-surface-canvas, var(--token-semantic-color-background-sunken, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
+        'background-color': `var(${vars['chrome.background-color']}, var(--token-semantic-color-surface-canvas, var(--token-semantic-color-background-sunken, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },
     'root': {
-        'border-color': `var(${vars['root.border-color']}, var(--crab-rc-table-border-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`
     },
     'overlay': {
         'background-color-loading': `var(${vars['overlay.background-color-loading']}, color-mix(in oklch, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))) 65%, transparent))`,
@@ -76,12 +82,12 @@ const token = defineTokens({
     },
     'failure': {
         'icon': {
-            'color': `var(${vars['failure.icon.color']}, var(--token-semantic-color-feedback-error-icon, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`
+            'color': `var(${vars['failure.icon.color']}, var(--token-semantic-color-feedback-error-icon, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`
         },
         'text': {
-            'color': `var(${vars['failure.text.color']}, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486)))))`
+            'color': `var(${vars['failure.text.color']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`
         },
-        'border-color': `var(${vars['failure.border-color']}, var(--token-semantic-color-feedback-error-border, var(--token-semantic-color-feedback-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`,
+        'border-color': `var(${vars['failure.border-color']}, var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
         'background-color-hover': `var(${vars['failure.background-color-hover']}, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053))))`
     }
 });

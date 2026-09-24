@@ -75,7 +75,7 @@ const expandIconStyle = css`
 
     > svg {
         display: block;
-        transition: transform ${token.root.transition};
+        transition: transform ${token.motion.arrow.transition};
     }
 
     &[data-expanded="true"] > svg {
@@ -146,7 +146,7 @@ const nodeItemBase = css`
     &[data-selected="true"]:not([data-disabled="true"]) {
         background-color: ${token.node["background-color-selected"]};
         color: ${token.node['color-selected']};
-        box-shadow: inset ${token.node.selection['border-width']} 0 0 0 ${token.node.selection['border-color']};
+        [data-node-title] { text-decoration: ${token.node.selection['text-decoration']}; }
     }
 
     &[data-disabled="true"] {
@@ -530,7 +530,7 @@ const NodeItem: FC<NodeItemProps> = ({
                         />
                     )
             ) : (
-                <span className={titleSpanStyle}>
+                <span className={titleSpanStyle} data-node-title="">
                     {node.title}
                 </span>
             )}

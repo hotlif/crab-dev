@@ -1,9 +1,11 @@
+import { useComponentSize, componentSizeMetrics, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
 import RcVirtual, { TokenVars as VirtualTokenVars } from "@crab-dev/rc-virtual";
 import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 import { css, cx } from "@crab-dev/css";
 import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import Radio, { TokenVars as radioVars } from "@crab-dev/rc-radio";
 import Empty from "@crab-dev/rc-empty";
+import { useAnimatedRows, useMediaQuery } from "@crab-dev/rc-hooks";
 
 import BodyRow from "./bodyRow.js";
 import token from "./token.js";
@@ -36,6 +38,7 @@ import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
 
 const tableRootStyle = css`
+    --table-row-motion: ${token.motion.rows.transition};
     position: relative;
     width: fit-content;
     font-family: ${token.root['font-family']};
@@ -84,7 +87,9 @@ const tableRootStyle = css`
     }
 `;
 
-interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
+export interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
+    /** 行高尺寸档；显式行高回调和 row.height 优先。省略时继承 ConfigProvider。 */
+    size?: ConfigSize;
     // 表格的宽度
     width: number
     // 编辑模式
@@ -158,6 +163,8 @@ interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>,
     // ====== 列排序 ======
     /** 受控排序列配置 */
     sortColumns?: SortColumn[]
+    /** server 保留排序交互，行顺序由调用者提供。 */
+    sortMode?: 'client' | 'server'
     /** 非受控初始排序 */
     defaultSortColumns?: SortColumn[]
     /** 排序变化回调 */
@@ -604,16 +611,21 @@ const filterCellBottomOnlyShadow = css`
 
 
 function Table<T extends Row>(props: TableProps<T>): ReactNode {
+    const size = useComponentSize(props.size);
+    const metrics = componentSizeMetrics[size];
+    const coarsePointer = useMediaQuery('(pointer: coarse)');
+    const defaultRowHeight = coarsePointer ? Math.max(metrics.row, 48) : metrics.row;
     const {
+        size: _size,
         width,
         height,
         rows,
         columns,
         mergeCells = EMPTY_MERGE_CELLS,
         getRowHeight,
-        headerRowHeight = 56,
+        headerRowHeight = metrics.header,
         filterBar = false,
-        filterRowHeight = 56,
+        filterRowHeight = metrics.header,
         filterCellClassName,
         filters,
         editType,
@@ -622,7 +634,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         renderDefaultFilterEditor,
         onFilterChange,
         groupBy: groupByProp,
-        groupRowHeight = 52,
+        groupRowHeight = defaultRowHeight,
         expandedGroupIds,
         defaultExpandedGroupIds,
         defaultExpandAll = true,
@@ -653,11 +665,12 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         defaultTreeExpandAll,
         onExpandedRowIdsChange,
         sortColumns: sortColumnsProp,
+        sortMode,
         defaultSortColumns,
         onSortColumnsChange,
         rowSelection,
         showSummary = false,
-        summaryRowHeight = 52,
+        summaryRowHeight = defaultRowHeight,
         expandedRowRender,
         isRowExpandable,
         expandedRowKeys,
@@ -820,7 +833,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
     // ====== 列排序 ======
     const { sortedRows, handleSort, getSortState, isSortable } = useColumnSort<T>({
-        rows, columns: effectiveColumns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange
+        rows, columns: effectiveColumns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange, sortMode
     });
 
     // ====== 树形数据 ======
@@ -836,12 +849,24 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     });
 
     // ====== 行展开（详情面板）：在分组后向 displayRows 插入展开内容行 ======
-    const { displayRows, expandedKeySet, isExpansion, toggleExpandRow } = useRowExpansion<T>({
+    const { displayRows: targetRows, expandedKeySet, isExpansion, toggleExpandRow } = useRowExpansion<T>({
         displayRows: groupedDisplayRows, expandedRowRender, isRowExpandable,
         expandedRowKeys, defaultExpandedRowKeys, onExpandedRowKeysChange,
         expandedRowHeight, getExpandedRowHeight
     });
     expansionStateRef.current = { expandedKeySet, toggleExpandRow, isRowExpandable };
+    const motionRows = useAnimatedRows(targetRows, {
+        keyFor: row => row.id,
+        sizeFor: (row, index) => isGroupRow(row) ? row.height ?? groupRowHeight
+            : isExpandedContentRow(row) ? row.height ?? defaultRowHeight : getRowHeight?.(row as T, index) ?? row.height ?? defaultRowHeight,
+        trigger: JSON.stringify([...expandedKeySet].map(key => [typeof key, String(key)])),
+        rootRef: interactionRootRef,
+        motionProperty: '--table-row-motion',
+        canAnimate: isExpandedContentRow,
+        enabled: isExpansion,
+    });
+    // Exception: downstream layout/selection effects depend on stable row identity.
+    const displayRows = useMemo(() => motionRows.map(row => isExpandedContentRow(row.item) ? { ...row.item, height: row.size } : row.item), [motionRows]);
 
     // displayRows 确定后同步序号映射（直接写 ref，不触发 re-render）
     syncRowNumbers(displayRows);
@@ -862,7 +887,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         gridTemplateRows, skipCellSet, mergeCellMap, mergeCellsByCoveredRow, mergeCellsByCoveredColumn, getCellKey
     } = useColumnLayout<T>({
         columns: effectiveColumns, width, resizedWidths, isGrouped, isTree, isExpansion, groupBy, headerRowHeight,
-        displayRows, getRowHeight, groupRowHeight, mergeCells, bottomColumnsRef
+        displayRows, getRowHeight, groupRowHeight, defaultRowHeight, mergeCells, bottomColumnsRef
     });
 
     // 供 handleResizeMouseDown 读取当前列宽
@@ -1185,6 +1210,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 bodyRows.push(
                     <BodyRow
                         key={`table-expanded-row-${String(currentRow.id)}`}
+                        inert={motionRows[rowIndex]?.exiting}
+                        aria-hidden={motionRows[rowIndex]?.exiting || undefined}
+                        className={css`overflow: clip;`}
                         style={{ height: gridTemplateRows[rowIndex], width: actualHeight }}
                         role="row"
                         renderVersion={virtualRenderVersion}
@@ -1618,7 +1646,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             ref={interactionRootRef}
             role={restProps.role ?? "grid"}
             tabIndex={restProps.tabIndex ?? 0}
-            aria-rowcount={restProps["aria-rowcount"] ?? maxDepth + (isFilterEnabled ? 1 : 0) + displayRows.length + (showSummary ? 1 : 0)}
+            aria-rowcount={restProps["aria-rowcount"] ?? maxDepth + (isFilterEnabled ? 1 : 0) + targetRows.length + (showSummary ? 1 : 0)}
             aria-colcount={restProps["aria-colcount"] ?? bottomColumns.length}
             onMouseDownCapture={(event) => {
                 activateInteraction();
@@ -1640,7 +1668,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 activateInteraction();
                 restProps.onFocusCapture?.(event);
             }}
-            className={cx.call(undefined, tableRootStyle, emptyNode !== null && emptyContainerStyle, restProps.className)}
+            className={cx.call(undefined, tableRootStyle, componentSizeStyles[size], emptyNode !== null && emptyContainerStyle, restProps.className)}
             data-fixed-left={actualHeight > width && fixedLeftColumnsIdx.length > 0 || undefined}
             data-fixed-right={actualHeight > width && fixedRightColumnsIdx.length > 0 || undefined}
             style={{

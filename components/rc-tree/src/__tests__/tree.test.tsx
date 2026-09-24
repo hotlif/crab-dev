@@ -52,6 +52,7 @@ mock.module("@crab-dev/rc-hooks", async () => ({
 }));
 import type { Node } from "../type.js";
 import type { TreeProps } from "../tree.js";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 let LoadStateType: (typeof import("../type.js"))["LoadStateType"];
 let NodeType: (typeof import("../type.js"))["NodeType"];
 let Tree: (typeof import("../tree.js"))["default"];
@@ -71,6 +72,19 @@ const createNode = (id: string | number, overrides: Partial<Node> = {}): Node =>
     ...overrides,
 });
 describe("Tree component", () => {
+    it('inherits global size without overriding explicit node geometry and protects coarse targets', async () => {
+        const treeData = [createNode('one', { priority: 1 }), createNode('two', { priority: 2, height: 70 })];
+        const change = mock.fn();
+        const view = await render(<ConfigProvider size="small"><Tree treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
+        expect(virtualRows).toEqual([44, 70]);
+        await view.rerender(<ConfigProvider size="large"><Tree treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
+        expect(virtualRows).toEqual([64, 70]);
+        await view.rerender(<ConfigProvider size="large"><Tree size="small" treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
+        expect(virtualRows).toEqual([44, 70]);
+        coarsePointer = true;
+        await view.rerender(<ConfigProvider size="small"><Tree treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
+        expect(virtualRows).toEqual([48, 70]);
+    });
     it('labels the keyboard focus target and identifies its selected tree item', async () => {
         const node = createNode('selected');
         const view = await render(<Tree aria-label="Objects" treeData={[node]} selectKeys={[node.id]} width={400} height={300} onTreeNodeChange={mock.fn()} />);

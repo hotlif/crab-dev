@@ -30,6 +30,7 @@ export function useColumnLayout<T extends Row>(params: {
     displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     getRowHeight?: (row: T, rowIndex: number) => number | undefined
     groupRowHeight: number
+    defaultRowHeight: number
     mergeCells: MergeCell[]
     bottomColumnsRef: MutableRefObject<ColumnType<T>[]>
 }): {
@@ -58,7 +59,7 @@ export function useColumnLayout<T extends Row>(params: {
 } {
     const {
         columns, width, resizedWidths, isGrouped, isTree, isExpansion, groupBy, headerRowHeight,
-        displayRows, getRowHeight, groupRowHeight, mergeCells, bottomColumnsRef
+        displayRows, getRowHeight, groupRowHeight, defaultRowHeight, mergeCells, bottomColumnsRef
     } = params;
 
     const groupBySet = useMemo(() => new Set(groupBy), [groupBy]);
@@ -176,12 +177,12 @@ export function useColumnLayout<T extends Row>(params: {
         return displayRows.map((row, rowIndex) => {
             if (isGroupRow(row)) return row.height ?? groupRowHeight;
             // 展开内容行的高度在构造时已写入 row.height（expandedRowHeight 或逐行覆盖值）
-            if (isExpandedContentRow(row)) return row.height ?? 52;
+            if (isExpandedContentRow(row)) return row.height ?? defaultRowHeight;
             // 上方两个守卫已排除分组 / 展开内容行，此处必为数据行（泛型守卫无法自动收窄联合）
             const dataRow = row as T;
-            return getRowHeight?.(dataRow, rowIndex) ?? dataRow.height ?? 52;
+            return getRowHeight?.(dataRow, rowIndex) ?? dataRow.height ?? defaultRowHeight;
         });
-    }, [displayRows, getRowHeight, groupRowHeight]);
+    }, [displayRows, getRowHeight, groupRowHeight, defaultRowHeight]);
 
     const { skipCellSet, mergeCellMap, mergeCellsByCoveredRow, mergeCellsByCoveredColumn, getCellKey } = useMemo(() => {
         // 分组 / 树 / 行展开均会插入或移除视图行，使 mergeCells 的 rowIndex 失准，故一并禁用合并

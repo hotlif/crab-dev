@@ -2,10 +2,10 @@ import type { HTMLAttributes, ReactNode } from "react";
 
 /**
  * 尺寸阶梯。
- * - `medium`：默认桌面密度（32px）
- * - `small`：紧凑模式（24px），用于表格内联、抽屉底部等密集场景
+ * - `medium`：默认桌面密度（40px），middle 为同义名称
+ * - `small`：紧凑模式（32px），用于表格内联、抽屉底部等密集场景
  */
-export type PaginationSize = "small" | "medium";
+export type PaginationSize = "small" | "middle" | "medium" | "large";
 
 /**
  * 页码变更事件。

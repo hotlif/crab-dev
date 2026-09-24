@@ -42,7 +42,8 @@ const colPinBtnStyle = css`
     padding: 0;
     opacity: 0;
     color: ${token.icon.color};
-    transition: opacity 0.1s;
+    transition: opacity ${token.motion.interaction.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
 `;
 
@@ -66,7 +67,8 @@ const sortableBtnStyle = css`
     padding: 0;
     opacity: 0;
     color: ${token.icon.color};
-    transition: opacity 0.1s;
+    transition: opacity ${token.motion.interaction.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
     &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
 `;
 
@@ -114,9 +116,9 @@ function SortableIcon({ active }: SortableIconProps) {
 export type PinChangeHandler = (colName: string | number, fixed: "left" | "right" | undefined) => void;
 export type SortableChangeHandler = (colName: string | number, sortable: boolean) => void;
 
-export interface UseColumnManagementOptions {
+export interface UseColumnManagementOptions<T extends Row = Row> {
     fetchColumns: () => Promise<ProtocolColumnType[]>;
-    typeLoaders?: DataTypeLoader[];
+    typeLoaders?: DataTypeLoader<T>[];
     initialState?: ProtocolTableState;
     onStateChange?: (state: ProtocolTableState) => void;
     sideBar?: boolean;
@@ -247,7 +249,7 @@ function columnsToTreeNodes(
 /* ─── Hook ─── */
 
 export function useColumnManagement<T extends Row>(
-    options: UseColumnManagementOptions
+    options: UseColumnManagementOptions<T>
 ): UseColumnManagementReturn<T> {
     const {
         fetchColumns,
@@ -305,7 +307,7 @@ export function useColumnManagement<T extends Row>(
             });
         rawColumnsRef.current = updateFixed(rawColumnsRef.current);
         setPanelTreeData(columnsToTreeNodes(rawColumnsRef.current, null, handlePinChange, handleSortableChange));
-        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current));
         notify();
     };
 
@@ -318,7 +320,7 @@ export function useColumnManagement<T extends Row>(
             });
         rawColumnsRef.current = update(rawColumnsRef.current);
         setPanelTreeData(columnsToTreeNodes(rawColumnsRef.current, null, handlePinChange, handleSortableChange));
-        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current));
         notify();
     };
 
@@ -340,7 +342,7 @@ export function useColumnManagement<T extends Row>(
         if (dragId === targetId) return;
         rawColumnsRef.current = reorderColumnsByDrag(rawColumnsRef.current, dragId, targetId, overState.state);
         setPanelTreeData(columnsToTreeNodes(rawColumnsRef.current, null, handlePinChange, handleSortableChange));
-        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current));
         notify();
     };
 
@@ -352,7 +354,7 @@ export function useColumnManagement<T extends Row>(
 
     const handleResetColumnWidths = () => {
         rawColumnsRef.current = resetColumnWidths(rawColumnsRef.current, initWidthMapRef.current);
-        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current));
         notify();
     };
 
@@ -366,7 +368,7 @@ export function useColumnManagement<T extends Row>(
         const allLeafNames = new Set(collectAllLeafColumnNames(rawColumnsRef.current));
         const hiddenNames = new Set([...allLeafNames].filter(name => !nextCheckedKeys.includes(name)));
         rawColumnsRef.current = applyHiddenToColumns(rawColumnsRef.current, hiddenNames);
-        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current));
         notify();
     };
 
@@ -391,7 +393,7 @@ export function useColumnManagement<T extends Row>(
             setPanelCheckedKeys(allIds);
             rawColumnsRef.current = applyHiddenToColumns(rawColumnsRef.current, new Set());
         }
-        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+        setColumns(transformColumns(rawColumnsRef.current, latestTypeLoaders.current));
         notify();
     };
 
@@ -404,7 +406,7 @@ export function useColumnManagement<T extends Row>(
             const restored = initialState ? applyInitialState(resp, initialState) : resp;
             rawColumnsRef.current = restored;
             initWidthMapRef.current = buildInitWidthMap(restored);
-            setColumns(transformColumns(restored, latestTypeLoaders.current) as unknown as ColumnType<T>[]);
+            setColumns(transformColumns(restored, latestTypeLoaders.current));
 
             if (sideBar) {
                 const nodes = columnsToTreeNodes(restored, null, handlePinChange, handleSortableChange);

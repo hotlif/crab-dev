@@ -8,21 +8,21 @@ imports = [
 [token]
 
 # ─── 容器 ────────────────────────────────────────────────────────────────────
-root.gap = "var(--pagination-gap, $ref(space.inline-gap))"
+root.gap = "$ref(space.inline-gap)"
 group.gap            = "$ref(space.stack-gap)"
-root.font-size = "var(--pagination-font-size, $ref(typography.body.font-size))"
-root.font-weight = "var(--pagination-font-weight, $ref(font.weight.body))"
+root.font-size = "$ref(typography.body.font-size)"
+root.font-weight = "$ref(font.weight.body)"
 
 # ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
-size.medium.height = "$ref(size.40)"
-size.medium.min-width = "$ref(size.40)"
+size.medium.height = "$ref(sizing.middle.control)"
+size.medium.min-width = "$ref(sizing.middle.control)"
 size.medium.padding    = "0 $ref(space.component-gap)"
 size.medium.font-size  = "$ref(typography.body.font-size)"
 
-size.small.height = "$ref(size.40)"
-size.small.min-width = "$ref(size.40)"
+size.small.height = "$ref(sizing.small.control)"
+size.small.min-width = "$ref(sizing.small.control)"
 size.small.padding     = "0 $ref(space.inline-gap)"
-size.small.font-size   = "$ref(typography.caption.font-size)"
+size.small.font-size = "$ref(typography.body.font-size)"
 
 # ─── 分页项（Ghost 按钮风格，无描边） ─────────────────────────────────────────
 item.color                    = "$ref(color.text.secondary)"
@@ -32,7 +32,7 @@ item.color-disabled           = "$ref(color.text.disabled)"
 item.background-color         = "transparent"
 item.background-color-hover   = "$ref(color.state.hover)"
 item.background-color-active = "$ref(color.secondary.container)"
-item.border-radius = "var(--pagination-item-radius, $ref(shape.full))"
+item.border-radius = "$ref(shape.full)"
 
 # ─── 省略号 ──────────────────────────────────────────────────────────────────
 ellipsis.color = "$ref(color.text.tertiary)"
@@ -54,12 +54,12 @@ input.border-width         = "1px"
 input.border-radius        = "$ref(shape.control)"
 
 # ─── 焦点 ────────────────────────────────────────────────────────────────────
-root.outline-color-focus = "var(--pagination-focus-outline-color, $ref(color.focus.ring))"
-root.outline-offset-focus = "var(--pagination-focus-outline-offset, 2px)"
-root.outline-width-focus = "var(--pagination-focus-outline-width, 2px)"
+root.outline-color-focus = "$ref(color.focus.ring)"
+root.outline-offset-focus = "2px"
+root.outline-width-focus = "2px"
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
-root.transition = "var(--pagination-transition, background-color $ref(motion.interaction), color $ref(motion.interaction), border-color $ref(motion.interaction))"
+root.transition = "background-color $ref(motion.interaction), color $ref(motion.interaction), border-color $ref(motion.interaction)"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"
@@ -67,3 +67,8 @@ interaction.outline-color-focus = "$ref(color.focus.ring)"
 interaction.outline-width-focus = "2px"
 interaction.outline-offset-focus = "2px"
 interaction.transition = "$ref(motion.interaction)"
+
+size.large.height = "$ref(sizing.large.action)"
+size.large.min-width = "$ref(sizing.large.action)"
+size.large.padding = "0 $ref(space.stack-gap)"
+size.large.font-size = "$ref(typography.body.font-size)"

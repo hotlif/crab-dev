@@ -10,6 +10,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CellEditRecord = DocsTypePlaceholder;
 type ColumnType<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ConfigSize = DocsTypePlaceholder;
 type FilterEditorParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type GroupCellRenderParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Key = DocsTypePlaceholder;
@@ -24,6 +25,11 @@ type T = DocsTypePlaceholder;
 type TableCellProps<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface TableProps {
+    /**
+     * 行高尺寸档；显式行高回调和 row.height 优先。省略时继承 ConfigProvider。
+     */
+    "size"?: ConfigSize;
+
     /**
      * 表格的宽度
      */
@@ -228,6 +234,11 @@ export interface TableProps {
      * 受控排序列配置
      */
     "sortColumns"?: SortColumn[];
+
+    /**
+     * server 保留排序交互，行顺序由调用者提供。
+     */
+    "sortMode"?: 'client' | 'server';
 
     /**
      * 非受控初始排序

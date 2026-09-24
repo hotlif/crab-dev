@@ -9,19 +9,18 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CellEditRecord = DocsTypePlaceholder;
-type DataTypeLoader = DocsTypePlaceholder;
+type ConfigSize = DocsTypePlaceholder;
+type DataTypeLoader<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Error = DocsTypePlaceholder;
 type FilterEditorParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type GroupCellRenderParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Key = DocsTypePlaceholder;
 type MergeCell = DocsTypePlaceholder;
-type PaginationConfig = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ProtocolColumnType = DocsTypePlaceholder;
 type ProtocolTableState = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
-type Row = DocsTypePlaceholder;
 type RowSelection<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SortColumn = DocsTypePlaceholder;
@@ -31,17 +30,22 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
+    "size"?: ConfigSize;
+
+    /**
+     * 暂无说明。
+     */
     "filterBar"?: boolean;
 
     /**
      * 暂无说明。
      */
-    "typeLoaders"?: DataTypeLoader[];
+    "typeLoaders"?: DataTypeLoader<T>[];
 
     /**
      * 暂无说明。
      */
-    "fetchColumns": (() => Promise<ProtocolColumnType[]>);
+    "fetchColumns": () => Promise<ProtocolColumnType[]>;
 
     /**
      * 暂无说明。
@@ -51,12 +55,12 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onExpandedGroupIdsChange"?: ((ids: Set<Key>) => void);
+    "onExpandedGroupIdsChange"?: (ids: Set<Key>) => void;
 
     /**
      * 暂无说明。
      */
-    "renderDefaultFilterEditor"?: ((param: FilterEditorParam<Row>) => ReactNode);
+    "renderDefaultFilterEditor"?: (param: FilterEditorParam<T>) => ReactNode;
 
     /**
      * 暂无说明。
@@ -71,12 +75,12 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onCopy"?: ((cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown; }>) => void);
+    "onCopy"?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void;
 
     /**
      * 暂无说明。
      */
-    "getRowHeight"?: ((row: T, rowIndex: number) => number | undefined);
+    "getRowHeight"?: (row: T, rowIndex: number) => number | undefined;
 
     /**
      * 暂无说明。
@@ -101,7 +105,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onColumnResize"?: ((columnName: string, width: number) => void);
+    "onColumnResize"?: (columnName: string, width: number) => void;
 
     /**
      * 暂无说明。
@@ -111,12 +115,12 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onColumnOrderChange"?: ((orderedColumnNames: string[]) => void);
+    "onColumnOrderChange"?: (orderedColumnNames: string[]) => void;
 
     /**
      * 暂无说明。
      */
-    "onGroupColumnOrderChange"?: ((groupName: string, orderedChildNames: string[]) => void);
+    "onGroupColumnOrderChange"?: (groupName: string, orderedChildNames: string[]) => void;
 
     /**
      * 暂无说明。
@@ -141,12 +145,17 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "renderGroupCell"?: ((param: GroupCellRenderParam<T>) => ReactNode);
+    "renderGroupCell"?: (param: GroupCellRenderParam<T>) => ReactNode;
 
     /**
      * 暂无说明。
      */
     "sortColumns"?: SortColumn[];
+
+    /**
+     * server 仅维护排序状态，排序结果由 request 返回。默认 client。
+     */
+    "sortMode"?: 'client' | 'server';
 
     /**
      * 暂无说明。
@@ -156,7 +165,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onSortColumnsChange"?: ((columns: SortColumn[]) => void);
+    "onSortColumnsChange"?: (columns: SortColumn[]) => void;
 
     /**
      * 暂无说明。
@@ -176,7 +185,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onMatchCountChange"?: ((count: number) => void);
+    "onMatchCountChange"?: (count: number) => void;
 
     /**
      * 暂无说明。
@@ -196,7 +205,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onSelectCellsChange"?: ((selectCells: Key[]) => void);
+    "onSelectCellsChange"?: (selectCells: Key[]) => void;
 
     /**
      * 暂无说明。
@@ -206,7 +215,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "getChildRows"?: ((row: T) => T[] | undefined | null);
+    "getChildRows"?: (row: T) => T[] | undefined | null;
 
     /**
      * 暂无说明。
@@ -231,17 +240,17 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onExpandedRowIdsChange"?: ((ids: Set<Key>) => void);
+    "onExpandedRowIdsChange"?: (ids: Set<Key>) => void;
 
     /**
      * 暂无说明。
      */
-    "expandedRowRender"?: ((row: T) => ReactNode);
+    "expandedRowRender"?: (row: T) => ReactNode;
 
     /**
      * 暂无说明。
      */
-    "isRowExpandable"?: ((row: T) => boolean);
+    "isRowExpandable"?: (row: T) => boolean;
 
     /**
      * 暂无说明。
@@ -256,7 +265,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onExpandedRowKeysChange"?: ((keys: Set<Key>) => void);
+    "onExpandedRowKeysChange"?: (keys: Set<Key>) => void;
 
     /**
      * 暂无说明。
@@ -266,7 +275,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "getExpandedRowHeight"?: ((row: T) => number | undefined);
+    "getExpandedRowHeight"?: (row: T) => number | undefined;
 
     /**
      * 暂无说明。
@@ -296,17 +305,17 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onEditingRowIdChange"?: ((id: Key | null) => void);
+    "onEditingRowIdChange"?: (id: Key | null) => void;
 
     /**
      * 暂无说明。
      */
-    "onRowCommit"?: ((rowId: Key, changes: Record<string, unknown>) => void);
+    "onRowCommit"?: (rowId: Key, changes: Record<string, unknown>) => void;
 
     /**
      * 暂无说明。
      */
-    "onRowCancel"?: ((rowId: Key) => void);
+    "onRowCancel"?: (rowId: Key) => void;
 
     /**
      * 暂无说明。
@@ -316,12 +325,12 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onCellEditRecordsChange"?: ((records: CellEditRecord[]) => void);
+    "onCellEditRecordsChange"?: (records: CellEditRecord[]) => void;
 
     /**
      * 暂无说明。
      */
-    "onUndo"?: ((record: CellEditRecord) => void);
+    "onUndo"?: (record: CellEditRecord) => void;
 
     /**
      * 暂无说明。
@@ -341,7 +350,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onStateChange"?: ((state: ProtocolTableState) => void);
+    "onStateChange"?: (state: ProtocolTableState) => void;
 
     /**
      * 暂无说明。
@@ -361,20 +370,10 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onError"?: ((error: Error, source: "columns" | "data") => void);
+    "onError"?: (error: Error, source: "columns" | "data") => void;
 
     /**
      * 是否在最左侧显示行序号列（默认 true）
      */
     "showRowNumber"?: boolean;
-
-    /**
-     * 暂无说明。
-     */
-    "fetchData": ((filters: Record<string, string>) => Promise<T[]>) | ((page: number, pageSize: number, filters: Record<string, string>) => Promise<{ rows: T[]; total: number; }>);
-
-    /**
-     * 暂无说明。
-     */
-    "pagination"?: false | PaginationConfig;
 }

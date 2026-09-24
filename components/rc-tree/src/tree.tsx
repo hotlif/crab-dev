@@ -1,3 +1,4 @@
+import { useComponentSize, componentSizeMetrics, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { useEffect, useState, useRef, useMemo, useId } from "react";
 import type { Key, FC, ReactNode, HTMLAttributes, MouseEvent, SetStateAction, Dispatch } from "react";
 import { createPortal } from "react-dom";
@@ -15,7 +16,7 @@ import type {
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
-import { useKeyDown, useMediaQuery } from "@crab-dev/rc-hooks";
+import { useAnimatedRows, useKeyDown, useMediaQuery } from "@crab-dev/rc-hooks";
 import token from "./token.js";
 import { LoadStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import NodeItem, { type NodeItemProps } from "./nodeItem.js";
@@ -92,9 +93,9 @@ export interface TreeProps extends Omit<
      */
     showLine?: boolean
 
-    /**
-     * 默认节点高度
-     */
+    /** 默认节点尺寸档；省略时继承 ConfigProvider。 */
+    size?: ConfigSize;
+    /** 显式节点高度，优先于尺寸档。粗指针下至少为 48px。 */
     defaultNodeHeight?: number
 
     /**
@@ -227,7 +228,8 @@ const Tree: FC<TreeProps> = ({
     selectKeys = [],
     draggable = false,
     showLine,
-    defaultNodeHeight = 56,
+    size: sizeProp,
+    defaultNodeHeight: nodeHeight,
     loadData,
     onTreeNodeChange,
     onExpanded: _onExpanded,
@@ -256,6 +258,8 @@ const Tree: FC<TreeProps> = ({
     role = 'tree',
     ...restProps
 }) => {
+    const size = useComponentSize(sizeProp);
+    const defaultNodeHeight = nodeHeight ?? componentSizeMetrics[size].navigation;
     const nodeId = useId();
     // 可变实例状态：选择变化时定位虚拟列表，不参与节点渲染。
     const gridRef = useRef<VirtualHandle>(null);
@@ -329,10 +333,19 @@ const Tree: FC<TreeProps> = ({
         return getDisplayedNodes(_displayedNodes);
     }, [treeData, expandedKeys, filterTreeNode]);
 
+    const motionRows = useAnimatedRows(displayedNodes, {
+        keyFor: node => node.id,
+        sizeFor: ({ height = defaultNodeHeight }) => coarsePointer ? Math.max(height, 48) : height,
+        trigger: JSON.stringify(expandedKeys),
+        rootRef: divRef,
+        motionProperty: '--tree-row-motion',
+        enabled: activeId === null && !filterTreeNode,
+    });
     const selectedId = selectKeys[selectKeys.length - 1];
     const selectedIndex = displayedNodes.findIndex(node => node.id === selectedId);
     useEffect(() => {
-        if (height > 0 && selectedIndex >= 0) gridRef.current?.scrollToCell({ rowIndex: selectedIndex });
+        const rowIndex = motionRows.findIndex(row => row.key === selectedId && !row.exiting);
+        if (height > 0 && rowIndex >= 0) gridRef.current?.scrollToCell({ rowIndex });
     }, [height, selectedIndex]);
 
     const onExpanded: TreeProps["onExpanded"] = (e) => {
@@ -422,8 +435,7 @@ const Tree: FC<TreeProps> = ({
 
 
     // Keep the virtual offsets and rendered rows in agreement when input mode changes.
-    const gridTemplateRows = displayedNodes.map(({ height = defaultNodeHeight }) =>
-        coarsePointer ? Math.max(height, 48) : height);
+    const gridTemplateRows = motionRows.map(row => row.size);
 
     return (
         <DndContext
@@ -538,6 +550,7 @@ const Tree: FC<TreeProps> = ({
                     className={css`
                         display: inline-block;
                         position: relative;
+                        --tree-row-motion: ${token.motion.rows.transition};
                         color: ${token.root.color};
                         font-family: ${token.root['font-family']};
                         &:focus-visible { outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']}; outline-offset: ${token.root['outline-offset-focus']}; }
@@ -720,13 +733,19 @@ const Tree: FC<TreeProps> = ({
                             }
 
                             for (; rowIndex <= rowRange[1]; rowIndex += 1) {
-                                const node = displayedNodes[rowIndex];
+                                const motionRow = motionRows[rowIndex];
+                                if (!motionRow) continue;
+                                const node = motionRow.item;
                                 nodes.push(
                                     <div
                                         key={node.id}
+                                        inert={motionRow.exiting}
+                                        aria-hidden={motionRow.exiting || undefined}
+                                        data-moving={motionRow.exiting || motionRow.size !== (coarsePointer ? Math.max(node.height ?? defaultNodeHeight, 48) : node.height ?? defaultNodeHeight) || undefined}
                                         className={css`
                                             white-space: nowrap;
                                             overflow: visible;
+                                            &[data-moving] { overflow: clip; }
                                             position: relative;
                                         `}
                                         style={{
@@ -765,7 +784,7 @@ const Tree: FC<TreeProps> = ({
                                     overState={null}
                                     selectKeys={[]}
                                     style={{
-                                        height: (activeNode as Node)?.height ?? defaultNodeHeight,
+                                        height: coarsePointer ? Math.max((activeNode as Node)?.height ?? defaultNodeHeight, 48) : (activeNode as Node)?.height ?? defaultNodeHeight,
                                         width: width,
                                         borderRadius: 4,
                                         opacity: 1,

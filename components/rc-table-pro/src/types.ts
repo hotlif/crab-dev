@@ -1,4 +1,4 @@
-import type { ColumnType, Row } from "@crab-dev/rc-table";
+import type { ColumnType, Row, SortColumn } from "@crab-dev/rc-table";
 import type { PaginationShowTotal, PaginationSize } from "@crab-dev/rc-pagination";
 
 export interface ProtocolColumnType {
@@ -20,18 +20,33 @@ export interface ProtocolColumnType {
     selectable?: ColumnType<Row>["selectable"];
 }
 
-export interface DataTypeLoader {
+export interface DataTypeLoader<T extends Row = Row> {
     name: string;
-    render: ColumnType<Row>["render"];
-    filterEditor: ColumnType<Row>["filterEditor"];
-    editRender: ColumnType<Row>["editRender"];
+    render: ColumnType<T>["render"];
+    filterEditor: ColumnType<T>["filterEditor"];
+    editRender: ColumnType<T>["editRender"];
     /** 自定义该 dataType 用于关键字高亮匹配的文本（枚举值转换场景） */
-    getSearchText?: ColumnType<Row>["getSearchText"];
+    getSearchText?: ColumnType<T>["getSearchText"];
     /** 自定义该 dataType 的底部汇总单元格内容（需 Table showSummary 开启） */
-    summaryRender?: ColumnType<Row>["summaryRender"];
+    summaryRender?: ColumnType<T>["summaryRender"];
     /** CSV 导出时将原始值转换为字符串（不提供则 String(rawValue)） */
-    exportValue?: (rawValue: unknown, row: Row) => string;
+    exportValue?: (rawValue: unknown, row: T) => string;
 }
+
+export interface TableQuery {
+    page: number;
+    pageSize: number;
+    filters: Readonly<Record<string, string>>;
+    sort: readonly SortColumn[];
+    signal: AbortSignal;
+}
+
+export interface TableDataResult<T extends Row> { rows: T[]; total: number }
+export type TableDataRequest<T extends Row> = (query: TableQuery) => Promise<TableDataResult<T>>;
+export type TableDataSource<T extends Row> =
+    | { request: TableDataRequest<T>; fetchData?: never; pagination?: PaginationConfig | false; sortMode?: 'client' | 'server' }
+    | { request?: never; fetchData: (filters: Record<string, string>) => Promise<T[]>; pagination?: false; sortMode?: 'client' }
+    | { request?: never; fetchData: (page: number, pageSize: number, filters: Record<string, string>) => Promise<TableDataResult<T>>; pagination: PaginationConfig; sortMode?: 'client' };
 
 /** 可序列化的表格状态快照，用于持久化和恢复 */
 export interface ProtocolTableState {

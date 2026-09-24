@@ -1,3 +1,4 @@
+import { useComponentSize, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { type HTMLAttributes, type ReactNode, type Key, useState, useRef } from "react";
 import Table, { type Row, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord } from "@crab-dev/rc-table";
 import Tree, { NodeType, OverStateEnum } from "@crab-dev/rc-tree";
@@ -7,7 +8,7 @@ import AutoSizer from "@crab-dev/rc-auto-sizer";
 import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
 import { css, cx } from "@crab-dev/css";
-import type { ProtocolColumnType, DataTypeLoader, PaginationConfig, ProtocolTableState } from "./types.js";
+import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TableDataSource } from "./types.js";
 import token from "./token.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
 import { useColumnManagement } from "./hooks/useColumnManagement.js";
@@ -325,12 +326,13 @@ const retryBtnStyle = css`
 /* ───────────────────────────── Props ───────────────────────────── */
 
 interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy" | "onError"> {
+    size?: ConfigSize;
     filterBar?: boolean;
-    typeLoaders?: DataTypeLoader[];
+    typeLoaders?: DataTypeLoader<T>[];
     fetchColumns: () => Promise<ProtocolColumnType[]>;
     expandedGroupIds?: Set<Key>;
     onExpandedGroupIdsChange?: (ids: Set<Key>) => void;
-    renderDefaultFilterEditor?: (param: FilterEditorParam<Row>) => ReactNode;
+    renderDefaultFilterEditor?: (param: FilterEditorParam<T>) => ReactNode;
     empty?: ReactNode;
     mergeCells?: MergeCell[];
     onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void;
@@ -349,6 +351,8 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     defaultExpandAll?: boolean;
     renderGroupCell?: (param: GroupCellRenderParam<T>) => ReactNode;
     sortColumns?: SortColumn[];
+    /** server 仅维护排序状态，排序结果由 request 返回。默认 client。 */
+    sortMode?: 'client' | 'server';
     defaultSortColumns?: SortColumn[];
     onSortColumnsChange?: (columns: SortColumn[]) => void;
     rowSelection?: RowSelection<T>;
@@ -396,22 +400,14 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     showRowNumber?: boolean;
 }
 
-interface NoPaginationProps<T extends Row> extends BaseProps<T> {
-    fetchData: (filters: Record<string, string>) => Promise<T[]>;
-    pagination?: false;
-}
-
-interface WithPaginationProps<T extends Row> extends BaseProps<T> {
-    fetchData: (page: number, pageSize: number, filters: Record<string, string>) => Promise<{ rows: T[]; total: number }>;
-    pagination: PaginationConfig;
-}
-
-type TableProProps<T extends Row> = NoPaginationProps<T> | WithPaginationProps<T>;
+export type TableProProps<T extends Row> = BaseProps<T> & TableDataSource<T>;
 
 /* ───────────────────────────── 组件 ───────────────────────────── */
 
 function TablePro<T extends Row>(props: TableProProps<T>) {
+    const tableSize = useComponentSize(props.size);
     const {
+        size: _size,
         fetchColumns,
         typeLoaders,
         expandedGroupIds,
@@ -438,6 +434,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         defaultExpandAll,
         renderGroupCell,
         sortColumns,
+        sortMode = 'client',
         defaultSortColumns,
         onSortColumnsChange,
         rowSelection,
@@ -485,7 +482,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         ...rest
     } = props;
 
-    const { fetchData: _fetchData, ...cleanRest } = rest as typeof rest & { fetchData?: unknown };
+    const { fetchData: _fetchData, request: _request, ...cleanRest } = rest;
 
     /* ─── Hooks（colMgmt 先于 tableData，通过 ref 桥接互相依赖） ─── */
 
@@ -505,8 +502,9 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
     });
 
     const tableData = useTableData<T>({
-        fetchData: props.fetchData,
-        pagination,
+        ...props,
+        sortColumns,
+        onSortColumnsChange,
         autoRefreshInterval,
         onError: onError ? (e) => onError(e, "data") : undefined,
     });
@@ -532,14 +530,15 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
 
     const loading = colMgmt.columnsLoading || tableData.dataLoading;
 
-    const typedRenderDefaultFilterEditor = renderDefaultFilterEditor as unknown as ((param: FilterEditorParam<T>) => ReactNode);
-    const typedRenderGroupCell = renderGroupCell as unknown as ((param: GroupCellRenderParam<T>) => ReactNode);
+    const typedRenderDefaultFilterEditor = renderDefaultFilterEditor;
+    const typedRenderGroupCell = renderGroupCell;
 
     const tableContent = (
         <>
             <AutoSizer>
                 {({ width, height }) => (
                     <Table
+            size={tableSize}
                         width={width}
                         height={height}
                         rows={tableData.rows}
@@ -567,9 +566,10 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         defaultExpandedGroupIds={defaultExpandedGroupIds}
                         defaultExpandAll={defaultExpandAll}
                         renderGroupCell={typedRenderGroupCell}
-                        sortColumns={sortColumns}
+                        sortColumns={tableData.sortColumns}
+                        sortMode={sortMode}
                         defaultSortColumns={defaultSortColumns}
-                        onSortColumnsChange={onSortColumnsChange}
+                        onSortColumnsChange={tableData.handleSortChange}
                         rowSelection={rowSelection}
                         highlightKeyword={showSearchBar ? searchBar.searchKeyword : highlightKeyword}
                         activeMatchIndex={showSearchBar ? searchBar.searchActiveIndex : activeMatchIndex}
@@ -928,7 +928,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 showQuickJumper={showQuickJumper}
                 showTotal={showTotal}
                 pageSizeOptions={pageSizeOptions}
-                size={size}
+                size={size ?? tableSize}
             />
             <button
                 className={paginationRefreshBtnStyle}

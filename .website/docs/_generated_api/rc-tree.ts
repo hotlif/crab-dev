@@ -8,6 +8,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: number]: DocsTypePlaceholder;
 };
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ConfigSize = DocsTypePlaceholder;
 type Context = DocsTypePlaceholder;
 type Dispatch<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type DragAbortEvent = DocsTypePlaceholder;
@@ -70,7 +71,12 @@ export interface TreeProps {
     "showLine"?: boolean;
 
     /**
-     * 默认节点高度
+     * 默认节点尺寸档；省略时继承 ConfigProvider。
+     */
+    "size"?: ConfigSize;
+
+    /**
+     * 显式节点高度，优先于尺寸档。粗指针下至少为 48px。
      */
     "defaultNodeHeight"?: number;
 

@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from '@crab-dev/rc-hooks';
 
 /** 非活动类目的保留系数：柱色向背景混合后仍清晰可辨，只是退居次要 */
 export const DIM_OPACITY = 0.45;
@@ -31,6 +32,7 @@ export function useCategoryDim(
     categoryCount: number,
     animate: boolean,
 ): number[] {
+    const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     const [dims, setDims] = useState<number[]>(() => dimTargets(activeIndex, categoryCount));
 
     // 可变实例状态 ref：rAF 句柄，跨渲染持有、不应触发重渲染
@@ -42,17 +44,18 @@ export function useCategoryDim(
 
     useEffect(() => {
         const key = `${activeIndex}|${categoryCount}`;
-        if (key === keyRef.current) return;
-        keyRef.current = key;
-
         const targets = dimTargets(activeIndex, categoryCount);
-        cancelAnimationFrame(rafRef.current);
 
-        if (!animate || prefersReducedMotion()) {
+        if (!animate || reducedMotion || prefersReducedMotion()) {
+            cancelAnimationFrame(rafRef.current);
+            keyRef.current = key;
             dimsRef.current = targets;
             setDims(targets);
             return;
         }
+        if (key === keyRef.current) return;
+        keyRef.current = key;
+        cancelAnimationFrame(rafRef.current);
 
         const from = dimsRef.current;
         const start = performance.now();
@@ -68,7 +71,7 @@ export function useCategoryDim(
             if (t < 1) rafRef.current = requestAnimationFrame(tick);
         };
         rafRef.current = requestAnimationFrame(tick);
-    }, [activeIndex, categoryCount, animate]);
+    }, [activeIndex, categoryCount, animate, reducedMotion]);
 
     // 卸载时停止补间
     useEffect(() => () => cancelAnimationFrame(rafRef.current), []);

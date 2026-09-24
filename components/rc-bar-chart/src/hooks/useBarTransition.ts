@@ -20,6 +20,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from '@crab-dev/rc-hooks';
 import type { BarRect, ChartOrientation } from '../layout.js';
 
 /** 入场 / 更新的基准时长（ms） */
@@ -127,6 +128,7 @@ export interface BarTransitionOptions {
  * 返回当前帧应渲染的柱几何。`animate` 关闭或系统偏好「减弱动态」时直接返回终态。
  */
 export function useBarTransition(bars: BarRect[], options: BarTransitionOptions): BarRect[] {
+    const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     const { zeroPos, orientation, categoryCount, animate, width, height, ready = true, staggered = true } = options;
 
     // 首帧即为基线态，避免「先闪终态再回落」；reduce / 关闭动画时直接终态
@@ -155,17 +157,23 @@ export function useBarTransition(bars: BarRect[], options: BarTransitionOptions)
             && (sizeRef.current.width !== width || sizeRef.current.height !== height);
         sizeRef.current = { width, height };
 
-        if (sig === sigRef.current) return; // target 未变（含每帧动画重渲染），不重启
         const isFirst = sigRef.current === '';
-        sigRef.current = sig;
 
         // resize 直接落终态：柱即时跟随新布局，补间 / 错峰只留给数据变化
-        if (!animate || prefersReducedMotion() || resized) {
+        if (!animate || reducedMotion || prefersReducedMotion() || resized) {
             cancelAnimationFrame(rafRef.current);
-            displayRef.current = bars;
-            setDisplay(bars);
+            sigRef.current = sig;
+            // Layout may return an equivalent new array on every render. Avoid
+            // scheduling another render once both geometry and values are final.
+            if (signature(displayRef.current, zeroPos) !== sig || bars.some((bar, index) =>
+                bar.value !== displayRef.current[index]?.value || bar.dataEnd !== displayRef.current[index]?.dataEnd)) {
+                displayRef.current = bars;
+                setDisplay(bars);
+            }
             return;
         }
+        if (sig === sigRef.current) return;
+        sigRef.current = sig;
 
         // 首次入场从基线生长；后续更新从当前显示几何补间
         const fromMap = new Map<string, BarGeom>();
@@ -193,7 +201,7 @@ export function useBarTransition(bars: BarRect[], options: BarTransitionOptions)
             rafRef.current = requestAnimationFrame(tick);
         };
         rafRef.current = requestAnimationFrame(tick);
-    }, [bars, zeroPos, orientation, categoryCount, animate, width, height, ready, staggered]);
+    }, [bars, zeroPos, orientation, categoryCount, animate, width, height, ready, staggered, reducedMotion]);
 
     // 卸载时停止动画，并重置签名与尺寸记录：重挂载（StrictMode 双调用 / HMR）即视作
     // 全新入场。否则签名去重会拦下重挂后的 effect，而 rAF 已在卸载时取消——

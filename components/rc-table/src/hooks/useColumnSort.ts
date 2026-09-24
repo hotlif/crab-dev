@@ -17,6 +17,7 @@ export function useColumnSort<T extends Row>(params: {
     rows: T[]
     columns: ColumnType<T>[]
     sortColumns?: SortColumn[]
+    sortMode?: 'client' | 'server'
     defaultSortColumns?: SortColumn[]
     onSortColumnsChange?: (columns: SortColumn[]) => void
 }): {
@@ -29,7 +30,7 @@ export function useColumnSort<T extends Row>(params: {
     } | null;
     isSortable: (columnName: string) => boolean;
 } {
-    const { rows, columns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange } = params;
+    const { rows, columns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange, sortMode = 'client' } = params;
 
     const isControlled = sortColumnsProp !== undefined;
     const [innerSortColumns, setInnerSortColumns] = useState<SortColumn[]>(defaultSortColumns ?? []);
@@ -80,7 +81,7 @@ export function useColumnSort<T extends Row>(params: {
     }, [sortColumns, isControlled]);
 
     const sortedRows = useMemo(() => {
-        if (sortColumns.length === 0) return rows;
+        if (sortMode === 'server' || sortColumns.length === 0) return rows;
 
         // 排序计划只构造一次，避免在 O(n log n) 次 comparator 调用中重复查列和解析路径。
         const sortPlan = sortColumns.map(sc => ({
@@ -106,7 +107,7 @@ export function useColumnSort<T extends Row>(params: {
             }
             return 0;
         });
-    }, [rows, sortColumns, columnInfoMap]);
+    }, [rows, sortColumns, columnInfoMap, sortMode]);
 
     const getSortState = useCallback((columnName: string): { direction: SortDirection; priority: number } | null => {
         const idx = sortColumns.findIndex(sc => sc.columnName === columnName);

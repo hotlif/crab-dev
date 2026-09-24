@@ -8,15 +8,15 @@ describe('TablePro token contract', () => {
         }
     });
 
-    it('keeps the legacy rc-table-looking variables as fallbacks', () => {
+    it('uses semantic fallbacks without the old table namespace', () => {
         expect(token.surface['background-color']).toContain(
-            'var(--table-pro-surface-background-color, var(--crab-rc-table-bg-color,',
+            'var(--table-pro-surface-background-color, var(--token-semantic-color-surface-content,',
         );
         expect(token.chrome['background-color']).toContain(
-            'var(--table-pro-chrome-background-color, var(--crab-rc-table-header-bg-color,',
+            'var(--table-pro-chrome-background-color, var(--token-semantic-color-surface-canvas,',
         );
         expect(token.root['border-color']).toContain(
-            'var(--table-pro-root-border-color, var(--crab-rc-table-border-color,',
+            'var(--table-pro-root-border-color, var(--token-semantic-color-border-subtle,',
         );
     });
 

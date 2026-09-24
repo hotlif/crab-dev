@@ -1,19 +1,20 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import token from '../token.js';
-import { TokenVars } from '../token-vars.js';
+import token, { vars } from '../token.js';
 
-describe('Table theme override compatibility', () => {
-    it('preserves existing public keys and gives canonical variables precedence', () => {
-        expect(TokenVars['root.focus.color']).toBe('--table-root-focus-color');
-        expect(TokenVars['tree.button.size']).toBe('--table-tree-button-size');
-        expect(TokenVars['resize-handle.indicator-width']).toBe('--table-resize-handle-indicator-width');
-        expect(token.root['outline-color-focus']).toContain('var(--table-root-outline-color-focus, var(--table-root-focus-color,');
-        expect(token.tree.button.width).toContain('var(--table-tree-button-width, var(--table-tree-button-size,');
-        expect(token.cell.separator['border-color']).toContain('var(--table-cell-separator-border-color, var(--table-cell-border-color-vertical, var(--table-cell-vertical-border-color,');
+describe('table canonical token contract', () => {
+    it('exposes canonical overrides with their semantic or static defaults', () => {
+        expect(vars['root.outline-color-focus']).toBe('--table-root-outline-color-focus');
+        expect(token.root['outline-color-focus']).toContain('--token-semantic-color-focus-ring');
+        expect(token.cell['border-color'].split('--table-cell-border-color')).toHaveLength(2);
     });
 
-    it('keeps the cell override without a self-referencing fallback', () => {
-        expect(token.cell['border-color'].split('--table-cell-border-color')).toHaveLength(2);
-        expect(token.cell['border-color']).toContain('var(--table-cell-border-color, var(--table-border-color,');
+    it('does not expose or consume removed aliases', () => {
+        for (const key of ["root.focus.color","tree.button.size","cell.border-color-vertical"]) {
+            expect(key in vars).toBe(false);
+        }
+        const values = JSON.stringify(token);
+        for (const alias of ["--table-root-focus-color,","--table-tree-button-size,","--table-cell-border-color-vertical,","--table-border-color,"]) {
+            expect(values).not.toContain(alias);
+        }
     });
 });

@@ -92,11 +92,11 @@ const token = defineTokens({
     'legend': {
         'gap': `var(${vars['legend.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'column-gap': `var(${vars['legend.column-gap']}, var(--bar-chart-legend-item-gap, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px))))`,
-        'row-gap': `var(${vars['legend.row-gap']}, var(--bar-chart-legend-swatch-gap, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`,
+        'row-gap': `var(${vars['legend.row-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'item': {
-            'gap': `var(${vars['legend.item.gap']}, var(--bar-chart-legend-swatch-gap, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`,
-            'border-radius': `var(${vars['legend.item.border-radius']}, var(--bar-chart-legend-item-radius, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px))))`,
-            'background-color-hover': `var(${vars['legend.item.background-color-hover']}, var(--bar-chart-legend-item-color-hover, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))))`,
+            'gap': `var(${vars['legend.item.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+            'border-radius': `var(${vars['legend.item.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
+            'background-color-hover': `var(${vars['legend.item.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
             'transition': `var(${vars['legend.item.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
             'opacity-hidden': `var(${vars['legend.item.opacity-hidden']}, var(--token-semantic-opacity-secondary, var(--token-global-opacity-50, 0.5)))`,
             'touch': {
@@ -105,8 +105,8 @@ const token = defineTokens({
             }
         },
         'swatch': {
-            'inline-size': `var(${vars['legend.swatch.inline-size']}, var(--bar-chart-legend-swatch-size, 10px))`,
-            'block-size': `var(${vars['legend.swatch.block-size']}, var(--bar-chart-legend-swatch-size, 10px))`
+            'inline-size': `var(${vars['legend.swatch.inline-size']}, 10px)`,
+            'block-size': `var(${vars['legend.swatch.block-size']}, 10px)`
         },
         'label': {
             'color': `var(${vars['legend.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
@@ -114,21 +114,21 @@ const token = defineTokens({
         }
     },
     'root': {
-        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--bar-chart-focus-ring, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent))))`,
+        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent)))`,
         'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-16-24, 1.5)))`,
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`
     },
     'tooltip': {
-        'background-color': `var(${vars['tooltip.background-color']}, var(--bar-chart-tooltip-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074)))))`,
-        'border-radius': `var(${vars['tooltip.border-radius']}, var(--bar-chart-tooltip-radius, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px))))`,
-        'box-shadow': `var(${vars['tooltip.box-shadow']}, var(--bar-chart-tooltip-shadow, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15)))))`,
+        'background-color': `var(${vars['tooltip.background-color']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
+        'border-radius': `var(${vars['tooltip.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`,
+        'box-shadow': `var(${vars['tooltip.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`,
         'padding': `var(${vars['tooltip.padding']}, 8px 12px)`,
         'rows': {
-            'row-gap': `var(${vars['tooltip.rows.row-gap']}, var(--bar-chart-tooltip-row-gap, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`
+            'row-gap': `var(${vars['tooltip.rows.row-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
         'row': {
-            'column-gap': `var(${vars['tooltip.row.column-gap']}, var(--bar-chart-tooltip-key-gap, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`
+            'column-gap': `var(${vars['tooltip.row.column-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
         'font-size': `var(${vars['tooltip.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
         'category': {

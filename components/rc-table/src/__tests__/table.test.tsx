@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { type Key, type ReactElement } from "react";
 
 import Table from "../table.js";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 import type { ColumnType, MergeCell, Row } from "../types.js";
 
 const fireMouseEvent = (
@@ -168,6 +169,17 @@ const buildManyRows = (count: number): DemoRow[] => Array.from({ length: count }
 }));
 
 describe("Table", () => {
+    it('recalculates virtual row geometry when the inherited size changes and keeps explicit heights', async () => {
+        const rows = buildRows();
+        rows[1].height = 70;
+        const view = await render(<ConfigProvider size="small"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
+        const rowHeights = () => [...view.container.querySelectorAll<HTMLElement>('[data-row-index]')].map(row => row.style.height);
+        expect(rowHeights()).toEqual(['40px', '70px', '40px']);
+        await view.rerender(<ConfigProvider size="large"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
+        expect(rowHeights()).toEqual(['60px', '70px', '60px']);
+        await view.rerender(<ConfigProvider size="large"><Table size="small" width={700} height={400} columns={groupedColumns} rows={rows} getRowHeight={(_, index) => index === 0 ? 80 : undefined} /></ConfigProvider>);
+        expect(rowHeights()).toEqual(['80px', '70px', '40px']);
+    });
     it("renders grouped headers and basic cell content", async () => {
         const { container, unmount } = await renderTable(
             <Table

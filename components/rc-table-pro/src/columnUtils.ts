@@ -159,17 +159,17 @@ export function applyInitialState(
 export function exportToCSV<T extends Row>(
     rawCols: ProtocolColumnType[],
     rows: T[],
-    loaders: DataTypeLoader[] | undefined,
+    loaders: DataTypeLoader<T>[] | undefined,
     fileName: string
 ) {
     const visibleLeafs = collectLeafColumns(rawCols).filter(col => !col.hidden);
     const escape = (v: string) => `"${v.replace(/"/g, '""')}"`;
     const header = visibleLeafs.map(col => escape(String(col.title ?? col.name))).join(",");
     const body = rows.map(row => {
-        const dataRef = (row as unknown as { dataRef: Record<string, unknown> }).dataRef ?? {};
+        const dataRef = row.dataRef && typeof row.dataRef === 'object' ? row.dataRef : {};
         return visibleLeafs.map(col => {
             const fieldName = String(col.name).replace(/^\$\./, "");
-            const rawVal = dataRef[fieldName] ?? "";
+            const rawVal = Reflect.get(dataRef, fieldName) ?? "";
             const loader = loaders?.find(l => l.name === col.dataType);
             const text = loader?.exportValue ? loader.exportValue(rawVal, row) : String(rawVal);
             return escape(text);

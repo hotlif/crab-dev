@@ -1,10 +1,10 @@
 import type { ColumnType, Row } from "@crab-dev/rc-table";
-import type { DataTypeLoader, ProtocolColumnType} from "./types";
+import type { DataTypeLoader, ProtocolColumnType} from "./types.js";
 
-export const transformColumns = (
+export const transformColumns = <T extends Row>(
     columns: ProtocolColumnType[],
-    dataTypeLoaders?: DataTypeLoader[]
-): ColumnType<Row>[] => {
+    dataTypeLoaders?: DataTypeLoader<T>[]
+): ColumnType<T>[] => {
     return columns.map(element => {
         const dataTypeLoader = dataTypeLoaders?.find(loader => loader.name === element.dataType);
         const render = dataTypeLoader?.render;
