@@ -683,7 +683,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-button@npm:^0.0.2, @crab-dev/rc-button@workspace:, @crab-dev/rc-button@workspace:^, @crab-dev/rc-button@workspace:components/rc-button":
+"@crab-dev/rc-button@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-button@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-spin": "npm:^0.0.2"
+  checksum: 10c0/f041f0cdeed4da28ad86a558c00bc0ae4cf504d7f692cbbf93ee2283e6b306e8547f7a20bfca920ffb301a6a33eb6d770912fe231bbac36b6918be258fde6085
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-button@workspace:, @crab-dev/rc-button@workspace:^, @crab-dev/rc-button@workspace:components/rc-button":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-button@workspace:components/rc-button"
   dependencies:
@@ -756,7 +765,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-checkbox@npm:^0.0.3, @crab-dev/rc-checkbox@workspace:^, @crab-dev/rc-checkbox@workspace:components/rc-checkbox":
+"@crab-dev/rc-checkbox@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@crab-dev/rc-checkbox@npm:0.0.3"
+  dependencies:
+    "@crab-dev/rc-hooks": "npm:^0.0.2"
+  checksum: 10c0/c072c5645a8bdf0951ec128988882b9cc4789077d21555457aeb4c64307cc51e3e14c12ba7a8b29b1fb1f1f3079818e9072841c1db453be7d367c27ee2f45627
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-checkbox@workspace:^, @crab-dev/rc-checkbox@workspace:components/rc-checkbox":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-checkbox@workspace:components/rc-checkbox"
   dependencies:
@@ -915,7 +933,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-dialog@npm:^0.0.2, @crab-dev/rc-dialog@workspace:^, @crab-dev/rc-dialog@workspace:components/rc-dialog":
+"@crab-dev/rc-dialog@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-dialog@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-button": "npm:^0.0.2"
+    motion: "npm:^12.42.2"
+  checksum: 10c0/69fcfb738ae6b8fc5ed34dbe5e495e800afc348a384c68db07b5fdc539d3d6fec71bd7dff5286683785e9702f5e9e52bd71ec5f741354abb3352770580e41cb8
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-dialog@workspace:^, @crab-dev/rc-dialog@workspace:components/rc-dialog":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
   dependencies:
@@ -967,7 +995,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-drawer@npm:^0.0.2, @crab-dev/rc-drawer@workspace:^, @crab-dev/rc-drawer@workspace:components/rc-drawer":
+"@crab-dev/rc-drawer@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-drawer@npm:0.0.2"
+  dependencies:
+    motion: "npm:^12.42.2"
+  checksum: 10c0/90c7513bf85de9aabfaee2a2c46ceb71ff71b2bec42ef78872d6948a8193d28bdc3d277155c0905ba4e06ca1da5dc29d202284532d08763add335303f5068068
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-drawer@workspace:^, @crab-dev/rc-drawer@workspace:components/rc-drawer":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-drawer@workspace:components/rc-drawer"
   dependencies:
@@ -1038,7 +1075,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-empty@npm:^0.0.2, @crab-dev/rc-empty@workspace:^, @crab-dev/rc-empty@workspace:components/rc-empty":
+"@crab-dev/rc-empty@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-empty@npm:0.0.2"
+  checksum: 10c0/d22f9425bfa7a7dbff6f634a27700a03795e443cbb001b5a557bc4030e6d2770ca7ad009529541fa76d2bf87060bb0e29b60293802e885ea93d5c1b16aee790c
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-empty@workspace:^, @crab-dev/rc-empty@workspace:components/rc-empty":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-empty@workspace:components/rc-empty"
   dependencies:
@@ -1140,7 +1184,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-line-edit@npm:^0.0.4, @crab-dev/rc-line-edit@workspace:^, @crab-dev/rc-line-edit@workspace:components/rc-line-edit":
+"@crab-dev/rc-line-edit@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@crab-dev/rc-line-edit@npm:0.0.4"
+  checksum: 10c0/75e42fb60528a732748d0287ec6846c0f8147a017858dece82e0013836a05cf19c3ace8658f47a2113cd04a5e806273436f31533706f61412409b0cde9c7c293
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-line-edit@workspace:^, @crab-dev/rc-line-edit@workspace:components/rc-line-edit":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-line-edit@workspace:components/rc-line-edit"
   dependencies:
@@ -1256,7 +1307,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-number-edit@npm:^0.0.2, @crab-dev/rc-number-edit@workspace:^, @crab-dev/rc-number-edit@workspace:components/rc-number-edit":
+"@crab-dev/rc-number-edit@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-number-edit@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-line-edit": "npm:^0.0.4"
+  checksum: 10c0/c898dfc181077bdbd57fb6ac4bef29afd4df8a614aaee377162c78a69454a79b3a3dd2be71b03ee21186e3b73d31712d80da665c134c4048352cc3275a5c4eef
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-number-edit@workspace:^, @crab-dev/rc-number-edit@workspace:components/rc-number-edit":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-number-edit@workspace:components/rc-number-edit"
   dependencies:
@@ -1430,7 +1490,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-segmented@npm:^0.0.2, @crab-dev/rc-segmented@workspace:^, @crab-dev/rc-segmented@workspace:components/rc-segmented":
+"@crab-dev/rc-segmented@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-segmented@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-hooks": "npm:^0.0.2"
+  checksum: 10c0/9c0e36564b585168a487cc47e0030455778614cff3d142a89725fac4db3ff7077b709a48c2c1e14b4b1ad1828082c75f23cec8a54335436d07f3c219353ab5a7
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-segmented@workspace:^, @crab-dev/rc-segmented@workspace:components/rc-segmented":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-segmented@workspace:components/rc-segmented"
   dependencies:
@@ -1602,7 +1671,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-switch@npm:^0.0.2, @crab-dev/rc-switch@workspace:^, @crab-dev/rc-switch@workspace:components/rc-switch":
+"@crab-dev/rc-switch@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-switch@npm:0.0.2"
+  dependencies:
+    "@crab-dev/rc-hooks": "npm:^0.0.2"
+  checksum: 10c0/35cc9c703d670b5782706cc5cb3ba4c0c68264b3e454e808de9fbc944e0c44269f55daa898bfefd9e75289a9251536b35754443dfeb1419d9e6f1ecfb539db0d
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-switch@workspace:^, @crab-dev/rc-switch@workspace:components/rc-switch":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-switch@workspace:components/rc-switch"
   dependencies:
@@ -1720,7 +1798,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tag@npm:^0.0.2, @crab-dev/rc-tag@workspace:^, @crab-dev/rc-tag@workspace:components/rc-tag":
+"@crab-dev/rc-tag@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-tag@npm:0.0.2"
+  checksum: 10c0/ea2b8e1d6b0510def61593eec7d925edbb70ea4535c9630972c02babc39dabb8cbca639719c4712dff727088c0b91a445534594c4ff5ec81716e69f95d45beed
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-tag@workspace:^, @crab-dev/rc-tag@workspace:components/rc-tag":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tag@workspace:components/rc-tag"
   dependencies:
@@ -1741,7 +1826,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-text-edit@npm:^0.0.1, @crab-dev/rc-text-edit@workspace:^, @crab-dev/rc-text-edit@workspace:components/rc-text-edit":
+"@crab-dev/rc-text-edit@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@crab-dev/rc-text-edit@npm:0.0.1"
+  checksum: 10c0/74f4d450959aff9e00e75cb193258f8eea0170caa6619d53ca3cb0edec4963cec44addac52a6739540795840df3f147a63944eb59342ee3799fb5e4f750c6cf2
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-text-edit@workspace:^, @crab-dev/rc-text-edit@workspace:components/rc-text-edit":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-text-edit@workspace:components/rc-text-edit"
   dependencies:
