@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, mock, render, act } from "@crab-dev/wake/test/react";
 
 import useForm from "../hooks/useForm.js";
-import { RuleType, type FormItemEditor } from "../types.js";
+import { RuleType, FormValidationError, type FormItemEditor } from "../types.js";
 let Form: (typeof import("../form.js"))["default"];
 let Item: (typeof import("../item.js"))["default"];
 beforeAll(async () => {
@@ -60,7 +60,7 @@ describe("Form integration", () => {
                 validateError = error;
             }
         });
-        expect(validateError).toEqual({
+        expect((validateError as FormValidationError).values).toEqual({
             user: { name: "Alice" },
             age: "",
         });
@@ -89,8 +89,8 @@ describe("Form integration", () => {
         await flush();
         expect(nameInput.value).toBe("Alice");
         expect(ageInput.value).toBe("18");
-        await act(() => {
-            formApi.submit();
+        await act(async () => {
+            await formApi.submit();
         });
         await flush();
         await unmount();
@@ -142,9 +142,10 @@ describe("Form integration", () => {
                 error = e;
             }
         });
-        expect(error).toEqual({ field: "changed" });
+        expect(error).toBeInstanceOf(FormValidationError);
+        expect((error as FormValidationError).values).toEqual({ field: "changed" });
         expect(warningValidator).toHaveBeenCalled();
-        expect(errorValidator).not.toHaveBeenCalled();
+        expect(errorValidator).toHaveBeenCalled();
         expect(container.textContent).toContain("warning message");
         await unmount();
     });
@@ -175,33 +176,6 @@ describe("Form integration", () => {
         expect(validateResult).toEqual({ field: "ok" });
         expect(skippedValidator).not.toHaveBeenCalled();
         await unmount();
-    });
-    it("uses JSON fallback clone path when structuredClone is unavailable", async () => {
-        const originalStructuredClone = globalThis.structuredClone;
-        (globalThis as unknown as {
-            structuredClone?: unknown;
-        }).structuredClone = undefined;
-        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
-        const Demo = () => {
-            const [form] = useForm<TestRecord>();
-            formApi = form;
-            return (<Form form={form} defaultValue={{ profile: { nick: "n1" } }}>
-                <Item name={["profile", "nick"]}>
-                    <InputEditor />
-                </Item>
-            </Form>);
-        };
-        const { unmount } = await render(<Demo />);
-        await flush();
-        await act(() => {
-            formApi.setFieldsValue({ profile: { nick: "n2" } });
-        });
-        await flush();
-        expect(formApi.getFieldValue(["profile", "nick"])).toBe("n2");
-        await unmount();
-        (globalThis as typeof globalThis & {
-            structuredClone?: typeof structuredClone;
-        }).structuredClone = originalStructuredClone;
     });
     const ButtonEditor = ({ onChange }: FormItemEditor<string>) => {
         return (<button type="button" data-testid="editor-trigger" onClick={() => onChange?.("editor-change")}>
@@ -245,35 +219,6 @@ describe("Form integration", () => {
         expect(onSubmitSuccess).toHaveBeenCalledTimes(1);
         await unmount();
     });
-    it("uses structuredClone branch when available", async () => {
-        const originalStructuredClone = globalThis.structuredClone;
-        const structuredCloneMock = mock.fn((value: unknown) => JSON.parse(JSON.stringify(value)));
-        (globalThis as unknown as {
-            structuredClone?: unknown;
-        }).structuredClone = structuredCloneMock;
-        let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
-        const Demo = () => {
-            const [form] = useForm<TestRecord>();
-            formApi = form;
-            return (<Form form={form} defaultValue={{ profile: { nick: "s1" } }}>
-                <Item name={["profile", "nick"]}>
-                    <InputEditor />
-                </Item>
-            </Form>);
-        };
-        const { unmount } = await render(<Demo />);
-        await flush();
-        await act(() => {
-            formApi.setFieldsValue({ profile: { nick: "s2" } });
-        });
-        await flush();
-        expect(structuredCloneMock).toHaveBeenCalled();
-        expect(formApi.getFieldValue(["profile", "nick"])).toBe("s2");
-        await unmount();
-        (globalThis as unknown as {
-            structuredClone?: unknown;
-        }).structuredClone = originalStructuredClone;
-    });
     it("covers editor onChange path and ERROR rule state", async () => {
         let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const errorValidator = mock.fn(async () => {
@@ -305,7 +250,7 @@ describe("Form integration", () => {
                 validateError = error;
             }
         });
-        expect(validateError).toEqual({ field: "editor-change" });
+        expect((validateError as FormValidationError).values).toEqual({ field: "editor-change" });
         expect(errorValidator).toHaveBeenCalled();
         expect(container.textContent).toContain("error-level");
         await unmount();

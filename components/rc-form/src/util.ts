@@ -3,7 +3,7 @@ import { type NamePath } from "./types.js";
 type DataRecord = Record<string, unknown>;
 
 export const setRecordValue = <T extends object>(formRecord: T, name: NamePath, value: unknown) => {
-    const path: string[] = Array.isArray(name) ? name : [name];
+    const path = typeof name === 'string' ? [name] : name;
     if (path.length === 0) {
         return;
     }
@@ -34,7 +34,7 @@ export const getRecordValue = <T extends object>(formRecord: T | null | undefine
         return undefined;
     }
 
-    const path: string[] = Array.isArray(name) ? name : [name];
+    const path = typeof name === 'string' ? [name] : name;
     let current: unknown = formRecord;
 
     for (const key of path) {
@@ -48,16 +48,7 @@ export const getRecordValue = <T extends object>(formRecord: T | null | undefine
 }
 
 export const equalsNamePath = (name: NamePath, newName: NamePath) => {
-    if (typeof name === "string" && typeof newName === "string" && name === newName) {
-        return true;
-    } else if (Array.isArray(name) && Array.isArray(newName) && name.length === newName.length) {
-        for (let i = 0; i < name.length; i += 1) {
-            if (newName[i] != name[i]) {
-                return false;
-            }
-        }
-        return true;
-    } else {
-        return false;
-    }
+    const left = typeof name === 'string' ? [name] : name;
+    const right = typeof newName === 'string' ? [newName] : newName;
+    return left.length === right.length && left.every((part, index) => part === right[index]);
 }

@@ -11,7 +11,7 @@ imports = [
 # 行内元素（标签 / 编辑器 / 状态图标）之间的水平列间距
 item.gap = "$ref(space.component-gap)"
 # 相邻字段行之间的垂直行间距（Form 以 grid 统一控制，取代各示例自行设置的 gap）
-row.gap = "$ref(space.stack-gap)"
+row.gap = "$ref(density.gap)"
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────
 label.color = "$ref(color.text.primary)"
@@ -26,8 +26,8 @@ required.gap = "$ref(space.inline-gap)"
 # ─── 校验状态图标 ────────────────────────────────────────────────────────────
 # 内联反馈：字段末尾以固定尺寸的状态图标承载校验结果，避免文案常驻挤占布局；
 # 图标槽尺寸固定，无论有无校验结果都占位，杜绝出现 / 消失引发的布局抖动。
-status.width = "var(--form-status-size, $ref(font.size.subhead))"
-status.color-error = "var(--form-status-error-color, $ref(color.feedback.error.text))"
+status.width = "$ref(font.size.subhead)"
+status.color-error = "$ref(color.feedback.error.text)"
 status.warning.color = "$ref(color.feedback.warning.text)"
 status.success.color = "$ref(color.feedback.success.text)"
 status.validating.color = "$ref(color.text.secondary)"

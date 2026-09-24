@@ -29,18 +29,19 @@ describe("useForm", () => {
         const instance: FormInstance<{
             name: string;
         }> = {
-            submit: mock.fn(),
-            getFieldValue: mock.fn(() => "crab"),
+            submit: mock.fn(async () => ({ status: 'success' as const, values: { name: 'crab' } })),
+            getFieldValue: mock.fn(() => "crab") as FormInstance<{ name: string }>['getFieldValue'],
             getFieldsValue: mock.fn(() => ({ name: "crab" })),
             setFieldValue: mock.fn(),
             setFieldsValue: mock.fn(),
+            reinitialize: mock.fn(),
             validateFields: mock.fn(async () => ({ name: "crab" })),
             resetFields: mock.fn(async () => { }),
         };
         (exposedForm as WrapperInstance<{
             name: string;
         }> | undefined)?.__INTERNAL__.setInstance(instance);
-        exposedForm?.submit();
+        await exposedForm?.submit();
         const fieldValue = exposedForm?.getFieldValue("name");
         exposedForm?.setFieldValue("name", "new");
         exposedForm?.setFieldsValue({ name: "all" });

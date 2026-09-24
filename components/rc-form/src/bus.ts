@@ -9,7 +9,8 @@ export enum MessageEnum {
     // 触发子元素校验
     TRIGGER_ITEM_VERIFICATION,
     // 父节点加载完成
-    ON_PARENT_READY
+    ON_PARENT_READY,
+    RESET_VALIDATION
 }
 
 

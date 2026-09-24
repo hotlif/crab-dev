@@ -24,7 +24,7 @@ const token = defineTokens({
         'gap': `var(${vars['item.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'row': {
-        'gap': `var(${vars['row.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
+        'gap': `var(${vars['row.gap']}, var(--token-semantic-density-gap, var(--token-global-space-3, 12px)))`
     },
     'label': {
         'color': `var(${vars['label.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
@@ -32,17 +32,17 @@ const token = defineTokens({
         'font-weight': `var(${vars['label.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`
     },
     'required': {
-        'color': `var(${vars['required.color']}, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486)))))`,
+        'color': `var(${vars['required.color']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
         'gap': `var(${vars['required.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
     },
     'status': {
-        'width': `var(${vars['status.width']}, var(--form-status-size, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px))))`,
-        'color-error': `var(${vars['status.color-error']}, var(--form-status-error-color, var(--token-semantic-color-feedback-error-text, var(--token-semantic-color-feedback-error, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))))`,
+        'width': `var(${vars['status.width']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,
+        'color-error': `var(${vars['status.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
         'warning': {
-            'color': `var(${vars['status.warning.color']}, var(--token-semantic-color-feedback-warning-text, var(--token-semantic-color-feedback-warning, var(--token-global-amber-900, oklch(0.414 0.112 68)))))`
+            'color': `var(${vars['status.warning.color']}, var(--token-semantic-color-feedback-warning-text, var(--token-global-amber-900, oklch(0.414 0.112 68))))`
         },
         'success': {
-            'color': `var(${vars['status.success.color']}, var(--token-semantic-color-feedback-success-text, var(--token-semantic-color-feedback-success, var(--token-global-green-800, oklch(0.448 0.119 155)))))`
+            'color': `var(${vars['status.success.color']}, var(--token-semantic-color-feedback-success-text, var(--token-global-green-800, oklch(0.448 0.119 155))))`
         },
         'validating': {
             'color': `var(${vars['status.validating.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`

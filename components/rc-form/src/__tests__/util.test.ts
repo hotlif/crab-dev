@@ -26,6 +26,6 @@ describe("util", () => {
         expect(equalsNamePath("name", "name")).toBe(true);
         expect(equalsNamePath(["user", "name"], ["user", "name"])).toBe(true);
         expect(equalsNamePath(["user", "name"], ["user", "age"])).toBe(false);
-        expect(equalsNamePath("name", ["name"])).toBe(false);
+        expect(equalsNamePath("name", ["name"])).toBe(true);
     });
 });

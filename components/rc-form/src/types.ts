@@ -1,4 +1,45 @@
-export type NamePath = string | Array<string> 
+export type NamePath = string | readonly string[];
+
+type TuplePaths<T, Depth extends readonly unknown[] = []> = Depth['length'] extends 6 ? never : {
+    [K in Extract<keyof T, string>]: readonly [K] | (
+        NonNullable<T[K]> extends object
+            ? readonly [K, ...TuplePaths<NonNullable<T[K]>, [...Depth, unknown]>]
+            : never
+    )
+}[Extract<keyof T, string>];
+
+/** 字符串表示顶层字段，元组表示嵌套路径；动态记录保留 NamePath。 */
+export type FieldPath<T extends object> = string extends keyof T ? NamePath : Extract<keyof T, string> | TuplePaths<T>;
+export type FieldValue<T, P> = P extends keyof T ? T[P]
+    : P extends readonly [infer K, ...infer Rest]
+        ? K extends keyof NonNullable<T>
+            ? Rest extends [] ? NonNullable<T>[K] : FieldValue<NonNullable<T>[K], Rest>
+            : unknown
+        : unknown;
+type ChangeAtPath<T, P> = P extends NamePath ? { name: P; value: FieldValue<T, P> } : never;
+export type FieldChange<T extends object> = ChangeAtPath<T, FieldPath<T>>;
+
+export interface FieldValidationResult {
+    name: NamePath;
+    errors: string[];
+    warnings: string[];
+}
+
+export class FormValidationError<T extends object = Record<string, unknown>> extends Error {
+    readonly values: T;
+    readonly fields: readonly FieldValidationResult[];
+
+    constructor(values: T, fields: readonly FieldValidationResult[]) {
+        super('Form validation failed');
+        this.name = 'FormValidationError';
+        this.values = values;
+        this.fields = fields;
+    }
+}
+
+export type FormSubmitResult<T extends object> =
+    | { status: 'success'; values: T }
+    | { status: 'invalid'; values: T; error: FormValidationError<T> };
 
 export enum ValidateState {
     // 默认初始化情况， 没做任何校验
@@ -20,12 +61,12 @@ export interface FormInstance<T extends object> {
     /**
      * 提交表单
      */
-    submit: () => void
+    submit: () => Promise<FormSubmitResult<T>>
 
     /**
      * 获取对应字段名的值
      */
-    getFieldValue(name: NamePath): unknown;
+    getFieldValue<const P extends FieldPath<T>>(name: P): FieldValue<T, P> | undefined;
 
     /**
      * 所有表单字段的值
@@ -35,31 +76,38 @@ export interface FormInstance<T extends object> {
     /**
      * 设置表单字段的值
      */
-    setFieldValue(name: NamePath, value: unknown): void;
+    setFieldValue<const P extends FieldPath<T>>(name: P, value: FieldValue<T, NoInfer<P>>): void;
 
     /**
      * 设置所有表单的值
      */
     setFieldsValue(values: T): void
 
+    /** 显式替换当前数据及 resetFields 使用的默认值。 */
+    reinitialize(values: T): void
+
     /**
      * 触发字段校验
      */
-    validateFields(fields?: NamePath[]): Promise<T>
+    validateFields(fields?: readonly FieldPath<T>[]): Promise<T>
 
     /**
      * 重置字段， 如果参数为空，则表示重置所有字段
      */
-    resetFields(names?: NamePath[]): Promise<void>
+    resetFields(names?: readonly FieldPath<T>[]): Promise<void>
 }
 
 export type WrapperInstance<T extends object> = FormInstance<T> & {
     __INTERNAL__: {
-        setInstance(instance: FormInstance<T>): void
+        setInstance(instance: FormInstance<T> | null): void
     }
 }
 
 export interface FormItemEditor<T = unknown> {
+
+    id?: string;
+    'aria-invalid'?: boolean;
+    'aria-describedby'?: string;
 
     /**
      * 编辑器的校验状态（枚举形态，语义完整，保留向后兼容）
@@ -104,5 +152,5 @@ export interface Rule {
     /**
      * 通过此方法进行校验
      */
-    validator: () => Promise<void>
+    validator: (value: unknown) => void | Promise<void>
 }

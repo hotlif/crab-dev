@@ -1,4 +1,4 @@
-import { cloneElement, useState, useEffect, useId } from "react";
+import { cloneElement, useState, useEffect, useId, useRef } from "react";
 import type { ReactElement, HTMLAttributes, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
@@ -7,7 +7,7 @@ import Tooltip from "@crab-dev/rc-tooltip";
 
 import token from "./token.js";
 import { RuleType, ValidateState } from "./types.js";
-import type { FormItemEditor, NamePath, Rule } from "./types.js";
+import type { FormItemEditor, NamePath, Rule, FieldValidationResult } from "./types.js";
 import useFormContext from "./hooks/useFormContext.js";
 import { MessageEnum } from "./bus.js";
 import {
@@ -15,7 +15,15 @@ import {
     equalsNamePath
 } from "./util.js";
 
+const EMPTY_RULES: Rule[] = [];
+
 export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+
+    /** 字段协议：value（默认）、原生事件、checked 或 onValueChange。 */
+    binding?: 'value' | 'event' | 'checked' | 'valueChange';
+    valuePropName?: string;
+    trigger?: string;
+    getValueFromEvent?: (...args: unknown[]) => unknown;
 
     /**
      * 是否隐藏字段
@@ -45,7 +53,7 @@ export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "chi
     /**
      * 编辑器
      */
-    children?: ReactElement<FormItemEditor>
+    children?: ReactElement<FormItemEditor> | ((field: FormItemEditor) => ReactNode)
 }
 
 // ─── 样式 ────────────────────────────────────────────────────────────────────
@@ -162,7 +170,11 @@ function FormItemComponent({
     label,
     name,
     required,
-    rules = [],
+    binding = 'value',
+    valuePropName = binding === 'checked' ? 'checked' : 'value',
+    trigger = binding === 'valueChange' ? 'onValueChange' : 'onChange',
+    getValueFromEvent,
+    rules = EMPTY_RULES,
     children,
     ...restProps
 }: FormItemProps) {
@@ -170,17 +182,29 @@ function FormItemComponent({
     const messageId = `${id}-message`;
     const {
         eventBus,
+        getFieldValue,
         requiredIndicatorRenderer
     } = useFormContext();
 
     // 实际上存储的值
     const [value, setValue] = useState<unknown>();
+    // 可变实例状态：同一事件中的 setFieldValue 和 validateFields 共享最新值。
+    const valueRef = useRef<unknown>(undefined);
+    const fieldKey = JSON.stringify(typeof name === 'string' ? [name] : name);
+    useEffect(() => {
+        const next = getFieldValue?.(JSON.parse(fieldKey) as string[]);
+        valueRef.current = next;
+        setValue(next);
+    }, [getFieldValue, fieldKey]);
     // 校验状态
     const [validateState, setValidateState] = useState<ValidateState>(ValidateState.DEFAULT);
     // 校验消息
     const [validateMessage, setValidateMessage] = useState<string>("");
     // Tooltip 显隐：受控。点击图标切换；Tooltip 内部 hover / focus / 外部点击也会回写此状态。
     const [messageOpen, setMessageOpen] = useState(false);
+    // 可变实例状态：忽略编辑、重置或卸载前发起的异步校验结果。
+    const validationVersion = useRef(0);
+    useEffect(() => () => { validationVersion.current += 1; }, []);
 
     const isInvalid = validateState === ValidateState.ERROR || validateState === ValidateState.WARNING;
     // 精简状态映射，透传给编辑器驱动其边框等即时反馈
@@ -213,7 +237,7 @@ function FormItemComponent({
             </>
         );
         return (
-            <label htmlFor={id} className={labelStyle}>
+            <label htmlFor={typeof children === 'function' ? id : children?.props.id ?? id} className={labelStyle}>
                 {renderedLabel}
             </label>
         );
@@ -269,29 +293,53 @@ function FormItemComponent({
         if (children == null) {
             return null;
         }
-        const props = children.props;
+        const props = typeof children === 'function' ? {} : children.props;
+        const changeValue = (newValue: unknown) => {
+            validationVersion.current += 1;
+            valueRef.current = newValue;
+            setValue(newValue);
+            setValidateState(ValidateState.DEFAULT);
+            setValidateMessage('');
+            setMessageOpen(false);
+            eventBus?.dispatch({ type: MessageEnum.ON_ITEM_VALUE_CHANGE, payload: [{ name, value: newValue }] });
+        };
+        const field: FormItemEditor = {
+            id: props.id ?? id,
+            value,
+            validateState,
+            status: editorStatus,
+            'aria-invalid': validateState === ValidateState.ERROR || undefined,
+            'aria-describedby': [props['aria-describedby'], isInvalid ? messageId : undefined].filter(Boolean).join(' ') || undefined,
+            onChange: changeValue,
+        };
+        if (typeof children === 'function') return <div className={editorWrapStyle}>{children(field)}</div>;
+        const childProps = props as Record<string, unknown>;
+        const handleChange = (...args: unknown[]) => {
+            let next = args[0];
+            if (getValueFromEvent) next = getValueFromEvent(...args);
+            else if (next && typeof next === 'object' && 'target' in next) {
+                const target = next.target;
+                if (target && typeof target === 'object') {
+                    if (valuePropName === 'checked' && 'checked' in target) next = target.checked;
+                    else if ('value' in target) next = target.value;
+                }
+            }
+            changeValue(next);
+            const handler = childProps[trigger];
+            if (typeof handler === 'function') handler(...args);
+        };
+        const editorProps = {
+            ...field,
+            [valuePropName]: valuePropName === 'checked' ? Boolean(value) : binding === 'event' ? value ?? '' : value,
+            [trigger]: handleChange,
+        };
+        if (valuePropName !== 'value') delete editorProps.value;
+        if (trigger !== 'onChange') delete editorProps.onChange;
+        if (binding !== 'value' || typeof children.type === 'string') delete editorProps.validateState;
+        if (typeof children.type === 'string') delete editorProps.status;
         return (
             <div className={editorWrapStyle}>
-                {cloneElement(children, {
-                    ...props,
-                    value,
-                    validateState,
-                    status: editorStatus,
-                    onChange: (newValue: unknown) => {
-                        setValue(newValue);
-                        // 用户开始编辑：清除上一轮校验结果与提示浮层，避免残留状态误导
-                        setValidateState(ValidateState.DEFAULT);
-                        setValidateMessage("");
-                        setMessageOpen(false);
-                        eventBus?.dispatch({
-                            type: MessageEnum.ON_ITEM_VALUE_CHANGE,
-                            payload: [{
-                                name,
-                                value: newValue
-                            }]
-                        });
-                    },
-                })}
+                {cloneElement(children, editorProps)}
             </div>
         );
     };
@@ -302,6 +350,8 @@ function FormItemComponent({
             value: unknown
         }) => {
             if (equalsNamePath(param.name, name)) {
+                validationVersion.current += 1;
+                valueRef.current = param.value;
                 setValue(param.value);
                 eventBus?.dispatch({
                     type: MessageEnum.ON_ITEM_VALUE_CHANGE,
@@ -319,36 +369,38 @@ function FormItemComponent({
             ring: onSendToChangeItemValue
         }
         eventBus?.subscribe(subscriber);
-        const onTriggerItemVerification = async (fields: NamePath[]) => {
+        const onTriggerItemVerification = async (fields?: readonly NamePath[], snapshot?: object): Promise<FieldValidationResult | undefined> => {
             if (fields != null && !fields.some(field => equalsNamePath(field, name))) {
                 return;
             }
+            const version = ++validationVersion.current;
+            const result: FieldValidationResult = { name, errors: [], warnings: [] };
+            const currentValue = snapshot ? getRecordValue(snapshot, name) : valueRef.current;
             setValidateState(ValidateState.VALIDATING);
-            if (required === true && (value == null || value === "")) {
+            if (required === true && (currentValue == null || currentValue === "")) {
                 const message = `请输入${label?.toString() ?? ""}`;
-                setValidateState(ValidateState.ERROR);
-                setValidateMessage(message);
-                throw new Error(message);
+                result.errors.push(message);
             }
             for (let i = 0; i < rules.length; i += 1) {
                 const rule = rules[i];
                 if (rule.type == RuleType.ERROR || rule.type == RuleType.WARNING) {
                     try {
-                        await rule.validator()
+                        await rule.validator(currentValue)
                     } catch (error) {
-                        const err = error as Error;
+                        const message = error instanceof Error ? error.message : String(error);
                         if (rule.type == RuleType.ERROR) {
-                            setValidateState(ValidateState.ERROR);
+                            result.errors.push(message);
                         } else {
-                            setValidateState(ValidateState.WARNING);
+                            result.warnings.push(message);
                         }
-                        setValidateMessage(err.message);
-                        throw error;
                     }
                 }
             }
-            setValidateMessage("");
-            setValidateState(ValidateState.SUCCESS);
+            if (validationVersion.current === version) {
+                setValidateMessage([...result.errors, ...result.warnings].join('\n'));
+                setValidateState(result.errors.length ? ValidateState.ERROR : result.warnings.length ? ValidateState.WARNING : ValidateState.SUCCESS);
+            }
+            return result;
         }
         const verificationSubscriber = {
             id,
@@ -371,7 +423,9 @@ function FormItemComponent({
         eventBus?.subscribe(parentReadySubscriber)
 
         const onChangeValues = (values: Record<string, unknown>) => {
+            validationVersion.current += 1;
             const newValue = getRecordValue(values, name);
+            valueRef.current = newValue;
             setValue(newValue);
         }
 
@@ -382,7 +436,21 @@ function FormItemComponent({
         }
         eventBus?.subscribe(changeValuesSubscriber)
 
+        const resetSubscriber = {
+            id,
+            type: MessageEnum.RESET_VALIDATION,
+            ring: (names?: readonly NamePath[]) => {
+                if (names && !names.some(field => equalsNamePath(field, name))) return;
+                validationVersion.current += 1;
+                setValidateState(ValidateState.DEFAULT);
+                setValidateMessage('');
+                setMessageOpen(false);
+            },
+        };
+        eventBus?.subscribe(resetSubscriber);
+
         return () => {
+            eventBus?.unSubscribe(resetSubscriber);
             eventBus?.unSubscribe(subscriber);
             eventBus?.unSubscribe(verificationSubscriber);
             eventBus?.unSubscribe(parentReadySubscriber);

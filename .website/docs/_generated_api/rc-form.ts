@@ -7,39 +7,41 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type FieldChange<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type FormInstance<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type FormValidationError<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 
 export interface FormProps {
     /**
-     * 设置 Form 实例, 以便后面调用 Form 的方法
-     */
-    "form"?: FormInstance<T>;
-
-    /**
-     * 设置默认值
+     * 仅在挂载时读取；后续更新使用 form.reinitialize。
      */
     "defaultValue"?: T;
 
     /**
-     * 自定义渲染必填样式
+     * 暂无说明。
      */
-    "requiredIndicatorRenderer"?: (param: { label: ReactNode; required: boolean; }) => ReactNode;
+    "form"?: FormInstance<T>;
 
     /**
-     * 提交表单且数据验证成功后回调事件
+     * 暂无说明。
      */
-    "onSubmitSuccess"?: (record: T) => Promise<void>;
+    "onFieldValueChange"?: (changed: FieldChange<T>, allValues: T) => void | Promise<void>;
 
     /**
-     * 提交表单并且数据校验失败后的回调事件
+     * 第一参数保留原数据协议，第二参数提供结构化错误。
      */
-    "onSubmitFailed"?: (record: T) => Promise<void>;
+    "onSubmitFailed"?: (record: T, error: FormValidationError<T>) => void | Promise<void>;
 
     /**
-     * 字段值更新的时候触发的回调事件
+     * 暂无说明。
      */
-    "onFieldValueChange"?: (changed: { [K in keyof T]: { name: K; value: T[K]; } }[keyof T], allValues: T) => Promise<void>;
+    "onSubmitSuccess"?: (record: T) => void | Promise<void>;
+
+    /**
+     * 暂无说明。
+     */
+    "requiredIndicatorRenderer"?: (param: { label: ReactNode; required: boolean }) => ReactNode;
 }
