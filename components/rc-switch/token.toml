@@ -12,9 +12,10 @@ root.outline-offset-focus = "2px"
 # Crab independent touch targets; visual size props remain unchanged.
 root.touch.min-width = "$ref(size.touch-target)"
 root.touch.min-height = "$ref(size.touch-target)"
-root.line-height = "$ref(typography.body.large.line-height)"
+root.line-height = "$ref(typography.body.medium.line-height)"
+root.min-height = "$ref(size.selection-control)"
 root.opacity-disabled = "$ref(opacity.disabled)"
-track.border-width = "2px"
+track.border-width = "1px"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
@@ -24,34 +25,34 @@ root.transition = "transform $ref(motion.spatial.fast), translate $ref(motion.sp
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────
 
 label.gap             = "$ref(space.inline-gap)"
-label.font-size = "$ref(typography.body.large.font-size)"
+label.font-size = "$ref(typography.body.medium.font-size)"
 
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.track.width = "52px"
-size.large.track.height = "32px"
+size.large.track.width = "36px"
+size.large.track.height = "20px"
 size.large.track.border-radius = "$ref(shape.full)"
-size.large.handle.width = "24px"
-size.large.handle.left = "4px"
+size.large.handle.width = "16px"
+size.large.handle.left = "2px"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.track.width = "52px"
-size.middle.track.height = "32px"
+size.middle.track.width = "32px"
+size.middle.track.height = "18px"
 size.middle.track.border-radius = "$ref(shape.full)"
-size.middle.handle.width = "24px"
-size.middle.handle.left = "4px"
+size.middle.handle.width = "14px"
+size.middle.handle.left = "2px"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.track.width = "52px"
-size.small.track.height = "32px"
+size.small.track.width = "28px"
+size.small.track.height = "16px"
 size.small.track.border-radius = "$ref(shape.full)"
-size.small.handle.width = "24px"
-size.small.handle.left = "4px"
+size.small.handle.width = "12px"
+size.small.handle.left = "2px"
 
 
 # ─── 默认状态（未选中） ──────────────────────────────────────────────────────
@@ -95,6 +96,6 @@ track.state-layer.background-color-hover = "color-mix(in oklch, $ref(color.text.
 track.state-layer.background-color-active = "color-mix(in oklch, $ref(color.text.primary) calc($ref(state.opacity.pressed) * 100%), transparent)"
 track.checked.state-layer.background-color-hover = "color-mix(in oklch, $ref(color.brand.primary) calc($ref(state.opacity.hover) * 100%), transparent)"
 track.checked.state-layer.background-color-active = "color-mix(in oklch, $ref(color.brand.primary) calc($ref(state.opacity.pressed) * 100%), transparent)"
-track.halo.width = "40px"
-track.halo.left = "-4px"
-track.halo.translate-checked = "20px"
+track.halo.width = "$ref(size.28)"
+track.halo.left = "-5px"
+track.halo.translate-checked = "14px"

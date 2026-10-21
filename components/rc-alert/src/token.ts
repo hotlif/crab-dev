@@ -47,10 +47,10 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'transition': `var(${vars['root.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
-        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)))`,
+        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)))`,
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
-        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
-        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-16-24, 1.5)))`,
+        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
+        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
         'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
         'background-color-error': `var(${vars['root.background-color-error']}, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053))))`,
         'border-color-error': `var(${vars['root.border-color-error']}, var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`

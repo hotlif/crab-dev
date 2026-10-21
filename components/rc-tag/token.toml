@@ -11,24 +11,24 @@ imports = [
 root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
-size.large.height = "$ref(size.40)"
+size.large.height = "$ref(size.28)"
 size.large.padding       = "0 10px"
 size.large.border-radius = "$ref(shape.small)"
 size.large.font-size = "$ref(typography.label.large.font-size)"
 size.large.gap           = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
-size.middle.height = "$ref(size.32)"
+size.middle.height = "$ref(size.24)"
 size.middle.padding       = "0 8px"
 size.middle.border-radius = "$ref(shape.small)"
-size.middle.font-size = "$ref(typography.label.large.font-size)"
+size.middle.font-size = "$ref(typography.caption.font-size)"
 size.middle.gap           = "$ref(space.inline-gap)"
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
-size.small.height = "$ref(size.32)"
+size.small.height = "$ref(size.20)"
 size.small.padding       = "0 6px"
 size.small.border-radius = "$ref(shape.small)"
-size.small.font-size = "$ref(typography.label.large.font-size)"
+size.small.font-size = "$ref(typography.caption.font-size)"
 size.small.gap           = "$ref(space.inline-gap)"
 
 # ─── Default — 默认标签 ──────────────────────────────────────────────────────
@@ -71,7 +71,7 @@ interaction.outline-offset-focus = "2px"
 checkable.color-selected = "$ref(color.secondary.on-container)"
 checkable.background-color-selected = "$ref(color.secondary.container)"
 checkable.border-color-selected = "$ref(color.secondary.container)"
-checkable.icon.width = "18px"
+checkable.icon.width = "$ref(size.icon)"
 checkable.state.opacity-hover = "$ref(state.opacity.hover)"
 checkable.state.opacity-focus = "$ref(state.opacity.focus)"
 checkable.state.opacity-active = "$ref(state.opacity.pressed)"

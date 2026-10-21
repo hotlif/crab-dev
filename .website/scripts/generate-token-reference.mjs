@@ -21,7 +21,7 @@ export function readGlobalTokens(source) {
         if (seen.has(key)) throw new Error(`Duplicate global token: ${key}`);
         seen.add(key);
         const value = JSON.parse(literal);
-        const group = /^(material|purple|zinc|blue|red|green|amber)\./.test(key) || key === "white" || key === "black"
+        const group = /^(material|neutral|purple|zinc|blue|red|green|amber)\./.test(key) || key === "white" || key === "black"
             ? "colors" : key.startsWith("font.") || key.startsWith("line.") ? "typography"
                 : /^(duration|easing)\./.test(key) ? "motion" : key.startsWith('size.') ? 'space' : key.split(".")[0];
         if (!["colors", "space", "radius", "typography", "shadow", "motion", "opacity", "z-index"].includes(group)) {

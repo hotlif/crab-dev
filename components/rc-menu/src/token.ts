@@ -93,13 +93,13 @@ const token = defineTokens({
     'vertical': {
         'item': {
             'depth': {
-                'padding-left': `var(${vars['vertical.item.depth.padding-left']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`
+                'padding-left': `var(${vars['vertical.item.depth.padding-left']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`
             },
             'title': {
                 'width': `var(${vars['vertical.item.title.width']}, 100%)`,
-                'height': `var(${vars['vertical.item.title.height']}, var(--token-semantic-density-navigation, var(--token-global-size-56, 56px)))`,
+                'height': `var(${vars['vertical.item.title.height']}, var(--token-semantic-density-navigation, var(--token-global-size-36, 36px)))`,
                 'color': `var(${vars['vertical.item.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-                'font-size': `var(${vars['vertical.item.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+                'font-size': `var(${vars['vertical.item.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
                 'padding-inline-start': `var(${vars['vertical.item.title.padding-inline-start']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
                 'padding-inline-end': `var(${vars['vertical.item.title.padding-inline-end']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
                 'margin-top': `var(${vars['vertical.item.title.margin-top']}, 0.125rem)`,
@@ -128,7 +128,7 @@ const token = defineTokens({
         'item-group': {
             'title': {
                 'color': `var(${vars['vertical.item-group.title.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-                'height': `var(${vars['vertical.item-group.title.height']}, var(--token-semantic-density-navigation, var(--token-global-size-56, 56px)))`,
+                'height': `var(${vars['vertical.item-group.title.height']}, var(--token-semantic-density-navigation, var(--token-global-size-36, 36px)))`,
                 'font-size': `var(${vars['vertical.item-group.title.font-size']}, var(--token-semantic-typography-title-small-font-size, var(--token-global-font-size-sm, 14px)))`,
                 'font-weight': `var(${vars['vertical.item-group.title.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
                 'letter-spacing': `var(${vars['vertical.item-group.title.letter-spacing']}, 0.04em)`,
@@ -139,7 +139,7 @@ const token = defineTokens({
             'width': `var(${vars['vertical.collapsed.width']}, 4rem)`,
             'item': {
                 'title': {
-                    'height': `var(${vars['vertical.collapsed.item.title.height']}, var(--token-semantic-density-navigation, var(--token-global-size-56, 56px)))`,
+                    'height': `var(${vars['vertical.collapsed.item.title.height']}, var(--token-semantic-density-navigation, var(--token-global-size-36, 36px)))`,
                     'padding-inline': `var(${vars['vertical.collapsed.item.title.padding-inline']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
                 },
                 'icon': {
@@ -170,14 +170,14 @@ const token = defineTokens({
     'horizontal': {
         'border-color': `var(${vars['horizontal.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'item': {
-            'font-size': `var(${vars['horizontal.item.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+            'font-size': `var(${vars['horizontal.item.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
             'transition': `var(${vars['horizontal.item.transition']}, color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
             'color': `var(${vars['horizontal.item.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
             'color-hover': `var(${vars['horizontal.item.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
             'content': {
-                'height': `var(${vars['horizontal.item.content.height']}, var(--token-semantic-density-navigation, var(--token-global-size-56, 56px)))`,
+                'height': `var(${vars['horizontal.item.content.height']}, var(--token-semantic-density-navigation, var(--token-global-size-36, 36px)))`,
                 'padding-left': `var(${vars['horizontal.item.content.padding-left']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
-                'font-size': `var(${vars['horizontal.item.content.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+                'font-size': `var(${vars['horizontal.item.content.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
                 'background-color-hover': `var(${vars['horizontal.item.content.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
             },
             'icon': {

@@ -11,18 +11,18 @@ imports = [
 root.transition = "box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast), background-color $ref(motion.interaction), color $ref(motion.interaction)"
 
 # ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
-size.small.width     = "28px"
+size.small.width = "$ref(size.24)"
 size.small.font-size = "$ref(typography.caption.font-size)"
 
-size.middle.width     = "40px"
+size.middle.width = "$ref(size.32)"
 size.middle.font-size = "$ref(typography.body.font-size)"
 
-size.large.width     = "48px"
+size.large.width = "$ref(size.40)"
 size.large.font-size = "$ref(font.size.subhead)"
 
 icon.small.font-size  = "14px"
-icon.middle.font-size = "18px"
-icon.large.font-size  = "22px"
+icon.middle.font-size = "$ref(size.icon)"
+icon.large.font-size = "$ref(size.icon-large)"
 
 content.max-width   = "70%"
 content.font-weight = "$ref(typography.label.font-weight)"

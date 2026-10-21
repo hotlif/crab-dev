@@ -3,6 +3,21 @@ import token, { vars as TokenVars } from '../token.js';
 import { themeColorContract } from '../theme.js';
 
 describe('semantic token contract', () => {
+    it('provides standalone Material form layout fallbacks', () => {
+        expect(TokenVars['form.layout.columns']).toBe('--token-semantic-form-layout-columns');
+        expect(TokenVars['form.field.columns']).toBe('--token-semantic-form-field-columns');
+        expect(TokenVars['form.field.control-column']).toBe('--token-semantic-form-field-control-column');
+        expect(TokenVars['form.field.inline']).toBe('--token-semantic-form-field-inline');
+        expect(token.form.layout.columns).toContain('auto minmax(0, 1fr) auto');
+        expect(token.form.field.columns).toContain('minmax(0, 1fr)');
+        expect(token.form.field['control-column']).toContain('1 / -1');
+        expect(token.form.field.inline).toBe('var(--token-semantic-form-field-inline, 0)');
+        expect(TokenVars['field.required.color']).toBe('--token-semantic-field-required-color');
+        expect(token.field.required.color).toContain('inherit');
+        expect(token.field.required.order).toContain('1');
+        expect(token.field.required.gap).toContain('--token-global-space-1');
+    });
+
     it('keeps feedback roles independent of removed catch-all aliases', () => {
         for (const intent of ['error', 'success', 'warning', 'info'] as const) {
             expect(`color.feedback.${intent}` in TokenVars).toBe(false);

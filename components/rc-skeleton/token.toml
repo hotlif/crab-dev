@@ -28,10 +28,10 @@ text.last-row.width     = "65%"
 # ─── 矩形 / 圆形默认尺寸 ────────────────────────────────────────────────────
 rect.default.width  = "100%"
 rect.default.height = "120px"
-circle.default.width = "40px"
+circle.default.width = "$ref(size.32)"
 button.default.width  = "88px"
-button.default.height = "32px"
-avatar.default.width = "40px"
+button.default.height = "$ref(size.control)"
+avatar.default.width = "$ref(size.32)"
 
 # ─── 动效 ───────────────────────────────────────────────────────────────────
 animation.pulse.animation-duration = "1600ms"

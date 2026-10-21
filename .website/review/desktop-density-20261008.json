@@ -1,0 +1,243 @@
+{
+    "date": "2026-10-08",
+    "scope": "54 个组件与工具包，49 个令牌包及文档站",
+    "design": "保留 M3 视觉与状态体系，按用户要求采用接近 shadcn/ui 的桌面密度；不是官方 M3 默认尺寸合规声明。",
+    "validation": {
+        "tokenPackages": 49,
+        "libraryPackages": 54,
+        "lintTasks": 55,
+        "typecheckTasks": 110,
+        "testTasks": 109,
+        "documentationPages": 54,
+        "browser": "逐页检查 54 个组件页，并逐项加载核心演示；在尺寸指南实测三档、弹层与窄屏。",
+        "note": "自动化测试覆盖组件已有状态与交互，不代表逐一人工检查每个组件的全部状态。"
+    },
+    "references": [
+        "https://ui.shadcn.com/docs/components/button",
+        "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/button.tsx",
+        "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx",
+        "https://m3.material.io/components/text-fields/specs",
+        "https://material-web.dev/components/text-field/",
+        "https://material-web.dev/components/button/",
+        "https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-button.scss",
+        "https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-switch.scss"
+    ],
+    "components": [
+        {
+            "name": "rc-alert",
+            "decision": "正文继承 14px 语义排版，保留反馈图标及多行内容空间。"
+        },
+        {
+            "name": "rc-app-main-layout",
+            "decision": "工具栏 48px，导航与操作按钮 36px，菜单行与上下文菜单收紧。"
+        },
+        {
+            "name": "rc-auto-sizer",
+            "decision": "测量几何保留；修复工作台预览容器宽度收缩为零的问题。"
+        },
+        {
+            "name": "rc-avatar",
+            "decision": "预设直径调整为 24 / 32 / 40px，保留显式数字尺寸。"
+        },
+        {
+            "name": "rc-badge",
+            "decision": "继承 14px 正文基准，保留紧凑的计数与圆点尺寸。"
+        },
+        {
+            "name": "rc-bar-chart",
+            "decision": "说明文字继承语义排版，保留图表数值、坐标和画布几何。"
+        },
+        {
+            "name": "rc-breadcrumbs",
+            "decision": "继承紧凑正文及内部按钮尺寸，路径布局保持内容驱动。"
+        },
+        {
+            "name": "rc-button",
+            "decision": "普通三档 32 / 36 / 40px，扩展两档 48 / 56px；保留触控目标和状态反馈。"
+        },
+        {
+            "name": "rc-canvas",
+            "decision": "保留场景坐标、缩放和绘制尺寸；内部通用控件继承共享密度。"
+        },
+        {
+            "name": "rc-card",
+            "decision": "卡片默认内边距 16px，正文 14px；尺寸由内容决定。"
+        },
+        {
+            "name": "rc-checkbox",
+            "decision": "桌面占位与状态层 24px，默认方框 16px；粗指针目标仍为 48px。"
+        },
+        {
+            "name": "rc-color-picker",
+            "decision": "收紧面板间距，色块三档 16 / 20 / 24px，内部编辑器继承新尺寸。"
+        },
+        {
+            "name": "rc-component-preview",
+            "decision": "收紧演示容器和工具操作区，最小展示高度 160px。"
+        },
+        {
+            "name": "rc-config-provider",
+            "decision": "统一控件、虚拟行、导航项及弹层选项的三档密度。"
+        },
+        {
+            "name": "rc-cron-picker",
+            "decision": "继承输入和分段控件尺寸，面板字段与数值网格间距收紧。"
+        },
+        {
+            "name": "rc-date-picker",
+            "decision": "日期单元格和导航操作 32px；收紧时间字段与面板，粗指针日期格仍为 48px。"
+        },
+        {
+            "name": "rc-dialog",
+            "decision": "正文 14px、标题 16px、内容内边距 20px、关闭操作 32px。"
+        },
+        {
+            "name": "rc-divider",
+            "decision": "继承正文语义尺寸；分隔线厚度与布局含义保留。"
+        },
+        {
+            "name": "rc-drawer",
+            "decision": "标题 16px，内部通用控件和间距跟随密度，面板宽度保留。"
+        },
+        {
+            "name": "rc-dropdown-container",
+            "decision": "定位和开合逻辑保留，承载的新尺寸控件与内容自动适配。"
+        },
+        {
+            "name": "rc-empty",
+            "decision": "最小高度 144px、插图 48px，说明继承 14px 正文。"
+        },
+        {
+            "name": "rc-flow-diagram",
+            "decision": "节点、连线与场景几何保留；内部通用控件随共享密度。"
+        },
+        {
+            "name": "rc-form",
+            "decision": "字段行间距三档 6 / 8 / 12px，编辑器和标签继承新密度。"
+        },
+        {
+            "name": "rc-hooks",
+            "decision": "无独立视觉尺寸；测量、粗指针检测等交互基础能力保留。"
+        },
+        {
+            "name": "rc-line-edit",
+            "decision": "字段三档 32 / 36 / 40px，正文 14px；填充式内部标签最小高度 48px。"
+        },
+        {
+            "name": "rc-masonry",
+            "decision": "保留内容测量和瀑布流算法；修复工作台预览容器宽度收缩为零的问题。"
+        },
+        {
+            "name": "rc-menu",
+            "decision": "导航行三档 32 / 36 / 40px，正文及间距继承语义密度。"
+        },
+        {
+            "name": "rc-message",
+            "decision": "复用 Alert 的紧凑文字与操作尺寸，消息内容高度保持自适应。"
+        },
+        {
+            "name": "rc-notification",
+            "decision": "正文和容器间距继承共享密度，内容换行与操作保留。"
+        },
+        {
+            "name": "rc-number-edit",
+            "decision": "字段三档 32 / 36 / 40px，操作区域 24 / 28 / 32px，默认图标 16px。"
+        },
+        {
+            "name": "rc-pagination",
+            "decision": "页码按钮三档 32 / 36 / 40px，跳转输入继承新字段尺寸。"
+        },
+        {
+            "name": "rc-pdf-editor",
+            "decision": "工具栏最小高度 48px、操作 32px、图标 16px；PDF 页面尺寸保留。"
+        },
+        {
+            "name": "rc-prose",
+            "decision": "保留长文阅读的 16px 正文及标题层级，避免把阅读内容按控件缩放。"
+        },
+        {
+            "name": "rc-radio",
+            "decision": "桌面占位与状态层 24px，默认圆环 16px；粗指针目标仍为 48px。"
+        },
+        {
+            "name": "rc-realm",
+            "decision": "无固定组件外观；远程组件通过原有上下文与复用控件获得密度。"
+        },
+        {
+            "name": "rc-router",
+            "decision": "无独立视觉尺寸；路由逻辑与业务内容几何保留。"
+        },
+        {
+            "name": "rc-segmented",
+            "decision": "高度三档 32 / 36 / 40px，默认图标 16px。"
+        },
+        {
+            "name": "rc-select",
+            "decision": "字段 32 / 36 / 40px，选项 28 / 32 / 36px；弹层显式继承密度，虚拟测量同步。"
+        },
+        {
+            "name": "rc-skeleton",
+            "decision": "默认头像/圆形 32px、按钮占位 36px，匹配真实控件。"
+        },
+        {
+            "name": "rc-slider",
+            "decision": "轨道五档 4 / 6 / 8 / 12 / 16px，手柄高度 20 / 24 / 28 / 32 / 40px。"
+        },
+        {
+            "name": "rc-spin",
+            "decision": "默认指示器 20px，大档 32px；保留减少动态效果支持。"
+        },
+        {
+            "name": "rc-split-pane",
+            "decision": "分栏测量、拖拽边界与内容尺寸保留，内部控件继承密度。"
+        },
+        {
+            "name": "rc-switch",
+            "decision": "轨道三档 28×16 / 32×18 / 36×20px；同步手柄与状态层位移，保留 48px 粗指针目标。"
+        },
+        {
+            "name": "rc-table",
+            "decision": "数据行三档 32 / 40 / 48px，表头 36 / 40 / 44px；选择控件占位 24px，显式行高优先。"
+        },
+        {
+            "name": "rc-table-pro",
+            "decision": "复用 Table、输入、按钮和分页，继承统一密度，不复制尺寸常量。"
+        },
+        {
+            "name": "rc-tabs",
+            "decision": "标签高度三档 32 / 36 / 40px，关闭操作 24px。"
+        },
+        {
+            "name": "rc-tag",
+            "decision": "高度三档 20 / 24 / 28px，紧凑文字与 16px 选中图标。"
+        },
+        {
+            "name": "rc-text-edit",
+            "decision": "紧凑字段和操作尺寸，正文 14px；内部标签最小高度 48px，多行内容自然增高。"
+        },
+        {
+            "name": "rc-theme",
+            "decision": "主题颜色与变量覆盖保留，通过 L2 默认值获取新密度。"
+        },
+        {
+            "name": "rc-token-global",
+            "decision": "新增 28px 间距基元，保留其余原始尺寸含义。"
+        },
+        {
+            "name": "rc-token-semantic",
+            "decision": "建立 32 / 36 / 40px 控件基准及更紧凑的文字、间距、行高角色；触控目标仍为 48px。"
+        },
+        {
+            "name": "rc-tooltip",
+            "decision": "现有小字号提示保留；提示宽度与内容自适应，不额外缩放。"
+        },
+        {
+            "name": "rc-tree",
+            "decision": "节点三档 32 / 36 / 40px，选择操作占位 24px；粗指针及自定义节点高度优先。"
+        },
+        {
+            "name": "rc-virtual",
+            "decision": "虚拟化算法保留；Table、Tree、Select 向其传入对应密度的行高。"
+        }
+    ]
+}

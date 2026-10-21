@@ -64,24 +64,24 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-size-40, var(--token-global-size-40, 40px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-size-28, var(--token-global-space-7, 28px)))`,
             'padding': `var(${vars['size.large.padding']}, 0 10px)`,
             'border-radius': `var(${vars['size.large.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'gap': `var(${vars['size.large.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         },
         'middle': {
-            'height': `var(${vars['size.middle.height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+            'height': `var(${vars['size.middle.height']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
             'padding': `var(${vars['size.middle.padding']}, 0 8px)`,
             'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
             'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
         'small': {
-            'height': `var(${vars['size.small.height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+            'height': `var(${vars['size.small.height']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`,
             'padding': `var(${vars['size.small.padding']}, 0 6px)`,
             'border-radius': `var(${vars['size.small.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
-            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
             'gap': `var(${vars['size.small.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
     },
@@ -124,7 +124,7 @@ const token = defineTokens({
         'background-color-selected': `var(${vars['checkable.background-color-selected']}, var(--token-semantic-color-secondary-container, var(--token-global-material-secondary-90, oklch(0.91633372 0.03651492 303.106047))))`,
         'border-color-selected': `var(${vars['checkable.border-color-selected']}, var(--token-semantic-color-secondary-container, var(--token-global-material-secondary-90, oklch(0.91633372 0.03651492 303.106047))))`,
         'icon': {
-            'width': `var(${vars['checkable.icon.width']}, 18px)`
+            'width': `var(${vars['checkable.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         },
         'state': {
             'opacity-hover': `var(${vars['checkable.state.opacity-hover']}, var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)))`,

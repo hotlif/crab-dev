@@ -84,7 +84,7 @@ const token = defineTokens({
         'text': {
             'color': `var(${vars['status.text.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
             'gap': `var(${vars['status.text.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'font-size': `var(${vars['status.text.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'font-size': `var(${vars['status.text.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         }
     },
     'indicator': {

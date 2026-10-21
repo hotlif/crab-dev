@@ -57,7 +57,7 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'gap': `var(${vars['root.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
         'font-weight': `var(${vars['root.font-weight']}, var(--token-semantic-font-weight-body, var(--token-global-font-weight-regular, 400)))`,
         'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, 2px)`,
@@ -69,22 +69,22 @@ const token = defineTokens({
     },
     'size': {
         'medium': {
-            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-40, 40px)))`,
-            'min-width': `var(${vars['size.medium.min-width']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-40, 40px)))`,
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-36, 36px)))`,
+            'min-width': `var(${vars['size.medium.min-width']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-36, 36px)))`,
             'padding': `var(${vars['size.medium.padding']}, 0 var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)))`,
             'min-width': `var(${vars['size.small.min-width']}, var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)))`,
             'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'large': {
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-action, var(--token-global-size-48, 48px)))`,
-            'min-width': `var(${vars['size.large.min-width']}, var(--token-semantic-sizing-large-action, var(--token-global-size-48, 48px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)))`,
+            'min-width': `var(${vars['size.large.min-width']}, var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)))`,
             'padding': `var(${vars['size.large.padding']}, 0 var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
-            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         }
     },
     'item': {

@@ -70,9 +70,9 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-control, var(--token-global-size-56, 56px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'padding-inline': `var(${vars['size.large.padding-inline']}, var(--token-semantic-sizing-large-padding, var(--token-global-space-6, 24px)))`,
+            'padding-inline': `var(${vars['size.large.padding-inline']}, var(--token-semantic-sizing-large-padding, var(--token-global-space-4, 16px)))`,
             'gap': `var(${vars['size.large.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
             'track': {
                 'padding': `var(${vars['size.large.track.padding']}, 0px)`
@@ -80,9 +80,9 @@ const token = defineTokens({
             'border-radius': `var(${vars['size.large.border-radius']}, 0px)`
         },
         'middle': {
-            'height': `var(${vars['size.middle.height']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-40, 40px)))`,
+            'height': `var(${vars['size.middle.height']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-36, 36px)))`,
             'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'padding-inline': `var(${vars['size.middle.padding-inline']}, var(--token-semantic-sizing-middle-padding, var(--token-global-space-4, 16px)))`,
+            'padding-inline': `var(${vars['size.middle.padding-inline']}, var(--token-semantic-sizing-middle-padding, var(--token-global-space-3, 12px)))`,
             'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
             'track': {
                 'padding': `var(${vars['size.middle.track.padding']}, 0px)`
@@ -92,7 +92,7 @@ const token = defineTokens({
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'padding-inline': `var(${vars['size.small.padding-inline']}, var(--token-semantic-sizing-small-padding, var(--token-global-space-3, 12px)))`,
+            'padding-inline': `var(${vars['size.small.padding-inline']}, var(--token-semantic-sizing-small-padding, var(--token-global-space-2, 8px)))`,
             'gap': `var(${vars['size.small.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
             'track': {
                 'padding': `var(${vars['size.small.track.padding']}, 0px)`
@@ -116,7 +116,7 @@ const token = defineTokens({
             'opacity-active': `var(${vars['item.state-layer.opacity-active']}, var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)))`
         },
         'icon': {
-            'width': `var(${vars['item.icon.width']}, 18px)`
+            'width': `var(${vars['item.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         }
     },
     'thumb': {

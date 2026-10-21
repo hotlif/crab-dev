@@ -10,7 +10,7 @@ imports = [
 # ===== 面板 Panel =====
 panel.padding-block = "$ref(space.stack-gap)"
 panel.padding-inline = "$ref(space.section-gap)"
-panel.gap = "$ref(space.section-gap)"
+panel.gap = "$ref(space.stack-gap)"
 
 panel.preview.height = "5rem"
 panel.preview.width = "100%"
@@ -18,7 +18,7 @@ panel.preview.border-radius = "$ref(radius.lg)"
 panel.preview.border-color = "$ref(color.border.default)"
 panel.preview.margin-top = "$ref(space.section-gap)"
 
-panel.slider.container.gap = "$ref(space.section-gap)"
+panel.slider.container.gap = "$ref(space.component-gap)"
 panel.slider.label.width = "4em"
 panel.slider.label.font-size = "$ref(typography.label.font-size)"
 panel.slider.label.font-weight = "$ref(typography.label.font-weight)"
@@ -42,8 +42,8 @@ trigger.background-color-disabled = "$ref(color.background.disabled)"
 trigger.border-color-disabled = "$ref(color.border.default)"
 
 trigger.swatch.small.width = "16px"
-trigger.swatch.medium.width = "24px"
-trigger.swatch.large.width = "32px"
+trigger.swatch.medium.width = "$ref(size.icon-large)"
+trigger.swatch.large.width = "$ref(size.24)"
 
 # ===== 文本输入 Input =====
 input.gap = "$ref(space.inline-gap)"

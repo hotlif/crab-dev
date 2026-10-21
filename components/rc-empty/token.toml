@@ -10,12 +10,12 @@ imports = [
 # ─── 容器 ────────────────────────────────────────────────────────────────────
 
 container.padding    = "$ref(space.dialog-padding)"
-container.min-height = "200px"
+container.min-height = "144px"
 
 
 # ─── 图像 ────────────────────────────────────────────────────────────────────
 
-image.width        = "80px"
+image.width = "$ref(size.48)"
 image.color        = "$ref(color.fill.default)"
 image.margin-bottom = "$ref(space.stack-gap)"
 

@@ -65,6 +65,7 @@ const controlStyle = css`
 `;
 
 const materialFieldStyle = css`
+    &&[data-appearance="filled"][data-labeled="true"] { min-height: ${token.field.filled['min-height']}; }
     &[data-appearance="filled"][data-labeled="true"] > [data-role="select-value"] {
         padding-top: ${token.field.input['padding-top']};
     }

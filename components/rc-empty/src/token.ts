@@ -21,11 +21,11 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'container': {
-        'padding': `var(${vars['container.padding']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
-        'min-height': `var(${vars['container.min-height']}, 200px)`
+        'padding': `var(${vars['container.padding']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
+        'min-height': `var(${vars['container.min-height']}, 144px)`
     },
     'image': {
-        'width': `var(${vars['image.width']}, 80px)`,
+        'width': `var(${vars['image.width']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
         'color': `var(${vars['image.color']}, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286)))))`,
         'margin-bottom': `var(${vars['image.margin-bottom']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`
     },

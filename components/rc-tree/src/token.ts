@@ -54,8 +54,8 @@ const token = defineTokens({
     'root': {
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px)))`,
         'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-label-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
-        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-large-font-size, var(--token-global-font-size-md, 16px)))`,
-        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-large-line-height, var(--token-global-line-height-16-24, 1.5)))`,
+        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
+        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
         'color': `var(${vars['root.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'transition': `var(${vars['root.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
@@ -69,7 +69,7 @@ const token = defineTokens({
             'border-color': `var(${vars['node.selection.border-color']}, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
             'border-width': `var(${vars['node.selection.border-width']}, 3px)`,
             'text-decoration': `var(${vars['node.selection.text-decoration']}, underline)`,
-            'width': `var(${vars['node.selection.width']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`,
+            'width': `var(${vars['node.selection.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`,
             'touch': {
                 'width': `var(${vars['node.selection.touch.width']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`
             }

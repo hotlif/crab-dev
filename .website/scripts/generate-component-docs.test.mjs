@@ -624,7 +624,10 @@ test("全局令牌目录完整覆盖原始定义并保留非标准键和零值",
     const entries = readGlobalTokens(source);
     const declared = [...source.slice(source.indexOf("[token]")).matchAll(/^([\w.-]+)\s*=/gm)].map(match => match[1]);
     assert.deepEqual(entries.map(entry => entry.key), declared);
-    assert.equal(entries.filter(entry => entry.group === "colors").length, 117);
+    assert.equal(entries.filter(entry => entry.group === "colors").length, 128);
+    const neutral = entries.filter(entry => entry.key.startsWith("neutral."));
+    assert.equal(neutral.length, 11);
+    assert.ok(neutral.every(entry => entry.group === "colors" && / 0 0\)$/.test(entry.value)));
     assert.ok(entries.filter(entry => entry.key.startsWith("material.")).every(entry => entry.group === "colors"));
     const purple = entries.filter(entry => entry.key.startsWith("purple."));
     assert.deepEqual(purple.map(entry => entry.key), ["10", "20", "30", "40", "80", "90", "100"].map(tone => `purple.${tone}`));

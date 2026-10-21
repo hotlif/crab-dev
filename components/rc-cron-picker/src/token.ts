@@ -50,9 +50,9 @@ const token = defineTokens({
         }
     },
     'field': {
-        'gap': `var(${vars['field.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'gap': `var(${vars['field.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
         'parameter': {
-            'gap': `var(${vars['field.parameter.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+            'gap': `var(${vars['field.parameter.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
             'min-width': `var(${vars['field.parameter.min-width']}, 120px)`
         },
         'hint': {
@@ -70,7 +70,7 @@ const token = defineTokens({
         'opacity-inactive': `var(${vars['mode-row.opacity-inactive']}, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7)))`
     },
     'value-grid': {
-        'gap': `var(${vars['value-grid.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+        'gap': `var(${vars['value-grid.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'min-width': `var(${vars['value-grid.min-width']}, 64px)`,
         'named': {
             'min-width': `var(${vars['value-grid.named.min-width']}, 80px)`
@@ -78,7 +78,7 @@ const token = defineTokens({
         'max-height': `var(${vars['value-grid.max-height']}, 256px)`,
         'padding-focus': `var(${vars['value-grid.padding-focus']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'target': {
-            'padding': `var(${vars['value-grid.target.padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+            'padding': `var(${vars['value-grid.target.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
     },
     'expression': {

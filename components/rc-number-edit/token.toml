@@ -21,13 +21,13 @@ stepper.divider.color    = "$ref(color.border.default)"
 stepper.border-radius    = "$ref(shape.control)"
 stepper.width            = "24px"
 stepper.gap              = "$ref(space.inline-gap)"
-stepper.action.min-width = "$ref(size.48)"
-stepper.action.width     = "$ref(size.48)"
-stepper.action.height    = "$ref(size.48)"
+stepper.action.min-width = "$ref(sizing.middle.action)"
+stepper.action.width = "$ref(sizing.middle.action)"
+stepper.action.height = "$ref(sizing.middle.action)"
 stepper.action.touch.min-width = "$ref(size.touch-target)"
 stepper.action.touch.width = "$ref(size.touch-target)"
 stepper.action.touch.height = "$ref(size.touch-target)"
-stepper.icon.width       = "24px"
+stepper.icon.width = "$ref(size.icon)"
 
 # ─── 上标科学计数法覆盖层（Display overlay）───────────────────────
 # 失焦时覆盖在 input 文本区之上、用真 <sup> 呈现 1.23×10²¹。

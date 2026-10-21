@@ -48,7 +48,7 @@ const token = defineTokens({
     'panel': {
         'padding-block': `var(${vars['panel.padding-block']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
         'padding-inline': `var(${vars['panel.padding-inline']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
-        'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
         'preview': {
             'height': `var(${vars['panel.preview.height']}, 5rem)`,
             'width': `var(${vars['panel.preview.width']}, 100%)`,
@@ -58,7 +58,7 @@ const token = defineTokens({
         },
         'slider': {
             'container': {
-                'gap': `var(${vars['panel.slider.container.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
+                'gap': `var(${vars['panel.slider.container.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
             },
             'label': {
                 'width': `var(${vars['panel.slider.label.width']}, 4em)`,
@@ -98,10 +98,10 @@ const token = defineTokens({
                 'width': `var(${vars['trigger.swatch.small.width']}, 16px)`
             },
             'medium': {
-                'width': `var(${vars['trigger.swatch.medium.width']}, 24px)`
+                'width': `var(${vars['trigger.swatch.medium.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
             },
             'large': {
-                'width': `var(${vars['trigger.swatch.large.width']}, 32px)`
+                'width': `var(${vars['trigger.swatch.large.width']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`
             }
         }
     },

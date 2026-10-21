@@ -91,4 +91,4 @@ track.border-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 12%, 
 item.state-layer.opacity-hover = "$ref(state.opacity.hover)"
 item.state-layer.opacity-focus = "$ref(state.opacity.focus)"
 item.state-layer.opacity-active = "$ref(state.opacity.pressed)"
-item.icon.width = "18px"
+item.icon.width = "$ref(size.icon)"

@@ -258,6 +258,7 @@ const Select: FC<SelectProps> = ({
             className={className}
             overlay={
                 <SelectOverlay
+                    size={size}
                     multiple={multiple}
                     loading={loading}
                     filteredOptions={filteredOptions}

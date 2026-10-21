@@ -1,10 +1,11 @@
 export const meta = {
-    title: "Light 与 Dark",
-    description: "同一套组件语义变量可在嵌套主题边界中并排使用。",
+    title: "Material 与 Shadcn",
+    description: "两种风格各自提供浅色和深色配对，局部边界的颜色、形状与阴影相互独立。",
 };
 
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
+import type { ThemeDesign } from "@crab-dev/rc-token-semantic";
 import "../../src/index.js";
 
 const layoutClass = css`
@@ -41,10 +42,10 @@ const accentClass = css`
     border-radius: ${token.radius.md};
 `;
 
-function ThemePanel({ mode }: { mode: "light" | "dark" }) {
+function ThemePanel({ design, mode }: { design: ThemeDesign; mode: "light" | "dark" }) {
     return (
-        <section className={panelClass} data-theme={mode} aria-label={`${mode} theme preview`}>
-            <strong>{mode === "light" ? "Light" : "Dark"}</strong>
+        <section className={panelClass} data-crab-design={design} data-theme={mode} aria-label={`${design} ${mode} theme preview`}>
+            <strong>{design === "material" ? "Material" : "Shadcn"} · {mode === "light" ? "Light" : "Dark"}</strong>
             <p className={secondaryClass}>背景、文本、边框与操作色均来自 Layer 2。</p>
             <span className={accentClass}>Brand color</span>
         </section>
@@ -54,8 +55,10 @@ function ThemePanel({ mode }: { mode: "light" | "dark" }) {
 export default function LightDarkDemo() {
     return (
         <div className={layoutClass}>
-            <ThemePanel mode="light" />
-            <ThemePanel mode="dark" />
+            <ThemePanel design="material" mode="light" />
+            <ThemePanel design="material" mode="dark" />
+            <ThemePanel design="shadcn" mode="light" />
+            <ThemePanel design="shadcn" mode="dark" />
         </div>
     );
 }

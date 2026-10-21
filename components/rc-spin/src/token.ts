@@ -83,11 +83,11 @@ const token = defineTokens({
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
         'middle': {
-            'width': `var(${vars['size.middle.width']}, 24px)`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'width': `var(${vars['size.middle.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`,
+            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'large': {
-            'width': `var(${vars['size.large.width']}, 40px)`,
+            'width': `var(${vars['size.large.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
         }
     },

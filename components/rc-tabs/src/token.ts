@@ -79,17 +79,17 @@ const token = defineTokens({
     },
     'size': {
         'small': {
-            'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-item, var(--token-global-size-40, 40px)))`,
+            'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'padding-inline': `var(${vars['size.small.padding-inline']}, 12px)`
         },
         'medium': {
-            'height': `var(${vars['size.medium.height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-36, 36px)))`,
             'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'padding-inline': `var(${vars['size.medium.padding-inline']}, 16px)`
         },
         'large': {
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-size-64, var(--token-global-size-64, 64px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'padding-inline': `var(${vars['size.large.padding-inline']}, 20px)`
         }
@@ -135,7 +135,7 @@ const token = defineTokens({
         'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'width': `var(${vars['close.width']}, 16px)`,
         'touch': {
-            'width': `var(${vars['close.touch.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
+            'width': `var(${vars['close.touch.width']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`
         },
         'gap': `var(${vars['close.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,

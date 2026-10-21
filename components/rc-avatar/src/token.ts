@@ -56,15 +56,15 @@ const token = defineTokens({
     },
     'size': {
         'small': {
-            'width': `var(${vars['size.small.width']}, 28px)`,
+            'width': `var(${vars['size.small.width']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
         'middle': {
-            'width': `var(${vars['size.middle.width']}, 40px)`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'width': `var(${vars['size.middle.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'large': {
-            'width': `var(${vars['size.large.width']}, 48px)`,
+            'width': `var(${vars['size.large.width']}, var(--token-semantic-size-40, var(--token-global-size-40, 40px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
         }
     },
@@ -73,10 +73,10 @@ const token = defineTokens({
             'font-size': `var(${vars['icon.small.font-size']}, 14px)`
         },
         'middle': {
-            'font-size': `var(${vars['icon.middle.font-size']}, 18px)`
+            'font-size': `var(${vars['icon.middle.font-size']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         },
         'large': {
-            'font-size': `var(${vars['icon.large.font-size']}, 22px)`
+            'font-size': `var(${vars['icon.large.font-size']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
         }
     },
     'content': {

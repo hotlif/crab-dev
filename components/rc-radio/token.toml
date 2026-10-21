@@ -12,16 +12,16 @@ root.outline-offset-focus = "2px"
 # Keep the icon, circular state layer and touch target independent.
 root.touch.min-width = "$ref(size.selection-target)"
 root.touch.min-height = "$ref(size.selection-target)"
-root.line-height = "$ref(typography.body.large.line-height)"
+root.line-height = "$ref(typography.body.medium.line-height)"
 root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 control.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)"
-control.target.width = "$ref(size.selection-target)"
+control.target.width = "$ref(size.selection-control)"
 control.border-color-error = "$ref(color.border.error)"
 dot.color-error = "$ref(color.feedback.error.solid)"
-state-layer.width = "40px"
+state-layer.width = "$ref(size.selection-control)"
 state-layer.border-radius = "$ref(radius.pill)"
 state-layer.color = "$ref(color.text.primary)"
 state-layer.color-selected = "$ref(color.brand.primary)"
@@ -40,16 +40,16 @@ group.gap            = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.box.width = "24px"
-size.large.dot.width = "12px"
+size.large.box.width = "$ref(size.icon-large)"
+size.large.dot.width = "10px"
 size.large.label.font-size   = "$ref(font.size.subhead)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
-size.middle.box.width = "20px"
-size.middle.dot.width = "10px"
-size.middle.label.font-size = "$ref(typography.body.large.font-size)"
+size.middle.box.width = "$ref(size.icon)"
+size.middle.dot.width = "$ref(space.component-gap)"
+size.middle.label.font-size = "$ref(typography.body.medium.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────

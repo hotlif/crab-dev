@@ -71,8 +71,22 @@ theme_css = "docs/theme.css"
 @import "../../components/rc-theme/css/index.css";
 ```
 
-默认使用浅色主题。在页面根节点或局部容器设置 `data-theme="dark"` 可切换为深色。
-主题选择、持久化和首屏设置由应用负责，详见 [Theme 主题](/components/rc-theme)。
+组件库默认使用 Material Design 3 浅色主题。通过 `ConfigProvider` 独立配置设计风格和明暗模式：
+
+```tsx
+import ConfigProvider from "@crab-dev/rc-config-provider";
+import Button from "@crab-dev/rc-button";
+
+<ConfigProvider design="shadcn" theme="dark">
+    <Button>保存</Button>
+</ConfigProvider>
+```
+
+`design="material"` 使用 Material Design 3，`design="shadcn"` 使用中性灰阶与紧凑形状；`theme="light"` 或 `"dark"` 单独设置明暗。嵌套 Provider 继承没有显式传入的配置，并为浮层建立一致的风格边界。
+
+风格也决定文本字段的结构：LineEdit / TextEdit 的 `label` 在 Material 中使用浮动标签；shadcn 独立字段将标签放在输入框上方，在 Form 中使用 `Item labelPlacement="control"` 时则将左侧标签与右侧输入放在同一行，说明与错误对齐输入列。Material 单行字段保留 56px 高度，shadcn 输入框随 `size` 使用 32 / 36 / 40px。详见 [Form](/components/rc-form) 与[统一尺寸与密度](/guides/component-sizing)。
+
+本网站默认显示 shadcn，可通过导航中的主题菜单同时体验两套风格，所选风格会保存在浏览器。应用自身的主题选择、持久化和首屏设置由应用负责，详见 [ConfigProvider](/components/rc-config-provider) 与 [Theme 主题](/components/rc-theme)。
 
 ## 跟着教程写代码
 

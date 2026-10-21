@@ -4,7 +4,7 @@ import token, { vars } from '../token.js';
 describe('date-picker canonical token contract', () => {
     it('exposes canonical overrides with their semantic or static defaults', () => {
         expect(vars['navigation.width']).toBe('--date-picker-navigation-width');
-        expect(token.navigation.width).toContain('--token-semantic-size-48');
+        expect(token.navigation.width).toContain('--token-semantic-size-32');
     });
 
     it('does not expose or consume removed aliases', () => {

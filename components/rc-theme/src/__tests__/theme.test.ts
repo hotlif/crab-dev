@@ -1,6 +1,16 @@
 import { describe, expect, it } from "@crab-dev/wake/test";
 import { readFile } from "node:fs/promises";
-import { themeColorContract, themeSelectors } from "../theme-values.js";
+import {
+    designColorContract,
+    designFieldContract,
+    designShapeContract,
+    designThemeSelectors,
+    shadcnColorContract,
+    themeColorContract,
+    themeSelectors,
+} from "../theme-values.js";
+
+const allThemes = Object.values(designColorContract).flatMap(design => [design.light, design.dark]);
 
 interface OklchColor {
     lightness: number;
@@ -126,8 +136,8 @@ function expectCompositedContrast(
 }
 
 describe("theme color contract", () => {
-    it('keeps Material surfaces and paired tonal content readable', () => {
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+    it('keeps surfaces and paired tonal content readable in both designs', () => {
+        for (const theme of allThemes) {
             for (const surface of [...Object.values(theme.surface), ...Object.values(theme.workspace)]) {
                 expectContrast(theme.text.primary, surface, 4.5);
                 expectContrast(theme.text.secondary, surface, 4.5);
@@ -162,16 +172,24 @@ describe("theme color contract", () => {
             dark: '[data-theme="dark"]',
             forcedColors: "@media (forced-colors: active)",
         });
+        expect(designThemeSelectors).toEqual({
+            material: {
+                light: '[data-crab-design="material"][data-theme="light"]',
+                dark: '[data-crab-design="material"][data-theme="dark"]',
+            },
+            shadcn: {
+                light: '[data-crab-design="shadcn"][data-theme="light"]',
+                dark: '[data-crab-design="shadcn"][data-theme="dark"]',
+            },
+        });
     });
 
     it("keeps default Light and Dark text and focus indicators accessible", () => {
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+        for (const theme of allThemes) {
             expectContrast(theme.text.primary, theme.background.surface, 4.5);
             expectContrast(theme.text.secondary, theme.background.surface, 4.5);
             expectContrast(theme.text.tertiary, theme.background.surface, 4.5);
             expectContrast(theme.text.inverse, theme.background.inverse, 4.5);
-            expectContrast(theme.border.default, theme.background.surface, 3);
-            expectContrast(theme.border.hover, theme.background.surface, 3);
             expectContrast(theme.border.strong, theme.background.surface, 3);
             for (const background of [
                 theme.background.surface,
@@ -198,10 +216,14 @@ describe("theme color contract", () => {
                 4.5,
             );
         }
+        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+            expectContrast(theme.border.default, theme.background.surface, 3);
+            expectContrast(theme.border.hover, theme.background.surface, 3);
+        }
     });
 
     it("derives focus shadows from the canonical focus ring variable", () => {
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+        for (const theme of allThemes) {
             expect(theme.focusShadow).toContain(
                 "var(--token-semantic-color-focus-ring,",
             );
@@ -211,20 +233,58 @@ describe("theme color contract", () => {
         }
     });
 
-    it('keeps switch thumbs distinct and dark pressed colors chromatic', () => {
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+    it('keeps switch thumbs distinct from their tracks', () => {
+        for (const theme of allThemes) {
             expectContrast(theme.control.thumb, theme.control.track, 3);
             expectContrast(theme.control.thumb, theme.control.trackHover, 3);
         }
-        const dark = themeColorContract.dark;
-        const colors = [dark.brand.primary, dark.brand.hover, dark.brand.active].map(resolveColor);
-        expect(colors.every(color => color.chroma > 0.01)).toBe(true);
-        expect(colors[1].lightness - colors[0].lightness).toBeLessThan(0.06);
-        expect(colors[2].lightness - colors[1].lightness).toBeLessThan(0.06);
+    });
+
+    it('preserves the Material purple brand independently of shadcn', () => {
+        expect(themeColorContract.light.brand.primary).toContain('--token-global-purple-40');
+        expect(themeColorContract.dark.brand.primary).toContain('--token-global-purple-80');
+        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+            for (const value of [theme.brand.primary, theme.brand.hover, theme.brand.active]) {
+                expect(resolveColor(value).chroma).toBeGreaterThan(0.01);
+            }
+        }
+    });
+
+    it('keeps shadcn structural roles neutral and brand states paired across themes', () => {
+        for (const mode of ['light', 'dark'] as const) {
+            const theme = shadcnColorContract[mode];
+            const structuralColors = [
+                ...Object.values(theme.workspace),
+                ...Object.values(theme.surface),
+                ...Object.values(theme.secondary),
+                ...Object.values(theme.tertiary),
+                ...Object.values(theme.brand),
+                ...Object.values(theme.background),
+                ...Object.values(theme.text),
+                theme.border.subtle,
+                theme.border.default,
+                theme.border.hover,
+                theme.border.strong,
+                theme.border.focus,
+                theme.focusRing,
+                ...Object.values(theme.selection),
+                ...Object.values(theme.fill),
+            ];
+            for (const value of structuralColors) {
+                expect(resolveColor(value).chroma).toBeLessThanOrEqual(0.000001);
+            }
+            const states = [theme.brand.primary, theme.brand.hover, theme.brand.active];
+            const lightness = states.map(value => resolveColor(value).lightness);
+            expect(new Set(lightness).size).toBe(3);
+            expect(lightness).toEqual([...lightness].sort((a, b) => mode === 'light' ? a - b : b - a));
+            for (const state of states) expectContrast(theme.text.onBrand, state, 4.5);
+        }
+        expect(resolveColor(shadcnColorContract.light.brand.primary).lightness)
+            .toBeLessThan(resolveColor(shadcnColorContract.dark.brand.primary).lightness);
     });
 
     it("keeps every feedback role readable in Light and Dark", () => {
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+        for (const theme of allThemes) {
             for (const feedback of Object.values(theme.feedback)) {
                 expectContrast(feedback.text, feedback.background, 4.5);
                 expectContrast(feedback.text, feedback.backgroundHover, 4.5);
@@ -249,8 +309,8 @@ describe("theme color contract", () => {
 
     it("declares default Light before Dark so nested and runtime overrides win", async () => {
         const themeSource = await readFile(new URL("../theme.ts", import.meta.url), "utf8");
-        const lightRule = themeSource.indexOf(':root,\n    [data-theme="light"]');
-        const darkRule = themeSource.indexOf('[data-theme="dark"]');
+        const lightRule = themeSource.search(/:root,\s*\[data-theme="light"\],/);
+        const darkRule = themeSource.search(/\[data-theme="dark"\]\s*\{/);
         expect(lightRule).toBeGreaterThanOrEqual(0);
         expect(darkRule).toBeGreaterThan(lightRule);
 
@@ -271,12 +331,170 @@ describe("theme color contract", () => {
         root.removeAttribute("data-theme");
     });
 
+
+    it('selects exactly one design and mode for nested and updated boundaries', () => {
+        const outer = document.createElement('section');
+        outer.dataset.crabDesign = 'shadcn';
+        outer.dataset.theme = 'dark';
+        const inner = document.createElement('section');
+        outer.append(inner);
+        for (const design of ['material', 'shadcn'] as const) {
+            for (const mode of ['light', 'dark'] as const) {
+                inner.dataset.crabDesign = design;
+                inner.dataset.theme = mode;
+                for (const candidateDesign of ['material', 'shadcn'] as const) {
+                    for (const candidateMode of ['light', 'dark'] as const) {
+                        expect(inner.matches(designThemeSelectors[candidateDesign][candidateMode]))
+                            .toBe(candidateDesign === design && candidateMode === mode);
+                    }
+                }
+                expect(outer.matches(designThemeSelectors.shadcn.dark)).toBe(true);
+            }
+        }
+        inner.removeAttribute('data-theme');
+        expect(inner.matches(designThemeSelectors.shadcn.light)).toBe(false);
+    });
+
+    it('resets every themed property when returning from shadcn to Material', async () => {
+        const source = await readFile(new URL('../theme.ts', import.meta.url), 'utf8');
+        const ruleFor = (selector: string): string => {
+            const start = source.indexOf(selector + ' {');
+            expect(start).toBeGreaterThanOrEqual(0);
+            return source.slice(start, source.indexOf('\n    }', start));
+        };
+        const declarations = (selector: string) => [...ruleFor(selector).matchAll(/(--token-semantic-[\w-]+):/g)]
+            .map(match => match[1]).sort();
+        const material = declarations(designThemeSelectors.material.light);
+        expect(material).toContain('--token-semantic-color-brand-primary');
+        expect(material).toContain('--token-semantic-color-selection-background');
+        expect(material).toContain('--token-semantic-shape-button');
+        expect(material).toContain('--token-semantic-color-border-card');
+        expect(material).toContain('--token-semantic-shadow-card');
+        expect(material).toContain('--token-semantic-shadow-overlay');
+        expect(material).toContain('--token-semantic-form-layout-columns');
+        expect(material).toContain('--token-semantic-form-field-columns');
+        expect(material).toContain('--token-semantic-form-field-control-column');
+        expect(material).toContain('--token-semantic-form-field-inline');
+        expect(material).toContain('--token-semantic-field-required-color');
+        expect(material).toContain('--token-semantic-field-required-order');
+        expect(material).toContain('--token-semantic-field-required-gap');
+        for (const design of ['material', 'shadcn'] as const) {
+            for (const mode of ['light', 'dark'] as const) {
+                const selector = designThemeSelectors[design][mode];
+                expect(declarations(selector)).toEqual(material);
+                const rule = ruleFor(selector);
+                const colorReference = design === 'material' ? 'color' : 'shadcn';
+                expect(rule).toContain('--token-semantic-color-brand-primary: ${' + colorReference + '.' + mode + '.brand.primary};');
+                expect(rule).toContain('--token-semantic-shape-control: ${shape.' + design + '.shape.control};');
+                expect(rule).toContain('--token-semantic-shadow-overlay: ${shape.' + design + '.shadow.overlay};');
+                expect(rule).toContain('--token-semantic-form-layout-columns: ${field.' + design + '.formLayoutColumns};');
+                expect(rule).toContain('--token-semantic-form-field-columns: ${field.' + design + '.formFieldColumns};');
+                expect(rule).toContain('--token-semantic-form-field-control-column: ${field.' + design + '.formFieldControlColumn};');
+                expect(rule).toContain('--token-semantic-form-field-inline: ${field.' + design + '.formFieldInline};');
+                expect(rule).toContain('--token-semantic-field-required-color: ${field.' + design + '.requiredColor};');
+                expect(rule).toContain('--token-semantic-field-required-order: ${field.' + design + '.requiredOrder};');
+                expect(rule).toContain('--token-semantic-field-required-gap: ${field.' + design + '.requiredGap};');
+            }
+        }
+    });
+
+    it('changes shape and elevation independently of color mode and control size', () => {
+        const material = designShapeContract.material;
+        const shadcn = designShapeContract.shadcn;
+        expect(material.shape.control).toContain('4px');
+        expect(material.shape.card).toContain('12px');
+        expect(material.shape.overlay).toContain('28px');
+        expect(material.shape.button).toContain('9999px');
+        expect(material.shape.buttonSelected).toContain('12px');
+        expect(material.shape.buttonPressed).toContain('8px');
+        expect(shadcn.shape.control).toContain('8px');
+        expect(shadcn.shape.card).toContain('12px');
+        expect(shadcn.shape.overlay).toContain('12px');
+        expect(shadcn.shape.button).toBe(shadcn.shape.control);
+        expect(shadcn.shape.buttonSelected).toBe(shadcn.shape.control);
+        expect(shadcn.shape.buttonPressed).toBe(shadcn.shape.control);
+        expect(material.shadow.control).toContain('--token-global-shadow-material-1');
+        expect(shadcn.shadow.control).toContain('--token-global-shadow-xs');
+        expect(shadcn.shadow.card).toBe('none');
+    });
+
+    it('switches the complete text-field layout between Material and shadcn', () => {
+        const material = designFieldContract.material;
+        const shadcn = designFieldContract.shadcn;
+        expect(Object.keys(material).sort()).toEqual(Object.keys(shadcn).sort());
+        expect(material.controlMinHeight).toContain('56px');
+        expect(material.requiredColor).toBe('inherit');
+        expect(material.requiredOrder).toBe('1');
+        expect(shadcn.requiredColor).toContain('--token-semantic-color-feedback-error-text');
+        expect(shadcn.requiredColor).toContain('--token-global-material-error-40');
+        expect(shadcn.requiredOrder).toBe('-1');
+        expect(material.requiredGap).toBe(shadcn.requiredGap);
+        expect(material.inputFontSize).toContain('16px');
+        expect(material.controlIconPaddingInline).toContain('12px');
+        expect(material.iconSize).toContain('24px');
+        expect(material.iconGap).toContain('16px');
+        const terminalLength = (value: string) => Number(value.match(/([\d.]+)px\)+$/)?.[1]);
+        expect(terminalLength(material.controlIconPaddingInline) + terminalLength(material.iconSize) + terminalLength(material.iconGap)).toBe(52);
+        expect(material.labelPrefixMarginInline).toContain('--token-global-space-6');
+        expect(material.labelFloatingFontSize).toContain('12px');
+        expect(material.layoutControlRow).toBe(material.layoutLabelRow);
+        expect(material.outlineDisplay).toBe('block');
+        expect(material.labelFloatingTransform).toBe('translateY(-50%)');
+        expect(material.filledBorderWidth).toBe('0 0 1px');
+        expect(material.disabledColor).toContain('38%');
+        expect(material.disabledBorderColor).toContain('12%');
+        expect(material.disabledFilledBackground).toContain('4%');
+        expect(shadcn.controlMinHeight).toBe('0px');
+        expect(shadcn.iconSize).toContain('16px');
+        expect(shadcn.iconGap).toContain('8px');
+        expect(shadcn.layoutLabelRow).toBe('1');
+        expect(shadcn.layoutControlRow).toBe('2');
+        expect(shadcn.outlineDisplay).toBe('none');
+        expect(shadcn.labelFloatingTransform).toBe('none');
+        expect(shadcn.labelFontSize).toBe(shadcn.labelFloatingFontSize);
+        expect(shadcn.labelAlign).toBe('center');
+        expect(shadcn.labelFloatingAlign).toBe('center');
+        expect(shadcn.filledBorderWidth).toBe('1px');
+        expect(shadcn.inputFilledPaddingTop).toBe('0px');
+    });
+
+    it('keeps form label alignment in the design contract while standalone fields retain their rows', () => {
+        const material = designFieldContract.material;
+        const shadcn = designFieldContract.shadcn;
+        expect(material.formLayoutColumns).toBe('auto minmax(0, 1fr) auto');
+        expect(material.formFieldColumns).toBe('minmax(0, 1fr)');
+        expect(material.formFieldControlColumn).toBe('1 / -1');
+        expect(material.formFieldInline).toBe('0');
+        expect(shadcn.formLayoutColumns).toBe('fit-content(35%) minmax(0, 1fr) auto');
+        expect(shadcn.formFieldColumns).toBe('subgrid');
+        expect(shadcn.formFieldControlColumn).toBe('2 / -1');
+        expect(shadcn.formFieldInline).toBe('1');
+        expect(shadcn.layoutLabelRow).toBe('1');
+        expect(shadcn.layoutControlRow).toBe('2');
+    });
+
+    it('keeps shadcn Filled surfaces paired with readable text in both color modes', async () => {
+        const source = await readFile(new URL('../theme.ts', import.meta.url), 'utf8');
+        for (const background of [designFieldContract.shadcn.filledBackgroundColor, designFieldContract.shadcn.filledBackgroundColorHover, designFieldContract.shadcn.disabledFilledBackground]) {
+            expect(background).toContain('var(--token-semantic-color-background-surface,');
+            expect(background).not.toContain('--token-semantic-color-surface-content');
+        }
+        for (const mode of ['light', 'dark'] as const) {
+            expect(source).toContain('--token-semantic-color-background-surface: ${shadcn.' + mode + '.background.surface};');
+            expectContrast(shadcnColorContract[mode].text.primary, shadcnColorContract[mode].background.surface, 4.5);
+            expectContrast(shadcnColorContract[mode].text.secondary, shadcnColorContract[mode].background.surface, 4.5);
+        }
+    });
+
     it("uses only the supported forced-color keywords and removes decorative shadows", async () => {
         const themeSource = await readFile(new URL("../theme.ts", import.meta.url), "utf8");
         const forcedColors = themeSource.slice(themeSource.indexOf("@media (forced-colors: active)"));
         const systemColors = new Set(forcedColors.match(/\b(?:CanvasText|Canvas|GrayText|HighlightText|Highlight)\b/g));
         expect(systemColors).toEqual(new Set(["Canvas", "CanvasText", "GrayText", "Highlight", "HighlightText"]));
         expect(forcedColors).not.toMatch(/\b(?:LinkText|Mark|MarkText)\b/);
+        expect(forcedColors).toContain('[data-crab-design][data-theme]');
+        expect(forcedColors).toContain("--token-semantic-shadow-card: none");
+        expect(forcedColors).toContain("--token-semantic-shadow-control: none");
         expect(forcedColors).toContain("--token-semantic-shadow-float: none");
         expect(forcedColors).toContain("--token-semantic-shadow-overlay: none");
         expect(forcedColors).toContain("--token-semantic-shadow-focus-ring: 0 0 0 3px Highlight");

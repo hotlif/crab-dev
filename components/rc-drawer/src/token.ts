@@ -65,21 +65,21 @@ const token = defineTokens({
         }
     },
     'header': {
-        'padding': `var(${vars['header.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
+        'padding': `var(${vars['header.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
         'border-color': `var(${vars['header.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'title': {
             'font-weight': `var(${vars['header.title.font-weight']}, var(--token-semantic-typography-title-large-emphasized-font-weight, var(--token-global-font-weight-medium, 500)))`,
-            'font-size': `var(${vars['header.title.font-size']}, var(--token-semantic-typography-title-font-size, var(--token-global-font-size-22, 22px)))`,
+            'font-size': `var(${vars['header.title.font-size']}, var(--token-semantic-typography-title-medium-font-size, var(--token-global-font-size-md, 16px)))`,
             'color': `var(${vars['header.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-            'line-height': `var(${vars['header.title.line-height']}, var(--token-semantic-typography-title-line-height, var(--token-global-line-height-22-28, 1.2727272727272727)))`,
+            'line-height': `var(${vars['header.title.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`,
             'letter-spacing': `var(${vars['header.title.letter-spacing']}, -0.01em)`
         }
     },
     'body': {
-        'padding': `var(${vars['body.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`
+        'padding': `var(${vars['body.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`
     },
     'footer': {
-        'padding': `var(${vars['footer.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
+        'padding': `var(${vars['footer.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
         'border-color': `var(${vars['footer.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'gap': `var(${vars['footer.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },

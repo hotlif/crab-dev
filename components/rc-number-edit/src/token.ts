@@ -50,9 +50,9 @@ const token = defineTokens({
         'width': `var(${vars['stepper.width']}, 24px)`,
         'gap': `var(${vars['stepper.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'action': {
-            'min-width': `var(${vars['stepper.action.min-width']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
-            'width': `var(${vars['stepper.action.width']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
-            'height': `var(${vars['stepper.action.height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
+            'min-width': `var(${vars['stepper.action.min-width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
+            'width': `var(${vars['stepper.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
+            'height': `var(${vars['stepper.action.height']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
             'touch': {
                 'min-width': `var(${vars['stepper.action.touch.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
                 'width': `var(${vars['stepper.action.touch.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
@@ -60,7 +60,7 @@ const token = defineTokens({
             }
         },
         'icon': {
-            'width': `var(${vars['stepper.icon.width']}, 24px)`
+            'width': `var(${vars['stepper.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         }
     },
     'display': {
@@ -76,17 +76,17 @@ const token = defineTokens({
     'size': {
         'small': {
             'action': {
-                'width': `var(${vars['size.small.action.width']}, var(--token-semantic-sizing-small-action, var(--token-global-size-32, 32px)))`
+                'width': `var(${vars['size.small.action.width']}, var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)))`
             }
         },
         'middle': {
             'action': {
-                'width': `var(${vars['size.middle.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-size-40, 40px)))`
+                'width': `var(${vars['size.middle.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`
             }
         },
         'large': {
             'action': {
-                'width': `var(${vars['size.large.action.width']}, var(--token-semantic-sizing-large-action, var(--token-global-size-48, 48px)))`
+                'width': `var(${vars['size.large.action.width']}, var(--token-semantic-sizing-large-action, var(--token-global-size-32, 32px)))`
             }
         }
     }

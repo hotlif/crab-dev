@@ -55,12 +55,12 @@ export const vars = defineTokens({
 const token = defineTokens({
     'rail': {
         'interact': {
-            'height': `var(${vars['rail.interact.height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`
+            'height': `var(${vars['rail.interact.height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
         },
-        'height': `var(${vars['rail.height']}, 16px)`,
+        'height': `var(${vars['rail.height']}, 4px)`,
         'fill-inactive': `var(${vars['rail.fill-inactive']}, var(--token-semantic-color-secondary-container, var(--token-global-material-secondary-90, oklch(0.91633372 0.03651492 303.106047))))`,
         'fill-active': `var(${vars['rail.fill-active']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-        'gap': `var(${vars['rail.gap']}, 6px)`,
+        'gap': `var(${vars['rail.gap']}, 4px)`,
         'border-radius': `var(${vars['rail.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
         'inner': {
             'border-radius': `var(${vars['rail.inner.border-radius']}, 2px)`
@@ -80,10 +80,10 @@ const token = defineTokens({
             'opacity-hover': `var(${vars['thumb.halo.opacity-hover']}, var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)))`,
             'opacity-focus': `var(${vars['thumb.halo.opacity-focus']}, var(--token-semantic-state-opacity-focus, var(--token-global-opacity-12, 0.12)))`,
             'opacity-dragging': `var(${vars['thumb.halo.opacity-dragging']}, var(--token-semantic-state-opacity-dragged, var(--token-global-opacity-16, 0.16)))`,
-            'width': `var(${vars['thumb.halo.width']}, 40px)`
+            'width': `var(${vars['thumb.halo.width']}, var(--token-semantic-size-28, var(--token-global-space-7, 28px)))`
         },
         'width': `var(${vars['thumb.width']}, 4px)`,
-        'height': `var(${vars['thumb.height']}, 44px)`,
+        'height': `var(${vars['thumb.height']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`,
         'width-active': `var(${vars['thumb.width-active']}, 2px)`,
         'transition': `var(${vars['thumb.transition']}, width var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), background-color var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
     },
@@ -104,47 +104,47 @@ const token = defineTokens({
     'size': {
         'xs': {
             'track': {
-                'height': `var(${vars['size.xs.track.height']}, 16px)`,
+                'height': `var(${vars['size.xs.track.height']}, 4px)`,
                 'border-radius': `var(${vars['size.xs.track.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`
             },
             'thumb': {
-                'height': `var(${vars['size.xs.thumb.height']}, 44px)`
+                'height': `var(${vars['size.xs.thumb.height']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`
             }
         },
         's': {
             'track': {
-                'height': `var(${vars['size.s.track.height']}, 24px)`,
+                'height': `var(${vars['size.s.track.height']}, 6px)`,
                 'border-radius': `var(${vars['size.s.track.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`
             },
             'thumb': {
-                'height': `var(${vars['size.s.thumb.height']}, 44px)`
+                'height': `var(${vars['size.s.thumb.height']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`
             }
         },
         'm': {
             'track': {
-                'height': `var(${vars['size.m.track.height']}, 40px)`,
+                'height': `var(${vars['size.m.track.height']}, 8px)`,
                 'border-radius': `var(${vars['size.m.track.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`
             },
             'thumb': {
-                'height': `var(${vars['size.m.thumb.height']}, 52px)`
+                'height': `var(${vars['size.m.thumb.height']}, var(--token-semantic-size-28, var(--token-global-space-7, 28px)))`
             }
         },
         'l': {
             'track': {
-                'height': `var(${vars['size.l.track.height']}, 56px)`,
+                'height': `var(${vars['size.l.track.height']}, 12px)`,
                 'border-radius': `var(${vars['size.l.track.border-radius']}, var(--token-semantic-shape-large, var(--token-global-radius-8, 16px)))`
             },
             'thumb': {
-                'height': `var(${vars['size.l.thumb.height']}, 68px)`
+                'height': `var(${vars['size.l.thumb.height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
             }
         },
         'xl': {
             'track': {
-                'height': `var(${vars['size.xl.track.height']}, 96px)`,
+                'height': `var(${vars['size.xl.track.height']}, 16px)`,
                 'border-radius': `var(${vars['size.xl.track.border-radius']}, var(--token-semantic-shape-extra-large, var(--token-global-radius-14, 28px)))`
             },
             'thumb': {
-                'height': `var(${vars['size.xl.thumb.height']}, 108px)`
+                'height': `var(${vars['size.xl.thumb.height']}, var(--token-semantic-size-40, var(--token-global-size-40, 40px)))`
             }
         }
     }

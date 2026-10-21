@@ -244,10 +244,10 @@ const token = defineTokens({
             'border-color': `var(${vars['row-edit.cancel.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`
         },
         'button': {
-            'height': `var(${vars['row-edit.button.height']}, var(--token-semantic-size-control, var(--token-global-size-40, 40px)))`,
+            'height': `var(${vars['row-edit.button.height']}, var(--token-semantic-size-control, var(--token-global-size-36, 36px)))`,
             'padding-inline': `var(${vars['row-edit.button.padding-inline']}, var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
             'border-radius': `var(${vars['row-edit.button.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`,
-            'font-size': `var(${vars['row-edit.button.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+            'font-size': `var(${vars['row-edit.button.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
             'font-weight': `var(${vars['row-edit.button.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
             'gap': `var(${vars['row-edit.button.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
@@ -274,7 +274,7 @@ const token = defineTokens({
     },
     'row-selection': {
         'control': {
-            'width': `var(${vars['row-selection.control.width']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`
+            'width': `var(${vars['row-selection.control.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`
         },
         'background-color-selected': `var(${vars['row-selection.background-color-selected']}, color-mix(in oklch, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 10%, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
     },

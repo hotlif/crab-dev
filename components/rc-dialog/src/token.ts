@@ -46,7 +46,7 @@ const token = defineTokens({
         'min-width': `var(${vars['root.min-width']}, 280px)`,
         'max-width': `var(${vars['root.max-width']}, calc(100vw - var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)) * 2))`,
         'max-height': `var(${vars['root.max-height']}, calc(100dvh - var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)) * 2))`,
-        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
+        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`
     },
@@ -56,23 +56,23 @@ const token = defineTokens({
     'heading': {
         'margin-bottom': `var(${vars['heading.margin-bottom']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
         'font-weight': `var(${vars['heading.font-weight']}, var(--token-semantic-typography-headline-small-emphasized-font-weight, var(--token-global-font-weight-medium, 500)))`,
-        'font-size': `var(${vars['heading.font-size']}, var(--token-semantic-typography-headline-small-font-size, var(--token-global-font-size-2xl, 24px)))`,
-        'line-height': `var(${vars['heading.line-height']}, var(--token-semantic-typography-headline-small-line-height, var(--token-global-line-height-24-32, 1.3333333333333333)))`,
+        'font-size': `var(${vars['heading.font-size']}, var(--token-semantic-typography-title-medium-font-size, var(--token-global-font-size-md, 16px)))`,
+        'line-height': `var(${vars['heading.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`,
         'gap': `var(${vars['heading.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'close': {
-        'width': `var(${vars['close.width']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
-        'height': `var(${vars['close.height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
+        'width': `var(${vars['close.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+        'height': `var(${vars['close.height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
         'touch': {
             'min-width': `var(${vars['close.touch.min-width']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
             'min-height': `var(${vars['close.touch.min-height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`
         }
     },
     'footer': {
-        'margin-top': `var(${vars['footer.margin-top']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
+        'margin-top': `var(${vars['footer.margin-top']}, var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
         'button': {
             'margin': `var(${vars['footer.button.margin']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'min-height': `var(${vars['footer.button.min-height']}, var(--token-semantic-size-control, var(--token-global-size-40, 40px)))`,
+            'min-height': `var(${vars['footer.button.min-height']}, var(--token-semantic-size-control, var(--token-global-size-36, 36px)))`,
             'padding-block': `var(${vars['footer.button.padding-block']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
     },

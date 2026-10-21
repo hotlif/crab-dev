@@ -20,7 +20,7 @@ import { demos } from "../_generated/rc-token-semantic.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 按钮尺寸 — 通过 `size` 属性设置按钮尺寸
+##### 语义颜色与边界 — 表面、文本与边框使用语义令牌，随设计风格和明暗主题同步切换。
 
 </div>
 
@@ -35,7 +35,7 @@ import { demos } from "../_generated/rc-token-semantic.js";
 
 ### 角色与默认主题
 
-业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。L1 的 Purple 是原料，L2 才决定浅色品牌用 Purple 40、深色用 Purple 80。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射，不再包含历史别名。
+业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。默认 Material Design 3 风格将 L1 的 Purple 40 / 80 配对为浅色 / 深色品牌；可选 shadcn 风格使用零色度 Neutral 黑白灰。两套风格使用相同的 L2 角色，明暗模式独立切换。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射，不再包含历史别名。
 
 | 意图 | 背景或主色 | 配套前景 | 使用边界 |
 | --- | --- | --- | --- |
@@ -58,18 +58,19 @@ const panel = css`
 
 ### 同一份配对数据与 CSS 主题
 
-`themeColorContract` 是新增的公共只读数据导出，包含 `light`、`dark` 两组配对。它供主题编译、设计参考和契约测试使用，成员是 CSS 引用字符串，读取它不会切换主题或注入样式。
+`themeColorContract` 保持默认 Material 的 `light`、`dark` 配对；`shadcnColorContract` 提供独立的黑白灰配对。`designColorContract` 用 `material` / `shadcn` 索引两套数据，`ThemeDesign` 类型声明这两个风格名称。它们供主题编译、设计参考和契约测试使用，成员是 CSS 引用字符串，读取它们不会切换主题或注入样式。
 
 ```ts
-import { themeColorContract } from "@crab-dev/rc-token-semantic";
-import type { ThemeColors } from "@crab-dev/rc-token-semantic";
+import { designColorContract } from "@crab-dev/rc-token-semantic";
+import type { ThemeColors, ThemeDesign } from "@crab-dev/rc-token-semantic";
 
-const light: ThemeColors = themeColorContract.light;
-const brand = light.brand.primary; // L1 Purple 40 的 CSS 引用
+const design: ThemeDesign = "shadcn";
+const light: ThemeColors = designColorContract[design].light;
+const brand = light.brand.primary; // L1 Neutral 900 的 CSS 引用
 const onBrand = light.text.onBrand;
 ```
 
-运行时主题仍使用 `@crab-dev/rc-theme/css/index.css` 与 `data-theme`。TOML 维护无主题样式时的 Light 回退值，`src/theme.ts` 维护完整明暗配对；改变共享角色时，两者必须同步并通过回退一致性测试。业务代码通常只需要默认 `token`，不用在每个组件里读取 `light` / `dark` 再分支。
+运行时主题使用 `@crab-dev/rc-theme/css/index.css`、`data-crab-design` 与 `data-theme`；React 应用通过 ConfigProvider 的 `design` 统一选择风格。TOML 保持无主题样式时的 Material Light 回退值，`src/theme.ts` 与 `src/shadcn-theme.ts` 分别维护两套完整明暗配对。业务代码通常只需要默认 `token`，不用在每个组件里读取风格或明暗模式再分支。
 
 ### 覆盖、迁移与验收
 
@@ -88,7 +89,8 @@ const onBrand = light.text.onBrand;
 ### 统一视觉尺度
 
 - small 控件横向内边距为 `space.control-padding-x-small`（8px），middle / large 为 `space.control-padding-x`（12px）。
-- 默认输入框使用 56px 高度、16/24px 正文和 4px 圆角；按钮为 40px 胶囊形，卡片为 12px，弹窗为 28px。
+- 两套风格共用桌面密度定制：small / middle / large 控件高度为 32 / 36 / 40px，尺寸与风格独立配置；触控目标保留独立角色。
+- Material 保留 4px 控件圆角、胶囊按钮、28px 弹层圆角和默认层级卡片；shadcn 使用 8px 控件圆角、方形按钮、12px 弹层圆角和默认描边卡片。风格切换统一覆盖共享形状角色。
 - 卡片和内容分隔使用 `color.border.subtle`；可输入控件保留 `color.border.default` 的辨识度。
 - 即时颜色、边框和阴影反馈使用 `motion.interaction`；大范围展开使用独立的 `motion.expand`。
 
@@ -98,7 +100,9 @@ const onBrand = light.text.onBrand;
 
 ### 验收范围
 
-公共默认品牌为 Material Purple，表面采用 Material Neutral / Neutral Variant，提供 lowest、low、container、high、highest、dim 和 bright 角色。颜色 API 名称保持不变，视觉变化需要复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。
+公共默认风格仍为 Material Design 3：品牌采用 Material Purple，表面采用 Material Neutral / Neutral Variant。shadcn 风格独立采用零色度 Neutral：浅色白底、深色近黑底，品牌操作、选中容器、文字、边框和焦点均为黑白灰。两套风格共用 lowest、low、container、high、highest、dim 和 bright 等角色，保留错误、成功、警告与信息的语义反馈色；自定义品牌不会改变基础表面。
+
+颜色 API 名称保持不变，切换风格应复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。shadcn 细描边是该风格的视觉定制，不能将其当作所有控件唯一的可访问性标记；焦点与选择状态仍有独立的高对比角色。
 
 - L1 修改会影响所有上层引用；业务品牌定制优先覆盖 L2。
 - L3 覆盖继续优先于 L2；应检查旧组件覆盖是否遮住新的公共默认。

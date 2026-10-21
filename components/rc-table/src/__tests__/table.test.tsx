@@ -174,11 +174,11 @@ describe("Table", () => {
         rows[1].height = 70;
         const view = await render(<ConfigProvider size="small"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
         const rowHeights = () => [...view.container.querySelectorAll<HTMLElement>('[data-row-index]')].map(row => row.style.height);
-        expect(rowHeights()).toEqual(['40px', '70px', '40px']);
+        expect(rowHeights()).toEqual(['32px', '70px', '32px']);
         await view.rerender(<ConfigProvider size="large"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
-        expect(rowHeights()).toEqual(['60px', '70px', '60px']);
+        expect(rowHeights()).toEqual(['48px', '70px', '48px']);
         await view.rerender(<ConfigProvider size="large"><Table size="small" width={700} height={400} columns={groupedColumns} rows={rows} getRowHeight={(_, index) => index === 0 ? 80 : undefined} /></ConfigProvider>);
-        expect(rowHeights()).toEqual(['80px', '70px', '40px']);
+        expect(rowHeights()).toEqual(['80px', '70px', '32px']);
     });
     it("renders grouped headers and basic cell content", async () => {
         const { container, unmount } = await renderTable(

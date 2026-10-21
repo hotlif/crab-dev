@@ -4,7 +4,7 @@ import token, { vars } from '../token.js';
 describe('slider canonical token contract', () => {
     it('exposes canonical overrides with their semantic or static defaults', () => {
         expect(vars['rail.height']).toBe('--slider-rail-height');
-        expect(token.rail.height).toBe('var(--slider-rail-height, 16px)');
+        expect(token.rail.height).toBe('var(--slider-rail-height, 4px)');
         expect(token.rail['fill-inactive']).toContain('--token-semantic-color-secondary-container');
     });
 

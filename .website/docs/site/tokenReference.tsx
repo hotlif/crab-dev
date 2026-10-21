@@ -10,6 +10,7 @@ const groups: Record<string, string> = {
     shadow: "阴影", motion: "动效", opacity: "透明度", "z-index": "层级",
 };
 const families: Record<string, string> = {
+    neutral: "Neutral · 纯中性灰",
     purple: "Purple · 紫色调阶（数值越大越亮）",
     zinc: "Zinc · 中性灰", blue: "Blue · 蓝", red: "Red · 红", green: "Green · 绿",
     amber: "Amber · 琥珀", white: "黑与白", black: "黑与白",

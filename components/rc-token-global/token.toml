@@ -10,7 +10,7 @@ prefix = "token-global"
 #  ┌─────────────────────────────────────────────────────────────────────────┐
 #  │  设计哲学：极简克制 · 中性锋利                                            │
 #  │                                                                         │
-#  │  • Zinc 中性灰为绝对主角，承担 90% UI 职责                                │
+#  │  • Neutral 纯灰、Zinc 冷灰与 Material 调阶分别保留风格意图                 │
 #  │  • 原有五组色阶保持稳定；Purple 提供新增紫色基元                           │
 #  │  • 品牌、反馈与焦点职责由 L2 指定，L1 不自动承担语义                        │
 #  │  • 色彩空间使用 OKLCh；明暗主题在 L2 显式配对                             │
@@ -22,6 +22,22 @@ prefix = "token-global"
 
 
 # ─── 色板 · Colors ──────────────────────────────────────────────────────────
+
+# ── Neutral — 零色度黑白灰 ──────────────────────────────────────────────────
+# Source: shadcn/ui neutral theme; existing Zinc / Material palettes stay stable.
+# https://ui.shadcn.com/docs/theming#neutral
+# C = 0 prevents cool or purple casts in large surfaces and structural roles.
+neutral.50  = "oklch(0.985 0 0)"
+neutral.100 = "oklch(0.970 0 0)"
+neutral.200 = "oklch(0.922 0 0)"
+neutral.300 = "oklch(0.870 0 0)"
+neutral.400 = "oklch(0.708 0 0)"
+neutral.500 = "oklch(0.556 0 0)"
+neutral.600 = "oklch(0.439 0 0)"
+neutral.700 = "oklch(0.371 0 0)"
+neutral.800 = "oklch(0.269 0 0)"
+neutral.900 = "oklch(0.205 0 0)"
+neutral.950 = "oklch(0.145 0 0)"
 
 # ── Purple — 紫色调阶，数字越大越亮（不同于原有 50–950 色阶） ─────────────────
 # Source: Material Web v0.192 primary palette, converted to OKLCh.
@@ -145,6 +161,7 @@ space.3-5 = "14px"
 space.4   = "16px"
 space.5   = "20px"
 space.6   = "24px"
+space.7   = "28px"
 space.8   = "32px"
 space.10  = "40px"
 space.12  = "48px"

@@ -12,14 +12,14 @@ root.outline-offset-focus = "2px"
 # MD3 separates the visual box, state layer and touch target.
 root.touch.min-width = "$ref(size.selection-target)"
 root.touch.min-height = "$ref(size.selection-target)"
-root.line-height = "$ref(typography.body.large.line-height)"
+root.line-height = "$ref(typography.body.medium.line-height)"
 # MD3 disabled container / label opacity; scoped to Checkbox.
 root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 control.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction)"
-control.target.width = "40px"
+control.target.width = "$ref(size.selection-control)"
 control.background-color-error = "$ref(color.feedback.error.solid)"
 control.border-color-error = "$ref(color.border.error)"
 icon.color-error = "$ref(color.feedback.error.on-solid)"
@@ -27,7 +27,7 @@ icon.stroke-width = "2px"
 icon.transition = "opacity $ref(motion.interaction), scale $ref(motion.spatial.fast)"
 icon.scale-hidden = "0.6"
 icon.scale = "1"
-state-layer.width = "40px"
+state-layer.width = "$ref(size.selection-control)"
 state-layer.border-radius = "$ref(radius.pill)"
 state-layer.color = "$ref(color.text.primary)"
 state-layer.color-selected = "$ref(color.brand.primary)"
@@ -56,10 +56,10 @@ size.large.indeterminate.height = "2px"
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.box.width         = "18px"
+size.middle.box.width = "$ref(size.icon)"
 size.middle.box.border-radius = "$ref(radius.sm)"
-size.middle.icon.width        = "18px"
-size.middle.label.font-size = "$ref(typography.body.large.font-size)"
+size.middle.icon.width = "$ref(size.icon)"
+size.middle.label.font-size = "$ref(typography.body.medium.font-size)"
 size.middle.indeterminate.width  = "10px"
 size.middle.indeterminate.height = "2px"
 

@@ -20,7 +20,7 @@ import { demos } from "../_generated/rc-theme.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### Light 与 Dark — 同一套组件语义变量可在嵌套主题边界中并排使用。
+##### Material 与 Shadcn — 两种风格各自提供浅色和深色配对，局部边界的颜色、形状与阴影相互独立。
 
 </div>
 
@@ -30,7 +30,7 @@ import { demos } from "../_generated/rc-theme.js";
 
 ## 使用说明
 
-`@crab-dev/rc-theme` 是 CSS-only 主题包，提供 L2 主题变量：
+`@crab-dev/rc-theme` 是 CSS-only 主题包，通过 L2 变量提供 Material 与 Shadcn 两种风格，以及各自的浅色、深色和强制颜色配对：
 
 
 ```sh
@@ -53,11 +53,16 @@ theme_css = "docs/theme.css"
 
 其他构建器需要自行加载本包公开的 `css/index.css`；自动加载是 Wake 的构建能力。
 
-默认主题为 Light。Dark 主题由 `data-theme` 驱动，并允许在页面局部建立主题边界：
+默认风格为 Material，默认颜色模式为 Light。风格与颜色模式相互独立，可通过 `ConfigProvider` 设置，也可以在非 React 页面同时设置两个属性：
 
 ```tsx
-<main data-theme="dark">...</main>
+<main data-crab-design="shadcn" data-theme="dark">...</main>
 ```
+
+`data-crab-design` 接受 `material` / `shadcn`，`data-theme` 接受 `light` / `dark`。原有只设置 `data-theme` 的页面继续使用 Material 配色；手写局部风格边界时，应同时声明两个属性。React 项目推荐使用 [ConfigProvider](/components/rc-config-provider)，由它继承并同步风格、颜色模式与品牌色。
+
+### 两种风格的 Light / Dark 示例
+
 
 
 ### 避免首屏主题闪烁
@@ -77,23 +82,27 @@ document.documentElement.dataset.theme = savedTheme === "dark" ? "dark" : "light
 主题包仅覆写 `--token-semantic-*`，所以组件级变量仍拥有最高优先级。`forced-colors: active`
 会自动切换到 `Canvas`、`CanvasText`、`Highlight` 等系统颜色。
 
-### 公共默认品牌与来源
+### 风格、默认品牌与来源
 
-Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为 White。Dark 从 Purple 80 经 80 与 90 的等量 OKLCh 混合过渡到 Purple 90，其上文字为 Purple 20；按压时仍保留品牌色相。表面与文本继续使用公共 Zinc 中性色，功能反馈分别使用 Red、Green、Amber、Blue。切换主题只改变 L2 映射，不会把 L1 原始色阶反转。
+Material 保留已有紫色品牌与带色调的表面配对。Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为 White；Dark 从 Purple 80 过渡到 Purple 90，其上文字为 Purple 20。
 
-需要从一个颜色快速换肤时，使用 [ConfigProvider 的 brandColor](/components/rc-config-provider)。它会成对生成明暗模式的品牌角色并覆盖当前边界的 L2 变量，支持嵌套继承与局部重置。该可选能力由 ConfigProvider 提供，本包保持 CSS-only。
+Shadcn 采用黑白灰结构表面、文字、边框、选中与焦点角色。Light 的近黑主色配白色文字，悬停和按压时逐步提亮；Dark 的近白主色配深色文字，悬停和按压时逐步加深。两种风格都保留 Red、Green、Amber、Blue 功能反馈，切换时只改变 L2 映射。
 
-唯一配对数据位于 `@crab-dev/rc-token-semantic` 的 `themeColorContract`，本包编译为 CSS。文档站与独立工作台使用同一来源；站点的字体和阅读布局仍属于站点自身，不是公共组件默认尺寸。
+风格还会切换默认形状和阴影：Material 的通用控件 / 卡片 / 弹层圆角为 4 / 12 / 28px，默认按钮保留胶囊形状；Shadcn 分别为 8 / 12 / 12px，默认按钮采用 8px 圆角，默认卡片使用细描边与较轻的层级。显式指定的按钮 `shape`、卡片 `variant` 仍优先。桌面 `small` / `middle` / `large` 三档 32 / 36 / 40px 控件高度由[尺寸配置](/guides/component-sizing)独立控制。
+
+需要从一个颜色快速换肤时，使用 [ConfigProvider 的 brandColor](/components/rc-config-provider)。它会成对生成明暗模式的品牌角色并覆盖当前边界的 L2 变量，支持嵌套继承；传入 `null` 恢复当前风格的默认品牌。该可选能力由 ConfigProvider 提供，本包保持 CSS-only。
+
+配对数据位于 `@crab-dev/rc-token-semantic`：`themeColorContract` 保留 Material 合约，`shadcnColorContract` 提供中性配对，`designColorContract` 按风格统一索引。本包将它们编译为 CSS。文档站与独立工作台使用同一来源；站点的字体和阅读布局仍属于站点自身，不是公共组件默认尺寸。
 
 ### 局部主题与浮层
 
-`[data-theme="dark"]` 可以嵌套在浅色页面中，也可以用 `[data-theme="light"]` 建立浅色岛。嵌套边界重新声明自己的 L2 值，因此只在外层祖先定义的业务覆盖不一定穿过内层主题边界。
+风格与颜色模式可以嵌套，例如 Shadcn Dark 内放置 Material Light。每个显式双属性边界重新声明配色、形状与阴影，使内层能恢复所选风格；只在外层祖先定义的业务覆盖不一定穿过内层主题边界。
 
 浮层若通过 Portal 挂载到 body，已经离开局部主题祖先。应在浮层的已有根或挂载容器上同步主题和业务覆盖；不能只观察触发按钮的颜色。当前页面主题切换时，已打开浮层也要更新。主题包只提供选择器和变量，不管理应用状态或 Portal 生命周期。
 
 ### 保留业务品牌覆盖
 
-通过 `TokenVars` 中的正式 L2 和 L3 变量覆盖品牌色；历史别名需要先迁移，参见[正式变量迁移](/components/rc-token-semantic)。把业务覆盖放在公共主题样式之后，并使用应用自有类与主题属性共同限定范围。例如下列片段只展示 Light 的中性主按钮配对；完整业务主题还要分别评审链接、焦点、选中和 Dark 配对。
+通过 `TokenVars` 中的正式 L2 和 L3 变量覆盖品牌色；历史别名需要先迁移，参见[正式变量迁移](/components/rc-token-semantic)。把业务覆盖放在公共主题样式之后，并使用应用自有类与主题属性共同限定范围。例如下列片段只展示 Light 的自定义紫色主按钮配对；完整业务主题还要分别评审链接、焦点、选中和 Dark 配对。
 
 ```tsx
 import { css } from "@crab-dev/css";
@@ -101,9 +110,9 @@ import global from "@crab-dev/rc-token-global";
 
 const existingBrand = css`
     &[data-theme="light"] {
-        --token-semantic-color-brand-primary: ${global.zinc[900]};
-        --token-semantic-color-brand-primary-hover: ${global.zinc[800]};
-        --token-semantic-color-brand-primary-active: ${global.zinc[950]};
+        --token-semantic-color-brand-primary: ${global.purple[40]};
+        --token-semantic-color-brand-primary-hover: ${global.purple[30]};
+        --token-semantic-color-brand-primary-active: ${global.purple[20]};
         --token-semantic-color-text-on-brand: ${global.white};
     }
 `;
@@ -113,12 +122,12 @@ const existingBrand = css`
 ### 迁移检查
 
 1. 将旧变量名和旧 `vars` 键迁移到 `TokenVars` 中的正式名称，再比较默认、悬停、按压三种主按钮与前景。
-2. 检查链接、焦点、当前导航与选中数据；新默认不是把所有强调角色替换成同一个紫色。
+2. 检查链接、焦点、当前导航与选中数据的明暗配对；Material、Shadcn 与自定义品牌色都需要覆盖这些状态。
 3. 打开 Dialog、Drawer、Select 和 Tooltip 后切换主题，再关闭并检查焦点恢复。
 4. 检查局部深色、浅色岛和已有 L3 覆盖。强制颜色下必须保留系统颜色，业务覆盖也须提供该模式的等价处理。
 5. 运行令牌生成、契约测试和受影响包测试；在浏览器记录完整状态。公共映射测试通过不代表整个应用已符合 WCAG。
 
-相关规范：[色彩配对](https://material-web.dev/theming/color/)、[无障碍](/guides/accessibility)、[令牌实施](/components/rc-token-semantic)。
+本项目的双风格主题参考 [M3 颜色系统](https://m3.material.io/styles/color/system/overview)、[形状系统](https://m3.material.io/styles/shape/overview)、[Material Web 色彩配对](https://material-web.dev/theming/color/)与[形状主题](https://material-web.dev/theming/shape/)，实现对照 [Material Web v0.192 形状令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-shape.scss)及 [shadcn/ui 主题变量](https://ui.shadcn.com/docs/theming)。Shadcn 风格和共享桌面密度是本项目的定制，不代表 M3 默认视觉规格。另见[无障碍](/guides/accessibility)与[令牌实施](/components/rc-token-semantic)。
 
 ### 适用场景
 

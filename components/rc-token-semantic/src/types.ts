@@ -52,3 +52,8 @@ export interface ResolvedThemeColorContract extends ThemeColorContract {
     readonly light: ResolvedThemeColors;
     readonly dark: ResolvedThemeColors;
 }
+
+/** Visual design system, independent of the Light / Dark color mode. */
+export type ThemeDesign = 'material' | 'shadcn';
+
+export type DesignColorContract = Readonly<Record<ThemeDesign, ResolvedThemeColorContract>>;

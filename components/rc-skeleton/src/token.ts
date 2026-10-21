@@ -70,18 +70,18 @@ const token = defineTokens({
     },
     'circle': {
         'default': {
-            'width': `var(${vars['circle.default.width']}, 40px)`
+            'width': `var(${vars['circle.default.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
         }
     },
     'button': {
         'default': {
             'width': `var(${vars['button.default.width']}, 88px)`,
-            'height': `var(${vars['button.default.height']}, 32px)`
+            'height': `var(${vars['button.default.height']}, var(--token-semantic-size-control, var(--token-global-size-36, 36px)))`
         }
     },
     'avatar': {
         'default': {
-            'width': `var(${vars['avatar.default.width']}, 40px)`
+            'width': `var(${vars['avatar.default.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
         }
     },
     'animation': {

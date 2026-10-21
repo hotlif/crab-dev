@@ -6,7 +6,7 @@ imports = [
 ]
 
 [token]
-option.checkbox.width = "18px"
+option.checkbox.width = "$ref(size.icon)"
 root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), box-shadow $ref(motion.interaction)"
 motion.interaction.transition = "$ref(motion.interaction)"
 motion.spatial.transition = "$ref(motion.spatial.fast)"
@@ -22,7 +22,7 @@ root.border-color-hover = "$ref(color.border.hover)"
 root.border-color-focus = "$ref(color.border.focus)"
 root.border-color-error = "$ref(color.feedback.error.border)"
 root.border-color-warning = "$ref(color.feedback.warning.border)"
-root.border-radius = "$ref(shape.extra-small)"
+root.border-radius = "$ref(shape.control)"
 
 root.background-color = "$ref(color.surface.content)"
 root.background-color-disabled = "$ref(color.background.disabled)"
@@ -38,9 +38,9 @@ option.color-disabled = "$ref(color.text.disabled)"
 option.highlight.background-color = "$ref(color.state.hover)"
 option.background-color-active = "$ref(color.state.pressed)"
 option.height = "$ref(density.item)"
-option.padding-block = "$ref(space.component-gap)"
-option.font-size = "$ref(typography.body.large.font-size)"
-option.line-height = "$ref(typography.body.large.line-height)"
+option.padding-block = "$ref(space.inline-gap)"
+option.font-size = "$ref(typography.body.medium.font-size)"
+option.line-height = "$ref(typography.body.medium.line-height)"
 
 root.box-shadow = "none"
 # M3 / Material Web: 1px resting outline + 2px inset = one 3px focused outline.
@@ -54,16 +54,16 @@ tag.close.color-hover = "$ref(color.text.secondary)"
 
 clear.color = "$ref(color.text.secondary)"
 clear.color-hover = "$ref(color.text.primary)"
-clear.width = "$ref(size.48)"
-clear.height = "$ref(size.48)"
+clear.width = "$ref(sizing.middle.action)"
+clear.height = "$ref(sizing.middle.action)"
 clear.touch.width = "$ref(size.touch-target)"
 clear.box-shadow-focus = "inset 0 0 0 1px $ref(color.focus.ring)"
-icon.width = "$ref(space.group-gap)"
+icon.width = "$ref(size.icon)"
 icon.color = "$ref(color.text.secondary)"
 
 field.gap = "$ref(space.inline-gap)"
-field.padding-inline = "$ref(space.section-gap)"
-field.label.top = "$ref(space.component-gap)"
+field.padding-inline = "$ref(space.control-padding-x)"
+field.label.top = "$ref(space.inline-gap)"
 field.label.padding-inline = "$ref(space.inline-gap)"
 field.label.font-size = "$ref(typography.body.small.font-size)"
 field.label.line-height = "$ref(typography.body.small.line-height)"
@@ -88,26 +88,29 @@ root.color-loading = "$ref(color.text.secondary)"
 
 size.large.height = "$ref(sizing.large.field)"
 size.large.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
-size.large.font-size = "$ref(typography.body.large.font-size)"
-size.large.line-height = "calc($ref(typography.body.large.font-size) * $ref(typography.body.large.line-height))"
+size.large.font-size = "$ref(typography.body.medium.font-size)"
+size.large.line-height = "calc($ref(typography.body.medium.font-size) * $ref(typography.body.medium.line-height))"
 
 size.middle.height = "$ref(sizing.middle.field)"
 size.middle.padding = "$ref(space.inline-gap) $ref(space.control-padding-x)"
-size.middle.font-size = "$ref(typography.body.large.font-size)"
-size.middle.line-height = "calc($ref(typography.body.large.font-size) * $ref(typography.body.large.line-height))"
+size.middle.font-size = "$ref(typography.body.medium.font-size)"
+size.middle.line-height = "calc($ref(typography.body.medium.font-size) * $ref(typography.body.medium.line-height))"
 
-# 三档保留 body.large 字号，通过高度与间距区分密度。
+# Desktop fields use body.medium; height and padding distinguish sizes.
 size.small.height = "$ref(sizing.small.field)"
 size.small.padding = "0 $ref(space.control-padding-x-small)"
-size.small.font-size = "$ref(typography.body.large.font-size)"
-size.small.line-height = "calc($ref(typography.body.large.font-size) * $ref(typography.body.large.line-height))"
+size.small.font-size = "$ref(typography.body.medium.font-size)"
+size.small.line-height = "calc($ref(typography.body.medium.font-size) * $ref(typography.body.medium.line-height))"
 
 dropdown.margin = "6px"
 dropdown.max-height = "240px"
 dropdown.padding = "$ref(space.inline-gap)"
 dropdown.option.padding = "$ref(space.component-gap)"
-dropdown.border-radius = "$ref(shape.extra-small)"
+dropdown.border-radius = "$ref(shape.overlay)"
 
 size.small.action.width = "$ref(sizing.small.action)"
 size.middle.action.width = "$ref(sizing.middle.action)"
 size.large.action.width = "$ref(sizing.large.action)"
+
+# Filled fields reserve two text rows for their internal floating label.
+field.filled.min-height = "$ref(size.field-labeled)"

@@ -76,11 +76,11 @@ describe("Tree component", () => {
         const treeData = [createNode('one', { priority: 1 }), createNode('two', { priority: 2, height: 70 })];
         const change = mock.fn();
         const view = await render(<ConfigProvider size="small"><Tree treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
-        expect(virtualRows).toEqual([44, 70]);
+        expect(virtualRows).toEqual([32, 70]);
         await view.rerender(<ConfigProvider size="large"><Tree treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
-        expect(virtualRows).toEqual([64, 70]);
+        expect(virtualRows).toEqual([40, 70]);
         await view.rerender(<ConfigProvider size="large"><Tree size="small" treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
-        expect(virtualRows).toEqual([44, 70]);
+        expect(virtualRows).toEqual([32, 70]);
         coarsePointer = true;
         await view.rerender(<ConfigProvider size="small"><Tree treeData={treeData} width={400} height={300} onTreeNodeChange={change} /></ConfigProvider>);
         expect(virtualRows).toEqual([48, 70]);
@@ -97,7 +97,7 @@ describe("Tree component", () => {
         const treeData = [createNode('one', { priority: 1 }), createNode('two', { priority: 2, height: 60 })];
         const onTreeNodeChange = mock.fn();
         const view = await render(<Tree treeData={treeData} width={400} height={300} onTreeNodeChange={onTreeNodeChange}/>);
-        expect(virtualRows).toEqual([56, 60]);
+        expect(virtualRows).toEqual([36, 60]);
         await view.rerender(<Tree treeData={treeData} width={400} height={300} defaultNodeHeight={36} onTreeNodeChange={onTreeNodeChange}/>);
         expect(virtualRows).toEqual([36, 60]);
         coarsePointer = true;

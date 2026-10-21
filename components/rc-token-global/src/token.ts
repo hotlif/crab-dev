@@ -5,6 +5,17 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'neutral.50': '--token-global-neutral-50',
+    'neutral.100': '--token-global-neutral-100',
+    'neutral.200': '--token-global-neutral-200',
+    'neutral.300': '--token-global-neutral-300',
+    'neutral.400': '--token-global-neutral-400',
+    'neutral.500': '--token-global-neutral-500',
+    'neutral.600': '--token-global-neutral-600',
+    'neutral.700': '--token-global-neutral-700',
+    'neutral.800': '--token-global-neutral-800',
+    'neutral.900': '--token-global-neutral-900',
+    'neutral.950': '--token-global-neutral-950',
     'purple.10': '--token-global-purple-10',
     'purple.20': '--token-global-purple-20',
     'purple.30': '--token-global-purple-30',
@@ -81,6 +92,7 @@ export const vars = defineTokens({
     'space.4': '--token-global-space-4',
     'space.5': '--token-global-space-5',
     'space.6': '--token-global-space-6',
+    'space.7': '--token-global-space-7',
     'space.8': '--token-global-space-8',
     'space.10': '--token-global-space-10',
     'space.12': '--token-global-space-12',
@@ -261,6 +273,19 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'neutral': {
+        '50': `var(${vars['neutral.50']}, oklch(0.985 0 0))`,
+        '100': `var(${vars['neutral.100']}, oklch(0.970 0 0))`,
+        '200': `var(${vars['neutral.200']}, oklch(0.922 0 0))`,
+        '300': `var(${vars['neutral.300']}, oklch(0.870 0 0))`,
+        '400': `var(${vars['neutral.400']}, oklch(0.708 0 0))`,
+        '500': `var(${vars['neutral.500']}, oklch(0.556 0 0))`,
+        '600': `var(${vars['neutral.600']}, oklch(0.439 0 0))`,
+        '700': `var(${vars['neutral.700']}, oklch(0.371 0 0))`,
+        '800': `var(${vars['neutral.800']}, oklch(0.269 0 0))`,
+        '900': `var(${vars['neutral.900']}, oklch(0.205 0 0))`,
+        '950': `var(${vars['neutral.950']}, oklch(0.145 0 0))`
+    },
     'purple': {
         '10': `var(${vars['purple.10']}, oklch(0.24199786 0.14038488 286.089811))`,
         '20': `var(${vars['purple.20']}, oklch(0.32510160 0.13528526 291.151996))`,
@@ -350,6 +375,7 @@ const token = defineTokens({
         '4': `var(${vars['space.4']}, 16px)`,
         '5': `var(${vars['space.5']}, 20px)`,
         '6': `var(${vars['space.6']}, 24px)`,
+        '7': `var(${vars['space.7']}, 28px)`,
         '8': `var(${vars['space.8']}, 32px)`,
         '10': `var(${vars['space.10']}, 40px)`,
         '12': `var(${vars['space.12']}, 48px)`,

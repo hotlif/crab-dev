@@ -2,7 +2,7 @@ import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { type FC, type KeyboardEvent, type MouseEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
-import token from './token.js';
+import token, { vars } from './token.js';
 import type { SwitchProps } from './types.js';
 
 const wrapperStyle = css`
@@ -16,7 +16,8 @@ const wrapperStyle = css`
     color: ${token.label.color};
     line-height: ${token.root['line-height']};
     user-select: none;
-    min-height: ${token.root.touch['min-height']};
+    min-height: ${token.root['min-height']};
+    @media (pointer: coarse) { min-height: ${token.root.touch['min-height']}; }
 
     &[data-disabled] {
         cursor: not-allowed;
@@ -39,7 +40,9 @@ const trackStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     border: none;
     box-shadow: inset 0 0 0 ${token.track['border-width']} ${token.track['border-color']};
-    &::before { content: ""; position: absolute; inset: calc((100% - ${token.root.touch['min-height']}) / 2) 0; }
+    @media (pointer: coarse) {
+        &::before { content: ""; position: absolute; inset: calc((100% - ${token.root.touch['min-height']}) / 2) calc((100% - max(100%, ${token.root.touch['min-width']})) / 2); }
+    }
     padding: 0;
     cursor: inherit;
     outline: none;
@@ -166,6 +169,8 @@ const Switch: FC<SwitchProps> = ({
         if (size === 'large') {
             return {
                 track: css`
+                    ${vars['track.halo.left']}: calc(${token.size.large.handle.left} + (${token.size.large.handle.width} - ${token.track.halo.width}) / 2);
+                    ${vars['track.halo.translate-checked']}: calc(${token.size.large.track.width} - ${token.size.large.handle.width} - 2 * ${token.size.large.handle.left});
                     width: ${token.size.large.track.width};
                     height: ${token.size.large.track.height};
                     border-radius: ${token.size.large.track['border-radius']};
@@ -183,6 +188,8 @@ const Switch: FC<SwitchProps> = ({
         } else if (size === 'small') {
             return {
                 track: css`
+                    ${vars['track.halo.left']}: calc(${token.size.small.handle.left} + (${token.size.small.handle.width} - ${token.track.halo.width}) / 2);
+                    ${vars['track.halo.translate-checked']}: calc(${token.size.small.track.width} - ${token.size.small.handle.width} - 2 * ${token.size.small.handle.left});
                     width: ${token.size.small.track.width};
                     height: ${token.size.small.track.height};
                     border-radius: ${token.size.small.track['border-radius']};
@@ -200,6 +207,8 @@ const Switch: FC<SwitchProps> = ({
         } else {
             return {
                 track: css`
+                    ${vars['track.halo.left']}: calc(${token.size.middle.handle.left} + (${token.size.middle.handle.width} - ${token.track.halo.width}) / 2);
+                    ${vars['track.halo.translate-checked']}: calc(${token.size.middle.track.width} - ${token.size.middle.handle.width} - 2 * ${token.size.middle.handle.left});
                     width: ${token.size.middle.track.width};
                     height: ${token.size.middle.track.height};
                     border-radius: ${token.size.middle.track['border-radius']};

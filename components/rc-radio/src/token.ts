@@ -64,13 +64,13 @@ const token = defineTokens({
             'min-width': `var(${vars['root.touch.min-width']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`,
             'min-height': `var(${vars['root.touch.min-height']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`
         },
-        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-large-line-height, var(--token-global-line-height-16-24, 1.5)))`,
+        'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
     },
     'control': {
         'transition': `var(${vars['control.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'target': {
-            'width': `var(${vars['control.target.width']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`
+            'width': `var(${vars['control.target.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`
         },
         'border-color-error': `var(${vars['control.border-color-error']}, var(--token-semantic-color-border-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
         'border-width': `var(${vars['control.border-width']}, 2px)`,
@@ -97,7 +97,7 @@ const token = defineTokens({
         'color-disabled': `var(${vars['dot.color-disabled']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
     },
     'state-layer': {
-        'width': `var(${vars['state-layer.width']}, 40px)`,
+        'width': `var(${vars['state-layer.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`,
         'border-radius': `var(${vars['state-layer.border-radius']}, var(--token-semantic-radius-pill, var(--token-global-radius-full, 9999px)))`,
         'color': `var(${vars['state-layer.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'color-selected': `var(${vars['state-layer.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
@@ -118,10 +118,10 @@ const token = defineTokens({
     'size': {
         'large': {
             'box': {
-                'width': `var(${vars['size.large.box.width']}, 24px)`
+                'width': `var(${vars['size.large.box.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
             },
             'dot': {
-                'width': `var(${vars['size.large.dot.width']}, 12px)`
+                'width': `var(${vars['size.large.dot.width']}, 10px)`
             },
             'label': {
                 'font-size': `var(${vars['size.large.label.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
@@ -129,13 +129,13 @@ const token = defineTokens({
         },
         'middle': {
             'box': {
-                'width': `var(${vars['size.middle.box.width']}, 20px)`
+                'width': `var(${vars['size.middle.box.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
             },
             'dot': {
-                'width': `var(${vars['size.middle.dot.width']}, 10px)`
+                'width': `var(${vars['size.middle.dot.width']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
             },
             'label': {
-                'font-size': `var(${vars['size.middle.label.font-size']}, var(--token-semantic-typography-body-large-font-size, var(--token-global-font-size-md, 16px)))`
+                'font-size': `var(${vars['size.middle.label.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`
             }
         },
         'small': {

@@ -40,7 +40,7 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
-        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-5, 20px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-6, 24px)))`,
+        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
         'width': `var(${vars['root.width']}, 360px)`,
@@ -55,8 +55,8 @@ const token = defineTokens({
         'line-height': `var(${vars['title.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`
     },
     'content': {
-        'font-size': `var(${vars['content.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
-        'line-height': `var(${vars['content.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-16-24, 1.5)))`
+        'font-size': `var(${vars['content.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
+        'line-height': `var(${vars['content.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`
     },
     'progress': {
         'start': {

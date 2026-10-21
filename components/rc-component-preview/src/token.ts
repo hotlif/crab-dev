@@ -116,8 +116,8 @@ const token = defineTokens({
         'box-shadow-hover': `var(${vars['card.box-shadow-hover']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`
     },
     'stage': {
-        'padding': `var(${vars['stage.padding']}, 56px 24px)`,
-        'min-height': `var(${vars['stage.min-height']}, 220px)`,
+        'padding': `var(${vars['stage.padding']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)) var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'min-height': `var(${vars['stage.min-height']}, 160px)`,
         'background-color': `var(${vars['stage.background-color']}, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`
     },
     'meta': {
@@ -144,10 +144,10 @@ const token = defineTokens({
             'background-color': `var(${vars['meta.actions.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
             'border-style': `var(${vars['meta.actions.border-style']}, solid)`,
             'gap': `var(${vars['meta.actions.gap']}, 4px)`,
-            'min-width': `var(${vars['meta.actions.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
-            'min-height': `var(${vars['meta.actions.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
+            'min-width': `var(${vars['meta.actions.min-width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+            'min-height': `var(${vars['meta.actions.min-height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
             'icon': {
-                'width': `var(${vars['meta.actions.icon.width']}, 18px)`
+                'width': `var(${vars['meta.actions.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
             }
         },
         'desc': {

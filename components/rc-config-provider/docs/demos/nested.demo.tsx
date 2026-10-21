@@ -3,8 +3,8 @@ import token from '@crab-dev/rc-token-semantic';
 import ConfigProvider, { useConfig } from '../../src/index.js';
 
 export const meta = {
-    title: '嵌套配置与主题边界',
-    description: '内层仅覆盖指定配置，未指定的语言和尺寸继续继承父级。',
+    title: '嵌套设计风格与主题边界',
+    description: '内层切换为 shadcn 浅色风格，未指定的语言和尺寸继续继承父级。',
 };
 
 const panelStyle = css`
@@ -15,15 +15,15 @@ const panelStyle = css`
 `;
 
 function Summary() {
-    const { theme, locale, size } = useConfig();
-    return <p className={panelStyle}>{theme} / {locale} / {size}</p>;
+    const { design, theme, locale, size } = useConfig();
+    return <p className={panelStyle}>{design} / {theme} / {locale} / {size}</p>;
 }
 
 export default function NestedDemo() {
     return (
-        <ConfigProvider theme="dark" locale="en-US" size="large">
+        <ConfigProvider design="material" theme="dark" locale="en-US" size="large">
             <Summary />
-            <ConfigProvider theme="light"><Summary /></ConfigProvider>
+            <ConfigProvider design="shadcn" theme="light"><Summary /></ConfigProvider>
             <Summary />
         </ConfigProvider>
     );

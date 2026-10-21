@@ -68,7 +68,8 @@ const centerFlexStyle = css`
 `;
 
 const panelStyle = css`
-    width: calc(${token.cell.touch.width} * 7);
+    width: calc(${token.cell.content.width} * 7);
+    @media (pointer: coarse) { width: calc(${token.cell.touch.width} * 7); }
     max-width: min(100%, ${token.panel['max-width']});
     font-size: ${token.panel['font-size']};
     color: ${semantic.color.text.primary};
@@ -124,6 +125,7 @@ const calendarDateCellContentStyle = css`
     width: min(${token.cell.content.width}, 100%);
     min-width: 0;
     height: ${token.cell.content.width};
+    @media (pointer: coarse) { min-height: ${token.cell.touch.width}; min-width: min(${token.cell.touch.width}, 100%); }
     line-height: ${token.cell.content.width};
     font-size: ${token.cell["font-size"]};
     font-weight: ${token.cell["font-weight"]};

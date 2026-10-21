@@ -72,7 +72,7 @@ const token = defineTokens({
         'background': `var(${vars['root.background']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
         'color': `var(${vars['root.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'font-family': `var(${vars['root.font-family']}, var(--token-semantic-font-family-body, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
-        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-md, 16px)))`,
+        'font-size': `var(${vars['root.font-size']}, var(--token-semantic-font-size-body, var(--token-global-font-size-sm, 14px)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`,
         'height': `var(${vars['root.height']}, min(800px, 85vh))`,
         'min-height': `var(${vars['root.min-height']}, 480px)`,
@@ -84,21 +84,21 @@ const token = defineTokens({
     },
     'toolbar': {
         'background': `var(${vars['toolbar.background']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`,
-        'min-height': `var(${vars['toolbar.min-height']}, var(--token-semantic-size-64, var(--token-global-size-64, 64px)))`,
-        'padding': `var(${vars['toolbar.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+        'min-height': `var(${vars['toolbar.min-height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
+        'padding': `var(${vars['toolbar.padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'gap': `var(${vars['toolbar.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'file-name': {
             'min-width': `var(${vars['toolbar.file-name.min-width']}, var(--token-semantic-size-96, var(--token-global-size-96, 96px)))`
         },
         'icon': {
-            'width': `var(${vars['toolbar.icon.width']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`,
+            'width': `var(${vars['toolbar.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`,
             'color': `var(${vars['toolbar.icon.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
             'background-color-hover': `var(${vars['toolbar.icon.background-color-hover']}, color-mix(in oklch, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), transparent))`,
             'background-color-focus': `var(${vars['toolbar.icon.background-color-focus']}, color-mix(in oklch, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-focus, var(--token-global-opacity-12, 0.12)) * 100%), transparent))`,
             'background-color-pressed': `var(${vars['toolbar.icon.background-color-pressed']}, color-mix(in oklch, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), transparent))`
         },
         'target': {
-            'width': `var(${vars['toolbar.target.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
+            'width': `var(${vars['toolbar.target.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`
         }
     },
     'objects': {
@@ -116,8 +116,8 @@ const token = defineTokens({
         'properties': {
             'width': `var(${vars['panel.properties.width']}, 280px)`
         },
-        'padding': `var(${vars['panel.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
-        'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+        'padding': `var(${vars['panel.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+        'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'scroll': {
             'padding': `var(${vars['panel.scroll.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
@@ -132,7 +132,7 @@ const token = defineTokens({
         'paper': {
             'background-color': `var(${vars['canvas.paper.background-color']}, oklch(1 0 0))`
         },
-        'padding': `var(${vars['canvas.padding']}, var(--token-semantic-space-page-padding, var(--token-global-space-6, 24px)))`
+        'padding': `var(${vars['canvas.padding']}, var(--token-semantic-space-page-padding, var(--token-global-space-4, 16px)))`
     },
     'selection': {
         'color': `var(${vars['selection.color']}, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,

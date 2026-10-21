@@ -11,10 +11,10 @@ export function useComponentSize<T extends string | number>(size: T | undefined)
 
 /** Numeric geometry for virtual lists; keep custom row measurements authoritative. */
 export const componentSizeMetrics = {
-    small: { row: 40, header: 48, navigation: 44 },
-    middle: { row: 52, header: 56, navigation: 56 },
-    large: { row: 60, header: 64, navigation: 64 },
-} as const satisfies Record<ConfigSize, { row: number; header: number; navigation: number }>;
+    small: { row: 32, header: 36, navigation: 32, item: 28 },
+    middle: { row: 40, header: 40, navigation: 36, item: 32 },
+    large: { row: 48, header: 44, navigation: 40, item: 36 },
+} as const satisfies Record<ConfigSize, { row: number; header: number; navigation: number; item: number }>;
 
 // Declare every role at every boundary so nested providers can restore middle.
 // Primitive sizes, typography and touch targets are never globally scaled.

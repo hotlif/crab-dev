@@ -1,4 +1,5 @@
 import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
+import { componentSizeMetrics, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
 import { useMediaQuery } from '@crab-dev/rc-hooks';
@@ -183,12 +184,12 @@ const loadingStyle = css`
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const DROPDOWN_PADDING = 4;
-const ROW_HEIGHT = 48;
 const MAX_VIEWPORT_HEIGHT = 256;
 
 // ─── Props ───────────────────────────────────────────────────────────────────
 
 interface SelectOverlayProps {
+    size: ConfigSize;
     multiple: boolean;
     loading: boolean;
     filteredOptions: FlatOption[];
@@ -208,6 +209,7 @@ interface SelectOverlayProps {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const SelectOverlay: FC<SelectOverlayProps> = ({
+    size,
     multiple,
     loading,
     filteredOptions,
@@ -228,8 +230,8 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     // Mutable DOM instance: observe rendered text / token overrides without using
     // render-time layout reads. Virtual offsets must match the actual row height.
     const overlayRef = useRef<HTMLDivElement>(null);
-    const [measuredRowHeight, setMeasuredRowHeight] = useState(ROW_HEIGHT);
-    const rowHeight = Math.max(coarsePointer ? 48 : ROW_HEIGHT, measuredRowHeight);
+    const [measuredRowHeight, setMeasuredRowHeight] = useState(0);
+    const rowHeight = Math.max(coarsePointer ? 48 : componentSizeMetrics[size].item, measuredRowHeight);
     useLayoutEffect(() => {
         const option = overlayRef.current?.querySelector<HTMLElement>('[data-select-option-measure]');
         if (!option) return;
@@ -245,7 +247,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
         const observer = new ResizeObserver(measure);
         observer.observe(option);
         return () => observer.disconnect();
-    }, [coarsePointer, filteredOptions.length, loading]);
+    }, [coarsePointer, filteredOptions.length, loading, size]);
     // 例外 1(可变实例状态 ref):持有 RcVirtual 的命令式句柄,用于把高亮行滚入视口。
     const gridRef = useRef<VirtualHandle | null>(null);
 
@@ -269,7 +271,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (loading) {
         return (
-            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx.call(undefined, overlayStyle, popupClassName)}>
+            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx.call(undefined, overlayStyle, componentSizeStyles[size], popupClassName)}>
                 <div className={loadingStyle}>
                     <SpinIndicator />
                 </div>
@@ -279,7 +281,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (filteredOptions.length === 0) {
         return (
-            <div id={listboxId} role="listbox" data-select-overlay className={cx.call(undefined, overlayStyle, popupClassName)}>
+            <div id={listboxId} role="listbox" data-select-overlay className={cx.call(undefined, overlayStyle, componentSizeStyles[size], popupClassName)}>
                 <div className={emptyStyle}>{notFoundContent ?? "无匹配选项"}</div>
             </div>
         );
@@ -397,7 +399,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
             id={listboxId}
             ref={overlayRef}
             data-select-overlay
-            className={cx.call(undefined, overlayStyle, popupClassName)}
+            className={cx.call(undefined, overlayStyle, componentSizeStyles[size], popupClassName)}
             role="listbox"
             aria-multiselectable={multiple || undefined}
         >

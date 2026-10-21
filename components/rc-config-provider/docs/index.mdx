@@ -1,6 +1,6 @@
 +++
 title = "ConfigProvider 全局配置"
-description = "为应用统一设置主题、品牌色、语言和尺寸，并按区域覆盖默认配置"
+description = "为应用统一设置设计风格、明暗主题、品牌色、语言和尺寸，并按区域覆盖默认配置"
 kind = "component"
 status = "experimental"
 +++
@@ -18,7 +18,7 @@ status = "experimental"
 ```tsx
 import ConfigProvider from '@crab-dev/rc-config-provider';
 
-<ConfigProvider theme="dark" locale="en-US" size="large">
+<ConfigProvider design="shadcn" theme="dark" locale="en-US" size="large">
     <App />
 </ConfigProvider>
 ```
@@ -31,16 +31,41 @@ Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器�
 
 | 属性 | 值 | 根级默认值 |
 | --- | --- | --- |
+| design | material / shadcn | material |
 | theme | light / dark | light |
-| brandColor | #RGB / #RRGGBB / null | null（默认紫色） |
+| brandColor | #RGB / #RRGGBB / null | null（当前设计风格的默认品牌） |
 | locale | zh-CN / en-US | zh-CN |
 | size | small / middle / large | middle |
 
 嵌套 Provider 按字段继承父级，只覆盖显式传入的属性；传入 `undefined` 恢复继承。没有 Provider 时，`useConfig()` 返回表中的默认值。
 
-配置继承发生在 ConfigProvider 之间。仅给 `html` 设置 `data-theme="dark"` 不会改变 React 配置：如果应用已有主题状态，应把该状态传给根级 Provider，避免只设置 `size` 的根级 Provider 使用默认浅色。
+配置继承发生在 ConfigProvider 之间。Provider 在 DOM 上显式写入 `data-crab-design`、`data-theme` 与 `data-crab-size`，同时建立对应的样式边界。仅给 `html` 设置这些属性不会改变 React 配置：如果应用已有风格或主题状态，应把状态传给根级 Provider。
 
 `locale` 会设置容器的 `lang` 并切换 Empty 的预置文案，不会自动翻译业务文字。原生 div 属性与 React 19 `ref` 可直接传入；自定义组件可用 `useConfig()` 读取当前配置。
+
+## 切换设计风格
+
+`material` 使用 Material Design 3 的颜色角色和组件形状；`shadcn` 使用本项目的中性配色、紧凑描边与控件圆角定制。两种风格共用组件 API、键盘操作和三档尺寸。`design` 与 `theme`、`brandColor`、`size` 独立，切换风格不会改写其他配置。
+
+```tsx
+import { useState } from 'react';
+import ConfigProvider, { type ConfigDesign } from '@crab-dev/rc-config-provider';
+import Button from '@crab-dev/rc-button';
+
+export default function Example() {
+    const [design, setDesign] = useState<ConfigDesign>('material');
+    return (
+        <ConfigProvider design={design} theme="light" size="middle">
+            <Button onClick={() => setDesign(design === 'material' ? 'shadcn' : 'material')}>
+                切换设计风格
+            </Button>
+            <App />
+        </ConfigProvider>
+    );
+}
+```
+
+需要比较两种风格时，可并列设置两个 Provider，或在父级内部显式覆盖 `design`；未设置的明暗主题、品牌色和尺寸继续继承父级。`useConfig().design` 返回当前风格。
 
 ## 一个颜色生成品牌主题
 
@@ -55,8 +80,8 @@ Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器�
 算法保留色相并调整亮度和色度，以维持文字对比度和 sRGB 色域，因此按钮背景不一定与输入值完全相同。
 不支持带透明度的颜色、CSS 变量或任意 CSS 表达式；无效值会抛出 RangeError，颜色编辑器应先校验再传入。
 
-不传 `brandColor` 继承父级；传入 `null` 恢复默认紫色。`useConfig().brandColor` 返回标准化的六位颜色或 null。
-嵌套 Provider 切换 light / dark 时会保留品牌色，并使用对应模式的配色。
+不传 `brandColor` 继承父级；传入 `null` 恢复当前 `design` 的默认品牌。`useConfig().brandColor` 返回标准化的六位颜色或 null。
+嵌套 Provider 切换设计风格或 light / dark 时会保留显式品牌色，并使用对应明暗模式的配色；设置 `brandColor={null}` 的区域会随 `design` 切换其默认品牌。
 
 设置品牌色时，Provider 在自己的边界内渲染一张仅声明 L2 变量的 style 标签；更新或卸载时由 React 同步处理。
 没有品牌色时仅使用预编译主题 CSS。若应用使用 CSP，可通过原生 `nonce` 属性为该标签提供 nonce。
@@ -73,7 +98,7 @@ Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器�
 
 ## 嵌套与浮层
 
-允许 dark 内嵌 light，或并列多个独立主题。CSS 同时保留强制颜色支持；主题切换不添加动画。
+允许 dark 内嵌 light、Material 内嵌 shadcn，或并列多个独立主题。CSS 同时保留强制颜色支持；主题切换不添加动画。
 Provider 不访问 document、存储或系统主题，也不修改 html / body；如需持久化或跟随系统，请由应用传入结果。
 
 React Portal 保留 Context，但不会继承原 DOM 祖先的 CSS 变量。

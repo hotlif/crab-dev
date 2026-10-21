@@ -23,8 +23,8 @@ card.box-shadow-hover       = "$ref(shadow.overlay)"
 
 # ─── 舞台（预览区） ──────────────────────────────────────────────────────────
 
-stage.padding              = "56px 24px"
-stage.min-height           = "220px"
+stage.padding = "$ref(space.group-gap) $ref(space.section-gap)"
+stage.min-height = "160px"
 stage.background-color     = "$ref(color.surface.raised)"
 
 
@@ -61,9 +61,9 @@ meta.desc.code.border-radius    = "$ref(radius.sm)"
 
 meta.info.gap             = "6px"
 meta.actions.gap          = "4px"
-meta.actions.min-width  = "$ref(size.touch-target)"
-meta.actions.min-height = "$ref(size.touch-target)"
-meta.actions.icon.width     = "18px"
+meta.actions.min-width = "$ref(size.32)"
+meta.actions.min-height = "$ref(size.32)"
+meta.actions.icon.width = "$ref(size.icon)"
 
 
 # ─── 操作按钮（图标 + 文字） ─────────────────────────────────────────────────
