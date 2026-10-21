@@ -19,9 +19,9 @@ label.font-size = "$ref(typography.label.font-size)"
 label.font-weight = "$ref(typography.label.font-weight)"
 
 # ─── 必填指示符 ──────────────────────────────────────────────────────────────
-# 反馈原理：以醒目色 + 紧邻标签的星号，第一时间告知字段必填
-required.color = "$ref(color.feedback.error.text)"
-required.gap = "$ref(space.inline-gap)"
+# 与输入字段共用标记角色，由主题控制颜色、位置与间距
+required.color = "$ref(field.required.color)"
+required.gap = "$ref(field.required.gap)"
 
 # ─── 校验状态图标 ────────────────────────────────────────────────────────────
 # 内联反馈：字段末尾以固定尺寸的状态图标承载校验结果，避免文案常驻挤占布局；

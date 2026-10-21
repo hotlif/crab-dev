@@ -108,6 +108,13 @@ export interface FormItemEditor<T = unknown> {
     id?: string;
     'aria-invalid'?: boolean;
     'aria-describedby'?: string;
+    'aria-busy'?: boolean;
+
+    /** labelPlacement="control" 时，由编辑器呈现的关联标签与可见校验说明。 */
+    label?: string;
+    required?: boolean;
+    supportingText?: string;
+    errorText?: string;
 
     /**
      * 编辑器的校验状态（枚举形态，语义完整，保留向后兼容）

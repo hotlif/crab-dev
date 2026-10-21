@@ -2,7 +2,18 @@ import { describe, expect, it, mock } from "@crab-dev/wake/test";
 import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
 import TextEdit from "../textEdit.js";
 import { useState } from "react";
+import ConfigProvider from "@crab-dev/rc-config-provider";
 describe("TextEdit", () => {
+    it("必填标记独立隐藏于无障碍树，必填本身不触发错误状态", async () => {
+        await render(<TextEdit label="项目说明" required />);
+        // Wake's label-name query includes aria-hidden text; exact names are verified in the browser.
+        const input = screen.getByRole('textbox') as HTMLTextAreaElement;
+        expect(input.required).toBe(true);
+        expect(input.labels?.length).toBe(1);
+        expect(input.labels?.[0].querySelector('[data-field-label-text]')?.textContent).toBe('项目说明');
+        expect(input.getAttribute('aria-invalid')).toBeNull();
+        expect(input.labels?.[0].querySelector('[data-required-marker]')?.getAttribute('aria-hidden')).toBe('true');
+    });
     it('clears an uncontrolled value through onChange and updates its count', async () => {
         const changes: string[] = [];
         await render(<TextEdit aria-label='field' defaultValue='hello' showCount allowClear onChange={e => changes.push(e.target.value)} />);
@@ -67,6 +78,48 @@ describe("TextEdit", () => {
         expect(textarea.getAttribute("aria-invalid")).toBe("true");
         expect(screen.getByText("内容不能为空")).toBeTruthy();
         expect(screen.queryByText("最多 20 字")).toBeNull();
+        expect(screen.getByRole("alert").textContent).toBe("内容不能为空");
+    });
+    it("风格切换保留同一个文本域与关联标签", async () => {
+        function Editor() {
+            const [design, setDesign] = useState<"material" | "shadcn">("material");
+            return <>
+                <button onClick={() => setDesign("shadcn")}>切换风格</button>
+                <ConfigProvider design={design}>
+                    <TextEdit label="项目说明" data-testid="design-field" defaultValue="保留内容" supportingText="支持多行输入" />
+                </ConfigProvider>
+            </>;
+        }
+        const { container } = await render(<Editor />);
+        const textarea = screen.getByTestId("design-field") as HTMLTextAreaElement;
+        expect(container.querySelectorAll("label")).toHaveLength(1);
+        const label = container.querySelector("label");
+        expect(label?.htmlFor).toBe(textarea.id);
+        expect(label?.parentElement).toBe(textarea.parentElement?.parentElement);
+        expect(container.querySelector("fieldset")?.getAttribute("aria-hidden")).toBe("true");
+        textarea.focus();
+        await fireEvent.click(screen.getByText("切换风格"));
+        expect(screen.getByTestId("design-field")).toBe(textarea);
+        expect(document.activeElement).toBe(textarea);
+        expect(textarea.value).toBe("保留内容");
+        expect(textarea.closest("[data-crab-design]")?.getAttribute("data-crab-design")).toBe("shadcn");
+    });
+    it("无边框模式仍关联标签、说明和外部描述", async () => {
+        const { container } = await render(<>
+            <span id="external-description">外部说明</span>
+            <TextEdit id="project-notes" label="项目备注" bordered={false} supportingText="内部说明" aria-describedby="external-description" />
+        </>);
+        const textarea = container.querySelector("textarea") as HTMLTextAreaElement;
+        expect(container.querySelector("label")?.htmlFor).toBe(textarea.id);
+        expect(textarea.id).toBe("project-notes");
+        expect(container.querySelector("fieldset")).toBeNull();
+        expect(textarea.getAttribute("aria-describedby")?.split(" ").map(id => document.getElementById(id)?.textContent)).toEqual(["外部说明", "内部说明"]);
+    });
+    it("每个字段独立生成标签与信息区标识", async () => {
+        const { container } = await render(<><TextEdit label="第一项" supportingText="第一项说明" /><TextEdit label="第二项" supportingText="第二项说明" /></>);
+        const [first, second] = Array.from(container.querySelectorAll("textarea"));
+        expect(first.id).not.toBe(second.id);
+        expect(first.getAttribute("aria-describedby")).not.toBe(second.getAttribute("aria-describedby"));
     });
     describe("基础渲染", () => {
         it("应渲染 textarea 元素", async () => {

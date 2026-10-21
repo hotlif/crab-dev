@@ -47,6 +47,12 @@ import { demos } from "../_generated/rc-number-edit.js";
 
 显示时可使用千分位或自定义格式。极大、极小数值可显示为 `1.23×10²¹` 等科学计数法，聚焦后转为便于编辑的 `e` 记法。
 
+### 标签与设计风格
+
+数字输入框复用 LineEdit 的字段外观，支持 `label`、`appearance="outlined" | "filled"`、`supportingText` 和 `errorText`。全局切换 Material Design 3 与 shadcn 时，标签、容器和说明会统一跟随；已有数值与编辑草稿继续保留。Material 使用浮动标签，shadcn 使用上置标签。
+
+使用 `label` 提供持续可见的字段名称；`supportingText` 说明单位或取值范围。校验失败时用 `errorText` 替换说明，组件会关联错误信息并标记输入无效。仅需预先显示边界状态时可使用 `status="error"`，但仍应提供能说明修复方法的文字。
+
 ### 编辑、步进与范围
 
 **现有实现**：键入文本先保留为编辑草稿；失焦、步进或清除时提交数值。键盘 ↑ / ↓、PageUp / PageDown、Shift + ↑ / ↓、滚轮和步进按钮使用同一数值计算路径。`aria-valuenow` 随当前可解析的编辑文本更新。

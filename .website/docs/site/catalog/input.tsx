@@ -1,12 +1,13 @@
 import { Box, Check, Chevron, Label, Line } from "./shapes.js";
+import FormPreview from "./form.js";
 
 export const inputPreviews = {
-    "rc-button": <><Box x={60} y={14} w={120} h={40} r={20} tone="brand" /><Label y={39} tone="on-brand">主要操作</Label><Box x={60} y={64} w={120} h={40} r={20} /><Label y={89} tone="brand">次要操作</Label><Label y={134} tone="brand">文字按钮 →</Label></>,
+    "rc-button": <g className="cc-button-shape"><Box x={60} y={14} w={120} h={40} r={20} tone="brand" /><Label y={39} tone="on-brand">主要操作</Label><Box x={60} y={64} w={120} h={40} r={20} /><Label y={89} tone="brand">次要操作</Label><Label y={134} tone="brand">文字按钮 →</Label></g>,
     "rc-checkbox": <>{[40, 76, 112].map((y, i) => <g key={y}><Box x={55} y={y - 14} w={18} h={18} tone={i === 2 ? "surface" : "brand"} r={2} />{i === 0 && <Check x={59} y={y - 4} />}{i === 1 && <Line x={60} y={y - 4} w={10} tone="on-brand" />}<Label x={88} y={y + 1} anchor="start">{["已选选项", "部分选中", "未选选项"][i]}</Label></g>)}</>,
     "rc-color-picker": <><Box x={50} y={22} w={140} h={108} /><Box x={60} y={32} w={120} h={54} tone="soft" /><path d="M60 86l120-54v54z" className="cc-brand" /><circle cx={146} cy={60} r={6} className="cc-stroke cc-on-brand" />{["brand", "soft", "muted", "border", "text"].map((tone, i) => <Box key={tone} x={60 + i * 25} y={98} w={20} h={20} tone={tone} r={10} />)}</>,
     "rc-cron-picker": <><Box x={36} y={32} w={168} h={88} /><Label x={52} y={55} anchor="start">每天</Label><Box x={50} y={64} w={140} h={30} tone="soft" /><Label y={84} tone="brand">09 : 30</Label><Label y={141}>0 30 9 * * *</Label></>,
     "rc-date-picker": <><Box x={48} y={16} w={144} h={124} /><Label y={39}>2026 年 9 月</Label><path d="M48 50h144" className="cc-stroke cc-border" />{Array.from({ length: 21 }, (_, i) => <g key={i}>{i === 13 && <Box x={66 + i % 7 * 18 - 8} y={56 + Math.floor(i / 7) * 23} w={16} h={20} tone="brand" r={3} />}<text x={66 + i % 7 * 18} y={70 + Math.floor(i / 7) * 23} textAnchor="middle" className={`cc-small cc-${i === 13 ? "on-brand" : "text"}`}>{i + 1}</text></g>)}</>,
-    "rc-form": <><Label x={40} y={30} anchor="start">项目名称 *</Label><Box x={40} y={39} w={160} h={28} /><Line x={51} y={53} w={76} /><Label x={40} y={90} anchor="start">负责人 *</Label><Box x={40} y={99} w={106} h={28} /><Box x={154} y={99} w={46} h={28} tone="brand" /><Label x={177} y={118} tone="on-brand">保存</Label></>,
+    "rc-form": <FormPreview />,
     "rc-line-edit": <><Label x={30} y={53} anchor="start">项目名称</Label><Box x={30} y={65} w={180} h={36} /><Label x={43} y={88} anchor="start">Crab Design</Label><path d="M132 75v16" className="cc-stroke cc-brand" /></>,
     "rc-number-edit": <><Label y={47}>数量</Label><Box x={35} y={61} w={170} h={40} /><path d="M76 61v40m88-40v40" className="cc-stroke cc-border" /><Label x={55} y={87}>−</Label><Label y={87}>24</Label><Label x={184} y={87}>＋</Label></>,
     "rc-radio": <>{[48, 98].map((y, i) => <g key={y}><circle cx={65} cy={y} r={10} className={`cc-stroke cc-${i === 0 ? "brand" : "border"}`} />{i === 0 && <circle cx={65} cy={y} r={5} className="cc-brand" />}<Label x={88} y={y + 5} anchor="start">{i === 0 ? "标准模式" : "紧凑模式"}</Label></g>)}</>,

@@ -17,12 +17,12 @@ export default function Example() {
     return <div className={layout}>
         <section aria-label="填充外观">
             <h3>Filled · 填充</h3>
-            <p>用表面色建立输入区域，适合成组表单。</p>
-            <LineEdit label="团队名称" appearance="filled" placeholder="例如：产品设计组" supportingText="聚焦试试：标签上移，底线强调。" />
+            <p>Material 用表面色建立输入区域，聚焦时强调底线。</p>
+            <LineEdit label="团队名称" appearance="filled" placeholder="例如：产品设计组" supportingText="Material 为浮动标签；shadcn 使用外置标签。" />
         </section>
         <section aria-label="描边外观">
             <h3>Outlined · 描边</h3>
-            <p>用轮廓明确边界，适合需要轻盈背景的页面。</p>
+            <p>Material 用轮廓明确边界，为浮动标签留出缺口。</p>
             <LineEdit label="显示名称" appearance="outlined" placeholder="例如：林小蟹" supportingText="开始输入后，标签仍然可见。" />
         </section>
     </div>;

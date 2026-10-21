@@ -1,4 +1,9 @@
 import type { FieldChange, FormInstance } from '../types.js';
+import type { FormItemProps } from '../item.js';
+
+export const controlLabelItem: FormItemProps = { name: 'name', labelPlacement: 'control', label: '姓名' };
+// @ts-expect-error 字段组件模式要求可关联的文本标签。
+export const missingControlLabelItem: FormItemProps = { name: 'name', labelPlacement: 'control' };
 
 export function checkFormTypes(form: FormInstance<{ profile: { age: number }; name: string }>, change: FieldChange<{ name: string; age: number }>) {
     form.setFieldValue(['profile', 'age'], 18);

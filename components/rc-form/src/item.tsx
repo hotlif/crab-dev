@@ -1,6 +1,7 @@
 import { cloneElement, useState, useEffect, useId, useRef } from "react";
 import type { ReactElement, HTMLAttributes, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
+import semanticToken from "@crab-dev/rc-token-semantic";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import Tooltip from "@crab-dev/rc-tooltip";
@@ -17,7 +18,7 @@ import {
 
 const EMPTY_RULES: Rule[] = [];
 
-export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface FormItemBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
     /** 字段协议：value（默认）、原生事件、checked 或 onValueChange。 */
     binding?: 'value' | 'event' | 'checked' | 'valueChange';
@@ -29,11 +30,6 @@ export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "chi
      * 是否隐藏字段
      */
     hidden?: boolean
-
-    /**
-     * 文本的标签
-     */
-    label?: ReactNode
 
     /**
      * 字段名称
@@ -55,6 +51,22 @@ export interface FormItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "chi
      */
     children?: ReactElement<FormItemEditor> | ((field: FormItemEditor) => ReactNode)
 }
+
+export type FormItemProps = FormItemBaseProps & (
+    | {
+        /** 由 Item 显示外部标签，兼容横排布局与任意编辑器。 */
+        labelPlacement?: 'external';
+        label?: ReactNode;
+        supportingText?: never;
+    }
+    | {
+        /** 将标签与校验说明交给支持 label/errorText 的字段组件。 */
+        labelPlacement: 'control';
+        label: string;
+        /** 字段下方的辅助说明，校验消息会临时替换它。 */
+        supportingText?: string;
+    }
+);
 
 // ─── 样式 ────────────────────────────────────────────────────────────────────
 
@@ -82,7 +94,7 @@ const labelStyle = css`
 
 const requiredStyle = css`
     color: ${token.required.color};
-    font-family: SimSun, sans-serif;
+    order: ${semanticToken.field.required.order};
     line-height: 1;
 `;
 
@@ -90,6 +102,33 @@ const requiredStyle = css`
 const editorWrapStyle = css`
     grid-column: 2;
     min-width: 0;
+`;
+
+// 将表单轨道贯通到自带标签的字段；L2 决定浮动标签或同排标签布局。
+const controlEditorWrapStyle = css`
+    grid-column: 1 / -1;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: subgrid;
+    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) {
+        grid-column: 1 / -1;
+        grid-template-columns: ${semanticToken.form.field.columns};
+        column-gap: ${token.item.gap};
+    }
+    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) > label {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+        max-width: 100%;
+    }
+    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) > :is([data-field-control], [data-control]) {
+        grid-column: ${semanticToken.form.field['control-column']};
+        grid-row: 1;
+    }
+    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) > :is([data-field-support], [data-support]) {
+        grid-column: ${semanticToken.form.field['control-column']};
+        grid-row: 2;
+    }
 `;
 
 // 状态槽：固定尺寸，无论有无校验结果都占位，从根本上杜绝图标出现 / 消失引发的布局抖动
@@ -168,6 +207,8 @@ function FormItemComponent({
     className,
     hidden,
     label,
+    labelPlacement = 'external',
+    supportingText,
     name,
     required,
     binding = 'value',
@@ -212,6 +253,8 @@ function FormItemComponent({
         validateState === ValidateState.ERROR ? "error"
             : validateState === ValidateState.WARNING ? "warning"
                 : undefined;
+    const controlLabel = labelPlacement === 'control' && typeof label === 'string' ? label : undefined;
+    const editorClassName = labelPlacement === 'control' ? controlEditorWrapStyle : editorWrapStyle;
 
     const renderRequiredElement = () => {
         if (required) {
@@ -224,7 +267,7 @@ function FormItemComponent({
 
     // 渲染 label
     const renderLabelElement = () => {
-        if (label == null) {
+        if (labelPlacement === 'control' || label == null) {
             return null;
         }
         const renderedLabel = requiredIndicatorRenderer ? requiredIndicatorRenderer({
@@ -232,8 +275,8 @@ function FormItemComponent({
             required: required === true
         }) : (
             <>
+                <span>{label}</span>
                 {renderRequiredElement()}
-                {label}
             </>
         );
         return (
@@ -246,6 +289,8 @@ function FormItemComponent({
     // 渲染末尾状态图标：default 空占位（保持槽位尺寸）/ validating 转圈 / success 对勾 /
     // error / warning 为可点击图标，点击（或 hover / focus）唤起 Tooltip 展示对应消息。
     const renderStatusElement = () => {
+        // control 模式由编辑器显示可见的错误/警告，不重复渲染 Tooltip。
+        if (labelPlacement === 'control') return null;
         if (validateState === ValidateState.VALIDATING) {
             return (
                 <span className={cx.call(undefined, statusSlotStyle, validatingStyle)} aria-hidden>
@@ -309,10 +354,17 @@ function FormItemComponent({
             validateState,
             status: editorStatus,
             'aria-invalid': validateState === ValidateState.ERROR || undefined,
-            'aria-describedby': [props['aria-describedby'], isInvalid ? messageId : undefined].filter(Boolean).join(' ') || undefined,
+            'aria-describedby': [props['aria-describedby'], isInvalid && labelPlacement !== 'control' ? messageId : undefined].filter(Boolean).join(' ') || undefined,
             onChange: changeValue,
+            ...(labelPlacement === 'control' ? {
+                label: props.label ?? controlLabel,
+                required: required ?? props.required,
+                errorText: validateState === ValidateState.ERROR ? validateMessage : props.errorText,
+                supportingText: validateState === ValidateState.WARNING ? validateMessage : props.supportingText ?? supportingText,
+                'aria-busy': validateState === ValidateState.VALIDATING || undefined,
+            } : {}),
         };
-        if (typeof children === 'function') return <div className={editorWrapStyle}>{children(field)}</div>;
+        if (typeof children === 'function') return <div className={editorClassName}>{children(field)}</div>;
         const childProps = props as Record<string, unknown>;
         const handleChange = (...args: unknown[]) => {
             let next = args[0];
@@ -338,7 +390,7 @@ function FormItemComponent({
         if (binding !== 'value' || typeof children.type === 'string') delete editorProps.validateState;
         if (typeof children.type === 'string') delete editorProps.status;
         return (
-            <div className={editorWrapStyle}>
+            <div className={editorClassName}>
                 {cloneElement(children, editorProps)}
             </div>
         );
@@ -464,19 +516,20 @@ function FormItemComponent({
     return (
         <div
             data-form-item
+            data-label-placement={labelPlacement}
             className={cx.call(undefined, rowStyle, className)}
             {...restProps}
         >
             {renderLabelElement()}
             {renderEditorElement()}
             {renderStatusElement()}
-            <span
+            {labelPlacement !== 'control' && <span
                 id={messageId}
                 className={srOnlyStyle}
                 role={isInvalid ? "alert" : undefined}
             >
                 {validateMessage}
-            </span>
+            </span>}
         </div>
     )
 }

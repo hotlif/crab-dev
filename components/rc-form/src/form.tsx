@@ -1,4 +1,5 @@
 import { css, cx } from "@crab-dev/css";
+import semanticToken from "@crab-dev/rc-token-semantic";
 import { useEffect, useId, useRef, useState, useTransition } from "react";
 import type { FormHTMLAttributes, ReactNode } from "react";
 import token from "./token.js";
@@ -46,7 +47,7 @@ function cloneRecord<T extends object>(value: T): T {
 
 function Form<T extends object>({
     className, form, defaultValue = {} as T, requiredIndicatorRenderer,
-    onSubmitSuccess, onSubmitFailed, onFieldValueChange, children, ...restProps
+    onSubmitSuccess, onSubmitFailed, onFieldValueChange, noValidate = true, children, ...restProps
 }: FormProps<T>) {
     const id = useId();
     const [eventBus] = useState(() => new EventBus());
@@ -152,11 +153,12 @@ function Form<T extends object>({
             <form
 
                 {...restProps}
+                noValidate={noValidate}
                 className={cx(
                     css`
                         display: grid;
                         /* 标签列 auto（自动撑到最长标签）/ 编辑器列 1fr / 状态图标列 auto */
-                        grid-template-columns: auto minmax(0, 1fr) auto;
+                        grid-template-columns: ${semanticToken.form.layout.columns};
                         align-items: center;
                         /* 行轨道恒为内容高度：align-content 默认 normal 在 grid 中等同 stretch，
                            当表单被放入更高的容器（如全屏 flex 布局）时会把富余高度摊到各行、

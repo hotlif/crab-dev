@@ -10,7 +10,7 @@ import componentGuides from "../content/component-guides.json" with { type: "jso
 import componentDescriptions from "../content/catalog/overview.json" with { type: "json" };
 
 const EXPECTED_COMPONENT_COUNT = 54;
-const EXPECTED_DEMO_COUNT = 264;
+const EXPECTED_DEMO_COUNT = 266;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");

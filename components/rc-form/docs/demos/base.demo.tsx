@@ -1,31 +1,12 @@
 export const meta = {
     title: "基础用法",
-    description: "使用 rc-line-edit 作为编辑器，演示 getFieldValue / setFieldValue / resetFields 等实例方法。",
+    description: "字段标签与校验交给 LineEdit 呈现，随全局切换 Material 浮动标签或 shadcn 左侧标签与紧凑输入同排的布局，并保留表单实例操作。",
 };
 
 import { css } from "@crab-dev/css";
-import { type FC } from "react";
 import Button from "@crab-dev/rc-button";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Form, { Item, useForm } from "../../src/index.js";
-import type { FormItemEditor } from "../../src/types.js";
-
-const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: string }> = ({
-    value,
-    onChange,
-    placeholder,
-    type,
-    status,
-}) => (
-    <LineEdit
-        value={value ?? ""}
-        type={type}
-        status={status}
-        className={css`width: 100%;`}
-        placeholder={placeholder}
-        onChange={(e) => onChange?.(e.target.value)}
-    />
-);
 
 interface UserInfo {
     user: {
@@ -69,11 +50,11 @@ const SimpleFrame = () => {
                 console.warn("[submit:failed]", result);
             }}
         >
-            <Item label="用户名" name={["user", "username"]} required>
-                <LineEditField placeholder="请输入用户名" />
+            <Item label="用户名" labelPlacement="control" name={["user", "username"]} binding="event" required>
+                <LineEdit placeholder="请输入用户名" />
             </Item>
-            <Item label="密码" name={["user", "password"]} required>
-                <LineEditField type="password" placeholder="请输入密码" />
+            <Item label="密码" labelPlacement="control" name={["user", "password"]} binding="event" required>
+                <LineEdit type="password" placeholder="请输入密码" />
             </Item>
 
             <div className={actionRowStyle}>

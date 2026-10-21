@@ -20,7 +20,7 @@ export interface LineEditProps {
     "appearance"?: "outlined" | "filled";
 
     /**
-     * 可见的浮动标签，与输入框自动关联。
+     * 与输入框关联的可见标签；Material 浮动，shadcn 上置。
      */
     "label"?: string;
 
@@ -46,7 +46,6 @@ export interface LineEditProps {
 
     /**
      * 设置单行文本输入框的大小，默认为 middle
-     * @default "middle"
      */
     "size"?: "large" | "middle" | "small";
 

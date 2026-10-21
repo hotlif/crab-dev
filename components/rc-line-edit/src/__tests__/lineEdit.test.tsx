@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { useState, type SVGProps } from "react";
+import ConfigProvider from "@crab-dev/rc-config-provider";
 
 mock.module("lucide-react", async () => {
     const mockReact = await mock.actual<typeof import("react")>("react");
@@ -36,6 +37,59 @@ function inputByLabel(text: string): HTMLInputElement {
     return input;
 }
 describe("LineEdit", () => {
+    it("必填标记独立隐藏于无障碍树，必填本身不触发错误状态", async () => {
+        await render(<LineEdit label="姓名" required />);
+        // Wake's label-name query includes aria-hidden text; exact names are verified in the browser.
+        const input = screen.getByRole('textbox') as HTMLInputElement;
+        expect(input.required).toBe(true);
+        expect(input.labels?.length).toBe(1);
+        expect(input.labels?.[0].querySelector('[data-field-label-text]')?.textContent).toBe('姓名');
+        expect(input.getAttribute('aria-invalid')).toBeNull();
+        expect(input.labels?.[0].querySelector('[data-required-marker]')?.getAttribute('aria-hidden')).toBe('true');
+    });
+    it("切换全局设计风格时保留单一语义标签、输入节点和输入值", async () => {
+        const { rerender } = await render(<ConfigProvider design="material"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
+        const input = inputByLabel("账户");
+        expect(document.querySelectorAll('label[for="' + input.id + '"]').length).toBe(1);
+        expect(input.parentElement?.querySelector('fieldset[aria-hidden="true"] > legend')?.textContent).toBe("账户");
+        await fireEvent.change(input, { target: { value: "新的账户" } });
+        await rerender(<ConfigProvider design="shadcn"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
+        expect(inputByLabel("账户")).toBe(input);
+        expect(input.value).toBe("新的账户");
+        expect(input.closest('[data-crab-design]')?.getAttribute('data-crab-design')).toBe("shadcn");
+        expect(document.querySelectorAll('label[for="' + input.id + '"]').length).toBe(1);
+        await rerender(<ConfigProvider design="material"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
+        expect(inputByLabel("账户")).toBe(input);
+        expect(input.value).toBe("新的账户");
+    });
+    it("Filled 前后缀字段保持关联标签和可编辑内容，切换风格不卸载输入", async () => {
+        const field = <LineEdit appearance="filled" label="搜索项目" prefix={<svg aria-hidden="true" />} suffix={<svg aria-hidden="true" />} defaultValue="Crab" allowClear />;
+        const { rerender } = await render(<ConfigProvider design="material">{field}</ConfigProvider>);
+        const input = inputByLabel("搜索项目");
+        expect(input.parentElement?.getAttribute("data-prefix")).toBe("true");
+        expect(input.parentElement?.getAttribute("data-suffix")).toBe("true");
+        expect(input.parentElement?.querySelector('[data-field-prefix] svg')).toBeTruthy();
+        expect(input.parentElement?.querySelector('[data-field-suffix] svg')).toBeTruthy();
+        await fireEvent.change(input, { target: { value: "设计系统" } });
+        await rerender(<ConfigProvider design="shadcn">{field}</ConfigProvider>);
+        expect(inputByLabel("搜索项目")).toBe(input);
+        expect(input.value).toBe("设计系统");
+        await fireEvent.click(getActionButton("清除"));
+        expect(input.value).toBe("");
+        expect(document.activeElement).toBe(input);
+    });
+    it("错误信息单独通告并在修复后恢复辅助说明和计数关联", async () => {
+        const { rerender } = await render(<LineEdit label="项目" value="Crab" onChange={handleInputChange} supportingText="最多十字" errorText="名称已使用" showCount maxLength={10} />);
+        const input = inputByLabel("项目");
+        expect(screen.getByRole("alert").textContent).toBe("名称已使用");
+        const count = document.querySelector('[aria-label="字符计数：4，最多 10"]');
+        expect(count).toBeTruthy();
+        expect(input.getAttribute('aria-describedby')).toContain(count!.id);
+        await rerender(<LineEdit label="项目" value="Crab" onChange={handleInputChange} supportingText="最多十字" showCount maxLength={10} />);
+        expect(screen.queryByRole("alert")).toBeNull();
+        expect(screen.getByText("最多十字")).toBeTruthy();
+        expect(input.hasAttribute("aria-invalid")).toBe(false);
+    });
     it('clears an uncontrolled value through onChange and updates its count', async () => {
         const changes: string[] = [];
         await render(<LineEdit aria-label='field' defaultValue='hello' showCount allowClear onChange={e => changes.push(e.target.value)} />);

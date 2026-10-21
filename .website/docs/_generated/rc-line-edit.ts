@@ -8,19 +8,21 @@ export const demos = [
     {
         "id": "docs/demos/simple.demo.tsx",
         "title": "基础用法",
-        "description": "一个简单的单行文本编辑器",
+        "description": "Material 呈现浮动标签与描边缺口，shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",
         "learning": {
             "components": [
                 "LineEdit"
             ],
             "props": [
-                "prefix",
-                "size"
+                "label",
+                "supportingText",
+                "defaultValue",
+                "readOnly"
             ],
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"一个简单的单行文本编辑器\",\n};\n\nimport { useId } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport { Lollipop } from \"lucide-react\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n\tpadding: 1rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 1rem;\n`;\n\nconst SimpleDemo = () => {\n    const fieldId = useId();\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cdiv>\n                \u003clabel htmlFor={`${fieldId}-large`}>大尺寸输入\u003c/label>\n                \u003cLineEdit id={`${fieldId}-large`} prefix={\u003cLollipop aria-hidden=\"true\" />} size=\"large\" />\n            \u003c/div>\n            \u003cdiv>\n                \u003clabel htmlFor={`${fieldId}-middle`}>中尺寸输入\u003c/label>\n                \u003cLineEdit id={`${fieldId}-middle`} prefix={\u003cLollipop aria-hidden=\"true\" />} size=\"middle\" />\n            \u003c/div>\n            \u003cdiv>\n                \u003clabel htmlFor={`${fieldId}-small`}>小尺寸输入\u003c/label>\n                \u003cLineEdit id={`${fieldId}-small`} prefix={\u003cLollipop aria-hidden=\"true\" />} size=\"small\" />\n            \u003c/div>\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"Material 呈现浮动标签与描边缺口，shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
         "density": "regular",
@@ -58,6 +60,8 @@ export const demos = [
                 "LineEdit"
             ],
             "props": [
+                "appearance",
+                "label",
                 "prefix",
                 "placeholder",
                 "suffix"
@@ -65,7 +69,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"前缀和后缀\",\n    description: \"通过 `prefix` 和 `suffix` 属性设置前缀/后缀图标\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { Search, X } from \"lucide-react\";\nimport LineEdit from \"../../src/index.js\";\n\nconst PrefixSuffixDemo = () => {\n    return (\n        \u003cdiv\n            className={css`\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tgap: 1rem;\n\t\t\t\tpadding: 1rem;\n\t\t\t`}\n        >\n            \u003cLineEdit prefix={\u003cSearch size={16} />} placeholder=\"搜索\" />\n            \u003cLineEdit suffix={\u003cX size={16} />} placeholder=\"可清除\" />\n            \u003cLineEdit\n                prefix={\u003cSearch size={16} />}\n                suffix={\u003cX size={16} />}\n                placeholder=\"前缀和后缀\"\n            />\n        \u003c/div>\n    );\n};\n\nexport default PrefixSuffixDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"前缀和后缀\",\n    description: \"通过 `prefix` 和 `suffix` 属性设置前缀/后缀图标\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { Search, X } from \"lucide-react\";\nimport LineEdit from \"../../src/index.js\";\n\nconst PrefixSuffixDemo = () => {\n    return (\n        \u003cdiv\n            className={css`\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: column;\n\t\t\t\talign-items: flex-start;\n\t\t\t\tgap: 1rem;\n\t\t\t\tpadding: 1rem;\n\t\t\t`}\n        >\n            \u003cLineEdit appearance=\"filled\" label=\"搜索\" prefix={\u003cSearch aria-hidden=\"true\" />} placeholder=\"输入项目名称\" />\n            \u003cLineEdit suffix={\u003cX size={16} />} placeholder=\"可清除\" />\n            \u003cLineEdit\n                prefix={\u003cSearch size={16} />}\n                suffix={\u003cX size={16} />}\n                placeholder=\"前缀和后缀\"\n            />\n        \u003c/div>\n    );\n};\n\nexport default PrefixSuffixDemo;\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fprefix-suffix.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fprefix-suffix.demo.tsx",
         "density": "regular",

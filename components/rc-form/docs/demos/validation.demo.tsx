@@ -4,31 +4,13 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { type FC } from "react";
 
 import Button from "@crab-dev/rc-button";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Select from "@crab-dev/rc-select";
 
 import Form, { Item, useForm } from "../../src/index.js";
-import { type FormItemEditor, type Rule, RuleType } from "../../src/types.js";
-
-const LineEditField: FC<FormItemEditor<string> & { placeholder?: string; type?: string }> = ({
-    value,
-    onChange,
-    placeholder,
-    type,
-    status,
-}) => (
-    <LineEdit
-        value={value ?? ""}
-        type={type}
-        status={status}
-        className={css`width: 100%;`}
-        placeholder={placeholder}
-        onChange={(e) => onChange?.(e.target.value)}
-    />
-);
+import { type Rule, RuleType } from "../../src/types.js";
 
 interface SignupForm {
     account: string;
@@ -90,7 +72,7 @@ const passwordRules = (getValue: () => string): Rule[] => [
     },
 ];
 
-const ValidationDemo: FC = () => {
+function ValidationDemo() {
     const [form] = useForm<SignupForm>();
 
     return (
@@ -107,25 +89,33 @@ const ValidationDemo: FC = () => {
         >
             <Item
                 label="账号"
+                labelPlacement="control"
                 name="account"
+                binding="event"
                 required
+                supportingText="字母开头，长度 3–16 位。"
                 rules={accountRules(() => (form.getFieldValue("account") as string) ?? "")}
             >
-                <LineEditField placeholder="字母开头，3-16 位" />
+                <LineEdit placeholder="例如：crab_user" />
             </Item>
 
             <Item
                 label="密码"
+                labelPlacement="control"
                 name="password"
+                binding="event"
                 required
+                supportingText="至少 8 位，包含大写字母与数字。"
                 rules={passwordRules(() => (form.getFieldValue("password") as string) ?? "")}
             >
-                <LineEditField type="password" placeholder="至少 8 位，含大写字母与数字" />
+                <LineEdit type="password" />
             </Item>
 
             <Item
                 label="确认密码"
+                labelPlacement="control"
                 name="confirm"
+                binding="event"
                 required
                 rules={[
                     {
@@ -140,11 +130,15 @@ const ValidationDemo: FC = () => {
                     },
                 ]}
             >
-                <LineEditField type="password" placeholder="再次输入密码" />
+                <LineEdit type="password" />
             </Item>
 
             <Item label="区域" name="region" required>
-                <Select options={REGION_OPTIONS} placeholder="选择部署区域" />
+                {({ id, value, onChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+                    <Select id={id} aria-label="区域" aria-invalid={invalid} aria-describedby={describedBy}
+                        value={typeof value === 'string' ? value : undefined} onChange={onChange} status={status}
+                        options={REGION_OPTIONS} placeholder="选择部署区域" />
+                )}
             </Item>
 
             <div className={actionRowStyle}>
@@ -170,6 +164,6 @@ const ValidationDemo: FC = () => {
             </div>
         </Form>
     );
-};
+}
 
 export default ValidationDemo;

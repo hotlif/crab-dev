@@ -1,16 +1,17 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
+import semanticToken from "@crab-dev/rc-token-semantic";
 import { X } from "lucide-react";
 import { useId, useState, type Ref, type TextareaHTMLAttributes } from "react";
 
 import token, { vars } from "./token.js";
 
 
-export interface TextEditProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextEditProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "ref"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
-    /** 可见的浮动标签，与文本域自动关联。 */
+    /** 可见标签；Material 使用浮动标签，shadcn 使用上方标签。 */
     label?: string;
     /** 文本域下方的辅助说明，自动加入 aria-describedby。 */
     supportingText?: string;
@@ -105,7 +106,9 @@ const containerBaseStyle = css`
     }
     &[aria-disabled="true"] {
         cursor: not-allowed;
-        opacity: ${token.root['opacity-disabled']};
+        color: ${token.field['color-disabled']};
+        border-color: ${token.field['border-color-disabled']};
+        box-shadow: none;
     }
     @media (forced-colors: active) {
         && { border-color: CanvasText; box-shadow: none; }
@@ -214,6 +217,7 @@ const textareaBaseStyle = css`
     outline: none;
     background-color: transparent;
     color: inherit;
+    caret-color: ${token.root['border-color-focus']};
     font-family: inherit;
     &::placeholder {
         font-size: inherit;
@@ -291,84 +295,196 @@ const countStyle = css`
 
 const fieldStyle = css`
     display: inline-grid;
+    position: relative;
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    gap: ${token.field.gap};
-`;
-
-const materialStyle = css`
-    position: relative;
-    cursor: text;
-    &[data-labeled="true"] { padding-top: ${token.field.input['padding-top']}; }
+    row-gap: ${token.field.layout['row-gap']};
     & > label {
-        position: absolute;
-        z-index: 1;
-        inset-inline-start: ${token.field['padding-inline']};
-        top: ${token.field.label.top};
-        max-width: calc(100% - 2 * ${token.field['padding-inline']});
+        display: inline-flex;
+        align-items: center;
+        gap: ${token.field.required.gap};
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+        color: ${token.field.label.color};
+        font-size: ${token.field.label['font-size']};
+        line-height: ${token.field.label['line-height']};
+        cursor: text;
+        & > [data-field-label-text] {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        & > [data-required-marker] {
+            flex-shrink: 0;
+            order: ${semanticToken.field.required.order};
+            color: ${token.field.required.color};
+        }
+    }
+    & > [data-control] { grid-column: 1; grid-row: 2; }
+    & > [data-support] { grid-column: 1; grid-row: 3; }
+    &[data-labeled="false"] > [data-control] { grid-row: 1; }
+    &[data-labeled="false"] > [data-support] { grid-row: 2; }
+    &[data-bordered="true"][data-labeled="true"] > [data-control] {
+        grid-row: ${semanticToken.field.layout['control-row']};
+        min-height: ${token.field.control['min-height']};
+        padding-inline: ${token.field.control['padding-inline']};
+        padding-block: ${token.field.input.multiline['padding-block']};
+        cursor: text;
+        & > textarea { font-size: ${token.field.input['font-size']}; line-height: ${token.field.input['line-height']}; }
+        & > button { inset-block-start: ${token.field.input.multiline['padding-block']}; inset-inline-end: ${token.field.control['padding-inline']}; }
+    }
+    &[data-bordered="true"][data-labeled="true"] > [data-support] {
+        grid-row: ${semanticToken.field.layout['support-row']};
+    }
+    &[data-bordered="true"][data-labeled="true"] > label {
+        grid-row: ${semanticToken.field.layout['label-row']};
+        position: relative;
+        align-self: start;
+        justify-self: start;
+        z-index: 2;
+        top: ${token.field.label.multiline.top};
+        margin-inline: ${semanticToken.field.label['margin-inline']};
+        max-width: calc(100% - 2 * ${semanticToken.field.label['margin-inline']});
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        cursor: text;
-        color: ${token.field.label.color};
-        font-size: ${token.size.middle['font-size']};
-        line-height: ${token.field.label['line-height']};
         transition: ${token.field.transition};
     }
-    &[data-labeled="true"]:not(:focus-within) textarea:placeholder-shown::placeholder { color: transparent; }
-    &:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
+    &[data-bordered="true"][data-labeled="true"]:not(:focus-within) textarea:placeholder-shown::placeholder {
+        color: ${token.field.placeholder.color};
+    }
+    &[data-bordered="true"][data-labeled="true"]:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
         top: 0;
-        transform: translateY(-50%);
-        padding-inline: ${token.field.label['padding-inline']};
-        background: ${token.root['background-color']};
-        font-size: ${token.field.label['font-size']};
+        align-self: ${semanticToken.field.label.floating.align};
+        margin-inline: ${semanticToken.field.label.floating['margin-inline']};
+        transform: ${token.field.label.floating.transform};
+        font-size: ${token.field.label.floating['font-size']};
+        line-height: ${token.field.label.floating['line-height']};
     }
-    &:focus-within > label { color: ${token.field.label['color-focus']}; }
-    &[data-appearance="filled"] {
-        border-radius: ${token.root['border-radius']} ${token.root['border-radius']} 0 0;
-        border-color: transparent;
-        border-bottom-color: ${token.field.indicator['border-color']};
-        background: ${token.field.filled['background-color']};
-        box-shadow: none;
+    &[data-bordered="true"][data-labeled="true"][data-appearance="outlined"] > [data-control] {
+        border-color: ${token.field.outlined['border-color']};
+        &:hover:not(:focus-within):not([aria-disabled="true"]) { border-color: ${token.field.outlined['border-color-hover']}; }
+        &:focus-within { border-color: ${token.field.outlined['border-color-focus']}; box-shadow: ${token.field.outlined['box-shadow-focus']}; }
     }
-    &[data-appearance="filled"][data-labeled="true"] {
-        padding-top: ${token.field.filled.input['padding-top']};
+    &[data-bordered="true"][data-labeled="true"][data-appearance="outlined"][data-status="error"]:not([aria-disabled="true"]) > [data-control] {
+        border-color: ${token.field.outlined['border-color-error']};
+        &:hover { border-color: ${token.field.outlined['border-color-error']}; }
+        &:focus-within { box-shadow: ${token.field.outlined['box-shadow-error']}; }
     }
-    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within) {
-        background: ${token.field.filled['background-color-hover']};
-        border-color: transparent;
-        border-bottom-color: ${token.text.color};
+    &[data-bordered="true"][data-labeled="true"][data-appearance="outlined"][data-status="warning"]:not([aria-disabled="true"]) > [data-control] {
+        border-color: ${token.field.outlined['border-color-warning']};
+        &:hover { border-color: ${token.field.outlined['border-color-warning']}; }
+        &:focus-within { box-shadow: ${token.field.outlined['box-shadow-warning']}; }
     }
-    &[data-appearance="filled"]:focus-within {
-        border-color: transparent;
-        border-bottom-color: ${token.root['border-color-focus']};
-        box-shadow: ${token.field.indicator['box-shadow-focus']};
+    &[data-bordered="true"][data-labeled="true"][data-appearance="filled"] > [data-control] {
+        padding-block-start: ${token.field.input.multiline.filled['padding-top']};
+        padding-block-end: ${token.field.input.multiline.filled.padding};
+        & > button { inset-block-start: ${token.field.input.multiline.filled['padding-top']}; }
     }
-    &[data-appearance="filled"]:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
-        top: ${token.field.filled.label.top};
+    &[data-bordered="true"][data-labeled="true"][data-appearance="filled"]:is(:focus-within, :has(textarea:not(:placeholder-shown))) > label {
+        top: ${token.field.label.filled.top};
         transform: none;
-        padding: 0;
-        background: transparent;
     }
-    &[data-status="error"] > label { color: ${token.field['color-error']}; }
-    &[data-status="warning"] > label { color: ${token.field['color-warning']}; }
-    &&[data-appearance="filled"][data-status="error"] {
-        border-color: transparent;
-        border-bottom-color: ${token.status['border-color-error']};
-        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-error']}; }
+    &:focus-within:not([aria-disabled="true"]) > label { color: ${token.field.label['color-focus']}; }
+    &[data-status="error"]:not([aria-disabled="true"]) > label { color: ${token.field['color-error']}; }
+    &[data-status="warning"]:not([aria-disabled="true"]) > label { color: ${token.field['color-warning']}; }
+    &[aria-disabled="true"] > label { color: ${token.field['color-disabled']}; cursor: not-allowed; }
+    &&[aria-disabled="true"] > label > [data-required-marker] { color: inherit; }
+    &[aria-disabled="true"] > [data-support] { color: ${token.field['color-disabled']}; }
+    &[data-bordered="true"][data-labeled="true"][aria-disabled="true"] > [data-control] {
+        border-color: ${token.field.outlined['border-color']};
     }
-    &&[data-appearance="filled"][data-status="warning"] {
-        border-color: transparent;
-        border-bottom-color: ${token.status['border-color-warning']};
-        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-warning']}; }
+    &[data-bordered="true"][data-labeled="true"][data-appearance="filled"][aria-disabled="true"] > [data-control] {
+        border-color: ${token.field.filled['border-color-disabled']};
     }
     @media (prefers-reduced-motion: reduce) { & > label { transition: none; } }
     @media (forced-colors: active) {
-        && { border-color: CanvasText; background: Canvas; }
         & > label { color: CanvasText; }
         &:focus-within > label { color: Highlight; }
         &[aria-disabled="true"] > label { color: GrayText; }
+        && > label > [data-required-marker] { color: inherit; }
+    }
+`;
+
+const legendRequiredStyle = css`
+    margin-inline-start: ${token.field.required.gap};
+`;
+
+const outlineStyle = css`
+    display: ${semanticToken.field.outline.display};
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    inset: calc(${token.field.label.floating['line-height']} / -2) 0 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: ${token.root['border-width']} solid ${token.root['border-color']};
+    border-radius: inherit;
+    box-sizing: border-box;
+    & > legend {
+        width: auto;
+        max-width: 0;
+        height: ${token.field.label.floating['line-height']};
+        margin-inline-start: ${token.field.outline.legend.margin};
+        padding: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        visibility: hidden;
+        font-size: ${token.field.label.floating['font-size']};
+        line-height: ${token.field.label.floating['line-height']};
+    }
+    [data-control]:is(:focus-within, :has(textarea:not(:placeholder-shown))) > & > legend {
+        max-width: calc(100% - 2 * ${token.field.control['padding-inline']});
+        padding-inline: ${token.field.outline.legend.padding};
+    }
+    [data-control]:hover:not(:focus-within):not([aria-disabled="true"]) > & { border-color: ${token.root['border-color-hover']}; }
+    [data-control]:focus-within > & { border-color: ${token.root['border-color-focus']}; border-width: ${token.field.outline['border-width-focus']}; }
+    [data-control][data-status="error"]:not([aria-disabled="true"]) > & { border-color: ${token.status['border-color-error']}; }
+    [data-control][data-status="warning"]:not([aria-disabled="true"]) > & { border-color: ${token.status['border-color-warning']}; }
+    [data-control][data-status="error"]:hover:not([aria-disabled="true"]) > & { border-color: ${token.status['border-color-error']}; }
+    [data-control][data-status="warning"]:hover:not([aria-disabled="true"]) > & { border-color: ${token.status['border-color-warning']}; }
+    [data-control][aria-disabled="true"] > & { border-color: ${token.field['border-color-disabled']}; }
+    @media (forced-colors: active) {
+        [data-control] > & { border-color: CanvasText; }
+        [data-control]:focus-within > & { border-color: Highlight; }
+        [data-control][aria-disabled="true"] > & { border-color: GrayText; }
+    }
+`;
+
+const appearanceStyle = css`
+    &[data-appearance="filled"] {
+        border-radius: ${token.field.filled['border-radius']};
+        border-width: ${token.field.filled['border-width']};
+        border-color: ${token.field.filled['border-color']};
+        background: ${token.field.filled['background-color']};
+        box-shadow: none;
+    }
+    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within) {
+        background: ${token.field.filled['background-color-hover']};
+        border-color: ${token.field.filled['border-color-hover']};
+    }
+    &[data-appearance="filled"]:focus-within {
+        border-color: ${token.field.filled['border-color-focus']};
+        box-shadow: ${token.field.filled['box-shadow-focus']};
+    }
+    &&[data-appearance="filled"][data-status="error"]:not([aria-disabled="true"]) {
+        border-color: ${token.status['border-color-error']};
+        &:focus-within { box-shadow: ${token.field.filled['box-shadow-error']}; }
+    }
+    &&[data-appearance="filled"][data-status="warning"]:not([aria-disabled="true"]) {
+        border-color: ${token.status['border-color-warning']};
+        &:focus-within { box-shadow: ${token.field.filled['box-shadow-warning']}; }
+    }
+    &[data-appearance="filled"][aria-disabled="true"] {
+        background: ${token.field.filled['background-color-disabled']};
+        border-color: ${token.field.filled['border-color-disabled']};
+    }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; background: Canvas; }
+        &[aria-disabled="true"] { border-color: GrayText; }
     }
 `;
 
@@ -377,9 +493,9 @@ const supportingStyle = css`
     align-items: baseline;
     justify-content: space-between;
     gap: ${token.icon.gap};
-    padding-inline: ${token.field['padding-inline']};
+    padding-inline: ${token.field.support['padding-inline']};
     color: ${token.field.label.color};
-    font-size: ${token.field.label['font-size']};
+    font-size: ${token.field.label.floating['font-size']};
     line-height: ${token.field.support['line-height']};
     overflow-wrap: anywhere;
     & > span:first-child { min-width: 0; }
@@ -437,6 +553,7 @@ function TextEdit({
     const control = (
         <div
             ref={containerRef}
+            data-control=""
             aria-disabled={disabled || undefined}
             data-appearance={bordered ? appearance : undefined}
             data-labeled={Boolean(label && bordered)}
@@ -445,9 +562,9 @@ function TextEdit({
             className={cx(
                 containerBaseStyle,
                 bordered ? sizeContainerStyles[size] : borderlessStyle,
-                bordered && fieldStatus === "error" && errorStyle,
-                bordered && fieldStatus === "warning" && warningStyle,
-                bordered && materialStyle,
+                bordered && !disabled && fieldStatus === "error" && errorStyle,
+                bordered && !disabled && fieldStatus === "warning" && warningStyle,
+                bordered && appearanceStyle,
                 className
             )}
         >
@@ -474,7 +591,11 @@ function TextEdit({
                 aria-invalid={rest['aria-invalid'] ?? (fieldStatus === "error" || undefined)}
                 aria-describedby={[rest['aria-describedby'], description ? descriptionId : undefined, count ? countId : undefined].filter(Boolean).join(" ") || undefined}
             />
-            {label && bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
+            {label && bordered && appearance === "outlined" && (
+                <fieldset aria-hidden="true" className={outlineStyle}>
+                    <legend>{label}{rest.required && <span className={legendRequiredStyle}>*</span>}</legend>
+                </fieldset>
+            )}
             {showClearButton && (
                 <Button
                     type="button"
@@ -498,17 +619,24 @@ function TextEdit({
                     }}
                 />
             )}
-            {!enhancedField && count}
         </div>
     );
 
     return enhancedField ? (
-        <div className={fieldStyle}>
-            {label && !bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
+        <div
+            data-field-root=""
+            className={fieldStyle}
+            data-bordered={bordered}
+            data-labeled={Boolean(label)}
+            data-appearance={appearance}
+            data-status={fieldStatus}
+            aria-disabled={disabled || undefined}
+        >
+            {label && <label htmlFor={inputId}><span data-field-label-text="">{label}</span>{rest.required && <span data-required-marker="" aria-hidden="true">*</span>}</label>}
             {control}
             {(description || count) && (
-                <div className={supportingStyle} data-status={fieldStatus}>
-                    <span id={description ? descriptionId : undefined}>{description}</span>
+                <div className={supportingStyle} data-support="" data-status={disabled ? undefined : fieldStatus}>
+                    <span id={description ? descriptionId : undefined} role={errorText ? "alert" : undefined}>{description}</span>
                     {count}
                 </div>
             )}

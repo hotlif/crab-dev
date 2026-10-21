@@ -15,11 +15,11 @@ status = "experimental"
 
 ### 填充、描边与浮动标签
 
-`appearance="filled"` 通过表面色和底线区分输入区域；`appearance="outlined"` 通过轮廓建立边界，也是兼容现有调用的默认外观。`label` 提供自动关联的浮动标签：空值时留在字段内，聚焦或有内容时上移，输入后仍然可见。
+`appearance="outlined"` 为默认外观。统一的 `ConfigProvider design` 决定字段布局：Material 使用浮动标签，Outlined 标签浮起后位于真实的轮廓缺口，Filled 标签留在容器内部上方，并使用顶部圆角和底部指示线；shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
 
 `supportingText` 将辅助说明置于字段下方；`errorText` 替换辅助说明、启用错误状态并自动设置描述关联。已有 `aria-describedby` 会保留，计数也会加入关联。调用方仍可显式指定 `aria-invalid`。带标签的 `showCount` 移到辅助信息行，避免挤占输入宽度；无标签的旧调用保持原布局。
 
-`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。未提供新属性的调用继续使用原有 API。M3 Expressive 的色彩、强调排版和分组用于示例页面；文本字段遵循 [Material 文本字段结构](https://material-web.dev/components/text-field/)，不额外发明胶囊或装饰性输入形状。
+`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无标签的已有调用保留紧凑尺寸，适合组合输入和搜索容器。Material 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
 
 用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
 
@@ -41,21 +41,23 @@ status = "experimental"
 
 ### 当前尺寸与状态实现
 
-默认字段使用 Material Design 3 的 56px 高度。显式 size 属性保留较小与较大的变体；数值来自本包 `token.toml`。
+带标签的 Material 字段使用 56px 最小高度，输入文字为 16px / 24px，浮动标签和辅助说明为 12px / 16px。shadcn 字段和无标签的兼容调用使用以下桌面密度：
 
 | size | 容器最小高度 | 默认字号 / 行高 | 内边距 |
 | --- | --- | --- | --- |
-| large | 64px | 16px / 24px | 上下 4px、左右 12px |
-| middle | 56px | 16px / 24px | 上下 4px、左右 12px |
-| small | 48px | 16px / 24px | 上下 0、左右 8px |
+| large | 40px | 14px / 20px | 上下 4px、左右 12px |
+| middle | 36px | 14px / 20px | 上下 4px、左右 12px |
+| small | 32px | 14px / 20px | 上下 0、左右 8px |
 
-高度可随内容和字体设置增长。粗指针下输入区最小高度为 48px，内部动作最小目标为 48×48px，边框仍计入外层尺寸；容器可能高于 48px。鼠标下的内部动作至少 48×48px，小尺寸带动作时也允许容器自然增高，不能裁掉动作焦点。
+高度可随内容和字体设置增长。Material 标签字段无图标侧的内边距为 16px；有图标侧采用 12px 外侧间距、24px 图标与 16px 图标至文本间距，与 [Material Web 字段间距令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-field.scss) 和 [图标规格令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-text-field.scss) 一致。Filled 的浮动标签保持与输入文字起点对齐，位于内部上方；Outlined 的浮动标签位于左侧轮廓缺口。粗指针下输入区和内部动作的最小目标为 48px，容器允许自然增高；shadcn 的桌面密度属于本项目定制，不作为 M3 标准字段尺寸。
 
 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，填充型将底线加粗为 3px，不额外叠加外侧焦点框或光晕；错误与 warning 沿用各自的反馈色。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。`status="error"` 默认设置 `aria-invalid=true`，显式 `aria-invalid` 优先；warning 不自动宣告无效。错误原因和恢复方法仍需调用方以可见文字提供，并通过 `aria-describedby` 关联。
 
 边框依据：2026-09-23 核对的 [M3 文本框规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility) 与 [Material Web 示例](https://material-web.dev/components/text-field/)。实现参照 Material Web 提交 `849b4dce` 的 [outlined 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_filled-field.scss)、[描边焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-outlined-text-field.scss) 和 [底线焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-filled-text-field.scss)。M3 规格表同时保留旧的 filled focus height 2dp 和新的 thickness 3dp；本实现采用新厚度，与 Material Web 的 3px 覆盖值一致。warning 为本库扩展，沿用相同的边界加粗规则。
 
-内部清除和密码动作复用 Button，具有独立焦点、系统颜色和减少动态效果支持。清除先把焦点还给输入框，再调用 `onClear`；由调用方更新受控值。提供 `id` 时动作关联该 ID，否则组件通过 `useId` 建立关联。
+本轮（2026-10-21）核对 [M3 规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍](https://m3.material.io/components/text-fields/accessibility)、[Material Web 文档和示例](https://material-web.dev/components/text-field/)，以及 Material Web 2.5.0 的 [字段行为](https://github.com/material-components/material-web/blob/main/textfield/internal/text-field.ts)、[Outlined 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[Filled 样式](https://github.com/material-components/material-web/blob/main/field/internal/_filled-field.scss)、[Outlined 包装令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-outlined-field.scss) 与 [Filled 包装令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-field.scss)。本实现采用当前包装层 3px 焦点指示；warning、清除动作和 shadcn 密度是项目扩展。
+
+内部清除和密码动作复用 Button，具有独立焦点、系统颜色和减少动态效果支持。清除先把焦点还给输入框，再调用 `onClear`；由调用方更新受控值。提供 `id` 时动作关联该 ID，否则组件通过 `useId` 建立关联。错误说明使用 `role="alert"`；修复后恢复辅助说明，字符计数通过描述关联提供。
 
 ### 组合、误用与验收
 

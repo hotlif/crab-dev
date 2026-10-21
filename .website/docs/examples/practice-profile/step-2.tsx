@@ -50,23 +50,26 @@ export default function Example() {
     return (
         <Card className={cardStyle} title="编辑个人资料">
             <Form className={layout}>
-                <label className={fieldStyle}>
-                    姓名（最多 30 字）
+                <div className={fieldStyle}>
                     <LineEdit
+                        label="姓名"
+                        supportingText="最多 30 字。"
                         value={name}
                         onChange={(event) => setName(event.target.value)}
                         maxLength={30}
                     />
-                </label>
+                </div>
 
-                <label className={fieldStyle}>
-                    邮箱（最多 80 字）
+                <div className={fieldStyle}>
                     <LineEdit
+                        label="邮箱"
+                        supportingText="最多 80 字。"
+                        type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         maxLength={80}
                     />
-                </label>
+                </div>
 
                 <output>
                     待提交：{name || "未填写姓名"} / {email || "未填写邮箱"}

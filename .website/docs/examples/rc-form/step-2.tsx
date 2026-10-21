@@ -1,24 +1,13 @@
 import { useState } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import Form, { Item, useForm, RuleType, type FormItemEditor } from "@crab-dev/rc-form";
+import Form, { Item, useForm, RuleType } from "@crab-dev/rc-form";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Button from "@crab-dev/rc-button";
 const layout = css`
     display: grid;
     gap: ${token.space["group-gap"]};
 `;
-function NameEditor({ value, onChange, status }: FormItemEditor<string>) {
-    return (
-        <LineEdit
-            aria-label="姓名"
-            maxLength={30}
-            value={value ?? ""}
-            status={status}
-            onChange={(event) => onChange?.(event.target.value)}
-        />
-    );
-}
 export default function Example() {
     const [form] = useForm<{
         name: string;
@@ -38,6 +27,10 @@ export default function Example() {
                 <Item
                     name="name"
                     label="姓名"
+                    labelPlacement="control"
+                    binding="event"
+                    supportingText="请填写真实姓名，最多 30 字。"
+                    required
                     rules={[
                         {
                             type: RuleType.ERROR,
@@ -48,7 +41,7 @@ export default function Example() {
                         },
                     ]}
                 >
-                    <NameEditor />
+                    <LineEdit maxLength={30} />
                 </Item>
                 <Button onClick={() => void form.submit()}>校验并提交</Button>
             </Form>

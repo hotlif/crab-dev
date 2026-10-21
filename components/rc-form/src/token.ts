@@ -24,7 +24,7 @@ const token = defineTokens({
         'gap': `var(${vars['item.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'row': {
-        'gap': `var(${vars['row.gap']}, var(--token-semantic-density-gap, var(--token-global-space-3, 12px)))`
+        'gap': `var(${vars['row.gap']}, var(--token-semantic-density-gap, var(--token-global-space-2, 8px)))`
     },
     'label': {
         'color': `var(${vars['label.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
@@ -32,8 +32,8 @@ const token = defineTokens({
         'font-weight': `var(${vars['label.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`
     },
     'required': {
-        'color': `var(${vars['required.color']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
-        'gap': `var(${vars['required.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        'color': `var(${vars['required.color']}, var(--token-semantic-field-required-color, inherit))`,
+        'gap': `var(${vars['required.gap']}, var(--token-semantic-field-required-gap, var(--token-global-space-1, 4px)))`
     },
     'status': {
         'width': `var(${vars['status.width']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,

@@ -18,7 +18,7 @@ const PrefixSuffixDemo = () => {
 				padding: 1rem;
 			`}
         >
-            <LineEdit prefix={<Search size={16} />} placeholder="搜索" />
+            <LineEdit appearance="filled" label="搜索" prefix={<Search aria-hidden="true" />} placeholder="输入项目名称" />
             <LineEdit suffix={<X size={16} />} placeholder="可清除" />
             <LineEdit
                 prefix={<Search size={16} />}

@@ -85,32 +85,48 @@ const EditorsDemo: FC = () => {
                 console.warn("[submit:failed]", err);
             }}
         >
-            <Item label="用户名" name="username" binding="event" required>
+            <Item label="用户名" labelPlacement="control" name="username" binding="event" required>
                 <LineEdit placeholder="请输入用户名" />
             </Item>
 
-            <Item label="邮箱" name="email" binding="event" required>
+            <Item label="邮箱" labelPlacement="control" name="email" binding="event" required>
                 <LineEdit placeholder="name@example.com" type="email" />
             </Item>
 
             <Item label="角色" name="role" required>
-                <Select options={ROLE_OPTIONS} placeholder="选择角色" />
+                {({ id, value, onChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+                    <Select id={id} aria-label="角色" aria-invalid={invalid} aria-describedby={describedBy}
+                        value={typeof value === 'string' ? value : undefined} onChange={onChange} status={status}
+                        options={ROLE_OPTIONS} placeholder="选择角色" />
+                )}
             </Item>
 
             <Item label="技能" name="tags">
-                <CheckboxGroup>
-                    <Checkbox value="typescript">TypeScript</Checkbox>
-                    <Checkbox value="react">React</Checkbox>
-                    <Checkbox value="rust">Rust</Checkbox>
-                </CheckboxGroup>
+                {({ id, value, onChange, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+                    <CheckboxGroup
+                        value={Array.isArray(value) ? value.filter((entry: unknown): entry is string | number => typeof entry === 'string' || typeof entry === 'number') : []}
+                        onChange={onChange}
+                    >
+                        <Checkbox id={id} value="typescript" aria-invalid={invalid} aria-describedby={describedBy}>TypeScript</Checkbox>
+                        <Checkbox value="react" aria-invalid={invalid} aria-describedby={describedBy}>React</Checkbox>
+                        <Checkbox value="rust" aria-invalid={invalid} aria-describedby={describedBy}>Rust</Checkbox>
+                    </CheckboxGroup>
+                )}
             </Item>
 
             <Item label="套餐" name="plan">
-                <RadioGroup>
-                    <Radio value="free">Free</Radio>
-                    <Radio value="pro">Pro</Radio>
-                    <Radio value="team">Team</Radio>
-                </RadioGroup>
+                {({ id, value, onChange, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+                    <RadioGroup
+                        aria-label="套餐"
+                        aria-describedby={describedBy}
+                        value={typeof value === 'string' || typeof value === 'number' ? value : undefined}
+                        onChange={onChange}
+                    >
+                        <Radio id={id} value="free" aria-invalid={invalid}>Free</Radio>
+                        <Radio value="pro" aria-invalid={invalid}>Pro</Radio>
+                        <Radio value="team" aria-invalid={invalid}>Team</Radio>
+                    </RadioGroup>
+                )}
             </Item>
 
             <Item label="接收邮件" name="receiveEmail" binding="checked">

@@ -4,13 +4,15 @@ import Button from "@crab-dev/rc-button";
 import { Eye, EyeOff, X } from "lucide-react";
 import { useId, useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
 
+import semanticToken from "@crab-dev/rc-token-semantic";
+
 import token, { vars } from "./token.js";
 
 
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
-    /** 可见的浮动标签，与输入框自动关联。 */
+    /** 与输入框关联的可见标签；Material 浮动，shadcn 上置。 */
     label?: string;
     /** 输入框下方的辅助说明，自动加入 aria-describedby。 */
     supportingText?: string;
@@ -116,18 +118,21 @@ const containerBaseStyle = css`
 const sizeContainerStyles = {
     large: css`
         min-height: ${token.size.large.height};
+        ${vars['field.control.height']}: ${token.size.large.height};
         ${vars['action.min-width']}: ${token.size.large.action.width};
         ${vars['action.height']}: ${token.size.large.action.width};
         padding: ${token.size.large.padding};
     `,
     middle: css`
         min-height: ${token.size.middle.height};
+        ${vars['field.control.height']}: ${token.size.middle.height};
         ${vars['action.min-width']}: ${token.size.middle.action.width};
         ${vars['action.height']}: ${token.size.middle.action.width};
         padding: ${token.size.middle.padding};
     `,
     small: css`
         min-height: ${token.size.small.height};
+        ${vars['field.control.height']}: ${token.size.small.height};
         ${vars['action.min-width']}: ${token.size.small.action.width};
         ${vars['action.height']}: ${token.size.small.action.width};
         padding: ${token.size.small.padding};
@@ -277,85 +282,221 @@ const countStyle = css`
     user-select: none;
 `
 
+// The hidden notch must reserve the same required-marker spacing as the label.
+const legendRequiredStyle = css`
+    margin-inline-start: ${token.field.required.gap};
+`;
+
+
 const fieldStyle = css`
+    position: relative;
     display: inline-grid;
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    gap: ${token.field.gap};
-`;
-
-const materialStyle = css`
-    position: relative;
-    cursor: text;
-    &:has(button) { padding-block: 0; }
-    &[data-labeled="true"] { padding-inline: ${token.field['padding-inline']}; }
+    row-gap: ${token.field.layout['row-gap']};
     & > label {
-        position: absolute;
-        inset-inline-start: ${token.field['padding-inline']};
-        top: 50%;
-        transform: translateY(-50%);
-        max-width: calc(100% - ${token.field.prefix.left});
+        display: inline-flex;
+        align-items: center;
+        gap: ${token.field.required.gap};
+        & > [data-field-label-text] {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        & > [data-required-marker] {
+            flex-shrink: 0;
+            order: ${semanticToken.field.required.order};
+            color: ${token.field.required.color};
+        }
+    }
+    &[data-labeled="true"] > [data-field-support] { grid-column: 1; grid-row: ${semanticToken.field.layout['support-row']}; }
+    &[data-labeled="true"] > [data-field-control] {
+        grid-column: 1;
+        grid-row: ${semanticToken.field.layout['control-row']};
+        min-height: max(${token.field.control['min-height']}, ${token.field.control.height});
+        padding-inline: ${token.field.control['padding-inline']};
+        padding-block: 0;
+        column-gap: ${token.field.control['column-gap']};
+        &[data-prefix="true"] { padding-inline-start: ${token.field.control['padding-inline-start']}; }
+        &[data-suffix="true"] { padding-inline-end: ${token.field.control['padding-inline-end']}; }
+        & > [data-field-prefix], & > [data-field-suffix] {
+            min-width: ${token.field.icon.width};
+            margin: 0;
+            justify-content: center;
+        }
+        & > button { margin: 0; }
+        & > [data-field-prefix] svg, & > [data-field-suffix] svg, & > button svg {
+            width: ${token.field.icon.width};
+            height: ${token.field.icon.height};
+        }
+    }
+    &[data-labeled="true"] input {
+        font-size: ${token.field.input['font-size']};
+        line-height: ${token.field.input['line-height']};
+    }
+    &[data-labeled="true"] > label {
+        grid-column: 1;
+        grid-row: ${semanticToken.field.layout['label-row']};
+        z-index: 1;
+        align-self: ${semanticToken.field.label.align};
+        justify-self: start;
+        margin-inline: ${semanticToken.field.label['margin-inline']};
+        max-width: calc(100% - ${token.field.control['padding-inline']} - ${token.field.control['padding-inline']});
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         cursor: text;
-        color: ${token.field.label['color']};
-        font-size: ${token.size.middle['font-size']};
+        color: ${token.field.label.color};
+        font-size: ${token.field.label['font-size']};
         line-height: ${token.field.label['line-height']};
         transition: ${token.field.transition};
     }
-    &[data-prefix="true"] > label { inset-inline-start: ${token.field.prefix.left}; }
-    &[data-labeled="true"]:not(:focus-within) input:placeholder-shown::placeholder { color: transparent; }
-    &:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
-        top: 0;
-        font-size: ${token.field.label['font-size']};
-        padding-inline: ${token.field.label['padding-inline']};
-        background: ${token.root['background-color']};
+    &[data-labeled="true"][data-prefix="true"] > label {
+        margin-inline-start: ${semanticToken.field.label['prefix-margin-inline']};
+    }
+    &[data-labeled="true"]:not(:focus-within) input:placeholder-shown::placeholder {
+        color: ${token.field.placeholder.color};
+    }
+    &[data-labeled="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
+        align-self: ${semanticToken.field.label.floating.align};
+        margin-inline-start: ${semanticToken.field.label.floating['margin-inline']};
+        font-size: ${token.field.label.floating['font-size']};
+        line-height: ${token.field.label.floating['line-height']};
+        transform: ${token.field.label.floating.transform};
     }
     &:focus-within > label { color: ${token.field.label['color-focus']}; }
-    &[data-appearance="filled"] {
-        border-radius: ${token.root['border-radius']} ${token.root['border-radius']} 0 0;
-        border-color: transparent;
-        border-bottom-color: ${token.field.indicator['border-color']};
-        background: ${token.field.filled['background-color']};
-        box-shadow: none;
+    &[data-labeled="true"][data-appearance="filled"] input {
+        padding-top: ${token.field.input.filled['padding-top']};
     }
-    &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within) {
-        background: ${token.field.filled['background-color-hover']};
-        border-color: transparent;
-        border-bottom-color: ${token.text.color};
-    }
-    &[data-appearance="filled"]:focus-within {
-        border-color: transparent;
-        border-bottom-color: ${token.root['border-color-focus']};
-        box-shadow: ${token.field.indicator['box-shadow-focus']};
-    }
-    &[data-appearance="filled"][data-labeled="true"] input { padding-top: ${token.field.input['padding-top']}; }
-    &[data-appearance="filled"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
-        top: ${token.field.label['top']};
+    &[data-labeled="true"][data-appearance="filled"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
+        margin-block-start: ${token.field.label.filled['margin-top']};
         transform: none;
-        padding: 0;
-        background: transparent;
+    }
+    &[data-labeled="true"][data-appearance="filled"][data-prefix="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
+        margin-inline-start: ${semanticToken.field.label['prefix-margin-inline']};
+    }
+    &[data-labeled="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) legend {
+        max-width: calc(100% - ${token.field.control['padding-inline']} - ${token.field.control['padding-inline']});
+        padding-inline: ${token.field.outline.legend.padding};
     }
     &[data-status="error"] > label { color: ${token.field['color-error']}; }
     &[data-status="warning"] > label { color: ${token.field['color-warning']}; }
-    &&[data-appearance="filled"][data-status="error"] {
-        border-color: transparent;
-        border-bottom-color: ${token.status['border-color-error']};
-        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-error']}; }
-    }
-    &&[data-appearance="filled"][data-status="warning"] {
-        border-color: transparent;
-        border-bottom-color: ${token.status.warning['border-color']};
-        &:focus-within { box-shadow: ${token.field.indicator['box-shadow-warning']}; }
-    }
+    &[data-disabled="true"] > label { cursor: not-allowed; color: ${token.field['color-disabled']}; }
+    &&[data-disabled="true"] > label > [data-required-marker] { color: inherit; }
+    &[data-disabled="true"] > [data-field-support] { color: ${token.field['color-disabled']}; }
     @media (prefers-reduced-motion: reduce) { & > label { transition: none; } }
     @media (forced-colors: active) {
-        && { border-color: CanvasText; background: Canvas; }
         & > label { color: CanvasText; }
-        &:focus-within > label { color: Highlight; }
-        &[aria-disabled="true"] > label { color: GrayText; }
+        &:focus-within > label { color: Highlight; background: Canvas; }
+        &[data-disabled="true"] > label { color: GrayText; }
+        && > label > [data-required-marker] { color: inherit; }
+    }
+`;
+
+// The semantic layout contract chooses floating Material or static shadcn labels.
+const labeledControlStyle = css`
+    position: relative;
+    &[data-appearance="outlined"] {
+        border-color: ${token.field.outlined['border-color']};
+        &:hover:not(:focus-within):not([aria-disabled="true"]) { border-color: ${token.field.outlined['border-color-hover']}; }
+        &:focus-within { border-color: ${token.field.outlined['border-color-focus']}; box-shadow: ${token.field.outlined['box-shadow-focus']}; }
+    }
+    &&[data-appearance="outlined"][data-status="error"] {
+        border-color: ${token.field.outlined['border-color-error']};
+        &:hover:not(:focus-within):not([aria-disabled="true"]) { border-color: ${token.field.outlined['border-color-error']}; }
+        &:focus-within { box-shadow: ${token.field.outlined['box-shadow-error']}; }
+    }
+    &&[data-appearance="outlined"][data-status="warning"] {
+        border-color: ${token.field.outlined['border-color-warning']};
+        &:hover:not(:focus-within):not([aria-disabled="true"]) { border-color: ${token.field.outlined['border-color-warning']}; }
+        &:focus-within { box-shadow: ${token.field.outlined['box-shadow-warning']}; }
+    }
+    & > fieldset {
+        display: ${semanticToken.field.outline.display};
+        position: absolute;
+        inset: calc(0px - ${token.field.outline.legend.height} / 2) 0 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+        border: ${token.root['border-width']} solid ${token.root['border-color']};
+        border-radius: inherit;
+        pointer-events: none;
+    }
+    & > fieldset > legend {
+        visibility: hidden;
+        overflow: hidden;
+        max-width: 0;
+        height: ${token.field.outline.legend.height};
+        margin-inline-start: ${token.field.outline.legend.margin};
+        padding: 0;
+        color: transparent;
+        font-size: ${token.field.label.floating['font-size']};
+        line-height: ${token.field.outline.legend['line-height']};
+        white-space: nowrap;
+    }
+    &:hover:not(:focus-within):not([aria-disabled="true"]) > fieldset { border-color: ${token.root['border-color-hover']}; }
+    &:focus-within > fieldset { border-color: ${token.root['border-color-focus']}; border-width: ${token.field.outline['border-width-focus']}; }
+    &&[data-status="error"] > fieldset { border-color: ${token.status['border-color-error']}; }
+    &&[data-status="warning"] > fieldset { border-color: ${token.status.warning['border-color']}; }
+    &&[data-status="error"]:hover:not([aria-disabled="true"]) > fieldset { border-color: ${token.status['border-color-error']}; }
+    &&[data-status="warning"]:hover:not([aria-disabled="true"]) > fieldset { border-color: ${token.status.warning['border-color']}; }
+    &[data-appearance="filled"] > fieldset { display: none; }
+    &&[aria-disabled="true"] {
+        opacity: 1;
+        color: ${token.field['color-disabled']};
+        border-color: ${token.field['border-color-disabled']};
+        box-shadow: none;
+        & > fieldset { border-color: ${token.field['border-color-disabled']}; }
+        & input::placeholder { color: ${token.field['color-disabled']}; }
+        & > div, & button { color: ${token.field['color-disabled']}; }
+    }
+    &&[data-appearance="outlined"][aria-disabled="true"]:has(fieldset) { border-color: ${token.field.outlined['border-color']}; }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; box-shadow: none; }
+        & > fieldset { display: none; }
+        &&[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
+    }
+`;
+
+const filledControlStyle = css`
+    && {
+        border-radius: ${token.field.filled['border-radius']};
+        border-width: ${token.field.filled['border-width']};
+        border-color: ${token.field.filled['border-color']};
+        background: ${token.field.filled['background-color']};
+        box-shadow: none;
+    }
+    &&:hover:not(:focus-within):not([aria-disabled="true"]) {
+        border-color: ${token.field.filled['border-color-hover']};
+        background: ${token.field.filled['background-color-hover']};
+    }
+    &&:focus-within {
+        border-color: ${token.field.filled['border-color-focus']};
+        box-shadow: ${token.field.filled['box-shadow-focus']};
+    }
+    &&[data-status="error"] {
+        border-color: ${token.status['border-color-error']};
+        &:hover:not(:focus-within):not([aria-disabled="true"]) { border-color: ${token.status['border-color-error']}; }
+        &:focus-within { box-shadow: ${token.field.filled['box-shadow-error']}; }
+    }
+    &&[data-status="warning"] {
+        border-color: ${token.status.warning['border-color']};
+        &:hover:not(:focus-within):not([aria-disabled="true"]) { border-color: ${token.status.warning['border-color']}; }
+        &:focus-within { box-shadow: ${token.field.filled['box-shadow-warning']}; }
+    }
+    &&&[aria-disabled="true"] {
+        opacity: 1;
+        color: ${token.field['color-disabled']};
+        border-color: ${token.field.filled['border-color-disabled']};
+        background: ${token.field.filled['background-color-disabled']};
+        box-shadow: none;
+        & > div, & button { color: ${token.field['color-disabled']}; }
+    }
+    @media (forced-colors: active) {
+        && { border-color: CanvasText; background: Canvas; box-shadow: none; }
+        &&&[aria-disabled="true"] { border-color: GrayText; background: Canvas; color: GrayText; }
     }
 `;
 
@@ -364,9 +505,9 @@ const supportingStyle = css`
     align-items: baseline;
     justify-content: space-between;
     gap: ${token.icon.gap};
-    padding-inline: ${token.field['padding-inline']};
+    padding-inline: ${token.field.support['padding-inline']};
     color: ${token.field.label['color']};
-    font-size: ${token.field.label['font-size']};
+    font-size: ${token.field.support['font-size']};
     line-height: ${token.field.support['line-height']};
     overflow-wrap: anywhere;
     & > span:first-child { min-width: 0; }
@@ -422,16 +563,18 @@ function LineEdit({
     const descriptionId = `${generatedId}-description`;
     const countId = `${generatedId}-count`;
     const count = showCount && typeof displayValue === "string" ? (
-        <span id={countId} className={countStyle}>{displayValue.length}{maxLength != null ? `/${maxLength}` : ""}</span>
+        <span id={countId} className={countStyle} aria-label={`字符计数：${displayValue.length}${maxLength != null ? `，最多 ${maxLength}` : ""}`}>{displayValue.length}{maxLength != null ? `/${maxLength}` : ""}</span>
     ) : null;
 
     const control = (
         <div
             ref={containerRef}
+            data-field-control=""
             aria-disabled={disabled || undefined}
             data-appearance={bordered ? appearance : undefined}
             data-labeled={Boolean(label && bordered)}
             data-prefix={Boolean(prefix)}
+            data-suffix={Boolean(suffix || isPassword || showClearButton)}
             data-status={fieldStatus}
             style={style}
             className={cx(
@@ -439,12 +582,14 @@ function LineEdit({
                 bordered ? sizeContainerStyles[size] : borderlessStyle,
                 bordered && fieldStatus === "error" && errorStyle,
                 bordered && fieldStatus === "warning" && warningStyle,
-                bordered && materialStyle,
+                bordered && label && labeledControlStyle,
+                bordered && appearance === "filled" && filledControlStyle,
                 className
             )}
         >
+            {label && bordered && appearance === "outlined" && <fieldset aria-hidden="true"><legend>{label}{rest.required && <span className={legendRequiredStyle}>*</span>}</legend></fieldset>}
             {prefix && (
-                <div className={cx(iconBaseStyle, prefixStyle, sizeTextStyles[size])}>
+                <div data-field-prefix="" className={cx(iconBaseStyle, prefixStyle, sizeTextStyles[size])}>
                     {prefix}
                 </div>
             )}
@@ -467,7 +612,6 @@ function LineEdit({
                 aria-invalid={rest['aria-invalid'] ?? (fieldStatus === "error" || undefined)}
                 aria-describedby={[rest['aria-describedby'], description ? descriptionId : undefined, count ? countId : undefined].filter(Boolean).join(" ") || undefined}
             />
-            {label && bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
             {showClearButton && (
                 <Button
                     type="button"
@@ -492,7 +636,7 @@ function LineEdit({
                 />
             )}
             {suffix && (
-                <div className={cx(iconBaseStyle, suffixStyle, sizeTextStyles[size])}>
+                <div data-field-suffix="" className={cx(iconBaseStyle, suffixStyle, sizeTextStyles[size])}>
                     {suffix}
                 </div>
             )}
@@ -512,11 +656,11 @@ function LineEdit({
             {!enhancedField && count}
         </div>
     );
-    return enhancedField ? <div className={fieldStyle}>
-        {label && !bordered && <label htmlFor={inputId}>{label}{rest.required ? " *" : ""}</label>}
+    return enhancedField ? <div data-field-root="" className={fieldStyle} data-labeled={Boolean(label && bordered)} data-appearance={appearance} data-status={fieldStatus} data-disabled={disabled || undefined} data-prefix={Boolean(prefix)}>
+        {label && <label htmlFor={inputId}><span data-field-label-text="">{label}</span>{rest.required && <span data-required-marker="" aria-hidden="true">*</span>}</label>}
         {control}
-        {(description || count) && <div className={supportingStyle} data-status={fieldStatus}>
-            <span id={descriptionId} aria-live="polite">{description}</span>
+        {(description || count) && <div className={supportingStyle} data-field-support="" data-status={fieldStatus}>
+            <span id={descriptionId} role={errorText ? "alert" : undefined} aria-live={errorText ? undefined : "polite"}>{description}</span>
             {count}
         </div>}
     </div> : control;

@@ -1,4 +1,4 @@
-import { useState, useTransition, useId } from "react";
+import { useState, useTransition } from "react";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Card from "@crab-dev/rc-card";
@@ -74,7 +74,6 @@ const fieldStyle = css`
 export default function Example() {
     const [name, setName] = useState("林晓");
     const [email, setEmail] = useState("lin@example.com");
-    const errorId = useId();
     const [errors, setErrors] = useState({
         name: "",
         email: "",
@@ -111,36 +110,29 @@ export default function Example() {
                 className={layout}
                 aria-busy={pending}
             >
-                <label className={fieldStyle}>
-                    姓名（最多 30 字）
+                <div className={fieldStyle}>
                     <LineEdit
+                        label="姓名"
+                        supportingText="填写对外显示的姓名，最多 30 字。"
                         value={name}
                         onChange={(event) => setName(event.target.value)}
                         maxLength={30}
-                        status={errors.name ? "error" : undefined}
-                        aria-invalid={!!errors.name}
-                        aria-describedby={`${errorId}-name`}
+                        errorText={errors.name || undefined}
                         disabled={pending}
                     />
-                </label>
-                <p id={`${errorId}-name`} role={errors.name ? "alert" : undefined}>
-                    {errors.name || "填写对外显示的姓名。"}
-                </p>
-                <label className={fieldStyle}>
-                    邮箱（最多 80 字）
+                </div>
+                <div className={fieldStyle}>
                     <LineEdit
+                        label="邮箱"
+                        supportingText="例如：lin@example.com，最多 80 字。"
+                        type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         maxLength={80}
-                        status={errors.email ? "error" : undefined}
-                        aria-invalid={!!errors.email}
-                        aria-describedby={`${errorId}-email`}
+                        errorText={errors.email || undefined}
                         disabled={pending}
                     />
-                </label>
-                <p id={`${errorId}-email`} role={errors.email ? "alert" : undefined}>
-                    {errors.email || "例如：lin@example.com"}
-                </p>
+                </div>
                 <output>
                     待提交：{name || "未填写姓名"} / {email || "未填写邮箱"}
                 </output>

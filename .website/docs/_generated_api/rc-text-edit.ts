@@ -19,7 +19,7 @@ export interface TextEditProps {
     "appearance"?: "outlined" | "filled";
 
     /**
-     * 可见的浮动标签，与文本域自动关联。
+     * 可见标签；Material 使用浮动标签，shadcn 使用上方标签。
      */
     "label"?: string;
 
@@ -45,7 +45,6 @@ export interface TextEditProps {
 
     /**
      * 设置多行文本输入框的大小（内边距与排版），默认为 middle； 可视高度由 rows / autoSize 决定
-     * @default "middle"
      */
     "size"?: "large" | "middle" | "small";
 

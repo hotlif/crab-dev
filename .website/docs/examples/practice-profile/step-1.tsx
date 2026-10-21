@@ -47,15 +47,13 @@ export default function Example() {
     return (
         <Card className={cardStyle} title="编辑个人资料">
             <Form className={layout}>
-                <label className={fieldStyle}>
-                    姓名（最多 30 字）
-                    <LineEdit defaultValue="林晓" maxLength={30} />
-                </label>
+                <div className={fieldStyle}>
+                    <LineEdit label="姓名" supportingText="最多 30 字。" defaultValue="林晓" maxLength={30} />
+                </div>
 
-                <label className={fieldStyle}>
-                    邮箱（最多 80 字）
-                    <LineEdit defaultValue="lin@example.com" maxLength={80} />
-                </label>
+                <div className={fieldStyle}>
+                    <LineEdit label="邮箱" supportingText="最多 80 字。" type="email" defaultValue="lin@example.com" maxLength={80} />
+                </div>
             </Form>
         </Card>
     );
