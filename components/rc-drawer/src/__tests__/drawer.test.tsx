@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import React from "react";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 const cssExitTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 let Drawer: (typeof import("../drawer.js"))["default"];
 beforeAll(async () => {
@@ -45,6 +46,14 @@ beforeEach(() => {
     });
 });
 describe("Drawer", () => {
+    it('keeps the configured design on its top-layer element', async () => {
+        const content = <Drawer open onOpenChange={() => {}} title="Scoped drawer">Content</Drawer>;
+        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        const boundary = view.container.querySelector('dialog');
+        expect(boundary?.getAttribute('data-crab-design')).toBe('shadcn');
+        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
+        expect(boundary?.getAttribute('data-crab-design')).toBe('material');
+    });
     it("names the dialog from its title and preserves an explicit accessible name", async () => {
         const view = await render(<Drawer title="项目详情" open onOpenChange={() => {}}>Content</Drawer>);
         // Wake's DOM role matcher does not infer native dialog names; verify

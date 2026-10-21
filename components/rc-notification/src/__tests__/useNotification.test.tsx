@@ -1,5 +1,7 @@
 import { afterEach, beforeAll, beforeEach, clock, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { createPortal } from "react-dom";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 import useNotification from "../hooks/useNotification.js";
 import type { NotificationHandle } from '../types.js';
 
@@ -11,6 +13,40 @@ afterEach(async () => { await clock.restore(); });
 const advance = (time: number) => act(async () => { await clock.advanceBy(time); });
 
 describe("notification deadlines", () => {
+    it('does not force a local light theme on a body holder without a provider', async () => {
+        let api!: ReturnType<typeof useNotification>[0];
+        function Host() {
+            const [instance, content] = useNotification();
+            api = instance;
+            return createPortal(content, document.body);
+        }
+        const view = await render(<Host />);
+        await act(() => { api.open({ title: 'Unconfigured notification', description: 'Native theme inheritance', duration: 0 }); });
+        const holder = screen.getByRole('status').closest('[popover]');
+        expect(holder?.parentElement).toBe(document.body);
+        expect(holder?.hasAttribute('data-theme')).toBe(false);
+        expect(holder?.hasAttribute('data-crab-design')).toBe(false);
+        await view.unmount();
+    });
+    it('keeps the hook design when its holder is portaled to body', async () => {
+        let api!: ReturnType<typeof useNotification>[0];
+        function Host() {
+            const [instance, content] = useNotification();
+            api = instance;
+            return createPortal(content, document.body);
+        }
+        const view = await render(<ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        await act(() => { api.open({ title: 'Scoped notification', description: 'Scoped design inheritance', duration: 0 }); });
+        const holder = screen.getByRole('status').closest('[popover]');
+        expect(holder?.parentElement).toBe(document.body);
+        expect(holder?.getAttribute('data-crab-design')).toBe('shadcn');
+        expect(holder?.getAttribute('data-theme')).toBe('dark');
+        expect(holder?.getAttribute('data-crab-brand')).toBeTruthy();
+        expect(holder?.querySelector('[data-crab-brand-style]')?.textContent).toContain('--token-semantic-color-brand-primary:');
+        await view.rerender(<ConfigProvider design="material" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        expect(holder?.getAttribute('data-crab-design')).toBe('material');
+        await view.unmount();
+    });
     it('updates a persistent notification and closes its handle exactly once', async () => {
         let api!: ReturnType<typeof useNotification>[0];
         let handle!: NotificationHandle;

@@ -1,4 +1,4 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
 import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
 import { css, cx } from "@crab-dev/css";
@@ -344,6 +344,7 @@ const Drawer: FC<DrawerProps> = ({
     onClick,
     ...restProps
 }) => {
+    const { design } = useConfig();
     const configuredSize = useComponentSize(sizeProp);
     const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     const dialogRef = useRef<HTMLDialogElement>(null);
@@ -402,6 +403,7 @@ const Drawer: FC<DrawerProps> = ({
 
     return (
         <dialog
+            data-crab-design={design}
             ref={dialogRef}
             className={cx(dialogResetStyle, className)}
             onClick={onClick}

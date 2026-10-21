@@ -1,6 +1,7 @@
 import { css } from '@crab-dev/css';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { uniqueId, useCountdown, useEventCallback } from '@crab-dev/rc-hooks';
+import { ConfigBoundary } from '@crab-dev/rc-config-provider';
 import Message from '../message.js';
 import type { MessageInstance, MessageOpenParam, MessageHandle } from '../types.js';
 
@@ -87,13 +88,13 @@ const useMessage = (): [MessageInstance, ReactNode] => {
         loading: (content, duration) => open({ type: 'loading', content, duration }),
     };
     const live = items.filter(item => item.open);
-    return [instance, <div key="messages" ref={containerRef} className={containerStyle} popover="manual">
+    return [instance, <ConfigBoundary key="messages" ref={containerRef} className={containerStyle} popover="manual">
         {items.map(item => <MessageItem key={item.id} item={item}
             stack={item.open ? live.length - live.indexOf(item) : 1}
             active={live.at(-1)?.id === item.id}
             close={close} remove={remove}
         />)}
-    </div>];
+    </ConfigBoundary>];
 };
 
 export default useMessage;

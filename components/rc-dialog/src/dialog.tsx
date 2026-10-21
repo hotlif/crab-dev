@@ -10,6 +10,7 @@ import {
 import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
 import RcButton from "@crab-dev/rc-button";
 import { usePresence } from "@crab-dev/rc-hooks";
+import { useConfig } from "@crab-dev/rc-config-provider";
 
 import token from "./token.js";
 
@@ -156,7 +157,7 @@ function Dialog({
     i18n = {},
     ...restProps
 }: DialogProps) {
-
+    const { design } = useConfig();
     const dialogRef = useRef<HTMLDialogElement>(null);
     // Mutable instance state: hold the scroll restoration through the entire exit.
     const restoreScroll = useRef<(() => void) | null>(null);
@@ -241,6 +242,7 @@ function Dialog({
 
     return (
         <dialog
+            data-crab-design={design}
             ref={(node) => {
                 // 例外 1（可变实例状态 ref）：内部需要持有 dialog 节点以驱动 showModal/close，
                 // 同时把节点透传给外部 ref prop（React 19 ref-as-prop）。

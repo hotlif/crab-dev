@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
 import { useEffect } from "react";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 const cssExitTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 import type { DialogProps } from "../dialog.js";
 let Dialog: (typeof import("../dialog.js"))["default"];
@@ -82,6 +83,14 @@ beforeEach(() => {
     mock.spyOn(HTMLDialogElement.prototype, "close").implement(() => { });
 });
 describe("Dialog", () => {
+    it('keeps the configured design on its top-layer element', async () => {
+        const content = <Dialog open onOpenChange={() => {}} title="Scoped dialog">Content</Dialog>;
+        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        const boundary = view.container.querySelector('dialog');
+        expect(boundary?.getAttribute('data-crab-design')).toBe('shadcn');
+        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
+        expect(boundary?.getAttribute('data-crab-design')).toBe('material');
+    });
     it("supports composed header and actions without leaking default controls", async () => {
         const { container, getDialog, rerender } = await renderDialog({ open: true, header: null, footer: null, 'aria-label': '选择时间' });
         expect(container.querySelector('button')).toBeNull();

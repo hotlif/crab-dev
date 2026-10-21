@@ -1,8 +1,19 @@
 import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 import TabContextMenu from '../tabContextMenu.js';
 
 describe('tab context menu presence', () => {
+    it('keeps its configured design after portaling to body', async () => {
+        const props = { x: 10, y: 10, onClose: mock.fn(), items: [{ id: 'close', label: 'Close tab', onSelect: mock.fn() }] };
+        const view = await render(<ConfigProvider design="shadcn"><TabContextMenu {...props} /></ConfigProvider>);
+        const menu = screen.getByRole('menu');
+        const boundary = menu.closest('[data-crab-design]');
+        expect(boundary?.parentElement).toBe(document.body);
+        expect(boundary?.getAttribute('data-crab-design')).toBe('shadcn');
+        await view.rerender(<ConfigProvider design="material"><TabContextMenu {...props} /></ConfigProvider>);
+        expect(boundary?.getAttribute('data-crab-design')).toBe('material');
+    });
     it('deactivates while closing and ignores an interrupted exit', async () => {
         const close = mock.fn();
         const complete = mock.fn();
@@ -10,6 +21,8 @@ describe('tab context menu presence', () => {
         const props = { x: 10, y: 10, onClose: close, onExitComplete: complete, items: [{ id: 'close', label: 'Close tab', onSelect: select }] };
         const view = await render(<TabContextMenu {...props} open />);
         const menu = screen.getByRole('menu');
+        expect(menu.parentElement?.hasAttribute('data-theme')).toBe(false);
+        expect(menu.parentElement?.hasAttribute('data-crab-design')).toBe(false);
         const exit = Promise.withResolvers<void>();
         let settled = false;
         Object.defineProperty(menu, 'getAnimations', { value: () => settled ? [] : [{ playState: 'running', finished: exit.promise }] });

@@ -1,5 +1,7 @@
 import { afterEach, beforeAll, beforeEach, clock, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render, screen } from "@crab-dev/wake/test/react";
+import { createPortal } from "react-dom";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 import useMessage from "../hooks/useMessage.js";
 import type { MessageInstance, MessageHandle } from "../types.js";
 
@@ -22,6 +24,40 @@ async function host() {
 }
 
 describe("useMessage CSS lifecycle", () => {
+    it('does not force a local light theme on a body holder without a provider', async () => {
+        let api!: MessageInstance;
+        function Host() {
+            const [instance, content] = useMessage();
+            api = instance;
+            return createPortal(content, document.body);
+        }
+        const view = await render(<Host />);
+        await act(() => { api.info('Unconfigured message', 0); });
+        const holder = screen.getByRole('alert').closest('[popover]');
+        expect(holder?.parentElement).toBe(document.body);
+        expect(holder?.hasAttribute('data-theme')).toBe(false);
+        expect(holder?.hasAttribute('data-crab-design')).toBe(false);
+        await view.unmount();
+    });
+    it('keeps the hook design when its holder is portaled to body', async () => {
+        let api!: MessageInstance;
+        function Host() {
+            const [instance, content] = useMessage();
+            api = instance;
+            return createPortal(content, document.body);
+        }
+        const view = await render(<ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        await act(() => { api.info('Scoped message', 0); });
+        const holder = screen.getByRole('alert').closest('[popover]');
+        expect(holder?.parentElement).toBe(document.body);
+        expect(holder?.getAttribute('data-crab-design')).toBe('shadcn');
+        expect(holder?.getAttribute('data-theme')).toBe('dark');
+        expect(holder?.getAttribute('data-crab-brand')).toBeTruthy();
+        expect(holder?.querySelector('[data-crab-brand-style]')?.textContent).toContain('--token-semantic-color-brand-primary:');
+        await view.rerender(<ConfigProvider design="material" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        expect(holder?.getAttribute('data-crab-design')).toBe('material');
+        await view.unmount();
+    });
     it('updates loading in place, restarts the same deadline and ignores expired handles', async () => {
         const { api, view } = await host();
         let handle!: MessageHandle;

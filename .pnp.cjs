@@ -929,6 +929,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-breadcrumbs", "workspace:components/rc-breadcrumbs"],\
           ["@crab-dev/rc-button", "workspace:components/rc-button"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
           ["@crab-dev/rc-drawer", "workspace:components/rc-drawer"],\
           ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
@@ -965,6 +966,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-breadcrumbs", "workspace:components/rc-breadcrumbs"],\
           ["@crab-dev/rc-button", "workspace:components/rc-button"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
           ["@crab-dev/rc-drawer", "workspace:components/rc-drawer"],\
           ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
@@ -1371,6 +1373,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/css", "npm:0.1.45"],\
           ["@crab-dev/rc-button", "workspace:components/rc-button"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
           ["@crab-dev/rc-date-picker", "workspace:components/rc-date-picker"],\
           ["@crab-dev/rc-dialog", "workspace:components/rc-dialog"],\
           ["@crab-dev/rc-form", "workspace:components/rc-form"],\
@@ -1745,6 +1748,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@crab-dev/css", "npm:0.1.45"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
           ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
           ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\
@@ -1769,6 +1773,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@crab-dev/css", "npm:0.1.45"],\
           ["@crab-dev/rc-button", "workspace:components/rc-button"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
           ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\
           ["@crab-dev/rc-notification", "workspace:components/rc-notification"],\
@@ -2443,6 +2448,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@crab-dev/css", "npm:0.1.45"],\
           ["@crab-dev/rc-component-preview", "workspace:components/rc-component-preview"],\
+          ["@crab-dev/rc-config-provider", "workspace:components/rc-config-provider"],\
           ["@crab-dev/rc-hooks", "workspace:components/rc-hooks"],\
           ["@crab-dev/rc-masonry", "workspace:components/rc-masonry"],\
           ["@crab-dev/rc-menu", "virtual:06fa0e3761b88af997d10420ce93b180d5556f99c9dcd1c21a62e010243745186953ec9dbe94bcc2ff2ee1612ee23164d14f9e03bbdc3ff5502ef925acc3d0d8#workspace:components/rc-menu"],\

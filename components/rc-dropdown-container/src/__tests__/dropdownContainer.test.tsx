@@ -92,6 +92,17 @@ const renderDropdown = async (props: Partial<DropdownContainerProps> = {}) => {
     </DropdownContainer>);
 };
 describe("DropdownContainer", () => {
+    it('keeps the configured design on a portal panel and follows changes', async () => {
+        const overlay = <div data-testid="design-overlay">Options</div>;
+        const content = <DropdownContainer overlay={overlay}><Trigger /></DropdownContainer>;
+        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        await fireEvent(screen.getByTestId('trigger'), new FocusEvent('focusin', { bubbles: true }));
+        const panel = () => screen.getByTestId('design-overlay').parentElement?.parentElement;
+        expect(panel()?.getAttribute('data-crab-design')).toBe('shadcn');
+        expect(screen.getByTestId('trigger').parentElement?.contains(panel() ?? null)).toBe(false);
+        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
+        expect(panel()?.getAttribute('data-crab-design')).toBe('material');
+    });
     it('restores inherited density in a portalled panel and honors a local override', async () => {
         const overlay = <div data-testid="size-overlay">Options</div>;
         const view = await render(<ConfigProvider size="small"><DropdownContainer overlay={overlay}><Trigger /></DropdownContainer></ConfigProvider>);
@@ -219,6 +230,19 @@ describe("DropdownContainer", () => {
         const dialog = container.querySelector("dialog") as HTMLDialogElement;
         // 浮层必须位于 dialog 子树内，否则会被 showModal 的 inert 机制屏蔽交互
         expect(dialog.contains(overlay)).toBe(true);
+    });
+    it('preserves a local theme and brand boundary inside a modal dialog', async () => {
+        const { container } = await render(<dialog open>
+            <ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4">
+                <DropdownContainer overlay={<div data-testid="overlay">Dropdown Content</div>}><Trigger /></DropdownContainer>
+            </ConfigProvider>
+        </dialog>);
+        await fireEvent(screen.getByTestId('trigger'), new FocusEvent('focusin', { bubbles: true }));
+        const overlay = screen.getByTestId('overlay');
+        const boundary = container.querySelector('[data-crab-brand]');
+        expect(boundary?.contains(overlay)).toBe(true);
+        expect(overlay.closest('[data-theme]')).toBe(boundary);
+        expect(overlay.closest('[data-crab-design]')?.getAttribute('data-crab-design')).toBe('shadcn');
     });
     it("does not portal into a dialog when trigger is outside of one", async () => {
         await renderDropdown();

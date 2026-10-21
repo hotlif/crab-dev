@@ -542,6 +542,7 @@ __metadata:
     "@crab-dev/rc-breadcrumbs": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-drawer": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
@@ -922,6 +923,7 @@ __metadata:
     "@crab-dev/css": "npm:0.1.45"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-date-picker": "workspace:^"
     "@crab-dev/rc-form": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
@@ -1216,6 +1218,7 @@ __metadata:
   dependencies:
     "@crab-dev/css": "npm:0.1.45"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
@@ -1238,6 +1241,7 @@ __metadata:
   dependencies:
     "@crab-dev/css": "npm:0.1.45"
     "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
@@ -1850,6 +1854,7 @@ __metadata:
   dependencies:
     "@crab-dev/css": "npm:0.1.45"
     "@crab-dev/rc-component-preview": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"

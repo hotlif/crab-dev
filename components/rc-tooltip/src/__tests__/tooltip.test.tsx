@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 
 
 mock.module("@floating-ui/react", async () => {
@@ -95,6 +96,13 @@ beforeAll(async () => {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 describe('Tooltip', () => {
+    it('keeps the configured design on its floating element and follows changes', async () => {
+        const content = <Tooltip title="提示" open><button>触发</button></Tooltip>;
+        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        expect(screen.getByRole('tooltip').getAttribute('data-crab-design')).toBe('shadcn');
+        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
+        expect(screen.getByRole('tooltip').getAttribute('data-crab-design')).toBe('material');
+    });
     // ─── 基础渲染 ──────────────────────────────────────────────────────────
     it('renders trigger element', async () => {
         await render(<Tooltip title="提示">
@@ -114,6 +122,8 @@ describe('Tooltip', () => {
             <button>触发</button>
         </Tooltip>);
         expect(screen.getByRole('tooltip')).toBeTruthy();
+        expect(screen.getByRole('tooltip').hasAttribute('data-theme')).toBe(false);
+        expect(screen.getByRole('tooltip').hasAttribute('data-crab-design')).toBe(false);
         expect(screen.getByText('受控提示')).toBeTruthy();
     });
     it('hides tooltip when open is false', async () => {

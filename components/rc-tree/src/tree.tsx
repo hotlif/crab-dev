@@ -1,4 +1,4 @@
-import { useComponentSize, componentSizeMetrics, type ConfigSize } from '@crab-dev/rc-config-provider';
+import { ConfigBoundary, useComponentSize, componentSizeMetrics, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { useEffect, useState, useRef, useMemo, useId } from "react";
 import type { Key, FC, ReactNode, HTMLAttributes, MouseEvent, SetStateAction, Dispatch } from "react";
 import { createPortal } from "react-dom";
@@ -771,27 +771,29 @@ const Tree: FC<TreeProps> = ({
                     />
                     {activeNode ? (
                         createPortal(
-                            <DragOverlay
-                                className={css`
-                                    pointer-events: none;
-                                    border-radius: 4px;
-                                    box-shadow: ${token["drag-overlay"]["box-shadow"]};
-                                `}
-                            >
-                                <NodeItem
-                                    loading={false}
-                                    node={activeNode}
-                                    overState={null}
-                                    selectKeys={[]}
-                                    style={{
-                                        height: coarsePointer ? Math.max((activeNode as Node)?.height ?? defaultNodeHeight, 48) : (activeNode as Node)?.height ?? defaultNodeHeight,
-                                        width: width,
-                                        borderRadius: 4,
-                                        opacity: 1,
-                                    }}
-                                    expanded={expandedKeys?.includes((activeNode as Node )?.id) === true}
-                                />
-                            </DragOverlay>,
+                            <ConfigBoundary>
+                                <DragOverlay
+                                    className={css`
+                                        pointer-events: none;
+                                        border-radius: 4px;
+                                        box-shadow: ${token["drag-overlay"]["box-shadow"]};
+                                    `}
+                                >
+                                    <NodeItem
+                                        loading={false}
+                                        node={activeNode}
+                                        overState={null}
+                                        selectKeys={[]}
+                                        style={{
+                                            height: coarsePointer ? Math.max((activeNode as Node)?.height ?? defaultNodeHeight, 48) : (activeNode as Node)?.height ?? defaultNodeHeight,
+                                            width: width,
+                                            borderRadius: 4,
+                                            opacity: 1,
+                                        }}
+                                        expanded={expandedKeys?.includes((activeNode as Node )?.id) === true}
+                                    />
+                                </DragOverlay>
+                            </ConfigBoundary>,
                             document.body
                         )
                     ): null}

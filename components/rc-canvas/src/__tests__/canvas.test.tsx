@@ -190,14 +190,14 @@ describe('Canvas', () => {
                 </Canvas>
             </section>,
         );
-        const before = Number(screen.getByTestId('palette-revision').textContent);
-
-        await act(async () => {
-            container.querySelector('section')?.setAttribute('data-theme', 'dark');
-            await Promise.resolve();
-        });
-
-        expect(Number(screen.getByTestId('palette-revision').textContent)).toBeGreaterThan(before);
+        for (const [attribute, value] of [['data-theme', 'dark'], ['data-crab-design', 'shadcn']] as const) {
+            const before = Number(screen.getByTestId('palette-revision').textContent);
+            await act(async () => {
+                container.querySelector('section')?.setAttribute(attribute, value);
+                await Promise.resolve();
+            });
+            expect(Number(screen.getByTestId('palette-revision').textContent)).toBeGreaterThan(before);
+        }
     });
     it('祖先主题切换后下一帧向 WebGL 上传重新解析的网格色', async () => {
         Object.assign(glMock, {

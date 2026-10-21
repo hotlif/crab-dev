@@ -1,4 +1,4 @@
-import { useComponentSize, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useReducer, useState } from 'react';
 import { css, cx } from '@crab-dev/css';
 import {
@@ -84,6 +84,7 @@ function DropdownContainer(props: DropdownContainerProps) {
 }
 
 function DropdownContainerContent({ size: sizeProp, className, children, overlay, overlayClassName, floatingContainerProps = {}, ...restProps }: DropdownContainerProps) {
+    const { design } = useConfig();
     const componentSize = useComponentSize(sizeProp);
     const [state, dispatch] = useReducer(dropdownReducer, initialDropdownState);
     const presence = usePresence<HTMLDivElement>(state.open);
@@ -147,10 +148,12 @@ function DropdownContainerContent({ size: sizeProp, className, children, overlay
                     if (node) {
                         // Preserve the nearest public theme boundary (tokens and font), while
                         // keeping modal descendants inside the browser's interactive top layer.
-                        const dialog = node.closest<HTMLElement>('dialog')
-                            ?? node.closest<HTMLElement>('[data-theme]') ?? undefined;
+                        const dialog = node.closest<HTMLElement>('dialog');
+                        const boundary = node.closest<HTMLElement>('[data-theme], [data-crab-design]');
+                        const root = boundary && (!dialog || dialog.contains(boundary))
+                            ? boundary : dialog ?? undefined;
                         // 函数式更新 + 同值复用，避免 ref 回调重复挂载时触发多余渲染
-                        setPortalRoot((prev) => (prev === dialog ? prev : dialog));
+                        setPortalRoot((prev) => (prev === root ? prev : root));
                     }
                 }}
                 {...restProps}
@@ -169,6 +172,7 @@ function DropdownContainerContent({ size: sizeProp, className, children, overlay
                                 ref={(node) => { refs.setFloating(node); presence.ref(node); }}
                                 className={cx(floatingContainerStyle, componentSizeStyles[componentSize], floatingClassName)}
                                 data-crab-size={componentSize}
+                                data-crab-design={design}
                                 data-state={presence.state}
                                 inert={!state.open}
                                 style={{ ...floatingStyles, ...floatingUserStyle }}

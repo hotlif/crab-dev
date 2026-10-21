@@ -1,14 +1,15 @@
 import { css, cx } from "@crab-dev/css";
+import { ConfigBoundary, type ConfigBoundaryProps } from '@crab-dev/rc-config-provider';
 import {
     useEffect,
     useRef,
 } from "react";
-import type { FC, HTMLAttributes } from "react";
+import type { FC } from "react";
 
 import token from "./token.js";
 import { type Direction } from "./types.js";
 
-export interface ContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface ContainerProps extends Omit<ConfigBoundaryProps, "title"> {
 
     /**
      * 容器的位置偏移量
@@ -71,7 +72,8 @@ const Container: FC<ContainerProps> = ({
     }, [])
 
     return (
-        <div
+        <ConfigBoundary
+            {...restProps}
             className={cx(
                 css`
                     display: grid;
@@ -91,10 +93,9 @@ const Container: FC<ContainerProps> = ({
             )}
             popover="manual"
             ref={divRef}
-            {...restProps}
         >
             {children}
-        </div>
+        </ConfigBoundary>
     )
 }
 

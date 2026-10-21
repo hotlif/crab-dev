@@ -1,5 +1,6 @@
 import { type ReactElement, type Ref, cloneElement, useRef, useState } from 'react';
 import { useControllableOpen, usePresence } from '@crab-dev/rc-hooks';
+import { ConfigBoundary } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import {
     useFloating,
@@ -136,7 +137,7 @@ function Tooltip({
                 // Shadow DOM 内的提示必须保留在同一主题边界，否则会丢失隔离样式。
                 // 普通页面仍沿用 body Portal；原生模态 dialog 始终优先。
                 const shadowTheme = node.getRootNode() instanceof globalThis.ShadowRoot
-                    ? node.closest<HTMLElement>('[data-theme]') : null;
+                    ? node.closest<HTMLElement>('[data-theme], [data-crab-design]') : null;
                 const dialog = node.closest('dialog') ?? shadowTheme ?? undefined;
                 // 同值复用，避免 ref 回调重复触发时产生多余渲染
                 setPortalRoot((prev) => (prev === dialog ? prev : dialog));
@@ -162,7 +163,7 @@ function Tooltip({
             )}
             <FloatingPortal root={portalRoot}>
                 {presence.present && (
-                    <div
+                    <ConfigBoundary
                         ref={(node) => { refs.setFloating(node); presence.ref(node); }}
                         data-state={presence.state}
                         aria-hidden={!isOpen || undefined}
@@ -182,7 +183,7 @@ function Tooltip({
                                 />
                             )}
                         </div>
-                    </div>
+                    </ConfigBoundary>
                 )}
             </FloatingPortal>
         </>

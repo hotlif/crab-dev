@@ -92,7 +92,7 @@ function collectThemeTargets(element: Element): Element[] {
     return targets;
 }
 
-const THEME_ATTRIBUTES = ['class', 'style', 'data-theme', 'data-color-scheme'] as const;
+const THEME_ATTRIBUTES = ['class', 'style', 'data-theme', 'data-color-scheme', 'data-crab-design'] as const;
 
 function getThemeSnapshot(targets: readonly Element[]): string {
     return JSON.stringify(targets.map(target =>

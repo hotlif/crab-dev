@@ -3,6 +3,7 @@ import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { css, cx } from "@crab-dev/css";
 import { usePresence } from "@crab-dev/rc-hooks";
+import { ConfigBoundary } from "@crab-dev/rc-config-provider";
 import token from "./token.js";
 
 export interface TabContextMenuItem {
@@ -233,7 +234,7 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, open = 
         </ul>
     );
 
-    return createPortal(node, document.body);
+    return createPortal(<ConfigBoundary>{node}</ConfigBoundary>, document.body);
 };
 
 export default TabContextMenu;
