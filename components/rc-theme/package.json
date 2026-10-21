@@ -7,7 +7,7 @@
     "description": "Crab Design System 的 Light、Dark 与强制颜色主题",
     "packageManager": "yarn@4.18.0",
     "type": "module",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",
