@@ -1,5 +1,5 @@
-import { useId, useRef } from "react";
-import { css } from "@crab-dev/css";
+import { useId, useRef, useState } from "react";
+import { css, cx } from "@crab-dev/css";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
 import Button from "@crab-dev/rc-button";
 import token from "@crab-dev/rc-token-semantic";
@@ -12,8 +12,6 @@ export const meta = {
 };
 
 const ROW_COUNT = 1_000_000;
-// 与下方 token.size.field 的默认 56px 保持一致，采用 M3 单行列表高度。
-const ROW_HEIGHT = 56;
 const numberFormat = new Intl.NumberFormat("zh-CN");
 
 const demoStyle = css`
@@ -49,6 +47,7 @@ const captionStyle = css`
 `;
 
 const viewportStyle = css`
+    position: relative;
     height: calc(${token.size.field} * 6);
     min-width: 0;
     background: ${token.color.surface.content};
@@ -76,6 +75,15 @@ const rowStyle = css`
     font-variant-numeric: tabular-nums;
 `;
 
+const measurementStyle = css`
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    visibility: hidden;
+    pointer-events: none;
+`;
+
 const topSpaceStyle = css`
     height: var(--crab-rc-virtual-top-padding-height, 0px);
 `;
@@ -86,8 +94,20 @@ const bottomSpaceStyle = css`
 
 export default function MillionDemo() {
     const gridRef = useRef<VirtualHandle>(null);
+    const [rowHeight, setRowHeight] = useState(0);
     const listId = useId();
     const helpId = useId();
+
+    const measureRow = (element: HTMLDivElement | null) => {
+        if (!element) return;
+        // 读取实际 CSS 行高，让主题和密度变化同步更新虚拟轴；不预先创建数据行。
+        const observer = new ResizeObserver(([entry]) => {
+            const height = entry?.borderBoxSize[0]?.blockSize ?? entry?.contentRect.height ?? 0;
+            if (height > 0) setRowHeight(height);
+        });
+        observer.observe(element);
+        return () => observer.disconnect();
+    };
 
     const jumpTo = (rowIndex: number) => {
         gridRef.current?.scrollToCell({ rowIndex: Math.max(0, Math.min(ROW_COUNT - 1, rowIndex)) });
@@ -103,8 +123,9 @@ export default function MillionDemo() {
             </div>
             <p id={helpId} className={captionStyle}>滚轮或拖动滚动条浏览；聚焦列表后可用方向键、Page Up / Down、Home / End。</p>
             <div className={viewportStyle}>
+                <div ref={measureRow} className={cx(rowStyle, measurementStyle)} aria-hidden="true" />
                 <AutoSizer>
-                    {({ width, height }) => (
+                    {({ width, height }) => rowHeight > 0 && width > 0 && height > 0 ? (
                         <Virtual
                             gridRef={gridRef}
                             id={listId}
@@ -115,11 +136,11 @@ export default function MillionDemo() {
                             viewportWidth={width}
                             viewportHeight={height}
                             gridTemplateColumns={{ count: 1, itemSize: width }}
-                            gridTemplateRows={{ count: ROW_COUNT, itemSize: ROW_HEIGHT }}
+                            gridTemplateRows={{ count: ROW_COUNT, itemSize: rowHeight }}
                             overscanRowCount={2}
                             onKeyDown={event => {
                                 const firstRow = gridRef.current?.getScrollCellPosition().rowIndex ?? 0;
-                                const pageSize = Math.max(1, Math.ceil(height / ROW_HEIGHT));
+                                const pageSize = Math.max(1, Math.ceil(height / rowHeight));
                                 const targets: Record<string, number> = {
                                     Home: 0,
                                     End: ROW_COUNT - 1,
@@ -154,7 +175,7 @@ export default function MillionDemo() {
                                 </>
                             )}
                         />
-                    )}
+                    ) : null}
                 </AutoSizer>
             </div>
             <p className={captionStyle}>仅挂载当前视口及上下各 2 条预渲染记录，不预先创建百万条对象或行高数组。</p>

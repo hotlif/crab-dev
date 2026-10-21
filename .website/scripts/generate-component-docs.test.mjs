@@ -8,6 +8,7 @@ import { validateTutorial, assertExampleImports, loadTutorial, tutorialMarkup, v
 
 import {
     componentGuideMarkup,
+    createComponentPreviews,
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,
@@ -92,6 +93,81 @@ test("Button 文档使用单列宽预览", () => {
 test("Select 文档使用单列紧凑预览", () => {
     assert.equal(layoutFor("rc-select"), "wide");
     assert.equal(densityFor("rc-select"), "compact");
+});
+
+function readComponentPreviewRecords(source) {
+    parse(source, { sourceType: "module", plugins: ["typescript"] });
+    const contents = source.match(/export const componentPreviews = ([\s\S]+) as const satisfies /)?.[1];
+    assert.ok(contents, "Missing component preview registry");
+    return JSON.parse(contents);
+}
+
+test("顶部真实预览索引只保留首个演示的轻量描述，TextEdit 选择有标签的基础示例", () => {
+    const demo = {
+        id: "docs/demos/basic.demo.tsx",
+        title: "基础用法",
+        previewPath: "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
+        workbenchPath: "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        density: "compact",
+        sourceCode: "SOURCE_CODE_MUST_NOT_ENTER_THE_REGISTRY".repeat(100),
+        learning: { components: ["Button"] },
+        description: "下面的完整演示才需要这段说明。",
+        layout: "wide",
+    };
+    const textEditDemo = {
+        ...demo,
+        id: "docs/demos/simple.demo.tsx",
+        title: "基础用法",
+        previewPath: "/components/rc-text-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
+        workbenchPath: "/components/rc-text-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
+        density: "regular",
+    };
+    const source = createComponentPreviews([
+        { slug: "rc-button", demos: [demo, { ...demo, id: "docs/demos/size.demo.tsx" }] },
+        { slug: "rc-text-edit", demos: [{ ...textEditDemo, id: "docs/demos/allow-clear.demo.tsx" }, textEditDemo] },
+    ]);
+    const previews = readComponentPreviewRecords(source);
+    assert.deepEqual(Object.keys(previews), ["rc-button", "rc-text-edit"]);
+    assert.deepEqual(previews["rc-button"], {
+        id: demo.id,
+        title: demo.title,
+        previewPath: demo.previewPath,
+        workbenchPath: demo.workbenchPath,
+        density: demo.density,
+    });
+    assert.equal(previews["rc-text-edit"].id, "docs/demos/simple.demo.tsx");
+    assert.equal(previews["rc-text-edit"].previewPath, textEditDemo.previewPath);
+    assert.doesNotMatch(source, /"(?:sourceCode|learning|description|layout)"\s*:|SOURCE_CODE_MUST_NOT_ENTER_THE_REGISTRY/);
+    assert.match(source, /import type \{ ComponentDemoDescriptor \}/);
+    assert.doesNotMatch(source, /import(?! type)/);
+});
+
+test("顶部真实预览索引拒绝空演示、失效例外和重复组件", () => {
+    assert.throws(() => createComponentPreviews([{ slug: "rc-button", demos: [] }]), /rc-button: 顶部预览缺少可用 Demo/);
+    assert.throws(() => createComponentPreviews([{ slug: "rc-text-edit", demos: [{ id: "docs/demos/allow-clear.demo.tsx" }] }]), /指定 Demo docs\/demos\/simple.demo.tsx/);
+    const record = { slug: "rc-button", demos: [{ id: "docs/demos/basic.demo.tsx" }] };
+    assert.throws(() => createComponentPreviews([record, record]), /顶部预览组件重复：rc-button/);
+});
+
+test("生成的顶部真实预览索引覆盖全部 54 个组件，并使用对应工作台演示地址", async () => {
+    const navigation = await readFile(new URL("../docs/navigation.toml", import.meta.url), "utf8");
+    const slugs = [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => match[1]).sort();
+    const source = await readFile(new URL("../docs/_generated/component-previews.ts", import.meta.url), "utf8");
+    const previews = readComponentPreviewRecords(source);
+    assert.equal(slugs.length, 54);
+    assert.deepEqual(Object.keys(previews).sort(), slugs);
+    for (const slug of slugs) {
+        const preview = previews[slug];
+        assert.deepEqual(Object.keys(preview), ["id", "title", "previewPath", "workbenchPath", "density"]);
+        assert.ok(preview.title.length > 0, `${slug}: 缺少预览标题`);
+        assert.ok(["compact", "regular", "spacious"].includes(preview.density), `${slug}: 无效预览密度`);
+        assert.equal(preview.previewPath, `/components/${slug}/workbench/?__wake_demo=${encodeURIComponent(preview.id)}`);
+        assert.equal(preview.workbenchPath, `/components/${slug}/workbench/#/components/${encodeURIComponent(preview.id)}`);
+        await access(new URL(`../../components/${slug}/${preview.id}`, import.meta.url));
+    }
+    assert.equal(previews["rc-text-edit"].id, "docs/demos/simple.demo.tsx");
+    assert.doesNotMatch(source, /"(?:sourceCode|learning|description|layout)"\s*:|import(?! type)/);
+    assert.ok(source.length < 35_000, "顶部预览索引不应携带完整示例源码");
 });
 
 test("从联合 Props 合并公共字段、变体类型和源码说明", async () => {

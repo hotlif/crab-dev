@@ -4,6 +4,7 @@ title = "TablePro 高级表格"
 description = "基于 Table，集成数据加载、查询、列管理和导出的业务表格。"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

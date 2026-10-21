@@ -4,6 +4,7 @@ title = "Dialog 对话框"
 description = "A dialog component for React applications."
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

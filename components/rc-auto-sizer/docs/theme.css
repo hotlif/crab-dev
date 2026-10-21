@@ -1,2 +1,5 @@
 /* Workbench previews consume the built public theme, without a second palette. */
 @import "../../rc-theme/docs/workbench.css";
+
+/* Give the measured container its preview width instead of shrink-to-fit zero. */
+.demo-default-preview > div { width: 100%; min-width: 0; }

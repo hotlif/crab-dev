@@ -19,6 +19,21 @@ export function Label({ x = 120, y = 80, children, tone = "text", anchor = "midd
     return <text x={x} y={y} textAnchor={anchor} className={`cc-label cc-${tone}`}>{children}</text>;
 }
 
+export function RequiredLabel({ x = 40, y = 30, children }: {
+    x?: number; y?: number; children: ReactNode;
+}) {
+    return (
+        <g transform={`translate(${x} ${y})`}>
+            <g className="cc-required-layout">
+                <g className="cc-required-caption">
+                    <text className="cc-label cc-required-text">{children}</text>
+                </g>
+                <text textAnchor="end" className="cc-label cc-required-marker" aria-hidden="true">*</text>
+            </g>
+        </g>
+    );
+}
+
 export function Check({ x = 64, y = 68, tone = "on-brand" }: { x?: number; y?: number; tone?: string }) {
     return <path d={`M${x} ${y}l4 4 8-9`} className={`cc-stroke cc-${tone}`} />;
 }

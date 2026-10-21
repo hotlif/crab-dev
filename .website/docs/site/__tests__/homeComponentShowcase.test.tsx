@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen, within } from "@crab-dev/wake/test/react";
 import type { ComponentType, ReactNode } from "react";
+import ConfigProvider from "@crab-dev/rc-config-provider";
 
 mock.module("@crab-dev/rc-segmented", () => ({
     __esModule: true,
@@ -48,7 +49,7 @@ beforeAll(async () => {
 describe("HomeComponentShowcase", () => {
     it("可见标签命名复合控件，组名不混入选项名称", async () => {
         const { container } = await render(<HomeComponentShowcase />);
-        for (const [name, option] of [["主题", "亮色"], ["尺寸", "小"], ["品牌色", "紫罗兰"], ["视图设置", "概览"]]) {
+        for (const [name, option] of [["主题", "跟随全站"], ["尺寸", "小"], ["品牌色", "默认"], ["视图设置", "概览"]]) {
             const group = screen.getByRole("radiogroup", { name });
             expect(within(group).getByRole("radio", { name: option })).toBeTruthy();
             expect(group.closest("label")).toBeNull();
@@ -56,6 +57,22 @@ describe("HomeComponentShowcase", () => {
         expect(screen.getByRole("combobox", { name: "应用类型" })).toBeTruthy();
         expect(screen.getByRole("textbox", { name: "工作区名称" })).toBeTruthy();
         expect(container.querySelector("label label")).toBeNull();
+        expect(screen.getByRole("radio", { name: "默认" }).getAttribute("aria-checked")).toBe("true");
+        expect(container.querySelector(".crab-home-demo-surface")?.hasAttribute("data-crab-brand")).toBe(false);
+    });
+
+    it("默认继承全站风格和明暗，局部覆盖后可以恢复跟随", async () => {
+        const view = await render(<ConfigProvider design="material" theme="dark"><HomeComponentShowcase /></ConfigProvider>);
+        const preview = () => document.querySelector(".crab-home-demo-surface");
+        expect(preview()?.getAttribute("data-crab-design")).toBe("material");
+        expect(preview()?.getAttribute("data-theme")).toBe("dark");
+        await view.rerender(<ConfigProvider design="shadcn" theme="light"><HomeComponentShowcase /></ConfigProvider>);
+        expect(preview()?.getAttribute("data-crab-design")).toBe("shadcn");
+        expect(preview()?.getAttribute("data-theme")).toBe("light");
+        await fireEvent.click(screen.getByRole("radio", { name: "暗色" }));
+        expect(preview()?.getAttribute("data-theme")).toBe("dark");
+        await fireEvent.click(screen.getByRole("radio", { name: "跟随全站" }));
+        expect(preview()?.getAttribute("data-theme")).toBe("light");
     });
 
     it("支持输入、开关、局部主题和品牌色反馈", async () => {

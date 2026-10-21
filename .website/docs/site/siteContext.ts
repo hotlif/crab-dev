@@ -1,7 +1,14 @@
 import { createContext, use } from "react";
 import type { CommonProps } from "@crab-dev/wake/docs";
+import type { ThemeDesign } from "@crab-dev/rc-token-semantic";
 
 export const SiteContext = createContext<CommonProps | null>(null);
+export const SITE_DESIGN_STORAGE_KEY = "crab-docs-design";
+export const DEFAULT_SITE_DESIGN: ThemeDesign = "shadcn";
+export const DocumentDesignContext = createContext<{
+    design: ThemeDesign;
+    setDesign: (design: ThemeDesign) => void;
+}>({ design: DEFAULT_SITE_DESIGN, setDesign: () => {} });
 export const TutorialDirectoryContext = createContext<HTMLElement | null>(null);
 
 export function resolveSiteHref(slug: string, resolve: (path: string) => string) {

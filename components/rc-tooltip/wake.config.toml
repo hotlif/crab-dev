@@ -4,6 +4,7 @@ title = "Tooltip 文字提示"
 description = "文字提示，鼠标悬浮时展示说明性文字"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

@@ -21,7 +21,7 @@ export function hasCatalogPreview(name: string): name is CatalogPreviewName {
 
 export default function CatalogPreview({ name }: { name: CatalogPreviewName }) {
     return (
-        <svg viewBox="0 0 240 156" aria-hidden="true" focusable="false" className="crab-catalog-preview">
+        <svg viewBox={name === "rc-form" ? "0 0 320 208" : "0 0 240 156"} aria-hidden="true" focusable="false" className="crab-catalog-preview">
             {previews[name]}
         </svg>
     );

@@ -41,7 +41,7 @@ export function HomeHero({ href }: HomeSectionProps) {
         <section className="crab-home-hero" aria-label="Crab UI 组件文档">
             <div className="crab-home-intro">
                 <h1>Crab UI</h1>
-                <p className="crab-home-lead">遵循 Material Design 3 的 React 组件库，为企业应用构建清晰、一致的界面。</p>
+                <p className="crab-home-lead">支持 Material Design 3 与 shadcn 双风格的 React 组件库，为企业应用构建清晰、一致的界面。</p>
                 <div className="crab-home-actions">
                     <Button size="large" appearance="primary" href={href("guides/getting-started")} iconAfter={<span aria-hidden="true">→</span>}>开始使用</Button>
                     <Button size="large" appearance="outlined" href={href("learn/components")} iconAfter={<span aria-hidden="true">→</span>}>组件目录</Button>

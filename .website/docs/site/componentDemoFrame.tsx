@@ -3,6 +3,8 @@ import Button from "@crab-dev/rc-button";
 import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
 import { SpinIndicator } from "@crab-dev/rc-spin";
+import { useConfig } from "@crab-dev/rc-config-provider";
+import type { ConfigDesign } from "@crab-dev/rc-config-provider";
 import token from "@crab-dev/rc-token-semantic";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -10,19 +12,26 @@ import type { ComponentDemoRecord } from "./componentDemos.js";
 import { useSiteHref } from "./siteContext.js";
 
 export type ComponentDemoCodeTheme = "light" | "dark";
+export type ComponentDemoDescriptor = Pick<ComponentDemoRecord, "id" | "title" | "previewPath" | "density">
+    & Partial<Pick<ComponentDemoRecord, "workbenchPath">>;
+export type ComponentDemoFramePresentation = "interactive" | "artwork";
 
 export interface ComponentDemoFrameWindow {
     readonly document?: Document;
     postMessage(message: unknown, targetOrigin: string): void;
 }
 
-interface ComponentDemoFrameProps {
-    readonly demo: ComponentDemoRecord;
+interface ComponentDemoFrameOptions {
     readonly onThemeChange?: (theme: ComponentDemoCodeTheme) => void;
     readonly getFrameWindow?: () => ComponentDemoFrameWindow | null;
     readonly renderFrame?: (state: ComponentDemoFrameRenderState) => ReactNode;
     readonly readyTimeoutMs?: number;
 }
+
+type ComponentDemoFrameProps = ComponentDemoFrameOptions & (
+    | { readonly presentation?: "interactive"; readonly demo: ComponentDemoRecord }
+    | { readonly presentation: "artwork"; readonly demo: ComponentDemoDescriptor }
+);
 
 export interface ComponentDemoFrameRenderState {
     readonly src: string;
@@ -49,6 +58,14 @@ const DEFAULT_READY_TIMEOUT_MS = 12_000;
 const frameContainerStyle = css`
     position: relative;
     min-width: 0;
+`;
+
+const presentationStyle = css`
+    min-width: 0;
+    &[data-presentation="artwork"] {
+        pointer-events: none;
+        user-select: none;
+    }
 `;
 
 const frameStyle = css`
@@ -211,10 +228,38 @@ function isWakeMessage(data: unknown): data is WakeMessage {
     return typeof data === "object" && data !== null;
 }
 
-export function getComponentDemoFrameAttributes(demo: ComponentDemoRecord) {
+function synchronizeFrameConfiguration(
+    frameWindow: ComponentDemoFrameWindow,
+    design: ConfigDesign,
+    theme: ComponentDemoCodeTheme,
+    presentation: ComponentDemoFramePresentation,
+) {
+    try {
+        const frameDocument = frameWindow.document;
+        if (frameDocument) {
+            // Public rc-theme rules provide the L2 colors and shapes at each boundary.
+            for (const root of [frameDocument.documentElement, frameDocument.querySelector<HTMLElement>(".demo-frame-root")]) {
+                if (!root) continue;
+                root.dataset.crabDesign = design;
+                root.dataset.theme = theme;
+                // The decorative frame must not acquire focus, including through portals or autofocus.
+                root.inert = presentation === "artwork";
+            }
+        }
+    } catch {
+        // The preview's validated message bridge also works without DOM access.
+    }
+    frameWindow.postMessage({ type: "wake:theme", theme }, "*");
+    frameWindow.postMessage({ type: "crab:preview-config", design, theme }, window.location.origin);
+}
+
+export function getComponentDemoFrameAttributes(
+    demo: ComponentDemoDescriptor,
+    presentation: ComponentDemoFramePresentation = "interactive",
+) {
     return {
         src: demo.previewPath,
-        title: `${demo.title} 交互演示`,
+        title: `${demo.title} ${presentation === "artwork" ? "外观预览" : "交互演示"}`,
         sandbox: "allow-scripts allow-same-origin",
         demoId: demo.id,
     } as const;
@@ -228,12 +273,14 @@ export function EmptyComponentDemos() {
 
 export default function ComponentDemoFrame({
     demo,
+    presentation = "interactive",
     onThemeChange,
     getFrameWindow,
     renderFrame,
     readyTimeoutMs = DEFAULT_READY_TIMEOUT_MS,
 }: ComponentDemoFrameProps) {
     const href = useSiteHref();
+    const { design } = useConfig();
     const containerRef = useRef<HTMLDivElement>(null);
     const frameRef = useRef<HTMLIFrameElement>(null);
     // Mutable observer ownership is read by messages without triggering rendering.
@@ -243,7 +290,9 @@ export default function ComponentDemoFrame({
     const [ready, setReady] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [attempt, setAttempt] = useState(0);
-    const frameAttributes = { ...getComponentDemoFrameAttributes(demo), src: href(demo.previewPath) };
+    const artwork = presentation === "artwork";
+    const workbenchPath = demo.workbenchPath ?? demo.previewPath;
+    const frameAttributes = { ...getComponentDemoFrameAttributes(demo, presentation), src: href(demo.previewPath) };
 
     useEffect(() => {
         const container = containerRef.current;
@@ -258,6 +307,12 @@ export default function ComponentDemoFrame({
         return subscribeWakeMessages((event) => {
             const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
             if (!frameWindow || event.source !== frameWindow || !isWakeMessage(event.data)) return;
+            if (event.data.type === "crab:preview-ready") {
+                if (event.origin === window.location.origin) {
+                    synchronizeFrameConfiguration(frameWindow, design, readCodeTheme(), presentation);
+                }
+                return;
+            }
             if (event.data.type === "wake:resize" && typeof event.data.height === "number") {
                 if (measuresContentRef.current) return;
                 if (Number.isFinite(event.data.height)) {
@@ -276,7 +331,7 @@ export default function ComponentDemoFrame({
                 setReady(true);
                 setError(null);
                 onThemeChange?.(theme);
-                frameWindow.postMessage({ type: "wake:theme", theme }, "*");
+                synchronizeFrameConfiguration(frameWindow, design, theme, presentation);
                 return;
             }
             if (event.data.type === "wake:error") {
@@ -284,7 +339,7 @@ export default function ComponentDemoFrame({
                 setError(messageError(event.data));
             }
         });
-    }, [getFrameWindow, onThemeChange]);
+    }, [design, getFrameWindow, onThemeChange, presentation]);
 
     useEffect(() => {
         if (!ready || typeof ResizeObserver === "undefined") return;
@@ -321,9 +376,9 @@ export default function ComponentDemoFrame({
         return subscribeTheme((theme) => {
             onThemeChange?.(theme);
             const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
-            frameWindow?.postMessage({ type: "wake:theme", theme }, "*");
+            if (frameWindow) synchronizeFrameConfiguration(frameWindow, design, theme, presentation);
         });
-    }, [error, getFrameWindow, onThemeChange, shouldLoad]);
+    }, [design, error, getFrameWindow, onThemeChange, presentation, shouldLoad]);
 
     useEffect(() => {
         if (!shouldLoad || ready || error) return;
@@ -345,19 +400,24 @@ export default function ComponentDemoFrame({
         height,
         ready,
         attempt,
-        tabIndex: ready ? undefined : -1,
+        tabIndex: artwork || !ready ? -1 : undefined,
     } satisfies ComponentDemoFrameRenderState;
 
     return (
-        <div ref={containerRef}>
-            {error && (
+        <div ref={containerRef} className={presentationStyle} data-presentation={presentation}
+            inert={artwork || undefined} aria-hidden={artwork || undefined}>
+            {error && (artwork ? (
+                <div className={loadingStyle} data-density={demo.density}>
+                    预览暂时无法显示，请查看下方组件示例。
+                </div>
+            ) : (
                 <Alert type="error" title="演示加载失败" action={
                     <>
                         <Button onClick={handleRetry}>重新加载演示</Button>
-                        <Button href={href(demo.workbenchPath)} target="_blank" rel="noreferrer">在工作台中打开</Button>
+                        <Button href={href(workbenchPath)} target="_blank" rel="noreferrer">在工作台中打开</Button>
                     </>
                 }>{error}</Alert>
-            )}
+            ))}
             {!error && !shouldLoad && (
                 <div
                     className={loadingStyle}
@@ -384,6 +444,7 @@ export default function ComponentDemoFrame({
                                 data-wake-demo={frameAttributes.demoId}
                                 aria-busy={!ready}
                                 tabIndex={renderState.tabIndex}
+                                inert={artwork || undefined}
                             />
                         )}
                     {!ready && (
@@ -394,7 +455,7 @@ export default function ComponentDemoFrame({
                             aria-live="polite"
                         >
                             <SpinIndicator size="middle" />
-                            <span>正在加载交互演示…</span>
+                            <span>{artwork ? "正在加载组件预览…" : "正在加载交互演示…"}</span>
                         </div>
                     )}
                 </div>

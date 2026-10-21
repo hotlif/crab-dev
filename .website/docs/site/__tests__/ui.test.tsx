@@ -3,6 +3,8 @@ import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { createContext, use, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { CommonProps, DemoProps, SearchState } from "@crab-dev/wake/docs";
+import { useConfig } from "@crab-dev/rc-config-provider";
+import { SITE_DESIGN_STORAGE_KEY } from "../siteContext.js";
 
 // Keep delayed content mounting after open, plus controlled close semantics.
 mock.module("@crab-dev/rc-dialog", () => ({
@@ -108,6 +110,84 @@ function searchState(overrides: Partial<SearchState> = {}): SearchState {
 async function click(name: string) {
     await fireEvent.click(screen.getByRole("button", { name }));
 }
+
+function designPreference(initial: string | null = null, unavailable = false) {
+    const previous = Object.getOwnPropertyDescriptor(window, "localStorage");
+    const entries = new Map<string, string>();
+    if (initial !== null) entries.set(SITE_DESIGN_STORAGE_KEY, initial);
+    const storage = {
+        getItem: mock.fn((key: string) => {
+            if (unavailable) throw new Error("Storage unavailable");
+            return entries.get(key) ?? null;
+        }),
+        setItem: mock.fn((key: string, value: string) => { entries.set(key, value); }),
+    };
+    Object.defineProperty(window, "localStorage", { configurable: true, value: storage });
+    return { storage, restore: () => {
+        if (previous) Object.defineProperty(window, "localStorage", previous);
+        else Reflect.deleteProperty(window, "localStorage");
+    } };
+}
+
+function CurrentDocumentConfig() {
+    const { design, theme } = useConfig();
+    return <output aria-label="当前组件配置">{design}:{theme}</output>;
+}
+
+describe("文档设计偏好", () => {
+    it("默认 shadcn，切换风格同步组件并在重新打开后保留", async () => {
+        const preference = designPreference();
+        const state = common();
+        const content = () => <UI.Root {...state}>
+            <UI.Header {...state} search={searchState({ open: false })} mobileNavigation={{ open: false, setOpen: mock.fn() }} />
+            <CurrentDocumentConfig />
+        </UI.Root>;
+        try {
+            const view = await render(content());
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("shadcn:light");
+            await click("文档主题：跟随系统");
+            await fireEvent.click(screen.getByRole("menuitemradio", { name: "Material Design 3" }));
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("material:light");
+            expect(document.querySelector(".crab-docs")?.getAttribute("data-crab-design")).toBe("material");
+            expect(document.documentElement.getAttribute("data-crab-design")).toBe("material");
+            expect(preference.storage.setItem).toHaveBeenCalledWith(SITE_DESIGN_STORAGE_KEY, "material");
+            expect(state.theme.setTheme).not.toHaveBeenCalled();
+            await view.unmount();
+            await render(content());
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("material:light");
+        } finally { preference.restore(); }
+    });
+
+    it("风格与明暗模式独立，切换风格保留页面输入和组件实例", async () => {
+        const preference = designPreference("material");
+        const base = common();
+        const state = { ...base, theme: { ...base.theme, theme: "dark" as const, resolved: "dark" as const } };
+        try {
+            await render(<UI.Root {...state}>
+                <UI.Header {...state} search={searchState({ open: false })} mobileNavigation={{ open: false, setOpen: mock.fn() }} />
+                <CurrentDocumentConfig /><input aria-label="未提交的风格草稿" defaultValue="保留输入" />
+            </UI.Root>);
+            const draft = screen.getByRole("textbox", { name: "未提交的风格草稿" });
+            await fireEvent.change(draft, { target: { value: "仍在编辑" } });
+            await click("文档主题：深色");
+            expect(screen.getByRole("group", { name: "设计风格" })).toBeTruthy();
+            expect(screen.getByRole("group", { name: "明暗模式" })).toBeTruthy();
+            await fireEvent.click(screen.getByRole("menuitemradio", { name: "shadcn" }));
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("shadcn:dark");
+            expect(screen.getByDisplayValue("仍在编辑")).toBe(draft);
+            expect(state.theme.setTheme).not.toHaveBeenCalled();
+        } finally { preference.restore(); }
+    });
+
+    it("不可用的持久化偏好不会阻止默认风格和交互", async () => {
+        const preference = designPreference(null, true);
+        const state = common();
+        try {
+            await render(<UI.Root {...state}><CurrentDocumentConfig /></UI.Root>);
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("shadcn:light");
+        } finally { preference.restore(); }
+    });
+});
 
 describe("Wake 文档展示适配器", () => {
     it("搜索输入延后挂载时，每次打开都能直接输入", async () => {

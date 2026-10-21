@@ -844,6 +844,28 @@ function createDataModule(demos) {
     return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentDemoRecord } from "../site/componentDemos.js";\n\nexport const demos = ${serialize(demos)} as const satisfies readonly ComponentDemoRecord[];\n`;
 }
 
+const componentPreviewDemoOverrides = new Map([
+    // The first TextEdit demo tests clearing content and intentionally has no label.
+    ["rc-text-edit", "docs/demos/simple.demo.tsx"],
+]);
+
+function createComponentPreviews(records) {
+    const previews = {};
+    for (const { slug, demos } of records) {
+        if (Object.hasOwn(previews, slug)) {
+            throw new Error(`顶部预览组件重复：${slug}`);
+        }
+        const override = componentPreviewDemoOverrides.get(slug);
+        const demo = override ? demos.find(item => item.id === override) : demos[0];
+        if (!demo) {
+            throw new Error(`${slug}: 顶部预览缺少${override ? `指定 Demo ${override}` : "可用 Demo"}`);
+        }
+        const { id, title, previewPath, workbenchPath, density } = demo;
+        previews[slug] = { id, title, previewPath, workbenchPath, density };
+    }
+    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentDemoDescriptor } from "../site/componentDemoFrame.js";\n\nexport const componentPreviews = ${serialize(previews)} as const satisfies Readonly<Record<string, ComponentDemoDescriptor>>;\n`;
+}
+
 function escapeJsDoc(value) {
     return value.replace(/\*\//g, "*\\/");
 }
@@ -1168,6 +1190,7 @@ async function generateDocs() {
     });
     outputs.push(await createHomeExample(repositoryRoot));
     const lessons = [];
+    const componentPreviewRecords = [];
     const globalDemoKeys = new Set();
     let demoCount = 0;
 
@@ -1206,6 +1229,7 @@ async function generateDocs() {
             });
         }
         const organizedDemos = organizeDemos(slug, demos);
+        componentPreviewRecords.push({ slug, demos: organizedDemos });
         demoCount += organizedDemos.length;
 
         const api = await extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath);
@@ -1241,6 +1265,11 @@ async function generateDocs() {
             `Demo 数量应为 ${EXPECTED_DEMO_COUNT}，实际为 ${demoCount}（唯一 ${globalDemoKeys.size}）`,
         );
     }
+
+    outputs.push({
+        filePath: path.join(generatedDataDirectory, "component-previews.ts"),
+        content: createComponentPreviews(componentPreviewRecords),
+    });
 
     const practices = await loadPracticeTutorials(repositoryRoot);
     const teaching = await validateTeachingInventory(repositoryRoot, [...lessons, ...practices.map(item => item.record)], ["home/profile.tsx"]);
@@ -1279,6 +1308,7 @@ const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPat
 if (isMain) await generateDocs();
 
 export {
+    createComponentPreviews,
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,

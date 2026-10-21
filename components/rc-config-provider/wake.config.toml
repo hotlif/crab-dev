@@ -4,6 +4,7 @@ title = "ConfigProvider 全局配置"
 description = "提供可嵌套的主题、语言和尺寸配置"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

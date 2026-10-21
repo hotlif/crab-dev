@@ -3,6 +3,8 @@ import type { MouseEvent } from "react";
 import { defineDocsUI } from "@crab-dev/wake/docs";
 import type * as UI from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
+import ConfigProvider, { useConfig } from "@crab-dev/rc-config-provider";
+import type { ThemeDesign } from "@crab-dev/rc-token-semantic";
 import Dialog from "@crab-dev/rc-dialog";
 import Drawer from "@crab-dev/rc-drawer";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -12,13 +14,13 @@ import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
 import Spin from "@crab-dev/rc-spin";
 import { useMediaQuery } from "@crab-dev/rc-hooks";
-import { resolveSiteHref, SiteContext, TutorialDirectoryContext } from "./siteContext.js";
+import { DEFAULT_SITE_DESIGN, DocumentDesignContext, resolveSiteHref, SiteContext, SITE_DESIGN_STORAGE_KEY, TutorialDirectoryContext } from "./siteContext.js";
 import "./siteStyles.js";
 import { categoryForPath, DocumentNavigationContext, groupsForCategory, navigationCategories, PageSections } from "./documentNavigation.js";
 import type { NavigationCategory } from "./documentNavigation.js";
 import "./documentStyles.js";
 import SiteIcon from "./siteIcon.js";
-import CatalogPreview, { hasCatalogPreview } from "./catalog/preview.js";
+import ComponentHeroPreview from "./componentHeroPreview.js";
 import "./catalogStyles.js";
 
 function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: string) => void) {
@@ -29,11 +31,39 @@ function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: s
 }
 
 export function Root({ children, ...state }: UI.RootProps) {
+    const [design, setDesign] = useState<ThemeDesign>(DEFAULT_SITE_DESIGN);
+    useEffect(() => {
+        try {
+            const stored = window.localStorage.getItem(SITE_DESIGN_STORAGE_KEY);
+            if (stored === "material" || stored === "shadcn") setDesign(stored);
+        } catch { /* The default remains usable when browser storage is unavailable. */ }
+        const update = (event: StorageEvent) => {
+            if (event.key === SITE_DESIGN_STORAGE_KEY && (event.newValue === "material" || event.newValue === "shadcn")) setDesign(event.newValue);
+        };
+        window.addEventListener("storage", update);
+        return () => window.removeEventListener("storage", update);
+    }, []);
+    useEffect(() => {
+        const root = document.documentElement;
+        const previous = root.getAttribute("data-crab-design");
+        root.setAttribute("data-crab-design", design);
+        return () => {
+            if (previous === null) root.removeAttribute("data-crab-design");
+            else root.setAttribute("data-crab-design", previous);
+        };
+    }, [design]);
+    const chooseDesign = (next: ThemeDesign) => {
+        setDesign(next);
+        try { window.localStorage.setItem(SITE_DESIGN_STORAGE_KEY, next); }
+        catch { /* A blocked preference store must not prevent switching. */ }
+    };
     return (
         <SiteContext value={state}>
-            <div className="crab-docs" data-theme={state.theme.resolved}>
-                {children}
-            </div>
+            <DocumentDesignContext value={{ design, setDesign: chooseDesign }}>
+                <ConfigProvider className="crab-docs" design={design} theme={state.theme.resolved}>
+                    {children}
+                </ConfigProvider>
+            </DocumentDesignContext>
         </SiteContext>
     );
 }
@@ -263,6 +293,7 @@ export function MobileNavigation({
     route,
     theme,
 }: UI.MobileNavigationProps) {
+    const { design } = useConfig();
     const title = "文档导航";
     const navigationState = use(DocumentNavigationContext);
     // 例外：记录弹层关闭原因，直到原生 close 事件完成焦点恢复。
@@ -297,6 +328,7 @@ export function MobileNavigation({
             <Drawer
                 className="crab-docs-dialog crab-docs-mobile-drawer"
                 data-theme={theme.resolved}
+                data-crab-design={design}
                 title={title}
                 aria-label={title}
                 placement="left"
@@ -326,6 +358,7 @@ export function MobileNavigation({
 }
 
 export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
+    const { design } = useConfig();
     const id = useId();
     // 例外：搜索输入 DOM 和关闭原因只供事件、effect 使用，不触发渲染。
     const input = useRef<HTMLInputElement>(null);
@@ -362,6 +395,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
         <Dialog
             className="crab-docs-dialog crab-docs-search-dialog"
             data-theme={theme.resolved}
+            data-crab-design={design}
             title="搜索文档"
             open={search.open}
             maskClosable
@@ -638,7 +672,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
             </Button>}
         </nav>
         <footer className="crab-docs-footer">
-            <div><strong>Crab UI</strong><p>遵循 Material Design 3 的 React 组件库。通过组件、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
+            <div><strong>Crab UI</strong><p>支持 Material Design 3 与 shadcn 双风格的 React 组件库。通过统一配置、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
             <nav aria-label="页脚导航">
                 <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
                 <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>
@@ -676,9 +710,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                                 </>
                             )}
                         </header>
-                        {component && hasCatalogPreview(packageName) && <div className="crab-docs-component-artwork" aria-hidden="true">
-                            <CatalogPreview name={packageName} />
-                        </div>}
+                        {component && <ComponentHeroPreview key={page.slug} name={packageName} />}
                     </div>
                 )}
                 {!home && !catalog ? <PageSections key={page.slug} page={page}>{children}</PageSections>
@@ -802,6 +834,7 @@ export function ApiTable(props: UI.ApiTableProps) {
 }
 
 export function Demo(props: UI.DemoProps) {
+    const { design } = useConfig();
     const [dialogSurface, setDialogSurface] = useState(false);
     const codeId = useId();
     // Dialog 退出动画结束前继续承载唯一 preview，包含外部状态驱动的关闭。
@@ -868,6 +901,7 @@ export function Demo(props: UI.DemoProps) {
             <Dialog
                 className="crab-docs-dialog crab-docs-fullscreen"
                 data-theme={props.theme.resolved}
+                data-crab-design={design}
                 title={props.title}
                 open={props.fullscreen}
                 onOpenChange={props.setFullscreen}

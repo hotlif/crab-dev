@@ -4,6 +4,7 @@ title = "Hooks 通用钩子"
 description = "复用状态、事件、尺寸测量和定时器等通用 React 逻辑"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

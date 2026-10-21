@@ -1,2 +1,5 @@
 /* Workbench previews consume the built public theme, without a second palette. */
 @import "../../rc-theme/docs/workbench.css";
+
+/* Measurement-based demos need an available width in the centered workbench. */
+.demo-default-preview > div { width: 100%; min-width: 0; }

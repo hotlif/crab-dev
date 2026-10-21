@@ -4,6 +4,7 @@ title = "Notification 通知提醒"
 description = "消息通知组件"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

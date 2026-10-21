@@ -4,6 +4,7 @@ title = "Badge 徽标数"
 description = "徽标数，用于展示计数、状态与提醒"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

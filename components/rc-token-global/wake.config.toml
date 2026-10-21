@@ -4,6 +4,7 @@ title = "Global Tokens 全局令牌"
 description = "提供颜色、间距、排版和动效等 L1 全局设计令牌"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

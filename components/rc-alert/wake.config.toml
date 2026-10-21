@@ -4,6 +4,7 @@ title = "Alert 警告提示"
 description = "警告提示，用于页面中展示重要的提示信息"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

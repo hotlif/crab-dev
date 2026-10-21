@@ -1,22 +1,14 @@
-import {
-    act,
-    clock,
-    describe,
-    expect,
-    fireEvent,
-    it,
-    mock,
-    render,
-    screen,
-} from "@crab-dev/wake/test/react";
+import { clock, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { useLayoutEffect } from "react";
 import type { ReactElement } from "react";
+import ConfigProvider from "@crab-dev/rc-config-provider";
 import ComponentDemoFrame, {
     EmptyComponentDemos,
     getComponentDemoFrameAttributes,
 } from "../componentDemoFrame.js";
 import type { ComponentDemoFrameRenderState } from "../componentDemoFrame.js";
-import type { ComponentDemoFrameWindow } from "../componentDemoFrame.js";
+import type { ComponentDemoDescriptor, ComponentDemoFrameWindow } from "../componentDemoFrame.js";
 import ComponentDemos from "../componentDemos.js";
 import type { ComponentDemoRecord } from "../componentDemos.js";
 
@@ -77,12 +69,14 @@ function renderImmediateReadyFrame(state: ComponentDemoFrameRenderState) {
 async function dispatchWakeMessage(
     source: object,
     data: Readonly<Record<string, unknown>>,
+    origin = window.location.origin,
 ) {
     await act(async () => {
         const event = new Event("message");
         Object.defineProperties(event, {
             data: { value: data },
             source: { value: source },
+            origin: { value: origin },
         });
         window.dispatchEvent(event);
     });
@@ -129,6 +123,64 @@ describe("ComponentDemoFrame", () => {
         expect(frame.getAttribute("data-src")).toBe(demo.previewPath);
         expect(frame.getAttribute("data-sandbox")).toBe("allow-scripts allow-same-origin");
         expect(frame.getAttribute("data-wake-demo")).toBe(demo.id);
+    });
+
+    it("外观预览使用轻量描述、独立标题，并在加载完成和主题切换后保持不可交互", async () => {
+        const descriptor: ComponentDemoDescriptor = {
+            id: demo.id,
+            title: demo.title,
+            previewPath: demo.previewPath,
+            density: demo.density,
+        };
+        const frameDocument = document.implementation.createHTMLDocument();
+        const contentRoot = frameDocument.createElement("div");
+        contentRoot.className = "demo-frame-root";
+        frameDocument.body.append(contentRoot);
+        const postMessage = mock.fn();
+        const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
+        const getFrameWindow = () => frameWindow;
+        const preview = (design: "material" | "shadcn") => (
+            <ConfigProvider design={design}>
+                <ComponentDemoFrame demo={descriptor} presentation="artwork" getFrameWindow={getFrameWindow}
+                    renderFrame={renderTestFrame} />
+            </ConfigProvider>
+        );
+        const { container, rerender } = await renderImmediately(preview("shadcn"));
+        const frame = container.querySelector('[title="基础用法 外观预览"]');
+        const artwork = container.querySelector('[data-presentation="artwork"]');
+        expect(frame?.getAttribute("title")).toBe("基础用法 外观预览");
+        expect(frame?.getAttribute("data-src")).toBe(demo.previewPath);
+        expect(frame?.getAttribute("tabindex")).toBe("-1");
+        expect(artwork?.hasAttribute("inert")).toBe(true);
+        expect(artwork?.getAttribute("aria-hidden")).toBe("true");
+
+        await dispatchWakeMessage(frameWindow, { type: "wake:ready" });
+        expect(frame?.getAttribute("aria-busy")).toBe("false");
+        expect(frame?.getAttribute("tabindex")).toBe("-1");
+        expect(frameDocument.documentElement.inert).toBe(true);
+        expect(contentRoot.inert).toBe(true);
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
+
+        await rerender(preview("material"));
+        expect(container.querySelector('[title="基础用法 外观预览"]')).toBe(frame);
+        expect(frame?.getAttribute("tabindex")).toBe("-1");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("material");
+        expect(contentRoot.dataset.crabDesign).toBe("material");
+        expect(postMessage).toHaveBeenCalledWith(
+            { type: "crab:preview-config", design: "material", theme: "light" },
+            window.location.origin,
+        );
+    });
+
+    it("外观预览加载失败后提供静态回退，不增加重试和工作台控件", async () => {
+        const { container } = await renderImmediately(
+            <ComponentDemoFrame demo={demo} presentation="artwork" getFrameWindow={getTestFrameWindow}
+                renderFrame={renderTestFrame} />,
+        );
+        await dispatchWakeMessage(testFrameWindow, { type: "wake:error", error: "Demo boom" });
+        expect(container.textContent).toContain("预览暂时无法显示，请查看下方组件示例。");
+        expect(container.querySelector("button, a, [role=alert]")).toBeNull();
+        expect(container.querySelector('[title="基础用法 外观预览"]')).toBeNull();
     });
 
     it("进入预加载区域后才挂载 iframe", async () => {
@@ -249,6 +301,56 @@ describe("ComponentDemoFrame", () => {
             "*",
         );
         delete document.documentElement.dataset.theme;
+    });
+
+    it("将设计风格同步到 iframe 的主题边界与 React 配置，并在切换时保留演示实例", async () => {
+        const frameDocument = document.implementation.createHTMLDocument();
+        const contentRoot = frameDocument.createElement("div");
+        contentRoot.className = "demo-frame-root";
+        contentRoot.dataset.theme = "dark";
+        frameDocument.body.append(contentRoot);
+        const postMessage = mock.fn();
+        const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
+        const getFrameWindow = () => frameWindow;
+        const preview = (design: "material" | "shadcn") => (
+            <ConfigProvider design={design}>
+                <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow} renderFrame={renderTestFrame} />
+            </ConfigProvider>
+        );
+        const { rerender } = await renderImmediately(preview("shadcn"));
+        await dispatchWakeMessage(frameWindow, { type: "wake:ready" });
+
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
+        expect(contentRoot.dataset.crabDesign).toBe("shadcn");
+        expect(contentRoot.dataset.theme).toBe("light");
+        expect(postMessage).toHaveBeenCalledWith(
+            { type: "crab:preview-config", design: "shadcn", theme: "light" },
+            window.location.origin,
+        );
+        await rerender(preview("material"));
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("material");
+        expect(contentRoot.dataset.crabDesign).toBe("material");
+        expect(postMessage).toHaveBeenCalledWith(
+            { type: "crab:preview-config", design: "material", theme: "light" },
+            window.location.origin,
+        );
+        expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
+    });
+
+    it("只回应对应同源预览的主动配置握手", async () => {
+        const frameDocument = document.implementation.createHTMLDocument();
+        const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage: mock.fn() };
+        await renderImmediately(
+            <ConfigProvider design="shadcn">
+                <ComponentDemoFrame demo={demo} getFrameWindow={() => frameWindow} renderFrame={renderTestFrame} />
+            </ConfigProvider>,
+        );
+        frameDocument.documentElement.dataset.crabDesign = "material";
+        await dispatchWakeMessage({}, { type: "crab:preview-ready" });
+        await dispatchWakeMessage(frameWindow, { type: "crab:preview-ready" }, "https://untrusted.example");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("material");
+        await dispatchWakeMessage(frameWindow, { type: "crab:preview-ready" });
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
     });
 
     it("弹层关闭后按内容收起预览，不被旧视口高度撑开，并释放尺寸监听", async () => {

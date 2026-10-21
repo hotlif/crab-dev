@@ -4,6 +4,7 @@ title = "Theme 主题样式"
 description = "Crab Design System 的 Light、Dark 与强制颜色主题"
 locale = "zh-CN"
 theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
 
 [test]
 setup = ["../../test/wake-css.setup.ts"]

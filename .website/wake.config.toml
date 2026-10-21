@@ -8,7 +8,7 @@ base_path = "/"
 theme_css = "docs/theme.css"
 ui = "docs/site/ui.tsx"
 default_theme = "system"
-accent_color = "#6750A4"
+accent_color = "#171717"
 
 [[docs.workspace]]
 root = "../components"

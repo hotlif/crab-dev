@@ -19,6 +19,7 @@ import Tag from "@crab-dev/rc-tag";
 import { useId, useState } from "react";
 
 const brandColors = {
+    默认: null,
     紫罗兰: "#6750a4",
     葡萄紫: "#7c3aed",
     靛青: "#4f46e5",
@@ -33,11 +34,11 @@ const selectOptions = [
 ];
 
 function toBrandName(value: SegmentedValue): BrandName {
-    return typeof value === "string" && value in brandColors ? value as BrandName : "紫罗兰";
+    return typeof value === "string" && value in brandColors ? value as BrandName : "默认";
 }
 
-function toTheme(value: SegmentedValue): ConfigTheme {
-    return value === "dark" ? "dark" : "light";
+function toTheme(value: SegmentedValue): ConfigTheme | undefined {
+    return value === "dark" || value === "light" ? value : undefined;
 }
 
 function toSize(value: SegmentedValue): ConfigSize {
@@ -46,16 +47,16 @@ function toSize(value: SegmentedValue): ConfigSize {
 
 export default function HomeComponentShowcase() {
     const id = useId();
-    const [theme, setTheme] = useState<ConfigTheme>("light");
-    const [brandName, setBrandName] = useState<BrandName>("紫罗兰");
+    const [theme, setTheme] = useState<ConfigTheme | undefined>();
+    const [brandName, setBrandName] = useState<BrandName>("默认");
     const [size, setSize] = useState<ConfigSize>("middle");
     const [name, setName] = useState("Crab Design");
     const [projects, setProjects] = useState(["design", "data"]);
     const [date, setDate] = useState<Temporal.ZonedDateTime | null>(null);
     const [color, setColor] = useState<OKLCHValue>({
-        lightness: 0.58,
-        chroma: 0.2,
-        hue: 295,
+        lightness: 0.205,
+        chroma: 0,
+        hue: 0,
         alpha: 1,
     });
     const [channels, setChannels] = useState<Array<string | number>>(["product", "design"]);
@@ -71,7 +72,7 @@ export default function HomeComponentShowcase() {
                 <div>
                     <span className="crab-home-eyebrow">组件能力墙</span>
                     <h2 id={`${id}-title`}>真实组件，组合出完整体验。</h2>
-                    <p className="crab-home-section-note">输入、选择、状态和反馈都可以直接操作，局部设置不会改变文档站主题。</p>
+                    <p className="crab-home-section-note">默认跟随全站风格与明暗模式；局部设置可以独立覆盖，直接体验输入、选择、状态和反馈。</p>
                 </div>
                 <div className="crab-home-theme-controls" aria-label="组件能力墙主题设置">
                     <div>
@@ -79,8 +80,8 @@ export default function HomeComponentShowcase() {
                         <Segmented
                             aria-labelledby={`${id}-theme`}
                             size="small"
-                            options={[{ label: "亮色", value: "light" }, { label: "暗色", value: "dark" }]}
-                            value={theme}
+                            options={[{ label: "跟随全站", value: "inherit" }, { label: "亮色", value: "light" }, { label: "暗色", value: "dark" }]}
+                            value={theme ?? "inherit"}
                             onChange={(value) => setTheme(toTheme(value))}
                         />
                     </div>
@@ -117,9 +118,9 @@ export default function HomeComponentShowcase() {
                         <Card variant="elevated" title="创建工作区" extra={<Tag color="primary" bordered={false}>表单</Tag>}>
                             <div className="crab-home-control-stack">
                                 <div className="crab-home-field">
-                                    <span id={`${id}-name`}>工作区名称</span>
                                     <LineEdit
-                                        aria-labelledby={`${id}-name`}
+                                        label="工作区名称"
+                                        supportingText="最多 24 字，可随时修改。"
                                         value={name}
                                         allowClear
                                         maxLength={24}

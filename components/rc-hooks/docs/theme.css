@@ -1,2 +1,52 @@
 /* Workbench previews consume the built public theme, without a second palette. */
 @import "../../rc-theme/docs/workbench.css";
+
+.crab-hooks-drag-resize {
+    display: flex;
+    height: var(--token-semantic-size-136, 136px);
+    color: var(--token-semantic-color-text-secondary);
+    background-color: var(--token-semantic-color-background-surface);
+    border: 1px solid var(--token-semantic-color-border-default);
+    border-radius: var(--token-semantic-shape-control);
+    overflow: hidden;
+}
+
+.crab-hooks-drag-resize > .crab-hooks-drag-resize__pane {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    font-size: var(--token-semantic-font-size-caption, 12px);
+}
+
+.crab-hooks-drag-resize > .crab-hooks-drag-resize__resizable {
+    flex-shrink: 0;
+    background-color: var(--token-semantic-color-background-elevated);
+}
+
+.crab-hooks-drag-resize > .crab-hooks-drag-resize__resizable[data-dragging="true"] {
+    color: var(--token-semantic-color-brand-on-container, var(--token-semantic-color-selection-foreground));
+    background-color: var(--token-semantic-color-brand-container, var(--token-semantic-color-selection-background));
+}
+
+.crab-hooks-drag-resize > .crab-hooks-drag-resize__handle {
+    width: var(--token-semantic-space-component-gap, 8px);
+    flex-shrink: 0;
+    cursor: col-resize;
+    touch-action: none;
+    background-color: var(--token-semantic-color-border-subtle);
+}
+
+.crab-hooks-drag-resize > .crab-hooks-drag-resize__remainder {
+    flex: 1;
+}
+
+@media (forced-colors: active) {
+    .crab-hooks-drag-resize {
+        border-color: CanvasText;
+    }
+
+    .crab-hooks-drag-resize > .crab-hooks-drag-resize__handle {
+        background-color: CanvasText;
+    }
+}

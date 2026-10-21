@@ -16,7 +16,8 @@ import Tabs from '@crab-dev/rc-tabs';
 import Menu, { MenuItemType } from '@crab-dev/rc-menu';
 import Table, { type ColumnType, type Row } from '@crab-dev/rc-table';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
-import { useState } from 'react';
+import { use, useState } from 'react';
+import { SiteContext } from './siteContext.js';
 
 const stackStyle = css`
     display: grid;
@@ -56,7 +57,8 @@ const rows: SampleRow[] = Array.from({ length: 30 }, (_, index) => ({
 }));
 
 export default function SizeShowcase() {
-    const [size, setSize] = useState<ConfigSize>('small');
+    const site = use(SiteContext);
+    const [size, setSize] = useState<ConfigSize>('middle');
     return <div className={stackStyle}>
         <Segmented
             aria-label="界面尺寸"
@@ -65,7 +67,7 @@ export default function SizeShowcase() {
             options={[{ value: 'small', label: '紧凑' }, { value: 'middle', label: '标准' }, { value: 'large', label: '宽松' }]}
             onChange={value => { if (value === 'small' || value === 'middle' || value === 'large') setSize(value); }}
         />
-        <ConfigProvider size={size} className={stackStyle} aria-label="尺寸演示区域">
+        <ConfigProvider size={size} theme={site?.theme.resolved} className={stackStyle} aria-label="尺寸演示区域">
             <Card title="任务筛选">
                 <div className={stackStyle}>
                     <div className={fieldsStyle}>
@@ -73,7 +75,7 @@ export default function SizeShowcase() {
                         <Select label="任务状态" defaultValue="pending" allowClear options={[{ value: 'pending', label: '待处理' }, { value: 'active', label: '处理中' }]} />
                         <NumberEdit aria-label="预计工时" defaultValue={8} min={0} />
                     </div>
-                    <TextEdit aria-label="任务说明" placeholder="任务说明" rows={2} />
+                    <TextEdit label="任务说明" placeholder="补充本次任务的目标" rows={2} />
                     <div className={rowStyle}>
                         <Checkbox defaultChecked>仅显示我的任务</Checkbox>
                         <Radio name="size-demo-scope" defaultChecked>当前项目</Radio>
@@ -81,6 +83,13 @@ export default function SizeShowcase() {
                         <Button>查询</Button>
                         <Button size="large" appearance="text">固定 large</Button>
                     </div>
+                </div>
+            </Card>
+            <Card title="填充字段与标签">
+                <div className={fieldsStyle}>
+                    <LineEdit appearance="filled" label="项目名称" defaultValue="桌面工作区" allowClear />
+                    <Select appearance="filled" label="项目阶段" defaultValue="review" options={[{ value: 'review', label: '评审中' }, { value: 'done', label: '已完成' }]} />
+                    <TextEdit appearance="filled" label="补充说明" defaultValue="标签与内容保持独立的阅读空间。" rows={2} />
                 </div>
             </Card>
             <Tabs aria-label="任务视图" items={[{ key: 'all', label: '所有任务' }, { key: 'mine', label: '我的任务' }]} />

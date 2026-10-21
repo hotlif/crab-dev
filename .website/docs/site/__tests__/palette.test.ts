@@ -1,59 +1,50 @@
 import { describe, expect, it } from "@crab-dev/wake/test";
-import { themeColorContract } from "@crab-dev/rc-token-semantic";
+import { designColorContract, shadcnColorContract, themeColorContract } from "@crab-dev/rc-token-semantic";
 import { colors } from "../palette.js";
 import { contrast, rgb } from "./colorAssertions.js";
 
-describe("文档站与公共主题的色彩契约", () => {
-    it("公共紫色保持既有站点品牌的 sRGB 等价值", () => {
-        for (const [value, hex] of [
-            [colors.light.brand, "#6750A4"], [colors.dark.brand, "#D0BCFF"],
-        ]) {
-            const channels = rgb(value);
-            for (let index = 0; index < 3; index++)
-                expect(Math.abs(channels[index] * 255 - parseInt(hex.slice(index * 2 + 1, index * 2 + 3), 16))).toBeLessThan(0.01);
-        }
+describe("文档站与组件的双风格色彩契约", () => {
+    it("站点直接消费公共 Material 和 shadcn 契约", () => {
+        expect(colors).toBe(designColorContract);
+        expect(colors.material).toBe(themeColorContract);
+        expect(colors.shadcn).toBe(shadcnColorContract);
     });
 
-    it("站点使用公共主题的前景、表面与选中配对", () => {
+    it("shadcn 保持中性表面和主操作，Material 保留彩色品牌", () => {
         for (const mode of ["light", "dark"] as const) {
-            const site = colors[mode];
-            const shared = themeColorContract[mode];
-            for (const [actual, expected] of [
-                [site.canvas, shared.surface.canvas],
-                [site.surface, shared.surface.content],
-                [site.elevated, shared.surface.raised],
-                [site.selected, shared.selection.background],
-                [site.onSelected, shared.selection.foreground],
-                [site.text, shared.text.primary],
-                [site.border, shared.border.default],
-                [site.focus, shared.focusRing],
-            ]) expect(actual).toBe(expected);
+            const neutral = colors.shadcn[mode];
+            for (const value of [neutral.brand.primary, neutral.surface.canvas, neutral.surface.content, neutral.text.primary, neutral.border.default, neutral.selection.background]) {
+                const channels = rgb(value);
+                expect(Math.max(...channels) - Math.min(...channels)).toBeLessThan(0.001);
+            }
+            const material = rgb(colors.material[mode].brand.primary);
+            expect(Math.max(...material) - Math.min(...material)).toBeGreaterThan(0.05);
         }
     });
 
-    for (const [theme, color] of Object.entries(colors)) {
-        it(`${theme} 状态叠加后的链接、中性操作与容器配对满足 4.5:1`, () => {
-            for (const surface of [color.canvas, color.surface, color.elevated, color.neutralHover, color.neutralActive]) {
-                expect(contrast(color.text, surface)).toBeGreaterThanOrEqual(4.5);
-                expect(contrast(color.secondary, surface)).toBeGreaterThanOrEqual(4.5);
-                expect(contrast(color.brand, surface)).toBeGreaterThanOrEqual(4.5);
-                expect(contrast(color.focus, surface)).toBeGreaterThanOrEqual(3);
-                expect(contrast(color.border, surface)).toBeGreaterThanOrEqual(3);
+    for (const [design, modes] of Object.entries(colors)) for (const [mode, color] of Object.entries(modes)) {
+        it(`${design} / ${mode} 前景、边框与焦点在表面和状态层保持对比度`, () => {
+            for (const surface of [color.surface.canvas, color.surface.content, color.surface.raised, color.background.hoverSubtle, color.background.activeSubtle]) {
+                expect(contrast(color.text.primary, surface)).toBeGreaterThanOrEqual(4.5);
+                expect(contrast(color.text.secondary, surface)).toBeGreaterThanOrEqual(4.5);
+                expect(contrast(color.brand.primary, surface)).toBeGreaterThanOrEqual(4.5);
+                expect(contrast(color.focusRing, surface)).toBeGreaterThanOrEqual(3);
+                expect(contrast(design === "material" ? color.border.default : color.border.strong, surface)).toBeGreaterThanOrEqual(3);
             }
-            expect(contrast(color.onPrimaryContainer, color.primaryContainer)).toBeGreaterThanOrEqual(4.5);
-            expect(contrast(color.onTertiary, color.tertiary)).toBeGreaterThanOrEqual(4.5);
+            expect(contrast(color.selection.foreground, color.selection.background)).toBeGreaterThanOrEqual(4.5);
         });
 
-        for (const [kind, feedback] of Object.entries(color.feedback)) {
-            it(`${theme} / ${kind} 反馈文字、图标与实心按钮覆盖默认、悬停和按压`, () => {
+        for (const kind of ["error", "success", "warning", "info"] as const) {
+            const feedback = color.feedback[kind];
+            it(`${design} / ${mode} / ${kind} 反馈保留可读状态`, () => {
                 expect(contrast(feedback.text, feedback.background)).toBeGreaterThanOrEqual(4.5);
                 expect(contrast(feedback.icon, feedback.background)).toBeGreaterThanOrEqual(3);
                 expect(contrast(feedback.border, feedback.background)).toBeGreaterThanOrEqual(3);
-                for (const surface of [color.canvas, color.surface, color.elevated]) {
+                for (const surface of [color.surface.canvas, color.surface.content, color.surface.raised]) {
                     expect(contrast(feedback.text, surface)).toBeGreaterThanOrEqual(4.5);
                     expect(contrast(feedback.icon, surface)).toBeGreaterThanOrEqual(3);
                 }
-                for (const state of [feedback.solid, feedback.hover, feedback.active])
+                for (const state of [feedback.solid, feedback.solidHover, feedback.solidActive])
                     expect(contrast(feedback.onSolid, state)).toBeGreaterThanOrEqual(4.5);
             });
         }
