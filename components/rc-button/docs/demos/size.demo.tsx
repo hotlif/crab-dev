@@ -19,10 +19,10 @@ const rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: $
 const noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.font.size.body};`;
 const sizes = [
     { value: "xs", label: "XS", height: "32px", description: "紧凑工具栏、表格内操作。" },
-    { value: "s", label: "S（默认）", height: "40px", description: "普通表单和页面操作。" },
-    { value: "m", label: "M", height: "56px", description: "需要更醒目的独立操作。" },
-    { value: "l", label: "L", height: "96px", description: "页面主要操作与强调区域。" },
-    { value: "xl", label: "XL", height: "136px", description: "少量关键操作与大屏突出内容。" },
+    { value: "s", label: "S（默认）", height: "36px", description: "普通表单和页面操作。" },
+    { value: "m", label: "M", height: "40px", description: "需要更醒目的独立操作。" },
+    { value: "l", label: "L", height: "48px", description: "页面主要操作与强调区域。" },
+    { value: "xl", label: "XL", height: "56px", description: "少量关键操作与大屏突出内容。" },
 ] satisfies Array<{ value: NonNullable<ButtonProps["size"]>; label: string; height: string; description: string }>;
 const appearances = ["elevated", "primary", "tonal", "outlined", "text"] satisfies Array<NonNullable<ButtonProps["appearance"]>>;
 

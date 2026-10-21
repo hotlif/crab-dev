@@ -10,7 +10,7 @@
             "goal": "并排比较 Elevated、Filled、Tonal、Outlined、Text 五种官方外观。",
             "why": "通过阴影、实色、浅色、描边与文字表达不同的操作层级。",
             "instruction": "依次点击五种按钮查看用途，再用 Tab 检查键盘焦点。",
-            "expected": "五种按钮默认均为 40px 高；Elevated 使用浅阴影，其余四种无阴影。",
+            "expected": "五种按钮默认均为 36px 高；Material 风格使用胶囊形状，shadcn 风格使用 8px 圆角矩形。Elevated 使用浅阴影，其余四种无阴影。",
             "changes": [
                 "appearance 提供 elevated、primary（Filled）、tonal、outlined、text。",
                 "默认普通按钮为 outlined；danger 与 href 分别表达危险语义和导航行为。"
@@ -36,7 +36,7 @@
             "goal": "对照五种按钮外观与 Expressive 五档尺寸。",
             "why": "并排比较 XS、S、M、L、XL 的高度、内边距与字号。",
             "instruction": "比较五行尺寸，点击按钮查看当前属性。",
-            "expected": "XS、S、M、L、XL 分别为 32、40、56、96、136px；默认 S，触控目标至少 48px。",
+            "expected": "XS、S、M、L、XL 分别为 32、36、40、48、56px（桌面定制）；默认 S，粗指针触控目标至少 48px。",
             "changes": [
                 "size 提供 xs/s/m/l/xl，兼容 small/middle/large。",
                 "保留相同的外观顺序，方便直观比较。"

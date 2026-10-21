@@ -1,5 +1,5 @@
 import { css, cx } from '@crab-dev/css';
-import { useRef, use, type FC, type MouseEvent } from 'react';
+import { useEffect, useRef, useState, use, type FC, type MouseEvent } from 'react';
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import { useConfig } from '@crab-dev/rc-config-provider';
 import token, { vars as buttonVars } from './token.js';
@@ -7,6 +7,8 @@ import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
 
 const opacityLoading = token.root['opacity-loading'];
+// Match Material Web's minimum press feedback for keyboard/assistive clicks.
+const minimumPressMs = 225;
 
 const baseStyle = css`
     display: inline-flex;
@@ -40,7 +42,7 @@ const baseStyle = css`
     }
     @media (prefers-reduced-motion: reduce) {
         /* Keep every appearance still, including selectors with state specificity. */
-        &:active:not([aria-disabled="true"]) { transform: none !important; }
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) { transform: none !important; }
     }
     @media (forced-colors: active) {
         /* Own the system-color pair, including descendants, so text backplates
@@ -107,7 +109,7 @@ const primaryStyle = css`
         color: ${token.primary.color};
         &:hover:not([aria-disabled="true"]) { background-color: ${token.primary['background-color-hover']}; }
         &:focus-visible { background-color: ${token.primary['background-color-focus']}; }
-        &:active:not([aria-disabled="true"]) {
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
             background-color: ${token.primary['background-color-active']};
             transform: none;
         }
@@ -126,7 +128,7 @@ const dangerStyle = css`
         color: ${token.danger.color};
         &:hover:not([aria-disabled="true"]) { background-color: ${token.danger['background-color-hover']}; }
         &:focus-visible { background-color: ${token.danger['background-color-focus']}; }
-        &:active:not([aria-disabled="true"]) {
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
             background-color: ${token.danger['background-color-active']};
             transform: none;
         }
@@ -163,7 +165,7 @@ const linkStyle = css`
             }
         }
         &:hover:not([aria-disabled="true"]) { color: ${token.link['color-hover']}; }
-        &:active:not([aria-disabled="true"]) {
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
             transform: none;
             color: ${token.link['color-active']};
         }
@@ -187,7 +189,7 @@ const dashedStyle = css`
             color: ${token.dashed['color-hover']};
             border-color: ${token.dashed['border-color-hover']};
         }
-        &:active:not([aria-disabled="true"]) {
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
             transform: none;
             color: ${token.dashed['color-active']};
             border-color: ${token.dashed['border-color-active']};
@@ -206,7 +208,7 @@ const textStyle = css`
     &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         &:hover:not([aria-disabled="true"]) { background-color: ${token.text['background-color-hover']}; }
         &:focus-visible { background-color: ${token.text['background-color-focus']}; }
-        &:active:not([aria-disabled="true"]) {
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
             transform: none;
             background-color: ${token.text['background-color-active']};
         }
@@ -235,7 +237,7 @@ const layeredStyle = css`
     &:not([aria-disabled='true']) {
         &:hover::before { opacity: ${token['state-layer']['opacity-hover']}; }
         &:focus-visible::before { opacity: ${token['state-layer']['opacity-focus']}; }
-        &:active::before { opacity: ${token['state-layer']['opacity-active']}; }
+        &:is(:active, [data-press-feedback])::before { opacity: ${token['state-layer']['opacity-active']}; }
     }
     &[aria-disabled='true']:not([data-is-loading]) {
         color: ${token.subtle['color-disabled']};
@@ -265,15 +267,15 @@ const elevatedStyle = css`
     box-shadow: ${token.elevated['box-shadow']};
     &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         &:hover:not([aria-disabled="true"]) {
-            background-color: ${token.elevated['background-color-hover']};
+            &:not([data-tone="danger"]) { background-color: ${token.elevated['background-color-hover']}; }
             box-shadow: ${token.elevated['box-shadow-hover']};
         }
         &:focus-visible {
-            background-color: ${token.elevated['background-color-focus']};
+            &:not([data-tone="danger"]) { background-color: ${token.elevated['background-color-focus']}; }
             box-shadow: ${token.elevated['box-shadow']};
         }
-        &:active:not([aria-disabled="true"]) {
-            background-color: ${token.elevated['background-color-active']};
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
+            &:not([data-tone="danger"]) { background-color: ${token.elevated['background-color-active']}; }
             box-shadow: ${token.elevated['box-shadow']};
         }
     }
@@ -290,7 +292,7 @@ const dangerTextStyle = css`
     &[data-tone="danger"]:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         color: ${token.danger.content.color};
         &:hover:not([aria-disabled="true"]) { background-color: ${token.danger.content['background-color-hover']}; }
-        &:focus-visible, &:active:not([aria-disabled="true"]) { background-color: ${token.danger.content['background-color-active']}; }
+        &:focus-visible, &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) { background-color: ${token.danger.content['background-color-active']}; }
     }
 `;
 
@@ -299,7 +301,7 @@ const dangerSubtleStyle = css`
         color: ${token.danger.content.color};
         background-color: ${token.danger.subtle['background-color']};
         &:hover:not([aria-disabled="true"]) { background-color: ${token.danger.subtle['background-color-hover']}; }
-        &:focus-visible, &:active:not([aria-disabled="true"]) { background-color: ${token.danger.subtle['background-color-active']}; }
+        &:focus-visible, &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) { background-color: ${token.danger.subtle['background-color-active']}; }
     }
 `;
 
@@ -341,9 +343,8 @@ const outlinedStyle = css`
     &:not(:disabled):not([aria-disabled="true"]:not([data-is-loading])) {
         &:hover:not([aria-disabled="true"]) { background-color: ${token.outlined['background-color-hover']}; }
         &:focus-visible { background-color: ${token.outlined['background-color-focus']}; }
-        &:active:not([aria-disabled="true"]) {
+        &:is(:active, [data-press-feedback]):not([aria-disabled="true"]) {
             background-color: ${token.outlined['background-color-active']};
-            border-radius: ${token.root['border-radius-active']};
         }
     }
     &:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
@@ -433,6 +434,13 @@ const sizeExtraExtraLargeStyle = css`
 
 const squareStyle = css`border-radius: ${token.root['border-radius']};`;
 const roundStyle = css`border-radius: calc(${token.root.height} / 2);`;
+const defaultShapeStyle = css`
+    border-radius: ${token.shape.default['border-radius']};
+    &:is(:active, [data-press-feedback]):not(:disabled):not([aria-disabled="true"]) {
+        border-radius: ${token.shape.default['border-radius-active']};
+    }
+`;
+const defaultSelectedShapeStyle = css`border-radius: ${token.shape.default['border-radius-selected']};`;
 const selectedFeedbackStyle = css`
     isolation: isolate;
     &::after {
@@ -449,13 +457,13 @@ const selectedFeedbackStyle = css`
     &:not([aria-disabled='true']) {
         &:hover::after { opacity: ${token['state-layer']['opacity-hover']}; }
         &:focus-visible::after { opacity: ${token['state-layer']['opacity-focus']}; }
-        &:active::after { opacity: ${token['state-layer']['opacity-active']}; }
+        &:is(:active, [data-press-feedback])::after { opacity: ${token['state-layer']['opacity-active']}; }
     }
     @media (prefers-reduced-motion: reduce) { &::after { transition: none; } }
     @media (forced-colors: active) { &::after { display: none; } }
 `;
 const pressShapeStyle = css`
-    &:active:not(:disabled):not([aria-disabled="true"]) { border-radius: ${token.root['border-radius-active']}; }
+    &:is(:active, [data-press-feedback]):not(:disabled):not([aria-disabled="true"]) { border-radius: ${token.root['border-radius-active']}; }
 `;
 const tonalSelectedStyle = css`
     @media (forced-colors: none) {
@@ -495,6 +503,11 @@ const selectedStyle = css`
 
 const circleStyle = css`
     border-radius: ${token.shape.circle['border-radius']};
+    padding: ${token.shape.circle.padding};
+    aspect-ratio: 1;
+`;
+
+const iconOnlyStyle = css`
     padding: ${token.shape.circle.padding};
     aspect-ratio: 1;
 `;
@@ -540,6 +553,23 @@ const Button: FC<ButtonProps> = ({
 }) => {
     // 可变实例状态 ref：跨事件持有点击锁，不触发渲染
     const clickState = useRef<boolean>(false);
+    const [pressFeedback, setPressFeedback] = useState(false);
+    // Mutable instance state: repeated activations replace the pending release timer.
+    const feedbackTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const inactive = Boolean(disabled || loading);
+
+    useEffect(() => {
+        if (inactive) setPressFeedback(false);
+        return () => { clearTimeout(feedbackTimeout.current); };
+    }, [inactive]);
+
+    const showPressFeedback = () => {
+        clearTimeout(feedbackTimeout.current);
+        setPressFeedback(true);
+        feedbackTimeout.current = setTimeout(() => {
+            setPressFeedback(false);
+        }, minimumPressMs);
+    };
 
     const groupCtx = use(ButtonGroupContext);
     const config = useConfig();
@@ -552,6 +582,7 @@ const Button: FC<ButtonProps> = ({
                 : resolvedAppearance === 'text' || resolvedAppearance === 'link' ? dangerTextStyle : dangerSubtleStyle;
     const resolvedSize = size ?? groupCtx.size ?? config.size;
     const unselectedPrimary = !resolvedDanger && resolvedAppearance === 'primary' && isSelected === false;
+    const iconOnly = children == null && (icon != null || iconAfter != null || loading);
 
     const buttonClassName = cx(
         baseStyle,
@@ -560,10 +591,11 @@ const Button: FC<ButtonProps> = ({
         resolvedAppearance === 'tonal' || unselectedPrimary ? layeredStyle : null,
         sizeStyleMap[resolvedSize],
         !resolvedDanger && resolvedAppearance === 'tonal' && isSelected ? tonalSelectedStyle : null,
-        shape === 'square' ? squareStyle : null,
-        isSelected && shape !== 'circle' ? shape === 'square' ? roundStyle : squareStyle : null,
-        shape !== 'circle' ? pressShapeStyle : null,
+        shape === undefined ? defaultShapeStyle : shape === 'square' || (shape === 'round' && isSelected) ? squareStyle : shape === 'round' ? roundStyle : null,
+        shape === undefined && isSelected ? defaultSelectedShapeStyle : null,
+        shape === 'round' ? pressShapeStyle : null,
         shape === 'circle' ? circleStyle : null,
+        iconOnly ? iconOnlyStyle : null,
         shouldFitContainer ? fitContainerStyle : null,
         isSelected && resolvedAppearance !== 'tonal' ? (resolvedAppearance === 'outlined' || resolvedAppearance === 'subtle') && !resolvedDanger ? outlinedSelectedStyle : selectedStyle : null,
         isSelected && resolvedDanger ? dangerSelectedStyle : null,
@@ -605,7 +637,7 @@ const Button: FC<ButtonProps> = ({
         </>
     );
 
-    const makeClickHandler = <Element extends HTMLElement,>(handler?: (event: MouseEvent<Element>) => void | Promise<void>) => (
+    const makeClickHandler = <Element extends HTMLElement,>(handler?: (event: MouseEvent<Element>) => void | Promise<void>, withFeedback = false) => (
         e: MouseEvent<Element>,
     ) => {
         if (disabled || loading) {
@@ -613,6 +645,8 @@ const Button: FC<ButtonProps> = ({
             e.stopPropagation();
             return;
         }
+        // Native keyboard and assistive activations have no sustained :active state.
+        if (withFeedback && e.detail === 0) showPressFeedback();
         if (clickState.current === false) {
             clickState.current = true;
             try {
@@ -636,6 +670,7 @@ const Button: FC<ButtonProps> = ({
         'aria-busy': loading,
         'aria-disabled': disabled || loading,
         'data-is-loading': loading && !disabled ? `${loading}` : null,
+        'data-press-feedback': pressFeedback && !inactive ? '' : undefined,
         'data-tone': resolvedDanger ? 'danger' : undefined,
         className: buttonClassName,
     };
@@ -646,7 +681,7 @@ const Button: FC<ButtonProps> = ({
                 {...restProps}
                 {...commonProps}
                 tabIndex={disabled ? -1 : restProps.tabIndex}
-                onClick={makeClickHandler(restProps.onClick)}
+                onClick={makeClickHandler(restProps.onClick, true)}
                 onClickCapture={makeClickHandler(restProps.onClickCapture)}
             >
                 {content}
@@ -662,7 +697,7 @@ const Button: FC<ButtonProps> = ({
                 !restProps.role || restProps.role === 'button' ? isSelected : undefined
             )}
             disabled={disabled}
-            onClick={makeClickHandler(restProps.onClick)}
+            onClick={makeClickHandler(restProps.onClick, true)}
             onClickCapture={makeClickHandler(restProps.onClickCapture)}
         >
             {content}

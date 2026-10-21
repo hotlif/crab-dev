@@ -13,7 +13,7 @@ interface BasicDemoProps {
     danger?: boolean;
     /** 按钮尺寸。 */
     size?: 'xs' | 's' | 'm' | 'l' | 'xl';
-    /** Expressive 形状。 */
+    /** 按钮形状，省略时跟随统一设计风格。 */
     shape?: 'round' | 'square';
     /** 是否显示加载状态。 */
     loading?: boolean;
@@ -37,7 +37,6 @@ export const meta = {
         children: '保存更改',
         appearance: 'primary',
         size: 's',
-        shape: 'round',
         danger: false,
         loading: false,
         disabled: false,

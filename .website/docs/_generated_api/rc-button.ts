@@ -51,7 +51,7 @@ export interface ButtonProps {
     "size"?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'large' | 'middle' | 'small';
 
     /**
-     * round（默认）或 square；circle 保留为纯图标按钮兼容形状
+     * 省略时随设计风格：Material 为 round，shadcn 为 square；circle 适用于纯图标按钮
      */
     "shape"?: 'round' | 'square' | 'circle';
 

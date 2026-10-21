@@ -1,4 +1,4 @@
-export const meta = { title: '形状与连接式按钮组', description: '按压时收紧圆角，选中时在 round 与 square 之间切换。' };
+export const meta = { title: '形状与连接式按钮组', description: 'Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。' };
 import { useState } from 'react';
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';

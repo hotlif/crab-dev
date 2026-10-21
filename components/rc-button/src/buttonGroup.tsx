@@ -20,7 +20,7 @@ const connectedStyle = css`
     > :first-child { border-start-start-radius: calc(${token.root.height} / 2); border-end-start-radius: calc(${token.root.height} / 2); }
     > :last-child { border-start-end-radius: calc(${token.root.height} / 2); border-end-end-radius: calc(${token.root.height} / 2); }
     > [aria-pressed='true'] { border-radius: calc(${token.root.height} / 2); }
-    > :active:not(:disabled):not([aria-disabled='true']) { border-radius: ${token.root['border-radius-active']}; }
+    > :is(:active, [data-press-feedback]):not(:disabled):not([aria-disabled='true']) { border-radius: ${token.root['border-radius-active']}; }
 `;
 
 const sizeGapMap = {
