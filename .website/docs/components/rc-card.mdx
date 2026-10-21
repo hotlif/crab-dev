@@ -30,7 +30,7 @@ import { demos } from "../_generated/rc-card.js";
 
 ##### 三档尺寸 — size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。
 
-##### 三种变体 — elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。
+##### 三种变体 — outlined 描边 / elevated 微投影 / filled 弱灰底；省略 variant 时随统一设计风格切换。
 
 #### 交互与状态
 
@@ -50,6 +50,10 @@ import { demos } from "../_generated/rc-card.js";
 
 将标题、封面、正文和操作组织为独立的信息单元。
 
+
+省略 `variant` 时随统一设计风格切换：Material 使用浮起表面与阴影，shadcn 使用细描边与轻量表面。显式设置 `elevated`、`outlined` 或 `filled` 可固定外观。
+
+三种变体参考 [M3 卡片](https://m3.material.io/components/cards/overview)及 [Material Web Outlined Card 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-outlined-card.scss)。Outlined 采用零级静止阴影、1px 描边和中等圆角；shadcn 风格通过共享语义令牌选择细描边默认外观。
 
 ### 何时使用
 

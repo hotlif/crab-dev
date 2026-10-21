@@ -81,8 +81,7 @@ export interface CardProps {
     "title"?: ReactNode;
 
     /**
-     * 视觉变体
-     * @default "elevated"
+     * 视觉变体；省略时随设计风格，Material 使用 elevated，shadcn 使用 outlined
      */
     "variant"?: CardVariant;
 }

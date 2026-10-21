@@ -1,6 +1,6 @@
 export const meta = {
     title: "三种变体",
-    description: "elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。",
+    description: "outlined 描边 / elevated 微投影 / filled 弱灰底；省略 variant 时随统一设计风格切换。",
 };
 
 import { css } from '@crab-dev/css';

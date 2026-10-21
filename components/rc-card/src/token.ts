@@ -7,6 +7,9 @@ import { defineTokens } from '@crab-dev/css';
 export const vars = defineTokens({
     'surface.background-color': '--card-surface-background-color',
     'elevated.background-color': '--card-elevated-background-color',
+    'default.border-color': '--card-default-border-color',
+    'default.box-shadow': '--card-default-box-shadow',
+    'default.box-shadow-hover': '--card-default-box-shadow-hover',
     'root.border-color': '--card-root-border-color',
     'root.border-color-hover': '--card-root-border-color-hover',
     'root.box-shadow': '--card-root-box-shadow',
@@ -73,6 +76,11 @@ const token = defineTokens({
     'elevated': {
         'background-color': `var(${vars['elevated.background-color']}, var(--card-surface-background-color, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`
     },
+    'default': {
+        'border-color': `var(${vars['default.border-color']}, var(--token-semantic-color-border-card, transparent))`,
+        'box-shadow': `var(${vars['default.box-shadow']}, var(--token-semantic-shadow-card, var(--token-semantic-shadow-control, var(--token-global-shadow-material-1, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 1px 3px 1px oklch(0 0 0 / 0.15)))))`,
+        'box-shadow-hover': `var(${vars['default.box-shadow-hover']}, var(--token-semantic-shadow-card-hover, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15)))))`
+    },
     'root': {
         'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'border-color-hover': `var(${vars['root.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
@@ -104,27 +112,27 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-sizing-large-padding, var(--token-global-space-6, 24px)))`,
-            'gap': `var(${vars['size.large.gap']}, var(--token-semantic-sizing-large-gap, var(--token-global-space-4, 16px)))`,
+            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-sizing-large-padding, var(--token-global-space-4, 16px)))`,
+            'gap': `var(${vars['size.large.gap']}, var(--token-semantic-sizing-large-gap, var(--token-global-space-3, 12px)))`,
             'border-radius': `var(${vars['size.large.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {
                 'font-size': `var(${vars['size.large.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-22, 22px)))`
             }
         },
         'middle': {
-            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-sizing-middle-padding, var(--token-global-space-4, 16px)))`,
-            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-sizing-middle-gap, var(--token-global-space-3, 12px)))`,
+            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-sizing-middle-padding, var(--token-global-space-3, 12px)))`,
+            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-sizing-middle-gap, var(--token-global-space-2, 8px)))`,
             'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {
                 'font-size': `var(${vars['size.middle.title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
             }
         },
         'small': {
-            'padding': `var(${vars['size.small.padding']}, var(--token-semantic-sizing-small-padding, var(--token-global-space-3, 12px)))`,
-            'gap': `var(${vars['size.small.gap']}, var(--token-semantic-sizing-small-gap, var(--token-global-space-2, 8px)))`,
+            'padding': `var(${vars['size.small.padding']}, var(--token-semantic-sizing-small-padding, var(--token-global-space-2, 8px)))`,
+            'gap': `var(${vars['size.small.gap']}, var(--token-semantic-sizing-small-gap, var(--token-global-space-1-5, 6px)))`,
             'border-radius': `var(${vars['size.small.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {
-                'font-size': `var(${vars['size.small.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+                'font-size': `var(${vars['size.small.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
             }
         }
     },
@@ -136,9 +144,9 @@ const token = defineTokens({
     },
     'body': {
         'color': `var(${vars['body.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-        'font-size': `var(${vars['body.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`,
+        'font-size': `var(${vars['body.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
         'font-family': `var(${vars['body.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
-        'line-height': `var(${vars['body.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-16-24, 1.5)))`
+        'line-height': `var(${vars['body.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`
     },
     'cover': {
         'background-color': `var(${vars['cover.background-color']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
@@ -159,7 +167,7 @@ const token = defineTokens({
         'title': {
             'color': `var(${vars['meta.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
             'font-weight': `var(${vars['meta.title.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
-            'font-size': `var(${vars['meta.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-md, 16px)))`
+            'font-size': `var(${vars['meta.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'desc': {
             'color': `var(${vars['meta.desc.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,

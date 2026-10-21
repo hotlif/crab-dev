@@ -109,7 +109,7 @@ export const demos = [
     {
         "id": "docs/demos/variant.demo.tsx",
         "title": "三种变体",
-        "description": "elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。",
+        "description": "outlined 描边 / elevated 微投影 / filled 弱灰底；省略 variant 时随统一设计风格切换。",
         "learning": {
             "components": [
                 "Card"
@@ -121,7 +121,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"三种变体\",\n    description: \"elevated 微投影（默认）/ outlined 描边 / filled 弱灰底, 按承载面的层次选用。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Card from '../../src/index.js';\n\nconst rowStyle = css`\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n    gap: 16px;\n`;\n\nconst VariantDemo = () => {\n    return (\n        \u003cdiv className={rowStyle}>\n            \u003cCard variant=\"elevated\" title=\"Elevated\">\n                低层级表面 + 一级阴影，无描边；暗色模式仍能区分层次。\n            \u003c/Card>\n            \u003cCard variant=\"outlined\" title=\"Outlined\">\n                普通表面 + 1px 弱描边，适合信息密集的平铺列表。\n            \u003c/Card>\n            \u003cCard variant=\"filled\" title=\"Filled\">\n                弱填充、无描边，适合在内容容器内部做轻分组。\n            \u003c/Card>\n        \u003c/div>\n    );\n};\n\nexport default VariantDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"三种变体\",\n    description: \"outlined 描边 / elevated 微投影 / filled 弱灰底；省略 variant 时随统一设计风格切换。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Card from '../../src/index.js';\n\nconst rowStyle = css`\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n    gap: 16px;\n`;\n\nconst VariantDemo = () => {\n    return (\n        \u003cdiv className={rowStyle}>\n            \u003cCard variant=\"elevated\" title=\"Elevated\">\n                低层级表面 + 一级阴影，无描边；暗色模式仍能区分层次。\n            \u003c/Card>\n            \u003cCard variant=\"outlined\" title=\"Outlined\">\n                普通表面 + 1px 弱描边，适合信息密集的平铺列表。\n            \u003c/Card>\n            \u003cCard variant=\"filled\" title=\"Filled\">\n                弱填充、无描边，适合在内容容器内部做轻分组。\n            \u003c/Card>\n        \u003c/div>\n    );\n};\n\nexport default VariantDemo;\n",
         "previewPath": "/components/rc-card/workbench/?__wake_demo=docs%2Fdemos%2Fvariant.demo.tsx",
         "workbenchPath": "/components/rc-card/workbench/#/components/docs%2Fdemos%2Fvariant.demo.tsx",
         "density": "regular",

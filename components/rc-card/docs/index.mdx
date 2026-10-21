@@ -11,6 +11,10 @@ status = "experimental"
 
 [打开组件工作台](/components/rc-card/workbench/)
 
+省略 `variant` 时随统一设计风格切换：Material 使用浮起表面与阴影，shadcn 使用细描边与轻量表面。显式设置 `elevated`、`outlined` 或 `filled` 可固定外观。
+
+三种变体参考 [M3 卡片](https://m3.material.io/components/cards/overview)及 [Material Web Outlined Card 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-outlined-card.scss)。Outlined 采用零级静止阴影、1px 描边和中等圆角；shadcn 风格通过共享语义令牌选择细描边默认外观。
+
 ## 何时使用
 
 - 将标题、媒体、正文和操作组合为独立的信息单元。

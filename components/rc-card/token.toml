@@ -12,6 +12,9 @@ imports = [
 
 surface.background-color = "$ref(color.surface.content)"
 elevated.background-color = "var(--card-surface-background-color, $ref(color.surface.low))"
+default.border-color = "$ref(color.border.card)"
+default.box-shadow = "$ref(shadow.card)"
+default.box-shadow-hover = "$ref(shadow.card-hover)"
 
 # ─── 变体 — outlined / filled ────────────────────────────────────────────────
 

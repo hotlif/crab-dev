@@ -2,8 +2,8 @@ import type { HTMLAttributes, MouseEventHandler, ReactNode, Ref } from 'react';
 
 /**
  * 卡片视觉变体。
- * - `elevated`：surface-container-low + 一级阴影，无描边（默认）
- * - `outlined`：普通表面 + 1px 弱描边, 无投影
+ * - `elevated`：surface-container-low + 一级阴影，无描边
+ * - `outlined`：普通表面 + 1px 弱描边，无投影
  * - `filled`：弱灰底, 无描边无投影
  */
 export type CardVariant = 'elevated' | 'outlined' | 'filled';
@@ -15,8 +15,7 @@ export type CardSize = 'large' | 'middle' | 'small';
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     /**
-     * 视觉变体
-     * @default "elevated"
+     * 视觉变体；省略时随设计风格，Material 使用 elevated，shadcn 使用 outlined
      */
     variant?: CardVariant;
 

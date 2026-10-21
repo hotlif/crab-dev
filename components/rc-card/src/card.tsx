@@ -49,6 +49,13 @@ const variantElevatedStyle = css`
     --rc-card-shadow-hover: ${token.root['box-shadow-hover']};
     --rc-card-shadow-active: ${token.root['box-shadow-active']};
 `;
+const variantDefaultStyle = css`
+    background-color: ${token.elevated['background-color']};
+    border-color: ${token.default['border-color']};
+    box-shadow: ${token.default['box-shadow']};
+    --rc-card-shadow-hover: ${token.default['box-shadow-hover']};
+    --rc-card-shadow-active: ${token.default['box-shadow']};
+`;
 const variantOutlinedStyle = css`
     border-color: ${token.root['border-color']};
     --rc-card-shadow-hover: ${token.outlined['box-shadow-hover']};
@@ -165,7 +172,8 @@ const loadingBodyStyle = css`
 // 包裹 Body。Card.Meta 属于内容（落在 Body 内），不计入结构化。
 const STRUCTURAL_TYPES = new Set<unknown>([CardCover, CardHeader, CardBody, CardFooter]);
 
-const variantStyleOf = (variant: CardVariant) => {
+const variantStyleOf = (variant: CardVariant | undefined) => {
+    if (variant === undefined) return variantDefaultStyle;
     if (variant === 'outlined') return variantOutlinedStyle;
     if (variant === 'filled') return variantFilledStyle;
     return variantElevatedStyle;
@@ -178,7 +186,7 @@ const sizeStyleOf = (size: CardSize) => {
 };
 
 const CardBase = ({
-    variant = 'elevated',
+    variant,
     size: sizeProp,
     title,
     extra,
