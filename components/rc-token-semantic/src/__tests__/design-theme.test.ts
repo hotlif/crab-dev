@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import { designColorContract } from '../design-theme.js';
+import { macosColorContract } from '../macos-theme.js';
 import { shadcnColorContract } from '../shadcn-theme.js';
 import { themeColorContract } from '../theme.js';
 
@@ -28,14 +29,33 @@ function contrast(first: string, second: string): number {
 }
 
 describe('design color contracts', () => {
-    it('keeps Material and shadcn as independent Light / Dark contracts', () => {
+    it('keeps every design as an independent Light / Dark contract', () => {
         expect(designColorContract.material).toBe(themeColorContract);
         expect(designColorContract.shadcn).toBe(shadcnColorContract);
+        expect(designColorContract.macos).toBe(macosColorContract);
         expect(designColorContract.material.light.brand.primary).toContain('--token-global-purple-40');
         expect(designColorContract.material.dark.brand.primary).toContain('--token-global-purple-80');
         expect(designColorContract.material.light.surface.container).toContain('--token-global-material-neutral-94');
         expect(designColorContract.shadcn.light.brand.primary).toContain('--token-global-neutral-900');
         expect(designColorContract.shadcn.dark.brand.primary).toContain('--token-global-neutral-50');
+        expect(designColorContract.macos.light.brand.primary).toContain('--token-global-blue-700');
+        expect(designColorContract.macos.dark.brand.primary).toContain('--token-global-blue-400');
+    });
+
+    it('reserves macOS blue for accents while keeping content and window surfaces neutral', () => {
+        for (const theme of [macosColorContract.light, macosColorContract.dark]) {
+            for (const expression of strings([theme.surface, theme.workspace, theme.text.primary, theme.text.secondary])) {
+                const values = colors(expression);
+                expect(values.length).toBeGreaterThan(0);
+                for (const value of values) expect(value.chroma).toBeLessThanOrEqual(0.014);
+            }
+            for (const expression of strings([theme.brand, theme.selection, theme.fill.active, theme.text.link])) {
+                expect(expression).toContain('--token-global-blue-');
+            }
+            expect(theme.focusRing).toContain('var(--token-semantic-color-border-focus,');
+            expect(theme.brandContainer.background).toContain('var(--token-semantic-color-selection-background,');
+            expect(theme.brandContainer.foreground).toContain('var(--token-semantic-color-selection-foreground,');
+        }
     });
 
     it('uses zero-chroma structural colors in both shadcn modes', () => {
@@ -76,9 +96,11 @@ describe('design color contracts', () => {
 
     it('preserves semantic feedback colors across visual designs', () => {
         for (const mode of ['light', 'dark'] as const) {
-            expect(shadcnColorContract[mode].feedback).toEqual(themeColorContract[mode].feedback);
-            expect(shadcnColorContract[mode].border.error).toBe(themeColorContract[mode].border.error);
-            expect(shadcnColorContract[mode].highlight).toEqual(themeColorContract[mode].highlight);
+            for (const design of [shadcnColorContract, macosColorContract]) {
+                expect(design[mode].feedback).toEqual(themeColorContract[mode].feedback);
+                expect(design[mode].border.error).toBe(themeColorContract[mode].border.error);
+                expect(design[mode].highlight).toEqual(themeColorContract[mode].highlight);
+            }
         }
     });
 });

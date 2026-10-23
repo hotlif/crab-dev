@@ -83,6 +83,34 @@ describe('ConfigProvider', () => {
         expect(screen.getByLabelText('default design').dataset.crabDesign).toBe('material');
     });
 
+    it('inherits macOS through nested and portal boundaries while retaining independent brand overrides', async () => {
+        const { rerender } = await render(
+            <ConfigProvider design="macos" theme="dark" brandColor="#1677ff" size="small">
+                <ConfigProvider brandColor={null}><DesignProbe name="macos reset" /></ConfigProvider>
+                <ConfigProvider design="shadcn"><DesignProbe name="explicit design" /></ConfigProvider>
+                {createPortal(<ConfigBoundary aria-label="macos portal"><DesignProbe name="macos portal value" /></ConfigBoundary>, document.body)}
+            </ConfigProvider>,
+        );
+        const boundary = screen.getByLabelText('macos portal');
+        expect(screen.getByLabelText('macos reset').textContent).toBe('macos/dark/default/small');
+        expect(screen.getByLabelText('macos reset').parentElement?.querySelector('style')).toBeNull();
+        expect(screen.getByLabelText('explicit design').textContent).toBe('shadcn/dark/#1677ff/small');
+        expect(screen.getByLabelText('macos portal value').textContent).toBe('macos/dark/#1677ff/small');
+        expect(boundary.dataset.crabDesign).toBe('macos');
+        expect(boundary.querySelector('style')?.textContent).toContain('[data-crab-design="macos"]');
+        await rerender(
+            <ConfigProvider design="macos" theme="light" brandColor={null} size="large">
+                <ConfigProvider brandColor={null}><DesignProbe name="macos reset" /></ConfigProvider>
+                <ConfigProvider design="shadcn"><DesignProbe name="explicit design" /></ConfigProvider>
+                {createPortal(<ConfigBoundary aria-label="macos portal"><DesignProbe name="macos portal value" /></ConfigBoundary>, document.body)}
+            </ConfigProvider>,
+        );
+        expect(screen.getByLabelText('macos portal value').textContent).toBe('macos/light/default/large');
+        expect(boundary.querySelector('style')).toBeNull();
+        expect(boundary.dataset.theme).toBe('light');
+        expect(boundary.dataset.crabSize).toBe('large');
+    });
+
     it('inherits designs, isolates explicit overrides and restores inheritance during runtime switches', async () => {
         const { rerender } = await render(
             <ConfigProvider design="material" theme="dark" brandColor="#1677ff" size="small">

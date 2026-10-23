@@ -18,7 +18,7 @@ export interface ThemeColors {
     readonly surface?: SurfaceColors;
     readonly workspace?: Readonly<Record<'frame' | 'toolbar' | 'sidebar' | 'content', string>>;
     readonly brandContainer?: BrandContainerColors;
-    readonly control: Readonly<Record<"thumb" | "track" | "trackHover", string>>;
+    readonly control: Readonly<Record<"thumb" | "track" | "trackHover", string> & { toggleThumb?: string }>;
     readonly brand: Readonly<Record<"primary" | "hover" | "active" | "subtle", string>>;
     readonly background: Readonly<Record<"surface" | "elevated" | "sunken" | "inverse" | "overlay" | "disabled" | "hoverSubtle" | "activeSubtle" | "selected", string>>;
     readonly text: Readonly<Record<"primary" | "secondary" | "tertiary" | "onBrand" | "inverse" | "disabled" | "link" | "linkHover", string>>;
@@ -41,6 +41,7 @@ export type AccentColors = Readonly<Record<'primary' | 'onPrimary' | 'container'
 export type BrandContainerColors = Readonly<Record<'background' | 'foreground', string>>;
 
 export interface ResolvedThemeColors extends ThemeColors {
+    readonly control: Required<ThemeColors['control']>;
     readonly surface: Required<SurfaceColors>;
     readonly workspace: NonNullable<ThemeColors['workspace']>;
     readonly secondary: AccentColors;
@@ -54,6 +55,6 @@ export interface ResolvedThemeColorContract extends ThemeColorContract {
 }
 
 /** Visual design system, independent of the Light / Dark color mode. */
-export type ThemeDesign = 'material' | 'shadcn';
+export type ThemeDesign = 'material' | 'shadcn' | 'macos';
 
 export type DesignColorContract = Readonly<Record<ThemeDesign, ResolvedThemeColorContract>>;

@@ -1,6 +1,40 @@
-export { themeColorContract, shadcnColorContract, designColorContract } from "@crab-dev/rc-token-semantic";
+export { themeColorContract, shadcnColorContract, macosColorContract, designColorContract } from "@crab-dev/rc-token-semantic";
 import palette from "@crab-dev/rc-token-global";
 import { defineTokens } from "@crab-dev/css";
+
+/** Component geometry stays in L2 so nested design boundaries restore every role. */
+export const designMetricsContract = defineTokens({
+    material: {
+        tab: { small: palette.size[32], middle: palette.size[48], large: palette.size[48], icon: palette.space[6], gap: palette.space[2] },
+        dialog: { padding: palette.space[6], fontSize: palette.font.size["2xl"], lineHeight: palette.line.height["24-32"], fontWeight: palette.font.weight.regular },
+        toggle: {
+            small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
+            middle: { width: palette.size[52], height: palette.size[32], handle: palette.space[6], inset: palette.space[1] },
+            large: { width: palette.size[52], height: palette.size[32], handle: palette.space[6], inset: palette.space[1] },
+            stateLayer: palette.size[40], border: palette.space["0-5"],
+        },
+    },
+    shadcn: {
+        tab: { small: palette.size[32], middle: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
+        dialog: { padding: palette.space[5], fontSize: palette.font.size.md, lineHeight: palette.line.height["16-24"], fontWeight: palette.font.weight.medium },
+        toggle: {
+            small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
+            middle: { width: palette.size[32], height: `calc(${palette.space[5]} - ${palette.space["0-5"]})`, handle: palette.space["3-5"], inset: palette.space["0-5"] },
+            large: { width: palette.size[36], height: palette.space[5], handle: palette.space[4], inset: palette.space["0-5"] },
+            stateLayer: palette.space[0], border: palette.space.px,
+        },
+    },
+    macos: {
+        tab: { small: palette.size[32], middle: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
+        dialog: { padding: palette.space[6], fontSize: palette.font.size.md, lineHeight: palette.line.height["16-24"], fontWeight: palette.font.weight.semibold },
+        toggle: {
+            small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
+            middle: { width: palette.size[36], height: palette.size[22], handle: `calc(${palette.space[4]} + ${palette.space["0-5"]})`, inset: palette.space["0-5"] },
+            large: { width: palette.size[44], height: `calc(${palette.space[6]} + ${palette.space["0-5"]})`, handle: palette.size[22], inset: palette.space["0-5"] },
+            stateLayer: palette.space[0], border: palette.space.px,
+        },
+    },
+});
 
 /** Complete text-field layout roles; nested design boundaries reset each role. */
 export const designFieldContract = defineTokens({
@@ -130,6 +164,69 @@ export const designFieldContract = defineTokens({
         inputMultilineFilledPaddingTop: `${palette.space["1"]}`,
         inputMultilineFilledPaddingBottom: `${palette.space["1"]}`,
     },
+    macos: {
+        formLayoutColumns: `fit-content(35%) minmax(0, 1fr) auto`,
+        formFieldColumns: `subgrid`,
+        formFieldControlColumn: `2 / -1`,
+        formFieldInline: `1`,
+        layoutControlRow: `2`,
+        layoutLabelRow: `1`,
+        layoutSupportRow: `3`,
+        layoutRowGap: `${palette.space["2"]}`,
+        controlMinHeight: `0px`,
+        controlPaddingInline: `${palette.space["3"]}`,
+        controlIconPaddingInline: `${palette.space["3"]}`,
+        iconSize: `${palette.space["4"]}`,
+        iconGap: `${palette.space["2"]}`,
+        inputFontSize: `${palette.font.size.sm}`,
+        inputLineHeight: `${palette.space["5"]}`,
+        inputFilledPaddingTop: `0px`,
+        labelAlign: `center`,
+        labelMarginInline: `0px`,
+        labelPrefixMarginInline: `0px`,
+        labelFontSize: `${palette.font.size.sm}`,
+        labelLineHeight: `${palette.space["5"]}`,
+        labelEmptyPlaceholderColor: `var(--token-semantic-color-text-secondary, ${palette.zinc["500"]})`,
+        labelMultilineOffset: `0px`,
+        labelFloatingAlign: `center`,
+        labelFloatingMarginInline: `0px`,
+        labelFloatingFontSize: `${palette.font.size.sm}`,
+        labelFloatingLineHeight: `${palette.space["5"]}`,
+        labelFloatingTransform: `none`,
+        labelFilledOffset: `0px`,
+        requiredColor: `var(--token-semantic-color-feedback-error-text, ${palette.material.error["40"]})`,
+        requiredOrder: `-1`,
+        requiredGap: `${palette.space["1"]}`,
+        outlineDisplay: `none`,
+        outlineLegendMargin: `0px`,
+        outlineLegendPadding: `0px`,
+        outlinedBorderColor: `var(--token-semantic-color-border-default, ${palette.zinc["200"]})`,
+        outlinedBorderColorHover: `var(--token-semantic-color-border-hover, ${palette.zinc["400"]})`,
+        outlinedBorderColorFocus: `var(--token-semantic-color-border-focus, ${palette.blue["600"]})`,
+        outlinedShadowFocus: `var(--token-semantic-shadow-focus-ring)`,
+        outlinedBorderColorError: `var(--token-semantic-color-feedback-error-border, ${palette.material.error["40"]})`,
+        outlinedBorderColorWarning: `var(--token-semantic-color-feedback-warning-border, ${palette.amber["600"]})`,
+        outlinedShadowError: `inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, ${palette.material.error["40"]})`,
+        outlinedShadowWarning: `inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, ${palette.amber["600"]})`,
+        filledBorderRadius: `${palette.radius["3"]}`,
+        filledBorderWidth: `1px`,
+        filledBackgroundColor: `var(--token-semantic-color-background-surface, ${palette.white})`,
+        filledBackgroundColorHover: `var(--token-semantic-color-background-surface, ${palette.white})`,
+        filledBorderColor: `var(--token-semantic-color-border-default, ${palette.zinc["200"]})`,
+        filledBorderColorHover: `var(--token-semantic-color-border-hover, ${palette.zinc["400"]})`,
+        filledBorderColorFocus: `var(--token-semantic-color-border-focus, ${palette.blue["600"]})`,
+        filledShadowFocus: `var(--token-semantic-shadow-focus-ring)`,
+        filledShadowError: `inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, ${palette.material.error["40"]})`,
+        filledShadowWarning: `inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, ${palette.amber["600"]})`,
+        supportPaddingInline: `0px`,
+        disabledColor: `color-mix(in oklch, var(--token-semantic-color-text-primary, ${palette.zinc["900"]}) 50%, transparent)`,
+        disabledBorderColor: `var(--token-semantic-color-border-default, ${palette.zinc["200"]})`,
+        disabledFilledBorderColor: `var(--token-semantic-color-border-default, ${palette.zinc["200"]})`,
+        disabledFilledBackground: `var(--token-semantic-color-background-surface, ${palette.white})`,
+        inputMultilinePaddingBlock: `${palette.space["1"]}`,
+        inputMultilineFilledPaddingTop: `${palette.space["1"]}`,
+        inputMultilineFilledPaddingBottom: `${palette.space["1"]}`,
+    },
 });
 
 export const themeSelectors = {
@@ -147,6 +244,10 @@ export const designThemeSelectors = {
     shadcn: {
         light: '[data-crab-design="shadcn"][data-theme="light"]',
         dark: '[data-crab-design="shadcn"][data-theme="dark"]',
+    },
+    macos: {
+        light: '[data-crab-design="macos"][data-theme="light"]',
+        dark: '[data-crab-design="macos"][data-theme="dark"]',
     },
 } as const;
 
@@ -170,7 +271,18 @@ export const designShapeContract = defineTokens({
         },
         shadow: {
             control: palette.shadow.xs, float: palette.shadow.sm, overlay: palette.shadow.lg,
-            card: 'none', cardHover: palette.shadow.xs,
+            card: palette.shadow.sm, cardHover: palette.shadow.md,
+        },
+    },
+    macos: {
+        radius: { md: palette.radius[3], xl: palette.radius[8] },
+        shape: {
+            control: palette.radius[3], card: palette.radius[6], overlay: palette.radius[8],
+            button: palette.radius[3], buttonSelected: palette.radius[3], buttonPressed: palette.radius[3],
+        },
+        shadow: {
+            control: palette.shadow.xs, float: palette.shadow.md, overlay: palette.shadow.xl,
+            card: palette.shadow.sm, cardHover: palette.shadow.md,
         },
     },
 });

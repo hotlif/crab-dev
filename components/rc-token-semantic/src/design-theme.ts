@@ -1,3 +1,4 @@
+import { macosColorContract } from './macos-theme.js';
 import { shadcnColorContract } from './shadcn-theme.js';
 import { themeColorContract } from './theme.js';
 import type { DesignColorContract } from './types.js';
@@ -6,4 +7,5 @@ import type { DesignColorContract } from './types.js';
 export const designColorContract: DesignColorContract = {
     material: themeColorContract,
     shadcn: shadcnColorContract,
+    macos: macosColorContract,
 };

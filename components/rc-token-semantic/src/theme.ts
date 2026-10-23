@@ -29,7 +29,7 @@ export const themeColorContract: ResolvedThemeColorContract = defineTokens({
         },
         secondary: { primary: palette.material["secondary"][40], onPrimary: palette.material["secondary"][100], container: palette.material["secondary"][90], onContainer: palette.material["secondary"][10] },
         tertiary: { primary: palette.material["tertiary"][40], onPrimary: palette.material["tertiary"][100], container: palette.material["tertiary"][90], onContainer: palette.material["tertiary"][10] },
-        control: { thumb: palette.white, track: palette.material["neutral-variant"][50], trackHover: palette.material["neutral-variant"][50] },
+        control: { thumb: palette.white, toggleThumb: palette.material["neutral-variant"][50], track: palette.material["neutral-variant"][50], trackHover: palette.material["neutral-variant"][50] },
         brand: {
             primary: palette.purple["40"],
             hover: palette.purple["30"],
@@ -158,7 +158,7 @@ export const themeColorContract: ResolvedThemeColorContract = defineTokens({
         },
         secondary: { primary: palette.material["secondary"][80], onPrimary: palette.material["secondary"][20], container: palette.material["secondary"][30], onContainer: palette.material["secondary"][90] },
         tertiary: { primary: palette.material["tertiary"][80], onPrimary: palette.material["tertiary"][20], container: palette.material["tertiary"][30], onContainer: palette.material["tertiary"][90] },
-        control: { thumb: palette.material["neutral"][90], track: palette.material["neutral-variant"][30], trackHover: palette.material["neutral-variant"][50] },
+        control: { thumb: palette.material["neutral"][90], toggleThumb: palette.material["neutral-variant"][60], track: palette.material["neutral-variant"][30], trackHover: palette.material["neutral-variant"][50] },
         brand: {
             primary: palette.purple["80"],
             hover: `color-mix(in oklch, ${palette.purple["80"]} 50%, ${palette.purple["90"]})`,

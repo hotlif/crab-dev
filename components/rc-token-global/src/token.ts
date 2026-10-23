@@ -114,6 +114,7 @@ export const vars = defineTokens({
     'radius.14': '--token-global-radius-14',
     'radius.24': '--token-global-radius-24',
     'font.family.sans': '--token-global-font-family-sans',
+    'font.family.system': '--token-global-font-family-system',
     'font.family.mono': '--token-global-font-family-mono',
     'font.family.cjk': '--token-global-font-family-cjk',
     'font.family.material': '--token-global-font-family-material',
@@ -402,6 +403,7 @@ const token = defineTokens({
     'font': {
         'family': {
             'sans': `var(${vars['font.family.sans']}, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif)`,
+            'system': `var(${vars['font.family.system']}, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)`,
             'mono': `var(${vars['font.family.mono']}, 'Geist Mono', 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace)`,
             'cjk': `var(${vars['font.family.cjk']}, 'Inter', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif)`,
             'material': `var(${vars['font.family.material']}, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)`

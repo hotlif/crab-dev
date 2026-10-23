@@ -41,7 +41,7 @@ export const shadcnColorContract: ResolvedThemeColorContract = defineTokens({
             container: palette.neutral[100],
             onContainer: palette.neutral[900],
         },
-        control: { thumb: palette.white, track: palette.neutral[500], trackHover: palette.neutral[600] },
+        control: { thumb: palette.white, toggleThumb: palette.white, track: palette.neutral[500], trackHover: palette.neutral[600] },
         brand: {
             primary: palette.neutral[900],
             hover: palette.neutral[800],
@@ -136,7 +136,7 @@ export const shadcnColorContract: ResolvedThemeColorContract = defineTokens({
             container: palette.neutral[800],
             onContainer: palette.neutral[50],
         },
-        control: { thumb: palette.neutral[50], track: palette.neutral[600], trackHover: palette.neutral[500] },
+        control: { thumb: palette.neutral[50], toggleThumb: palette.neutral[50], track: palette.neutral[600], trackHover: palette.neutral[500] },
         brand: {
             primary: palette.neutral[50],
             hover: palette.neutral[100],

@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import {
     designColorContract,
     designFieldContract,
+    designMetricsContract,
     designShapeContract,
     designThemeSelectors,
     shadcnColorContract,
@@ -136,7 +137,7 @@ function expectCompositedContrast(
 }
 
 describe("theme color contract", () => {
-    it('keeps surfaces and paired tonal content readable in both designs', () => {
+    it('keeps surfaces and paired tonal content readable in all designs', () => {
         for (const theme of allThemes) {
             for (const surface of [...Object.values(theme.surface), ...Object.values(theme.workspace)]) {
                 expectContrast(theme.text.primary, surface, 4.5);
@@ -180,6 +181,10 @@ describe("theme color contract", () => {
             shadcn: {
                 light: '[data-crab-design="shadcn"][data-theme="light"]',
                 dark: '[data-crab-design="shadcn"][data-theme="dark"]',
+            },
+            macos: {
+                light: '[data-crab-design="macos"][data-theme="light"]',
+                dark: '[data-crab-design="macos"][data-theme="dark"]',
             },
         });
     });
@@ -238,6 +243,13 @@ describe("theme color contract", () => {
             expectContrast(theme.control.thumb, theme.control.track, 3);
             expectContrast(theme.control.thumb, theme.control.trackHover, 3);
         }
+    });
+
+    it('keeps unselected toggle thumbs visible on the actual track surface', () => {
+        for (const theme of allThemes) {
+            expectContrast(theme.control.toggleThumb, theme.surface.highest, 1.2);
+        }
+        expectContrast(shadcnColorContract.dark.control.toggleThumb, shadcnColorContract.dark.surface.highest, 3);
     });
 
     it('preserves the Material purple brand independently of shadcn', () => {
@@ -338,11 +350,11 @@ describe("theme color contract", () => {
         outer.dataset.theme = 'dark';
         const inner = document.createElement('section');
         outer.append(inner);
-        for (const design of ['material', 'shadcn'] as const) {
+        for (const design of ['material', 'shadcn', 'macos'] as const) {
             for (const mode of ['light', 'dark'] as const) {
                 inner.dataset.crabDesign = design;
                 inner.dataset.theme = mode;
-                for (const candidateDesign of ['material', 'shadcn'] as const) {
+                for (const candidateDesign of ['material', 'shadcn', 'macos'] as const) {
                     for (const candidateMode of ['light', 'dark'] as const) {
                         expect(inner.matches(designThemeSelectors[candidateDesign][candidateMode]))
                             .toBe(candidateDesign === design && candidateMode === mode);
@@ -355,7 +367,7 @@ describe("theme color contract", () => {
         expect(inner.matches(designThemeSelectors.shadcn.light)).toBe(false);
     });
 
-    it('resets every themed property when returning from shadcn to Material', async () => {
+    it('resets every themed property when switching between all designs', async () => {
         const source = await readFile(new URL('../theme.ts', import.meta.url), 'utf8');
         const ruleFor = (selector: string): string => {
             const start = source.indexOf(selector + ' {');
@@ -378,12 +390,12 @@ describe("theme color contract", () => {
         expect(material).toContain('--token-semantic-field-required-color');
         expect(material).toContain('--token-semantic-field-required-order');
         expect(material).toContain('--token-semantic-field-required-gap');
-        for (const design of ['material', 'shadcn'] as const) {
+        for (const design of ['material', 'shadcn', 'macos'] as const) {
             for (const mode of ['light', 'dark'] as const) {
                 const selector = designThemeSelectors[design][mode];
                 expect(declarations(selector)).toEqual(material);
                 const rule = ruleFor(selector);
-                const colorReference = design === 'material' ? 'color' : 'shadcn';
+                const colorReference = design === 'material' ? 'color' : design;
                 expect(rule).toContain('--token-semantic-color-brand-primary: ${' + colorReference + '.' + mode + '.brand.primary};');
                 expect(rule).toContain('--token-semantic-shape-control: ${shape.' + design + '.shape.control};');
                 expect(rule).toContain('--token-semantic-shadow-overlay: ${shape.' + design + '.shadow.overlay};');
@@ -415,7 +427,14 @@ describe("theme color contract", () => {
         expect(shadcn.shape.buttonPressed).toBe(shadcn.shape.control);
         expect(material.shadow.control).toContain('--token-global-shadow-material-1');
         expect(shadcn.shadow.control).toContain('--token-global-shadow-xs');
-        expect(shadcn.shadow.card).toBe('none');
+        expect(shadcn.shadow.card).toContain('--token-global-shadow-sm');
+        const macos = designShapeContract.macos;
+        expect(macos.shape.control).toContain('6px');
+        expect(macos.shape.button).toBe(macos.shape.control);
+        expect(macos.shape.buttonPressed).toBe(macos.shape.button);
+        expect(macos.shape.overlay).toContain('16px');
+        expect(macos.shadow.overlay).toContain('--token-global-shadow-xl');
+        expect(macos.shadow.card).not.toBe('none');
     });
 
     it('switches the complete text-field layout between Material and shadcn', () => {
@@ -471,6 +490,32 @@ describe("theme color contract", () => {
         expect(shadcn.formFieldInline).toBe('1');
         expect(shadcn.layoutLabelRow).toBe('1');
         expect(shadcn.layoutControlRow).toBe('2');
+    });
+
+    it('keeps macOS desktop fields complete with an external focus ring and stable labels', () => {
+        const macos = designFieldContract.macos;
+        expect(Object.keys(macos).sort()).toEqual(Object.keys(designFieldContract.material).sort());
+        expect(macos.layoutLabelRow).not.toBe(macos.layoutControlRow);
+        expect(macos.labelFontSize).toBe(macos.labelFloatingFontSize);
+        expect(macos.labelFloatingTransform).toBe('none');
+        expect(macos.outlinedShadowFocus).toBe('var(--token-semantic-shadow-focus-ring)');
+        expect(macos.filledShadowFocus).toBe(macos.outlinedShadowFocus);
+        expect(macos.filledBackgroundColor).toContain('--token-semantic-color-background-surface');
+        expect(macos.requiredColor).toContain('--token-semantic-color-feedback-error-text');
+    });
+
+    it('resets geometry when a nested boundary changes between desktop and Material designs', async () => {
+        const source = await readFile(new URL('../theme.ts', import.meta.url), 'utf8');
+        const propertiesFor = (design: keyof typeof designMetricsContract) => {
+            const start = source.indexOf('[data-crab-design="' + design + '"] {');
+            expect(start).toBeGreaterThanOrEqual(0);
+            const block = source.slice(start, source.indexOf('\n    }', start));
+            return [...block.matchAll(/(--token-semantic-[\w-]+):/g)].map(match => match[1]).sort();
+        };
+        expect(propertiesFor('macos')).toEqual(propertiesFor('material'));
+        expect(propertiesFor('macos')).toEqual(propertiesFor('shadcn'));
+        expect(propertiesFor('macos')).toContain('--token-semantic-sizing-middle-toggle-handle-inset');
+        expect(propertiesFor('macos')).toContain('--token-semantic-overlay-dialog-padding');
     });
 
     it('keeps shadcn Filled surfaces paired with readable text in both color modes', async () => {
