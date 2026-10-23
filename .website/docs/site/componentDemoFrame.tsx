@@ -289,6 +289,7 @@ export default function ComponentDemoFrame({
     const [height, setHeight] = useState(() => initialHeight(demo.density));
     const [ready, setReady] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [timedOut, setTimedOut] = useState(false);
     const [attempt, setAttempt] = useState(0);
     const artwork = presentation === "artwork";
     const workbenchPath = demo.workbenchPath ?? demo.previewPath;
@@ -305,6 +306,7 @@ export default function ComponentDemoFrame({
 
     useEffect(() => {
         return subscribeWakeMessages((event) => {
+            if (error) return;
             const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
             if (!frameWindow || event.source !== frameWindow || !isWakeMessage(event.data)) return;
             if (event.data.type === "crab:preview-ready") {
@@ -329,7 +331,7 @@ export default function ComponentDemoFrame({
             if (event.data.type === "wake:ready") {
                 const theme = readCodeTheme();
                 setReady(true);
-                setError(null);
+                setTimedOut(false);
                 onThemeChange?.(theme);
                 synchronizeFrameConfiguration(frameWindow, design, theme, presentation);
                 return;
@@ -339,7 +341,7 @@ export default function ComponentDemoFrame({
                 setError(messageError(event.data));
             }
         });
-    }, [design, getFrameWindow, onThemeChange, presentation]);
+    }, [design, error, getFrameWindow, onThemeChange, presentation]);
 
     useEffect(() => {
         if (!ready || typeof ResizeObserver === "undefined") return;
@@ -383,7 +385,9 @@ export default function ComponentDemoFrame({
     useEffect(() => {
         if (!shouldLoad || ready || error) return;
         const timeoutId = window.setTimeout(() => {
-            setError("演示加载超时，请重新加载或在工作台中打开。");
+            // A slow development build may still complete. Keep its iframe alive
+            // so a late ready message can recover without another navigation.
+            setTimedOut(true);
         }, Math.max(0, readyTimeoutMs));
         return () => window.clearTimeout(timeoutId);
     }, [attempt, error, ready, readyTimeoutMs, shouldLoad]);
@@ -391,6 +395,7 @@ export default function ComponentDemoFrame({
     const handleRetry = () => {
         setReady(false);
         setError(null);
+        setTimedOut(false);
         setHeight(initialHeight(demo.density));
         setAttempt((currentAttempt) => currentAttempt + 1);
     };
@@ -418,6 +423,14 @@ export default function ComponentDemoFrame({
                     </>
                 }>{error}</Alert>
             ))}
+            {timedOut && !error && !artwork && (
+                <Alert type="warning" title="演示仍在加载" action={
+                    <>
+                        <Button onClick={handleRetry}>重新加载演示</Button>
+                        <Button href={href(workbenchPath)} target="_blank" rel="noreferrer">在工作台中打开</Button>
+                    </>
+                }>加载时间较长，完成后将自动显示。也可以重新加载或在工作台中查看。</Alert>
+            )}
             {!error && !shouldLoad && (
                 <div
                     className={loadingStyle}
@@ -439,7 +452,7 @@ export default function ComponentDemoFrame({
                                 src={frameAttributes.src}
                                 title={frameAttributes.title}
                                 height={height}
-                                loading="lazy"
+                                loading="eager"
                                 sandbox={frameAttributes.sandbox}
                                 data-wake-demo={frameAttributes.demoId}
                                 aria-busy={!ready}

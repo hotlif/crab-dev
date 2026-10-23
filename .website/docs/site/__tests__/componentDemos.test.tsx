@@ -139,7 +139,7 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "material" | "shadcn") => (
+        const preview = (design: "material" | "shadcn" | "macos") => (
             <ConfigProvider design={design}>
                 <ComponentDemoFrame demo={descriptor} presentation="artwork" getFrameWindow={getFrameWindow}
                     renderFrame={renderTestFrame} />
@@ -168,6 +168,15 @@ describe("ComponentDemoFrame", () => {
         expect(contentRoot.dataset.crabDesign).toBe("material");
         expect(postMessage).toHaveBeenCalledWith(
             { type: "crab:preview-config", design: "material", theme: "light" },
+            window.location.origin,
+        );
+        await rerender(preview("macos"));
+        expect(container.querySelector('[title="基础用法 外观预览"]')).toBe(frame);
+        expect(frame?.getAttribute("tabindex")).toBe("-1");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("macos");
+        expect(contentRoot.dataset.crabDesign).toBe("macos");
+        expect(postMessage).toHaveBeenCalledWith(
+            { type: "crab:preview-config", design: "macos", theme: "light" },
             window.location.origin,
         );
     });
@@ -312,7 +321,7 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "material" | "shadcn") => (
+        const preview = (design: "material" | "shadcn" | "macos") => (
             <ConfigProvider design={design}>
                 <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow} renderFrame={renderTestFrame} />
             </ConfigProvider>
@@ -332,6 +341,14 @@ describe("ComponentDemoFrame", () => {
         expect(contentRoot.dataset.crabDesign).toBe("material");
         expect(postMessage).toHaveBeenCalledWith(
             { type: "crab:preview-config", design: "material", theme: "light" },
+            window.location.origin,
+        );
+        expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
+        await rerender(preview("macos"));
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("macos");
+        expect(contentRoot.dataset.crabDesign).toBe("macos");
+        expect(postMessage).toHaveBeenCalledWith(
+            { type: "crab:preview-config", design: "macos", theme: "light" },
             window.location.origin,
         );
         expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
@@ -426,14 +443,85 @@ describe("ComponentDemoFrame", () => {
         expect(frame.getAttribute("tabindex")).toBeNull();
     });
 
-    it("加载超时后提供重试并重新创建演示", async () => {
+    it("加载较慢时保持原预览和主题同步，并由迟到的 ready 自动恢复", async () => {
         await clock.fake();
+        const originalTheme = document.documentElement.getAttribute("data-theme");
+        const frameDocument = document.implementation.createHTMLDocument();
+        const postMessage = mock.fn();
+        const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
+        const getFrameWindow = () => frameWindow;
+        const preview = (design: "macos" | "shadcn") => (
+            <ConfigProvider design={design}>
+                <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow}
+                    renderFrame={renderTestFrame} readyTimeoutMs={50} />
+            </ConfigProvider>
+        );
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            const rendered = await renderImmediately(preview("macos"));
+            unmount = rendered.unmount;
+            const frame = screen.getByTitle("基础用法 交互演示");
+            await act(async () => { await clock.advanceBy(50); });
+
+            expect(screen.getByRole("alert").textContent).toContain("演示仍在加载");
+            expect(screen.getByTitle("基础用法 交互演示")).toBe(frame);
+            expect(frame.getAttribute("aria-busy")).toBe("true");
+            await rendered.rerender(preview("shadcn"));
+            await act(async () => { document.documentElement.dataset.theme = "dark"; });
+            expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
+            expect(frameDocument.documentElement.dataset.theme).toBe("dark");
+            expect(postMessage).toHaveBeenCalledWith(
+                { type: "crab:preview-config", design: "shadcn", theme: "dark" },
+                window.location.origin,
+            );
+
+            await dispatchWakeMessage(frameWindow, { type: "wake:ready" });
+            expect(screen.queryByRole("alert")).toBeNull();
+            expect(screen.getByTitle("基础用法 交互演示")).toBe(frame);
+            expect(frame.getAttribute("data-attempt")).toBe("0");
+            expect(frame.getAttribute("aria-busy")).toBe("false");
+            expect(frame.getAttribute("tabindex")).toBeNull();
+        } finally {
+            await unmount?.();
+            if (originalTheme === null) document.documentElement.removeAttribute("data-theme");
+            else document.documentElement.setAttribute("data-theme", originalTheme);
+            await clock.restore();
+        }
+    });
+
+    it("加载较慢后发生运行错误仍终止预览，不被后续 ready 掩盖", async () => {
+        await clock.fake();
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            const rendered = await renderImmediately(
+                <ComponentDemoFrame demo={demo} getFrameWindow={getTestFrameWindow}
+                    renderFrame={renderTestFrame} readyTimeoutMs={50} />,
+            );
+            unmount = rendered.unmount;
+            await act(async () => { await clock.advanceBy(50); });
+            await dispatchWakeMessage(testFrameWindow, { type: "wake:error", error: "Demo boom" });
+            expect(screen.queryByTitle("基础用法 交互演示")).toBeNull();
+            expect(screen.getByRole("alert").textContent).toContain("Demo boom");
+            await dispatchWakeMessage(testFrameWindow, { type: "wake:ready" });
+            expect(screen.queryByTitle("基础用法 交互演示")).toBeNull();
+            expect(screen.getByRole("alert").textContent).toContain("Demo boom");
+        } finally {
+            await unmount?.();
+            await clock.restore();
+        }
+    });
+
+    it("加载较慢后仍可重试，并忽略旧预览迟到的 ready", async () => {
+        await clock.fake();
+        const retryFrameWindow: ComponentDemoFrameWindow = { postMessage: mock.fn() };
+        let activeFrameWindow = testFrameWindow;
+        const getFrameWindow = () => activeFrameWindow;
         let unmount: (() => Promise<void>) | undefined;
         try {
             const rendered = await renderImmediately(
                 <ComponentDemoFrame
                     demo={demo}
-                    getFrameWindow={getTestFrameWindow}
+                    getFrameWindow={getFrameWindow}
                     renderFrame={renderTestFrame}
                     readyTimeoutMs={50}
                 />,
@@ -445,12 +533,15 @@ describe("ComponentDemoFrame", () => {
                 await clock.advanceBy(50);
             });
 
-            expect(screen.getByRole("alert").textContent).toContain("演示加载超时");
+            expect(screen.getByRole("alert").textContent).toContain("演示仍在加载");
+            activeFrameWindow = retryFrameWindow;
             await fireEvent.click(screen.getByRole("button", { name: "重新加载演示" }));
 
             const frame = screen.getByTitle("基础用法 交互演示");
             expect(frame.getAttribute("data-attempt")).toBe("1");
             await dispatchWakeMessage(testFrameWindow, { type: "wake:ready" });
+            expect(frame.getAttribute("aria-busy")).toBe("true");
+            await dispatchWakeMessage(retryFrameWindow, { type: "wake:ready" });
             await act(async () => {
                 await clock.advanceBy(50);
             });
