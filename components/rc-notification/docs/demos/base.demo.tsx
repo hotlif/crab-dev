@@ -4,40 +4,48 @@ export const meta = {
     description: "一个基础的消息通知组件",
 };
 
-import { useId, useState } from "react";
+import { useState } from "react";
 import { type Direction, useNotification } from "../../src/index.js";
 import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import Select from "@crab-dev/rc-select";
+import token from "@crab-dev/rc-token-semantic";
 
+const directionOptions: Array<{ label: string; value: Direction }> = [
+    { label: "Top", value: "top" },
+    { label: "Top Left", value: "topLeft" },
+    { label: "Top Right", value: "topRight" },
+    { label: "Bottom", value: "bottom" },
+    { label: "Bottom Left", value: "bottomLeft" },
+    { label: "Bottom Right", value: "bottomRight" },
+];
+
+const layoutStyle = css`
+    display: grid;
+    gap: ${token.space["section-gap"]};
+    width: 100%;
+    max-width: calc(${token.size[64]} * 5);
+    margin-bottom: ${token.space["section-gap"]};
+`;
 
 let i = 0;
 
 const SizeDemo = () => {
-    const controlId = useId();
     const [direction, setDirection] = useState<Direction>("topRight")
     const [notification, contextHolder] = useNotification();
     return (
-        <div
-            className={css`
-                margin-bottom: 1rem;
-            `}
-        >
-            <label htmlFor={controlId}>
-                请选择方向
-            </label>
-            <select
-                id={controlId}
+        <div className={layoutStyle}>
+            <Select
+                label="请选择方向"
                 value={direction}
-                onChange={e => setDirection(e.target.value as Direction)}
-            >
-                <option value="top">Top</option>
-                <option value="topLeft">Top Left</option>
-                <option value="topRight">Top Right</option>
-                <option value="bottom">Bottom</option>
-                <option value="bottomLeft">Bottom Left</option>
-                <option value="bottomRight">Bottom Right</option>
-            </select>
+                options={directionOptions}
+                onChange={value => {
+                    const option = directionOptions.find(item => item.value === value);
+                    if (option) setDirection(option.value);
+                }}
+            />
 
-            <button
+            <Button
                 onClick={() => {
                     i += 1;
                     notification.open({
@@ -49,7 +57,7 @@ const SizeDemo = () => {
                 }}
             >
                 发送通知
-            </button>
+            </Button>
             {contextHolder}
         </div>
     )

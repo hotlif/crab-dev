@@ -44,7 +44,7 @@ export interface BarChartProps {
     /** 数据系列，最多 8 个；超出部分不渲染并在开发期告警 */
     series: BarChartSeries[];
 
-    /** 绘制层缺省色板；series/refLine 的显式 color 始终优先。 */
+    /** 默认及局部覆盖均消费语义主题；显式传 DEFAULT_BAR_CHART_PALETTE 保留旧配色，series/refLine 的显式 color 始终优先。 */
     palette?: Partial<BarChartPalette>;
 
     /**

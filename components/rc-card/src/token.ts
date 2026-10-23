@@ -112,7 +112,7 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-sizing-large-padding, var(--token-global-space-4, 16px)))`,
+            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-surface-card-padding-large, var(--token-global-space-6, 24px)))`,
             'gap': `var(${vars['size.large.gap']}, var(--token-semantic-sizing-large-gap, var(--token-global-space-3, 12px)))`,
             'border-radius': `var(${vars['size.large.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {
@@ -120,7 +120,7 @@ const token = defineTokens({
             }
         },
         'middle': {
-            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-sizing-middle-padding, var(--token-global-space-3, 12px)))`,
+            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-surface-card-padding-middle, var(--token-global-space-4, 16px)))`,
             'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-sizing-middle-gap, var(--token-global-space-2, 8px)))`,
             'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {
@@ -128,7 +128,7 @@ const token = defineTokens({
             }
         },
         'small': {
-            'padding': `var(${vars['size.small.padding']}, var(--token-semantic-sizing-small-padding, var(--token-global-space-2, 8px)))`,
+            'padding': `var(${vars['size.small.padding']}, var(--token-semantic-surface-card-padding-small, var(--token-global-space-3, 12px)))`,
             'gap': `var(${vars['size.small.gap']}, var(--token-semantic-sizing-small-gap, var(--token-global-space-1-5, 6px)))`,
             'border-radius': `var(${vars['size.small.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {

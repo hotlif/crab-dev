@@ -6,6 +6,7 @@ export const meta = {
 import { css } from '@crab-dev/css';
 import { useState } from 'react';
 import Button from '@crab-dev/rc-button';
+import token from '@crab-dev/rc-token-semantic';
 import Spin from '../../src/index.js';
 
 const stackStyle = css`
@@ -17,7 +18,7 @@ const stackStyle = css`
 
 const panelStyle = css`
     padding: 16px;
-    border: 1px solid oklch(0.9 0.004 286);
+    border: 1px solid ${token.color.border.subtle};
     border-radius: 8px;
 `;
 
@@ -29,7 +30,7 @@ const titleStyle = css`
 
 const bodyStyle = css`
     margin: 0 0 12px;
-    color: oklch(0.44 0.01 286);
+    color: ${token.color.text.secondary};
     font-size: 14px;
 `;
 

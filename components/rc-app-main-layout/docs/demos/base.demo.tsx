@@ -3,7 +3,8 @@ export const meta = {
     description: "点击侧边栏菜单打开标签页，顶部展示路径面包屑",
 };
 import { css } from "@crab-dev/css";
-import { useCallback } from "react";
+import LineEdit from "@crab-dev/rc-line-edit";
+import token from "@crab-dev/rc-token-semantic";
 import AppMainLayout, {
     type TabItem,
     AppMainLayoutProvider,
@@ -12,7 +13,7 @@ import AppMainLayout, {
 import { MenuItemType, type MenuItem } from "@crab-dev/rc-menu";
 import type { BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 
-const pageStyle = css`padding: 24px;`;
+const pageStyle = css`padding: ${token.space["group-gap"]};`;
 
 const ShieldIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -154,30 +155,26 @@ const sleep = (ms: number) => new Promise<void>((resolve) => {
     setTimeout(resolve, ms);
 });
 
+const loadHeaderUser = async () => {
+    await sleep(1200);
+    return { name: "Admin", avatar: "A", roleName: "系统管理员" };
+};
+const loadSidebarMenus = async () => {
+    await sleep(900);
+    return menus;
+};
+const handleSwitchRole = () => {
+    // 示例：业务可在此打开角色选择弹窗或跳转角色页。
+    console.info("[rc-app-main-layout demo] switch role");
+};
+const handleLogout = () => {
+    // 示例：业务可在此清理登录态并跳转登录页。
+    console.info("[rc-app-main-layout demo] logout");
+};
+
 const SimpleFrame = () => {
     const TabsBridge = () => {
         const { openTab } = useAppMainLayoutTabs();
-        const loadHeaderUser = useCallback(async () => {
-            await sleep(1200);
-            return {
-                name: "Admin",
-                avatar: "A",
-                roleName: "系统管理员",
-            };
-        }, []);
-        const loadSidebarMenus = useCallback(async () => {
-            await sleep(900);
-            return menus;
-        }, []);
-        const handleSwitchRole = useCallback(() => {
-            // 示例：业务可在此打开角色选择弹窗或跳转角色页
-            console.info("[rc-app-main-layout demo] switch role");
-        }, []);
-        const handleLogout = useCallback(() => {
-            // 示例：业务可在此清理登录态并跳转登录页
-            console.info("[rc-app-main-layout demo] logout");
-        }, []);
-
         return (
             <AppMainLayout
                 className={css`body { margin: 0; }`}
@@ -199,7 +196,7 @@ const SimpleFrame = () => {
                             <div className={pageStyle}>
                                 <h2>{item.title}</h2>
                                 <p>页面 key：{String(item.key)}</p>
-                                <input />
+                                <LineEdit label="页面备注" placeholder="记录当前页面的工作备注" />
                             </div>
                         ),
                     });

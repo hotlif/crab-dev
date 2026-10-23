@@ -23,6 +23,12 @@ status = "experimental"
 - 页数较少时显示完整页码，较多时通过省略号和跳转控件缩短导航。
 - 保留悬停、聚焦、按下和禁用反馈，并遵循减少动态效果的系统偏好。
 
+## 三套风格
+
+macOS 当前页使用强调色背景和配对前景色、6px 圆角；Material 使用胶囊形次要色容器；shadcn 当前页使用表面色、细描边和 8px 圆角。三套风格保留上一页、下一页、省略跳转、页容量、快速跳转、禁用和键盘焦点行为。当前页通过 `aria-current="page"` 暴露，不靠颜色单独传达位置。
+
+M3 与 Material Web 没有独立分页组件，本组件根据 [M3 按钮](https://m3.material.io/components/buttons/overview)和 [Material Web 按钮](https://material-web.dev/components/button/)的状态反馈扩展。shadcn 参考 [Pagination](https://ui.shadcn.com/docs/components/radix/pagination)及其 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/pagination.tsx)的 active outline / inactive ghost 模式。macOS 是与同主题按钮和导航一致的 Web 扩展。参考核对日期：2026-10-22。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

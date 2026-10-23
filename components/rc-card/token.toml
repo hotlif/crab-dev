@@ -47,21 +47,21 @@ root.transform-active = "translateY(0px)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.padding = "$ref(sizing.large.padding)"
+size.large.padding = "$ref(surface.card.padding.large)"
 size.large.gap = "$ref(sizing.large.gap)"
 size.large.border-radius     = "$ref(shape.card)"
 size.large.title.font-size = "$ref(font.size.heading)"
 
 # ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
 
-size.middle.padding = "$ref(sizing.middle.padding)"
+size.middle.padding = "$ref(surface.card.padding.middle)"
 size.middle.gap = "$ref(sizing.middle.gap)"
 size.middle.border-radius     = "$ref(shape.card)"
 size.middle.title.font-size = "$ref(font.size.subhead)"
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.padding = "$ref(sizing.small.padding)"
+size.small.padding = "$ref(surface.card.padding.small)"
 size.small.gap = "$ref(sizing.small.gap)"
 size.small.border-radius     = "$ref(shape.card)"
 size.small.title.font-size = "$ref(typography.body.font-size)"

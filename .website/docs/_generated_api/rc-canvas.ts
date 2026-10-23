@@ -1,7 +1,5 @@
-/**
- * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
- * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。
- */
+// THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
+// Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。
 
 type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
@@ -63,7 +61,7 @@ export interface CanvasProps {
     "onRender"?: () => void;
 
     /**
-     * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。 各图元显式颜色 prop 始终优先；支持 var()/color-mix()/系统色。
+     * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。 默认及局部覆盖均以语义令牌为基础并跟随主题；各图元显式颜色 prop 始终优先。 支持 var()/color-mix()/系统色；显式传 DEFAULT_CANVAS_PALETTE 可保留旧版配色。
      */
     "palette"?: Partial<CanvasPalette>;
 

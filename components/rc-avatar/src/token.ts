@@ -85,7 +85,7 @@ const token = defineTokens({
     },
     'shape': {
         'square': {
-            'border-radius': `var(${vars['shape.square.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-6, 12px)))`
+            'border-radius': `var(${vars['shape.square.border-radius']}, var(--token-semantic-status-avatar-shape, var(--token-global-radius-6, 12px)))`
         }
     },
     'ring': {

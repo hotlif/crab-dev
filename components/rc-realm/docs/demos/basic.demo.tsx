@@ -1,3 +1,5 @@
+import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 export const meta = {
     title: "基础用法",
     description:
@@ -12,7 +14,7 @@ import type { RemoteContainer } from '../../src/index.js';
 const RemoteCounter = ({ message }: { message?: unknown }) => {
     const [count, setCount] = useState(0);
     return (
-        <div style={{ padding: 12, border: '1px dashed currentColor' }}>
+        <div className={css`padding: ${token.space["card-padding"]}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.card}; background: ${token.color.surface.content}; color: ${token.color.text.primary};`}>
             <p>我是「远程」组件：宿主消息 = {String(message)}</p>
             <Button onClick={() => setCount((current) => current + 1)}>
                 远程内部状态 {count}

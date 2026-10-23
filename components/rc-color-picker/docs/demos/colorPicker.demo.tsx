@@ -5,16 +5,18 @@ export const meta = {
 
 import { css } from "@crab-dev/css";
 import { useState } from "react";
+import token from "@crab-dev/rc-token-semantic";
 import ColorPicker, { type ColorPreset, type OKLCHValue } from "../../src/index.js";
 
 const rowStyle = css`
     display: flex;
     align-items: center;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: ${token.space['component-gap']};
     > span:first-child {
         width: 12rem;
-        font-size: 13px;
-        color: #666;
+        font-size: ${token.typography.body.medium['font-size']};
+        color: ${token.color.text.secondary};
     }
 `;
 
@@ -50,8 +52,8 @@ const ColorPickerDemo = () => {
             className={css`
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
-                margin-bottom: 2rem;
+                gap: ${token.space['group-gap']};
+                margin-bottom: ${token.space['section-gap']};
             `}
         >
             <label className={rowStyle}>

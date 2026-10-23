@@ -43,7 +43,7 @@ const linkStyle = css`
 
 const currentStyle = css`
     color: ${token.item['color-active']};
-    font-weight: 500;
+    font-weight: ${token.item.current['font-weight']};
 `;
 
 const actionStyle = css`

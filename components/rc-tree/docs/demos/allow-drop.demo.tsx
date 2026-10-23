@@ -1,5 +1,5 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import { treeMeasureStyle } from "../demo-layout.js";
+import { treeMeasureStyle, demoStackStyle, demoNoteStyle } from "../demo-layout.js";
 export const meta = {
     title: "拖拽限制 allowDrop",
     description: "通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。",
@@ -40,8 +40,8 @@ const AllowDropDemo = () => {
     const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            <p style={{ fontSize: "0.875rem", color: "#666", margin: 0 }}>
+        <div className={demoStackStyle}>
+            <p className={demoNoteStyle}>
                 当前规则：只允许同级排序，禁止跨层级移动（拖入文件夹或移出文件夹）。
             </p>
             <AutoSizer disableHeight className={treeMeasureStyle}>

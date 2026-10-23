@@ -35,7 +35,7 @@ import { demos } from "../_generated/rc-token-semantic.js";
 
 ### 角色与默认主题
 
-业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。默认 Material Design 3 风格将 L1 的 Purple 40 / 80 配对为浅色 / 深色品牌；可选 shadcn 风格使用零色度 Neutral 黑白灰。两套风格使用相同的 L2 角色，明暗模式独立切换。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射，不再包含历史别名。
+业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。默认 Material Design 3 风格将 L1 的 Purple 40 / 80 配对为浅色 / 深色品牌；可选 shadcn 风格使用零色度 Neutral 黑白灰，macOS 风格使用蓝色强调与银灰、深灰表面。三套风格使用相同的 L2 角色，明暗模式独立切换。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射，不再包含历史别名。
 
 | 意图 | 背景或主色 | 配套前景 | 使用边界 |
 | --- | --- | --- | --- |
@@ -58,7 +58,7 @@ const panel = css`
 
 ### 同一份配对数据与 CSS 主题
 
-`themeColorContract` 保持默认 Material 的 `light`、`dark` 配对；`shadcnColorContract` 提供独立的黑白灰配对。`designColorContract` 用 `material` / `shadcn` 索引两套数据，`ThemeDesign` 类型声明这两个风格名称。它们供主题编译、设计参考和契约测试使用，成员是 CSS 引用字符串，读取它们不会切换主题或注入样式。
+`themeColorContract` 保持默认 Material 的 `light`、`dark` 配对；`shadcnColorContract` 提供独立的黑白灰配对，`macosColorContract` 提供蓝色强调与分层灰色表面的配对。`designColorContract` 用 `material` / `shadcn` / `macos` 索引三套数据，`ThemeDesign` 类型声明这三个风格名称。它们供主题编译、设计参考和契约测试使用，成员是 CSS 引用字符串，读取它们不会切换主题或注入样式。
 
 ```ts
 import { designColorContract } from "@crab-dev/rc-token-semantic";
@@ -70,7 +70,7 @@ const brand = light.brand.primary; // L1 Neutral 900 的 CSS 引用
 const onBrand = light.text.onBrand;
 ```
 
-运行时主题使用 `@crab-dev/rc-theme/css/index.css`、`data-crab-design` 与 `data-theme`；React 应用通过 ConfigProvider 的 `design` 统一选择风格。TOML 保持无主题样式时的 Material Light 回退值，`src/theme.ts` 与 `src/shadcn-theme.ts` 分别维护两套完整明暗配对。业务代码通常只需要默认 `token`，不用在每个组件里读取风格或明暗模式再分支。
+运行时主题使用 `@crab-dev/rc-theme/css/index.css`、`data-crab-design` 与 `data-theme`；React 应用通过 ConfigProvider 的 `design` 统一选择风格，例如 `design="macos"`。TOML 保持无主题样式时的 Material Light 回退值，`src/theme.ts`、`src/shadcn-theme.ts` 与 `src/macos-theme.ts` 分别维护三套完整明暗配对。业务代码通常只需要默认 `token`，不用在每个组件里读取风格或明暗模式再分支。
 
 ### 覆盖、迁移与验收
 
@@ -89,20 +89,25 @@ const onBrand = light.text.onBrand;
 ### 统一视觉尺度
 
 - small 控件横向内边距为 `space.control-padding-x-small`（8px），middle / large 为 `space.control-padding-x`（12px）。
-- 两套风格共用桌面密度定制：small / middle / large 控件高度为 32 / 36 / 40px，尺寸与风格独立配置；触控目标保留独立角色。
+- 通用桌面尺寸为 small / middle / large 的 32 / 36 / 40px；输入、选择控件、开关、分段按钮和页签使用各自的规格角色，不能用通用高度推断所有组件。Material 带标签输入为 56px，复选框和单选框交互区为 48px；触控目标保留独立角色。
 - Material 保留 4px 控件圆角、胶囊按钮、28px 弹层圆角和默认层级卡片；shadcn 使用 8px 控件圆角、方形按钮、12px 弹层圆角和默认描边卡片。风格切换统一覆盖共享形状角色。
+- macOS 通过共享形状与阴影角色提供 6px 控件和按钮圆角、12px 卡片与 16px 弹层圆角，输入采用外置标签和外圈蓝色焦点；这些是桌面风格扩展，不改变组件的无障碍语义与键盘操作。
 - 卡片和内容分隔使用 `color.border.subtle`；可输入控件保留 `color.border.default` 的辨识度。
 - 即时颜色、边框和阴影反馈使用 `motion.interaction`；大范围展开使用独立的 `motion.expand`。
 
 ### 排版与字体
 
-`typography.display / headline / title / body / label` 各有 large、medium、small，共 15 组字体、字号、行高和字重角色。默认使用 Roboto，中文回退到 Noto Sans SC、苹方或微软雅黑。文档和工作台随产物加载 Roboto；消费方应自行加载 Roboto 或覆盖公共字体角色。
+`typography.display / headline / title / body / label` 各有 large、medium、small，共 15 组字体、字号、行高和字重角色。Material 使用 Roboto，macOS 使用系统界面字体，shadcn 使用 Inter 优先的 sans 回退；所有字体角色在嵌套风格边界一起恢复。文档和工作台随产物加载 Roboto，其他字体是否可用取决于设备；消费方可自行加载字体或覆盖公共字体角色。
+
+### 组件类别角色
+
+`selection`、`toggle` 与 `range` 控制选择类形状和状态；`field` 与 `picker` 控制标签、输入反馈和选择面板；`navigation` 控制分段轨道、页签和选中项；`overlay`、`feedback` 与 `status` 控制表面、消息与加载形态；`data` 控制表格、图表与分隔柄。L3 引用这些 L2 角色，三套风格在公共主题中成组覆盖，组件不按风格分支。实际对照见[三套风格](/guides/design-styles)。
 
 ### 验收范围
 
-公共默认风格仍为 Material Design 3：品牌采用 Material Purple，表面采用 Material Neutral / Neutral Variant。shadcn 风格独立采用零色度 Neutral：浅色白底、深色近黑底，品牌操作、选中容器、文字、边框和焦点均为黑白灰。两套风格共用 lowest、low、container、high、highest、dim 和 bright 等角色，保留错误、成功、警告与信息的语义反馈色；自定义品牌不会改变基础表面。
+公共默认风格仍为 Material Design 3：品牌采用 Material Purple，表面采用 Material Neutral / Neutral Variant。shadcn 风格独立采用零色度 Neutral：浅色白底、深色近黑底，品牌操作、选中容器、文字、边框和焦点均为黑白灰。macOS 风格使用蓝色操作与选中角色，浅色银灰和深色灰阶分别定义表面层级。三套风格共用 lowest、low、container、high、highest、dim 和 bright 等角色，保留错误、成功、警告与信息的语义反馈色；自定义品牌不会改变基础表面。
 
-颜色 API 名称保持不变，切换风格应复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。shadcn 细描边是该风格的视觉定制，不能将其当作所有控件唯一的可访问性标记；焦点与选择状态仍有独立的高对比角色。
+颜色 API 名称保持不变，切换风格应复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。shadcn 与 macOS 的细描边是各自风格的视觉定制，不能将其当作所有控件唯一的可访问性标记；焦点与选择状态仍有独立的高对比角色。macOS 是受苹果桌面界面启发的项目主题，不代表苹果原生控件或 M3 默认视觉规格。
 
 - L1 修改会影响所有上层引用；业务品牌定制优先覆盖 L2。
 - L3 覆盖继续优先于 L2；应检查旧组件覆盖是否遮住新的公共默认。

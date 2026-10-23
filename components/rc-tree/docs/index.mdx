@@ -31,6 +31,12 @@ status = "experimental"
 
 **设计要求：** 长标题应提供全文获取入口；宽度适配不能替代标题可读性、层级键盘导航及拖拽替代操作的验收。
 
+## 三套风格
+
+树节点的选中形态与对应主题导航一致：macOS 为强调色圆角行与配对前景色，Material 为次要色胶囊行，shadcn 为中性圆角行。选中标题不附加下划线，展开图标和加载图标跟随选中前景色。多选复选框、禁用、焦点、拖拽指示和内联编辑保留各自语义。
+
+M3 与 Material Web 没有独立 Tree；Material 的行选择扩展自 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)，并保留 Web tree 的键盘模型。macOS 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)及 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。这些是分层数据扩展，不能等同于三方原生 Tree。参考核对日期：2026-10-22。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

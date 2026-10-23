@@ -94,6 +94,7 @@ const ItemNormal: FC<ItemProps> = ({
                         item.icon ? (
                             <span
                                 className={itemStyle.item.icon}
+                                data-menu-icon=""
                             >
                                 {item.icon}
                             </span>

@@ -4,6 +4,8 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import token from "@crab-dev/rc-token-semantic";
 import { useMessage } from "../../src/index.js";
 
 const BasicDemo = () => {
@@ -15,25 +17,25 @@ const BasicDemo = () => {
             <div
                 className={css`
                     display: flex;
-                    gap: 8px;
+                    gap: ${token.space["component-gap"]};
                     flex-wrap: wrap;
                 `}
             >
-                <button onClick={() => message.success("操作成功")}>
+                <Button onClick={() => { message.success("操作成功"); }}>
                     Success
-                </button>
-                <button onClick={() => message.error("操作失败")}>
+                </Button>
+                <Button onClick={() => { message.error("操作失败"); }}>
                     Error
-                </button>
-                <button onClick={() => message.warning("警告信息")}>
+                </Button>
+                <Button onClick={() => { message.warning("警告信息"); }}>
                     Warning
-                </button>
-                <button onClick={() => message.info("提示信息")}>
+                </Button>
+                <Button onClick={() => { message.info("提示信息"); }}>
                     Info
-                </button>
-                <button onClick={() => message.loading("加载中...")}>
+                </Button>
+                <Button onClick={() => { message.loading("加载中..."); }}>
                     Loading
-                </button>
+                </Button>
             </div>
         </div>
     );

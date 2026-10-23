@@ -1,7 +1,7 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css, cx } from "@crab-dev/css";
-import { type CSSProperties, type HTMLAttributes, type Ref } from "react";
+import { type CSSProperties, type HTMLAttributes, type Ref, type RefObject } from "react";
 import token from "../token.js";
 import type { OKLCHValue } from "../types.js";
 
@@ -10,6 +10,7 @@ export interface ColorPickerInputProps extends Omit<HTMLAttributes<HTMLDivElemen
     size?: 'small' | 'middle' | 'medium' | 'large';
     disabled?: boolean;
     ref?: Ref<HTMLDivElement>;
+    triggerRef: RefObject<HTMLDivElement | null>;
 }
 
 /** 合并「dropdown 的 setReference」与用户传入的 ref(ref 作为普通 prop,不使用 forwardRef)。 */
@@ -60,6 +61,7 @@ const ColorPickerInput = ({
     size: sizeProp,
     disabled = false,
     ref,
+    triggerRef,
     "aria-label": ariaLabel,
     className,
     onClick,
@@ -94,6 +96,7 @@ const ColorPickerInput = ({
             {...restProps}
             className={cx.call(undefined, triggerStyle, disabled && disabledStyle, className)}
             ref={(node) => {
+                triggerRef.current = node;
                 assignRef(refs.setReference, node);
                 assignRef(ref, node);
             }}

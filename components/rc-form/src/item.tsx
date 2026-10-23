@@ -4,7 +4,6 @@ import { css, cx } from "@crab-dev/css";
 import semanticToken from "@crab-dev/rc-token-semantic";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
-import Tooltip from "@crab-dev/rc-tooltip";
 
 import token from "./token.js";
 import { RuleType, ValidateState } from "./types.js";
@@ -82,6 +81,7 @@ const rowStyle = css`
 
 const labelStyle = css`
     grid-column: 1;
+    grid-row: 1;
     justify-self: start;
     display: inline-flex;
     align-items: center;
@@ -101,6 +101,7 @@ const requiredStyle = css`
 // 编辑器占据第 2 列（1fr）；min-width: 0 允许在窄容器内正常收缩
 const editorWrapStyle = css`
     grid-column: 2;
+    grid-row: 1;
     min-width: 0;
 `;
 
@@ -134,6 +135,7 @@ const controlEditorWrapStyle = css`
 // 状态槽：固定尺寸，无论有无校验结果都占位，从根本上杜绝图标出现 / 消失引发的布局抖动
 const statusSlotStyle = css`
     grid-column: 3;
+    grid-row: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -145,27 +147,6 @@ const statusSlotStyle = css`
         display: block;
         width: 100%;
         height: 100%;
-    }
-`;
-
-// error / warning 状态下的图标是可点击 / 可聚焦的触发器（用于唤起 Tooltip 展示消息）
-const statusTriggerStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-
-    &:focus-visible {
-        border-radius: 50%;
-        outline: 2px solid currentColor;
-        outline-offset: 1px;
     }
 `;
 
@@ -182,25 +163,23 @@ const successColorStyle = css`
 `;
 
 // 校验中：复用 rc-spin 的纯视觉环（旋转与 reduced-motion 降级由其统一承担）。
-// 校验文案已由下方 srOnly 的 role="alert" 播报，故此处只是视觉意符，描边跟随槽位前景色。
+// 校验文案在字段下方显示；状态图标不增加额外的交互目标。
 const validatingStyle = css`
     color: ${token.status.validating.color};
     ${spinVars['ring.indicator.stroke']}: currentColor;
     ${spinVars['ring.track.stroke']}: transparent;
 `;
 
-// 视觉隐藏但保留在无障碍树中：承载完整校验文案，供屏幕阅读器播报（role="alert"），
-// 与末尾图标 + Tooltip 的视觉呈现互补。
-const srOnlyStyle = css`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+const validationMessageStyle = css`
+    grid-column: 2 / -1;
+    grid-row: 2;
+    min-width: 0;
+    padding-inline: ${token.message['padding-inline']};
+    margin-block-start: ${token.message.gap};
+    font-size: ${token.message['font-size']};
+    line-height: ${token.message['line-height']};
+    white-space: pre-line;
+    overflow-wrap: anywhere;
 `;
 
 function FormItemComponent({
@@ -241,8 +220,6 @@ function FormItemComponent({
     const [validateState, setValidateState] = useState<ValidateState>(ValidateState.DEFAULT);
     // 校验消息
     const [validateMessage, setValidateMessage] = useState<string>("");
-    // Tooltip 显隐：受控。点击图标切换；Tooltip 内部 hover / focus / 外部点击也会回写此状态。
-    const [messageOpen, setMessageOpen] = useState(false);
     // 可变实例状态：忽略编辑、重置或卸载前发起的异步校验结果。
     const validationVersion = useRef(0);
     useEffect(() => () => { validationVersion.current += 1; }, []);
@@ -286,10 +263,9 @@ function FormItemComponent({
         );
     };
 
-    // 渲染末尾状态图标：default 空占位（保持槽位尺寸）/ validating 转圈 / success 对勾 /
-    // error / warning 为可点击图标，点击（或 hover / focus）唤起 Tooltip 展示对应消息。
+    // 错误和警告说明持续显示在字段下方，末尾图标仅提供额外的非颜色提示。
     const renderStatusElement = () => {
-        // control 模式由编辑器显示可见的错误/警告，不重复渲染 Tooltip。
+        // control 模式由编辑器显示错误/警告，不重复渲染外部状态槽。
         if (labelPlacement === 'control') return null;
         if (validateState === ValidateState.VALIDATING) {
             return (
@@ -309,23 +285,8 @@ function FormItemComponent({
             const Icon = validateState === ValidateState.ERROR ? CircleAlert : TriangleAlert;
             const colorStyle = validateState === ValidateState.ERROR ? errorColorStyle : warningColorStyle;
             return (
-                <span className={cx.call(undefined, statusSlotStyle, colorStyle)}>
-                    <Tooltip
-                        title={validateMessage}
-                        placement="top"
-                        open={messageOpen}
-                        onOpenChange={setMessageOpen}
-                    >
-                        <button
-                            type="button"
-                            className={statusTriggerStyle}
-                            aria-label="查看校验提示"
-                            aria-describedby={messageId}
-                            onClick={() => setMessageOpen((prev) => !prev)}
-                        >
-                            <Icon />
-                        </button>
-                    </Tooltip>
+                <span className={cx.call(undefined, statusSlotStyle, colorStyle)} aria-hidden>
+                    <Icon />
                 </span>
             );
         }
@@ -345,7 +306,6 @@ function FormItemComponent({
             setValue(newValue);
             setValidateState(ValidateState.DEFAULT);
             setValidateMessage('');
-            setMessageOpen(false);
             eventBus?.dispatch({ type: MessageEnum.ON_ITEM_VALUE_CHANGE, payload: [{ name, value: newValue }] });
         };
         const field: FormItemEditor = {
@@ -496,7 +456,6 @@ function FormItemComponent({
                 validationVersion.current += 1;
                 setValidateState(ValidateState.DEFAULT);
                 setValidateMessage('');
-                setMessageOpen(false);
             },
         };
         eventBus?.subscribe(resetSubscriber);
@@ -523,10 +482,11 @@ function FormItemComponent({
             {renderLabelElement()}
             {renderEditorElement()}
             {renderStatusElement()}
-            {labelPlacement !== 'control' && <span
+            {labelPlacement !== 'control' && isInvalid && <span
                 id={messageId}
-                className={srOnlyStyle}
-                role={isInvalid ? "alert" : undefined}
+                data-form-message=""
+                className={cx(validationMessageStyle, validateState === ValidateState.ERROR ? errorColorStyle : warningColorStyle)}
+                role="alert"
             >
                 {validateMessage}
             </span>}

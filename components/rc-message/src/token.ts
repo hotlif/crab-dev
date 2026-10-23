@@ -7,6 +7,7 @@ import { defineTokens } from '@crab-dev/css';
 export const vars = defineTokens({
     'root.padding': '--message-root-padding',
     'root.border-radius': '--message-root-border-radius',
+    'root.border-color': '--message-root-border-color',
     'root.font-size': '--message-root-font-size',
     'root.line-height': '--message-root-line-height',
     'root.background-color': '--message-root-background-color',
@@ -31,34 +32,35 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'padding': `var(${vars['root.padding']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-feedback-toast-shape, var(--token-global-radius-2, 4px)))`,
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-feedback-toast-border, transparent))`,
         'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
-        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-background-inverse, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-feedback-toast-background, var(--token-semantic-color-background-inverse, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889)))))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`
     },
     'icon': {
         'width': `var(${vars['icon.width']}, 18px)`,
         'margin-right': `var(${vars['icon.margin-right']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-        'color-error': `var(${vars['icon.color-error']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
+        'color-error': `var(${vars['icon.color-error']}, var(--token-semantic-feedback-toast-foreground, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))))`
     },
     'success': {
         'icon': {
-            'color': `var(${vars['success.icon.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
+            'color': `var(${vars['success.icon.color']}, var(--token-semantic-feedback-toast-foreground, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))))`
         }
     },
     'warning': {
         'icon': {
-            'color': `var(${vars['warning.icon.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
+            'color': `var(${vars['warning.icon.color']}, var(--token-semantic-feedback-toast-foreground, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))))`
         }
     },
     'info': {
         'icon': {
-            'color': `var(${vars['info.icon.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
+            'color': `var(${vars['info.icon.color']}, var(--token-semantic-feedback-toast-foreground, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))))`
         }
     },
     'text': {
-        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
+        'color': `var(${vars['text.color']}, var(--token-semantic-feedback-toast-foreground, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))))`
     },
     'progress': {
         'start': {

@@ -8,7 +8,7 @@ import {
     useTransition,
 } from "react";
 import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
-import RcButton from "@crab-dev/rc-button";
+import RcButton, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import { usePresence } from "@crab-dev/rc-hooks";
 import { useConfig } from "@crab-dev/rc-config-provider";
 
@@ -330,6 +330,7 @@ function Dialog({
                             overflow-wrap: anywhere;
                             padding: ${dimensionPadding};
                             border-radius: ${dimensionBorderRadius};
+                            border: 1px solid ${token.root['border-color']};
                             box-shadow: ${elevationBoxShadow};
                             background: ${colorDialogBackgroundColor};
                             @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
@@ -417,6 +418,17 @@ function Dialog({
                             <RcButton
                                 data-dialog-action="cancel"
                                 appearance="text"
+                                className={css`
+                                    ${buttonVars['text.color']}: ${token.footer.cancel.color};
+                                    ${buttonVars['text.background-color-hover']}: ${token.footer.cancel['background-color-hover']};
+                                    ${buttonVars['text.background-color-focus']}: ${token.footer.cancel['background-color-focus']};
+                                    ${buttonVars['text.background-color-active']}: ${token.footer.cancel['background-color-active']};
+                                    border: ${token.footer.button['border-width']} solid transparent;
+                                    &:not([aria-disabled='true']:not([data-is-loading])) {
+                                        background-color: ${token.footer.cancel['background-color']};
+                                        border-color: ${token.footer.cancel['border-color']};
+                                    }
+                                `}
                                 disabled={isPending && pendingAction !== "cancel"}
                                 loading={isPending && pendingAction === "cancel"}
                                 onClick={cancel}
@@ -424,7 +436,19 @@ function Dialog({
                                 {cancelText}
                             </RcButton>
                             <RcButton
+                                data-dialog-action="confirm"
                                 appearance="text"
+                                className={css`
+                                    ${buttonVars['text.color']}: ${token.footer.confirm.color};
+                                    ${buttonVars['text.background-color-hover']}: ${token.footer.confirm['background-color-hover']};
+                                    ${buttonVars['text.background-color-focus']}: ${token.footer.confirm['background-color-focus']};
+                                    ${buttonVars['text.background-color-active']}: ${token.footer.confirm['background-color-active']};
+                                    border: ${token.footer.button['border-width']} solid transparent;
+                                    &:not([aria-disabled='true']:not([data-is-loading])) {
+                                        background-color: ${token.footer.confirm['background-color']};
+                                        border-color: ${token.footer.confirm['border-color']};
+                                    }
+                                `}
                                 disabled={isPending && pendingAction !== "confirm"}
                                 loading={isPending && pendingAction === "confirm"}
                                 onClick={confirm}

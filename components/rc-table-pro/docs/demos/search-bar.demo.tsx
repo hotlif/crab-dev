@@ -4,6 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import token from '@crab-dev/rc-token-semantic';
 import TablePro from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";
@@ -62,6 +63,9 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.inStock",   title: "库存",      dataType: "stock",    width: 80  },
 ];
 
+const inStockStyle = css`color: ${token.color.feedback.success.text};`;
+const outOfStockStyle = css`color: ${token.color.feedback.error.text};`;
+
 const TYPE_LOADERS: DataTypeLoader<BookRow>[] = [
     { name: "text",   render: undefined, editRender: undefined, filterEditor: undefined },
     { name: "number", render: undefined, editRender: undefined, filterEditor: undefined },
@@ -86,7 +90,7 @@ const TYPE_LOADERS: DataTypeLoader<BookRow>[] = [
             const field = String(column.name).replace(/^\$\./, "") as keyof BookRow["dataRef"];
             const inStock = Boolean((row as BookRow).dataRef[field]);
             return (
-                <span style={{ color: inStock ? "oklch(55% 0.18 140)" : "oklch(55% 0.18 25)" }}>
+                <span className={inStock ? inStockStyle : outOfStockStyle}>
                     {inStock ? "有货" : "缺货"}
                 </span>
             );

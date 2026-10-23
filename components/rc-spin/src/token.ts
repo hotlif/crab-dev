@@ -9,6 +9,8 @@ export const vars = defineTokens({
     'ring.indicator.stroke': '--spin-ring-indicator-stroke',
     'ring.stroke-width': '--spin-ring-stroke-width',
     'ring.stroke-dasharray': '--spin-ring-stroke-dasharray',
+    'ring.display': '--spin-ring-display',
+    'spokes.display': '--spin-spokes-display',
     'indicator.animation-duration': '--spin-indicator-animation-duration',
     'indicator.animation-timing-function': '--spin-indicator-animation-timing-function',
     'indicator.reduced-motion.animation-duration': '--spin-indicator-reduced-motion-animation-duration',
@@ -39,17 +41,21 @@ export const vars = defineTokens({
 const token = defineTokens({
     'ring': {
         'track': {
-            'stroke': `var(${vars['ring.track.stroke']}, var(--token-semantic-color-fill-default, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-300, oklch(0.840 0.008 286)))))`
+            'stroke': `var(${vars['ring.track.stroke']}, var(--token-semantic-status-spinner-track, var(--token-semantic-color-fill-default, var(--token-global-material-neutral-variant-90, oklch(0.91569447 0.01773656 311.568168)))))`
         },
         'indicator': {
-            'stroke': `var(${vars['ring.indicator.stroke']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+            'stroke': `var(${vars['ring.indicator.stroke']}, var(--token-semantic-status-spinner-color, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'stroke-width': `var(${vars['ring.stroke-width']}, 4)`,
-        'stroke-dasharray': `var(${vars['ring.stroke-dasharray']}, 31.4 125.7)`
+        'stroke-dasharray': `var(${vars['ring.stroke-dasharray']}, 31.4 125.7)`,
+        'display': `var(${vars['ring.display']}, var(--token-semantic-status-spinner-circular-display, inline))`
+    },
+    'spokes': {
+        'display': `var(${vars['spokes.display']}, var(--token-semantic-status-spinner-spokes-display, none))`
     },
     'indicator': {
         'animation-duration': `var(${vars['indicator.animation-duration']}, 0.9s)`,
-        'animation-timing-function': `var(${vars['indicator.animation-timing-function']}, linear)`,
+        'animation-timing-function': `var(${vars['indicator.animation-timing-function']}, var(--token-semantic-status-spinner-easing, linear))`,
         'reduced-motion': {
             'animation-duration': `var(${vars['indicator.reduced-motion.animation-duration']}, 1.6s)`,
             'opacity': `var(${vars['indicator.reduced-motion.opacity']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`

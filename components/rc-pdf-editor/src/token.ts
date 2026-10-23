@@ -35,6 +35,7 @@ export const vars = defineTokens({
     'objects.line-height': '--pdf-editor-objects-line-height',
     'objects.icon.width': '--pdf-editor-objects-icon-width',
     'panel.width': '--pdf-editor-panel-width',
+    'panel.background': '--pdf-editor-panel-background',
     'panel.properties.width': '--pdf-editor-panel-properties-width',
     'panel.padding': '--pdf-editor-panel-padding',
     'panel.gap': '--pdf-editor-panel-gap',
@@ -76,14 +77,14 @@ const token = defineTokens({
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-font-line-height-body, var(--token-global-line-height-normal, 1.5)))`,
         'height': `var(${vars['root.height']}, min(800px, 85vh))`,
         'min-height': `var(${vars['root.min-height']}, 480px)`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-radius-lg, var(--token-global-radius-6, 12px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
         'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
         'border-width': `var(${vars['root.border-width']}, 1px)`,
         'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
         'background-color-error': `var(${vars['root.background-color-error']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`
     },
     'toolbar': {
-        'background': `var(${vars['toolbar.background']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`,
+        'background': `var(${vars['toolbar.background']}, var(--token-semantic-color-workspace-toolbar, var(--token-global-white, oklch(1.000 0 0))))`,
         'min-height': `var(${vars['toolbar.min-height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
         'padding': `var(${vars['toolbar.padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'gap': `var(${vars['toolbar.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
@@ -113,6 +114,7 @@ const token = defineTokens({
     },
     'panel': {
         'width': `var(${vars['panel.width']}, 240px)`,
+        'background': `var(${vars['panel.background']}, var(--token-semantic-color-workspace-sidebar, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
         'properties': {
             'width': `var(${vars['panel.properties.width']}, 280px)`
         },
@@ -128,7 +130,7 @@ const token = defineTokens({
         }
     },
     'canvas': {
-        'background': `var(${vars['canvas.background']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
+        'background': `var(${vars['canvas.background']}, var(--token-semantic-color-workspace-frame, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
         'paper': {
             'background-color': `var(${vars['canvas.paper.background-color']}, oklch(1 0 0))`
         },

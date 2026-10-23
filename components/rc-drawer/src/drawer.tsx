@@ -3,6 +3,7 @@ import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
 import { css, cx } from "@crab-dev/css";
 import { usePresence } from "@crab-dev/rc-hooks";
+import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 
 import token from "./token.js";
 
@@ -147,24 +148,36 @@ const panelBaseStyle = css`
 /* ---- placement：位置锚定 ---- */
 
 const panelPlacementLeftStyle = css`
+    border-inline-end: 1px solid ${token.root['border-color']};
+    border-start-end-radius: ${token.root['border-radius']};
+    border-end-end-radius: ${token.root['border-radius']};
     inset-block: 0;
     inset-inline-start: 0;
     height: 100dvh;
 `;
 
 const panelPlacementRightStyle = css`
+    border-inline-start: 1px solid ${token.root['border-color']};
+    border-start-start-radius: ${token.root['border-radius']};
+    border-end-start-radius: ${token.root['border-radius']};
     inset-block: 0;
     inset-inline-end: 0;
     height: 100dvh;
 `;
 
 const panelPlacementTopStyle = css`
+    border-block-end: 1px solid ${token.root['border-color']};
+    border-end-start-radius: ${token.root['border-radius']};
+    border-end-end-radius: ${token.root['border-radius']};
     inset-inline: 0;
     inset-block-start: 0;
     width: 100vw;
 `;
 
 const panelPlacementBottomStyle = css`
+    border-block-start: 1px solid ${token.root['border-color']};
+    border-start-start-radius: ${token.root['border-radius']};
+    border-start-end-radius: ${token.root['border-radius']};
     inset-inline: 0;
     inset-block-end: 0;
     width: 100vw;
@@ -238,45 +251,14 @@ const footerStyle = css`
 `;
 
 const closeButtonStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    ${buttonVars['text.color']}: ${token.close.color};
+    ${buttonVars['text.background-color-hover']}: ${token.close['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.close['background-color-focus']};
+    ${buttonVars['text.background-color-active']}: ${token.close['background-color-active']};
+    ${buttonVars['icon.width']}: ${token.close.icon.width};
     width: ${token.close.width};
     height: ${token.close.width};
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: ${token.close.color};
-    cursor: pointer;
-    border-radius: ${token.close['border-radius']};
-    transition:
-        color ${token.motion.interaction.transition},
-        background-color ${token.motion.interaction.transition},
-        transform ${token.motion.spatial.transition};
     flex-shrink: 0;
-
-    & > svg {
-        width: ${token.close.icon.width};
-        height: ${token.close.icon.width};
-    }
-
-    &:hover:not(:disabled) {
-        color: ${token.close["color-hover"]};
-        background-color: ${token.close["background-color-hover"]};
-    }
-
-    &:active:not(:disabled) {
-        transform: scale(0.96);
-    }
-
-    &:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: 2px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
 `;
 
 /* ────────────────────────────────── Icons ────────────────────────────────── */
@@ -439,14 +421,15 @@ const Drawer: FC<DrawerProps> = ({
                                     {title}
                                 </div>
                                 {closable && (
-                                    <button
+                                    <Button
                                         type="button"
+                                        appearance="text"
+                                        shape="circle"
                                         className={closeButtonStyle}
                                         onClick={handleCloseButtonClick}
                                         aria-label={closeLabel}
-                                    >
-                                        <CloseIcon />
-                                    </button>
+                                        icon={<CloseIcon />}
+                                    />
                                 )}
                             </div>
                         )}

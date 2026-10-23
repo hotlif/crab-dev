@@ -95,3 +95,11 @@ clearRemoteCache(entry, scope);
 ## API
 
 <API source="../src/types.ts" symbol="RealmProps" component="Realm" />
+
+
+## 设计风格与主题
+
+Realm 保持视觉中性的远程内容容器；加载与错误通过已有 Spin / Alert / Button 组件继承当前设计。远程应用应共享相同语义令牌与主题边界；Realm 不重写远程应用自己的显式配色。
+本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+
+参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。

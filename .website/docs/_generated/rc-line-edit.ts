@@ -6,9 +6,40 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/field-states.demo.tsx",
+        "title": "标签、边界与状态",
+        "description": "切换文档站的 macOS、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。",
+        "learning": {
+            "components": [
+                "LineEdit"
+            ],
+            "props": [
+                "label",
+                "placeholder",
+                "supportingText",
+                "allowClear",
+                "defaultValue",
+                "appearance",
+                "required",
+                "errorText",
+                "readOnly",
+                "disabled",
+                "aria-label"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "export const meta = {\n    title: \"标签、边界与状态\",\n    description: \"切换文档站的 macOS、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cLineEdit label=\"项目名称\" placeholder=\"例如 Atlas\" supportingText=\"名称将显示在工作区列表。\" allowClear defaultValue=\"Atlas\" />\n        \u003cLineEdit label=\"工作邮箱\" appearance=\"filled\" placeholder=\"name@example.com\" required errorText=\"请补全 @ 后的域名。\" defaultValue=\"name@\" />\n        \u003cLineEdit label=\"项目编号\" readOnly defaultValue=\"ATLAS-1024\" supportingText=\"只读内容仍可聚焦、选择和复制。\" />\n        \u003cLineEdit label=\"组织名称\" disabled defaultValue=\"Atlas Studio\" supportingText=\"只有组织管理员可修改。\" />\n        \u003cLineEdit aria-label=\"搜索项目\" placeholder=\"搜索项目\" allowClear />\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
+        "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": "标签与状态"
+    },
+    {
         "id": "docs/demos/simple.demo.tsx",
         "title": "基础用法",
-        "description": "Material 呈现浮动标签与描边缺口，shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",
+        "description": "Material 呈现浮动标签与描边缺口，macOS 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",
         "learning": {
             "components": [
                 "LineEdit"
@@ -22,7 +53,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"Material 呈现浮动标签与描边缺口，shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"Material 呈现浮动标签与描边缺口，macOS 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
         "density": "regular",

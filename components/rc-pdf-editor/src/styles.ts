@@ -12,6 +12,10 @@ export const rootStyle = css`
     font-family: ${token.root['font-family']}; font-size: ${token.root['font-size']}; line-height: ${token.root['line-height']};
     box-sizing: border-box;
     & *, & *::before, & *::after { box-sizing: border-box; }
+    &[data-pdf-layout='compact'] aside {
+        position: absolute; inset-block: 0; inset-inline-start: 0; z-index: 2;
+        &[data-panel='properties'] { inset-inline-start: auto; inset-inline-end: 0; }
+    }
 `;
 export const toolbarStyle = css`
     display: flex; flex-wrap: wrap; align-items: center; flex-shrink: 0;
@@ -28,15 +32,11 @@ export const nameStyle = css`flex: 1; min-width: 0; overflow: hidden; text-overf
 export const toolbarNameStyle = css`min-width: ${token.toolbar['file-name']['min-width']};`;
 export const bodyStyle = css`display: flex; flex: 1; min-height: 0; min-width: 0; position: relative;`;
 export const sidebarStyle = css`
-    display: flex; flex-direction: column; flex-shrink: 0; width: ${token.panel.width};
+    display: flex; flex-direction: column; flex-shrink: 0; width: ${token.panel.width}; max-width: 100%;
     gap: ${token.panel.gap}; padding: ${token.panel.padding}; overflow: auto;
-    background: ${token.root.background};
+    background: ${token.panel.background};
     &[data-panel='properties'] { width: ${token.panel.properties.width}; overflow: hidden; }
     &[hidden] { display: none; }
-    @media (max-width: 1000px) {
-        position: absolute; inset-block: 0; inset-inline-start: 0; z-index: 2;
-        &[data-panel='properties'] { inset-inline-start: auto; inset-inline-end: 0; }
-    }
 `;
 export const sectionStyle = css`display: flex; flex-direction: column; min-width: 0; gap: ${token.panel.gap};`;
 export const propertiesContentStyle = css`display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; overflow: hidden;`;

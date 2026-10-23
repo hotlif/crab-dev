@@ -86,6 +86,12 @@ const iconWrapStyle = css`
     }
 `;
 
+const labelStyle = css`
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
 /**
  * 加载指示环：复用 @crab-dev/rc-spin 的纯视觉环, 不再自造 keyframes。
  *
@@ -632,7 +638,7 @@ const Button: FC<ButtonProps> = ({
         <>
             <span aria-hidden="true" className={touchTargetStyle} />
             {renderLeadingIcon()}
-            {children != null && <span>{children}</span>}
+            {children != null && <span className={labelStyle}>{children}</span>}
             {renderTrailingIcon()}
         </>
     );

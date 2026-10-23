@@ -7,6 +7,7 @@ import LineEdit from "@crab-dev/rc-line-edit";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
 import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
+import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import { css, cx } from "@crab-dev/css";
 import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TableDataSource } from "./types.js";
 import token from "./token.js";
@@ -24,6 +25,8 @@ const flexColumnStyle = css`
 `;
 
 const tableFlexStyle = css`
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-height: 0;
     position: relative;
@@ -59,27 +62,18 @@ const paginationBarStyle = css`
     border-bottom: 1px solid ${token.root['border-color']};
 `;
 
-const paginationRefreshBtnStyle = css`
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.icon.color};
-    padding: 0;
+const iconButtonStyle = css`
     flex-shrink: 0;
-
-    &:hover {
-        background-color: ${token.icon['background-color-hover']};
-        color: ${token.icon['color-hover']};
-    }
+    ${buttonVars['text.color']}: ${token.icon.color};
+    ${buttonVars['text.background-color-hover']}: ${token.icon['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.icon['background-color-focus']};
+    ${buttonVars['text.background-color-active']}: ${token.icon['background-color-pressed']};
+    && { width: ${token.control.target.width}; height: ${token.control.target.width}; }
 `;
 
 const tableAndPanelRowStyle = css`
+    position: relative;
+    container-type: inline-size;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -93,62 +87,46 @@ const tableAreaStyle = css`
 `;
 
 const sideToolbarStyle = css`
-    width: 36px;
+    position: relative;
+    z-index: 12;
+    box-sizing: border-box;
+    width: ${token.toolbar.width};
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 4px;
-    gap: 2px;
+    padding-block: ${token.toolbar.padding};
+    gap: ${token.toolbar.gap};
     border-left: 1px solid ${token.root['border-color']};
     background-color: ${token.chrome['background-color']};
 `;
 
-const sideToolbarBtnStyle = css`
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.icon.color};
-    padding: 0;
-
-    &:hover {
-        background-color: ${token.icon['background-color-hover']};
-        color: ${token.icon['color-hover']};
-    }
-`;
-
-const sideToolbarBtnActiveStyle = css`
-    background-color: ${token.icon['background-color-selected']};
-    color: ${token.icon['color-selected']};
-
-    &:hover {
-        background-color: ${token.icon.selection['background-color-hover']};
-        color: ${token.icon.selection['color-hover']};
-    }
-`;
-
 const sideBarStyle = css`
-    width: 220px;
+    width: ${token.panel.width};
+    min-width: 0;
+    box-sizing: border-box;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     border-left: 1px solid ${token.root['border-color']};
     background-color: ${token.surface['background-color']};
     overflow: hidden;
+    @container (max-width: 600px) {
+        position: absolute;
+        inset-block: 0;
+        inset-inline-end: ${token.toolbar.width};
+        z-index: 11;
+        max-width: calc(100% - ${token.toolbar.width});
+        box-shadow: ${token.panel['box-shadow']};
+    }
 `;
 
 const sideBarToolbarStyle = css`
-    height: 36px;
+    min-height: ${token.control.target.width};
     display: flex;
     align-items: center;
-    padding: 0 8px;
-    gap: 6px;
+    padding: ${token.toolbar.padding};
+    gap: ${token.toolbar.gap};
     border-bottom: 1px solid ${token.root['border-color']};
     background-color: ${token.chrome['background-color']};
     flex-shrink: 0;
@@ -163,22 +141,6 @@ const sideBarBodyStyle = css`
     flex: 1;
     min-height: 0;
     overflow: hidden;
-`;
-
-const panelIconBtnStyle = css`
-    width: 22px;
-    height: 22px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: none;
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.icon.color};
-    padding: 0;
-    &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
 `;
 
 const searchBarStyle = css`
@@ -204,22 +166,6 @@ const searchBarCountStyle = css`
     padding: 0 4px;
 `;
 
-const searchBarNavBtnStyle = css`
-    width: 24px;
-    height: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid ${token.root['border-color']};
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    color: ${token.icon.color};
-    &:hover { background-color: ${token.control['background-color-hover']}; }
-    &:disabled { opacity: ${token.control['opacity-disabled']}; cursor: not-allowed; }
-`;
-
 const sideBarFooterStyle = css`
     flex-shrink: 0;
     border-top: 1px solid ${token.root['border-color']};
@@ -229,31 +175,12 @@ const sideBarFooterStyle = css`
 `;
 
 const resetWidthBtnStyle = css`
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0 8px;
-    height: 24px;
-    font-size: 11px;
-    border: 1px solid ${token.root['border-color']};
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.text.secondary.color};
-    &:hover { background-color: ${token.control['background-color-hover']}; }
+    min-height: ${token.control.target.width};
 `;
 
 const clearAllBtnStyle = css`
-    padding: 0 6px;
-    height: 22px;
-    font-size: 11px;
-    border: 1px solid ${token.root['border-color']};
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.text.secondary.color};
-    white-space: nowrap;
-    &:hover { background-color: ${token.control['background-color-hover']}; }
+    flex-shrink: 0;
+    min-height: ${token.control.target.width};
 `;
 
 const filterPanelScrollStyle = css`
@@ -275,10 +202,8 @@ const filterPanelLabelStyle = css`
 `;
 
 const filterPanelEditorWrapStyle = css`
-    height: 28px;
-    border: 1px solid ${token.root['border-color']};
-    border-radius: 4px;
-    overflow: hidden;
+    min-width: 0;
+    & > * { max-width: 100%; }
 `;
 
 const filterPanelEmptyStyle = css`
@@ -311,16 +236,7 @@ const errorMessageStyle = css`
 `;
 
 const retryBtnStyle = css`
-    padding: 0 12px;
-    height: 26px;
-    font-size: 12px;
-    border: 1px solid ${token.failure['border-color']};
-    border-radius: 4px;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.failure.text.color};
-    margin-top: 2px;
-    &:hover { background-color: ${token.failure['background-color-hover']}; }
+    min-height: ${token.control.target.width};
 `;
 
 /* ───────────────────────────── Props ───────────────────────────── */
@@ -612,7 +528,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     <ErrorIcon />
                     <span>列定义加载失败</span>
                     <p className={errorMessageStyle}>{colMgmt.columnsError.message}</p>
-                    <button type="button" className={retryBtnStyle} onClick={colMgmt.retryLoadColumns}>重试</button>
+                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={colMgmt.retryLoadColumns}>重试</Button>
                 </div>
             )}
             {!colMgmt.columnsError && tableData.dataError && (
@@ -620,7 +536,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     <ErrorIcon />
                     <span>数据加载失败</span>
                     <p className={errorMessageStyle}>{tableData.dataError.message}</p>
-                    <button type="button" className={retryBtnStyle} onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}>重试</button>
+                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}>重试</Button>
                 </div>
             )}
             {loading && !colMgmt.columnsError && !tableData.dataError && (
@@ -671,22 +587,20 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     </div>
                     {hasFolders && (
                         <>
-                            <button
+                            <Button
                                 type="button"
-                                className={panelIconBtnStyle}
+                                appearance="text" shape="circle" size="s" aria-label="展开全部" icon={<ExpandAllIcon />}
+                                className={iconButtonStyle}
                                 title="展开全部"
                                 onClick={colMgmt.handleExpandAll}
-                            >
-                                <ExpandAllIcon />
-                            </button>
-                            <button
+                            />
+                            <Button
                                 type="button"
-                                className={panelIconBtnStyle}
+                                appearance="text" shape="circle" size="s" aria-label="折叠全部" icon={<CollapseAllIcon />}
+                                className={iconButtonStyle}
                                 title="折叠全部"
                                 onClick={colMgmt.handleCollapseAll}
-                            >
-                                <CollapseAllIcon />
-                            </button>
+                            />
                         </>
                     )}
                 </div>
@@ -737,15 +651,15 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     </AutoSizer>
                 </div>
                 <div className={sideBarFooterStyle}>
-                    <button
+                    <Button
                         type="button"
+                        appearance="text" size="s" icon={<ResetWidthIcon />}
                         className={resetWidthBtnStyle}
                         title="将所有列宽恢复为默认值"
                         onClick={colMgmt.handleResetColumnWidths}
                     >
-                        <ResetWidthIcon />
                         重置列宽
-                    </button>
+                    </Button>
                 </div>
             </div>
         );
@@ -779,13 +693,14 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         />
                     </div>
                     {hasActiveFilter && (
-                        <button
+                        <Button
                             type="button"
+                            appearance="text" size="s"
                             className={clearAllBtnStyle}
                             onClick={() => handleFilterChange({})}
                         >
                             清除全部
-                        </button>
+                        </Button>
                     )}
                 </div>
                 <div className={cx.call(undefined, sideBarBodyStyle, filterPanelScrollStyle)}>
@@ -840,24 +755,22 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                             ? `${searchBar.searchActiveIndex + 1}/${searchBar.searchMatchCount}`
                             : "无匹配"}
                     </span>
-                    <button
+                    <Button
                         type="button"
-                        className={searchBarNavBtnStyle}
+                        appearance="text" shape="circle" size="s" aria-label="上一个" icon={<SearchPrevIcon />}
+                        className={iconButtonStyle}
                         title="上一个"
                         disabled={searchBar.searchMatchCount === 0}
                         onClick={() => searchBar.setSearchActiveIndex(i => Math.max(0, i - 1))}
-                    >
-                        <SearchPrevIcon />
-                    </button>
-                    <button
+                    />
+                    <Button
                         type="button"
-                        className={searchBarNavBtnStyle}
+                        appearance="text" shape="circle" size="s" aria-label="下一个" icon={<SearchNextIcon />}
+                        className={iconButtonStyle}
                         title="下一个"
                         disabled={searchBar.searchMatchCount === 0}
                         onClick={() => searchBar.setSearchActiveIndex(i => Math.min(searchBar.searchMatchCount - 1, i + 1))}
-                    >
-                        <SearchNextIcon />
-                    </button>
+                    />
                 </>
             )}
         </div>
@@ -872,31 +785,34 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
             </div>
             {colMgmt.panelOpen && (colMgmt.sideBarTab === "columns" ? columnsPanelContent : filtersPanelContent)}
             <div className={sideToolbarStyle}>
-                <button
-                    className={cx.call(undefined, sideToolbarBtnStyle, colMgmt.panelOpen && colMgmt.sideBarTab === "columns" && sideToolbarBtnActiveStyle)}
+                <Button
+                    className={iconButtonStyle}
+                    appearance={colMgmt.panelOpen && colMgmt.sideBarTab === "columns" ? "tonal" : "text"}
+                    isSelected={colMgmt.panelOpen && colMgmt.sideBarTab === "columns"}
+                    aria-expanded={colMgmt.panelOpen && colMgmt.sideBarTab === "columns"}
+                    shape="circle" size="s" aria-label="列" icon={<ColumnsIcon />}
                     type="button"
                     title="列"
                     onClick={() => handleTabClick("columns")}
-                >
-                    <ColumnsIcon />
-                </button>
-                <button
-                    className={cx.call(undefined, sideToolbarBtnStyle, colMgmt.panelOpen && colMgmt.sideBarTab === "filters" && sideToolbarBtnActiveStyle)}
+                />
+                <Button
+                    className={iconButtonStyle}
+                    appearance={colMgmt.panelOpen && colMgmt.sideBarTab === "filters" ? "tonal" : "text"}
+                    isSelected={colMgmt.panelOpen && colMgmt.sideBarTab === "filters"}
+                    aria-expanded={colMgmt.panelOpen && colMgmt.sideBarTab === "filters"}
+                    shape="circle" size="s" aria-label="过滤器" icon={<FiltersIcon />}
                     type="button"
                     title="过滤器"
                     onClick={() => handleTabClick("filters")}
-                >
-                    <FiltersIcon />
-                </button>
+                />
                 {exportFileName && (
-                    <button
-                        className={sideToolbarBtnStyle}
+                    <Button
+                        className={iconButtonStyle}
                         type="button"
+                        appearance="text" shape="circle" size="s" aria-label="导出 CSV" icon={<ExportIcon />}
                         title="导出 CSV"
                         onClick={() => exportToCSV(colMgmt.rawColumnsRef.current, tableData.rows, typeLoaders, exportFileName)}
-                    >
-                        <ExportIcon />
-                    </button>
+                    />
                 )}
             </div>
         </div>
@@ -930,14 +846,13 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 pageSizeOptions={pageSizeOptions}
                 size={size ?? tableSize}
             />
-            <button
-                className={paginationRefreshBtnStyle}
+            <Button
+                className={iconButtonStyle}
                 type="button"
+                appearance="text" shape="circle" size="s" aria-label="立即刷新" icon={<RefreshIcon />}
                 title="立即刷新"
                 onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}
-            >
-                <RefreshIcon />
-            </button>
+            />
         </div>
     );
 

@@ -20,7 +20,7 @@ import { demos } from "../_generated/rc-config-provider.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 嵌套设计风格与主题边界 — 内层切换为 shadcn 浅色风格，未指定的语言和尺寸继续继承父级。
+##### 嵌套设计风格与主题边界 — 内层分别切换为 shadcn 浅色与 macOS 深色风格，未指定的主题、语言和尺寸继续继承父级。
 
 </div>
 
@@ -53,7 +53,7 @@ Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器�
 
 | 属性 | 值 | 根级默认值 |
 | --- | --- | --- |
-| design | material / shadcn | material |
+| design | material / shadcn / macos | material |
 | theme | light / dark | light |
 | brandColor | #RGB / #RRGGBB / null | null（当前设计风格的默认品牌） |
 | locale | zh-CN / en-US | zh-CN |
@@ -67,18 +67,32 @@ Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器�
 
 ### 切换设计风格
 
-`material` 使用 Material Design 3 的颜色角色和组件形状；`shadcn` 使用本项目的中性配色、紧凑描边与控件圆角定制。两种风格共用组件 API、键盘操作和三档尺寸。`design` 与 `theme`、`brandColor`、`size` 独立，切换风格不会改写其他配置。
+`material` 使用 Material Design 3 的颜色角色和组件形状；`shadcn` 使用本项目的中性配色、紧凑描边与控件圆角定制；`macos` 使用蓝色强调、银灰或深灰表面、圆角和柔和阴影，以及外置标签的桌面布局。三种风格共用组件 API、键盘操作和三档尺寸。`design` 与 `theme`、`brandColor`、`size` 独立，切换风格不会改写其他配置。
+
+```tsx
+<ConfigProvider design="macos" theme="light" size="middle">
+    <App />
+</ConfigProvider>
+```
+
+macOS 是受苹果桌面界面启发的项目主题，默认风格仍为 Material。它保留现有组件能力，不代表苹果原生控件或 M3 默认视觉规格；参考与定制范围见 [Theme 主题样式](/components/rc-theme)。
 
 ```tsx
 import { useState } from 'react';
 import ConfigProvider, { type ConfigDesign } from '@crab-dev/rc-config-provider';
 import Button from '@crab-dev/rc-button';
 
+const nextDesign: Record<ConfigDesign, ConfigDesign> = {
+    material: 'shadcn',
+    shadcn: 'macos',
+    macos: 'material',
+};
+
 export default function Example() {
     const [design, setDesign] = useState<ConfigDesign>('material');
     return (
         <ConfigProvider design={design} theme="light" size="middle">
-            <Button onClick={() => setDesign(design === 'material' ? 'shadcn' : 'material')}>
+            <Button onClick={() => setDesign(nextDesign[design])}>
                 切换设计风格
             </Button>
             <App />
@@ -87,7 +101,7 @@ export default function Example() {
 }
 ```
 
-需要比较两种风格时，可并列设置两个 Provider，或在父级内部显式覆盖 `design`；未设置的明暗主题、品牌色和尺寸继续继承父级。`useConfig().design` 返回当前风格。
+需要比较不同风格时，可并列设置多个 Provider，或在父级内部显式覆盖 `design`；未设置的明暗主题、品牌色和尺寸继续继承父级。`useConfig().design` 返回当前风格。
 
 ### 一个颜色生成品牌主题
 
@@ -120,7 +134,7 @@ export default function Example() {
 
 ### 嵌套与浮层
 
-允许 dark 内嵌 light、Material 内嵌 shadcn，或并列多个独立主题。CSS 同时保留强制颜色支持；主题切换不添加动画。
+允许 dark 内嵌 light、Material 内嵌 shadcn 或 macOS，或并列多个独立主题。CSS 同时保留强制颜色支持；主题切换不添加动画。
 Provider 不访问 document、存储或系统主题，也不修改 html / body；如需持久化或跟随系统，请由应用传入结果。
 
 React Portal 保留 Context，但不会继承原 DOM 祖先的 CSS 变量。
@@ -154,7 +168,7 @@ createPortal(<ConfigProvider><Overlay /></ConfigProvider>, container)
 
 ### 设计风格与明暗模式有什么区别？
 
-design 选择 material 或 shadcn，theme 独立选择 light 或 dark。组件库默认 material；本站默认 shadcn，可从导航外观菜单切换并保存偏好。两个选项都能在运行时修改，嵌套 Provider 继承没有显式传入的配置。
+design 选择 macos、material 或 shadcn，theme 独立选择 light 或 dark。组件库默认 material；本站在未保存偏好时默认 macOS，已有有效偏好会恢复。可从导航外观菜单切换并保存选择。两个选项都能在运行时修改，嵌套 Provider 继承没有显式传入的配置。
 
 ### 哪些组件会跟随配置？
 

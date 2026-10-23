@@ -21,6 +21,7 @@ const CheckableDemo = () => {
 
     return (
         <div>
+            <p className={css`color: ${token.color.text.secondary}; font-size: ${token.typography.body['font-size']}; margin-block: 0 ${token.space['component-gap']};`}>选择内容类型，可同时选择多个选项：</p>
             <div
                 role="toolbar"
                 aria-label="内容类型筛选"

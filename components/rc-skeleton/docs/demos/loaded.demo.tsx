@@ -1,34 +1,62 @@
 export const meta = {
     title: "加载完成",
-    description: "`loading=false` 时直接渲染 `children`，便于包裹真实内容。",
+    description: "`loading=false` 时直接渲染 `children`。点击重新加载，观察占位与真实内容的切换。",
 };
 
-import { useEffect, useState } from "react";
+import { useTransition } from "react";
 import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import token from "@crab-dev/rc-token-semantic";
 
 import Skeleton from "../../src/index.js";
 
+const stackStyle = css`
+    display: grid;
+    justify-items: start;
+    gap: ${token.space["stack-gap"]};
+`;
+
 const contentStyle = css`
-    padding: 12px 16px;
-    border-radius: 8px;
-    background-color: oklch(0.97 0.004 286);
-    color: oklch(0.2 0.01 286);
-    font-size: 14px;
-    line-height: 1.6;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: ${token.size[96]};
+    padding: ${token.space["card-padding"]};
+    border-radius: ${token.shape.card};
+    background-color: ${token.color.surface.container};
+    color: ${token.color.text.primary};
+    font-size: ${token.font.size.body};
+    line-height: ${token.font["line-height"].body};
+`;
+
+const statusStyle = css`
+    margin: 0;
+    color: ${token.color.text.secondary};
+    font-size: ${token.font.size.caption};
 `;
 
 const LoadedDemo = () => {
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        const timer = window.setTimeout(() => setLoading(false), 1600);
-        return () => window.clearTimeout(timer);
-    }, []);
+    const [loading, startTransition] = useTransition();
+
+    const reload = () => {
+        startTransition(async () => {
+            await new Promise<void>((resolve) => window.setTimeout(resolve, 1600));
+        });
+    };
+
     return (
-        <Skeleton loading={loading} rows={3}>
+        <div className={stackStyle}>
+            <Button appearance="outlined" disabled={loading} onClick={reload}>
+                {loading ? "正在加载" : "重新加载"}
+            </Button>
             <div className={contentStyle}>
-                内容已加载完成。真实节点替换骨架后布局不会跳动，卡片的外框、间距都与占位保持一致。
+                <Skeleton loading={loading} rows={3}>
+                    内容已加载完成。骨架占位与真实内容共用同一容器，背景与文字随当前主题切换。
+                </Skeleton>
             </div>
-        </Skeleton>
+            <p className={statusStyle} role="status" aria-live="polite">
+                {loading ? "正在加载示例内容…" : "示例内容已就绪。"}
+            </p>
+        </div>
     );
 };
 

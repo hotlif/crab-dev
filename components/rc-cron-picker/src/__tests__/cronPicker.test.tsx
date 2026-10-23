@@ -80,6 +80,19 @@ const changeInputValue = async (input: HTMLInputElement, value: string) => {
     await fireEvent.input(input);
 };
 describe('CronPicker', () => {
+    it('关联可见标签并在修正表达式后恢复辅助说明', async () => {
+        await render(<CronPicker label="执行计划" supportingText="工作日上午执行" />);
+        const input = screen.getByRole('textbox', { name: '执行计划' }) as HTMLInputElement;
+        expect(document.getElementById(input.getAttribute('aria-describedby') ?? '')?.textContent).toBe('工作日上午执行');
+        await changeInputValue(input, 'invalid');
+        const error = screen.getByRole('alert');
+        expect(error.textContent).toContain('五段式 Cron 表达式');
+        expect(input.getAttribute('aria-describedby')).toBe(error.id);
+        await changeInputValue(input, '30 9 * * 1-5');
+        expect(screen.queryByRole('alert')).toBeNull();
+        expect(document.getElementById(input.getAttribute('aria-describedby') ?? '')?.textContent).toBe('工作日上午执行');
+    });
+
     it('非受控默认渲染 * * * * *', async () => {
         await render(<CronPicker />);
         expect(getInput().value).toBe('* * * * *');

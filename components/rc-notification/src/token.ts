@@ -41,7 +41,7 @@ const token = defineTokens({
     'root': {
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
         'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-feedback-notice-shape, var(--token-global-radius-6, 12px)))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
         'width': `var(${vars['root.width']}, 360px)`,
         'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`

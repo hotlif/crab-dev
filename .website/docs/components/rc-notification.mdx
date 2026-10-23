@@ -22,7 +22,7 @@ import { demos } from "../_generated/rc-notification.js";
 
 ##### 基本 — 一个基础的消息通知组件
 
-##### 自定义内容 — 一个自定义消息通知的示例
+##### 自定义内容 — 在通知中编辑备注，每条通知独立维护输入内容；此示例需手动关闭。
 
 ##### 多条通知层叠 — 连续发送通知，观察缩放、表面色和阴影的层级。点击前层的关闭按钮，后层会平滑接替；此示例需手动关闭。
 
@@ -58,6 +58,15 @@ import { demos } from "../_generated/rc-notification.js";
 
 
 `notification.open({ title, description, duration })` 返回 `{ id, close, update }`。可调用 `handle.close()` 或 `notification.close(handle.id)` 关闭指定通知；调用 update 修改内容或时长会保留 ID 并重新计时。duration=0 时持续展示。onClose 只执行一次，已经关闭的句柄不能重新打开通知。
+
+
+
+
+### 三套设计风格
+
+macOS 使用 16px 圆角的通知面板；Material 使用 12px 内容容器；shadcn 使用 8px 圆角和细描边。通知队列、关闭按钮、键盘焦点暂停和倒计时与主题无关。此组件为持续通知模式扩展，不宣称等同于 Material snackbar 或操作系统通知中心。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
 ### 适用场景
 

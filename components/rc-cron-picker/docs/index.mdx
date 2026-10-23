@@ -11,6 +11,12 @@ status = "experimental"
 
 [打开组件工作台](/components/rc-cron-picker/workbench/)
 
+## 三套主题的计划字段
+
+CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用浮动标签；macOS 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
+
+基础演示增加“执行计划”可见标签，结果说明使用语义文字颜色。面板中的 Select、NumberEdit、Checkbox 和 Tabs 分别继承主题，不改变表达式解析与提交规则。定时规则编辑器是项目组合能力，参考 [Material Web Text field](https://material-web.dev/components/text-field/)和 [Select](https://material-web.dev/components/select/)，没有对应的官方 Cron 组件。核对日期：2026-10-22。
+
 ## 何时使用
 
 - 为定时任务、报表或调度策略配置执行周期。

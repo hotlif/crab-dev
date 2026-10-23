@@ -5,7 +5,7 @@ import token, { vars } from "./token.js";
 
 export interface SliderProps extends HTMLAttributes<HTMLDivElement> {
     value: number;
-    /** Expressive 轨道尺寸，默认 xs。 */
+    /** 轨道尺寸，默认 xs；各设计主题使用独立的轨道与手柄比例。 */
     size?: 'xs' | 's' | 'm' | 'l' | 'xl';
     min?: number
     max?: number
@@ -81,6 +81,7 @@ const Slider: FC<SliderProps> = ({
         const rect = containerRef.current.getBoundingClientRect();
         if (rect.width <= 0) return;
         let newPercent = (clientX - rect.left) / rect.width;
+        if (getComputedStyle(containerRef.current).direction === 'rtl') newPercent = 1 - newPercent;
         newPercent = Math.max(0, Math.min(1, newPercent));
         let intMin = Math.round(min * factor);
         let intMax = Math.round(max * factor);
@@ -158,9 +159,10 @@ const Slider: FC<SliderProps> = ({
                 onKeyDown?.(event);
                 if (event.defaultPrevented || unavailable) return;
                 const increment = step > 0 ? step : 1;
+                const inlineIncrement = getComputedStyle(event.currentTarget).direction === 'rtl' ? -increment : increment;
                 const targets: Readonly<Record<string, number>> = {
-                    ArrowRight: boundedValue + increment, ArrowUp: boundedValue + increment,
-                    ArrowLeft: boundedValue - increment, ArrowDown: boundedValue - increment,
+                    ArrowRight: boundedValue + inlineIncrement, ArrowUp: boundedValue + increment,
+                    ArrowLeft: boundedValue - inlineIncrement, ArrowDown: boundedValue - increment,
                     Home: min, End: max, PageUp: boundedValue + increment * 10, PageDown: boundedValue - increment * 10,
                 };
                 const target = targets[event.key];
@@ -180,8 +182,28 @@ const Slider: FC<SliderProps> = ({
                 min-height: max(${token.rail.interact.height}, calc(${token.thumb.height} + 2 * ${token.rail.gap}));
                 overscroll-behavior: contain;
                 &:focus-visible {
-                    outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
-                    outline-offset: ${token.root['outline-offset-focus']};
+                    outline: none;
+                    [data-slot='slider-handle'] {
+                        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+                        outline-offset: ${token.root['outline-offset-focus']};
+                    }
+                }
+                @media (forced-colors: none) {
+                    &[aria-invalid='true']:not([aria-disabled='true']) {
+                        [data-slot='slider-track'] { background: ${token.root['color-error']}; }
+                        [data-slot='slider-handle'] {
+                            background: ${token.thumb['fill-error']};
+                            border-color: ${token.root['color-error']};
+                            outline-color: ${token.root['color-error']};
+                        }
+                        [data-slot='slider-halo'] { background-color: ${token.root['color-error']}; }
+                    }
+                    &[aria-disabled='true'] {
+                        [data-slot='slider-track'] { background: ${token.track['fill-disabled']}; }
+                        [data-slot='slider-rail'] { background: ${token.rail['fill-disabled']}; }
+                        [data-slot='slider-handle'] { background: ${token.thumb['fill-disabled']}; }
+                        [data-slot='slider-stop'] { background: ${token.stop['background-color-disabled']}; }
+                    }
                 }
                 &[aria-disabled='true'] { opacity: ${token.root['opacity-disabled']}; cursor: not-allowed; }
                 @media (pointer: coarse) { min-height: max(${token.root.touch['min-height']}, calc(${token.thumb.height} + 2 * ${token.rail.gap})); }
@@ -190,7 +212,14 @@ const Slider: FC<SliderProps> = ({
                     [data-slot='slider-track'] { background: Highlight; }
                     [data-slot='slider-handle'] { background: Highlight; border-color: Highlight; box-shadow: none; }
                     [data-slot='slider-halo'] { display: none; }
-                    &[aria-disabled='true'] { outline-color: GrayText; }
+                    &:focus-visible [data-slot='slider-handle'] { outline-color: Highlight; }
+                    &[aria-disabled='true'] {
+                        opacity: 1;
+                        [data-slot='slider-rail'], [data-slot='slider-track'], [data-slot='slider-handle'], [data-slot='slider-stop'] {
+                            background: GrayText;
+                            border-color: GrayText;
+                        }
+                    }
                 }
             `, sizeStyles[size], className)}
             ref={containerRef}
@@ -203,10 +232,11 @@ const Slider: FC<SliderProps> = ({
                 data-slot="slider-rail"
                 className={css`
                     position: absolute;
-                    left: min(100%, calc(var(--slider-position, 0%) + ${token.rail.gap} + ${token.thumb.width} / 2));
-                    right: 0;
+                    inset-inline-start: min(100%, calc(var(--slider-position, 0%) + ${token.rail.gap} + ${token.thumb.width} / 2));
+                    inset-inline-end: 0;
                     height: ${token.rail.height};
                     border-radius: ${token.rail.inner['border-radius']} ${token.rail['border-radius']} ${token.rail['border-radius']} ${token.rail.inner['border-radius']};
+                    &:dir(rtl) { border-radius: ${token.rail['border-radius']} ${token.rail.inner['border-radius']} ${token.rail.inner['border-radius']} ${token.rail['border-radius']}; }
                     background: ${token.rail['fill-inactive']};
                 `}
             />
@@ -215,8 +245,10 @@ const Slider: FC<SliderProps> = ({
                 data-slot="slider-track"
                 className={css`
                     position: absolute;
+                    inset-inline-start: 0;
                     height: ${token.rail.height};
                     border-radius: ${token.rail['border-radius']} ${token.rail.inner['border-radius']} ${token.rail.inner['border-radius']} ${token.rail['border-radius']};
+                    &:dir(rtl) { border-radius: ${token.rail.inner['border-radius']} ${token.rail['border-radius']} ${token.rail['border-radius']} ${token.rail.inner['border-radius']}; }
                     background: ${token.rail['fill-active']};
                     width: max(0px, calc(var(--slider-position, 0%) - ${token.rail.gap} - ${token.thumb.width} / 2));
                 `}
@@ -224,7 +256,7 @@ const Slider: FC<SliderProps> = ({
         
             {boundedValue < max && <span aria-hidden="true" data-slot="slider-stop" className={css`
                 position: absolute;
-                right: 0;
+                inset-inline-end: 0;
                 width: ${token.stop.width};
                 height: ${token.stop.width};
                 border-radius: ${token.thumb['border-radius']};
@@ -235,8 +267,9 @@ const Slider: FC<SliderProps> = ({
                 className={css`
                     position: absolute;
                     top: 50%;
-                    left: var(--slider-position, 0%);
+                    inset-inline-start: var(--slider-position, 0%);
                     transform: translate(-50%, -50%);
+                    &:dir(rtl) { transform: translate(50%, -50%); }
                 `}
             >
                 <div
@@ -271,6 +304,7 @@ const Slider: FC<SliderProps> = ({
                     data-is-dragging={isDragging}
                     className={css`
                         position: relative;
+                        box-sizing: border-box;
                         border-radius: ${token.thumb['border-radius']};
                         box-shadow: ${token.thumb["box-shadow"]};
                         transition: ${token.thumb.transition};

@@ -10,7 +10,7 @@
             "goal": "并排比较 Elevated、Filled、Tonal、Outlined、Text 五种官方外观。",
             "why": "通过阴影、实色、浅色、描边与文字表达不同的操作层级。",
             "instruction": "依次点击五种按钮查看用途，再用 Tab 检查键盘焦点。",
-            "expected": "五种按钮默认均为 36px 高；Material 风格使用胶囊形状，shadcn 风格使用 8px 圆角矩形。Elevated 使用浅阴影，其余四种无阴影。",
+            "expected": "五种按钮默认均为 36px 高；Material 风格使用胶囊形状，macOS 与 shadcn 使用各自的圆角矩形。Material 的 Elevated 使用浅阴影，其余四种默认无阴影；macOS 与 shadcn 的 Filled 和 Outlined 默认也有轻微阴影。",
             "changes": [
                 "appearance 提供 elevated、primary（Filled）、tonal、outlined、text。",
                 "默认普通按钮为 outlined；danger 与 href 分别表达危险语义和导航行为。"
@@ -62,7 +62,7 @@
             "goal": "在明暗背景上对照五种外观的默认、禁用和加载状态，并体验普通按钮的选中状态。",
             "why": "主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。",
             "instruction": "切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。",
-            "expected": "普通按钮始终无阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。",
+            "expected": "Material 的普通描边按钮默认无阴影，macOS 与 shadcn 的默认描边按钮带轻微阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。",
             "changes": [
                 "用 ConfigProvider 同时展示 light 和 dark，保持按钮本身的 appearance 一致。",
                 "并列展示 disabled、loading、isSelected，以及保存 + 取消和主要操作 + 工具栏操作。"

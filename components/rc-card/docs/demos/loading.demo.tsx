@@ -7,18 +7,19 @@ import { css } from '@crab-dev/css';
 import { useState } from 'react';
 import Avatar from '@crab-dev/rc-avatar';
 import Button from '@crab-dev/rc-button';
+import token from '@crab-dev/rc-token-semantic';
 import Card from '../../src/index.js';
 
 const stackStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    max-width: 320px;
+    gap: ${token.space['section-gap']};
+    max-width: calc(${token.size[64]} * 5);
 `;
 
 const coverArtStyle = css`
-    height: 140px;
-    background: linear-gradient(135deg, oklch(0.8 0.12 150), oklch(0.7 0.14 200));
+    height: calc(${token.size[64]} * 2 + ${token.space['inline-gap']});
+    background: linear-gradient(135deg, ${token.color.brand.container}, ${token.color.secondary.container});
 `;
 
 const LoadingDemo = () => {
@@ -26,7 +27,7 @@ const LoadingDemo = () => {
 
     return (
         <div className={stackStyle}>
-            <Button appearance="subtle" onClick={() => setLoading((prev) => !prev)}>
+            <Button appearance="outlined" onClick={() => setLoading((prev) => !prev)}>
                 {loading ? '完成加载' : '重新加载'}
             </Button>
             <Card loading={loading} cover={<div className={coverArtStyle} />}>
@@ -36,6 +37,7 @@ const LoadingDemo = () => {
                     description="骨架的封面 / 标题 / 三行正文与真实内容一一对应。"
                 />
             </Card>
+            <span role="status">{loading ? '正在加载卡片内容。' : '卡片内容已加载。'}</span>
         </div>
     );
 };

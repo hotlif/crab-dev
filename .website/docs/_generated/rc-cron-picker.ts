@@ -14,6 +14,8 @@ export const demos = [
                 "CronPicker"
             ],
             "props": [
+                "label",
+                "supportingText",
                 "defaultValue",
                 "onChange"
             ],
@@ -22,7 +24,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"点击输入框打开可视化面板;也可直接手输表达式,回车提交(非法输入会以 error 边框提示并在失焦时回退)\",\n};\n\nimport { useState } from 'react';\nimport CronPicker, { describeCron, parseCron } from '../../src/index.js';\n\nconst BasicDemo = () => {\n    const [expression, setExpression] = useState('30 9 * * 1-5');\n    const parsed = parseCron(expression);\n\n    return (\n        \u003cdiv style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>\n            \u003cCronPicker defaultValue=\"30 9 * * 1-5\" onChange={setExpression} />\n            \u003cdiv style={{ fontSize: 13, color: '#666' }}>\n                当前值:\u003ccode>{expression}\u003c/code>\n                {parsed ? ` —— ${describeCron(parsed)}` : null}\n            \u003c/div>\n        \u003c/div>\n    );\n};\n\nexport default BasicDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"点击输入框打开可视化面板;也可直接手输表达式,回车提交(非法输入会以 error 边框提示并在失焦时回退)\",\n};\n\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport CronPicker, { describeCron, parseCron } from '../../src/index.js';\n\nconst layout = css`\n    display: flex;\n    flex-direction: column;\n    gap: ${token.space['component-gap']};\n    max-width: 360px;\n`;\nconst description = css`\n    font-size: ${token.typography.body.medium['font-size']};\n    color: ${token.color.text.secondary};\n`;\n\nconst BasicDemo = () => {\n    const [expression, setExpression] = useState('30 9 * * 1-5');\n    const parsed = parseCron(expression);\n\n    return (\n        \u003cdiv className={layout}>\n            \u003cCronPicker label=\"执行计划\" supportingText=\"输入五段式表达式，或在面板中设置执行时间。\" defaultValue=\"30 9 * * 1-5\" onChange={setExpression} />\n            \u003cdiv className={description}>\n                当前值:\u003ccode>{expression}\u003c/code>\n                {parsed ? ` —— ${describeCron(parsed)}` : null}\n            \u003c/div>\n        \u003c/div>\n    );\n};\n\nexport default BasicDemo;\n",
         "previewPath": "/components/rc-cron-picker/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
         "workbenchPath": "/components/rc-cron-picker/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "regular",

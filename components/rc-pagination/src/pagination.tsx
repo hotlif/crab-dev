@@ -1,5 +1,5 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { ChangeEvent, FC, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 import RcSelect from "@crab-dev/rc-select";
@@ -58,7 +58,7 @@ const itemBaseStyle = css`
     font-variant-numeric: tabular-nums;
     color: ${token.item.color};
     background-color: ${token.item['background-color']};
-    border: 0;
+    border: ${token.input['border-width']} solid transparent;
     border-radius: ${token.item['border-radius']};
     cursor: pointer;
     user-select: none;
@@ -83,6 +83,7 @@ const itemBaseStyle = css`
     &[aria-current="page"] {
         color: ${token.item["color-active"]};
         background-color: ${token.item["background-color-active"]};
+        border-color: ${token.item['border-color-active']};
     }
 
     &[aria-current="page"]:hover:not(:disabled) {
@@ -395,17 +396,14 @@ const Pagination: FC<PaginationProps> = ({
 
     const [quickJumperValue, setQuickJumperValue] = useState<string>("");
 
-    const pageSequence = useMemo(() => buildPageSequence(activeCurrent, totalPages), [activeCurrent, totalPages]);
+    const pageSequence = buildPageSequence(activeCurrent, totalPages);
 
     const isSmall = size === "small";
     const itemSizeClass = isSmall ? itemSmallStyle : size === "large" ? largeSizeStyle : "";
     const ellipsisSizeClass = isSmall ? ellipsisSmallStyle : size === "large" ? largeSizeStyle : "";
     const inputSizeClass = isSmall ? quickJumperInputSmallStyle : size === "large" ? largeSizeStyle : "";
 
-    const sizeChangerOptions = useMemo(
-        () => pageSizeOptions.map((value) => ({ value: String(value), label: pageSizeLabel(value) })),
-        [pageSizeOptions, pageSizeLabel],
-    );
+    const sizeChangerOptions = pageSizeOptions.map((value) => ({ value: String(value), label: pageSizeLabel(value) }));
 
     const commitChange = (nextPage: number) => {
         const clamped = clamp(Math.floor(nextPage), 1, totalPages);

@@ -1,4 +1,4 @@
-import { canvasViewportStyle } from "../demo-layout.js";
+import { canvasViewportStyle, canvasFrameStyle, demoStackStyle, demoHintStyle } from "../demo-layout.js";
 import { useRef, useState } from 'react';
 import Canvas from '../../src/canvas.js';
 import Rect from '../../src/shapes/rect.js';
@@ -88,8 +88,8 @@ export default function InfiniteCanvasDemo() {
     const getNextZ = () => ++maxZRef.current;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 13, color: '#666', padding: '4px 0' }}>
+        <div className={demoStackStyle}>
+            <div className={demoHintStyle}>
                 滚轮缩放 · 拖拽空白区域平移 · 拖拽卡片移动
             </div>
             <div className={canvasViewportStyle} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
@@ -97,10 +97,10 @@ export default function InfiniteCanvasDemo() {
                 <Canvas
                     width={800}
                     height={520}
-                    style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
+                    className={canvasFrameStyle}
                 >
                     <Viewport minZoom={0.1} maxZoom={8}>
-                        <InfiniteGrid baseSpacing={50} subdivisions={5} color="#cccccc" originColor="oklch(0.55 0.2 260)" />
+                        <InfiniteGrid baseSpacing={50} subdivisions={5} originColor="oklch(0.55 0.2 260)" />
                         {INITIAL_CARDS.map(card => (
                             <DraggableCard key={card.id} data={card} getNextZ={getNextZ} />
                         ))}

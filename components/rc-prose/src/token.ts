@@ -25,6 +25,7 @@ export const vars = defineTokens({
     'caption.color': '--prose-caption-color',
     'code.color': '--prose-code-color',
     'code.background-color': '--prose-code-background-color',
+    'code.border-radius': '--prose-code-border-radius',
     'code.font-weight': '--prose-code-font-weight',
     'pre.color': '--prose-pre-color',
     'pre.background-color': '--prose-pre-background-color',
@@ -35,6 +36,7 @@ export const vars = defineTokens({
     'table.heading.border-color': '--prose-table-heading-border-color',
     'table.heading.background-color': '--prose-table-heading-background-color',
     'table.cell.border-color': '--prose-table-cell-border-color',
+    'table.border-radius': '--prose-table-border-radius',
     'inverse.body.color': '--prose-inverse-body-color',
     'inverse.heading.color': '--prose-inverse-heading-color',
     'inverse.lead.color': '--prose-inverse-lead-color',
@@ -120,6 +122,7 @@ const token = defineTokens({
     'code': {
         'color': `var(${vars['code.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'background-color': `var(${vars['code.background-color']}, var(--token-semantic-color-fill-subtle, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
+        'border-radius': `var(${vars['code.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
         'font-weight': `var(${vars['code.font-weight']}, var(--token-semantic-font-weight-body, var(--token-global-font-weight-regular, 400)))`
     },
     'pre': {
@@ -134,12 +137,13 @@ const token = defineTokens({
     },
     'table': {
         'heading': {
-            'border-color': `var(${vars['table.heading.border-color']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-            'background-color': `var(${vars['table.heading.background-color']}, var(--token-semantic-color-fill-subtle, var(--token-semantic-color-fill-inactive, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`
+            'border-color': `var(${vars['table.heading.border-color']}, var(--token-semantic-data-table-border-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`,
+            'background-color': `var(${vars['table.heading.background-color']}, var(--token-semantic-data-table-header-background, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`
         },
         'cell': {
-            'border-color': `var(${vars['table.cell.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`
-        }
+            'border-color': `var(${vars['table.cell.border-color']}, var(--token-semantic-data-table-border-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
+        },
+        'border-radius': `var(${vars['table.border-radius']}, var(--token-semantic-data-table-radius, var(--token-global-radius-6, 12px)))`
     },
     'inverse': {
         'body': {

@@ -132,7 +132,7 @@ function Editor({ onError }: { onError: (error: unknown) => void }) {
 
 拖拽松手后的自动提交不会把整组工具栏按钮切换为禁用外观。工具栏通过 `aria-busy` 表示等待，点击捕获和快捷键校验阻止重复操作，保留按钮、SVG 与键盘焦点；提交成功或失败后恢复操作。只读、没有可撤销记录、未配置字体及页面边界等实际不可用条件仍使用原有禁用样式。此处只分离编辑任务的忙碌状态与按钮能力状态，沿用下方 Material Web 图标按钮实现、样式与令牌，不修改配色、形状或状态层。
 
-页面与属性面板的开关集中在绘图工具栏右侧，底栏只显示页码、状态和缩放。开关采用 M3 小尺寸 Tonal toggle icon button：左右分栏图标对应两侧面板，展开时填充对应图标区域，并复用 `rc-button` 的 secondary / on-secondary 选中配色，收起时使用 secondary-container / on-secondary-container。40px 可见按钮保留至少 48px 操作区域，悬停提示当前展开或收起动作，`aria-expanded` 与 `aria-controls` 关联面板。两栏标题旁均有方向明确的收起图标，收起后焦点回到顶部开关；桌面两栏独立开关，窄屏只同时展开一栏，判断依据与侧栏 CSS 断点一致。沿用标准圆形按钮，不采用 Expressive 的选中形状变换；Material Web 无 PDF 侧栏组件，布局为工作区扩展，按钮状态对照其图标按钮实现。
+页面与属性面板的开关集中在绘图工具栏右侧，底栏只显示页码、状态和缩放。开关采用 M3 小尺寸 Tonal toggle icon button：左右分栏图标对应两侧面板，展开时填充对应图标区域，并复用 `rc-button` 的 secondary / on-secondary 选中配色，收起时使用 secondary-container / on-secondary-container。40px 可见按钮保留至少 48px 操作区域，悬停提示当前展开或收起动作，`aria-expanded` 与 `aria-controls` 关联面板。两栏标题旁均有方向明确的收起图标，收起后焦点回到顶部开关；宿主宽度大于 1000px 时两栏独立开关，较窄时默认收起且只同时展开一栏。布局与开关逻辑共同使用宿主测量结果，因此在宽窗口的窄分栏内也会适配；同一宽度档内调整尺寸会保留用户的开关选择。沿用标准圆形按钮，不采用 Expressive 的选中形状变换；Material Web 无 PDF 侧栏组件，布局为工作区扩展，按钮状态对照其图标按钮实现。
 
 页面缩略图直接点击选择，按住 Ctrl（macOS 为 Command）点击可增选或取消选择，不显示复选框。拖动缩略图可调整顺序，拖动已选页会同时移动全部选页，并保持它们原有的先后顺序；列表边缘支持自动滚动，插入线显示放置位置。松开鼠标提交一次修改，Esc、移到列表外松开或取消指针会取消拖动；原地放置不记录历史。页面旋转、删除、前后移动和提取使用当前选页，未选择页面时禁用；插入和合并仍以当前查看页为位置。
 
@@ -170,3 +170,12 @@ function Editor({ onError }: { onError: (error: unknown) => void }) {
 - [M3 Lists 规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[Material Web List 文档与示例](https://material-web.dev/components/list/)
 - [List 实现](https://github.com/material-components/material-web/blob/main/list/internal/list.ts)、[列表样式](https://github.com/material-components/material-web/blob/main/list/internal/_list.scss)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list.scss)、[WAI-ARIA Listbox 键盘规范](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/)
 - [PDFium 初始化与资源管理](https://www.embedpdf.com/docs/pdfium/getting-started)
+
+
+## 三套设计风格
+
+编辑器工具栏、左右属性侧栏和中央工作区分别使用 workspace toolbar / sidebar / frame 角色，外框继承 card 形状；macOS 的银灰工作区、MD3 的分层表面与 shadcn 的中性边界保持一致。按钮、输入、列表和滚动继续复用自有组件，PDF 页面本身保持白纸颜色，避免主题改变文档内容。
+
+本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+
+参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。

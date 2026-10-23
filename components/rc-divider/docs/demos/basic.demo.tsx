@@ -4,11 +4,12 @@ export const meta = {
 };
 
 import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
 import Divider from '../../src/index.js';
 
 const textStyle = css`
     margin: 0;
-    color: oklch(0.44 0.01 286);
+    color: ${token.color.text.secondary};
 `;
 
 const BasicDemo = () => {

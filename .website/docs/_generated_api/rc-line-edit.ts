@@ -1,7 +1,5 @@
-/**
- * THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
- * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。
- */
+// THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
+// Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。
 
 type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
@@ -20,7 +18,7 @@ export interface LineEditProps {
     "appearance"?: "outlined" | "filled";
 
     /**
-     * 与输入框关联的可见标签；Material 浮动，shadcn 上置。
+     * 与输入框关联的可见标签；Material 浮动，macOS 与 shadcn 上置。
      */
     "label"?: string;
 

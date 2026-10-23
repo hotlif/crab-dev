@@ -24,6 +24,8 @@ import { demos } from "../_generated/rc-message.js";
 
 ##### 自定义图标与持续时间 — 通过 `icon` 自定义图标，通过 `duration` 设置持续时间，设为 0 则不自动关闭
 
+##### 长连续文本 — 长链接与标识符在窄屏中换行，保留完整信息。
+
 ##### 消息堆叠 — 当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出
 
 </div>
@@ -57,6 +59,18 @@ import { demos } from "../_generated/rc-message.js";
 `useMessage()` 的 open/success/error/warning/info/loading 均返回 `{ id, close, update }`。例如 `const handle = message.loading('正在保存', 0)`，保存完成后 `handle.update({ type: 'success', content: '已保存', duration: 2000 })`。update 保留 ID 并重新计时；close 重复调用只通知一次。实例也支持 `message.close(id)` 和 `message.update(id, patch)`。
 
 默认 Message 组件通过 open/onExitComplete 控制显隐，duration 只控制进度动画；自动关闭与 onClose 回调由 useMessage 管理。
+
+
+
+
+### 三套设计风格
+
+Material 使用逆色 snackbar 表面；macOS 使用 12px 圆角的面板通知；shadcn 使用 8px 圆角的中性 toast 表面。边界、前景和背景通过语义角色成对切换，进度、排队、悬停暂停及读屏通告保持一致。多个堆叠消息和倒计时进度条是项目扩展。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+
+消息默认使用 `role="status"` 和 `aria-live="polite"` 排队通告，不抢占当前焦点。直接渲染组件时可通过原生属性显式设置紧急通告。自动消失的信息也应在触发位置提供持久反馈，较长内容建议传入至少 4000ms 的 duration。
 
 ### 适用场景
 

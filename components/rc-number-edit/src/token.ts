@@ -25,6 +25,7 @@ export const vars = defineTokens({
     'stepper.icon.width': '--number-edit-stepper-icon-width',
     'display.background-color': '--number-edit-display-background-color',
     'display.color': '--number-edit-display-color',
+    'display.color-disabled': '--number-edit-display-color-disabled',
     'display.superscript.font-size': '--number-edit-display-superscript-font-size',
     'icon.gap': '--number-edit-icon-gap',
     'size.small.action.width': '--number-edit-size-small-action-width',
@@ -64,8 +65,9 @@ const token = defineTokens({
         }
     },
     'display': {
-        'background-color': `var(${vars['display.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color': `var(${vars['display.background-color']}, transparent)`,
         'color': `var(${vars['display.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'color-disabled': `var(${vars['display.color-disabled']}, var(--token-semantic-field-disabled-color, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 38%, transparent)))`,
         'superscript': {
             'font-size': `var(${vars['display.superscript.font-size']}, 0.75em)`
         }

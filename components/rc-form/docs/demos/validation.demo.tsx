@@ -4,6 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import { useRef, useState } from "react";
 
 import Button from "@crab-dev/rc-button";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -74,6 +75,9 @@ const passwordRules = (getValue: () => string): Rule[] => [
 
 function ValidationDemo() {
     const [form] = useForm<SignupForm>();
+    const [result, setResult] = useState("提交或单独校验账号后，在这里查看结果。");
+    // Mutable operation identity: ignore validation feedback invalidated by reset or a newer run.
+    const validationRun = useRef(0);
 
     return (
         <Form
@@ -81,10 +85,10 @@ function ValidationDemo() {
             form={form}
             defaultValue={{ account: "", password: "", confirm: "", region: "cn" }}
             onSubmitSuccess={async (values) => {
-                console.log("[submit:success]", values);
+                setResult(`校验通过：${values.account}，部署区域 ${values.region}。此演示不会创建真实账号。`);
             }}
             onSubmitFailed={async () => {
-                console.warn("[submit:failed] 请修正字段后重试");
+                setResult("校验未通过，请修正字段下方显示的错误后重试。");
             }}
         >
             <Item
@@ -137,31 +141,42 @@ function ValidationDemo() {
                 {({ id, value, onChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
                     <Select id={id} aria-label="区域" aria-invalid={invalid} aria-describedby={describedBy}
                         value={typeof value === 'string' ? value : undefined} onChange={onChange} status={status}
-                        options={REGION_OPTIONS} placeholder="选择部署区域" />
+                        options={REGION_OPTIONS} placeholder="选择部署区域" allowClear />
                 )}
             </Item>
 
             <div className={actionRowStyle}>
-                <Button appearance="primary" onClick={async () => { await form.submit(); }}>
+                <Button type="button" appearance="primary" onClick={async () => { await form.submit(); }}>
                     注册
                 </Button>
-                <Button onClick={() => form.resetFields()}>
+                <Button type="button" onClick={async () => {
+                    validationRun.current += 1;
+                    await form.resetFields();
+                    setResult("已恢复初始值，并清除校验反馈。");
+                }}>
                     重置
                 </Button>
                 <Button
+                    type="button"
                     appearance="text"
                     onClick={async () => {
+                        const run = ++validationRun.current;
                         try {
                             await form.validateFields(["account"]);
-                            console.log("[validate] 账号校验通过");
+                            if (run === validationRun.current) {
+                                setResult("账号校验完成；字段下方的警告不会阻止提交。");
+                            }
                         } catch {
-                            // 校验失败信息由 Item 内部展示
+                            if (run === validationRun.current) {
+                                setResult("账号校验未通过，请查看账号下方的错误提示。");
+                            }
                         }
                     }}
                 >
                     仅校验账号
                 </Button>
             </div>
+            <output aria-live="polite">{result}</output>
         </Form>
     );
 }

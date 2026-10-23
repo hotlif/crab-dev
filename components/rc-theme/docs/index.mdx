@@ -7,7 +7,7 @@ status = "experimental"
 
 # Theme 主题样式
 
-`@crab-dev/rc-theme` 是 CSS-only 主题包，通过 L2 变量提供 Material 与 Shadcn 两种风格，以及各自的浅色、深色和强制颜色配对：
+`@crab-dev/rc-theme` 是 CSS-only 主题包，通过 L2 变量提供 Material、Shadcn 与 macOS 三种风格，以及各自的浅色、深色和强制颜色配对：
 
 [打开组件工作台](/components/rc-theme/workbench/)
 
@@ -31,15 +31,21 @@ theme_css = "docs/theme.css"
 
 其他构建器需要自行加载本包公开的 `css/index.css`；自动加载是 Wake 的构建能力。
 
-默认风格为 Material，默认颜色模式为 Light。风格与颜色模式相互独立，可通过 `ConfigProvider` 设置，也可以在非 React 页面同时设置两个属性：
+组件库的回退风格为 Material，回退颜色模式为 Light。文档站首次访问默认使用 macOS，并优先恢复已保存的选择。风格与颜色模式相互独立，可通过 `ConfigProvider` 设置，也可以在非 React 页面同时设置两个属性：
 
 ```tsx
 <main data-crab-design="shadcn" data-theme="dark">...</main>
 ```
 
-`data-crab-design` 接受 `material` / `shadcn`，`data-theme` 接受 `light` / `dark`。原有只设置 `data-theme` 的页面继续使用 Material 配色；手写局部风格边界时，应同时声明两个属性。React 项目推荐使用 [ConfigProvider](/components/rc-config-provider)，由它继承并同步风格、颜色模式与品牌色。
+`data-crab-design` 接受 `material` / `shadcn` / `macos`，`data-theme` 接受 `light` / `dark`。原有只设置 `data-theme` 的页面继续使用 Material 配色；手写局部风格边界时，应同时声明两个属性。React 项目推荐使用 [ConfigProvider](/components/rc-config-provider)，由它继承并同步风格、颜色模式与品牌色。
 
-## 两种风格的 Light / Dark 示例
+```tsx
+<ConfigProvider design="macos" theme="light">
+    <App />
+</ConfigProvider>
+```
+
+## 三种风格的 Light / Dark 示例
 
 <Demos glob="./demos/*.demo.tsx" columns={1} />
 
@@ -64,17 +70,33 @@ document.documentElement.dataset.theme = savedTheme === "dark" ? "dark" : "light
 
 Material 保留已有紫色品牌与带色调的表面配对。Light 的品牌默认 / 悬停 / 按压为 Purple 40 / 30 / 20，其上文字为 White；Dark 从 Purple 80 过渡到 Purple 90，其上文字为 Purple 20。
 
-Shadcn 采用黑白灰结构表面、文字、边框、选中与焦点角色。Light 的近黑主色配白色文字，悬停和按压时逐步提亮；Dark 的近白主色配深色文字，悬停和按压时逐步加深。两种风格都保留 Red、Green、Amber、Blue 功能反馈，切换时只改变 L2 映射。
+Shadcn 采用黑白灰结构表面、文字、边框、选中与焦点角色。Light 的近黑主色配白色文字，悬停和按压时逐步提亮；Dark 的近白主色配深色文字，悬停和按压时逐步加深。
 
-风格还会切换默认形状和阴影：Material 的通用控件 / 卡片 / 弹层圆角为 4 / 12 / 28px，默认按钮保留胶囊形状；Shadcn 分别为 8 / 12 / 12px，默认按钮采用 8px 圆角，默认卡片使用细描边与较轻的层级。显式指定的按钮 `shape`、卡片 `variant` 仍优先。桌面 `small` / `middle` / `large` 三档 32 / 36 / 40px 控件高度由[尺寸配置](/guides/component-sizing)独立控制。
+macOS 是受苹果桌面界面启发的项目主题：浅色使用银灰工作区与明亮内容表面，深色使用深灰分层表面，主要操作、链接、焦点与选择使用蓝色强调。控件、卡片与弹层通过圆角、细边框和柔和阴影呈现层级，输入采用外置标签和桌面密度。三种风格都保留 Red、Green、Amber、Blue 功能反馈，切换时只改变 L2 映射。
+
+风格还会切换默认形状和阴影：Material 的通用控件 / 卡片 / 弹层圆角为 4 / 12 / 28px，默认按钮保留胶囊形状；Shadcn 分别为 8 / 12 / 12px，默认按钮采用 8px 圆角，默认卡片使用细描边与较轻的层级；macOS 分别为 6 / 12 / 16px，默认按钮采用 6px 圆角，输入提供外圈蓝色焦点。显式指定的按钮 `shape`、卡片 `variant` 仍优先。桌面 `small` / `middle` / `large` 三档 32 / 36 / 40px 控件高度由[尺寸配置](/guides/component-sizing)独立控制。
 
 需要从一个颜色快速换肤时，使用 [ConfigProvider 的 brandColor](/components/rc-config-provider)。它会成对生成明暗模式的品牌角色并覆盖当前边界的 L2 变量，支持嵌套继承；传入 `null` 恢复当前风格的默认品牌。该可选能力由 ConfigProvider 提供，本包保持 CSS-only。
 
-配对数据位于 `@crab-dev/rc-token-semantic`：`themeColorContract` 保留 Material 合约，`shadcnColorContract` 提供中性配对，`designColorContract` 按风格统一索引。本包将它们编译为 CSS。文档站与独立工作台使用同一来源；站点的字体和阅读布局仍属于站点自身，不是公共组件默认尺寸。
+配对数据位于 `@crab-dev/rc-token-semantic`：`themeColorContract` 保留 Material 合约，`shadcnColorContract` 提供中性配对，`macosColorContract` 提供蓝色与银灰配对，`designColorContract` 按风格统一索引。本包将它们编译为 CSS。文档站与独立工作台使用同一来源；站点阅读布局保持独立，公共字体随风格切换：Material 使用 Roboto，macOS 使用系统界面字体，shadcn 使用 Inter 优先的 sans 回退。未安装的字体继续按字体栈回退。
+
+## 逐组件风格
+
+外观通过独立的 L2 角色分别控制，组件无需读取当前风格。通用尺寸选项不会覆盖组件本身的规格：例如 Material 带标签输入框为 56px，复选框图形为 18px、交互区域为 48px，分段按钮默认高 40px。
+
+| 组件类别 | Material | macOS | shadcn |
+| --- | --- | --- | --- |
+| 选择控件 | 状态层、描边单选、可变开关手柄 | 紧凑复选框、实心单选、等大开关手柄 | 中性描边、简洁开关、圆形滑块 |
+| 输入与选择 | 浮动标签、填充底线或缺口轮廓 | 外置标签、内凹表面与蓝色焦点圈 | 外置标签、轻边框与外圈焦点 |
+| 导航 | 胶囊分段、下划线页签、色调选中项 | 浅灰分段轨道、凸起选中块、蓝色选中项 | 中性分段轨道、描边页码与简洁侧栏 |
+| 表面与反馈 | 色调容器、反色短消息、组件独立形状 | 分层桌面面板、柔和阴影、十二辐条加载指示 | 描边面板、直边抽屉、中性反馈容器 |
+| 数据与编辑 | 色调表头与选择、列表分隔扩展 | 分层表头、蓝色选中行、桌面工具栏 | 简洁横向分隔、轻量选中行 |
+
+每个组件页说明具体变体、状态与扩展边界；[三套风格对照](/guides/design-styles)提供实际组件的交互核对入口。
 
 ## 局部主题与浮层
 
-风格与颜色模式可以嵌套，例如 Shadcn Dark 内放置 Material Light。每个显式双属性边界重新声明配色、形状与阴影，使内层能恢复所选风格；只在外层祖先定义的业务覆盖不一定穿过内层主题边界。
+风格与颜色模式可以嵌套，例如 macOS Dark 内放置 Material Light 或 Shadcn Light。每个显式双属性边界重新声明配色、字体、形状、阴影和组件状态角色，使内层能恢复所选风格；只在外层祖先定义的业务覆盖不一定穿过内层主题边界。
 
 浮层若通过 Portal 挂载到 body，已经离开局部主题祖先。应在浮层的已有根或挂载容器上同步主题和业务覆盖；不能只观察触发按钮的颜色。当前页面主题切换时，已打开浮层也要更新。主题包只提供选择器和变量，不管理应用状态或 Portal 生命周期。
 
@@ -100,9 +122,15 @@ const existingBrand = css`
 ## 迁移检查
 
 1. 将旧变量名和旧 `vars` 键迁移到 `TokenVars` 中的正式名称，再比较默认、悬停、按压三种主按钮与前景。
-2. 检查链接、焦点、当前导航与选中数据的明暗配对；Material、Shadcn 与自定义品牌色都需要覆盖这些状态。
+2. 检查链接、焦点、当前导航与选中数据的明暗配对；Material、Shadcn、macOS 与自定义品牌色都需要覆盖这些状态。
 3. 打开 Dialog、Drawer、Select 和 Tooltip 后切换主题，再关闭并检查焦点恢复。
 4. 检查局部深色、浅色岛和已有 L3 覆盖。强制颜色下必须保留系统颜色，业务覆盖也须提供该模式的等价处理。
 5. 运行令牌生成、契约测试和受影响包测试；在浏览器记录完整状态。公共映射测试通过不代表整个应用已符合 WCAG。
 
-本项目的双风格主题参考 [M3 颜色系统](https://m3.material.io/styles/color/system/overview)、[形状系统](https://m3.material.io/styles/shape/overview)、[Material Web 色彩配对](https://material-web.dev/theming/color/)与[形状主题](https://material-web.dev/theming/shape/)，实现对照 [Material Web v0.192 形状令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-shape.scss)及 [shadcn/ui 主题变量](https://ui.shadcn.com/docs/theming)。Shadcn 风格和共享桌面密度是本项目的定制，不代表 M3 默认视觉规格。另见[无障碍](/guides/accessibility)与[令牌实施](/components/rc-token-semantic)。
+## 设计参考与定制范围
+
+默认 Material 主题参考 [M3 颜色角色](https://m3.material.io/styles/color/roles)、[形状原则](https://m3.material.io/styles/shape/overview-principles)、[Material Web 色彩配对](https://material-web.dev/theming/color/)与[形状主题](https://material-web.dev/theming/shape/)，实现对照 Material Web v0.192 的[颜色令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-color.scss)与[形状令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-shape.scss)；Shadcn 参考 [shadcn/ui 主题变量](https://ui.shadcn.com/docs/theming)。
+
+macOS 扩展参考 [Apple HIG 色彩指南](https://developer.apple.com/design/human-interface-guidelines/color)中对语义一致性、明暗外观、对比度与 macOS 应用强调色的说明。蓝色强调、银灰分层及具体圆角和阴影取值是本项目基于现有令牌体系的选择。以上 M3、Material Web 与 Apple 资料于 2026-10-22 核对。
+
+Shadcn、macOS 风格和共享桌面密度是本项目的定制，不代表 M3 默认视觉规格；macOS 风格也不是苹果原生控件实现。主题扩展保留现有组件 API、语义与键盘行为，通过共享 L2 角色改变外观。另见[无障碍](/guides/accessibility)与[令牌实施](/components/rc-token-semantic)。

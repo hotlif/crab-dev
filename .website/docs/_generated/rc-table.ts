@@ -6,6 +6,34 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/theme-states.demo.tsx",
+        "title": "三套风格与选中状态",
+        "description": "相同数据分别使用 macOS、MD3 和 shadcn；表头、分隔线、单元格留白及行选中配色随设计边界切换。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "Table"
+            ],
+            "props": [
+                "design",
+                "width",
+                "height",
+                "columns",
+                "rows",
+                "aria-label",
+                "rowSelection"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Table from '../../src/table.js';\nimport type { ColumnType, Row } from '../../src/types.js';\n\nexport const meta = {\n    title: '三套风格与选中状态',\n    description: '相同数据分别使用 macOS、MD3 和 shadcn；表头、分隔线、单元格留白及行选中配色随设计边界切换。',\n};\n\ninterface Order extends Row {\n    dataRef: { name: string; status: string; amount: number };\n}\n\nconst rows: Order[] = [\n    { id: '1', dataRef: { name: '年度订阅', status: '已完成', amount: 1280 } },\n    { id: '2', dataRef: { name: '设计审核', status: '处理中', amount: 640 } },\n    { id: '3', dataRef: { name: '团队席位', status: '待确认', amount: 320 } },\n];\nconst columns: ColumnType\u003cOrder>[] = [\n    { name: '$.name', title: '项目', width: 150 },\n    { name: '$.status', title: '状态', width: 100 },\n    { name: '$.amount', title: '金额', width: 90 },\n];\nconst stackStyle = css`display: grid; gap: ${token.space['group-gap']}; width: 100%; min-width: 0;`;\nconst regionStyle = css`\n    width: fit-content; max-width: 100%; overflow-x: auto;\n    color: ${token.color.text.primary}; background: ${token.color.surface.content};\n    border: 1px solid ${token.data.table.border.color}; border-radius: ${token.data.table.radius};\n    &:focus-visible { outline: 2px solid ${token.color.focus.ring}; }\n`;\nconst titleStyle = css`\n    margin: 0; padding: ${token.space['component-gap']} ${token.data.table.cell['padding-inline']};\n    font: inherit; font-weight: ${token.typography.label['font-weight']};\n`;\n\nexport default function ThemeStatesDemo() {\n    return (\n        \u003cdiv className={stackStyle}>\n            {(['macos', 'material', 'shadcn'] as const).map((design) => (\n                \u003cConfigProvider key={design} design={design}>\n                    \u003csection className={regionStyle} tabIndex={0} aria-label={`${design} 表格示例`}>\n                        \u003ch3 className={titleStyle}>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}\u003c/h3>\n                        \u003cTable\n                            width={400} height={190} columns={columns} rows={rows}\n                            aria-label={`${design} 订单`}\n                            rowSelection={{ type: 'checkbox', defaultSelectedRowIds: new Set(['2']) }}\n                        />\n                    \u003c/section>\n                \u003c/ConfigProvider>\n            ))}\n        \u003c/div>\n    );\n}\n",
+        "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Ftheme-states.demo.tsx",
+        "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Ftheme-states.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "三套风格对照"
+    },
+    {
         "id": "docs/demos/basis.demo.tsx",
         "title": "基础表格 · 企业采购订单",
         "description": "3,000 笔采购订单、24 列，覆盖客户、商品、折扣、收款、仓储和交付信息，订单金额与收款状态相互关联。",

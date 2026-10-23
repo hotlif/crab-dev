@@ -198,6 +198,11 @@ const sourceFrameExpandedStyle = css`
     grid-template-rows: 1fr;
 `;
 
+const sourceFrameDarkStyle = css`
+    && { background-color: ${token.source.dark['background-color']}; }
+    && .linenumber { color: ${token.source.dark.gutter.color} !important; }
+`;
+
 const sourceClipStyle = css`
     min-height: 0;
     overflow: hidden;
@@ -428,6 +433,7 @@ const Preview: FC<PreviewProps> = ({
                 <div
                     id={sourceId}
                     className={cx.call(undefined, sourceFrameStyle,
+                        codeTheme === 'dark' && sourceFrameDarkStyle,
                         expanded && sourceFrameExpandedStyle,
                     )}
                     aria-hidden={!expanded}

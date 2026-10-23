@@ -49,6 +49,21 @@ const renderSlider = async (props: Partial<SliderProps> = {}) => {
     };
 };
 describe('Slider', () => {
+    it('mirrors pointer and horizontal arrow input in right-to-left layouts', async () => {
+        const onValueChange = mock.fn();
+        const { slider } = await renderSlider({ value: 50, step: 5, dir: 'rtl', onValueChange });
+        // Supply the computed direction missing from this DOM environment's UA stylesheet.
+        slider.style.direction = 'rtl';
+        await pointerDown(slider, 40);
+        expect(onValueChange).toHaveBeenLastCalledWith(80);
+        await pointerUp(slider, 40);
+        await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true })); });
+        expect(onValueChange).toHaveBeenLastCalledWith(45);
+        await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true, cancelable: true })); });
+        expect(onValueChange).toHaveBeenLastCalledWith(55);
+        await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true })); });
+        expect(onValueChange).toHaveBeenLastCalledWith(55);
+    });
     it('keeps the endpoint marker separate from the current value across size changes', async () => {
         const { container, slider, rerender } = await renderSlider({ value: 40 });
         expect(container.querySelector('[data-slot="slider-stop"]')).toBeTruthy();

@@ -160,6 +160,21 @@ describe("Drawer", () => {
         });
         expect(handleOpenChange).toHaveBeenCalledWith(false);
     });
+    it("supports synthesized activation and preserves a rejected close", async () => {
+        const handleOpenChange = mock.fn();
+        const handleClose = mock.fn(() => false);
+        const view = await render(<Drawer open onClose={handleClose} onOpenChange={handleOpenChange} title="Header">Content</Drawer>);
+        const closeButton = screen.getByRole("button", { name: "Close" });
+        await act(async () => closeButton.focus());
+        // The DOM runner cannot perform native Enter/Space activation; their
+        // synthesized click has detail=0, as do assistive-technology clicks.
+        await fireEvent.click(closeButton, { detail: 0 });
+        expect(handleClose).toHaveBeenCalledTimes(1);
+        expect(handleOpenChange).not.toHaveBeenCalled();
+        await view.rerender(<Drawer open onOpenChange={handleOpenChange} title="Header">Content</Drawer>);
+        await fireEvent.click(closeButton, { detail: 0 });
+        expect(handleOpenChange).toHaveBeenCalledWith(false);
+    });
     it("closes when overlay is clicked and maskClosable is true", async () => {
         const handleOpenChange = mock.fn();
         await render(<Drawer open onOpenChange={handleOpenChange}>

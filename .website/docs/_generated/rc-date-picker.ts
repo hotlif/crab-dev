@@ -8,23 +8,30 @@ export const demos = [
     {
         "id": "docs/demos/datePicker.demo.tsx",
         "title": "日期选择器",
-        "description": "多种规格的日期选择器演示。",
+        "description": "字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 macOS、MD3 与 shadcn。",
         "learning": {
             "components": [
+                "Button",
                 "DatePicker"
             ],
             "props": [
+                "appearance",
+                "aria-pressed",
+                "onClick",
+                "label",
+                "supportingText",
                 "value",
                 "size",
                 "renderDisplayString",
                 "onValueChange"
             ],
             "events": [
+                "onClick",
                 "onValueChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"日期选择器\",\n    description: \"多种规格的日期选择器演示。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useId, useState } from \"react\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\n\nconst SizeDemo = () => {\n    const controlId = useId();\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(null);\n    const [size, setSize] = useState\u003c\"large\" | \"middle\" | \"small\">(\"middle\")\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                margin-bottom: 2rem;\n            `}\n        >\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 0.5rem;\n                    margin-bottom: 1rem;\n                `}\n            >\n                \u003clabel htmlFor={controlId}>\n                    请选择大小\n                \u003c/label>\n                \u003cselect\n                    id={controlId}\n                    value={size}\n                    onChange={e => setSize(e.target.value as \"large\" | \"middle\" | \"small\")}\n                >\n                    \u003coption value=\"large\">Large\u003c/option>\n                    \u003coption value=\"middle\">Middle\u003c/option>\n                    \u003coption value=\"small\">Small\u003c/option>\n                \u003c/select>\n            \u003c/div>\n            \u003cDatePicker\n                value={value}\n                size={size}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"日期选择器\",\n    description: \"字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 macOS、MD3 与 shadcn。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport Button from \"@crab-dev/rc-button\";\nimport token from \"@crab-dev/rc-token-semantic\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(null);\n    const [size, setSize] = useState\u003c\"large\" | \"middle\" | \"small\">(\"middle\")\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: ${token.space['group-gap']};\n                margin-bottom: ${token.space['section-gap']};\n            `}\n        >\n            \u003cdiv role=\"group\" aria-label=\"字段尺寸\" className={css`display: flex; gap: ${token.space['inline-gap']};`}>\n                {(['small', 'middle', 'large'] as const).map(item => \u003cButton key={item} appearance={size === item ? 'tonal' : 'outlined'} aria-pressed={size === item} onClick={() => setSize(item)}>{item}\u003c/Button>)}\n            \u003c/div>\n            \u003cDatePicker\n                label=\"计划日期\"\n                supportingText=\"日期面板的选中项与今天标记分别呈现。\"\n                value={value}\n                size={size}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePicker.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePicker.demo.tsx",
         "density": "regular",
@@ -33,13 +40,15 @@ export const demos = [
     },
     {
         "id": "docs/demos/datePickerRange.demo.tsx",
-        "title": "日期范围选择",
-        "description": "演示如何选择一段日期区间。",
+        "title": "可选日期范围",
+        "description": "限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。",
         "learning": {
             "components": [
                 "DatePicker"
             ],
             "props": [
+                "label",
+                "supportingText",
                 "value",
                 "renderDisplayString",
                 "range",
@@ -50,7 +59,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"日期范围选择\",\n    description: \"演示如何选择一段日期区间。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\nconst now = Temporal.Now.zonedDateTimeISO();\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(now);\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                margin-bottom: 2rem;\n            `}\n        >\n            \u003cDatePicker\n                value={value}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"可选日期范围\",\n    description: \"限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\nconst now = Temporal.Now.zonedDateTimeISO();\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(now);\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                margin-bottom: 2rem;\n            `}\n        >\n            \u003cDatePicker\n                label=\"计划日期\"\n                supportingText=\"只能选择今天前后 7 天内的一个日期。\"\n                value={value}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePickerRange.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePickerRange.demo.tsx",
         "density": "regular",

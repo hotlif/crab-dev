@@ -1,3 +1,4 @@
+import token from "@crab-dev/rc-token-semantic";
 import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "分组变换与嵌套",
@@ -12,9 +13,9 @@ const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
-    border: 1px solid var(--border-subtle, #e5e5e5);
-    border-radius: 8px;
-    background: #fafafa;
+    border: 1px solid ${token.color.border.default};
+    border-radius: ${token.shape.card};
+    background: ${token.color.workspace.content};
 `;
 
 // 一个可复用的"图标"：内部用本地坐标系绘制，被不同 Group 变换复用

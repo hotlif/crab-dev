@@ -23,13 +23,13 @@ export const timeFieldsStyle = css`
     flex-wrap: wrap;
     row-gap: ${token.time.input.gap};
     direction: ltr;
-    &[data-mode='dial'][data-hour-cycle='24'] [data-time-field] { width: ${token.time.dial.field.width}; }
+    &[data-mode='dial'][data-hour-cycle='24'] [data-time-field] { width: ${token.time.dial.field['24h'].width}; }
     &[data-mode='dial'] [data-time-field], &[data-mode='dial'] [data-period] { height: ${token.time.dial.field.height}; }
     &[data-mode='dial'] [data-time-field] { font-size: ${token.time.dial['font-size']}; line-height: ${token.time.dial['line-height']}; }
     &[data-mode='dial'] > div > [aria-hidden='true'] { height: ${token.time.dial.field.height}; }
     @media (pointer: coarse), (max-width: 359px) {
         &[data-hour-cycle='12'] { width: ${token.time.dial.width}; max-width: 100%; }
-        &[data-mode] [data-period] { height: ${token.time.action.width}; }
+        &[data-mode] [data-period] { height: ${token.time.period.horizontal.height}; }
     }
 `;
 export const timePairStyle = css`display: flex; align-items: flex-start;`;
@@ -117,7 +117,7 @@ export const timePeriodStyle = css`
         font-weight: ${token.time.period['font-weight']};
         color: ${token.time.period.color};
         ${buttonVars['text.color']}: ${token.time.period.color};
-        ${buttonVars['root.touch.min-height']}: 100%;
+        ${buttonVars['root.touch.min-height']}: ${token.time.period.touch.height};
         ${buttonVars['text.background-color-hover']}: color-mix(in srgb, currentColor calc(${token.time['opacity-hover']} * 100%), transparent);
         ${buttonVars['text.background-color-focus']}: color-mix(in srgb, currentColor calc(${token.time.pressed.opacity} * 100%), transparent);
         ${buttonVars['text.background-color-active']}: color-mix(in srgb, currentColor calc(${token.time.pressed.opacity} * 100%), transparent);
@@ -133,8 +133,8 @@ export const timePeriodStyle = css`
     }
     @media (pointer: coarse), (max-width: 359px) {
         flex-direction: row;
-        width: calc(${token.time.input.width} * 2 + ${token.time.separator.width});
-        min-height: ${token.time.action.width};
+        width: ${token.time.period.horizontal.width};
+        min-height: ${token.time.period.horizontal.height};
         margin-inline-start: 0;
         & button:first-child { border-radius: 0; border-start-start-radius: inherit; border-end-start-radius: inherit; border-bottom: 0; border-inline-end: ${token.time.period['outline-width']} solid ${token.time.period['outline-color']}; }
         & button:last-child { border-radius: 0; border-start-end-radius: inherit; border-end-end-radius: inherit; }

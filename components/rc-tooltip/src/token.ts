@@ -7,6 +7,7 @@ import { defineTokens } from '@crab-dev/css';
 export const vars = defineTokens({
     'root.background-color': '--tooltip-root-background-color',
     'root.color': '--tooltip-root-color',
+    'root.border-color': '--tooltip-root-border-color',
     'root.padding-inline': '--tooltip-root-padding-inline',
     'root.padding-block': '--tooltip-root-padding-block',
     'root.font-size': '--tooltip-root-font-size',
@@ -26,16 +27,17 @@ export const vars = defineTokens({
 
 const token = defineTokens({
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-background-inverse, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889))))`,
-        'color': `var(${vars['root.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-overlay-tooltip-background, var(--token-semantic-color-background-inverse, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889)))))`,
+        'color': `var(${vars['root.color']}, var(--token-semantic-overlay-tooltip-foreground, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090)))))`,
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-overlay-tooltip-border, transparent))`,
         'padding-inline': `var(${vars['root.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
         'padding-block': `var(${vars['root.padding-block']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-small-font-size, var(--token-global-font-size-xs, 12px)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-small-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-overlay-tooltip-shape, var(--token-global-radius-2, 4px)))`,
         'max-width': `var(${vars['root.max-width']}, 250px)`,
         'z-index': `var(${vars['root.z-index']}, var(--token-semantic-z-index-elevated, var(--token-global-z-index-50, 1400)))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, none)`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-overlay-tooltip-shadow, var(--token-global-shadow-none, none)))`,
         'outline-width': `var(${vars['root.outline-width']}, 1px)`
     },
     'motion': {

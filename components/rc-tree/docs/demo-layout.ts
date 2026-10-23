@@ -22,3 +22,25 @@ export const checkedSummaryStyle = css`
     color: ${token.color.text.secondary};
     line-height: ${token.font["line-height"].body};
 `;
+
+export const demoStackStyle = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${token.space["stack-gap"]};
+`;
+
+export const demoNoteStyle = css`
+    margin: 0;
+    font-size: ${token.font.size.body};
+    color: ${token.color.text.secondary};
+    line-height: ${token.font["line-height"].body};
+`;
+
+export const keyboardHelpStyle = css`
+    padding: ${token.space["control-padding-y"]} ${token.space["control-padding-x"]};
+    border-radius: ${token.shape.card};
+    background: ${token.color.surface.container};
+    color: ${token.color.text.secondary};
+    font-size: ${token.font.size.caption};
+    line-height: ${token.font["line-height"].body};
+`;

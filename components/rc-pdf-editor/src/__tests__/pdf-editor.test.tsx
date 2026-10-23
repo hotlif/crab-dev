@@ -937,16 +937,12 @@ describe('独立 Worker 与编辑器交互', () => {
         cancelled.close();
         await expect(result).rejects.toThrow();
     });
-    it('侧栏图标保持展开语义和对象选择，关闭恢复焦点，窄屏开关互斥', async () => {
-        let compact = false;
-        const matchMedia = window.matchMedia.bind(window);
-        mock.spyOn(window, 'matchMedia').implement(query => {
-            const result = matchMedia(query);
-            if (query === '(max-width: 1000px)') Object.defineProperty(result, 'matches', { value: compact });
-            return result;
-        });
+    it('侧栏按宿主宽度适配，保留展开语义、对象选择和关闭后的焦点', async () => {
         const view = await render(<PdfEditor runtime={{ workerUrl, wasmBinary }} initialDocument={{ id: 'test', source: fixture() }} />);
         try {
+            const root = view.container.querySelector<HTMLElement>('[data-pdf-layout]')!;
+            const resize = async (width: number) => { await act(async () => { resizeTargets.get(root)!(width, 640); }); };
+            await resize(1200);
             await settled(() => expect(objectItem(view.container, '文字：Page 1')).toBeDefined());
             const pages = view.container.querySelector<HTMLElement>('aside[aria-label="页面管理"]')!;
             const properties = view.container.querySelector<HTMLElement>('aside[aria-label="对象属性"]')!;
@@ -973,13 +969,20 @@ describe('独立 Worker 与编辑器交互', () => {
             await fireEvent.click(button(view.container, '收起页面面板'));
             expect(document.activeElement).toBe(pagesToggle);
             expect(pages.hidden).toBe(true); expect(properties.hidden).toBe(false);
-            compact = true;
+            await resize(600);
+            expect(root.getAttribute('data-pdf-layout')).toBe('compact');
+            expect(pages.hidden).toBe(true); expect(properties.hidden).toBe(true);
             await fireEvent.click(pagesToggle);
+            expect(pages.hidden).toBe(false); expect(properties.hidden).toBe(true);
+            await resize(700);
             expect(pages.hidden).toBe(false); expect(properties.hidden).toBe(true);
             await fireEvent.click(propertiesToggle);
             expect(properties.hidden).toBe(false); expect(pages.hidden).toBe(true);
             await fireEvent.click(propertiesToggle);
             expect(properties.hidden).toBe(true); expect(pages.hidden).toBe(true);
+            await resize(1200);
+            expect(root.getAttribute('data-pdf-layout')).toBe('expanded');
+            expect(properties.hidden).toBe(false); expect(pages.hidden).toBe(false);
             expect(button(view.container, '撤销').disabled).toBe(true);
         } finally { await view.unmount(); }
     });

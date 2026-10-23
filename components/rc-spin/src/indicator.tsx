@@ -67,12 +67,14 @@ const ringStyle = css`
 `;
 
 const ringTrackStyle = css`
+    display: ${token.ring.display};
     fill: none;
     stroke: ${token.ring.track.stroke};
     stroke-width: ${token.ring['stroke-width']};
 `;
 
 const ringIndicatorStyle = css`
+    display: ${token.ring.display};
     fill: none;
     stroke: ${token.ring.indicator.stroke};
     stroke-width: ${token.ring['stroke-width']};
@@ -84,6 +86,21 @@ const ringIndicatorStyle = css`
         stroke: Highlight;
     }
 `;
+
+// The alternate activity glyph shares the same accessible host and motion
+// preferences; CSS semantic roles select it without reading design in render.
+const spokesStyle = css`
+    display: ${token.spokes.display};
+    stroke: ${token.ring.indicator.stroke};
+    stroke-width: ${token.ring['stroke-width']};
+    stroke-linecap: round;
+    @media (forced-colors: active) { stroke: Highlight; }
+`;
+
+const spokes = Array.from({ length: 12 }, (_, index) => ({
+    rotation: index * 30,
+    opacity: (index + 1) / 12,
+}));
 
 export interface SpinIndicatorProps extends Omit<SVGAttributes<SVGSVGElement>, 'children'> {
     /**
@@ -118,6 +135,11 @@ const SpinIndicator = ({ size, className, ref, ...restProps }: SpinIndicatorProp
     >
         <circle className={ringTrackStyle} cx="25" cy="25" r="20" />
         <circle className={ringIndicatorStyle} cx="25" cy="25" r="20" />
+        <g className={spokesStyle}>
+            {spokes.map(({ rotation, opacity }) => (
+                <line key={rotation} x1="25" y1="6" x2="25" y2="14" transform={`rotate(${rotation} 25 25)`} opacity={opacity} />
+            ))}
+        </g>
     </svg>
 );
 

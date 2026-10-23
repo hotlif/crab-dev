@@ -10,3 +10,6 @@ imports = [
 scrollbar.opacity = "0"
 scrollbar.transition = "$ref(motion.interaction)"
 scrollbar.thumb.background-color = "color-mix(in oklch, $ref(color.text.primary) 50%, transparent)"
+scrollbar.thumb.background-color-hover = "$ref(color.text.secondary)"
+scrollbar.border-radius = "$ref(shape.full)"
+scrollbar.width = "$ref(space.component-gap)"

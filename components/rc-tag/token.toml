@@ -13,21 +13,21 @@ root.transition = "background-color $ref(motion.interaction), border-color $ref(
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 size.large.height = "$ref(size.28)"
 size.large.padding       = "0 10px"
-size.large.border-radius = "$ref(shape.small)"
+size.large.border-radius = "$ref(status.tag.shape)"
 size.large.font-size = "$ref(typography.label.large.font-size)"
 size.large.gap           = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
 size.middle.height = "$ref(size.24)"
 size.middle.padding       = "0 8px"
-size.middle.border-radius = "$ref(shape.small)"
+size.middle.border-radius = "$ref(status.tag.shape)"
 size.middle.font-size = "$ref(typography.caption.font-size)"
 size.middle.gap           = "$ref(space.inline-gap)"
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 size.small.height = "$ref(size.20)"
 size.small.padding       = "0 6px"
-size.small.border-radius = "$ref(shape.small)"
+size.small.border-radius = "$ref(status.tag.shape)"
 size.small.font-size = "$ref(typography.caption.font-size)"
 size.small.gap           = "$ref(space.inline-gap)"
 
@@ -58,8 +58,8 @@ root.border-color-error     = "$ref(color.feedback.error.border)"
 
 # ─── 关闭按钮 ────────────────────────────────────────────────────────────────
 close.width = "14px"
-close.color        = "$ref(color.text.secondary)"
-close.color-hover  = "$ref(color.text.primary)"
+close.color        = "inherit"
+close.color-hover  = "inherit"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"
@@ -72,6 +72,8 @@ checkable.color-selected = "$ref(color.secondary.on-container)"
 checkable.background-color-selected = "$ref(color.secondary.container)"
 checkable.border-color-selected = "$ref(color.secondary.container)"
 checkable.icon.width = "$ref(size.icon)"
+checkable.height = "$ref(status.chip.height)"
+checkable.font-size = "$ref(status.chip.font-size)"
 checkable.state.opacity-hover = "$ref(state.opacity.hover)"
 checkable.state.opacity-focus = "$ref(state.opacity.focus)"
 checkable.state.opacity-active = "$ref(state.opacity.pressed)"

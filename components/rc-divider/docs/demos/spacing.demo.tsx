@@ -4,13 +4,15 @@ export const meta = {
 };
 
 import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
 import Divider from '../../src/index.js';
 
 const rowStyle = css`
     margin: 0;
-    padding: 4px 8px;
-    background-color: oklch(0.97 0.002 286);
-    border-radius: 6px;
+    padding: ${token.space['control-padding-y']} ${token.space['control-padding-x-small']};
+    background-color: ${token.color.surface.container};
+    color: ${token.color.text.primary};
+    border-radius: ${token.shape.control};
 `;
 
 const SpacingDemo = () => {

@@ -13,10 +13,10 @@ describe('TablePro token contract', () => {
             'var(--table-pro-surface-background-color, var(--token-semantic-color-surface-content,',
         );
         expect(token.chrome['background-color']).toContain(
-            'var(--table-pro-chrome-background-color, var(--token-semantic-color-surface-canvas,',
+            'var(--table-pro-chrome-background-color, var(--token-semantic-color-workspace-toolbar,',
         );
         expect(token.root['border-color']).toContain(
-            'var(--table-pro-root-border-color, var(--token-semantic-color-border-subtle,',
+            'var(--table-pro-root-border-color, var(--token-semantic-data-table-border-color,',
         );
     });
 

@@ -11,8 +11,8 @@ imports = [
 root.transition = "background-color $ref(motion.interaction), color $ref(motion.interaction), transform $ref(motion.spatial.fast)"
 
 # ─── 计数徽标 — Default 尺寸 ─────────────────────────────────────────────────
-size.default.height = "16px"
-size.default.min-width = "16px"
+size.default.height = "$ref(status.badge.height)"
+size.default.min-width = "$ref(status.badge.height)"
 size.default.padding = "0 4px"
 size.default.font-size    = "$ref(typography.caption.font-size)"
 size.default.border-width = "0px"
@@ -33,6 +33,18 @@ count.color              = "$ref(color.feedback.error.on-solid)"
 count.background-color   = "$ref(color.feedback.error.solid)"
 count.border-color       = "$ref(color.surface.content)"
 count.font-weight        = "$ref(typography.label.font-weight)"
+
+# Count presets keep the container and its label in the same color pair.
+count.default.color = "$ref(color.text.primary)"
+count.default.background-color = "$ref(color.fill.default)"
+count.processing.color = "$ref(color.feedback.info.on-solid)"
+count.processing.background-color = "$ref(color.feedback.info.solid)"
+count.success.color = "$ref(color.feedback.success.on-solid)"
+count.success.background-color = "$ref(color.feedback.success.solid)"
+count.warning.color = "$ref(color.feedback.warning.on-solid)"
+count.warning.background-color = "$ref(color.feedback.warning.solid)"
+count.color-error = "$ref(color.feedback.error.on-solid)"
+count.background-color-error = "$ref(color.feedback.error.solid)"
 
 # ─── 状态圆点颜色 ────────────────────────────────────────────────────────────
 status.default.color    = "$ref(color.fill.default)"

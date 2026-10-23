@@ -28,7 +28,7 @@ content.max-width   = "70%"
 content.font-weight = "$ref(typography.label.font-weight)"
 
 # ─── 形态 ────────────────────────────────────────────────────────────────────
-shape.square.border-radius = "$ref(radius.lg)"
+shape.square.border-radius = "$ref(status.avatar.shape)"
 
 # ─── 交互语义 ────────────────────────────────────────────────────────────────
 root.border-color = "$ref(color.border.default)"

@@ -9,10 +9,11 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 root.padding = "$ref(space.section-gap)"
-root.border-radius = "$ref(shape.extra-small)"
+root.border-radius = "$ref(feedback.toast.shape)"
+root.border-color = "$ref(feedback.toast.border)"
 root.font-size = "$ref(typography.body.medium.font-size)"
 root.line-height = "$ref(typography.body.medium.line-height)"
-root.background-color = "$ref(color.background.inverse)"
+root.background-color = "$ref(feedback.toast.background)"
 root.box-shadow = "$ref(shadow.overlay)"
 
 # ─── 图标 ────────────────────────────────────────────────────────────────────
@@ -20,13 +21,13 @@ icon.width = "18px"
 icon.margin-right = "$ref(space.component-gap)"
 
 # ─── 类型颜色 ────────────────────────────────────────────────────────────────
-success.icon.color = "$ref(color.text.inverse)"
-warning.icon.color = "$ref(color.text.inverse)"
-icon.color-error = "$ref(color.text.inverse)"
-info.icon.color = "$ref(color.text.inverse)"
+success.icon.color = "$ref(feedback.toast.foreground)"
+warning.icon.color = "$ref(feedback.toast.foreground)"
+icon.color-error = "$ref(feedback.toast.foreground)"
+info.icon.color = "$ref(feedback.toast.foreground)"
 
 # ─── 文本 ────────────────────────────────────────────────────────────────────
-text.color = "$ref(color.text.inverse)"
+text.color = "$ref(feedback.toast.foreground)"
 
 # ─── 进度条 ──────────────────────────────────────────────────────────────────
 progress.start.color = "$ref(color.brand.primary)"

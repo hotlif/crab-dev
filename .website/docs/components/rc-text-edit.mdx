@@ -22,9 +22,11 @@ import { demos } from "../_generated/rc-text-edit.js";
 
 ##### 一键清除 — 设置 `allowClear` 后，有内容时右上角出现清除按钮；开启后文本区常驻预留按钮空间，按钮出现或消失不会引起文本回流
 
-##### 随主题切换的文本字段 — Material 下展示 outlined / filled 与浮动标签；切换至 shadcn 后，同一文本域自动采用上置标签和紧凑边框。
+##### 随主题切换的文本字段 — Material 下展示 outlined / filled 与浮动标签；切换至 macOS 或 shadcn 后，同一文本域自动采用上置标签和紧凑边框。
 
 ##### 高度自适应 — 设置 `autoSize` 后高度随内容自动增长（CSS field-sizing，浏览器不支持时按 `rows` 回退）；开启后手动拖拽调整被禁用，两种高度控制方式不会互相冲突
+
+##### 多行字段状态 — 使用文档站主题菜单对照三套标签、容器和焦点规则；文字、计数和辅助说明保持关联。
 
 ##### 字符计数 — 设置 `showCount` 后在右下角实时显示已输入字符数；配合 `maxLength` 使用时显示「已输入 / 上限」格式，并在输入层直接阻止超出上限（输入约束前置）
 
@@ -44,6 +46,14 @@ import { demos } from "../_generated/rc-text-edit.js";
 
 输入多行文本，支持清除、字数统计和内容自适应高度。
 
+
+### 三套主题的多行字段
+
+MD3 使用浮动标签和描边／底线；macOS 与 shadcn 使用静态标签，分别提供蓝色外侧焦点环和中性半透明外侧焦点环。无标签文本域也使用相同的 L2 焦点合约。错误说明与计数保持在支持文本区，主题切换保留原来的文本域及输入内容。
+
+“多行字段状态”演示同步覆盖普通、Filled 错误和禁用字段。桌面密度与 macOS 阴影是项目定制；多行编辑保留原生选择、换行及垂直扩展能力。
+
+参考：[Material Web Text field 与 textarea](https://material-web.dev/components/text-field/)、[字段轮廓实现](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Textarea 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/textarea.tsx)、[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)。核对日期：2026-10-22。
 
 ### 何时使用
 
@@ -65,15 +75,15 @@ import { demos } from "../_generated/rc-text-edit.js";
 
 ### 设计风格与状态
 
-字段跟随统一的 `ConfigProvider design="material" | "shadcn"`，文档右上角的风格选择也会同步到演示。Material 的标签位于字段内，聚焦或有内容时浮动；shadcn 的同一个标签位于输入框上方。切换风格保留输入内容、焦点与辅助说明关联，无需替换组件。
+字段跟随统一的 `ConfigProvider design="material" | "macos" | "shadcn"`，文档右上角的风格选择也会同步到演示。Material 的标签位于字段内，聚焦或有内容时浮动；macOS 与 shadcn 的同一个标签位于输入框上方。切换风格保留输入内容、焦点与辅助说明关联，无需替换组件。
 
-提供 `label` 的 Material 文本域使用 16px / 24px 正文、12px / 16px 浮动标签，至少 56px 高；outlined 保留上下 16px 空间，filled 为标签保留上方空间。shadcn 使用上置的 14px 标签与紧凑边框。没有内置标签的嵌入用法保留 `size` 的内边距规则；`bordered={false}` 交由宿主提供边界和排版。可视高度仍由 `rows` / `autoSize` 决定，不应对包含错误信息的整组字段设置固定高度。
+提供 `label` 的 Material 文本域使用 16px / 24px 正文、12px / 16px 浮动标签，至少 56px 高；outlined 保留上下 16px 空间，filled 为标签保留上方空间。macOS 与 shadcn 使用上置的 14px 标签与紧凑边框。无标签字段也沿用同主题的正文与内边距角色；`bordered={false}` 交由宿主提供边界和排版。可视高度仍由 `rows` / `autoSize` 决定，不应对包含错误信息的整组字段设置固定高度。
 
 清除动作复用 Button，鼠标下 24×24px、粗指针下 48×48px；文本区常驻预留对应横向空间，按钮出现或消失不改变可用行宽。粗指针下文本域最小高度为 48px。计数与按钮不应遮住末行或滚动条，超长文本保留原生滚动与选择。
 
-`appearance="outlined"` 与 `appearance="filled"` 对应 Material 的两种文本字段；shadcn 下两者均采用完整的紧凑边框。`label`、`supportingText`、`errorText` 会自动建立可见标签和 `aria-describedby` 关联。`errorText` 替换辅助说明并启用错误语义及错误播报；显式 `aria-invalid` 仍优先，warning 不自动无效。计数位于字段下方的信息区，不占用正文空间，也不会在每个字符变化时强制重复播报。
+`appearance="outlined"` 与 `appearance="filled"` 对应 Material 的两种文本字段；macOS 与 shadcn 下两者均采用完整的紧凑边框。`label`、`supportingText`、`errorText` 会自动建立可见标签和 `aria-describedby` 关联。`errorText` 替换辅助说明并启用错误语义及错误播报；显式 `aria-invalid` 仍优先，warning 不自动无效。计数位于字段下方的信息区，不占用正文空间，也不会在每个字符变化时强制重复播报。
 
-Material 聚焦时，outlined 的 1px 轮廓加粗为 3px，filled 将底线加粗为 3px；outlined 使用真实轮廓缺口，标签不会用一块固定背景盖住边框。shadcn 使用其语义主题提供的边框与焦点指示；错误与 warning 沿用各自的反馈色。禁用时移除错误强调。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。
+Material 聚焦时，outlined 的 1px 轮廓加粗为 3px，filled 将底线加粗为 3px；outlined 使用真实轮廓缺口，标签不会用一块固定背景盖住边框。macOS 与 shadcn 使用各自语义主题提供的边框与外侧焦点指示；错误与 warning 沿用各自的反馈色。禁用时移除错误强调。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。
 
 实现依据：2026-10-21 查阅 [M3 文本字段规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility)，并对照 [Material Web 多行字段示例](https://material-web.dev/components/text-field/#textarea)、main 分支的 [outlined 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/main/field/internal/_filled-field.scss) 与 [焦点令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-text-field.scss)。M3 官方页面依赖 JavaScript，当前可读的实现参数以 Material Web 源码为对照；采用当前实现的 3px 焦点厚度，warning 和垂直拖拽属于本库扩展。
 
@@ -110,9 +120,9 @@ Material 聚焦时，outlined 的 1px 轮廓加粗为 3px，filled 将底线加�
 
 需要保留换行时使用 TextEdit；名称或搜索词等内容使用 LineEdit。
 
-### 怎样统一两套风格？
+### 怎样统一三套风格？
 
-在根级 ConfigProvider 设置 design="material" 或 design="shadcn"，不必逐个字段覆盖标签或样式。Material 按多行内容扩展浮动标签容器，shadcn 保留外置标签与紧凑间距；theme 和 size 独立配置。
+在根级 ConfigProvider 设置 design="macos"、design="material" 或 design="shadcn"，不必逐个字段覆盖标签或样式。Material 按多行内容扩展浮动标签容器；macOS 与 shadcn 保留静态外置标签与紧凑间距，分别提供蓝色与中性色外侧焦点环。theme 和 size 独立配置。
 
 ## API
 

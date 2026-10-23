@@ -138,6 +138,13 @@ const calendarDateCellContentStyle = css`
     @media (forced-colors: active) { &[aria-pressed="true"] { outline: 2px solid Highlight; } }
 `;
 
+const todayStyle = css`
+    &&:not([aria-pressed="true"]):not(:disabled) {
+        color: ${token.cell.today.color};
+        border: ${token.cell.today['border-width']} solid ${token.cell.today['border-color']};
+    }
+`;
+
 const calendarTableStyle = css`
     width: 100%;
     table-layout: fixed;
@@ -158,6 +165,21 @@ const DatePickerPanel = ({
 }: DatePickerPanelProps) => {
     const viewValue = value.withTimeZone(timeZone);
     const [viewDate, setViewDate] = useState(viewValue);
+    const [today, setToday] = useState(() => Temporal.Now.zonedDateTimeISO(timeZone).toPlainDate());
+
+    useEffect(() => {
+        let midnight: ReturnType<typeof setTimeout>;
+        const updateToday = () => {
+            const now = Temporal.Now.zonedDateTimeISO(timeZone);
+            const nextDate = now.toPlainDate();
+            setToday(previous => previous.equals(nextDate) ? previous : nextDate);
+            // Midnight follows the picker zone, including daylight-saving day lengths.
+            const nextMidnight = now.add({ days: 1 }).startOfDay();
+            midnight = setTimeout(updateToday, nextMidnight.epochMilliseconds - now.epochMilliseconds + 1);
+        };
+        updateToday();
+        return () => clearTimeout(midnight);
+    }, [timeZone]);
 
     useEffect(() => {
         if (instance) {
@@ -262,12 +284,15 @@ const DatePickerPanel = ({
                             {row.map((date) => {
                                 const inRange = isWithinDateRange(date, range);
                                 const selected = inRange && isSelected(date);
+                                const isToday = today.equals(date.toPlainDate());
                                 return (
                                     <td className={calendarCellStyle} key={date.toString()}>
                                         <Button type="button" appearance={selected ? 'primary' : 'text'}
                                             aria-label={date.toPlainDate().toString()}
                                             aria-pressed={selected} disabled={!inRange}
+                                            aria-current={isToday ? 'date' : undefined}
                                             className={cx.call(undefined, calendarDateCellContentStyle,
+                                                isToday && todayStyle,
                                                 inRange && !selected && !isCurrentMonth(date) && isOutOfRangeStyle)}
                                             onClick={() => onSelect?.([date])}>
                                             {date.day}

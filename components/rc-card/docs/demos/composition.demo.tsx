@@ -6,24 +6,32 @@ export const meta = {
 import { css } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import Tag from '@crab-dev/rc-tag';
+import token from '@crab-dev/rc-token-semantic';
+import { useState } from 'react';
 import Card from '../../src/index.js';
 
+const cardStyle = css`max-width: calc(${token.size[64]} * 5 + ${token.size[20]});`;
+const statusStyle = css`margin-block-end: 0; color: ${token.color.text.secondary};`;
 const coverArtStyle = css`
-    height: 120px;
-    background: linear-gradient(135deg, oklch(0.75 0.13 60), oklch(0.68 0.17 20));
+    height: calc(${token.size[64]} * 2 - ${token.space['component-gap']});
+    background: linear-gradient(135deg, ${token.color.brand.container}, ${token.color.secondary.container});
 `;
 
 const CompositionDemo = () => {
+    const [message, setMessage] = useState('请选择确认或取消。');
     return (
-        <Card hoverable style={{ maxWidth: 340 }}>
+        <Card hoverable className={cardStyle}>
             <Card.Header title="自由拼装模式" extra={<Tag color="primary">Beta</Tag>} />
-            <Card.Body>结构子组件可任意排布 —— 这里把封面放在了正文与操作区之间。</Card.Body>
+            <Card.Body>
+                结构子组件可任意排布，这里把封面放在了正文与操作区之间。
+                <p className={statusStyle} role="status">{message}</p>
+            </Card.Body>
             <Card.Cover>
                 <div className={coverArtStyle} />
             </Card.Cover>
             <Card.Footer>
-                <Button appearance="text">取消</Button>
-                <Button appearance="primary">确认</Button>
+                <Button appearance="text" onClick={() => setMessage('已取消本次操作。')}>取消</Button>
+                <Button appearance="primary" onClick={() => setMessage('已确认当前内容。')}>确认</Button>
             </Card.Footer>
         </Card>
     );

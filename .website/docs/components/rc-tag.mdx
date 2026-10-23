@@ -65,6 +65,14 @@ import { demos } from "../_generated/rc-tag.js";
 - 支持 `closeIcon` 自定义关闭图标。
 - `CheckableTag` 对应 Material Filter chip，选中后显示勾选标记并使用 secondary container；多个筛选标签应放在有名称的 toolbar 中。
 
+
+
+### 三套设计风格
+
+普通标签在 Material / macOS / shadcn 下分别采用 8px / 4px / 胶囊圆角。可选标签在 Material 下对应 32px 高、14px 标签字的 filter chip；macOS 与 shadcn 使用紧凑的 24px 高选择标签。选中勾选、键盘操作和 disabled 语义保持一致，普通静态 Tag 不冒充 M3 交互 chip。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
 ### 适用场景
 
 记录需要显示类别、属性或简短状态。 用户要移除一个已输入条件，或在一组标签中切换筛选。

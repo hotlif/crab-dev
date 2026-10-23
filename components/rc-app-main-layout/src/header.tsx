@@ -102,6 +102,7 @@ const toolbarStyle = css`
 
 const toolbarSpacerStyle = css`
     flex: 1;
+    min-width: 0;
 `;
 
 const breadcrumbsStyle = css`
@@ -131,45 +132,31 @@ const mobileTitleStyle = css`
 `;
 
 const navBtnStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: ${token.header['nav-btn'].width};
-    height: ${token.header['nav-btn'].width};
-    border-radius: ${token.header['nav-btn']["border-radius"]};
-    color: ${token.header['nav-btn'].color};
-    cursor: pointer;
-    flex-shrink: 0;
-    background: transparent;
-    border: none;
-    padding: 0;
-    transition: color ${token.motion.interaction.transition}, background-color ${token.motion.interaction.transition}, transform ${token.motion.spatial.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-
-    &:hover {
-        color: ${token.header['nav-btn']['color-hover']};
-        background-color: ${token.header['nav-btn']['background-color-hover']};
-    }
-
-    &:active {
-        background-color: ${token.header['nav-btn']['background-color-active']};
-        transform: scale(0.96);
-    }
-
-    &:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: 2px;
-    }
-
-    &:disabled {
-        opacity: 0.35;
-        cursor: not-allowed;
-    }
-
-    & > svg {
-        width: ${token.header['nav-btn'].icon.width};
-        height: ${token.header['nav-btn'].icon.width};
+    && {
+        ${buttonVars['text.color']}: ${token.header['nav-btn'].color};
+        ${buttonVars['text.background-color-hover']}: ${token.header['nav-btn']['background-color-hover']};
+        ${buttonVars['text.background-color-focus']}: ${token.header['nav-btn']['background-color-hover']};
+        ${buttonVars['text.background-color-active']}: ${token.header['nav-btn']['background-color-active']};
+        ${buttonVars['icon.width']}: ${token.header['nav-btn'].icon.width};
+        ${buttonVars['root.border-radius-active']}: ${token.header['nav-btn']['border-radius']};
+        width: ${token.header['nav-btn'].width};
+        min-width: ${token.header['nav-btn'].width};
+        height: ${token.header['nav-btn'].width};
+        border-radius: ${token.header['nav-btn']['border-radius']};
+        padding: 0;
+        gap: 0;
+        flex-shrink: 0;
+        &:hover { color: ${token.header['nav-btn']['color-hover']}; }
+        /* Reserve the full hit area so neighboring actions never overlap. */
+        margin-inline: calc((${token.header['nav-btn'].touch.width} - ${token.header['nav-btn'].width}) / 2);
+        & > span:first-child {
+            inset: auto;
+            top: 50%;
+            left: 50%;
+            width: ${token.header['nav-btn'].touch.width};
+            height: ${token.header['nav-btn'].touch.width};
+            transform: translate(-50%, -50%);
+        }
     }
 `;
 
@@ -193,11 +180,12 @@ const userPillStyle = css`
         ${buttonVars['text.background-color-focus']}: ${token.header.user.pill['background-color-hover']};
         ${buttonVars['text.background-color-active']}: ${token.header['nav-btn']['background-color-active']};
         min-width: ${token.header.user.pill.height};
+        max-width: 100%;
         height: ${token.header.user.pill.height};
         padding: ${token.header.user.pill.padding};
         border-radius: ${token.header.user.pill['border-radius']};
-        flex-shrink: 0;
-        > span:last-child { display: inline-flex; }
+        flex-shrink: 1;
+        > span:last-child { display: inline-flex; min-width: 0; max-width: 100%; }
     }
 `;
 
@@ -205,11 +193,16 @@ const userPillContentStyle = css`
     display: inline-flex;
     align-items: center;
     gap: ${token.header.user.pill.gap};
+    min-width: 0;
+    max-width: 100%;
 `;
 
 const userMenuWrapStyle = css`
     position: relative;
     display: inline-flex;
+    min-width: 0;
+    max-width: ${token.header.user.pill['max-width']};
+    flex: 0 1 auto;
 `;
 
 const userMenuStyle = css`
@@ -283,6 +276,9 @@ const usernameStyle = css`
     color: ${token.header.user.name.color};
     font-weight: ${token.header.user.name["font-weight"]};
     white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @media (max-width: 640px) {
         display: none;
@@ -294,6 +290,7 @@ const userInfoStyle = css`
     flex-direction: column;
     align-items: flex-end;
     min-width: 0;
+    flex: 1 1 auto;
     line-height: 1.15;
 
     @media (max-width: 640px) {
@@ -306,6 +303,9 @@ const userRoleStyle = css`
     font-size: calc(${token.tab["font-size"]} - 2px);
     color: ${token.header['nav-btn'].color};
     white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const userInfoSkeletonStyle = css`
@@ -320,6 +320,7 @@ const userInfoSkeletonStyle = css`
 `;
 
 const avatarStyle = css`
+    flex-shrink: 0;
     ${avatarVars['size.small.width']}: ${token.header.user.avatar.width};
     ${avatarVars['size.small.font-size']}: ${token.header.user.avatar['font-size']};
     ${avatarVars['icon.small.font-size']}: ${token.header.user.avatar.icon.width};
@@ -463,37 +464,40 @@ const Header: FC<HeaderProps> = ({
                 </div>
             ) : null}
             <div className={toolbarStyle}>
-                <button
+                <Button
                     ref={menuButtonRef}
                     type="button"
+                    appearance="text"
+                    shape="circle"
+                    icon={<MenuIcon />}
+                    title="Toggle sidebar"
                     className={navBtnStyle}
                     onClick={onMenuToggle}
                     aria-label="Toggle sidebar"
                     aria-expanded={!menuToggled}
                     aria-pressed={menuToggled}
-                >
-                    <MenuIcon />
-                </button>
+                />
                 {mobileTitle ? <span className={mobileTitleStyle}>{mobileTitle}</span> : null}
                 {breadcrumbs?.length ? (
                     <Breadcrumbs className={breadcrumbsStyle} items={breadcrumbs} />
                 ) : null}
                 <div className={toolbarSpacerStyle} />
                 {onFullscreenToggle ? (
-                    <button
+                    <Button
                         type="button"
+                        appearance="text"
+                        shape="circle"
+                        icon={fullscreenActive ? <ExitFullscreenIcon /> : <EnterFullscreenIcon />}
+                        title={fullscreenActive ? "Exit fullscreen" : "Enter fullscreen"}
                         className={navBtnStyle}
                         onClick={onFullscreenToggle}
                         aria-label={fullscreenActive ? "Exit fullscreen" : "Enter fullscreen"}
                         aria-pressed={fullscreenActive}
-                    >
-                        {fullscreenActive ? <ExitFullscreenIcon /> : <EnterFullscreenIcon />}
-                    </button>
+                    />
                 ) : null}
-                <button className={navBtnStyle} onClick={onBell} aria-label="Notifications">
-                    <BellIcon />
+                <Button type="button" appearance="text" shape="circle" icon={<BellIcon />} className={navBtnStyle} onClick={onBell} aria-label="Notifications" title="Notifications">
                     {hasNotification ? <span className={notificationDotStyle} aria-hidden /> : null}
-                </button>
+                </Button>
                 <div
                     ref={userMenuWrapRef}
                     className={userMenuWrapStyle}
@@ -531,8 +535,8 @@ const Header: FC<HeaderProps> = ({
                                 </span>
                             ) : (resolvedUser.name || resolvedUser.roleName) ? (
                                 <span className={userInfoStyle}>
-                                    {resolvedUser.name ? <span className={usernameStyle}>{resolvedUser.name}</span> : null}
-                                    {resolvedUser.roleName ? <span className={userRoleStyle}>{resolvedUser.roleName}</span> : null}
+                                    {resolvedUser.name ? <span className={usernameStyle} title={typeof resolvedUser.name === 'string' ? resolvedUser.name : undefined}>{resolvedUser.name}</span> : null}
+                                    {resolvedUser.roleName ? <span className={userRoleStyle} title={typeof resolvedUser.roleName === 'string' ? resolvedUser.roleName : undefined}>{resolvedUser.roleName}</span> : null}
                                 </span>
                             ) : null}
                             {userLoading ? (

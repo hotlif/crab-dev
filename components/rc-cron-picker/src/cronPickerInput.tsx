@@ -1,5 +1,5 @@
 import { useDropdownContext } from '@crab-dev/rc-dropdown-container';
-import LineEdit from '@crab-dev/rc-line-edit';
+import LineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { css } from '@crab-dev/css';
 import { useEffect, useRef, useState, type FC, type KeyboardEvent, type Ref } from 'react';
 
@@ -33,7 +33,7 @@ const ClockIcon = () => (
     </svg>
 );
 
-export interface CronPickerInputProps {
+export interface CronPickerInputProps extends Pick<LineEditProps, 'label' | 'supportingText' | 'errorText' | 'appearance'> {
     ref?: Ref<HTMLInputElement>;
     /** 当前(已归一化的)合法表达式 */
     expression: string;
@@ -43,7 +43,7 @@ export interface CronPickerInputProps {
     size: 'large' | 'middle' | 'small';
     status?: 'error' | 'warning';
     placeholder: string;
-    ariaLabel: string;
+    ariaLabel?: string;
     overlayId: string;
     /** 提交一段手输文本;返回是否为合法表达式 */
     onCommit: (text: string) => boolean;
@@ -58,6 +58,10 @@ const CronPickerInput: FC<CronPickerInputProps> = ({
     size,
     status,
     placeholder,
+    label,
+    supportingText = '格式：分 时 日 月 周。',
+    errorText,
+    appearance,
     ariaLabel,
     overlayId,
     onCommit,
@@ -122,6 +126,10 @@ const CronPickerInput: FC<CronPickerInputProps> = ({
 
     return (
         <LineEdit
+            label={label}
+            supportingText={supportingText || '格式：分 时 日 月 周。'}
+            errorText={draftInvalid || invalid ? '请输入有效的五段式 Cron 表达式，例如 30 9 * * 1-5。' : errorText}
+            appearance={appearance}
             id={`${overlayId}-trigger`}
             ref={ref}
             containerRef={refs.setReference}

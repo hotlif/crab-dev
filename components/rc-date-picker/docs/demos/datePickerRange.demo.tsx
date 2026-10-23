@@ -1,6 +1,6 @@
 export const meta = {
-    title: "日期范围选择",
-    description: "演示如何选择一段日期区间。",
+    title: "可选日期范围",
+    description: "限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。",
 };
 
 import { css } from "@crab-dev/css";
@@ -22,6 +22,8 @@ const SizeDemo = () => {
             `}
         >
             <DatePicker
+                label="计划日期"
+                supportingText="只能选择今天前后 7 天内的一个日期。"
                 value={value}
                 renderDisplayString={(value) => formatTemporal(value, "yyyy-MM-dd")}
                 range={{

@@ -127,6 +127,26 @@ export function measureLabelWidth(text: string, fontSize: number): number {
     return em * fontSize;
 }
 
+/** 按实际字宽省略轴标签，保留 Unicode 字符边界；完整类目仍由提示和数据表呈现。 */
+export function fitCategoryLabel(text: string, maxWidth: number): string {
+    const fontSize = CHART_METRICS.fontSize;
+    if (measureLabelWidth(text, fontSize) <= maxWidth) return text;
+    const ellipsis = '…';
+    if (measureLabelWidth(ellipsis, fontSize) > maxWidth) return '';
+    const characters = Array.from(text);
+    let start = 0;
+    let end = characters.length;
+    while (start < end) {
+        const middle = Math.ceil((start + end) / 2);
+        if (measureLabelWidth(`${characters.slice(0, middle).join('')}${ellipsis}`, fontSize) <= maxWidth) {
+            start = middle;
+        } else {
+            end = middle - 1;
+        }
+    }
+    return `${characters.slice(0, start).join('')}${ellipsis}`;
+}
+
 /**
  * 计算「整洁刻度」：步长取 1/2/5 × 10^n，起止对齐到步长整数倍。
  * 返回从起点到终点（含）的等距刻度值，min === max 时扩为单位跨度。
@@ -225,7 +245,9 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
 
     // 左缘留白：vertical 放值轴刻度文本，horizontal 放类目文本
     const leftLabels = horizontal ? categories : labels;
-    const maxLabelW = leftLabels.reduce((w, l) => Math.max(w, measureLabelWidth(l, M.fontSize)), 0);
+    const measuredLabelW = leftLabels.reduce((w, l) => Math.max(w, measureLabelWidth(l, M.fontSize)), 0);
+    // 横向长类目最多占容器约三分之一，保留数值比较所需的绘图区。
+    const maxLabelW = horizontal ? Math.min(measuredLabelW, width / 3) : measuredLabelW;
     const plotLeft = Math.max(24, Math.ceil(maxLabelW) + M.axisLabelGap);
     const plotTop = M.plotTopPad;
     const plotRight = Math.max(plotLeft, width - M.plotRightPad);

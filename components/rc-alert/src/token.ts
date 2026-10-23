@@ -47,16 +47,16 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'transition': `var(${vars['root.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
-        'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
+        'padding': `var(${vars['root.padding']}, var(--token-semantic-feedback-banner-padding, var(--token-global-space-4, 16px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-feedback-banner-shape, var(--token-global-radius-6, 12px)))`,
         'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
         'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
-        'background-color-error': `var(${vars['root.background-color-error']}, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053))))`,
-        'border-color-error': `var(${vars['root.border-color-error']}, var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`
+        'background-color-error': `var(${vars['root.background-color-error']}, color-mix(in oklab, var(--token-semantic-color-feedback-error-background, var(--token-global-material-error-90, oklch(0.92214553 0.03006356 22.785053))) var(--token-semantic-feedback-banner-tint, 100%), var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'border-color-error': `var(${vars['root.border-color-error']}, color-mix(in oklab, var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))) var(--token-semantic-feedback-banner-border-tint, 100%), var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
     },
     'title': {
-        'font-size': `var(${vars['title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`,
+        'font-size': `var(${vars['title.font-size']}, var(--token-semantic-feedback-banner-title-font-size, var(--token-global-font-size-md, 16px)))`,
         'font-weight': `var(${vars['title.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
         'margin-bottom': `var(${vars['title.margin-bottom']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
@@ -78,24 +78,24 @@ const token = defineTokens({
         'icon': {
             'color': `var(${vars['success.icon.color']}, var(--token-semantic-color-feedback-success-icon, var(--token-global-green-700, oklch(0.527 0.154 154))))`
         },
-        'background-color': `var(${vars['success.background-color']}, var(--token-semantic-color-feedback-success-background, var(--token-global-green-50, oklch(0.982 0.018 149))))`,
-        'border-color': `var(${vars['success.border-color']}, var(--token-semantic-color-feedback-success-border, var(--token-global-green-700, oklch(0.527 0.154 154))))`
+        'background-color': `var(${vars['success.background-color']}, color-mix(in oklab, var(--token-semantic-color-feedback-success-background, var(--token-global-green-50, oklch(0.982 0.018 149))) var(--token-semantic-feedback-banner-tint, 100%), var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'border-color': `var(${vars['success.border-color']}, color-mix(in oklab, var(--token-semantic-color-feedback-success-border, var(--token-global-green-700, oklch(0.527 0.154 154))) var(--token-semantic-feedback-banner-border-tint, 100%), var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
     },
     'warning': {
         'color': `var(${vars['warning.color']}, var(--token-semantic-color-feedback-warning-text, var(--token-global-amber-900, oklch(0.414 0.112 68))))`,
         'icon': {
             'color': `var(${vars['warning.icon.color']}, var(--token-semantic-color-feedback-warning-icon, var(--token-global-amber-700, oklch(0.555 0.163 71))))`
         },
-        'background-color': `var(${vars['warning.background-color']}, var(--token-semantic-color-feedback-warning-background, var(--token-global-amber-50, oklch(0.987 0.022 85))))`,
-        'border-color': `var(${vars['warning.border-color']}, var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-700, oklch(0.555 0.163 71))))`
+        'background-color': `var(${vars['warning.background-color']}, color-mix(in oklab, var(--token-semantic-color-feedback-warning-background, var(--token-global-amber-50, oklch(0.987 0.022 85))) var(--token-semantic-feedback-banner-tint, 100%), var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'border-color': `var(${vars['warning.border-color']}, color-mix(in oklab, var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-700, oklch(0.555 0.163 71))) var(--token-semantic-feedback-banner-border-tint, 100%), var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
     },
     'info': {
         'color': `var(${vars['info.color']}, var(--token-semantic-color-feedback-info-text, var(--token-global-blue-800, oklch(0.424 0.199 265))))`,
         'icon': {
             'color': `var(${vars['info.icon.color']}, var(--token-semantic-color-feedback-info-icon, var(--token-global-blue-600, oklch(0.546 0.245 262))))`
         },
-        'background-color': `var(${vars['info.background-color']}, var(--token-semantic-color-feedback-info-background, var(--token-global-blue-50, oklch(0.970 0.014 254))))`,
-        'border-color': `var(${vars['info.border-color']}, var(--token-semantic-color-feedback-info-border, var(--token-global-blue-600, oklch(0.546 0.245 262))))`
+        'background-color': `var(${vars['info.background-color']}, color-mix(in oklab, var(--token-semantic-color-feedback-info-background, var(--token-global-blue-50, oklch(0.970 0.014 254))) var(--token-semantic-feedback-banner-tint, 100%), var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'border-color': `var(${vars['info.border-color']}, color-mix(in oklab, var(--token-semantic-color-feedback-info-border, var(--token-global-blue-600, oklch(0.546 0.245 262))) var(--token-semantic-feedback-banner-border-tint, 100%), var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`
     },
     'interaction': {
         'touch': {

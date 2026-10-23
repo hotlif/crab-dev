@@ -1,6 +1,7 @@
 import type { Ref } from 'react';
+import type { LineEditProps } from '@crab-dev/rc-line-edit';
 
-export interface CronPickerProps {
+export interface CronPickerProps extends Pick<LineEditProps, 'label' | 'supportingText' | 'errorText' | 'appearance'> {
     /** 受控值:五段式(分 时 日 月 周)cron 表达式 */
     value?: string;
 

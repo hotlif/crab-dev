@@ -143,6 +143,35 @@ const PRESET_COLOR_MAP: Record<BadgePresetColor, string> = {
     error: colorErrorStyle,
 };
 
+const countColorDefaultStyle = css`
+    color: ${token.count.default.color};
+    background-color: ${token.count.default['background-color']};
+`;
+const countColorProcessingStyle = css`
+    color: ${token.count.processing.color};
+    background-color: ${token.count.processing['background-color']};
+`;
+const countColorSuccessStyle = css`
+    color: ${token.count.success.color};
+    background-color: ${token.count.success['background-color']};
+`;
+const countColorWarningStyle = css`
+    color: ${token.count.warning.color};
+    background-color: ${token.count.warning['background-color']};
+`;
+const countColorErrorStyle = css`
+    color: ${token.count['color-error']};
+    background-color: ${token.count['background-color-error']};
+`;
+
+const PRESET_COUNT_COLOR_MAP: Record<BadgePresetColor, string> = {
+    default: countColorDefaultStyle,
+    processing: countColorProcessingStyle,
+    success: countColorSuccessStyle,
+    warning: countColorWarningStyle,
+    error: countColorErrorStyle,
+};
+
 const isPresetColor = (value: string): value is BadgePresetColor => value in PRESET_COLOR_MAP;
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -274,7 +303,9 @@ const Badge: FC<BadgeProps> = ({
 
     // ── 渲染徽标节点 ─────────────────────────────────────────────────────────
     const presetColorClass =
-        color !== undefined && isPresetColor(color) ? PRESET_COLOR_MAP[color] : undefined;
+        color !== undefined && isPresetColor(color)
+            ? (dot ? PRESET_COLOR_MAP[color] : PRESET_COUNT_COLOR_MAP[color])
+            : undefined;
     const customColorStyle: CSSProperties | undefined =
         color !== undefined && !isPresetColor(color)
             ? { backgroundColor: color }

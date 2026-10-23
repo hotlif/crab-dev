@@ -1,7 +1,17 @@
 import { describe, it, expect } from "@crab-dev/wake/test";
-import { niceTicks, computeLayout, measureLabelWidth, CHART_METRICS } from '../layout.js';
+import { niceTicks, computeLayout, fitCategoryLabel, measureLabelWidth, CHART_METRICS } from '../layout.js';
 const fmt = (v: number): string => String(v);
 describe('measureLabelWidth（jsdom 无 OffscreenCanvas，走估宽回退）', () => {
+    it('长中文类目按可用宽度省略，完整短标签保持原文', () => {
+        expect(fitCategoryLabel('华东地区销售统计', 36)).toBe('华东…');
+        expect(fitCategoryLabel('华东', 36)).toBe('华东');
+        expect(fitCategoryLabel('华东', 1)).toBe('');
+    });
+    it('横向长类目不挤占整个绘图区', () => {
+        const layout = computeLayout({ width: 300, height: 240, categories: ['非常长的中文类别名称'.repeat(5)], series: [{ data: [10] }], stacked: false, orientation: 'horizontal', formatValue: fmt });
+        expect(layout.plotLeft).toBeLessThanOrEqual(300 / 3 + CHART_METRICS.axisLabelGap);
+        expect(layout.plotRight - layout.plotLeft).toBeGreaterThan(150);
+    });
     it('CJK 字符按 1em、西文按 0.6em 估宽', () => {
         expect(measureLabelWidth('一万', 12)).toBeCloseTo(24);
         expect(measureLabelWidth('10', 12)).toBeCloseTo(14.4);

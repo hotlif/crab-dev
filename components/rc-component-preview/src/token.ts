@@ -8,6 +8,8 @@ export const vars = defineTokens({
     'root.transition': '--component-preview-root-transition',
     'source.transition': '--component-preview-source-transition',
     'source.background-color': '--component-preview-source-background-color',
+    'source.dark.background-color': '--component-preview-source-dark-background-color',
+    'source.dark.gutter.color': '--component-preview-source-dark-gutter-color',
     'source.padding-block': '--component-preview-source-padding-block',
     'source.font-size': '--component-preview-source-font-size',
     'source.font-family': '--component-preview-source-font-family',
@@ -83,7 +85,13 @@ const token = defineTokens({
     },
     'source': {
         'transition': `var(${vars['source.transition']}, grid-template-rows var(--token-semantic-motion-expand, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00))))`,
-        'background-color': `var(${vars['source.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color': `var(${vars['source.background-color']}, var(--token-semantic-color-code-light-background, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))`,
+        'dark': {
+            'background-color': `var(${vars['source.dark.background-color']}, var(--token-semantic-color-code-dark-background, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889))))`,
+            'gutter': {
+                'color': `var(${vars['source.dark.gutter.color']}, var(--token-semantic-color-code-dark-gutter, var(--token-global-material-neutral-80, oklch(0.82982891 0.01227594 313.200360))))`
+            }
+        },
         'padding-block': `var(${vars['source.padding-block']}, 16px)`,
         'font-size': `var(${vars['source.font-size']}, 13px)`,
         'font-family': `var(${vars['source.font-family']}, ui-monospace, 'SFMono-Regular', 'Menlo', 'Cascadia Code', 'Fira Code', monospace)`,
@@ -101,7 +109,7 @@ const token = defineTokens({
             'color-hover': `var(${vars['source.scrollbar.color-hover']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
         },
         'gutter': {
-            'color': `var(${vars['source.gutter.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+            'color': `var(${vars['source.gutter.color']}, var(--token-semantic-color-code-light-gutter, var(--token-global-material-neutral-40, oklch(0.48353660 0.01164279 305.217760))))`,
             'min-width': `var(${vars['source.gutter.min-width']}, 2.5em)`,
             'padding-right': `var(${vars['source.gutter.padding-right']}, 16px)`,
             'margin-right': `var(${vars['source.gutter.margin-right']}, 20px)`
@@ -111,9 +119,9 @@ const token = defineTokens({
         'background-color': `var(${vars['card.background-color']}, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))`,
         'border-color': `var(${vars['card.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'border-color-hover': `var(${vars['card.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-        'border-radius': `var(${vars['card.border-radius']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
-        'box-shadow': `var(${vars['card.box-shadow']}, none)`,
-        'box-shadow-hover': `var(${vars['card.box-shadow-hover']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`
+        'border-radius': `var(${vars['card.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
+        'box-shadow': `var(${vars['card.box-shadow']}, var(--token-semantic-shadow-card, var(--token-semantic-shadow-control, var(--token-global-shadow-material-1, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 1px 3px 1px oklch(0 0 0 / 0.15)))))`,
+        'box-shadow-hover': `var(${vars['card.box-shadow-hover']}, var(--token-semantic-shadow-card-hover, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15)))))`
     },
     'stage': {
         'padding': `var(${vars['stage.padding']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)) var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
@@ -141,7 +149,7 @@ const token = defineTokens({
         },
         'actions': {
             'padding': `var(${vars['meta.actions.padding']}, 10px 14px)`,
-            'background-color': `var(${vars['meta.actions.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'background-color': `var(${vars['meta.actions.background-color']}, var(--token-semantic-color-workspace-toolbar, var(--token-global-white, oklch(1.000 0 0))))`,
             'border-style': `var(${vars['meta.actions.border-style']}, solid)`,
             'gap': `var(${vars['meta.actions.gap']}, 4px)`,
             'min-width': `var(${vars['meta.actions.min-width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,

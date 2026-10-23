@@ -1,5 +1,8 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import { treeMeasureStyle } from "../demo-layout.js";
+import Button from "@crab-dev/rc-button";
+import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
+import { treeMeasureStyle, demoStackStyle } from "../demo-layout.js";
 export const meta = {
     title: "全部展开 / 折叠",
     description: "通过 `TreeDataUtil` 提供的 `expandAll` 与 `collapseAll` 方法，一键展开或折叠所有 FOLDER 节点。",
@@ -40,14 +43,14 @@ const ExpandAllDemo = () => {
     const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button onClick={() => treeDataUtils.expandAll(keys => setExpandedKeys(keys))}>
+        <div className={demoStackStyle}>
+            <div className={css`display: flex; gap: ${token.space["component-gap"]}; flex-wrap: wrap;`}>
+                <Button onClick={() => treeDataUtils.expandAll(keys => setExpandedKeys(keys))}>
                     展开全部
-                </button>
-                <button onClick={() => treeDataUtils.collapseAll(keys => setExpandedKeys(keys))}>
+                </Button>
+                <Button onClick={() => treeDataUtils.collapseAll(keys => setExpandedKeys(keys))}>
                     折叠全部
-                </button>
+                </Button>
             </div>
             <AutoSizer disableHeight className={treeMeasureStyle}>
                 {({ width }) => (

@@ -3,6 +3,7 @@ import { act, beforeAll, describe, it, expect, mock, render, waitFor, fireEvent,
 import type { ProtocolColumnType } from "../types.js";
 import type { Row } from "@crab-dev/rc-table";
 import type { ReactElement } from 'react';
+import LineEdit from '@crab-dev/rc-line-edit';
 
 async function renderTable(element: ReactElement) {
     let view!: Awaited<ReturnType<typeof render>>;
@@ -49,6 +50,30 @@ type PaginatedFetchFn = (page: number, pageSize: number, filters: Record<string,
     total: number;
 }>;
 describe("TablePro", () => {
+    it("keeps labeled filter controls usable when opening and closing the sidebar", async () => {
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve([COLUMNS[0]]);
+        const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
+        await renderTable(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} sideBar
+            renderDefaultFilterEditor={({ value, onValueChange }) => <LineEdit label="筛选值" supportingText="输入名称" value={value} onChange={event => onValueChange(event.target.value)} />}
+            style={{ width: 700, height: 400 }} />);
+        await waitFor(() => expect(fetchColumns).toHaveBeenCalledTimes(1));
+        const filters = screen.getByRole('button', { name: '过滤器' });
+        expect(filters.getAttribute('aria-expanded')).toBe('false');
+        await act(async () => { await fireEvent.click(filters); });
+        expect(filters.getAttribute('aria-expanded')).toBe('true');
+        const input = screen.getByRole('textbox', { name: '筛选值' });
+        expect(document.getElementById(input.getAttribute('aria-describedby')!)?.textContent).toBe('输入名称');
+        await act(async () => {
+            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set?.call(input, 'Alice');
+            await fireEvent(input, new Event('input', { bubbles: true }));
+        });
+        await waitFor(() => expect(fetchData).toHaveBeenCalledWith({ '$.name': 'Alice' }));
+        await act(async () => { await fireEvent.click(filters); });
+        expect(filters.getAttribute('aria-expanded')).toBe('false');
+        await act(async () => { await fireEvent.click(filters); });
+        expect((screen.getByRole('textbox', { name: '筛选值' }) as HTMLInputElement).value).toBe('Alice');
+    });
+
     it("calls fetchColumns and fetchData on mount", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);

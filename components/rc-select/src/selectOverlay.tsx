@@ -27,7 +27,7 @@ const optionStyle = css`
     align-items: center;
     width: 100%;
     padding: ${token.option['padding-block']} 8px;
-    border-radius: 3px;
+    border-radius: ${token.option['border-radius']};
     cursor: pointer;
     user-select: none;
     height: max(${token.option.height}, calc(1lh + 2 * ${token.option['padding-block']}));
@@ -46,13 +46,20 @@ const optionStyle = css`
         background-color: ${token.option['background-color-active']};
     }
 
-    /* 选中背景直接绑定 aria-selected(而非另开一个由 JS 条件应用的 class),
-       靠 [属性选择器] 叠加 class 把 specificity 提到 (0,2,0)——正好压过
-       上面的 :hover/:active(同为 (0,2,0) 但声明更早)以及下面 optionHighlightStyle
-       这个纯 class 选择器 (0,1,0),确保"选中"背景不会被鼠标悬停或键盘高亮盖掉。 */
+    /* Selection stays visible beneath independent hover, pressed and active-descendant feedback. */
     &[aria-selected="true"] {
         background-color: ${token.option["background-color-selected"]};
         color: ${token.option['color-selected']};
+    }
+    &[aria-selected="true"]:hover:not([aria-disabled='true']) {
+        background-color: ${token.option.selection['background-color-hover']};
+    }
+    &[aria-selected="true"]:active:not([aria-disabled='true']) {
+        background-color: ${token.option.selection['background-color-active']};
+    }
+    &[data-highlighted="true"] {
+        outline: ${token.option.activity['outline-width']} solid ${token.option.activity['outline-color']};
+        outline-offset: ${token.option.activity['outline-offset']};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -62,7 +69,12 @@ const optionStyle = css`
         forced-color-adjust: none;
         background: Canvas;
         color: CanvasText;
+        &:hover:not([aria-disabled='true']), &:active:not([aria-disabled='true']) { background: Canvas; }
         &[aria-selected='true'] { background: Highlight; color: HighlightText; }
+        &[aria-selected='true']:hover:not([aria-disabled='true']),
+        &[aria-selected='true']:active:not([aria-disabled='true']) { background: Highlight; color: HighlightText; }
+        &[data-highlighted='true'] { outline-color: CanvasText; }
+        &[aria-selected='true'][data-highlighted='true'] { outline-color: HighlightText; }
         &[aria-disabled='true'] { color: GrayText; }
     }
 `;
@@ -359,6 +371,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                             role="option"
                             aria-selected={selected}
                             aria-disabled={option.disabled || undefined}
+                            data-highlighted={highlighted || undefined}
                             aria-label={optionAriaLabel}
                             className={cx.call(undefined, optionStyle,
                                 isGrouped && groupedOptionStyle,

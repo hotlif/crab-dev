@@ -16,7 +16,11 @@ export const vars = defineTokens({
     'status.color-error': '--form-status-color-error',
     'status.warning.color': '--form-status-warning-color',
     'status.success.color': '--form-status-success-color',
-    'status.validating.color': '--form-status-validating-color'
+    'status.validating.color': '--form-status-validating-color',
+    'message.font-size': '--form-message-font-size',
+    'message.line-height': '--form-message-line-height',
+    'message.padding-inline': '--form-message-padding-inline',
+    'message.gap': '--form-message-gap'
 });
 
 const token = defineTokens({
@@ -47,6 +51,12 @@ const token = defineTokens({
         'validating': {
             'color': `var(${vars['status.validating.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
         }
+    },
+    'message': {
+        'font-size': `var(${vars['message.font-size']}, var(--token-semantic-typography-body-small-font-size, var(--token-global-font-size-xs, 12px)))`,
+        'line-height': `var(${vars['message.line-height']}, var(--token-semantic-typography-body-small-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`,
+        'padding-inline': `var(${vars['message.padding-inline']}, var(--token-semantic-field-support-padding-inline, var(--token-global-space-4, 16px)))`,
+        'gap': `var(${vars['message.gap']}, var(--token-semantic-field-layout-row-gap, var(--token-global-space-1, 4px)))`
     }
 });
 

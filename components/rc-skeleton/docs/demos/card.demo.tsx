@@ -4,16 +4,19 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 
 import Skeleton from "../../src/index.js";
 
 const cardStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-    border: 1px solid oklch(0.9 0.004 286);
-    border-radius: 8px;
+    gap: ${token.space["stack-gap"]};
+    padding: ${token.space["card-padding"]};
+    border: 1px solid ${token.color.border.subtle};
+    border-radius: ${token.shape.card};
+    background-color: ${token.color.background.surface};
+    color: ${token.color.text.primary};
     width: 100%;
     max-width: 360px;
 `;
@@ -21,13 +24,13 @@ const cardStyle = css`
 const headerStyle = css`
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: ${token.space["component-gap"]};
 `;
 
 const metaStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: ${token.space["inline-gap"]};
     flex: 1;
     min-width: 0;
 `;

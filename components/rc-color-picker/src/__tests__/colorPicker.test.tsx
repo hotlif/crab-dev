@@ -141,10 +141,12 @@ describe('ColorPicker', () => {
             await fireEvent.click(trigger);
         });
         await act(async () => {
+            screen.getByText('确定').focus();
             await fireEvent.click(screen.getByText('确定'));
         });
         expect(onValueChange).toHaveBeenCalledWith(defaultValue);
         expect(screen.queryByText('确定')).toBeNull();
+        expect(document.activeElement).toBe(trigger);
     });
     it('does not call onValueChange on cancel', async () => {
         const { trigger, onValueChange } = await renderColorPicker();
@@ -152,10 +154,12 @@ describe('ColorPicker', () => {
             await fireEvent.click(trigger);
         });
         await act(async () => {
+            screen.getByText('取消').focus();
             await fireEvent.click(screen.getByText('取消'));
         });
         expect(onValueChange).not.toHaveBeenCalled();
         expect(screen.queryByText('取消')).toBeNull();
+        expect(document.activeElement).toBe(trigger);
     });
     it('does not open when disabled', async () => {
         const { trigger } = await renderColorPicker({ disabled: true });

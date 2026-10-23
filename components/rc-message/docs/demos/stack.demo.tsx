@@ -4,6 +4,8 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import token from "@crab-dev/rc-token-semantic";
 import { useMessage } from "../../src/index.js";
 
 let count = 0;
@@ -30,16 +32,16 @@ const StackDemo = () => {
             <div
                 className={css`
                     display: flex;
-                    gap: 8px;
+                    gap: ${token.space["component-gap"]};
                     flex-wrap: wrap;
                 `}
             >
-                <button onClick={handleBatch}>
+                <Button onClick={handleBatch}>
                     一次发送 5 条消息
-                </button>
-                <button onClick={() => { count += 1; message.info(`单条消息 #${count}`, 8000); }}>
+                </Button>
+                <Button onClick={() => { count += 1; message.info(`单条消息 #${count}`, 8000); }}>
                     发送单条（8s）
-                </button>
+                </Button>
             </div>
         </div>
     );

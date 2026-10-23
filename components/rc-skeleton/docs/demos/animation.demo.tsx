@@ -4,20 +4,21 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 
 import Skeleton from "../../src/index.js";
 
 const stackStyle = css`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: ${token.space["section-gap"]};
     width: 100%;
 `;
 
 const labelStyle = css`
-    font-size: 12px;
-    color: oklch(0.55 0.01 286);
-    margin-bottom: 4px;
+    font-size: ${token.font.size.caption};
+    color: ${token.color.text.secondary};
+    margin-bottom: ${token.space["inline-gap"]};
 `;
 
 const AnimationDemo = () => {

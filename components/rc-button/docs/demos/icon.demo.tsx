@@ -1,38 +1,32 @@
 export const meta = {
     title: "图标按钮",
-    description: "通过 `icon` 属性设置按钮图标",
+    description: "通过 icon 设置按钮图标，使用切换按钮对照正常与加载状态。",
 };
 
 import { css } from "@crab-dev/css";
 import { Lollipop } from 'lucide-react';
-import { useId, useState } from "react";
+import token from "@crab-dev/rc-token-semantic";
+import { useState } from "react";
 import Button from "../../src/index.js";
 
 const IconDemo = () => {
-    const loadingCheckboxId = useId();
     const [isLoading, setIsLoading] = useState(false);
     return (
         <div>
             <div
                 className={css`
-                    margin-bottom: 1rem;
+                    margin-bottom: ${token.space["section-gap"]};
                 `}
             >
-                <label htmlFor={loadingCheckboxId}>显示加载状态</label>
-                <input
-                    id={loadingCheckboxId}
-                    type="checkbox"
-                    checked={isLoading}
-                    onChange={() => setIsLoading(!isLoading)}
-                />
+                <Button isSelected={isLoading} onClick={() => setIsLoading(loading => !loading)}>显示加载状态</Button>
             </div>
             <div
                 className={css`
                     display: flex;
                     flex-wrap: wrap;
                     align-items: center;
-                    gap: 1rem;
-                    margin-bottom: 2rem;
+                    gap: ${token.space["section-gap"]};
+                    margin-bottom: calc(${token.space["section-gap"]} * 2);
                 `}
             >
                 

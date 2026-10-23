@@ -31,9 +31,10 @@ stepper.icon.width = "$ref(size.icon)"
 
 # ─── 上标科学计数法覆盖层（Display overlay）───────────────────────
 # 失焦时覆盖在 input 文本区之上、用真 <sup> 呈现 1.23×10²¹。
-# 背景须与输入框表面同色，以完全遮盖底层 input 的原始文本。
-display.background-color       = "$ref(color.surface.content)"
+# 原生文字在显示上标时单独隐藏，透明展示层适配 filled 与 outlined 表面。
+display.background-color = "transparent"
 display.color           = "$ref(color.text.primary)"
+display.color-disabled = "$ref(field.disabled.color)"
 # <sup> 相对基线的字号比例（视觉打磨）
 display.superscript.font-size = "0.75em"
 

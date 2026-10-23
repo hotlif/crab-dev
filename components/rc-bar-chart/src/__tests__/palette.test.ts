@@ -2,6 +2,7 @@ import { describe, it, expect } from "@crab-dev/wake/test";
 import {
     CATEGORICAL_PALETTE,
     DEFAULT_BAR_CHART_PALETTE,
+    SEMANTIC_BAR_CHART_PALETTE,
     MAX_SERIES,
     dimColor,
     mergeBarChartPalette,
@@ -47,15 +48,17 @@ describe('CATEGORICAL_PALETTE', () => {
     it('MAX_SERIES 与色板长度一致', () => {
         expect(MAX_SERIES).toBe(CATEGORICAL_PALETTE.length);
     });
-    it('局部 palette 覆盖角色且短 series 自动回退旧色板', () => {
+    it('默认与局部覆盖使用语义色板，显式旧版色板保留原配色', () => {
+        expect(mergeBarChartPalette()).toBe(SEMANTIC_BAR_CHART_PALETTE);
         const palette = mergeBarChartPalette({
             series: ['hotpink'],
             axisLabel: 'CanvasText',
         });
         expect(palette.series[0]).toBe('hotpink');
-        expect(palette.series[1]).toBe(CATEGORICAL_PALETTE[1]);
+        expect(palette.series[1]).toBe(SEMANTIC_BAR_CHART_PALETTE.series[1]);
         expect(palette.axisLabel).toBe('CanvasText');
-        expect(palette.gridline).toBe(DEFAULT_BAR_CHART_PALETTE.gridline);
+        expect(palette.gridline).toBe(SEMANTIC_BAR_CHART_PALETTE.gridline);
+        expect(mergeBarChartPalette(DEFAULT_BAR_CHART_PALETTE)).toEqual(DEFAULT_BAR_CHART_PALETTE);
     });
     it('显式系列色和参考线色优先于 palette 默认', () => {
         const palette = mergeBarChartPalette({

@@ -10,7 +10,7 @@ const HorizontalDemo = () => (
     <div className={css`inline-size: 100%; min-width: 0;`}>
         <BarChart
             aria-label="各区域年度销售额排名"
-            categories={['华东大区（含江浙沪）', '华南大区', '华北大区', '西南大区', '东北大区']}
+            categories={['华东区域销售中心（浙江省、江苏省、上海市及周边重点市场）', '华南大区', '华北大区', '西南大区', '东北大区']}
             series={[{ name: '销售额', data: [1290, 934, 901, 690, 540] }]}
             orientation="horizontal"
             width="auto"

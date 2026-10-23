@@ -126,17 +126,17 @@ const fixedHeaderBgStyle = css`
 
 // 固定右列跨行起始格：上边框 + 左分隔线
 const fixedRightSpanStyle = css`
-    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.root["border-color"]};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.cell.separator["border-color"]};
 `;
 
 // 固定右列跨行起始格（同时是最后一行时）：上边框 + 左分隔线 + 底部边框
 const fixedRightSpanWithBottomStyle = css`
-    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
+    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.cell.separator["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 // 固定右列 skip 格（r>0）：左分隔线 + 底部边框
 const fixedRightSkipStyle = css`
-    box-shadow: inset 1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
+    box-shadow: inset 1px 0 0 ${token.cell.separator["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
 `;
 
 const draggingStyle = css`
@@ -204,13 +204,13 @@ function TableHeaderCell<T extends Row>({
         if (rowIndex === maxRowIndex) {
             return css`
                 box-shadow: inset 0 1px 0 ${token.root["border-color"]},
-                            inset -1px 0 0 ${token.root["border-color"]},
+                            inset -1px 0 0 ${token.cell.separator["border-color"]},
                             inset 0 -1px 0 ${token.root["border-color"]};
             `;
         }
         return css`
             box-shadow: inset 0 1px 0 ${token.root["border-color"]},
-                        inset -1px 0 0 ${token.root["border-color"]};
+                        inset -1px 0 0 ${token.cell.separator["border-color"]};
         `;
     }
 
@@ -239,7 +239,7 @@ function TableHeaderCell<T extends Row>({
             // 固定左列 skip 格：右分隔线 + 底部边框（不加上边框，避免在两行间画多余横线）
             const skipBorderStyle = isLastColumn
                 ? css`box-shadow: inset 0 -1px 0 ${token.root["border-color"]};`
-                : css`box-shadow: inset -1px 0 0 ${token.root["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};`;
+                : css`box-shadow: inset -1px 0 0 ${token.cell.separator["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};`;
             return cx.call(undefined, fixedHeaderBgStyle, skipBorderStyle);
         }
 

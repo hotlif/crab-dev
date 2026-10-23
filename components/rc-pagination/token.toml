@@ -27,12 +27,13 @@ size.small.font-size = "$ref(typography.body.font-size)"
 # ─── 分页项（Ghost 按钮风格，无描边） ─────────────────────────────────────────
 item.color                    = "$ref(color.text.secondary)"
 item.color-hover              = "$ref(color.text.primary)"
-item.color-active = "$ref(color.secondary.on-container)"
+item.color-active = "$ref(navigation.pagination.selected-color)"
 item.color-disabled           = "$ref(color.text.disabled)"
 item.background-color         = "transparent"
 item.background-color-hover   = "$ref(color.state.hover)"
-item.background-color-active = "$ref(color.secondary.container)"
-item.border-radius = "$ref(shape.full)"
+item.background-color-active = "$ref(navigation.pagination.selected-background)"
+item.border-radius = "$ref(navigation.item.radius)"
+item.border-color-active = "$ref(navigation.pagination.selected-border)"
 
 # ─── 省略号 ──────────────────────────────────────────────────────────────────
 ellipsis.color = "$ref(color.text.tertiary)"

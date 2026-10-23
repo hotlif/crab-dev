@@ -12,7 +12,7 @@ import token, { vars } from "./token.js";
 export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
-    /** 与输入框关联的可见标签；Material 浮动，shadcn 上置。 */
+    /** 与输入框关联的可见标签；Material 浮动，macOS 与 shadcn 上置。 */
     label?: string;
     /** 输入框下方的辅助说明，自动加入 aria-describedby。 */
     supportingText?: string;
@@ -117,21 +117,21 @@ const containerBaseStyle = css`
 // 按尺寸预生成容器高度/内边距，避免在渲染中创建动态类
 const sizeContainerStyles = {
     large: css`
-        min-height: ${token.size.large.height};
+        min-height: max(${token.size.large.height}, ${token.field.control['min-height']});
         ${vars['field.control.height']}: ${token.size.large.height};
         ${vars['action.min-width']}: ${token.size.large.action.width};
         ${vars['action.height']}: ${token.size.large.action.width};
         padding: ${token.size.large.padding};
     `,
     middle: css`
-        min-height: ${token.size.middle.height};
+        min-height: max(${token.size.middle.height}, ${token.field.control['min-height']});
         ${vars['field.control.height']}: ${token.size.middle.height};
         ${vars['action.min-width']}: ${token.size.middle.action.width};
         ${vars['action.height']}: ${token.size.middle.action.width};
         padding: ${token.size.middle.padding};
     `,
     small: css`
-        min-height: ${token.size.small.height};
+        min-height: max(${token.size.small.height}, ${token.field.control['min-height']});
         ${vars['field.control.height']}: ${token.size.small.height};
         ${vars['action.min-width']}: ${token.size.small.action.width};
         ${vars['action.height']}: ${token.size.small.action.width};
@@ -243,23 +243,23 @@ const iconBaseStyle = css`
     flex-shrink: 0;
     color: ${token.icon.color};
     & > svg {
-        width: 1em;
-        height: 1em;
+        width: ${token.field.icon.width};
+        height: ${token.field.icon.height};
     }
 `
 
 const prefixStyle = css`
-    margin-right: ${token.icon.gap};
+    margin-inline-end: ${token.icon.gap};
 `
 
 const suffixStyle = css`
-    margin-left: ${token.icon.gap};
+    margin-inline-start: ${token.icon.gap};
 `
 
 // 复用 Button 的键盘、禁用、焦点与媒体偏好行为；L3 仅负责输入框内部布局。
 const actionButtonStyle = css`
     flex-shrink: 0;
-    margin-left: ${token.icon.gap};
+    margin-inline-start: ${token.icon.gap};
     && {
         padding: 0;
         min-width: ${token.action['min-width']};
@@ -275,7 +275,7 @@ const actionButtonStyle = css`
 // 字符计数
 const countStyle = css`
     flex-shrink: 0;
-    margin-left: ${token.icon.gap};
+    margin-inline-start: ${token.icon.gap};
     font-size: ${token.count['font-size']};
     color: ${token.count.color};
     white-space: nowrap;

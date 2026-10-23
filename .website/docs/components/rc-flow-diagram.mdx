@@ -54,11 +54,22 @@ import { demos } from "../_generated/rc-flow-diagram.js";
 - **手动走线**：通过 `manualRoutes` 对单条边指定端口与途经点，其余边仍自动路由。
 - **无限网格 + 视口控制**：内置 `InfiniteGrid` 背景网格，支持 `useFlowDiagramControls()` 程序化缩放 / 平移 / fitView。
 
+默认节点、文字、连线和网格使用 L3 语义令牌，随主题变化。`palette` 的部分覆盖只替换指定角色；如需保留旧版固定蓝色配色，可以显式传入导出的 `DEFAULT_FLOW_DIAGRAM_PALETTE`。
+
 ### 窄屏查看
 
 **现有示例：** 节点和连线保留二维布局，外层提供有名称、可聚焦的局部横向滚动区域。视口变窄时，可查看完整画布，不把整个文档页面撑宽。
 
 **设计要求：** 局部滚动与图内平移是不同操作。滚动区域获得焦点后可用方向键查看；图内拖拽、缩放和节点编辑仍需各自的键盘替代及状态反馈，不能仅凭外层可聚焦就认定流程图满足全部无障碍要求。
+
+
+
+### 设计风格与主题
+
+默认节点、标签、连线、网格及承载画布继承当前设计边界；节点与连线没有独立的主题分支。显式节点颜色仍代表业务含义。流程图是布局与数据可视化扩展，M3 和 Material Web 没有对应的完整流程编辑组件。
+本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+
+参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
 
 ### 适用场景
 

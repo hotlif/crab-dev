@@ -8,14 +8,14 @@ imports = [
 [token]
 
 # Canvas 根节点会先在 DOM 继承上下文中解析这些 L3 CSS 值，再交给 WebGL。
-palette.series.blue.color       = "oklch(0.5753 0.1626 255.53)"
-palette.series.orange.color     = "oklch(0.6708 0.175 40.64)"
-palette.series.aqua.color       = "oklch(0.669 0.1408 162.11)"
-palette.series.yellow.color     = "oklch(0.7644 0.1612 75.12)"
-palette.series.magenta.color    = "oklch(0.7163 0.1412 357.39)"
-palette.series.green.color      = "oklch(0.5285 0.1798 142.5)"
-palette.series.violet.color     = "oklch(0.4331 0.1671 283.62)"
-palette.series.red.color        = "oklch(0.6226 0.1909 24.91)"
+palette.series.blue.color       = "$ref(data.chart.series.1)"
+palette.series.orange.color     = "$ref(data.chart.series.2)"
+palette.series.aqua.color       = "$ref(data.chart.series.3)"
+palette.series.yellow.color     = "$ref(data.chart.series.4)"
+palette.series.magenta.color    = "$ref(data.chart.series.5)"
+palette.series.green.color      = "$ref(data.chart.series.6)"
+palette.series.violet.color     = "$ref(data.chart.series.7)"
+palette.series.red.color        = "$ref(data.chart.series.8)"
 palette.gridline.color          = "$ref(color.border.subtle)"
 palette.baseline.color          = "$ref(color.border.default)"
 palette.axis-label.color        = "$ref(color.text.secondary)"

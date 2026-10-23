@@ -1,7 +1,7 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@crab-dev/css";
-import { type HTMLAttributes, type Ref } from "react";
+import { useRef, type HTMLAttributes, type Ref } from "react";
 import { useControllableValue } from "@crab-dev/rc-hooks";
 import ColorPickerInput from "./colorPickerInput.js";
 import ColorPickerOverlay from "./colorPickerOverlay.js";
@@ -52,6 +52,8 @@ const ColorPicker = ({
     ref,
     ...restProps
 }: ColorPickerProps) => {
+    // Mutable trigger instance: return focus when an explicit panel action closes it.
+    const triggerRef = useRef<HTMLDivElement | null>(null);
     const configuredSize = useComponentSize(sizeProp);
     const size = configuredSize === 'middle' ? 'medium' : configuredSize;
     const [current, setCurrent] = useControllableValue<OKLCHValue>({
@@ -68,6 +70,7 @@ const ColorPicker = ({
                     locale={locale}
                     value={current}
                     onConfirm={setCurrent}
+                    onClose={() => triggerRef.current?.focus()}
                     allowClear={allowClear}
                     showAlpha={showAlpha}
                     showEyeDropper={showEyeDropper}
@@ -82,6 +85,7 @@ const ColorPicker = ({
                 size={size}
                 disabled={disabled}
                 ref={ref}
+                triggerRef={triggerRef}
                 {...restProps}
             />
         </RcDropdownContainer>

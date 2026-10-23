@@ -1,8 +1,12 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import { treeMeasureStyle } from "../demo-layout.js";
+import Button from "@crab-dev/rc-button";
+import LineEdit from "@crab-dev/rc-line-edit";
+import { css, cx } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
+import { treeMeasureStyle, demoStackStyle, demoNoteStyle } from "../demo-layout.js";
 export const meta = {
     title: "Inline 节点编辑",
-    description: "双击节点标题进入 inline 编辑模式。默认使用内置 `<input>`；通过 `renderEditInput` 提供自定义编辑器——本例演示带字数限制与实时校验的自定义输入框。`onCommit(value)` 提交，`onCancel()` 取消。",
+    description: "双击节点标题进入 inline 编辑模式。本例通过 renderEditInput 复用 LineEdit，演示字数限制与实时校验。onCommit(value) 提交，onCancel() 取消。",
 };
 
 import { type Key, useState, useRef, useEffect } from "react";
@@ -25,6 +29,18 @@ const buildNodes = (): Node[] => {
 
 const MAX_LEN = 20;
 
+const editorStyle = css`
+    display: flex;
+    align-items: center;
+    gap: ${token.space["inline-gap"]};
+    flex: 1 1 auto;
+    min-width: 0;
+`;
+const inputStyle = css`flex: 1 1 auto; min-width: 0;`;
+const countStyle = css`font-size: ${token.font.size.caption}; flex-shrink: 0; color: ${token.color.text.secondary};`;
+const errorCountStyle = css`color: ${token.color.feedback.error.text};`;
+const createButtonStyle = css`align-self: flex-start;`;
+
 interface CustomInputProps {
     defaultValue: string;
     onCommit: (value: string) => void;
@@ -32,8 +48,10 @@ interface CustomInputProps {
 }
 
 const CustomInput = ({ defaultValue, onCommit, onCancel }: CustomInputProps) => {
+    // 可变实例状态：编辑器挂载时聚焦并选择文本，提交时退出焦点。
     const inputRef = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState(defaultValue);
+    // 可变实例状态：Enter 后的 blur 不能重复提交同一次编辑。
     const committed = useRef(false);
 
     useEffect(() => {
@@ -57,14 +75,20 @@ const CustomInput = ({ defaultValue, onCommit, onCancel }: CustomInputProps) => 
 
     return (
         <div
-            style={{ display: "flex", alignItems: "center", gap: "0.25rem", flex: "1 1 auto", minWidth: 0 }}
+            className={editorStyle}
             onClick={(e) => e.stopPropagation()}
         >
-            <input
+            <LineEdit
                 ref={inputRef}
+                size="small"
+                aria-label="节点名称"
+                aria-invalid={isError}
+                status={isError ? "error" : undefined}
+                className={inputStyle}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 onKeyDown={(e) => {
+                    e.stopPropagation();
                     if (e.key === "Enter" && !isError) {
                         commit(value.trim());
                         inputRef.current?.blur();
@@ -80,25 +104,8 @@ const CustomInput = ({ defaultValue, onCommit, onCancel }: CustomInputProps) => 
                         cancel();
                     }
                 }}
-                style={{
-                    flex: "1 1 auto",
-                    minWidth: 0,
-                    padding: "0 0.375rem",
-                    fontSize: "inherit",
-                    lineHeight: "inherit",
-                    border: `1px solid ${isError ? "#f5222d" : "#1677ff"}`,
-                    borderRadius: "3px",
-                    outline: "none",
-                    background: "transparent",
-                    color: "inherit",
-                    boxSizing: "border-box",
-                }}
             />
-            <span style={{
-                fontSize: "0.75rem",
-                flexShrink: 0,
-                color: value.length > MAX_LEN ? "#f5222d" : "#999",
-            }}>
+            <span className={cx(countStyle, isError && errorCountStyle)}>
                 {value.length}/{MAX_LEN}
             </span>
         </div>
@@ -119,13 +126,13 @@ const InlineEditDemo = () => {
     };
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            <p style={{ fontSize: "0.875rem", color: "#666", margin: 0 }}>
+        <div className={demoStackStyle}>
+            <p className={demoNoteStyle}>
                 双击节点名称进入编辑，<kbd>Enter</kbd> 保存，<kbd>Esc</kbd> 取消。
                 自定义编辑器带字数限制（最多 {MAX_LEN} 字），超出或为空时失焦自动取消。
             </p>
-            <button
-                style={{ alignSelf: "flex-start" }}
+            <Button
+                className={createButtonStyle}
                 onClick={() => {
                     const newNode: Node = {
                         id: `new-${nextId++}`,
@@ -139,7 +146,7 @@ const InlineEditDemo = () => {
                 }}
             >
                 + 新建根节点（直接进入编辑）
-            </button>
+            </Button>
             <AutoSizer disableHeight className={treeMeasureStyle}>
                 {({ width }) => (
                     <RcTree

@@ -1,4 +1,4 @@
-export const meta = { title: 'Expressive 五档尺寸', description: '新版竖向手柄、轨道间隙、终点与五档轨道高度。' };
+export const meta = { title: '五档尺寸', description: '尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。' };
 import { useState } from 'react';
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';

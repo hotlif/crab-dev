@@ -1,4 +1,4 @@
-import { canvasViewportStyle } from "../demo-layout.js";
+import { canvasViewportStyle, canvasFrameStyle, demoStackStyle, demoHintStyle } from "../demo-layout.js";
 import { useState } from 'react';
 import Canvas from '../../src/canvas.js';
 import Rect from '../../src/shapes/rect.js';
@@ -49,8 +49,8 @@ export default function TransformerDemo() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 13, color: '#666', padding: '4px 0' }}>
+        <div className={demoStackStyle}>
+            <div className={demoHintStyle}>
                 点击形状选中 · 拖拽边框移动 · 拖拽角/边 handle 缩放 · 拖拽顶部圆圈旋转 · 点击空白取消选中
             </div>
             <div className={canvasViewportStyle} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
@@ -58,11 +58,11 @@ export default function TransformerDemo() {
                 <Canvas
                     width={800}
                     height={520}
-                    style={{ border: '1px solid #e0e0e0', borderRadius: 8, background: '#fafafa' }}
+                    className={canvasFrameStyle}
                     onEmptyClick={() => setSelectedId(null)}
                 >
                     <Viewport minZoom={0.1} maxZoom={8}>
-                        <InfiniteGrid baseSpacing={50} subdivisions={5} color="#e8e8e8" originColor="oklch(0.55 0.2 260)" />
+                        <InfiniteGrid baseSpacing={50} subdivisions={5} originColor="oklch(0.55 0.2 260)" />
 
                         {shapes.map(shape => {
                             const { state } = shape;

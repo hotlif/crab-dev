@@ -4,7 +4,8 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Button from "@crab-dev/rc-button";
 import Avatar, { AvatarGroup } from "../../src/index.js";
 
 const wrapStyle = css`
@@ -34,6 +35,7 @@ const toolbarStyle = css`
 
 const GroupDemo = () => {
     const [expanded, setExpanded] = useState(false);
+    const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
     return (
         <div className={wrapStyle}>
@@ -48,7 +50,7 @@ const GroupDemo = () => {
             </section>
 
             <section className={sectionStyle}>
-                <span className={labelStyle}>折叠：max={3}，第 4 人起折为 +N（悬停查看名单）</span>
+                <span className={labelStyle}>折叠：max={3}，第 4 人起折为 +N</span>
                 <AvatarGroup max={3}>
                     <Avatar variant="primary" aria-label="Alice">A</Avatar>
                     <Avatar variant="success" aria-label="Bob">B</Avatar>
@@ -60,10 +62,13 @@ const GroupDemo = () => {
             </section>
 
             <section className={sectionStyle}>
-                <span className={labelStyle}>可交互折叠：点击 +N 展开 / 收起</span>
+                <span className={labelStyle}>可交互折叠：点击 +N 展开，使用按钮收起</span>
                 <AvatarGroup
                     max={expanded ? undefined : 3}
-                    onExtraClick={() => setExpanded((prev) => !prev)}
+                    onExtraClick={() => {
+                        setExpanded(true);
+                        toggleButtonRef.current?.focus();
+                    }}
                 >
                     <Avatar variant="primary" aria-label="Alice">A</Avatar>
                     <Avatar variant="success" aria-label="Bob">B</Avatar>
@@ -72,6 +77,15 @@ const GroupDemo = () => {
                     <Avatar aria-label="Eve">E</Avatar>
                     <Avatar variant="primary" aria-label="Finn">F</Avatar>
                 </AvatarGroup>
+                <div className={toolbarStyle}>
+                    <Button
+                        ref={toggleButtonRef}
+                        aria-expanded={expanded}
+                        onClick={() => setExpanded((previous) => !previous)}
+                    >
+                        {expanded ? "收起" : "展开全部"}
+                    </Button>
+                </div>
             </section>
 
             <section className={sectionStyle}>

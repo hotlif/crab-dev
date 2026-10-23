@@ -1,15 +1,15 @@
 {
     "id": "rc-form",
     "title": "Form 字段管理",
-    "summary": "Form 管理字段值与校验；文本字段在 Material 浮动标签和 shadcn 紧凑输入间统一切换。",
+    "summary": "Form 管理字段值与校验；文本字段在 Material 浮动标签、macOS 与 shadcn 静态标签和紧凑输入间统一切换。",
     "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
             "id": "step-1",
             "title": "绑定字段",
             "goal": "用 name 关联字段，以 binding=\"event\" 绑定 LineEdit，并将标签交给编辑器。",
-            "why": "labelPlacement=\"control\" 让标签、说明与错误跟随全局风格：Material 为 56px 浮动标签，shadcn 将左侧标签与右侧紧凑输入放在同一行，说明与错误对齐输入列。",
-            "instruction": "修改姓名并读取表单，再从顶部外观菜单切换 Material Design 3 与 shadcn。",
+            "why": "labelPlacement=\"control\" 让标签、说明与错误跟随全局风格：Material 为 56px 浮动标签，macOS 与 shadcn 将左侧静态标签与右侧紧凑输入放在同一行，说明与错误对齐输入列。",
+            "instruction": "修改姓名并读取表单，再从顶部外观菜单切换 macOS、Material Design 3 与 shadcn。",
             "expected": "提交回调拿到当前字段值；切换风格保留输入，标签和输入框一起变化。",
             "changes": [
                 "通过 labelPlacement=\"control\" 交给 LineEdit 呈现标签，binding=\"event\" 自动读取输入事件。"
@@ -22,7 +22,7 @@
             "goal": "用 validator 拒绝空白值，成功后才处理业务提交。",
             "why": "字段错误由 Item 传给 LineEdit，在输入下方展示并关联到输入元素，无需额外的提示图标。",
             "instruction": "先空值提交，再填写姓名并提交。",
-            "expected": "空值在姓名字段下方显示错误，有效值进入成功回调；两种风格保留相同的标签与错误关联。",
+            "expected": "空值在姓名字段下方显示错误，有效值进入成功回调；三种风格保留相同的标签与错误关联。",
             "changes": [
                 "用 validator 拒绝空白值，成功后才处理业务提交。"
             ],
@@ -36,7 +36,7 @@
         },
         {
             "question": "设计风格、明暗和尺寸如何一起设置？",
-            "answer": "统一在 ConfigProvider 设置 design、theme 与 size。design=\"material\" 的单行文本字段保留 56px 高度和浮动标签；design=\"shadcn\" 在表单中将标签与输入同排，并使用 small / middle / large 对应的 32 / 36 / 40px 输入。独立文本字段的 shadcn 标签仍放在输入框上方。切换 design 不会改变明暗或已选尺寸。"
+            "answer": "统一在 ConfigProvider 设置 design、theme 与 size。design=\"material\" 的单行文本字段保留 56px 高度和浮动标签；design=\"macos\" 或 design=\"shadcn\" 在表单中将静态标签与输入同排，并使用 small / middle / large 对应的 32 / 36 / 40px 输入。独立文本字段的 macOS 与 shadcn 标签仍放在输入框上方，焦点反馈分别采用蓝色和中性色外侧环。切换 design 不会改变明暗或已选尺寸。"
         }
     ]
 }

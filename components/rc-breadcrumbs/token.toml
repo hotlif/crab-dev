@@ -17,6 +17,7 @@ item.color = "$ref(color.text.secondary)"
 item.color-hover = "$ref(color.text.primary)"
 item.color-active = "$ref(color.text.primary)"
 item.color-disabled = "$ref(color.text.disabled)"
+item.current.font-weight = "$ref(navigation.breadcrumb.current-weight)"
 
 # ─── 分隔符 ──────────────────────────────────────────────────────────────────
 separator.color = "$ref(color.text.disabled)"

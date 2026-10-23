@@ -1,3 +1,4 @@
+import token from "@crab-dev/rc-token-semantic";
 import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "文字对齐与多行",
@@ -12,9 +13,9 @@ const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
-    border: 1px solid var(--border-subtle, #e5e5e5);
-    border-radius: 8px;
-    background: #fafafa;
+    border: 1px solid ${token.color.border.default};
+    border-radius: ${token.shape.card};
+    background: ${token.color.workspace.content};
 `;
 
 const RED   = "oklch(0.38 0.18 28)";

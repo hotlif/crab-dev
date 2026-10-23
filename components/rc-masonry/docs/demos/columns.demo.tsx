@@ -1,63 +1,42 @@
+import Select from "@crab-dev/rc-select";
 export const meta = {
     title: "多列布局",
     description: "通过 `columns` 属性控制列数",
 };
 
-import { css } from "@crab-dev/css";
-import { useId, useState } from "react";
+import { cx } from "@crab-dev/css";
+import { itemStyle, heightStyles, controlStyle } from "../demo-style.js";
+import { useState } from "react";
 import Masonry from "../../src/index.js";
 
-const itemStyle = css`
-    border-radius: 8px;
-    padding: 16px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-`;
-
 const items = [
-    { height: 100, color: "oklch(0.65 0.15 250)" },
-    { height: 160, color: "oklch(0.55 0.2 300)" },
-    { height: 120, color: "oklch(0.7 0.12 150)" },
-    { height: 200, color: "oklch(0.6 0.18 30)" },
-    { height: 80, color: "oklch(0.58 0.16 200)" },
-    { height: 140, color: "oklch(0.68 0.14 100)" },
-    { height: 180, color: "oklch(0.62 0.17 60)" },
-    { height: 110, color: "oklch(0.72 0.11 330)" },
+    { height: 100 },
+    { height: 160 },
+    { height: 120 },
+    { height: 200 },
+    { height: 80 },
+    { height: 140 },
+    { height: 180 },
+    { height: 110 },
 ];
 
 const ColumnsDemo = () => {
-    const controlId = useId();
+
     const [columns, setColumns] = useState(3);
 
     return (
         <div>
-            <div
-                className={css`
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    margin-bottom: 1.5rem;
-                `}
-            >
-                <label htmlFor={controlId}>列数</label>
-                <select
-                    id={controlId}
-                    value={columns}
-                    onChange={(e) => setColumns(Number(e.target.value))}
-                >
-                    <option value={2}>2 列</option>
-                    <option value={3}>3 列</option>
-                    <option value={4}>4 列</option>
-                    <option value={5}>5 列</option>
-                </select>
+            <div className={controlStyle}>
+                <Select label="列数" value={String(columns)}
+                    options={[2, 3, 4, 5].map((count) => ({ label: `${count} 列`, value: String(count) }))}
+                    onChange={(value) => { if (value) setColumns(Number(value)); }} />
             </div>
             <Masonry columns={columns} gutter={12}>
                 {items.map((item, i) => (
                     <div
                         key={i}
-                        className={itemStyle}
-                        style={{ height: item.height, backgroundColor: item.color }}
+                        className={cx.call(undefined, itemStyle, heightStyles[item.height])}
+
                     >
                         Item {i + 1}
                     </div>

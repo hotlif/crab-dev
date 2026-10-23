@@ -1,11 +1,11 @@
-import { diagramViewportStyle } from "../demo-layout.js";
+import { diagramViewportStyle, demoStackStyle, demoHintStyle, demoLegendStyle, demoLegendLabelStyle } from "../demo-layout.js";
 export const meta = {
     title: "FlowEdge 样式",
     description: "FlowEdge 支持实线 / 虚线、单向 / 双向箭头、自定义颜色。节点可拖，边走线自动绕开节点。",
 };
 
 import { useState } from 'react';
-import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';
+import FlowDiagram, { FlowNode, FlowEdge, DEFAULT_FLOW_DIAGRAM_PALETTE } from '../../src/index.js';
 import type { ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
 
 const NODE_W = 110;
@@ -66,8 +66,8 @@ export default function EdgeDemo() {
     const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div style={{ fontSize: 13, color: '#64748b', padding: '4px 0' }}>
+        <div className={demoStackStyle}>
+            <div className={demoHintStyle}>
                 e1: 默认箭头 · e2: 虚线（A→C）· e3: 双向箭头（B→D）· e4: 无箭头（C→D）· 拖拽节点移动
             </div>
 
@@ -82,7 +82,7 @@ export default function EdgeDemo() {
                     routingOptions={{ margin: 10, terminalStub: 22 }}
                     width={680}
                     height={380}
-                    style={{ border: '1px solid #e0e4ec', borderRadius: 8, background: '#fafbfc' }}
+
                 >
                     {({ nodeRects, routes, crossings }) => (
                         <>
@@ -104,6 +104,7 @@ export default function EdgeDemo() {
                                         width={NODE_W} height={NODE_H}
                                         label={NODE_LABELS[n.id]}
                                         fill={NODE_FILLS[n.id]}
+                                        labelColor={DEFAULT_FLOW_DIAGRAM_PALETTE.nodeLabel}
                                         draggable
                                         onDrag={(dx, dy) => setNodePositions(prev => {
                                             const base = prev[n.id] ?? rect;
@@ -119,10 +120,10 @@ export default function EdgeDemo() {
             </div>
 
             {/* 图例 */}
-            <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#94a3b8', flexWrap: 'wrap' }}>
+            <div className={demoLegendStyle}>
                 {EDGES.map(e => (
                     <span key={e.id}>
-                        <span style={{ color: EDGE_STYLES[e.id]?.color ?? '#6b7280', fontWeight: 500 }}>
+                        <span className={demoLegendLabelStyle}>
                             {e.source.toUpperCase()}→{e.target.toUpperCase()}
                         </span>{' '}
                         {EDGE_LABELS[e.id]}

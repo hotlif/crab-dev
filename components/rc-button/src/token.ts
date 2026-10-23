@@ -206,7 +206,7 @@ const token = defineTokens({
     },
     'outlined': {
         'color': `var(${vars['outlined.color']}, var(--button-subtle-color, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936)))))`,
-        'background-color': `var(${vars['outlined.background-color']}, var(--button-subtle-background-color, transparent))`,
+        'background-color': `var(${vars['outlined.background-color']}, var(--button-subtle-background-color, var(--token-semantic-navigation-button-outlined-background, transparent)))`,
         'border-color': `var(${vars['outlined.border-color']}, var(--button-subtle-border-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`,
         'background-color-hover': `var(${vars['outlined.background-color-hover']}, var(--button-subtle-background-color-hover, color-mix(in srgb, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), transparent)))`,
         'background-color-active': `var(${vars['outlined.background-color-active']}, var(--button-subtle-background-color-active, color-mix(in srgb, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), transparent)))`,
@@ -304,7 +304,7 @@ const token = defineTokens({
         'background-color-hover': `var(${vars['primary.background-color-hover']}, color-mix(in srgb, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'background-color-active': `var(${vars['primary.background-color-active']}, color-mix(in srgb, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))) calc(var(--button-state-layer-opacity-active, 0.1) * 100%), var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'background-color-focus': `var(${vars['primary.background-color-focus']}, color-mix(in srgb, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))) calc(var(--button-state-layer-opacity-focus, 0.1) * 100%), var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
-        'box-shadow': `var(${vars['primary.box-shadow']}, none)`,
+        'box-shadow': `var(${vars['primary.box-shadow']}, var(--token-semantic-navigation-button-primary-shadow, none))`,
         'unselected': {
             'color': `var(${vars['primary.unselected.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
             'background-color': `var(${vars['primary.unselected.background-color']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`
@@ -365,7 +365,7 @@ const token = defineTokens({
         'border-color-hover': `var(${vars['subtle.border-color-hover']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'border-color-active': `var(${vars['subtle.border-color-active']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
         'border-color-disabled': `var(${vars['subtle.border-color-disabled']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
-        'box-shadow': `var(${vars['subtle.box-shadow']}, none)`,
+        'box-shadow': `var(${vars['subtle.box-shadow']}, var(--token-semantic-navigation-button-outlined-shadow, none))`,
         'box-shadow-hover': `var(${vars['subtle.box-shadow-hover']}, none)`,
         'box-shadow-active': `var(${vars['subtle.box-shadow-active']}, none)`,
         'box-shadow-disabled': `var(${vars['subtle.box-shadow-disabled']}, none)`,

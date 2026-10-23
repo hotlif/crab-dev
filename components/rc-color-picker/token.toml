@@ -47,6 +47,7 @@ trigger.swatch.large.width = "$ref(size.24)"
 
 # ===== 文本输入 Input =====
 input.gap = "$ref(space.inline-gap)"
+input.format.width = "calc($ref(field.input.font-size) * 4 + $ref(field.control.padding-inline) * 2 + $ref(sizing.small.action) + $ref(space.inline-gap))"
 
 # ===== 预设色板 Swatches =====
 swatch.width = "20px"

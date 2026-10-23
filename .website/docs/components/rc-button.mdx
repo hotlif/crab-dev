@@ -20,6 +20,10 @@ import { demos } from "../_generated/rc-button.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 三套风格对照
+
+##### 三套风格的操作层级 — 比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。
+
 #### 基础与外观
 
 ##### 基础配置 — 在属性控件中组合文字、外观、尺寸与常用状态
@@ -30,7 +34,7 @@ import { demos } from "../_generated/rc-button.js";
 
 ##### 危险操作 — 用 danger 定制错误色角色，保留五种按钮各自的视觉层级。
 
-##### 图标按钮 — 通过 `icon` 属性设置按钮图标
+##### 图标按钮 — 通过 icon 设置按钮图标，使用切换按钮对照正常与加载状态。
 
 ##### 图标位置 — M3 推荐单个前置图标；iconAfter 保留为 Material Web 支持的后置图标扩展。
 
@@ -62,7 +66,7 @@ import { demos } from "../_generated/rc-button.js";
 
 ### 普通按钮
 
-普通按钮使用 Outlined 的中性文字、细描边和透明背景，适合取消、返回、刷新等次要操作。省略 `shape` 时，Material 使用胶囊圆角，shadcn 使用 8px 控件圆角；通过 `ConfigProvider design` 统一切换。默认与悬停状态均不使用阴影。
+普通按钮适合取消、返回、刷新等次要操作。Material 的 Outlined 使用中性文字、细描边、透明背景和胶囊圆角；macOS 使用 6px 圆角、实体表面和轻阴影；shadcn 使用 8px 圆角、实体表面和细描边。通过 `ConfigProvider design` 统一切换，显式 `shape` 仍可覆盖默认形状。
 
 基础示例完整展示五种官方外观。实际表单中，可将实色“保存修改”与描边“取消”放在同一操作区，文字“查看说明”作为辅助入口。
 
@@ -94,13 +98,13 @@ import { demos } from "../_generated/rc-button.js";
 | `l` | 48px | 20px | L（桌面定制） |
 | `xl` | 56px | 24px | XL（桌面定制） |
 
-保留五档尺寸 API 和现有别名，两套风格共用桌面密度；这些数值是项目定制，不等同于 M3 Expressive 的原始尺寸。XS/S/M/L/XL 的图标间距分别为 4/8/8/12/16px，描边宽度为 1/1/1/2/3px。粗指针下通过独立命中区域保证至少 48×48px，不改变可见按钮高度；文字放大可使按钮自然增高。省略 `shape` 时由统一语义令牌选择形状：Material 使用胶囊并保留按压与选中反馈，shadcn 使用稳定的 8px 控件圆角。显式 `shape="round"` 或 `shape="square"` 可固定形状选择。
+保留五档尺寸 API 和现有别名，三套风格共用桌面密度；这些数值是项目定制，不等同于 M3 Expressive 的原始尺寸。XS/S/M/L/XL 的图标间距分别为 4/8/8/12/16px，描边宽度为 1/1/1/2/3px。粗指针下通过独立命中区域保证至少 48×48px，不改变可见按钮高度；文字放大可使按钮自然增高。省略 `shape` 时由统一语义令牌选择形状：Material 使用胶囊并保留按压与选中反馈，shadcn 使用稳定的 8px 控件圆角，macOS 使用稳定的 6px 圆角。显式 `shape="round"` 或 `shape="square"` 可固定形状选择。
 
 ### 状态与无障碍
 
 - 悬停提供 8% 状态层；焦点与按压提供 10% 状态层，颜色跟随对应外观的前景角色；键盘焦点环使用 Secondary、3px 宽度和 2px 外偏移。
 - 禁用内容使用 On surface 的 38% 不透明度，填充容器独立使用 10%；描边与文字外观保持各自的容器规则。
-- shadcn 默认形状按压时保持圆角；Material 默认形状及显式 Round 收紧圆角。不移动文字或改变边框宽度。
+- macOS 和 shadcn 默认形状按压时保持圆角；Material 默认形状及显式 Round 收紧圆角。不移动文字或改变边框宽度。
 - 键盘与辅助技术触发的点击保留 225ms 按压反馈，连续激活从最后一次点击重新计时；进入禁用或加载状态时清除。此最短反馈时长参考 Material Web，显式 Round 的形状变化采用本组件的 Expressive 令牌；减少动态效果时直接切换状态。
 - `isSelected` 用于可切换操作并同步 `aria-pressed`；描边按钮选中后使用反色填充，形状随当前设计风格变化。Text 用于普通动作。
 - `loading` 显示进度并阻止重复激活，保留焦点；同时设置 `disabled` 时退出键盘顺序。
@@ -118,6 +122,14 @@ import { demos } from "../_generated/rc-button.js";
 <Button appearance="primary" danger>删除项目</Button>
 <Button appearance="text" href="/settings">查看设置</Button>
 ```
+
+### 三套风格
+
+Material 保留本组件已有的 Expressive 形状反馈和桌面尺寸定制。macOS 的圆角在按压和选中时保持稳定，普通按钮具有轻微浮起的表面；shadcn 的 Outlined 使用背景表面与细描边。主操作、普通操作和低强调操作的 API、禁用语义、键盘激活与焦点行为一致。
+
+macOS 是参考 Apple 控件层级的 Web 风格，不模拟操作系统私有材质或 Liquid Glass。shadcn 对照 New York v4 的按钮变体，保留 Crab 的尺寸别名与 React 19 实现。参考核对日期：2026-10-22。
+
+参考：[Apple Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)、[shadcn Button](https://ui.shadcn.com/docs/components/radix/button)、[shadcn 按钮实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/button.tsx)。
 
 ### 兼容说明
 

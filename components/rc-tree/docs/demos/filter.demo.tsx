@@ -1,4 +1,5 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
+import LineEdit from "@crab-dev/rc-line-edit";
 import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "搜索过滤 filterTreeNode",
@@ -7,7 +8,7 @@ export const meta = {
 
 import { css } from "@crab-dev/css";
 import semanticToken from "@crab-dev/rc-token-semantic";
-import { type Key, useEffect, useId, useState } from "react";
+import { type Key, useEffect, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../src/index.js";
 
 const demoStyle = css`
@@ -19,29 +20,9 @@ const demoStyle = css`
 const searchGroupStyle = css`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: ${semanticToken.space["inline-gap"]};
-`;
-
-const searchInputStyle = css`
-    width: min(300px, 100%);
-    padding: ${semanticToken.space["control-padding-y"]} ${semanticToken.space["control-padding-x"]};
-    border: 1px solid ${semanticToken.color.border.default};
-    border-radius: ${semanticToken.radius.md};
-    background-color: ${semanticToken.color.background.surface};
-    color: ${semanticToken.color.text.primary};
-    font-size: ${semanticToken.font.size.body};
-    transition: border-color ${semanticToken.motion.interaction};
-
-    &:hover {
-        border-color: ${semanticToken.color.border.hover};
-    }
-
-    &:focus-visible {
-        border-color: ${semanticToken.color.border.focus};
-        outline: 2px solid ${semanticToken.color.border.focus};
-        outline-offset: 2px;
-    }
+    width: min(calc(${semanticToken.size["touch-target"]} * 6), 100%);
 `;
 
 const buildNodes = (): Node[] => {
@@ -76,7 +57,6 @@ const buildNodes = (): Node[] => {
 const ALL_NODES = buildNodes();
 
 const FilterDemo = () => {
-    const searchInputId = useId();
     const [keyword, setKeyword] = useState("");
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
     const [selectKeys, setSelectKeys] = useState<Key[]>([]);
@@ -112,10 +92,8 @@ const FilterDemo = () => {
     return (
         <div className={demoStyle}>
             <div className={searchGroupStyle}>
-                <label htmlFor={searchInputId}>搜索树节点</label>
-                <input
-                    id={searchInputId}
-                    className={searchInputStyle}
+                <LineEdit
+                    label="搜索树节点"
                     type="search"
                     placeholder="输入节点名称"
                     value={keyword}

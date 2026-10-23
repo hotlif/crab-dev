@@ -134,7 +134,7 @@ describe('Segmented', () => {
             await unmount();
         }
     });
-    it('replaces the leading icon with a check when selected', async () => {
+    it('keeps selection feedback and the original icon available to each theme', async () => {
         const { container, inputs } = await renderSegmented({
             defaultValue: 'grid',
             options: [
@@ -145,8 +145,9 @@ describe('Segmented', () => {
         expect(container.querySelector('[data-testid="icon"]')).toBeTruthy();
         await fireEvent.click(inputs[0]);
         expect(inputs[0].checked).toBe(true);
-        expect(container.querySelector('[data-testid="icon"]')).toBeNull();
-        expect(inputs[0].closest('label')?.querySelector('svg path')).toBeTruthy();
+        expect(inputs[0].closest('label')?.querySelector('[data-option-icon] [data-testid="icon"]')).toBeTruthy();
+        expect(inputs[0].closest('label')?.querySelector('[data-selection-indicator] svg path')).toBeTruthy();
+        expect(inputs[0].closest('label')?.querySelector('[data-option-icon]')?.getAttribute('aria-hidden')).toBe('true');
     });
     it('applies the aria-label of an icon-only option', async () => {
         const { container } = await renderSegmented({

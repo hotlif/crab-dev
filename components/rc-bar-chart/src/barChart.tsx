@@ -12,7 +12,7 @@ import {
     resolveReferenceLineColor,
     resolveSeriesColor,
 } from './palette.js';
-import { computeLayout, measureLabelWidth, CHART_METRICS } from './layout.js';
+import { computeLayout, fitCategoryLabel, measureLabelWidth, CHART_METRICS } from './layout.js';
 import { useBarTransition } from './hooks/useBarTransition.js';
 import { useCategoryDim } from './hooks/useCategoryDim.js';
 import type { BarChartProps } from './types.js';
@@ -279,6 +279,10 @@ function BarChartInner({
     );
     const plotHeight = layout.plotBottom - layout.plotTop;
     const plotWidth = layout.plotRight - layout.plotLeft;
+    const categoryBandSize = layout.bands[0]?.size ?? 0;
+    const categoryLabelStride = categoryBandSize > 0
+        ? Math.max(1, Math.ceil((horizontal ? CHART_METRICS.fontSize * 1.4 : CHART_METRICS.fontSize * 3) / categoryBandSize))
+        : 1;
 
     const activeBand = activeIndex !== null ? layout.bands[activeIndex] : null;
     const focusIndex = Math.min(focusBarIndex, Math.max(0, layout.bars.length - 1));
@@ -395,8 +399,16 @@ function BarChartInner({
                             </Text>
                         ))}
                         {/* 类目标签：vertical 在底缘，horizontal 在左缘 */}
-                        {categories.map((category, i) => (
-                            <Text
+                        {categories.map((category, i) => {
+                            if (i % categoryLabelStride !== 0) return null;
+                            const label = fitCategoryLabel(String(category), horizontal
+                                ? layout.plotLeft - CHART_METRICS.axisLabelGap
+                                : Math.min(
+                                    categoryBandSize * categoryLabelStride - CHART_METRICS.axisLabelGap,
+                                    layout.bands[i].center * 2,
+                                    (width - layout.bands[i].center) * 2,
+                                ));
+                            return label ? <Text
                                 key={`cat-${i}`}
                                 mode="bitmap"
                                 x={horizontal ? layout.plotLeft - CHART_METRICS.axisLabelGap : layout.bands[i].center}
@@ -406,9 +418,9 @@ function BarChartInner({
                                 textAlign={horizontal ? 'right' : 'center'}
                                 textBaseline={horizontal ? 'middle' : 'top'}
                             >
-                                {String(category)}
-                            </Text>
-                        ))}
+                                {label}
+                            </Text> : null;
+                        })}
 
                         {/* 类目命中区：比柱子更大的悬停目标；点按（触屏）固定该类目的提示 */}
                         {layout.bands.map((band, i) => (

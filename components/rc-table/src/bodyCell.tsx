@@ -13,6 +13,7 @@ import type { CellNavDirection } from "./hooks/useCellEditNav.js";
 import { Fragment, memo, type HTMLAttributes, type Key, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getMergedCellSize } from "./util.js";
 import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
+import TableIconButton from "./iconButton.js";
 import { getDataValueAccessor } from "./valueAccess.js";
 
 // 选区底色画在内容下方，并由固定列和合并单元格共同读取。
@@ -24,6 +25,7 @@ const selectedCellStyle = css`
     @media (forced-colors: active) {
         ${ROW_BG_VAR}: Canvas;
         background-color: Canvas;
+        color: CanvasText;
     }
 `;
 
@@ -316,32 +318,12 @@ function TableCell<T extends Row>({
                         />
                         {/* 展开/收起按钮（非叶子）或等宽占位（叶子） */}
                         {treeNode.hasChildren ? (
-                            <div
-                                role="button"
-                                tabIndex={0}
+                            <TableIconButton
                                 aria-expanded={treeNode.isExpanded}
                                 aria-label={treeNode.isExpanded ? "收起子行" : "展开子行"}
                                 className={css`
-                                    display: inline-flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    width: ${token.tree.button.width};
-                                    height: ${token.tree.button.width};
-                                    flex-shrink: 0;
-                                    cursor: pointer;
-                                    border-radius: ${token.tree.button["border-radius"]};
                                     margin-right: ${token.tree.button.gap};
-                                    color: ${token.tree.chevron.color};
-                                    transition: background-color ${token.tree.button.transition};
-                                    &:hover {
-                                        background-color: ${token.tree.button['background-color-hover']};
-                                    }
-                                    &:focus-visible {
-                                        outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
-                                        outline-offset: calc(-1 * ${token.root["outline-width-focus"]});
-                                    }
                                     @media (prefers-reduced-motion: reduce) {
-                                        transition: none;
                                         & svg { transition: none; }
                                     }
                                 `}
@@ -352,14 +334,7 @@ function TableCell<T extends Row>({
                                 onMouseDown={(e) => {
                                     e.stopPropagation();
                                 }}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        onTreeToggle?.();
-                                    }
-                                }}
-                            >
-                                <svg
+                                icon={<svg
                                     width="10"
                                     height="10"
                                     viewBox="0 0 10 10"
@@ -369,13 +344,16 @@ function TableCell<T extends Row>({
                                     style={{ transform: treeNode.isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
                                 >
                                     <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
+                                </svg>}
+                            />
                         ): (
                             <div
                                 aria-hidden
-                                className={css`flex-shrink: 0;`}
-                                style={{ width: `calc(${token.tree.button.width} + ${token.tree.button.gap})` }}
+                                className={css`
+                                    flex-shrink: 0;
+                                    width: calc(${token.tree.button.width} + ${token.tree.button.gap});
+                                    @media (pointer: coarse) { width: calc(${token.tree.button.touch.width} + ${token.tree.button.gap}); }
+                                `}
                             />
                         )}
                     </>

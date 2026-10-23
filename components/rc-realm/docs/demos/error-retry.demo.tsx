@@ -1,3 +1,5 @@
+import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 export const meta = {
     title: "错误态与重试",
     description:
@@ -8,7 +10,7 @@ import Realm from '../../src/index.js';
 import type { RemoteContainer } from '../../src/index.js';
 
 const RemoteWidget = () => (
-    <div style={{ padding: 12, border: '1px dashed currentColor' }}>重试成功, 远程内容已就绪。</div>
+    <div className={css`padding: ${token.space["card-padding"]}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.card}; background: ${token.color.surface.content}; color: ${token.color.text.primary};`}>重试成功, 远程内容已就绪。</div>
 );
 
 let attempts = 0;

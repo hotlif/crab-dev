@@ -283,6 +283,19 @@ export interface DateProps extends ImportedProps {
     assert.equal(props.find((prop) => prop.name === "onSelect")?.typeText, "(values: Temporal.ZonedDateTime[]) => void");
 });
 
+test("生成器维护注释不会成为公开 API 的文档说明", () => {
+    const source = createSearchableApiSource({
+        component: "Slider", symbol: "SliderProps", props: [{
+            name: "value", required: false, description: "当前值", typeText: "number",
+            defaultValue: null, deprecated: false,
+        }],
+    });
+    const ast = parse(source, { sourceType: "module", plugins: ["typescript"] });
+    const documentation = ast.comments.filter(comment => comment.type === "CommentBlock" && comment.value.startsWith("*"));
+    assert.ok(documentation.some(comment => comment.value.includes("当前值")));
+    assert.ok(documentation.every(comment => !/AUTO-GENERATED|扁平接口/.test(comment.value)));
+});
+
 test("生成的 API 适配接口可解析，并由 Wake 原生 API 建立属性索引", () => {
     const api = {
         component: "Select",

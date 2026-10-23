@@ -33,7 +33,7 @@ describe("useMessage CSS lifecycle", () => {
         }
         const view = await render(<Host />);
         await act(() => { api.info('Unconfigured message', 0); });
-        const holder = screen.getByRole('alert').closest('[popover]');
+        const holder = screen.getByRole('status').closest('[popover]');
         expect(holder?.parentElement).toBe(document.body);
         expect(holder?.hasAttribute('data-theme')).toBe(false);
         expect(holder?.hasAttribute('data-crab-design')).toBe(false);
@@ -48,7 +48,7 @@ describe("useMessage CSS lifecycle", () => {
         }
         const view = await render(<ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
         await act(() => { api.info('Scoped message', 0); });
-        const holder = screen.getByRole('alert').closest('[popover]');
+        const holder = screen.getByRole('status').closest('[popover]');
         expect(holder?.parentElement).toBe(document.body);
         expect(holder?.getAttribute('data-crab-design')).toBe('shadcn');
         expect(holder?.getAttribute('data-theme')).toBe('dark');
@@ -66,7 +66,7 @@ describe("useMessage CSS lifecycle", () => {
         await advance(5000);
         await act(() => handle.update({ type: 'success', content: 'Saved', duration: 1000, onClose }));
         expect(screen.queryByText('Working')).toBeNull();
-        expect(screen.getAllByRole('alert').length).toBe(1);
+        expect(screen.getAllByRole('status').length).toBe(1);
         await advance(600);
         await act(() => api.update(handle.id, { content: 'Done', duration: 1000 }));
         await advance(999);
@@ -84,10 +84,10 @@ describe("useMessage CSS lifecycle", () => {
         const onClose = mock.fn();
         await act(async () => api.open({ content: "Timed", duration: 1000, onClose }));
         await advance(400);
-        await act(async () => { screen.getByRole("alert").dispatchEvent(new MouseEvent("mouseover", { bubbles: true })); });
+        await act(async () => { screen.getByRole("status").dispatchEvent(new MouseEvent("mouseover", { bubbles: true })); });
         await advance(2000);
         expect(screen.getByText("Timed")).toBeTruthy();
-        await act(async () => { screen.getByRole("alert").dispatchEvent(new MouseEvent("mouseout", { bubbles: true })); });
+        await act(async () => { screen.getByRole("status").dispatchEvent(new MouseEvent("mouseout", { bubbles: true })); });
         await advance(599);
         expect(onClose).not.toHaveBeenCalled();
         await advance(1);

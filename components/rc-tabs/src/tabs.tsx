@@ -1,6 +1,6 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
-import { useId, useRef } from 'react';
+import { useId, useLayoutEffect, useRef } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 
@@ -43,12 +43,25 @@ const barStyle = css`
 const barListStyle = css`
     display: flex;
     align-items: stretch;
+    flex: 0 0 auto;
+    width: max-content;
     gap: ${token.bar.gap};
-    min-width: 0;
+    min-width: 100%;
 `;
 
 const barLineStyle = css`
     border-bottom: 1px solid ${token.bar['border-color']};
+    background: ${token.bar['background-color']};
+    border-radius: ${token.bar['border-radius']};
+    padding: ${token.bar.padding};
+`;
+
+const itemLineStyle = css`
+    border-radius: ${token.item['border-radius']};
+    &[aria-selected='true'] {
+        background: ${token.item['background-color-active']};
+        box-shadow: ${token.item['box-shadow-active']};
+    }
 `;
 
 const barCenteredStyle = css`
@@ -123,6 +136,18 @@ const itemLargeStyle = css`
     height: ${token.size.large.height};
     padding: 0 ${token.size.large['padding-inline']};
     font-size: ${token.size.large['font-size']};
+`;
+
+// Primary tabs use Material Web's inline-icon variant; the semantic role also
+// preserves the smaller icon treatment of the shadcn design.
+const itemIconStyle = css`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: ${token.item.icon.width};
+    height: ${token.item.icon.width};
+    & > svg, & > img { width: 100%; height: 100%; }
 `;
 
 const itemActiveStyle = css`
@@ -278,6 +303,18 @@ const findEnabledKey = (items: TabsItem[], startIndex: number, step: 1 | -1): st
     return null;
 };
 
+/** Scroll only the tab strip, leaving the surrounding page and panel in place. */
+const revealTab = (bar: HTMLDivElement | null, tab: HTMLButtonElement | undefined) => {
+    if (!bar || !tab || typeof bar.scrollBy !== 'function') return;
+    const bounds = bar.getBoundingClientRect();
+    const item = tab.getBoundingClientRect();
+    const delta = item.left < bounds.left
+        ? item.left - bounds.left
+        : item.right > bounds.right ? item.right - bounds.right : 0;
+    // Layout reconciliation is immediate, including initialization and reduced motion.
+    if (delta !== 0) bar.scrollBy({ left: delta, behavior: 'instant' });
+};
+
 const Tabs = ({
     items,
     activeKey: activeKeyProp,
@@ -314,6 +351,19 @@ const Tabs = ({
 
     // Mutable DOM registry for keyboard focus; it never participates in rendering.
     const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+    const barRef = useRef<HTMLDivElement>(null);
+    const listRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        if (!items.some(item => item.key === activeKey)) return;
+        const revealSelected = () => revealTab(barRef.current, tabRefs.current.get(activeKey));
+        revealSelected();
+        if (typeof ResizeObserver !== 'function') return;
+        const observer = new ResizeObserver(revealSelected);
+        if (barRef.current) observer.observe(barRef.current);
+        if (listRef.current) observer.observe(listRef.current);
+        return () => observer.disconnect();
+    }, [activeKey, items]);
 
     const activateKey = (nextKey: string) => setActiveKey(nextKey);
 
@@ -346,7 +396,8 @@ const Tabs = ({
             }
             if (nextKey) {
                 const nextTab = tabRefs.current.get(nextKey);
-                nextTab?.focus();
+                nextTab?.focus({ preventScroll: true });
+                revealTab(barRef.current, nextTab);
             }
             return;
         }
@@ -392,7 +443,7 @@ const Tabs = ({
         if (type === 'pill') {
             return cx.call(undefined, itemPillStyle, isActive ? itemPillActiveStyle : '');
         }
-        return '';
+        return itemLineStyle;
     };
 
     const activeItemIndex = items.findIndex(item => item.key === activeKey);
@@ -405,11 +456,12 @@ const Tabs = ({
                     <div className={extraStyle}>{extraContent.left}</div>
                 ) : null}
                 <div
+                    ref={barRef}
                     className={cx.call(undefined, barStyle, type === 'line' ? barLineStyle : '')}
                     role="tablist"
                     aria-orientation="horizontal"
                 >
-                    <div className={cx.call(undefined, barListStyle, centered ? barCenteredStyle : '')}>
+                    <div ref={listRef} className={cx.call(undefined, barListStyle, centered ? barCenteredStyle : '')}>
                         {items.map((item, index) => {
                             const isActive = item.key === activeKey;
 
@@ -436,7 +488,7 @@ const Tabs = ({
                                     onClick={() => handleTabClick(item)}
                                     onKeyDown={(event) => handleTabKeyDown(event, item, index)}
                                 >
-                                    {item.icon != null ? <span aria-hidden="true">{item.icon}</span> : null}
+                                    {item.icon != null ? <span className={itemIconStyle} aria-hidden="true">{item.icon}</span> : null}
                                     <span className={type === 'line' ? indicatorLabelStyle : undefined}>
                                         {item.label}
                                         {type === 'line' && <span ref={registerIndicator(item.key)} className={indicatorStyle} aria-hidden="true" />}

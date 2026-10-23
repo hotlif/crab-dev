@@ -190,7 +190,7 @@ const baseStyle = css`
         color: ${token['code']['color']};
         font-weight: ${token['code']['font-weight']};
         background-color: ${token.code["background-color"]};
-        border-radius: 0.3rem;
+        border-radius: ${token.code['border-radius']};
     }
 
     :where(& a code),
@@ -238,7 +238,7 @@ const baseStyle = css`
         border-collapse: separate;
         border-spacing: 0;
         border: 1px solid ${token.table.cell["border-color"]};
-        border-radius: 0.75rem;
+        border-radius: ${token.table['border-radius']};
         overflow: hidden;
     }
 
@@ -253,19 +253,17 @@ const baseStyle = css`
         border-bottom: 1px solid ${token.table.heading["border-color"]};
     }
 
-    :where(& tbody tr) {
+    :where(& tbody tr:not(:last-child) > th),
+    :where(& tbody tr:not(:last-child) > td) {
         border-bottom: 1px solid ${token.table.cell["border-color"]};
-    }
-
-    :where(& tbody tr:last-child) {
-        border-bottom: none;
     }
 
     :where(& tbody td) {
         vertical-align: baseline;
     }
 
-    :where(& tfoot) {
+    :where(& tfoot > tr:first-child > th),
+    :where(& tfoot > tr:first-child > td) {
         border-top: 1px solid ${token.table.heading["border-color"]};
     }
 

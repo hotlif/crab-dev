@@ -74,7 +74,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"横向条形与自适应宽度\",\n    description: \"横向条形让类目沿纵轴排列；设置 width 为 auto，通过 rc-auto-sizer 跟随父容器宽度。调整窗口宽度可查看布局变化。\",\n};\n\nimport BarChart from '../../src/index.js';\nimport { css } from '@crab-dev/css';\n\nconst HorizontalDemo = () => (\n    \u003cdiv className={css`inline-size: 100%; min-width: 0;`}>\n        \u003cBarChart\n            aria-label=\"各区域年度销售额排名\"\n            categories={['华东大区（含江浙沪）', '华南大区', '华北大区', '西南大区', '东北大区']}\n            series={[{ name: '销售额', data: [1290, 934, 901, 690, 540] }]}\n            orientation=\"horizontal\"\n            width=\"auto\"\n            showValues\n        />\n    \u003c/div>\n);\n\nexport default HorizontalDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"横向条形与自适应宽度\",\n    description: \"横向条形让类目沿纵轴排列；设置 width 为 auto，通过 rc-auto-sizer 跟随父容器宽度。调整窗口宽度可查看布局变化。\",\n};\n\nimport BarChart from '../../src/index.js';\nimport { css } from '@crab-dev/css';\n\nconst HorizontalDemo = () => (\n    \u003cdiv className={css`inline-size: 100%; min-width: 0;`}>\n        \u003cBarChart\n            aria-label=\"各区域年度销售额排名\"\n            categories={['华东区域销售中心（浙江省、江苏省、上海市及周边重点市场）', '华南大区', '华北大区', '西南大区', '东北大区']}\n            series={[{ name: '销售额', data: [1290, 934, 901, 690, 540] }]}\n            orientation=\"horizontal\"\n            width=\"auto\"\n            showValues\n        />\n    \u003c/div>\n);\n\nexport default HorizontalDemo;\n",
         "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fhorizontal.demo.tsx",
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fhorizontal.demo.tsx",
         "density": "regular",
@@ -133,6 +133,31 @@ export const demos = [
         "sourceCode": "export const meta = {\n    title: \"多系列分组\",\n    description: \"多系列在类目内并列分组，颜色按分类色板顺序分配并跟随系列；提供 onBarClick 后柱子呈现 pointer 光标。\",\n};\n\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport BarChart from '../../src/index.js';\nimport type { BarClickInfo } from '../../src/index.js';\n\nconst CATEGORIES = ['华东', '华南', '华北', '西南'];\n\nconst MultiSeriesDemo = () => {\n    const [picked, setPicked] = useState\u003cBarClickInfo | null>(null);\n\n    return (\n        \u003cdiv className={css`display: flex; flex-direction: column; gap: ${token.space['component-gap']}; min-width: 0; inline-size: 100%;`}>\n            \u003cBarChart\n                width=\"auto\"\n                aria-label=\"各区域分渠道销售额\"\n                categories={CATEGORIES}\n                series={[\n                    { name: '线上', data: [820, 932, 901, 934] },\n                    { name: '线下', data: [620, 710, 660, 540] },\n                    { name: '经销商', data: [450, 380, 520, 410] },\n                ]}\n                onBarClick={setPicked}\n            />\n            \u003cdiv role=\"status\" className={css`font-size: ${token.font.size.caption}; color: ${token.color.text.secondary};`}>\n                {picked\n                    ? `已选中：${picked.category} · ${picked.seriesName} = ${picked.value}`\n                    : '点击任意柱子查看回调数据'}\n            \u003c/div>\n        \u003c/div>\n    );\n};\n\nexport default MultiSeriesDemo;\n",
         "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fmulti-series.demo.tsx",
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fmulti-series.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": null
+    },
+    {
+        "id": "docs/demos/palette.demo.tsx",
+        "title": "八系列分类颜色",
+        "description": "完整展示八个系列，切换页面设计与明暗模式检查颜色区分；可通过图例隐藏系列或用键盘逐柱查看数据。",
+        "learning": {
+            "components": [
+                "BarChart"
+            ],
+            "props": [
+                "width",
+                "height",
+                "categories",
+                "series",
+                "aria-label"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport BarChart from '../../src/barChart.js';\n\nexport const meta = {\n    title: '八系列分类颜色',\n    description: '完整展示八个系列，切换页面设计与明暗模式检查颜色区分；可通过图例隐藏系列或用键盘逐柱查看数据。',\n};\n\nconst layoutStyle = css`width: 100%; min-width: 0; color: ${token.color.text.primary};`;\nconst series = ['产品', '服务', '订阅', '渠道', '支持', '培训', '咨询', '其他'].map((name, index) => ({\n    name,\n    data: [80 + index * 15, 160 - index * 12],\n}));\n\nexport default function PaletteDemo() {\n    return (\n        \u003cdiv className={layoutStyle}>\n            \u003cBarChart width=\"auto\" height={300} categories={['本月', '上月']} series={series} aria-label=\"八个业务系列比较\" />\n        \u003c/div>\n    );\n}\n",
+        "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fpalette.demo.tsx",
+        "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fpalette.demo.tsx",
         "density": "regular",
         "layout": "wide",
         "group": null

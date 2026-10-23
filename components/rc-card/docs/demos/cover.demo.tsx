@@ -5,16 +5,18 @@ export const meta = {
 
 import { css } from '@crab-dev/css';
 import Avatar from '@crab-dev/rc-avatar';
+import token from '@crab-dev/rc-token-semantic';
 import Card from '../../src/index.js';
 
+const cardStyle = css`max-width: calc(${token.size[64]} * 5);`;
 const coverArtStyle = css`
-    height: 160px;
-    background: linear-gradient(135deg, oklch(0.72 0.15 250), oklch(0.62 0.19 300));
+    height: calc(${token.size[64]} * 2 + ${token.size[32]});
+    background: linear-gradient(135deg, ${token.color.brand.container}, ${token.color.secondary.container});
 `;
 
 const CoverDemo = () => {
     return (
-        <Card hoverable cover={<div className={coverArtStyle} />} style={{ maxWidth: 320 }}>
+        <Card hoverable cover={<div className={coverArtStyle} />} className={cardStyle}>
             <Card.Meta
                 avatar={<Avatar variant="primary">曦</Avatar>}
                 title="晨曦航线"

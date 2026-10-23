@@ -55,11 +55,14 @@ const tooltipStyle = css`
     font-size: ${token.root['font-size']};
     line-height: ${token.root['line-height']};
     border-radius: ${token.root['border-radius']};
+    outline: ${token.root['outline-width']} solid ${token.root['border-color']};
+    box-shadow: ${token.root['box-shadow']};
     word-wrap: break-word;
     @media (forced-colors: active) {
         background-color: Canvas;
         color: CanvasText;
         outline: ${token.root['outline-width']} solid CanvasText;
+        box-shadow: none;
     }
 `;
 

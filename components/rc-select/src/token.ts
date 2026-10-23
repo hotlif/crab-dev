@@ -9,9 +9,15 @@ export const vars = defineTokens({
     'option.background-color-hover': '--select-option-background-color-hover',
     'option.color-selected': '--select-option-color-selected',
     'option.background-color-selected': '--select-option-background-color-selected',
+    'option.border-radius': '--select-option-border-radius',
     'option.color-disabled': '--select-option-color-disabled',
     'option.highlight.background-color': '--select-option-highlight-background-color',
     'option.background-color-active': '--select-option-background-color-active',
+    'option.selection.background-color-hover': '--select-option-selection-background-color-hover',
+    'option.selection.background-color-active': '--select-option-selection-background-color-active',
+    'option.activity.outline-color': '--select-option-activity-outline-color',
+    'option.activity.outline-width': '--select-option-activity-outline-width',
+    'option.activity.outline-offset': '--select-option-activity-outline-offset',
     'option.height': '--select-option-height',
     'option.padding-block': '--select-option-padding-block',
     'option.font-size': '--select-option-font-size',
@@ -54,6 +60,7 @@ export const vars = defineTokens({
     'icon.color': '--select-icon-color',
     'field.gap': '--select-field-gap',
     'field.padding-inline': '--select-field-padding-inline',
+    'field.min-height': '--select-field-min-height',
     'field.label.top': '--select-field-label-top',
     'field.label.padding-inline': '--select-field-label-padding-inline',
     'field.label.font-size': '--select-field-label-font-size',
@@ -72,6 +79,7 @@ export const vars = defineTokens({
     'field.color-error': '--select-field-color-error',
     'field.color-warning': '--select-field-color-warning',
     'field.support.line-height': '--select-field-support-line-height',
+    'field.outline.border-width-focus': '--select-field-outline-border-width-focus',
     'group.color': '--select-group-color',
     'group.font-size': '--select-group-font-size',
     'size.large.height': '--select-size-large-height',
@@ -102,13 +110,23 @@ const token = defineTokens({
             'width': `var(${vars['option.checkbox.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         },
         'background-color-hover': `var(${vars['option.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
-        'color-selected': `var(${vars['option.color-selected']}, var(--token-semantic-color-brand-on-container, var(--token-semantic-color-selection-foreground, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811)))))`,
-        'background-color-selected': `var(${vars['option.background-color-selected']}, var(--token-semantic-color-brand-container, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510)))))`,
+        'color-selected': `var(${vars['option.color-selected']}, var(--token-semantic-field-option-color-selected, var(--token-semantic-color-brand-on-container, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811)))))`,
+        'background-color-selected': `var(${vars['option.background-color-selected']}, var(--token-semantic-field-option-background-selected, var(--token-semantic-color-brand-container, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510)))))`,
+        'border-radius': `var(${vars['option.border-radius']}, var(--token-semantic-field-option-radius, var(--token-global-radius-0, 0px)))`,
         'color-disabled': `var(${vars['option.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'highlight': {
             'background-color': `var(${vars['option.highlight.background-color']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
         },
         'background-color-active': `var(${vars['option.background-color-active']}, var(--token-semantic-color-state-pressed, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'selection': {
+            'background-color-hover': `var(${vars['option.selection.background-color-hover']}, color-mix(in oklch, var(--token-semantic-field-option-color-selected, var(--token-semantic-color-brand-on-container, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811)))) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-semantic-field-option-background-selected, var(--token-semantic-color-brand-container, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))))`,
+            'background-color-active': `var(${vars['option.selection.background-color-active']}, color-mix(in oklch, var(--token-semantic-field-option-color-selected, var(--token-semantic-color-brand-on-container, var(--token-global-purple-10, oklch(0.24199786 0.14038488 286.089811)))) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-semantic-field-option-background-selected, var(--token-semantic-color-brand-container, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510))))))`
+        },
+        'activity': {
+            'outline-color': `var(${vars['option.activity.outline-color']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+            'outline-width': `var(${vars['option.activity.outline-width']}, 2px)`,
+            'outline-offset': `var(${vars['option.activity.outline-offset']}, -2px)`
+        },
         'height': `var(${vars['option.height']}, var(--token-semantic-density-item, var(--token-global-size-32, 32px)))`,
         'padding-block': `var(${vars['option.padding-block']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'font-size': `var(${vars['option.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
@@ -132,11 +150,11 @@ const token = defineTokens({
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`,
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
         'background-color-disabled': `var(${vars['root.background-color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144))))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, none)`,
-        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, inset 0 0 0 2px var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-field-control-shadow, none))`,
+        'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--token-semantic-field-control-shadow-focus, inset 0 0 0 2px var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'validation': {
-            'box-shadow-error': `var(${vars['root.validation.box-shadow-error']}, inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
-            'box-shadow-warning': `var(${vars['root.validation.box-shadow-warning']}, inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-700, oklch(0.555 0.163 71))))`
+            'box-shadow-error': `var(${vars['root.validation.box-shadow-error']}, var(--token-semantic-field-control-shadow-error, inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`,
+            'box-shadow-warning': `var(${vars['root.validation.box-shadow-warning']}, var(--token-semantic-field-control-shadow-warning, inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-600, oklch(0.666 0.179 73)))))`
         },
         'color-loading': `var(${vars['root.color-loading']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
     },
@@ -171,19 +189,20 @@ const token = defineTokens({
         'box-shadow-focus': `var(${vars['clear.box-shadow-focus']}, inset 0 0 0 1px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
     },
     'icon': {
-        'width': `var(${vars['icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`,
+        'width': `var(${vars['icon.width']}, var(--token-semantic-field-icon-size, var(--token-global-space-6, 24px)))`,
         'color': `var(${vars['icon.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
     },
     'field': {
         'gap': `var(${vars['field.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'padding-inline': `var(${vars['field.padding-inline']}, var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+        'padding-inline': `var(${vars['field.padding-inline']}, var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+        'min-height': `var(${vars['field.min-height']}, var(--token-semantic-field-control-min-height, var(--token-global-size-56, 56px)))`,
         'label': {
             'top': `var(${vars['field.label.top']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'padding-inline': `var(${vars['field.label.padding-inline']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'font-size': `var(${vars['field.label.font-size']}, var(--token-semantic-typography-body-small-font-size, var(--token-global-font-size-xs, 12px)))`,
             'line-height': `var(${vars['field.label.line-height']}, var(--token-semantic-typography-body-small-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`,
             'color': `var(${vars['field.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-            'color-focus': `var(${vars['field.label.color-focus']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+            'color-focus': `var(${vars['field.label.color-focus']}, var(--token-semantic-field-label-color-focus, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'input': {
             'padding-top': `var(${vars['field.input.padding-top']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
@@ -204,6 +223,9 @@ const token = defineTokens({
         'color-warning': `var(${vars['field.color-warning']}, var(--token-semantic-color-feedback-warning-text, var(--token-global-amber-900, oklch(0.414 0.112 68))))`,
         'support': {
             'line-height': `var(${vars['field.support.line-height']}, var(--token-semantic-typography-body-small-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`
+        },
+        'outline': {
+            'border-width-focus': `var(${vars['field.outline.border-width-focus']}, 3px)`
         }
     },
     'group': {
@@ -213,27 +235,27 @@ const token = defineTokens({
     'size': {
         'large': {
             'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-field, var(--token-global-size-40, 40px)))`,
-            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
-            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.large.line-height']}, calc(var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`,
+            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.large.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
                 'width': `var(${vars['size.large.action.width']}, var(--token-semantic-sizing-large-action, var(--token-global-size-32, 32px)))`
             }
         },
         'middle': {
             'height': `var(${vars['size.middle.height']}, var(--token-semantic-sizing-middle-field, var(--token-global-size-36, 36px)))`,
-            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.middle.line-height']}, calc(var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`,
+            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.middle.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
                 'width': `var(${vars['size.middle.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`
             }
         },
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-field, var(--token-global-size-32, 32px)))`,
-            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-control-padding-x-small, var(--token-global-space-2, 8px)))`,
-            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.small.line-height']}, calc(var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`,
+            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.small.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
                 'width': `var(${vars['size.small.action.width']}, var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)))`
             }

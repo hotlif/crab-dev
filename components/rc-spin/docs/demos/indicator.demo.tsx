@@ -4,6 +4,7 @@ export const meta = {
 };
 
 import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
 import Spin from '../../src/index.js';
 
 const rowStyle = css`
@@ -19,7 +20,7 @@ const dotsStyle = css`
     & > span {
         width: 8px;
         height: 8px;
-        background-color: oklch(0.22 0.005 286);
+        background-color: ${token.color.text.primary};
         border-radius: 50%;
         animation: rc-spin-demo-bounce 1.2s ease-in-out infinite;
     }

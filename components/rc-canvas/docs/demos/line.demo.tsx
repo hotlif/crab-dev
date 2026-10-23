@@ -1,3 +1,4 @@
+import token from "@crab-dev/rc-token-semantic";
 import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "任意角度直线",
@@ -12,9 +13,9 @@ const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
-    border: 1px solid var(--border-subtle, #e5e5e5);
-    border-radius: 8px;
-    background: #fafafa;
+    border: 1px solid ${token.color.border.default};
+    border-radius: ${token.shape.card};
+    background: ${token.color.workspace.content};
 `;
 
 // 以画布中心为原点放射一圈直线，直观展示任意角度支持

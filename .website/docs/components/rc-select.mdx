@@ -20,6 +20,10 @@ import { demos } from "../_generated/rc-select.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 标签与状态
+
+##### 标签与选择状态 — 对照三套主题下的静态或浮动标签、选择面板、错误及禁用状态；切换主题保留当前值。
+
 #### 基础与状态
 
 ##### 基础用法 — 单选模式下的基础选择
@@ -56,6 +60,14 @@ import { demos } from "../_generated/rc-select.js";
 
 在下拉列表中选择一个或多个值，支持搜索选项。
 
+
+### 三套主题的标签与选项
+
+Select 与 LineEdit 共用 L2 字段布局：MD3 使用 56px 字段、浮动标签、真实轮廓缺口或 Filled 底线；macOS 与 shadcn 使用静态上置标签及紧凑边框。静态标签不会在打开面板或已有值时移动，也不会遮住占位文字。输入、值、搜索草稿和展开状态在主题切换时保留。
+
+macOS 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背景，MD3 使用 tonal 选中表面。键盘活动项有独立轮廓，禁用项不可选；多选复用 Checkbox。错误文字通过描述关联和 alert 通告。请在“标签与选择状态”中检查空值、搜索、多选、错误和禁用，并切换浅色／深色。
+
+实际参考（2026-10-22）：[Material Web Select](https://material-web.dev/components/select/)、[Select 行为源码](https://github.com/material-components/material-web/blob/main/select/internal/select.ts)、[Outlined Field 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Select 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/select.tsx)。多选、虚拟滚动、warning 和桌面密度为项目扩展；macOS 视觉通过本库语义角色实现。
 
 ### 尺寸与外观
 
@@ -97,9 +109,9 @@ import { demos } from "../_generated/rc-select.js";
 | --- | --- |
 | Tab | 在选择器、尾部按钮及页面其他控件之间移动焦点；有可清除值时，尾部按钮切换为清除 |
 | 上 / 下方向键 | 展开列表并移动高亮选项 |
-| Enter | 展开列表，或选择当前高亮项 |
+| Enter | 展开列表，或选择当前高亮项；单选收起后焦点回到选择器 |
 | Space | 选择器收起时展开列表；搜索输入中可正常输入空格 |
-| Escape | 关闭列表 |
+| Escape | 关闭列表，焦点回到选择器 |
 | Backspace | 多选且搜索词为空时，删除最后一个已选标签 |
 | 清除按钮上的 Enter / Space | 清空选中值，焦点回到选择器 |
 

@@ -4,7 +4,8 @@ import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@crab-dev/css";
-import { useCallback, useEffect, useRef, useState, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref } from "react";
+import semanticToken from "@crab-dev/rc-token-semantic";
+import { useCallback, useEffect, useRef, useState, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref, type RefObject } from "react";
 
 import token, { vars } from "./token.js";
 import type { FlatOption, SelectOption } from "./types.js";
@@ -28,7 +29,8 @@ const controlStyle = css`
     box-sizing: border-box;
     border: ${token.root['border-width']} ${token.root['border-style']} ${token.root['border-color']};
     border-radius: ${token.root['border-radius']};
-    background-color: transparent;
+    background-color: ${token.root['background-color']};
+    box-shadow: ${token.root['box-shadow']};
     color: ${token.text.color};
     cursor: pointer;
     user-select: none;
@@ -49,7 +51,7 @@ const controlStyle = css`
     }
     @media (pointer: coarse) {
         && {
-            min-height: calc(${token.root.touch['min-height']} + 2 * ${token.root['border-width']});
+            min-height: max(${token.field['min-height']}, calc(${token.root.touch['min-height']} + 2 * ${token.root['border-width']}));
             padding-block: 0;
             ${vars['clear.width']}: ${token.clear.touch.width};
         }
@@ -64,88 +66,163 @@ const controlStyle = css`
     }
 `;
 
-const materialFieldStyle = css`
-    &&[data-appearance="filled"][data-labeled="true"] { min-height: ${token.field.filled['min-height']}; }
+const fieldControlStyle = css`
+    grid-column: 1;
+    grid-row: 1;
+    &[data-labeled="true"] { grid-row: ${semanticToken.field.layout['control-row']}; }
     &[data-appearance="filled"][data-labeled="true"] > [data-role="select-value"] {
-        padding-top: ${token.field.input['padding-top']};
-    }
-    &[data-labeled="true"][data-floating="false"]:not(:focus-within) > [data-role="select-value"] {
-        visibility: hidden;
+        padding-top: ${semanticToken.field.input['filled-padding-top']};
     }
     &[data-appearance="filled"] {
-        border-radius: ${token.root['border-radius']} ${token.root['border-radius']} 0 0;
-        border-color: transparent;
-        border-bottom-color: ${token.field.indicator['border-color']};
-        background: ${token.field.filled['background-color']};
-        box-shadow: none;
+        border-radius: ${semanticToken.field.filled['border-radius']};
+        border-width: ${semanticToken.field.filled['border-width']};
+        border-color: ${semanticToken.field.filled['border-color']};
+        background: ${semanticToken.field.filled['background-color']};
     }
     &[data-appearance="filled"]:hover:not([aria-disabled="true"]):not(:focus-within):not([aria-expanded="true"]) {
-        background: ${token.field.filled['background-color-hover']};
-        &:not([data-status]) {
-            border-color: transparent;
-            border-bottom-color: ${token.text.color};
-        }
+        background: ${semanticToken.field.filled['background-color-hover']};
+        &:not([data-status]) { border-color: ${semanticToken.field.filled['border-color-hover']}; }
     }
     &[data-appearance="filled"]:is(:focus-within, [aria-expanded="true"]) {
-        border-color: transparent;
-        border-bottom-color: ${token.root['border-color-focus']};
-        box-shadow: ${token.field.indicator['box-shadow-focus']};
+        border-color: ${semanticToken.field.filled['border-color-focus']};
+        box-shadow: ${semanticToken.field.filled['shadow-focus']};
     }
-    &&[data-status="error"] > [data-role="select-label"] { color: ${token.field['color-error']}; }
-    &&[data-status="warning"] > [data-role="select-label"] { color: ${token.field['color-warning']}; }
     &&[data-appearance="filled"][data-status="error"] {
-        border-color: transparent;
-        border-bottom-color: ${token.root['border-color-error']};
-        &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${token.field.indicator['box-shadow-error']}; }
+        border-color: ${token.root['border-color-error']};
+        &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${semanticToken.field.filled['shadow-error']}; }
     }
     &&[data-appearance="filled"][data-status="warning"] {
-        border-color: transparent;
-        border-bottom-color: ${token.root['border-color-warning']};
-        &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${token.field.indicator['box-shadow-warning']}; }
+        border-color: ${token.root['border-color-warning']};
+        &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${semanticToken.field.filled['shadow-warning']}; }
+    }
+    &&[data-appearance="outlined"][data-labeled="true"] {
+        border-color: ${semanticToken.field.outlined['border-color']};
+        &:hover:not([aria-disabled="true"]):not(:focus-within):not([aria-expanded="true"]) { border-color: ${semanticToken.field.outlined['border-color-hover']}; }
+        &:is(:focus-within, [aria-expanded="true"]) {
+            border-color: ${semanticToken.field.outlined['border-color-focus']};
+            box-shadow: ${semanticToken.field.outlined['shadow-focus']};
+        }
+        &[data-status="error"] {
+            border-color: ${semanticToken.field.outlined['border-color-error']};
+            &:hover { border-color: ${semanticToken.field.outlined['border-color-error']}; }
+            &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${semanticToken.field.outlined['shadow-error']}; }
+        }
+        &[data-status="warning"] {
+            border-color: ${semanticToken.field.outlined['border-color-warning']};
+            &:hover { border-color: ${semanticToken.field.outlined['border-color-warning']}; }
+            &:is(:focus-within, [aria-expanded="true"]) { box-shadow: ${semanticToken.field.outlined['shadow-warning']}; }
+        }
+    }
+    & > fieldset {
+        display: ${semanticToken.field.outline.display};
+        position: absolute;
+        inset: calc(0px - ${semanticToken.field.label.floating['line-height']} / 2) 0 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+        pointer-events: none;
+        border: ${token.root['border-width']} solid ${token.root['border-color']};
+        border-radius: inherit;
+    }
+    & > fieldset > legend {
+        visibility: hidden;
+        overflow: hidden;
+        max-width: 0;
+        height: ${semanticToken.field.label.floating['line-height']};
+        margin-inline-start: ${semanticToken.field.outline['legend-margin']};
+        padding: 0;
+        font-size: ${semanticToken.field.label.floating['font-size']};
+        line-height: 1;
+        white-space: nowrap;
+    }
+    &:is(:focus-within, [data-floating="true"]) > fieldset > legend {
+        max-width: 100%;
+        padding-inline: ${semanticToken.field.outline['legend-padding']};
+    }
+    &:hover:not([aria-disabled="true"]) > fieldset { border-color: ${token.root['border-color-hover']}; }
+    &:is(:focus-within, [aria-expanded="true"]) > fieldset {
+        border-color: ${token.root['border-color-focus']};
+        border-width: ${token.field.outline['border-width-focus']};
+    }
+    &&[data-status="error"] > fieldset { border-color: ${token.root['border-color-error']}; }
+    &&[data-status="warning"] > fieldset { border-color: ${token.root['border-color-warning']}; }
+    &&[aria-disabled="true"] {
+        opacity: 1;
+        color: ${semanticToken.field.disabled.color};
+        border-color: ${semanticToken.field.disabled['border-color']};
+        box-shadow: none;
+        & > fieldset { border-color: ${semanticToken.field.disabled['border-color']}; }
+        & [data-role="select-suffix"] { color: inherit; }
+        & [data-role="select-value"] { color: inherit; }
+        & [data-role="select-placeholder"], & [data-role="select-suffix"] button { color: inherit; }
+        & [data-role="select-suffix"] button span { color: inherit; }
+        &[data-appearance="filled"] {
+            border-color: ${semanticToken.field.disabled['filled-border-color']};
+            background: ${semanticToken.field.disabled['filled-background']};
+        }
+        &[data-appearance="outlined"][data-labeled="true"] { border-color: ${semanticToken.field.outlined['border-color']}; }
     }
     @media (forced-colors: active) {
         && { border-color: CanvasText; background: Canvas; }
+        & > fieldset { display: none; }
         &[aria-disabled="true"] { border-color: GrayText; }
     }
 `;
 
-const fieldLabelStyle = css`
-    position: absolute;
-    z-index: 1;
-    inset-inline-start: ${token.field['padding-inline']};
-    top: 50%;
-    transform: translateY(-50%);
-    max-width: calc(100% - 2 * ${token.field['padding-inline']} - ${token.clear.width} - ${token.field.gap});
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-    color: ${token.field.label.color};
-    font-size: ${token.size.middle['font-size']};
-    line-height: ${token.field.label['line-height']};
-    transition: ${token.field.transition};
-    [aria-busy="true"] > & {
-        max-width: calc(100% - 2 * ${token.field['padding-inline']} - ${token.icon.width} - ${token.clear.width} - 2 * ${token.field.gap});
+const fieldLayoutStyle = css`
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: ${semanticToken.field.layout['row-gap']};
+    min-width: 0;
+    & > [data-role="select-label"] {
+        display: inline-flex;
+        gap: ${semanticToken.field.required.gap};
+        position: relative;
+        z-index: 1;
+        grid-column: 1;
+        grid-row: ${semanticToken.field.layout['label-row']};
+        align-self: ${semanticToken.field.label.align};
+        justify-self: start;
+        min-width: 0;
+        max-width: calc(100% - 2 * ${token.field['padding-inline']} - ${token.clear.width} - ${token.field.gap});
+        margin-inline: ${semanticToken.field.label['margin-inline']};
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        pointer-events: none;
+        color: ${token.field.label.color};
+        font-size: ${semanticToken.field.label['font-size']};
+        line-height: ${semanticToken.field.label['line-height']};
+        transition: ${token.field.transition};
+        & > [data-required-marker] {
+            flex-shrink: 0;
+            order: ${semanticToken.field.required.order};
+            color: ${semanticToken.field.required.color};
+        }
+        & > [id] { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
     }
-    [data-appearance="outlined"]:is(:focus-within, [data-floating="true"]) > & {
-        top: 0;
-        transform: translateY(-50%);
-        padding-inline: ${token.field.label['padding-inline']};
-        background: ${token.root['background-color']};
-        font-size: ${token.field.label['font-size']};
-        max-width: calc(100% - 2 * ${token.field['padding-inline']});
+    &:is(:focus-within, [data-floating="true"]) > [data-role="select-label"] {
+        align-self: ${semanticToken.field.label.floating.align};
+        font-size: ${semanticToken.field.label.floating['font-size']};
+        line-height: ${semanticToken.field.label.floating['line-height']};
+        transform: ${semanticToken.field.label.floating.transform};
     }
-    [data-appearance="filled"]:is(:focus-within, [data-floating="true"]) > & {
-        top: calc(50% - (${token.size.middle['line-height']} + ${token.field.input['padding-top']}) / 2);
+    &[data-appearance="filled"]:is(:focus-within, [data-floating="true"]) > [data-role="select-label"] {
+        margin-block-start: ${semanticToken.field.label.filled.offset};
         transform: none;
-        padding: 0;
-        background: transparent;
-        font-size: ${token.field.label['font-size']};
     }
-    [data-appearance]:focus-within > &,
-    [data-appearance][aria-expanded="true"] > & { color: ${token.field.label['color-focus']}; }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    @media (forced-colors: active) { color: CanvasText; }
+    &:is(:focus-within, [data-open="true"]) > [data-role="select-label"] { color: ${token.field.label['color-focus']}; }
+    &[data-status="error"] > [data-role="select-label"] { color: ${token.field['color-error']}; }
+    &[data-status="warning"] > [data-role="select-label"] { color: ${token.field['color-warning']}; }
+    &[data-disabled="true"] > [data-role="select-label"] { color: ${semanticToken.field.disabled.color}; }
+    &[data-disabled="true"] > [data-role="select-label"] > [data-required-marker] { color: inherit; }
+    &[data-labeled="true"][data-floating="false"]:not(:focus-within) [data-role="select-placeholder"] { color: ${semanticToken.field.label['empty-placeholder-color']}; }
+    @media (prefers-reduced-motion: reduce) { & > [data-role="select-label"] { transition: none; } }
+    @media (forced-colors: active) {
+        & > [data-role="select-label"] { color: CanvasText; }
+        & > [data-role="select-label"] > [data-required-marker] { color: inherit; }
+        &[data-disabled="true"] > [data-role="select-label"] { color: GrayText; }
+    }
 `;
 
 const controlDisabledStyle = css`
@@ -310,17 +387,17 @@ const sizeMetricsMap = {
 
 // 单选按字段档位对齐；文本行高增大时允许高度随内容增长。
 const sizeHeightFixedMap = {
-    large: css`height: max(${token.size.large.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
-    middle: css`height: max(${token.size.middle.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
-    small: css`height: max(${token.size.small.height}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    large: css`height: max(${token.size.large.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    middle: css`height: max(${token.size.middle.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    small: css`height: max(${token.size.small.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
 };
 
 // 多选:必须用 min-height——tag 多到换行时若也用固定 height,换行的 tag 会直接
 // 溢出边框外(已用真实多标签场景验证过),因此多选场景保留可被内容撑高的弹性。
 const sizeHeightFlexibleMap = {
-    large: css`min-height: ${token.size.large.height};`,
-    middle: css`min-height: ${token.size.middle.height};`,
-    small: css`min-height: ${token.size.small.height};`,
+    large: css`min-height: max(${token.size.large.height}, ${token.field['min-height']});`,
+    middle: css`min-height: max(${token.size.middle.height}, ${token.field['min-height']});`,
+    small: css`min-height: max(${token.size.small.height}, ${token.field['min-height']});`,
 };
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
@@ -341,6 +418,7 @@ const ClearIcon = () => (
 
 interface SelectInputProps {
     ref?: Ref<HTMLDivElement>;
+    controlRef: RefObject<HTMLDivElement | null>;
     id: string;
     ariaLabel?: string;
     ariaLabelledBy?: string;
@@ -380,6 +458,7 @@ interface SelectInputProps {
 
 const SelectInput: FC<SelectInputProps> = ({
     ref,
+    controlRef,
     id,
     ariaLabel,
     ariaLabelledBy,
@@ -415,7 +494,6 @@ const SelectInput: FC<SelectInputProps> = ({
     onBlur,
 }) => {
     const { state, refs, dispatch } = useDropdownContext<HTMLDivElement>();
-    const controlRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const open = state.open;
     const [hovered, setHovered] = useState(false);
@@ -446,7 +524,7 @@ const SelectInput: FC<SelectInputProps> = ({
 
             setRef(ref, node);
         },
-        [refs.setReference, ref],
+        [refs.setReference, ref, controlRef],
     );
 
     useEffect(() => {
@@ -556,6 +634,7 @@ const SelectInput: FC<SelectInputProps> = ({
             case "Escape":
                 if (open) {
                     e.preventDefault();
+                    controlRef.current?.focus();
                     dispatch({ type: "setOpen", payload: false });
                 }
 
@@ -643,6 +722,7 @@ const SelectInput: FC<SelectInputProps> = ({
                     {multiple && renderTags()}
                     <RcLineEdit
                         ref={inputRef}
+                        aria-label={ariaLabel ?? label ?? placeholder}
                         bordered={false}
                         value={searchText}
                         placeholder={multiple && selectedOptions.length > 0 ? "" : placeholder}
@@ -656,14 +736,14 @@ const SelectInput: FC<SelectInputProps> = ({
 
         if (multiple) {
             if (selectedOptions.length === 0) {
-                return <span className={placeholderStyle}>{placeholder}</span>;
+                return <span data-role="select-placeholder" className={placeholderStyle}>{placeholder}</span>;
             }
 
             return renderTags();
         }
 
         if (selectedOptions.length === 0) {
-            return <span className={placeholderStyle}>{placeholder}</span>;
+            return <span data-role="select-placeholder" className={placeholderStyle}>{placeholder}</span>;
         }
 
         return <span className={singleValueStyle}>{selectedOptions[0]?.label}</span>;
@@ -675,6 +755,10 @@ const SelectInput: FC<SelectInputProps> = ({
         open && highlightIndex >= 0 ? `${listboxId}-option-${highlightIndex}` : undefined;
 
     return (
+        <div className={fieldLayoutStyle} data-labeled={Boolean(label)} data-appearance={appearance}
+            data-floating={Boolean(open || selectedOptions.length > 0 || searchText)} data-open={open}
+            data-status={status} data-disabled={disabled || undefined}>
+        {label && <span data-role="select-label"><span id={labelId}>{label}</span>{required && <span data-required-marker="" aria-hidden="true">*</span>}</span>}
         <div
             id={id}
             role="combobox"
@@ -704,7 +788,7 @@ const SelectInput: FC<SelectInputProps> = ({
                 disabled && controlDisabledStyle,
                 status === "error" && controlErrorStyle,
                 status === "warning" && controlWarningStyle,
-                materialFieldStyle,
+                fieldControlStyle,
             )}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
@@ -719,7 +803,7 @@ const SelectInput: FC<SelectInputProps> = ({
                 }
             }}
         >
-            {label && <span id={labelId} data-role="select-label" className={fieldLabelStyle}>{label}{required ? " *" : ""}</span>}
+            {label && appearance === "outlined" && <fieldset aria-hidden="true"><legend>{label}{required ? " *" : ""}</legend></fieldset>}
             <div data-role="select-value" className={valueWrapStyle}>{renderContent()}</div>
             <span data-role="select-suffix" className={suffixWrapStyle}>
                 {loading ? (
@@ -748,6 +832,7 @@ const SelectInput: FC<SelectInputProps> = ({
                     onKeyDown={handleClearKeyDown}
                 />
             </span>
+        </div>
         </div>
     );
 };

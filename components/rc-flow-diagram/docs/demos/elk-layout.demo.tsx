@@ -1,11 +1,12 @@
-import { diagramViewportStyle } from "../demo-layout.js";
+import { diagramViewportStyle, demoStackStyle, demoToolbarStyle, demoHintStyle, demoLegendStyle, demoLegendItemStyle, demoSwatchStyle } from "../demo-layout.js";
+import Select from '@crab-dev/rc-select';
 export const meta = {
     title: "ELK 自动图布局",
     description: "FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。",
 };
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import FlowDiagram, { FlowNode, FlowEdge } from '../../src/index.js';
+import { useEffect, useRef, useState } from 'react';
+import FlowDiagram, { FlowNode, FlowEdge, DEFAULT_FLOW_DIAGRAM_PALETTE } from '../../src/index.js';
 import type { FlowDiagramControls, ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
 
 // ─── 图数据（软件架构示例） ────────────────────────────────────────────────────
@@ -71,17 +72,6 @@ const ELK_EDGES: ElkLayoutEdge[] = [
     { id: 'e14', source: 'auth',     target: 'cache' },
 ];
 
-// ─── 样式常量 ──────────────────────────────────────────────────────────────────
-
-const labelStyle: CSSProperties = {
-    fontSize: 13, color: '#475569', display: 'flex', alignItems: 'center', gap: 6,
-};
-const controlStyle: CSSProperties = {
-    fontSize: 13, padding: '4px 8px', borderRadius: 6,
-    border: '1px solid #d4d9e0', background: '#fff', color: '#1e293b',
-    cursor: 'pointer', outline: 'none',
-};
-
 // ─── 布局完成后自动 fitView ───────────────────────────────────────────────────
 
 function AutoFitOnLayout({ loading, controls }: { loading: boolean; controls: FlowDiagramControls }) {
@@ -123,25 +113,18 @@ export default function ElkLayoutDemo() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div className={demoStackStyle}>
             {/* 工具栏 */}
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-                <label style={labelStyle}>
-                    算法
-                    <select value={algo} onChange={e => handleAlgoChange(e.target.value)} style={controlStyle}>
-                        <option value="layered">Layered（层次化）</option>
-                        <option value="mrtree">Mr. Tree（树形）</option>
-                        <option value="stress">Stress（力导向）</option>
-                    </select>
-                </label>
+            <div className={demoToolbarStyle}>
+                <Select label="算法" value={algo} onChange={value => { if (value) handleAlgoChange(value); }}
+                    options={[
+                        { value: 'layered', label: 'Layered（层次化）' },
+                        { value: 'mrtree', label: 'Mr. Tree（树形）' },
+                        { value: 'stress', label: 'Stress（力导向）' },
+                    ]} />
                 {algo !== 'stress' && (
-                    <label style={labelStyle}>
-                        方向
-                        <select value={dir} onChange={e => handleDirChange(e.target.value)} style={controlStyle}>
-                            <option value="RIGHT">→ 从左到右</option>
-                            <option value="DOWN">↓ 从上到下</option>
-                        </select>
-                    </label>
+                    <Select label="方向" value={dir} onChange={value => { if (value) handleDirChange(value); }}
+                        options={[{ value: 'RIGHT', label: '→ 从左到右' }, { value: 'DOWN', label: '↓ 从上到下' }]} />
                 )}
             </div>
 
@@ -156,7 +139,7 @@ export default function ElkLayoutDemo() {
                     routingOptions={{ margin: 12, terminalStub: 26 }}
                     width={820}
                     height={520}
-                    style={{ border: '1px solid #e2e6ec', borderRadius: 10, background: '#f7f8fa' }}
+
                 >
                     {({ nodeRects, routes, crossings, loading, controls }) => (
                         <>
@@ -181,6 +164,7 @@ export default function ElkLayoutDemo() {
                                         width={NODE_W} height={NODE_H}
                                         label={meta.label}
                                         fill={CATEGORY_FILL[meta.category]}
+                                        labelColor={DEFAULT_FLOW_DIAGRAM_PALETTE.nodeLabel}
                                         stroke={CATEGORY_STROKE[meta.category]}
                                         radius={10}
                                         draggable
@@ -198,17 +182,14 @@ export default function ElkLayoutDemo() {
             </div>
 
             {/* 图例 */}
-            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+            <div className={demoLegendStyle}>
                 {(Object.entries(CATEGORY_LABEL) as [Category, string][]).map(([cat, label]) => (
-                    <span key={cat} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#475569' }}>
-                        <span style={{
-                            width: 12, height: 12, borderRadius: 4,
-                            background: CATEGORY_FILL[cat], display: 'inline-block', flexShrink: 0,
-                        }} />
+                    <span key={cat} className={demoLegendItemStyle}>
+                        <svg viewBox="0 0 12 12" className={demoSwatchStyle} aria-hidden="true"><rect width="12" height="12" fill={CATEGORY_FILL[cat]} /></svg>
                         {label}
                     </span>
                 ))}
-                <span style={{ fontSize: 12, color: '#94a3b8', marginLeft: 'auto' }}>
+                <span className={demoHintStyle}>
                     拖拽节点移动 · 边自动绕开节点 · 滚轮缩放
                 </span>
             </div>

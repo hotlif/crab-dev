@@ -26,7 +26,7 @@ import { demos } from "../_generated/rc-skeleton.js";
 
 ##### 组合占位 — 搭配不同 `variant` 可以拼出卡片、列表项等复合占位形态。
 
-##### 加载完成 — `loading=false` 时直接渲染 `children`，便于包裹真实内容。
+##### 加载完成 — `loading=false` 时直接渲染 `children`。点击重新加载，观察占位与真实内容的切换。
 
 ##### 形状变体 — 通过 `variant` 选择占位形状：`text` / `rect` / `circle` / `button` / `avatar` / `image`。
 
@@ -56,6 +56,14 @@ import { demos } from "../_generated/rc-skeleton.js";
 - `width` / `height` 同时支持数字（自动补 `px`）与字符串（如 `"50%"`）。
 - `loading=false` 时直接渲染 `children`，便于嵌入到数据驱动的分支里。
 - 尊重 `prefers-reduced-motion`，自动禁用非必要动画。
+
+
+
+### 三套设计风格
+
+骨架的中性填充、控件圆角与尺寸随当前语义主题变化，波动和呼吸模式均尊重减少动态效果偏好。Skeleton 属于加载占位模式扩展，不能替代实际加载状态的可访问通告。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
 ### 适用场景
 

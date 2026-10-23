@@ -51,7 +51,7 @@ import { demos } from "../_generated/rc-card.js";
 将标题、封面、正文和操作组织为独立的信息单元。
 
 
-省略 `variant` 时随统一设计风格切换：Material 使用浮起表面与阴影，shadcn 使用细描边与轻量表面。显式设置 `elevated`、`outlined` 或 `filled` 可固定外观。
+省略 `variant` 时随统一设计风格切换：macOS 使用中性表面与轻阴影，Material 使用浮起表面与阴影，shadcn 使用细描边与轻量表面。显式设置 `elevated`、`outlined` 或 `filled` 可固定卡片层级，颜色与形状仍随主题变化。
 
 三种变体参考 [M3 卡片](https://m3.material.io/components/cards/overview)及 [Material Web Outlined Card 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-outlined-card.scss)。Outlined 采用零级静止阴影、1px 描边和中等圆角；shadcn 风格通过共享语义令牌选择细描边默认外观。
 
@@ -82,6 +82,14 @@ import { demos } from "../_generated/rc-card.js";
     <Card.Footer><Button>确认</Button></Card.Footer>
 </Card>
 ```
+
+
+
+### 三套设计风格
+
+默认卡片随设计风格变化：macOS 使用银灰表面、轻阴影与中等留白；Material 使用 12px 圆角和默认 16px 内容内边距；shadcn 使用细描边和更宽的 24px 内容内边距。small / large 是本项目的密度扩展，显式 variant 继续表达 elevated / outlined / filled 的层级。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
 ### 适用场景
 

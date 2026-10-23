@@ -24,11 +24,17 @@ import { demos } from "../_generated/rc-tabs.js";
 
 ##### 卡片形态 — type='card' 提供更清晰的容器边界，适用于表单或配置区。
 
+##### 居中标签 — 标签未溢出时在可用区域居中；溢出时仍可访问起始标签。
+
 ##### 可关闭标签 — 开启 closable 并监听 onTabClose 管理标签页的增删。
+
+##### 三套风格与面板切换 — Material 使用主标签页指示条，macOS 和 shadcn 使用容器内的选中块；键盘操作一致。
+
+##### 溢出标签 — 初始激活最后一项，自动滚动标签条以显示当前位置。
 
 ##### 药丸形态 — type='pill' 提供紧凑的切换样式，常用于工具栏或筛选面板。
 
-##### 带图标与额外内容 — 通过 icon 为标签添加视觉标识，tabBarExtraContent 在右侧注入操作。
+##### 带图标与额外内容 — 通过 icon 为标签添加视觉标识，tabBarExtraContent 注入刷新操作，当前面板显示刷新次数。
 
 </div>
 
@@ -55,8 +61,17 @@ import { demos } from "../_generated/rc-tabs.js";
 - 支持 `tabBarExtraContent` 在左右两侧注入自定义内容。
 - 支持 `destroyInactiveTabPane` 按需销毁未激活面板。
 - 键盘可达：`←` / `→` / `Home` / `End` 切换、`Enter` / `Space` 激活、`Delete` 关闭可关闭项。
-- `line` 使用 Material 3 主标签页样式：48px 默认高度、随标签文字宽度变化的 3px 指示条，以及独立的悬停、聚焦与按压状态层。
+- Material 下 `line` 使用主标签页样式：48px 默认高度、24px 行内图标、随标签文字宽度变化的 3px 指示条，以及独立的悬停、聚焦与按压状态层。`small` 为显式紧凑选项。
+- `centered` 在标签未溢出时居中。初始化、外部切换、列表变化和尺寸变化时，活动标签会保持可见。
 - `card` / `pill` 为业务扩展，保留原有 API，并沿用相同的语义色、状态层与键盘行为。
+
+### 三套风格
+
+默认 `line` 是兼容的 API 名称：Material 呈现带文字下划线指示器的 primary tabs；macOS 使用 2px 轨道内边距和带阴影的选中块；shadcn 使用 muted 容器、3px 内边距和表面色选中块。后两种风格不叠加 Material 的下划线。显式 `card` 与 `pill` 是业务扩展，不宣称为 M3 primary tabs。
+
+选择不同设计只改变 L2 视觉角色；`tablist` / `tab` / `tabpanel` 的关联、禁用项跳过、方向键切换、溢出可见性与关闭操作保持一致。浅色和深色对照演示可直接检查各主题状态。
+
+参考核对日期：2026-10-22。Material 对照 [M3 Guidelines](https://m3.material.io/components/tabs/guidelines)、[Specs](https://m3.material.io/components/tabs/specs)、[Accessibility](https://m3.material.io/components/tabs/accessibility)、[Material Web 文档及示例](https://material-web.dev/components/tabs/)、[Tabs 交互实现](https://github.com/material-components/material-web/blob/main/tabs/internal/tabs.ts)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)和 [v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-primary-navigation-tab.scss)。macOS 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的页内选择表现；shadcn 对照 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)与 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/tabs.tsx)。
 
 ### 适用场景
 

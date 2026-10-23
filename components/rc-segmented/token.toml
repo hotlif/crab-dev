@@ -10,8 +10,8 @@ imports = [
 # ─── 容器（track） ──────────────────────────────────────────────────────────
 # Baseline M3 outlined segments share a border; the selected segment owns its fill.
 
-track.background-color = "transparent"
-track.border-radius = "$ref(shape.full)"
+track.background-color = "$ref(navigation.segment.track-background)"
+track.border-radius = "$ref(navigation.segment.track-radius)"
 root.font-weight = "$ref(typography.label.font-weight)"
 root.font-family = "$ref(typography.label.large.font-family)"
 root.line-height = "$ref(typography.label.large.line-height)"
@@ -19,47 +19,47 @@ root.line-height = "$ref(typography.label.large.line-height)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.height = "$ref(sizing.large.control)"
+size.large.height = "$ref(navigation.segment.large-height)"
 size.large.font-size = "$ref(typography.label.large.font-size)"
 size.large.padding-inline = "$ref(sizing.large.padding)"
 size.large.gap          = "$ref(space.component-gap)"
-size.large.track.padding = "0px"
-size.large.border-radius = "0px"
+size.large.track.padding = "$ref(navigation.segment.track-padding)"
+size.large.border-radius = "$ref(navigation.segment.item-radius)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
-size.middle.height = "$ref(sizing.middle.control)"
+size.middle.height = "$ref(navigation.segment.middle-height)"
 size.middle.font-size = "$ref(typography.label.large.font-size)"
 size.middle.padding-inline = "$ref(sizing.middle.padding)"
 size.middle.gap         = "$ref(space.component-gap)"
-size.middle.track.padding = "0px"
-size.middle.border-radius = "0px"
+size.middle.track.padding = "$ref(navigation.segment.track-padding)"
+size.middle.border-radius = "$ref(navigation.segment.item-radius)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.height = "$ref(sizing.small.control)"
+size.small.height = "$ref(navigation.segment.small-height)"
 size.small.font-size = "$ref(typography.label.large.font-size)"
 size.small.padding-inline = "$ref(sizing.small.padding)"
 size.small.gap          = "$ref(space.component-gap)"
-size.small.track.padding = "0px"
-size.small.border-radius = "0px"
+size.small.track.padding = "$ref(navigation.segment.track-padding)"
+size.small.border-radius = "$ref(navigation.segment.item-radius)"
 
 
 # ─── 选项文本 ────────────────────────────────────────────────────────────────
 
 item.color          = "$ref(color.text.primary)"
 item.color-hover    = "$ref(color.text.primary)"
-item.color-selected = "$ref(color.secondary.on-container)"
+item.color-selected = "$ref(navigation.segment.selected-color)"
 item.color-disabled = "color-mix(in srgb, $ref(color.text.primary) calc(var(--segmented-root-opacity-disabled, $ref(opacity.disabled)) * 100%), transparent)"
 item.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 12%, transparent)"
 
 
 # ─── 滑块（thumb） ──────────────────────────────────────────────────────────
 
-thumb.background-color = "$ref(color.secondary.container)"
-thumb.box-shadow = "none"
+thumb.background-color = "$ref(navigation.segment.selected-background)"
+thumb.box-shadow = "$ref(navigation.segment.selected-shadow)"
 thumb.transition = "transform $ref(motion.spatial.fast), width $ref(motion.spatial.fast)"
 
 
@@ -86,7 +86,10 @@ interaction.outline-color-focus = "$ref(color.focus.ring)"
 interaction.outline-width-focus = "2px"
 interaction.outline-offset-focus = "2px"
 interaction.transition = "$ref(motion.interaction)"
-track.border-color = "$ref(color.border.default)"
+track.border-color = "$ref(navigation.segment.track-border)"
+item.border-color = "$ref(navigation.segment.divider)"
+item.check.display = "$ref(navigation.segment.check-display)"
+item.icon.display-selected = "$ref(navigation.segment.selected-icon-display)"
 track.border-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 12%, transparent)"
 item.state-layer.opacity-hover = "$ref(state.opacity.hover)"
 item.state-layer.opacity-focus = "$ref(state.opacity.focus)"

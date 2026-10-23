@@ -160,6 +160,7 @@ const panel = css`border-radius: ${token.radius.lg};`;
 | 决策 | 规则 | 边界 |
 | --- | --- | --- |
 | 普通界面文字 | 优先使用 `font.family.body` 等语义角色 | L1 sans 声明 Inter 等回退，不负责下载字体 |
+| 系统界面字体 | `font.family.system` 提供 macOS 优先的系统字体栈 | 供 macOS 风格映射，Windows 自动回退 Segoe UI 和本机中文字体 |
 | 代码、令牌键、机器标识 | 使用 mono 基元或项目对应语义角色 | 当前 mono 列表包含 Geist Mono 等；未安装时继续回退 |
 | 中文混排 | 检查系统回退后的字面大小、标点与基线 | 不能根据拉丁字体名称声称已包含中文 |
 | 标题与标签 | 用层级与字重共同区分，避免所有内容加粗 | 缺少真实字重时浏览器可能合成；需在目标设备验收 |

@@ -1,10 +1,11 @@
 import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "文字渲染",
-    description: "文字经 OffscreenCanvas 生成字形位图并上传为 R8 纹理，在 GPU 端以 alpha mask 着色。",
+    description: "首行文字默认跟随语义主题；其余文字展示显式颜色与图形叠加。文字经 OffscreenCanvas 生成字形位图，在 GPU 端以 alpha mask 着色。",
 };
 
 import { css, cx } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 import { Canvas, Text, Rect } from "../../src/index.js";
 
 // Wake 0.1.38: preserve both static style bindings across the imported cx composition.
@@ -12,19 +13,19 @@ const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
-    border: 1px solid var(--border-subtle, #e5e5e5);
+    border: 1px solid ${token.color.border.subtle};
     border-radius: 8px;
-    background: #fafafa;
+    background: ${token.color.surface.content};
 `;
 
 const TextDemo = () => {
     return (
         <div className={cx.call(undefined, wrapStyle, canvasViewportStyle)} role="region" aria-label={`${meta.title}画布，可横向滚动`} tabIndex={0}>
             <Canvas width={420} height={200}>
-                <Text x={24} y={50} fontSize={28} fill="oklch(0.2 0 0)">Hello WebGL</Text>
+                <Text x={24} y={50} fontSize={28}>Hello WebGL</Text>
                 <Text x={24} y={95} fontSize={18} fill="oklch(0.6 0.2 255)">纯 GPU 文字渲染</Text>
                 <Rect x={24} y={120} width={200} height={40} radius={8} fill="oklch(0.62 0.21 28)" />
-                <Text x={40} y={148} fontSize={18} fill="oklch(0.98 0 0)">叠加在图形之上</Text>
+                <Text x={40} y={140} fontSize={18} fill="oklch(0.98 0 0)" textBaseline="middle">叠加在图形之上</Text>
             </Canvas>
         </div>
     );

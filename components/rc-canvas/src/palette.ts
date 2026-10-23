@@ -34,7 +34,7 @@ export interface CanvasPalette {
     minimapImageFallback: string;
 }
 
-/** 与既有硬编码默认值逐项一致，省略 palette 时不改变视觉。 */
+/** 旧版字面量色板；显式传入时可保留原有绘制视觉。 */
 export const DEFAULT_CANVAS_PALETTE: CanvasPalette = {
     foreground: '#000000',
     grid: '#b0b0b0',
@@ -78,7 +78,7 @@ export const SEMANTIC_CANVAS_PALETTE: CanvasPalette = {
 };
 
 export function mergeCanvasPalette(palette?: Partial<CanvasPalette>): CanvasPalette {
-    return palette ? { ...DEFAULT_CANVAS_PALETTE, ...palette } : DEFAULT_CANVAS_PALETTE;
+    return palette ? { ...SEMANTIC_CANVAS_PALETTE, ...palette } : SEMANTIC_CANVAS_PALETTE;
 }
 
 const COLOR_FIELDS = [
@@ -202,9 +202,21 @@ function serializeKnownColor(value: string): string | null {
     if (named === 'transparent') return 'transparent';
     if (named === 'white') return 'rgba(255, 255, 255, 1)';
     if (named === 'black') return 'rgba(0, 0, 0, 1)';
+    // 与 transparent 的预乘 alpha 混色保留原色坐标，只缩放 alpha。
+    // 直接处理语义状态层可避开 CSSOM 对嵌套 OKLCh 的重复解析。
+    const transparentMix = /^color-mix\(in oklch,\s*(.+)\s+(\d*\.?\d+)%,\s*transparent\)$/i.exec(normalized);
+    if (transparentMix) {
+        const amount = Number(transparentMix[2]) / 100;
+        const source = serializeKnownColor(transparentMix[1]);
+        if (source && amount >= 0 && amount <= 1) {
+            const [red, green, blue, alpha] = parseColor(source);
+            return `rgba(${Math.round(red * 255)}, ${Math.round(green * 255)}, ${Math.round(blue * 255)}, ${alpha * amount})`;
+        }
+    }
     const isHex = /^#(?:[\da-f]{3}|[\da-f]{6}|[\da-f]{8})$/i.test(normalized);
+    const isNumericRgb = /^rgba?\(\s*\d*\.?\d+(?:\s*,\s*\d*\.?\d+){2}(?:\s*,\s*\d*\.?\d+)?\s*\)$/i.test(normalized);
     const isOklch = /^oklch\(\s*\d*\.?\d+\s+\d*\.?\d+\s+-?\d*\.?\d+(?:deg)?(?:\s*\/\s*\d*\.?\d+)?\s*\)$/i.test(normalized);
-    if (!isHex && !isOklch) return null;
+    if (!isHex && !isNumericRgb && !isOklch) return null;
     const [red, green, blue, alpha] = parseColor(normalized);
     if (![red, green, blue, alpha].every(Number.isFinite)) return null;
     return `rgba(${Math.round(red * 255)}, ${Math.round(green * 255)}, ${Math.round(blue * 255)}, ${alpha})`;

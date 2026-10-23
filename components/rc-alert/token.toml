@@ -9,13 +9,13 @@ imports = [
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction)"
-root.padding = "$ref(space.card-padding)"
-root.border-radius = "$ref(shape.medium)"
+root.padding = "$ref(feedback.banner.padding)"
+root.border-radius = "$ref(feedback.banner.shape)"
 root.font-size = "$ref(typography.body.font-size)"
 root.line-height = "$ref(typography.body.line-height)"
 
 # ─── 标题 ────────────────────────────────────────────────────────────────────
-title.font-size = "$ref(font.size.subhead)"
+title.font-size = "$ref(feedback.banner.title-font-size)"
 title.font-weight = "$ref(typography.label.font-weight)"
 title.margin-bottom = "$ref(space.component-gap)"
 
@@ -32,26 +32,26 @@ close.color-hover = "$ref(color.text.primary)"
 # ─── Success ─────────────────────────────────────────────────────────────────
 success.color = "$ref(color.feedback.success.text)"
 success.icon.color = "$ref(color.feedback.success.icon)"
-success.background-color = "$ref(color.feedback.success.background)"
-success.border-color = "$ref(color.feedback.success.border)"
+success.background-color = "color-mix(in oklab, $ref(color.feedback.success.background) $ref(feedback.banner.tint), $ref(color.surface.content))"
+success.border-color = "color-mix(in oklab, $ref(color.feedback.success.border) $ref(feedback.banner.border-tint), $ref(color.border.subtle))"
 
 # ─── Warning ─────────────────────────────────────────────────────────────────
 warning.color = "$ref(color.feedback.warning.text)"
 warning.icon.color = "$ref(color.feedback.warning.icon)"
-warning.background-color = "$ref(color.feedback.warning.background)"
-warning.border-color = "$ref(color.feedback.warning.border)"
+warning.background-color = "color-mix(in oklab, $ref(color.feedback.warning.background) $ref(feedback.banner.tint), $ref(color.surface.content))"
+warning.border-color = "color-mix(in oklab, $ref(color.feedback.warning.border) $ref(feedback.banner.border-tint), $ref(color.border.subtle))"
 
 # ─── Error ───────────────────────────────────────────────────────────────────
 root.color-error = "$ref(color.feedback.error.text)"
 icon.color-error = "$ref(color.feedback.error.icon)"
-root.background-color-error = "$ref(color.feedback.error.background)"
-root.border-color-error = "$ref(color.feedback.error.border)"
+root.background-color-error = "color-mix(in oklab, $ref(color.feedback.error.background) $ref(feedback.banner.tint), $ref(color.surface.content))"
+root.border-color-error = "color-mix(in oklab, $ref(color.feedback.error.border) $ref(feedback.banner.border-tint), $ref(color.border.subtle))"
 
 # ─── Info ────────────────────────────────────────────────────────────────────
 info.color = "$ref(color.feedback.info.text)"
 info.icon.color = "$ref(color.feedback.info.icon)"
-info.background-color = "$ref(color.feedback.info.background)"
-info.border-color = "$ref(color.feedback.info.border)"
+info.background-color = "color-mix(in oklab, $ref(color.feedback.info.background) $ref(feedback.banner.tint), $ref(color.surface.content))"
+info.border-color = "color-mix(in oklab, $ref(color.feedback.info.border) $ref(feedback.banner.border-tint), $ref(color.border.subtle))"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"

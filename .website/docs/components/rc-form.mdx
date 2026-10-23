@@ -20,11 +20,11 @@ import { demos } from "../_generated/rc-form.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 基础用法 — 字段标签与校验交给 LineEdit 呈现，随全局切换 Material 浮动标签或 shadcn 左侧标签与紧凑输入同排的布局，并保留表单实例操作。
+##### 基础用法 — 字段标签与校验交给 LineEdit 呈现，随全局切换 Material 浮动标签或 macOS、shadcn 的同排静态标签；表单实例操作的结果直接显示在下方。
 
 ##### 搭配 crab-dev 编辑器 — 将 rc-form 与同体系的 rc-line-edit / rc-select / rc-checkbox / rc-radio / rc-switch / rc-slider / rc-button 组合，演示生态内循环。
 
-##### Filled 填充字段 — 同一表单统一使用 filled。Material 呈现 56px 填充容器、浮动标签和焦点底线；切换 shadcn 后，左侧标签与右侧紧凑输入保持同排。
+##### Filled 填充字段 — 同一表单统一使用 filled。Material 呈现 56px 填充容器、浮动标签和焦点底线；切换 macOS 或 shadcn 后，左侧标签与右侧紧凑输入保持同排。
 
 ##### 字段校验 — 使用 required 与自定义 rules 组合 rc-line-edit / rc-select，演示同步与异步校验。
 
@@ -39,6 +39,14 @@ import { demos } from "../_generated/rc-form.js";
 管理字段值、校验规则和提交流程，并为字段布局与错误反馈提供统一结构。
 
 
+### 三套主题中的组合布局
+
+Form 与字段共用布局合约。MD3 的控件标签使用浮动结构；macOS 与 shadcn 使用静态标签与紧凑间距。使用 `labelPlacement="control"` 时由支持标签的字段负责名称、辅助说明与错误信息；普通外置标签仍适合 Checkbox、Switch 等组合控件。
+
+表单不自行添加第二圈输入焦点或在主题切换时重建字段。LineEdit、NumberEdit、Select 的字段边界、动作和反馈由各自组件同步继承；验证规则及输入值不变。
+
+参考：[Material Web 字段标签与验证](https://material-web.dev/components/text-field/)、[Apple Text fields 的布局与 Tab 顺序](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[shadcn Input 字段组合](https://ui.shadcn.com/docs/components/input)。核对日期：2026-10-22。
+
 ### 何时使用
 
 - 收集用户信息、创建记录或编辑配置。
@@ -49,15 +57,15 @@ import { demos } from "../_generated/rc-form.js";
 - 每个字段都使用可见 `<label>`；关联 ID 由 `useId` 生成，不使用占位符代替标签。
 - 帮助文本和错误信息通过 `aria-describedby` 关联，错误控件同时设置 `aria-invalid`。
 - 必填、格式和范围限制应在提交前说明；错误摘要需要能把焦点带回对应字段。
-- 必填标记与校验错误分开呈现：shadcn 使用前置红色星号，Material 使用跟随标签的后置星号。标记不进入字段的可访问名称，文本字段通过原生 `required` 表达必填状态；只有校验失败时才显示错误反馈。
+- 必填标记与校验错误分开呈现：macOS 与 shadcn 使用前置红色星号，Material 使用跟随标签的后置星号。标记不进入字段的可访问名称，文本字段通过原生 `required` 表达必填状态；只有校验失败时才显示错误反馈。
 - 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
 
 
-文本字段将标签交给编辑器呈现：`Item labelPlacement="control"` 与 `LineEdit` 配合时，Material Design 3 使用 56px 字段和浮动标签；shadcn 将标签放在左侧、紧凑输入放在右侧，两者位于同一行，表单内的标签列统一对齐。通过文档顶部的外观菜单切换设计风格，无需改写表单。`theme` 单独控制明暗，`size` 保持独立；Material 文本字段保留标签所需的 56px 基础高度。
+文本字段将标签交给编辑器呈现：`Item labelPlacement="control"` 与 `LineEdit` 配合时，Material Design 3 使用 56px 字段和浮动标签；macOS 与 shadcn 将标签放在左侧、紧凑输入放在右侧，两者位于同一行，表单内的标签列统一对齐。通过文档顶部的外观菜单切换设计风格，无需改写表单。`theme` 单独控制明暗，`size` 保持独立；Material 文本字段保留标签所需的 56px 基础高度。
 
-同一业务表单应统一选择填充或描边。基础与校验示例使用默认描边；Filled 示例在独立表单中展示填充容器、浮动标签和焦点底线。帮助与校验文字直接呈现在输入下方，在 shadcn 中与右侧输入列对齐。
+同一业务表单应统一选择填充或描边。基础与校验示例使用默认描边；Filled 示例在独立表单中展示填充容器、浮动标签和焦点底线。帮助与校验文字直接呈现在输入下方，在 macOS 与 shadcn 中与右侧输入列对齐。
 
 
 
@@ -66,7 +74,7 @@ import { demos } from "../_generated/rc-form.js";
 
 `Item` 默认绑定 value/onChange。原生输入与 LineEdit 使用 `binding="event"`，Switch / Checkbox 使用 `binding="checked"`，日期选择器使用 `binding="valueChange"`；原有子组件事件会继续执行。特殊协议可配置 valuePropName、trigger、getValueFromEvent，或使用函数 children 接收字段状态和 onChange。
 
-`labelPlacement="control"` 要求字符串 `label`，并将标签、必填状态、辅助说明、错误文字和无障碍属性传给编辑器，由 `LineEdit` / `TextEdit` 根据全局风格呈现。Material 使用字段内的浮动标签，shadcn 在表单中使用左侧标签与右侧输入的同排布局；独立使用的 shadcn 文本字段仍将标签放在输入框上方。该模式只保留编辑器的一份标签，不再额外显示标签或末尾错误提示图标。自定义编辑器应透传 `id`、`aria-invalid`、`aria-describedby`、`label`、`required`、`errorText` 与 `supportingText`。默认布局继续使用外部标签，适合 Select、Checkbox 等控件。
+`labelPlacement="control"` 要求字符串 `label`，并将标签、必填状态、辅助说明、错误文字和无障碍属性传给编辑器，由 `LineEdit` / `TextEdit` 根据全局风格呈现。Material 使用字段内的浮动标签，macOS 与 shadcn 在表单中使用左侧标签与右侧输入的同排布局；独立使用的 macOS 与 shadcn 文本字段仍将标签放在输入框上方。该模式只保留编辑器的一份标签，不再额外显示标签或末尾错误提示图标。自定义编辑器应透传 `id`、`aria-invalid`、`aria-describedby`、`label`、`required`、`errorText` 与 `supportingText`。默认布局继续使用外部标签，适合 Select、Checkbox 等控件。
 
 ```tsx
 <Item
@@ -89,7 +97,7 @@ Form 默认设置 `noValidate`，将校验交给 `required` / `rules` 和字段�
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| `labelPlacement` | `'external' \| 'control'` | `'external'` | 外部标签使用表单布局；`control` 由字段组件呈现标签与反馈，Material 为浮动标签，shadcn 在表单中为左侧同排标签。 |
+| `labelPlacement` | `'external' \| 'control'` | `'external'` | 外部标签使用表单布局；`control` 由字段组件呈现标签与反馈，Material 为浮动标签，macOS 与 shadcn 在表单中为左侧同排标签。 |
 | `label` | 外部模式为 `ReactNode`；控件模式为必填 `string` | — | 使用清楚的可见名称，占位符不能替代标签。 |
 | `supportingText` | `string`，仅控件模式 | — | 字段下方的辅助说明，校验时由错误或警告暂时替换；子组件显式说明优先。 |
 | `binding` | `'value' \| 'event' \| 'checked' \| 'valueChange'` | `'value'` | LineEdit / TextEdit 选择 `event`，Switch / Checkbox 选择 `checked`。 |
@@ -120,7 +128,7 @@ Form 默认设置 `noValidate`，将校验交给 `required` / `rules` 和字段�
 
 ### 设计风格、明暗和尺寸如何一起设置？
 
-统一在 ConfigProvider 设置 design、theme 与 size。design="material" 的单行文本字段保留 56px 高度和浮动标签；design="shadcn" 在表单中将标签与输入同排，并使用 small / middle / large 对应的 32 / 36 / 40px 输入。独立文本字段的 shadcn 标签仍放在输入框上方。切换 design 不会改变明暗或已选尺寸。
+统一在 ConfigProvider 设置 design、theme 与 size。design="material" 的单行文本字段保留 56px 高度和浮动标签；design="macos" 或 design="shadcn" 在表单中将静态标签与输入同排，并使用 small / middle / large 对应的 32 / 36 / 40px 输入。独立文本字段的 macOS 与 shadcn 标签仍放在输入框上方，焦点反馈分别采用蓝色和中性色外侧环。切换 design 不会改变明暗或已选尺寸。
 
 ## API
 

@@ -25,7 +25,7 @@ const wrapStyle = css`
 
 const selectStyle = css`
     flex: 0 0 auto;
-    width: 84px;
+    width: ${token.input.format.width};
 `;
 
 const inputStyle = css`

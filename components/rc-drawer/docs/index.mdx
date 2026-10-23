@@ -24,3 +24,10 @@ status = "experimental"
 ## API
 
 <API source="../src/drawer.tsx" symbol="DrawerProps" component="Drawer" />
+
+
+## 三套设计风格
+
+Material 以 sheet 作为参考，仅未贴边的角采用 28px 圆角；macOS 使用 12px 浮层角和细描边；shadcn sheet 使用直角与单侧边界。上下左右四个位置均随主题切换，RTL 使用逻辑方向。侧边、顶部布局是基于 sheet 的项目扩展。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

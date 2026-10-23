@@ -40,9 +40,7 @@ const trackStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     border: none;
     box-shadow: inset 0 0 0 ${token.track['border-width']} ${token.track['border-color']};
-    @media (pointer: coarse) {
-        &::before { content: ""; position: absolute; inset: calc((100% - ${token.root.touch['min-height']}) / 2) calc((100% - max(100%, ${token.root.touch['min-width']})) / 2); }
-    }
+    &::before { content: ""; position: absolute; inset: calc((100% - max(100%, ${token.root.touch['min-height']})) / 2) calc((100% - max(100%, ${token.root.touch['min-width']})) / 2); }
     padding: 0;
     cursor: inherit;
     outline: none;
@@ -76,6 +74,14 @@ const trackStyle = css`
     &:focus-visible {
         outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
         outline-offset: ${token.root['outline-offset-focus']};
+    }
+    &[aria-invalid='true']:not(:disabled) {
+        box-shadow: inset 0 0 0 ${token.root['outline-width-focus']} ${token.track['border-color-error']};
+        &:focus-visible { outline-color: ${token.track['border-color-error']}; }
+        &[aria-checked='true'] {
+            background-color: ${token.track['background-color-error']};
+            > span { background-color: ${token.handle['background-color-error']}; }
+        }
     }
     @media (forced-colors: active) {
         && {
@@ -172,6 +178,7 @@ const Switch: FC<SwitchProps> = ({
                     ${vars['track.halo.left']}: calc(${token.size.large.handle.left} + (${token.size.large.handle.width} - ${token.track.halo.width}) / 2);
                     ${vars['track.halo.translate-checked']}: calc(${token.size.large.track.width} - ${token.size.large.handle.width} - 2 * ${token.size.large.handle.left});
                     width: ${token.size.large.track.width};
+                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.large.track.width}) / 2));
                     height: ${token.size.large.track.height};
                     border-radius: ${token.size.large.track['border-radius']};
                 `,
@@ -191,6 +198,7 @@ const Switch: FC<SwitchProps> = ({
                     ${vars['track.halo.left']}: calc(${token.size.small.handle.left} + (${token.size.small.handle.width} - ${token.track.halo.width}) / 2);
                     ${vars['track.halo.translate-checked']}: calc(${token.size.small.track.width} - ${token.size.small.handle.width} - 2 * ${token.size.small.handle.left});
                     width: ${token.size.small.track.width};
+                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.small.track.width}) / 2));
                     height: ${token.size.small.track.height};
                     border-radius: ${token.size.small.track['border-radius']};
                 `,
@@ -210,6 +218,7 @@ const Switch: FC<SwitchProps> = ({
                     ${vars['track.halo.left']}: calc(${token.size.middle.handle.left} + (${token.size.middle.handle.width} - ${token.track.halo.width}) / 2);
                     ${vars['track.halo.translate-checked']}: calc(${token.size.middle.track.width} - ${token.size.middle.handle.width} - 2 * ${token.size.middle.handle.left});
                     width: ${token.size.middle.track.width};
+                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.middle.track.width}) / 2));
                     height: ${token.size.middle.track.height};
                     border-radius: ${token.size.middle.track['border-radius']};
                 `,

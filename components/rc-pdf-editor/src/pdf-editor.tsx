@@ -65,6 +65,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     const [rendering, setRendering] = useState(false);
     const [showPages, setShowPages] = useState(true);
     const [showProperties, setShowProperties] = useState(true);
+    const [compact, setCompact] = useState(false);
     const [newText, setNewText] = useState(false);
     const [newContent, setNewContent] = useState('');
     const [newFont, setNewFont] = useState('');
@@ -76,6 +77,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     const pagesId = useId(), propertiesId = useId();
     // 可变实例状态：文件选择器和图片替换意图不参与渲染。
     const fileRef = useRef<HTMLInputElement>(null);
+    const rootRef = useRef<HTMLDivElement>(null);
     const mergeRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
     const replaceRef = useRef(false);
@@ -105,14 +107,23 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     useLayoutEffect(() => { session.setReadOnly(readOnly); }, [session, readOnly]);
 
     useEffect(() => {
-        const media = window.matchMedia('(max-width: 1000px)');
-        const update = () => { setShowPages(!media.matches); setShowProperties(!media.matches); };
-        update(); media.addEventListener('change', update);
-        return () => media.removeEventListener('change', update);
+        const root = rootRef.current;
+        if (!root) return;
+        let previous: boolean | undefined;
+        const update = (width: number) => {
+            if (width <= 0) return;
+            const next = width <= 1000;
+            if (next === previous) return;
+            previous = next;
+            setCompact(next); setShowPages(!next); setShowProperties(!next);
+        };
+        const observer = new ResizeObserver(entries => { update(entries[0].contentRect.width); });
+        update(root.getBoundingClientRect().width);
+        observer.observe(root);
+        return () => observer.disconnect();
     }, []);
 
     function togglePanel(panel: 'pages' | 'properties') {
-        const compact = window.matchMedia('(max-width: 1000px)').matches;
         if (panel === 'pages') { setShowPages(!showPages); if (compact) setShowProperties(false); }
         else { setShowProperties(!showProperties); if (compact) setShowPages(false); }
     }
@@ -310,7 +321,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         setTool(next);
         if (isShapeTool(next)) {
             selectObject();
-            if (window.matchMedia('(min-width: 1001px)').matches) setShowProperties(true);
+            if (!compact) setShowProperties(true);
         }
     }
     async function draw(drawing: Drawing) {
@@ -388,7 +399,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         color: colorCss(draft.color),
     } : undefined;
 
-    return <ActionVisibilityContext value={visibility}><div {...rest} className={cx(rootStyle, className)} onKeyDown={keyDown} aria-busy={processing}>
+    return <ActionVisibilityContext value={visibility}><div {...rest} ref={rootRef} data-pdf-layout={compact ? 'compact' : 'expanded'} className={cx(rootStyle, className)} onKeyDown={keyDown} aria-busy={processing}>
         {visible('open') && <input ref={fileRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(async () => { await open({ id: crypto.randomUUID(), source: file }, undefined, true); }); }} />}
         {visible('merge') && <input ref={mergeRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => merge(file)); }} />}
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => insertImage(file)); }} />

@@ -55,10 +55,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-button": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础配置",
-        "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/designs.demo.tsx",
+        "title": "三套风格的操作层级",
+        "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
+        "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "compact"
     },
     "rc-canvas": {
@@ -91,7 +91,7 @@ export const componentPreviews = {
     },
     "rc-component-preview": {
         "id": "docs/demos/base.demo.tsx",
-        "title": "Shortcuts",
+        "title": "代码主题",
         "previewPath": "/components/rc-component-preview/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
         "workbenchPath": "/components/rc-component-preview/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
         "density": "regular"
@@ -174,10 +174,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-line-edit": {
-        "id": "docs/demos/simple.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
-        "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
+        "id": "docs/demos/field-states.demo.tsx",
+        "title": "标签、边界与状态",
+        "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
+        "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
         "density": "regular"
     },
     "rc-masonry": {
@@ -265,10 +265,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-select": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/field-states.demo.tsx",
+        "title": "标签与选择状态",
+        "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
+        "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
         "density": "compact"
     },
     "rc-skeleton": {
@@ -307,10 +307,10 @@ export const componentPreviews = {
         "density": "compact"
     },
     "rc-table": {
-        "id": "docs/demos/basis.demo.tsx",
-        "title": "基础表格 · 企业采购订单",
-        "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Fbasis.demo.tsx",
-        "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Fbasis.demo.tsx",
+        "id": "docs/demos/theme-states.demo.tsx",
+        "title": "三套风格与选中状态",
+        "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Ftheme-states.demo.tsx",
+        "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Ftheme-states.demo.tsx",
         "density": "regular"
     },
     "rc-table-pro": {
@@ -343,7 +343,7 @@ export const componentPreviews = {
     },
     "rc-theme": {
         "id": "docs/demos/light-dark.demo.tsx",
-        "title": "Material 与 Shadcn",
+        "title": "Material、Shadcn 与 macOS",
         "previewPath": "/components/rc-theme/workbench/?__wake_demo=docs%2Fdemos%2Flight-dark.demo.tsx",
         "workbenchPath": "/components/rc-theme/workbench/#/components/docs%2Fdemos%2Flight-dark.demo.tsx",
         "density": "regular"

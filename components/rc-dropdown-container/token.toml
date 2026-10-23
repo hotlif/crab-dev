@@ -5,9 +5,9 @@ imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
 root.box-shadow = "$ref(shadow.float)"
-root.border-radius = "$ref(shape.extra-small)"
-root.background-color = "$ref(color.surface.container)"
-root.border-color = "transparent"
+root.border-radius = "$ref(overlay.popover.shape)"
+root.background-color = "$ref(overlay.popover.background)"
+root.border-color = "$ref(overlay.popover.border)"
 root.z-index = "$ref(z-index.float)"
 
 motion.interaction.transition = "$ref(motion.interaction)"

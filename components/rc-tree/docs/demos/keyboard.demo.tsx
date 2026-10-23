@@ -1,5 +1,5 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
-import { treeMeasureStyle } from "../demo-layout.js";
+import { treeMeasureStyle, demoStackStyle, demoNoteStyle, keyboardHelpStyle } from "../demo-layout.js";
 export const meta = {
     title: "键盘导航",
     description: "点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。",
@@ -34,15 +34,8 @@ const KeyboardDemo = () => {
     const [treeData, setTreeData] = useTreeData(buildNodes());
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            <div style={{
-                padding: "0.625rem 0.75rem",
-                borderRadius: "6px",
-                background: "#f5f5f5",
-                fontSize: "0.8125rem",
-                color: "#555",
-                lineHeight: 1.6,
-            }}>
+        <div className={demoStackStyle}>
+            <div className={keyboardHelpStyle}>
                 <strong>键盘快捷键：</strong>&nbsp;
                 <kbd>↑</kbd><kbd>↓</kbd> 移动焦点 &nbsp;
                 <kbd>→</kbd> 展开 &nbsp;
@@ -70,7 +63,7 @@ const KeyboardDemo = () => {
                 )}
             </AutoSizer>
             {selectKeys.length > 0 && (
-                <p style={{ fontSize: "0.875rem", margin: 0, color: "#666" }}>
+                <p className={demoNoteStyle}>
                     已选中：{selectKeys.join(", ")}
                 </p>
             )}

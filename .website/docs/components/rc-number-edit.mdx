@@ -41,6 +41,14 @@ import { demos } from "../_generated/rc-number-edit.js";
 输入数值，支持步进、范围限制、千分位和科学计数法显示。
 
 
+### 三套主题的组合输入
+
+数字编辑的字段外壳复用 LineEdit，macOS、MD3 与 shadcn 同步切换标签位置、密度、边界、聚焦和错误反馈；步进按钮复用 Button。金额、科学计数法、范围修正和键盘步进保持原有行为，不为主题维护第二套数值状态。
+
+基础演示的 Filled 字段在 MD3 中使用浮动标签与底线，在桌面风格中呈现紧凑矩形字段。macOS 的布局与阴影为 Web 适配；数字格式和可编辑草稿沿用本库能力。
+
+依据：[Apple Text fields 的数值格式建议](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Material Web Text field](https://material-web.dev/components/text-field/)、[LineEdit 字段边界](/components/rc-line-edit)。核对日期：2026-10-22。
+
 ### 何时使用
 
 用于数量、金额、阈值等数值录入。支持加减按钮、方向键、长按步进和大步长调整；失焦时按范围限制修正数值。
@@ -49,7 +57,7 @@ import { demos } from "../_generated/rc-number-edit.js";
 
 ### 标签与设计风格
 
-数字输入框复用 LineEdit 的字段外观，支持 `label`、`appearance="outlined" | "filled"`、`supportingText` 和 `errorText`。全局切换 Material Design 3 与 shadcn 时，标签、容器和说明会统一跟随；已有数值与编辑草稿继续保留。Material 使用浮动标签，shadcn 使用上置标签。
+数字输入框复用 LineEdit 的字段外观，支持 `label`、`appearance="outlined" | "filled"`、`supportingText` 和 `errorText`。全局切换 Material Design 3、macOS 与 shadcn 时，标签、容器和说明会统一跟随；已有数值与编辑草稿继续保留。Material 使用浮动标签，macOS 与 shadcn 使用静态标签。
 
 使用 `label` 提供持续可见的字段名称；`supportingText` 说明单位或取值范围。校验失败时用 `errorText` 替换说明，组件会关联错误信息并标记输入无效。仅需预先显示边界状态时可使用 `status="error"`，但仍应提供能说明修复方法的文字。
 

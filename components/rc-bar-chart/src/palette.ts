@@ -1,7 +1,7 @@
 /**
  * 柱状图绘制层色板。
  *
- * 默认色板保持旧视觉；语义色板消费本包 L3 token。rc-canvas 会在所在
+ * 默认消费本包 L3 token；字面量色板供显式保留旧视觉。rc-canvas 会在所在
  * DOM 主题继承上下文中解析 CSS var / color-mix / 系统色后交给 WebGL。
  */
 
@@ -60,11 +60,11 @@ export const SEMANTIC_BAR_CHART_PALETTE: BarChartPalette = {
 };
 
 export function mergeBarChartPalette(palette?: Partial<BarChartPalette>): BarChartPalette {
-    if (!palette) return DEFAULT_BAR_CHART_PALETTE;
+    if (!palette) return SEMANTIC_BAR_CHART_PALETTE;
     const series = palette.series
-        ? DEFAULT_BAR_CHART_PALETTE.series.map((fallback, index) => palette.series?.[index] ?? fallback)
-        : DEFAULT_BAR_CHART_PALETTE.series;
-    return { ...DEFAULT_BAR_CHART_PALETTE, ...palette, series };
+        ? SEMANTIC_BAR_CHART_PALETTE.series.map((fallback, index) => palette.series?.[index] ?? fallback)
+        : SEMANTIC_BAR_CHART_PALETTE.series;
+    return { ...SEMANTIC_BAR_CHART_PALETTE, ...palette, series };
 }
 
 export function resolveSeriesColor(

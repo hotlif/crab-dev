@@ -22,6 +22,8 @@ import { demos } from "../_generated/rc-switch.js";
 
 ##### 基础用法 — 最简单的 Switch 用法
 
+##### 三套设计与状态 — MD3 的手柄随选中和按压改变大小；macOS 与 shadcn 使用各自的紧凑轨道与等大的手柄。
+
 ##### 禁用状态 — 添加 `disabled` 属性即可让开关处于禁用状态
 
 ##### 从右向左布局 — 手柄与状态层跟随文档方向；按下时手柄放大但中心保持不变。
@@ -47,11 +49,21 @@ import { demos } from "../_generated/rc-switch.js";
 
 切换轨道使用独立的实线焦点环，强制颜色下保留轨道、手柄位置与焦点。立即生效操作如涉及异步保存，应在业务层明确处理中和失败恢复；组件本身不会请求服务器。
 
-桌面轨道的 small / middle / large 分别为 28×16、32×18、36×20px，选中手柄分别为 12、14、16px；未选中时手柄缩小。粗指针命中区仍至少为 48×48 CSS px，桌面标签使用 14px 正文。这是基于 M3 状态与颜色的桌面密度定制，不采用官方 52×32px 默认轨道。
+`material` 下，`middle`（默认）与 `large` 使用 52×32px 轨道；`small` 保留 28×16px，作为显式紧凑选项。`shadcn` 的 `small` / `middle` / `large` 轨道维持 28×16、32×18、36×20px。
+
+`macos` 的 small / middle / large 轨道为 28×16、36×22、44×26px，手柄分别为 12、18、22px；这组比例保留桌面 mini 与 regular 控件的层级，尺寸为项目的 Web 适配。
+
+三套设计各自定义手柄和状态反馈：MD3 默认未选中手柄 16px、选中 24px、按压 28px，并保留圆形状态层；macOS 使用带轻阴影的白色手柄与蓝色选中轨道；shadcn 使用中性色轨道，选中手柄消费配对前景色。后两者在选中前后保持手柄等大，不叠加 MD3 光晕。浅深色与嵌套风格均通过 L2 变量切换。
+
+`aria-invalid="true"` 给轨道和焦点提供错误色，开启状态同时使用错误填充；应配合 `aria-describedby` 提供具体错误与恢复操作。macOS 是参考 Apple HIG 的 Web 定制，紧凑尺寸为项目适配，不声称复刻 AppKit。
+
+视觉尺寸与命中区独立：所有指针环境下，命中区均至少为 48×48 CSS px；标签使用 14px 正文。
 
 键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
 
 规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
+
+设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/switch/specs)、[使用指南](https://m3.material.io/components/switch/guidelines)、[无障碍](https://m3.material.io/components/switch/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/switch/)、[实现样式](https://github.com/material-components/material-web/blob/main/switch/internal/_switch.scss)、[v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-switch.scss)、[Apple HIG Toggles](https://developer.apple.com/design/human-interface-guidelines/toggles)、[shadcn Switch 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/switch.tsx)。
 
 ### 适用场景
 

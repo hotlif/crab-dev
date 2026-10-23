@@ -4,7 +4,8 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { type FC } from "react";
+import { type FC, useState } from "react";
+import token from "@crab-dev/rc-token-semantic";
 
 import Button from "@crab-dev/rc-button";
 import Checkbox, { CheckboxGroup } from "@crab-dev/rc-checkbox";
@@ -52,6 +53,12 @@ const actionRowStyle = css`
     margin-top: 8px;
 `;
 
+const resultStyle = css`
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: ${token.color.text.secondary};
+`;
+
 const ROLE_OPTIONS = [
     { label: "管理员", value: "admin" },
     { label: "开发者", value: "developer" },
@@ -60,6 +67,7 @@ const ROLE_OPTIONS = [
 
 const EditorsDemo: FC = () => {
     const [form] = useForm<ProfileForm>();
+    const [result, setResult] = useState("修改编辑器后，可查看当前值或提交校验。");
 
     return (
         <Form
@@ -75,14 +83,11 @@ const EditorsDemo: FC = () => {
                 agree: false,
                 quota: 30,
             }}
-            onFieldValueChange={async (changed) => {
-                console.log("[changed]", changed);
-            }}
             onSubmitSuccess={async (values) => {
-                console.log("[submit:success]", values);
+                setResult(`提交成功：${JSON.stringify(values, null, 2)}`);
             }}
-            onSubmitFailed={async (err) => {
-                console.warn("[submit:failed]", err);
+            onSubmitFailed={async () => {
+                setResult("提交未通过，请根据字段下方的错误提示补全内容。");
             }}
         >
             <Item label="用户名" labelPlacement="control" name="username" binding="event" required>
@@ -142,21 +147,26 @@ const EditorsDemo: FC = () => {
             </Item>
 
             <div className={actionRowStyle}>
-                <Button appearance="primary" onClick={async () => { await form.submit(); }}>
+                <Button type="button" appearance="primary" onClick={async () => { await form.submit(); }}>
                     提交
                 </Button>
-                <Button onClick={() => form.resetFields()}>
+                <Button type="button" onClick={async () => {
+                    await form.resetFields();
+                    setResult("已恢复初始值，并清除校验反馈。");
+                }}>
                     重置
                 </Button>
                 <Button
+                    type="button"
                     appearance="text"
                     onClick={() => {
-                        console.log("[snapshot]", form.getFieldsValue());
+                        setResult(`当前值：${JSON.stringify(form.getFieldsValue(), null, 2)}`);
                     }}
                 >
-                    打印当前值
+                    查看当前值
                 </Button>
             </div>
+            <output className={resultStyle} aria-live="polite">{result}</output>
         </Form>
     );
 };

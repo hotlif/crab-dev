@@ -60,6 +60,10 @@ const wrapperStyle = css`
         [data-radio-part='box'] { border-color: ${token.control['border-color-error']}; }
         [data-radio-part='dot'] { background-color: ${token.dot['color-error']}; }
         > input:focus-visible + span { outline-color: ${token.control['border-color-error']}; }
+        &[data-state='checked'] {
+            [data-radio-part='box'] { background-color: ${token.control.checked['background-color-error']}; }
+            [data-radio-part='dot'] { background-color: ${token.dot.checked['color-error']}; }
+        }
     }
 
     &[data-disabled] {
@@ -75,6 +79,10 @@ const wrapperStyle = css`
         [data-radio-part='dot'] {
             background-color: ${token.dot['color-disabled']};
             transition: none;
+        }
+        &[data-state='checked'] {
+            [data-radio-part='box'] { background-color: ${token.control.checked['background-color-disabled']}; }
+            [data-radio-part='dot'] { background-color: ${token.dot.checked['color-disabled']}; }
         }
     }
 
@@ -155,6 +163,7 @@ const boxStyle = css`
     border-color: ${token.control['border-color']};
     border-radius: ${token['state-layer']['border-radius']};
     background-color: ${token.control['background-color']};
+    box-shadow: ${token.control['box-shadow']};
     transition: ${token.control.transition};
 `;
 

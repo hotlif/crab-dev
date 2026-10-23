@@ -1,5 +1,5 @@
 import { describe, expect, it, mock } from "@crab-dev/wake/test";
-import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { type Key, type ReactElement } from "react";
 
 import Table from "../table.js";
@@ -169,6 +169,40 @@ const buildManyRows = (count: number): DemoRow[] => Array.from({ length: count }
 }));
 
 describe("Table", () => {
+    it('keeps filter geometry synchronized with semantic field sizing and honors an explicit height', async () => {
+        const OriginalResizeObserver = globalThis.ResizeObserver;
+        const notifications = new Map<Element, (height: number) => void>();
+        globalThis.ResizeObserver = class {
+            private targets = new Set<Element>();
+            constructor(private callback: ResizeObserverCallback) {}
+            observe(target: Element) {
+                this.targets.add(target);
+                notifications.set(target, height => this.callback([{ target, contentRect: new globalThis.DOMRect(0, 0, 0, height),
+                    borderBoxSize: [], contentBoxSize: [], devicePixelContentBoxSize: [] }], this));
+            }
+            unobserve(target: Element) { this.targets.delete(target); notifications.delete(target); }
+            disconnect() { this.targets.forEach(target => notifications.delete(target)); this.targets.clear(); }
+        };
+        const props = { width: 700, height: 300, columns: groupedColumns.slice(0, 1), rows: [], headerRowHeight: 40,
+            filterBar: true, renderDefaultFilterEditor };
+        const view = await renderTable(<Table {...props} />);
+        try {
+            const probe = view.container.querySelector('[data-table-filter-size]')!;
+            const filter = () => view.container.querySelector<HTMLElement>('[data-table-filter-row]')!;
+            const empty = () => view.container.querySelector<HTMLElement>('[role="status"]')!;
+            await act(async () => { notifications.get(probe)!(60); });
+            expect(filter().style.height).toBe('60px');
+            expect(empty().style.top).toBe('100px');
+            await act(async () => { notifications.get(probe)!(72); });
+            expect(filter().style.height).toBe('72px');
+            expect(empty().style.top).toBe('112px');
+            await view.rerender(<Table {...props} filterRowHeight={36} />);
+            await act(async () => { notifications.get(probe)!(84); });
+            expect(filter().style.height).toBe('36px');
+            expect(empty().style.top).toBe('76px');
+        } finally { await view.unmount(); globalThis.ResizeObserver = OriginalResizeObserver; }
+    });
+
     it('recalculates virtual row geometry when the inherited size changes and keeps explicit heights', async () => {
         const rows = buildRows();
         rows[1].height = 70;
@@ -914,16 +948,19 @@ describe("Table", () => {
 
         const checkbox = getRow(container, 0).querySelector("input");
         expect(checkbox).not.toBeNull();
+        expect(getRow(container, 0).getAttribute('aria-selected')).toBe('false');
         await fireEvent.click(checkbox as HTMLInputElement);
 
         // 复选框消费了这次点击：行选中生效，行点击不触发
         expect(onChange).toHaveBeenCalledTimes(1);
         expect(onRowClick).not.toHaveBeenCalled();
+        expect(getRow(container, 0).getAttribute('aria-selected')).toBe('true');
 
         // Compact selection owns the complete cell without overlapping adjacent rows.
         await fireEvent.click(getRow(container, 0).querySelector('[data-table-selection-cell]')!);
         expect(onChange).toHaveBeenCalledTimes(2);
         expect(onRowClick).not.toHaveBeenCalled();
+        expect(getRow(container, 0).getAttribute('aria-selected')).toBe('false');
 
         await unmount();
     });

@@ -35,13 +35,19 @@ import { demos } from "../_generated/rc-color-picker.js";
 选择和编辑颜色，支持格式切换、预设色板与透明度调整。
 
 
+### 三套主题的复合取色
+
+颜色面板复用 Select、LineEdit、Slider 与 Button，格式菜单、颜色值输入和动作随 macOS、MD3、shadcn 的共享主题更新；颜色预览和实际色值不随界面主题改变。演示标签和说明改用语义色，以保证浅色与深色一致。
+
+颜色取值面板没有直接对应的 Material Web 组件，是输入、菜单和滑块的项目组合。参考 [Material Web Text field](https://material-web.dev/components/text-field/)、[Material Web Select](https://material-web.dev/components/select/)与 [shadcn Input](https://ui.shadcn.com/docs/components/input)；具体取色算法、色域和吸管能力属于本库扩展。核对日期：2026-10-22。
+
 ### 何时使用
 
 - 为文字、图形或背景选择颜色。
 - 通过预设色板限制常用颜色，或通过输入框精确编辑色值。
 - 需要切换颜色显示格式或调整透明度。
 
-格式切换只改变显示方式，输出统一为 OKLCh。吸管取色依赖浏览器的 EyeDropper API。
+格式切换只改变显示方式，输出统一为 OKLCh。确定或取消后，焦点返回颜色触发器；取消保留打开前的色值。吸管取色依赖浏览器的 EyeDropper API。
 
 ### 适用场景
 

@@ -30,6 +30,33 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/designs.demo.tsx",
+        "title": "三套设计与状态",
+        "description": "比较 macOS、MD3 与 shadcn 的方框、状态层和选中标记；用 Tab 与空格检查焦点和切换。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "Checkbox"
+            ],
+            "props": [
+                "design",
+                "defaultChecked",
+                "indeterminate",
+                "disabled",
+                "aria-invalid",
+                "aria-describedby"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Checkbox from '../../src/checkbox.js';\n\nexport const meta = { title: '三套设计与状态', description: '比较 macOS、MD3 与 shadcn 的方框、状态层和选中标记；用 Tab 与空格检查焦点和切换。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nexport default function DesignsDemo() {\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['macos', 'material', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} design={design}>\n            \u003csection className={panel} aria-label={`${design} 复选框`}>\n                \u003cstrong>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}\u003c/strong>\n                \u003cCheckbox>未选中\u003c/Checkbox>\n                \u003cCheckbox defaultChecked>已选中\u003c/Checkbox>\n                \u003cCheckbox indeterminate>部分选中\u003c/Checkbox>\n                \u003cCheckbox disabled>不可用\u003c/Checkbox>\n                \u003cCheckbox defaultChecked disabled>已选中且不可用\u003c/Checkbox>\n                \u003cCheckbox aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>同意使用条款\u003c/Checkbox>\n                \u003csmall id={`${errorId}-${design}`}>请勾选条款后继续。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-checkbox/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
+        "workbenchPath": "/components/rc-checkbox/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/disabled.demo.tsx",
         "title": "禁用状态",
         "description": "添加 `disabled` 属性即可让复选框处于禁用状态",

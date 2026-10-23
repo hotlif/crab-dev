@@ -1,3 +1,4 @@
+import LineEdit from "@crab-dev/rc-line-edit";
 export const meta = {
     title: "服务端分页",
     description: "设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 { rows, total }，组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。",
@@ -33,24 +34,12 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140, align: ["center", "left"] },
 ];
 
-const filterInputStyle = css`
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: 0 6px;
-    font-size: 12px;
-    &::placeholder { color: #bbb; }
-`;
-
 const TextFilterEditor = ({ value, onValueChange }: { value: string; onValueChange: (v: string) => void }) => {
     const [local, setLocal] = useState(value);
     useEffect(() => { setLocal(value); }, [value]);
     return (
-        <input
-            className={filterInputStyle}
+        <LineEdit size="small" aria-label="筛选列值"
+
             type="text"
             value={local}
             onChange={(e) => setLocal(e.target.value)}
@@ -64,8 +53,8 @@ const NumberFilterEditor = ({ value, onValueChange }: { value: string; onValueCh
     const [local, setLocal] = useState(value);
     useEffect(() => { setLocal(value); }, [value]);
     return (
-        <input
-            className={filterInputStyle}
+        <LineEdit size="small" aria-label="筛选列值"
+
             type="number"
             value={local}
             onChange={(e) => setLocal(e.target.value)}

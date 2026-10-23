@@ -8,7 +8,8 @@ imports = [
 [token]
 
 overlay.background-color = "$ref(color.background.overlay)"
-root.background-color = "$ref(color.surface.low)"
+root.background-color = "$ref(overlay.sheet.background)"
+root.border-color = "$ref(overlay.sheet.border)"
 root.box-shadow = "$ref(shadow.overlay)"
 
 size.small.width   = "280px"
@@ -33,11 +34,13 @@ footer.padding            = "$ref(space.stack-gap) $ref(space.dialog-padding)"
 footer.border-color       = "$ref(color.border.subtle)"
 footer.gap                = "$ref(space.component-gap)"
 
-close.width               = "32px"
-close.icon.width          = "16px"
+close.width               = "$ref(size.touch-target)"
+close.icon.width          = "$ref(size.24)"
 close.color               = "$ref(color.text.secondary)"
 close.color-hover         = "$ref(color.text.primary)"
-close.background-color-hover = "$ref(color.state.hover)"
+close.background-color-hover = "color-mix(in srgb, $ref(color.text.secondary) calc($ref(state.opacity.hover) * 100%), transparent)"
+close.background-color-focus = "color-mix(in srgb, $ref(color.text.secondary) calc($ref(state.opacity.focus) * 100%), transparent)"
+close.background-color-active = "color-mix(in srgb, $ref(color.text.secondary) calc($ref(state.opacity.pressed) * 100%), transparent)"
 close.border-radius       = "$ref(shape.control)"
 
 panel.animation-duration       = "$ref(motion.sheet.enter-duration)"
@@ -48,4 +51,4 @@ motion.expand.transition = "var(--drawer-panel-animation-duration, $ref(motion.s
 motion.exit.transition = "var(--drawer-panel-animation-duration, $ref(motion.sheet.exit-duration)) var(--drawer-panel-animation-timing-function, $ref(motion.sheet.easing))"
 motion.interaction.transition = "$ref(motion.interaction)"
 motion.spatial.transition = "$ref(motion.spatial.fast)"
-root.border-radius = "$ref(shape.large)"
+root.border-radius = "$ref(overlay.sheet.shape)"

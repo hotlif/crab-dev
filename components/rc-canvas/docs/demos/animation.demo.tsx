@@ -1,3 +1,4 @@
+import token from "@crab-dev/rc-token-semantic";
 import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "属性驱动动画",
@@ -13,9 +14,9 @@ const wrapStyle = css`
     display: block;
     width: fit-content;
     margin: 0 auto;
-    border: 1px solid var(--border-subtle, #e5e5e5);
-    border-radius: 8px;
-    background: #0b0b12;
+    border: 1px solid ${token.color.border.default};
+    border-radius: ${token.shape.card};
+    background: ${token.color.workspace.content};
 `;
 
 const CX = 210;

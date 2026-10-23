@@ -8,19 +8,18 @@ export const demos = [
     {
         "id": "docs/demos/basic.demo.tsx",
         "title": "基础用法",
-        "description": "默认 2 列瀑布流布局",
+        "description": "默认 2 列瀑布流布局，省略 gutter 时使用主题令牌间距。",
         "learning": {
             "components": [
                 "Masonry"
             ],
             "props": [
-                "columns",
-                "gutter"
+                "columns"
             ],
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"默认 2 列瀑布流布局\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport Masonry from \"../../src/index.js\";\n\nconst itemStyle = css`\n    border-radius: 8px;\n    padding: 16px;\n    color: #fff;\n    font-size: 14px;\n    font-weight: 500;\n`;\n\nconst items = [\n    { height: 120, color: \"oklch(0.65 0.15 250)\" },\n    { height: 180, color: \"oklch(0.55 0.2 300)\" },\n    { height: 100, color: \"oklch(0.7 0.12 150)\" },\n    { height: 200, color: \"oklch(0.6 0.18 30)\" },\n    { height: 140, color: \"oklch(0.58 0.16 200)\" },\n    { height: 160, color: \"oklch(0.68 0.14 100)\" },\n];\n\nconst BasicDemo = () => {\n    return (\n        \u003cMasonry columns={2} gutter={16}>\n            {items.map((item, i) => (\n                \u003cdiv\n                    key={i}\n                    className={itemStyle}\n                    style={{ height: item.height, backgroundColor: item.color }}\n                >\n                    Item {i + 1} — {item.height}px\n                \u003c/div>\n            ))}\n        \u003c/Masonry>\n    );\n};\n\nexport default BasicDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"默认 2 列瀑布流布局，省略 gutter 时使用主题令牌间距。\",\n};\n\nimport { cx } from \"@crab-dev/css\";\nimport { itemStyle, heightStyles } from \"../demo-style.js\";\nimport Masonry from \"../../src/index.js\";\n\nconst items = [\n    { height: 120 },\n    { height: 180 },\n    { height: 100 },\n    { height: 200 },\n    { height: 140 },\n    { height: 160 },\n];\n\nconst BasicDemo = () => {\n    return (\n        \u003cMasonry columns={2}>\n            {items.map((item, i) => (\n                \u003cdiv\n                    key={i}\n                    className={cx.call(undefined, itemStyle, heightStyles[item.height])}\n\n                >\n                    Item {i + 1} — {item.height}px\n                \u003c/div>\n            ))}\n        \u003c/Masonry>\n    );\n};\n\nexport default BasicDemo;\n",
         "previewPath": "/components/rc-masonry/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
         "workbenchPath": "/components/rc-masonry/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "spacious",
@@ -33,16 +32,23 @@ export const demos = [
         "description": "通过 `columns` 属性控制列数",
         "learning": {
             "components": [
+                "Select",
                 "Masonry"
             ],
             "props": [
+                "label",
+                "value",
+                "options",
+                "onChange",
                 "columns",
                 "gutter"
             ],
-            "events": [],
+            "events": [
+                "onChange"
+            ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"多列布局\",\n    description: \"通过 `columns` 属性控制列数\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useId, useState } from \"react\";\nimport Masonry from \"../../src/index.js\";\n\nconst itemStyle = css`\n    border-radius: 8px;\n    padding: 16px;\n    color: #fff;\n    font-size: 14px;\n    font-weight: 500;\n`;\n\nconst items = [\n    { height: 100, color: \"oklch(0.65 0.15 250)\" },\n    { height: 160, color: \"oklch(0.55 0.2 300)\" },\n    { height: 120, color: \"oklch(0.7 0.12 150)\" },\n    { height: 200, color: \"oklch(0.6 0.18 30)\" },\n    { height: 80, color: \"oklch(0.58 0.16 200)\" },\n    { height: 140, color: \"oklch(0.68 0.14 100)\" },\n    { height: 180, color: \"oklch(0.62 0.17 60)\" },\n    { height: 110, color: \"oklch(0.72 0.11 330)\" },\n];\n\nconst ColumnsDemo = () => {\n    const controlId = useId();\n    const [columns, setColumns] = useState(3);\n\n    return (\n        \u003cdiv>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 0.5rem;\n                    margin-bottom: 1.5rem;\n                `}\n            >\n                \u003clabel htmlFor={controlId}>列数\u003c/label>\n                \u003cselect\n                    id={controlId}\n                    value={columns}\n                    onChange={(e) => setColumns(Number(e.target.value))}\n                >\n                    \u003coption value={2}>2 列\u003c/option>\n                    \u003coption value={3}>3 列\u003c/option>\n                    \u003coption value={4}>4 列\u003c/option>\n                    \u003coption value={5}>5 列\u003c/option>\n                \u003c/select>\n            \u003c/div>\n            \u003cMasonry columns={columns} gutter={12}>\n                {items.map((item, i) => (\n                    \u003cdiv\n                        key={i}\n                        className={itemStyle}\n                        style={{ height: item.height, backgroundColor: item.color }}\n                    >\n                        Item {i + 1}\n                    \u003c/div>\n                ))}\n            \u003c/Masonry>\n        \u003c/div>\n    );\n};\n\nexport default ColumnsDemo;\n",
+        "sourceCode": "import Select from \"@crab-dev/rc-select\";\nexport const meta = {\n    title: \"多列布局\",\n    description: \"通过 `columns` 属性控制列数\",\n};\n\nimport { cx } from \"@crab-dev/css\";\nimport { itemStyle, heightStyles, controlStyle } from \"../demo-style.js\";\nimport { useState } from \"react\";\nimport Masonry from \"../../src/index.js\";\n\nconst items = [\n    { height: 100 },\n    { height: 160 },\n    { height: 120 },\n    { height: 200 },\n    { height: 80 },\n    { height: 140 },\n    { height: 180 },\n    { height: 110 },\n];\n\nconst ColumnsDemo = () => {\n\n    const [columns, setColumns] = useState(3);\n\n    return (\n        \u003cdiv>\n            \u003cdiv className={controlStyle}>\n                \u003cSelect label=\"列数\" value={String(columns)}\n                    options={[2, 3, 4, 5].map((count) => ({ label: `${count} 列`, value: String(count) }))}\n                    onChange={(value) => { if (value) setColumns(Number(value)); }} />\n            \u003c/div>\n            \u003cMasonry columns={columns} gutter={12}>\n                {items.map((item, i) => (\n                    \u003cdiv\n                        key={i}\n                        className={cx.call(undefined, itemStyle, heightStyles[item.height])}\n\n                    >\n                        Item {i + 1}\n                    \u003c/div>\n                ))}\n            \u003c/Masonry>\n        \u003c/div>\n    );\n};\n\nexport default ColumnsDemo;\n",
         "previewPath": "/components/rc-masonry/workbench/?__wake_demo=docs%2Fdemos%2Fcolumns.demo.tsx",
         "workbenchPath": "/components/rc-masonry/workbench/#/components/docs%2Fdemos%2Fcolumns.demo.tsx",
         "density": "spacious",
@@ -55,17 +61,22 @@ export const demos = [
         "description": "设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列",
         "learning": {
             "components": [
+                "Checkbox",
                 "Masonry"
             ],
             "props": [
+                "checked",
+                "onChange",
                 "columns",
                 "gutter",
                 "sequential"
             ],
-            "events": [],
+            "events": [
+                "onChange"
+            ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"顺序排列\",\n    description: \"设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useId, useState } from \"react\";\nimport Masonry from \"../../src/index.js\";\n\nconst itemStyle = css`\n    border-radius: 8px;\n    padding: 16px;\n    color: #fff;\n    font-size: 14px;\n    font-weight: 500;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n`;\n\nconst items = [\n    { height: 100, color: \"oklch(0.65 0.15 250)\" },\n    { height: 200, color: \"oklch(0.55 0.2 300)\" },\n    { height: 120, color: \"oklch(0.7 0.12 150)\" },\n    { height: 180, color: \"oklch(0.6 0.18 30)\" },\n    { height: 90, color: \"oklch(0.58 0.16 200)\" },\n    { height: 150, color: \"oklch(0.68 0.14 100)\" },\n];\n\nconst SequentialDemo = () => {\n    const controlId = useId();\n    const [sequential, setSequential] = useState(false);\n\n    return (\n        \u003cdiv>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    align-items: center;\n                    gap: 0.5rem;\n                    margin-bottom: 1.5rem;\n                `}\n            >\n                \u003clabel htmlFor={controlId}>顺序排列\u003c/label>\n                \u003cinput\n                    id={controlId}\n                    type=\"checkbox\"\n                    checked={sequential}\n                    onChange={() => setSequential(!sequential)}\n                />\n            \u003c/div>\n            \u003cMasonry columns={3} gutter={12} sequential={sequential}>\n                {items.map((item, i) => (\n                    \u003cdiv\n                        key={i}\n                        className={itemStyle}\n                        style={{ height: item.height, backgroundColor: item.color }}\n                    >\n                        {i + 1}\n                    \u003c/div>\n                ))}\n            \u003c/Masonry>\n        \u003c/div>\n    );\n};\n\nexport default SequentialDemo;\n",
+        "sourceCode": "import Checkbox from \"@crab-dev/rc-checkbox\";\nexport const meta = {\n    title: \"顺序排列\",\n    description: \"设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列\",\n};\n\nimport { cx } from \"@crab-dev/css\";\nimport { itemStyle, heightStyles, controlStyle } from \"../demo-style.js\";\nimport { useState } from \"react\";\nimport Masonry from \"../../src/index.js\";\n\nconst items = [\n    { height: 100 },\n    { height: 200 },\n    { height: 120 },\n    { height: 180 },\n    { height: 90 },\n    { height: 150 },\n];\n\nconst SequentialDemo = () => {\n\n    const [sequential, setSequential] = useState(false);\n\n    return (\n        \u003cdiv>\n            \u003cdiv className={controlStyle}>\n                \u003cCheckbox checked={sequential} onChange={setSequential}>顺序排列\u003c/Checkbox>\n            \u003c/div>\n            \u003cMasonry columns={3} gutter={12} sequential={sequential}>\n                {items.map((item, i) => (\n                    \u003cdiv\n                        key={i}\n                        className={cx.call(undefined, itemStyle, heightStyles[item.height])}\n\n                    >\n                        {i + 1}\n                    \u003c/div>\n                ))}\n            \u003c/Masonry>\n        \u003c/div>\n    );\n};\n\nexport default SequentialDemo;\n",
         "previewPath": "/components/rc-masonry/workbench/?__wake_demo=docs%2Fdemos%2Fsequential.demo.tsx",
         "workbenchPath": "/components/rc-masonry/workbench/#/components/docs%2Fdemos%2Fsequential.demo.tsx",
         "density": "spacious",

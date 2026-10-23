@@ -1,7 +1,7 @@
 {
   "id": "rc-line-edit",
   "title": "LineEdit 单行输入",
-  "summary": "Material 的填充与描边使用 56px 容器和浮动标签；shadcn 使用外置标签与紧凑输入，统一跟随全局风格。",
+  "summary": "Material 的填充与描边使用 56px 容器和浮动标签；macOS 与 shadcn 使用静态外置标签、紧凑输入和各自的焦点反馈，统一跟随全局风格。",
   "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
   "steps": [
     {
@@ -9,8 +9,8 @@
       "title": "试一试输入",
       "goal": "切换填充与描边，输入或清除项目名称，再体验全局风格切换。",
       "why": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
-      "instruction": "输入名称，再切换外观和清除内容；在顶部外观菜单选择 Material Design 3 或 shadcn。",
-      "expected": "Material 显示浮动标签，shadcn 显示外置标签；切换保留输入，清除后焦点返回字段，计数与预览同步。",
+      "instruction": "输入名称，再切换外观和清除内容；在顶部外观菜单选择 macOS、Material Design 3 或 shadcn。",
+      "expected": "Material 显示浮动标签，macOS 与 shadcn 显示静态外置标签；切换保留输入，清除后焦点返回字段，计数与预览同步。",
       "changes": [
         "使用 label、supportingText 和 appearance 配置字段。"
       ],
@@ -21,8 +21,8 @@
       "title": "两种外观",
       "goal": "并排体验 Filled 与 Outlined。",
       "why": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
-      "instruction": "选 Material 风格，聚焦空字段，输入后移开焦点；再切换 shadcn 比较标签和高度。",
-      "expected": "Material 标签浮起并保持可见，Filled 强调底线、Outlined 在轮廓为标签留出缺口；shadcn 使用外置标签和统一紧凑边框。",
+      "instruction": "选 Material 风格，聚焦空字段，输入后移开焦点；再切换 macOS 与 shadcn 比较标签、高度和焦点反馈。",
+      "expected": "Material 标签浮起并保持可见，Filled 强调底线、Outlined 在轮廓为标签留出缺口；macOS 与 shadcn 使用静态外置标签和紧凑边框，分别提供蓝色与中性色外侧焦点环。",
       "changes": [
         "使用相同结构呈现两种外观。"
       ],
@@ -44,11 +44,11 @@
   "faq": [
     {
       "question": "清除按钮为什么不生效？",
-      "answer": "allowClear 仅在受控模式下生效。确保 value、onChange 与 onClear 更新同一份状态。"
+      "answer": "allowClear 支持受控和非受控模式，清除会触发 onChange；受控模式需在 onChange 中接受新值，onClear 只用于额外通知。disabled 或 readOnly 时隐藏清除按钮。"
     },
     {
       "question": "为什么切换 Material 后输入框高度不同？",
-      "answer": "设计风格决定字段结构。Material 使用 56px 容器为 16px 输入文字和 12px 浮动标签保留空间；shadcn 将标签置于外部，输入框随 size 使用 32 / 36 / 40px。theme 单独控制明暗。"
+      "answer": "设计风格决定字段结构。Material 使用 56px 容器为 16px 输入文字和 12px 浮动标签保留空间；macOS 与 shadcn 将静态标签置于外部，输入框随 size 使用 32 / 36 / 40px。theme 单独控制明暗。"
     }
   ]
 }

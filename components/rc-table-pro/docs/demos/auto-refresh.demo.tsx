@@ -4,6 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import token from '@crab-dev/rc-token-semantic';
 import TablePro from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";
@@ -25,10 +26,12 @@ const SERVICES  = ["auth-service", "user-service", "order-service", "payment-ser
 const INSTANCES = ["inst-01", "inst-02", "inst-03"];
 const STATUSES: MetricRow["dataRef"]["status"][] = ["healthy", "warning", "critical"];
 
-const STATUS_COLOR: Record<string, string> = {
-    healthy:  "oklch(55% 0.18 140)",
-    warning:  "oklch(60% 0.18 85)",
-    critical: "oklch(50% 0.22 25)",
+const warningStyle = css`color: ${token.color.feedback.warning.text};`;
+const criticalStyle = css`color: ${token.color.feedback.error.text};`;
+const STATUS_STYLE: Record<string, string> = {
+    healthy: css`color: ${token.color.feedback.success.text};`,
+    warning: warningStyle,
+    critical: criticalStyle,
 };
 
 function generateRows(): MetricRow[] {
@@ -88,8 +91,8 @@ const TYPE_LOADERS: DataTypeLoader<MetricRow>[] = [
         render: ({ row, column }) => {
             const field = String(column.name).replace(/^\$\./, "") as keyof MetricRow["dataRef"];
             const n = Number((row as MetricRow).dataRef[field] ?? 0);
-            const color = n > 80 ? "oklch(50% 0.22 25)" : n > 60 ? "oklch(60% 0.18 85)" : undefined;
-            return <span style={{ color }}>{n}%</span>;
+            const className = n > 80 ? criticalStyle : n > 60 ? warningStyle : undefined;
+            return <span className={className}>{n}%</span>;
         },
         editRender: undefined,
         filterEditor: undefined,
@@ -101,7 +104,7 @@ const TYPE_LOADERS: DataTypeLoader<MetricRow>[] = [
             const s = String((row as MetricRow).dataRef[field] ?? "");
             const LABEL: Record<string, string> = { healthy: "正常", warning: "告警", critical: "严重" };
             return (
-                <span style={{ color: STATUS_COLOR[s], fontWeight: 500 }}>
+                <span className={STATUS_STYLE[s]}>
                     {LABEL[s] ?? s}
                 </span>
             );

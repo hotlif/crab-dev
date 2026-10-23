@@ -1,6 +1,7 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@crab-dev/css";
+import semanticToken from "@crab-dev/rc-token-semantic";
 import { useId, useRef, useState, type FC } from "react";
 import { useControllableValue } from "@crab-dev/rc-hooks";
 
@@ -87,11 +88,11 @@ const fieldStyle = css`
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    gap: ${token.field.gap};
+    gap: ${semanticToken.field.layout['row-gap']};
 `;
 
 const supportingStyle = css`
-    padding-inline: ${token.field['padding-inline']};
+    padding-inline: ${semanticToken.field.support['padding-inline']};
     color: ${token.field.label.color};
     font-size: ${token.field.label['font-size']};
     line-height: ${token.field.support['line-height']};
@@ -157,6 +158,8 @@ const Select: FC<SelectProps> = ({
         defaultValue: asArray(defaultValue),
     });
     const [triggerWidth, setTriggerWidth] = useState(0);
+    // Persistent field instance: restore focus before a selected search input unmounts.
+    const controlRef = useRef<HTMLDivElement | null>(null);
 
     const onOpenChangeRef = useRef(onOpenChange);
     onOpenChangeRef.current = onOpenChange;
@@ -221,6 +224,7 @@ const Select: FC<SelectProps> = ({
             return;
         }
 
+        controlRef.current?.focus();
         updateValue([option.value]);
     };
 
@@ -280,6 +284,7 @@ const Select: FC<SelectProps> = ({
             <div className={fieldStyle}>
                 <SelectInput
                     ref={ref}
+                    controlRef={controlRef}
                     id={inputId}
                     ariaLabel={ariaLabel}
                     ariaLabelledBy={ariaLabelledBy ?? (label ? labelId : undefined)}
@@ -315,7 +320,7 @@ const Select: FC<SelectProps> = ({
                     onBlur={onBlur}
                 />
                 {description && (
-                    <div id={descriptionId} className={supportingStyle} data-status={fieldStatus}>
+                    <div id={descriptionId} className={supportingStyle} data-status={fieldStatus} role={errorText ? "alert" : undefined}>
                         {description}
                     </div>
                 )}

@@ -4,23 +4,16 @@ export const meta = {
 };
 
 import { useState } from 'react';
-import type { CSSProperties } from 'react';
+import { cx } from '@crab-dev/css';
+import { frameStyle, paneStyle, sidebarStyle } from '../demo-style.js';
 import SplitPane from '../../src/index.js';
 
-const paneStyle: CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    fontSize: 13,
-    color: '#666',
-};
 
 const PersistDemo = () => {
     const [size, setSize] = useState<number | null>(null);
 
     return (
-        <div style={{ height: 160, border: '1px solid #eee', borderRadius: 8, overflow: 'hidden' }}>
+        <div className={frameStyle}>
             <SplitPane
                 defaultSize={200}
                 min={120}
@@ -29,10 +22,10 @@ const PersistDemo = () => {
                 persistKey="rc-split-pane-demo"
                 onSizeChange={setSize}
             >
-                <div style={{ ...paneStyle, background: '#fafafa' }}>
+                <div className={cx(paneStyle, sidebarStyle)}>
                     {size === null ? '拖我，然后刷新页面' : `${Math.round(size)}px`}
                 </div>
-                <div style={paneStyle}>右侧 flex 填充</div>
+                <div className={paneStyle}>右侧 flex 填充</div>
             </SplitPane>
         </div>
     );

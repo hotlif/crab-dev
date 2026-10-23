@@ -39,6 +39,8 @@ status = "experimental"
 
 ## API
 
+绘制前景、网格与交互辅助元素默认消费语义令牌并跟随主题；`palette` 的局部覆盖保留其余语义角色。需要维持旧版固定配色时，可显式传入导出的 `DEFAULT_CANVAS_PALETTE`。图元显式颜色仍具有最高优先级。
+
 `CanvasImage.src` 支持字符串 URL 和 `ImageBitmap`。位图由调用者持有，替换或卸载后应调用 `close()`；Canvas 在最后一个消费者释放时删除图片和字形的 GPU 纹理及 CPU 缓存，不关闭调用者提供的位图。
 
 更换图片时保留上一张已上传纹理，新图片上传成功后再替换；加载或上传失败调用 `onError`，保留原图。`Canvas.onRender` 在每次实际绘制完成后通知，可用于交接双缓冲画面；图片的 `onLoad` 仅表示上传完成，不表示画面已经绘制。使用双缓冲时应在旧场景移除后关闭其位图。
@@ -46,3 +48,11 @@ status = "experimental"
 Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂载画布耗尽浏览器配额；StrictMode 的挂载检查保留正在使用的上下文。上下文意外丢失期间暂停绘制通知，浏览器恢复后重建绘图资源，重新上传仍在使用的图片和字形并重绘，无需重新加载业务数据。资源释放与恢复依据 [WebGL 最佳实践](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices)及 [Khronos 上下文丢失处理说明](https://wikis.khronos.org/webgl/HandlingContextLost)。
 
 <API source="../src/canvas.tsx" symbol="CanvasProps" component="Canvas" />
+
+
+## 设计风格与主题
+
+画布的网格、文字、选区、编辑框、变换手柄与小地图由现有语义色板跟随当前设计和浅深模式；WebGL 使用 DOM 解析后的颜色。几何图元的显式 fill / stroke 是业务内容，不随主题擅自重写。
+本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+
+参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。

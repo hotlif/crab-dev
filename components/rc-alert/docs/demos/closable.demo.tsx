@@ -5,42 +5,35 @@ export const meta = {
 
 import { css } from "@crab-dev/css";
 import { useState } from "react";
+import Button from '@crab-dev/rc-button';
+import token from '@crab-dev/rc-token-semantic';
 import Alert from "../../src/index.js";
+
+const stackStyle = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${token.space['section-gap']};
+`;
+const statusStyle = css`margin: 0; color: ${token.color.text.secondary};`;
+const resetStyle = css`align-self: flex-start;`;
 
 const ClosableDemo = () => {
     const [resetKey, setResetKey] = useState(0);
-    const [allClosed, setAllClosed] = useState(false);
-    const closedCount = { current: 0 };
+    const [closedCount, setClosedCount] = useState(0);
     const total = 4;
 
     const handleClose = () => {
-        closedCount.current += 1;
-        if (closedCount.current >= total) {
-            setAllClosed(true);
-        }
+        setClosedCount(count => count + 1);
     };
 
     const handleReset = () => {
         setResetKey((k) => k + 1);
-        setAllClosed(false);
+        setClosedCount(0);
     };
 
     return (
-        <div
-            className={css`
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-            `}
-        >
-            <div
-                key={resetKey}
-                className={css`
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1rem;
-                `}
-            >
+        <div className={stackStyle}>
+            <div key={resetKey} className={stackStyle}>
                 <Alert type="info" closable onClose={handleClose}>
                     这条提示可以被关闭
                 </Alert>
@@ -59,21 +52,15 @@ const ClosableDemo = () => {
                     关闭后触发 onClose 回调
                 </Alert>
             </div>
-            {allClosed && (
-                <button
-                    type="button"
+            <p className={statusStyle} role="status">已关闭 {closedCount} / {total} 条提示。</p>
+            {closedCount > 0 && (
+                <Button
+                    appearance="outlined"
                     onClick={handleReset}
-                    className={css`
-                        align-self: flex-start;
-                        padding: 4px 12px;
-                        border: 1px solid #d9d9d9;
-                        border-radius: 6px;
-                        background: #fff;
-                        cursor: pointer;
-                    `}
+                    className={resetStyle}
                 >
                     重新显示全部
-                </button>
+                </Button>
             )}
         </div>
     );

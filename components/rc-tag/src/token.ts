@@ -48,6 +48,8 @@ export const vars = defineTokens({
     'checkable.background-color-selected': '--tag-checkable-background-color-selected',
     'checkable.border-color-selected': '--tag-checkable-border-color-selected',
     'checkable.icon.width': '--tag-checkable-icon-width',
+    'checkable.height': '--tag-checkable-height',
+    'checkable.font-size': '--tag-checkable-font-size',
     'checkable.state.opacity-hover': '--tag-checkable-state-opacity-hover',
     'checkable.state.opacity-focus': '--tag-checkable-state-opacity-focus',
     'checkable.state.opacity-active': '--tag-checkable-state-opacity-active',
@@ -66,21 +68,21 @@ const token = defineTokens({
         'large': {
             'height': `var(${vars['size.large.height']}, var(--token-semantic-size-28, var(--token-global-space-7, 28px)))`,
             'padding': `var(${vars['size.large.padding']}, 0 10px)`,
-            'border-radius': `var(${vars['size.large.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'border-radius': `var(${vars['size.large.border-radius']}, var(--token-semantic-status-tag-shape, var(--token-global-radius-4, 8px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'gap': `var(${vars['size.large.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         },
         'middle': {
             'height': `var(${vars['size.middle.height']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
             'padding': `var(${vars['size.middle.padding']}, 0 8px)`,
-            'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-status-tag-shape, var(--token-global-radius-4, 8px)))`,
             'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
             'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`,
             'padding': `var(${vars['size.small.padding']}, 0 6px)`,
-            'border-radius': `var(${vars['size.small.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'border-radius': `var(${vars['size.small.border-radius']}, var(--token-semantic-status-tag-shape, var(--token-global-radius-4, 8px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
             'gap': `var(${vars['size.small.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
@@ -107,8 +109,8 @@ const token = defineTokens({
     },
     'close': {
         'width': `var(${vars['close.width']}, 14px)`,
-        'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-        'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
+        'color': `var(${vars['close.color']}, inherit)`,
+        'color-hover': `var(${vars['close.color-hover']}, inherit)`
     },
     'interaction': {
         'touch': {
@@ -126,6 +128,8 @@ const token = defineTokens({
         'icon': {
             'width': `var(${vars['checkable.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         },
+        'height': `var(${vars['checkable.height']}, var(--token-semantic-status-chip-height, var(--token-global-size-32, 32px)))`,
+        'font-size': `var(${vars['checkable.font-size']}, var(--token-semantic-status-chip-font-size, var(--token-global-font-size-sm, 14px)))`,
         'state': {
             'opacity-hover': `var(${vars['checkable.state.opacity-hover']}, var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)))`,
             'opacity-focus': `var(${vars['checkable.state.opacity-focus']}, var(--token-semantic-state-opacity-focus, var(--token-global-opacity-12, 0.12)))`,

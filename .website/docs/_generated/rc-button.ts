@@ -6,6 +6,28 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/designs.demo.tsx",
+        "title": "三套风格的操作层级",
+        "description": "比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。",
+        "learning": {
+            "components": [
+                "Button"
+            ],
+            "props": [
+                "appearance",
+                "disabled"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "export const meta = {\n    title: '三套风格的操作层级',\n    description: '比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。',\n};\n\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\nconst actions = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']};`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['macos', 'material', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003csection key={`${design}-${mode}`} className={panel} data-crab-design={design} data-theme={mode} aria-label={`${design} ${mode}`}>\n                    \u003cstrong>{design} · {mode}\u003c/strong>\n                    \u003cdiv className={actions}>\n                        \u003cButton appearance=\"primary\">保存\u003c/Button>\n                        \u003cButton>取消\u003c/Button>\n                        \u003cButton appearance=\"text\">帮助\u003c/Button>\n                        \u003cButton disabled>不可用\u003c/Button>\n                    \u003c/div>\n                \u003c/section>\n            )))}\n        \u003c/div>\n    );\n}\n",
+        "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
+        "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
+        "density": "compact",
+        "layout": "wide",
+        "group": "三套风格对照"
+    },
+    {
         "id": "docs/demos/basic.demo.tsx",
         "title": "基础配置",
         "description": "在属性控件中组合文字、外观、尺寸与常用状态",
@@ -104,20 +126,24 @@ export const demos = [
     {
         "id": "docs/demos/icon.demo.tsx",
         "title": "图标按钮",
-        "description": "通过 `icon` 属性设置按钮图标",
+        "description": "通过 icon 设置按钮图标，使用切换按钮对照正常与加载状态。",
         "learning": {
             "components": [
                 "Button"
             ],
             "props": [
+                "isSelected",
+                "onClick",
                 "loading",
                 "icon",
                 "appearance"
             ],
-            "events": [],
+            "events": [
+                "onClick"
+            ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"图标按钮\",\n    description: \"通过 `icon` 属性设置按钮图标\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { Lollipop } from 'lucide-react';\nimport { useId, useState } from \"react\";\nimport Button from \"../../src/index.js\";\n\nconst IconDemo = () => {\n    const loadingCheckboxId = useId();\n    const [isLoading, setIsLoading] = useState(false);\n    return (\n        \u003cdiv>\n            \u003cdiv\n                className={css`\n                    margin-bottom: 1rem;\n                `}\n            >\n                \u003clabel htmlFor={loadingCheckboxId}>显示加载状态\u003c/label>\n                \u003cinput\n                    id={loadingCheckboxId}\n                    type=\"checkbox\"\n                    checked={isLoading}\n                    onChange={() => setIsLoading(!isLoading)}\n                />\n            \u003c/div>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    flex-wrap: wrap;\n                    align-items: center;\n                    gap: 1rem;\n                    margin-bottom: 2rem;\n                `}\n            >\n                \n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"primary\"\n                >\n                    primary\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"outlined\"\n                >\n                    subtle\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"text\"\n                >\n                    text\n                \u003c/Button>\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default IconDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"图标按钮\",\n    description: \"通过 icon 设置按钮图标，使用切换按钮对照正常与加载状态。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { Lollipop } from 'lucide-react';\nimport token from \"@crab-dev/rc-token-semantic\";\nimport { useState } from \"react\";\nimport Button from \"../../src/index.js\";\n\nconst IconDemo = () => {\n    const [isLoading, setIsLoading] = useState(false);\n    return (\n        \u003cdiv>\n            \u003cdiv\n                className={css`\n                    margin-bottom: ${token.space[\"section-gap\"]};\n                `}\n            >\n                \u003cButton isSelected={isLoading} onClick={() => setIsLoading(loading => !loading)}>显示加载状态\u003c/Button>\n            \u003c/div>\n            \u003cdiv\n                className={css`\n                    display: flex;\n                    flex-wrap: wrap;\n                    align-items: center;\n                    gap: ${token.space[\"section-gap\"]};\n                    margin-bottom: calc(${token.space[\"section-gap\"]} * 2);\n                `}\n            >\n                \n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"primary\"\n                >\n                    primary\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"outlined\"\n                >\n                    subtle\n                \u003c/Button>\n                \u003cButton\n                    loading={isLoading}\n                    icon={\u003cLollipop />}\n                    appearance=\"text\"\n                >\n                    text\n                \u003c/Button>\n            \u003c/div>\n        \u003c/div>\n    )\n}\n\nexport default IconDemo;\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Ficon.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Ficon.demo.tsx",
         "density": "compact",

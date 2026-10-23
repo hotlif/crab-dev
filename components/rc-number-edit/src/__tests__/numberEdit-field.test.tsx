@@ -1,10 +1,42 @@
-import { describe, expect, it } from '@crab-dev/wake/test';
+import { beforeAll, describe, expect, it } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 import { createRef, useState } from 'react';
 import NumberEdit from '../numberEdit.js';
 
+beforeAll(() => {
+    globalThis.ResizeObserver = class {
+        observe() { }
+        unobserve() { }
+        disconnect() { }
+    };
+});
+
 describe('NumberEdit text field integration', () => {
+    it('keeps scientific values accessible when disabled and restores native editing after enabling', async () => {
+        const field = (disabled: boolean) => <NumberEdit
+            label="金额"
+            appearance="filled"
+            defaultValue={1.23e21}
+            disabled={disabled}
+        />;
+        const { container, rerender } = await render(field(true));
+        const input = screen.getByRole('spinbutton') as HTMLInputElement;
+        expect(input.disabled).toBe(true);
+        expect(input.value).toBe('1.23e+21');
+        expect(input.getAttribute('aria-valuenow')).toBe('1.23e+21');
+        expect(input.getAttribute('aria-valuetext')).toContain('10 的 21 次方');
+        expect(container.querySelector('sup')?.textContent).toBe('21');
+
+        await rerender(field(false));
+        await act(() => input.focus());
+        expect(container.querySelector('sup')).toBeNull();
+        expect(input.value).toBe('1.23e+21');
+        await act(() => input.blur());
+        expect(container.querySelector('sup')?.textContent).toBe('21');
+        expect(input.getAttribute('aria-valuenow')).toBe('1.23e+21');
+    });
+
     it('associates its visible label and inherited supporting or error text with the numeric input', async () => {
         const containerRef = createRef<HTMLDivElement>();
         const field = (errorText?: string) => <>

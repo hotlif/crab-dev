@@ -8,13 +8,13 @@ imports = [
 [token]
 
 indent.width = "$ref(space.section-gap)"
-root.border-radius = "$ref(shape.extra-small)"
+root.border-radius = "$ref(navigation.item.radius)"
 
 node.background-color-hover = "$ref(color.state.hover)"
-node.background-color-selected = "$ref(color.secondary.container)"
+node.background-color-selected = "$ref(navigation.item.selected-background)"
 node.selection.border-color = "$ref(color.selection.border)"
 node.selection.border-width = "3px"
-node.selection.text-decoration = "underline"
+node.selection.text-decoration = "none"
 
 node.expand.icon.color = "$ref(color.text.secondary)"
 node.icon.background-color-hover = "$ref(color.state.hover)"
@@ -48,7 +48,7 @@ motion.rows.transition = "$ref(motion.layout)"
 root.outline-color-focus = "$ref(color.focus.ring)"
 root.outline-width-focus = "2px"
 root.outline-offset-focus = "2px"
-node.color-selected = "$ref(color.secondary.on-container)"
+node.color-selected = "$ref(navigation.item.selected-color)"
 node.opacity-disabled = "$ref(opacity.disabled)"
 node.touch.min-width = "$ref(size.touch-target)"
 node.touch.min-height = "$ref(size.touch-target)"

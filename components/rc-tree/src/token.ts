@@ -52,7 +52,7 @@ const token = defineTokens({
         'width': `var(${vars['indent.width']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
     },
     'root': {
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px)))`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-navigation-item-radius, var(--token-global-radius-full, 9999px)))`,
         'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-label-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
         'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
@@ -64,11 +64,11 @@ const token = defineTokens({
     },
     'node': {
         'background-color-hover': `var(${vars['node.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
-        'background-color-selected': `var(${vars['node.background-color-selected']}, var(--token-semantic-color-secondary-container, var(--token-global-material-secondary-90, oklch(0.91633372 0.03651492 303.106047))))`,
+        'background-color-selected': `var(${vars['node.background-color-selected']}, var(--token-semantic-navigation-item-selected-background, var(--token-semantic-color-secondary-container, var(--token-global-material-secondary-90, oklch(0.91633372 0.03651492 303.106047)))))`,
         'selection': {
             'border-color': `var(${vars['node.selection.border-color']}, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
             'border-width': `var(${vars['node.selection.border-width']}, 3px)`,
-            'text-decoration': `var(${vars['node.selection.text-decoration']}, underline)`,
+            'text-decoration': `var(${vars['node.selection.text-decoration']}, none)`,
             'width': `var(${vars['node.selection.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`,
             'touch': {
                 'width': `var(${vars['node.selection.touch.width']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`
@@ -106,7 +106,7 @@ const token = defineTokens({
         },
         'color-disabled': `var(${vars['node.color-disabled']}, var(--token-semantic-color-text-disabled, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'background-color-disabled': `var(${vars['node.background-color-disabled']}, transparent)`,
-        'color-selected': `var(${vars['node.color-selected']}, var(--token-semantic-color-secondary-on-container, var(--token-global-material-secondary-10, oklch(0.22720107 0.03472821 293.650491))))`,
+        'color-selected': `var(${vars['node.color-selected']}, var(--token-semantic-navigation-item-selected-color, var(--token-semantic-color-secondary-on-container, var(--token-global-material-secondary-10, oklch(0.22720107 0.03472821 293.650491)))))`,
         'opacity-disabled': `var(${vars['node.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
         'touch': {
             'min-width': `var(${vars['node.touch.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,

@@ -24,9 +24,9 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-extra-small, var(--token-global-radius-2, 4px)))`,
-        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`,
-        'border-color': `var(${vars['root.border-color']}, transparent)`,
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-overlay-popover-shape, var(--token-global-radius-2, 4px)))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-overlay-popover-background, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-overlay-popover-border, transparent))`,
         'z-index': `var(${vars['root.z-index']}, var(--token-semantic-z-index-float, var(--token-global-z-index-20, 1100)))`,
         'max-width': `var(${vars['root.max-width']}, calc(100vw - var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px))))`
     },

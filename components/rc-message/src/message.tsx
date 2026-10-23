@@ -17,6 +17,7 @@ const baseStyle = css`
     align-items: center;
     padding: ${token.root.padding};
     border-radius: ${token.root["border-radius"]};
+    border: 1px solid ${token.root["border-color"]};
     background-color: ${token.root["background-color"]};
     box-shadow: ${token.root["box-shadow"]};
     font-size: ${token.root["font-size"]};
@@ -70,6 +71,11 @@ const iconBaseStyle = css`
         width: ${token.icon.width};
         height: ${token.icon.width};
     }
+`;
+
+const contentStyle = css`
+    min-width: 0;
+    overflow-wrap: anywhere;
 `;
 
 const successIconStyle = css`
@@ -141,14 +147,15 @@ const Message: FC<MessageInternalProps> = ({
             data-state={presence.state}
             data-stack={stack}
             inert={!open}
-            role="alert"
+            role="status"
+            aria-live="polite"
             className={cx(baseStyle, className)}
             {...restProps}
         >
             <span className={cx(iconBaseStyle, iconStyleMap[type])}>
                 {iconNode}
             </span>
-            <span>{content}</span>
+            <span className={contentStyle}>{content}</span>
             {showProgress && duration > 0 && (
                 <div
                     key={`${progressKey ?? ''}-${duration}-${safeRemaining}`}

@@ -1,5 +1,5 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import LineEdit from "@crab-dev/rc-line-edit";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, Ref } from "react";
@@ -35,22 +35,18 @@ function setRefs<T>(...refs: (Ref<T> | undefined)[]) {
     };
 }
 
-interface OverlayRect {
-    left: number;
-    top: number;
-    width: number;
-    height: number;
-    /** 从 input 复制的 computed font 简写，保证上标层字号与输入框一致 */
-    font: string;
-}
-
 // 外层包裹：相对定位，供科学计数法上标覆盖层绝对定位对齐 input 文本区
 const rootStyle = css`
     position: relative;
     display: inline-block;
 `;
 
-// 上标覆盖层：失焦科学计数法态盖在 input 之上，背景与输入框表面同色以完全遮盖
+// Hide only the native input's visual contents; its value and accessible semantics stay intact.
+const scientificInputStyle = css`
+    > input { opacity: 0; }
+`;
+
+// The transparent display follows the input content box, including a filled field's label padding.
 const overlayStyle = css`
     position: absolute;
     display: flex;
@@ -61,8 +57,11 @@ const overlayStyle = css`
     background-color: ${token.display['background-color']};
     color: ${token.display.color};
     &[data-disabled="true"] {
-        opacity: ${token.root['opacity-disabled']};
+        color: ${token.display['color-disabled']};
         cursor: not-allowed;
+    }
+    @media (forced-colors: active) {
+        &[data-disabled="true"] { color: GrayText; }
     }
 `;
 
@@ -98,6 +97,7 @@ function NumberEdit(props: NumberEditProps) {
         ref,
         containerRef,
         id,
+        className,
         ...rest
     } = props;
     const size = useComponentSize(sizeProp);
@@ -111,12 +111,12 @@ function NumberEdit(props: NumberEditProps) {
 
     const [focused, setFocused] = useState(false);
     const [inputText, setInputText] = useState("");
-    const [overlayRect, setOverlayRect] = useState<OverlayRect | null>(null);
 
     // 例外①（可变实例状态 ref）：DOM 引用用于测量覆盖层与聚焦，不触发渲染
     const inputRef = useRef<HTMLInputElement | null>(null);
     const rootRef = useRef<HTMLDivElement | null>(null);
     const containerElRef = useRef<HTMLDivElement | null>(null);
+    const overlayRef = useRef<HTMLDivElement | null>(null);
 
     const effLargeStep = largeStep ?? step * 10;
     const sepNorm: string | false = thousandSeparator === true ? "," : thousandSeparator;
@@ -268,17 +268,26 @@ function NumberEdit(props: NumberEditProps) {
         const measure = (): void => {
             const input = inputRef.current;
             const root = rootRef.current;
-            if (!input || !root) {
+            const overlay = overlayRef.current;
+            if (!input || !root || !overlay) {
                 return;
             }
             const ir = input.getBoundingClientRect();
             const rr = root.getBoundingClientRect();
-            setOverlayRect({
-                left: ir.left - rr.left,
-                top: ir.top - rr.top,
-                width: ir.width,
-                height: ir.height,
-                font: getComputedStyle(input).font,
+            const inputStyle = getComputedStyle(input);
+            // Mutable DOM measurement: geometry and font metrics cannot be resolved by static CSS.
+            Object.assign(overlay.style, {
+                left: `${ir.left - rr.left}px`,
+                top: `${ir.top - rr.top}px`,
+                width: `${ir.width}px`,
+                height: `${ir.height}px`,
+                font: inputStyle.font,
+                paddingBlockStart: inputStyle.paddingBlockStart,
+                paddingBlockEnd: inputStyle.paddingBlockEnd,
+                paddingInlineStart: inputStyle.paddingInlineStart,
+                paddingInlineEnd: inputStyle.paddingInlineEnd,
+                direction: inputStyle.direction,
+                textAlign: inputStyle.textAlign,
             });
         };
         measure();
@@ -287,7 +296,7 @@ function NumberEdit(props: NumberEditProps) {
             observer.observe(containerElRef.current);
         }
         return () => observer.disconnect();
-    }, [showOverlay, displayValue, size, controls]);
+    });
 
     const upDisabled = Number.isFinite(max) && stepBase >= max;
     const downDisabled = Number.isFinite(min) && stepBase <= min;
@@ -317,6 +326,7 @@ function NumberEdit(props: NumberEditProps) {
                 id={inputId}
                 ref={setRefs<HTMLInputElement>(ref, inputRef)}
                 containerRef={setRefs<HTMLDivElement>(containerRef, containerElRef)}
+                className={cx(className, showOverlay && scientificInputStyle)}
                 size={size}
                 disabled={disabled}
                 readOnly={readOnly}
@@ -339,6 +349,7 @@ function NumberEdit(props: NumberEditProps) {
             />
             {showOverlay && sciParts && (
                 <div
+                    ref={overlayRef}
                     className={overlayStyle}
                     data-disabled={disabled ? "true" : undefined}
                     aria-hidden
@@ -346,17 +357,6 @@ function NumberEdit(props: NumberEditProps) {
                         e.preventDefault();
                         focusInput();
                     }}
-                    style={
-                        overlayRect
-                            ? {
-                                left: overlayRect.left,
-                                top: overlayRect.top,
-                                width: overlayRect.width,
-                                height: overlayRect.height,
-                                font: overlayRect.font,
-                            }
-                            : { left: 0, top: 0, width: 0, height: 0 }
-                    }
                 >
                     <Superscript mantissa={sciParts.mantissa} exponent={sciParts.exponent} />
                 </div>

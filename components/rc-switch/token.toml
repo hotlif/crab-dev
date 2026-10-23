@@ -9,13 +9,13 @@ imports = [
 root.outline-color-focus = "$ref(color.focus.ring)"
 root.outline-width-focus = "2px"
 root.outline-offset-focus = "2px"
-# Crab independent touch targets; visual size props remain unchanged.
+# The visual track and the 48px interaction target are independent.
 root.touch.min-width = "$ref(size.touch-target)"
 root.touch.min-height = "$ref(size.touch-target)"
 root.line-height = "$ref(typography.body.medium.line-height)"
-root.min-height = "$ref(size.selection-control)"
+root.min-height = "$ref(size.touch-target)"
 root.opacity-disabled = "$ref(opacity.disabled)"
-track.border-width = "1px"
+track.border-width = "$ref(border.toggle.width)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
@@ -30,29 +30,29 @@ label.font-size = "$ref(typography.body.medium.font-size)"
 
 # ─── 尺寸 — Large ────────────────────────────────────────────────────────────
 
-size.large.track.width = "36px"
-size.large.track.height = "20px"
+size.large.track.width = "$ref(sizing.large.toggle.track-width)"
+size.large.track.height = "$ref(sizing.large.toggle.track-height)"
 size.large.track.border-radius = "$ref(shape.full)"
-size.large.handle.width = "16px"
-size.large.handle.left = "2px"
+size.large.handle.width = "$ref(sizing.large.toggle.handle-width)"
+size.large.handle.left = "$ref(sizing.large.toggle.handle-inset)"
 
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.track.width = "32px"
-size.middle.track.height = "18px"
+size.middle.track.width = "$ref(sizing.middle.toggle.track-width)"
+size.middle.track.height = "$ref(sizing.middle.toggle.track-height)"
 size.middle.track.border-radius = "$ref(shape.full)"
-size.middle.handle.width = "14px"
-size.middle.handle.left = "2px"
+size.middle.handle.width = "$ref(sizing.middle.toggle.handle-width)"
+size.middle.handle.left = "$ref(sizing.middle.toggle.handle-inset)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 
-size.small.track.width = "28px"
-size.small.track.height = "16px"
+size.small.track.width = "$ref(sizing.small.toggle.track-width)"
+size.small.track.height = "$ref(sizing.small.toggle.track-height)"
 size.small.track.border-radius = "$ref(shape.full)"
-size.small.handle.width = "12px"
-size.small.handle.left = "2px"
+size.small.handle.width = "$ref(sizing.small.toggle.handle-width)"
+size.small.handle.left = "$ref(sizing.small.toggle.handle-inset)"
 
 
 # ─── 默认状态（未选中） ──────────────────────────────────────────────────────
@@ -69,18 +69,18 @@ track.checked.background-color-hover = "$ref(color.brand.primary)"
 
 # ─── 手柄 ────────────────────────────────────────────────────────────────────
 
-handle.background-color = "$ref(color.border.default)"
-handle.checked.background-color = "var(--switch-handle-background-color, $ref(color.text.on-brand))"
-handle.box-shadow = "none"
+handle.background-color = "$ref(color.control.toggle-thumb)"
+handle.checked.background-color = "$ref(toggle.handle.selected-color)"
+handle.box-shadow = "$ref(toggle.handle.shadow)"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────
 
-track.background-color-disabled = "color-mix(in srgb, $ref(color.surface.highest) 12%, transparent)"
-track.checked.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 12%, transparent)"
-track.border-color-disabled = "color-mix(in srgb, $ref(color.text.primary) 12%, transparent)"
-handle.background-color-disabled = "color-mix(in srgb, $ref(color.text.primary) calc($ref(opacity.disabled) * 100%), transparent)"
-handle.checked.background-color-disabled = "$ref(color.surface.content)"
+track.background-color-disabled = "color-mix(in oklch, $ref(color.surface.highest) calc($ref(toggle.disabled.track-opacity) * 100%), transparent)"
+track.checked.background-color-disabled = "color-mix(in oklch, $ref(color.text.primary) calc($ref(toggle.disabled.track-opacity) * 100%), transparent)"
+track.border-color-disabled = "color-mix(in oklch, $ref(color.text.primary) calc($ref(toggle.disabled.track-opacity) * 100%), transparent)"
+handle.background-color-disabled = "$ref(toggle.disabled.handle-color)"
+handle.checked.background-color-disabled = "$ref(toggle.disabled.selected-handle-color)"
 
 
 # ─── 标签 ────────────────────────────────────────────────────────────────────
@@ -88,14 +88,17 @@ handle.checked.background-color-disabled = "$ref(color.surface.content)"
 label.color          = "$ref(color.text.primary)"
 label.color-disabled = "$ref(color.text.primary)"
 track.border-color = "$ref(color.border.default)"
-handle.unchecked.scale = "0.666667"
-handle.pressed.scale = "1.166667"
-handle.interactive.background-color = "$ref(color.text.secondary)"
-handle.checked.interactive.background-color = "$ref(color.brand.container)"
+handle.unchecked.scale = "$ref(toggle.handle.unchecked-scale)"
+handle.pressed.scale = "$ref(toggle.handle.pressed-scale)"
+handle.interactive.background-color = "$ref(toggle.handle.interactive-color)"
+handle.checked.interactive.background-color = "$ref(toggle.handle.selected-interactive-color)"
+track.border-color-error = "$ref(color.border.error)"
+track.background-color-error = "$ref(color.feedback.error.solid)"
+handle.background-color-error = "$ref(color.feedback.error.on-solid)"
 track.state-layer.background-color-hover = "color-mix(in oklch, $ref(color.text.primary) calc($ref(state.opacity.hover) * 100%), transparent)"
 track.state-layer.background-color-active = "color-mix(in oklch, $ref(color.text.primary) calc($ref(state.opacity.pressed) * 100%), transparent)"
 track.checked.state-layer.background-color-hover = "color-mix(in oklch, $ref(color.brand.primary) calc($ref(state.opacity.hover) * 100%), transparent)"
 track.checked.state-layer.background-color-active = "color-mix(in oklch, $ref(color.brand.primary) calc($ref(state.opacity.pressed) * 100%), transparent)"
-track.halo.width = "$ref(size.28)"
+track.halo.width = "$ref(size.toggle-state-layer)"
 track.halo.left = "-5px"
 track.halo.translate-checked = "14px"

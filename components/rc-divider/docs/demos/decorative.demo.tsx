@@ -4,24 +4,27 @@ export const meta = {
 };
 
 import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
 import Divider from '../../src/index.js';
 
 const cardStyle = css`
-    padding: 16px;
-    border: 1px solid oklch(0.9 0.004 286);
-    border-radius: 8px;
+    padding: ${token.space['card-padding']};
+    border: 1px solid ${token.color.border.subtle};
+    border-radius: ${token.shape.card};
+    background-color: ${token.color.background.surface};
+    color: ${token.color.text.primary};
 `;
 
 const titleStyle = css`
     margin: 0;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: ${token.font.size.subhead};
+    font-weight: ${token.font.weight.heading};
 `;
 
 const bodyStyle = css`
     margin: 0;
-    color: oklch(0.44 0.01 286);
-    font-size: 14px;
+    color: ${token.color.text.secondary};
+    font-size: ${token.font.size.body};
 `;
 
 const DecorativeDemo = () => {

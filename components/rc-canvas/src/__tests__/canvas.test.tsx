@@ -199,7 +199,7 @@ describe('Canvas', () => {
             expect(Number(screen.getByTestId('palette-revision').textContent)).toBeGreaterThan(before);
         }
     });
-    it('祖先主题切换后下一帧向 WebGL 上传重新解析的网格色', async () => {
+    it('默认语义色板在祖先主题切换后向 WebGL 上传新的网格色', async () => {
         Object.assign(glMock, {
             TRIANGLE_STRIP: 0x0005,
             drawArrays: mock.fn(),
@@ -210,9 +210,13 @@ describe('Canvas', () => {
             return {
                 color: probe.style.color,
                 boxShadow: probe.style.boxShadow,
-                getPropertyValue: (name: string) => name === '--canvas-grid-test'
-                    ? (isDark ? 'rgb(240, 10, 20)' : 'rgb(10, 20, 30)')
-                    : '',
+                // DOM 替身只模拟主题角色求值；无关 chrome 的 L3 颜色用简单字面量提供。
+                getPropertyValue: (name: string) => {
+                    if (name === '--token-semantic-color-border-default') return isDark ? 'rgb(240, 10, 20)' : 'rgb(10, 20, 30)';
+                    if (name === '--canvas-palette-grid-color') return '';
+                    if (name === '--canvas-palette-minimap-box-shadow') return 'none';
+                    return name.startsWith('--canvas-palette-') ? 'rgb(80, 80, 80)' : '';
+                },
             };
         }) as unknown as typeof getComputedStyle);
 
@@ -221,7 +225,6 @@ describe('Canvas', () => {
                 <Canvas
                     width={100}
                     height={100}
-                    palette={{ grid: 'var(--canvas-grid-test)' }}
                 >
                     <InfiniteGrid />
                 </Canvas>

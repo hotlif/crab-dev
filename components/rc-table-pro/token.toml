@@ -7,18 +7,28 @@ imports = [
 
 [token]
 motion.interaction.transition = "$ref(motion.interaction)"
+control.target.width = "$ref(size.touch-target)"
+toolbar.width = "calc($ref(size.touch-target) + $ref(space.inline-gap) * 2)"
+toolbar.padding = "$ref(space.inline-gap)"
+toolbar.gap = "$ref(space.inline-gap)"
+panel.width = "280px"
+panel.box-shadow = "$ref(shadow.overlay)"
+column.actions.width = "$ref(size.32)"
+column.actions.panel.width = "200px"
 
 # TablePro uses its own component variables with semantic surface roles.
 surface.background-color = "$ref(color.surface.content)"
-chrome.background-color = "$ref(color.surface.canvas)"
-root.border-color = "$ref(color.border.subtle)"
+chrome.background-color = "$ref(color.workspace.toolbar)"
+root.border-color = "$ref(data.table.border.color)"
 
 overlay.background-color-loading = "color-mix(in oklch, $ref(color.surface.content) 65%, transparent)"
 overlay.background-color-error = "color-mix(in oklch, $ref(color.surface.content) 92%, transparent)"
 
-icon.color = "$ref(color.text.tertiary)"
+icon.color = "$ref(color.text.secondary)"
 icon.color-hover = "$ref(color.text.primary)"
-icon.background-color-hover = "$ref(color.state.hover)"
+icon.background-color-hover = "color-mix(in oklch, $ref(color.text.secondary) calc($ref(state.opacity.hover) * 100%), transparent)"
+icon.background-color-focus = "color-mix(in oklch, $ref(color.text.secondary) calc($ref(state.opacity.focus) * 100%), transparent)"
+icon.background-color-pressed = "color-mix(in oklch, $ref(color.text.secondary) calc($ref(state.opacity.pressed) * 100%), transparent)"
 icon.background-color-selected = "$ref(color.selection.background)"
 icon.color-selected = "$ref(color.selection.foreground)"
 icon.selection.background-color-hover = "$ref(color.highlight.background-active)"

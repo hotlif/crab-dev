@@ -18,6 +18,7 @@ const BaseDemo = () => {
                 title="基本对话框"
                 open={open}
                 onOpenChange={setOpen}
+                onConfirm={() => true}
             >
                 这是一个基础的对话框信息
             </Dialog>

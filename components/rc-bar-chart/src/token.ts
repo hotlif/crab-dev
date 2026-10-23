@@ -52,28 +52,28 @@ const token = defineTokens({
     'palette': {
         'series': {
             'blue': {
-                'color': `var(${vars['palette.series.blue.color']}, oklch(0.5753 0.1626 255.53))`
+                'color': `var(${vars['palette.series.blue.color']}, var(--token-semantic-data-chart-series-1, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
             },
             'orange': {
-                'color': `var(${vars['palette.series.orange.color']}, oklch(0.6708 0.175 40.64))`
+                'color': `var(${vars['palette.series.orange.color']}, var(--token-semantic-data-chart-series-2, var(--token-global-material-tertiary-40, oklch(0.49038805 0.06053149 358.445477))))`
             },
             'aqua': {
-                'color': `var(${vars['palette.series.aqua.color']}, oklch(0.669 0.1408 162.11))`
+                'color': `var(${vars['palette.series.aqua.color']}, var(--token-semantic-data-chart-series-3, var(--token-global-blue-600, oklch(0.546 0.245 262))))`
             },
             'yellow': {
-                'color': `var(${vars['palette.series.yellow.color']}, oklch(0.7644 0.1612 75.12))`
+                'color': `var(${vars['palette.series.yellow.color']}, var(--token-semantic-data-chart-series-4, var(--token-global-amber-600, oklch(0.666 0.179 73))))`
             },
             'magenta': {
-                'color': `var(${vars['palette.series.magenta.color']}, oklch(0.7163 0.1412 357.39))`
+                'color': `var(${vars['palette.series.magenta.color']}, var(--token-semantic-data-chart-series-5, var(--token-global-material-secondary-40, oklch(0.48593316 0.03575478 299.614802))))`
             },
             'green': {
-                'color': `var(${vars['palette.series.green.color']}, oklch(0.5285 0.1798 142.5))`
+                'color': `var(${vars['palette.series.green.color']}, var(--token-semantic-data-chart-series-6, var(--token-global-green-600, oklch(0.627 0.194 153))))`
             },
             'violet': {
-                'color': `var(${vars['palette.series.violet.color']}, oklch(0.4331 0.1671 283.62))`
+                'color': `var(${vars['palette.series.violet.color']}, var(--token-semantic-data-chart-series-7, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`
             },
             'red': {
-                'color': `var(${vars['palette.series.red.color']}, oklch(0.6226 0.1909 24.91))`
+                'color': `var(${vars['palette.series.red.color']}, var(--token-semantic-data-chart-series-8, var(--token-global-red-600, oklch(0.577 0.245 25))))`
             }
         },
         'gridline': {

@@ -1,6 +1,6 @@
 import { useComponentSize, componentSizeMetrics, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
 import RcVirtual, { TokenVars as VirtualTokenVars } from "@crab-dev/rc-virtual";
-import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
+import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { css, cx } from "@crab-dev/css";
 import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import Radio, { TokenVars as radioVars } from "@crab-dev/rc-radio";
@@ -8,6 +8,7 @@ import Empty from "@crab-dev/rc-empty";
 import { useAnimatedRows, useMediaQuery } from "@crab-dev/rc-hooks";
 
 import BodyRow from "./bodyRow.js";
+import TableIconButton from "./iconButton.js";
 import token from "./token.js";
 import TableBodyCell, { type TableCellProps } from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
@@ -85,6 +86,16 @@ const tableRootStyle = css`
             outline-offset: -1px;
         }
     }
+`;
+
+const filterSizeProbeStyle = css`
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 0;
+    height: calc(${token['filter-cell'].control['min-height']} + ${token['filter-cell'].padding} * 2);
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
 `;
 
 export interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
@@ -274,27 +285,6 @@ const selectionCellStyle = css`
     height: 100%;
 `;
 
-// 展开图标按钮：方形可点区域 + 焦点环，hover 提亮底，内嵌旋转 chevron
-const expandButtonStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: ${token.expand.chevron.width};
-    height: ${token.expand.chevron.width};
-    flex-shrink: 0;
-    cursor: pointer;
-    border-radius: ${token.expand.button["border-radius"]};
-    color: ${token.expand.chevron.color};
-    background: transparent;
-    border: none;
-    padding: 0;
-    outline: none;
-    &:focus-visible {
-        outline: ${token.selection['border-width']} solid ${token.selection['border-color']};
-        outline-offset: ${token.selection['outline-offset']};
-    }
-`;
-
 const expandChevronStyle = css`
     transition: ${token.expand.chevron.transition};
     @media (prefers-reduced-motion: reduce) {
@@ -349,7 +339,14 @@ const ExpandedRowContent: FC<{ width: number; colSpan: number; children: ReactNo
 // 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承；见 rowBg.ts）
 const selectedRowStyle = css`
     background-color: var(${ROW_BG_VAR}, ${token.cell['background-color']});
+    color: ${token['row-selection']['color-selected']};
     transition: ${ROW_BG_TRANSITION};
+
+    @media (forced-colors: active) {
+        color: HighlightText;
+        ${ROW_BG_VAR}: Highlight;
+        & [role='gridcell'] { background-color: Highlight; }
+    }
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -625,7 +622,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         getRowHeight,
         headerRowHeight = metrics.header,
         filterBar = false,
-        filterRowHeight = metrics.header,
+        filterRowHeight: suppliedFilterRowHeight,
         filterCellClassName,
         filters,
         editType,
@@ -690,6 +687,19 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     } = props;
 
     const { rootRef: interactionRootRef, activateInteraction, isInteractionActive } = useTableInteractionScope();
+    // 可变实例状态：CSS 测量节点只用于同步语义令牌与虚拟滚动几何。
+    const filterSizeRef = useRef<HTMLSpanElement>(null);
+    const [filterMinimumHeight, setFilterMinimumHeight] = useState(0);
+    useLayoutEffect(() => {
+        const element = filterSizeRef.current;
+        if (!element) return;
+        setFilterMinimumHeight(element.getBoundingClientRect().height);
+        if (typeof ResizeObserver === 'undefined') return;
+        const observer = new ResizeObserver(entries => { setFilterMinimumHeight(entries[0].contentRect.height); });
+        observer.observe(element);
+        return () => observer.disconnect();
+    }, []);
+    const filterRowHeight = suppliedFilterRowHeight ?? Math.max(metrics.header, filterMinimumHeight);
 
     // ====== 行选中 ======
     const { selectedRowIds, isAllSelected, isIndeterminate, toggleRow, selectAllRows, clearAllRows } = useRowSelection<T>({
@@ -782,7 +792,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             name: EXPAND_COLUMN_NAME,
             title: '',
             fixed: isFixed ? 'left' : undefined,
-            width: expandColumnWidth ?? 40,
+            width: Math.max(expandColumnWidth ?? 40, coarsePointer ? 48 : 32),
             selectable: false,
             sortable: false,
             resizable: false,
@@ -795,15 +805,13 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 const expanded = expandedKeySet.has(row.id);
                 return (
                     <div className={selectionCellStyle}>
-                        <button
+                        <TableIconButton
                             type="button"
-                            className={expandButtonStyle}
                             aria-expanded={expanded}
                             aria-label={expanded ? '收起此行' : '展开此行'}
                             onClick={(e) => { e.stopPropagation(); toggleExpandRow(row.id); }}
                             onMouseDown={(e) => e.stopPropagation()}
-                        >
-                            <svg
+                            icon={<svg
                                 width="10"
                                 height="10"
                                 viewBox="0 0 10 10"
@@ -813,13 +821,13 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                                 style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
                             >
                                 <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
+                            </svg>}
+                        />
                     </div>
                 );
             },
         };
-    }, [expandedRowRender, expandColumnFixed, expandColumnWidth]);
+    }, [expandedRowRender, expandColumnFixed, expandColumnWidth, coarsePointer]);
 
     const effectiveColumns = useMemo(() => {
         const cols: ColumnType<T>[] = [];
@@ -1320,6 +1328,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     // 数据行在 DOM 中的定位锚点（供测试与使用方的自动化脚本使用）
                     data-row-index={rowIndex}
                     role="row"
+                    aria-selected={rowSelection ? isRowSelected : undefined}
                     className={cx.call(undefined, isEditingThisRow ? rowEditingRowStyle : undefined,
                         // 可点击示能只给真正可点的数据行：编辑态的行此时不响应行点击
                         hasRowEvents && !isEditingThisRow ? clickableRowStyle : undefined,
@@ -1618,6 +1627,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             nodeRows.push(
                 <BodyRow
                     key="table-header-filter-row"
+                    data-table-filter-row=""
                     role="row"
                     className={css`position: sticky; z-index: 10;`}
                     style={{ height: filterRowHeight, width: actualHeight, top: maxDepth * headerRowHeight }}
@@ -1703,6 +1713,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     ];
                 }}
             />
+            <span ref={filterSizeRef} className={filterSizeProbeStyle} data-table-filter-size="" aria-hidden="true" />
             {emptyNode !== null && (
                 <div
                     className={emptyBodyStyle}

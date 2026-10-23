@@ -32,7 +32,8 @@ export interface CanvasProps {
     style?: CSSProperties;
     /**
      * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。
-     * 各图元显式颜色 prop 始终优先；支持 var()/color-mix()/系统色。
+     * 默认及局部覆盖均以语义令牌为基础并跟随主题；各图元显式颜色 prop 始终优先。
+     * 支持 var()/color-mix()/系统色；显式传 DEFAULT_CANVAS_PALETTE 可保留旧版配色。
      */
     palette?: Partial<CanvasPalette>;
     /** 点击空白区域（无命中形状）时触发，常用于取消选中 */

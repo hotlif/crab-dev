@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, type MutableRefObject, type Dispatch, type SetStateAction, type Key, type ReactNode } from "react";
-import { css, cx } from "@crab-dev/css";
+import { css } from "@crab-dev/css";
 import { NodeType, LoadStateType } from "@crab-dev/rc-tree";
 import type { Node as TreeNode, TreeProps } from "@crab-dev/rc-tree";
 import type { ColumnType, Row } from "@crab-dev/rc-table";
 import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState } from "../types.js";
 import { transformColumns } from "../util.js";
 import token from "../token.js";
+import ColumnActions from '../columnActions.js';
 import {
     collectAllLeafColumnNames,
     collectLeafColumns,
@@ -28,89 +29,13 @@ const colNodeNameStyle = css`
     white-space: nowrap;
 `;
 
-const colPinBtnStyle = css`
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    display: inline-flex;
+const colNodeStyle = css`
+    display: flex;
     align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    opacity: 0;
-    color: ${token.icon.color};
-    transition: opacity ${token.motion.interaction.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
+    width: 100%;
+    min-width: 0;
+    gap: ${token.toolbar.gap};
 `;
-
-const colPinBtnActiveStyle = css`
-    opacity: 1 !important;
-    color: ${token.icon['color-selected']};
-    &:hover { background-color: ${token.icon.selection['background-color-hover']}; color: ${token.icon.selection['color-hover']}; }
-`;
-
-const sortableBtnStyle = css`
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    opacity: 0;
-    color: ${token.icon.color};
-    transition: opacity ${token.motion.interaction.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    &:hover { background-color: ${token.icon['background-color-hover']}; color: ${token.icon['color-hover']}; }
-`;
-
-const sortableBtnActiveStyle = css`
-    opacity: 1 !important;
-    color: ${token.sort['color-selected']};
-    &:hover { background-color: ${token.sort.selection['background-color-hover']}; color: ${token.sort.selection['color-hover']}; }
-`;
-
-const colNodeHoverGroupStyle = css`
-    &:hover .${colPinBtnStyle} { opacity: 1; }
-    &:hover .${sortableBtnStyle} { opacity: 1; }
-`;
-
-/* ─── 图标（仅列面板节点使用，Bootstrap Icons） ─── */
-
-interface PinIconProps { direction: "left" | "right"; active: boolean }
-function PinIcon({ direction, active }: PinIconProps) {
-    return (
-        <svg
-            width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
-            style={{ transform: direction === "right" ? "scaleX(-1)" : undefined }}
-        >
-            {active
-                ? /* pin-angle-fill */ <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 0 .707c-.48.48-1.072.588-1.503.588-.177 0-.335-.018-.46-.039l-3.134 3.134a5.927 5.927 0 0 1 .16 1.013c.046.702-.032 1.687-.72 2.375a.5.5 0 0 1-.707 0l-2.829-2.828-3.182 3.182c-.195.195-1.219.902-1.414.707-.195-.195.512-1.22.707-1.414l3.182-3.182-2.828-2.829a.5.5 0 0 1 0-.707c.688-.688 1.673-.767 2.375-.72a5.922 5.922 0 0 1 1.013.16l3.134-3.133a2.772 2.772 0 0 1-.04-.461c0-.43.108-1.022.589-1.503a.5.5 0 0 1 .353-.146z"/>
-                : /* pin-angle */ <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 0 .707c-.48.48-1.072.588-1.503.588-.177 0-.335-.018-.46-.039l-3.134 3.134a5.927 5.927 0 0 1 .16 1.013c.046.702-.032 1.687-.72 2.375a.5.5 0 0 1-.707 0l-2.829-2.828-3.182 3.182c-.195.195-1.219.902-1.414.707-.195-.195.512-1.22.707-1.414l3.182-3.182-2.828-2.829a.5.5 0 0 1 0-.707c.688-.688 1.673-.767 2.375-.72a5.922 5.922 0 0 1 1.013.16l3.134-3.133a2.772 2.772 0 0 1-.04-.461c0-.43.108-1.022.589-1.503a.5.5 0 0 1 .353-.146zm.122 2.112v-.002.002zm0-.002v.002a.5.5 0 0 1-.122.51L6.293 6.878a.5.5 0 0 1-.511.12H5.78l-.014-.004a4.507 4.507 0 0 0-.288-.076 4.458 4.458 0 0 0-.765-.116c-.422-.028-.836.008-1.175.15l5.51 5.509c.141-.34.177-.753.149-1.175a4.46 4.46 0 0 0-.192-1.054l-.004-.013v-.001a.5.5 0 0 1 .12-.512l3.536-3.535a.5.5 0 0 1 .532-.115l.096.022c.087.017.208.034.344.034.114 0 .23-.011.343-.04L9.927 2.028c-.029.113-.04.228-.04.343a1.776 1.776 0 0 0 .062.46z"/>
-            }
-        </svg>
-    );
-}
-
-interface SortableIconProps { active: boolean }
-function SortableIcon({ active }: SortableIconProps) {
-    return (
-        /* Bootstrap Icons: arrow-down-up */
-        <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
-            style={{ opacity: active ? 1 : 0.45 }}>
-            <path fillRule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
-        </svg>
-    );
-}
-
 /* ─── 类型 ─── */
 
 export type PinChangeHandler = (colName: string | number, fixed: "left" | "right" | undefined) => void;
@@ -185,47 +110,10 @@ function columnsToTreeNodes(
             ? ((col.title ?? col.name) as string)
             : (onPinChange || onSortableChange)
                 ? (
-                    <span className={colNodeHoverGroupStyle} style={{ display: "flex", alignItems: "center", width: "100%" }}>
+                    <span className={colNodeStyle}>
                         <span className={colNodeNameStyle}>{(col.title ?? col.name) as string}</span>
-                        {onSortableChange && (
-                            <button
-                                type="button"
-                                className={cx.call(undefined, sortableBtnStyle, sortable && sortableBtnActiveStyle)}
-                                title={sortable ? "禁用排序" : "启用排序"}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onSortableChange(colName, !sortable);
-                                }}
-                            >
-                                <SortableIcon active={sortable} />
-                            </button>
-                        )}
-                        {onPinChange && (
-                            <>
-                                <button
-                                    type="button"
-                                    className={cx.call(undefined, colPinBtnStyle, fixed === "left" && colPinBtnActiveStyle)}
-                                    title={fixed === "left" ? "取消左固定" : "固定到左侧"}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        onPinChange(colName, fixed === "left" ? undefined : "left");
-                                    }}
-                                >
-                                    <PinIcon direction="left" active={fixed === "left"} />
-                                </button>
-                                <button
-                                    type="button"
-                                    className={cx.call(undefined, colPinBtnStyle, fixed === "right" && colPinBtnActiveStyle)}
-                                    title={fixed === "right" ? "取消右固定" : "固定到右侧"}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        onPinChange(colName, fixed === "right" ? undefined : "right");
-                                    }}
-                                >
-                                    <PinIcon direction="right" active={fixed === "right"} />
-                                </button>
-                            </>
-                        )}
+                        <ColumnActions name={colName} label={typeof col.title === 'string' ? col.title : String(col.name)}
+                            fixed={fixed} sortable={sortable} onPinChange={onPinChange} onSortableChange={onSortableChange} />
                     </span>
                 )
                 : ((col.title ?? col.name) as string);

@@ -7,6 +7,7 @@ import { defineTokens } from '@crab-dev/css';
 export const vars = defineTokens({
     'overlay.background-color': '--drawer-overlay-background-color',
     'root.background-color': '--drawer-root-background-color',
+    'root.border-color': '--drawer-root-border-color',
     'root.box-shadow': '--drawer-root-box-shadow',
     'root.border-radius': '--drawer-root-border-radius',
     'size.small.width': '--drawer-size-small-width',
@@ -31,6 +32,8 @@ export const vars = defineTokens({
     'close.color': '--drawer-close-color',
     'close.color-hover': '--drawer-close-color-hover',
     'close.background-color-hover': '--drawer-close-background-color-hover',
+    'close.background-color-focus': '--drawer-close-background-color-focus',
+    'close.background-color-active': '--drawer-close-background-color-active',
     'close.border-radius': '--drawer-close-border-radius',
     'panel.animation-duration': '--drawer-panel-animation-duration',
     'panel.animation-timing-function': '--drawer-panel-animation-timing-function',
@@ -46,9 +49,10 @@ const token = defineTokens({
         'background-color': `var(${vars['overlay.background-color']}, var(--token-semantic-color-background-overlay, color-mix(in oklch, var(--token-global-black, oklch(0.000 0 0)) 32%, transparent)))`
     },
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-overlay-sheet-background, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`,
+        'border-color': `var(${vars['root.border-color']}, var(--token-semantic-overlay-sheet-border, transparent))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
-        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-shape-large, var(--token-global-radius-8, 16px)))`
+        'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-overlay-sheet-shape, var(--token-global-radius-14, 28px)))`
     },
     'size': {
         'small': {
@@ -84,13 +88,15 @@ const token = defineTokens({
         'gap': `var(${vars['footer.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'close': {
-        'width': `var(${vars['close.width']}, 32px)`,
+        'width': `var(${vars['close.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
         'icon': {
-            'width': `var(${vars['close.icon.width']}, 16px)`
+            'width': `var(${vars['close.icon.width']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`
         },
         'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
         'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-        'background-color-hover': `var(${vars['close.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
+        'background-color-hover': `var(${vars['close.background-color-hover']}, color-mix(in srgb, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), transparent))`,
+        'background-color-focus': `var(${vars['close.background-color-focus']}, color-mix(in srgb, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-focus, var(--token-global-opacity-12, 0.12)) * 100%), transparent))`,
+        'background-color-active': `var(${vars['close.background-color-active']}, color-mix(in srgb, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), transparent))`,
         'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
     },
     'panel': {

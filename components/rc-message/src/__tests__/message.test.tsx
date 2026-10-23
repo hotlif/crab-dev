@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
+import { act, beforeAll, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
 
 
 let Message: (typeof import('../message.js'))['default'];
@@ -29,16 +29,24 @@ describe('Message', () => {
         expect(container.firstChild).toBeTruthy();
         expect(container.textContent).toContain('Hello World');
     });
-    it('has role="alert"', async () => {
-        await render(<Message content="Test"/>);
-        expect(screen.getByRole('alert')).toBeTruthy();
+    it('announces routine feedback politely without moving focus', async () => {
+        const { rerender } = await render(<><button>Save</button><Message content="Saved" open={false} /></>);
+        const trigger = screen.getByRole('button');
+        await act(async () => { trigger.focus(); });
+        await rerender(<><button>Save</button><Message content="Saved" /></>);
+        expect(screen.getByRole('status').getAttribute('aria-live')).toBe('polite');
+        expect(document.activeElement?.textContent).toBe('Save');
+    });
+    it('allows an explicit urgent announcement', async () => {
+        await render(<Message content="Connection lost" role="alert" aria-live="assertive" />);
+        expect(screen.getByRole('alert').getAttribute('aria-live')).toBe('assertive');
     });
     it('renders all five types', async () => {
         const types: MessageType[] = ['success', 'info', 'warning', 'error', 'loading'];
         for (const type of types) {
             const { unmount } = await render(<Message type={type} content={`${type} message`}/>);
-            expect(screen.getByRole('alert')).toBeTruthy();
-            expect(screen.getByRole('alert').textContent).toContain(`${type} message`);
+            expect(screen.getByRole('status')).toBeTruthy();
+            expect(screen.getByRole('status').textContent).toContain(`${type} message`);
             await unmount();
         }
     });

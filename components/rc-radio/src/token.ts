@@ -14,6 +14,7 @@ export const vars = defineTokens({
     'root.opacity-disabled': '--radio-root-opacity-disabled',
     'control.transition': '--radio-control-transition',
     'control.target.width': '--radio-control-target-width',
+    'control.box-shadow': '--radio-control-box-shadow',
     'control.border-color-error': '--radio-control-border-color-error',
     'control.border-width': '--radio-control-border-width',
     'control.border-style': '--radio-control-border-style',
@@ -23,10 +24,14 @@ export const vars = defineTokens({
     'control.checked.background-color': '--radio-control-checked-background-color',
     'control.checked.background-color-hover': '--radio-control-checked-background-color-hover',
     'control.checked.border-color': '--radio-control-checked-border-color',
+    'control.checked.background-color-error': '--radio-control-checked-background-color-error',
+    'control.checked.background-color-disabled': '--radio-control-checked-background-color-disabled',
     'control.background-color-disabled': '--radio-control-background-color-disabled',
     'control.border-color-disabled': '--radio-control-border-color-disabled',
     'dot.color-error': '--radio-dot-color-error',
     'dot.checked.color': '--radio-dot-checked-color',
+    'dot.checked.color-error': '--radio-dot-checked-color-error',
+    'dot.checked.color-disabled': '--radio-dot-checked-color-disabled',
     'dot.scale-hidden': '--radio-dot-scale-hidden',
     'dot.scale': '--radio-dot-scale',
     'dot.transition': '--radio-dot-transition',
@@ -70,18 +75,21 @@ const token = defineTokens({
     'control': {
         'transition': `var(${vars['control.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'target': {
-            'width': `var(${vars['control.target.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`
+            'width': `var(${vars['control.target.width']}, var(--token-semantic-selection-control-size, var(--token-global-size-48, 48px)))`
         },
+        'box-shadow': `var(${vars['control.box-shadow']}, var(--token-semantic-selection-shadow, var(--token-global-shadow-none, none)))`,
         'border-color-error': `var(${vars['control.border-color-error']}, var(--token-semantic-color-border-error, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
-        'border-width': `var(${vars['control.border-width']}, 2px)`,
+        'border-width': `var(${vars['control.border-width']}, var(--token-semantic-selection-border-width, var(--token-global-space-0-5, 2px)))`,
         'border-style': `var(${vars['control.border-style']}, solid)`,
         'border-color': `var(${vars['control.border-color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
         'border-color-hover': `var(${vars['control.border-color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-        'background-color': `var(${vars['control.background-color']}, transparent)`,
+        'background-color': `var(${vars['control.background-color']}, var(--token-semantic-selection-surface, transparent))`,
         'checked': {
-            'background-color': `var(${vars['control.checked.background-color']}, transparent)`,
-            'background-color-hover': `var(${vars['control.checked.background-color-hover']}, transparent)`,
-            'border-color': `var(${vars['control.checked.border-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+            'background-color': `var(${vars['control.checked.background-color']}, var(--token-semantic-selection-radio-selected-surface, transparent))`,
+            'background-color-hover': `var(${vars['control.checked.background-color-hover']}, var(--token-semantic-selection-radio-selected-surface, transparent))`,
+            'border-color': `var(${vars['control.checked.border-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'background-color-error': `var(${vars['control.checked.background-color-error']}, var(--token-semantic-selection-radio-error-surface, transparent))`,
+            'background-color-disabled': `var(${vars['control.checked.background-color-disabled']}, var(--token-semantic-selection-radio-disabled-selected-surface, transparent))`
         },
         'background-color-disabled': `var(${vars['control.background-color-disabled']}, transparent)`,
         'border-color-disabled': `var(${vars['control.border-color-disabled']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
@@ -89,7 +97,9 @@ const token = defineTokens({
     'dot': {
         'color-error': `var(${vars['dot.color-error']}, var(--token-semantic-color-feedback-error-solid, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
         'checked': {
-            'color': `var(${vars['dot.checked.color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+            'color': `var(${vars['dot.checked.color']}, var(--token-semantic-selection-radio-selected-dot, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+            'color-error': `var(${vars['dot.checked.color-error']}, var(--token-semantic-selection-radio-error-dot, var(--token-semantic-color-feedback-error-solid, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`,
+            'color-disabled': `var(${vars['dot.checked.color-disabled']}, var(--token-semantic-selection-radio-disabled-selected-dot, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`
         },
         'scale-hidden': `var(${vars['dot.scale-hidden']}, 0.6)`,
         'scale': `var(${vars['dot.scale']}, 1)`,
@@ -97,7 +107,7 @@ const token = defineTokens({
         'color-disabled': `var(${vars['dot.color-disabled']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
     },
     'state-layer': {
-        'width': `var(${vars['state-layer.width']}, var(--token-semantic-size-selection-control, var(--token-global-space-6, 24px)))`,
+        'width': `var(${vars['state-layer.width']}, var(--token-semantic-selection-state-layer-size, var(--token-global-size-40, 40px)))`,
         'border-radius': `var(${vars['state-layer.border-radius']}, var(--token-semantic-radius-pill, var(--token-global-radius-full, 9999px)))`,
         'color': `var(${vars['state-layer.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'color-selected': `var(${vars['state-layer.color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
@@ -118,10 +128,10 @@ const token = defineTokens({
     'size': {
         'large': {
             'box': {
-                'width': `var(${vars['size.large.box.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
+                'width': `var(${vars['size.large.box.width']}, var(--token-semantic-selection-radio-large, var(--token-global-space-6, 24px)))`
             },
             'dot': {
-                'width': `var(${vars['size.large.dot.width']}, 10px)`
+                'width': `var(${vars['size.large.dot.width']}, var(--token-semantic-selection-radio-dot-large, var(--token-global-space-3, 12px)))`
             },
             'label': {
                 'font-size': `var(${vars['size.large.label.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
@@ -129,10 +139,10 @@ const token = defineTokens({
         },
         'middle': {
             'box': {
-                'width': `var(${vars['size.middle.box.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
+                'width': `var(${vars['size.middle.box.width']}, var(--token-semantic-selection-radio-middle, var(--token-global-space-5, 20px)))`
             },
             'dot': {
-                'width': `var(${vars['size.middle.dot.width']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
+                'width': `var(${vars['size.middle.dot.width']}, var(--token-semantic-selection-radio-dot-middle, var(--token-global-space-2-5, 10px)))`
             },
             'label': {
                 'font-size': `var(${vars['size.middle.label.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`
@@ -140,10 +150,10 @@ const token = defineTokens({
         },
         'small': {
             'box': {
-                'width': `var(${vars['size.small.box.width']}, 16px)`
+                'width': `var(${vars['size.small.box.width']}, var(--token-semantic-selection-radio-small, var(--token-global-space-4, 16px)))`
             },
             'dot': {
-                'width': `var(${vars['size.small.dot.width']}, 8px)`
+                'width': `var(${vars['size.small.dot.width']}, var(--token-semantic-selection-radio-dot-small, var(--token-global-space-2, 8px)))`
             },
             'label': {
                 'font-size': `var(${vars['size.small.label.font-size']}, var(--token-semantic-typography-label-font-size, var(--token-global-font-size-sm, 14px)))`

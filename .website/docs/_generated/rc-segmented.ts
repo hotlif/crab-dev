@@ -74,6 +74,30 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/designs.demo.tsx",
+        "title": "三套风格与完整状态",
+        "description": "比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。",
+        "learning": {
+            "components": [
+                "Segmented"
+            ],
+            "props": [
+                "aria-label",
+                "block",
+                "options",
+                "disabled"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "export const meta = {\n    title: '三套风格与完整状态',\n    description: '比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。',\n};\n\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Segmented from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['macos', 'material', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003csection key={`${design}-${mode}`} className={panel} data-crab-design={design} data-theme={mode} aria-label={`${design} ${mode}`}>\n                    \u003cstrong>{design} · {mode}\u003c/strong>\n                    \u003cSegmented aria-label={`${design} ${mode} 时间范围`} block options={[\n                        { value: 'day', label: '日' },\n                        { value: 'week', label: '周' },\n                        { value: 'month', label: '月' },\n                        { value: 'year', label: '年', disabled: true },\n                    ]} />\n                    \u003cSegmented aria-label={`${design} ${mode} 禁用时间范围`} block disabled options={['日', '周', '月']} />\n                \u003c/section>\n            )))}\n        \u003c/div>\n    );\n}\n",
+        "previewPath": "/components/rc-segmented/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
+        "workbenchPath": "/components/rc-segmented/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": null
+    },
+    {
         "id": "docs/demos/disabled.demo.tsx",
         "title": "禁用状态",
         "description": "整体 `disabled` 或对单个选项设 `disabled`, 键盘方向键会自动跳过禁用项。",

@@ -81,24 +81,20 @@ const requiredSemanticKeys = [
 const approvedDataColorTokens = new Map([
     // PDF page content keeps a white paper background in every UI theme.
     ["rc-pdf-editor:canvas.paper.background-color", "oklch(1 0 0)"],
-    ["rc-bar-chart:palette.series.blue.color", "oklch(0.5753 0.1626 255.53)"],
-    ["rc-bar-chart:palette.series.orange.color", "oklch(0.6708 0.175 40.64)"],
-    ["rc-bar-chart:palette.series.aqua.color", "oklch(0.669 0.1408 162.11)"],
-    ["rc-bar-chart:palette.series.yellow.color", "oklch(0.7644 0.1612 75.12)"],
-    [
-        "rc-bar-chart:palette.series.magenta.color",
-        "oklch(0.7163 0.1412 357.39)",
-    ],
-    ["rc-bar-chart:palette.series.green.color", "oklch(0.5285 0.1798 142.5)"],
-    ["rc-bar-chart:palette.series.violet.color", "oklch(0.4331 0.1671 283.62)"],
-    ["rc-bar-chart:palette.series.red.color", "oklch(0.6226 0.1909 24.91)"],
 ]);
 
-const approvedDataColorValues = new Set(
-    [...approvedDataColorTokens]
-        .filter(([key]) => key.startsWith("rc-bar-chart:"))
-        .map(([, value]) => value),
-);
+// The explicitly exported legacy palette remains stable; themed L3 tokens no
+// longer need a raw data-color exception.
+const approvedDataColorValues = new Set([
+    "oklch(0.5753 0.1626 255.53)",
+    "oklch(0.6708 0.175 40.64)",
+    "oklch(0.669 0.1408 162.11)",
+    "oklch(0.7644 0.1612 75.12)",
+    "oklch(0.7163 0.1412 357.39)",
+    "oklch(0.5285 0.1798 142.5)",
+    "oklch(0.4331 0.1671 283.62)",
+    "oklch(0.6226 0.1909 24.91)",
+]);
 
 const allowExactLines = (reason, lines) => {
     const allowedLines = new Set(lines);
@@ -168,6 +164,7 @@ const uiRawColorAllowlist = new Map([
                 "if (named === 'black') return 'rgba(0, 0, 0, 1)';",
                 "if (value.toLowerCase() === 'transparent') return 'rgba(0, 0, 0, 0)';",
                 "return `rgba(${Math.round(red * 255)}, ${Math.round(green * 255)}, ${Math.round(blue * 255)}, ${alpha})`;",
+                "return `rgba(${Math.round(red * 255)}, ${Math.round(green * 255)}, ${Math.round(blue * 255)}, ${alpha * amount})`;",
                 "return `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`;",
             ],
         ),
@@ -278,6 +275,7 @@ const cssProperties = new Set([
     "color",
     "column-gap",
     "cursor",
+    "display",
     "fill",
     "filter",
     "flex-basis",

@@ -10,7 +10,7 @@ import componentGuides from "../content/component-guides.json" with { type: "jso
 import componentDescriptions from "../content/catalog/overview.json" with { type: "json" };
 
 const EXPECTED_COMPONENT_COUNT = 54;
-const EXPECTED_DEMO_COUNT = 266;
+const EXPECTED_DEMO_COUNT = 282;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");
@@ -66,6 +66,7 @@ const spaciousComponents = new Set([
 
 const demoGroupDefinitions = new Map([
     ["rc-button", [
+        ["三套风格对照", ["designs.demo.tsx"]],
         ["基础与外观", [
             "basic.demo.tsx",
             "appearance.demo.tsx",
@@ -135,6 +136,7 @@ const demoGroupDefinitions = new Map([
         ]],
     ]],
     ["rc-line-edit", [
+        ["标签与状态", ["field-states.demo.tsx"]],
         ["基础与尺寸", [
             "simple.demo.tsx",
             "size.demo.tsx",
@@ -183,6 +185,7 @@ const demoGroupDefinitions = new Map([
         ]],
     ]],
     ["rc-select", [
+        ["标签与状态", ["field-states.demo.tsx"]],
         ["基础与状态", [
             "basic.demo.tsx",
             "size.demo.tsx",
@@ -201,6 +204,7 @@ const demoGroupDefinitions = new Map([
         ]],
     ]],
     ["rc-table", [
+        ["三套风格对照", ["theme-states.demo.tsx"]],
         ["基础、汇总与性能", [
             "basis.demo.tsx",
             "empty.demo.tsx",
@@ -949,7 +953,8 @@ function createSearchableApiSource(api) {
         return `    ${comments.replace(/\n/g, "\n    ")}\n    ${JSON.stringify(prop.name)}${optional}: ${prop.typeText};`;
     }).join("\n\n");
     const placeholders = createApiTypePlaceholders(searchableProps, api.symbol);
-    const content = `/**\n * ${GENERATED_MARKER}\n * Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。\n */\n\n${placeholders}\n\nexport interface ${api.symbol} {\n${properties}\n}\n`;
+    // File maintenance notes must not become the public interface's JSDoc summary.
+    const content = `// ${GENERATED_MARKER}\n// Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。\n\n${placeholders}\n\nexport interface ${api.symbol} {\n${properties}\n}\n`;
     try {
         parseTypeScript(content, `${api.symbol}.ts`);
     } catch (error) {

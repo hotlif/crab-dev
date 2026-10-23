@@ -5,7 +5,7 @@ export const containerStyle = css`
 	cursor: pointer;
 	background-color: unset;
 	position: absolute;
-	border-radius: 99px;
+	border-radius: ${token.scrollbar['border-radius']};
 	user-select: none;
 	/* 层级契约：须盖住消费方滚动容器内的局部层叠（rc-table 内部最高 25），
 	   又须远低于语义浮层刻度（semantic z-index ≥ 1000），取两者之间的安全值 */
@@ -16,13 +16,15 @@ export const thumbStyle = css`
 	cursor: pointer;
 	background-color: ${token.scrollbar.thumb["background-color"]};
 	position: absolute;
-	border-radius: 99px;
+	border-radius: ${token.scrollbar['border-radius']};
 	user-select: none;
+	&:hover { background-color: ${token.scrollbar.thumb['background-color-hover']}; }
+	@media (forced-colors: active) { background-color: CanvasText; }
 `;
 
 export const xContainerStyle = css`
 	width: 100%;
-	height: 8px;
+	height: ${token.scrollbar.width};
 	bottom: 0;
 `;
 
@@ -31,7 +33,7 @@ export const xThumbStyle = css`
 `;
 
 export const yContainerStyle = css`
-	width: 8px;
+	width: ${token.scrollbar.width};
 	height: 100%;
 	top: 0;
 	right: 0;

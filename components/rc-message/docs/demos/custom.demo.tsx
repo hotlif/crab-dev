@@ -4,6 +4,8 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import token from "@crab-dev/rc-token-semantic";
 import { useMessage } from "../../src/index.js";
 
 const CustomDemo = () => {
@@ -15,32 +17,32 @@ const CustomDemo = () => {
             <div
                 className={css`
                     display: flex;
-                    gap: 8px;
+                    gap: ${token.space["component-gap"]};
                     flex-wrap: wrap;
                 `}
             >
-                <button
-                    onClick={() =>
+                <Button
+                    onClick={() => {
                         message.open({
                             type: "success",
                             content: "自定义图标消息",
                             icon: <span>🎉</span>,
-                        })
-                    }
+                        });
+                    }}
                 >
                     自定义图标
-                </button>
-                <button
-                    onClick={() =>
+                </Button>
+                <Button
+                    onClick={() => {
                         message.open({
                             type: "info",
                             content: "10 秒后关闭",
                             duration: 10000,
-                        })
-                    }
+                        });
+                    }}
                 >
                     10 秒持续时间
-                </button>
+                </Button>
             </div>
         </div>
     );

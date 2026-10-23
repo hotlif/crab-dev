@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it, render } from "@crab-dev/wake/test/react";
+import { beforeEach, describe, expect, it } from '@crab-dev/wake/test';
+import { act, render } from '@crab-dev/wake/test/react';
 import Masonry from '../masonry.js';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
@@ -18,6 +19,26 @@ globalThis.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserv
 describe('Masonry', () => {
     beforeEach(() => {
         resizeCallbacks = [];
+    });
+    it('默认间距消费 CSS 令牌求值并响应覆写，显式 gutter=0 保持无间距', async () => {
+        const content = [<div key="a">A</div>, <div key="b">B</div>];
+        const view = await render(<Masonry sequential style={{ columnGap: '12px' }}>{content}</Masonry>);
+        await act(async () => {
+            resizeCallbacks[0]([{ contentRect: { width: 212 } }]);
+        });
+        const root = view.container.firstElementChild as HTMLElement;
+        const second = root.children[1] as HTMLElement;
+        expect(second.style.width).toBe('100px');
+        expect(second.style.transform).toBe('translate(112px, 0px)');
+        await act(async () => {
+            root.style.columnGap = '20px';
+            await Promise.resolve();
+        });
+        expect(second.style.width).toBe('96px');
+        expect(second.style.transform).toBe('translate(116px, 0px)');
+        await view.rerender(<Masonry sequential gutter={0} style={{ columnGap: '20px' }}>{content}</Masonry>);
+        expect(second.style.width).toBe('106px');
+        expect(second.style.transform).toBe('translate(106px, 0px)');
     });
     it('renders without crashing when no children provided', async () => {
         const { container } = await render(<Masonry />);

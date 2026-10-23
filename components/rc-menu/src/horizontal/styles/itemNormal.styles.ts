@@ -22,7 +22,7 @@ const menuItemContent = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
 
-    border-radius: 4px;
+    border-radius: ${token.vertical.item.title['border-radius']};
     padding-left: ${token.horizontal.item.content["padding-left"]};
     font-size: ${token.horizontal.item.content["font-size"]};
     height: ${token.horizontal.item.content.height};
@@ -31,9 +31,14 @@ const menuItemContent = css`
     box-sizing: border-box;
     &[aria-current='page'] {
         background-color: ${token.vertical.item.title['background-color-selected']};
+        color: ${token.vertical.item.title['color-selected']};
         font-weight: ${token.vertical.item.title['font-weight-selected']};
-        text-decoration: underline;
-        text-underline-offset: 0.25em;
+        [data-menu-icon] { color: inherit; }
+        &:hover, &:focus-visible { background-color: ${token.vertical.item.selection['background-color-hover']}; }
+        &:active { background-color: ${token.vertical.item.selection['background-color-pressed']}; }
+        @media (forced-colors: active) {
+            &, &:hover, &:active { color: HighlightText; background-color: Highlight; }
+        }
     }
 `
 
@@ -52,6 +57,13 @@ const menuItemTitle = css`
 `
 
 const menuItemIcon = css`
+    color: ${token.vertical.item.icon.color};
+    width: ${token.vertical.item.icon.width};
+    height: ${token.vertical.item.icon.width};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    > svg, > img { width: 100%; height: 100%; }
     margin-right: ${token.horizontal.item.icon["margin-right"]};
 `
 

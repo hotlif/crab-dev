@@ -43,6 +43,20 @@ import { demos } from "../_generated/rc-menu.js";
 
 用于应用顶部或侧边栏导航，通过层级菜单组织页面入口。`mode` 支持 `horizontal`、`vertical` 和 `inline`；垂直与内嵌模式可通过 `inlineCollapsed` 收起为图标栏。
 
+### 三套风格
+
+| 风格 | 导航项 | 选中状态 |
+| --- | --- | --- |
+| macOS | 6px 圆角、16px 图标 | 强调色背景与配对前景色 |
+| Material | 胶囊形导航容器、24px 图标 | Secondary container / On secondary container |
+| shadcn | 8px 圆角、16px 图标 | 中性选中背景与常规前景色 |
+
+横向、纵向和折叠导航共用选中角色；选中项悬停、按压仍保持配对前景色。当前项不额外叠加下划线或侧边竖条，键盘焦点独立显示。导航与浮层分别保留现有的方向键、展开和关闭交互。
+
+参考核对日期：2026-10-22。持久导航依据 [M3 Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)（[使用](https://m3.material.io/components/navigation-drawer/guidelines)、[规格](https://m3.material.io/components/navigation-drawer/specs)、[无障碍](https://m3.material.io/components/navigation-drawer/accessibility)）；Material Web 没有对应 drawer，弹出子菜单参考其 [Menu 文档](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。macOS 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn 对照 [Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。树状展开是本项目导航扩展。
+
+Material 采用 baseline navigation drawer 的视觉角色并应用桌面密度：导航行默认 36px，区别于规范的 56px indicator；粗指针另提供至少 48px 目标。未迁移为 Expressive navigation rail。macOS 非选中导航图标使用强调色，选中时采用配对前景色。
+
 ### 适用场景
 
 应用侧栏或顶部需要组织多个目的地。 入口存在稳定分组或层级，并需要展开、收起和当前项反馈。

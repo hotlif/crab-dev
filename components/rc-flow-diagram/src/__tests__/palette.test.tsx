@@ -2,6 +2,7 @@ import { afterEach, beforeAll, describe, expect, it, mock, render } from '@crab-
 import { type ReactNode } from 'react';
 import { FlowDiagramPaletteContext } from '../palette-context.js';
 import type { FlowDiagramPalette } from '../palette.js';
+import { DEFAULT_FLOW_DIAGRAM_PALETTE, SEMANTIC_FLOW_DIAGRAM_PALETTE } from '../palette.js';
 
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -139,6 +140,18 @@ describe('FlowNode palette', () => {
 });
 
 describe('FlowDiagram palette', () => {
+    it('默认和部分覆盖均继承语义主题，显式旧色板仍可保留旧视觉', async () => {
+        const children = () => <FlowNode x={0} y={0} width={100} height={40} label="节点" />;
+        const { rerender } = await render(<FlowDiagram nodes={[]} edges={[]}>{children}</FlowDiagram>);
+        expect(capturedRects.at(-1)?.fill).toBe(SEMANTIC_FLOW_DIAGRAM_PALETTE.nodeFill);
+        expect(capturedGrids.at(-1)?.color).toBe(SEMANTIC_FLOW_DIAGRAM_PALETTE.grid);
+        await rerender(<FlowDiagram nodes={[]} edges={[]} palette={{ grid: 'custom-grid' }}>{children}</FlowDiagram>);
+        expect(capturedRects.at(-1)?.fill).toBe(SEMANTIC_FLOW_DIAGRAM_PALETTE.nodeFill);
+        expect(capturedGrids.at(-1)?.color).toBe('custom-grid');
+        await rerender(<FlowDiagram nodes={[]} edges={[]} palette={DEFAULT_FLOW_DIAGRAM_PALETTE}>{children}</FlowDiagram>);
+        expect(capturedRects.at(-1)?.fill).toBe(DEFAULT_FLOW_DIAGRAM_PALETTE.nodeFill);
+    });
+
     it('gridColor 优先于 palette.grid，合并后的 context 被节点与边实际消费', async () => {
         const receivedPalettes: FlowDiagramPalette[] = [];
         const diagramPalette: Partial<FlowDiagramPalette> = {

@@ -5,6 +5,7 @@ export const meta = {
 import { type ReactNode } from "react"
 import RcVirtual from "../../src/index.js";
 import { css } from "@crab-dev/css";
+import token from '@crab-dev/rc-token-semantic';
 
 const mockRowData = () => {
     const mockData = []
@@ -24,7 +25,9 @@ const mockRowData = () => {
 const cellStyle = css`
 	display: inline-block;
 	box-sizing: border-box;
-	border: 1px solid #000;
+	border: 1px solid ${token.color.border.default};
+    color: ${token.color.text.primary};
+    background: ${token.color.surface.content};
 `
 
 // 虚拟列表左侧占位：用于在可视区中预留被横向裁剪的区域

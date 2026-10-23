@@ -11,26 +11,32 @@ imports = [
 root.font-weight = "$ref(typography.label.font-weight)"
 root.line-height = "$ref(typography.title.small.line-height)"
 bar.gap = "$ref(space.inline-gap)"
-bar.border-color = "$ref(color.border.subtle)"
+bar.border-color = "$ref(navigation.tabs.track-border)"
+bar.background-color = "$ref(navigation.tabs.track-background)"
+bar.padding = "$ref(navigation.tabs.track-padding)"
+bar.border-radius = "$ref(navigation.tabs.track-radius)"
+item.border-radius = "$ref(navigation.tabs.item-radius)"
+item.background-color-active = "$ref(navigation.tabs.selected-background)"
+item.box-shadow-active = "$ref(navigation.tabs.selected-shadow)"
 content.padding-top = "$ref(space.stack-gap)"
 
 # ─── 尺寸 · 高度 / 字号 / 内边距 ─────────────────────────────────────────────
-size.small.height = "$ref(sizing.small.control)"
+size.small.height = "$ref(sizing.small.tab)"
 size.small.font-size = "$ref(typography.label.large.font-size)"
 size.small.padding-inline = "12px"
 
-size.medium.height = "$ref(sizing.middle.control)"
+size.medium.height = "$ref(sizing.middle.tab)"
 size.medium.font-size = "$ref(typography.label.large.font-size)"
 size.medium.padding-inline = "16px"
 
-size.large.height = "$ref(sizing.large.control)"
+size.large.height = "$ref(sizing.large.tab)"
 size.large.font-size = "$ref(typography.label.large.font-size)"
 size.large.padding-inline = "20px"
 
 # ─── 标签 · 颜色 ────────────────────────────────────────────────────────────
 item.color = "$ref(color.text.secondary)"
 item.color-hover = "$ref(color.text.primary)"
-item.color-active = "$ref(color.brand.primary)"
+item.color-active = "$ref(navigation.tabs.selected-color)"
 item.color-disabled = "$ref(color.text.disabled)"
 item.opacity-disabled = "$ref(opacity.disabled)"
 state-layer.opacity-hover = "$ref(state.opacity.hover)"
@@ -38,10 +44,11 @@ state-layer.opacity-focus = "$ref(state.opacity.focus)"
 state-layer.opacity-pressed = "$ref(state.opacity.pressed)"
 state-layer.transition = "opacity $ref(motion.interaction)"
 
-item.icon.gap = "$ref(space.inline-gap)"
+item.icon.gap = "$ref(space.tab-icon-gap)"
+item.icon.width = "$ref(size.tab-icon)"
 
 # ─── Line 类型 ───────────────────────────────────────────────────────────────
-indicator.height = "3px"
+indicator.height = "$ref(navigation.tabs.indicator-height)"
 indicator.min-width = "$ref(space.group-gap)"
 indicator.color = "$ref(color.brand.primary)"
 indicator.transition = "transform $ref(motion.spatial.fast)"

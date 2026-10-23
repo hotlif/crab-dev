@@ -30,6 +30,36 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/designs.demo.tsx",
+        "title": "三套设计与状态",
+        "description": "macOS 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "RadioGroup",
+                "Radio"
+            ],
+            "props": [
+                "design",
+                "defaultValue",
+                "aria-label",
+                "value",
+                "disabled",
+                "checked",
+                "aria-invalid",
+                "aria-describedby"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Radio from '../../src/radio.js';\nimport RadioGroup from '../../src/radio-group.js';\n\nexport const meta = { title: '三套设计与状态', description: 'macOS 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nconst options = css`flex-direction: column; align-items: flex-start;`;\nexport default function DesignsDemo() {\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['macos', 'material', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} design={design}>\n            \u003csection className={panel} aria-label={`${design} 单选框`}>\n                \u003cstrong>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}\u003c/strong>\n                \u003cRadioGroup defaultValue=\"daily\" aria-label=\"通知频率\" className={options}>\n                    \u003cRadio value=\"daily\">每天\u003c/Radio>\n                    \u003cRadio value=\"weekly\">每周\u003c/Radio>\n                    \u003cRadio value=\"unavailable\" disabled>暂不可用\u003c/Radio>\n                \u003c/RadioGroup>\n                \u003cRadio checked disabled>已选中且不可用\u003c/Radio>\n                \u003cRadio aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>选择同步方式\u003c/Radio>\n                \u003csmall id={`${errorId}-${design}`}>请选择一种同步方式。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-radio/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
+        "workbenchPath": "/components/rc-radio/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/disabled.demo.tsx",
         "title": "禁用状态",
         "description": "添加 `disabled` 属性即可让单选框处于禁用状态",

@@ -66,8 +66,11 @@ const collapsedItemButtonStyle = css`
     }
 
     &:focus-visible {
-        outline: 2px solid ${token.vertical.item.title["background-color-selected"]};
+        outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']};
         outline-offset: -2px;
+    }
+    @media (forced-colors: active) {
+        &:focus-visible { outline-color: Highlight; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -79,6 +82,15 @@ const collapsedItemSelectStyle = css`
     background-color: ${token.vertical.item.title["background-color-selected"]};
     color: ${token.vertical.item.title["color-selected"]};
     font-weight: ${token.vertical.item.title["font-weight-selected"]};
+    [data-menu-icon] { color: inherit; }
+    &:hover, &:focus-visible {
+        background-color: ${token.vertical.item.selection['background-color-hover']};
+        color: ${token.vertical.item.title['color-selected']};
+    }
+    &:active { background-color: ${token.vertical.item.selection['background-color-pressed']}; }
+    @media (forced-colors: active) {
+        &, &:hover, &:active { color: HighlightText; background-color: Highlight; }
+    }
 `;
 
 const collapsedItemOpenStyle = css`
@@ -87,6 +99,7 @@ const collapsedItemOpenStyle = css`
 `;
 
 const collapsedIconStyle = css`
+    color: ${token.vertical.item.icon.color};
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -237,7 +250,7 @@ const CollapsedItem: FC<CollapsedItemProps> = ({ item, selected, onSelect, baseP
                 }}
             >
                 {item.icon ? (
-                    <span className={collapsedIconStyle}>{item.icon}</span>
+                    <span className={collapsedIconStyle} data-menu-icon="">{item.icon}</span>
                 ) : (
                     <span className={collapsedFallbackTextStyle}>
                         {typeof item.title === "string" && item.title.length > 0

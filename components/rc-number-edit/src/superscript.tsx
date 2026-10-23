@@ -11,7 +11,6 @@ export interface SuperscriptProps {
 
 // 普通 inline 容器（非 flex），以便 <sup> 的原生 vertical-align: super 生效
 const rootStyle = css`
-    color: ${token.display.color};
     white-space: nowrap;
 `;
 

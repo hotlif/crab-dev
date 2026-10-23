@@ -1,6 +1,6 @@
 export const meta = {
-    title: "Material 与 Shadcn",
-    description: "两种风格各自提供浅色和深色配对，局部边界的颜色、形状与阴影相互独立。",
+    title: "Material、Shadcn 与 macOS",
+    description: "三种风格各自提供浅色和深色配对，局部边界的颜色、形状与阴影相互独立。",
 };
 
 import { css } from "@crab-dev/css";
@@ -42,10 +42,16 @@ const accentClass = css`
     border-radius: ${token.radius.md};
 `;
 
+const designLabels: Record<ThemeDesign, string> = {
+    material: "Material",
+    shadcn: "Shadcn",
+    macos: "macOS",
+};
+
 function ThemePanel({ design, mode }: { design: ThemeDesign; mode: "light" | "dark" }) {
     return (
         <section className={panelClass} data-crab-design={design} data-theme={mode} aria-label={`${design} ${mode} theme preview`}>
-            <strong>{design === "material" ? "Material" : "Shadcn"} · {mode === "light" ? "Light" : "Dark"}</strong>
+            <strong>{designLabels[design]} · {mode === "light" ? "Light" : "Dark"}</strong>
             <p className={secondaryClass}>背景、文本、边框与操作色均来自 Layer 2。</p>
             <span className={accentClass}>Brand color</span>
         </section>
@@ -59,6 +65,8 @@ export default function LightDarkDemo() {
             <ThemePanel design="material" mode="dark" />
             <ThemePanel design="shadcn" mode="light" />
             <ThemePanel design="shadcn" mode="dark" />
+            <ThemePanel design="macos" mode="light" />
+            <ThemePanel design="macos" mode="dark" />
         </div>
     );
 }

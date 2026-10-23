@@ -116,8 +116,8 @@ const token = defineTokens({
         'border-color': `var(${vars['root.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
         'border-color-hover': `var(${vars['root.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'border-color-focus': `var(${vars['root.border-color-focus']}, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-        'box-shadow': `var(${vars['root.box-shadow']}, none)`,
-        'box-shadow-focus-within': `var(${vars['root.box-shadow-focus-within']}, inset 0 0 0 2px var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+        'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-field-control-shadow, none))`,
+        'box-shadow-focus-within': `var(${vars['root.box-shadow-focus-within']}, var(--token-semantic-field-control-shadow-focus, inset 0 0 0 2px var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },
     'clear': {
@@ -174,7 +174,7 @@ const token = defineTokens({
                 'top': `var(${vars['field.label.filled.top']}, var(--token-semantic-field-label-filled-offset, var(--token-global-space-2, 8px)))`
             },
             'color': `var(${vars['field.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-            'color-focus': `var(${vars['field.label.color-focus']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+            'color-focus': `var(${vars['field.label.color-focus']}, var(--token-semantic-field-label-color-focus, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'placeholder': {
             'color': `var(${vars['field.placeholder.color']}, var(--token-semantic-field-label-empty-placeholder-color, transparent))`
@@ -226,9 +226,9 @@ const token = defineTokens({
     },
     'status': {
         'border-color-error': `var(${vars['status.border-color-error']}, var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
-        'box-shadow-error': `var(${vars['status.box-shadow-error']}, inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))))`,
+        'box-shadow-error': `var(${vars['status.box-shadow-error']}, var(--token-semantic-field-control-shadow-error, inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727)))))`,
         'border-color-warning': `var(${vars['status.border-color-warning']}, var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-700, oklch(0.555 0.163 71))))`,
-        'box-shadow-warning': `var(${vars['status.box-shadow-warning']}, inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-700, oklch(0.555 0.163 71))))`
+        'box-shadow-warning': `var(${vars['status.box-shadow-warning']}, var(--token-semantic-field-control-shadow-warning, inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, var(--token-global-amber-600, oklch(0.666 0.179 73)))))`
     },
     'count': {
         'color': `var(${vars['count.color']}, var(--token-semantic-color-text-tertiary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
@@ -236,25 +236,25 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
-            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.large.line-height']}, calc(var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`,
+            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-field-input-multiline-padding-block, var(--token-global-space-4, 16px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.large.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
                 'width': `var(${vars['size.large.action.width']}, var(--token-semantic-sizing-large-action, var(--token-global-size-32, 32px)))`
             }
         },
         'middle': {
-            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.middle.line-height']}, calc(var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`,
+            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-field-input-multiline-padding-block, var(--token-global-space-4, 16px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.middle.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
                 'width': `var(${vars['size.middle.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`
             }
         },
         'small': {
-            'padding': `var(${vars['size.small.padding']}, calc(var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) / 2) var(--token-semantic-space-control-padding-x-small, var(--token-global-space-2, 8px)))`,
-            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.small.line-height']}, calc(var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`,
+            'padding': `var(${vars['size.small.padding']}, var(--token-semantic-field-input-multiline-padding-block, var(--token-global-space-4, 16px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.small.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
                 'width': `var(${vars['size.small.action.width']}, var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)))`
             }

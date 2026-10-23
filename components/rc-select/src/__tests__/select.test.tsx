@@ -95,6 +95,57 @@ const changeInputValue = async (input: HTMLInputElement, value: string) => {
     await fireEvent.input(input);
 };
 describe('Select', () => {
+    it('preserves a named open field and selection when its design boundary changes', async () => {
+        const options = [{ label: 'Alpha', value: 'a' }, { label: 'Beta', value: 'b' }];
+        const view = await render(<div data-crab-design="material"><Select label="工作区" required searchable defaultValue="a" options={options} /></div>);
+        const control = screen.getByRole('combobox', { name: '工作区' });
+        await fireEvent.click(control);
+        const input = screen.getByRole('textbox', { name: '工作区' });
+        await changeInputValue(input as HTMLInputElement, 'Beta');
+        for (const design of ['macos', 'shadcn']) {
+            await view.rerender(<div data-crab-design={design}><Select label="工作区" required searchable defaultValue="a" options={options} /></div>);
+            expect(screen.getByRole('combobox', { name: '工作区' })).toBe(control);
+            expect(screen.getByRole('textbox', { name: '工作区' })).toBe(input);
+            expect((input as HTMLInputElement).value).toBe('Beta');
+            expect(control.getAttribute('aria-expanded')).toBe('true');
+            expect(control.getAttribute('aria-required')).toBe('true');
+        }
+        await fireEvent.keyDown(control, { key: 'Enter' });
+        expect(control.textContent).toContain('Beta');
+        expect(control.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('announces visible errors through the field description', async () => {
+        await render(<Select label="工作区" errorText="请选择一个可用工作区" options={[]} />);
+        const field = screen.getByRole('combobox', { name: '工作区' });
+        const error = screen.getByRole('alert');
+        expect(error.textContent).toBe('请选择一个可用工作区');
+        expect(field.getAttribute('aria-describedby')).toBe(error.id);
+        expect(field.getAttribute('aria-invalid')).toBe('true');
+    });
+
+    it('tracks the active option independently from multiple selected values', async () => {
+        await render(<Select aria-label="selected-options" multiple defaultValue={['a', 'b']} options={[
+            { label: 'Alpha', value: 'a' }, { label: 'Beta', value: 'b' },
+        ]} />);
+        const field = screen.getByRole('combobox', { name: 'selected-options' });
+        await fireEvent.click(field);
+        await fireEvent.keyDown(field, { key: 'ArrowDown' });
+        const alpha = screen.getByRole('option', { name: 'Alpha' });
+        const beta = screen.getByRole('option', { name: 'Beta' });
+        expect(field.getAttribute('aria-activedescendant')).toBe(alpha.id);
+        expect(alpha.getAttribute('data-highlighted')).toBe('true');
+        await fireEvent.keyDown(field, { key: 'ArrowDown' });
+        expect(field.getAttribute('aria-activedescendant')).toBe(beta.id);
+        expect(alpha.getAttribute('data-highlighted')).toBeNull();
+        expect(beta.getAttribute('data-highlighted')).toBe('true');
+        expect(alpha.getAttribute('aria-selected')).toBe('true');
+        expect(beta.getAttribute('aria-selected')).toBe('true');
+        await fireEvent.keyDown(field, { key: 'Enter' });
+        expect(beta.getAttribute('aria-selected')).toBe('false');
+        expect(beta.getAttribute('data-highlighted')).toBe('true');
+    });
+
     it('forwards an external label to the combobox in both search modes', async () => {
         const labelId = 'external-select-label';
         const view = await render(<><span id={labelId}>应用类型</span>
@@ -234,6 +285,31 @@ describe('Select', () => {
         await fireEvent.keyDown(combobox, { key: 'Escape' });
         expect(screen.queryByRole('listbox')).toBeNull();
     });
+
+    for (const key of ['Enter', 'Escape', 'click']) {
+        it(`returns focus from the disappearing search input after ${key}`, async () => {
+            await render(<Select label="团队" searchable defaultValue="a" options={[
+                { label: 'Alpha', value: 'a' }, { label: 'Beta', value: 'b' },
+            ]} />);
+            const control = screen.getByRole('combobox', { name: '团队' });
+            await fireEvent.click(control);
+            const search = screen.getByRole('textbox', { name: '团队' });
+            await act(() => search.focus());
+            await changeInputValue(search as HTMLInputElement, 'Beta');
+            expect(document.activeElement).toBe(search);
+
+            if (key === 'click') {
+                await fireEvent.click(screen.getByRole('option', { name: 'Beta' }));
+            } else {
+                await fireEvent.keyDown(search, { key });
+            }
+
+            expect(screen.queryByRole('textbox', { name: '团队' })).toBeNull();
+            expect(control.getAttribute('aria-expanded')).toBe('false');
+            expect(control.textContent).toContain(key === 'Escape' ? 'Alpha' : 'Beta');
+            expect(document.activeElement).toBe(control);
+        });
+    }
     // ─── Clear ───────────────────────────────────────────────────────────
     it('keeps null controlled and lets the parent accept or reject selection and clear', async () => {
         const onChange = mock.fn();
@@ -277,7 +353,7 @@ describe('Select', () => {
         const combobox = container.querySelector('[role="combobox"]') as HTMLElement;
         expect(combobox.getAttribute('aria-required')).toBe('true');
         expect(combobox.getAttribute('data-appearance')).toBe('filled');
-        expect(document.getElementById(combobox.getAttribute('aria-labelledby') ?? '')?.textContent).toBe('工作城市 *');
+        expect(document.getElementById(combobox.getAttribute('aria-labelledby') ?? '')?.textContent).toBe('工作城市');
         expect(document.getElementById(combobox.getAttribute('aria-describedby') ?? '')?.textContent).toBe('用于安排线下办公地点');
     });
     it('uses errorText as the field error and invalid state', async () => {

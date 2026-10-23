@@ -27,7 +27,11 @@ const CronPicker: FC<CronPickerProps> = ({
     previewCount = 5,
     onOpenChange,
     className,
-    'aria-label': ariaLabel = 'Cron 表达式',
+    label,
+    supportingText,
+    errorText,
+    appearance,
+    'aria-label': ariaLabel,
 }) => {
     const size = useComponentSize(sizeProp);
     const overlayId = useId();
@@ -73,13 +77,17 @@ const CronPicker: FC<CronPickerProps> = ({
         >
             <CronPickerInput
                 ref={ref}
+                label={label}
+                supportingText={supportingText}
+                errorText={errorText}
+                appearance={appearance}
                 expression={expression}
                 invalid={parsed === null}
                 disabled={disabled}
                 size={size}
                 status={status}
                 placeholder={placeholder}
-                ariaLabel={ariaLabel}
+                ariaLabel={ariaLabel ?? (label ? undefined : 'Cron 表达式')}
                 overlayId={overlayId}
                 onCommit={handleCommit}
                 onOpenChange={onOpenChange}

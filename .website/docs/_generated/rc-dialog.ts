@@ -18,15 +18,17 @@ export const demos = [
                 "title",
                 "open",
                 "onOpenChange",
+                "onConfirm",
                 "onClick"
             ],
             "events": [
                 "onOpenChange",
+                "onConfirm",
                 "onClick"
             ],
             "hasState": true
         },
-        "sourceCode": "\nexport const meta = {\n    title: \"基本\",\n    description: \"一个基础的对话框\",\n};\n\nimport { useState } from \"react\";\nimport Button from \"@crab-dev/rc-button\";\n\nimport Dialog from \"../../src/index.js\";\n\n\nconst BaseDemo = () => {\n    const [open, setOpen] = useState(false)\n    return (\n        \u003c>\n            \u003cDialog\n                title=\"基本对话框\"\n                open={open}\n                onOpenChange={setOpen}\n            >\n                这是一个基础的对话框信息\n            \u003c/Dialog>\n            \u003cButton\n                onClick={() => {\n                    setOpen(true)\n                }}\n            >\n                打开对话框\n            \u003c/Button>\n        \u003c/>\n    )\n}\n\nexport default BaseDemo;\n",
+        "sourceCode": "\nexport const meta = {\n    title: \"基本\",\n    description: \"一个基础的对话框\",\n};\n\nimport { useState } from \"react\";\nimport Button from \"@crab-dev/rc-button\";\n\nimport Dialog from \"../../src/index.js\";\n\n\nconst BaseDemo = () => {\n    const [open, setOpen] = useState(false)\n    return (\n        \u003c>\n            \u003cDialog\n                title=\"基本对话框\"\n                open={open}\n                onOpenChange={setOpen}\n                onConfirm={() => true}\n            >\n                这是一个基础的对话框信息\n            \u003c/Dialog>\n            \u003cButton\n                onClick={() => {\n                    setOpen(true)\n                }}\n            >\n                打开对话框\n            \u003c/Button>\n        \u003c/>\n    )\n}\n\nexport default BaseDemo;\n",
         "previewPath": "/components/rc-dialog/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
         "workbenchPath": "/components/rc-dialog/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
         "density": "regular",

@@ -8,7 +8,7 @@ export interface FlowDiagramPalette {
     edge: string;
 }
 
-/** 与既有硬编码逐项一致；不传 palette 时保持原视觉。 */
+/** 旧版固定配色；显式传入可保留原视觉。默认渲染使用语义主题。 */
 export const DEFAULT_FLOW_DIAGRAM_PALETTE: FlowDiagramPalette = {
     grid: '#eceef3',
     nodeFill: 'oklch(0.60 0.14 256)',
@@ -30,6 +30,6 @@ export function mergeFlowDiagramPalette(
     palette?: Partial<FlowDiagramPalette>,
 ): FlowDiagramPalette {
     return palette
-        ? { ...DEFAULT_FLOW_DIAGRAM_PALETTE, ...palette }
-        : DEFAULT_FLOW_DIAGRAM_PALETTE;
+        ? { ...SEMANTIC_FLOW_DIAGRAM_PALETTE, ...palette }
+        : SEMANTIC_FLOW_DIAGRAM_PALETTE;
 }

@@ -4,16 +4,29 @@ export const meta = {
 };
 
 import { useState } from 'react';
+import { css } from '@crab-dev/css';
+import token from '@crab-dev/rc-token-semantic';
 import CronPicker, { describeCron, parseCron } from '../../src/index.js';
+
+const layout = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${token.space['component-gap']};
+    max-width: 360px;
+`;
+const description = css`
+    font-size: ${token.typography.body.medium['font-size']};
+    color: ${token.color.text.secondary};
+`;
 
 const BasicDemo = () => {
     const [expression, setExpression] = useState('30 9 * * 1-5');
     const parsed = parseCron(expression);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>
-            <CronPicker defaultValue="30 9 * * 1-5" onChange={setExpression} />
-            <div style={{ fontSize: 13, color: '#666' }}>
+        <div className={layout}>
+            <CronPicker label="执行计划" supportingText="输入五段式表达式，或在面板中设置执行时间。" defaultValue="30 9 * * 1-5" onChange={setExpression} />
+            <div className={description}>
                 当前值:<code>{expression}</code>
                 {parsed ? ` —— ${describeCron(parsed)}` : null}
             </div>

@@ -26,11 +26,11 @@ status = "experimental"
 - **图例筛选**：点击图例切换系列显隐，数据表仍保留全部数据。
 - **交互提示**：悬停、键盘聚焦或触屏点按可查看类目数据；Enter 或 Space 触发 `onBarClick`。
 - **无障碍数据**：绘制层对辅助技术隐藏，完整数据通过视觉隐藏的表格提供，`aria-label` 用作表格标题。
-- **轴标签**：按实际文本宽度计算留白，支持通过 `formatValue` 格式化数值。
+- **轴标签**：按实际文本宽度计算留白，空间不足时省略长类目并按密度抽样标签；完整类目可通过悬浮提示、键盘聚焦与数据表获取。支持通过 `formatValue` 格式化数值。
 
 ## 容器与尺度
 
-**现有实现：** `width="auto"` 使用现有 AutoSizer 跟随父容器，工作台的六个示例采用这一方式；公共默认宽度仍为 600px。父容器需要明确可用宽度，并允许子项收缩。
+**现有实现：** `width="auto"` 使用现有 AutoSizer 跟随父容器，工作台示例采用这一方式；公共默认宽度仍为 600px。父容器需要明确可用宽度，并允许子项收缩。
 
 **选择规则：** 对比数据通常优先随容器适配；类别较多时应同时评估标签密度、横向条形和数据表入口，不能把缩小后的图形作为全文获取方式。显式数值宽度用于有固定绘图区的场景，应由业务提供局部查看区域。
 
@@ -40,4 +40,16 @@ status = "experimental"
 
 ## API
 
+绘制色板默认消费语义令牌并跟随主题；`palette` 的局部覆盖保留其余语义角色。显式传入导出的 `DEFAULT_BAR_CHART_PALETTE` 可保留旧版固定配色。
+
 <API source="../src/types.ts" symbol="BarChartProps" component="BarChart" />
+
+
+## 设计风格与主题
+
+默认八个系列颜色已纳入 L2 数据可视化角色，分别随 macOS、MD3、shadcn 和浅深模式切换；图例、提示、轴线与画布背景继承同一边界。系列名称和完整数据表始终保留，避免只靠颜色区分。显式 series.color / palette 仍属于业务覆盖。
+
+shadcn 的官方图表主题提供五个颜色角色。本库为既有八系列能力扩展后三个角色，并在深色中显式映射，避免继承其他设计后出现重复色；这是项目扩展，不是官方八色规范。八系列演示可检查全部颜色、图例开关与键盘数据提示。参考（2026-10-23）：[shadcn Chart 的主题配置](https://ui.shadcn.com/docs/components/chart)、[官方主题变量说明](https://github.com/shadcn-ui/ui/blob/main/skills/shadcn/customization.md)。
+本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+
+参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。

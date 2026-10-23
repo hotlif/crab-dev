@@ -15,3 +15,14 @@ export const canvasViewportStyle = css`
         &:focus-visible { outline-color: Highlight; }
     }
 `;
+
+export const canvasFrameStyle = css`
+    border: 1px solid ${token.color.border.default};
+    border-radius: ${token.shape.card};
+    background: ${token.color.workspace.content};
+`;
+export const demoStackStyle = css`display: flex; flex-direction: column; gap: ${token.space['component-gap']};`;
+export const demoHintStyle = css`
+    font-size: ${token.typography.caption['font-size']}; color: ${token.color.text.secondary};
+    padding-block: ${token.space['inline-gap']};
+`;

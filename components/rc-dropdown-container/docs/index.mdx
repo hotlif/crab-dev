@@ -24,3 +24,10 @@ status = "experimental"
 ## API
 
 <API source="../src/dropdownContainer.tsx" symbol="DropdownContainerProps" component="DropdownContainer" />
+
+
+## 三套设计风格
+
+Material 菜单表面采用 4px 圆角与阴影；macOS 使用 6px 圆角、细描边和面板阴影；shadcn 使用 8px 圆角与中性色描边。这里只负责浮层容器，菜单项的键盘导航和选中语义由消费组件负责。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

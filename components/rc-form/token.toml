@@ -24,10 +24,14 @@ required.color = "$ref(field.required.color)"
 required.gap = "$ref(field.required.gap)"
 
 # ─── 校验状态图标 ────────────────────────────────────────────────────────────
-# 内联反馈：字段末尾以固定尺寸的状态图标承载校验结果，避免文案常驻挤占布局；
-# 图标槽尺寸固定，无论有无校验结果都占位，杜绝出现 / 消失引发的布局抖动。
+# 图标仅补充校验状态，错误与警告说明在字段下方持续显示。
 status.width = "$ref(font.size.subhead)"
 status.color-error = "$ref(color.feedback.error.text)"
 status.warning.color = "$ref(color.feedback.warning.text)"
 status.success.color = "$ref(color.feedback.success.text)"
 status.validating.color = "$ref(color.text.secondary)"
+
+message.font-size = "$ref(typography.body.small.font-size)"
+message.line-height = "$ref(typography.body.small.line-height)"
+message.padding-inline = "$ref(field.support.padding-inline)"
+message.gap = "$ref(field.layout.row-gap)"

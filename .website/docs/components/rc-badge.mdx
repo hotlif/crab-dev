@@ -28,7 +28,7 @@ import { demos } from "../_generated/rc-badge.js";
 
 ##### 状态点 — 以 `status + text` 表达系统或实体的运行状态。`processing` 带脉冲动画。
 
-##### 包裹子节点 — 将 Badge 包裹在按钮、头像等元素外部，角标会自动定位到右上角。
+##### 包裹子节点 — 将 Badge 包裹在按钮外部，展示计数、溢出计数与圆点提醒。
 
 </div>
 
@@ -55,6 +55,14 @@ import { demos } from "../_generated/rc-badge.js";
 - 支持预设语义颜色与任意 CSS 颜色字符串。
 - 包裹子节点时角标自动定位到右上角，支持 `offset` 微调。
 - `showZero` 控制 `count = 0` 时是否显示。
+
+
+
+### 三套设计风格
+
+Material 与 macOS 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
 ### 适用场景
 

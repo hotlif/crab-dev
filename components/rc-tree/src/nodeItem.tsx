@@ -147,6 +147,7 @@ const nodeItemBase = css`
         background-color: ${token.node["background-color-selected"]};
         color: ${token.node['color-selected']};
         [data-node-title] { text-decoration: ${token.node.selection['text-decoration']}; }
+        [data-expanded], [data-loading-indicator] { color: inherit; }
     }
 
     &[data-disabled="true"] {
@@ -365,7 +366,7 @@ const NodeItem: FC<NodeItemProps> = ({
     const renderIcon = () => {
         if (loading) {
             return (
-                <span className={loadingIconStyle}>
+                <span className={loadingIconStyle} data-loading-indicator="">
                     <SpinIndicator />
                 </span>
             );

@@ -21,6 +21,14 @@ status = "experimental"
 
 独立应用的内容区默认使用 `main`。嵌入文档或已有主内容区的页面时，设置 `contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }}`，将示例内容标记为有名称的区域，避免嵌套主内容地标。`region` 的名称在类型上必填。
 
+## 三套风格
+
+macOS 使用紧凑的 40px 工具栏、6px 导航控件圆角、侧栏分界线和强调色选中行；Material 保留 48px 工具栏、胶囊形导航容器与次要色选中行；shadcn 使用 48px 工具栏、8px 圆角和中性选中行。侧栏、工具栏、内容区和浮层的浅深色角色统一由 L2 提供，复用的 Menu / Button 同步采用相同设计。
+
+本布局是桌面工作区组合，浏览器式多页签、拖拽和账户菜单属于业务扩展。Material 导航依据 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)；浮层参考 [Material Web Menus](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。macOS 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)；shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。Material Web 没有完整的应用工作区布局实现。参考核对日期：2026-10-22。
+
+Material 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行；这是本项目的密度定制，不等于 baseline drawer 的 360px 宽度与 56px indicator，也不等同于 Expressive navigation rail。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

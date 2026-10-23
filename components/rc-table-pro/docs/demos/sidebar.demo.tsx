@@ -1,3 +1,4 @@
+import LineEdit from "@crab-dev/rc-line-edit";
 export const meta = {
     title: "侧边栏（列 / 过滤器）",
     description: "sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。",
@@ -33,18 +34,11 @@ const COLUMNS: ProtocolColumnType[] = [
     { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140 },
 ];
 
-const filterInputStyle = css`
-    width: 100%; height: 100%; box-sizing: border-box;
-    border: none; outline: none; background: transparent;
-    padding: 0 6px; font-size: 12px;
-    &::placeholder { color: #bbb; }
-`;
-
 const TextFilter = ({ value, onValueChange }: { value: string; onValueChange: (v: string) => void }) => {
     const [local, setLocal] = useState(value);
     useEffect(() => { setLocal(value); }, [value]);
     return (
-        <input className={filterInputStyle} type="text" value={local}
+        <LineEdit size="small" aria-label="筛选列值"  type="text" value={local}
             onChange={(e) => setLocal(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") onValueChange(local); }}
             placeholder="回车确认…" />
@@ -55,7 +49,7 @@ const NumberFilter = ({ value, onValueChange }: { value: string; onValueChange: 
     const [local, setLocal] = useState(value);
     useEffect(() => { setLocal(value); }, [value]);
     return (
-        <input className={filterInputStyle} type="number" value={local}
+        <LineEdit size="small" aria-label="筛选列值"  type="number" value={local}
             onChange={(e) => setLocal(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") onValueChange(local); }}
             placeholder="回车确认…" />

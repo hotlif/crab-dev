@@ -138,14 +138,14 @@ const controlStyle = css`
     flex: none;
     width: ${token.control.target.width};
     height: ${token.control.target.width};
-    border-radius: ${token['state-layer']['border-radius']};
+    border-radius: ${token.control['border-radius-focus']};
 
     &::before {
         content: '';
         position: absolute;
         width: ${token['state-layer'].width};
         height: ${token['state-layer'].width};
-        border-radius: inherit;
+        border-radius: ${token['state-layer']['border-radius']};
         background-color: ${token['state-layer'].color};
         opacity: 0;
         pointer-events: none;
@@ -166,6 +166,7 @@ const boxStyle = css`
     flex: none;
     border: ${token.control['border-width']} ${token.control['border-style']} ${token.control['border-color']};
     background-color: ${token.control['background-color']};
+    box-shadow: ${token.control['box-shadow']};
     transition: ${token.control.transition};
 `;
 

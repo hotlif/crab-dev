@@ -15,14 +15,14 @@ type TestRecord = Record<string, unknown>;
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 // 捕获透传给编辑器的 status，以断言 FormItem 是否正确打通编辑器的即时反馈契约
-const StatusEditor = ({ value, onChange, status }: FormItemEditor<string>) => (<input data-testid="editor" data-status={status ?? ""} value={value ?? ""} onChange={(event) => onChange?.(event.target.value)}/>);
+const StatusEditor = ({ id, value, onChange, status, 'aria-describedby': describedBy }: FormItemEditor<string>) => (<input id={id} aria-describedby={describedBy} data-testid="editor" data-status={status ?? ""} value={value ?? ""} onChange={(event) => onChange?.(event.target.value)}/>);
 const flush = async () => {
     await act(async () => {
         await Promise.resolve();
     });
 };
 describe("FormItem 校验信息展示", () => {
-    it("required 失败：展示可点击的错误图标、role=alert 消息，并向编辑器透传 status=error", async () => {
+    it("required 失败：持续展示错误说明并关联编辑器，不增加提示按钮", async () => {
         let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const Demo = () => {
             const [form] = useForm<TestRecord>();
@@ -48,10 +48,10 @@ describe("FormItem 校验信息展示", () => {
         expect(editor?.getAttribute("data-status")).toBe("error");
         const alert = container.querySelector('[role="alert"]');
         expect(alert?.textContent).toContain("请输入姓名");
-        const trigger = container.querySelector('button[aria-label="查看校验提示"]');
-        expect(trigger).not.toBeNull();
-        // 触发器通过 aria-describedby 关联到承载文案的隐藏消息元素
-        expect(trigger?.getAttribute("aria-describedby")).toBe(alert?.getAttribute("id"));
+        expect(alert?.hasAttribute('data-form-message')).toBe(true);
+        expect(alert?.hasAttribute('hidden')).toBe(false);
+        expect(editor?.getAttribute('aria-describedby')).toBe(alert?.getAttribute('id'));
+        expect(container.querySelector('button')).toBeNull();
     });
     it("warning 规则：向编辑器透传 status=warning，并以 role=alert 承载警告文案", async () => {
         let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
@@ -84,7 +84,7 @@ describe("FormItem 校验信息展示", () => {
         expect(editor?.getAttribute("data-status")).toBe("warning");
         expect(container.querySelector('[role="alert"]')?.textContent).toContain("请注意该项存在风险");
     });
-    it("校验通过：不展示错误触发器，无 alert，编辑器 status 为空", async () => {
+    it("校验通过：无错误说明或 alert，编辑器 status 为空", async () => {
         let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const Demo = () => {
             const [form] = useForm<TestRecord>();
@@ -106,7 +106,7 @@ describe("FormItem 校验信息展示", () => {
         expect(container.querySelector('button[aria-label="查看校验提示"]')).toBeNull();
         expect(container.querySelector('[role="alert"]')).toBeNull();
     });
-    it("重新编辑时清除上一轮校验结果：错误触发器消失、status 归零", async () => {
+    it("重新编辑时清除上一轮错误说明及其关联、status 归零", async () => {
         let formApi!: ReturnType<typeof useForm<TestRecord>>[0];
         const Demo = () => {
             const [form] = useForm<TestRecord>();
@@ -128,7 +128,7 @@ describe("FormItem 校验信息展示", () => {
             }
         });
         await flush();
-        expect(container.querySelector('button[aria-label="查看校验提示"]')).not.toBeNull();
+        expect(container.querySelector('[data-form-message]')?.textContent).toContain('请输入姓名');
         // 用户在编辑器中输入 → 触发编辑器 onChange，清除校验态
         const editor = container.querySelector('[data-testid="editor"]') as HTMLInputElement;
         await act(async () => {
@@ -138,6 +138,8 @@ describe("FormItem 校验信息展示", () => {
         });
         await flush();
         expect(editor.getAttribute("data-status")).toBe("");
+        expect(editor.getAttribute('aria-describedby')).toBeNull();
+        expect(container.querySelector('[data-form-message]')).toBeNull();
         expect(container.querySelector('button[aria-label="查看校验提示"]')).toBeNull();
         expect(container.querySelector('[role="alert"]')).toBeNull();
     });

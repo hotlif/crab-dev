@@ -6,10 +6,11 @@ export const meta = {
 
 import Empty from "../../src/index.js";
 import { css } from "@crab-dev/css";
+import token from '@crab-dev/rc-token-semantic';
 
 const wrapStyle = css`
     display: flex;
-    gap: 2rem;
+    gap: ${token.space['section-gap']};
     flex-wrap: wrap;
     align-items: flex-start;
 `;
@@ -17,8 +18,8 @@ const wrapStyle = css`
 const cardStyle = css`
     flex: 1;
     min-width: 220px;
-    border: 1px solid oklch(0.92 0.003 286);
-    border-radius: 8px;
+    border: 1px solid ${token.color.border.subtle};
+    border-radius: ${token.shape.card};
     overflow: hidden;
 `;
 

@@ -77,9 +77,9 @@ const segmentStyle = css`
     box-sizing: border-box;
     margin: 0;
     min-inline-size: 0;
-    &:not(:last-child) { border-inline-end: 1px solid ${token.track['border-color']}; }
-    &:first-child { border-start-start-radius: ${token.track['border-radius']}; border-end-start-radius: ${token.track['border-radius']}; }
-    &:last-child { border-start-end-radius: ${token.track['border-radius']}; border-end-end-radius: ${token.track['border-radius']}; }
+    &:not(:last-child) { border-inline-end: 1px solid ${token.item['border-color']}; }
+    &:first-child { border-start-start-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); border-end-start-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); }
+    &:last-child { border-start-end-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); border-end-end-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); }
     color: ${token.item.color};
     cursor: pointer;
     white-space: nowrap;
@@ -179,9 +179,13 @@ const selectionIconStyle = css`
     > svg { width: 100%; height: 100%; }
 `;
 
+const checkIconStyle = css`display: ${token.item.check.display};`;
+const selectedOptionIconStyle = css`display: ${token.item.icon['display-selected']};`;
+
 const segmentSelectedStyle = css`
     color: ${token.item['color-selected']};
     background-color: ${token.thumb['background-color']};
+    box-shadow: ${token.thumb['box-shadow']};
 
     &:hover {
         color: ${token.item['color-selected']};
@@ -194,7 +198,7 @@ const segmentDisabledStyle = css`
     color: ${token.item['color-disabled']};
     cursor: not-allowed;
     &:not(:last-child) { border-color: ${token.track['border-color-disabled']}; }
-    &[data-selected] { background-color: ${token.item['background-color-disabled']}; }
+    &[data-selected] { background-color: ${token.item['background-color-disabled']}; box-shadow: none; }
 
     &:hover {
         color: ${token.item['color-disabled']};
@@ -292,10 +296,10 @@ const Segmented = ({
                                 setSelectedValue(option.value);
                             }}
                         />
-                        <span aria-hidden="true" className={selectionIconStyle}>
+                        <span aria-hidden="true" data-selection-indicator="" className={cx(selectionIconStyle, (selected || !option.icon) && checkIconStyle)}>
                             {selected ? <svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" /></svg> : option.icon}
                         </span>
-                        {selected && !hasLabel && option.icon && <span aria-hidden="true" className={selectionIconStyle}>{option.icon}</span>}
+                        {selected && option.icon && <span aria-hidden="true" data-option-icon="" className={cx(selectionIconStyle, hasLabel && selectedOptionIconStyle)}>{option.icon}</span>}
                         {hasLabel && <span className={labelStyle}>{option.label}</span>}
                     </label>
                 );

@@ -1,4 +1,7 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
+import Button from "@crab-dev/rc-button";
+import { css } from "@crab-dev/css";
+import token from "@crab-dev/rc-token-semantic";
 import { treeMeasureStyle } from "../demo-layout.js";
 export const meta = {
     title: "拖拽排序",
@@ -7,6 +10,20 @@ export const meta = {
 
 import { type Key, useState } from "react";
 import RcTree, { LoadStateType, NodeType, type Node, getTreeNodeDepth, useTreeData } from "../../src/index.js";
+
+const contextActionsStyle = css`
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: ${token.space["inline-gap"]};
+    min-width: calc(${token.size["touch-target"]} * 4);
+    padding: ${token.space["component-gap"]};
+    border: 1px solid ${token.color.border.subtle};
+    border-radius: ${token.shape.card};
+    background: ${token.color.surface.overlay};
+    color: ${token.color.text.primary};
+    box-shadow: ${token.shadow.overlay};
+`;
 
 const DraggableDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
@@ -77,67 +94,19 @@ const DraggableDemo = () => {
                     onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
                         setSelectKeys(selectKeys);
                     }}
-                    rendererContextMenu={({ node, hide }: { node: Node | null, hide: () => void }) => {
-                        if (node === null) {
-                            return (
-                                <div
-                                    style={{
-                                        backgroundColor: "red",
-                                        padding: "1rem",
-                                    }}
-                                >
-                                    <button disabled>添加</button>
-                                    <br />
-                                    <button disabled>删除</button>
-                                    <br />
-                                    <button
-                                        onClick={() => {
-                                            treeDataUtils.reloadChildrenByParent({
-                                                parent: null,
-                                                loadData,
-                                                expandedKeys,
-                                            });
-                                            hide();
-                                        }}
-                                    >
-                                        刷新所有节点
-                                    </button>
-                                </div>
-                            );
-                        }
-                        return (
-                            <div
-                                style={{
-                                    backgroundColor: "red",
-                                    padding: "1rem",
-                                }}
-                            >
-                                <button>添加</button>
-                                <br />
-                                <button
-                                    onClick={() => {
-                                        treeDataUtils.delete(node.id);
-                                        hide();
-                                    }}
-                                >
-                                    删除
-                                </button>
-                                <br />
-                                <button
-                                    onClick={() => {
-                                        treeDataUtils.reloadChildrenByParent({
-                                            parent: node,
-                                            loadData,
-                                            expandedKeys,
-                                        });
-                                        hide();
-                                    }}
-                                >
-                                    刷新子节点数据
-                                </button>
-                            </div>
-                        );
-                    }}
+                    rendererContextMenu={({ node, hide }: { node: Node | null, hide: () => void }) => (
+                        <div className={contextActionsStyle} role="group" aria-label="节点操作">
+                            <Button appearance="text" disabled title="本示例仅演示删除和刷新">添加</Button>
+                            <Button appearance="text" danger disabled={node === null} onClick={() => {
+                                if (node !== null) treeDataUtils.delete(node.id);
+                                hide();
+                            }}>删除</Button>
+                            <Button appearance="text" onClick={() => {
+                                treeDataUtils.reloadChildrenByParent({ parent: node, loadData, expandedKeys });
+                                hide();
+                            }}>{node === null ? "刷新所有节点" : "刷新子节点数据"}</Button>
+                        </div>
+                    )}
                     // wake-lint-disable-next-line ts/no-explicit-any -- Existing test mock boundary.
                     onDragEnd={(event: any, context: any) => {
                         const over = event.over;

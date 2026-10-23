@@ -1,6 +1,6 @@
 export const meta = {
     title: "基础用法",
-    description: "Material 呈现浮动标签与描边缺口，shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",
+    description: "Material 呈现浮动标签与描边缺口，macOS 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",
 };
 
 import { css } from "@crab-dev/css";

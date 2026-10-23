@@ -4,6 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import Tag from '@crab-dev/rc-tag';
 import TablePro from "../../src/table.js";
 import type { DataTypeLoader, ProtocolColumnType } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";
@@ -50,20 +51,11 @@ const fetchColumns = (): Promise<ProtocolColumnType[]> =>
 const fetchData = (): Promise<OrderRow[]> =>
     new Promise((resolve) => setTimeout(() => resolve(ROWS), 300));
 
-const statusTagStyle = css`
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    line-height: 1.6;
-    white-space: nowrap;
-`;
-
-const STATUS_COLOR_MAP: Record<string, { background: string; color: string }> = {
-    "待确认": { background: "#fff7e6", color: "#d46b08" },
-    "处理中": { background: "#e6f4ff", color: "#0958d9" },
-    "已完成": { background: "#f6ffed", color: "#389e0d" },
-    "已取消": { background: "#fff1f0", color: "#cf1322" },
+const STATUS_COLOR_MAP: Record<string, string> = {
+    "待确认": 'warning',
+    "处理中": 'primary',
+    "已完成": 'success',
+    "已取消": 'error',
 };
 
 const TYPE_LOADERS: DataTypeLoader<OrderRow>[] = [
@@ -71,15 +63,7 @@ const TYPE_LOADERS: DataTypeLoader<OrderRow>[] = [
         name: "status",
         render: ({ row }) => {
             const status = (row as OrderRow).dataRef.status;
-            const colorConfig = STATUS_COLOR_MAP[status] ?? { background: "#f5f5f5", color: "#666" };
-            return (
-                <span
-                    className={statusTagStyle}
-                    style={{ background: colorConfig.background, color: colorConfig.color }}
-                >
-                    {status}
-                </span>
-            );
+            return <Tag size="small" color={STATUS_COLOR_MAP[status] ?? 'default'}>{status}</Tag>;
         },
         filterEditor: undefined,
         editRender: undefined,

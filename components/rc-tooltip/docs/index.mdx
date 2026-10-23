@@ -37,3 +37,10 @@ status = "experimental"
 ## API
 
 <API source="../src/types.ts" symbol="TooltipProps" component="Tooltip" />
+
+
+## 三套设计风格
+
+Material 使用无箭头的逆色 plain tooltip；shadcn 保持逆色表面并采用 6px 圆角；macOS 使用浅色或深色面板表面、细描边和柔和阴影。显式 arrow 是项目保留的可选扩展，不会因主题切换改变触发和 aria-describedby 行为。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

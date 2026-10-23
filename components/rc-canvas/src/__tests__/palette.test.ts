@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 describe('Canvas palette', () => {
-    it('默认色板逐字保留既有绘制视觉', () => {
+    it('显式旧版色板逐字保留既有绘制视觉', () => {
         expect(DEFAULT_CANVAS_PALETTE).toEqual({
             foreground: '#000000',
             grid: '#b0b0b0',
@@ -31,11 +31,13 @@ describe('Canvas palette', () => {
         });
     });
 
-    it('局部覆盖不改变其余旧默认值', () => {
+    it('默认和局部覆盖均消费语义角色，旧版色板仍可显式选择', () => {
+        expect(mergeCanvasPalette()).toBe(SEMANTIC_CANVAS_PALETTE);
         const palette = mergeCanvasPalette({ foreground: 'CanvasText' });
         expect(palette.foreground).toBe('CanvasText');
-        expect(palette.grid).toBe(DEFAULT_CANVAS_PALETTE.grid);
-        expect(palette.minimapBorder).toBe(DEFAULT_CANVAS_PALETTE.minimapBorder);
+        expect(palette.grid).toBe(SEMANTIC_CANVAS_PALETTE.grid);
+        expect(palette.minimapBorder).toBe(SEMANTIC_CANVAS_PALETTE.minimapBorder);
+        expect(mergeCanvasPalette(DEFAULT_CANVAS_PALETTE)).toEqual(DEFAULT_CANVAS_PALETTE);
     });
 
     it('语义色板只暴露 Canvas L3 变量，minimap 边框保留 8% 透明度', () => {
@@ -90,6 +92,12 @@ describe('Canvas palette', () => {
 
         expect(resolveCanvasColor('oklch(0.5753 0.1626 255.53)', probe)).toMatch(/^rgba\(/);
         expect(computedStyle).not.toHaveBeenCalled();
+    });
+
+    it('透明状态层保持原色并按比例缩放已有 alpha，无需 Canvas2D', () => {
+        const probe = document.createElement('span');
+        const color = resolveCanvasColor('color-mix(in oklch, oklch(0 0 0 / 0.5) 40%, transparent)', probe);
+        expect(color).toBe('rgba(0, 0, 0, 0.2)');
     });
 
     it('在 probe 的 DOM 继承上下文中解析 CSS var 为 rgb/rgba', () => {

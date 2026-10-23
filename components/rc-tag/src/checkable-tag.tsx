@@ -18,12 +18,12 @@ const baseStyle = css`
     white-space: nowrap;
     line-height: 1;
     vertical-align: middle;
-    height: ${token.size.middle.height};
+    height: ${token.checkable.height};
     padding: ${token.size.middle.padding};
     border-radius: ${token.size.middle['border-radius']};
     gap: ${token.size.middle.gap};
     border: 1px solid ${token.default['border-color']};
-    font-size: ${token.size.middle['font-size']};
+    font-size: ${token.checkable['font-size']};
     cursor: pointer;
     user-select: none;
     transition: ${token.root.transition};

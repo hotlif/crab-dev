@@ -6,7 +6,8 @@ export const meta = {
 import { useRef, useState } from "react";
 import { css } from "@crab-dev/css";
 import TablePro from "../../src/table.js";
-import token from "../../src/token.js";
+import token from "@crab-dev/rc-token-semantic";
+import Button from "@crab-dev/rc-button";
 import type { DataTypeLoader, ProtocolColumnType, ProtocolTableState } from "../../src/types.js";
 import type { Row } from "@crab-dev/rc-table";
 
@@ -92,19 +93,7 @@ const toolbarStyle = css`
     gap: 12px;
     padding: 8px 0 6px;
     font-size: 12px;
-    color: oklch(50% 0 0);
-`;
-
-const resetBtnStyle = css`
-    padding: 0 10px;
-    height: 24px;
-    font-size: 12px;
-    border: 1px solid ${token.root['border-color']};
-    border-radius: 4px;
-    background: transparent;
-    cursor: pointer;
-    color: oklch(40% 0.12 25);
-    &:hover { background-color: oklch(95% 0.04 25); }
+    color: ${token.color.text.secondary};
 `;
 
 const StatePersistenceDemo = () => {
@@ -129,9 +118,9 @@ const StatePersistenceDemo = () => {
                 <span>
                     状态已保存 <strong>{saveCount}</strong> 次到 localStorage（key: <code>{STORAGE_KEY}</code>）
                 </span>
-                <button type="button" className={resetBtnStyle} onClick={handleReset}>
+                <Button size="small" danger onClick={handleReset}>
                     清除并刷新
-                </button>
+                </Button>
             </div>
             <TablePro<EmployeeRow>
                 className={containerStyle}

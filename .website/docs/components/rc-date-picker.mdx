@@ -22,9 +22,9 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 #### 日期选择
 
-##### 日期选择器 — 多种规格的日期选择器演示。
+##### 日期选择器 — 字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 macOS、MD3 与 shadcn。
 
-##### 日期范围选择 — 演示如何选择一段日期区间。
+##### 可选日期范围 — 限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。
 
 ##### 日期面板 — 基础的日期选择面板组件示例。
 
@@ -52,6 +52,14 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 基于 Temporal 的日期选择器，支持日期范围限制、时区和本地化显示。
 
+
+### 三套主题的字段与日历
+
+日期字段复用 LineEdit；macOS 与 shadcn 使用静态标签和桌面焦点环，MD3 保留浮动标签与轮廓／底线。日期单元格和面板圆角由 L2 决定：MD3 保留圆形日期及大圆角表面，macOS 和 shadcn 使用桌面圆角矩形日期和紧凑面板。今天、选中日期、键盘焦点与不可选日期仍分别表达。
+
+当前日历的桌面日期单元格为 32px，粗指针扩展到 48px；这是桌面密度扩展。日期字段仍是只读的弹层触发器，尚未实现 M3 docked picker 的直接键入日期入口，不将当前组件标为该变体的完整复刻。
+
+日期演示的尺寸切换使用库内 Button，说明文字随主题更新。Material Web 尚无对应日历组件；此处保留现有 M3 日历基线，桌面外观参照 [shadcn Date Picker 组合](https://ui.shadcn.com/docs/components/date-picker)及 [Calendar 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/calendar.tsx)。macOS 圆角为本项目适配值，时间表盘继续作为跨主题的扩展能力。核对日期：2026-10-22。
 
 ### 主要功能
 

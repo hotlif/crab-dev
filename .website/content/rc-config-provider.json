@@ -1,7 +1,7 @@
 {
     "id": "rc-config-provider",
     "title": "ConfigProvider 全局配置",
-    "summary": "通过独立的 Material Design 3 与 shadcn 风格、明暗模式和 L2 颜色角色，为后代统一配置品牌色、语言和尺寸。",
+    "summary": "通过独立的 macOS、Material Design 3 与 shadcn 风格、明暗模式和 L2 颜色角色，为后代统一配置品牌色、语言和尺寸。",
     "prerequisite": "了解 React 属性与 useState，并安装示例使用的 Crab UI 组件。应用入口需加载 rc-theme CSS。",
     "steps": [
         {
@@ -36,7 +36,7 @@
         }
     ],
     "faq": [
-        {"question": "设计风格与明暗模式有什么区别？", "answer": "design 选择 material 或 shadcn，theme 独立选择 light 或 dark。组件库默认 material；本站默认 shadcn，可从导航外观菜单切换并保存偏好。两个选项都能在运行时修改，嵌套 Provider 继承没有显式传入的配置。"},
+        {"question": "设计风格与明暗模式有什么区别？", "answer": "design 选择 macos、material 或 shadcn，theme 独立选择 light 或 dark。组件库默认 material；本站在未保存偏好时默认 macOS，已有有效偏好会恢复。可从导航外观菜单切换并保存选择。两个选项都能在运行时修改，嵌套 Provider 继承没有显式传入的配置。"},
         {"question": "哪些组件会跟随配置？", "answer": "主题作用于消费语义颜色的后代；按钮、输入框、选择器、表格和树等已接入尺寸配置，详细范围见“统一尺寸与密度”指南。locale 自动切换 Empty 的预置文案，业务文案仍由应用提供。"},
         {"question": "Portal 浮层如何继承主题？", "answer": "将浮层放在主题容器内，或在 Portal 内再包一层无配置属性的 ConfigProvider，从 React Context 继承配置并重建 CSS 边界。"}
     ]

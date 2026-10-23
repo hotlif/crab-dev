@@ -1,6 +1,6 @@
 export const meta = {
     title: "Filled 填充字段",
-    description: "同一表单统一使用 filled。Material 呈现 56px 填充容器、浮动标签和焦点底线；切换 shadcn 后，左侧标签与右侧紧凑输入保持同排。",
+    description: "同一表单统一使用 filled。Material 呈现 56px 填充容器、浮动标签和焦点底线；切换 macOS 或 shadcn 后，左侧标签与右侧紧凑输入保持同排。",
 };
 
 import { useState } from "react";
@@ -61,8 +61,8 @@ export default function FilledDemo() {
                     <LineEdit appearance="filled" type="email" placeholder="name@example.com" />
                 </Item>
                 <div className={actions}>
-                    <Button appearance="primary" onClick={async () => { await form.submit(); }}>保存空间</Button>
-                    <Button onClick={async () => {
+                    <Button type="button" appearance="primary" onClick={async () => { await form.submit(); }}>保存空间</Button>
+                    <Button type="button" onClick={async () => {
                         await form.resetFields();
                         setResult("");
                     }}>重置</Button>

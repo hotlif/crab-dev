@@ -12,10 +12,12 @@ imports = [
 # 只画一段弧而非整圈, 是为了让"正在转"这件事在任何角度都可被瞬间辨认。
 # stroke-width / dash 为 SVG viewBox（50×50）内的用户单位, 与像素尺寸解耦。
 
-ring.track.stroke     = "$ref(color.fill.default)"
-ring.indicator.stroke = "$ref(color.brand.primary)"
+ring.track.stroke     = "$ref(status.spinner.track)"
+ring.indicator.stroke = "$ref(status.spinner.color)"
 ring.stroke-width    = "4"
 ring.stroke-dasharray = "31.4 125.7"
+ring.display = "$ref(status.spinner.circular-display)"
+spokes.display = "$ref(status.spinner.spokes-display)"
 
 
 # ─── 动效 ────────────────────────────────────────────────────────────────────
@@ -24,7 +26,7 @@ ring.stroke-dasharray = "31.4 125.7"
 # 改为低频透明度脉动, 去掉前庭刺激但保留"仍在进行"的意符。
 
 indicator.animation-duration = "0.9s"
-indicator.animation-timing-function = "linear"
+indicator.animation-timing-function = "$ref(status.spinner.easing)"
 indicator.reduced-motion.animation-duration = "1.6s"
 indicator.reduced-motion.opacity = "$ref(opacity.disabled)"
 expressive.color = "$ref(color.brand.primary)"

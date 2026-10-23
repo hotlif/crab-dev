@@ -8,6 +8,7 @@ import type { Locale, OKLCHValue } from "../types.js";
 interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "onValueChange" | "locale"> {
     locale?: Locale;
     onConfirm?: (value: OKLCHValue) => void;
+    onClose: () => void;
     allowClear?: boolean;
 }
 
@@ -41,6 +42,7 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     locale,
     value,
     onConfirm,
+    onClose,
     allowClear = false,
     showAlpha,
     showEyeDropper,
@@ -54,7 +56,10 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     // 每次打开弹层重新挂载,selectValue 以打开时的 value 为初值(E3:与外部 value 同步)。
     const [selectValue, setSelectValue] = useState<OKLCHValue>(value);
 
-    const close = () => dispatch({ type: "setOpen", payload: false });
+    const close = () => {
+        onClose();
+        dispatch({ type: "setOpen", payload: false });
+    };
 
     return (
         <div role="dialog" aria-label="颜色选择">

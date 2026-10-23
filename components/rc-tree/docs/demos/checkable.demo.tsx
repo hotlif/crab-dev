@@ -72,7 +72,7 @@ const CheckableDemo = () => {
             <div className={checkedSummaryStyle} aria-live="polite">
                 <div><strong>已选中（{checkedKeys.length}）：</strong></div>
                 {checkedKeys.length === 0
-                    ? <div style={{ color: "#999" }}>无</div>
+                    ? <div>无</div>
                     : checkedKeys.map(k => <div key={String(k)}>· {k}</div>)
                 }
                 {halfCheckedKeys.length > 0 && (

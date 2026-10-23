@@ -2,8 +2,9 @@ import { css, cx } from '@crab-dev/css';
 import {
     Children,
     cloneElement,
-    useCallback,
     useEffect,
+    useEffectEvent,
+    useLayoutEffect,
     useRef,
     useState,
 } from 'react';
@@ -14,6 +15,7 @@ import type { MasonryProps } from './types.js';
 const containerStyle = css`
     position: relative;
     width: 100%;
+    column-gap: ${token.root.gap};
 `;
 
 const itemStyle = css`
@@ -41,6 +43,7 @@ const Masonry: FC<MasonryProps> = ({
     const [containerWidth, setContainerWidth] = useState(0);
     const [positions, setPositions] = useState<ItemPosition[]>([]);
     const [containerHeight, setContainerHeight] = useState(0);
+    const [tokenGap, setTokenGap] = useState(0);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     const items = Children.toArray(children);
@@ -48,6 +51,27 @@ const Masonry: FC<MasonryProps> = ({
 
     // 确保列数至少为 1
     const cols = Math.max(1, Math.floor(columns));
+
+    // 浏览器解析令牌中的 CSS var / rem；主题覆写后同步用于绝对定位的像素间距。
+    useLayoutEffect(() => {
+        const container = containerRef.current;
+        if (!container || gutter !== undefined) return;
+        const readGap = () => {
+            const value = Number.parseFloat(getComputedStyle(container).columnGap);
+            setTokenGap(Number.isFinite(value) ? value : 0);
+        };
+        readGap();
+        const observer = new MutationObserver(readGap);
+        let target: Element | null = container;
+        while (target) {
+            observer.observe(target, {
+                attributes: true,
+                attributeFilter: ['class', 'style', 'data-theme', 'data-color-scheme', 'data-crab-design'],
+            });
+            target = target.parentElement;
+        }
+        return () => observer.disconnect();
+    }, [gutter]);
 
     // 观测容器宽度变化
     useEffect(() => {
@@ -65,14 +89,14 @@ const Masonry: FC<MasonryProps> = ({
     }, []);
 
     // 计算每一项的位置
-    const computeLayout = useCallback(() => {
+    const computeLayout = useEffectEvent(() => {
         if (containerWidth === 0 || count === 0) {
             setPositions([]);
             setContainerHeight(0);
             return;
         }
 
-        const gap = gutter ?? 0;
+        const gap = gutter ?? tokenGap;
         const colWidth = (containerWidth - gap * (cols - 1)) / cols;
         const colHeights = new Array<number>(cols).fill(0);
         const newPositions: ItemPosition[] = [];
@@ -106,12 +130,12 @@ const Masonry: FC<MasonryProps> = ({
 
         setPositions(newPositions);
         setContainerHeight(Math.max(...colHeights) - gap);
-    }, [containerWidth, count, cols, gutter, sequential]);
+    });
 
     // 当项数量或容器宽度变化时，重新布局
     useEffect(() => {
         computeLayout();
-    }, [computeLayout]);
+    }, [containerWidth, count, cols, gutter, sequential, tokenGap]);
 
     // 观测每个子元素的高度变化
     useEffect(() => {
@@ -127,7 +151,7 @@ const Masonry: FC<MasonryProps> = ({
         }
 
         return () => observer.disconnect();
-    }, [count, computeLayout]);
+    }, [count]);
 
     const setItemRef = (index: number) => (el: HTMLDivElement | null) => {
         itemRefs.current[index] = el;

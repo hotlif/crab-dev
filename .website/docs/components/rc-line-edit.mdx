@@ -20,9 +20,13 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 标签与状态
+
+##### 标签、边界与状态 — 切换文档站的 macOS、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。
+
 #### 基础与尺寸
 
-##### 基础用法 — Material 呈现浮动标签与描边缺口，shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。
+##### 基础用法 — Material 呈现浮动标签与描边缺口，macOS 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。
 
 ##### 尺寸 — 通过 `size` 属性设置输入框尺寸
 
@@ -49,15 +53,23 @@ import { demos } from "../_generated/rc-line-edit.js";
 用于单行文本录入，支持前后缀、清除按钮、字数统计和密码可见性切换。
 
 
+### 三套主题的字段边界
+
+macOS 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留浮动标签、真实描边缺口及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
+
+错误与 warning 在聚焦时使用对应反馈色；桌面风格的标签保持中性色，错误标签使用错误色。macOS 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
+
+2026-10-22 实际参考：[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Apple 官方正文](https://developer.apple.com/tutorials/data/design/human-interface-guidelines/text-fields.json)、[shadcn Input](https://ui.shadcn.com/docs/components/input)、[shadcn Input 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx)；MD3 继续使用下文列出的 Material Web 浮动标签与 3px 焦点轮廓基线。
+
 ### 何时使用
 
 ### 填充、描边与浮动标签
 
-`appearance="outlined"` 为默认外观。统一的 `ConfigProvider design` 决定字段布局：Material 使用浮动标签，Outlined 标签浮起后位于真实的轮廓缺口，Filled 标签留在容器内部上方，并使用顶部圆角和底部指示线；shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
+`appearance="outlined"` 为默认外观。统一的 `ConfigProvider design` 决定字段布局：Material 使用浮动标签，Outlined 标签浮起后位于真实的轮廓缺口，Filled 标签留在容器内部上方，并使用顶部圆角和底部指示线；macOS 与 shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
 
 `supportingText` 将辅助说明置于字段下方；`errorText` 替换辅助说明、启用错误状态并自动设置描述关联。已有 `aria-describedby` 会保留，计数也会加入关联。调用方仍可显式指定 `aria-invalid`。带标签的 `showCount` 移到辅助信息行，避免挤占输入宽度；无标签的旧调用保持原布局。
 
-`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无标签的已有调用保留紧凑尺寸，适合组合输入和搜索容器。Material 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
+`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无边框模式适合组合输入和搜索容器。Material、macOS 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
 
 用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
 
@@ -78,17 +90,17 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 ### 当前尺寸与状态实现
 
-带标签的 Material 字段使用 56px 最小高度，输入文字为 16px / 24px，浮动标签和辅助说明为 12px / 16px。shadcn 字段和无标签的兼容调用使用以下桌面密度：
+Material 字段使用 56px 最小高度；输入文字为 16px / 24px，浮动标签和辅助说明为 12px / 16px。macOS 与 shadcn 字段使用以下桌面密度：
 
 | size | 容器最小高度 | 默认字号 / 行高 | 内边距 |
 | --- | --- | --- | --- |
 | large | 40px | 14px / 20px | 上下 4px、左右 12px |
 | middle | 36px | 14px / 20px | 上下 4px、左右 12px |
-| small | 32px | 14px / 20px | 上下 0、左右 8px |
+| small | 32px | 14px / 20px | 上下 0、左右 12px |
 
 高度可随内容和字体设置增长。Material 标签字段无图标侧的内边距为 16px；有图标侧采用 12px 外侧间距、24px 图标与 16px 图标至文本间距，与 [Material Web 字段间距令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-field.scss) 和 [图标规格令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-text-field.scss) 一致。Filled 的浮动标签保持与输入文字起点对齐，位于内部上方；Outlined 的浮动标签位于左侧轮廓缺口。粗指针下输入区和内部动作的最小目标为 48px，容器允许自然增高；shadcn 的桌面密度属于本项目定制，不作为 M3 标准字段尺寸。
 
-输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，填充型将底线加粗为 3px，不额外叠加外侧焦点框或光晕；错误与 warning 沿用各自的反馈色。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。`status="error"` 默认设置 `aria-invalid=true`，显式 `aria-invalid` 优先；warning 不自动宣告无效。错误原因和恢复方法仍需调用方以可见文字提供，并通过 `aria-describedby` 关联。
+Material 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，填充型将底线加粗为 3px，不额外叠加外侧焦点框或光晕；错误与 warning 沿用各自的反馈色。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。`status="error"` 默认设置 `aria-invalid=true`，显式 `aria-invalid` 优先；warning 不自动宣告无效。错误原因和恢复方法仍需调用方以可见文字提供，并通过 `aria-describedby` 关联。
 
 边框依据：2026-09-23 核对的 [M3 文本框规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility) 与 [Material Web 示例](https://material-web.dev/components/text-field/)。实现参照 Material Web 提交 `849b4dce` 的 [outlined 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_filled-field.scss)、[描边焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-outlined-text-field.scss) 和 [底线焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-filled-text-field.scss)。M3 规格表同时保留旧的 filled focus height 2dp 和新的 thickness 3dp；本实现采用新厚度，与 Material Web 的 3px 覆盖值一致。warning 为本库扩展，沿用相同的边界加粗规则。
 
@@ -127,11 +139,11 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 ### 清除按钮为什么不生效？
 
-allowClear 仅在受控模式下生效。确保 value、onChange 与 onClear 更新同一份状态。
+allowClear 支持受控和非受控模式，清除会触发 onChange；受控模式需在 onChange 中接受新值，onClear 只用于额外通知。disabled 或 readOnly 时隐藏清除按钮。
 
 ### 为什么切换 Material 后输入框高度不同？
 
-设计风格决定字段结构。Material 使用 56px 容器为 16px 输入文字和 12px 浮动标签保留空间；shadcn 将标签置于外部，输入框随 size 使用 32 / 36 / 40px。theme 单独控制明暗。
+设计风格决定字段结构。Material 使用 56px 容器为 16px 输入文字和 12px 浮动标签保留空间；macOS 与 shadcn 将静态标签置于外部，输入框随 size 使用 32 / 36 / 40px。theme 单独控制明暗。
 
 ## API
 

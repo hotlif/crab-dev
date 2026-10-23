@@ -95,7 +95,17 @@ const itemGroupTitleStyle = css`
 
 const itemSelectStyle = css`
     background-color: ${verticalItemTitleBackgroundColorSelect};
+    color: ${token.vertical.item.title['color-selected']};
     font-weight: ${token.vertical.item.title["font-weight-selected"]};
+    [data-menu-icon] { color: inherit; }
+    &:hover, &:focus-visible {
+        background-color: ${token.vertical.item.selection['background-color-hover']};
+        color: ${token.vertical.item.title['color-selected']};
+    }
+    &:active { background-color: ${token.vertical.item.selection['background-color-pressed']}; }
+    @media (forced-colors: active) {
+        &, &:hover, &:active { color: HighlightText; background-color: Highlight; }
+    }
 `
 
 const itemOpenStyle = css`
@@ -152,6 +162,7 @@ const menuItemIcon = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: ${token.vertical.item.icon.color};
     width: ${token.vertical.item.icon.width};
     height: ${token.vertical.item.icon.width};
     margin-right: ${token.vertical.item.icon["margin-right"]};
@@ -261,6 +272,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                         item.icon ? (
                             <span
                                 className={menuItemIcon}
+                                data-menu-icon=""
                             >
                                 {item.icon}
                             </span>

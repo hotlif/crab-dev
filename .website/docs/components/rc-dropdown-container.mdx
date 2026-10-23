@@ -20,7 +20,7 @@ import { demos } from "../_generated/rc-dropdown-container.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 基本 — 输入框获得焦点后显示关联浮层，失焦关闭。
+##### 基本 — 输入框聚焦时展开浮层，失焦或按 Escape 收起；按 ArrowDown 可重新展开，输入焦点保持不变。
 
 </div>
 
@@ -38,6 +38,14 @@ import { demos } from "../_generated/rc-dropdown-container.js";
 - Select、Menu 等需要相对触发器定位的下拉浮层。
 - 下拉内容需要在窗口边缘自动调整位置；可用高度不足时，浮层会限制在视口内并提供内部滚动。
 - 需要统一处理点击外部区域关闭、滚动和窗口尺寸变化的场景。
+
+
+
+### 三套设计风格
+
+Material 菜单表面采用 4px 圆角与阴影；macOS 使用 6px 圆角、细描边和面板阴影；shadcn 使用 8px 圆角与中性色描边。这里只负责浮层容器，菜单项的键盘导航和选中语义由消费组件负责。
+
+切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
 ### 适用场景
 

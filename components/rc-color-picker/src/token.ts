@@ -34,6 +34,7 @@ export const vars = defineTokens({
     'trigger.swatch.medium.width': '--color-picker-trigger-swatch-medium-width',
     'trigger.swatch.large.width': '--color-picker-trigger-swatch-large-width',
     'input.gap': '--color-picker-input-gap',
+    'input.format.width': '--color-picker-input-format-width',
     'swatch.width': '--color-picker-swatch-width',
     'swatch.touch.width': '--color-picker-swatch-touch-width',
     'swatch.border-width': '--color-picker-swatch-border-width',
@@ -106,7 +107,10 @@ const token = defineTokens({
         }
     },
     'input': {
-        'gap': `var(${vars['input.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        'gap': `var(${vars['input.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+        'format': {
+            'width': `var(${vars['input.format.width']}, calc(var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)) * 4 + var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)) * 2 + var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)) + var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`
+        }
     },
     'swatch': {
         'width': `var(${vars['swatch.width']}, 20px)`,

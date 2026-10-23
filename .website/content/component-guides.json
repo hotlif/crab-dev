@@ -315,7 +315,7 @@
         "definition": "Slider 通过拖动轨道上的手柄选择连续或分段数值，适合快速调整并即时看到效果。它强调相对位置，不如数字输入适合精确键入。",
         "useWhen": ["音量、亮度、比例等范围值需要快速调整。", "min、max 和 step 明确，用户可以根据相对位置做决定。"],
         "avoidWhen": ["精确数值输入使用 NumberEdit；少量离散选择使用 Segmented 或 Radio。"],
-        "essentials": ["min、max、step 和 value 必须使用同一单位。", "受控 onChange 处理拖动过程，必要时区分提交完成事件。", "标签或值显示帮助用户理解手柄位置代表什么。"],
+        "essentials": ["min、max、step 和 value 必须使用同一单位。", "受控 value 与 onValueChange 配对，拖动和键盘调整都会通知最新值。", "标签或值显示帮助用户理解手柄位置代表什么。"],
         "accessibility": ["提供可访问名称、当前值文字、上下限和键盘增减操作。", "轨道颜色之外要有可定位手柄与焦点，触控目标大于可见手柄。"],
         "material": {"basis": "直接参考 M3 Sliders 的 continuous/discrete、尺寸、值指示、状态与触控目标，并对照 Material Web slider。", "m3": "https://m3.material.io/components/sliders/overview", "web": "https://material-web.dev/components/slider/", "source": "https://github.com/material-components/material-web/tree/main/slider"}
     },

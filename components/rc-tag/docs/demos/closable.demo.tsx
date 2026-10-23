@@ -4,6 +4,8 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import token from "@crab-dev/rc-token-semantic";
 import { useState } from "react";
 import Tag from "../../src/index.js";
 
@@ -26,7 +28,7 @@ const ClosableDemo = () => {
                 className={css`
                     display: flex;
                     align-items: center;
-                    gap: 0.5rem;
+                    gap: ${token.space["component-gap"]};
                     flex-wrap: wrap;
                     min-height: 32px;
                 `}
@@ -44,11 +46,11 @@ const ClosableDemo = () => {
                     ) : null
                 )}
                 {allHidden && (
-                    <button
+                    <Button
                         onClick={() => setVisible(Object.fromEntries(colors.map(c => [c, true])))}
                     >
                         重置
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>

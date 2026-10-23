@@ -16,9 +16,9 @@ source.transition = "grid-template-rows $ref(motion.expand)"
 card.background-color = "$ref(color.surface.low)"
 card.border-color       = "$ref(color.border.subtle)"
 card.border-color-hover = "$ref(color.border.hover)"
-card.border-radius = "$ref(shape.medium)"
-card.box-shadow             = "none"
-card.box-shadow-hover       = "$ref(shadow.overlay)"
+card.border-radius = "$ref(shape.card)"
+card.box-shadow             = "$ref(shadow.card)"
+card.box-shadow-hover       = "$ref(shadow.card-hover)"
 
 
 # ─── 舞台（预览区） ──────────────────────────────────────────────────────────
@@ -42,7 +42,7 @@ meta.title.top              = "24px"
 
 # 下行：操作区（右对齐 + 图标加文字）
 meta.actions.padding        = "10px 14px"
-meta.actions.background-color = "$ref(color.surface.content)"
+meta.actions.background-color = "$ref(color.workspace.toolbar)"
 meta.actions.border-style   = "solid"
 
 meta.title.color          = "$ref(color.text.primary)"
@@ -89,7 +89,10 @@ action.box-shadow-active          = "$ref(shadow.float)"
 
 # ─── 代码预览区 ──────────────────────────────────────────────────────────────
 
-source.background-color      = "$ref(color.surface.content)"
+# Syntax palettes are explicitly chosen by codeTheme, independently of the page theme.
+source.background-color = "$ref(color.code.light.background)"
+source.dark.background-color = "$ref(color.code.dark.background)"
+source.dark.gutter.color = "$ref(color.code.dark.gutter)"
 source.padding-block         = "16px"
 source.font-size             = "13px"
 source.font-family           = "ui-monospace, 'SFMono-Regular', 'Menlo', 'Cascadia Code', 'Fira Code', monospace"
@@ -103,7 +106,7 @@ source.expanded.max-height   = "520px"
 source.scrollbar.color       = "$ref(color.border.hover)"
 source.scrollbar.color-hover = "$ref(color.text.tertiary)"
 
-source.gutter.color          = "$ref(color.text.tertiary)"
+source.gutter.color = "$ref(color.code.light.gutter)"
 source.gutter.min-width      = "2.5em"
 source.gutter.padding-right  = "16px"
 source.gutter.margin-right   = "20px"

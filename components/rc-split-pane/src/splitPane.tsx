@@ -31,7 +31,7 @@ const flexPaneStyle = css`
     flex: 1;
 `;
 
-/* 命中区宽于可见线：1px 的线抓不住，7px 的空气抓得住 */
+/* 主题只改变可见握柄与桌面轨道，触屏仍使用独立的大命中区。 */
 const separatorStyle = css`
     flex-shrink: 0;
     position: relative;
@@ -46,22 +46,37 @@ const separatorStyle = css`
         transition: ${token.separator.transition};
     }
 
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: ${token.separator.grip.width};
+        height: ${token.separator.grip.height};
+        border-radius: ${token.separator.grip['border-radius']};
+        background: ${token.separator.line['background-color']};
+        transform: translate(-50%, -50%);
+        transition: ${token.separator.transition};
+        pointer-events: none;
+    }
+
     &:hover::before,
-    &[data-dragging]::before {
+    &[data-dragging]::before,
+    &:hover::after,
+    &[data-dragging]::after {
         background: ${token.separator.line['background-color-active']};
     }
 
     &:focus-visible {
-        outline: none; /* 仅因下一行立即给出替代焦点意符，方才允许 */
+        outline: ${token.separator['outline-width-focus']} solid ${token.separator['outline-color-focus']};
         box-shadow: ${token.separator['box-shadow-focus']};
     }
     @media (forced-colors: active) {
-        &::before { background: CanvasText; }
+        &::before, &::after { background: CanvasText; }
         &:focus-visible { outline: ${token.separator['outline-width-focus']} solid Highlight; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        &::before {
+        &::before, &::after {
             transition: none;
         }
     }
@@ -87,6 +102,10 @@ const separatorVerticalStyle = css`
     height: ${token.separator.horizontal.height};
     @media (pointer: coarse) { height: ${token.separator.touch.width}; }
     cursor: row-resize;
+
+    &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
 
     &::before {
         left: 0;

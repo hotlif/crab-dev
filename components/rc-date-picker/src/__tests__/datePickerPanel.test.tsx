@@ -9,6 +9,26 @@ beforeAll(() => {
 });
 
 describe('DatePickerPanel', () => {
+    it('marks today in the picker time zone independently of the selected date', async () => {
+        const instant = Temporal.Instant.from('2026-09-12T00:30:00Z');
+        const now = mock.spyOn(Temporal.Now, 'zonedDateTimeISO').implement(
+            timeZone => instant.toZonedDateTimeISO(timeZone ?? 'UTC'),
+        );
+        try {
+            const value = instant.toZonedDateTimeISO('UTC');
+            const view = await render(<DatePickerPanel value={value} timeZone="America/Los_Angeles" />);
+            expect(screen.getByRole('button', { name: '2026-09-11' }).getAttribute('aria-current')).toBe('date');
+            expect(screen.getByRole('button', { name: '2026-09-12' }).getAttribute('aria-current')).toBeNull();
+            await view.rerender(<DatePickerPanel value={value} timeZone="Asia/Shanghai" selectValues={[value]} />);
+            const today = screen.getByRole('button', { name: '2026-09-12' });
+            expect(today.getAttribute('aria-current')).toBe('date');
+            expect(today.getAttribute('aria-pressed')).toBe('true');
+            expect(screen.getByRole('button', { name: '2026-09-11' }).getAttribute('aria-current')).toBeNull();
+        } finally {
+            now.restore();
+        }
+    });
+
     it('renders named navigation and selectable calendar days', async () => {
         const value = Temporal.ZonedDateTime.from('2026-09-12T00:00+08:00[Asia/Shanghai]');
         let selectedDate = '';
