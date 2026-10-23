@@ -44,7 +44,6 @@
     },
     "devDependencies": {
         "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",

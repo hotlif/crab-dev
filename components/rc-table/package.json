@@ -43,7 +43,6 @@
     },
     "devDependencies": {
         "@crab-dev/rc-auto-sizer": "workspace:^",
-        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
@@ -70,6 +69,7 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-checkbox": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-empty": "workspace:^",

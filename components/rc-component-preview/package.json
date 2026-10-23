@@ -41,7 +41,6 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",

@@ -42,7 +42,6 @@
     },
     "devDependencies": {
         "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-global": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",

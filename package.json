@@ -25,6 +25,19 @@
         "components/*",
         ".website"
     ],
+    "resolutions": {
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-checkbox": "workspace:^",
+        "@crab-dev/rc-dialog": "workspace:^",
+        "@crab-dev/rc-drawer": "workspace:^",
+        "@crab-dev/rc-empty": "workspace:^",
+        "@crab-dev/rc-line-edit": "workspace:^",
+        "@crab-dev/rc-number-edit": "workspace:^",
+        "@crab-dev/rc-segmented": "workspace:^",
+        "@crab-dev/rc-switch": "workspace:^",
+        "@crab-dev/rc-tag": "workspace:^",
+        "@crab-dev/rc-text-edit": "workspace:^"
+    },
     "devDependencies": {
         "@changesets/changelog-github": "^1.0.1",
         "@changesets/cli": "3.0.2",

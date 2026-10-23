@@ -41,6 +41,7 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
+        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",
