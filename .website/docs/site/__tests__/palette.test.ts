@@ -1,13 +1,14 @@
 import { describe, expect, it } from "@crab-dev/wake/test";
-import { designColorContract, shadcnColorContract, themeColorContract } from "@crab-dev/rc-token-semantic";
+import { designColorContract, macosColorContract, shadcnColorContract, themeColorContract } from "@crab-dev/rc-token-semantic";
 import { colors } from "../palette.js";
 import { contrast, rgb } from "./colorAssertions.js";
 
-describe("文档站与组件的双风格色彩契约", () => {
-    it("站点直接消费公共 Material 和 shadcn 契约", () => {
+describe("文档站与组件的设计风格色彩契约", () => {
+    it("站点直接消费公共 Material、shadcn 和 macOS 契约", () => {
         expect(colors).toBe(designColorContract);
         expect(colors.material).toBe(themeColorContract);
         expect(colors.shadcn).toBe(shadcnColorContract);
+        expect(colors.macos).toBe(macosColorContract);
     });
 
     it("shadcn 保持中性表面和主操作，Material 保留彩色品牌", () => {

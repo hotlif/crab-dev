@@ -1,5 +1,5 @@
 import { Children, use, useEffect, useId, useRef, useState } from "react";
-import type { MouseEvent } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import { defineDocsUI } from "@crab-dev/wake/docs";
 import type * as UI from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
@@ -14,7 +14,7 @@ import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
 import Spin from "@crab-dev/rc-spin";
 import { useMediaQuery } from "@crab-dev/rc-hooks";
-import { DEFAULT_SITE_DESIGN, DocumentDesignContext, resolveSiteHref, SiteContext, SITE_DESIGN_STORAGE_KEY, TutorialDirectoryContext } from "./siteContext.js";
+import { DEFAULT_SITE_DESIGN, DocumentDesignContext, isSiteDesign, resolveSiteHref, SiteContext, SITE_DESIGN_STORAGE_KEY, TutorialDirectoryContext } from "./siteContext.js";
 import "./siteStyles.js";
 import { categoryForPath, DocumentNavigationContext, groupsForCategory, navigationCategories, PageSections } from "./documentNavigation.js";
 import type { NavigationCategory } from "./documentNavigation.js";
@@ -22,6 +22,7 @@ import "./documentStyles.js";
 import SiteIcon from "./siteIcon.js";
 import ComponentHeroPreview from "./componentHeroPreview.js";
 import "./catalogStyles.js";
+import "./designStyles.js";
 
 function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: string) => void) {
     if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
@@ -30,15 +31,27 @@ function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: s
     navigate(slug);
 }
 
+function moveNavigationFocus(event: KeyboardEvent<HTMLElement>) {
+    if (event.altKey || event.ctrlKey || event.metaKey || !["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+    const items = [...event.currentTarget.querySelectorAll<HTMLElement>("a[href], button:not(:disabled)")]
+        .filter(item => !item.closest('[inert], [aria-hidden="true"]'));
+    const index = items.findIndex(item => item === event.target || item.contains(event.target as Node));
+    if (index < 0 || !items.length) return;
+    const next = event.key === "Home" ? 0 : event.key === "End" ? items.length - 1
+        : (index + (event.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+    event.preventDefault();
+    items[next]?.focus();
+}
+
 export function Root({ children, ...state }: UI.RootProps) {
     const [design, setDesign] = useState<ThemeDesign>(DEFAULT_SITE_DESIGN);
     useEffect(() => {
         try {
             const stored = window.localStorage.getItem(SITE_DESIGN_STORAGE_KEY);
-            if (stored === "material" || stored === "shadcn") setDesign(stored);
+            if (isSiteDesign(stored)) setDesign(stored);
         } catch { /* The default remains usable when browser storage is unavailable. */ }
         const update = (event: StorageEvent) => {
-            if (event.key === SITE_DESIGN_STORAGE_KEY && (event.newValue === "material" || event.newValue === "shadcn")) setDesign(event.newValue);
+            if (event.key === SITE_DESIGN_STORAGE_KEY && isSiteDesign(event.newValue)) setDesign(event.newValue);
         };
         window.addEventListener("storage", update);
         return () => window.removeEventListener("storage", update);
@@ -259,7 +272,7 @@ export function Navigation({ groups, current, toggleSection, onNavigate, site }:
         </section>
     ));
     return (
-        <nav className="crab-docs-navigation" aria-label={navigation ? "站点导航" : "文档分类"}>
+        <nav className="crab-docs-navigation" aria-label={navigation ? "站点导航" : "文档分类"} onKeyDown={moveNavigationFocus}>
             {navigation && navigation.presentation !== "mobile" ? (
                 navigation.category && renderGroups(groupsForCategory(groups, navigation.category))
             ) : navigation ? <>
@@ -296,6 +309,8 @@ export function MobileNavigation({
     const { design } = useConfig();
     const title = "文档导航";
     const navigationState = use(DocumentNavigationContext);
+    // DOM instance used after Drawer enters the top layer, never during rendering.
+    const navigationRoot = useRef<HTMLDivElement>(null);
     // 例外：记录弹层关闭原因，直到原生 close 事件完成焦点恢复。
     const closeReason = useRef<"navigation" | "cancel" | "desktop">("navigation");
     const closed = () => {
@@ -303,11 +318,20 @@ export function MobileNavigation({
             const trigger = document.querySelector<HTMLButtonElement>(".crab-docs-rail-item[aria-expanded=true]");
             if (trigger) trigger.focus({ preventScroll: true });
             else route.focusContent();
-        } else if (closeReason.current === "navigation") route.focusContent();
+        } else if (closeReason.current === "cancel") {
+            document.querySelector<HTMLButtonElement>(".crab-docs-menu-trigger")?.focus({ preventScroll: true });
+        } else route.focusContent();
     };
     useEffect(() => {
         if (!open) return;
         closeReason.current = "navigation";
+        const items = navigationRoot.current?.querySelectorAll<HTMLElement>("nav a[href], nav button:not(:disabled)");
+        const first = [...items ?? []].find(item => !item.closest('[inert], [hidden], [aria-hidden="true"]')
+            && item.getAttribute("aria-disabled") !== "true");
+        first?.focus({ preventScroll: true });
+    }, [open]);
+    useEffect(() => {
+        if (!open) return;
         const desktop = window.matchMedia("(min-width: 1280px)");
         const update = () => {
             if (!desktop.matches) return;
@@ -320,9 +344,13 @@ export function MobileNavigation({
     return (
         <div
             ref={(node) => {
+                navigationRoot.current = node;
                 // 原生 close 不冒泡；站点挂载点通过捕获阶段等待 Drawer 退出动画。
                 node?.addEventListener("close", closed, true);
-                return () => node?.removeEventListener("close", closed, true);
+                return () => {
+                    navigationRoot.current = null;
+                    node?.removeEventListener("close", closed, true);
+                };
             }}
         >
             <Drawer
@@ -335,6 +363,11 @@ export function MobileNavigation({
                 size="small"
                 closeLabel="关闭导航"
                 open={open}
+                onKeyDown={event => {
+                    // Let the native dialog cancel path own Escape; Wake's
+                    // window shortcut would otherwise close it before onCancel.
+                    if (event.key === "Escape") event.stopPropagation();
+                }}
                 onOpenChange={(value) => {
                     closeReason.current = value ? "navigation" : "cancel";
                     navigationState?.select(value ? categoryForPath(route.page?.slug ?? route.path) : null);
@@ -672,7 +705,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
             </Button>}
         </nav>
         <footer className="crab-docs-footer">
-            <div><strong>Crab UI</strong><p>支持 Material Design 3 与 shadcn 双风格的 React 组件库。通过统一配置、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
+            <div><strong>Crab UI</strong><p>支持 Material Design 3、shadcn 与 macOS 风格的 React 组件库。通过统一配置、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
             <nav aria-label="页脚导航">
                 <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
                 <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>

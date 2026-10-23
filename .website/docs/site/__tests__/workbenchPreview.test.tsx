@@ -67,6 +67,12 @@ describe("WorkbenchPreview", () => {
             expect(portal.textContent).toBe("shadcn/dark");
             expect(portal.parentElement?.dataset.crabDesign).toBe("shadcn");
             expect(screen.getByLabelText("explicit").textContent).toBe("material/light");
+            await sendConfiguration(window.parent, window.location.origin, "macos");
+            expect(screen.getByLabelText("demo").textContent).toBe("macos/dark");
+            expect(screen.getByLabelText("nested").textContent).toBe("macos/dark");
+            expect(portal.textContent).toBe("macos/dark");
+            expect(portal.parentElement?.dataset.crabDesign).toBe("macos");
+            expect(screen.getByLabelText("explicit").textContent).toBe("material/light");
             await sendConfiguration(window.parent, window.location.origin, "material", "light");
             expect(screen.getByLabelText("demo").textContent).toBe("material/light");
             expect(portal.textContent).toBe("material/light");
@@ -117,12 +123,18 @@ describe("WorkbenchPreview", () => {
         const originalDesign = document.documentElement.getAttribute("data-crab-design");
         const savedDesign = window.localStorage.getItem(SITE_DESIGN_STORAGE_KEY);
         window.localStorage.removeItem(SITE_DESIGN_STORAGE_KEY);
-        const { unmount } = await render(<WorkbenchPreview><ConfigurationProbe name="demo" /></WorkbenchPreview>);
+        const { container, unmount } = await render(<div className="demo-frame-root" data-theme="light">
+            <WorkbenchPreview><ConfigurationProbe name="demo" /></WorkbenchPreview>
+        </div>);
         try {
             await act(async () => { document.documentElement.dataset.theme = "dark"; });
-            expect(screen.getByLabelText("demo").textContent).toBe("shadcn/dark");
+            expect(screen.getByLabelText("demo").textContent).toBe("macos/dark");
+            const stage = container.querySelector(".demo-frame-root");
+            expect(stage?.getAttribute("data-crab-design")).toBe("macos");
+            expect(stage?.getAttribute("data-theme")).toBe("dark");
             await act(async () => { document.documentElement.dataset.theme = "light"; });
-            expect(screen.getByLabelText("demo").textContent).toBe("shadcn/light");
+            expect(screen.getByLabelText("demo").textContent).toBe("macos/light");
+            expect(stage?.getAttribute("data-theme")).toBe("light");
         } finally {
             await unmount();
             if (originalTheme === null) document.documentElement.removeAttribute("data-theme");
@@ -151,8 +163,10 @@ describe("WorkbenchPreview", () => {
             expect(document.documentElement.dataset.crabDesign).toBe("shadcn");
             await sendStoredDesign("material");
             expect(screen.getByLabelText("demo").textContent?.startsWith("material/")).toBe(true);
+            await sendStoredDesign("macos");
+            expect(screen.getByLabelText("demo").textContent?.startsWith("macos/")).toBe(true);
             await sendStoredDesign(null, null);
-            expect(screen.getByLabelText("demo").textContent?.startsWith("shadcn/")).toBe(true);
+            expect(screen.getByLabelText("demo").textContent?.startsWith("macos/")).toBe(true);
         } finally {
             await unmount();
             if (savedDesign === null) window.localStorage.removeItem(SITE_DESIGN_STORAGE_KEY);
@@ -163,7 +177,47 @@ describe("WorkbenchPreview", () => {
         }
     });
 
-    it("嵌入演示由父配置控制，存储偏好和其他标签页不会覆盖父配置", async () => {
+    it("独立预览同步其他标签页的明暗选择，并在系统模式跟随系统变化", async () => {
+        const restoreWindow = standaloneWindow();
+        const originalTheme = document.documentElement.getAttribute("data-theme");
+        const originalDesign = document.documentElement.getAttribute("data-crab-design");
+        const savedTheme = window.localStorage.getItem("wake-docs-theme");
+        const mediaDescriptor = Object.getOwnPropertyDescriptor(window, "matchMedia");
+        const media = Object.assign(new EventTarget(), { matches: true });
+        Object.defineProperty(window, "matchMedia", { configurable: true, value: () => media });
+        window.localStorage.setItem("wake-docs-theme", "dark");
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            const rendered = await render(<div className="demo-frame-root" data-theme="dark">
+                <WorkbenchPreview><ConfigurationProbe name="demo" /></WorkbenchPreview>
+            </div>);
+            unmount = rendered.unmount;
+            const stage = rendered.container.querySelector(".demo-frame-root");
+            expect(screen.getByLabelText("demo").textContent?.endsWith("/dark")).toBe(true);
+            await sendStoredDesign("light", "wake-docs-theme");
+            expect(document.documentElement.dataset.theme).toBe("light");
+            expect(stage?.getAttribute("data-theme")).toBe("light");
+            expect(screen.getByLabelText("demo").textContent?.endsWith("/light")).toBe(true);
+            await sendStoredDesign("system", "wake-docs-theme");
+            expect(screen.getByLabelText("demo").textContent?.endsWith("/dark")).toBe(true);
+            await act(() => { media.matches = false; media.dispatchEvent(new Event("change")); });
+            expect(screen.getByLabelText("demo").textContent?.endsWith("/light")).toBe(true);
+            expect(stage?.getAttribute("data-theme")).toBe("light");
+        } finally {
+            await unmount?.();
+            if (savedTheme === null) window.localStorage.removeItem("wake-docs-theme");
+            else window.localStorage.setItem("wake-docs-theme", savedTheme);
+            if (originalTheme === null) document.documentElement.removeAttribute("data-theme");
+            else document.documentElement.setAttribute("data-theme", originalTheme);
+            if (originalDesign === null) document.documentElement.removeAttribute("data-crab-design");
+            else document.documentElement.setAttribute("data-crab-design", originalDesign);
+            if (mediaDescriptor) Object.defineProperty(window, "matchMedia", mediaDescriptor);
+            else Reflect.deleteProperty(window, "matchMedia");
+            restoreWindow();
+        }
+    });
+
+    it("工作台内嵌预览也读取设计偏好，文档父配置接管后不再受其他标签页覆盖", async () => {
         const descriptor = Object.getOwnPropertyDescriptor(window, "parent");
         const originalDesign = document.documentElement.getAttribute("data-crab-design");
         const originalTheme = document.documentElement.getAttribute("data-theme");
@@ -173,11 +227,24 @@ describe("WorkbenchPreview", () => {
         Object.defineProperty(window, "parent", { configurable: true, value: parentWindow });
         let unmount: (() => Promise<void>) | undefined;
         try {
-            ({ unmount } = await render(<WorkbenchPreview><ConfigurationProbe name="demo" /></WorkbenchPreview>));
-            expect(screen.getByLabelText("demo").textContent?.startsWith("shadcn/")).toBe(true);
-            await sendConfiguration(parentWindow, window.location.origin, "material", "light");
+            const rendered = await render(<div className="demo-frame-root" data-theme="light">
+                <WorkbenchPreview><ConfigurationProbe name="demo" /></WorkbenchPreview>
+            </div>);
+            unmount = rendered.unmount;
+            const stage = rendered.container.querySelector(".demo-frame-root");
+            expect(screen.getByLabelText("demo").textContent?.startsWith("material/")).toBe(true);
+            expect(document.documentElement.dataset.crabDesign).toBe("material");
+            expect(stage?.getAttribute("data-crab-design")).toBe("material");
             await sendStoredDesign("shadcn");
-            expect(screen.getByLabelText("demo").textContent).toBe("material/light");
+            expect(screen.getByLabelText("demo").textContent?.startsWith("shadcn/")).toBe(true);
+            expect(stage?.getAttribute("data-crab-design")).toBe("shadcn");
+            await sendConfiguration(parentWindow, window.location.origin, "macos", "dark");
+            await sendStoredDesign("material");
+            await sendStoredDesign("light", "wake-docs-theme");
+            expect(screen.getByLabelText("demo").textContent).toBe("macos/dark");
+            expect(document.documentElement.dataset.crabDesign).toBe("macos");
+            expect(stage?.getAttribute("data-crab-design")).toBe("macos");
+            expect(stage?.getAttribute("data-theme")).toBe("dark");
         } finally {
             await unmount?.();
             if (descriptor) Object.defineProperty(window, "parent", descriptor);

@@ -11,5 +11,5 @@ export const material = defineTokens({
 
 export const stateLayers = defineTokens({ hover: `calc(${token.state.opacity.hover} * 100%)`, pressed: `calc(${token.state.opacity.pressed} * 100%)` });
 
-/** Both styles use the public L2 contracts; the site owns no separate palette. */
+/** All styles use the public L2 contracts; the site owns no separate palette. */
 export const colors = designColorContract;

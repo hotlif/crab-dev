@@ -3,14 +3,13 @@ import type { RefObject } from "react";
 import type { HeaderProps } from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
 import DropdownContainer, { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { DocumentDesignContext } from "./siteContext.js";
+import { DocumentDesignContext, SITE_DESIGNS } from "./siteContext.js";
 
 const modes = ["light", "dark", "system"] as const;
 type Mode = (typeof modes)[number];
 type Theme = HeaderProps["theme"];
 const names = { light: "浅色", dark: "深色", system: "跟随系统" };
-const designs = ["shadcn", "material"] as const;
-const designNames = { material: "Material Design 3", shadcn: "shadcn" };
+const designNames = { material: "Material Design 3", shadcn: "shadcn", macos: "macOS" };
 type TriggerRef = RefObject<HTMLSpanElement | null>;
 
 function ThemeIcon({ mode }: { mode: Mode }) {
@@ -60,7 +59,7 @@ function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string
         }}>
         <div role="group" aria-label="设计风格">
             <span className="crab-docs-theme-group-label" aria-hidden="true">设计风格</span>
-            {designs.map(value => <Button key={value} appearance="text" role="menuitemradio" aria-checked={design === value}
+            {SITE_DESIGNS.map(value => <Button key={value} appearance="text" role="menuitemradio" aria-checked={design === value}
                 tabIndex={-1}
                 iconAfter={<span className="crab-docs-theme-check" aria-hidden="true">{design === value ? "✓" : ""}</span>}
                 onClick={() => { setDesign(value); close(); }}>{designNames[value]}</Button>)}

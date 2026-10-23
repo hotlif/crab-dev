@@ -23,8 +23,8 @@ mock.module("@crab-dev/rc-dialog", () => ({
 // 仅替换动画与布局；保留 Drawer 的取消回调和退出完成 close 事件。
 mock.module("@crab-dev/rc-drawer", () => ({
     __esModule: true,
-    default: ({ open, onOpenChange, children }: import("@crab-dev/rc-drawer").DrawerProps) => (
-        <dialog role="dialog" open={open} aria-label="文档导航" onCancel={() => onOpenChange(false)}>
+    default: ({ open, onOpenChange, onKeyDown, children }: import("@crab-dev/rc-drawer").DrawerProps) => (
+        <dialog role="dialog" open={open} aria-label="文档导航" onKeyDown={onKeyDown} onCancel={() => onOpenChange(false)}>
             {children}
         </dialog>
     ),
@@ -135,7 +135,7 @@ function CurrentDocumentConfig() {
 }
 
 describe("文档设计偏好", () => {
-    it("默认 shadcn，切换风格同步组件并在重新打开后保留", async () => {
+    for (const [design, label] of [["material", "Material Design 3"], ["shadcn", "shadcn"]] as const) it(`默认 macOS，切换 ${label} 同步组件并在重新打开后保留`, async () => {
         const preference = designPreference();
         const state = common();
         const content = () => <UI.Root {...state}>
@@ -144,17 +144,17 @@ describe("文档设计偏好", () => {
         </UI.Root>;
         try {
             const view = await render(content());
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("shadcn:light");
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
             await click("文档主题：跟随系统");
-            await fireEvent.click(screen.getByRole("menuitemradio", { name: "Material Design 3" }));
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("material:light");
-            expect(document.querySelector(".crab-docs")?.getAttribute("data-crab-design")).toBe("material");
-            expect(document.documentElement.getAttribute("data-crab-design")).toBe("material");
-            expect(preference.storage.setItem).toHaveBeenCalledWith(SITE_DESIGN_STORAGE_KEY, "material");
+            await fireEvent.click(screen.getByRole("menuitemradio", { name: label }));
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe(`${design}:light`);
+            expect(document.querySelector(".crab-docs")?.getAttribute("data-crab-design")).toBe(design);
+            expect(document.documentElement.getAttribute("data-crab-design")).toBe(design);
+            expect(preference.storage.setItem).toHaveBeenCalledWith(SITE_DESIGN_STORAGE_KEY, design);
             expect(state.theme.setTheme).not.toHaveBeenCalled();
             await view.unmount();
             await render(content());
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("material:light");
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe(`${design}:light`);
         } finally { preference.restore(); }
     });
 
@@ -172,10 +172,29 @@ describe("文档设计偏好", () => {
             await click("文档主题：深色");
             expect(screen.getByRole("group", { name: "设计风格" })).toBeTruthy();
             expect(screen.getByRole("group", { name: "明暗模式" })).toBeTruthy();
-            await fireEvent.click(screen.getByRole("menuitemradio", { name: "shadcn" }));
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("shadcn:dark");
+            await fireEvent.click(screen.getByRole("menuitemradio", { name: "macOS" }));
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:dark");
             expect(screen.getByDisplayValue("仍在编辑")).toBe(draft);
             expect(state.theme.setTheme).not.toHaveBeenCalled();
+        } finally { preference.restore(); }
+    });
+
+    it("其他标签页选择 macOS 时同步配置，忽略无效偏好", async () => {
+        const preference = designPreference("material");
+        try {
+            await render(<UI.Root {...common()}><CurrentDocumentConfig /></UI.Root>);
+            for (const design of ["macos", "unknown"]) {
+                await act(async () => {
+                    const event = new Event("storage");
+                    Object.defineProperties(event, {
+                        key: { value: SITE_DESIGN_STORAGE_KEY },
+                        newValue: { value: design },
+                    });
+                    window.dispatchEvent(event);
+                });
+                expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
+                expect(document.documentElement.dataset.crabDesign).toBe("macos");
+            }
         } finally { preference.restore(); }
     });
 
@@ -184,7 +203,7 @@ describe("文档设计偏好", () => {
         const state = common();
         try {
             await render(<UI.Root {...state}><CurrentDocumentConfig /></UI.Root>);
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("shadcn:light");
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
         } finally { preference.restore(); }
     });
 });
@@ -292,6 +311,27 @@ describe("Wake 文档展示适配器", () => {
         expect(onNavigate).toHaveBeenCalledWith("/components/rc-button");
         await click("输入");
         expect(toggleSection).toHaveBeenCalledWith("inputs");
+    });
+
+    it("目录方向键跳过收起内容并保持导航选择不变", async () => {
+        const state = common();
+        const onNavigate = mock.fn();
+        await render(<UI.Navigation {...state} current="/first" onNavigate={onNavigate} toggleSection={mock.fn()}
+            groups={[{ id: "components", title: "组件", pages: [
+                { slug: "/first", href: "/first", title: "起始页" },
+            ], sections: [
+                { id: "closed", title: "收起分类", expanded: false, active: false, pages: [{ slug: "/hidden", href: "/hidden", title: "隐藏页" }] },
+                { id: "open", title: "展开分类", expanded: true, active: false, pages: [{ slug: "/last", href: "/last", title: "末尾页" }] },
+            ] }]} />);
+        const collapsed = screen.getByRole("button", { name: "收起分类" });
+        await act(async () => collapsed.focus());
+        await fireEvent.keyDown(collapsed, { key: "ArrowDown" });
+        expect(document.activeElement).toBe(screen.getByRole("button", { name: "展开分类" }));
+        await fireEvent.keyDown(document.activeElement!, { key: "End" });
+        expect(document.activeElement).toBe(screen.getByRole("link", { name: "末尾页" }));
+        await fireEvent.keyDown(document.activeElement!, { key: "Home" });
+        expect(document.activeElement).toBe(screen.getByRole("link", { name: "起始页" }));
+        expect(onNavigate).not.toHaveBeenCalled();
     });
 
     it("导航收起时保留动画容器并立即移除其中的交互", async () => {
@@ -431,6 +471,55 @@ describe("Wake 文档展示适配器", () => {
             activeId="error-focus" navigate={navigate} variant="desktop" />);
         expect(screen.queryByRole("link", { name: "错误与聚焦" })).toBeNull();
         expect(screen.getByRole("link", { name: "控件状态总表" }).getAttribute("aria-current")).toBe("location");
+    });
+
+    it("移动导航打开聚焦首页，重渲染不抢焦点，取消退出后恢复入口", async () => {
+        const state = common();
+        const setOpen = mock.fn();
+        const nextSetOpen = mock.fn();
+        const navigation = (open: boolean, onOpenChange = setOpen) => <>
+            <UI.Header {...state} search={searchState({ open: false })}
+                mobileNavigation={{ open, setOpen: onOpenChange }} />
+            <UI.MobileNavigation {...state} open={open} setOpen={onOpenChange}
+                navigation={<nav><a href="/handbook/components">组件目录</a></nav>} />
+        </>;
+        const view = await render(navigation(false));
+        const trigger = screen.getByRole("button", { name: "导航" });
+        await act(() => trigger.focus());
+        await view.rerender(navigation(true));
+        expect(document.activeElement).toBe(screen.getByRole("link", { name: "首页" }));
+
+        const secondLink = screen.getByRole("link", { name: "组件目录" });
+        await act(() => secondLink.focus());
+        await view.rerender(navigation(true, nextSetOpen));
+        expect(document.activeElement).toBe(secondLink);
+
+        const dialog = screen.getByRole("dialog", { name: "文档导航" });
+        const hostEscape = mock.fn((event: Event) => {
+            if (event instanceof KeyboardEvent && event.key === "Escape") nextSetOpen(false);
+        });
+        window.addEventListener("keydown", hostEscape);
+        try {
+            const escape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
+            await act(() => { secondLink.dispatchEvent(escape); });
+            expect(hostEscape).not.toHaveBeenCalled();
+            expect(escape.defaultPrevented).toBe(false);
+            expect(nextSetOpen).not.toHaveBeenCalled();
+            // The DOM test host has no native dialog default action.
+            await act(() => { dialog.dispatchEvent(new Event("cancel")); });
+        } finally {
+            window.removeEventListener("keydown", hostEscape);
+        }
+        expect(nextSetOpen).toHaveBeenCalledWith(false);
+        // Wake may supply another setter while the closing state is propagating.
+        await view.rerender(navigation(true, setOpen));
+        await view.rerender(navigation(false, setOpen));
+        await act(() => { dialog.dispatchEvent(new Event("close")); });
+        expect(document.activeElement).toBe(trigger);
+        expect(state.route.focusContent).not.toHaveBeenCalled();
+
+        await view.rerender(navigation(true));
+        expect(document.activeElement).toBe(screen.getByRole("link", { name: "首页" }));
     });
 
     it("移动导航选择页面后等待抽屉关闭完成再聚焦正文", async () => {

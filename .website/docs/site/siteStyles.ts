@@ -194,7 +194,7 @@ body { margin: 0; }
 .crab-docs-search-dialog { --dialog-root-top: clamp(${globalToken.space[4]}, 8dvh, ${globalToken.space[20]}); --dialog-root-padding: ${token.space["dialog-padding"]}; --dialog-heading-margin-bottom: ${token.space["section-gap"]}; --dialog-footer-margin-top: ${token.space["section-gap"]}; width: min(42rem, calc(100vw - 2rem)); }
 .crab-docs-search-dialog button { min-height: 2.75rem; }
 .crab-docs-search { display: flex; flex-direction: column; min-height: 0; height: min(30rem, calc(100dvh - 15rem)); }
-.crab-docs-mobile-drawer { width: 100vw; max-width: none; background: transparent; --drawer-root-background-color: ${token.color.background.elevated}; --drawer-close-width: ${token.size.control}; --drawer-close-icon-width: ${globalToken.space[6]}; --token-semantic-color-border-default: ${token.color.border.subtle}; }
+.crab-docs-mobile-drawer { width: 100vw; max-width: none; background: transparent; --drawer-root-border-radius: ${token.navigation.drawer.radius}; --drawer-close-width: ${token.size.control}; --drawer-close-icon-width: ${globalToken.space[6]}; }
 .crab-docs-search-field { flex: none; padding-inline: ${token.space["control-padding-x"]}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.control}; background: var(--crab-docs-nav-hover); }
 .crab-docs-search-field:focus-within { border-color: transparent; outline: 2px solid ${token.color.focus.ring}; outline-offset: 1px; }
 /* The host owns the single outline; LineEdit paints its ring on the root, not the input. */
