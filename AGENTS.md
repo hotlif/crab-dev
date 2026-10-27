@@ -6,6 +6,7 @@
 
 - 用户明确要求优先于仓库约定。用户可见沟通默认使用中文；标识符和提交信息使用项目语言。
 - 本文件约束全库；[组件规则](components/AGENTS.md)细化组件实现，[网站规则](.website/AGENTS.md)细化文档与示例。子级规则只补充适用范围，不得悄悄放宽公共契约。
+- [项目技能](.agents/skills/)按任务给出可执行流程（组件、令牌、文档、清单、验证、发布）。技能只写做法，公共约束仍以本文件和子级规则为准；冲突时服从规则并修正技能。
 - 可维护规范入口：[库架构](.website/docs/guides/library-architecture.mdx)、[公共 API](.website/docs/guides/public-api.mdx)、[设计体系](.website/docs/guides/design-styles.mdx)、[尺寸与密度](.website/docs/guides/component-sizing.mdx)、[贡献维护](.website/docs/guides/contributing.mdx)和[迁移指南](.website/docs/guides/migration.mdx)。历史审查不是当前规范。
 - 产品名称、六个能力族、用途分类、生命周期和设计覆盖只维护于 `library.manifest.json`；工程版本、依赖与导出只维护于各包 `package.json`。文档和生成器不得重复固定包数或 Demo 数。
 - 公共配置为 `designSystem`、`colorMode`、`brandColor`、`size`、`density`、`locale`、`direction` 与继承最近边界的 `nonce`；根默认 `md3 / light / medium / standard / zh-CN / ltr`，nonce 未提供。设计体系仅 `md3` / `apple` / `shadcn`。旧接口一次切换，仅浏览器历史偏好允许迁移旧设计 ID。
