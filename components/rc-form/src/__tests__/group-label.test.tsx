@@ -91,7 +91,12 @@ describe('Form.Item external group labels', () => {
             </Item>
         </Form>);
         expect(screen.getByRole('group', { name: '现有技能名称' }).getAttribute('aria-labelledby')).toBeNull();
-        expect(screen.getByRole('radiogroup', { name: '现有套餐名称' }).getAttribute('aria-labelledby')).toBe('explicit-plan-caption');
+        // Wake's role-name query gives aria-label priority over aria-labelledby.
+        // Assert the actual relationship and fallback separately instead.
+        const plan = screen.getByRole('radiogroup');
+        expect(plan.getAttribute('aria-labelledby')).toBe('explicit-plan-caption');
+        expect(document.getElementById('explicit-plan-caption')?.textContent).toBe('现有套餐名称');
+        expect(plan.getAttribute('aria-label')).toBe('备用名称');
         expect(screen.getByRole('radio', { name: 'Free' })).toBeTruthy();
     });
 

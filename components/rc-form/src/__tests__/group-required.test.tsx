@@ -26,7 +26,13 @@ describe('Form required value collections', () => {
             </Form>;
         }
         await render(<Example />);
-        const group = screen.getByRole('group', { name: '技能' });
+        // Wake's role-name query includes text in aria-hidden descendants.
+        const group = screen.getByRole('group');
+        const captionId = group.getAttribute('aria-labelledby');
+        if (!captionId) throw new Error('Missing group caption relationship');
+        const caption = document.getElementById(captionId);
+        expect(caption?.querySelector('span:not([aria-hidden])')?.textContent).toBe('技能');
+        expect(caption?.querySelector('[aria-hidden="true"]')?.textContent).toBe('*');
         const checkbox = screen.getByRole('checkbox', { name: 'React' }) as HTMLInputElement;
         let initialError: unknown;
         await act(async () => {
