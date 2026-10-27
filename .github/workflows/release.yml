@@ -1,10 +1,14 @@
 name: Release
 
 on:
-  push:
-    branches: [ "canary" ]
+  workflow_run:
+    workflows: ["Test"]
+    types: [completed]
+    branches: ["canary"]
 
-concurrency: release-${{ github.ref }}
+concurrency:
+  group: release-canary
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -12,30 +16,64 @@ permissions:
 
 jobs:
   release:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'canary' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
+    - name: Check that the verified commit is still the branch head
+      id: verified
+      env:
+        GH_TOKEN: ${{ github.token }}
+        REPOSITORY: ${{ github.repository }}
+        VERIFIED_SHA: ${{ github.event.workflow_run.head_sha }}
+      shell: bash
+      run: |
+        branch_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/canary" --jq '.object.sha')"
+        if [ "$branch_sha" = "$VERIFIED_SHA" ]; then
+          echo "current=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "current=false" >> "$GITHUB_OUTPUT"
+          echo "Skipping release: a newer canary commit is awaiting verification."
+        fi
     - uses: actions/checkout@v7
+      if: steps.verified.outputs.current == 'true'
       with:
+        ref: ${{ github.event.workflow_run.head_sha }}
         lfs: true
         fetch-depth: 0
     - name: Setup Node
+      if: steps.verified.outputs.current == 'true'
       uses: actions/setup-node@v7
       with:
         node-version: '24'
     - name: Enable Corepack
+      if: steps.verified.outputs.current == 'true'
       run: corepack enable
     - name: Install project package manager
+      if: steps.verified.outputs.current == 'true'
       run: corepack install
     - name: Install dependencies
+      if: steps.verified.outputs.current == 'true'
       run: yarn install --immutable
-    - name: Create Release PR or Publish to npm
-      uses: changesets/action@v1
-      with:
-        version: yarn changeset:version
-        publish: yarn changeset:release
-        commit: "chore(repo): version packages"
-        title: "chore(repo): version packages"
+    - name: Verify release checkout
+      if: steps.verified.outputs.current == 'true'
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CRAB_VERIFIED_SHA: ${{ github.event.workflow_run.head_sha }}
+      run: node scripts/check-release.mjs
+    - name: Create Release PR or publish verified packages
+      if: steps.verified.outputs.current == 'true'
+      uses: changesets/action@v2
+      with:
+        github-token: ${{ github.token }}
+        pr-base-branch: canary
+        version-script: yarn changeset:version
+        publish-script: yarn changeset:release
+        commit-message: "chore(repo): version packages"
+        pr-title: "chore(repo): version packages"
+      env:
+        CRAB_VERIFIED_SHA: ${{ github.event.workflow_run.head_sha }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         HUSKY: "0"

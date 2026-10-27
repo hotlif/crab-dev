@@ -33,26 +33,27 @@ jobs:
       run: corepack install
     - name: Install dependencies
       run: yarn install --immutable
+    - name: Verify library inventory, boundaries, commands and generated task graph
+      run: yarn check:architecture
     - name: Generate design tokens
       run: yarn generate:token
     - name: Verify generated design tokens are committed
-      shell: bash
-      run: |
-        token_status="$(git status --porcelain -- ':(glob)components/*/src/token.ts')"
-        if [[ -n "$token_status" ]]; then
-          echo "Generated token files are missing or stale:"
-          printf '%s\n' "$token_status"
-          exit 1
-        fi
+      run: yarn check:generated
     - name: Verify design token contract
       run: yarn check:tokens
-    - name: Run ESLint
+    - name: Run Wake Lint and repository contract tests
       run: yarn lint
     - name: Build the project
       run: yarn build:library
+    - name: Verify built package entrypoints
+      run: yarn check:exports
+    - name: Verify independently packed strict PnP consumer
+      run: yarn check:consumer
     - name: Run typecheck
       run: yarn typecheck
     - name: Run Wake Test
       run: yarn test
+    - name: Run registered additional workspace checks
+      run: yarn test:required
     - name: Build Wake Docs
       run: yarn docs:build
