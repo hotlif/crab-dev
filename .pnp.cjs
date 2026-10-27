@@ -478,7 +478,7 @@ const RAW_RUNTIME_STATE =
           ["@pnpm/deps.graph-sequencer", "npm:1100.0.1"],\
           ["cac", "npm:7.0.0"],\
           ["import-meta-resolve", "npm:4.2.0"],\
-          ["launch-editor", "npm:2.14.1"],\
+          ["launch-editor", "npm:2.14.2"],\
           ["package-manager-detector", "npm:1.8.0"],\
           ["semver", "npm:7.8.5"],\
           ["tinyexec", "npm:1.3.1"]\
@@ -6573,7 +6573,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["ajv", "npm:8.20.0"],\
           ["fast-deep-equal", "npm:3.1.3"],\
-          ["fast-uri", "npm:3.1.6"],\
+          ["fast-uri", "npm:3.1.9"],\
           ["json-schema-traverse", "npm:1.0.0"],\
           ["require-from-string", "npm:2.0.2"]\
         ],\
@@ -6793,20 +6793,20 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["brace-expansion", [\
-      ["npm:1.1.18", {\
-        "packageLocation": "./.yarn/cache/brace-expansion-npm-1.1.18-2759b99171-3432c18a9e.zip/node_modules/brace-expansion/",\
+      ["npm:1.1.21", {\
+        "packageLocation": "./.yarn/cache/brace-expansion-npm-1.1.21-0c6e278ea9-8f0a68a720.zip/node_modules/brace-expansion/",\
         "packageDependencies": [\
           ["balanced-match", "npm:1.0.2"],\
-          ["brace-expansion", "npm:1.1.18"],\
+          ["brace-expansion", "npm:1.1.21"],\
           ["concat-map", "npm:0.0.1"]\
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:5.0.9", {\
-        "packageLocation": "./.yarn/cache/brace-expansion-npm-5.0.9-2717df6b49-3dea38884a.zip/node_modules/brace-expansion/",\
+      ["npm:5.0.12", {\
+        "packageLocation": "./.yarn/cache/brace-expansion-npm-5.0.12-5e9282f26b-a40ac64d3b.zip/node_modules/brace-expansion/",\
         "packageDependencies": [\
           ["balanced-match", "npm:4.0.4"],\
-          ["brace-expansion", "npm:5.0.9"]\
+          ["brace-expansion", "npm:5.0.12"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7958,10 +7958,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["fast-uri", [\
-      ["npm:3.1.6", {\
-        "packageLocation": "./.yarn/cache/fast-uri-npm-3.1.6-df64e30f4e-77fa4f966f.zip/node_modules/fast-uri/",\
+      ["npm:3.1.9", {\
+        "packageLocation": "./.yarn/cache/fast-uri-npm-3.1.9-84586dee2e-052757540d.zip/node_modules/fast-uri/",\
         "packageDependencies": [\
-          ["fast-uri", "npm:3.1.6"]\
+          ["fast-uri", "npm:3.1.9"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9153,12 +9153,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["launch-editor", [\
-      ["npm:2.14.1", {\
-        "packageLocation": "./.yarn/cache/launch-editor-npm-2.14.1-72c53f4965-bb0ab18208.zip/node_modules/launch-editor/",\
+      ["npm:2.14.2", {\
+        "packageLocation": "./.yarn/cache/launch-editor-npm-2.14.2-24f3a4fc0f-cf66c75534.zip/node_modules/launch-editor/",\
         "packageDependencies": [\
-          ["launch-editor", "npm:2.14.1"],\
+          ["launch-editor", "npm:2.14.2"],\
           ["picocolors", "npm:1.1.1"],\
-          ["shell-quote", "npm:1.10.0"]\
+          ["shell-quote", "npm:1.12.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9703,7 +9703,7 @@ const RAW_RUNTIME_STATE =
       ["npm:10.2.5", {\
         "packageLocation": "./.yarn/cache/minimatch-npm-10.2.5-f1c8297822-6bb058bd63.zip/node_modules/minimatch/",\
         "packageDependencies": [\
-          ["brace-expansion", "npm:5.0.9"],\
+          ["brace-expansion", "npm:5.0.12"],\
           ["minimatch", "npm:10.2.5"]\
         ],\
         "linkType": "HARD"\
@@ -9711,7 +9711,7 @@ const RAW_RUNTIME_STATE =
       ["npm:3.1.5", {\
         "packageLocation": "./.yarn/cache/minimatch-npm-3.1.5-86958baf50-2ecbdc0d33.zip/node_modules/minimatch/",\
         "packageDependencies": [\
-          ["brace-expansion", "npm:1.1.18"],\
+          ["brace-expansion", "npm:1.1.21"],\
           ["minimatch", "npm:3.1.5"]\
         ],\
         "linkType": "HARD"\
@@ -10631,10 +10631,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["shell-quote", [\
-      ["npm:1.10.0", {\
-        "packageLocation": "./.yarn/cache/shell-quote-npm-1.10.0-8aabc0056e-46ee59bfd9.zip/node_modules/shell-quote/",\
+      ["npm:1.12.0", {\
+        "packageLocation": "./.yarn/cache/shell-quote-npm-1.12.0-07cdcb44f1-1605a4ed6a.zip/node_modules/shell-quote/",\
         "packageDependencies": [\
-          ["shell-quote", "npm:1.10.0"]\
+          ["shell-quote", "npm:1.12.0"]\
         ],\
         "linkType": "HARD"\
       }]\
