@@ -4,11 +4,11 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
-import { generateDocs } from "./generate-component-docs.mjs";
+import { generateDocs } from "../generate/generate-component-docs.mjs";
 import { isComponentDocsSource } from "./docs-source-watch.mjs";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
-const websiteDirectory = path.resolve(scriptDirectory, "..");
+const websiteDirectory = path.resolve(scriptDirectory, "../..");
 const repositoryRoot = path.resolve(websiteDirectory, "..");
 const componentsDirectory = path.join(repositoryRoot, "components");
 const teachingDirectory = path.join(websiteDirectory, "content");

@@ -1,7 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { parse } from "@babel/parser";
-import catalogDescriptions from "../content/catalog/overview.json" with { type: "json" };
+import catalogDescriptions from "../../content/catalog/overview.json" with { type: "json" };
 
 const marker = "// THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const requiredText = ["title", "goal", "why", "instruction", "expected"];

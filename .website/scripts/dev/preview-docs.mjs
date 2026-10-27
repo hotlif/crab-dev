@@ -3,7 +3,7 @@ import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = path.resolve(fileURLToPath(new URL("../", import.meta.url)), process.env.DOCS_PREVIEW_DIR ?? "docs-dist");
+const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)), process.env.DOCS_PREVIEW_DIR ?? "docs-dist");
 const base = `/${(process.env.DOCS_PREVIEW_BASE ?? "").replace(/^\/+|\/+$/g, "")}`;
 const port = Number(process.env.DOCS_PREVIEW_PORT ?? 4173);
 const types = {

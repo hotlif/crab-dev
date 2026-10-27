@@ -3,9 +3,9 @@ import { access, mkdir, mkdtemp, rm, writeFile, readFile, readdir } from "node:f
 import { parse } from "@babel/parser";
 import { execFileSync } from "node:child_process";
 import { createRequire } from "node:module";
-import { loadLibraryManifest } from "../../scripts/library-manifest.mjs";
+import { loadLibraryManifest } from "../../../scripts/library-manifest.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
-import { isComponentDocsSource } from "./docs-source-watch.mjs";
+import { isComponentDocsSource } from "../dev/docs-source-watch.mjs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -93,6 +93,39 @@ test("导航与覆盖矩阵从产品清单派生能力族、完整包集合和�
     assert.ok(coverage.includes("历史截图不能自动提升当前覆盖状态"));
 });
 
+test("覆盖矩阵为已验收体系列出证据，缺少记录时拒绝生成", () => {
+    const product = {
+        name: "@crab-dev/rc-sample",
+        path: "components/rc-sample",
+        slug: "rc-sample",
+        title: "Sample 示例",
+        family: "base",
+        category: "general",
+        status: "experimental",
+        designCoverage: { md3: "verified", apple: "partial", shadcn: "not-applicable" },
+        verification: {
+            md3: {
+                source: { kind: "commit", ref: "a".repeat(40) },
+                artifactFingerprint: `sha256:${"b".repeat(64)}`,
+                matrixScope: { states: ["default"] },
+                evidencePaths: ["review/sample/md3.md"],
+            },
+        },
+    };
+    const manifest = {
+        packages: [product],
+        families: [{ id: "base", title: "基础组件" }],
+        categories: [{ id: "general", title: "通用" }],
+    };
+    const coverage = createDesignCoverage(manifest);
+    assert.match(coverage, /验收证据/);
+    assert.match(coverage, /commit `a{12}…`/);
+    assert.match(coverage, /`review\/sample\/md3\.md`/);
+    assert.doesNotMatch(coverage, /undefined/);
+    const missing = { ...manifest, packages: [{ ...product, verification: undefined }] };
+    assert.throws(() => createDesignCoverage(missing), /缺少验收记录/);
+});
+
 test("静态 Demo 元数据支持 TSX、satisfies 和常量断言，拒绝动态值", () => {
     const source = 'export const meta = ({ title: "标题", description: `说明` } as const) satisfies Meta; export default () => <div />;';
     assert.deepEqual(extractDemoMeta(source, "example.tsx"), { title: "标题", description: "说明" });
@@ -108,8 +141,8 @@ test("真实 Demo 与教学文案拒绝机械迁移产生的错误主题 data �
 
     const manifest = await loadLibraryManifest();
     const scopes = [
-        { kind: "teaching", directory: fileURLToPath(new URL("../content/", import.meta.url)), accepts: file => file.endsWith(".json") },
-        { kind: "example", directory: fileURLToPath(new URL("../docs/examples/", import.meta.url)), accepts: file => file.endsWith(".tsx") },
+        { kind: "teaching", directory: fileURLToPath(new URL("../../content/", import.meta.url)), accepts: file => file.endsWith(".json") },
+        { kind: "example", directory: fileURLToPath(new URL("../../docs/examples/", import.meta.url)), accepts: file => file.endsWith(".tsx") },
         ...manifest.packages.map(product => ({ kind: "demo", directory: path.join(product.directory, "docs/demos"), accepts: file => file.endsWith(".demo.tsx") })),
     ];
     const inspected = { teaching: 0, example: 0, demo: 0 };
@@ -183,7 +216,7 @@ test("真实 Button 与 workspace Controlled 状态的 value/checked/open/size �
         "rc-dialog": ["open", "defaultOpen", "onOpenChange"],
     };
     for (const [slug, fields] of Object.entries(required)) {
-        const componentDirectory = fileURLToPath(new URL(`../../components/${slug}/`, import.meta.url));
+        const componentDirectory = fileURLToPath(new URL(`../../../components/${slug}/`, import.meta.url));
         const mdxPath = path.join(componentDirectory, "docs/index.mdx");
         const api = await extractApiRecord(componentDirectory, await readFile(mdxPath, "utf8"), mdxPath);
         for (const name of fields) assert.ok(api.props.some(prop => prop.name === name), `${slug}: 缺少 ${name}`);
@@ -282,9 +315,9 @@ test("顶部真实预览索引拒绝空演示、失效例外和重复组件", ()
 
 test("生成的顶部真实预览索引覆盖完整产品清单，并使用对应工作台演示地址", async () => {
     const manifest = await loadLibraryManifest();
-    const navigation = await readFile(new URL("../docs/navigation.toml", import.meta.url), "utf8");
+    const navigation = await readFile(new URL("../../docs/navigation.toml", import.meta.url), "utf8");
     const slugs = [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => match[1]).sort();
-    const source = await readFile(new URL("../docs/_generated/component-previews.ts", import.meta.url), "utf8");
+    const source = await readFile(new URL("../../docs/_generated/component-previews.ts", import.meta.url), "utf8");
     const previews = readComponentPreviewRecords(source);
     assert.equal(slugs.length, manifest.packages.length);
     assert.deepEqual(slugs, manifest.packages.map(item => item.slug).sort());
@@ -296,7 +329,7 @@ test("生成的顶部真实预览索引覆盖完整产品清单，并使用对�
         assert.ok(["compact", "regular", "spacious"].includes(preview.density), `${slug}: 无效预览密度`);
         assert.equal(preview.previewPath, `/components/${slug}/workbench/?__wake_demo=${encodeURIComponent(preview.id)}`);
         assert.equal(preview.workbenchPath, `/components/${slug}/workbench/#/components/${encodeURIComponent(preview.id)}`);
-        await access(new URL(`../../components/${slug}/${preview.id}`, import.meta.url));
+        await access(new URL(`../../../components/${slug}/${preview.id}`, import.meta.url));
     }
     assert.equal(previews["rc-text-edit"].id, "docs/demos/simple.demo.tsx");
     assert.doesNotMatch(source, /"(?:sourceCode|learning|description|layout)"\s*:|import(?! type)/);
@@ -447,7 +480,7 @@ test("开发增量生成按内容失效类型缓存，不保留旧源码", async
 });
 
 test("Cron 原生 Pick 字段从真实 React 类型导出，onChange 保留 DOM 事件", async () => {
-    const directory = fileURLToPath(new URL("../../components/rc-cron-picker/", import.meta.url));
+    const directory = fileURLToPath(new URL("../../../components/rc-cron-picker/", import.meta.url));
     const mdxPath = path.join(directory, "docs/index.mdx");
     const api = await extractApiRecord(directory, await readFile(mdxPath, "utf8"), mdxPath);
     for (const name of ["id", "name", "required", "readOnly", "aria-labelledby", "aria-describedby", "aria-invalid", "onChange", "onInput", "onFocus", "onBlur"]) {
@@ -458,7 +491,7 @@ test("Cron 原生 Pick 字段从真实 React 类型导出，onChange 保留 DOM 
 });
 
 test("继承原生属性按真实声明来源折叠，组件语义及覆盖属性常显且完整保留", async () => {
-    const directory = fileURLToPath(new URL("../../components/rc-card/", import.meta.url));
+    const directory = fileURLToPath(new URL("../../../components/rc-card/", import.meta.url));
     const mdxPath = path.join(directory, "docs/index.mdx");
     const source = await readFile(mdxPath, "utf8");
     const api = await extractApiRecord(directory, source, mdxPath);
@@ -577,17 +610,17 @@ status = "experimental"
 });
 
 test("真实 React 原生说明中的撇号可通过 Wake Docs API 构建", async () => {
-    const componentDirectory = fileURLToPath(new URL("../../components/rc-alert/", import.meta.url));
+    const componentDirectory = fileURLToPath(new URL("../../../components/rc-alert/", import.meta.url));
     const mdxPath = path.join(componentDirectory, "docs/index.mdx");
     const api = await extractApiRecord(componentDirectory, await readFile(mdxPath, "utf8"), mdxPath);
     const source = createSearchableApiSource(api);
     assert.ok(source.includes("element’s"));
-    const temporaryRoot = fileURLToPath(new URL("../.tmp/", import.meta.url));
+    const temporaryRoot = fileURLToPath(new URL("../../.tmp/", import.meta.url));
     await mkdir(temporaryRoot, { recursive: true });
     const fixture = await mkdtemp(path.join(temporaryRoot, "api-contract-"));
     try {
         await mkdir(path.join(fixture, "docs"));
-        const host = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+        const host = JSON.parse(await readFile(new URL("../../package.json", import.meta.url), "utf8"));
         await writeFile(path.join(fixture, "package.json"), JSON.stringify({ name: "crab-docs-api-contract", private: true, type: "module", devDependencies: { react: host.devDependencies.react, "react-dom": host.devDependencies["react-dom"] } }));
         await writeFile(path.join(fixture, "wake.config.toml"), '[docs]\nsource_dir = "docs"\ntitle = "API contract"\n');
         await writeFile(path.join(fixture, "docs/navigation.toml"), '[[group]]\nid = "project"\ntitle = "API"\npages = ["index"]\n');
@@ -597,7 +630,7 @@ test("真实 React 原生说明中的撇号可通过 Wake Docs API 构建", asyn
         await writeFile(path.join(fixture, "native.ts"), createSearchableApiSource(native));
         const require = createRequire(import.meta.url);
         const wakeBin = path.join(path.dirname(require.resolve("@crab-dev/wake/package.json")), "bin/wake.mjs");
-        execFileSync(process.execPath, [wakeBin, "docs", "build", fixture, "--outdir", "dist"], { cwd: fileURLToPath(new URL("../", import.meta.url)), stdio: "pipe" });
+        execFileSync(process.execPath, [wakeBin, "docs", "build", fixture, "--outdir", "dist"], { cwd: fileURLToPath(new URL("../../", import.meta.url)), stdio: "pipe" });
         await access(path.join(fixture, "dist/index.html"));
     } finally {
         assert.ok(path.resolve(fixture).startsWith(path.resolve(temporaryRoot) + path.sep));
@@ -828,9 +861,9 @@ test("首页关键代码与完整源码来自同一运行文件，缺少标记�
 
 test("站点、教学示例和预览组件不得另写库中已有的基础交互控件", async () => {
     for (const root of [
-        new URL("../docs/site/", import.meta.url),
-        new URL("../docs/examples/", import.meta.url),
-        new URL("../../components/rc-component-preview/src/", import.meta.url),
+        new URL("../../docs/site/", import.meta.url),
+        new URL("../../docs/examples/", import.meta.url),
+        new URL("../../../components/rc-component-preview/src/", import.meta.url),
     ]) {
         const files = (await readdir(root, { recursive: true })).filter(file => file.endsWith(".tsx") && !file.includes("__tests__"));
         for (const file of files) {
@@ -910,12 +943,12 @@ test("组件概览保留分类锚点与入口，为每张卡片提供用途介�
 });
 
 test("全部组件概览都有用途介绍和唯一的静态示意图，示意图不产生交互或额外焦点", async () => {
-    const navigation = await readFile(new URL("../docs/navigation.toml", import.meta.url), "utf8");
+    const navigation = await readFile(new URL("../../docs/navigation.toml", import.meta.url), "utf8");
     const ids = [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => match[1]).sort();
-    const descriptions = JSON.parse(await readFile(new URL("../content/catalog/overview.json", import.meta.url), "utf8"));
+    const descriptions = JSON.parse(await readFile(new URL("../../content/catalog/overview.json", import.meta.url), "utf8"));
     assert.deepEqual(Object.keys(descriptions).sort(), ids);
     assert.ok(Object.values(descriptions).every(value => typeof value === "string" && value.length >= 16 && !value.includes(" → ")));
-    const artworkRoot = new URL("../docs/site/catalog/", import.meta.url);
+    const artworkRoot = new URL("../../docs/site/catalog/", import.meta.url);
     const artworkIds = [];
     for (const file of (await readdir(artworkRoot)).filter(name => name.endsWith(".tsx"))) {
         const source = await readFile(new URL(file, artworkRoot), "utf8");
@@ -942,7 +975,7 @@ test("全部组件概览都有用途介绍和唯一的静态示意图，示意�
 });
 
 test("站点样式模板的 CSS 规则保持完整，不让无效闭括号吞掉后续选择器", async () => {
-    const source = await readFile(new URL("../docs/site/siteStyles.ts", import.meta.url), "utf8");
+    const source = await readFile(new URL("../../docs/site/siteStyles.ts", import.meta.url), "utf8");
     const ast = parse(source, { sourceType: "module", plugins: ["typescript"] });
     const stylesheet = ast.program.body.find(node => node.type === "ExpressionStatement"
         && node.expression.type === "TaggedTemplateExpression"
@@ -959,7 +992,7 @@ test("站点样式模板的 CSS 规则保持完整，不让无效闭括号吞掉
 });
 
 test("全局令牌目录完整覆盖原始定义并保留非标准键和零值", async () => {
-    const source = await readFile(new URL("../../components/rc-token-global/token.toml", import.meta.url), "utf8");
+    const source = await readFile(new URL("../../../components/rc-token-global/token.toml", import.meta.url), "utf8");
     const entries = readGlobalTokens(source);
     const declared = [...source.slice(source.indexOf("[token]")).matchAll(/^([\w.-]+)\s*=/gm)].map(match => match[1]);
     assert.deepEqual(entries.map(entry => entry.key), declared);
@@ -985,7 +1018,7 @@ test("全局令牌目录完整覆盖原始定义并保留非标准键和零值",
 });
 
 test("全局令牌参考页保留章节层级与原有示例锚点且不重复包装", async () => {
-    const source = await readFile(new URL("../../components/rc-token-global/docs/index.mdx", import.meta.url), "utf8");
+    const source = await readFile(new URL("../../../components/rc-token-global/docs/index.mdx", import.meta.url), "utf8");
     const page = createPage(source, "rc-token-global", [], null, {});
     assert.equal((page.match(/^## 基础示例$/gm) ?? []).length, 1);
     assert.equal((page.match(/<TokenReference group=/g) ?? []).length, 8);

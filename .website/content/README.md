@@ -41,7 +41,7 @@ yarn preview
 
 `rc-token-global` 使用独立参考布局，其他组件使用统一的示例与 API 参考模板。主正文维护于 `components/rc-token-global/docs/index.mdx`；其中 `token-tutorial` 注释插入一次两步教程，`token-reference:分类` 注释插入对应完整参数展示，原有 Demos 标记连接工作台。使用二级标题建立目录，不再把正文降级到“使用说明”下。
 
-`scripts/generate-token-reference.mjs` 读取公共 `token.toml` 中当前使用的点分键、双引号字符串语法；遇到重复键、未支持语法或未知类别应失败，不能静默漏项。扩展 TOML 写法时同步扩展读取器与测试。生成器输出 `docs/_generated/globalTokenReference.ts`，其中原始值、公共表达式、变量名与静态样式共同生成；完整目录也写入页面搜索索引。生成产物不得手改。
+`scripts/generate/generate-token-reference.mjs` 读取公共 `token.toml` 中当前使用的点分键、双引号字符串语法；遇到重复键、未支持语法或未知类别应失败，不能静默漏项。扩展 TOML 写法时同步扩展读取器与测试。生成器输出 `docs/_generated/globalTokenReference.ts`，其中原始值、公共表达式、变量名与静态样式共同生成；完整目录也写入页面搜索索引。生成产物不得手改。
 
 `docs/site/tokenReference.tsx` 与 `tokenReferenceStyles.ts` 只负责私有参考展示和操作，不是新的公共 API。样本使用被展示的 L1 引用，并在样本节点将该变量设为 initial，使其使用公共回退值；这样站点的 L1 sans 字体覆盖不会污染原始样本。阅读框架使用 L2，舞台尺寸为站点私有参数。分类内按源码顺序展示，保留零值；颜色标签不直接覆盖色块。新增基元必须登记分类、样本绘制方法并验证窄屏、主题与源码一致性。
 

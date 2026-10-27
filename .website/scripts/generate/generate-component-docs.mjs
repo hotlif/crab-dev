@@ -7,12 +7,12 @@ import { parse } from "@babel/parser";
 import { generate } from "@babel/generator";
 import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
-import { loadLibraryManifest } from "../../scripts/library-manifest.mjs";
-import { inspectLibrary } from "../../scripts/library-graph.mjs";
+import { loadLibraryManifest } from "../../../scripts/library-manifest.mjs";
+import { inspectLibrary } from "../../../scripts/library-graph.mjs";
 
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
-const repositoryRoot = path.resolve(scriptDirectory, "../..");
+const repositoryRoot = path.resolve(scriptDirectory, "../../..");
 const componentsDirectory = path.join(repositoryRoot, "components");
 const websiteDocsDirectory = path.join(repositoryRoot, ".website/docs");
 const generatedDataDirectory = path.join(websiteDocsDirectory, "_generated");
@@ -1348,15 +1348,39 @@ function updateReadmeInventory(source, manifest) {
     return source.replace(pattern, `<!-- library-inventory:start -->\n${inventory}\n<!-- library-inventory:end -->`);
 }
 
+const designCoverageLabels = { md3: "MD3", apple: "Apple", shadcn: "shadcn" };
+const shortReference = value => {
+    const text = String(value ?? "").replace(/^sha256:/, "");
+    return text.length > 12 ? `${text.slice(0, 12)}…` : text;
+};
+
+/** Verified rows must show where the evidence lives; the table never claims a status without it. */
+function designCoverageEvidence(entry, designs) {
+    const records = entry.verification ?? {};
+    const parts = [];
+    for (const design of designs) {
+        if (entry.designCoverage?.[design] !== "verified") continue;
+        const record = records[design];
+        if (!record) throw new Error(`已验收的设计体系缺少验收记录：${entry.name} ${design}`);
+        const source = record.source?.kind === "commit"
+            ? `commit \`${shortReference(record.source.ref)}\``
+            : `worktree \`${shortReference(record.source?.ref)}\``;
+        const paths = Array.isArray(record.evidencePaths) ? record.evidencePaths : [];
+        parts.push(`${designCoverageLabels[design] ?? design} ${source}${paths.length > 0 ? ` · ${paths.map(path => `\`${path}\``).join("、")}` : ""}`);
+    }
+    return parts.length > 0 ? parts.join("<br>") : "—";
+}
+
 function createDesignCoverage(manifest) {
     const names = { partial: "部分覆盖", verified: "已验收", "not-applicable": "无独立视觉" };
-    let content = `+++\ntitle = "设计体系覆盖矩阵"\ndescription = "由产品清单生成的组件成熟度与三套设计体系覆盖范围"\nkind = "guide"\nstatus = "experimental"\n+++\n\n{/* ${GENERATED_MARKER} */}\n\n# 设计体系覆盖矩阵\n\n本页来自根目录 \`library.manifest.json\`。当前产品清单包含 ${manifest.packages.length} 个包、${manifest.families.length} 个能力族；用途分类是独立的第二轴。\n\n“部分覆盖”表示已有实现但完整视觉与交互矩阵尚未验收；“已验收”必须有绑定提交和产物的证据；“无独立视觉”只说明该包的职责，不免除行为、类型和依赖检查。历史截图不能自动提升当前覆盖状态。\n\n| 包 | 能力族 | 用途 | 生命周期 | MD3 Expressive | Apple | shadcn/ui |\n| --- | --- | --- | --- | --- | --- | --- |\n`;
+    const designs = manifest.designSystems?.map(item => item.id) ?? ["md3", "apple", "shadcn"];
+    let content = `+++\ntitle = "设计体系覆盖矩阵"\ndescription = "由产品清单生成的组件成熟度与三套设计体系覆盖范围"\nkind = "guide"\nstatus = "experimental"\n+++\n\n{/* ${GENERATED_MARKER} */}\n\n# 设计体系覆盖矩阵\n\n本页来自根目录 \`library.manifest.json\`。当前产品清单包含 ${manifest.packages.length} 个包、${manifest.families.length} 个能力族；用途分类是独立的第二轴。\n\n“部分覆盖”表示已有实现但完整视觉与交互矩阵尚未验收；“已验收”必须有绑定提交和产物的证据；“无独立视觉”只说明该包的职责，不免除行为、类型和依赖检查。历史截图不能自动提升当前覆盖状态。\n\n| 包 | 能力族 | 用途 | 生命周期 | MD3 Expressive | Apple | shadcn/ui | 验收证据 |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n`;
     for (const product of manifest.packages) {
         const family = manifest.families.find(item => item.id === product.family).title;
         const category = manifest.categories.find(item => item.id === product.category).title;
-        content += `| [${product.title}](/components/${product.slug}) | ${family} | ${category} | ${product.status} | ${names[product.designCoverage.md3]} | ${names[product.designCoverage.apple]} | ${names[product.designCoverage.shadcn]} |\n`;
+        content += `| [${product.title}](/components/${product.slug}) | ${family} | ${category} | ${product.status} | ${names[product.designCoverage.md3]} | ${names[product.designCoverage.apple]} | ${names[product.designCoverage.shadcn]} | ${designCoverageEvidence(product, designs)} |\n`;
     }
-    return content + "\n每个可视包都需检查适用的默认、悬停、焦点、按下、禁用、选中、错误和加载状态，以及浅深色、触控、键盘、减少动画和强制颜色。详见[设计体系](/guides/design-styles)、[公共 API](/guides/public-api)与[维护约定](/guides/contributing)。\n";
+    return content + "\n验收证据列来自清单同一条 `verification` 记录：已验收体系列出源码提交（或工作树指纹）与证据文件，产物指纹和矩阵范围保存在该记录中；没有已验收体系的行显示 —。\n\n每个可视包都需检查适用的默认、悬停、焦点、按下、禁用、选中、错误和加载状态，以及浅深色、触控、键盘、减少动画和强制颜色；标为无独立视觉的包只核对行为、类型和依赖。详见[设计体系](/guides/design-styles)、[公共 API](/guides/public-api)与[维护约定](/guides/contributing)。\n";
 }
 
 async function generateDocs() {
