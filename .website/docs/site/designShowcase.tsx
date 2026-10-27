@@ -36,8 +36,6 @@ const stack = css`
     min-width: 0;
     gap: ${token.space["group-gap"]};
     color: ${token.color.text.primary};
-    & h3 { margin: 0; font-size: ${token.font.size.subhead}; font-weight: ${token.font.weight.heading}; }
-    & p { margin: 0; color: ${token.color.text.secondary}; }
 `;
 const row = css`
     display: flex;
@@ -68,13 +66,16 @@ const controls = css`
     border: ${globalToken.space.px} solid ${token.color.border.subtle};
     border-radius: ${token.shape.card};
     background: ${token.color.surface.low};
+    & p { margin: 0; color: ${token.color.text.secondary}; }
 `;
 const popup = css`min-width: calc(${token.size[64]} * 3);`;
 
 function PopupTrigger({ trigger, menuId }: { trigger: RefObject<HTMLSpanElement | null>; menuId: string }) {
     const { refs, state, dispatch } = useDropdownContext<HTMLSpanElement>();
+    // The menu component exposes a list of buttons rather than menu roles, so the
+    // panel is a named group and the trigger announces expansion, not a dialog.
     return <span ref={trigger}><span ref={refs.setReference}>
-        <Button appearance="outlined" aria-haspopup="dialog" aria-expanded={state.open} aria-controls={state.open ? menuId : undefined}
+        <Button appearance="outlined" aria-expanded={state.open} aria-controls={state.open ? menuId : undefined}
             onClick={() => dispatch({ type: "setOpen", payload: !state.open })}
             onKeyDown={event => {
                 if (event.key === "ArrowDown") { event.preventDefault(); dispatch({ type: "setOpen", payload: true }); }
@@ -88,7 +89,7 @@ function PopupOptions({ trigger, menuId }: { trigger: RefObject<HTMLSpanElement 
         dispatch({ type: "setOpen", payload: false });
         trigger.current?.querySelector("button")?.focus();
     };
-    return <div id={menuId} role="dialog" aria-label="项目更多操作" ref={element => { element?.querySelector<HTMLElement>("[data-menu-item]")?.focus(); }}><Menu aria-label="项目操作" className={popup}
+    return <div id={menuId} role="group" aria-label="项目更多操作" ref={element => { element?.querySelector<HTMLElement>("[data-menu-item]")?.focus(); }}><Menu aria-label="项目操作" className={popup}
         onClick={close}
         onKeyDown={event => { if (event.key === "Escape") { event.preventDefault(); close(); } }}
         items={[{ type: MenuItemType.Item, key: "duplicate", title: "创建副本" },
@@ -118,7 +119,7 @@ export default function DesignShowcase() {
                 onValueChange={value => { if (isSiteDesign(value)) setDesign(value); }} />
             <p>先修改项目名称、勾选选项，再切换风格；输入和选择会保留。明暗模式跟随文档站主题菜单。</p>
         </div>
-        <ConfigProvider designSystem={design} colorMode={site?.theme.resolved} className={stack} aria-label="三种风格交互对照">
+        <ConfigProvider designSystem={design} colorMode={site?.theme.resolved} className={stack} role="group" aria-label="三种风格交互对照">
             <Card title="操作与输入">
                 <div className={stack}>
                     <div className={row}>

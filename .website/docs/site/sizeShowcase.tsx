@@ -71,7 +71,7 @@ export default function SizeShowcase() {
         <Segmented aria-label="界面密度" value={density}
             options={[{ value: 'compact', label: '紧凑' }, { value: 'standard', label: '标准' }, { value: 'comfortable', label: '宽松' }]}
             onValueChange={value => { if (value === 'compact' || value === 'standard' || value === 'comfortable') setDensity(value); }} />
-        <ConfigProvider size={size} density={density} colorMode={site?.theme.resolved} className={stackStyle} aria-label="尺寸演示区域">
+        <ConfigProvider size={size} density={density} colorMode={site?.theme.resolved} className={stackStyle} role="group" aria-label="尺寸演示区域">
             <Card title="任务筛选">
                 <div className={stackStyle}>
                     <div className={fieldsStyle}>
@@ -101,8 +101,8 @@ export default function SizeShowcase() {
                 <AutoSizer>{({ width, height }) => <Table aria-label="尺寸演示表格" width={width} height={height} columns={columns} rows={rows} />}</AutoSizer>
             </div>
             <Pagination total={300} showQuickJumper />
-            <Menu mode="horizontal" items={[{ type: MenuItemType.Item, key: 'overview', title: '项目概览' }, { type: MenuItemType.Item, key: 'activity', title: '活动记录' }]} />
-            <ConfigProvider size="medium" className={rowStyle} aria-label="固定标准尺寸区域">
+            <Menu aria-label="尺寸演示菜单" mode="horizontal" items={[{ type: MenuItemType.Item, key: 'overview', title: '项目概览' }, { type: MenuItemType.Item, key: 'activity', title: '活动记录' }]} />
+            <ConfigProvider size="medium" className={rowStyle} role="group" aria-label="固定标准尺寸区域">
                 <Button appearance="outlined">始终使用标准尺寸</Button>
             </ConfigProvider>
         </ConfigProvider>

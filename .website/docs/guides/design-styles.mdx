@@ -13,9 +13,11 @@ Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive�
 
 ## 配置与交互对照
 
-`designSystem="md3" | "apple" | "shadcn"` 选择体系，`colorMode="light" | "dark"` 设置解析后的明暗；文档站另提供跟随系统的偏好。导航外观菜单分别控制两个轴；同一棵组件树保留输入、选择与草稿。旧浏览器偏好迁移见[迁移指南](/guides/migration)。
+`designSystem="md3" | "apple" | "shadcn"` 选择体系，`colorMode="light" | "dark"` 设置解析后的明暗；文档站另提供跟随系统的偏好。品牌、尺寸、密度、语言和方向各自独立：`brandColor` 用一个不透明十六进制色重算语义色对，`null` 回落到所选体系的默认品牌；`size`、`density`、`locale`、`direction` 与继承最近边界的 `nonce` 见[公共 API](/guides/public-api)。旧浏览器偏好迁移见[迁移指南](/guides/migration)。
 
 <DesignShowcase />
+
+导航外观菜单与本页演示共用同一个站点级偏好：演示里的切换会写入浏览器存储并对整站生效，刷新后保留。同一棵组件树保留输入、选择与草稿。
 
 ## MD3 Expressive
 
@@ -40,6 +42,7 @@ Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive�
 | 范围 | 共同契约 | 体系独立决策 |
 | --- | --- | --- |
 | 颜色 | 浅深色成对前景、表面、边界与状态 | 品牌、色调、表面层级和选中角色 |
+| 品牌 | 一个种子色重算语义色对，不退化成主色覆盖 | 色相、明度映射与默认品牌 |
 | 排版 | 文字可读、中文回退、长内容适配 | 字阶、字重、字体与层级节奏 |
 | 形状与尺寸 | 视觉与触控命中区域分别定义 | 各组件轮廓、比例、间距与允许变体 |
 | 交互 | 受控值、键盘、焦点、禁用和错误语义 | 选中/按下形态、状态层和反馈表达 |
@@ -50,7 +53,7 @@ Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive�
 
 ## 覆盖与验收
 
-[覆盖矩阵](/guides/design-coverage)由产品清单生成。每个可视包分别验证三体系、浅深色及适用的 default、hover、focus-visible、pressed、disabled、selected、error、loading；并核对键盘、Portal、iframe、窄屏、触控、长文本、强制颜色与减少动画。
+[覆盖矩阵](/guides/design-coverage)由产品清单生成，已验收行同时列出源码提交与证据文件，产物指纹和矩阵范围保存在清单的 `verification` 记录里。每个可视包分别验证三体系、浅深色及适用的 default、hover、focus-visible、pressed、disabled、selected、error、loading；并核对键盘、Portal、iframe、窄屏、触控、长文本、强制颜色与减少动画。标为无独立视觉的包不进入这套视觉矩阵，但仍需行为、类型和依赖检查。
 
 partial 表示已有实现但完整矩阵未验收，verified 需要当前提交和产物证据。改名、共享主题测试、少量截图或工程通过，均不能把整套体系自动标为完成。
 
