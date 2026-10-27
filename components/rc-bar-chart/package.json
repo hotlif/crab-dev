@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-bar-chart",
-    "websiteConfig": {
-        "title": "BarChart 柱状图",
-        "category": "data-display"
-    },
     "description": "柱状图, 基于 rc-canvas 的 WebGL 数据可视化组件, 支持分组与堆叠",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -19,8 +15,12 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-bar-chart && yarn test --root src/__tests__/browser",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-bar-chart --filter=@crab-dev/rc-theme && node ../../scripts/prepare-published-css.mjs && node scripts/test-forced-colors.mjs",
+        "test:focus": "node scripts/test-focus-cli.mjs && yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-bar-chart --filter=@crab-dev/rc-theme && node ../../scripts/prepare-published-css.mjs && node scripts/test-focus.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-bar-chart/src components/rc-bar-chart/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-bar-chart/src components/rc-bar-chart/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -44,14 +44,12 @@
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-auto-sizer": "workspace:^",
         "@crab-dev/rc-canvas": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-empty": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^"
     },
     "devDependencies": {
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -65,5 +63,19 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "requiredChecks": [
+            "test:browser",
+            "test:forced-colors",
+            "test:focus"
+        ],
+        "docsDependencies": [
+            "@crab-dev/rc-button"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

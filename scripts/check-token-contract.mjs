@@ -114,6 +114,26 @@ const allowExactLines = (reason, lines) => {
 
 const uiRawColorAllowlist = new Map([
     [
+        "components/rc-date-picker/src/panels/timePickerDial.tsx",
+        allowExactLines(
+            "SVG luminance-mask inclusion/exclusion coefficients, never visible themed UI. Real dial raster tests preserve selected-circle paint. Remove with this line-only mask; all visible dial colors retain L3 roles.",
+            [
+                '<rect width="256" height="256" fill="white" />',
+                'return <rect key={number} x={at.x - 16} y={at.y - 16} width="32" height="32" fill="black" />;',
+            ],
+        ),
+    ],
+    [
+        "components/rc-tag/src/custom-color.ts",
+        allowExactLines(
+            "Only mathematical black/white contrast endpoints for opaque caller-provided hex data; covered by contrast/render regressions. Remove when a shared opaque-color resolver replaces this helper; themed UI still uses L3 roles.",
+            [
+                "export function getOpaqueHexForeground(value: string): 'black' | 'white' | undefined {",
+                "return blackContrast >= whiteContrast ? 'black' : 'white';",
+            ],
+        ),
+    ],
+    [
         "components/rc-pdf-editor/src/capture-region.ts",
         allowExactLines("white paper background in exported OCR image data", [
             "context.fillStyle = '#ffffff'; context.fillRect(0, 0, width, height);",

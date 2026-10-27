@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-tooltip",
-    "websiteConfig": {
-        "title": "Tooltip 文字提示",
-        "category": "feedback"
-    },
     "description": "文字提示，鼠标悬浮时展示说明性文字",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,8 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-tooltip/src components/rc-tooltip/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-tooltip/src components/rc-tooltip/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -48,9 +45,6 @@
     },
     "devDependencies": {
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -64,5 +58,14 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-button"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

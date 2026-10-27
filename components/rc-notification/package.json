@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-notification",
-    "websiteConfig": {
-        "title": "Notification 通知提醒",
-        "category": "feedback"
-    },
     "description": "消息通知组件",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,10 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-notification/src components/rc-notification/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-notification/src components/rc-notification/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "check": "node ../../scripts/check-package.mjs",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-notification && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-notification/scripts --env node --max-warnings 0"
     },
     "files": [
         "esm",
@@ -41,9 +40,9 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-select": "workspace:^",
         "@crab-dev/rc-text-edit": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -66,5 +65,17 @@
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-select",
+            "@crab-dev/rc-text-edit"
+        ],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

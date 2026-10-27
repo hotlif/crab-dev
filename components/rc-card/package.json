@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-card",
-    "websiteConfig": {
-        "title": "Card 卡片",
-        "category": "data-display"
-    },
     "description": "卡片容器, 用于承载标题、封面、内容与操作的通用信息单元",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,9 +17,12 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-card/src components/rc-card/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-card/src components/rc-card/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-card/scripts --env node --max-warnings 0",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-card && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "test:natural": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-card && node scripts/prepare-browser-tests.mjs && node scripts/test-natural.mjs"
     },
     "files": [
         "esm",
@@ -51,10 +50,8 @@
     "devDependencies": {
         "@crab-dev/rc-avatar": "workspace:^",
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-tag": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -69,5 +66,19 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-avatar",
+            "@crab-dev/rc-button",
+            "@crab-dev/rc-tag"
+        ],
+        "requiredChecks": [
+            "test:browser",
+            "test:natural"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

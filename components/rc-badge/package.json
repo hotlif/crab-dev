@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-badge",
-    "websiteConfig": {
-        "title": "Badge 徽标数",
-        "category": "general"
-    },
     "description": "徽标数，用于展示计数、状态与提醒",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,9 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "lint": "wake lint --format human --root ../.. components/rc-badge/src components/rc-badge/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-badge/src components/rc-badge/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-badge && node ../../scripts/prepare-published-css.mjs && yarn test --root src/__tests__/browser"
     },
     "files": [
         "esm",
@@ -42,9 +40,7 @@
     },
     "devDependencies": {
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -62,5 +58,16 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-config-provider": "workspace:^"
+    },
+    "crab": {
+        "requiredChecks": [
+            "test:browser"
+        ],
+        "docsDependencies": [
+            "@crab-dev/rc-button"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

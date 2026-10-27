@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-dialog",
-    "websiteConfig": {
-        "title": "Dialog 对话框",
-        "category": "feedback"
-    },
     "description": "A dialog component for React applications.",
     "packageManager": "yarn@4.18.0",
     "version": "0.0.3",
@@ -20,7 +16,8 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-dialog/src components/rc-dialog/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-dialog/src components/rc-dialog/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -47,12 +44,9 @@
         "@crab-dev/rc-hooks": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-date-picker": "workspace:^",
         "@crab-dev/rc-form": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -69,5 +63,15 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-date-picker",
+            "@crab-dev/rc-form",
+            "@crab-dev/rc-line-edit"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

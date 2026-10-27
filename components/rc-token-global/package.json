@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-token-global",
-    "websiteConfig": {
-        "title": "Global Tokens 全局令牌",
-        "category": "primitive"
-    },
     "description": "提供颜色、间距、排版和动效等 L1 全局设计令牌",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,8 @@
         "generate:token": "wake library token .",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "start": "yarn generate:token && wake docs dev . --mode components",
-        "lint": "wake lint --format human --root ../.. components/rc-token-global/src components/rc-token-global/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-token-global/src components/rc-token-global/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -57,5 +54,8 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45"
+    },
+    "crab": {
+        "docsDependencies": []
     }
 }

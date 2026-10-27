@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-breadcrumbs",
-    "websiteConfig": {
-        "title": "Breadcrumbs 面包屑导航",
-        "category": "navigation"
-    },
     "description": "面包屑导航，用于展示当前页面在层级结构中的位置",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,8 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "lint": "wake lint --format human --root ../.. components/rc-breadcrumbs/src components/rc-breadcrumbs/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-breadcrumbs/src components/rc-breadcrumbs/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -41,9 +38,6 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -60,6 +54,13 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",
-        "@crab-dev/rc-button": "workspace:^"
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": []
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

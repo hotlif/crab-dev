@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-realm",
-    "websiteConfig": {
-        "title": "Realm 远程模块",
-        "category": "utility"
-    },
     "description": "运行时加载 webpack Module Federation 远程模块并嵌入宿主页面",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,7 +17,7 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-realm/src components/rc-realm/docs --env browser --max-warnings 0"
     },
@@ -47,13 +43,11 @@
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-alert": "workspace:^",
         "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-spin": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -68,5 +62,12 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": []
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

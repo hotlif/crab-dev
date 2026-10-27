@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-message",
-    "websiteConfig": {
-        "title": "Message 全局提示",
-        "category": "feedback"
-    },
     "description": "全局消息，用于轻量级反馈提示",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,8 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-message/src components/rc-message/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-message/src components/rc-message/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -42,9 +39,6 @@
     },
     "devDependencies": {
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -63,5 +57,13 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-button"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

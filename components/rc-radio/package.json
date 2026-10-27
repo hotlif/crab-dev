@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-radio",
-    "websiteConfig": {
-        "title": "Radio 单选框",
-        "category": "data-entry"
-    },
     "description": "单选框, 用于在一组选项中选择一个值",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,7 +17,7 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-radio/src components/rc-radio/docs --env browser --max-warnings 0"
     },
@@ -49,8 +45,6 @@
         "@crab-dev/rc-hooks": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -65,5 +59,11 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": []
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

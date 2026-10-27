@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-text-edit",
-    "websiteConfig": {
-        "title": "TextEdit 多行文本输入框",
-        "category": "data-entry"
-    },
     "description": "多行文本编辑组件, 支持尺寸/验证状态/一键清除/字符计数与内容自适应高度",
     "version": "0.0.2",
     "repository": {
@@ -19,8 +15,10 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-text-edit && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-text-edit/src components/rc-text-edit/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-text-edit/src components/rc-text-edit/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -41,16 +39,12 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
-        "lucide-react": "^1.43.0",
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
@@ -63,6 +57,18 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-config-provider": "workspace:^"
+        "@crab-dev/rc-config-provider": "workspace:^",
+        "@crab-dev/rc-hooks": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
+        "lucide-react": "^1.43.0"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-table-pro",
-    "websiteConfig": {
-        "title": "TablePro 高级表格",
-        "category": "data-display"
-    },
     "description": "基于 Table，集成数据加载、查询、列管理和导出的业务表格。",
     "packageManager": "yarn@4.18.0",
     "version": "0.1.3",
@@ -20,7 +16,10 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-table-pro/src components/rc-table-pro/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-table-pro/src components/rc-table-pro/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "check": "node ../../scripts/check-package.mjs",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-table-pro/scripts --env node --max-warnings 0",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-table-pro --filter=@crab-dev/rc-theme && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser"
     },
     "files": [
         "esm",
@@ -41,9 +40,6 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-tag": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
@@ -72,5 +68,17 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-tag"
+        ],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

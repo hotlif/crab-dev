@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-tree",
-    "websiteConfig": {
-        "title": "Tree 树形控件",
-        "category": "navigation"
-    },
     "description": "一个多功能且可定制的树形组件, 用于React应用程序, 提供高效的渲染和拖放功能。",
     "packageManager": "yarn@4.18.0",
     "version": "0.1.4",
@@ -19,8 +15,13 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn build:library && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-tree/src components/rc-tree/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-tree/src components/rc-tree/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-tree/scripts --env node --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs",
+        "test:custom-editor": "yarn test --root src/__tests__/custom-editor-browser",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-tree && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__treeForced"
     },
     "files": [
         "esm",
@@ -43,10 +44,7 @@
     "devDependencies": {
         "@crab-dev/rc-auto-sizer": "workspace:^",
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-line-edit": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -63,17 +61,29 @@
         "@crab-dev/rc-checkbox": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",
+        "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-spin": "workspace:^",
         "@crab-dev/rc-virtual": "workspace:^",
         "@dnd-kit/core": "^6.3.1",
         "@dnd-kit/sortable": "^10.0.0",
         "decimal.js": "^10.6.0"
     },
-    "peerDependencies": {
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
-    },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "requiredChecks": [
+            "test:browser",
+            "test:custom-editor",
+            "test:forced-colors"
+        ],
+        "docsDependencies": [
+            "@crab-dev/rc-auto-sizer",
+            "@crab-dev/rc-button"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

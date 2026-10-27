@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-select",
-    "websiteConfig": {
-        "title": "Select 选择器",
-        "category": "data-entry"
-    },
     "description": "下拉选择器，支持单选、多选和搜索",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,9 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "lint": "wake lint --format human --root ../.. components/rc-select/src components/rc-select/docs --env browser --max-warnings 0"
+        "test:browser": "yarn build:library && node ../../scripts/prepare-published-css.mjs . && yarn test --root src/__tests__/browser",
+        "lint": "wake lint --format human --root ../.. components/rc-select/src components/rc-select/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -41,9 +39,7 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
-        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
         "@types/node": "^22.20.2",
@@ -67,6 +63,17 @@
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-spin": "workspace:^",
         "@crab-dev/rc-tag": "workspace:^",
+        "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/rc-virtual": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

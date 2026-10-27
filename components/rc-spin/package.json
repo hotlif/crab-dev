@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-spin",
-    "websiteConfig": {
-        "title": "Spin 加载中",
-        "category": "feedback"
-    },
     "description": "加载中指示器, 用于表达耗时操作正在进行",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,9 +17,10 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-spin/src components/rc-spin/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-spin/src components/rc-spin/docs --env browser --max-warnings 0",
+        "test:reduced-motion": "node scripts/test-reduced-motion-cli.mjs && yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-spin --filter=@crab-dev/rc-theme && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/reduced-motion-fixture.tsx --api=__spinReducedMotion --colors=normal --motion=reduce"
     },
     "files": [
         "esm",
@@ -49,9 +46,7 @@
         "@crab-dev/rc-hooks": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-switch": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -66,5 +61,16 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-switch"
+        ],
+        "requiredChecks": [
+            "test:reduced-motion"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

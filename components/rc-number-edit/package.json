@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-number-edit",
-    "websiteConfig": {
-        "title": "NumberEdit 数字输入框",
-        "category": "data-entry"
-    },
     "description": "数字输入框, 支持步进、范围钳制、千分位与科学计数法自适应显示",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,9 +17,11 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-number-edit && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-number-edit/src components/rc-number-edit/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-number-edit/src components/rc-number-edit/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-number-edit/scripts --env node --max-warnings 0"
     },
     "files": [
         "esm",
@@ -47,19 +45,18 @@
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",
-        "@crab-dev/rc-line-edit": "workspace:^"
+        "@crab-dev/rc-hooks": "workspace:^",
+        "@crab-dev/rc-line-edit": "workspace:^",
+        "lucide-react": "^1.43.0"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
-        "lucide-react": "^1.43.0",
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
@@ -68,5 +65,14 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

@@ -2,9 +2,6 @@
     "$schema": "https://turbo.build/schema.json",
     "tasks": {
         "build:library": {
-            "dependsOn": [
-                "^build:library"
-            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "!**/*.test.tsx",
@@ -19,13 +16,11 @@
                 "cjs/**",
                 "declarations/**",
                 "css/**",
-                "src/token.ts"
+                "src/token.ts",
+                "dist/**"
             ]
         },
         "test": {
-            "dependsOn": [
-                "^build:library"
-            ],
             "inputs": [
                 "$TURBO_DEFAULT$"
             ],
@@ -33,21 +28,7 @@
                 "coverage/**"
             ]
         },
-        "@crab-dev/standards-typescript-preset#test": {
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typecheck-fixtures.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
-            ],
-            "outputs": [
-                "coverage/**"
-            ]
-        },
         "typecheck": {
-            "dependsOn": [
-                "^build:library"
-            ],
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "$TURBO_ROOT$/standards/typescript-preset/**/*",
@@ -57,11 +38,9 @@
             "outputs": []
         },
         "generate:token": {
-            "dependsOn": [
-                "^generate:token"
-            ],
             "inputs": [
-                "token.toml"
+                "token.toml",
+                "scripts/**/*"
             ],
             "outputs": [
                 "src/token.ts"
@@ -76,173 +55,3668 @@
                 "public/docgen.json"
             ]
         },
-        "@crab-dev/rc-token-semantic#build:library": {
-            "dependsOn": [
-                "@crab-dev/rc-token-global#build:library"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "!**/*.test.tsx",
-                "!**/*.test.ts",
-                "!src/__tests__/**/*",
-                "!src/token.ts",
-                "!docs/**/*",
-                "!coverage/**/*"
-            ],
-            "outputs": [
-                "esm/**",
-                "cjs/**",
-                "declarations/**",
-                "css/**",
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-component-preview#generate:token": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#generate:token"
-            ],
-            "inputs": [
-                "token.toml"
-            ],
-            "outputs": [
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-menu#generate:token": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#generate:token"
-            ],
-            "inputs": [
-                "token.toml"
-            ],
-            "outputs": [
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-masonry#generate:token": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#generate:token"
-            ],
-            "inputs": [
-                "token.toml"
-            ],
-            "outputs": [
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-spin#generate:token": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#generate:token"
-            ],
-            "inputs": [
-                "token.toml"
-            ],
-            "outputs": [
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-button#generate:token": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#generate:token"
-            ],
-            "inputs": [
-                "token.toml"
-            ],
-            "outputs": [
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-component-preview#build:library": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#build:library"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "!**/*.test.tsx",
-                "!**/*.test.ts",
-                "!src/__tests__/**/*",
-                "!src/token.ts",
-                "!docs/**/*",
-                "!coverage/**/*"
-            ],
-            "outputs": [
-                "esm/**",
-                "cjs/**",
-                "declarations/**",
-                "css/**",
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-menu#build:library": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#build:library"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "!**/*.test.tsx",
-                "!**/*.test.ts",
-                "!src/__tests__/**/*",
-                "!src/token.ts",
-                "!docs/**/*",
-                "!coverage/**/*"
-            ],
-            "outputs": [
-                "esm/**",
-                "cjs/**",
-                "declarations/**",
-                "css/**",
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-masonry#build:library": {
-            "dependsOn": [
-                "@crab-dev/rc-token-semantic#build:library"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "!**/*.test.tsx",
-                "!**/*.test.ts",
-                "!src/__tests__/**/*",
-                "!src/token.ts",
-                "!docs/**/*",
-                "!coverage/**/*"
-            ],
-            "outputs": [
-                "esm/**",
-                "cjs/**",
-                "declarations/**",
-                "css/**",
-                "src/token.ts"
-            ]
-        },
-        "@crab-dev/rc-spin#build:library": {
-            "dependsOn": [
-                "@crab-dev/rc-hooks#build:library",
-                "@crab-dev/rc-token-semantic#build:library"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                "!**/*.test.tsx",
-                "!**/*.test.ts",
-                "!src/__tests__/**/*",
-                "!src/token.ts",
-                "!docs/**/*",
-                "!coverage/**/*"
-            ],
-            "outputs": [
-                "esm/**",
-                "cjs/**",
-                "declarations/**",
-                "css/**",
-                "src/token.ts"
-            ]
-        },
         "lint": {
             "inputs": [
                 "$TURBO_DEFAULT$",
                 "$TURBO_ROOT$/wake.config.toml"
             ],
             "outputs": []
+        },
+        "@crab-dev/standards-typescript-preset#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typecheck-fixtures.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [
+                "coverage/**"
+            ]
+        },
+        "@crab-dev/rc-alert#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-alert#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-alert#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-alert#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-app-main-layout#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-avatar#build:library",
+                "@crab-dev/rc-breadcrumbs#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-drawer#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-menu#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-app-main-layout#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-avatar#build:library",
+                "@crab-dev/rc-breadcrumbs#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-drawer#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-menu#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-app-main-layout#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-avatar#build:library",
+                "@crab-dev/rc-breadcrumbs#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-drawer#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-menu#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-app-main-layout#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-auto-sizer#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-hooks#build:library"
+            ]
+        },
+        "@crab-dev/rc-auto-sizer#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-hooks#build:library"
+            ]
+        },
+        "@crab-dev/rc-auto-sizer#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-hooks#build:library"
+            ]
+        },
+        "@crab-dev/rc-avatar#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-badge#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-avatar#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-badge#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-avatar#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-badge#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-avatar#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-badge#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-badge#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-badge#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-badge#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-bar-chart#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-bar-chart#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-bar-chart#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-bar-chart#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-breadcrumbs#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-breadcrumbs#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-breadcrumbs#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-breadcrumbs#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-button#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-button#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-button#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-button#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-canvas#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-canvas#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-canvas#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-canvas#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-card#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-card#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-card#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-card#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-checkbox#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-checkbox#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-checkbox#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-checkbox#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-color-picker#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-masonry#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-slider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-color-picker#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-masonry#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-slider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-color-picker#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-masonry#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-slider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-color-picker#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-component-preview#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-component-preview#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-component-preview#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-component-preview#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-config-provider#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-config-provider#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-config-provider#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-cron-picker#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-tabs#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-cron-picker#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-tabs#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-cron-picker#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-tabs#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-cron-picker#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-date-picker#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-date-picker#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-date-picker#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-date-picker#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-dialog#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-dialog#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-dialog#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-dialog#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-divider#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-divider#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-divider#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-divider#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-drawer#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-drawer#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-drawer#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-drawer#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-dropdown-container#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-dropdown-container#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-dropdown-container#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-dropdown-container#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-empty#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-empty#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-empty#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-empty#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-flow-diagram#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-flow-diagram#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-flow-diagram#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-flow-diagram#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-form#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library"
+            ]
+        },
+        "@crab-dev/rc-form#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library"
+            ]
+        },
+        "@crab-dev/rc-form#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library"
+            ]
+        },
+        "@crab-dev/rc-form#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-hooks#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-hooks#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-hooks#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-line-edit#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-line-edit#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-line-edit#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-line-edit#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-masonry#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-masonry#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-masonry#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-masonry#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-menu#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-menu#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-menu#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-menu#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-message#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-message#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-message#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-message#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-notification#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-notification#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-notification#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-notification#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-number-edit#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-number-edit#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-number-edit#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-number-edit#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-pagination#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-pagination#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-pagination#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-pagination#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-pdf-editor#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-color-picker#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dialog#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-text-edit#build:library",
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library",
+                "@crab-dev/rc-tree#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-pdf-editor#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-color-picker#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dialog#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-text-edit#build:library",
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library",
+                "@crab-dev/rc-tree#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-pdf-editor#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-color-picker#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dialog#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-text-edit#build:library",
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library",
+                "@crab-dev/rc-tree#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-pdf-editor#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-prose#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-prose#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-prose#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-prose#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-radio#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-radio#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-radio#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-radio#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-realm#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-alert#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-realm#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-alert#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-realm#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-alert#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-realm#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-router#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-router#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-router#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-segmented#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-segmented#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-segmented#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-segmented#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-select#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-select#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-select#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-select#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-skeleton#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-skeleton#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-skeleton#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-skeleton#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-slider#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-slider#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-slider#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-slider#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-spin#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-spin#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-spin#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-spin#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-split-pane#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-split-pane#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-split-pane#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-split-pane#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-switch#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-switch#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-switch#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-switch#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-table#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-table#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-table#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-table#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-table-pro#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-pagination#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-table#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tree#build:library"
+            ]
+        },
+        "@crab-dev/rc-table-pro#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-pagination#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-table#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tree#build:library"
+            ]
+        },
+        "@crab-dev/rc-table-pro#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-pagination#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-table#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tree#build:library"
+            ]
+        },
+        "@crab-dev/rc-table-pro#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-tabs#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tabs#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tabs#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tabs#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-tag#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tag#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tag#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tag#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-text-edit#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-text-edit#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-text-edit#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-text-edit#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-theme#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-theme#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-theme#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-token-global#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-token-global#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-token-global#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": []
+        },
+        "@crab-dev/rc-token-semantic#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*",
+                "!src/density-geometry.ts"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**",
+                "src/density-geometry.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library"
+            ]
+        },
+        "@crab-dev/rc-token-semantic#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library"
+            ]
+        },
+        "@crab-dev/rc-token-semantic#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#build:library"
+            ]
+        },
+        "@crab-dev/rc-token-semantic#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts",
+                "src/density-geometry.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-global#generate:token"
+            ]
+        },
+        "@crab-dev/rc-tooltip#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tooltip#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tooltip#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-tooltip#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-tree#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-tree#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-tree#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/rc-tree#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/rc-virtual#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-virtual#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-virtual#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-virtual#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
+        "@crab-dev/website#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-alert#build:library",
+                "@crab-dev/rc-app-main-layout#build:library",
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-avatar#build:library",
+                "@crab-dev/rc-badge#build:library",
+                "@crab-dev/rc-bar-chart#build:library",
+                "@crab-dev/rc-breadcrumbs#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-card#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-color-picker#build:library",
+                "@crab-dev/rc-component-preview#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-cron-picker#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-dialog#build:library",
+                "@crab-dev/rc-divider#build:library",
+                "@crab-dev/rc-drawer#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-flow-diagram#build:library",
+                "@crab-dev/rc-form#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-masonry#build:library",
+                "@crab-dev/rc-menu#build:library",
+                "@crab-dev/rc-message#build:library",
+                "@crab-dev/rc-notification#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-pagination#build:library",
+                "@crab-dev/rc-pdf-editor#build:library",
+                "@crab-dev/rc-prose#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-realm#build:library",
+                "@crab-dev/rc-router#build:library",
+                "@crab-dev/rc-segmented#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-slider#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-split-pane#build:library",
+                "@crab-dev/rc-switch#build:library",
+                "@crab-dev/rc-table#build:library",
+                "@crab-dev/rc-table-pro#build:library",
+                "@crab-dev/rc-tabs#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-text-edit#build:library",
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library",
+                "@crab-dev/rc-tree#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
+        },
+        "@crab-dev/website#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-alert#build:library",
+                "@crab-dev/rc-app-main-layout#build:library",
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-avatar#build:library",
+                "@crab-dev/rc-badge#build:library",
+                "@crab-dev/rc-bar-chart#build:library",
+                "@crab-dev/rc-breadcrumbs#build:library",
+                "@crab-dev/rc-button#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-card#build:library",
+                "@crab-dev/rc-checkbox#build:library",
+                "@crab-dev/rc-color-picker#build:library",
+                "@crab-dev/rc-component-preview#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-cron-picker#build:library",
+                "@crab-dev/rc-date-picker#build:library",
+                "@crab-dev/rc-dialog#build:library",
+                "@crab-dev/rc-divider#build:library",
+                "@crab-dev/rc-drawer#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-flow-diagram#build:library",
+                "@crab-dev/rc-form#build:library",
+                "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-line-edit#build:library",
+                "@crab-dev/rc-masonry#build:library",
+                "@crab-dev/rc-menu#build:library",
+                "@crab-dev/rc-message#build:library",
+                "@crab-dev/rc-notification#build:library",
+                "@crab-dev/rc-number-edit#build:library",
+                "@crab-dev/rc-pagination#build:library",
+                "@crab-dev/rc-pdf-editor#build:library",
+                "@crab-dev/rc-prose#build:library",
+                "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-realm#build:library",
+                "@crab-dev/rc-router#build:library",
+                "@crab-dev/rc-segmented#build:library",
+                "@crab-dev/rc-select#build:library",
+                "@crab-dev/rc-skeleton#build:library",
+                "@crab-dev/rc-slider#build:library",
+                "@crab-dev/rc-spin#build:library",
+                "@crab-dev/rc-split-pane#build:library",
+                "@crab-dev/rc-switch#build:library",
+                "@crab-dev/rc-table#build:library",
+                "@crab-dev/rc-table-pro#build:library",
+                "@crab-dev/rc-tabs#build:library",
+                "@crab-dev/rc-tag#build:library",
+                "@crab-dev/rc-text-edit#build:library",
+                "@crab-dev/rc-theme#build:library",
+                "@crab-dev/rc-token-global#build:library",
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library",
+                "@crab-dev/rc-tree#build:library",
+                "@crab-dev/rc-virtual#build:library"
+            ]
         }
     }
 }

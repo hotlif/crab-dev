@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-dropdown-container",
-    "websiteConfig": {
-        "title": "DropdownContainer 下拉容器",
-        "category": "primitive"
-    },
     "description": "下拉容器组件",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,8 +17,11 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn test --root src/__tests__/browser",
+        "test:published": "yarn build:library && node ../../scripts/prepare-published-css.mjs . && yarn test --root src/__tests__/published",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-dropdown-container/src components/rc-dropdown-container/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-dropdown-container/src components/rc-dropdown-container/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -39,12 +38,15 @@
             "import": "./esm/index.mjs",
             "require": "./cjs/index.cjs"
         },
+        "./internal": {
+            "types": "./declarations/_wake/src/internal.d.ts",
+            "import": "./esm/_wake/src/internal.mjs",
+            "require": "./cjs/_wake/src/internal.cjs"
+        },
         "./css/index.css": "./css/index.css",
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
         "@js-temporal/polyfill": "^0.5.1",
@@ -71,5 +73,16 @@
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@floating-ui/react": "^0.27.20"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser",
+            "test:published"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

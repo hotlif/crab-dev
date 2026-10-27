@@ -11,7 +11,9 @@
     "type": "module",
     "scripts": {
         "test": "node ../../scripts/typecheck.mjs --prepare && node ../../scripts/typecheck-fixtures.mjs && wake test --serial --coverage",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit"
+        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "check": "node ../../scripts/check-package.mjs",
+        "lint": "wake lint --format human --root ../.. standards/typescript-preset --env node --max-warnings 0"
     },
     "files": [
         "tsconfig.browser.react.json",

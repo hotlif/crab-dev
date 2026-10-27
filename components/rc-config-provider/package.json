@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-config-provider",
-    "websiteConfig": {
-        "category": "primitive",
-        "title": "ConfigProvider 全局配置"
-    },
     "description": "提供可嵌套的主题、语言和尺寸配置",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,7 @@
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint && yarn typecheck && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "lint": "wake lint --format human --root ../.. components/rc-config-provider/src components/rc-config-provider/docs --env browser --max-warnings 0",
         "generate:docgen": "wake library docgen ."
     },
@@ -38,6 +34,11 @@
             "types": "./declarations/index.d.ts",
             "require": "./cjs/index.cjs",
             "import": "./esm/index.mjs"
+        },
+        "./internal": {
+            "types": "./declarations/_wake/src/internal.d.ts",
+            "import": "./esm/_wake/src/internal.mjs",
+            "require": "./cjs/_wake/src/internal.cjs"
         },
         "./package.json": "./package.json"
     },
@@ -59,5 +60,11 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": []
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

@@ -1,0 +1,790 @@
+{
+    "schemaVersion": 1,
+    "families": [
+        {
+            "id": "foundation",
+            "title": "基础支撑",
+            "description": "设计令牌、配置、通用状态和测量能力"
+        },
+        {
+            "id": "base",
+            "title": "基础组件",
+            "description": "可独立使用的界面与交互基础"
+        },
+        {
+            "id": "composite",
+            "title": "组合组件",
+            "description": "复用基础组件组织字段、集合与布局"
+        },
+        {
+            "id": "extension",
+            "title": "专业扩展",
+            "description": "图形、复杂数据与文档编辑能力"
+        },
+        {
+            "id": "integration",
+            "title": "可选集成",
+            "description": "独立选择的路由与远程模块集成"
+        },
+        {
+            "id": "devtool",
+            "title": "开发支持",
+            "description": "组件开发、演示与文档工具"
+        }
+    ],
+    "categories": [
+        {
+            "id": "primitive",
+            "title": "设计基础"
+        },
+        {
+            "id": "general",
+            "title": "通用"
+        },
+        {
+            "id": "data-entry",
+            "title": "数据录入"
+        },
+        {
+            "id": "data-display",
+            "title": "数据展示"
+        },
+        {
+            "id": "navigation",
+            "title": "导航"
+        },
+        {
+            "id": "feedback",
+            "title": "反馈"
+        },
+        {
+            "id": "layout",
+            "title": "布局"
+        },
+        {
+            "id": "utility",
+            "title": "工具"
+        }
+    ],
+    "designSystems": [
+        {
+            "id": "md3",
+            "title": "MD3 Expressive",
+            "description": "采用 Material Design 3 Expressive 的组件与交互规则"
+        },
+        {
+            "id": "apple",
+            "title": "Apple",
+            "description": "受 Apple 设计启发的自主 Web 规则，不声称复刻原生 macOS"
+        },
+        {
+            "id": "shadcn",
+            "title": "shadcn/ui",
+            "description": "受 shadcn/ui 启发的中性 Web 设计规则"
+        }
+    ],
+    "packages": [
+        {
+            "name": "@crab-dev/rc-alert",
+            "path": "components/rc-alert",
+            "title": "Alert 警告提示",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-app-main-layout",
+            "path": "components/rc-app-main-layout",
+            "title": "AppMainLayout 布局",
+            "family": "composite",
+            "category": "layout",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-auto-sizer",
+            "path": "components/rc-auto-sizer",
+            "title": "AutoSizer 自适应容器",
+            "family": "foundation",
+            "category": "utility",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "not-applicable",
+                "apple": "not-applicable",
+                "shadcn": "not-applicable"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-avatar",
+            "path": "components/rc-avatar",
+            "title": "Avatar 头像",
+            "family": "base",
+            "category": "general",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-badge",
+            "path": "components/rc-badge",
+            "title": "Badge 徽标数",
+            "family": "base",
+            "category": "general",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-bar-chart",
+            "path": "components/rc-bar-chart",
+            "title": "BarChart 柱状图",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-breadcrumbs",
+            "path": "components/rc-breadcrumbs",
+            "title": "Breadcrumbs 面包屑导航",
+            "family": "base",
+            "category": "navigation",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-button",
+            "path": "components/rc-button",
+            "title": "Button 按钮",
+            "family": "base",
+            "category": "general",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-canvas",
+            "path": "components/rc-canvas",
+            "title": "Canvas WebGL 画布",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-card",
+            "path": "components/rc-card",
+            "title": "Card 卡片",
+            "family": "base",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-checkbox",
+            "path": "components/rc-checkbox",
+            "title": "Checkbox 复选框",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-color-picker",
+            "path": "components/rc-color-picker",
+            "title": "ColorPicker 颜色选择器",
+            "family": "composite",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-component-preview",
+            "path": "components/rc-component-preview",
+            "title": "ComponentPreview 组件预览",
+            "family": "devtool",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-config-provider",
+            "path": "components/rc-config-provider",
+            "title": "ConfigProvider 全局配置",
+            "family": "foundation",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-cron-picker",
+            "path": "components/rc-cron-picker",
+            "title": "CronPicker Cron 表达式选择器",
+            "family": "composite",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-date-picker",
+            "path": "components/rc-date-picker",
+            "title": "DatePicker 日期选择器",
+            "family": "composite",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-dialog",
+            "path": "components/rc-dialog",
+            "title": "Dialog 对话框",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-divider",
+            "path": "components/rc-divider",
+            "title": "Divider 分割线",
+            "family": "base",
+            "category": "layout",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-drawer",
+            "path": "components/rc-drawer",
+            "title": "Drawer 抽屉",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-dropdown-container",
+            "path": "components/rc-dropdown-container",
+            "title": "DropdownContainer 下拉容器",
+            "family": "base",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-empty",
+            "path": "components/rc-empty",
+            "title": "Empty 空状态",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-flow-diagram",
+            "path": "components/rc-flow-diagram",
+            "title": "FlowDiagram 流程图",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-form",
+            "path": "components/rc-form",
+            "title": "Form 表单",
+            "family": "composite",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-hooks",
+            "path": "components/rc-hooks",
+            "title": "Hooks 通用钩子",
+            "family": "foundation",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "not-applicable",
+                "apple": "not-applicable",
+                "shadcn": "not-applicable"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-line-edit",
+            "path": "components/rc-line-edit",
+            "title": "LineEdit 单行输入框",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-masonry",
+            "path": "components/rc-masonry",
+            "title": "Masonry 瀑布流",
+            "family": "base",
+            "category": "layout",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-menu",
+            "path": "components/rc-menu",
+            "title": "Menu 菜单",
+            "family": "base",
+            "category": "navigation",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-message",
+            "path": "components/rc-message",
+            "title": "Message 全局提示",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-notification",
+            "path": "components/rc-notification",
+            "title": "Notification 通知提醒",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-number-edit",
+            "path": "components/rc-number-edit",
+            "title": "NumberEdit 数字输入框",
+            "family": "composite",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-pagination",
+            "path": "components/rc-pagination",
+            "title": "Pagination 分页",
+            "family": "composite",
+            "category": "navigation",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-pdf-editor",
+            "path": "components/rc-pdf-editor",
+            "title": "PdfEditor PDF 编辑器",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-prose",
+            "path": "components/rc-prose",
+            "title": "Prose 长文本排版",
+            "family": "base",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-radio",
+            "path": "components/rc-radio",
+            "title": "Radio 单选框",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-realm",
+            "path": "components/rc-realm",
+            "title": "Realm 远程模块",
+            "family": "integration",
+            "category": "utility",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-router",
+            "path": "components/rc-router",
+            "title": "Router 路由",
+            "family": "integration",
+            "category": "navigation",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "not-applicable",
+                "apple": "not-applicable",
+                "shadcn": "not-applicable"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-segmented",
+            "path": "components/rc-segmented",
+            "title": "Segmented 分段控制器",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-select",
+            "path": "components/rc-select",
+            "title": "Select 选择器",
+            "family": "composite",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-skeleton",
+            "path": "components/rc-skeleton",
+            "title": "Skeleton 骨架屏",
+            "family": "base",
+            "category": "general",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-slider",
+            "path": "components/rc-slider",
+            "title": "Slider 滑块",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-spin",
+            "path": "components/rc-spin",
+            "title": "Spin 加载中",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-split-pane",
+            "path": "components/rc-split-pane",
+            "title": "SplitPane 分栏面板",
+            "family": "base",
+            "category": "layout",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-switch",
+            "path": "components/rc-switch",
+            "title": "Switch 开关",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-table",
+            "path": "components/rc-table",
+            "title": "Table 表格",
+            "family": "composite",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-table-pro",
+            "path": "components/rc-table-pro",
+            "title": "TablePro 高级表格",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-tabs",
+            "path": "components/rc-tabs",
+            "title": "Tabs 标签页",
+            "family": "base",
+            "category": "navigation",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-tag",
+            "path": "components/rc-tag",
+            "title": "Tag 标签",
+            "family": "base",
+            "category": "general",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-text-edit",
+            "path": "components/rc-text-edit",
+            "title": "TextEdit 多行文本输入框",
+            "family": "base",
+            "category": "data-entry",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-theme",
+            "path": "components/rc-theme",
+            "title": "Theme 主题样式",
+            "family": "foundation",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-token-global",
+            "path": "components/rc-token-global",
+            "title": "Global Tokens 全局令牌",
+            "family": "foundation",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-token-semantic",
+            "path": "components/rc-token-semantic",
+            "title": "Semantic Tokens 语义令牌",
+            "family": "foundation",
+            "category": "primitive",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-tooltip",
+            "path": "components/rc-tooltip",
+            "title": "Tooltip 文字提示",
+            "family": "base",
+            "category": "feedback",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-tree",
+            "path": "components/rc-tree",
+            "title": "Tree 树形控件",
+            "family": "composite",
+            "category": "navigation",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "apple": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-virtual",
+            "path": "components/rc-virtual",
+            "title": "Virtual 虚拟滚动",
+            "family": "foundation",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "not-applicable",
+                "apple": "not-applicable",
+                "shadcn": "not-applicable"
+            }
+        }
+    ]
+}

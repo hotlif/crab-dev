@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-alert",
-    "websiteConfig": {
-        "title": "Alert 警告提示",
-        "category": "feedback"
-    },
     "description": "警告提示，用于页面中展示重要的提示信息",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,8 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-alert/src components/rc-alert/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-alert/src components/rc-alert/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -41,10 +38,6 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -61,6 +54,14 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": []
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

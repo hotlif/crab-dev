@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-skeleton",
-    "websiteConfig": {
-        "title": "Skeleton 骨架屏",
-        "category": "general"
-    },
     "description": "骨架屏，用于在内容加载时占位，降低用户感知等待时间",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,11 @@
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-skeleton/src components/rc-skeleton/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-skeleton/src components/rc-skeleton/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "check": "node ../../scripts/check-package.mjs",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-skeleton && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-skeleton/scripts --env node --max-warnings 0",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-skeleton && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__skeletonForced"
     },
     "files": [
         "esm",
@@ -42,9 +42,7 @@
     },
     "devDependencies": {
         "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -62,5 +60,17 @@
     "dependencies": {
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-config-provider": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-button"
+        ],
+        "requiredChecks": [
+            "test:browser",
+            "test:forced-colors"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

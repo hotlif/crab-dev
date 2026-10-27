@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-canvas",
-    "websiteConfig": {
-        "title": "Canvas WebGL 画布",
-        "category": "data-display"
-    },
     "description": "基于纯 WebGL 2 的 2D React 绘制组件库，提供 Canvas、Rect、Circle、Line、Image、Text、Group 等组件",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -19,8 +15,10 @@
         "build:library": "yarn generate:token && wake library build .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
+        "test:browser": "wake test --serial --coverage --root src/__tests__/browser",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-canvas/src components/rc-canvas/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-canvas/src components/rc-canvas/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -39,9 +37,7 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -57,6 +53,19 @@
         "node": ">=22"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45"
+        "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-config-provider": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-hooks"
+        ],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

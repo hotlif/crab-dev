@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-color-picker",
-    "websiteConfig": {
-        "title": "ColorPicker 颜色选择器",
-        "category": "data-entry"
-    },
     "description": "颜色选择组件",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -17,12 +13,16 @@
         "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
         "build:library": "yarn generate:token && wake library build .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn build:library && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-color-picker && node scripts/prepare-browser-tests.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__colorForced",
         "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-color-picker/src components/rc-color-picker/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-color-picker/src components/rc-color-picker/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-color-picker/scripts --env node --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -43,9 +43,6 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -72,5 +69,16 @@
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-select": "workspace:^",
         "@crab-dev/rc-slider": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser",
+            "test:forced-colors"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }

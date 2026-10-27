@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-token-semantic",
-    "websiteConfig": {
-        "title": "Semantic Tokens 语义令牌",
-        "category": "primitive"
-    },
     "description": "将全局设计基元映射为界面角色的 L2 语义令牌",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -17,12 +13,12 @@
         "build:library": "yarn generate:token && wake library build .",
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-        "generate:token": "wake library token .",
+        "generate:token": "wake library token . && node scripts/generate-density-geometry.mjs",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "start": "yarn generate:token && wake docs dev . --mode components",
-        "lint": "wake lint --format human --root ../.. components/rc-token-semantic/src components/rc-token-semantic/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-token-semantic/src components/rc-token-semantic/docs components/rc-token-semantic/scripts --env browser --env node --max-warnings 0"
     },
     "files": [
         "esm",
@@ -60,5 +56,14 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "generatedArtifacts": {
+            "generate:token": [
+                "src/token.ts",
+                "src/density-geometry.ts"
+            ]
+        }
     }
 }

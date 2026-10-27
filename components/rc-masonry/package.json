@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-masonry",
-    "websiteConfig": {
-        "title": "Masonry 瀑布流",
-        "category": "layout"
-    },
     "description": "瀑布流布局组件，支持多列自适应排列",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,10 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "lint": "wake lint --format human --root ../.. components/rc-masonry/src components/rc-masonry/docs --env browser --max-warnings 0"
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-masonry && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "lint": "wake lint --format human --root ../.. components/rc-masonry/src components/rc-masonry/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-masonry/scripts --env node --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -42,9 +41,9 @@
     },
     "devDependencies": {
         "@crab-dev/rc-checkbox": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-select": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -61,5 +60,17 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-checkbox",
+            "@crab-dev/rc-select"
+        ],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

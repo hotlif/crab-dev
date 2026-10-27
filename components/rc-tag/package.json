@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-tag",
-    "websiteConfig": {
-        "title": "Tag 标签",
-        "category": "general"
-    },
     "description": "标签，用于分类与标记",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -20,7 +16,11 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "lint": "wake lint --format human --root ../.. components/rc-tag/src components/rc-tag/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-tag/src components/rc-tag/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "check": "node ../../scripts/check-package.mjs",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-tag && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-tag && node scripts/prepare-browser-tests.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__tagForced",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-tag/scripts --env node --max-warnings 0"
     },
     "files": [
         "esm",
@@ -41,9 +41,7 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
-        "@crab-dev/rc-button": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -60,6 +58,18 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",
-        "@crab-dev/rc-config-provider": "workspace:^"
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
+        "@crab-dev/rc-hooks": "workspace:^"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser",
+            "test:forced-colors"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

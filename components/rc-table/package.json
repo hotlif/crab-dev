@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-table",
-    "websiteConfig": {
-        "title": "Table 表格",
-        "category": "data-display"
-    },
     "description": "展示行列数据的表格组件",
     "packageManager": "yarn@4.18.0",
     "version": "0.0.3",
@@ -21,7 +17,11 @@
         "test:selection": "yarn test src/__tests__/selectionVisibility.test.tsx --environment browser",
         "build:library": "yarn generate:token && wake library build .",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-table/src components/rc-table/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-table/src components/rc-table/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-table/scripts --env node --max-warnings 0",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-table && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "check": "node ../../scripts/check-package.mjs",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-table && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__tableForced"
     },
     "files": [
         "esm",
@@ -43,15 +43,12 @@
     },
     "devDependencies": {
         "@crab-dev/rc-auto-sizer": "workspace:^",
-        "@crab-dev/rc-component-preview": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
         "@crab-dev/rc-number-edit": "workspace:^",
         "@crab-dev/rc-select": "workspace:^",
         "@crab-dev/rc-tag": "workspace:^",
         "@crab-dev/rc-text-edit": "workspace:^",
-        "@crab-dev/rc-token-global": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -80,5 +77,23 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [
+            "@crab-dev/rc-auto-sizer",
+            "@crab-dev/rc-line-edit",
+            "@crab-dev/rc-number-edit",
+            "@crab-dev/rc-select",
+            "@crab-dev/rc-tag",
+            "@crab-dev/rc-text-edit"
+        ],
+        "requiredChecks": [
+            "test:browser",
+            "test:selection",
+            "test:forced-colors"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

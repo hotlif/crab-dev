@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-hooks",
-    "websiteConfig": {
-        "title": "Hooks 通用钩子",
-        "category": "primitive"
-    },
     "description": "复用状态、事件、尺寸测量和定时器等通用 React 逻辑",
     "version": "0.0.3",
     "repository": {
@@ -16,9 +12,11 @@
     "scripts": {
         "build:library": "wake library build .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn test src/__tests__/overlay.test.ts --environment browser",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
         "start": "wake docs dev . --mode components",
-        "lint": "wake lint --format human --root ../.. components/rc-hooks/src components/rc-hooks/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-hooks/src components/rc-hooks/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
     },
     "files": [
         "esm",
@@ -35,7 +33,12 @@
             "import": "./esm/index.mjs",
             "require": "./cjs/index.cjs"
         },
-        "./package.json": "./package.json"
+        "./package.json": "./package.json",
+        "./internal": {
+            "types": "./declarations/_wake/src/internal.d.ts",
+            "import": "./esm/_wake/src/internal.mjs",
+            "require": "./cjs/_wake/src/internal.cjs"
+        }
     },
     "devDependencies": {
         "@crab-dev/standards-typescript-preset": "workspace:^",
@@ -49,5 +52,14 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

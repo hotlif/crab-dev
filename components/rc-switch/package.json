@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-switch",
-    "websiteConfig": {
-        "title": "Switch 开关",
-        "category": "data-entry"
-    },
     "description": "开关组件, 用于在两种状态之间切换",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,9 +17,10 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-switch/src components/rc-switch/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-switch/src components/rc-switch/docs --env browser --max-warnings 0",
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-switch && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__switchForced"
     },
     "files": [
         "esm",
@@ -49,9 +46,7 @@
         "@crab-dev/rc-hooks": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -66,5 +61,14 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "docsDependencies": [],
+        "requiredChecks": [
+            "test:forced-colors"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0"
     }
 }

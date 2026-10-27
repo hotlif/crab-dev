@@ -1,9 +1,5 @@
 {
     "name": "@crab-dev/rc-cron-picker",
-    "websiteConfig": {
-        "title": "CronPicker Cron 表达式选择器",
-        "category": "data-entry"
-    },
     "description": "Cron 表达式选择器, 支持五段式表达式的可视化编辑、手动输入解析与下次执行时间预览",
     "packageManager": "yarn@4.18.0",
     "type": "module",
@@ -21,9 +17,11 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "check": "yarn lint . && yarn prettier:check && yarn test",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-cron-picker && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
+        "check": "node ../../scripts/check-package.mjs",
         "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
-        "lint": "wake lint --format human --root ../.. components/rc-cron-picker/src components/rc-cron-picker/docs --env browser --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-cron-picker/src components/rc-cron-picker/docs --env browser --max-warnings 0 && yarn lint:tools",
+        "lint:tools": "wake lint --format human --root ../.. components/rc-cron-picker/scripts --env node --max-warnings 0"
     },
     "files": [
         "esm",
@@ -56,9 +54,8 @@
         "@crab-dev/rc-tag": "workspace:^"
     },
     "devDependencies": {
-        "@crab-dev/rc-component-preview": "workspace:^",
-        "@crab-dev/rc-masonry": "workspace:^",
-        "@crab-dev/rc-menu": "workspace:^",
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
@@ -73,5 +70,17 @@
     },
     "engines": {
         "node": ">=22"
+    },
+    "crab": {
+        "requiredChecks": [
+            "test:browser"
+        ],
+        "docsDependencies": [
+            "@crab-dev/rc-button"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     }
 }
