@@ -1,8 +1,0 @@
-{
-    "extends": "../.tmp/ui-typecheck/tsconfig.json",
-    "include": [
-        "../docs/site/componentCatalog.tsx",
-        "../docs/site/catalogStyles.ts",
-        "../docs/site/ui.tsx"
-    ]
-}
